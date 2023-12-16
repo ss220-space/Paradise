@@ -238,7 +238,8 @@
 
 /obj/machinery/power/brs_stationary_scanner/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
+		if(user)
+			to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
 		emagged = TRUE
 
 /obj/machinery/power/brs_stationary_scanner/emp_act(severity)

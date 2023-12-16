@@ -71,7 +71,8 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		ignore_flags = TRUE
-		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
@@ -351,7 +352,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/charcoal
 	name = "Charcoal autoinjector"
-	desc = "A medipen used for basic toxix damage treatment"
+	desc = "A medipen used for basic toxin damage treatment"
 	icon_state = "greeninjector"
 	amount_per_transfer_from_this = 20
 	volume = 20

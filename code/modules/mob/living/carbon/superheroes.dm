@@ -228,7 +228,7 @@
 	to_chat(target, "<span class='deadsay'>You may not harm other Greyshirt or [user]. However, you do not need to obey other Greyshirts.</span>")
 	SSticker.mode.greyshirts += target.mind
 	target.set_species(/datum/species/human)
-	var/obj/item/organ/external/head/head_organ = target.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = target.get_organ(BODY_ZONE_HEAD)
 	if(head_organ)
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"

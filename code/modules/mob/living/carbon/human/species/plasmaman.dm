@@ -34,13 +34,14 @@
 		"показывает свою истинную природу, которая оказывается плазмой!")
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/plasmaman,
-		"lungs" =    /obj/item/organ/internal/lungs/plasmaman,
-		"liver" =    /obj/item/organ/internal/liver/plasmaman,
-		"kidneys" =  /obj/item/organ/internal/kidneys/plasmaman,
-		"brain" =    /obj/item/organ/internal/brain/plasmaman,
-		"eyes" =     /obj/item/organ/internal/eyes/plasmaman
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/plasmaman,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/plasmaman,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/plasmaman,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/plasmaman,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/plasmaman,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/plasmaman,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	speciesbox = /obj/item/storage/box/survival_plasmaman
 	flesh_color = "#8b3fba"
@@ -48,6 +49,17 @@
 	toxic_food = NONE
 	disliked_food = NONE
 	liked_food = NONE
+
+
+/datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_rattle
+
+
+/datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_rattle
+
 
 //внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)

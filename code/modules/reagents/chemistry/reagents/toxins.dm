@@ -94,6 +94,7 @@
 	return ..()
 
 /datum/reagent/slimejelly
+	data = list("diseases" = null)
 	name = "Slime Jelly"
 	id = "slimejelly"
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
@@ -112,9 +113,9 @@
 	return ..() | update_flags
 
 /datum/reagent/slimejelly/on_merge(list/mix_data)
-	if(data && mix_data)
-		if(mix_data["colour"])
-			color = mix_data["colour"]
+	merge_diseases_data(mix_data)
+	if(data && mix_data && mix_data["colour"])
+		color = mix_data["colour"]
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
@@ -352,7 +353,7 @@
 				if(prob(75))
 					H.take_organ_damage(5, 10)
 					H.emote("scream")
-					var/obj/item/organ/external/affecting = H.get_organ("head")
+					var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 					if(affecting)
 						affecting.disfigure()
 				else
@@ -396,13 +397,13 @@
 			if(volume >= 5)
 				var/damage_coef = 0
 				var/isDamaged = FALSE
-				for(var/limb in H.bodyparts)
-					var/obj/item/organ/external/E = limb
-					damage_coef = (100 - clamp(H.getarmor_organ(E, "acid"), 0, 100))/100
+				for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+					damage_coef = (100 - clamp(H.getarmor_organ(bodypart, "acid"), 0, 100))/100
 					if(damage_coef > 0 && !isDamaged)
 						isDamaged = TRUE
-						H.emote("scream")
-					E.receive_damage(0, clamp((volume - 5) * 3, 8, 75) * damage_coef / H.bodyparts.len)
+						if(H.has_pain())
+							H.emote("scream")
+					bodypart.receive_damage(0, clamp((volume - 5) * 3, 8, 75) * damage_coef / length(H.bodyparts))
 
 			if(volume > 9 && (H.wear_mask || H.head))
 				if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
@@ -435,7 +436,7 @@
 			if(H.wear_mask || H.head)
 				return
 			if(volume >= 50 && prob(75))
-				var/obj/item/organ/external/affecting = H.get_organ("head")
+				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 				if(affecting)
 					affecting.disfigure()
 				H.adjustBruteLoss(5)

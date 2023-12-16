@@ -13,7 +13,7 @@
 	/// The first person to have used the item. If this is set already, no one else can use it.
 	var/mob/owner = null
 
-/obj/item/pinpointer/crew/contractor/point_at(atom/target)
+/obj/item/pinpointer/crew/contractor/pinpoint_at(atom/target)
 	if(target && trackable(target))
 		// Calc dir
 		var/turf/T = get_turf(target)

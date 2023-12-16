@@ -23,6 +23,9 @@
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
 	slot_flags = SLOT_BELT
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 
 // -----------------------------
 //          Trash bag
@@ -402,8 +405,8 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(
-	 /obj/item/assembly, /obj/item/circuitboard,
-	 /obj/item/airlock_electronics, /obj/item/firelock_electronics,
+	 /obj/item/assembly, /obj/item/circuitboard, /obj/item/intercom_electronics,
+	 /obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/tracker_electronics,
 	 /obj/item/firealarm_electronics, /obj/item/airalarm_electronics, /obj/item/apc_electronics,
 	 /obj/item/stock_parts/cell, /obj/item/stock_parts, /obj/item/camera_assembly)
 	resistance_flags = FLAMMABLE

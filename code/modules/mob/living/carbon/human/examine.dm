@@ -149,6 +149,9 @@
 		else if(blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [feet_blood_color != "#030303" ? "blood-stained":"oil-stained"] feet!</span>\n"
 
+	//legcuffed?
+	if(legcuffed)
+		msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] restrained with [legcuffed]!</span>\n"
 
 	//mask
 	if(wear_mask && !skipmask && !(wear_mask.flags & ABSTRACT))
@@ -215,57 +218,55 @@
 	msg += "<span class='warning'>"
 
 	var/list/wound_flavor_text = list()
-	var/list/is_destroyed = list()
-	for(var/organ_tag in dna.species.has_limbs)
+	for(var/limb_zone in dna.species.has_limbs)
 
-		var/list/organ_data = dna.species.has_limbs[organ_tag]
+		var/list/organ_data = dna.species.has_limbs[limb_zone]
 		var/organ_descriptor = organ_data["descriptor"]
-		is_destroyed["[organ_data["descriptor"]]"] = 1
 
-		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
-		if(!E)
-			wound_flavor_text["[organ_tag]"] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[limb_zone]
+		if(!bodypart)
+			wound_flavor_text[limb_zone] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
 		else
 			if(!ismachineperson(src) && !skipprostheses)
-				if(E.is_robotic())
-					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
+				if(bodypart.is_robotic())
+					wound_flavor_text[limb_zone] = "[p_they(TRUE)] [p_have()] a robotic [bodypart.name]!\n"
 
-				else if(E.status & ORGAN_SPLINTED)
-					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
+				else if(bodypart.is_splinted())
+					wound_flavor_text[limb_zone] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [bodypart.name]!\n"
 
-			if(E.open)
-				if(E.is_robotic())
-					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
+			if(bodypart.open)
+				if(bodypart.is_robotic())
+					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(limb_zone)] is open!</b>\n"
 				else
-					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
+					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(limb_zone)] has an open incision!</b>\n"
 
-			for(var/obj/item/I in E.embedded_objects)
-				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</B>\n"
+			for(var/obj/item/embed in bodypart.embedded_objects)
+				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(embed)] [embed] embedded in [p_their()] [bodypart.name]!</B>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
-	if(wound_flavor_text["head"] && (is_destroyed["head"] || (!skipmask && !(wear_mask && istype(wear_mask, /obj/item/clothing/mask/gas)))))
-		msg += wound_flavor_text["head"]
-	if(wound_flavor_text["chest"] && !w_uniform && !skipjumpsuit) //No need.  A missing chest gibs you.
-		msg += wound_flavor_text["chest"]
-	if(wound_flavor_text["l_arm"] && (is_destroyed["left arm"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["l_arm"]
-	if(wound_flavor_text["l_hand"] && (is_destroyed["left hand"] || (!gloves && !skipgloves)))
-		msg += wound_flavor_text["l_hand"]
-	if(wound_flavor_text["r_arm"] && (is_destroyed["right arm"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["r_arm"]
-	if(wound_flavor_text["r_hand"] && (is_destroyed["right hand"] || (!gloves && !skipgloves)))
-		msg += wound_flavor_text["r_hand"]
-	if(wound_flavor_text["groin"] && (is_destroyed["groin"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["groin"]
-	if(wound_flavor_text["l_leg"] && (is_destroyed["left leg"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["l_leg"]
-	if(wound_flavor_text["l_foot"]&& (is_destroyed["left foot"] || (!shoes && !skipshoes)))
-		msg += wound_flavor_text["l_foot"]
-	if(wound_flavor_text["r_leg"] && (is_destroyed["right leg"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["r_leg"]
-	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skipshoes)))
-		msg += wound_flavor_text["r_foot"]
+	if(wound_flavor_text[BODY_ZONE_HEAD] && !skipmask && !(wear_mask && istype(wear_mask, /obj/item/clothing/mask/gas)))
+		msg += wound_flavor_text[BODY_ZONE_HEAD]
+	if(wound_flavor_text[BODY_ZONE_CHEST] && !w_uniform && !skipjumpsuit) //No need.  A missing chest gibs you.
+		msg += wound_flavor_text[BODY_ZONE_CHEST]
+	if(wound_flavor_text[BODY_ZONE_L_ARM] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_L_ARM]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_L_HAND] && !gloves && !skipgloves)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_L_HAND]
+	if(wound_flavor_text[BODY_ZONE_R_ARM] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_R_ARM]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_R_HAND] && !gloves && !skipgloves)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_R_HAND]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_GROIN] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_GROIN]
+	if(wound_flavor_text[BODY_ZONE_L_LEG] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_L_LEG]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_L_FOOT] && !shoes && !skipshoes)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_L_FOOT]
+	if(wound_flavor_text[BODY_ZONE_R_LEG] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_R_LEG]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_R_FOOT] && !shoes  && !skipshoes)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_R_FOOT]
 
 	var/damage = getBruteLoss() //no need to calculate each of these twice
 
@@ -411,11 +412,9 @@
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
-	if(print_flavor_text() && !skipface)
-		if(get_organ("head"))
-			var/obj/item/organ/external/head/H = get_organ("head")
-			if(!H.disfigured)
-				msg += "[print_flavor_text()]\n"
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(print_flavor_text() && !skipface && !head_organ?.is_disfigured())
+		msg += "[print_flavor_text()]\n"
 
 	if(pose)
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
@@ -463,27 +462,27 @@
 	return FALSE
 
 // Ignores robotic limb branding prefixes like "Morpheus Cybernetics"
-/proc/ignore_limb_branding(limb_name)
-	switch(limb_name)
-		if("chest")
+/proc/ignore_limb_branding(limb_zone)
+	switch(limb_zone)
+		if(BODY_ZONE_CHEST)
 			. = "upper body"
-		if("groin")
+		if(BODY_ZONE_PRECISE_GROIN)
 			. = "lower body"
-		if("head")
+		if(BODY_ZONE_HEAD)
 			. = "head"
-		if("l_arm")
+		if(BODY_ZONE_L_ARM)
 			. = "left arm"
-		if("r_arm")
+		if(BODY_ZONE_R_ARM)
 			. = "right arm"
-		if("l_leg")
+		if(BODY_ZONE_L_LEG)
 			. = "left leg"
-		if("r_leg")
+		if(BODY_ZONE_R_LEG)
 			. = "right leg"
-		if("l_foot")
+		if(BODY_ZONE_PRECISE_L_FOOT)
 			. = "left foot"
-		if("r_foot")
+		if(BODY_ZONE_PRECISE_R_FOOT)
 			. = "right foot"
-		if("l_hand")
+		if(BODY_ZONE_PRECISE_L_HAND)
 			. = "left hand"
-		if("r_hand")
+		if(BODY_ZONE_PRECISE_R_HAND)
 			. = "right hand"

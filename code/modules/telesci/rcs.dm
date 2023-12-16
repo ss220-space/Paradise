@@ -105,7 +105,8 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		do_sparks(3, TRUE, src)
-		to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
+		if(user)
+			to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
 		return
 
 

@@ -53,7 +53,7 @@
 	if(world.time < timer)
 		return
 
-	if(!is_mining_level(user.z))//Will only spawn a few sparks if not on mining z level
+	if(!is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))//Will only spawn a few sparks if not on mining z level
 		timer = world.time + cooldown_time
 		user.visible_message("<span class='danger'>[user]'s hierophant club malfunctions!</span>")
 		do_sparks(5, FALSE, user)

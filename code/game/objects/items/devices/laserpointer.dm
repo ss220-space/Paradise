@@ -91,7 +91,7 @@
 	//human/alien mobs
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		if(user.zone_selected == "eyes")
+		if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 			add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 
 			var/severity = 1

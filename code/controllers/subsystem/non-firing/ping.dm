@@ -11,6 +11,7 @@ SUBSYSTEM_DEF(ping)
 	flags = SS_NO_INIT | SS_NO_FIRE
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "ping"
 
 	var/list/currentrun = list()
 

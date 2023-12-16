@@ -472,4 +472,5 @@
 	lootdoubles = 0
 	lootcount = 1
 	loot = list(/mob/living/simple_animal/hostile/asteroid/marrowweaver = 40,
-			"" = 60)
+			/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 20,
+			"" = 40)

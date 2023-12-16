@@ -1,9 +1,8 @@
 /obj/item/organ/internal/lungs
 	name = "lungs"
 	icon_state = "lungs"
-	parent_organ = "chest"
-	slot = "lungs"
-	organ_tag = "lungs"
+	parent_organ_zone = BODY_ZONE_CHEST
+	slot = INTERNAL_ORGAN_LUNGS
 	gender = PLURAL
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -58,13 +57,13 @@
 	if(owner)
 		owner.LoseBreath(40 SECONDS)
 
-/obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/lungs/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	for(var/thing in list("oxy", "tox", "co2", "nitro"))
-		M.clear_alert("not_enough_[thing]")
-		M.clear_alert("too_much_[thing]")
+		target.clear_alert("not_enough_[thing]")
+		target.clear_alert("too_much_[thing]")
 
-/obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	for(var/thing in list("oxy", "tox", "co2", "nitro"))
 		M.clear_alert("not_enough_[thing]")
 		M.clear_alert("too_much_[thing]")
@@ -77,10 +76,10 @@
 
 	if(is_bruised())
 		if(prob(2))
-			owner.custom_emote(1, "кашляет кровью!")
+			owner.custom_emote(EMOTE_AUDIBLE, "откашлива%(ет,ют)% большое количество крови!")
 			owner.bleed(1)
 		if(prob(4))
-			owner.custom_emote(1, "задыхается!")
+			owner.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
 			owner.AdjustLoseBreath(10 SECONDS)
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
@@ -345,6 +344,8 @@
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	var/species_state = "human"
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()

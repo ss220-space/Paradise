@@ -184,7 +184,6 @@
 
 	qdel(src)
 
-
 /mob/proc/safe_respawn(var/MP)
 	if(!MP)
 		return 0

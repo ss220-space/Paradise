@@ -4,17 +4,14 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	// I do this so the head's overlays don't get obliterated
 	for(var/child_i in child_icons)
 		overlays -= child_i
-	child_icons.Cut()
+	LAZYREINITLIST(child_icons)
 	 // This is a kludge, only one icon has more than one generation of children though.
-	for(var/obj/item/organ/external/organ in contents)
-		if(organ.children && organ.children.len)
-			for(var/obj/item/organ/external/child in organ.children)
-				overlays += child.mob_icon
-				child_icons += child.mob_icon
-		overlays += organ.mob_icon
-		child_icons += organ.mob_icon
+	for(var/obj/item/organ/external/childpart as anything in children)
+		overlays += childpart.mob_icon
+		child_icons += childpart.mob_icon
 
-/obj/item/organ/external/proc/change_organ_icobase(var/new_icobase, var/new_deform, var/owner_sensitive) //Change the icobase/deform of this organ. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
+
+/obj/item/organ/external/proc/change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of this organ. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 	if(owner_sensitive) //This and the below statements mean that the icobase/deform will only get updated if the limb is the same species as and is owned by the mob it's attached to.
 		if(dna.species && owner.dna.species && dna.species.name != owner.dna.species.name)
 			return
@@ -24,7 +21,8 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	icobase = new_icobase ? new_icobase : icobase
 	deform	= new_deform ? new_deform : deform
 
-/obj/item/organ/external/proc/sync_colour_to_human(var/mob/living/carbon/human/H)
+
+/obj/item/organ/external/proc/sync_colour_to_human(mob/living/carbon/human/H)
 	if(is_robotic() && !istype(dna.species, /datum/species/machine)) //machine people get skin color
 		return
 	if(dna.species && H.dna.species && dna.species.name != H.dna.species.name)
@@ -40,7 +38,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		s_tone = null
 		s_col = H.skin_colour
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/obj/item/organ/external/chest/C = H.get_organ("chest")
+		var/obj/item/organ/external/chest/C = H.get_organ(BODY_ZONE_CHEST)
 		change_organ_icobase(C.icobase, C.deform)
 
 /obj/item/organ/external/proc/sync_colour_to_dna()
@@ -55,12 +53,14 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 /obj/item/organ/external/head/sync_colour_to_human(var/mob/living/carbon/human/H)
 	..()
-	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_bodyparts_by_name["eyes"]
+	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes) eyes.update_colour()
 
-/obj/item/organ/external/head/remove(mob/living/user, ignore_children)
+
+/obj/item/organ/external/head/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	get_icon()
 	. = ..()
+
 
 /obj/item/organ/external/proc/get_icon(skeletal)
 	// Kasparrov, you monster
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		var/new_icon_state = new_icons[2]
 		mob_icon = new /icon(icon_file, new_icon_state)
 		if(!skeletal && !is_robotic())
-			if(status & ORGAN_DEAD)
+			if(is_dead())
 				mob_icon.ColorTone(rgb(10,50,0))
 				mob_icon.SetIntensity(0.7)
 
@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(!owner)
 		return
 
-	if(dna.species.has_organ["eyes"])
+	if(dna.species.has_organ[INTERNAL_ORGAN_EYES])
 		var/icon/eyes_icon = owner.get_eyecon()
 		if(eyes_icon)
 			mob_icon.Blend(eyes_icon, ICON_OVERLAY) //This is required since update_icons.dm relies on this proc to render non-shining eyes.
@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 					gender = "m"
 				else
 					gender = "f"	//Default to "f" (per line 162). Using a pick("m", "f") will make different body parts different genders for the same character.
-		if(limb_name == "head")
+		if(limb_zone == BODY_ZONE_HEAD)
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
 
@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		else if(is_robotic())
 			icon_file = 'icons/mob/human_races/robotic.dmi'
 		else
-			if(status & ORGAN_MUTATED)
+			if(is_mutated())
 				icon_file = deform
 			else
 				// Congratulations, you are normal
@@ -194,5 +194,5 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(n_is != damage_state)
 		damage_state = n_is
 		owner?.UpdateDamageIcon()
-		return 1
-	return 0
+		return TRUE
+	return FALSE

@@ -41,14 +41,14 @@
 	)
 	box = /obj/item/storage/box/centcomofficer
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	)
 
 /datum/outfit/job/ntnavyofficer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
-	H.mind.offstation_role = TRUE
+	H.mind?.offstation_role = TRUE
 
 // НТ Оффицер для недовольных выходов с ЦК.
 /datum/job/ntnavyofficer/field
@@ -110,7 +110,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/xray,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
 
@@ -118,7 +118,7 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	H.mind.offstation_role = TRUE
+	H.mind?.offstation_role = TRUE
 
 // Верховное командование для самых больших проблем
 /datum/job/ntspecops/supreme
@@ -154,6 +154,10 @@
 		/obj/item/implant/dust
 	)
 
+	backpack_contents = list(
+		/obj/item/stamp/solgov = 1,
+	)
+
 /datum/outfit/job/ntspecops/solgovspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
@@ -162,4 +166,4 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access(name), name, "lifetimeid")
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
+	H.mind?.offstation_role = TRUE

@@ -19,6 +19,10 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	equip_sound = 'sound/items/handling/flesh_pickup.ogg'
+	drop_sound = 'sound/items/handling/flesh_drop.ogg'
+	pickup_sound = 'sound/misc/moist_impact.ogg'
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 
@@ -41,7 +45,7 @@
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
-	return O.attack_obj(src, user)
+	return O.attack_obj(src, user, params)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)

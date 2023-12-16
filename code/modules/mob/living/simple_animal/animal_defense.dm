@@ -53,10 +53,9 @@
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite
 		if(stat != DEAD)
-			var/damage = rand(5, 10)
-			. = attack_threshold_check(damage)
+			. = attack_threshold_check(L.attack_damage)
 			if(.)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+				L.evolution_points = min(L.evolution_points + L.attack_damage, L.max_evolution_points)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()

@@ -60,7 +60,7 @@
 	damage_deflection = 10
 	var/area/area
 	var/areastring = null
-	var/obj/item/clockwork/integration_cog/cog //Is there a cog siphoning power?
+	var/obj/machinery/integration_cog/cog //Is there a cog siphoning power?
 	var/obj/item/stock_parts/cell/cell
 	var/start_charge = 90				// initial cell charge %
 	var/cell_type = 2500	//Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
@@ -120,6 +120,9 @@
 	var/emergency_power = TRUE
 	var/emergency_power_timer
 	var/emergency_lights = FALSE
+
+	/// Being hijacked by a pulse demon?
+	var/being_hijacked = FALSE
 
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
@@ -198,6 +201,7 @@
 		malfvacate(1)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
+	QDEL_NULL(cog)
 	if(terminal)
 		disconnect_terminal()
 	area.apc -= src
@@ -394,7 +398,7 @@
 			update_state |= UPSTATE_OPENED1
 		if(opened==2)
 			update_state |= UPSTATE_OPENED2
-	else if(emagged || malfai)
+	else if(emagged || malfai || being_hijacked)
 		update_state |= UPSTATE_BLUESCREEN
 	else if(panel_open)
 		update_state |= UPSTATE_WIREEXP
@@ -491,6 +495,15 @@
 				return
 			add_fingerprint(user)
 			cell = W
+
+			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+				demon.forceMove(src)
+				demon.current_power = src
+				if(!being_hijacked) // first come first serve
+					demon.try_hijack_apc(src)
+			if(being_hijacked)
+				cell.rigged = FALSE // don't blow the demon up
+
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [name]!",\
 				"<span class='notice'>You insert the power cell.</span>")
@@ -614,9 +627,8 @@
 			"<span class='clock'>Replicant alloy rapidly covers the APC's innards, replacing the machinery.</span><br>\
 			<span class='clockitalic'>This APC will now passively provide power for the cult!</span>")
 			playsound(user, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
-			user.drop_transfer_item_to_loc(W, src, force = TRUE)
-			cog = W
-			START_PROCESSING(SSfastprocess, W)
+			qdel(W)
+			cog = new(src)
 			opened = FALSE
 			locked = FALSE
 			update_icon()
@@ -796,20 +808,24 @@
 				"<span class='notice'>You cut the APC frame from the wall.</span>")
 		qdel(src)
 
-/obj/machinery/power/apc/emag_act(user as mob)
+/obj/machinery/power/apc/emag_act(mob/user)
 	if(!(emagged || malfhack))		// trying to unlock with an emag card
 		if(opened)
-			to_chat(user, "You must close the cover to swipe an ID card.")
+			if(user)
+				to_chat(user, "You must close the cover to swipe an ID card.")
 		else if(panel_open)
-			to_chat(user, "You must close the panel first.")
+			if(user)
+				to_chat(user, "You must close the panel first.")
 		else if(stat & (BROKEN|MAINT))
-			to_chat(user, "Nothing happens.")
+			if(user)
+				to_chat(user, "Nothing happens.")
 		else
 			add_attack_logs(user, src, "emagged")
 			flick("apc-spark", src)
 			emagged = 1
 			locked = 0
-			to_chat(user, "You emag the APC interface.")
+			if(user)
+				to_chat(user, "You emag the APC interface.")
 			update_icon()
 
 // attack with hand - remove cell (if cover open) or interact with the APC
@@ -1009,7 +1025,7 @@
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
 	if(user.can_admin_interact())
 		return TRUE
-	if(isAI(user) || isrobot(user) && !iscogscarab(user))
+	if(isAI(user) || (isrobot(user) || user.has_unlimited_silicon_privilege) && !iscogscarab(user))
 		return TRUE
 	else
 		return !locked
@@ -1017,13 +1033,13 @@
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(user.can_admin_interact())
 		return FALSE
-	if(isAI(user) || isrobot(user) && !iscogscarab(user))
+	if(isAI(user) || (isrobot(user) || user.has_unlimited_silicon_privilege) && !iscogscarab(user))
 		return FALSE
 	else
 		return locked
 
 /obj/machinery/power/apc/ui_act(action, params)
-	if(..() || !can_use(usr, TRUE) || (locked && !usr.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !usr.can_admin_interact()))
+	if(..() || !can_use(usr, TRUE) || (is_locked(usr) && (action != "toggle_nightshift")))
 		return
 	. = TRUE
 	switch(action)

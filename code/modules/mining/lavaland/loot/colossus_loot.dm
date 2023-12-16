@@ -7,12 +7,7 @@
 	var/random_crystal = pick(choices)
 	new random_crystal(src)
 	new /obj/item/gem/void(src)
-	var/loot = rand(1,2)
-	switch(loot)
-		if(1)
-			new /obj/item/organ/internal/vocal_cords/colossus(src)
-		if(2)
-			new /obj/item/clothing/glasses/hud/godeye(src)
+	new /obj/item/organ/internal/vocal_cords/colossus(src)
 
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"
@@ -20,6 +15,7 @@
 /obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
 	. = ..()
 	new /obj/item/crusher_trophy/blaster_tubes(src)
+	new /obj/item/clothing/glasses/hud/godeye(src)
 
 ///Anomolous Crystal///
 
@@ -312,7 +308,7 @@
 	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
 										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
-										   /obj/item/dice/d20/fate)
+										   /obj/item/dice/d20/fate, /obj/item/gem)
 
 /obj/machinery/anomalous_crystal/refresher/New()
 	..()

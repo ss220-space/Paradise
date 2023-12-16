@@ -205,6 +205,7 @@
 		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
 		shot_number = 0
 	P.setDir(dir)
+	P.firer_source_atom = src
 	P.starting = loc
 	P.Angle = null
 	P.fire()
@@ -240,7 +241,7 @@
 
 	return ..()
 
-/obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
+/obj/machinery/power/emitter/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		locked = 0

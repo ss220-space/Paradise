@@ -61,12 +61,13 @@
 	butt_sprite = "drask"
 
 	has_organ = list(
-		"heart" =      				/obj/item/organ/internal/heart/drask,
-		"lungs" =     				/obj/item/organ/internal/lungs/drask,
-		"metabolic strainer" =      /obj/item/organ/internal/liver/drask,
-		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
-		"brain" =  					/obj/item/organ/internal/brain/drask
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/drask,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/drask,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/drask,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/drask, //5 darksight.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/drask,
+	)
 
 	disliked_food = SUGAR | GROSS
 	liked_food = DAIRY
@@ -93,9 +94,9 @@
 		H.adjustToxLoss(-0.5)
 		H.adjustBruteLoss(-2)
 		H.adjustFireLoss(-4)
-		var/obj/item/organ/external/head/head = H.get_organ("head")
-		if(head)
-			head.disfigured = FALSE
+		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
+		head?.undisfigure()
+
 
 /datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "iron")

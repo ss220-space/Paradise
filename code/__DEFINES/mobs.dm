@@ -1,11 +1,12 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN     1
-#define ORGAN_ROBOT      2
-#define ORGAN_SPLINTED   4
-#define ORGAN_DEAD       8
-#define ORGAN_MUTATED    16
+#define ORGAN_BROKEN 1
+#define ORGAN_ROBOT 2
+#define ORGAN_SPLINTED 4
+#define ORGAN_DEAD 8
+#define ORGAN_MUTATED 16
+#define ORGAN_INT_BLEED 32
 
 #define PROCESS_ACCURACY 10
 
@@ -69,6 +70,9 @@
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
+
+// Factor of how fast vampire nutrition decreases
+#define	HUNGER_FACTOR_VAMPIRE 0.1
 
 // Taste sensitivity - lower is more sensitive
 // Represents the minimum portion of total taste the mob can sense
@@ -177,9 +181,6 @@
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
-#define EMOTE_VISUAL 1  //A mob emote is visual
-#define EMOTE_SOUND 2  //A mob emote is sound
-
 #define STATUS_UPDATE_HEALTH 1
 #define STATUS_UPDATE_STAT 2
 #define STATUS_UPDATE_STAMINA 8
@@ -226,6 +227,7 @@
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
+#define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
@@ -270,7 +272,8 @@
 
 #define isnewplayer(A)  (istype((A), /mob/new_player))
 
-#define isorgan(A)		(istype((A), /obj/item/organ/external))
+#define isexternalorgan(A)		(istype((A), /obj/item/organ/external))
+
 #define hasorgans(A)	(ishuman(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)

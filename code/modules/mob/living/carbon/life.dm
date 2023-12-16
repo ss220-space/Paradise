@@ -103,7 +103,7 @@
 	if(status_flags & GODMODE)
 		return FALSE
 
-	var/lungs = get_organ_slot("lungs")
+	var/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	if(!lungs)
 		adjustOxyLoss(2)
 
@@ -192,7 +192,7 @@
 	if(internal)
 		if(internal.loc != src)
 			internal = null
-		if(!get_organ_slot("breathing_tube"))
+		if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 			if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
 				if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
 					internal = null //turn off internals
@@ -202,15 +202,15 @@
 		else
 			update_action_buttons_icon()
 
+
 /mob/living/carbon/proc/handle_organs()
-	for(var/thing in internal_organs)
-		var/obj/item/organ/internal/O = thing
-		O.on_life()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		organ.on_life()
+
 
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()
 	return
-
 
 
 /mob/living/carbon/handle_mutations_and_radiation()
@@ -305,7 +305,7 @@
 	if(!client)
 		return
 	var/shock_reduction = shock_reduction()
-	if(NO_PAIN_FEEL in dna.species.species_traits)
+	if(NO_PAIN_FEEL in dna?.species?.species_traits)
 		shock_reduction = INFINITY
 
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)

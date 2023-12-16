@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(lighting)
 	flags = SS_TICKER
 	offline_implications = "Lighting will no longer update. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
+	ss_id = "lighting"
 	var/static/list/sources_queue = list() // List of lighting sources queued for update.
 	var/static/list/corners_queue = list() // List of lighting corners queued for update.
 	var/static/list/objects_queue = list() // List of lighting objects queued for update.

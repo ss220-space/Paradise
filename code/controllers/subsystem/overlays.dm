@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(overlays)
 	priority = FIRE_PRIORITY_OVERLAYS
 	init_order = INIT_ORDER_OVERLAY
 	offline_implications = "Overlays may look strange. No immediate action is needed."
-
+	ss_id = "overlays"
 	var/list/queue
 	var/list/stats
 	var/list/overlay_icon_state_caches

@@ -273,6 +273,9 @@ Class Procs:
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
+	if(istype(user, /mob/dead/observer))
+		return FALSE
+
 	if(user.incapacitated())
 		return TRUE
 

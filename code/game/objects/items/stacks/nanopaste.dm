@@ -49,9 +49,9 @@
 				use(1)
 				var/remheal = 15
 				var/nremheal = 0
-				S.heal_damage(robo_repair = 1) //should in, theory, heal the robotic organs in just the targeted area with it being S instead of E
+				S.heal_damage(robo_repair = TRUE) //should in, theory, heal the robotic organs in just the targeted area with it being S instead of E
 				var/childlist
-				if(!isnull(S.children))
+				if(LAZYLEN(S.children))
 					childlist = S.children.Copy()
 				var/parenthealed = FALSE
 				while(remheal > 0)
@@ -70,8 +70,8 @@
 					else
 						break
 					nremheal = max(remheal - E.get_damage(), 0)
-					E.heal_damage(remheal, 0, 0, 1) //Healing Brute
-					E.heal_damage(0, remheal, 0, 1) //Healing Burn
+					E.heal_damage(remheal, 0, FALSE, TRUE) //Healing Brute
+					E.heal_damage(0, remheal, FALSE, TRUE) //Healing Burn
 					remheal = nremheal
 					H.UpdateDamageIcon()
 					user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M]'s [E.name] with \the [src].</span>")

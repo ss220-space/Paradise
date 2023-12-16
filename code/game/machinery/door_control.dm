@@ -19,14 +19,14 @@
 	*/
 
 	var/exposedwires = FALSE
-	var/wireless = FALSE
-	anchored = 1.0
+	var/ai_control = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
 /obj/machinery/door_control/attack_ai(mob/user)
-	if(!wireless)
+	if(ai_control)
 		return attack_hand(user)
 	else
 		to_chat(user, "Error, no route to host.")
@@ -36,7 +36,7 @@
 		return
 	return ..()
 
-/obj/machinery/door_control/emag_act(user as mob)
+/obj/machinery/door_control/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		req_access = list()
@@ -125,8 +125,8 @@
 
 /obj/machinery/door_control/secure //Use icon_state = "altdoorctrl" if you just want cool icon for your button on map. This button is created for Admin-zones.
 	icon_state = "altdoorctrl"
-	wireless = TRUE
+	ai_control = FALSE
 
 /obj/machinery/door_control/secure/emag_act(user)
-	to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
-	return
+	if(user)
+		to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))

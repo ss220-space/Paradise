@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(npcpool)
 	priority = FIRE_PRIORITY_NPC
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Simple animals will no longer process. Shuttle call recommended."
-
+	ss_id = "npc_pool"
 	var/list/currentrun = list()
 
 /datum/controller/subsystem/npcpool/get_stat_details()

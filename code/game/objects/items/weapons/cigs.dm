@@ -32,6 +32,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/chem_volume = 60
 	var/list/list_reagents = list("nicotine" = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
+	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
+	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
+	equip_sound = 'sound/items/handling/generic_equip5.ogg'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -101,6 +104,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/lighter/L = I
 		if(L.lit)
 			light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [L].</span>")
+
+	else if(istype(I, /obj/item/match/unathi))
+		var/obj/item/match/unathi/U = I
+		if(U.lit)
+			playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
+			light("<span class='rose'>[user] spits fire at [user.p_their()] [name], igniting it.</span>")
+			U.matchburnout()
 
 	else if(istype(I, /obj/item/match))
 		var/obj/item/match/M = I
@@ -201,6 +211,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				H.wear_mask_update(src)
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
+		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 
 /obj/item/clothing/mask/cigarette/process()

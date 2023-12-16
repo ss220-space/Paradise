@@ -26,6 +26,7 @@
 	integrity_failure = 30
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/table, /obj/structure/table/reinforced)
+	creates_cover = TRUE
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/metal
@@ -368,6 +369,10 @@
 			T.flip(direction)
 	update_icon()
 
+	creates_cover = FALSE
+	if(isturf(loc))
+		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+
 	return 1
 
 /obj/structure/table/proc/unflip()
@@ -394,6 +399,10 @@
 			T.unflip()
 	dir = initial(dir)
 	update_icon()
+
+	creates_cover = TRUE
+	if(isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
 	return 1
 

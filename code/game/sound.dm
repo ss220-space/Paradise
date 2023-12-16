@@ -54,7 +54,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	//allocate a channel if necessary now so its the same for everyone
 	channel = channel || SSsounds.random_available_channel()
 
- 	// Looping through the player list has the added bonus of working for mobs inside containers
+	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
 	var/maxdistance = SOUND_RANGE + extrarange
 	var/list/listeners = GLOB.player_list
@@ -75,6 +75,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(distance <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
+
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
 	if(!client || !can_hear())
 		return
@@ -84,11 +85,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 	S.wait = wait
 	S.channel = channel || SSsounds.random_available_channel()
-	S.volume = vol * client.prefs.get_channel_volume(CHANNEL_GENERAL)
-	S.environment = -1
-
-	if(channel)
-		S.volume *= client.prefs.get_channel_volume(channel)
+	S.volume = vol
+	S.environment = SOUND_ENVIRONMENT_NONE
 
 	if(vary)
 		if(islist(vary))
@@ -98,7 +96,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		else
 			S.frequency = get_rand_frequency()
 
-	var/pressure_factor = 1.0
 	if(isturf(turf_source))
 		var/turf/T = get_turf(src)
 
@@ -112,6 +109,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 		if(pressure_affected)
 			//Atmosphere affects sound
+			var/pressure_factor = 1
 			var/datum/gas_mixture/hearer_env = T.return_air()
 			var/datum/gas_mixture/source_env = turf_source.return_air()
 
@@ -139,9 +137,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		S.y = 1
 		S.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
-		if(S.file == 'sound/goonstation/voice/howl.ogg' && distance > 0 && S.volume > 60 && isvulpkanin(src))
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, emote), "howl"), rand(10,30)) // Vulps cant resist! >)
-
 		// Sounds can't have their own environment. A sound's environment will be:
 		// 1. the mob's
 		// 2. the area's (defaults to SOUND_ENVRIONMENT_NONE)
@@ -157,8 +152,21 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				S.echo[3] = 0 //Room setting, 0 means normal reverb
 				S.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
 
+	S.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
+	if(channel)
+		S.volume *= USER_VOLUME(src, channel)
+
 	SEND_SOUND(src, S)
 	return S
+
+
+/proc/sound_to_playing_players_on_station_level(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
+	if(!S)
+		S = sound(get_sfx(soundin))
+	for(var/mob/m as anything in GLOB.player_list)
+		if(!isnewplayer(m) && is_station_level(m.z))
+			m.playsound_local(m, null, volume, vary, frequency, null, channel, pressure_affected, S)
+
 
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
 	if(!S)
@@ -168,13 +176,16 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 			var/mob/M = m
 			M.playsound_local(M, null, volume, vary, frequency, null, channel, pressure_affected, S)
 
+
 /mob/proc/stop_sound_channel(chan)
 	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
+
 
 /mob/proc/set_sound_channel_volume(channel, volume)
 	var/sound/S = sound(null, FALSE, FALSE, channel, volume)
 	S.status = SOUND_UPDATE
 	SEND_SOUND(src, S)
+
 
 /client/proc/playtitlemusic()
 	if(!SSticker || !SSticker.login_music || CONFIG_GET(flag/disable_lobby_music))
@@ -182,8 +193,10 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	if(prefs.sound & SOUND_LOBBY)
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
 
+
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.
+
 
 /proc/get_sfx(soundin)
 	if(istext(soundin))
@@ -250,6 +263,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				if(!check_sound)
 					CRASH("No sound file were found for \'[soundin]\' input!")
 	return soundin
+
 
 /proc/apply_sound_effect(effect, filename_input, filename_output)
 	filename_input = filename_sanitize(filename_input)

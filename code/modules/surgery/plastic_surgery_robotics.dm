@@ -1,7 +1,7 @@
 /datum/surgery/plastic_surgery_robotics
 	name = "Name Changing Procedure"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/reshape_face_robotics,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("head")
+	possible_locs = list(BODY_ZONE_HEAD)
 	requires_organic_bodypart = 0
 
 /datum/surgery/plastic_surgery_robotics/can_start(mob/user, mob/living/carbon/target)
@@ -25,8 +25,7 @@
 /datum/surgery_step/reshape_face_robotics/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	var/species_names = target.dna.species.name
-	if(head.disfigured)
-		head.disfigured = FALSE
+	if(head.undisfigure())
 		user.visible_message("[user] successfully restores [target]'s appearance!", "<span class='notice'>You successfully restore [target]'s appearance.</span>")
 	else
 		var/list/names = list()

@@ -102,7 +102,7 @@
 		return FALSE
 	if(!poisonable)
 		return TRUE
-	var/inject_target = pick("chest","head")
+	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.AdjustEyeBlurry(20 SECONDS, 0, 120 SECONDS)
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.

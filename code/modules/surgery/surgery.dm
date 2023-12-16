@@ -14,7 +14,7 @@
 	var/can_cancel = 1
 	var/step_in_progress = 0
 	var/list/in_progress = list()									//Actively performing a Surgery
-	var/location = "chest"										//Surgery location
+	var/location = BODY_ZONE_CHEST										//Surgery location
 	var/requires_organic_bodypart = 1							//Prevents you from performing an operation on robotic limbs
 	var/list/possible_locs = list() 							//Multiple locations -- c0
 	var/obj/item/organ/organ_ref									//Operable body part
@@ -192,7 +192,7 @@
  * * tool - The tool performing the operation.
  */
 /proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool)
-	if(!isorgan(E))
+	if(!isexternalorgan(E))
 		return
 
 	var/germs = 0
@@ -209,11 +209,12 @@
 	if(tool && tool.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools
 		germs += 30
 
-	if(length(E.internal_organs))
-		germs = germs / (length(E.internal_organs) + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
-		for(var/obj/item/organ/internal/O in E.internal_organs)
-			if(!O.is_robotic())
-				O.germ_level += germs
+	var/internals_length = LAZYLEN(E.internal_organs)
+	if(internals_length)
+		germs = germs / (internals_length + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
+		for(var/obj/item/organ/internal/organ as anything in E.internal_organs)
+			if(!organ.is_robotic())
+				organ.germ_level += germs
 
 	E.germ_level += germs
 

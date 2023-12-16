@@ -54,7 +54,7 @@
 				jaunt.update_action_style(color_style)
 		else
 			var/mob/living/carbon/human/H = user
-			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			if(affecting.droplimb())
 				H.UpdateDamageIcon()
 				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, 1)
@@ -71,7 +71,7 @@
 		playsound(get_turf(src), 'sound/items/unsheath.ogg', 25, TRUE, 5)
 	if(!isninja(user) && !isrobot(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+		var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(affecting.receive_damage(20))		//INFERNO
 			H.UpdateDamageIcon()
 			to_chat(user, span_userdanger("Oh fuck, it hurts!."))
@@ -88,7 +88,7 @@
 /obj/item/melee/energy_katana/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!isninja(user) && !isrobot(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+		var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(affecting.droplimb())
 			H.UpdateDamageIcon()
 			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, 1)

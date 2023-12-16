@@ -62,9 +62,9 @@
 			update_flags |= our_mob.adjustBrainLoss(-5, FALSE)
 			update_flags |= our_mob.adjustCloneLoss(-5, FALSE)
 			//Other helpfull things
-			update_flags |= our_mob.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
-			update_flags |= our_mob.AdjustParalysis(-2 SECONDS, FALSE)
-			update_flags |= our_mob.AdjustWeakened(-2 SECONDS)
+			our_mob.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
+			our_mob.AdjustParalysis(-2 SECONDS)
+			our_mob.AdjustWeakened(-2 SECONDS)
 		if(20 to 40)
 			//Human only effects
 			if(ishuman(our_mob))
@@ -75,21 +75,18 @@
 				// Regrow limbs
 				if(current_cycle == 30)
 					to_chat(mob_human, span_notice("Your body refreshes..."))
-					mob_human.check_and_regenerate_organs(mob_human)
+					mob_human.check_and_regenerate_organs()
 				// Embedded objects
-				if(mob_human.has_embedded_objects())
-					mob_human.remove_all_embedded_objects()
+				mob_human.remove_all_embedded_objects()
 				// Organs
-				for(var/obj/item/organ/internal/internal_organ in mob_human.internal_organs)
+				for(var/obj/item/organ/internal/internal_organ as anything in mob_human.internal_organs)
 					if(prob(20))
 						internal_organ.rejuvenate()
 						internal_organ.receive_damage(-5, FALSE)
 				// Bones
-				for(var/obj/item/organ/external/external_organ in mob_human.bodyparts)
+				for(var/obj/item/organ/external/external_organ as anything in mob_human.bodyparts)
 					if(prob(20))
 						external_organ.rejuvenate()
-						external_organ.mend_fracture()
-						external_organ.internal_bleeding = FALSE
 				//Eyes and Ears internal damage
 				var/obj/item/organ/internal/eyes/our_eyes = mob_human.get_int_organ(/obj/item/organ/internal/eyes)
 				if(istype(our_eyes))

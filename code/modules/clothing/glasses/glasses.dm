@@ -510,7 +510,7 @@
 /obj/item/clothing/glasses/thermal/emp_act(severity)
 	if(ishuman(src.loc))
 		var/mob/living/carbon/human/H = src.loc
-		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot("eyes")
+		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot(INTERNAL_ORGAN_EYES)
 		if(eyes && H.glasses == src)
 			to_chat(H, "<span class='warning'>[src] overloads and blinds you!</span>")
 			H.flash_eyes(visual = TRUE)
@@ -687,6 +687,6 @@
 /obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
 	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."
 	name = "cucumber mask"
-	heal_bodypart = "eyes"
+	heal_bodypart = INTERNAL_ORGAN_EYES
 	icon_state = "cucumbermask"
 	item_state = "cucumbermask"

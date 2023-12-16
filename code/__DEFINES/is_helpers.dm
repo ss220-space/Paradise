@@ -24,6 +24,8 @@
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
+#define isapc(A) (istype(A, /obj/machinery/power/apc))
+
 #define ismecha(A) (istype(A, /obj/mecha))
 
 #define isvampirecoffin(A) (istype(A, /obj/structure/closet/coffin/vampire))
@@ -33,8 +35,6 @@
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define isprojectile(A) (istype(A, /obj/item/projectile))
-
-#define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 
@@ -95,6 +95,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isliving(A) (istype(A, /mob/living))
 
 #define isbrain(A) (istype(A, /mob/living/carbon/brain))
+
+#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
 
 //Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))

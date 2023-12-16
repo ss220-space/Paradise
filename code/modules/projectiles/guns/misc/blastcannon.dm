@@ -80,6 +80,8 @@
 	add_attack_logs(user, target, "Blast waved with power [heavy]/[medium]/[light].", ATKLOG_MOST)
 	var/obj/item/projectile/blastwave/BW = new(loc, heavy, medium, light)
 	BW.preparePixelProjectile(target, get_turf(target), user, params, 0)
+	BW.firer = user
+	BW.firer_source_atom = src
 	BW.fire()
 
 /obj/item/projectile/blastwave
