@@ -409,7 +409,7 @@
 /**
  * on_sharpen Triggers on usage of a sharpening stone on the item
  *
- * Has no usage for now.
+ * Returns an increase of damage from sharpening
  */
 /datum/component/two_handed/proc/on_sharpen(obj/item/item, amount, max_amount)
 	SIGNAL_HANDLER
