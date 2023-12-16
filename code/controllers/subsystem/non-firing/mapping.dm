@@ -9,6 +9,10 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/next_map
 	/// Waht map to fallback
 	var/datum/map/fallback_map = new /datum/map/delta
+	///What do we have as the lavaland theme today?
+	var/turf/simulated/floor/lavaland_theme
+	///What primary cave theme we have picked for cave generation today.
+	var/cave_theme
 
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
@@ -35,7 +39,7 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/Initialize()
 	lavaland_theme = pick(/turf/simulated/floor/plating/lava/smooth/lava_land_surface, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma, /turf/simulated/floor/chasm/straight_down/lava_land_surface)
-	log_startup_progress("We feel like [lavaland_theme] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
 	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
 	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates

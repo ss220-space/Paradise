@@ -315,7 +315,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 						SpawnFloor(NT, 50) //Room has higher probabilty.
 			if(prob(25))
 				tempradius = round(tempradius / 3)
-				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water = 1, /turf/simulated/floor/plating/asteroid = 1))
+				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/plating/asteroid = 1))
 				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
 					new /obj/effect/spawner/oasisrock(T, tempradius)
 				for(var/turf/oasis in circlerangeturfs(T, tempradius))
@@ -323,17 +323,27 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 
 /obj/effect/spawner/oasisrock
 	name = "Oasis rock spawner"
+	var/passed_radius
 
 /obj/effect/spawner/oasisrock/Initialize(mapload, radius)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(make_rock), radius), 5 SECONDS)
+	passed_radius = radius
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/spawner/oasisrock/LateInitialize() //Let us try this for a moment.
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(make_rock), passed_radius), 5 SECONDS)
 
 /obj/effect/spawner/oasisrock/proc/make_rock(radius)
-	for(var/turf/oasis in circlerangeturfs(get_turf(src), radius))
+	var/our_turf = get_turf(src)
+	for(var/turf/oasis in circlerangeturfs(our_turf, radius))
 		oasis.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic, ignore_air = TRUE)
-	var/list/valid_turfs = RANGE_EDGE_TURFS(radius + 2, src)
-	for(var/mob/M in range(src, radius)) //We don't want mobs inside the ore rock
-		M.forceMove(pick(valid_turfs))
+	var/list/valid_turfs = circlerangeturfs(our_turf, radius + 1)
+	valid_turfs -= circlerangeturfs(our_turf, radius)
+	for(var/mob/M in circlerange(src, radius)) //We don't want mobs inside the ore rock
+		M.forceMove(pick_n_take(valid_turfs))
+	for(var/obj/structure/spawner/lavaland/O in circlerange(src, radius)) //We don't want tendrils in there either
+		O.forceMove(pick_n_take(valid_turfs))
 	qdel(src)
 
 

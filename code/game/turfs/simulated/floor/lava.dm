@@ -178,11 +178,11 @@
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
 	name = "liquid plasma"
+	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
 	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
-	icon_state = "liquidplasma-255"
-	base_icon_state = "liquidplasma"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
+	icon_state = "unsmooth"
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
 
 	light_range = 3
 	light_power = 0.75
@@ -264,9 +264,16 @@
 /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	name = "Adaptive lava / chasm / plasma"
 	icon_state = "mappinglava"
-	base_icon_state = "mappinglava"
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/plating/lava/smooth/mapping_lava/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD //Lateload is needed, otherwise atmos does not setup right on the turf roundstart, leading it to be vacume. This is bad.
+
+/turf/simulated/floor/plating/lava/smooth/mapping_lava/LateInitialize()
 	. = ..()
 	ChangeTurf(SSmapping.lavaland_theme)

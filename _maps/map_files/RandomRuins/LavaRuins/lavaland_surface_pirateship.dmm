@@ -3088,7 +3088,7 @@
 /turf/simulated/floor/plating,
 /area/lavaland/surface/outdoors)
 "XL" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "XR" = (
 /obj/item/stack/rods/ten{
@@ -3185,7 +3185,7 @@
 /area/ruin/unpowered/safe_cave)
 "Zm" = (
 /obj/structure/lattice/catwalk/fireproof,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Zw" = (
 /obj/machinery/constructable_frame/machine_frame,
