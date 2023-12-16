@@ -168,10 +168,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///Datum used in item pixel shift TGUI
 	var/datum/ui_module/item_pixel_shift/item_pixel_shift
 
-	/// The amount of increase recived from sharpening the item
-	var/sharpened_increase = 0
-
-
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -1267,7 +1263,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
 /obj/item/proc/get_force()
-	return initial(force) + sharpened_increase
+	var/datum/component/sharpening/sharpening = GetComponent(/datum/component/sharpening)
+	return initial(force) + sharpening?.damage_increase
 
 /obj/item/proc/get_throwforce()
-	return initial(throwforce) + sharpened_increase
+	var/datum/component/sharpening/sharpening = GetComponent(/datum/component/sharpening)
+	return initial(throwforce) + sharpening?.damage_increase

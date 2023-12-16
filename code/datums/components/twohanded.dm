@@ -28,6 +28,8 @@
 	var/icon_wielded = FALSE
 	/// Reference to the offhand created for the item
 	var/obj/item/twohanded/offhand/offhand_item = null
+	/// The amount of increase recived from sharpening the item
+	var/sharpened_increase = 0
 	/// A callback on the parent to be called when the item is wielded
 	var/datum/callback/wield_callback
 	/// A callback on the parent to be called when the item is unwielded
@@ -109,7 +111,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
-	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
+	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_TWOHANDED, PROC_REF(on_sharpen))
 
 
 // Remove all siginals registered to the parent item
@@ -120,7 +122,7 @@
 								COMSIG_ITEM_ATTACK,
 								COMSIG_ATOM_UPDATE_ICON,
 								COMSIG_MOVABLE_MOVED,
-								COMSIG_ITEM_SHARPEN_ACT))
+								COMSIG_ITEM_SHARPEN_TWOHANDED))
 
 
 /// Triggered on equip of the item containing the component
@@ -239,8 +241,8 @@
 		parent_item.force *= force_multiplier
 	else if(force_wielded)
 		parent_item.force = force_wielded
-	if(parent_item.sharpened_increase)
-		parent_item.force += parent_item.sharpened_increase
+	if(sharpened_increase)
+		parent_item.force += sharpened_increase
 	if(sharp_when_wielded)
 		parent_item.sharp = TRUE
 
@@ -301,8 +303,8 @@
 
 	// update item stats
 	var/obj/item/parent_item = parent
-	if(parent_item.sharpened_increase)
-		parent_item.force -= parent_item.sharpened_increase
+	if(sharpened_increase)
+		parent_item.force -= sharpened_increase
 	if(force_multiplier)
 		parent_item.force /= force_multiplier
 	else
@@ -414,12 +416,8 @@
 /datum/component/two_handed/proc/on_sharpen(obj/item/item, amount, max_amount)
 	SIGNAL_HANDLER
 
-	if(!item)
-		return COMPONENT_BLOCK_SHARPEN_BLOCKED
-	if(wielded)
-		return COMPONENT_BLOCK_SHARPEN_BLOCKED
-	if(item.sharpened_increase)
-		return COMPONENT_BLOCK_SHARPEN_ALREADY
+	if(!item || wielded || sharpened_increase)
+		return 0
 
 	var/wielded_val = 0
 	if(force_multiplier)
@@ -432,11 +430,11 @@
 		wielded_val = force_wielded
 
 	if(wielded_val > max_amount)
-		return COMPONENT_BLOCK_SHARPEN_MAXED
+		return 0
 
-	item.sharpened_increase = min(amount, (max_amount - wielded_val))
+	sharpened_increase = min(amount, (max_amount - wielded_val))
 
-	return COMPONENT_BLOCK_SHARPEN_APPLIED
+	return sharpened_increase
 
 
 /**

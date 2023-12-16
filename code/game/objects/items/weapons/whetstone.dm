@@ -15,20 +15,14 @@
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
 	if(used)
-		to_chat(user, span_warning("The whetstone is too worn to use again!"))
-		return
-
-	if(I.force >= max || I.throwforce >= max)//no esword sharpening
-		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
+		to_chat(user, SPAN_WARNING("The whetstone is too worn to use again!"))
 		return
 
 	if(requires_sharpness && !I.sharp)
 		to_chat(user, span_warning("You can only sharpen items that are already sharp, such as knives!"))
 		return
 
-	if(I.sharpened_increase)
-		to_chat(user, SPAN_WARNING("[I] has already been refined before. It cannot be sharpened further!"))
-		return
+	I.AddComponent(/datum/component/sharpening, increment)
 
 	var/signal_out = SEND_SIGNAL(I, COMSIG_ITEM_SHARPEN_ACT, increment, max) //Stores the bitflags returned by SEND_SIGNAL
 	if((signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) || istype(I, /obj/item/melee/energy)) //If the item's components enforce more limits on maximum power from sharpening,  we fail
@@ -40,11 +34,7 @@
 		return
 
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
-		to_chat(user, span_warning("[I] is not able to be sharpened right now!"))
-		return
-
-	if(istype(I, /obj/item/melee/mantisblade))
-		to_chat(user, SPAN_WARNING("[I] уже остр, и не может быть заточен ещё сильнее!"))
+		to_chat(user, SPAN_WARNING("[I] is not able to be sharpened right now!"))
 		return
 
 	if(istype(I, /obj/item/clothing/gloves/color/black/razorgloves))
@@ -57,9 +47,6 @@
 	else
 		if(!requires_sharpness)
 			I.sharp = TRUE
-		I.force = clamp(I.force + increment, 0, max)
-		I.throwforce = clamp(I.throwforce + increment, 0, max)
-		I.sharpened_increase = increment
 
 	user.visible_message(span_warning("[user] sharpens [I] with [src]!"), \
 		span_warning("You sharpen [I], making it much more deadly than before."))
