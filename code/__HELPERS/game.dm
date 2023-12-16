@@ -485,11 +485,28 @@
 		else
 			candidate_ghosts -= G
 
-	for(var/i = max_slots, (i > 0 && candidate_ghosts.len), i--)
-		var/this_ghost = input("Pick players. This will go on until there either no more ghosts to pick from or the [i] remaining slot(s) are full.", "Candidates") as null|anything in candidate_ghosts
-		candidate_ghosts -= this_ghost
-		selected_ghosts += this_ghost
+	var/filter[candidate_ghosts.len]
+	var/ghost_ckey
+	var/ghost_hours_noghosttime
+	var/i = 0
+	for(i = 1, i<=candidate_ghosts.len, i++)
+		ghost_ckey = (candidate_ghosts[i]).ckey
+		ghost_hours_noghosttime = ((candidate_ghosts[i]).client).get_exp_type(EXP_TYPE_CREW)
+		filter[i] = "[ghost_ckey]|[ghost_hours_noghosttime]" //byond dont allow to get account with | symbol,so no problem with it
+	var/ghost_after_list[max_slots]
+
+	for(var/i2 = max_slots, (i2 > 0 && filter.len), i2--)
+		var/this_ghost = input("Pick players. This will go on until there either no more ghosts to pick from or the [i2] remaining slot(s) are full.", "Candidates") as null|anything in filter
+		filter -= this_ghost
+		var/n1 = findtext(this_ghost, "|") // position number for "secret" | separator symbol to start cutting hours numbers from ckey at this_ghost
+		this_ghost = splicetext(this_ghost, n1, 0) //cutting | and hours numbers from ckey
+		ghost_after_list[i2] = this_ghost
+	for(var/mob/dead/observer/G in candidate_ghosts)
+		if(G.ckey in ghost_after_list)
+			candidate_ghosts -= G
+			selected_ghosts += G
 	return selected_ghosts
+
 
 /proc/window_flash(client/C)
 	if(ismob(C))

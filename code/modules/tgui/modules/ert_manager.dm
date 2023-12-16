@@ -8,11 +8,12 @@
 	var/janitor_slots = 0
 	var/paranormal_slots = 0
 	var/cyborg_slots = 0
+	var/manual_check = FALSE
 
 /datum/ui_module/ert_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ERTManager", name, 350, 430, master_ui, state)
+		ui = new(user, src, ui_key, "ERTManager", name, 350, 445, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
@@ -36,6 +37,7 @@
 	data["jan"] = janitor_slots
 	data["par"] = paranormal_slots
 	data["cyb"] = cyborg_slots
+	data["manual_check"] = manual_check
 	data["total"] = commander_slots + security_slots + medical_slots + engineering_slots + janitor_slots + paranormal_slots + cyborg_slots
 	data["spawnpoints"] = GLOB.emergencyresponseteamspawn.len
 	return data
@@ -61,6 +63,8 @@
 			paranormal_slots = text2num(params["set_par"])
 		if("set_cyb")
 			cyborg_slots = text2num(params["set_cyb"])
+		if("manual_check")
+			manual_check = !manual_check
 		if("dispatch_ert")
 			var/datum/response_team/D
 			switch(ert_type)
@@ -94,7 +98,7 @@
 			message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
 			log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
 			GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.", "ВНИМАНИЕ: Активирован протокол ОБР.")
-			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
+			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, manual_check)
 		else
 			return FALSE
 

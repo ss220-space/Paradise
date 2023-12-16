@@ -116,6 +116,17 @@ export const ERTManager = (props, context) => {
                 />
               ))}
             </LabeledList.Item>
+            <LabeledList.Item label="Manual Сheck">
+              <Button
+                key={"manual_check"}
+                selected={data.manual_check !== data.manual_check}
+                content={'Allow manual selection?'}
+                onClick={() => act('manual_check')}
+                color={data.manual_check === 1
+                  ? "green"
+                  : ""}
+              />
+            </LabeledList.Item>
             <LabeledList.Item label="Total Slots">
               <Box color={data.total > data.spawnpoints
                 ? "red"
