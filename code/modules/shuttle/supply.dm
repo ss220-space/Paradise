@@ -107,20 +107,7 @@
 		SSshuttle.sold_atoms += " [MA.name]"
 
 		if(istype(MA, /obj/structure/bigDelivery))
-			for(var/datum/cargo_quests_storage/storage in GLOB.quest_storages)
-				if(!storage.active)
-					continue
-				var/reward = storage.check_quest_completion(MA)
-				if(!reward)
-					continue
-				if(!(storage.target_departament in GLOB.corporations))
-					quest_reward += reward
-				else
-					var/datum/money_account/station_money_account = GLOB.station_account
-					station_money_account.credit(round(reward/4), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Station Account")
-					var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
-					cargo_money_account.credit(round(reward/4*3), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Cargo Account")
-				break
+			quest_reward += SScargo_quests.check_delivery(MA)
 
 		// Must be in a crate (or a critter crate)!
 		if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))

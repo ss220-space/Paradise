@@ -91,6 +91,7 @@
 		/obj/item/slime_extract/lightpink = 200,
 		/obj/item/slime_extract/rainbow = 270
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/organs
 	quest_type_name = "Organ"
@@ -124,6 +125,7 @@
 		/obj/item/organ/internal/xenos/acidgland/queen = 900,
 		/obj/item/organ/internal/xenos/plasmavessel/queen = 900
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/foods
 	quest_type_name = "Food"
@@ -157,6 +159,7 @@
 		/obj/item/reagent_containers/food/snacks/candy/cotton/rainbow = 100,
 		/obj/item/reagent_containers/food/snacks/fried_vox = 100
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY)
 
 /datum/cargo_quest/thing/miner
 	quest_type_name = "Shaft Miner Loot"
@@ -195,6 +198,7 @@
 		/obj/effect/mob_spawn/human/ash_walker = 550,
 		/obj/item/gem/bloodstone = 650
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/minerals
 	quest_type_name = "Minerals"
@@ -220,6 +224,7 @@
 		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 480, "amount" = 4),
 		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 310, "amount" = 20)
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 
 /datum/cargo_quest/thing/minerals/generate_goal(difficultly, request_obj, target_reward)
@@ -289,6 +294,7 @@
 	normal_items = list(
 		/obj/item/stack/sheet/mineral/plasma = list("reward" = 130, "amount" = 50),
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL)
 
 /datum/cargo_quest/thing/seeds
 	quest_type_name = "Seeds"
@@ -360,6 +366,7 @@
 		/obj/item/seeds/apple/poisoned = 370,
 		/obj/item/seeds/gatfruit = 430
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/botanygenes
 	quest_type_name = "Botany Genes on Disks"
@@ -391,6 +398,7 @@
 		/datum/plant_gene/trait/smoke = 330,
 		/datum/plant_gene/trait/glow/red = 370,
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/botanygenes/generate_goal(difficultly, request_obj, target_reward)
 
@@ -461,6 +469,7 @@
 		"SHOCKIMMUNITY" = 200,
 		"SMALLSIZE" = 250
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/genes/update_interface_icon()
 	return
@@ -554,6 +563,7 @@
 		/datum/symptom/deafness = 275,
 		/datum/symptom/confusion = 275
 	)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/virus/update_interface_icon()
 	return

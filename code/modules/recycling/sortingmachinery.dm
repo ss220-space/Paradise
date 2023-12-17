@@ -329,13 +329,15 @@
 			"id"   = destination_index,
 		)
 		static_data["destinations"] += list(destination_data)
-	for(var/departament_name in (GLOB.centcomm_departaments - GLOB.corporations))
+	for(var/dep in SScargo_quests.centcomm_departaments)
+		var/datum/customer/customer = dep
 		static_data["centcom_destinations"] += list(list(
-			"name" = departament_name,
+			"name" = customer.departament_name,
 		))
-	for(var/departament_name in GLOB.corporations)
+	for(var/corp in SScargo_quests.corporations)
+		var/datum/customer/customer = corp
 		static_data["corporation_destinations"] += list(list(
-			"name" = departament_name,
+			"name" = customer.departament_name,
 		))
 	return static_data
 

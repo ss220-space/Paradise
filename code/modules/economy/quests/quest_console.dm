@@ -1,5 +1,4 @@
-#define NUMBER_OF_CC_QUEST 8
-#define NUMBER_OF_CORP_QUEST 4
+
 #define PRINT_COOLDOWN 10 SECONDS
 
 /obj/machinery/computer/supplyquest
@@ -20,40 +19,6 @@
 
 /obj/machinery/computer/supplyquest/ui_host()
 	return parent ? parent : src
-
-/obj/machinery/computer/supplyquest/Initialize()
-	. = ..()
-
-	if(!length(GLOB.centcomm_departaments))
-		for(var/typepath in subtypesof(/datum/centcomm_departament))
-			var/datum/centcomm_departament/departament = new typepath()
-			if(!departament.departament_name)
-				continue
-			GLOB.centcomm_departaments["[departament.departament_name]"] = departament
-
-	if(!length(GLOB.corporations))
-		for(var/typepath in subtypesof(/datum/centcomm_departament/corp))
-			var/datum/centcomm_departament/corp/corp = new typepath()
-			if(!corp.departament_name)
-				continue
-			GLOB.corporations["[corp.departament_name]"] = corp
-
-	if(!length(GLOB.plasma_departaments))
-		for(var/typepath in subtypesof(/datum/centcomm_departament/plasma))
-			var/datum/centcomm_departament/plasma/plasma_dep = new typepath()
-			if(!plasma_dep.departament_name)
-				continue
-			GLOB.plasma_departaments["[plasma_dep.departament_name]"] = plasma_dep
-
-	if(!length(GLOB.quest_storages))
-		for(var/I = 1 to NUMBER_OF_CC_QUEST)
-			GLOB.quest_storages += new /datum/cargo_quests_storage(customer = "centcomm")
-		for(var/I = 1 to NUMBER_OF_CORP_QUEST)
-			GLOB.quest_storages += new /datum/cargo_quests_storage(customer = "corporation")
-		GLOB.quest_storages += new /datum/cargo_quests_storage(customer = "plasma")
-
-
-
 
 /obj/machinery/computer/supplyquest/attack_ai(mob/user)
 	return attack_hand(user)
@@ -88,7 +53,6 @@
 		if(SSshuttle.techLevels[tech_id] >= 7)
 			seventh_lvl_techs++
 
-
 	data["techs"] = techs
 	if(seventh_lvl_techs > 8)
 		data["have_high_techs"] = TRUE
@@ -103,12 +67,13 @@
 		data["purchased_techs"] = purchased_techs
 	var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
 	data["cargo_money"] = cargo_money_account.money
+	data["points"] = round(SSshuttle.points)
 	return data
 
 /obj/machinery/computer/supplyquest/ui_data(mob/user)
 	var/list/data = list()
 	var/list/quest_storages = list()
-	for(var/datum/cargo_quests_storage/quest_storage in GLOB.quest_storages)
+	for(var/datum/cargo_quests_storage/quest_storage in SScargo_quests.quest_storages)
 		if(for_active_quests && !quest_storage.active)
 			continue
 		var/timeleft_sec = round((quest_storage.time_start + quest_storage.quest_time - world.time) / 10)
@@ -123,18 +88,18 @@
 
 		quest_storages.Add(list(list(
 			"active" = quest_storage.active,
-			"reward" = quest_storage.reward * (quest_storage.customer != "corporation" || 10),
+			"reward" = quest_storage.reward,
 			"ref" = quest_storage.UID(),
 			"fast_bonus" = !quest_storage.fast_failed,
 			"timer" = "[timeleft_sec / 60 % 60]:[add_zero(num2text(timeleft_sec % 60), 2)]",
 			"quests_items" = quests_items,
-			"customer" = quest_storage.customer,
-			"target_departament" = quest_storage.target_departament
+			"customer" = quest_storage.customer.group_name,
+			"target_departament" = quest_storage.customer.departament_name
 			)))
 
 	data["quests"] += quest_storages
 
-	data["points"] = round(SSshuttle.points)
+
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
@@ -180,7 +145,7 @@
 			if(!quest.can_reroll)
 				to_chat(user, span_warning("This quest can not be rerolled."))
 				return
-			quest.quest_expired(reroll = TRUE)
+			SScargo_quests.remove_quest(params["uid"], reroll = TRUE)
 
 		if("print_order")
 			if(print_delayed)
@@ -232,14 +197,14 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/paper = new(get_turf(src))
 	paper.info = "<div id=\"output\"><center> <h3> Supply request form </h3> </center><br><hr><br>"
-	paper.info += "Requestor department: [quest.target_departament]<br>"
+	paper.info += "Requestor department: [quest.customer.departament_name]<br>"
 	paper.info += "Supply request accepted by: [quest.idname] - [quest.idrank]<br>"
 	paper.info += "Order acceptance time: [quest.order_date]  [quest.order_time]<br>"
 	paper.info += "<ul> <h3> Order List</h3>"
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
-		paper.info += "<li>[cargo_quest.desc]</li>"
+		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
 
-	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.customer == "corporation" ? "[quest.reward * 10] credits" : quest.reward]</span><br>"
+	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.reward]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
 	var/obj/item/stamp/navcom/stamp = new()
 	paper.stamp(stamp)
@@ -395,14 +360,14 @@
 	var/obj/item/paper/paper = new(get_turf(src))
 
 	paper.info = "<div id=\"output\"><center> <h3> Shipment records </h3> </center><br><hr><br>"
-	paper.info += "Requestor department: [quest.target_departament]<br>"
+	paper.info += "Requestor department: [quest.customer.departament_name]<br>"
 	paper.info += "Supply request accepted by: [quest.idname] - [quest.idrank]<br>"
 	paper.info += "Time of print: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
 	paper.info += "<ul> <h3> Order List</h3>"
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
-		paper.info += "<li>[cargo_quest.desc]</li>"
+		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
 
-	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.customer == "corporation" ? "[old_reward * 10] credits" : old_reward]</span><br>"
+	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [old_reward]</span><br>"
 	paper.info += "Fines: <br><i>"
 	if(modificators["departure_mismatch"])
 		paper.info += "departure mismatch (-20%)<br>"
@@ -472,6 +437,4 @@
 	integrated_console.ui_interact(user, ui_key, ui, force_open, master_ui, state)
 
 
-#undef NUMBER_OF_CC_QUEST
-#undef NUMBER_OF_CORP_QUEST
 #undef PRINT_COOLDOWN

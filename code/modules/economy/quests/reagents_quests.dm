@@ -4,6 +4,8 @@
 	interface_icons = list('icons/obj/chemical.dmi')
 	interface_icon_states = list("beakerlarge")
 
+	difficultly_flags = (QUEST_DIFFICULTY_EASY)
+
 	var/list/required_reagents = list()
 	var/list/repeated_reagents = list("antiburn_stimulant" = list("volume" = 5, "reward" = 110),
 			"synthflesh" = list("volume" = 50, "reward" = 75),

@@ -1,57 +1,11 @@
-#define QUEST_TYPE_VIRUS /datum/cargo_quest/thing/virus
-#define QUEST_TYPE_XENOBIO /datum/cargo_quest/thing/xenobio
-#define QUEST_TYPE_REAGENTS /datum/cargo_quest/reagents
-#define QUEST_TYPE_BOTANY /datum/cargo_quest/thing/botanygenes
-#define QUEST_TYPE_SEEDS /datum/cargo_quest/thing/seeds
-#define QUEST_TYPE_ORGANS /datum/cargo_quest/thing/organs
-#define QUEST_TYPE_GENES /datum/cargo_quest/thing/genes
-#define QUEST_TYPE_DRINKS /datum/cargo_quest/reagents/drinks
-#define QUEST_TYPE_FOODS /datum/cargo_quest/thing/foods
-#define QUEST_TYPE_MINERALS /datum/cargo_quest/thing/minerals
-#define QUEST_TYPE_MINER /datum/cargo_quest/thing/miner
+
 
 
 /datum/cargo_quests_storage
 	/// List of purchase order categories.
 	var/list/current_quests = list()
-
-	var/static/list/easy_quest_types = list(
-		QUEST_TYPE_VIRUS,
-		QUEST_TYPE_XENOBIO,
-		QUEST_TYPE_REAGENTS,
-		QUEST_TYPE_BOTANY,
-		QUEST_TYPE_SEEDS,
-		QUEST_TYPE_DRINKS,
-		QUEST_TYPE_FOODS,
-		QUEST_TYPE_MINERALS,
-		QUEST_TYPE_MINER
-	)
-	var/static/list/normal_quest_types = list(
-		QUEST_TYPE_VIRUS,
-		QUEST_TYPE_XENOBIO,
-		QUEST_TYPE_REAGENTS,
-		QUEST_TYPE_BOTANY,
-		QUEST_TYPE_ORGANS,
-		QUEST_TYPE_DRINKS,
-		QUEST_TYPE_MINERALS,
-		QUEST_TYPE_MINER
-	)
-	var/static/list/hard_quest_types = list(
-		QUEST_TYPE_VIRUS,
-		QUEST_TYPE_XENOBIO,
-		QUEST_TYPE_BOTANY,
-		QUEST_TYPE_SEEDS,
-		QUEST_TYPE_ORGANS,
-		QUEST_TYPE_GENES,
-		QUEST_TYPE_MINERALS
-	)
-	var/static/list/very_hard_quest_types = list(
-		QUEST_TYPE_ORGANS,
-		QUEST_TYPE_MINER
-	)
-
-	///	Difficultly of task, e.g. QUEST_DIFFICULTLY_EASY.
-	var/quest_difficulty
+	///	Difficultly of task, datum
+	var/datum/quest_difficulty/quest_difficulty
 	/// If current quest storage is active, we will check it when the cargo shuttle is moving.
 	var/active = FALSE
 	/// The time it takes to complete this.
@@ -60,10 +14,8 @@
 	var/time_start
 	/// Bonus for quick execution, if FALSE, then there is no bonus.
 	var/fast_failed = FALSE
-	/// The required department for the order, for possible departments see centcomm_departamets.dm
-	var/target_departament
-	/// Order category, this distributes orders to different tabs in the console.
-	var/customer
+	/// Order customer, this distributes orders to different tabs in the console.
+	var/datum/customer/customer
 
 	/// The timer, when it expires, we will not receive a bonus for fast delivery.
 	var/fast_check_timer
@@ -83,115 +35,49 @@
 	/// Time when the order was accepted
 	var/order_time
 
-/datum/cargo_quests_storage/New(customer, quest_type, difficulty)
-	src.customer = customer
-	quest_difficulty = difficulty
-	if(customer == "plasma")
-		quest_type = /datum/cargo_quest/thing/minerals/plasma
-		quest_difficulty = QUEST_DIFFICULTY_NORMAL
+/datum/cargo_quests_storage/proc/generate()
 	if(!quest_difficulty)
-		generate_difficulty()
-	generate_timer()
-	generate_departament(customer)
-
+		quest_difficulty = customer.get_difficulty()
+	if(!quest_difficulty)
+		quest_difficulty = pickweight(SScargo_quests.difficulties)
+	quest_difficulty.generate_timer(src)
 	for(var/I in 1 to rand(2,4))
-		var/datum/cargo_quest/cargo_quest = generate_quest(quest_type)
+		var/datum/cargo_quest/cargo_quest = add_quest()
 		if(cargo_quest)
 			current_quests += cargo_quest
 
 	if(GLOB.security_level > SEC_LEVEL_RED)
 		reward *= 2
+	customer.change_reward(src)
+	customer.special(src)
 
-/datum/cargo_quests_storage/proc/generate_difficulty()
-	var/difficulty = rand(1, 100)
+/datum/cargo_quests_storage/proc/add_quest(quest_type)
 
-	if(GLOB.security_level > SEC_LEVEL_RED)
-		if(difficulty < 65)
-			quest_difficulty = QUEST_DIFFICULTY_EASY
-		else
-			quest_difficulty = QUEST_DIFFICULTY_NORMAL
-		return
-
-	switch(difficulty)
-		if(1 to 45)
-			quest_difficulty = QUEST_DIFFICULTY_EASY
-		if(46 to 75)
-			quest_difficulty = QUEST_DIFFICULTY_NORMAL
-		if(76 to 94)
-			quest_difficulty = QUEST_DIFFICULTY_HARD
-		else
-			quest_difficulty = QUEST_DIFFICULTY_VERY_HARD
-
-/datum/cargo_quests_storage/proc/generate_departament(customer)
-	switch(customer)
-		if("centcomm")
-			target_departament = pick(GLOB.centcomm_departaments - GLOB.corporations)
-		if("corporation")
-			target_departament = pick(GLOB.corporations)
-		if("plasma")
-			target_departament = pick(GLOB.plasma_departaments)
-
-/datum/cargo_quests_storage/proc/generate_timer()
-	switch(quest_difficulty)
-		if(QUEST_DIFFICULTY_EASY)
-			quest_time = rand(15, 25) MINUTES
-		if(QUEST_DIFFICULTY_NORMAL)
-			quest_time = rand(20, 30) MINUTES
-		if(QUEST_DIFFICULTY_HARD)
-			quest_time = rand(30, 40) MINUTES
-		if(QUEST_DIFFICULTY_VERY_HARD)
-			quest_time = rand(30, 60) MINUTES
-	time_start = world.time
-	quest_check_timer = addtimer(CALLBACK(src, PROC_REF(quest_expired)), quest_time, TIMER_STOPPABLE)
-	fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 0.4 * quest_time, TIMER_STOPPABLE)
-
-/datum/cargo_quests_storage/proc/quest_expired(reroll, complete, list/modificators, old_reward = reward)
-	if(quest_check_timer)
-		deltimer(quest_check_timer)
-		quest_check_timer = null
-	GLOB.quest_storages.Remove(src)
-	if(!reroll && active)
-		for(var/obj/machinery/computer/supplyquest/workers/cargo_announcer in GLOB.cargo_announcers)
-			cargo_announcer.print_report(src, complete, modificators, old_reward)
-
-	if(!reroll && customer == "plasma")
-		addtimer(CALLBACK(src, PROC_REF(create_new_quest)), 25 MINUTES)
-	else
-		create_new_quest(reroll = reroll)
-
-/datum/cargo_quests_storage/proc/create_new_quest(reroll)
-	var/datum/cargo_quests_storage/quest = new(customer = src.customer, difficulty = reroll ? src.quest_difficulty : null)
-	if(reroll)
-		quest.can_reroll = FALSE
-	if(src in GLOB.plasma_quest_storages)
-		GLOB.plasma_quest_storages.Remove(src)
-		GLOB.plasma_quest_storages += quest
-	qdel(src)
-	GLOB.quest_storages += quest
+	if(length(customer.can_order))
+		quest_type = pick(customer.can_order)
 
 
-/datum/cargo_quests_storage/proc/generate_quest(quest_type)
 	if(!quest_type)
-		switch(quest_difficulty)
-			if(QUEST_DIFFICULTY_EASY)
-				quest_type = pick(easy_quest_types)
-			if(QUEST_DIFFICULTY_NORMAL)
-				quest_type = pick(normal_quest_types)
-			if(QUEST_DIFFICULTY_HARD)
-				quest_type = pick(hard_quest_types)
-			if(QUEST_DIFFICULTY_VERY_HARD)
-				quest_type = pick(very_hard_quest_types)
+		var/list/possible_types = list()
+		for(var/path in subtypesof(/datum/cargo_quest) - /datum/cargo_quest/thing)
+			var/datum/cargo_quest/cargo_quest = path
+			if(!(initial(cargo_quest.difficultly_flags) & quest_difficulty.diff_flag))
+				continue
+			possible_types += path
+		possible_types.Remove(customer.cant_order)
+		quest_type = pick(possible_types)
 
 	for(var/datum/cargo_quest/quest in current_quests)
 		if(quest.type != quest_type)
 			continue
-		quest.generate_goal(difficultly = quest_difficulty)
+		quest.generate_goal(difficultly = quest_difficulty.diff_flag)
 		quest.update_interface_icon()
 		for(var/description in quest.desc)
 			description = replacetext(description, "\improper", "")
 		return
 
 	return new quest_type(src)
+
 
 /datum/cargo_quests_storage/proc/after_activated()
 	if(!fast_check_timer)
@@ -238,7 +124,7 @@
 	var/old_reward = reward
 	var/list/modificators = list()
 
-	if(target_departament && (closet.cc_tag != target_departament))
+	if(closet.cc_tag != customer.departament_name)
 		reward -= old_reward * 0.2
 		modificators["departure_mismatch"] = TRUE
 
@@ -257,17 +143,13 @@
 	if(!failed_quest_length && !fast_failed)
 		reward += old_reward * 0.4
 		modificators["quick_shipment"] = TRUE
-		if(target_departament && (closet.cc_tag == target_departament))
-			var/datum/centcomm_departament/dept = GLOB.centcomm_departaments[target_departament]
-			dept.set_sale()
+		if(closet.cc_tag == customer.departament_name)
+			customer.set_sale()
 
 	if(reward <= 0)
 		reward = 1
 
-	if(target_departament in GLOB.corporations)
-		reward *= 10
-
-	quest_expired(complete = TRUE, modificators = modificators, old_reward = old_reward)
+	SScargo_quests.remove_quest(UID(), complete = TRUE, modificators = modificators, old_reward = old_reward)
 
 	return reward
 
@@ -284,11 +166,13 @@
 	var/list/interface_icon_states = list()
 	/// Requested order's item types, unless otherwise specified.
 	var/list/req_items = list()
+	///possible difficultly
+	var/difficultly_flags
 
 
 /datum/cargo_quest/New(storage)
 	q_storage = storage
-	generate_goal(difficultly = q_storage.quest_difficulty)
+	generate_goal(difficultly = q_storage.quest_difficulty.diff_flag)
 	update_interface_icon()
 
 /datum/cargo_quest/proc/generate_goal(difficultly)
@@ -304,15 +188,3 @@
 /datum/cargo_quest/proc/check_required_item(atom/movable/check_item)
 	return
 
-
-#undef QUEST_TYPE_VIRUS
-#undef QUEST_TYPE_XENOBIO
-#undef QUEST_TYPE_REAGENTS
-#undef QUEST_TYPE_BOTANY
-#undef QUEST_TYPE_SEEDS
-#undef QUEST_TYPE_ORGANS
-#undef QUEST_TYPE_GENES
-#undef QUEST_TYPE_DRINKS
-#undef QUEST_TYPE_FOODS
-#undef QUEST_TYPE_MINERALS
-#undef QUEST_TYPE_MINER
