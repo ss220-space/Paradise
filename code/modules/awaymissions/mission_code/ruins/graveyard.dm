@@ -145,7 +145,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	w_class = WEIGHT_CLASS_TINY
-	var/obj/effect/decal/cleanable/ash/return_ash
 
 /obj/item/ash_holder/Initialize(mapload, var/obj/effect/decal/cleanable/ash/parent_ash = new)
 	name = parent_ash.name
