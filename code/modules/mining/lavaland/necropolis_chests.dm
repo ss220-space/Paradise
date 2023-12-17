@@ -501,7 +501,7 @@
 	playsound(src, 'sound/weapons/genhit3.ogg', 50, TRUE)
 	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, PROC_REF(strike_throw_impact))
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
-	target.throw_at(throw_target, 5, 3, user, FALSE, callback = CALLBACK(TYPE_PROC_REF(/datum/, UnregisterSignal), target, COMSIG_MOVABLE_IMPACT))
+	target.throw_at(throw_target, 5, 3, user, FALSE, callback = CALLBACK(target, TYPE_PROC_REF(/datum, UnregisterSignal), target, COMSIG_MOVABLE_IMPACT))
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST)
 	to_chat(target,  span_userdanger("You've been struck by [user]!"))
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
