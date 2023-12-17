@@ -68,7 +68,7 @@
 		to_chat(usr, span_warning("There are no valid targets!"))
 		return
 
-	var/mob/living/target = tgui_input_list("Choose the target to talk to", "Targeting", validtargets)
+	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
 
