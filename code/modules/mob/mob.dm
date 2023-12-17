@@ -315,6 +315,7 @@
 			user_staring_effect = user_living.apply_status_effect(STATUS_EFFECT_STARING)
 			if(ishuman(target))
 				var/mob/living/carbon/human/target_human = target
+				user_staring_effect.target = target
 				user_staring_effect.target_gender = target_human.get_visible_gender()
 				user_staring_effect.target_species = target_human.get_visible_species()
 
@@ -323,6 +324,7 @@
 					staring_effect.catch_look(src)
 			if(ismorph(target))
 				var/mob/living/simple_animal/hostile/morph/target_morph = target
+				user_staring_effect.target = target
 				user_staring_effect.target_gender = target_morph.mimic_spell.selected_form.examine_gender
 				user_staring_effect.target_species = target_morph.mimic_spell.selected_form.examine_species
 		else
