@@ -705,7 +705,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/voodoo/attack_self(mob/user as mob)
 	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
+		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible)
 		return
 
 	if(user.zone_selected == BODY_ZONE_CHEST)

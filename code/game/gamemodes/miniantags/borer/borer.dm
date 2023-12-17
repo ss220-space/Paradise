@@ -324,7 +324,7 @@
 		if(H.stat != DEAD && Adjacent(H) && !H.has_brain_worms())
 			choices += H
 
-	var/mob/living/carbon/human/M = input(src,"Who do you wish to infest?") in null|choices
+	var/mob/living/carbon/human/M = tgui_input_list(src,"Who do you wish to infest?", "Infest", choices)
 
 	if(!M || !src)
 		return
@@ -513,7 +513,7 @@
 
 	attempting_to_dominate = TRUE
 
-	var/mob/living/carbon/M = input(src,"Who do you wish to dominate?") in null|choices
+	var/mob/living/carbon/M = tgui_input_list(src,"Who do you wish to dominate?", "Dominate", choices)
 
 	if(!M)
 		attempting_to_dominate = FALSE
