@@ -96,7 +96,7 @@
 	playsound(src, "shatter", 70, 1)
 	for(var/obj/O in contents)
 		if(istype(O,/obj/item/ash_holder))
-			var/obj/item/return_ash = new /obj/effect/decal/cleanable/ash(get_turf(src))
+			var/obj/effect/decal/cleanable/ash/return_ash = new(get_turf(src))
 			return_ash.name = O.name
 			return_ash.desc = O.desc
 			qdel(O)
