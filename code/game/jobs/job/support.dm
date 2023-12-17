@@ -162,6 +162,7 @@
 	backpack_contents = list(
 	/obj/item/melee/classic_baton/telescopic = 1
 	)
+	head = /obj/item/clothing/head/cowboyhat/tan
 
 
 /datum/job/cargo_tech

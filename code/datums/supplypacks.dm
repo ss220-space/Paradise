@@ -996,7 +996,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/station_goal/bfl_goal
 	name = "BFL Mission goal"
-	cost = 12500
+	cost = 6500
 	contains = list(
 					/obj/structure/toilet/golden_toilet/bfl_goal
 					)
