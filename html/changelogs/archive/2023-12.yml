@@ -146,3 +146,26 @@
   - balance: Clockwork Cult Balance Update (#4024)
   Dimach:
   - refactor: user check in emag_act to prevent runtimes (#4055)
+'2023-12-14':
+  Aziz Chynaliev:
+  - add: add new 69 TTS voices from Portal (1), TMNT (1), Star Wars (7), Transformers
+      (3), LOTR (6), Shrek (8), POTC (4), Harry Potter (12), WoW (24), Treasure Island
+      (1), etc (2) (#4064)
+  Dimach:
+  - bugfix: nuke mode cannot start (#4061)
+'2023-12-15':
+  ArtemDerp:
+  - bugfix: turfs under ND walls were removed on USSP stattion  (#4057)
+  - add: organ smartfridge can store robot arms and legs (#4056)
+  Daeberdir:
+  - bugfix: completed `can_hold` for construction bag. (#4062)
+  NightDawnFox:
+  - bugfix: Legion-boss doors now opens when it dies (#4058)
+  ROdenFL:
+  - tweak: emoji update (#4051)
+  ReloadKey:
+  - bugfix: Tajaran random name generator  broke after 20 gen. attempts (#4063)
+  aeternaclose:
+  - unknown: AcademyGateRemap (#3678)
+  p4el007:
+  - add: skalka craft (#4059)
