@@ -179,14 +179,15 @@
 	health = 100
 	melee_damage_lower = 25
 	melee_damage_upper = 35
-	loot = list(/obj/item/decorations/bouquets/random,
-				/obj/item/clothing/shoes/centcom,
-				/obj/item/clothing/under/suit_jacket/charcoal,
-				/obj/effect/decal/cleanable/blood/gibs,
-				/obj/effect/particle_effect/smoke/vomiting,
-				/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
-				/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping
-				)
+	loot = list(
+		/obj/item/decorations/bouquets/random,
+		/obj/item/clothing/shoes/centcom,
+		/obj/item/clothing/under/suit_jacket/charcoal,
+		/obj/effect/decal/cleanable/blood/gibs,
+		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
+	)
 
 /mob/living/simple_animal/hostile/zombie/space_graveyard/noble/fast
 	name = "fast zombie"
