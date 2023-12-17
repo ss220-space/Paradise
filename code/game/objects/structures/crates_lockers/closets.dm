@@ -351,6 +351,7 @@
 		if(isobj(loc))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.container_resist(L)
+			return
 		open() //for cardboard boxes
 		return //closed but not welded...
 	//	else Meh, lets just keep it at 2 minutes for now

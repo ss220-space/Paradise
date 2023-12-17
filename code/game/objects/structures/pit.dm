@@ -27,6 +27,9 @@
 /obj/structure/pit/proc/populate_contents()
 	return
 
+/obj/structure/pit/AllowDrop()
+    return TRUE
+
 /obj/structure/pit/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/shovel))
 		visible_message("<span class='notice'>\The [user] starts [open ? "filling" : "digging open"] \the [src]</span>")
