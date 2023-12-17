@@ -37,7 +37,7 @@
 
 /datum/game_mode/antag_paradise/pre_setup()
 	var/players = num_players()
-	calculate_antags()
+	calculate_antags(players)
 
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
