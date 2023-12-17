@@ -84,8 +84,7 @@
 				return TRUE
 			to_chat(user, span_notice("You dig a hole."))
 			if(user.a_intent == INTENT_DISARM)
-				var/obj/structure/pit/pit = /obj/structure/pit
-				new pit(src)
+				new /obj/structure/pit(src)
 				dug = TRUE
 			else
 				getDug()

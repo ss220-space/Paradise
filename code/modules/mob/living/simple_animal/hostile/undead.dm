@@ -231,14 +231,14 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	loot = list(
-				/obj/item/clothing/suit/pirate_brown,
-				/obj/item/clothing/under/pirate,
-				/obj/item/clothing/shoes/fluff/noble_boot,
-				/obj/item/clothing/head/pirate,
-				/obj/item/clothing/glasses/eyepatch,
-				/obj/item/melee/energy/sword/pirate,
-				/obj/effect/decal/cleanable/blood/gibs,
-				/obj/effect/particle_effect/smoke/vomiting,
-				/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
-				/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping
-				)
+		/obj/item/clothing/suit/pirate_brown,
+		/obj/item/clothing/under/pirate,
+		/obj/item/clothing/shoes/fluff/noble_boot,
+		/obj/item/clothing/head/pirate,
+		/obj/item/clothing/glasses/eyepatch,
+		/obj/item/melee/energy/sword/pirate,
+		/obj/effect/decal/cleanable/blood/gibs,
+		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping
+	)

@@ -57,7 +57,8 @@
 /obj/structure/pit/update_icon()
 	icon_state = "pit[open][icon_floor_type]"
 
-/obj/structure/pit/New()
+/obj/structure/pit/Initialize()
+	. = ..()
 	if(istype(loc, /turf/simulated/floor/plating/asteroid))
 		icon_floor_type = "mud"
 	if(istype(loc, /turf/simulated/floor/plating/asteroid/basalt))
@@ -69,14 +70,14 @@
 	if(istype(loc, /turf/simulated/floor/grass))
 		icon_floor_type = "mud"
 	update_icon()
-	..()
 
 /obj/structure/pit/proc/take_contents()
 	var/itemcount = 0
 	for(var/atom/movable/A  in loc)
 		if(A.density || A.anchored || A == src || open) continue
 		A.forceMove(src)
-		if(itemcount += 1 >= storage_capacity)
+		itemcount += 1
+		if(itemcount >= storage_capacity)
 			break
 
 /obj/structure/pit/proc/open()
@@ -150,7 +151,6 @@
 /obj/structure/pit/Destroy()
 	if(!open)
 		open()
-	qdel(src)
 	..()
 
 /obj/structure/pit/closed
@@ -173,12 +173,11 @@
 	icon_state = "pit0"
 
 /obj/structure/pit/closed/grave/Initialize()
+	. = ..()
 	var/obj/structure/closet/coffin/C = new(src.loc)
 	var/obj/effect/decal/remains/bones = new(C)
 	bones.layer = LYING_MOB_LAYER
-	var/obj/structure/gravemarker/random/R = new(src.loc)
-	R.generate()
-	. = ..()
+	new /obj/structure/gravemarker/random(src.loc)
 
 /obj/structure/gravemarker
 	name = "grave marker"
@@ -195,9 +194,9 @@
 	icon_state = "cross"
 
 /obj/structure/gravemarker/random/Initialize()
+	. = ..()
 	generate()
 	desc = "[message]"
-	. = ..()
 
 /obj/structure/gravemarker/random/proc/generate()
 	var/nam
@@ -216,7 +215,7 @@
 	message = "Здесь упокоен [nam], [born] - [died]."
 
 /obj/structure/gravemarker/attackby(obj/item/W, mob/user)
-	if(istype(W,/obj/item/hatchet)) //просто томагавк
+	if(istype(W,/obj/item/hatchet))
 		visible_message("<span class = 'warning'>\The [user] starts hacking away at \the [src] with \the [W].</span>")
 		if(do_after(user, 30))
 			visible_message("<span class = 'warning'>\The [user] hacks \the [src] apart.</span>")

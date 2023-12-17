@@ -378,16 +378,15 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/decorations/bouquets/Initialize()
+	. = ..()
 	hitsound = pick('sound/effects/footstep/grass1.ogg', 'sound/effects/footstep/grass2.ogg', 'sound/effects/footstep/grass3.ogg')
-	..()
 
 /obj/item/decorations/bouquets/random
 
 /obj/item/decorations/bouquets/random/Initialize()
+	. = ..()
 	var/pick_flower = pick("mixedbouquet", "poppybouquet", "rosebouquet", "sunbouquet")
 	icon_state = "[pick_flower]"
-	..()
-
 
 ////// Cultist's crystal
 
@@ -398,8 +397,8 @@
 	anchored = 1
 
 /obj/structure/decorative_structures/cult_crystal/Initialize()
+	. = ..()
 	set_light(2, 1, COLOR_RED)
-	..()
 
 /obj/structure/decorative_structures/cult_crystal/attackby(obj/item/I, mob/user, params)
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)

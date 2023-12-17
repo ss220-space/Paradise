@@ -220,11 +220,13 @@
 	},
 /area/ruin/space/graveyard/church)
 "eO" = (
-/obj/structure/gravemarker/random{
-	dir = 1;
-	pixel_x = -5
-	},
 /obj/structure/pit/closed/graveyard_loot,
+/obj/structure/gravemarker/cross{
+	dir = 1;
+	pixel_x = -5;
+	name = " Old grave marker";
+	desc = "Aquí yace el rebelde de la Banda Verde."
+	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "eU" = (

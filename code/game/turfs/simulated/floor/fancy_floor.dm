@@ -106,8 +106,7 @@
 		if(user.a_intent == INTENT_DISARM)
 			if(do_after(user, 40 * C.toolspeed * gettoolspeedmod(user), target = src))
 				playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-				var/obj/structure/pit/pit = /obj/structure/pit
-				new pit(src)
+				new /obj/structure/pit(src)
 				return TRUE
 			return FALSE
 		else

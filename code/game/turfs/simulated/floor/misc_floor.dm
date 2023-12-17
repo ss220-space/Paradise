@@ -82,8 +82,7 @@
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, span_notice("You dig a hole."))
-			var/obj/structure/pit/pit = /obj/structure/pit
-			new pit(src)
+			new /obj/structure/pit(src)
 			dug = TRUE
 
 
