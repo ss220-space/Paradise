@@ -30,6 +30,7 @@
 	duration = 300
 	tick_interval = 30
 	alert_type = /obj/screen/alert/status_effect/void_price
+	var/price = 3 //This is how much hp you lose per tick. Each time the buff is refreshed, it increased by 1. Healing too much in a short period of time will cause your swift demise
 
 /obj/screen/alert/status_effect/void_price
 	name = "Void Price"
@@ -38,7 +39,11 @@
 
 /datum/status_effect/void_price/tick()
 	playsound(owner, 'sound/weapons/bite.ogg', 50, 1)
-	owner.adjustBruteLoss(3)
+	owner.adjustBruteLoss(price)
+
+/datum/status_effect/void_price/refresh()
+	price++
+	return ..()
 
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/lavaland/misc.dmi'
 	icon_state = "grave_katana"
 	anchored = TRUE
-	var/obj/item/dropping_item = /obj/item/katana/cursed
+	var/obj/item/dropping_item = /obj/item/organ/internal/cyberimp/arm/katana  //fix
 
 /obj/structure/katana_grave/attack_hand(mob/user)
 	. = ..()
