@@ -59,7 +59,7 @@
 		if(target_gender == NEUTER || owner.gender == NEUTER || !ishuman(owner))
 			return
 		var/mob/living/carbon/human/human_owner = owner
-		if(target_gender != human_owner.gender && target_species == human_owner.dna.species.name)
+		if(target_gender != human_owner.gender && target_species == human_owner.dna.species.name && prob(5))
 			owner.emote("blush")
 			to_chat(owner, span_danger("You feel something burning in your chest..."))
 

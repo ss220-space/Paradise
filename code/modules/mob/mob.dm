@@ -306,9 +306,6 @@
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/target)
-	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
-		return TRUE
 	var/examine_time = target.get_examine_time()
 	face_atom(target)
 	if(isliving(src) && examine_time)
@@ -328,10 +325,21 @@
 				var/mob/living/simple_animal/hostile/morph/target_morph = target
 				user_staring_effect.target_gender = target_morph.mimic_spell.selected_form.examine_gender
 				user_staring_effect.target_species = target_morph.mimic_spell.selected_form.examine_species
+		else
+			return FALSE
 
 	var/list/result = target.examine(src)
-	if(isobserver(src) || do_mob(src, target, examine_time, FALSE))
+	if(isobserver(src) || isnewplayer(src) || do_mob(src, target, examine_time, FALSE, list(CALLBACK(src, PROC_REF(can_examine))), TRUE))
 		to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
+
+
+/mob/proc/can_examine()
+	if(QDELETED(src))
+		return TRUE
+	if(!has_vision(information_only = TRUE))
+		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
+		return TRUE
+	return FALSE
 
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
