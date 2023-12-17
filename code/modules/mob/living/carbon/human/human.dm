@@ -1033,6 +1033,14 @@
 		return PLURAL
 	return gender
 
+/mob/living/carbon/human/proc/get_visible_species()
+	var/displayed_species = dna.species.name
+	for(var/obj/item/clothing/C in src)			//Disguise checks
+		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
+			if(C.species_disguise)
+				displayed_species = C.species_disguise
+	return displayed_species
+
 /mob/living/carbon/human/proc/increase_germ_level(n)
 	if(gloves)
 		gloves.germ_level += n

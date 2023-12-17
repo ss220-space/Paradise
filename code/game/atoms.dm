@@ -1210,3 +1210,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return TRUE
 	. = !density
 
+
+/atom/proc/get_examine_time()
+	return 0 SECONDS
+

@@ -305,23 +305,33 @@
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
-/mob/proc/run_examinate(atom/A)
+/mob/proc/run_examinate(atom/target)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
 		return TRUE
+	var/examine_time = target.get_examine_time()
+	face_atom(target)
+	if(isliving(src) && examine_time)
+		var/mob/living/user_living = src
+		var/datum/status_effect/staring/user_staring_effect = user_living.has_status_effect(STATUS_EFFECT_STARING)
+		if(!user_staring_effect)
+			user_staring_effect = user_living.apply_status_effect(STATUS_EFFECT_STARING)
+			if(ishuman(target))
+				var/mob/living/carbon/human/target_human = target
+				user_staring_effect.target_gender = target_human.get_visible_gender()
+				user_staring_effect.target_species = target_human.get_visible_species()
 
-	face_atom(A)
-	if(ishuman(A))
-		if(ishuman(src))
-			var/mob/living/carbon/human/A_human = A
-			var/datum/status_effect/staring/staring_effect = A_human.has_status_effect(STATUS_EFFECT_STARING)
-			if(staring_effect)
-				staring_effect.catch_look(src)
-			var/mob/living/carbon/human/user_human = src
-			user_human.apply_status_effect(STATUS_EFFECT_STARING)
-		var/list/result = A.examine(src)
-		if(do_mob(src, A, isobserver(src) ? 0 : A.get_examine_time(), FALSE))
-			to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
+				var/datum/status_effect/staring/staring_effect = target_human.has_status_effect(STATUS_EFFECT_STARING)
+				if(staring_effect)
+					staring_effect.catch_look(src)
+			if(ismorph(target))
+				var/mob/living/simple_animal/hostile/morph/target_morph = target
+				user_staring_effect.target_gender = target_morph.mimic_spell.selected_form.examine_gender
+				user_staring_effect.target_species = target_morph.mimic_spell.selected_form.examine_species
+
+	var/list/result = target.examine(src)
+	if(isobserver(src) || do_mob(src, target, examine_time, FALSE))
+		to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
 
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
@@ -1322,8 +1332,4 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128
 	remove_from_all_data_huds()
-
-
-/mob/proc/get_examine_time()
-	return 0
 

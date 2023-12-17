@@ -198,11 +198,15 @@
 /datum/mimic_form
 	/// How does the form look like?
 	var/appearance
-	/// What is the examine text paired with this form
+	/// What the visible gender of the form is (Only for human forms)?
+	var/examine_gender
+	/// What the visible species of the form is (Only for human forms)?
+	var/examine_species
+	/// What is the examine text paired with this form?
 	var/examine_text
-	/// What us the examine time paired with this form
+	/// What is the examine time paired with this form?
 	var/examine_time
-	/// What the name of the form is
+	/// What the name of the form is?
 	var/name
 
 
@@ -211,6 +215,10 @@
 	examine_text = form.examine(user)
 	examine_time = form.get_examine_time()
 	name = form.name
+	if(ishuman(form))
+		var/mob/living/carbon/human/human_form = form
+		examine_gender = human_form.get_visible_gender()
+		examine_species = human_form.get_visible_species()
 
 
 /obj/effect/proc_holder/spell/mimic/morph
