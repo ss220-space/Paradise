@@ -7,9 +7,10 @@
  * * message - The content of the input box, shown in the body of the TGUI window.
  * * title - The title of the input box, shown on the top of the TGUI window.
  * * buttons - The options that can be chosen by the user, each string is assigned a button on the UI.
+ * * default - The option that will be returned, if choose has not been done.
  * * timeout - The timeout of the input box, after which the input box will close and qdel itself. Set to zero for no timeout.
  */
-/proc/tgui_input_list(mob/user, message, title, list/buttons, timeout = 0)
+/proc/tgui_input_list(mob/user, message, title, list/buttons, default, timeout = 0)
 	if(!user)
 		user = usr
 	if(!length(buttons))
@@ -22,13 +23,16 @@
 
 	/// Client does NOT have tgui_input on: Returns regular input
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS)
-		return input(user, message, title) as null|anything in buttons
+		return input(user, message, title, default) as null|anything in buttons
 
 	var/datum/tgui_list_input/input = new(user, message, title, buttons, timeout)
 	input.ui_interact(user)
 	input.wait()
 	if(input)
-		. = input.choice
+		if(input.choice)
+			. = input.choice
+		else
+			. = default
 		qdel(input)
 
 /**
