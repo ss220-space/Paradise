@@ -78,12 +78,12 @@ GLOBAL_LIST_EMPTY(all_cults)
 	return (length(cult) > 0)
 
 /datum/game_mode/cult/post_setup()
-	modePlayer += cult
 	cult_objs.setup()
 
 	for(var/datum/mind/cult_mind in cult)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
-		to_chat(cult_mind.current, CULT_GREETING)
+		var/list/messages = list(CULT_GREETING)
+		to_chat(cult_mind.current, chat_box_red(messages.Join("<br>")))
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
 		ADD_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
@@ -340,3 +340,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 	to_chat(world, endtext)
 	..()
+
+
+/proc/is_cultist(mob/living/user)
+	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.cult)
+

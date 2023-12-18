@@ -1,7 +1,16 @@
 /datum/surgery/limb_augmentation
 	name = "Augment Limb"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/augment)
-	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg","tail", "wing")
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/surgery/limb_augmentation/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -9,7 +18,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			return 0
-		if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
+		if(affected.has_fracture()) //The arm has to be in prime condition to augment it.
 			return 0
 		if(affected.is_robotic())
 			return 0
@@ -42,7 +51,7 @@
 		for(var/part_name in L.part)
 			if(!target.get_organ(part_name))
 				continue
-			affected.robotize(L.model_info, make_tough = 1, convert_all = 0)
+			affected.robotize(make_tough = TRUE, company = L.model_info, convert_all = FALSE)
 			if(L.sabotaged)
 				affected.sabotaged = 1
 			break

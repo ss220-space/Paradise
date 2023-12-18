@@ -10998,19 +10998,19 @@
 /obj/item/gun/projectile/shotgun/boltaction,
 /obj/item/gun/projectile/shotgun/boltaction,
 /obj/item/gun/projectile/shotgun/boltaction,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
 /obj/item/gun/projectile/shotgun/boltaction,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
 /obj/machinery/light/small{
 	brightness_range = 10;
 	light_range = 10;
@@ -13202,11 +13202,11 @@
 	desc = "Баксоны максона. Возможно кто-то приобретет пропуск.";
 	name = "100.000 �������� �������"
 	},
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	amount = 115;
 	desc = null
 	},
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	amount = 115;
 	desc = null
 	},

@@ -48,7 +48,6 @@
 	. = ..()
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
-	splinted_limbs.Cut()
 	GLOB.human_list -= src
 
 /mob/living/carbon/human/dummy
@@ -111,12 +110,12 @@
 	. = ..()
 	rename_character(null, "Integrated Robotic Chassis ([rand(1, 9999)])")
 	update_dna()
-	for(var/obj/item/organ/external/E in bodyparts)
-		if(istype(E, /obj/item/organ/external/chest) || istype(E, /obj/item/organ/external/groin))
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(istype(bodypart, /obj/item/organ/external/chest) || istype(bodypart, /obj/item/organ/external/groin))
 			continue
-		qdel(E)
-	for(var/obj/item/organ/O in internal_organs)
-		qdel(O)
+		qdel(bodypart)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		qdel(organ)
 	regenerate_icons()
 	death()
 
@@ -257,10 +256,10 @@
 /mob/living/carbon/human/proc/process_dismember(limbs_affected)
 	var/list/valid_limbs = bodyparts.Copy()
 
-	while(limbs_affected && valid_limbs.len)
+	while(limbs_affected && length(valid_limbs))
 		var/obj/item/organ/external/processing_dismember = pick_n_take(valid_limbs)
-		if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-			processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
+		if(processing_dismember.limb_zone != BODY_ZONE_CHEST && processing_dismember.limb_zone != BODY_ZONE_HEAD && processing_dismember.limb_zone != BODY_ZONE_PRECISE_GROIN)
+			processing_dismember.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
 			limbs_affected--
 
 #undef ex_armor_reduction
@@ -270,7 +269,19 @@
 		return
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 	show_message("<span class='userdanger'>The blob attacks you!</span>")
-	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+	var/dam_zone = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
 
@@ -284,7 +295,7 @@
 
 /mob/living/carbon/human/show_inv(mob/user)
 	user.set_machine(src)
-	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask) || get_organ_slot("breathing_tube")
+	var/has_breathable_mask = istype(wear_mask, /obj/item/clothing/mask) || get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE)
 	var/list/obscured = check_obscured_slots()
 
 	var/dat = {"<meta charset="UTF-8"><table>
@@ -472,8 +483,8 @@
 
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
-	var/obj/item/organ/external/head = get_organ("head")
-	if(!head || head.disfigured || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
+	var/obj/item/organ/external/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(!head_organ || head_organ.is_disfigured() || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -563,25 +574,31 @@
 				thief_mode = 1
 
 		if(href_list["embedded_object"])
-			var/obj/item/organ/external/L = locate(href_list["embedded_limb"]) in bodyparts
-			if(!L)
+			var/obj/item/organ/external/bodypart = locate(href_list["embedded_limb"]) in bodyparts
+			if(QDELETED(bodypart) || !LAZYLEN(bodypart.embedded_objects))
 				return
-			var/obj/item/I = locate(href_list["embedded_object"]) in L.embedded_objects
-			if(!I || I.loc != src) //no item, no limb, or item is not in limb or in the person anymore
+			var/obj/item/thing = locate(href_list["embedded_object"]) in bodypart.embedded_objects
+			if(QDELETED(thing) || thing.loc != bodypart) //no item, no limb, or item is not in limb or in the person anymore
 				return
-			var/time_taken = I.embedded_unsafe_removal_time*I.w_class
-			usr.visible_message("<span class='warning'>[usr] attempts to remove [I] from [usr.p_their()] [L.name].</span>","<span class='notice'>You attempt to remove [I] from your [L.name]... (It will take [time_taken/10] seconds.)</span>")
-			if(do_after(usr, time_taken, needhand = 1, target = src))
-				if(!I || !L || I.loc != src || !(I in L.embedded_objects))
+			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
+			usr.visible_message(
+				span_warning("[usr] attempts to remove [thing] from [usr.p_their()] [bodypart.name]."),
+				span_notice("You attempt to remove [thing] from your [bodypart.name]... (It will take [time_taken/10] seconds.)"),
+			)
+			if(do_after(usr, time_taken, needhand = TRUE, target = src))
+				if(QDELETED(thing) || QDELETED(bodypart) || thing.loc != bodypart || !LAZYIN(bodypart.embedded_objects, thing))
 					return
-				L.embedded_objects -= I
-				L.receive_damage(I.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
-				I.forceMove(get_turf(src))
-				usr.put_in_hands(I)
-				usr.emote("scream")
-				usr.visible_message("[usr] successfully rips [I] out of [usr.p_their()] [L.name]!","<span class='notice'>You successfully remove [I] from your [L.name].</span>")
-				if(!has_embedded_objects())
-					clear_alert("embeddedobject")
+				bodypart.remove_embedded_object(thing)
+				bodypart.receive_damage(thing.embedded_unsafe_removal_pain_multiplier * thing.w_class)//It hurts to rip it out, get surgery you dingus.
+				usr.put_in_hands(thing)
+				if(ishuman(usr))
+					var/mob/living/carbon/human/h_user = usr
+					if(h_user.has_pain())
+						h_user.emote("scream")
+				usr.visible_message(
+					span_warning("[usr] successfully rips [thing] out of [usr.p_their()] [bodypart.name]!"),
+					span_notice("You successfully remove [thing] from your [bodypart.name]."),
+				)
 			return
 
 		if(href_list["item"])
@@ -966,7 +983,7 @@
 		fail_msg = "That limb is robotic."
 	else
 		switch(target_zone)
-			if("head")
+			if(BODY_ZONE_HEAD)
 				if(head && head.flags & THICKMATERIAL && !penetrate_thick)
 					. = FALSE
 			else
@@ -974,7 +991,7 @@
 					. = FALSE
 	if(!. && error_msg && user)
 		if(!fail_msg)
-			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
+			fail_msg = "There is no exposed flesh or thin material [target_zone == BODY_ZONE_HEAD ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
 /mob/living/carbon/human/proc/check_obscured_slots()
@@ -1004,7 +1021,7 @@
 
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
-	var/obj/item/organ/external/head/H = get_organ("head")
+	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
 	if(!H || !H.can_intake_reagents)
 		return 0
 	return 1
@@ -1022,55 +1039,34 @@
 	else
 		germ_level += n
 
-/mob/living/carbon/human/proc/check_and_regenerate_organs(var/mob/living/carbon/human/H) //Regenerates missing limbs/organs.
-	var/list/types_of_int_organs = list() //This will hold all the types of organs in the mob before rejuvenation.
-	for(var/obj/item/organ/internal/I in H.internal_organs)
-		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
 
-	//Clean up limbs
-	for(var/organ_name in H.bodyparts_by_name)
-		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
-		if(!organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
-			qdel(organ)
-			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
+/**
+ * Regenerate missing limbs/organs with defined in species datum.
+ */
+/mob/living/carbon/human/proc/check_and_regenerate_organs()
+	var/datum/species/species = dna?.species
+	if(!species)
+		return FALSE
 
-	//Replacing lost limbs with the species default.
-	var/mob/living/carbon/human/temp_holder
-	for(var/limb_type in H.dna.species.has_limbs)
-		if(!(limb_type in H.bodyparts_by_name))
-			var/list/organ_data = H.dna.species.has_limbs[limb_type]
+	for(var/limb_zone in species.has_limbs)
+		if(!bodyparts_by_name[limb_zone])
+			var/list/organ_data = species.has_limbs[limb_zone]
 			var/limb_path = organ_data["path"]
-			var/obj/item/organ/external/O = new limb_path(temp_holder)
-			if(H.get_limb_by_name(O.name)) //Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
-				continue					//In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
-											//while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
-			else
-				O = new limb_path(H) //Create the limb on the player.
-				O.owner = H
-				H.bodyparts |= H.bodyparts_by_name[O.limb_name]
-				if(O.body_part == HEAD) //They're sprouting a fresh head so lets hook them up with their genetic stuff so their new head looks like the original.
-					H.UpdateAppearance()
+			var/obj/item/organ/new_organ = new limb_path(src)
+			organ_data["descriptor"] = new_organ.name
 
-	//Replacing lost organs with the species default.
-	temp_holder = new /mob/living/carbon/human()
-	var/list/species_organs = H.dna.species.has_organ.Copy() //Compile a list of species organs and tack on the mutantears afterward.
-	if(H.dna.species.mutantears)
-		species_organs["ears"] = H.dna.species.mutantears
-	for(var/index in species_organs)
-		var/organ = species_organs[index]
-		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
-			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
-			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
-				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nucleation eyes, since,
-										 //while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
-			else
-				I = new organ(H) //Create the organ inside the player.
-				I.insert(H)
+	for(var/organ_slot in species.has_organ)
+		if(!internal_organs_slot[organ_slot])
+			var/organ_path = species.has_organ[organ_slot]
+			new organ_path(src)
+
+	return TRUE
+
 
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
-	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
+	check_and_regenerate_organs() //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 
 	if(!isskeleton(src) && (SKELETON in mutations))
@@ -1279,22 +1275,17 @@
 		if(!oldspecies)
 			stack_trace("Keep missing bodypart argument set to true, [src] has no original species to compare.")
 
-		for(var/organ_name in bodyparts_by_name)
-			if(isnull(bodyparts_by_name[organ_name]))
-				missing_bodyparts |= organ_name
-
-		for(var/index in dna.species.has_organ)
-			if(!(index in oldspecies.has_organ))	// new species organs are fine to create
+		for(var/limb_zone in dna.species.has_limbs)
+			if(!(limb_zone in oldspecies.has_limbs))	// we are good with species specific new bodyparts (tail/wings etc.)
 				continue
-			var/obj/item/organ/internal/organ_check = dna.species.has_organ[index]
-			var/organ_found
-			for(var/O in internal_organs)
-				var/obj/item/organ/internal/organ = O
-				organ_found = (organ.slot == initial(organ_check.slot))
-				if(organ_found)
-					break
-			if(!organ_found)
-				missing_bodyparts |= index
+			if(isnull(bodyparts_by_name[limb_zone]))
+				missing_bodyparts += limb_zone
+
+		for(var/organ_slot in dna.species.has_organ)
+			if(!(organ_slot in oldspecies.has_organ))	// species specific new internals are also fine
+				continue
+			if(isnull(internal_organs_slot[organ_slot]))
+				missing_bodyparts += organ_slot
 
 	var/list/additional_organs = list()
 	if(transfer_special_internals)
@@ -1302,16 +1293,15 @@
 			stack_trace("Transfer special internals argument set to true, [src] has no original species to compare.")
 
 		var/list/racial_organs = (oldspecies.has_organ|dna.species.has_organ)	// all internal organs, except racial, will be recreated
-		for(var/O in internal_organs)
-			var/obj/item/organ/internal/organ_check = O
-			var/organ_found
-			for(var/index in racial_organs)
-				var/obj/item/organ/internal/organ = racial_organs[index]
-				organ_found = (initial(organ.slot) == organ_check.slot)
+		for(var/obj/item/organ/internal/existing_organ as anything in internal_organs)
+			var/organ_found = FALSE
+			for(var/organ_slot in racial_organs)
+				var/obj/item/organ/internal/racial_organ = racial_organs[organ_slot]
+				organ_found = (existing_organ.slot == initial(racial_organ.slot))
 				if(organ_found)
 					break
 			if(!organ_found)
-				additional_organs |= organ_check.type
+				additional_organs += existing_organ.type
 
 	var/list/old_bodyparts
 	if(save_appearance)
@@ -1321,62 +1311,56 @@
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
 		var/bodypart_damages = list()
 		//Loop through all external organs and save the damage states for brute and burn
-		for(var/obj/item/organ/external/E in bodyparts)
-			if(E.brute_dam == 0 && E.burn_dam == 0 && E.internal_bleeding == FALSE) //If there's no damage we don't bother remembering it.
-				continue
-			var/brute = E.brute_dam
-			var/burn = E.burn_dam
-			var/IB = E.internal_bleeding
-			var/obj/item/organ/external/OE = new E.type()
-			var/stats = list(OE, brute, burn, IB)
+		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+			var/list/stats = list()
+			stats["zone"] = bodypart.limb_zone
+			stats["brute"] = bodypart.brute_dam
+			stats["burn"] = bodypart.burn_dam
+			stats["status"] = bodypart.status
 			bodypart_damages += list(stats)
 
 		//Now we do the same for internal organs via the same proceedure.
 		var/internal_damages = list()
-		for(var/obj/item/organ/internal/I in internal_organs)
-			if(I.damage == 0)
-				continue
-			var/obj/item/organ/internal/OI = new I.type()
-			var/damage = I.damage
-			var/broken = I.is_broken()
-			var/stats = list(OI, damage, broken)
+		for(var/obj/item/organ/internal/organ as anything in internal_organs)
+			var/list/stats = list()
+			stats["slot"] = organ.slot
+			stats["damage"] = organ.damage
+			stats["status"] = organ.status
 			internal_damages += list(stats)
 
 		//Create the new organs for the species change
 		dna.species.create_organs(src, missing_bodyparts, additional_organs)
 
 		//Apply relevant damages and variables to the new organs.
-		for(var/B in bodyparts)
-			var/obj/item/organ/external/E = B
-			for(var/list/part in bodypart_damages)
-				var/obj/item/organ/external/OE = part[1]
-				if((E.type == OE.type)) // Type has to be explicit, as right limbs are a child of left ones etc.
-					var/brute = part[2]
-					var/burn = part[3]
-					var/IB = part[4]
-					//Deal the damage to the new organ and then delete the entry to prevent duplicate checks
-					E.receive_damage(brute, burn, ignore_resists = TRUE)
-					E.internal_bleeding = IB
-					qdel(part)
+		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+			for(var/stats in bodypart_damages)
+				if(bodypart.limb_zone == stats["zone"])
+					var/brute_dmg = stats["brute"]
+					var/burn_dmg = stats["burn"]
+					if(brute_dmg || burn_dmg)
+						bodypart.receive_damage(brute_dmg, burn_dmg, ignore_resists = TRUE, silent = TRUE)
+					var/status = stats["status"]
+					if(status & ORGAN_INT_BLEED)
+						bodypart.internal_bleeding(silent = TRUE)
+					if(status & ORGAN_BROKEN)
+						bodypart.fracture(silent = TRUE)
+					if(status & ORGAN_SPLINTED)
+						bodypart.apply_splint()
+					if(status & ORGAN_DEAD)
+						bodypart.necrotize(silent = TRUE)
+					if(status & ORGAN_MUTATED)
+						bodypart.mutate(silent = TRUE)
+					break
 
-		for(var/O in internal_organs)
-			var/obj/item/organ/internal/I = O
-			for(var/list/part in internal_damages)
-				var/obj/item/organ/internal/OI = part[1]
-				var/organ_type
-
-				if(OI.parent_type == /obj/item/organ/internal) //Dealing with species organs
-					organ_type = OI.type
-				else
-					organ_type = OI.parent_type
-
-				if(istype(I, organ_type))
-					var/damage = part[2]
-					var/broken = part[3]
-					I.receive_damage(damage, TRUE)
-					if(broken && !(I.status & ORGAN_BROKEN))
-						I.status |= ORGAN_BROKEN
-					qdel(part)
+		for(var/obj/item/organ/internal/organ as anything in internal_organs)
+			for(var/stats in internal_damages)
+				if(organ.slot == stats["slot"])
+					var/damage = stats["damage"]
+					if(damage)
+						organ.receive_damage(damage, silent = TRUE)
+					if(stats["status"] & ORGAN_DEAD)
+						organ.necrotize(silent = TRUE)
+					break
 
 	else
 		dna.species.create_organs(src, missing_bodyparts, additional_organs)
@@ -1388,9 +1372,9 @@
 			thing.dropped() // Ensures items know they are dropped. Using their original flags
 
 	//Handle hair/head accessories for created mobs.
-	var/obj/item/organ/external/head/H = get_organ("head")
-	if(istype(H) && save_appearance && old_bodyparts)
-		var/obj/item/organ/external/head/old_head = old_bodyparts["head"]
+	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
+	if(save_appearance && old_bodyparts)
+		var/obj/item/organ/external/head/old_head = old_bodyparts[BODY_ZONE_HEAD]
 		if(istype(old_head))
 			if(old_head.h_style)
 				H.h_style = old_head.h_style
@@ -1541,7 +1525,7 @@
 		return eyes_icon
 
 /mob/living/carbon/human/proc/get_eye_shine() //Referenced cult constructs for shining in the dark. Needs to be above lighting effects such as shading.
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!istype(head_organ))
 		return
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
@@ -1555,7 +1539,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/eyes_shine()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-	if(!get_location_accessible(src, "eyes"))
+	if(!get_location_accessible(src, BODY_ZONE_PRECISE_EYES))
 		return FALSE
 	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
 	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || (XRAY in mutations))
@@ -1702,13 +1686,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/canBeHandcuffed()
-	if(get_num_arms() >= 2)
-		return TRUE
-	else
-		return FALSE
+	return get_num_arms() >= 2
 
 /mob/living/carbon/human/has_mutated_organs()
-	for(var/obj/item/organ/external/E in bodyparts)
+	for(var/obj/item/organ/external/E as anything in bodyparts)
 		if(E.status & ORGAN_MUTATED)
 			return TRUE
 	return FALSE
@@ -1754,8 +1735,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return TRUE
 
 /mob/living/carbon/human/can_see_food()
-	for(var/obj/item/organ/internal/I in src.internal_organs)
-		if(I.can_see_food)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		if(organ.can_see_food)
 			return TRUE
 
 /mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
@@ -1831,7 +1812,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
-	for(var/obj/item/organ/external/O in bodyparts)
+	for(var/obj/item/organ/external/O as anything in bodyparts)
 		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
@@ -1853,18 +1834,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	data["uwear"] = underwear
 
 	// Limbs
-	for(var/limb in bodyparts_by_name)
-		var/obj/item/organ/O = bodyparts_by_name[limb]
-		if(!O)
-			limbs_list[limb] = "missing"
+	for(var/index in bodyparts_by_name)
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[index]
+		if(!bodypart)
+			limbs_list[index] = "missing"
 			continue
 
-		limbs_list[limb] = O.serialize()
+		limbs_list[index] = bodypart.serialize()
 
 	// Internal organs/augments
-	for(var/organ in internal_organs)
-		var/obj/item/organ/O = organ
-		organs_list[O.name] = O.serialize()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		organs_list[organ.name] = organ.serialize()
 
 	// Equipment
 	equip_list.len = slots_amt
@@ -1892,19 +1872,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	undershirt = data["ushirt"]
 	underwear = data["uwear"]
 	socks = data["socks"]
-	for(var/obj/item/organ/internal/iorgan in internal_organs)
-		qdel(iorgan)
-
-	for(var/obj/item/organ/external/organ in bodyparts)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		qdel(organ)
+
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		qdel(bodypart)
 
 	for(var/limb in limbs_list)
 		// Missing means skip this part - it's missing
 		if(limbs_list[limb] == "missing")
 			continue
 		// "New" code handles insertion and DNA sync'ing
-		var/obj/item/organ/external/E = list_to_object(limbs_list[limb], src)
-		E.sync_colour_to_dna()
+		var/obj/item/organ/external/bodypart = list_to_object(limbs_list[limb], src)
+		bodypart.sync_colour_to_dna()
 
 	for(var/organ in organs_list)
 		// As above, "New" code handles insertion, DNA sync

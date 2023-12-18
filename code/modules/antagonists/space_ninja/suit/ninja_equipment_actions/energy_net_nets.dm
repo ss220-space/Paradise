@@ -37,7 +37,11 @@
 
 /obj/structure/energy_net/Destroy()
 	if(!QDELETED(affected_mob))
-		affected_mob.visible_message(span_notice("[affected_mob.name] is recovered from the energy net!"), span_notice("You are recovered from the energy net!"), span_hear("You hear a grunt."))
+		affected_mob.visible_message(
+			span_notice("[affected_mob.name] is recovered from the energy net!"),
+			span_notice("You are recovered from the energy net!"),
+			span_italics("You hear a grunt."),
+		)
 	affected_mob = null
 	return ..()
 

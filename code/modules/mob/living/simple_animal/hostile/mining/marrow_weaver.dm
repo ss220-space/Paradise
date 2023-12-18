@@ -34,6 +34,7 @@
 	var/melee_damage_upper_angery1 = 20
 	var/anger_move_to_delay = 8
 	var/anger_speed = 4
+	needs_gliding = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(amount, updating_health = TRUE)
 	if(buttmad == 0)
@@ -46,6 +47,7 @@
 			speed = anger_speed
 			poison_type = "venom"
 			poison_per_bite = 6
+			needs_gliding = TRUE
 	else if(buttmad == 1)
 		if(health > maxHealth/2)
 			buttmad = 0
@@ -55,6 +57,7 @@
 			poison_type = initial(poison_type)
 			speed = initial(speed)
 			poison_per_bite = initial(poison_per_bite)
+			needs_gliding = FALSE
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/AttackingTarget()
@@ -87,8 +90,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/proc/fiesta(var/mob/living/carbon/human/snack, preparing = TRUE)
 	var/foundorgans = 0
-	var/list/organs = snack.get_organs_zone("chest")
-	for(var/obj/item/organ/internal/I in organs)
+	var/list/organs = snack.get_organs_zone(BODY_ZONE_CHEST)
+	for(var/obj/item/organ/internal/I as anything in organs)
 		if(!istype(I, /obj/item/organ/internal/brain))
 			foundorgans ++
 			if(!preparing)

@@ -67,8 +67,8 @@
 	active_mind_control = FALSE
 	update_gland_hud()
 
-/obj/item/organ/internal/heart/gland/remove(var/mob/living/carbon/M, special = 0)
-	active = 0
+/obj/item/organ/internal/heart/gland/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
@@ -76,9 +76,9 @@
 	clear_mind_control()
 	. = ..()
 
-/obj/item/organ/internal/heart/gland/insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
-	if(special != 2 && uses) // Special 2 means abductor surgery
+	if(special != ORGAN_MANIPULATION_ABDUCTOR && uses)
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	hud.add_to_hud(owner)
@@ -126,7 +126,7 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	owner.faction |= "slime"
 	owner.add_language("Bubblish")
@@ -274,14 +274,14 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/internal/heart/gland/electric/insert(mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/internal/heart/gland/electric/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	if(ishuman(owner))
 		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free
 		owner.dna.SetSEState(GLOB.shockimmunityblock, TRUE)
 		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
 
-/obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(ishuman(owner))
 		owner.gene_stability -= GENE_INSTABILITY_MODERATE // but return it to normal once it's removed
 		owner.dna.SetSEState(GLOB.shockimmunityblock, FALSE)

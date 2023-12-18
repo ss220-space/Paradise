@@ -57,24 +57,24 @@
 
 	var/maxdam = 0
 	var/obj/item/organ/external/damaged_organ = null
-	for(var/obj/item/organ/external/E in bodyparts)
-		if((E.status & ORGAN_DEAD|ORGAN_ROBOT) || E.hidden_pain)
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if((bodypart.status & ORGAN_DEAD|ORGAN_ROBOT) || bodypart.hidden_pain)
 			continue
-		var/dam = E.get_damage()
+		var/dam = bodypart.get_damage()
 		// make the choice of the organ depend on damage,
 		// but also sometimes use one of the less damaged ones
 		if(dam > maxdam && (maxdam == 0 || prob(70)))
-			damaged_organ = E
+			damaged_organ = bodypart
 			maxdam = dam
 		if(damaged_organ)
 			pain(damaged_organ.name, maxdam)
 
 	// Damage to internal organs hurts a lot.
-	for(var/obj/item/organ/internal/I in internal_organs)
-		if(I.hidden_pain)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		if(organ.hidden_pain)
 			continue
-		if(I.damage > 2 && prob(2))
-			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
-			custom_pain("You feel a sharp pain in your [parent.limb_name]")
+		if(organ.damage > 2 && prob(2))
+			var/obj/item/organ/external/parent = get_organ(organ.parent_organ_zone)
+			custom_pain("You feel a sharp pain in your [parent.name]")
 
 #undef MIN_SHOCK_REDUCTION

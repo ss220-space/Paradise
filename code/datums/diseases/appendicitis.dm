@@ -31,7 +31,7 @@
 		A.inflamed = TRUE
 		A.update_icon()
 
-	if(!ruptured && (A.germ_level >= INFECTION_LEVEL_THREE || A.status & ORGAN_DEAD))
+	if(!ruptured && (A.germ_level >= INFECTION_LEVEL_THREE || A.is_dead()))
 		rupture(H, A)
 
 	switch(stage)
@@ -120,15 +120,15 @@
 	A.necrotize()
 	stage = 5
 
-	var/obj/item/organ/external/parent = H.get_organ(check_zone(A.parent_organ))
+	var/obj/item/organ/external/parent = H.get_organ(check_zone(A.parent_organ_zone))
 	if(istype(parent))
 		parent.receive_damage(25, used_weapon = "appendix rupture")
 		if(parent.germ_level < INFECTION_LEVEL_TWO)
 			parent.germ_level = INFECTION_LEVEL_TWO
-		for(var/obj/item/organ/internal/O in parent.internal_organs)
-			if(O.germ_level < INFECTION_LEVEL_TWO)
-				O.germ_level = INFECTION_LEVEL_TWO
-			O.receive_damage(10)
+		for(var/obj/item/organ/internal/organ as anything in parent.internal_organs)
+			if(organ.germ_level < INFECTION_LEVEL_TWO)
+				organ.germ_level = INFECTION_LEVEL_TWO
+			organ.receive_damage(10)
 
 	to_chat(H, span_userdanger("You feel a hellish pain in your abdomen, as if something is torn!"))
 	H.Stun(20 SECONDS)

@@ -36,31 +36,31 @@
 	name = "left arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "l_arm"
-	part = list("l_arm","l_hand")
+	part = list(BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND)
 
 /obj/item/robot_parts/r_arm
 	name = "right arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "r_arm"
-	part = list("r_arm","r_hand")
+	part = list(BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND)
 
 /obj/item/robot_parts/l_leg
 	name = "left leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "l_leg"
-	part = list("l_leg","l_foot")
+	part = list(BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT)
 
 /obj/item/robot_parts/r_leg
 	name = "right leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "r_leg"
-	part = list("r_leg","r_foot")
+	part = list(BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT)
 
 /obj/item/robot_parts/chest
 	name = "torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	icon_state = "chest"
-	part = list("groin","chest")
+	part = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_CHEST)
 	var/wired = FALSE
 	var/obj/item/stock_parts/cell/cell = null
 
@@ -72,7 +72,7 @@
 	name = "head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	icon_state = "head"
-	part = list("head")
+	part = list(BODY_ZONE_HEAD)
 	var/obj/item/flash/flash1 = null
 	var/obj/item/flash/flash2 = null
 
@@ -443,10 +443,12 @@
 		qdel(W)
 		qdel(src)
 
-/obj/item/robot_parts/emag_act(user)
+/obj/item/robot_parts/emag_act(mob/user)
 	if(sabotaged)
-		to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
 	else
 		add_attack_logs(user, src, "emagged")
-		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
 		sabotaged = 1

@@ -33,6 +33,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		msg = typing_input(src.mob, "", "ooc \"text\"")
 
 	msg = trim(sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN)))
+
 	if(!msg)
 		return
 
@@ -57,6 +58,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
+
+	msg = handleDiscordEmojis(msg)
 
 	add_ooc_logs(src, msg)
 
@@ -219,6 +222,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
+
+	msg = handleDiscordEmojis(msg)
 
 	add_ooc_logs(src, msg, TRUE)
 

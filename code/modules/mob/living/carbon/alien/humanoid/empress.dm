@@ -7,7 +7,8 @@
 	status_flags = CANPARALYSE
 	mob_size = MOB_SIZE_LARGE
 	bubble_icon = "alienroyal"
-	large = 1
+	large = TRUE
+	move_resist = MOVE_FORCE_STRONG
 	ventcrawler = 0
 
 /mob/living/carbon/alien/humanoid/empress/large

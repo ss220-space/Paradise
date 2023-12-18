@@ -67,9 +67,9 @@
 	var/obj/item/organ/external/right_arm = user.bodyparts_by_name[BODY_ZONE_R_ARM]
 	var/left_hand_good = FALSE
 	var/right_hand_good = FALSE
-	if(left_arm && !(left_arm.status & (ORGAN_SPLINTED|ORGAN_BROKEN)))
+	if(!left_arm?.has_fracture_or_splint())
 		left_hand_good = TRUE
-	if(right_arm && !(right_arm.status & (ORGAN_SPLINTED|ORGAN_BROKEN)))
+	if(!right_arm?.has_fracture_or_splint())
 		right_hand_good = TRUE
 
 	if(!left_hand_good || !right_hand_good)
@@ -503,9 +503,9 @@
 	var/obj/item/organ/external/right_arm = user.bodyparts_by_name[BODY_ZONE_R_ARM]
 	var/left_hand_good = FALSE
 	var/right_hand_good = FALSE
-	if(left_arm && !(left_arm.status & (ORGAN_SPLINTED|ORGAN_BROKEN)))
+	if(!left_arm?.has_fracture_or_splint())
 		left_hand_good = TRUE
-	if(right_arm && !(right_arm.status & (ORGAN_SPLINTED|ORGAN_BROKEN)))
+	if(!right_arm?.has_fracture_or_splint())
 		right_hand_good = TRUE
 
 	if(!left_hand_good && !right_hand_good)
@@ -1152,8 +1152,8 @@
 		return FALSE
 	if(isslimeperson(user))
 		return TRUE
-	for(var/obj/item/organ/external/limb in user.bodyparts) // if your limbs are squishy you can squish too!
-		if(istype(limb.dna?.species, /datum/species/slime))
+	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts) // if your limbs are squishy you can squish too!
+		if(bodypart.dna && istype(bodypart.dna.species, /datum/species/slime))
 			return TRUE
 	return FALSE
 
@@ -1328,8 +1328,8 @@
 		message = initial(message)
 		return ..()
 
-	var/translated = bodypart.limb_name
-	switch(bodypart.limb_name)
+	var/translated = bodypart.limb_zone
+	switch(bodypart.limb_zone)
 		if(BODY_ZONE_HEAD)
 			translated = "костями черепа"
 		if(BODY_ZONE_CHEST)

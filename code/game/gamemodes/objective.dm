@@ -163,7 +163,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		qdel(src)
 
 	for(var/datum/mind/user in owners)
-		user.announce_objectives()
+		var/list/messages = list(user.prepare_announce_objectives(FALSE))
+		to_chat(user.current, chat_box_red(messages.Join("<br>")))
+
 
 
 /**
@@ -1482,7 +1484,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		update_killers()
 
 	for(var/datum/mind/user in owners)
-		user.announce_objectives()
+		var/list/messages = list(user.prepare_announce_objectives())
+		to_chat(user.current, chat_box_red(messages.Join("<br>")))
 
 
 /datum/objective/protect/ninja/proc/update_killers()
@@ -1497,7 +1500,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			killer_objective.explanation_text = "Prevent from escaping alive or free [killer_objective.target.current.real_name], the [killer_objective.target.assigned_role]."
 
 		for(var/datum/mind/killer in killer_objective.get_owners())
-			killer.announce_objectives()
+			killer.prepare_announce_objectives()
 
 
 /**

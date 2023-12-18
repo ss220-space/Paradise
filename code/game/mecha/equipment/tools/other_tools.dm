@@ -8,23 +8,24 @@
 	desc = "An exosuit module that allows exosuits to teleport to any position in view."
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=7"
-	equip_cooldown = 150
+	equip_cooldown = 15 SECONDS
 	energy_drain = 4000
 	range = MECHA_RANGED
 	var/tele_precision = 4
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
-		return
+		return FALSE
 	if(!is_faced_target(target))
 		return FALSE
 	var/turf/T = get_turf(target)
-	if(T)
-		chassis.use_power(energy_drain)
-		var/turf/user_turf = get_turf(src)
-		do_teleport(chassis, T, tele_precision)
-		chassis.investigate_log("[key_name_log(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to [COORD(chassis)].", INVESTIGATE_TELEPORTATION)
-		return 1
+	if(!T)
+		return FALSE
+	chassis.use_power(energy_drain)
+	var/turf/user_turf = get_turf(src)
+	do_teleport(chassis, T, tele_precision)
+	chassis.investigate_log("[key_name_log(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to [COORD(chassis)].", INVESTIGATE_TELEPORTATION)
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	name = "upgraded teleporter"
@@ -41,35 +42,35 @@
 	desc = "An exosuit module that allows generating of small quasi-stable wormholes."
 	icon_state = "mecha_wholegen"
 	origin_tech = "bluespace=4;magnets=4;plasmatech=2"
-	equip_cooldown = 50
+	equip_cooldown = 5 SECONDS
 	energy_drain = 300
 	range = MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
-		return
+		return FALSE
 	if(!is_faced_target(target))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
 	if(!theareas.len)
-		return
+		return FALSE
 	var/area/thearea = pick(theareas)
 	var/list/L = list()
 	var/turf/pos = get_turf(src)
 	for(var/turf/T in get_area_turfs(thearea.type))
 		if(!T.density && pos.z == T.z)
-			var/clear = 1
+			var/clear = TRUE
 			for(var/obj/O in T)
 				if(O.density)
-					clear = 0
+					clear = FALSE
 					break
 			if(clear)
 				L+=T
 	if(!L.len)
-		return
+		return FALSE
 	var/turf/target_turf = pick(L)
 	if(!target_turf)
-		return
+		return FALSE
 	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(target), target_turf)
 	P.icon = 'icons/obj/objects.dmi'
 	P.failchance = 0
@@ -79,10 +80,9 @@
 	add_game_logs("used a Wormhole Generator in [COORD(loc)]", chassis.occupant)
 	chassis.investigate_log("[key_name_log(chassis.occupant)] used a Wormhole Generator at [COORD(loc)].", INVESTIGATE_TELEPORTATION)
 
-	src = null
+	start_cooldown()
 	spawn(rand(150,300))
 		qdel(P)
-	return 1
 
 /////////////////////////////////////// GRAVITATIONAL CATAPULT ///////////////////////////////////////////
 
@@ -91,40 +91,36 @@
 	desc = "An exosuit mounted Gravitational Catapult."
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=3;magnets=3;engineering=4"
-	equip_cooldown = 10
+	equip_cooldown = 3 SECONDS
 	energy_drain = 100
 	range = MECHA_MELEE | MECHA_RANGED
 	var/atom/movable/locked
-	var/cooldown_timer = 0
 	var/mode = 1 //1 - gravsling 2 - gravpush
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
 	if(!action_checks(target))
-		return
+		return FALSE
 	if(!is_faced_target(target))
 		return FALSE
-	if(cooldown_timer > world.time)
-		occupant_message("<span class='warning'>[src] is still recharging.</span>")
-		return
+	equip_cooldown = (initial(equip_cooldown) * mode)
 	switch(mode)
 		if(1)
 			if(!locked)
 				if(!istype(target) || target.anchored)
 					occupant_message("Unable to lock on [target]")
-					return
+					return FALSE
 				locked = target
 				occupant_message("Locked on [target]")
 				send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-			else if(target!=locked)
+			else if(target != locked)
 				if(locked in view(chassis))
 					locked.throw_at(target, 14, 1.5)
 					locked = null
 					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-					cooldown_timer = world.time + 3 SECONDS
-					return 1
+					start_cooldown()
 				else
-					locked = null
 					occupant_message("Lock on [locked] disengaged.")
+					locked = null
 					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 		if(2)
 			var/list/atoms = list()
@@ -133,16 +129,16 @@
 			else
 				atoms = orange(3, target)
 			for(var/atom/movable/A in atoms)
-				if(A.anchored || A.move_resist == INFINITY) continue
+				if(A.anchored || A.move_resist == INFINITY)
+					continue
 				spawn(0)
 					var/iter = 5-get_dist(A,target)
 					for(var/i=0 to iter)
 						step_away(A,target)
 						sleep(2)
 			var/turf/T = get_turf(target)
-			cooldown_timer = world.time + 3 SECONDS
 			add_game_logs("used a Gravitational Catapult in [COORD(T)]", chassis.occupant)
-			return 1
+			start_cooldown()
 
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_module_equip_info()
@@ -162,17 +158,17 @@
 	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_ccw"
 	origin_tech = "materials=4;combat=4"
-	equip_cooldown = 10
+	equip_cooldown = 1 SECONDS
 	energy_drain = 50
 	range = 0
 	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.8
-	selectable = 0
+	selectable = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react(mob/user as mob)
+/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react(mob/user)
 	if(action_checks(user))
 		start_cooldown()
-	return 1
+	return TRUE
 
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
@@ -180,17 +176,17 @@
 	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
 	icon_state = "mecha_abooster_proj"
 	origin_tech = "materials=4;combat=3;engineering=3"
-	equip_cooldown = 10
+	equip_cooldown = 1 SECONDS
 	energy_drain = 50
 	range = 0
 	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.8
-	selectable = 0
+	selectable = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/proc/projectile_react()
 	if(action_checks(src))
 		start_cooldown()
-		return 1
+		return TRUE
 
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
@@ -200,13 +196,14 @@
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid"
 	origin_tech ="magnets=3;programming=3;engineering=4"
-	equip_cooldown = 20
+	equip_cooldown = 2 SECONDS
 	energy_drain = 50
 	range = 0
+	var/active_mode = FALSE
 	var/health_boost = 1
 	var/icon/droid_overlay
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
-	selectable = 0
+	selectable = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -223,51 +220,54 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
-	return " <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return " <a href='?src=[UID()];toggle_repairs=1'>[!active_mode?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
 	if(href_list["toggle_repairs"])
+		if(!action_checks(src))
+			return
 		chassis.overlays -= droid_overlay
-		if(equip_ready)
+		if(!active_mode)
 			START_PROCESSING(SSobj, src)
 			droid_overlay = new(icon, icon_state = "repair_droid_a")
 			log_message("Activated.")
-			set_ready_state(0)
 		else
 			STOP_PROCESSING(SSobj, src)
 			droid_overlay = new(icon, icon_state = "repair_droid")
 			log_message("Deactivated.")
-			set_ready_state(1)
+		active_mode = !active_mode
 		chassis.overlays += droid_overlay
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-
+		start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/process()
 	if(!chassis)
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(1)
+		active_mode = FALSE
 		return
 	var/h_boost = health_boost
-	var/repaired = 0
+	var/repaired = FALSE
 	if(chassis.internal_damage & MECHA_INT_SHORT_CIRCUIT)
 		h_boost *= -2
 	else if(chassis.internal_damage && prob(15))
 		for(var/int_dam_flag in repairable_damage)
 			if(chassis.internal_damage & int_dam_flag)
 				chassis.clearInternalDamage(int_dam_flag)
-				repaired = 1
+				repaired = TRUE
 				break
 	if(h_boost<0 || chassis.obj_integrity < chassis.max_integrity)
 		chassis.obj_integrity += min(h_boost, chassis.max_integrity-chassis.obj_integrity)
-		repaired = 1
+		repaired = TRUE
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
 			STOP_PROCESSING(SSobj, src)
-			set_ready_state(1)
+			active_mode = FALSE
+			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	else //no repair needed, we turn off
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(1)
+		active_mode = FALSE
+		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 		chassis.overlays -= droid_overlay
 		droid_overlay = new(icon, icon_state = "repair_droid")
 		chassis.overlays += droid_overlay
@@ -283,7 +283,7 @@
 	range = 0
 	var/coeff = 100
 	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
-	selectable = 0
+	selectable = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -301,7 +301,7 @@
 		return 1000 //making magic
 
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_power_channel(var/area/A)
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_power_channel(area/A)
 	var/pow_chan
 	if(A)
 		for(var/c in use_channels)
@@ -315,11 +315,11 @@
 	if(href_list["toggle_relay"])
 		if(equip_ready) //inactive
 			START_PROCESSING(SSobj, src)
-			set_ready_state(0)
+			set_ready_state(FALSE)
 			log_message("Activated.")
 		else
 			STOP_PROCESSING(SSobj, src)
-			set_ready_state(1)
+			set_ready_state(TRUE)
 			log_message("Deactivated.")
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_module_equip_info()
@@ -329,12 +329,12 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
 	if(!chassis || chassis.internal_damage & MECHA_INT_SHORT_CIRCUIT)
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(1)
+		set_ready_state(TRUE)
 		return
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge) || !chassis.cell)
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(1)
+		set_ready_state(TRUE)
 		occupant_message("No powercell detected.")
 		return
 	if(cur_charge < chassis.cell.maxcharge)
@@ -379,11 +379,11 @@
 	..()
 	if(href_list["toggle"])
 		if(equip_ready) //inactive
-			set_ready_state(0)
+			set_ready_state(FALSE)
 			START_PROCESSING(SSobj, src)
 			log_message("Activated.")
 		else
-			set_ready_state(1)
+			set_ready_state(TRUE)
 			STOP_PROCESSING(SSobj, src)
 			log_message("Deactivated.")
 
@@ -411,14 +411,13 @@
 					return added_fuel
 			else
 				occupant_message("Unit is full.")
-				return 0
+				return FALSE
 		else // Some other object containing our fuel's type, so we just eat it (ores mainly)
 			var/to_load = max(min(I.materials[fuel_type], max_fuel - fuel_amount),0)
-			if(to_load == 0)
-				return 0
-			fuel_amount += to_load
-			qdel(I)
-			return to_load
+			if(to_load)
+				fuel_amount += to_load
+				qdel(I)
+				return to_load
 
 	else if(istype(I, /obj/structure/ore_box))
 		var/fuel_added = 0
@@ -430,8 +429,8 @@
 		return fuel_added
 
 	else
-		occupant_message("<span class='warning'>[fuel_name] traces in target minimal! [I] cannot be used as fuel.</span>")
-		return
+		occupant_message(span_warning("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
+		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
 	load_fuel(weapon)
@@ -456,16 +455,16 @@
 /obj/item/mecha_parts/mecha_equipment/generator/process()
 	if(!chassis)
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(1)
+		set_ready_state(TRUE)
 		return
 	if(fuel_amount<=0)
 		STOP_PROCESSING(SSobj, src)
 		log_message("Deactivated - no fuel.")
-		set_ready_state(1)
+		set_ready_state(TRUE)
 		return
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge))
-		set_ready_state(1)
+		set_ready_state(TRUE)
 		occupant_message("No powercell detected.")
 		log_message("Deactivated.")
 		STOP_PROCESSING(SSobj, src)
@@ -476,8 +475,6 @@
 		chassis.give_power(power_per_cycle)
 	fuel_amount -= min(use_fuel, fuel_amount)
 	update_equip_info()
-	return 1
-
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear
 	name = "exonuclear reactor"
@@ -498,7 +495,7 @@
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
 		for(var/mob/living/carbon/M in view(chassis))
-			M.apply_effect((rad_per_cycle * 3),IRRADIATE,0)
+			M.apply_effect((rad_per_cycle * 3), IRRADIATE, 0)
 
 /////////////////////////////////// SERVO-HYDRAULIC ACTUATOR ////////////////////////////////////////////////
 
@@ -507,7 +504,7 @@
 	desc = "Boosts exosuit servo-motors, allowing it to activate strafe mode. Requires energy to operate."
 	icon_state = "actuator"
 	origin_tech = "powerstorage=5;programming=5;engineering=5;combat=5"
-	selectable = 0
+	selectable = FALSE
 	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
@@ -546,7 +543,7 @@
 	icon_state = "move_plating"
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20
-	selectable = 0
+	selectable = FALSE
 	var/ripley_step_in = 2.5
 	var/odyss_step_in = 1.8
 	var/clarke_step_in = 1.5
