@@ -398,11 +398,11 @@
 	return morphed ? mimic_spell.selected_form.examine_time : ..()
 
 
-/mob/proc/get_visible_gender()
+/mob/living/simple_animal/hostile/morph/get_visible_gender()
 	return morphed ? mimic_spell.selected_form.examine_gender : ..()
 
 
-/mob/proc/get_visible_species()
+/mob/living/simple_animal/hostile/morph/get_visible_species()
 	return morphed ? mimic_spell.selected_form.examine_species : ..()
 
 

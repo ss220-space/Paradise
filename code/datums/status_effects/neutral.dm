@@ -65,7 +65,7 @@
 		to_chat(owner, span_notice("[opponent.name] catch your look!"))
 		to_chat(opponent, span_notice("[owner.name] catch your look!"))
 		var/list/homo_qui_amat = list(MALE, FEMALE)
-		if(!ishuman(owner) || !(target_gender in homo_qui_amat || owner.gender in homo_qui_amat))
+		if(!ishuman(owner) || !(target_gender in homo_qui_amat) || !(owner.gender in homo_qui_amat))
 			return
 		var/mob/living/carbon/human/human_owner = owner
 		if(target_gender != human_owner.gender && target_species == human_owner.dna.species.name && prob(5))

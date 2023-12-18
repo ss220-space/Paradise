@@ -1395,6 +1395,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/visible_gender = NEUTER
 		var/visible_species = "Unknown"
 		if(isliving(target))
+			var/mob/living/target_living = target
 			visible_gender = target_living.get_visible_gender()
 			visible_species = target_living.get_visible_species()
 			if(ishuman(target))
