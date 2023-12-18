@@ -12,18 +12,6 @@
 	var/open = TRUE
 	var/icon_floor_type = null
 
-/obj/structure/pit/Initialize(mapload)
-	. = ..()
-	if(mapload && !open)
-		// Youre probably asking, why is this a 0 seconds timer AA?
-		// Well, I will tell you. One day, all /obj/effect/spawner will use Initialize
-		// This includes maint loot spawners. The problem with that is if a closet loads before a spawner,
-		// the loot will just be in a pile. Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded,
-		// therefore solving the issue on mapload. During rounds, everything will happen as normal
-		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
-	update_icon() // Set it to the right icon if needed
-	populate_contents() // Spawn all its stuff
-
 /obj/structure/pit/proc/populate_contents()
 	return
 
@@ -62,6 +50,10 @@
 
 /obj/structure/pit/Initialize()
 	. = ..()
+	if(mapload && !open)
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+	populate_contents()
+
 	if(istype(loc, /turf/simulated/floor/plating/asteroid))
 		icon_floor_type = "mud"
 	if(istype(loc, /turf/simulated/floor/plating/asteroid/basalt))
