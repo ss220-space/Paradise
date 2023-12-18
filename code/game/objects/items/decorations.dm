@@ -377,13 +377,13 @@
 
 	resistance_flags = FLAMMABLE
 
-/obj/item/decorations/bouquets/Initialize()
+/obj/item/decorations/bouquets/Initialize(mapload)
 	. = ..()
 	hitsound = pick('sound/effects/footstep/grass1.ogg', 'sound/effects/footstep/grass2.ogg', 'sound/effects/footstep/grass3.ogg')
 
 /obj/item/decorations/bouquets/random
 
-/obj/item/decorations/bouquets/random/Initialize()
+/obj/item/decorations/bouquets/random/Initialize(mapload)
 	. = ..()
 	var/pick_flower = pick("mixedbouquet", "poppybouquet", "rosebouquet", "sunbouquet")
 	icon_state = "[pick_flower]"
@@ -396,7 +396,7 @@
 	max_integrity = 120
 	anchored = 1
 
-/obj/structure/decorative_structures/cult_crystal/Initialize()
+/obj/structure/decorative_structures/cult_crystal/Initialize(mapload)
 	. = ..()
 	set_light(2, 1, COLOR_RED)
 

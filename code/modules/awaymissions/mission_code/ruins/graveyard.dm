@@ -44,7 +44,7 @@
 
 /obj/structure/bookcase/ashframe/random
 
-/obj/structure/bookcase/ashframe/random/Initialize()
+/obj/structure/bookcase/ashframe/random/Initialize(mapload)
 	var/number = rand(1,4)
 	for(var/i = 0, i < number, i++)
 		new /obj/item/storage/funeral_urn/random(src)
@@ -106,13 +106,13 @@
 
 /obj/item/storage/funeral_urn/with_ash
 
-/obj/item/storage/funeral_urn/with_ash/Initialize()
+/obj/item/storage/funeral_urn/with_ash/Initialize(mapload)
 	new /obj/item/ash_holder(src)
 	..()
 
 /obj/item/storage/funeral_urn/random
 
-/obj/item/storage/funeral_urn/random/Initialize()
+/obj/item/storage/funeral_urn/random/Initialize(mapload)
 	var/pick_race
 	if(prob(80))
 		pick_race = "Human"

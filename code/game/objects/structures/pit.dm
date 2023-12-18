@@ -48,7 +48,7 @@
 /obj/structure/pit/update_icon()
 	icon_state = "pit[open][icon_floor_type]"
 
-/obj/structure/pit/Initialize()
+/obj/structure/pit/Initialize(mapload)
 	. = ..()
 	if(mapload && !open)
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
@@ -167,7 +167,7 @@
 	name = "grave"
 	icon_state = "pit0"
 
-/obj/structure/pit/closed/grave/Initialize()
+/obj/structure/pit/closed/grave/Initialize(mapload)
 	. = ..()
 	var/obj/structure/closet/coffin/C = new(src.loc)
 	var/obj/effect/decal/remains/bones = new(C)
@@ -188,7 +188,7 @@
 /obj/structure/gravemarker/cross
 	icon_state = "cross"
 
-/obj/structure/gravemarker/random/Initialize()
+/obj/structure/gravemarker/random/Initialize(mapload)
 	. = ..()
 	generate()
 	desc = "[message]"
