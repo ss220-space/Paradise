@@ -306,17 +306,8 @@
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
-	if(!hindered_inspection(A))
-		to_chat(src, chat_box_regular("Здесь что-то есть, но вы не видите — что именно."))
-		return TRUE
-
 	var/list/result = A.examine(src)
 	to_chat(src, chat_box_examine(result.Join("\n")))
-
-
-/mob/proc/hindered_inspection(atom/A)
-	face_atom(A)
-	return FALSE
 
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)

@@ -1411,7 +1411,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		..()
 
 
-/mob/living/hindered_inspection(atom/A)
+/mob/living/proc/hindered_inspection(atom/A)
 	if(QDELETED(src))
 		return TRUE
 	if(!has_vision(information_only = TRUE))

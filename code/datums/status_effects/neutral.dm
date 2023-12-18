@@ -55,6 +55,7 @@
 	if(!new_duration)
 		qdel(src)
 		return
+	duration = new_duration
 	. = ..()
 	target = new_target
 	target_gender = new_target_gender
