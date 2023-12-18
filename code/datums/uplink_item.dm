@@ -1144,7 +1144,7 @@
 	cost = 5
 	surplus = 50
 
-/datum/uplink_item/stealthy_weapons/soap
+/datum/uplink_item/stealthy_weapons/tape
 	name = "Thick tape roll"
 	desc = "Incredibly thick duct tape, suspiciously black in appearance. It is quite uncomfortable to hold it as it sticks to your hands."
 	item = /obj/item/stack/tape_roll/thick
