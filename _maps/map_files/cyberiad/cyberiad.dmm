@@ -3519,8 +3519,7 @@
 "aln" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	name = "Magazines for SMG";
-	req_access = list(3)
+	name = "Magazines for SMG"
 	},
 /obj/item/ammo_box/magazine/wt550m9{
 	pixel_x = 6;
@@ -3794,8 +3793,7 @@
 "alT" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	name = "Security SMG's";
-	req_access = list(3)
+	name = "Security SMG's"
 	},
 /obj/item/gun/projectile/automatic/wt550{
 	pixel_x = -3;
@@ -23746,9 +23744,7 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "bjd" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
@@ -70606,6 +70602,17 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"dQW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/vacuum{
+	pixel_x = 32
+	},
+/obj/item/flag/nt{
+	icon_state = "ntflag_rolled";
+	rolled = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "dRe" = (
 /obj/machinery/conveyor/west{
 	id = "garbage"
@@ -72962,6 +72969,13 @@
 /obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/bar/atrium)
+"gCN" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "graveyard_church";
+	locked = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "gEC" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/machinery/light/small{
@@ -77407,6 +77421,16 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/patients_rooms)
+"lKI" = (
+/obj/structure/sign/vacuum{
+	pixel_x = 32
+	},
+/obj/item/flag/nt{
+	icon_state = "ntflag_rolled";
+	rolled = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "lLk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -79058,6 +79082,19 @@
 	icon_state = "stage_bleft"
 	},
 /area/maintenance/cafeteria)
+"nCd" = (
+/obj/docking_port/stationary{
+	name = "Station Church dock";
+	dir = 4;
+	id = "graveyard_church";
+	dwidth = 2;
+	width = 10;
+	height = 7
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "nCT" = (
 /turf/simulated/floor/plasteel,
 /area/security/customs)
@@ -136482,7 +136519,7 @@ oRH
 aMz
 aOF
 kKR
-aGY
+kKR
 aYP
 aYB
 baB
@@ -136994,9 +137031,9 @@ aGX
 aGX
 aGX
 aGX
-aGX
-aGX
-aGX
+dQW
+aGY
+lKI
 aYP
 aYF
 baC
@@ -137250,10 +137287,10 @@ uTI
 lTl
 lTl
 uTI
-uTI
-lTl
-lTl
-uTI
+aGX
+vnb
+gCN
+vnb
 aYR
 aYR
 aYR
@@ -137508,9 +137545,9 @@ uTI
 uTI
 uTI
 uTI
-uTI
-lTl
-uTI
+vnb
+kKR
+vnb
 lTl
 lTl
 uTI
@@ -137765,9 +137802,9 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
+vnb
+gCN
+vnb
 uTI
 uTI
 uTI
@@ -138021,16 +138058,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+nCd
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 bjR
@@ -138278,16 +138315,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 bEG
@@ -138535,16 +138572,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-abp
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 bjR
@@ -138792,16 +138829,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 bEG
@@ -139049,16 +139086,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -139306,17 +139343,17 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+abp
 uTI
 uTI
 uTI
@@ -139563,16 +139600,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
