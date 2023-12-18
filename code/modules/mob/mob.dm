@@ -332,7 +332,7 @@
 
 	var/list/result = target.examine(src)
 	if(isobserver(src) || isnewplayer(src) || do_mob(src, target, examine_time, FALSE, list(CALLBACK(src, PROC_REF(can_examine))), TRUE))
-		to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
+		to_chat(src, chat_box_examine(result.Join("\n")))
 
 
 /mob/proc/can_examine()

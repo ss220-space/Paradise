@@ -306,8 +306,9 @@
 	else if(locked == 0)
 		playsound(loc, open_sound, 50, 1)
 		connected = new /obj/structure/c_tray( loc )
-		step(connected, SOUTH)
-		var/turf/T = get_step(src, SOUTH)
+		connected.dir = dir
+		step(connected, dir)
+		var/turf/T = get_step(src, dir)
 		if(T.contents.Find(connected))
 			connected.connected = src
 			icon_state = "crema_connected"
@@ -330,8 +331,9 @@
 	if(user.stat || locked)
 		return
 	connected = new /obj/structure/c_tray( loc )
-	step(connected, SOUTH)
-	var/turf/T = get_step(src, SOUTH)
+	connected.dir = dir
+	step(connected, dir)
+	var/turf/T = get_step(src, dir)
 	if(T.contents.Find(connected))
 		connected.connected = src
 		icon_state = "crema_connected"

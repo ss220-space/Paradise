@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	return 1
 
 /turf/simulated/floor/proc/break_tile_to_plating()
-	var/turf/simulated/floor/plating/T = make_plating()
+	var/turf/simulated/floor/plating/T = make_plating(FALSE)
 	T.break_tile()
 
 /turf/simulated/floor/break_tile()
@@ -142,7 +142,13 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	burnt = TRUE
 	update_icon()
 
-/turf/simulated/floor/proc/make_plating()
+/turf/simulated/floor/proc/make_plating(make_floor_tile, mob/user)	// Set `make_floor_tile` to FALSE, if `floor_tile` have another drop logic before calling this proc.
+	if(make_floor_tile && floor_tile && !broken && !burnt)
+		var/obj/item/stack/stack_dropped = new floor_tile(src)
+		if(user)
+			var/obj/item/stack/stack_offhand = user.get_inactive_hand()
+			if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
+				user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
@@ -178,7 +184,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	W.update_icon()
 	return W
 
-/turf/simulated/floor/attackby(obj/item/C as obj, mob/user as mob, params)
+/turf/simulated/floor/attackby(obj/item/C, mob/user, params)
 	if(!C || !user)
 		return TRUE
 
@@ -241,39 +247,29 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/proc/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
-		broken = 0
-		burnt = 0
+		broken = FALSE
+		burnt = FALSE
 		current_overlay = null
+		make_tile = FALSE
 		if(user && !silent)
 			to_chat(user, span_danger("You remove the broken plating."))
 	else
 		if(user && !silent)
 			to_chat(user, span_danger("You remove the floor tile."))
-		if(floor_tile && make_tile)
-			var/obj/item/stack/stack_dropped = new floor_tile(src)
-			if(user)
-				var/obj/item/stack/stack_offhand = user.get_inactive_hand()
-				if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
-					user.put_in_hands(stack_dropped, ignore_anim = FALSE)
-	return make_plating()
+	return make_plating(make_tile, user)
 
 /turf/simulated/floor/singularity_pull(S, current_size)
 	..()
 	if(current_size == STAGE_THREE)
 		if(prob(30))
-			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
+			make_plating(TRUE)
 	else if(current_size == STAGE_FOUR)
 		if(prob(50))
-			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
+			make_plating(TRUE)
 	else if(current_size >= STAGE_FIVE)
 		if(floor_tile)
 			if(prob(70))
-				new floor_tile(src)
-				make_plating()
+				make_plating(TRUE)
 		else if(prob(50))
 			ReplaceWithLattice()
 

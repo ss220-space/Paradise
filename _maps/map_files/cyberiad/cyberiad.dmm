@@ -144,10 +144,15 @@
 /area/security/securearmory)
 "acj" = (
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	name = "Armory";
+	req_access = list(1)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -164,31 +169,21 @@
 	},
 /area/security/securearmory)
 "acp" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Dominator's";
-	req_access = list(1)
-	},
-/obj/item/gun/energy/dominator/sibyl{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/dominator/sibyl,
-/obj/item/gun/energy/dominator/sibyl{
+/obj/item/gun/energy/gun/advtaser{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/energy/dominator/sibyl{
-	pixel_x = -6;
-	pixel_y = 6
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser{
+	pixel_x = 3;
+	pixel_y = -3
 	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Tasers";
+	req_access = list(1)
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -221,6 +216,9 @@
 "acw" = (
 /obj/structure/closet/bombclosetsecurity,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -234,9 +232,6 @@
 "acy" = (
 /obj/structure/closet/l3closet/security,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -280,27 +275,14 @@
 /turf/simulated/floor/plating,
 /area/security/hos)
 "acE" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	name = "south bump Important Area";
+	pixel_y = -24
 	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster,
-/obj/item/clothing/accessory/holster{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/accessory/holster{
-	pixel_x = 6;
-	pixel_y = -6
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -331,30 +313,11 @@
 	},
 /area/security/securearmory)
 "acK" = (
-/obj/structure/window/reinforced{
+/obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Security ballistic weapons";
-	req_access = list(1)
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security,
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = 6;
-	pixel_y = -6
-	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/closet/bombclosetsecurity,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1224,28 +1187,15 @@
 	},
 /area/security/securearmory)
 "aeS" = (
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/structure/sign/mech{
+	pixel_y = 32
 	},
-/obj/item/gun/energy/gun/advtaser,
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Tasers";
-	req_access = list(1)
-	},
+/obj/structure/chair/comfy/red,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "escape"
 	},
-/area/security/securearmory)
+/area/security/customs2)
 "aeT" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -2624,38 +2574,8 @@
 	},
 /area/security/hos)
 "ajo" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Rubber bullets";
-	req_access = list(1)
-	},
-/obj/item/ammo_box/rubber9mm{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/enforcer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/ammo_box/magazine/enforcer,
-/obj/item/ammo_box/magazine/enforcer{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/enforcer{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
+/turf/simulated/wall/r_wall,
+/area/security/main)
 "ajp" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2978,6 +2898,9 @@
 /obj/structure/extinguisher_cabinet{
 	name = "south extinguisher cabinet";
 	pixel_y = -30
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3497,17 +3420,6 @@
 	icon_state = "dark"
 	},
 /area/security/securearmory)
-"all" = (
-/obj/machinery/camera{
-	c_tag = "Armory East";
-	dir = 1;
-	network = list("SS13","Security")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/security/securearmory)
 "alm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3519,8 +3431,7 @@
 "aln" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	name = "Magazines for SMG";
-	req_access = list(3)
+	name = "Magazines for SMG"
 	},
 /obj/item/ammo_box/magazine/wt550m9{
 	pixel_x = 6;
@@ -3794,8 +3705,7 @@
 "alT" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	name = "Security SMG's";
-	req_access = list(3)
+	name = "Security SMG's"
 	},
 /obj/item/gun/projectile/automatic/wt550{
 	pixel_x = -3;
@@ -4921,18 +4831,8 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "aoy" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/security/customs2)
@@ -4950,16 +4850,21 @@
 /area/security/permabrig)
 "aoB" = (
 /obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/security/customs2)
 "aoC" = (
@@ -5717,6 +5622,17 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "aqy" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Staff room";
+	req_access = list(63)
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "escape"
+	},
+/area/security/customs2)
+"aqz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -5729,18 +5645,7 @@
 	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "escape"
-	},
-/area/security/customs2)
-"aqz" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Staff room";
-	req_access = list(63)
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 5;
 	icon_state = "escape"
 	},
 /area/security/customs2)
@@ -6592,19 +6497,12 @@
 	},
 /area/security/brig)
 "asn" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "escape"
 	},
-/area/security/brig)
+/area/security/customs2)
 "aso" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -8050,15 +7948,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
-"avk" = (
-/obj/machinery/door_control{
-	id = "armory";
-	name = "Armory Shutter";
-	pixel_x = 6;
-	req_access = list(3)
-	},
-/turf/simulated/wall/r_wall,
-/area/security/securearmory)
 "avl" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -23746,9 +23635,7 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "bjd" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list(25)
-	},
+/obj/structure/closet/secure_closet/bar,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
@@ -70606,6 +70493,17 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"dQW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/vacuum{
+	pixel_x = 32
+	},
+/obj/item/flag/nt{
+	icon_state = "ntflag_rolled";
+	rolled = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "dRe" = (
 /obj/machinery/conveyor/west{
 	id = "garbage"
@@ -72962,6 +72860,13 @@
 /obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/bar/atrium)
+"gCN" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "graveyard_church";
+	locked = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "gEC" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/machinery/light/small{
@@ -74088,15 +73993,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "hRw" = (
-/obj/structure/chair/comfy/red,
-/obj/structure/sign/mech{
-	pixel_y = 32
+/obj/machinery/door/airlock/security/glass{
+	name = "Armory";
+	req_access = list(1)
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "escape"
+	icon_state = "dark"
 	},
-/area/security/customs2)
+/area/security/securearmory)
 "hRC" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/fried_vox,
@@ -75485,9 +75390,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/machinery/light_switch{
 	name = "south light switch";
 	pixel_y = -24
@@ -75791,23 +75693,13 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "jYT" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/security/glass{
-	name = "Armory";
-	req_access = list(1)
-	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
+/turf/simulated/floor/plasteel,
+/area/security/customs2)
 "kan" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -77407,6 +77299,16 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/patients_rooms)
+"lKI" = (
+/obj/structure/sign/vacuum{
+	pixel_x = 32
+	},
+/obj/item/flag/nt{
+	icon_state = "ntflag_rolled";
+	rolled = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "lLk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -79058,6 +78960,19 @@
 	icon_state = "stage_bleft"
 	},
 /area/maintenance/cafeteria)
+"nCd" = (
+/obj/docking_port/stationary{
+	name = "Station Church dock";
+	dir = 4;
+	id = "graveyard_church";
+	dwidth = 2;
+	width = 10;
+	height = 7
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "nCT" = (
 /turf/simulated/floor/plasteel,
 /area/security/customs)
@@ -81818,9 +81733,10 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/livingcomplex)
 "qRA" = (
-/obj/machinery/door/poddoor{
-	id_tag = "armory";
-	name = "Armory"
+/obj/machinery/camera{
+	c_tag = "Armory East";
+	dir = 1;
+	network = list("SS13","Security")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -83753,6 +83669,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86982,20 +86901,11 @@
 /turf/simulated/wall/r_wall,
 /area/security/customs)
 "wYx" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	name = "south bump Important Area";
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault"
+	icon_state = "escape"
 	},
-/area/security/securearmory)
+/area/security/customs2)
 "wYC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -117426,12 +117336,12 @@ gYt
 aiv
 aio
 acK
-ajo
-aeS
+acy
 aiv
-hRw
+aeS
 amD
 anD
+wYx
 alW
 vMm
 auc
@@ -117682,13 +117592,13 @@ alY
 acb
 ajr
 aci
-yjg
-yjg
-all
-avk
+alY
+qRA
+aiv
 dWZ
 amG
 agX
+apl
 aoz
 apA
 auc
@@ -117941,16 +117851,16 @@ kqe
 aiB
 pCP
 tag
-alY
-qRA
+hRw
 alX
 apl
 apl
+apl
 aoy
-wzV
+apC
 aqy
-agQ
-ask
+wyy
+aso
 jzp
 awK
 aow
@@ -118199,15 +118109,15 @@ aco
 acv
 tdQ
 acj
-jYT
 alZ
+jYT
 amI
 anJ
 aoB
-apC
+wzV
 aqz
-wyy
-asn
+agQ
+ask
 aki
 awK
 aoq
@@ -118452,12 +118362,12 @@ yjg
 yjg
 yjg
 alY
-yjg
-yjg
-yjg
-wYx
+alY
+alY
+acE
 aiv
 pHt
+apl
 tJR
 apl
 ahY
@@ -118712,9 +118622,9 @@ aiv
 acp
 acw
 acy
-acE
 aiv
 xzR
+asn
 wuv
 amJ
 aoD
@@ -118970,7 +118880,7 @@ aiv
 aiv
 aiv
 aiv
-aiv
+ajo
 anA
 anA
 aui
@@ -136482,7 +136392,7 @@ oRH
 aMz
 aOF
 kKR
-aGY
+kKR
 aYP
 aYB
 baB
@@ -136994,9 +136904,9 @@ aGX
 aGX
 aGX
 aGX
-aGX
-aGX
-aGX
+dQW
+aGY
+lKI
 aYP
 aYF
 baC
@@ -137250,10 +137160,10 @@ uTI
 lTl
 lTl
 uTI
-uTI
-lTl
-lTl
-uTI
+aGX
+vnb
+gCN
+vnb
 aYR
 aYR
 aYR
@@ -137508,9 +137418,9 @@ uTI
 uTI
 uTI
 uTI
-uTI
-lTl
-uTI
+vnb
+kKR
+vnb
 lTl
 lTl
 uTI
@@ -137765,9 +137675,9 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
+vnb
+gCN
+vnb
 uTI
 uTI
 uTI
@@ -138021,16 +137931,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+nCd
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 bjR
@@ -138278,16 +138188,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 bEG
@@ -138535,16 +138445,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-abp
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 bjR
@@ -138792,16 +138702,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 bEG
@@ -139049,16 +138959,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -139306,17 +139216,17 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+abp
 uTI
 uTI
 uTI
@@ -139563,16 +139473,16 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
