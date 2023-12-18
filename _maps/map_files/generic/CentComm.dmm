@@ -1802,6 +1802,13 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
+"aRf" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners"
+	},
+/area/shuttle/funeral)
 "aRW" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2648,6 +2655,11 @@
 	name = "floor"
 	},
 /area/vox_station)
+"bnT" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "boc" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3632,6 +3644,11 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/jail)
+"bRt" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/funeral)
 "bRu" = (
 /obj/effect/turf_decal/mech,
 /obj/mecha/combat/durand,
@@ -7736,10 +7753,6 @@
 /obj/machinery/computer/syndie_supplycomp,
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
-"dVt" = (
-/obj/item/flag/nt,
-/turf/simulated/floor/wood,
-/area/centcom/specops)
 "dVZ" = (
 /obj/effect/mapping_helpers/light{
 	light_power = 3
@@ -9121,6 +9134,11 @@
 "eIO" = (
 /turf/simulated/floor/carpet/arcade,
 /area/trader_station/sol)
+"eIX" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/funeral)
 "eJe" = (
 /obj/structure/chair/comfy/brown{
 	color = "#FF3300"
@@ -9457,6 +9475,15 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone1)
+"ePZ" = (
+/obj/structure/table,
+/obj/item/decorations/bouquets/random{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "eQj" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "supply_away";
@@ -12944,6 +12971,12 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership)
+"gEb" = (
+/obj/machinery/computer,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "gEA" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner{
@@ -14339,6 +14372,12 @@
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
+"hwm" = (
+/obj/machinery/computer/shuttle/funeral,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "hwF" = (
 /obj/machinery/computer/pod/deathsquad,
 /turf/simulated/floor/plasteel{
@@ -14666,6 +14705,14 @@
 	},
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
+"hIf" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (NORTH)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/funeral)
 "hIg" = (
 /obj/structure/falsewall/reinforced,
 /turf/simulated/floor/plating,
@@ -15662,6 +15709,13 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
+"ipY" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners_smoothed"
+	},
+/area/shuttle/funeral)
 "iqh" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -16884,6 +16938,11 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone3)
+"iUN" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/funeral)
 "iUO" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -20093,6 +20152,11 @@
 /obj/machinery/recharger,
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
+"kAR" = (
+/obj/structure/window/full/shuttle/gray,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/funeral)
 "kAW" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/wood,
@@ -26383,6 +26447,12 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
+"nhX" = (
+/obj/structure/closet/coffin,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "nhY" = (
 /obj/machinery/door/airlock/syndicate/public{
 	name = "Cryo";
@@ -27529,6 +27599,16 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
+"nFv" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "nFx" = (
 /obj/effect/turf_decal/arrows/white{
 	dir = 8
@@ -32662,6 +32742,13 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
+"qbW" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners_smoothed"
+	},
+/area/shuttle/funeral)
 "qck" = (
 /obj/effect/baseturf_helper{
 	baseturf = /turf/simulated/floor/indestructible/asteroid;
@@ -33229,6 +33316,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"qqE" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced{
+	color = "black"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/funeral)
 "qqG" = (
 /obj/structure/bed/roller,
 /obj/item/radio/intercom{
@@ -34725,6 +34822,13 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
+"rbb" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/funeral)
 "rbh" = (
 /obj/machinery/computer/cryopod{
 	pixel_y = -32;
@@ -35730,6 +35834,15 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
+"rxG" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "rxS" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -38179,6 +38292,8 @@
 /obj/mecha/combat/durand/rover/loaded,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"sHn" = (
+)
 "sHv" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -38187,6 +38302,16 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_elite)
+"sHH" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "sHV" = (
 /obj/structure/bed,
 /obj/item/bedsheet/clown,
@@ -39261,6 +39386,12 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"ted" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "tek" = (
 /obj/machinery/door/airlock/syndicate/security{
 	id_tag = "SyndFB_prison_stroll";
@@ -40518,6 +40649,13 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
+"tIG" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
+	icon_state = "gray_walls_corners"
+	},
+/area/shuttle/funeral)
 "tIM" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -40713,6 +40851,14 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/syndicate_sit)
+"tNp" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_r";
+	tag = "icon-propulsion_r (NORTH)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/funeral)
 "tNv" = (
 /obj/structure/table/wood,
 /obj/item/candle/eternal,
@@ -43169,6 +43315,15 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"uPJ" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "uPZ" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/shuttle{
@@ -45223,6 +45378,11 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
+"vQc" = (
+/obj/structure/window/full/shuttle/gray,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/shuttle/funeral)
 "vQi" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22";
@@ -47177,6 +47337,13 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
+"wQE" = (
+/obj/structure/table,
+/obj/item/decorations/bouquets/random,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/funeral)
 "wQF" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 1;
@@ -49773,6 +49940,30 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/vox)
+"xYk" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/obj/docking_port/mobile{
+	dir = 8;
+	name = "Funeral shuttle";
+	id = "funeral";
+	height = 7;
+	width = 10;
+	dwidth = 2;
+	roundstart_move = "graveyard_dock"
+	},
+/obj/docking_port/stationary/transit{
+	name = "Funeral In transit";
+	dir = 8;
+	pixel_x = 32;
+	id = "funeral_transit";
+	turf_type = /turf/space/transit/north;
+	height = 7;
+	width = 10;
+	dwidth = 2
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/funeral)
 "xYo" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -53299,22 +53490,22 @@ ubE
 ubE
 ubE
 ymc
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
 pNM
 pwa
 pwa
@@ -53556,6 +53747,7 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
 mVX
@@ -53570,8 +53762,7 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -53813,6 +54004,7 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
 mVX
@@ -53827,8 +54019,7 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -54070,6 +54261,7 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
 mVX
@@ -54084,8 +54276,7 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -54327,22 +54518,22 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
+ipY
+bRt
+bRt
+vQc
+vQc
+vQc
+eIX
+iUN
+bRt
+aRf
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -54584,22 +54775,22 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
+tNp
+qqE
+nFv
+ted
+ted
+ted
+rxG
+bnT
+wQE
+bRt
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -54841,22 +55032,22 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
+rbb
+qqE
+ted
+ted
+ted
+ted
+bnT
+ted
+gEb
+kAR
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -55098,22 +55289,22 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
+rbb
+qqE
+nhX
+bnT
+bnT
+bnT
+bnT
+ted
+hwm
+kAR
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -55355,22 +55546,22 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
+rbb
+qqE
+ted
+ted
+ted
+ted
+bnT
+ted
+gEb
+kAR
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -55612,22 +55803,22 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
+hIf
+qqE
+sHH
+ted
+ted
+ted
+uPJ
+bnT
+ePZ
+bRt
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -55869,22 +56060,22 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
+qbW
+bRt
+bRt
+vQc
+vQc
+vQc
+eIX
+xYk
+bRt
+tIG
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -56126,6 +56317,7 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
 mVX
@@ -56140,8 +56332,7 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -56383,6 +56574,7 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
 mVX
@@ -56397,8 +56589,7 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -56640,6 +56831,7 @@ ubE
 ubE
 ubE
 ymc
+ymc
 mVX
 mVX
 mVX
@@ -56654,8 +56846,7 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
+ymc
 pNM
 pwa
 pwa
@@ -56897,22 +57088,22 @@ ubE
 ubE
 ubE
 ymc
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
+ymc
 pNM
 pwa
 pwa
@@ -96354,7 +96545,7 @@ tmQ
 qsJ
 vcj
 pLN
-dVt
+aoB
 kRE
 oIc
 oIc
@@ -97117,7 +97308,7 @@ gcZ
 abk
 nAN
 bNp
-dVt
+aoB
 daM
 oIc
 oIc
@@ -98404,9 +98595,9 @@ nAN
 nAN
 nAN
 nAN
-dVt
+aoB
 fCV
-dVt
+aoB
 mPp
 rFY
 vIY
@@ -99918,7 +100109,7 @@ afP
 aQn
 anK
 afP
-dVt
+aoB
 pFy
 fcv
 nWU
@@ -100946,7 +101137,7 @@ scN
 xpp
 dIs
 afP
-dVt
+aoB
 qMf
 fls
 fnW
@@ -105847,7 +106038,7 @@ mCQ
 ruu
 gjP
 asI
-dVt
+sHn
 vxR
 wrh
 fAg

@@ -84,7 +84,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	for(var/datum/mind/clockwork_mind in clockwork_cult)
 		SEND_SOUND(clockwork_mind.current, 'sound/ambience/antag/clockcult.ogg')
-		to_chat(clockwork_mind.current, CLOCK_GREETING)
+		var/list/messages = list(CLOCK_GREETING)
+		to_chat(clockwork_mind.current, chat_box_yellow(messages.Join("<br>")))
 		equip_clocker(clockwork_mind.current)
 		clockwork_mind.current.faction |= "clockwork_cult"
 		var/datum/objective/serveclock/obj = new
