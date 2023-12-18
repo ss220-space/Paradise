@@ -1026,14 +1026,14 @@
 		return 0
 	return 1
 
-/mob/living/carbon/human/proc/get_visible_gender()
+/mob/living/carbon/human/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
 	if((slot_w_uniform in obscured) && skipface)
 		return PLURAL
 	return gender
 
-/mob/living/carbon/human/proc/get_visible_species()
+/mob/living/carbon/human/get_visible_species()
 	var/displayed_species = dna.species.name
 	for(var/obj/item/clothing/C in src)			//Disguise checks
 		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)

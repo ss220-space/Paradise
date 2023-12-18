@@ -398,6 +398,14 @@
 	return morphed ? mimic_spell.selected_form.examine_time : ..()
 
 
+/mob/proc/get_visible_gender()
+	return morphed ? mimic_spell.selected_form.examine_gender : ..()
+
+
+/mob/proc/get_visible_species()
+	return morphed ? mimic_spell.selected_form.examine_species : ..()
+
+
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST
 #undef MORPHS_ANNOUNCE_THRESHOLD
