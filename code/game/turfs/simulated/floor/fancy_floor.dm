@@ -22,20 +22,19 @@
 
 /turf/simulated/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
-		broken = 0
-		burnt = 0
+		broken = FALSE
+		burnt = FALSE
+		make_tile = FALSE
 		if(user && !silent)
 			to_chat(user, span_notice("You remove the broken planks."))
 	else
 		if(make_tile)
 			if(user && !silent)
 				to_chat(user, span_notice("You unscrew the planks."))
-			if(floor_tile)
-				new floor_tile(src)
 		else
 			if(user && !silent)
 				to_chat(user, span_warning("You forcefully pry off the planks, destroying them in the process."))
-	return make_plating()
+	return make_plating(make_tile, user)
 
 /turf/simulated/floor/wood/cold
 	oxygen = 22
@@ -113,7 +112,7 @@
 			new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
 			to_chat(user, span_notice("You shovel the grass."))
 			playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-			make_plating()
+			make_plating(FALSE)
 
 // CARPETS
 /turf/simulated/floor/carpet
@@ -141,7 +140,7 @@
 		if(smooth)
 			queue_smooth(src)
 	else
-		make_plating()
+		make_plating(FALSE)
 		if(smooth)
 			queue_smooth_neighbors(src)
 
