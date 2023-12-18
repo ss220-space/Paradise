@@ -32,7 +32,7 @@
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
 		return FALSE
-	if(buckled && ! istype(buckled, /obj/structure/chair)) // buckling does not restrict hands
+	if(buckled && !istype(buckled, /obj/structure/chair)) // buckling does not restrict hands
 		return FALSE
 	return TRUE
 
@@ -196,7 +196,11 @@
 
 
 /mob/living/carbon/is_muzzled()
-	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
+	return istype(wear_mask, /obj/item/clothing/mask/muzzle)
+
+
+/mob/living/carbon/is_facehugged()
+	return istype(wear_mask, /obj/item/clothing/mask/facehugger)
 
 
 /mob/living/carbon/resist_muzzle()
@@ -268,7 +272,7 @@
 								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
 
 				var/no_mask
-				if(!get_organ_slot("breathing_tube"))
+				if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 					if(!(wear_mask && wear_mask.flags & AIRTIGHT))
 						if(!(head && head.flags & AIRTIGHT))
 							no_mask = 1
@@ -282,7 +286,7 @@
 						update_action_buttons_icon()
 					else
 						var/no_mask2
-						if(!get_organ_slot("breathing_tube"))
+						if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 							if(!(wear_mask && wear_mask.flags & AIRTIGHT))
 								if(!(head && head.flags & AIRTIGHT))
 									no_mask2 = 1
@@ -294,10 +298,6 @@
 
 					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
 									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
-
-
-/mob/living/carbon/proc/has_organ()
-	return
 
 
 /mob/living/carbon/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)

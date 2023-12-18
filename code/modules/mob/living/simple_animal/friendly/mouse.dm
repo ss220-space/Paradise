@@ -74,7 +74,7 @@
 		if(prob(1))
 			StopResting()
 		else if(prob(5))
-			custom_emote(2, "snuffles")
+			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
 		StartResting()
 
@@ -164,31 +164,6 @@
 	remains.pixel_x = pixel_x
 	remains.pixel_y = pixel_y
 
-/mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("squeak")		//Mouse time
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("squeak")
-			message = "[pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, squeak_sound, 40, 1)
-		if("help")
-			to_chat(src, "scream, squeak")
-			playsound(src, damaged_sound, 40, 1)
-
-	..()
 
 /*
  * Mouse types
@@ -417,10 +392,11 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	can_collar = 0
 	holder_type = /obj/item/holder/hamster
 
-/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+
+/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	if(show_message)
-		to_chat(src, "<span class='warning'>Вы слишком малы чтобы что-то тащить.</span>")
-	return
+		to_chat(src, span_warning("Вы слишком малы чтобы что-то тащить."))
+
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
 	. =..()

@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(machines)
 	flags = SS_KEEP_TIMING
 	offline_implications = "Machinery will no longer process. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
+	ss_id = "machines"
 
 	var/list/processing = list()
 	var/list/currentrun = list()

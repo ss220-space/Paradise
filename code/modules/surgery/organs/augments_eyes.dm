@@ -3,8 +3,8 @@
 	desc = "artificial photoreceptors with specialized functionality"
 	icon_state = "eye_implant"
 	implant_overlay = "eye_implant_overlay"
-	slot = "eye_sight"
-	parent_organ = "eyes"
+	slot = INTERNAL_ORGAN_EYE_SIGHT_DEVICE
+	parent_organ_zone = BODY_ZONE_PRECISE_EYES
 	w_class = WEIGHT_CLASS_TINY
 
 	var/vision_flags = 0
@@ -17,8 +17,8 @@
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
 
-/obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
-	..()
+/obj/item/organ/internal/cyberimp/eyes/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && eye_colour)
 		H.update_body() //Apply our eye colour to the target.
@@ -26,11 +26,11 @@
 		to_chat(owner, "<span class='notice'>[aug_message]</span>")
 	M.update_sight()
 
-/obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	M.update_sight()
 
-/obj/item/organ/internal/cyberimp/eyes/proc/generate_icon(var/mob/living/carbon/human/HA)
+/obj/item/organ/internal/cyberimp/eyes/proc/generate_icon(mob/living/carbon/human/HA)
 	var/mob/living/carbon/human/H = HA
 	if(!istype(H))
 		H = owner
@@ -82,19 +82,19 @@
 /obj/item/organ/internal/cyberimp/eyes/hud
 	name = "HUD implant"
 	desc = "These cybernetic eyes will display a HUD over everything you see. Maybe."
-	slot = "eye_hud"
+	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
 	var/HUD_type = 0
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
 	var/list/examine_extensions = null
 
-/obj/item/organ/internal/cyberimp/eyes/hud/insert(var/mob/living/carbon/M, var/special = 0)
-	..()
+/obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
 		H.add_hud_to(M)
 		M.permanent_huds |= H
 
-/obj/item/organ/internal/cyberimp/eyes/hud/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
@@ -134,7 +134,7 @@
 /obj/item/organ/internal/cyberimp/eyes/shield
 	name = "welding shield implant"
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
-	slot = "eye_shield"
+	slot = INTERNAL_ORGAN_EYE_SHIELD_DEVICE
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	implant_color = "#101010"
 	flash_protect = 2

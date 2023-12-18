@@ -162,13 +162,14 @@
 /obj/machinery/computer/HolodeckControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
 	return
 
-/obj/machinery/computer/HolodeckControl/emag_act(user as mob)
+/obj/machinery/computer/HolodeckControl/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
-		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
+		if(user)
+			to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
+			to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		src.updateUsrDialog()
 
 /obj/machinery/computer/HolodeckControl/New()
@@ -237,15 +238,14 @@
 		visible_message("The [oldobj.name] fades away!")
 	qdel(obj)
 
-/obj/machinery/computer/HolodeckControl/proc/checkInteg(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
 	for(var/turf/T in A)
 		if(istype(T, /turf/space))
 			return 0
 
 	return 1
 
-/obj/machinery/computer/HolodeckControl/proc/togglePower(var/toggleOn = 0)
-
+/obj/machinery/computer/HolodeckControl/proc/togglePower(toggleOn = 0)
 	if(toggleOn)
 		var/area/targetsource = locate(/area/holodeck/source_emptycourt)
 		holographic_items = targetsource.copy_contents_to(linkedholodeck)
@@ -265,11 +265,11 @@
 		for(var/item in holographic_items)
 			derez(item)
 		var/area/targetsource = locate(/area/holodeck/source_plating)
-		targetsource.copy_contents_to(linkedholodeck , 1)
+		targetsource.copy_contents_to(linkedholodeck, TRUE)
 		active = 0
 
 
-/obj/machinery/computer/HolodeckControl/proc/loadProgram(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
 
 	if(world.time < (last_change + 25))
 		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
@@ -291,7 +291,7 @@
 	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
 		qdel(C)
 
-	holographic_items = A.copy_contents_to(linkedholodeck , 1)
+	holographic_items = A.copy_contents_to(linkedholodeck, TRUE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)
@@ -320,7 +320,7 @@
 		loadProgram(target)
 
 	var/area/targetsource = locate(/area/holodeck/source_plating)
-	targetsource.copy_contents_to(linkedholodeck , 1)
+	targetsource.copy_contents_to(linkedholodeck, TRUE)
 	active = 0
 
 // Holographic Items!

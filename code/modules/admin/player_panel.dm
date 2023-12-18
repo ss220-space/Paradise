@@ -538,6 +538,9 @@
 		if(SSticker.mode.vampire_enthralled.len)
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
 
+		if(length(SSticker.mode.demons))
+			dat += check_role_table("Demons", SSticker.mode.demons)
+
 		if(SSticker.mode.devils.len)
 			dat += check_role_table("Devils", SSticker.mode.devils)
 

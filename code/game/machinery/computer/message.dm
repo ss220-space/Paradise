@@ -41,7 +41,7 @@
 		return
 	return ..()
 
-/obj/machinery/computer/message_monitor/emag_act(user as mob)
+/obj/machinery/computer/message_monitor/emag_act(mob/user)
 	// Will create sparks and print out the console's password. You will then have to wait a while for the console to be back online.
 	// It'll take more time if there's more characters in the password..
 	if(!emag)
@@ -60,7 +60,7 @@
 				UnmagConsole()
 				update_icon()
 			message = rebootmsg
-		else
+		else if(user)
 			to_chat(user, span_notice("A no server error appears on the screen."))
 
 /obj/machinery/computer/message_monitor/update_icon()

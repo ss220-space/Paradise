@@ -7,8 +7,8 @@
 	var/warned = 0
 	unremovable = TRUE
 
-/obj/item/organ/internal/high_rp_tumor/insert(mob/living/target, special = 0)
-	..(target, special = special)
+/obj/item/organ/internal/high_rp_tumor/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
+	..(target, special)
 	if(target)
 		to_chat(target, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
 
@@ -29,7 +29,7 @@
 	if(world.time > (last_pump + pump_delay))
 		var/mob/living/carbon/human/H = owner
 		H.setOxyLoss(H.oxyloss + oxy_loss)
-		H.custom_emote(1, "задыхается!")
+		H.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
 		to_chat(H, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
 		last_pump = world.time
 		warned = 0
@@ -41,7 +41,7 @@
 	button_icon_state = "lungs"
 	check_flags = null
 
-/datum/action/item_action/organ_action/manual_breath/Trigger()
+/datum/action/item_action/organ_action/manual_breath/Trigger(left_click = TRUE)
 	. = ..()
 	if(. && istype(target, /obj/item/organ/internal/high_rp_tumor))
 		var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target
@@ -53,4 +53,4 @@
 
 		hrp_tumor.last_pump = world.time
 		to_chat(owner, "<span class = 'notice'>Вы дышите.</span>")
-		owner.custom_emote(1, "дышит")
+		owner.custom_emote(EMOTE_VISIBLE, "дыш%(ит,ат)%.")

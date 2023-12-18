@@ -4,6 +4,8 @@
 	icon_state = "critter"
 	icon_opened = "critteropen"
 	icon_closed = "critter"
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	var/already_opened = 0
 	var/content_mob = null
 	var/amount = 1
@@ -182,3 +184,4 @@
 /obj/structure/closet/critter/snake
 	name = "snake crate"
 	content_mob = /mob/living/simple_animal/hostile/retaliate/poison/snake
+

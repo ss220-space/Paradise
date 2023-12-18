@@ -769,7 +769,7 @@ About the new airlock wires panel:
 			playsound(loc, 'sound/effects/bang.ogg', 25, 1)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				visible_message(span_warning("[user] headbutts the airlock."))
-				var/obj/item/organ/external/affecting = H.get_organ("head")
+				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 				H.Weaken(10 SECONDS)
 				if(affecting.receive_damage(10, 0))
 					H.UpdateDamageIcon()
@@ -796,6 +796,8 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/ai_control_check(mob/user)
 	if(!issilicon(user))
 		return TRUE
+	if(ispulsedemon(user))
+		return TRUE
 	if(emagged || HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, span_warning("Unable to interface: Internal error."))
 		return FALSE
@@ -813,7 +815,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/ui_act(action, params)
 	if(..())
 		return
-	if(!issilicon(usr) && !usr.can_admin_interact())
+	if(!issilicon(usr) && !usr.can_admin_interact() && !usr.has_unlimited_silicon_privilege)
 		to_chat(usr, span_warning("Access denied. Only silicons may use this interface."))
 		return
 	if(!ai_control_check(usr))
@@ -1306,7 +1308,8 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/emag_act(mob/user)
 	if(!hackable)
-		to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
+		if(user)
+			to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 		return
 	if(!operating && density && arePowerSystemsOn() && !emagged)
 		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
@@ -1348,24 +1351,36 @@ About the new airlock wires panel:
 	if(isElectrified())
 		shock(user, 100) //Mmm, fried xeno!
 		return
-	if(!density) //Already open
+
+	if(operating)
 		return
-	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
-		to_chat(user, span_warning("[src] refuses to budge!"))
+
+	if(locked || welded)
+		return ..()
+
+	var/is_opening = density
+	if(allowed(user))
+		if(is_opening)
+			open(TRUE)
+		else
+			close(TRUE)
 		return
-	user.visible_message(span_warning("[user] begins prying open [src]."),\
-						span_noticealien("You begin digging your claws into [src] with all your might!"),\
-						span_warning("You hear groaning metal..."))
-	var/time_to_open = 0.2 SECONDS
+
+	var/time_to_action = 0.2 SECONDS
 	if(arePowerSystemsOn())
-		time_to_open = user.time_to_open_doors
-		if(time_to_open > 3 SECONDS)
+		time_to_action = user.time_to_open_doors
+		if(time_to_action > 3 SECONDS)
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 
+	user.visible_message(span_warning("[user] begins prying [is_opening ? "open":"close"] [src]."),\
+						span_noticealien("You begin digging your claws into [src] with all your might!"),\
+						span_warning("You hear groaning metal..."))
 
-	if(do_after(user, time_to_open, TRUE, src))
-		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
-			to_chat(user, span_warning("Despite your efforts, [src] managed to resist your attempts to open it!"))
+	if(do_after(user, time_to_action, TRUE, src))
+		var/returns = is_opening ? open(TRUE) : close(TRUE)
+		if(!returns) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
+			to_chat(user, span_warning("Despite your efforts, [src] managed to resist your attempts!"))
+
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
 	..()

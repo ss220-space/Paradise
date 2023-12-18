@@ -19,14 +19,14 @@
 	*/
 
 	var/exposedwires = FALSE
-	var/wireless = FALSE
-	anchored = 1.0
+	var/ai_control = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
 /obj/machinery/door_control/attack_ai(mob/user)
-	if(!wireless)
+	if(ai_control)
 		return attack_hand(user)
 	else
 		to_chat(user, "Error, no route to host.")
@@ -36,7 +36,7 @@
 		return
 	return ..()
 
-/obj/machinery/door_control/emag_act(user as mob)
+/obj/machinery/door_control/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		req_access = list()
@@ -107,10 +107,13 @@
 		return
 
 	use_power(5)
-	icon_state = "[initial(icon_state)]-inuse"
+
+	animate_activation()
 
 	do_main_action(user)
 
+/obj/machinery/door_control/proc/animate_activation()
+	icon_state = "[initial(icon_state)]-inuse"
 	addtimer(CALLBACK(src, PROC_REF(update_icon)), 15)
 
 /obj/machinery/door_control/power_change()
@@ -125,8 +128,20 @@
 
 /obj/machinery/door_control/secure //Use icon_state = "altdoorctrl" if you just want cool icon for your button on map. This button is created for Admin-zones.
 	icon_state = "altdoorctrl"
-	wireless = TRUE
+	ai_control = FALSE
 
 /obj/machinery/door_control/secure/emag_act(user)
-	to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
+	if(user)
+		to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
+
+// hidden mimic button
+
+/obj/machinery/door_control/mimic
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "lantern"
+
+/obj/machinery/door_control/mimic/animate_activation()
+	audible_message("Something clicked.", ,1)
+
+/obj/machinery/door_control/mimic/update_icon()
 	return

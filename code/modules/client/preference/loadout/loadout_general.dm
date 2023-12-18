@@ -85,10 +85,68 @@
 	display_name = "Grey Plushie"
 	path = /obj/item/toy/plushie/greyplushie
 
+/datum/gear/plasmamanplushie
+	display_name = "Plasmaman Plushie"
+	path = /obj/item/toy/plushie/plasmamanplushie
+
+/datum/gear/shardplushie
+	display_name = "Shard Plushie"
+	path = /obj/item/toy/plushie/shardplushie
+
 /datum/gear/akulaplushie
 	display_name = "Akula Plushie"
 	path = /obj/item/toy/plushie/blahaj/twohanded
 	cost = 2
+
+/datum/gear/hampter
+	display_name = "Hampter"
+	path = /obj/item/toy/plushie/hampter
+	cost = 1
+
+/datum/gear/hampter_assistant
+	display_name = "Hampter, Assitant"
+	path = /obj/item/toy/plushie/hampter/asisstant
+	cost = 1
+
+/datum/gear/hampter_security
+	display_name = "Hampter, Security"
+	path = /obj/item/toy/plushie/hampter/security
+	cost = 1
+
+/datum/gear/hampter_medic
+	display_name = "Hampter, Doctor"
+	path = /obj/item/toy/plushie/hampter/medic
+	cost = 1
+
+/datum/gear/hampter_janitor
+	display_name = "Hampter, Janitor"
+	path = /obj/item/toy/plushie/hampter/janitor
+	cost = 1
+
+/datum/gear/hampter_captain
+	display_name = "Hampter, Captain"
+	path = /obj/item/toy/plushie/hampter/captain
+	cost = 1
+
+/datum/gear/hampter_old_captain
+	display_name = "Hampter, Old Captain"
+	path = /obj/item/toy/plushie/hampter/captain/old
+	cost = 1
+
+/datum/gear/hampter_syndi
+	display_name = "Hampter, Syndi"
+	path = /obj/item/toy/plushie/hampter/syndi
+	cost = 1
+
+/datum/gear/hampter_death_squad
+	display_name = "Hampter, Grandpa"
+	path = /obj/item/toy/plushie/hampter/death_squad
+	cost = 1
+
+/datum/gear/hampter_ert_squad
+	display_name = "Hampter, ERT"
+	path = /obj/item/toy/plushie/hampter/ert_squad
+	cost = 1
 
 /datum/gear/sechud
 	display_name = "a classic security HUD"

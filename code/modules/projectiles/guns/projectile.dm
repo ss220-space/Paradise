@@ -166,7 +166,7 @@
 		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
-			process_fire(user, user, 0, zone_override = "head")
+			process_fire(user, user, 0, zone_override = BODY_ZONE_HEAD)
 			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with the [name]!</span>")
 			return BRUTELOSS
 		else

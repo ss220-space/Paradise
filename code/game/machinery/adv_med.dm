@@ -271,7 +271,7 @@
 		occupantData["implant_len"] = implantData.len
 
 		var/extOrganData[0]
-		for(var/obj/item/organ/external/E in occupant.bodyparts)
+		for(var/obj/item/organ/external/E as anything in occupant.bodyparts)
 			var/organData[0]
 			organData["name"] = E.name
 			organData["open"] = E.open
@@ -284,7 +284,7 @@
 			organData["broken"] = E.min_broken_damage
 
 			var/shrapnelData[0]
-			for(var/obj/I in E.embedded_objects)
+			for(var/obj/item/I in E.embedded_objects)
 				var/shrapnelSubData[0]
 				shrapnelSubData["name"] = I.name
 
@@ -294,13 +294,13 @@
 			organData["shrapnel_len"] = shrapnelData.len
 
 			var/organStatus[0]
-			if(E.status & ORGAN_BROKEN)
+			if(E.has_fracture())
 				organStatus["broken"] = E.broken_description
 			if(E.is_robotic())
 				organStatus["robotic"] = TRUE
-			if(E.status & ORGAN_SPLINTED)
+			if(E.is_splinted())
 				organStatus["splinted"] = TRUE
-			if(E.status & ORGAN_DEAD)
+			if(E.is_dead())
 				organStatus["dead"] = TRUE
 
 			organData["status"] = organStatus
@@ -308,7 +308,7 @@
 			if(istype(E, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
-			if(E.internal_bleeding)
+			if(E.has_internal_bleeding())
 				organData["internalBleeding"] = TRUE
 
 			extOrganData.Add(list(organData))
@@ -316,17 +316,17 @@
 		occupantData["extOrgan"] = extOrganData
 
 		var/intOrganData[0]
-		for(var/obj/item/organ/internal/I in occupant.internal_organs)
+		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
 			var/organData[0]
-			organData["name"] = I.name
-			organData["desc"] = I.desc
-			organData["germ_level"] = I.germ_level
-			organData["damage"] = I.damage
-			organData["maxHealth"] = I.max_damage
-			organData["bruised"] = I.min_bruised_damage
-			organData["broken"] = I.min_broken_damage
-			organData["robotic"] = I.is_robotic()
-			organData["dead"] = (I.status & ORGAN_DEAD)
+			organData["name"] = organ.name
+			organData["desc"] = organ.desc
+			organData["germ_level"] = organ.germ_level
+			organData["damage"] = organ.damage
+			organData["maxHealth"] = organ.max_damage
+			organData["bruised"] = organ.min_bruised_damage
+			organData["broken"] = organ.min_broken_damage
+			organData["robotic"] = organ.is_robotic()
+			organData["dead"] = (organ.is_dead())
 
 			intOrganData.Add(list(organData))
 
@@ -457,7 +457,7 @@
 		dat += "<th>Other Wounds</th>"
 		dat += "</tr>"
 
-		for(var/obj/item/organ/external/e in occupant.bodyparts)
+		for(var/obj/item/organ/external/e as anything in occupant.bodyparts)
 			dat += "<tr>"
 			var/AN = ""
 			var/open = ""
@@ -469,15 +469,15 @@
 			var/splint = ""
 			var/internal_bleeding = ""
 			var/lung_ruptured = ""
-			if(e.internal_bleeding)
+			if(e.has_internal_bleeding())
 				internal_bleeding = "<br>Internal bleeding"
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				lung_ruptured = "Lung ruptured:"
-			if(e.status & ORGAN_SPLINTED)
+			if(e.is_splinted())
 				splint = "Splinted:"
-			if(e.status & ORGAN_BROKEN)
+			if(e.has_fracture())
 				AN = "[e.broken_description]:"
-			if(e.status & ORGAN_DEAD)
+			if(e.is_dead())
 				dead = "DEAD:"
 			if(e.is_robotic())
 				robot = "Robotic:"
@@ -499,23 +499,19 @@
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
 					infected = "Septic:"
 
-			var/unknown_body = 0
-			for(var/I in e.embedded_objects)
-				unknown_body++
-
-			if(unknown_body || e.hidden)
+			if(LAZYLEN(e.embedded_objects) || e.hidden)
 				imp += "Unknown body present:"
 			if(!AN && !open && !infected && !imp)
 				AN = "None:"
 			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
-		for(var/obj/item/organ/internal/i in occupant.internal_organs)
-			var/mech = i.desc
+		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
+			var/mech = organ.desc
 			var/infection = "None"
 			var/dead = ""
-			if(i.status & ORGAN_DEAD)
+			if(organ.is_dead())
 				dead = "DEAD:"
-			switch(i.germ_level)
+			switch(organ.germ_level)
 				if(1 to INFECTION_LEVEL_ONE + 200)
 					infection = "Mild Infection:"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
@@ -532,7 +528,7 @@
 					infection = "Septic:"
 
 			dat += "<tr>"
-			dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
+			dat += "<td>[organ.name]</td><td>N/A</td><td>[organ.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
 			dat += "</tr>"
 		dat += "</table>"
 		if(BLINDNESS in occupant.mutations)

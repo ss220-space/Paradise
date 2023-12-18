@@ -1,5 +1,6 @@
 /datum/martial_art/krav_maga
 	name = "Krav Maga"
+	has_dirslash = FALSE
 	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
@@ -9,7 +10,7 @@
 	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."
 	button_icon_state = "neutralstance"
 
-/datum/action/neutral_stance/Trigger()
+/datum/action/neutral_stance/Trigger(left_click = TRUE)
 	var/mob/living/carbon/human/H = owner
 	if(!H.mind.martial_art.in_stance)
 		to_chat(owner, "<b><i>You cannot cancel an attack you haven't prepared!</i></b>")
@@ -23,7 +24,7 @@
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
 	button_icon_state = "neckchop"
 
-/datum/action/neck_chop/Trigger()
+/datum/action/neck_chop/Trigger(left_click = TRUE)
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
@@ -39,7 +40,7 @@
 	name = "Leg Sweep - Trips the victim, rendering them prone and unable to move for a short time."
 	button_icon_state = "legsweep"
 
-/datum/action/leg_sweep/Trigger()
+/datum/action/leg_sweep/Trigger(left_click = TRUE)
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
@@ -55,7 +56,7 @@
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
 	button_icon_state = "lungpunch"
 
-/datum/action/lung_punch/Trigger()
+/datum/action/lung_punch/Trigger(left_click = TRUE)
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return

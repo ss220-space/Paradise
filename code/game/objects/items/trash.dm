@@ -119,13 +119,17 @@
 	icon = 'icons/obj/weapons/ammo.dmi'
 	name = "bullet casing"
 	desc = "A spent bullet casing. Smells like cordite."
-	icon_state = "gshell"
+	icon_state = "buckshotshell"
 
 /obj/item/trash/tapetrash
 	name = "old duct tape"
 	icon_state = "tape"
 	desc = "Not sticky anymore."
 	throw_range = 1
+
+/obj/item/trash/tapetrash/thick
+	icon_state = "thicktape"
+	desc = "Still sticky a bit."
 
 /obj/item/trash/doshik
 	name = "packaging from doshik"
@@ -146,7 +150,7 @@
 
 /obj/item/spentcasing
 	icon = 'icons/obj/weapons/ammo.dmi'
-	icon_state = "gshell"
+	icon_state = "buckshotshell"
 	name = "Old bullet casing"
 	desc = "A spent bullet casing. Smells like rusty metal."
 

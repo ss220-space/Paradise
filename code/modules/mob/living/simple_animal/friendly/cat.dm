@@ -27,7 +27,7 @@
 	collar_type = "cat"
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
-	var/eats_mice = 1
+	var/eats_mice = TRUE
 	footstep_type = FOOTSTEP_MOB_CLAW
 	tts_seed = "Valerian"
 	holder_type = /obj/item/holder/cat2
@@ -113,38 +113,51 @@
 	..()
 	make_babies()
 
+
+/mob/living/simple_animal/pet/cat/verb/sit()
+	set name = "Sit Down"
+	set category = "IC"
+
+	if(resting)
+		StopResting()
+		return
+
+	resting = TRUE
+	custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
+	icon_state = "[icon_living]_[icon_sit]"
+	collar_type = "[initial(collar_type)]_[icon_sit]"
+	update_canmove()
+
+
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+			custom_emote(EMOTE_VISIBLE, pick("вытягива%(ет,ют)%ся, чтобы почистить желудок.", "виля%(ет,ют)% хвостом.", "лож%(ит,ат)%ся."))
 			StartResting()
 		else if(prob(1))
-			custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
-			icon_state = "[icon_living]_[icon_sit]"
-			collar_type = "[initial(collar_type)]_[icon_sit]"
-			resting = TRUE
-			update_canmove()
+			sit()
 		else if(prob(1))
 			if(resting)
-				custom_emote(1, pick("gets up and meows.", "walks around.", "stops resting."))
+				custom_emote(EMOTE_VISIBLE, pick("поднима%(ет,ют)%ся и мяука%(ет,ют)%.", "подскакива%(ет,ют)%.", "переста%(ёт,ют)% валяться."))
 				StopResting()
 			else
-				custom_emote(1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+				custom_emote(EMOTE_VISIBLE, pick("вылизыва%(ет,ют)% шерсть.", "подёргива%(ет,ют)% усами.", "отряхива%(ет,ют)% шерсть."))
 
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
-		for(var/mob/living/simple_animal/mouse/M in view(1, src))
-			if(!M.stat && Adjacent(M))
-				custom_emote(1, "splats \the [M]!")
-				M.death()
-				M.splat(user = src)
+		for(var/mob/living/simple_animal/mouse/mouse in view(1, src))
+			if(!mouse.stat && Adjacent(mouse))
+				custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)%ся на мышь!")
+				mouse.death()
+				mouse.splat(user = src)
 				movement_target = null
-				stop_automated_movement = 0
+				stop_automated_movement = FALSE
 				break
-		for(var/obj/item/toy/cattoy/T in view(1, src))
-			if(T.cooldown < (world.time - 400))
-				custom_emote(1, "bats \the [T] around with its paw!")
-				T.cooldown = world.time
+		for(var/obj/item/toy/cattoy/toy in view(1, src))
+			if(toy.cooldown < world.time)
+				custom_emote(EMOTE_VISIBLE, "подбрасыва%(ет,ют)% игрушечную мышь своей лапой!")
+				toy.cooldown = world.time + 40 SECONDS
+
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	. = ..()
@@ -165,52 +178,9 @@
 						break
 			if(movement_target)
 				stop_automated_movement = 1
+				glide_for(3)
 				walk_to(src,movement_target,0,3)
 
-/mob/living/simple_animal/pet/cat/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("meow")
-			on_CD = handle_emote_CD()
-		if("hiss")
-			on_CD = handle_emote_CD()
-		if("purr")
-			on_CD = handle_emote_CD()
-		if("sit")
-			icon_state = "[icon_living]_[icon_sit]"
-			collar_type = "[initial(collar_type)]_[icon_sit]"
-			resting = TRUE
-			update_canmove()
-			on_CD = handle_emote_CD()
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("meow")
-			message = "[pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, meow_sound, 50, 0.75)
-		if("hiss")
-			message = "hisses!"
-			m_type = 2
-		if("purr")
-			message = "purrs."
-			m_type = 2
-		if("sit")
-			message = "sits down."
-			m_type = 1 //visible
-			icon_state = "[icon_living]_sit"
-			collar_type = "[initial(collar_type)]_sit"
-			resting = TRUE
-			update_canmove()
-		if("help")
-			to_chat(src, "scream, meow, hiss, purr, sit")
-
-	..()
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"

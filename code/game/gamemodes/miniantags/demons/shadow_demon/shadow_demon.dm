@@ -13,11 +13,6 @@
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
 	var/list/wrapped_victims
-	playstyle_string = "<B>You are the Shadow Demon, a terrible creature from another existence. You have only two desires to survive and to lurk and ambush careless preys.  \
-						You may use the Shadow Crawl ability when near the dark spots, appearing and dissapearing from the station at will. \
-						Your Shadow Grapple ability allows you to pull living preys or to push yourself to the other objects. Also extinguishes all light sources at the area of impact.  \
-						You can wrap dead humanoid bodies by attacking them, use Alt+Click on the shadow cocoon afterwards to lure more victims. \
-						You move quickly and regenerate fast in the shadows, but any light source will hurt you to the death. STAY AWAY FROM THE LIGHT! </B>"
 
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
@@ -238,36 +233,41 @@
 	insert(user)
 
 
-/obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(M.mind)
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	M?.mind?.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
 
 
-/obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = 0)
-	..()
-	if(M.mind)
-		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)
+/obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	M?.mind?.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	. = ..()
 
 
 /mob/living/simple_animal/demon/shadow/attempt_objectives()
 	if(!..())
 		return
 
-	to_chat(src, playstyle_string)
-	to_chat(src, span_notice("<B>You are not currently in the same plane of existence as the station. Use the shadow crawl action near any dark spot.</B>"))
+	var/list/messages = list()
+	messages.Add("<b><font size=3 color='red'>You are a Shadow Demon.</font><br></b>")
+	messages.Add("<B>You are a terrible creature from another existence. You have only two desires to survive and to lurk and ambush careless preys.</B>")
+	messages.Add("<B>You may use the Shadow Crawl ability when near the dark spots, appearing and dissapearing from the station at will.</B>")
+	messages.Add("<B>Your Shadow Grapple ability allows you to pull living preys or to push yourself to the other objects. Also extinguishes all light sources at the area of impact.</B>")
+	messages.Add("<B>You can wrap dead humanoid bodies by attacking them, use Alt+Click on the shadow cocoon afterwards to lure more victims.</B>")
+	messages.Add("<B>You move quickly and regenerate fast in the shadows, but any light source will hurt you to the death. STAY AWAY FROM THE LIGHT! </B>")
+	messages.Add(span_notice("<B>You are not currently in the same plane of existence as the station. Use the shadow crawl action near any dark spot.</B>"))
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Shadow_Demon\">Теневой демон</a></span>")
 	src << 'sound/misc/demon_dies.ogg'
 	if(vialspawned)
 		return
 
 	var/datum/objective/wrap/wrap_objective = new
 	var/datum/objective/survive/survive_objective = new
-	SSticker.mode.traitors |= mind
 	wrap_objective.owner = mind
 	survive_objective.owner = mind
 	mind.objectives += wrap_objective
 	mind.objectives += survive_objective
-	mind.announce_objectives()
+	messages.Add(mind.prepare_announce_objectives())
+	to_chat(src, chat_box_red(messages.Join("<br>")))
 
 
 /datum/objective/wrap

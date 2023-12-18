@@ -28,15 +28,15 @@
 
 	var/mob/living/carbon/human/H = usr
 	var/mob/living/carbon/human/P = H.partner
-	var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
+	var/obj/item/organ/external/temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 	var/hashands = (temp?.is_usable())
 	if (!hashands)
-		temp = H.bodyparts_by_name["l_hand"]
+		temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		hashands = (temp?.is_usable())
-	temp = P.bodyparts_by_name["r_hand"]
+	temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 	var/hashands_p = (temp?.is_usable())
 	if (!hashands_p)
-		temp = P.bodyparts_by_name["l_hand"]
+		temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		hashands = (temp?.is_usable())
 	var/mouthfree = !((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH)))
 	var/mouthfree_p = !((P.head && (P.head.flags_cover & HEADCOVERSMOUTH)) || (P.wear_mask && (P.wear_mask.flags_cover & MASKCOVERSMOUTH)))

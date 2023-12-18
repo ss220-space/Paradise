@@ -19,11 +19,12 @@
 	GLOB.beacons -= src
 	return ..()
 
-/obj/item/radio/beacon/emag_act(user as mob)
+/obj/item/radio/beacon/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
 		syndicate = 1
-		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
 
 /obj/item/radio/beacon/hear_talk()
 	return

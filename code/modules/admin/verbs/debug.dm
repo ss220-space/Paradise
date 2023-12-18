@@ -591,8 +591,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		qdel(I)
 	if(dresscode != "Naked")
 		H.equipOutfit(dresscode)
-
-	H.regenerate_icons()
+	else	// We have regenerate_icons() proc in the end of equipOutfit(), so don't need to call it two times.
+		H.regenerate_icons()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_and_message_admins("<span class='notice'>changed the equipment of [key_name_admin(M)] to [dresscode].</span>")

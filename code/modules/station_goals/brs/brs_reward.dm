@@ -61,7 +61,7 @@
 		/obj/item/stack/sheet/mineral/bananium/fifty = 100,
 		/obj/item/stack/sheet/mineral/tranquillite/fifty = 100,
 		/obj/item/stack/sheet/mineral/abductor/fifty = 60,
-		/obj/item/stack/telecrystal = 30,
+		/obj/item/stack/telecrystal/five = 30,
 
 		// Items
 		/obj/item/storage/box/beakers/bluespace = 40,
@@ -105,7 +105,7 @@
 		/obj/vehicle/space/speedbike/red = 10,
 		/obj/vehicle/space/speedbike = 10,
 		/obj/vehicle/car,
-	
+
 		//Toys
 		/obj/item/toy/syndicateballoon = 5,
 		/obj/item/gun/projectile/automatic/c20r/toy,

@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(garbage)
 	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
 	offline_implications = "Garbage statistics collection is no longer functional, not a big deal actually. No futher actions required."
 	cpu_display = SS_CPUDISPLAY_HIGH
+	ss_id = "garbage_collector"
 
 	//Stat tracking
 	var/delslasttick = 0			// number of del()'s we've done this tick

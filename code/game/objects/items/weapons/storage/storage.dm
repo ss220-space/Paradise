@@ -12,9 +12,11 @@
 	///No message on putting items in
 	var/silent = FALSE
 	///List of objects which this item can store (if set, it can't store anything else)
-	var/list/can_hold = new/list()
+	var/list/can_hold = list()
+	/// List of objects that can be stored, regardless of w_class
+	var/list/w_class_override = list()
 	///List of objects which this item can't store (in effect only if can_hold isn't set)
-	var/list/cant_hold = new/list()
+	var/list/cant_hold = list()
 	///Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL
 	///Min size of objects that this object can store (in effect only if can_hold isn't set)
@@ -81,10 +83,10 @@
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
 
+	. = ..()
 	QDEL_NULL(boxes)
 	QDEL_NULL(closer)
 	LAZYCLEARLIST(mobs_viewing)
-	return ..()
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
@@ -155,6 +157,8 @@
 
 /obj/item/storage/proc/show_to(mob/user)
 	if(!user.client)
+		return
+	if(QDELETED(src))
 		return
 	if(user.s_active != src && !isobserver(user))
 		for(var/obj/item/I in src) // For bombs with mousetraps, facehuggers etc
@@ -330,11 +334,17 @@
 		return FALSE
 
 	if(W.w_class > max_w_class)
+		if(length(w_class_override) && is_type_in_list(W, w_class_override))
+			return TRUE
+
 		if(!stop_messages)
 			to_chat(usr, "<span class='notice'>[W] is too big for [src].</span>")
 		return FALSE
 
 	if(W.w_class < min_w_class)
+		if(length(w_class_override) && is_type_in_list(W, w_class_override))
+			return TRUE
+
 		if(!stop_messages)
 			to_chat(usr, "<span class='notice'>[W] is too small for [src].</span>")
 		return FALSE
@@ -458,7 +468,7 @@
 
 	if(usr)
 		orient2hud(usr)
-		if(usr.s_active)
+		if(usr.s_active && !QDELETED(src))
 			usr.s_active.show_to(usr)
 	if(W.maptext)
 		W.maptext = ""

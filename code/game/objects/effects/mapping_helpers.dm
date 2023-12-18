@@ -37,6 +37,10 @@
 	name = "asteroid snow baseturf editor"
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 
+/obj/effect/baseturf_helper/asteroid/ancient_sand
+	name = "ancient asteroid sand baseturf editor"
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient
+
 /obj/effect/baseturf_helper/beach/sand
 	name = "beach sand baseturf editor"
 	baseturf = /turf/simulated/floor/beach/sand

@@ -792,13 +792,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
-"bW" = (
-/obj/structure/ore_box,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purplecorner"
-	},
-/area/mine/eva)
 "bX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -1385,16 +1378,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
-"dp" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 6
-	},
-/turf/simulated/floor/plating,
-/area/mine/living_quarters)
 "dq" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
@@ -1515,6 +1498,9 @@
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/structure/closet/fishingrodcabinet{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/living_quarters)
 "dC" = (
@@ -3348,6 +3334,14 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"jB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "jF" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -3770,14 +3764,6 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"lO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 6
-	},
-/obj/machinery/meter,
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "lP" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -4345,6 +4331,14 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"oT" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/eva)
 "oZ" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -5412,6 +5406,17 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Bq" = (
+/obj/structure/ore_box,
+/obj/item/gps/ruin{
+	pixel_y = 32;
+	gpstag = "OUTPOST"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purplecorner"
+	},
+/area/mine/eva)
 "Bt" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -5438,22 +5443,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
-"BD" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/turf/simulated/floor/plasteel,
-/area/mine/eva)
 "BF" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
@@ -6536,6 +6525,16 @@
 	icon_state = "clockwork_floor"
 	},
 /area/lavaland/surface/outdoors/necropolis)
+"OT" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/mine/living_quarters)
 "OW" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -14223,7 +14222,7 @@ an
 an
 an
 qT
-lO
+jB
 HA
 av
 sR
@@ -18099,7 +18098,7 @@ aj
 aj
 cM
 cU
-dp
+OT
 dH
 dS
 eb
@@ -25031,7 +25030,7 @@ aj
 ab
 ab
 bf
-bW
+Bq
 cq
 ew
 bf
@@ -25290,7 +25289,7 @@ ab
 bf
 bV
 bY
-BD
+oT
 bf
 ai
 bq

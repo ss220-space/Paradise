@@ -128,14 +128,6 @@
 	display_name = "poncho, classic"
 	path = /obj/item/clothing/neck/poncho
 
-/datum/gear/neck/poncho/green
-	display_name = "poncho, green"
-	path = /obj/item/clothing/neck/poncho/green
-
-/datum/gear/neck/poncho/red
-	display_name = "poncho, red"
-	path = /obj/item/clothing/neck/poncho/red
-
 /datum/gear/neck/poncho/security
 	display_name = "poncho, corporate"
 	path = /obj/item/clothing/neck/poncho/security

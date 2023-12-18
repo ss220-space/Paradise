@@ -198,6 +198,7 @@
 	item_state = "plasmacutter_mega"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff. This one has been enhanced with plasma magmite."
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv/mega)
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 /obj/item/gun/energy/plasmacutter/shotgun
 	name = "plasma cutter shotgun"
@@ -214,6 +215,7 @@
 	item_state = "miningshotgun_mega"
 	desc = "An industrial-grade, heavy-duty mining shotgun. This one seems upgraded with plasma magmite."
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun/mega)
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 // Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector
@@ -335,7 +337,7 @@
 	item_state = null
 	weapon_weight = WEAPON_HEAVY
 	slot_flags = SLOT_BACK
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_NORMAL
 	can_holster = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
@@ -487,7 +489,8 @@
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
-		to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+		if(user)
+			to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/gun/energy/temperature/Topic(href, href_list)

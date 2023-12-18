@@ -60,6 +60,7 @@
 	description_antag = "Шлем хардсьюта-хамелеона, замаскированный изначально под инженерный шлем."
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
+	item_color = "engineering"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/suit/space/hardsuit/contractor/agent

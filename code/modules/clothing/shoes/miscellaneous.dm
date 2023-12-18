@@ -13,6 +13,8 @@
 	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 10, "rad" = 0, "fire" = 70, "acid" = 50)
 	strip_delay = 70
 	resistance_flags = NONE
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT shoes"
@@ -120,6 +122,8 @@
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
 	. = ..()
@@ -143,6 +147,8 @@
 	desc = "Thick-soled boots for industrial work environments."
 	can_cut_open = 1
 	icon_state = "workboots"
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/workboots/mining
 	name = "mining boots"
@@ -317,6 +323,8 @@
 	desc = "A pair a' brown boots."
 	icon_state = "cowboy_brown"
 	item_color = "cowboy_brown"
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
@@ -533,3 +541,10 @@
 	desc = "Made of wood. Used to support world's economics stable."
 	icon_state = "mr_chang_sandals"
 	item_state = "mr_chang_sandals"
+
+/obj/item/clothing/shoes/combat/commando //basic syndicate combat boots for nuke ops and mob corpses
+	name = "Black military boots"
+	desc = "A pair of black military boots. They look really well-made. They have a metal sole, as if specially added to crush bones."
+	can_cut_open = FALSE
+	icon_state = "commandos_boots"
+	item_state = "commandos_boots"

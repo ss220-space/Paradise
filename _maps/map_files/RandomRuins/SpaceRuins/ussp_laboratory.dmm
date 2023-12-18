@@ -2086,7 +2086,7 @@
 "CX" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /obj/machinery/vending/wallmed{

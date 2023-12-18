@@ -110,10 +110,10 @@
 /obj/item/razor/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/C = H.get_organ("head")
+		var/obj/item/organ/external/head/C = H.get_organ(BODY_ZONE_HEAD)
 		var/datum/robolimb/robohead = GLOB.all_robolimbs[C.model]
 		if(user.zone_selected == "mouth")
-			if(!get_location_accessible(H, "mouth"))
+			if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
 				to_chat(user, "<span class='warning'>The mask is in the way.</span>")
 				return
 			if((C.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
@@ -143,8 +143,8 @@
 						C.f_style = "Shaved"
 						H.update_fhair()
 						playsound(src.loc, usesound, 20, 1)
-		if(user.zone_selected == "head")
-			if(!get_location_accessible(H, "head"))
+		if(user.zone_selected == BODY_ZONE_HEAD)
+			if(!get_location_accessible(H, BODY_ZONE_HEAD))
 				to_chat(user, "<span class='warning'>The headgear is in the way.</span>")
 				return
 			if((C.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...

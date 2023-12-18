@@ -1,7 +1,7 @@
 /datum/surgery/organ_extraction
 	name = "Experimental Dissection"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest")
+	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!ishuman(user))
@@ -26,10 +26,10 @@
 	var/obj/item/organ/internal/IC = null
 
 /datum/surgery_step/internal/extract_organ/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	for(var/obj/item/I in target.internal_organs)
+	for(var/obj/item/organ/internal/organ as anything in target.internal_organs)
 		// Allows for multiple subtypes of heart.
-		if(istype(I, /obj/item/organ/internal/heart))
-			IC = I
+		if(istype(organ, /obj/item/organ/internal/heart))
+			IC = organ
 			break
 	user.visible_message("[user] starts to remove [target]'s organs.", "<span class='notice'>You start to remove [target]'s organs...</span>")
 	..()
@@ -40,7 +40,7 @@
 		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
 		IC.forceMove_turf()
 		user.put_in_hands(IC, ignore_anim = FALSE)
-		IC.remove(target, special = 1)
+		IC.remove(target, ORGAN_MANIPULATION_NOEFFECT)
 		return TRUE
 	if(NO_INTORGANS in AB.dna.species.species_traits)
 		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
@@ -66,7 +66,7 @@
 	user.visible_message("[user] inserts [tool] into [target].", "<span class ='notice'>You insert [tool] into [target].</span>")
 	user.drop_from_active_hand()
 	var/obj/item/organ/internal/heart/gland/gland = tool
-	gland.insert(target, 2)
+	gland.insert(target, ORGAN_MANIPULATION_ABDUCTOR)
 	return TRUE
 
 /datum/surgery_step/internal/gland_insert/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -78,7 +78,7 @@
 /datum/surgery/organ_extraction/synth
 	name = "Experimental Robotic Dissection"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/extract_organ/synth,/datum/surgery_step/internal/gland_insert,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("chest")
+	possible_locs = list(BODY_ZONE_CHEST)
 	requires_organic_bodypart = 0
 
 /datum/surgery/organ_extraction/synth/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)

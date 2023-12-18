@@ -477,21 +477,19 @@
 	TELEPATHY HUD
 ~~~~~~~~~~~~~~~~~~*/
 
-/mob/living/proc/thoughts_hud_set(thoughts, say_test = -1)
+/mob/living/proc/thoughts_hud_set(thoughts, say_test)
 	if(!src)
 		return
-	if(!(client?.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
-		var/image/holder = hud_list[THOUGHT_HUD]
-		if(thoughts)
-			if(!typing)
-				holder.icon_state = "hudthoughtstyping"
-				typing = TRUE
-			else if(say_test > -1)
-				holder.icon_state = "hudthoughts-[say_test]"
-				addtimer(CALLBACK(src, PROC_REF(thoughts_hud_set), FALSE), 3 SECONDS)
-		if(!thoughts && typing)
-			holder.icon_state = ""
-			typing = FALSE
+	var/image/holder = hud_list[THOUGHT_HUD]
+	if(!thoughts || (client?.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
+		holder.icon_state = ""
+	else
+		if(istext(say_test))
+			holder.icon_state = "hudthoughts-[say_test]"
+			addtimer(CALLBACK(src, PROC_REF(thoughts_hud_set), FALSE), 3 SECONDS)
+		else if(!typing)
+			holder.icon_state = "hudthoughtstyping"
+			typing = TRUE
 
 /datum/atom_hud/thoughts/proc/manage_hud(mob/user, perception)
 	if(!user)

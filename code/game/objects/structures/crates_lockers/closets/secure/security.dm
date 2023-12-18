@@ -116,7 +116,6 @@
 	new /obj/item/storage/box/zipties(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/gun/energy/gun/advtaser(src)
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
@@ -126,6 +125,9 @@
 	new /obj/item/gun/projectile/automatic/pistol/sp8(src)
 	new /obj/item/ammo_box/magazine/sp8(src)
 	new /obj/item/ammo_box/magazine/sp8(src)
+	new /obj/item/security_voucher(src)
+	new /obj/item/security_voucher(src)
+	new /obj/item/security_voucher(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -243,9 +245,10 @@
 	overlay_unlocked = "c_unlocked"
 	overlay_locked = "c_locked"
 	overlay_locker = "c_locker"
-
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/storage/backpack/satchel_detective(src)

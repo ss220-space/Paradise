@@ -254,8 +254,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
-/obj/item/twohanded/required/gibtonite/can_be_pulled(user)
-	to_chat(user, "<span class='warning'>It's too heavy to be pulled!</span>")
+/obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/user, force, show_message = FALSE)
+	if(show_message)
+		to_chat(user, span_warning("It's too heavy to be pulled!"))
 	return FALSE // must be carried in two hands or be picked up with ripley
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
@@ -352,6 +353,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	force = 1
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
+	pickup_sound = 'sound/items/handling/ring_pickup.ogg'
+	drop_sound = 'sound/items/handling/ring_drop.ogg'
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
@@ -518,7 +521,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		sharp = TRUE
 	. = ..()
 
-/obj/item/stack/spacecash/after_throw(datum/callback/callback)
+/obj/item/coin/after_throw(datum/callback/callback)
 	embed_chance = initial(embed_chance)
 	embedded_impact_pain_multiplier = initial(embedded_impact_pain_multiplier)
 	embedded_ignore_throwspeed_threshold = initial(embedded_ignore_throwspeed_threshold)

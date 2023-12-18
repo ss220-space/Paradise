@@ -145,6 +145,9 @@
 	if(!on)
 		return
 
+	if(hijacked)
+		return // is there a good reason this override doesn't call its parent?
+
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			icon_state = "[base_icon][on]"
@@ -207,7 +210,7 @@
 				threatlevel = 0
 			else if(!("syndicate" in C.faction))
 				threatlevel = 20
-			if(is_taipan(z) && C.mind.assigned_role != "Space Base Syndicate Comms Officer" && (check_for_mug(C.get_active_hand()) || check_for_mug(C.get_inactive_hand())))
+			if(is_taipan(z) && C.mind?.assigned_role != "Space Base Syndicate Comms Officer" && (check_for_mug(C.get_active_hand()) || check_for_mug(C.get_inactive_hand())))
 				speak("[C.name] наглый вор! Положи кружку!", radio_channel)
 				threatlevel += 4
 		else

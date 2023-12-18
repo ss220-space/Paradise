@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(dbcore)
 	wait = 1 MINUTES
 	init_order = INIT_ORDER_DBCORE
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "database_core"
 
 	/// Is the DB schema valid
 	var/schema_valid = TRUE

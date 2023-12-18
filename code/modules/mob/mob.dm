@@ -72,24 +72,26 @@
 
 	usr.show_message(t, 1)
 
-/mob/proc/show_message(msg, type, alt, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
-	if(!client)	return
+/mob/proc/show_message(msg, type, alt, alt_type)
+
+	if(!client)
+		return
 
 	if(type)
-		if(type & 1 && !has_vision(information_only=TRUE))//Vision related
-			if(!( alt ))
+		if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))	// Vision related
+			if(!(alt))
 				return
 			else
 				msg = alt
 				type = alt_type
-		if(type & 2 && !can_hear())//Hearing related
-			if(!( alt ))
+		if((type & EMOTE_AUDIBLE) && !can_hear())	// Hearing related
+			if(!(alt))
 				return
 			else
 				msg = alt
 				type = alt_type
-				if(type & 1 && !has_vision(information_only=TRUE))
+				if((type & EMOTE_VISIBLE) && !has_vision(information_only=TRUE))
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
@@ -98,30 +100,46 @@
 		to_chat(src, msg)
 	return
 
+
 // Show a message to all mobs in sight of this one
 // This would be for visible actions by the src mob
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
+/mob/visible_message(message, self_message, blind_message)
+	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
+		for(var/mob/M in get_mobs_in_view(3, src))
+			if(M.see_invisible < invisibility)
+				continue //can't view the invisible
+			var/msg = message
+			if(self_message && M == src)
+				msg = self_message
+			if(M.loc != loc)
+				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
+					continue
+				msg = blind_message
+			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		return
 
-/mob/visible_message(var/message, var/self_message, var/blind_message)
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
 		if(self_message && M == src)
 			msg = self_message
-		M.show_message(msg, 1, blind_message, 2)
+		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+
 
 // Show a message to all mobs in sight of this atom
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(var/message, var/blind_message)
+/atom/proc/visible_message(message, self_message, blind_message)
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(!M.client)
 			continue
-		M.show_message(message, 1, blind_message, 2)
+		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+
 
 // Show a message to all mobs in earshot of this one
 // This would be for audible actions by the src mob
@@ -135,21 +153,22 @@
 		range = hearing_distance
 	var/msg = message
 	for(var/mob/M in get_mobs_in_view(range, src))
-		M.show_message(msg, 2, deaf_message, 1)
+		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
 	var/omsg = replacetext(message, "<B>[src]</B> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
-		if(istype(A, /mob))
+		if(ismob(A))
 			var/mob/M = A
 			for(var/obj/O in M.contents)
 				listening_obj |= O
-		else if(istype(A, /obj))
+		else if(isobj(A))
 			var/obj/O = A
 			listening_obj |= O
 	for(var/obj/O in listening_obj)
 		O.hear_message(src, omsg)
+
 
 // Show a message to all mobs in earshot of this atom
 // Use for objects performing audible actions
@@ -161,7 +180,8 @@
 	if(hearing_distance)
 		range = hearing_distance
 	for(var/mob/M in get_mobs_in_view(range, src))
-		M.show_message(message, 2, deaf_message, 1)
+		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
+
 
 /mob/proc/findname(msg)
 	for(var/mob/M in GLOB.mob_list)
@@ -287,47 +307,13 @@
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
+		to_chat(src, chat_box_regular("Здесь что-то есть, но вы не видите — что именно."))
 		return TRUE
 
 	face_atom(A)
 	var/list/result = A.examine(src)
-	to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
+	to_chat(src, chat_box_examine(result.Join("\n")))
 
-//same as above
-//note: ghosts can point, this is intended
-//visible_message will handle invisibility properly
-//overriden here and in /mob/dead/observer for different point span classes and sanity checks
-/mob/verb/pointed(atom/A as mob|obj|turf in view(client.maxview()))
-	set name = "Point To"
-	set category = "Object"
-
-	if(next_move >= world.time)
-		return
-	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
-		return FALSE
-
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))
-
-/// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
-/// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
-/mob/proc/run_pointed(atom/A)
-	if(client && !(A in view(client.maxview())))
-		return FALSE
-
-	changeNext_move(CLICK_CD_POINT)
-
-	var/tile = get_turf(A)
-	if(!tile)
-		return FALSE
-	var/obj/P = new /obj/effect/temp_visual/point(tile)
-	P.invisibility = invisibility
-	if(get_turf(src) != tile)
-		// Start off from the pointer and make it slide to the pointee
-		P.pixel_x = (x - A.x) * 32
-		P.pixel_y = (y - A.y) * 32
-		animate(P, 0.5 SECONDS, pixel_x = A.pixel_x, pixel_y = A.pixel_y, easing = QUAD_EASING)
-	return TRUE
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
@@ -722,60 +708,67 @@
 			add_spell_to_statpanel(S)
 
 	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
-	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)) && (client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS))
+	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)))
+		// Shows SDQL2 list
+		if(length(GLOB.sdql2_queries))
+			if(statpanel("SDQL2"))
+				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
+				for(var/i in GLOB.sdql2_queries)
+					var/datum/sdql2_query/Q = i
+					Q.generate_stat()
 		// Below are checks to see which MC panel you are looking at
+		if(client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS)
+			// Shows MC Metadata
+			if(statpanel("MC|M"))
+				stat("Info", "Showing MC metadata")
+				var/turf/T = get_turf(client.eye)
+				stat("Location:", COORD(T))
+				stat("CPU:", "[Master.formatcpu(world.cpu)]")
+				stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
+				//stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
+				stat("Instances:", "[num2text(world.contents.len, 10)]")
+				GLOB.stat_entry()
+				stat("Server Time:", time_stamp())
+				if(Master)
+					Master.stat_entry()
+				else
+					stat("Master Controller:", "ERROR")
+				if(Failsafe)
+					Failsafe.stat_entry()
+				else
+					stat("Failsafe Controller:", "ERROR")
 
-		// Shows MC Metadata
-		if(statpanel("MC|M"))
-			stat("Info", "Showing MC metadata")
-			var/turf/T = get_turf(client.eye)
-			stat("Location:", COORD(T))
-			stat("CPU:", "[Master.formatcpu(world.cpu)]")
-			stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
-			//stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
-			stat("Instances:", "[num2text(world.contents.len, 10)]")
-			GLOB.stat_entry()
-			stat("Server Time:", time_stamp())
-			if(Master)
-				Master.stat_entry()
-			else
-				stat("Master Controller:", "ERROR")
-			if(Failsafe)
-				Failsafe.stat_entry()
-			else
-				stat("Failsafe Controller:", "ERROR")
+			// Shows subsystems with SS_NO_FIRE
+			if(statpanel("MC|N"))
+				stat("Info", "Showing subsystems that do not fire")
+				if(Master)
+					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+						if(SS.flags & SS_NO_FIRE)
+							SS.stat_entry()
 
-		// Shows subsystems with SS_NO_FIRE
-		if(statpanel("MC|N"))
-			stat("Info", "Showing subsystems that do not fire")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if(SS.flags & SS_NO_FIRE)
-						SS.stat_entry()
+			// Shows subsystems with the SS_CPUDISPLAY_LOW flag
+			if(statpanel("MC|L"))
+				stat("Info", "Showing subsystems marked as low intensity")
+				if(Master)
+					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+						if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
+							SS.stat_entry()
 
-		// Shows subsystems with the SS_CPUDISPLAY_LOW flag
-		if(statpanel("MC|L"))
-			stat("Info", "Showing subsystems marked as low intensity")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
-						SS.stat_entry()
+			// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
+			if(statpanel("MC|D"))
+				stat("Info", "Showing subsystems marked as default intensity")
+				if(Master)
+					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+						if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
+							SS.stat_entry()
 
-		// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
-		if(statpanel("MC|D"))
-			stat("Info", "Showing subsystems marked as default intensity")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
-						SS.stat_entry()
-
-		// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
-		if(statpanel("MC|H"))
-			stat("Info", "Showing subsystems marked as high intensity")
-			if(Master)
-				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-					if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
-						SS.stat_entry()
+			// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
+			if(statpanel("MC|H"))
+				stat("Info", "Showing subsystems marked as high intensity")
+				if(Master)
+					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+						if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
+							SS.stat_entry()
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
@@ -1169,21 +1162,19 @@
 
 /mob/proc/spin(spintime, speed)
 	set waitfor = FALSE
-	var/D = dir
-	if(spintime < world.tick_lag || speed < world.tick_lag || !spintime || !speed)
-		return
+	if(!spintime || !speed || spintime > 100)
+		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
 	while(spintime >= speed)
 		sleep(speed)
-		switch(D)
+		switch(dir)
 			if(NORTH)
-				D = EAST
+				setDir(EAST)
 			if(SOUTH)
-				D = WEST
+				setDir(WEST)
 			if(EAST)
-				D = SOUTH
+				setDir(SOUTH)
 			if(WEST)
-				D = NORTH
-		setDir(D)
+				setDir(NORTH)
 		spintime -= speed
 
 /mob/proc/is_literate()

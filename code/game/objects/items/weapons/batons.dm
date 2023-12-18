@@ -43,7 +43,7 @@
 		user.Weaken(stun_time)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(force * 2, BRUTE, "head")
+			H.apply_damage(force * 2, BRUTE, BODY_ZONE_HEAD)
 		else
 			user.take_organ_damage(force * 2)
 		return

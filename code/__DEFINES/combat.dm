@@ -96,7 +96,7 @@
 #define EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER 8	//Coefficient of multiplication for the damage the item does when removed without a surgery (this*item.w_class)
 #define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//A Time in ticks, total removal time = (this*item.w_class)
 
-// Body Parts
+// Body Part Zones
 #define BODY_ZONE_HEAD		"head"
 #define BODY_ZONE_CHEST		"chest"
 #define BODY_ZONE_L_ARM		"l_arm"
@@ -113,6 +113,7 @@
 #define BODY_ZONE_PRECISE_R_HAND	"r_hand"
 #define BODY_ZONE_PRECISE_L_FOOT	"l_foot"
 #define BODY_ZONE_PRECISE_R_FOOT	"r_foot"
+
 
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
