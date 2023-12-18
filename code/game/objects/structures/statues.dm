@@ -405,7 +405,6 @@
 	layer = EDGED_TURF_LAYER
 
 /obj/structure/statue/unknown/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/structure/statue/unknown/update_icon()
