@@ -2397,6 +2397,26 @@
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
 
+/obj/machinery/vending/nta/ertarmory/green/cc_jail
+	name = "NT CentComm prison guards' Gear & Ammunition"
+	desc = "An equipment vendor for CentComm corrections officers."
+	products = list(/obj/item/restraints/handcuffs=5,
+		/obj/item/restraints/handcuffs/cable/zipties=5,
+		/obj/item/grenade/flashbang=3,
+		/obj/item/flash=3,
+		/obj/item/restraints/legcuffs/bola/energy=3,
+		/obj/item/gun/energy/gun/advtaser=6,
+		/obj/item/gun/projectile/automatic/pistol/enforcer=6,
+		/obj/item/storage/box/barrier=2,
+		/obj/item/gun/projectile/shotgun/riot=2,
+		/obj/item/ammo_box/shotgun/rubbershot=4,
+		/obj/item/ammo_box/shotgun=2,
+		/obj/item/ammo_box/magazine/enforcer=6,
+		/obj/item/gun/energy/dominator/sibyl=3)
+	contraband = list(/obj/item/storage/fancy/donut_box=2,
+		/obj/item/ammo_box/shotgun/buck=4,
+		/obj/item/ammo_box/magazine/enforcer/lethal=4)
+
 /obj/machinery/vending/nta/ertarmory/yellow
 	name = "NT ERT Death Wish Gear & Ammunition"
 	desc = "A ERT Death Wish equipment vendor."
