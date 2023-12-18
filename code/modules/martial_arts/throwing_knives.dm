@@ -18,6 +18,8 @@
 	var/knife_embed_chance = 100
 	var/knife_bonus_damage = 5
 	var/shields_penetration_bonus = 50
+	var/neck_cut_delay = 2 SECONDS
+	var/neck_cut_in_progress = FALSE
 
 /datum/martial_art/throwing/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
 	if(can_use(defender)	\
@@ -39,9 +41,10 @@
 
 /datum/martial_art/throwing/proc/neck_cut(mob/living/carbon/human/defender, mob/living/carbon/human/attacker)
 	var/obj/item/grab/grab = attacker.get_inactive_hand()
-	if(istype(grab) && grab.state >= GRAB_NECK && grab.affecting == defender && defender.dna && !(NO_BLOOD in defender.dna.species.species_traits))
+	if(!neck_cut_in_progress && istype(grab) && grab.state >= GRAB_NECK && grab.affecting == defender && defender.dna && !(NO_BLOOD in defender.dna.species.species_traits))
 		attacker.visible_message(span_danger("[attacker] прикладывает нож к горлу [defender]!"), span_danger("Вы прикладываете нож к горлу [defender]!."))
-		if(do_after(attacker, 20, target = defender))
+		neck_cut_in_progress = TRUE
+		if(do_after(attacker, neck_cut_delay, target = defender))
 			if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
 				defender.blood_volume = max(0, defender.blood_volume - (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-70% of max blood volume
 				for(var/i in 1 to 2)
@@ -55,7 +58,10 @@
 			var/sound = pick('sound/weapons/knife_holster/throat_slice.ogg','sound/weapons/knife_holster/throat_slice2.ogg')
 			playsound(defender.loc, sound, 25, 1)
 			attacker.visible_message(span_danger("[attacker] перерезает глотку [defender]!"), span_danger("Вы перерезаете глотку [defender]!"))
+			neck_cut_in_progress = FALSE
 			return TRUE
+		else
+			neck_cut_in_progress = FALSE
 	return FALSE
 
 /datum/martial_art/throwing/explaination_footer(user)
