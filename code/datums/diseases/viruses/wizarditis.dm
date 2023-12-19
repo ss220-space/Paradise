@@ -116,7 +116,8 @@ STI KALY - blind
 
 	var/turf/target_turf = pick(L)
 
-	if(do_teleport(affected_mob, target_turf))
+	if(is_teleport_allowed(destturf.z))
 		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!")
+		affected_mob.loc = target_turf
 
 	return
