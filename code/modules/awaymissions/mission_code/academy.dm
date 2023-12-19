@@ -241,6 +241,7 @@
 /obj/effect/bump_teleporter/academy_no_mesons
     var/list/items_to_remove = list(
 		/obj/item/clothing/glasses/meson,
+		/obj/item/clothing/glasses/meson/sunglasses,
 		/obj/item/clothing/glasses/hud/health/meson,
 		/obj/item/clothing/head/helmet/meson,
 		/obj/item/organ/internal/cyberimp/eyes/meson,

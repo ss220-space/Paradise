@@ -146,9 +146,8 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "aI" = (
-/obj/structure/bookcase/random{
-	name = "Forbidden Knowledge"
-	},
+/obj/structure/bookcase,
+/obj/item/book/manual/engineering_construction,
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "aJ" = (
@@ -238,9 +237,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
-/obj/structure/bookcase/random{
-	name = "Forbidden Knowledge"
-	},
+/obj/structure/bookcase,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},
@@ -500,7 +497,7 @@
 "co" = (
 /obj/structure/table/wood,
 /obj/item/paper{
-	info = "Наши способности незримы спящим и потому мы прибегли к примитивным РЕАЛЬНЫМ обозначением, казалось бы, простых разрывов гобелена. Для их стабилизации, червоточины были очерчены златом, да обведены углем, дабы подчеркнуть паралельность путей, создаваемых ими и закреплены руной по центру."
+	info = "Наши способности незримы спящим и потому мы прибегли к примитивным РЕАЛЬНЫМ обозначением, казалось бы, простых разрывов гобелена. Портальные разрывы нестабильны, поэтому будьте осторожны."
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -584,7 +581,7 @@
 	icon_state = "acad_portal";
 	id = "Acad2";
 	id_target = "Acad22";
-	invisibility = 0;
+	invisibility = 0
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -651,7 +648,7 @@
 	icon_state = "acad_portal";
 	id = "Acad1";
 	id_target = "Acad11";
-	invisibility = 0;
+	invisibility = 0
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -857,9 +854,8 @@
 /turf/simulated/floor/grass,
 /area/awaymission/academy/headmaster)
 "dC" = (
-/obj/structure/bookcase/random{
-	name = "Forbidden Knowledge"
-	},
+/obj/structure/bookcase,
+/obj/item/book/manual/nuclear,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},
@@ -1433,7 +1429,6 @@
 	},
 /area/awaymission/academy/academyaft)
 "fN" = (
-/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	tag = "icon-vault"
@@ -1744,7 +1739,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "hb" = (
-/obj/structure/mineral_door/wood,
+/obj/structure/mineral_door/iron,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "hc" = (
@@ -2248,6 +2243,7 @@
 /area/awaymission/academy/academyaft)
 "iP" = (
 /obj/structure/bookcase,
+/obj/item/book/manual/robotics_cyborgs,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "iR" = (
@@ -2697,7 +2693,7 @@
 /area/awaymission/academy/headmaster)
 "kS" = (
 /obj/item/paper{
-	info = "Летит ласточка легко в полет, Летний ветер ласкает плечи. Цветет зной, цветут луга, Любовь пламенем цветет, легко. По цветущему царству лазурному Цветет жизнь, цветет лето. Любовь летит, ласкает пушистые облака, Летит под звездами, легко, легко, легко. По лазурному простору. Цветет мечта, цветет песня."
+	info = "Летит ласточка легко в полет. Летний ветер ласкает плечи. Цветет зной, цветут луга. Любовь пламенем цветет, легко. По цветущему царству лазурному. Правит жизнь, цветет лето. Цветы летят, ласкает пушистые облака. Царица под звездами, легко, легко, легко. Лазурное пространство. Правит мечта, цветет песня."
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -3096,9 +3092,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "nI" = (
-/obj/structure/bookcase/random{
-	name = "Forbidden Knowledge"
-	},
+/obj/structure/bookcase,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "nN" = (
@@ -3265,6 +3259,11 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
+"pQ" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/chef_recipes,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "pX" = (
 /obj/machinery/vending/coffee/free,
 /turf/simulated/floor/plasteel{
@@ -3310,9 +3309,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "qp" = (
-/obj/structure/bookcase/random{
-	name = "Forbidden Knowledge"
-	},
+/obj/structure/bookcase,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "qq" = (
@@ -3885,6 +3882,11 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
+"vE" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/medical_cloning,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "vG" = (
 /obj/structure/sign/restroom{
 	pixel_y = 32
@@ -4056,7 +4058,8 @@
 /obj/effect/bump_teleporter{
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
-	id_target = "labr 74"
+	id_target = "labr 74";
+	invisibility = 0
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/vault,
@@ -4197,6 +4200,7 @@
 /area/awaymission/academy/headmaster)
 "yx" = (
 /obj/structure/bookcase,
+/obj/item/book/manual/security_space_law,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "yz" = (
@@ -4490,7 +4494,7 @@
 /area/awaymission/academy/academyaft)
 "BC" = (
 /obj/item/paper{
-	info = "Это Конец? Нет, для кого - то это только начало. Пред вами два пути. Уйти домой, или пройти на золотую плитку и продолжить путь к главному сокровищу нашей Академии."
+	info = "Это Конец? Нет, для кого - то это только начало. Пред вами два пути. Уйти домой, или в портал и продолжить путь к главному сокровищу нашей Академии."
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
@@ -4647,6 +4651,11 @@
 	icon_state = "darkblue"
 	},
 /area/awaymission/academy/classrooms)
+"Dg" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/evaguide,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "Dh" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -4688,7 +4697,7 @@
 	icon_state = "acad_portal";
 	id = "Acad3";
 	id_target = "Acad33";
-	invisibility = 0;
+	invisibility = 0
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -5083,6 +5092,11 @@
 "Ih" = (
 /turf/simulated/floor/sepia,
 /area/awaymission/academy/academyaft)
+"Ij" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/barman_recipes,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "Ik" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
@@ -6451,6 +6465,11 @@
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
+"UE" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/detective,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "UJ" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -6609,6 +6628,11 @@
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
+"Wk" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/engineering_singularity_safety,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "Wv" = (
 /obj/structure/table/wood,
 /obj/item/paper{
@@ -6805,6 +6829,11 @@
 	icon_state = "fancy-wood-oak-broken5"
 	},
 /area/awaymission/academy/classrooms)
+"Yy" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/engineering_guide,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/headmaster)
 "Yz" = (
 /obj/structure/table,
 /obj/item/screwdriver{
@@ -11425,7 +11454,7 @@ jV
 cu
 qp
 dx
-qp
+Yy
 dx
 UJ
 aF
@@ -20628,7 +20657,7 @@ Fu
 Fu
 hr
 ui
-aI
+Ij
 XF
 XF
 XF
@@ -20758,7 +20787,7 @@ hr
 hr
 hr
 ui
-aI
+bH
 XF
 XF
 XF
@@ -21026,7 +21055,7 @@ ah
 hG
 SU
 ah
-aI
+vE
 ui
 XF
 XF
@@ -21286,7 +21315,7 @@ xV
 Ci
 bk
 ah
-aI
+bH
 ao
 bj
 bG
@@ -21406,7 +21435,7 @@ Fu
 hr
 hr
 ui
-aI
+bH
 ah
 jU
 Mw
@@ -21416,7 +21445,7 @@ Qc
 Mw
 bk
 ah
-aI
+UE
 ui
 bm
 yA
@@ -21536,7 +21565,7 @@ Fu
 hr
 hr
 ui
-aI
+bH
 ah
 ct
 hR
@@ -22056,16 +22085,16 @@ Fu
 hr
 hr
 ui
-aI
-aI
 bH
-aI
 bH
-aI
-aI
-aI
+Dg
 bH
-aI
+bH
+Wk
+bH
+pQ
+bH
+bH
 bH
 ui
 hr
