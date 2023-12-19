@@ -215,9 +215,12 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	if(is_contractor)
-		owner.add_antag_datum(/datum/antagonist/contractor)
+		addtimer(CALLBACK(src, PROC_REF(give_contractor)), 1 SECONDS)
 
 	return messages
+
+/datum/antagonist/traitor/proc/give_contractor()
+	owner.add_antag_datum(/datum/antagonist/contractor)
 
 /**
  * Notify the traitor of their codewords and write them to `antag_memory` (notes).
