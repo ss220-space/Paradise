@@ -414,30 +414,28 @@
 
 
 /datum/config_entry/number/antag_paradise_double_antag_chance
-	default = 10
+	default = 33
 	max_val = 100
 	min_val = 0
 
 
-/datum/config_entry/keyed_list/antag_paradise_weights
-	key_mode = KEY_MODE_TEXT
-	value_mode = VALUE_MODE_NUM
+/datum/config_entry/str_list/antag_paradise_main_antags
 	default = list(
-		ROLE_TRAITOR = 0,
-		ROLE_THIEF = 0,
-		ROLE_VAMPIRE = 0,
-		ROLE_CHANGELING = 0,
+		ROLE_TRAITOR,
+		ROLE_VAMPIRE,
+		ROLE_CHANGELING,
 	)
+	lowercase = TRUE
 
-
-/datum/config_entry/keyed_list/antag_paradise_special_weights
+/datum/config_entry/keyed_list/antag_paradise_special_antags_weights
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 	default = list(
 		"hijacker" = 10,
 		"malfai" = 10,
 		"ninja" = 10,
-		"nothing" = 30,
+		"thief" = 10,
+		"nothing" = 20,
 	)
 
 
