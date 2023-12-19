@@ -181,11 +181,11 @@
 		return FALSE
 	if(only_human && !ishuman(victim))
 		return FALSE
-	if(ismachineperson(victim) && !include_IPC)
+	if(!include_IPC && ismachineperson(victim))
 		return FALSE
-	if(victim.stat == DEAD && !include_dead)
+	if(!include_dead && victim.stat == DEAD)
 		return FALSE
-	if((ishuman(victim) && (NO_BLOOD in victim.dna?.species?.species_traits)) && blood_required)
+	if(blood_required && ishuman(victim) && ((NO_BLOOD in victim.dna?.species?.species_traits) || victim.dna?.species?.exotic_blood))
 		return FALSE
 	if(issilicon(victim) || isbot(victim) || isswarmer(victim) || isguardian(victim))
 		return FALSE
@@ -823,16 +823,17 @@
 
 		if(t_kidneys > 0 && ishuman(victim))
 			var/mob/living/carbon/human/h_victim = victim
-			if(NO_BLOOD in h_victim.dna?.species?.species_traits)
+			if((NO_BLOOD in h_victim.dna?.species?.species_traits))
 				continue
 
 			h_victim.bleed(actual_blood_loss)
 			h_victim.Confused(confusion_amt)
 			h_victim.emote("moan")
-			if(h_victim.mind && h_victim.ckey)
+			to_chat(h_victim, span_userdanger("You sense a sharp pain inside your body and suddenly feel very weak!"))
+
+			if(h_victim.mind && h_victim.ckey && !h_victim.dna.species.exotic_blood)
 				blood_gained += blood_vamp_get
 				vampire.adjust_blood(h_victim, blood_vamp_get)
-				to_chat(h_victim, span_userdanger("You sense a sharp pain inside your body and suddenly feel very weak!"))
 
 	if(blood_gained)
 		to_chat(user, span_notice("You pinch arteries on fly and absorb <b>[blood_gained]</b> amount of blood!"))
@@ -1800,9 +1801,10 @@
 
 		if(!(NO_BLOOD in user.dna?.species?.species_traits))
 			user.bleed(100)
-			vampire.bloodusable += 50	// only usable blood, will not affect abilities
-			human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 50))
 			to_chat(human_vampire, span_notice("<i>... [span_userdanger("You feel strange feel of joy and power")] ...</i>"))
+			if(!user.dna.species.exotic_blood)
+				vampire.bloodusable += 50	// only usable blood, will not affect abilities
+				human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 50))
 
 	return FALSE
 

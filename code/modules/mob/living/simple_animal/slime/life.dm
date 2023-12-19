@@ -24,6 +24,11 @@
 				handle_mood()
 				handle_speech()
 
+/mob/living/simple_animal/slime/forceMove(atom/destination) //Debug code to catch slimes stuck in null space
+	. = ..()
+	if(!destination && !QDELETED(src))
+		stack_trace("Slime moved to null space")
+
 // Unlike most of the simple animals, slimes support UNCONSCIOUS
 /mob/living/simple_animal/slime/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)

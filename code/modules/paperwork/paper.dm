@@ -921,6 +921,12 @@
 	return ..()
 
 //главы станции
+/obj/item/paper/form/NT_COM_ORDER
+	name = "Форма NT-COM-ORDER"
+	id = "NT-COM-ORDER"
+	altername = "Приказ"
+	category = "Главы станции"
+	info = "<font face=\"Verdana\" color=black>Я, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, приказываю:<BR><BR><span class=\"paper_field\"></span><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><BR>Подпись инициатора: <span class=\"paper_field\"></span><BR>Время подписания приказа: <span class=\"paper_field\"></span><BR>Дата подписания приказа: <span class=\"paper_field\"></span><BR><HR><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве должностного лица.</font></font>"
 /obj/item/paper/form/NT_COM_ST
 	name = "Форма NT-COM-ST"
 	id = "NT-COM-ST"

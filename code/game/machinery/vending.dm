@@ -1220,6 +1220,39 @@
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 	refill_canister = /obj/item/vending_refill/security
 
+/obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/security_voucher))
+		if(!powered())
+			return
+		add_fingerprint(user)
+		var/list/available_kits = list(
+			"Dominator Kit" = list(/obj/item/gun/energy/dominator/sibyl, /obj/item/clothing/accessory/holster),
+			"Enforcer Kit" = list(/obj/item/gun/projectile/automatic/pistol/enforcer, /obj/item/ammo_box/magazine/enforcer, /obj/item/ammo_box/magazine/enforcer, /obj/item/clothing/accessory/holster),
+		)
+		var/weapon_kit = input(user, "Select a weaponary kit.") as null|anything in available_kits
+		if(!weapon_kit)
+			return
+		if(!Adjacent(user) || QDELETED(I) || I.loc != user)
+			return
+		qdel(I)
+		sleep(0.5 SECONDS)
+		var/obj/item/storage/box/box = new(get_turf(src))
+		playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
+		box.icon_state = "box_sec"
+		for(var/path in available_kits[weapon_kit])
+			new path(box)
+		if(Adjacent(user))
+			user.put_in_hands(box, ignore_anim = FALSE)
+		return
+	. = ..()
+
+
+/obj/item/security_voucher
+	name = "security voucher"
+	desc = "A token to redeem a weapon kit. Use it on a SecTech."
+	icon_state = "security_voucher"
+	w_class = WEIGHT_CLASS_SMALL
+
 /obj/machinery/vending/hydronutrients
 	name = "\improper NutriMax"
 	desc = "A plant nutrients vendor"

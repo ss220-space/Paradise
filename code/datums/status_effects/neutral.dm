@@ -45,18 +45,28 @@
 
 /datum/status_effect/staring
 	id = "staring"
-	duration = 1 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_UNIQUE
 	var/mob/living/target
 	var/target_gender
 	var/target_species
 
-/datum/status_effect/staring/proc/catch_look(mob/living/carbon/human/opponent)
+/datum/status_effect/staring/on_creation(mob/living/new_owner, new_duration, new_target, new_target_gender, new_target_species)
+	if(!new_duration)
+		qdel(src)
+		return
+	duration = new_duration
+	. = ..()
+	target = new_target
+	target_gender = new_target_gender
+	target_species = new_target_species
+
+/datum/status_effect/staring/proc/catch_look(mob/living/opponent)
 	if(target == opponent)
-		to_chat(owner, span_notice("[opponent.name] catched your look!"))
-		to_chat(opponent, span_notice("[owner.name] catched your look!"))
-		if(target_gender == NEUTER || owner.gender == NEUTER || !ishuman(owner))
+		to_chat(owner, span_notice("[opponent.name] catch your look!"))
+		to_chat(opponent, span_notice("[owner.name] catch your look!"))
+		var/list/homo_qui_amat = list(MALE, FEMALE)
+		if(!ishuman(owner) || !(target_gender in homo_qui_amat) || !(owner.gender in homo_qui_amat))
 			return
 		var/mob/living/carbon/human/human_owner = owner
 		if(target_gender != human_owner.gender && target_species == human_owner.dna.species.name && prob(5))

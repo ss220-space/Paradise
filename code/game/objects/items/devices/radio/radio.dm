@@ -368,6 +368,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(!M.IsVocal())
 		return 0
 
+	if(M.is_muzzled())
+		var/obj/item/clothing/mask/muzzle/muzzle = M.wear_mask
+		if(muzzle.radio_mute)
+			return 0
+
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)
 	for(var/J in GLOB.active_jammers)

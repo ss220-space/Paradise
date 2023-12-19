@@ -1378,3 +1378,47 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(target_move)
 				remove_ventcrawl()
 			add_ventcrawl(loc, target_move)
+
+
+/mob/living/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return gender
+
+
+/mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return "Unknown"
+
+
+/mob/living/run_examinate(atom/target)
+	var/examine_time = target.get_examine_time()
+	var/datum/status_effect/staring/user_staring_effect = src.has_status_effect(STATUS_EFFECT_STARING)
+	if(user_staring_effect || hindered_inspection(target))
+		return FALSE
+	face_atom(target)
+	if(examine_time && target != src)
+		var/visible_gender = NEUTER
+		var/visible_species = "Unknown"
+		if(isliving(target))
+			var/mob/living/target_living = target
+			visible_gender = target_living.get_visible_gender()
+			visible_species = target_living.get_visible_species()
+			if(ishuman(target))
+				var/datum/status_effect/staring/target_staring_effect = target_living.has_status_effect(STATUS_EFFECT_STARING)
+				if(target_staring_effect)
+					target_staring_effect.catch_look(src)
+		user_staring_effect = src.apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
+		if(do_mob(src, target, examine_time, FALSE, list(CALLBACK(src, PROC_REF(hindered_inspection), target)), TRUE))
+			return ..()
+	else
+		return ..()
+
+
+/mob/living/proc/hindered_inspection(atom/target)
+	if(QDELETED(src))
+		return TRUE
+	if(QDELETED(target))
+		return TRUE
+	if(!has_vision(information_only = TRUE))
+		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
+		return TRUE
+	return FALSE
+

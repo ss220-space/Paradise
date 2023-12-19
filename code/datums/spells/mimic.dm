@@ -215,10 +215,10 @@
 	examine_text = form.examine(user)
 	examine_time = form.get_examine_time()
 	name = form.name
-	if(ishuman(form))
-		var/mob/living/carbon/human/human_form = form
-		examine_gender = human_form.get_visible_gender()
-		examine_species = human_form.get_visible_species()
+	if(isliving(form))
+		var/mob/living/form_living = form
+		examine_gender = form_living.get_visible_gender()
+		examine_species = form_living.get_visible_species()
 
 
 /obj/effect/proc_holder/spell/mimic/morph
