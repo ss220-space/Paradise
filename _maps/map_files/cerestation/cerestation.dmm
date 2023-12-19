@@ -87955,43 +87955,6 @@
 /obj/effect/turf_decal/bot_white{
 	color = "#009dff"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/button/windowtint{
-	dir = 4;
-	id = "surg_theatre";
-	pixel_x = 4;
-	pixel_y = -24
-	},
-/obj/machinery/holosign_switch{
-	dir = 4;
-	id = "surgery2";
-	pixel_x = 4;
-	pixel_y = -32
-	},
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -4;
-	pixel_y = -32
-	},
-/obj/structure/sink{
-	dir = 1
-	},
-/obj/machinery/shower{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot_white{
-	color = "#009dff"
-	},
-/obj/machinery/button/windowtint{
-	dir = 4;
-	id = "surg2";
-	pixel_x = -4;
-	pixel_y = -24
-	},
 /turf/simulated/floor/noslip,
 /area/medical/surgery/south)
 "uAJ" = (
