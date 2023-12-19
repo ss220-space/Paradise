@@ -64,11 +64,13 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
 /datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
-	to_chat(M, "<span class='boldnotice'>Вы - торговец!</span>")
-	to_chat(M, "<span class='notice'>В данный момент вы находитесь на [get_area(M)].</span>")
-	to_chat(M, "<span class='notice'>Вам предстоит торговать со станцией [station_name()].</span>")
-	spawn(25)
-		show_objectives(M.mind)
+	var/list/messages = list()
+	messages.Add(span_boldnotice("Вы - торговец!"))
+	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))
+	messages.Add(span_notice("Вам предстоит торговать со станцией [station_name()]."))
+	messages.Add(M.mind.prepare_announce_objectives())
+	to_chat(M, chat_box_green(messages.Join("<br>")))
+	log_game("[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()

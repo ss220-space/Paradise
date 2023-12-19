@@ -217,6 +217,7 @@
 					pointsEarned = round(G.sell_multiplier * SSshuttle.points_per_gem)
 					msg += "<span class='good'>+[pointsEarned]</span>: Received [G]. Excellent work.<br>"
 					SSshuttle.points += pointsEarned
+					qdel(thing, force = TRUE) //ovveride for special gems
 
 		qdel(MA)
 		SSshuttle.sold_atoms += "."

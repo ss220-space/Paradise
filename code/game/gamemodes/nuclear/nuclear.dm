@@ -231,12 +231,12 @@
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
 	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
+	var/list/messages = list()
 	if(you_are)
-		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
-	var/obj_count = 1
-	for(var/datum/objective/objective in syndicate.objectives)
-		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+		messages.Add("<span class='notice'>You are a [syndicate_name()] agent!</span>")
+	messages.Add(syndicate.prepare_announce_objectives(FALSE))
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Nuclear_Agent\">Ядерный Оперативник</a></span>")
+	to_chat(syndicate.current, chat_box_red(messages.Join("<br>")))
 	return
 
 

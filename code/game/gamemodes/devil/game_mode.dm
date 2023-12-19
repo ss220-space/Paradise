@@ -67,8 +67,10 @@
 /datum/game_mode/proc/greet_devil(datum/mind/devil_mind)
 	if(!devil_mind.devilinfo)
 		return
-	devil_mind.devilinfo.announce_laws(devil_mind.current)
-	devil_mind.announce_objectives()
+	var/list/messages = list()
+	messages.Add(devil_mind.devilinfo.announce_laws())
+	messages.Add(devil_mind.prepare_announce_objectives())
+	to_chat(devil_mind.current, chat_box_red(messages.Join("<br>")))
 
 
 /datum/game_mode/proc/printdevilinfo(datum/mind/ply)

@@ -158,6 +158,9 @@
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
 	backpack = /obj/item/storage/backpack/cargo
+	backpack_contents = list(
+	/obj/item/melee/classic_baton/telescopic = 1
+	)
 
 
 /datum/job/cargo_tech

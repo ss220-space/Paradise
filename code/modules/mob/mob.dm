@@ -307,12 +307,12 @@
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
+		to_chat(src, chat_box_regular("Здесь что-то есть, но вы не видите — что именно."))
 		return TRUE
 
 	face_atom(A)
 	var/list/result = A.examine(src)
-	to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
+	to_chat(src, chat_box_examine(result.Join("\n")))
 
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)

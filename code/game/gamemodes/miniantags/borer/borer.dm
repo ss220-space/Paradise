@@ -843,10 +843,12 @@
 		M.transfer_to(src)
 		candidate.mob = src
 		ckey = candidate.ckey
-		to_chat(src, "<span class='notice'>You are a cortical borer!</span>")
-		to_chat(src, "You are a brain slug that worms its way into the head of its victim. Use stealth, persuasion and your powers of mind control to keep you, your host and your eventual spawn safe and warm.")
-		to_chat(src, "Sugar nullifies your abilities, avoid it at all costs!")
-		to_chat(src, "You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
+		var/list/messages = list()
+		messages.Add("<span class='notice'>You are a cortical borer!</span>")
+		messages.Add("You are a brain slug that worms its way into the head of its victim. Use stealth, persuasion and your powers of mind control to keep you, your host and your eventual spawn safe and warm.")
+		messages.Add("Sugar nullifies your abilities, avoid it at all costs!")
+		messages.Add("You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
+		to_chat(src, chat_box_purple(messages.Join("<br>")))
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)
