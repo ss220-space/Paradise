@@ -84,6 +84,9 @@ STI KALY - blind
 
 
 /datum/disease/virus/wizarditis/proc/teleport()
+	if(affected_mob.z == level_name_to_num(CENTCOMM) || affected_mob.z == level_name_to_num(ADMIN_ZONE))
+		return
+
 	var/list/theareas = get_areas_in_range(80, affected_mob)
 	for(var/area/space/S in theareas)
 		theareas -= S
