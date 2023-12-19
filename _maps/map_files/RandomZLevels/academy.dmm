@@ -578,15 +578,13 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "cE" = (
-/obj/effect/bump_teleporter{
+/obj/effect/bump_teleporter/academy_no_mesons{
 	dir = 8;
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id = "Acad2";
 	id_target = "Acad22";
 	invisibility = 0;
-	items_to_remove = list(/obj/item/clothing/glasses/meson,/obj/item/clothing/glasses/meson/sunglasses,/obj/item/clothing/glasses/meson/night,/obj/item/clothing/glasses/meson/prescription,/obj/item/clothing/glasses/meson/gar,/obj/item/clothing/glasses/meson/cyber,/obj/item/clothing/glasses/hud/health/meson,/obj/item/clothing/head/helmet/meson);
-	takes_special_items = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -647,15 +645,13 @@
 	},
 /area/awaymission/academy/headmaster)
 "cT" = (
-/obj/effect/bump_teleporter{
+/obj/effect/bump_teleporter/academy_no_mesons{
 	dir = 8;
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id = "Acad1";
 	id_target = "Acad11";
 	invisibility = 0;
-	items_to_remove = list(/obj/item/clothing/glasses/meson,/obj/item/clothing/glasses/meson/sunglasses,/obj/item/clothing/glasses/meson/night,/obj/item/clothing/glasses/meson/prescription,/obj/item/clothing/glasses/meson/gar,/obj/item/clothing/glasses/meson/cyber,/obj/item/clothing/glasses/hud/health/meson,/obj/item/clothing/head/helmet/meson);
-	takes_special_items = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -4687,14 +4683,12 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "Do" = (
-/obj/effect/bump_teleporter{
+/obj/effect/bump_teleporter/academy_no_mesons{
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id = "Acad3";
 	id_target = "Acad33";
 	invisibility = 0;
-	items_to_remove = list(/obj/item/clothing/glasses/meson,/obj/item/clothing/glasses/meson/sunglasses,/obj/item/clothing/glasses/meson/night,/obj/item/clothing/glasses/meson/prescription,/obj/item/clothing/glasses/meson/gar,/obj/item/clothing/glasses/meson/cyber,/obj/item/clothing/glasses/hud/health/meson,/obj/item/clothing/head/helmet/meson);
-	takes_special_items = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)

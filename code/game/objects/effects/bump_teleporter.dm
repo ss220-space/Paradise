@@ -6,9 +6,7 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
     icon_state = "x2"
     var/id = null                           // id of this bump_teleporter.
     var/id_target = null                    // id of bump_teleporter which this moves you to.
-    var/takes_special_items = 0            // Flag indicating whether this teleporter takes special items.
-    var/list/items_to_remove = list()      // List of items to remove for this teleporter.
-    invisibility = INVISIBILITY_ABSTRACT    // nope, can't see this
+    invisibility = INVISIBILITY_ABSTRACT  // nope, can't see this
     anchored = 1
     density = 1
     opacity = 0
@@ -28,20 +26,20 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
     return
 
 /obj/effect/bump_teleporter/Bumped(atom/movable/moving_atom)
-    if (!ismob(moving_atom))
-        // user.loc = src.loc    // Stop at teleporter location
-        return
+	if (!ismob(moving_atom))
+		// user.loc = src.loc    // Stop at teleporter location
+		return
 
-    if (!id_target)
-        // user.loc = src.loc    // Stop at teleporter location, there is nowhere to teleport to.
-        return
+	if (!id_target)
+		// user.loc = src.loc    // Stop at teleporter location, there is nowhere to teleport to.
+		return
+	for(var/bt in GLOB.bump_teleporters)
+		var/obj/effect/bump_teleporter/teleporter = bt
+		if(teleporter.id == id_target)
+			moving_atom.loc = teleporter.loc
+			process_special_effects(moving_atom)
+			return
 
-    for (var/obj/effect/bump_teleporter/BT in GLOB.bump_teleporters)
-        if (BT.id == src.id_target)
-            if (BT.takes_special_items)
-                for (var/obj/item/I in moving_atom.contents)
-                    if (I.type in BT.items_to_remove)
-                        qdel(I)
-
-            moving_atom.loc = BT.loc // Teleport to location with correct id.
-            return
+///Special effects for teleporter. Supposed to be overriden.
+/obj/effect/bump_teleporter/proc/process_special_effects(mob/living/target)
+	return
