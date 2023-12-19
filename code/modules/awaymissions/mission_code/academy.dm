@@ -257,9 +257,9 @@
 	if(!istype(target))
 		return
 	for(var/item in items_to_remove)
-		recursive_item_removal(target, item)
+		remove_item_type(target, item)
 
-/obj/effect/bump_teleporter/academy_no_mesons/proc/recursive_item_removal(mob/living/target, item_type)
+/obj/effect/bump_teleporter/academy_no_mesons/proc/remove_item_type(mob/living/target, item_type)
 	var/list/items = target.search_contents_for(item_type)
 	for(var/it in items)
 		var/obj/item = it
