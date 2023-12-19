@@ -337,7 +337,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
-		) //no need to b-r-e-a-t-h
+	) //no need to b-r-e-a-t-h
 
 /datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	. = ..()
