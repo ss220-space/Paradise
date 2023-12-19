@@ -61,7 +61,7 @@
 	target_gender = new_target_gender
 	target_species = new_target_species
 
-/datum/status_effect/staring/proc/catch_look(mob/living/carbon/human/opponent)
+/datum/status_effect/staring/proc/catch_look(mob/living/opponent)
 	if(target == opponent)
 		to_chat(owner, span_notice("[opponent.name] catch your look!"))
 		to_chat(opponent, span_notice("[owner.name] catch your look!"))

@@ -1391,7 +1391,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/run_examinate(atom/target)
 	var/examine_time = target.get_examine_time()
 	var/datum/status_effect/staring/user_staring_effect = src.has_status_effect(STATUS_EFFECT_STARING)
-	if(!user_staring_effect)
+	if(user_staring_effect || hindered_inspection(target))
+		return FALSE
+	face_atom(target)
+	if(examine_time && target != src)
 		var/visible_gender = NEUTER
 		var/visible_species = "Unknown"
 		if(isliving(target))
@@ -1399,20 +1402,20 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			visible_gender = target_living.get_visible_gender()
 			visible_species = target_living.get_visible_species()
 			if(ishuman(target))
-				var/datum/status_effect/staring/staring_effect = target_living.has_status_effect(STATUS_EFFECT_STARING)
-				if(staring_effect)
-					staring_effect.catch_look(src)
+				var/datum/status_effect/staring/target_staring_effect = target_living.has_status_effect(STATUS_EFFECT_STARING)
+				if(target_staring_effect)
+					target_staring_effect.catch_look(src)
 		user_staring_effect = src.apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
+		if(do_mob(src, target, examine_time, FALSE, list(CALLBACK(src, PROC_REF(hindered_inspection), target)), TRUE))
+			return ..()
 	else
-		return FALSE
-
-	face_atom(target)
-	if(do_mob(src, target, examine_time, FALSE, list(CALLBACK(src, PROC_REF(hindered_inspection), target)), TRUE))
-		..()
+		return ..()
 
 
-/mob/living/proc/hindered_inspection(atom/A)
+/mob/living/proc/hindered_inspection(atom/target)
 	if(QDELETED(src))
+		return TRUE
+	if(QDELETED(target))
 		return TRUE
 	if(!has_vision(information_only = TRUE))
 		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
