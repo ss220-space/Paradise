@@ -169,12 +169,12 @@
 /turf/simulated/floor/engine/burn_tile()
 	return //unburnable
 
-/turf/simulated/floor/engine/make_plating(force = 0)
+/turf/simulated/floor/engine/make_plating(make_floor_tile = FALSE, mob/user, force = FALSE)
 	if(force)
-		..()
+		..(make_floor_tile, user)
 	return //unplateable
 
-/turf/simulated/floor/engine/attack_hand(mob/user as mob)
+/turf/simulated/floor/engine/attack_hand(mob/user)
 	user.Move_Pulled(src)
 
 /turf/simulated/floor/engine/pry_tile(obj/item/C, mob/user, silent = FALSE)
@@ -184,7 +184,7 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-/turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
+/turf/simulated/floor/engine/attackby(obj/item/C, mob/user, params)
 	if(!C || !user)
 		return
 	if(istype(C, /obj/item/wrench))
@@ -194,7 +194,7 @@
 			if(!istype(src, /turf/simulated/floor/engine))
 				return
 			new /obj/item/stack/rods(src, 2)
-			ChangeTurf(/turf/simulated/floor/plating)
+			make_plating(make_floor_tile = FALSE, force = TRUE)
 			return
 
 	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
@@ -280,12 +280,10 @@
 
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
-	..()
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
 			if(prob(30))
-				new floor_tile(src)
-				make_plating()
+				make_plating(make_floor_tile = TRUE, force = TRUE)
 		else if(prob(30))
 			ReplaceWithLattice()
 

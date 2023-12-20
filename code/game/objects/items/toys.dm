@@ -1560,6 +1560,56 @@
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
+/obj/item/toy/plushie/hampter
+	name = "Hampter"
+	desc = "The people demand hampters!"
+	icon_state = "hampter"
+
+/obj/item/toy/plushie/hampter/asisstant
+	name = "Hampter the Assitant"
+	desc = "More or less helpful."
+	icon_state = "hampter_ass"
+
+/obj/item/toy/plushie/hampter/security
+	name = "The anti-honk Hampter"
+	desc = "OBEY!"
+	icon_state = "hampter_sec"
+
+/obj/item/toy/plushie/hampter/medic
+	name = "Hampter the Doctor"
+	desc = "Don't take his pills."
+	icon_state = "hampter_med"
+
+/obj/item/toy/plushie/hampter/janitor
+	name = "Hampter the Janitor"
+	desc = "I'll call you - Den."
+	icon_state = "hampter_jan"
+
+/obj/item/toy/plushie/hampter/captain
+	name = "Hampter the Captain"
+	desc = "Thinks he is the Head."
+	icon_state = "hampter_cap"
+
+/obj/item/toy/plushie/hampter/captain/old
+	name = "Hampter the first Captain"
+	desc = "Thinks he is the original Head."
+	icon_state = "hampter_old_cap"
+
+/obj/item/toy/plushie/hampter/syndi
+	name = "Hampter the Red Baron"
+	desc = "The real Head."
+	icon_state = "hampter_sdy"
+
+/obj/item/toy/plushie/hampter/death_squad
+	name = "Who?"
+	desc = "Don't call him - daddy."
+	icon_state = "hampter_ded"
+
+/obj/item/toy/plushie/hampter/ert_squad
+	name = "Hampter the Major"
+	desc = "Faces into the floor!"
+	icon_state = "hampter_ert"
+
 /*
  * Foam Armblade
  */

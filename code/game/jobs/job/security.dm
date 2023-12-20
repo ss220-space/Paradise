@@ -43,7 +43,8 @@
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/classic_baton/telescopic = 1,
+		/obj/item/security_voucher = 1
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
@@ -88,11 +89,12 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/warden
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/dominator/sibyl
+	suit_store = /obj/item/gun/energy/gun/advtaser
 	pda = /obj/item/pda/warden
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/security_voucher = 1
 	)
 
 	implants = list(/obj/item/implant/mindshield)
@@ -195,10 +197,11 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/dominator/sibyl
+	suit_store = /obj/item/gun/energy/gun/advtaser
 	pda = /obj/item/pda/security
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/security_voucher = 1
 	)
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/security
@@ -294,10 +297,11 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/dominator/sibyl
+	suit_store = /obj/item/gun/energy/gun/advtaser
 	pda = /obj/item/pda/security
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/security_voucher = 1
 	)
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/security
