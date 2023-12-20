@@ -747,7 +747,6 @@
 		to_chat(user, "[SPAN_DANGER("UPGRADE ERROR: ")]" + "[SPAN_NOTICE("there's no upgradable hypospray in this unit!")]")
 		return FALSE
 
-	hypospray.bypass_protection = TRUE
 	return TRUE
 
 
