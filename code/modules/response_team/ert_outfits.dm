@@ -210,7 +210,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/security
-	belt = /obj/item/storage/belt/military/assault/gammaert
+	belt = /obj/item/storage/belt/military/assault/gammaert/full
 	suit_store = /obj/item/gun/energy/immolator/multi/sibyl
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -505,7 +505,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/holywater
+		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1
 		)
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
