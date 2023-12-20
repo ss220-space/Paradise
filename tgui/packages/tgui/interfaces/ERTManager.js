@@ -1,13 +1,51 @@
-import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section } from '../components';
-import { Window } from '../layouts';
+import { useBackend, useLocalState } from "../backend";
+import { Button, LabeledList, Box, Section, Tabs } from "../components";
+import { Window } from "../layouts";
 
 export const ERTManager = (props, context) => {
-  const { act, data } = useBackend(context);
-  let slotOptions = [0, 1, 2, 3, 4, 5];
+  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const decideTab = index => {
+    switch (index) {
+      case 0:
+        return <SquadManager />;
+      case 1:
+        return <Information />;
+    }
+  };
+
   return (
     <Window>
-      <Window.Content>
+      <Window.Content scrollable>
+        <Box fillPositionedParent>
+          <Tabs>
+            <Tabs.Tab
+              key="ERT"
+              selected={0 === tabIndex}
+              onClick={() => setTabIndex(0)}
+              icon="ambulance"
+              content="ERT" />
+            <Tabs.Tab>
+            <Tabs.Tab
+              key="Information"
+              selected={1 === tabIndex}
+              onClick={() => setTabIndex(1)}
+              icon="info-circle"
+              content="Information" />
+            </Tabs.Tab>
+          </Tabs>
+          {decideTab(tabIndex)}
+        </Box>
+      </Window.Content>
+    </Window>
+  );
+};
+
+const SquadManager = (props, context) => {
+  const { act, data } = useBackend(context);
+  let slotOptions = [0, 1, 2, 3, 4, 5];
+
+  return (
+      <Box>
         <Section title="Overview">
           <LabeledList>
             <LabeledList.Item label="Current Alert"
@@ -33,6 +71,28 @@ export const ERTManager = (props, context) => {
                   ? "purple"
                   : ""}
                 onClick={() => act('ert_type', { ert_type: "Gamma" })} />
+            </LabeledList.Item>
+            <LabeledList.Item label="Manual Сheck">
+              <Button
+                key={"manual_check"}
+                selected={data.manual_check !== data.manual_check}
+                content={'Allow manual selection?'}
+                onClick={() => act('manual_check')}
+                color={data.manual_check === 1
+                  ? "green"
+                  : ""}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Prevent Announce">
+              <Button
+                  key={"prevent_announce"}
+                  selected={data.manual_check !== data.manual_check}
+                  content={'Prevent announce?'}
+                  onClick={() => act('prevent_announce')}
+                   color={data.prevent_announce === 1
+                    ? "red"
+                    : ""}
+               />
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -116,17 +176,6 @@ export const ERTManager = (props, context) => {
                 />
               ))}
             </LabeledList.Item>
-            <LabeledList.Item label="Manual Сheck">
-              <Button
-                key={"manual_check"}
-                selected={data.manual_check !== data.manual_check}
-                content={'Allow manual selection?'}
-                onClick={() => act('manual_check')}
-                color={data.manual_check === 1
-                  ? "green"
-                  : ""}
-              />
-            </LabeledList.Item>
             <LabeledList.Item label="Total Slots">
               <Box color={data.total > data.spawnpoints
                 ? "red"
@@ -142,7 +191,25 @@ export const ERTManager = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-      </Window.Content>
-    </Window>
+      </Box>
+  );
+};
+
+const Information = (props, context) => {
+  const { act, data } = useBackend(context);
+
+  return(
+  <Box >
+    <Section title="Manual Selection">
+      <Box >
+        Возможность отобрать игроков группы в ручную, если количество добровольцев больше количества слотов(иначе разницы нет)
+      </Box>
+    </Section>
+    <Section title="Prevent Announce">
+    <Box >
+      Возможность отключить автоматическое оповещение о сборе и отправке отряда ; повышает шанс отсутствия ловушки у порта прибытия и подготовки к противостоянию с ОБР
+    </Box>
+    </Section>
+  </Box>
   );
 };

@@ -62,7 +62,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	return 1
 
-/proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, manual_check)
+/proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, manual_check, prevent_announce)
 	GLOB.response_team_members = list()
 	GLOB.active_team = response_team_type
 	GLOB.active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
@@ -72,7 +72,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/list/volunteers = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	var/list/ert_candidates = list()
 	if(!volunteers.len)
-		GLOB.active_team.cannot_send_team()
+		if(!prevent_announce)
+			GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
 
@@ -88,7 +89,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			ert_candidates |= M
 
 	if(!ert_candidates.len)
-		GLOB.active_team.cannot_send_team()
+		if(!prevent_announce)
+			GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
 
@@ -117,17 +119,17 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/list/ert_gender_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
 		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/get_ert_role_prefs, GLOB.response_team_members, ert_gender_prefs), 100)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/get_ert_role_prefs, GLOB.response_team_members, ert_gender_prefs, prevent_announce), 100)
 
-/proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
+/proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, prevent_announce) // Why the FUCK is this variable the EXACT SAME as the global one
 	var/list/ert_role_prefs = list()
 	for(var/datum/async_input/A in ert_gender_prefs)
 		A.close()
 	for(var/mob/M in response_team_members)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs, prevent_announce), 200)
 
-/proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_role_prefs)
+/proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_role_prefs, prevent_announce)
 	var/spawn_index = 1
 
 	for(var/i = 1, i <= response_team_members.len, i++)
@@ -158,10 +160,12 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	GLOB.send_emergency_team = FALSE
 
 	if(GLOB.active_team.count)
-		GLOB.active_team.announce_team()
+		if(!prevent_announce)
+			GLOB.active_team.announce_team()
 		return
 	// Everyone who said yes was afk
-	GLOB.active_team.cannot_send_team()
+	if(!prevent_announce)
+		GLOB.active_team.cannot_send_team()
 
 /client/proc/create_response_team(new_gender, role, turf/spawn_location)
 	if(role == "Cyborg")
