@@ -269,6 +269,19 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 
+/obj/item/clothing/head/helmet/space/plasmaman/mining/toggle_light(mob/user)
+	on = !on
+	switch(armor.getRating("melee"))
+		if(30)
+			icon_state = "[initial(icon_state)][on ? "-light":""]"
+			item_state = icon_state
+		if(40,50)
+			icon_state = "[initial(icon_state)]_reinf[on ? "-light":""]"
+			item_state = icon_state
+		if(60)
+			icon_state = "[initial(icon_state)]_reinf_full[on ? "-light":""]"
+			item_state = icon_state
+
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit helmet"
 	desc = "An envirohelmet specially designed for only the most pious of plasmamen. Deus Vult"

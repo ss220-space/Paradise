@@ -158,14 +158,15 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
-			/obj/item/clothing/suit/hooded/explorer,
-			/obj/item/clothing/head/hooded/explorer,
 			/obj/item/clothing/suit/hooded/pathfinder,
 			/obj/item/clothing/head/hooded/pathfinder,
-			/obj/item/clothing/head/helmet/space/plasmaman/mining))
+	))
 	var/static/list/goliath_platable_armor_with_icon_typecache = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,
 			/obj/item/clothing/head/helmet/space/hardsuit/mining,
+			/obj/item/clothing/suit/hooded/explorer,
+			/obj/item/clothing/head/hooded/explorer,
+			/obj/item/clothing/head/helmet/space/plasmaman/mining,
 	))
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
@@ -176,13 +177,30 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		if(current_armor.getRating("melee") < 60)
 			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
 			if(is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
-				switch(C.armor.getRating("melee"))
-					if(40, 50)
-						C.icon_state = "[initial(C.icon_state)]_reinf"
-						C.item_color = "mining_reinf"
-					if(60)
-						C.icon_state = "[initial(C.icon_state)]_reinf_full"
-						C.item_color = "mining_reinf_full"
+				if(istype(C, /obj/item/clothing/suit/hooded/explorer))
+					var/obj/item/clothing/suit/hooded/explorer/explorer = C
+					switch(explorer.armor.getRating("melee"))
+						if(40, 50)
+							explorer.nohood_state = "[initial(explorer.nohood_state)]_reinf"
+						if(60)
+							explorer.nohood_state = "[initial(explorer.nohood_state)]_reinf_full"
+					explorer.item_state = explorer.nohood_state
+					explorer.update_icon()
+				else if(istype(C, /obj/item/clothing/head/helmet/space/plasmaman/mining))
+					var/obj/item/clothing/head/helmet/space/plasmaman/mining/plasma = C
+					switch(plasma.armor.getRating("melee"))
+						if(40,50)
+							plasma.icon_state = "[initial(plasma.icon_state)]_reinf"
+						if(60)
+							plasma.icon_state = "[initial(plasma.icon_state)]_reinf_full"
+				else
+					switch(C.armor.getRating("melee"))
+						if(40, 50)
+							C.icon_state = "[initial(C.icon_state)]_reinf"
+							C.item_color = "mining_reinf"
+						if(60)
+							C.icon_state = "[initial(C.icon_state)]_reinf_full"
+							C.item_color = "mining_reinf_full"
 				if(ishuman(C.loc))
 					var/mob/living/carbon/human/H = C.loc
 					H.update_inv_head()

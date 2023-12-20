@@ -4,6 +4,7 @@
 	desc = "An armoured suit for exploring harsh environments."
 	icon_state = "explorer"
 	item_state = "explorer"
+	nohood_state = "explorer"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -31,6 +32,11 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 
+/obj/item/clothing/suit/hooded/explorer/update_icon()
+	if(hood.loc == src)
+		icon_state = nohood_state
+	else
+		icon_state = "[nohood_state]"
 /obj/item/clothing/head/hooded/explorer
 	name = "explorer hood"
 	desc = "An armoured hood for exploring harsh environments."
