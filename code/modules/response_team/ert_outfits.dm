@@ -210,7 +210,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/security
-	belt = /obj/item/storage/belt/security/response_team_gamma
+	belt = /obj/item/storage/belt/military/assault/gammaert
 	suit_store = /obj/item/gun/energy/immolator/multi/sibyl
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -497,7 +497,7 @@
 	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	belt = /obj/item/storage/belt/security/response_team
+	belt = /obj/item/storage/belt/security/sec
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
 	special_message = "Вы подчиняетесь непосредственно <span class='red'>назначенному корпорацией командиру</span>. \n Хоть вы и можете возражать ему, прямое подчинение крайне нежелательно. Исключениями являются случаи, когда ваш командир открыто действует против интересов НТ, или случаи, когда это требуется согласно приказаниям членов вашего Ордена с высшим саном. \n В случае его отсутствия или недееспособности, вам стоит прислушиваться к мнению члена отряда с самым высоким званием."
