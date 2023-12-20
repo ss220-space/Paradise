@@ -52,6 +52,11 @@
 
 	sprite_sheets = list(
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
