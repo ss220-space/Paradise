@@ -178,6 +178,14 @@
 /obj/item/twohanded/staff/broom,
 /turf/simulated/floor/carpet/cyan,
 /area/awaymission/academy/headmaster)
+"aO" = (
+/obj/structure/table/wood,
+/obj/item/borg/upgrade/modkit/damage,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/classrooms)
 "aR" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -467,7 +475,7 @@
 /area/awaymission/academy/headmaster)
 "ce" = (
 /obj/structure/mineral_door/gold,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "cg" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
@@ -496,9 +504,6 @@
 /area/awaymission/academy/academyaft)
 "co" = (
 /obj/structure/table/wood,
-/obj/item/paper{
-	info = "Наши способности незримы спящим и потому мы прибегли к примитивным РЕАЛЬНЫМ обозначением, казалось бы, простых разрывов гобелена. Портальные разрывы нестабильны, поэтому будьте осторожны."
-	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "cp" = (
@@ -539,11 +544,11 @@
 /area/awaymission/academy/academygate)
 "cy" = (
 /obj/structure/table,
-/obj/item/katana,
 /obj/machinery/door_control{
 	id = "Acad_Door_katana_end";
 	name = "Chelenge end"
 	},
+/obj/item/toy/katana,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -581,7 +586,8 @@
 	icon_state = "acad_portal";
 	id = "Acad2";
 	id_target = "Acad22";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -648,7 +654,8 @@
 	icon_state = "acad_portal";
 	id = "Acad1";
 	id_target = "Acad11";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -692,10 +699,6 @@
 /area/awaymission/academy/classrooms)
 "dg" = (
 /obj/structure/table,
-/obj/item/paper{
-	info = "Grade: A+ Educator's Notes: Excellent form.";
-	name = "Summoning Midterm Exam"
-	},
 /obj/item/gun/projectile/shotgun/toy/tommygun,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -931,7 +934,7 @@
 "dU" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper{
-	info = "Добро пожаловать в Испытание Разума. Здесь, в этой Магической Академии, вы окажетесь перед серией умственных вызовов и загадок. Это не просто испытание вашего интеллекта, но и возможность погрузиться в увлекательный мир разгадывания головоломок и научиться думать нестандартно. Ваша способность анализа, логического мышления и творческого подхода будут ключевыми инструментами в этом испытании. Помните, что иногда ответ может быть скрыт глубоко в деталях, исследуйте, экспериментируйте и действуйте сообразно. Готовы ли вы к вызову разума? Переступите порог, шагните вперёд и начните свой путь к новым умственным вершинам. Не забывайте снимать свои чудо очки, иначе мы уничтожим их. Удачи в испытании!"
+	info = "Добро пожаловать в Испытание Разума. Здесь, в этой Магической Академии, вы окажетесь перед серией умственных вызовов и загадок. Это не просто испытание вашего интеллекта, но и возможность погрузиться в увлекательный мир разгадывания головоломок и научиться думать нестандартно. Ваша способность анализа, логического мышления и творческого подхода будут ключевыми инструментами в этом испытании. Помните, что иногда ответ может быть скрыт глубоко в деталях, исследуйте, экспериментируйте и действуйте сообразно. Готовы ли вы к вызову разума? Переступите порог, шагните вперёд и начните свой путь к новым умственным вершинам. Не забывайте оставлять свои чудо очки перед своим походом, иначе мы уничтожим их. Удачи в испытании Разума!"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -990,6 +993,12 @@
 	icon_state = "yellow"
 	},
 /area/awaymission/academy/classrooms)
+"ef" = (
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
 "eg" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment{
@@ -1251,9 +1260,6 @@
 /area/awaymission/academy)
 "fe" = (
 /obj/structure/table/wood,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -30
-	},
 /obj/item/paper{
 	info = "Привтствуем тебя, заблудший путешественник, что захотел испытать себя в нашей Магической Академии. Свет есть жизнь."
 	},
@@ -1394,7 +1400,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "sekretka1";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1633,11 +1640,10 @@
 /area/awaymission/academy/headmaster)
 "gE" = (
 /obj/structure/table,
-/obj/item/paper{
-	info = "Grade: B- Educator's Notes: Keep applying yourself, you're showing improvement.";
-	name = "Summoning Midterm Exam"
-	},
 /obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/paper{
+	info = "Наставник, пишу вам обращение и одновременно жалобу. На кой чёрт нам нужен полигон и тренировочное оружие!? МЫ ГРЁБАННЫЕ ВОЛШЕБНИКИ."
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault";
@@ -1709,10 +1715,6 @@
 "gT" = (
 /obj/structure/table,
 /obj/item/gun/energy/floragun,
-/obj/item/paper{
-	info = "Grade: D- Educator's Notes: SEE ME AFTER CLASS.";
-	name = "Summoning Midterm Exam"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault";
@@ -1951,7 +1953,7 @@
 "ic" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper{
-	info = "Добро пожаловать в Испытание Выдержки. Здесь, в этой Магической Академии, вы будете подвергнуты испытанию, которое потребует от вас спокойствия, терпения и выдержки. Это испытание предоставит вам возможность продемонстрировать, насколько вы способны сохранять самообладание и решительность в сложных и стрессовых ситуациях. Выдержка - это ключевой аспект успешного преодоления испытания. Будьте готовы к неожиданностям, сохраняйте ясность ума и действуйте рассудительно. Помните, что иногда самые сложные моменты требуют спокойной реакции. Готовы ли вы к вызову выдержки? Переступите порог,пройдите вперёд и начните свой путь к победе над стрессом и неопределенностью. Не забывайте снимать свои чудо очки, иначе мы уничтожим их. Удачи в испытании выдержки!"
+	info = "Добро пожаловать в Испытание Выдержки. Здесь, в этой Магической Академии, вы будете подвергнуты испытанию, которое потребует от вас спокойствия, терпения и выдержки. Это испытание предоставит вам возможность продемонстрировать, насколько вы способны сохранять самообладание и решительность в сложных и стрессовых ситуациях. Выдержка - это ключевой аспект успешного преодоления испытания. Будьте готовы к неожиданностям, сохраняйте ясность ума и действуйте рассудительно. Помните, что иногда самые сложные моменты требуют спокойной реакции. Готовы ли вы к вызову выдержки? Переступите порог, пройдите вперёд и начните свой путь к победе над стрессом и неопределенностью. Не забывайте оставлять свои чудо очки перед походом, иначе мы уничтожим их. Удачи в испытании выдержки!"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -2205,16 +2207,16 @@
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
 "iK" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/machinery/door/poddoor/impassable{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Acad_Door_katana;Acad_Door_katana_end";
+	opacity = 0
 	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/wall/indestructible/reinforced{
-	icon = 'icons/turf/walls/bananium_wall.dmi';
-	icon_state = "bananium"
-	},
-/area/awaymission/academy/academyaft)
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/plasma,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "iM" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/wardrobe/black,
@@ -2539,7 +2541,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "sekretka2";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2627,8 +2630,8 @@
 	},
 /area/awaymission/academy/classrooms)
 "kF" = (
-/obj/structure/table/wood,
-/obj/item/borg/upgrade/modkit/damage,
+/obj/structure/fans/tiny,
+/obj/structure/mineral_door/wood,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/classrooms)
 "kH" = (
@@ -2680,6 +2683,7 @@
 /area/awaymission/academy/headmaster)
 "kQ" = (
 /obj/structure/falsewall/reinforced,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "kR" = (
@@ -2693,7 +2697,7 @@
 /area/awaymission/academy/headmaster)
 "kS" = (
 /obj/item/paper{
-	info = "Летит ласточка легко в полет. Летний ветер ласкает плечи. Цветет зной, цветут луга. Любовь пламенем цветет, легко. По цветущему царству лазурному. Правит жизнь, цветет лето. Цветы летят, ласкает пушистые облака. Царица под звездами, легко, легко, легко. Лазурное пространство. Правит мечта, цветет песня."
+	info = "Летит ласточка, лёгок полет. Летний ветер ласкает плечи. Цветет зной, цветут и луга. Любовь зацветает под вечер. По цветущему царству лазурному. Правит жизнь цветущего лета. Цепок миг этот легкого ветра. Ценен раз тот, что пустит в полет! Легка и случайность раза сего. Пустившая ласточку в этот полет!"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -2723,6 +2727,7 @@
 /area/awaymission/academy/headmaster)
 "kX" = (
 /obj/structure/falsewall/reinforced,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/headmaster)
 "kY" = (
@@ -2839,6 +2844,7 @@
 	opacity = 0
 	},
 /obj/machinery/door/airlock/plasma,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "lD" = (
@@ -2920,7 +2926,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 73";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -3070,6 +3077,15 @@
 	icon_state = "floorgrime"
 	},
 /area/awaymission/academy/academyaft)
+"no" = (
+/obj/structure/lattice,
+/mob/living/simple_animal/hostile/carp{
+	health = 50;
+	maxHealth = 50;
+	name = "Annoyed space carp"
+	},
+/turf/space,
+/area/space)
 "nr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3146,7 +3162,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 77";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -3194,6 +3211,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
+"oP" = (
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/academyaft)
 "pa" = (
 /obj/structure/flora/bush,
 /turf/simulated/floor/grass,
@@ -3326,7 +3347,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "Acad_end1";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
@@ -3714,7 +3736,6 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "ul" = (
-/obj/structure/falsewall,
 /turf/simulated/wall/indestructible/reinforced,
 /area/space)
 "um" = (
@@ -3936,7 +3957,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 76";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -4059,7 +4081,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 74";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/vault,
@@ -4296,11 +4319,9 @@
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "zm" = (
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/academy/academyaft)
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plating,
+/area/awaymission/academy/classrooms)
 "zo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal{
@@ -4407,7 +4428,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 71";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -4550,7 +4572,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 72";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -4697,7 +4720,8 @@
 	icon_state = "acad_portal";
 	id = "Acad3";
 	id_target = "Acad33";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -4712,7 +4736,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 75";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -4791,7 +4816,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "EK" = (
-/obj/effect/decal/cleanable/cobweb2,
 /obj/item/stack/sheet/metal,
 /obj/structure/grille{
 	density = 0;
@@ -4995,7 +5019,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "sekretka3";
-	invisibility = 'icons/obj/stationobjs.dmi'
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
@@ -5836,7 +5861,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr24";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -5886,7 +5912,7 @@
 /area/awaymission/academy/academyaft)
 "PS" = (
 /obj/item/paper{
-	info = "Вы сделали это! Вам хватило смелости, разума и выдержки , чтобы пройти до конца все испытания и считаться достойным! Впереди вас ждёт ваша награда, которая может поменять вашу судьбу раз и навсегда!"
+	info = "Вы сделали это! Вам хватило смелости, разума и выдержки, чтобы пройти до конца все испытания и считаться достойным! Впереди вас ждёт ваша награда, которая может поменять вашу судьбу раз и навсегда!"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academygate)
@@ -5919,7 +5945,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 78";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -6173,7 +6200,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "Hub";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
@@ -6193,7 +6221,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "sekretka4";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
@@ -6316,7 +6345,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 69";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -6357,7 +6387,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 69";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/vault,
@@ -6403,7 +6434,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "Acad_end2";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/sepia,
 /area/awaymission/academy/academyaft)
@@ -6570,7 +6602,8 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "acad_portal";
 	id_target = "labr 70";
-	invisibility = 0
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
@@ -6862,6 +6895,7 @@
 	icon_state = "acad_portal";
 	id_target = "Acad_end3";
 	invisibility = 0;
+	name = "Межпространственный Разрыв";
 	pixel_x = -1
 	},
 /turf/simulated/floor/carpet,
@@ -6976,19 +7010,16 @@
 	},
 /area/awaymission/academy/academyaft)
 "ZT" = (
-/obj/machinery/camera{
-	c_tag = "Virology Office";
-	dir = 8;
-	network = list("Medical","SS13")
-	},
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
+	dir = 1;
+	icon_state = "chapel"
 	},
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/classrooms)
 "ZX" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper{
-	info = "Добро пожаловать в Испытание Смелости. Здесь, в этой Магической Академии, вы будете сталкиваться с серией испытаний, требующих смелости и решительности. Это не просто вызов вашей храбрости, но и возможность преодолеть свои страхи и личные ограничения. Ваша способность действовать в сложных ситуациях, принимать решения быстро и верить в себя будут ключевыми качествами в этом испытании. Помните, что часто смелость заключается в том, чтобы шагнуть в неизвестность и доверять своим инстинктам. Готовы ли вы к вызову смелости? Переступите порог,пройдите вперёд и начните свой путь к новым вершинам самоуверенности и отваги. Не забывайте снимать свои чудо очки, иначе мы уничтожим их. Удачи в испытании смелости!"
+	info = "Добро пожаловать в Испытание Смелости. Здесь, в этой Магической Академии, вы будете сталкиваться с серией испытаний, требующих смелости и решительности. Это не просто вызов вашей храбрости, но и возможность преодолеть свои страхи и личные ограничения. Ваша способность действовать в сложных ситуациях, принимать решения быстро и верить в себя будут ключевыми качествами в этом испытании. Помните, что часто смелость заключается в том, чтобы шагнуть в неизвестность и доверять своим инстинктам. Готовы ли вы к вызову смелости? Переступите порог, пройдите вперёд и начните свой путь к новым вершинам самоуверенности и отваги. Не забывайте оставлять свои чудо очки перед походом, иначе мы уничтожим их. Удачи в испытании смелости!"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -7693,10 +7724,10 @@ gm
 gm
 NL
 KL
+zm
 bB
 bB
-bB
-bB
+zm
 bB
 bB
 gm
@@ -9155,7 +9186,7 @@ hH
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -9352,7 +9383,7 @@ aa
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -9483,7 +9514,7 @@ aa
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -9510,7 +9541,7 @@ og
 og
 og
 og
-ff
+kF
 uB
 lh
 lh
@@ -9607,6 +9638,7 @@ aa
 aa
 aa
 aa
+gr
 aa
 aa
 aa
@@ -9619,8 +9651,7 @@ aa
 aa
 aa
 aa
-aa
-aa
+gr
 aa
 yM
 yM
@@ -9664,7 +9695,7 @@ sF
 hl
 Lw
 hH
-zm
+ii
 hH
 bX
 hH
@@ -10171,7 +10202,7 @@ Zr
 ei
 hH
 zQ
-zI
+fL
 fL
 fL
 fL
@@ -10308,7 +10339,7 @@ fD
 fD
 fD
 zI
-hb
+ef
 zI
 fD
 fD
@@ -10438,7 +10469,7 @@ fD
 fD
 fD
 zI
-hb
+ef
 zI
 yL
 yL
@@ -10451,7 +10482,7 @@ fD
 fD
 Qf
 zI
-hb
+oP
 zI
 fD
 ac
@@ -10681,8 +10712,8 @@ ah
 ah
 ah
 cM
-lh
-lh
+Zr
+Zr
 ek
 RU
 eT
@@ -10811,8 +10842,8 @@ ah
 IU
 qw
 cM
-lh
-lh
+Zr
+Zr
 ek
 hZ
 RW
@@ -10941,8 +10972,8 @@ ah
 ah
 ah
 cM
-lh
-ek
+Zr
+ei
 lh
 lh
 ek
@@ -10958,7 +10989,7 @@ fD
 fD
 fD
 zI
-hb
+ef
 zI
 tm
 tm
@@ -10971,7 +11002,7 @@ fD
 fD
 Qf
 zI
-hb
+oP
 zI
 fD
 ac
@@ -11074,7 +11105,7 @@ cM
 Kp
 uQ
 fy
-RU
+ZT
 eT
 lh
 ek
@@ -11088,7 +11119,7 @@ fD
 fD
 fD
 zI
-hb
+ef
 zI
 fD
 fD
@@ -11203,8 +11234,8 @@ Za
 cM
 wk
 rA
-kF
-MJ
+ek
+aO
 RW
 lh
 Zr
@@ -11216,7 +11247,7 @@ fL
 zF
 fL
 fL
-zI
+fL
 zQ
 hH
 KC
@@ -11581,7 +11612,7 @@ cM
 cM
 lC
 cM
-lC
+iK
 cM
 cM
 cM
@@ -11828,10 +11859,10 @@ aa
 aa
 aa
 aa
+gr
 aa
 aa
-aa
-yM
+no
 yM
 cM
 cM
@@ -11947,7 +11978,7 @@ aa
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -12083,7 +12114,7 @@ aa
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -12138,7 +12169,7 @@ ZD
 jG
 Yh
 jG
-ZT
+ii
 nS
 ii
 hH
@@ -12275,7 +12306,7 @@ hH
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -15023,8 +15054,8 @@ YQ
 YQ
 Pg
 Ra
-zP
-iq
+vk
+Ra
 Ra
 Ra
 Ra
@@ -15155,8 +15186,8 @@ Pg
 Ih
 Pg
 Ra
-Ra
-IF
+zP
+Uu
 Uu
 Uu
 Uu
@@ -15285,7 +15316,7 @@ Pg
 Ih
 Pg
 FV
-vk
+Pg
 KS
 Ih
 Ra
@@ -16324,8 +16355,8 @@ YQ
 Pg
 Ra
 Ih
-Ih
-IF
+zP
+Uu
 Uu
 mC
 Uu
@@ -16454,7 +16485,7 @@ YQ
 Lm
 iq
 Ih
-vk
+Pg
 Rq
 Ra
 Pg
@@ -16974,7 +17005,7 @@ YQ
 Pg
 Ih
 Ih
-Kx
+Pg
 Ra
 Ih
 Ra
@@ -17101,11 +17132,11 @@ YQ
 YQ
 YQ
 YQ
-Lm
-iq
+Pg
 Ih
-Ra
-IF
+Ih
+pG
+Uu
 Uu
 Uu
 iq
@@ -17232,8 +17263,8 @@ US
 TG
 YQ
 Lm
-Uu
 iq
+Ih
 Ra
 Ra
 Ih
@@ -20588,7 +20619,7 @@ sq
 rW
 rW
 rW
-sq
+rW
 ip
 rW
 rW
@@ -20719,7 +20750,7 @@ rW
 ip
 ip
 sq
-rW
+sq
 rW
 rW
 YQ
@@ -21493,8 +21524,8 @@ Sf
 YP
 rW
 ip
-ip
-ip
+rW
+rW
 rW
 rW
 rW
@@ -22028,7 +22059,7 @@ YQ
 YQ
 Ty
 ru
-iK
+ru
 ru
 US
 US
@@ -22135,7 +22166,7 @@ YP
 Sf
 Sf
 Sf
-YP
+dZ
 Sf
 YP
 Sf
