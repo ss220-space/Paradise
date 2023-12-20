@@ -491,9 +491,7 @@
 	if(istype(new_turf, /turf/simulated/floor))
 		var/turf/simulated/floor/T = new_turf
 		if(!istype(T, /turf/simulated/floor/plating))
-			if(!T.broken && !T.burnt)
-				new T.floor_tile(T)
-			T.make_plating()
+			T.make_plating(TRUE)
 	return !new_turf.intact
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(obj/mecha/M, atom/OldLoc, Dir, Forced = FALSE)

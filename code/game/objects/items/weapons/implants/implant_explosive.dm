@@ -1,7 +1,7 @@
 /obj/item/implant/explosive
 	name = "microbomb bio-chip"
 	desc = "And boom goes the weasel."
-	icon_state = "explosive"
+	icon_state = "explosive_old"
 	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
 	implant_state = "implant-syndicate"
 	activated = BIOCHIP_ACTIVATED_ACTIVE
@@ -103,7 +103,7 @@
 /obj/item/implant/explosive/macro
 	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
-	icon_state = "explosive"
+	icon_state = "explosive_old"
 	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
 	weak = 16
 	medium = 8

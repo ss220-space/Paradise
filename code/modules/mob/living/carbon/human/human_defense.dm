@@ -393,7 +393,7 @@ emp_act
 		I.acid_act(acidpwr, acid_volume)
 	return 1
 
-/mob/living/carbon/human/emag_act(user as mob, var/obj/item/organ/external/affecting)
+/mob/living/carbon/human/emag_act(mob/user, obj/item/organ/external/affecting)
 	if(!istype(affecting))
 		return
 	if(!affecting.is_robotic())
@@ -593,12 +593,11 @@ emp_act
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
-		var/damage = rand(1, 3)
 		if(stat != DEAD)
-			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			L.evolution_points = min(L.evolution_points + L.attack_damage, L.max_evolution_points)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
 			var/armor_block = run_armor_check(affecting, "melee")
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			apply_damage(L.attack_damage, BRUTE, affecting, armor_block)
 			updatehealth("larva attack")
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
@@ -622,7 +621,7 @@ emp_act
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
  				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			apply_damage(damage, BRUTE, affecting, armor_block, TRUE)
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 			var/all_objectives = M?.mind?.get_all_objectives()

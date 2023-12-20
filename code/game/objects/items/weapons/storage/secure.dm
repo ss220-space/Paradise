@@ -83,10 +83,10 @@
 			do_sparks(5, 0, loc)
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
 			playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			to_chat(user, "You slice through the lock on [src].")
-		else
+			if(user)
+				to_chat(user, "You slice through the lock on [src].")
+		else if(user)
 			to_chat(user, "You short out the lock on [src].")
-		return
 
 /obj/item/storage/secure/AltClick(mob/living/user)
 	if(istype(user) && !try_to_open())

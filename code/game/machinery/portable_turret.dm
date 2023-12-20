@@ -393,7 +393,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(M, span_noticealien("That object is useless to you."))
 	return
 
-/obj/machinery/porta_turret/emag_act(user as mob)
+/obj/machinery/porta_turret/emag_act(mob/user)
 	if(!emagged)
 		//Emagging the turret makes it go bonkers and stun everyone. It also makes
 		//the turret shoot much, much faster.

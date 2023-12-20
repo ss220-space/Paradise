@@ -78,7 +78,8 @@
 		locked = FALSE
 		overlays += overlay_sparking
 		addtimer(CALLBACK(src, PROC_REF(update_icon)), 1 SECONDS)
-		to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -151,6 +152,9 @@
 			if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
+			if(isobj(loc))
+				var/obj/loc_as_obj = loc
+				loc_as_obj.container_resist(L)
 			open()
 
 /obj/structure/closet/secure_closet/screwdriver_act(mob/living/user, obj/item/I)

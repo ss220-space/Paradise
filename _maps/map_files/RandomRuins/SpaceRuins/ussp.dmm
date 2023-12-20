@@ -664,12 +664,6 @@
 	icon_state = "darkblue"
 	},
 /area/derelict/bridge)
-"bE" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/security)
 "bF" = (
 /obj/machinery/light/spot{
 	dir = 1;
@@ -1957,12 +1951,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/derelict/rnd)
-"eM" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "purplefull"
-	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/rnd)
 "eN" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray{
@@ -2067,12 +2055,6 @@
 	dir = 5;
 	icon_state = "caution"
 	},
-/area/derelict/engineer_area)
-"eZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "cautionfull"
-	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/engineer_area)
 "fa" = (
 /obj/structure/grille,
@@ -2920,10 +2902,6 @@
 "gZ" = (
 /obj/structure/window/reinforced{
 	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteredfull"
 	},
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/dining)
@@ -5710,12 +5688,6 @@
 	icon_state = "whitered"
 	},
 /area/derelict/dining)
-"nU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/common)
 "nV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "orangefull"
@@ -6216,12 +6188,6 @@
 	icon_state = "orange"
 	},
 /area/derelict/common)
-"pj" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "orangefull"
-	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/common)
 "pk" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -6665,10 +6631,6 @@
 /area/derelict/common)
 "qp" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/med)
-"qq" = (
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/med)
 "qr" = (
@@ -8151,12 +8113,6 @@
 	icon_state = "red"
 	},
 /area/derelict/arrival)
-"zE" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/derelict/common)
 "zG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -15451,7 +15407,7 @@ ac
 cq
 nL
 nL
-dO
+nL
 gj
 gK
 ha
@@ -16185,7 +16141,7 @@ de
 fE
 fZ
 gs
-dO
+nL
 nL
 cq
 ac
@@ -16666,7 +16622,7 @@ dB
 do
 Ci
 SE
-dO
+nL
 dF
 cq
 ac
@@ -16704,7 +16660,7 @@ mS
 oc
 oS
 qg
-qq
+mG
 tk
 ac
 ac
@@ -16787,7 +16743,7 @@ dq
 dC
 dn
 dR
-dO
+nL
 dS
 ac
 ac
@@ -16900,7 +16856,7 @@ ac
 ac
 ac
 cq
-bE
+nL
 Em
 EY
 cM
@@ -16908,7 +16864,7 @@ cA
 do
 dD
 dM
-dO
+nL
 dS
 ac
 ac
@@ -17021,7 +16977,7 @@ ac
 sp
 ac
 cq
-bE
+nL
 bS
 cn
 Im
@@ -17406,7 +17362,7 @@ ac
 ac
 Md
 eL
-eM
+Tf
 hw
 hN
 eP
@@ -17647,7 +17603,7 @@ ac
 ac
 ac
 Md
-eM
+Tf
 Pe
 gP
 te
@@ -17686,7 +17642,7 @@ iy
 rb
 qM
 zx
-qk
+bn
 aW
 ac
 ac
@@ -17768,7 +17724,7 @@ ac
 ac
 ag
 Md
-eM
+Tf
 ga
 gu
 gQ
@@ -17801,7 +17757,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 yH
 hY
 qM
@@ -18018,7 +17974,7 @@ fj
 fJ
 fR
 hx
-eM
+Tf
 eL
 Md
 ac
@@ -18046,7 +18002,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 qF
 hY
 re
@@ -18132,7 +18088,7 @@ ac
 ac
 ac
 Md
-eM
+Tf
 YD
 eP
 fj
@@ -19840,7 +19796,7 @@ ac
 ac
 ag
 Vq
-eZ
+Fl
 Sz
 VA
 CI
@@ -20085,7 +20041,7 @@ ag
 ag
 ag
 Vq
-eZ
+Fl
 fS
 xe
 ps
@@ -20454,7 +20410,7 @@ ac
 ac
 ac
 Vq
-eZ
+Fl
 gU
 hl
 hC
@@ -20578,7 +20534,7 @@ ac
 ac
 Vq
 wo
-eZ
+Fl
 hD
 hR
 VU
@@ -21693,7 +21649,7 @@ ac
 ac
 yg
 YH
-nU
+HD
 jk
 bB
 ng
@@ -22308,7 +22264,7 @@ Fi
 ol
 Fi
 pc
-pj
+HD
 yg
 ac
 ac
@@ -22428,7 +22384,7 @@ bB
 nX
 om
 oC
-zE
+HD
 yg
 yg
 ac

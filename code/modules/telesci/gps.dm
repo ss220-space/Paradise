@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/attackby(obj/item/C as obj)
 	if(istype(C, /obj/item/gpsupgrade) && !upgraded)
-		upgraded = 1
-		del(C)
+		upgraded = TRUE
+		qdel(C)
 
 #undef EMP_DISABLE_TIME

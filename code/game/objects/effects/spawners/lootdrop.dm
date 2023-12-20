@@ -140,6 +140,7 @@
 				/obj/item/gun/projectile/automatic/pistol = 1,
 				/obj/item/ammo_box/magazine/m10mm = 4,
 				/obj/item/soap/syndie = 7,
+				/obj/item/stack/tape_roll/thick = 7,
 				/obj/item/gun/syringe/syndicate = 2,
 				/obj/item/suppressor = 4,
 				/obj/item/clothing/under/chameleon = 2,
@@ -472,5 +473,15 @@
 	lootdoubles = 0
 	lootcount = 1
 	loot = list(/mob/living/simple_animal/hostile/asteroid/marrowweaver = 40,
-			/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 20,
-			"" = 40)
+	/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 20,
+	"" = 40)
+
+/obj/effect/spawner/lootdrop/bouquet_spawner
+	name = "50% bouquet spawner"
+	icon_state = "bouquet"
+	lootdoubles = 0
+
+	loot = list(
+				/obj/item/decorations/bouquets/random = 50,
+				"" = 50,
+				)

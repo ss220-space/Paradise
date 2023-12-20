@@ -337,8 +337,9 @@
 /obj/machinery/computer/shuttle/pod/update_icon()
 	return
 
-/obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)
-	to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
+/obj/machinery/computer/shuttle/pod/emag_act(mob/user)
+	if(user)
+		to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
 	admin_controlled = 0
 	icon_state = "dorm_emag"
 

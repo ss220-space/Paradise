@@ -152,7 +152,7 @@
 		return
 	return ..()
 
-/obj/item/lightreplacer/emag_act(user as mob)
+/obj/item/lightreplacer/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		Emag()

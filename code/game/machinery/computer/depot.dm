@@ -39,8 +39,8 @@
 	return
 
 /obj/machinery/computer/syndicate_depot/emag_act(mob/user)
-	to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
-	return
+	if(user)
+		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 
 /obj/machinery/computer/syndicate_depot/allowed(mob/user)
 	if(user.can_advanced_admin_interact())

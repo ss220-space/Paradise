@@ -53,7 +53,8 @@
 	if(!malfunctioning)
 		add_attack_logs(user, src, "emagged")
 		malfunctioning = 1
-		to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
 
 /obj/item/lazarus_injector/emp_act()
 	if(!malfunctioning)

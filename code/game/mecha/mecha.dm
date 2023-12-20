@@ -679,7 +679,7 @@
 	log_message("Attack by alien. Attacker - [user].", TRUE)
 	add_attack_logs(user, OCCUPANT_LOGGING, "Alien attacked mech [src]")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
-	attack_generic(user, user.attack_damage, BRUTE, "melee", 0, user.armour_penetration)
+	attack_generic(user, user.obj_damage, BRUTE, MELEE, 0, user.armour_penetration)
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].")
@@ -996,8 +996,8 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
-	return
+	if(user)
+		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
 
 
 /////////////////////////////////////

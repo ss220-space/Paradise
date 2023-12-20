@@ -57,12 +57,13 @@
 
 	src.updateUsrDialog()
 
-/obj/machinery/computer/HONKputer/emag_act(user as mob)
+/obj/machinery/computer/HONKputer/emag_act(mob/user)
 	if(!emagged)
-		src.emagged = 1
-		to_chat(user, "You scramble the login circuits, allowing anyone to use the console!")
+		emagged = 1
+		if(user)
+			to_chat(user, "You scramble the login circuits, allowing anyone to use the console!")
 
-/obj/machinery/computer/HONKputer/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/HONKputer/attack_hand(mob/user)
 	if(..())
 		return
 	if(is_away_level(src.z))

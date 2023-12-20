@@ -155,7 +155,7 @@
 	reset_software()
 
 /mob/living/silicon/pai/proc/reset_software(var/extra_memory = 0)
-	QDEL_LIST(installed_software)
+	QDEL_LIST_ASSOC_VAL(installed_software)
 
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))

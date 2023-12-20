@@ -151,7 +151,7 @@
 	var/ue_to_compare = (old_ue) ? old_ue : dna.unique_enzymes
 	var/list/all_bits = internal_organs|bodyparts
 	for(var/obj/item/organ/organ as anything in all_bits)
-		if(assimilate || organ.dna.unique_enzymes == ue_to_compare)
+		if(assimilate || organ.dna?.unique_enzymes == ue_to_compare)
 			organ.update_DNA(dna)
 
 

@@ -62,9 +62,9 @@
 			update_flags |= our_mob.adjustBrainLoss(-5, FALSE)
 			update_flags |= our_mob.adjustCloneLoss(-5, FALSE)
 			//Other helpfull things
-			update_flags |= our_mob.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
-			update_flags |= our_mob.AdjustParalysis(-2 SECONDS, FALSE)
-			update_flags |= our_mob.AdjustWeakened(-2 SECONDS)
+			our_mob.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
+			our_mob.AdjustParalysis(-2 SECONDS)
+			our_mob.AdjustWeakened(-2 SECONDS)
 		if(20 to 40)
 			//Human only effects
 			if(ishuman(our_mob))

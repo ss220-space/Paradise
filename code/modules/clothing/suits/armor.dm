@@ -636,3 +636,11 @@
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
 	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+//Dredd
+
+/obj/item/clothing/suit/armor/vest/street_judge
+	name = "judge's security armor"
+	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
+	icon_state = "streetjudgearmor"
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")

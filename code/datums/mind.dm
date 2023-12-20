@@ -2552,7 +2552,8 @@
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
 
 	else if(href_list["obj_announce"])
-		announce_objectives()
+		var/list/messages = prepare_announce_objectives()
+		to_chat(current, chat_box_red(messages.Join("<br>")))
 		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
@@ -2807,11 +2808,14 @@
 			return A
 
 
-/datum/mind/proc/announce_objectives()
-	if(current)
-		to_chat(current, "<span class='notice'>Your current objectives:</span>")
-		for(var/line in splittext(gen_objective_text(), "<br>"))
-			to_chat(current, line)
+/datum/mind/proc/prepare_announce_objectives(title = TRUE)
+	if(!current)
+		return
+	var/list/text = list()
+	if(title)
+		text.Add("<span class='notice'>Your current objectives:</span>")
+	text.Add(gen_objective_text())
+	return text
 
 
 /datum/mind/proc/find_syndicate_uplink()

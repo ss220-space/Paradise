@@ -1,6 +1,6 @@
 // A Clockwork slab. Ratvar's tool to cast most of essential spells.
 /obj/item/clockwork/clockslab
-	name = "Clockwork slab"
+	name = "clockwork slab"
 	desc = "A strange metal tablet. A clock in the center turns around and around."
 	icon = 'icons/obj/clockwork.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -40,7 +40,7 @@
 			return
 		if(alert(user, "Do you want to reveal clockwork slab?","Revealing!","Yes","No") != "Yes")
 			return
-		name = "Clockwork slab"
+		name = "clockwork slab"
 		desc = "A strange metal tablet. A clock in the center turns around and around."
 		icon = 'icons/obj/clockwork.dmi'
 		icon_state = "clock_slab"
@@ -199,7 +199,7 @@
 			deplete_spell()
 
 /obj/item/clockwork
-	name = "Clockwork item name"
+	name = "clockwork item name"
 	icon = 'icons/obj/clockwork.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
@@ -210,13 +210,13 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "ratvarian_spear0"
 	slot_flags = SLOT_BACK
-	force = 12
-	force_unwielded = 12
+	force = 10
+	force_unwielded = 10
 	force_wielded = 20
-	throwforce = 50
+	throwforce = 35
 	armour_penetration = 40
 	sharp = TRUE
-	embed_chance = 85
+	embed_chance = 70
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("stabbed", "poked", "slashed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -597,6 +597,24 @@
 	if(enchant_type)
 		overlays += "brass_buckler_overlay_[enchant_type]"
 
+/obj/item/shield/clock_buckler/attack_self(mob/user)
+	. = ..()
+	if(enchant_type == FLASH_SPELL)
+		if(!user.is_in_hands(src))
+			to_chat(user, "<span class='notice'>You should wear [src]!</span>")
+			return
+		playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
+		set_light(2, 1, COLOR_WHITE)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.2 SECONDS)
+		user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
+		for(var/mob/living/carbon/M in oviewers(3, user))
+			if(isclocker(M))
+				return
+			if(M.flash_eyes(2, 1))
+				M.AdjustConfused(10 SECONDS)
+				add_attack_logs(user, M, "Flashed with [src]")
+		deplete_spell()
+
 /obj/item/shield/clock_buckler/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!proximity || !isliving(target))
@@ -775,7 +793,7 @@
 	item_state = "clockwork_cuirass"
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 	flags_inv = HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
@@ -787,10 +805,9 @@
 		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
-	var/absorb_uses = 2
-	var/reflect_uses = 3
+	var/reflect_uses = 4
 	var/normal_armor
-	var/harden_armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	var/harden_armor = list("melee" = 80, "bullet" = 70, "laser" = 80, "energy" = 60, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 
 /obj/item/clothing/suit/armor/clockwork_fake
 	name = "clockwork cuirass"
@@ -822,11 +839,7 @@
 		owner.visible_message("<span class='danger'>[attack_text] is absorbed by [src] sparks!</span>")
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
-		if(absorb_uses <= 0)
-			absorb_uses = initial(absorb_uses)
-			deplete_spell()
-		else
-			absorb_uses--
+		deplete_spell()
 		return TRUE
 	return FALSE
 
@@ -857,35 +870,19 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/carbon = user
-	switch(enchant_type)
-		if(ARMOR_SPELL)
-			if(carbon.wear_suit != src)
-				to_chat(carbon, "<span class='notice'>You should wear [src]!</span>")
-				return
-			carbon.visible_message("<span class='danger'>[carbon] concentrates as [carbon.p_their()] curiass shifts his plates!</span>",
-			"<span class='notice'>The [src.name] becomes more hardened as the plates becomes to shift for any attack!</span>")
-			//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-			armor = harden_armor
-			flags |= NODROP
-			enchant_type = CASTING_SPELL
-			add_attack_logs(carbon, carbon, "Hardened [src]", ATKLOG_ALL)
-			set_light(1.5, 0.8, COLOR_RED)
-			addtimer(CALLBACK(src, PROC_REF(reset_armor), carbon), 12 SECONDS)
-		if(FLASH_SPELL)
-			if(carbon.wear_suit != src)
-				to_chat(carbon, "<span class='notice'>You should wear [src]!</span>")
-				return
-			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
-			set_light(2, 1, COLOR_WHITE)
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.2 SECONDS)
-			carbon.visible_message("<span class='disarm'>[carbon]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
-			for(var/mob/living/carbon/M in oviewers(3, carbon))
-				if(isclocker(M))
-					return
-				if(M.flash_eyes(2, 1))
-					M.AdjustConfused(10 SECONDS)
-					add_attack_logs(carbon, M, "Flashed with [src]")
-			deplete_spell()
+	if(enchant_type == ARMOR_SPELL)
+		if(carbon.wear_suit != src)
+			to_chat(carbon, "<span class='notice'>You should wear [src]!</span>")
+			return
+		carbon.visible_message("<span class='danger'>[carbon] concentrates as [carbon.p_their()] curiass shifts his plates!</span>",
+		"<span class='notice'>The [src.name] becomes more hardened as the plates becomes to shift for any attack!</span>")
+		//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+		armor = harden_armor
+		flags |= NODROP
+		enchant_type = CASTING_SPELL
+		add_attack_logs(carbon, carbon, "Hardened [src]", ATKLOG_ALL)
+		set_light(1.5, 0.8, COLOR_RED)
+		addtimer(CALLBACK(src, PROC_REF(reset_armor), carbon), 12 SECONDS)
 
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor(mob/user)
 	to_chat(user, "<span class='notice'>The [src] stops shifting...</span>")
@@ -1177,33 +1174,51 @@
 	desc = "A small cogwheel that fits in the palm of your hand."
 	icon_state = "gear"
 	w_class = WEIGHT_CLASS_TINY
-	var/obj/machinery/power/apc/apc
 
 /obj/item/clockwork/integration_cog/Initialize()
 	. = ..()
 	transform *= 0.5 //little cog!
-	START_PROCESSING(SSobj, src)
 
-/obj/item/clockwork/integration_cog/Destroy()
-	STOP_PROCESSING(SSobj, src)
+/obj/machinery/integration_cog
+	name = "integration cog"
+	desc = "You shouldn't see that! Call dev on that!"
+	icon = null
+	anchored = 1
+	active_power_usage = 100 // In summary it costs 500 power. Most areas costs around 800, with top being medbay at around 8000. Fair number.
+	var/obj/machinery/power/apc/apc
+	var/next_whoosh = 120
+
+/obj/machinery/integration_cog/Initialize(mapload)
 	. = ..()
-
-/obj/item/clockwork/integration_cog/process()
-	if(!apc)
-		if(istype(loc, /obj/machinery/power/apc))
-			apc = loc
-		else
-			STOP_PROCESSING(SSobj, src)
+	if(istype(loc, /obj/machinery/power/apc))
+		apc = loc
 	else
-		var/obj/item/stock_parts/cell/cell = apc.get_cell()
-		if(!cell)
-			return
-		if(cell.charge / cell.maxcharge > COG_MAX_SIPHON_THRESHOLD)
-			cell.use(round(0.001*cell.maxcharge,1))
-			adjust_clockwork_power(CLOCK_POWER_COG) //Power is shared, so only do it once; this runs very quickly so it's about CLOCK_POWER_COG(1)/second
-			if(prob(1))
-				playsound(apc, 'sound/machines/clockcult/steam_whoosh.ogg', 5, TRUE, SILENCED_SOUND_EXTRARANGE)
-				new/obj/effect/temp_visual/small_smoke(get_turf(apc))
+		log_runtime(EXCEPTION("Invalid location for Integration cog"))
+
+/obj/machinery/integration_cog/emp_act(severity)
+	return
+
+/obj/machinery/integration_cog/process(seconds_per_tick)
+	if(apc.cell?.charge > 0 && apc.operating)
+		adjust_clockwork_power(CLOCK_POWER_COG * seconds_per_tick)
+		if(next_whoosh <= 0)
+			playsound(apc, 'sound/machines/clockcult/steam_whoosh.ogg', 5, TRUE, SILENCED_SOUND_EXTRARANGE)
+			new/obj/effect/temp_visual/small_smoke(get_turf(apc))
+			next_whoosh = 60 + rand(60) // 1-2 minutes
+		next_whoosh -= seconds_per_tick
+		return TRUE
+	return FALSE
+
+/obj/machinery/integration_cog/auto_use_power()
+	if(powered(EQUIP))
+		use_power(active_power_usage, EQUIP)
+	if(powered(LIGHT))
+		use_power(active_power_usage, LIGHT)
+	if(powered(ENVIRON))
+		use_power(active_power_usage, ENVIRON)
+	use_power(200)
+	adjust_clockwork_power(CLOCK_POWER_COG)
+	return 1
 
 //Clockwork module
 /obj/item/borg/upgrade/clockwork
@@ -1215,8 +1230,6 @@
 /obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/R)
 	if(..())
 		if(R.module?.type == /obj/item/robot_module/clockwork)
-			R.emp_protection = TRUE
-			R.speed = -0.5
 			R.pdahide = TRUE
 		else
 			R.ratvar_act()
