@@ -343,9 +343,6 @@
 	},
 /area/awaymission/academy/headmaster)
 "bz" = (
-/mob/living/simple_animal/hostile/mimic/crate{
-	faction = list("faithless")
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	tag = "icon-vault"
@@ -699,7 +696,7 @@
 /area/awaymission/academy/classrooms)
 "dg" = (
 /obj/structure/table,
-/obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/twohanded/toy/chainsaw,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault";
@@ -1436,6 +1433,9 @@
 	},
 /area/awaymission/academy/academyaft)
 "fN" = (
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("faithless")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	tag = "icon-vault"
@@ -1636,6 +1636,9 @@
 "gD" = (
 /obj/structure/table/reinforced,
 /obj/item/camera_film,
+/obj/machinery/door_control{
+	id = "Acad_Door_start"
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "gE" = (
@@ -1660,10 +1663,8 @@
 /area/awaymission/academy/academyaft)
 "gH" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/gold{
-	amount = 5
-	},
 /obj/effect/decal/warning_stripes/east,
+/obj/item/twohanded/dualsaber/toy,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "gJ" = (
@@ -2602,8 +2603,9 @@
 	faction = list("faithless")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "kx" = (
@@ -5633,7 +5635,6 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "MH" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -11508,7 +11509,7 @@ gg
 gg
 Ku
 gg
-gg
+MH
 hH
 Vv
 dA
@@ -11635,10 +11636,10 @@ bQ
 iI
 gg
 gg
+kv
 gg
 gg
-gg
-gg
+kv
 hH
 Pz
 hl
@@ -12022,7 +12023,7 @@ fp
 RI
 gm
 bz
-MH
+Li
 Li
 Li
 LG
@@ -12151,7 +12152,7 @@ eC
 fq
 fq
 gm
-kv
+cA
 nr
 nr
 WR
