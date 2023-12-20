@@ -35,7 +35,7 @@
 	rt_assignment = "Emergency Response Team Leader"
 	rt_job = "Emergency Response Team Leader"
 	rt_mob_job = "ERT Commander"
-	special_message = "За обычных условий вы подчиняетесь <span class='red'>старшим по рангу офицерам Защиты Активов</span>. \n Впрочем, на время проведения операции вы подчиняетесь <span class='red'>Офицеру Специальных Операций</span>. \n Исключениями являются случаи, когда его приказания прямо противоречат интересам Отдела Защиты Активов или приказаниям членов ОЗА в более высоком звании, чем вы. \n Вы имеете абсолютную власть в рамках вашего отряда, и практически абсолютную в рамках зоны проведения операции. Пресекайте прямое неподчинение, но не забывайте прислушиваться к мнению специалистов."
+	special_message = "В обычных условий вы подчиняетесь <span class='red'>старшим по рангу офицерам Защиты Активов</span>. \n Впрочем, на время проведения операции вы подчиняетесь <span class='red'>Офицеру Специальных Операций</span>. \n Исключениями являются случаи, когда его приказания прямо противоречат интересам Отдела Защиты Активов или приказаниям членов ОЗА в более высоком звании, чем вы. \n Вы имеете абсолютную власть в рамках вашего отряда, и практически абсолютную в рамках зоны проведения операции. Пресекайте прямое неподчинение, но не забывайте прислушиваться к мнению специалистов."
 	exp_type = EXP_TYPE_COMMAND
 
 	uniform = /obj/item/clothing/under/rank/centcom_officer/sensor
@@ -127,6 +127,7 @@
 		)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/thermals/empproof,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
@@ -146,7 +147,7 @@
 	rt_mob_job = "ERT Security"
 	uniform = /obj/item/clothing/under/rank/security/sensor
 	back = /obj/item/storage/backpack/ert/security
-	belt = /obj/item/storage/belt/security/response_team
+	belt = /obj/item/storage/belt/security/sec
 	pda = /obj/item/pda/heads/ert/security
 	id = /obj/item/card/id/ert/security
 	exp_type = EXP_TYPE_SECURITY
@@ -232,6 +233,7 @@
 	)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/thermals/empproof,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
@@ -502,7 +504,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/reagent_containers/food/drinks/bottle/holywater
 		)
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

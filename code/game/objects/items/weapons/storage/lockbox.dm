@@ -136,6 +136,7 @@
 	name = "lockbox (T4)"
 	desc = "Contains three T4 breaching charges."
 	req_access = list(ACCESS_CENT_SPECOPS)
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/lockbox/t4/populate_contents()
 	for(var/I in 1 to 3)
