@@ -16,7 +16,8 @@
 
 
 /datum/antagonist/wishgranter/greet()
-	to_chat(owner.current, "<B>Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!</B>")
+	. = ..()
+	. += span_notice("Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!")
 
 
 /datum/antagonist/wishgranter/proc/give_powers()

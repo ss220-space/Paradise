@@ -107,10 +107,13 @@
 		return
 
 	use_power(5)
-	icon_state = "[initial(icon_state)]-inuse"
+
+	animate_activation()
 
 	do_main_action(user)
 
+/obj/machinery/door_control/proc/animate_activation()
+	icon_state = "[initial(icon_state)]-inuse"
 	addtimer(CALLBACK(src, PROC_REF(update_icon)), 15)
 
 /obj/machinery/door_control/power_change()
@@ -130,3 +133,15 @@
 /obj/machinery/door_control/secure/emag_act(user)
 	if(user)
 		to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
+
+// hidden mimic button
+
+/obj/machinery/door_control/mimic
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "lantern"
+
+/obj/machinery/door_control/mimic/animate_activation()
+	audible_message("Something clicked.", ,1)
+
+/obj/machinery/door_control/mimic/update_icon()
+	return

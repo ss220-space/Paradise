@@ -169,3 +169,76 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 30
 	speed = -1
+
+/mob/living/simple_animal/hostile/zombie/space_graveyard/noble
+	name = "zombie"
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "husk_suit"
+	speed = 0
+	maxHealth = 100
+	health = 100
+	melee_damage_lower = 25
+	melee_damage_upper = 35
+	loot = list(
+		/obj/item/decorations/bouquets/random,
+		/obj/item/clothing/shoes/centcom,
+		/obj/item/clothing/under/suit_jacket/charcoal,
+		/obj/effect/decal/cleanable/blood/gibs,
+		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
+	)
+
+/mob/living/simple_animal/hostile/zombie/space_graveyard/noble/fast
+	name = "fast zombie"
+	maxHealth = 75
+	health = 75
+	melee_damage_lower = 15
+	melee_damage_upper = 30
+	speed = -1
+
+/mob/living/simple_animal/hostile/zombie/space_graveyard/dredd
+	name = "street judge zombie"
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "husk_dredd"
+	speed = 0
+	maxHealth = 160
+	health = 160
+	melee_damage_lower = 25
+	melee_damage_upper = 40
+	loot = list(
+		/obj/item/clothing/under/rank/security,
+		/obj/item/clothing/suit/armor/vest/street_judge,
+		/obj/item/clothing/gloves/combat,
+		/obj/item/clothing/shoes/jackboots,
+		/obj/item/clothing/head/helmet/street_judge,
+		/obj/item/clothing/mask/gas/sechailer,
+		/obj/item/gun/energy/dominator/sibyl,
+		/obj/item/clothing/accessory/lawyers_badge,
+		/obj/effect/decal/cleanable/blood/gibs,
+		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
+	)
+
+/mob/living/simple_animal/hostile/zombie/space_graveyard/pirate
+	name = "zombie pirate"
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "husk_pirate"
+	speed = 0
+	maxHealth = 125
+	health = 125
+	melee_damage_lower = 20
+	melee_damage_upper = 30
+	loot = list(
+		/obj/item/clothing/suit/pirate_brown,
+		/obj/item/clothing/under/pirate,
+		/obj/item/clothing/shoes/fluff/noble_boot,
+		/obj/item/clothing/head/pirate,
+		/obj/item/clothing/glasses/eyepatch,
+		/obj/item/melee/energy/sword/pirate,
+		/obj/effect/decal/cleanable/blood/gibs,
+		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping
+	)

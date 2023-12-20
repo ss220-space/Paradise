@@ -92,12 +92,13 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		// no parameter in [affects_vampire()] so holy always protects
-		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
+		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna?.species?.species_traits))
 			C.bleed(blood_drain_amount)
-			V.adjust_blood(C, blood_absorbed_amount)
 			attacker.adjustStaminaLoss(-20) // security is dead
 			attacker.heal_overall_damage(4, 4) // the station is full
 			attacker.AdjustWeakened(-1 SECONDS) // blood is fuel
+			if(!C.dna.species.exotic_blood)
+				V.adjust_blood(C, blood_absorbed_amount)
 
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
 		durability--
