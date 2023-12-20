@@ -174,9 +174,11 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
+
 		if(current_armor.getRating("melee") < 60)
 			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
 			if(is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
+
 				if(istype(C, /obj/item/clothing/suit/hooded/explorer))
 					var/obj/item/clothing/suit/hooded/explorer/explorer = C
 					switch(explorer.armor.getRating("melee"))
@@ -186,6 +188,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 							explorer.nohood_state = "[initial(explorer.nohood_state)]_reinf_full"
 					explorer.item_state = explorer.nohood_state
 					explorer.update_icon()
+
 				else if(istype(C, /obj/item/clothing/head/helmet/space/plasmaman/mining))
 					var/obj/item/clothing/head/helmet/space/plasmaman/mining/plasma = C
 					switch(plasma.armor.getRating("melee"))
@@ -193,6 +196,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 							plasma.icon_state = "[initial(plasma.icon_state)]_reinf"
 						if(60)
 							plasma.icon_state = "[initial(plasma.icon_state)]_reinf_full"
+
 				else
 					switch(C.armor.getRating("melee"))
 						if(40, 50)
@@ -201,14 +205,17 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 						if(60)
 							C.icon_state = "[initial(C.icon_state)]_reinf_full"
 							C.item_color = "mining_reinf_full"
+
 				if(ishuman(C.loc))
 					var/mob/living/carbon/human/H = C.loc
 					H.update_inv_head()
 					H.update_inv_wear_suit()
+
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
+
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
 		if(D.hides < 3)
