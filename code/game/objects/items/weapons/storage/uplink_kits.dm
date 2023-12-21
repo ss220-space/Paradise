@@ -125,7 +125,7 @@
 		/obj/item/restraints/handcuffs,  // 0 TC
 		/obj/item/flash, // 0 TC
 		/obj/item/implanter/mindshield, //0 TC
-		/obj/item/clothing/suit/armor/vest/security //0 TC
+		/obj/item/clothing/suit/armor/vest/security, //0 TC
 		)
 
 /obj/item/storage/box/syndicate/populate_contents()
