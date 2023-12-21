@@ -475,6 +475,16 @@
 	job = list("Roboticist")
 	surplus = 0
 
+/datum/uplink_item/jobspecific/missilemedium
+	name = "Missiles for mechs"
+	desc = "Medium power missiles module for mechs like Gygax, Durand, Maule... nevermind. Way more powerful, than missile modules you can produce in legal fabs. It comes without lockbox - plug and play!"
+	item = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
+	cost = 50
+	job = list("Roboticist")
+	surplus = 0
+	can_discount = FALSE
+	hijack_only = TRUE
+
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
