@@ -4,7 +4,6 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/obj/item/clothing/head/hooded/hood
 	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
-	var/nohood_state
 
 /obj/item/clothing/suit/hooded/Initialize(mapload)
 	. = ..()
@@ -15,7 +14,7 @@
 	. = ..()
 
 /obj/item/clothing/suit/hooded/proc/MakeHood()
-	nohood_state = initial(icon_state)
+	item_color = initial(icon_state)
 	if(!hood)
 		var/obj/item/clothing/head/hooded/W = new hoodtype(src)
 		W.suit = src
@@ -37,7 +36,7 @@
 /obj/item/clothing/suit/hooded/proc/RemoveHood()
 	if(isnull(hood))
 		return
-	icon_state = nohood_state
+	icon_state = item_color
 	suit_adjusted = 0
 	if(ishuman(hood.loc))
 		var/mob/living/carbon/H = hood.loc
@@ -65,7 +64,7 @@
 				return
 			else if(H.equip_to_slot_if_possible(hood, slot_head))
 				suit_adjusted = 1
-				icon_state = "[nohood_state]_hood"
+				icon_state = "[item_color]_hood"
 				H.update_inv_wear_suit()
 				for(var/X in actions)
 					var/datum/action/A = X
