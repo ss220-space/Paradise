@@ -502,7 +502,8 @@
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 					playsound(get_turf(src), "bodyfall", 50, 1)
 					playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-					var/total_cloneloss = H.cloneloss
+					//Oooh the trickery
+					var/total_cloneloss = H.reagents.get_reagent_amount("rezadone") ? 0 : H.cloneloss
 					var/total_bruteloss = 0
 					var/total_burnloss = 0
 					for(var/obj/item/organ/external/O as anything in H.bodyparts)
