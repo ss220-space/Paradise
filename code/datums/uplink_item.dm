@@ -476,8 +476,8 @@
 	surplus = 0
 
 /datum/uplink_item/jobspecific/missilemedium
-	name = "Missiles for mechs"
-	desc = "Medium power missiles module for mechs like Gygax, Durand, Maule... nevermind. Way more powerful, than missile modules you can produce in legal fabs. It comes without lockbox - plug and play!"
+	name = "SRM-8 Missile Rack"
+	desc = "Medium power missiles module for mechs like Gygax, Durand, Maule... nevermind. Way more powerful, than missile modules you can print on standard mech fabs. It comes without lockbox - plug and play!"
 	item = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
 	cost = 50
 	job = list("Roboticist")
