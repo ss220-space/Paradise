@@ -94,7 +94,9 @@
 /mob/living/simple_animal/mouse/proc/do_idle_animation(anim)
 	canmove = FALSE
 	flick("mouse_[mouse_color]_idle[anim]",src)
-	sleep(2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(animation_end)), 2 SECONDS)
+
+/mob/living/simple_animal/mouse/proc/animation_end()
 	canmove = TRUE
 
 /mob/living/simple_animal/mouse/proc/is_available_for_anim()
@@ -205,7 +207,6 @@
 
 	emote("msniff", intentional = TRUE)
 
-
 /mob/living/simple_animal/mouse/proc/shake()
 	set name = "Дрожать"
 	set desc = "Дрожит или дрыгается"
@@ -226,6 +227,7 @@
 	set category = "Мышь"
 
 	emote("mwashup", intentional = TRUE)
+
 /datum/emote/living/simple_animal/mouse/idle
 	key = "msniff"
 	key_third_person = "msniffs"
@@ -513,3 +515,8 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 			death()
 			splat(user = AM)
 	..()
+
+#undef SNIFF
+#undef SHAKE
+#undef SCRATCH
+#undef WASHUP
