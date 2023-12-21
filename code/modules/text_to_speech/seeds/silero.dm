@@ -4727,3 +4727,45 @@
 	category = TTS_CATEGORY_WARCRAFT3
 	gender = TTS_GENDER_ANY
 	donator_level = 0
+
+/datum/tts_seed/silero/slovo_patsana_brother
+	name = "Brother"
+	value = "slovo_patsana_brother"
+	category = TTS_CATEGORY_SLOVO_PATSANA
+	gender = TTS_GENDER_MALE
+	donator_level = 4
+
+/datum/tts_seed/silero/slovo_patsana_koschei
+	name = "Koschei"
+	value = "slovo_patsana_koschei"
+	category = TTS_CATEGORY_SLOVO_PATSANA
+	gender = TTS_GENDER_MALE
+	donator_level = 4
+
+/datum/tts_seed/silero/slovo_patsana_marat
+	name = "Marat"
+	value = "slovo_patsana_marat"
+	category = TTS_CATEGORY_SLOVO_PATSANA
+	gender = TTS_GENDER_MALE
+	donator_level = 4
+
+/datum/tts_seed/silero/slovo_patsana_angry_cop
+	name = "Angry_cop"
+	value = "slovo_patsana_angry_cop"
+	category = TTS_CATEGORY_SLOVO_PATSANA
+	gender = TTS_GENDER_MALE
+	donator_level = 4
+
+/datum/tts_seed/silero/slovo_patsana_cop
+	name = "Cop"
+	value = "slovo_patsana_cop"
+	category = TTS_CATEGORY_SLOVO_PATSANA
+	gender = TTS_GENDER_FEMALE
+	donator_level = 4
+
+/datum/tts_seed/silero/slovo_patsana_main
+	name = "Main"
+	value = "slovo_patsana_main"
+	category = TTS_CATEGORY_SLOVO_PATSANA
+	gender = TTS_GENDER_MALE
+	donator_level = 4
