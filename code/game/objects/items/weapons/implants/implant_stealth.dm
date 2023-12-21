@@ -77,7 +77,7 @@
 /datum/action/item_action/agent_box/proc/start_cooldown(datum/source)
 	SIGNAL_HANDLER
 	on_cooldown = TRUE
-	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 1 SECONDS)
 	UpdateButtonIcon()
 
 
