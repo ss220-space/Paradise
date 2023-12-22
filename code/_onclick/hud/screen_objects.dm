@@ -232,6 +232,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
+		I.pickup(user) //Do not actually put in hands, but rather make some funny effects out of it
 		S.attackby(I, user)
 	return TRUE
 
