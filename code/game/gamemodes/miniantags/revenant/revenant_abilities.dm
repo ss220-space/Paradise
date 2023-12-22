@@ -481,11 +481,9 @@
 /turf/simulated/floor/defile()
 	..()
 	if(prob(15))
-		if(intact && floor_tile)
-			new floor_tile(src)
 		broken = FALSE
 		burnt = FALSE
-		make_plating(1)
+		make_plating(intact)
 
 /turf/simulated/floor/plating/defile()
 	if(flags & NOJAUNT)

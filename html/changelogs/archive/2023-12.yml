@@ -169,3 +169,62 @@
   - unknown: AcademyGateRemap (#3678)
   p4el007:
   - add: skalka craft (#4059)
+'2023-12-17':
+  Daeberdir:
+  - bugfix: text correction for synd bundle description. (#4073)
+  Dimach:
+  - tweak: antag paradise special antag scaling, improve configuration (#4070)
+'2023-12-18':
+  Arceniu:
+  - tweak: add telescopic baton for QM (#4081)
+  ArtemDerp:
+  - add: Space Graveyard (#3828)
+  - add: Hampters plushie added to loadout (#4023)
+  Daeberdir:
+  - bugfix: Forest fox icons by @NixonEs. (#4067)
+  - bugfix: rods duping on reinforced floor prying. (#4065)
+  Dimach:
+  - tweak: add debug code for slimes (#4077)
+  Etrnlmelancholy:
+  - add: chain of command on delta (#4076)
+  LiquidPotroh:
+  - bugfix: Anomaly extract don't remove underwear (#4068)
+  NightDawnFox:
+  - bugfix: force qdel gems (#4075)
+  ROdenFL:
+  - add: chat boxes, port from Official Paradise (#4048)
+  - add: thick tape roll (#4069)
+  - balance: security voucher, starting weapon rebalance (#3990)
+  Vladisvell:
+  - qol: Now antag eligibility and antag roles in preferences are colored (#4060)
+  - qol: You can now request maintenance drones from Drone Fabricator Console (#3996)
+  Zwei:
+  - bugfix: Exotix Blood Check (#3887)
+  kukur:
+  - add: new order form (#4079)
+'2023-12-19':
+  Aziz Chynaliev:
+  - tweak: unlock all tts seeds
+'2023-12-21':
+  Aziz Chynaliev:
+  - add: add 6 tts voices from slovo patsana
+'2023-12-22':
+  Daeberdir:
+  - bugfix: CATS magazines can't fit it's own bullets. (#4092)
+  LiquidPotroh:
+  - bugfix: obsession symptom can reach unreachable items (#4091)
+  NightDawnFox:
+  - bugfix: contractor support unit can use special traitor items (#4103)
+  ROdenFL:
+  - bugfix: pulsedemon minplayers (#4082)
+  - bugfix: contractor text after normal traitor (#4086)
+  Vladisvell:
+  - bugfix: moths no longer can eat krav maga (#4099)
+  - bugfix: Now silicons understand automated messages (#4095)
+  - bugfix: borg's hyposprays no longer get bugged by upgrades (#4094)
+  - bugfix: wizarditis no longer let's you into teleport proof areas and prohibited
+      zones (#4088)
+  Zwei:
+  - tweak: Cardboard Speed Fix (#4106)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4084)

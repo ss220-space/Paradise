@@ -578,7 +578,8 @@
 		maroon_objective.target = protect_objective.target	// swapping target
 		maroon_objective.update_explanation()
 		maroon_objective.alarm_changes()
-		maroon_objective.owner.announce_objectives()
+		var/list/messages = list(maroon_objective.owner.prepare_announce_objectives())
+		to_chat(maroon_objective.owner.current, chat_box_red(messages.Join("<br>")))
 
 
 /datum/antagonist/ninja/proc/forge_hacker_ninja_objectives()

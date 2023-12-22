@@ -54,6 +54,37 @@
 	name = "sand"
 	icon_state = "sand"
 	baseturf = /turf/simulated/floor/beach/sand
+	var/dug = FALSE
+
+/turf/simulated/floor/beach/sand/proc/can_dig(mob/user) //just copied from asteroid with corrections
+	if(!dug)
+		return TRUE
+	if(user)
+		to_chat(user, span_notice("Looks like someone has dug here already."))
+
+/turf/simulated/floor/beach/sand/attackby(obj/item/I, mob/user, params)
+	//note that this proc does not call ..()
+	if(!I|| !user)
+		return FALSE
+
+	if((istype(I, /obj/item/shovel) || istype(I, /obj/item/pickaxe)))
+		if(!can_dig(user))
+			return TRUE
+
+		var/turf/T = get_turf(user)
+		if(!istype(T))
+			return
+
+		to_chat(user, span_notice("You start digging..."))
+
+		playsound(src, I.usesound, 50, TRUE)
+		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
+			if(!can_dig(user))
+				return TRUE
+			to_chat(user, span_notice("You dig a hole."))
+			new /obj/structure/pit(src)
+			dug = TRUE
+
 
 
 /turf/simulated/floor/beach/coastline
