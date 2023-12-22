@@ -88,6 +88,11 @@ STI KALY - blind
 	for(var/area/space/S in theareas)
 		theareas -= S
 
+	for(var/ar in theareas)
+		var/area/zone = ar
+		if(zone.tele_proof)
+			theareas -= zone
+
 	if(!theareas||!theareas.len)
 		return
 
@@ -109,7 +114,10 @@ STI KALY - blind
 	if(!L)
 		return
 
-	affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!")
-	affected_mob.loc = pick(L)
+	var/turf/target_turf = pick(L)
+
+	if(is_teleport_allowed(target_turf.z))
+		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!")
+		affected_mob.loc = target_turf
 
 	return
