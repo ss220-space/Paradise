@@ -627,6 +627,8 @@
 					L.stop_pulling()
 					if(L.anchored)
 						L.gib()
+					if(iscarbon(L)) //CHOOO, CHOOO, THE TRAIN IS COMING
+						L.gib()
 					else
 						if(!(L in hurt_mobs))
 							hurt_mobs |= L
