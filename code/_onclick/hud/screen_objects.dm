@@ -547,6 +547,8 @@
 		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))
 		return FALSE
 
+	I.pickup(user)
+
 
 /obj/screen/inventory/hand
 	var/image/active_overlay
