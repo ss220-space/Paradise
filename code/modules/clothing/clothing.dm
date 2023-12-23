@@ -260,7 +260,7 @@ BLIND     // can't see anything
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, preselect = modes[sensor_mode+1])
+	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode+1])
 	if(!switchMode)
 		return
 	if(get_dist(user, src) > 1)

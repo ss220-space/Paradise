@@ -7,11 +7,10 @@
  * * message - The content of the input box, shown in the body of the TGUI window.
  * * title - The title of the input box, shown on the top of the TGUI window.
  * * buttons - The options that can be chosen by the user, each string is assigned a button on the UI.
- * * default - The option that will be returned, if choose has not been done.
- * * preselect - The preselected button, if it does exist
+ * * default - The option which will be selected
  * * timeout - The timeout of the input box, after which the input box will close and qdel itself. Set to zero for no timeout.
  */
-/proc/tgui_input_list(mob/user, message, title, list/buttons, default, preselect, timeout = 0)
+/proc/tgui_input_list(mob/user, message, title, list/buttons, default, timeout = 0)
 	if(!user)
 		user = usr
 	if(!length(buttons))
@@ -26,7 +25,7 @@
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS)
 		return input(user, message, title, default) as null|anything in buttons
 
-	var/datum/tgui_list_input/input = new(user, message, title, buttons, preselect, timeout)
+	var/datum/tgui_list_input/input = new(user, message, title, buttons, default, timeout)
 	input.ui_interact(user)
 	input.wait()
 	if(input)
@@ -85,30 +84,24 @@
 	/// Boolean field describing if the tgui_list_input was closed by the user.
 	var/closed
 	/// Preselected button if it exist
-	var/preselect
-	/// Position of preselected button if it exist, default = 0
-	var/startpos = 0
+	var/default
 
-/datum/tgui_list_input/New(mob/user, message, title, list/buttons, preselect, timeout)
+/datum/tgui_list_input/New(mob/user, message, title, list/buttons, default, timeout)
 	src.title = title
 	src.message = message
-	src.preselect = preselect
+	src.default = default
 	src.buttons = list()
 	src.buttons_map = list()
 
 	// Gets rid of illegal characters
 	var/static/regex/whitelistedWords = regex(@{"([^\u0020-\u8000]+)"})
 
-	var/poscount = 0
 	for(var/i in buttons)
 		var/string_key = whitelistedWords.Replace("[i]", "")
 
 		src.buttons += string_key
 		src.buttons_map[string_key] = i
 
-		if(preselect && !startpos && (i == preselect))
-			startpos = poscount
-		poscount += 1
 
 	if(timeout)
 		src.timeout = timeout
@@ -144,7 +137,7 @@
 	data["title"] = title
 	data["message"] = message
 	data["buttons"] = buttons
-	data["startpos"] = startpos
+	data["init_value"] = default
 	return data
 
 /datum/tgui_list_input/ui_data(mob/user)
