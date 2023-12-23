@@ -228,3 +228,14 @@
   - tweak: Cardboard Speed Fix (#4106)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4084)
+'2023-12-23':
+  ArtemDerp:
+  - bugfix: removed random shutters at centcom level (#4114)
+  Daeberdir:
+  - bugfix: sibyl can allow lethal while green seclevel. (#4105)
+  LiquidPotroh:
+  - bugfix: Can't mix cryoxadone (#4110)
+  - bugfix: Draconids dont have ears (#4083)
+  ROdenFL:
+  - bugfix: multisword (#4112)
+  - bugfix: baked vulps comeback (#4113)
