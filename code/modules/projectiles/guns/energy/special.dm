@@ -55,9 +55,9 @@
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
 	origin_tech = "materials=2;biotech=4"
-	modifystate = 1
+	modifystate = TRUE
 	ammo_x_offset = 1
-	selfcharge = 1
+	selfcharge = TRUE
 
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
@@ -70,8 +70,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
 	cell_type = /obj/item/stock_parts/cell/potato
-	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
+	selfcharge = TRUE
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -141,7 +141,7 @@
 	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 	icon_state = "plasmacutter"
 	item_state = "plasmacutter"
-	modifystate = -1
+	modifystate = FALSE
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	usesound = 'sound/items/welder.ogg'
@@ -151,7 +151,7 @@
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
 	sharp = 1
-	can_charge = 0
+	can_charge = FALSE
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
@@ -187,7 +187,6 @@
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
 	item_state = "adv_plasmacutter"
-	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
@@ -274,7 +273,7 @@
 	icon = 'icons/obj/weapons/projectile.dmi'
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
-	can_charge = 0
+	can_charge = FALSE
 
 /obj/item/gun/energy/printer/update_icon()
 	return
@@ -314,8 +313,8 @@
 	icon_state = "honkrifle"
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
-	clumsy_check = 0
-	selfcharge = 1
+	clumsy_check = FALSE
+	selfcharge = TRUE
 	ammo_x_offset = 3
 
 /obj/item/gun/energy/toxgun
@@ -325,7 +324,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle
@@ -341,7 +340,7 @@
 	can_holster = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/bsg
 	name = "\improper Б.С.П"
@@ -458,12 +457,12 @@
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	selfcharge = 1
+	selfcharge = TRUE
 
 	var/powercost = ""
 	var/powercostcolor = ""
 
-	var/emagged = 0			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
+	var/emagged = FALSE			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
@@ -635,8 +634,8 @@
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/mimic)
-	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
+	selfcharge = TRUE
 	ammo_x_offset = 3
 	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
 
