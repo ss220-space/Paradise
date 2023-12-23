@@ -9,6 +9,7 @@
 	max_integrity = 10 //can be removed easily
 	density = FALSE
 	layer = ABOVE_OBJ_LAYER + 0.1
+	anchored = TRUE
 
 
 /obj/structure/garland/wirecutter_act(mob/living/user, obj/item/I)
