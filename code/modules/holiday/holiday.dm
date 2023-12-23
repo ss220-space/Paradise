@@ -57,12 +57,18 @@
 
 // The actual holidays
 
+GLOBAL_VAR_INIT(new_year_celebration, FALSE)
+
 /datum/holiday/new_year
 	name = NEW_YEAR
 	begin_day = 30 // 1 day early
 	begin_month = DECEMBER
-	end_day = 5 //4 days extra
+	end_day = 10 //9 days extra
 	end_month = JANUARY
+
+/datum/holiday/new_year/celebrate()
+	. = ..()
+	GLOB.new_year_celebration = TRUE
 
 /datum/holiday/groundhog
 	name = "Groundhog Day"
