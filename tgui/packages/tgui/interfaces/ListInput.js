@@ -14,7 +14,7 @@ let lastScrollTime = 0;
 
 export const ListInput = (props, context) => {
   const { act, data } = useBackend(context);
-  const { title, message, buttons, startpos, timeout } = data;
+  const { title, message, buttons, init_value, timeout } = data;
 
   // Search
   const [showSearchBar, setShowSearchBar] = useLocalState(
@@ -49,7 +49,7 @@ export const ListInput = (props, context) => {
   const [selectedButton, setSelectedButton] = useLocalState(
     context,
     'selected_button',
-    buttons[startpos]
+    init_value
   );
   return (
     <Window title={title} resizable>
