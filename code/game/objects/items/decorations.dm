@@ -229,6 +229,21 @@
 	anchored = 0
 	max_integrity = 100
 
+/obj/structure/decorative_structures/fireplace
+	name = "Old fireplace"
+	desc = "Looks warm and comfy."
+	icon = 'icons/obj/fireplace.dmi'
+	icon_state = "fireplace"
+	anchored = 1
+	density = 0
+	pixel_x = -16
+
+/obj/structure/decorative_structures/fireplace/Initialize(mapload)
+	. = ..()
+	overlays += icon('icons/obj/fireplace.dmi', "fireplace_fire3")
+	overlays += icon('icons/obj/fireplace.dmi', "fireplace_glow")
+	set_light(6, ,"#ffb366")
+
 /obj/structure/decorative_structures/metal
 	flags = CONDUCT
 
