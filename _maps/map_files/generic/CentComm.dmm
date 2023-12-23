@@ -38293,7 +38293,9 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "sHn" = (
-)
+/obj/item/flag/nt,
+/turf/simulated/floor/wood,
+/area/centcom/specops)
 "sHv" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -96545,7 +96547,7 @@ tmQ
 qsJ
 vcj
 pLN
-aoB
+asI
 kRE
 oIc
 oIc
@@ -97308,7 +97310,7 @@ gcZ
 abk
 nAN
 bNp
-aoB
+sHn
 daM
 oIc
 oIc
@@ -98595,9 +98597,9 @@ nAN
 nAN
 nAN
 nAN
-aoB
+sHn
 fCV
-aoB
+sHn
 mPp
 rFY
 vIY
@@ -100109,7 +100111,7 @@ afP
 aQn
 anK
 afP
-aoB
+sHn
 pFy
 fcv
 nWU
@@ -101137,7 +101139,7 @@ scN
 xpp
 dIs
 afP
-aoB
+sHn
 qMf
 fls
 fnW
