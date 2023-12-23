@@ -990,7 +990,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/new_tts_seed = tgui_input_list(user || src, "Choose your preferred voice:", "Character Preference", tts_seeds, tts_seed)
 	if(!new_tts_seed)
-		return null
+		new_tts_seed = tts_seed
 	if(!silent_target && ismob(src) && src != user)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, src, tts_test_str, new_tts_seed, FALSE)
 	if(user)
