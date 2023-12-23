@@ -49,7 +49,7 @@
 
 /obj/effect/spawner/window/reinforced/Initialize(mapload)
 	. = ..()
-	if(GLOB.new_year_celebration)
+	if(GLOB.new_year_celebration && is_station_level(z))
 		new /obj/structure/garland(loc)
 
 /obj/effect/spawner/window/reinforced/polarized
