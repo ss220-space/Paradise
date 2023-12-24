@@ -26,7 +26,7 @@
 /obj/screen/ai/camera_track/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		var/target_name = tgui_input_list(AI, buttons = AI.trackable_mobs())
+		var/target_name = tgui_input_list(AI, "Choose which camera you want to view", "Cameras", AI.trackable_mobs())
 		if(target_name)
 			AI.ai_camera_track(target_name)
 
