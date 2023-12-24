@@ -1512,7 +1512,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					else //Not using the whitelist? Aliens for everyone!
 						new_species += GLOB.whitelisted_species
 
-					species = tgui_input_list(user, "Please select a species", "Character Generation", sortList(new_species))
+					species = tgui_input_list(user, "Please select a species", "Character Generation", sortTim(new_species, cmp = /proc/cmp_text_asc))
 					if(!species)
 						return
 					var/datum/species/NS = GLOB.all_species[species]
