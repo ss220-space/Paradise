@@ -47,7 +47,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	var/cooldown = 1
+	var/cooldown = 1 SECONDS
 	var/current_cooldown = 0
 	var/range = 9
 	var/speaker = TRUE // Speaker that plays a sound when pulsed.
