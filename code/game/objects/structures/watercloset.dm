@@ -144,7 +144,7 @@
 		choices += "Connect"
 		choices += "Rotate"
 
-	var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
+	var/response = tgui_input_list(user, "What do you want to do?", "[src]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)
@@ -592,7 +592,7 @@
 		if(can_rotate)
 			choices += "Rotate"
 
-	var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
+	var/response = tgui_input_list(user, "What do you want to do?", "[src]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)

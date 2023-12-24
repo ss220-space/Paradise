@@ -65,6 +65,7 @@ module.exports = (env = {}, argv) => {
                   ],
                 ],
                 plugins: [
+                  '@babel/plugin-proposal-class-properties',
                   '@babel/plugin-transform-jscript',
                   'babel-plugin-inferno',
                   'babel-plugin-transform-remove-console',

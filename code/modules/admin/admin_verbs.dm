@@ -563,7 +563,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		btypes += "Human Protector"
 		btypes += "Sentient Pet"
 		btypes += "All Access"
-	var/blessing = input(usr, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
+	var/blessing = tgui_input_list(usr, "How would you like to bless [M]?", "Its good to be good...", btypes)
 	if(!(blessing in btypes))
 		return
 	var/logmsg = null
@@ -703,7 +703,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ptypes += "Dust"
 		ptypes += "Shitcurity Goblin"
 		ptypes += "High RP"
-	var/punishment = input("How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
+	var/punishment = tgui_input_list(usr, "How would you like to smite [M]?", "Its good to be baaaad...", ptypes)
 	if(!(punishment in ptypes))
 		return
 	var/logmsg = null

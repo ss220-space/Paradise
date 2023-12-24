@@ -473,7 +473,7 @@
 		else
 			areaindex[tmpname] = 1
 		L[tmpname] = R
-	var/desc = input("Please select a location to lock in.", "Syndicate Teleporter") in L
+	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Syndicate Teleporter", L)
 	if(usr == last_opener && world.time >= last_opened_time + timeout)
 		return FALSE
 	return(L[desc])
