@@ -63,7 +63,7 @@
 "bT" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/power/apc{
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = 27
 	},
 /obj/structure/cable{
@@ -968,7 +968,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
 	dir = 1;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = -26
 	},
 /obj/structure/cable{
@@ -1927,7 +1927,7 @@
 "Bn" = (
 /obj/machinery/power/apc{
 	dir = 1;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = -26
 	},
 /obj/structure/cable,
@@ -2767,7 +2767,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
 	dir = 1;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = -26
 	},
 /obj/structure/cable,
@@ -2830,7 +2830,7 @@
 /obj/item/bedsheet/rainbow,
 /obj/machinery/power/apc{
 	dir = 1;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = -26
 	},
 /obj/structure/cable,
@@ -2884,7 +2884,7 @@
 	on = 1
 	},
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck{
+/obj/item/deck/cards{
 	pixel_x = -5;
 	pixel_y = 7
 	},
@@ -3480,7 +3480,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/power/apc{
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = 27
 	},
 /obj/structure/cable{
@@ -3570,7 +3570,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
 	dir = 8;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_x = -27
 	},
 /obj/structure/cable{
@@ -3760,7 +3760,7 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "Zg" = (
 /obj/machinery/power/apc{
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = 27
 	},
 /obj/structure/cable{
