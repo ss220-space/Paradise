@@ -3,17 +3,7 @@ import { Button, Section, Box, Flex, NoticeBox, Tabs } from "../components";
 import { Window } from "../layouts";
 
 export const DestinationTagger = (_props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const decideTab = index => {
-    switch (index) {
-      case 0:
-        return <DestinationTaggerStation />;
-      case 1:
-        return <DestinationTaggerCC />;
-      case 2:
-        return <DestinationTaggerCC iscorp={1} />;
-    }
-  };
+  const [tabName, setTab] = useLocalState(context, 'tabName', 'station');
   return (
     <Window resizable>
       <Window.Content scrollable>
@@ -21,24 +11,28 @@ export const DestinationTagger = (_props, context) => {
           <Tabs>
             <Tabs.Tab
               key="Station Taggers"
-              selected={0 === tabIndex}
-              onClick={() => setTabIndex(0)}>
+              selected={tabName === 'station'}
+              onClick={() => setTab('station')}>
               Station Taggers
             </Tabs.Tab>
             <Tabs.Tab
               key="CC Taggers"
-              selected={1 === tabIndex}
-              onClick={() => setTabIndex(1)}>
+              selected={tabName === 'centcomm'}
+              onClick={() => setTab('centcomm')}>
               CC Taggers
             </Tabs.Tab>
             <Tabs.Tab
               key="Corp Taggers"
-              selected={2 === tabIndex}
-              onClick={() => setTabIndex(2)}>
+              selected={tabName === 'corp'}
+              onClick={() => setTab('corp')}>
               Corp Taggers
             </Tabs.Tab>
           </Tabs>
-          {decideTab(tabIndex)}
+          {
+            tabName === 'station'
+              ? (<DestinationTaggerStation />)
+              : (<DestinationTaggerCC iscorp={tabName === 'corp'} />)
+          }
         </Box>
       </Window.Content>
     </Window>
@@ -54,7 +48,7 @@ export const DestinationTaggerStation = (_props, context) => {
 
   return (
     <Section
-      title="TagMaster 3.0"
+      title="TagMaster 4.0"
       textAlign="center">
       <NoticeBox
         textAlign="center"
@@ -63,7 +57,9 @@ export const DestinationTaggerStation = (_props, context) => {
       </NoticeBox>
       <Box>
         <Flex
-          style={{ "display": "flex", "flex-wrap": "wrap", "align-content": "flex-start", "justify-content": "center" }}>
+          wrap="wrap"
+          align="start"
+          justify="center">
           {destinations.map((destination, index) => (
             <Flex.Item key={index} m="2px">
               <Button
@@ -102,7 +98,9 @@ export const DestinationTaggerCC = (props, context) => {
       </NoticeBox>
       <Box>
         <Flex
-          style={{ "display": "flex", "flex-wrap": "wrap", "align-content": "flex-start", "justify-content": "center" }}>
+          wrap="wrap"
+          align="start"
+          justify="center">
           {far_destinations.map((destination, index) => (
             <Flex.Item key={index} m="2px">
               <Button
