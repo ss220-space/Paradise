@@ -1227,7 +1227,7 @@
 	locked = 0;
 	req_access = list();
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	pixel_x = -24;
 	start_charge = 0
 	},
@@ -1976,7 +1976,7 @@
 	pixel_y = 24;
 	req_access = list();
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	operating = 0;
 	start_charge = 0
 	},
@@ -3072,7 +3072,7 @@
 	pixel_y = 24;
 	req_access = list();
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/plating,
@@ -4072,7 +4072,7 @@
 	locked = 0;
 	req_access = list();
 	environment_channel = 2;
-	equipment_channel 2;
+	equipment_channel = 2;
 	pixel_x = 24;
 	start_charge = 100
 	},
@@ -5041,7 +5041,7 @@
 	pixel_y = 24;
 	req_access = list();
 	environment_channel = 1;
-	equipment_channel 0;
+	equipment_channel = 0;
 	start_charge = 100
 	},
 /obj/structure/sign/securearea{
@@ -5103,7 +5103,7 @@
 	pixel_y = 24;
 	req_access = list();
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -6758,7 +6758,7 @@
 	pixel_y = -24;
 	req_access = list();
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -6848,7 +6848,7 @@
 	locked = 0;
 	req_access = list();
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	pixel_x = -24;
 	start_charge = 0
 	},
@@ -7542,7 +7542,7 @@
 	pixel_y = 24;
 	req_access = list(111);
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	operating = 0;
 	start_charge = 0
 	},
@@ -7719,7 +7719,7 @@
 	locked = 0;
 	req_access = list();
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	pixel_x = -24;
 	start_charge = 0
 	},

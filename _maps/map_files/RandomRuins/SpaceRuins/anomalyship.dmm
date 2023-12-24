@@ -570,7 +570,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = -28;
@@ -1056,7 +1056,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = 32;
@@ -1548,7 +1548,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = -28;
@@ -1803,7 +1803,7 @@
 /obj/item/clothing/shoes/magboots,
 /obj/machinery/power/apc/noalarm{
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = 28;
@@ -2191,7 +2191,7 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = 28;
