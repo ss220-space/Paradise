@@ -23,7 +23,7 @@
 "af" = (
 /turf/simulated/wall/indestructible{
 	icon = null;
-	dynamic_lighting = 0
+	dynamic_lighting_channel = 0
 	},
 /area/awaymission/spacehotel/amazing_place)
 "ag" = (
@@ -220,7 +220,7 @@
 "aD" = (
 /turf/simulated/wall/indestructible{
 	icon = null;
-	dynamic_lighting = 0
+	dynamic_lighting_channel = 0
 	},
 /area/awaymission/spacehotel/snowland)
 "aE" = (
@@ -552,7 +552,7 @@
 "bp" = (
 /turf/simulated/wall/indestructible{
 	icon = null;
-	dynamic_lighting = 0
+	dynamic_lighting_channel = 0
 	},
 /area/awaymission/beach)
 "bq" = (

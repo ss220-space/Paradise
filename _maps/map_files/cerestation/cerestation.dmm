@@ -16524,7 +16524,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine{
 	name = "n2 floor";
@@ -17508,7 +17508,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
@@ -18086,7 +18086,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine{
 	name = "air floor";
@@ -18534,7 +18534,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics CO2 Tank";
@@ -18570,7 +18570,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Toxins Tank";
@@ -18600,7 +18600,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics N2O Tank";
@@ -18649,7 +18649,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Gas Mix Tank";
@@ -39261,7 +39261,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/library)
 "gfJ" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -42918,7 +42918,7 @@
 	},
 /obj/structure/table/wood/poker,
 /obj/item/stack/spacechips/c5000,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/carpet/purple,
 /area/crew_quarters/bar)
 "hkx" = (
@@ -49814,7 +49814,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "jjg" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -52900,7 +52900,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "kdK" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "mix_sensor"
 	},
 /turf/simulated/floor/engine{
@@ -63573,7 +63573,7 @@
 	},
 /area/turret_protected/ai_upload)
 "nkJ" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
@@ -64669,7 +64669,7 @@
 	},
 /area/atmos)
 "nAi" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -70362,7 +70362,7 @@
 /turf/simulated/floor/plating/airless,
 /area/maintenance/disposal/external/southwest)
 "pkf" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "air_sensor"
 	},
 /turf/simulated/floor/engine{
@@ -79125,7 +79125,7 @@
 	},
 /area/toxins/storage)
 "rTp" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "n2_sensor"
 	},
 /turf/simulated/floor/engine{
@@ -90467,7 +90467,7 @@
 /area/hallway/primary/aft/west)
 "vsg" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},

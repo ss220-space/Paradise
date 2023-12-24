@@ -167,7 +167,7 @@
 
 /datum/gear/doublecards
 	display_name = "a double deck of standard cards"
-	path = /obj/item/deck/doublecards
+	path = /obj/item/deck/cards/doublecards
 
 /datum/gear/tarot
 	display_name = "a deck of tarot cards"

@@ -1915,7 +1915,7 @@
 	name = "Syndicate Playing Cards"
 	desc = "A special deck of space-grade playing cards with a mono-molecular edge and metal reinforcement, making them lethal weapons both when wielded as a blade and when thrown. \
 	You can also play card games with them."
-	item = /obj/item/toy/cards/deck/syndicate
+	item = /obj/item/deck/cards/syndicate
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
