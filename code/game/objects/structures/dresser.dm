@@ -12,7 +12,7 @@
 	if(ishuman(user) && anchored)
 		var/mob/living/carbon/human/H = user
 
-		var/choice = tgui_input_list(user, "Underwear, Undershirt, or Socks?", "Changing", "Dresser", list("Underwear","Undershirt","Socks"))
+		var/choice = tgui_input_list(user, "Underwear, Undershirt, or Socks?", "Changing", list("Underwear","Undershirt","Socks"))
 
 		if(!Adjacent(user))
 			return
