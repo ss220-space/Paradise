@@ -5,6 +5,7 @@
 	icon_state = "away"
 	report_alerts = FALSE
 	no_teleportlocs = TRUE
+	tele_proof = TRUE
 
 /area/awaymission/academy/headmaster
 	name = "\improper Academy Fore Block"
@@ -237,4 +238,31 @@
 	head = /obj/item/clothing/head/bowlerhat
 	glasses = /obj/item/clothing/glasses/monocle
 	gloves = /obj/item/clothing/gloves/color/white
+
+/obj/effect/bump_teleporter/academy_no_mesons
+    var/list/items_to_remove = list(
+		/obj/item/clothing/glasses/meson,
+		/obj/item/clothing/glasses/hud/health/meson,
+		/obj/item/clothing/head/helmet/meson,
+		/obj/item/organ/internal/cyberimp/eyes/meson,
+		/obj/item/organ/internal/cyberimp/eyes/xray
+	)
+
+/obj/effect/bump_teleporter/academy_no_mesons/process_special_effects(mob/living/target)
+	if(XRAY in target.mutations)
+		target.mutations.Remove(XRAY)
+		target.update_sight()
+	process_item_removal(target)
+
+/obj/effect/bump_teleporter/academy_no_mesons/proc/process_item_removal(mob/living/target)
+	if(!istype(target))
+		return
+	for(var/item in items_to_remove)
+		remove_item_type(target, item)
+
+/obj/effect/bump_teleporter/academy_no_mesons/proc/remove_item_type(mob/living/target, item_type)
+	var/list/items = target.search_contents_for(item_type)
+	for(var/it in items)
+		var/obj/item = it
+		qdel(item)
 

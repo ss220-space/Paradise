@@ -202,3 +202,53 @@
   - bugfix: Exotix Blood Check (#3887)
   kukur:
   - add: new order form (#4079)
+'2023-12-19':
+  Aziz Chynaliev:
+  - tweak: unlock all tts seeds
+'2023-12-21':
+  Aziz Chynaliev:
+  - add: add 6 tts voices from slovo patsana
+'2023-12-22':
+  Daeberdir:
+  - bugfix: CATS magazines can't fit it's own bullets. (#4092)
+  LiquidPotroh:
+  - bugfix: obsession symptom can reach unreachable items (#4091)
+  NightDawnFox:
+  - bugfix: contractor support unit can use special traitor items (#4103)
+  ROdenFL:
+  - bugfix: pulsedemon minplayers (#4082)
+  - bugfix: contractor text after normal traitor (#4086)
+  Vladisvell:
+  - bugfix: moths no longer can eat krav maga (#4099)
+  - bugfix: Now silicons understand automated messages (#4095)
+  - bugfix: borg's hyposprays no longer get bugged by upgrades (#4094)
+  - bugfix: wizarditis no longer let's you into teleport proof areas and prohibited
+      zones (#4088)
+  Zwei:
+  - tweak: Cardboard Speed Fix (#4106)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4084)
+'2023-12-23':
+  ArtemDerp:
+  - bugfix: removed random shutters at centcom level (#4114)
+  Daeberdir:
+  - bugfix: sibyl can allow lethal while green seclevel. (#4105)
+  LiquidPotroh:
+  - bugfix: Can't mix cryoxadone (#4110)
+  - bugfix: Draconids dont have ears (#4083)
+  ROdenFL:
+  - bugfix: multisword (#4112)
+  - bugfix: baked vulps comeback (#4113)
+'2023-12-24':
+  ArtemDerp:
+  - tweak: virology smartfridge reskin (#4115)
+  Baldek0:
+  - tweak: protolathe ammo designs cost halved (#4109)
+  Ksaikok46:
+  - add: SRM-8 middle missiles module for roboticist hijacker only (#4102)
+  LiquidPotroh:
+  - tweak: Destructable shields (#4053)
+  NightDawnFox:
+  - add: new sprites for reinforcing explorer suits (#4093)
+  aeternaclose:
+  - unknown: AcademyRework pt2 (#4085)

@@ -77,7 +77,7 @@
 /datum/action/item_action/agent_box/proc/start_cooldown(datum/source)
 	SIGNAL_HANDLER
 	on_cooldown = TRUE
-	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 1 SECONDS)
 	UpdateButtonIcon()
 
 
@@ -131,7 +131,6 @@
 	desc = "It's so normal that you didn't notice it before."
 	icon_state = "agentbox"
 	max_integrity = 1
-	move_speed_multiplier = 0.5 // You can move at run speed while in this box.
 	material_drop = null
 	/// UID of the person who summoned this box with an implant.
 	var/implant_user_UID
@@ -185,9 +184,8 @@
 
 /obj/structure/closet/cardboard/agent/proc/go_invisible(invis_time = 2 SECONDS)
 	animate(src, alpha = 0, time = invis_time)
-	sleep(invis_time)
 	// This is so people can't locate the box by spamming right click everywhere.
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	addtimer(VARSET_CALLBACK(src, mouse_opacity, MOUSE_OPACITY_TRANSPARENT), invis_time)
 
 
 /obj/structure/closet/cardboard/agent/proc/reveal()
