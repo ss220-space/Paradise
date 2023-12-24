@@ -286,7 +286,7 @@
 
 /obj/item/radio/headset/headset_cargo
 	name = "supply radio headset"
-	desc = "An cheap model of working modular intercom headset for a cargo, that fits over the head. Takes encryption keys. Don`t Protects ears from flashbangs and loud noises."
+	desc = "A cheap model of working modular intercom headset for a cargo, that fits over the head. Takes encryption keys. Won't protect ears from flashbangs and loud noises."
 	icon_state = "cargo_headset"
 	item_state = "cargo_headset"
 	ks2type = /obj/item/encryptionkey/headset_cargo

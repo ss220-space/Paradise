@@ -31,7 +31,8 @@
 	if(istype(item, /obj/item/paper))
 		item.add_fingerprint(user)
 		add_fingerprint(user)
-		user.drop_transfer_item_to_loc(item, src)
+		if(!user.drop_transfer_item_to_loc(item, src))
+			return
 		notices++
 		update_icon()
 		to_chat(user, span_notice("You pin the paper to the noticeboard."))
@@ -40,11 +41,13 @@
 
 /obj/structure/noticeboard/attack_hand(mob/user)
 	add_fingerprint(user)
-	var/dat = {"<meta charset="UTF-8"><B>Noticeboard</B><BR>"}
+	var/list/dat = list({"<meta charset="UTF-8">"})
+	dat += "<HEAD><TITLE>Notices</TITLE></HEAD>"
+	dat += "<B>Noticeboard</B><BR>"
 	var/uid = UID()
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[uid];read=\ref[P]'>[P.name]</A> <A href='?src=[uid];write=\ref[P]'>Write</A> <A href='?src=[uid];remove=\ref[P]'>Remove</A><BR>"
-	user << browse({"<meta charset="UTF-8"><HEAD><TITLE>Notices</TITLE></HEAD>[dat]"},"window=noticeboard")
+		dat += "<A href='?src=[uid];read=[P.UID()]'>[P.name]</A> <A href='?src=[uid];write=[P.UID()]'>Write</A> <A href='?src=[uid];remove=[P.UID()]'>Remove</A><BR>"
+	user << browse(dat.Join(""),"window=noticeboard")
 	onclose(user, "noticeboard")
 
 /obj/structure/noticeboard/screwdriver_act(mob/living/user, obj/item/I)
@@ -54,13 +57,13 @@
 	to_chat(user, span_notice("You unfasten [src.name] with [I]."))
 	new /obj/item/noticeboard(src.loc)
 	for(var/obj/item/paper/paper in src)
-		paper.loc = get_turf(src)
+		paper.forceMove_turf()
 	qdel(src)
 
 /obj/structure/noticeboard/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/wood(loc, 5)
-	qdel(src)
+		..()
 
 /obj/structure/noticeboard/Topic(href, href_list)
 	..()
@@ -68,10 +71,10 @@
 	if(href_list["remove"])
 		if((usr.stat || usr.restrained()))	//For when a player is handcuffed while they have the notice window open
 			return
-		var/obj/item/P = locate(href_list["remove"])
-		if((P && P.loc == src))
-			P.loc = get_turf(src)	//dump paper on the floor because you're a clumsy fuck
-			P.add_fingerprint(usr)
+		var/obj/item/paper/paper = locateUID(href_list["remove"])
+		if(istype(paper) && paper.loc == src)
+			paper.forceMove_turf()	//dump paper on the floor because you're a clumsy fuck
+			paper.add_fingerprint(usr)
 			add_fingerprint(usr)
 			notices--
 			update_icon()
@@ -79,23 +82,21 @@
 	if(href_list["write"])
 		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open
 			return
-		var/obj/item/P = locate(href_list["write"])
-
-		if((P && P.loc == src)) //ifthe paper's on the board
-			if(istype(usr.r_hand, /obj/item/pen)) //and you're holding a pen
+		var/obj/item/paper/paper = locateUID(href_list["write"])
+		if(istype(paper) && paper.loc == src) //ifthe paper's on the board
+			if(is_pen(usr.r_hand)) //and you're holding a pen
 				add_fingerprint(usr)
-				P.attackby(usr.r_hand, usr) //then do ittttt
+				paper.attackby(usr.r_hand, usr) //then do ittttt
+			else if(is_pen(usr.l_hand)) //check other hand for pen
+				add_fingerprint(usr)
+				paper.attackby(usr.l_hand, usr)
 			else
-				if(istype(usr.l_hand, /obj/item/pen)) //check other hand for pen
-					add_fingerprint(usr)
-					P.attackby(usr.l_hand, usr)
-				else
-					to_chat(usr, "<span class='notice'>You'll need something to write with!</span>")
+				to_chat(usr, span_notice("You'll need something to write with!"))
 
 	if(href_list["read"])
-		var/obj/item/paper/P = locate(href_list["read"])
-		if((P && P.loc == src))
-			P.show_content(usr)
+		var/obj/item/paper/paper = locateUID(href_list["read"])
+		if(istype(paper) && paper.loc == src)
+			paper.show_content(usr)
 	return
 
 /obj/item/noticeboard

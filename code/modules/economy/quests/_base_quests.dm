@@ -15,7 +15,7 @@
 	/// Bonus for quick execution, if FALSE, then there is no bonus.
 	var/fast_failed = FALSE
 	/// Order customer, this distributes orders to different tabs in the console.
-	var/datum/customer/customer
+	var/datum/quest_customer/customer
 
 	/// The timer, when it expires, we will not receive a bonus for fast delivery.
 	var/fast_check_timer
@@ -72,8 +72,6 @@
 			continue
 		quest.generate_goal(difficultly = quest_difficulty.diff_flag)
 		quest.update_interface_icon()
-		for(var/description in quest.desc)
-			description = replacetext(description, "\improper", "")
 		return
 
 	return new quest_type(src)
@@ -149,6 +147,7 @@
 	if(reward <= 0)
 		reward = 1
 
+	reward = round(reward)
 	SScargo_quests.remove_quest(UID(), complete = TRUE, modificators = modificators, old_reward = old_reward)
 
 	return reward

@@ -18,20 +18,20 @@ SUBSYSTEM_DEF(cargo_quests)
 
 /datum/controller/subsystem/cargo_quests/Initialize()
 
-	for(var/typepath in subtypesof(/datum/customer/centcomm))
-		var/datum/customer/departament = new typepath()
+	for(var/typepath in subtypesof(/datum/quest_customer/centcomm))
+		var/datum/quest_customer/departament = new typepath()
 		if(!departament.departament_name)
 			continue
 		centcomm_departaments += departament
 
-	for(var/typepath in subtypesof(/datum/customer/corp))
-		var/datum/customer/corp/corp = new typepath()
+	for(var/typepath in subtypesof(/datum/quest_customer/corp))
+		var/datum/quest_customer/corp/corp = new typepath()
 		if(!corp.departament_name)
 			continue
 		corporations += corp
 
-	for(var/typepath in subtypesof(/datum/customer/plasma))
-		var/datum/customer/plasma/plasma_dep = new typepath()
+	for(var/typepath in subtypesof(/datum/quest_customer/plasma))
+		var/datum/quest_customer/plasma/plasma_dep = new typepath()
 		if(!plasma_dep.departament_name)
 			continue
 		plasma_departaments += plasma_dep
@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(cargo_quests)
 	for(var/I = 1 to NUMBER_OF_PLASMA_QUEST)
 		create_new_quest(pick(plasma_departaments))
 
-/datum/controller/subsystem/cargo_quests/proc/get_customer_list(datum/customer/customer)
+/datum/controller/subsystem/cargo_quests/proc/get_customer_list(datum/quest_customer/customer)
 	if(customer in centcomm_departaments)
 		return centcomm_departaments
 	if(customer in corporations)
@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(cargo_quests)
 		quest.quest_check_timer = null
 	if(!reroll && quest.active)
 		for(var/obj/machinery/computer/supplyquest/workers/cargo_announcer in GLOB.cargo_announcers)
-			cargo_announcer.print_report(src, complete, modificators)
+			cargo_announcer.print_report(quest, complete, modificators)
 
 	if(!reroll && (quest.customer in plasma_departaments))
 		addtimer(CALLBACK(src, PROC_REF(create_new_quest), pick(get_customer_list(quest.customer))), 25 MINUTES)
@@ -116,23 +116,26 @@ SUBSYSTEM_DEF(cargo_quests)
 /datum/quest_difficulty
 	var/diff_flag
 	var/weight
+	var/min_quest_time
+	var/max_quest_time
 
 /datum/quest_difficulty/proc/generate_timer(datum/cargo_quests_storage/q_storage)
 	q_storage.time_start = world.time
+	q_storage.quest_time = rand(min_quest_time, max_quest_time) MINUTES
 	q_storage.quest_check_timer = addtimer(CALLBACK(SScargo_quests, TYPE_PROC_REF(/datum/controller/subsystem/cargo_quests, remove_quest), q_storage.UID()), q_storage.quest_time, TIMER_STOPPABLE)
 	q_storage.fast_check_timer = addtimer(VARSET_CALLBACK(q_storage, fast_failed, TRUE), 0.4 * q_storage.quest_time, TIMER_STOPPABLE)
 
 /datum/quest_difficulty/easy
 	diff_flag = QUEST_DIFFICULTY_EASY
 	weight = 45
-
-/datum/quest_difficulty/easy/generate_timer(datum/cargo_quests_storage/q_storage)
-	q_storage.quest_time = rand(15, 25) MINUTES
-	..()
+	min_quest_time = 15
+	max_quest_time = 25
 
 /datum/quest_difficulty/normal
 	diff_flag = QUEST_DIFFICULTY_NORMAL
 	weight = 35
+	min_quest_time = 20
+	max_quest_time = 30
 
 /datum/quest_difficulty/normal/generate_timer(datum/cargo_quests_storage/q_storage)
 	q_storage.quest_time = rand(20, 30) MINUTES
@@ -141,18 +144,15 @@ SUBSYSTEM_DEF(cargo_quests)
 /datum/quest_difficulty/hard
 	diff_flag = QUEST_DIFFICULTY_HARD
 	weight = 15
-
-/datum/quest_difficulty/hard/generate_timer(datum/cargo_quests_storage/q_storage)
-	q_storage.quest_time = rand(30, 40) MINUTES
-	..()
+	min_quest_time = 30
+	max_quest_time = 40
 
 /datum/quest_difficulty/very_hard
 	diff_flag = QUEST_DIFFICULTY_VERY_HARD
 	weight = 5
+	min_quest_time = 30
+	max_quest_time = 60
 
-/datum/quest_difficulty/very_hard/generate_timer(datum/cargo_quests_storage/q_storage)
-	q_storage.quest_time = rand(30, 60) MINUTES
-	..()
 
 #undef NUMBER_OF_CC_QUEST
 #undef NUMBER_OF_CORP_QUEST

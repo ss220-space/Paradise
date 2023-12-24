@@ -330,12 +330,18 @@
 		)
 		static_data["destinations"] += list(destination_data)
 	for(var/dep in SScargo_quests.centcomm_departaments)
-		var/datum/customer/customer = dep
+		var/datum/quest_customer/customer = dep
 		static_data["centcom_destinations"] += list(list(
 			"name" = customer.departament_name,
 		))
+	for(var/dep in SScargo_quests.plasma_departaments) /// Plasma deps is a CC deps too
+		var/datum/quest_customer/customer = dep
+		static_data["centcom_destinations"] += list(list(
+			"name" = customer.departament_name,
+		))
+
 	for(var/corp in SScargo_quests.corporations)
-		var/datum/customer/customer = corp
+		var/datum/quest_customer/customer = corp
 		static_data["corporation_destinations"] += list(list(
 			"name" = customer.departament_name,
 		))

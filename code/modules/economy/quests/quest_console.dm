@@ -1,6 +1,9 @@
 
 #define PRINT_COOLDOWN 10 SECONDS
 
+/// The name of the strings file containing the data that will be used to fill in the notes in the order
+#define QUEST_NOTES_STRINGS "quest_workers.json"
+
 /obj/machinery/computer/supplyquest
 	name = "Supply Request Console"
 	desc = "Essential for supply requests. Your bread and butter."
@@ -98,8 +101,6 @@
 			)))
 
 	data["quests"] += quest_storages
-
-
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
@@ -134,6 +135,7 @@
 				quest.idrank = H.get_assignment()
 			else if(issilicon(user))
 				quest.idname = user.real_name
+				quest.idrank = isAI(user) ? "AI" : "Robot"
 			quest.order_date = GLOB.current_date_string
 			quest.order_time = station_time_timestamp()
 			print_order(quest)
@@ -183,6 +185,7 @@
 		idrank = H.get_assignment()
 	else if(issilicon(user))
 		idname = user.real_name
+		idrank = isAI(user) ? "AI" : "Robot"
 
 	for(var/path in subtypesof(/datum/supply_packs/misc/htdisk))
 		var/datum/supply_packs/misc/htdisk/htcrate = SSshuttle.supply_packs["[path]"]
@@ -225,121 +228,6 @@
 	density = FALSE
 	req_access = list(ACCESS_CARGO)
 
-	var/static/list/not_complete_phrases = list(
-		"You couldnt do it? What the hell are you even doing there?",
-		"It's a shame, we could've helped each other",
-		"Why did you even take this on?",
-		"Our department will surely be underpaid for being behind schedule",
-		"Listen here, moron, if you mess with our plans again, I'll pay you a visit and disembowel your dog",
-		"Observing. The delivery request has been ignored by the station crew. The list of perpetrators was identified. The Department will be notified about this. ",
-		"We are sure as shit getting sacked this term. Hey, which one of you can I stay with for a couple of months?",
-		"Section 4 first, then revisors, and now you? I need to feed my family, but what do YOU know about such matters.",
-		"Hey, boys! Put yourselves together, our work is stalling because of you.",
-		"Good work. Mister S will appreciate your efforts.",
-		"I'LL MAKE SURE YOU BECOME UNEMPLOYED THE NEXT WEEK YOU BRAINDEAD LUMP OF MEAT",
-		"Cheers, dudes, I really didn't want to work today. ",
-		"Shit. It seems like we're not getting our delivery today. ",
-	)
-	var/static/list/good_complete_phrases = list(
-		"All set, good work. ",
-		"We got everything we ordered, very good. ",
-		"Could've thrown in a little souvenir from the station. Eh, Whatever, this will do.",
-		"The shipment is safe and sound, glory to the cargo-techs! ",
-		"Our boss told us he had received the package. He's content, and so are we.",
-		"You're on time, don't worry. Everything's in place, everything's intact. ",
-		"Good work, fellows, you helped us out a lot. If you need anything, say you're from Gregg. ",
-		"OOOOOOOOOOOOOOOOOOOOOoooooooooooooooooo!! ",
-		"The cargo has been received in supreme condition. Wish it was always like that, and not how it usually goes... ",
-		"Delivery received, but one of our fools got their finger torn off during unpacking.",
-		"Finally, a man at work.",
-		"I'll report your helpful work to the higher ups. ",
-		"AVE CARGONIA",
-		"Gotta work again…",
-		"I won't forget this, my dudes. This delivery might even get me a promotion. ",
-		"It actually came, it's actually intact. We were getting worried for a moment there.",
-		"Hurry up next time, you just barely made it in time. ",
-		"Work faster next time, our schedule is tight. ",
-		"Where's the damn beer?? Could you not put it in???? ",
-		"Well, I ain't getting fired today.",
-	)
-
-	var/static/list/fast_complete_phrases = list(
-		"DAMN YOU GOOD, MAN",
-		"Much respect for the speed, by the way.",
-		"You did really good, excellent job, guys. ",
-		"CARGONIA AVE",
-		"We'll provide a discount on some of our merchandise for your efficiency. ",
-		"You are to be rewarded for your urgency. ",
-		"In a blink of an eye, that's some skill. ",
-		"Hey, catch me later, I'll buy you a beer. ",
-		"You guys are MAD, can I work for you? ",
-		"I TOLD my guys you weren't going to let us down. ",
-		"I'll provide you with a discount for your efforts. ",
-		"You can expect some bonuses, you did good. ",
-		"You can when you want to. ",
-		"By the way, is it true one can hook up with a Skrell on your station? ",
-		"I always knew you were not going to disappoint. ",
-		"The samples came in right as the tests were about to begin, expect a bonus.",
-		"YEEEEEEEEEAAAAAH",
-		"On behalf of the department, I thank you for your services." ,
-		"Alright, I'll give you a little something for your hard work.",
-	)
-
-	var/static/list/content_missing_phrases = list(
-		"The package was received, but I'm pretty sure we ordered more than that. Whatever, we can still work with this. ",
-		"You were penalized for under-delivery. Pay attention to what you are sending.",
-		"This is not enough, unfortunately. I'll have to reduce your pay. ",
-		"This won't do, guys, where's the rest of it? Ah screw it, it is what it is. ",
-		"There's something missing. Not good." ,
-		"STOP GETTING WASTED, WE ARE TRYING TO DO OUR JOBS HERE. ",
-		"You were better off not sending the package at all. Well then.. ",
-		"Do I really have to report your stupidity? ",
-		"I can report you and you'll all get sacked.",
-		"My wife's cousin works at the Department, do you want problems, huh? ",
-		"The Boss told us we must accept the delivery as is. He also told us you're a bunch of imbeciles. ",
-		"The Boss says we can't pay the full price for the delivery, he's gonna cut your payment." ,
-		"Not enough, not good. ",
-		"This ain't gonna do. We'll take a part of the payment for ourselves. ",
-		"Is there anyone capable of doing simple maths in your department? ",
-	)
-
-	var/static/list/departure_mismatch_phrases = list(
-		"The shipment had to come the roundabout way, but whatever. ",
-		"The package went past us and ended up at the navy fleet's party. Oopsie. ",
-		"COME ON MAAAAAAAAAAAAAN",
-		"Do y'all need to be taught how to use a tagger? ",
-		"The delivery came in with a delay, we're reducing your reward. ",
-		"We lost a lot of money because of you taking your sweet time. ",
-		"Does your station only employ monkeys in cargo? ",
-		"No wonder everyone says you're stupid. ",
-		"HOW DOES THIS EVEN HAPPEN????? ",
-		"Tell us the your address, we'll send a first-grade math book your way. ",
-		"Use your tagger to mark your packages, please. ",
-		"Penalized, the delivery took too long. ",
-		"Well, we didn't need the cargo anymore by the time it came in. ",
-
-	)
-	var/static/list/content_mismatch_phrases = list(
-		"What the hell did you send us?",
-		"Why",
-		"I'm pretty sure you have a dumpster somewhere. ",
-		"Space is large enough, you can dump your stuff there. Why send it here? ",
-		"…",
-		"Who's this even for?",
-		"I don't know what happened there, but poor Joe lost his arm in result",
-		"We're going to write a collective complaint against your crew ",
-		"I don't know why we need this here, but this crate is very convenient to play bones on. Cheers. ",
-		"Thanks for crate, guys! I've been thinking of getting one for my garage for a long time. How did you know?",
-		"Errmm. ",
-		"Are you sure this is for us? ",
-		"We didn't even order anything",
-		"Amount discrepancy, I have to cut a part your pay. ",
-		"Hey, guys, You might've counted it wrong.",
-		"There is not enough here, where is the rest?",
-		"Not the same amount as we ordered.",
-		"You're sabotaging our work.",
-	)
-
 
 /obj/machinery/computer/supplyquest/workers/Initialize(mapload)
 	. = ..()
@@ -371,26 +259,26 @@
 	paper.info += "Fines: <br><i>"
 	if(modificators["departure_mismatch"])
 		paper.info += "departure mismatch (-20%)<br>"
-		phrases += departure_mismatch_phrases.Copy()
+		phrases += pick_list(QUEST_NOTES_STRINGS, "departure_mismatch_phrases")
 	if(modificators["content_mismatch"])
 		paper.info += "content mismatch (-30%) x[modificators["content_mismatch"]]<br>"
-		phrases += content_mismatch_phrases.Copy()
+		phrases += pick_list(QUEST_NOTES_STRINGS, "content_mismatch_phrases")
 	if(modificators["content_missing"])
 		paper.info += "content missing (-50%) x[modificators["content_missing"]]<br>"
-		phrases += content_missing_phrases.Copy()
+		phrases += pick_list(QUEST_NOTES_STRINGS, "content_missing_phrases")
 	if(!complete)
 		paper.info += "time expired (-100%)<br>"
-		phrases += not_complete_phrases.Copy()
+		phrases += pick_list(QUEST_NOTES_STRINGS, "not_complete_phrases")
 	else if(!length(modificators))
 		paper.info += "- none <br>"
 	paper.info += "</i><br>Bonus:<br><i>"
 	if(modificators["quick_shipment"])
 		paper.info += "quick shipment (+40%)<br>"
-		phrases += fast_complete_phrases.Copy()
+		phrases += pick_list(QUEST_NOTES_STRINGS, "fast_complete_phrases")
 	else
 		paper.info += "- none <br>"
 		if(complete)
-			phrases += good_complete_phrases.Copy()
+			phrases += pick_list(QUEST_NOTES_STRINGS, "good_complete_phrases")
 	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? quest.reward : "0"]</span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
