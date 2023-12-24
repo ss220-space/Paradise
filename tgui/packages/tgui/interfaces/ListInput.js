@@ -14,7 +14,7 @@ let lastScrollTime = 0;
 
 export const ListInput = (props, context) => {
   const { act, data } = useBackend(context);
-  const { title, message, buttons, init_value, timeout } = data;
+  const { title, message, items, init_value, timeout } = data;
 
   // Search
   const [showSearchBar, setShowSearchBar] = useLocalState(
@@ -25,7 +25,7 @@ export const ListInput = (props, context) => {
   const [displayedArray, setDisplayedArray] = useLocalState(
     context,
     'displayed_array',
-    buttons
+    items
   );
 
   // KeyPress
@@ -85,20 +85,20 @@ export const ListInput = (props, context) => {
                   }
 
                   let index = 0;
-                  for (index; index < buttons.length; index++) {
-                    if (buttons[index] === selectedButton) {
+                  for (index; index < items.length; index++) {
+                    if (items[index] === selectedButton) {
                       break;
                     }
                   }
                   index += direction;
                   if (index < 0) {
-                    index = buttons.length - 1;
-                  } else if (index >= buttons.length) {
+                    index = items.length - 1;
+                  } else if (index >= items.length) {
                     index = 0;
                   }
-                  setSelectedButton(buttons[index]);
+                  setSelectedButton(items[index]);
                   setLastCharCode(null);
-                  document.getElementById(buttons[index]).focus();
+                  document.getElementById(items[index]).focus();
                   return;
                 }
 
@@ -145,7 +145,7 @@ export const ListInput = (props, context) => {
                   tooltipPosition="left"
                   onClick={() => {
                     setShowSearchBar(!showSearchBar);
-                    setDisplayedArray(buttons);
+                    setDisplayedArray(items);
                   }}
                   compact
                 />
@@ -181,7 +181,7 @@ export const ListInput = (props, context) => {
                 autoFocus
                 onInput={(e, value) =>
                   setDisplayedArray(
-                    buttons.filter(
+                    items.filter(
                       (val) =>
                         val.toLowerCase().search(value.toLowerCase()) !== -1
                     )
