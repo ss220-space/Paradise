@@ -587,7 +587,7 @@
 /obj/machinery/power/apc/noalarm{
 	pixel_y = -28;
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 0;
 	start_charge = 0;
 	req_access = list(111);
@@ -989,7 +989,7 @@
 /obj/structure/spacevine,
 /obj/machinery/power/apc/noalarm{
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 0;
 	start_charge = 0;
 	req_access = list(111);
@@ -2377,7 +2377,7 @@
 /obj/item/stock_parts/manipulator,
 /obj/machinery/power/apc/noalarm{
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 0;
 	start_charge = 0;
 	req_access = list(111);

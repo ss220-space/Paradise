@@ -4988,7 +4988,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 2;
 	locked = 0;
 	pixel_y = 24;
@@ -12198,7 +12198,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	environment_channel = 0;
-	equipment_channel 0;
+	equipment_channel = 0;
 	lighting_channel = 2;
 	name = "Gorky17 area power controller";
 	pixel_y = 28;
