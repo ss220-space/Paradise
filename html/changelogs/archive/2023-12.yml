@@ -239,3 +239,16 @@
   ROdenFL:
   - bugfix: multisword (#4112)
   - bugfix: baked vulps comeback (#4113)
+'2023-12-24':
+  ArtemDerp:
+  - tweak: virology smartfridge reskin (#4115)
+  Baldek0:
+  - tweak: protolathe ammo designs cost halved (#4109)
+  Ksaikok46:
+  - add: SRM-8 middle missiles module for roboticist hijacker only (#4102)
+  LiquidPotroh:
+  - tweak: Destructable shields (#4053)
+  NightDawnFox:
+  - add: new sprites for reinforcing explorer suits (#4093)
+  aeternaclose:
+  - unknown: AcademyRework pt2 (#4085)
