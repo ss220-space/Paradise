@@ -235,7 +235,7 @@
 				getting_closer_animation(target, cycle_counter)
 				time_per_action = suck_rate_final*GRAB_NECK_TIME_MOD
 				continue
-			if(2)
+			if(STATE_GRABBING)
 				owner.current.visible_message(span_danger("[owner.current] grabs [target]'s neck harshly"), \
 					span_danger("You grabs [target]'s neck harshly"))
 				getting_closer_animation(target, cycle_counter)
