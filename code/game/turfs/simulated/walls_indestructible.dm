@@ -158,3 +158,10 @@
 	icon_state = "snow"
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/simulated/wall/indestructible/snow)
+
+/turf/simulated/wall/indestructible/gingerbread
+	name = "gingerbread wall"
+	icon = 'icons/turf/walls/gingerbread_wall.dmi'
+	icon_state = "gingerbread"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/wall/indestructible/gingerbread, /obj/structure/falsewall/gingerbread, /turf/simulated/wall/mineral/gingerbread)
