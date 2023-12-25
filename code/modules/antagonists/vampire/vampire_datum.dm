@@ -229,7 +229,7 @@
 		owner.current.face_atom(target)
 
 		switch(cycle_counter)
-			if(1)
+			if(STATE_CLOSING_IN)
 				owner.current.visible_message(span_danger("[owner.current] gets closer to [target]"), \
 					span_danger("You getting closer to [target]"))
 				getting_closer_animation(target, cycle_counter)
