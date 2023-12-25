@@ -290,6 +290,9 @@
 #undef BLOOD_GAINED_MODIFIER
 #undef GETTING_CLOSER_TIME_MOD
 #undef GRAB_NECK_TIME_MOD
+#undef STATE_CLOSING_IN
+#undef STATE_GRABBING
+#undef STATE_SUCKING
 
 
 /datum/antagonist/vampire/proc/getting_closer_animation(mob/living/carbon/human/target, stage)
