@@ -180,6 +180,9 @@
 #define BLOOD_GAINED_MODIFIER 0.5
 #define GETTING_CLOSER_TIME_MOD 0.2
 #define GRAB_NECK_TIME_MOD 0.3
+#define STATE_CLOSING_IN 1
+#define STATE_GRABBING 2
+#define STATE_SUCKING 3
 
 /datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate_override)
 	draining = target
