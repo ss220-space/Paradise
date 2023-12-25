@@ -1053,7 +1053,6 @@
 
 /obj/item/storage/box/responseteam/red/engineer/populate_contents()
 	new /obj/item/clothing/under/rank/engineer (src)
-	new /obj/item/storage/belt/utility/full/multitool (src)
 	new /obj/item/pda/heads/ert/engineering (src)
 	new /obj/item/card/id/ert/registration/engineering (src)
 	new /obj/item/clothing/shoes/magboots/advance (src)

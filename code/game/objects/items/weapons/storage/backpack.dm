@@ -646,6 +646,7 @@
 /obj/item/storage/backpack/duffel/security/spiders/populate_contents()
 	new /obj/item/gun/projectile/shotgun/automatic/combat (src)
 	new /obj/item/ammo_box/shotgun/dragonsbreath (src)
+	new /obj/item/ammo_box/shotgun/dragonsbreath (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)
 	new /obj/item/clothing/suit/armor/heavy (src)
 	new /obj/item/clothing/gloves/combat (src)
@@ -675,6 +676,7 @@
 
 /obj/item/storage/backpack/duffel/security/war/populate_contents()
 	new /obj/item/gun/projectile/automatic/ar (src)
+	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/ammo_box/magazine/m556 (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)
 	new /obj/item/clothing/suit/armor/heavy (src)
