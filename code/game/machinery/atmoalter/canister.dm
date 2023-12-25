@@ -140,7 +140,7 @@ update_flag
 (note: colors has to be applied every icon update)
 */
 
-	if(destroyed)
+	if(stat & BROKEN)
 		overlays = 0
 		icon_state = text("[]-1", canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 		return
@@ -213,7 +213,7 @@ update_flag
 		holding = null
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
-	if(destroyed)
+	if(stat & BROKEN)
 		return
 
 	..()

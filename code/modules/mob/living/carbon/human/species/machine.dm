@@ -152,7 +152,9 @@
 				if(Entry[2] == H.ckey)							// They're in the list? Custom sprite time, var and icon change required
 					hair += Entry[3]							// Adds custom screen to list
 
-		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
+		var/new_style = tgui_input_list(H, "Select a monitor display", "Monitor Display", hair, head_organ.h_style)
+		if(!new_style)
+			return
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(TRUE, TRUE, TRUE))

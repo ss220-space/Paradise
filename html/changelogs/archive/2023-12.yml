@@ -250,5 +250,11 @@
   - tweak: Destructable shields (#4053)
   NightDawnFox:
   - add: new sprites for reinforcing explorer suits (#4093)
+  - tweak: marrow weaver no longer has xray & advanced mining scaner is more powerful
+      now (#4089)
+  ROdenFL:
+  - add: tgui selection window (#4111)
+  Zwei:
+  - refactor: map objects standardization (#4118)
   aeternaclose:
   - unknown: AcademyRework pt2 (#4085)

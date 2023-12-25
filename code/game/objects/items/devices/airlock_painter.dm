@@ -38,7 +38,7 @@
 	return TRUE
 
 /obj/item/airlock_painter/attack_self(mob/user)
-	paint_setting = input(user, "Please select a paintjob for this airlock.") as null|anything in available_paint_jobs
+	paint_setting = tgui_input_list(user, "Please select a paintjob for this airlock", "Airlock painter", available_paint_jobs)
 	if(!paint_setting)
 		return
 	to_chat(user, "<span class='notice'>The [paint_setting] paint setting has been selected.</span>")
