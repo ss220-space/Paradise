@@ -253,12 +253,20 @@
 /obj/item/ammo_box/speedloader/improvisedrevolver
 	name = "makeshift speedloader"
 	desc = "Speedloader made from shit and sticks"
-	ammo_type = /obj/item/ammo_casing/revolver/improvised
-	icon_state = "makeshift_speedloader-4"
-	multiple_sprites = 1
-	icon_prefix = "makeshift_speedloader"
+	ammo_type = null
+	icon_state = "makeshift_speedloader"
 	max_ammo = 4
 	caliber = ".257"
+
+/obj/item/ammo_box/speedloader/improvisedrevolver/update_icon()
+	overlays.Cut()
+
+	for(var/i = 1 to length(stored_ammo))
+		var/obj/item/ammo_casing/ammo = stored_ammo[i]
+		var/icon/new_ammo_icon = icon('icons/obj/weapons/ammo.dmi', ammo.icon_state)
+		new_ammo_icon.Shift(ISEVEN(i) ? i : 8 / RaiseToPower(2, (i-2)), 1 < i > 4 ? 4 : 2)
+		overlays += new_ammo_icon
+
 
 /obj/item/ammo_box/speedloader/c38
 	name = "speed loader (.38)"
@@ -301,7 +309,7 @@
 		var/obj/item/ammo_casing/shotgun/ammo = stored_ammo[i]
 		var/icon/new_ammo_icon = icon('icons/obj/weapons/ammo.dmi', "[initial(ammo.icon_state)]_loader")
 		if(i < 7)
-			new_ammo_icon.Shift((i % 2) == 0 ? WEST : EAST, 3)
+			new_ammo_icon.Shift(ISEVEN(i) ? WEST : EAST, 3)
 		new_ammo_icon.Turn(FLOOR((i - 1) * 45, 90))
 		overlays += new_ammo_icon
 

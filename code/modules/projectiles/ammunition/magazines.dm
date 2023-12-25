@@ -40,7 +40,7 @@
 		rotate()
 
 /obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/R, replace_spent = FALSE)
-	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
+	if(!ammo_suitability(R))
 		return FALSE
 
 	for(var/i in 1 to stored_ammo.len)
@@ -82,10 +82,27 @@
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver
-	name = "Improvised bullet cylinder"
+	name = "improvised bullet cylinder"
+	desc = "A roughly made revolver cylinder."
+	icon = 'icons/obj/improvised.dmi'
+	icon_state = "rev_cylinder"
 	ammo_type = /obj/item/ammo_casing/revolver/improvised
-	caliber = ".257"
+	caliber = list(".257")
 	max_ammo = 4
+
+/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver/ammo_suitability(obj/item/ammo_casing/bullet)
+	if(!bullet || !(bullet.caliber in caliber))
+		return FALSE
+	return TRUE
+
+/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver/steel
+	name = "steel bullet cylinder"
+	desc = "High quality steel revolver cylinder with increased amount of bullets."
+	icon = 'icons/obj/improvised.dmi'
+	icon_state = "s_rev_cylinder"
+	ammo_type = /obj/item/ammo_casing/c38
+	caliber = list(".257", ".38")
+	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"

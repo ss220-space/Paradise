@@ -16,6 +16,20 @@
 	icon_state = "riflestock"
 
 
+/obj/item/weaponcrafting/revolverbarrel
+	name = "improvised revolver barrel"
+	desc = "A roughly made revolver barrel."
+	icon = 'icons/obj/improvised.dmi'
+	icon_state = "rev_barrel"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/weaponcrafting/revolverbarrel/steel
+	name = "steel revolver barrel"
+	desc = "High quality heavy steel gun barrel to increase stability."
+	icon = 'icons/obj/improvised.dmi'
+	icon_state = "s_rev_barrel"
+
+
 // CRAFTING //
 
 /obj/item/weaponcrafting/receiver/attackby(obj/item/W as obj, mob/user as mob, params)

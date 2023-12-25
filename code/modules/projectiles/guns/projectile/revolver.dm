@@ -314,18 +314,104 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
 /obj/item/gun/projectile/revolver/improvisedrevolver
+	name = "improvised revolver"
 	desc = "Weapon for crazy fun with friends"
-	name = "Improvised revolver"
-	icon_state = "makeshift_revik"
+	icon_state = "irevolver"
+	item_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver
 	fire_sound = 'sound/weapons/gunshots/improvrev_shot.ogg'
+	var/unscrewed = FALSE
+	var/obj/item/weaponcrafting/revolverbarrel/barrel
+
+/obj/item/gun/projectile/revolver/improvisedrevolver/New()
+	..()
+	barrel = new	// Это самый простой вариант. Обратите сюда внимание и переделайте, если будете расширять механ "модификаций" на остальной огнестрел.
+	update_icon()
+
+/obj/item/gun/projectile/revolver/improvisedrevolver/update_icon()
+	overlays.Cut()
+
+	if(magazine)
+		overlays +=  icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
+	if(barrel)
+		var/icon/barrel_icon = icon('icons/obj/weapons/projectile.dmi', barrel.icon_state)
+		if(unscrewed)
+			barrel_icon.Turn(-90)
+			barrel_icon.Shift(WEST, 5)
+		overlays +=  barrel_icon
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/afterattack(atom/target, mob/living/user, flag, params)
-	if(prob(10))
+	if(unscrewed)
+		shoot_with_empty_chamber(user)
+	else if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel) || prob(80))
+		..()
+	else
 		chamber_round(1)
-		user.visible_message(span_danger("*CRACK*"))
+		user.visible_message(span_dangerbigger("*CRACK*"))
+		playsound(user, 'sound/weapons/empty.ogg', 120, 1)
 		return
-	..()
+
+/obj/item/gun/projectile/revolver/improvisedrevolver/proc/radial_menu(mob/user)
+	var/list/choices = list()
+
+	if(barrel)
+		choices["Barrel"] = image(icon = barrel.icon, icon_state = barrel.icon_state)
+	if(magazine)
+		choices["Magazine"] = image(icon = magazine.icon, icon_state = magazine.icon_state)
+	var/choice = show_radial_menu(user, src, choices, require_near = TRUE)
+
+	if(!choice || loc != user)
+		return
+
+	switch(choice)
+		if("Barrel")
+			if(!do_mob(user, src, 8 SECONDS))
+				return
+			to_chat(user, span_notice("You unscrew [barrel] from [src]."))
+			user.put_in_hands(barrel)
+			barrel = null
+		if("Magazine")
+			to_chat(user, span_notice("You unscrew [magazine] from [src]."))
+			user.put_in_hands(magazine)
+			magazine = null
+	playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
+	update_icon()
+
+/obj/item/gun/projectile/revolver/improvisedrevolver/attack_hand(mob/user)
+	if(loc == user && unscrewed)
+		radial_menu(user)
+	else ..()
+
+/obj/item/gun/projectile/revolver/improvisedrevolver/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
+		return
+	if(!magazine || !barrel)
+		to_chat(user, span_notice("You can't do it without cylinder and barrel, attached to revolver."))
+	else
+		to_chat(user, span_notice("You [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine] from [src]"]."))
+		unscrewed = !unscrewed
+		update_icon()
+
+/obj/item/gun/projectile/revolver/improvisedrevolver/attackby(obj/item/A, mob/user, params)
+	if(unscrewed)
+		if(istype(A, /obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver))
+			if(magazine)
+				to_chat(user, span_notice("[src] already have [magazine]."))
+			else if(user.drop_transfer_item_to_loc(A, src))
+				magazine = A
+				update_icon()
+				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
+		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
+			if(barrel)
+				to_chat(user, span_notice("[src] already have [barrel]."))
+			else if(do_mob(user, src, 8 SECONDS))
+				if(user.drop_transfer_item_to_loc(A, src))
+					barrel = A
+					update_icon()
+					playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
+	else
+		return ..()
 
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //

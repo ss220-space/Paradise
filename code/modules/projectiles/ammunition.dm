@@ -161,8 +161,7 @@
 		return b
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = FALSE)
-	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
-	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
+	if(!ammo_suitability(R))
 		return FALSE
 
 	if(stored_ammo.len < max_ammo)
@@ -185,6 +184,12 @@
 				return TRUE
 
 	return FALSE
+
+/obj/item/ammo_box/proc/ammo_suitability(obj/item/ammo_casing/bullet)
+	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
+	if(!bullet || (caliber && bullet.caliber != caliber) || (!caliber && bullet.type != ammo_type))
+		return FALSE
+	return TRUE
 
 /obj/item/ammo_box/proc/can_load(mob/user)
 	return TRUE
