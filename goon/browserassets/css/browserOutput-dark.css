@@ -279,16 +279,22 @@ em				{font-style: normal;font-weight: bold;}
 .say				{color: #a4bad6}
 .yell				{font-weight: bold;}
 .siliconsay			{font-family: 'Courier New', Courier, monospace;}
-.deadsay				{color: #e2c1ff;}
+.deadsay				{color: #B800B1;}
 /* .radio				{color: #20b142;} */
 .deptradio			{color: #993399;}
-.comradio			{color: #526aff;}
+.comradio				{color: #526aff;}
 .syndradio			{color: #8f4a4b;}
+.sovradio				{color: #f7941d;}
+.taipan					{color: #ffec8b;}
+.spider_clan			{color: #3cfd1e;}
+.event_alpha			{color: #88910f;}
+.event_beta				{color: #1d83f7;}
+.event_gamma			{color: #d46549;}
 .dsquadradio			{color: #998599;}
 .resteamradio			{color: #18BC46;}
 .airadio				{color: #ff5ed7;}
 .centradio			{color: #2681a5;}
-.secradio				{color: #dd3535;}
+.secradio				{color: #CF0000;}
 /* .engradio				{color: #FEAC20;} */
 .medradio			{color: #00b5ad;}
 .sciradio				{color: #c68cfa;}
@@ -465,20 +471,20 @@ span.body .coderesponses 		{color: #FF3333;}
 	padding: 15px;
 }
 
-.boxed_message.purple_border {
-	border-color: #5e00aa;
-}
-
-.boxed_message.yellow_border {
-	border-color: #e0991e;
-}
-
 .boxed_message.left_align_text {
 	text-align: left
 }
 
 .boxed_message.red_border {
 	border-color: #aa0000;
+}
+
+.boxed_message.purple_border {
+	border-color: #5e00aa;
+}
+
+.boxed_message.yellow_border {
+	border-color: #e0991e;
 }
 
 .boxed_message.green_border {
