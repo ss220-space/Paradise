@@ -137,10 +137,6 @@ SUBSYSTEM_DEF(cargo_quests)
 	min_quest_time = 20
 	max_quest_time = 30
 
-/datum/quest_difficulty/normal/generate_timer(datum/cargo_quests_storage/q_storage)
-	q_storage.quest_time = rand(20, 30) MINUTES
-	..()
-
 /datum/quest_difficulty/hard
 	diff_flag = QUEST_DIFFICULTY_HARD
 	weight = 15

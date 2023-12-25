@@ -325,4 +325,5 @@
 	integrated_console.ui_interact(user, ui_key, ui, force_open, master_ui, state)
 
 
+#undef QUEST_NOTES_STRINGS
 #undef PRINT_COOLDOWN
