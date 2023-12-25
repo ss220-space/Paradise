@@ -87,6 +87,10 @@
 /area/awaymission/evil_santa/end/santa
 	name = "Evil santa fight"
 	icon_state = "awaycontent14"
+	var/battle = FALSE
+	var/cooldown = FALSE
+	var/list/naughty_guys
+	var/mob/living/simple_animal/hostile/winter/santa/boss
 
 /area/awaymission/evil_santa/end/exit
 	name = "Evil santa exit"
@@ -97,29 +101,52 @@
 	name = "Evil santa forest labyrinth"
 	icon_state = "dark"
 
-/area/awaymission/evil_santa/end/santa/proc/UnlockBlastDoors(target_id_tag)
-	target_id_tag = "Evil_Santa_Arena"
-	for(var/obj/machinery/door/poddoor/preopen/P in GLOB.airlocks)
-		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
-			P.open()
+/area/awaymission/evil_santa/end/santa/proc/set_ready()
+	cooldown = FALSE
 
-/area/awaymission/evil_santa/end/santa/proc/BlockBlastDoors(target_id_tag)
-	target_id_tag = "Evil_Santa_Arena"
-	for(var/obj/machinery/door/poddoor/preopen/P in GLOB.airlocks)
-		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
-			P.close()
+/area/awaymission/evil_santa/end/santa/proc/UnlockBlastDoors()
+	if(battle)
+		battle = FALSE
+		for(var/obj/machinery/door/poddoor/impassable/preopen/P in GLOB.airlocks)
+			if(P.density && P.id_tag == "Evil_Santa_Arena" && P.z == z && !P.operating)
+				sleep(30)
+				P.open()
+
+/area/awaymission/evil_santa/end/santa/proc/BlockBlastDoors()
+	if(!battle)
+		for(var/obj/machinery/door/poddoor/impassable/preopen/P in GLOB.airlocks)
+			if(!P.density && P.id_tag == "Evil_Santa_Arena" && P.z == z && !P.operating)
+				P.close()
+		battle = TRUE
+		for(var/mob/trapped_one in naughty_guys)
+			to_chat(trapped_one, span_danger("YOU'VE BEEN TOO NAUGHTY THIS YEAR AND NOW YOU WILL BE PUNISHED!"))
+
+/area/awaymission/evil_santa/end/santa/proc/ready_or_not()
+	if(!naughty_guys)
+		naughty_guys = list()
+	for(var/mob/living/carbon/human/naughty in naughty_guys)
+		UnregisterSignal(naughty, COMSIG_MOB_DEATH)
+		naughty_guys &= ~naughty
+	for(var/mob/living/carbon/human/naughty in src)
+		if(!naughty.is_dead())
+			naughty_guys |= naughty
+			RegisterSignal(naughty, COMSIG_MOB_DEATH, PROC_REF(ready_or_not))
+	if(naughty_guys.len > 0)
+		BlockBlastDoors()
+	else
+		UnlockBlastDoors()
 
 /area/awaymission/evil_santa/end/santa/Entered(var/mob/living/carbon/naughty)
 	. = ..()
-	for(var/mob/living/simple_animal/hostile/winter/santa/fat_man)
-		if(fat_man.is_dead())
-			return
-	sleep(50)
-	if(naughty > 0 && !naughty.is_dead())
-		BlockBlastDoors()
-		to_chat(usr, "<span class='danger'> YOU'VE BEEN TOO NAUGHTY THIS YEAR AND NOW YOU WILL BE PUNISHED! </span>")
-	else
-		UnlockBlastDoors()
+	if(!istype(naughty))
+		return
+	if(boss?.is_dead())
+		return
+	if(cooldown)
+		return
+	cooldown = TRUE
+	addtimer(CALLBACK(src, PROC_REF(ready_or_not)), 5 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(set_ready)), 6 SECONDS, TIMER_UNIQUE)
 
 /obj/item/paper/journal_scrap_1
 	name = "survivor's journal page 1"
@@ -230,7 +257,7 @@
 	return
 
 /obj/effect/spawner/lootdrop/evil_santa_gift
-	name = "50% bouquet spawner"
+	name = "evil santa reward gift spawner 1 to 3"
 	icon_state = "evil_santa_gift"
 	lootdoubles = 0
 
