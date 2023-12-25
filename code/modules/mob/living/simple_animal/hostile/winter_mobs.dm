@@ -71,11 +71,17 @@
 	health = 150
 	var/next_stage = null
 	var/death_message
+	var/area/awaymission/evil_santa/end/santa/bossfight_area
 	name = "Santa Claus"
-
 	icon_state = "santa"
 	icon_living = "santa"
 	icon_dead = "santa-dead"
+
+/mob/living/simple_animal/hostile/winter/santa/Initialize(mapload)
+	. = ..()
+	bossfight_area = get_area(src)
+	if(istype(bossfight_area))
+		bossfight_area.boss = src
 
 /mob/living/simple_animal/hostile/winter/santa/death(gibbed)
 	// Only execute the below if we successfully died
@@ -85,7 +91,7 @@
 	if(death_message)
 		visible_message(death_message)
 	if(next_stage)
-		spawn(10)
+		spawn(1 SECONDS)
 			new next_stage(get_turf(src))
 			qdel(src)	//hide the body
 
@@ -148,3 +154,4 @@
 	var/obj/item/grenade/clusterbuster/xmas/Y = new /obj/item/grenade/clusterbuster/xmas(get_turf(src))
 	X.prime()
 	Y.prime()
+	bossfight_area.UnlockBlastDoors()

@@ -349,7 +349,7 @@
 		return 0
 	var/obj/T = target
 	var/throwdir = get_dir(firer,target)
-	T.throw_at(get_edge_target_turf(target, throwdir),10,10)
+	T.throw_at(get_edge_target_turf(target, throwdir),5,5) // 10,10 tooooo much
 	return 1
 
 /obj/item/projectile/mimic
