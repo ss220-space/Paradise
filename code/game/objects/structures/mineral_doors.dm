@@ -252,7 +252,7 @@
 	icon_state = "gingerbread"
 	openSound = 'sound/effects/doorcreaky.ogg'
 	closeSound = 'sound/effects/doorcreaky.ogg'
-	sheetType = null
+	sheetType = /obj/item/stack/sheet/gingerbread
 	hardness = 0.5
 	resistance_flags = FLAMMABLE
 	max_integrity = 200

@@ -4,7 +4,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "ac" = (
 /obj/structure/table/reinforced,
 /obj/machinery/processor{
@@ -35,13 +35,15 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
 "am" = (
-/obj/structure/mineral_door/ginger,
 /turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
+	color = "#91857C";
+	icon_state = "gingerbread";
+	name = "Lift door";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	description_info = null;
+	desc = "For authorized personnel only. Looks locked and bolted."
 	},
-/area/awaymission/evil_santa/mine/labyrinth_r)
+/area/awaymission/evil_santa/mine/labyrinth_m)
 "au" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/aquatic_kit/full,
@@ -61,7 +63,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "ay" = (
 /obj/item/clothing/head/bearpelt/fluff/polar,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -75,7 +77,7 @@
 /obj/item/reagent_containers/food/snacks/gingercookie/home,
 /obj/item/reagent_containers/food/snacks/gingercookie/cane,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "aD" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
@@ -94,7 +96,7 @@
 "aN" = (
 /obj/structure/closet/crate/trashcart/gibs,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "aO" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/chem_dispenser/soda,
@@ -137,7 +139,11 @@
 "bn" = (
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
+"br" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/evil_santa/mine)
 "bs" = (
 /obj/structure/closet/crate/hydroponics/prespawned,
 /obj/item/reagent_containers/glass/bucket,
@@ -189,7 +195,7 @@
 	},
 /obj/item/twohanded/dualsaber/toy,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "bY" = (
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/carpet/red,
@@ -197,16 +203,16 @@
 "cc" = (
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
-	faction = list("scarybat")
+	faction = list("scarybat");
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"cf" = (
+/turf/simulated/floor/carpet/orange,
+/area/awaymission/evil_santa/end/santa)
 "ch" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/gingerbread,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "cq" = (
 /obj/structure/closet/crate/miningcar,
@@ -217,6 +223,23 @@
 "cB" = (
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/end/lounge)
+"cD" = (
+/mob/living/simple_animal/hostile/winter/snowman{
+	weather_immunities = list("snow")
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"cE" = (
+/obj/item/toy/pet_rock/roxie,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "cF" = (
 /mob/living/simple_animal/hostile/winter/snowman{
 	weather_immunities = list("snow")
@@ -288,12 +311,34 @@
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_n)
+"ds" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/syndicate/red,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
+"dt" = (
+/obj/structure/snowman/built{
+	name = "Sergant snowman";
+	layer = 3.1
+	},
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
 "du" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
+"dv" = (
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "dw" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/gingercookie,
@@ -331,7 +376,7 @@
 /area/awaymission/evil_santa/hut_e)
 "dQ" = (
 /obj/structure/spider/terrorweb,
-/mob/living/simple_animal/hostile/poison/terror_spider/destroyer,
+/mob/living/simple_animal/hostile/poison/terror_spider/knight,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine/terror_spider)
 "dU" = (
@@ -346,14 +391,18 @@
 	icon_state = "white"
 	},
 /area/awaymission/evil_santa/end/lounge)
+"dW" = (
+/obj/effect/baseturf_helper/asteroid,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "dX" = (
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/carpet/red,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "ea" = (
 /obj/item/grown/bananapeel,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "ec" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -380,6 +429,9 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/hut_e)
+"eB" = (
+/turf/simulated/mineral/gem/volcanic/hard,
+/area/awaymission/evil_santa/mine)
 "eD" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
@@ -410,7 +462,7 @@
 /area/awaymission/evil_santa_storm)
 "eP" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/cane,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "eR" = (
 /obj/structure/railing/corner,
@@ -436,6 +488,10 @@
 "eV" = (
 /turf/simulated/floor/light/colour_cycle/dancefloor_b,
 /area/awaymission/evil_santa/end/lounge)
+"eY" = (
+/obj/structure/decorative_structures/snowcloud,
+/turf/simulated/floor/plating/asteroid/snow/temperature,
+/area/space)
 "fb" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/enzyme{
@@ -450,8 +506,11 @@
 	},
 /area/awaymission/evil_santa/end/lounge)
 "fc" = (
-/obj/structure/mineral_door/ginger,
-/turf/simulated/floor/plating/ice,
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id_target = "lab_lounge"
+	},
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "fd" = (
 /obj/effect/decal/snow/clean/edge,
@@ -480,7 +539,14 @@
 /area/awaymission/evil_santa/hut_e)
 "ft" = (
 /turf/simulated/floor/plasteel/stairs/right,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
+"fA" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "fD" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3";
@@ -504,12 +570,12 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "fQ" = (
 /obj/item/storage/backpack/santabag,
 /obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "fR" = (
 /obj/item/fish/catfish,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -525,7 +591,7 @@
 "gd" = (
 /obj/structure/snowman/medium,
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "gg" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7";
@@ -602,11 +668,15 @@
 /obj/item/clothing/suit/fluff/dusty_jacket,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine/terror_spider)
+"gG" = (
+/obj/item/decorations/bouquets/random,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "gH" = (
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "gI" = (
 /obj/effect/overlay/palmtree_r,
 /turf/simulated/floor/grass,
@@ -620,12 +690,26 @@
 /turf/simulated/floor/wood/cold,
 /area/awaymission/evil_santa/hut_e)
 "gM" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/structure/closet/secure_closet/freezer/kitchen{
+	req_access = list()
+	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/awaymission/evil_santa/end/lounge)
+"gT" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/red,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
+"hd" = (
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id_target = "right_lab"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "hg" = (
 /obj/item/stack/sheet/animalhide/human,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -640,6 +724,15 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/santa)
+"hk" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "hr" = (
 /obj/item/flashlight/lantern{
 	on = 1;
@@ -657,6 +750,15 @@
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
+"hz" = (
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "hA" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -666,7 +768,7 @@
 /area/awaymission/evil_santa/end/santa)
 "hC" = (
 /mob/living/simple_animal/hostile/scarybat,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "hF" = (
 /obj/structure/table/reinforced,
@@ -709,7 +811,13 @@
 /turf/simulated/floor/plating/asteroid/snow/temperature,
 /area/awaymission/evil_santa/end/santa)
 "hW" = (
-/obj/structure/ladder,
+/obj/effect/bump_teleporter{
+	name = "To mines";
+	id_target = "forest_mines";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal";
+	invisibility = 25
+	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "ib" = (
@@ -738,6 +846,13 @@
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/santa)
+"iE" = (
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id = "right_lab_lounge"
+	},
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/mine/labyrinth_r)
 "iG" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood,
@@ -776,6 +891,7 @@
 /obj/item/grown/log/tree,
 /obj/item/grown/log/tree,
 /obj/item/storage/box/matches,
+/obj/item/shovel,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "iS" = (
@@ -793,15 +909,26 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
 "jf" = (
-/obj/machinery/door/airlock/public,
-/turf/simulated/floor/wood/fancy,
-/area/awaymission/evil_santa/end/lounge)
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
 "jh" = (
 /obj/machinery/gateway{
 	dir = 6
 	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
+"ji" = (
+/obj/item/a_gift,
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "jl" = (
 /turf/simulated/wall/indestructible/wood,
 /area/awaymission/evil_santa/end/lounge)
@@ -815,6 +942,13 @@
 	tag = "icon-wood-broken5"
 	},
 /area/awaymission/evil_santa/hut_e)
+"js" = (
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id = "right_lab"
+	},
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/mine/labyrinth_l)
 "jy" = (
 /obj/structure/curtain{
 	color = "#442d15"
@@ -863,7 +997,7 @@
 	name = "rock";
 	description_info = null
 	},
-/area/awaymission/evil_santa/end/santa)
+/area/space)
 "jO" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 1;
@@ -886,6 +1020,10 @@
 	icon_state = "white"
 	},
 /area/awaymission/evil_santa/end/lounge)
+"kw" = (
+/obj/effect/baseturf_helper/asteroid/snow,
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/santa)
 "kB" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -896,6 +1034,10 @@
 /area/awaymission/evil_santa/hut_e)
 "kD" = (
 /obj/effect/decal/remains/mouse,
+/obj/item/paper/crumpled/bloody{
+	layer = 2.9;
+	desc = "Зря я решил скинуть оружие, в этих пещерах полно всякой живности... И где же я его закопал? Вроде я все время шел по правой стороне..."
+	},
 /obj/structure/decorative_structures/corpse,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
@@ -907,16 +1049,43 @@
 	},
 /turf/simulated/floor/plating/ice,
 /area/awaymission/evil_santa/mine)
+"kH" = (
+/obj/effect/bump_teleporter{
+	name = "To Santa";
+	id_target = "lounge_santa";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal";
+	invisibility = 25
+	},
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/lounge)
+"kI" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "kJ" = (
 /turf/simulated/mineral/random/low_chance,
 /area/awaymission/evil_santa/mine/terror_spider)
+"kN" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/awaymission/evil_santa/end/lounge)
 "kR" = (
 /obj/structure/window/reinforced{
 	dir = 4;
 	color = "black"
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "kV" = (
 /obj/structure/table/wood/poker,
 /obj/item/stack/spacechips/c5000,
@@ -949,7 +1118,11 @@
 	},
 /obj/machinery/mineral/ore_redemption/labor,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
+"ly" = (
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "lC" = (
 /obj/structure/flora/grass/brown,
 /turf/simulated/floor/plating/asteroid/snow/temperature,
@@ -966,9 +1139,12 @@
 "lP" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/storage/bag/tray,
-/obj/item/reagent_containers/food/drinks/bottle/milk,
+/obj/item/reagent_containers/food/drinks/bottle/milk{
+	pixel_y = 10;
+	pixel_x = -8
+	},
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "lQ" = (
 /turf/simulated/floor/plating/ice/smooth,
 /area/awaymission/evil_santa/spawn_ne)
@@ -977,7 +1153,7 @@
 /obj/item/reagent_containers/food/snacks/gingercookie/cane,
 /obj/item/reagent_containers/food/snacks/gingercookie/ball,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "lU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -993,6 +1169,14 @@
 /obj/item/toy/carpplushie/ice,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_nw)
+"me" = (
+/obj/structure/spider/stickyweb,
+/mob/living/simple_animal/hostile/poison/giant_spider{
+	faction = list("scarybat");
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "mf" = (
 /obj/item/flashlight/lantern{
 	light_color = "#ffb366"
@@ -1005,7 +1189,7 @@
 /area/awaymission/evil_santa/end/santa)
 "mj" = (
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "ml" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
@@ -1019,6 +1203,10 @@
 "mn" = (
 /turf/simulated/floor/wood/fancy/light,
 /area/awaymission/evil_santa/end/lounge)
+"mp" = (
+/obj/effect/mapping_helpers/light,
+/turf/simulated/floor/carpet/orange,
+/area/awaymission/evil_santa/end/hall)
 "ms" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -4;
@@ -1039,6 +1227,10 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
+"mE" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/carpet/orange,
+/area/awaymission/evil_santa/end/hall)
 "mH" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -1083,15 +1275,21 @@
 "mX" = (
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine/terror_spider)
+"na" = (
+/obj/structure/snowman/high,
+/turf/simulated/floor/carpet/green,
+/area/awaymission/evil_santa/end/lounge)
 "ni" = (
 /obj/structure/mineral_door/ginger,
-/turf/simulated/floor/wood/fancy,
-/area/awaymission/evil_santa/end/lounge)
+/turf/simulated/floor/carpet/orange,
+/area/awaymission/evil_santa/end/hall)
 "nq" = (
 /obj/effect/decal/rail_way,
 /obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/gold,
 /obj/item/stack/ore/iron,
+/obj/item/stack/marker_beacon/ten,
+/obj/item/tank/internals/emergency_oxygen,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
 "nt" = (
@@ -1125,6 +1323,16 @@
 /obj/item/clothing/suit/hooded/wintercoat,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_nw)
+"nJ" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "nK" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -1139,6 +1347,11 @@
 /obj/structure/dresser,
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
+"nW" = (
+/obj/item/stack/ore/glass/basalt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "nX" = (
 /turf/space,
 /area/space)
@@ -1153,17 +1366,40 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
+"of" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	icon_state = "gingerbread";
+	name = "Lift door";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	description_info = null;
+	desc = "For authorized personnel only. Looks locked and bolted."
+	},
+/area/awaymission/evil_santa/end/lounge)
+"oi" = (
+/mob/living/simple_animal/hostile/zombie{
+	faction = list("hostile","syndicate","winter");
+	icon = 'icons/mob/simple_human.dmi';
+	icon_dead = null;
+	icon_living = "gingerbominationman";
+	icon_state = "gingerbominationman";
+	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie);
+	name = "Ginger zombie"
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
 "ol" = (
 /obj/machinery/conveyor/north{
 	id = "QMLoad"
 	},
-/obj/item/gun/projectile/shotgun/toy,
+/obj/item/gun/projectile/automatic/mini_uzi,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "om" = (
-/obj/structure/pit/closed/hidden,
 /obj/item/gun/projectile/automatic/sfg,
 /obj/item/ammo_box/magazine/sfg9mm,
+/obj/structure/pit/closed,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
 "on" = (
@@ -1173,22 +1409,44 @@
 	icon_dead = null;
 	icon_living = "gingerknightman";
 	icon_state = "gingerknightman";
-	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie)
+	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie);
+	name = "Ginger zombie"
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "oo" = (
 /obj/item/shovel,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
-"oC" = (
-/obj/structure/mineral_door/ginger,
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
+"op" = (
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 4
 	},
-/area/awaymission/evil_santa/mine/labyrinth_l)
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"oq" = (
+/obj/item/a_gift,
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"oC" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/spentcasing/pistol,
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/hut_e)
+"oG" = (
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "oN" = (
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_s)
@@ -1200,6 +1458,18 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_n)
+"oW" = (
+/mob/living/simple_animal/hostile/winter/snowman{
+	weather_immunities = list("snow")
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "pa" = (
 /obj/structure/statue/armor{
 	pixel_x = 11;
@@ -1225,23 +1495,36 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/awaymission/evil_santa/end/lounge)
+"ph" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature,
+/area/awaymission/evil_santa/end/exit)
 "po" = (
 /obj/structure/flora/tree/pine/xmas,
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "pv" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
+"pB" = (
+/obj/item/stack/sheet/gingerbread/five,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/mine/labyrinth_r)
 "pC" = (
-/obj/structure/mineral_door/ginger,
-/turf/simulated/floor/plating/ice,
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id_target = "lab_lounge2"
+	},
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "pF" = (
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "pL" = (
 /obj/machinery/light{
@@ -1282,7 +1565,10 @@
 	},
 /area/awaymission/evil_santa/end/lounge)
 "qm" = (
-/obj/structure/ladder,
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id_target = "left_lab"
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
 "qn" = (
@@ -1292,16 +1578,20 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"qo" = (
+/obj/effect/baseturf_helper/asteroid/snow,
+/turf/simulated/floor/carpet/orange,
+/area/awaymission/evil_santa/end/hall)
 "qt" = (
 /obj/structure/snowman/short,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/lounge)
 "qv" = (
 /turf/simulated/floor/plasteel/stairs/left,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "qA" = (
 /obj/item/reagent_containers/food/snacks/gingercookie,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "qD" = (
 /obj/structure/spider/stickyweb,
@@ -1312,10 +1602,42 @@
 /obj/structure/bed/dogbed,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_n)
+"qI" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/evil_santa/mine)
+"qJ" = (
+/obj/structure/cable{
+	icon_state = "1-4";
+	tag = ""
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature,
+/area/awaymission/evil_santa/end/exit)
 "qK" = (
 /obj/structure/table/wood/fancy/green,
-/obj/item/reagent_containers/food/drinks/bottle/milk,
+/obj/item/reagent_containers/food/drinks/bottle/milk{
+	pixel_x = -5;
+	pixel_y = 10
+	},
 /turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
+"qO" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/awaymission/evil_santa/end/hall)
+"qV" = (
+/mob/living/simple_animal/hostile/winter/snowman{
+	weather_immunities = list("snow")
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"qW" = (
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/end/santa)
 "ra" = (
 /obj/item/pickaxe,
@@ -1354,6 +1676,12 @@
 /obj/item/decorations/sticky_decorations/flammable/tinsel/blue,
 /turf/simulated/wall/indestructible/snow,
 /area/awaymission/evil_santa/forest_labyrinth)
+"rs" = (
+/obj/effect/decal/rail_way{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/evil_santa/mine)
 "rx" = (
 /obj/structure/table/wood/fancy/red,
 /turf/simulated/floor/wood/fancy,
@@ -1364,6 +1692,19 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
+"rC" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating/asteroid/snow/temperature,
+/area/awaymission/evil_santa/end/exit)
+"rD" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/awaymission/evil_santa/end/santa)
 "rF" = (
 /obj/item/reagent_containers/food/snacks/catfishmeat,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -1389,7 +1730,7 @@
 /obj/item/clothing/head/helmet/space/santahat,
 /obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "rR" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/machinery/light{
@@ -1464,6 +1805,16 @@
 /obj/item/flashlight/flare/torch,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_ne)
+"sw" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	icon_state = "gingerbread";
+	name = "Lift door";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	description_info = null;
+	desc = "For authorized personnel only. Looks locked and bolted."
+	},
+/area/awaymission/evil_santa/mine/labyrinth_r)
 "sy" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -1476,11 +1827,18 @@
 /area/awaymission/evil_santa_storm)
 "sH" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/ball,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/mine/labyrinth_r)
+"sM" = (
+/obj/structure/mineral_door/ginger,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "sO" = (
 /turf/simulated/wall/mineral/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
+"sP" = (
+/turf/simulated/floor/plating/asteroid/snow/temperature,
+/area/awaymission/evil_santa/end/exit)
 "sU" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/red,
@@ -1492,7 +1850,7 @@
 /obj/item/grown/bananapeel,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "ti" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/donkpockets{
@@ -1527,23 +1885,43 @@
 	icon_state = "white"
 	},
 /area/awaymission/evil_santa/end/lounge)
+"tB" = (
+/obj/item/toy/pet_rock/fred,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "tD" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/cane,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
+"tP" = (
+/mob/living/simple_animal/hostile/winter/snowman{
+	weather_immunities = list("snow")
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "tV" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "ud" = (
 /obj/effect/decal/rail_way,
 /obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/iron,
 /obj/item/stack/ore/uranium,
+/obj/item/stack/marker_beacon/ten,
+/obj/item/tank/internals/emergency_oxygen,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
 "uk" = (
 /obj/effect/decal/snow/clean/edge,
+/obj/effect/spawner/lootdrop/spentcasing/rifle,
 /turf/simulated/floor/wood/cold,
 /area/awaymission/evil_santa/hut_e)
 "uo" = (
@@ -1555,8 +1933,11 @@
 /area/awaymission/evil_santa_storm)
 "up" = (
 /obj/machinery/gateway/centeraway,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "ur" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
@@ -1600,7 +1981,7 @@
 /obj/item/reagent_containers/food/snacks/gingercookie/tree,
 /obj/item/reagent_containers/food/snacks/gingercookie/mitten,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "uT" = (
 /obj/item/pickaxe,
 /obj/item/stack/ore/diamond,
@@ -1608,7 +1989,11 @@
 /area/awaymission/evil_santa/mine)
 "uY" = (
 /turf/simulated/floor/plasteel/stairs/medium,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
+"vb" = (
+/obj/machinery/mineral/mint,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
 "vc" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -2;
@@ -1672,7 +2057,7 @@
 /area/awaymission/evil_santa/hut_e)
 "vG" = (
 /mob/living/simple_animal/hostile/scarybat,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "vH" = (
 /obj/effect/mob_spawn/human/corpse/monkey_shaftminer,
@@ -1681,6 +2066,7 @@
 /area/awaymission/evil_santa/mine)
 "vT" = (
 /obj/machinery/snow_machine,
+/obj/item/wrench,
 /turf/simulated/floor/plating/asteroid/snow/temperature,
 /area/awaymission/evil_santa/end/lounge)
 "wa" = (
@@ -1689,6 +2075,10 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/awaymission/evil_santa/end/lounge)
+"wb" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_tree,
+/turf/simulated/wall/indestructible/snow,
+/area/awaymission/evil_santa/forest_labyrinth)
 "wg" = (
 /obj/item/storage/bag/ore,
 /turf/simulated/floor/plating/asteroid,
@@ -1734,7 +2124,7 @@
 /obj/machinery/mineral/processing_unit,
 /obj/machinery/conveyor/south,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "wO" = (
 /mob/living/simple_animal/hostile/evil_pine{
 	luminosity = 3
@@ -1749,7 +2139,7 @@
 /area/awaymission/evil_santa/hut_e)
 "wS" = (
 /turf/simulated/floor/carpet/orange,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "wZ" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/beans,
@@ -1771,9 +2161,19 @@
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"xi" = (
+/obj/effect/bump_teleporter{
+	name = "From Santa";
+	id = "santa_lounge";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal-syndicate";
+	invisibility = 25
+	},
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/lounge)
 "xl" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/mitten,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "xm" = (
 /obj/item/clothing/suit/hooded/wintercoat/security,
@@ -1805,6 +2205,26 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
+"xy" = (
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"xz" = (
+/obj/effect/bump_teleporter{
+	name = "From lounge";
+	id = "lounge_santa";
+	icon_state = "portal-syndicate";
+	icon = 'icons/obj/stationobjs.dmi';
+	invisibility = 25
+	},
+/turf/simulated/floor/carpet/orange,
+/area/awaymission/evil_santa/end/hall)
 "xE" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating/asteroid,
@@ -1818,13 +2238,21 @@
 /obj/structure/statue/cheese/cheesus,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"xJ" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/mug/comms,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
 "xK" = (
 /obj/structure/largecrate/evil{
 	name = "large crate";
 	desc = "A hefty wooden crate."
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
+"xN" = (
+/turf/simulated/wall/shuttle,
+/area/awaymission/evil_santa/end/hall)
 "xP" = (
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /turf/simulated/floor/plating/asteroid,
@@ -1834,7 +2262,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "xW" = (
 /obj/item/stack/ore/silver,
 /turf/simulated/floor/plating/asteroid,
@@ -1852,13 +2280,28 @@
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/lounge)
+"yi" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/mug/hos,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
+"yp" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	icon_state = "gingerbread";
+	name = "Security room";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	description_info = null;
+	desc = "Looks locked and bolted."
+	},
+/area/awaymission/evil_santa/end/hall)
 "ys" = (
 /obj/machinery/conveyor/north{
 	id = "QMLoad"
 	},
 /obj/item/stack/sheet/animalhide/monkey,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "yu" = (
 /obj/structure/flora/grass/brown,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -1869,7 +2312,11 @@
 	},
 /obj/effect/mob_spawn/human/corpse/monkey_shaftminer,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
+"yD" = (
+/obj/item/decorations/sticky_decorations/flammable/star,
+/turf/simulated/wall/indestructible/snow,
+/area/awaymission/evil_santa/forest_labyrinth)
 "yI" = (
 /obj/effect/overlay/palmtree_r,
 /obj/effect/overlay/coconut,
@@ -1878,13 +2325,27 @@
 "yS" = (
 /obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "yT" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/awaymission/evil_santa/end/lounge)
+"yV" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"yZ" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "zh" = (
 /mob/living/simple_animal/hostile/bear/polar{
 	weather_immunities = list("snow");
@@ -1893,11 +2354,7 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa_storm)
 "zj" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/gingerbread,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "zm" = (
 /obj/item/bedsheet/blue,
@@ -1913,18 +2370,24 @@
 	},
 /obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "zs" = (
 /obj/machinery/gibber,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/awaymission/evil_santa/end/lounge)
+"zw" = (
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
 "zA" = (
 /obj/machinery/conveyor/northeast{
 	id = "QMLoad"
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "zB" = (
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/carpet{
@@ -1952,13 +2415,19 @@
 "zG" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "zI" = (
-/obj/structure/closet/secure_closet/bar,
 /obj/item/storage/fancy/cigcase,
 /obj/item/book/manual/barman_recipes,
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/grenade/confetti,
+/obj/structure/closet/cabinet,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -1974,6 +2443,9 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/evil_santa/end/lounge)
+"Ad" = (
+/turf/simulated/mineral/gem,
+/area/awaymission/evil_santa/mine)
 "Ae" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
@@ -1988,6 +2460,13 @@
 /obj/item/reagent_containers/food/snacks/gingercookie/heart,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
+"Ak" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/smes/magical,
+/turf/simulated/floor/plating/asteroid/snow/temperature,
+/area/awaymission/evil_santa/end/exit)
 "Ar" = (
 /mob/living/simple_animal/hostile/monkey_shaftminer,
 /turf/simulated/floor/plating/asteroid,
@@ -1998,22 +2477,25 @@
 /area/awaymission/evil_santa/end/lounge)
 "AD" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/mitten,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "AS" = (
 /obj/machinery/recycler/deathtrap,
 /obj/machinery/conveyor/east/ccw,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "AT" = (
 /obj/machinery/gateway{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
+"AV" = (
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "AW" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/home,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "AX" = (
 /obj/structure/barricade/wooden,
@@ -2021,13 +2503,36 @@
 /area/awaymission/evil_santa/mine)
 "AY" = (
 /obj/machinery/conveyor/south,
-/obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/gun/energy/laser,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Ba" = (
 /obj/item/toy/carpplushie/ice,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_s)
+"Bf" = (
+/obj/structure/snowman/built{
+	name = "Sergant snowman";
+	layer = 3.1
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
+"Bk" = (
+/mob/living/simple_animal/hostile/winter/snowman{
+	weather_immunities = list("snow")
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Bo" = (
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
@@ -2035,6 +2540,10 @@
 /obj/effect/overlay/coconut,
 /turf/simulated/floor/grass,
 /area/awaymission/evil_santa/mine)
+"Br" = (
+/obj/item/decorations/sticky_decorations/flammable/candy_cane,
+/turf/simulated/wall/indestructible/snow,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Bv" = (
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
@@ -2053,7 +2562,11 @@
 "BG" = (
 /obj/structure/snowman/built,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
+"BK" = (
+/obj/item/stack/sheet/gingerbread/five,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/mine/labyrinth_m)
 "BN" = (
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /turf/simulated/floor/grass,
@@ -2070,7 +2583,7 @@
 "Ca" = (
 /obj/item/stack/sheet/animalhide/monkey,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Cb" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/chem_dispenser/beer,
@@ -2085,9 +2598,22 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_nw)
 "Ci" = (
-/obj/structure/snowman/short,
+/obj/machinery/power/apc/noalarm{
+	dir = 4;
+	lighting = 2;
+	locked = 0;
+	req_access = list();
+	environ = 2;
+	equipment = 2;
+	pixel_x = 32;
+	start_charge = 0
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "Ck" = (
 /turf/simulated/floor/plating/ice{
 	icon = 'icons/effects/freeze.dmi';
@@ -2101,17 +2627,34 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/santa)
+"Cs" = (
+/obj/structure/wooden_sign,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "Cv" = (
 /obj/structure/mineral_door/ginger,
-/turf/simulated/mineral/ancient,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "Cy" = (
 /obj/item/a_gift,
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "CA" = (
 /turf/simulated/floor/plating/ice,
 /area/awaymission/evil_santa_storm)
+"CD" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking,
+/turf/simulated/wall/indestructible/snow,
+/area/awaymission/evil_santa/forest_labyrinth)
 "CG" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/machinery/light,
@@ -2130,8 +2673,20 @@
 /obj/machinery/gateway{
 	density = 0
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4";
+	tag = ""
+	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
+"CN" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/tank/internals/emergency_oxygen/empty,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/evil_santa/mine)
 "CO" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
@@ -2143,20 +2698,24 @@
 /area/awaymission/evil_santa/hut_e)
 "CS" = (
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "CZ" = (
 /obj/effect/decal/remains,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Do" = (
 /obj/item/grown/bananapeel,
 /turf/simulated/floor/grass,
 /area/awaymission/evil_santa/mine)
+"Dq" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa_storm)
 "Dt" = (
 /obj/machinery/conveyor/south,
 /obj/item/twohanded/toy/chainsaw,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Du" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list()
@@ -2199,6 +2758,18 @@
 	icon_state = "white"
 	},
 /area/awaymission/evil_santa/end/lounge)
+"Ek" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Ev" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list()
@@ -2207,6 +2778,11 @@
 /obj/item/clothing/head/ushanka,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
+"Ew" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/head/caphat/office,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
 "Ex" = (
 /obj/structure/window/full/reinforced/ice,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -2216,7 +2792,7 @@
 	color = "black"
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "EG" = (
 /obj/structure/closet/crate/miningcar,
 /obj/item/stack/medical/splint,
@@ -2224,6 +2800,21 @@
 /obj/item/reagent_containers/hypospray/autoinjector,
 /obj/item/reagent_containers/hypospray/autoinjector,
 /turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
+"EP" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa_storm)
+"ET" = (
+/obj/structure/wooden_sign,
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	icon_state = "rock";
+	name = "rock";
+	description_info = null
+	},
 /area/awaymission/evil_santa/mine)
 "EV" = (
 /obj/structure/pianoclassic,
@@ -2241,20 +2832,28 @@
 "EZ" = (
 /obj/structure/mineral_door/ginger,
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "Fc" = (
 /obj/item/snowball,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/mine)
+"Fg" = (
+/obj/structure/mineral_door/ginger,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/mine/labyrinth_l)
+"Fj" = (
+/obj/mecha/working/ripley/mining,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/evil_santa/mine)
+"Fn" = (
+/turf/simulated/mineral/random/volcanic/hard,
 /area/awaymission/evil_santa/mine)
 "Fo" = (
 /obj/item/clothing/suit/hooded/wintercoat/hop,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_s)
 "Ft" = (
-/obj/machinery/door/airlock/public{
-	name = "Bar";
-	req_access = list(25)
-	},
+/obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
 "Fy" = (
@@ -2272,6 +2871,22 @@
 	icon_state = "carpet13-5"
 	},
 /area/awaymission/evil_santa/hut_n)
+"FG" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"FK" = (
+/obj/item/reagent_containers/food/snacks/meatballspaghetti,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "FM" = (
 /obj/effect/decal/snow/clean/edge,
 /obj/effect/decal/remains/human,
@@ -2287,7 +2902,7 @@
 	pixel_x = -23
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "FW" = (
 /obj/item/reagent_containers/food/snacks/catfishmeat,
 /obj/item/storage/box/matches,
@@ -2302,6 +2917,13 @@
 	icon_state = "wood-broken6"
 	},
 /area/awaymission/evil_santa/hut_e)
+"Gb" = (
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id_target = "lab_lounge3"
+	},
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/mine/labyrinth_l)
 "Gc" = (
 /obj/machinery/conveyor/north{
 	id = "QMLoad"
@@ -2310,7 +2932,7 @@
 	layer = 2.5
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Gd" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/rollingpin,
@@ -2323,6 +2945,13 @@
 	},
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
+"Gn" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "rock";
+	name = "rock";
+	description_info = null
+	},
+/area/awaymission/evil_santa/end/hall)
 "Gp" = (
 /obj/item/stack/sheet/animalhide/monkey,
 /obj/effect/decal/cleanable/blood/gibs,
@@ -2334,19 +2963,42 @@
 	icon_state = "wood-broken"
 	},
 /area/awaymission/evil_santa/hut_n)
+"Gu" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa_storm)
 "GD" = (
 /obj/item/pickaxe,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"GF" = (
+/obj/effect/spawner/lootdrop/spentcasing/pistol,
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/hut_e)
 "GH" = (
 /obj/effect/overlay/palmtree_l,
 /obj/effect/overlay/coconut,
 /turf/simulated/floor/grass,
 /area/awaymission/evil_santa/mine)
-"GN" = (
-/obj/effect/mapping_helpers/light,
+"GL" = (
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/awaymission/evil_santa_storm)
+/area/awaymission/evil_santa/forest_labyrinth)
+"GN" = (
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "GP" = (
 /obj/effect/decal/rail_way{
 	dir = 10
@@ -2381,6 +3033,7 @@
 /area/awaymission/evil_santa/end/lounge)
 "He" = (
 /obj/item/twohanded/spear,
+/obj/effect/spawner/lootdrop/spentcasing/pistol,
 /turf/simulated/floor/wood/cold,
 /area/awaymission/evil_santa/hut_e)
 "Hh" = (
@@ -2409,7 +3062,7 @@
 /obj/effect/spawner/lootdrop/evil_santa_gift,
 /obj/structure/table/wood/fancy/green,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "HK" = (
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -2420,7 +3073,7 @@
 /area/awaymission/evil_santa/hut_e)
 "HO" = (
 /obj/item/reagent_containers/food/snacks/gingercookie,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "HT" = (
 /obj/structure/chair/sofa{
@@ -2430,7 +3083,7 @@
 /area/awaymission/evil_santa/hut_e)
 "HU" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/cane,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "HW" = (
 /obj/item/fish/salmon,
@@ -2439,36 +3092,56 @@
 "HX" = (
 /obj/structure/snowman/high,
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "HY" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Ii" = (
 /obj/structure/bed,
 /obj/item/bedsheet/cult,
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
+"Ij" = (
+/turf/simulated/wall/shuttle,
+/area/awaymission/evil_santa/end/exit)
+"Il" = (
+/obj/item/paper/crumpled{
+	desc = "Они смогли меня найти и здесь, надо бы успеть спрятать риг пока они не поняли кто я. Хотя без него я далеко не уйду, но бурю можно переждать и в этой лачуге. Прямо в центре \" мертвого леса\" не забудь, пустая ты башка.";
+	layer = 2.9
+	},
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/hut_e)
+"Im" = (
+/obj/effect/baseturf_helper/asteroid/snow,
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "Io" = (
 /obj/machinery/conveyor/north{
 	id = "QMLoad"
 	},
 /obj/item/a_gift,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Is" = (
 /obj/structure/decorative_structures/fireplace{
 	dir = 4;
 	pixel_x = -8
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Iy" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/santa)
+"Iz" = (
+/obj/structure/snowman/high,
+/obj/structure/snowman/high,
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/lounge)
 "IA" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list()
@@ -2482,6 +3155,7 @@
 /obj/item/stack/sheet/wood{
 	amount = 10
 	},
+/obj/item/shovel,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_n)
 "IF" = (
@@ -2489,7 +3163,7 @@
 /obj/item/reagent_containers/food/snacks/gingercookie,
 /obj/item/reagent_containers/food/snacks/gingercookie/tree,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "IO" = (
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -2497,9 +3171,18 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
+"IP" = (
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id = "lab_lounge2"
+	},
+/turf/simulated/floor/carpet/green,
+/area/awaymission/evil_santa/end/lounge)
 "IS" = (
-/mob/living/simple_animal/hostile/winter/santa/stage_1,
+/mob/living/simple_animal/hostile/winter/santa/stage_1{
+	robust_searching = 1
+	},
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/santa)
 "IU" = (
@@ -2523,15 +3206,23 @@
 	},
 /obj/item/clothing/suit/space/santa,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
+"Jj" = (
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id = "mid_lab"
+	},
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/mine/labyrinth_m)
 "Jq" = (
 /obj/structure/closet/crate/miningcar,
 /obj/item/a_gift,
 /obj/item/a_gift,
 /obj/item/stack/medical/ointment/aloe,
 /obj/item/stack/medical/ointment/aloe,
+/obj/item/grenade/frag,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Js" = (
 /obj/structure/flora/grass/green,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -2546,7 +3237,7 @@
 /area/awaymission/evil_santa/hut_e)
 "JI" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/home,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "JT" = (
 /obj/effect/decal/cleanable/blood,
@@ -2559,6 +3250,28 @@
 /obj/structure/window/full/reinforced/ice,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_ne)
+"JX" = (
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"JY" = (
+/mob/living/simple_animal/hostile/winter/snowman{
+	weather_immunities = list("snow")
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Kc" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
@@ -2650,7 +3363,8 @@
 	icon_dead = null;
 	icon_living = "gingerknightman";
 	icon_state = "gingerknightman";
-	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie)
+	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie);
+	name = "Ginger zombie"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
@@ -2660,6 +3374,16 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
+"Li" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Lj" = (
 /obj/item/flashlight/lantern{
 	on = 1;
@@ -2668,7 +3392,7 @@
 	name = "Mining lantern"
 	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "Lm" = (
 /obj/structure/chair/sofa{
 	dir = 1
@@ -2718,9 +3442,8 @@
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/lounge)
 "LY" = (
-/obj/structure/mineral_door/ginger,
-/turf/simulated/floor/plating/ice,
-/area/awaymission/evil_santa/mine/labyrinth_l)
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/awaymission/evil_santa/end/hall)
 "Mf" = (
 /obj/machinery/light{
 	dir = 1;
@@ -2728,6 +3451,29 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/lounge)
+"Mj" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	icon_state = "gingerbread";
+	name = "Security room";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	description_info = null;
+	desc = "Looks locked and bolted."
+	},
+/area/awaymission/evil_santa/mine/labyrinth_l)
+"Mp" = (
+/mob/living/simple_animal/hostile/winter/snowman{
+	weather_immunities = list("snow")
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Mr" = (
 /obj/structure/spider/stickyweb,
 /obj/item/fluff/pyro_wintersec_kit,
@@ -2746,14 +3492,14 @@
 	},
 /obj/item/clothing/mask/gas/monkeymask,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "MC" = (
 /obj/machinery/conveyor/north{
 	id = "QMLoad"
 	},
 /obj/item/clothing/suit/monkeysuit,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "MD" = (
 /mob/living/simple_animal/pet/penguin/baby{
 	weather_immunities = list("snow");
@@ -2779,11 +3525,27 @@
 /mob/living/simple_animal/hostile/scarybat,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"MP" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Evil_Santa_Arena"
+	},
+/turf/simulated/floor/carpet/orange,
+/area/awaymission/evil_santa/end/santa)
+"MR" = (
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "MT" = (
 /obj/machinery/conveyor/south,
 /obj/item/a_gift,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "MZ" = (
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/lounge)
@@ -2798,6 +3560,14 @@
 "Ni" = (
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
 /area/awaymission/evil_santa/mine)
+"Nl" = (
+/obj/item/a_gift,
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Nm" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
@@ -2808,11 +3578,15 @@
 /obj/machinery/conveyor/south,
 /obj/item/toy/xmas_cracker,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Nz" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"NG" = (
+/obj/item/stack/sheet/gingerbread/five,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/mine/labyrinth_l)
 "NH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
@@ -2827,8 +3601,15 @@
 /turf/simulated/wall/indestructible/snow,
 /area/awaymission/evil_santa_storm)
 "NR" = (
-/obj/structure/snowman/medium,
-/turf/simulated/floor/carpet/red,
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id = "lab_lounge3"
+	},
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id = "lab_lounge"
+	},
+/turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/lounge)
 "NZ" = (
 /obj/machinery/chem_master/condimaster,
@@ -2840,7 +3621,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "Ob" = (
 /obj/structure/railing,
 /obj/structure/chair/comfy/brown{
@@ -2852,9 +3633,9 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
 "Oi" = (
-/obj/structure/pit/closed/hidden,
 /obj/item/clothing/suit/space/hardsuit/syndi,
 /obj/item/clothing/neck/cloak/syndieadm,
+/obj/structure/pit/closed,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa_storm)
 "Ok" = (
@@ -2873,10 +3654,20 @@
 /obj/item/reagent_containers/glass/bucket/wooden,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
+"Ow" = (
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Oy" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/tree,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "OB" = (
 /obj/structure/sign/poster/official/random,
@@ -2884,12 +3675,16 @@
 /area/awaymission/evil_santa/hut_e)
 "OD" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/ball,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
+"OE" = (
+/obj/item/stack/marker_beacon/ten,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "OF" = (
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "OJ" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
@@ -2914,6 +3709,12 @@
 	icon_state = "carpet6-2"
 	},
 /area/awaymission/evil_santa/hut_e)
+"Pb" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/asteroid/snow/temperature,
+/area/awaymission/evil_santa/end/exit)
 "Pd" = (
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/santa)
@@ -2930,10 +3731,17 @@
 /mob/living/simple_animal/hostile/winter/snowman{
 	weather_immunities = list("snow")
 	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "Pq" = (
 /obj/structure/mineral_door/ginger,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Evil_Santa_Arena"
+	},
 /turf/simulated/floor/plasteel/stairs/medium,
 /area/awaymission/evil_santa/end/santa)
 "Pv" = (
@@ -2954,7 +3762,7 @@
 /area/awaymission/evil_santa/hut_e)
 "Pz" = (
 /mob/living/simple_animal/hostile/scarybat,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "PB" = (
 /turf/simulated/floor/wood{
@@ -2967,13 +3775,13 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/monkey_shaftminer)
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "PI" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/hut_e)
 "PM" = (
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "PQ" = (
 /obj/structure/spider/terrorweb,
@@ -3036,6 +3844,14 @@
 /obj/machinery/light,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
+"Qu" = (
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id = "forest_mines";
+	density = 0
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "Qy" = (
 /obj/item/stack/ore/glass,
 /turf/simulated/floor/plating/asteroid,
@@ -3048,10 +3864,17 @@
 /obj/item/holder/monkey,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "QN" = (
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/mine)
+"QP" = (
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "QQ" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -3070,6 +3893,9 @@
 /area/awaymission/evil_santa/hut_e)
 "QX" = (
 /obj/item/gift,
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "Rb" = (
@@ -3085,10 +3911,23 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/santa)
+"Rn" = (
+/obj/item/gift,
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Rv" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Rw" = (
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/carpet/green,
@@ -3114,10 +3953,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
+"RJ" = (
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "RM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "RR" = (
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating/asteroid,
@@ -3136,7 +3981,7 @@
 /obj/item/stack/medical/bruise_pack/comfrey,
 /obj/item/stack/medical/bruise_pack/comfrey,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "RX" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/reagent_containers/food/snacks/beefnoodles,
@@ -3145,7 +3990,7 @@
 "RY" = (
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "RZ" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 1;
@@ -3153,12 +3998,27 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/santa)
+"Sd" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Sl" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
+"Sn" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "So" = (
 /obj/item/stack/ore/diamond,
 /turf/simulated/floor/plating/asteroid,
@@ -3187,9 +4047,19 @@
 /obj/item/storage/fancy/candle_box/eternal,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
+"SG" = (
+/obj/effect/bump_teleporter{
+	name = "To lounge";
+	id_target = "santa_lounge";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal";
+	invisibility = 25
+	},
+/turf/simulated/floor/carpet/orange,
+/area/awaymission/evil_santa/end/hall)
 "SK" = (
 /obj/item/reagent_containers/food/snacks/gingercookie,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "SM" = (
 /mob/living/simple_animal/hostile/winter/snowman{
@@ -3200,7 +4070,7 @@
 "SQ" = (
 /obj/structure/mineral_door/ginger,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Tb" = (
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/wood/fancy,
@@ -3237,7 +4107,7 @@
 	},
 /obj/effect/spawner/lootdrop/evil_santa_gift,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "Ts" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 1;
@@ -3256,10 +4126,11 @@
 	icon_dead = null;
 	icon_living = "gingerbominationman";
 	icon_state = "gingerbominationman";
-	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie)
+	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie);
+	name = "Ginger zombie"
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "TC" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
@@ -3287,6 +4158,10 @@
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"TI" = (
+/obj/effect/baseturf_helper/asteroid/snow,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "TO" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
@@ -3305,12 +4180,22 @@
 	},
 /obj/item/toy/xmas_cracker,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "TV" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/reagent_containers/food/snacks/sliceable/turkey,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/santa)
+"TW" = (
+/obj/item/gift,
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Ua" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list()
@@ -3322,11 +4207,15 @@
 "Ue" = (
 /obj/structure/mineral_door/ginger,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "Us" = (
 /obj/item/stack/sheet/animalhide/human,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_nw)
+"Uv" = (
+/obj/structure/snowman/short,
+/turf/simulated/floor/carpet/green,
+/area/awaymission/evil_santa/end/lounge)
 "UC" = (
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/plating/ice,
@@ -3334,6 +4223,9 @@
 "UD" = (
 /turf/simulated/wall/indestructible/snow,
 /area/awaymission/evil_santa/spawn_nw)
+"UH" = (
+/turf/simulated/mineral/random/volcanic/hard/double,
+/area/awaymission/evil_santa/mine)
 "UM" = (
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	faction = list("hostile","syndicate","winter");
@@ -3341,10 +4233,11 @@
 	icon_living = "gingerchefman";
 	icon_state = "gingerchefman";
 	icon_dead = null;
-	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie)
+	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie);
+	name = "fast ginger zombie"
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "UN" = (
 /obj/effect/decal/rail_way{
 	dir = 5
@@ -3364,7 +4257,7 @@
 "US" = (
 /obj/item/reagent_containers/glass/bucket/wooden,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "UT" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/railing{
@@ -3386,6 +4279,8 @@
 /obj/effect/decal/rail_way,
 /obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/silver,
+/obj/item/stack/marker_beacon/ten,
+/obj/item/tank/internals/emergency_oxygen,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
 "UZ" = (
@@ -3396,7 +4291,7 @@
 /obj/structure/closet/crate/trashcart/gibs,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "Vd" = (
 /obj/structure/chair/stool/bar/dark,
 /turf/simulated/floor/carpet,
@@ -3429,6 +4324,11 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa_storm)
+"Vt" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/head/helmet/justice/escape,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
 "Vy" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood/cold,
@@ -3449,7 +4349,7 @@
 /area/awaymission/evil_santa/spawn_nw)
 "VF" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/ball,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "VP" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
@@ -3459,10 +4359,16 @@
 /obj/item/clothing/head/ushanka,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
+"VR" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/santa)
 "VS" = (
 /obj/item/holder/monkey,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "VW" = (
 /obj/structure/bed/dogbed,
 /obj/item/stack/sheet/wood,
@@ -3490,6 +4396,20 @@
 "Wl" = (
 /obj/item/a_gift,
 /obj/item/clothing/head/snowman,
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"Wq" = (
+/obj/item/a_gift,
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "Wu" = (
@@ -3503,9 +4423,20 @@
 /obj/structure/flora/tree/palm,
 /turf/simulated/floor/grass,
 /area/awaymission/evil_santa/mine)
+"WF" = (
+/obj/item/storage/bag/gem,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
+"WJ" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa_storm)
 "WL" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/heart,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "WN" = (
 /obj/structure/table/reinforced,
@@ -3552,20 +4483,35 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
 "Xn" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/home,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
+"Xo" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "rock";
+	name = "rock";
+	description_info = null
+	},
+/area/awaymission/evil_santa/end/exit)
+"Xs" = (
+/obj/structure/decorative_structures/garland,
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Xv" = (
 /obj/effect/mob_spawn/human/corpse/monkey_shaftminer,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/evil_santa/mine)
 "XB" = (
 /obj/machinery/conveyor/south,
 /obj/effect/spawner/lootdrop/officetoys,
+/obj/item/shield/riot/templar,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "XD" = (
 /obj/item/flashlight/lantern{
 	on = 1;
@@ -3577,14 +4523,16 @@
 /area/awaymission/evil_santa/hut_n)
 "XH" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/heart,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "XL" = (
-/obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/awaymission/evil_santa/hut_e)
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Evil_Santa_Arena"
+	},
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/santa)
 "XP" = (
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "XQ" = (
 /turf/simulated/floor/wood{
@@ -3592,14 +4540,22 @@
 	tag = "icon-wood-broken6"
 	},
 /area/awaymission/evil_santa/hut_e)
+"XR" = (
+/obj/effect/spawner/lootdrop/spentcasing/rifle,
+/turf/simulated/floor/carpet,
+/area/awaymission/evil_santa/hut_e)
 "XT" = (
 /obj/item/decorations/sticky_decorations/flammable/holly,
 /turf/simulated/wall/indestructible/snow,
 /area/awaymission/evil_santa/forest_labyrinth)
 "XV" = (
-/obj/item/shovel,
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/awaymission/evil_santa_storm)
+/obj/structure/spider/stickyweb,
+/obj/item/paper/crumpled{
+	desc = "Полезть прятаться в шахте - самая тупая идея за последние пару дней. Ладно, надо затесаться среди этих макак, отпинаю одну и заберу ее форму, авось прокатит. Вот только где скинуть ствол...";
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "Yb" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/reagent_containers/food/snacks/amanitajelly,
@@ -3620,29 +4576,42 @@
 /turf/simulated/floor/plating/ice/smooth,
 /area/awaymission/evil_santa_storm)
 "Yz" = (
-/obj/vehicle/snowmobile/blue/key,
-/turf/simulated/floor/wood,
-/area/awaymission/evil_santa/hut_n)
+/obj/item/stack/ore/glass,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/evil_santa/mine)
 "YB" = (
 /obj/structure/railing,
 /turf/simulated/floor/wood/fancy/light,
 /area/awaymission/evil_santa/end/lounge)
+"YD" = (
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "YE" = (
 /obj/machinery/gateway{
 	dir = 10
 	},
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
+"YP" = (
+/obj/machinery/light,
+/turf/simulated/floor/carpet/green,
+/area/awaymission/evil_santa/end/lounge)
 "YT" = (
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "YU" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/gingerbread,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "YX" = (
 /obj/structure/chair/sofa/right{
@@ -3650,16 +4619,40 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_n)
+"Za" = (
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
+"Zb" = (
+/obj/item/gift,
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "Ze" = (
 /turf/simulated/floor/plating/asteroid/snow/temperature,
 /area/awaymission/evil_santa/end/santa)
 "Zg" = (
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/wood,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/exit)
+"Zh" = (
+/obj/effect/bump_teleporter{
+	name = "bump-teleporter ES";
+	id_target = "mid_lab"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "Zk" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/tree,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "Zx" = (
 /turf/simulated/floor/plating/asteroid,
@@ -3699,10 +4692,10 @@
 	id = "QMLoad"
 	},
 /turf/simulated/floor/wood/oak,
-/area/awaymission/evil_santa/end/santa)
+/area/awaymission/evil_santa/end/hall)
 "ZR" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/mitten,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "ZS" = (
 /turf/simulated/wall/indestructible{
@@ -3711,12 +4704,12 @@
 	name = "Lift door";
 	icon = 'icons/obj/doors/mineral_doors.dmi';
 	description_info = null;
-	desc = "Looks locked and bolted."
+	desc = "For authorized personnel only. Looks locked and bolted."
 	},
 /area/awaymission/evil_santa/mine)
 "ZV" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/tree,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 
 (1,1,1) = {"
@@ -11258,7 +12251,7 @@ HO
 XP
 ch
 ch
-XP
+NG
 XP
 XP
 ch
@@ -12285,7 +13278,7 @@ XP
 XP
 XP
 ch
-ch
+XP
 XP
 ch
 ch
@@ -12542,7 +13535,7 @@ ch
 ch
 XP
 ch
-ch
+XP
 ch
 ch
 ch
@@ -12799,8 +13792,8 @@ XP
 XP
 XP
 ch
-ch
-ch
+XP
+XP
 ch
 XP
 XP
@@ -13068,7 +14061,7 @@ ch
 ch
 XP
 ch
-ch
+XP
 ch
 ch
 XP
@@ -13325,9 +14318,9 @@ XP
 XP
 OD
 ch
-ch
-ch
-ch
+XP
+XP
+XP
 XP
 ch
 XP
@@ -14362,8 +15355,8 @@ XP
 ch
 XP
 XP
-LY
-oC
+XP
+ch
 nX
 nX
 nX
@@ -14604,22 +15597,22 @@ ch
 ch
 XP
 ch
-ch
-ch
-XP
-ch
-ch
-ch
-XP
-XP
-XP
-XP
-ch
 XP
 ch
 XP
 ch
 ch
+ch
+XP
+XP
+XP
+XP
+ch
+XP
+ch
+XP
+ch
+Gb
 ch
 nX
 nX
@@ -14876,7 +15869,7 @@ XP
 ch
 XP
 ch
-ch
+Fg
 ch
 nX
 nX
@@ -15369,7 +16362,7 @@ ch
 ch
 XP
 ch
-ch
+XP
 ch
 XP
 ch
@@ -15626,7 +16619,7 @@ XP
 XP
 XP
 ch
-ch
+XP
 ch
 XP
 XP
@@ -15883,7 +16876,7 @@ XP
 ch
 XP
 ch
-ch
+XP
 ch
 ch
 ch
@@ -15893,7 +16886,7 @@ ch
 ch
 XP
 XP
-XP
+NG
 ch
 ch
 ch
@@ -16619,63 +17612,63 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-jK
-jK
-jK
-jK
-ch
-ch
-ch
-XP
-ch
-ch
-XP
-ch
-ch
-ch
-ch
-XP
-ch
-XP
-XP
-XP
-XP
-XP
-XP
-XP
-ch
-ch
-ch
-ch
-XP
-ch
-XP
-ch
-ch
-XP
-XP
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 LY
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+LY
+Gn
+Gn
+Gn
+jK
+ch
+ch
+ch
+XP
+ch
+ch
+XP
+XP
+XP
+XP
+ch
+XP
+ch
+XP
+XP
+XP
+XP
+XP
+XP
+XP
+ch
+ch
+ch
+ch
+XP
+ch
+XP
+ch
+ch
+XP
+js
+Mj
 ch
 nX
 nX
@@ -16876,15 +17869,15 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 zG
 mj
@@ -16896,10 +17889,10 @@ PF
 mj
 mj
 aN
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 ch
 ch
@@ -16910,7 +17903,7 @@ XP
 XP
 ch
 ch
-ch
+XP
 ch
 XP
 ch
@@ -17056,7 +18049,7 @@ Sp
 Sp
 Sp
 Sp
-XV
+WJ
 Oi
 Sp
 Sp
@@ -17133,15 +18126,15 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 mj
 mj
@@ -17153,10 +18146,10 @@ mj
 mj
 zG
 RM
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 ch
 ch
@@ -17167,7 +18160,7 @@ ch
 ch
 ch
 ch
-ch
+XP
 ch
 XP
 XP
@@ -17390,15 +18383,15 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 RM
 zA
@@ -17410,10 +18403,10 @@ Gc
 ZP
 zG
 mj
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 ch
 ch
@@ -17570,7 +18563,7 @@ Sp
 Sp
 Sp
 yu
-Sp
+Dq
 Sp
 Sp
 HK
@@ -17647,15 +18640,15 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 mj
 AS
@@ -17667,10 +18660,10 @@ zG
 mj
 mj
 RM
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 ch
 ch
@@ -17904,15 +18897,15 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 av
 kR
 UZ
@@ -17924,11 +18917,11 @@ kR
 kR
 kR
 ED
-sV
+xN
+Gn
+Gn
+Gn
 jK
-jK
-jK
-jK
 ch
 ch
 ch
@@ -17957,7 +18950,7 @@ ch
 ch
 ch
 XP
-XP
+ch
 ch
 ch
 ch
@@ -18161,15 +19154,15 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 RM
 mj
@@ -18181,11 +19174,11 @@ mj
 RM
 mj
 mj
-sV
+xN
+Gn
+Gn
+Gn
 jK
-jK
-jK
-jK
 ch
 ch
 ch
@@ -18211,10 +19204,10 @@ XP
 XP
 ch
 ch
-ch
-ch
 XP
 XP
+XP
+ch
 ch
 ch
 ch
@@ -18418,15 +19411,15 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 mj
 mj
@@ -18438,11 +19431,11 @@ mj
 mj
 mj
 RM
-sV
+xN
+Gn
+Gn
+Gn
 jK
-jK
-jK
-jK
 ch
 ch
 ch
@@ -18453,14 +19446,14 @@ ch
 ch
 ch
 ch
+XP
 ch
 ch
 ch
 ch
 ch
 ch
-ch
-ch
+XP
 ch
 ch
 ch
@@ -18651,39 +19644,39 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 RV
 bX
@@ -18695,11 +19688,11 @@ Io
 lw
 mj
 mj
-sV
+xN
+Gn
+Gn
+Gn
 jK
-jK
-jK
-jK
 ch
 ch
 ch
@@ -18710,10 +19703,10 @@ ch
 ch
 ch
 ch
-ch
-ch
-ch
-ch
+XP
+XP
+XP
+XP
 ch
 ch
 ch
@@ -18854,7 +19847,7 @@ Sp
 Sp
 Sp
 Sp
-Sp
+WJ
 Sp
 uo
 Sp
@@ -18908,39 +19901,39 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 mj
 mj
@@ -18952,10 +19945,10 @@ mj
 mj
 RM
 mj
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -19165,40 +20158,40 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-mj
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+vb
 RM
 mj
 mj
@@ -19209,10 +20202,10 @@ mj
 RM
 mj
 mj
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -19422,39 +20415,39 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 mj
 mj
@@ -19466,10 +20459,10 @@ mj
 mj
 mj
 RM
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -19679,39 +20672,39 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 RM
 mj
 wC
@@ -19723,10 +20716,10 @@ AY
 MT
 Jq
 mj
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -19936,39 +20929,39 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 mj
 RM
@@ -19980,10 +20973,10 @@ mj
 RM
 mj
 RM
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -20193,39 +21186,39 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 mj
 mj
 mj
@@ -20237,10 +21230,10 @@ mj
 mj
 mj
 mj
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -20450,39 +21443,39 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 tV
 tV
 mj
@@ -20494,10 +21487,10 @@ mj
 mj
 Rv
 xK
-sV
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -20707,54 +21700,54 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-sV
-sV
-sV
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+LY
+xN
+xN
+xN
+xN
+xN
 SQ
-sV
-sV
-sV
-sV
-sV
-sV
-jK
-jK
-jK
+xN
+xN
+xN
+xN
+xN
+LY
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -20972,6 +21965,15 @@ sV
 sV
 sV
 sV
+rD
+rD
+rD
+sV
+sV
+sV
+rD
+rD
+rD
 sV
 sV
 sV
@@ -20979,39 +21981,30 @@ sV
 sV
 sV
 sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -21109,7 +22102,7 @@ Sp
 Sp
 Sp
 Sp
-GN
+Sp
 Sp
 Sp
 Sp
@@ -21245,30 +22238,30 @@ Rw
 Ze
 Ze
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -21360,35 +22353,35 @@ Sp
 Sp
 Sp
 Bo
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
 Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
+RJ
 Bo
 Sp
 Sp
@@ -21460,24 +22453,24 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
 sV
 Ze
 hi
@@ -21502,30 +22495,30 @@ Tp
 ix
 Ze
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-mj
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 UM
 mj
 mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -21616,21 +22609,14 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
 hO
 hO
 hO
 hO
 hO
-Bo
-Bo
-hO
-hO
-hO
-hO
-hO
-hO
+pd
 hO
 hO
 hO
@@ -21646,7 +22632,14 @@ hO
 hO
 hO
 hO
-Bo
+hO
+hO
+hO
+hO
+hO
+hO
+hO
+Za
 Sp
 Sp
 Sp
@@ -21717,23 +22710,23 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+Ij
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 qv
 sV
 nK
@@ -21759,30 +22752,30 @@ RZ
 Tp
 nK
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -21873,37 +22866,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
 hO
 hO
-QX
+Zb
 hO
 hO
-Bo
+GN
 hO
 hO
-Bo
+yV
 hO
-QX
-hO
-hO
-Bo
+Zb
 hO
 hO
-Bo
-Bo
-Bo
-Bo
+yV
+XT
 hO
-Bo
+Sn
+hk
+hk
+fA
+hO
+yV
 hO
 hO
 Cy
-Bo
+fA
 hO
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -21974,23 +22967,23 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-Pd
-Pd
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+Ij
+AV
+AV
 dX
-Pd
-Pd
-Pd
-Pd
-Pd
+AV
+AV
+AV
+AV
+AV
 uY
 Pq
 Tp
@@ -22016,30 +23009,30 @@ RZ
 Tp
 Tp
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-mj
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 YT
 mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -22052,7 +23045,7 @@ zj
 PM
 PM
 PM
-PM
+BK
 zj
 zj
 PM
@@ -22130,37 +23123,37 @@ si
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-Bo
-Bo
-Bo
+Sn
+hk
+RJ
+fA
 hO
-Bo
-Bo
-Bo
-Bo
+JX
+hk
+Sd
+QP
 hO
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-hO
-hO
-Bo
-Bo
-Bo
-Bo
+YD
+Sd
+hk
+RJ
+hk
+hk
+ly
 hO
 hO
-Bo
-Bo
+Za
+hk
+RJ
+fA
 hO
-Bo
+hO
+Za
+kI
+hO
+Za
 Sp
 Sp
 Sp
@@ -22183,7 +23176,7 @@ Sp
 Sp
 Sp
 Sp
-Sp
+EP
 Sp
 Sp
 Ys
@@ -22231,23 +23224,23 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+Ij
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 ft
 sV
 Tp
@@ -22273,30 +23266,30 @@ RZ
 Tp
 Tp
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-TA
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+oi
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -22387,37 +23380,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
+GN
 hO
 hO
 Pn
 hO
 hO
 hO
-Bo
+GN
 hO
 hO
 Wu
-Bo
+GN
 hO
 hO
 hO
 hO
-Bo
-Bo
+Za
+kI
 ro
-Bo
+GN
 hO
 hO
-Bo
-Bo
-Bo
-Bo
+Za
+hk
+Sd
+QP
 hO
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -22488,24 +23481,24 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-Pd
-Pd
-Pd
-Pd
-Pd
-sV
-sV
-sV
-sV
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+AV
+AV
+AV
+AV
+AV
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
 sV
 Tp
 Tp
@@ -22530,30 +23523,30 @@ Tp
 Tp
 Tp
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -22644,38 +23637,38 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-hO
-hO
-Bo
-DY
-Bo
-Bo
-Bo
-Bo
-Bo
-hO
-Bo
-Bo
-Bo
-hO
-Bo
-Bo
-hO
-hO
-Bo
-hO
-hO
-Bo
-hO
-Bo
-hO
-hO
-Bo
-Bo
 GN
+hO
+hO
+Xs
+DY
+Sn
+hk
+Bo
+hk
+fA
+hO
+YD
+Sd
+kI
+hO
+Ek
+ly
+hO
+hO
+GN
+hO
+hO
+GN
+hO
+oG
+hO
+hO
+hO
+Za
+Sp
 Sp
 Sp
 Sp
@@ -22745,19 +23738,19 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-Pd
-Pd
-Pd
-Pd
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+AV
+AV
+AV
+AV
+Ij
+Ij
 OF
 yS
 yS
@@ -22787,30 +23780,30 @@ Tp
 Tp
 Tp
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -22901,36 +23894,36 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-Bo
+YD
+fA
 hO
-Bo
+Xs
 hO
-Bo
+Xs
 XT
-Bo
+Xs
 hO
-Bo
-hO
-hO
-Pn
+oG
 hO
 hO
+JY
 hO
-Bo
+hO
+hO
+GN
 XT
-Bo
-Bo
-Pn
+Ek
+RJ
+oW
 hO
-Bo
+GN
 hO
 hO
 hO
-Bo
-Bo
+Sn
+pd
 Bo
 Sp
 Sp
@@ -23002,18 +23995,18 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-Pd
-Pd
-Pd
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+AV
+AV
+AV
+Ij
+Ij
 yS
 CS
 CS
@@ -23044,30 +24037,30 @@ Pd
 Pd
 Pd
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -23158,37 +24151,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
 hO
-Bo
+Xs
 hO
-Bo
-Bo
-Bo
+YD
+hk
+op
 hO
-Bo
-hO
-hO
-hO
-hO
-hO
-hO
-Bo
-hO
-Bo
+Xs
 hO
 hO
 hO
 hO
 hO
-Bo
-Bo
-Bo
-Bo
-Bo
 hO
-Bo
+Li
+hO
+GN
+hO
+hO
+hO
+hO
+hO
+YD
+hk
+hk
+hk
+ly
+hO
+Za
 Sp
 Sp
 Sp
@@ -23259,17 +24252,17 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-Pd
-Pd
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+AV
+AV
+Ij
+Ij
 CS
 CS
 CS
@@ -23302,29 +24295,29 @@ Pd
 Pd
 sV
 sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
 SQ
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+LY
 jK
 zj
 zj
@@ -23415,37 +24408,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
 hO
-Bo
+Xs
 hO
 hO
 hO
 hO
 hO
-Bo
-Bo
-Bo
+YD
+Sd
+kI
 hO
+Sn
+hk
+hk
 Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
+hk
+RJ
+kI
 hO
-Bo
+yV
 hO
 hO
 XT
 hO
 hO
 hO
-Bo
+Xs
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -23516,16 +24509,16 @@ nX
 nX
 nX
 nX
-jK
-jK
+Xo
+Xo
 sO
 sO
 sO
 sO
-sV
-Pd
-Pd
-sV
+Ij
+AV
+AV
+Ij
 CS
 CS
 RY
@@ -23557,7 +24550,13 @@ Pd
 Pd
 Pd
 Pd
+qW
+XL
 mj
+BG
+mj
+mj
+Is
 mj
 mj
 BG
@@ -23565,23 +24564,17 @@ mj
 mj
 Is
 mj
-mj
-BG
-mj
-mj
-Is
-mj
 BG
 mj
 BG
 mj
 Is
 mj
+xN
 mj
-BG
-mj
-mj
-sV
+Bf
+yi
+xN
 jK
 zj
 zj
@@ -23672,37 +24665,37 @@ Js
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-hO
-hO
-Bo
+Sn
+RJ
+Sd
+hk
+hk
+fA
 hO
 hO
-Bo
+Xs
+hO
+yD
+GN
 hO
 hO
-Bo
+oG
 hO
 hO
 hO
 hO
-Bo
-Bo
-Bo
-Bo
+Za
+hk
+hk
+dv
 hO
-Bo
+yV
 hO
-Bo
+Xs
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -23773,16 +24766,16 @@ nX
 nX
 nX
 nX
-jK
+Xo
 sO
 sO
 HX
-Ci
+Ak
 sO
-sV
-Pd
-Pd
-sV
+Ij
+AV
+AV
+Ij
 RY
 yS
 CS
@@ -23814,6 +24807,8 @@ Pd
 Pd
 Pd
 Pd
+qW
+XL
 mj
 mj
 mj
@@ -23832,13 +24827,11 @@ mj
 mj
 mj
 mj
+yp
 mj
-mj
-mj
-mj
-mj
-mj
-sV
+Vt
+gT
+xN
 jK
 zj
 zj
@@ -23867,10 +24860,10 @@ PM
 zj
 zj
 zj
-zj
-zj
-zj
-zj
+PM
+PM
+PM
+PM
 zj
 zj
 nX
@@ -23887,7 +24880,7 @@ Sp
 Sp
 Sp
 Sp
-Sp
+sE
 Sp
 Sp
 Sp
@@ -23929,37 +24922,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
+Xs
 hO
-Bo
-hO
-hO
-Bo
+Xs
 hO
 hO
-Bo
-Bo
-hO
-Bo
-Bo
+Xs
 hO
 hO
+Za
+kI
+hO
+YD
+dv
 hO
 hO
-QX
-Bo
-Bo
+hO
+hO
+Rn
+hk
+QP
 hO
 Yr
-Bo
-Bo
-Bo
-Bo
-Bo
+Za
+hk
+RJ
+GL
+op
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -24033,13 +25026,13 @@ nX
 sO
 sO
 Lj
-Ze
-Ze
+ph
+rC
 Lj
-sV
-Pd
-Pd
-sV
+Ij
+AV
+AV
+Ij
 CS
 CS
 RY
@@ -24071,8 +25064,8 @@ Pd
 Pd
 Pd
 Pd
-mj
-mj
+qW
+XL
 mj
 mj
 mj
@@ -24090,12 +25083,12 @@ mj
 mj
 mj
 mj
-mj
-mj
-mj
-mj
-BG
-sV
+xN
+xN
+qO
+qO
+qO
+xN
 jK
 zj
 zj
@@ -24186,37 +25179,37 @@ Sp
 Sp
 Sp
 yu
-Bo
+ly
 hO
-Bo
+Xs
 hO
-Bo
+Ow
 NK
+FG
 Bo
-Bo
-Bo
-Bo
-Bo
+hk
+hk
+op
 hO
 hO
 hO
-Bo
-Bo
-Bo
-Bo
+YD
+hk
+hk
+fA
 hO
 hO
 hO
 hO
 hO
 hO
-Bo
+Xs
 hO
 hO
 hO
 XT
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -24288,14 +25281,14 @@ nX
 nX
 nX
 sO
-HX
 aa
 AT
 YE
-Ze
+sP
+sP
 EZ
-Pd
-Pd
+AV
+AV
 Ue
 CS
 CS
@@ -24306,7 +25299,7 @@ rM
 fQ
 Hn
 sV
-Pd
+VR
 Pd
 Pd
 xH
@@ -24328,6 +25321,8 @@ Pd
 Pd
 Pd
 Pd
+cf
+MP
 wS
 wS
 wS
@@ -24345,14 +25340,12 @@ wS
 wS
 wS
 wS
+xN
 wS
 wS
 wS
-wS
-wS
-wS
-wS
-SQ
+SG
+xN
 jK
 zj
 zj
@@ -24379,8 +25372,8 @@ zj
 zj
 PM
 zj
-zj
-zj
+PM
+PM
 PM
 PM
 PM
@@ -24443,37 +25436,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-hO
-hO
-hO
-hO
-Bo
+GN
 hO
 hO
 hO
 hO
+GN
 hO
 hO
+hO
+hO
+hO
+CD
 hO
 hO
 hO
 pd
 hO
-Bo
+yV
 hO
+Sn
+hk
+hk
 Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
+hk
+hk
+hk
+fA
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -24545,13 +25538,13 @@ nX
 nX
 nX
 sO
-HX
 xT
 up
 CM
-Ze
+sP
+sP
 EZ
-Pd
+Im
 dX
 Ue
 CS
@@ -24574,6 +25567,7 @@ Pd
 IS
 Pd
 Pd
+kw
 Pd
 Pd
 Pd
@@ -24584,7 +25578,8 @@ Pd
 Pd
 Pd
 Pd
-Pd
+cf
+MP
 wS
 wS
 wS
@@ -24596,20 +25591,18 @@ wS
 wS
 wS
 wS
+qo
 wS
 wS
 wS
 wS
 wS
+ni
 wS
 wS
-wS
-wS
-wS
-wS
-wS
-wS
-SQ
+mp
+mE
+xN
 jK
 zj
 zj
@@ -24700,37 +25693,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
+Za
+hk
+Sd
+hk
+Sd
+RJ
+hk
+hk
+hk
+fA
 hO
-Bo
-Bo
+Sn
+Sd
 QX
-Bo
-Bo
+Sd
+ly
 XT
-Bo
-Bo
-Bo
+Za
+hk
+ly
 hO
 hO
-Bo
+Xs
 hO
 hO
 hO
-Bo
+Xs
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -24802,14 +25795,14 @@ nX
 nX
 nX
 sO
-HX
 Oa
 Xi
 jh
-Ze
+sP
+sP
 EZ
-Pd
-Pd
+AV
+AV
 Ue
 CS
 CS
@@ -24820,7 +25813,7 @@ Tr
 yS
 Hn
 sV
-Pd
+VR
 Pd
 Pd
 Yb
@@ -24842,6 +25835,8 @@ Pd
 Pd
 Pd
 Pd
+cf
+MP
 wS
 wS
 wS
@@ -24859,14 +25854,12 @@ wS
 wS
 wS
 wS
+xN
 wS
 wS
 wS
-wS
-wS
-wS
-wS
-SQ
+xz
+xN
 jK
 zj
 zj
@@ -24957,37 +25950,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
+oG
 hO
-Bo
+GN
 XT
-Bo
+GN
 hO
 hO
+wb
 hO
-hO
-Bo
+GN
 XT
-Bo
+Za
 IU
 Bo
 Bo
-Bo
+ly
 hO
-Bo
+GN
 hO
-Bo
-Pn
+YD
+Mp
 hO
-Bo
-Bo
-Bo
+JX
+hk
+fA
 hO
-Bo
+Xs
 hO
-Bo
+Za
 Sp
 jD
 Sp
@@ -25061,13 +26054,13 @@ nX
 sO
 sO
 Lj
-Ze
-Ze
+Pb
+qJ
 Lj
-sV
-Pd
-Pd
-sV
+Ij
+AV
+AV
+Ij
 CS
 CS
 CS
@@ -25099,8 +26092,8 @@ Pd
 Pd
 Pd
 Pd
-mj
-mj
+qW
+XL
 mj
 UM
 mj
@@ -25118,12 +26111,12 @@ mj
 mj
 mj
 mj
-mj
-mj
-mj
-mj
-BG
-sV
+xN
+xN
+qO
+qO
+qO
+xN
 jK
 zj
 zj
@@ -25214,37 +26207,37 @@ Sp
 jD
 Sp
 Sp
-Bo
+ly
 hO
 hO
 hO
-Bo
+GN
 hO
-Bo
+GN
 hO
-Bo
+Li
 hO
 hO
-Pn
-hO
-Cy
+Bk
+CD
+ji
 Bo
 hW
-Bo
-Cy
+TI
+oq
 uK
-Bo
+GN
 hO
 hO
 hO
 hO
+wb
 hO
+Xs
 hO
-Bo
+Xs
 hO
-Bo
-hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -25315,16 +26308,16 @@ nX
 nX
 nX
 nX
-jK
+Xo
 sO
 sO
 gd
 Ci
 sO
-sV
-Pd
-Pd
-sV
+Ij
+AV
+AV
+Ij
 RY
 CS
 RY
@@ -25356,8 +26349,8 @@ Pd
 Pd
 Pd
 Pd
-mj
-mj
+qW
+XL
 mj
 mj
 mj
@@ -25376,11 +26369,11 @@ mj
 mj
 mj
 mj
+yp
 mj
-mj
-mj
-mj
-sV
+xJ
+Ew
+xN
 jK
 zj
 zj
@@ -25470,38 +26463,38 @@ Sp
 Sp
 Sp
 Sp
-GN
+Sp
 Bo
-Bo
-Bo
-Bo
-Bo
+pd
+Sd
+hk
+QP
 hO
-Bo
-Bo
-Bo
-Bo
+YD
+hk
+RJ
+fA
 hO
 hO
 hO
-Bo
+Za
 wO
 LC
 Bo
-Bo
+ly
 hO
-Bo
+GN
 hO
 hO
+Ek
+Sd
+hk
+hk
 Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
+GL
+op
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -25572,16 +26565,16 @@ nX
 nX
 nX
 nX
-jK
-jK
+Xo
+Xo
 sO
 sO
 sO
 sO
-sV
-Pd
-Pd
-sV
+Ij
+AV
+AV
+Ij
 CS
 yS
 CS
@@ -25613,7 +26606,13 @@ Pd
 Pd
 Pd
 Pd
+qW
+XL
 mj
+BG
+mj
+mj
+FU
 mj
 mj
 BG
@@ -25621,23 +26620,17 @@ mj
 mj
 FU
 mj
-mj
-BG
-mj
-mj
-FU
-mj
 BG
 mj
 BG
 mj
 FU
 mj
+xN
 mj
-BG
-mj
-mj
-sV
+dt
+ds
+xN
 jK
 zj
 zj
@@ -25689,7 +26682,7 @@ Sp
 Pk
 dp
 cO
-Yz
+cO
 TR
 cO
 PB
@@ -25728,37 +26721,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-hO
-hO
+GN
 hO
 hO
 hO
 hO
-Bo
 hO
-Bo
 hO
-Bo
-Bo
+Xs
+hO
+yV
+hO
+YD
+RJ
 Wl
-Bo
-Bo
+RJ
+ly
 hO
-Bo
-Cy
+YD
+Nl
 hO
 ro
-Bo
+Xs
 hO
 hO
-Bo
+Xs
 hO
 hO
 hO
-Bo
+Za
 Sp
 Sp
 yu
@@ -25829,17 +26822,17 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-Pd
-Pd
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+AV
+AV
+Ij
+Ij
 CS
 CS
 RY
@@ -25872,29 +26865,29 @@ Pd
 Pd
 sV
 sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
 SQ
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+LY
 jK
 zj
 zj
@@ -25985,37 +26978,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
+Za
+hk
+hk
+Sd
+hk
+nJ
 uK
-Bo
+Xs
 XT
-Bo
+GN
 hO
 hO
 hO
-hO
+CD
 hO
 pd
 hO
 hO
-Bo
-Bo
+YD
+fA
 hO
-Bo
-Bo
-Bo
-Bo
+Za
+Sd
+GL
+op
 DY
-Bo
+xy
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -26086,18 +27079,18 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-Pd
-Pd
-Pd
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+AV
+AV
+AV
+Ij
+Ij
 CS
 CS
 CS
@@ -26128,30 +27121,30 @@ Pd
 Pd
 Pd
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -26242,37 +27235,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
+MR
+Br
 hO
-hO
-Bo
-hO
-hO
-hO
-Bo
-hO
-Bo
-hO
-Bo
-hO
-hO
-Bo
-Bo
-Bo
-hO
-hO
-Bo
-Bo
-Bo
-Bo
+GN
 hO
 hO
 hO
-Bo
+Xs
 hO
-Bo
+GN
+hO
+Li
+hO
+hO
+Sn
+RJ
+nJ
+hO
+hO
+YD
+hk
+RJ
+ly
+hO
+hO
+hO
+Xs
+hO
+Za
 Sp
 Sp
 Sp
@@ -26343,19 +27336,19 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-Pd
-Pd
-Pd
-Pd
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+AV
+AV
+AV
+AV
+Ij
+Ij
 OF
 yS
 yS
@@ -26385,30 +27378,30 @@ Tp
 Tp
 Tp
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -26499,23 +27492,23 @@ Js
 Sp
 Sp
 Sp
-Bo
+ly
 hO
 hO
 hO
 hO
-Bo
+GN
 hO
-Bo
-Bo
-Bo
+Sn
+hk
+ly
 hO
-Bo
-Bo
-Bo
-Bo
+Za
+hk
+RJ
+fA
 hO
-Bo
+Xs
 hO
 hO
 hO
@@ -26523,13 +27516,13 @@ hO
 hO
 XT
 hO
-Bo
-Bo
-Bo
-Bo
-Bo
+YD
+hk
+Sd
+hk
+ly
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -26600,24 +27593,24 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-Pd
-Pd
-Pd
-Pd
-Pd
-sV
-sV
-sV
-sV
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+AV
+AV
+AV
+AV
+AV
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
 sV
 Tp
 Tp
@@ -26642,30 +27635,30 @@ Tp
 Tp
 Tp
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -26756,37 +27749,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-Bo
-Bo
-Bo
+Sn
+hk
+Sd
+op
 ro
-Bo
+GN
 hO
-Bo
+Ow
 hO
-Bo
+GN
 hO
 hO
-Bo
-Bo
-Bo
+Za
+hk
+ly
 hO
 Cy
-Bo
-Bo
+hk
+fA
 hO
-Bo
+yV
 hO
 hO
 hO
-Bo
+GN
 hO
-Bo
+Xs
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -26857,23 +27850,23 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+Ij
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 qv
 sV
 Tp
@@ -26899,30 +27892,30 @@ RZ
 Tp
 Tp
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -26954,8 +27947,8 @@ zj
 zj
 zj
 zj
-PM
-pC
+Jj
+am
 zj
 nX
 nX
@@ -27013,37 +28006,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-hO
-Pn
-hO
-hO
-Bo
+GN
+Br
+qV
 hO
 hO
+GN
 hO
-Bo
-Pn
 hO
-Bo
+hO
+Za
+cD
+hO
+MR
 Yr
-Bo
+GN
 hO
 hO
 hO
-Bo
-Bo
-Bo
+Za
+hk
+QP
 hO
-Pn
+tP
 hO
-Bo
+GN
 XT
-Bo
+Xs
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -27114,23 +28107,23 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-Pd
-Pd
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+Ij
+AV
+AV
 dX
-Pd
-Pd
-Pd
-Pd
-Pd
+AV
+AV
+AV
+AV
+AV
 uY
 Pq
 Tp
@@ -27156,37 +28149,37 @@ RZ
 Tp
 Tp
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-mj
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 on
 YT
 mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
 zj
 zj
 PM
-zj
+PM
 zj
 PM
 zj
@@ -27270,37 +28263,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-hO
-hO
-hO
-hO
-Bo
-Bo
-Bo
-Bo
-Bo
+GN
 hO
 hO
 hO
 hO
-Bo
+YD
+hk
+hk
+hk
+op
+hO
+hO
+hO
+hO
+GN
 XT
-Bo
-Bo
-Bo
+Sn
+hk
+QP
 hO
 hO
 hO
-Bo
-Bo
-Bo
+YD
+hk
+QP
 hO
-Bo
+Xs
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -27371,23 +28364,23 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-Pd
-sV
-sV
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
-Pd
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+AV
+Ij
+Ij
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 ft
 sV
 Iy
@@ -27413,30 +28406,30 @@ RZ
 Tp
 Iy
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-TA
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+oi
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -27466,7 +28459,7 @@ zj
 zj
 PM
 zj
-zj
+PM
 zj
 PM
 zj
@@ -27527,37 +28520,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-Bo
-Bo
-Bo
-hO
-hO
+YD
+hk
+hk
+fA
 hO
 hO
 hO
 hO
 hO
-Bo
-Bo
-Bo
-Bo
-hO
-Bo
 hO
 hO
+Sn
+hk
+Sd
+op
 hO
-Bo
+GN
 hO
 hO
 hO
+Li
 hO
 hO
-Bo
 hO
-Bo
+hO
+hO
+Xs
+hO
+Za
 Sp
 Sp
 Sp
@@ -27628,24 +28621,24 @@ nX
 nX
 nX
 nX
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Xo
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
+Ij
 sV
 Ze
 Qc
@@ -27670,30 +28663,30 @@ Tp
 hA
 Ze
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -27723,7 +28716,7 @@ zj
 zj
 PM
 zj
-zj
+PM
 zj
 PM
 zj
@@ -27784,37 +28777,37 @@ Sp
 Sp
 di
 Sp
-Bo
+ly
 hO
 hO
 hO
 hO
-Bo
-Bo
-Bo
-Bo
+Za
+hk
+hk
+fA
 hO
 hO
-Bo
-Bo
-Bo
+Sn
+hk
+ly
 hO
-Bo
-hO
-hO
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
+GN
 hO
 hO
-Bo
-Bo
-Bo
+YD
+hk
+Sd
+hk
+RJ
+fA
+yD
 hO
-Bo
+hz
+GL
+op
+hO
+Za
 Sp
 Sp
 Sp
@@ -27927,30 +28920,30 @@ Rw
 Ze
 Ze
 sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -27980,7 +28973,7 @@ zj
 zj
 PM
 zj
-zj
+PM
 zj
 PM
 zj
@@ -28041,37 +29034,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
 hO
-Bo
+Li
 hO
-Bo
+GN
 hO
 hO
-Bo
+GN
 DY
-Bo
-Bo
-hO
-Bo
+Ek
+ly
+Br
+GN
 hO
 hO
 hO
 hO
 hO
 NK
-Bo
+GN
+Br
+hO
+YD
+nJ
+hO
+GN
 hO
 hO
-Bo
-Bo
 hO
-Bo
-hO
-hO
-hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -28168,6 +29161,15 @@ sV
 sV
 sV
 sV
+rD
+rD
+rD
+sV
+sV
+sV
+rD
+rD
+rD
 sV
 sV
 sV
@@ -28175,39 +29177,30 @@ sV
 sV
 sV
 sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
+zw
 mj
 mj
 mj
-mj
-mj
-sV
-jK
-jK
-jK
-jK
-jK
-jK
+jf
+xN
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -28228,7 +29221,7 @@ PM
 PM
 PM
 PM
-PM
+BK
 zj
 PM
 zj
@@ -28298,37 +29291,37 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-Bo
-Bo
-Bo
-hO
-hO
-Bo
+Sn
+RJ
+hk
+ly
 hO
 hO
-Cy
-hO
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-hO
-Bo
+GN
 hO
 hO
+Wq
+hO
+Za
+hk
+Sd
+hk
+hk
+Sd
+hO
+GN
 hO
 hO
 hO
-Bo
 hO
 hO
-Bo
-Bo
+GN
+hO
+yD
+hO
+Za
 Sp
 Sp
 Sp
@@ -28417,54 +29410,54 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-sV
-sV
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+LY
+xN
+xN
+xN
+xN
 SQ
-sV
-sV
-sV
-sV
-sV
-jK
-jK
-jK
-jK
+xN
+xN
+xN
+xN
+LY
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -28493,7 +29486,7 @@ PM
 Oy
 zj
 zj
-zj
+PM
 zj
 zj
 zj
@@ -28555,38 +29548,38 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-hO
-hO
-Bo
-Bo
-Bo
-Bo
-Bo
-hO
-hO
-hO
-Bo
-hO
-Bo
-hO
-hO
-QX
-hO
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
 GN
+hO
+hO
+YD
+hk
+hk
+RJ
+kI
+hO
+hO
+hO
+oG
+hO
+QP
+hO
+hO
+TW
+hO
+Za
+GL
+GL
+GL
+GL
+GL
+RJ
+GL
+GL
+pd
+Bo
+Sp
 Sp
 Sp
 Js
@@ -28674,40 +29667,40 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 US
 ea
 HY
@@ -28717,11 +29710,11 @@ RM
 HY
 bn
 mj
-sV
-jK
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -28750,10 +29743,10 @@ zj
 PM
 zj
 zj
-zj
-zj
-zj
-zj
+PM
+PM
+PM
+PM
 zj
 zj
 nX
@@ -28812,11 +29805,9 @@ Sp
 Sp
 Sp
 Sp
-Bo
+ly
 hO
-Bo
-Bo
-hO
+pd
 hO
 hO
 hO
@@ -28832,7 +29823,9 @@ hO
 hO
 hO
 hO
-Bo
+hO
+hO
+pd
 hO
 hO
 hO
@@ -28842,7 +29835,7 @@ hO
 hO
 hO
 hO
-Bo
+Za
 Sp
 Sp
 Sp
@@ -28931,40 +29924,40 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 ea
 Ca
 SQ
@@ -28974,11 +29967,11 @@ mj
 SQ
 mj
 fO
-sV
-jK
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -29070,35 +30063,35 @@ Sp
 Sp
 Sp
 Bo
+Sd
 Bo
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
 Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
-Bo
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
+Sd
 Bo
 Sp
 Sp
@@ -29188,40 +30181,40 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 RM
 zG
 HY
@@ -29231,11 +30224,11 @@ mj
 HY
 sX
 QF
-sV
-jK
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
+Gn
 jK
 zj
 zj
@@ -29328,7 +30321,6 @@ Sp
 Sp
 Sp
 Sp
-GN
 Sp
 Sp
 Sp
@@ -29346,7 +30338,8 @@ Sp
 Sp
 Sp
 Sp
-GN
+Sp
+Sp
 Sp
 Sp
 Sp
@@ -29445,40 +30438,40 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 HY
 HY
 HY
@@ -29488,11 +30481,11 @@ RM
 HY
 HY
 HY
-sV
-jK
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
+Gn
 jK
 YU
 YU
@@ -29702,40 +30695,40 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 RM
 zG
 HY
@@ -29745,12 +30738,12 @@ RM
 HY
 RM
 Os
-sV
+xN
+Gn
+Gn
+Gn
+Gn
 jK
-jK
-jK
-jK
-jK
 YU
 YU
 YU
@@ -29779,7 +30772,7 @@ YU
 YU
 YU
 YU
-fc
+sw
 YU
 YU
 YU
@@ -29959,40 +30952,40 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 CZ
 RM
 SQ
@@ -30002,21 +30995,21 @@ mj
 SQ
 RM
 bn
-sV
+xN
+Gn
+Gn
+Gn
+Gn
 jK
-jK
-jK
-jK
-jK
 YU
 YU
 YU
+pF
+pF
 YU
 YU
 YU
-YU
-YU
-YU
+pF
 YU
 YU
 YU
@@ -30036,7 +31029,7 @@ pF
 pF
 YU
 YU
-pF
+iE
 YU
 YU
 YU
@@ -30216,40 +31209,40 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 zG
 US
 HY
@@ -30259,21 +31252,21 @@ mj
 HY
 bn
 VS
-sV
+xN
+Gn
+Gn
+Gn
+Gn
 jK
-jK
-jK
-jK
-jK
 YU
 YU
 YU
 YU
+pF
 YU
 YU
 YU
-YU
-YU
+pF
 YU
 pF
 pF
@@ -30473,40 +31466,40 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+eY
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 HY
 HY
 HY
@@ -30516,11 +31509,11 @@ mj
 HY
 HY
 HY
-sV
-jK
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
+Gn
 jK
 YU
 YU
@@ -30530,7 +31523,7 @@ pF
 pF
 pF
 YU
-YU
+pF
 YU
 pF
 YU
@@ -30754,16 +31747,16 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 US
 gH
 HY
@@ -30773,11 +31766,11 @@ RM
 HY
 zG
 ea
-sV
-jK
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
+Gn
 jK
 YU
 YU
@@ -30787,7 +31780,7 @@ YU
 YU
 pF
 YU
-YU
+pF
 YU
 pF
 YU
@@ -31011,16 +32004,16 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 RM
 VS
 SQ
@@ -31030,11 +32023,11 @@ mj
 SQ
 RM
 zG
-sV
-jK
-jK
-jK
-jK
+xN
+Gn
+Gn
+Gn
+Gn
 jK
 YU
 YU
@@ -31268,16 +32261,16 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+xN
 bn
 RM
 HY
@@ -31287,12 +32280,12 @@ mj
 HY
 CZ
 US
-sV
+xN
+Gn
+Gn
+Gn
+Gn
 jK
-jK
-jK
-jK
-jK
 YU
 YU
 YU
@@ -31313,7 +32306,7 @@ YU
 pF
 pF
 pF
-YU
+pF
 YU
 pF
 pF
@@ -31428,7 +32421,7 @@ Sp
 Sp
 Sp
 Sp
-Sp
+Gu
 Sp
 Sp
 Sp
@@ -31525,30 +32518,30 @@ jK
 jK
 jK
 jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-jK
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-jK
-jK
-jK
-jK
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+Gn
+LY
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+xN
+LY
+Gn
+Gn
+Gn
+Gn
 jK
 YU
 YU
@@ -31570,7 +32563,7 @@ YU
 pF
 YU
 YU
-YU
+pB
 YU
 pF
 YU
@@ -35920,7 +36913,7 @@ nX
 nX
 nX
 YU
-am
+sM
 fc
 pF
 pF
@@ -36032,8 +37025,8 @@ Sp
 Sp
 Sp
 WV
-XL
 WV
+Il
 Du
 EY
 Sp
@@ -36198,8 +37191,8 @@ YU
 YU
 YU
 pF
-YU
-YU
+pF
+pB
 YU
 YU
 YU
@@ -36699,7 +37692,7 @@ YU
 pF
 YU
 YU
-YU
+pF
 YU
 pF
 YU
@@ -36955,8 +37948,8 @@ pF
 pF
 pF
 YU
-YU
-YU
+pF
+pF
 YU
 pF
 pF
@@ -37833,7 +38826,7 @@ Sp
 EY
 fr
 dL
-Oc
+XR
 EY
 Sq
 Sq
@@ -37925,49 +38918,49 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -38095,7 +39088,7 @@ EX
 zL
 zL
 mB
-Ww
+GF
 FM
 uu
 Sp
@@ -38182,49 +39175,49 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -38439,49 +39432,49 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -38605,7 +39598,7 @@ EY
 WV
 ez
 aJ
-bT
+oC
 oc
 BZ
 mH
@@ -38696,49 +39689,49 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -38953,29 +39946,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-jl
-jl
-tl
-tl
-jl
-jl
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -38996,6 +39970,25 @@ ZB
 ZB
 ZB
 ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -39210,29 +40203,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-jl
-BA
-BA
-BA
-BA
-jl
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -39253,6 +40227,25 @@ ZB
 ZB
 ZB
 ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -39467,29 +40460,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-jl
-BA
-tl
-tl
-BA
-jl
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -39510,6 +40484,25 @@ ZB
 ZB
 ZB
 ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -39724,29 +40717,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-jl
-BA
-BA
-BA
-BA
-jl
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -39767,6 +40741,25 @@ ZB
 ZB
 ZB
 ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -39981,29 +40974,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-jl
-xq
-BA
-BA
-xq
-jl
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -40024,6 +40998,25 @@ ZB
 ZB
 ZB
 ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -40238,10 +41231,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -40256,10 +41249,10 @@ ZB
 ZB
 ZB
 jl
-BA
-BA
-BA
-BA
+jl
+jl
+jl
+jl
 jl
 ZB
 ZB
@@ -40275,12 +41268,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -40495,10 +41488,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -40513,10 +41506,10 @@ ZB
 ZB
 ZB
 jl
-Mf
-BA
-BA
-Az
+xi
+Iz
+xq
+kH
 jl
 ZB
 ZB
@@ -40532,12 +41525,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -40752,10 +41745,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -40789,12 +41782,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -41009,10 +42002,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -41027,10 +42020,10 @@ ZB
 ZB
 ZB
 jl
-NR
 BA
 BA
-NR
+BA
+BA
 jl
 BA
 BA
@@ -41046,12 +42039,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -41266,10 +42259,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -41284,10 +42277,10 @@ ZB
 ZB
 ZB
 jl
+Mf
 BA
 BA
-BA
-BA
+Az
 jl
 bY
 gx
@@ -41303,12 +42296,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -41523,10 +42516,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -41541,10 +42534,10 @@ ZB
 ZB
 ZB
 jl
-Mf
 BA
 BA
-Az
+BA
+BA
 jl
 kV
 yc
@@ -41560,12 +42553,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -41780,10 +42773,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -41817,12 +42810,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -42037,10 +43030,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -42074,12 +43067,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -42294,10 +43287,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -42331,12 +43324,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -42551,10 +43544,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -42588,12 +43581,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -42808,10 +43801,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -42845,12 +43838,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -43065,10 +44058,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -43102,12 +44095,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -43322,10 +44315,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -43359,12 +44352,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -43579,10 +44572,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -43616,12 +44609,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -43836,10 +44829,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -43863,7 +44856,7 @@ Mx
 Mx
 Mx
 Mx
-jf
+Ft
 Mx
 Mx
 OM
@@ -43873,12 +44866,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -44093,10 +45086,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -44130,12 +45123,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -44350,10 +45343,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -44387,12 +45380,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -44607,10 +45600,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -44644,12 +45637,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -44864,10 +45857,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -44893,7 +45886,7 @@ dc
 dc
 jl
 jl
-jf
+Ft
 pO
 jl
 ZB
@@ -44901,12 +45894,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -45121,10 +46114,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -45158,12 +46151,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -45378,10 +46371,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -45415,12 +46408,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -45635,10 +46628,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -45672,12 +46665,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -45892,10 +46885,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -45929,12 +46922,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -46149,10 +47142,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -46186,12 +47179,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -46406,10 +47399,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -46443,12 +47436,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -46663,10 +47656,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -46700,12 +47693,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -46834,7 +47827,7 @@ vv
 vv
 vv
 vv
-vv
+tB
 vv
 vv
 vv
@@ -46920,10 +47913,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -46944,7 +47937,7 @@ du
 Mx
 Mx
 Mx
-jf
+Ft
 dV
 NH
 sf
@@ -46957,12 +47950,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -47090,9 +48083,9 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
+Zx
+gG
+FK
 vv
 vv
 vv
@@ -47177,10 +48170,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -47214,12 +48207,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -47348,8 +48341,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+Zx
+cE
 vv
 vv
 vv
@@ -47434,10 +48427,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -47471,12 +48464,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -47602,10 +48595,10 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
-vv
+Zx
+Zx
+Zx
+Zx
 vv
 vv
 vv
@@ -47691,10 +48684,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -47728,12 +48721,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -47837,7 +48830,7 @@ Zx
 Zx
 TE
 Zx
-Zx
+OE
 vc
 KI
 UP
@@ -47859,8 +48852,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+Zx
+Zx
 vv
 vv
 vv
@@ -47948,10 +48941,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -47985,12 +48978,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -48117,8 +49110,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+Zx
+Zx
 vv
 vv
 vv
@@ -48205,10 +49198,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -48242,12 +49235,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -48375,7 +49368,7 @@ vv
 vv
 vv
 vv
-vv
+Zx
 vv
 vv
 vv
@@ -48462,10 +49455,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -48499,12 +49492,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -48632,8 +49625,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+Zx
+Zx
 vv
 vv
 vv
@@ -48719,10 +49712,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -48756,12 +49749,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -48890,7 +49883,7 @@ vv
 vv
 vv
 vv
-vv
+Zx
 vv
 vv
 vv
@@ -48976,10 +49969,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -49013,12 +50006,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -49146,8 +50139,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+Zx
+Zx
 vv
 vv
 vv
@@ -49233,10 +50226,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -49270,12 +50263,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -49398,12 +50391,12 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
-vv
-vv
-vv
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
 vv
 vv
 vv
@@ -49490,10 +50483,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -49527,12 +50520,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -49653,13 +50646,13 @@ vv
 vv
 vv
 vv
+Zx
+Zx
+Zx
 vv
 vv
-vv
-vv
-vv
-vv
-vv
+Zx
+Zx
 vv
 vv
 vv
@@ -49747,10 +50740,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -49784,12 +50777,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -49910,8 +50903,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+Zx
+UP
 vv
 vv
 vv
@@ -50004,10 +50997,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -50041,12 +51034,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -50132,7 +51125,7 @@ vv
 UP
 UP
 Kt
-UP
+Ni
 Kt
 UP
 UP
@@ -50167,8 +51160,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+UP
+UP
 vv
 vv
 vv
@@ -50261,10 +51254,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -50298,12 +51291,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -50387,7 +51380,7 @@ vv
 vv
 UP
 UP
-UP
+eB
 Ni
 Ni
 Kt
@@ -50424,10 +51417,10 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
 vv
 UP
 UP
@@ -50442,7 +51435,7 @@ vv
 UP
 UP
 UP
-Zx
+Yz
 Xv
 UP
 UP
@@ -50460,10 +51453,10 @@ vv
 vv
 vv
 UP
+Ad
 UP
 UP
-UP
-UP
+Ad
 UP
 UP
 vv
@@ -50518,10 +51511,10 @@ nX
 nX
 nX
 nX
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
 ZB
 ZB
 ZB
@@ -50537,8 +51530,8 @@ jl
 jl
 jl
 jl
-ni
-ni
+tl
+tl
 jl
 jl
 jl
@@ -50555,12 +51548,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -50684,7 +51677,7 @@ vv
 vv
 vv
 vv
-vv
+UP
 UP
 UP
 UP
@@ -50698,9 +51691,9 @@ vv
 vv
 UP
 UP
-eo
-Zx
-kj
+br
+qI
+CN
 UP
 UP
 vv
@@ -50716,7 +51709,7 @@ vv
 vv
 vv
 UP
-UP
+Ad
 UP
 UP
 UP
@@ -50775,6 +51768,29 @@ nX
 nX
 nX
 nX
+nX
+nX
+nX
+nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+jl
+na
+MZ
+MZ
+na
+jl
 ZB
 ZB
 ZB
@@ -50789,35 +51805,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -50902,7 +51895,7 @@ vv
 vv
 UP
 UP
-UP
+eB
 UP
 UP
 UP
@@ -50956,9 +51949,9 @@ UP
 UP
 UP
 Xv
-Zx
-Zx
-UP
+qI
+Fj
+Fn
 UP
 vv
 vv
@@ -51032,6 +52025,29 @@ nX
 nX
 nX
 nX
+nX
+nX
+nX
+nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+jl
+MZ
+MZ
+MZ
+MZ
+jl
 ZB
 ZB
 ZB
@@ -51046,35 +52062,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -51182,7 +52175,7 @@ vv
 UP
 Kt
 UP
-UP
+Ni
 UP
 vv
 vv
@@ -51212,11 +52205,11 @@ vv
 UP
 UP
 UP
-kj
-uL
-Zx
-UP
-UP
+CN
+rs
+qI
+Fn
+Fn
 vv
 vv
 vv
@@ -51235,7 +52228,7 @@ Zx
 Zx
 Sy
 UP
-UP
+eB
 vv
 vv
 vv
@@ -51289,6 +52282,29 @@ nX
 nX
 nX
 nX
+nX
+nX
+nX
+nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+jl
+MZ
+MZ
+MZ
+MZ
+jl
 ZB
 ZB
 ZB
@@ -51303,35 +52319,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -51468,12 +52461,12 @@ vv
 vv
 vv
 UP
-UP
-UP
-uL
-UP
-UP
-UP
+Fn
+UH
+UH
+UH
+UH
+Fn
 vv
 vv
 vv
@@ -51546,6 +52539,29 @@ nX
 nX
 nX
 nX
+nX
+nX
+nX
+nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+jl
+kN
+MZ
+MZ
+YP
+jl
 ZB
 ZB
 ZB
@@ -51560,35 +52576,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -51704,15 +52697,15 @@ UP
 UP
 Zx
 Zx
-Zx
-Zx
-Zx
-Zx
-Zx
-Zx
-Zx
-Zx
-Zx
+UP
+UP
+UP
+UP
+UP
+UP
+UP
+UP
+eB
 UP
 UP
 UP
@@ -51726,10 +52719,10 @@ vv
 vv
 UP
 vv
-UP
-UP
-UP
-UP
+Fn
+Fn
+Fn
+Fn
 vv
 vv
 vv
@@ -51803,6 +52796,29 @@ nX
 nX
 nX
 nX
+nX
+nX
+nX
+nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+jl
+MZ
+MZ
+MZ
+MZ
+jl
 ZB
 ZB
 ZB
@@ -51817,35 +52833,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
-ZB
+nX
+nX
+nX
+nX
+nX
+nX
 nX
 nX
 nX
@@ -51954,25 +52947,25 @@ vv
 vv
 vv
 UP
+eB
 UP
 UP
 UP
 UP
-Zx
-Zx
-Zx
-Zx
 UP
 UP
 UP
-Zx
-Zx
-Zx
-Zx
-Zx
-Zx
-Zx
-Zx
+UP
+UP
+UP
+UP
+eB
+UP
+UP
+UP
+UP
+UP
+UP
 vv
 vv
 vv
@@ -51984,9 +52977,9 @@ vv
 vv
 Bv
 Bv
-UP
-UP
-UP
+Fn
+Fn
+Fn
 vv
 vv
 vv
@@ -52005,7 +52998,7 @@ Kx
 nq
 Sy
 UP
-UP
+eB
 UP
 vv
 vv
@@ -52064,39 +53057,39 @@ nX
 nX
 nX
 nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+jl
+MZ
+MZ
+MZ
+MZ
+jl
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
 nX
 nX
 nX
@@ -52215,8 +53208,8 @@ UP
 UP
 UP
 Zx
-Zx
-Zx
+UP
+UP
 UP
 UP
 UP
@@ -52225,11 +53218,11 @@ UP
 UP
 UP
 UP
-Zx
-Zx
-Zx
-Zx
-Zx
+UP
+eB
+UP
+UP
+UP
 Zx
 vv
 vv
@@ -52321,39 +53314,39 @@ nX
 nX
 nX
 nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+jl
+Uv
+IP
+NR
+Uv
+jl
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
 nX
 nX
 nX
@@ -52484,9 +53477,9 @@ vv
 UP
 UP
 UP
-Zx
-Zx
-Zx
+UP
+UP
+UP
 Zx
 Zx
 vv
@@ -52517,7 +53510,7 @@ Zx
 UP
 UP
 UP
-UP
+eB
 UP
 UP
 vv
@@ -52578,39 +53571,39 @@ nX
 nX
 nX
 nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+jl
+jl
+of
+of
+jl
+jl
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
 nX
 nX
 nX
@@ -52720,7 +53713,7 @@ Zx
 Zx
 xE
 UP
-UP
+Fn
 vv
 vv
 UP
@@ -52835,39 +53828,39 @@ nX
 nX
 nX
 nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
 nX
 nX
 nX
@@ -52943,9 +53936,9 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
+UP
+UP
+UP
 UP
 UP
 UP
@@ -52977,7 +53970,7 @@ Zx
 Zx
 Zx
 TF
-UP
+Fn
 UP
 UP
 UP
@@ -53042,11 +54035,11 @@ vv
 vv
 UP
 UP
-vv
+UP
 vv
 vv
 UP
-UP
+Ad
 UP
 UP
 vv
@@ -53092,39 +54085,39 @@ nX
 nX
 nX
 nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
 nX
 nX
 nX
@@ -53190,8 +54183,8 @@ vv
 vv
 vv
 vv
-Zx
-Zx
+TF
+qm
 vv
 Zx
 Zx
@@ -53200,7 +54193,7 @@ UP
 vv
 vv
 vv
-vv
+UP
 Fy
 UP
 Zx
@@ -53232,10 +54225,10 @@ Zx
 Zx
 Zx
 vv
-Zx
-Zx
-Zx
-Zx
+UP
+eB
+Fn
+UP
 Zx
 Zx
 Zx
@@ -53301,11 +54294,11 @@ UP
 mQ
 UP
 UP
-UP
+Ad
 UP
 Zx
 So
-UP
+Ad
 vv
 vv
 nX
@@ -53349,6 +54342,39 @@ nX
 nX
 nX
 nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
 nX
 nX
 nX
@@ -53387,39 +54413,7 @@ nX
 nX
 nX
 nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
+vv
 vv
 vv
 vv
@@ -53448,7 +54442,6 @@ vv
 vv
 vw
 vw
-vw
 vv
 Zx
 Zx
@@ -53457,7 +54450,7 @@ UP
 vv
 vv
 vv
-Zx
+TF
 Zx
 UP
 Zx
@@ -53487,11 +54480,11 @@ vv
 UP
 UP
 Zx
-Zx
-Zx
-Zx
-Zx
-Zx
+UP
+UP
+UP
+Fn
+Fn
 MM
 Zx
 Zx
@@ -53509,7 +54502,7 @@ vv
 UP
 UP
 UP
-UP
+eB
 UP
 vv
 vv
@@ -53606,39 +54599,39 @@ nX
 nX
 nX
 nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
-nX
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
+ZB
 nX
 nX
 nX
@@ -53714,7 +54707,7 @@ UP
 vv
 vv
 vw
-Zx
+Zh
 Zx
 Zx
 Zx
@@ -53744,11 +54737,11 @@ vv
 vv
 UP
 UP
-Zx
-Zx
-Zx
-Zx
-Zx
+UP
+eB
+UP
+Fn
+Fn
 Zx
 Zx
 Zx
@@ -53818,8 +54811,8 @@ Zx
 Zx
 Zx
 Zx
-wg
-UP
+WF
+Ad
 vv
 vv
 nX
@@ -53970,8 +54963,8 @@ Zx
 UP
 vv
 vv
-vw
-Zx
+vv
+vv
 Zx
 vv
 UP
@@ -54000,14 +54993,14 @@ vv
 vv
 vv
 vv
-UP
-UP
-UP
+Fn
+Fn
+Fn
+Fn
+Fn
+Fn
 UP
 Zx
-Zx
-Zx
-Zx
 UP
 UP
 UP
@@ -54020,7 +55013,7 @@ vv
 vv
 vv
 vv
-UP
+eB
 UP
 Kt
 UP
@@ -54075,7 +55068,7 @@ Zx
 TF
 Zx
 Qy
-UP
+Ad
 vv
 vv
 vv
@@ -54253,7 +55246,7 @@ Zx
 Zx
 Zx
 Zx
-Zx
+UP
 vv
 vv
 vv
@@ -54330,7 +55323,7 @@ Zx
 vv
 vv
 vv
-UP
+Ad
 UP
 vv
 vv
@@ -54509,10 +55502,10 @@ xE
 Zx
 Zx
 Zx
-Zx
-Zx
-Zx
-Zx
+UP
+UP
+UP
+Fn
 vv
 vv
 vv
@@ -54766,11 +55759,11 @@ vv
 vv
 xE
 Zx
-Zx
-Zx
-Zx
-Zx
-Zx
+UP
+UP
+Fn
+Fn
+Fn
 vv
 vv
 vv
@@ -54842,7 +55835,7 @@ Zx
 Zx
 mQ
 UP
-UP
+Ad
 UP
 uT
 Qy
@@ -55024,10 +56017,10 @@ vv
 vv
 vv
 xE
-Zx
-Zx
-Zx
-Zx
+UP
+Fn
+Fn
+UP
 xE
 vv
 vv
@@ -55104,7 +56097,7 @@ wg
 Zx
 TF
 UP
-UP
+Ad
 vv
 vv
 nX
@@ -55243,7 +56236,7 @@ UP
 UP
 UP
 UP
-UP
+eB
 UP
 UP
 UP
@@ -55281,11 +56274,11 @@ vv
 vv
 vv
 vv
-Zx
-Zx
-Zx
-Zx
-Zx
+Fn
+Fn
+Fn
+UP
+UP
 xE
 xE
 vv
@@ -55319,7 +56312,7 @@ vv
 vv
 vv
 Bv
-Bv
+ET
 Nz
 Zx
 Zx
@@ -55358,9 +56351,9 @@ Kx
 Zx
 Zx
 Ar
+Ad
 UP
-UP
-UP
+Ad
 UP
 vv
 vv
@@ -55541,8 +56534,8 @@ vv
 vv
 UP
 UP
-Zx
-Zx
+eB
+UP
 Zx
 Zx
 Zx
@@ -55754,7 +56747,7 @@ vv
 vv
 UP
 UP
-UP
+eB
 UP
 Ni
 Ni
@@ -55798,9 +56791,9 @@ UP
 UP
 UP
 UP
-Zx
-Zx
-Zx
+UP
+eB
+UP
 MM
 Zx
 Zx
@@ -55820,9 +56813,9 @@ UP
 UP
 UP
 UP
-Zx
-Zx
-Zx
+UP
+UP
+UP
 Zx
 Zx
 Zx
@@ -55835,11 +56828,11 @@ vv
 Bv
 ZS
 WT
+dW
 Zx
 Zx
 Zx
-Zx
-Zx
+Qu
 Zx
 Zx
 Qy
@@ -56013,7 +57006,7 @@ UP
 UP
 UP
 UP
-UP
+eB
 Kt
 UP
 UP
@@ -56056,8 +57049,8 @@ Kt
 UP
 vv
 UP
-Zx
-Zx
+UP
+UP
 Zx
 Zx
 vv
@@ -56076,10 +57069,10 @@ xE
 xE
 xE
 Zx
-Zx
-Zx
-Zx
-Zx
+UP
+UP
+eB
+UP
 Zx
 Zx
 Zx
@@ -56096,7 +57089,7 @@ Zx
 Zx
 Zx
 Zx
-qm
+Zx
 Zx
 Zx
 mQ
@@ -56332,11 +57325,11 @@ xE
 xE
 xE
 Zx
-Zx
-Zx
-Zx
-Zx
-Zx
+UP
+UP
+UP
+UP
+UP
 UP
 UP
 Zx
@@ -56589,8 +57582,8 @@ xE
 xE
 Zx
 Zx
-Zx
 UP
+eB
 UP
 UP
 UP
@@ -57121,7 +58114,7 @@ vv
 Bv
 Bv
 Bv
-Zx
+Cs
 Zx
 Zx
 Zx
@@ -57338,7 +58331,7 @@ vv
 vv
 vv
 UP
-UP
+Fn
 UP
 UP
 UP
@@ -57594,8 +58587,8 @@ vv
 vv
 vv
 UP
-UP
-Zx
+Fn
+Fn
 Zx
 Zx
 Zx
@@ -57850,9 +58843,9 @@ vv
 vv
 vv
 UP
-UP
-Zx
-Zx
+eB
+Fn
+Fn
 MM
 Zx
 Zx
@@ -57863,7 +58856,7 @@ Zx
 Zx
 Zx
 xE
-xE
+XV
 UP
 UP
 UP
@@ -58107,9 +59100,9 @@ vv
 vv
 vv
 UP
-Zx
-Zx
-Zx
+UP
+Fn
+Fn
 Zx
 Zx
 Zx
@@ -58119,7 +59112,7 @@ Zx
 Zx
 UP
 xE
-Vz
+me
 xE
 xE
 xE
@@ -58364,9 +59357,9 @@ vv
 vv
 vv
 UP
-Zx
-Zx
-Zx
+Fn
+Fn
+Fn
 UP
 UP
 UP
@@ -58584,8 +59577,8 @@ vv
 vv
 vv
 vv
-Zx
-Zx
+TF
+hd
 Zx
 Zx
 Zx
@@ -58621,10 +59614,10 @@ vv
 vv
 vv
 UP
-Zx
-Zx
 UP
-UP
+Fn
+Fn
+Fn
 vv
 vv
 vv
@@ -58671,8 +59664,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+UP
+UP
 UP
 UP
 Zx
@@ -58878,8 +59871,8 @@ vv
 vv
 vv
 UP
-Zx
-Zx
+UP
+UP
 xE
 vv
 UP
@@ -58907,12 +59900,12 @@ vv
 vv
 UP
 UP
+UP
+UP
 Zx
 Zx
 Zx
 Zx
-Zx
-Zx
 vv
 vv
 vv
@@ -58930,9 +59923,9 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
+UP
+UP
+UP
 UP
 Zx
 Zx
@@ -59135,28 +60128,14 @@ vv
 vv
 UP
 UP
-Zx
-Zx
 UP
 UP
 UP
 UP
 UP
 UP
-vv
-vv
-vv
-vv
 UP
 UP
-Zx
-Zx
-Zx
-Zx
-Zx
-UP
-UP
-vv
 vv
 vv
 vv
@@ -59168,6 +60147,20 @@ Zx
 Zx
 Zx
 Zx
+UP
+UP
+vv
+vv
+vv
+vv
+vv
+UP
+UP
+UP
+UP
+UP
+Zx
+Zx
 Zx
 vv
 vv
@@ -59189,10 +60182,10 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
 UP
 TF
 Zx
@@ -59393,7 +60386,7 @@ vv
 UP
 xE
 Zx
-Zx
+UP
 UP
 UP
 UP
@@ -59418,13 +60411,13 @@ vv
 vv
 vv
 vv
+eB
+UP
+UP
+UP
+UP
 UP
 Zx
-Zx
-Zx
-Zx
-Zx
-Zx
 vv
 vv
 vv
@@ -59449,8 +60442,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+UP
+UP
 UP
 UP
 Zx
@@ -59637,7 +60630,7 @@ UP
 UP
 Ni
 Ni
-UP
+eB
 UP
 UP
 UP
@@ -59676,9 +60669,9 @@ vv
 UP
 UP
 UP
-Zx
-RR
-Zx
+UP
+UP
+UP
 UP
 UP
 UP
@@ -59931,13 +60924,13 @@ vv
 vv
 UP
 UP
-Zx
-KV
-Zx
-Zx
 UP
 UP
-vv
+UP
+UP
+UP
+UP
+UP
 UP
 UP
 UP
@@ -60169,7 +61162,7 @@ vv
 vv
 vv
 UP
-UP
+eB
 Ni
 UP
 Kt
@@ -60189,8 +61182,8 @@ UP
 UP
 Zx
 Zx
-Zx
 UP
+eB
 UP
 UP
 vv
@@ -60456,7 +61449,7 @@ vv
 UP
 UP
 Kt
-UP
+eB
 UP
 UP
 UP
@@ -60698,7 +61691,7 @@ Zx
 Zx
 Zx
 UP
-Zx
+KV
 Zx
 Zx
 Zx
@@ -61469,7 +62462,7 @@ vv
 UP
 UP
 UP
-Zx
+RR
 UP
 vv
 vv
@@ -62495,8 +63488,8 @@ vv
 vv
 vv
 vv
-Zx
-Zx
+nW
+UP
 UP
 vv
 vv
@@ -62752,8 +63745,8 @@ vv
 vv
 vv
 vv
-Zx
-Zx
+yZ
+yZ
 UP
 UP
 vv
@@ -63269,9 +64262,9 @@ vv
 vv
 vv
 vv
-Zx
-Zx
-Zx
+yZ
+nW
+yZ
 UP
 Zx
 UP
@@ -63787,7 +64780,7 @@ vv
 vv
 vv
 UP
-Zx
+gp
 Zx
 vv
 vv

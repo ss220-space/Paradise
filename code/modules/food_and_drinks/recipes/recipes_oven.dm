@@ -682,3 +682,54 @@
 		/obj/item/reagent_containers/food/snacks/grown/apple
 	)
 	result = /obj/item/reagent_containers/food/snacks/bakedvulp
+
+//////////////////////////////////////////
+//Reinforced gingerbread
+//////////////////////////////////////////
+
+/datum/recipe/oven/reinforcedcheese
+	reagents = list("sodiumchloride" = 10)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/gingercookie,
+		/obj/item/reagent_containers/food/snacks/gingercookie
+	)
+	result = /obj/item/stack/sheet/gingerbread/five
+
+//////////////////////////////////////////
+//Ginger cookies
+//////////////////////////////////////////
+
+/datum/recipe/oven/gingercokie
+	reagents = list("sugar" = 1)
+	items = list(/obj/item/reagent_containers/food/snacks/cookiedough)
+	result = /obj/item/reagent_containers/food/snacks/gingercookie
+
+/datum/recipe/oven/gingercokie/ball
+	reagents = list("sugar" = 2)
+	items = list(/obj/item/reagent_containers/food/snacks/cookiedough)
+	result = /obj/item/reagent_containers/food/snacks/gingercookie/ball
+
+/datum/recipe/oven/gingercokie/cane
+	reagents = list("sugar" = 3)
+	items = list(/obj/item/reagent_containers/food/snacks/cookiedough)
+	result = /obj/item/reagent_containers/food/snacks/gingercookie/cane
+
+/datum/recipe/oven/gingercokie/heart
+	reagents = list("sugar" = 4)
+	items = list(/obj/item/reagent_containers/food/snacks/cookiedough)
+	result = /obj/item/reagent_containers/food/snacks/gingercookie/heart
+
+/datum/recipe/oven/gingercokie/home
+	reagents = list("sugar" = 5)
+	items = list(/obj/item/reagent_containers/food/snacks/cookiedough)
+	result = /obj/item/reagent_containers/food/snacks/gingercookie/home
+
+/datum/recipe/oven/gingercokie/mitten
+	reagents = list("sugar" = 6)
+	items = list(/obj/item/reagent_containers/food/snacks/cookiedough)
+	result = /obj/item/reagent_containers/food/snacks/gingercookie/mitten
+
+/datum/recipe/oven/gingercokie/tree
+	reagents = list("sugar" = 7)
+	items = list(/obj/item/reagent_containers/food/snacks/cookiedough)
+	result = /obj/item/reagent_containers/food/snacks/gingercookie/tree

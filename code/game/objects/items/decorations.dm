@@ -244,6 +244,16 @@
 	overlays += icon('icons/obj/fireplace.dmi', "fireplace_glow")
 	set_light(6, ,"#ffb366")
 
+/obj/structure/decorative_structures/garland
+	density = 0
+	anchored = 1
+	max_integrity = 100
+	icon_state = "xmaslights"
+
+/obj/structure/decorative_structures/garland/Initialize(mapload)
+	. = ..()
+	set_light(2, ,"#ffffffbb")
+
 /obj/structure/decorative_structures/metal
 	flags = CONDUCT
 
@@ -442,3 +452,13 @@
 	new /obj/effect/decal/cleanable/blood/gibs(T)
 	new /obj/effect/decal/cleanable/blood(T)
 	..()
+
+/obj/structure/decorative_structures/snowcloud
+	name = "snow cloud"
+	desc = "Let it snow, let it snow, let it snow!"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "snowcloud"
+	layer = FLY_LAYER
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	density = 0

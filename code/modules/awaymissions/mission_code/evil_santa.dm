@@ -14,6 +14,7 @@
 	requires_power = TRUE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
+	ambientsounds = list('sound/ambience/apathy.ogg')
 
 /area/awaymission/evil_santa/spawn_s
 	name = "Evil santa spawn south"
@@ -80,13 +81,45 @@
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
+/area/awaymission/evil_santa/end/hall
+	name = "Evil santa hall"
+	icon_state = "awaycontent13"
 /area/awaymission/evil_santa/end/santa
 	name = "Evil santa fight"
-	icon_state = "awaycontent13"
+	icon_state = "awaycontent14"
+
+/area/awaymission/evil_santa/end/exit
+	name = "Evil santa exit"
+	icon_state = "awaycontent15"
+	requires_power = TRUE
 
 /area/awaymission/evil_santa/forest_labyrinth
 	name = "Evil santa forest labyrinth"
 	icon_state = "dark"
+
+/area/awaymission/evil_santa/end/santa/proc/UnlockBlastDoors(target_id_tag)
+	target_id_tag = "Evil_Santa_Arena"
+	for(var/obj/machinery/door/poddoor/preopen/P in GLOB.airlocks)
+		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
+			P.open()
+
+/area/awaymission/evil_santa/end/santa/proc/BlockBlastDoors(target_id_tag)
+	target_id_tag = "Evil_Santa_Arena"
+	for(var/obj/machinery/door/poddoor/preopen/P in GLOB.airlocks)
+		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
+			P.close()
+
+/area/awaymission/evil_santa/end/santa/Entered(var/mob/living/carbon/naughty)
+	. = ..()
+	for(var/mob/living/simple_animal/hostile/winter/santa/fat_man)
+		if(fat_man.is_dead())
+			return
+	sleep(50)
+	if(naughty > 0 && !naughty.is_dead())
+		BlockBlastDoors()
+		to_chat(usr, "<span class='danger'> YOU'VE BEEN TOO NAUGHTY THIS YEAR AND NOW YOU WILL BE PUNISHED! </span>")
+	else
+		UnlockBlastDoors()
 
 /obj/item/paper/journal_scrap_1
 	name = "survivor's journal page 1"
@@ -202,6 +235,6 @@
 	lootdoubles = 0
 
 	loot = list(
-				/obj/item/a_gift/evil_santa_reward = 25,
-				/obj/item/a_gift = 75,
+				/obj/item/a_gift/evil_santa_reward = 33,
+				/obj/item/a_gift = 67,
 				)

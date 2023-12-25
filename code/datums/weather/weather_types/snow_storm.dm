@@ -15,12 +15,8 @@
 	end_duration = 100
 	end_message = "<span class='boldannounce'>The snowfall dies down, it should be safe to go outside again.</span>"
 	end_overlay = "light_snow"
-	//weather_color = "#e6e6e6"
-	//weather_sound = 'sound/weather/ashstorm/inside/active_mid2.ogg'
-	//weather_overlay = "snow_storm"
 
 	area_type = /area/awaymission/evil_santa_storm
-	//impacted_areas = list(/area/awaymission/evil_santa/forest)
 	target_trait = AWAY_LEVEL
 
 	immunity_type = "snow"
