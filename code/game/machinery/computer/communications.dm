@@ -298,7 +298,8 @@
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		src.emagged = 1
-		to_chat(user, span_notice("You scramble the communication routing circuits!"))
+		if(user)
+			to_chat(user, span_notice("You scramble the communication routing circuits!"))
 		SStgui.update_uis(src)
 
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)

@@ -4,6 +4,8 @@
 	special_role = SPECIAL_ROLE_THIEF
 	antag_hud_type = ANTAG_HUD_THIEF
 	antag_hud_name = "hudthief"
+	wiki_page_name = "Thief"
+	russian_wiki_name = "Вор"
 	clown_gain_text = "Вы превзошли свою клоунскую натуру, ваши ловкие пальцы нивелировали былую неуклюжесть!"
 	clown_removal_text = "Ваша клоунская натура возвращается..."
 	/// Whether our thief should get a special equipment box
@@ -47,10 +49,11 @@
 
 
 /datum/antagonist/thief/greet()
+	var/list/messages = list()
 	SEND_SOUND(owner.current, 'sound/ambience/antag/thiefalert.ogg')
-	to_chat(owner.current, span_userdanger("Вы член гильдии воров!"))
-	to_chat(owner.current, span_danger("Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!"))
-
+	messages.Add(span_userdanger("Вы член гильдии воров!"))
+	messages.Add(span_danger("Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!"))
+	return messages
 
 /datum/antagonist/thief/farewell()
 	if(issilicon(owner.current))

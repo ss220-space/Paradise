@@ -156,6 +156,11 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/hooded/chaplain_hoodie/no_name
+	name = "dark hoodie"
+	desc = "A dark robe made of thick fabric that looks intimidating"
+	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/no_name
+
 //Chaplain
 /obj/item/clothing/suit/hooded/nun
 	name = "nun robe"

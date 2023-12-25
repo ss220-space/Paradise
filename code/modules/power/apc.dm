@@ -60,7 +60,7 @@
 	damage_deflection = 10
 	var/area/area
 	var/areastring = null
-	var/obj/item/clockwork/integration_cog/cog //Is there a cog siphoning power?
+	var/obj/machinery/integration_cog/cog //Is there a cog siphoning power?
 	var/obj/item/stock_parts/cell/cell
 	var/start_charge = 90				// initial cell charge %
 	var/cell_type = 2500	//Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
@@ -201,6 +201,7 @@
 		malfvacate(1)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
+	QDEL_NULL(cog)
 	if(terminal)
 		disconnect_terminal()
 	area.apc -= src
@@ -626,9 +627,8 @@
 			"<span class='clock'>Replicant alloy rapidly covers the APC's innards, replacing the machinery.</span><br>\
 			<span class='clockitalic'>This APC will now passively provide power for the cult!</span>")
 			playsound(user, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
-			user.drop_transfer_item_to_loc(W, src, force = TRUE)
-			cog = W
-			START_PROCESSING(SSfastprocess, W)
+			qdel(W)
+			cog = new(src)
 			opened = FALSE
 			locked = FALSE
 			update_icon()
@@ -808,20 +808,24 @@
 				"<span class='notice'>You cut the APC frame from the wall.</span>")
 		qdel(src)
 
-/obj/machinery/power/apc/emag_act(user as mob)
+/obj/machinery/power/apc/emag_act(mob/user)
 	if(!(emagged || malfhack))		// trying to unlock with an emag card
 		if(opened)
-			to_chat(user, "You must close the cover to swipe an ID card.")
+			if(user)
+				to_chat(user, "You must close the cover to swipe an ID card.")
 		else if(panel_open)
-			to_chat(user, "You must close the panel first.")
+			if(user)
+				to_chat(user, "You must close the panel first.")
 		else if(stat & (BROKEN|MAINT))
-			to_chat(user, "Nothing happens.")
+			if(user)
+				to_chat(user, "Nothing happens.")
 		else
 			add_attack_logs(user, src, "emagged")
 			flick("apc-spark", src)
 			emagged = 1
 			locked = 0
-			to_chat(user, "You emag the APC interface.")
+			if(user)
+				to_chat(user, "You emag the APC interface.")
 			update_icon()
 
 // attack with hand - remove cell (if cover open) or interact with the APC

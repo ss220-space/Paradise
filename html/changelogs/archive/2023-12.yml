@@ -136,7 +136,69 @@
   - bugfix: new clothing sprite layer "above boots" for dresses. (#3994)
   Dimach:
   - bugfix: few runtime fixes (#4052)
+  - tweak: implant icons (#4054)
   LiquidPotroh:
   - balance: Xenomorphs up (#3963)
   Vladisvell:
   - qol: Breaking windoors now gives airlock electronics (#3995)
+'2023-12-13':
+  BeebBeebBoob:
+  - balance: Clockwork Cult Balance Update (#4024)
+  Dimach:
+  - refactor: user check in emag_act to prevent runtimes (#4055)
+'2023-12-14':
+  Aziz Chynaliev:
+  - add: add new 69 TTS voices from Portal (1), TMNT (1), Star Wars (7), Transformers
+      (3), LOTR (6), Shrek (8), POTC (4), Harry Potter (12), WoW (24), Treasure Island
+      (1), etc (2) (#4064)
+  Dimach:
+  - bugfix: nuke mode cannot start (#4061)
+'2023-12-15':
+  ArtemDerp:
+  - bugfix: turfs under ND walls were removed on USSP stattion  (#4057)
+  - add: organ smartfridge can store robot arms and legs (#4056)
+  Daeberdir:
+  - bugfix: completed `can_hold` for construction bag. (#4062)
+  NightDawnFox:
+  - bugfix: Legion-boss doors now opens when it dies (#4058)
+  ROdenFL:
+  - tweak: emoji update (#4051)
+  ReloadKey:
+  - bugfix: Tajaran random name generator  broke after 20 gen. attempts (#4063)
+  aeternaclose:
+  - unknown: AcademyGateRemap (#3678)
+  p4el007:
+  - add: skalka craft (#4059)
+'2023-12-17':
+  Daeberdir:
+  - bugfix: text correction for synd bundle description. (#4073)
+  Dimach:
+  - tweak: antag paradise special antag scaling, improve configuration (#4070)
+'2023-12-18':
+  Arceniu:
+  - tweak: add telescopic baton for QM (#4081)
+  ArtemDerp:
+  - add: Space Graveyard (#3828)
+  - add: Hampters plushie added to loadout (#4023)
+  Daeberdir:
+  - bugfix: Forest fox icons by @NixonEs. (#4067)
+  - bugfix: rods duping on reinforced floor prying. (#4065)
+  Dimach:
+  - tweak: add debug code for slimes (#4077)
+  Etrnlmelancholy:
+  - add: chain of command on delta (#4076)
+  LiquidPotroh:
+  - bugfix: Anomaly extract don't remove underwear (#4068)
+  NightDawnFox:
+  - bugfix: force qdel gems (#4075)
+  ROdenFL:
+  - add: chat boxes, port from Official Paradise (#4048)
+  - add: thick tape roll (#4069)
+  - balance: security voucher, starting weapon rebalance (#3990)
+  Vladisvell:
+  - qol: Now antag eligibility and antag roles in preferences are colored (#4060)
+  - qol: You can now request maintenance drones from Drone Fabricator Console (#3996)
+  Zwei:
+  - bugfix: Exotix Blood Check (#3887)
+  kukur:
+  - add: new order form (#4079)

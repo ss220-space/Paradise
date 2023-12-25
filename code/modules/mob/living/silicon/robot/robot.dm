@@ -979,7 +979,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		spark_system.start()
 	..()
 
-/mob/living/silicon/robot/emag_act(user as mob)
+/mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
 	if(isclocker(src))
@@ -1057,8 +1057,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(module)
 			reset_module()
 		pick_module("Clockwork")
-		emp_protection = TRUE
-		speed = -0.5
 		pdahide = TRUE
 	SSticker.mode.add_clocker(mind)
 	UnlinkSelf()

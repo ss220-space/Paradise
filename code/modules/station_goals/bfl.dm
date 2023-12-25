@@ -119,7 +119,8 @@
 	if(!emag)
 		add_attack_logs(user, src, "emagged")
 		emag = TRUE
-		to_chat(user, "Emitter successfully sabotaged")
+		if(user)
+			to_chat(user, "Emitter successfully sabotaged")
 
 /obj/machinery/power/bfl_emitter/process()
 	if(!state)
