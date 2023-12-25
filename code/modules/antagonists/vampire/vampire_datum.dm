@@ -241,7 +241,7 @@
 				getting_closer_animation(target, cycle_counter)
 				time_per_action = suck_rate_final
 				continue
-			if(3)
+			if(STATE_SUCKING)
 				owner.current.visible_message(span_danger("[owner.current] sinks in [owner.current.p_their()] fangs!"), \
 					span_danger("You sink your fangs into [target] and begin to drain [target.p_their()] blood."), \
 					span_italics("You hear a soft puncture and a wet sucking noise."))
