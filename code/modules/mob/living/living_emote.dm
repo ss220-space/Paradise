@@ -4,7 +4,8 @@
 		/mob/living/carbon/brain,	// nice try
 		/mob/living/captive_brain,
 		/mob/living/silicon,
-		/mob/living/simple_animal/bot
+		/mob/living/simple_animal/bot,
+		/mob/living/simple_animal/slime,
 	)
 	message_postfix = " на %t."
 
@@ -293,6 +294,7 @@
 		/mob/living/carbon/human,
 		/mob/living/silicon,
 		/mob/living/captive_brain,
+		/mob/living/simple_animal/slime,
 	)
 	vary = TRUE
 	volume = 80
@@ -480,6 +482,7 @@
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
 		/mob/living/captive_brain,
+		/mob/living/simple_animal/slime,
 	)
 
 
