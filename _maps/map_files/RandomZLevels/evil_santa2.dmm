@@ -120,6 +120,12 @@
 /obj/item/reagent_containers/food/snacks/catfishmeat,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_ne)
+"aY" = (
+/obj/structure/window/basic{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "aZ" = (
 /obj/structure/chair/sofa/corner{
 	dir = 8
@@ -223,6 +229,10 @@
 "ch" = (
 /turf/simulated/wall/indestructible/gingerbread,
 /area/awaymission/evil_santa/mine/labyrinth_l)
+"cl" = (
+/obj/item/clothing/head/hardhat/reindeer,
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
 "cq" = (
 /obj/structure/closet/crate/miningcar,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -570,6 +580,13 @@
 "ft" = (
 /turf/simulated/floor/plasteel/stairs/right,
 /area/awaymission/evil_santa/end/exit)
+"fy" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "fA" = (
 /obj/structure/decorative_structures/garland{
 	dir = 8
@@ -612,6 +629,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/end/hall)
+"fP" = (
+/obj/item/storage/backpack/santabag,
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
 "fQ" = (
 /obj/item/storage/backpack/santabag,
 /obj/effect/spawner/lootdrop/evil_santa_gift,
@@ -631,6 +652,9 @@
 /area/awaymission/evil_santa/spawn_s)
 "gd" = (
 /obj/structure/snowman/medium,
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	temperature = 293.15
 	},
@@ -671,11 +695,9 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
 "gu" = (
-/obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list()
-	},
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/storage/firstaid/fire,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "gx" = (
@@ -867,7 +889,6 @@
 	icon_state = "portal";
 	invisibility = 25
 	},
-/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "ib" = (
@@ -944,9 +965,6 @@
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "iP" = (
-/obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list()
-	},
 /obj/item/hatchet/wooden,
 /obj/item/grown/log/tree,
 /obj/item/grown/log/tree,
@@ -954,6 +972,7 @@
 /obj/item/grown/log/tree,
 /obj/item/storage/box/matches,
 /obj/item/shovel,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "iS" = (
@@ -977,6 +996,13 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
+"iZ" = (
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "jb" = (
 /obj/item/mining_scanner,
 /turf/simulated/floor/plating/asteroid,
@@ -1001,11 +1027,21 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
+"jk" = (
+/obj/structure/window/basic,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/forest_labyrinth)
 "jl" = (
 /turf/simulated/wall/indestructible/wood,
 /area/awaymission/evil_santa/end/lounge)
 "jn" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/cabinet,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "jo" = (
@@ -1032,7 +1068,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "jx" = (
-/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/projectile/automatic/pistol/APS,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "jy" = (
@@ -1103,12 +1139,17 @@
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "jY" = (
-/obj/item/gun/projectile/automatic/tommygun,
+/obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_r)
 "ka" = (
 /obj/item/clothing/head/collectable/tophat,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa/mine)
+"ki" = (
+/obj/structure/table/holotable/wood,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/evil_santa/mine)
 "kj" = (
 /obj/effect/decal/cleanable/blood,
@@ -1298,6 +1339,12 @@
 "mj" = (
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/end/hall)
+"mk" = (
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "ml" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
@@ -1431,14 +1478,12 @@
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "nA" = (
-/obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list()
-	},
 /obj/item/clothing/suit/hooded/wintercoat/cargo,
 /obj/item/clothing/suit/hooded/wintercoat/cargo/qm,
 /obj/item/clothing/suit/hooded/wintercoat/hydro,
 /obj/item/storage/firstaid/doctor,
 /obj/item/gun/projectile/revolver/nagant/rusted,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_n)
 "nD" = (
@@ -1521,6 +1566,7 @@
 /area/awaymission/evil_santa/end/hall)
 "oj" = (
 /obj/structure/table/holotable/wood,
+/obj/item/paintkit/ripley_red,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/evil_santa/mine)
 "ol" = (
@@ -1646,7 +1692,9 @@
 "po" = (
 /obj/structure/flora/tree/pine/xmas,
 /obj/effect/mapping_helpers/light,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "pv" = (
 /obj/machinery/light{
@@ -1701,6 +1749,9 @@
 	icon_state = "portal-syndicate";
 	icon = 'icons/obj/stationobjs.dmi';
 	invisibility = 25
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	temperature = 293.15
@@ -2155,10 +2206,7 @@
 	},
 /area/awaymission/evil_santa/end/lounge)
 "ut" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete";
-	real_name = "Pete"
-	},
+/mob/living/simple_animal/hostile/retaliate/goat,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -2635,6 +2683,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa_storm)
+"zi" = (
+/obj/item/clothing/suit/hooded/explorer,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/evil_santa/mine)
 "zj" = (
 /turf/simulated/wall/indestructible/gingerbread,
 /area/awaymission/evil_santa/mine/labyrinth_m)
@@ -2696,6 +2748,9 @@
 /area/awaymission/evil_santa/mine)
 "zF" = (
 /obj/structure/snowman/high,
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	temperature = 293.15
 	},
@@ -2871,6 +2926,10 @@
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /turf/simulated/floor/grass,
 /area/awaymission/evil_santa/mine)
+"BT" = (
+/obj/item/clothing/under/pennywise,
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
 "BX" = (
 /obj/structure/bed,
 /obj/item/bedsheet/mime,
@@ -2911,9 +2970,9 @@
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/santa)
 "Cs" = (
-/obj/structure/wooden_sign,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/evil_santa/mine)
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "Cv" = (
 /obj/structure/mineral_door/ginger,
 /turf/simulated/floor/wood/oak,
@@ -2982,6 +3041,11 @@
 /area/awaymission/evil_santa/hut_e)
 "CS" = (
 /turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
+"CT" = (
+/obj/structure/decorative_structures/garland,
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/exit)
 "CX" = (
 /mob/living/simple_animal/hostile/zombie{
@@ -3086,11 +3150,9 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "Ev" = (
-/obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list()
-	},
 /obj/item/clothing/suit/hooded/wintercoat/hydro,
 /obj/item/clothing/head/ushanka,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "Ew" = (
@@ -3129,13 +3191,9 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa_storm)
 "ET" = (
-/obj/structure/wooden_sign,
-/turf/simulated/wall/indestructible{
-	color = "#91857C";
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/obj/effect/decal/cleanable/dust,
+/obj/item/clothing/suit/hooded/explorer,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/evil_santa/mine)
 "EV" = (
 /obj/structure/pianoclassic,
@@ -3411,6 +3469,13 @@
 /obj/item/reagent_containers/food/snacks/gingercookie,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
+"HP" = (
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "HT" = (
 /obj/structure/chair/sofa{
 	dir = 1
@@ -3432,6 +3497,9 @@
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "portal";
 	invisibility = 25
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	temperature = 293.15
@@ -3487,9 +3555,6 @@
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/lounge)
 "IA" = (
-/obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list()
-	},
 /obj/item/stack/sheet/wood{
 	amount = 10
 	},
@@ -3500,6 +3565,7 @@
 	amount = 10
 	},
 /obj/item/shovel,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_n)
 "IF" = (
@@ -3507,6 +3573,11 @@
 /obj/item/reagent_containers/food/snacks/gingercookie,
 /obj/item/reagent_containers/food/snacks/gingercookie/tree,
 /obj/structure/decorative_structures/garland,
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
+"IJ" = (
+/obj/effect/decal/cleanable/confetti,
+/obj/item/clothing/head/snowman,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/end/exit)
 "IO" = (
@@ -3525,9 +3596,7 @@
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/lounge)
 "IS" = (
-/mob/living/simple_animal/hostile/winter/santa/stage_1{
-	robust_searching = 1
-	},
+/mob/living/simple_animal/hostile/winter/santa/stage_1,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/santa)
 "IU" = (
@@ -3576,11 +3645,9 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa_storm)
 "JH" = (
-/obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list()
-	},
 /obj/item/clothing/suit/hooded/wintercoat/cargo,
 /obj/item/clothing/head/ushanka,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "JI" = (
@@ -3598,6 +3665,10 @@
 /obj/structure/window/full/reinforced/ice,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_ne)
+"JV" = (
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "JX" = (
 /obj/structure/decorative_structures/garland{
 	dir = 4
@@ -3672,6 +3743,9 @@
 /area/awaymission/evil_santa/hut_e)
 "KE" = (
 /mob/living/simple_animal/hostile/russian/ranged,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
 "KI" = (
@@ -3765,6 +3839,9 @@
 /area/awaymission/evil_santa/end/lounge)
 "LC" = (
 /obj/item/clothing/suit/snowman,
+/obj/structure/window/basic{
+	dir = 8
+	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "LJ" = (
@@ -4016,7 +4093,9 @@
 /area/awaymission/evil_santa/hut_e)
 "Oi" = (
 /obj/item/clothing/suit/space/hardsuit/syndi,
-/obj/item/clothing/neck/cloak/syndieadm,
+/obj/item/clothing/neck/cloak/syndieadm{
+	name = "syndicate officer's cloak"
+	},
 /obj/structure/pit/closed,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa_storm)
@@ -4056,9 +4135,11 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
 "OB" = (
-/obj/structure/sign/poster/official/random,
-/turf/simulated/wall/mineral/wood,
-/area/awaymission/evil_santa/hut_e)
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "OD" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/ball,
 /turf/simulated/floor/wood/oak,
@@ -4087,9 +4168,13 @@
 "OM" = (
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/light,
+/obj/item/stack/medical/bruise_pack/comfrey,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
 "ON" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "carpet6-2"
@@ -4097,6 +4182,7 @@
 /area/awaymission/evil_santa/hut_e)
 "Pc" = (
 /obj/item/clothing/suit/space/swat,
+/obj/item/clothing/head/helmet/swat,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "Pd" = (
@@ -4147,10 +4233,8 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_l)
 "Py" = (
-/obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list()
-	},
 /obj/item/clothing/suit/hooded/wintercoat/cargo,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
 "Pz" = (
@@ -4336,6 +4420,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
+"Ro" = (
+/obj/item/clothing/head/helmet/space/santahat,
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
 "Rv" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/wood/oak,
@@ -4529,6 +4617,15 @@
 /obj/item/reagent_containers/food/condiment/milk,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
+"Tn" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/hypospray/autoinjector{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/hypospray/autoinjector,
+/obj/item/stack/medical/splint,
+/turf/simulated/floor/wood/oak,
+/area/awaymission/evil_santa/end/hall)
 "Tp" = (
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/santa)
@@ -4598,6 +4695,9 @@
 /area/awaymission/evil_santa/mine)
 "TI" = (
 /obj/effect/baseturf_helper/asteroid/snow,
+/obj/structure/window/basic{
+	dir = 1
+	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "TO" = (
@@ -4640,11 +4740,11 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "Ua" = (
-/obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list()
+/obj/item/gun/projectile/shotgun/lethal/rusted{
+	name = "old shotgun"
 	},
-/obj/item/gun/projectile/shotgun/lethal/rusted,
 /obj/item/storage/firstaid/brute,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "Ue" = (
@@ -4757,16 +4857,11 @@
 	},
 /area/awaymission/evil_santa/end/lounge)
 "Vo" = (
-/mob/living/simple_animal/hostile/bear/brown{
-	faction = list("hostile","syndicate","winter");
-	weather_immunities = list("snow")
+/obj/structure/decorative_structures/garland{
+	dir = 8
 	},
-/mob/living/simple_animal/hostile/bear/brown{
-	faction = list("hostile","syndicate","winter");
-	weather_immunities = list("snow")
-	},
-/turf/simulated/floor/plating/asteroid/snow/atmosphere,
-/area/awaymission/evil_santa_storm)
+/turf/simulated/floor/carpet/red,
+/area/awaymission/evil_santa/end/exit)
 "Vq" = (
 /obj/item/clothing/suit/space/hardsuit/mining,
 /turf/simulated/floor/wood/oak,
@@ -4798,12 +4893,17 @@
 /obj/item/reagent_containers/food/snacks/gingercookie/ball,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/mine/labyrinth_m)
-"VP" = (
-/obj/structure/closet/secure_closet/personal/cabinet{
-	req_access = list()
+"VH" = (
+/obj/item/paper{
+	name = "Записка";
+	info = "Кто теперь займет место Санты и раздаст подарки всме достойным? \n И помни главное - открывать подарки раньше времени не стоит!"
 	},
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
+"VP" = (
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /obj/item/clothing/head/ushanka,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/awaymission/evil_santa/hut_e)
 "VR" = (
@@ -4939,6 +5039,10 @@
 	temperature = 293.15
 	},
 /area/awaymission/evil_santa/end/exit)
+"Xj" = (
+/obj/item/clothing/suit/space/santa,
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
 "Xn" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/home,
 /turf/simulated/floor/wood/oak,
@@ -5019,6 +5123,10 @@
 /obj/item/reagent_containers/food/snacks/amanitajelly,
 /turf/simulated/floor/carpet/red,
 /area/awaymission/evil_santa/end/santa)
+"Yc" = (
+/obj/item/clothing/suit/snowman,
+/turf/simulated/floor/wood,
+/area/awaymission/evil_santa/end/exit)
 "Yg" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
@@ -5072,6 +5180,11 @@
 "YP" = (
 /obj/machinery/light,
 /turf/simulated/floor/carpet/green,
+/area/awaymission/evil_santa/end/lounge)
+"YQ" = (
+/obj/machinery/hydroponics/constructable,
+/obj/item/stack/medical/ointment/aloe,
+/turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
 "YT" = (
 /obj/effect/mapping_helpers/light,
@@ -15427,7 +15540,7 @@ Sp
 Sp
 Sp
 Sp
-Vo
+uo
 Sp
 Sp
 Sp
@@ -20670,7 +20783,7 @@ mj
 mj
 RM
 mj
-mj
+Tn
 xN
 Gn
 Gn
@@ -22204,13 +22317,13 @@ Gn
 LY
 xN
 xN
-xN
-xN
-xN
+LY
+qO
+qO
 SQ
-xN
-xN
-xN
+qO
+qO
+LY
 xN
 xN
 LY
@@ -23189,13 +23302,13 @@ Xo
 Xo
 Ij
 Ij
-AV
-AV
-AV
-AV
-AV
-AV
-AV
+Vo
+Vo
+Vo
+Vo
+fy
+Vo
+Vo
 qv
 sV
 nK
@@ -23448,7 +23561,7 @@ Ij
 AV
 AV
 dX
-AV
+Cs
 AV
 AV
 AV
@@ -23706,10 +23819,10 @@ AV
 AV
 AV
 AV
-AV
-AV
-AV
-AV
+mk
+mk
+HP
+mk
 ft
 sV
 yj
@@ -23957,10 +24070,10 @@ Xo
 Xo
 Xo
 Ij
+OB
 AV
 AV
-AV
-AV
+Cs
 AV
 Ij
 Ij
@@ -24214,8 +24327,8 @@ Xo
 Xo
 Xo
 Ij
-AV
-AV
+OB
+Cs
 AV
 AV
 Ij
@@ -24471,7 +24584,7 @@ Xo
 Xo
 Xo
 Ij
-AV
+OB
 AV
 AV
 Ij
@@ -24614,7 +24727,7 @@ Sp
 Sp
 si
 Sp
-Sp
+si
 Sp
 Sp
 Sp
@@ -24728,7 +24841,7 @@ Xo
 Xo
 Xo
 Ij
-AV
+OB
 AV
 Ij
 Ij
@@ -24736,7 +24849,7 @@ CS
 CS
 CS
 RY
-CS
+Xj
 lP
 Ij
 sV
@@ -24985,14 +25098,14 @@ sO
 sO
 sO
 Ij
-AV
-AV
+iZ
+JV
 Ij
 Yw
 CS
-RY
+IJ
 yS
-CS
+Ro
 yS
 lR
 Ij
@@ -25126,7 +25239,7 @@ Sp
 Sp
 Ys
 Sp
-Sp
+si
 Sp
 Sp
 Sp
@@ -25242,12 +25355,12 @@ zF
 HX
 vI
 Ij
-AV
-AV
+OB
+JV
 Ij
 Rg
 yS
-CS
+Yc
 CS
 yS
 RY
@@ -25499,14 +25612,14 @@ rC
 rC
 Lj
 Ij
-AV
-AV
+OB
+CT
 Ij
 Yw
 CS
 RY
-CS
-CS
+fP
+VH
 yS
 Pr
 Ij
@@ -26410,7 +26523,7 @@ Sp
 Sp
 Sp
 Sp
-Sp
+si
 Sp
 Ys
 Sp
@@ -26434,7 +26547,7 @@ GN
 XT
 Za
 IU
-Bo
+aY
 Bo
 ly
 hO
@@ -26527,14 +26640,14 @@ rC
 rC
 Lj
 Ij
-AV
-AV
+iZ
+JV
 Ij
 Yw
 CS
 CS
 yS
-CS
+cl
 yS
 Pr
 Ij
@@ -26690,7 +26803,7 @@ hO
 Bk
 CD
 ji
-Bo
+jk
 hW
 TI
 oq
@@ -26784,15 +26897,15 @@ gd
 pP
 sO
 Ij
-AV
-AV
+OB
+JV
 Ij
 Rg
 CS
 RY
 CS
 RY
-CS
+BT
 Hn
 Ij
 sV
@@ -27041,8 +27154,8 @@ sO
 sO
 sO
 Ij
-AV
-AV
+OB
+JV
 Ij
 Yw
 yS
@@ -27298,8 +27411,8 @@ Xo
 Xo
 Xo
 Ij
-AV
-AV
+OB
+Cs
 Ij
 Ij
 CS
@@ -27436,7 +27549,7 @@ Sp
 Sp
 Sp
 Sp
-Sp
+si
 Sp
 Sp
 Sp
@@ -27555,7 +27668,7 @@ Xo
 Xo
 Xo
 Ij
-AV
+OB
 AV
 AV
 Ij
@@ -27812,7 +27925,7 @@ Xo
 Xo
 Xo
 Ij
-AV
+OB
 AV
 AV
 AV
@@ -28069,9 +28182,9 @@ Xo
 Xo
 Xo
 Ij
+OB
 AV
-AV
-AV
+Cs
 AV
 AV
 Ij
@@ -28330,12 +28443,12 @@ Ij
 AV
 AV
 AV
+Cs
 AV
-AV
-AV
-AV
-AV
-AV
+Vo
+fy
+Vo
+Vo
 qv
 sV
 yj
@@ -28592,7 +28705,7 @@ AV
 AV
 AV
 AV
-AV
+Cs
 uY
 Pq
 Tp
@@ -28843,13 +28956,13 @@ Xo
 Xo
 Ij
 Ij
-AV
-AV
-AV
-AV
-AV
-AV
-AV
+mk
+mk
+mk
+HP
+mk
+mk
+mk
 ft
 sV
 Iy
@@ -29915,11 +30028,11 @@ Gn
 LY
 xN
 xN
-xN
-xN
+LY
+qO
 SQ
-xN
-xN
+qO
+LY
 xN
 xN
 LY
@@ -38782,7 +38895,7 @@ EY
 XQ
 Jd
 KA
-OB
+EY
 ON
 Ks
 EY
@@ -41091,7 +41204,7 @@ Sp
 Sp
 Sp
 Sp
-OB
+EY
 KE
 Oc
 Oc
@@ -45071,7 +45184,7 @@ Tb
 dc
 Mx
 Mx
-Lv
+YQ
 jl
 ZB
 ZB
@@ -50593,11 +50706,11 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
+UP
 vv
 vv
 vv
@@ -50848,13 +50961,13 @@ vv
 vv
 vv
 vv
+UP
+UP
+UP
+UP
+UP
 vv
-vv
-vv
-vv
-vv
-vv
-vv
+UP
 vv
 vv
 vv
@@ -51059,7 +51172,7 @@ vv
 vv
 Zx
 Zx
-Zx
+TF
 UP
 UP
 UP
@@ -51104,15 +51217,15 @@ vv
 UP
 UP
 vv
+UP
+UP
+UP
+UP
+UP
+UP
+UP
 vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+UP
 vv
 vv
 Zx
@@ -51361,15 +51474,15 @@ UP
 UP
 vv
 UP
+UP
+UP
 vv
 vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
+UP
 vv
 vv
 Zx
@@ -51578,7 +51691,7 @@ Zx
 Zx
 Zx
 Zx
-Zx
+MM
 RR
 xE
 UP
@@ -51620,13 +51733,13 @@ Kt
 UP
 UP
 vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
+UP
+UP
+UP
 vv
 vv
 UP
@@ -51877,13 +51990,13 @@ Ni
 Ni
 UP
 vv
+UP
+UP
 vv
 vv
-vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
 vv
 vv
 UP
@@ -51906,7 +52019,7 @@ wy
 qY
 Yz
 Xv
-oj
+ki
 wy
 UP
 vv
@@ -52135,13 +52248,13 @@ Ni
 UP
 vv
 vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
+UP
+UP
+UP
 vv
 vv
 vv
@@ -52161,7 +52274,7 @@ vv
 UP
 wy
 br
-qI
+ET
 CN
 VT
 wy
@@ -52910,8 +53023,8 @@ UP
 UP
 Zx
 Zx
-Zx
 MM
+Zx
 Zx
 Zx
 UP
@@ -53454,7 +53567,7 @@ vv
 vv
 vv
 vv
-Zx
+zi
 Zx
 Zx
 gp
@@ -53937,9 +54050,9 @@ Zx
 Zx
 UP
 UP
-vv
-vv
-vv
+UP
+UP
+UP
 vv
 vv
 vv
@@ -54194,9 +54307,9 @@ xE
 UP
 UP
 vv
-vv
-vv
-vv
+UP
+UP
+UP
 vv
 vv
 vv
@@ -54438,7 +54551,7 @@ Zx
 Zx
 Zx
 Zx
-TF
+Zx
 Fn
 UP
 UP
@@ -54452,11 +54565,11 @@ UP
 vv
 vv
 vv
+UP
+UP
+UP
 vv
-vv
-vv
-vv
-vv
+UP
 vv
 vv
 vv
@@ -54710,9 +54823,9 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
+UP
+UP
+UP
 UP
 UP
 vv
@@ -55224,9 +55337,9 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
+UP
+UP
+UP
 UP
 UP
 UP
@@ -56509,10 +56622,10 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
 vv
 vv
 UP
@@ -56766,11 +56879,11 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
+UP
 vv
 UP
 UP
@@ -56781,7 +56894,7 @@ vv
 vv
 vv
 Bv
-ET
+Bv
 Nz
 Zx
 Zx
@@ -57571,7 +57684,7 @@ vv
 vv
 UP
 UP
-Zx
+zi
 hr
 UP
 UP
@@ -58068,7 +58181,7 @@ vv
 Bv
 Bv
 eo
-Zx
+zi
 Zx
 Zx
 Zx
@@ -58566,7 +58679,7 @@ UP
 UP
 UP
 vv
-vv
+UP
 vv
 vv
 vv
@@ -58583,7 +58696,7 @@ vv
 Bv
 Bv
 Bv
-Cs
+Zx
 Zx
 Zx
 Zx
@@ -58821,10 +58934,10 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
 vv
 vv
 vv
@@ -59078,11 +59191,11 @@ vv
 vv
 vv
 vv
+UP
+UP
 vv
-vv
-vv
-vv
-vv
+UP
+UP
 vv
 vv
 vv
@@ -59335,11 +59448,11 @@ vv
 vv
 vv
 vv
+UP
 vv
+UP
 vv
-vv
-vv
-vv
+UP
 vv
 vv
 vv
@@ -59592,11 +59705,11 @@ vv
 vv
 vv
 vv
-vv
-vv
-vv
-vv
-vv
+UP
+UP
+UP
+UP
+UP
 vv
 vv
 vv
@@ -59850,10 +59963,10 @@ UP
 vv
 vv
 vv
+UP
 vv
-vv
-vv
-vv
+UP
+UP
 vv
 vv
 vv
@@ -60107,10 +60220,10 @@ UP
 vv
 vv
 vv
+UP
+UP
 vv
-vv
-vv
-vv
+UP
 UP
 UP
 UP
@@ -60365,8 +60478,8 @@ vv
 vv
 vv
 vv
-vv
-vv
+UP
+UP
 UP
 UP
 UP

@@ -155,8 +155,8 @@
 	if(cooldown)
 		return
 	cooldown = TRUE
-	addtimer(CALLBACK(src, PROC_REF(ready_or_not)), 5 SECONDS, TIMER_UNIQUE)
-	addtimer(CALLBACK(src, PROC_REF(set_ready)), 6 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(ready_or_not)), 4 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(set_ready)), 5 SECONDS, TIMER_UNIQUE)
 
 /obj/item/paper/journal_scrap_1
 	name = "survivor's journal page 1"
