@@ -72,6 +72,7 @@
 	var/next_stage = null
 	var/death_message
 	var/area/awaymission/evil_santa/end/santa/bossfight_area
+	robust_searching = 1
 	name = "Santa Claus"
 	icon_state = "santa"
 	icon_living = "santa"
