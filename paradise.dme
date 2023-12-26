@@ -624,6 +624,7 @@
 #include "code\game\area\ai_monitored.dm"
 #include "code\game\area\areas.dm"
 #include "code\game\area\ss13_areas.dm"
+#include "code\game\area\vision_reset_areas.dm"
 #include "code\game\area\areas\depot-areas.dm"
 #include "code\game\area\areas\mining.dm"
 #include "code\game\area\areas\syndicate_base.dm"
