@@ -3066,6 +3066,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/item/gift,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -7127,8 +7128,15 @@
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "atA" = (
-/obj/structure/flora/tree/jungle/small,
 /obj/effect/decal/snow/clean,
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -16
+	},
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "atC" = (
@@ -20800,6 +20808,7 @@
 	name = "north extinguisher cabinet";
 	pixel_y = 30
 	},
+/obj/item/gift,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -26466,6 +26475,7 @@
 "bpB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/item/gift,
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bpC" = (
@@ -30209,8 +30219,15 @@
 	},
 /area/hallway/primary/central/se)
 "bzd" = (
-/obj/structure/flora/tree/pine/xmas,
 /obj/effect/decal/snow/clean,
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -16
+	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing.";
 	dir = 4;
@@ -34272,6 +34289,7 @@
 /area/hallway/primary/central/sw)
 "bJP" = (
 /obj/structure/closet/walllocker/emerglocker/south,
+/obj/item/gift,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -41842,6 +41860,7 @@
 	name = "north station intercom (General)";
 	pixel_y = 28
 	},
+/obj/item/gift,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -61398,6 +61417,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/gift,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cUy" = (
@@ -62575,8 +62595,13 @@
 	dir = 4
 	},
 /obj/effect/decal/snow/clean,
-/obj/structure/flora/tree/pine/xmas{
-	pixel_x = -31
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -33
 	},
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
@@ -75098,20 +75123,9 @@
 /obj/item/gift{
 	pixel_x = 11
 	},
-/obj/item/a_gift{
-	pixel_x = 14;
-	pixel_y = -6
-	},
-/obj/item/a_gift{
-	pixel_x = 3;
-	pixel_y = -13
-	},
-/obj/item/a_gift{
-	pixel_x = -10
-	},
-/obj/item/a_gift{
-	pixel_x = -9;
-	pixel_y = -10
+/obj/item/gift{
+	pixel_x = -11;
+	pixel_y = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
@@ -80634,6 +80648,15 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"oXd" = (
+/obj/structure/flora/grass/jungle,
+/obj/effect/decal/snow/clean,
+/obj/item/gift{
+	pixel_x = -10;
+	pixel_y = 5
+	},
+/turf/simulated/floor/grass,
+/area/security/permabrig)
 "oXt" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/flag/nt{
@@ -81182,6 +81205,10 @@
 	icon_state = "redfull"
 	},
 /area/security/range)
+"pEi" = (
+/obj/item/gift,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "pEw" = (
 /obj/structure/rack,
 /obj/item/roller{
@@ -85446,6 +85473,10 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
+"usO" = (
+/obj/item/gift,
+/turf/simulated/floor/engine,
+/area/engine/mechanic_workshop)
 "utk" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -87014,6 +87045,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
+"wcQ" = (
+/obj/structure/flora/grass/jungle/b,
+/obj/effect/decal/snow/clean,
+/obj/item/gift{
+	pixel_x = 8
+	},
+/turf/simulated/floor/grass,
+/area/security/permabrig)
 "wcS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -88187,6 +88226,14 @@
 /obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
+"xmw" = (
+/obj/effect/decal/snow/clean,
+/obj/item/gift{
+	pixel_x = 6;
+	pixel_y = 15
+	},
+/turf/simulated/floor/grass,
+/area/security/permabrig)
 "xnP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -107540,7 +107587,7 @@ akG
 mdm
 atO
 qlG
-asr
+wcQ
 awT
 cgU
 aqt
@@ -107798,7 +107845,7 @@ gGg
 atO
 nuL
 atA
-atz
+xmw
 ayw
 anc
 avh
@@ -108054,7 +108101,7 @@ azo
 kbZ
 atO
 nSK
-nuL
+oXd
 asr
 nuL
 awT
@@ -109680,7 +109727,7 @@ cng
 uTI
 uTI
 cEW
-cFX
+usO
 cFK
 cfv
 cfy
@@ -110167,7 +110214,7 @@ bMi
 bKz
 bQg
 bOh
-bKz
+pEi
 bxb
 bRo
 bRW

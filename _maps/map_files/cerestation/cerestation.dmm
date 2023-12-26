@@ -624,6 +624,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/gift,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4312,6 +4313,7 @@
 	layer = 2.9
 	},
 /obj/effect/decal/snow/clean,
+/obj/machinery/snow_machine,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar)
 "aEU" = (
@@ -6016,8 +6018,15 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
 "aRZ" = (
-/obj/structure/flora/tree/pine/xmas,
 /obj/effect/decal/snow/clean,
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -16
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "aSb" = (
@@ -7200,7 +7209,14 @@
 "aYd" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/effect/decal/snow,
-/obj/structure/flora/tree/pine,
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -16
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "aYe" = (
@@ -7284,6 +7300,14 @@
 "aYD" = (
 /mob/living/simple_animal/butterfly,
 /obj/effect/decal/snow/clean,
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -16
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "aYH" = (
@@ -22291,6 +22315,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
+/obj/item/gift,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -22546,7 +22571,14 @@
 /area/hallway/spacebridge/cargocom)
 "ctw" = (
 /obj/effect/decal/snow/clean,
-/obj/structure/flora/tree/pine,
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -16
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "ctx" = (
@@ -22988,11 +23020,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/explab_chamber)
-"cxb" = (
-/obj/structure/flora/ausbushes/brflowers,
-/obj/effect/decal/snow/clean,
-/turf/simulated/floor/grass,
-/area/security/lobby)
 "cxd" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -25906,6 +25933,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/item/gift,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -26351,6 +26379,12 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/fsmaint3)
+"cRr" = (
+/obj/item/gift,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/bridge)
 "cRv" = (
 /turf/simulated/mineral/ancient/outer,
 /area/mine/unexplored/cere/command)
@@ -27372,16 +27406,8 @@
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
 	},
-/obj/item/grenade/confetti,
 /obj/effect/decal/snow/clean,
-/obj/item/grenade/confetti,
-/obj/item/gift{
-	pixel_x = 15
-	},
-/obj/item/a_gift{
-	pixel_x = 18;
-	pixel_y = -8
-	},
+/obj/structure/flora/tree/pine/xmas,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar)
 "cVO" = (
@@ -29183,7 +29209,14 @@
 /area/toxins/rdoffice)
 "dkj" = (
 /obj/effect/decal/snow,
-/obj/structure/flora/tree/pine,
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -16
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "dkk" = (
@@ -30695,8 +30728,15 @@
 	},
 /area/bridge)
 "dyV" = (
-/obj/structure/flora/ausbushes/ywflowers,
 /obj/effect/decal/snow/clean,
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -16
+	},
 /turf/simulated/floor/grass,
 /area/security/lobby)
 "dyY" = (
@@ -41073,6 +41113,11 @@
 	icon_state = "darkred"
 	},
 /area/teleporter/quantum/security)
+"gEg" = (
+/obj/effect/decal/snow/clean,
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/simulated/floor/grass,
+/area/security/lobby)
 "gEi" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -48187,6 +48232,19 @@
 	icon_state = "red"
 	},
 /area/security/lobby)
+"iDY" = (
+/obj/structure/flora/grass/jungle,
+/obj/effect/decal/snow/clean,
+/obj/structure/statue/bone/rib{
+	desc = "It seems that new year is coming";
+	icon = 'icons/obj/flora/pinetrees.dmi';
+	icon_state = "pine_1";
+	layer = 9;
+	name = "pine tree";
+	pixel_x = -16
+	},
+/turf/simulated/floor/grass,
+/area/hallway/secondary/garden)
 "iEd" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -50559,6 +50617,13 @@
 /obj/effect/decal/remains/mouse/Pinkie,
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server_coldroom)
+"jmI" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/gift,
+/turf/simulated/floor/wood/fancy/light,
+/area/library)
 "jng" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -54722,6 +54787,7 @@
 	name = "Cargo Requests Console";
 	pixel_y = 30
 	},
+/obj/item/gift,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkbrown"
@@ -56966,6 +57032,13 @@
 	icon_state = "black"
 	},
 /area/space)
+"lby" = (
+/obj/item/gift,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteyellow"
+	},
+/area/medical/medbay)
 "lbG" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -64174,6 +64247,7 @@
 	},
 /area/hydroponics)
 "niS" = (
+/obj/item/gift,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -64256,8 +64330,11 @@
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "nkj" = (
-/obj/structure/flora/tree/pine/xmas,
 /obj/effect/decal/snow/clean,
+/obj/item/gift{
+	pixel_x = -7
+	},
+/obj/structure/flora/tree/pine/xmas,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "nkv" = (
@@ -67561,6 +67638,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"ogX" = (
+/obj/item/gift,
+/turf/simulated/floor/carpet/black,
+/area/chapel/office)
 "ogY" = (
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/bar)
@@ -67976,14 +68057,6 @@
 "onH" = (
 /obj/structure/snowman,
 /obj/effect/decal/snow/clean,
-/obj/item/a_gift{
-	pixel_x = -6;
-	pixel_y = 20
-	},
-/obj/item/a_gift{
-	pixel_x = 8;
-	pixel_y = 30
-	},
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar)
 "onW" = (
@@ -79516,6 +79589,12 @@
 "rJj" = (
 /turf/simulated/wall,
 /area/security/warden)
+"rJq" = (
+/obj/item/gift,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/engine/engineering)
 "rJt" = (
 /obj/structure/cable/orange{
 	icon_state = "2-4"
@@ -79587,7 +79666,6 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
 "rLk" = (
-/obj/machinery/snow_machine,
 /obj/effect/decal/snow/clean,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar)
@@ -88100,11 +88178,9 @@
 	},
 /area/medical/morgue)
 "uli" = (
-/obj/machinery/snow_machine,
-/turf/simulated/floor/wood/fancy/light{
-	color = "gray"
-	},
-/area/crew_quarters/bar)
+/obj/item/gift,
+/turf/simulated/floor/plating,
+/area/security/permabrig)
 "ulj" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
@@ -93367,8 +93443,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/flora/tree/pine/xmas,
 /obj/effect/decal/snow/clean,
+/obj/item/grenade/confetti,
+/obj/item/grenade/confetti,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar)
 "vRg" = (
@@ -113733,7 +113810,7 @@ vtY
 vtY
 cGw
 qVc
-lqz
+ogX
 jtD
 lqz
 vuE
@@ -114231,7 +114308,7 @@ pXy
 vtY
 aEe
 gfH
-xmQ
+jmI
 gfH
 ouZ
 gfH
@@ -118027,9 +118104,9 @@ etJ
 dyV
 cED
 cLu
-dyV
+gEg
 etJ
-cxb
+dyV
 hii
 dqG
 dKM
@@ -119794,7 +119871,7 @@ bEW
 dJs
 ajN
 akf
-vNP
+uli
 alp
 afd
 iMa
@@ -121424,7 +121501,7 @@ htw
 uJg
 mNT
 neg
-uli
+wmR
 htw
 rea
 uJg
@@ -129873,7 +129950,7 @@ rNK
 rNK
 lzH
 fph
-ctw
+ooA
 xut
 lwc
 ooA
@@ -130140,7 +130217,7 @@ bBD
 lBM
 cGq
 aXN
-ooA
+ctw
 gqs
 wWC
 aXR
@@ -130390,7 +130467,7 @@ kMs
 ooA
 aZg
 aZh
-beR
+iDY
 aXN
 gQl
 nCW
@@ -136527,7 +136604,7 @@ czg
 xYZ
 aPr
 jLV
-aTH
+cRr
 aVS
 aVS
 abW
@@ -138135,7 +138212,7 @@ mCj
 nwJ
 eTG
 jVy
-xlS
+rJq
 bNx
 xTW
 bPM
@@ -149696,7 +149773,7 @@ dBf
 dEE
 dEE
 bFJ
-dEE
+lby
 bIQ
 hQy
 fGC
