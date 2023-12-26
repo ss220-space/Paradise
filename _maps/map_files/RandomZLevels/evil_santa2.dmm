@@ -3,7 +3,12 @@
 /obj/machinery/gateway{
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "ac" = (
 /obj/structure/table/reinforced,
@@ -626,7 +631,9 @@
 /area/awaymission/evil_santa/spawn_s)
 "gd" = (
 /obj/structure/snowman/medium,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "gg" = (
 /turf/simulated/floor/wood{
@@ -860,6 +867,7 @@
 	icon_state = "portal";
 	invisibility = 25
 	},
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/forest_labyrinth)
 "ib" = (
@@ -982,7 +990,9 @@
 	dir = 6
 	},
 /obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "ji" = (
 /obj/item/a_gift,
@@ -1399,6 +1409,15 @@
 /obj/item/tank/internals/emergency_oxygen,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"ns" = (
+/obj/structure/sign/poster/official/pinup_a{
+	pixel_x = 32
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/awaymission/evil_santa/end/lounge)
 "nt" = (
 /obj/machinery/vending/shoedispenser,
 /obj/machinery/light{
@@ -1675,6 +1694,18 @@
 /obj/machinery/smartfridge,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/evil_santa/end/lounge)
+"pP" = (
+/obj/effect/bump_teleporter{
+	name = "From lounge";
+	id = "lounge_gate";
+	icon_state = "portal-syndicate";
+	icon = 'icons/obj/stationobjs.dmi';
+	invisibility = 25
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
+/area/awaymission/evil_santa/end/exit)
 "pT" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -1717,6 +1748,9 @@
 /obj/effect/baseturf_helper/asteroid/snow,
 /turf/simulated/floor/carpet/orange,
 /area/awaymission/evil_santa/end/hall)
+"qr" = (
+/turf/simulated/floor/carpet/royalblack,
+/area/awaymission/evil_santa/end/lounge)
 "qt" = (
 /obj/structure/snowman/short,
 /turf/simulated/floor/carpet/red,
@@ -1742,9 +1776,14 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/evil_santa/mine)
 "qJ" = (
-/obj/structure/flora/grass/brown,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/exit)
+/obj/structure/sign/poster/secret/lady{
+	pixel_x = -32
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/awaymission/evil_santa/end/lounge)
 "qK" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/reagent_containers/food/drinks/bottle/milk{
@@ -1831,8 +1870,9 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/evil_santa/hut_e)
 "rC" = (
-/obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "rD" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -1968,8 +2008,21 @@
 /turf/simulated/wall/mineral/wood,
 /area/awaymission/evil_santa/end/exit)
 "sP" = (
-/turf/simulated/floor/plating/asteroid/snow/temperature,
-/area/awaymission/evil_santa/end/exit)
+/obj/effect/bump_teleporter{
+	name = "From gate";
+	id = "gate_lounge";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal-syndicate";
+	invisibility = 25
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/awaymission/evil_santa/end/lounge)
 "sU" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/red,
@@ -2087,7 +2140,9 @@
 /obj/machinery/gateway/centeraway{
 	calibrated = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "ur" = (
 /obj/structure/table/reinforced,
@@ -2232,6 +2287,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"vI" = (
+/obj/machinery/door_control{
+	name = "Lounge portal gate";
+	id = "santa_portals"
+	},
+/turf/simulated/wall/mineral/wood,
+/area/awaymission/evil_santa/end/exit)
 "vT" = (
 /obj/machinery/snow_machine,
 /obj/item/wrench,
@@ -2253,6 +2315,10 @@
 /obj/item/decorations/sticky_decorations/flammable/christmas_tree,
 /turf/simulated/wall/indestructible/snow,
 /area/awaymission/evil_santa/forest_labyrinth)
+"wc" = (
+/mob/living/simple_animal/hostile/bear/polar,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa_storm)
 "wg" = (
 /obj/item/storage/bag/ore,
 /turf/simulated/floor/plating/asteroid,
@@ -2454,11 +2520,20 @@
 "xQ" = (
 /turf/simulated/mineral/iron/volcanic/hard,
 /area/awaymission/evil_santa/mine)
+"xS" = (
+/mob/living/simple_animal/hostile/bear/brown,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/evil_santa_storm)
 "xT" = (
 /obj/machinery/gateway{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "xW" = (
 /obj/item/stack/ore/silver,
@@ -2619,6 +2694,12 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/evil_santa/mine)
+"zF" = (
+/obj/structure/snowman/high,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
+/area/awaymission/evil_santa/end/exit)
 "zG" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood/oak,
@@ -2698,7 +2779,9 @@
 /obj/machinery/gateway{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "AV" = (
 /turf/simulated/floor/carpet/red,
@@ -2730,6 +2813,13 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/awaymission/evil_santa/end/hall)
+"Bj" = (
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/carpet/royalblack,
+/area/awaymission/evil_santa/end/lounge)
 "Bk" = (
 /mob/living/simple_animal/hostile/winter/snowman{
 	weather_immunities = list("snow")
@@ -2872,7 +2962,9 @@
 /obj/machinery/gateway{
 	density = 0
 	},
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "CN" = (
 /obj/effect/decal/cleanable/blood,
@@ -2945,6 +3037,22 @@
 	temperature = 293.15
 	},
 /area/awaymission/evil_santa/end/santa)
+"DD" = (
+/obj/effect/bump_teleporter{
+	name = "To gate";
+	id_target = "lounge_gate";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal";
+	invisibility = 25
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/awaymission/evil_santa/end/lounge)
 "DO" = (
 /obj/structure/curtain{
 	color = "#442d15"
@@ -3044,7 +3152,9 @@
 /area/awaymission/evil_santa/hut_e)
 "EZ" = (
 /obj/structure/mineral_door/ginger,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "Fc" = (
 /obj/item/snowball,
@@ -3316,8 +3426,16 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/awaymission/evil_santa/spawn_s)
 "HX" = (
-/obj/structure/snowman/high,
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/obj/effect/bump_teleporter{
+	name = "To lounge";
+	id_target = "gate_lounge";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal";
+	invisibility = 25
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "HY" = (
 /obj/effect/spawner/window/shuttle,
@@ -3627,7 +3745,9 @@
 	light_color = "#ffb366";
 	name = "Mining lantern"
 	},
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "Lm" = (
 /obj/structure/chair/sofa{
@@ -3681,11 +3801,10 @@
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/awaymission/evil_santa/end/hall)
 "Mf" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "santa_portals"
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/royalblack,
 /area/awaymission/evil_santa/end/lounge)
 "Mj" = (
 /turf/simulated/wall/indestructible{
@@ -3697,6 +3816,16 @@
 	desc = "Looks locked and bolted."
 	},
 /area/awaymission/evil_santa/mine/labyrinth_l)
+"Mk" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/sign/poster/official/pinup_b{
+	pixel_y = 32
+	},
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/awaymission/evil_santa/end/lounge)
 "Mp" = (
 /mob/living/simple_animal/hostile/winter/snowman{
 	weather_immunities = list("snow")
@@ -3852,6 +3981,13 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/awaymission/evil_santa/end/lounge)
+"NW" = (
+/obj/structure/decorative_structures/garland{
+	dir = 4
+	},
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/carpet/royalblack,
+/area/awaymission/evil_santa/end/lounge)
 "NZ" = (
 /obj/machinery/chem_master/condimaster,
 /obj/effect/decal/warning_stripes/south,
@@ -3861,7 +3997,12 @@
 /obj/machinery/gateway{
 	dir = 5
 	},
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/obj/structure/decorative_structures/garland{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "Ob" = (
 /obj/structure/railing,
@@ -4794,7 +4935,9 @@
 /obj/machinery/gateway{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "Xn" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/home,
@@ -4921,7 +5064,10 @@
 /obj/effect/decal/remains/mouse{
 	name = "Santa's Little Helper remains"
 	},
-/turf/simulated/floor/plating/asteroid/snow/temperature,
+/obj/structure/flora/grass/brown,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	temperature = 293.15
+	},
 /area/awaymission/evil_santa/end/exit)
 "YP" = (
 /obj/machinery/light,
@@ -14696,7 +14842,7 @@ Sp
 Sp
 Sp
 Sp
-Sp
+xS
 Sp
 Sp
 Sp
@@ -25092,9 +25238,9 @@ nX
 Xo
 sO
 sO
+zF
 HX
-HX
-sO
+vI
 Ij
 AV
 AV
@@ -25349,7 +25495,7 @@ nX
 sO
 sO
 Lj
-sP
+rC
 rC
 Lj
 Ij
@@ -25607,8 +25753,8 @@ sO
 aa
 AT
 YE
-sP
-sP
+rC
+rC
 EZ
 AV
 AV
@@ -25864,8 +26010,8 @@ sO
 xT
 up
 CM
-sP
-sP
+rC
+rC
 EZ
 Im
 dX
@@ -26121,8 +26267,8 @@ sO
 Oa
 Xi
 jh
-sP
-qJ
+rC
+rC
 EZ
 AV
 AV
@@ -26377,8 +26523,8 @@ nX
 sO
 sO
 Lj
-sP
-sP
+rC
+rC
 Lj
 Ij
 AV
@@ -26635,7 +26781,7 @@ Xo
 sO
 sO
 gd
-HX
+pP
 sO
 Ij
 AV
@@ -28123,7 +28269,7 @@ Sp
 Sp
 Sp
 Sp
-Sp
+zh
 Sp
 Sp
 Sp
@@ -28694,7 +28840,7 @@ Xo
 Xo
 Xo
 Xo
-AV
+Xo
 Ij
 Ij
 AV
@@ -34995,7 +35141,7 @@ Sp
 si
 Sp
 Sp
-Sp
+wc
 Sp
 Sp
 Sp
@@ -40171,8 +40317,8 @@ Sp
 Sp
 Sp
 yu
-yu
-yu
+Sp
+Sp
 Sp
 vD
 tk
@@ -40427,9 +40573,9 @@ Sp
 Sp
 Sp
 Sp
-yu
-yu
-yu
+Sp
+Sp
+Sp
 Sp
 EY
 WV
@@ -42081,10 +42227,10 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
+jl
+jl
+jl
+jl
 jl
 BA
 BA
@@ -42338,10 +42484,10 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
+jl
+DD
+qJ
+Bj
 jl
 BA
 BA
@@ -42595,12 +42741,12 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
 jl
+Mk
+qr
+qr
 Mf
+BA
 BA
 BA
 Az
@@ -42852,10 +42998,10 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
+jl
+sP
+ns
+NW
 jl
 BA
 BA
@@ -43109,10 +43255,10 @@ ZB
 ZB
 ZB
 ZB
-ZB
-ZB
-ZB
-ZB
+jl
+jl
+jl
+jl
 jl
 BA
 BA

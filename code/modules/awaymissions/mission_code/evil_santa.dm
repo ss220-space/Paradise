@@ -14,7 +14,12 @@
 	requires_power = TRUE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
-	ambientsounds = list('sound/ambience/apathy.ogg')
+	ambientsounds = list(
+		'sound/ambience/spooky/haunting_ambience.ogg',
+		'sound/ambience/spooky/suspenseful_ambience.ogg',
+		'sound/ambience/spooky/scary_sci_fi_ambience.ogg',
+		'sound/ambience/apathy.ogg',
+		)
 
 /area/awaymission/evil_santa/spawn_s
 	name = "Evil santa spawn south"
@@ -100,6 +105,11 @@
 /area/awaymission/evil_santa/forest_labyrinth
 	name = "Evil santa forest labyrinth"
 	icon_state = "dark"
+	ambientsounds = list(
+			'sound/ambience/spooky/haunting_ambience.ogg',
+			'sound/ambience/spooky/suspenseful_ambience.ogg',
+			'sound/ambience/spooky/scary_sci_fi_ambience.ogg',
+			)
 
 /area/awaymission/evil_santa/end/santa/proc/set_ready()
 	cooldown = FALSE
@@ -223,6 +233,7 @@
 		/obj/item/paper/researchnotes,
 		/obj/item/melee/energy/sword/pirate,
 		/obj/item/stack/spacecash/c5000,
+		/obj/item/stack/spacecash/c1000,
 		/obj/item/storage/box/wizard/hardsuit,
 		/obj/item/storage/box/syndie_kit/hardsuit,
 		/obj/item/clothing/suit/space/hardsuit/champion/templar/premium,
@@ -231,8 +242,12 @@
 		/obj/item/clothing/suit/space/eva/pirate/leader,
 		/obj/item/clothing/head/helmet/space/eva/pirate/leader,
 		/obj/item/hardsuit_shield/syndi,
+		/obj/item/hardsuit_shield/wizard,
+		/obj/vehicle/space/speedbike/red,
 		/obj/vehicle/space/speedbike/red,
 		/obj/vehicle/space/speedbike,
+		/obj/vehicle/space/speedbike,
+		/obj/vehicle/motorcycle,
 		/obj/vehicle/motorcycle,
 		/obj/vehicle/snowmobile/blue/key,
 		/obj/vehicle/snowmobile/key,
