@@ -390,7 +390,7 @@
 /obj/item/projectile/bullet/weakbullet3/c257/phosphorus
 
 /obj/item/projectile/bullet/weakbullet3/c257/phosphorus/on_hit(atom/target, blocked, hit_zone)
+	do_sparks(rand(1, 3), FALSE, target)
 	if(..(target, blocked))
-		do_sparks(rand(1, 3), FALSE, target)
 		var/mob/living/target_living = target
 		target_living.flash_eyes()

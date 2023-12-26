@@ -21,7 +21,7 @@
 	desc = "A roughly made revolver barrel."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "rev_barrel"
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weaponcrafting/revolverbarrel/steel
 	name = "steel revolver barrel"

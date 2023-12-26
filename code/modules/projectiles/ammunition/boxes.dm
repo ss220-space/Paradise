@@ -264,9 +264,8 @@
 	for(var/i = 1 to length(stored_ammo))
 		var/obj/item/ammo_casing/ammo = stored_ammo[i]
 		var/icon/new_ammo_icon = icon('icons/obj/weapons/ammo.dmi', ammo.icon_state)
-		new_ammo_icon.Shift(ISEVEN(i) ? i : 8 / RaiseToPower(2, (i-2)), 1 < i > 4 ? 4 : 2)
+		new_ammo_icon.Shift((i in list(2, 3)) ? 8 / RaiseToPower(2, round(i-2, 2)) : i, ISODD(i) ? 4 : 2)
 		overlays += new_ammo_icon
-
 
 /obj/item/ammo_box/speedloader/c38
 	name = "speed loader (.38)"

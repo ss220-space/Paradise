@@ -86,9 +86,14 @@
 	desc = "A roughly made revolver cylinder."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "rev_cylinder"
-	ammo_type = /obj/item/ammo_casing/revolver/improvised
+	ammo_type = null
 	caliber = list(".257")
 	max_ammo = 4
+
+/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver/Initialize(mapload)
+	..()
+	if(!ammo_type)
+		stored_ammo = new(max_ammo)
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver/ammo_suitability(obj/item/ammo_casing/bullet)
 	if(!bullet || !(bullet.caliber in caliber))
@@ -100,7 +105,6 @@
 	desc = "High quality steel revolver cylinder with increased amount of bullets."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "s_rev_cylinder"
-	ammo_type = /obj/item/ammo_casing/c38
 	caliber = list(".257", ".38")
 	max_ammo = 6
 

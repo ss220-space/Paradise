@@ -12,6 +12,8 @@
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/chamber_round(var/spin = 1)
+	if(!magazine)
+		return
 	if(spin)
 		chambered = magazine.get_round(1)
 	else
@@ -318,9 +320,9 @@
 	desc = "Weapon for crazy fun with friends"
 	icon_state = "irevolver"
 	item_state = "revolver"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver
+	mag_type = null
 	fire_sound = 'sound/weapons/gunshots/improvrev_shot.ogg'
-	var/unscrewed = FALSE
+	var/unscrewed = TRUE
 	var/obj/item/weaponcrafting/revolverbarrel/barrel
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/New()
@@ -342,14 +344,13 @@
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/afterattack(atom/target, mob/living/user, flag, params)
 	if(unscrewed)
-		shoot_with_empty_chamber(user)
-	else if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel) || prob(80))
-		..()
+		shoot_with_empty_chamber()
+	else if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
+		return ..()
 	else
 		chamber_round(1)
 		user.visible_message(span_dangerbigger("*CRACK*"))
 		playsound(user, 'sound/weapons/empty.ogg', 120, 1)
-		return
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/proc/radial_menu(mob/user)
 	var/list/choices = list()
@@ -358,7 +359,7 @@
 		choices["Barrel"] = image(icon = barrel.icon, icon_state = barrel.icon_state)
 	if(magazine)
 		choices["Magazine"] = image(icon = magazine.icon, icon_state = magazine.icon_state)
-	var/choice = show_radial_menu(user, src, choices, require_near = TRUE)
+	var/choice = choices.len == 1 ? pick(choices) : show_radial_menu(user, src, choices, require_near = TRUE)
 
 	if(!choice || loc != user)
 		return
@@ -374,6 +375,7 @@
 			to_chat(user, span_notice("You unscrew [magazine] from [src]."))
 			user.put_in_hands(magazine)
 			magazine = null
+			verbs -= /obj/item/gun/projectile/revolver/verb/spin
 	playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 	update_icon()
 
@@ -400,6 +402,7 @@
 				to_chat(user, span_notice("[src] already have [magazine]."))
 			else if(user.drop_transfer_item_to_loc(A, src))
 				magazine = A
+				verbs += /obj/item/gun/projectile/revolver/verb/spin
 				update_icon()
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
