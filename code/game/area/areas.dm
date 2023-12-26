@@ -570,9 +570,6 @@
 	for(var/obj/machinery/door/window/temp_windoor in src)
 		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
-/area/vision_change_area
-	change_vision = TRUE
-
 /area/vision_change_area/Entered(atom/movable/arrived)
 	. = ..()
 	if(!.)
