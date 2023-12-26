@@ -121,7 +121,7 @@
 
 /obj/item/projectile/bullet/sniper/soporific
 	armour_penetration = 0
-	nodamage = 1
+	nodamage = TRUE
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE

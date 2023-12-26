@@ -33,7 +33,7 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	hitsound_wall = 'sound/weapons/tap.ogg'
 	damage_type = OXY
-	nodamage = 1
+	nodamage = TRUE
 	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foamdart"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart

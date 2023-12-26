@@ -59,7 +59,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c38/hp
-	desc = "A .38 Hollow-Point bullet casing"
+	desc = "A .38 Hollow-Point bullet casing."
 	icon_state = "rhp-casing"
 	materials = list(MAT_METAL = 4000)
 	projectile_type = /obj/item/projectile/bullet/hp38
@@ -179,8 +179,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/revolver/improvised/phosphorus
-	name = "phosphorus bullet"
-	desc = "It's phosphorus bullet."
+	desc = "Full metal shell leaking oil and phosphorous. This is clearly an unreliable bullet."
 	icon_state = "rev-phosphor-casing"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/c257/phosphorus
 

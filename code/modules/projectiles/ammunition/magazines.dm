@@ -1,6 +1,6 @@
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
-	desc = "Oh god, this shouldn't be here"
+	desc = "Oh god, this shouldn't be here!"
 
 //internals magazines are accessible, so replace spent ammo if full when trying to put a live one in
 /obj/item/ammo_box/magazine/internal/give_round(obj/item/ammo_casing/R)
@@ -110,7 +110,7 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
-	desc = "Oh god, this shouldn't be here"
+	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = "cap"
 	max_ammo = 7
@@ -127,7 +127,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	caliber = ".12"
 	max_ammo = 4
-	multiload = 0
+	multiload = FALSE
 
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = 1)
 	if(!countempties)
@@ -202,7 +202,7 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = ".357"
 	max_ammo = 6
-	multiload = 0
+	multiload = FALSE
 
 /obj/item/ammo_box/magazine/internal/rus357/New()
 	..()
@@ -211,11 +211,11 @@
 
 /obj/item/ammo_box/magazine/internal/boltaction
 	name = "bolt action rifle internal magazine"
-	desc = "Oh god, this shouldn't be here"
+	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/a762
 	caliber = "7.62x54mm"
 	max_ammo = 5
-	multiload = 1
+	multiload = TRUE
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	max_ammo =1
@@ -261,7 +261,7 @@
 /obj/item/ammo_box/magazine/m10mm/ap
 	name = "pistol magazine (10mm AP)"
 	icon_state = "9x19pA"
-	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets"
+	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets."
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 
 /obj/item/ammo_box/magazine/m10mm/update_icon()
@@ -295,7 +295,7 @@
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		. += "<span class='notice'>It seems to be loaded with [is_rubber() ? "rubber" : "lethal"] bullets.</span>"//only can see the topmost one.
+		. += span_notice("It seems to be loaded with [is_rubber() ? "rubber" : "lethal"] bullets.")	//only can see the topmost one.
 
 /obj/item/ammo_box/magazine/enforcer/proc/is_rubber()//if the topmost bullet is a rubber one
 	var/ammo = ammo_count()
@@ -389,8 +389,8 @@
 	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
 
 /obj/item/ammo_box/magazine/sfg9mm
-	icon_state = "sfg5"
 	name = "SFG Magazine (9mm)"
+	icon_state = "sfg5"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 30
@@ -672,40 +672,40 @@
 	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/cats12g
-	icon_state = "cats_mag_slug"
 	name = "C.A.T.S. magazine (12g slug)"
 	desc = "Похоже, этот магазин может принять в себя только слаги 12-о калибра."
+	icon_state = "cats_mag_slug"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	multiple_sprites = 2
 	max_ammo = 8
 
 /obj/item/ammo_box/magazine/cats12g/large
-	icon_state = "cats_mag_large_slug"
 	name = "C.A.T.S. magazine (12g-slug)-L"
 	desc = "Похоже, в этот расширенный магазин лезут только слаги 12-о калибра."
+	icon_state = "cats_mag_large_slug"
 	max_ammo = 14
 
 /obj/item/ammo_box/magazine/cats12g/beanbang
-	icon_state = "cats_mag_bean"
 	name = "C.A.T.S. magazine (12g-beanbang)"
 	desc = "Похоже, в этот магазин лезут только патроны-погремушки."
+	icon_state = "cats_mag_bean"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 
 /obj/item/ammo_box/magazine/cats12g/beanbang/large
-	icon_state = "cats_mag_large_bean"
 	name = "C.A.T.S. magazine (12g-beanbang)-L"
 	desc = "Похоже, в этот расширенный магазин лезут только патроны-погремушки."
+	icon_state = "cats_mag_large_bean"
 	max_ammo = 14
 
 /obj/item/ammo_box/magazine/cats12g/universal
-	icon_state = "cats_mag"
 	name = "C.A.T.S. magazine (12g)-U"
 	desc = "Похоже, этот магазин может принять в себя любые патроны 12-о калибра."
+	icon_state = "cats_mag"
 	caliber = ".12"
 	ammo_type = null
 
 /obj/item/ammo_box/magazine/cats12g/universal/large
-	icon_state = "cats_mag_large"
 	name = "C.A.T.S. magazine (12g)-UL"
 	desc = "Похоже, этот расширенный магазин может принять в себя любые патроны 12-о калибра."
+	icon_state = "cats_mag_large"
 	max_ammo = 14

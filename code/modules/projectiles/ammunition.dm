@@ -16,7 +16,7 @@
 	var/pellets = 1								//Pellets for spreadshot
 	var/variance = 0							//Variance for inaccuracy fundamental to the casing
 	var/delay = 0								//Delay for energy weapons
-	var/randomspread = 0						//Randomspread for automatics
+	var/randomspread = FALSE						//Randomspread for automatics
 	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
 	var/harmful = TRUE							//pacifism check for boolet, set to FALSE if bullet is non-lethal
 	var/leaves_residue      		    		//Остается ли порох на руках и одежде?
@@ -127,7 +127,7 @@
 	var/multiple_sprites = 0
 	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
-	var/multiload = 1
+	var/multiload = TRUE
 	var/list/initial_mats
 	var/replacing_sound = 'sound/weapons/gun_interactions/shotguninsert.ogg'
 	var/remove_sound = 'sound/weapons/gun_interactions/remove_bullet.ogg'
@@ -148,7 +148,7 @@
 	stored_ammo = null
 	return ..()
 
-/obj/item/ammo_box/proc/get_round(keep = 0)
+/obj/item/ammo_box/proc/get_round(keep = FALSE)
 	if(!stored_ammo.len)
 		return null
 	else

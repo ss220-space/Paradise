@@ -11,21 +11,21 @@
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
-/obj/item/gun/projectile/revolver/chamber_round(var/spin = 1)
+/obj/item/gun/projectile/revolver/chamber_round(spin = TRUE)
 	if(!magazine)
 		return
 	if(spin)
-		chambered = magazine.get_round(1)
+		chambered = magazine.get_round(TRUE)
 	else
 		chambered = magazine.stored_ammo[1]
 	return
 
-/obj/item/gun/projectile/revolver/shoot_with_empty_chamber(mob/living/user as mob|obj)
+/obj/item/gun/projectile/revolver/shoot_with_empty_chamber(mob/living/user)
 	..()
-	chamber_round(1)
+	chamber_round(TRUE)
 
 /obj/item/gun/projectile/revolver/process_chamber()
-	return ..(0, 1)
+	return ..(FALSE, TRUE)
 
 /obj/item/gun/projectile/revolver/attackby(obj/item/A, mob/user, params)
 	. = ..()
@@ -37,14 +37,14 @@
 			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]."))
 			A.update_icon()
 			update_icon()
-			chamber_round(0)
+			chamber_round(FALSE)
 
 /obj/item/gun/projectile/revolver/attack_self(mob/living/user)
 	var/num_unloaded = 0
 	chambered = null
 	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
-		CB = magazine.get_round(0)
+		CB = magazine.get_round(FALSE)
 		if(CB)
 			CB.loc = get_turf(loc)
 			CB.SpinAnimation(10, 1)
@@ -63,22 +63,22 @@
 
 	var/mob/M = usr
 
-	if(M.stat || !in_range(M,src))
+	if(M.stat || !in_range(M, src))
 		return
 
 	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
 		C.spin()
-		chamber_round(0)
+		chamber_round(FALSE)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
 		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
 	else
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/can_shoot()
-	return get_ammo(0,0)
+	return get_ammo(FALSE, 0)
 
-/obj/item/gun/projectile/revolver/get_ammo(countchambered = 0, countempties = 1)
+/obj/item/gun/projectile/revolver/get_ammo(countchambered = FALSE, countempties = 1)
 	var/boolets = 0 //mature var names for mature people
 	if(chambered && countchambered)
 		boolets++
@@ -88,11 +88,11 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	. += span_notice("[get_ammo(0,0)] of those are live rounds")
+	. += span_notice("[get_ammo(FALSE, 0)] of those are live rounds")
 
 /obj/item/gun/projectile/revolver/detective
-	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
 	name = ".38 Mars Special"
+	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
@@ -148,22 +148,23 @@
 	return ..()
 
 
-/obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
-	to_chat(usr, span_notice("You are out of ammo! You holster your fingers."))
+/obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(mob/living/user)
+	to_chat(user, span_notice("You are out of ammo! You holster your fingers."))
 	qdel(src)
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
-	if(!user.mind.miming)
-		to_chat(usr, span_notice("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
+	if(!user.mind?.miming)
+		to_chat(user, span_notice("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
 		return
 	..()
 
 /obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/A, mob/user, params)
 	return
 
-/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user = usr)
-	to_chat(user, span_notice("You holster your fingers. Another time."))
+/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
+	if(istype(user))
+		to_chat(user, span_notice("You holster your fingers. Another time."))
 	qdel(src)
 	return
 
@@ -183,7 +184,7 @@
 	fire_delay = 5
 
 /obj/item/gun/projectile/revolver/golden
-	name = "\improper Golden revolver"
+	name = "golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
 	icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
@@ -208,7 +209,7 @@
 // You can spin the chamber to randomize the position of the bullet.
 
 /obj/item/gun/projectile/revolver/russian
-	name = "\improper Russian Revolver"
+	name = "\improper Russian revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357
@@ -258,7 +259,7 @@
 		else
 			to_chat(user, span_notice("[src] is empty."))
 
-/obj/item/gun/projectile/revolver/russian/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)
+/obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
 		if(!(target in user.contents) && ismob(target))
 			if(user.a_intent == INTENT_HARM) // Flogging action
@@ -317,7 +318,7 @@
 
 /obj/item/gun/projectile/revolver/improvisedrevolver
 	name = "improvised revolver"
-	desc = "Weapon for crazy fun with friends"
+	desc = "Weapon for crazy fun with friends."
 	icon_state = "irevolver"
 	item_state = "revolver"
 	mag_type = null

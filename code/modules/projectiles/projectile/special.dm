@@ -3,7 +3,7 @@
 	icon_state = "ion"
 	damage = 0
 	damage_type = BURN
-	nodamage = 1
+	nodamage = TRUE
 	var/emp_range = 1
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
@@ -49,7 +49,7 @@
 	icon_state = "temp_4"
 	damage = 0
 	damage_type = BURN
-	nodamage = 1
+	nodamage = TRUE
 	reflectability = REFLECTABILITY_ENERGY
 	flag = "energy"
 	var/temperature = 300
@@ -112,7 +112,7 @@
 	icon_state = "small"
 	damage = 0
 	damage_type = BRUTE
-	nodamage = 1
+	nodamage = TRUE
 	flag = "bullet"
 
 /obj/item/projectile/meteor/Bump(atom/A, yes)
@@ -133,7 +133,7 @@
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
-	nodamage = 1
+	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
@@ -167,7 +167,7 @@
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
-	nodamage = 1
+	nodamage = TRUE
 	flag = "energy"
 
 /obj/item/projectile/energy/florayield/on_hit(var/atom/target, var/blocked = 0)
@@ -299,7 +299,7 @@
 	name = "teleportation burst"
 	icon_state = "bluespace"
 	damage = 0
-	nodamage = 1
+	nodamage = TRUE
 	var/teleport_target = null
 
 /obj/item/projectile/energy/teleport/New(loc, tele_target)
@@ -353,7 +353,7 @@
 	name = "googly-eyed gun"
 	hitsound = 'sound/weapons/genhit1.ogg'
 	damage = 0
-	nodamage = 1
+	nodamage = TRUE
 	damage_type = BURN
 	flag = "melee"
 	var/obj/item/gun/stored_gun

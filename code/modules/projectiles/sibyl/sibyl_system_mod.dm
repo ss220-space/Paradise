@@ -80,7 +80,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	auth_id = null
 	weapon.update_icon()
 	if(!silent && user)
-		to_chat(user, span_notice("Блокировка [weapon] включена"))
+		to_chat(user, span_notice("Блокировка [weapon] включена."))
 	return TRUE
 
 /obj/item/sibyl_system_mod/proc/unlock(mob/user, obj/item/card/id/ID)
