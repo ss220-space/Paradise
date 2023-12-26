@@ -178,11 +178,13 @@
 
 
 #define BLOOD_GAINED_MODIFIER 0.5
-#define GETTING_CLOSER_TIME_MOD 0.2
-#define GRAB_NECK_TIME_MOD 0.3
+#define CLOSING_IN_TIME_MOD 0.2
+#define GRABBING_TIME_MOD 0.3
+#define BITE_TIME_MOD 0.15
 #define STATE_CLOSING_IN 1
 #define STATE_GRABBING 2
-#define STATE_SUCKING 3
+#define STATE_BITE 3
+#define STATE_SUCKING 4
 
 /datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate_override)
 	draining = target
@@ -191,6 +193,7 @@
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	var/cycle_counter = 0
 	var/time_per_action
+	var/vampire_dir = get_dir(owner.current, target)
 
 	var/suck_rate_final
 	if(suck_rate_override)
@@ -216,13 +219,14 @@
 		if(owner.current == grabber)
 			is_target_grabbed = TRUE
 
-	if(is_target_grabbed)
-		//skip getting_closer_animation()
-		cycle_counter = 2
-		time_per_action = suck_rate_final
-	else
+	if(!is_target_grabbed || vampire_dir == NORTHEAST || vampire_dir == NORTHWEST || \
+		vampire_dir ==  SOUTHEAST || vampire_dir ==  SOUTHWEST)
 		//first, the vampire gets closer to the victim, its quick
-		time_per_action = suck_rate_final*GETTING_CLOSER_TIME_MOD
+		time_per_action = suck_rate_final*CLOSING_IN_TIME_MOD
+	else
+		//skip getting_closer_animation(), if we are already close enough
+		cycle_counter = STATE_GRABBING
+		time_per_action = suck_rate_final*BITE_TIME_MOD
 
 	while(do_mob(owner.current, target, time_per_action))
 		cycle_counter++
@@ -232,22 +236,22 @@
 			if(STATE_CLOSING_IN)
 				owner.current.visible_message(span_danger("[owner.current] gets closer to [target]"), \
 					span_danger("You getting closer to [target]"))
-				getting_closer_animation(target, cycle_counter)
-				time_per_action = suck_rate_final*GRAB_NECK_TIME_MOD
+				getting_closer_animation(target, STATE_CLOSING_IN, vampire_dir)
+				time_per_action = suck_rate_final*GRABBING_TIME_MOD
 				continue
 			if(STATE_GRABBING)
 				owner.current.visible_message(span_danger("[owner.current] grabs [target]'s neck harshly"), \
 					span_danger("You grabs [target]'s neck harshly"))
-				getting_closer_animation(target, cycle_counter)
-				time_per_action = suck_rate_final
+				getting_closer_animation(target, STATE_GRABBING, vampire_dir)
+				time_per_action = suck_rate_final*BITE_TIME_MOD
 				continue
-			if(STATE_SUCKING)
+			if(STATE_BITE)
 				owner.current.visible_message(span_danger("[owner.current] sinks in [owner.current.p_their()] fangs!"), \
 					span_danger("You sink your fangs into [target] and begin to drain [target.p_their()] blood."), \
 					span_italics("You hear a soft puncture and a wet sucking noise."))
-
-
-		sucking_animation(target)
+				bite_animation(target, vampire_dir)
+				time_per_action = suck_rate_final
+				continue
 
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
@@ -287,62 +291,50 @@
 
 	stop_sucking(target)
 
-#undef BLOOD_GAINED_MODIFIER
-#undef GETTING_CLOSER_TIME_MOD
-#undef GRAB_NECK_TIME_MOD
-#undef STATE_CLOSING_IN
-#undef STATE_GRABBING
-#undef STATE_SUCKING
 
-
-/datum/antagonist/vampire/proc/getting_closer_animation(mob/living/carbon/human/target, stage)
+/datum/antagonist/vampire/proc/getting_closer_animation(mob/living/carbon/human/target, stage, vampire_dir)
 	var/shift = 0
-	var/vampire_dir = get_dir(owner.current, target)
 	owner.current.layer = MOB_LAYER
 	switch(stage)
-		if(1)
-			shift = -8
-		if(2)
-			shift = -22
+		if(STATE_CLOSING_IN)
+			shift = 8
+		if(STATE_GRABBING)
+			shift = 20
 
-	var/x_shift = 0
-	var/y_shift = 0
-	switch(vampire_dir)
-		if(NORTH)
-			y_shift = -shift
-		if(SOUTH)
-			//If vampire is standing north of the target and facing south, the target should be displayed on top of the vampire
-			owner.current.layer = BEHIND_MOB_LAYER
-			y_shift = shift
-		if(WEST)
-			x_shift = shift
-		if(EAST)
-			x_shift = -shift
-		if(NORTHEAST)
-			y_shift = -shift
-			x_shift = -shift
-		if(NORTHWEST)
-			y_shift = -shift
-			x_shift = shift
-		if(SOUTHEAST)
-			owner.current.layer = BEHIND_MOB_LAYER
-			y_shift = shift
-			x_shift = -shift
-		if(SOUTHWEST)
-			owner.current.layer = BEHIND_MOB_LAYER
-			x_shift = shift
-			y_shift = shift
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
 
-	animate(owner.current, pixel_x = x_shift, pixel_y = y_shift, 5, 1, LINEAR_EASING)
+	if(vampire_dir & NORTH)
+		pixel_y_diff = shift
+	else if(vampire_dir & SOUTH)
+		pixel_y_diff = -shift
+		//If vampire is standing north of the target and facing south, the target should be displayed on top of the vampire
+		owner.current.layer = BEHIND_MOB_LAYER
 
-/datum/antagonist/vampire/proc/sucking_animation(mob/living/carbon/human/target)
-	var/amplitude = 1
-	var/pixel_x_diff = rand(-amplitude, amplitude)
-	var/pixel_y_diff = rand(-amplitude, amplitude)
-	var/final_pixel_x = owner.current.pixel_x
-	var/final_pixel_y = owner.current.pixel_y
-	animate(owner.current, pixel_x = owner.current.pixel_x + pixel_x_diff, pixel_y = owner.current.pixel_y + pixel_y_diff , time = 2, loop = 3)
-	animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
+	if(vampire_dir & EAST)
+		pixel_x_diff = shift
+	else if(vampire_dir & WEST)
+		pixel_x_diff = -shift
+
+	animate(owner.current, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, 5, 1, LINEAR_EASING)
+
+/datum/antagonist/vampire/proc/bite_animation(mob/living/carbon/human/target, vampire_dir)
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
+
+	if(vampire_dir & NORTH)
+		pixel_y_diff = 8
+	else if(vampire_dir & SOUTH)
+		pixel_y_diff = -8
+
+	if(vampire_dir & EAST)
+		pixel_x_diff = 8
+	else if(vampire_dir & WEST)
+		pixel_x_diff = -8
+	animate(owner.current, pixel_x = owner.current.pixel_x + pixel_x_diff, pixel_y = owner.current.pixel_y + pixel_y_diff, time = 0.5)
+	animate(pixel_x = owner.current.pixel_x - pixel_x_diff, pixel_y = owner.current.pixel_y - pixel_y_diff, time = 7)
+	owner.current.do_item_attack_animation(target, ATTACK_EFFECT_BITE)
+
 
 /datum/antagonist/vampire/proc/stop_sucking(mob/living/carbon/human/target)
 	draining = null
@@ -350,6 +342,15 @@
 	owner.current.pixel_x = 0
 	owner.current.pixel_y = 0
 	owner.current.layer = initial(owner.current.layer)
+
+#undef BLOOD_GAINED_MODIFIER
+#undef CLOSING_IN_TIME_MOD
+#undef GRABBING_TIME_MOD
+#undef BITE_TIME_MOD
+#undef STATE_CLOSING_IN
+#undef STATE_GRABBING
+#undef STATE_BITE
+#undef STATE_SUCKING
 
 /datum/antagonist/vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
