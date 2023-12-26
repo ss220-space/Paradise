@@ -570,6 +570,7 @@
 	for(var/obj/machinery/door/window/temp_windoor in src)
 		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
+
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")
 
