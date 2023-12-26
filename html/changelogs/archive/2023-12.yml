@@ -258,3 +258,13 @@
   - refactor: map objects standardization (#4118)
   aeternaclose:
   - unknown: AcademyRework pt2 (#4085)
+'2023-12-25':
+  Daeberdir:
+  - bugfix: blocked moth race. (#4127)
+  NightDawnFox:
+  - bugfix: normal security enforcer in "enforcer kit" (#4128)
+  Vladisvell:
+  - qol: You can unlock apc with alt click and toggle it with ctrl click (#4122)
+  Zwei:
+  - bugfix: Small Map Fix (#4123)
+  - bugfix: Slime Emotes Fix (#4126)

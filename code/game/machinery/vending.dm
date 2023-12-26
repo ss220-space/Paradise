@@ -1227,7 +1227,7 @@
 		add_fingerprint(user)
 		var/list/available_kits = list(
 			"Dominator Kit" = list(/obj/item/gun/energy/dominator/sibyl, /obj/item/clothing/accessory/holster),
-			"Enforcer Kit" = list(/obj/item/gun/projectile/automatic/pistol/enforcer, /obj/item/ammo_box/magazine/enforcer, /obj/item/ammo_box/magazine/enforcer, /obj/item/clothing/accessory/holster),
+			"Enforcer Kit" = list(/obj/item/gun/projectile/automatic/pistol/enforcer/security, /obj/item/ammo_box/magazine/enforcer, /obj/item/ammo_box/magazine/enforcer, /obj/item/clothing/accessory/holster),
 		)
 		var/weapon_kit = input(user, "Select a weaponary kit.") as null|anything in available_kits
 		if(!weapon_kit)

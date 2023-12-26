@@ -48310,7 +48310,7 @@
 	},
 /area/medical/virology/lab)
 "cpM" = (
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitegreen"
