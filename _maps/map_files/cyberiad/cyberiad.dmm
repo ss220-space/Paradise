@@ -3659,6 +3659,9 @@
 	name = "Brig Foyer Right Entrance";
 	req_access = list(63)
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -10173,6 +10176,9 @@
 /area/security/prison/cell_block/A)
 "azR" = (
 /obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -11229,6 +11235,9 @@
 "aCZ" = (
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13130,6 +13139,9 @@
 /area/security/detectives_office)
 "aIh" = (
 /obj/structure/closet/masks,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aIi" = (
@@ -15953,6 +15965,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -16060,6 +16075,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -16662,6 +16680,9 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -17352,6 +17373,9 @@
 "aUo" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/west,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aUp" = (
@@ -17516,9 +17540,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/turf/simulated/floor/plating/ice/smooth,
 /area/crew_quarters/dorms)
 "aUL" = (
 /obj/machinery/light/small{
@@ -18018,6 +18040,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/garden)
+"aVN" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/se)
 "aVO" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -19619,6 +19647,9 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/dorms)
 "aZK" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -20186,9 +20217,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/beach/water{
-	icon_state = "seadeep"
-	},
+/turf/simulated/floor/plating/ice/smooth,
 /area/crew_quarters/dorms)
 "bbl" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -21194,6 +21223,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bdD" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/north)
 "bdE" = (
@@ -21957,6 +21989,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -22108,6 +22143,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -23968,6 +24006,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bjQ" = (
@@ -24181,6 +24222,9 @@
 	name = "Central Access"
 	},
 /obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "bkt" = (
@@ -27360,6 +27404,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitecorner"
@@ -28273,6 +28320,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "buT" = (
@@ -28301,6 +28351,9 @@
 /area/library)
 "buW" = (
 /obj/machinery/light,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/west)
 "buX" = (
@@ -28511,6 +28564,9 @@
 /area/hallway/primary/central/ne)
 "bvE" = (
 /obj/machinery/light,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bvF" = (
@@ -29207,6 +29263,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -29223,6 +29282,9 @@
 /area/bridge)
 "bxk" = (
 /obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -31748,6 +31810,9 @@
 /area/hallway/primary/starboard/east)
 "bDr" = (
 /obj/machinery/light,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -32430,6 +32495,9 @@
 /obj/machinery/camera{
 	c_tag = "East Primary Hallway 6"
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bFx" = (
@@ -32496,6 +32564,9 @@
 "bFG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -33940,6 +34011,9 @@
 	c_tag = "East Primary Hallway 3";
 	dir = 1
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/west)
 "bJi" = (
@@ -34301,6 +34375,9 @@
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = -32
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
@@ -35033,6 +35110,9 @@
 "bMb" = (
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/south,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bMg" = (
@@ -35223,6 +35303,9 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -39906,6 +39989,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -42750,6 +42836,9 @@
 	name = "Central Access"
 	},
 /obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "ccn" = (
@@ -43240,6 +43329,9 @@
 	c_tag = "Central Hallway South-East";
 	dir = 4
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cdd" = (
@@ -43439,6 +43531,9 @@
 /area/toxins/test_area)
 "cdI" = (
 /obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "cdJ" = (
@@ -43541,6 +43636,9 @@
 	},
 /area/hallway/primary/central/south)
 "cdY" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -43754,6 +43852,9 @@
 "ceB" = (
 /obj/machinery/camera{
 	c_tag = "Central Primary Hallway South"
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
@@ -45582,6 +45683,9 @@
 	name = "Central Access"
 	},
 /obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -54666,6 +54770,9 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "cGk" = (
@@ -56012,6 +56119,9 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cIZ" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs-r"
 	},
@@ -56612,6 +56722,9 @@
 "cKk" = (
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62609,6 +62722,9 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "cXh" = (
@@ -67280,6 +67396,9 @@
 	name = "Central Access"
 	},
 /obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -67362,6 +67481,9 @@
 "djZ" = (
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -69725,6 +69847,15 @@
 "dqX" = (
 /turf/simulated/floor/plating,
 /area/aisat)
+"dqZ" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/fore)
 "drf" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai)
@@ -70413,6 +70544,21 @@
 /obj/item/bedsheet/patriot,
 /turf/simulated/floor/carpet,
 /area/security/permabrig)
+"dCF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "dEg" = (
 /obj/structure/toilet{
 	dir = 4
@@ -70562,6 +70708,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"dKC" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/fore)
 "dLv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
@@ -70590,6 +70745,17 @@
 	icon_state = "dark"
 	},
 /area/maintenance/xenozoo)
+"dOj" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "dOm" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -71841,6 +72007,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"fib" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "fim" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -71916,6 +72088,9 @@
 /area/security/permabrig)
 "fpr" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -72246,6 +72421,15 @@
 	icon_state = "white"
 	},
 /area/security/customs)
+"fFv" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/security/lobby)
 "fFC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -72320,6 +72504,14 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/livingcomplex)
+"fKI" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "fLc" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72596,6 +72788,12 @@
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
+"gaF" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard/west)
 "gaT" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -72656,6 +72854,12 @@
 /obj/structure/sign/security,
 /turf/simulated/wall/r_wall,
 /area/hallway/secondary/exit)
+"gfH" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/south)
 "ghh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72943,6 +73147,15 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"gye" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "gyp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/beach_ball/holoball,
@@ -73661,6 +73874,15 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
+"hmy" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "cautioncorner"
+	},
+/area/hallway/primary/aft)
 "hmM" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/light{
@@ -73796,6 +74018,9 @@
 "hxA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -74358,6 +74583,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "iha" = (
@@ -74377,6 +74605,16 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/patients_rooms)
+"ihG" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "iku" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -74530,6 +74768,16 @@
 	icon_state = "dark"
 	},
 /area/maintenance/port)
+"iso" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
+/obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/se)
 "itd" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -74847,6 +75095,24 @@
 	pixel_x = -17
 	},
 /obj/effect/decal/snow/clean,
+/obj/item/gift{
+	pixel_x = 11
+	},
+/obj/item/a_gift{
+	pixel_x = 14;
+	pixel_y = -6
+	},
+/obj/item/a_gift{
+	pixel_x = 3;
+	pixel_y = -13
+	},
+/obj/item/a_gift{
+	pixel_x = -10
+	},
+/obj/item/a_gift{
+	pixel_x = -9;
+	pixel_y = -10
+	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "iJH" = (
@@ -75018,6 +75284,14 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/medbay2)
+"iTs" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/central/north)
 "iTS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -75333,6 +75607,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"jou" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "joy" = (
 /obj/structure/table/glass,
 /obj/item/dice/d20,
@@ -75630,6 +75912,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"jCK" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/ne)
 "jEi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -75663,6 +75954,10 @@
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
+"jFA" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating/ice/smooth,
+/area/crew_quarters/dorms)
 "jFF" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1450;
@@ -75690,6 +75985,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
+"jHr" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "jIh" = (
 /obj/item/radio/intercom/locked/prison{
 	pixel_x = -25
@@ -75726,6 +76030,9 @@
 /area/security/permabrig)
 "jPN" = (
 /obj/machinery/computer/mob_battle_terminal/blue{
+	pixel_x = -32
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
@@ -76961,6 +77268,12 @@
 	icon_state = "white"
 	},
 /area/medical/patients_rooms)
+"lhG" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/port)
 "lhW" = (
 /obj/structure/closet{
 	custom_door_overlay = "black";
@@ -78508,6 +78821,20 @@
 	icon_state = "bcarpet05"
 	},
 /area/blueshield)
+"mJV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/entry)
 "mKg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -78586,6 +78913,15 @@
 	icon_state = "bluecorner"
 	},
 /area/hydroponics)
+"mPV" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/fore)
 "mQz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -79399,6 +79735,15 @@
 	icon_state = "floorgrime"
 	},
 /area/security/permabrig)
+"nSH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard/east)
 "nSK" = (
 /obj/structure/flora/junglebush,
 /obj/item/radio/intercom/locked/prison{
@@ -79532,6 +79877,16 @@
 	icon_state = "darkgrey"
 	},
 /area/toxins/mixing)
+"oaa" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "oaE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -79600,6 +79955,21 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"ogK" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/dorms)
+"ohs" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "oiL" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/effect/decal/warning_stripes/east,
@@ -79653,6 +80023,9 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "olE" = (
@@ -80210,6 +80583,9 @@
 	icon_state = "dark"
 	},
 /area/toxins/mixing)
+"oQS" = (
+/turf/simulated/floor/plating/ice/smooth,
+/area/crew_quarters/dorms)
 "oRz" = (
 /obj/structure/chair{
 	dir = 8
@@ -80362,6 +80738,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
+"pem" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/central/se)
 "pfk" = (
 /obj/structure/rack,
 /obj/item/tank/internals/emergency_oxygen/engi,
@@ -80648,6 +81033,12 @@
 	icon_state = "darkgrey"
 	},
 /area/toxins/mixing)
+"pyE" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "pzk" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -80946,6 +81337,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
+"pJX" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/sw)
 "pKa" = (
 /mob/living/simple_animal/slime,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -81315,6 +81712,13 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
+"qiJ" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "qju" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
@@ -81670,6 +82074,15 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
+"qvE" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "browncorner"
+	},
+/area/hallway/primary/central/nw)
 "qww" = (
 /obj/machinery/light{
 	dir = 1
@@ -81807,6 +82220,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"qCi" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/crew_quarters/dorms)
 "qDb" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -82103,6 +82522,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
+"qTt" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "qTv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -82204,6 +82629,21 @@
 	icon_state = "darkblue"
 	},
 /area/medical/cmo)
+"rbR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "rbW" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -82265,6 +82705,14 @@
 	icon_state = "darkredfull"
 	},
 /area/security/main)
+"rei" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/dorms)
 "reE" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -82645,6 +83093,12 @@
 	icon_state = "darkpurple"
 	},
 /area/toxins/mixing)
+"rAh" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/se)
 "rAi" = (
 /obj/machinery/computer/brigcells,
 /obj/machinery/light{
@@ -83476,6 +83930,15 @@
 	icon_state = "dark"
 	},
 /area/security/prisonershuttle)
+"sEz" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/port)
 "sFh" = (
 /obj/machinery/camera{
 	c_tag = "Holodeck";
@@ -83712,6 +84175,12 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/bar)
+"sSz" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/crew_quarters/dorms)
 "sTD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -84169,6 +84638,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"tpb" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard/east)
 "tpd" = (
 /obj/structure/railing,
 /turf/space,
@@ -85840,6 +86315,18 @@
 	icon_state = "dark"
 	},
 /area/toxins/mixing)
+"vul" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "vuP" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -85881,6 +86368,12 @@
 	icon_state = "darkblue"
 	},
 /area/medical/cmo)
+"vvU" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard/east)
 "vwm" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -86097,6 +86590,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
+"vGF" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/fore)
 "vHh" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel{
@@ -86207,6 +86708,13 @@
 	icon_state = "escape"
 	},
 /area/security/customs2)
+"vMt" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "vMu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -86230,6 +86738,15 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai_upload)
+"vOk" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/central/ne)
 "vOp" = (
 /obj/effect/decal/cleanable/crayon{
 	color = "#66171a";
@@ -86779,6 +87296,17 @@
 	icon_state = "dark"
 	},
 /area/toxins/mixing)
+"wpM" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "wpP" = (
 /obj/structure/sink{
 	dir = 4;
@@ -87066,6 +87594,13 @@
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"wJw" = (
+/obj/machinery/door/firedoor,
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "wKr" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -87549,6 +88084,12 @@
 /obj/item/grenade/confetti,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"xji" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/crew_quarters/dorms)
 "xjx" = (
 /obj/machinery/hydroponics/constructable{
 	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
@@ -87900,6 +88441,14 @@
 	icon_state = "red"
 	},
 /area/security/range)
+"xCt" = (
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "blue"
+	},
+/area/hallway/primary/starboard/west)
 "xCu" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Mixing Room";
@@ -97507,7 +98056,7 @@ ylx
 bGX
 aLd
 aPZ
-bLZ
+vMt
 aLd
 uTI
 uTI
@@ -97763,7 +98312,7 @@ ylx
 aMs
 aMs
 aLd
-aMd
+qiJ
 aRe
 aSd
 aSd
@@ -97779,7 +98328,7 @@ aSd
 aSd
 aSd
 blB
-boL
+fKI
 aLd
 ylx
 ylx
@@ -99048,7 +99597,7 @@ ylx
 ylx
 aMs
 aLd
-aPQ
+ihG
 aSf
 aSf
 aUn
@@ -100590,7 +101139,7 @@ aMu
 aNC
 aKN
 aMA
-aPY
+rbR
 aSf
 aRT
 aLd
@@ -102913,7 +103462,7 @@ aXE
 aZb
 aVc
 bcG
-bhN
+mJV
 aMs
 aMs
 aMs
@@ -103176,7 +103725,7 @@ biv
 bkd
 blJ
 brk
-aSf
+fib
 bqr
 bvc
 btH
@@ -103944,7 +104493,7 @@ aTu
 aTu
 bgn
 blr
-bgG
+wJw
 aMs
 aMs
 aMs
@@ -106255,7 +106804,7 @@ aXQ
 aXQ
 bde
 aVi
-bgz
+lhG
 biJ
 bkb
 blM
@@ -107026,9 +107575,9 @@ aXQ
 aXQ
 bdh
 aVi
-bgz
+lhG
 aIN
-bkg
+sEz
 blM
 bnF
 bpd
@@ -111444,9 +111993,9 @@ cwI
 cCA
 cwF
 cvo
-cER
+vul
 hFD
-ckO
+hmy
 cJZ
 cLy
 cLi
@@ -112941,7 +113490,7 @@ bgP
 bmV
 bgS
 dnN
-bnO
+qvE
 bnO
 poA
 bnO
@@ -112986,7 +113535,7 @@ cvo
 cFT
 cvo
 cvo
-cER
+vul
 tcA
 cGU
 ctT
@@ -113996,7 +114545,7 @@ bQb
 bME
 cdT
 cfm
-bTy
+pJX
 cgS
 ciA
 clR
@@ -114271,9 +114820,9 @@ cyr
 cCM
 uTI
 cFa
-cFt
+gye
 cGi
-ckO
+hmy
 cKb
 cLE
 cMz
@@ -115281,7 +115830,7 @@ uoE
 bMG
 cdX
 cgj
-cdN
+gfH
 cgW
 cgW
 cgW
@@ -116070,7 +116619,7 @@ cBu
 cwO
 cEe
 cvx
-cFt
+gye
 cGi
 ckO
 cKb
@@ -116823,7 +117372,7 @@ bZd
 bZd
 cet
 cgj
-cdN
+gfH
 cgW
 cgW
 cgW
@@ -117023,7 +117572,7 @@ avd
 aAW
 axA
 avd
-avd
+fFv
 azP
 aFy
 iLt
@@ -117037,13 +117586,13 @@ aGx
 aFF
 aSN
 aNK
-aSN
+mPV
 aQQ
 aRF
 atc
 rLq
 bdF
-jgn
+dqZ
 jgn
 baF
 bkC
@@ -117106,7 +117655,7 @@ cHD
 cHI
 cjb
 cHD
-cMV
+wpM
 cJZ
 cRR
 cPl
@@ -117550,17 +118099,17 @@ aIO
 aKz
 aHT
 aNc
-aHT
+vGF
 aNT
 aQS
 aHT
 aSc
 aFF
 aUq
-oOv
+dKC
 oOv
 baF
-bYf
+iTs
 bhh
 bhV
 biK
@@ -117599,9 +118148,9 @@ cdN
 ciN
 cfn
 clZ
-cnA
+jou
 cMV
-xTV
+dOj
 ctl
 cue
 cvK
@@ -117618,7 +118167,7 @@ cHl
 cHO
 cfz
 cnA
-cnA
+jou
 cnA
 cOc
 cJZ
@@ -118326,7 +118875,7 @@ aLP
 aLP
 aLP
 aLP
-aRx
+ogK
 bdN
 bgT
 biP
@@ -119650,7 +120199,7 @@ bZb
 bSi
 ccm
 cgp
-ccm
+iso
 chc
 bYF
 chc
@@ -120126,14 +120675,14 @@ aLP
 aLP
 bbi
 aPm
-bec
+dCF
 aUQ
 aUQ
 bkw
 aUQ
 aUQ
 aUQ
-bhg
+jCK
 bnn
 dnC
 bmi
@@ -121171,14 +121720,14 @@ bod
 bod
 byA
 dnC
-dnC
+vOk
 bza
 bFU
 bBF
 bCY
 bzc
 bFU
-bFU
+pem
 bMT
 bOz
 bRf
@@ -121694,7 +122243,7 @@ pHK
 bFW
 bLg
 bFO
-bFO
+rAh
 bRg
 bTH
 bUL
@@ -121705,8 +122254,8 @@ bZC
 cbs
 bWf
 bXB
-bFO
-bFO
+rAh
+aVN
 chf
 chf
 chf
@@ -122203,7 +122752,7 @@ bxx
 djh
 bAh
 bHy
-bAk
+gaF
 bEp
 aTT
 bCW
@@ -122436,7 +122985,7 @@ aQt
 aSE
 aUd
 aWG
-aWG
+sSz
 bbk
 bcy
 beY
@@ -122691,8 +123240,8 @@ aFI
 aFI
 aQx
 aSJ
-aUI
-aWK
+xji
+oQS
 aZy
 bbn
 bda
@@ -122951,7 +123500,7 @@ aSJ
 aUI
 aWJ
 aWK
-bbn
+jFA
 bcy
 bfb
 aOI
@@ -123207,7 +123756,7 @@ aQA
 aSJ
 aUK
 aWM
-aWM
+qCi
 bbo
 bcy
 bfj
@@ -124745,7 +125294,7 @@ aKO
 aMJ
 aOg
 aFI
-aPm
+pyE
 aSM
 aVp
 aWT
@@ -125287,7 +125836,7 @@ hjl
 bdT
 bAk
 bHy
-bDb
+xCt
 bEo
 aVI
 bDj
@@ -125762,7 +126311,7 @@ awF
 avq
 aHp
 aPm
-aPm
+qTt
 lkw
 aPm
 nXr
@@ -125778,7 +126327,7 @@ aTb
 aVv
 aPm
 aZI
-aTb
+rei
 aTb
 bfz
 aOI
@@ -130935,7 +131484,7 @@ aGY
 aTg
 aGY
 aGX
-bvh
+nSH
 bwv
 bwv
 bwv
@@ -132738,7 +133287,7 @@ buV
 blj
 bxS
 bau
-bwv
+tpb
 bHP
 cXf
 bEA
@@ -136081,7 +136630,7 @@ khg
 bEl
 bwv
 bkL
-bwv
+vvU
 bED
 bED
 bIo
@@ -137107,7 +137656,7 @@ buG
 buG
 aYP
 aYP
-bmm
+ohs
 bHV
 bmm
 cXn
@@ -137616,7 +138165,7 @@ aYP
 aYP
 aLs
 bsP
-bsP
+oaa
 buH
 bBd
 buH
@@ -139158,7 +139707,7 @@ aII
 bEG
 aRn
 btd
-btd
+jHr
 bmm
 cNc
 bDp
