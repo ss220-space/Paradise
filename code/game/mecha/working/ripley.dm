@@ -124,23 +124,9 @@
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
 	HC.attach(src)
-	QDEL_LIST(trackers) //Deletes the beacon so it can't be found easily
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
-
-/obj/mecha/working/ripley/Exit(atom/movable/O)
-	if(O in cargo)
-		return 0
-	return ..()
-
-/obj/mecha/working/ripley/ex_act(severity)
-	..()
-	for(var/X in cargo)
-		var/obj/O = X
-		if(prob(30 / severity))
-			cargo -= O
-			O.forceMove(drop_location())
 
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)

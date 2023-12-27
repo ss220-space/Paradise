@@ -71,7 +71,7 @@
 	health = 150
 	var/next_stage = null
 	var/death_message
-	var/area/awaymission/evil_santa/end/santa/bossfight_area
+	var/area/vision_change_area/awaymission/evil_santa/end/santa/bossfight_area
 	robust_searching = 1
 	name = "Santa Claus"
 	icon_state = "santa"
@@ -133,8 +133,8 @@
 /mob/living/simple_animal/hostile/winter/santa/stage_4		//stage 4: fast spinebreaker
 	name = "Final Form Santa"
 	desc = "WHAT THE HELL IS HE!?! WHY WON'T HE STAY DEAD!?!"
-	maxHealth = 300		//YOU FACE JARAX- I MEAN SANTA!
-	health = 300
+	maxHealth = 250	// 300	//YOU FACE JARAX- I MEAN SANTA!
+	health = 250
 	speed = 0	//he's lost some weight from the fighting
 
 	environment_smash = 2		//naughty walls must be punished too
@@ -155,4 +155,4 @@
 	var/obj/item/grenade/clusterbuster/xmas/Y = new /obj/item/grenade/clusterbuster/xmas(get_turf(src))
 	X.prime()
 	Y.prime()
-	bossfight_area.UnlockBlastDoors()
+	bossfight_area.ready_or_not()
