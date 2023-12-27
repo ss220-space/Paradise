@@ -246,6 +246,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	/// View range preference for this client
 	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
 
+	/// Minigames notification about their end, start and etc.
+	var/minigames_notifications = TRUE
+
 
 /datum/preferences/New(client/C)
 	parent = C
