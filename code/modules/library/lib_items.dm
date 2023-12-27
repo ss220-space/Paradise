@@ -158,6 +158,16 @@
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
 	var/has_drm = FALSE
 
+/obj/item/book/examine(mob/user)
+	. = ..()
+	if(user.is_literate())
+		if(in_range(user, src) || istype(user, /mob/dead/observer))
+			attack_self(user)
+		else
+			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+	else
+		. += "<span class='notice'>You don't know how to read.</span>"
+
 /obj/item/book/attack_self(var/mob/user as mob)
 	if(carved)
 		if(store)
