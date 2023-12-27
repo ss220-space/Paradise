@@ -413,6 +413,8 @@
 			return -1
 		else
 			for(var/obj/item/organ/internal/O as anything in organs)
+				if(O.unremovable)
+					continue
 				O.on_find(user)
 				organs -= O
 				organs[O.name] = O
