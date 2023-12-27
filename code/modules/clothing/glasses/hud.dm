@@ -237,15 +237,12 @@ SECURITY
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-/obj/item/clothing/glasses/hud/security/tajblind
+/obj/item/clothing/glasses/hud/security/sunglasses/tajblind
 	name = "sleek veil"
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
 	flags_cover = GLASSESCOVERSEYES
-	see_in_dark = 1
-	flash_protect = 1
-	tint = 1
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
@@ -257,8 +254,11 @@ SECURITY
 		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/hud/security/tajblind/attack_self(mob/user)
+/obj/item/clothing/glasses/hud/security/sunglasses/tajblind/attack_self(mob/user)
 	toggle_veil(user)
+
+/obj/item/clothing/glasses/hud/security/sunglasses/tajblind/read_only
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /*
 HYDROPONIC
