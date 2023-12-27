@@ -705,4 +705,4 @@
 
 // No hearing announcements
 /mob/new_player/can_hear()
-	return 0
+	return FALSE
