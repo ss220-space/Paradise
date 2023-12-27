@@ -176,6 +176,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	density = 1
 	icon_state = "offcenter"
 	use_power = NO_POWER_USE
+	var/calibrating_on_activating = FALSE
 	var/calibrated = 1
 	var/list/linked = list()	//a list of the connected gateway chunks
 	var/ready = 0
@@ -228,6 +229,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		if(!stationgate)
 			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return
+	if(!calibrated && calibrating_on_activating)
+		calibrated = TRUE
 
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = 1

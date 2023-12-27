@@ -16,7 +16,7 @@
 	end_message = "<span class='boldannounce'>The snowfall dies down, it should be safe to go outside again.</span>"
 	end_overlay = "light_snow"
 
-	area_type = /area/awaymission/evil_santa_storm
+	area_type = /area/vision_change_area/awaymission/evil_santa_storm
 	target_trait = AWAY_LEVEL
 
 	immunity_type = "snow"

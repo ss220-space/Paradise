@@ -27,7 +27,7 @@
 	attacktext = "кромсает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
-	layer = 3.1
+	layer = MOB_LAYER
 	var/stalk_tick_delay = 3
 	gold_core_spawnable = HOSTILE_SPAWN
 
