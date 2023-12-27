@@ -7129,14 +7129,7 @@
 /area/security/permabrig)
 "atA" = (
 /obj/effect/decal/snow/clean,
-/obj/structure/statue/bone/rib{
-	desc = "It seems that new year is coming";
-	icon = 'icons/obj/flora/pinetrees.dmi';
-	icon_state = "pine_1";
-	layer = 9;
-	name = "pine tree";
-	pixel_x = -16
-	},
+/obj/structure/flora/tree/pine,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "atC" = (
@@ -30220,14 +30213,7 @@
 /area/hallway/primary/central/se)
 "bzd" = (
 /obj/effect/decal/snow/clean,
-/obj/structure/statue/bone/rib{
-	desc = "It seems that new year is coming";
-	icon = 'icons/obj/flora/pinetrees.dmi';
-	icon_state = "pine_1";
-	layer = 9;
-	name = "pine tree";
-	pixel_x = -16
-	},
+/obj/structure/flora/tree/pine,
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing.";
 	dir = 4;
@@ -62595,13 +62581,8 @@
 	dir = 4
 	},
 /obj/effect/decal/snow/clean,
-/obj/structure/statue/bone/rib{
-	desc = "It seems that new year is coming";
-	icon = 'icons/obj/flora/pinetrees.dmi';
-	icon_state = "pine_1";
-	layer = 9;
-	name = "pine tree";
-	pixel_x = -33
+/obj/structure/flora/tree/pine{
+	pixel_x = -32
 	},
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)

@@ -6019,14 +6019,7 @@
 /area/lawoffice)
 "aRZ" = (
 /obj/effect/decal/snow/clean,
-/obj/structure/statue/bone/rib{
-	desc = "It seems that new year is coming";
-	icon = 'icons/obj/flora/pinetrees.dmi';
-	icon_state = "pine_1";
-	layer = 9;
-	name = "pine tree";
-	pixel_x = -16
-	},
+/obj/structure/flora/tree/pine,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "aSb" = (
@@ -7209,14 +7202,7 @@
 "aYd" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/effect/decal/snow,
-/obj/structure/statue/bone/rib{
-	desc = "It seems that new year is coming";
-	icon = 'icons/obj/flora/pinetrees.dmi';
-	icon_state = "pine_1";
-	layer = 9;
-	name = "pine tree";
-	pixel_x = -16
-	},
+/obj/structure/flora/tree/pine,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "aYe" = (
@@ -7300,14 +7286,7 @@
 "aYD" = (
 /mob/living/simple_animal/butterfly,
 /obj/effect/decal/snow/clean,
-/obj/structure/statue/bone/rib{
-	desc = "It seems that new year is coming";
-	icon = 'icons/obj/flora/pinetrees.dmi';
-	icon_state = "pine_1";
-	layer = 9;
-	name = "pine tree";
-	pixel_x = -16
-	},
+/obj/structure/flora/tree/pine,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "aYH" = (
@@ -22569,18 +22548,6 @@
 	slowdown = -0.3
 	},
 /area/hallway/spacebridge/cargocom)
-"ctw" = (
-/obj/effect/decal/snow/clean,
-/obj/structure/statue/bone/rib{
-	desc = "It seems that new year is coming";
-	icon = 'icons/obj/flora/pinetrees.dmi';
-	icon_state = "pine_1";
-	layer = 9;
-	name = "pine tree";
-	pixel_x = -16
-	},
-/turf/simulated/floor/grass,
-/area/hallway/secondary/garden)
 "ctx" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -29209,14 +29176,7 @@
 /area/toxins/rdoffice)
 "dkj" = (
 /obj/effect/decal/snow,
-/obj/structure/statue/bone/rib{
-	desc = "It seems that new year is coming";
-	icon = 'icons/obj/flora/pinetrees.dmi';
-	icon_state = "pine_1";
-	layer = 9;
-	name = "pine tree";
-	pixel_x = -16
-	},
+/obj/structure/flora/tree/pine,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "dkk" = (
@@ -48233,16 +48193,8 @@
 	},
 /area/security/lobby)
 "iDY" = (
-/obj/structure/flora/grass/jungle,
 /obj/effect/decal/snow/clean,
-/obj/structure/statue/bone/rib{
-	desc = "It seems that new year is coming";
-	icon = 'icons/obj/flora/pinetrees.dmi';
-	icon_state = "pine_1";
-	layer = 9;
-	name = "pine tree";
-	pixel_x = -16
-	},
+/obj/structure/flora/tree/pine,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "iEd" = (
@@ -128675,7 +128627,7 @@ lzH
 fph
 beR
 kZW
-ctw
+iDY
 cIE
 gID
 xbO
@@ -129438,7 +129390,7 @@ rNK
 fph
 fph
 fph
-ctw
+iDY
 ooA
 hqg
 iQq
@@ -130217,7 +130169,7 @@ bBD
 lBM
 cGq
 aXN
-ctw
+iDY
 gqs
 wWC
 aXR
@@ -130471,7 +130423,7 @@ iDY
 aXN
 gQl
 nCW
-ctw
+iDY
 bdm
 ooA
 cIh
@@ -131240,7 +131192,7 @@ ooA
 xwH
 xwH
 xwH
-ctw
+iDY
 fph
 ngx
 uMC
@@ -132522,7 +132474,7 @@ aYd
 beR
 kZW
 beR
-ctw
+iDY
 bag
 lWT
 bbo
