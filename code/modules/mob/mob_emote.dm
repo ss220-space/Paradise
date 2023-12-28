@@ -143,12 +143,14 @@
 	if(isliving(user) && (user.lying || user.resting))
 		message = "круж%(ит,ат)%ся на полу."
 		return ..()
+
 	else if(params)
 		message_param = "дела%(ет,ют)% кувырок в сторону %t."
 	else if(ishuman(user))
 		var/obj/item/grab/grab = user.get_active_hand()
 		if(istype(grab) && grab.affecting)
 			var/mob/living/target = grab.affecting
+
 			if(user.buckled || target.buckled)
 				to_chat(user, span_warning("[target] is buckled, you can't flip around [target.p_them()]!"))
 				return TRUE
@@ -170,11 +172,7 @@
 
 	if(ishuman(user) && (prob(5) || (iskidan(user) && !user.get_organ(BODY_ZONE_HEAD))))
 		message = "пыта%(ет,ют)%ся сделать кувырок и с грохотом пада%(ет,ют)% на пол!"
-		sleep(0.3 SECONDS)
-		if(!QDELETED(user))
-			user.Weaken(4 SECONDS)
-		return ..()
-
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, Weaken), 4 SECONDS), 0.3 SECONDS, TIMER_UNIQUE)
 	return ..()
 
 
@@ -194,20 +192,15 @@
 	if(!.)
 		return FALSE
 
-	if(isobserver(user))
-		if(user.orbiting)
-			user.stop_orbit()
-		user.spin(20, 1)
-		return TRUE
-
 	if(!ishuman(user) || prob(95))
-		user.spin(20, 1)
-		return TRUE
+		if(isobserver(user) && user.orbiting)
+			user.stop_orbit()
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, spin), 20, 1)
 
-	user.spin(32, 1)
-	to_chat(user, span_warning("You spin too much!"))
-
-	if(isliving(user))
+	else
+		to_chat(user, span_warning("You spin too much!"))
 		user.Dizzy(24 SECONDS)
 		user.Confused(24 SECONDS)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, spin), 32, 1)
+	return TRUE
 
