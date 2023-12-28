@@ -2659,41 +2659,43 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambientsounds = AWAY_MISSION_SOUNDS
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
-/area/awaymission/example
+/area/vision_change_area/awaymission
+
+/area/vision_change_area/awaymission/example
 	name = "\improper Strange Station"
 	icon_state = "away"
 
-/area/awaymission/desert
+/area/vision_change_area/awaymission/desert
 	name = "Sudden Drop"
 	icon_state = "away"
 
-/area/awaymission/beach
+/area/vision_change_area/awaymission/beach
 	name = "Beach"
 	icon_state = "beach"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambinice.ogg')
 
-/area/awaymission/undersea
+/area/vision_change_area/awaymission/undersea
 	name = "Undersea"
 	icon_state = "undersea"
 
 
 // area for AWAY "moonoutpost19"
-/area/moonoutpost19
+/area/vision_change_area/moonoutpost19
 	name = "moonoutpost"
 	has_gravity = TRUE
 	report_alerts = FALSE
 
-/area/moonoutpost19/mo19arrivals
+/area/vision_change_area/moonoutpost19/mo19arrivals
 	name = "MO19 Arrivals"
 	icon_state = "awaycontent1"
 
-/area/moonoutpost19/mo19research
+/area/vision_change_area/moonoutpost19/mo19research
 	name = "MO19 Research"
 	icon_state = "awaycontent2"
 
-/area/moonoutpost19/khonsu19
+/area/vision_change_area/moonoutpost19/khonsu19
 	name = "Khonsu 19"
 	icon_state = "awaycontent3"
 	always_unpowered = TRUE
@@ -2704,11 +2706,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	poweralm = FALSE
 	outdoors = TRUE
 
-/area/moonoutpost19/syndicateoutpost
+/area/vision_change_area/moonoutpost19/syndicateoutpost
 	name = "Syndicate Outpost"
 	icon_state = "awaycontent4"
 
-/area/moonoutpost19/hive
+/area/vision_change_area/moonoutpost19/hive
 	name = "The Hive"
 	icon_state = "awaycontent5"
 	always_unpowered = TRUE
@@ -2717,7 +2719,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_light = FALSE
 	poweralm = FALSE
 
-/area/moonoutpost19/mo19utilityroom
+/area/vision_change_area/moonoutpost19/mo19utilityroom
 	name = "MO19 Utility Room"
 	icon_state = "awaycontent6"
 

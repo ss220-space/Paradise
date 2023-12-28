@@ -4,31 +4,31 @@
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "ab" = (
 /turf/simulated/wall/indestructible/metal,
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "ac" = (
 /turf/simulated/wall/indestructible{
 	icon = 'icons/turf/mining.dmi';
 	icon_state = "rock"
 	},
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "ad" = (
 /turf/simulated/floor/plating/lava/smooth,
 /area/awaymission)
 "ae" = (
 /turf/simulated/wall/indestructible/metal,
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "af" = (
 /turf/simulated/wall/indestructible{
-	icon = null;
-	dynamic_lighting = 0
+	dynamic_lighting = 0;
+	icon = null
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ag" = (
 /turf/template_noop,
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ah" = (
 /turf/template_noop,
 /area/template_noop)
@@ -38,7 +38,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "aj" = (
 /obj/machinery/light{
 	dir = 1
@@ -48,7 +48,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "ak" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -61,7 +61,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "al" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -74,12 +74,12 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "am" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "an" = (
 /obj/effect/view_portal{
 	id = "mazeland_111"
@@ -87,7 +87,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ao" = (
 /obj/effect/view_portal/visual{
 	dir = 4;
@@ -98,7 +98,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ap" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -109,7 +109,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aq" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -121,7 +121,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ar" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -132,7 +132,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "as" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -140,10 +140,10 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "at" = (
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "au" = (
 /obj/machinery/light{
 	dir = 4
@@ -151,7 +151,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "av" = (
 /obj/effect/view_portal{
 	id = "mazeland_211"
@@ -159,7 +159,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aw" = (
 /obj/effect/view_portal{
 	id = "mazeland"
@@ -170,7 +170,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ax" = (
 /obj/effect/view_portal{
 	id = "mazeland_411"
@@ -178,7 +178,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ay" = (
 /mob/living/simple_animal/hostile/carp/sea,
 /turf/simulated/floor/indestructible/beach/water/deep/wood_floor{
@@ -186,7 +186,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "az" = (
 /obj/effect/view_portal{
 	id = "mazeland_112"
@@ -194,7 +194,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aA" = (
 /obj/effect/view_portal/visual{
 	dir = 4;
@@ -205,7 +205,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aB" = (
 /obj/effect/view_portal{
 	id = "mazeland_31"
@@ -213,16 +213,16 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aC" = (
 /turf/simulated/wall/indestructible/metal,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "aD" = (
 /turf/simulated/wall/indestructible{
-	icon = null;
-	dynamic_lighting = 0
+	dynamic_lighting = 0;
+	icon = null
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "aE" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -240,15 +240,15 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "aF" = (
 /obj/item/paper/hotel_scrap_5,
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "aG" = (
 /mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "aH" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -256,14 +256,14 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "aI" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aJ" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -271,7 +271,7 @@
 	id = "snowland_room"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "aK" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -293,7 +293,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "aL" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -301,13 +301,13 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "aM" = (
 /obj/effect/decal/snow/sand/edge{
 	name = "rough sand"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "aN" = (
 /obj/effect/view_portal/visual{
 	dir = 8;
@@ -318,7 +318,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aO" = (
 /obj/effect/view_portal{
 	id = "mazeland_121"
@@ -326,7 +326,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aP" = (
 /obj/machinery/light{
 	dir = 8
@@ -334,7 +334,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aQ" = (
 /obj/effect/view_portal/visual{
 	dir = 8;
@@ -345,7 +345,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "aT" = (
 /obj/effect/view_portal{
 	id = "snowland"
@@ -354,10 +354,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "aV" = (
 /turf/simulated/wall/indestructible/fakeglass,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "aW" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -373,7 +373,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "aX" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -389,7 +389,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "aY" = (
 /obj/machinery/light{
 	dir = 8
@@ -400,7 +400,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "aZ" = (
 /obj/structure/ladder/unbreakable/dive_point/anchor{
 	id = "weirddive";
@@ -411,7 +411,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "ba" = (
 /obj/machinery/light{
 	dir = 4
@@ -421,7 +421,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "bb" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 4;
@@ -429,29 +429,29 @@
 	},
 /obj/structure/closet/athletic_mixed,
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bc" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "sandstone6"
 	},
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bd" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "sandstone12"
 	},
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "be" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "sandstone10"
 	},
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bf" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 8;
 	name = "rough sand"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bg" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -464,7 +464,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bh" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
@@ -478,16 +478,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bi" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bj" = (
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bk" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
@@ -501,7 +501,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bl" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -518,7 +518,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bm" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -532,7 +532,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bn" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 4;
@@ -543,22 +543,22 @@
 /obj/item/clothing/shoes/sandal,
 /obj/structure/closet/crate,
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bo" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "sandstone3"
 	},
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bp" = (
 /turf/simulated/wall/indestructible{
-	icon = null;
-	dynamic_lighting = 0
+	dynamic_lighting = 0;
+	icon = null
 	},
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bq" = (
 /obj/item/beach_ball,
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "br" = (
 /obj/effect/view_portal/visual{
 	dir = 8;
@@ -569,7 +569,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "bs" = (
 /obj/effect/view_portal{
 	id = "mazeland_122"
@@ -577,7 +577,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "bt" = (
 /obj/effect/view_portal{
 	id = "mazeland_212"
@@ -585,7 +585,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "bu" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -598,7 +598,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bv" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -611,7 +611,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bw" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -619,7 +619,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bx" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -627,7 +627,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "by" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -640,19 +640,19 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bz" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 4;
 	name = "rough sand"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bA" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "sandstone1"
 	},
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bB" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -661,13 +661,13 @@
 	radius = 2
 	},
 /turf/simulated/floor/indestructible,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bC" = (
 /mob/living/simple_animal/crab{
 	faction = list("neutral","pirate")
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bE" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -689,7 +689,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bF" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -705,7 +705,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bG" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -718,7 +718,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bH" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -726,7 +726,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bI" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -739,14 +739,14 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bJ" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 1;
 	name = "rough sand"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bK" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 1;
@@ -756,7 +756,7 @@
 	id = "beach"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "bL" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 9;
@@ -794,7 +794,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "bP" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -803,7 +803,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "bQ" = (
 /obj/effect/view_portal{
 	id = "mazeland_413"
@@ -811,7 +811,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "bR" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -830,7 +830,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bS" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -843,15 +843,15 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bT" = (
 /obj/structure/flora/bush,
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bU" = (
 /obj/structure/flora/grass/green,
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "bV" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "asteroid";
@@ -868,7 +868,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "bX" = (
 /obj/effect/view_portal/visual{
 	dir = 1;
@@ -879,7 +879,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "bY" = (
 /obj/effect/view_portal/visual{
 	dist = 2;
@@ -889,7 +889,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "bZ" = (
 /obj/effect/view_portal{
 	id = "mazeland_331"
@@ -897,7 +897,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ca" = (
 /obj/effect/view_portal{
 	id = "mazeland_332"
@@ -905,7 +905,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "cb" = (
 /obj/effect/view_portal/visual{
 	dist = 2;
@@ -915,7 +915,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "cc" = (
 /obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/indestructible/beach/water/deep/wood_floor{
@@ -923,7 +923,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "cd" = (
 /obj/machinery/door/window/southright,
 /turf/simulated/floor/indestructible/beach/water/deep/wood_floor{
@@ -931,7 +931,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "ce" = (
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/light,
@@ -940,7 +940,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "cf" = (
 /obj/effect/light_emitter{
 	light_color = "#ffffc0";
@@ -968,7 +968,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ci" = (
 /obj/effect/view_portal{
 	id = "mazeland_132"
@@ -976,7 +976,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "cj" = (
 /obj/effect/view_portal/visual{
 	dist = 7;
@@ -986,7 +986,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ck" = (
 /obj/effect/view_portal/visual{
 	dist = 7;
@@ -996,10 +996,10 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "cl" = (
 /turf/simulated/wall/indestructible/metal,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "cm" = (
 /obj/structure/sink{
 	dir = 8;
@@ -1014,7 +1014,7 @@
 	icon_state = "freezerfloor";
 	opacity = 1
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "cn" = (
 /obj/structure/toilet{
 	dir = 1
@@ -1023,7 +1023,7 @@
 	icon_state = "freezerfloor";
 	opacity = 1
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "co" = (
 /obj/machinery/door/window/eastleft,
 /obj/machinery/button/windowtint{
@@ -1035,7 +1035,7 @@
 	icon_state = "freezerfloor";
 	opacity = 1
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "cp" = (
 /obj/machinery/shower{
 	dir = 8
@@ -1048,7 +1048,7 @@
 	icon_state = "freezerfloor";
 	opacity = 1
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "cq" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 8;
@@ -1079,7 +1079,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ct" = (
 /obj/machinery/light{
 	dir = 1
@@ -1087,7 +1087,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "cu" = (
 /obj/structure/mirror{
 	dir = 4;
@@ -1101,7 +1101,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "cv" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1123,11 +1123,11 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cw" = (
 /obj/structure/flora/tree/pine,
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cx" = (
 /obj/effect/view_portal{
 	id = "poolland"
@@ -1136,12 +1136,12 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "cy" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "Floor3"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "cz" = (
 /obj/effect/levelref{
 	id = "lavaland";
@@ -1173,7 +1173,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cB" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1184,11 +1184,11 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cC" = (
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cD" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1196,7 +1196,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/sand,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cE" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 10;
@@ -1217,7 +1217,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cG" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1229,7 +1229,7 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cH" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1237,38 +1237,38 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/coastline,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cI" = (
 /obj/effect/waterfall{
 	dir = 1;
 	water_frequency = 104
 	},
 /turf/simulated/floor/indestructible/beach/coastline,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cJ" = (
 /turf/simulated/floor/indestructible/beach/coastline,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cK" = (
 /obj/effect/waterfall{
 	dir = 1;
 	water_frequency = 97
 	},
 /turf/simulated/floor/indestructible/beach/coastline,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cL" = (
 /obj/effect/waterfall{
 	dir = 1;
 	water_frequency = 94
 	},
 /turf/simulated/floor/indestructible/beach/coastline,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cM" = (
 /obj/effect/waterfall{
 	dir = 1;
 	water_frequency = 192
 	},
 /turf/simulated/floor/indestructible/beach/coastline,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cN" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1276,7 +1276,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/coastline,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cO" = (
 /turf/simulated/floor/chasm,
 /area/awaymission)
@@ -1303,11 +1303,11 @@
 	icon_state = "asteroid";
 	name = "cave"
 	},
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cR" = (
 /obj/machinery/poolcontroller/invisible/sea,
 /turf/simulated/wall/indestructible/metal,
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "cS" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1315,10 +1315,10 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cT" = (
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cV" = (
 /obj/effect/decal/snow/sand/edge{
 	name = "rough sand"
@@ -1340,7 +1340,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cX" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1348,7 +1348,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "cY" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1361,7 +1361,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "cZ" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1369,7 +1369,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "da" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1382,7 +1382,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "db" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1395,7 +1395,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dc" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1403,7 +1403,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dd" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 8;
@@ -1430,7 +1430,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "df" = (
 /obj/item/mop,
 /turf/simulated/floor/indestructible/beach/water/deep/wood_floor{
@@ -1438,7 +1438,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "dg" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1451,11 +1451,11 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dh" = (
 /obj/effect/decal/snow/sand/edge,
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "di" = (
 /obj/structure/mopbucket,
 /turf/simulated/floor/indestructible/beach/water/deep/wood_floor{
@@ -1463,7 +1463,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "dj" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1475,10 +1475,10 @@
 	name = "rough sand"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "dk" = (
 /turf/simulated/floor/chasm,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "dl" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1490,7 +1490,7 @@
 	name = "rough sand"
 	},
 /turf/simulated/floor/indestructible/snow,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "dm" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1498,10 +1498,10 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water/edge_drop,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dn" = (
 /turf/simulated/floor/indestructible/beach/water/drop,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "do" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1509,7 +1509,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water/edge_drop,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dp" = (
 /obj/effect/light_emitter{
 	light_color = "#ffffc0";
@@ -1521,14 +1521,14 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "dq" = (
 /obj/effect/light_emitter{
 	light_color = "#ffffc0";
 	light_power = 2
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "dr" = (
 /obj/effect/light_emitter{
 	light_color = "#ffffc0";
@@ -1540,7 +1540,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "ds" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1553,7 +1553,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dt" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1561,10 +1561,10 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "du" = (
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dv" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1572,7 +1572,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dw" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1580,7 +1580,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "dx" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1593,7 +1593,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "dy" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1606,7 +1606,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/chasm,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "dz" = (
 /obj/machinery/light{
 	dir = 8
@@ -1616,7 +1616,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "dA" = (
 /obj/structure/ladder/unbreakable/dive_point/anchor{
 	layer = 4.5
@@ -1626,7 +1626,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "dB" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1634,10 +1634,10 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dC" = (
 /turf/simulated/floor/indestructible/beach/water/drop/dense,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dD" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1650,7 +1650,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dE" = (
 /obj/effect/decal/snow/sand/edge{
 	name = "rough sand"
@@ -1666,7 +1666,7 @@
 /area/awaymission)
 "dF" = (
 /turf/simulated/floor/plating/lava/smooth,
-/area/awaymission/spacehotel/snowland)
+/area/vision_change_area/awaymission/spacehotel/snowland)
 "dG" = (
 /obj/effect/decal{
 	icon = 'icons/turf/mining.dmi';
@@ -1674,7 +1674,7 @@
 	name = "rock"
 	},
 /turf/simulated/floor/indestructible/beach/water/drop/dense,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 "dI" = (
 /obj/machinery/light,
 /turf/simulated/floor/indestructible/beach/water/deep/wood_floor{
@@ -1682,7 +1682,7 @@
 	icon_state = "floor";
 	name = "Pool Floor"
 	},
-/area/awaymission/spacehotel/undersea)
+/area/vision_change_area/awaymission/spacehotel/undersea)
 "dJ" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "sandstone2"
@@ -1727,34 +1727,34 @@
 /area/space/nearstation)
 "dU" = (
 /turf/simulated/wall/indestructible/fakeglass,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "dX" = (
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "dY" = (
 /obj/machinery/camera{
 	c_tag = "Room 110";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "dZ" = (
 /obj/machinery/camera{
 	c_tag = "Room 111";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ea" = (
 /obj/machinery/camera{
 	c_tag = "Room 112";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eb" = (
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ec" = (
 /obj/structure/toilet,
 /obj/machinery/light/small{
@@ -1763,13 +1763,13 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ed" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ee" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/machinery/camera{
@@ -1779,33 +1779,33 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ef" = (
 /obj/machinery/camera{
 	c_tag = "Room 210";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eg" = (
 /obj/machinery/camera{
 	c_tag = "Room 211";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eh" = (
 /obj/machinery/camera{
 	c_tag = "Room 212";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ei" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ej" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1814,7 +1814,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ek" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -1822,7 +1822,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "el" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1830,17 +1830,17 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "em" = (
 /obj/effect/landmark/map_loader/hotel_room,
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "en" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eo" = (
 /obj/structure/sink{
 	dir = 8;
@@ -1856,7 +1856,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ep" = (
 /obj/machinery/light{
 	dir = 1
@@ -1864,7 +1864,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eq" = (
 /obj/effect/decal/cleanable/flour{
 	desc = "Probably."
@@ -1873,7 +1873,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "er" = (
 /obj/structure/mirror{
 	pixel_x = 28
@@ -1889,7 +1889,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "es" = (
 /obj/effect/decal/cleanable/flour{
 	desc = "Probably."
@@ -1897,7 +1897,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "et" = (
 /obj/effect/decal/cleanable/pie_smudge,
 /obj/effect/decal/cleanable/flour{
@@ -1906,7 +1906,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eu" = (
 /obj/machinery/light{
 	dir = 1
@@ -1922,69 +1922,69 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ev" = (
 /obj/machinery/door/unpowered/hotel_door{
 	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 110
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ew" = (
 /obj/machinery/door/unpowered/hotel_door{
 	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 111
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ex" = (
 /obj/machinery/door/unpowered/hotel_door{
 	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 112
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ey" = (
 /obj/machinery/door/unpowered/hotel_door{
 	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 210
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ez" = (
 /obj/machinery/door/unpowered/hotel_door{
 	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 211
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eA" = (
 /obj/machinery/door/unpowered/hotel_door{
 	icon = 'icons/obj/doors/doorgold.dmi';
 	id = 212
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eC" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eD" = (
 /obj/machinery/light,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eF" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eG" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eH" = (
 /obj/machinery/light{
 	dir = 8
@@ -1993,56 +1993,53 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eI" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eJ" = (
 /obj/structure/chair/comfy,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eK" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eM" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "whitebluecorner"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eN" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteblue"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eO" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitebluecorner"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eP" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eQ" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
-"eR" = (
-/turf/simulated/floor/indestructible/upperlevel,
-/area/awaymission/upperlevel)
+/area/vision_change_area/awaymission/spacehotel)
 "eS" = (
 /obj/machinery/light{
 	dir = 4
@@ -2054,19 +2051,19 @@
 	id = 107
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eU" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 108
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eV" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 109
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eW" = (
 /obj/effect/decal{
 	icon = 'icons/turf/floors.dmi';
@@ -2074,73 +2071,73 @@
 	name = "wood siding"
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eX" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 4
+	dir = 4;
+	icon_state = "whiteblue"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eY" = (
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "eZ" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 8
+	dir = 8;
+	icon_state = "whiteblue"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fa" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 207
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fb" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 208
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fc" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 209
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fd" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fe" = (
 /obj/machinery/camera{
 	c_tag = "Room 107";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ff" = (
 /obj/machinery/camera{
 	c_tag = "Room 108";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fg" = (
 /obj/machinery/camera{
 	c_tag = "Room 109";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fh" = (
 /obj/effect/decal{
 	icon = 'icons/turf/floors.dmi';
@@ -2148,98 +2145,98 @@
 	name = "wood siding"
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fi" = (
 /obj/structure/window/plasmabasic,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fj" = (
 /turf/simulated/floor/indestructible/beach/water/drop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fk" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/beach/water/drop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fl" = (
 /turf/simulated/floor/indestructible/beach/water/deep,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fm" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 8
+	dir = 8;
+	icon_state = "whiteblue"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fn" = (
 /obj/machinery/camera{
 	c_tag = "Room 207";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fo" = (
 /obj/machinery/camera{
 	c_tag = "Room 208";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fp" = (
 /obj/machinery/camera{
 	c_tag = "Room 209";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fq" = (
 /obj/structure/window/plasmabasic{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fr" = (
 /turf/simulated/floor/indestructible/beach/water{
-	icon_state = "light_on";
-	icon = 'icons/turf/floors.dmi'
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "light_on"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fs" = (
 /obj/structure/window/plasmabasic{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ft" = (
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fv" = (
 /obj/effect/landmark/map_loader/hotel_room{
 	dir = 1
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fw" = (
 /mob/living/simple_animal/hostile/carp/sea,
 /turf/simulated/floor/indestructible/beach/water{
-	icon_state = "light_on";
-	icon = 'icons/turf/floors.dmi'
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "light_on"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fx" = (
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fy" = (
 /obj/structure/window/plasmabasic{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fz" = (
 /obj/structure/mirror,
 /turf/simulated/wall/indestructible/metal,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fA" = (
 /obj/effect/decal{
 	icon = 'icons/turf/floors.dmi';
@@ -2247,13 +2244,13 @@
 	name = "wood siding"
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fB" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/beach/water/drop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fC" = (
 /obj/structure/ladder/unbreakable/dive_point/buoy,
 /obj/structure/ladder/unbreakable/dive_point/buoy{
@@ -2261,124 +2258,124 @@
 	invisibility = 101
 	},
 /turf/simulated/floor/indestructible/beach/water/deep,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fD" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/beach/water/deep,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fE" = (
 /obj/machinery/light,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fF" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fG" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled/hotel_scrap_1,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fH" = (
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/indestructible/beach/water,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fI" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 104
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fJ" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 105
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fK" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 106
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fL" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 204
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fM" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 205
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fN" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 206
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fO" = (
 /obj/machinery/camera{
 	c_tag = "Room 104";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fP" = (
 /obj/machinery/camera{
 	c_tag = "Room 105";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fQ" = (
 /obj/machinery/camera{
 	c_tag = "Room 106";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fR" = (
 /obj/machinery/light,
 /turf/simulated/floor/indestructible/beach/water/drop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fS" = (
 /obj/machinery/camera{
 	c_tag = "Room 204";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fT" = (
 /obj/machinery/camera{
 	c_tag = "Room 205";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fU" = (
 /obj/machinery/camera{
 	c_tag = "Room 206";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fV" = (
 /obj/item/beach_ball,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fW" = (
 /turf/simulated/wall/indestructible/metal,
 /area/awaymission)
@@ -2388,25 +2385,25 @@
 	name = "hotel level 1"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitebluecorner";
-	dir = 4
+	dir = 4;
+	icon_state = "whitebluecorner"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fY" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteblue"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "fZ" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitebluecorner";
-	dir = 1
+	dir = 1;
+	icon_state = "whitebluecorner"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ga" = (
 /obj/effect/levelref{
 	id = "hotel";
@@ -2422,7 +2419,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gc" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2434,7 +2431,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gd" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2444,7 +2441,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ge" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2456,7 +2453,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gf" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2467,23 +2464,23 @@
 	},
 /obj/item/paper/hotel_scrap_3,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gg" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gh" = (
 /obj/structure/table,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gi" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gj" = (
 /obj/structure/chair/sofa{
 	dir = 4
@@ -2492,11 +2489,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gk" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gl" = (
 /obj/structure/chair/sofa{
 	dir = 8
@@ -2505,7 +2502,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gm" = (
 /obj/structure/chair/sofa/right{
 	dir = 4
@@ -2514,7 +2511,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gn" = (
 /obj/structure/chair/sofa/left{
 	dir = 8
@@ -2523,134 +2520,134 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "go" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gp" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gq" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gr" = (
 /obj/effect/landmark/map_loader/random{
 	template_list = "light_floor_1.dmm;light_floor_2.dmm;light_floor_3.dmm"
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gs" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gt" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 101
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gu" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 102
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gv" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 103
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gw" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gx" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 201
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gy" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 202
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gz" = (
 /obj/machinery/door/unpowered/hotel_door{
 	id = 203
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gA" = (
 /obj/machinery/camera{
 	c_tag = "Room 101";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gB" = (
 /obj/machinery/camera{
 	c_tag = "Room 102";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gC" = (
 /obj/machinery/camera{
 	c_tag = "Room 103";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gD" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gF" = (
 /obj/machinery/camera{
 	c_tag = "Room 201";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gG" = (
 /obj/machinery/camera{
 	c_tag = "Room 202";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gH" = (
 /obj/machinery/camera{
 	c_tag = "Room 203";
 	network = list("Hotel")
 	},
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gI" = (
 /obj/structure/chair/stool,
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gJ" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled/hotel_scrap_6,
 /turf/template_noop,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gL" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/enzyme{
@@ -2659,40 +2656,40 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gM" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/dough,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gN" = (
 /obj/structure/table,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gO" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/rawsticks,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gP" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gR" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gS" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker{
@@ -2701,7 +2698,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gT" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/saltshaker{
@@ -2713,153 +2710,153 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gU" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gV" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/salmonmeat,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gW" = (
 /obj/structure/table,
 /obj/item/book/manual/chef_recipes,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "gX" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gY" = (
 /obj/structure/table,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "gZ" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hc" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "hd" = (
 /obj/machinery/light,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "he" = (
 /obj/machinery/processor,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "hf" = (
 /obj/machinery/chem_master/condimaster,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "hg" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "hh" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "hi" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "hj" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "hk" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "hl" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
-/area/awaymission/spacehotel/kitchen)
+/area/vision_change_area/awaymission/spacehotel/kitchen)
 "hm" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hn" = (
 /obj/machinery/light,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ho" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hp" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/soda,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hq" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/beer,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hr" = (
 /obj/machinery/light,
 /obj/structure/table,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hs" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ht" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen";
@@ -2869,7 +2866,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "white"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hu" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen";
@@ -2879,17 +2876,17 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowfull"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hv" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "floor3"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hw" = (
 /turf/simulated/wall/indestructible{
 	icon = null
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hx" = (
 /obj/effect/view_portal/visual{
 	dir = 8;
@@ -2900,57 +2897,57 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor3"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hy" = (
 /obj/effect/view_portal{
 	id = "hotel_21"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "ramptop";
-	dir = 4
+	dir = 4;
+	icon_state = "ramptop"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hz" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hB" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellow";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hC" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellow";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hD" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellowcorner";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteyellowcorner"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hE" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "white"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hF" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellowcorner";
-	dir = 4
+	dir = 4;
+	icon_state = "whiteyellowcorner"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hG" = (
 /obj/structure/ladder/unbreakable{
 	height = 1;
@@ -2958,25 +2955,25 @@
 	id = "service"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellow";
-	dir = 5
+	dir = 5;
+	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hH" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "ramptop";
-	dir = 4
+	dir = 4;
+	icon_state = "ramptop"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hI" = (
 /obj/effect/view_portal{
 	id = "hotel_11"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hJ" = (
 /obj/effect/view_portal/visual{
 	dir = 4;
@@ -2986,7 +2983,7 @@
 	radius = 0
 	},
 /turf/simulated/floor/indestructible,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hK" = (
 /obj/machinery/light{
 	dir = 1
@@ -2998,17 +2995,17 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellow";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hM" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellow";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hN" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/ladder/unbreakable{
@@ -3017,10 +3014,10 @@
 	id = "service"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellow";
-	dir = 5
+	dir = 5;
+	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hO" = (
 /obj/effect/view_portal/visual{
 	dir = 8;
@@ -3031,47 +3028,47 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor3"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hP" = (
 /obj/effect/view_portal{
 	id = "hotel_22"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "ramptop";
-	dir = 4
+	dir = 4;
+	icon_state = "ramptop"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hQ" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hR" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Employees Only";
 	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitered";
-	dir = 8
+	dir = 8;
+	icon_state = "whitered"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hS" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellow";
-	dir = 4
+	dir = 4;
+	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hT" = (
 /obj/effect/view_portal{
 	id = "hotel_12"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hU" = (
 /obj/effect/view_portal/visual{
 	dir = 4;
@@ -3081,7 +3078,7 @@
 	radius = 0
 	},
 /turf/simulated/floor/indestructible,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hV" = (
 /obj/machinery/door/airlock/public/glass{
 	icon_state = "door_locked";
@@ -3090,16 +3087,16 @@
 	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitered";
-	dir = 8
+	dir = 8;
+	icon_state = "whitered"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hW" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible{
 	icon_state = "white"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hX" = (
 /obj/effect/view_portal/visual{
 	dir = 8;
@@ -3110,54 +3107,54 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor3"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hY" = (
 /obj/effect/view_portal{
 	id = "hotel_23"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "ramptop";
-	dir = 4
+	dir = 4;
+	icon_state = "ramptop"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "hZ" = (
 /obj/machinery/light,
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ia" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ib" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellowcorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whiteyellowcorner"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ic" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellowcorner"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "id" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whiteyellow";
-	dir = 6
+	dir = 6;
+	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "if" = (
 /obj/effect/view_portal{
 	id = "hotel_13"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ig" = (
 /obj/effect/view_portal/visual{
 	dir = 4;
@@ -3167,13 +3164,13 @@
 	radius = 0
 	},
 /turf/simulated/floor/indestructible,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ih" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible{
 	icon_state = "whiteyellow"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ii" = (
 /obj/machinery/door/airlock{
 	name = "Supply";
@@ -3182,20 +3179,20 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ij" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Mail Room"
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ik" = (
 /obj/machinery/door/airlock{
 	name = "Security";
 	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "il" = (
 /obj/machinery/door/airlock{
 	name = "Electrical Room";
@@ -3207,18 +3204,18 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "im" = (
 /obj/machinery/door/airlock{
 	name = "Employees Only";
 	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "in" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/wall/indestructible/metal,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "io" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/falsewall,
@@ -3226,32 +3223,32 @@
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ip" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iq" = (
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ir" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "is" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "it" = (
 /obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iu" = (
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen{
@@ -3262,7 +3259,7 @@
 	use_power = 0
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iv" = (
 /obj/structure/chair{
 	dir = 8
@@ -3272,7 +3269,7 @@
 	},
 /obj/effect/decal/cleanable/pie_smudge,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iw" = (
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen{
@@ -3282,14 +3279,14 @@
 	use_power = 0
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ix" = (
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iy" = (
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iz" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3297,46 +3294,46 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iA" = (
 /obj/machinery/computer/account_database,
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iB" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iC" = (
 /obj/structure/window/basic{
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/fernybush,
 /turf/simulated/floor/indestructible/grass,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iD" = (
 /turf/simulated/wall/indestructible{
-	icon_state = "cult";
-	icon = 'icons/turf/walls/cult_wall.dmi'
+	icon = 'icons/turf/walls/cult_wall.dmi';
+	icon_state = "cult"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iE" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iF" = (
 /obj/structure/closet/crate/plastic,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iG" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iH" = (
 /obj/structure/chair{
 	dir = 1
@@ -3346,13 +3343,13 @@
 	},
 /obj/effect/decal/cleanable/pie_smudge,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iI" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iJ" = (
 /obj/structure{
 	desc = "It appears to be similar to a SMES.";
@@ -3361,7 +3358,7 @@
 	name = "WaffeCo PSU"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iK" = (
 /obj/structure{
 	desc = "It appears to be some sort of generator.";
@@ -3370,11 +3367,11 @@
 	name = "WaffeCo PGU"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iL" = (
 /obj/machinery/power/supermatter_shard,
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iM" = (
 /obj/machinery/gateway{
 	dir = 9
@@ -3383,7 +3380,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iN" = (
 /obj/machinery/gateway{
 	dir = 1
@@ -3392,7 +3389,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iO" = (
 /obj/machinery/gateway{
 	dir = 5
@@ -3401,20 +3398,20 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iP" = (
 /obj/structure/window/basic{
 	dir = 8
 	},
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/indestructible/grass,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iQ" = (
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iR" = (
 /obj/effect/gibspawner/human,
 /obj/effect/decal/cleanable/blood/old,
@@ -3422,16 +3419,16 @@
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iS" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iT" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iU" = (
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen{
@@ -3445,13 +3442,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iV" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iW" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3464,7 +3461,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iX" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3472,7 +3469,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3490,7 +3487,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "iZ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3499,7 +3496,7 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ja" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -3512,13 +3509,13 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jb" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jc" = (
 /obj/machinery/gateway{
 	dir = 8
@@ -3527,7 +3524,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jd" = (
 /obj/machinery/gateway/centeraway{
 	calibrated = 0
@@ -3535,7 +3532,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "je" = (
 /obj/machinery/gateway{
 	dir = 4
@@ -3544,7 +3541,7 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jf" = (
 /obj/structure/window/basic{
 	dir = 8
@@ -3552,7 +3549,7 @@
 /obj/structure/flora/rock,
 /obj/structure/flora/grass/brown,
 /turf/simulated/floor/indestructible/grass,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jg" = (
 /obj/item/candle,
 /obj/effect/decal/cleanable/blood/old,
@@ -3560,7 +3557,7 @@
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jh" = (
 /obj/effect/rune,
 /obj/item/organ/internal/brain,
@@ -3568,33 +3565,33 @@
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ji" = (
 /obj/item/candle,
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jj" = (
 /obj/item/tome,
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jk" = (
 /obj/structure/closet/crate/critter,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jl" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Lobby"
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jn" = (
 /obj/structure{
 	desc = "It appears to be similar to a SMES.";
@@ -3604,33 +3601,33 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jo" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/head/soft/red,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jp" = (
 /obj/item/toy/prize/honk,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jq" = (
 /obj/item/toy/spinningtoy,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jr" = (
 /obj/item/grown/bananapeel,
 /obj/item/toy/spinningtoy,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "js" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jt" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ju" = (
 /obj/machinery/gateway{
 	dir = 10
@@ -3639,14 +3636,14 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jv" = (
 /obj/machinery/gateway,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jw" = (
 /obj/machinery/gateway{
 	dir = 6
@@ -3655,14 +3652,14 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jx" = (
 /obj/structure/window/basic{
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/indestructible/grass,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jy" = (
 /obj/item/flashlight/lantern{
 	on = 1
@@ -3671,14 +3668,14 @@
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jz" = (
 /obj/effect/rune,
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jA" = (
 /obj/structure/chair/comfy,
 /obj/item/soulstone,
@@ -3691,24 +3688,24 @@
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jB" = (
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jC" = (
 /obj/machinery/atm{
 	pixel_y = 32
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jD" = (
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jE" = (
 /obj/item/paper/pamphlet{
 	pixel_x = -8;
@@ -3735,13 +3732,13 @@
 	pixel_y = -8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "jF" = (
 /obj/item/latexballon,
 /obj/item/latexballon,
 /obj/structure/table/glass,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "jG" = (
 /obj/structure/rack,
 /obj/item/key,
@@ -3750,7 +3747,7 @@
 /obj/item/key,
 /obj/item/key,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "jH" = (
 /obj/structure/chair/comfy,
 /obj/effect/decal/cleanable/flour{
@@ -3758,7 +3755,7 @@
 	},
 /obj/effect/decal/cleanable/pie_smudge,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jI" = (
 /obj/structure/chair/comfy,
 /obj/effect/decal/cleanable/flour{
@@ -3769,7 +3766,7 @@
 	},
 /obj/effect/decal/cleanable/pie_smudge,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jJ" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -3777,7 +3774,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3790,7 +3787,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jL" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -3798,51 +3795,51 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jM" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jN" = (
 /obj/item/trash/candle,
 /obj/item/trash/candle,
 /obj/item/trash/candle,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jO" = (
 /obj/structure/window/basic{
 	dir = 8
 	},
 /obj/structure/flora/bush,
 /turf/simulated/floor/indestructible/grass,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jP" = (
 /obj/item/restraints/legcuffs,
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jQ" = (
 /obj/structure/closet/crate/secure/unknownchemicals,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jR" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled/hotel_scrap_7,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jS" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "jT" = (
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "jU" = (
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen{
@@ -3854,7 +3851,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jV" = (
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen{
@@ -3865,50 +3862,50 @@
 	use_power = 0
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jW" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jX" = (
 /obj/item/toy/sword,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jY" = (
 /obj/item/target/syndicate,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "jZ" = (
 /obj/item/trash/sosjerky,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ka" = (
 /obj/item/gun/projectile/shotgun/toy/crossbow,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kb" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kc" = (
 /obj/machinery/door/airlock{
 	name = "Supply Closet"
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kd" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Gateway"
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ke" = (
 /obj/item/melee/cultblade,
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kf" = (
 /obj/item/kitchen/knife/butcher{
 	blood_DNA = list("1e+009"="O-")
@@ -3918,7 +3915,7 @@
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kg" = (
 /obj/machinery/light{
 	dir = 8
@@ -3927,99 +3924,99 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kh" = (
 /obj/effect/hotel_controller,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ki" = (
 /obj/item/pen,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "kj" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "kk" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "kl" = (
 /obj/structure/chair/sofa{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "km" = (
 /obj/item/clipboard,
 /obj/item/paper,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "ko" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "kp" = (
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "kq" = (
 /obj/structure/chair/sofa/corner{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kr" = (
 /obj/structure/chair/sofa{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ks" = (
 /obj/machinery/light,
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kt" = (
 /obj/machinery/light,
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "ku" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kv" = (
 /obj/item/paper_bin,
 /obj/structure/table/glass,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "kw" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel/reception)
+/area/vision_change_area/awaymission/spacehotel/reception)
 "kz" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrival Airlock"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "kF" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/awaymission)
@@ -4164,20 +4161,20 @@
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "lm" = (
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
-/area/awaymission/spacehotel/amazing_place)
+/area/vision_change_area/awaymission/spacehotel/amazing_place)
 "ln" = (
 /obj/item/paper/hotel_scrap_8,
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"
 	},
-/area/awaymission/spacehotel)
+/area/vision_change_area/awaymission/spacehotel)
 "Aq" = (
 /turf/simulated/floor/indestructible/upperlevel,
 /area/awaymission/upperlevel)
@@ -4189,7 +4186,7 @@
 	},
 /obj/machinery/poolcontroller/invisible,
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
-/area/awaymission/beach)
+/area/vision_change_area/awaymission/beach)
 
 (1,1,1) = {"
 aa
@@ -16355,33 +16352,33 @@ cl
 eD
 cl
 eP
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 fE
 cl
 eP
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 fE
 cl
 eP
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 fE
 cl
 eC
@@ -16485,33 +16482,33 @@ eA
 eb
 eH
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 fF
 eH
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 fF
 eH
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 fF
 eH
 eb
@@ -16615,33 +16612,33 @@ cl
 eD
 cl
 eP
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 fE
 cl
 eP
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 fE
 cl
 eP
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 fE
 cl
 eC
@@ -17394,20 +17391,20 @@ cl
 cl
 eC
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 ga
 gb
 eb
@@ -17524,21 +17521,21 @@ eo
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gc
 gj
 gm
@@ -17654,21 +17651,21 @@ ei
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gd
 gk
 gk
@@ -17784,21 +17781,21 @@ ei
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 ge
 gl
 gn
@@ -17914,21 +17911,21 @@ es
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gc
 gj
 gm
@@ -18044,21 +18041,21 @@ et
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gd
 gk
 gk
@@ -18174,21 +18171,21 @@ ei
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 ge
 gl
 gn
@@ -18304,21 +18301,21 @@ ep
 cl
 eC
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gc
 gj
 gm
@@ -18434,21 +18431,21 @@ ei
 ei
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gd
 gk
 gk
@@ -18564,21 +18561,21 @@ ei
 ei
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 ge
 gl
 gn
@@ -18694,21 +18691,21 @@ ei
 ei
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gc
 gj
 gm
@@ -18824,21 +18821,21 @@ ep
 cl
 eC
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gd
 gk
 gk
@@ -18954,21 +18951,21 @@ ei
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 ge
 gl
 gn
@@ -19084,21 +19081,21 @@ ei
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gc
 gj
 gm
@@ -19214,21 +19211,21 @@ ei
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gf
 gk
 gk
@@ -19344,21 +19341,21 @@ ei
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 ge
 gl
 gn
@@ -19474,21 +19471,21 @@ ei
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gc
 gj
 gm
@@ -19604,21 +19601,21 @@ eu
 cl
 eb
 eK
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 gd
 gk
 gk
@@ -19736,17 +19733,17 @@ eC
 eK
 eS
 eS
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
-eR
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
+Aq
 eS
 eS
 ge

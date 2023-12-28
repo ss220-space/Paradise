@@ -1,184 +1,184 @@
 //Spacebattle Areas
 
-/area/awaymission/spacebattle
+/area/vision_change_area/awaymission/spacebattle
 	name = "\improper Space Battle"
 	icon_state = "away"
 	requires_power = TRUE
 	report_alerts = FALSE
 
-/area/awaymission/spacebattle/cruiser
+/area/vision_change_area/awaymission/spacebattle/cruiser
 	name = "\improper Nanotrasen Cruiser"
 
-/area/awaymission/spacebattle/syndicate1
+/area/vision_change_area/awaymission/spacebattle/syndicate1
 	name = "\improper Syndicate Assault Ship 1"
 
-/area/awaymission/spacebattle/syndicate2
+/area/vision_change_area/awaymission/spacebattle/syndicate2
 	name = "\improper Syndicate Assault Ship 2"
 
-/area/awaymission/spacebattle/syndicate3
+/area/vision_change_area/awaymission/spacebattle/syndicate3
 	name = "\improper Syndicate Assault Ship 3"
 
-/area/awaymission/spacebattle/syndicate4
+/area/vision_change_area/awaymission/spacebattle/syndicate4
 	name = "\improper Syndicate War Sphere 1"
 
-/area/awaymission/spacebattle/syndicate5
+/area/vision_change_area/awaymission/spacebattle/syndicate5
 	name = "\improper Syndicate War Sphere 2"
 
-/area/awaymission/spacebattle/syndicate6
+/area/vision_change_area/awaymission/spacebattle/syndicate6
 	name = "\improper Syndicate War Sphere 3"
 
-/area/awaymission/spacebattle/syndicate7
+/area/vision_change_area/awaymission/spacebattle/syndicate7
 	name = "\improper Syndicate Fighter"
 
-/area/awaymission/spacebattle/secret
+/area/vision_change_area/awaymission/spacebattle/secret
 	name = "\improper Hidden Chamber"
 
-/area/awaymission/spacebattle/prhallway1
+/area/vision_change_area/awaymission/spacebattle/prhallway1
 	name = "\improper Primary Hallway"
 
-/area/awaymission/spacebattle/prhallway2
+/area/vision_change_area/awaymission/spacebattle/prhallway2
 	name = "\improper Primary Hallway"
 
-/area/awaymission/spacebattle/prhallway3
+/area/vision_change_area/awaymission/spacebattle/prhallway3
 	name = "\improper Primary Hallway"
 	fire = TRUE
 
-/area/awaymission/spacebattle/prhallway4
+/area/vision_change_area/awaymission/spacebattle/prhallway4
 	name = "\improper Primary Hallway"
 
-/area/awaymission/spacebattle/prhallway5
+/area/vision_change_area/awaymission/spacebattle/prhallway5
 	name = "\improper Primary Hallway"
 
-/area/awaymission/spacebattle/prhallway6
+/area/vision_change_area/awaymission/spacebattle/prhallway6
 	name = "\improper Primary Hallway"
 
-/area/awaymission/spacebattle/prhallway7
+/area/vision_change_area/awaymission/spacebattle/prhallway7
 	name = "\improper Primary Hallway"
 
-/area/awaymission/spacebattle/kitchen
+/area/vision_change_area/awaymission/spacebattle/kitchen
 	name = "\improper Kitchen"
 
-/area/awaymission/spacebattle/medbay
+/area/vision_change_area/awaymission/spacebattle/medbay
 	name = "\improper MedBay"
 
-/area/awaymission/spacebattle/freezing
+/area/vision_change_area/awaymission/spacebattle/freezing
 	name = "\improper Freezing Room"
 
-/area/awaymission/spacebattle/server
+/area/vision_change_area/awaymission/spacebattle/server
 	name = "\improper Server Room"
 
-/area/awaymission/spacebattle/bridge
+/area/vision_change_area/awaymission/spacebattle/bridge
 	name = "\improper Bridge"
 
-/area/awaymission/spacebattle/space_exit1
+/area/vision_change_area/awaymission/spacebattle/space_exit1
 	name = "\improper Space Exit"
 
-/area/awaymission/spacebattle/space_exit2
+/area/vision_change_area/awaymission/spacebattle/space_exit2
 	name = "\improper Space Exit"
 
-/area/awaymission/spacebattle/space_exit3
+/area/vision_change_area/awaymission/spacebattle/space_exit3
 	name = "\improper Space Exit"
 
-/area/awaymission/spacebattle/space_exit4
+/area/vision_change_area/awaymission/spacebattle/space_exit4
 	name = "\improper Space Exit"
 
-/area/awaymission/spacebattle/space_exit5
+/area/vision_change_area/awaymission/spacebattle/space_exit5
 	name = "\improper Space Exit"
 
-/area/awaymission/spacebattle/hallway1
+/area/vision_change_area/awaymission/spacebattle/hallway1
 	name = "\improper Hallway"
 
-/area/awaymission/spacebattle/hallway2
+/area/vision_change_area/awaymission/spacebattle/hallway2
 	name = "\improper Hallway"
 
-/area/awaymission/spacebattle/hallway3
+/area/vision_change_area/awaymission/spacebattle/hallway3
 	name = "\improper Hallway"
 
-/area/awaymission/spacebattle/hallway4
+/area/vision_change_area/awaymission/spacebattle/hallway4
 	name = "\improper Hallway"
 
-/area/awaymission/spacebattle/hallway5
+/area/vision_change_area/awaymission/spacebattle/hallway5
 	name = "\improper Hallway"
 	fire = TRUE
 
-/area/awaymission/spacebattle/hallway6
+/area/vision_change_area/awaymission/spacebattle/hallway6
 	name = "\improper Hallway"
 
-/area/awaymission/spacebattle/hallway7
+/area/vision_change_area/awaymission/spacebattle/hallway7
 	name = "\improper Hallway"
 
-/area/awaymission/spacebattle/hallway8
+/area/vision_change_area/awaymission/spacebattle/hallway8
 	name = "\improper Hallway"
 
-/area/awaymission/spacebattle/hallway9
-	name = "\improper Hallway"
-	fire = TRUE
-
-/area/awaymission/spacebattle/hallway10
-	name = "\improper Hallway"
-
-/area/awaymission/spacebattle/hallway11
+/area/vision_change_area/awaymission/spacebattle/hallway9
 	name = "\improper Hallway"
 	fire = TRUE
 
-/area/awaymission/spacebattle/hallway12
+/area/vision_change_area/awaymission/spacebattle/hallway10
+	name = "\improper Hallway"
+
+/area/vision_change_area/awaymission/spacebattle/hallway11
 	name = "\improper Hallway"
 	fire = TRUE
 
-/area/awaymission/spacebattle/hallway13
+/area/vision_change_area/awaymission/spacebattle/hallway12
+	name = "\improper Hallway"
+	fire = TRUE
+
+/area/vision_change_area/awaymission/spacebattle/hallway13
 	name = "\improper Hallway"
 
-/area/awaymission/spacebattle/hallway14
+/area/vision_change_area/awaymission/spacebattle/hallway14
 	name = "\improper Hallway"
 
-/area/awaymission/spacebattle/engine
+/area/vision_change_area/awaymission/spacebattle/engine
 	name = "\improper Engine Room"
 
-/area/awaymission/spacebattle/engineering
+/area/vision_change_area/awaymission/spacebattle/engineering
 	name = "\improper Engineering"
 	fire = TRUE
 
-/area/awaymission/spacebattle/storage
+/area/vision_change_area/awaymission/spacebattle/storage
 	name = "\improper Storage"
 
-/area/awaymission/spacebattle/living
+/area/vision_change_area/awaymission/spacebattle/living
 	name = "\improper Living Room"
 	fire = TRUE
 
-/area/awaymission/spacebattle/turret1
+/area/vision_change_area/awaymission/spacebattle/turret1
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/turret2
+/area/vision_change_area/awaymission/spacebattle/turret2
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/turret3
+/area/vision_change_area/awaymission/spacebattle/turret3
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/turret4
+/area/vision_change_area/awaymission/spacebattle/turret4
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/turret5
+/area/vision_change_area/awaymission/spacebattle/turret5
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/turret6
+/area/vision_change_area/awaymission/spacebattle/turret6
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/turret7
+/area/vision_change_area/awaymission/spacebattle/turret7
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/turret8
+/area/vision_change_area/awaymission/spacebattle/turret8
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/turret9
+/area/vision_change_area/awaymission/spacebattle/turret9
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/turret10
+/area/vision_change_area/awaymission/spacebattle/turret10
 	name = "\improper Turret Room"
 
-/area/awaymission/spacebattle/bsa
+/area/vision_change_area/awaymission/spacebattle/bsa
 	name = "\improper BSA Chamber"
 
-/area/awaymission/spacebattle/sec_storage
+/area/vision_change_area/awaymission/spacebattle/sec_storage
 	name = "\improper Secure Storage"
 
 // Записочки

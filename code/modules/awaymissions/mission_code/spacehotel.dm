@@ -1,27 +1,28 @@
 #define PAY_INTERVAL 6000	// amount of ticks between payment
 
-/area/awaymission/spacehotel
+/area/vision_change_area/awaymission/spacehotel
 	name = "Deep Space Hotel 419"
+	icon_state = "away"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/awaymission/spacehotel/kitchen
+/area/vision_change_area/awaymission/spacehotel/kitchen
 	name = "Hotel Kitchen"
 	icon_state = "kitchen"
 
-/area/awaymission/spacehotel/reception
+/area/vision_change_area/awaymission/spacehotel/reception
 	name = "Hotel Reception"
 	icon_state = "entry"
 
-/area/awaymission/spacehotel/amazing_place
+/area/vision_change_area/awaymission/spacehotel/amazing_place
 	name = "Amazing Place"
 	requires_power = 0
 
-/area/awaymission/spacehotel/snowland
+/area/vision_change_area/awaymission/spacehotel/snowland
 	name = "Snowland"
 	requires_power = 0
 
-/area/awaymission/spacehotel/undersea
+/area/vision_change_area/awaymission/spacehotel/undersea
 	name = "Undersea"
 	icon_state = "undersea"
 	requires_power = 0
