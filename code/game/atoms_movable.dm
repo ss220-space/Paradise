@@ -296,7 +296,7 @@
 		for(var/atom/movable/AM in old_loc)
 			AM.Uncrossed(src)
 
-	if(new_area != old_area)
+	if(old_area && (new_area != old_area))
 		old_area.Exited(src)
 
 	if(destination)
