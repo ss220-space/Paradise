@@ -411,8 +411,9 @@
 				to_chat(user, span_notice("[src] already have [barrel]."))
 			else if(do_mob(user, src, 8 SECONDS))
 				if(user.drop_transfer_item_to_loc(A, src))
+					var/obj/item/weaponcrafting/revolverbarrel/new_barrel = A
 					barrel = A
-					fire_sound = A.new_fire_sound
+					fire_sound = new_barrel.new_fire_sound
 					update_icon()
 					playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 	else
