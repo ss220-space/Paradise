@@ -21,6 +21,10 @@
 	name = "space baseturf editor"
 	baseturf = /turf/space
 
+/obj/effect/baseturf_helper/plating
+	name = "plating baseturf editor"
+	baseturf = /turf/simulated/floor/plating
+
 /obj/effect/baseturf_helper/asteroid
 	name = "asteroid baseturf editor"
 	baseturf = /turf/simulated/floor/plating/asteroid

@@ -239,7 +239,7 @@
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
 "X" = (
-/obj/effect/baseturf_helper/lava_land/surface/basalt,
+/obj/effect/baseturf_helper/plating,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "Z" = (

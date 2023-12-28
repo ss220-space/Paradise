@@ -76,7 +76,7 @@
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
 "H" = (
-/obj/effect/baseturf_helper/lava_land/surface/basalt,
+/obj/effect/baseturf_helper/plating,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 
