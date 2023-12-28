@@ -4,6 +4,7 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /obj/screen/alert/status_effect/freon
 	var/icon/cube
+	var/ice_state = "ice_cube"
 	var/can_melt = TRUE
 
 /obj/screen/alert/status_effect/freon
@@ -15,7 +16,7 @@
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(owner_resist))
 	if(!owner.stat)
 		to_chat(owner, "<span class='userdanger'>You become frozen in a cube!</span>")
-	cube = icon('icons/effects/freeze.dmi', "ice_cube")
+	cube = icon('icons/effects/freeze.dmi', ice_state)
 	owner.add_overlay(cube)
 	owner.update_canmove()
 	return ..()

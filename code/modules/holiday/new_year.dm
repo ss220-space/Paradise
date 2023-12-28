@@ -28,3 +28,110 @@
 	if(istype(P, /obj/item/wirecutters) || istype(P, /obj/item/wrench))
 		return
 	return ..()
+
+/obj/item/clothing/head/new_year
+	name = "Red furhat"
+	desc = "Warm furhat for freezing weather"
+	icon_state = "red_furhat"
+	item_state = "red_furhat"
+	resistance_flags = INDESTRUCTIBLE
+	w_class = WEIGHT_CLASS_SMALL
+	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
+	body_parts_covered = HEAD
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
+	flags_inv = null
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = HEAD
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+	)
+
+/obj/item/clothing/suit/space/new_year
+	name = "Red furcoat"
+	desc = "Very warm long coat colored in red color"
+	icon_state = "red_furcoat"
+	item_state = "red_furcoat"
+	resistance_flags = INDESTRUCTIBLE
+	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
+	w_class = WEIGHT_CLASS_NORMAL
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL|WING
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/magic/staff/frost)
+	slowdown = FALSE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
+	flags_inv = null
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+	)
+
+/obj/item/gun/magic/staff/frost
+	name = "Frost staff"
+	desc = "An anchient wonderous artifact of widely-known old man loved across entire USSP"
+	ammo_type = /obj/item/ammo_casing/magic/frost
+	icon_state = "frost_staff"
+	item_state = "frost_staff"
+	max_charges = 10
+	recharge_rate = 2
+	fire_sound = 'sound/magic/staff_healing.ogg'
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/ammo_casing/magic/frost
+	projectile_type = /obj/item/projectile/magic/frost
+
+/obj/item/projectile/magic/frost
+	name = "bolt of frost"
+	icon_state = "ice_2"
+	hitsound = 'sound/effects/hit_on_shattered_glass.ogg'
+	hitsound_wall = 'sound/effects/hit_on_shattered_glass.ogg'
+	armour_penetration = 100
+	flag = "magic"
+
+/obj/item/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/victim = target
+		freeze(victim)
+
+/obj/item/projectile/magic/frost/proc/freeze(mob/living/target)
+	target.apply_status_effect(/datum/status_effect/freon/frost)
+
+/datum/status_effect/freon/frost
+	ice_state = "ice_shell"
+	duration = 20 SECONDS
+	can_melt = FALSE
+
+/obj/item/clothing/gloves/color/white/redcoat
+	siemens_coefficient = 0
+	permeability_coefficient = 0.01
+
+/obj/item/storage/backpack/santabag/ded_moroz
+	name = "Presents bag"
+	desc = "Bag filled with presents. Artifact of a widely-known old man loved across entire USSP."
+
+/datum/outfit/ded_moroz
+	name = "Ded Moroz"
+	uniform = /obj/item/clothing/under/color/red
+	suit = /obj/item/clothing/suit/space/new_year
+	back = /obj/item/storage/backpack/santabag/ded_moroz
+	head = /obj/item/clothing/head/new_year
+	r_hand = /obj/item/gun/magic/staff/frost
+	shoes = /obj/item/clothing/shoes/winterboots
+	gloves = /obj/item/clothing/gloves/color/white/redcoat
