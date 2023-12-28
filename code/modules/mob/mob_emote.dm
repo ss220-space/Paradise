@@ -124,7 +124,7 @@
 /datum/emote/flip
 	key = "flip"
 	key_third_person = "flips"
-	message = "делает кувырок!"
+	message = "дела%(ет,ют)% кувырок!"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT  // don't need an emote to see that
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
@@ -141,10 +141,10 @@
 		return TRUE
 
 	if(isliving(user) && (user.lying || user.resting))
-		message = "круж[pluralize_ru(user.gender,"ит","ат")]ся на полу."
+		message = "круж%(ит,ат)%ся на полу."
 		return ..()
 	else if(params)
-		message_param = "дела[pluralize_ru(user.gender,"ет","ют")] кувырок в сторону %t."
+		message_param = "дела%(ет,ют)% кувырок в сторону %t."
 	else if(ishuman(user))
 		var/obj/item/grab/grab = user.get_active_hand()
 		if(istype(grab) && grab.affecting)
@@ -163,13 +163,13 @@
 				step(user, get_dir(oldloc, newloc))
 				user.pass_flags = old_pass
 				target.glide_for(0.6 SECONDS)
-				message = "дела[pluralize_ru(user.gender,"ет","ют")] кувырок через [target.name]!"
+				message = "дела%(ет,ют)% кувырок через [target.name]!"
 				return ..()
 
 	user.SpinAnimation(5, 1)
 
 	if(ishuman(user) && (prob(5) || (iskidan(user) && !user.get_organ(BODY_ZONE_HEAD))))
-		message = "пыта[pluralize_ru(user.gender,"ет","ют")]ся сделать кувырок и с грохотом пада[pluralize_ru(user.gender,"ет","ют")] на пол!"
+		message = "пыта%(ет,ют)%ся сделать кувырок и с грохотом пада%(ет,ют)% на пол!"
 		sleep(0.3 SECONDS)
 		if(!QDELETED(user))
 			user.Weaken(4 SECONDS)
