@@ -59702,11 +59702,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
-"lQq" = (
-/obj/structure/girder,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/hallway/spacebridge/sercom)
 "lQB" = (
 /obj/machinery/light{
 	dir = 8
@@ -117301,14 +117296,14 @@ ice
 ice
 ice
 leM
-lQq
-lQq
-lQq
+lRc
+lRc
+lRc
 lAN
 lAN
 fzc
 bTp
-lQq
+lRc
 uSv
 uSv
 uSv
