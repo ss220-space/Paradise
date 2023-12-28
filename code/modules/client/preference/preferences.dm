@@ -1730,6 +1730,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						return
 					if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 						var/list/valid_alt_heads = list()
+						valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option
 						for(var/alternate_head in GLOB.alt_heads_list)
 							var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
 							if(!(species in head.species_allowed))
@@ -1749,6 +1750,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("m_style_head")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
 						var/list/valid_markings = list()
+						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[markingstyle]
 							if(!(species in M.species_allowed))
@@ -1791,6 +1793,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
 						var/list/valid_markings = list()
+						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
 							if(!(species in M.species_allowed))
@@ -1814,6 +1817,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						var/list/valid_markings = list()
+						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/tail/M = GLOB.marking_styles_list[markingstyle]
 							if(M.marking_location != "tail")
@@ -1842,21 +1846,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
-					if(check_rights(R_ADMIN, 1, user))
-						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
-					else
-						for(var/B in GLOB.body_accessory_by_name)
-							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
-							if(isnull(accessory)) // None
-								continue
-							if(species in accessory.allowed_species)
-								possible_body_accessories += B
+					for(var/B in GLOB.body_accessory_by_name)
+						var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
+						if(!istype(accessory))
+							possible_body_accessories += "None" //the only null entry should be the "None" option
+							continue
+						if(species in accessory.allowed_species)
+							possible_body_accessories += B
 					if(S.optional_body_accessory)
-						possible_body_accessories += "None" //the only null entry should be the "None" option
+						possible_body_accessories.Add("None") //the only null entry should be the "None" option
 					else
-						possible_body_accessories -= "None" // in case an admin is viewing it
-					sortTim(possible_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_body_accessory = tgui_input_list(user, "Choose your body accessory", "Character Preference", possible_body_accessories)
+						possible_body_accessories.Remove("None") // in case an admin is viewing it
+					sortTim(possible_body_accessories, cmp = /proc/cmp_text_asc)
+					var/new_body_accessory = tgui_input_list(user, "Choose your body accessory:", "Character Preference", possible_body_accessories)
 					if(new_body_accessory)
 						m_styles["tail"] = "None"
 						body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
