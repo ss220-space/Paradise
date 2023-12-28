@@ -21,10 +21,11 @@ SUBSYSTEM_DEF(holiday)
 				holidays = list()
 			holidays[holiday.name] = holiday
 
+/datum/controller/subsystem/holiday/OnMasterLoad()
 	if(holidays)
 		holidays = shuffle(holidays)
 		world.update_status()
-		for(var/datum/holiday/H in holidays)
-			if(H.eventChance)
-				if(prob(H.eventChance))
-					H.handle_event()
+		for(var/holiday in holidays)
+			var/datum/holiday/H = holidays[holiday]
+			//do event_chance'ing inside handle_event
+			H.handle_event()
