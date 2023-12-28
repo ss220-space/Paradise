@@ -2044,3 +2044,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return ..(clicked_on, override = TRUE)
 
 	return ..()
+
+/mob/living/carbon/human/verb/pose()
+	set name = "Set Pose"
+	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
+	set category = "IC"
+
+	pose = sanitize(copytext_char(input(usr, "Это [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+
+/mob/living/carbon/human/verb/set_flavor()
+	set name = "Set Flavour Text"
+	set desc = "Устанавливает подробное описание внешности вашего персонажа."
+	set category = "IC"
+
+	update_flavor_text()
