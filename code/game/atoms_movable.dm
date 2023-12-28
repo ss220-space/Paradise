@@ -286,6 +286,7 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	var/turf/old_loc = loc
+	var/area/old_area = get_area(src)
 	loc = destination
 	moving_diagonally = 0
 
@@ -294,12 +295,20 @@
 		for(var/atom/movable/AM in old_loc)
 			AM.Uncrossed(src)
 
+	if(old_area)
+		old_area.Exited(src)
+
 	if(destination)
 		destination.Entered(src)
+		var/area/new_area = get_area(destination)
 		for(var/atom/movable/AM in destination)
 			if(AM == src)
 				continue
 			AM.Crossed(src, old_loc)
+
+		if(new_area && (old_area != new_area))
+			new_area.Entered(src)
+
 		var/turf/oldturf = get_turf(old_loc)
 		var/turf/destturf = get_turf(destination)
 		var/old_z = (oldturf ? oldturf.z : null)
