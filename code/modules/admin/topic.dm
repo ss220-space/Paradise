@@ -2528,7 +2528,7 @@
 				P = new /obj/item/paper(null)
 		if(!fax)
 			var/list/departmentoptions = GLOB.alldepartments + GLOB.hidden_departments + "All Departments"
-			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
+			destination = tgui_input_list(usr, "To which department?", "Choose a department", departmentoptions)
 			if(!destination)
 				qdel(P)
 				return

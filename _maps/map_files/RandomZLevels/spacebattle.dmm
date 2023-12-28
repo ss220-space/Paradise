@@ -9064,10 +9064,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "zg" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/soft/yellow{
-	blood_color = "#A10808";
-	blood_overlay = "#A10808"
-	},
+/obj/item/clothing/head/soft/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -11062,7 +11059,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "EG" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck/syndicate,
+/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},

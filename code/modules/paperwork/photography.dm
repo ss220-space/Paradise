@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
 	set category = "Object"
-	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
+	var/nsize = tgui_input_list(usr, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
 	if(nsize)
 		size = nsize
 		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 
 	var/datum/picture/P = null
-	P = input("Select image to print:",P) as null|anything in saved_pictures
+	P = tgui_input_list(usr, "Select image to print", "Print image", saved_pictures)
 	if(P)
 		printpicture(usr,P)
 		pictures_left --
@@ -532,7 +532,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		to_chat(usr, "<span class='userdanger'>No images saved</span>")
 		return
 	var/datum/picture/P = null
-	P = input("Select image to delete:",P) as null|anything in saved_pictures
+	P = tgui_input_list(usr, "Select image to delete", "Delete image", saved_pictures)
 	if(P)
 		saved_pictures -= P
 

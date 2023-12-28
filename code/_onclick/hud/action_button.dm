@@ -48,13 +48,15 @@
 		linked_action.Trigger(left_click = FALSE)
 		return TRUE
 	linked_action.Trigger(left_click = TRUE)
+	linked_action.UpdateButtonIcon()
 	transform = transform.Scale(0.8, 0.8)
 	alpha = 200
 	animate(src, transform = matrix(), time = 0.3 SECONDS, alpha = 255)
 	return TRUE
 
 /obj/screen/movable/action_button/AltClick(mob/user)
-	return linked_action.AltTrigger()
+	. = linked_action.AltTrigger()
+	linked_action.UpdateButtonIcon()
 
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle
