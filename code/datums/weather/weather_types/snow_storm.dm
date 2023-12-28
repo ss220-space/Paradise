@@ -20,9 +20,6 @@
 	target_trait = AWAY_LEVEL
 
 	immunity_type = "snow"
-	next_hit_time = 600
-
-	//barometer_predictable = TRUE
 
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/active_inside_ashstorm/sound_ai = new(list(), FALSE, TRUE)

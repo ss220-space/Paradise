@@ -69,10 +69,12 @@
 /mob/living/simple_animal/hostile/winter/santa
 	maxHealth = 150		//if this seems low for a "boss", it's because you have to fight him multiple times, with him fully healing between stages
 	health = 150
+	sentience_type = SENTIENCE_OTHER
 	var/next_stage = null
 	var/death_message
 	var/area/vision_change_area/awaymission/evil_santa/end/santa/bossfight_area
 	robust_searching = 1
+	vision_range = 12
 	name = "Santa Claus"
 	icon_state = "santa"
 	icon_living = "santa"
@@ -87,6 +89,7 @@
 /mob/living/simple_animal/hostile/winter/santa/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
+	bossfight_area.ready_or_not()
 	if(!.)
 		return FALSE
 	if(death_message)
@@ -155,4 +158,3 @@
 	var/obj/item/grenade/clusterbuster/xmas/Y = new /obj/item/grenade/clusterbuster/xmas(get_turf(src))
 	X.prime()
 	Y.prime()
-	bossfight_area.ready_or_not()

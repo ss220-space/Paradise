@@ -2,7 +2,6 @@
 	name = "Evil santa"
 	poweralm = FALSE
 	report_alerts = FALSE
-	requires_power = TRUE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
 
@@ -11,7 +10,6 @@
 	icon_state = "green"
 	poweralm = FALSE
 	report_alerts = FALSE
-	requires_power = TRUE
 	tele_proof = TRUE
 	no_teleportlocs = TRUE
 	ambientsounds = list(
@@ -100,7 +98,6 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit
 	name = "Evil santa exit"
 	icon_state = "awaycontent15"
-	requires_power = TRUE
 
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth
 	name = "Evil santa forest labyrinth"
@@ -113,6 +110,7 @@
 
 /area/vision_change_area/awaymission/evil_santa/end/santa/proc/set_ready()
 	cooldown = FALSE
+	ready_or_not()
 
 /area/vision_change_area/awaymission/evil_santa/end/santa/proc/UnlockBlastDoors()
 	if(battle)
@@ -125,7 +123,7 @@
 	if(!battle)
 		for(var/obj/machinery/door/poddoor/impassable/preopen/P in GLOB.airlocks)
 			if(!P.density && P.id_tag == "Evil_Santa_Arena" && P.z == z && !P.operating)
-				P.close()
+				INVOKE_ASYNC(P, TYPE_PROC_REF(/obj/machinery/door, close))
 		battle = TRUE
 		for(var/mob/trapped_one in naughty_guys)
 			to_chat(trapped_one, span_danger("YOU'VE BEEN TOO NAUGHTY THIS YEAR AND NOW YOU WILL BE PUNISHED!"))
@@ -255,6 +253,8 @@
 		/obj/item/toy/plushie/pig,
 		/obj/item/toy/xmas_cracker,
 		/obj/item/toy/xmas_cracker,
+		/obj/item/toy/pet_rock/naughty_coal,
+		/obj/item/reagent_containers/food/snacks/sugar_coal,
 		)
 
 	if(!ispath(gift_type,/obj/item))	return
