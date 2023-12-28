@@ -12,7 +12,7 @@
 	lights_power = 3
 	lights_color = "#ffb366"
 	deflect_chance = 15
-	armor = list("melee" = 40, "bullet" = 20, "laser" = 15, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 10, "fire" = 100, "acid" = 100) // Статы стоит увеличить, может даже шанс дефлекта ебануть.
+	armor = list("melee" = 40, "bullet" = 20, "laser" = 15, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 10, "fire" = 100, "acid" = 100)
 	max_equip = 2
 	deflect_chance = 15
 	mech_enter_time = 60

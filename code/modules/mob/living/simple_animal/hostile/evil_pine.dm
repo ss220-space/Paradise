@@ -21,6 +21,8 @@
 				/obj/item/reagent_containers/food/snacks/gingercookie/ball,
 				/obj/item/reagent_containers/food/snacks/gingercookie/ball,
 				/obj/item/reagent_containers/food/snacks/gingercookie/ball,
+				/obj/item/toy/pet_rock/naughty_coal,
+				/obj/item/toy/pet_rock/naughty_coal,
 				/obj/item/pizzabox/mushroom,
 				)
 	deathmessage = "Grrrrraaaaa!"

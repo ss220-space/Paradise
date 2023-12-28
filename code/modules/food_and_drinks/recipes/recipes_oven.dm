@@ -733,3 +733,11 @@
 	reagents = list("sugar" = 7)
 	items = list(/obj/item/reagent_containers/food/snacks/cookiedough)
 	result = /obj/item/reagent_containers/food/snacks/gingercookie/tree
+
+//////////////////////////////////////////
+//Carbon dulce Feliz Navidad
+//////////////////////////////////////////
+
+/datum/recipe/oven/sugar_coal
+	reagents = list("charcoal" = 5, "sugar" = 5, "egg" = 5)
+	result = /obj/item/reagent_containers/food/snacks/sugar_coal

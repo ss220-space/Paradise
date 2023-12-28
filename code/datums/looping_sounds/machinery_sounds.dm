@@ -12,4 +12,4 @@
 	mid_sounds = list('sound/machines/engine/engine_mid1.ogg')
 	mid_length = 3
 	end_sound = 'sound/machines/engine/engine_end.ogg'
-	volume = 12
+	volume = 20
