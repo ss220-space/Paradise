@@ -2091,6 +2091,11 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
+/obj/item/clothing/mask/facehugger{
+	icon_state = "facehugger_impregnated";
+	item_state = "facehugger_impregnated";
+	stat = 2
+	},
 /turf/simulated/floor/engine,
 /area/vision_change_area/moonoutpost19/mo19research)
 "et" = (
