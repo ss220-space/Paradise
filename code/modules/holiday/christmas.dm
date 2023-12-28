@@ -14,8 +14,11 @@
 		break
 	var/datum/supply_packs/misc/snow_machine/xmas = SSshuttle.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
 	xmas.special = FALSE
-	if(prob(eventChance))
-		spawnTree()
+
+	//As fun at it is sounds, peacefulness is better
+	//if(prob(eventChance))
+	//	spawnTree()
+
 /**
  * Offsets pixel location for presents to move visually closer to direction
  */
