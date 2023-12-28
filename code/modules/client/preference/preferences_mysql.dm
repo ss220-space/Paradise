@@ -20,7 +20,8 @@
 					discord_id,
 					discord_name,
 					keybindings,
-					viewrange
+					viewrange,
+					ghost_darkness_level
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -53,6 +54,7 @@
 		discord_name = query.item[18]
 		keybindings = init_keybindings(raw = query.item[19])
 		viewrange = query.item[20]
+		ghost_darkness_level = query.item[21]
 
 	qdel(query)
 
@@ -105,7 +107,8 @@
 					clientfps=:clientfps,
 					parallax=:parallax,
 					keybindings=:keybindings,
-					viewrange=:viewrange
+					viewrange=:viewrange,
+					ghost_darkness_level=:ghost_darkness_level
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -125,7 +128,8 @@
 						"parallax" = parallax,
 						"keybindings" = json_encode(keybindings_overrides),
 						"viewrange" = viewrange,
-						"ckey" = C.ckey
+						"ghost_darkness_level" = ghost_darkness_level,
+						"ckey" = C.ckey,
 					)
 					)
 

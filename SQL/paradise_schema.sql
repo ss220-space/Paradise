@@ -289,6 +289,7 @@ CREATE TABLE `player` (
   `discord_name` varchar(32) NULL DEFAULT NULL,
   `keybindings` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   `viewrange` VARCHAR(5) NOT NULL DEFAULT '17x15' COLLATE 'utf8mb4_general_ci',
+  `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
