@@ -50,8 +50,8 @@
 	key_third_person = "claps"
 	message = "хлопа%(ет,ют)%."
 	message_mime = "бесшумно хлопа%(ет,ют)%."
-	message_param = EMOTE_PARAM_USE_POSTFIX
 	message_postfix = ", смотря на %t."
+	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 	sound = list(
@@ -193,7 +193,6 @@
 	key_third_person = "hugs"
 	message = "обнима%(ет,ют)% себя."
 	message_param = "обнима%(ет,ют)% %t."
-	message_postfix = " %t."
 	hands_use_check = TRUE
 
 
@@ -219,7 +218,7 @@
 	key = "scream"
 	key_third_person = "screams"
 	message = "крич%(ит,ат)%!"
-	message_mime = "делает вид, что крич%(ит,ат)%!"
+	message_mime = "дела%(ет,ют)% вид, что крич%(ит,ат)%!"
 	message_postfix = " на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	muzzled_noises = list("очень громкие")
@@ -621,7 +620,6 @@
 	key_third_person = "scratch"
 	message = "чеш%(ет,ут)%ся."
 	message_param = "чеш%(ет,ут)% %t."
-	message_postfix = " %t."
 	hands_use_check = TRUE
 
 
@@ -631,7 +629,7 @@
 /datum/emote/living/carbon/human/rattle
 	key = "rattle"
 	key_third_person = "rattles"
-	message = "гремит костями."
+	message = "грем%(ит,ят)% костями."
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
@@ -918,7 +916,7 @@
 /datum/emote/living/carbon/human/kidan/can_run_emote(mob/living/carbon/human/user, status_check = TRUE, intentional = FALSE)
 	. = ..()
 	if(. && head_required && !user.get_organ(BODY_ZONE_HEAD))
-		user.custom_emote(EMOTE_VISIBLE, "отчаянно дёрга%(ет,ют)%ся!")
+		user.custom_emote(EMOTE_VISIBLE, "отчаянно дёрга[pluralize_ru(user.gender, "ет", "ют")]ся!")
 		return FALSE
 
 
@@ -999,22 +997,22 @@
 /datum/emote/living/carbon/human/drask/drask_talk/drone
 	key = "drone"
 	key_third_person = "drones"
-	message = "гуд%(ит,ат)%."
-	message_mime = "делает вид, что гуд%(ит,ат)%."
+	message = "гуд%(ит,ят)%."
+	message_mime = "дела%(ет,ют)% вид, что гуд%(ит,ят)%."
 
 
 /datum/emote/living/carbon/human/drask/drask_talk/hum
 	key = "hum"
 	key_third_person = "hums"
 	message = "грохоч%(ет,ут)%."
-	message_mime = "делает вид, что грохоч%(ет,ут)%."
+	message_mime = "дела%(ет,ют)% вид, что грохоч%(ет,ут)%."
 
 
 /datum/emote/living/carbon/human/drask/drask_talk/rumble
 	key = "rumble"
 	key_third_person = "rumbles"
 	message = "урч%(ит,ат)%."
-	message_mime = "делает вид, что урч%(ит,ат)%."
+	message_mime = "дела%(ет,ют)% вид, что урч%(ит,ат)%."
 
 
 /**
@@ -1027,8 +1025,8 @@
 /datum/emote/living/carbon/human/unathi/hiss
 	key = "hiss"
 	key_third_person = "hisses"
-	message = "шип%(ит,ат)%!"
-	message_mime = "тихо шип%(ит,ат)%!"
+	message = "шип%(ит,ят)%!"
+	message_mime = "тихо шип%(ит,ят)%!"
 	message_postfix = " на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
@@ -1079,7 +1077,7 @@
 	key = "threat"
 	key_third_person = "threat"
 	message = "угрожающе рыч%(ит,ат)%!"
-	message_mime = "угрожающе раскрыва%(ит,ют)% пасть!"
+	message_mime = "угрожающе раскрыва%(ет,ют)% пасть!"
 	message_postfix = " на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
@@ -1110,7 +1108,7 @@
 /datum/emote/living/carbon/human/unathi/whip/whip_l
 	key = "whip_l"
 	key_third_person = ""
-	message = "хлеста%(ет,ют)% хвостом."
+	message = "хлещ%(ет,ут)% хвостом."
 	audio_cooldown = 6 SECONDS
 	sound = 'sound/voice/unathi/whip.ogg'
 
@@ -1257,8 +1255,8 @@
 /datum/emote/living/carbon/human/tajaran/hiss
 	key = "hiss"
 	key_third_person = "hisses"
-	message = "шип%(ит,ат)%!"
-	message_mime = "тихо шип%(ит,ат)%!"
+	message = "шип%(ит,ят)%!"
+	message_mime = "тихо шип%(ит,ят)%!"
 	message_postfix = " на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH

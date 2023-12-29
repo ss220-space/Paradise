@@ -1927,6 +1927,7 @@
 #include "code\modules\games\tarot.dm"
 #include "code\modules\holiday\christmas.dm"
 #include "code\modules\holiday\holiday.dm"
+#include "code\modules\holiday\new_year.dm"
 #include "code\modules\hydroponics\biogenerator.dm"
 #include "code\modules\hydroponics\fermenting_barrel.dm"
 #include "code\modules\hydroponics\gene_modder.dm"

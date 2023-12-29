@@ -1,4 +1,4 @@
-/datum/holiday/xmas/celebrate()
+/datum/holiday/xmas/handle_event()
 	for(var/obj/structure/flora/tree/pine/xmas in world)
 		if(!is_station_level(xmas.z))	continue
 		for(var/turf/simulated/floor/T in orange(1,xmas))
@@ -9,13 +9,10 @@
 	for(var/datum/crafting_recipe/snowman/S in GLOB.crafting_recipes)
 		S.always_availible = TRUE
 		break
-	//The following spawn is necessary as both the timer and the shuttle systems initialise after the events system does, so we can't add stuff to the shuttle system as it doesn't exist yet and we can't use a timer
-	spawn(60 SECONDS)
-		var/datum/supply_packs/misc/snow_machine/xmas = SSshuttle.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
-		xmas.special = FALSE
-
-/datum/holiday/xmas/handle_event()
-	spawnTree()
+	var/datum/supply_packs/misc/snow_machine/xmas = SSshuttle.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
+	xmas.special = FALSE
+	if(prob(eventChance))
+		spawnTree()
 
 /datum/holiday/xmas/proc/spawnTree()
 	for(var/obj/structure/flora/tree/pine/xmas in world)
