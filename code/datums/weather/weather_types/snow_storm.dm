@@ -4,7 +4,7 @@
 	probability = 99
 
 	telegraph_message = "<span class='warning'>Drifting particles of snow begin to dust the surrounding area..</span>"
-	telegraph_duration = 300
+	telegraph_duration = 400
 	telegraph_overlay = "light_snow"
 
 	weather_message = "<span class='userdanger'><i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i></span>"
@@ -92,14 +92,6 @@
 			return TRUE
 		if(isvampirecoffin(L))
 			return TRUE
-		if(ishuman(L)) //Are you immune?
-			var/mob/living/carbon/human/target = L
-			if(target.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-				return TRUE
-		if(istype(L, /mob/living/simple_animal/borer))
-			var/mob/living/simple_animal/borer/target = L
-			if(target.host?.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-				return TRUE
 		if (istype(L, /mob/living/silicon))
 			return TRUE /// Borgs are protected and so their brains
 		L = L.loc //Matryoshka check
@@ -108,4 +100,23 @@
 /datum/weather/snow_storm/weather_act(mob/living/L)
 	if(is_snow_immune(L))
 		return
-	L.adjust_bodytemperature(-rand(5, 15))
+
+	var/temp_drop = -rand(10, 25)
+	var/freeze_chance = 35
+
+	if(ishuman(L))
+		var/mob/living/carbon/human/target = L
+		var/cold_protection = 2 - target.get_cold_protection()
+		temp_drop *= cold_protection
+		freeze_chance *= cold_protection
+
+	else if(istype(L, /mob/living/simple_animal/borer))
+		var/mob/living/simple_animal/borer/target = L
+		var/cold_protection = 2 - target.host?.get_cold_protection()
+		temp_drop *= cold_protection
+		freeze_chance *= cold_protection
+
+	L.adjust_bodytemperature(temp_drop)
+
+	if(L.bodytemperature <= -280 && prob(freeze_chance))
+		L.apply_status_effect(/datum/status_effect/freon)
