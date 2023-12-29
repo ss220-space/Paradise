@@ -95,8 +95,8 @@
 
 /obj/item/gun/magic/staff/frost/attack_self(mob/user)
 	. = ..()
-	visible_message("[user] raises up [src], forming blizzard around it.", \
-	 "You raise up [src] and start forming snowy blizzard...")
+	visible_message(span_darkmblue("[user] raises up [src], forming blizzard around it."), \
+	 span_darkmblue("You raise up [src] and start forming snowy blizzard..."))
 	if(do_after(user, 5 SECONDS, target = user))
 		for(var/turf/simulated/T in range(4, user))
 			if(T.density)
