@@ -66,7 +66,7 @@
 				"Max" = "Мастер-сержант")
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/storage/lockbox/mindshield = 1,
+		/obj/item/storage/lockbox/mindshield/ert = 1,
 		/obj/item/flashlight/seclite = 1
 	)
 
@@ -90,7 +90,7 @@
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/storage/lockbox/mindshield = 1
+		/obj/item/storage/lockbox/mindshield/ert = 1
 	)
 
 	cybernetic_implants = list(
@@ -121,7 +121,7 @@
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/sp8 = 4,
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/storage/lockbox/mindshield = 1,
+		/obj/item/storage/lockbox/mindshield/ert = 1,
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
 		)

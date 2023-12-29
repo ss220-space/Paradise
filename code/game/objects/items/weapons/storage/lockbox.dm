@@ -93,6 +93,9 @@
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implanter/mindshield(src)
 
+/obj/item/storage/lockbox/mindshield/ert
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/storage/lockbox/sibyl_system_mod
 	name = "lockbox (Sibyl System Mods)"
 	desc = "Contains proprietary Sibyl System mods for energy guns."
