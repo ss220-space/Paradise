@@ -134,6 +134,13 @@
 /obj/item/storage/backpack/santabag/ded_moroz
 	name = "Presents bag"
 	desc = "Bag filled with presents. Artifact of a widely-known old man loved across entire USSP."
+	max_w_class = WEIGHT_CLASS_BULKY
+	max_combined_w_class = 2024
+
+/obj/item/storage/backpack/santabag/ded_moroz/populate_contents()
+	for(var/i = 0, i < 50, i++)
+		new /obj/item/a_gift(src)
+	update_icon()
 
 /datum/outfit/ded_moroz
 	name = "Ded Moroz"
