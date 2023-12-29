@@ -104,7 +104,7 @@
 		/obj/item/toy/flash,
 		/obj/item/toy/minigibber,
 		/obj/item/toy/nuke,
-		/obj/item/toy/cards/deck,
+		/obj/item/deck/cards,
 		/obj/item/toy/AI,
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/storage/box/fakesyndiesuit,

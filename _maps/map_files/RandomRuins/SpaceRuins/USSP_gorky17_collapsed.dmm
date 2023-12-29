@@ -4987,9 +4987,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	environ = 0;
-	equipment = 0;
-	lighting = 2;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 2;
 	locked = 0;
 	pixel_y = 24;
 	req_access = list();
@@ -6994,7 +6994,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "uT" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck/black,
+/obj/item/deck/cards/black,
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light/small{
 	dir = 1;
@@ -12197,9 +12197,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	environ = 0;
-	equipment = 0;
-	lighting = 2;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 2;
 	name = "Gorky17 area power controller";
 	pixel_y = 28;
 	req_access = list(122,123,124,125,126);

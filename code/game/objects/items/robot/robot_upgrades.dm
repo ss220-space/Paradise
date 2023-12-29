@@ -680,21 +680,19 @@
 	if(!..())
 		return FALSE
 
-	var/obj/item/reagent_containers/borghypo/basic/borghypo_basic = locate() in robot.module.modules
-	if(borghypo_basic)
-		var/obj/item/reagent_containers/borghypo/basic/upgraded/hypo = new /obj/item/reagent_containers/borghypo/basic/upgraded(robot.module)
-		robot.module.modules += hypo
-		hypo.bypass_protection = borghypo_basic.bypass_protection
-		qdel(borghypo_basic)
-		robot.module.rebuild()
-		return TRUE
+	var/list/hypos_to_add = list()
+	for(var/obj/item/reagent_containers/borghypo/hypospray in robot.module.modules)
+		if(hypospray.upgrade_path)
+			var/obj/item/reagent_containers/borghypo/borghypo = new hypospray.upgrade_path(robot.module)
+			borghypo.bypass_protection = hypospray.bypass_protection
+			qdel(hypospray)
+			hypos_to_add += borghypo
 
-	var/obj/item/reagent_containers/borghypo/borghypo = locate() in robot.module.modules
-	if(borghypo)
-		var/obj/item/reagent_containers/borghypo/upgraded/hypo = new /obj/item/reagent_containers/borghypo/upgraded(robot.module)
-		robot.module.modules += hypo
-		hypo.bypass_protection = borghypo.bypass_protection
-		qdel(borghypo)
+	for(var/hypo in hypos_to_add)
+		var/obj/item/reagent_containers/borghypo/hypospray = hypo
+		robot.module.modules += hypospray
+
+	if(length(hypos_to_add))
 		robot.module.rebuild()
 		return TRUE
 
@@ -738,16 +736,17 @@
 	if(!..())
 		return FALSE
 
-	var/obj/item/reagent_containers/borghypo/hypospray = locate() in robot.module.modules
-	if(!hypospray)
-		to_chat(user, "[SPAN_DANGER("UPGRADE ERROR: ")]" + "[SPAN_NOTICE("there's no hypospray in this unit!")]")
+	var/was_upgraded = FALSE
+	for(var/obj/item/reagent_containers/borghypo/hypo in robot.module.modules)
+		if(hypo.bypass_protection)
+			continue
+		hypo.bypass_protection = TRUE
+		was_upgraded = TRUE
+
+	if(!was_upgraded)
+		to_chat(user, "[SPAN_DANGER("UPGRADE ERROR: ")]" + "[SPAN_NOTICE("there's no upgradable hypospray in this unit!")]")
 		return FALSE
 
-	if(hypospray.bypass_protection)
-		to_chat(user, "[SPAN_DANGER("UPGRADE ERROR: ")]" + "[SPAN_NOTICE("unit's hypospray is already upgraded!")]")
-		return FALSE
-
-	hypospray.bypass_protection = TRUE
 	return TRUE
 
 
@@ -755,10 +754,14 @@
 	if(!..())
 		return FALSE
 
-	var/obj/item/reagent_containers/borghypo/hypospray = locate() in robot.module.modules
-	if(!hypospray)
+	var/was_deactivated = FALSE
+	for(var/obj/item/reagent_containers/borghypo/hypo in robot.module.modules)
+		hypo.bypass_protection = initial(hypo.bypass_protection)
+		was_deactivated = TRUE
+
+	if(!was_deactivated)
 		return FALSE
-	hypospray.bypass_protection = FALSE
+
 	return TRUE
 
 

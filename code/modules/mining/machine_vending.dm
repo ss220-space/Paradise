@@ -262,7 +262,7 @@
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Plasma Cutter Kit", "Mining Explosives Kit", "Crusher Kit", "Mining Conscription Kit")
 
-	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
+	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Mining Voucher Redemption", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 
@@ -369,7 +369,7 @@
 		EQUIPMENT("Plushie", 						/obj/random/plushie, 												750),
 		EQUIPMENT("Dnd set", 						/obj/item/storage/box/characters, 									500),
 		EQUIPMENT("Dice set", 						/obj/item/storage/box/dice, 										250),
-		EQUIPMENT("Cards", 							/obj/item/toy/cards/deck, 											150),
+		EQUIPMENT("Cards", 							/obj/item/deck/cards, 											150),
 		EQUIPMENT("Guitar", 						/obj/item/instrument/guitar, 										750),
 		EQUIPMENT("Synthesizer", 					/obj/item/instrument/piano_synth, 									1500),
 		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000)

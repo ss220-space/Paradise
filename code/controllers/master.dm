@@ -237,6 +237,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	log_startup_progress("Initializations complete within [time] second[time == 1 ? "" : "s"]!")
 
+	//Make some special interactions after all subsystems initialized
+	for(var/datum/controller/subsystem/SS in subsystems)
+		SS.OnMasterLoad()
+		CHECK_TICK
+
 	if(CONFIG_GET(flag/developer_express_start))
 		SSticker.force_start = TRUE
 
