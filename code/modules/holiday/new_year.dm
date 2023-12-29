@@ -95,11 +95,13 @@
 
 /obj/item/gun/magic/staff/frost/attack_self(mob/user)
 	. = ..()
-	visible_message("[user] raises up [src], forming blizzard around it", \
+	visible_message("[user] raises up [src], forming blizzard around it.", \
 	 "You raise up [src] and start forming snowy blizzard...")
 	if(do_after(user, 5 SECONDS, target = user))
 		for(var/turf/simulated/T in range(4, user))
-			T.air?.temperature = T0C
+			if(T.density)
+				continue
+			T.air.temperature = T0C
 			new /obj/effect/snow(T)
 
 /obj/item/ammo_casing/magic/frost
@@ -138,7 +140,7 @@
 	max_combined_w_class = 2024
 
 /obj/item/storage/backpack/santabag/ded_moroz/populate_contents()
-	for(var/i = 0, i < 50, i++)
+	for(var/i in 1 to 50)
 		new /obj/item/a_gift(src)
 	update_icon()
 
