@@ -288,6 +288,7 @@
 	dir = 1;
 	tag = "icon-snow_corner (NORTH)"
 	},
+/obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "cJ" = (
@@ -341,7 +342,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "dn" = (
-/obj/item/clothing/suit/hooded/wintercoat/medical/science,
+/obj/item/clothing/suit/hooded/wintercoat/hop,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -1310,6 +1311,12 @@
 /obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
+"jZ" = (
+/obj/item/clothing/shoes/winterboots,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	slowdown = 0
+	},
+/area/vision_change_area/awaymission/evil_santa/spawn_ne)
 "ka" = (
 /obj/item/reagent_containers/food/snacks/grown/carrot,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
@@ -1580,11 +1587,11 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "my" = (
-/obj/item/clothing/suit/hooded/wintercoat/captain,
+/obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
-/area/vision_change_area/awaymission/evil_santa/spawn_ne)
+/area/vision_change_area/awaymission/evil_santa/spawn_s)
 "mB" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
@@ -2155,6 +2162,13 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
+"rh" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/obj/effect/decal/snow/clean/edge,
+/turf/simulated/floor/plating/ice,
+/area/vision_change_area/awaymission/evil_santa/mine)
 "rj" = (
 /obj/effect/decal/rail_way{
 	dir = 4
@@ -2177,6 +2191,15 @@
 /obj/item/decorations/sticky_decorations/flammable/tinsel/blue,
 /turf/simulated/wall/indestructible/snow,
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
+"rs" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/turf/simulated/floor/plating/ice,
+/area/vision_change_area/awaymission/evil_santa/mine)
 "rw" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -2448,6 +2471,16 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
+"tH" = (
+/obj/effect/decal/snow/clean/edge,
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/turf/simulated/floor/plating/ice,
+/area/vision_change_area/awaymission/evil_santa/mine)
 "tP" = (
 /mob/living/simple_animal/hostile/winter/snowman{
 	weather_immunities = list("snow")
@@ -2788,6 +2821,7 @@
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "xe" = (
+/obj/item/stack/medical/ointment/aloe,
 /obj/item/clothing/head/bearpelt/fluff/polar,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -3150,7 +3184,10 @@
 /turf/simulated/floor/wood/cold,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "zX" = (
-/turf/simulated/mineral/random/low_chance,
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Ac" = (
 /obj/structure/kitchenspike,
@@ -3274,6 +3311,16 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
+"Bl" = (
+/mob/living/simple_animal/hostile/winter/snowman{
+	weather_immunities = list("snow")
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/obj/effect/decal/snow/clean/edge,
+/turf/simulated/floor/plating/ice,
+/area/vision_change_area/awaymission/evil_santa/mine)
 "Bo" = (
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -3552,6 +3599,8 @@
 /obj/item/clothing/suit/hooded/wintercoat/hydro,
 /obj/item/clothing/head/ushanka,
 /obj/structure/closet/cabinet,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "Ew" = (
@@ -3644,18 +3693,22 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Fn" = (
-/turf/simulated/mineral/random/volcanic/hard{
-	baseturf = /turf/simulated/floor/plating/asteroid;
-	turf_type = /turf/simulated/floor/plating/asteroid;
-	mineralSpawnChanceList = list(/turf/simulated/mineral/uranium/volcanic/hard = 10, /turf/simulated/mineral/diamond/volcanic/hard = 2, /turf/simulated/mineral/gold/volcanic/hard = 10, /turf/simulated/mineral/titanium/volcanic/hard = 21, /turf/simulated/mineral/magmite/volcanic/hard = 0.5, /turf/simulated/mineral/silver/volcanic/hard = 12, /turf/simulated/mineral/plasma/volcanic/hard = 20, /turf/simulated/mineral/bscrystal/volcanic/hard = 2, /turf/simulated/mineral/gibtonite/volcanic/hard = 4, /turf/simulated/mineral/iron/volcanic/hard = 50, /turf/simulated/mineral/gem/volcanic/hard = 2, /turf/simulated/floor/plating/asteroid = 1)
+/obj/item/snowball,
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
 	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 1;
+	tag = "icon-snow_corner (NORTH)"
+	},
+/turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Fo" = (
-/obj/item/clothing/suit/hooded/wintercoat/hop,
+/obj/item/clothing/gloves/fingerless,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
-/area/vision_change_area/awaymission/evil_santa/spawn_s)
+/area/vision_change_area/awaymission/evil_santa/spawn_ne)
 "Ft" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/wood/fancy,
@@ -3717,6 +3770,19 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
+"FX" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 1;
+	tag = "icon-snow_corner (NORTH)"
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/turf/simulated/floor/plating/ice,
+/area/vision_change_area/awaymission/evil_santa/mine)
 "Ga" = (
 /obj/item/flashlight/lantern{
 	on = 1;
@@ -3928,6 +3994,12 @@
 /obj/structure/decorative_structures/garland,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
+"Hw" = (
+/obj/item/clothing/gloves/fingerless,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	slowdown = 0
+	},
+/area/vision_change_area/awaymission/evil_santa/spawn_nw)
 "HG" = (
 /obj/structure/decorative_structures/garland,
 /obj/structure/decorative_structures/garland{
@@ -4146,6 +4218,8 @@
 /obj/item/clothing/suit/hooded/wintercoat/cargo,
 /obj/item/clothing/head/ushanka,
 /obj/structure/closet/cabinet,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "JI" = (
@@ -4202,6 +4276,13 @@
 	},
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
+"Ki" = (
+/obj/item/stack/medical/ointment/aloe,
+/obj/item/clothing/head/bearpelt/fluff,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	slowdown = 0
+	},
+/area/vision_change_area/awaymission/evil_santa/spawn_ne)
 "Kl" = (
 /obj/structure/table/wood,
 /obj/item/storage/bag/tray,
@@ -4220,6 +4301,16 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"Kq" = (
+/mob/living/simple_animal/hostile/bear/brown{
+	faction = list("hostile","syndicate","winter");
+	weather_immunities = list("snow");
+	name = "space daebear"
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	slowdown = 0
+	},
+/area/vision_change_area/awaymission/evil_santa_storm)
 "Ks" = (
 /mob/living/simple_animal/hostile/russian/ranged/mosin,
 /turf/simulated/floor/carpet{
@@ -4536,6 +4627,13 @@
 "MZ" = (
 /turf/simulated/floor/carpet/green,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"Nc" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
+/obj/effect/decal/snow/clean/edge,
+/turf/simulated/floor/plating/ice,
+/area/vision_change_area/awaymission/evil_santa/mine)
 "Nf" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6";
@@ -4696,6 +4794,9 @@
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
 	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
+	},
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Oq" = (
@@ -4735,7 +4836,9 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "OE" = (
-/obj/item/stack/marker_beacon/ten,
+/obj/item/stack/marker_beacon/ten{
+	amount = 5
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "OF" = (
@@ -5233,6 +5336,13 @@
 /obj/structure/mineral_door/ginger,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
+"SS" = (
+/obj/item/stack/medical/ointment/aloe,
+/obj/item/stack/sheet/animalhide/monkey,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	slowdown = 0
+	},
+/area/vision_change_area/awaymission/evil_santa/spawn_nw)
 "ST" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	icon = 'icons/mob/simple_human.dmi';
@@ -5438,10 +5548,21 @@
 /turf/simulated/wall/indestructible/snow,
 /area/vision_change_area/awaymission/evil_santa/spawn_nw)
 "UH" = (
-/turf/simulated/mineral/ancient{
-	hardness = 3
+/obj/effect/decal/snow/clean/edge{
+	dir = 4
 	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 1;
+	tag = "icon-snow_corner (NORTH)"
+	},
+/turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"UI" = (
+/obj/item/clothing/gloves/fingerless,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	slowdown = 0
+	},
+/area/vision_change_area/awaymission/evil_santa/spawn_s)
 "UM" = (
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	faction = list("hostile","syndicate","winter");
@@ -5492,6 +5613,7 @@
 	dir = 1;
 	tag = "icon-snow_corner (NORTH)"
 	},
+/obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "UX" = (
@@ -5588,6 +5710,8 @@
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /obj/item/clothing/head/ushanka,
 /obj/structure/closet/cabinet,
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/shoes/winterboots,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "VR" = (
@@ -5606,6 +5730,12 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"VU" = (
+/obj/item/clothing/shoes/winterboots,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	slowdown = 0
+	},
+/area/vision_change_area/awaymission/evil_santa/spawn_nw)
 "VW" = (
 /obj/structure/bed/dogbed,
 /obj/item/stack/sheet/wood,
@@ -5980,6 +6110,14 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa_storm)
+"Zt" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere{
+	slowdown = 0
+	},
+/area/vision_change_area/awaymission/evil_santa/mine)
 "Zx" = (
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -11658,7 +11796,7 @@ Sp
 Sp
 Sp
 Sp
-uo
+Kq
 Sp
 Sp
 Sp
@@ -14406,9 +14544,9 @@ Sp
 UD
 UD
 Og
-eq
+Hw
 VA
-eq
+VU
 Pi
 UD
 UD
@@ -14921,7 +15059,7 @@ mK
 eq
 Hh
 eq
-ZI
+SS
 eq
 Hh
 eq
@@ -15690,12 +15828,12 @@ Sp
 gK
 eq
 Hh
-eq
+Hw
 WP
 eq
 eq
 Og
-eq
+Hw
 eq
 UD
 Sp
@@ -15947,11 +16085,11 @@ Sp
 UD
 eq
 cJ
-eq
+VU
 eq
 ZI
 eq
-eq
+VU
 cJ
 UD
 UD
@@ -28117,7 +28255,7 @@ Sp
 Rz
 Rz
 oN
-oN
+my
 Th
 mN
 HW
@@ -28378,7 +28516,7 @@ Ba
 vj
 rF
 jW
-oN
+my
 Rz
 Rz
 Sp
@@ -28633,9 +28771,9 @@ oN
 az
 zn
 hS
-oN
+UI
 az
-oN
+UI
 IX
 Rz
 Sp
@@ -29150,7 +29288,7 @@ el
 oN
 hg
 gc
-oN
+IX
 Ex
 Sp
 Sp
@@ -29406,8 +29544,8 @@ zo
 oN
 oN
 oN
-oN
-oN
+UI
+my
 Ex
 Sp
 Sp
@@ -29659,12 +29797,12 @@ Rz
 oN
 mN
 Th
-oN
+UI
 xe
 jW
 oN
 Th
-Fo
+oN
 Rz
 Sp
 Sp
@@ -29914,7 +30052,7 @@ Sp
 Sp
 Rz
 Rz
-oN
+my
 rF
 HW
 az
@@ -39341,8 +39479,8 @@ Sp
 Tq
 Tq
 Ir
-fH
-fH
+jZ
+Fo
 fH
 aX
 fH
@@ -40112,13 +40250,13 @@ Sp
 JU
 Xe
 fH
-hK
+Ki
 fH
 xo
 fH
 ay
 dn
-fH
+Fo
 JU
 Sp
 Sp
@@ -40374,7 +40512,7 @@ fH
 fH
 fH
 fH
-fH
+jZ
 su
 JU
 Sp
@@ -40625,8 +40763,8 @@ Sp
 Sp
 Tq
 su
-fH
-my
+jZ
+RC
 fH
 hK
 fH
@@ -40882,7 +41020,7 @@ Sp
 Sp
 Tq
 Tq
-fH
+Fo
 aX
 fH
 lQ
@@ -53286,7 +53424,7 @@ kJ
 Xv
 sY
 Fj
-zX
+kJ
 kJ
 vv
 vv
@@ -53543,8 +53681,8 @@ kJ
 NB
 uL
 yZ
-zX
-UH
+kJ
+NO
 vv
 vv
 vv
@@ -53797,11 +53935,11 @@ vv
 vv
 kJ
 wy
-UH
-UH
-UH
-UH
-UH
+NO
+NO
+NO
+NO
+NO
 vv
 vv
 vv
@@ -54749,7 +54887,7 @@ vv
 vv
 vv
 vv
-Fy
+Zx
 Zx
 Zx
 kJ
@@ -55048,7 +55186,7 @@ Zx
 Zx
 xE
 kJ
-Fn
+NO
 vv
 vv
 kJ
@@ -55265,7 +55403,7 @@ vv
 Zx
 Zx
 Zx
-Zx
+Fy
 kJ
 vv
 vv
@@ -55305,7 +55443,7 @@ Zx
 Zx
 Zx
 Zx
-Fn
+NO
 kJ
 kJ
 kJ
@@ -55529,10 +55667,10 @@ vv
 vv
 vv
 kJ
+Zx
+Zx
+Zx
 Fy
-jB
-Zx
-Zx
 vI
 Zx
 Zx
@@ -55562,7 +55700,7 @@ Zx
 vv
 kJ
 UP
-Fn
+NO
 kJ
 Zx
 Zx
@@ -55787,7 +55925,7 @@ vv
 vv
 TF
 Zx
-jB
+Zx
 Zx
 jB
 vI
@@ -55818,8 +55956,8 @@ Zx
 kJ
 kJ
 kJ
-Fn
-Fn
+NO
+NO
 MM
 Zx
 Zx
@@ -56075,8 +56213,8 @@ kJ
 kJ
 UP
 kJ
-Fn
-Fn
+NO
+NO
 Zx
 Zx
 Zx
@@ -56328,12 +56466,12 @@ vv
 kJ
 kJ
 kJ
-Fn
-Fn
-Fn
-Fn
-Fn
-Fn
+NO
+NO
+NO
+NO
+NO
+NO
 kJ
 Zx
 kJ
@@ -56840,7 +56978,7 @@ Zx
 kJ
 kJ
 kJ
-Fn
+NO
 vv
 vv
 vv
@@ -57096,9 +57234,9 @@ xE
 Zx
 kJ
 kJ
-Fn
-Fn
-Fn
+NO
+NO
+NO
 vv
 vv
 vv
@@ -57353,8 +57491,8 @@ vv
 vv
 xE
 kJ
-Fn
-Fn
+NO
+NO
 kJ
 xE
 vv
@@ -57609,9 +57747,9 @@ vv
 vv
 vv
 vv
-Fn
-Fn
-Fn
+NO
+NO
+NO
 kJ
 kJ
 xE
@@ -59666,7 +59804,7 @@ vv
 vv
 vv
 kJ
-Fn
+NO
 kJ
 kJ
 kJ
@@ -59922,8 +60060,8 @@ vv
 vv
 vv
 kJ
-Fn
-Fn
+NO
+NO
 Zx
 Zx
 Zx
@@ -60179,8 +60317,8 @@ vv
 vv
 kJ
 UP
-Fn
-Fn
+NO
+NO
 MM
 Zx
 Zx
@@ -60436,8 +60574,8 @@ vv
 vv
 kJ
 kJ
-Fn
-Fn
+NO
+NO
 Zx
 Zx
 Zx
@@ -60692,9 +60830,9 @@ vv
 vv
 vv
 kJ
-Fn
-Fn
-Fn
+NO
+NO
+NO
 kJ
 kJ
 kJ
@@ -60950,9 +61088,9 @@ vv
 vv
 kJ
 kJ
-Fn
-Fn
-Fn
+NO
+NO
+NO
 vv
 vv
 vv
@@ -64805,12 +64943,12 @@ vv
 vv
 vv
 vv
-iK
-iK
-mL
-ZK
-vk
-iK
+PS
+QQ
+tH
+Zt
+FX
+rh
 vv
 vv
 vv
@@ -65061,14 +65199,14 @@ Zx
 Zx
 vv
 vv
-iK
+PS
 SM
 xZ
 ka
 ZK
 Bj
 vk
-SM
+Bl
 vv
 vv
 vv
@@ -65317,7 +65455,7 @@ Zx
 Zx
 Zx
 vv
-iK
+PS
 iK
 mL
 ZK
@@ -65326,7 +65464,7 @@ ZK
 QN
 ZK
 vk
-iK
+rh
 vv
 vv
 vv
@@ -66088,7 +66226,7 @@ vv
 vv
 vv
 vv
-iK
+UH
 vh
 iK
 UQ
@@ -66097,7 +66235,7 @@ QN
 ZK
 ZK
 PS
-iK
+Nc
 vv
 vv
 vv
@@ -66346,14 +66484,14 @@ vv
 vv
 vv
 vv
-iK
+UH
 iK
 iK
 UQ
 ka
 ZK
 PS
-iK
+Nc
 vv
 vv
 vv
@@ -66604,12 +66742,12 @@ vv
 vv
 vv
 vv
-vh
-iK
-iK
-QQ
+Fn
+zX
+zX
+rs
 Ok
-iK
+Nc
 vv
 vv
 vv
