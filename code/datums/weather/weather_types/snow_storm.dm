@@ -118,5 +118,5 @@
 
 	L.adjust_bodytemperature(temp_drop)
 
-	if(L.bodytemperature <= -280 && prob(freeze_chance))
+	if(L.bodytemperature <= TCMB && prob(freeze_chance))
 		L.apply_status_effect(/datum/status_effect/freon)
