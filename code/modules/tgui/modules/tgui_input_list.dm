@@ -109,7 +109,7 @@
 /datum/tgui_list_input/ui_static_data(mob/user)
 	var/list/data = list()
 	data["init_value"] = default || items[1]
-	data["items"] = items
+	data["items"] = uniquelist(items)
 	data["message"] = message
 	data["title"] = title
 	return data
