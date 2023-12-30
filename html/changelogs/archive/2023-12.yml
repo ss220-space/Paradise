@@ -284,3 +284,12 @@
   - bugfix: There is no escape for you, robocluwne. (#4143)
   Zwei:
   - bugfix: Can Hear Fix (#4137)
+'2023-12-29':
+  BeebBeebBoob:
+  - bugfix: edit shuttle timer announcment update (#4145)
+  ROdenFL:
+  - bugfix: tgui lists can in lists with doubles and return None (#4150)
+  - bugfix: post target cryo message (#4152)
+  Vladisvell:
+  - bugfix: APC no longer can be unlocked by binds from distance (#4147)
+  - add: Added nice presents positioning around Christmas trees (#4146)

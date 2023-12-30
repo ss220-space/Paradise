@@ -881,13 +881,15 @@
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if(stat==2 || istype(usr,/mob/dead/observer)) // Always can respawn as NPC
+	if(stat==2 || istype(usr, /mob/dead/observer)) // Always can respawn as NPC
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in GLOB.alive_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L
-		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
+		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
+		if(!picked)
+			return
 		switch(picked)
 			if("Mouse")
 				GLOB.respawnable_list -= usr

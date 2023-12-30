@@ -14,15 +14,18 @@
 	name = "pine tree"
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_1"
+	var/randomize_tree = TRUE
 
 /obj/structure/flora/tree/pine/Initialize(mapload)
 	. = ..()
-	icon_state = "pine_[rand(1, 3)]"
+	if(randomize_tree)
+		icon_state = "pine_[rand(1, 3)]"
 
 /obj/structure/flora/tree/pine/xmas
 	name = "xmas tree"
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_c"
+	randomize_tree = FALSE
 
 /obj/structure/flora/tree/dead
 	icon = 'icons/obj/flora/deadtrees.dmi'
