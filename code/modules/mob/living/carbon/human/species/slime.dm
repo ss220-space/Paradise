@@ -142,10 +142,9 @@
 	..()
 
 
-/datum/species/slime/can_hear(mob/living/carbon/human/H) // fucking snowflakes
-	. = FALSE
-	if(!HAS_TRAIT(H, TRAIT_DEAF))
-		. = TRUE
+/datum/species/slime/can_hear(mob/living/carbon/human/user)
+	return !(DEAF in user.mutations) && !HAS_TRAIT(user, TRAIT_DEAF)
+
 
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"

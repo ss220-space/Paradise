@@ -636,6 +636,27 @@
 	else
 		return ..()
 
+/obj/machinery/power/apc/AltClick(mob/user)
+	var/mob/living/carbon/human/human = user
+	if(!istype(human))
+		return
+
+	if(!Adjacent(human) || (get_turf(user) != user.loc))
+		return
+
+	var/obj/item/card/id/card = human.get_id_card()
+	if(!istype(card))
+		return
+
+	add_fingerprint(user)
+	togglelock(user)
+
+/obj/machinery/power/apc/CtrlClick(mob/user)
+	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
+	if(!can_use(usr, TRUE) || (is_locked(usr)))
+		return
+	toggle_breaker(user)
+
 
 /obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -1098,7 +1119,7 @@
 				CHECK_TICK
 
 
-/obj/machinery/power/apc/proc/toggle_breaker()
+/obj/machinery/power/apc/proc/toggle_breaker(mob/user)
 	operating = !operating
 	update()
 	update_icon()

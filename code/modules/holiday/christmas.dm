@@ -1,21 +1,58 @@
-/datum/holiday/xmas/celebrate()
-	for(var/obj/structure/flora/tree/pine/xmas in world)
+/datum/holiday/xmas/handle_event()
+	for(var/obj/structure/flora/tree/pine/xmas/xmas in world)
 		if(!is_station_level(xmas.z))	continue
-		for(var/turf/simulated/floor/T in orange(1,xmas))
+		for(var/turf/simulated/floor/T in (xmas.get_all_adjacent_turfs() - get_turf(xmas)))
+			var/direction = get_dir(xmas, T)
 			for(var/i=1,i<=rand(1,5),i++)
-				new /obj/item/a_gift(T)
+				var/obj/item/a_gift/gift = new(T)
+				handle_present_location(gift, direction, 16)
+
 	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat)
 	for(var/datum/crafting_recipe/snowman/S in GLOB.crafting_recipes)
 		S.always_availible = TRUE
 		break
-	//The following spawn is necessary as both the timer and the shuttle systems initialise after the events system does, so we can't add stuff to the shuttle system as it doesn't exist yet and we can't use a timer
-	spawn(60 SECONDS)
-		var/datum/supply_packs/misc/snow_machine/xmas = SSshuttle.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
-		xmas.special = FALSE
+	var/datum/supply_packs/misc/snow_machine/xmas = SSshuttle.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
+	xmas.special = FALSE
 
-/datum/holiday/xmas/handle_event()
-	spawnTree()
+	//As fun at it is sounds, peacefulness is better
+	//if(prob(eventChance))
+	//	spawnTree()
+
+/**
+ * Offsets pixel location for presents to move visually closer to direction
+ */
+/datum/holiday/xmas/proc/handle_present_location(obj/present, center_direction, offset)
+	var/pixel_x_offset = 0
+	var/pixel_y_offset = 0
+	switch(center_direction)
+		if(NORTH)
+			pixel_x_offset = rand(-offset, offset)
+			pixel_y_offset = rand(-offset, 0)
+		if(SOUTH)
+			pixel_x_offset = rand(-offset, offset)
+			pixel_y_offset = rand(0, offset)
+		if(EAST)
+			pixel_x_offset = rand(-offset, 0)
+			pixel_y_offset = rand(-offset, offset)
+		if(WEST)
+			pixel_x_offset = rand(0, offset)
+			pixel_y_offset = rand(-offset, offset)
+		if(NORTHEAST)
+			pixel_x_offset = rand(-offset, 0)
+			pixel_y_offset = rand(-offset, 0)
+		if(NORTHWEST)
+			pixel_x_offset = rand(0, offset)
+			pixel_y_offset = rand(-offset, 0)
+		if(SOUTHEAST)
+			pixel_x_offset = rand(-offset, 0)
+			pixel_y_offset = rand(0, offset)
+		if(SOUTHWEST)
+			pixel_x_offset = rand(0, offset)
+			pixel_y_offset = rand(0, offset)
+
+	present.pixel_x = pixel_x_offset
+	present.pixel_y = pixel_y_offset
 
 /datum/holiday/xmas/proc/spawnTree()
 	for(var/obj/structure/flora/tree/pine/xmas in world)
