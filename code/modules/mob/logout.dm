@@ -1,4 +1,5 @@
 /mob/Logout()
+	SEND_SIGNAL(src, COMSIG_MOB_LOGOUT)
 	SStgui.on_logout(src) // Cleanup any TGUIs the user has open
 	unset_machine()
 	GLOB.player_list -= src
