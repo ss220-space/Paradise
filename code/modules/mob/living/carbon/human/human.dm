@@ -691,7 +691,9 @@
 						for(var/datum/data/record/R in GLOB.data_core.security)
 							if(R.fields["id"] == E.fields["id"])
 
-								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED, "Cancel")
+								var/setcriminal = tgui_input_list(usr, "Specify a new criminal status for this person.", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
+								if(!setcriminal)
+									return
 								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
@@ -2042,3 +2044,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return ..(clicked_on, override = TRUE)
 
 	return ..()
+
+/mob/living/carbon/human/verb/pose()
+	set name = "Set Pose"
+	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
+	set category = "IC"
+
+	pose = sanitize(copytext_char(input(usr, "Это [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+
+/mob/living/carbon/human/verb/set_flavor()
+	set name = "Set Flavour Text"
+	set desc = "Устанавливает подробное описание внешности вашего персонажа."
+	set category = "IC"
+
+	update_flavor_text()

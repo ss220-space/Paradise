@@ -163,7 +163,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		qdel(src)
 
 	for(var/datum/mind/user in owners)
-		var/list/messages = list(user.prepare_announce_objectives(FALSE))
+		var/list/messages = list()
+		messages.Add(user.prepare_announce_objectives(FALSE))
 		to_chat(user.current, chat_box_red(messages.Join("<br>")))
 
 

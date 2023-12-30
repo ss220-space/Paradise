@@ -31,9 +31,9 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ(BODY_ZONE_HEAD)
 		//facial hair
-		var/f_new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in H.generate_valid_facial_hairstyles()
+		var/f_new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", H.generate_valid_facial_hairstyles())
 		//handle normal hair
-		var/h_new_style = input(user, "Select a hair style", "Grooming")  as null|anything in H.generate_valid_hairstyles()
+		var/h_new_style = tgui_input_list(user, "Select a hair style", "Grooming", H.generate_valid_hairstyles())
 		user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>") //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
 		playsound(loc, 'sound/goonstation/misc/scissor.ogg', 100, 1)
 		if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = H)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)

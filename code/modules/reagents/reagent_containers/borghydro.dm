@@ -14,6 +14,7 @@
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
 	var/bypass_protection = FALSE //If the hypospray can go through armor or thick material
+	var/upgrade_path = /obj/item/reagent_containers/borghypo/upgraded
 
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list( \
@@ -39,6 +40,7 @@
 		"potass_iodide" = list('icons/obj/decals.dmi', "radiation"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 	bypass_protection = TRUE
+	upgrade_path = null //no upgrades
 
 
 /obj/item/reagent_containers/borghypo/upgraded
@@ -54,6 +56,7 @@
 		"perfluorodecalin" = list('icons/obj/surgery.dmi', "lungs"), \
 		"calomel" = list('icons/obj/items.dmi', "soap"), \
 		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
+	upgrade_path = null //no upgrades
 
 /obj/item/reagent_containers/borghypo/upgraded/super
 	bypass_protection = TRUE
@@ -184,6 +187,7 @@
 	reagent_ids = list( \
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"))
+	upgrade_path = /obj/item/reagent_containers/borghypo/basic/upgraded
 
 
 /obj/item/reagent_containers/borghypo/basic/upgraded
@@ -195,8 +199,9 @@
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"sal_acid" = list('icons/mob/actions/actions.dmi', "fleshmend"), \
 		"salbutamol" = list('icons/obj/surgery.dmi', "lungs"))
+	upgrade_path = null //no upgrades
 
-/obj/item/reagent_containers/borghypo/basic/emagged_borg_hypo
+/obj/item/reagent_containers/borghypo/emagged
 	name = "ERR3NU1l_INJ3C70R"
 	desc = "This injector will deliver deadly chemicals into anyone not fortunate enough to end up as an enemy to Syndicate. Who could've thought NanoTrasen borgs can synthesize that?"
 	icon = 'icons/obj/hypo.dmi'
@@ -210,6 +215,7 @@
 		"heparin" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"cyanide" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"sodium_thiopental" = list('icons/obj/surgery.dmi', "lungs"))
+	upgrade_path = null //no upgrades
 
 
 

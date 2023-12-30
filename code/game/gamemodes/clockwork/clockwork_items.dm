@@ -91,7 +91,7 @@
 			to_chat(user, "<span class='warning'>You are not in the right dimension!</span>")
 			return
 
-		var/selected_altar = input(user, "Pick a credence teleport to...", "Teleporation") as null|anything in possible_altars
+		var/selected_altar = tgui_input_list(user, "Pick a credence teleport to...", "Teleporation", possible_altars)
 		if(!selected_altar)
 			return
 		var/turf/destination = possible_altars[selected_altar]

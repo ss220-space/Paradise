@@ -658,7 +658,7 @@
 /area/ruin/powered/snow_cabin)
 "Ye" = (
 /obj/structure/table/wood,
-/obj/item/deck/doublecards,
+/obj/item/deck/cards/doublecards,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "Zo" = (

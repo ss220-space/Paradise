@@ -24,7 +24,7 @@
 		name = "robot [initial(name)]"
 
 /obj/item/robot_parts/attack_self(mob/user)
-	var/choice = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
+	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
 	if(!choice)
 		return
 	if(loc != user)

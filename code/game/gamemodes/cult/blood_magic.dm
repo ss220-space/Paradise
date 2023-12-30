@@ -51,7 +51,7 @@
 		possible_spells[cult_name] = J
 	if(length(spells))
 		possible_spells += "(REMOVE SPELL)"
-	entered_spell_name = input(owner, "Pick a blood spell to prepare...", "Spell Choices") as null|anything in possible_spells
+	entered_spell_name = tgui_input_list(owner, "Pick a blood spell to prepare...", "Spell Choices", possible_spells)
 	if(entered_spell_name == "(REMOVE SPELL)")
 		remove_spell()
 		return
@@ -80,7 +80,7 @@
 	channeling = FALSE
 
 /datum/action/innate/cult/blood_magic/proc/remove_spell(message = "Pick a spell to remove.")
-	var/nullify_spell = input(owner, message, "Current Spells") as null|anything in spells
+	var/nullify_spell = tgui_input_list(owner, message, "Current Spells", spells)
 	if(nullify_spell)
 		qdel(nullify_spell)
 
@@ -488,7 +488,7 @@
 		return
 
 	var/mob/living/L = target
-	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
+	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
@@ -846,7 +846,7 @@
 
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
 	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
-	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
+	var/choice = tgui_input_list(user, "Choose a greater blood rite...", "Greater Blood Rites", options)
 	if(!Adjacent(user))
 		to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
 		return

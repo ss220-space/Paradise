@@ -6037,7 +6037,7 @@
 /area/derelict/dining)
 "oP" = (
 /obj/structure/table/wood,
-/obj/item/toy/cards/deck/black,
+/obj/item/deck/cards/black,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
