@@ -1,25 +1,25 @@
 //Academy Areas
 
-/area/awaymission/academy
+/area/vision_change_area/awaymission/academy
 	name = "\improper Academy Asteroids"
 	icon_state = "away"
 	report_alerts = FALSE
 	no_teleportlocs = TRUE
 	tele_proof = TRUE
 
-/area/awaymission/academy/headmaster
+/area/vision_change_area/awaymission/academy/headmaster
 	name = "\improper Academy Fore Block"
 	icon_state = "away1"
 
-/area/awaymission/academy/classrooms
+/area/vision_change_area/awaymission/academy/classrooms
 	name = "\improper Academy Classroom Block"
 	icon_state = "away2"
 
-/area/awaymission/academy/academyaft
+/area/vision_change_area/awaymission/academy/academyaft
 	name = "\improper Academy Ship Aft Block"
 	icon_state = "away3"
 
-/area/awaymission/academy/academygate
+/area/vision_change_area/awaymission/academy/academygate
 	name = "\improper Academy Gateway"
 	icon_state = "away4"
 
