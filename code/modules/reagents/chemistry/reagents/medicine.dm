@@ -1475,3 +1475,64 @@
 	update_flags |= M.adjustToxLoss(10, FALSE)
 
 	return list(0, update_flags)
+
+/datum/reagent/medicine/pemoline
+	name = "Pemoline"
+	id = "pemoline"
+	description = "The drug that significantly increases productivity can be harmful for your heart"
+	reagent_state = LIQUID
+	color = "#7a274f"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	harmless = FALSE
+	overdose_threshold = 20
+	heart_rate_increase = 30
+	taste_description = "tastes like raspberry gum"
+	var/speed_increase = 0.25
+	var/speed_increase_overdose = 0.4
+	addiction_chance = 20
+
+/datum/reagent/medicine/pemoline/on_mob_add(mob/living/M)
+	var/mob/living/carbon/human/H = M
+	if (H.can_heartattack())
+		to_chat(H, "<span class='notice'>You feel fast</span>")
+		H.toolspeedincrease = speed_increase
+	return
+
+/datum/reagent/medicine/pemoline/on_mob_delete(mob/living/M)
+	var/mob/living/carbon/human/H = M
+	if (H.can_heartattack())
+		to_chat(H, "<span class='notice'>You no longer feelw fast</span>")
+		H.toolspeedincrease = 0
+	return
+
+/datum/reagent/medicine/pemoline/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/human/H = M
+	to_chat(H, "<span class='notice'>[gettoolspeedmod(H)]</span>")
+	if (H.toolspeedincrease > speed_increase_overdose && H.reagents.get_reagent_amount("pemoline") < overdose_threshold)
+		H.toolspeedincrease = speed_increase
+		to_chat(H, "<span class='notice'>You no longer feel so fast </span>")
+	return ..() | update_flags
+
+/datum/reagent/medicine/pemoline/overdose_start(mob/living/M)
+	var/mob/living/carbon/human/H = M
+	if (H.toolspeedincrease < speed_increase_overdose)
+		H.toolspeedincrease = speed_increase_overdose
+		to_chat(H, "<span class='notice'>You feel realy fast</span>")
+	return
+
+/datum/reagent/medicine/pemoline/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	var/mob/living/carbon/human/H = M
+	if (H.can_heartattack())
+		if(effect <= 2)
+			H.visible_message("<span class='warning'>[H] falls unconsciousness.</span>")
+			H.emote("scream")
+			update_flags |= H.adjustHeartLoss(1, FALSE)
+		else if(effect <= 5)
+			H.visible_message("<span class='warning'>[H] suddenly cluches [H.p_their()] heart!</span>")
+			H.emote("scream")
+			update_flags |= H.set_heartattack(TRUE)
+	return list(effect, update_flags)
