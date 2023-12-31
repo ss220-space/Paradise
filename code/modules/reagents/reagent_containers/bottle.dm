@@ -503,3 +503,35 @@
 	desc = "A bottle of monkey language potion."
 	icon_state = "round_bottle"
 	list_reagents = list("monkeylanguage" = 30)
+
+/obj/item/reagent_containers/glass/bottle/advanced/field_ration
+	name = "Field Ration"
+	desc = "NT military grade ratio for hostile environment usage"
+	icon_state = "advanced_bottle"
+	list_reagents = list("nutriment" = 80)
+	volume = 80
+
+/obj/item/reagent_containers/glass/bottle/advanced/update_icon()
+	overlays.Cut()
+	underlays.Cut()
+	var/image/shell = image('icons/obj/chemical.dmi', src, "[icon_state]10")
+	if(reagents.total_volume)
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/percent = round((reagents.total_volume / volume) * 100)
+		switch(percent)
+			if(0 to 24)
+				filling.icon_state = "[icon_state]10"
+				shell.icon_state = "[icon_state]10"
+			if(25 to 49)
+				filling.icon_state = "[icon_state]25"
+				shell.icon_state = "[icon_state]25"
+			if(50 to 74)
+				filling.icon_state = "[icon_state]50"
+				shell.icon_state = "[icon_state]50"
+			if(75 to INFINITY)
+				filling.icon_state = "[icon_state]75"
+				shell.icon_state = "[icon_state]75"
+
+		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		underlays += filling
+	overlays += shell
