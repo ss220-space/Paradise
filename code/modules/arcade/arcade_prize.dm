@@ -7,20 +7,27 @@
 	desc = "A toy is a toy, but a prize ball could be anything! It could even be a toy!"
 	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "prizeball_1"
-	var/opening = 0
+	var/choose_icon_state
+	var/opening = FALSE
 	var/possible_contents = list(/obj/random/carp_plushie, /obj/random/plushie, /obj/random/figure, /obj/item/toy/eight_ball, /obj/item/stack/tickets)
 
-/obj/item/toy/prizeball/New()
-	..()
-	icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
+/obj/item/toy/prizeball/Initialize(mapload)
+	. = ..()
+	choose_icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/toy/prizeball/attack_self(mob/user as mob)
+
+/obj/item/toy/prizeball/update_icon_state()
+	icon_state = opening ? "prizeconfetti" : choose_icon_state
+
+
+/obj/item/toy/prizeball/attack_self(mob/user)
 	if(opening)
 		return
-	opening = 1
+	opening = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	playsound(loc, 'sound/items/bubblewrap.ogg', 30, TRUE)
-	icon_state = "prizeconfetti"
-	src.color = pick(GLOB.random_color_list)
+	color = pick(GLOB.random_color_list)
 	var/prize_inside = pick(possible_contents)
 	spawn(10)
 		user.temporarily_remove_item_from_inventory(src)
@@ -72,14 +79,10 @@
 /obj/item/stack/tickets/five
 	amount = 5
 
-/obj/item/stack/tickets/New(var/loc, var/amount=null)
-	..()
-	update_icon()
-
-/obj/item/stack/tickets/attack_self(mob/user as mob)
+/obj/item/stack/tickets/attack_self(mob/user)
 	return
 
-/obj/item/stack/tickets/update_icon()
+/obj/item/stack/tickets/update_icon_state()
 	switch(get_amount())
 		if(1 to 3)
 			icon_state = "tickets_1"	// One ticket

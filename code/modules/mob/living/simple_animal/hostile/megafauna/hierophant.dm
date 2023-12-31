@@ -765,6 +765,12 @@ Difficulty: Hard
 	light_range = 2
 	layer = LOW_OBJ_LAYER
 	anchored = TRUE
+	var/teleporting = FALSE
+
+
+/obj/effect/hierophant/update_icon_state()
+	icon_state = "hierophant_tele_[teleporting ? "on" : "off"]"
+
 
 /obj/effect/hierophant/ex_act()
 	return

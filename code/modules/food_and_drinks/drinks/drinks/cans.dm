@@ -289,12 +289,13 @@
 	desc = "this shouldn't ever be spawned. shame on you"
 	icon_state = "glass_bottle"
 
+
 /obj/item/reagent_containers/food/drinks/cans/bottler/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/food/drinks/cans/bottler/update_icon()
-	overlays.Cut()
 
+/obj/item/reagent_containers/food/drinks/cans/bottler/update_overlays()
+	. = ..()
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
@@ -313,7 +314,8 @@
 				filling.icon_state = "[icon_state]50"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
+		. += filling
+
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle
 	name = "glass bottle"

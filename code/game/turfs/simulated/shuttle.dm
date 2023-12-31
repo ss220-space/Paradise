@@ -61,7 +61,7 @@
 /turf/simulated/wall/shuttle/try_decon(obj/item/I, mob/user, params)
 	return
 
-/turf/simulated/wall/shuttle/thermitemelt(mob/user as mob, speed)
+/turf/simulated/wall/shuttle/thermitemelt(mob/user, time)
 	return
 
 /turf/simulated/wall/shuttle/nodiagonal

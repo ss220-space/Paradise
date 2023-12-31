@@ -53,12 +53,15 @@
 	icon_state = "waterballoon-e"
 	item_state = "waterballoon-e"
 
+
 /obj/item/toy/balloon/New()
 	..()
 	create_reagents(10)
 
+
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
+
 
 /obj/item/toy/balloon/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -73,17 +76,18 @@
 			A.reagents.trans_to(src, 10)
 			to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/toy/balloon/wash(mob/user, atom/source)
 	if(reagents.total_volume < 10)
 		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
 		to_chat(user, "<span class='notice'>You fill the balloon from the [source].</span>")
 		desc = "A translucent balloon with some form of liquid sloshing around in it."
-		update_icon()
-	return
+		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob, params)
+
+/obj/item/toy/balloon/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
@@ -97,8 +101,8 @@
 					desc = "A translucent balloon with some form of liquid sloshing around in it."
 					to_chat(user, "<span class='notice'>You fill the balloon with the contents of [O].</span>")
 					O.reagents.trans_to(src, 10)
-	update_icon()
-	return
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(reagents.total_volume >= 1)
@@ -110,15 +114,16 @@
 		spawn(5)
 			if(src)
 				qdel(src)
-	return
 
-/obj/item/toy/balloon/update_icon()
-	if(src.reagents.total_volume >= 1)
+
+/obj/item/toy/balloon/update_icon_state()
+	if(reagents.total_volume >= 1)
 		icon_state = "waterballoon"
 		item_state = "waterballoon"
 	else
 		icon_state = "waterballoon-e"
 		item_state = "waterballoon-e"
+
 
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
@@ -420,12 +425,6 @@
 	desc = "Mini-Mecha action figure! Collect them all! 11/11. This one is the mysterious Phazon combat mecha! Nobody's safe!"
 	icon_state = "phazonprize"
 
-
-
-/*
-|| A Deck of Cards for playing various games of chance ||
-*/
-
 /obj/item/toy/nuke
 	name = "\improper Nuclear Fission Explosive toy"
 	desc = "A plastic model of a Nuclear Fission Explosive."
@@ -433,21 +432,40 @@
 	icon_state = "nuketoyidle"
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
+	var/animation_stage = 0
+
+
+/obj/item/toy/nuke/update_icon_state()
+	switch(animation_stage)
+		if(1)
+			icon_state = "nuketoy"
+		if(2)
+			icon_state = "nuketoycool"
+		else
+			icon_state = initial(icon_state)
+
 
 /obj/item/toy/nuke/attack_self(mob/user)
 	if(cooldown < world.time)
-		cooldown = world.time + 1800 //3 minutes
+		cooldown = world.time + 3 MINUTES
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
-		spawn(5) //gia said so
-			icon_state = "nuketoy"
-			playsound(src, 'sound/machines/alarm.ogg', 100, 0, 0)
-			sleep(135)
-			icon_state = "nuketoycool"
-			sleep(cooldown - world.time)
-			icon_state = "nuketoyidle"
+		INVOKE_ASYNC(src, PROC_REF(async_animation))
 	else
 		var/timeleft = (cooldown - world.time)
 		to_chat(user, "<span class='alert'>Nothing happens, and '</span>[round(timeleft/10)]<span class='alert'>' appears on a small display.</span>")
+
+
+/obj/item/toy/nuke/proc/async_animation()
+	animation_stage++
+	update_icon(UPDATE_ICON_STATE)
+	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 0)
+	sleep(13 SECONDS)
+	animation_stage++
+	update_icon(UPDATE_ICON_STATE)
+	sleep(cooldown - world.time)
+	animation_stage = 0
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/toy/therapy
 	name = "therapy doll"
@@ -949,25 +967,39 @@
 	icon_state = "ninja_plushie_green"
 	item_state = "ninja_plushie_green"
 	var/cooldown = 0
+	var/plushie_color
+
+
+/obj/item/toy/plushie/ninja/update_icon_state()
+	switch(plushie_color)
+		if("green")
+			icon_state = "ninja_plushie_green"
+			item_state = "ninja_plushie_green"
+		if("blue")
+			icon_state = "ninja_plushie_blue"
+			item_state = "ninja_plushie_blue"
+		if("red")
+			icon_state = "ninja_plushie_red"
+			item_state = "ninja_plushie_red"
+		else
+			icon_state = initial(icon_state)
+			item_state = initial(item_state)
+
 
 /obj/item/toy/plushie/ninja/attack_self(mob/user as mob)
 	. = ..()
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown
 		var/plushie_color = pick("green","blue","red")
-		switch (plushie_color)
+		update_icon(UPDATE_ICON_STATE)
+		switch(plushie_color)
 			if("green")
-				icon_state = "ninja_plushie_green"
-				item_state = "ninja_plushie_green"
 				user.visible_message(span_notice("[bicon(src)] The [name] says \"I am not afraid of the darkness! I am the darkness!\""))
 			if("blue")
-				icon_state = "ninja_plushie_blue"
-				item_state = "ninja_plushie_blue"
 				user.visible_message(span_notice("[bicon(src)] The [name] says \"Your simple light won't stop me!\""))
 			if("red")
-				icon_state = "ninja_plushie_red"
-				item_state = "ninja_plushie_red"
 				user.visible_message(span_notice("[bicon(src)] The [name] says \"You can run, but you can't hide!\""))
+		plushie_color = null
 
 //New toys from another builds
 /obj/item/toy/plushie/nianplushie/beeplushie
@@ -1038,9 +1070,6 @@
 
 /obj/item/toy/plushie/blahaj/twohanded/Initialize(mapload)
 	. = ..()
-	apply_twohanded_component()
-
-/obj/item/toy/plushie/blahaj/twohanded/proc/apply_twohanded_component()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/toy/plushie/blahaj/twohanded/attack_self(mob/user)
@@ -1175,13 +1204,13 @@
 			desc = "Watch out for angry voxes!"
 
 
-/obj/item/toy/plushie/pig/MouseDrop(atom/over)
+/obj/item/toy/plushie/pig/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(over != user || user.incapacitated() || !ishuman(user))
+	if(over_object != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
 	if(user.put_in_hands(src, ignore_anim = FALSE))
@@ -1541,22 +1570,33 @@
 	w_class = WEIGHT_CLASS_SMALL
 	bubble_icon = "alien"
 	var/cooldown = 0
+	var/animating = FALSE
+
+
+/obj/item/toy/toy_xeno/update_icon_state()
+	icon_state = animating ? "[initial(icon_state)]_used" : initial(icon_state)
+
 
 /obj/item/toy/toy_xeno/attack_self(mob/user)
 	if(cooldown <= world.time)
 		cooldown = (world.time + 50) //5 second cooldown
 		user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
-		icon_state = "[initial(icon_state)]_used"
-		sleep(5)
-		atom_say("Hiss!")
-		var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
-		playsound(get_turf(src), pick(possible_sounds), 50, 1)
-		spawn(45)
-			if(src)
-				icon_state = "[initial(icon_state)]"
+		INVOKE_ASYNC(src, PROC_REF(async_animation))
 	else
 		to_chat(user, "<span class='warning'>The string on [src] hasn't rewound all the way!</span>")
-		return
+
+
+/obj/item/toy/toy_xeno/proc/async_animation()
+	animating = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	sleep(0.5 SECONDS)
+	atom_say("Hiss!")
+	var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
+	playsound(get_turf(src), pick(possible_sounds), 50, TRUE)
+	sleep(4.5 SECONDS)
+	animating = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
@@ -1669,11 +1709,8 @@
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 
-/obj/item/twohanded/toy/chainsaw/update_icon()
-	if(wielded)
-		icon_state = "chainsaw[wielded]"
-	else
-		icon_state = "chainsaw0"
+/obj/item/twohanded/toy/chainsaw/update_icon_state()
+	icon_state = "chainsaw[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /*
  * Cat Toy
@@ -1994,7 +2031,7 @@
 	var/on = 0
 	var/activation_sound = 'sound/items/buttonclick.ogg'
 
-/obj/item/toy/desk/update_icon()
+/obj/item/toy/desk/update_icon_state()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 	else
@@ -2004,8 +2041,8 @@
 	on = !on
 	if(activation_sound)
 		playsound(src.loc, activation_sound, 75, 1)
-	update_icon()
-	return 1
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
 /obj/item/toy/desk/verb/rotate()
 	set name = "Rotate"
@@ -2046,7 +2083,7 @@
 
 /obj/item/toy/desk/newtoncradle/attack_self(mob/user)
 	on = !on
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(on)
 		soundloop.start()
 	else
@@ -2064,7 +2101,7 @@
 
 /obj/item/toy/desk/fan/attack_self(mob/user)
 	on = !on
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(on)
 		soundloop.start()
 	else

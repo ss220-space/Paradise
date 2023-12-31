@@ -42,11 +42,16 @@
 	return BRUTELOSS
 
 
+/obj/item/restraints/legcuffs/beartrap/update_icon_state()
+	icon_state = "[initial(icon_state)][armed]"
+
+
+
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
-		icon_state = "[initial(icon_state)][armed]"
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("[src] is now [armed ? "armed" : "disarmed"]"))
 
 
@@ -116,7 +121,7 @@
 		return
 
 	armed = FALSE
-	icon_state = "[initial(icon_state)][armed]"
+	update_icon(UPDATE_ICON_STATE)
 	playsound(src.loc, 'sound/effects/snap.ogg', 50, TRUE)
 	moving_thing.visible_message(span_danger("[moving_thing] triggers [src]."),
 								span_userdanger("You trigger [src]!"))
@@ -185,6 +190,11 @@
 	RegisterSignal(src, COMSIG_CARBON_TOGGLE_THROW, PROC_REF(spin_up_wrapper))
 
 
+/obj/item/restraints/legcuffs/bola/update_icon_state()
+	item_state = spinning ? "[initial(item_state)]_spin" : initial(item_state)
+	update_equipped_item()
+
+
 /obj/item/restraints/legcuffs/bola/proc/spin_up_wrapper(datum/source, throw_mode_state) // so that signal handler works
 	SIGNAL_HANDLER
 	if(throw_mode_state) // if we actually turned throw mode on
@@ -196,8 +206,7 @@
 		return
 	var/mob/living/owner = loc // can only be called if the mob is holding the bola.
 	spinning = TRUE
-	item_state = "[initial(item_state)]_spin"
-	owner.update_inv_hands()
+	update_icon(UPDATE_ICON_STATE)
 	playsound(owner, spin_sound, 30, list(38000, 48000), SHORT_RANGE_SOUND_EXTRARANGE)
 	spin_timer_id = addtimer(CALLBACK(src, PROC_REF(spin_loop), owner), 1 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE|TIMER_DELETE_ME)
 	do_spin_cycle(owner)
@@ -244,10 +253,9 @@
 /obj/item/restraints/legcuffs/bola/proc/reset_values(mob/living/user)
 	throw_range = initial(throw_range)
 	throw_speed = initial(throw_speed)
-	item_state = initial(item_state)
 	spin_cycle = 0
 	spinning = FALSE
-	user?.update_inv_hands()
+	update_icon(UPDATE_ICON_STATE)
 	if(spin_timer_id)
 		deltimer(spin_timer_id)
 

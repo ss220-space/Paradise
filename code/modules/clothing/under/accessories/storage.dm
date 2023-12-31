@@ -12,8 +12,8 @@
 	actions_types = list(/datum/action/item_action/accessory/storage)
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
-/obj/item/clothing/accessory/storage/New()
-	..()
+/obj/item/clothing/accessory/storage/Initialize(mapload)
+	. = ..()
 	hold = new/obj/item/storage/internal(src)
 	hold.storage_slots = slots
 
@@ -21,22 +21,25 @@
 	QDEL_NULL(hold)
 	return ..()
 
-/obj/item/clothing/accessory/storage/attack_hand(mob/user as mob)
+
+/obj/item/clothing/accessory/storage/attack_hand(mob/user)
 	if(has_suit)	//if we are part of a suit
-		hold.open(user)
+		hold?.open(user)
 		return
 
-	if(hold.handle_attack_hand(user))	//otherwise interact as a regular storage item
-		..(user)
+	if(!hold || !hold.handle_attack_hand(user))	//otherwise interact as a regular storage item
+		return ..()
 
-/obj/item/clothing/accessory/storage/MouseDrop(obj/over_object as obj)
+
+/obj/item/clothing/accessory/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(has_suit)
-		return
+		return has_suit.MouseDrop(over_object, src_location, over_location, src_control, over_control, params)
 
-	if(hold.handle_mousedrop(usr, over_object))
-		..(over_object)
+	if(!hold || !hold.handle_mousedrop(usr, over_object))
+		return ..()
 
-/obj/item/clothing/accessory/storage/attackby(obj/item/W as obj, mob/user as mob, params)
+
+/obj/item/clothing/accessory/storage/attackby(obj/item/W, mob/user, params)
 	return hold.attackby(W, user, params)
 
 /obj/item/clothing/accessory/storage/emp_act(severity)
@@ -47,7 +50,7 @@
 	hold.hear_talk(M, message_pieces, verb)
 	..()
 
-/obj/item/clothing/accessory/storage/hear_message(mob/M, var/msg, verb, datum/language/speaking)
+/obj/item/clothing/accessory/storage/hear_message(mob/M, msg, verb, datum/language/speaking)
 	hold.hear_message(M, msg)
 	..()
 
@@ -65,7 +68,7 @@
 			L += G.gift:return_inv()
 	return L
 
-/obj/item/clothing/accessory/storage/attack_self(mob/user as mob)
+/obj/item/clothing/accessory/storage/attack_self(mob/user)
 	if(has_suit)	//if we are part of a suit
 		hold.open(user)
 	else
@@ -112,8 +115,8 @@
 	item_color = "unathiharness2"
 	slots = 2
 
-/obj/item/clothing/accessory/storage/knifeharness/New()
-	..()
+/obj/item/clothing/accessory/storage/knifeharness/Initialize(mapload)
+	. = ..()
 	hold.max_combined_w_class = 4
 	hold.can_hold = list(/obj/item/hatchet/unathiknife, /obj/item/kitchen/knife)
 

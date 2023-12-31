@@ -36,15 +36,13 @@
 		origin_tech = initial(origin_tech)
 		flags = initial(flags)
 		reagents = null
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/implantcase/update_icon()
-	..()
-	cut_overlays()
+/obj/item/implantcase/update_overlays()
+	. = ..()
 	if(imp)
-		var/image/implant_overlay = image('icons/obj/implants.dmi', imp.implant_state)
-		add_overlay(implant_overlay)
+		. += image('icons/obj/implants.dmi', imp.implant_state)
 
 
 /obj/item/implantcase/attackby(obj/item/I, mob/user)
@@ -58,7 +56,8 @@
 			implater.imp.forceMove(src)
 			imp = implater.imp
 			implater.imp = null
-			implater.update_icon()
+			update_state()
+			implater.update_state()
 		else
 			if(imp)
 				if(implater.imp)
@@ -66,8 +65,8 @@
 				imp.forceMove(implater)
 				implater.imp = imp
 				imp = null
-			implater.update_icon()
-		update_state()
+				update_state()
+			implater.update_state()
 	else
 		return ..()
 
