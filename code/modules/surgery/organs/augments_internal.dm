@@ -422,6 +422,145 @@
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
+/obj/item/organ/internal/cyberimp/chest/chem_implant
+	name = "Chemical sequencer implant"
+	desc = "This implant can inject limited list of basic reagents into your blood."
+	slot = INTERNAL_ORGAN_CHEM_IMPLANT
+	w_class = WEIGHT_CLASS_TINY
+	var/charge_capacity = 4
+	var/charge = 4
+	var/charge_tick = 0
+	var/charge_delay = 16
+	var/implant_level = 0
+	implant_color = "#95C4E6"
+	actions_types = list(/datum/action/item_action/hands_free/activate/always)
+	var/available_c = list()
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/plus
+	name = "Chemical sequencer implant plus"
+	desc = "This implant can inject limited list of advanced reagents into your blood."
+	implant_level = 1
+	implant_color = "#1F4B6B"
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/emp_act(severity)
+	if(emp_proof)
+		return
+	if(prob(60/severity) && owner)
+		to_chat(owner, "<span class='warning'>Your chemical implant lost it's chargre!</span>")
+		charge = 0
+
+/datum/chem_implant
+	var/chemname
+	var/key
+	var/chemdesc = "This is a chemical"
+	var/chemuse = 1
+	var/quantity = 8
+	var/level = 0
+
+/datum/chem_implant/epinephrine
+	chemname = "Epinephrine"
+	key = "epinephrine"
+	chemdesc = "Stabilizes critical condition and slowly heals suffocation damage."
+
+/datum/chem_implant/salglucose
+	chemname = "Saline-Glucose Solution"
+	key = "salglu_solution"
+	chemdesc = "Heals all damage, but it requires more costs."
+	quantity = 24
+
+/datum/chem_implant/salbutamol
+	chemname = "Salbutamol"
+	key = "salbutamol"
+	chemdesc = "Heals suffocation damage."
+	quantity = 12
+
+/datum/chem_implant/charcoal
+	chemname = "Charcoal"
+	key = "charcoal"
+	chemdesc = "Slowly heals intoxication."
+	quantity = 12
+
+/datum/chem_implant/stimulative_agent
+	chemname = "Stimulative Agent"
+	key = "stimulative_agent"
+	chemdesc = "Slowly heals intoxication."
+	quantity = 4
+	level = 1
+
+/datum/chem_implant/mannitol
+	chemname = "Mannitol"
+	key = "mannitol"
+	chemdesc = "Slowly heals your brain."
+	quantity = 12
+	level = 1
+
+/datum/chem_implant/earthsblood
+	chemname = "Earthsblood"
+	key = "earthsblood"
+	chemdesc = "Heals all damage, great for restoring wounds, but it's a little heavy on the brain."
+	quantity = 8
+	level = 1
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/Initialize()
+	for(var/datum in typesof(/datum/chem_implant))
+		var/datum/chem_implant/C = datum
+		if(initial(C.chemname) && implant_level >= C.level)
+			available_c += list(list("name" = initial(C.chemname), "key" = initial(C.key), "desc" = initial(C.chemdesc), "amount" = initial(C.quantity)))
+	START_PROCESSING(SSobj, src)
+
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/process()
+	charge_tick++
+	if(charge_tick >= charge_delay)
+		charge_tick = 0
+		if (charge < charge_capacity)
+			charge++
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/Destroy()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_turf_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "ChemImplantSec", "Chemical Implant Interface", 500, 250, master_ui, state)
+		ui.open()
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/ui_data(mob/user)
+	var/list/data = list()
+	data["dead"] = (owner.stat > UNCONSCIOUS)
+	data["health"] = owner.health
+	data["current_chemicals"] = charge
+	data["available_chemicals"] = available_c
+	return data
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/ui_action_click(mob/user)
+	ui_interact(user)
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/ui_status(mob/user, datum/ui_state/state)
+	. = STATUS_CLOSE
+	if(user.stat != DEAD)
+		. = max(., STATUS_INTERACTIVE)
+
+/obj/item/organ/internal/cyberimp/chest/chem_implant/ui_act(action, list/params)
+	if(..() && owner.stat > UNCONSCIOUS)
+		return
+	switch(action)
+		if("secreteChemicals")
+			var/mob/living/held = owner
+			var/datum/pai_chem/C = null
+			for(var/datum in typesof(/datum/chem_implant))
+				var/datum/chem_implant/test = datum
+				if(initial(test.key) == params["key"])
+					C = new test()
+					break
+			if(!C || !held || !src)
+				return
+			var/datum/reagent/R = GLOB.chemical_reagents_list[C.key]
+
+			to_chat(owner, "<span class='notice'>You inject [R.name] from your chemical sequncer implant into your bloodstream.</span>")
+			owner.reagents.add_reagent(C.key, C.quantity)
+			charge -= C.chemuse
+
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants
