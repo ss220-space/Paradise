@@ -324,3 +324,11 @@
 	result_amount = 6
 	min_temp = T0C + 200
 	mix_message = "The solution gurgles, it has an almost incredible calming influence on the mind."
+
+/datum/chemical_reaction/pemoline
+	name = "Pemoline"
+	id = "pemoline"
+	result = "pemoline"
+	required_reagents = list("sugar" = 1, "phenol" = 1, "ephedrine" = 2, "cryostylane" = 1)
+	result_amount = 5
+	mix_message = "Stinging vapors rise from the solution."
