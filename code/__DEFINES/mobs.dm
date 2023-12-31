@@ -27,7 +27,7 @@
 
 //BONE DEFINE
 
-#define gettoolspeedmod(A) (ishuman(A) ? (A.dna.species.toolspeedmod - A.toolspeedincrease) : 1)
+#define FRAGILITY(A) (ishuman(A) ? A.dna.species.bonefragility : 1)
 
 
 //Pulse levels, very simplified
@@ -250,7 +250,7 @@
 
 // For tools
 
-#define gettoolspeedmod(A) (ishuman(A) ? A.dna.species.toolspeedmod : 1)
+#define gettoolspeedmod(A) (ishuman(A) ? (A.dna.species.toolspeedmod - A.toolspeedincrease) : 1)
 
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
