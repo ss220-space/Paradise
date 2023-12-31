@@ -77,17 +77,16 @@
 	for(var/check_dir in GLOB.cardinal)
 		var/turf/check = get_step(src, check_dir)
 		if(issimulatedturf(check) && !(locate(/obj/structure/wryn) in check))
-			. += floorImageCache[check_dir]
+			. += floorImageCache["[GetOppositeDir(check_dir)]"]
 
 
 /obj/structure/wryn/floor/proc/fullUpdateWeedOverlays()
 	if(!length(floorImageCache))
-		floorImageCache = list()
-		floorImageCache.len = 4
-		floorImageCache[NORTH] = image('icons/obj/smooth_structures/wryn/floor.dmi', icon_state = "wax_floor_side_n", layer=2.11, pixel_y = -32)
-		floorImageCache[SOUTH] = image('icons/obj/smooth_structures/wryn/floor.dmi', icon_state = "wax_floor_side_s", layer=2.11, pixel_y = 32)
-		floorImageCache[EAST] = image('icons/obj/smooth_structures/wryn/floor.dmi', icon_state = "wax_floor_side_e", layer=2.11, pixel_x = -32)
-		floorImageCache[WEST] = image('icons/obj/smooth_structures/wryn/floor.dmi', icon_state = "wax_floor_side_w", layer=2.11, pixel_x = 32)
+		floorImageCache = list(4)
+		floorImageCache["[NORTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_n", layer=2.11, pixel_y = -32)
+		floorImageCache["[SOUTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_s", layer=2.11, pixel_y = 32)
+		floorImageCache["[EAST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_e", layer=2.11, pixel_x = -32)
+		floorImageCache["[WEST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_w", layer=2.11, pixel_x = 32)
 
 	for(var/obj/structure/wryn/floor/floor in range(1,src))
 		floor.update_icon(UPDATE_OVERLAYS)
