@@ -27,7 +27,7 @@
 
 //BONE DEFINE
 
-#define FRAGILITY(A) (ishuman(A) ? A.dna.species.bonefragility : 1)
+#define gettoolspeedmod(A) (ishuman(A) ? (A.dna.species.toolspeedmod - A.toolspeedincrease) : 1)
 
 
 //Pulse levels, very simplified

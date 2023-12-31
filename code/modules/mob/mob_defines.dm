@@ -189,6 +189,8 @@
 
 	var/has_limbs = 1 //Whether this mob have any limbs he can move with
 
+	var/toolspeedincrease = 0 //Mob's speed increase additive modifier
+
 	//SSD var, changed it up some so people can have special things happen for different mobs when SSD.
 	var/player_logged = 0
 
