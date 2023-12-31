@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder",
 								"methamphetamine","spaceacillin","carpotoxin","lsd","ethanol","ammonia",
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
-								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin"))
+								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin", "pemoline"))
 // Rare medicines
 GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "xenomicrobes"))
 // Drinks
