@@ -839,13 +839,14 @@
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/gas/sechailer(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/glass/bottle/advanced/field_ration(src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"
