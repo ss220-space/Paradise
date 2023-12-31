@@ -75,9 +75,12 @@
 	icon_state = "pdw9pistol"
 	item_state = "gun"
 	force = 7
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
+	charge_delay = 12
+	can_charge = 1
 	ammo_x_offset = 1
-	shaded_charge = TRUE
+	shaded_charge = 1
+	selfcharge = 1
 
 /obj/item/gun/energy/gun/pdw9/ert
 
