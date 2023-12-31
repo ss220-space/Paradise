@@ -76,6 +76,7 @@
 		to_chat(user, "Timer set for [newtime] seconds.")
 
 
+
 /obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
 	if(!flag)
 		return

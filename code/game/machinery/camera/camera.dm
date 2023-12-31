@@ -83,10 +83,9 @@
 		return
 	if(!isEmpProof())
 		if(prob(150/severity))
-			update_icon(UPDATE_ICON_STATE)
 			stat |= EMPED
 			set_light(0)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 			GLOB.cameranet.removeCamera(src)
 

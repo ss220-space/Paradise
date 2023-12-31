@@ -168,9 +168,10 @@
 			receiver.mining = TRUE
 		return TRUE
 
+
 /obj/machinery/power/bfl_emitter/proc/emitter_activate()
 	state = TRUE
-	icon_state = "Emitter_On"
+	update_icon(UPDATE_ICON_STATE)
 	var/turf/location = get_step(src, NORTH)
 	location.ex_act(1)
 	working_sound()
@@ -190,7 +191,7 @@
 
 /obj/machinery/power/bfl_emitter/proc/emitter_deactivate()
 	state = FALSE
-	icon_state = "Emitter_Off"
+	update_icon(UPDATE_ICON_STATE)
 	if(receiver)
 		receiver.mining = FALSE
 		if(receiver.lens?.state)
@@ -200,11 +201,18 @@
 		qdel(laser)
 		laser = null
 
+
 /obj/machinery/power/bfl_emitter/proc/working_sound()
 	set waitfor = FALSE
 	while(state)
 		playsound(src, 'sound/BFL/emitter.ogg', 100, TRUE)
 		sleep(25)
+
+
+/obj/machinery/power/bfl_emitter/update_icon_state()
+	icon_state = "Emitter_[state ? "On" : "Off"]"
+
+
 
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
@@ -273,7 +281,7 @@
 	///Used for storing last icon update for receiver lights on borders of receiver
 	var/last_light_state_number = 0
 
-/obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
+/obj/machinery/bfl_receiver/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	var/response
@@ -299,7 +307,7 @@
 			var/turf/location = get_turf(src)
 			internal.empty_storage(location)
 			ore_count = 0
-			icon_change()
+			update_state()
 
 
 /obj/machinery/bfl_receiver/crowbar_act(mob/user, obj/item/I)
@@ -312,17 +320,19 @@
 		receiver_activate()
 
 ///This proc handles light updating on borders of BFL receiver.
-/obj/machinery/bfl_receiver/proc/icon_change()
+/obj/machinery/bfl_receiver/proc/update_state()
 	var/light_state = clamp(length(internal.contents), 0, 20)
 	if(last_light_state_number == light_state)
 		return
-	receiver_light.icon_state = "Receiver_Light_[light_state]"
+	receiver_light.light_amount = light_state
 	last_light_state_number = light_state
+	receiver_light.update_icon(UPDATE_ICON_STATE)
+
 
 /obj/machinery/bfl_receiver/process()
-	if (!(mining && state))
+	if(!(mining && state))
 		return
-	if (ore_count >= internal.storage_slots * 50)
+	if(ore_count >= internal.storage_slots * 50)
 		return
 	switch(ore_type)
 		if(PLASMA)
@@ -332,7 +342,7 @@
 			internal.handle_item_insertion(new /obj/item/stack/ore/glass, TRUE)
 			ore_count += 1
 
-	icon_change()
+	update_state()
 
 /obj/machinery/bfl_receiver/Initialize()
 	. = ..()
@@ -352,13 +362,17 @@
 		ore_type = NOTHING
 
 /obj/machinery/bfl_receiver/Destroy()
-	overlays.Cut()
 	qdel(receiver_light)
 	return ..()
 
+
+/obj/machinery/bfl_receiver/update_icon_state()
+	icon_state = "Receiver_[state ? "On" : "Off"]"
+
+
 /obj/machinery/bfl_receiver/proc/receiver_activate()
 	state = TRUE
-	icon_state = "Receiver_On"
+	update_icon(UPDATE_ICON_STATE)
 	var/turf/T = get_turf(src)
 	T.ChangeTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
 
@@ -366,7 +380,7 @@
 	var/turf/turf_under = get_step(src, SOUTH)
 	var/turf/T = get_turf(src)
 	state = FALSE
-	icon_state = "Receiver_Off"
+	update_icon(UPDATE_ICON_STATE)
 	T.ChangeTurf(turf_under.type)
 
 /obj/machinery/bfl_receiver/Crossed(atom/movable/AM, oldloc)
@@ -386,11 +400,19 @@
 	layer = LOW_ITEM_LAYER
 	flags = INDESTRUCTIBLE
 	anchored = TRUE
+	var/light_amount = 0
+
 
 /atom/movable/bfl_receiver_light/Initialize(mapload)
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
+
+
+/atom/movable/bfl_receiver_light/update_icon_state()
+	icon_state = "Receiver_Light_[light_amount]"
+
+
 ////////
 //Lens//
 ////////
@@ -406,7 +428,7 @@
 	var/step_count = 0
 	var/state = FALSE
 
-/obj/machinery/bfl_lens/update_icon()
+/obj/machinery/bfl_lens/update_icon_state()
 	if(state)
 		icon_state = "Lens_On"
 	else if(anchored)
@@ -414,24 +436,32 @@
 	else
 		icon_state = "Lens_Pull"
 
+
+/obj/machinery/bfl_lens/update_overlays()
+	. = ..()
+	if(state)
+		. += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64, layer = GASFIRE_LAYER)
+
+
 /obj/machinery/bfl_lens/proc/activate_lens()
 	state = TRUE
 	update_icon()
-	overlays += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64, layer = GASFIRE_LAYER)
 	set_light(8)
 	working_sound()
 
+
 /obj/machinery/bfl_lens/proc/deactivate_lens()
-	overlays.Cut()
 	state = FALSE
 	update_icon()
 	set_light(0)
+
 
 /obj/machinery/bfl_lens/proc/working_sound()
 	set waitfor = FALSE
 	while(state)
 		playsound(src, 'sound/BFL/receiver.ogg', 100, TRUE)
 		sleep(25)
+
 
 /obj/machinery/bfl_lens/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -449,10 +479,10 @@
 	pixel_x = -32
 	pixel_y = -32
 
+
 /obj/machinery/bfl_lens/Destroy()
 	visible_message("Lens shatters in a million pieces")
 	playsound(src, "shatter", 70, 1)
-	overlays.Cut()
 	return ..()
 
 

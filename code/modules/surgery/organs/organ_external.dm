@@ -347,7 +347,7 @@
 	if(updating_health)
 		organ_owner?.updatehealth("limb receive damage")
 
-	return update_icon()
+	return update_state()
 
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = FALSE, robo_repair = FALSE, updating_health = TRUE)
@@ -364,7 +364,7 @@
 	if(updating_health)
 		owner.updatehealth("limb heal damage")
 
-	return update_icon()
+	return update_state()
 
 
 /obj/item/organ/external/emp_act(severity)
@@ -420,7 +420,7 @@ This function completely restores a damaged organ to perfect condition.
 
 	if(owner)
 		owner.updatehealth("limb rejuvenate")
-	update_icon()
+	update_state()
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
