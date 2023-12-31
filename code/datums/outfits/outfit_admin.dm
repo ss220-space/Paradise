@@ -235,6 +235,10 @@
 		/obj/item/storage/box/responseteam = 1
 	)
 
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant/plus,
+	)
+
 	accessories = list(
 		/obj/item/clothing/accessory/holster
 	)
@@ -398,6 +402,10 @@
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/grenade/plastic/x4 = 1,
 		/obj/item/ammo_box/speedloader/a357 = 1
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant/plus,
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)

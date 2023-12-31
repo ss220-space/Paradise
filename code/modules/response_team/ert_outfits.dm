@@ -43,7 +43,7 @@
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 	id = /obj/item/card/id/ert/commander
 	l_pocket = /obj/item/pinpointer
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/storage/belt/security/response_team
 
 /datum/outfit/job/centcom/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -52,22 +52,29 @@
 
 /datum/outfit/job/centcom/response_team/commander/amber
 	name = "RT Commander (Amber)"
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/armor/vest/ert/command
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/amber/commnader
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	belt = /obj/item/gun/energy/gun/pdw9/ert
-	head = /obj/item/clothing/head/helmet/ert/command
 
 	hours_dif = 200
 	ranks = list("Min" = "Младший сержант",
 				"Med" = "Сержант",
 				"Max" = "Мастер-сержант")
 	backpack_contents = list(
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/camera_bug/ert = 1,
+		/obj/item/door_remote/omni = 1,
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 /datum/outfit/job/centcom/response_team/commander/red
@@ -79,14 +86,13 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
-	belt = /obj/item/gun/projectile/automatic/pistol/sp8t
 
 	hours_dif = 250
 	ranks = list("Min" = "Мастер-сержант",
 				"Med" = "Уорент-офицер",
 				"Max" = "Младший лейтенант")
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
 		/obj/item/restraints/handcuffs = 1,
@@ -95,6 +101,7 @@
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
@@ -111,15 +118,13 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/commander
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	suit_store = /obj/item/gun/energy/gun/pdw9/ert
-	belt = /obj/item/gun/projectile/automatic/pistol/sp8t
 
 	hours_dif = 300
 	ranks = list("Min" = "Лейтенант",
 				"Med" = "Старший лейтенант",
 				"Max" = "Капитан")
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/sp8 = 4,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
 		/obj/item/camera_bug/ert = 1,
@@ -127,6 +132,7 @@
 		)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant/plus,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
@@ -153,19 +159,25 @@
 
 /datum/outfit/job/centcom/response_team/security/amber
 	name = "RT Security (Amber)"
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/armor/vest/ert/security
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/amber/security
 	suit_store = /obj/item/gun/energy/gun/advtaser/sibyl
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	head = /obj/item/clothing/head/helmet/ert/security
 
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/storage/box/teargas = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/gun/energy/laser/sibyl = 1
+		/obj/item/gun/energy/laser/sibyl = 1,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 /datum/outfit/job/centcom/response_team/security/red
@@ -184,16 +196,14 @@
 				"Max" = "Специалист")
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 3,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
-		/obj/item/ammo_box/magazine/laser = 2,
-		/obj/item/gun/energy/gun/pdw9/ert = 1
 	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
@@ -222,8 +232,7 @@
 				"Max" = "Старший специалист")
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 3,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/storage/box/flashbangs = 1,
 		/obj/item/whetstone = 1,
@@ -232,6 +241,7 @@
 	)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant/plus,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
@@ -262,7 +272,7 @@
 	name = "RT Engineer (Amber)"
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/amber/engineer
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas
@@ -280,6 +290,11 @@
 		/obj/item/stack/sheet/metal/fifty = 1,
 		/obj/item/rpd = 1,
 		/obj/item/flashlight = 1
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/red
@@ -300,8 +315,7 @@
 				"Max" = "Специалист")
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
 		/obj/item/rpd = 1,
@@ -309,8 +323,9 @@
 	)
 
 	cybernetic_implants = list(
-	/obj/item/organ/internal/cyberimp/eyes/shield,
-	/obj/item/organ/internal/cyberimp/chest/nutriment_old
+		/obj/item/organ/internal/cyberimp/eyes/shield,
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 	implants = list(
@@ -336,14 +351,14 @@
 				"Max" = "Старший специалист")
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 3,
 		/obj/item/rpd/bluespace = 1
 	)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant/plus,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
@@ -370,12 +385,12 @@
 
 /datum/outfit/job/centcom/response_team/medic/amber
 	name = "RT Medic (Amber)"
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/white
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/armor/vest/ert/medical
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/amber/medical
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
-	head = /obj/item/clothing/head/helmet/ert/medical
 	mask = /obj/item/clothing/mask/gas/sechailer
 	belt = /obj/item/storage/belt/medical/surgery/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
@@ -398,6 +413,11 @@
 		/obj/item/handheld_defibrillator = 1
 	)
 
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
+	)
+
 /datum/outfit/job/centcom/response_team/medic/red
 	name = "RT Medic (Red)"
 	rt_mob_job = "ERT Medical"
@@ -418,8 +438,7 @@
 				"Max" = "Специалист")
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/storage/firstaid/ertm = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
@@ -432,8 +451,9 @@
 	)
 
 	cybernetic_implants = list(
-	/obj/item/organ/internal/cyberimp/arm/surgery,
-	/obj/item/organ/internal/cyberimp/chest/nutriment_old
+		/obj/item/organ/internal/cyberimp/arm/surgery,
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 	implants = list(
@@ -460,8 +480,6 @@
 				"Max" = "Старший специалист")
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/firstaid/ertm = 1,
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
@@ -471,6 +489,7 @@
 		)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant/plus,
 		/obj/item/organ/internal/cyberimp/arm/surgery/l,
 		/obj/item/organ/internal/cyberimp/arm/medibeam,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
@@ -512,9 +531,9 @@
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "RT Paranormal (Amber)"
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/combat
-	suit = /obj/item/clothing/suit/armor/vest/ert/security/paranormal
-	head = /obj/item/clothing/head/helmet/ert/security/paranormal
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/amber/security
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	r_pocket = /obj/item/nullrod
 
@@ -522,6 +541,11 @@
 	ranks = list("Min" = "Искатель",
 				"Med" = "Аколит",
 				"Max" = "Дознаватель")
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
+	)
 
 /datum/outfit/job/centcom/response_team/paranormal/red
 	name = "RT Paranormal (Red)"
@@ -538,13 +562,12 @@
 				"Max" = "Инквизитор")
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 	)
-
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
@@ -569,11 +592,11 @@
 				"Max" = "Инквизитор")
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 	)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/chem_implant/plus,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
@@ -614,14 +637,21 @@
 
 /datum/outfit/job/centcom/response_team/janitorial/amber
 	name = "RT Janitor (Amber)"
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/galoshes
-	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
-	head = /obj/item/clothing/head/helmet/ert/janitor
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/amber/janitorial
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 
+	backpack_contents = list(
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
+	)
+
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/advmop)
+		/obj/item/organ/internal/cyberimp/arm/advmop,
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old
+	)
 
 /datum/outfit/job/centcom/response_team/janitorial/red
 	name = "RT Janitor (Red)"
@@ -633,13 +663,12 @@
 	mask = /obj/item/clothing/mask/gas/sechailer
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 	)
-
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/janitorial,
+		/obj/item/organ/internal/cyberimp/chest/chem_implant,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
@@ -656,8 +685,7 @@
 	r_pocket = /obj/item/scythe/tele
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8t = 1,
-		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,
@@ -667,6 +695,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/advmop,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
+		/obj/item/organ/internal/cyberimp/chest/chem_implant/plus,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	)
 
