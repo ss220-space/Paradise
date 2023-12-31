@@ -1483,6 +1483,13 @@
 	desc = "Roxie, the bestest girl pet in the whole wide universe!"
 	icon_state = "roxie"
 
+/obj/item/toy/pet_rock/naughty_coal
+	name = "Naughty coal"
+	desc = "You've been very bad this year! And the only thing you deserve as a gift is this piece of coal!"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "naughty_coal"
+	resistance_flags = FLAMMABLE
+
 //minigibber, so cute
 
 /obj/item/toy/minigibber

@@ -38,6 +38,7 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
+	var/lights_color = -99999 // "NONSENSICAL_VALUE"
 	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE

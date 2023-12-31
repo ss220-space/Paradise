@@ -9,7 +9,7 @@
 		/turf/simulated/wall/shuttle, /obj/machinery/door/airlock/shuttle,
 		/obj/structure/window/full/shuttle, /obj/machinery/door/airlock,
 		/obj/structure/shuttle/engine, /obj/structure/filler,
-		/obj/structure/lattice/catwalk)
+		/obj/structure/lattice/catwalk, /obj/structure/falsewall/titanium)
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 

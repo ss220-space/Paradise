@@ -131,8 +131,15 @@
 	equip_cooldown = 1 SECONDS
 	drill_delay = 4
 	drill_level = DRILL_HARDENED
-	force = 15
 
+/obj/item/mecha_parts/mecha_equipment/drill/giga
+	name = "Old giant steel drill"
+	desc = "Time-tested giant diamond-coated steel drill. This giant will drill anything!"
+	icon_state = "mech_gigadrill"
+	equip_cooldown = 0.5 SECONDS
+	drill_delay = 2
+	drill_level = DRILL_HARDENED
+	integrated = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	name = "exosuit mining scanner"

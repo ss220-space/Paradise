@@ -58,9 +58,11 @@
 
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
-		return
+		return TRUE
 	stage = STARTUP_STAGE
 	generate_area_list()
+	if(!impacted_areas.len)
+		return FALSE
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	START_PROCESSING(SSweather, src)
 	update_areas()
@@ -72,6 +74,7 @@
 			if(telegraph_sound)
 				SEND_SOUND(M, sound(telegraph_sound))
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
+	return TRUE
 
 /datum/weather/proc/start()
 	if(stage >= MAIN_STAGE)

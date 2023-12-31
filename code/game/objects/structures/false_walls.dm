@@ -354,6 +354,16 @@
 	walltype = /turf/simulated/wall/mineral/abductor
 	canSmoothWith = list(/obj/structure/falsewall/abductor, /turf/simulated/wall/mineral/abductor)
 
+/obj/structure/falsewall/gingerbread
+	name = "gingerbread wall"
+	desc = "Don't even try to bite it!"
+	icon = 'icons/turf/walls/gingerbread_wall.dmi'
+	icon_state = "gingerbread"
+	mineral = /obj/item/stack/sheet/gingerbread
+	mineral_amount = 5
+	walltype = /turf/simulated/wall/mineral/gingerbread
+	canSmoothWith = list(/turf/simulated/wall/indestructible/gingerbread, /obj/structure/falsewall/gingerbread, /turf/simulated/wall/mineral/gingerbread)
+
 /obj/structure/falsewall/titanium
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
@@ -361,7 +371,7 @@
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /turf/simulated/wall/shuttle, /obj/structure/falsewall/titanium)
 
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."
