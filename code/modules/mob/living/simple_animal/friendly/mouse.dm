@@ -31,8 +31,8 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
@@ -41,13 +41,14 @@
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
 	maxbodytemp = 323	//Above 50 Degrees Celcius
-	universal_speak = 0
+	universal_speak = FALSE
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	holder_type = /obj/item/holder/mouse
-	can_collar = 1
+	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
+	var/obj/item/jetpack
 	var/static/list/animated_mouses = typecacheof(list(
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
@@ -65,21 +66,23 @@
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
 				if(C.avail())
-					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
-					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
+					visible_message(span_warning("[src] chews through [C]. It's toast!"))
+					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
 					toast() // mmmm toasty.
 				else
-					visible_message("<span class='warning'>[src] chews through [C].</span>")
+					visible_message(span_warning("[src] chews through [C]."))
 				investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
 				C.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
 	if(prob(speak_chance) && !incapacitated())
-		playsound(src, squeak_sound, 100, 1)
+		playsound(src, squeak_sound, 100, TRUE)
 
 /mob/living/simple_animal/mouse/handle_automated_movement()
 	. = ..()
+	if(jetpack)
+		remove_from_back(null, FALSE)
 	if(resting)
 		if(prob(1))
 			if(is_available_for_anim())
@@ -126,18 +129,120 @@
 	icon_resting = "mouse_[mouse_color]_sleep"
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
-/mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
+/mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
+
+/mob/livingsimple_animal/mouse/attackby(obj/item/W, mob/user, params)
+	if(stat != DEAD)
+		if(istype(W, /obj/item/mouse_jet) && src in user)
+			place_on_back(user.get_active_hand(), user)
+			return
+	. = ..()
+
+/mob/living/simple_animal/mouset/Topic(href, href_list)
+	if(..())
+		return TRUE
+
+	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr)))
+		usr << browse(null, "window=mob[UID()]")
+		usr.unset_machine()
+		return
+
+	if(stat == DEAD)
+		return FALSE
+
+	if(href_list["remove_inv"])
+		var/remove_from = href_list["remove_inv"]
+		switch(remove_from)
+			if("back")
+				remove_from_back(usr, FALSE)
+			if("collar")
+				if(pcollar)
+					var/the_collar = pcollar
+					drop_item_ground(pcollar)
+					usr.put_in_hands(the_collar, ignore_anim = FALSE)
+					pcollar = null
+		show_inv(usr)
+
+	else if(href_list["add_inv"])
+		var/add_to = href_list["add_inv"]
+		switch(add_to)
+			if("back")
+				place_on_back(usr.get_active_hand(), usr)
+			if("collar")
+				add_collar(usr.get_active_hand(), usr)
+		show_inv(usr)
+
+	if(usr != src)
+		return TRUE
+
+/mob/living/simple_animal/mouse/proc/place_on_back(obj/item/item_to_add, mob/living/user)
+	if(!istype(item_to_add, /obj/item/mouse_jet) || !is_available_for_anim())
+		to_chat(user, span_warning("You can't figure out how to do something with \the [item_to_add] and [src]."))
+		return FALSE
+	if(jetpack)
+		to_chat(user, span_warning("[src] already have jetpack!"))
+		return FALSE
+	if(!mind)
+		to_chat(user, span_warning("[src] doesn't seem interested in that."))
+		return FALSE
+	if(!user.drop_item_ground(item_to_add))
+		to_chat(user, span_warning("\The [item_to_add] is stuck to your hand, you cannot put it on [src]!"))
+		return FALSE
+
+	item_to_add.forceMove(src)
+	Jetpack = item_to_add
+	user.visible_message(span_notice("[user] put something on [src]."),
+		span_notice("You equip mouse with a cool jetpack! Sick!"),
+		span_italics("You hear the roar of a small engine."))
+	update_move_type()
+	return TRUE
+
+/mob/living/simple_animal/mouse/proc/remove_from_back(mob/living/user, on_death)
+	if(jetpack)
+		drop_item_ground(jetpack)
+
+		if(!on_death)
+			if(user)
+				user.put_in_hands(jetpack, ignore_anim = FALSE)
+		else if(prob(85))
+			step_rand(jetpack)
+
+		jetpack = null
+		update_move_type()
+
+/mob/living/simple_animal/mouse/update_move_type()
+	if(jetpack)
+		if(resting)
+			StopResting()
+		if(can_hide)
+			if(layer == hide.layer_to_change_to)
+				hide.Activate()
+
+		speed = 0.5
+		icon_state = "mouse_[mouse_color]_jet"
+		icon_living = "mouse_[mouse_color]_jet"
+	else
+		speed = initial(speed)
+		icon_state = "mouse_[mouse_color]"
+		icon_living = "mouse_[mouse_color]"
+
+/mob/living/simple_animal/mouse/can_ventcrawl(atom/clicked_on, override)
+	return jetpack ? FALSE : ..()
+
+
+
+
 
 /mob/living/simple_animal/mouse/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/pet/cat))
 		var/mob/living/simple_animal/pet/cat/C = M
 		if(C.friendly && C.eats_mice && C.a_intent == INTENT_HARM)
 			apply_damage(15, BRUTE) //3x от ХП обычной мыши или полное хп крысы
-			visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>", \
-							"<span class='userdanger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>")
+			visible_message(span_danger("[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!"), \
+							span_userdanger("[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!"))
 			return
 	. = ..()
 
@@ -145,14 +250,14 @@
 	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
 		return TRUE // Get dem
 	if(show_message)
-		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
+		to_chat(src, span_warning("You are too small to pull anything except cheese."))
 	return FALSE
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
+/mob/living/simple_animal/mouse/Crossed(atom/movable/AM, oldloc)
 	if(ishuman(AM))
 		if(!stat)
 			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
+			to_chat(M, span_notice("[bicon(src)] Squeek!"))
 	..()
 
 /mob/living/simple_animal/mouse/ratvar_act()
@@ -164,7 +269,7 @@
 	desc = "It's toast."
 	death()
 
-/mob/living/simple_animal/mouse/proc/splat(var/obj/item/item = null, var/mob/living/user = null)
+/mob/living/simple_animal/mouse/proc/splat(obj/item/item = null, mob/living/user = null)
 	if(non_standard)
 		var/temp_state = initial(icon_state)
 		icon_dead = "[temp_state]_splat"
@@ -182,6 +287,8 @@
 			user.add_mob_blood(src)
 
 /mob/living/simple_animal/mouse/death(gibbed)
+	if(jetpack)
+		remove_from_back(null, TRUE)
 	if(gibbed)
 		make_remains()
 
@@ -240,8 +347,13 @@
 	volume = 1
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
-	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type)
-	return ..()
+	if(jetpack)
+		if(do_mob(user, user, 3 SECONDS))
+			user.remove_from_back(null, FALSE)
+		return FALSE
+	else
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type)
+		return ..()
 
 /datum/emote/living/simple_animal/mouse/idle/get_sound(mob/living/simple_animal/mouse/user)
 	return user.squeak_sound
@@ -315,7 +427,7 @@
 	else if(timeleft < 1) // if timer expired, burst.
 		burst(FALSE)
 	else if(cycles_alive % 2 == 0) // give the mouse/player a countdown reminder every 2 cycles
-		to_chat(src, "<span class='warning'>[timeleft] seconds until you burst, and become a blob...</span>")
+		to_chat(src, span_warning("[timeleft] seconds until you burst, and become a blob..."))
 	return ..()
 
 /mob/living/simple_animal/mouse/blobinfected/death(gibbed)
@@ -327,7 +439,7 @@
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(!is_station_level(T.z) || isspaceturf(T))
-		to_chat(src, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
+		to_chat(src, span_usardanger("You feel ready to burst, but this isn't an appropriate place! You must return to the station!"))
 		return FALSE
 	has_burst = TRUE
 	var/datum/mind/blobmind = mind
@@ -345,8 +457,8 @@
 		gib()
 
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
-	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
-	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
+	to_chat(grabber, span_warning("You try to pick up [src], but they slip out of your grasp!"))
+	to_chat(src, span_warning("[src] tries to pick you up, but you wriggle free of their grasp!"))
 
 /mob/living/simple_animal/mouse/fluff/clockwork
 	name = "Chip"
@@ -357,15 +469,15 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
 	gold_core_spawnable = NO_SPAWN
-	can_collar = 0
+	can_collar = FALSE
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
 	maxHealth = 20
 	health = 20
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
-		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		user.visible_message(span_notice("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
+		span_warning("It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises."))
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
 		C.stored_comms["wood"] += 2
 		C.stored_comms["glass"] += 2
@@ -487,8 +599,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	health = 3
 	maxHealth = 3
 	var/amount_grown = 0
-	can_hide = 1
-	can_collar = 0
+	can_collar = FALSE
 	holder_type = /obj/item/holder/hamster
 
 
@@ -507,11 +618,11 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 				mind.transfer_to(A)
 			qdel(src)
 
-/mob/living/simple_animal/mouse/hamster/baby/Crossed(AM as mob|obj, oldloc)
+/mob/living/simple_animal/mouse/hamster/baby/Crossed(atom/movable/AM, oldloc)
 	if(ishuman(AM))
 		if(!stat)
 			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] раздавлен!</span>")
+			to_chat(M, span_notice("[bicon(src)] раздавлен!"))
 			death()
 			splat(user = AM)
 	..()
