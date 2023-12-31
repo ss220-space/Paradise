@@ -91,7 +91,7 @@
 	// For clothing that are faction restricted
 	if(faction_restricted && !M.is_general_slot(slot) && faction_check(faction_restricted, M.faction))
 		if(!disable_warning)
-			to_chat(M, SPAN_WARNING("[src] не могут использовать такие как Вы."))
+			to_chat(M, span_warning("[src] не могут использовать такие как Вы."))
 		return FALSE
 
 

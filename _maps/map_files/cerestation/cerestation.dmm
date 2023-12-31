@@ -92558,7 +92558,7 @@
 	},
 /area/quartermaster/office)
 "vVZ" = (
-/obj/structure/crematorium{
+/obj/machinery/crematorium{
 	id = "creamed"
 	},
 /turf/simulated/floor/plasteel{

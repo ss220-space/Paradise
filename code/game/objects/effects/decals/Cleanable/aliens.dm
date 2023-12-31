@@ -17,8 +17,9 @@
 	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6")
 	basecolor = "#05EE05"
 
-/obj/effect/decal/cleanable/blood/gibs/xeno/update_icon()
+/obj/effect/decal/cleanable/blood/gibs/xeno/update_icon(updates = ALL)
 	color = "#FFFFFF"
+	. = ..(NONE)
 
 /obj/effect/decal/cleanable/blood/gibs/xeno/up
 	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6", "xgibup1", "xgibup1", "xgibup1")
@@ -53,3 +54,20 @@
 /obj/effect/decal/cleanable/blood/slime/streak
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
 	amount = 2
+
+/obj/effect/decal/cleanable/blood/drask
+	name = "cryoxadone"
+	desc = "A plasma mixture with almost magical healing powers, perhaps leaked from a drask? Unfortunately it is useless now."
+	basecolor = "#0000C8"
+	bloodiness = MAX_SHOE_BLOODINESS
+
+/obj/effect/decal/cleanable/blood/drask/can_bloodcrawl_in()
+	return FALSE
+
+/obj/effect/decal/cleanable/blood/drask/dry()
+	return
+
+/obj/effect/decal/cleanable/blood/drask/streak
+	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
+	amount = 2
+

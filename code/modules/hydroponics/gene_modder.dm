@@ -500,13 +500,15 @@
 	if(istype(W, /obj/item/pen) && !HAS_TRAIT(src, TRAIT_CMAGGED))
 		rename_interactive(user, W)
 
-/obj/item/disk/plantgene/proc/update_desc()
+/obj/item/disk/plantgene/update_desc()
+	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		desc = "Better keep this safe."
 	else
 		desc = initial(desc)
 
-/obj/item/disk/plantgene/proc/update_name()
+/obj/item/disk/plantgene/update_name()
+	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		name = "nuclear authentication disk"
 	else
@@ -515,7 +517,7 @@
 		else
 			name = initial(name)
 
-/obj/item/disk/plantgene/proc/update_icon_state()
+/obj/item/disk/plantgene/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		icon_state = "nucleardisk"
 		overlays -= "datadisk_gene"
