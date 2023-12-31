@@ -8,7 +8,7 @@
 	icon_state = "garland_on"
 	max_integrity = 24 //can be removed easily (also, symbolism)
 	density = FALSE
-	layer = ABOVE_OBJ_LAYER - 0.1
+	layer = OBJ_LAYER - 0.1
 	anchored = TRUE
 
 
