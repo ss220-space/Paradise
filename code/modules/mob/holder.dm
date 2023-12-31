@@ -77,6 +77,21 @@
 /mob/living
 	var/holder_type = null
 
+/mob/living/simple_animal/MouseDrop(atom/over_object)
+	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding animals.
+	if(!istype(H) || !Adjacent(H) || !holder_type)  return ..()
+	if(usr == src)
+		switch(alert(H, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+			if("Yes")
+				if(Adjacent(H))
+					get_scooped(H)
+				else
+					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+			if("No")
+				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+	else
+		return ..()
+
 /mob/living/proc/get_scooped(var/mob/living/carbon/grabber)
 	if(!holder_type)
 		return
