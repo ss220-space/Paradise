@@ -71,6 +71,58 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
+//Amber
+/obj/item/clothing/head/helmet/space/hardsuit/ert/amber
+	name = "ERT Amber Space helmet"
+	icon_state = "hardsuit0-amber"
+	item_state = "helm-amber"
+	item_color = "amber"
+	resistance_flags = null
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 25, bio = 100, rad = 80, fire = 80, acid = 40)
+	species_restricted = list("exclude", "Wryn", "lesser form", "Vox")
+
+/obj/item/clothing/suit/space/hardsuit/ert/amber
+	name = "ERT Amber Spacesuit"
+	icon_state = "ert_acommander"
+	item_state = "ert_acommander"
+	resistance_flags = null
+	jetpack = null
+	desc = "A lightweight hardsuit designed especially for auxiliary troops."
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 25, bio = 100, rad = 80, fire = 80, acid = 40)
+	species_restricted = list("exclude", "Wryn", "lesser form", "Vox")
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/amber
+
+/obj/item/clothing/suit/space/hardsuit/ert/amber/commnader
+	name = "ERT Amber Commander Suit"
+	icon_state = "ert_acommander"
+	item_state = "ert_acommander"
+
+/obj/item/clothing/suit/space/hardsuit/ert/amber/security
+	name = "ERT Amber Officer Suit"
+	icon_state = "ert_asecurity"
+	item_state = "ert_asecurity"
+
+/obj/item/clothing/suit/space/hardsuit/ert/amber/medical
+	name = "ERT Amber Medical Spacesuit"
+	icon_state = "ert_amedical"
+	item_state = "ert_amedical"
+
+/obj/item/clothing/suit/space/hardsuit/ert/amber/engineer
+	name = "ERT Amber Engineering Spacesuit"
+	icon_state = "ert_aengineer"
+	item_state = "ert_aengineer"
+
+/obj/item/clothing/suit/space/hardsuit/ert/amber/paranormal
+	name = "ERT Amber Paranormal Spacesuit"
+	icon_state = "ert_aparanormal"
+	item_state = "ert_aparanormal"
+
+/obj/item/clothing/suit/space/hardsuit/ert/amber/janitorial
+	name = "ERT Amber Janitorial Spacesuit"
+	icon_state = "ert_ajanitorial"
+	item_state = "ert_ajanitorial"
+
+//Gamma
 /obj/item/clothing/suit/space/hardsuit/ert/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
