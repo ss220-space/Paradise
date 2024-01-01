@@ -79,7 +79,7 @@
 	charge_delay = 12
 	can_charge = 1
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 	selfcharge = 1
 
 /obj/item/gun/energy/gun/pdw9/ert
