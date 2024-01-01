@@ -142,14 +142,27 @@
 		get_scooped(M)
 	..()
 
-/mob/livingsimple_animal/mouse/attackby(obj/item/W, mob/user, params)
+/mob/living/simple_animal/mouse/attackby(obj/item/W, mob/user, params)
 	if(stat != DEAD)
-		if(istype(W, /obj/item/mouse_jet) && src in user)
+		if(istype(W, /obj/item/mouse_jet))
 			place_on_back(user.get_active_hand(), user)
 			return
 	. = ..()
 
-/mob/living/simple_animal/mouset/Topic(href, href_list)
+/mob/living/simple_animal/mouse/show_inv(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
+	user.set_machine(src)
+
+	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
+	dat += "<br><B>Back:</B> <A href='?src=[UID()];[jetpack ? "remove_inv=back'>[jetpack]" : "add_inv=back'>Nothing"]</A>"
+	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
+
+	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
+	popup.set_content(dat)
+	popup.open()
+
+/mob/living/simple_animal/mouse/Topic(href, href_list)
 	if(..())
 		return TRUE
 
@@ -201,7 +214,7 @@
 		return FALSE
 
 	item_to_add.forceMove(src)
-	Jetpack = item_to_add
+	jetpack = item_to_add
 	user.visible_message(span_notice("[user] put something on [src]."),
 		span_notice("You equip mouse with a cool jetpack! Sick!"),
 		span_italics("You hear the roar of a small engine."))
@@ -221,36 +234,37 @@
 		jetpack = null
 		update_move_type()
 
-/mob/living/simple_animal/mouse/update_move_type()
+/mob/living/simple_animal/mouse/Process_Spacemove(movement_dir)
+	return jetpack ? TRUE : ..()
+
+/mob/living/simple_animal/mouse/proc/update_move_type()
 	if(jetpack)
 		if(resting)
 			StopResting()
 		if(can_hide)
-			if(layer == hide.layer_to_change_to)
-				hide.Activate()
 			for(var/datum/action/innate/hide/hide in actions)
+				if(layer == hide.layer_to_change_to)
+					hide.Activate()
 				hide.Remove(src)
 		var/datum/action/innate/drop_jetpack/dropjet = new()
 		dropjet.Grant(src)
+		flying = TRUE
 		speed = 0.5
 		icon_state = "mouse_[mouse_color]_jet"
 		icon_living = "mouse_[mouse_color]_jet"
 	else
 		for(var/datum/action/innate/drop_jetpack/dropjet in actions)
-		dropjet.Remove(src)
+			dropjet.Remove(src)
 		if(can_hide)
 			var/datum/action/innate/hide/hide = new()
 			hide.Grant(src)
+		flying = initial(flying)
 		speed = initial(speed)
 		icon_state = "mouse_[mouse_color]"
 		icon_living = "mouse_[mouse_color]"
 
 /mob/living/simple_animal/mouse/can_ventcrawl(atom/clicked_on, override)
 	return jetpack ? FALSE : ..()
-
-
-
-
 
 /mob/living/simple_animal/mouse/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/pet/cat))
@@ -363,7 +377,8 @@
 	volume = 1
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
-	if(jetpack)
+	if(user.jetpack)
+		to_chat(src, span_notice("You start dragging jetpack from your back."))
 		if(do_mob(user, user, 3 SECONDS))
 			user.remove_from_back(null, FALSE)
 		return FALSE
@@ -455,7 +470,7 @@
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(!is_station_level(T.z) || isspaceturf(T))
-		to_chat(src, span_usardanger("You feel ready to burst, but this isn't an appropriate place! You must return to the station!"))
+		to_chat(src, span_userdanger("You feel ready to burst, but this isn't an appropriate place! You must return to the station!"))
 		return FALSE
 	has_burst = TRUE
 	var/datum/mind/blobmind = mind
