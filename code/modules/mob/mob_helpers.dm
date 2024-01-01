@@ -432,10 +432,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 	if(!resting)
 		client.move_delay = world.time + 20
-		to_chat(src, "<span class='notice'>Вы отдыхаете.</span>")
 		StartResting()
 	else if(resting)
-		to_chat(src, "<span class='notice'>Вы встаёте.</span>")
 		StopResting()
 
 /proc/get_multitool(mob/user as mob)

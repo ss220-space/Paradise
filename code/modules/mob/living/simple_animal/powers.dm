@@ -49,3 +49,16 @@
 	button_icon_state = "alien_hide"
 	layer_to_change_to = ABOVE_NORMAL_TURF_LAYER
 
+
+/datum/action/innate/drop_jetpack
+	name = "Drop Jetpack"
+	desc = "Allows to get rig of that noisy thing on your back."
+	check_flags = AB_CHECK_CONSCIOUS
+	button_icon = 'icons/obj/tank.dmi'
+	button_icon_state = "jetpack_mouse"
+
+/datum/action/innate/drop_jetpack/Activate()
+	if(jetpack)
+		to_chat(src, span_notice("You start dragging jetpack from your back."))
+		if(do_mob(src, src, 3 SECONDS))
+			remove_from_back(null, FALSE)

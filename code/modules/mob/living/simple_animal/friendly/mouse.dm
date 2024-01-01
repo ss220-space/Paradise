@@ -94,6 +94,14 @@
 	else if(prob(0.5))
 		StartResting()
 
+/mob/living/simple_animal/mouse/StartResting(updating)
+	if(jetpack)
+		to_chat(src, span_notice("You start dragging jetpack from your back."))
+		if(do_mob(src, src, 3 SECONDS))
+			remove_from_back(null, FALSE)
+	else
+		..()
+
 /mob/living/simple_animal/mouse/proc/do_idle_animation(anim)
 	canmove = FALSE
 	flick("mouse_[mouse_color]_idle[anim]",src)
@@ -220,11 +228,19 @@
 		if(can_hide)
 			if(layer == hide.layer_to_change_to)
 				hide.Activate()
-
+			for(var/datum/action/innate/hide/hide in actions)
+				hide.Remove(src)
+		var/datum/action/innate/drop_jetpack/dropjet = new()
+		dropjet.Grant(src)
 		speed = 0.5
 		icon_state = "mouse_[mouse_color]_jet"
 		icon_living = "mouse_[mouse_color]_jet"
 	else
+		for(var/datum/action/innate/drop_jetpack/dropjet in actions)
+		dropjet.Remove(src)
+		if(can_hide)
+			var/datum/action/innate/hide/hide = new()
+			hide.Grant(src)
 		speed = initial(speed)
 		icon_state = "mouse_[mouse_color]"
 		icon_living = "mouse_[mouse_color]"
