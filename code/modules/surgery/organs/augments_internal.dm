@@ -510,6 +510,7 @@
 
 
 /obj/item/organ/internal/cyberimp/chest/chem_implant/process()
+	. = ..()
 	charge_tick++
 	if(charge_tick >= charge_delay)
 		charge_tick = 0
