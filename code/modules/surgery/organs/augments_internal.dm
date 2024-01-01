@@ -502,6 +502,7 @@
 	level = 1
 
 /obj/item/organ/internal/cyberimp/chest/chem_implant/Initialize()
+	. = ..()
 	for(var/datum in typesof(/datum/chem_implant))
 		var/datum/chem_implant/C = datum
 		if(initial(C.chemname) && implant_level >= C.level)
@@ -518,6 +519,7 @@
 			charge++
 
 /obj/item/organ/internal/cyberimp/chest/chem_implant/Destroy()
+	. = ..()
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/internal/cyberimp/chest/chem_implant/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_turf_state)
