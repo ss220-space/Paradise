@@ -1500,24 +1500,23 @@
 /datum/reagent/medicine/pemoline/on_mob_delete(mob/living/M)
 	var/mob/living/carbon/human/H = M
 	if (H.can_heartattack())
-		to_chat(H, "<span class='notice'>You no longer feelw fast</span>")
+		to_chat(H, span_notice("You no longer feelw fast."))
 		H.toolspeedincrease = 0
 	return
 
 /datum/reagent/medicine/pemoline/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/mob/living/carbon/human/H = M
-	to_chat(H, "<span class='notice'>[gettoolspeedmod(H)]</span>")
-	if (H.toolspeedincrease > speed_increase_overdose && H.reagents.get_reagent_amount("pemoline") < overdose_threshold)
+	if (H.toolspeedincrease > speed_increase && H.reagents.get_reagent_amount("pemoline") < overdose_threshold)
 		H.toolspeedincrease = speed_increase
-		to_chat(H, "<span class='notice'>You no longer feel so fast </span>")
+		to_chat(H, span_notice("You no longer feel so fast."))
 	return ..() | update_flags
 
 /datum/reagent/medicine/pemoline/overdose_start(mob/living/M)
 	var/mob/living/carbon/human/H = M
 	if (H.toolspeedincrease < speed_increase_overdose)
 		H.toolspeedincrease = speed_increase_overdose
-		to_chat(H, "<span class='notice'>You feel realy fast</span>")
+		to_chat(H, span_notice("notice'>You feel realy fast."))
 	return
 
 /datum/reagent/medicine/pemoline/overdose_process(mob/living/M, severity)
