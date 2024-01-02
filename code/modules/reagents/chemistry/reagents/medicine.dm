@@ -1494,9 +1494,8 @@
 /datum/reagent/medicine/pemoline/on_mob_add(mob/living/M)
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && H.can_heartattack())
-		to_chat(H, "<span class='notice'>You feel fast</span>")
+		to_chat(H, span_notice("You feel fast."))
 		H.toolspeedincrease = speed_increase
-	return
 
 /datum/reagent/medicine/pemoline/on_mob_delete(mob/living/M)
 	var/mob/living/carbon/human/H = M
