@@ -983,11 +983,11 @@
 			return
 		if(iscarbon(living))
 			var/mob/living/carbon/carbon = living
-			carbon.Weaken(10 SECONDS)
-			carbon.Stuttering(20 SECONDS)
+			carbon.Weaken(1 SECONDS)
+			carbon.Stuttering(2 SECONDS)
 		if(isrobot(living))
 			var/mob/living/silicon/robot/robot = living
-			robot.Weaken(10 SECONDS)
+			robot.Weaken(1 SECONDS)
 		do_sparks(5, 0, loc)
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
@@ -998,7 +998,7 @@
 		var/mob/living/carbon/C = A
 		if(isclocker(C))
 			return
-		C.adjust_fire_stacks(0.3)
+		C.adjust_fire_stacks(0.5)
 		C.IgniteMob()
 
 /obj/item/clothing/gloves/clockwork/proc/reset()
