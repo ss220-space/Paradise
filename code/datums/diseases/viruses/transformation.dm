@@ -216,7 +216,7 @@
 
 	switch(stage)
 		if(1)
-			if(isslimeperson(H))
+			if(isslimeperson(affected_mob))
 				stage = 5
 		if(3)
 			if(ishuman(affected_mob))
