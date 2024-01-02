@@ -1863,6 +1863,7 @@
 		/obj/item/clothing/suit/tracksuit/red				= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/security	= 5,
 		/obj/item/clothing/suit/jacket/pilot	= 5,
+		/obj/item/clothing/suit/armor/vest/sec_bss	= 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
