@@ -419,7 +419,7 @@
 /obj/screen/inventory/proc/add_overlays()
 	var/mob/user = hud?.mymob
 
-	if(!user || !slot_id)
+	if(!user || !slot_id || slot_id == slot_l_hand || slot_id == slot_r_hand)
 		return
 
 	var/obj/item/holding = user.get_active_hand()
