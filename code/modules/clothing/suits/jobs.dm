@@ -484,13 +484,14 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
-//Mime
+//Suspenders
 /obj/item/clothing/suit/suspenders
 	name = "suspenders"
-	desc = "They suspend the illusion of the mime's play."
+	desc = "Two braids to support your jeans. Weared by noire-detectives. Or skinheads. Now comes in any color!"
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "suspenders"
 	blood_overlay_type = "armor" //it's the less thing that I can put here
+	var/paintable = TRUE
 
 	sprite_sheets = list(
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -499,8 +500,35 @@
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
+
+/obj/item/clothing/suit/suspenders/Initialize(mapload)
+	. = ..()
+	if(!color && paintable)
+		color = "#a30e22"
+	update_icon()
+
+/obj/item/clothing/suit/suspenders/attackby(obj/D, mob/user, params)
+	. = ..()
+	if(paintable && istype(D, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = D
+		if(!can.capped && Adjacent(can, 1))
+			color = can.colour
+			update_icon()
+
+/obj/item/clothing/suit/suspenders/update_icon()
+	. = ..()
+	overlays.Cut()
+	if(color)
+		var/mutable_appearance/suspenders_overlay = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_overlay")
+		overlays += bucket_mask
+
+		var/mutable_appearance/suspenders_clips = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_clips")
+		suspenders_clips.appearance_flags |= RESET_COLOR
+		overlays += suspenders_clips
 
 /obj/item/clothing/suit/suspenders/nodrop
 	flags = NODROP
