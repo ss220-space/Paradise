@@ -351,7 +351,7 @@
 	else
 		chamber_round(1)
 		user.visible_message(span_dangerbigger("*CRACK*"))
-		playsound(user, 'sound/weapons/empty.ogg', 120, 1)
+		playsound(user, 'sound/weapons/jammed.ogg', 140, 1)
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/proc/radial_menu(mob/user)
 	var/list/choices = list()
