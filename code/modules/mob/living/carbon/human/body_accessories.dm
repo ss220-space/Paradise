@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	animated_icon_state = "winglertail_a"
 	allowed_species = list("Tajaran")
 
-/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
+/datum/body_accessory/tail/leopard_tail
 	name = "Leopard Tail"
 	icon_state = "leopard"
 	animated_icon_state = "leopard_a"
