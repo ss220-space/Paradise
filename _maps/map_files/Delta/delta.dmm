@@ -9059,7 +9059,6 @@
 	},
 /area/assembly/robotics)
 "bjc" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/event/lightsout,
 /obj/structure/sink{
@@ -22230,7 +22229,6 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/glass/beaker/large,
 /obj/item/radio/intercom{
 	dir = 8;
 	pixel_x = -28
@@ -51948,6 +51946,13 @@
 	icon_state = "white"
 	},
 /area/toxins/lab)
+"fVY" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull";
+	tag = "icon-redfull (NORTHWEST)"
+	},
+/area/crew_quarters/kitchen)
 "fWc" = (
 /obj/machinery/camera{
 	c_tag = "Library South";
@@ -67577,6 +67582,14 @@
 /area/maintenance/garden)
 "jCn" = (
 /obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = -5;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
@@ -166013,7 +166026,7 @@ aYZ
 dCK
 pDM
 eaZ
-bKU
+fVY
 xBC
 bKU
 bdz
