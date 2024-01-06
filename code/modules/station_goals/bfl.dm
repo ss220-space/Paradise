@@ -161,10 +161,14 @@
 	location.ex_act(1)
 	working_sound()
 
+	if(QDELETED(receiver))
+		receiver = null
+
 	if(!receiver)
-		for(var/turf/T as anything in block(locate(1, 1, lavaland_z_lvl), locate(world.maxx, world.maxy, lavaland_z_lvl)))
-			receiver = locate() in T
-			if(receiver)
+		for(var/obj/machinery/bfl_receiver/bfl_receiver in GLOB.machines)
+			var/turf/receiver_turf = get_turf(bfl_receiver)
+			if(receiver_turf.z == lavaland_z_lvl)
+				receiver = bfl_receiver
 				break
 
 	receiver_test()
