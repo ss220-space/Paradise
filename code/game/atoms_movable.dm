@@ -19,6 +19,9 @@
 	var/canmove = TRUE
 	var/pull_push_speed_modifier = 1
 
+	/// If false makes [CanPass][/atom/proc/CanPass] call [CanPassThrough][/atom/movable/proc/CanPassThrough] on this type instead of using default behaviour
+	var/generic_canpass = TRUE
+
 	var/inertia_dir = NONE
 	var/atom/inertia_last_loc
 	var/inertia_moving = FALSE
@@ -497,17 +500,7 @@
 			if(speed <= 0)
 				return //no throw speed, the user was moving too fast.
 
-	var/datum/thrownthing/TT = new()
-	TT.thrownthing = src
-	TT.target = target
-	TT.target_turf = get_turf(target)
-	TT.init_dir = get_dir(src, target)
-	TT.maxrange = range
-	TT.speed = speed
-	TT.thrower = thrower
-	TT.diagonals_first = diagonals_first
-	TT.callback = callback
-	TT.dodgeable = dodgeable
+	var/datum/thrownthing/thrown_thing = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, thrower?.zone_selected, dodgeable)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -515,7 +508,7 @@
 	var/dy = (target.y > src.y) ? NORTH : SOUTH
 
 	if(dist_x == dist_y)
-		TT.pure_diagonal = 1
+		thrown_thing.pure_diagonal = TRUE
 
 	else if(dist_x <= dist_y)
 		var/olddist_x = dist_x
@@ -524,23 +517,23 @@
 		dist_y = olddist_x
 		dx = dy
 		dy = olddx
-	TT.dist_x = dist_x
-	TT.dist_y = dist_y
-	TT.dx = dx
-	TT.dy = dy
-	TT.diagonal_error = dist_x / 2 - dist_y
-	TT.start_time = world.time
+	thrown_thing.dist_x = dist_x
+	thrown_thing.dist_y = dist_y
+	thrown_thing.dx = dx
+	thrown_thing.dy = dy
+	thrown_thing.diagonal_error = dist_x/2 - dist_y
+	thrown_thing.start_time = world.time
 
 	if(pulledby)
 		pulledby.stop_pulling()
 
-	throwing = TT
+	throwing = thrown_thing
 	if(spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
-	SSthrowing.processing[src] = TT
-	TT.tick()
+	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, thrown_thing, spin)
+	SSthrowing.processing[src] = thrown_thing
+	thrown_thing.tick()
 
 	return TRUE
 
@@ -592,31 +585,28 @@
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
+
+/atom/movable/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(mover in buckled_mobs)
 		return TRUE
-	return ..()
 
-/atom/movable/proc/get_spacemove_backup()
-	var/atom/movable/dense_object_backup
-	for(var/A in orange(1, get_turf(src)))
-		if(isarea(A))
+
+/atom/movable/proc/get_spacemove_backup(moving_direction)
+	for(var/checked_range in orange(1, get_turf(src)))
+		if(isarea(checked_range))
 			continue
-		else if(isturf(A))
-			var/turf/turf = A
+		if(isturf(checked_range))
+			var/turf/turf = checked_range
 			if(!turf.density)
 				continue
 			return turf
-		else
-			var/atom/movable/AM = A
-			if(!AM.CanPass(src) || AM.density)
-				if(AM.anchored)
-					return AM
-				dense_object_backup = AM
-				break
-	. = dense_object_backup
+		var/atom/movable/checked_atom = checked_range
+		if(checked_atom.density || !checked_atom.CanPass(src, get_dir(src, checked_atom)))
+			//if(checked_atom.last_pushoff == world.time)
+			//	continue
+			return checked_atom
+
 
 /atom/movable/proc/transfer_prints_to(atom/movable/target = null, overwrite = FALSE)
 	if(!target)
@@ -706,3 +696,11 @@
 
 /atom/movable/proc/get_pull_push_speed_modifier(current_delay)
 	return pull_push_speed_modifier
+
+
+/// Returns true or false to allow src to move through the blocker, mover has final say
+/atom/movable/proc/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	return blocker_opinion
+

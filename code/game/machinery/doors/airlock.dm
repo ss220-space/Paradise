@@ -751,12 +751,12 @@ About the new airlock wires panel:
 			I.pixel_x = -32
 			. += I
 
-/obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
-	if(isElectrified() && density && istype(mover, /obj/item))
-		var/obj/item/I = mover
-		if(I.flags & CONDUCT)
-			do_sparks(5, 1, src)
-	return ..()
+
+/obj/machinery/door/airlock/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(isElectrified() && density && isitem(mover) && (mover.flags & CONDUCT))
+		do_sparks(5, TRUE, src)
+
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
 	. = ..()

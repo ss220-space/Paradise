@@ -157,12 +157,12 @@
 	else
 		death()
 
-/mob/living/simple_animal/hostile/swarmer/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
-		return 1
-	if(isswarmer(O))
-		return 1
-	..()
+
+/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile/beam/disabler) || isswarmer(mover))//Allows for swarmers to fight as a group without wasting their shots hitting each other
+		return TRUE
+
 
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
 /mob/living/simple_animal/hostile/swarmer/AttackingTarget()
@@ -688,11 +688,12 @@
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	max_integrity = 50
 
-/obj/structure/swarmer/blockade/CanPass(atom/movable/O)
-	if(isswarmer(O))
-		return 1
-	if(istype(O, /obj/item/projectile/beam/disabler))
-		return 1
+
+/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile/beam/disabler) || isswarmer(mover))
+		return TRUE
+
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Replicate"

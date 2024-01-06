@@ -727,9 +727,7 @@
 	user.stop_pulling()
 	user.unbuckle_all_mobs(TRUE)
 	user.buckled?.unbuckle_mob(user, TRUE)
-	for(var/mob/living/puller in range(user, 1))
-		if(puller.pulling == user)
-			puller.stop_pulling()
+	user.pulledby?.stop_pulling()
 
 	user.visible_message(span_danger("[user] starts moving with unnatural speed!"), \
 						span_notice("You lunge into the air..."))
@@ -755,7 +753,7 @@
 		var/turf/next_step = get_step(user, direction)
 		user.face_atom(target)
 
-		if(!is_path_exist(user, next_step))
+		if(next_step.is_blocked_turf(source_atom = user))
 			break
 
 		user.forceMove(next_step)
@@ -780,7 +778,7 @@
 		animate(user, time = 0.05 SECONDS, pixel_x = from_x, pixel_y = from_y, transform = animation_matrix, easing = CUBIC_EASING)
 		animate(time = 0.05 SECONDS, pixel_x = old_x, pixel_y = old_y, transform = old_transform)
 
-		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
+		playsound(next_step, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 		sleep(0.1 SECONDS)
 
 	if(QDELETED(user))
@@ -1266,7 +1264,7 @@
 		if(!is_vampire_compatible(victim, include_IPC = TRUE))
 			continue
 
-		if(is_path_exist(user, victim))
+		if(is_path_exist(user, victim, PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB))
 			targets += victim
 
 	if(length(targets))

@@ -19,6 +19,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
+	pass_flags = PASSEVERYTHING
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -152,10 +153,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	MA.layer = GHOST_LAYER
 	MA.plane = GAME_PLANE
 	. = MA
-
-
-/mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
-	return 1
 
 
 /*

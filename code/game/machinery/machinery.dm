@@ -101,6 +101,7 @@ Class Procs:
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
+	pass_flags_self = PASSMACHINE|LETPASSCLICKS
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE

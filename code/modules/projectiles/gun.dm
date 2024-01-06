@@ -254,9 +254,9 @@
 /obj/item/gun/proc/newshot()
 	return
 
-/obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	var/is_tk_grab = !isnull(user.tkgrabbed_objects[src])
-	if (is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
+	if(is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
 		add_fingerprint(user)
 
 	if(chambered)

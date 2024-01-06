@@ -20,7 +20,6 @@
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
-	var/pass_flags = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
@@ -30,6 +29,8 @@
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
+	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
+	var/pass_flags = NONE
 
 	///Chemistry.
 	var/container_type = NONE
@@ -296,9 +297,6 @@
 /// Is this atom drainable of reagents
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
-
-/atom/proc/CheckExit()
-	return TRUE
 
 /atom/proc/HasProximity(atom/movable/AM)
 	return
@@ -1060,9 +1058,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	user.sync_lighting_plane_alpha()
 	return
 
-/atom/proc/checkpass(passflag)
-	return pass_flags & passflag
-
 /atom/proc/isinspace()
 	if(isspaceturf(get_turf(src)))
 		return TRUE
@@ -1374,4 +1369,37 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
+
+
+/// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
+/atom/proc/CanPass(atom/movable/mover, border_dir)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_TRIED_PASS, mover, border_dir) & COMSIG_COMPONENT_PERMIT_PASSAGE)
+		return TRUE
+	//if(mover.movement_type & PHASING)
+	//	return TRUE
+	. = CanAllowThrough(mover, border_dir)
+	// This is cheaper than calling the proc every time since most things dont override CanPassThrough
+	if(!mover.generic_canpass)
+		return mover.CanPassThrough(src, REVERSE_DIR(border_dir), .)
+
+
+/// Returns true or false to allow the mover to move through src
+/atom/proc/CanAllowThrough(atom/movable/mover, border_dir)
+	SHOULD_CALL_PARENT(TRUE)
+	if(mover.pass_flags == PASSEVERYTHING)
+		return TRUE
+	if(mover.pass_flags & pass_flags_self)
+		return TRUE
+	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
+		return TRUE
+	return !density
+
+
+/// Returns true or false to allow the mover to exit turf with src
+/atom/proc/CanExit(atom/movable/mover, moving_direction)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	return TRUE
 

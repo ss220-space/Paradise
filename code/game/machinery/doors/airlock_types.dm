@@ -872,8 +872,8 @@
 	paintable = FALSE
 
 // Добавлено потому, что с помощью флагов не пройти через двойные двери
-/obj/machinery/door/airlock/multi_tile/Cross(atom/movable/mover as mob|obj)
-	if(!src.CanPass(mover, mover.loc, 1))
+/obj/machinery/door/airlock/multi_tile/Cross(atom/movable/mover)
+	if(!CanPass(mover, get_dir(src, mover)))
 		mover.Bump(src, TRUE)
 		return FALSE
 	return TRUE

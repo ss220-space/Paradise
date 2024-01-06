@@ -54,12 +54,14 @@
 	if(user.can_advanced_admin_interact())
 		SwitchState()
 
-/obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+
+/obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
-	return !density
+
 
 /obj/structure/mineral_door/CanAtmosPass(turf/T)
 	return !density

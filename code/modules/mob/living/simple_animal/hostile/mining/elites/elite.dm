@@ -507,10 +507,14 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	queue_smooth_neighbors(src)
 	return ..()
 
-/obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, border_dir)
+
+/obj/effect/temp_visual/elite_tumor_wall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(isliving(mover) || isprojectile(mover))
 		return FALSE
+
 
 /obj/item/gps/internal/tumor
 	icon_state = null

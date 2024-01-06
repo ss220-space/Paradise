@@ -5,11 +5,11 @@
 	icon_state = "railing"
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW|PASSFENCE
+	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	var/currently_climbed = FALSE
-	var/mover_dir = null
 	var/buildstacktype = /obj/item/stack/rods
 	var/buildstackamount = 3
 
@@ -59,84 +59,47 @@
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
-/obj/structure/railing/corner/CanPass()
-	return TRUE
 
-
-/obj/structure/railing/corner/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	return TRUE
-
-
-/obj/structure/railing/corner/CheckExit()
-	return TRUE
-
-/obj/structure/railing/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSFENCE))
+/obj/structure/railing/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-	if(istype(mover, /obj/item/projectile))
+	if(. || mover.throwing || isprojectile(mover))
 		return TRUE
-	if(ismob(mover))
-		var/mob/M = mover
-		if(M.flying)
-			return TRUE
-	if(mover.throwing)
+	var/mob/mob_mover = mover
+	if(istype(mob_mover) && mob_mover.flying)
 		return TRUE
-	mover_dir = get_dir(loc, target)
-	//Due to how the other check is done, it would always return density for ordinal directions no matter what
-	if(ordinal_direction_check())
-		return FALSE
-	if(mover_dir != dir)
-		return density
-	return FALSE
+	if(border_dir == dir)
+		return !density
+	return TRUE
 
 
 /obj/structure/railing/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(to_dir == dir)
-		return FALSE
-	if(ordinal_direction_check(to_dir))
-		return FALSE
-
-	return TRUE
+	if(!(to_dir & dir))
+		return TRUE
+	return ..()
 
 
-/obj/structure/railing/CheckExit(atom/movable/O, target)
-	var/mob/living/M = O
-	if(istype(O) && O.checkpass(PASSFENCE))
+/obj/structure/railing/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(!density)
 		return TRUE
-	if(istype(O, /obj/item/projectile))
+	if(checkpass(mover, PASSFENCE))
 		return TRUE
-	if(ismob(O))
-		if(M.flying || M.floating)
-			return TRUE
-	if(O.throwing)
+	if(mover.throwing)
 		return TRUE
-	if(O.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
+	if(isprojectile(mover))
+		return TRUE
+	var/mob/mob_mover = mover
+	if(istype(mob_mover) && mob_mover.flying)
+		return TRUE
+	if(mover.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
 		return TRUE
 	if(currently_climbed)
 		return TRUE
-	mover_dir = get_dir(O.loc, target)
-	if(mover_dir == dir)
+	if(dir == moving_direction)
 		return FALSE
-	if(ordinal_direction_check())
-		return FALSE
-	return TRUE
 
-// Checks if the direction the mob is trying to move towards would be blocked by a corner railing
-/obj/structure/railing/proc/ordinal_direction_check()
-	switch(dir)
-		if(NORTHEAST)
-			if(mover_dir == NORTH || mover_dir == EAST)
-				return TRUE
-		if(SOUTHEAST)
-			if(mover_dir == SOUTH || mover_dir == EAST)
-				return TRUE
-		if(NORTHWEST)
-			if(mover_dir == NORTH || mover_dir == WEST)
-				return TRUE
-		if(SOUTHWEST)
-			if(mover_dir == SOUTH || mover_dir == WEST)
-				return TRUE
-	return FALSE
 
 /obj/structure/railing/do_climb(mob/living/user)
 	var/initial_mob_loc = get_turf(user)
@@ -155,8 +118,7 @@
 		return FALSE
 
 	var/target_dir = turn(dir, -45)
-
-	if(!valid_window_location(loc, target_dir)) //Expanded to include rails, as well!
+	if(!valid_build_direction(loc, target_dir))	//Expanded to include rails, as well!
 		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 	return TRUE
