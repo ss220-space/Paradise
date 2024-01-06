@@ -250,7 +250,7 @@
 	desc = "God wills it!"
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	allowed = list(/obj/item/nullrod/claymore)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
 	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 	sprite_sheets = list(
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -520,6 +520,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	hide_tail_by_species = list("Vox", "Vulpkanin")
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
 	sprite_sheets = list(
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
@@ -635,3 +636,11 @@
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
 	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+//Dredd
+
+/obj/item/clothing/suit/armor/vest/street_judge
+	name = "judge's security armor"
+	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
+	icon_state = "streetjudgearmor"
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")

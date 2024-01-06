@@ -31,6 +31,10 @@
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
 
+	/// Icon state for thought bubbles. Normally set by mobs.
+	var/thought_bubble_image = "thought_bubble"
+
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
@@ -61,40 +65,42 @@
 /atom/movable/proc/on_teleported()
 	return
 
-/atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
-	var/mob/M = AM
-	if(ismob(M) && M.buckled)
-		AM = M.buckled
 
-	if(QDELETED(AM))
+/atom/movable/proc/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+	var/mob/mob_target = AM
+	if(ismob(mob_target) && mob_target.buckled)
+		AM = mob_target.buckled
+
+	if(QDELETED(AM) || QDELETED(src))
 		return FALSE
-	if(!(AM.can_be_pulled(src, state, force)))
+	if(!(AM.can_be_pulled(src, force, show_message)))
 		return FALSE
 
-	// if we're pulling something then drop what we're currently pulling and pull this instead.
-	if(pulling)
-		if(state == 0)
-			stop_pulling()
-			return FALSE
-		// Are we trying to pull something we are already pulling? Then enter grab cycle and end.
-		if(AM == pulling)
-			if(isliving(AM))
-				var/mob/living/AMob = AM
-				AMob.grabbedby(src)
-			return TRUE
-		stop_pulling()
+	if(pulling && AM == pulling && src == AM.pulledby)	// are we trying to pull something we are already pulling?
+		return FALSE
+
+	var/atom/movable/previous_puller = null
 	if(AM.pulledby)
-		add_attack_logs(AM, AM.pulledby, "pulled from", ATKLOG_ALMOSTALL)
-		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+		previous_puller = AM.pulledby
+		previous_puller.stop_pulling() // an object can't be pulled by two mobs at once.
+
 	pulling = AM
 	AM.pulledby = src
 
-	var/mob/pulled_mob = ismob(AM) ? AM : buckled_mobs[1]
-	if(ismob(pulled_mob))
-		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
-		if(show_message)
-			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [pulled_mob]!</span>")
+	mob_target = ismob(AM) ? AM : (AM.buckled_mobs && length(AM.buckled_mobs)) ? AM.buckled_mobs[1] : null
+	if(mob_target)
+		if(previous_puller)
+			add_attack_logs(AM, previous_puller, "pulled from", ATKLOG_ALMOSTALL)
+			if(show_message)
+				visible_message(span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] [mob_target] у [previous_puller]."))
+		else
+			add_attack_logs(src, mob_target, "pulls", ATKLOG_ALMOSTALL)
+			if(show_message)
+				visible_message(span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [mob_target]!"))
+		mob_target.LAssailant = iscarbon(src) ? src : null
+
 	return TRUE
+
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
@@ -125,18 +131,18 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/can_be_pulled(user, grab_state, force, show_message = FALSE)
+/atom/movable/proc/can_be_pulled(atom/movable/user, force, show_message = FALSE)
 	if(src == user || !isturf(loc))
 		return FALSE
 	if(anchored || move_resist == INFINITY)
-		if(show_message)  //Это разве не проверка таскания прикрученных объектов? Оно точно может получить пол ящика?
-			to_chat(user, "<span class='warning'>Похоже, [src.name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!</span>")
+		if(show_message)
+			to_chat(user, span_warning("Похоже, [src.name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
 		return FALSE
 	if(throwing)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(show_message)
-			to_chat(user, "<span class='warning'>[src.name] слишком тяжелый!</span>")
+			to_chat(user, span_warning("[src.name] слишком тяжелый!"))
 		return FALSE
 	return TRUE
 
@@ -280,6 +286,8 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	var/turf/old_loc = loc
+	var/area/old_area = get_area(src)
+	var/area/new_area = get_area(destination)
 	loc = destination
 	moving_diagonally = 0
 
@@ -288,12 +296,19 @@
 		for(var/atom/movable/AM in old_loc)
 			AM.Uncrossed(src)
 
+	if(old_area && (new_area != old_area))
+		old_area.Exited(src)
+
 	if(destination)
 		destination.Entered(src)
 		for(var/atom/movable/AM in destination)
 			if(AM == src)
 				continue
 			AM.Crossed(src, old_loc)
+
+		if(new_area && (old_area != new_area))
+			new_area.Entered(src)
+
 		var/turf/oldturf = get_turf(old_loc)
 		var/turf/destturf = get_turf(destination)
 		var/old_z = (oldturf ? oldturf.z : null)
@@ -330,6 +345,7 @@
 	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
 		var/atom/movable/AM = item
 		AM.onTransitZ(old_z,new_z)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED)
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)

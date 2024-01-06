@@ -51,7 +51,7 @@
 	button_icon_state = "draw"
 	use_itemicon = FALSE
 
-/datum/action/item_action/draw_card/Trigger()
+/datum/action/item_action/draw_card/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.draw_card(owner)
@@ -62,7 +62,7 @@
 	button_icon_state = "deal_card"
 	use_itemicon = FALSE
 
-/datum/action/item_action/deal_card/Trigger()
+/datum/action/item_action/deal_card/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card()
@@ -73,7 +73,7 @@
 	button_icon_state = "deal_card_multi"
 	use_itemicon = FALSE
 
-/datum/action/item_action/deal_card_multi/Trigger()
+/datum/action/item_action/deal_card_multi/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card_multi()
@@ -84,7 +84,7 @@
 	button_icon_state = "shuffle"
 	use_itemicon = FALSE
 
-/datum/action/item_action/shuffle/Trigger()
+/datum/action/item_action/shuffle/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deckshuffle()
@@ -148,7 +148,7 @@
 			players += player
 	//players -= usr
 
-	var/mob/living/M = input("Who do you wish to deal a card to?") as null|anything in players
+	var/mob/living/M = input(usr, "Who do you wish to deal a card to?", "Deal Card", players)
 	if(!usr || !src || !M) return
 
 	deal_at(usr, M, 1)
@@ -175,7 +175,7 @@
 	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
 	if(dcard > maxcards)
 		return
-	var/mob/living/M = input("Who do you wish to deal [dcard] card(s)?") as null|anything in players
+	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
 		return
 
@@ -320,7 +320,7 @@
 	button_icon_state = "remove_card"
 	use_itemicon = FALSE
 
-/datum/action/item_action/remove_card/Trigger()
+/datum/action/item_action/remove_card/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
 		return C.Removecard()
@@ -331,7 +331,7 @@
 	button_icon_state = "discard"
 	use_itemicon = FALSE
 
-/datum/action/item_action/discard/Trigger()
+/datum/action/item_action/discard/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
 		return C.discard()
@@ -354,7 +354,9 @@
 	var/pickablecards = list()
 	for(var/datum/playingcard/P in cards)
 		pickablecards[P.name] = P
-	var/pickedcard = input("Which card do you want to remove from the hand?") as null|anything in pickablecards
+	var/pickedcard = tgui_input_list(user, "Which card do you want to remove from the hand?", "Remove Card", pickablecards)
+	if(!pickedcard)
+		return
 
 	if(QDELETED(src))
 		return
@@ -391,7 +393,10 @@
 		var/list/to_discard = list()
 		for(var/datum/playingcard/P in cards)
 			to_discard[P.name] = P
-		var/discarding = input("Which card do you wish to put down?") as null|anything in to_discard
+		var/discarding = tgui_input_list(user, "Which card do you wish to put down?", "Discard", to_discard)
+
+		if(!discarding)
+			continue
 
 		if(QDELETED(src))
 			return

@@ -158,6 +158,9 @@
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
 	backpack = /obj/item/storage/backpack/cargo
+	backpack_contents = list(
+	/obj/item/melee/classic_baton/telescopic = 1
+	)
 
 
 /datum/job/cargo_tech
@@ -229,7 +232,7 @@
 
 /datum/outfit/job/mining/equipped
 	name = "Shaft Miner"
-
+	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
@@ -243,14 +246,6 @@
 		/obj/item/gun/energy/kinetic_accelerator = 1,
 		/obj/item/stack/marker_beacon/ten = 1
 	)
-
-/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
-		var/obj/item/clothing/suit/hooded/S = H.wear_suit
-		S.ToggleHood()
 
 /datum/outfit/job/miner/equipped/hardsuit
 	name = "Shaft Miner (Equipment + Hardsuit)"

@@ -118,7 +118,7 @@
 		var/datum/robolimb/R = new limb_type()
 		GLOB.all_robolimbs[R.company] = R
 		if(!R.unavailable_at_chargen)
-			if(R != "head" && R != "chest" && R != "groin" ) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
+			if(R != BODY_ZONE_HEAD && R != BODY_ZONE_CHEST && R != BODY_ZONE_PRECISE_GROIN ) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
 				if(R.has_subtypes) //Ensures solos get added to the list as well be incorporating has_subtypes == 1 and has_subtypes == 2.
 					GLOB.chargen_robolimbs[R.company] = R //List only main brands and solo parts.
 		if(R.selectable)
@@ -134,6 +134,10 @@
 			stack_trace("[wth.type] has the same topic key as [GLOB.world_topic_handlers[wth.topic_key]]! ([wth.topic_key])")
 			continue
 		GLOB.world_topic_handlers[wth.topic_key] = topic_handler_type
+
+	GLOB.emote_list = init_emote_list()
+	GLOB.uplink_items = init_uplink_items_list()
+
 	// Keybindings
 	for(var/path in subtypesof(/datum/keybinding))
 		var/datum/keybinding/D = path
@@ -198,3 +202,32 @@
 			if(assoc) //value gotten
 				L["[assoc]"] = D //put in association
 	return L
+
+
+/proc/init_emote_list()
+	. = list()
+	for(var/path in subtypesof(/datum/emote))
+		var/datum/emote/E = new path()
+		if(E.key)
+			if(!.[E.key])
+				.[E.key] = list(E)
+			else
+				.[E.key] += E
+		else if(E.message) //Assuming all non-base emotes have this
+			stack_trace("Keyless emote: [E.type]")
+
+		if(E.key_third_person) //This one is optional
+			if(!.[E.key_third_person])
+				.[E.key_third_person] = list(E)
+			else
+				.[E.key_third_person] |= E
+
+
+/proc/init_uplink_items_list()
+	. = list()
+	for(var/datum/uplink_item/item_path as anything in subtypesof(/datum/uplink_item))
+		if(!initial(item_path.item))
+			continue
+		var/datum/uplink_item/item = new item_path
+		. += item
+

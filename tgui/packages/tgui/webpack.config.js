@@ -6,10 +6,9 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const BuildNotifierPlugin = require('webpack-build-notifier');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
-const createStats = verbose => ({
+const createStats = (verbose) => ({
   assets: verbose,
   builtAt: verbose,
   cached: false,
@@ -27,16 +26,16 @@ module.exports = (env = {}, argv) => {
     mode: argv.mode === 'production' ? 'production' : 'development',
     context: __dirname,
     entry: {
-      tgui: [
-        path.resolve(__dirname, './index.js'),
-      ],
+      tgui: [path.resolve(__dirname, './index.js')],
     },
     output: {
-      path: argv.mode === 'production'
-        ? path.resolve(__dirname, './public')
-        : path.resolve(__dirname, './public/.tmp'),
+      path:
+        argv.mode === 'production'
+          ? path.resolve(__dirname, './public')
+          : path.resolve(__dirname, './public/.tmp'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].chunk.js',
+      hashFunction: 'SHA256',
     },
     resolve: {
       extensions: ['.mjs', '.js', '.jsx'],
@@ -51,22 +50,27 @@ module.exports = (env = {}, argv) => {
               loader: 'babel-loader',
               options: {
                 presets: [
-                  ['@babel/preset-env', {
-                    modules: 'commonjs',
-                    useBuiltIns: 'entry',
-                    corejs: '3',
-                    spec: false,
-                    loose: true,
-                    targets: {
-                      ie: '8',
+                  [
+                    '@babel/preset-env',
+                    {
+                      modules: 'commonjs',
+                      useBuiltIns: 'entry',
+                      corejs: '3',
+                      spec: false,
+                      loose: true,
+                      targets: {
+                        ie: '8',
+                      },
                     },
-                  }],
+                  ],
                 ],
                 plugins: [
+                  '@babel/plugin-proposal-class-properties',
                   '@babel/plugin-transform-jscript',
                   'babel-plugin-inferno',
                   'babel-plugin-transform-remove-console',
                   'common/string.babel-plugin.cjs',
+                  ['@babel/plugin-transform-private-methods', { loose: false }],
                 ],
               },
             },
@@ -127,10 +131,7 @@ module.exports = (env = {}, argv) => {
   // Add a bundle analyzer to the plugins array
   if (argv.analyze) {
     const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-    config.plugins = [
-      ...config.plugins,
-      new BundleAnalyzerPlugin(),
-    ];
+    config.plugins = [...config.plugins, new BundleAnalyzerPlugin()];
   }
 
   // Production specific options
@@ -144,7 +145,6 @@ module.exports = (env = {}, argv) => {
           ie8: true,
           output: {
             ascii_only: true,
-            comments: false,
           },
         },
       }),
@@ -155,11 +155,14 @@ module.exports = (env = {}, argv) => {
         assetNameRegExp: /\.css$/g,
         cssProcessor: require('cssnano'),
         cssProcessorPluginOptions: {
-          preset: ['default', {
-            discardComments: {
-              removeAll: true,
+          preset: [
+            'default',
+            {
+              discardComments: {
+                removeAll: true,
+              },
             },
-          }],
+          ],
         },
         canPrint: true,
       }),
@@ -168,12 +171,6 @@ module.exports = (env = {}, argv) => {
 
   // Development specific options
   if (argv.mode !== 'production') {
-    config.plugins = [
-      ...config.plugins,
-      new BuildNotifierPlugin({
-        suppressSuccess: true,
-      }),
-    ];
     if (argv.hot) {
       config.plugins.push(new webpack.HotModuleReplacementPlugin());
     }

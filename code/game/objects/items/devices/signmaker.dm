@@ -49,7 +49,8 @@
 /obj/item/signmaker/emag_act(mob/user)
 	add_attack_logs(user, src, "emagged")
 	clear_holosign()
-	to_chat(user, "You broke the pointer, oh no")
+	if(user)
+		to_chat(user, "You broke the pointer, oh no")
 	holosign_type = /obj/structure/holosoap/holosoap_emagged
 
 /obj/item/signmaker/attack_self(mob/user)
@@ -93,7 +94,7 @@
 			energy -= 1
 			icon_flick()
 			var/mob/living/carbon/C = target
-			if(user.zone_selected == "eyes")
+			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 				//20% chance to actually hit the eyes
 				if(prob(20))
@@ -108,7 +109,7 @@
 			energy -= 1
 			icon_flick()
 			var/mob/living/silicon/S = target
-			if(user.zone_selected == "eyes")
+			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				//20% chance to actually hit the sensors
 				if(prob(20))
 					S.flash_eyes(affect_silicon = 1)

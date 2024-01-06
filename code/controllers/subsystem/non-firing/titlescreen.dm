@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(title)
 	name = "Title Screen"
 	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_TITLE
+	ss_id = "title_screen"
 
 
 /datum/controller/subsystem/title/Initialize()
@@ -39,7 +40,7 @@ SUBSYSTEM_DEF(title)
 
 		var/choice
 		if(user)
-			choice = input(user, "Choose new title screen", "Available Screens:") as null|anything in title_screens
+			choice = tgui_input_list(user, "Choose new title screen", "Available Screens:", title_screens)
 			if(!choice)
 				return FALSE
 		else

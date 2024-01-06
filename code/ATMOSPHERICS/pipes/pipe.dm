@@ -8,6 +8,7 @@
 	damage_deflection = 12
 	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
 	resistance_flags = NO_MALF_EFFECT
+	can_be_undertile = TRUE
 
 	//Buckling
 	can_buckle = TRUE
@@ -25,7 +26,7 @@
 	QDEL_NULL(air_temporary)
 
 	var/turf/T = loc
-	for(var/obj/machinery/meter/meter in T)
+	for(var/obj/machinery/atmospherics/meter/meter in T)
 		if(meter.target == src)
 			var/obj/item/pipe_meter/PM = new (T)
 			meter.transfer_fingerprints_to(PM)

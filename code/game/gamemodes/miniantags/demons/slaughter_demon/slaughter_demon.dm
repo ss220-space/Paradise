@@ -53,8 +53,9 @@
 	if(!..())
 		return
 
-	to_chat(src, playstyle_string)
-	to_chat(src, span_notice("<B>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</B>"))
+	var/list/messages = list()
+	messages.Add(playstyle_string)
+	messages.Add("<b><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></b>")
 	src << 'sound/misc/demon_dies.ogg'
 	if(vialspawned)
 		return
@@ -66,7 +67,10 @@
 	//Paradise Port:I added the objective for one spawned like this
 	mind.objectives += objective
 	mind.objectives += fluffObjective
-	mind.announce_objectives()
+	messages.Add(mind.prepare_announce_objectives(FALSE))
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Slaughter_Demon\">Демон резни</a></span>")
+	to_chat(src, chat_box_red(messages.Join("<br>")))
+
 
 
 /obj/effect/decal/cleanable/blood/innards
@@ -162,7 +166,8 @@
 		new_objective.owner = S.mind
 		new_objective.explanation_text = "Bring forth the Slaughter to the nonbelievers."
 		S.mind.objectives += new_objective
-		to_chat(S, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
+		to_chat(S, chat_box_red(messages.Join("<br>")))
 		log_game("[S.key] has become Slaughter demon.")
 
 
@@ -193,18 +198,17 @@
 	qdel(src)
 
 
-/obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(M.mind)
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
+	M?.mind?.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 
 
-/obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, TRAIT_BLOODCRAWL)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
+	. = ..()
 
 
 /**

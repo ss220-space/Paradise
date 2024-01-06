@@ -32,11 +32,27 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Used when yate into a mob.
 	var/mob_throw_hit_sound
 	///Sound used when equipping the item into a valid slot.
-	var/equip_sound
+	var/equip_sound = list(
+		'sound/items/handling/generic_equip1.ogg',
+		'sound/items/handling/generic_equip2.ogg',
+		'sound/items/handling/generic_equip3.ogg',
+		'sound/items/handling/generic_equip4.ogg',
+		'sound/items/handling/generic_equip5.ogg',
+	)
 	///Sound used when picking the item up (into your hands)
-	var/pickup_sound
+	var/pickup_sound = list(
+		'sound/items/handling/generic_pickup1.ogg',
+		'sound/items/handling/generic_pickup2.ogg',
+		'sound/items/handling/generic_pickup3.ogg',
+	)
 	///Sound used when dropping the item.
-	var/drop_sound
+	var/drop_sound = list(
+		'sound/items/handling/generic_drop1.ogg',
+		'sound/items/handling/generic_drop2.ogg',
+		'sound/items/handling/generic_drop3.ogg',
+		'sound/items/handling/generic_drop4.ogg',
+		'sound/items/handling/generic_drop5.ogg',
+	)
 	///Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
@@ -301,9 +317,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 		if(user.hand)
-			temp = H.bodyparts_by_name["l_hand"]
+			temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		if(!temp)
 			to_chat(user, SPAN_WARNING("You try to use your hand, but it's missing!"))
 			return
@@ -319,7 +335,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				to_chat(user, SPAN_NOTICE("You put out the fire on [src]."))
 			else
 				to_chat(user, SPAN_WARNING("You burn your hand on [src]!"))
-				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
+				var/obj/item/organ/external/affecting = H.get_organ(H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)
 				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
 				return
@@ -331,7 +347,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(istype(H))
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
 				to_chat(user, SPAN_WARNING("The acid on [src] burns your hand!"))
-				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
+				var/obj/item/organ/external/affecting = H.get_organ(H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
 					H.UpdateDamageIcon()
 
@@ -464,9 +480,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(prob(final_block_chance))
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-		return 1
-	return 0
+		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+		return TRUE
+	return FALSE
 
 
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
@@ -533,8 +549,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
-	if(!silent)
-		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+	if(!silent && !(flags & ABSTRACT) && drop_sound)
+		var/chosen_sound = drop_sound
+		if(islist(drop_sound) && length(drop_sound))
+			chosen_sound = pick(drop_sound)
+		playsound(src, chosen_sound, DROP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 	return TRUE
 
 
@@ -613,11 +632,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	in_inventory = TRUE
 
-	if(!initial)
+	if(!initial && !(flags & ABSTRACT))
 		if(equip_sound && !user.is_general_slot(slot))
-			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
+			var/chosen_sound = equip_sound
+			if(islist(equip_sound) && length(equip_sound))
+				chosen_sound = pick(equip_sound)
+			playsound(src, chosen_sound, EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+		else if(slot == slot_l_store || slot == slot_l_store)
+			playsound(src, 'sound/items/handling/generic_equip3.ogg', EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 		else if(pickup_sound && (slot == slot_l_hand || slot == slot_r_hand))
-			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
+			var/chosen_sound = pickup_sound
+			if(islist(pickup_sound) && length(pickup_sound))
+				chosen_sound = pick(pickup_sound)
+			playsound(src, chosen_sound, PICKUP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	return TRUE
@@ -759,7 +786,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * The default action is attack_self().
  * Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
  */
-/obj/item/proc/ui_action_click(mob/user, actiontype)
+/obj/item/proc/ui_action_click(mob/user, actiontype, leftclick)
 	attack_self(user)
 
 
@@ -818,7 +845,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(istype(H))
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
-			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
+			var/obj/item/organ/external/head/head = H.bodyparts_by_name[BODY_ZONE_HEAD]
 			head.receive_damage(rand(10,14), 1)
 			return
 		eyes.receive_damage(rand(3,4), 1)
@@ -836,7 +863,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
-		var/obj/item/organ/external/affecting = H.get_organ("head")
+		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 		if(affecting.receive_damage(7))
 			H.UpdateDamageIcon()
 	else

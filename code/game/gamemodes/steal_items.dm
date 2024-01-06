@@ -807,13 +807,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	min=3
 	max=8
 
-/datum/theft_objective/collect/number/dominator
-	id = "collect_num_dominator"
-	typepath = /obj/item/gun/energy/dominator
-	name = "пистолеты Доминатор"
-	min=3
-	max=8
-
 /datum/theft_objective/collect/number/wt550
 	id = "collect_num_wt550"
 	typepath = /obj/item/gun/projectile/automatic/wt550
@@ -856,8 +849,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	min=3
 	max=6
 
-/datum/theft_objective/collect/number/sybil
-	id = "collect_num_sybil"
+/datum/theft_objective/collect/number/sibyl
+	id = "collect_num_sibyl"
 	typepath = /obj/item/sibyl_system_mod
 	name = "системы Сибил"
 	min=4

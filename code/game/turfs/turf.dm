@@ -8,6 +8,9 @@
 	var/slowdown = 0 //negative for faster, positive for slower
 	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
+	var/real_layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
+
 	///Properties for open tiles (/floor)
 	/// All the gas vars, on the turf, are meant to be utilized for initializing a gas datum and setting its first gas values; the turf vars are never further modified at runtime; it is never directly used for calculations by the atmospherics system.
 	var/oxygen = 0
@@ -51,6 +54,10 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+
+	if(layer == MAP_EDITOR_TURF_LAYER)
+		layer = real_layer
+
 
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()
@@ -134,7 +141,8 @@
 	..()
 	return FALSE
 
-/turf/Enter(atom/movable/mover as mob|obj, atom/forget)
+
+/turf/Enter(atom/movable/mover, atom/oldloc)
 	if(!mover)
 		return TRUE
 
@@ -142,7 +150,7 @@
 	if(isturf(mover.loc))
 		// Nothing but border objects stop you from leaving a tile, only one loop is needed
 		for(var/obj/obstacle in mover.loc)
-			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != forget)
+			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != oldloc)
 				mover.Bump(obstacle, TRUE)
 				return FALSE
 
@@ -150,23 +158,31 @@
 	//Next, check objects to block entry that are on the border
 	for(var/atom/movable/border_obstacle in src)
 		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, mover.loc, 1) && (forget != border_obstacle))
+			if(!border_obstacle.CanPass(mover, mover.loc, 1) && border_obstacle != oldloc)
 				mover.Bump(border_obstacle, TRUE)
 				return FALSE
 		else
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
-	if(!src.CanPass(mover, src))
+	if(!CanPass(mover, src))
 		mover.Bump(src, TRUE)
 		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
+	var/atom/movable/tompost_bump
+	var/top_layer = 0
 	for(var/atom/movable/obstacle in large_dense)
-		if(!obstacle.CanPass(mover, mover.loc, 1) && (forget != obstacle))
-			mover.Bump(obstacle, TRUE)
-			return FALSE
+		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
+			if(obstacle.layer > top_layer)
+				tompost_bump = obstacle
+				top_layer = obstacle.layer	//Probably separate variable is a better solution, but its good for now.
+	if(tompost_bump)
+		mover.Bump(tompost_bump, TRUE)
+		return FALSE
+
 	return TRUE //Nothing found to block so return success!
+
 
 /turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
 	..()

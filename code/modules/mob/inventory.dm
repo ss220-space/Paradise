@@ -278,6 +278,13 @@
 
 
 /**
+ * Specal proc for special mobs that use "hands" in weird ways.
+ */
+/mob/proc/special_hands_drop_action()
+	return
+
+
+/**
  * DO NO USE THIS PROC, there are plenty of helpers below: put_in_l_hand, put_in_active_hand, put_in_hands etc.
  * Puts an item into hand by `hand_id` ("HAND_LEFT" / "HAND_RIGHT") and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
@@ -385,34 +392,42 @@
 /**
  * Drops item in left hand.
  */
-/mob/proc/drop_l_hand(force = FALSE)
-	return drop_item_ground(l_hand, force)
+/mob/proc/drop_l_hand(force = FALSE, silent = FALSE)
+	return drop_item_ground(l_hand, force, silent = silent)
 
 
 /**
  * Drops item in right hand.
  */
-/mob/proc/drop_r_hand(force = FALSE)
-	return drop_item_ground(r_hand, force)
+/mob/proc/drop_r_hand(force = FALSE, silent = FALSE)
+	return drop_item_ground(r_hand, force, silent = silent)
 
 
 /**
  * Drops item in active hand.
  */
-/mob/proc/drop_from_active_hand(force = FALSE)
+/mob/proc/drop_from_active_hand(force = FALSE, silent = FALSE)
 	if(hand)
-		return drop_l_hand(force)
+		return drop_l_hand(force, silent)
 	else
-		return drop_r_hand(force)
+		return drop_r_hand(force, silent)
 
 /**
  * Drops item in inactive hand.
  */
-/mob/proc/drop_from_inactive_hand(force = FALSE)
+/mob/proc/drop_from_inactive_hand(force = FALSE, silent = FALSE)
 	if(hand)
-		return drop_r_hand(force)
+		return drop_r_hand(force, silent)
 	else
-		return drop_l_hand(force)
+		return drop_l_hand(force, silent)
+
+
+/**
+ * Drops items in both hands.
+ */
+/mob/proc/drop_from_hands(force = FALSE, silent = FALSE)
+	drop_l_hand(force, silent)
+	drop_r_hand(force, silent)
 
 
 /**
@@ -487,7 +502,7 @@
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
-/mob/proc/transfer_item_to_loc(obj/item/I, atom/newloc, force = FALSE, invdrop = TRUE, silent = TRUE)
+/mob/proc/transfer_item_to_loc(obj/item/I, atom/newloc, force = FALSE, invdrop = TRUE, silent = FALSE)
 	. = do_unEquip(I, force, newloc, FALSE, invdrop, silent)
 	I.do_drop_animation(src)
 

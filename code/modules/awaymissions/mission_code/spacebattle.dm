@@ -318,7 +318,7 @@
 				synmobdrop = /obj/item/tank/internals/emergency_oxygen/engi/syndi)
 		if(15 to 20) // 10%
 			pick(synmobdrop = /obj/item/target/syndicate,
-				synmobdrop = /obj/item/toy/cards/deck/syndicate,
+				synmobdrop = /obj/item/deck/cards/syndicate,
 				synmobdrop = /obj/item/kitchen/knife/combat/survival)
 		if(20 to 24) // 8%
 			pick(synmobdrop = /obj/item/clothing/glasses/night,

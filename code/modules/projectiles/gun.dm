@@ -15,6 +15,8 @@
 	origin_tech = "combat=1"
 	needs_permit = 1
 	attack_verb = list("struck", "hit", "bashed")
+	pickup_sound = 'sound/items/handling/gun_pickup.ogg'
+	drop_sound = 'sound/items/handling/gun_drop.ogg'
 
 	var/fire_sound = "gunshot"
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
@@ -185,7 +187,7 @@
 		if(istype(user))
 			if((CLUMSY in user.mutations) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
-				var/shot_leg = pick("l_foot", "r_foot")
+				var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 				process_fire(user, user, 0, params, zone_override = shot_leg)
 				user.drop_from_active_hand()
 				return
@@ -251,7 +253,7 @@
 					sprd = round((rand() - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
 				else
 					sprd = round((i / burst_size - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
-				if(!chambered.fire(target, user, params, ,suppressed, zone_override, sprd))
+				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 					shoot_with_empty_chamber(user)
 					break
 				else
@@ -273,7 +275,7 @@
 					to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
 					return
 			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
-			if(!chambered.fire(target, user, params, , suppressed, zone_override, sprd))
+			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 				shoot_with_empty_chamber(user)
 				return
 			else
@@ -296,7 +298,8 @@
 		else
 			user.update_inv_r_hand()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
-	if(rusted_weapon == TRUE)
+
+	if(rusted_weapon)
 		malf_counter -= burst_size
 		if(malf_counter <= 0 && prob(50))
 			new /obj/effect/decal/cleanable/ash(user.loc)
@@ -312,6 +315,7 @@
 			user.take_organ_damage(0,10)
 			return FALSE
 
+
 /obj/item/gun/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
 		if(bayonet)
@@ -319,7 +323,7 @@
 		else
 			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user)
+/obj/item/gun/attack_obj(obj/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
 			O.attackby(bayonet, user)
@@ -498,7 +502,7 @@
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
-/datum/action/toggle_scope_zoom/Trigger()
+/datum/action/toggle_scope_zoom/Trigger(left_click = TRUE)
 	gun.zoom(owner)
 
 /datum/action/toggle_scope_zoom/IsAvailable()

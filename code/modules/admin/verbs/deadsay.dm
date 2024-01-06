@@ -36,6 +36,8 @@
 	if(!msg)
 		return
 
+	msg = handleDiscordEmojis(msg)
+
 	var/prefix = "[stafftype] ([src.key])"
 	if(holder.fakekey)
 		prefix = "Administrator"

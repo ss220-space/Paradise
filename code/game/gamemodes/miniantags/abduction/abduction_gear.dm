@@ -308,7 +308,7 @@
 /obj/item/abductor/mind_device/proc/mind_control(atom/target, mob/living/user)
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot("heart")
+		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(!istype(G))
 			to_chat(user, "<span class='warning'>Your target does not have an experimental gland!</span>")
 			return

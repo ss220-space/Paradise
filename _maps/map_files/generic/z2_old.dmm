@@ -3553,7 +3553,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/black,
+/obj/item/deck/cards/black,
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "cXT" = (
@@ -3641,7 +3641,7 @@
 /area/syndicate_mothership)
 "dbc" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -4901,7 +4901,7 @@
 /area/centcom/zone1)
 "dWu" = (
 /obj/structure/table/wood,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/machinery/camera{
 	c_tag = "CentComm Zone 1 Droom";
 	network = list("CentComm")
@@ -10998,19 +10998,19 @@
 /obj/item/gun/projectile/shotgun/boltaction,
 /obj/item/gun/projectile/shotgun/boltaction,
 /obj/item/gun/projectile/shotgun/boltaction,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
 /obj/item/gun/projectile/shotgun/boltaction,
-/obj/item/ammo_box/speedloader/shotgun/a762,
-/obj/item/ammo_box/speedloader/shotgun/a762,
+/obj/item/ammo_box/speedloader/a762,
+/obj/item/ammo_box/speedloader/a762,
 /obj/machinery/light/small{
 	brightness_range = 10;
 	light_range = 10;
@@ -13202,11 +13202,11 @@
 	desc = "Баксоны максона. Возможно кто-то приобретет пропуск.";
 	name = "100.000 �������� �������"
 	},
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	amount = 115;
 	desc = null
 	},
-/obj/item/stack/telecrystal/fifty{
+/obj/item/stack/telecrystal/twohundread_fifty{
 	amount = 115;
 	desc = null
 	},
@@ -15415,7 +15415,7 @@
 /area/ninja/outside)
 "lrE" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/syndicate{
+/obj/item/deck/cards/syndicate{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -17445,7 +17445,7 @@
 "mKQ" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/item/toy/cards/deck/syndicate/black,
+/obj/item/deck/cards/syndicate/black,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -20146,7 +20146,7 @@
 /area/ninja/outpost)
 "oRN" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/indestructible{
 	icon_state = "woodalt"
 	},
@@ -22065,8 +22065,8 @@
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened,
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
-/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened,
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened,
 /obj/item/organ/internal/cyberimp/eyes/hud/medical,
@@ -28610,7 +28610,7 @@
 "uHi" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/toy/cards/deck/syndicate=10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/deck/cards/syndicate=10)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"

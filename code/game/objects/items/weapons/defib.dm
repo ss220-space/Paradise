@@ -86,15 +86,15 @@
 	update_icon()
 
 
-/obj/item/defibrillator/ui_action_click()
-	if(!ishuman(usr) && !Adjacent(usr))
+/obj/item/defibrillator/ui_action_click(mob/user)
+	if(!ishuman(user) || !Adjacent(user))
 		return
 
 	toggle_paddles()
 
 
-/obj/item/defibrillator/CtrlClick()
-	if(!ishuman(usr) && !Adjacent(usr))
+/obj/item/defibrillator/CtrlClick(mob/user)
+	if(!ishuman(user) || !Adjacent(user))
 		return
 
 	toggle_paddles()
@@ -128,15 +128,17 @@
 	update_icon()
 	return
 
-/obj/item/defibrillator/emag_act(user as mob)
+/obj/item/defibrillator/emag_act(mob/user)
 	if(safety)
 		add_attack_logs(user, src, "emagged")
 		safety = FALSE
-		to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the card.")
+		if(user)
+			to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the card.")
 	else
 		add_attack_logs(user, src, "un-emagged")
 		safety = TRUE
-		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
+		if(user)
+			to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
 	update_icon()
 
 /obj/item/defibrillator/emp_act(severity)
@@ -165,8 +167,8 @@
 		//Detach the paddles into the user's hands
 
 		var/mob/living/carbon/human/user = usr
-		var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
-		var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
+		var/obj/item/organ/external/temp2 = user.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
+		var/obj/item/organ/external/temp = user.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 
 		if(user.incapacitated())
 			return
@@ -479,7 +481,7 @@
 						return
 					else
 						var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
-						if(heart.status & ORGAN_DEAD)
+						if(heart.is_dead())
 							user.visible_message("<span class='boldnotice'>[defib || src] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							busy = FALSE
@@ -503,7 +505,7 @@
 					var/total_cloneloss = H.cloneloss
 					var/total_bruteloss = 0
 					var/total_burnloss = 0
-					for(var/obj/item/organ/external/O in H.bodyparts)
+					for(var/obj/item/organ/external/O as anything in H.bodyparts)
 						total_bruteloss += O.brute_dam
 						total_burnloss += O.burn_dam
 					if(total_cloneloss <= 180 && total_bruteloss <= 180 && total_burnloss <= 180 && !H.suiciding && !ghost && tplus < tlimit && !(NOCLONE in H.mutations) && (H.mind && H.mind.is_revivable()) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
@@ -563,10 +565,10 @@
 		return
 
 	if(electrocute_mob(affecting, defib.cell, origin)) // shock anyone touching them >:)
-		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot("heart")
-		if(HE.parent_organ == "chest" && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
+		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot(INTERNAL_ORGAN_HEART)
+		if(HE.parent_organ_zone == BODY_ZONE_CHEST && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
 			affecting.visible_message("<span class='danger'>[affecting]'s entire body shakes as a shock travels up their arm!</span>", \
-							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!</span>")
+							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ(BODY_ZONE_L_ARM) : affecting.get_organ(BODY_ZONE_R_ARM)] and back down your [affecting.hand ? affecting.get_organ(BODY_ZONE_L_ARM) : affecting.get_organ(BODY_ZONE_R_ARM)]!</span>")
 			affecting.set_heartattack(TRUE)
 
 /obj/item/twohanded/shockpaddles/borg

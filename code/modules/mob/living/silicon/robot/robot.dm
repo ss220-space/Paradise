@@ -592,7 +592,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(C.installed)
 			installed_components += V
 
-	var/toggle = input(src, "Which component do you want to toggle?", "Toggle Component") as null|anything in installed_components
+	var/toggle = tgui_input_list(src, "Which component do you want to toggle?", "Toggle Component", installed_components)
 	if(!toggle)
 		return
 
@@ -800,6 +800,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 			C.brute_damage = 0
 			C.electronics_damage = 0
+			var/been_hijacked = FALSE
+			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+				if(!been_hijacked)
+					demon.do_hijack_robot(src)
+					been_hijacked = TRUE
+				else
+					demon.exit_to_turf()
+			if(been_hijacked)
+				cell.rigged = FALSE
 			diag_hud_set_borgcell()
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
@@ -836,7 +845,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(U.action(src, user))
 				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
 				install_upgrade(U)
-				module.fix_modules()	//Set up newly added items with NODROP flag.
+				module?.fix_modules()	//Set up newly added items with NODROP flag.
 			else
 				W.forceMove(drop_location())
 
@@ -942,7 +951,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			removable_components += V
 	if(module)
 		removable_components += module.custom_removals
-	var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
+	var/remove = tgui_input_list(user, "Which component do you want to pry out?", "Remove Component", removable_components)
 	if(!remove)
 		return
 	if(module && module.handle_custom_removal(remove, user, I))
@@ -970,7 +979,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		spark_system.start()
 	..()
 
-/mob/living/silicon/robot/emag_act(user as mob)
+/mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
 	if(isclocker(src))
@@ -1048,8 +1057,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(module)
 			reset_module()
 		pick_module("Clockwork")
-		emp_protection = TRUE
-		speed = -0.5
 		pdahide = TRUE
 	SSticker.mode.add_clocker(mind)
 	UnlinkSelf()
@@ -1332,13 +1339,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(stat != DEAD && isturf(tile))
 				var/floor_only = TRUE
 				for(var/A in tile)
-					if(istype(A, /obj/effect))
-						if(is_cleanable(A))
-							var/obj/effect/decal/cleanable/blood/B = A
+					if(iseffect(A))
+						var/obj/effect/check = A
+						if(check.is_cleanable())
+							var/obj/effect/decal/cleanable/blood/B = check
 							if(istype(B) && B.off_floor)
 								floor_only = FALSE
 							else
-								qdel(A)
+								qdel(B)
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()
@@ -1750,3 +1758,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
+
+
+/mob/living/silicon/robot/verb/powerwarn()
+	set category = "Robot Commands"
+	set name = "Power Warning"
+
+	if(!is_component_functioning("power cell") || !cell || !cell.charge)
+		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))
+			to_chat(src, span_warning("The low-power capacitor for your speaker system is still recharging, please try again later."))
+			return
+
+		visible_message(span_warning("The power warning light on [span_name("[src]")] flashes urgently."),
+									span_warning("You announce you are operating in low power mode."))
+		playsound(loc, 'sound/machines/buzz-two.ogg', 50, FALSE)
+	else
+		to_chat(src, span_warning("You can only use this emote when you're out of charge."))
+

@@ -5,7 +5,7 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE)
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, EMBEDIMMUNE)
 	dies_at_threshold = TRUE
 	speed_mod = 2
 	brute_mod = 0.45 //55% damage reduction
@@ -44,22 +44,24 @@
 	dangerous_existence = TRUE
 
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/golem,
-		"adamantine_resonator" = /obj/item/organ/internal/adamantine_resonator
-		) //Has standard darksight of 2.
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/golem,
+		INTERNAL_ORGAN_RESONATOR = /obj/item/organ/internal/adamantine_resonator,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/unbreakable/sturdy),
-		"groin" =  list("path" = /obj/item/organ/external/groin/unbreakable/sturdy),
-		"head" =   list("path" = /obj/item/organ/external/head/unbreakable/sturdy),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/unbreakable/sturdy),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/unbreakable/sturdy),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/unbreakable/sturdy),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/unbreakable/sturdy),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/unbreakable/sturdy),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/unbreakable/sturdy),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/unbreakable/sturdy),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy))
+		BODY_ZONE_CHEST =  list("path" = /obj/item/organ/external/chest/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/unbreakable/sturdy),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/unbreakable/sturdy),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm/unbreakable/sturdy),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right/unbreakable/sturdy),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg/unbreakable/sturdy),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy),
+	)
 
 	suicide_messages = list(
 		"рассыпается в прах!",
@@ -186,11 +188,14 @@
 /datum/species/golem/adamantine
 	name = "Адамантиновый Голем"
 	skinned_type = /obj/item/stack/sheet/mineral/adamantine
+
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/golem,
-		"adamantine_resonator" = /obj/item/organ/internal/adamantine_resonator,
-		"vocal_cords" = /obj/item/organ/internal/vocal_cords/adamantine
-		)
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/golem,
+		INTERNAL_ORGAN_RESONATOR = /obj/item/organ/internal/adamantine_resonator,
+		INTERNAL_ORGAN_VOCALCORDS = /obj/item/organ/internal/vocal_cords/adamantine,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
+
 	golem_colour = rgb(68, 238, 221)
 	info_text = "Будучи <span class='danger'>адамантиновым големом</span>, вы обладаете особыми голосовыми связками, позволяющие вам «резонировать» послания всем големам."
 	prefix = "Адамантинов" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
@@ -439,7 +444,7 @@
 	name = "Деревянный Голем"
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, IS_PLANT)
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, EMBEDIMMUNE, IS_PLANT)
 	//Can burn and take damage from heat
 	brute_mod = 0.7 //30% damage reduction down from 55%
 	burn_mod = 0.875
@@ -469,6 +474,7 @@
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
+	var/is_vamp = isvampire(H)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5
@@ -476,16 +482,17 @@
 			H.clear_alert("nolight")
 		else
 			H.throw_alert("nolight", /obj/screen/alert/nolight)
-		H.adjust_nutrition(light_amount * 10)
-		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
-			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
+		if(!is_vamp)
+			H.adjust_nutrition(light_amount * 10)
+			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
+				H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
 			H.adjustBruteLoss(-1)
 			H.adjustFireLoss(-1)
 			H.adjustToxLoss(-1)
 			H.adjustOxyLoss(-1)
 
-	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
+	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)
 	..()
 

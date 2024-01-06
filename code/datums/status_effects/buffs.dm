@@ -57,10 +57,9 @@
 		if(ishuman(owner))
 			owner.status_flags |= IGNORESLOWDOWN
 			var/mob/living/carbon/human/H = owner
-			for(var/X in H.bodyparts)
-				var/obj/item/organ/external/BP = X
-				BP.brute_mod *= 0.1
-				BP.burn_mod *= 0.1
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				bodypart.brute_mod *= 0.1
+				bodypart.burn_mod *= 0.1
 			H.dna.species.tox_mod *= 0.1
 			H.dna.species.oxy_mod *= 0.1
 			H.dna.species.clone_mod *= 0.1
@@ -73,10 +72,9 @@
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		for(var/X in H.bodyparts)
-			var/obj/item/organ/external/BP = X
-			BP.brute_mod *= 10
-			BP.burn_mod *= 10
+		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			bodypart.brute_mod *= 10
+			bodypart.burn_mod *= 10
 		H.dna.species.tox_mod *= 10
 		H.dna.species.oxy_mod *= 10
 		H.dna.species.clone_mod *= 10
@@ -175,7 +173,7 @@
 					if(itemUser.put_in_l_hand(newRod, TRUE))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
-						if(!itemUser.has_organ("l_arm"))
+						if(!itemUser.get_organ(BODY_ZONE_L_ARM))
 							new /obj/item/organ/external/arm(itemUser)
 						new /obj/item/organ/external/hand(itemUser)
 						itemUser.update_body()
@@ -186,7 +184,7 @@
 					if(itemUser.put_in_r_hand(newRod, TRUE))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
-						if(!itemUser.has_organ("r_arm"))
+						if(!itemUser.get_organ(BODY_ZONE_R_ARM))
 							new /obj/item/organ/external/arm/right(itemUser)
 						new /obj/item/organ/external/hand/right(itemUser)
 						itemUser.update_body()
@@ -224,11 +222,10 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		if(is_mining_level(H.z))
-			for(var/thing in H.bodyparts)
-				var/obj/item/organ/external/E = thing
-				E.internal_bleeding = FALSE
-				E.mend_fracture()
+		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				bodypart.stop_internal_bleeding()
+				bodypart.mend_fracture()
 		else
 			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
 	else
@@ -565,3 +562,59 @@
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "blood_rush_status"
 
+/datum/status_effect/dragon_strength //less powerfull than hope, but works the same way
+	id = "dragon strength"
+	duration = -1
+	tick_interval = 3 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+
+/datum/status_effect/dragon_strength/tick()
+	if(owner.stat == DEAD || owner.health <= HEALTH_THRESHOLD_DEAD) // No dead healing, or healing in dead crit
+		return
+	if(owner.health > 30)
+		if(prob(2))
+			war_message()
+		return
+	var/heal_multiplier = min(3, ((40 - owner.health) / 50 + 1)) // 1 hp at 40 health, 2 at -10, 3 at -60
+	owner.adjustBruteLoss(-heal_multiplier * 0.5)
+	owner.adjustFireLoss(-heal_multiplier * 0.5)
+	owner.adjustOxyLoss(-heal_multiplier)
+	if(prob(5))
+		hope_message()
+
+/datum/status_effect/dragon_strength/proc/hope_message()
+	var/list/hope_messages = list("You are filled with [pick("determination", "strength", "robustness", "power")].",
+							"Your most pleasant memories flash through your mind.",
+							"You can't give up, keep going!",
+							"Pull yourself together!",
+							"You are the strongest hunter, you can handle it!",
+							"Don't forget how you got this amulet, hunter!",
+							"All these persons are not nearly as powerful as you!",
+							"You ARE robust, don't you dare die now!",
+							"Some stupid scars can't stop you!",
+							"You still have monsters to kill, don't die!")
+	to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
+
+/datum/status_effect/dragon_strength/proc/war_message()
+	var/list/war_messages = list("You feel incredible strength in your heart.",
+							"You feel a pleasant smell of human blood.",
+							"You feel envious glances.",
+							"You want to kill someone.",
+							"All your glorious battles flash through your memory.",
+							"No one can conquer you.",
+							"You can feel fire in your soul.",
+							"Don't forget how you got this amulet, hunter.")
+	to_chat(owner, "<span class='warning'>[pick(war_messages)]</span>")
+
+/obj/screen/alert/status_effect/dash
+	name = "Dash"
+	desc = "You have the ability to dash!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "genetic_jump"
+
+/datum/status_effect/dash
+	id = "dash"
+	duration = 5 SECONDS
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/dash

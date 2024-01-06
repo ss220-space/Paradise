@@ -25,7 +25,7 @@
 		return
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
-		mineral_scan_pulse(get_turf(user))
+		mineral_scan_pulse(get_turf(user), 5)
 		if(speaker)
 			playsound(src, pick(soundone, soundtwo), 35)
 
@@ -47,9 +47,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	var/cooldown = 35
+	var/cooldown = 1 SECONDS
 	var/current_cooldown = 0
-	var/range = 7
+	var/range = 9
 	var/speaker = TRUE // Speaker that plays a sound when pulsed.
 	var/soundone = 'sound/lavaland/area_scan1.ogg'
 	var/soundtwo = 'sound/lavaland/area_scan2.ogg'

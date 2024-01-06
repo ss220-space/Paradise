@@ -27,6 +27,9 @@
 
 /obj/screen/movable/action_button/Click(location,control,params)
 	var/list/modifiers = params2list(params)
+	if(usr.next_click > world.time)
+		return FALSE
+	usr.changeNext_click(1)
 	if(modifiers["shift"])
 		if(locked)
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
@@ -38,12 +41,22 @@
 		locked = !locked
 		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
 		return TRUE
-	if(usr.next_click > world.time)
-		return
-	usr.next_click = world.time + 0.1 SECONDS
-	linked_action.Trigger()
-	linked_action.UpdateButtonIcon() //redraw button
+	if(modifiers["alt"])
+		AltClick(usr)
+		return TRUE
+	if(modifiers["middle"])
+		linked_action.Trigger(left_click = FALSE)
+		return TRUE
+	linked_action.Trigger(left_click = TRUE)
+	linked_action.UpdateButtonIcon()
+	transform = transform.Scale(0.8, 0.8)
+	alpha = 200
+	animate(src, transform = matrix(), time = 0.3 SECONDS, alpha = 255)
 	return TRUE
+
+/obj/screen/movable/action_button/AltClick(mob/user)
+	. = linked_action.AltTrigger()
+	linked_action.UpdateButtonIcon()
 
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle

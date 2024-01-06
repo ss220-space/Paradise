@@ -457,14 +457,23 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/emag_act()
+/atom/proc/emag_act(mob/user)
 	return
 
-/atom/proc/cmag_act()
+/atom/proc/cmag_act(mob/user)
 	return
 
-/atom/proc/fart_act(mob/living/M)
+
+/**
+ * Special treatment of [/datum/emote/living/carbon/human/fart].
+ * Returning `TRUE` will stop emote execution.
+ *
+ * Arguments:
+ * * user - mob who used the emote.
+ */
+/atom/proc/fart_act(mob/living/user)
 	return FALSE
+
 
 /atom/proc/rpd_act()
 	return
@@ -700,12 +709,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //to add blood dna info to the object's blood_DNA list
 /atom/proc/transfer_blood_dna(list/blood_dna)
-	if(!blood_DNA)
-		blood_DNA = list()
-	var/old_length = blood_DNA.len
+	if(!blood_dna || !length(blood_dna))
+		return FALSE
+	LAZYINITLIST(blood_DNA)
+	var/old_length = length(blood_DNA)
 	blood_DNA |= blood_dna
-	if(blood_DNA.len > old_length)
-		return TRUE//some new blood DNA was added
+	return length(blood_DNA) > old_length	//some new blood DNA was added
+
 
 //to add blood from a mob onto something, and transfer their dna info
 /atom/proc/add_mob_blood(mob/living/M)
@@ -978,9 +988,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else
 		tts_seeds = SStts.get_available_seeds(src)
 
-	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference", tts_seed) as null|anything in tts_seeds
+	var/new_tts_seed = tgui_input_list(user || src, "Choose your preferred voice:", "Character Preference", tts_seeds, tts_seed)
 	if(!new_tts_seed)
-		return null
+		new_tts_seed = tts_seed
 	if(!silent_target && ismob(src) && src != user)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, src, tts_test_str, new_tts_seed, FALSE)
 	if(user)

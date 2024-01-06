@@ -10,7 +10,8 @@
 	desc = "Has a valve and pump attached to it"
 	use_power = IDLE_POWER_USE
 
-	layer = GAS_SCRUBBER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
+	layer_offset = GAS_SCRUBBER_OFFSET
 
 	can_unwrench = 1
 	var/open = 0
@@ -19,7 +20,7 @@
 	var/area_uid
 
 	var/on = 0
-	var/pump_direction = 1 //0 = siphoning, 1 = releasing
+	var/releasing = 1 //0 = siphoning, 1 = releasing
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
@@ -49,7 +50,7 @@
 	icon_state = "map_vent_out"
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon
-	pump_direction = 0
+	releasing = 0
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on
 	on = 1
@@ -100,7 +101,7 @@
 	else if(!powered())
 		vent_icon += "off"
 	else
-		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
+		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
 	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
 
@@ -148,7 +149,7 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
-	if(pump_direction) //internal -> external
+	if(releasing) //internal -> external
 		var/pressure_delta = 10000
 		if(pressure_checks & 1)
 			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
@@ -214,7 +215,7 @@
 		"tag" = src.id_tag,
 		"device" = "AVP",
 		"power" = on,
-		"direction" = pump_direction?("release"):("siphon"),
+		"direction" = releasing?("release"):("siphon"),
 		"checks" = pressure_checks,
 		"internal" = internal_pressure_bound,
 		"external" = external_pressure_bound,
@@ -248,11 +249,11 @@
 
 	if(signal.data["purge"] != null)
 		pressure_checks &= ~1
-		pump_direction = 0
+		releasing = 0
 
 	if(signal.data["stabilize"] != null)
 		pressure_checks |= 1
-		pump_direction = 1
+		releasing = 1
 
 	if(signal.data["power"] != null)
 		on = text2num(signal.data["power"])
@@ -270,7 +271,7 @@
 		pressure_checks = (pressure_checks?0:3)
 
 	if(signal.data["direction"] != null)
-		pump_direction = text2num(signal.data["direction"])
+		releasing = text2num(signal.data["direction"])
 
 	if(signal.data["set_internal_pressure"] != null)
 		if(signal.data["set_internal_pressure"] == "default")

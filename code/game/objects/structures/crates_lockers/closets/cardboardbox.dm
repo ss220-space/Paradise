@@ -8,12 +8,18 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
-	sound = 'sound/effects/rustle2.ogg'
+	open_sound = 'sound/machines/cardboard_box.ogg'
+	close_sound = 'sound/machines/cardboard_box.ogg'
+	open_sound_volume = 35
+	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
 	var/decal = ""
 	var/amt = 4
-	var/move_delay = 0
+	var/move_delay = FALSE
 	var/egged = 0
+	/// How fast a mob can move inside this box.
+	var/move_speed_multiplier = 1
+
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
 	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
@@ -21,17 +27,19 @@
 	move_delay = TRUE
 	var/oldloc = loc
 	step(src, direction)
+	// By default, while inside a box, we move at walk speed times the speed multipler of the box.
+	var/delay = CONFIG_GET(number/walk_speed) * move_speed_multiplier
+	if(direction & (direction - 1))
+		delay *= SQRT_2 // Moving diagonal counts as moving 2 tiles, we need to slow them down accordingly.
 	if(oldloc != loc)
-		addtimer(CALLBACK(src, PROC_REF(ResetMoveDelay)), CONFIG_GET(number/walk_speed))
+		addtimer(VARSET_CALLBACK(src, move_delay, FALSE), delay)
 	else
 		move_delay = FALSE
 
-/obj/structure/closet/cardboard/proc/ResetMoveDelay()
-	move_delay = FALSE
 
 /obj/structure/closet/cardboard/open()
 	if(opened || !can_open())
-		return 0
+		return FALSE
 	if(!egged)
 		var/mob/living/Snake = null
 		for(var/mob/living/L in src.contents)
@@ -44,8 +52,8 @@
 					if(!L.stat)
 						L.do_alert_animation(L)
 						egged = 1
-				alerted << sound('sound/machines/chime.ogg')
-	..()
+				SEND_SOUND(alerted, sound('sound/machines/chime.ogg'))
+	return ..()
 
 /mob/living/proc/do_alert_animation(atom/A)
 	var/image/I
@@ -75,10 +83,10 @@
 			if(can.capped)
 				to_chat(user, span_warning("You need to toggle cap off before repainting."))
 				return
-			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
+			var/decalselection = tgui_input_list(user, "Please select a decal", "Paint box", list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
 			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
 			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",
-			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
+			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology"))
 			if(!decalselection)
 				return
 			if(user.incapacitated())

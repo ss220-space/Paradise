@@ -50,6 +50,7 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = 1
+	reflectability = REFLECTABILITY_ENERGY
 	flag = "energy"
 	var/temperature = 300
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
@@ -93,7 +94,9 @@
 
 
 /obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
-	..()
+	if(!..())
+		return FALSE
+
 	if(isliving(target))
 		var/mob/living/M = target
 		M.bodytemperature = temperature
@@ -342,11 +345,11 @@
 
 /obj/item/projectile/ornament/on_hit(atom/target)	//knockback
 	..()
-	if(istype(target, /turf))
+	if(!istype(target, /mob))
 		return 0
 	var/obj/T = target
 	var/throwdir = get_dir(firer,target)
-	T.throw_at(get_edge_target_turf(target, throwdir),10,10)
+	T.throw_at(get_edge_target_turf(target, throwdir),5,5) // 10,10 tooooo much
 	return 1
 
 /obj/item/projectile/mimic

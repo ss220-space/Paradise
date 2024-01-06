@@ -4,6 +4,9 @@
 	icon_state = "webbing"
 	item_color = "webbing"
 	slot = ACCESSORY_SLOT_UTILITY
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 	var/slots = 3
 	var/obj/item/storage/internal/hold
 	actions_types = list(/datum/action/item_action/accessory/storage)

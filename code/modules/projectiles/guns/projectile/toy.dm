@@ -12,6 +12,8 @@
 	can_suppress = 0
 	clumsy_check = 0
 	needs_permit = 0
+	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 
 /obj/item/gun/projectile/automatic/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
@@ -72,6 +74,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy
 	clumsy_check = 0
 	needs_permit = 0
+	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 
 /obj/item/gun/projectile/shotgun/toy/process_chamber()
 	..()
@@ -96,6 +100,8 @@
 	can_suppress = 0
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
+	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 
 /obj/item/gun/projectile/automatic/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
@@ -111,6 +117,8 @@
 	can_suppress = 0
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
+	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
@@ -137,6 +145,8 @@
 	needs_permit = FALSE
 	zoomable = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
+	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 
 /obj/item/gun/projectile/automatic/sniper_rifle/toy/update_icon()
 	if(magazine)

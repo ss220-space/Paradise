@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING // 7
 	flags = SS_NO_FIRE
+	ss_id = "mapping"
 	/// What map datum are we using
 	var/datum/map/map_datum
 	/// What map will be used next round

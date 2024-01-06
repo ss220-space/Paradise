@@ -133,7 +133,7 @@
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
 		if(SP.speaking && SP.speaking.flags & INNATE)
 			if(speaker == src)
-				custom_emote(EMOTE_SOUND, message_clean, TRUE)
+				custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
 			return
 
 	if(!can_hear())
@@ -187,7 +187,7 @@
 	else
 		return "<font color=[speaker.chat_color]>[speaker_name]</font>"
 
-/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, radio_freq)
+/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
 	if(!client)
 		return
 

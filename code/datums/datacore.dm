@@ -222,7 +222,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 /proc/get_id_photo(mob/living/carbon/human/H, var/custom_job = null)
 	var/icon/preview_icon = null
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/internal/eyes/eyes_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
 
 	var/g = "m"
@@ -255,12 +255,12 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			temp.Blend(H.skin_colour, ICON_ADD)
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
-	for(var/obj/item/organ/external/E in H.bodyparts)
-		if(istype(E,/obj/item/organ/external/tail))
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		if(istype(bodypart, /obj/item/organ/external/tail))
 			continue
-		if(istype(E, /obj/item/organ/external/wing))
+		if(istype(bodypart, /obj/item/organ/external/wing))
 			continue
-		preview_icon.Blend(E.get_icon(), ICON_OVERLAY)
+		preview_icon.Blend(bodypart.get_icon(), ICON_OVERLAY)
 
 /* At this point all bodyparts already colored!
 	// Skin tone

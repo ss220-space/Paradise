@@ -75,7 +75,7 @@
 
 /obj/structure/bookcase/attack_hand(var/mob/user as mob)
 	if(contents.len)
-		var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
+		var/obj/item/book/choice = tgui_input_list(user, "Which book would you like to remove from [src]?", "Bookcase", contents)
 		if(choice)
 			if(user.incapacitated() || user.lying || !Adjacent(user))
 				return
@@ -144,6 +144,8 @@
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("bashed", "whacked")
 	resistance_flags = FLAMMABLE
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 
 	var/dat			 // Actual page content
 	var/due_date = 0 // Game time in 1/10th seconds
@@ -155,6 +157,16 @@
 	var/obj/item/store	// What's in the book?
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
 	var/has_drm = FALSE
+
+/obj/item/book/examine(mob/user)
+	. = ..()
+	if(user.is_literate())
+		if(in_range(user, src) || istype(user, /mob/dead/observer))
+			attack_self(user)
+		else
+			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+	else
+		. += "<span class='notice'>You don't know how to read.</span>"
 
 /obj/item/book/attack_self(var/mob/user as mob)
 	if(carved)
@@ -193,7 +205,7 @@
 		if(unique)
 			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
 			return 1
-		var/choice = input("What would you like to change?") in list("Title", "Contents", "Author", "Cancel")
+		var/choice = tgui_input_list(user, "What would you like to change?", "Book Edit", list("Title", "Contents", "Author", "Cancel"))
 		switch(choice)
 			if("Title")
 				var/newtitle = reject_bad_text(stripped_input(usr, "Write a new title:"))

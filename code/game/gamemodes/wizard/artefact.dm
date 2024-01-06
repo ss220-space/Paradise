@@ -170,26 +170,28 @@ GLOBAL_LIST_EMPTY(multiverse)
 			user.faction = list("[user.real_name]")
 			to_chat(user, "You bind the sword to yourself. You can now use it to summon help.")
 			if(!usr.mind.special_role)
+				var/list/messages = list()
 				if(prob(probability_evil))
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
+					messages.Add("<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
+					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 					hijack_objective.owner = usr.mind
 					usr.mind.objectives += hijack_objective
-					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
-					to_chat(usr, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
+					messages.Add(user.mind.prepare_announce_objectives(FALSE))
 					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
+					messages.Add("<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
-					new_objective.owner = usr.mind
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
-					to_chat(usr, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+					new_objective.owner = usr.mind
 					usr.mind.objectives += new_objective
+					messages.Add(user.mind.prepare_announce_objectives(FALSE))
 					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = FALSE
+				to_chat(user, chat_box_red(messages.Join("<br>")))
 		else
 			cooldown = world.time + cooldown_between_uses
 			for(var/obj/item/multisword/M in GLOB.multiverse)
@@ -239,19 +241,20 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	if(evil)
 		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
-		hijack_objective.owner = M.mind
-		M.mind.objectives += hijack_objective
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
-		to_chat(M, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
+		hijack_objective.owner = usr.mind
+		usr.mind.objectives += hijack_objective
+		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
+		to_chat(M, chat_box_red(messages.Join("<br>")))
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.", M)
 	else
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
-		new_objective.owner = M.mind
-		new_objective.target = usr.mind
 		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help [usr.p_them()] defend the innocent from the mobs of multiverse clones."
+		new_objective.owner = M.mind
 		M.mind.objectives += new_objective
-		to_chat(M, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
+		to_chat(M, chat_box_red(messages.Join("<br>")))
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
 
@@ -361,8 +364,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 			if("cyborg")
 				if(!ismachineperson(M))
-					for(var/obj/item/organ/O in M.bodyparts)
-						O.robotize(make_tough = 1)
+					for(var/obj/item/organ/external/bodypart as anything in M.bodyparts)
+						bodypart.robotize(make_tough = TRUE)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
@@ -705,10 +708,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/voodoo/attack_self(mob/user as mob)
 	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
+		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible)
 		return
 
-	if(user.zone_selected == "chest")
+	if(user.zone_selected == BODY_ZONE_CHEST)
 		if(link)
 			target = null
 			link.loc = get_turf(src)
@@ -719,22 +722,22 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	if(target && cooldown < world.time)
 		switch(user.zone_selected)
-			if("mouth")
+			if(BODY_ZONE_PRECISE_MOUTH)
 				var/wgw =  sanitize(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
 				target.say(wgw)
 				add_attack_logs(user, target, "force say ([wgw]) with a voodoo doll.")
 				add_say_logs(target, wgw, src)
-			if("eyes")
+			if(BODY_ZONE_PRECISE_EYES)
 				user.set_machine(src)
 				user.reset_perspective(target)
 				spawn(100)
 					user.reset_perspective(null)
 					user.unset_machine()
-			if("r_leg","l_leg")
+			if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")
 				var/turf/T = get_step(target,pick(GLOB.cardinal))
 				target.Move(T)
-			if("r_arm","l_arm")
+			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 				//use active hand on random nearby mob
 				var/list/nearby_mobs = list()
 				for(var/mob/living/L in range(1,target))
@@ -745,7 +748,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					add_attack_logs(user, target, "force click on [T] with a voodoo doll.")
 					target.ClickOn(T)
 					GiveHint(target)
-			if("head")
+			if(BODY_ZONE_HEAD)
 				to_chat(user, "<span class='notice'>You smack the doll's head with your hand.</span>")
 				target.Dizzy(20 SECONDS)
 				to_chat(target, "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>")

@@ -4,6 +4,8 @@
 	antag_hud_name = "hudvampire"
 	job_rank = ROLE_VAMPIRE
 	special_role = SPECIAL_ROLE_VAMPIRE
+	wiki_page_name = "Vampire"
+	russian_wiki_name = "Вампир"
 	var/bloodtotal = 0
 	var/bloodusable = 0
 	/// What vampire subclass the vampire is.
@@ -49,12 +51,12 @@
 
 
 /datum/antagonist/vampire/greet()
-	var/dat
+	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	dat = "<span class='danger'>You are a Vampire!</span><br>"
-	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
-		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
-	to_chat(owner.current, dat)
+	messages.Add("<span class='danger'>You are a Vampire!</span><br>")
+	messages.Add("To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers. \
+		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water.")
+	return messages
 
 
 /datum/antagonist/vampire/farewell()
@@ -101,7 +103,7 @@
 
 	if(!transformation)
 		check_vampire_upgrade(announce = FALSE)
-		user.faction |= "vampire"
+		user.faction |= ROLE_VAMPIRE
 		user.dna?.species?.hunger_type = "vampire"
 		user.dna?.species?.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 
@@ -113,7 +115,7 @@
 		remove_all_powers()
 
 	if(!transformation)
-		user.faction -= "vampire"
+		user.faction -= ROLE_VAMPIRE
 
 		var/datum/hud/hud = user.hud_used
 		if(hud?.vampire_blood_display)
@@ -538,14 +540,14 @@
 
 /datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
-	user.faction |= "vampire"
+	user.faction |= ROLE_VAMPIRE
 	if(!mob_override)
 		user.mind?.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
 
 
 /datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
-	user.faction -= "vampire"
+	user.faction -= ROLE_VAMPIRE
 	if(!mob_override)
 		user.mind?.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 

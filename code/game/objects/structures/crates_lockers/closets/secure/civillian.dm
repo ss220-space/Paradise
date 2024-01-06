@@ -5,3 +5,6 @@
 	overlay_locked = "c_locked"
 	overlay_locker = "c_locker"
 	overlay_unlocked = "c_unlocked"
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
+

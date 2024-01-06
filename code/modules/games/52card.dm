@@ -8,6 +8,16 @@
 	desc = "A simple deck of playing cards."
 	icon_state = "deck"
 
+
+/obj/item/deck/cards/black
+
+
+/obj/item/deck/cards/syndicate
+
+
+/obj/item/deck/cards/syndicate/black
+
+
 /obj/item/deck/cards/New()
 	..()
 	for(var/suit in list("spades","clubs","diamonds","hearts"))
@@ -26,12 +36,12 @@
 	for(var/i = 0, i<2, i++)
 		cards += new /datum/playingcard("joker", "joker")
 
-/obj/item/deck/doublecards
+/obj/item/deck/cards/doublecards
 		name = "double deck of cards"
 		desc = "A simple deck of playing cards. Multiplied by two. Does not necessarily come with twice the fun."
 		icon_state = "doubledeck"
 
-/obj/item/deck/doublecards/New()
+/obj/item/deck/cards/doublecards/New()
 	..()
 	for(var/f = 0, f<2, f++)
 		for(var/suit in list("spades","clubs","diamonds","hearts"))

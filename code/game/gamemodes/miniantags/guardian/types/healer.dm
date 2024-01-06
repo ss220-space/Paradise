@@ -209,7 +209,7 @@
 			switch(random_cure)
 				if("bleedings")
 					var/obj/item/organ/external/limb = pick(injures["bleedings"])
-					limb.internal_bleeding = FALSE
+					limb.stop_internal_bleeding()
 					to_chat(user, "Внутреннее кровотечение остановлено.")
 					return 1
 				if("fractures")
@@ -223,11 +223,9 @@
 					to_chat(user, "Очищено тело хозяина от инфекции.")
 					return 1
 				if("embedded")
-					var/obj/item/organ/external/limb = pick(injures["embedded"])
-					var/turf/T = get_turf(summoner)
-					var/obj/item/item = pick(limb.embedded_objects)
-					limb.embedded_objects -= item
-					item.forceMove(T)
+					var/obj/item/organ/external/limb = safepick(injures["embedded"])
+					var/obj/item/item = safepick(limb?.embedded_objects)
+					limb?.remove_embedded_object(item)
 					to_chat(user, "Удалось вытащить застрявший предмет.")
 					return 1
 				if("damaged_organs")

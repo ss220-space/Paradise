@@ -95,6 +95,7 @@
 	deactivation_messages = list("Your skin no longer feels dry and unreactive.")
 	instability = GENE_INSTABILITY_MODERATE
 	mutation = NO_SHOCK
+	traits_to_add = list(TRAIT_SHOCKIMMUNE)
 
 /datum/dna/gene/basic/noshock/New()
 	..()

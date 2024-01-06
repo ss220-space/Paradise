@@ -35,7 +35,8 @@
 	if(emagged)
 		return
 	add_attack_logs(user, src, "emagged")
-	to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
+	if(user)
+		to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
 	emagged = TRUE

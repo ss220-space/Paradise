@@ -44,13 +44,13 @@
 			if(!driver.has_left_hand() && !driver.has_right_hand())
 				return 0 // No hands to drive your chair? Tough luck!
 
-			for(var/organ_name in list("l_hand","r_hand","l_arm","r_arm"))
+			for(var/organ_name in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 				var/obj/item/organ/external/E = driver.get_organ(organ_name)
 				if(!E)
 					calculated_move_delay += 4
-				else if(E.status & ORGAN_SPLINTED)
+				else if(E.is_splinted())
 					calculated_move_delay += 0.5
-				else if(E.status & ORGAN_BROKEN)
+				else if(E.has_fracture())
 					calculated_move_delay += 1.5
 
 		if(calculated_move_delay < 4)
@@ -131,18 +131,18 @@
 
 		if(ishuman(buckled_mob))
 			var/mob/living/carbon/human/driver = user
-			var/obj/item/organ/external/l_hand = driver.get_organ("l_hand")
-			var/obj/item/organ/external/r_hand = driver.get_organ("r_hand")
+			var/obj/item/organ/external/l_hand = driver.get_organ(BODY_ZONE_PRECISE_L_HAND)
+			var/obj/item/organ/external/r_hand = driver.get_organ(BODY_ZONE_PRECISE_R_HAND)
 			if(!l_hand && !r_hand)
 				calculated_move_delay += 0.5	//I can ride my bike with no handlebars... (but it's slower)
 
-			for(var/organ_name in list("l_leg","r_leg","l_foot","r_foot"))
+			for(var/organ_name in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 				var/obj/item/organ/external/E = driver.get_organ(organ_name)
 				if(!E)
 					return 0	//Bikes need both feet/legs to work. missing even one makes it so you can't ride the bike
-				else if(E.status & ORGAN_SPLINTED)
+				else if(E.is_splinted())
 					calculated_move_delay += 0.5
-				else if(E.status & ORGAN_BROKEN)
+				else if(E.has_fracture())
 					calculated_move_delay += 1.5
 
 		move_delay = world.time

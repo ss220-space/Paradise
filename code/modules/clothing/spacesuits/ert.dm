@@ -238,6 +238,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
 	hide_tail_by_species = list("Unathi, Ash Walker, Ash Walker Shaman, Draconid, Tajaran, Vox, Vulpkanin")
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/New()

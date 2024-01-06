@@ -206,3 +206,95 @@
   - tweak: DNA and Species Change not regenerate missing limbs and organs (#3848)
   captainnelly:
   - tweak: posters update  (#3784)
+'2023-11-22':
+  Daeberdir:
+  - bugfix: sofas `dir` corrections. (#3917)
+  Den109G:
+  - bugfix: Standartizes grilles. (#3915)
+  Zwei:
+  - bugfix: New Organs Pop Fix (#3924)
+'2023-11-24':
+  Daeberdir:
+  - bugfix: correct checks and correct desc changing for poncho repainting (#3929)
+  - bugfix: pet collar announces mob death to "station owner" channel. (#3904)
+  Etrnlmelancholy:
+  - tweak: hawaii update (#3916)
+  Ksaikok46:
+  - add: dice of fate in uplink for librarian (#3927)
+  - add: babel book in uplink for chaplain and librarian (#3928)
+  LiquidPotroh:
+  - tweak: unathi are no more immune to embed (#3914)
+  ROdenFL:
+  - qol: you can on and off your dirslash from MA (#3921)
+  - add: combo counter (#3881)
+  Vladisvell:
+  - bugfix: Power loss is now calculated correctly on scoreboard (#3922)
+'2023-11-25':
+  Daeberdir:
+  - tweak: deleting cloning circuits from tech storage. (#3934)
+  - bugfix: '"MA without combo" don`t count combo-steps with regular combo-acts. (#3935)'
+  Vladisvell:
+  - bugfix: bumped merge driver deps (#3933)
+'2023-11-26':
+  Dimach:
+  - bugfix: character save runtime (#3936)
+'2023-11-27':
+  ReloadKey:
+  - add: New tajaran random name generator (#3938)
+'2023-11-28':
+  Daeberdir:
+  - bugfix: Correct Outfit Equiping. (#3876)
+  Etrnlmelancholy:
+  - tweak: cargo tweaks (#3939)
+  - tweak: pepper spray refillers in brig (#3894)
+  LiquidPotroh:
+  - tweak: Virology patch (#3925)
+  ROdenFL:
+  - tweak: unathi hunger (#3942)
+  Vladisvell:
+  - add: Added and resprited chaplains items. (#3941)
+  Zwei:
+  - refactor: Emotes Refactor (#3877)
+  - bugfix: Vampire Hunger (#3931)
+  - bugfix: Tentacle Fixes (#3930)
+  - tweak: Gliding And Projectiles Tweaks (#3932)
+  yosoyrebelde:
+  - refactor: rename button 'wireless' var (#3945)
+  - bugfix: lighter hitting obj sound (#3944)
+'2023-11-29':
+  ArtemDerp:
+  - add: add organ smartfridge for brig med (#3940)
+  BeebBeebBoob:
+  - bugfix: Emote howl chain reaction and volume mixer (#3953)
+  Dimach:
+  - refactor: get_players_for_role improve (#3951)
+  - bugfix: pulse demon fixes (#3952)
+  LiquidPotroh:
+  - bugfix: Temperature gun's projectile blocking & reflecting (#3948)
+  NightDawnFox:
+  - add: lavaland rework 1.5 (#3776)
+  ROdenFL:
+  - add: pulse demon,floor rework,tray adaptation(port) (#3804)
+  - balance: cling add fleshy maul, armblade tweaks (#3861)
+  - balance: nutrition pump implant nerf (#3943)
+  Vladisvell:
+  - balance: Rebalanced bomb protection, now it really protects against explosions.
+      (#3821)
+  Zwei:
+  - bugfix: Few Fixes (#3947)
+  - bugfix: Correct Antags Number (#3950)
+'2023-11-30':
+  Dimach:
+  - server: update tgui depts (#3955)
+  Etrnlmelancholy:
+  - bugfix: no more /list when you attack carp (#3961)
+  NightDawnFox:
+  - bugfix: chameleon hardsuit now toggles light properly (#3957)
+  ROdenFL:
+  - bugfix: undroppable heart (#3959)
+  SAAD:
+  - bugfix: A little centcom mistakes (#3956)
+  Zwei:
+  - tweak: Muzzle Emotes Runechatted (#3958)
+  dependabot[bot]:
+  - unknown: bump @babel/traverse from 7.9.5 to 7.23.5 in /tgui (#3954)

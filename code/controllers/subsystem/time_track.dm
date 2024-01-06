@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(time_track)
 	wait = 10 SECONDS
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	flags = SS_NO_INIT
+	ss_id = "time_track"
 	var/time_dilation_current = 0
 
 	var/time_dilation_avg_fast = 0

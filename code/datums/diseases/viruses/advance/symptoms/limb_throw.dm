@@ -69,7 +69,7 @@ Limb Rejection
 		to_chat(H, span_alert("You still need [limb]!"))
 		return FALSE
 
-	for(var/obj/item/organ/internal/organ in limb.internal_organs)
+	for(var/obj/item/organ/internal/organ as anything in limb.internal_organs)
 		if(organ.vital)
 			to_chat(H, span_alert("You still need [organ]!"))
 			return FALSE
@@ -77,6 +77,7 @@ Limb Rejection
 	var/obj/item/projectile/limb/limb_projectile = new(user.loc, limb)
 	limb_projectile.current = get_turf(user)
 	limb_projectile.preparePixelProjectile(target, get_turf(target), user)
+	limb_projectile.firer = user
 	limb_projectile.fire()
 	playsound(get_turf(usr), 'sound/effects/splat.ogg', 50, 1)
 

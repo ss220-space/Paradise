@@ -832,14 +832,14 @@
 				"<span class='warning'>\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\"</span>")
 			if(ishuman(U))
 				var/mob/living/carbon/human/H = U
-				H.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))
+				H.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 			else
 				U.adjustFireLoss(rand(force/2,force))
 
 /obj/item/twohanded/pitchfork/demonic/attack(mob/target, mob/living/carbon/human/user)
 	if(user.mind && !user.mind.devilinfo && (user.mind.soulOwner != user.mind))
 		to_chat(user, "<span class ='warning'>The [src] burns in your hands.</span>")
-		user.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))
+		user.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 	..()
 
 // It's no fun being the lord of all hell if you can't get out of a simple room
@@ -996,3 +996,26 @@
 	used = FALSE
 	flags &= ~NODROP
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
+
+/obj/item/twohanded/fishingrod
+	name = "ol' reliable"
+	desc = "Hey! I caught a miner!"
+	icon_state = "fishing_rod0"
+	item_state = ""
+	w_class = WEIGHT_CLASS_SMALL
+	var/w_class_on = WEIGHT_CLASS_BULKY
+
+/obj/item/twohanded/fishingrod/wield()
+	w_class = w_class_on
+	item_state = "fishing_rod"
+
+/obj/item/twohanded/fishingrod/unwield()
+	w_class = initial(w_class)
+	item_state = ""
+
+/obj/item/twohanded/fishingrod/update_icon()
+	if(wielded)
+		icon_state = "fishing_rod[wielded]"
+	else
+		icon_state = "fishing_rod0"
+	..()

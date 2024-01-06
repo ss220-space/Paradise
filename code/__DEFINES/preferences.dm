@@ -56,8 +56,9 @@
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE		1024
 #define PREFTOGGLE_2_MC_TABS			2048
+#define PREFTOGGLE_2_DISABLE_TGUI_LISTS	4096
 
-#define TOGGLES_2_TOTAL 				4095 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL 				8191 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES)
 

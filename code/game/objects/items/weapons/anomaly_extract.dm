@@ -8,23 +8,29 @@
 	var/used = FALSE
 
 /obj/item/anomaly_extract/attack_self(mob/user)
-	if(!used)
-		if(user.dna.species.name == "Slime People")
-			var/obj/item/organ/internal/heart/slime/anomaly/H = new
-			H.replaced(user)
-			to_chat(user, span_warning("Something changes inside you. It feel SOO warm!"))
-			used = TRUE
-			icon_state = "slime_extract0"
-		else
-			to_chat(user, span_notice("Looks like your skin is too hard for this syringe."))
-	else
+	if(used)
 		to_chat(user, span_notice("Looks like somebody already used it."))
-	. = ..()
+		return FALSE
 
-/obj/item/anomaly_extract/afterattack(atom/target, mob/user, proximity, params)
+	if(!isslimeperson(user))
+		to_chat(user, span_notice("Looks like your skin is too hard for this syringe."))
+		return FALSE
+
+	var/mob/living/carbon/human/attacker = user
+	if(attacker.get_int_organ(/obj/item/organ/internal/heart/slime/anomaly))
+		to_chat(user, span_notice("You already have the abilities that this extract can provide."))
+		return FALSE
+
+	var/obj/item/organ/internal/heart/slime/anomaly/H = new
+	H.replaced(user)
+	to_chat(user, span_warning("Something changes inside you. It feel SOO warm!"))
+	used = TRUE
+	icon_state = "slime_extract0"
+	return TRUE
+
+/obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, def_zone)
 	if(target == user)
-		attack_self(user)
-	. = ..()
+		return attack_self(user)
 
 
 /obj/effect/proc_holder/spell/slime_degradation
@@ -32,7 +38,7 @@
 	desc = "Transform into anomaly slime and back!"
 	action_icon_state = "slime_degradation"
 	action_background_icon_state = "bg_default"
-	sound = 'sound/effects/slime_squish.ogg'
+	sound = 'sound/effects/mob_effects/slime_squish.ogg'
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
@@ -95,6 +101,11 @@
 	for(var/obj/item/I in user)
 		if(!istype(I, /obj/item/implant))
 			user.drop_item_ground(I, force = TRUE)
+
+	user.underwear = "Nude"
+	user.undershirt = "Nude"
+	user.socks = "Nude"
+	user.regenerate_icons()
 
 	var/mob/living/simple_animal/slime/invalid/slimeme = new /mob/living/simple_animal/slime/invalid(user.loc, "red", new /datum/slime_age/adult, 1200,  user, src)
 
@@ -215,14 +226,14 @@
 	desc = "Anomaly core grow from thing which had to be slime heart"
 	icon_state = "anomaly_heart"
 
-/obj/item/organ/internal/heart/slime/anomaly/insert(var/mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/internal/heart/slime/anomaly/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	var/obj/effect/proc_holder/spell/slime_degradation/degrad = new
 	var/obj/effect/proc_holder/spell/slime_selfheat/heat = new
 	M.mind.AddSpell(degrad)
 	M.mind.AddSpell(heat)
 
-/obj/item/organ/internal/heart/slime/anomaly/remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/slime/anomaly/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_degradation)
 	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_selfheat)
 	. = ..()

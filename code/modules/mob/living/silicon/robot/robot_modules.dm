@@ -269,7 +269,7 @@
 	modules += new /obj/item/gps/cyborg(src)
 	modules += new /obj/item/rlf(src)
 
-	emag = new /obj/item/reagent_containers/borghypo/basic/emagged_borg_hypo(src) // emagged med. cyborg gets a special hypospray.
+	emag = new /obj/item/reagent_containers/borghypo/emagged(src) // emagged med. cyborg gets a special hypospray.
 // can pierce through thick skin and hardsuits.
 
 

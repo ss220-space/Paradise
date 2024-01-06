@@ -4,6 +4,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
+	equip_sound = 'sound/items/handling/generic_equip4.ogg'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
 		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi',
@@ -391,6 +392,9 @@
 	if(disabledAi)
 		return FALSE
 	return ..()
+
+/obj/item/radio/headset/all_channels // Its only feature is all channels.
+	ks1type = /obj/item/encryptionkey/admin
 
 /obj/item/radio/headset/event_1
 	name = "Radio headset"
