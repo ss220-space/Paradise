@@ -66,7 +66,7 @@
 		if(dam > maxdam && (maxdam == 0 || prob(70)))
 			damaged_organ = bodypart
 			maxdam = dam
-		if(damaged_organ || bodypart.status)
+		if(damaged_organ)
 			pain(damaged_organ.name, maxdam)
 
 	// Damage to internal organs hurts a lot.
