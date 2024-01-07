@@ -306,11 +306,11 @@
 		return
 	switch(ore_type)
 		if(PLASMA)
-			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, 1)
-			ore_count++
+			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, TRUE)
+			ore_count += 1
 		if(SAND)
-			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
-			ore_count++
+			internal.handle_item_insertion(new /obj/item/stack/ore/glass, TRUE)
+			ore_count += 1
 
 	icon_change()
 
@@ -352,13 +352,8 @@
 /obj/machinery/bfl_receiver/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(istype(AM, /obj/machinery/bfl_lens))
-		lens = AM
-		lens.step_count = 0
-
-/obj/machinery/bfl_receiver/Uncrossed(atom/movable/AM)
-	. = ..()
-	if(AM == lens)
-		lens = null
+		var/obj/machinery/bfl_lens/bfl_lens = AM
+		bfl_lens.step_count = 0
 
 #undef PLASMA
 #undef SAND
@@ -421,7 +416,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	default_unfasten_wrench(user, I, time = 140)
+	if(default_unfasten_wrench(user, I, time = 140))
+		var/obj/machinery/bfl_receiver/receiver = locate() in get_turf(src)
+		if(receiver)
+			receiver.lens = anchored ? src : null
+
 	update_icon()
 
 /obj/machinery/bfl_lens/Initialize()
