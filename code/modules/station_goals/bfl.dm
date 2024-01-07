@@ -139,7 +139,7 @@
 		for(var/M in GLOB.player_list)
 			var/turf/mob_turf = get_turf(M)
 			if(mob_turf?.z == lavaland_z_lvl)
-				to_chat(M, "<span class='boldwarning'>You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky.</span>")
+				to_chat(M, span_boldwarning("You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky."))
 		laser.move = rand_location.x
 		if(receiver)
 			receiver.mining = FALSE
@@ -230,6 +230,7 @@
 
 /obj/item/storage/bag/ore/bfl_storage
 	storage_slots = 20
+
 /obj/item/storage/bag/ore/bfl_storage/proc/empty_storage(turf/location)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, location)
@@ -293,13 +294,12 @@
 		receiver_activate()
 
 /obj/machinery/bfl_receiver/proc/icon_change()
-	if(last_icon_change == internal.contents.len)
+	if(last_icon_change == length(internal.contents))
 		return
-	receiver_light.icon_state = "Receiver_Light_[internal.contents.len]"
-	last_icon_change = internal.contents.len
+	receiver_light.icon_state = "Receiver_Light_[length(internal.contents)]"
+	last_icon_change = length(internal.contents)
 
 /obj/machinery/bfl_receiver/process()
-	receiver_light.icon_state = "Receiver_Light_[internal.contents.len]"
 	if (!(mining && state))
 		return
 	if (ore_count >= internal.storage_slots * 50)
@@ -308,11 +308,11 @@
 		if(PLASMA)
 			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, 1)
 			ore_count++
-			icon_change()
 		if(SAND)
 			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
 			ore_count++
-			icon_change()
+
+	icon_change()
 
 /obj/machinery/bfl_receiver/Initialize()
 	. = ..()
@@ -369,6 +369,7 @@
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Receiver_Light_0"
 	layer = LOW_ITEM_LAYER
+	flags = INDESTRUCTIBLE
 
 /atom/movable/bfl_receiver_light/Initialize(mapload)
 	. = ..()
