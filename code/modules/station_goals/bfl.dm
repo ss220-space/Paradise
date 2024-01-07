@@ -246,14 +246,18 @@
 
 	var/state = FALSE
 	var/mining = FALSE
+	///Receiver's internal storage for ore
 	var/obj/item/storage/bag/ore/bfl_storage/internal
 	var/internal_type = /obj/item/storage/bag/ore/bfl_storage
 	var/obj/machinery/bfl_lens/lens = null
 	var/ore_type = FALSE
 	var/last_user_ckey
+	///An "overlay"-like light for receiver to indicate storage filling
 	var/atom/movable/bfl_receiver_light/receiver_light = null
+	///Used to define bits of ore mined, instead of stacks.
 	var/ore_count = 0
-	var/last_icon_change = 0
+	///Used for storing last icon update for receiver lights on borders of receiver
+	var/last_light_state_number = 0
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
 	if(..())
@@ -293,11 +297,13 @@
 	else
 		receiver_activate()
 
+///This proc handles light updating on borders of BFL receiver.
 /obj/machinery/bfl_receiver/proc/icon_change()
-	if(last_icon_change == length(internal.contents))
+	var/light_state = clamp(length(internal.contents), 0, 20)
+	if(last_light_state_number == light_state)
 		return
-	receiver_light.icon_state = "Receiver_Light_[length(internal.contents)]"
-	last_icon_change = length(internal.contents)
+	receiver_light.icon_state = "Receiver_Light_[light_state]"
+	last_light_state_number = light_state
 
 /obj/machinery/bfl_receiver/process()
 	if (!(mining && state))
