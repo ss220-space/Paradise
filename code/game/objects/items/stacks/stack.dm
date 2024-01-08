@@ -198,8 +198,15 @@
 			if(!A.type == /area) //The only one that is made by blueprints
 				to_chat(usr, "<span class='warning'>This area is too fresh for the beacon!")
 				return FALSE
-			if(A.get_beacon())
+			if(locate(/obj/structure/clockwork/functional/beacon) in A)
 				to_chat(usr, "<span class='warning'>This area already has beacon!</span>")
+				return FALSE
+		if(R.result_type == /obj/structure/clockwork/functional/cogscarab_fabricator)
+			if(MAX_COG_FABRICATORS >= GLOB.clockwork_fabricators.len)
+				to_chat(usr, "<span class='warning'>You can't build more than [MAX_COG_FABRICATORS] fabricators!</span>")
+				return FALSE
+			if(usr.type == /mob/living/silicon/robot/cogscarab)
+				to_chat(usr, "<span class='warning'>You're too small to build this machinery.</span>")
 				return FALSE
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")

@@ -100,6 +100,8 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define CLOCK_MAX_WIND_UP_TIMER 150
 //Cogscarab: Maximum amount of cogscarab on one fabricator.
 #define MAX_COGSCRAB_PER_FABRICATOR 2
+// Cogscarab: Maximum amount of fabricators for cult.
+#define MAX_COG_FABRICATORS 2
 //Cogscarab: Amount of time to wait until a new cogscrab is ready.
 #define TIME_NEW_COGSCRAB 120
 
