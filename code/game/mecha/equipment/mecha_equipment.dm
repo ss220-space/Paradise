@@ -17,6 +17,7 @@
 	var/salvageable = TRUE
 	var/selectable = TRUE	// Set to FALSE for passive equipment such as mining scanner or armor plates
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
+	var/integrated = FALSE // Preventing modules from getting detached.
 
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
@@ -136,6 +137,9 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_detach()
+	if(integrated)
+		occupant_message(span_warning("Unable to detach integrated module!"))
+		return FALSE
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M)

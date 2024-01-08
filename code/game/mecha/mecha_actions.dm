@@ -85,7 +85,7 @@
 		return
 	chassis.lights = !chassis.lights
 	if(chassis.lights)
-		chassis.set_light(chassis.lights_power)
+		chassis.set_light(chassis.lights_power, null, chassis.lights_color)
 		button_icon_state = "mech_lights_on"
 	else
 		chassis.set_light(-chassis.lights_power)
