@@ -306,6 +306,11 @@
 	anchored = TRUE
 	oreAmount = 10
 
+/obj/structure/statue/armor
+	name = "Knight's armor"
+	desc = "Shiny metallic armor."
+	icon_state = "posarmor"
+	anchored = TRUE
 /obj/structure/statue/elwycco
 	name = "Unknown Hero"
 	desc = "Похоже это какой-то очень важный человек, или очень значимый для многих людей. Вы замечаете огроменный топор в его руках, с выгравированным числом 220. Что это число значит? Каждый понимает по своему, однако по слухам оно означает количество его жертв. \n Надпись на табличке - Мы с тобой, Шустрила! Аве, Легион!"
@@ -479,6 +484,16 @@
 /obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	qdel(src)
+
+/obj/structure/snowman/high
+	icon_state = "snowman_high"
+
+/obj/structure/snowman/medium
+	icon_state = "snowman_medium"
+
+/obj/structure/snowman/short
+	name = "snowboy"
+	icon_state = "snowman_short"
 
 ///////// Cheese
 /obj/structure/statue/cheese

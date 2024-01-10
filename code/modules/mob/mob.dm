@@ -1180,7 +1180,7 @@
 		spintime -= speed
 
 /mob/proc/is_literate()
-	return FALSE
+	return universal_speak
 
 /mob/proc/faction_check_mob(mob/target, exact_match)
 	if(exact_match) //if we need an exact match, we need to do some bullfuckery.
