@@ -20,6 +20,7 @@
 
 	starting_voice = /obj/item/mecha_modkit/voice/silent
 
+	ruin_mecha = TRUE
 	stepsound = null
 	turnsound = null
 //	wreckage = /obj/effect/decal/mecha_wreckage/gigadrill // no dmi :(
