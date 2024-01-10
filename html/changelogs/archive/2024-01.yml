@@ -2,12 +2,18 @@
   ArtemDerp:
   - bugfix: fixed false blastdoor opening (#4166)
   - bugfix: added parallax for undertaker shuttle (#4157)
+  BeebBeebBoob:
+  - add: Leopard tail for Tajaran (#4151)
+  - tweak: To become AI from the core, now you need min playtime hours. (#4183)
+  Daeberdir:
+  - add: standart HUD and headset for IIAs. (#4133)
   Dimach:
   - del: remove N/Y celebration map stuff  (#4196)
   - bugfix: fix changelog generation crash (#4197)
   - bugfix: fix changelog generation crash (#4198)
   LiquidPotroh:
   - bugfix: Skiping stage_act() in transformation viruses (#4177)
+  - add: New vampire's sucking animation (#4098)
   Nerrol:
   - bugfix: Fix comments to the medical record when printing a document (#4193)
   NightDawnFox:
@@ -17,6 +23,7 @@
   - bugfix: Sentient mobs should be able to read (#4141)
   ROdenFL:
   - bugfix: modal ui fix (#4173)
+  - tweak: dark theme update (#4124)
   Rerik007:
   - bugfix: remove confusing hands overlay again (#4179)
   Roman:
@@ -30,5 +37,7 @@
   - bugfix: Now robots can toggle closets and crates through context menu (#4174)
   - bugfix: No more long reasons in supply shuttle console (#4176)
   - bugfix: made garland layer lower than object layer (#4163)
+  WolfLox:
+  - tweak: frag grenade faster and cheaper (#4155)
   yosoyrebelde:
   - bugfix: possibly fix crew monitor row duplicating (#4187)
