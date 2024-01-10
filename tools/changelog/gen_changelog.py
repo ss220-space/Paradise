@@ -44,7 +44,9 @@ commitsSet = set()
 
 def add_commits(commit):
     commit_mount = date.fromtimestamp(commit.committed_date).month
-    mount_fixed = commit_mount > 10 and today.month < 3 if today.month + 12 else today.month
+    mount_fixed = today.month
+    if commit_mount > 10 and today.month < 3:
+        mount_fixed += 12
     if commit_mount >= mount_fixed - 1:
         if not commit.message.startswith("Automatic changelog generation"):
             commitsSet.add(commit)
