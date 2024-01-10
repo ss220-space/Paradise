@@ -311,7 +311,7 @@
 	if(usr.incapacitated())
 		return
 
-	if(ishuman(usr))
+	if(ishuman(usr) || isrobot(usr))
 		add_fingerprint(usr)
 		toggle(usr)
 	else
