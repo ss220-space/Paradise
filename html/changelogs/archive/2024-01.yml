@@ -1,0 +1,34 @@
+'2024-01-10':
+  ArtemDerp:
+  - bugfix: fixed false blastdoor opening (#4166)
+  - bugfix: added parallax for undertaker shuttle (#4157)
+  Dimach:
+  - del: remove N/Y celebration map stuff  (#4196)
+  - bugfix: fix changelog generation crash (#4197)
+  - bugfix: fix changelog generation crash (#4198)
+  LiquidPotroh:
+  - bugfix: Skiping stage_act() in transformation viruses (#4177)
+  Nerrol:
+  - bugfix: Fix comments to the medical record when printing a document (#4193)
+  NightDawnFox:
+  - bugfix: legion blastdoors are now 100% opens after his death, I tested this time
+      (#4159)
+  Pavel Poltaves:
+  - bugfix: Sentient mobs should be able to read (#4141)
+  ROdenFL:
+  - bugfix: modal ui fix (#4173)
+  Rerik007:
+  - bugfix: remove confusing hands overlay again (#4179)
+  Roman:
+  - bugfix: IPC can't be repaired. (#4172)
+  Vladisvell:
+  - bugfix: Protolathe now shows correct buildability state (#4185)
+  - bugfix: Camera console no longer lets you see through closed doors (#4194)
+  - qol: Broken bones can now be felt from any body part (#4189)
+  - tweak: setCloneLoss now can unmutate organs (#4186)
+  - bugfix: Fixed Sleeping Carp runtime (#4180)
+  - bugfix: Now robots can toggle closets and crates through context menu (#4174)
+  - bugfix: No more long reasons in supply shuttle console (#4176)
+  - bugfix: made garland layer lower than object layer (#4163)
+  yosoyrebelde:
+  - bugfix: possibly fix crew monitor row duplicating (#4187)
