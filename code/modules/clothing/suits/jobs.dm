@@ -524,7 +524,7 @@
 	overlays.Cut()
 	if(color)
 		var/mutable_appearance/suspenders_overlay = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_overlay")
-		overlays += bucket_mask
+		overlays += suspenders_overlay
 
 		var/mutable_appearance/suspenders_clips = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_clips")
 		suspenders_clips.appearance_flags |= RESET_COLOR
