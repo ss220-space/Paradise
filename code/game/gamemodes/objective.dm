@@ -1398,6 +1398,22 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		explanation_text = "Взорвите выданную вам бомбу в [detonation_location]. Учтите, что бомбу нельзя активировать на не предназначенной для подрыва территории!"
 
 
+/datum/objective/plant_explosive/proc/give_bomb(delayed = null)
+	if(isnull(delayed))
+		actual_give_bomb()
+	else if(isnum(delayed))
+		addtimer(CALLBACK(src, PROC_REF(actual_give_bomb)), delayed)
+
+
+/datum/objective/plant_explosive/proc/actual_give_bomb()
+	if(!owner || !owner.current || !detonation_location)
+		return
+	var/mob/ninja = owner.current
+	var/obj/item/grenade/plastic/c4/ninja/bomb_item = new(ninja)
+	bomb_item.detonation_objective = src
+	ninja.equip_or_collect(bomb_item, slot_l_store)
+
+
 /datum/objective/get_money
 	name = "Steal Money"
 	needs_target = FALSE
