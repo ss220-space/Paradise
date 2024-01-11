@@ -73,8 +73,18 @@
 
 /obj/item/projectile/proc/preparePixelProjectile(atom/target, turf/targloc, mob/living/user, params, spread)
 	var/turf/curloc = get_turf(user)
-	loc = get_turf(user)
-	starting = get_turf(user)
+
+	/*
+	 * If the user is not holding a weapon in hand,
+	 * use a starting location from the firer source (telekinesis fix)
+	 * TODO: update this code after rework telekinesis for weapons
+	*/
+	var/turf/source_loc = get_turf(firer_source_atom)
+	if (curloc != source_loc)
+		curloc = source_loc
+
+	loc = curloc
+	starting = curloc
 	current = curloc
 	yo = targloc.y - curloc.y
 	xo = targloc.x - curloc.x
