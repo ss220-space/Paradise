@@ -138,6 +138,7 @@
 /obj/structure/clockwork/functional/beacon/Initialize(mapload)
 	. = ..()
 	areabeacon = get_area(src)
+	GLOB.clockwork_beacons += src
 	START_PROCESSING(SSobj, src)
 	var/area/A = get_area(src)
 	//if area isn't specified use current
@@ -177,6 +178,7 @@
 				L.blood_volume += 1
 
 /obj/structure/clockwork/functional/beacon/Destroy()
+	GLOB.clockwork_beacons -= src
 	STOP_PROCESSING(SSobj, src)
 	for(var/datum/mind/M in SSticker.mode.clockwork_cult)
 		to_chat(M.current, "<span class='danger'>You get the feeling that one of the beacons have been destroyed! The source comes from [areabeacon.name]</span>")
