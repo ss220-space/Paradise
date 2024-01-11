@@ -150,6 +150,7 @@
 /datum/gear/suit/sec_rps
 	display_name = "security belt-shoulder system"
 	path = /obj/item/clothing/suit/armor/vest/sec_rps
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 //SURAGI JACKET
 /datum/gear/suit/suragi_jacket
