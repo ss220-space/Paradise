@@ -5,7 +5,7 @@
 /datum/emote/living/carbon/alien/humanoid/hiss
 	key = "hiss"
 	key_third_person = "hisses"
-	message = "шип%(ит,ат)%!"
+	message = "шип%(ит,ят)%!"
 	message_postfix = " на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
@@ -17,7 +17,7 @@
 	key = "gnarl"
 	key_third_person = "gnarls"
 	message = "рыч%(ит,ат)% и сверка%(ет,ют)% зубами!"
-	message_postfix = " на %t!"
+	message_postfix = "в сторону %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	volume = 30

@@ -70,6 +70,7 @@ module.exports = (env = {}, argv) => {
                   'babel-plugin-inferno',
                   'babel-plugin-transform-remove-console',
                   'common/string.babel-plugin.cjs',
+                  ['@babel/plugin-transform-private-methods', { loose: false }],
                 ],
               },
             },
