@@ -75,13 +75,11 @@
 	var/turf/curloc = get_turf(user)
 
 	/*
-	 * If the user is not holding a weapon in hand,
-	 * use a starting location from the firer source (telekinesis fix)
-	 * TODO: update this code after rework telekinesis for weapons
+	 * If the user is holding a weapon in telekinesis grab,
+	 * use a starting location from the firer source
 	*/
-	var/turf/source_loc = get_turf(firer_source_atom)
-	if (curloc != source_loc)
-		curloc = source_loc
+	if (!isnull(firer_source_atom) && user.tkgrabbed_objects[firer_source_atom])
+		curloc = get_turf(firer_source_atom)
 
 	loc = curloc
 	starting = curloc

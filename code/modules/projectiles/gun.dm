@@ -223,7 +223,9 @@
 	return
 
 /obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
-	add_fingerprint(user)
+	if (user.tkgrabbed_objects[src]) // don't add fingerprints if gun is hold by telekinesis grab
+		add_fingerprint(user)
+
 	if(chambered)
 		chambered.leave_residue(user)
 
@@ -301,6 +303,16 @@
 
 	if(rusted_weapon)
 		malf_counter -= burst_size
+		// if the gun grabbed by telekinesis, it's can exploise but without damage for user
+		if (user.tkgrabbed_objects[src])
+			if (malf_counter <= 0 && prob(50))
+				user.drop_item_ground(user.tkgrabbed_objects[src])
+				new /obj/effect/decal/cleanable/ash(loc)
+				to_chat(user, "<span class='userdanger'>WOAH! [src] blows up!</span>")
+				playsound(user, 'sound/effects/explosion1.ogg', 30, 1)
+				qdel(src)
+				return FALSE
+			return TRUE
 		if(malf_counter <= 0 && prob(50))
 			new /obj/effect/decal/cleanable/ash(user.loc)
 			user.take_organ_damage(0,30)
