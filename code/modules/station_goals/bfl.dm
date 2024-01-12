@@ -371,6 +371,7 @@
 	icon_state = "Receiver_Light_0"
 	layer = LOW_ITEM_LAYER
 	flags = INDESTRUCTIBLE
+	anchored = TRUE
 
 /atom/movable/bfl_receiver_light/Initialize(mapload)
 	. = ..()
