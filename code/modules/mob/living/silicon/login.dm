@@ -1,5 +1,7 @@
 /mob/living/silicon/Login()
 	SetSleeping(0)
+	if(player_logged)
+		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow_silicon")
 	if(mind && SSticker && SSticker.mode)
 		SSticker.mode.remove_revolutionary(mind, 1)
 		SSticker.mode.remove_cultist(mind, 1)
@@ -13,3 +15,8 @@
 		SSticker.mode.remove_shadowling(mind)
 		SSticker.mode.remove_abductor(mind)
 	..()
+
+/mob/living/silicon/Logout()
+	. = ..()
+	if(isLivingSSD(src))
+		overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow_silicon")

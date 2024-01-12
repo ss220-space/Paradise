@@ -1127,6 +1127,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			overlays += "[panelprefix]-openpanel -c"
 
+	if(isLivingSSD(src))
+		overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow_silicon")
+
 	hat_icons()
 	borg_icons()
 	update_fire()
