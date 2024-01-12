@@ -4,7 +4,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	var/max_paper = 15
 	var/paperamount = 0
 	var/list/shred_amounts = list(

@@ -577,11 +577,11 @@
 	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
-		canmove = 0
+		canmove = FALSE
 	else if(buckled)
-		canmove = 0
+		canmove = FALSE
 	else
-		canmove = 1
+		canmove = TRUE
 	if(!canmove)
 		walk(src, 0) //stop mid walk
 

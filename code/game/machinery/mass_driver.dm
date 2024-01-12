@@ -3,7 +3,7 @@
 	desc = "Shoots things into space."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver"
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 50
@@ -27,7 +27,7 @@
 	if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
 		var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
 		F.dir = dir
-		F.anchored = 1
+		F.anchored = TRUE
 		F.build = 4
 		F.update_icon()
 		qdel(src)
@@ -90,7 +90,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver_frame"
 	density = 0
-	anchored = 0
+	anchored = FALSE
 	var/build = 0
 
 /obj/machinery/mass_driver_frame/attackby(var/obj/item/W as obj, var/mob/user as mob)
@@ -102,7 +102,7 @@
 				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 0))
 					add_fingerprint(user)
 					to_chat(user, span_notice("You anchor \the [src]!"))
-					anchored = 1
+					anchored = TRUE
 					build++
 				return 1
 			return
@@ -113,7 +113,7 @@
 				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 1))
 					add_fingerprint(user)
 					build--
-					anchored = 0
+					anchored = FALSE
 					to_chat(user, span_notice("You de-anchored \the [src]!"))
 				return 1
 		if(2) // Welded to the floor

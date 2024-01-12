@@ -88,7 +88,7 @@
 		drop_l_hand()
 	else
 		lying = 0
-		canmove = 1
+		canmove = TRUE
 	if(buckled)
 		lying = 90 * buckle_lying
 	else if((fall_over || resting) && !lying)

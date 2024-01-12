@@ -10,7 +10,7 @@
 	level = 1		// underfloor
 	layer = WIRE_LAYER
 	plane = FLOOR_PLANE
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 500
 	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 	var/open = 0		// true if cover is open

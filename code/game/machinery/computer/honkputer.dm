@@ -99,7 +99,7 @@
 			var/obj/structure/computerframe/HONKputer/A = new /obj/structure/computerframe/HONKputer( src.loc )
 			var/obj/item/circuitboard/M = new circuit( A )
 			A.circuit = M
-			A.anchored = 1
+			A.anchored = TRUE
 			A.add_fingerprint(user)
 			for(var/obj/C in src)
 				C.loc = src.loc

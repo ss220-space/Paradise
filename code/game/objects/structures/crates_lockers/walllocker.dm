@@ -8,8 +8,6 @@
 	icon_state = "wall-locker"
 	density = FALSE
 	anchored = TRUE
-	ignore_density_closed = TRUE
-	no_overlays = TRUE
 	icon_closed = "wall-locker"
 	icon_opened = "wall-lockeropen"
 

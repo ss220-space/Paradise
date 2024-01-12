@@ -31,6 +31,7 @@
 	base_icon_state = "pflash"
 	strength = 8 SECONDS
 	anchored = FALSE
+	base_state = "pflash"
 	density = TRUE
 
 /obj/machinery/flasher/portable/ComponentInitialize()
@@ -147,7 +148,7 @@
 	icon_state = "launcherbtt"
 	var/id = null
 	var/active = 0
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4

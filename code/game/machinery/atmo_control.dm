@@ -4,7 +4,7 @@
 	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
 
-	anchored = 1
+	anchored = TRUE
 	var/state = 0
 	var/bolts = 1
 

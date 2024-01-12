@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	name = "дисплей статуса"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	name = "AI display"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 
 	var/mode = 0	// 0 = Blank
