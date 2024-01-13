@@ -750,7 +750,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crema_switch/attack_hand(mob/user)
 	for(var/obj/machinery/crematorium/crema as anything in GLOB.crematoriums)
-		if(crema.id == id && !crema.cremating)
+		if(crema.id == id)
 			crema.try_cremate(user)
 			break
 
