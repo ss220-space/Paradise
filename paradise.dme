@@ -93,6 +93,7 @@
 #include "code\__DEFINES\shuttle.dm"
 #include "code\__DEFINES\sibyl.dm"
 #include "code\__DEFINES\sight.dm"
+#include "code\__DEFINES\slime_defines.dm"
 #include "code\__DEFINES\sound.dm"
 #include "code\__DEFINES\space_ninja_defines.dm"
 #include "code\__DEFINES\span.dm"

@@ -467,13 +467,8 @@
 /datum/chemical_reaction/slimebloodlust/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(holder.my_atom), null))
-		if(slime.docile) //Undoes docility, but doesn't make rabid.
-			slime.visible_message("<span class='danger'>[slime] forgets its training, becoming wild once again!</span>")
-			slime.docile = FALSE
-			slime.update_name()
-			continue
-		slime.rabid = 1
-		slime.visible_message("<span class='danger'>The [slime] is driven into a frenzy!</span>")
+		slime.rabid = TRUE
+		slime.visible_message(span_danger("The [slime] is driven into a frenzy!"))
 
 
 /datum/chemical_reaction/slimespeed
