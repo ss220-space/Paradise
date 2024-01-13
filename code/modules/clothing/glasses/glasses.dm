@@ -460,7 +460,7 @@
 	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
-	flash_protect = 2
+	tint = 0
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
