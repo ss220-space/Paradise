@@ -5,6 +5,7 @@
 	desc = "A wall-mounted flashbulb device."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "mflash1"
+	base_icon_state = "mflash"
 	max_integrity = 250
 	integrity_failure = 100
 	damage_deflection = 10
@@ -17,7 +18,6 @@
 	var/last_flash = 0
 	/// How weakened targets are when flashed.
 	var/strength = 10 SECONDS
-	var/base_state = "mflash"
 
 
 /obj/machinery/flasher/Initialize(mapload)
@@ -28,9 +28,9 @@
 	name = "portable flasher"
 	desc = "A portable flashing device. Wrench to activate and deactivate. Cannot detect slow movements."
 	icon_state = "pflash1"
+	base_icon_state = "pflash"
 	strength = 8 SECONDS
 	anchored = FALSE
-	base_state = "pflash"
 	density = TRUE
 
 /obj/machinery/flasher/portable/ComponentInitialize()
@@ -51,9 +51,9 @@
 /obj/machinery/flasher/update_icon_state()
 	. = ..()
 	if((stat & NOPOWER) || !anchored)
-		icon_state = "[base_state]1-p"
+		icon_state = "[base_icon_state]1-p"
 	else
-		icon_state = "[base_state]1"
+		icon_state = "[base_icon_state]1"
 
 
 /obj/machinery/flasher/update_overlays()
@@ -63,8 +63,8 @@
 		return
 
 	if(anchored)
-		. += "[base_state]-s"
-		underlays += emissive_appearance(icon, "[base_state]_lightmask")
+		. += "[base_icon_state]-s"
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
 
 
 //Let the AI trigger them directly.
@@ -84,7 +84,7 @@
 		return
 
 	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
-	flick("[base_state]_flash", src)
+	flick("[base_icon_state]_flash", src)
 	set_light(2, 1, COLOR_WHITE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	last_flash = world.time
@@ -135,7 +135,6 @@
 	anchored = !anchored
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
-		overlays.Cut()
 	else
 		WRENCH_UNANCHOR_MESSAGE
 	update_icon()
