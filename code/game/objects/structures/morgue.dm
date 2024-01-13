@@ -737,7 +737,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	name = "crematorium igniter"
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "crema_switch"
-	resistance_flags = INDESTRUCTIBLE // could use a more elegant solution like being able to be rebuilt, broken and repaired, or by directly attaching the switch to the crematorium
 	anchored = TRUE
 	req_access = list(ACCESS_CREMATORIUM)
 	/// ID of the crematorium to hook into
