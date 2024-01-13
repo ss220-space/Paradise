@@ -436,7 +436,7 @@
 	SHOULD_NOT_SLEEP(TRUE)
 	//SHOULD_CALL_PARENT(TRUE)
 
-	if(updates & NONE)
+	if(updates == NONE)
 		return // NONE is being sent on purpose, and thus no signal should be sent.
 
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)

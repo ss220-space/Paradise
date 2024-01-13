@@ -158,7 +158,7 @@ Frequency:
 
 
 /obj/item/hand_tele/emp_act(severity)
-	//make_inactive(severity)
+	make_inactive(severity)
 	return ..()
 
 

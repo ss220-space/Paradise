@@ -371,7 +371,7 @@
 
 /obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
 	var/obj/item/melee/baton/baton = locate() in modules
-	baton.link_new_cell(unlink_cell)
+	baton?.link_new_cell(unlink_cell)
 
 /obj/item/robot_module/janitor
 	name = "Janitor"
