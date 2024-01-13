@@ -596,6 +596,9 @@
 	if(istype(dreamer.buckled, /obj/structure/bed))
 		var/obj/structure/bed/bed = dreamer.buckled
 		comfort += bed.comfort
+	else if(istype(dreamer.buckled, /obj/structure/chair))
+		var/obj/structure/chair/chair = dreamer.buckled
+		comfort += chair.comfort
 	for(var/obj/item/bedsheet/bedsheet in range(dreamer.loc,0))
 		if(bedsheet.loc != dreamer.loc) //bedsheets in your backpack/neck don't give you comfort
 			continue
