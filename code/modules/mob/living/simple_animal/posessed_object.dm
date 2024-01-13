@@ -152,6 +152,7 @@
 
 	update_icon()
 
+
 /mob/living/simple_animal/possessed_object/update_icon(update_pixel_xy = 0)
 	name = possessed_item.name // Take on all the attributes of the item we've possessed.
 	real_name = name
@@ -166,3 +167,5 @@
 	color = possessed_item.color
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
+	return ..(NONE)
+

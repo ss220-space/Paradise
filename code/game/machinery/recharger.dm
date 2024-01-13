@@ -64,7 +64,7 @@
 			to_chat(user, span_notice("Your gun has no external power connector."))
 			return .
 
-	if(!!user.drop_transfer_item_to_loc(G, src))
+	if(!user.drop_transfer_item_to_loc(G, src))
 		to_chat(user, span_warning("[G] is stuck to your hand!"))
 		return .
 
