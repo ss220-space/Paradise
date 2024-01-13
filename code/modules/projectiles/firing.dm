@@ -78,7 +78,8 @@
 	 * If the user is holding a weapon in telekinesis grab,
 	 * use a starting location from the firer source
 	*/
-	if (!isnull(firer_source_atom) && user.tkgrabbed_objects[firer_source_atom])
+	var/fire_from_tk_grab = !isnull(firer_source_atom) && user.tkgrabbed_objects[firer_source_atom]
+	if (fire_from_tk_grab)
 		curloc = get_turf(firer_source_atom)
 
 	loc = curloc
