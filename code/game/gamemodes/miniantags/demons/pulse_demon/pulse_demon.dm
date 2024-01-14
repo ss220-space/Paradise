@@ -290,7 +290,7 @@
 /mob/living/simple_animal/demon/pulse_demon/gib()
 	return death()
 
-/mob/living/simple_animal/demon/pulse_demon/death()
+/mob/living/simple_animal/demon/pulse_demon/death(gibbed)
 	var/turf/T = get_turf(src)
 	do_sparks(rand(2, 4), FALSE, src)
 	. = ..()

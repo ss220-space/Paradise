@@ -41,7 +41,7 @@
 /mob/proc/run_quick_equip()
 	var/obj/item/I = get_active_hand()
 	if(!I)
-		to_chat(src, SPAN_WARNING("Вы ничего не держите в руке!"))
+		to_chat(src, span_warning("Вы ничего не держите в руке!"))
 		return
 
 	if(!QDELETED(I))
@@ -63,7 +63,7 @@
 
 	if(I.equip_delay_self)
 		if(!silent)
-			to_chat(src, SPAN_WARNING("Вы должны экипировать [I] вручную!"))
+			to_chat(src, span_warning("Вы должны экипировать [I] вручную!"))
 		return FALSE
 
 	var/priority_list = list( \
@@ -212,10 +212,14 @@
 
 
 /**
- * Returns `TRUE` if item is in mob's left or right hand
+ * Returns item if its in mob's left or right hand
  */
 /mob/proc/is_in_hands(obj/item/I)
-	return I == l_hand || I == r_hand
+	if(I == l_hand)
+		return l_hand
+	if(I == r_hand)
+		return r_hand
+	return null
 
 
 /**
@@ -581,14 +585,14 @@
 	if((I.flags & NODROP) && !force)
 		if(!(I.flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
 			can_unEquip_message_delay = world.time
-			to_chat(src, SPAN_WARNING("Неведомая сила не позволяет Вам снять [I]."))
+			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I]."))
 		return FALSE
 
 	// Checking clothing obscuration
 	if(I.is_obscured_for_unEquip(src) && !force)
 		if((world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
 			can_unEquip_message_delay = world.time
-			to_chat(src, SPAN_WARNING("Вы не можете снять [I], слот закрыт другой одеждой."))
+			to_chat(src, span_warning("Вы не можете снять [I], слот закрыт другой одеждой."))
 		return FALSE
 
 	//Possible component blocking

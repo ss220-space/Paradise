@@ -114,7 +114,7 @@
 
 /obj/machinery/door_control/proc/animate_activation()
 	icon_state = "[initial(icon_state)]-inuse"
-	addtimer(CALLBACK(src, PROC_REF(update_icon)), 15)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
 
 /obj/machinery/door_control/power_change()
 	..()

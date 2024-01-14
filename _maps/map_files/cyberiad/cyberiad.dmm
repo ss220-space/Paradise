@@ -19077,7 +19077,7 @@
 	},
 /area/crew_quarters/sleep)
 "aYx" = (
-/obj/structure/crematorium,
+/obj/machinery/crematorium,
 /obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"

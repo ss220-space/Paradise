@@ -552,6 +552,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
+			dat += "<b>Parallax in darkness:</b> <a href='?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
@@ -2400,14 +2401,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
 
-
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
-					if(parent && parent.screen && parent.screen.len)
+					if(length(parent?.screen))
 						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
-						PM.remove_screen_filter(AMBIENT_OCCLUSION_FILTER_KEY)
-						if(toggles & PREFTOGGLE_AMBIENT_OCCLUSION)
-							PM.add_screen_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
+						PM.backdrop(parent.mob)
 
 				if("parallax")
 					var/parallax_styles = list(
@@ -2424,6 +2422,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
+
+				if("parallax_darkness")
+					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
+					parent.mob?.hud_used?.update_parallax_pref()
+
 				if("keybindings")
 					if(!keybindings_overrides)
 						keybindings_overrides = list()

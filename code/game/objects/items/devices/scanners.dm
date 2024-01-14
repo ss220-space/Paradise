@@ -879,7 +879,7 @@ REAGENT SCANNER
 			ready = FALSE
 			update_icon(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, update_icon)), 20)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 20)
 
 	else if(iscorgi(M) && M.stat == DEAD)
 		to_chat(user, "<span class='notice'>You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b></span>") // :'(

@@ -105352,7 +105352,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
 "spR" = (
-/obj/structure/crematorium,
+/obj/machinery/crematorium,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -260,7 +260,7 @@
 			. += "There are [amount] [singular_name]\s in the stack."
 		else
 			. += "There are [amount] [name]\s in the stack."
-		. += SPAN_NOTICE("<b>Alt-click</b> with an empty hand to take a custom amount.")
+		. += span_notice("<b>Alt-click</b> with an empty hand to take a custom amount.")
 
 
 /obj/item/stack/Crossed(obj/item/crossing, oldloc)
@@ -285,7 +285,7 @@
 
 /obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, SPAN_WARNING("You can't do that right now!</span>"))
+		to_chat(user, span_warning("You can't do that right now!</span>"))
 		return
 	if(!in_range(src, user))
 		return
@@ -302,7 +302,7 @@
 		return
 	split_stack(user, stackmaterial)
 	do_pickup_animation(user)
-	to_chat(user, SPAN_NOTICE("You take [stackmaterial] sheets out of the stack."))
+	to_chat(user, span_notice("You take [stackmaterial] sheets out of the stack."))
 
 
 /obj/item/stack/attack_tk(mob/user)
@@ -338,7 +338,7 @@
 		do_pickup_animation(user)
 		var/obj/item/stack/S = W
 		if(merge(S))
-			to_chat(user, SPAN_NOTICE("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
+			to_chat(user, span_notice("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
 	else
 		. = ..()
 

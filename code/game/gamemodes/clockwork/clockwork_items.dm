@@ -16,14 +16,11 @@
 	. = ..()
 	enchants = GLOB.clockslab_spells
 
-/obj/item/clockwork/clockslab/update_icon()
-	update_overlays()
-	..()
 
-/obj/item/clockwork/clockslab/proc/update_overlays()
-	cut_overlays()
+/obj/item/clockwork/clockslab/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "clock_slab_overlay_[enchant_type]"
+		. += "clock_slab_overlay_[enchant_type]"
 
 /obj/item/clockwork/clockslab/attack(mob/M as mob, mob/user as mob)
 	if(plushy)
@@ -227,15 +224,14 @@
 	. = ..()
 	enchants = GLOB.spear_spells
 
-/obj/item/twohanded/ratvarian_spear/update_icon()
+/obj/item/twohanded/ratvarian_spear/update_icon_state()
 	icon_state = "ratvarian_spear[wielded]"
-	update_overlays()
-	return ..()
 
-/obj/item/twohanded/ratvarian_spear/proc/update_overlays()
-	cut_overlays()
+
+/obj/item/twohanded/ratvarian_spear/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "ratvarian_spear0_overlay_[enchant_type]"
+		. += "ratvarian_spear0_overlay_[enchant_type]"
 
 /obj/item/twohanded/ratvarian_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -317,14 +313,11 @@
 	. = ..()
 	enchants = GLOB.spear_spells
 
-/obj/item/clock_borg_spear/update_icon()
-	update_overlays()
-	return ..()
 
-/obj/item/clock_borg_spear/proc/update_overlays()
-	cut_overlays()
+/obj/item/clock_borg_spear/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "ratvarian_spear0_overlay_[enchant_type]"
+		. += "ratvarian_spear0_overlay_[enchant_type]"
 
 /obj/item/clock_borg_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -376,15 +369,14 @@
 	. = ..()
 	enchants = GLOB.hammer_spells
 
-/obj/item/twohanded/clock_hammer/update_icon()
+/obj/item/twohanded/clock_hammer/update_icon_state()
 	icon_state = "clock_hammer[wielded]"
-	update_overlays()
-	return ..()
 
-/obj/item/twohanded/clock_hammer/proc/update_overlays()
-	cut_overlays()
+
+/obj/item/twohanded/clock_hammer/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "clock_hammer0_overlay_[enchant_type]"
+		. +="clock_hammer0_overlay_[enchant_type]"
 
 /obj/item/twohanded/clock_hammer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -481,14 +473,10 @@
 	. = ..()
 	enchants = GLOB.sword_spells
 
-/obj/item/melee/clock_sword/update_icon()
-	update_overlays()
-	return ..()
-
-/obj/item/melee/clock_sword/proc/update_overlays()
-	cut_overlays()
+/obj/item/melee/clock_sword/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "clock_sword_overlay_[enchant_type]"
+		. += "clock_sword_overlay_[enchant_type]"
 
 /obj/item/melee/clock_sword/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -592,7 +580,7 @@
 	update_overlays()
 	return ..()
 
-/obj/item/shield/clock_buckler/proc/update_overlays()
+/obj/item/shield/clock_buckler/update_overlays()
 	cut_overlays()
 	if(enchant_type)
 		overlays += "brass_buckler_overlay_[enchant_type]"
@@ -693,14 +681,10 @@
 	. = ..()
 	enchants = GLOB.robe_spells
 
-/obj/item/clothing/suit/hooded/clockrobe/update_icon()
-	update_overlays()
-	return ..()
-
-/obj/item/clothing/suit/hooded/clockrobe/proc/update_overlays()
-	cut_overlays()
+/obj/item/clothing/suit/hooded/clockrobe/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "clockwork_robe_overlay_[enchant_type]"
+		. += "clockwork_robe_overlay_[enchant_type]"
 
 /obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/activate/enchant)
@@ -1307,14 +1291,10 @@
 	. = ..()
 	enchants = GLOB.shard_spells
 
-/obj/item/clockwork/shard/update_icon()
-	update_overlays()
-	return ..()
-
-/obj/item/clockwork/shard/proc/update_overlays()
-	cut_overlays()
+/obj/item/clockwork/shard/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "shard_overlay_[enchant_type]"
+		. +="shard_overlay_[enchant_type]"
 
 /obj/item/clockwork/shard/attack_self(mob/user)
 	if(!isclocker(user) && isliving(user))
