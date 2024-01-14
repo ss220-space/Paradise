@@ -217,7 +217,7 @@
 				break
 			if(!S.ckey)
 				if(S.buckled)
-					S.Feedstop(silent = TRUE)
+					S.Feedstop(stop_message = FALSE)
 				S.visible_message("<span class='notice'>[S] vanishes in a flash of light!</span>")
 				S.forceMove(X)
 				X.stored_slimes += S
@@ -401,7 +401,7 @@
 			to_chat(C, "<span class='warning'>The slime wiggled free!</span>")
 			return
 		if(S.buckled)
-			S.Feedstop(silent = TRUE)
+			S.Feedstop(stop_message = FALSE)
 		S.visible_message("<span class='notice'>[S] vanishes in a flash of light!</span>")
 		S.forceMove(X)
 		X.stored_slimes += S
