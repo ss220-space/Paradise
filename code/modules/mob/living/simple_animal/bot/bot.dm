@@ -1089,7 +1089,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		add_attack_logs(user, src, "Dehacked")
 
 
-/mob/living/simple_animal/bot/proc/update_icon()
+/mob/living/simple_animal/bot/update_icon_state()
 	icon_state = "[initial(icon_state)][on]"
 
 

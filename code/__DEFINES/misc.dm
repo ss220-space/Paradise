@@ -453,13 +453,6 @@
 //Explosive wall groups
 #define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
 
-// Filters
-#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
-#define FILTER_EYE_BLUR filter(type="blur", size=0)
-
-#define AMBIENT_OCCLUSION_FILTER_KEY "ambient occlusion"
-#define EYE_BLUR_FILTER_KEY "eye blur"
-
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
 #define FULLSCREEN_OVERLAY_RESOLUTION_Y 15

@@ -139,6 +139,9 @@
 	can_be_cut = FALSE
 	resistance_flags = NONE
 
+/obj/item/clothing/gloves/color/black/krav_maga/check_item_eat(mob/target, mob/user)
+	return FALSE
+
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial)
 	. = ..()
 

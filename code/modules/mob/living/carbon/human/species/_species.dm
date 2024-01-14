@@ -763,7 +763,7 @@
 
 			if(!wearable)
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вы [src] и не можете использовать [I]."))
+					to_chat(user, span_warning("Вы [src] и не можете использовать [I]."))
 				return FALSE
 
 	switch(slot)
@@ -1016,13 +1016,13 @@
 /datum/species/proc/equip_delay_self_obscured_check(obj/item/I, slot, mob/living/carbon/human/user, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	if(user.has_obscured_slot(slot) && !bypass_obscured)
 		if(!disable_warning)
-			to_chat(user, SPAN_WARNING("Вы не можете надеть [I], слот закрыт другой одеждой."))
+			to_chat(user, span_warning("Вы не можете надеть [I], слот закрыт другой одеждой."))
 		return FALSE
 
 	if(!I.equip_delay_self || bypass_equip_delay_self)
 		return TRUE
 
-	user.visible_message(SPAN_NOTICE("[user] начинает надевать [I]..."), SPAN_NOTICE("Вы начинаете надевать [I]..."))
+	user.visible_message(span_notice("[user] начинает надевать [I]..."), span_notice("Вы начинаете надевать [I]..."))
 	return do_after(user, I.equip_delay_self, target = user)
 
 
@@ -1156,11 +1156,11 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/datum/species/selected_species = GLOB.all_species[picked_species]
 	return species_name ? picked_species : selected_species.type
 
-/datum/species/proc/can_hear(mob/living/carbon/human/H)
-	. = FALSE
-	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
-	if(istype(ears) && !HAS_TRAIT(H, TRAIT_DEAF))
-		. = TRUE
+
+/datum/species/proc/can_hear(mob/living/carbon/human/user)
+	var/obj/item/organ/internal/ears/ears = user.get_organ_slot(INTERNAL_ORGAN_EARS)
+	return ears && !(DEAF in user.mutations) && !HAS_TRAIT(user, TRAIT_DEAF)
+
 
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
 	return FALSE

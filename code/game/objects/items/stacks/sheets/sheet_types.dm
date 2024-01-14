@@ -798,3 +798,33 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 
 /obj/item/stack/sheet/cheese/fifteen
 	amount = 15
+
+/*
+ * Gingerbread
+ */
+
+GLOBAL_LIST_INIT(gingerbread_recipes, list(
+	new /datum/stack_recipe("Gingerbread door", /obj/structure/mineral_door/ginger, 10, time = 20, one_per_turf = TRUE, on_floor = TRUE),
+))
+
+/obj/item/stack/sheet/gingerbread
+	name = "gingerbread"
+	desc = "A brick of gingerbread that seems sturdier than regular one."
+	icon_state = "sheet-gingerbread"
+	item_state = "sheet-gingerbread"
+	singular_name = "gingerbread block"
+	icon = 'icons/obj/items.dmi'
+	sheettype = "gingerbread"
+	force = 1
+	throwforce = 2
+	merge_type = /obj/item/stack/sheet/gingerbread
+
+/obj/item/stack/sheet/gingerbread/fifty
+	amount = 50
+
+/obj/item/stack/sheet/gingerbread/five
+	amount = 5
+
+/obj/item/stack/sheet/gingerbread/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.gingerbread_recipes

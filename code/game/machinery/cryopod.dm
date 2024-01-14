@@ -202,7 +202,7 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
-	var/base_icon_state = "bodyscanner-open"
+	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
 	var/on_store_message = "помещен в криохранилище."
 	var/on_store_name = "Cryogenic Oversight"

@@ -124,7 +124,7 @@
 /datum/emote/flip
 	key = "flip"
 	key_third_person = "flips"
-	message = "делает кувырок!"
+	message = "дела%(ет,ют)% кувырок!"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT  // don't need an emote to see that
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
@@ -141,14 +141,16 @@
 		return TRUE
 
 	if(isliving(user) && (user.lying || user.resting))
-		message = "круж[pluralize_ru(user.gender,"ит","ат")]ся на полу."
+		message = "круж%(ит,ат)%ся на полу."
 		return ..()
+
 	else if(params)
-		message_param = "дела[pluralize_ru(user.gender,"ет","ют")] кувырок в сторону %t."
+		message_param = "дела%(ет,ют)% кувырок в сторону %t."
 	else if(ishuman(user))
 		var/obj/item/grab/grab = user.get_active_hand()
 		if(istype(grab) && grab.affecting)
 			var/mob/living/target = grab.affecting
+
 			if(user.buckled || target.buckled)
 				to_chat(user, span_warning("[target] is buckled, you can't flip around [target.p_them()]!"))
 				return TRUE
@@ -163,18 +165,14 @@
 				step(user, get_dir(oldloc, newloc))
 				user.pass_flags = old_pass
 				target.glide_for(0.6 SECONDS)
-				message = "дела[pluralize_ru(user.gender,"ет","ют")] кувырок через [target.name]!"
+				message = "дела%(ет,ют)% кувырок через [target.name]!"
 				return ..()
 
 	user.SpinAnimation(5, 1)
 
 	if(ishuman(user) && (prob(5) || (iskidan(user) && !user.get_organ(BODY_ZONE_HEAD))))
-		message = "пыта[pluralize_ru(user.gender,"ет","ют")]ся сделать кувырок и с грохотом пада[pluralize_ru(user.gender,"ет","ют")] на пол!"
-		sleep(0.3 SECONDS)
-		if(!QDELETED(user))
-			user.Weaken(4 SECONDS)
-		return ..()
-
+		message = "пыта%(ет,ют)%ся сделать кувырок и с грохотом пада%(ет,ют)% на пол!"
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, Weaken), 4 SECONDS), 0.3 SECONDS, TIMER_UNIQUE)
 	return ..()
 
 
@@ -194,20 +192,15 @@
 	if(!.)
 		return FALSE
 
-	if(isobserver(user))
-		if(user.orbiting)
-			user.stop_orbit()
-		user.spin(20, 1)
-		return TRUE
-
 	if(!ishuman(user) || prob(95))
-		user.spin(20, 1)
-		return TRUE
+		if(isobserver(user) && user.orbiting)
+			user.stop_orbit()
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, spin), 20, 1)
 
-	user.spin(32, 1)
-	to_chat(user, span_warning("You spin too much!"))
-
-	if(isliving(user))
+	else
+		to_chat(user, span_warning("You spin too much!"))
 		user.Dizzy(24 SECONDS)
 		user.Confused(24 SECONDS)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, spin), 32, 1)
+	return TRUE
 

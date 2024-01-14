@@ -1,12 +1,24 @@
 /obj/item/shield
 	name = "shield"
 	block_chance = 50
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	obj_integrity = 380
+	max_integrity = 380
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
-	return ..()
+	. = ..()
+	if(.)
+		var/damage_type = BRUTE
+		if(isobj(hitby))
+			var/obj/hitby_obj = hitby
+			damage_type = hitby_obj.damtype
+		take_damage(damage, damage_type, sound_effect = FALSE)
+
+/obj/item/shield/obj_destruction(damage_flag)
+	playsound(src, 'sound/weapons/smash.ogg', 50)
+	..()
 
 /obj/item/shield/riot
 	name = "riot shield"
@@ -17,6 +29,8 @@
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 3
+	obj_integrity = 400
+	max_integrity = 400
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
 	origin_tech = "materials=3;combat=4"
@@ -38,6 +52,8 @@
 	icon_state = "roman_shield"
 	item_state = "roman_shield"
 	materials = list(MAT_METAL=8500)
+	obj_integrity = 380
+	max_integrity = 380
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
@@ -53,6 +69,8 @@
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
 	block_chance = 30
+	obj_integrity = 380
+	max_integrity = 380
 
 /obj/item/shield/riot/goliath
 	name = "goliath shield"
@@ -62,6 +80,8 @@
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
 	block_chance = 30
+	obj_integrity = 380
+	max_integrity = 380
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -77,7 +97,7 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	return 0
+	return FALSE
 
 /obj/item/shield/energy/IsReflect()
 	return (active)
@@ -131,12 +151,14 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
+	obj_integrity = 360
+	max_integrity = 360
 	var/active = 0
 
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
-	return 0
+	return FALSE
 
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active

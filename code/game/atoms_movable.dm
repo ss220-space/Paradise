@@ -31,6 +31,10 @@
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
 
+	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = FALSE
+	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
+	var/atom/movable/emissive_blocker/em_block
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
 
@@ -41,6 +45,22 @@
 		GLOB.space_manager.postpone_init(T.z, src)
 		return
 	. = ..()
+
+
+/atom/movable/Initialize(mapload)
+	. = ..()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, plane = EMISSIVE_PLANE, alpha = src.alpha)
+			gen_emissive_blocker.color = EM_BLOCK_COLOR
+			gen_emissive_blocker.dir = dir
+			gen_emissive_blocker.appearance_flags |= appearance_flags
+			AddComponent(/datum/component/emissive_blocker, gen_emissive_blocker)
+		if(EMISSIVE_BLOCK_UNIQUE)
+			render_target = ref(src)
+			em_block = new(src, render_target)
+			add_overlay(list(em_block))
+
 
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
@@ -56,6 +76,14 @@
 		pulledby.stop_pulling()
 	if(orbiting)
 		stop_orbit()
+
+
+/atom/movable/proc/update_emissive_block()
+	if(!em_block && !QDELETED(src))
+		render_target = ref(src)
+		em_block = new(src, render_target)
+	add_overlay(list(em_block))
+
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
@@ -152,7 +180,7 @@
 	loc = T
 
 
-/atom/movable/Move(atom/newloc, direct = 0, movetime)
+/atom/movable/Move(atom/newloc, direct = NONE, movetime)
 	if(!loc || !newloc)
 		return FALSE
 
@@ -286,6 +314,8 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	var/turf/old_loc = loc
+	var/area/old_area = get_area(src)
+	var/area/new_area = get_area(destination)
 	loc = destination
 	moving_diagonally = 0
 
@@ -294,12 +324,19 @@
 		for(var/atom/movable/AM in old_loc)
 			AM.Uncrossed(src)
 
+	if(old_area && (new_area != old_area))
+		old_area.Exited(src)
+
 	if(destination)
 		destination.Entered(src)
 		for(var/atom/movable/AM in destination)
 			if(AM == src)
 				continue
 			AM.Crossed(src, old_loc)
+
+		if(new_area && (old_area != new_area))
+			new_area.Entered(src)
+
 		var/turf/oldturf = get_turf(old_loc)
 		var/turf/destturf = get_turf(destination)
 		var/old_z = (oldturf ? oldturf.z : null)
@@ -501,9 +538,6 @@
 /atom/movable/overlay/attack_hand(a, b, c)
 	if(master)
 		return master.attack_hand(a, b, c)
-
-/atom/movable/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
-	return TRUE
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct,movetime)
 	for(var/m in buckled_mobs)

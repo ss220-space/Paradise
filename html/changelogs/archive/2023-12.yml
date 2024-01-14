@@ -202,3 +202,107 @@
   - bugfix: Exotix Blood Check (#3887)
   kukur:
   - add: new order form (#4079)
+'2023-12-19':
+  Aziz Chynaliev:
+  - tweak: unlock all tts seeds
+'2023-12-21':
+  Aziz Chynaliev:
+  - add: add 6 tts voices from slovo patsana
+'2023-12-22':
+  Daeberdir:
+  - bugfix: CATS magazines can't fit it's own bullets. (#4092)
+  LiquidPotroh:
+  - bugfix: obsession symptom can reach unreachable items (#4091)
+  NightDawnFox:
+  - bugfix: contractor support unit can use special traitor items (#4103)
+  ROdenFL:
+  - bugfix: pulsedemon minplayers (#4082)
+  - bugfix: contractor text after normal traitor (#4086)
+  Vladisvell:
+  - bugfix: moths no longer can eat krav maga (#4099)
+  - bugfix: Now silicons understand automated messages (#4095)
+  - bugfix: borg's hyposprays no longer get bugged by upgrades (#4094)
+  - bugfix: wizarditis no longer let's you into teleport proof areas and prohibited
+      zones (#4088)
+  Zwei:
+  - tweak: Cardboard Speed Fix (#4106)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4084)
+'2023-12-23':
+  ArtemDerp:
+  - bugfix: removed random shutters at centcom level (#4114)
+  Daeberdir:
+  - bugfix: sibyl can allow lethal while green seclevel. (#4105)
+  LiquidPotroh:
+  - bugfix: Can't mix cryoxadone (#4110)
+  - bugfix: Draconids dont have ears (#4083)
+  ROdenFL:
+  - bugfix: multisword (#4112)
+  - bugfix: baked vulps comeback (#4113)
+'2023-12-24':
+  ArtemDerp:
+  - tweak: virology smartfridge reskin (#4115)
+  Baldek0:
+  - tweak: protolathe ammo designs cost halved (#4109)
+  Ksaikok46:
+  - add: SRM-8 middle missiles module for roboticist hijacker only (#4102)
+  LiquidPotroh:
+  - tweak: Destructable shields (#4053)
+  NightDawnFox:
+  - add: new sprites for reinforcing explorer suits (#4093)
+  - tweak: marrow weaver no longer has xray & advanced mining scaner is more powerful
+      now (#4089)
+  ROdenFL:
+  - add: tgui selection window (#4111)
+  Zwei:
+  - refactor: map objects standardization (#4118)
+  aeternaclose:
+  - unknown: AcademyRework pt2 (#4085)
+'2023-12-25':
+  Daeberdir:
+  - bugfix: blocked moth race. (#4127)
+  NightDawnFox:
+  - bugfix: normal security enforcer in "enforcer kit" (#4128)
+  - bugfix: maybe fixing many legion skulls spawn from dead bodies (#4125)
+  Vladisvell:
+  - qol: You can unlock apc with alt click and toggle it with ctrl click (#4122)
+  Zwei:
+  - bugfix: Small Map Fix (#4123)
+  - bugfix: Slime Emotes Fix (#4126)
+  - bugfix: Buttons Active Overlay (#4129)
+'2023-12-28':
+  Daeberdir:
+  - bugfix: emotes typo. (#4144)
+  Den109G:
+  - bugfix: return set flavour and set pose (#4136)
+  Pavel Poltaves:
+  - bugfix: Fix animal ability to see in darkness (#4139)
+  - bugfix: someone forgot to add ability to read books on tables. (#4142)
+  Vladisvell:
+  - add: Added New Year celebration stuff (#4116)
+  - bugfix: fixed yarn watch warning spam (#4135)
+  - bugfix: There is no escape for you, robocluwne. (#4143)
+  Zwei:
+  - bugfix: Can Hear Fix (#4137)
+'2023-12-29':
+  BeebBeebBoob:
+  - bugfix: edit shuttle timer announcment update (#4145)
+  ROdenFL:
+  - bugfix: tgui lists can in lists with doubles and return None (#4150)
+  - bugfix: post target cryo message (#4152)
+  Vladisvell:
+  - bugfix: APC no longer can be unlocked by binds from distance (#4147)
+  - add: Added nice presents positioning around Christmas trees (#4146)
+'2023-12-30':
+  BeebBeebBoob:
+  - bugfix: Vortex talisman spamming admins with logs (#4156)
+  NightDawnFox:
+  - bugfix: missed mining harsuit textures (#4153)
+  Vladisvell:
+  - add: Added Ded Moroz and his magic artifacts (#4148)
+  aeternaclose:
+  - add: areas update (#4132)
+  - unknown: Delta & Cerestation & Cyberiad New Year update (#4119)
+'2023-12-31':
+  ArtemDerp:
+  - add: gate evil santa reborn 2.0 (#4130)

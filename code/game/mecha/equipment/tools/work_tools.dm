@@ -61,7 +61,7 @@
 			start_cooldown()
 		else if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded)
 			if(ismegafauna(M))
-				occupant_message(SPAN_WARNING("БЕГИ, ИДИОТ, НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
+				occupant_message(span_warning("БЕГИ, ИДИОТ, НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
 				return FALSE
 			if(!M.anchored)
 				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
@@ -508,13 +508,13 @@
 	NC.cable_color("red")
 	NC.d1 = 0
 	NC.d2 = fdirn
-	NC.updateicon()
+	NC.update_icon(UPDATE_ICON_STATE)
 
 	var/datum/powernet/PN
 	if(last_piece && last_piece.d2 != Dir)
 		last_piece.d1 = min(last_piece.d2, Dir)
 		last_piece.d2 = max(last_piece.d2, Dir)
-		last_piece.updateicon()
+		last_piece.update_icon(UPDATE_ICON_STATE)
 		PN = last_piece.powernet
 
 	if(!PN)

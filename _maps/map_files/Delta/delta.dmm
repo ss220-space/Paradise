@@ -3604,8 +3604,8 @@
 	pixel_y = 3
 	},
 /obj/structure/reagent_dispensers/peppertank{
-	pixel_y = null;
-	pixel_x = -32
+	pixel_x = -32;
+	pixel_y = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5907,7 +5907,7 @@
 /area/crew_quarters/serviceyard)
 "aPO" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/item/stack/spacechips/c5000,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
@@ -6324,10 +6324,10 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aSH" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "air_sensor"
 	},
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "air_sensor";
 	output = 7
@@ -8247,7 +8247,7 @@
 /turf/simulated/wall,
 /area/engine/mechanic_workshop)
 "beO" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
@@ -14791,7 +14791,7 @@
 /area/engine/mechanic_workshop/hangar)
 "bKe" = (
 /obj/structure/table/reinforced,
-/obj/item/deck/doublecards,
+/obj/item/deck/cards/doublecards,
 /turf/simulated/floor/wood,
 /area/maintenance/bar)
 "bKf" = (
@@ -15074,9 +15074,9 @@
 	pixel_y = 7
 	},
 /obj/item/gps{
-	icon_state = "gps-m";
 	desc = "A positioning system designed to keep an eye on your fellow workers.";
-	gpstag = "CARG0"
+	gpstag = "CARG0";
+	icon_state = "gps-m"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -15787,7 +15787,7 @@
 /area/engine/controlroom)
 "bOP" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/toy/cards/deck/syndicate,
+/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
 "bOQ" = (
@@ -19633,9 +19633,9 @@
 /obj/item/dice/d2,
 /obj/item/dice/d1,
 /obj/machinery/button/windowtint{
+	id = "library_gameroom";
 	pixel_x = -4;
-	pixel_y = 26;
-	id = "library_gameroom"
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -31563,6 +31563,7 @@
 /obj/item/bedsheet/red,
 /obj/machinery/flasher{
 	id = "Cell 2";
+	name = "Cell 2 Flasher";
 	pixel_y = -28
 	},
 /obj/item/radio/intercom/locked/prison{
@@ -35633,7 +35634,7 @@
 	},
 /area/crew_quarters/bar)
 "dvN" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -39045,7 +39046,7 @@
 	},
 /area/atmos)
 "dJT" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -42903,7 +42904,7 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
 "dYm" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -43755,7 +43756,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -49028,7 +49029,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
@@ -54177,7 +54178,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
@@ -54279,7 +54280,7 @@
 	},
 /area/crew_quarters/kitchen)
 "gCu" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "mix_sensor"
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
@@ -56064,7 +56065,7 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "gTw" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
@@ -57915,7 +57916,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
@@ -58476,7 +58477,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
@@ -60071,6 +60072,7 @@
 /obj/structure/bed,
 /obj/machinery/flasher{
 	id = "Cell 5";
+	name = "Cell 5 Flasher";
 	pixel_y = -28
 	},
 /obj/item/radio/intercom/locked/prison{
@@ -62221,7 +62223,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
@@ -63953,7 +63955,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/atmos)
@@ -69878,7 +69880,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n20,
 /area/atmos)
@@ -75531,7 +75533,7 @@
 	},
 /area/maintenance/asmaint4)
 "lHA" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
@@ -83670,6 +83672,7 @@
 /obj/item/bedsheet/red,
 /obj/machinery/flasher{
 	id = "Cell 1";
+	name = "Cell 1 Flasher";
 	pixel_y = 28
 	},
 /obj/item/radio/intercom/locked/prison{
@@ -84078,7 +84081,8 @@
 "nCX" = (
 /obj/structure/bed,
 /obj/machinery/flasher{
-	id = "Cell 1";
+	id = "Cell 3";
+	name = "Cell 3 Flasher";
 	pixel_y = 28
 	},
 /obj/item/radio/intercom/locked/prison{
@@ -84333,7 +84337,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
 /obj/machinery/flasher{
-	id = "Cell 5";
+	id = "Cell 4";
+	name = "Cell 4 Flasher";
 	pixel_y = 28
 	},
 /obj/item/radio/intercom/locked/prison{
@@ -86066,8 +86071,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen/prison{
-	pixel_y = 2;
-	network = list("Interrogation")
+	network = list("Interrogation");
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -87525,7 +87530,7 @@
 	},
 /area/atmos)
 "orG" = (
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -88036,7 +88041,7 @@
 	name = "server vent";
 	on = 1;
 	pressure_checks = 0;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
@@ -92490,7 +92495,7 @@
 /area/engine/engineering)
 "pzh" = (
 /obj/machinery/vending/medical{
-	req_access = list(63)
+	req_access = list(3, 5, 19)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -99904,9 +99909,9 @@
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
+	dir = 1;
 	pixel_x = null;
-	pixel_y = -24;
-	dir = 1
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -102556,7 +102561,7 @@
 /area/security/securearmory)
 "rHl" = (
 /obj/structure/table/reinforced,
-/obj/item/toy/cards/deck/syndicate/black,
+/obj/item/deck/cards/syndicate/black,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
@@ -105347,7 +105352,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
 "spR" = (
-/obj/structure/crematorium,
+/obj/machinery/crematorium,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -123195,7 +123200,7 @@
 "wuZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood/fancy/black,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/asmaint3)
 "wvd" = (

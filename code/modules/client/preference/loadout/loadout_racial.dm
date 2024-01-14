@@ -15,11 +15,19 @@
 	path = /obj/item/clothing/glasses/hud/hydroponic/tajblind
 	slot = slot_glasses
 	allowed_roles = list("Botanist")
+
 /datum/gear/racial/taj/sec
 	display_name = "sleek veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built security HUD."
-	path = /obj/item/clothing/glasses/hud/security/tajblind
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent", "Magistrate")
+	path = /obj/item/clothing/glasses/hud/security/sunglasses/tajblind
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Magistrate")
+	cost = 2
+
+/datum/gear/racial/taj/iaa
+	display_name = "sleek veil (read-only)"
+	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built security HUD."
+	path = /obj/item/clothing/glasses/hud/security/sunglasses/tajblind/read_only
+	allowed_roles = list("Internal Affairs Agent")
 	cost = 2
 
 /datum/gear/racial/taj/med

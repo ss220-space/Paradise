@@ -227,7 +227,7 @@
 						var/name = initial(T.name)
 						item_names += name
 						item_paths[name] = initial(T.typepath)
-					var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in item_names
+					var/targetitem = tgui_input_list(user, "Select item to search for.", "Select Item", item_names)
 					if(!targetitem)
 						return
 
@@ -447,7 +447,7 @@
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 
-	var/A = input(user, "Person to track", "Pinpoint") in names
+	var/A = tgui_input_list(user, "Person to track", "Pinpoint", names)
 	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
 		return
 
@@ -604,7 +604,7 @@
 				target_names |= thief_name
 				target_paths[thief_name] = temp_target
 
-			var/choosen_target = input("[input_ask], типа \"[input_type][input_subtype]\"", "[input_tittle]: [input_type][input_subtype]","") as null|anything in target_names
+			var/choosen_target = tgui_input_list(user, "[input_ask], типа \"[input_type][input_subtype]\"", "[input_tittle]: [input_type][input_subtype]", target_names)
 			if(!choosen_target)
 				return
 
@@ -647,7 +647,7 @@
 							target_names |= thief_name
 							target_paths[thief_name] = temp_target
 
-						var/choosen_target = input("Выберите интересующую вас цель:", "Режим Выбора Цели","") as null|anything in target_names
+						var/choosen_target = tgui_input_list(user, "Выберите интересующую вас цель:", "Режим Выбора Цели", target_names)
 						if(!choosen_target)
 							return
 

@@ -64,7 +64,7 @@
 	. = ..()
 	update_icon()
 
-/turf/space/transit/proc/update_icon()
+/turf/space/transit/update_icon()
 	var/p = 9
 	var/angle = 0
 	var/state = 1

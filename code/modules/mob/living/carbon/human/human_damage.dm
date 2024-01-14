@@ -182,6 +182,12 @@
 			O.heal_damage(0, -amount, internal = FALSE, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
+/mob/living/carbon/human/setCloneLoss(amount, updating_health)
+	. = ..()
+	if(getCloneLoss() < 1) //assuming cloneloss was set to 0
+		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+			bodypart.unmutate()
+
 /mob/living/carbon/human/adjustCloneLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount = amount * (dna.species.clone_mod + get_vampire_bonus(CLONE))

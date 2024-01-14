@@ -638,25 +638,20 @@
 /mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
-/mob/MouseDrop(mob/M as mob)
-	..()
-	if(M != usr) return
-	if(isliving(M))
-		var/mob/living/L = M
-		if(L.mob_size <= MOB_SIZE_SMALL)
-			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
-	if(!M.can_strip)
-		return
-	if(usr == src)
-		return
-	if(!Adjacent(usr))
-		return
-	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
-		return
-	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
-		return
-	show_inv(usr)
+
+/mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	if(!. || usr != user || usr == src || !user.can_strip)
+		return FALSE
+	if(isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
+		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+	if(IsFrozen(src) && !is_admin(user))
+		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
+		return FALSE
+	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
+		return FALSE
+	show_inv(user)
+
 
 /mob/proc/can_use_hands()
 	return
@@ -881,13 +876,15 @@
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if(stat==2 || istype(usr,/mob/dead/observer)) // Always can respawn as NPC
+	if(stat==2 || istype(usr, /mob/dead/observer)) // Always can respawn as NPC
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in GLOB.alive_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L
-		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
+		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
+		if(!picked)
+			return
 		switch(picked)
 			if("Mouse")
 				GLOB.respawnable_list -= usr
@@ -1178,7 +1175,7 @@
 		spintime -= speed
 
 /mob/proc/is_literate()
-	return FALSE
+	return universal_speak
 
 /mob/proc/faction_check_mob(mob/target, exact_match)
 	if(exact_match) //if we need an exact match, we need to do some bullfuckery.

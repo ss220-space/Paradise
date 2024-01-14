@@ -388,8 +388,8 @@
 		if(!check_rights(R_SERVER))	return
 
 		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft() ) as num
+		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
-		SSshuttle.emergency.setTimer(timer*10)
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination,"минуту","минуты","минут")].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds</span>")
@@ -2528,7 +2528,7 @@
 				P = new /obj/item/paper(null)
 		if(!fax)
 			var/list/departmentoptions = GLOB.alldepartments + GLOB.hidden_departments + "All Departments"
-			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
+			destination = tgui_input_list(usr, "To which department?", "Choose a department", departmentoptions)
 			if(!destination)
 				qdel(P)
 				return

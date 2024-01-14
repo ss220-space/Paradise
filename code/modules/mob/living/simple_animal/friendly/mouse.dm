@@ -132,7 +132,7 @@
 	desc = "It's toast."
 	death()
 
-/mob/living/simple_animal/mouse/proc/splat(var/obj/item/item = null, var/mob/living/user = null)
+/mob/living/simple_animal/mouse/proc/splat(obj/item/item = null, mob/living/user = null)
 	if(non_standard)
 		var/temp_state = initial(icon_state)
 		icon_dead = "[temp_state]_splat"

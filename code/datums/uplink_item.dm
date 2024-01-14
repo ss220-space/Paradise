@@ -475,6 +475,16 @@
 	job = list("Roboticist")
 	surplus = 0
 
+/datum/uplink_item/jobspecific/missilemedium
+	name = "SRM-8 Missile Rack"
+	desc = "Those missile launcher are known to be used on high-end mechs like mauler and marauder. Way more powerful, than missile modules you can print on standard mech fabs. It comes without lockbox - plug and play!"
+	item = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
+	cost = 50
+	job = list("Roboticist")
+	surplus = 0
+	can_discount = FALSE
+	hijack_only = TRUE
+
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
@@ -1311,7 +1321,7 @@
 	name = "Frag grenade's"
 	desc = "A belt containing 4 lethally dangerous and destructive grenades."
 	item = /obj/item/storage/belt/grenade/frag
-	cost = 20
+	cost = 10
 
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
@@ -1915,7 +1925,7 @@
 	name = "Syndicate Playing Cards"
 	desc = "A special deck of space-grade playing cards with a mono-molecular edge and metal reinforcement, making them lethal weapons both when wielded as a blade and when thrown. \
 	You can also play card games with them."
-	item = /obj/item/toy/cards/deck/syndicate
+	item = /obj/item/deck/cards/syndicate
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40

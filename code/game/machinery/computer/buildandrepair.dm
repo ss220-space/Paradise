@@ -471,7 +471,7 @@
 	if(I.GetID())
 		if(allowed(user))
 			user.visible_message(span_notice("\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner."), span_notice("You swipe your ID past the [src]'s access protocol scanner."))
-			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types
+			var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)
 			if(!console_choice)
 				return
 			switch(console_choice)

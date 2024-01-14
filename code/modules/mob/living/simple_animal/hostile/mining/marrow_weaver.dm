@@ -107,7 +107,7 @@
 	icon_state = "chitin"
 	singular_name = "chitin chunk"
 
-//better and dangerous subtype for regular lavaland. Has X-ray and slightly faster
+//better and dangerous subtype for regular lavaland. Slightly faster and NO MORE XRAY.
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous
 	health = 320
@@ -115,8 +115,6 @@
 	vision_range = 8
 	see_in_dark = 8
 	speed = 5
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	move_to_delay = 14
 	anger_move_to_delay = 6
 	anger_speed = 6

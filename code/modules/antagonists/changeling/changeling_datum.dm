@@ -428,7 +428,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			continue
 		names[DNA.real_name] = DNA
 
-	var/chosen_name = input(message, title, null) as null|anything in names
+	var/chosen_name = tgui_input_list(owner.current, message, title, names)
 	if(!chosen_name)
 		return
 
