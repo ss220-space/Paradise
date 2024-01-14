@@ -3,9 +3,9 @@
 /turf
 	var/pressure_difference = 0
 	var/pressure_direction = 0
-	var/atmos_adjacent_turfs = 0
 	var/atmos_adjacent_turfs_amount = 0
 	var/atmos_supeconductivity = 0
+	var/list/atmos_adjacent_turfs
 
 /turf/assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
 	qdel(giver)

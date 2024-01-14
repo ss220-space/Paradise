@@ -497,7 +497,7 @@
 	faller.lying_angle = pick(90, 270)
 	if(!forced)
 		return
-	if(has_gravity(src))
+	if(faller.has_gravity())
 		playsound(src, "bodyfall", 50, TRUE)
 
 /turf/singularity_act()
