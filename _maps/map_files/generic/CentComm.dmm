@@ -19620,6 +19620,17 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"jpv" = (
+/obj/machinery/door_control/secure{
+	id = "ShitRainSupply";
+	pixel_x = -24;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "jpA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8;
@@ -25225,11 +25236,6 @@
 "lRD" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/fans/tiny,
-/obj/effect/step_trigger/teleporter{
-	teleport_x = 205;
-	teleport_y = 89;
-	teleport_z = 1
-	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
 "lSb" = (
@@ -44670,11 +44676,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "udl" = (
-/obj/machinery/door/airlock/centcom{
-	name = "DropPod Supply";
-	opacity = 1;
-	req_access = list(113)
-	},
+/obj/machinery/door/poddoor/shutters/invincible,
 /turf/simulated/floor/plating,
 /area/centcom/specops)
 "udt" = (
@@ -45651,6 +45653,15 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
+"uxp" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/step_trigger/teleporter{
+	teleport_x = 205;
+	teleport_y = 89;
+	teleport_z = 1
+	},
+/turf/simulated/floor/plating,
+/area/centcom/specops)
 "uxM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -89656,7 +89667,7 @@ mRR
 jgg
 jgg
 vJu
-lFv
+jpv
 oRk
 kpi
 sSm
@@ -110739,11 +110750,11 @@ afP
 afP
 afP
 nAN
-mZo
-mZo
+uxp
+uxp
 shl
-mZo
-mZo
+uxp
+uxp
 nAN
 mCQ
 ajx
