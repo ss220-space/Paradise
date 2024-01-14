@@ -92495,7 +92495,7 @@
 /area/engine/engineering)
 "pzh" = (
 /obj/machinery/vending/medical{
-	req_access = list(63)
+	req_access = list(3, 5, 19)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
