@@ -17,6 +17,7 @@
 #define SLIME_COMMAND_STOP 4
 #define SLIME_COMMAND_ATTACK 5
 #define SLIME_COMMAND_EAT 6
+#define SLIME_COMMAND_DEFEND 7
 
 //Minimum levels of friendship to order some commands
 #define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
@@ -26,6 +27,7 @@
 #define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
 #define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
+#define SLIME_FRIENDSHIP_DEFEND				10 //Min friendship to order it to defend
 
 #define SLIME_HUNGER_NOT_HUNGRY 0
 #define SLIME_HUNGER_HUNGRY 1
@@ -42,3 +44,5 @@
 #define SLIME_BEHAVIOR_EAT 2
 
 #define SLIME_ATTACK_COOLDOWN 4.5 SECONDS
+
+#define SLIME_LOOSE_FRIEND_CHANCE 1

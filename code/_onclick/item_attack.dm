@@ -74,7 +74,7 @@
 	if(!force)
 		playsound(target.loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else
-		SEND_SIGNAL(target, COMSIG_ITEM_ATTACK)
+		SEND_SIGNAL(target, COMSIG_ITEM_ATTACK, target, user)
 		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)]), DMG: [force])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 		if(hitsound)
 			playsound(target.loc, hitsound, get_clamped_volume(), 1, -1)

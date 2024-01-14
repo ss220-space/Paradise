@@ -73,6 +73,9 @@
 	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
 	"cerulean", "sepia", "black", "pyrite")
 
+	/// Amount of health being cured per tick
+	var/passive_regeneration = 0.3
+
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700)
 	if (!(locate(/datum/action/innate/slime/feed) in actions))

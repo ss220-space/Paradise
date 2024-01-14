@@ -14,6 +14,7 @@
 	var/static/list/stay_commands = list("stay", "остановись", "стой")
 	var/static/list/attack_commands = list("attack", "атакуй", "нападай", "напади", "ударь")
 	var/static/list/eat_commands = list("eat", "ешь", "кушай", "съешь")
+	var/static/list/defend_commands = list("defend", "защищай", "помогай", "охраняй")
 
 	var/static/list/greeting_phrases = list("Привет...", "Здравствовать...")
 	var/static/list/follow_phrases = list("Веди...", "Пошли... ", "Моя идти... ")
@@ -27,6 +28,7 @@
 	var/static/list/stop_following_phrases = list("Ладно... Не буду...")
 	var/static/list/attack_friend_phrases = list("Нет... Моя следовать")
 	var/static/list/no_listen_phrases = list("Нет...", "Не буду...", "Не хотеть...", "Не слушать...")
+	var/static/list/madness_phrases = list("ААААААА!?!?", "ЧАВО?!?!", "БИТЬ!")
 
 
 /mob/living/simple_animal/slime/forceMove(atom/destination) //Debug code to catch slimes stuck in null space
@@ -56,6 +58,18 @@
 		canmove = TRUE
 
 	updatehealth("handle environment")
+
+
+/mob/living/simple_animal/slime/handle_status_effects()
+	adjustBruteLoss(-passive_regeneration)
+
+	attacked = clamp(attacked - 1, 0, 50)
+
+	if(prob(10))
+		Discipline = max(0, Discipline - 1)
+
+	if(Discipline >= 5 && rabid && prob(60))
+		rabid = FALSE
 
 
 /mob/living/simple_animal/slime/Life()
@@ -191,7 +205,7 @@
 	else if(((nutrition < age_state.grow_nutrition) && prob(25)) || (nutrition < age_state.hunger_nutrition))
 		. = SLIME_HUNGER_HUNGRY
 
-/mob/living/simple_animal/slime/proc/AIprocess()  // the master AI process
+/mob/living/simple_animal/slime/proc/AIprocess(patience = age_state.patience)  // the master AI process
 
 	if(AIproc || stat || client)
 		return
@@ -208,10 +222,15 @@
 		if(Adjacent(Target))
 			switch(target_behavior)
 				if(SLIME_BEHAVIOR_ATTACK)
+					//slime can also eat if the target has weakened enough
+					if(Target.client && Target.health < 20)
+						target_behavior = SLIME_BEHAVIOR_EAT
+						continue
 					if(!Atkcool)
 						Atkcool = TRUE
 						addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), SLIME_ATTACK_COOLDOWN)
 						Target.attack_slime(src)
+						target_patience = patience
 
 				if(SLIME_BEHAVIOR_EAT)
 					//attack if uneatable
@@ -225,9 +244,14 @@
 
 					if(!Atkcool)
 						Feedon(Target)
+						target_patience = patience
 
-		else if(Target in view(7, src))
+		else if(Target in view(12, src))
 			step_to(src, Target)
+			target_patience = max(0, target_patience - 1)
+			if(target_patience <= 0 || Stun_time > world.time || Discipline)
+				target_patience = 0
+				Target = null
 		else
 			Target = null
 			break
@@ -246,29 +270,12 @@
 
 	update_canmove()
 
-	attacked = clamp(attacked - 1, 0, 50)
-
-	if(prob(10))
-		Discipline = max(0, Discipline - 1)
-
-	if(Discipline >= 5 && rabid && prob(60))
-		rabid = FALSE
-
-	if(client || !canmove || buckled)
-		return
-
-	if(Target)
-		--target_patience
-		if (target_patience <= 0 || is_stunned || Discipline) // Tired of chasing or something draws out attention
-			target_patience = 0
-			Target = null
-
-	if(AIproc && is_stunned)
+	if(client || !canmove || buckled || AIproc && is_stunned)
 		return
 
 	// if a slime is starving, it starts losing its friends
 	if(hungry == SLIME_HUNGER_STARVING && !client)
-		if(Friends.len && prob(1))
+		if(Friends.len && prob(SLIME_LOOSE_FRIEND_CHANCE))
 			var/mob/nofriend = pick(Friends)
 			--Friends[nofriend]
 
@@ -276,22 +283,14 @@
 		switch(hungry)
 			if(SLIME_HUNGER_NOT_HUNGRY)
 				if(is_angry)
-					Target = find_target(FALSE, TRUE)
-					target_behavior = SLIME_BEHAVIOR_ATTACK
+					set_new_target(find_target(FALSE, TRUE), SLIME_BEHAVIOR_ATTACK)
 
 			if(SLIME_HUNGER_HUNGRY)
 				if(!Leader && !holding_still)
-					Target = find_target(TRUE, is_angry)
-					target_behavior = SLIME_BEHAVIOR_EAT
+					set_new_target(find_target(TRUE, is_angry), SLIME_BEHAVIOR_EAT)
 
 			if(SLIME_HUNGER_STARVING)
-				Target = find_target(TRUE, TRUE)
-				target_behavior = SLIME_BEHAVIOR_EAT
-
-		if(Target)
-			target_patience = rand(5, 7)
-			if(age_state.age != SLIME_BABY)
-				target_patience += 3
+				set_new_target(find_target(TRUE, TRUE), SLIME_BEHAVIOR_EAT)
 
 	// If we have no target, we are wandering or following orders
 	if(!Target)
@@ -314,23 +313,25 @@
 				holding_still = max(Friends[pulledby], 10)
 			else if(canmove && isturf(loc) && prob(33))
 				step(src, pick(GLOB.cardinal))
-	else if(!AIproc)
-		INVOKE_ASYNC(src, PROC_REF(AIprocess))
 
 
 /mob/living/simple_animal/slime/proc/find_target(to_eat, very_angry)
 	var/list/targets = list()
 	for(var/mob/living/L in view(7,src))
-
-		if(L.stat == DEAD || (L in Friends)) // Ignore dead mobs & friends
+		// Ignore dead mobs & friends
+		if(L.stat == DEAD || (L in Friends))
 			continue
 
 		//does not try to eat inedible or occupied by someone else
 		if(to_eat && (issilicon(L) || ismachineperson(L) || locate(/mob/living/simple_animal/slime) in L.buckled_mobs))
 			continue
 
-		//Disciplined slimes attacks only weak
+		//Disciplined slimes never attack humans, but they can attack monkeys and larvas.
 		if(Discipline && !islarva(L) && !issmall(L))
+			continue
+
+		//Small chance to attack human
+		if(!very_angry && !issmall(L) && ishuman(L) && prob(95))
 			continue
 
 		var/ally = FALSE
@@ -343,8 +344,7 @@
 		if(ally)
 			continue
 
-		if(very_angry || prob(5))
-			targets += L
+		targets += L
 
 	if(!targets || !targets.len)
 		return FALSE
@@ -360,6 +360,16 @@
 		if(cur_dist < min_dist)
 			min_dist = cur_dist
 			. = L
+
+/mob/living/simple_animal/slime/proc/set_new_target(target, behavior, patience = age_state.patience)
+	if(target)
+		Target = target
+	if(patience)
+		target_patience = patience
+	if(behavior)
+		target_behavior = behavior
+	if(!AIproc)
+		INVOKE_ASYNC(src, PROC_REF(AIprocess), patience)
 
 
 /mob/living/simple_animal/slime/handle_automated_movement()
@@ -403,6 +413,9 @@
 	if(!is_command_to_me(phrase))
 		return
 
+	if(madness_check(who))
+		return
+
 	switch(identify_command(phrase))
 		if(SLIME_COMMAND_GREETING)
 			to_say = pick(greeting_phrases)
@@ -415,11 +428,13 @@
 						to_say = pick(already_follow_phrases)
 					else if(Friends[who] > Friends[Leader])
 						Leader = who
+						holding_still = 0
 						to_say = "Хорошо, моя пойти за [who]..."
 					else
 						to_say = "Нет, моя идти за [Leader]!"
 				else
 					Leader = who
+					holding_still = 0
 					to_say = pick(follow_phrases)
 			else
 				to_say = pick(no_listen_phrases)
@@ -469,31 +484,55 @@
 
 
 		if(SLIME_COMMAND_ATTACK)
-			if(rabid && prob(20))
-				Target = who
-				AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
-				to_say = "ААААААА!?!?"
-
 			var/mob/living/attack_target = get_target_from_command(phrase)
 			if(Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
 				if(isslime(attack_target) || Friends[attack_target] && (Friends[who] - Friends[attack_target] < SLIME_FRIENDSHIP_ATTACK))
 					to_say = "НЕТ! [attack_target] быть друг..."
 					--Friends[who]
 				else
-					Target = attack_target
-					AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
+					set_new_target(attack_target, SLIME_BEHAVIOR_ATTACK, age_state.patience * max(1, Friends[who]/10))
 					to_say = "Да... Бить [attack_target]..."
 			else
 				to_say = pick(no_listen_phrases)
 
-		//if(SLIME_COMMAND__EAT)
+		if(SLIME_COMMAND_EAT)
+			var/mob/living/attack_target = get_target_from_command(phrase)
+			if(Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
+				if(isslime(attack_target) || Friends[attack_target] && (Friends[who] - Friends[attack_target] < SLIME_FRIENDSHIP_ATTACK))
+					to_say = "НЕТ! [attack_target] быть друг..."
+					--Friends[who]
+				else
+					set_new_target(attack_target, SLIME_BEHAVIOR_EAT, age_state.patience * max(1, Friends[who]/10))
+					to_say = "Да... Есть [attack_target]..."
+			else
+				to_say = pick(no_listen_phrases)
+
+		if(SLIME_COMMAND_DEFEND)
+			var/mob/living/carbon/human/defend_target = get_target_from_command(phrase)
+			if(Friends[who] >= SLIME_FRIENDSHIP_DEFEND)
+				if(istype(defend_target))
+					Leader = defend_target
+					holding_still = 0
+					defend_target.AddComponent(/datum/component/slime_defender, src)
+					to_say = "Защищать [defend_target]..."
+				else
+					to_say = pick(no_listen_phrases)
+			else
+				to_say = pick(no_listen_phrases)
 
 	speech_buffer = list()
 
 	if(to_say && !stat)
 		say(to_say)
 
-//добавить повышенные шансы на фразы при нужных условиях
+/mob/living/simple_animal/slime/proc/madness_check(target)
+	if(rabid && prob(20))
+		set_new_target(target, SLIME_BEHAVIOR_ATTACK, age_state.patience * 10)
+		say(pick(madness_phrases))
+		return TRUE
+	return FALSE
+
+//переписать нахуй и добавить повышенные шансы на фразы при нужных условиях
 /mob/living/simple_animal/slime/proc/handle_random_phrases()
 	Random_phrase_CD = max(0, Random_phrase_CD - 1)
 	if(Random_phrase_CD)
@@ -579,7 +618,7 @@
 
 
 /mob/living/simple_animal/slime/proc/identify_command(text)
-	var/list/words = splittext(text, regex(" |\\."))
+	var/list/words = splittext(text, regex(" |\\.|\\,|\\!|\\?"))
 	for(var/word in words)
 		if(word in greeting_commands)
 			return SLIME_COMMAND_GREETING
@@ -593,6 +632,8 @@
 			return SLIME_COMMAND_ATTACK
 		if(word in eat_commands)
 			return SLIME_COMMAND_EAT
+		if(word in defend_commands)
+			return SLIME_COMMAND_DEFEND
 
 
 /mob/living/simple_animal/slime/proc/is_command_to_me(text)
@@ -614,7 +655,7 @@
 	var/target
 	var/list/words = splittext(text, regex(" |\\.|\\,|\\!|\\?"))
 	for(var/i = 1, i < words.len - 1, i++)
-		if(words[i] in attack_commands + eat_commands)
+		if(words[i] in attack_commands + eat_commands + defend_commands)
 			target = words[i+1]
 			break
 
