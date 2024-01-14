@@ -941,7 +941,7 @@
 	desc = "Used to control the Regular Civilian Shuttle."
 	circuit = /obj/item/circuitboard/ruins_civil_shuttle
 	shuttleId = "ruins_civil_shuttle"
-	possible_destinations = "spacebar;spacehotelv1"
+	possible_destinations = "spacebar;spacehotelv1;ntstation"
 
 
 /obj/machinery/computer/shuttle/white_ship
