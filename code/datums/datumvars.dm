@@ -1108,7 +1108,13 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		var/new_language = tgui_input_list(usr, "Please choose a language to add.","Language", GLOB.all_languages)
+		var/list/new_languages = list()
+		for(var/language_key in GLOB.all_languages)
+			var/datum/language/language = GLOB.all_languages[language_key]
+			if(!(language.flags & NONGLOBAL))
+				new_languages |= language
+
+		var/datum/language/new_language = tgui_input_list(usr, "Please choose a language to add.","Language", new_languages)
 
 		if(!new_language)
 			return
@@ -1117,7 +1123,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.add_language(new_language))
+		if(H.add_language(new_language.key))
 			to_chat(usr, "Added [new_language] to [H].")
 			log_and_message_admins("has given [key_name_admin(H)] the language [new_language]")
 		else
@@ -1144,7 +1150,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.remove_language(rem_language.name))
+		if(H.remove_language(rem_language.key))
 			to_chat(usr, "Removed [rem_language] from [H].")
 			log_and_message_admins("has removed language [rem_language] from [key_name(H)]")
 		else

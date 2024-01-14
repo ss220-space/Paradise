@@ -670,9 +670,9 @@
 	var/datum/language/chosen_language
 	if(client.prefs.language)
 		chosen_language = GLOB.all_languages[client.prefs.language]
-	if((chosen_language == null && client.prefs.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
+	if((chosen_language == null && client.prefs.language != LANGUAGE_NONE) || (chosen_language && chosen_language.flags & RESTRICTED))
 		log_runtime(EXCEPTION("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None."), src)
-		client.prefs.language = "None"
+		client.prefs.language = LANGUAGE_NONE
 
 /mob/new_player/proc/ViewManifest()
 	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)

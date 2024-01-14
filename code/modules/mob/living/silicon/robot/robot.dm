@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	add_language("Robot Talk", 1)
+	add_language(LANGUAGE_BINARY, 1)
 
 	wires = new(src)
 
@@ -561,7 +561,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
 
-	add_language("Robot Talk", 1)
+	add_language(LANGUAGE_BINARY, 1)
 	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module

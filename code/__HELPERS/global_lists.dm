@@ -40,18 +40,18 @@
 
 	init_datum_subtypes(/datum/job, GLOB.joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
-	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
+	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "key")
 
 	// Setup languages
-	for(var/language_name in GLOB.all_languages)
-		var/datum/language/L = GLOB.all_languages[language_name]
-		if(!(L.flags & NONGLOBAL))
-			GLOB.language_keys[":[lowertext(L.key)]"] = L
-			GLOB.language_keys[".[lowertext(L.key)]"] = L
-			GLOB.language_keys["#[lowertext(L.key)]"] = L
-			GLOB.language_keys[":[sanitize_english_string_to_russian(L.key)]"] = L
-			GLOB.language_keys[".[sanitize_english_string_to_russian(L.key)]"] = L
-			GLOB.language_keys["#[sanitize_english_string_to_russian(L.key)]"] = L
+	for(var/language_key in GLOB.all_languages)
+		var/datum/language/language = GLOB.all_languages[language_key]
+		if(!(language.flags & NONGLOBAL))
+			GLOB.language_keys[":[lowertext(language.key)]"] = language
+			GLOB.language_keys[".[lowertext(language.key)]"] = language
+			GLOB.language_keys["#[lowertext(language.key)]"] = language
+			GLOB.language_keys[":[sanitize_english_string_to_russian(language.key)]"] = language
+			GLOB.language_keys[".[sanitize_english_string_to_russian(language.key)]"] = language
+			GLOB.language_keys["#[sanitize_english_string_to_russian(language.key)]"] = language
 
 	var/rkey = 0
 	for(var/spath in subtypesof(/datum/species))

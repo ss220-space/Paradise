@@ -4,7 +4,7 @@
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
 	dangerous_existence = TRUE
-	language = "Vox-pidgin"
+	language = LANGUAGE_VOX
 	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20

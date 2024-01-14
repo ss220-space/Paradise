@@ -55,8 +55,8 @@
 
 /mob/living/silicon/robot/cogscarab/Initialize(mapload)
 	. = ..()
-	remove_language("Robot Talk")
-	add_language("Drone Talk", 1)
+	remove_language(LANGUAGE_BINARY)
+	add_language(LANGUAGE_DRONE_BINARY, 1)
 	if(radio)
 		radio.wires.cut(WIRE_RADIO_TRANSMIT)
 

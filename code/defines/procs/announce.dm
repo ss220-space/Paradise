@@ -12,7 +12,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/channel_name = "Station Announcements"
 	var/announcement_type = "Оповещение"
 	var/admin_announcement = 0 // Admin announcements are received regardless of being in range of a radio, unless you're in the lobby to prevent metagaming
-	var/language = "Galactic Common"
+	var/language = LANGUAGE_GALACTIC_COMMON
 
 /datum/announcement/New(var/do_log = 0, var/new_sound = null, var/do_newscast = 0)
 	sound = new_sound
@@ -44,7 +44,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	title = "Оповещение о безопасности"
 	announcement_type = "Оповещение о безопасности"
 
-/datum/announcement/proc/Announce(var/message as text, var/new_title = "", var/new_sound = null, var/do_newscast = newscast, var/msg_sanitized = 0, var/from, var/msg_language)
+/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language_key)
 	if(!message)
 		return
 
@@ -59,7 +59,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	if(announcer)
 		message_announcer = html_encode(announcer)
 
-	var/datum/language/message_language = GLOB.all_languages[msg_language ? msg_language : language]
+	var/datum/language/message_language = GLOB.all_languages[msg_language_key ? msg_language_key : language]
 
 	var/list/combined_receivers = Get_Receivers(message_language)
 	var/list/receivers = combined_receivers[1]

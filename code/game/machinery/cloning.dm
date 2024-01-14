@@ -291,7 +291,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	H.dna = R.dna.Clone()
 
 	for(var/datum/language/L in R.languages)
-		H.add_language(L.name)
+		H.add_language(L.key)
 
 	if(is_taipan(z))
 		H.faction.Add("syndicate")	//Чтобы синдикатовцы после клонирования оставались синдикатовцами

@@ -85,7 +85,7 @@
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
-	add_language("Rootspeak")
+	add_language(LANGUAGE_DIONA)
 	merge_action.Grant(src)
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)
@@ -189,7 +189,7 @@
 		qdel(L)
 
 	for(var/datum/language/L in languages)
-		adult.add_language(L.name)
+		adult.add_language(L.key)
 	adult.regenerate_icons()
 
 	if(random_name)
