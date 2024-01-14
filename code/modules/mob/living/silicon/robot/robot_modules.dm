@@ -369,6 +369,10 @@
 
 	fix_modules()
 
+/obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
+	var/obj/item/melee/baton/baton = locate() in modules
+	baton?.link_new_cell(unlink_cell)
+
 /obj/item/robot_module/janitor
 	name = "Janitor"
 	module_type = "Janitor"
@@ -991,3 +995,15 @@
 	max_energy = 160
 	recharge_rate = 2
 	name = "Wood Storage"
+
+
+/**
+ * Called when the robot owner of this module has their power cell replaced.
+ *
+ * Changes the linked power cell for module items to the newly inserted cell, or to `null`.
+ * Arguments:
+ * * unlink_cell - If TRUE, set the item's power cell variable to `null` rather than linking it to a new one.
+ */
+/obj/item/robot_module/proc/update_cells(unlink_cell = FALSE)
+	return
+

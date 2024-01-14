@@ -2359,6 +2359,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 500
 	containername = "Jetpack upgrade crate"
 
+/datum/supply_packs/misc/crematorium
+	name = "Crematorium Parts"
+	cost = 15
+	contains = list(
+		/obj/item/circuitboard/machine/crematorium,
+		/obj/item/toy/plushie/orange_fox,
+	)
+	containername = "crematorium parts crate"
+
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

@@ -139,7 +139,7 @@
 		return TRUE
 
 /obj/machinery/computer/security/proc/update_camera_view()
-	if(!active_camera)
+	if(!active_camera || !active_camera.can_use())
 		return
 	var/list/visible_turfs = list()
 	for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))

@@ -28,6 +28,7 @@
 	switch(wire)
 		if(WIRE_BOMB_LIGHT)
 			N.lighthack = !N.lighthack
+			N.update_icon()
 			addtimer(CALLBACK(N, TYPE_PROC_REF(/obj/machinery/nuclearbomb, reset_lighthack_callback)), 10 SECONDS)
 
 		if(WIRE_BOMB_TIMING)
@@ -37,6 +38,7 @@
 
 		if(WIRE_BOMB_SAFETY)
 			N.safety = !N.safety
+			N.update_icon()
 			addtimer(CALLBACK(N, TYPE_PROC_REF(/obj/machinery/nuclearbomb, reset_safety_callback)), 10 SECONDS)
 
 /datum/wires/nuclearbomb/on_cut(wire, mend)
@@ -48,10 +50,8 @@
 				N.explode()
 
 		if(WIRE_BOMB_TIMING)
-			if(!N.lighthack)
-				if(N.icon_state == "nuclearbomb2")
-					N.icon_state = "nuclearbomb1"
-			N.timing = 0
+			N.timing = FALSE
+			N.update_icon()
 			GLOB.bomb_set = FALSE
 
 		if(WIRE_BOMB_LIGHT)
