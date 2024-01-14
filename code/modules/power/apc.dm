@@ -473,7 +473,7 @@
 				M.flicker()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/power/apc, update_icon), TRUE), 10)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), TRUE), 10)
 
 	return TRUE
 

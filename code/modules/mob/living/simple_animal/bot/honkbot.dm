@@ -46,7 +46,7 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
-	addtimer(CALLBACK(src, PROC_REF(update_icon)), 0.5 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 0.5 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 
 //honkbots react with sounds.
@@ -163,7 +163,7 @@
 			playsound(src, "honkbot_e", 50, 0)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
-			addtimer(CALLBACK(src, PROC_REF(update_icon)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 

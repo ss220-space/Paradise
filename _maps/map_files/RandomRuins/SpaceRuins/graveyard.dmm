@@ -652,7 +652,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "oK" = (
-/obj/structure/crematorium{
+/obj/machinery/crematorium{
 	name = "crematorium No3";
 	id = "No3";
 	dir = 1
@@ -679,7 +679,7 @@
 	},
 /area/ruin/space/graveyard/church)
 "ps" = (
-/obj/structure/crematorium{
+/obj/machinery/crematorium{
 	id = "No2";
 	name = "crematorium No2";
 	dir = 1
@@ -1160,7 +1160,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/graveyard/graves)
 "Bu" = (
-/obj/structure/crematorium{
+/obj/machinery/crematorium{
 	id = "No1";
 	name = "crematorium No1";
 	dir = 1
