@@ -249,7 +249,9 @@
 	},
 /area/vox_station)
 "adL" = (
-/obj/machinery/vending/ntc/crates,
+/obj/machinery/vending/ntc/crates{
+	req_access = list(114)
+	},
 /obj/machinery/conveyor/south{
 	id = "CC_crate"
 	},
@@ -2089,7 +2091,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
-	id = "CC_supply_internal";
+	id = "CC_supply_internal2";
 	name = "Central Command Supply Internal Shutter";
 	pixel_y = 24;
 	req_access = list(114)
@@ -3414,7 +3416,8 @@
 	},
 /obj/machinery/door_control/secure{
 	id = "CC_ERT1";
-	pixel_y = -25
+	pixel_y = -25;
+	req_access = list(114)
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -5397,11 +5400,12 @@
 	},
 /area/vox_station)
 "cuQ" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/secure{
 	id = "CC_Armory_SRT";
-	pixel_x = 24;
-	pixel_y = -24;
-	req_access = list(114)
+	pixel_y = -25;
+	req_access = list(114);
+	pixel_x = 25;
+	name = "SRT Team 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealtstrip"
@@ -10876,7 +10880,8 @@
 	},
 /obj/machinery/door_control/secure{
 	id = "CC_ERT2";
-	pixel_y = -25
+	pixel_y = -25;
+	req_access = list(114)
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -11000,7 +11005,9 @@
 	},
 /area/centcom/specops)
 "fji" = (
-/obj/machinery/vending/ntc/mech/equipment,
+/obj/machinery/vending/ntc/mech/equipment{
+	req_access = list(114)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13464,7 +13471,9 @@
 /turf/simulated/floor/carpet/green,
 /area/ninja/outpost)
 "glw" = (
-/obj/machinery/vending/ntc/mech/weapon,
+/obj/machinery/vending/ntc/mech/weapon{
+	req_access = list(114)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14262,9 +14271,22 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
 "gHZ" = (
-/obj/structure/falsewall/reinforced,
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 2;
+	id_tag = "CC_supply_external2";
+	layer = 5;
+	locked = 1;
+	name = "Central Command Supply External Shutte"
+	},
+/obj/machinery/door_control/secure{
+	id = "CC_supply_external2";
+	name = "Central Command Supply External Shutte";
+	req_access = list(114);
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkyellowalt"
 	},
 /area/centcom/supply)
 "gIz" = (
@@ -15132,7 +15154,9 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/mining)
 "hhW" = (
-/obj/machinery/vending/ntc/ert,
+/obj/machinery/vending/ntc/ert{
+	req_access = list(114)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15518,7 +15542,8 @@
 /area/centcom/jail)
 "hqT" = (
 /obj/machinery/door_control/secure{
-	id = "CC_Main_Office_1_1"
+	id = "CC_Main_Office_1_1";
+	req_access = list(114)
 	},
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/bridge)
@@ -18765,16 +18790,16 @@
 /area/abductor_ship)
 "iVu" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/machinery/door/airlock/centcom{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	name = "Emergency Response Team";
-	opacity = 1;
-	req_access = list(114)
-	},
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "CC_Armory_SRT"
+	},
+/obj/machinery/door/airlock/centcom{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Special ReactionTeam";
+	opacity = 1;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -21576,6 +21601,14 @@
 /obj/effect/turf_decal/stripes/gold,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
+"klS" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowcornersalt"
+	},
+/area/centcom/supply)
 "klT" = (
 /obj/structure/chair/comfy/red{
 	dir = 8
@@ -26138,15 +26171,6 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/ussp_centcom/secretariat)
-"mnL" = (
-/obj/machinery/vending/nta/ertarmory/consumables{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellowaltstrip"
-	},
-/area/centcom/supply)
 "mnX" = (
 /obj/machinery/door/window/brigdoor,
 /turf/simulated/floor/carpet/black,
@@ -26438,7 +26462,8 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 5;
 	pixel_x = 1;
-	pixel_y = 1
+	pixel_y = 1;
+	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27430,6 +27455,13 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/centcom/zone1)
+"mKH" = (
+/obj/item/clothing/accessory/stripedredscarf,
+/obj/item/clothing/head/hopcap,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "mLy" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 9;
@@ -28419,7 +28451,7 @@
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	name = "Emergency Response Team";
+	name = "Special ReactionTeam";
 	opacity = 1;
 	req_access = list(114)
 	},
@@ -28741,7 +28773,7 @@
 	},
 /area/syndicate_mothership/control)
 "njh" = (
-/obj/machinery/clonepod/biomass,
+/obj/machinery/clonepod/upgraded,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue";
@@ -30223,11 +30255,18 @@
 	},
 /area/centcom/specops)
 "nLW" = (
-/obj/item/clothing/head/hopcap,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 2;
+	id_tag = "CC_supply_external2";
+	layer = 5;
+	locked = 1;
+	name = "Central Command Supply External Shutte"
 	},
-/area/centcom/specops)
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellowalt"
+	},
+/area/centcom/supply)
 "nMc" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -32938,6 +32977,7 @@
 /area/centcom/specops)
 "oTM" = (
 /obj/machinery/teleport/station,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33471,8 +33511,14 @@
 	},
 /area/syndicate_mothership/control)
 "pla" = (
-/obj/structure/closet/walllocker{
-	pixel_x = -32
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -37997,7 +38043,7 @@
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
 "rnv" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/dna_scannernew/upgraded,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -39903,6 +39949,15 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
+"scH" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellowalt"
+	},
+/area/centcom/specops)
 "scI" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
@@ -40831,11 +40886,12 @@
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/infteam)
 "sAd" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/secure{
 	id = "CC_Armory_SRT1";
-	pixel_x = -24;
-	pixel_y = -24;
-	req_access = list(114)
+	pixel_y = -25;
+	req_access = list(114);
+	pixel_x = -25;
+	name = "SRT Team 2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealtstrip"
@@ -41998,6 +42054,13 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/siberia)
+"sXO" = (
+/obj/effect/turf_decal/arrows,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellowaltstrip"
+	},
+/area/centcom/supply)
 "sXP" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -42720,22 +42783,23 @@
 	},
 /area/centcom/jail)
 "tmQ" = (
-/obj/structure/falsewall/reinforced{
-	req_access = list(114);
-	layer = 5
-	},
-/obj/machinery/door/window/brigdoor{
+/obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	damage_deflection = 10000;
-	dir = 1;
-	layer = 2.8;
-	req_access = list(114)
+	dir = 2;
+	id_tag = "CC_supply_internal2";
+	layer = 5;
+	locked = 1;
+	name = "Central Command Supply Internal Shutter"
 	},
-/obj/effect/mine/sound/bwoink{
-	invisibility = 1
+/obj/machinery/door_control/secure{
+	id = "CC_supply_internal";
+	name = "Central Command Supply Internal Shutter";
+	req_access = list(114);
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkyellowalt"
 	},
 /area/centcom/specops)
 "tmU" = (
@@ -46182,16 +46246,10 @@
 	},
 /area/centcom/specops)
 "uJU" = (
-/obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	color = "#666666";
-	damtype = "burn";
-	health = 1250;
-	region_max = 12;
-	scan_range = 12;
-	shot_delay = 8
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "uKc" = (
 /obj/machinery/vending/wallmed{
@@ -46545,9 +46603,10 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "uQD" = (
-/obj/item/clothing/accessory/stripedredscarf,
+/obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/specops)
 "uQK" = (
@@ -48934,7 +48993,9 @@
 	},
 /area/shuttle/escape)
 "vSX" = (
-/obj/machinery/vending/ntc/resources,
+/obj/machinery/vending/ntc/resources{
+	req_access = list(114)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49995,22 +50056,9 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pod_1)
 "wsY" = (
-/obj/machinery/door/airlock/centcom{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	name = "Emergency Response Team";
-	opacity = 1;
-	req_access = list(114)
-	},
-/obj/effect/turf_decal/delivery/white,
-/obj/machinery/door/poddoor/shutters/invincible{
-	dir = 1;
-	id_tag = "CC_Armory_SRT"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
+/obj/machinery/vending/nta/ertarmory/consumables,
+/turf/simulated/wall/indestructible/reinforced,
+/area/centcom/supply)
 "wtj" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
@@ -50457,7 +50505,9 @@
 /turf/simulated/floor/redgrid,
 /area/syndicate_mothership)
 "wCb" = (
-/obj/machinery/vending/ntc/mech/exousuit,
+/obj/machinery/vending/ntc/mech/exousuit{
+	req_access = list(114)
+	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -51260,16 +51310,16 @@
 /area/syndicate_mothership)
 "xac" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/machinery/door/airlock/centcom{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	name = "Emergency Response Team";
-	opacity = 1;
-	req_access = list(114)
-	},
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "CC_Armory_SRT1"
+	},
+/obj/machinery/door/airlock/centcom{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Special ReactionTeam";
+	opacity = 1;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -52485,6 +52535,16 @@
 /obj/machinery/syndiepad/loadpad,
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
+"xzo" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	pixel_x = 16;
+	initialized = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkyellowaltstrip"
+	},
+/area/centcom/specops)
 "xzv" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "burst_l";
@@ -53493,6 +53553,20 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/vox)
+"xYh" = (
+/obj/machinery/door/poddoor/shutters/invincible{
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	dir = 2;
+	id_tag = "CC_supply_internal2";
+	layer = 5;
+	locked = 1;
+	name = "Central Command Supply Internal Shutter"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellowalt"
+	},
+/area/centcom/specops)
 "xYo" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -98680,7 +98754,7 @@ flX
 hNa
 rHK
 pYs
-fAg
+mKH
 eSL
 fDP
 fDP
@@ -98937,7 +99011,7 @@ fMQ
 fMQ
 fMQ
 fMQ
-fAg
+nAN
 nAN
 eXk
 lwk
@@ -101769,7 +101843,7 @@ fMQ
 hTD
 fAg
 moU
-wsY
+iVu
 fAg
 fAg
 fAg
@@ -105349,14 +105423,14 @@ qlp
 hhW
 eFN
 xpp
-fon
-fon
+lzS
+lzS
 afP
 uJU
 uJU
 nAN
+nNb
 lFv
-qgi
 qgi
 qto
 qto
@@ -105607,13 +105681,13 @@ rgL
 rgL
 rgL
 rgL
-chG
+sXO
 gHZ
-nLW
+grD
 uQD
 tmQ
-nDM
-fAg
+xzo
+hTD
 fAg
 fAg
 fAg
@@ -105852,8 +105926,8 @@ mxz
 hLJ
 cxl
 afP
-afP
-mnL
+wsY
+gbo
 fon
 srE
 ifZ
@@ -105863,14 +105937,14 @@ ifZ
 ifZ
 ifZ
 ofy
-srE
-tgA
-afP
-uJU
-uJU
-nAN
+fon
+klS
+nLW
+lgU
+scH
+xYh
+eCT
 cFn
-hHu
 gvy
 hHu
 mzs
@@ -106119,10 +106193,10 @@ wtL
 rNB
 mWR
 jLN
-dZk
-jHX
-hHa
-cxA
+gbo
+srE
+tgA
+afP
 nAN
 nAN
 nAN
@@ -106376,10 +106450,10 @@ sCv
 ftj
 tqG
 glL
-dZk
-ona
-chG
-oTM
+gbo
+jHX
+hHa
+cxA
 nAN
 kfl
 ycb
@@ -106634,9 +106708,9 @@ rgL
 rgL
 rgL
 pej
-fon
-jHX
-tyO
+ona
+chG
+oTM
 nAN
 nCb
 kgD
@@ -106893,7 +106967,7 @@ naI
 naI
 ifZ
 tgA
-afP
+tyO
 nAN
 oPU
 fjj

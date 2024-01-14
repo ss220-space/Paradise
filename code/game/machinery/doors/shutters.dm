@@ -23,7 +23,7 @@
 	hackable = FALSE
 
 /obj/machinery/door/poddoor/shutters/invincible/fake_r_wall
-	name = "reinforsed wall"
+	name = "reinforced wall"
 	desc = "Effectively impervious to conventional methods of destruction."
 	icon = 'icons/obj/doors/fake_wall_shutters.dmi'
 	icon_state = "closed"
