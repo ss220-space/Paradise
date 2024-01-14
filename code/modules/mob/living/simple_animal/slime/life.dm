@@ -9,12 +9,12 @@
 	// only single words commands for more performance
 	var/static/list/slimes_names = list("slimes", "slime", "слаймы", "слайм")
 	var/static/list/greeting_commands = list("hello", "hi", "hey", "привет", "здравствуй", "здравствуйте", "хай")
-	var/static/list/follow_commands = list("follow", "пошли", "пойдём", "пойти", "идём", "идти")
+	var/static/list/follow_commands = list("follow", "пошли", "пойдём", "пойдем", "пойти", "идём", "идем", "идти")
 	var/static/list/stop_commands = list("stop", "фу", "нельзя", "хватит", "перестань", "перестать", "прекрати", "прекратить")
 	var/static/list/stay_commands = list("stay", "остановись", "стоять", "стой")
 	var/static/list/attack_commands = list("attack", "атакуй", "атаковать", "нападай", "нападать", "напади", "ударь", "ударить", "фас", "апорт")
 	var/static/list/eat_commands = list("eat", "ешь", "есть", "кушай", "кушать", "съешь", "съесть")
-	var/static/list/defend_commands = list("defend", "защищай", "защищать", "помогай", "помогать", "охраняй", "охранять")
+	var/static/list/defend_commands = list("defend", "защищай", "защищать", "помогай", "помоги", "помогать", "охраняй", "охранять")
 
 	//Slime responce phrases
 	var/static/list/greeting_phrases = list("Привет...", "Здравствовать...")
