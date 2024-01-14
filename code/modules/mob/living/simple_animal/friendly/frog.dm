@@ -139,3 +139,7 @@
 	squeak_sound = list('sound/creatures/mapper_disappointed.ogg','sound/creatures/mapper_angry.ogg','sound/creatures/mapper_annoyed.ogg')
 	talk_sound = list('sound/creatures/mapper_scream.ogg')
 	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/frog/scream/mapper/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SILENCED_SOUND_EXTRARANGE) //as quiet as a frog or whatever
