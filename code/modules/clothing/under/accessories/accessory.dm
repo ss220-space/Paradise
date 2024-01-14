@@ -634,6 +634,13 @@
 	else
 		return ..()
 
+/obj/item/clothing/accessory/ntrjacket
+	name = "black light jacket"
+	desc = "For the formidable guardians of work procedures. Looks like it can clip on to a uniform."
+	icon_state = "jacket_ntrf"
+	item_state = "jacket_ntrf"
+	item_color = "jacket_ntrf"
+
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt
 	name = "black cowboy shirt"

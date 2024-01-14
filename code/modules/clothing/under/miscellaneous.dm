@@ -53,6 +53,13 @@
 	item_state = "b_suit"
 	item_color = "mailman"
 
+/obj/item/clothing/under/rank/mailman/skirt
+	name = "mailman's jumpskirt"
+	desc = "<i>'Special delivery!'</i>"
+	icon_state = "mail_skirt"
+	item_state = "b_suit"
+	item_color = "mail_skirt"
+
 /obj/item/clothing/under/rank/vice
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
@@ -120,6 +127,13 @@
 	item_color = "navy_gold"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
+
+/obj/item/clothing/under/rank/centcom/officer/skirt
+	desc = "Gold trim on space-black cloth, this skirt displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Officer Skirt"
+	icon_state = "navy_goldf"
+	item_state = "navy_goldf"
+	item_color = "navy_goldf"
 
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
@@ -291,6 +305,13 @@
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
+
+/obj/item/clothing/under/suit_jacket/red/skirt
+	name = "red jumpskirt"
+	desc = "A red jumpskirt and blue tie. Somewhat formal."
+	icon_state = "red_suitf"
+	item_state = "r_suit"
+	item_color = "red_suitf"
 
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"

@@ -1436,6 +1436,7 @@
 					/obj/item/twohanded/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
 					/obj/item/clothing/under/rank/clown/sexy = 1,
+					/obj/item/clothing/under/rank/clown/clussy = 1,
 					/obj/item/clothing/mask/gas/mime/sexy = 1,
 					/obj/item/clothing/under/sexymime = 1,
 					/obj/item/clothing/mask/face/bat = 1,
@@ -1897,6 +1898,7 @@
 		/obj/item/clothing/suit/hooded/wintercoat/security	= 5,
 		/obj/item/clothing/suit/jacket/pilot	= 5,
 		/obj/item/clothing/suit/armor/vest/sec_rps	= 5,
+		/obj/item/clothing/suit/armor/secjacket = 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
@@ -1932,7 +1934,8 @@
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
 		/obj/item/clothing/suit/storage/brigdoc = 3,
-		/obj/item/clothing/under/rank/security/brigmedical = 3
+		/obj/item/clothing/under/rank/security/brigmedical = 3,
+		/obj/item/clothing/under/rank/security/brigmedical/skirt = 3
 		)
 
 
@@ -1969,6 +1972,7 @@
 		/obj/item/clothing/under/rank/orderly				= 10,
 
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
+		/obj/item/clothing/suit/storage/suragi_jacket/medic = 10,
 		/obj/item/clothing/suit/apron/surgical 		= 10,
 		/obj/item/clothing/suit/storage/fr_jacket 	= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/medical	= 5,
@@ -2019,6 +2023,7 @@
 
 		/obj/item/clothing/under/rank/psych				= 2,
 		/obj/item/clothing/under/rank/psych/turtleneck	= 2,
+		/obj/item/clothing/under/rank/psych/skirt	= 2,
 
 		/obj/item/clothing/suit/storage/labcoat/mortician 	= 2,
 		/obj/item/clothing/under/rank/medical/mortician  	= 2,
@@ -2073,6 +2078,7 @@
 		/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
 		/obj/item/clothing/head/beret/atmos = 3,
 		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 5,
+		/obj/item/clothing/suit/storage/suragi_jacket/atmos = 5,
 		/obj/item/storage/backpack/duffel/atmos = 3.
 		)
 

@@ -225,6 +225,13 @@
 	item_state = "w_suit"
 	item_color = "psych"
 
+/obj/item/clothing/under/rank/psych/skirt
+	desc = "A basic white jumpskirt. It has turqouise markings that denote the wearer as a psychiatrist."
+	name = "psychiatrist's jumpskirt"
+	icon_state = "psychf"
+	item_state = "w_suit"
+	item_color = "psychf"
+
 /obj/item/clothing/under/rank/psych/turtleneck
 	desc = "A turqouise turtleneck and a pair of dark blue slacks, belonging to a psychologist."
 	name = "psychologist's turtleneck"

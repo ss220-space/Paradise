@@ -134,6 +134,20 @@
 		"Tajaran" = 'icons/mob/clothing/species/vulpkanin/uniform.dmi'
 		)
 
+/obj/item/clothing/under/det/noir
+	name = "hard-worn black suit"
+	desc = "Anyone who wears this is dealing in shady business."
+	icon_state = "noirdet"
+	item_state = "noir"
+	item_color = "noirdet"
+
+/obj/item/clothing/under/det/noir/skirt
+	name = "hard-worn black skirt"
+	desc = "Anyone who wears this is dealing in shady business."
+	icon_state = "noirdet_skirt"
+	item_state = "noir_skirt"
+	item_color = "noirdet_skirt"
+
 /obj/item/clothing/under/det/alt_a
 	icon_state = "detective_suit"
 	item_color = "detectives_suit_grey"
@@ -187,7 +201,18 @@
 	item_state = "hosalt"
 	item_color = "hosalt"
 
+/obj/item/clothing/under/rank/head_of_security/alt/skirt
+	icon_state = "hosalt_skirt"
+	item_state = "hosalt_skirt"
+	item_color = "hosalt_skirt"
+
+/obj/item/clothing/under/rank/head_of_security/paradef
+	icon_state = "hos_parade_fem"
+	item_state = "hos_parade_fem"
+	item_color = "hos_parade_fem"
+
 //Jensen cosplay gear
+
 /obj/item/clothing/under/rank/head_of_security/jensen
 	desc = "You never asked for anything that stylish."
 	name = "head of security's jumpsuit"
@@ -268,6 +293,12 @@
 	permeability_coefficient = 0.50
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 30, acid = 30)
 
+/obj/item/clothing/under/rank/security/brigmedical/skirt
+	name = "brig medical's jumpskirt"
+	icon_state = "brigmed_skirt"
+	item_state = "brigmed_skirt"
+	item_color = "brigmed_skirt"
+
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot
 	desc = "Suit for your regular pod pilot."
@@ -275,3 +306,10 @@
 	icon_state = "pod_pilot"
 	item_state = "pod_pilot"
 	item_color = "pod_pilot"
+
+/obj/item/clothing/under/rank/security/pod_pilot/skirt
+	desc = "Skirt for your regular pod pilot."
+	name = "pod pilot's jumpskirt"
+	icon_state = "pod_pilotf"
+	item_state = "pod_pilotf"
+	item_color = "pod_pilotf"
