@@ -26,6 +26,7 @@
   - tweak: dark theme update (#4124)
   Rerik007:
   - bugfix: remove confusing hands overlay again (#4179)
+  - bugfix: you can not save off-autohiss mode (#4199)
   Roman:
   - bugfix: IPC can't be repaired. (#4172)
   Vladisvell:
@@ -41,3 +42,40 @@
   - tweak: frag grenade faster and cheaper (#4155)
   yosoyrebelde:
   - bugfix: possibly fix crew monitor row duplicating (#4187)
+'2024-01-13':
+  ArtemDerp:
+  - bugfix: fixed lost objects due to merge conflict (#4171)
+  Daeberdir:
+  - bugfix: superior-welding-glasses wrong tint. (#4201)
+  - bugfix: normal chair smashing logic. (#4202)
+  Nerrol:
+  - bugfix: duplicate coat on throwing to the coat rack (#4200)
+  Vladisvell:
+  - bugfix: PDA Painter no longer crashes map initialization (#4207)
+'2024-01-14':
+  ArtemDerp:
+  - tweak: brig nanomed access changes (#4208)
+  BeebBeebBoob:
+  - tweak: Cogscarab&fabricators with gloves abit (#4192)
+  Hero998:
+  - tweak: Wirecutters Cut Bone (#4209)
+  Ksaikok46:
+  - tweak: vampires can't eat simple mobs; reduced nutrition from mobs (#4104)
+  Mindfri:
+  - add: 4 Pirate Paintkits Mecha (#4195)
+  Nerrol:
+  - bugfix: Incorrect starting loc for weapon's shot by telekinesis (#4204)
+  RuinaRuiner:
+  - bugfix: secoff bandle fix (#4100)
+  SAAD:
+  - unknown: Delta kitchen (#4072)
+  Vladisvell:
+  - bugfix: fixed camera updates for consoles (#4213)
+  - refactor: Optimized BFL (#4190)
+  - add: Thunderdome update, December patch (#4138)
+  Zwei:
+  - refactor: Icon Updates Rework Part1 (#4162)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4210)
+  p4el007:
+  - add: new screens for AI (#4140)
