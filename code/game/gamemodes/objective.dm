@@ -1406,7 +1406,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/plant_explosive/proc/actual_give_bomb()
-	if(!owner || !owner.current || !detonation_location)
+	if(!owner || !owner.current || !detonation_location || completed)
 		return
 	var/mob/ninja = owner.current
 	var/obj/item/grenade/plastic/c4/ninja/bomb_item = new(ninja)
