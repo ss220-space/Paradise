@@ -1,6 +1,11 @@
 #define SCRAMBLE_CACHE_LEN 20
-
 /*
+	When creating new 2 letter language keys, use the following naming scheme:
+	For languages with a compound name, use the first letter of each word whenever possible, for example: Sol Common = "sc".
+	For racial languages, whenever possible, use the first two letters of the race name or use euphony for associative rows, for example: Vulpkanin = "vu" or Canilunzt = "ca".
+	Also don't forget about code/__DEFINES/language.dm
+
+
 	Datum based languages. Easily editable and modular.
 
 	Busy letters for language:
