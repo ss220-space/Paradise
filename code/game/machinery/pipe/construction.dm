@@ -550,7 +550,7 @@
 /obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
 	if(!istype(W, /obj/item/wrench))
 		return ..()
-	var/obj/machinery/air_sensor/sensor = new(loc)
+	var/obj/machinery/atmospherics/air_sensor/sensor = new(loc)
 	sensor.add_fingerprint(user)
 	playsound(get_turf(src), W.usesound, 50, 1)
 	to_chat(user, span_notice("You have fastened the gas sensor."))

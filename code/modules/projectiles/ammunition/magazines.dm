@@ -644,25 +644,8 @@
 	name = "C.A.T.S. magazine (12g slug)"
 	desc = "Похоже, этот магазин может принять в себя только слаги 12-о калибра."
 	ammo_type = /obj/item/ammo_casing/shotgun
-	caliber = ".12"
-	accept_subtypes = FALSE
+	multiple_sprites = 2
 	max_ammo = 8
-
-/obj/item/ammo_box/magazine/cats12g/update_icon()
-	..()
-	icon_state = "[initial(icon_state)][stored_ammo.len ? "" : "-0"]"
-
-/obj/item/ammo_box/magazine/cats12g/universal
-	icon_state = "cats_mag"
-	name = "C.A.T.S. magazine (12g)-U"
-	desc = "Похоже, этот магазин может принять в себя любые патроны 12-о калибра."
-	accept_subtypes = TRUE
-
-/obj/item/ammo_box/magazine/cats12g/universal/large
-	icon_state = "cats_mag_large"
-	name = "C.A.T.S. magazine (12g)-UL"
-	desc = "Похоже, этот расширенный магазин может принять в себя любые патроны 12-о калибра."
-	max_ammo = 14
 
 /obj/item/ammo_box/magazine/cats12g/large
 	icon_state = "cats_mag_large_slug"
@@ -680,5 +663,17 @@
 	icon_state = "cats_mag_large_bean"
 	name = "C.A.T.S. magazine (12g-beanbang)-L"
 	desc = "Похоже, в этот расширенный магазин лезут только патроны-погремушки."
-	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
+	max_ammo = 14
+
+/obj/item/ammo_box/magazine/cats12g/universal
+	icon_state = "cats_mag"
+	name = "C.A.T.S. magazine (12g)-U"
+	desc = "Похоже, этот магазин может принять в себя любые патроны 12-о калибра."
+	caliber = ".12"
+	ammo_type = null
+
+/obj/item/ammo_box/magazine/cats12g/universal/large
+	icon_state = "cats_mag_large"
+	name = "C.A.T.S. magazine (12g)-UL"
+	desc = "Похоже, этот расширенный магазин может принять в себя любые патроны 12-о калибра."
 	max_ammo = 14

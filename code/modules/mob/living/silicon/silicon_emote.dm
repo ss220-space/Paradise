@@ -21,7 +21,7 @@
 /datum/emote/living/silicon/scream
 	key = "scream"
 	key_third_person = "screams"
-	message = "громко сигнал%(ит,ат)%!"
+	message = "громко сигнал%(ит,ят)%!"
 	message_mime = "ярко сверка%(ет,ют)% лампочками!"
 	message_postfix = ", смотря на %t!"
 	message_param = EMOTE_PARAM_USE_POSTFIX
@@ -37,7 +37,7 @@
 	key = "ping"
 	key_third_person = "pings"
 	message = "звен%(ит,ят)%."
-	message_mime = "тихо %(ит,ят)%."
+	message_mime = "тихо звен%(ит,ят)%."
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
@@ -131,7 +131,6 @@
 /datum/emote/living/silicon/halt
 	key = "halt"
 	message = "ор%(ёт,ут)% \"СТОЯТЬ! СЛУЖБА БЕЗОПАСНОСТИ!\" через динамики!"
-	message_param = "instructs %t to HALT."
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/voice/halt.ogg'
 

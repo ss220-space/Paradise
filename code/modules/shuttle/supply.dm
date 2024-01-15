@@ -217,6 +217,7 @@
 					pointsEarned = round(G.sell_multiplier * SSshuttle.points_per_gem)
 					msg += "<span class='good'>+[pointsEarned]</span>: Received [G]. Excellent work.<br>"
 					SSshuttle.points += pointsEarned
+					qdel(thing, force = TRUE) //ovveride for special gems
 
 		qdel(MA)
 		SSshuttle.sold_atoms += "."
@@ -560,7 +561,7 @@
 			if(world.time > timeout || !reason || (!is_public && !is_authorized(usr)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
-			reason = sanitize(copytext_char(reason, 1, MAX_MESSAGE_LEN))
+			reason = sanitize(copytext_char(reason, 1, 100)) //Preventing tgui overflow
 
 			var/idname = "*None Provided*"
 			var/idrank = "*None Provided*"

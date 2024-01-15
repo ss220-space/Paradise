@@ -47,6 +47,11 @@
 	icon_state = "rwindow_spawner"
 	windowtospawn = /obj/structure/window/reinforced
 
+/obj/effect/spawner/window/reinforced/Initialize(mapload)
+	. = ..()
+	if(GLOB.new_year_celebration && is_station_level(z))
+		new /obj/structure/garland(loc)
+
 /obj/effect/spawner/window/reinforced/polarized
 	name = "polarized reinforced window spawner"
 	icon_state = "ewindow_spawner"

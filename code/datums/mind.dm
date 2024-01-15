@@ -849,7 +849,7 @@
 		return
 
 	if(href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in GLOB.joblist
+		var/new_role = tgui_input_list(usr, "Select new role", "Assigned role", GLOB.joblist)
 		if(!new_role)
 			return
 		assigned_role = new_role
@@ -937,7 +937,7 @@
 			// Кастомная цель//
 			"custom")
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in objective_types
+		var/new_obj_type = tgui_input_list(usr, "Select objective type:", "Objective type", objective_types)
 		if(!new_obj_type)
 			return
 
@@ -1019,7 +1019,7 @@
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
 				if(possible_targets.len)
-					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+					var/mob/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
 					new_objective.owner = src
@@ -1058,7 +1058,7 @@
 					var/list/roles = scan_objective.available_roles.Copy()
 					if(alert(usr, "Do you want to pick roles yourself? No will randomise it", "Pick roles", "Yes", "No") == "Yes")
 						for(var/i in 1 to 3)
-							var/role = input("Select role:", "Objective role") as null|anything in roles
+							var/role = tgui_input_list(usr, "Select role:", "Objective role", roles)
 							if(role)
 								roles -= role
 								scan_objective.possible_roles += role
@@ -2552,7 +2552,8 @@
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
 
 	else if(href_list["obj_announce"])
-		announce_objectives()
+		var/list/messages = prepare_announce_objectives()
+		to_chat(current, chat_box_red(messages.Join("<br>")))
 		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
@@ -2807,11 +2808,14 @@
 			return A
 
 
-/datum/mind/proc/announce_objectives()
-	if(current)
-		to_chat(current, "<span class='notice'>Your current objectives:</span>")
-		for(var/line in splittext(gen_objective_text(), "<br>"))
-			to_chat(current, line)
+/datum/mind/proc/prepare_announce_objectives(title = TRUE)
+	if(!current)
+		return
+	var/list/text = list()
+	if(title)
+		text.Add("<span class='notice'>Your current objectives:</span>")
+	text.Add(gen_objective_text())
+	return text
 
 
 /datum/mind/proc/find_syndicate_uplink()

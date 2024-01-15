@@ -104,7 +104,7 @@
 	else
 		update_icon()
 
-/turf/simulated/mineral/proc/update_icon()
+/turf/simulated/mineral/update_icon()
 	if(hardness != initial(hardness))
 		var/amount = hardness
 		var/mutable_appearance/cracks = mutable_appearance('icons/turf/mining.dmi',"rock_cracks_[amount]",ON_EDGED_TURF_LAYER)

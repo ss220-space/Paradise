@@ -563,7 +563,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		btypes += "Human Protector"
 		btypes += "Sentient Pet"
 		btypes += "All Access"
-	var/blessing = input(usr, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
+	var/blessing = tgui_input_list(usr, "How would you like to bless [M]?", "Its good to be good...", btypes)
 	if(!(blessing in btypes))
 		return
 	var/logmsg = null
@@ -703,7 +703,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ptypes += "Dust"
 		ptypes += "Shitcurity Goblin"
 		ptypes += "High RP"
-	var/punishment = input("How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
+	var/punishment = tgui_input_list(usr, "How would you like to smite [M]?", "Its good to be baaaad...", ptypes)
 	if(!(punishment in ptypes))
 		return
 	var/logmsg = null
@@ -1297,8 +1297,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
-	to_chat(T, "<span class='notice'>Move on.</span>")
+	to_chat(T, chat_box_notice_thick(span_notice("<b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.")))
 	T << 'sound/voice/manup1.ogg'
 
 	log_and_message_admins("told [key_name_log(T)] to man up and deal with it.")
@@ -1315,7 +1314,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	if(confirm == "Yes")
 		for(var/mob/T as mob in GLOB.mob_list)
-			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
+			to_chat(T, chat_box_notice_thick(span_notice("<b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.")))
 			T << 'sound/voice/manup1.ogg'
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")

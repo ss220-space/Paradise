@@ -5822,7 +5822,7 @@
 	},
 /area/mine/necropolis)
 "Kw" = (
-/obj/structure/closet/fishingrodcabinet{
+/obj/structure/fishingrodcabinet{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{

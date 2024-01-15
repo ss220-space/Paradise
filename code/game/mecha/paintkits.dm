@@ -265,7 +265,7 @@
 	allowed_types = list("gygax")
 
 /obj/item/paintkit/lockermech_syndie
-	name = "Locker Mech customisation kit"
+	name = "Syndie Locker Mech customisation kit"
 	icon_state = "paintkit_syndie"
 	desc = "A kit containing all the needed tools and parts to turn a Locker Mech into a Syndie Locker Mech!."
 
@@ -273,3 +273,39 @@
 	new_desc = "Dark-red painted locker mech. The paint is still wet."
 	new_icon = "syndielockermech"
 	allowed_types = list("lockermech")
+
+/obj/item/paintkit/gygax_pirate
+	name = "Pirate Gygax customisation kit"
+	icon_state = "paintkit_pirate"
+	desc = "A kit containing all the needed tools and parts to paint a Gygax Pirate"
+
+	new_name = "Pirate Gygax"
+	new_icon = "piratgygax"
+	allowed_types = list("gygax")
+
+/obj/item/paintkit/lockermech_pirate
+	name = "Pirate Locker Mech customisation kit"
+	icon_state = "paintkit_pirate1"
+	desc = "A kit containing all the needed tools and parts to turn a Locker Mech into a Pirate!."
+
+	new_name = "Pirate Locker Mech"
+	new_icon = "piratlockermech"
+	allowed_types = list("lockermech")
+
+/obj/item/paintkit/durand_pirate
+	name = "Pirate Durand customisation kit"
+	icon_state = "paintkit_pirate"
+	desc = "A kit containing all the needed tools and parts to turn a Durand into a Pirate"
+
+	new_name = "Pirate Durand"
+	new_icon = "piratdurand"
+	allowed_types = list("durand")
+
+/obj/item/paintkit/mauler_pirate
+	name = "Pirate Mauler customisation kit"
+	icon_state = "paintkit_pirate"
+	desc = "A kit containing all the needed tools and parts to turn a Mauler into a Pirate"
+
+	new_name = "Pirate Mauler"
+	new_icon = "piratmauler"
+	allowed_types = list("mauler")

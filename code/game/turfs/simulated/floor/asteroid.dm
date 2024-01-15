@@ -83,7 +83,11 @@
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, span_notice("You dig a hole."))
-			getDug()
+			if(user.a_intent == INTENT_DISARM)
+				new /obj/structure/pit(src)
+				dug = TRUE
+			else
+				getDug()
 			return TRUE
 
 	else if(istype(I, /obj/item/storage/bag/ore))

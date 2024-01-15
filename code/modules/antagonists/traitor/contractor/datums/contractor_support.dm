@@ -1,6 +1,7 @@
 /datum/antagonist/contractor_support
 	name = "Contractor Support Unit"
 	roundend_category = "Contractor Support"
+	special_role = SPECIAL_ROLE_TRAITOR
 
 /datum/antagonist/contractor_support/on_gain()
 	var/datum/objective/generic_objective = new

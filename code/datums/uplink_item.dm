@@ -475,6 +475,16 @@
 	job = list("Roboticist")
 	surplus = 0
 
+/datum/uplink_item/jobspecific/missilemedium
+	name = "SRM-8 Missile Rack"
+	desc = "Those missile launcher are known to be used on high-end mechs like mauler and marauder. Way more powerful, than missile modules you can print on standard mech fabs. It comes without lockbox - plug and play!"
+	item = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
+	cost = 50
+	job = list("Roboticist")
+	surplus = 0
+	can_discount = FALSE
+	hijack_only = TRUE
+
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
@@ -1144,6 +1154,13 @@
 	cost = 5
 	surplus = 50
 
+/datum/uplink_item/stealthy_weapons/tape
+	name = "Thick tape roll"
+	desc = "Incredibly thick duct tape, suspiciously black in appearance. It is quite uncomfortable to hold it as it sticks to your hands."
+	item = /obj/item/stack/tape_roll/thick
+	cost = 5
+	surplus = 50
+
 /datum/uplink_item/stealthy_weapons/dart_pistol
 	name = "Dart Pistol Kit"
 	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can. Comes with 3 syringes, a knockout poison, a silencing agent and a deadly neurotoxin."
@@ -1304,7 +1321,7 @@
 	name = "Frag grenade's"
 	desc = "A belt containing 4 lethally dangerous and destructive grenades."
 	item = /obj/item/storage/belt/grenade/frag
-	cost = 20
+	cost = 10
 
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
@@ -1908,7 +1925,7 @@
 	name = "Syndicate Playing Cards"
 	desc = "A special deck of space-grade playing cards with a mono-molecular edge and metal reinforcement, making them lethal weapons both when wielded as a blade and when thrown. \
 	You can also play card games with them."
-	item = /obj/item/toy/cards/deck/syndicate
+	item = /obj/item/deck/cards/syndicate
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
@@ -1995,7 +2012,7 @@
 
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
-	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."
+	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals, but you do not know which specialisation you will receive."
 	item = /obj/item/storage/box/syndicate
 	cost = 100
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

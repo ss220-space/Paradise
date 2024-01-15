@@ -502,7 +502,7 @@
 		possible.Add("Secondary Cargo System")
 	if(equipment_system.lock_system)
 		possible.Add("Lock System")
-	switch(input(user, "Remove which equipment?", null, null) as null|anything in possible)
+	switch(tgui_input_list(user, "Remove which equipment?", "Equipment",possible))
 		if("Energy Cell")
 			if(user.get_active_hand() && user.get_inactive_hand())
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")

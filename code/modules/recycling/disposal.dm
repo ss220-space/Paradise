@@ -816,7 +816,6 @@
 	damage_deflection = 10
 	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
-	var/base_icon_state	// initial icon state on map
 
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/Initialize(mapload)
@@ -921,9 +920,7 @@
 		return
 	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
-		new F.floor_tile(H)
-		F.remove_tile(null, TRUE, FALSE)
-
+		F.remove_tile(null, TRUE, TRUE)
 	if(direction)		// direction is specified
 		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
 			target = get_edge_target_turf(T, direction)
