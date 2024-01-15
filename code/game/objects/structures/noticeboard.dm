@@ -16,15 +16,14 @@
 	for(var/obj/item/paper/paper in loc)
 		paper.loc = src
 		notices++
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/noticeboard/update_icon()
-	..()
-	cut_overlays()
+/obj/structure/noticeboard/update_overlays()
+	. = list()
 	for(var/I in 1 to notices)
 		if(I > MAX_ICON_STATES_FOR_NOTICES)
 			break
-		add_overlay(image(src.icon, icon_state = "[src.icon_state][I]"))
+		. += image(src.icon, icon_state = "[src.icon_state][I]")
 
 //attaching papers!!
 /obj/structure/noticeboard/attackby(obj/item/item, mob/user, params)
@@ -34,7 +33,7 @@
 		if(!user.drop_transfer_item_to_loc(item, src))
 			return
 		notices++
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		to_chat(user, span_notice("You pin the paper to the noticeboard."))
 		return
 	return ..()
@@ -52,7 +51,7 @@
 
 /obj/structure/noticeboard/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
 		return
 	to_chat(user, span_notice("You unfasten [src.name] with [I]."))
 	new /obj/item/noticeboard(src.loc)
@@ -77,7 +76,7 @@
 			paper.add_fingerprint(usr)
 			add_fingerprint(usr)
 			notices--
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 	if(href_list["write"])
 		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open
@@ -129,3 +128,5 @@
 	src.transfer_fingerprints_to(noticeboard)
 	to_chat(user, span_notice("You fasten [noticeboard.name] with your [I]."))
 	qdel(src)
+
+#undef MAX_ICON_STATES_FOR_NOTICES

@@ -291,7 +291,8 @@
 
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
 	add_overlay(image(icon, icon_state = "print_quest_overlay", layer = overlay_layer))
-	addtimer(CALLBACK(src, PROC_REF(update_icon)), 4 SECONDS)
+	spawn(4 SECONDS) // Should change this after merging update_overlays for computers
+		update_icon()
 
 /obj/item/qm_quest_tablet
 	name = "Quartermaster Tablet"
