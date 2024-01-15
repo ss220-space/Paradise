@@ -517,18 +517,17 @@
 		var/obj/item/toy/crayon/spraycan/can = D
 		if(!can.capped && Adjacent(can, 1))
 			color = can.colour
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/clothing/suit/suspenders/update_icon()
+/obj/item/clothing/suit/suspenders/update_overlays()
 	. = ..()
-	overlays.Cut()
 	if(color)
 		var/mutable_appearance/suspenders_overlay = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_overlay")
-		overlays += suspenders_overlay
+		+= suspenders_overlay
 
-		var/mutable_appearance/suspenders_clips = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_clips")
-		suspenders_clips.appearance_flags |= RESET_COLOR
-		overlays += suspenders_clips
+		
+		
+	
 
 /obj/item/clothing/suit/suspenders/nodrop
 	flags = NODROP
