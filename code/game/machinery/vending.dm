@@ -1654,9 +1654,27 @@
 	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
 	icon_state = "suits"
 	ads_list = list("Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*","Blood of your enemies washes right out!","Who are YOU wearing?","Look dapper! Look like an idiot!","Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*")
-	products = list(/obj/item/clothing/under/color/black = 10,/obj/item/clothing/under/color/blue = 10,/obj/item/clothing/under/color/green = 10,/obj/item/clothing/under/color/grey = 10,/obj/item/clothing/under/color/pink = 10,/obj/item/clothing/under/color/red = 10,
-					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/aqua = 10,/obj/item/clothing/under/color/purple = 10,/obj/item/clothing/under/color/lightgreen = 10,
-					/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/lightbrown = 10,/obj/item/clothing/under/color/brown = 10,/obj/item/clothing/under/color/yellowgreen = 10,/obj/item/clothing/under/color/darkblue = 10,/obj/item/clothing/under/color/lightred = 10, /obj/item/clothing/under/color/darkred = 10)
+	products = list(/obj/item/clothing/under/color/black = 10,
+		/obj/item/clothing/under/color/blue = 10,
+		/obj/item/clothing/under/color/green = 10,
+		/obj/item/clothing/under/color/grey = 10,
+		/obj/item/clothing/under/color/pink = 10,
+		/obj/item/clothing/under/color/red = 10,
+		/obj/item/clothing/under/color/white = 10,
+		/obj/item/clothing/under/color/yellow = 10,
+		/obj/item/clothing/under/color/lightblue = 10,
+		/obj/item/clothing/under/color/aqua = 10,
+		/obj/item/clothing/under/color/purple = 10,
+		/obj/item/clothing/under/color/lightgreen = 10,
+		/obj/item/clothing/under/color/lightblue = 10,
+		/obj/item/clothing/under/color/lightbrown = 10,
+		/obj/item/clothing/under/color/brown = 10,
+		/obj/item/clothing/under/color/yellowgreen = 10,
+		/obj/item/clothing/under/color/darkblue = 10,
+		/obj/item/clothing/under/color/lightred = 10,
+		/obj/item/clothing/under/color/darkred = 10,
+		/obj/item/clothing/under/colour/skirt = 10
+		)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/suitdispenser
