@@ -27,6 +27,7 @@
 	var/static/list/stop_attacking_phrases = list("Хорошо...", "Понимать...")
 	var/static/list/stop_attacking_angry_phrases = list("Гррр...")
 	var/static/list/stop_following_phrases = list("Больше не следовать...")
+	var/static/list/stop_defend_phrases = list("Больше не защищать...")
 	var/static/list/no_listen_phrases = list("Нет...", "Не буду...", "Не хотеть...", "Не слушать...")
 	var/static/list/madness_phrases = list("ААААААА!?!?", "ЧАВО?!?!", "БИТЬ!")
 
@@ -380,24 +381,19 @@
 
 
 /mob/living/simple_animal/slime/proc/handle_mood()
-	var/newmood = ""
-	if (rabid || attacked)
-		newmood = "angry"
-	else if (Target)
-		newmood = "mischievous"
+	if(rabid || attacked)
+		set_mood(SLIME_MOOD_ANGRY)
+	else if(Target)
+		set_mood(SLIME_MOOD_MISCHIEVOUS)
+	else if(Discipline)
+		set_mood(SLIME_MOOD_POUT)
+	else if((mood in list(SLIME_MOOD_SAD, SLIME_MOOD_3, SLIME_MOOD_33)) && prob(80))
+		return
+	set_mood(FALSE)
 
-	if (!newmood)
-		if (Discipline && prob(25))
-			newmood = "pout"
-		else if (prob(1))
-			newmood = pick("sad", ":3", "pout")
-
-	if ((mood == "sad" || mood == ":3" || mood == "pout") && !newmood)
-		if(prob(75))
-			newmood = mood
-
-	if(newmood != mood) // This is so we don't redraw them every time
-		mood = newmood
+/mob/living/simple_animal/slime/proc/set_mood(new_mood)
+	if(new_mood != mood)
+		mood = new_mood
 		regenerate_icons()
 
 
@@ -420,7 +416,6 @@
 		if(SLIME_COMMAND_GREETING)
 			to_say = pick(greeting_phrases)
 
-
 		if(SLIME_COMMAND_FOLLOW)
 			if(Friends[who] >= SLIME_FRIENDSHIP_FOLLOW)
 				if(Leader)
@@ -439,7 +434,6 @@
 			else
 				to_say = pick(no_listen_phrases)
 
-
 		if(SLIME_COMMAND_STAY)
 			if(Friends[who] >= SLIME_FRIENDSHIP_STAY)
 				if(Leader && Leader != who && Friends[who] < Friends[Leader])
@@ -451,8 +445,8 @@
 			else
 				to_say = pick(no_listen_phrases)
 
-
 		if(SLIME_COMMAND_STOP)
+			var/datum/component/slime_defender/slime_defender_component = GetComponent(/datum/component/slime_defender)
 			if(buckled) // We are asked to stop feeding
 				if(Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
 					Feedstop()
@@ -474,14 +468,19 @@
 						to_say = pick(stop_attacking_phrases)
 				else
 					to_say = pick(no_listen_phrases)
+			else if(slime_defender_component)
+				if(Friends[who] >= SLIME_FRIENDSHIP_STOPDEFEND)
+					slime_defender_component?.RemoveComponent()
+					Leader = null
+					to_say = pick(stop_defend_phrases)
+				else
+					to_say = pick(no_listen_phrases)
 			else if(Leader) // We are asked to stop following
 				if(Leader != who && Friends[who] < Friends[Leader])
 					to_say = pick(no_listen_phrases)
 				else
-					holding_still = Friends[who] * 10
 					Leader = null
 					to_say = pick(stop_following_phrases)
-
 
 		if(SLIME_COMMAND_ATTACK)
 			var/mob/living/attack_target = get_target_from_command(phrase)
@@ -525,6 +524,7 @@
 	if(to_say && !stat)
 		say(to_say)
 
+
 /mob/living/simple_animal/slime/proc/madness_check(target)
 	if(rabid && prob(20))
 		set_new_target(target, SLIME_BEHAVIOR_ATTACK, age_state.patience * 10)
@@ -532,89 +532,94 @@
 		return TRUE
 	return FALSE
 
-//переписать нахуй и добавить повышенные шансы на фразы при нужных условиях
+
 /mob/living/simple_animal/slime/proc/handle_random_phrases()
 	Random_phrase_CD = max(0, Random_phrase_CD - 1)
 	if(Random_phrase_CD)
 		return
+
 	if(prob(1))
 		emote(pick("bounce", "sway", "light", "vibrate", "jiggle"))
+		set_mood(SLIME_MOOD_3)
+		return
+
+	var/list/phrases = list()
+
+	var/slimes_near = 0
+	var/dead_slimes = 0
+	var/list/friends_near = list()
+	for(var/mob/living/L in view(7, src))
+		if(isslime(L) && L != src)
+			++slimes_near
+			if(L.stat == DEAD)
+				++dead_slimes
+		if(L in Friends)
+			friends_near += L
+
+	if(prob(sqrtor0(slimes_near)))
+		if(slimes_near > 1)
+			phrases += "Слаймы други..."
+		else if(slimes_near)
+			phrases += "Слайм друг..."
+
+	if(!slimes_near && prob(1))
+		set_mood(SLIME_MOOD_SAD)
+		phrases += "Одинокий..."
+
+	if(prob(dead_slimes))
+		set_mood(SLIME_MOOD_SAD)
+		phrases += "Что с ним быть?"
+
+	for(var/M in friends_near)
+		if(prob(clamp(Friends[M]/10, 0, 3)))
+			if(nutrition < age_state.hunger_nutrition)
+				set_mood(SLIME_MOOD_SAD)
+				phrases += "[M]... дать еда..."
+			else
+				set_mood(SLIME_MOOD_3)
+				phrases += "[M]... друг..."
+
+	if((powerlevel > 3) && prob(1))
+		phrases += "Бззз..."
+	else if((powerlevel > 5) && prob(1))
+		phrases += "Вжжж..."
+	else if((powerlevel > 8) && prob(1))
+		phrases += "ЖЖЖ!"
+
+	if(Target && prob(3))
+		phrases += "[Target]... вкусный..."
+
+	if((nutrition < age_state.hunger_nutrition) && prob(1) || (nutrition < age_state.starve_nutrition) && prob(5))
+		set_mood(SLIME_MOOD_SAD)
+		phrases += pick("Хотеть... еда...", "Нужен... еда...", \
+						"Голодный...", "Где еда?", "Хотеть есть...")
+
+	if((rabid || attacked) && prob(10))
+		phrases += pick("Грр...", "Рррр...", "Хррр...", "Унн...")
+
+	if(prob(1))
+		phrases += pick("Равр...", "Блоп...", "Плюх...", "Буп...", "Блорблюм...", "Блорбл...")
+
+	if(mood == SLIME_MOOD_3 && prob(10))
+		set_mood(SLIME_MOOD_33)
+		phrases += "Мурр..."
+
+	if(mood == SLIME_MOOD_SAD && prob(10))
+		phrases += "Скучно..."
+
+	if(bodytemperature < SLIME_THAW_TEMPERATURE && prob(10))
+		set_mood(SLIME_MOOD_SAD)
+		phrases += pick("Холод...")
+
+	if(buckled)
+		var/mob/living/food = buckled
+		if(food?.client && prob(10) || !food?.client && prob(1))
+			set_mood(SLIME_MOOD_3)
+			phrases += pick("Ням...", "Вкусно...")
+
+	if(!stat && phrases.len)
 		Random_phrase_CD = 10
-	else
-		var/t = 10
-		var/slimes_near = 0
-		var/dead_slimes = 0
-		var/list/friends_near = list()
-		for(var/mob/living/L in view(7, src))
-			if(isslime(L) && L != src)
-				++slimes_near
-				if (L.stat == DEAD)
-					++dead_slimes
-			if(L in Friends)
-				t += 20
-				friends_near += L
-		if(nutrition < age_state.hunger_nutrition)
-			t += 10
-		if(nutrition < age_state.starve_nutrition)
-			t += 10
-		if(prob(2) && prob(t))
-			var/list/phrases = list()
-			if(Target)
-				phrases += "[Target]... look yummy..."
-			if(nutrition < age_state.starve_nutrition)
-				phrases += "So... hungry..."
-				phrases += "Very... hungry..."
-				phrases += "Need... food..."
-				phrases += "Must... eat..."
-			else if(nutrition < age_state.hunger_nutrition)
-				phrases += "Hungry..."
-				phrases += "Where food?"
-				phrases += "I want to eat..."
-			phrases += "Rawr..."
-			phrases += "Blop..."
-			phrases += "Blorble..."
-			if(rabid || attacked)
-				phrases += "Hrr..."
-				phrases += "Nhuu..."
-				phrases += "Unn..."
-			if(mood == ":3")
-				phrases += "Purr..."
-			if(attacked)
-				phrases += "Grrr..."
-			if(bodytemperature < T0C)
-				phrases += "Cold..."
-			if(bodytemperature < T0C - 30)
-				phrases += "So... cold..."
-				phrases += "Very... cold..."
-			if(bodytemperature < T0C - 50)
-				phrases += "..."
-				phrases += "C... c..."
-			if(buckled)
-				phrases += "Nom..."
-				phrases += "Yummy..."
-			if(powerlevel > 3)
-				phrases += "Bzzz..."
-			if(powerlevel > 5)
-				phrases += "Zap..."
-			if(powerlevel > 8)
-				phrases += "Zap... Bzz..."
-			if(mood == "sad")
-				phrases += "Bored..."
-			if(slimes_near)
-				phrases += "Slime friend..."
-			if(slimes_near > 1)
-				phrases += "Slime friends..."
-			if(dead_slimes)
-				phrases += "What happened?"
-			if(!slimes_near)
-				phrases += "Lonely..."
-			for(var/M in friends_near)
-				phrases += "[M]... friend..."
-				if(nutrition < age_state.hunger_nutrition)
-					phrases += "[M]... feed me..."
-			if(!stat)
-				Random_phrase_CD = 10
-				say(pick(phrases))
+		say(pick(phrases))
 
 
 /mob/living/simple_animal/slime/proc/identify_command(text)

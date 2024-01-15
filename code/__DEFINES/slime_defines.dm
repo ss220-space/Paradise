@@ -28,6 +28,14 @@
 #define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
 #define SLIME_FRIENDSHIP_DEFEND				10 //Min friendship to order it to defend
+#define SLIME_FRIENDSHIP_STOPDEFEND			10 //Min friendship to order it to stop defend
+
+#define SLIME_MOOD_ANGRY "angry"
+#define SLIME_MOOD_MISCHIEVOUS "mischievous"
+#define SLIME_MOOD_SAD "sad"
+#define SLIME_MOOD_POUT "pout"
+#define SLIME_MOOD_3 ":3"
+#define SLIME_MOOD_33 ":33"
 
 #define SLIME_HUNGER_NOT_HUNGRY 0
 #define SLIME_HUNGER_HUNGRY 1
