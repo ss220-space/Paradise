@@ -337,6 +337,15 @@
 	speed = 3
 	layer = 30
 
+/obj/screen/parallax_layer/planet/Initialize(mapload)
+	. = ..()
+	switch(SSmapping.lavaland_theme)
+		if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface)
+			icon_state = "planet"
+		if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma)
+			icon_state = "planet_plasma"
+		if(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
+			icon_state = "planet_canyon"
 
 /obj/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)
