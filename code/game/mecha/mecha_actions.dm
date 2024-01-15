@@ -319,3 +319,18 @@
 	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
 	chassis.visible_message("[chassis] raises [equipment.name]")
 	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())
+
+/datum/action/innate/mecha/mech_repairdrone_trigger
+	name = "Toggles repair drone"
+	var/obj/item/mecha_parts/mecha_equipment/repair_droid/repaidroid
+
+/datum/action/innate/mecha/mech_repairdrone_trigger/Grant(mob/living/L, obj/mecha/M, obj/item/mecha_parts/mecha_equipment/_equipment)
+	repaidroid = _equipment
+	icon_icon = repaidroid.icon
+	button_icon_state = repaidroid.icon_state
+	. = ..()
+
+/datum/action/innate/mecha/mech_repairdrone_trigger/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	repaidroid.toggle_repairdroid()

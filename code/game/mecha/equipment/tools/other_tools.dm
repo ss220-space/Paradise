@@ -219,27 +219,40 @@
 	chassis.overlays -= droid_overlay
 	STOP_PROCESSING(SSobj, src)
 
+/obj/item/mecha_parts/mecha_equipment/repair_droid/give_targeted_action()
+	var/datum/action/innate/mecha/mech_repairdrone_trigger/select_action = new
+	select_action.Grant(chassis.occupant, chassis, src)
+	chassis.select_actions[src] = select_action
+
+/obj/item/mecha_parts/mecha_equipment/repair_droid/remove_targeted_action()
+	if(chassis.select_actions[src])
+		var/datum/action/innate/mecha/mech_repairdrone_trigger/select_action = chassis.select_actions[src]
+		select_action.Remove(chassis.occupant)
+
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
 	return " <a href='?src=[UID()];toggle_repairs=1'>[!active_mode?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
 	if(href_list["toggle_repairs"])
-		if(!action_checks(src))
-			return
-		chassis.overlays -= droid_overlay
-		if(!active_mode)
-			START_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid_a")
-			log_message("Activated.")
-		else
-			STOP_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid")
-			log_message("Deactivated.")
-		active_mode = !active_mode
-		chassis.overlays += droid_overlay
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		start_cooldown()
+		toggle_repairdroid()
+
+/obj/item/mecha_parts/mecha_equipment/repair_droid/proc/toggle_repairdroid()
+	if(!action_checks(src))
+		return
+	chassis.overlays -= droid_overlay
+	if(!active_mode)
+		START_PROCESSING(SSobj, src)
+		droid_overlay = new(icon, icon_state = "repair_droid_a")
+		log_message("Droid activated.")
+	else
+		STOP_PROCESSING(SSobj, src)
+		droid_overlay = new(icon, icon_state = "repair_droid")
+		log_message("Droid deactivated.")
+	active_mode = !active_mode
+	chassis.overlays += droid_overlay
+	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/process()
 	if(!chassis)
