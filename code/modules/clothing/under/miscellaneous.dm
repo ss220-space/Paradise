@@ -134,6 +134,17 @@
 	icon_state = "navy_goldf"
 	item_state = "navy_goldf"
 	item_color = "navy_goldf"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
 
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
@@ -312,6 +323,11 @@
 	icon_state = "red_suitf"
 	item_state = "r_suit"
 	item_color = "red_suitf"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+		)
 
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
@@ -1027,6 +1043,17 @@
 	item_state = "colorize_skirt"
 	item_color = "colorize_skirt"
 	var/colour = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
 
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
 	. = ..()

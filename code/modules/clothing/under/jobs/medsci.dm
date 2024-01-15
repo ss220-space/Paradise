@@ -37,8 +37,8 @@
 
 /obj/item/clothing/under/rank/scientist/student/assistant
 	name = "scientist assistant jumpsuit"
-	icon_state = "sci_ass_f_s"
-	item_color = "sci_ass_f"
+	icon_state = "sci_ass_s"
+	item_color = "sci_ass"
 
 /obj/item/clothing/under/rank/scientist/student/assistant/skirt
 	name = "scientist assistant jumpskirt"

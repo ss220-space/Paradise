@@ -275,6 +275,11 @@
 	path = /obj/item/clothing/under/rank/centcom/officer/skirt
 	allowed_roles = list("Nanotrasen Navy Officer")
 
+/datum/gear/uniform/skirt/job/internalaffairs
+	display_name = "skirt, internalaffairs"
+	path = /obj/item/clothing/under/rank/internalaffairs/skirt
+	allowed_roles = list("Internal Affairs Agent")
+
 /datum/gear/uniform/medical
 	subtype_path = /datum/gear/uniform/medical
 

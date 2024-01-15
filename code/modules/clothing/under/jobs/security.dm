@@ -24,6 +24,13 @@
 	icon_state = "wardenf"
 	item_state = "r_suit"
 	item_color = "wardenf"
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+	)
 
 /obj/item/clothing/under/rank/security
 	name = "security officer's jumpsuit"
@@ -66,6 +73,13 @@
 	icon_state = "secredf"
 	item_state = "r_suit"
 	item_color = "secredf"
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+	)
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
@@ -123,16 +137,12 @@
 	icon_state = "detective_skirt"
 	item_color = "detective_skirt"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/uniform.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/uniform.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/vulpkanin/uniform.dmi'
-		)
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+	)
 
 /obj/item/clothing/under/det/noir
 	name = "hard-worn black suit"
@@ -147,6 +157,7 @@
 	icon_state = "noirdet_skirt"
 	item_state = "noir_skirt"
 	item_color = "noirdet_skirt"
+	sprite_sheets = null
 
 /obj/item/clothing/under/det/alt_a
 	icon_state = "detective_suit"
@@ -190,6 +201,13 @@
 	icon_state = "hosredf"
 	item_state = "r_suit"
 	item_color = "hosredf"
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+	)
 
 /obj/item/clothing/under/rank/head_of_security/corp
 	icon_state = "hos_corporate"
@@ -205,11 +223,12 @@
 	icon_state = "hosalt_skirt"
 	item_state = "hosalt_skirt"
 	item_color = "hosalt_skirt"
-
+	sprite_sheets = null
 /obj/item/clothing/under/rank/head_of_security/paradef
 	icon_state = "hos_parade_fem"
 	item_state = "hos_parade_fem"
 	item_color = "hos_parade_fem"
+	sprite_sheets = null
 
 //Jensen cosplay gear
 
@@ -283,6 +302,17 @@
 	item_state = "brig_physf"
 	item_color = "brig_physf"
 	permeability_coefficient = 0.50
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
 
 /obj/item/clothing/under/rank/security/brigmedical
 	desc = "Комбинезон медика СБ синего цвета 26-го века. Является компромиссом между санитарными нормами и стандартами защиты."
@@ -298,6 +328,7 @@
 	icon_state = "brigmed_skirt"
 	item_state = "brigmed_skirt"
 	item_color = "brigmed_skirt"
+	sprite_sheets = null
 
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot
