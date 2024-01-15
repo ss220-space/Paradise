@@ -120,8 +120,8 @@
 			return
 		AI.forceMove(src)
 		occupant = AI
-		AI.control_disabled = 1
-		AI.aiRadio.disabledAi = 1
+		AI.control_disabled = TRUE
+		AI.aiRadio.disabledAi = TRUE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here.")
 		to_chat(user, span_boldnotice("Transfer successful: ") + "[AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 		update_icon()
