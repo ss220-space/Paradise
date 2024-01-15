@@ -419,7 +419,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Glitchman",
 		"House",
 		"Database",
-		"Alien"
+		"Alien",
+		"Cheese",
+		"Voiddonut",
+		"Bee",
+		"Fox",
+		"Tiger",
+		"Vox",
+		"Liz",
+		"Darkmatter",
+		"Nadburn",
+		"Rainbowslime",
+		"Borb",
+		"Catamari"
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -502,6 +514,30 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-database"
 		if("Alien")
 			icon_state = "ai-alien"
+		if("Cheese")
+			icon_state = "ai-cheese"
+		if("Voiddonut")
+			icon_state = "ai-voiddonut"
+		if("Bee")
+			icon_state = "ai-bee"
+		if("Fox")
+			icon_state = "ai-fox"
+		if("Tiger")
+			icon_state = "ai-tiger"
+		if("Vox")
+			icon_state = "ai-vox"
+		if("Liz")
+			icon_state = "ai-liz"
+		if("Darkmatter")
+			icon_state = "ai-darkmatter"
+		if("Nadburn")
+			icon_state = "ai-nadburn"
+		if("Rainbowslime")
+			icon_state = "ai-rainbowslime"
+		if("Borb")
+			icon_state = "ai-borb"
+		if("Catamari")
+			icon_state = "ai-catamari"
 		else
 			icon_state = "ai"
 	//else

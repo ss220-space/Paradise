@@ -225,7 +225,7 @@
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(HULK in user.mutations)
-		to_chat(user, SPAN_WARNING("You lack the grace to wield this!"))
+		to_chat(user, span_warning("You lack the grace to wield this!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 
 

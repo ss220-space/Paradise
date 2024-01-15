@@ -32,11 +32,11 @@
 		return
 
 	if(force && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
-		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
+		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return
 
 	H.AdjustEyeBlurry(8 SECONDS)
-	to_chat(H, SPAN_DANGER("You feel a buzz in your head and your vision gets blurry."))
+	to_chat(H, span_danger("You feel a buzz in your head and your vision gets blurry."))
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"

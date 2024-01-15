@@ -71,7 +71,7 @@
 	if(rotting)
 		. += span_warning("There is fungus growing on [src].")
 
-/turf/simulated/wall/proc/update_icon()
+/turf/simulated/wall/update_icon()
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 

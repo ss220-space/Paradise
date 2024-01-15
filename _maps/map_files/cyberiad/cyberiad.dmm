@@ -1012,7 +1012,9 @@
 /turf/simulated/floor/carpet,
 /area/security/hos)
 "aew" = (
-/obj/machinery/vending/medical,
+/obj/machinery/vending/medical{
+	req_access = list(3, 5, 19)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -19077,7 +19079,7 @@
 	},
 /area/crew_quarters/sleep)
 "aYx" = (
-/obj/structure/crematorium,
+/obj/machinery/crematorium,
 /obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"

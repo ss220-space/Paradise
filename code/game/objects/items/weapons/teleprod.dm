@@ -6,18 +6,25 @@
 	item_state = "teleprod"
 	origin_tech = "combat=2;bluespace=4;materials=3"
 
-/obj/item/melee/baton/cattleprod/teleprod/attack(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
-	..()
-	if(status)
-		if((CLUMSY in user.mutations) && prob(50))
-			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>", \
-								"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-			user.Weaken(stunforce*3)
-			deductcharge(hitcost)
-			var/turf/T = get_turf(user)
-			do_teleport(user, get_turf(user), 50)//honk honk
-			user.investigate_log("[key_name_log(user)] teleprodded himself from [COORD(T)].", INVESTIGATE_TELEPORTATION)
-		else if(iscarbon(M) && !M.anchored)
-			var/turf/T = get_turf(M)
-			do_teleport(M, get_turf(M), 15)
-			user.investigate_log("[key_name_log(user)] teleprodded [key_name_log(M)] from [COORD(T)] to [COORD(M)].", INVESTIGATE_TELEPORTATION)
+
+/obj/item/melee/baton/cattleprod/teleprod/attack(mob/living/target, mob/living/user)//handles making things teleport when hit
+	. = ..()
+	if(!turned_on)
+		return
+
+	if((CLUMSY in user.mutations) && prob(50))
+		user.visible_message(
+			span_danger("[user] accidentally hits [user.p_themselves()] with [src]!"),
+			span_userdanger("You accidentally hit yourself with [src]!"),
+		)
+		deductcharge(hitcost)
+		var/turf/user_turf = get_turf(user)
+		do_teleport(user, user_turf, 50)//honk honk
+		user.investigate_log("[key_name_log(user)] teleprodded himself from [COORD(user_turf)].", INVESTIGATE_TELEPORTATION)
+		return
+
+	if(iscarbon(target) && !target.anchored)
+		var/turf/target_turf = get_turf(target)
+		do_teleport(target, target_turf, 15)
+		user.investigate_log("[key_name_log(user)] teleprodded [key_name_log(target)] from [COORD(target_turf)] to [COORD(target)].", INVESTIGATE_TELEPORTATION)
+
