@@ -25,6 +25,8 @@
 	item_state = "r_suit"
 	item_color = "wardenf"
 	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
@@ -74,12 +76,15 @@
 	item_state = "r_suit"
 	item_color = "secredf"
 	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
 	)
+
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
@@ -137,12 +142,15 @@
 	icon_state = "detective_skirt"
 	item_color = "detective_skirt"
 	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
 	)
+
 
 /obj/item/clothing/under/det/noir
 	name = "hard-worn black suit"
@@ -157,7 +165,10 @@
 	icon_state = "noirdet_skirt"
 	item_state = "noir_skirt"
 	item_color = "noirdet_skirt"
-	sprite_sheets = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+	)
 
 /obj/item/clothing/under/det/alt_a
 	icon_state = "detective_suit"
@@ -202,6 +213,8 @@
 	item_state = "r_suit"
 	item_color = "hosredf"
 	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
@@ -223,12 +236,21 @@
 	icon_state = "hosalt_skirt"
 	item_state = "hosalt_skirt"
 	item_color = "hosalt_skirt"
-	sprite_sheets = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+	)
+
 /obj/item/clothing/under/rank/head_of_security/paradef
+	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer. Made for parades."
+	name = "head of security's parade jumpskirt"
 	icon_state = "hos_parade_fem"
 	item_state = "hos_parade_fem"
 	item_color = "hos_parade_fem"
-	sprite_sheets = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+	)
 
 //Jensen cosplay gear
 
@@ -328,7 +350,10 @@
 	icon_state = "brigmed_skirt"
 	item_state = "brigmed_skirt"
 	item_color = "brigmed_skirt"
-	sprite_sheets = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+	)
 
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot

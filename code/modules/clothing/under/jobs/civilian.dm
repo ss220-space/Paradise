@@ -68,6 +68,7 @@
 	icon_state = "chapblackf"
 	item_state = "bl_suit"
 	item_color = "chapblackf"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/rank/chaplain/sensor
 	sensor_mode = SENSOR_COORDS
