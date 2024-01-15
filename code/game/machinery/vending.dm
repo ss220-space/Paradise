@@ -1654,7 +1654,8 @@
 	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
 	icon_state = "suits"
 	ads_list = list("Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*","Blood of your enemies washes right out!","Who are YOU wearing?","Look dapper! Look like an idiot!","Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*")
-	products = list(/obj/item/clothing/under/color/black = 10,
+	products = list(
+		/obj/item/clothing/under/color/black = 10,
 		/obj/item/clothing/under/color/blue = 10,
 		/obj/item/clothing/under/color/green = 10,
 		/obj/item/clothing/under/color/grey = 10,
