@@ -523,11 +523,11 @@
 	. = ..()
 	if(color)
 		var/mutable_appearance/suspenders_overlay = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_overlay")
-		+= suspenders_overlay
+		. += suspenders_overlay
+		var/mutable_appearance/suspenders_clips = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_clips", appearance_flags = RESET_COLOR)
+		. += suspenders_clips
 
 		
-		
-	
 
 /obj/item/clothing/suit/suspenders/nodrop
 	flags = NODROP
