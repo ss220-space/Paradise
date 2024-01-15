@@ -79,3 +79,6 @@
   - server: Automatic NanoMap Update (#4210)
   p4el007:
   - add: new screens for AI (#4140)
+'2024-01-15':
+  NightDawnFox:
+  - add: new lavaland generation types (#4071)
