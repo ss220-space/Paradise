@@ -117,7 +117,7 @@
 
 
 //BUCKLE HOOKS
-/obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
+/obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall = TRUE)
 	if(istype(buckled_mob))
 		buckled_mob.pixel_x = 0
 		buckled_mob.pixel_y = 0

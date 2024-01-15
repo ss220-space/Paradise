@@ -106,9 +106,16 @@
 	var/no_scoop = FALSE   //if it has this, don't let it be scooped up
 	var/no_clear = FALSE    //if it has this, don't delete it when its' scooped up
 	var/list/scoop_reagents = null
+	var/turf_loc_check = TRUE
 
 /obj/effect/decal/Initialize(mapload)
 	. = ..()
+	if(turf_loc_check && (!isturf(loc) || NeverShouldHaveComeHere(loc)))
+		return INITIALIZE_HINT_QDEL
+	var/static/list/loc_connections = list(
+		COMSIG_TURF_CHANGED = PROC_REF(handle_turf_change),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	if(scoop_reagents)
 		create_reagents(100)
 		reagents.add_reagent_list(scoop_reagents)
@@ -144,4 +151,16 @@
 
 /obj/effect/decal/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
+		qdel(src)
+
+///Checks if we are allowed to be in `here_turf`, and returns that result. Subtypes should override this when necessary.
+/obj/effect/decal/proc/NeverShouldHaveComeHere(turf/here_turf)
+	return (isopenspaceturf(here_turf) || iswallturf(here_turf))
+
+/obj/effect/decal/proc/handle_turf_change(turf/source, path, list/new_baseturfs, flags, list/post_change_callbacks)
+	SIGNAL_HANDLER
+	post_change_callbacks += CALLBACK(src, PROC_REF(sanity_check_self))
+
+/obj/effect/decal/proc/sanity_check_self(turf/changed)
+	if(changed == loc && NeverShouldHaveComeHere(changed))
 		qdel(src)

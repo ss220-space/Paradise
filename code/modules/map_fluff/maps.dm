@@ -3,6 +3,7 @@
 	var/map_path = ""
 	var/lavaland_path = "_maps/map_files/generic/Lavaland.dmm"
 	var/admin_only = FALSE
+	var/multiz = null // num: how many z-level we have
 
 	var/station_name  = "BAD Station"
 	var/station_short = "Baddy"

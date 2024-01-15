@@ -504,3 +504,6 @@
 #define BLOCKED_BURROWS "Blocked Burrows"
 #define CLASSIC_CAVES "Classic Caves"
 #define DEADLY_DEEPROCK "Deadly Deeprock"
+
+/// Disposal: How frequently disposals can make sounds, to prevent huge sound stacking
+#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)

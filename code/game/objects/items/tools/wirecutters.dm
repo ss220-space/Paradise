@@ -25,6 +25,10 @@
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
 
+/obj/item/wirecutters/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
+
 /obj/item/wirecutters/New(loc, param_color = null)
 	..()
 	if(random_color)

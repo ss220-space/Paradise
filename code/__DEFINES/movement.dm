@@ -39,12 +39,14 @@
 #define ZMOVE_VENTCRAWLING (1<<8)
 /// Includes movables that're either pulled by the source or mobs buckled to it in the list of moving movables.
 #define ZMOVE_INCLUDE_PULLED (1<<9)
+/// Skips check for whether the moving atom is anchored or not.
+#define ZMOVE_ALLOW_ANCHORED (1<<10)
 
 #define ZMOVE_CHECK_PULLS (ZMOVE_CHECK_PULLING|ZMOVE_CHECK_PULLEDBY)
 
 /// Flags used in "Move Upwards" and "Move Downwards" verbs.
 #define ZMOVE_FLIGHT_FLAGS (ZMOVE_CAN_FLY_CHECKS|ZMOVE_INCAPACITATED_CHECKS|ZMOVE_CHECK_PULLS|ZMOVE_ALLOW_BUCKLED)
 /// Used when walking upstairs
-#define ZMOVE_STAIRS_FLAGS (ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED)
+#define ZMOVE_STAIRS_FLAGS (ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
 /// Used for falling down open space.
 #define ZMOVE_FALL_FLAGS (ZMOVE_FALL_CHECKS|ZMOVE_ALLOW_BUCKLED)

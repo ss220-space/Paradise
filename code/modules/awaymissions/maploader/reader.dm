@@ -19,13 +19,16 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
  * If `measureOnly` is set, then no atoms will be created, and all this will do
  * is return the bounds after parsing the file
  *
+ * `increaseZ` if parsing multi-z map but without preparing zlevel manually or on loaded zlevels.
+ * If needed, it'll make zlevel if we z_offset is at maxz or near. Basically for safety.
+ *
  * If you need to freeze init while you're working, you can use the spacial allocator's
  * "add_dirt" and "remove_dirt" which will put initializations on hold until you say
  * the word. This is important for loading large maps such as the cyberiad, where
  * atmos will attempt to start before it's ready, causing runtimes galore if init is
  * allowed to romp unchecked.
  */
-/datum/dmm_suite/proc/load_map(dmm_file, x_offset = 0, y_offset = 0, z_offset = 0, shouldCropMap = FALSE, measureOnly = FALSE)
+/datum/dmm_suite/proc/load_map(dmm_file, x_offset = 0, y_offset = 0, z_offset = 0, shouldCropMap = FALSE, measureOnly = FALSE, increaseZ = TRUE)
 	var/tfile = dmm_file// the map file we're creating
 	var/fname = "Lambda"
 	if(isfile(tfile))
@@ -86,8 +89,8 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 				if(!measureOnly)
 					if(zcrd > world.maxz)
-						if(shouldCropMap)
-							continue
+						if(!increaseZ)
+							continue // Beware of runtimes. Beware of trying to add content on non-existed z level.
 						else
 							GLOB.space_manager.increase_max_zlevel_to(zcrd) // create a new z_level if needed
 

@@ -59,8 +59,8 @@
 #define ZTRAIT_DOWN "Down"
 
 #define ZTRAIT_GRAVITY "Gravity"	// determines if z-level power with generator from another z-level
-#define ZTRAIT_LINKAGE "Linkage"	// enum - how space transitions should affect this level
-#define ZTRAIT_BASETURF "Baseturf"	// string - type path of the z-level's baseturf (defaults to space)
+#define ZTRAIT_OPENSPACE "Openspace"// Used to determine which levels uses /turf/simulated/openspace as baseturf
+#define ZTRAIT_LAVALAND "Lavaland"	// Determines if level is lavaland
 
 // 3 Is already big one hella station.
 // Making over 3 may consider some big impact on space levels but it saned to top.

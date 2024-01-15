@@ -125,7 +125,7 @@
 
 //Note: the following functions don't call the base for optimization and must copypasta:
 // /turf/Initialize
-// /turf/open/space/Initialize
+// /turf/simulated/space/Initialize
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -266,6 +266,10 @@
 				var/mob/living/L = M.loc
 				L.drop_item_ground(M)
 			M.forceMove(src)
+
+/atom/proc/intercept_zImpact(list/falling_movables, levels = 1)
+	SHOULD_CALL_PARENT(TRUE)
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, falling_movables, levels)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	qdel(giver)
@@ -1432,6 +1436,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * for them to use. If you add more to it, make sure you do that, or things will behave strangely
  *
  * Gravity situations:
+ * * Gravity if global admin override
+ * * Gravity if the z-level has trait ZTRAIT_GRAVITY
  * * No gravity if you're not in a turf
  * * No gravity if this atom is in is a space turf
  * * Gravity if the area it's in always has gravity
@@ -1439,7 +1445,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * * otherwise no gravity
  */
 /atom/proc/has_gravity(turf/gravity_turf)
-	if(!isnull(GLOB.gravity_is_on))	// global admeme override, WATCH OUT!
+	if(!isnull(GLOB.gravity_is_on))	// global admin override
 		return GLOB.gravity_is_on
 
 	if(!isturf(gravity_turf))
@@ -1447,6 +1453,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 		if(!gravity_turf)//no gravity in nullspace
 			return FALSE
+
+	if(check_level_trait(gravity_turf.z, ZTRAIT_GRAVITY))
+		return TRUE
 
 	var/list/forced_gravity = list()
 	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)

@@ -49,6 +49,13 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_icon = "manifold4w"
 	rpd_dispensable = TRUE
 
+/datum/pipes/atmospheric/multiz
+	pipe_name = "multiz pipe"
+	pipe_id = PIPE_MULTIZ
+	orientations = 4
+	pipe_icon = "multiz"
+	rpd_dispensable = TRUE
+
 /datum/pipes/atmospheric/cap
 	pipe_name = "pipe cap"
 	pipe_id = PIPE_CAP

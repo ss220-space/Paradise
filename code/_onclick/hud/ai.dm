@@ -140,6 +140,24 @@
 		var/mob/living/silicon/robot/borg = usr
 		borg.sensor_mode()
 
+/obj/screen/ai/move_up
+	name = "Move up a floor"
+	icon_state = "move_up"
+
+/obj/screen/ai/move_up/Click()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.up()
+
+/obj/screen/ai/move_down
+	name = "Move down a floor"
+	icon_state = "move_down"
+
+/obj/screen/ai/move_up/Click()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.down()
+
 /mob/living/silicon/ai/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/ai(src)
@@ -233,3 +251,13 @@
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using
+
+//Medical/Security sensors
+	using = new /obj/screen/ai/move_up()
+	using.screen_loc = ui_ai_up
+	static_inventory += using
+
+//Medical/Security sensors
+	using = new /obj/screen/ai/move_down()
+	using.screen_loc = ui_ai_down
+	static_inventory += using

@@ -23,6 +23,9 @@
 	heavyfootstep = null
 	force_no_gravity = TRUE
 
+	//when this be added to vis_contents of something it be associated with something on clicking,
+	//important for visualisation of turf in openspace and interraction with openspace that show you turf.
+	vis_flags = VIS_INHERIT_ID
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -137,13 +140,13 @@
 
 	if(destination_z && destination_x && destination_y)
 		destination_z = check_taipan_availability(A, destination_z)
-		A.forceMove(locate(destination_x, destination_y, destination_z))
+		A.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
 
 		if(isliving(A))
 			var/mob/living/L = A
 			if(L.pulling)
 				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.forceMove(T)
+				L.pulling.zMove(null, T, ZMOVE_ALLOW_BUCKLED)
 
 		//now we're on the new z_level, proceed the space drifting
 		spawn(0)//Let a diagonal move finish, if necessary
@@ -348,4 +351,22 @@
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
+	return TRUE
+
+// the space turf SHOULD be on first z level. meaning we have invisible floor but only for movable atoms.
+/turf/space/zPassIn(direction)
+	if(direction != DOWN)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & BLOCK_Z_IN_DOWN)
+			return FALSE
+	return TRUE
+
+//direction is direction of travel of an atom
+/turf/space/zPassOut(direction)
+	if(direction != UP)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & BLOCK_Z_OUT_UP)
+			return FALSE
 	return TRUE

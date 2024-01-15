@@ -35,7 +35,7 @@
 	icon_state = "wallglow"
 	layer = TURF_LAYER + 0.07
 
-/obj/effect/temp_visual/cult/turf/open/floor
+/obj/effect/temp_visual/cult/turf/simulated/floor
 	icon_state = "floorglow"
 	duration = 5
 	plane = FLOOR_PLANE

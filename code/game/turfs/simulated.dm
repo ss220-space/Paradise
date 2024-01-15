@@ -145,4 +145,26 @@
 
 /turf/simulated/proc/is_shielded()
 
+// for floors and walls to go inside our turf
+/turf/simulated/zPassIn(direction)
+	if(density)
+		return FALSE // wall
+	if(direction != DOWN)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & BLOCK_Z_IN_DOWN)
+			return FALSE
+	return TRUE
+
+/turf/simulated/zPassOut(direction)
+	if(density)
+		return FALSE
+	if(direction != UP) // only up. no down from the floor
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & BLOCK_Z_OUT_UP)
+			return FALSE
+	return TRUE
+
+
 #undef WATER_WEAKEN_TIME

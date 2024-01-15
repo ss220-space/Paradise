@@ -4,6 +4,7 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null
+	baseturf = /turf/baseturf_bottom
 
 	var/unfastened = FALSE
 
@@ -137,7 +138,7 @@
 		update_icon()
 
 /turf/simulated/floor/plating/remove_plating(mob/user)
-	if(baseturf == /turf/space)
+	if(baseturf == /turf/baseturf_bottom)
 		ReplaceWithLattice()
 	else
 		TerraformTurf(baseturf)

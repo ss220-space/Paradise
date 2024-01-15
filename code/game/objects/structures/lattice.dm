@@ -16,6 +16,7 @@
 						/obj/structure/falsewall,
 						/obj/structure/lattice/fireproof)
 	smooth = SMOOTH_MORE
+	obj_flags = BLOCK_Z_OUT_DOWN
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
@@ -105,6 +106,7 @@
 	number_of_rods = 2
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
+	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")

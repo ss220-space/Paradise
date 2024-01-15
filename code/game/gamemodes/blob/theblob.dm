@@ -19,6 +19,7 @@
 	var/compromised_integrity = FALSE
 	var/mob/camera/blob/overmind
 	creates_cover = TRUE
+	obj_flags = BLOCK_Z_OUT_DOWN // stops blob mobs from falling on multiz.
 
 /obj/structure/blob/Initialize(mapload)
 	. = ..()

@@ -12,6 +12,10 @@
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
+// #define TRANSPARENT_FLOOR_PLANE -10 //Transparent plane that shows openspace underneath the floor // У нас код хорошо справляется, а это ломает
+#define OPENSPACE_PLANE -9 //Openspace plane below all turfs
+#define OPENSPACE_BACKDROP_PLANE -8 //Black square just over openspace plane to guaranteed cover all in openspace turf
+
 #define FLOOR_PLANE -2
 #define FLOOR_OVERLAY_PLANE -1.5
 #define GAME_PLANE -1
@@ -32,7 +36,8 @@
 #define WIRE_TERMINAL_LAYER 1.75
 #define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
 #define TRAY_SCAN_LAYER_OFFSET 0.5 // place images above TURF_LAYER
-#define BELOW_TURF_LAYER 1.98
+#define TRANSPARENT_PLATING_LAYER 1.98
+#define TRANSPARENT_GIRDER_LAYER 1.99 // for turf_transparency
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
 #define ABOVE_TRANSPARENT_TURF_LAYER 2.01
 #define MID_TURF_LAYER 2.02
@@ -119,7 +124,6 @@
 #define O_LIGHTING_VISUAL_PLANE 16
 #define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
 
-
 #define ABOVE_LIGHTING_PLANE 17
 #define ABOVE_LIGHTING_LAYER 17
 
@@ -154,6 +158,8 @@
 
 // This should always be on top. No exceptions.
 #define HUD_PLANE_DEBUGVIEW 50
+
+#define OPENSPACE_LAYER 600 //Openspace layer over all
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"

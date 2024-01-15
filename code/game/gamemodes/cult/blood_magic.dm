@@ -832,7 +832,7 @@
 					temp += 30
 				else
 					temp += max((B.bloodiness ** 2) / 800, 1)
-				new /obj/effect/temp_visual/cult/turf/open/floor(get_turf(B))
+				new /obj/effect/temp_visual/cult/turf/simulated/floor(get_turf(B))
 				qdel(B)
 		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))
 			qdel(TH)

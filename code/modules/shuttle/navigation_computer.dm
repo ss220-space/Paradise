@@ -307,8 +307,8 @@
 	src.origin = origin
 	return ..()
 
-/mob/camera/aiEye/remote/shuttle_docker/setLoc(T)
-	if(/*istype(get_turf(T), /turf/space) ||*/ istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle) ||  istype(get_area(T), /area/lavaland) || istype(get_area(T), /area/ruin))
+/mob/camera/aiEye/remote/shuttle_docker/setLoc(turf/destination, force_update = FALSE)
+	if(/*istype(get_turf(T), /turf/space) ||*/ istype(get_area(destination), /area/space) || istype(get_area(destination), /area/shuttle) ||  istype(get_area(destination), /area/lavaland) || istype(get_area(destination), /area/ruin))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()

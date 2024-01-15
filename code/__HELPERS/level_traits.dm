@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 
 /proc/check_level_trait(z, trait)
 	if(!z)
-		return 0 // If you're nowhere, you have no traits
+		return FALSE // If you're nowhere, you have no traits
 	var/list/trait_list
 	if(GLOB.space_manager.initialized)
 		var/datum/space_level/S = GLOB.space_manager.get_zlev(z)

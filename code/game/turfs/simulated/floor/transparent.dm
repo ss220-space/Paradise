@@ -20,12 +20,14 @@
 	var/light_process = 0
 
 /turf/simulated/floor/transparent/glass/Initialize(mapload)
-	. = ..()
-	var/image/I = image('icons/turf/space.dmi', src, SPACE_ICON_STATE)
-	I.plane = PLANE_SPACE
-	underlays += I
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/turf/simulated/floor/transparent/glass/LateInitialize()
+	. = ..()
+	AddElement(/datum/element/turf_z_transparency)
 
 /turf/simulated/floor/transparent/glass/welder_act(mob/user, obj/item/I)
 	if(!broken && !burnt)
@@ -121,6 +123,17 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/* Changin turf while not finishing impact for our falling may runtime us
+/turf/simulated/floor/transparent/glass/zImpact(atom/movable/falling, levels, turf/prev_turf)
+	. = ..()
+	var/mob/living/simple_animal/S = falling
+	var/obj/item/I = falling
+	if(ishuman(falling) || (istype(S) && S.obj_damage >= 20) || (istype(I) && I.w_class > WEIGHT_CLASS_HUGE) //chonk body breaks
+		if(broken)
+			ChangeTurf(baseturf)
+			return .
+		break_tile()
+*/
 
 /turf/simulated/floor/transparent/glass/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	return ..(T, defer_change, FALSE, ignore_air, copy_existing_baseturf)

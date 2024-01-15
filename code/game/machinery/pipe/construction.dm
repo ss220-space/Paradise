@@ -91,6 +91,8 @@
 			src.color = PIPE_COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w))
 			src.pipe_type = PIPE_MANIFOLD4W
+		else if(istype(make_from, /obj/machinery/atmospherics/pipe/multiz))
+			src.pipe_type = PIPE_MULTIZ
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/cap/hidden/supply))
 			src.pipe_type = PIPE_SUPPLY_CAP
 			connect_types = list(2)
@@ -270,7 +272,7 @@
 				return dir|flip|cw
 			else
 				return flip|cw|acw
-		if(PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP)
+		if(PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_MULTIZ)
 			return dir|flip
 	return 0
 
@@ -399,6 +401,10 @@
 
 		if(PIPE_SCRUBBERS_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers/M = new( src.loc )
+			M.on_construction(dir, pipe_dir, color)
+
+		if(PIPE_MULTIZ)		//multi-z
+			var/obj/machinery/atmospherics/pipe/multiz/M = new( src.loc )
 			M.on_construction(dir, pipe_dir, color)
 
 		if(PIPE_JUNCTION)

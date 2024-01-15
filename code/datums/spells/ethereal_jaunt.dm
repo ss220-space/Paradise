@@ -114,15 +114,17 @@
 		return
 	var/turf/newLoc = get_step(src,direction)
 	setDir(direction)
-	if(can_move(newLoc))
+	if(can_move(newLoc, user))
 		forceMove(newLoc)
 	else
 		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
 	movedelay = world.time + movespeed
 
 
-/obj/effect/dummy/spell_jaunt/proc/can_move(turf/target_turf)
+/obj/effect/dummy/spell_jaunt/proc/can_move(turf/target_turf, mob/user)
 	if(target_turf.flags & NOJAUNT)
+		return FALSE
+	if(!can_z_move(null, get_turf(src), target_turf, ZMOVE_INCAPACITATED_CHECKS | ZMOVE_FEEDBACK | ZMOVE_ALLOW_ANCHORED, user))
 		return FALSE
 	return TRUE
 
