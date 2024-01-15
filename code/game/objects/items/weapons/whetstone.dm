@@ -29,12 +29,12 @@
 		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
 		return
 
-	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY)) //No sharpening stuff twice
+	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || I.force > initial(I.force)) //No sharpening stuff twice
 		to_chat(user, span_warning("[I] has already been refined before. It cannot be sharpened further!"))
 		return
 
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
-		to_chat(user, SPAN_WARNING("[I] is not able to be sharpened right now!"))
+		to_chat(user, span_warning("[I] is not able to be sharpened right now!"))
 		return
 
 	if(istype(I, /obj/item/clothing/gloves/color/black/razorgloves))
