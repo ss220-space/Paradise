@@ -548,7 +548,7 @@
 	ask_verb = "chitters"
 	exclaim_verbs = list("chitters")
 	colour = "terrorspider"
-	key = "sp"
+	key = "ts"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
