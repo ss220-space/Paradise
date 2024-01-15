@@ -32,6 +32,7 @@
 #define WIRE_TERMINAL_LAYER 1.75
 #define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
 #define TRAY_SCAN_LAYER_OFFSET 0.5 // place images above TURF_LAYER
+#define BELOW_TURF_LAYER 1.98
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
 #define ABOVE_TRANSPARENT_TURF_LAYER 2.01
 #define MID_TURF_LAYER 2.02

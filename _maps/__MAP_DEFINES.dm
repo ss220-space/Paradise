@@ -43,7 +43,43 @@
 	#define AWAY_MISSION "Away Mission"
 	#define RAMSS_TAIPAN "RAMSS Taipan"
 
+/*
+2024-01-14, the typical z-levels for a single-level station are:
+1: CentCom
+2: Admin Zone
+3: Station
+4: Mining
+5: Taipan
+6: Away mission
+7-11: Randomized space
+*/
+
+// Whether this z level is linked up/down. Bool.
+#define ZTRAIT_UP "Up"
+#define ZTRAIT_DOWN "Down"
+
+#define ZTRAIT_GRAVITY "Gravity"	// determines if z-level power with generator from another z-level
+#define ZTRAIT_LINKAGE "Linkage"	// enum - how space transitions should affect this level
+#define ZTRAIT_BASETURF "Baseturf"	// string - type path of the z-level's baseturf (defaults to space)
+
+// 3 Is already big one hella station.
+// Making over 3 may consider some big impact on space levels but it saned to top.
+// So it "may" have issues if over 3.
+#define MULTIZ_WARN 3
+
 // Convenience define
 	#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "attributes" = TRAITS)
 
 	#define AWAY_MISSION_LIST list(DECLARE_LEVEL(AWAY_MISSION,UNAFFECTED,list(BLOCK_TELEPORT, AWAY_LEVEL)))
+
+//Ruin Generation
+
+#define SPACERUIN_MAP_EDGE_PAD 15
+#define PLACEMENT_TRIES 100 //How many times we try to fit the ruin somewhere until giving up (really should just swap to some packing algo)
+
+#define PLACE_DEFAULT "random"
+#define PLACE_SAME_Z "same"
+#define PLACE_SPACE_RUIN "space"
+#define PLACE_LAVA_RUIN "lavaland"
+
+#define MAX_RUIN_SIZE_VALUE 170 // Which ruin should be considered large and create a separate level of space for it.

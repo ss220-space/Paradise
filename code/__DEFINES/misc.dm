@@ -413,18 +413,6 @@
 #define FIXED_COLOUR_PRIORITY 		4 //color inherent to the atom (e.g. blob color)
 #define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
 
-//Ruin Generation
-
-#define SPACERUIN_MAP_EDGE_PAD 15
-#define PLACEMENT_TRIES 100 //How many times we try to fit the ruin somewhere until giving up (really should just swap to some packing algo)
-
-#define PLACE_DEFAULT "random"
-#define PLACE_SAME_Z "same"
-#define PLACE_SPACE_RUIN "space"
-#define PLACE_LAVA_RUIN "lavaland"
-
-#define MAX_RUIN_SIZE_VALUE 170 // Which ruin should be considered large and create a separate level of space for it.
-
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined
 #define CLEAN_WEAK 			2
