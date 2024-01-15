@@ -15,6 +15,8 @@
 #define CINEMATIC_LAYER -1
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
+#define AREA_PLANE 1
+
 #define SPACE_LAYER 1.5
 #define GRASS_UNDER_LAYER 1.6
 /// Which layer turfs appear on by default in the map editor. Should be unique!
@@ -137,6 +139,8 @@
 
 #define SPLASHSCREEN_LAYER 23
 #define SPLASHSCREEN_PLANE 23
+
+#define HUD_PLANE_BUILDMODE 30
 
 // This should always be on top. No exceptions.
 #define HUD_PLANE_DEBUGVIEW 40
