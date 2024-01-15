@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
 
-	if(first_piece.speaking?.flags & HIVEMIND) // Little quirk to just easily deal with HIVEMIND languages
+	if(first_piece.speaking?.flags & HIVEMIND)
 		first_piece.speaking.broadcast(src, first_piece.message)
 		return TRUE
 

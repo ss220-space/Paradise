@@ -221,8 +221,7 @@
 		// There are a few things that will make us want to ignore all other languages in - namely, HIVEMIND languages.
 		var/datum/language/L = current[1]
 		if(L && L.flags & HIVEMIND)
-			. += new /datum/multilingual_say_piece(L, trim(strip_prefixes(message)))
-			break
+			return list(new /datum/multilingual_say_piece(L, trim(strip_prefixes(message))))
 
 		if(i + 1 > length(prefix_locations)) // We are out of lookaheads, that means the rest of the message is in cur lang
 			var/spoke_message = handle_autohiss(trim(copytext_char(message, current[3])), L)
