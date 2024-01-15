@@ -7,6 +7,7 @@
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 

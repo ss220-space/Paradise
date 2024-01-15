@@ -26,7 +26,7 @@
 	for(var/i in 1 to number_of_wormholes)
 		var/turf/anomaly_turf = pick_n_take(temp_turfs)
 		if(anomaly_turf)
-			wormholes.Add(new /obj/effect/portal/wormhole(anomaly_turf, null, null, -1, wormholes))
+			wormholes.Add(new /obj/effect/portal/wormhole(anomaly_turf, null, null, -1, link_portals = wormholes))
 
 
 /datum/event/wormholes/announce()
@@ -55,10 +55,13 @@
 	var/list/linked_portals
 
 
-/obj/effect/portal/wormhole/New(loc, turf/target, creator = null, lifespan = 300, list/link_portals)
+/obj/effect/portal/wormhole/New(loc, turf/target, obj/creation_object = null, lifespan = 30 SECONDS, mob/creation_mob = null, create_sparks = TRUE, list/link_portals)
 	..()
+	src.linked_portals = link_portals
 
-	linked_portals = link_portals
+
+/obj/effect/portal/wormhole/update_overlays()
+	. = list()	// we need no mask here
 
 
 /obj/effect/portal/wormhole/can_teleport(atom/movable/M)

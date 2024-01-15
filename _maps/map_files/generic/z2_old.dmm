@@ -18253,7 +18253,7 @@
 	},
 /area/ussp_ship)
 "npR" = (
-/obj/structure/crematorium,
+/obj/machinery/crematorium,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},

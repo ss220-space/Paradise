@@ -51,7 +51,7 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/my_mirror = null
 	var/is_mirror = FALSE
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/death()
+/mob/living/simple_animal/hostile/asteroid/elite/herald/death(gibbed)
 	. = ..()
 	if(!is_mirror)
 		addtimer(CALLBACK(src, PROC_REF(become_ghost)), 0.8 SECONDS)

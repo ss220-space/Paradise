@@ -93,7 +93,7 @@
 	if(C.mob.pulling)
 		C.mob.stop_pulling()
 	else
-		to_chat(C, SPAN_NOTICE("Вы ничего не тащите."))
+		to_chat(C, span_notice("Вы ничего не тащите."))
 
 /datum/keybinding/mob/face_dir
 	/// The direction to face towards.
@@ -174,7 +174,7 @@
 		return
 
 	var/obj/screen/zone_sel/selector = C.mob.hud_used.zone_select
-	selector.set_selected_zone(body_part, C.mob)
+	selector.set_selected_zone(body_part)
 
 /datum/keybinding/mob/target/head
 	name = "Выбрать голову"

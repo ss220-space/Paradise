@@ -853,6 +853,7 @@
 	if(O.loc != src.loc)
 		add_fingerprint(user)
 		var/obj/item/gun/our_gun = O
+		our_gun.reset_direction()
 		our_gun.place_on_rack()
 		our_gun.do_drop_animation(src)
 		our_gun.Move(loc)
