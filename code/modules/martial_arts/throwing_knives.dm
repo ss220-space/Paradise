@@ -24,7 +24,7 @@
 /datum/martial_art/throwing/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
 	if(can_use(defender)	\
 	&& !defender.incapacitated(FALSE, TRUE)	\
-	&& (locate_type_in_list(defender.get_active_hand(), knife_types) || locate_type_in_list(defender.get_inactive_hand(), knife_types))	\
+	&& (is_type_in_list(defender.get_active_hand(), knife_types, FALSE) || is_type_in_list(defender.get_inactive_hand(), knife_types, FALSE))	\
 	&& prob(block_chance))
 		if(visible_message || self_message)
 			defender.visible_message(visible_message, self_message)
@@ -33,7 +33,7 @@
 		return TRUE
 
 /datum/martial_art/throwing/user_hit_by(atom/movable/AM, mob/living/carbon/human/H)
-	if(locate_type_in_list(AM, knife_types))
+	if(is_type_in_list(AM, knife_types, FALSE))
 		H.put_in_hands(AM)
 		H.visible_message(span_warning("[H] catches [AM]!"))
 		return TRUE

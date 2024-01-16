@@ -1262,6 +1262,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	// This is instant on byond's end, but to our clients this looks like a quick drop
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
+/obj/item/proc/sharpen_act(increase)
+	force += increase
+	throwforce += increase
+
 /obj/item/proc/get_force()
 	var/datum/component/sharpening/sharpening = GetComponent(/datum/component/sharpening)
 	return initial(force) + sharpening?.damage_increase

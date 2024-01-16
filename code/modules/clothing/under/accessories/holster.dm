@@ -32,7 +32,9 @@
 
 /obj/item/clothing/accessory/holster/attack_self(mob/user = usr)
 	var/holsteritem = user.get_active_hand()
-	if(holsteritem)
+	if(istype(holsteritem, /obj/item/clothing/accessory/holster))
+		unholster(user)
+	else if(holsteritem)
 		holster(holsteritem, user)
 	else
 		unholster(user)
@@ -184,4 +186,4 @@
 			span_notice("You takes the [I] out, [holstered.len] knives left"))
 
 /obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
-	return locate_type_in_list(I, holster_allow)
+	return is_type_in_list(I, holster_allow, FALSE)

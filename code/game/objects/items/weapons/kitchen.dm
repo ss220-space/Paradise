@@ -139,7 +139,7 @@
 
 /obj/item/kitchen/knife/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art
-	if(istype(MA) && locate_type_in_list(src, MA.knife_types))
+	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		embed_chance = MA.knife_embed_chance
 		throwforce = get_throwforce() + MA.knife_bonus_damage
 		shields_penetration = initial(shields_penetration) + MA.shields_penetration_bonus
@@ -153,7 +153,7 @@
 
 /obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, def_zone)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
-	if(istype(MA) && locate_type_in_list(src, MA.knife_types))
+	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		force = get_force() + MA.knife_bonus_damage
 		if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
 			if(MA.neck_cut(target, user))
@@ -162,13 +162,19 @@
 
 /obj/item/kitchen/knife/attack_obj(obj/O, mob/living/user, params)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
-	if(istype(MA) && locate_type_in_list(src, MA.knife_types))
+	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		force = get_force() + MA.knife_bonus_damage
 	. = ..()
 
 /obj/item/kitchen/knife/afterattack(atom/target, mob/user, proximity, params)
 	force = get_force()
 	. = ..()
+
+//this ensures that an afterattack will always be called for knives
+/obj/item/kitchen/knife/melee_attack_chain(mob/user, atom/target, params)
+	if(!tool_attack_chain(user, target) && pre_attackby(target, user, params))
+		target.attackby(src, user, params)
+		afterattack(target, user, 1, params)
 
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"

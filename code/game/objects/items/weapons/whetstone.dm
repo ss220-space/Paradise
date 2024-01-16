@@ -15,17 +15,17 @@
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
 	if(used)
-		to_chat(user, SPAN_WARNING("The whetstone is too worn to use again!"))
+		to_chat(user, span_warning("The whetstone is too worn to use again!"))
 		return
 
 	if(requires_sharpness && !I.sharp)
 		to_chat(user, span_warning("You can only sharpen items that are already sharp, such as knives!"))
 		return
 
-	I.AddComponent(/datum/component/sharpening, increment)
+	I.AddComponent(/datum/component/sharpening)
 
 	var/signal_out = SEND_SIGNAL(I, COMSIG_ITEM_SHARPEN_ACT, increment, max) //Stores the bitflags returned by SEND_SIGNAL
-	if((signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) || istype(I, /obj/item/melee/energy)) //If the item's components enforce more limits on maximum power from sharpening,  we fail
+	if((signal_out & COMPONENT_BLOCK_SHARPEN_MAXED)) //If the item's components enforce more limits on maximum power from sharpening,  we fail
 		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
 		return
 
@@ -34,19 +34,11 @@
 		return
 
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
-		to_chat(user, SPAN_WARNING("[I] is not able to be sharpened right now!"))
+		to_chat(user, span_warning("[I] is not able to be sharpened right now!"))
 		return
 
-	if(istype(I, /obj/item/clothing/gloves/color/black/razorgloves))
-		var/obj/item/clothing/gloves/color/black/razorgloves/razorgloves = I
-		if(razorgloves.razor_damage_low > initial(razorgloves.razor_damage_low))
-			to_chat(user, span_warning("[I] has already been refined before. It cannot be sharpened further!"))
-			return
-		razorgloves.razor_damage_low = clamp(razorgloves.razor_damage_low + increment, 0, max)
-		razorgloves.razor_damage_high = clamp(razorgloves.razor_damage_high + increment, 0, max)
-	else
-		if(!requires_sharpness)
-			I.sharp = TRUE
+	if(!requires_sharpness)
+		I.sharp = TRUE
 
 	user.visible_message(span_warning("[user] sharpens [I] with [src]!"), \
 		span_warning("You sharpen [I], making it much more deadly than before."))
