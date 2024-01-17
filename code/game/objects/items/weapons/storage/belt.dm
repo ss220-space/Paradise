@@ -891,6 +891,7 @@
 	new /obj/item/survivalcapsule(src)
 	new /obj/item/grenade/plastic/miningcharge/lesser(src)
 	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/wormhole_jaunter(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
