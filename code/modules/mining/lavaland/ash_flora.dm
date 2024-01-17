@@ -300,6 +300,7 @@
 	desc = "These seeds grow into fire blossoms."
 	icon_state = "seed-fireblossom"
 	species = "fireblossom"
+	potency = 60
 	plantname = "Fire Blossom"
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
