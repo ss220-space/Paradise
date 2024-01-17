@@ -238,7 +238,7 @@
 	else if(force_wielded)
 		parent_item.force = force_wielded
 	var/datum/component/sharpening/sharpening = item.GetComponent(/datum/component/sharpening)
-	if(istype(sharpening))
+	if(sharpening)
 		parent_item.force += sharpening.damage_increase
 	if(sharp_when_wielded)
 		parent_item.sharp = TRUE
@@ -301,7 +301,7 @@
 	// update item stats
 	var/obj/item/parent_item = parent
 	var/datum/component/sharpening/sharpening = item.GetComponent(/datum/component/sharpening)
-	if(istype(sharpening))
+	if(sharpening)
 		parent_item.force -= sharpening.damage_increase
 	if(force_multiplier)
 		parent_item.force /= force_multiplier

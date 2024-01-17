@@ -32,14 +32,14 @@
 
 	var/force = item.force
 	var/datum/component/two_handed/TH_component = item.GetComponent(/datum/component/two_handed)
-	if(istype(TH_component))
+	if(TH_component)
 		force = TH_component.force_wielded
 
 	var/obj/item/clothing/gloves/color/black/razorgloves/razorgloves = item
 	if(istype(razorgloves))
 		force = razorgloves.razor_damage_high
 
-	if(force >= max_amount || item.throwforce >= max_amount || istype(item, /obj/item/melee/energy) || istype(item, /obj/item/melee/mantisblade))
+	if(force >= max_amount || item.throwforce >= max_amount || item.flags & NOSHARPENING)
 		return COMPONENT_BLOCK_SHARPEN_MAXED
 
 	damage_increase = min(damage_increase + amount, (max_amount - force))
