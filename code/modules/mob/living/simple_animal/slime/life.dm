@@ -523,7 +523,7 @@
 
 		if(SLIME_COMMAND_DEFEND)
 			var/mob/living/carbon/human/defend_target = get_target_from_command(phrase)
-			if(!attack_target)
+			if(!defend_target)
 				to_say = pick(dont_recognize_phrases)
 			else if(Friends[who] >= SLIME_FRIENDSHIP_DEFEND)
 				if(istype(defend_target))
