@@ -111,7 +111,7 @@
 				L.icon_state = SSmapping.lavaland_theme.planet_icon_state
 			else
 				L.icon_state = initial(L.icon_state)
-				L.update_o(C.view)
+			L.update_o(C.view)
 			var/T = PARALLAX_LOOP_TIME / L.speed
 			if(T > animate_time)
 				animate_time = T
