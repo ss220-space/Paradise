@@ -1,12 +1,12 @@
 /mob/living/update_blind_effects()
-	if(!has_vision(information_only=TRUE))
-		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		throw_alert("blind", /obj/screen/alert/blind)
-		return 1
-	else
+	if(has_vision(information_only = TRUE))
 		clear_fullscreen("blind")
 		clear_alert("blind")
-		return 0
+		return FALSE
+
+	overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+	throw_alert("blind", /obj/screen/alert/blind)
+	return TRUE
 
 
 /mob/living/update_blurry_effects()

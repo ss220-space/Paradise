@@ -68,13 +68,13 @@
  *
  * * intentional_use: Whether or not to check based on if the action was intentional.
  */
-/mob/proc/usable_emote_keys(intentional_use = TRUE)
+/mob/proc/usable_emote_keys(intentional_use)
 	var/list/all_keys = list()
 	for(var/key in GLOB.emote_list)
 		for(var/datum/emote/P in GLOB.emote_list[key])
 			if(P.key in all_keys)
 				continue
-			if(P.can_run_emote(src, status_check = FALSE, intentional = null))
+			if(P.can_run_emote(src, status_check = FALSE, intentional = intentional_use))
 				all_keys += P.key
 				if(P.key_third_person)
 					all_keys += P.key_third_person

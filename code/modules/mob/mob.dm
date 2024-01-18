@@ -79,26 +79,25 @@
 		return
 
 	if(type)
-		if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))	// Vision related
-			if(!(alt))
+		if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))	//Vision related
+			if(!alt)
 				return
-			else
-				msg = alt
-				type = alt_type
-		if((type & EMOTE_AUDIBLE) && !can_hear())	// Hearing related
-			if(!(alt))
+			msg = alt
+			type = alt_type
+
+		if(type & EMOTE_AUDIBLE && !can_hear())	//Hearing related
+			if(!alt)
 				return
-			else
-				msg = alt
-				type = alt_type
-				if((type & EMOTE_VISIBLE) && !has_vision(information_only=TRUE))
-					return
+			msg = alt
+			type = alt_type
+			if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))
+				return
+
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
 		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
 	else
 		to_chat(src, msg)
-	return
 
 
 // Show a message to all mobs in sight of this one

@@ -192,9 +192,6 @@
 
 	var/meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid
 
-	/// If set, this organ is required for vision. Defaults to "eyes" if the species has them.
-	var/vision_organ
-
 	var/list/has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
@@ -225,10 +222,6 @@
 	var/list/autohiss_exempt = null
 
 /datum/species/New()
-	//If the species has eyes, they are the default vision organ
-	if(!vision_organ && has_organ[INTERNAL_ORGAN_EYES])
-		vision_organ = /obj/item/organ/internal/eyes
-
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(gender)
@@ -1161,6 +1154,19 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/can_hear(mob/living/carbon/human/user)
 	var/obj/item/organ/internal/ears/ears = user.get_organ_slot(INTERNAL_ORGAN_EARS)
 	return ears && !(DEAF in user.mutations) && !HAS_TRAIT(user, TRAIT_DEAF)
+
+
+/datum/species/proc/has_vision(mob/living/carbon/human/user, information_only = FALSE)
+	if(information_only && user.stat == DEAD)
+		return TRUE
+	if(user.AmountBlinded() || (BLINDNESS in user.mutations) || user.stat)
+		return FALSE
+	var/obj/item/organ/vision = get_vision_organ(user)
+	return vision && (vision == NO_VISION_ORGAN || !vision.is_traumatized())
+
+
+/datum/species/proc/get_vision_organ(mob/living/carbon/human/user)
+	return user.get_organ_slot(INTERNAL_ORGAN_EYES)
 
 
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
