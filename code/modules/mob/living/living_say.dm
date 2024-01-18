@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 /*
 	Busy letters by languages:
 	un ta vu sk vo di tr ki sl gr dr ni
-	xm db wr xh sp ch hs sh ab bo bi dt
+	xm db wr xh ts ch hs sh ab gl bo bi dt
 	sw gc sc tb gt cl nr mo ne st fa wo
 
 
