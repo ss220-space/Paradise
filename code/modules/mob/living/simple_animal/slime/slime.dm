@@ -1,8 +1,3 @@
-#define SLIME_FAST_T T0C+100
-#define SLIME_SLOW_T T0C-100
-#define SLIME_MAX_SLOW 10
-#define SLIME_MIN_SLOW 1
-
 /mob/living/simple_animal/slime
 	name = "grey baby slime (123)"
 	icon = 'icons/mob/slimes.dmi'
@@ -46,6 +41,7 @@
 
 	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
 	var/target_behavior = SLIME_BEHAVIOR_ATTACK
+	var/reproduce_behavior = SLIME_BEHAVIOR_DEFAULT
 	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable

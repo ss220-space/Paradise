@@ -154,9 +154,10 @@
 		to_chat(M, span_warning("You absorb the potion, and your rabid hunger finally settles to a normal desire to feed."))
 		to_chat(user, span_notice("You feed the slime the potion, calming its rabid rage."))
 		M.rabid = FALSE
+		M.Target = null
 		qdel(src)
 		return
-	M.Friends[user] = 100
+	M.Friends[user] = 10
 	to_chat(M, span_warning("You absorb the potion and feel your intense desire to feed melt away."))
 	to_chat(user, span_notice("You feed the slime the potion, calming it."))
 	being_used = TRUE

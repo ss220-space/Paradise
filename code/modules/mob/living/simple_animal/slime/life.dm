@@ -12,9 +12,11 @@
 	var/static/list/follow_commands = list("follow", "пошли", "пойдём", "пойдем", "пойти", "идём", "идем", "идти")
 	var/static/list/stop_commands = list("stop", "фу", "нельзя", "хватит", "перестань", "перестать", "прекрати", "прекратить")
 	var/static/list/stay_commands = list("stay", "остановись", "стоять", "стой")
-	var/static/list/attack_commands = list("attack", "атакуй", "атаковать", "нападай", "нападать", "напади", "ударь", "ударить", "фас", "апорт")
+	var/static/list/attack_commands = list("attack", "бей", "бить", "атакуй", "атаковать", "нападай", "нападать", "напади", "ударь", "ударить", "фас", "апорт")
 	var/static/list/eat_commands = list("eat", "ешь", "есть", "кушай", "кушать", "съешь", "съесть")
 	var/static/list/defend_commands = list("defend", "защищай", "защищать", "помогай", "помоги", "помогать", "охраняй", "охранять")
+	var/static/list/reproduce_commands = list("reproduce", "делись", "размножайся")
+	var/static/list/no_reproduce_commands = list("grow", "расти")
 
 	//Slime responce phrases
 	var/static/list/greeting_phrases = list("Привет...", "Здравствовать...")
@@ -30,7 +32,9 @@
 	var/static/list/stop_defend_phrases = list("Больше не защищать...")
 	var/static/list/no_listen_phrases = list("Нет...", "Не буду...", "Не хотеть...", "Не слушать...")
 	var/static/list/madness_phrases = list("ААААААА!?!?", "ЧАВО?!?!", "БИТЬ!")
-
+	var/static/list/reproduce_phrases = list("Размножаться...")
+	var/static/list/no_reproduce_phrases = list("Расти...")
+	var/static/list/dont_recognize_phrases = list("Кого?", "Не понимать...", "Кто это?", "Не видеть")
 
 /mob/living/simple_animal/slime/forceMove(atom/destination) //Debug code to catch slimes stuck in null space
 	. = ..()
@@ -47,13 +51,13 @@
 		temperature_diff /=  5
 		adjust_bodytemperature(temperature_diff)
 
-	if(bodytemperature < SLIME_THAW_TEMPERATURE)
-		if(bodytemperature < SLIME_STUN_TEMPERATURE)
+	if(bodytemperature < SLIME_THAW_T)
+		if(bodytemperature < SLIME_THAW_T)
 			canmove = FALSE
 
-		if(bodytemperature >= 0 && bodytemperature < SLIME_HURT_TEMPERATURE)
-			//SLIME_MAX_TEMPERATURE_DAMAGE at 0°С, SLIME_MIN_TEMPERATURE_DAMAGE at SLIME_HURT_TEMPERATURE°С and linearly connects between them
-			var/dmg = SLIME_MAX_TEMPERATURE_DAMAGE-(SLIME_MAX_TEMPERATURE_DAMAGE-SLIME_MIN_TEMPERATURE_DAMAGE)/SLIME_HURT_TEMPERATURE*bodytemperature
+		if(bodytemperature >= 0 && bodytemperature < SLIME_HURT_T)
+			//SLIME_MAX_T_DMG at 0°, SLIME_MIN_T_DMG at SLIME_HURT_TEMPERATURE°С and linearly connects between them
+			var/dmg = SLIME_MAX_T_DMG - (SLIME_MAX_T_DMG - SLIME_MIN_T_DMG)/SLIME_HURT_T*bodytemperature
 			adjustBruteLoss(dmg)
 	else
 		canmove = TRUE
@@ -171,6 +175,14 @@
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
 
+	// if a slime is starving, it starts losing its friends
+	if(nutrition < age_state.starve_nutrition && !client)
+		if(Friends.len && prob(SLIME_LOOSE_FRIEND_CHANCE))
+			var/mob/nofriend = pick(Friends)
+			Friends[nofriend] = max(0, Friends[nofriend] - 1)
+			if(!Friends[nofriend])
+				Friends -= nofriend
+
 	if(prob(15))
 		adjust_nutrition(-age_state.nutrition_handle)
 
@@ -179,18 +191,20 @@
 		amount_grown++
 		update_action_buttons_icon()
 
-		if(!ckey && amount_grown == age_state.amount_grown_for_split)
-			if(age_state.age != SLIME_BABY && prob(chance_reproduce) || age_state.age == SLIME_ELDER)
-				Reproduce()
+		if(!ckey && amount_grown == age_state.amount_grown_for_split && \
+			(age_state.age != SLIME_BABY && prob(chance_reproduce) || age_state.age == SLIME_ELDER) && \
+			reproduce_behavior != SLIME_BEHAVIOR_EVOLVE)
+			Reproduce()
 
 	if (buckled || Target || ckey)
 		return FALSE
 
 	if(amount_grown >= age_state.amount_grown)
 		if(age_state.age != SLIME_ELDER)
-			Evolve()
-		else
-			Reproduce()	//Если вдруг игрок за древнего слайма гостанулся, а у него приличное созревание, то он разделится
+			if(reproduce_behavior != SLIME_BEHAVIOR_REPRODUCE)
+				Evolve()
+		else if(reproduce_behavior != SLIME_BEHAVIOR_EVOLVE)
+			Reproduce()
 
 
 /mob/living/simple_animal/slime/proc/handle_reagents()
@@ -273,12 +287,6 @@
 
 	if(client || !canmove || buckled || AIproc && is_stunned)
 		return
-
-	// if a slime is starving, it starts losing its friends
-	if(hungry == SLIME_HUNGER_STARVING && !client)
-		if(Friends.len && prob(SLIME_LOOSE_FRIEND_CHANCE))
-			var/mob/nofriend = pick(Friends)
-			--Friends[nofriend]
 
 	if(!Target)
 		switch(hungry)
@@ -383,10 +391,13 @@
 /mob/living/simple_animal/slime/proc/handle_mood()
 	if(rabid || attacked)
 		set_mood(SLIME_MOOD_ANGRY)
+		return
 	else if(Target)
 		set_mood(SLIME_MOOD_MISCHIEVOUS)
+		return
 	else if(Discipline)
 		set_mood(SLIME_MOOD_POUT)
+		return
 	else if((mood in list(SLIME_MOOD_SAD, SLIME_MOOD_3, SLIME_MOOD_33)) && prob(80))
 		return
 	set_mood(FALSE)
@@ -439,7 +450,7 @@
 				if(Leader && Leader != who && Friends[who] < Friends[Leader])
 					to_say = pick(no_stay_follow_phrases)
 				else
-					holding_still = Friends[who] * 50
+					holding_still = Friends[who] * 30
 					Leader = null
 					to_say = pick(stay_phrases)
 			else
@@ -484,7 +495,9 @@
 
 		if(SLIME_COMMAND_ATTACK)
 			var/mob/living/attack_target = get_target_from_command(phrase)
-			if(Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
+			if(!attack_target)
+				to_say = pick(dont_recognize_phrases)
+			else if(Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
 				if(isslime(attack_target) || Friends[attack_target] && (Friends[who] - Friends[attack_target] < SLIME_FRIENDSHIP_ATTACK))
 					to_say = "НЕТ! [attack_target] быть друг..."
 					--Friends[who]
@@ -496,7 +509,9 @@
 
 		if(SLIME_COMMAND_EAT)
 			var/mob/living/attack_target = get_target_from_command(phrase)
-			if(Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
+			if(!attack_target)
+				to_say = pick(dont_recognize_phrases)
+			else if(Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
 				if(isslime(attack_target) || Friends[attack_target] && (Friends[who] - Friends[attack_target] < SLIME_FRIENDSHIP_ATTACK))
 					to_say = "НЕТ! [attack_target] быть друг..."
 					--Friends[who]
@@ -508,7 +523,9 @@
 
 		if(SLIME_COMMAND_DEFEND)
 			var/mob/living/carbon/human/defend_target = get_target_from_command(phrase)
-			if(Friends[who] >= SLIME_FRIENDSHIP_DEFEND)
+			if(!attack_target)
+				to_say = pick(dont_recognize_phrases)
+			else if(Friends[who] >= SLIME_FRIENDSHIP_DEFEND)
 				if(istype(defend_target))
 					Leader = defend_target
 					holding_still = 0
@@ -516,6 +533,20 @@
 					to_say = "Защищать [defend_target]..."
 				else
 					to_say = pick(no_listen_phrases)
+			else
+				to_say = pick(no_listen_phrases)
+
+		if(SLIME_COMMAND_REPRODUCE)
+			if(Friends[who] >= SLIME_FRIENDSHIP_REPRODUCE_CONTROL)
+				reproduce_behavior = SLIME_BEHAVIOR_REPRODUCE
+				to_say = "Размножаться..."
+			else
+				to_say = pick(no_listen_phrases)
+
+		if(SLIME_COMMAND_NOREPRODUCE)
+			if(Friends[who] >= SLIME_FRIENDSHIP_REPRODUCE_CONTROL)
+				reproduce_behavior = SLIME_BEHAVIOR_EVOLVE
+				to_say = "Расти..."
 			else
 				to_say = pick(no_listen_phrases)
 
@@ -607,7 +638,7 @@
 	if(mood == SLIME_MOOD_SAD && prob(10))
 		phrases += "Скучно..."
 
-	if(bodytemperature < SLIME_THAW_TEMPERATURE && prob(10))
+	if(bodytemperature < SLIME_THAW_T && prob(10))
 		set_mood(SLIME_MOOD_SAD)
 		phrases += pick("Холод...")
 
@@ -639,7 +670,10 @@
 			return SLIME_COMMAND_EAT
 		if(word in defend_commands)
 			return SLIME_COMMAND_DEFEND
-
+		if(word in reproduce_commands)
+			return SLIME_COMMAND_REPRODUCE
+		if(word in no_reproduce_commands)
+			return SLIME_COMMAND_NOREPRODUCE
 
 /mob/living/simple_animal/slime/proc/is_command_to_me(text)
 	var/list/words = splittext(text, regex(" |\\.|\\,|\\!|\\?"))
