@@ -1,6 +1,6 @@
 /obj/item/ammo_casing/a357
 	desc = "A .357 bullet casing."
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 3700)
 	caliber = ".357"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
