@@ -85,16 +85,16 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c10mm/ap
-	materials = list(MAT_METAL = 2000, MAT_SILVER = 200)
+	materials = list(MAT_METAL = 450, MAT_SILVER = 50)
 	projectile_type = /obj/item/projectile/bullet/midbullet3/ap
 
 /obj/item/ammo_casing/c10mm/fire
-	materials = list(MAT_METAL = 2000, MAT_SILVER = 200, MAT_PLASMA = 300)
+	materials = list(MAT_METAL = 450, MAT_SILVER = 50, MAT_PLASMA = 80)
 	projectile_type = /obj/item/projectile/bullet/midbullet3/fire
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c10mm/hp
-	materials = list(MAT_METAL = 2000, MAT_SILVER = 200)
+	materials = list(MAT_METAL = 450, MAT_SILVER = 50)
 	projectile_type = /obj/item/projectile/bullet/midbullet3/hp
 
 /obj/item/ammo_casing/c9mm
@@ -120,22 +120,22 @@
 
 /obj/item/ammo_casing/c46x30mm
 	desc = "A 4.6x30mm bullet casing."
-	materials = list(MAT_METAL = 1000)
+	materials = list(MAT_METAL = 500)
 	caliber = "4.6x30mm"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/foursix
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c46x30mm/ap
-	materials = list(MAT_METAL = 1500, MAT_SILVER = 150)
+	materials = list(MAT_METAL = 700, MAT_SILVER = 75)
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/foursix/ap
 
 /obj/item/ammo_casing/c46x30mm/tox
-	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_URANIUM = 200)
+	materials = list(MAT_METAL = 700, MAT_SILVER = 75, MAT_URANIUM = 100)
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/foursix/tox
 
 /obj/item/ammo_casing/c46x30mm/inc
-	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_PLASMA = 200)
+	materials = list(MAT_METAL = 700, MAT_SILVER = 75, MAT_PLASMA = 100)
 	projectile_type = /obj/item/projectile/bullet/incendiary/foursix
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
@@ -468,7 +468,7 @@
 	desc = "It's nerf or nothing! Ages 8 and up."
 	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foamdart"
-	materials = list(MAT_METAL = 10)
+	materials = list(MAT_METAL = 20)
 	caliber = "foam_force"
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart
 	muzzle_flash_effect = null
@@ -525,7 +525,7 @@
 	name = "foam sniper dart"
 	desc = "For the big nerf! Ages 8 and up."
 	icon_state = "foamdartsniper"
-	materials = list(MAT_METAL = 20)
+	materials = list(MAT_METAL = 30)
 	caliber = "foam_force_sniper"
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper
 
@@ -560,7 +560,7 @@
 /obj/item/ammo_casing/laser
 	desc = "An experimental laser casing."
 	icon_state = "lasercasing"
-	materials = list(MAT_METAL = 2000, MAT_PLASMA = 200)
+	materials = list(MAT_METAL = 500, MAT_PLASMA = 200)
 	caliber = "laser"
 	projectile_type = /obj/item/projectile/beam/laser
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
