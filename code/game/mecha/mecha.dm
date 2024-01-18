@@ -1028,7 +1028,7 @@
 	else
 		examine(user)
 		if(occupant)
-			user << span_warning("This exosuit has a pilot and cannot be controlled.")
+			to_chat(user, span_warning("This exosuit has a pilot and cannot be controlled."))
 			return
 		var/can_control_mech = FALSE
 		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
@@ -1070,12 +1070,15 @@
 			to_chat(user, "[span_boldnotice("Transfer successful")]: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
-			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
-			if(AI.can_dominate_mechs)
-				if(occupant) //Oh, I am sorry, were you using that?
+			if(occupant)
+				if(AI.can_dominate_mechs) //Oh, I am sorry, were you using that?
 					to_chat(AI, span_warning("Pilot detected! Forced ejection initiated!"))
 					to_chat(occupant, span_danger("You have been forcibly ejected!"))
-					go_out(1) //IT IS MINE, NOW. SUCK IT, RD!
+					go_out(TRUE) //IT IS MINE, NOW. SUCK IT, RD!
+				else
+					to_chat(AI, span_warning("This exosuit has a pilot and cannot be controlled."))
+					return
+			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
 			ai_enter_mech(AI, interaction)
 
 		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
