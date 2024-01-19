@@ -272,7 +272,7 @@
 			new /obj/item/storage/belt/mining/vendor(drop_location)
 		if("Resonator Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/resonator/upgraded(drop_location)
+			new /obj/item/resonator(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
 		if("Minebot Kit")
 			new /obj/item/storage/backpack/duffel/minebot_kit(drop_location)
