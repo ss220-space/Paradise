@@ -6,7 +6,8 @@
 	icon = 'icons/obj/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
-	anchored = TRUE //no pulling around.
+	move_resist = MOVE_FORCE_EXTREMELY_STRONG
+	move_force = MOVE_FORCE_VERY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.

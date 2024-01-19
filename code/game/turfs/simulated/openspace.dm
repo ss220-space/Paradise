@@ -95,6 +95,10 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 /turf/simulated/openspace/zAirOut()
 	return TRUE
 
+/turf/simulated/openspace/proc/check_fall()
+	for(var/atom/movable/M as anything in contents)
+		zfall_if_on_turf(M)
+
 // this is open NON-floor.
 /turf/simulated/openspace/zPassIn(direction)
 	if(direction == DOWN)

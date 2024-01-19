@@ -36,6 +36,12 @@
 	new /obj/item/stack/rods(get_turf(src), number_of_rods)
 	deconstruct()
 
+/obj/structure/lattice/deconstruct(disassembled)
+	. = ..()
+	var/turf/openspace/O = get_turf(loc)
+	if(istype(O))
+		O.check_fall()
+
 /obj/structure/lattice/catwalk/deconstruct()
 	var/turf/T = loc
 	for(var/obj/structure/cable/C in T)

@@ -31,3 +31,7 @@
 	anchored = TRUE
 	density = TRUE
 	allowed_instrument_ids = "piano"
+
+/obj/structure/pianoclassic/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE, impact_sound = 'sound/effects/piano_hit.ogg')
