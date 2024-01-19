@@ -2,7 +2,7 @@
 	/// Name of lavaland theme
 	var/name = "Not Specified"
 	/// Typepath of turf the `/turf/simulated/floor/plating/lava/mapping_lava` will be changed to on Late Initialization
-	var/turf/simulated/floor/primary_turf_type
+	var/primary_turf_type
 	/// Icon state of planet present on background of station Z-level
 	var/planet_icon_state
 
