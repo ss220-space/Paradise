@@ -2022,7 +2022,6 @@
 	layer = 2.9
 	},
 /obj/structure/window/reinforced,
-/obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -70943,6 +70942,14 @@
 	icon_state = "cmo"
 	},
 /area/security/permabrig)
+"erm" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/flasher/portable,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/security/securearmory)
 "esq" = (
 /obj/machinery/light{
 	dir = 1
@@ -82766,10 +82773,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "saJ" = (
+/obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/flasher/portable,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/security/securearmory)
 "saZ" = (
@@ -116080,9 +116087,9 @@ aiv
 abO
 aiv
 acB
-acB
+ale
 yjg
-saJ
+yjg
 yjg
 yjg
 yjg
@@ -116336,7 +116343,7 @@ lTl
 aiv
 abO
 aiv
-acB
+erm
 adt
 alY
 alY
@@ -117623,8 +117630,8 @@ abO
 aiv
 acO
 alY
-alY
-alY
+saJ
+saJ
 acb
 ajr
 aci
