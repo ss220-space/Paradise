@@ -391,12 +391,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	checking_timer = addtimer(CALLBACK(src, PROC_REF(target_check)), 30 SECONDS, TIMER_UNIQUE | TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 
-/datum/objective/pain_hunter/Destroy()
-	deltimer(checking_timer)
-	checking_timer = null
-	. = ..()
-
-
 /datum/objective/pain_hunter/find_target(list/target_blacklist)
 	..()
 	if(target && ishuman(target.current))
@@ -430,7 +424,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		obj_process_color = "green"
 		checking_timer = null
 		update_explain_text()
-		owner.announce_objectives()
+		for(var/datum/mind/user in owners)
+			to_chat(user.current, chat_box_red(user.prepare_announce_objectives(FALSE).Join("<br>")))
 	else
 		..()
 
@@ -444,18 +439,18 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			target = null
 			find_target(existing_targets_blacklist())
 			alarm_changes()
-			owner.announce_objectives()
+			for(var/datum/mind/user in owners)
+				to_chat(user.current, chat_box_red(user.prepare_announce_objectives(FALSE).Join("<br>")))
 	else
 		if((world.time - start_of_completing) >= 10	MINUTES)
 			if(target && ishuman(target.current) && target.current.stat != DEAD)
 				completed = TRUE
 				obj_process_color = "green"
-				update_explain_text()
-				owner.announce_objectives()
 			else
 				obj_process_color = "red"
-				update_explain_text()
-				owner.announce_objectives()
+			update_explain_text()
+			for(var/datum/mind/user in owners)
+				to_chat(user.current, chat_box_red(user.prepare_announce_objectives(FALSE).Join("<br>")))
 			deltimer(checking_timer)
 			checking_timer = null
 
