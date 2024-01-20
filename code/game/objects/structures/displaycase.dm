@@ -1,7 +1,7 @@
 /obj/structure/displaycase
 	name = "display case"
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "glassbox0"
+	icon_state = "glassbox_open"
 	desc = "A display case for prized possessions."
 	density = TRUE
 	anchored = TRUE
@@ -20,7 +20,7 @@
 
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()
-	if(start_showpieces.len && !start_showpiece_type)
+	if(length(start_showpieces) && !start_showpiece_type)
 		var/list/showpiece_entry = pick(start_showpieces)
 		if (showpiece_entry && showpiece_entry["type"])
 			start_showpiece_type = showpiece_entry["type"]
@@ -28,7 +28,7 @@
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/displaycase/Destroy()
 	QDEL_NULL(electronics)
@@ -70,7 +70,7 @@
 		broken = 1
 		new /obj/item/shard( src.loc )
 		playsound(src, "shatter", 70, TRUE)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		trigger_alarm()
 
 /obj/structure/displaycase/proc/trigger_alarm()
@@ -84,19 +84,19 @@
 			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
 			sleep(74) // 7.4 seconds long
 
-/obj/structure/displaycase/update_icon()
-	var/icon/I
-	if(open)
-		I = icon('icons/obj/stationobjs.dmi',"glassbox_open")
-	else
-		I = icon('icons/obj/stationobjs.dmi',"glassbox0")
+
+/obj/structure/displaycase/update_overlays()
+	. = ..()
 	if(broken)
-		I = icon('icons/obj/stationobjs.dmi',"glassboxb0")
+		. += "glassbox_broken"
 	if(showpiece)
-		var/icon/S = getFlatIcon(showpiece)
-		S.Scale(17, 17)
-		I.Blend(S,ICON_UNDERLAY,8,8)
-	icon = I
+		var/mutable_appearance/showpiece_overlay = mutable_appearance(showpiece.icon, showpiece.icon_state)
+		showpiece_overlay.copy_overlays(showpiece)
+		showpiece_overlay.transform *= 0.6
+		. += showpiece_overlay
+	if(!open && !broken)
+		. += "glassbox_closed"
+
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(I.GetID() && !broken && openable)
@@ -111,7 +111,7 @@
 			add_fingerprint(user)
 			showpiece = I
 			to_chat(user, "<span class='notice'>You put [I] on display</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 	else if(istype(I, /obj/item/stack/sheet/glass) && broken)
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 2)
@@ -123,7 +123,7 @@
 			G.use(2)
 			broken = 0
 			obj_integrity = max_integrity
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 
@@ -153,7 +153,7 @@
 
 /obj/structure/displaycase/proc/toggle_lock(mob/user)
 	open = !open
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/displaycase/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -161,7 +161,7 @@
 		to_chat(user, "<span class='notice'>You deactivate the hover field built into the case.</span>")
 		dump()
 		add_fingerprint(user)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	else
 	    //prevents remote "kicks" with TK

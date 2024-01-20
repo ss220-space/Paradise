@@ -46,6 +46,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		/mob/dead/observer/proc/open_spawners_menu,
 		/mob/dead/observer/proc/emote_spin_ghost,
 		/mob/dead/observer/proc/emote_flip_ghost,
+		/mob/dead/observer/proc/open_minigames_menu,
 	)
 
 	// Our new boo spell.
@@ -734,3 +735,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)
+
+/mob/dead/observer/proc/open_minigames_menu()
+	set name = "Mini games menu"
+	set desc = "See all currently available mini games"
+	set category = "Ghost"
+
+	var/datum/minigames_explorer = new /datum/minigames_explorer(src)
+	minigames_explorer.ui_interact(src)
+
