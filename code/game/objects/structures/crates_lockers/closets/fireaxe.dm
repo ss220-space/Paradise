@@ -237,6 +237,7 @@
 	desc = "There is a small label that reads \"Fo* Em**gen*y u*e *nly\". All the other text is scratched out and replaced with various fish weights."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "fishingrod"
+	anchored = TRUE
 	var/obj/item/twohanded/fishingrod/olreliable //what the fuck?
 
 /obj/structure/fishingrodcabinet/Initialize()

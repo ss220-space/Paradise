@@ -3825,9 +3825,9 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "Uw" = (
-/obj/thunderdome_poller,
-/obj/thunderdome_poller/mixed,
-/obj/thunderdome_poller/ranged,
+/obj/minigame_anchor/thunderdome_poller/melee,
+/obj/minigame_anchor/thunderdome_poller/mixed,
+/obj/minigame_anchor/thunderdome_poller/ranged,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
