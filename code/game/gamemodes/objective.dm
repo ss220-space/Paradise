@@ -424,8 +424,10 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		obj_process_color = "green"
 		checking_timer = null
 		update_explain_text()
-		for(var/datum/mind/user in owners)
-			to_chat(user.current, chat_box_red(user.prepare_announce_objectives(FALSE).Join("<br>")))
+		for(var/datum/mind/user in get_owners())
+			var/list/messages = list()
+			messages.Add(user.prepare_announce_objectives(FALSE))
+			to_chat(user.current, chat_box_red(messages.Join("<br>")))
 	else
 		..()
 
@@ -439,8 +441,10 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			target = null
 			find_target(existing_targets_blacklist())
 			alarm_changes()
-			for(var/datum/mind/user in owners)
-				to_chat(user.current, chat_box_red(user.prepare_announce_objectives(FALSE).Join("<br>")))
+			for(var/datum/mind/user in get_owners())
+				var/list/messages = list()
+				messages.Add(user.prepare_announce_objectives(FALSE))
+				to_chat(user.current, chat_box_red(messages.Join("<br>")))
 	else
 		if((world.time - start_of_completing) >= 10	MINUTES)
 			if(target && ishuman(target.current) && target.current.stat != DEAD)
@@ -449,8 +453,10 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			else
 				obj_process_color = "red"
 			update_explain_text()
-			for(var/datum/mind/user in owners)
-				to_chat(user.current, chat_box_red(user.prepare_announce_objectives(FALSE).Join("<br>")))
+			for(var/datum/mind/user in get_owners())
+				var/list/messages = list()
+				messages.Add(user.prepare_announce_objectives(FALSE))
+				to_chat(user.current, chat_box_red(messages.Join("<br>")))
 			deltimer(checking_timer)
 			checking_timer = null
 
