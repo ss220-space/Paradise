@@ -2402,7 +2402,6 @@
 					return
 
 				ninja_datum.equip_ninja()
-				ninja_datum.basic_ninja_needs_check()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
 
@@ -2437,7 +2436,6 @@
 						return
 
 				ninja_datum.make_objectives_generate_antags(objective_type)
-				ninja_datum.basic_ninja_needs_check()
 				to_chat(usr, span_notice("Цели для ниндзя: [key] были сгенерированы. Вы можете их отредактировать и оповестить игрока о целях вручную."))
 				log_admin("[key_name(usr)] has automatically forged ninja objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged ninja objectives for [key_name_admin(current)]")
@@ -2933,7 +2931,6 @@
 
 	//"generic" only, we don't want to spawn other antag's
 	ninja_datum.make_objectives_generate_antags(NINJA_TYPE_GENERIC, custom_objective)
-	ninja_datum.basic_ninja_needs_check()
 
 
 /datum/mind/proc/make_Rev()
