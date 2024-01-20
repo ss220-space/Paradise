@@ -6,22 +6,22 @@
 	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
 	var/wax = 200
-	var/lit = 0
-	var/infinite = 0
-	var/start_lit = 0
+	var/lit = FALSE
+	var/infinite = FALSE
+	var/start_lit = FALSE
 	light_color = "#E09D37"
 
 /obj/item/candle/New()
 	..()
 	if(start_lit)
 		// No visible message
-		light(show_message = 0)
+		light(show_message = FALSE)
 
 /obj/item/candle/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/candle/update_icon()
+/obj/item/candle/update_icon_state()
 	var/i
 	if(wax>150)
 		i = 1
@@ -55,12 +55,12 @@
 
 /obj/item/candle/proc/light(show_message)
 	if(!lit)
-		lit = 1
+		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
 		set_light(CANDLE_LUM)
 		START_PROCESSING(SSobj, src)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/candle/process()
@@ -74,7 +74,7 @@
 			var/mob/M = src.loc
 			M.temporarily_remove_item_from_inventory(src, force = TRUE) //src is being deleted anyway
 		qdel(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
 		T.hotspot_expose(700, 5)
@@ -83,13 +83,13 @@
 /obj/item/candle/attack_self(mob/user)
 	if(lit)
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
-		lit = 0
-		update_icon()
+		lit = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		set_light(0)
 
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
-	infinite = 1
+	infinite = TRUE
 
 
 /obj/item/candle/extinguish_light(force = FALSE)
@@ -97,3 +97,71 @@
 		return
 	infinite = FALSE
 	wax = 1 // next process will burn it out
+
+/obj/item/candle/torch
+	name = "Torch"
+	desc = "A torch fashioned from a stick and a piece of cloth."
+	wax = 300
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "torch"
+	item_state = "torch"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	w_class = WEIGHT_CLASS_BULKY
+	light_color = LIGHT_COLOR_ORANGE
+	slot_flags = SLOT_BELT
+	materials = list(MAT_BIOMASS = 50)
+
+	damtype = BURN
+	force = 7
+	var/force_lower = 5
+	var/force_upp = 10
+
+	var/icon_on = "torch-on"
+	var/fuel_lower = 200
+	var/fuel_upp = 400
+
+/obj/item/candle/torch/New()
+	wax = rand(fuel_lower, fuel_upp)
+	force = rand(force_lower, force_upp)
+	..()
+
+/obj/item/candle/torch/update_icon_state()
+	if(lit)
+		icon_state = icon_on
+		item_state = icon_on
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(icon_state)
+
+	update_equipped_item()
+
+
+/obj/item/candle/torch/light(show_message)
+	if(!lit)
+		lit = TRUE
+		if(show_message)
+			usr.visible_message(show_message)
+		set_light(5)
+		START_PROCESSING(SSobj, src)
+		update_icon(UPDATE_ICON_STATE)
+
+/obj/item/candle/torch/process()
+	if(!lit)
+		return
+	if(!infinite)
+		wax--
+	if(wax<=0)
+		var/obj/item/burnt_torch/T = new(loc)
+		if(ismob(loc))
+			var/mob/M = loc
+			M.temporarily_remove_item_from_inventory(src, force = TRUE)
+			M.put_in_hands(T)
+		qdel(src)
+	update_icon(UPDATE_ICON_STATE)
+	if(isturf(loc)) //start a fire if possible
+		var/turf/T = loc
+		T.hotspot_expose(700, 5)
+
+/obj/item/candle/torch/can_enter_storage(obj/item/storage/S, mob/user)
+	return
