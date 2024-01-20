@@ -43,5 +43,5 @@
 /obj/item/stack/telecrystal/hundread
 	amount = 100
 
-/obj/item/stack/telecrystal/twohundread_fifty
+/obj/item/stack/telecrystal/twohundred_fifty
 	amount = 250
