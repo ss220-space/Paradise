@@ -89,7 +89,6 @@
 	if(canmove || resting)
 		close_up()
 	card.removePersonality()
-	var/turf/T = get_turf(card.loc)
 	visible_message(span_notice("[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\""), blind_message = span_notice("[src] bleeps electronically."))
 	death(gibbed = FALSE, cleanWipe = TRUE)
 
