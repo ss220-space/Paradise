@@ -91,7 +91,7 @@
 	// For clothing that are faction restricted
 	if(faction_restricted && !M.is_general_slot(slot) && faction_check(faction_restricted, M.faction))
 		if(!disable_warning)
-			to_chat(M, SPAN_WARNING("[src] не могут использовать такие как Вы."))
+			to_chat(M, span_warning("[src] не могут использовать такие как Вы."))
 		return FALSE
 
 
@@ -154,10 +154,10 @@
 	var/invis_override = 0
 	var/lighting_alpha
 
-	var/emagged = 0
+	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
-	var/prescription = 0
-	var/prescription_upgradable = 0
+	var/prescription = FALSE
+	var/prescription_upgradable = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25

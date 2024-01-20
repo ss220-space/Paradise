@@ -156,8 +156,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		var/obj/effect/landmark/dest = pick(GLOB.awaydestinations)
 		if(dest)
 			moving_atom.forceMove(dest.loc)
-			var/area/entry_area = get_area(dest)
-			entry_area.Entered(moving_atom)
 			moving_atom.dir = SOUTH
 			use_power(5000)
 		return
@@ -281,8 +279,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 				return
 	var/turf/destination = get_step(stationgate.loc, SOUTH)
 	moving_atom.forceMove(destination)
-	var/area/entry_area = get_area(destination)
-	entry_area.Entered(moving_atom)
 	moving_atom.setDir(SOUTH)
 	if(ismob(moving_atom))
 		var/mob/M = moving_atom

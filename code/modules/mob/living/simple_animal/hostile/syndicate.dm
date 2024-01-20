@@ -196,7 +196,7 @@
 		say("Intruder!")
 		depotarea.increase_alert(reason)
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death(gibbed)
 	if(!istype(depotarea))
 		return ..()
 	if(alert_on_death)

@@ -4,7 +4,7 @@
 		// Pre-upgraded upgradable glasses
 		name = "prescription [name]"
 
-/obj/item/clothing/glasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/item/clothing/glasses/attackby(obj/item/O, mob/user)
 	if(user.stat || user.restrained() || !ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/H = user
@@ -15,7 +15,7 @@
 				return
 			H.drop_transfer_item_to_loc(O, src)	// Store the glasses for later removal
 			to_chat(H, "You fit \the [name] with lenses from \the [O].")
-			prescription = 1
+			prescription = TRUE
 			name = "prescription [name]"
 			if(H.glasses == src)
 				H.update_nearsighted_effects()
@@ -25,7 +25,7 @@
 			if(!G)
 				G = new(get_turf(H))
 			to_chat(H, "You salvage the prescription lenses from \the [name].")
-			prescription = 0
+			prescription = FALSE
 			name = initial(name)
 			H.put_in_hands(G)
 			if(H.glasses == src)
@@ -60,7 +60,7 @@
 	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -90,10 +90,10 @@
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	prescription_upgradable = 0
+	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/meson/prescription
-	prescription = 1
+	prescription = TRUE
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
@@ -105,7 +105,7 @@
 	throw_speed = 4
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"
@@ -114,7 +114,7 @@
 	item_state = "eyepatch"
 	flags = NODROP
 	flags_cover = null
-	prescription_upgradable = 0
+	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"
@@ -122,8 +122,8 @@
 	icon_state = "purple"
 	item_state = "glasses"
 	origin_tech = "magnets=2;engineering=1"
-	prescription_upgradable = 0
-	scan_reagents = 1 //You can see reagents while wearing science goggles
+	prescription_upgradable = FALSE
+	scan_reagents = TRUE //You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	sprite_sheets = list(
@@ -140,7 +140,7 @@
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == slot_glasses)
-		return 1
+		return TRUE
 
 /obj/item/clothing/glasses/science/night
 	name = "Night Vision Science Goggle"
@@ -207,7 +207,7 @@
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
 	item_state = "headset" // lol
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -261,7 +261,7 @@
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
 	item_state = "glasses"
-	prescription = 1
+	prescription = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -313,7 +313,7 @@
 		"Neara" = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/sunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -323,7 +323,7 @@
 	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -341,9 +341,6 @@
 	name = "cheap sunglasses"
 	icon_state = "sun"
 	item_state = "sunglasses"
-	see_in_dark = 0
-	flash_protect = 0
-	tint = 0
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -364,9 +361,6 @@
 	name = "Phirmel Soonglesas"
 	icon_state = "sunthermal"
 	item_state = "sunthermal"
-	see_in_dark = 0
-	flash_protect = 0
-	tint = 0
 
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"
@@ -378,7 +372,7 @@
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
 	if(slot == slot_glasses)
-		return 1
+		return TRUE
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
 	color_view = color_view ? null : MATRIX_GREYSCALE //Toggles between null and grayscale, with null being the default option.
@@ -405,7 +399,7 @@
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
 	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
-	scan_reagents = 1
+	scan_reagents = TRUE
 
 /obj/item/clothing/glasses/virussunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -466,7 +460,6 @@
 	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
-	flash_protect = 2
 	tint = 0
 
 /obj/item/clothing/glasses/sunglasses/blindfold
@@ -476,10 +469,10 @@
 	item_state = "blindfold"
 	flash_protect = 2
 	tint = 3				//to make them blind
-	prescription_upgradable = 0
+	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/sunglasses/prescription
-	prescription = 1
+	prescription = TRUE
 
 /obj/item/clothing/glasses/sunglasses/big
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Larger than average enhanced shielding blocks many flashes."
@@ -508,11 +501,11 @@
 		)
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
-	if(ishuman(src.loc))
-		var/mob/living/carbon/human/H = src.loc
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
 		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot(INTERNAL_ORGAN_EYES)
 		if(eyes && H.glasses == src)
-			to_chat(H, "<span class='warning'>[src] overloads and blinds you!</span>")
+			to_chat(H, span_warning("[src] overloads and blinds you!"))
 			H.flash_eyes(visual = TRUE)
 			H.EyeBlind(6 SECONDS)
 			H.EyeBlurry(10 SECONDS)
@@ -560,7 +553,7 @@
 	item_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
-	scan_reagents = 1
+	scan_reagents = TRUE
 	flags = NODROP
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -577,7 +570,7 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/W, mob/user, params)
 	if(istype(W, src) && W != src && W.loc == user)
 		if(W.icon_state == "godeye")
 			W.icon_state = "doublegodeye"
@@ -587,7 +580,7 @@
 				var/mob/living/carbon/C = user
 				C.update_inv_wear_mask()
 		else
-			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
+			to_chat(user, span_notice("The eye winks at you and vanishes into the abyss, you feel really unlucky."))
 		qdel(src)
 	..()
 
@@ -598,8 +591,6 @@
 	item_state = "tajblind"
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
-	up = 0
-	tint = 0
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -612,7 +603,6 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
 
-
 /obj/item/clothing/glasses/tajblind/eng
 	name = "industrial veil"
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This ones are with meson scanners and welding shield."
@@ -620,7 +610,6 @@
 	item_state = "tajblind_engi"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = 0
 
 /obj/item/clothing/glasses/tajblind/eng/sunglasses
 	flash_protect = 1
@@ -647,7 +636,7 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This ones are with reagent and research scanners."
 	icon_state = "tajblind_sci"
 	item_state = "tajblind_sci"
-	scan_reagents = 1
+	scan_reagents = TRUE
 	actions_types = list(/datum/action/item_action/toggle_research_scanner,/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/tajblind/sci/sunglasses
@@ -661,13 +650,13 @@
 	item_state = "tajblind_cargo"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/tajblind/cargo/sunglasses
 	flash_protect = 1
 	tint = 1
 
-/obj/item/clothing/glasses/tajblind/attack_self(mob/user = usr)
+/obj/item/clothing/glasses/tajblind/attack_self(mob/user)
 	toggle_veil(user)
 
 /obj/item/clothing/glasses/proc/toggle_veil(mob/user)

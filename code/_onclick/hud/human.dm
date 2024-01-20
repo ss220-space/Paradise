@@ -375,8 +375,9 @@
 	infodisplay += mymob.healthdoll
 
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
@@ -393,10 +394,11 @@
 	infodisplay += devilsouldisplay
 
 	zone_select =  new /obj/screen/zone_sel()
+	zone_select.hud = src
 	zone_select.color = ui_color
 	zone_select.icon = ui_style
 	zone_select.alpha = ui_alpha
-	zone_select.update_icon(mymob)
+	zone_select.update_icon(UPDATE_OVERLAYS)
 	static_inventory += zone_select
 
 	inventory_shown = FALSE

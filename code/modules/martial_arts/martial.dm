@@ -174,7 +174,9 @@
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!H.mind)
-		return
+		return FALSE
+	if(istype(H.mind.martial_art, src.type))
+		return FALSE
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
 	if(make_temporary)
@@ -189,12 +191,13 @@
 		base = src
 	owner_UID = H.UID()
 	H.mind.martial_art = src
+	return TRUE
 
 /datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
 	if(!H.mind)
-		return
+		return FALSE
 	if(H.mind.martial_art != src)
-		return
+		return FALSE
 	H.mind.martial_art = null // Remove reference
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 	H.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
@@ -202,6 +205,7 @@
 	if(base)
 		base.teach(H)
 		base = null
+	return TRUE
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -351,6 +355,9 @@
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
 			return
 
+	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
+		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
+		return
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)

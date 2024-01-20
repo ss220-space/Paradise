@@ -375,7 +375,7 @@
 			next_in_line = BODY_ZONE_HEAD
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_r_arm()
 	set name = "body-r-arm"
@@ -390,7 +390,7 @@
 		next_in_line = BODY_ZONE_R_ARM
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_chest()
 	set name = "body-chest"
@@ -404,7 +404,7 @@
 	else
 		next_in_line = BODY_ZONE_CHEST
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_l_arm()
 	set name = "body-l-arm"
@@ -420,7 +420,7 @@
 		next_in_line = BODY_ZONE_L_ARM
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_r_leg()
 	set name = "body-r-leg"
@@ -436,7 +436,7 @@
 		next_in_line = BODY_ZONE_R_LEG
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_groin()
 	set name = "body-groin"
@@ -446,7 +446,7 @@
 		return
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(BODY_ZONE_PRECISE_GROIN, mob)
+	selector.set_selected_zone(BODY_ZONE_PRECISE_GROIN)
 
 /client/verb/body_tail()
 	set name = "body-tail"
@@ -456,7 +456,7 @@
 		return
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(BODY_ZONE_TAIL, mob)
+	selector.set_selected_zone(BODY_ZONE_TAIL)
 
 /client/verb/body_l_leg()
 	set name = "body-l-leg"
@@ -472,7 +472,7 @@
 		next_in_line = BODY_ZONE_L_LEG
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/toggle_walk_run()
 	set name = "toggle-walk-run"
@@ -485,7 +485,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		if(C.legcuffed)
-			to_chat(C, "<span class='notice'>Ваши ноги скованы! Вы не можете бежать, пока не снимете [C.legcuffed]!</span>")
+			to_chat(C, span_notice("Ваши ноги скованы! Вы не можете бежать, пока не снимете [C.legcuffed]!"))
 			C.m_intent = MOVE_INTENT_WALK	//Just incase
 			C.hud_used?.move_intent.icon_state = "walking"
 			return
@@ -501,4 +501,4 @@
 	if(hud_used && hud_used.move_intent && hud_used.static_inventory)
 		hud_used.move_intent.icon_state = icon_toggle
 		for(var/obj/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon(src)
+			selector.update_icon()
