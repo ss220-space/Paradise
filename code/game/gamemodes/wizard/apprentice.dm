@@ -432,7 +432,7 @@
 		to_chat(owner, "<span class='notice'>The walls suddenly disappear.</span>")
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/visionmage(owner), slot_wear_suit)
-	owner.equip_or_collect(new /obj/item/clothing/head/wizard/amp(owner), slot_head)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/visionmage(owner), slot_head)
 
 
 /datum/magick_school/singulo
