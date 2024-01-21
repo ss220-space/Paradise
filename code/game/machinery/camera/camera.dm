@@ -78,29 +78,31 @@
 	if(!isEmpProof())
 		if(prob(150/severity))
 			update_icon()
-			var/list/previous_network = network
-			network = list()
-			GLOB.cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
-			emped = emped+1  //Increase the number of consecutive EMP's
 			update_icon()
-			var/thisemp = emped //Take note of which EMP this proc is for
-			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS)
-			if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
-				network = previous_network
-				stat &= ~EMPED
-				update_icon()
-				if(can_use())
-					GLOB.cameranet.addCamera(src)
-				emped = 0 //Resets the consecutive EMP count
-				cancelCameraAlarm()
+
+			GLOB.cameranet.removeCamera(src)
+
+			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE)
+			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
 					M.unset_machine()
 					M.reset_perspective(null)
 					to_chat(M, "The screen bursts into static.")
 			..()
+
+
+/obj/machinery/camera/proc/restore_from_emp()
+	stat &= ~EMPED
+	update_icon()
+
+	if(can_use())
+		GLOB.cameranet.addCamera(src)
+
+	cancelCameraAlarm()
 
 /obj/machinery/camera/tesla_act(power)//EMP proof upgrade also makes it tesla immune
 	if(isEmpProof())
