@@ -99,6 +99,8 @@
   - tweak: no sanitize for area `name` in crew monitor's. (#4229)
   Den109G:
   - bugfix: Fish cabinet is now anchored. (#4227)
+  Dimach:
+  - bugfix: fix objective removed proc (#4244)
   Etrnlmelancholy:
   - add: colorized suspenders + security belt shoulder system (#4184)
   LiquidPotroh:
@@ -119,3 +121,22 @@
   Zwei:
   - bugfix: Buttons Alpha On Click (#4228)
   - bugfix: Ninja Bomb Objective Fix (#4203)
+'2024-01-21':
+  0x0v3rfl0w:
+  - tweak: camera alarms (#3593)
+  ArtemDerp:
+  - bugfix: added missed item state for SP91 (#4251)
+  - add: space bar shuttle can dock near the station (#4214)
+  Daeberdir:
+  - bugfix: delta library windowtint button affecting clearly. (#4242)
+  LiquidPotroh:
+  - qol: Examine knife holster on suit (#4247)
+  - bugfix: multiple same viruses in blood data (#4096)
+  Pavel Poltaves:
+  - bugfix: someone forgot to add ability to read newspapers on tables. (#4241)
+  Rerik007:
+  - add: cargo quest system (#4047)
+  Valtor:
+  - bugfix: Returned the "pAI suicide" button (#4236)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4248)
