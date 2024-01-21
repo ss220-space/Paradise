@@ -3,7 +3,6 @@
 	desc = "Don't jump on it... Or do, I'm not your mom."
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "unsmooth"
-	baseturf = /turf/space
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/simulated/floor/transparent/glass, /turf/simulated/floor/transparent/glass/reinforced, /turf/simulated/floor/transparent/glass/plasma, /turf/simulated/floor/transparent/glass/reinforced/plasma)
 	light_power = 0.25

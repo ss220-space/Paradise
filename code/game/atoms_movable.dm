@@ -437,8 +437,6 @@
 	if(!(impact_flags & ZIMPACT_NO_SPIN))
 		INVOKE_ASYNC(src, PROC_REF(SpinAnimation), 5, 2)
 	SEND_SIGNAL(src, COMSIG_ATOM_ON_Z_IMPACT, impacted_turf, levels)
-
-	stack_trace("[currently_z_moving], [levels]")
 	return TRUE
 
 /*

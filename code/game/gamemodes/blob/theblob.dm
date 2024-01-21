@@ -55,7 +55,7 @@
 	. = ..()
 	return checkpass(mover, PASSBLOB)
 
-/obj/structure/blob/CanAtmosPass(turf/T)
+/obj/structure/blob/CanAtmosPass(turf/T, vertical)
 	return !atmosblock
 
 

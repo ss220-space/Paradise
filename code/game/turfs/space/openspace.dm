@@ -1,34 +1,15 @@
-GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdrop, new)
-
-/atom/movable/openspace_backdrop
-	name = "openspace_backdrop"
-	anchored = TRUE
-	icon = 'icons/turf/space.dmi'
-	icon_state = "grey"
-	plane = OPENSPACE_BACKDROP_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	layer = SPLASHSCREEN_LAYER
-	//I don't know why the others are aligned but I shall do the same.
-	vis_flags = VIS_INHERIT_ID
-
-/turf/simulated/openspace
+/turf/space/openspace
 	name = "open space"
 	desc = "Watch your step!"
 	icon = 'icons/turf/space.dmi'
 	icon_state = "openspace" //transparent
-	baseturf = /turf/simulated/openspace
+	baseturf = /turf/space/openspace
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pathing_pass_method = TURF_PATHING_PASS_PROC
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 
-	// PARACODE
-	thermal_conductivity = 0.040
-	heat_capacity = 10000
-	transparent_floor = TRUE // bruh
-	intact = FALSE //this means wires go on top
-
-/turf/simulated/openspace/Initialize(mapload)
+/turf/space/openspace/Initialize(mapload)
 	. = ..()
 	if(!GET_TURF_BELOW(src))
 		stack_trace("[src] was inited as openspace with nothing below it at ([x], [y], [z])")
@@ -38,11 +19,14 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_created))
 	return INITIALIZE_HINT_LATELOAD
 
-/turf/simulated/openspace/LateInitialize()
+/turf/space/openspace/LateInitialize()
 	. = ..()
 	AddElement(/datum/element/turf_z_transparency, is_openspace = TRUE)
 
-/turf/simulated/openspace/ChangeTurf(path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
+/turf/space/openspace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	return TRUE // stops ruining parallax space
+
+/turf/space/openspace/ChangeTurf(path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
 	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
 	return ..()
 
@@ -51,14 +35,14 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
  * This is done in Enter() and not Entered() because there's no easy way to tell
  * if the latter was called by Move() or forceMove() while the former is only called by Move().
  */
-/turf/simulated/openspace/Enter(atom/movable/movable, atom/oldloc)
+/turf/space/openspace/Enter(atom/movable/movable, atom/oldloc)
 	. = ..()
 	if(.)
 		//higher priority than CURRENTLY_Z_FALLING so the movable doesn't fall on Entered()
 		movable.set_currently_z_moving(CURRENTLY_Z_FALLING_FROM_MOVE)
 
 ///Makes movables fall when forceMove()'d to this turf.
-/turf/simulated/openspace/Entered(atom/movable/movable)
+/turf/space/openspace/Entered(atom/movable/movable)
 	. = ..()
 	var/mob/AM = movable
 	if(ismob(AM) && AM.buckled && AM.currently_z_moving == CURRENTLY_Z_MOVING_GENERIC)
@@ -70,29 +54,29 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
  * so flying mobs, qdeleted movables and things that were moved somewhere else during
  * Initialize() won't fall by accident.
  */
-/turf/simulated/openspace/proc/on_atom_created(datum/source, atom/created_atom)
+/turf/space/openspace/proc/on_atom_created(datum/source, atom/created_atom)
 	SIGNAL_HANDLER
 	if(ismovable(created_atom))
 		//Drop it only when it's finished initializing, not before.
 		addtimer(CALLBACK(src, PROC_REF(zfall_if_on_turf), created_atom), 0 SECONDS)
 
-/turf/simulated/openspace/proc/zfall_if_on_turf(atom/movable/movable)
+/turf/space/openspace/proc/zfall_if_on_turf(atom/movable/movable)
 	if(QDELETED(movable) || movable.loc != src)
 		return
 	zFall(movable)
 
-/turf/simulated/openspace/zAirIn()
+/turf/space/openspace/zAirIn()
 	return TRUE
 
-/turf/simulated/openspace/zAirOut()
+/turf/space/openspace/zAirOut()
 	return TRUE
 
-/turf/simulated/openspace/proc/check_fall()
+/turf/space/openspace/proc/check_fall()
 	for(var/atom/movable/M as anything in contents)
 		zfall_if_on_turf(M)
 
 // this is open NON-floor.
-/turf/simulated/openspace/zPassIn(direction)
+/turf/space/openspace/zPassIn(direction)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
 			if(O.obj_flags & BLOCK_Z_IN_DOWN)
@@ -105,7 +89,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		return TRUE
 	return FALSE
 
-/turf/simulated/openspace/zPassOut(direction)
+/turf/space/openspace/zPassOut(direction)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
 			if(O.obj_flags & BLOCK_Z_OUT_DOWN)
@@ -118,13 +102,13 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		return TRUE
 	return FALSE
 
-/turf/simulated/openspace/proc/CanCoverUp()
+/turf/space/openspace/proc/CanCoverUp()
 	return can_cover_up
 
-/turf/simulated/openspace/proc/CanBuildHere()
+/turf/space/openspace/proc/CanBuildHere()
 	return can_build_on
 
-/turf/simulated/openspace/attackby(obj/item/C, mob/user, params)
+/turf/space/openspace/attackby(obj/item/C, mob/user, params)
 	if(!C || !user)
 		return TRUE
 
@@ -191,18 +175,18 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 				new /obj/structure/lattice/catwalk/fireproof(src)
 	..()
 
-/turf/simulated/openspace/can_have_cabling()
+/turf/space/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return TRUE
 	return FALSE
 
-/turf/simulated/openspace/singularity_act()
+/turf/space/openspace/singularity_act()
 	return
 
-/turf/simulated/openspace/acid_act(acidpwr, acid_volume)
+/turf/space/openspace/acid_act(acidpwr, acid_volume)
 	return
 
-/turf/simulated/openspace/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+/turf/space/openspace/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	. = ..()
 	if(rcd_mode != RCD_MODE_TURF)
 		return RCD_NO_ACT

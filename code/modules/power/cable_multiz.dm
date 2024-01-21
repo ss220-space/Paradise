@@ -11,6 +11,10 @@
 /obj/structure/cable/multiz/update_icon_state()
 	return
 
+/obj/structure/cable/multiz/Initialize(mapload)
+	. = ..()
+	mergeConnectedNetworksOnTurf(get_turf(src))
+
 /obj/structure/cable/multiz/deconstruct(disassembled = TRUE)
 	if(usr)
 		investigate_log("deconstructed by [key_name_log(usr)]", INVESTIGATE_WIRES)
@@ -23,6 +27,12 @@
 	if(T.transparent_floor || T.intact)
 		to_chat(user, span_warning("You can't interact with something that's under the floor!"))
 		return
+	else if(istype(W, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/coil = W
+		if(coil.get_amount() < 1)
+			to_chat(user, "<span class='warning'>Not enough cable!</span>")
+			return
+		coil.place_turf(get_turf(src), user)
 	else
 		if(W.flags & CONDUCT)
 			shock(user, 50, 0.7)
@@ -41,7 +51,7 @@
 
 // merge with the powernets of power objects in the source turf and multi z
 /obj/structure/cable/multiz/mergeConnectedNetworksOnTurf()
-	if(!powernet) //if we somehow have no powernet, make one (should not happen for cables)
+	if(!powernet) //if we somehow have no powernet, make one (it may happen one time, when being built)
 		var/datum/powernet/newPN = new()
 		newPN.add_cable(src)
 

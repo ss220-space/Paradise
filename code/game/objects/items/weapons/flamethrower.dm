@@ -206,7 +206,7 @@
 			break
 		if(T == previousturf)
 			continue	//so we don't burn the tile we be standin on
-		if(!T.CanAtmosPass(previousturf))
+		if(!T.CanAtmosPass(previousturf, vertical = FALSE))
 			break
 		if(igniter)
 			igniter.ignite_turf(src, T)

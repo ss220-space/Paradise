@@ -62,6 +62,12 @@
 		if(PIPE_DISPOSALS_CHUTE)
 			dpdir = dir
 			icon_state = base_state
+		if(PIPE_DISPOSALS_MULTIZ_UP)
+			dpdir = dir
+			icon_state = base_state
+		if(PIPE_DISPOSALS_MULTIZ_DOWN)
+			dpdir = dir
+			icon_state = base_state
 	if(!(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)))
 		icon_state = "con[base_state]"
 	if(invisibility)				// if invisible, fade icon
@@ -145,6 +151,10 @@
 			return /obj/machinery/disposal/deliveryChute
 		if(PIPE_DISPOSALS_SORT_RIGHT, PIPE_DISPOSALS_SORT_LEFT)
 			return /obj/structure/disposalpipe/sortjunction
+		if(PIPE_DISPOSALS_MULTIZ_UP)
+			return /obj/structure/disposalpipe/trunk/multiz
+		if(PIPE_DISPOSALS_MULTIZ_DOWN)
+			return /obj/structure/disposalpipe/trunk/multiz/down
 	return
 
 /obj/structure/disposalconstruct/proc/pipe_check(mob/user)

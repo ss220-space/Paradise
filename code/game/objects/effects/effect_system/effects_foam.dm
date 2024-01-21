@@ -222,5 +222,5 @@
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
 
-/obj/structure/foamedmetal/CanAtmosPass()
+/obj/structure/foamedmetal/CanAtmosPass(turf/T, vertical)
 	return !density

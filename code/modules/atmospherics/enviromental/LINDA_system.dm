@@ -12,7 +12,7 @@
 		return can_pass
 
 	for(var/obj/O in contents + T.contents)
-		if(O.CanAtmosPass(T))
+		if(O.CanAtmosPass(T, vertical))
 			continue
 		can_pass = FALSE
 		if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
@@ -33,17 +33,12 @@
 
 /turf/proc/CalculateAdjacentTurfs()
 	atmos_adjacent_turfs_amount = 0
-	var/list/z_traits = SSmapping.multiz_levels[z]
 	for(var/direction in GLOB.cardinals_multiz)
-		var/turf/T = (direction & (UP|DOWN)) ? \
-			(direction & UP) ? \
-				(z_traits[Z_LEVEL_UP]) ? \
-					(get_step(locate(x, y, z + 1), NONE)) : \
-				(null) : \
-				(z_traits[Z_LEVEL_DOWN]) ? \
-					(get_step(locate(x, y, z - 1), NONE)) : \
-				(null) : \
-			(get_step(src, direction))
+		var/turf/T
+		if(direction & (UP|DOWN))
+			T = (direction & UP) ? GET_TURF_ABOVE(src) : GET_TURF_BELOW(src)
+		else
+			T = get_step(src, direction)
 		if(!istype(T))
 			continue
 		var/counterdir = get_dir(T, src)
@@ -63,7 +58,7 @@
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
 //	air with both of the related adjacent cardinal tiles
-/turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
+/turf/proc/GetAtmosAdjacentTurfs(alldir = FALSE)
 	if(!issimulatedturf(src))
 		return list()
 
@@ -84,7 +79,7 @@
 		var/turf/simulated/S = get_step_multiz(curloc, direction)
 
 		for(var/checkDirection in GLOB.cardinals_multiz)
-			if(!(S.atmos_adjacent_turfs & checkDirection))
+			if(!(S?.atmos_adjacent_turfs & checkDirection))
 				continue
 			var/turf/simulated/checkTurf = get_step(S, checkDirection)
 

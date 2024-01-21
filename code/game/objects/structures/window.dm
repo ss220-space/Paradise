@@ -476,7 +476,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	setDir(ini_dir)
 	move_update_air(T)
 
-/obj/structure/window/CanAtmosPass(turf/T)
+/obj/structure/window/CanAtmosPass(turf/T, vertical)
 	if(!anchored || !density)
 		return TRUE
 	return !(FULLTILE_WINDOW_DIR == dir || dir == get_dir(loc, T))

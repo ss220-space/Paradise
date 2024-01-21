@@ -1,7 +1,8 @@
 /obj/machinery/atmospherics/pipe/multiz ///This is an atmospherics pipe which can relay air up and down deck (Z+1).
 	name = "multi deck pipe adapter"
 	desc = "An adapter which allows pipes to connect to other pipenets on different decks."
-	icon_state = ""
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
+	icon_state = "multiz"
 	dir = SOUTH
 	layer = GAS_PIPE_VISIBLE_LAYER+0.1
 
@@ -27,21 +28,6 @@
 /obj/machinery/atmospherics/pipe/multiz/New()
 	..()
 	initialize_directions = dir
-
-/obj/machinery/atmospherics/pipe/multiz/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	dir = turn(dir, 90)
-	var/node_connect = dir
-	initialize_directions = dir
-	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-		if(target.initialize_directions & get_dir(target,src))
-			node = target
-			break
-	build_network()
-	update_icon()
-
 
 /obj/machinery/atmospherics/pipe/multiz/hide(var/i)
 	return

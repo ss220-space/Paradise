@@ -1,7 +1,5 @@
 #define HEALPERCABLE 3
 #define MAXCABLEPERHEAL 8
-#define CABLE_RESTRAINTS_COST 15
-#define CABLE_MULTIZ_COST 10
 /obj/item/stack/cable_coil
 	name = "cable coil"
 	singular_name = "cable"
@@ -94,61 +92,62 @@
 // General procedures
 ///////////////////////////////////
 /obj/item/stack/cable_coil/attack_self(mob/user)
-	. = ..() //no worry. it'll return if no recipes for /stack
 	var/image/restraints_icon = image(icon = 'icons/obj/items.dmi', icon_state = "cuff_white")
-	restraints_icon.maptext = CABLE_RESTRAINTS_COST
-	restraints_icon.maptext_x = 16
-	restraints_icon.maptext_y = 2
 	var/image/multiz_icon = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "cable_bridge")
-	restraints_icon.maptext = CABLE_MULTIZ_COST
-	restraints_icon.maptext_x = 16
-	restraints_icon.maptext_y = 2
 	var/choices = list(
-		"cable restraints" = restraints_icon,
-		"multi z cable hub" = multiz_icon,
+		"cable restraints (15)" = restraints_icon,
+		"multi z cable hub (10)" = multiz_icon,
 	)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
+	var/turf/T = get_turf(src)
 	switch(choice)
-		if("cable restraints")
-			if(get_amount() < CABLE_RESTRAINTS_COST)
+		if("cable restraints (15)")
+			if(get_amount() < 15)
 				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
-			if(use(CABLE_RESTRAINTS_COST))
-				var/obj/item/restraints/handcuffs/cable/cablecuff = new()
-				var/color = "white"
+			if(use(15))
+				var/obj/item/restraints/handcuffs/cable/cablecuff = new(T)
+				var/text_color
 				switch(color)
 					if(WIRE_COLOR_BLUE)
-						cablecuff.color = "blue"
+						text_color = "blue"
 					if(WIRE_COLOR_CYAN)
-						cablecuff.color = "cyan"
+						text_color = "cyan"
 					if(WIRE_COLOR_GREEN)
-						cablecuff.color = "green"
+						text_color = "green"
 					if(WIRE_COLOR_ORANGE)
-						cablecuff.color = "orange"
+						text_color = "orange"
 					if(WIRE_COLOR_PINK)
-						cablecuff.color = "pink"
+						text_color = "pink"
 					if(WIRE_COLOR_RED)
-						cablecuff.color = "red"
+						text_color = "red"
 					if(WIRE_COLOR_YELLOW)
-						cablecuff.color = "yellow"
+						text_color = "yellow"
+					else
+						text_color = "white"
 
-				cablecuff.icon_state = "cuff_[cablecuff.color]"
-		if("multi z cable hub")
-			if(get_amount() < CABLE_MULTIZ_COST)
+				cablecuff.icon_state = "cuff_[text_color]"
+		if("multi z cable hub (10)")
+			if(T.intact || T.transparent_floor)
+				to_chat(user, span_warning("You need to remove floor plating."))
+				return
+			if(get_amount() < 10)
 				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 				return
 			if(do_after(user, 2 SECONDS, target = user))
-				if(!use(CABLE_MULTIZ_COST))
+				if(!use(10))
 					to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 					return
-				var/obj/structure/cable/multiz/multicable = new()
+				playsound(T, usesound, 50, 1)
+				to_chat(user, span_notice("You place hub cable onto the floor."))
+				var/obj/structure/cable/multiz/multicable = new(T)
 				multicable.cable_color(color)
 
 /obj/item/stack/cable_coil/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated() || user.get_active_hand() != src)
 		return FALSE
 	return TRUE
 
@@ -297,6 +296,8 @@
 // called when cable_coil is click on an installed obj/cable
 // or click on a turf that already contains a "node" cable
 /obj/item/stack/cable_coil/proc/cable_join(obj/structure/cable/C, mob/user)
+	if(istype(C, /obj/structure/cable/multiz))
+		return
 	var/turf/U = user.loc
 	if(!isturf(U))
 		return

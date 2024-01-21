@@ -63,7 +63,7 @@
 		return !opacity
 
 
-/obj/structure/mineral_door/CanAtmosPass(turf/T)
+/obj/structure/mineral_door/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/mineral_door/proc/TryToSwitchState(atom/user)

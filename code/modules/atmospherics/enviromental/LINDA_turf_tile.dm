@@ -151,6 +151,7 @@
 		excited_group.reset_cooldowns();\
 	}
 
+// proc being called to process all the atmos around it.
 /turf/simulated/proc/process_cell()
 	if(archived_cycle < SSair.times_fired) //archive self if not already done
 		archive()
@@ -162,13 +163,19 @@
 	if (planet_atmos)
 		atmos_adjacent_turfs_amount++
 
-	for(var/direction in GLOB.cardinal)
+	for(var/direction in GLOB.cardinals_multiz)
 		if(!(atmos_adjacent_turfs & direction))
 			continue
 
-		var/turf/enemy_tile = get_step(src, direction)
+		var/turf/enemy_tile
+		if(direction & (UP|DOWN))
+			enemy_tile = (direction & UP) ? GET_TURF_ABOVE(src) : GET_TURF_BELOW(src)
+		else
+			enemy_tile = get_step(src, direction)
 
-		if(istype(enemy_tile, /turf/simulated))
+		// This is the start of where we actually simulate everything.
+		// We only simulate /turf/simulated with other types of turfs(/space) will help a bit later in else-case
+		if(issimulatedturf(enemy_tile))
 			var/turf/simulated/enemy_simulated = enemy_tile
 
 			if(current_cycle > enemy_simulated.current_cycle)
@@ -210,7 +217,7 @@
 
 		/******************* GROUP HANDLING FINISH *********************************************************************/
 
-		else
+		else // Mostly it's just a /turf/space case.
 			if(!air.check_turf(enemy_tile, atmos_adjacent_turfs_amount))
 				var/current_moles = air.total_moles()
 				if (is_station_level(loc.z) && current_moles > 5 && isspaceturf(enemy_tile))
@@ -552,17 +559,21 @@
 /turf/simulated/Initialize_Atmos(times_fired)
 	..()
 	update_visuals()
-	for(var/direction in GLOB.cardinal)
+	for(var/direction in GLOB.cardinals_multiz)
 		if(!(atmos_adjacent_turfs & direction))
 			continue
-		var/turf/enemy_tile = get_step(src, direction)
-		if(istype(enemy_tile, /turf/simulated))
+		var/turf/enemy_tile = get_step_multiz(src, direction)
+		if(issimulatedturf(enemy_tile))
 			var/turf/simulated/enemy_simulated = enemy_tile
 			if(!air.compare(enemy_simulated.air))
 				excited = 1
 				SSair.active_turfs |= src
 				break
 		else
-			if(!air.check_turf_total(enemy_tile))
+			if(!enemy_tile)
+				log_runtime(EXCEPTION("Tried to AtmosInit null turf! And the direction to it was somehow calculated incorrectly! Correcting mistakes."))
+				atmos_adjacent_turfs &= ~direction
+				continue // We may want to continue with others at least
+			else if(!air.check_turf_total(enemy_tile))
 				excited = 1
 				SSair.active_turfs |= src

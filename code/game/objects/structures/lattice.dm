@@ -38,9 +38,14 @@
 
 /obj/structure/lattice/deconstruct(disassembled)
 	. = ..()
-	var/turf/openspace/O = get_turf(loc)
-	if(istype(O))
-		O.check_fall()
+	var/turf/O = get_turf(loc)
+	if(isopenspaceturf(O))
+		for(var/atom/movable/movable in O)
+			var/mob/AM = movable
+			if(ismob(AM) && AM.buckled && AM.currently_z_moving == CURRENTLY_Z_MOVING_GENERIC)
+				return
+			if(movable.set_currently_z_moving(CURRENTLY_Z_FALLING))
+				O.zFall(movable, falling_from_move = TRUE)
 
 /obj/structure/lattice/catwalk/deconstruct()
 	var/turf/T = loc

@@ -215,7 +215,7 @@
 	adjacent_turfs.Cut()
 	var/turf/T = loc
 	if(istype(T))
-		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir=1)
+		adjacent_turfs = T.GetAtmosAdjacentTurfs(TRUE)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(var/turf/simulated/tile)
 	if(!tile || !istype(tile))

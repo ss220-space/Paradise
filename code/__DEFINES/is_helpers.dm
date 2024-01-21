@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isspaceturf(A) istype(A, /turf/space)
 
-#define isopenspaceturf(A) istype(A, /turf/simulated/openspace)
+#define isopenspaceturf(A) (istype(A, /turf/simulated/openspace) || istype(A, /turf/space/openspace))
 
 #define isfloorturf(A) istype(A, /turf/simulated/floor)
 

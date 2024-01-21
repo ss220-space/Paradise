@@ -343,6 +343,13 @@ By design, d1 is the smallest direction and d2 is the highest
 					merge_powernets(powernet, C.powernet)
 				else
 					powernet.add_cable(C) //the cable was powernetless, let's just add it to our powernet
+			else if(istype(C, /obj/structure/cable/multiz) && d1 == 0) // we're dot and we got multiz hub
+				if(C.powernet == powernet)
+					continue
+				if(C.powernet)
+					merge_powernets(powernet, C.powernet)
+				else
+					powernet.add_cable(C) //the cable was powernetless, let's just add it to our powernet
 
 		else if(istype(AM, /obj/machinery/power/apc))
 			var/obj/machinery/power/apc/N = AM

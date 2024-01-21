@@ -1,3 +1,6 @@
+// This proc get_step in all dir AND up and down
+// If there isn't any turf up or down, it returns null
+// BEWARE of return null!
 /proc/get_step_multiz(ref, dir)
 	var/turf/us = get_turf(ref)
 	if(dir & UP)

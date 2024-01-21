@@ -47,7 +47,7 @@
 	if(widenet)
 		var/turf/T = loc
 		if(istype(T))
-			for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir=1))
+			for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(TRUE))
 				scrub(tile)
 
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(turf/simulated/tile)

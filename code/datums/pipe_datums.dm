@@ -351,6 +351,20 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_icon = "pipe-j1s"
 	rpd_dispensable = TRUE
 
+/datum/pipes/disposal/multiz_up
+	pipe_name = "disposals trunk up"
+	pipe_id = PIPE_DISPOSALS_MULTIZ_UP
+	orientations = 4
+	pipe_icon = "pipe-up"
+	rpd_dispensable = TRUE
+
+/datum/pipes/disposal/multiz_down
+	pipe_name = "disposals trunk down"
+	pipe_id = PIPE_DISPOSALS_MULTIZ_DOWN
+	orientations = 4
+	pipe_icon = "pipe-down"
+	rpd_dispensable = TRUE
+
 //Pipes the RPD can't dispense. Since these don't use an interface, we don't need to bother with setting an icon. We do, however, want to name these for other purposes
 
 /datum/pipes/atmospheric/circulator

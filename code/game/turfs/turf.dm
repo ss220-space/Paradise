@@ -274,7 +274,10 @@
 			return
 		if(/turf/baseturf_bottom)
 			if(check_level_trait(z, ZTRAIT_OPENSPACE))
-				path = /turf/simulated/openspace
+				if(istype(get_area(src), /area/space))
+					path = /turf/space/openspace
+				else
+					path = /turf/simulated/openspace
 			else if(check_level_trait(z, ZTRAIT_LAVALAND))
 				path = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 			else
@@ -424,7 +427,7 @@
 	for(var/dir in GLOB.cardinal)
 		T = get_step(src, dir)
 		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T))
+			if(!CanAtmosPass(T, FALSE))
 				L.Add(T)
 	return L
 
@@ -474,7 +477,7 @@
 			continue
 		if(istype(T) && !T.density)
 			if(!ID)
-				if(!CanAtmosPass(T))
+				if(!CanAtmosPass(T, FALSE))
 					L.Add(T)
 			else
 				if(!LinkBlockedWithAccess(src, T, ID))
