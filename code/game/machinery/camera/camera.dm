@@ -83,8 +83,8 @@
 
 			GLOB.cameranet.removeCamera(src)
 
-			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE)
-			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE | TIMER_DELETE_ME)
+			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_DELETE_ME)
 
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
@@ -284,7 +284,7 @@
 		change_msg = "reactivates"
 		cancelCameraAlarm()
 	else
-		addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS  | TIMER_DELETE_ME)
 	if(displaymessage)
 		if(user)
 			visible_message(span_danger("[user] [change_msg] [src]!"))
