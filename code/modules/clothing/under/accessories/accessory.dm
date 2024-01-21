@@ -103,6 +103,9 @@
 /obj/item/clothing/accessory/proc/attached_equip(mob/user) // If we need to do something special when clothing is removed from the user
 	return
 
+/obj/item/clothing/accessory/proc/attached_examine(mob/user) // additional info when examine accessory on the suit
+	return span_notice("\A [src] is attached to it.")
+
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
 	icon_state = "bluetie"

@@ -845,7 +845,7 @@ BLIND     // can't see anything
 				. += "<span class='notice'>Its vital tracker and tracking beacon appear to be enabled.</span>"
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			. += "<span class='notice'>\A [A] is attached to it.</span>"
+			. += A.attached_examine()
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Roll Down Jumpsuit"
