@@ -484,6 +484,23 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
+/obj/item/midichlorian
+	name = "Midichlorian injector"
+	desc = "UNLIMITED POWER!"
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "combat_hypo"
+
+/obj/item/midichlorian/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return
+	to_chat(user, span_boldannounce("You feel the [span_cult("POWER!")]"))
+
+	var/datum/martial_art/power/MA = new
+	MA.teach(user)
+	user.temporarily_remove_item_from_inventory(src)
+	visible_message(span_warning("You're injecting yourself with [src]."))
+	qdel(src)
+
 /obj/item/twohanded/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
