@@ -166,6 +166,12 @@
 	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
 	icon_state = "warden_jacket_alt"
 
+/obj/item/clothing/suit/armor/vest/sec_rps
+	name = "security belt-shoulder system"
+	desc = "A belt-shoulder system for officers that are more inclined towards style than safety."
+	icon_state = "sec_rps"
+	armor=  list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
 	desc = "An armored vest reinforced with ceramic plates and pauldrons to provide additional protection whilst still offering maximum mobility and flexibility. Issued only to the station's finest, although it does chafe your nipples."

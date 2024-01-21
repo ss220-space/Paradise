@@ -746,6 +746,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/clothing/under/rank/captain,
 		/obj/item/clothing/suit/hop_jacket,
 		/obj/item/clothing/under/rank/ntrep,
+		/obj/item/clothing/under/rank/ntrep/skirt,
 		/obj/item/clothing/suit/storage/ntrep,
 		/obj/item/clothing/under/rank/blueshield,
 		/obj/item/clothing/suit/armor/vest/blueshield,
