@@ -156,7 +156,7 @@
 	item_color = "holster_low"
 
 /obj/item/clothing/accessory/holster/knives
-	name = "Knife holster"
+	name = "knife holster"
 	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
 	icon_state = "holsterknife"
 	item_color = "holsterknife"
@@ -173,3 +173,6 @@
 	else
 		user.visible_message(span_notice("[user] takes the [I] out."),
 			span_notice("You takes the [I] out, [holstered.len] knives left"))
+
+/obj/item/clothing/accessory/holster/attached_examine(mob/user)
+	return span_notice("\A [src] with [holstered.len] knives attached to it.")
