@@ -50125,6 +50125,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
+"fHH" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 4;
+	id = "ntstation";
+	name = "To Space Station";
+	pixel_x = 32;
+	width = 6
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "fHL" = (
 /obj/machinery/computer/security{
 	network = list("SS13","Research Outpost","Mining Outpost")
@@ -179806,12 +179820,12 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -180063,12 +180077,12 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -180320,12 +180334,12 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -180577,12 +180591,12 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
-aaq
-aaq
-aaq
-aaq
+yhg
+yhg
+fHH
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq

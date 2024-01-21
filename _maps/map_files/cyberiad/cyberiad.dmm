@@ -78696,6 +78696,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/west)
+"nHW" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 4;
+	id = "ntstation";
+	name = "To Space Station";
+	pixel_x = 32;
+	width = 6
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "nJp" = (
 /obj/effect/decal/warning_stripes/green,
 /obj/machinery/vending/hydroseeds,
@@ -131935,12 +131949,12 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -132192,12 +132206,12 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -132449,12 +132463,12 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI
@@ -132706,12 +132720,12 @@ uTI
 uTI
 uTI
 uTI
-uTI
-uTI
-uTI
-uTI
-uTI
-uTI
+ylx
+ylx
+nHW
+ylx
+ylx
+ylx
 uTI
 uTI
 uTI

@@ -83696,6 +83696,20 @@
 	icon_state = "dark"
 	},
 /area/teleporter)
+"tks" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 4;
+	id = "ntstation";
+	name = "To Space Station";
+	pixel_x = 32;
+	width = 6
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "tkL" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -136043,12 +136057,12 @@ cYw
 cYw
 cYw
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 jqn
@@ -136300,12 +136314,12 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 jqn
@@ -136557,12 +136571,12 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 jqn
@@ -136814,12 +136828,12 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+tks
+jqn
+jqn
+jqn
 rNK
 rNK
 jqn
