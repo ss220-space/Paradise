@@ -404,10 +404,10 @@
 	user?.update_head(src)
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
-	update_linked_hardsuit(user, toggle)
+	update_linked_hardsuit(toggle)
 
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/update_linked_hardsuit(mob/user, toggle = TRUE)
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/update_linked_hardsuit(toggle = TRUE)
 	if(!linkedsuit)
 		return
 
@@ -426,8 +426,7 @@
 		linkedsuit.armor.rad = combat_rad
 
 	linkedsuit.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
-	user?.update_inv_wear_suit()
-	user?.update_inv_w_uniform()
+	linkedsuit.update_equipped_item()
 
 
 /obj/item/clothing/suit/space/hardsuit/syndi

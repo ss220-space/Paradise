@@ -38,7 +38,7 @@
 			return 0
 
 		var/mob/living/thedriver = user
-		var/mob_delay = thedriver.movement_delay()
+		var/mob_delay = thedriver.cached_multiplicative_slowdown
 		if(mob_delay > 0)
 			calculated_move_delay += mob_delay
 
@@ -128,7 +128,7 @@
 			return 0
 
 		var/mob/living/thedriver = user
-		var/mob_delay = thedriver.movement_delay()
+		var/mob_delay = thedriver.cached_multiplicative_slowdown
 		if(mob_delay > 0)
 			calculated_move_delay += mob_delay
 

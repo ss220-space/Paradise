@@ -35,7 +35,6 @@
 	maxHealth = 50
 	health = 50
 	speed = -0.5
-	flying = TRUE
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
 	del_on_death = TRUE
@@ -128,6 +127,7 @@
 		name += " ([rand(100, 999)])"
 		real_name = name
 
+	AddElement(/datum/element/simple_flying)
 	remove_from_all_data_huds()
 	ADD_TRAIT(src, TRAIT_AI_UNTRACKABLE, PULSEDEMON_TRAIT)
 	// flags_2 |= RAD_NO_CONTAMINATE_2
@@ -363,9 +363,9 @@
 
 	if(!new_cable && !new_power)
 		if(can_exit_cable && moved)
-			speed = outside_cable_speed
+			set_varspeed(outside_cable_speed)
 	else
-		speed = inside_cable_speed
+		set_varspeed(inside_cable_speed)
 
 	if(moved)
 		if(!is_under_tile() && prob(PULSEDEMON_PLATING_SPARK_CHANCE))

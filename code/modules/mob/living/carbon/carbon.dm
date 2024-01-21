@@ -47,7 +47,7 @@
 			if(m_intent == MOVE_INTENT_RUN)
 				adjust_nutrition(-(hunger_drain * 0.1))
 		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
-			bodytemperature += 2
+			adjust_bodytemperature(2)
 
 		// Moving around increases germ_level faster
 		if(germ_level < GERM_LEVEL_MOVE_CAP && prob(8))
@@ -651,7 +651,7 @@
 
 
 /mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
-	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
+	if((movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
 	if((lying) && (!(tilesSlipped)))
@@ -890,7 +890,7 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/get_pull_push_speed_modifier(current_delay)
 	if(!canmove)
 		return pull_push_speed_modifier * 1.2
-	var/average_delay = (movement_delay(restrained() ? FALSE : TRUE) + current_delay) / 2
+	var/average_delay = (cached_multiplicative_slowdown + current_delay) / 2
 	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
 
 
@@ -901,3 +901,14 @@ so that different stomachs can handle things in different ways VB*/
 			if(R.shock_reduction)
 				shock_reduction += R.shock_reduction
 	return shock_reduction
+
+
+/mob/living/carbon/toggle_move_intent()
+	if(legcuffed)
+		to_chat(src, span_notice("Ваши ноги скованы! Вы не можете бежать, пока не снимете [legcuffed]!"))
+		m_intent = MOVE_INTENT_WALK	//Just incase
+		hud_used?.move_intent.icon_state = "walking"
+		update_move_intent_slowdown()
+		return
+	return ..()
+

@@ -304,8 +304,7 @@
 		if(6)
 			//Cut speed
 			T.visible_message("<span class='userdanger'>[user] starts moving slower!</span>")
-			var/datum/species/S = user.dna.species
-			S.speed_mod += 1
+			user.add_movespeed_modifier(/datum/movespeed_modifier/die_of_fate)
 		if(7)
 			//Throw
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")

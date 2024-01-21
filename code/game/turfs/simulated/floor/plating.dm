@@ -434,7 +434,7 @@
 	nitrogen = 82
 	temperature = 180
 	baseturf = /turf/simulated/floor/plating/ice
-	slowdown = TRUE
+	slowdown = 1
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
 

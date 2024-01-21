@@ -552,15 +552,15 @@
 
 	if(!iscloaking || owner.current.on_fire)
 		animate(owner.current, time = 5, alpha = 255)
-		REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 		return
 
 	if(light_available <= 2)
 		animate(owner.current, time = 5, alpha = 38)	// round(255 * 0.15)
-		ADD_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		owner.current.add_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 		return
 
-	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 	animate(owner.current, time = 5, alpha = 204) // 255 * 0.80
 
 

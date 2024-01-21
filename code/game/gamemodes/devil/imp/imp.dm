@@ -30,21 +30,16 @@
 	melee_damage_upper = 15
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	var/boost
 	var/playstyle_string = "<B><font size=3 color='red'>You are an imp,</font> a mischevious creature from hell. You are the lowest rank on the hellish totem pole  \
 							Though you are not obligated to help, perhaps by aiding a higher ranking devil, you might just get a promotion.  However, you are incapable	\
 							of intentionally harming a fellow devil.</B>"
 
-/mob/living/simple_animal/imp/New()
-	..()
-	boost = world.time + 60
 
-/mob/living/simple_animal/imp/Life()
-	..()
-	if(boost<world.time)
-		speed = 1
-	else
-		speed = 0
+/mob/living/simple_animal/imp/Initialize(mapload)
+	. = ..()
+	add_movespeed_modifier(/datum/movespeed_modifier/imp_boost)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/imp_boost), 6 SECONDS)
+
 
 /mob/living/simple_animal/imp/death(gibbed)
 	..(1)

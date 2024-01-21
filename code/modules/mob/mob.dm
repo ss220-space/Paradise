@@ -34,6 +34,9 @@
 	reset_perspective(src)
 	prepare_huds()
 	. = ..()
+	update_config_movespeed()
+	update_movespeed()
+
 
 /atom/proc/prepare_huds()
 	hud_list = list()
@@ -186,9 +189,6 @@
 	for(var/mob/M in GLOB.mob_list)
 		if(M.real_name == text("[]", msg))
 			return M
-	return 0
-
-/mob/proc/movement_delay()
 	return 0
 
 
@@ -827,7 +827,7 @@
 	if(!canface())
 		return FALSE
 	setDir(ndir)
-	client.move_delay += movement_delay()
+	client.move_delay += cached_multiplicative_slowdown
 	return TRUE
 
 
@@ -1317,4 +1317,12 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128
 	remove_from_all_data_huds()
+
+
+/mob/proc/set_stat(new_stat)
+	if(new_stat == stat)
+		return
+	. = stat
+	stat = new_stat
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
 

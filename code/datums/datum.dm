@@ -15,7 +15,7 @@
 	  */
 	var/list/datum_components //for /datum/components
 	/// Status traits attached to this datum
-	var/list/status_traits
+	var/list/_status_traits
 	var/list/comp_lookup
 	var/list/list/datum/callback/signal_procs
 	var/signal_enabled = FALSE

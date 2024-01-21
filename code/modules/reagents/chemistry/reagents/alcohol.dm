@@ -285,7 +285,7 @@
 	M.AdjustDrowsy(-14 SECONDS)
 	M.AdjustSleeping(-4 SECONDS)
 	if(M.bodytemperature > 310)
-		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		M.adjust_bodytemperature(-(5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.Jitter(10 SECONDS)
 	return ..()
 
@@ -529,7 +529,7 @@
 
 /datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
-		M.bodytemperature = min(330, M.bodytemperature + (15 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+		M.adjust_bodytemperature(15 * TEMPERATURE_DAMAGE_COEFFICIENT) //310 is the normal bodytemp. 310.055
 	return ..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash
@@ -695,7 +695,7 @@
 
 /datum/reagent/consumable/ethanol/antifreeze/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
-		M.bodytemperature = min(330, M.bodytemperature + (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+		M.adjust_bodytemperature(20 * TEMPERATURE_DAMAGE_COEFFICIENT) //310 is the normal bodytemp. 310.055
 	return ..()
 
 /datum/reagent/consumable/ethanol/barefoot
@@ -800,7 +800,7 @@
 
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 360)
-		M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+		M.adjust_bodytemperature(50 * TEMPERATURE_DAMAGE_COEFFICIENT) //310 is the normal bodytemp. 310.055
 	return ..()
 
 /datum/reagent/consumable/ethanol/devilskiss
@@ -854,7 +854,7 @@
 
 /datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 270)
-		M.bodytemperature = max(270, M.bodytemperature - (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+		M.adjust_bodytemperature(-(20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
 	return ..()
 
 /datum/reagent/consumable/ethanol/grog

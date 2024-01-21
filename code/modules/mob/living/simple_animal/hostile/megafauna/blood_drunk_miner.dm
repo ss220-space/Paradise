@@ -29,7 +29,6 @@ Difficulty: Medium
 	icon_living = "miner"
 	icon = 'icons/mob/lavaland/blood_drunk.dmi'
 	light_color = "#E4C7C5"
-	flying = FALSE
 	speak_emote = list("roars")
 	tts_seed = "Chen"
 	speed = 3

@@ -28,6 +28,8 @@
 			A.Remove(src)
 
 	if(module_active == O)
+		if(istype(module_active, /obj/item/borg/destroyer/mobility))
+			remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 		module_active = null
 	if(module_state_1 == O)
 		inv1.icon_state = "inv1"
@@ -160,9 +162,11 @@
 
 //select_module(module) - Selects the module slot specified by "module"
 /mob/living/silicon/robot/proc/select_module(var/module) //Module is 1-3
-	if(module < 1 || module > 3) return
+	if(module < 1 || module > 3)
+		return
 
-	if(!module_active(module)) return
+	if(!module_active(module))
+		return
 
 	switch(module)
 		if(1)
@@ -171,44 +175,47 @@
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3"
 				module_active = module_state_1
-				return
+
 		if(2)
 			if(module_active != module_state_2)
 				inv1.icon_state = "inv1"
 				inv2.icon_state = "inv2 +a"
 				inv3.icon_state = "inv3"
 				module_active = module_state_2
-				return
+
 		if(3)
 			if(module_active != module_state_3)
 				inv1.icon_state = "inv1"
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3 +a"
 				module_active = module_state_3
-				return
-	return
+
+	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+		add_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
+
 
 //deselect_module(module) - Deselects the module slot specified by "module"
 /mob/living/silicon/robot/proc/deselect_module(var/module) //Module is 1-3
-	if(module < 1 || module > 3) return
+	if(module < 1 || module > 3)
+		return
+
+	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+		remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 
 	switch(module)
 		if(1)
 			if(module_active == module_state_1)
 				inv1.icon_state = "inv1"
 				module_active = null
-				return
 		if(2)
 			if(module_active == module_state_2)
 				inv2.icon_state = "inv2"
 				module_active = null
-				return
 		if(3)
 			if(module_active == module_state_3)
 				inv3.icon_state = "inv3"
 				module_active = null
-				return
-	return
+
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
 /mob/living/silicon/robot/proc/toggle_module(var/module) //Module is 1-3

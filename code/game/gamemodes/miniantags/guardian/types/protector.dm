@@ -34,7 +34,6 @@
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
 		obj_damage = initial(obj_damage)
-		speed = initial(speed)
 		damage_transfer = 0.4
 		to_chat(src, "<span class='danger'>Вы переключились в боевой режим.</span>")
 		toggle = FALSE

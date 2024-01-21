@@ -90,7 +90,6 @@
 
 	var/current_pda_messaging = null
 	var/custom_sprite = 0
-	var/slowdown = 0
 
 	/// max chemicals and cooldown recovery for chemicals module
 	var/chemicals = 30
@@ -178,11 +177,6 @@
 /mob/living/silicon/pai/can_buckle()
 	return FALSE
 
-/mob/living/silicon/pai/movement_delay()
-	. = ..()
-	. += slowdown
-	. += 1 //A bit slower than humans, so they're easier to smash
-	. += CONFIG_GET(number/robot_delay)
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)

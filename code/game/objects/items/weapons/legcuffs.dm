@@ -117,7 +117,7 @@
 		return
 
 	var/mob/living/moving_thing = AM
-	if(moving_thing.flying)
+	if(moving_thing.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 
 	armed = FALSE

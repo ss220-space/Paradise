@@ -44,11 +44,8 @@
 	START_PROCESSING(SSprocessing, src)
 	drop_stuff(AM)
 
-/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(!isliving(caller))
-		return TRUE
-	var/mob/living/L = caller
-	return (L.flying || ismegafauna(caller))
+/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return ((caller.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || ismegafauna(caller))
 
 /turf/simulated/floor/chasm/process()
 	if(!drop_stuff())
@@ -164,9 +161,11 @@
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE
 	//Flies right over the chasm
+	if(AM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return FALSE
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(M.flying || M.floating || M.incorporeal_move)
+		if(M.incorporeal_move)
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
@@ -331,10 +330,10 @@
 		playsound(ourturf, 'sound/effects/bang.ogg', 50, TRUE)
 		ourturf.visible_message(span_boldwarning("[escapee] busts through [ourturf], leaping out of the chasm below!"))
 		ourturf.ChangeTurf(ourturf.baseturf)
-	escapee.flying = TRUE
+	ADD_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT) //Otherwise they instantly fall back in
 	escapee.forceMove(ourturf)
 	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
-	escapee.flying = FALSE
+	REMOVE_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT)
 	escapee.Sleeping(20 SECONDS)
 	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
 

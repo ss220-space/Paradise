@@ -91,7 +91,7 @@
 		else if(isliving(thing))
 			. = TRUE
 			var/mob/living/L = thing
-			if(L.flying || L.incorporeal_move)
+			if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 				continue	//YOU'RE FLYING OVER IT
 			var/buckle_check = L.buckling
 			if(!buckle_check)
@@ -230,7 +230,7 @@
 			continue
 		. = TRUE
 		var/mob/living/burn_living = thing
-		if(burn_living.flying)
+		if(burn_living.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 			continue	//YOU'RE FLYING OVER IT
 		var/buckle_check = burn_living.buckling
 		if(!buckle_check)

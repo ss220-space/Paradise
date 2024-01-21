@@ -179,7 +179,7 @@
 	//Morph is weaker initially when disguised
 	melee_damage_lower = 5
 	melee_damage_upper = 5
-	speed = MORPHED_SPEED
+	set_varspeed(MORPHED_SPEED)
 	ambush_spell.updateButtonIcon()
 	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_DEFAULT // They become more fragile and easier to move
@@ -192,7 +192,7 @@
 	//Baseline stats
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
-	speed = initial(speed)
+	set_varspeed(initial(speed))
 	if(ambush_prepared)
 		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
 	failed_ambush()
