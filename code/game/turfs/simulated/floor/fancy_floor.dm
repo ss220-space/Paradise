@@ -9,6 +9,10 @@
 
 /turf/simulated/floor/wood/broken_states()
 	return list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
+/turf/simulated/floor/wood/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
 
 /turf/simulated/floor/wood/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -144,6 +148,11 @@
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/simulated/floor/carpet/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
 
 /turf/simulated/floor/carpet/Initialize(mapload)
 	. = ..()
