@@ -708,6 +708,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/lighter/zippo/ce,
 		/obj/item/lighter/zippo/cmo,
 		/obj/item/lighter/zippo/rd,
+		/obj/item/lighter/zippo/qm,
 	)
 
 /datum/theft_objective/collect/hats

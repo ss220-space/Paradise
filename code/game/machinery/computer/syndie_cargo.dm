@@ -261,8 +261,6 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	circuit = /obj/item/circuitboard/syndicatesupplycomp
 	/// Is this a public console
 	var/is_public = FALSE
-	/// Time of last request
-	var/reqtime = 0
 	var/datum/syndie_data_storage/data_storage = null
 
 /obj/machinery/computer/syndie_supplycomp/Initialize(mapload)
