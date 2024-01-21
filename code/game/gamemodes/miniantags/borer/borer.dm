@@ -299,9 +299,11 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/borer/UnarmedAttack(mob/living/M)
-	chemscan(usr, M)
-	return
+/mob/living/simple_animal/borer/UnarmedAttack(mob/living/carbon/human/M)
+	if(istype(M))
+		to_chat(src, span_notice("You analyze [M]'s vitals."))
+		healthscan(src, M, 1, TRUE)
+
 
 /mob/living/simple_animal/borer/verb/infest()
 	set category = "Borer"
@@ -387,6 +389,8 @@
 
 	RemoveBorerActions()
 	GrantInfestActions()
+
+	to_chat(src, span_boldnotice("You can analyze your host health by using Left-click."))
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
