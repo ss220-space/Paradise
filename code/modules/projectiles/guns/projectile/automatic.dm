@@ -152,6 +152,7 @@
 	name = "SP-91-RC"
 	desc = "Compact submachine gun designed for riot control."
 	icon_state = "SP-91-RC"
+	item_state = "SP-91-RC"
 	mag_type = /obj/item/ammo_box/magazine/sp91rc
 	fire_sound = 'sound/weapons/gunshots/1sp_91.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
@@ -165,12 +166,17 @@
 /obj/item/gun/projectile/automatic/sp91rc/update_icon()
 	..()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+	item_state = "SP-91-RC[magazine ? "-[get_ammo(0) ? "20" : "0"]" : ""]"
 
 	if(gun_light)
 		var/iconF = "SP-91-RC-light"
 		if(gun_light.on)
 			iconF = "SP-91-RC-light-on"
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/sp91rc/attackby(var/obj/item/A, mob/user, params)
+	. = .. ()
+	update_equipped_item()
 
 /obj/item/gun/projectile/automatic/sp91rc/ui_action_click(var/owner, var/action_type)
     if(..()) return TRUE
