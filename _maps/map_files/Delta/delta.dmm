@@ -19414,7 +19414,8 @@
 /obj/machinery/button/windowtint{
 	id = "library_gameroom";
 	pixel_x = -4;
-	pixel_y = 26
+	pixel_y = 26;
+	range = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
