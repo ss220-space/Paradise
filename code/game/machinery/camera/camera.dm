@@ -284,7 +284,7 @@
 		change_msg = "reactivates"
 		cancelCameraAlarm()
 	else
-		addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS  | TIMER_DELETE_ME)
+		addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_DELETE_ME)
 	if(displaymessage)
 		if(user)
 			visible_message(span_danger("[user] [change_msg] [src]!"))
