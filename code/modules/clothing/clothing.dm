@@ -803,8 +803,8 @@ BLIND     // can't see anything
 				return FALSE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory))
-		attach_accessory(I, user, TRUE)
+	if(istype(I, /obj/item/clothing/accessory) && attach_accessory(I, user, TRUE))
+		return TRUE
 
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)

@@ -192,6 +192,12 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 	max_ammo = 40
 
+/obj/item/ammo_box/c9mmte
+	name = "ammo box (9mm TE)"
+	icon_state = "9mmTEbox"
+	ammo_type = /obj/item/ammo_casing/c9mmte
+	max_ammo = 60
+
 // MISC
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"

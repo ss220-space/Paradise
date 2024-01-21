@@ -57,8 +57,9 @@
 	linked_action.Trigger(left_click = TRUE)
 	linked_action.UpdateButtonIcon()
 	transform = transform.Scale(0.8, 0.8)
-	alpha = 200
-	animate(src, transform = matrix(), time = 0.3 SECONDS, alpha = 255)
+	var/prev_alpha = alpha
+	alpha = clamp(prev_alpha - 55, 0, 200)
+	animate(src, transform = matrix(), time = 0.3 SECONDS, alpha = prev_alpha)
 	return TRUE
 
 
