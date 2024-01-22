@@ -262,10 +262,10 @@
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
 		var/skinned = H.dna.species.skinned_type
-		if(!isplasmaman(H) && !isnucleation(H))
+		if(ismachineperson(H))
+			new /obj/effect/gibspawner/robot(src)
+		else if(!isplasmaman(H) && !isnucleation(H) && !isgolem(H))
 			new /obj/effect/gibspawner(src, H.dna)
-			if(ismachineperson(H))
-				new /obj/effect/gibspawner/robot(src)
 		if(skinned)
 			new skinned(src)
 
