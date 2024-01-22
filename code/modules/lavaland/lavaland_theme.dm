@@ -41,7 +41,7 @@
 /datum/lavaland_theme/chasm
 	name = "chasm"
 	primary_turf_type = /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	planet_icon_state = "planet_chasm"
+	planet_icon_state = "planet_canyon"
 
 /datum/lavaland_theme/chasm/setup()
 	spawn_rivers(

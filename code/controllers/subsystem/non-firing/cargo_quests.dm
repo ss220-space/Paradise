@@ -92,16 +92,60 @@ SUBSYSTEM_DEF(cargo_quests)
 	return new_quest
 
 /datum/controller/subsystem/cargo_quests/proc/check_delivery(obj/structure/bigDelivery/delivery)
+	var/min_incorrect = MAX_QUEST_LEN
+	var/datum/cargo_quests_storage/target_storage
+	var/mismatch_content
+
 	for(var/order in quest_storages)
 		var/datum/cargo_quests_storage/storage = order
 		if(!storage.active)
 			continue
-		var/reward = storage.check_quest_completion(delivery)
-		if(!reward)
+
+		if(!istype(delivery.wrapped, /obj/structure/closet/crate))
+			return FALSE
+
+		if(!length(delivery.wrapped.contents))
+			return FALSE
+
+		var/req_quantity = 0
+		for(var/datum/cargo_quest/quest in storage.current_quests)
+			req_quantity += quest.length_quest()
+
+		var/extra_items = 0
+		var/contents_length = length(delivery.wrapped.contents)
+		for(var/atom/movable/item in delivery.wrapped.contents)
+			var/has_extra_item = TRUE
+			for(var/datum/cargo_quest/quest in storage.current_quests)
+				if(!is_type_in_list(item, quest.req_items))
+					continue
+				if(quest.check_required_item(item))
+					has_extra_item = FALSE
+					break
+
+			if(has_extra_item)
+				extra_items++
+				continue
+
+			req_quantity--
+
+		if(extra_items == contents_length)
 			continue
-		if(storage.customer.send_reward(reward))
-			return
-		return reward
+
+		var/failed_quest_length
+		for(var/datum/cargo_quest/quest in storage.current_quests)
+			failed_quest_length += quest.length_quest()
+
+		if(failed_quest_length < min_incorrect)
+			target_storage = storage
+			min_incorrect = failed_quest_length
+			mismatch_content = extra_items
+			if(req_quantity < 0)
+				mismatch_content -= req_quantity
+
+	var/reward = target_storage.check_quest_completion(delivery, min_incorrect, mismatch_content)
+	if(target_storage.customer.send_reward(reward))
+		return
+	return reward
 
 /datum/controller/subsystem/cargo_quests/proc/remove_bfl_quests(count)
 	for(var/I = 1 to count)

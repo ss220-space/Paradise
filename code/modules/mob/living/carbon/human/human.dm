@@ -66,6 +66,15 @@
 /mob/living/carbon/human/unathi/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi)
 
+/mob/living/carbon/human/unathi/draconid/Initialize(mapload)
+	. = ..(mapload, /datum/species/unathi/draconid)
+
+/mob/living/carbon/human/unathi/ashwalker/Initialize(mapload)
+	. = ..(mapload, /datum/species/unathi/ashwalker)
+
+/mob/living/carbon/human/unathi/ashwalker/shaman/Initialize(mapload)
+	. = ..(mapload, /datum/species/unathi/ashwalker/shaman)
+
 /mob/living/carbon/human/vox/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox)
 
@@ -122,8 +131,65 @@
 /mob/living/carbon/human/shadow/Initialize(mapload)
 	. = ..(mapload, /datum/species/shadow)
 
+/mob/living/carbon/human/shadowling/Initialize(mapload)
+	. = ..(mapload, /datum/species/shadow/ling)
+
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
+
+/mob/living/carbon/human/golem/random/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/random)
+
+/mob/living/carbon/human/golem/adamantine/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/adamantine)
+
+/mob/living/carbon/human/golem/plasma/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/plasma)
+
+/mob/living/carbon/human/golem/diamond/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/diamond)
+
+/mob/living/carbon/human/golem/gold/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/gold)
+
+/mob/living/carbon/human/golem/silver/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/silver)
+
+/mob/living/carbon/human/golem/plasteel/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/plasteel)
+
+/mob/living/carbon/human/golem/titanium/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/titanium)
+
+/mob/living/carbon/human/golem/plastitanium/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/plastitanium)
+
+/mob/living/carbon/human/golem/alien_alloy/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/alloy)
+
+/mob/living/carbon/human/golem/uranium/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/uranium)
+
+/mob/living/carbon/human/golem/plastic/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/plastic)
+
+/mob/living/carbon/human/golem/sand/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/sand)
+
+/mob/living/carbon/human/golem/glass/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/glass)
+
+/mob/living/carbon/human/golem/bluespace/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/bluespace)
+
+/mob/living/carbon/human/golem/bananium/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/bananium)
+
+/mob/living/carbon/human/golem/tranquillite/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/tranquillite)
+
+/mob/living/carbon/human/golem/clockwork/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/clockwork)
 
 /mob/living/carbon/human/wryn/Initialize(mapload)
 	. = ..(mapload, /datum/species/wryn)
