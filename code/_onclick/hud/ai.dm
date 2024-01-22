@@ -147,7 +147,7 @@
 /obj/screen/ai/move_up/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		AI.up()
+		AI.move_up()
 
 /obj/screen/ai/move_down
 	name = "Move down a floor"
@@ -156,7 +156,7 @@
 /obj/screen/ai/move_up/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		AI.down()
+		AI.move_down()
 
 /mob/living/silicon/ai/create_mob_hud()
 	if(client && !hud_used)

@@ -236,6 +236,7 @@
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, oldloc)
 		if(movetime > 0)
 			glide_for(movetime)
 

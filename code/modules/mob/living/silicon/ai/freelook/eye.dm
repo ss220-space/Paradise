@@ -144,14 +144,14 @@
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
 
-/mob/living/silicon/ai/up()
+/mob/living/silicon/ai/move_up()
 	set name = "Move Upwards"
 	set category = "IC"
 
 	if(eyeobj.zMove(UP, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move upwards."))
 
-/mob/living/silicon/ai/down()
+/mob/living/silicon/ai/move_down()
 	set name = "Move Down"
 	set category = "IC"
 

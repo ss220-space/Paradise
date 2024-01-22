@@ -25,6 +25,7 @@
 	if(multiz_dir == MULTIZ_PIPE_DOWN)
 		target = GET_TURF_BELOW(get_turf(src))
 	if(!target)
+		expel(H, loc)
 		return //Nothing located.
 
 	var/obj/structure/disposalpipe/trunk/multiz/pipe = locate(/obj/structure/disposalpipe/trunk/multiz) in target
@@ -35,9 +36,8 @@
 		destination.setDir(DOWN) //This tells the trunk above us NOT to loop it back down to us, or else you get an infinite loop
 		destination.move()
 		return null //Which removes the disposalholder
-
-	// Returning null without expelling holder makes the holder expell itself
-	return null
+	else
+		expel(H, loc)
 
 #undef MULTIZ_PIPE_UP
 #undef MULTIZ_PIPE_DOWN

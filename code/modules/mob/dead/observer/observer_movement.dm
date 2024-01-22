@@ -1,4 +1,4 @@
-/mob/dead/observer/up()
+/mob/dead/observer/move_up()
 	set name = "Move Upwards"
 	set category = "IC"
 
