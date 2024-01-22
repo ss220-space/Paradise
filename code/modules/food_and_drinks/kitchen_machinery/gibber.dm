@@ -262,9 +262,12 @@
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
 		var/skinned = H.dna.species.skinned_type
+		if(!isplasmaman(H) && !isnucleation(H))
+			new /obj/effect/gibspawner(src, H.dna)
+			if(ismachineperson(H))
+				new /obj/effect/gibspawner/robot(src)
 		if(skinned)
 			new skinned(src)
-	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
 		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey ? ATKLOG_FEW : ATKLOG_ALL)
