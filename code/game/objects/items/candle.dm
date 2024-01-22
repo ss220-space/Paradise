@@ -99,7 +99,7 @@
 	wax = 1 // next process will burn it out
 
 /obj/item/candle/torch
-	name = "Torch"
+	name = "torch"
 	desc = "A torch fashioned from a stick and a piece of cloth."
 	wax = 300
 	icon = 'icons/obj/lighting.dmi'
