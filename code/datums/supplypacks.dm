@@ -1709,7 +1709,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/snake
 	containername = "snake crate"
 
-/datum/supply_packs/organic/snake
+/datum/supply_packs/organic/slime
 	name = "Slime Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/slime
