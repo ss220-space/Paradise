@@ -17,18 +17,6 @@
 	var/terminator_mode = STAIR_TERMINATOR_AUTOMATIC
 	var/turf/listeningTo
 
-/obj/structure/stairs/north
-	dir = NORTH
-
-/obj/structure/stairs/south
-	dir = SOUTH
-
-/obj/structure/stairs/east
-	dir = EAST
-
-/obj/structure/stairs/west
-	dir = WEST
-
 /obj/structure/stairs/wood
 	icon_state = "stairs_wood"
 
@@ -184,7 +172,7 @@
 /obj/structure/stairs_frame/wrench_act(mob/living/user, obj/item/I)
 	. = ..()
 	to_chat(user, span_notice("You start securing stairs frame."))
-	if(!I.use_tool(src, user, 3 SECONDS))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return TRUE
 	if(anchored)
 		anchored = FALSE
@@ -197,8 +185,7 @@
 /obj/structure/stairs_frame/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	to_chat(user, span_notice("You start disassembling [src]..."))
-	I.play_tool_sound(src)
-	if(!I.use_tool(src, user, 3 SECONDS))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return TRUE
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	deconstruct(TRUE)
@@ -223,6 +210,7 @@
 		return
 	if(istype(stack, /obj/item/stack/sheet/metal))
 		to_chat(user, span_notice("You start adding [stack] to [src]..."))
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 10 SECONDS, target = src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
 			var/obj/structure/stairs/new_stairs = new /obj/structure/stairs(loc)
 			new_stairs.setDir(dir)
@@ -230,6 +218,7 @@
 			return
 	if(istype(stack, /obj/item/stack/sheet/wood))
 		to_chat(user, span_notice("You start adding [stack] to [src]..."))
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 10 SECONDS, target = src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
 			var/obj/structure/stairs/new_stairs = new /obj/structure/stairs/wood(loc)
 			new_stairs.setDir(dir)

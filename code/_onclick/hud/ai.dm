@@ -153,7 +153,7 @@
 	name = "Move down a floor"
 	icon_state = "move_down"
 
-/obj/screen/ai/move_up/Click()
+/obj/screen/ai/move_down/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
 		AI.move_down()
@@ -252,12 +252,12 @@
 	static_inventory += using
 	action_intent = using
 
-//Medical/Security sensors
+//Move Up
 	using = new /obj/screen/ai/move_up()
 	using.screen_loc = ui_ai_up
 	static_inventory += using
 
-//Medical/Security sensors
+//Move Down
 	using = new /obj/screen/ai/move_down()
 	using.screen_loc = ui_ai_down
 	static_inventory += using

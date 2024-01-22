@@ -24,7 +24,7 @@
 
 /obj/structure/cable/multiz/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor || T.intact)
+	if((T.transparent_floor == TURF_TRANSPARENT) || T.intact)
 		to_chat(user, span_warning("You can't interact with something that's under the floor!"))
 		return
 	else if(istype(W, /obj/item/stack/cable_coil))

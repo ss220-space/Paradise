@@ -68,9 +68,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact
 	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
-	if(T.transparent_floor)
-		return
-	if(level == 1)
+	if(level == 1 && !T.transparent_floor)
 		hide(T.intact)
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
@@ -163,7 +161,7 @@ By design, d1 is the smallest direction and d2 is the highest
 //
 /obj/structure/cable/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor || T.intact)
+	if((T.transparent_floor == TURF_TRANSPARENT) || T.intact)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 
@@ -206,7 +204,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor || T.intact)
+	if((T.transparent_floor == TURF_TRANSPARENT) || T.intact)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))

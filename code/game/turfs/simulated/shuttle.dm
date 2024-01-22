@@ -178,6 +178,7 @@
 
 /turf/simulated/floor/shuttle/transparent_floor
 	icon_state = "transparent"
+	transparent_floor = TURF_TRANSPARENT
 
 /turf/simulated/floor/shuttle/transparent_floor/Initialize()
 	..()

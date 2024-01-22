@@ -58,14 +58,15 @@
 #define ZTRAIT_UP "Up"
 #define ZTRAIT_DOWN "Down"
 
-#define ZTRAIT_GRAVITY "Gravity"	// determines if z-level power with generator from another z-level
-#define ZTRAIT_OPENSPACE "Openspace"// Used to determine which levels uses /turf/simulated/openspace as baseturf
-#define ZTRAIT_LAVALAND "Lavaland"	// Determines if level is lavaland
+#define ZTRAIT_GRAVITY "Gravity"	// overrides Z-level gravity making it always on. Unless it's space turf or openspace in a space area. See atom/proc/has_gravity()
+#define ZTRAIT_BASETURF "Baseturf"	// overrides Z-level baseturf. set type path by ZTRAIT_BASETURF = "/turf/..."
 
 // 3 Is already big one hella station.
 // Making over 3 may consider some big impact on space levels but it saned to top.
 // So it "may" have issues if over 3.
 #define MULTIZ_WARN 3
+
+#define DEFAULT_STATION_TRATS list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)
 
 // Convenience define
 	#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "attributes" = TRAITS)

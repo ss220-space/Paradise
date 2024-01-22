@@ -228,6 +228,17 @@
 /atom/movable/proc/setLoc(var/T, var/teleported=0)
 	loc = T
 
+/**
+ * meant for movement with zero side effects. only use for objects that are supposed to move "invisibly" (like camera mobs or ghosts)
+ * if you want something to move onto a tile with a beartrap or recycler or tripmine or mouse without that object knowing about it at all, use this
+ * most of the time you want forceMove()
+ */
+/atom/movable/proc/abstract_move(atom/new_loc)
+	var/atom/old_loc = loc
+	var/direction = get_dir(old_loc, new_loc)
+	loc = new_loc
+	Moved(old_loc, direction, TRUE)
+
 
 /atom/movable/Move(atom/newloc, direct = NONE, movetime)
 	if(!loc || !newloc)
@@ -433,6 +444,9 @@
 
 /atom/movable/proc/onZImpact(turf/impacted_turf, levels, impact_flags = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
+
+	if(isliving(src))
+		add_attack_logs(src, src, "crashed into [impacted_turf] from [levels]")
 	if(!(impact_flags & ZIMPACT_NO_MESSAGE))
 		visible_message(span_danger("[src] crashes into [impacted_turf]!"), span_userdanger("You crash into [impacted_turf]!"))
 	if(!(impact_flags & ZIMPACT_NO_SPIN))
@@ -546,7 +560,7 @@
 		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
 	. = ..()
 	if(client)
-		reset_perspective(destination)
+		reset_perspective()
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space

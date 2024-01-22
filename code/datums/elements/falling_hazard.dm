@@ -60,6 +60,11 @@
 	else
 		poor_target.apply_damage(fall_damage * levels)
 
+	var/fingers
+	if(isobj(source))
+		var/obj/O = source
+		fingers = O.fingerprintslast
+	add_attack_logs(source, poor_target, "[crushes_people ? "CRUSHED" : "Hit"] from [levels] levels up.[fingers ? "Last touched by [fingers]" : null]")
 
 	poor_target.visible_message(
 		span_userdanger("[source] falls on [poor_target], [crushes_people ? "crushing [poor_target.p_them()]" : "hitting [poor_target.p_them()]"] [target_head ? "on the head!" : "!"]"),

@@ -75,7 +75,7 @@
 				break
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact
-	if(!istype(T) || T.transparent_floor)
+	if(!istype(T) || (T.transparent_floor == TURF_TRANSPARENT))
 		return
 	hide(T.intact)
 	update_icon()

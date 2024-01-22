@@ -17,10 +17,10 @@
 
 	var/max_temperature = 1800 //K, walls will take damage if they're next to a fire hotter than this
 
-	opacity = 1
-	density = 1
-	blocks_air = 1
-	explosion_block = 1
+	opacity = TRUE
+	density = TRUE
+	blocks_air = TRUE
+	explosion_block = TRUE
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall

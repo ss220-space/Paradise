@@ -58,6 +58,7 @@
 
 	sleep(jaunt_in_time * 4)
 	mobloc = get_turf(target.loc)
+	target.reset_perspective()
 	new jaunt_in_type(mobloc, holder.dir)
 	target.setDir(holder.dir)
 
@@ -124,8 +125,10 @@
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/target_turf, mob/user)
 	if(target_turf.flags & NOJAUNT)
 		return FALSE
-	if(!can_z_move(null, get_turf(src), target_turf, ZMOVE_INCAPACITATED_CHECKS | ZMOVE_FEEDBACK | ZMOVE_ALLOW_ANCHORED, user))
-		return FALSE
+	var/dir = get_dir_multiz(get_turf(src), target_turf)
+	if(dir & (UP|DOWN))
+		if(!can_z_move(null, get_turf(src), target_turf, ZMOVE_INCAPACITATED_CHECKS | ZMOVE_FEEDBACK | ZMOVE_ALLOW_ANCHORED, user))
+			return FALSE
 	return TRUE
 
 

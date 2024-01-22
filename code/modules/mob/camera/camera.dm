@@ -33,7 +33,7 @@
 	if(zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move down."))
 
-/mob/camera/zMove(dir, turf/target, z_move_flags = NONE, recursions_left = 1, list/falling_movs)
+/mob/camera/zMove(dir, turf/target, z_move_flags = NONE)
 	. = ..()
 	if(.)
 		setLoc(loc)

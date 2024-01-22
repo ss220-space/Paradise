@@ -25,8 +25,26 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	// PARACODE
 	thermal_conductivity = 0.040
 	heat_capacity = 10000
-	transparent_floor = TRUE // bruh
+	transparent_floor = TURF_FULLTRANSPARENT // bruh
 	intact = FALSE //this means wires go on top
+
+
+/turf/simulated/openspace/airless
+	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/openspace/lavaland
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23
+	planetary_atmos = TRUE
+
+/turf/simulated/openspace/snow_atmosphere
+	oxygen = 22
+	nitrogen = 82
+	temperature = 180
+	planetary_atmos = TRUE
 
 /turf/simulated/openspace/Initialize(mapload)
 	. = ..()
@@ -215,3 +233,8 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
 	return RCD_ACT_FAILED
+
+/turf/simulated/openspace/bullet_act(obj/item/projectile/P, def_zone)
+	return -1
+
+// Every new proc that should be edited or added here. Also needs to be copied into /turf/space/openspace. I'm not sorry.

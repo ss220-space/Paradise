@@ -9,7 +9,7 @@
 	light_range = 2
 	keep_dir = FALSE
 	intact = FALSE
-	transparent_floor = TRUE
+	transparent_floor = TURF_TRANSPARENT
 	heat_capacity = 800
 	footstep = FOOTSTEP_GLASS
 	barefootstep = FOOTSTEP_GLASS

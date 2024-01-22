@@ -501,7 +501,7 @@
 
 	if(ismovable(loc)) //Inside an object, tell it we moved
 		var/atom/loc_atom = loc
-		return loc_atom.relaymove(src, DOWN)
+		return loc_atom.relaymove(src, UP)
 
 	var/mob/living/L = src
 	var/ventcrawling_flag = (istype(L) && L.ventcrawler) ? ZMOVE_VENTCRAWLING : 0

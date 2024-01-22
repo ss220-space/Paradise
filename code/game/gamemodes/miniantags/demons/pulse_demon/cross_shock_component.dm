@@ -34,7 +34,7 @@
 			return
 	if(requires_cable)
 		var/turf/our_turf = get_turf(parent)
-		if(our_turf.transparent_floor || our_turf.intact || HAS_TRAIT(our_turf, TRAIT_TURF_COVERED))
+		if((our_turf.transparent_floor == TURF_TRANSPARENT) || our_turf.intact || HAS_TRAIT(our_turf, TRAIT_TURF_COVERED))
 			return
 		var/obj/structure/cable/our_cable =	locate(/obj/structure/cable) in our_turf
 		if(!our_cable || !our_cable.powernet || !our_cable.powernet.avail)

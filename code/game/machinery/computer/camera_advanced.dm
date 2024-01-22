@@ -83,7 +83,7 @@
 		CreateEye()
 
 	if(!eyeobj.eye_initialized)
-		var/camera_location
+		var/turf/camera_location
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			if(!C.can_use())
 				continue
@@ -100,7 +100,7 @@
 			user.unset_machine()
 	else
 		give_eye_control(user)
-		eyeobj.setLoc(eyeobj.loc)
+		eyeobj.setLoc(get_turf(eyeobj.loc))
 
 
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
@@ -113,6 +113,7 @@
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
+	icon_state = "remote"
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 0
@@ -148,10 +149,10 @@
 
 /mob/camera/aiEye/remote/setLoc(turf/destination, force_update = FALSE)
 	if(eye_user)
-		if(!isturf(eye_user.loc))
+		if(!isturf(eye_user.loc) || !destination)
 			return
-		destination = get_turf(destination)
-		loc = destination
+		abstract_move(destination)
+
 		if(use_static)
 			GLOB.cameranet.visibility(src, GetViewerClient())
 		if(visible_icon)
@@ -172,15 +173,22 @@
 		sprint = initial
 
 	for(var/i = 0; i < max(sprint, initial); i += 20)
-		var/turf/step = get_turf(get_step(src, direct))
-		if(step)
-			src.setLoc(step)
+		var/turf/T = get_turf(get_step_multiz(src, direct))
+		if(T && can_move(T, user))
+			src.setLoc(T)
 
 	cooldown = world.timeofday + 5
 	if(acceleration)
 		sprint = min(sprint + 0.5, max_sprint)
 	else
 		sprint = initial
+
+/mob/camera/aiEye/remote/proc/can_move(turf/target_turf, mob/user)
+	var/dir = get_dir_multiz(get_turf(src), target_turf)
+	if(dir & (UP|DOWN))
+		if(!can_z_move(null, get_turf(src), target_turf, ZMOVE_INCAPACITATED_CHECKS | ZMOVE_FEEDBACK, user))
+			return FALSE
+	return TRUE
 
 /datum/action/innate/camera_off
 	name = "End Camera View"

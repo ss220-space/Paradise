@@ -4,7 +4,7 @@
 // Hands
 /datum/keybinding/mob/use_held_object
 	name = "Использовать вещь в руке"
-	keys = list("Y", "Z", "Southeast")
+	keys = list("Y", "Z")
 
 /datum/keybinding/mob/use_held_object/down(client/C)
 	. = ..()
@@ -41,7 +41,7 @@
 
 /datum/keybinding/mob/swap_hands
 	name = "Поменять руки"
-	keys = list("X", "Northeast")
+	keys = list("X")
 
 /datum/keybinding/mob/swap_hands/down(client/C)
 	. = ..()

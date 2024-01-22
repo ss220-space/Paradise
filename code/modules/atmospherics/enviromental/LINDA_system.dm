@@ -11,7 +11,8 @@
 	if(T == src)
 		return can_pass
 
-	for(var/obj/O in contents + T.contents)
+	//Can't just return if canpass is false here, we need to set superconductivity
+	for(var/obj/O in contents) //from our turf to T
 		if(O.CanAtmosPass(T, vertical))
 			continue
 		can_pass = FALSE
@@ -19,6 +20,15 @@
 			atmos_supeconductivity |= direction
 			T.atmos_supeconductivity |= reverse_direction(direction)
 			return FALSE				//no need to keep going, we got all we asked
+
+	for(var/obj/O in T.contents) //from T turf to ours
+		if(O.CanAtmosPass(src, vertical))
+			continue
+		can_pass = FALSE
+		if(O.BlockSuperconductivity())
+			atmos_supeconductivity |= direction
+			T.atmos_supeconductivity |= reverse_direction(direction)
+			return FALSE
 
 	atmos_supeconductivity &= ~direction
 	T.atmos_supeconductivity &= ~reverse_direction(direction)
@@ -34,26 +44,26 @@
 /turf/proc/CalculateAdjacentTurfs()
 	atmos_adjacent_turfs_amount = 0
 	for(var/direction in GLOB.cardinals_multiz)
-		var/turf/T
+		var/turf/turf_target
 		if(direction & (UP|DOWN))
-			T = (direction & UP) ? GET_TURF_ABOVE(src) : GET_TURF_BELOW(src)
+			turf_target = (direction & UP) ? GET_TURF_ABOVE(src) : GET_TURF_BELOW(src)
 		else
-			T = get_step(src, direction)
-		if(!istype(T))
+			turf_target = get_step(src, direction)
+		if(!istype(turf_target))
 			continue
-		var/counterdir = get_dir(T, src)
-		var/V = (direction & (UP | DOWN))
-		if(CanAtmosPass(T, V))
+		var/counterdir = get_dir_multiz(turf_target, src)
+		var/vertical = (direction & (UP | DOWN))
+		if(CanAtmosPass(turf_target, vertical))
 			atmos_adjacent_turfs_amount += 1
 			atmos_adjacent_turfs |= direction
-			if(!(T.atmos_adjacent_turfs & counterdir))
-				T.atmos_adjacent_turfs_amount += 1
-			T.atmos_adjacent_turfs |= counterdir
+			if(!(turf_target.atmos_adjacent_turfs & counterdir))
+				turf_target.atmos_adjacent_turfs_amount += 1
+			turf_target.atmos_adjacent_turfs |= counterdir
 		else
 			atmos_adjacent_turfs &= ~direction
-			if(T.atmos_adjacent_turfs & counterdir)
-				T.atmos_adjacent_turfs_amount -= 1
-			T.atmos_adjacent_turfs &= ~counterdir
+			if(turf_target.atmos_adjacent_turfs & counterdir)
+				turf_target.atmos_adjacent_turfs_amount -= 1
+			turf_target.atmos_adjacent_turfs &= ~counterdir
 
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share

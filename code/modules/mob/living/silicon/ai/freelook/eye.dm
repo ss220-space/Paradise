@@ -25,10 +25,9 @@
 
 /mob/camera/aiEye/setLoc(turf/destination, force_update = FALSE)
 	if(ai)
-		if(!isturf(ai.loc))
+		if(!isturf(ai.loc) || !destination)
 			return
-		destination = get_turf(destination)
-		loc = destination
+		abstract_move(destination)
 		if(use_static)
 			ai.camera_visibility(src)
 		if(ai.client)
@@ -68,7 +67,7 @@
 		if(AI.eyeobj && (AI.client.eye == AI.eyeobj) && (AI.eyeobj.z == z))
 			AI.cameraFollow = null
 			if(isturf(loc) || isturf(src))
-				AI.eyeobj.setLoc(src)
+				AI.eyeobj.setLoc(get_turf(src))
 
 // AI MOVEMENT
 

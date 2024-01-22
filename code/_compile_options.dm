@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 //#define TESTING
 
 // Uncomment the following line to compile unit tests.

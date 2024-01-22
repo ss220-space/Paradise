@@ -1875,8 +1875,18 @@
 	},
 /area/security/brig)
 "ahF" = (
-/turf/space,
-/area/shuttle/gamma/station)
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 4;
+	height = 6;
+	id = "gamma_home";
+	name = "gamma dock";
+	width = 7
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "ahG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -113619,13 +113629,13 @@ uTI
 uTI
 uTI
 lTl
+ylx
+ylx
+ylx
+ylx
 ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
 mqT
 ipD
 sHR
@@ -113876,13 +113886,13 @@ uTI
 uTI
 uTI
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 mxb
 pma
 ris
@@ -114133,13 +114143,13 @@ uTI
 uTI
 uTI
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 mQz
 pCX
 rwz
@@ -114390,13 +114400,13 @@ uTI
 uTI
 uTI
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 apF
 apF
 rBq
@@ -114647,13 +114657,13 @@ lTl
 amW
 lTl
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 nhb
 pSJ
 rFd
@@ -114904,13 +114914,13 @@ amW
 uTI
 amW
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 mQz
 pUD
 rIF

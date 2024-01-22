@@ -180,7 +180,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(can_unwrench && W.tool_behaviour == TOOL_WRENCH)
-		if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
+		if(level == 1 && (T.transparent_floor == TURF_TRANSPARENT) && istype(src, /obj/machinery/atmospherics/pipe))
 			to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 			return
 		if(level == 1 && isturf(T) && T.intact)
@@ -221,7 +221,7 @@ Pipelines + Other Objects -> Pipe network
 					unsafe_pressure_release(user,internal_pressure)
 			deconstruct(TRUE)
 	else
-		if(T.transparent_floor)
+		if(T.transparent_floor == TURF_TRANSPARENT)
 			to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 			return TRUE
 		return ..()

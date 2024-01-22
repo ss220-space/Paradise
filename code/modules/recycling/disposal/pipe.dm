@@ -221,7 +221,7 @@
 
 /obj/structure/disposalpipe/attackby(var/obj/item/I, var/mob/user, params)
 	var/turf/T = get_turf(src)
-	if(T.intact || T.transparent_floor)
+	if(T.intact || (T.transparent_floor == TURF_TRANSPARENT))
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
 	add_fingerprint(user)
@@ -232,7 +232,7 @@
 	var/turf/T = get_turf(src)
 	if(!I.tool_use_check(user, 0))
 		return
-	if(T.transparent_floor)
+	if(T.transparent_floor == TURF_TRANSPARENT)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
@@ -394,7 +394,7 @@
 		return
 
 	var/turf/T = src.loc
-	if(T.intact || T.transparent_floor)
+	if(T.intact || (T.transparent_floor == TURF_TRANSPARENT))
 		return		// prevent interaction with T-scanner revealed pipes
 
 	// would transfer to next pipe segment, but we are in a trunk

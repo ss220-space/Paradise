@@ -415,6 +415,13 @@
 			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
+	else if(direction & (UP|DOWN))
+		var/turf/above = GET_TURF_ABOVE(loc)
+		if(!(direction & UP) || !can_z_move(DOWN, above, null, ZMOVE_FALL_FLAGS|ZMOVE_CAN_FLY_CHECKS|ZMOVE_FEEDBACK, occupant))
+			if(zMove(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS))
+				playsound(src, stepsound, 40, 1)
+				move_result = TRUE
+				move_type = MECHAMOVE_STEP
 	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafe is active to change direction on fly
 		if(strafe)
 			step_in_final *= STRAFE_TURN_FACTOR

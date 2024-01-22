@@ -10,7 +10,7 @@
 	/// negative for faster, positive for slower
 	var/slowdown = 0
 	/// It's a check that determines if the turf is transparent to reveal the stuff(pipes, safe, cables and e.t.c.) without looking on intact
-	var/transparent_floor = FALSE
+	var/transparent_floor = TURF_NONTRANSPARENT
 
 	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
 	var/real_layer = TURF_LAYER
@@ -32,7 +32,8 @@
 	//Properties for both
 	var/temperature = T20C
 
-	var/blocks_air = 0
+	//If set TRUE, won't init gas_mixture/air and shouldn't interact with atmos.
+	var/blocks_air = FALSE
 
 	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
 
@@ -273,15 +274,12 @@
 		if(null)
 			return
 		if(/turf/baseturf_bottom)
-			if(check_level_trait(z, ZTRAIT_OPENSPACE))
-				if(istype(get_area(src), /area/space))
-					path = /turf/space/openspace
-				else
-					path = /turf/simulated/openspace
-			else if(check_level_trait(z, ZTRAIT_LAVALAND))
-				path = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
-			else
-				path = /turf/space
+			path = check_level_trait(z, ZTRAIT_BASETURF) || /turf/space
+			if (!ispath(path))
+				path = text2path(path)
+				if (!ispath(path))
+					warning("Z-level [z] has invalid baseturf '[check_level_trait(z, ZTRAIT_BASETURF)]'")
+					path = /turf/space
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
@@ -297,6 +295,7 @@
 	var/old_lighting_corner_SE = lighting_corner_SE
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
+	var/old_type = type
 
 	BeforeChange()
 
@@ -308,7 +307,7 @@
 		W.baseturf = old_baseturf
 
 	if(!defer_change)
-		W.AfterChange(ignore_air)
+		W.AfterChange(ignore_air, oldType = old_type)
 	W.blueprint_data = old_blueprint_data
 
 	recalc_atom_opacity()
@@ -352,7 +351,7 @@
 	return FALSE
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
-/turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
+/turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE, oldType = null) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
 	CalculateAdjacentTurfs()
 
@@ -631,11 +630,11 @@
 
 //direction is direction of travel of air
 /turf/proc/zAirIn(direction, turf/source)
-	return (direction == DOWN)
+	return FALSE
 
 //direction is direction of travel of air
 /turf/proc/zAirOut(direction, turf/source)
-	return (direction == UP)
+	return FALSE
 
 /turf/proc/multiz_turf_del(turf/T, dir)
 	SEND_SIGNAL(src, COMSIG_TURF_MULTIZ_DEL, T, dir)
