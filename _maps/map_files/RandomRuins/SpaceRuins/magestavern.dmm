@@ -340,16 +340,16 @@
 "oq" = (
 /obj/effect/decal/cleanable/tomato_smudge,
 /obj/structure/closet/crate,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /turf/simulated/floor/carpet/red,
 /area/ruin/unpowered)
 "pj" = (
@@ -427,7 +427,7 @@
 "sp" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "escape"
@@ -939,7 +939,7 @@
 /area/ruin/unpowered)
 "OD" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/item/clothing/glasses/meson/fluff/book_berner_1,
 /turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)

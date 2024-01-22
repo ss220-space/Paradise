@@ -40,6 +40,8 @@
 	brute_mod = 1.5
 	burn_mod = 1.5
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/human/monkey
+
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
@@ -70,7 +72,7 @@
 	..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
-	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/monkey = 5)
+	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/humanoid/human/monkey = 5)
 
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()

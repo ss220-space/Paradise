@@ -190,6 +190,8 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
+	var/meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid
+
 	/// If set, this organ is required for vision. Defaults to "eyes" if the species has them.
 	var/vision_organ
 
