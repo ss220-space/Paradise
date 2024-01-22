@@ -1,5 +1,5 @@
 
-
+#define MIN_PLAYERS_FOR_MIX 35
 
 /datum/cargo_quests_storage
 	/// List of purchase order categories.
@@ -59,12 +59,16 @@
 
 	if(!quest_type)
 		var/list/possible_types = list()
-		for(var/path in subtypesof(/datum/cargo_quest) - /datum/cargo_quest/thing)
-			var/datum/cargo_quest/cargo_quest = path
-			if(!(initial(cargo_quest.difficultly_flags) & quest_difficulty.diff_flag))
-				continue
-			possible_types += path
-		possible_types.Remove(customer.cant_order)
+		if((length(GLOB.clients) < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
+			for(var/datum/cargo_quest/quest in current_quests)
+				possible_types += quest.type
+		else
+			for(var/path in subtypesof(/datum/cargo_quest) - /datum/cargo_quest/thing)
+				var/datum/cargo_quest/cargo_quest = path
+				if(!(initial(cargo_quest.difficultly_flags) & quest_difficulty.diff_flag))
+					continue
+				possible_types += path
+			possible_types.Remove(customer.cant_order)
 		quest_type = pick(possible_types)
 
 	for(var/datum/cargo_quest/quest in current_quests)
@@ -149,3 +153,4 @@
 /datum/cargo_quest/proc/check_required_item(atom/movable/check_item)
 	return
 
+#undef MIN_PLAYERS_FOR_MIX
