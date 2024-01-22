@@ -140,3 +140,12 @@
   - bugfix: Returned the "pAI suicide" button (#4236)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4248)
+'2024-01-22':
+  NightDawnFox:
+  - bugfix: chasm lavaland are now shown in space (#4257)
+  Rerik007:
+  - bugfix: some cargo fixes/ part 1 (#4256)
+  Zwei:
+  - tweak: All Species Are Spawnable (#4255)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4254)
