@@ -99,6 +99,11 @@
 	path = /obj/item/clothing/accessory/stethoscope
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Paramedic", "Brig Physician")
 
+/datum/gear/accessory/ntrjacket
+	display_name = "jacket, nt rep"
+	path = /obj/item/clothing/accessory/ntrjacket
+	allowed_roles = list("Nanotrasen Representative")
+
 /datum/gear/accessory/cowboyshirt
 	display_name = "cowboy shirt, black"
 	path = /obj/item/clothing/accessory/cowboyshirt
