@@ -244,7 +244,7 @@
 /obj/machinery/computer/supplyquest/workers/proc/print_report(datum/cargo_quests_storage/quest, complete, list/modificators = list(), old_reward)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	var/list/phrases = list("Hello!")
+	var/list/phrases = list()
 	var/obj/item/paper/paper = new(get_turf(src))
 
 	paper.info = "<div id=\"output\"><center> <h3> Shipment records </h3> </center><br><hr><br>"

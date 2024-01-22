@@ -80,7 +80,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		to_chat(user, span_warning("There are insufficient supply points for this request."))
 		return FALSE
 	for(var/tech_id in required_tech)
-		if(!SSshuttle.techLevels[tech_id] || required_tech[tech_id] >= SSshuttle.techLevels[tech_id])
+		if(!SSshuttle.techLevels[tech_id] || required_tech[tech_id] > SSshuttle.techLevels[tech_id])
 			to_chat(user, span_warning("You have not sent the necessary technological disks to Centcomm."))
 			return FALSE
 	return TRUE
@@ -1709,7 +1709,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/snake
 	containername = "snake crate"
 
-/datum/supply_packs/organic/snake
+/datum/supply_packs/organic/slime
 	name = "Slime Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/slime
