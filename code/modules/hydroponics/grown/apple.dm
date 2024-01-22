@@ -28,6 +28,7 @@
 
 // Posioned Apple
 /obj/item/seeds/apple/poisoned
+	name = "pack of a strange apple seeds"
 	product = /obj/item/reagent_containers/food/snacks/grown/apple/poisoned
 	mutatelist = list()
 	reagents_add = list("cyanide" = 0.5, "vitamin" = 0.04, "plantmatter" = 0.1)

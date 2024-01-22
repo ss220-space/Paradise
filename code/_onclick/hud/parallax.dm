@@ -107,7 +107,10 @@
 		var/animate_time = 0
 		for(var/thing in C.parallax_layers)
 			var/obj/screen/parallax_layer/L = thing
-			L.icon_state = initial(L.icon_state)
+			if(istype(L, /obj/screen/parallax_layer/planet) && SSmapping.lavaland_theme?.planet_icon_state)
+				L.icon_state = SSmapping.lavaland_theme.planet_icon_state
+			else
+				L.icon_state = initial(L.icon_state)
 			L.update_o(C.view)
 			var/T = PARALLAX_LOOP_TIME / L.speed
 			if(T > animate_time)
@@ -339,13 +342,8 @@
 
 /obj/screen/parallax_layer/planet/Initialize(mapload)
 	. = ..()
-	switch(SSmapping.lavaland_theme)
-		if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface)
-			icon_state = "planet"
-		if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma)
-			icon_state = "planet_plasma"
-		if(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
-			icon_state = "planet_canyon"
+	if(SSmapping.lavaland_theme?.planet_icon_state)
+		icon_state = SSmapping.lavaland_theme.planet_icon_state
 
 /obj/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)
