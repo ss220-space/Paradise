@@ -126,7 +126,7 @@ Difficulty: Medium
 	if(!ishuman(user))
 		return
 	if(slot == slot_wear_suit)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/blood_suit(null))
+		user.mind?.AddSpell(new /obj/effect/proc_holder/spell/blood_suit(null))
 
 /obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user)
 	. = ..()
