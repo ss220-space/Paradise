@@ -95,6 +95,23 @@
 	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
 	icon_state = "fancypen"
 
+/obj/item/pen/fancy/bomb
+	var/obj/item/grenade/bomb
+
+/obj/item/pen/fancy/bomb/Initialize(mapload)
+	. = ..()
+	bomb = new /obj/item/grenade/syndieminibomb(src)
+
+/obj/item/pen/fancy/bomb/attack_self(mob/user)
+	visible_message(span_notice("[user] fumbles with [src]!"))
+	bomb.attack_self(user)
+
+/obj/item/pen/fancy/bomb/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	return bomb.hit_reaction(owner, hitby, attack_text, final_block_chance, damage, attack_type)
+
+/obj/item/pen/fancy/bomb/attackby(obj/item/I, mob/user, params)
+	return bomb.attackby(I, user, params)
+
 /obj/item/pen/multi/gold
 	name = "Gilded Pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."

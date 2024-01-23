@@ -139,7 +139,7 @@
 			"Agent 007" = list(	"Name" = "\improper 'Agent 007' bundle",
 								"Desc" = "Find and eliminate your targets quietly and effectively with this kit.",
 								/obj/item/clothing/glasses/hud/security/chameleon = 1,
-								/obj/item/grenade/syndieminibomb = 1, // Скин ручки бы.
+								/obj/item/pen/fancy/bomb = 1,
 								/obj/item/gun/projectile/automatic/pistol = 1,
 								/obj/item/suppressor = 1,
 								/obj/item/ammo_box/magazine/m10mm = 1,
@@ -167,7 +167,7 @@
 								/obj/item/encryptionkey/syndicate = 1),
 		"Bank Robber" = list(	"Name" = "\improper 'Heist' bundle",
 								"Desc" = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation.",
-								/obj/item/implanter/freedom = 1, // Сделать однозарядный.
+								/obj/item/implanter/freedom/prototype = 1,
 								/obj/item/gun/projectile/revolver = 1,
 								/obj/item/ammo_box/speedloader/a357 = 2,
 								/obj/item/card/emag = 1,
@@ -195,7 +195,7 @@
 								/obj/item/storage/box/syndie_kit/emp = 1,
 								/obj/item/camera_bug = 1,
 								/obj/item/door_remote/omni/access_tuner = 1,
-								/obj/item/implanter/freedom = 1, // Сделать однозарядный.
+								/obj/item/implanter/freedom/prototype = 1,
 								/obj/item/aiModule/syndicate = 1,
 								/obj/item/card/emag = 1,
 								/obj/item/encryptionkey/syndicate = 1,
@@ -264,7 +264,7 @@
 								/obj/item/pinpointer/advpinpointer = 1,
 								/obj/item/rcd/preloaded = 1,
 								/obj/item/storage/box/syndie_kit/space = 1,
-								/obj/item/autoimplanter/oneuse = 1, //Сделать с мезонами.
+								/obj/item/autoimplanter/oneuse/meson = 1,
 								/obj/item/encryptionkey/syndicate = 1),
 			"Grenadier" = list(	"Name" = "\improper 'Grenadier' bundle",
 								"Desc" = "A variety of grenades and pyrotechnics to ensure you can blast your way through any situation.",
