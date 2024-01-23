@@ -97,8 +97,7 @@ Difficulty: Medium
 /obj/effect/proc_holder/spell/blood_suit/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/blood_suit/cast(list/targets, mob/user = usr)
-	var/mob/living/U = user
+/obj/effect/proc_holder/spell/blood_suit/cast(list/targets, mob/living/user = usr)
 	if(is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))
 		if(U.lying)
 			to_chat(U, span_notice("Fight right now my bloody warrior!"))
