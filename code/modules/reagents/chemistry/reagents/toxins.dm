@@ -1364,7 +1364,7 @@
 	reagent_state = SOLID
 	color = "#353434"
 	process_flags = ORGANIC | SYNTHETIC
-	metabolization_rate = 1
+	metabolization_rate = 5
 	taste_description = span_warning("METAL DUST OH GOD")
 
 /datum/reagent/metalic_dust/on_mob_life(mob/living/M)
