@@ -1104,7 +1104,7 @@
 /mob/living/carbon/human/get_visible_species()
 	var/displayed_species = dna.species.name
 	for(var/obj/item/clothing/C in src)			//Disguise checks
-		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
+		if(C == head || C == wear_suit || C == wear_mask || C == w_uniform || C == belt || C == back)
 			if(C.species_disguise)
 				displayed_species = C.species_disguise
 	return displayed_species

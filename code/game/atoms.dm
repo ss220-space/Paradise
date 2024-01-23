@@ -1296,6 +1296,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = !density
 
 
-/atom/proc/get_examine_time()
+/atom/proc/get_examine_time()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return 0 SECONDS
+
+
+/atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return gender
 
