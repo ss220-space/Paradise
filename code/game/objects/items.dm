@@ -544,7 +544,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /**
  * When item is officially left user
  */
-/obj/item/proc/dropped(mob/user, silent = FALSE)
+/obj/item/proc/dropped(mob/user, silent = FALSE, is_throwed = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	// Remove any item actions we temporary gave out
@@ -561,7 +561,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	mouse_opacity = initial(mouse_opacity)
 	remove_outline()
 
-	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user, is_throwed)
 	if(!silent && !(flags & ABSTRACT) && drop_sound)
 		var/chosen_sound = drop_sound
 		if(islist(drop_sound) && length(drop_sound))

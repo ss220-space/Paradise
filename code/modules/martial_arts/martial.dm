@@ -171,6 +171,9 @@
 /datum/martial_art/proc/user_hit_by(atom/movable/AM, mob/living/carbon/human/H)
 	return FALSE
 
+/datum/martial_art/proc/RangedAttack(atom/A, mob/living/carbon/human/owner, params)
+	return
+
 /datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
 	var/all_objectives = user?.mind?.get_all_objectives()
 	if(target.mind && all_objectives)
@@ -484,22 +487,22 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
-/obj/item/midichlorian
+/obj/item/midichlorian_injector
 	name = "Midichlorian injector"
 	desc = "UNLIMITED POWER!"
 	icon = 'icons/obj/hypo.dmi'
-	icon_state = "combat_hypo"
+	icon_state = "midichlorian_injector"
+	var/used = FALSE
 
-/obj/item/midichlorian/attack_self(mob/living/carbon/human/user)
-	if(!istype(user) || !user)
+/obj/item/midichlorian_injector/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user || used)
 		return
-	to_chat(user, span_boldannounce("You feel the [span_cult("POWER!")]"))
+	used = TRUE
+	to_chat(user, span_boldannounce("You feel the [span_cult("THE FORCE!")]"))
 
-	var/datum/martial_art/power/MA = new
+	var/datum/martial_art/theforce/MA = new
 	MA.teach(user)
-	user.temporarily_remove_item_from_inventory(src)
-	visible_message(span_warning("You're injecting yourself with [src]."))
-	qdel(src)
+	icon_state = "midichlorian_injector_noreag"
 
 /obj/item/twohanded/bostaff
 	name = "bo staff"

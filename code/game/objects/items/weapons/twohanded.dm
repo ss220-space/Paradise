@@ -37,6 +37,7 @@
 	var/wieldsound = FALSE
 	var/unwieldsound = FALSE
 	var/sharp_when_wielded = FALSE
+	var/unwield_after_throw = TRUE
 
 
 /obj/item/twohanded/Initialize(mapload)
@@ -57,6 +58,7 @@
 		wieldsound = src.wieldsound, \
 		unwieldsound = src.unwieldsound, \
 		sharp_when_wielded = src.sharp_when_wielded, \
+		unwield_after_throw = src.unwield_after_throw, \
 		wield_callback = CALLBACK(src, PROC_REF(wield)), \
 		unwield_callback = CALLBACK(src, PROC_REF(unwield)) \
 	)
@@ -206,6 +208,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
+	unwield_after_throw = FALSE
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
@@ -253,15 +256,19 @@
 		set_light(0)
 
 
-/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
-	..()
+/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user, def_zone, delimb_chance)
+	var/datum/martial_art/theforce/MA = user?.mind?.martial_art
+	if(istype(MA))
+		delimb_chance = MA.attack_double_sword_delimb_chance
+
+	. = ..()
+
 	if((CLUMSY in user.mutations) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40))
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
 	if(HAS_TRAIT(src, TRAIT_WIELDED) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
-
 
 /obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
@@ -275,6 +282,21 @@
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
 	return FALSE
+
+
+// /obj/item/twohanded/dualsaber/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+// 	var/datum/martial_art/theforce/MA = throwingdatum?.thrower?.mind?.martial_art
+// 	if(istype(MA) && active)
+// 		throwingdatum.delimb_chance = MA.throw_sword_delimb_chance
+// 		throwingdatum.hit_chance = 0
+
+// 	var/mob/living/carbon/human/hit_human = hit_atom
+// 	if(istype(hit_human))
+// 		MA = hit_human.mind?.martial_art
+// 		if(istype(MA) && !hit_human.restrained() && hit_human.put_in_active_hand(src))
+// 			hit_human.visible_message(span_warning("[hit_human] catches [src]!"))
+// 			return
+// 	. = ..()
 
 
 /obj/item/twohanded/dualsaber/green

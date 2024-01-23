@@ -744,7 +744,7 @@
 /datum/uplink_item/dangerous/midichlorian
 	name = "Midichlorian injector"
 	desc = "UNLIMITED POWER!"
-	item = /obj/item/storage/box/syndie_kit/commando_kit
+	item = /obj/item/midichlorian_injector
 	cost = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 

@@ -87,10 +87,10 @@
 		/obj/item/multitool/ai_detect, // 1TC
 		/obj/item/flashlight/emp) // 2TC
 
-	var/static/list/darklord = list( // 24TC + two 0TC
+	var/static/list/darklord = list( // 36TC + 0TC
 		/obj/item/melee/energy/sword/saber/red, // 8TC
 		/obj/item/melee/energy/sword/saber/red, // 8TC
-		/obj/item/dnainjector/telemut/darkbundle, // 0TC
+		/obj/item/midichlorian_injector, // 12TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC

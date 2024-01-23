@@ -543,7 +543,8 @@
 				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
-			throwable_mob.forceMove(start_T)
+			if(!istype(I, /obj/item/grab/force))
+				throwable_mob.forceMove(start_T)
 			if(start_T && end_T)
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
@@ -552,7 +553,7 @@
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
-		drop_item_ground(I, silent = TRUE)
+		drop_item_ground(I, silent = TRUE, is_throwed = TRUE)
 
 		if(GLOB.pacifism_after_gt || (HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce))
 			to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] осторожно опускае[pluralize_ru(src.gender,"шь","те")] [I.declent_ru(ACCUSATIVE)] на землю."))
