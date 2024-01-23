@@ -40,7 +40,7 @@
 	brute_mod = 1.5
 	burn_mod = 1.5
 
-	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/human/monkey
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -72,7 +72,7 @@
 	..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
-	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/humanoid/human/monkey = 5)
+	H.meatleft = 5
 
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
@@ -105,6 +105,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/tajaran/farwa, //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/farwa
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -148,6 +150,8 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin
+
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
@@ -188,6 +192,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/skrell,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/neara
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -239,6 +245,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/stok
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),

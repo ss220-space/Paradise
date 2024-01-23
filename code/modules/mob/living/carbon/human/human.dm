@@ -2124,3 +2124,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set category = "IC"
 
 	update_flavor_text()
+
+/mob/living/carbon/human/harvest(mob/living/user)
+	if(QDELETED(src))
+		return
+
+	if(issmall(src))
+		while(meatleft > 0)
+			new dna.species.meat_type(loc)
+			meatleft--
+		visible_message(span_notice("[user] butchers [src]."))
+		gib()

@@ -175,27 +175,41 @@
 	bitesize = 9
 	foodtype = TOXIC
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/human/monkey
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey
 	name = "monkey meat"
+	tastes = list("salty meat" = 1)
 	list_reagents = list("protein" = 2)
+	filling_color = "#FF1C1C"
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/tajaran/farwa
+/obj/item/reagent_containers/food/snacks/meat/humanoid/farwa
 	name = "farwa meat"
 	list_reagents = list("protein" = 1)
+	tastes = list("salty meat" = 1)
+	icon_state = "meat_tajara"
+	filling_color = "#df1919"
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/vulpkanin/wolpin
+/obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin
 	name = "wolpin meat"
 	list_reagents = list("protein" = 3)
+	tastes = list("salty meat" = 1)
+	icon_state = "meat_vulp"
+	filling_color = "#850808"
 	bitesize = 2
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/skrell/neara
+/obj/item/reagent_containers/food/snacks/meat/humanoid/neara
 	name = "neara meat"
 	list_reagents = list("protein" = 2, "water" = 5)
+	tastes = list("watery meat" = 1)
+	icon_state = "meat_skrell"
+	filling_color = "#4d17a5"
 	bitesize = 4
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/unathi/stok
+/obj/item/reagent_containers/food/snacks/meat/humanoid/stok
 	name = "stok meat"
 	list_reagents = list("protein" = 2, "zessulblood" = 1)
+	tastes = list("chiken meat" = 1)
+	icon_state = "meat_unathi"
+	filling_color = "#850808"
 	bitesize = 2
 
 /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct

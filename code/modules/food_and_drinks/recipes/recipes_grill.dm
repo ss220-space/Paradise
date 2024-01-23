@@ -134,8 +134,8 @@
 /datum/recipe/grill/monkeykabob
 	items = list(
 		/obj/item/stack/rods,
-		/obj/item/reagent_containers/food/snacks/meat/humanoid/human/monkey,
-		/obj/item/reagent_containers/food/snacks/meat/humanoid/human/monkey,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 	)
 	result = /obj/item/reagent_containers/food/snacks/monkeykabob
 

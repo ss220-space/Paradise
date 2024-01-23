@@ -257,7 +257,7 @@
 
 	while(occupant.meatleft > 0)
 		new occupant.dna.species.meat_type(src, occupant)
-		occupant.meatleft --
+		occupant.meatleft--
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
