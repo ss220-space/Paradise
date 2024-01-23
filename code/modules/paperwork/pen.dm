@@ -96,15 +96,27 @@
 	icon_state = "fancypen"
 
 /obj/item/pen/fancy/bomb
+	var/clickscount = 0
 	var/obj/item/grenade/bomb
 
 /obj/item/pen/fancy/bomb/Initialize(mapload)
 	. = ..()
 	bomb = new /obj/item/grenade/syndieminibomb(src)
 
+/obj/item/pen/fancy/bomb/examine(mob/user)
+	. = ..()
+	if(istraitor_or_contractor(user))
+		to_chat(user, span_warning("They always said the pen is mightier than the sword."))
+
 /obj/item/pen/fancy/bomb/attack_self(mob/user)
-	visible_message(span_notice("[user] fumbles with [src]!"))
-	bomb.attack_self(user)
+	visible_message(span_notice("[user] fumbles with [src]."))
+	if(clickscount < 6)
+		clickscount++
+		switch(clickscount)
+			if(3)
+				bomb.attack_self(user)
+			if(6)
+				bomb.defused = TRUE
 
 /obj/item/pen/fancy/bomb/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	return bomb.hit_reaction(owner, hitby, attack_text, final_block_chance, damage, attack_type)
