@@ -516,7 +516,7 @@
 	list_reagents = list("sugar" = 15, "watermelonjuice" = 5)
 
 /obj/item/reagent_containers/food/snacks/candy/cotton/rainbow
-	name = "cotton candy"
+	name = "rainbow cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_rainbow"
 	trash = /obj/item/c_tube
@@ -524,7 +524,7 @@
 	list_reagents = list("omnizine" = 20)
 
 /obj/item/reagent_containers/food/snacks/candy/cotton/bad_rainbow
-	name = "cotton candy"
+	name = "bad rainbow cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_rainbow"
 	trash = /obj/item/c_tube
@@ -570,3 +570,23 @@
 	desc = "Chocolate-covered nougat, shaped like a wrench. Great for an engineer on the go!"
 	icon_state = "toolerone"
 	filling_color = "#7D5F46"
+
+// ***********************************************************
+// Carbon dulce
+// ***********************************************************
+
+/obj/item/reagent_containers/food/snacks/sugar_coal
+	name = "Sugar coal"
+	desc = "That's a sugar candy! You weren't naughty this year, that's a sweet joke from Los Reyes Magos. Feliz Navidad y Año Nuevo!"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "sugar_coal"
+	tastes = list("Sugar" = 2, "charcoal" = 1)
+	list_reagents = list("nutriment" = 2, "sugar" = 4, "charcoal" = 2)
+	bitecount = 1
+	bitesize = 4
+	filling_color = "#2c2b2b"
+
+/obj/item/reagent_containers/food/snacks/sugar_coal/Initialize(mapload)
+	. = ..()
+	pixel_x = rand(-5,5)
+	pixel_y = rand(-5,5)

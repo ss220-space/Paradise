@@ -446,7 +446,7 @@ Difficulty: Hard
 			else
 				visible_message("<span class='hierophant'>\"Vitemvw gsqtpixi. Stivexmsrep ijjmgmirgc gsqtvsqmwih.\"</span>")
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/death()
+/mob/living/simple_animal/hostile/megafauna/hierophant/death(gibbed)
 	if(health > 0 || stat == DEAD)
 		return
 	else

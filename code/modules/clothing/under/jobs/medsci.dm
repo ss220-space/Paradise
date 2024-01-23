@@ -37,8 +37,8 @@
 
 /obj/item/clothing/under/rank/scientist/student/assistant
 	name = "scientist assistant jumpsuit"
-	icon_state = "sci_ass_f_s"
-	item_color = "sci_ass_f"
+	icon_state = "sci_ass_s"
+	item_color = "sci_ass"
 
 /obj/item/clothing/under/rank/scientist/student/assistant/skirt
 	name = "scientist assistant jumpskirt"
@@ -224,6 +224,13 @@
 	icon_state = "psych"
 	item_state = "w_suit"
 	item_color = "psych"
+
+/obj/item/clothing/under/rank/psych/skirt
+	desc = "A basic white jumpskirt. It has turqouise markings that denote the wearer as a psychiatrist."
+	name = "psychiatrist's jumpskirt"
+	icon_state = "psychf"
+	item_state = "w_suit"
+	item_color = "psychf"
 
 /obj/item/clothing/under/rank/psych/turtleneck
 	desc = "A turqouise turtleneck and a pair of dark blue slacks, belonging to a psychologist."

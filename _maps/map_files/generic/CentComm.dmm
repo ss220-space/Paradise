@@ -9047,9 +9047,9 @@
 /obj/item/stamp/rd,
 /obj/item/stamp/rep,
 /obj/item/stamp/warden,
-/obj/item/radio/headset/headset_iaa,
-/obj/item/radio/headset/headset_iaa,
-/obj/item/radio/headset/headset_iaa,
+/obj/item/radio/headset/headset_iaa/alt,
+/obj/item/radio/headset/headset_iaa/alt,
+/obj/item/radio/headset/headset_iaa/alt,
 /obj/item/radio/headset/heads/magistrate/alt,
 /obj/item/radio/headset/heads/ntrep,
 /turf/simulated/floor/plasteel{
@@ -9221,7 +9221,7 @@
 /area/centcom/zone2)
 "eKV" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/carpet/arcade,
 /area/trader_station/sol)
 "eLd" = (
@@ -22527,7 +22527,7 @@
 /area/syndicate_mothership/outside)
 "lGB" = (
 /obj/structure/table/wood/fancy,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "lGE" = (
@@ -24542,7 +24542,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/black,
+/obj/item/deck/cards/black,
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "mzT" = (
@@ -27532,7 +27532,7 @@
 /area/centcom/specops)
 "nEp" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/syndicate{
+/obj/item/deck/cards/syndicate{
 	pixel_x = 3;
 	pixel_y = 6
 	},
@@ -30767,7 +30767,7 @@
 "pdl" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/toy/cards/deck/syndicate=10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/deck/cards/syndicate=10)
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -32595,7 +32595,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood/fancy/black,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "pXf" = (
@@ -34046,7 +34046,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
 "qHC" = (
-/obj/item/toy/cards/deck/syndicate{
+/obj/item/deck/cards/syndicate{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -36211,7 +36211,7 @@
 /area/syndicate_mothership/cargo)
 "rHb" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/toy/cards/deck/syndicate/black{
+/obj/item/deck/cards/syndicate/black{
 	pixel_x = -4;
 	pixel_y = 5
 	},
@@ -38293,7 +38293,9 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "sHn" = (
-)
+/obj/item/flag/nt,
+/turf/simulated/floor/wood,
+/area/centcom/specops)
 "sHv" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -40535,7 +40537,7 @@
 /area/syndicate_mothership)
 "tFq" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "tFQ" = (
@@ -53748,20 +53750,20 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -54005,20 +54007,20 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -54262,20 +54264,20 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -54519,8 +54521,8 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
+ubE
+ubE
 ipY
 bRt
 bRt
@@ -54531,8 +54533,8 @@ eIX
 iUN
 bRt
 aRf
-mVX
-mVX
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -54776,8 +54778,8 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
+ubE
+ubE
 tNp
 qqE
 nFv
@@ -54788,8 +54790,8 @@ rxG
 bnT
 wQE
 bRt
-mVX
-mVX
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -55033,8 +55035,8 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
+ubE
+ubE
 rbb
 qqE
 ted
@@ -55045,8 +55047,8 @@ bnT
 ted
 gEb
 kAR
-mVX
-mVX
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -55290,8 +55292,8 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
+ubE
+ubE
 rbb
 qqE
 nhX
@@ -55302,8 +55304,8 @@ bnT
 ted
 hwm
 kAR
-mVX
-mVX
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -55547,8 +55549,8 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
+ubE
+ubE
 rbb
 qqE
 ted
@@ -55559,8 +55561,8 @@ bnT
 ted
 gEb
 kAR
-mVX
-mVX
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -55804,8 +55806,8 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
+ubE
+ubE
 hIf
 qqE
 sHH
@@ -55816,8 +55818,8 @@ uPJ
 bnT
 ePZ
 bRt
-mVX
-mVX
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -56061,8 +56063,8 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
+ubE
+ubE
 qbW
 bRt
 bRt
@@ -56073,8 +56075,8 @@ eIX
 xYk
 bRt
 tIG
-mVX
-mVX
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -56318,20 +56320,20 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -56575,20 +56577,20 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -56832,20 +56834,20 @@ ubE
 ubE
 ymc
 ymc
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
+ubE
 ymc
 pNM
 pwa
@@ -96545,7 +96547,7 @@ tmQ
 qsJ
 vcj
 pLN
-aoB
+asI
 kRE
 oIc
 oIc
@@ -97308,7 +97310,7 @@ gcZ
 abk
 nAN
 bNp
-aoB
+sHn
 daM
 oIc
 oIc
@@ -98595,9 +98597,9 @@ nAN
 nAN
 nAN
 nAN
-aoB
+sHn
 fCV
-aoB
+sHn
 mPp
 rFY
 vIY
@@ -100109,7 +100111,7 @@ afP
 aQn
 anK
 afP
-aoB
+sHn
 pFy
 fcv
 nWU
@@ -101137,7 +101139,7 @@ scN
 xpp
 dIs
 afP
-aoB
+sHn
 qMf
 fls
 fnW

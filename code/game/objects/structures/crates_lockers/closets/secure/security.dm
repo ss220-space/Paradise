@@ -194,6 +194,8 @@
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/sensor_device/advanced/command(src)
 	new /obj/item/storage/garmentbag/blueshield(src)
+	new /obj/item/storage/belt/security/webbing(src)
+
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
 	req_access = list(ACCESS_NTREP)

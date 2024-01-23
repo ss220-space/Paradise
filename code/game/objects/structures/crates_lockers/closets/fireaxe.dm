@@ -232,26 +232,27 @@
 	return ..()
 
 //mining "fireaxe"
-/obj/structure/closet/fishingrodcabinet
+/obj/structure/fishingrodcabinet
 	name = "fishing cabinet"
 	desc = "There is a small label that reads \"Fo* Em**gen*y u*e *nly\". All the other text is scratched out and replaced with various fish weights."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "fishingrod"
+	anchored = TRUE
 	var/obj/item/twohanded/fishingrod/olreliable //what the fuck?
 
-/obj/structure/closet/fishingrodcabinet/Initialize()
+/obj/structure/fishingrodcabinet/Initialize()
 	. = ..()
 	if(!olreliable)
 		olreliable = new(src)
 		update_icon()
 
-/obj/structure/closet/fishingrodcabinet/update_icon()
+/obj/structure/fishingrodcabinet/update_icon()
 	. = ..()
 	cut_overlays()
 	if(olreliable)
 		add_overlay("rod")
 
-/obj/structure/closet/fishingrodcabinet/attackby(var/obj/item/O as obj, var/mob/living/user as mob)
+/obj/structure/fishingrodcabinet/attackby(var/obj/item/O as obj, var/mob/living/user as mob)
 	if(istype(O, /obj/item/twohanded/fishingrod))
 		var/obj/item/twohanded/fishingrod/R = O
 		if(R.wielded)
@@ -268,7 +269,7 @@
 
 
 
-/obj/structure/closet/fishingrodcabinet/attack_hand(mob/user as mob)
+/obj/structure/fishingrodcabinet/attack_hand(mob/user as mob)
 	if(olreliable)
 		add_fingerprint(user)
 		olreliable.forceMove_turf()

@@ -296,7 +296,7 @@
 			organs -= O
 			organs[O.name] = O
 
-		I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
+		I = tgui_input_list(user, "Remove which organ?", "Surgery", organs)
 		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 			I = organs[I]
 			if(!I)
@@ -592,7 +592,8 @@
 	allowed_tools = list(
 	/obj/item/circular_saw = 100, \
 	/obj/item/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/hatchet = 90
+	/obj/item/hatchet = 90, \
+	/obj/item/wirecutters = 70
 	)
 
 	time = 54

@@ -51,7 +51,7 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/my_mirror = null
 	var/is_mirror = FALSE
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/death()
+/mob/living/simple_animal/hostile/asteroid/elite/herald/death(gibbed)
 	. = ..()
 	if(!is_mirror)
 		addtimer(CALLBACK(src, PROC_REF(become_ghost)), 0.8 SECONDS)
@@ -307,7 +307,7 @@
 	if(!found_mirror)
 		to_chat(usr, "<span class='warning'>You are not close enough to a working mirror to teleport!</span>")
 		return
-	var/input_mirror = input(usr, "Choose a mirror to teleport to.", "Mirror to Teleport to") as null|anything in mirrors_to_use
+	var/input_mirror = tgui_input_list(usr, "Choose a mirror to teleport to", "Mirror to Teleport to", mirrors_to_use)
 	var/obj/chosen = mirrors_to_use[input_mirror]
 	if(chosen == null)
 		return

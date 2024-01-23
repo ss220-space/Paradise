@@ -322,6 +322,17 @@
 	name = "wt550 magazine (Incendiary 4.6x30mm)"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
+/obj/item/ammo_box/magazine/sp91rc
+	name = "SP-91-RC magazine (9mm TE)"
+	icon_state = "9mm-te"
+	ammo_type = /obj/item/ammo_casing/c9mmte
+	caliber = "9mm TE"
+	max_ammo = 20
+
+/obj/item/ammo_box/magazine/sp91rc/update_icon()
+	..()
+	icon_state = "9mm-te-[round(ammo_count(),5)]"
+
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
 	icon_state = "uzi9mm-32"
@@ -644,25 +655,8 @@
 	name = "C.A.T.S. magazine (12g slug)"
 	desc = "Похоже, этот магазин может принять в себя только слаги 12-о калибра."
 	ammo_type = /obj/item/ammo_casing/shotgun
-	caliber = ".12"
-	accept_subtypes = FALSE
+	multiple_sprites = 2
 	max_ammo = 8
-
-/obj/item/ammo_box/magazine/cats12g/update_icon()
-	..()
-	icon_state = "[initial(icon_state)][stored_ammo.len ? "" : "-0"]"
-
-/obj/item/ammo_box/magazine/cats12g/universal
-	icon_state = "cats_mag"
-	name = "C.A.T.S. magazine (12g)-U"
-	desc = "Похоже, этот магазин может принять в себя любые патроны 12-о калибра."
-	accept_subtypes = TRUE
-
-/obj/item/ammo_box/magazine/cats12g/universal/large
-	icon_state = "cats_mag_large"
-	name = "C.A.T.S. magazine (12g)-UL"
-	desc = "Похоже, этот расширенный магазин может принять в себя любые патроны 12-о калибра."
-	max_ammo = 14
 
 /obj/item/ammo_box/magazine/cats12g/large
 	icon_state = "cats_mag_large_slug"
@@ -680,5 +674,17 @@
 	icon_state = "cats_mag_large_bean"
 	name = "C.A.T.S. magazine (12g-beanbang)-L"
 	desc = "Похоже, в этот расширенный магазин лезут только патроны-погремушки."
-	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
+	max_ammo = 14
+
+/obj/item/ammo_box/magazine/cats12g/universal
+	icon_state = "cats_mag"
+	name = "C.A.T.S. magazine (12g)-U"
+	desc = "Похоже, этот магазин может принять в себя любые патроны 12-о калибра."
+	caliber = ".12"
+	ammo_type = null
+
+/obj/item/ammo_box/magazine/cats12g/universal/large
+	icon_state = "cats_mag_large"
+	name = "C.A.T.S. magazine (12g)-UL"
+	desc = "Похоже, этот расширенный магазин может принять в себя любые патроны 12-о калибра."
 	max_ammo = 14

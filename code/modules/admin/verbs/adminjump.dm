@@ -7,22 +7,22 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/chosen = input(src, null, "Jump to...") as null|anything in choices
+	var/chosen = tgui_input_list(src, null, "Jump to...", choices)
 	if(!chosen)
 		return
 
 	var/jumping // Thing to jump to
 	switch(chosen)
 		if("Area")
-			jumping = input(src, "Area to jump to", "Jump to Area") as null|anything in return_sorted_areas()
+			jumping = tgui_input_list(src, "Area to jump to", "Jump to Area", return_sorted_areas())
 			if(jumping)
 				return jumptoarea(jumping)
 		if("Mob")
-			jumping = input(src, "Mob to jump to", "Jump to Mob") as null|anything in GLOB.mob_list
+			jumping = tgui_input_list(src, "Mob to jump to", "Jump to Mob", GLOB.mob_list)
 			if(jumping)
 				return jumptomob(jumping)
 		if("Key")
-			jumping = input(src, "Key to jump to", "Jump to Key") as null|anything in sortKey(GLOB.clients)
+			jumping = tgui_input_list(src, "Key to jump to", "Jump to Key", sortKey(GLOB.clients))
 			if(jumping)
 				return jumptokey(jumping)
 		if("Coordinates")
@@ -160,7 +160,7 @@
 	var/list/keys = list()
 	for(var/mob/M in GLOB.player_list)
 		keys += M.client
-	var/selection = input("Please, select a player!", "Admin Jumping", null, null) as null|anything in sortKey(keys)
+	var/selection = tgui_input_list(src, "Please, select a player!", "Admin Jumping", sortKey(keys))
 	if(!selection)
 		return
 	var/mob/M = selection:mob
@@ -183,7 +183,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/area/A = input(usr, "Pick an area.", "Pick an area") as null|anything in return_sorted_areas()
+	var/area/A = tgui_input_list(usr, "Pick an area.", "Pick an area", return_sorted_areas())
 	if(!A)
 		return
 
