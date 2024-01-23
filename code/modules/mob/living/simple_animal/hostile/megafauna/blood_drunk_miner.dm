@@ -100,7 +100,7 @@ Difficulty: Medium
 
 /obj/effect/proc_holder/spell/blood_suit/cast(list/targets, mob/user = usr)
 	var/mob/living/U = user
-	if(is_mining_level(user.z))
+	if(is_mining_level(user.z) || !istype(get_area(user), /area/ruin/space/bubblegum_arena))
 		if(U.lying)
 			to_chat(U, span_notice("Fight right now my bloody warrior!"))
 		else
