@@ -44,6 +44,9 @@
 	var/enraged = FALSE
 	/// Path of the hardmode loot disk, if applicable.
 	var/enraged_loot
+	/// Hardmode one loot
+	var/enraged_unique_loot
+	/// Одинарный лут с хардмод фауны
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -77,6 +80,8 @@
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
 		if(enraged && length(loot) && enraged_loot) //Don't drop a disk if the boss drops no loot. Important for legion.
+			if(enraged_unique_loot)
+				loot += enraged_unique_loot
 			for(var/mob/living/M in urange(20, src)) //Yes big range, but for bubblegum arena
 				if(M.client)
 					loot += enraged_loot //Disk for each miner / borg.
@@ -84,6 +89,7 @@
 			grant_achievement(medal_type,score_type)
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()
+
 
 /mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
 	loot = crusher_loot
