@@ -39,7 +39,7 @@
 		return TRUE
 	return I.attack(src, user)
 
-/obj/item/proc/attack(mob/living/target, mob/living/user, def_zone)
+/obj/item/proc/attack(mob/living/target, mob/living/user, def_zone, delimb_chance)
 	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, user)
 	if(flags & (NOBLUDGEON))
@@ -84,7 +84,7 @@
 
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(target)
-	. = target.attacked_by(src, user, def_zone)
+	. = target.attacked_by(src, user, def_zone, delimb_chance)
 
 	add_fingerprint(user)
 

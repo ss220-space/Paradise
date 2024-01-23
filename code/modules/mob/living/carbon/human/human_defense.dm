@@ -407,14 +407,14 @@ emp_act
 		affecting.sabotaged = 1
 	return 1
 
-/mob/living/carbon/human/grabbedby(mob/living/user)
+/mob/living/carbon/human/grabbedby(mob/living/user, supress_message, grab_type)
 	if(w_uniform)
 		w_uniform.add_fingerprint(user)
 	return ..()
 
 
 //Returns TRUE if the attack hit, FALSE if it missed.
-/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone, delimb_chance)
 	if(!I || !user)
 		return FALSE
 
