@@ -46,7 +46,7 @@
 	var/enraged_loot
 	/// Hardmode one loot
 	var/enraged_unique_loot
-	/// Одинарный лут с хардмод фауны
+	/// Only one loot from hardmode
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
