@@ -506,13 +506,14 @@
 
 		if("order")
 
-/*			var/datum/supply_packs/P = locateUID(params["crate"])
-			if(!istype(P))
-				return
+			var/datum/supply_packs/P = locateUID(params["crate"])
+//			if(!istype(P))
+//				return
+//
+//			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
+//				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
+//				return	// Unused for now (Crate limit #3056).
 
-			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
-				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
-				return	*/	// Unused for now (Crate limit #3056).
 
 			var/amount = 1
 			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
@@ -563,9 +564,9 @@
 				if(SO.ordernum == ordernum)
 					O = SO
 					P = O.object
-/*					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
-						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	*/	// Unused for now (Crate limit #3056).
-					else if(P.can_approve(usr))
+//					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
+//						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	*/	// Unused for now (Crate limit #3056).
+					if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
 						SSshuttle.shoppinglist += O

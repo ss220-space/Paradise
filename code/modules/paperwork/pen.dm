@@ -97,7 +97,7 @@
 
 /obj/item/pen/fancy/bomb
 	var/clickscount = 0
-	var/obj/item/grenade/bomb
+	var/obj/item/grenade/syndieminibomb/bomb
 
 /obj/item/pen/fancy/bomb/Initialize(mapload)
 	. = ..()

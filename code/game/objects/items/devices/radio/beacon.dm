@@ -175,7 +175,7 @@
 								/obj/item/card/id/syndicate = 1,
 								/obj/item/clothing/under/suit_jacket/really_black = 1,
 								/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 1,
-								/obj/item/clothing/gloves/color/latex/nitril = e1,
+								/obj/item/clothing/gloves/color/latex/nitrile = 1,
 								/obj/item/clothing/mask/gas/clown_hat = 1,
 								/obj/item/thermal_drill/diamond_drill = 1, // Сделать порт с оффов.
 								/obj/item/encryptionkey/syndicate = 1),
@@ -255,7 +255,7 @@
 								/obj/item/ammo_box/magazine/m12g/standart = 2,
 								/obj/item/grenade/plastic/c4 = 2,
 								/obj/item/card/emag = 1,
-								/obj/item/encryptionkey/syndicate = 1)
+								/obj/item/encryptionkey/syndicate = 1),
 		"Infiltrator" = list(	"Name" = "\improper 'Infiltrator' bundle",
 								"Desc" = "Use your teleporter and other support tools to jump right into your desired location, quickly leaving as though you were never there.",
 								/obj/item/storage/box/syndie_kit/teleporter = 1,
@@ -276,13 +276,13 @@
 								/obj/item/storage/box/syndie_kit/hardsuit = 1,
 								/obj/item/clothing/gloves/combat = 1,
 								/obj/item/card/id/syndicate = 1,
-								/obj/item/encryptionkey/syndicate = 1),
+								/obj/item/encryptionkey/syndicate = 1)
 	)
 
 /obj/item/radio/beacon/syndicate/bundle/Initialize()
 	. = ..()
 	unselected = bundles.Copy()
-	while(lenght(selected) < 3)
+	while(length(selected) < 3)
 		selected |= pick_n_take(unselected)
 	selected += "Random"
 
@@ -297,7 +297,7 @@
 		bundle_name = pick(unselected)
 	var/your_bundle = new /obj/item/storage/box/syndicate(user.loc, bundles[bundle_name])
 	to_chat(user, span_notice("Welcome to [station_name()], [bundle_name]."))
-	user.drop_item()
+	user.drop_item_ground(src)
 	qdel(src)
 	user.put_in_hands(your_bundle)
 
