@@ -507,12 +507,12 @@
 		if("order")
 
 			var/datum/supply_packs/P = locateUID(params["crate"])
-//			if(!istype(P))
-//				return
-//
-//			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
-//				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
-//				return	// Unused for now (Crate limit #3056).
+/*			if(!istype(P))
+				return
+
+			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
+				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	// Unused for now (Crate limit #3056).
+				return	*/
 
 
 			var/amount = 1
@@ -564,8 +564,8 @@
 				if(SO.ordernum == ordernum)
 					O = SO
 					P = O.object
-//					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
-//						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	*/	// Unused for now (Crate limit #3056).
+/*					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it. Unused for now (Crate limit #3056).
+						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	*/
 					if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
