@@ -134,7 +134,7 @@ Difficulty: Medium
 	if(!ishuman(user))
 		return
 	if(user.get_item_by_slot(slot_wear_suit) == src)
-		user.mind.RemoveSpell(/obj/effect/proc_holder/spell/blood_suit)
+		user.mind?.RemoveSpell(/obj/effect/proc_holder/spell/blood_suit)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
