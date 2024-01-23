@@ -509,10 +509,10 @@
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
 				return
-
+/*
 			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
 				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
-				return
+				return	*/	// Unused for now (Crate limit #3056).
 
 			var/amount = 1
 			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
@@ -563,13 +563,13 @@
 				if(SO.ordernum == ordernum)
 					O = SO
 					P = O.object
-					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
-						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
+/*					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
+						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	*/	// Unused for now (Crate limit #3056).
 					else if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
 						SSshuttle.shoppinglist += O
-						P.times_ordered += 1
+//						P.times_ordered += 1	// Unused for now (Crate limit #3056).
 						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", INVESTIGATE_CARGO)
 					break
 
