@@ -75,7 +75,6 @@ Difficulty: Medium
 	desc = "An armoured hood for exploring harsh environments. The sweet blood, oh, it sings to you."
 	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
-	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 
 /obj/item/clothing/head/hooded/explorer/blood
 	name = "empowered explorer hood"
