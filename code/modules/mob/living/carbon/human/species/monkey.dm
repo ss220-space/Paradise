@@ -93,6 +93,7 @@
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
 	tail = "farwatail"
+	skinned_type = /obj/item/stack/sheet/animalhide/farwa
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
@@ -137,6 +138,7 @@
 	flesh_color = "#966464"
 	base_color = "#000000"
 	tail = "wolpintail"
+	skinned_type = /obj/item/stack/sheet/animalhide/wolpin
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
@@ -179,6 +181,7 @@
 	blood_species = "Skrell"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
+	skinned_type = /obj/item/stack/sheet/animalhide/neara
 	reagent_tag = PROCESS_ORG
 	tail = null
 
@@ -231,6 +234,7 @@
 	blood_species = "Unathi"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
+	skinned_type = /obj/item/stack/sheet/animalhide/stok
 	reagent_tag = PROCESS_ORG
 
 	bodyflags = HAS_TAIL
