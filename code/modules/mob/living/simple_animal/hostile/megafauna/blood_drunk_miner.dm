@@ -57,6 +57,7 @@ Difficulty: Medium
 	death_sound = "bodyfall"
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/blood_drunk_miner
+	enraged_unique_loot = /obj/item/clothing/suit/hooded/explorer/blood
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
 							   /datum/action/innate/megafauna_attack/transform_weapon)
@@ -66,6 +67,77 @@ Difficulty: Medium
 	gpstag = "Mysterious Signal"
 	desc = "The sweet blood, oh, it sings to me."
 	invisibility = 100
+
+/* New costume */
+
+/obj/item/clothing/suit/hooded/explorer/blood
+	name = "empowered explorer suit"
+	desc = "An armoured hood for exploring harsh environments. The sweet blood, oh, it sings to you."
+	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
+	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
+
+/obj/item/clothing/head/hooded/explorer/blood
+	name = "empowered explorer hood"
+	desc = "An armoured hood for exploring harsh environments. The sweet blood, oh, it sings to you."
+	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+/obj/effect/proc_holder/spell/blood_suit
+	name = "Bloodlust"
+	desc = "The sweet blood. My swetty blood I love you!"
+	base_cooldown = 20 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
+	phase_allowed = TRUE
+	should_recharge_after_cast = TRUE
+	stat_allowed = UNCONSCIOUS
+	sound = 'sound/misc/enter_blood.ogg'
+	action_icon_state = "bloodcrawl"
+	panel = "Blood Drunk"
+
+/obj/effect/proc_holder/spell/blood_suit/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/blood_suit/cast(list/targets, mob/user = usr)
+	var/mob/living/U = user
+	if(is_mining_level(user.z))
+		if(U.lying)
+			to_chat(U, span_notice("Fight right now my bloody warrior!"))
+		else
+			to_chat(U, span_notice("The blood sings to me. How pretty!"))
+		U.say("Oh sweet blood. I hear you singing!")
+		U.SetWeakened(0)
+		U.SetStunned(0)
+		U.SetParalysis(0)
+		U.SetSleeping(0)
+		U.SetConfused(0)
+		U.adjustStaminaLoss(-100)
+		U.lying = FALSE
+		U.resting = FALSE
+		U.update_canmove()
+	else
+		to_chat(U, span_notice("<span class='colossus'>COME BACK TO ME, BLOODY WARRIOR.</span>"))
+		U.say("I don't hear a blood's sing!")
+		U.Confused(1 SECONDS)
+		U.Stun(5 SECONDS)
+		U.Confused(20 SECONDS)
+		U.Slowed(20 SECONDS)
+		U.Dizzy(20 SECONDS)
+
+/obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+	if(!ishuman(user))
+		return
+	if(slot == slot_wear_suit)
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/blood_suit(null))
+
+/obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user)
+	. = ..()
+
+	if(!ishuman(user))
+		return
+	if(user.get_item_by_slot(slot_wear_suit) == src)
+		user.mind.RemoveSpell(/obj/effect/proc_holder/spell/blood_suit)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
