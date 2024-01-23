@@ -114,7 +114,7 @@ Difficulty: Medium
 		U.resting = FALSE
 		U.update_canmove()
 	else
-		to_chat(U, span_notice("<span class='colossus'>COME BACK TO ME, BLOODY WARRIOR.</span>"))
+		to_chat(U, span_colossus("COME BACK TO ME, BLOODY WARRIOR."))
 		U.say("I don't hear a blood's sing!")
 		U.Confused(1 SECONDS)
 		U.Stun(5 SECONDS)
