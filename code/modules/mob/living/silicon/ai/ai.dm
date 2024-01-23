@@ -419,7 +419,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Glitchman",
 		"House",
 		"Database",
-		"Alien"
+		"Alien",
+		"Cheese",
+		"Voiddonut",
+		"Bee",
+		"Fox",
+		"Tiger",
+		"Vox",
+		"Liz",
+		"Darkmatter",
+		"Nadburn",
+		"Rainbowslime",
+		"Borb",
+		"Catamari"
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -502,6 +514,30 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-database"
 		if("Alien")
 			icon_state = "ai-alien"
+		if("Cheese")
+			icon_state = "ai-cheese"
+		if("Voiddonut")
+			icon_state = "ai-voiddonut"
+		if("Bee")
+			icon_state = "ai-bee"
+		if("Fox")
+			icon_state = "ai-fox"
+		if("Tiger")
+			icon_state = "ai-tiger"
+		if("Vox")
+			icon_state = "ai-vox"
+		if("Liz")
+			icon_state = "ai-liz"
+		if("Darkmatter")
+			icon_state = "ai-darkmatter"
+		if("Nadburn")
+			icon_state = "ai-nadburn"
+		if("Rainbowslime")
+			icon_state = "ai-rainbowslime"
+		if("Borb")
+			icon_state = "ai-borb"
+		if("Catamari")
+			icon_state = "ai-catamari"
 		else
 			icon_state = "ai"
 	//else
@@ -920,7 +956,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in cameralist
+	network = tgui_input_list(U, "Which network would you like to view?", "Jump To Network", cameralist)
 
 	if(check_unable())
 		return
@@ -1005,7 +1041,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in personnel_list
+				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -1035,7 +1071,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"Turkey"
 			)
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1090,7 +1126,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)

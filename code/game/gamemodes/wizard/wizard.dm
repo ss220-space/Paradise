@@ -154,14 +154,13 @@
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	addtimer(CALLBACK(wizard.current, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
+	var/list/messages = list()
 	if(you_are)
-		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
-	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
-
-	var/obj_count = 1
-	for(var/datum/objective/objective in wizard.objectives)
-		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
+	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
+	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Wizard\">Маг</a></span>")
+	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	return
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)

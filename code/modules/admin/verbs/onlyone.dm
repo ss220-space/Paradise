@@ -21,11 +21,10 @@
 		hijack_objective.owner = H.mind
 		H.mind.objectives += hijack_objective
 
-		to_chat(H, "<B>You are a Highlander. Kill all other Highlanders. There can be only one.</B>")
-		var/obj_count = 1
-		for(var/datum/objective/OBJ in H.mind.objectives)
-			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-			obj_count++
+		var/list/messages = list()
+		messages.Add("<b>You are a Highlander. Kill all other Highlanders. There can be only one.</b>")
+		messages.Add(H.mind.prepare_announce_objectives(FALSE))
+		to_chat(H, chat_box_red(messages.Join("<br>")))
 
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
@@ -82,11 +81,10 @@
 		hijack_objective.owner = H.mind
 		H.mind.objectives += hijack_objective
 
-		to_chat(H, "<B>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</B>")
-		var/obj_count = 1
-		for(var/datum/objective/OBJ in H.mind.objectives)
-			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-			obj_count++
+		var/list/messages = list()
+		messages.Add("<b>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</b>")
+		messages.Add(H.mind.prepare_announce_objectives(FALSE))
+		to_chat(H, chat_box_red(messages.Join("<br>")))
 
 		var/obj/item/slot_item_ID = H.get_item_by_slot(slot_wear_id)
 		qdel(slot_item_ID)

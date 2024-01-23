@@ -260,10 +260,11 @@
 	owner.adjustBruteLoss(1000)
 	L.stored_mob = owner
 	owner.forceMove(L)
-	qdel(src)
-	if(prob(25) && !owner.get_int_organ(/obj/item/organ/internal/legion_tumour)) // Congratulations you have won a very special prize: second cancer in a row!
-		var/obj/item/organ/internal/legion_tumour/cancer = new()
-		cancer.insert(owner, special = TRUE)
+	if(prob(75) && owner.get_int_organ(/obj/item/organ/internal/legion_tumour))
+		qdel(src) // Congratulations you haven't won a very special prize: second cancer in a row!
+	else
+		stage = 0
+		elapsed_time = 0
 
 /obj/item/organ/internal/legion_tumour/on_find(mob/living/finder)
 	. = ..()

@@ -72,13 +72,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	maptext_width = 32
 	maptext_y = -1
 
-	#define CHARS_PER_LINE 5
-	#define STATUS_DISPLAY_BLANK 0
-	#define STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME 1
-	#define STATUS_DISPLAY_MESSAGE 2
-	#define STATUS_DISPLAY_ALERT 3
-	#define STATUS_DISPLAY_TIME 4
-	#define STATUS_DISPLAY_CUSTOM 99
+
 
 /obj/machinery/status_display/Destroy()
 	if(SSradio)
@@ -139,7 +133,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 				message1 = "-[SSshuttle.emergency.getModeStr()]-"
 				message2 = SSshuttle.emergency.getTimerStr()
 
-				if(length(message2) > CHARS_PER_LINE)
+				if(length(message2) > DISPLAY_CHARS_PER_LINE)
 					message2 = "Error!"
 			else
 				message1 = "ВРЕМЯ"
@@ -153,7 +147,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 			if(!index1)
 				line1 = message1
 			else
-				line1 = copytext_char(message1+"|"+message1, index1, index1+CHARS_PER_LINE)
+				line1 = copytext_char(message1+"|"+message1, index1, index1+DISPLAY_CHARS_PER_LINE)
 				var/message1_len = length_char(message1)
 				index1 += SCROLL_SPEED
 				if(index1 > message1_len)
@@ -162,7 +156,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 			if(!index2)
 				line2 = message2
 			else
-				line2 = copytext_char(message2+"|"+message2, index2, index2+CHARS_PER_LINE)
+				line2 = copytext_char(message2+"|"+message2, index2, index2+DISPLAY_CHARS_PER_LINE)
 				var/message2_len = length_char(message2)
 				index2 += SCROLL_SPEED
 				if(index2 > message2_len)
@@ -187,14 +181,14 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)
-		index1 = (length_char(m1) > CHARS_PER_LINE)
+		index1 = (length_char(m1) > DISPLAY_CHARS_PER_LINE)
 		message1 = m1
 	else
 		message1 = ""
 		index1 = 0
 
 	if(m2)
-		index2 = (length_char(m2) > CHARS_PER_LINE)
+		index2 = (length_char(m2) > DISPLAY_CHARS_PER_LINE)
 		message2 = m2
 	else
 		message2 = ""

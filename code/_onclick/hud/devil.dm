@@ -14,8 +14,9 @@
 	static_inventory += using
 
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
@@ -50,8 +51,9 @@
 	static_inventory += using
 
 	zone_select = new /obj/screen/zone_sel()
+	zone_select.hud = src
 	zone_select.icon = ui_style
-	zone_select.update_icon(mymob)
+	zone_select.update_icon(UPDATE_OVERLAYS)
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	devilsouldisplay = new /obj/screen/devil/soul_counter

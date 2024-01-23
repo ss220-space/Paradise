@@ -166,6 +166,12 @@
 	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
 	icon_state = "warden_jacket_alt"
 
+/obj/item/clothing/suit/armor/vest/sec_rps
+	name = "security belt-shoulder system"
+	desc = "A belt-shoulder system for officers that are more inclined towards style than safety."
+	icon_state = "sec_rps"
+	armor=  list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
 	desc = "An armored vest reinforced with ceramic plates and pauldrons to provide additional protection whilst still offering maximum mobility and flexibility. Issued only to the station's finest, although it does chafe your nipples."
@@ -636,3 +642,11 @@
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
 	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+//Dredd
+
+/obj/item/clothing/suit/armor/vest/street_judge
+	name = "judge's security armor"
+	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
+	icon_state = "streetjudgearmor"
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")

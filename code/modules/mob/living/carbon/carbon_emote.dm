@@ -246,11 +246,11 @@
 
 	if(istype(thing, /obj/item/grab))
 		var/obj/item/grab/grabbed = thing
-		message = "крут[pluralize_ru(user.gender, "ит", "ят")] <b>[grabbed.affecting.name]</b>, удерживая [genderize_ru(grabbed.affecting.gender, "его", "её", "его", "их")] в захвате!"
+		message = "крут%(ит,ят)% <b>[grabbed.affecting.name]</b>, удерживая [genderize_ru(grabbed.affecting.gender, "его", "её", "его", "их")] в захвате!"
 		grabbed.affecting.emote("spin")
 
 	else if(!(thing.flags & ABSTRACT))
-		message = "вертит [thing.name] в руках!"
+		message = "верт%(ит,ят)% [thing.name] в руках!"
 
 	else
 		to_chat(user, span_warning("You cannot twirl [thing]!"))

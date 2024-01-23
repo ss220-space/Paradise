@@ -24,7 +24,7 @@
 		name = "robot [initial(name)]"
 
 /obj/item/robot_parts/attack_self(mob/user)
-	var/choice = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
+	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
 	if(!choice)
 		return
 	if(loc != user)
@@ -102,7 +102,7 @@
 
 /obj/item/robot_parts/robot_suit/New()
 	..()
-	updateicon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/robot_parts/robot_suit/Destroy()
 	QDEL_NULL(l_arm)
@@ -117,20 +117,20 @@
 /obj/item/robot_parts/robot_suit/attack_self(mob/user)
 	return
 
-/obj/item/robot_parts/robot_suit/proc/updateicon()
-	overlays.Cut()
+/obj/item/robot_parts/robot_suit/update_overlays()
+	. = ..()
 	if(l_arm)
-		overlays += "l_arm+o"
+		. += "l_arm+o"
 	if(r_arm)
-		overlays += "r_arm+o"
+		. += "r_arm+o"
 	if(chest)
-		overlays += "chest+o"
+		. += "chest+o"
 	if(l_leg)
-		overlays += "l_leg+o"
+		. += "l_leg+o"
 	if(r_leg)
-		overlays += "r_leg+o"
+		. += "r_leg+o"
 	if(head)
-		overlays += "head+o"
+		. += "head+o"
 
 /obj/item/robot_parts/robot_suit/proc/check_completion()
 	if(l_arm && r_arm)
@@ -157,28 +157,28 @@
 			return
 		user.drop_transfer_item_to_loc(W, src)
 		l_leg = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/r_leg))
 		if(r_leg)
 			return
 		user.drop_transfer_item_to_loc(W, src)
 		r_leg = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/l_arm))
 		if(l_arm)
 			return
 		user.drop_transfer_item_to_loc(W, src)
 		l_arm = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/r_arm))
 		if(r_arm)
 			return
 		user.drop_transfer_item_to_loc(W, src)
 		r_arm = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/chest))
 		var/obj/item/robot_parts/chest/CH = W
@@ -187,7 +187,7 @@
 		if(CH.wired && CH.cell)
 			user.drop_transfer_item_to_loc(W, src)
 			chest = W
-			updateicon()
+			update_icon(UPDATE_OVERLAYS)
 		else if(!CH.wired)
 			to_chat(user, "<span class='notice'>You need to attach wires to it first!</span>")
 		else
@@ -200,7 +200,7 @@
 		if(HD.flash2 && HD.flash1)
 			user.drop_transfer_item_to_loc(W, src)
 			head = W
-			updateicon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='notice'>You need to attach a flash to it first!</span>")
 

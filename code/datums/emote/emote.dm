@@ -185,12 +185,12 @@
 			to_chat(user, span_warning("[params]' isn't a valid parameter for [key]."))
 			return TRUE
 
-	msg = genderize_decode(user, msg)
-
 	// Keep em quiet if they can't speak
 	if(!can_vocalize_emotes(user) && ((emote_type & EMOTE_MOUTH) && (emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND))))
 		var/noise_emitted = pick(muzzled_noises)
-		msg = "изда[pluralize_ru(user.gender, "ёт", "ют")] [noise_emitted] звуки."
+		msg = "изда%(ёт,ют)% [noise_emitted] звуки."
+
+	msg = genderize_decode(user, msg)
 
 	var/tmp_sound = get_sound(user)
 	var/sound_volume = get_volume(user)

@@ -62,7 +62,6 @@
 	processing = TRUE // Let it naturally end, if it runs successfully
 
 /datum/event/sentience/proc/greet_sentient(var/mob/living/carbon/human/M)
-	to_chat(M, "<span class='userdanger'>Hello world!</span>")
-	to_chat(M, "<span class='warning'>Due to freak radiation, you have gained \
+	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
 	 						human level intelligence and the ability to speak and understand \
-							human language!</span>")
+							human language!</span>"))

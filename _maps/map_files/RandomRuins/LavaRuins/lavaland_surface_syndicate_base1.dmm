@@ -846,7 +846,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bs" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_n2_sensor"
 	},
@@ -1226,7 +1226,7 @@
 /turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ch" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_o2_sensor"
 	},
@@ -1261,7 +1261,7 @@
 /turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cm" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_tox_sensor"
 	},
@@ -5218,7 +5218,7 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "li" = (
 /obj/structure/table/wood,
-/obj/item/toy/cards/deck/syndicate{
+/obj/item/deck/cards/syndicate{
 	pixel_x = -6;
 	pixel_y = 6
 	},

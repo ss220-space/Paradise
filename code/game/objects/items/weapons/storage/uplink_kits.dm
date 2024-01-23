@@ -123,8 +123,10 @@
 		/obj/item/ammo_box/magazine/m10mm/hp,  // 1 TC
 		/obj/item/storage/box/sec,  // 0 TC
 		/obj/item/restraints/handcuffs,  // 0 TC
-		/obj/item/flash) // 0 TC
-
+		/obj/item/flash, // 0 TC
+		/obj/item/implanter/mindshield, //0 TC
+		/obj/item/clothing/suit/armor/vest/security, //0 TC
+		)
 
 /obj/item/storage/box/syndicate/populate_contents()
 	var/list/bundle = pick(spy, thief, bond, sabotage, payday, implant, hacker, darklord, professional, secoff)

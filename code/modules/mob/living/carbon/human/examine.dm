@@ -323,6 +323,10 @@
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
+	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(istype(vampire_datum) && vampire_datum.draining)
+		msg += "<B>[p_they(TRUE)] bit into [vampire_datum.draining]'s neck with his fangs.\n</B>"
+
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
