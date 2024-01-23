@@ -90,7 +90,6 @@
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()
 
-
 /mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
 	loot = crusher_loot
 
