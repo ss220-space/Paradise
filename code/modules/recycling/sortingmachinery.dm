@@ -52,12 +52,16 @@
 
 		if(sortTag != tagger.currTag || cc_tag != tagger.currcc_tag)
 			add_fingerprint(user)
-			var/tag = uppertext(GLOB.TAGGERLOCATIONS[tagger.currTag])
-			var/cctag = uppertext(tagger.currcc_tag)
-			to_chat(user, span_notice("*[tag]*"))
-			to_chat(user, span_notice("*[cctag]*"))
-			sortTag = tagger.currTag
-			cc_tag = tagger.currcc_tag
+
+			if(tagger.currcc_tag)
+				var/cctag = uppertext(tagger.currcc_tag)
+				to_chat(user, span_notice("*[cctag]*"))
+				cc_tag = tagger.currcc_tag
+			else
+				var/tag = uppertext(GLOB.TAGGERLOCATIONS[tagger.currTag])
+				to_chat(user, span_notice("*[tag]*"))
+				sortTag = tagger.currTag
+
 			if(iconLabeled)
 				icon_state = iconLabeled
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
@@ -356,6 +360,8 @@
 			if(currTag != destination_id)
 				currTag = destination_id
 				playsound(src, "terminal_type", 25, TRUE)
+			currcc_tag = null
+
 		if("select_cc_destination")
 			if(currcc_tag != params["destination"])
 				currcc_tag = params["destination"]

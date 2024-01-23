@@ -1019,7 +1019,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 ///////////// High-Tech Disks
 
 /datum/supply_packs/misc/htdisk
-	name = "Empty High-Tech Disk Crate"
+	name = "HEADER"
 	cost = 1
 	special = TRUE
 	containername = "htdisk crate"
