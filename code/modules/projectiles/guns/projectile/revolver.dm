@@ -328,7 +328,7 @@
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/New()
 	..()
-	barrel = new	// Это самый простой вариант. Обратите сюда внимание и переделайте, если будете расширять механ "модификаций" на остальной огнестрел.
+	barrel = new	// I just want it to spawn with barrel.
 	update_icon()
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/update_icon()
@@ -347,7 +347,7 @@
 	if(unscrewed)
 		shoot_with_empty_chamber()
 	else if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
-		return ..()
+		..()
 	else
 		chamber_round(1)
 		user.visible_message(span_dangerbigger("*CRACK*"))
