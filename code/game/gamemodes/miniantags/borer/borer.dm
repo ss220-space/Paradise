@@ -121,7 +121,6 @@
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
 
- // ТУТ ПРОВЕРИТЬ, СМОГУ ЛИ ПЕРЕНЕСТИ СЮДА АДД СКИЛА
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
 		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
@@ -326,8 +325,8 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "infest"
-	selection_activated_message = "<span class='notice'>You prepared to infest a victim. <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message = "<span class='notice'>You stopped trying to infest a victim.</span>"
+	selection_activated_message = span_notice("You prepared to infest a victim. <B>Left-click to cast at a target!</B>")
+	selection_deactivated_message = span_notice("You stopped trying to infest a victim.")
 	need_active_overlay = TRUE
 	human_req = FALSE
 	var/infesting = FALSE
@@ -339,7 +338,7 @@
 	T.click_radius = -1
 	return T
 
-/obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE) // Третья часть, проверяющая, может ли борер кастовать
+/obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE) // Третья часть, проверяющая, может ли борер кастовать
 
 	if (is_ventcrawling(user) || !src || user.stat || infesting)
 		return FALSE
@@ -348,18 +347,18 @@
 /obj/effect/proc_holder/spell/borer_infest/valid_target(mob/living/carbon/human/target, user) // Четвёртая часть, фильтрующая, подходит ли цель
 	return istype(target)
 
-/obj/effect/proc_holder/spell/borer_infest/cast(list/targets, mob/living/simple_animal/borer/user = usr) // Пятая часть, сам каст спелла
+/obj/effect/proc_holder/spell/borer_infest/cast(list/targets, mob/living/simple_animal/borer/user) // Пятая часть, сам каст спелла
 
 	var/mob/living/carbon/human/target = targets[1]
 	if(!target)
 		return
 
 	if(target.stat == DEAD)
-		to_chat(user, "<span class='warning'>That is not an appropriate target.</span>")
+		to_chat(user, span_warning("That is not an appropriate target.")
 		return
 
 	if(target.has_brain_worms())
-		to_chat(user, "<span class='warning'>[target] is already infested!</span>")
+		to_chat(user, span_warning("[target] is already infested!")
 		return
 	infesting = TRUE
 	to_chat(user, "You slither up [target] and begin probing at [target.p_their()] ear canal...")
