@@ -71,13 +71,13 @@
 	if(in_range(user, src))
 		switch(status)
 			if(TORCH_OK)
-				. += "The [fakel] is burning brightly."
+				. += "[fakel] is burning brightly."
 			if(TORCH_EMPTY)
-				. += "The [fakel] has been removed."
+				. += "[fakel] has been removed."
 			if(TORCH_OFF)
-				. += "The [fakel] isn't lit."
+				. += "[fakel] isn't lit."
 			if(TORCH_BURNED)
-				. += "The [fakel] is burnt out"
+				. += "[fakel] is burnt out"
 	. += "</span>"
 
 /obj/machinery/torch_holder/process()
@@ -195,12 +195,12 @@
 			prot = 1
 
 		if(prot > 0 || (HEATRES in user.mutations))
-			to_chat(user, span_notice("You remove the [fakel]."))
+			to_chat(user, span_notice("You remove [fakel]."))
 		else if(TK in user.mutations)
-			to_chat(user, span_notice("You telekinetically remove the [fakel]."))
+			to_chat(user, span_notice("You telekinetically remove [fakel]."))
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
-				to_chat(user, span_warning("You try to remove the [fakel], but burn your hand on it!"))
+				to_chat(user, span_warning("You try to remove [fakel], but burn your hand on it!"))
 				var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				if(affecting.receive_damage(0, 5)) // 5 burn damage
 					H.UpdateDamageIcon()
@@ -210,7 +210,7 @@
 				to_chat(user, span_warning("You try to remove [fakel], but it's too hot to touch!"))
 				return
 	else
-		to_chat(user, span_notice("You remove the [fakel]."))
+		to_chat(user, span_notice("You remove [fakel]."))
 	drop_fakel(user)
 
 /obj/machinery/torch_holder/proc/drop_fakel(mob/user)
