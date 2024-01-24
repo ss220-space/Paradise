@@ -79,7 +79,7 @@ SUBSYSTEM_DEF(cargo_quests)
 			cargo_announcer.print_report(quest, complete, modificators, old_reward)
 
 	if(!reroll && (quest.customer in plasma_departaments))
-		addtimer(CALLBACK(src, PROC_REF(create_new_quest), pick(get_customer_list(quest.customer))), 25 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(create_new_quest), pick(get_customer_list(quest.customer))), 10 MINUTES)
 	else
 		create_new_quest(pick(get_customer_list(quest.customer)), reroll, quest.quest_difficulty)
 	qdel(quest)
