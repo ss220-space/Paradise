@@ -178,25 +178,27 @@
 	)
 	normal_items = list(
 		/obj/item/gem/rupee = 130,
-		/obj/item/crusher_trophy/vortex_talisman = 145,
 		/obj/item/borg/upgrade/modkit/lifesteal = 145,
-		/obj/item/crusher_trophy/tail_spike = 200,
+		/obj/item/voodoo = 180,
 		/obj/item/gem/magma = 220
 	)
 	hard_items = list(
 		/obj/item/crusher_trophy/blaster_tubes = 260,
-		/obj/item/crusher_trophy/adaptive_intelligence_core = 350,
+		/obj/item/grenade/clusterbuster/inferno = 270,
 		/obj/item/gem/phoron = 350,
 		/obj/item/gem/purple = 400,
 		/obj/item/gem/amber = 400,
-		/obj/item/crusher_trophy/demon_claws = 400,
 	)
 
 	very_hard_items = list(
 		/obj/item/gem/data = 450,
 		/obj/item/gem/void = 500,
 		/obj/effect/mob_spawn/human/ash_walker = 550,
-		/obj/item/gem/bloodstone = 650
+		/obj/item/gem/bloodstone = 650,
+		/obj/item/crusher_trophy/vortex_talisman = 700,
+		/obj/item/crusher_trophy/tail_spike = 750,
+		/obj/item/crusher_trophy/adaptive_intelligence_core = 850,
+		/obj/item/crusher_trophy/demon_claws = 1000,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
@@ -444,6 +446,29 @@
 
 	req_items = list(/obj/item/dnainjector)
 	var/list/required_blocks = list()
+	normal_items = list(
+		"LISP" = 100,
+		"MUTE" = 100,
+		"RAD" = 100,
+		"FAT" = 100,
+		"SWEDE" = 100,
+		"SCRAMBLE" = 100,
+		"WEAK" = 100,
+		"HORNS" = 100,
+		"COMIC" = 100,
+		"SOBER" = 150,
+		"PSYRESIST" = 150,
+		"SHADOW" = 150,
+		"CHAMELEON" = 150,
+		"CRYO" = 150,
+		"EAT" = 150,
+		"JUMP" = 150,
+		"IMMOLATE" = 150,
+		"EMPATH" = 150,
+		"POLYMORPH" = 150,
+		"STRONG" = 150,
+	)
+
 	hard_items = list(
 		"BLINDNESS" = 200,
 		"COLOURBLIND" = 200,
@@ -469,7 +494,7 @@
 		"SHOCKIMMUNITY" = 200,
 		"SMALLSIZE" = 250
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_HARD)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/genes/update_interface_icon()
 	return

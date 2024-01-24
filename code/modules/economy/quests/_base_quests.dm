@@ -35,11 +35,11 @@
 	/// Time when the order was accepted
 	var/order_time
 
-/datum/cargo_quests_storage/proc/generate()
+/datum/cargo_quests_storage/proc/generate(easy_mode)
 	if(!quest_difficulty)
 		quest_difficulty = customer.get_difficulty()
 	if(!quest_difficulty)
-		quest_difficulty = pickweight(SScargo_quests.difficulties)
+		quest_difficulty = easy_mode ? pickweight(SScargo_quests.easy_mode_difficulties) : pickweight(SScargo_quests.difficulties)
 	quest_difficulty.generate_timer(src)
 	for(var/I in 1 to rand(MIN_QUEST_LEN, MAX_QUEST_LEN))
 		var/datum/cargo_quest/cargo_quest = add_quest()
@@ -84,11 +84,14 @@
 /datum/cargo_quests_storage/proc/after_activated()
 	if(!fast_check_timer)
 		return
+	var/timeleft = time_start + quest_time - world.time
+	deltimer(quest_check_timer)
+	quest_check_timer = addtimer(CALLBACK(SScargo_quests, TYPE_PROC_REF(/datum/controller/subsystem/cargo_quests, remove_quest), UID()), timeleft + 3 MINUTES, TIMER_STOPPABLE)
 	if(world.time - time_start - 0.4 * quest_time + 120 SECONDS >= 0)
 		deltimer(fast_check_timer)
 		fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 120 SECONDS, TIMER_STOPPABLE)
 
-/datum/cargo_quests_storage/proc/check_quest_completion(obj/structure/bigDelivery/closet, failed_quest_length, mismatch_content)
+/datum/cargo_quests_storage/proc/check_quest_completion(obj/structure/bigDelivery/closet, failed_quest_length, mismatch_content, quest_len)
 	var/old_reward = reward
 	var/list/modificators = list()
 
@@ -101,8 +104,9 @@
 		modificators["content_mismatch"] = mismatch_content
 
 	if(failed_quest_length)
-		reward -= old_reward * 0.5 * failed_quest_length
+		reward -= old_reward * (1/quest_len) * failed_quest_length
 		modificators["content_missing"] = failed_quest_length
+		modificators["quest_len"] = quest_len
 
 	if(!failed_quest_length && !fast_failed)
 		reward += old_reward * 0.4

@@ -27,11 +27,6 @@
 	return attack_hand(user)
 
 /obj/machinery/computer/supplyquest/attack_hand(mob/user)
-	if(!allowed(user) && !isobserver(user))
-		to_chat(user, span_warning("Access denied."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
-		return TRUE
-
 	add_fingerprint(user)
 	ui_interact(user)
 	return
@@ -80,6 +75,8 @@
 		if(for_active_quests && !quest_storage.active)
 			continue
 		var/timeleft_sec = round((quest_storage.time_start + quest_storage.quest_time - world.time) / 10)
+		if(quest_storage.active)
+			timeleft_sec += 180
 		var/list/quests_items = list()
 		for(var/datum/cargo_quest/cargo_quest as anything in quest_storage.current_quests)
 			var/image_index = rand(1, length(cargo_quest.interface_icons))
@@ -264,7 +261,7 @@
 		paper.info += "content mismatch (-30%) x[modificators["content_mismatch"]]<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "content_mismatch_phrases")
 	if(modificators["content_missing"])
-		paper.info += "content missing (-50%) x[modificators["content_missing"]]<br>"
+		paper.info += "content missing (-[round(modificators["content_missing"] * 100/modificators["quest_len"])]%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "content_missing_phrases")
 	if(!complete)
 		paper.info += "time expired (-100%)<br>"
