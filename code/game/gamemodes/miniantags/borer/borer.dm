@@ -119,6 +119,7 @@
 	notify_ghosts("A cortical borer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
+	GrantBorerActions()
 
  // ТУТ ПРОВЕРИТЬ, СМОГУ ЛИ ПЕРЕНЕСТИ СЮДА АДД СКИЛА
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
@@ -322,7 +323,6 @@
 /obj/effect/proc_holder/spell/borer_infest // Первая часть, включающая описание спела
 	name = "Infest"
 	desc = "Infest a suitable humanoid host."
-	panel = "Borer"
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "infest"
@@ -330,6 +330,7 @@
 	selection_deactivated_message = "<span class='notice'>You stopped trying to infest a victim.</span>"
 	need_active_overlay = TRUE
 	human_req = FALSE
+	var/infesting = FALSE
 
 /obj/effect/proc_holder/spell/borer_infest/create_new_targeting() // Вторая часть, создающая таргет
 
@@ -340,7 +341,7 @@
 
 /obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE) // Третья часть, проверяющая, может ли борер кастовать
 
-	if (is_ventcrawling(user) ||!src || user.stat)
+	if (is_ventcrawling(user) || !src || user.stat || infesting)
 		return FALSE
 	. = ..()
 
@@ -360,13 +361,14 @@
 	if(target.has_brain_worms())
 		to_chat(user, "<span class='warning'>[target] is already infested!</span>")
 		return
-
+	infesting = TRUE
 	to_chat(user, "You slither up [target] and begin probing at [target.p_their()] ear canal...")
 
 	if(!do_mob(user, target, 5 SECONDS))
 		to_chat(user, "As [target] moves away, you are dislodged and fall to the ground.")
+		infesting = FALSE
 		return
-
+	infesting = FALSE
 	user.host = target
 	add_attack_logs(user, user.host, "Infested as borer")
 	target.borer = user
@@ -375,6 +377,7 @@
 	user.host.status_flags |= PASSEMOTES
 
 	user.RemoveBorerActions()
+	user.RemoveBorerSpells()
 	user.GrantInfestActions()
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
@@ -587,6 +590,7 @@
 	if(controlling)
 		detach()
 	GrantBorerActions()
+	GrantBorerSpells()
 	RemoveInfestActions()
 	forceMove(get_turf(host))
 	machine = null
@@ -838,7 +842,7 @@
 		messages.Add("Sugar nullifies your abilities, avoid it at all costs!")
 		messages.Add("You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
 		to_chat(src, chat_box_purple(messages.Join("<br>")))
-		candidate.mob.mind.AddSpell(new /obj/effect/proc_holder/spell/borer_infest)
+		GrantBorerSpells()
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)
@@ -846,15 +850,20 @@
 	M.special_role = "Cortical Borer"
 	return M
 
-/mob/living/simple_animal/borer/proc/GrantBorerActions(mob/living/user = usr)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/borer_infest)
+/mob/living/simple_animal/borer/proc/GrantBorerActions()
 	toggle_hide_action.Grant(src)
 	freeze_victim_action.Grant(src)
 
-/mob/living/simple_animal/borer/proc/RemoveBorerActions(mob/living/user = usr)
-	user.mind.RemoveSpell(/obj/effect/proc_holder/spell/borer_infest)
+/mob/living/simple_animal/borer/proc/RemoveBorerActions()
 	toggle_hide_action.Remove(src)
 	freeze_victim_action.Remove(src)
+
+/mob/living/simple_animal/borer/proc/GrantBorerSpells()
+	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_infest)
+
+
+/mob/living/simple_animal/borer/proc/RemoveBorerSpells()
+	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_infest)
 
 /mob/living/simple_animal/borer/proc/GrantInfestActions()
 	talk_to_host_action.Grant(src)
