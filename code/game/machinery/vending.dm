@@ -1238,10 +1238,12 @@
 		sleep(0.5 SECONDS)
 		var/obj/item/storage/box/box = new(get_turf(src))
 		playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-		if("Dominator Kit")
+		if(weapon_kit == "Dominator Kit")
 			box.icon_state = "box_dominator"
-		else if("Enforcer Kit")
+			box.name = "Dominator Kit"
+		else if(weapon_kit == "Enforcer Kit")
 			box.icon_state = "box_enforcer"
+			box.name = "Enforcer Kit"
 		for(var/path in available_kits[weapon_kit])
 			new path(box)
 		if(Adjacent(user))
