@@ -354,11 +354,11 @@
 		return
 
 	if(target.stat == DEAD)
-		to_chat(user, span_warning("That is not an appropriate target.")
+		to_chat(user, span_warning("That is not an appropriate target."))
 		return
 
 	if(target.has_brain_worms())
-		to_chat(user, span_warning("[target] is already infested!")
+		to_chat(user, span_warning("[target] is already infested!"))
 		return
 	infesting = TRUE
 	to_chat(user, "You slither up [target] and begin probing at [target.p_their()] ear canal...")
