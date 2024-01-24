@@ -1,5 +1,6 @@
 /datum/martial_art/mimejutsu
 	name = "Mimejutsu"
+	weight = 6
 	block_chance = 50
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/mimejutsu/mimechucks, /datum/martial_combo/mimejutsu/silent_palm, /datum/martial_combo/mimejutsu/silencer, /datum/martial_combo/mimejutsu/execution)
