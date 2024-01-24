@@ -36,10 +36,8 @@
 
 /mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
-
 	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")
 	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
-
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
 	addtimer(CALLBACK(src, PROC_REF(return_control), B), delay)
 
@@ -102,7 +100,6 @@
 	var/leaving = FALSE
 	var/hiding = FALSE
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
-	var/datum/action/innate/borer/infest_host/infest_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
 	var/datum/action/innate/borer/talk_to_brain/talk_to_brain_action = new
@@ -122,8 +119,8 @@
 	notify_ghosts("A cortical borer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
-	GrantBorerActions()
 
+ // ТУТ ПРОВЕРИТЬ, СМОГУ ЛИ ПЕРЕНЕСТИ СЮДА АДД СКИЛА
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
 		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
@@ -264,7 +261,9 @@
 		if(!stat && host.stat != DEAD)
 
 			if(host.reagents.has_reagent("sugar"))
+
 				if(!docile)
+
 					if(controlling)
 						to_chat(host, "<span class='notice'>You feel the soporific flow of sugar in your host's blood, lulling you into docility.</span>")
 					else
@@ -303,90 +302,80 @@
 	chemscan(usr, M)
 	return
 
-/mob/living/simple_animal/borer/verb/infest()
-	set category = "Borer"
-	set name = "Infest"
-	set desc = "Infest a suitable humanoid host."
 
-	if(host)
-		to_chat(src, "You are already within a host.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ТУТ БЫЛ КОД ИНФЕСТА
+
+/obj/effect/proc_holder/spell/borer_infest // Первая часть, включающая описание спела
+	name = "Infest"
+	desc = "Infest a suitable humanoid host."
+	panel = "Borer"
+	base_cooldown = 0
+	clothes_req = FALSE
+	action_icon_state = "infest"
+	selection_activated_message = "<span class='notice'>You prepared to infest a victim. <B>Left-click to cast at a target!</B></span>"
+	selection_deactivated_message = "<span class='notice'>You stopped trying to infest a victim.</span>"
+	need_active_overlay = TRUE
+	human_req = FALSE
+
+/obj/effect/proc_holder/spell/borer_infest/create_new_targeting() // Вторая часть, создающая таргет
+
+	var/datum/spell_targeting/click/T = new()
+	T.range = 1
+	T.click_radius = -1
+	return T
+
+/obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE) // Третья часть, проверяющая, может ли борер кастовать
+
+	if (is_ventcrawling(user) ||!src || user.stat)
+		return FALSE
+	. = ..()
+
+/obj/effect/proc_holder/spell/borer_infest/valid_target(mob/living/carbon/human/target, user) // Четвёртая часть, фильтрующая, подходит ли цель
+	return istype(target)
+
+/obj/effect/proc_holder/spell/borer_infest/cast(list/targets, mob/living/simple_animal/borer/user = usr) // Пятая часть, сам каст спелла
+
+	var/mob/living/carbon/human/target = targets[1]
+	if(!target)
 		return
 
-	if(stat)
-		to_chat(src, "You cannot infest a target in your current state.")
+	if(target.stat == DEAD)
+		to_chat(user, "<span class='warning'>That is not an appropriate target.</span>")
 		return
 
-	var/list/choices = list()
-	for(var/mob/living/carbon/human/H in view(1,src))
-		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
-		if(head.is_robotic())
-			continue
-		if(H.stat != DEAD && Adjacent(H) && !H.has_brain_worms())
-			choices += H
-
-	var/mob/living/carbon/human/M = tgui_input_list(src,"Who do you wish to infest?", "Infest", choices)
-
-	if(!M || !src)
+	if(target.has_brain_worms())
+		to_chat(user, "<span class='warning'>[target] is already infested!</span>")
 		return
 
-	if(!Adjacent(M))
+	to_chat(user, "You slither up [target] and begin probing at [target.p_their()] ear canal...")
+
+	if(!do_mob(user, target, 5 SECONDS))
+		to_chat(user, "As [target] moves away, you are dislodged and fall to the ground.")
 		return
 
-	if(M.has_brain_worms())
-		to_chat(src, "You cannot infest someone who is already infested!")
-		return
+	user.host = target
+	add_attack_logs(user, user.host, "Infested as borer")
+	target.borer = user
+	user.forceMove(target)
 
-	if(incapacitated())
-		return
+	user.host.status_flags |= PASSEMOTES
 
-	to_chat(src, "You slither up [M] and begin probing at [M.p_their()] ear canal...")
-
-	if(!do_after(src, 50, target = M))
-		to_chat(src, "As [M] moves away, you are dislodged and fall to the ground.")
-		return
-
-	if(!M || !src)
-		return
-
-	if(stat)
-		to_chat(src, "You cannot infest a target in your current state.")
-		return
-
-	if(M.stat == DEAD)
-		to_chat(src, "That is not an appropriate target.")
-		return
-
-	if(M in view(1, src))
-		to_chat(src, "You wiggle into [M]'s ear.")
-		/*
-		if(!M.stat)
-			to_chat(M, "Something disgusting and slimy wiggles into your ear!")
-		*/ // Let's see how stealthborers work out
-
-		perform_infestation(M)
-
-		return
-	else
-		to_chat(src, "They are no longer in range!")
-		return
-
-/mob/living/simple_animal/borer/proc/perform_infestation(mob/living/carbon/M)
-	if(!M)
-		return
-
-	if(M.has_brain_worms())
-		to_chat(src, "<span class='warning'>[M] is already infested!</span>")
-		return
-
-	host = M
-	add_attack_logs(src, host, "Infested as borer")
-	M.borer = src
-	forceMove(M)
-
-	host.status_flags |= PASSEMOTES
-
-	RemoveBorerActions()
-	GrantInfestActions()
+	user.RemoveBorerActions()
+	user.GrantInfestActions()
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
@@ -849,6 +838,7 @@
 		messages.Add("Sugar nullifies your abilities, avoid it at all costs!")
 		messages.Add("You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
 		to_chat(src, chat_box_purple(messages.Join("<br>")))
+		candidate.mob.mind.AddSpell(new /obj/effect/proc_holder/spell/borer_infest)
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)
@@ -856,13 +846,13 @@
 	M.special_role = "Cortical Borer"
 	return M
 
-/mob/living/simple_animal/borer/proc/GrantBorerActions()
-	infest_host_action.Grant(src)
+/mob/living/simple_animal/borer/proc/GrantBorerActions(mob/living/user = usr)
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/borer_infest)
 	toggle_hide_action.Grant(src)
 	freeze_victim_action.Grant(src)
 
-/mob/living/simple_animal/borer/proc/RemoveBorerActions()
-	infest_host_action.Remove(src)
+/mob/living/simple_animal/borer/proc/RemoveBorerActions(mob/living/user = usr)
+	user.mind.RemoveSpell(/obj/effect/proc_holder/spell/borer_infest)
 	toggle_hide_action.Remove(src)
 	freeze_victim_action.Remove(src)
 
@@ -901,15 +891,6 @@
 /datum/action/innate/borer/talk_to_host/Activate()
 	var/mob/living/simple_animal/borer/B = owner
 	B.Communicate()
-
-/datum/action/innate/borer/infest_host
-	name = "Infest"
-	desc = "Infest a suitable humanoid host."
-	button_icon_state = "infest"
-
-/datum/action/innate/borer/infest_host/Activate()
-	var/mob/living/simple_animal/borer/B = owner
-	B.infest()
 
 /datum/action/innate/borer/toggle_hide
 	name = "Toggle Hide"
