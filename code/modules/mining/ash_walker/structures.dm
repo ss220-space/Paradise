@@ -35,7 +35,7 @@ Special thanks to piotrthetchaikowsky, pilygun & the_worm
 	drying = TRUE
 	idle_power_usage = 0
 	active_power_usage = 0
-	drying_timer = 5
+	drying_timer = 8
 	primitive = TRUE
 
 /obj/machinery/smartfridge/drying_rack/ash/update_icon()

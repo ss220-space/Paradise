@@ -1528,6 +1528,9 @@
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 8
 	},
+/obj/machinery/torch_holder/mapping{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "eV" = (
@@ -2512,6 +2515,13 @@
 /obj/structure/stone_tile/slab/burnt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/necropolis)
+"iR" = (
+/obj/structure/stone_tile/slab,
+/obj/machinery/torch_holder/mapping{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "iS" = (
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4253,6 +4263,13 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"rX" = (
+/obj/structure/stone_tile/slab,
+/obj/machinery/torch_holder/mapping{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "rY" = (
 /obj/structure/stone_tile/block/burnt,
 /obj/structure/stone_tile/block{
@@ -4437,6 +4454,15 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"tc" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/machinery/torch_holder/mapping{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "td" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4721,6 +4747,13 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"uO" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/machinery/torch_holder/mapping,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "uP" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -4864,6 +4897,13 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"vH" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/machinery/torch_holder/mapping{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "vI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -4926,6 +4966,9 @@
 	pixel_x = 16;
 	pixel_y = 15
 	},
+/obj/machinery/torch_holder/mapping{
+	dir = 4
+	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "vZ" = (
@@ -4966,6 +5009,9 @@
 "wl" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/burnt{
+	dir = 1
+	},
+/obj/machinery/torch_holder/mapping{
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5323,6 +5369,11 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"yF" = (
+/obj/machinery/hydroponics/soil,
+/obj/machinery/torch_holder/mapping,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "yJ" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -5414,6 +5465,13 @@
 	icon_state = "darkredcorners"
 	},
 /area/mine/laborcamp/security)
+"zb" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/machinery/torch_holder/mapping,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "ze" = (
 /obj/structure/closet/secure_closet/personal/mining,
 /obj/effect/turf_decal/bot,
@@ -5571,6 +5629,13 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Ag" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/machinery/torch_holder/mapping,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Ai" = (
 /obj/structure/stone_tile/slab,
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
@@ -6307,6 +6372,9 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
+/obj/machinery/torch_holder/mapping{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "FB" = (
@@ -6375,6 +6443,21 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"FP" = (
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/machinery/torch_holder/mapping,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
 "FQ" = (
 /obj/item/radio/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6536,6 +6619,13 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"GO" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/machinery/torch_holder/mapping{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "GP" = (
 /obj/machinery/light{
 	dir = 8
@@ -7072,6 +7162,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"JU" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/machinery/torch_holder/mapping{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "JV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/sustenance,
@@ -7408,6 +7505,15 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"Me" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/machinery/torch_holder/mapping{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Mf" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -7537,6 +7643,7 @@
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 8
 	},
+/obj/machinery/torch_holder/mapping,
 /turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "MU" = (
@@ -9034,6 +9141,9 @@
 	pixel_y = -16;
 	pixel_x = -16
 	},
+/obj/machinery/torch_holder/mapping{
+	dir = 8
+	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Xu" = (
@@ -9098,6 +9208,9 @@
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center/burnt,
+/obj/machinery/torch_holder/mapping{
+	dir = 1
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "XN" = (
@@ -62621,7 +62734,7 @@ Jz
 yc
 Jz
 Yz
-iS
+vH
 Ei
 Jz
 Jz
@@ -63401,7 +63514,7 @@ Vu
 Vu
 Jz
 Jz
-ra
+rX
 ra
 kY
 MN
@@ -64176,7 +64289,7 @@ gB
 He
 Jv
 zK
-Wg
+zb
 yc
 yc
 aj
@@ -64936,7 +65049,7 @@ zY
 zY
 Vu
 Vu
-He
+tc
 zK
 tG
 LK
@@ -65707,7 +65820,7 @@ Xo
 SP
 yc
 yc
-ra
+iR
 Vu
 vv
 Vu
@@ -65717,7 +65830,7 @@ Vu
 Vu
 de
 Vu
-He
+Ag
 yc
 yc
 aj
@@ -66990,7 +67103,7 @@ FA
 Nb
 hf
 Yo
-FA
+FP
 yc
 yc
 Bo
@@ -67249,17 +67362,17 @@ vW
 eI
 yc
 yc
-iS
+JU
 Vu
 AZ
 OK
-HO
+Me
 to
 OK
 OK
 HO
 Vu
-DO
+uO
 yc
 yc
 aj
@@ -68538,7 +68651,7 @@ HZ
 Vu
 BZ
 yc
-ra
+iR
 Jf
 eG
 iS
@@ -68803,7 +68916,7 @@ yc
 Vu
 Vu
 vv
-TT
+yF
 yc
 aj
 aj
@@ -69815,7 +69928,7 @@ RD
 Jz
 Jz
 Jz
-iS
+GO
 ra
 Jz
 RD
@@ -70082,7 +70195,7 @@ RD
 Jz
 Jz
 to
-iS
+GO
 to
 Jz
 Jz
