@@ -99,27 +99,27 @@ Difficulty: Medium
 
 /obj/effect/proc_holder/spell/blood_suit/cast(list/targets, mob/living/user = usr)
 	if(is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))
-		if(U.lying)
-			to_chat(U, span_notice("Fight right now my bloody warrior!"))
+		if(user.lying)
+			to_chat(user, span_colossus("Fight right now my bloody warrior!"))
 		else
-			to_chat(U, span_notice("The blood sings to me. How pretty!"))
-		U.say("Oh sweet blood. I hear you singing!")
-		U.SetWeakened(0)
-		U.SetStunned(0)
-		U.SetParalysis(0)
-		U.SetSleeping(0)
-		U.SetConfused(0)
-		U.adjustStaminaLoss(-100)
-		U.lying = FALSE
-		U.resting = FALSE
-		U.update_canmove()
+			to_chat(user, span_colossus("The blood sings to me. How pretty!"))
+		user.say("Oh sweet blood. I hear you singing!")
+		user.SetWeakened(0)
+		user.SetStunned(0)
+		user.SetParalysis(0)
+		user.SetSleeping(0)
+		user.SetConfused(0)
+		user.adjustStaminaLoss(-100)
+		user.lying = FALSE
+		user.resting = FALSE
+		user.update_canmove()
 	else
-		to_chat(U, span_colossus("COME BACK TO ME, BLOODY WARRIOR."))
-		U.say("I don't hear a blood's sing!")
-		U.Stun(5 SECONDS)
-		U.Confused(20 SECONDS)
-		U.Slowed(20 SECONDS)
-		U.Dizzy(20 SECONDS)
+		to_chat(user, span_colossus("COME BACK TO ME, BLOODY WARRIOR."))
+		user.say("I don't hear a blood's sing!")
+		user.Stun(5 SECONDS)
+		user.Confused(20 SECONDS)
+		user.Slowed(20 SECONDS)
+		user.Dizzy(20 SECONDS)
 
 /obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
