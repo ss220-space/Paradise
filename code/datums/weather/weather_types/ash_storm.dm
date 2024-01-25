@@ -25,6 +25,8 @@
 
 	barometer_predictable = TRUE
 
+	var/list/inside_areas = list()
+	var/list/outside_areas = list()
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/active_inside_ashstorm/sound_ai = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
@@ -37,8 +39,6 @@
 	return S.id == dockId
 
 /datum/weather/ash_storm/proc/update_eligible_areas()
-	var/list/inside_areas = list()
-	var/list/outside_areas = list()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
 		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
@@ -55,47 +55,40 @@
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]
 		if(place.outdoors)
-			outside_areas += place
+			outside_areas |= place
 		else
-			inside_areas += place
+			inside_areas |= place
 		CHECK_TICK
-
-	sound_ao.output_atoms = outside_areas
-	sound_ai.output_atoms = inside_areas
-	sound_wo.output_atoms = outside_areas
-	sound_wi.output_atoms = inside_areas
-
-	sound_wo.start()
-	sound_wi.start()
 
 /datum/weather/ash_storm/proc/update_audio()
 	switch(stage)
 		if(STARTUP_STAGE)
-			sound_wo.start()
-			sound_wi.start()
+			sound_wo.start(outside_areas)
+			sound_wi.start(inside_areas)
 
 		if(MAIN_STAGE)
-			sound_wo.stop()
-			sound_wi.stop()
+			sound_wo.stop(outside_areas, TRUE)
+			sound_wi.stop(inside_areas, TRUE)
 
-			sound_ao.start()
-			sound_ai.start()
+			sound_ao.start(outside_areas)
+			sound_ai.start(inside_areas)
 
 		if(WIND_DOWN_STAGE)
-			sound_ao.stop()
-			sound_ai.stop()
+			sound_ao.stop(outside_areas, TRUE)
+			sound_ai.stop(inside_areas, TRUE)
 
-			sound_wo.start()
-			sound_wi.start()
+			sound_wo.start(outside_areas)
+			sound_wi.start(inside_areas)
 
 		if(END_STAGE)
-			sound_wo.stop()
-			sound_wi.stop()
+			sound_wo.stop(outside_areas, TRUE)
+			sound_wi.stop(inside_areas, TRUE)
 
 /datum/weather/ash_storm/telegraph()
 	. = ..()
-	update_eligible_areas()
-	update_audio()
+	if(.)
+		update_eligible_areas()
+		update_audio()
 
 /datum/weather/ash_storm/wind_down()
 	. = ..()

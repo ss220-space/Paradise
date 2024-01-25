@@ -59,10 +59,10 @@
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
 		return TRUE
-	stage = STARTUP_STAGE
 	generate_area_list()
 	if(!impacted_areas.len)
 		return FALSE
+	stage = STARTUP_STAGE
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	START_PROCESSING(SSweather, src)
 	update_areas()
