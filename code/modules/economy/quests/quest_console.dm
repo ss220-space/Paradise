@@ -238,7 +238,7 @@
 	. = ..()
 	print_animation()
 
-/obj/machinery/computer/supplyquest/workers/proc/print_report(datum/cargo_quests_storage/quest, complete, list/modificators = list(), old_reward)
+/obj/machinery/computer/supplyquest/workers/proc/print_report(datum/cargo_quests_storage/quest, complete, list/modificators = list(), new_reward)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	var/list/phrases = list()
@@ -252,7 +252,7 @@
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
 		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
 
-	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [old_reward]</span><br>"
+	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.reward]</span><br>"
 	paper.info += "Fines: <br><i>"
 	if(modificators["departure_mismatch"])
 		paper.info += "departure mismatch (-20%)<br>"
@@ -276,7 +276,7 @@
 		paper.info += "- none <br>"
 		if(complete)
 			phrases += pick_list(QUEST_NOTES_STRINGS, "good_complete_phrases")
-	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? quest.reward : "0"]</span><br>"
+	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? new_reward : "0"]</span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
 	var/obj/item/stamp/navcom/stamp = new()
