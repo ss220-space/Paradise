@@ -37,13 +37,13 @@
 	var/obj/item/flashlight/flare/torch/fakel
 	/// For mapping. Ancient torches can't be taken away and they are infinite
 	var/ancient = FALSE
-	/// Light range when on
-	var/brightness_range = 8
+	/// Light range when on. Standart torch is brighter, this is for mapping reason.
+	var/brightness_range = 4
 	/// Light colour when on
 	var/brightness_color = "#FA9632"
 	/// Light power when on
 	var/brightness_power = 1
-	/// Light fixture status (TORCH_OK | TORCH_EMPTY | TORCH_OFF | TORCH_BURNED)
+	/// Torch holder status (TORCH_OK | TORCH_EMPTY | TORCH_OFF | TORCH_BURNED)
 	var/status = TORCH_OK
 	///Fuel consumption
 	var/fuel = 0
@@ -222,7 +222,7 @@
 	L.light_range = brightness_range	//all this shitcode
 	L.light_power = brightness_power	//is necessary for
 	L.light_color = brightness_color	//remembering colored
-	L.update_light()					//torches after droping
+	L.update_light()					//torches after droping (there isn't any coloured torches in game)
 
 	L.update_brightness()
 
