@@ -12,7 +12,7 @@
 	if(newtick && newtick <= 2 && newtick > 0)
 		log_and_message_admins("has modified world.tick_lag to [newtick]")
 		world.tick_lag = newtick
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Ticklag") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Ticklag") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 	else
 		to_chat(src, "<span class='warning'>Error: ticklag(): Invalid world.ticklag value. No changes made.</span>")
