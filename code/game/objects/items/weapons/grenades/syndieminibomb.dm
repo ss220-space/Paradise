@@ -11,5 +11,3 @@
 	update_mob()
 	explosion(loc, 1, 2, 4, flame_range = 2, cause = src)
 	qdel(src)
-	if(istype(loc, /obj/item/pen/fancy/bomb))
-		qdel(loc)

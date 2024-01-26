@@ -122,15 +122,22 @@
 	if(++clickscount == 3)
 		clickscount = initial(clickscount)
 		if(!bomb_timer)
-			bomb_timer = addtimer(CALLBACK(src, PROC_REF(prime_bomb)), get_det_time(), TIMER_STOPPABLE|TIMER_DELETE_ME|TIMER_UNIQUE)
+			bomb_timer = addtimer(CALLBACK(src, PROC_REF(prime_bomb), user), get_det_time(), TIMER_STOPPABLE|TIMER_DELETE_ME|TIMER_UNIQUE)
 		else
 			deltimer(bomb_timer)
 
 /obj/item/pen/fancy/bomb/proc/get_det_time()
 	return bomb.det_time
 
-/obj/item/pen/fancy/bomb/proc/prime_bomb()
+/obj/item/pen/fancy/bomb/proc/prime_bomb(mob/user)
+	log_and_message_admins("[key_name_admin(user)] has detonated a pen-bomb.")
+	update_mob()
 	bomb.prime()
+
+/obj/item/pen/fancy/bomb/proc/update_mob()
+	if(ismob(loc))
+		var/mob/mob_loc = loc
+		mob_loc.drop_item_ground(src)
 
 /obj/item/pen/fancy/bomb/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	return bomb.hit_reaction(owner, hitby, attack_text, final_block_chance, damage, attack_type)
