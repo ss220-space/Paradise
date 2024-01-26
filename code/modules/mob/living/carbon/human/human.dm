@@ -21,6 +21,8 @@
 		tts_seed = SStts.get_random_seed(src)
 
 	setup_dna(new_species)
+	med_hud_set_health()	// Updating med huds is necessary after `setup_dna()` due to the fact that while
+	med_hud_set_status()	// a human does not have a heart, the hud status is displayed incorrectly.
 
 	create_reagents(330)
 
@@ -35,8 +37,6 @@
 	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
-	//Update med hud images...
-	..()
 	//...sec hud images...
 	sec_hud_set_ID()
 	sec_hud_set_implants()
