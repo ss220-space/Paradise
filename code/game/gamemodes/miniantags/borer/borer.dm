@@ -305,6 +305,7 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "infest"
+	action_background_icon_state = "bg_alien"
 	selection_activated_message = span_notice("You prepared to infest a victim. <B>Left-click to cast at a target!</B>")
 	selection_deactivated_message = span_notice("You stopped trying to infest a victim.")
 	need_active_overlay = TRUE
@@ -454,6 +455,7 @@
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "genetic_cryo"
+	action_background_icon_state = "bg_alien"
 	selection_activated_message = span_notice("You prepared to dominate a victim. <B>Left-click to cast at a target!</B>")
 	selection_deactivated_message = span_notice("You decided to give your victim a chance. For now.")
 	need_active_overlay = TRUE
@@ -915,8 +917,7 @@
 /datum/action/innate/borer/make_chems
 	name = "Secrete Chemicals"
 	desc = "Push some chemicals into your host's bloodstream."
-	icon_icon = 'icons/obj/chemical.dmi'
-	button_icon_state = "minidispenser"
+	button_icon_state = "fleshmend"
 
 /datum/action/innate/borer/make_chems/Activate()
 	var/mob/living/simple_animal/borer/B = owner
