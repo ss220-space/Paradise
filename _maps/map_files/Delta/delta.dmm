@@ -8787,6 +8787,7 @@
 	id_tag = "Bar";
 	name = "Bar Privacy Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -16513,6 +16514,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
