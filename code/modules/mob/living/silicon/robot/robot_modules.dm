@@ -303,6 +303,7 @@
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/holosign_creator(src)
 	modules += new /obj/item/extinguisher/mini(src)
+	modules += new /obj/item/reagent_containers/spray(src) //kill all kidans!
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent("lube", 250)
