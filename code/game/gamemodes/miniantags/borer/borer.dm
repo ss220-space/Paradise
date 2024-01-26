@@ -87,8 +87,6 @@
 			"Septenary", "Octonary", "Novenary", "Decenary", "Undenary", "Duodenary",
 			)
 	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
-	var/used_dominate
-	var/attempting_to_dominate = FALSE		// To prevent people from spam opening the Dominate Victim input
 	var/chemicals = 10						// Chemicals used for reproduction and chemical injection.
 	var/max_chems = 250
 	var/mob/living/carbon/human/host		// Human host for the brain worm.
@@ -108,7 +106,6 @@
 	var/datum/action/innate/borer/leave_body/leave_body_action = new
 	var/datum/action/innate/borer/make_chems/make_chems_action = new
 	var/datum/action/innate/borer/make_larvae/make_larvae_action = new
-	var/datum/action/innate/borer/freeze_victim/freeze_victim_action = new
 	var/datum/action/innate/borer/torment/torment_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
@@ -302,24 +299,7 @@
 	chemscan(usr, M)
 	return
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ТУТ БЫЛ КОД ИНФЕСТА
-
-/obj/effect/proc_holder/spell/borer_infest // Первая часть, включающая описание спела
+/obj/effect/proc_holder/spell/borer_infest
 	name = "Infest"
 	desc = "Infest a suitable humanoid host."
 	base_cooldown = 0
@@ -331,35 +311,31 @@
 	human_req = FALSE
 	var/infesting = FALSE
 
-/obj/effect/proc_holder/spell/borer_infest/create_new_targeting() // Вторая часть, создающая таргет
-
+/obj/effect/proc_holder/spell/borer_infest/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.range = 1
 	T.click_radius = -1
 	return T
 
-/obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE) // Третья часть, проверяющая, может ли борер кастовать
+/obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
 
 	if (is_ventcrawling(user) || !src || user.stat || infesting)
 		return FALSE
 	. = ..()
 
-/obj/effect/proc_holder/spell/borer_infest/valid_target(mob/living/carbon/human/target, user) // Четвёртая часть, фильтрующая, подходит ли цель
-	return istype(target)
+/obj/effect/proc_holder/spell/borer_infest/valid_target(mob/living/carbon/human/target, user)
+	return istype(target) && target.stat != DEAD
 
-/obj/effect/proc_holder/spell/borer_infest/cast(list/targets, mob/living/simple_animal/borer/user) // Пятая часть, сам каст спелла
-
+/obj/effect/proc_holder/spell/borer_infest/cast(list/targets, mob/living/simple_animal/borer/user)
 	var/mob/living/carbon/human/target = targets[1]
-	if(!target)
-		return
 
-	if(target.stat == DEAD)
-		to_chat(user, span_warning("That is not an appropriate target."))
+	if(!target)
 		return
 
 	if(target.has_brain_worms())
 		to_chat(user, span_warning("[target] is already infested!"))
 		return
+
 	infesting = TRUE
 	to_chat(user, "You slither up [target] and begin probing at [target.p_their()] ear canal...")
 
@@ -367,12 +343,12 @@
 		to_chat(user, "As [target] moves away, you are dislodged and fall to the ground.")
 		infesting = FALSE
 		return
+
 	infesting = FALSE
 	user.host = target
 	add_attack_logs(user, user.host, "Infested as borer")
 	target.borer = user
 	user.forceMove(target)
-
 	user.host.status_flags |= PASSEMOTES
 
 	user.RemoveBorerActions()
@@ -472,72 +448,48 @@
 		to_chat(src, "<span class=notice'>You stop hiding.</span>")
 		hiding = FALSE
 
-/mob/living/simple_animal/borer/verb/dominate_victim()
-	set category = "Borer"
-	set name = "Dominate Victim"
-	set desc = "Freeze the limbs of a potential host with supernatural fear."
+/obj/effect/proc_holder/spell/borer_dominate
+	name = "Dominate Victim"
+	desc = "Freeze the limbs of a potential host with supernatural fear."
+	base_cooldown = 30 SECONDS
+	clothes_req = FALSE
+	action_icon_state = "genetic_cryo"
+	selection_activated_message = span_notice("You prepared to dominate a victim. <B>Left-click to cast at a target!</B>")
+	selection_deactivated_message = span_notice("You decided to give your victim a chance. For now.")
+	need_active_overlay = TRUE
+	human_req = FALSE
 
-	if(world.time - used_dominate < 150)
-		to_chat(src, "You cannot use that ability again so soon.")
+/obj/effect/proc_holder/spell/borer_dominate/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 1
+	T.click_radius = -1
+	return T
+
+/obj/effect/proc_holder/spell/borer_dominate/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
+
+	if (is_ventcrawling(user) || !src || user.stat)
+		return FALSE
+	. = ..()
+
+/obj/effect/proc_holder/spell/borer_dominate/valid_target(mob/living/carbon/human/target, user)
+	return istype(target) && target.stat != DEAD
+
+/obj/effect/proc_holder/spell/borer_dominate/cast(list/targets, mob/living/simple_animal/borer/user)
+	var/mob/living/carbon/human/target = targets[1]
+
+	if(target.has_brain_worms())
+		to_chat(user, span_warning("You cannot dominate someone who is already infested!"))
 		return
 
-	if(host)
-		to_chat(src, "You cannot do that from within a host body.")
-		return
-
-	if(stat)
-		to_chat(src, "You cannot do that in your current state.")
-		return
-
-	if(attempting_to_dominate)
-		to_chat(src, "You're already targeting someone!")
-		return
-
-	var/list/choices = list()
-	for(var/mob/living/carbon/C in view(3,src))
-		if(C.stat != DEAD)
-			choices += C
-
-	if(world.time - used_dominate < 300)
-		to_chat(src, "You cannot use that ability again so soon.")
-		return
-
-	attempting_to_dominate = TRUE
-
-	var/mob/living/carbon/M = tgui_input_list(src,"Who do you wish to dominate?", "Dominate", choices)
-
-	if(!M)
-		attempting_to_dominate = FALSE
-		return
-
-	if(!src) //different statement to avoid a runtime since if the source is deleted then attempting_to_dominate would also be deleted
-		return
-
-	if(M.has_brain_worms())
-		to_chat(src, "You cannot dominate someone who is already infested!")
-		attempting_to_dominate = FALSE
-		return
-
-	if(incapacitated())
-		attempting_to_dominate = FALSE
-		return
-
-	if(get_dist(src, M) > 7) //to avoid people remotely doing from across the map etc, 7 is the default view range
-		to_chat(src, "<span class='warning'>You're too far away!</span>")
-		attempting_to_dominate = FALSE
-		return
-
-	to_chat(src, "<span class='warning'>You focus your psychic lance on [M] and freeze [M.p_their()] limbs with a wave of terrible dread.</span>")
-	to_chat(M, "<span class='warning'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
-	M.Weaken(6 SECONDS)
-
-	used_dominate = world.time
-	attempting_to_dominate = FALSE
+	to_chat(user, span_warning("You focus your psychic lance on [target] and freeze [target.p_their()] limbs with a wave of terrible dread."))
+	to_chat(target, span_warning("You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing."))
+	target.Weaken(6 SECONDS)
 
 /mob/living/simple_animal/borer/verb/release_host()
 	set category = "Borer"
 	set name = "Release Host"
 	set desc = "Slither out of your host."
+	leaving = !leaving
 
 	if(!host)
 		to_chat(src, "You are not inside a host body.")
@@ -554,33 +506,34 @@
 	if(!host || !src)
 		return
 
-	if(leaving)
-		leaving = FALSE
-		to_chat(src, "<span class='userdanger'>You decide against leaving your host.</span>")
-		return
-
-	to_chat(src, "You begin disconnecting from [host]'s synapses and prodding at [host.p_their()] internal ear canal.")
-
-	leaving = TRUE
-
-	addtimer(CALLBACK(src, PROC_REF(let_go)), 200)
+	let_go()
 
 /mob/living/simple_animal/borer/proc/let_go()
 
 	if(!host || !src || QDELETED(host) || QDELETED(src))
-		return
-	if(!leaving)
 		return
 	if(controlling)
 		return
 	if(stat)
 		to_chat(src, "You cannot release a target in your current state.")
 		return
+	if(leaving)
+		to_chat(src, "You begin disconnecting from [host]'s synapses and prodding at [host.p_their()] internal ear canal.")
+	else
+		to_chat(src, "You decide against leaving your host.")
+
+	if(!do_mob(src, host, 20 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_leaving), src))))
+		leaving = FALSE
+		return
 
 	to_chat(src, "You wiggle out of [host]'s ear and plop to the ground.")
-
 	leaving = FALSE
 	leave_host()
+
+/mob/living/simple_animal/borer/proc/borer_leaving() //Returning "TRUE" breaks the loop, "FALSE" - continue
+	if(leaving)
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/borer/proc/leave_host()
 
@@ -851,18 +804,18 @@
 
 /mob/living/simple_animal/borer/proc/GrantBorerActions()
 	toggle_hide_action.Grant(src)
-	freeze_victim_action.Grant(src)
+
 
 /mob/living/simple_animal/borer/proc/RemoveBorerActions()
 	toggle_hide_action.Remove(src)
-	freeze_victim_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantBorerSpells()
 	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_infest)
-
+	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_dominate)
 
 /mob/living/simple_animal/borer/proc/RemoveBorerSpells()
 	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_infest)
+	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_dominate)
 
 /mob/living/simple_animal/borer/proc/GrantInfestActions()
 	talk_to_host_action.Grant(src)
@@ -978,15 +931,6 @@
 	var/mob/living/simple_animal/borer/B = owner.has_brain_worms()
 	B.host = owner
 	B.host.spawn_larvae()
-
-/datum/action/innate/borer/freeze_victim
-	name = "Dominate Victim"
-	desc = "Freeze the limbs of a potential host with supernatural fear."
-	button_icon_state = "genetic_cryo"
-
-/datum/action/innate/borer/freeze_victim/Activate()
-	var/mob/living/simple_animal/borer/B = owner
-	B.dominate_victim()
 
 /datum/action/innate/borer/torment
 	name = "Torment Host"
