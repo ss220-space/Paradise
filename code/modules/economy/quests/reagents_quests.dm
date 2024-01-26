@@ -54,19 +54,9 @@
 	if(!container.reagents)
 		return FALSE
 
-	var/has_required_reagent
 	for(var/datum/reagent/R in container.reagents.reagent_list)
-		if(R.id in required_reagents)
-			has_required_reagent = TRUE
-			required_reagents[R.id]["volume"] -= R.volume
-			if(required_reagents[R.id]["volume"] <= 0)
-				required_reagents.Remove(R.id)
-
-	if(!has_required_reagent)
-		return FALSE
-
-	return TRUE
-
+		if((R.id in required_reagents) && required_reagents[R.id]["volume"] <= R.volume)
+			return TRUE
 
 /datum/cargo_quest/reagents/length_quest()
 	return length(required_reagents)
