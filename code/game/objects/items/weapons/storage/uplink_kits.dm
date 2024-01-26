@@ -1,11 +1,16 @@
 /obj/item/storage/box/syndicate/Initialize(mapload, list/bundle)
 	. = ..()
 	if(bundle)
-		name = bundle["Name"]
-		desc = bundle["Desc"]
-		for(var/obj/equip in bundle)
-			for(var/same_items in 1 to bundle[equip])
-				new same_items(src)
+		for(var/index in bundle)
+			switch(index)
+				if("Name")
+					name = bundle[index]
+				if("Desc")
+					desc = bundle[index]
+				else
+					var/number = bundle[index]
+					for(var/i in 1 to number)
+						new index(src)
 
 /obj/item/storage/box/syndie_kit
 	name = "Box"

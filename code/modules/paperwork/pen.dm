@@ -25,8 +25,11 @@
 	pressure_resistance = 2
 	var/fake_signing = FALSE //do we always write like [sign]?
 
+/obj/item/pen/attack_self(mob/user)
+	visible_message(span_notice("[user] fumbles with [src]."))
+
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
+	user.visible_message(span_suicide("[user] starts scribbling numbers over [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit sudoku."))
 	return BRUTELOSS
 
 /obj/item/pen/blue
@@ -70,14 +73,15 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pen/multi/proc/select_colour(mob/user)
-	var/newcolour = tgui_input_list(user, "Which colour would you like to use?", name, colour_choices, colour)
-	if(newcolour)
-		colour = newcolour
+	. = tgui_input_list(user, "Which colour would you like to use?", name, colour_choices, colour)
+	if(.)
+		colour = .
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pen/multi/attack_self(mob/living/user)
-	select_colour(user)
+	if(select_colour(user))
+		..()
 
 
 /obj/item/pen/multi/update_overlays()
@@ -97,26 +101,36 @@
 
 /obj/item/pen/fancy/bomb
 	var/clickscount = 0
+	var/bomb_timer
 	var/obj/item/grenade/syndieminibomb/bomb
 
 /obj/item/pen/fancy/bomb/Initialize(mapload)
 	. = ..()
-	bomb = new /obj/item/grenade/syndieminibomb(src)
+	bomb = new (src)
+
+/obj/item/pen/fancy/bomb/Destroy()
+	QDEL_NULL(bomb)
+	return ..()
 
 /obj/item/pen/fancy/bomb/examine(mob/user)
 	. = ..()
 	if(istraitor_or_contractor(user))
-		to_chat(user, span_warning("They always said the pen is mightier than the sword."))
+		. += span_specialnotice("They always said the pen is mightier than the sword.")
 
 /obj/item/pen/fancy/bomb/attack_self(mob/user)
-	visible_message(span_notice("[user] fumbles with [src]."))
-	if(clickscount < 6)
-		clickscount++
-		switch(clickscount)
-			if(3)
-				bomb.attack_self(user)
-			if(6)
-				bomb.defused = TRUE
+	..()
+	if(++clickscount == 3)
+		clickscount = initial(clickscount)
+		if(!bomb_timer)
+			bomb_timer = addtimer(CALLBACK(src, PROC_REF(prime_bomb)), get_det_time(), TIMER_STOPPABLE|TIMER_DELETE_ME|TIMER_UNIQUE)
+		else
+			deltimer(bomb_timer)
+
+/obj/item/pen/fancy/bomb/proc/get_det_time()
+	return bomb.det_time
+
+/obj/item/pen/fancy/bomb/proc/prime_bomb()
+	bomb.prime()
 
 /obj/item/pen/fancy/bomb/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	return bomb.hit_reaction(owner, hitby, attack_text, final_block_chance, damage, attack_type)
@@ -153,7 +167,7 @@
 	var/transfered = 0
 	if(reagents.total_volume && M.reagents)
 		transfered = reagents.trans_to(M, 50)
-	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
+	to_chat(user, span_warning("You sneakily stab [M] with the pen."))
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
 	return TRUE
 
@@ -169,7 +183,7 @@
  */
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
-	var/on = 0
+	var/on = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
 	armour_penetration = 20
@@ -190,7 +204,7 @@
 		M.Weaken(2 SECONDS)
 		M.adjustStaminaLoss(40)
 		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
-		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
+		M.visible_message(span_warning("[user] stabs [M] in the back!"), span_userdanger("[user] stabs you in the back! The energy blade makes you collapse in pain!"))
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
 	else
 		playsound(loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
@@ -199,34 +213,34 @@
 		force -= backstab_damage
 
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
-	return 0
+	return FALSE
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
-		on = 0
+		on = FALSE
 		force = initial(force)
-		sharp = 0
+		sharp = FALSE
 		w_class = initial(w_class)
 		name = initial(name)
 		attack_verb = list()
 		hitsound = initial(hitsound)
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
-		playsound(user, 'sound/weapons/saberoff.ogg', 3, 1)
-		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
+		playsound(user, 'sound/weapons/saberoff.ogg', 3, TRUE)
+		to_chat(user, span_warning("[src] can now be concealed."))
 		set_light(0)
 	else
-		on = 1
+		on = TRUE
 		force = 18
-		sharp = 1
+		sharp = TRUE
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35
-		playsound(user, 'sound/weapons/saberon.ogg', 3, 1)
-		to_chat(user, "<span class='warning'>[src] is now active.</span>")
+		playsound(user, 'sound/weapons/saberon.ogg', 3, TRUE)
+		to_chat(user, span_warning("[src] is now active."))
 		set_light(brightness_on, 1)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -255,16 +269,16 @@
 
 /obj/item/pen/poison/on_write(obj/item/paper/P, mob/user)
 	if(P.contact_poison_volume)
-		to_chat(user, "<span class='warning'>[P] is already coated.</span>")
+		to_chat(user, span_warning("[P] is already coated."))
 	else if(uses_left)
 		uses_left--
 		P.contact_poison = "amanitin"
 		P.contact_poison_volume = 15
 		P.contact_poison_poisoner = user.name
 		add_attack_logs(user, P, "Poison pen'ed")
-		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+		to_chat(user, span_warning("You apply the poison to [P]."))
 	else
-		to_chat(user, "<span class='warning'>[src] clicks. It seems to be depleted.</span>")
+		to_chat(user, span_warning("[src] clicks. It seems to be depleted."))
 
 /obj/item/pen/fakesign
 	fake_signing = TRUE

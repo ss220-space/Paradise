@@ -1609,12 +1609,19 @@
 	refund_path = /obj/item/paicard_upgrade/unused
 	can_discount = FALSE
 
-/datum/uplink_item/device_tools/diamond_drill
-	name = "Diamond Tipped Thermal Safe Drill"
-	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Guaranteed 100% jam proof."
-	item = /obj/item/thermal_drill/diamond_drill
+/datum/uplink_item/device_tools/thermal_drill
+	name = "Amplifying Thermal Safe Drill"
+	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
+	item = /obj/item/thermal_drill/syndicate
 	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/device_tools/dthermal_drill
+	name = "Amplifying Diamond Tipped Thermal Safe Drill"
+	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
+	item = /obj/item/thermal_drill/diamond_drill/syndicate
+	cost = 5
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/jackhammer
 	name = "Jackhammer"
