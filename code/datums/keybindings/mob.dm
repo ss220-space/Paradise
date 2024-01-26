@@ -229,3 +229,13 @@
 /datum/keybinding/mob/target/l_foot
 	name = "Выбрать левую ступню"
 	body_part = BODY_ZONE_PRECISE_L_FOOT
+
+/datum/keybinding/mob/target/tail
+	name = "Выбрать хвост"
+	body_part = BODY_ZONE_TAIL
+	keys = list("Numpad0")
+
+/datum/keybinding/mob/target/wing
+	name = "Выбрать крылья"
+	body_part = BODY_ZONE_WING
+	keys = list("Numpad7", "Numpad9")
