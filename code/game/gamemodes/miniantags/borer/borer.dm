@@ -494,29 +494,33 @@
 	leaving = !leaving
 
 	if(!host)
+		leaving = FALSE
 		to_chat(src, "You are not inside a host body.")
 		return
 
 	if(stat)
+		leaving = FALSE
 		to_chat(src, "You cannot leave your host in your current state.")
 		return
 
 	if(docile)
+		leaving = FALSE
 		to_chat(src, "<span class='notice'>You are feeling far too docile to do that.</span>")
 		return
 
 	if(!host || !src)
+		leaving = FALSE
 		return
 
 	let_go()
 
 /mob/living/simple_animal/borer/proc/let_go()
 
-	if(!host || !src || QDELETED(host) || QDELETED(src))
-		return
-	if(controlling)
+	if(!host || !src || QDELETED(host) || QDELETED(src) || controlling)
+		leaving = FALSE
 		return
 	if(stat)
+		leaving = FALSE
 		to_chat(src, "You cannot release a target in your current state.")
 		return
 	if(leaving)
