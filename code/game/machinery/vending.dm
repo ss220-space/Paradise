@@ -1676,7 +1676,7 @@
 		/obj/item/clothing/under/color/darkred = 10,
 		/obj/item/clothing/under/colour/skirt = 10
 		)
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5)
+	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5, /obj/item/clothing/under/syndicate/tacticool/skirt = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
@@ -1813,10 +1813,11 @@
 					/obj/item/clothing/neck/cloak/grey = 1)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
-					  /obj/item/clothing/mask/balaclava = 1,
-					  /obj/item/clothing/head/ushanka = 1,
-					  /obj/item/clothing/under/soviet = 1,
-					  /obj/item/storage/belt/fannypack/black = 1)
+					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
+					/obj/item/clothing/mask/balaclava = 1,
+					/obj/item/clothing/head/ushanka = 1,
+					/obj/item/clothing/under/soviet = 1,
+					/obj/item/storage/belt/fannypack/black = 1)
 
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
 				   /obj/item/clothing/head/mailman = 1,
@@ -2304,6 +2305,7 @@
 	req_access = list(ACCESS_HYDROPONICS)
 	products = list(
 		/obj/item/clothing/under/rank/hydroponics = 5,
+		/obj/item/clothing/under/rank/hydroponics/skirt = 5,
 		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3,
 		/obj/item/clothing/suit/apron = 4,
 		/obj/item/clothing/suit/apron/overalls = 2,
