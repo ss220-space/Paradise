@@ -30,8 +30,32 @@
 		already_opened = 1
 	. = ..()
 
+/mob/living/simple_animal
+	var/mutations_buf
+	var/atmos_requirements_buf
+	var/minbodytemp_buf
+	
+/obj/structure/closet/critter/dump_contents()
+	for(var/mob/living/simple_animal/M in src)
+		if(M.mutations_buf && M.atmos_requirements_buf)
+			M.mutations.Cut() //clear memory?
+			M.atmos_requirements.Cut() 
+			
+			M.mutations = M.mutations_buf
+			M.atmos_requirements = M.atmos_requirements_buf
+			M.minbodytemp = M.minbodytemp_buf
+	..()
+
 /obj/structure/closet/critter/close()
 	..()
+	for(var/mob/living/simple_animal/M in src)
+		M.mutations_buf = M.mutations.Copy()
+		M.atmos_requirements_buf = M.atmos_requirements.Copy()
+		M.minbodytemp_buf = M.minbodytemp
+		
+		M.mutations.Add(BREATHLESS)
+		M.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+		M.minbodytemp = 0
 	return 1
 
 /obj/structure/closet/critter/corgi
