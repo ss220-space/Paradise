@@ -134,8 +134,8 @@
 
 
 /obj/item/pen/love
- 	name = "fancy pen"
- 	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
+	name = "fancy pen"
+	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
 	icon_state = "fancypen"
 	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
 
