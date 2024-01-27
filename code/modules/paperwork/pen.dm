@@ -133,6 +133,33 @@
 	reagents.add_reagent("ketamine", 100)
 
 
+/obj/item/pen/love
+ 	name = "fancy pen"
+ 	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
+	icon_state = "fancypen"
+	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
+
+/obj/item/pen/love/attack(mob/living/M, mob/user)
+	if(!istype(M))
+		return
+
+	if(!M.can_inject(user, TRUE, ignore_pierceimmune = TRUE))
+		return
+	var/transfered = 0
+	if(reagents.total_volume && M.reagents)
+		transfered = reagents.trans_to(M, 50)
+	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
+	add_attack_logs(user, M, "Stabbed with (love) [src]. [transfered]u of reagents transfered.")
+	return TRUE
+
+
+
+/obj/item/pen/love/Initialize(mapload)
+	. = ..()
+	create_reagents(200)
+	reagents.add_reagent("love", 100)
+	reagents.add_reagent("pax", 100)
+
 /*
  * (Alan) Edaggers
  */
