@@ -322,6 +322,17 @@
 	name = "wt550 magazine (Incendiary 4.6x30mm)"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
+/obj/item/ammo_box/magazine/sp91rc
+	name = "SP-91-RC magazine (9mm TE)"
+	icon_state = "9mm-te"
+	ammo_type = /obj/item/ammo_casing/c9mmte
+	caliber = "9mm TE"
+	max_ammo = 20
+
+/obj/item/ammo_box/magazine/sp91rc/update_icon()
+	..()
+	icon_state = "9mm-te-[round(ammo_count(),5)]"
+
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
 	icon_state = "uzi9mm-32"

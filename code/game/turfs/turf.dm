@@ -540,9 +540,6 @@
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/water_act(volume, temperature, source)
- 	return FALSE
-
 
 /**
  * Returns adjacent turfs to this turf that are reachable, in all cardinal directions

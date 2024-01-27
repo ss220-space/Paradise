@@ -763,7 +763,7 @@
 
 			if(!wearable)
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вы [src] и не можете использовать [I]."))
+					to_chat(user, span_warning("Вы [src] и не можете использовать [I]."))
 				return FALSE
 
 	switch(slot)
@@ -1016,13 +1016,13 @@
 /datum/species/proc/equip_delay_self_obscured_check(obj/item/I, slot, mob/living/carbon/human/user, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	if(user.has_obscured_slot(slot) && !bypass_obscured)
 		if(!disable_warning)
-			to_chat(user, SPAN_WARNING("Вы не можете надеть [I], слот закрыт другой одеждой."))
+			to_chat(user, span_warning("Вы не можете надеть [I], слот закрыт другой одеждой."))
 		return FALSE
 
 	if(!I.equip_delay_self || bypass_equip_delay_self)
 		return TRUE
 
-	user.visible_message(SPAN_NOTICE("[user] начинает надевать [I]..."), SPAN_NOTICE("Вы начинаете надевать [I]..."))
+	user.visible_message(span_notice("[user] начинает надевать [I]..."), span_notice("Вы начинаете надевать [I]..."))
 	return do_after(user, I.equip_delay_self, target = user)
 
 

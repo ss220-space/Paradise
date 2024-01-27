@@ -437,13 +437,6 @@
 	qdel(src)
 	return
 
-/// for area.get_beacon() returns BEACON if it exists
-/area/proc/get_beacon()
-	for(var/thing in GLOB.clockwork_beacons)
-		var/obj/structure/clockwork/functional/beacon/BEACON = thing
-		if(BEACON.areabeacon == get_area(src))
-			return BEACON
-
 /obj/structure/clockwork/functional/cogscarab_fabricator
 	name = "cogscarab fabricator"
 	desc = "House for a tons of little cogscarabs, self-producing and maintaining itself."
@@ -461,8 +454,13 @@
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/Initialize(mapload)
 	. = ..()
+	GLOB.clockwork_fabricators += src
 	timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 	notify_ghosts("[src] is created at [get_area(src)].", title = "New cogscarab fabricator!", source = src, flashwindow = FALSE, action = NOTIFY_JUMP)
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/obj_destruction()
+	. = ..()
+	GLOB.clockwork_fabricators -= src
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/proc/open_slot()
 	cog_slots += 1
@@ -479,6 +477,7 @@
 		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
+	. = ..()
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
 		if(!anchored && !isfloorturf(loc))
 			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")

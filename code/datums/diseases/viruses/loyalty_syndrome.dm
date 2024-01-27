@@ -59,12 +59,12 @@
 
 		if(QDELETED(master))
 			if(need_master_death_message)
-				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master] больше нет с нами")]"))
+				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master.real_name] больше нет с нами")]"))
 			return FALSE
 
 		if(master.stat == DEAD)
 			if(need_master_death_message)
-				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master] мертв[genderize_ru(master.gender, "", "а", "о", "ы")]!")]"))
+				death_of_master(span_cultlarge("Внезапно всё ваше тело пронзает боль от осознания одной мысли. \n[span_reallybig("[master.real_name] мертв[genderize_ru(master.gender, "", "а", "о", "ы")]!")]"))
 			return FALSE
 		else
 			need_master_death_message = TRUE
@@ -76,7 +76,7 @@
 			timer = max(timer - round(timer/10 + 1) , 0)
 
 			if(prob(weaken_prob))
-				affected_mob.say(pick("Вы... слишком прекрасны, [master]...", "Ох...", "Я не достоин Вас...",\
+				affected_mob.say(pick("Вы... слишком прекрасны, [master.real_name]...", "Ох...", "Я не достоин Вас...",\
 						"Вы выглядите сногсшибательно!"))
 				addtimer(CALLBACK(affected_mob, TYPE_PROC_REF(/mob/living/carbon, Weaken), 1 SECONDS), 3 SECONDS)
 		else
@@ -87,48 +87,48 @@
 			if(0 to STAGE_TIME)
 				if(see_master)
 					if(say_timer > say_cooldown && prob(say_prob + say_timer))
-						message = pick("[master], мне не хватает вашего внимания...", "[master], ваше присутствие вселяет в меня радость!",\
-							"Вы так прекрасны, [master]!", "Рядом с вами я чувствую тепло в своём сердце, [master]",\
-							"Позвольте мне пасть у ваших ног, [master]!", "Я тону в ваших бескрайних глазах, [master]!",\
-							"Я заполучу вашу любовь, [master] ...любой ценой!")
+						message = pick("[master.real_name], мне не хватает вашего внимания...", "[master.real_name], ваше присутствие вселяет в меня радость!",\
+							"Вы так прекрасны, [master.real_name]!", "Рядом с вами я чувствую тепло в своём сердце, [master.real_name]",\
+							"Позвольте мне пасть у ваших ног, [master.real_name]!", "Я тону в ваших бескрайних глазах, [master.real_name]!",\
+							"Я заполучу вашу любовь, [master.real_name] ...любой ценой!")
 					health_change = round(timer/STAGE_TIME, 0.25) - 1
 				else
 					if(prob(say_prob))
-						to_chat(affected_mob, span_notice(pick("Мне не следует отдаляться от [master]...", \
+						to_chat(affected_mob, span_notice(pick("Мне не следует отдаляться от [master.real_name]...", \
 							"Я долж[genderize_ru(affected_mob.gender, "ен", "на", "но", "ны")] вернуться, пока не поздно!")))
 
 			if((STAGE_TIME + 1) to (2 * STAGE_TIME))
 				if(need_meating_message && see_master)
-					message = pick("Вот и вы, [master]")
+					message = pick("Вот и вы, [master.real_name]")
 					need_meating_message = FALSE
 
 				if(!see_master)
 					if(say_timer > say_cooldown && prob(say_prob + say_timer))
-						message = pick("Где же [master]...", "Вы же тут, [master]?", "Никто не видел [master]?")
+						message = pick("Где же [master.real_name]...", "Вы же тут, [master.real_name]?", "Никто не видел [master.real_name]?")
 						addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, affected_mob, \
 							span_notice("Странный голос шепчет [get_direction("откуда-то c ", "a")]")), rand(2, 20) SECONDS)
 					health_change = round(timer/(8 * STAGE_TIME), 0.025)  //0.125 - 0.25 toxins
 
 			if((2 * STAGE_TIME + 1) to (4 * STAGE_TIME))
 				if(need_meating_message && see_master)
-					message = pick("[genderize_ru(affected_mob.gender, "Я нашёл", "Я нашла", "Я нашло", "Мы нашли")] вас, [master]!")
+					message = pick("[genderize_ru(affected_mob.gender, "Я нашёл", "Я нашла", "Я нашло", "Мы нашли")] вас, [master.real_name]!")
 					need_meating_message = FALSE
 
 				if(!see_master)
 					if(say_timer > say_cooldown && prob(say_prob + say_timer))
-						message = pick("Я не могу без [master]!", "[master], где вы?!", "[master], прошу, вернитесь!")
+						message = pick("Я не могу без [master.real_name]!", "[master.real_name], где вы?!", "[master.real_name], прошу, вернитесь!")
 						addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, affected_mob, \
 							span_warning("Странный голос зовёт меня [get_direction("откуда-то c ", "a")]!")), rand(2, 20) SECONDS)
 					health_change = round(timer/(6 * STAGE_TIME), 0.125)  //0.33 - 0.66 toxins
 
 			if((4 * STAGE_TIME + 1) to INFINITY)
 				if(need_meating_message && see_master)
-					message = pick("Наконец то [genderize_ru(affected_mob.gender, "я снова обрёл", "я снова обрёла", "я снова обрёло", "мы снова обрёли")] вас, [master]!")
+					message = pick("Наконец то [genderize_ru(affected_mob.gender, "я снова обрёл", "я снова обрёла", "я снова обрёло", "мы снова обрёли")] вас, [master.real_name]!")
 					need_meating_message = FALSE
 
 				if(!see_master)
 					if(say_timer > say_cooldown && prob(say_prob + say_timer))
-						message = pick("Я умираю без [master]!", "[master], умоляю, вернитесь!", "Я найду Вас!")
+						message = pick("Я умираю без [master.real_name]!", "[master.real_name], умоляю, вернитесь!", "Я найду Вас!")
 						addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, affected_mob, \
 							span_userdanger("Странный голос [pick("ужасающе вопит", "жалобно стонет", "кричит")] [get_direction("где-то на ", "e")]!!")), rand(2, 20) SECONDS)
 					health_change = round(timer/(4 * STAGE_TIME), 0.25)  //1 - ∞ toxins

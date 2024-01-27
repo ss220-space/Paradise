@@ -46,6 +46,8 @@
 
 /datum/martial_art/the_sleeping_carp/teach(mob/living/carbon/human/H, make_temporary)
 	. = ..()
+	if(!.)
+		return FALSE
 	H.faction |= "carp"// :D
 	to_chat(H, "<span class='sciradio'>Вы изучили древнее боевое искусство Спящего Карпа! \
 					Рукопашный бой стал намного эффективнее, а в режиме броска вы теперь можете отклонять любые снаряды, направленные в вашу сторону. \
@@ -55,6 +57,8 @@
 
 /datum/martial_art/the_sleeping_carp/remove(mob/living/carbon/human/H)
 	. = ..()
+	if(!.)
+		return FALSE
 	H.faction -= "carp"// :C
 	H.UnregisterSignal(H, COMSIG_CARBON_THROWN_ITEM_CAUGHT)
 

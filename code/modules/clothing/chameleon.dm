@@ -146,7 +146,7 @@
 
 		update_item(picked_item)
 		var/obj/item/thing = target
-		thing.update_slot_icon()
+		thing.update_equipped_item()
 	UpdateButtonIcon()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)

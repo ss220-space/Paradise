@@ -1,0 +1,35 @@
+@use 'sass:color';
+@use '../colors.scss';
+@use '../components/Section.scss';
+
+
+.QuestConsoleSection {
+  .Section__title { border-bottom-width: 3px; }
+
+  border-radius: 4px;
+  border: 1px solid transparent;
+  &--green {
+    &.QuestConsoleSection--active { border-color: colors.bg(colors.$green); }
+    .Section__title { border-bottom-color: colors.bg(colors.$green); }
+  }
+  &--yellow {
+    &.QuestConsoleSection--active { border-color: colors.bg(colors.$yellow); }
+    .Section__title { border-bottom-color: colors.bg(colors.$yellow); }
+  }
+  &--orange {
+    &.QuestConsoleSection--active { border-color: colors.bg(colors.$orange); }
+    .Section__title { border-bottom-color: colors.bg(colors.$orange); }
+  }
+  &--purple {
+    &.QuestConsoleSection--active { border-color: colors.bg(colors.$purple); }
+    .Section__title { border-bottom-color: colors.bg(colors.$purple); }
+  }
+  &:not(&--dimmed):hover {
+    background-color: color.adjust(
+      Section.$color-background,
+      $lightness: 30%
+    );
+
+    cursor: pointer;
+  }
+}

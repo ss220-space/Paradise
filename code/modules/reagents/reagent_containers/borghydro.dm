@@ -126,13 +126,13 @@
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
-		to_chat(user, SPAN_WARNING("The injector is empty."))
+		to_chat(user, span_warning("The injector is empty."))
 		return
 	if(!istype(M))
 		return
 	if(R.total_volume && M.can_inject(user, TRUE, user.zone_selected, bypass_protection, bypass_protection))
-		to_chat(user, SPAN_NOTICE("You inject [M] with the injector."))
-		to_chat(M, SPAN_NOTICE("You feel a tiny prick!"))
+		to_chat(user, span_notice("You inject [M] with the injector."))
+		to_chat(M, span_notice("You feel a tiny prick!"))
 
 		R.add_reagent(M)
 		if(M.reagents)
@@ -140,7 +140,7 @@
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-			to_chat(user, SPAN_NOTICE("[trans] units injected. [R.total_volume] units remaining."))
+			to_chat(user, span_notice("[trans] units injected. [R.total_volume] units remaining."))
 
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
@@ -159,14 +159,14 @@
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
 	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
-	to_chat(user, SPAN_NOTICE("Synthesizer is now producing '[R.name]'."))
+	to_chat(user, span_notice("Synthesizer is now producing '[R.name]'."))
 
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
 	. = ..()
 
 	if(bypass_protection)
-		. += SPAN_NOTICE_BOLD("Advanced injector is installed on this module, allowing it to pierce thick tissue and materials.")
+		. += span_boldnotice("Advanced injector is installed on this module, allowing it to pierce thick tissue and materials.")
 
 	if(get_dist(user, src) <= 2)
 		var/empty = TRUE
@@ -174,11 +174,11 @@
 		for(var/datum/reagents/RS in reagent_list)
 			var/datum/reagent/R = locate() in RS.reagent_list
 			if(R)
-				. += SPAN_NOTICE("It currently has [R.volume] units of [R.name] stored.")
+				. += span_notice("It currently has [R.volume] units of [R.name] stored.")
 				empty = FALSE
 
 		if(empty)
-			. += SPAN_NOTICE("It is currently empty. Allow some time for the internal syntheszier to produce more.")
+			. += span_notice("It is currently empty. Allow some time for the internal syntheszier to produce more.")
 
 
 /obj/item/reagent_containers/borghypo/basic

@@ -3,17 +3,17 @@
 	desc = "Harsh snowstorms roam the topside of this arctic planet, burying any area unfortunate enough to be in its path."
 	probability = 99
 
-	telegraph_message = "<span class='warning'>Drifting particles of snow begin to dust the surrounding area..</span>"
-	telegraph_duration = 400
+	telegraph_message = span_warning("Drifting particles of snow begin to dust the surrounding area...")
+	telegraph_duration = 40 SECONDS
 	telegraph_overlay = "light_snow"
 
-	weather_message = "<span class='userdanger'><i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i></span>"
+	weather_message = span_userdanger("<i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i>")
 	weather_overlay = "snow_storm"
-	weather_duration_lower = 600
-	weather_duration_upper = 1200
+	weather_duration_lower = 60 SECONDS
+	weather_duration_upper = 120 SECONDS
 
-	end_duration = 100
-	end_message = "<span class='boldannounce'>The snowfall dies down, it should be safe to go outside again.</span>"
+	end_duration = 10 SECONDS
+	end_message = span_boldannounce("The snowfall dies down, it should be safe to go outside again.")
 	end_overlay = "light_snow"
 
 	area_type = /area/vision_change_area/awaymission/evil_santa_storm
@@ -21,14 +21,14 @@
 
 	immunity_type = "snow"
 
+	var/list/inside_areas = list()
+	var/list/outside_areas = list()
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/active_inside_ashstorm/sound_ai = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
 
 /datum/weather/snow_storm/proc/update_eligible_areas()
-	var/list/inside_areas = list()
-	var/list/outside_areas = list()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
 		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
@@ -36,47 +36,40 @@
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]
 		if(place.outdoors)
-			outside_areas += place
+			outside_areas |= place
 		else
-			inside_areas += place
+			inside_areas |= place
 		CHECK_TICK
-
-	sound_ao.output_atoms = outside_areas
-	sound_ai.output_atoms = inside_areas
-	sound_wo.output_atoms = outside_areas
-	sound_wi.output_atoms = inside_areas
-
-	sound_wo.start()
-	sound_wi.start()
 
 /datum/weather/snow_storm/proc/update_audio()
 	switch(stage)
 		if(STARTUP_STAGE)
-			sound_wo.start()
-			sound_wi.start()
+			sound_wo.start(outside_areas)
+			sound_wi.start(inside_areas)
 
 		if(MAIN_STAGE)
-			sound_wo.stop()
-			sound_wi.stop()
+			sound_wo.stop(outside_areas, TRUE)
+			sound_wi.stop(inside_areas, TRUE)
 
-			sound_ao.start()
-			sound_ai.start()
+			sound_ao.start(outside_areas)
+			sound_ai.start(inside_areas)
 
 		if(WIND_DOWN_STAGE)
-			sound_ao.stop()
-			sound_ai.stop()
+			sound_ao.stop(outside_areas, TRUE)
+			sound_ai.stop(inside_areas, TRUE)
 
-			sound_wo.start()
-			sound_wi.start()
+			sound_wo.start(outside_areas)
+			sound_wi.start(inside_areas)
 
 		if(END_STAGE)
-			sound_wo.stop()
-			sound_wi.stop()
+			sound_wo.stop(outside_areas, TRUE)
+			sound_wi.stop(inside_areas, TRUE)
 
 /datum/weather/snow_storm/telegraph()
 	. = ..()
-	update_eligible_areas()
-	update_audio()
+	if(.)
+		update_eligible_areas()
+		update_audio()
 
 /datum/weather/snow_storm/wind_down()
 	. = ..()

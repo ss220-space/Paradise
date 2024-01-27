@@ -1958,6 +1958,16 @@
 	construction_time = 20 SECONDS
 	category = list("Exosuit Paintkits")
 
+/datum/design/paint_gygax_pirate
+	name = "Gygax \"Pirate\""
+	id = "p_pirategygax"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "engineering" = 6, "materials" = 6, "programming" = 6)
+	build_path = /obj/item/paintkit/gygax_pirate
+	materials = list(MAT_METAL=30000, MAT_DIAMOND=3000, MAT_URANIUM= 3000)
+	construction_time = 30 SECONDS
+	category = list("Exosuit Paintkits")
+
 /datum/design/paint_durand_unathi
 	name = "Durand \"Kharn MK. IV\""
 	id = "p_unathi"
@@ -1974,6 +1984,16 @@
 	build_type = MECHFAB
 	req_tech = list("combat" = 6, "engineering" = 6, "materials" = 6, "programming" = 6)
 	build_path = /obj/item/paintkit/durand_shire
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=4000, MAT_URANIUM= 4000)
+	construction_time = 30 SECONDS
+	category = list("Exosuit Paintkits")
+
+/datum/design/paint_durand_pirate
+	name = "Durand \"Pirate\""
+	id = "p_durandpirate"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "engineering" = 6, "materials" = 6, "programming" = 6)
+	build_path = /obj/item/paintkit/durand_pirate
 	materials = list(MAT_METAL=40000, MAT_DIAMOND=4000, MAT_URANIUM= 4000)
 	construction_time = 30 SECONDS
 	category = list("Exosuit Paintkits")

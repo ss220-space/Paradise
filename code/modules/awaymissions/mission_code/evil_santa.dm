@@ -129,6 +129,7 @@
 			to_chat(trapped_one, span_danger("YOU'VE BEEN TOO NAUGHTY THIS YEAR AND NOW YOU WILL BE PUNISHED!"))
 
 /area/vision_change_area/awaymission/evil_santa/end/santa/proc/ready_or_not()
+	SIGNAL_HANDLER
 	if(!naughty_guys)
 		naughty_guys = list()
 	for(var/mob/living/carbon/naughty in naughty_guys)

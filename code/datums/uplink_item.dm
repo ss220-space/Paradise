@@ -1331,7 +1331,7 @@
 	name = "Frag grenade's"
 	desc = "A belt containing 4 lethally dangerous and destructive grenades."
 	item = /obj/item/storage/belt/grenade/frag
-	cost = 20
+	cost = 10
 
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
