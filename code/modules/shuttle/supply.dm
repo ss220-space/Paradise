@@ -180,7 +180,7 @@
 								objective.unit_completed(cost)
 						msg += "[tech.name] - new data.<br>"
 
-		qdel(MA)
+		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
 
 
