@@ -171,7 +171,7 @@
 		throw EXCEPTION("docking port [src] could not initialize.")
 		return 0
 
-	SSshuttle.stationary += src
+	SSshuttle.stationary |= src
 	if(!id)
 		id = "[SSshuttle.stationary.len]"
 	if(name == "dock")
