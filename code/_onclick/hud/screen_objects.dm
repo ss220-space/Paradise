@@ -245,6 +245,15 @@
 	var/static/list/hover_overlays_cache = list()
 	var/hovering
 
+/obj/screen/zone_sel/Initialize(mapload, _hud, _icon = 'icons/mob/screen_gen.dmi', _alpha = 255, _color = null)
+	. = ..()
+	hud = _hud	// Don't forget to always put here the created HUD '/datum/hud/'.
+	icon = _icon
+	alpha = _alpha
+	color = _color
+	hud.mymob.zone_selected = selecting
+	update_icon(UPDATE_OVERLAYS)
+
 /obj/screen/zone_sel/Click(location, control, params)
 	if(isobserver(usr))
 		return FALSE
