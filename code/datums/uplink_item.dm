@@ -1662,7 +1662,7 @@
 	desc = "Cheaper version of nuclear operatives autoimplanter, this model allows you to install three cybernetic implants on the field."
 	item = /obj/item/autoimplanter/traitor
 	cost = 30
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)nifo
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
