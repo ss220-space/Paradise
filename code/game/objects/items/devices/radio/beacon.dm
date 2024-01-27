@@ -177,7 +177,7 @@
 								/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 1,
 								/obj/item/clothing/gloves/color/latex/nitrile = 1,
 								/obj/item/clothing/mask/gas/clown_hat = 1,
-								/obj/item/thermal_drill/diamond_drill = 1, // Сделать порт с оффов.
+								/obj/item/thermal_drill/diamond_drill/syndicate = 1,
 								/obj/item/encryptionkey/syndicate = 1),
 			"Implanter" = list(	"Name" = "\improper 'Bio-chip' bundle",
 								"Desc" = "A few useful bio-chips to give you some options for when you inevitably get captured by the Security.",

@@ -270,7 +270,7 @@
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
 		/obj/item/clothing/gloves/color/latex/nitrile,
 		/obj/item/clothing/mask/gas/clown_hat,
-		/obj/item/thermal_drill/diamond_drill,
+		/obj/item/thermal_drill/diamond_drill/syndicate,
 		/obj/item/storage/box/syndie_kit/c4,
 		)
 

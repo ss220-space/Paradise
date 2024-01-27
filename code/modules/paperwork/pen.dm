@@ -122,9 +122,13 @@
 	if(++clickscount == 3)
 		clickscount = initial(clickscount)
 		if(!bomb_timer)
-			bomb_timer = addtimer(CALLBACK(src, PROC_REF(prime_bomb), user), get_det_time(), TIMER_STOPPABLE|TIMER_DELETE_ME|TIMER_UNIQUE)
+			bomb_timer = addtimer(CALLBACK(src, PROC_REF(prime_bomb), user), get_det_time(), TIMER_STOPPABLE|TIMER_DELETE_ME)
+			if(iscarbon(user))
+				var/mob/living/carbon/carbon_user = user
+				carbon_user.throw_mode_on()
 		else
 			deltimer(bomb_timer)
+			bomb_timer = null
 
 /obj/item/pen/fancy/bomb/proc/get_det_time()
 	return bomb.det_time
