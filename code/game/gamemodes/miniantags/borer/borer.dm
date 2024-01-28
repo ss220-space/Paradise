@@ -2,6 +2,7 @@
 	name = "host brain"
 	real_name = "host brain"
 	tts_seed = "Gman"
+	var/host_resisting = FALSE
 
 /mob/living/captive_brain/say(message)
 	if(client)
@@ -36,11 +37,18 @@
 
 /mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
+	host_resisting = !host_resisting
+
+	if(!host_resisting)
+		host_resisting = FALSE
+		to_chat(src, span_notice("You're already trying to get out of control!"))
+		return
 	to_chat(src, span_danger("You begin doggedly resisting the parasite's control (this will take approximately sixty seconds)."))
 	to_chat(B.host, span_danger("You feel the captive mind of [src] begin to resist your control."))
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
-	addtimer(CALLBACK(src, PROC_REF(return_control), B), delay)
-
+	do_mob(src, B.host, delay, only_use_extra_checks = TRUE)
+	return_control()
+	host_resisting = FALSE
 
 /mob/living/captive_brain/proc/return_control(mob/living/simple_animal/borer/B)
 	if(!B || !B.controlling)
@@ -150,16 +158,15 @@
 	var/list/message_pieces = parse_languages(message)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		if(!istype(S.speaking, /datum/language/corticalborer) && loc == host && !talk_inside_host)
-			to_chat(src, span_warning("You've disabled audible speech while inside a host! Re-enable it under the borer tab, or stick to borer communications."))
+			Communicate(message)
 			return
 	return ..()
 
 
-/mob/living/simple_animal/borer/verb/Communicate()
+/mob/living/simple_animal/borer/proc/Communicate(var/sended_message)
 	set category = "Borer"
 	set name = "Converse with Host"
 	set desc = "Send a silent message to your host."
-
 	if(!host)
 		to_chat(src, "You do not have a host to communicate with!")
 		return
@@ -172,19 +179,18 @@
 		to_chat(src, span_warning("Мозг носителя не способен воспринимать вас сейчас!"))
 		return
 
-	var/input = stripped_input(src, "Please enter a message to tell your host.", "Borer", "")
-	if(!input)
-		return
+	if(!sended_message) //If we use "say", it won't ask us to write the message twice.
+		sended_message = stripped_input(src, "Please enter a message to tell your host.", "Borer", "")
 
 	if(src && !QDELETED(src) && !QDELETED(host))
 		var/say_string = (docile) ? "slurs" :"states"
 		if(host)
-			to_chat(host, "<span class='changeling'><i>[truename] [say_string]:</i> [input]</span>")
-			add_say_logs(src, input, host, "BORER")
+			to_chat(host, "<span class='changeling'><i>[truename] [say_string]:</i> [sended_message]</span>")
+			add_say_logs(src, sended_message, host, "BORER")
 			for(var/M in GLOB.dead_mob_list)
 				if(isobserver(M))
-					to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
-		to_chat(src, "<span class='changeling'><i>[truename] [say_string]:</i> [input]</span>")
+					to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [sended_message]</i>")
+		to_chat(src, "<span class='changeling'><i>[truename] [say_string]:</i> [sended_message]</span>")
 		host.verbs += /mob/living/proc/borer_comm
 		talk_to_borer_action.Grant(host)
 
@@ -195,7 +201,7 @@
 
 	if(talk_inside_host)
 		talk_inside_host = FALSE
-		to_chat(src, span_notice("You will no longer talk audibly while inside a host."))
+		to_chat(src, span_notice("You will now speak into the host's mind."))
 	else
 		talk_inside_host = TRUE
 		to_chat(src, span_notice("You will now be able to audibly speak from inside of a host."))
@@ -463,7 +469,7 @@
 
 /obj/effect/proc_holder/spell/borer_dominate/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
-	T.range = 1
+	T.range = 3
 	T.click_radius = -1
 	return T
 
@@ -802,6 +808,7 @@
 		messages.Add("You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
 		to_chat(src, chat_box_purple(messages.Join("<br>")))
 		GrantBorerSpells()
+		hide_borer()
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)
