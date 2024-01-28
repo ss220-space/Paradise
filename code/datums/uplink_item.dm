@@ -1563,6 +1563,12 @@
 	item = /obj/item/clothing/accessory/storage/brown_vest
 	cost = 5
 
+/datum/uplink_item/device_tools/blackops_kit
+	name = "Black ops kit"
+	desc = "A package of clothing for dangerous covert operations"
+	item = /obj/item/storage/box/syndie_kit/blackops_kit
+	cost = 10
+
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
 	desc = "The Syndicate Surgical Bag comes with a complete set of everything you need for quality surgery, including a straitjacket and muzzle. The bag itself is unprecedentedly light, doesn't slow you down, and is completely silent."
