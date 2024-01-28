@@ -904,6 +904,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "magboots crate"
 	required_tech = list("magnets" = 4, "engineering" = 4)
 
+/datum/supply_packs/engineering/permit
+	name = "Construction Permit Crate"
+	contains = list(/obj/item/areaeditor/permit)
+	cost = 80
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "construction permit crate"
+	access = ACCESS_CE
+
 ///////////// Station Goals
 
 /datum/supply_packs/misc/station_goal
@@ -1019,7 +1027,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 ///////////// High-Tech Disks
 
 /datum/supply_packs/misc/htdisk
-	name = "Empty High-Tech Disk Crate"
+	name = "HEADER"
 	cost = 1
 	special = TRUE
 	containername = "htdisk crate"

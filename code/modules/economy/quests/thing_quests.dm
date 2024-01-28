@@ -5,7 +5,8 @@
 	var/list/hard_items
 	var/list/very_hard_items
 	/// If TRUE, the same items from this category will not be found in the same order
-	var/unique_things = FALSE
+	var/unique_things = TRUE
+	var/list/current_list
 
 /datum/cargo_quest/thing/generate_goal(difficultly, request_obj, target_reward)
 	if(request_obj)
@@ -32,6 +33,7 @@
 	if(unique_things)
 		difficult_list.Remove(generated_item)
 	req_items += generated_item
+	current_list = req_items.Copy()
 
 	desc += "[capitalize(format_text(initial(generated_item.name)))] <br>"
 
@@ -56,10 +58,14 @@
 	return length(req_items)
 
 /datum/cargo_quest/thing/check_required_item(atom/movable/check_item)
-	if(check_item.type in req_items)
-		req_items.Remove(check_item.type)
+	if(check_item.type in current_list)
+		current_list.Remove(check_item.type)
 		return TRUE
 	return FALSE
+
+/datum/cargo_quest/thing/after_check()
+	. = TRUE
+	current_list = req_items.Copy()
 
 /datum/cargo_quest/thing/xenobio
 	quest_type_name = "Xenobiological extract"
@@ -163,7 +169,6 @@
 
 /datum/cargo_quest/thing/miner
 	quest_type_name = "Shaft Miner Loot"
-	unique_things = TRUE
 	easy_items = list(
 		/obj/item/crusher_trophy/legion_skull = 50,
 		/obj/item/crusher_trophy/watcher_wing = 50,
@@ -178,31 +183,34 @@
 	)
 	normal_items = list(
 		/obj/item/gem/rupee = 130,
-		/obj/item/crusher_trophy/vortex_talisman = 145,
 		/obj/item/borg/upgrade/modkit/lifesteal = 145,
-		/obj/item/crusher_trophy/tail_spike = 200,
+		/obj/item/voodoo = 180,
 		/obj/item/gem/magma = 220
 	)
 	hard_items = list(
 		/obj/item/crusher_trophy/blaster_tubes = 260,
-		/obj/item/crusher_trophy/adaptive_intelligence_core = 350,
+		/obj/item/grenade/clusterbuster/inferno = 270,
 		/obj/item/gem/phoron = 350,
 		/obj/item/gem/purple = 400,
 		/obj/item/gem/amber = 400,
-		/obj/item/crusher_trophy/demon_claws = 400,
 	)
 
 	very_hard_items = list(
 		/obj/item/gem/data = 450,
 		/obj/item/gem/void = 500,
 		/obj/effect/mob_spawn/human/ash_walker = 550,
-		/obj/item/gem/bloodstone = 650
+		/obj/item/gem/bloodstone = 650,
+		/obj/item/crusher_trophy/vortex_talisman = 700,
+		/obj/item/crusher_trophy/tail_spike = 750,
+		/obj/item/crusher_trophy/adaptive_intelligence_core = 850,
+		/obj/item/crusher_trophy/demon_claws = 1000,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/minerals
 	quest_type_name = "Minerals"
 	var/list/required_minerals = list()
+	unique_things = FALSE
 	var/static/list/unique_minerals = list(/obj/item/stack/sheet/bluespace_crystal, /obj/item/stack/sheet/mineral/bananium, /obj/item/stack/sheet/mineral/tranquillite)
 	req_items = list(/obj/item/stack/sheet)
 	easy_items = list(
@@ -250,26 +258,28 @@
 		desc += "[capitalize(format_text(initial(desc_mineral.name)))],<br>  amount: [required_minerals[mineral]]<br>"
 	if(generated_mineral in unique_minerals)
 		difficult_list.Remove(generated_mineral)
+	current_list = required_minerals.Copy()
 
 /datum/cargo_quest/thing/minerals/check_required_item(atom/movable/check_item)
 	if(!length(required_minerals))
 		return FALSE
 
 	var/obj/item/stack/sheet/sheet = check_item
-	var/used_mineral
-	for(var/mineral in required_minerals)
-		if(istype(sheet, mineral))
-			var/used = min(sheet.get_amount(), required_minerals[mineral])
-			sheet.use(used)
-			used_mineral = TRUE
-			required_minerals[mineral] -= used
-			if(required_minerals[mineral] == 0)
-				required_minerals.Remove(mineral)
-			if(QDELETED(sheet))
-				return TRUE
-
-	if(used_mineral)
+	for(var/mineral in current_list)
+		if(!istype(sheet, mineral))
+			continue
+		if(current_list[mineral] <= 0)
+			continue
+		current_list[mineral] -= sheet.get_amount()
 		return TRUE
+
+/datum/cargo_quest/thing/minerals/after_check()
+	. = TRUE
+	for(var/mineral in current_list)
+		if((current_list[mineral] > 0) && (current_list[mineral] != required_minerals[mineral]))
+			. = FALSE
+			break
+	current_list = required_minerals.Copy()
 
 /datum/cargo_quest/thing/minerals/update_interface_icon()
 	var/list/new_interface_icons = list()
@@ -415,6 +425,7 @@
 			q_storage.reward += hard_items[generated_gene]
 
 	required_genes += generated_gene
+	current_list = required_genes.Copy()
 
 	desc += "[capitalize(format_text(initial(generated_gene.name)))] <br>"
 
@@ -430,12 +441,16 @@
 
 	var/obj/item/disk/plantgene/genedisk = check_item
 
-	for(var/gene in required_genes)
+	for(var/gene in current_list)
 		if(genedisk.gene?.type == gene)
-			required_genes.Remove(gene)
+			current_list.Remove(gene)
 			return TRUE
 
 	return FALSE
+
+/datum/cargo_quest/thing/botanygenes/after_check()
+	. = TRUE
+	current_list = required_genes.Copy()
 
 /datum/cargo_quest/thing/genes
 	quest_type_name = "DNA Genes"
@@ -444,6 +459,29 @@
 
 	req_items = list(/obj/item/dnainjector)
 	var/list/required_blocks = list()
+	normal_items = list(
+		"LISP" = 100,
+		"MUTE" = 100,
+		"RAD" = 100,
+		"FAT" = 100,
+		"SWEDE" = 100,
+		"SCRAMBLE" = 100,
+		"WEAK" = 100,
+		"HORNS" = 100,
+		"COMIC" = 100,
+		"SOBER" = 150,
+		"PSYRESIST" = 150,
+		"SHADOW" = 150,
+		"CHAMELEON" = 150,
+		"CRYO" = 150,
+		"EAT" = 150,
+		"JUMP" = 150,
+		"IMMOLATE" = 150,
+		"EMPATH" = 150,
+		"POLYMORPH" = 150,
+		"STRONG" = 150,
+	)
+
 	hard_items = list(
 		"BLINDNESS" = 200,
 		"COLOURBLIND" = 200,
@@ -469,7 +507,7 @@
 		"SHOCKIMMUNITY" = 200,
 		"SMALLSIZE" = 250
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_HARD)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/genes/update_interface_icon()
 	return
@@ -488,6 +526,7 @@
 			break
 
 	desc += "[generated_gene] <br>"
+	current_list = required_blocks.Copy()
 
 /datum/cargo_quest/thing/genes/check_required_item(atom/movable/check_item)
 
@@ -498,15 +537,19 @@
 	if(!dnainjector.block)
 		return FALSE
 
-	for(var/block in required_blocks)
+	for(var/block in current_list)
 		if(block != GLOB.assigned_blocks[dnainjector.block])
 			continue
 		var/list/BOUNDS = GetDNABounds(dnainjector.block)
 		if(dnainjector.buf.dna.SE[dnainjector.block] >= BOUNDS[DNA_ON_LOWERBOUND])
-			required_blocks.Remove(block)
+			current_list.Remove(block)
 			return TRUE
 
 	return FALSE
+
+/datum/cargo_quest/thing/genes/after_check()
+	. = TRUE
+	current_list = required_blocks.Copy()
 
 
 #define REQUIRED_BLOOD_AMOUNT 10
@@ -589,6 +632,7 @@
 
 	required_symptoms += generated_symptom
 	required_symptoms[generated_symptom] = REQUIRED_BLOOD_AMOUNT
+	current_list = required_symptoms.Copy()
 
 	desc += "[capitalize(format_text(initial(generated_symptom.name)))] <br>"
 
@@ -601,7 +645,6 @@
 	if(!vial.reagents)
 		return FALSE
 
-	var/has_symptom
 	for(var/datum/reagent/blood/blood in vial.reagents.reagent_list)
 		if(length(blood.data["diseases"] != 1)) // Only 1 virus
 			continue
@@ -611,16 +654,15 @@
 		var/datum/symptom/symptom = locate() in virus.symptoms
 		if(!symptom)
 			continue
-		for(var/symp in required_symptoms)
+		for(var/symp in current_list)
 			if(symptom.type != symp)
 				continue
-			required_symptoms[symp] -= blood.volume
-			has_symptom = TRUE
-			if(required_symptoms[symp] <= 0)
-				required_symptoms.Remove(symp)
-
-
-	if(has_symptom)
-		return TRUE
+			if(required_symptoms[symp] <= blood.volume)
+				current_list.Remove(symp)
+				return TRUE
 
 	return FALSE
+
+/datum/cargo_quest/thing/virus/after_check()
+	. = TRUE
+	current_list = required_symptoms.Copy()
