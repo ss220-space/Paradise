@@ -238,8 +238,8 @@
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 	var/turf/turf_to_check = get_turf(user)
-	if(turf_to_check.transparent_floor == TURF_FULLTRANSPARENT) // open
-		to_chat(user, "span class='warning'>You need a ground to jump from!</span>")
+	if(user.can_z_move(DOWN, turf_to_check))
+		to_chat(user, span_warning("You need a ground to jump from!"))
 		return
 
 	if (istype(user.loc,/turf) && !(istype(user.loc,/turf/space)))

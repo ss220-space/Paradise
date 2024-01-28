@@ -37,7 +37,7 @@
 	deconstruct()
 
 /obj/structure/lattice/deconstruct(disassembled)
-	. = ..()
+	..()
 	var/turf/O = get_turf(loc)
 	if(isopenspaceturf(O))
 		for(var/atom/movable/movable in O)
