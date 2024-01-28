@@ -140,3 +140,37 @@
   - bugfix: Returned the "pAI suicide" button (#4236)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4248)
+'2024-01-22':
+  NightDawnFox:
+  - bugfix: chasm lavaland are now shown in space (#4257)
+  Rerik007:
+  - bugfix: some cargo fixes/ part 1 (#4256)
+  Zwei:
+  - tweak: All Species Are Spawnable (#4255)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4254)
+'2024-01-24':
+  Rerik007:
+  - bugfix: some cargo fixes and tweaks/ part 2 (#4261)
+'2024-01-26':
+  ArtemDerp:
+  - bugfix: added missing firelocks at bar (#4281)
+  - bugfix: ussp golem docking port size (#4270)
+  Daeberdir:
+  - bugfix: slimeman and diona initialised with wrong hud. (#4279)
+  - bugfix: infinity wethersound in gate level. (#4272)
+  - bugfix: missed value returning in `user_buckle_mob()`. (#4271)
+  - add: admin button for docking ports refilling. (#4273)
+  LiquidPotroh:
+  - unknown: Loyalty syndrome now use mob's real name (#4264)
+  NightDawnFox:
+  - bugfix: megafauna are no longer afraid of chasms & normal pathing for shitspawn
+      species & plasma golems now have normal explode ability (#4276)
+  - add: megaseed servitor to Thetta. Also bubblegum arena fix (#4266)
+  Rerik007:
+  - bugfix: cargo fixes/ part3 (#4274)
+  - bugfix: old alt titles are available (#4267)
+  Zwei:
+  - bugfix: Temporary Dominator Fix (#4250)
+  xTrogwaRx:
+  - bugfix: Fixed link in books with iframe (#4282)
