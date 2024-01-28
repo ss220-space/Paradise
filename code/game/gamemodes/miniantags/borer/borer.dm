@@ -7,7 +7,7 @@
 /mob/living/captive_brain/say(message)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
-			to_chat(src, span_warning("You cannot speak in IC (muted)."))
+			to_chat(src, span_warning("Вы не можете говорить в IC (muted)."))
 			return
 		if(client.handle_spam_prevention(message,MUTE_IC))
 			return
@@ -20,8 +20,8 @@
 		if(stat == DEAD)
 			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = loc
-		to_chat(src, "You whisper silently, \"[message]\"")
-		to_chat(B.host, "<i><span class='alien'>The captive mind of [src] whispers, \"[message]\"</span></i>")
+		to_chat(src, "Вы тихо шепчете, \"[message]\"")
+		to_chat(B.host, "<i><span class='alien'>Пленённый разум [src] шепчет, \"[message]\"</span></i>")
 
 		for(var/mob/M in GLOB.mob_list)
 			if(M.mind && isobserver(M))
@@ -41,10 +41,10 @@
 
 	if(!host_resisting)
 		host_resisting = FALSE
-		to_chat(src, span_notice("You're already trying to get out of control!"))
+		to_chat(src, span_notice("Вы уже пытаетесь вернуть своё тело!"))
 		return
-	to_chat(src, span_danger("You begin doggedly resisting the parasite's control (this will take approximately sixty seconds)."))
-	to_chat(B.host, span_danger("You feel the captive mind of [src] begin to resist your control."))
+	to_chat(src, span_danger("Вы начинаете упорно сопротивляться контролю паразита (это займёт примерно минуту)."))
+	to_chat(B.host, span_danger("Вы чувствуете, как пленённый разум [src] начинает сопротивляться."))
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
 	do_mob(src, B.host, delay, only_use_extra_checks = TRUE)
 	return_control()
@@ -55,8 +55,8 @@
 		return
 
 	B.host.adjustBrainLoss(rand(5,10))
-	to_chat(src, span_danger("With an immense exertion of will, you regain control of your body!"))
-	to_chat(B.host, span_danger("You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you."))
+	to_chat(src, span_danger("Огромным усилием воли вы вновь обретаете контроль над своим телом!"))
+	to_chat(B.host, span_danger("Вы чувствуете, как мозг носителя уходит из под вашего контроля. Вы успеваете разорвать связь прежде, чем сильные нейронные импульсы смогут навредить вам."))
 
 	B.detach()
 
@@ -67,9 +67,9 @@
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
 	tts_seed = "Gman_e2"
-	response_help  = "pokes"
+	response_help = "pokes"
 	response_disarm = "prods the"
-	response_harm   = "stomps on the"
+	response_harm = "stomps on the"
 	icon_state = "brainslug"
 	icon_living = "brainslug"
 	icon_dead = "brainslug_dead"
@@ -168,11 +168,11 @@
 	set name = "Converse with Host"
 	set desc = "Send a silent message to your host."
 	if(!host)
-		to_chat(src, "You do not have a host to communicate with!")
+		to_chat(src, "У вас нет носителя!")
 		return
 
 	if(stat)
-		to_chat(src, "You cannot do that in your current state.")
+		to_chat(src, "Вы не в состоянии этого сделать.")
 		return
 
 	if(host.stat == DEAD)
@@ -180,7 +180,7 @@
 		return
 
 	if(!sended_message) //If we use "say", it won't ask us to write the message twice.
-		sended_message = stripped_input(src, "Please enter a message to tell your host.", "Borer", "")
+		sended_message = stripped_input(src, "Введите сообщение для носителя.", "Borer", "")
 
 	if(src && !QDELETED(src) && !QDELETED(host))
 		var/say_string = (docile) ? "slurs" :"states"
@@ -201,10 +201,10 @@
 
 	if(talk_inside_host)
 		talk_inside_host = FALSE
-		to_chat(src, span_notice("You will now speak into the host's mind."))
+		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))
 	else
 		talk_inside_host = TRUE
-		to_chat(src, span_notice("You will now be able to audibly speak from inside of a host."))
+		to_chat(src, span_notice("Теперь вы сможете говорить, находясь внутри носителя."))
 
 /mob/living/proc/borer_comm()
 	set name = "Converse with Borer"
@@ -218,7 +218,7 @@
 	if(!B)
 		return
 
-	var/input = stripped_input(src, "Please enter a message to tell the borer.", "Message", "")
+	var/input = stripped_input(src, "Введите сообщение для мозгового червя.", "Сообщение", "")
 	if(!input)
 		return
 
@@ -243,7 +243,7 @@
 	if(!B || !B.host_brain)
 		return
 	var/mob/living/captive_brain/CB = B.host_brain
-	var/input = stripped_input(src, "Please enter a message to tell the trapped mind.", "Message", "")
+	var/input = stripped_input(src, "Введите сообщение для пленённого разума.", "Сообщение", "")
 	if(!input)
 		return
 
@@ -268,16 +268,16 @@
 				if(!docile)
 
 					if(controlling)
-						to_chat(host, span_notice("You feel the soporific flow of sugar in your host's blood, lulling you into docility."))
+						to_chat(host, span_notice("Вы чувствуете усыпляющий поток сахара в крови вашего носителя, убаюкивающий вас до бессилия."))
 					else
-						to_chat(src, span_notice("You feel the soporific flow of sugar in your host's blood, lulling you into docility."))
+						to_chat(src, span_notice("Вы чувствуете усыпляющий поток сахара в крови вашего носителя, убаюкивающий вас до бессилия."))
 					docile = TRUE
 			else
 				if(docile)
 					if(controlling)
-						to_chat(host, span_notice("You shake off your lethargy as the sugar leaves your host's blood."))
+						to_chat(host, span_notice("Вы приходите в себя, когда сахар покидает кровь вашего носителя.."))
 					else
-						to_chat(src, span_notice("You shake off your lethargy as the sugar leaves your host's blood."))
+						to_chat(src, span_notice("Вы приходите в себя, когда сахар покидает кровь вашего носителя.."))
 					docile = FALSE
 
 			if(chemicals < max_chems)
@@ -285,7 +285,7 @@
 			if(controlling)
 
 				if(docile)
-					to_chat(host, span_notice("You are feeling far too docile to continue controlling your host..."))
+					to_chat(host, span_notice("Вы слишком обессилили для того, чтобы продолжать контролировать тело носителя..."))
 					host.release_control()
 					return
 
@@ -312,8 +312,8 @@
 	clothes_req = FALSE
 	action_icon_state = "infest"
 	action_background_icon_state = "bg_alien"
-	selection_activated_message = span_notice("You prepared to infest a victim. <B>Left-click to cast at a target!</B>")
-	selection_deactivated_message = span_notice("You stopped trying to infest a victim.")
+	selection_activated_message = span_notice("Вы приготовились заразить жертву. <B>Left-click чтобы применить способность!</B>")
+	selection_deactivated_message = span_notice("Вы прекратили свои попытки заразить жертву.")
 	need_active_overlay = TRUE
 	human_req = FALSE
 	var/infesting = FALSE
@@ -322,7 +322,7 @@
 	var/datum/spell_targeting/click/T = new()
 	T.range = 1
 	T.click_radius = -1
-	return T
+	return Treturn
 
 /obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
 
@@ -340,14 +340,14 @@
 		return
 
 	if(target.has_brain_worms())
-		to_chat(user, span_warning("[target] is already infested!"))
+		to_chat(user, span_warning("[target] уже заражён!"))
 		return
 
 	infesting = TRUE
-	to_chat(user, "You slither up [target] and begin probing at [target.p_their()] ear canal...")
+	to_chat(user, "Вы подползаете к [target] и начинаете искать [target.p_their()] слуховой проход...")
 
 	if(!do_mob(user, target, 5 SECONDS))
-		to_chat(user, "As [target] moves away, you are dislodged and fall to the ground.")
+		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете вниз.")
 		infesting = FALSE
 		return
 
@@ -368,14 +368,14 @@
 	set desc = "Push some chemicals into your host's bloodstream."
 
 	if(!host)
-		to_chat(src, "You are not inside a host body.")
+		to_chat(src, "Вы не находитесь в теле носителя.")
 		return
 
 	if(stat)
-		to_chat(src, "You cannot secrete chemicals in your current state.")
+		to_chat(src, "Вы не можете производить химикаты в вашем нынешнем состоянии.")
 
 	if(docile)
-		to_chat(src, "<font color='blue'> You are feeling far too docile to do that.</font>")
+		to_chat(src, "<font color='blue'> Вы слишком обессилили для этого.</font>")
 		return
 
 	var/content = ""
@@ -421,10 +421,10 @@
 			return
 		var/datum/reagent/R = GLOB.chemical_reagents_list[C.chemname]
 		if(chemicals < C.chemuse)
-			to_chat(src,  span_boldnotice("You need [C.chemuse] chemicals stored to secrete [R.name]!"))
+			to_chat(src, span_boldnotice("Вам нужно [C.chemuse] химикатов для выделения [R.name]!"))
 			return
 
-		to_chat(src, span_userdanger("You squirt a measure of [R.name] from your reservoirs into [host]'s bloodstream."))
+		to_chat(src, span_userdanger("Вы впрыскиваете [R.name] из своих резервуаров в кровь [host]."))
 		host.reagents.add_reagent(C.chemname, C.quantity)
 		chemicals -= C.chemuse
 		add_attack_logs(src, host, "injected [R.name]")
@@ -440,7 +440,7 @@
 	set desc = "Become invisible to the common eye."
 
 	if(host)
-		to_chat(usr,  span_warning("You cannot do this while you're inside a host."))
+		to_chat(usr, span_warning("Вы не можете сделать этого, находясь внутри носителя."))
 		return
 
 	if(stat != CONSCIOUS)
@@ -448,11 +448,11 @@
 
 	if(!hiding)
 		layer = TURF_LAYER+0.2
-		to_chat(src, span_notice("You are now hiding."))
+		to_chat(src, span_notice("Вы прячетесь."))
 		hiding = TRUE
 	else
 		layer = MOB_LAYER
-		to_chat(src,  span_notice("You stop hiding."))
+		to_chat(src, span_notice("Вы перестали прятаться."))
 		hiding = FALSE
 
 /obj/effect/proc_holder/spell/borer_dominate
@@ -462,8 +462,8 @@
 	clothes_req = FALSE
 	action_icon_state = "genetic_cryo"
 	action_background_icon_state = "bg_alien"
-	selection_activated_message = span_notice("You prepared to dominate a victim. <B>Left-click to cast at a target!</B>")
-	selection_deactivated_message = span_notice("You decided to give your victim a chance. For now.")
+	selection_activated_message = span_notice("Вы приготовились поразить жертву. <B>Left-click чтобы применить способность!</B>")
+	selection_deactivated_message = span_notice("Вы решили дать своей жертве шанс. Пока что.")
 	need_active_overlay = TRUE
 	human_req = FALSE
 
@@ -486,10 +486,10 @@
 	var/mob/living/carbon/human/target = targets[1]
 
 	if(target.has_brain_worms())
-		to_chat(user, span_warning("You cannot dominate someone who is already infested!"))
+		to_chat(user, span_warning("Вы не можете позволить себе сделать это с тем, кто уже заражён.."))
 		return
 
-	to_chat(user, span_warning("You focus your psychic lance on [target] and freeze [target.p_their()] limbs with a wave of terrible dread."))
+	to_chat(user, span_warning("Вы пронзили разум [target] ва [target.p_their()] limbs with a wave of terrible dread."))
 	to_chat(target, span_warning("You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing."))
 	target.Weaken(6 SECONDS)
 
