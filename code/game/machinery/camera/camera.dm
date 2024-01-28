@@ -30,7 +30,6 @@
 
 	var/alarm_on = FALSE
 	var/busy = FALSE
-	var/emped = FALSE  //Number of consecutive EMP's on this camera
 
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
@@ -78,33 +77,31 @@
 	if(!isEmpProof())
 		if(prob(150/severity))
 			update_icon()
-			var/list/previous_network = network
-			network = list()
-			GLOB.cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
-			emped = emped+1  //Increase the number of consecutive EMP's
 			update_icon()
-			var/thisemp = emped //Take note of which EMP this proc is for
-			spawn(900)
-				if(!QDELETED(src))
-					triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
-					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
-						network = previous_network
-						stat &= ~EMPED
-						update_icon()
-						if(can_use())
-							GLOB.cameranet.addCamera(src)
-						emped = 0 //Resets the consecutive EMP count
-						spawn(100)
-							if(!QDELETED(src))
-								cancelCameraAlarm()
+
+			GLOB.cameranet.removeCamera(src)
+
+			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE | TIMER_DELETE_ME)
+			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_DELETE_ME)
+
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
 					M.unset_machine()
 					M.reset_perspective(null)
 					to_chat(M, "The screen bursts into static.")
 			..()
+
+
+/obj/machinery/camera/proc/restore_from_emp()
+	stat &= ~EMPED
+	update_icon()
+
+	if(can_use())
+		GLOB.cameranet.addCamera(src)
+
+	cancelCameraAlarm()
 
 /obj/machinery/camera/tesla_act(power)//EMP proof upgrade also makes it tesla immune
 	if(isEmpProof())
@@ -285,10 +282,9 @@
 	var/change_msg = "deactivates"
 	if(status)
 		change_msg = "reactivates"
-		triggerCameraAlarm()
-		spawn(100)
-			if(!QDELETED(src))
-				cancelCameraAlarm()
+		cancelCameraAlarm()
+	else
+		addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_DELETE_ME)
 	if(displaymessage)
 		if(user)
 			visible_message(span_danger("[user] [change_msg] [src]!"))
@@ -309,10 +305,14 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
+	if(status || alarm_on || (assembly && assembly.state == 1)) // checks if camera still off OR alarms already on OR camera disasembled
+		return
 	alarm_on = TRUE
 	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
+	if (!alarm_on) // you don't have to turn off alarm twice
+		return
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
 
