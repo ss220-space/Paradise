@@ -640,7 +640,7 @@
 	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
-	name = "jelly donut"
+	name = "slimejelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"

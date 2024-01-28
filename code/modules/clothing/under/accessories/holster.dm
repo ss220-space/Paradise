@@ -158,7 +158,7 @@
 	item_color = "holster_low"
 
 /obj/item/clothing/accessory/holster/knives
-	name = "Knife holster"
+	name = "knife holster"
 	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
 	icon_state = "holsterknife"
 	item_color = "holsterknife"
@@ -187,3 +187,6 @@
 
 /obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
 	return is_type_in_list(I, holster_allow, FALSE)
+
+/obj/item/clothing/accessory/holster/attached_examine(mob/user)
+	return span_notice("\A [src] with [holstered.len] knives attached to it.")

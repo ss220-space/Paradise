@@ -28,6 +28,13 @@
 	item_state = "lb_suit"
 	item_color = "qm"
 
+/obj/item/clothing/under/rank/cargo/alt
+	name = "quartermaster's dress"
+	desc = "Dress for conducting bureaucracy and working with supplies, convenience and rigor in a single whole."
+	icon_state = "qm_new"
+	item_state = "clb_suit"
+	item_color = "qm_new"
+
 /obj/item/clothing/under/rank/cargo/skirt
 	name = "quartermaster's jumpskirt"
 	desc = "It's a jumpskirt worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
@@ -54,6 +61,13 @@
 	desc = "Skirrrrrts! They're comfy and easy to wear!"
 	icon_state = "cargof"
 	item_color = "cargof"
+
+/obj/item/clothing/under/rank/cargotech/alt
+	name = "cargo technician's dress"
+	desc = "Pretty good and convenient to work dress for cargo technicians."
+	icon_state = "cargotech_new"
+	item_state = "clb_suit"
+	item_color = "cargotech_new"
 
 /obj/item/clothing/under/rank/chaplain
 	desc = "It's a black jumpsuit, often worn by religious folk."
@@ -272,6 +286,13 @@
 	icon_state = "miner"
 	item_state = "miner"
 	item_color = "miner"
+
+/obj/item/clothing/under/rank/miner/alt
+	desc = "Cozy, old-style work sweater."
+	name = "shaft miner's sweater"
+	icon_state = "miner_alt"
+	item_state = "miner_alt"
+	item_color = "miner_alt"
 
 /obj/item/clothing/under/rank/miner/lavaland
 	desc = "A green uniform for operating in hazardous environments."

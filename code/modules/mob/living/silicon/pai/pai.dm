@@ -416,6 +416,17 @@
 	update_icons()
 	update_canmove()
 
+/mob/living/silicon/pai/verb/pAI_suicide()
+	set category = "pAI Commands"
+	set name = "pAI Suicide"
+	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
+
+	if(alert("REALLY kill yourself? This action can't be undone.", "Suicide", "No", "Suicide") == "Suicide")
+		do_suicide()
+
+	else
+		to_chat(src, "Aborting suicide attempt.")
+
 /mob/living/silicon/pai/update_sight()
 	if(!client)
 		return

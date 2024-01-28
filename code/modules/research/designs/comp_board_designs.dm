@@ -312,6 +312,26 @@
 	build_path = /obj/item/circuitboard/supplycomp
 	category = list("Computer Boards")
 
+/datum/design/supplyquest
+	name = "Console Board (Supply Quest Console)"
+	desc = "Allows for the construction of circuit boards used to build a supply quest console."
+	id = "supplyquest"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/supplyquest
+	category = list("Computer Boards")
+
+/datum/design/questcons
+	name = "Console Board (Supply Quest Monitor)"
+	desc = "Allows for the construction of circuit boards used to build a supply quest monitor."
+	id = "questcons"
+	req_tech = list("programming" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/questcons
+	category = list("Computer Boards")
+
 /datum/design/teleconsole
 	name = "Console Board (Teleporter Console)"
 	desc = "Allows for the construction of circuit boards used to build a teleporter control console."
