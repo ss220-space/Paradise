@@ -245,12 +245,11 @@
 	var/static/list/hover_overlays_cache = list()
 	var/hovering
 
-/obj/screen/zone_sel/Initialize(mapload, _hud, _icon = 'icons/mob/screen_gen.dmi', _alpha = 255, _color = null)
+/obj/screen/zone_sel/Initialize(mapload, _hud, _icon)
 	. = ..()
 	hud = _hud	// Don't forget to always put here the created HUD '/datum/hud/'.
-	icon = _icon
-	alpha = _alpha
-	color = _color
+	if(_icon)
+		icon = _icon
 	hud.mymob.zone_selected = selecting
 	update_icon(UPDATE_OVERLAYS)
 
@@ -379,6 +378,12 @@
 	var/image/sel = image(overlay_file, "[selecting]")
 	sel.appearance_flags = RESET_COLOR
 	. += sel
+
+/obj/screen/zone_sel/human/update_overlays()
+	var/image/human = image('icons/mob/zone_sel.dmi', "human")
+	human.appearance_flags = RESET_COLOR
+	. += human
+	. += ..()
 
 /obj/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'
