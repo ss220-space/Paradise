@@ -241,16 +241,14 @@
 	icon_state = "zone_sel"
 	screen_loc = ui_zonesel
 	var/overlay_file = 'icons/mob/zone_sel.dmi'
-	var/dummy_icon_state = "human"
 	var/selecting = BODY_ZONE_CHEST
 	var/static/list/hover_overlays_cache = list()
 	var/hovering
 
-/obj/screen/zone_sel/Initialize(mapload, _hud, _icon, _alpha = 255, _color = null)
+/obj/screen/zone_sel/Initialize(mapload, _hud, _icon = 'icons/mob/screen_gen.dmi', _alpha = 255, _color = null)
 	. = ..()
 	hud = _hud	// Don't forget to always put here the created HUD '/datum/hud/'.
-	if(_icon)
-		icon = _icon
+	icon = _icon
 	alpha = _alpha
 	color = _color
 	hud.mymob.zone_selected = selecting
@@ -378,9 +376,6 @@
 
 /obj/screen/zone_sel/update_overlays()
 	. = ..()
-	var/image/human = image('icons/mob/zone_sel.dmi', dummy_icon_state)
-	human.appearance_flags = RESET_COLOR
-	. += human
 	var/image/sel = image(overlay_file, "[selecting]")
 	sel.appearance_flags = RESET_COLOR
 	. += sel
@@ -388,12 +383,10 @@
 /obj/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'
 	overlay_file = 'icons/mob/screen_alien.dmi'
-	dummy_icon_state = "alien"
 
 
 /obj/screen/zone_sel/robot
 	icon = 'icons/mob/screen_robot.dmi'
-	dummy_icon_state = "robot"
 
 /obj/screen/craft
 	name = "crafting menu"
