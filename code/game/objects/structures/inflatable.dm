@@ -205,7 +205,7 @@
 	icon_state = "inf_box"
 	item_state = "syringe_kit"
 	max_combined_w_class = 21
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/briefcase/inflatable/populate_contents()
 	new /obj/item/inflatable/door(src)
