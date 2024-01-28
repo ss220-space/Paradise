@@ -94,6 +94,12 @@
 	QDEL_IN(src, 0.2)
 	return RCD_ACT_SUCCESSFULL
 
+/obj/structure/grille/intercept_zImpact(list/falling_movables, levels)
+	. = ..()
+	for(var/atom/movable/hit_object as anything in falling_movables)
+		Bumped(hit_object)
+	take_damage(25) //second time turn into broken
+
 /obj/structure/grille/Bumped(atom/movable/moving_atom)
 	..()
 

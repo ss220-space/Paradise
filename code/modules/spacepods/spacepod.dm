@@ -257,6 +257,9 @@
 		to_chat(user, "<span class='warning'>You slash at [src]!</span>")
 		visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 
+/obj/spacepod/attack_tk()
+	return
+
 /obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
 	health = max(0, health - damage)

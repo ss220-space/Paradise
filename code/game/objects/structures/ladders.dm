@@ -114,23 +114,42 @@
 		add_fingerprint(user)
 
 /obj/structure/ladder/proc/check_menu(mob/user, is_ghost)
+	if(is_ghost)
+		return TRUE
 	if(user.incapacitated() || (!user.Adjacent(src) && !is_ghost))
 		return FALSE
 	return TRUE
 
-/obj/structure/ladder/attack_hand(mob/user)
-	if(..())
-		return
-	use(user)
-
 /obj/structure/ladder/attackby(obj/item/W, mob/user, params)
-	if(..())
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_hand(mob/living/user)
+	. = ..()
+	if(.)
 		return
 	use(user)
 
-/obj/structure/ladder/attack_robot(mob/living/silicon/robot/R)
-	if(R.Adjacent(src))
-		return use(R)
+/obj/structure/ladder/attack_animal(mob/living/simple_animal/user)
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_alien(mob/living/carbon/alien/humanoid/user)
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_larva(mob/user)
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_slime(mob/living/simple_animal/slime/user)
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_robot(mob/living/silicon/robot/user)
+	if(user.Adjacent(src))
+		use(user)
+	return TRUE
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/structure/ladder/attack_ghost(mob/dead/observer/user)

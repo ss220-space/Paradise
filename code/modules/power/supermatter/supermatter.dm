@@ -458,6 +458,8 @@
 /obj/machinery/power/supermatter_shard/intercept_zImpact(list/falling_movables, levels)
 	. = ..()
 	for(var/atom/movable/hit_object as anything in falling_movables)
+		if(hit_object == src)
+			return
 		Bumped(hit_object)
 	. |= FALL_STOP_INTERCEPTING | FALL_INTERCEPTED
 
@@ -465,9 +467,9 @@
 
 	for(var/mob/living/poor_target in impacted_turf)
 		consume(poor_target)
-		playsound(impacted_turf, 'sound/effects/supermatter.ogg', 50, TRUE)
-		poor_target.visible_message(span_danger("\The [impacted_turf] slams into \the [poor_target] out of nowhere inducing a resonance... [poor_target.p_their()] body starts to glow and burst into flames before flashing into dust!"),
-			span_userdanger("\The [impacted_turf] slams into you out of nowhere as your ears are filled with unearthly ringing. Your last thought is \"The fuck.\""),
+		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+		poor_target.visible_message(span_danger("\The [src] slams into \the [poor_target] out of nowhere inducing a resonance... [poor_target.p_their()] body starts to glow and burst into flames before flashing into dust!"),
+			span_userdanger("\The [src] slams into you out of nowhere as your ears are filled with unearthly ringing. Your last thought is \"The fuck.\""),
 			span_hear("You hear an unearthly noise as a wave of heat washes over you."))
 	for(var/atom/movable/hit_object as anything in impacted_turf)
 		if(src == hit_object)
@@ -476,8 +478,8 @@
 			continue
 
 		consume(hit_object)
-		playsound(get_turf(impacted_turf), 'sound/effects/supermatter.ogg', 50, TRUE)
-		impacted_turf.visible_message(span_danger("\The [impacted_turf], smacks into the plating out of nowhere, reducing everything below to ash."), null,
+		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+		visible_message(span_danger("\The [src], smacks into the plating out of nowhere, reducing everything below to ash."), null,
 			span_hear("You hear a loud crack as you are washed with a wave of heat."))
 	return ..()
 

@@ -84,7 +84,6 @@
 	return
 
 /mob/living/onZImpact(turf/impacted_turf, levels, impact_flags = NONE)
-	log_debug("onZImpact: [src], [buckled], [levels], [impacted_turf], [impact_flags]")
 	if(!isopenspaceturf(impacted_turf))
 		impact_flags |= ZImpactDamage(impacted_turf, levels)
 
