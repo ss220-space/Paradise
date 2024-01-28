@@ -684,6 +684,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/abductor/Initialize(mapload, direct)
 	..()
 	AddComponent(/datum/component/obj_regenerate)
+
 /obj/structure/window/full
 	glass_amount = 2
 	dir = FULLTILE_WINDOW_DIR
@@ -691,6 +692,11 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+
+/obj/structure/window/full/CanAtmosPass(turf/T, vertical)
+	if(!anchored || !density)
+		return TRUE
+	return FALSE
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."

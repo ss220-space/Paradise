@@ -6,6 +6,7 @@
 	opacity = 1
 	density = 1
 	explosion_block = 2
+	explosion_vertical_block = 1
 	damage_cap = 600
 	max_temperature = 6000
 	hardness = 10

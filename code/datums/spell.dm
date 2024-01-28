@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
 			caster.remoteview_target = null
-			caster.reset_perspective()
+			caster.reset_perspective(0)
 			return FALSE
 
 	if(start_recharge)

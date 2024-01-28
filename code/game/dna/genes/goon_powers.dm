@@ -355,7 +355,7 @@
 		return
 	var/turf/turf_to_check = get_turf(user)
 	if(user.can_z_move(DOWN, turf_to_check))
-		to_chat(user, span_warning("You need a ground to jump from!")
+		to_chat(user, span_warning("You need a ground to jump from!"))
 		return
 
 	if(isturf(user.loc))

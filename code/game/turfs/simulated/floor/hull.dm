@@ -1,6 +1,7 @@
 /turf/simulated/floor/engine/hull
 	name = "exterior hull plating"
 	desc = "Sturdy exterior hull plating that separates you from the uncaring vacuum of space."
+	explosion_vertical_block = 2
 	icon_state = "regular_hull"
 	oxygen = 0
 	nitrogen = 0
@@ -22,5 +23,6 @@
 /turf/simulated/floor/engine/hull/reinforced
 	name = "exterior reinforced hull plating"
 	desc = "Extremely sturdy exterior hull plating that separates you from the uncaring vacuum of space."
+	explosion_vertical_block = 3
 	icon_state = "reinforced_hull"
 	heat_capacity = INFINITY

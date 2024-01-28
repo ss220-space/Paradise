@@ -1,4 +1,5 @@
 /turf/simulated/floor/indestructible
+	explosion_vertical_block = 50
 
 /turf/simulated/floor/indestructible/ex_act(severity)
 	return

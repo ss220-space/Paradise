@@ -2,6 +2,7 @@
 	name = "wall"
 	desc = "Effectively impervious to conventional methods of destruction."
 	explosion_block = 50
+	explosion_vertical_block = 50
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "riveted"
 	smooth = SMOOTH_FALSE

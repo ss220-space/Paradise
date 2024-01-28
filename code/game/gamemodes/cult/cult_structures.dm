@@ -303,7 +303,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	else
 		var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
 		if(F)
-			new /obj/effect/temp_visual/cult/turf/simulated/floor(F)
+			new /obj/effect/temp_visual/cult/turf/open/floor(F)
 		else
 			// Are we in space or something? No cult turfs or convertable turfs?
 			COOLDOWN_START(src, corruption_cooldown, corruption_cooldown_duration * 2)

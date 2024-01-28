@@ -27,7 +27,7 @@
 			WI.dir = cdir
 	else
 		var/obj/structure/window/W = new window_to_spawn_full(get_turf(src))
-		W.dir = SOUTHWEST
+		W.dir = FULLTILE_WINDOW_DIR // THIS IS DUMB
 
 	if(useGrille)
 		new /obj/structure/grille(get_turf(src))
@@ -58,7 +58,7 @@
 	name = "polarized reinforced window spawner"
 	icon_state = "ewindow_spawner"
 	window_to_spawn_regular = /obj/structure/window/reinforced/polarized
-	window_to_spawn_full = /obj/structure/window/reinforced/polarized
+	window_to_spawn_full = /obj/structure/window/full/reinforced/tinted // Not polarized one
 	/// Used to link electrochromic windows to buttons
 	var/id
 
@@ -71,9 +71,6 @@
 	window_to_spawn_regular = /obj/structure/window/plasmareinforced
 	window_to_spawn_full = /obj/structure/window/full/plasmareinforced
 
-// Хоть я и сделала ниже рабочие спавнеры окон шаттлов, но по неясной мне причине,
-// атмос пропускает воздух через заспавненные им окна...
-// Поэтому воздержитесь от их использования, либо найдите и почините баг это вызывающий :)
 /obj/effect/spawner/window/shuttle
 	name = "shuttle window spawner"
 	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'

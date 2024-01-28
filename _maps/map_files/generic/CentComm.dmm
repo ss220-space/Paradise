@@ -6186,7 +6186,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/centcom/evac)
 "dfj" = (
 /obj/effect/turf_decal{
@@ -6575,7 +6575,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "dsj" = (
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/centcom/zone1)
 "dsI" = (
 /obj/machinery/power/apc{
@@ -7122,7 +7122,7 @@
 	baseturf = /turf/simulated/floor/indestructible/plating;
 	name = "plating baseturf editor"
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/centcom/zone1)
 "dDx" = (
 /obj/mecha/combat/marauder/loaded,
@@ -47088,7 +47088,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "wWF" = (
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/centcom/bridge)
 "wWG" = (
 /obj/structure/window/reinforced{
@@ -49373,7 +49373,7 @@
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
 "xTS" = (
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/centcom/evac)
 "xUg" = (
 /turf/simulated/wall/shuttle/nosmooth/interior{

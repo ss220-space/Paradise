@@ -139,7 +139,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/construction/solars)
 "dH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -306,7 +306,7 @@
 /area/engine/engineering)
 "ih" = (
 /obj/item/wirecutters,
-/turf/simulated/floor/transparent/glass/plasma,
+/turf/simulated/floor/glass/plasma,
 /area/construction/solars)
 "iq" = (
 /obj/structure/cable{
@@ -460,7 +460,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "nk" = (
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/construction/solars)
 "np" = (
 /turf/simulated/wall/r_wall,
@@ -620,7 +620,7 @@
 /area/storage/primary)
 "rB" = (
 /obj/machinery/light,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/construction/solars)
 "rL" = (
 /obj/machinery/power/apc{
@@ -1001,7 +1001,7 @@
 /turf/simulated/floor/plating,
 /area/storage/primary)
 "Ak" = (
-/turf/simulated/floor/transparent/glass/plasma,
+/turf/simulated/floor/glass/plasma,
 /area/construction/solars)
 "Al" = (
 /obj/structure/lattice/catwalk,
@@ -1103,7 +1103,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/construction/solars)
 "CZ" = (
 /obj/structure/lattice,
@@ -1821,7 +1821,7 @@
 /area/construction/solars)
 "Uq" = (
 /obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/transparent/glass/plasma,
+/turf/simulated/floor/glass/plasma,
 /area/construction/hallway)
 "Uw" = (
 /obj/machinery/alarm{
@@ -2094,7 +2094,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/construction/solars)
 "ZZ" = (
 /obj/machinery/light,

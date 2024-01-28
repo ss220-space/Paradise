@@ -88,17 +88,17 @@
 		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src))
 			if(R.get_amount() >= 2 && !transparent_floor)
 				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
-					ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
+					ChangeTurf(/turf/simulated/floor/glass/plasma)
 				else if(istype(C, /obj/item/stack/sheet/plasmarglass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced/plasma)
+					ChangeTurf(/turf/simulated/floor/glass/reinforced/plasma)
 				else if(istype(C, /obj/item/stack/sheet/glass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass)
+					ChangeTurf(/turf/simulated/floor/glass)
 				else if(istype(C, /obj/item/stack/sheet/rglass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced)
+					ChangeTurf(/turf/simulated/floor/glass/reinforced)
 				else if(istype(C, /obj/item/stack/sheet/titaniumglass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium)
+					ChangeTurf(/turf/simulated/floor/glass/titanium)
 				else if(istype(C, /obj/item/stack/sheet/plastitaniumglass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium/plasma)
+					ChangeTurf(/turf/simulated/floor/glass/titanium/plasma)
 				playsound(src, C.usesound, 80, TRUE)
 				R.use(2)
 				to_chat(user, span_notice("You swap the plating for [C]."))
@@ -160,6 +160,7 @@
 	thermal_conductivity = 0.025
 	var/insulated
 	heat_capacity = 325000
+	explosion_vertical_block = 2
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -206,9 +207,7 @@
 			to_chat(user, span_notice("You finish insulating [src]."))
 			var/obj/item/stack/sheet/plasteel/W = C
 			W.use(1)
-			thermal_conductivity = 0
-			insulated = 1
-			name = "insulated " + name
+			ChangeTurf(/turf/simulated/floor/engine/insulated)
 			return
 
 /turf/simulated/floor/engine/ex_act(severity)
@@ -310,6 +309,7 @@
 	name = "insulated reinforced floor"
 	icon_state = "engine"
 	insulated = 1
+	explosion_vertical_block = 3
 	thermal_conductivity = 0
 
 /turf/simulated/floor/engine/insulated/vacuum
