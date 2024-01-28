@@ -66,7 +66,7 @@
 		if(INTERNAL_ORGAN_KIDNEYS)
 			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
 		if(INTERNAL_ORGAN_EYES)
-			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
+			return bestia.trophies[INTERNAL_ORGAN_EYES]
 		if(INTERNAL_ORGAN_EARS)
 			return bestia.trophies[INTERNAL_ORGAN_EARS]
 		else
