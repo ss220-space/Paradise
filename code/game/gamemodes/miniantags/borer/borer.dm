@@ -6,7 +6,7 @@
 /mob/living/captive_brain/say(message)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
-			to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
+			to_chat(src, span_warning("You cannot speak in IC (muted)."))
 			return
 		if(client.handle_spam_prevention(message,MUTE_IC))
 			return
@@ -36,8 +36,8 @@
 
 /mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
-	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")
-	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
+	to_chat(src, span_danger("You begin doggedly resisting the parasite's control (this will take approximately sixty seconds)."))
+	to_chat(B.host, span_danger("You feel the captive mind of [src] begin to resist your control."))
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
 	addtimer(CALLBACK(src, PROC_REF(return_control), B), delay)
 
@@ -47,8 +47,8 @@
 		return
 
 	B.host.adjustBrainLoss(rand(5,10))
-	to_chat(src, "<span class='danger'>With an immense exertion of will, you regain control of your body!</span>")
-	to_chat(B.host, "<span class='danger'>You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you.</span>")
+	to_chat(src, span_danger("With an immense exertion of will, you regain control of your body!"))
+	to_chat(B.host, span_danger("You feel control of the host brain ripped from your grasp, and retract your probosci before the wild neural impulses can damage you."))
 
 	B.detach()
 
@@ -120,10 +120,10 @@
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
-		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		to_chat(user, span_boldnotice("Upon using the antagHUD you forfeited the ability to join the round."))
 		return
 	if(jobban_isbanned(user, "Syndicate"))
-		to_chat(user, "<span class='warning'>You are banned from antagonists!</span>")
+		to_chat(user, span_warning("You are banned from antagonists!"))
 		return
 	if(key)
 		return
@@ -169,7 +169,7 @@
 		return
 
 	if(host.stat == DEAD)
-		to_chat(src, "<span class='warning'>Мозг носителя не способен воспринимать вас сейчас!</span>")
+		to_chat(src, span_warning("Мозг носителя не способен воспринимать вас сейчас!"))
 		return
 
 	var/input = stripped_input(src, "Please enter a message to tell your host.", "Borer", "")
@@ -195,10 +195,10 @@
 
 	if(talk_inside_host)
 		talk_inside_host = FALSE
-		to_chat(src, "<span class='notice'>You will no longer talk audibly while inside a host.</span>")
+		to_chat(src, span_notice("You will no longer talk audibly while inside a host."))
 	else
 		talk_inside_host = TRUE
-		to_chat(src, "<span class='notice'>You will now be able to audibly speak from inside of a host.</span>")
+		to_chat(src, span_notice("You will now be able to audibly speak from inside of a host."))
 
 /mob/living/proc/borer_comm()
 	set name = "Converse with Borer"
@@ -230,7 +230,7 @@
 	set desc = "Communicate mentally with the trapped mind of your host."
 
 	if(src.stat == DEAD)
-		to_chat(src, "<span class='warning'>Мозг жертвы не способен воспринимать вас в этом состоянии!</span>")
+		to_chat(src, span_warning("Мозг жертвы не способен воспринимать вас в этом состоянии!"))
 		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -262,16 +262,16 @@
 				if(!docile)
 
 					if(controlling)
-						to_chat(host, "<span class='notice'>You feel the soporific flow of sugar in your host's blood, lulling you into docility.</span>")
+						to_chat(host, span_notice("You feel the soporific flow of sugar in your host's blood, lulling you into docility."))
 					else
-						to_chat(src, "<span class='notice'>You feel the soporific flow of sugar in your host's blood, lulling you into docility.</span>")
+						to_chat(src, span_notice("You feel the soporific flow of sugar in your host's blood, lulling you into docility."))
 					docile = TRUE
 			else
 				if(docile)
 					if(controlling)
-						to_chat(host, "<span class='notice'>You shake off your lethargy as the sugar leaves your host's blood.</span>")
+						to_chat(host, span_notice("You shake off your lethargy as the sugar leaves your host's blood."))
 					else
-						to_chat(src, "<span class='notice'>You shake off your lethargy as the sugar leaves your host's blood.</span>")
+						to_chat(src, span_notice("You shake off your lethargy as the sugar leaves your host's blood."))
 					docile = FALSE
 
 			if(chemicals < max_chems)
@@ -279,7 +279,7 @@
 			if(controlling)
 
 				if(docile)
-					to_chat(host, "<span class='notice'>You are feeling far too docile to continue controlling your host...</span>")
+					to_chat(host, span_notice("You are feeling far too docile to continue controlling your host..."))
 					host.release_control()
 					return
 
@@ -415,10 +415,10 @@
 			return
 		var/datum/reagent/R = GLOB.chemical_reagents_list[C.chemname]
 		if(chemicals < C.chemuse)
-			to_chat(src, "<span class='boldnotice'>You need [C.chemuse] chemicals stored to secrete [R.name]!</span>")
+			to_chat(src,  span_boldnotice("You need [C.chemuse] chemicals stored to secrete [R.name]!"))
 			return
 
-		to_chat(src, "<span class='userdanger'>You squirt a measure of [R.name] from your reservoirs into [host]'s bloodstream.</span>")
+		to_chat(src, span_userdanger("You squirt a measure of [R.name] from your reservoirs into [host]'s bloodstream."))
 		host.reagents.add_reagent(C.chemname, C.quantity)
 		chemicals -= C.chemuse
 		add_attack_logs(src, host, "injected [R.name]")
@@ -434,7 +434,7 @@
 	set desc = "Become invisible to the common eye."
 
 	if(host)
-		to_chat(usr, "<span class='warning'>You cannot do this while you're inside a host.</span>")
+		to_chat(usr,  span_warning("You cannot do this while you're inside a host."))
 		return
 
 	if(stat != CONSCIOUS)
@@ -442,11 +442,11 @@
 
 	if(!hiding)
 		layer = TURF_LAYER+0.2
-		to_chat(src, "<span class=notice'>You are now hiding.</span>")
+		to_chat(src, span_notice("You are now hiding."))
 		hiding = TRUE
 	else
 		layer = MOB_LAYER
-		to_chat(src, "<span class=notice'>You stop hiding.</span>")
+		to_chat(src,  span_notice("You stop hiding."))
 		hiding = FALSE
 
 /obj/effect/proc_holder/spell/borer_dominate
@@ -491,36 +491,32 @@
 	set category = "Borer"
 	set name = "Release Host"
 	set desc = "Slither out of your host."
-	leaving = !leaving
+
 
 	if(!host)
-		leaving = FALSE
 		to_chat(src, "You are not inside a host body.")
 		return
 
 	if(stat)
-		leaving = FALSE
 		to_chat(src, "You cannot leave your host in your current state.")
 		return
 
 	if(docile)
-		leaving = FALSE
-		to_chat(src, "<span class='notice'>You are feeling far too docile to do that.</span>")
+		to_chat(src, span_notice("You are feeling far too docile to do that."))
 		return
 
 	if(!host || !src)
-		leaving = FALSE
 		return
 
+	leaving = !leaving
 	let_go()
+	leaving = FALSE
 
 /mob/living/simple_animal/borer/proc/let_go()
 
 	if(!host || !src || QDELETED(host) || QDELETED(src) || controlling)
-		leaving = FALSE
 		return
 	if(stat)
-		leaving = FALSE
 		to_chat(src, "You cannot release a target in your current state.")
 		return
 	if(leaving)
@@ -528,18 +524,17 @@
 	else
 		to_chat(src, "You decide against leaving your host.")
 
+	// If we cast the spell a second time, it will be canceled
 	if(!do_mob(src, host, 20 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_leaving), src))))
-		leaving = FALSE
 		return
 
 	to_chat(src, "You wiggle out of [host]'s ear and plop to the ground.")
-	leaving = FALSE
 	leave_host()
 
 /mob/living/simple_animal/borer/proc/borer_leaving() //Returning "TRUE" breaks the loop, "FALSE" - continue
-	if(leaving)
-		return FALSE
-	return TRUE
+	if(!leaving || docile || bonding)
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/borer/proc/leave_host()
 
@@ -582,35 +577,42 @@
 		return
 
 	if(docile)
-		to_chat(src, "<span class='notice'>You are feeling far too docile to do that.</span>")
+		to_chat(src, span_notice("You are feeling far too docile to do that."))
 		return
-
-	if(bonding)
-		bonding = FALSE
-		to_chat(src, "<span class='userdanger'>You stop attempting to take control of your host.</span>")
-		return
-
-	to_chat(src, "You begin delicately adjusting your connection to the host brain...")
 
 	if(QDELETED(src) || QDELETED(host))
 		return
 
-	bonding = TRUE
+	bonding = !bonding
+
+	if(bonding)
+		to_chat(src, "You begin delicately adjusting your connection to the host brain...")
+	else
+		to_chat(src, span_userdanger("You stop attempting to take control of your host."))
 
 	var/delay = 300+(host.getBrainLoss()*5)
-	addtimer(CALLBACK(src, PROC_REF(assume_control)), delay)
+
+	// If we cast the spell a second time, it will be canceled
+	if(!do_mob(src, host, delay, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_assuming), src))))
+		bonding = FALSE
+		return
+
+	assume_control()
+	bonding = FALSE
+
+/mob/living/simple_animal/borer/proc/borer_assuming() //Returning "TRUE" breaks the loop, "FALSE" - continue
+	if(!bonding || docile || leaving)
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/borer/proc/assume_control()
+
 	if(!host || !src || controlling)
 		return
-	if(!bonding)
-		return
-	if(docile)
-		to_chat(src,"<span class='warning'>You are feeling far too docile to do that.</span>")
-		return
+
 	else
-		to_chat(src, "<span class='danger'>You plunge your probosci deep into the cortex of the host brain, interfacing directly with [host.p_their()] nervous system.</span>")
-		to_chat(host, "<span class='danger'>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</span>")
+		to_chat(src, span_danger("You plunge your probosci deep into the cortex of the host brain, interfacing directly with [host.p_their()] nervous system."))
+		to_chat(host, span_danger("You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours."))
 		var/borer_key = src.key
 		add_attack_logs(src, host, "Assumed control of (borer)")
 		// host -> brain
@@ -646,7 +648,6 @@
 		if(!host.lastKnownIP)
 			host.lastKnownIP = s2h_ip
 
-		bonding = FALSE
 		controlling = TRUE
 
 		host.verbs += /mob/living/carbon/proc/release_control
@@ -674,8 +675,8 @@
 		return
 
 	if(B.host_brain)
-		to_chat(src, "<span class='danger'>You send a punishing spike of psychic agony lancing into your host's brain.</span>")
-		to_chat(B.host_brain, "<span class='danger'><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></span>")
+		to_chat(src, span_danger("You send a punishing spike of psychic agony lancing into your host's brain."))
+		to_chat(B.host_brain, span_danger("<FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT>"))
 
 //Brain slug proc for voluntary removal of control.
 /mob/living/carbon/proc/release_control()
@@ -687,7 +688,7 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
 	if(B && B.host_brain)
-		to_chat(src, "<span class='danger'>You withdraw your probosci, releasing control of [B.host_brain]</span>")
+		to_chat(src, span_danger("You withdraw your probosci, releasing control of [B.host_brain]"))
 
 		B.detach()
 
@@ -716,8 +717,8 @@
 		return
 
 	if(B.chemicals >= 100)
-		to_chat(src, "<span class='danger'>Your host twitches and quivers as you rapidly excrete several larvae from your sluglike body.</span>")
-		visible_message("<span class='danger'>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</span>")
+		to_chat(src, span_danger("Your host twitches and quivers as you rapidly excrete several larvae from your sluglike body."))
+		visible_message(span_danger("[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!"))
 		B.chemicals -= 100
 		var/turf/T = get_turf(src)
 		T.add_vomit_floor()
@@ -795,7 +796,7 @@
 		candidate.mob = src
 		ckey = candidate.ckey
 		var/list/messages = list()
-		messages.Add("<span class='notice'>You are a cortical borer!</span>")
+		messages.Add(span_notice("You are a cortical borer!"))
 		messages.Add("You are a brain slug that worms its way into the head of its victim. Use stealth, persuasion and your powers of mind control to keep you, your host and your eventual spawn safe and warm.")
 		messages.Add("Sugar nullifies your abilities, avoid it at all costs!")
 		messages.Add("You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
