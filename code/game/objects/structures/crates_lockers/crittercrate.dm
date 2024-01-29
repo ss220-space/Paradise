@@ -7,6 +7,46 @@
 	var/already_opened = 0
 	var/content_mob = null
 	var/amount = 1
+	var/datum/gas_mixture/env
+
+/obj/structure/closet/critter/proc/updateEnv()
+	if(!env)
+		env = new/datum/gas_mixture()
+	env.oxygen = MOLES_O2STANDARD
+	env.nitrogen = MOLES_N2STANDARD
+	env.carbon_dioxide = 0
+	env.temperature = T20C
+
+/obj/structure/closet/critter/Initialize(mapload)
+    . = ..()
+    updateEnv()
+
+/obj/structure/closet/critter/Destroy()
+	. = ..()
+	QDEL_NULL(env)
+
+/obj/structure/closet/critter/return_air()
+	for(var/mob/living/carbon/A in contents)
+		if(!(BREATHLESS in A.mutations))
+			return env
+	updateEnv()
+	return env
+
+/obj/structure/closet/critter/assume_air(datum/gas_mixture/giver)
+	for(var/mob/living/carbon/A in contents)
+		if(!(BREATHLESS in A.mutations))
+			return
+	updateEnv()
+
+/obj/structure/closet/critter/remove_air(amount)
+	for(var/mob/living/carbon/A in contents)
+		if(!(BREATHLESS in A.mutations))
+			return env
+	updateEnv()
+	return env
+
+/obj/structure/closet/critter/return_analyzable_air()
+	return env
 
 /obj/structure/closet/critter/can_open()
 	if(welded)
@@ -30,32 +70,8 @@
 		already_opened = 1
 	. = ..()
 
-/mob/living/simple_animal
-	var/mutations_buf
-	var/atmos_requirements_buf
-	var/minbodytemp_buf
-	
-/obj/structure/closet/critter/dump_contents()
-	for(var/mob/living/simple_animal/M in src)
-		if(M.mutations_buf && M.atmos_requirements_buf)
-			M.mutations.Cut() //clear memory?
-			M.atmos_requirements.Cut() 
-			
-			M.mutations = M.mutations_buf
-			M.atmos_requirements = M.atmos_requirements_buf
-			M.minbodytemp = M.minbodytemp_buf
-	..()
-
 /obj/structure/closet/critter/close()
 	..()
-	for(var/mob/living/simple_animal/M in src)
-		M.mutations_buf = M.mutations.Copy()
-		M.atmos_requirements_buf = M.atmos_requirements.Copy()
-		M.minbodytemp_buf = M.minbodytemp
-		
-		M.mutations.Add(BREATHLESS)
-		M.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-		M.minbodytemp = 0
 	return 1
 
 /obj/structure/closet/critter/corgi
