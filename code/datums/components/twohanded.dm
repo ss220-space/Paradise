@@ -24,8 +24,6 @@
 	var/attacksound = FALSE
 	/// Does it have to be held in both hands
 	var/require_twohands = FALSE
-	/// Does it have to be held in both hands
-	var/unwield_after_throw = TRUE
 	/// The icon that will be used when wielded
 	var/icon_wielded = FALSE
 	/// Reference to the offhand created for the item
@@ -51,14 +49,13 @@
  * * force_unwielded (optional) The force setting when the item is unwielded, do not use with force_multiplier
  * * icon_wielded (optional) The icon to be used when wielded
  */
-/datum/component/two_handed/Initialize(require_twohands=FALSE, unwield_after_throw = FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
+/datum/component/two_handed/Initialize(require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
 										force_multiplier=0, force_wielded=0, force_unwielded=0, sharp_when_wielded = FALSE, \
 										icon_wielded=FALSE, datum/callback/wield_callback, datum/callback/unwield_callback)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.require_twohands = require_twohands
-	src.unwield_after_throw = unwield_after_throw
 	src.wieldsound = wieldsound
 	src.unwieldsound = unwieldsound
 	src.attacksound = attacksound
@@ -75,15 +72,13 @@
 
 
 // Inherit the new values passed to the component
-/datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, unwield_after_throw, wieldsound, unwieldsound, \
+/datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
 											force_multiplier, force_wielded, force_unwielded, sharp_when_wielded, icon_wielded, \
 											datum/callback/wield_callback, datum/callback/unwield_callback)
 	if(!original)
 		return
 	if(require_twohands)
 		src.require_twohands = require_twohands
-	if(unwield_after_throw)
-		src.unwield_after_throw = unwield_after_throw
 	if(wieldsound)
 		src.wieldsound = wieldsound
 	if(unwieldsound)
@@ -139,13 +134,11 @@
 /// Triggered on drop of item containing the component and its offhand part
 /datum/component/two_handed/proc/on_drop(datum/source, mob/user, is_throwed)
 	SIGNAL_HANDLER
-	if(!unwield_after_throw && is_throwed)
-		return
 
 	if(require_twohands) //Don't let the item fall to the ground and cause bugs if it's actually being equipped on another slot.
-		unwield(user, FALSE, FALSE)
+		unwield(user, FALSE, FALSE, is_throwed)
 	if(wielded)
-		unwield(user)
+		unwield(user, TRUE, TRUE, is_throwed)
 	if(source == offhand_item && !QDELETED(source))
 		offhand_item = null
 		qdel(source)
@@ -287,7 +280,7 @@
  * * show_message (option) show a message to chat on unwield
  * * can_drop (option) whether 'drop_item_ground' can be called or not.
  */
-/datum/component/two_handed/proc/unwield(mob/living/carbon/user, show_message = TRUE, can_drop = TRUE)
+/datum/component/two_handed/proc/unwield(mob/living/carbon/user, show_message = TRUE, can_drop = TRUE, is_throwed = FALSE)
 	SIGNAL_HANDLER
 
 	if(!wielded)
@@ -301,7 +294,7 @@
 	// wield update status
 	wielded = FALSE
 	UnregisterSignal(user, COMSIG_MOB_SWAPPING_HANDS)
-	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user)
+	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user, is_throwed)
 	REMOVE_TRAIT(parent, TRAIT_WIELDED, src)
 	unwield_callback?.Invoke(parent, user)
 
@@ -397,8 +390,8 @@
  */
 /datum/component/two_handed/proc/on_moved(datum/source, mob/user, dir)
 	SIGNAL_HANDLER
-	if(unwield_after_throw)
-		unwield(user, can_drop = FALSE)
+
+	unwield(user, can_drop = FALSE, is_throwed = TRUE)
 
 
 /**
