@@ -68,9 +68,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/min_cold_protection_temperature //Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
 
 	var/list/actions = list() //list of /datum/action's that this item has.
-	var/list/actions_types = list() //list of paths of action datums to give to the item on New().
-	var/list/action_icon = list() //list of icons-sheets for a given action to override the icon.
-	var/list/action_icon_state = list() //list of icon states for a given action to override the icon_state.
+	var/list/actions_types = null //list of paths of action datums to give to the item on New().
+	var/list/action_icon = null //list of icons-sheets for a given action to override the icon.
+	var/list/action_icon_state = null //list of icon states for a given action to override the icon_state.
 
 	var/list/materials = list()
 	var/materials_coeff = 1
@@ -171,7 +171,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
-		new path(src, action_icon[path], action_icon_state[path])
+		if(action_icon && action_icon_state)
+			new path(src, action_icon[path], action_icon_state[path])
+		else
+			new path(src)
 
 	if(!hitsound)
 		if(damtype == "fire")

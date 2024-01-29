@@ -55,7 +55,7 @@
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
 	species_restricted = list("Vox", "Vox Armalis") //These should fit the "Mega Vox" just fine.
-	actions_types = list()
+	actions_types = null
 
 /obj/item/clothing/mask/breath/vox/attack_self(var/mob/user)
 	return
