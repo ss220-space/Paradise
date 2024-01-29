@@ -1,6 +1,8 @@
 // Щиты станции
 // Цепь спутников, окружающих станцию
 // Спутники активируются, создавая щит, который будет препятствовать прохождению неорганической материи.
+GLOBAL_LIST_EMPTY(meteor_shields)
+
 /datum/station_goal/station_shield
 	name = "Station Shield"
 	var/coverage_goal = 12500
@@ -30,11 +32,16 @@
 
 /datum/station_goal/proc/get_coverage()
 	var/list/coverage = list()
-	for(var/obj/machinery/satellite/meteor_shield/A in GLOB.machines)
+	for(var/obj/machinery/satellite/meteor_shield/A as anything in GLOB.meteor_shields)
 		if(!A.active || !is_station_level(A.z))
 			continue
-		coverage |= view(A.kill_range, A)
-	return coverage.len
+		var/list/shield_coverage = A.get_coverage()
+		if(!shield_coverage)
+			continue
+		coverage |= shield_coverage
+		CHECK_TICK
+
+	return length(coverage)
 
 /obj/item/circuitboard/computer/sat_control
 	board_name = "Контроллер сети спутников"
@@ -155,12 +162,33 @@
 	mode = "M-SHIELD"
 	speed_process = TRUE
 	var/kill_range = 14
+	var/list/covered_turfs
+	var/turf/last_coverage_check_location
+
+/obj/machinery/satellite/meteor_shield/Initialize(mapload)
+	. = ..()
+	GLOB.meteor_shields += src
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
 	for(var/turf/T in getline(src,meteor))
 		if(!isspaceturf(T))
 			return FALSE
 	return TRUE
+
+/obj/machinery/satellite/meteor_shield/proc/get_coverage()
+	if(last_coverage_check_location && (get_turf(src) != last_coverage_check_location))
+		covered_turfs = null //We moved, so we don't know what turfs we cover!
+
+	if(!covered_turfs)
+		last_coverage_check_location = get_turf(src)
+		sleep(1)
+		if(last_coverage_check_location != get_turf(src))
+			return null
+
+		for(var/turf/space/turf in RANGE_TURFS(kill_range, src))
+			LAZYADD(covered_turfs, turf)
+
+	return covered_turfs
 
 /obj/machinery/satellite/meteor_shield/process()
 	if(!active)
@@ -190,6 +218,7 @@
 				M.weight_mod *= mod
 
 /obj/machinery/satellite/meteor_shield/Destroy()
+	GLOB.meteor_shields -= src
 	. = ..()
 	if(active && emagged)
 		change_meteor_chance(0.5)
