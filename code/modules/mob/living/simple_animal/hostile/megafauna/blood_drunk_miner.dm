@@ -117,6 +117,7 @@ Difficulty: Medium
 		user.SetParalysis(0)
 		user.SetSleeping(0)
 		user.SetConfused(0)
+		user.SetImmobilized(0)
 		user.adjustStaminaLoss(-100)
 		user.lying = FALSE
 		user.resting = FALSE
