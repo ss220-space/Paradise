@@ -2993,14 +2993,6 @@
 				log_and_message_admins("<span class='notice'>made all SMESs powered</span>")
 				power_restore_quick()
 
-			if("testlights")
-				message_admins("Started flickering All APCs in world")
-				var/watch = start_watch()
-				for(var/apc in GLOB.apcs)
-					var/obj/machinery/power/apc/power_control = apc
-					power_control.flicker()
-				message_admins("Flickered All APCs in world in [stop_watch(watch)]s")
-
 			if("prisonwarp")
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
