@@ -153,7 +153,7 @@
 /area/proc/air_doors_close()
 	if(!air_doors_activated)
 		air_doors_activated = TRUE
-		for(var/obj/machinery/door/firedoor/D in machinery_cache)
+		for(var/obj/machinery/door/firedoor/D in firedoors)
 			if(!D.welded)
 				D.activate_alarm()
 				if(D.operating)
@@ -165,7 +165,7 @@
 /area/proc/air_doors_open()
 	if(air_doors_activated)
 		air_doors_activated = FALSE
-		for(var/obj/machinery/door/firedoor/D in machinery_cache)
+		for(var/obj/machinery/door/firedoor/D in firedoors)
 			if(!D.welded)
 				D.deactivate_alarm()
 				if(D.operating)
