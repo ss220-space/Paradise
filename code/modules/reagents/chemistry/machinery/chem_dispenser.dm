@@ -457,6 +457,8 @@
 	icon_state = "handheld_chem"
 	flags = NOBLUDGEON
 	var/obj/item/stock_parts/cell/high/cell = null
+	var/obj/item/reagent_containers/reagent_container = null
+
 	var/amount = 10
 	var/mode = "dispense"
 	var/is_drink = FALSE
@@ -464,8 +466,13 @@
 	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
 	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
 	var/current_reagent = null
-	var/efficiency = 0.2
-	var/recharge_rate = 1 // Keep this as an integer
+
+	// For every X of reagent amount we spend X / 0.2 energy.
+	var/power_efficiency = 0.2
+
+	// How fast we restore the buffer.
+	// Integer. Higher - less efficient rechange rate per tick.
+	var/recharge_rate = 1
 
 /obj/item/handheld_chem_dispenser/Initialize()
 	..()
@@ -482,28 +489,6 @@
 /obj/item/handheld_chem_dispenser/get_cell()
 	return cell
 
-/obj/item/handheld_chem_dispenser/afterattack(obj/target, mob/user, proximity)
-	if(!proximity || !current_reagent || !amount)
-		return
-
-	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())
-		return
-	switch(mode)
-		if("dispense")
-			var/free = target.reagents.maximum_volume - target.reagents.total_volume
-			var/actual = min(amount, cell.charge / efficiency, free)
-			target.reagents.add_reagent(current_reagent, actual)
-			cell.charge -= actual / efficiency
-			if(actual)
-				to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
-			update_icon()
-		if("remove")
-			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
-		if("isolate")
-			if(!target.reagents.isolate_reagent(current_reagent))
-				to_chat(user, "<span class='notice'>You remove all but the [current_reagent] from the [target].</span>")
-
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
 	if(cell)
 		ui_interact(user)
@@ -514,18 +499,51 @@
 /obj/item/handheld_chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "HandheldChemDispenser", name, 390, 500)
+		ui = new(user, src, ui_key, "HandheldChemDispenser", name, 477, 655)
 		ui.open()
 
 /obj/item/handheld_chem_dispenser/ui_data(mob/user)
 	var/list/data = list()
 
+	// Human need to hold an container in another hand. (//TODO)
+	// Robot can use built-in shaker.
+	if(isrobot(user))
+		var/mob/living/silicon/robot/R = user
+		if(R.module)
+			var/obj/item/reagent_containers/food/drinks/shaker/S = locate() in R.module.modules
+			if (S)
+				reagent_container = S
+
+	data["energy"] = cell.charge ? cell.charge * power_efficiency : "0" //To prevent NaN in the UI.
+	data["maxEnergy"] = cell.maxcharge * power_efficiency
 	data["glass"] = is_drink
 	data["amount"] = amount
-	data["energy"] = cell.charge ? cell.charge * efficiency : "0" //To prevent NaN in the UI.
-	data["maxEnergy"] = cell.maxcharge * efficiency
 	data["current_reagent"] = current_reagent
 	data["mode"] = mode
+	data["isBeakerLoaded"] = reagent_container ? 1 : 0
+
+	var/beakerContents[0]
+	var/beakerCurrentVolume = 0
+
+	if(reagent_container && reagent_container.reagents && reagent_container.reagents.reagent_list.len)
+		for(var/datum/reagent/R in reagent_container.reagents.reagent_list)
+			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerCurrentVolume += R.volume
+	data["beakerContents"] = beakerContents
+
+	if(reagent_container)
+		data["beakerCurrentVolume"] = beakerCurrentVolume
+		data["beakerMaxVolume"] = reagent_container.volume
+	else
+		data["beakerCurrentVolume"] = null
+		data["beakerMaxVolume"] = null
+
+	var/chemicals[0]
+	for(var/re in dispensable_reagents)
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
+		if(temp)
+			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
+	data["chemicals"] = chemicals
 
 	return data
 
@@ -547,21 +565,41 @@
 
 	. = TRUE
 	switch(action)
+
 		if("amount")
 			amount = clamp(round(text2num(params["amount"])), 0, 50) // round to nearest 1 and clamp to 0 - 50
+
 		if("dispense")
-			if(params["reagent"] in dispensable_reagents)
-				current_reagent = params["reagent"]
-				update_icon()
-		if("mode")
-			switch(params["mode"])
-				if("remove")
-					mode = "remove"
-				if("dispense")
-					mode = "dispense"
-				if("isolate")
-					mode = "isolate"
+			// We are missing container or no reagent name in dispensable list.
+			if(!reagent_container || !dispensable_reagents.Find(params["reagent"]) || isnull(reagent_container.reagents))
+				return
+
+			var/datum/reagents/R = reagent_container.reagents
+			var/free = R.maximum_volume - R.total_volume
+			var/amount_to_add = min(amount, (cell.charge * power_efficiency) * 10, free)
+
+			// No cell power.
+			if(!cell.use(amount_to_add / power_efficiency))
+				atom_say("Недостаточно энергии для завершения операции!")
+				return
+
+			current_reagent = params["reagent"]
+			R.add_reagent(params["reagent"], amount_to_add)
 			update_icon()
+
+		if("remove")
+			var/amount = text2num(params["amount"])
+			if(!reagent_container || !amount)
+				return
+			var/datum/reagents/R = reagent_container.reagents
+			var/id = params["reagent"]
+			if(amount > 0)
+				R.remove_reagent(id, amount)
+			else if(amount == -1) //Isolate instead
+				R.isolate_reagent(id)
+			else if(amount == -2) //Round to lesser number (a.k.a 14.61 -> 14)
+				R.floor_reagent(id)
+
 		else
 			return FALSE
 
@@ -588,17 +626,23 @@
 
 		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
 		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
-		chamber_contents.icon += R.color
-		add_overlay(chamber_contents)
+
+		// If no current reagent selected, don't update the icon to avoid exceptions.
+		if (R != null)
+			chamber_contents.icon += R.color
+			add_overlay(chamber_contents)
+
 	..()
 
-/obj/item/handheld_chem_dispenser/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
+/obj/item/handheld_chem_dispenser/process()
+	// Recharge built in battery from borg battery right away.
 	if(isrobot(loc) && cell.charge < cell.maxcharge)
+		var cell_charge_diff = cell.maxcharge - cell.charge
+
 		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell && R.cell.charge > recharge_rate / efficiency)
-			var/actual = min(recharge_rate / efficiency, cell.maxcharge - cell.charge)
-			R.cell.charge -= actual
-			cell.charge += actual
+		if(R && R.cell && R.cell.charge > cell_charge_diff)
+			R.cell.use(cell_charge_diff / recharge_rate)
+			cell.give(cell_charge_diff / recharge_rate)
 
 	update_icon()
 	return TRUE
@@ -637,7 +681,6 @@
 	"vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan", "iced_beer",
 	"irishcream", "manhattan", "antihol", "synthignon", "bravebull", "goldschlager", "patron", "absinthe", "ethanol", "nothing",
 	"sake", "bitter", "champagne", "aperol", "alcohol_free_beer")
-
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"
 	item_state = "handheld_soda"
@@ -647,7 +690,6 @@
 	"space_up", "tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice",
 	"banana", "watermelonjuice", "carrotjuice", "potato", "berryjuice", "bananahonk", "milkshake", "cafe_latte", "cafe_mocha",
 	"triple_citrus", "icecoffe", "icetea", "thirteenloko")
-
 /obj/item/handheld_chem_dispenser/botanical
 	name = "handheld botanical chemical dispenser"
 	dispensable_reagents = list(

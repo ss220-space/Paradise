@@ -1,6 +1,7 @@
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
 import { Box, Button, Flex, LabeledList, ProgressBar, Section } from "../components";
+import { BeakerContents } from "../interfaces/common/BeakerContents";
 import { Window } from "../layouts";
 
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
@@ -12,6 +13,7 @@ export const HandheldChemDispenser = (props, context) => {
       <Window.Content className="Layout__content--flexColumn">
         <HandheldChemDispenserSettings />
         <HandheldChemDispenserChemicals />
+        <HandheldChemDispenserBeaker />
       </Window.Content>
     </Window>
   );
@@ -57,40 +59,6 @@ const HandheldChemDispenserSettings = (properties, context) => {
                 />
               </Flex.Item>
             ))}
-          </Flex>
-        </LabeledList.Item>
-        <LabeledList.Item label="Mode" verticalAlign="middle">
-          <Flex direction="row" justify="space-between">
-            <Button
-              icon="cog"
-              selected={mode === "dispense"}
-              content="Dispense"
-              m="0"
-              width="32%"
-              onClick={() => act('mode', {
-                mode: "dispense",
-              })}
-            />
-            <Button
-              icon="cog"
-              selected={mode === "remove"}
-              content="Remove"
-              m="0"
-              width="32%"
-              onClick={() => act('mode', {
-                mode: "remove",
-              })}
-            />
-            <Button
-              icon="cog"
-              selected={mode === "isolate"}
-              content="Isolate"
-              m="0"
-              width="32%"
-              onClick={() => act('mode', {
-                mode: "isolate",
-              })}
-            />
           </Flex>
         </LabeledList.Item>
       </LabeledList>
@@ -146,6 +114,75 @@ const HandheldChemDispenserChemicals = (properties, context) => {
           <Flex.Item key={i} grow="1" basis="25%" height="20px" />
         ))}
       </Flex>
+    </Section>
+  );
+};
+
+const HandheldChemDispenserBeaker = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    isBeakerLoaded,
+    beakerCurrentVolume,
+    beakerMaxVolume,
+    beakerContents = [],
+  } = data;
+  return (
+    <Section
+      title={data.glass ? 'Glass' : 'Beaker'}
+      flex="content"
+      minHeight="25%"
+      buttons={(
+        <Box>
+          {!!isBeakerLoaded && (
+            <Box inline color="label" mr={2}>
+              {beakerCurrentVolume} / {beakerMaxVolume} units
+            </Box>
+          )}
+        </Box>
+      )}>
+      <BeakerContents
+        beakerLoaded={isBeakerLoaded}
+        beakerContents={beakerContents}
+        buttons={chemical => (
+          <Fragment>
+            <Button
+              content="Isolate"
+              icon="compress-arrows-alt"
+              onClick={() => act('remove', {
+                reagent: chemical.id,
+                amount: -1,
+              })}
+            />
+            {removeAmounts.map((a, i) => (
+              <Button
+                key={i}
+                content={a}
+                onClick={() => act('remove', {
+                  reagent: chemical.id,
+                  amount: a,
+                })}
+              />
+            ))}
+            <Button
+              content="ALL"
+              onClick={() => act('remove', {
+                reagent: chemical.id,
+                amount: chemical.volume,
+              })}
+            />
+            <Button
+              content={"Floor"}
+              tooltip={'Set to ' + Math.trunc(chemical.volume)}
+              tooltipPosition="bottom-left"
+              icon="arrow-circle-down"
+              onClick={() => act('remove', {
+                reagent: chemical.id,
+                amount: -2,
+              })}
+            />
+          </Fragment>
+        )}
+      />
     </Section>
   );
 };
