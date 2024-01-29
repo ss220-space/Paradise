@@ -172,7 +172,7 @@
 		return
 
 	if(stat)
-		to_chat(src, "Вы не в состоянии этого сделать.")
+		to_chat(src, "Сейчас вы не в состоянии этого сделать.")
 		return
 
 	if(host.stat == DEAD)
@@ -181,6 +181,9 @@
 
 	if(!sended_message) //If we use "say", it won't ask us to write the message twice.
 		sended_message = stripped_input(src, "Введите сообщение для носителя.", "Borer", "")
+
+	if(!sended_message)
+		return
 
 	if(src && !QDELETED(src) && !QDELETED(host))
 		var/say_string = (docile) ? "slurs" :"states"
@@ -285,7 +288,7 @@
 			if(controlling)
 
 				if(docile)
-					to_chat(host, span_notice("Вы слишком обессилили для того, чтобы продолжать контролировать тело носителя..."))
+					to_chat(host, span_notice("Вы слишком обессилели для того, чтобы продолжать контролировать тело носителя..."))
 					host.release_control()
 					return
 
@@ -301,9 +304,10 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/borer/UnarmedAttack(mob/living/M)
-	chemscan(usr, M)
-	return
+/mob/living/simple_animal/borer/UnarmedAttack(mob/living/carbon/human/M)
+	if(istype(M))
+		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
+		healthscan(src, M, 1, TRUE)
 
 /obj/effect/proc_holder/spell/borer_infest
 	name = "Infest"
@@ -322,7 +326,7 @@
 	var/datum/spell_targeting/click/T = new()
 	T.range = 1
 	T.click_radius = -1
-	return Treturn
+	return T
 
 /obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
 
@@ -344,10 +348,10 @@
 		return
 
 	infesting = TRUE
-	to_chat(user, "Вы подползаете к [target] и начинаете искать [target.p_their()] слуховой проход...")
+	to_chat(user, "Вы подползаете к [target] и начинаете искать [genderize_ru(target.gender,"его","её","его","их" )] слуховой проход...")
 
 	if(!do_mob(user, target, 5 SECONDS))
-		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете вниз.")
+		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете на пол.")
 		infesting = FALSE
 		return
 
@@ -362,6 +366,8 @@
 	user.RemoveBorerSpells()
 	user.GrantInfestActions()
 
+	to_chat(src, span_boldnotice("Вы можете анализировать здоровье носителя при помощи Left-click."))
+
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
 	set name = "Secrete Chemicals"
@@ -375,7 +381,7 @@
 		to_chat(src, "Вы не можете производить химикаты в вашем нынешнем состоянии.")
 
 	if(docile)
-		to_chat(src, "<font color='blue'> Вы слишком обессилили для этого.</font>")
+		to_chat(src, "<font color='blue'>Вы слишком обессилели для этого.</font>")
 		return
 
 	var/content = ""
@@ -489,8 +495,8 @@
 		to_chat(user, span_warning("Вы не можете позволить себе сделать это с тем, кто уже заражён.."))
 		return
 
-	to_chat(user, span_warning("Вы пронзили разум [target] ва [target.p_their()] limbs with a wave of terrible dread."))
-	to_chat(target, span_warning("You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing."))
+	to_chat(user, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [genderize_ru(target.gender,"его","её","его","их" )] конечности волной первородного ужаса!"))
+	to_chat(target, span_warning("Вы чувствуете, как на вас наваливается жуткое чувство страха, леденящее конечности и заставляющее сердце бешено колотиться."))
 	target.Weaken(6 SECONDS)
 
 /mob/living/simple_animal/borer/verb/release_host()
@@ -500,15 +506,15 @@
 
 
 	if(!host)
-		to_chat(src, "You are not inside a host body.")
+		to_chat(src, "Вы не находитесь в теле носителя.")
 		return
 
 	if(stat)
-		to_chat(src, "You cannot leave your host in your current state.")
+		to_chat(src, "Вы не можете покинуть носителя в вашем текущем состоянии.")
 		return
 
 	if(docile)
-		to_chat(src, span_notice("You are feeling far too docile to do that."))
+		to_chat(src, span_notice("Вы слишком обессилели для этого."))
 		return
 
 	if(!host || !src)
@@ -523,18 +529,18 @@
 	if(!host || !src || QDELETED(host) || QDELETED(src) || controlling)
 		return
 	if(stat)
-		to_chat(src, "You cannot release a target in your current state.")
+		to_chat(src, "Вы не можете освободить цель в вашем текущем состоянии.")
 		return
 	if(leaving)
-		to_chat(src, "You begin disconnecting from [host]'s synapses and prodding at [host.p_their()] internal ear canal.")
+		to_chat(src, "Вы начинаете отсоединяться от синапсов носителя и пробираться наружу через его слуховой проход.")
 	else
-		to_chat(src, "You decide against leaving your host.")
+		to_chat(src, "Вы решили остаться в носителе.")
 
 	// If we cast the spell a second time, it will be canceled
 	if(!do_mob(src, host, 20 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_leaving), src))))
 		return
 
-	to_chat(src, "You wiggle out of [host]'s ear and plop to the ground.")
+	to_chat(src, "Вы выкручиваетесь из уха носителя и падаете на пол.")
 	leave_host()
 
 /mob/living/simple_animal/borer/proc/borer_leaving() //Returning "TRUE" breaks the loop, "FALSE" - continue
@@ -571,19 +577,19 @@
 	set desc = "Fully connect to the brain of your host."
 
 	if(!host)
-		to_chat(src, "You are not inside a host body.")
+		to_chat(src, "Вы не находитесь в теле носителя.")
 		return
 
 	if(host.stat == DEAD)
-		to_chat(src, "This host is in no condition to be controlled.")
+		to_chat(src, "Носитель не может быть взят под контроль в его текущем состоянии.")
 		return
 
 	if(stat)
-		to_chat(src, "You cannot do that in your current state.")
+		to_chat(src, "Вы не можете сделать этого в вашем нынешнем состоянии.")
 		return
 
 	if(docile)
-		to_chat(src, span_notice("You are feeling far too docile to do that."))
+		to_chat(src, span_notice("Вы слишком обессилели для этого."))
 		return
 
 	if(QDELETED(src) || QDELETED(host))
@@ -592,9 +598,9 @@
 	bonding = !bonding
 
 	if(bonding)
-		to_chat(src, "You begin delicately adjusting your connection to the host brain...")
+		to_chat(src, "Вы начинаете деликатно настраивать связь с мозгом носителя...")
 	else
-		to_chat(src, span_userdanger("You stop attempting to take control of your host."))
+		to_chat(src, span_userdanger("Вы прекращаете свои попытки взять носителя под полный контроль."))
 
 	var/delay = 300+(host.getBrainLoss()*5)
 
@@ -617,8 +623,8 @@
 		return
 
 	else
-		to_chat(src, span_danger("You plunge your probosci deep into the cortex of the host brain, interfacing directly with [host.p_their()] nervous system."))
-		to_chat(host, span_danger("You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours."))
+		to_chat(src, span_danger("Вы погружаете свои хоботки глубоко в кору головного мозга носителя, напрямую взаимодействуя с его нервной системой."))
+		to_chat(host, span_danger("Вы чувствуете странное смещение за глазами, прежде чем постороннее сознание вытесняет ваше."))
 		var/borer_key = src.key
 		add_attack_logs(src, host, "Assumed control of (borer)")
 		// host -> brain
@@ -681,8 +687,8 @@
 		return
 
 	if(B.host_brain)
-		to_chat(src, span_danger("You send a punishing spike of psychic agony lancing into your host's brain."))
-		to_chat(B.host_brain, span_danger("<FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT>"))
+		to_chat(src, span_danger("Вы посылаете карающий всплеск психической агонии в мозг своего носителя."))
+		to_chat(B.host_brain, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, вырывая беззвучный крик из глубин вашего запертого разума!</FONT>"))
 
 //Brain slug proc for voluntary removal of control.
 /mob/living/carbon/proc/release_control()
@@ -694,7 +700,7 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
 	if(B && B.host_brain)
-		to_chat(src, span_danger("You withdraw your probosci, releasing control of [B.host_brain]"))
+		to_chat(src, span_danger("Вы убираете свои хоботки, освобождая [B.host_brain]."))
 
 		B.detach()
 
@@ -723,15 +729,15 @@
 		return
 
 	if(B.chemicals >= 100)
-		to_chat(src, span_danger("Your host twitches and quivers as you rapidly excrete several larvae from your sluglike body."))
-		visible_message(span_danger("[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!"))
+		to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите несколько личинок из своего слизеподобного тела."))
+		visible_message(span_danger("[src] яросто блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
 		B.chemicals -= 100
 		var/turf/T = get_turf(src)
 		T.add_vomit_floor()
 		new /mob/living/simple_animal/borer(T, B.generation + 1)
 
 	else
-		to_chat(src, "You need 100 chemicals to reproduce!")
+		to_chat(src, "Вам требуется 100 химикатов для размножения!")
 		return
 
 /mob/living/simple_animal/borer/proc/detach()
@@ -802,10 +808,10 @@
 		candidate.mob = src
 		ckey = candidate.ckey
 		var/list/messages = list()
-		messages.Add(span_notice("You are a cortical borer!"))
-		messages.Add("You are a brain slug that worms its way into the head of its victim. Use stealth, persuasion and your powers of mind control to keep you, your host and your eventual spawn safe and warm.")
-		messages.Add("Sugar nullifies your abilities, avoid it at all costs!")
-		messages.Add("You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
+		messages.Add(span_notice("Вы - Мозговой Червь!"))
+		messages.Add("Забирайтесь в голову своей жертвы, используйте скрытность, убеждение и свои способности к управлению разумом, чтобы сохранить себя, своё потомство и своего носителя в безопасности и тепле.")
+		messages.Add("Сахар сводит на нет ваши способности, избегайте его любой ценой!")
+		messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя ':bo'.")
 		to_chat(src, chat_box_purple(messages.Join("<br>")))
 		GrantBorerSpells()
 		hide_borer()
