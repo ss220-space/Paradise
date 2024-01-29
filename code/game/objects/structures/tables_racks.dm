@@ -238,7 +238,7 @@
 		tablepush(I, user)
 		return
 
-	if(isrobot(user))
+	if(isrobot(user) && user.a_intent == INTENT_HARM)
 		return
 
 	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))

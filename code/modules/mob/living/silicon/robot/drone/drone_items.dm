@@ -36,6 +36,9 @@
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
+	// Autoretract. Disable module and free the module slot after releasing gripped item.______qdel_list_wrapper(list/L)
+	var/obj/item/can_disable_cyborg_module = FALSE
+
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "A grasping tool used to hold organs and help patients up once surgery is complete."
@@ -72,13 +75,16 @@
 	..()
 
 /obj/item/gripper/service
-	name = "Card gripper"
-	desc = "A grasping tool used to take IDs for paying taxes and waking up drunken crewmates"
+	name = "Манипулятор"
+	desc = "Манипулятор, позволяющий брать ID карты и деньги для оплаты счетов, пробуждения пьяных посетителей, уборки мусора и мелкой работы в баре."
 	can_hold = list(/obj/item/card,
 					/obj/item/camera_film,
-					/obj/item/paper,
+					/obj/item/paper, // нельзя брать стак бумаг и разделять
 					/obj/item/photo,
-					/obj/item/toy/plushie)
+					/obj/item/toy/plushie,
+					/obj/item/reagent_containers/food,
+					/obj/item/stack/spacecash
+					)
 
 /obj/item/gripper/service/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!gripped_item && proximity && target && ishuman(target))

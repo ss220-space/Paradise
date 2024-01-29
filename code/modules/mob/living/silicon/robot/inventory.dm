@@ -5,6 +5,14 @@
 /mob/living/silicon/robot/get_active_hand()
 	return module_active
 
+/mob/living/silicon/robot/proc/can_disable_module()
+	// Check if bot need to disable gripper or if it contains something..
+	var/obj/item/gripper/G = get_active_hand() // Get active item in hand as gripper item.
+	if(istype(G) && G.can_disable_cyborg_module) // If we're successfull check if we are allowed to disable it that way.
+		return TRUE
+	return FALSE
+
+
 /mob/living/silicon/robot/get_all_slots()
 	return list(module_state_1, module_state_2, module_state_3)
 
@@ -245,7 +253,8 @@
 
 /mob/living/silicon/robot/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	if(I == module_active)
-		uneq_active(I)
+		if(can_disable_module())
+			uneq_active(I)
 	return ..()
 
 
