@@ -15,6 +15,7 @@
 	antable = FALSE
 	var/chugging = FALSE
 	foodtype = ALCOHOL
+	var/synthesize_drink = FALSE
 
 /obj/item/reagent_containers/food/drinks/New()
 	..()
@@ -25,6 +26,13 @@
 		bitesize = 5
 
 /obj/item/reagent_containers/food/drinks/attack_self(mob/user)
+	if(isrobot(user))
+		if(synthesize_drink)
+			to_chat(user, "<span class='warning'>Последующий синтез в [src] остановлен.</span>")
+			synthesize_drink = FALSE
+		else
+			to_chat(user, "<span class='warning'>Последующий синтез в [src] возобновлен.</span>")
+			synthesize_drink = TRUE
 	return
 
 /obj/item/reagent_containers/food/drinks/attack(mob/M, mob/user, def_zone)
@@ -47,7 +55,7 @@
 
 		var/list/transfer_data = reagents.get_transferred_reagents(C, amount_per_transfer_from_this)
 		if(C.eat(src, user))
-			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
+			if(isrobot(user) && synthesize_drink) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 				if(length(transfer_data))
 					SynthesizeDrinkFromTransfer(user, transfer_data)
 			return TRUE
@@ -70,9 +78,9 @@
 			var/mob/living/silicon/robot/bro = user
 			var/chargeAmount = max(30,4*trans)
 			bro.cell.use(chargeAmount)
-			to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
+			to_chat(user, "<span class='notice'>Синтезируется [trans] единиц напитка...</span>")
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
-			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 30 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, "<span class='notice'>Синтез в [src] завершен.</span>"), 30 SECONDS)
 		else
 			reagents.add_reagent_list(ids_data)
 	else
@@ -122,7 +130,7 @@
 		var/list/transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 
-		if(isrobot(user))
+		if(isrobot(user) && synthesize_drink)
 			SynthesizeDrinkFromTransfer(user, transfer_data)
 
 		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
