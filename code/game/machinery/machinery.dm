@@ -151,6 +151,7 @@ Class Procs:
 
 	if(use_power)
 		myArea = get_area(src)
+
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
 	else
@@ -159,6 +160,26 @@ Class Procs:
 	power_change()
 
 	init_multitool_menu()
+
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/LateInitialize()
+	if(myArea)
+		RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
+		myArea.machinery_cache += src
+
+/obj/machinery/proc/onAreaExited()
+	if(myArea == get_area(src))
+		return
+
+	myArea.machinery_cache -= src
+	UnregisterSignal(myArea, COMSIG_AREA_EXITED)
+	//message_admins("[src] exited [myArea]") Uncomment for debugging
+	myArea = get_area(src)
+	RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
+	myArea.machinery_cache |= src
+	//message_admins("[src] entered [myArea]")
+	power_change()
 
 /obj/machinery/proc/init_multitool_menu()
 	return
@@ -181,6 +202,7 @@ Class Procs:
 
 /obj/machinery/Destroy()
 	if(myArea)
+		myArea.machinery_cache -= src
 		myArea = null
 	GLOB.machines.Remove(src)
 	if(!speed_process)

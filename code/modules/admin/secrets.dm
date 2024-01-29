@@ -38,6 +38,7 @@
 						<A href='?src=[UID()];secretsfun=power'>Make all areas powered</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsfun=unpower'>Make all areas unpowered</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsfun=quickpower'>Power all SMES</A><BR>
+						<A href='?src=[UID()];secretsfun=testlights'>Flick All APC's</A><BR>
 						</center>
 					"}
 
