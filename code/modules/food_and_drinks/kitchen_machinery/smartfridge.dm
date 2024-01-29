@@ -635,6 +635,15 @@
 	else
 		icon_state = "[prefix]"
 
+/obj/machinery/smartfridge/secure/chemistry/virology/screwdriver_act(mob/living/user, obj/item/I)
+	. = default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	if(!.)
+		return
+
+	overlays.Cut()
+	if(panel_open)
+		overlays += image(icon, "smartfridge-panel")
+
 /**
   * # Smart Virus Storage (Preloaded)
   *
