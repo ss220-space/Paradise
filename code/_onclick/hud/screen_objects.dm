@@ -1,4 +1,4 @@
-/*
+9/*
 	Screen objects
 	Todo: improve/re-implement
 
@@ -245,7 +245,7 @@
 	var/static/list/hover_overlays_cache = list()
 	var/hovering
 
-/obj/screen/zone_sel/Initialize(mapload, _hud, _icon, _alpha = 255, _color = null)
+/obj/screen/zone_sel/Initialize(mapload, _hud, _icon, _alpha, _color)
 	. = ..()
 	hud = _hud	// Don't forget to always put here the created HUD '/datum/hud/'.
 	if(_icon)
