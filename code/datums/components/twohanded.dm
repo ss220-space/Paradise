@@ -388,10 +388,10 @@
 /**
  * on_moved Triggers on item moved
  */
-/datum/component/two_handed/proc/on_moved(datum/source, mob/user, dir)
+/datum/component/two_handed/proc/on_moved(datum/source, mob/user, dir, forced, is_throwed)
 	SIGNAL_HANDLER
 
-	unwield(user, can_drop = FALSE, is_throwed = TRUE)
+	unwield(user, TRUE, FALSE, is_throwed)
 
 
 /**
