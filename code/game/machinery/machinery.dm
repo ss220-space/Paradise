@@ -166,18 +166,18 @@ Class Procs:
 /obj/machinery/LateInitialize()
 	if(myArea)
 		RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
-		myArea.machinery_cache += src
+		LAZYADD(myArea.machinery_cache, src)
 
 /obj/machinery/proc/onAreaExited()
 	if(myArea == get_area(src))
 		return
 
-	myArea.machinery_cache -= src
+	LAZYREMOVE(myArea.machinery_cache, src)
 	UnregisterSignal(myArea, COMSIG_AREA_EXITED)
 	//message_admins("[src] exited [myArea]") Uncomment for debugging
 	myArea = get_area(src)
 	RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
-	myArea.machinery_cache |= src
+	LAZYADDOR(myArea.machinery_cache, src)
 	//message_admins("[src] entered [myArea]")
 	power_change()
 
@@ -202,7 +202,7 @@ Class Procs:
 
 /obj/machinery/Destroy()
 	if(myArea)
-		myArea.machinery_cache -= src
+		LAZYREMOVE(myArea.machinery_cache, src)
 		myArea = null
 	GLOB.machines.Remove(src)
 	if(!speed_process)

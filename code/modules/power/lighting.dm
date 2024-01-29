@@ -260,7 +260,7 @@
 	if(dir == SOUTH)
 		layer = ABOVE_ALL_MOB_LAYER
 
-	A.lights_cache += src
+	LAZYADD(A.lights_cache, src)
 
 	switch(fitting)
 		if("tube")
@@ -279,7 +279,7 @@
 	if(A)
 		on = FALSE
 //		A.update_lights()
-		A.lights_cache -= src
+		LAZYREMOVE(A.lights_cache, src)
 
 	return ..()
 

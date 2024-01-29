@@ -60,10 +60,10 @@
 	var/list/firealarms
 
 	///Used for performance in light manipulation operations
-	var/list/lights_cache = list()
+	var/list/lights_cache
 
 	///Used for perfomance in machinery manipulation operations
-	var/list/machinery_cache = list()
+	var/list/machinery_cache
 
 	var/firedoors_last_closed_on = 0
 
