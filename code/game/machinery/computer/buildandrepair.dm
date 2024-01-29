@@ -329,6 +329,17 @@
 	build_path = /obj/machinery/computer/supplycomp
 	origin_tech = "programming=3"
 	var/contraband_enabled = 0
+
+/obj/item/circuitboard/supplyquest
+	board_name = "Supply Quest Console"
+	build_path = /obj/machinery/computer/supplyquest
+	origin_tech = "programming=3"
+
+/obj/item/circuitboard/questcons
+	board_name = "Supply Quest Monitor"
+	build_path = /obj/machinery/computer/supplyquest/workers
+	origin_tech = "programming=3"
+
 /obj/item/circuitboard/syndicatesupplycomp
 	board_name = "Syndicate Supply Pad Console"
 	build_path = /obj/machinery/computer/syndie_supplycomp

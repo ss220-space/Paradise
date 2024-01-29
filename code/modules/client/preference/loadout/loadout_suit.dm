@@ -147,6 +147,11 @@
 	path = /obj/item/clothing/suit/jacket/pilot
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
+/datum/gear/suit/sec_rps
+	display_name = "security belt-shoulder system"
+	path = /obj/item/clothing/suit/armor/vest/sec_rps
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+
 //SURAGI JACKET
 /datum/gear/suit/suragi_jacket
 	subtype_path = /datum/gear/suit/suragi_jacket
@@ -287,3 +292,8 @@
 	path = /obj/item/clothing/suit/wizrobe/marisa/fake
 
 
+//Suspenders
+
+/datum/gear/suit/suspenders
+	display_name = "red suspenders"
+	path = /obj/item/clothing/suit/suspenders

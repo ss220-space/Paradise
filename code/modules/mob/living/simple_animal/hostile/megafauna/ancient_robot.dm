@@ -290,7 +290,6 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A)
 	if(charging)
-		DestroySurroundings()
 		if(isliving(A))
 			var/mob/living/L = A
 			if(!istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
@@ -564,8 +563,6 @@ Difficulty: Very Hard
 	return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
-	if(charging)
-		DestroySurroundings()
 	if(Dir)
 		leg_walking_controler(Dir)
 		if(charging)

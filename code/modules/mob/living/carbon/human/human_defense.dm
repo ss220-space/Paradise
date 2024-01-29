@@ -218,8 +218,8 @@ emp_act
 
 //End Here
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
-	var/block_chance_modifier = round(damage / -3)
+/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, shields_penetration = 0)
+	var/block_chance_modifier = round(damage / -3) - shields_penetration
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
 		var/final_block_chance = l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
@@ -545,15 +545,19 @@ emp_act
 
 	var/obj/item/I
 	var/throwpower = 30
+	var/armour_penetration = 0
+	var/shields_penetration = 0
 	if(isitem(AM))
 		I = AM
 		throwpower = I.throwforce
+		armour_penetration = I.armour_penetration
+		shields_penetration = I.shields_penetration
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
 
 	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
 
-	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
+	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK, armour_penetration, shields_penetration))
 		hitpush = FALSE
 		skipcatch = TRUE
 		blocked = TRUE
