@@ -243,6 +243,14 @@
 	icon_on = "zippo_rd_on"
 	icon_off = "zippo_rd"
 
+/obj/item/lighter/zippo/qm
+	name = "Quartermaster Lighter"
+	desc = "It costs 400.000 credits to fire this lighter for 12 seconds."
+	icon_state = "zippo_qm"
+	item_state = "qmzippo"
+	icon_on = "zippo_qm_on"
+	icon_off = "zippo_qm"
+
 //Ninja-Zippo//
 /obj/item/lighter/zippo/ninja
 	name = "\"Shinobi on a rice field\" zippo"

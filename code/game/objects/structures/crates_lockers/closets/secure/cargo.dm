@@ -11,6 +11,7 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/storage/backpack/cargo(src)
+	new /obj/item/clothing/suit/storage/cargotech(src)
 
 
 /obj/structure/closet/secure_closet/quartermaster

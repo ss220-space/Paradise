@@ -292,9 +292,9 @@
 
 /obj/item/radio/headset/headset_cargo
 	name = "supply radio headset"
-	desc = "A headset used by the cargo department."
+	desc = "A cheap model of working modular intercom headset for a cargo, that fits over the head. Takes encryption keys. Won't protect ears from flashbangs and loud noises."
 	icon_state = "cargo_headset"
-	item_state = "headset"
+	item_state = "cargo_headset"
 	ks2type = /obj/item/encryptionkey/headset_cargo
 
 /obj/item/radio/headset/headset_cargo/mining
