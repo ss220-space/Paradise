@@ -16,6 +16,36 @@
 	height = 7
 	roundstart_move = "supply_away"
 
+/obj/docking_port/mobile/supply/proc/forbidden_atoms_check(atom/A)
+	var/static/list/cargo_blacklist = list(
+		/mob/living,
+		/obj/structure/blob,
+		/obj/structure/spider/spiderling,
+		/obj/item/disk/nuclear,
+		/obj/machinery/nuclearbomb,
+		/obj/item/radio/beacon,
+		/obj/machinery/the_singularitygen,
+		/obj/singularity,
+		/obj/machinery/teleport/station,
+		/obj/machinery/teleport/hub,
+		/obj/machinery/telepad,
+		/obj/machinery/telepad_cargo,
+		/obj/machinery/clonepod,
+		/obj/effect/hierophant,
+		/obj/item/warp_cube,
+		/obj/machinery/quantumpad,
+		/obj/structure/extraction_point,
+		/obj/item/paicard
+	)
+	if(A)
+		if(is_type_in_list(A, cargo_blacklist))
+			return TRUE
+		for(var/thing in A)
+			if(.(thing))
+				return TRUE
+
+	return FALSE
+
 /obj/docking_port/mobile/supply/register()
 	if(!..())
 		return 0
@@ -32,7 +62,7 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock()
+/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/S1, force, transit)
 	. = ..()
 	if(.)	return .
 
@@ -199,35 +229,6 @@
 		SSshuttle.points += pointsEarned
 
 	SSshuttle.centcom_message += "[msg]<hr>"
-
-/proc/forbidden_atoms_check(atom/A)
-	var/list/blacklist = list(
-		/mob/living,
-		/obj/structure/blob,
-		/obj/structure/spider/spiderling,
-		/obj/item/disk/nuclear,
-		/obj/machinery/nuclearbomb,
-		/obj/item/radio/beacon,
-		/obj/machinery/the_singularitygen,
-		/obj/singularity,
-		/obj/machinery/teleport/station,
-		/obj/machinery/teleport/hub,
-		/obj/machinery/telepad,
-		/obj/machinery/telepad_cargo,
-		/obj/machinery/clonepod,
-		/obj/effect/hierophant,
-		/obj/item/warp_cube,
-		/obj/machinery/quantumpad,
-		/obj/structure/extraction_point
-	)
-	if(A)
-		if(is_type_in_list(A, blacklist))
-			return 1
-		for(var/thing in A)
-			if(.(thing))
-				return 1
-
-	return 0
 
 /********************
     SUPPLY ORDER
