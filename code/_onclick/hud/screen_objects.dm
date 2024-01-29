@@ -382,7 +382,7 @@
 /obj/screen/zone_sel/human/update_overlays()
 	var/image/human = image('icons/mob/zone_sel.dmi', "human")
 	human.appearance_flags = RESET_COLOR
-	. += human
+	. = (human)
 	. += ..()
 
 /obj/screen/zone_sel/alien
