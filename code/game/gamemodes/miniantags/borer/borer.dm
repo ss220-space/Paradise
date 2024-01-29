@@ -37,17 +37,17 @@
 
 /mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
-	host_resisting = !host_resisting
 
-	if(!host_resisting)
-		host_resisting = FALSE
+	if(host_resisting)
 		to_chat(src, span_notice("Вы уже пытаетесь вернуть своё тело!"))
 		return
-	to_chat(src, span_danger("Вы начинаете упорно сопротивляться контролю паразита (это займёт примерно минуту)."))
-	to_chat(B.host, span_danger("Вы чувствуете, как пленённый разум [src] начинает сопротивляться."))
+
+	host_resisting = TRUE
+	to_chat(src, span_userdanger("Вы начинаете упорно сопротивляться контролю паразита (это займёт примерно минуту)."))
+	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] начинает сопротивляться."))
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
 	do_mob(src, B.host, delay, only_use_extra_checks = TRUE)
-	return_control()
+	return_control(B)
 	host_resisting = FALSE
 
 /mob/living/captive_brain/proc/return_control(mob/living/simple_animal/borer/B)
@@ -55,8 +55,8 @@
 		return
 
 	B.host.adjustBrainLoss(rand(5,10))
-	to_chat(src, span_danger("Огромным усилием воли вы вновь обретаете контроль над своим телом!"))
-	to_chat(B.host, span_danger("Вы чувствуете, как мозг носителя уходит из под вашего контроля. Вы успеваете разорвать связь прежде, чем сильные нейронные импульсы смогут навредить вам."))
+	to_chat(src, span_userdanger("Огромным усилием воли вы вновь обретаете контроль над своим телом!"))
+	to_chat(B.host, span_userdanger("Вы чувствуете, как мозг носителя уходит из под вашего контроля. Вы успеваете разорвать связь прежде, чем сильные нейронные импульсы смогут навредить вам."))
 
 	B.detach()
 
@@ -121,7 +121,7 @@
 	remove_from_all_data_huds()
 	generation = gen
 	add_language("Cortical Link")
-	notify_ghosts("A cortical borer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
+	notify_ghosts("Мозговой червь появился в [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
@@ -271,16 +271,16 @@
 				if(!docile)
 
 					if(controlling)
-						to_chat(host, span_notice("Вы чувствуете усыпляющий поток сахара в крови вашего носителя, убаюкивающий вас до бессилия."))
+						to_chat(host, span_notice("Вы чувствуете усыпляющий поток сахара в крови вашего носителя, убаюкивающий вас до бессилия.."))
 					else
-						to_chat(src, span_notice("Вы чувствуете усыпляющий поток сахара в крови вашего носителя, убаюкивающий вас до бессилия."))
+						to_chat(src, span_notice("Вы чувствуете усыпляющий поток сахара в крови вашего носителя, убаюкивающий вас до бессилия.."))
 					docile = TRUE
 			else
 				if(docile)
 					if(controlling)
-						to_chat(host, span_notice("Вы приходите в себя, когда сахар покидает кровь вашего носителя.."))
+						to_chat(host, span_notice("Вы приходите в себя, когда сахар покидает кровь вашего носителя."))
 					else
-						to_chat(src, span_notice("Вы приходите в себя, когда сахар покидает кровь вашего носителя.."))
+						to_chat(src, span_notice("Вы приходите в себя, когда сахар покидает кровь вашего носителя."))
 					docile = FALSE
 
 			if(chemicals < max_chems)
@@ -514,7 +514,7 @@
 		return
 
 	if(docile)
-		to_chat(src, span_notice("Вы слишком обессилели для этого."))
+		to_chat(src, span_notice("<font color='blue'>Вы слишком обессилели для этого.</font>"))
 		return
 
 	if(!host || !src)
@@ -534,7 +534,7 @@
 	if(leaving)
 		to_chat(src, "Вы начинаете отсоединяться от синапсов носителя и пробираться наружу через его слуховой проход.")
 	else
-		to_chat(src, "Вы решили остаться в носителе.")
+		to_chat(src, span_userdanger("Вы решили остаться в носителе."))
 
 	// If we cast the spell a second time, it will be canceled
 	if(!do_mob(src, host, 20 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_leaving), src))))
@@ -589,7 +589,7 @@
 		return
 
 	if(docile)
-		to_chat(src, span_notice("Вы слишком обессилели для этого."))
+		to_chat(src, span_notice("<font color='blue'>Вы слишком обессилели для этого.</font>"))
 		return
 
 	if(QDELETED(src) || QDELETED(host))
@@ -623,8 +623,8 @@
 		return
 
 	else
-		to_chat(src, span_danger("Вы погружаете свои хоботки глубоко в кору головного мозга носителя, напрямую взаимодействуя с его нервной системой."))
-		to_chat(host, span_danger("Вы чувствуете странное смещение за глазами, прежде чем постороннее сознание вытесняет ваше."))
+		to_chat(src, span_userdanger("Вы погружаете свои хоботки глубоко в кору головного мозга носителя, напрямую взаимодействуя с его нервной системой."))
+		to_chat(host, span_userdanger("Вы чувствуете странное смещение за глазами, прежде чем постороннее сознание вытесняет ваше."))
 		var/borer_key = src.key
 		add_attack_logs(src, host, "Assumed control of (borer)")
 		// host -> brain
@@ -729,8 +729,8 @@
 		return
 
 	if(B.chemicals >= 100)
-		to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите несколько личинок из своего слизеподобного тела."))
-		visible_message(span_danger("[src] яросто блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
+		to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите личинку из своего слизнеподобного тела."))
+		visible_message(span_danger("[src] яростно блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
 		B.chemicals -= 100
 		var/turf/T = get_turf(src)
 		T.add_vomit_floor()
@@ -746,7 +746,6 @@
 		return
 
 	controlling = FALSE
-
 	reset_perspective(null)
 	machine = null
 
