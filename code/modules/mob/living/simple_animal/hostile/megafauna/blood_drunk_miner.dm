@@ -88,6 +88,7 @@ Difficulty: Medium
 
 /obj/item/clothing/suit/hooded/explorer/blood/Destroy()
 	QDEL_NULL(blood_spell)
+	return ..()
 
 /obj/effect/proc_holder/spell/blood_suit
 	name = "Bloodlust"
