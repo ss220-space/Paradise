@@ -75,11 +75,19 @@ Difficulty: Medium
 	desc = "An armoured hood for exploring harsh environments. The sweet blood, oh, it sings to you."
 	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
+	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
 
 /obj/item/clothing/head/hooded/explorer/blood
 	name = "empowered explorer hood"
 	desc = "An armoured hood for exploring harsh environments. The sweet blood, oh, it sings to you."
 	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
+	.=..()
+	blood_spell = new
+
+/obj/item/clothing/suit/hooded/explorer/blood/Destroy()
+	QDEL_NULL(blood_spell)
 
 /obj/effect/proc_holder/spell/blood_suit
 	name = "Bloodlust"
@@ -109,7 +117,6 @@ Difficulty: Medium
 		user.SetParalysis(0)
 		user.SetSleeping(0)
 		user.SetConfused(0)
-		user.SetImmobilized(0)
 		user.adjustStaminaLoss(-100)
 		user.lying = FALSE
 		user.resting = FALSE
@@ -127,7 +134,8 @@ Difficulty: Medium
 	if(!ishuman(user))
 		return
 	if(slot == slot_wear_suit)
-		user.mind?.AddSpell(new /obj/effect/proc_holder/spell/blood_suit(null))
+		user.mob_spell_list += blood_spell
+		blood_spell.action.Grant(user)
 
 /obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user)
 	. = ..()
@@ -135,7 +143,8 @@ Difficulty: Medium
 	if(!ishuman(user))
 		return
 	if(user.get_item_by_slot(slot_wear_suit) == src)
-		user.mind?.RemoveSpell(/obj/effect/proc_holder/spell/blood_suit)
+		user.mob_spell_list -= blood_spell
+		blood_spell.action.Remove(user)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
