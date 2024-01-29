@@ -564,7 +564,7 @@
 			if(isnull(newloc))
 				I.move_to_null_space()
 			else
-				I.forceMove(newloc)
+				I.forceMove(newloc, is_throwed)
 		I.dropped(src, silent, is_throwed)
 
 	return TRUE

@@ -266,7 +266,7 @@
 
 
 // Called after a successful Move(). By this point, we've already moved
-/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE, is_throwed = FALSE)
 
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
@@ -274,7 +274,7 @@
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced, is_throwed)
 
 	var/datum/light_source/L
 	var/thing
@@ -311,7 +311,7 @@
 				return
 		A.Bumped(src)
 
-/atom/movable/proc/forceMove(atom/destination)
+/atom/movable/proc/forceMove(atom/destination, is_throwed = FALSE)
 	var/turf/old_loc = loc
 	var/area/old_area = get_area(src)
 	var/area/new_area = get_area(destination)
@@ -343,7 +343,7 @@
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
 
-	Moved(old_loc, NONE, TRUE)
+	Moved(old_loc, NONE, TRUE, is_throwed)
 
 	return TRUE
 
