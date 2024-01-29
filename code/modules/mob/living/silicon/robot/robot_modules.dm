@@ -425,8 +425,8 @@
 /obj/item/robot_module/butler/New()
 	..()
 
-	modules += new /obj/item/handheld_chem_dispenser/booze(src)
-	modules += new /obj/item/handheld_chem_dispenser/soda(src)
+	modules += new /obj/item/chem_dispenser_handheld/booze(src)
+	modules += new /obj/item/chem_dispenser_handheld/soda(src)
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)

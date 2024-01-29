@@ -2667,6 +2667,7 @@
 #include "code\modules\reagents\chemistry\readme.dm"
 #include "code\modules\reagents\chemistry\reagents.dm"
 #include "code\modules\reagents\chemistry\recipes.dm"
+#include "code\modules\reagents\chemistry\machinery\chem_dispenser_handheld.dm"
 #include "code\modules\reagents\chemistry\machinery\chem_dispenser.dm"
 #include "code\modules\reagents\chemistry\machinery\chem_heater.dm"
 #include "code\modules\reagents\chemistry\machinery\chem_master.dm"

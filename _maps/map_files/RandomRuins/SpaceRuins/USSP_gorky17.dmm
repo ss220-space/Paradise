@@ -3181,7 +3181,6 @@
 	name = "Gorky17 RnD secure locker";
 	req_access = list(123)
 	},
-/obj/item/handheld_chem_dispenser/booze,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurple"

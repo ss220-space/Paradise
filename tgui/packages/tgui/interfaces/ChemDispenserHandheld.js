@@ -1,25 +1,25 @@
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
 import { Box, Button, Flex, LabeledList, ProgressBar, Section } from "../components";
-import { BeakerContents } from "../interfaces/common/BeakerContents";
+import { BeakerContents } from "./common/BeakerContents";
 import { Window } from "../layouts";
 
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 const removeAmounts = [1, 5, 10];
 
-export const HandheldChemDispenser = (props, context) => {
+export const ChemDispenserHandheld = (props, context) => {
   return (
     <Window resizable>
       <Window.Content className="Layout__content--flexColumn">
-        <HandheldChemDispenserSettings />
-        <HandheldChemDispenserChemicals />
-        <HandheldChemDispenserBeaker />
+        <ChemDispenserHandheldSettings />
+        <ChemDispenserHandheldChemicals />
+        <ChemDispenserHandheldBeaker />
       </Window.Content>
     </Window>
   );
 };
 
-const HandheldChemDispenserSettings = (properties, context) => {
+const ChemDispenserHandheldSettings = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     amount,
@@ -66,7 +66,7 @@ const HandheldChemDispenserSettings = (properties, context) => {
   );
 };
 
-const HandheldChemDispenserChemicals = (properties, context) => {
+const ChemDispenserHandheldChemicals = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     chemicals = [],
@@ -118,31 +118,31 @@ const HandheldChemDispenserChemicals = (properties, context) => {
   );
 };
 
-const HandheldChemDispenserBeaker = (properties, context) => {
+const ChemDispenserHandheldBeaker = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
-    isBeakerLoaded,
-    beakerCurrentVolume,
-    beakerMaxVolume,
-    beakerContents = [],
+    isContainerLoaded,
+    containerCurrentVolume,
+    containerMaxVolume,
+    containerContents = [],
   } = data;
   return (
     <Section
-      title={data.glass ? 'Glass' : 'Beaker'}
+      title={data.containerName}
       flex="content"
       minHeight="25%"
       buttons={(
         <Box>
-          {!!isBeakerLoaded && (
+          {!!isContainerLoaded && (
             <Box inline color="label" mr={2}>
-              {beakerCurrentVolume} / {beakerMaxVolume} units
+              {containerCurrentVolume} / {containerMaxVolume} units
             </Box>
           )}
         </Box>
       )}>
       <BeakerContents
-        beakerLoaded={isBeakerLoaded}
-        beakerContents={beakerContents}
+        beakerLoaded={isContainerLoaded}
+        beakerContents={containerContents}
         buttons={chemical => (
           <Fragment>
             <Button
