@@ -1167,7 +1167,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Item will be forceMoved() to turf below its holder.
  */
 /obj/item/proc/forceMove_turf()
-	var/turf/newloc = get(src, /turf)
+	var/turf/newloc = get_turf(src)
 	if(!newloc)
 		CRASH("Item holder is not in turf contents.")
 	forceMove(newloc)
