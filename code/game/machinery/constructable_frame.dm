@@ -559,7 +559,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1)
 	var/static/list/fridge_names_paths = list(
 							"SmartFridge" = /obj/machinery/smartfridge,
-							"MegaSeed Servitor" = /obj/machinery/smartfridge/seeds,
+							"Seed Storage" = /obj/machinery/smartfridge/seeds,
 							"Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
 							"Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
 							"Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay/organ,
