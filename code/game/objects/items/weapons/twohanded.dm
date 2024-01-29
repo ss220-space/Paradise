@@ -321,7 +321,7 @@
 	var/mob/living/carbon/human/hit_human = hit_atom
 	if(istype(hit_human))
 		MA = hit_human.mind?.martial_art
-		if(istype(MA) && !hit_human.restrained() && hit_human.put_in_active_hand(src))
+		if(istype(MA) && !hit_human.restrained() && hit_human.put_in_hands(src))
 			hit_human.visible_message(span_warning("[hit_human] catches [src]!"))
 			return
 

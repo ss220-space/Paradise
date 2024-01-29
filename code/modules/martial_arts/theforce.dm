@@ -1,11 +1,10 @@
 /datum/martial_art/theforce
 	name = "The Force"
+	has_dirslash = FALSE
 	has_explaination_verb = TRUE
 	var/attack_sword_delimb_chance = 30
 	var/attack_double_sword_delimb_chance = 60
 	var/throw_sword_delimb_chance = 50
-	var/lightning_base_cooldown = 60 SECONDS
-	var/lightning_cooldown = 0
 
 	var/obj/effect/proc_holder/spell/summon_sword/summon_sword_spell
 	var/obj/effect/proc_holder/spell/force_lightning/force_lightning_spell
@@ -32,8 +31,6 @@
 				force_lightning_spell.lethal = FALSE
 				force_lightning_spell.InterceptClickOn(owner, null, A)
 				force_lightning_spell.lethal = temp
-				// force_lightning_spell.lightning(A, owner, FALSE)
-				// force_lightning_spell.cooldown_handler.start_recharge()
 
 		if(INTENT_GRAB)
 			var/mob/living/carbon/human/victim = A
@@ -48,14 +45,12 @@
 				force_lightning_spell.lethal = TRUE
 				force_lightning_spell.InterceptClickOn(owner, null, A)
 				force_lightning_spell.lethal = temp
-				//force_lightning_spell.lightning(A, owner, TRUE)
-				//force_lightning_spell.cooldown_handler.start_recharge()
 
 
 /obj/effect/proc_holder/spell/summon_sword
 	name = "Force Pull"
 	desc = ""
-	base_cooldown = 2 SECONDS //30 SECONDS
+	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "summon_sword"
 	action_background_icon_state = "bg_default"
@@ -77,6 +72,7 @@
 			sword = I
 
 	if(!sword)
+		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
 		return
 
 	if(sword.loc == user)
@@ -84,16 +80,16 @@
 	if(sword.loc == user.loc)
 		sword.forceMove(get_turf(user))
 
-	if(!user.restrained())
-		user.put_in_active_hand(sword)
+	if(!user.restrained() && sword.loc == user.loc)
+		user.put_in_hands(sword)
 		return
 
-	sword.throw_at(user, 7, sword.throw_speed)
+	sword.throw_at(user, 7, 3)
 
 /obj/effect/proc_holder/spell/force_lightning
 	name = "Force Lightning"
 	desc = ""
-	base_cooldown = 2 SECONDS //30 SECONDS
+	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 
 	selection_activated_message = span_notice("Click on or near a target to cast the spell.")
@@ -114,6 +110,7 @@
 
 /obj/effect/proc_holder/spell/force_lightning/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
+	T.allowed_type = /mob/living
 	T.selection_type = SPELL_SELECTION_RANGE
 	T.try_auto_target = FALSE
 	return T
@@ -124,8 +121,7 @@
 		to_chat(user, span_notice("No target found in range."))
 		return
 
-	var/mob/living/carbon/human/target = locate() in targets
-	lightning(target, user, lethal)
+	lightning(pick(targets), user, lethal)
 
 
 /obj/effect/proc_holder/spell/force_lightning/proc/lightning(atom/target, mob/living/carbon/human/user, lethal)
@@ -156,3 +152,21 @@
 		target_atom = pick(next_shocked)
 		next_shocked.Cut()
 
+
+/datum/martial_art/theforce/explaination_header(user)
+	return to_chat(user, "<b><i>Да пребудет с тобой [span_cult("Сила!")]</b></i>")
+
+
+// Put below the combos in the explaination text
+/datum/martial_art/theforce/explaination_footer(user)
+	to_chat(user, span_notice("<b>Активные способности</b>"))
+	to_chat(user, "[span_notice("Force grab")]: Вы можете схватить противника на расстоянии 3 клеток от вас, начав душить его при помощи Силы")
+	to_chat(user, "[span_notice("Esword throw")]: Броски обычного и сдвоенного светового меча имеют шанс 50% отрубить конечность, если попадут в неё. 25% для головы.")
+	to_chat(user, "[span_notice("Esword mastery")]: Ваши удары световым мечом имеют 30% шанс отрубить конечность. 60% для двойного меча")
+	to_chat(user, "[span_notice("Esword Pull")]: Притягивает к вам световой меч, если он находится в видимости. Важно: из рук или из тела противника так вынуть его не получится")
+	to_chat(user, "[span_notice("Force lightning")]: Выпускает в противника молнию. Имеет два режима, которые можно менять альт кликом по иконке способности. Первый режим: оглушающая молния, не наносящая вреда. Так же можно использовать её в режиме дизарма по удалённой клетке. Второй режим: электризует жертву, нанося ей 40 ожогов. Так же можно использовать её в режиме харм по удалённой клетке. От второго режима жертву может защитить изоляция от электричества")
+
+	return
+
+/datum/martial_art/theforce/explaination_notice(user)
+	return
