@@ -181,9 +181,6 @@ GLOBAL_LIST_EMPTY(meteor_shields)
 
 	if(!covered_turfs)
 		last_coverage_check_location = get_turf(src)
-		sleep(1)
-		if(last_coverage_check_location != get_turf(src))
-			return null
 
 		for(var/turf/space/turf in RANGE_TURFS(kill_range, src))
 			LAZYADD(covered_turfs, turf)
