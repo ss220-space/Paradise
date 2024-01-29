@@ -393,9 +393,7 @@
 	devilsouldisplay = new /obj/screen/devil/soul_counter
 	infodisplay += devilsouldisplay
 
-	zone_select =  new /obj/screen/zone_sel/human(null, src, ui_style)
-	zone_select.alpha = ui_alpha
-	zone_select.color = ui_color
+	zone_select =  new /obj/screen/zone_sel/human(null, src, ui_style, ui_alpha, ui_color)
 	static_inventory += zone_select
 
 	inventory_shown = FALSE
