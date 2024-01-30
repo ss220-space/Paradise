@@ -180,7 +180,7 @@
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
 	var/obj/item/I = target
-	I.actions += src
+	LAZYADD(I.actions, src)
 	if(custom_icon && custom_icon_state)
 		use_itemicon = FALSE
 		icon_icon = custom_icon
@@ -188,7 +188,7 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	LAZYREMOVE(I.actions, src)
 	return ..()
 
 /datum/action/item_action/Trigger(left_click = TRUE)
