@@ -1022,12 +1022,31 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
 	var/obj/item/card/id/currentID
+	var/obj/machinery/roboquest_pad/pad
 
 /obj/machinery/computer/roboquest/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/id))
 		currentID = O
 		user.drop_item_ground(O)
 		O.forceMove(src)
+	if(istype(O, /obj/item/multitool))
+		var/obj/item/multitool/M = O
+		if(M.buffer)
+			add_fingerprint(user)
+			if(istype(M.buffer, /obj/machinery/roboquest_pad))
+				pad = M.buffer
+				M.buffer = null
+
+/obj/machinery/computer/roboquest/proc/check_pad()
+	for(var/atom/movable/AM in get_turf(pad))
+		if(AM == pad)
+			visible_message("тут всё ок")
+			continue
+		if(AM != currentID.robo_bounty.choosen_mech)
+			visible_message("это не мех/мех не тот!")
+			return
+		else
+			visible_message("всё норм!")
 
 /obj/machinery/computer/roboquest/attack_hand(mob/user)
 	if(..())
@@ -1065,11 +1084,30 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				currentID.robotask = TRUE
 				pick_mecha()
 		if("Check")
-			to_chat(usr, "Тут должна быть проверка")
+			if(!pad)
+				to_chat(usr, "Привязанного пада нет, че ты собрался проверять, дебил")
+			else
+				to_chat(usr, "Тут идёт проверка")
+				check_pad()
 			currentID.robotaskdone = TRUE
 		if("SendMech")
 			to_chat(usr, "Тут должна быть отправка меха")
 
 /obj/machinery/computer/roboquest/proc/pick_mecha()
-	currentID.robo_bounty = new /datum/robo_quest
+	currentID.robo_bounty = new /datum/roboquest
 
+//roboquest shit
+
+/obj/machinery/roboquest_pad
+	name = "RoboQuest pad"
+	icon = 'icons/obj/machines/recycling.dmi'
+	icon_state = "separator-A1" //ультра WIP
+
+/obj/machinery/roboquest_pad/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	M.set_multitool_buffer(user, src)
