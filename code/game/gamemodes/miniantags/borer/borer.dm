@@ -534,7 +534,7 @@
 	if(leaving)
 		to_chat(src, "Вы начинаете отсоединяться от синапсов носителя и пробираться наружу через его слуховой проход.")
 	else
-		to_chat(src, span_userdanger("Вы решили остаться в носителе."))
+		to_chat(src, span_danger("Вы решили остаться в носителе."))
 
 	// If we cast the spell a second time, it will be canceled
 	if(!do_mob(src, host, 20 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_leaving), src))))
@@ -600,7 +600,7 @@
 	if(bonding)
 		to_chat(src, "Вы начинаете деликатно настраивать связь с мозгом носителя...")
 	else
-		to_chat(src, span_userdanger("Вы прекращаете свои попытки взять носителя под полный контроль."))
+		to_chat(src, span_danger("Вы прекращаете свои попытки взять носителя под полный контроль."))
 
 	var/delay = 300+(host.getBrainLoss()*5)
 
