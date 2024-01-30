@@ -4,8 +4,6 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null
-	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	burnt_states = list("floorscorched1", "floorscorched2")
 
 	var/unfastened = FALSE
 
@@ -19,6 +17,12 @@
 	. = ..()
 	icon_plating = icon_state
 	update_icon()
+
+/turf/simulated/floor/plating/broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+
+/turf/simulated/floor/plating/burnt_states()
+	return list("floorscorched1", "floorscorched2")
 
 /turf/simulated/floor/plating/damaged/Initialize(mapload)
 	. = ..()

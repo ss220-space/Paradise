@@ -324,7 +324,7 @@
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/New()
 	..()
@@ -441,7 +441,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 1
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/lr30/update_icon()
 	..()

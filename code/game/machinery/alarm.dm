@@ -140,7 +140,7 @@
 
 /obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
 	// Propogate settings.
-	for(var/obj/machinery/alarm/AA in alarm_area)
+	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
 			AA.preset=preset
 			apply_preset(1) // Only this air alarm should send a cycle.
@@ -253,7 +253,7 @@
 
 
 /obj/machinery/alarm/proc/elect_master(exclude_self = 0) //Why is this an alarm and not area proc?
-	for(var/obj/machinery/alarm/AA in alarm_area)
+	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(exclude_self && AA == src)
 			continue
 		if(!(AA.stat & (NOPOWER|BROKEN)))
@@ -538,7 +538,7 @@
 
 /obj/machinery/alarm/proc/apply_danger_level()
 	var/new_area_danger_level = ATMOS_ALARM_NONE
-	for(var/obj/machinery/alarm/AA in alarm_area)
+	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = max(new_area_danger_level, AA.danger_level)
 	if(alarm_area.atmosalert(new_area_danger_level, src)) //if area was in normal state or if area was in alert state
