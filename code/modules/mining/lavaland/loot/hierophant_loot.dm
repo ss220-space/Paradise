@@ -445,6 +445,7 @@
 			else
 				base_cooldown = 30 SECONDS
 			addtimer(CALLBACK(src, PROC_REF(talisman_teleport_2), target_turf, start_turf), 2)
+			break
 
 /obj/effect/proc_holder/spell/hierophant_talisman_teleport/proc/talisman_teleport_2(turf/T, turf/S)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
