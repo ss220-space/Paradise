@@ -1,4 +1,9 @@
-/datum/robo_quest/ripley
+/datum/quest_mech
+	var/name
+	var/mech_type
+	var/list/wanted_modules
+
+/datum/quest_mech/ripley
 	name = "APLU MK-II \"Ripley\""
 	mech_type = /obj/mecha/working/ripley
 	wanted_modules = list(
@@ -13,7 +18,7 @@
 		/obj/item/mecha_parts/mecha_equipment/eng_toolset,
 	)
 
-/datum/robo_quest/firefighter
+/datum/quest_mech/firefighter
 	name = "APLU \"Firefighter\""
 	mech_type = /obj/mecha/working/ripley/firefighter
 	wanted_modules = list(
@@ -28,7 +33,7 @@
 		/obj/item/mecha_parts/mecha_equipment/eng_toolset,
 	)
 
-/datum/robo_quest/clarke
+/datum/quest_mech/clarke
 	name =  "APLU \"Clarke\""
 	mech_type = /obj/mecha/working/clarke
 	wanted_modules = list(
@@ -44,7 +49,7 @@
 
 	)
 
-/datum/robo_quest/odysseus
+/datum/quest_mech/odysseus
 	name = "Odysseus"
 	mech_type = /obj/mecha/medical/odysseus
 	wanted_modules = list(
@@ -54,7 +59,7 @@
 		/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade,
 	)
 
-/datum/robo_quest/gygax
+/datum/quest_mech/gygax
 	name = "Gygax"
 	//difficulty = hard. пока так. Это нужно будет если будет возможность выбирать из трёх.
 	mech_type = /obj/mecha/combat/gygax
@@ -76,7 +81,7 @@
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang,
 	)
 
-/datum/robo_quest/durand
+/datum/quest_mech/durand
 	name = "Durand Mk. II"
 	mech_type = /obj/mecha/combat/durand
 	wanted_modules = list(
