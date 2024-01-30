@@ -138,7 +138,7 @@
 	var/robotask = FALSE
 	var/robotaskdone = FALSE
 	/// назвать по человечески
-	var/datum/robo_quest/robo_bounty
+	var/datum/roboquest/robo_bounty
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 

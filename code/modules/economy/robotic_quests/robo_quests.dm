@@ -1,6 +1,6 @@
 //robotics quests console datums
 
-/datum/robo_quest
+/datum/roboquest
 	/// Name of our current mecha
 	var/name
 	/// Description of our current mech quest
@@ -15,11 +15,11 @@
 	var/choosen_mech
 	var/list/choosen_modules
 
-/datum/robo_quest/New()
+/datum/roboquest/New()
 	..()
 	generate_mecha()
 
-/datum/robo_quest/proc/generate_mecha()
+/datum/roboquest/proc/generate_mecha()
 	var/mech = pick(subtypesof(/datum/quest_mech))
 	var/datum/quest_mech/selected = new mech
 	name = selected.name
