@@ -1015,3 +1015,59 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef SUBMENU_SETTINGS_DEVICES
 #undef BUILD_POWER
 #undef DECONSTRUCT_POWER
+
+/obj/machinery/computer/roboquest
+	name = "RoboQuest console"
+	icon_screen = "rdcomp"
+	icon_keyboard = "rd_key"
+	light_color = LIGHT_COLOR_FADEDPURPLE
+	var/obj/item/card/id/currentID
+
+/obj/machinery/computer/roboquest/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/card/id))
+		currentID = O
+		user.drop_item_ground(O)
+		O.forceMove(src)
+
+/obj/machinery/computer/roboquest/attack_hand(mob/user)
+	if(..())
+		return TRUE
+	ui_interact(user)
+
+/obj/machinery/computer/roboquest/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "RoboQuest", name, 800, 550, master_ui, state)
+		ui.open()
+
+/obj/machinery/computer/roboquest/ui_data(mob/user)
+	var/list/data = list()
+	if(istype(currentID))
+		data["hasID"] = TRUE
+		data["name"] = currentID.registered_name
+		data["hasTask"] = currentID.robotask
+		data["check"] = currentID.robotaskdone
+	else
+		data["hasID"] = FALSE
+		data["name"] = "None"
+		data["hasTask"] = FALSE
+		data["check"] = FALSE
+	return data
+
+/obj/machinery/computer/roboquest/ui_act(action, list/params)
+	switch(action)
+		if("RemoveID")
+			currentID.forceMove(get_turf(src))
+			currentID = null
+		if("GetTask")
+			to_chat(usr, "Тут получаешь задание")
+			if(!currentID.robotask)
+				currentID.robotask = TRUE
+		if("Check")
+			to_chat(usr, "Тут должна быть проверка")
+			currentID.robotaskdone = TRUE
+		if("SendMech")
+			to_chat(usr, "Тут должна быть отправка меха")
+
+
+

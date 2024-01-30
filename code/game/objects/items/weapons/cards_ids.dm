@@ -135,6 +135,8 @@
 	var/photo
 	var/dat
 	var/stamped = 0
+	var/robotask = FALSE
+	var/robotaskdone = FALSE
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
