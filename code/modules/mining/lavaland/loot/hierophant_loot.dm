@@ -378,7 +378,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	should_recharge_after_cast = TRUE
+	should_recharge_after_cast = FALSE
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_heal"
 	action_background_icon_state = "bg_hierophant_talisman"
@@ -403,10 +403,11 @@
 	target.adjustFireLoss(-15)
 	target.adjustToxLoss(-15)
 	if(target.health / target.maxHealth <= 0.25)
-		base_cooldown = 10 SECONDS
+		cooldown_handler.start_recharge(10 SECONDS)
+		to_chat(user, "<span class='hierophant'>\"This creature is dying... Pathetic but... You must protect this creature...\"</span>")
 	else
-		base_cooldown = 20 SECONDS
-	to_chat(user, "<span class='hierophant'>\"You are warding... This creature... Very well my apprentice.\"</span>")
+		cooldown_handler.start_recharge(20 SECONDS)
+		to_chat(user, "<span class='hierophant'>\"You are warding... This creature... Very well my apprentice.\"</span>")
 
 /obj/effect/proc_holder/spell/hierophant_talisman_teleport
 	name = "Hierophant's lesser teleportation"
@@ -415,7 +416,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	should_recharge_after_cast = TRUE
+	should_recharge_after_cast = FALSE
 	stat_allowed = UNCONSCIOUS
 	centcom_cancast = FALSE
 	action_icon_state = "hierophant_talisman_teleport"
@@ -438,12 +439,13 @@
 			new /obj/effect/temp_visual/hierophant/telegraph(target_turf, src)
 			new /obj/effect/temp_visual/hierophant/telegraph(start_turf, src)
 			playsound(start_turf,'sound/machines/airlock_open.ogg', 200, 1)
-			to_chat(user, "<span class='hierophant'>\"Dance my pretties!\"</span>")
 			user.say("Blink, my fellow friend!")
 			if(H.health / H.maxHealth <= 0.25)
-				base_cooldown = 15 SECONDS
+				cooldown_handler.start_recharge(15 SECONDS)
+				to_chat(user, "<span class='hierophant'>\"Blink! Blink! Blink! You shall never surrender.\"</span>")
 			else
-				base_cooldown = 30 SECONDS
+				cooldown_handler.start_recharge(30 SECONDS)
+				to_chat(user, "<span class='hierophant'>\"Dance, my pretties!\"</span>")
 			addtimer(CALLBACK(src, PROC_REF(talisman_teleport_2), target_turf, start_turf), 2)
 			break
 
