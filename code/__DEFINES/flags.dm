@@ -33,6 +33,7 @@
 
 #define BLOCK_CAPSAICIN			262144 	// Prevents from passing capsaicin onto human
 
+#define NOSHARPENING			524288 	// Prevents from sharpening item with whetstone
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
