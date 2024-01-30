@@ -1095,7 +1095,9 @@
 			return environment.temperature
 		else
 			return C.air_contents.temperature
-	return environment.temperature
+	if(environment)
+		return environment.temperature
+	return T0C
 
 /mob/living/proc/get_standard_pixel_x_offset(lying = 0)
 	return initial(pixel_x)
