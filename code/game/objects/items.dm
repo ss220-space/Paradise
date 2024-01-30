@@ -215,8 +215,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/mob/M = loc
 		M.drop_item_ground(src, TRUE)
 
-	if(actions)
-		QDEL_LIST(actions)
+	QDEL_LIST(actions)
 	QDEL_NULL(item_pixel_shift)
 
 	return ..()
