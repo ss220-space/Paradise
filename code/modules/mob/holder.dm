@@ -78,18 +78,18 @@
 	var/holder_type = null
 
 /mob/living/simple_animal/MouseDrop(atom/over_object)
-	var/mob/living/carbon/human/humanToBeAsked = over_object //changed to human to avoid stupid issues like xenos holding animals.
-	if(!istype(humanToBeAsked) || !Adjacent(humanToBeAsked) || !holder_type)
+	var/mob/living/carbon/human/human_to_ask = over_object //changed to human to avoid stupid issues like xenos holding animals.
+	if(!istype(human_to_ask) || !Adjacent(human_to_ask) || !holder_type)
 		return ..()
 	if(usr == src)
-		switch(alert(humanToBeAsked, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+		switch(alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
 			if("Yes")
-				if(Adjacent(humanToBeAsked))
-					get_scooped(humanToBeAsked)
+				if(Adjacent(human_to_ask))
+					get_scooped(human_to_ask)
 				else
 					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
 			if("No")
-				to_chat(src, "<span class='warning'>[humanToBeAsked] decided not to pick you up.</span>")
+				to_chat(src, "<span class='warning'>[human_to_ask] decided not to pick you up.</span>")
 	else
 		return ..()
 
