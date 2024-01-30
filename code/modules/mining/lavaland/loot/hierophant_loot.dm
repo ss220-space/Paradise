@@ -295,4 +295,243 @@
 		var/obj/effect/temp_visual/hierophant/blast/B = new(t, user, friendly_fire_check)
 		B.damage = 15 //keeps monster damage boost due to lower damage
 
+/obj/item/clothing/accessory/necklace/hierophant_talisman
+	name = "Dormnant talisman of warding"
+	desc = "Hierophant's talisman of warding. It will save you."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "hierophant_talisman_nonactive"
+	item_state = "hierophant_talisman_nonactive"
+	item_color = "hierophant_talisman_nonactive"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 100, "acid" = 100)
+	slot_flags = SLOT_TIE
+	allow_duplicates = FALSE
+	var/possessed = FALSE
+	var/mob/living/simple_animal/shade/talisman/slave // Talisman
+	var/obj/effect/proc_holder/spell/hierophant_talisman_heal/spell_heal
+	var/obj/effect/proc_holder/spell/hierophant_talisman_teleport/spell_teleport
+	var/obj/effect/proc_holder/spell/hierophant_talisman_message/spell_message
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/attack_self(mob/living/user)
+	if(possessed)
+		if(slave.master != user.ckey)
+			to_chat(slave, "<span class='hierophant'>\"Now you are serving to [user.real_name]. You must ward him.\"</span>")
+			to_chat(user, "<span class='hierophant'>\"Now this talisman is yours... It will ward you...\"</span>")
+			log_game("[user.real_name] has become master of [slave.ckey] hierophant's talisman.")
+			slave.master = user.ckey
+		else
+			to_chat(user, "<span class='hierophant'>\"This talisman is already yours... WHAT ELSE YOU NEED!?\"</span>")
+		return
+
+
+	to_chat(user, "<span class='hierophant'>\"You attempt to awake my appertience...\"</span>")
+
+	possessed = TRUE
+
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the spirit of [user.real_name]'s talisman of warding?", ROLE_PAI, FALSE, 15 SECONDS, source = src)
+	var/mob/dead/observer/theghost = null
+
+	if(length(candidates))
+		theghost = pick(candidates)
+		slave = new(src)
+		slave.real_name = name
+		slave.name = name
+		slave.ckey = theghost.ckey
+		slave.master = user.ckey
+		var/input = stripped_input(slave, "What are you named?", null, "", MAX_NAME_LEN)
+
+		if(src && input)
+			name = input
+			slave.real_name = input
+			slave.name = input
+		log_game("[slave.ckey] has become spirit of [user.real_name]'s talisman.")
+		to_chat(slave, "<span class='hierophant'>\"Now you are serving to [user.real_name]. You must ward him.\"</span>")
+		name = "Talisman of warding"
+		icon_state = "hierpohant_talisman_active"
+		item_state = "hierpohant_talisman_active"
+		item_color = "hierophant_talisman_active"
+	else
+		log_game("No one has decided to be [user.real_name]'s talisman.")
+		to_chat(user, "<span class='hierophant'>\"This talisman is dormnant... Try again or later...\"</span>")
+		possessed = FALSE
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/Initialize(mapload)
+	.=..()
+	spell_heal = new
+	spell_teleport = new
+	spell_message = new
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/Destroy()
+	for(var/mob/living/simple_animal/shade/talisman/S in contents)
+		to_chat(S, "<span class='hierophant'>\"You were destroyed! So... I will create another one in future.\"</span>")
+		playsound(get_turf(src),'sound/magic/repulse.ogg', 200, 1)
+		S.ghostize()
+		qdel(S)
+	QDEL_NULL(spell_heal)
+	QDEL_NULL(spell_teleport)
+	QDEL_NULL(spell_message)
+	return ..()
+
+/obj/effect/proc_holder/spell/hierophant_talisman_heal
+	name = "Beacon of help"
+	desc = "Healing your master."
+	base_cooldown = 20 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
+	phase_allowed = TRUE
+	should_recharge_after_cast = TRUE
+	stat_allowed = UNCONSCIOUS
+	action_icon_state = "hierophant_talisman_heal"
+	action_background_icon_state = "bg_default"
+	panel = "Hierophant Talisman"
+
+/obj/effect/proc_holder/spell/hierophant_talisman_heal/create_new_targeting()
+	var/datum/spell_targeting/targeted/T = new()
+	T.target_priority = SPELL_TARGET_CLOSEST
+	T.max_targets = 1
+	T.range = 1
+	T.use_turf_of_user = TRUE
+	return T
+
+/obj/effect/proc_holder/spell/hierophant_talisman_heal/valid_target(mob/living/carbon/human/target, mob/living/simple_animal/shade/talisman/user)
+	if (target.ckey == user.master)
+		return TRUE
+	return FALSE
+
+/obj/effect/proc_holder/spell/hierophant_talisman_heal/cast(list/targets, mob/living/simple_animal/shade/talisman/user  = usr)
+	var/mob/living/carbon/human/target = targets[1]
+	target.adjustBruteLoss(-15)
+	target.adjustFireLoss(-15)
+	target.adjustToxLoss(-15)
+	if(target.health / target.maxHealth <= 0.25)
+		base_cooldown = 10 SECONDS
+	else
+		base_cooldown = 20 SECONDS
+	to_chat(user, "<span class='hierophant'>\"You are warding... This creature... Very well my apprentice.\"</span>")
+
+/obj/effect/proc_holder/spell/hierophant_talisman_teleport
+	name = "Hierophant's lesser teleportation"
+	desc = "Blink your master to location."
+	base_cooldown = 30 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
+	phase_allowed = TRUE
+	should_recharge_after_cast = TRUE
+	stat_allowed = UNCONSCIOUS
+	action_icon_state = "hierophant_talisman_teleport"
+	action_background_icon_state = "bg_default"
+	panel = "Hierophant Talisman"
+
+/obj/effect/proc_holder/spell/hierophant_talisman_teleport/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.allowed_type = /turf/simulated
+	T.range = 3
+	T.use_turf_of_user = TRUE
+	return T
+
+/obj/effect/proc_holder/spell/hierophant_talisman_teleport/cast(list/targets, mob/living/simple_animal/shade/talisman/user)
+	var/turf/target_turf = get_turf(targets[1])
+	for(var/mob/living/carbon/human/H in GLOB.human_list)
+		if(H.ckey == user.master)
+			var/turf/start_turf = get_turf(H)
+			H.forceMove(target_turf)
+			new /obj/effect/temp_visual/hierophant/telegraph(target_turf, src)
+			new /obj/effect/temp_visual/hierophant/telegraph(start_turf, src)
+			playsound(start_turf,'sound/machines/airlock_open.ogg', 200, 1)
+			to_chat(user, "<span class='hierophant'>\"Dance my pretties!\"</span>")
+			user.say("Blink, my fellow friend!")
+			if(H.health / H.maxHealth <= 0.25)
+				base_cooldown = 15 SECONDS
+			else
+				base_cooldown = 30 SECONDS
+			addtimer(CALLBACK(src, PROC_REF(talisman_teleport_2), target_turf, start_turf), 2)
+
+/obj/effect/proc_holder/spell/hierophant_talisman_teleport/proc/talisman_teleport_2(turf/T, turf/S)
+	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
+	new /obj/effect/temp_visual/hierophant/telegraph/teleport(S, src)
+	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
+	visible_message("<span class='hierophant'>[src] fades out!</span>")
+	set_density(FALSE)
+	addtimer(CALLBACK(src, PROC_REF(talisman_teleport_3), T), 2)
+
+/obj/effect/proc_holder/spell/hierophant_talisman_teleport/proc/talisman_teleport_3(turf/T)
+	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
+	set_density(TRUE)
+	visible_message("<span class='hierophant'>[src] fades in!</span>")
+
+/obj/effect/proc_holder/spell/hierophant_talisman_message
+	name = "Telepathtic Message"
+	desc = "Send a telepathic message to those humans."
+	base_cooldown = 5 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
+	phase_allowed = TRUE
+	should_recharge_after_cast = TRUE
+	stat_allowed = UNCONSCIOUS
+	action_icon_state = "hierophant_talisman_message"
+	action_background_icon_state = "bg_default"
+	panel = "Hierophant Talisman"
+
+/obj/effect/proc_holder/spell/hierophant_talisman_message/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.selection_type = SPELL_SELECTION_RANGE
+	T.use_turf_of_user = TRUE
+	return T
+
+/obj/effect/proc_holder/spell/hierophant_talisman_message/cast(list/targets, mob/living/simple_animal/shade/talisman/user)
+	var/mob/living/carbon/human/choice = targets[1]
+	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
+	if(!(msg))
+		return
+	add_say_logs(usr, msg, choice, "SLAUGHTER")
+	to_chat(usr, span_info("<span class='hierophant'>\"You translating directly to mind [choice]:    </b>[msg]\"</span>"))
+	to_chat(choice, "[span_deadsay("<span class='hierophant'>\"A strange, magical and at the same time alien broadcast conveys to you...    \"</span>")][span_danger("<span class='hierophant'>\"[msg]\"</span>")]")
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		G.show_message("<span class='hierophant'>\"Hierophant's message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>\"</span>")
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/on_attached(obj/item/clothing/under/S, mob/user)
+	. = ..()
+	if(!ishuman(user))
+		return
+	if(slave.master == user.ckey)
+		slave.mob_spell_list += spell_heal
+		slave.mob_spell_list += spell_teleport
+		slave.mob_spell_list += spell_message
+		spell_heal.action.Grant(slave)
+		spell_teleport.action.Grant(slave)
+		spell_message.action.Grant(slave)
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/user)
+	. = ..()
+	if(!ishuman(user))
+		return
+	slave.mob_spell_list -= spell_heal
+	slave.mob_spell_list -= spell_teleport
+	slave.mob_spell_list -= spell_message
+	spell_heal.action.Remove(slave)
+	spell_teleport.action.Remove(slave)
+	spell_message.action.Remove(slave)
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_unequip()
+	if(!ishuman(usr))
+		return
+	slave.mob_spell_list -= spell_heal
+	slave.mob_spell_list -= spell_teleport
+	slave.mob_spell_list -= spell_message
+	spell_heal.action.Remove(slave)
+	spell_teleport.action.Remove(slave)
+	spell_message.action.Remove(slave)
+	return ..()
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_equip()
+	if(!ishuman(usr))
+		return
+	if(slave.master == usr.ckey)
+		slave.mob_spell_list += spell_heal
+		slave.mob_spell_list += spell_teleport
+		slave.mob_spell_list += spell_message
+		spell_heal.action.Grant(slave)
+		spell_teleport.action.Grant(slave)
+		spell_message.action.Grant(slave)
+	return ..()
+
 #undef HIEROPHANT_CLUB_CARDINAL_DAMAGE
