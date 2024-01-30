@@ -210,7 +210,6 @@
 	icon_state = "flour"
 	color = "#D5820B"
 	scoop_reagents = list("fungus" = 10)
-	turf_loc_check = FALSE
 
 
 /obj/effect/decal/cleanable/confetti //PARTY TIME!

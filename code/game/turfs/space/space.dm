@@ -372,3 +372,9 @@
 		if(on_us.obj_flags & BLOCK_Z_OUT_UP)
 			return FALSE
 	return TRUE
+
+/turf/space/zAirIn()
+	return TRUE
+
+/turf/space/zAirOut()
+	return TRUE

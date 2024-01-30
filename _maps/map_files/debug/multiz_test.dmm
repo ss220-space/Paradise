@@ -384,6 +384,10 @@
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"kd" = (
+/obj/machinery/camera/autoname,
+/turf/simulated/openspace,
+/area/construction/solars)
 "ko" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -516,6 +520,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/camera/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "L3"
 	},
@@ -1225,6 +1230,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
+"Gh" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/camera/autoname,
+/turf/simulated/floor/plasteel,
+/area/construction)
 "Gk" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -1778,6 +1788,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/camera/autoname,
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
 "Tz" = (
@@ -20275,7 +20286,7 @@ rW
 Sj
 Sj
 Vy
-sv
+Gh
 FH
 FH
 FH
@@ -151596,7 +151607,7 @@ nk
 nk
 rB
 js
-Ht
+kd
 Ht
 Ht
 Ht

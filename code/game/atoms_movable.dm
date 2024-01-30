@@ -446,7 +446,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(isliving(src))
-		add_attack_logs(src, src, "crashed into [impacted_turf] from [levels]")
+		add_attack_logs(src, src, "crashed into [impacted_turf] from [levels] level(s) up.")
 	if(!(impact_flags & ZIMPACT_NO_MESSAGE))
 		visible_message(span_danger("[src] crashes into [impacted_turf]!"), span_userdanger("You crash into [impacted_turf]!"))
 	if(!(impact_flags & ZIMPACT_NO_SPIN))

@@ -7,6 +7,8 @@
 	#define BLOCK_TELEPORT "Blocks Teleport"
 	// Impedes with the casting of some spells
 	#define IMPEDES_MAGIC "Impedes Magic"
+	// A level that indicates a main station level. Optimally on telecomms z-level.
+	#define MAIN_STATION "Main Station"
 	// A level the station exists on
 	#define STATION_LEVEL "Station Level"
 	// A level affected by Code Red announcements, cargo telepads, or similar
@@ -31,7 +33,6 @@
 	#define TAIPAN "RaMSS Taipan"
 
 // Level names
-	#define MAIN_STATION "Main Station"
 	#define CENTCOMM "CentComm"
 	#define ADMIN_ZONE "Admin Zone"
 	#define TELECOMMS "Telecomms Satellite"
@@ -66,7 +67,7 @@
 // So it "may" have issues if over 3.
 #define MULTIZ_WARN 3
 
-#define DEFAULT_STATION_TRATS list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)
+#define DEFAULT_STATION_TRATS list(MAIN_STATION, STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)
 
 // Convenience define
 	#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "attributes" = TRAITS)

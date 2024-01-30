@@ -52,10 +52,6 @@
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/chasm/Initialize()
-	. = ..()
-	drop_z = level_name_to_num(MAIN_STATION)
-
 /turf/simulated/floor/chasm/ex_act()
 	return
 
