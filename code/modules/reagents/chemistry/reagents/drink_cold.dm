@@ -177,3 +177,29 @@
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(10 SECONDS)
 	return ..()
+
+
+/datum/reagent/consumable/drink/cold/zaza
+	name = "Zaza"
+	description = "fill_desc"
+	id = "zaza"
+	color = "#485000" // rgb:72, 080, 0 // Fill_color
+	drink_icon = "zaza"
+	drink_name = "Zaza"
+	drink_desc = "fill_desc"
+	taste_description = "delicious shugary water taste"
+
+
+/datum/reagent/consumable/drink/cold/zaza/on_mob_life(mob/living/user)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(ishuman(user) && prob(40))
+		update_flags |= user.adjustBruteLoss(-0.5, FALSE)
+		update_flags |= user.adjustFireLoss(-0.5, FALSE)
+	return ..() | update_flags
+
+
+/datum/reagent/consumable/drink/cold/zaza/taste_amplification(mob/living/user)
+	. = list()
+	var/taste_desc = ismindshielded(user) ? "something messing flavor of this juice... just sugary water taste" : taste_description
+	var/taste_amount = volume * taste_mult
+	.[taste_desc] = taste_amount
