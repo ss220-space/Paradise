@@ -1063,11 +1063,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			to_chat(usr, "Тут получаешь задание")
 			if(!currentID.robotask)
 				currentID.robotask = TRUE
+				pick_mecha()
 		if("Check")
 			to_chat(usr, "Тут должна быть проверка")
 			currentID.robotaskdone = TRUE
 		if("SendMech")
 			to_chat(usr, "Тут должна быть отправка меха")
 
-
+/obj/machinery/computer/roboquest/proc/pick_mecha()
+	if(currentID)
+		currentID.robo_bounty = new /datum/robo_quest
 
