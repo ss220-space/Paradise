@@ -111,10 +111,6 @@
 	var/dismember_head = FALSE
 
 
-/obj/item/projectile/New()
-	return ..()
-
-
 /obj/item/projectile/proc/Range()
 	range--
 	if(damage && tile_dropoff)
