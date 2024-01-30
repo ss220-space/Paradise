@@ -137,7 +137,7 @@ Difficulty: Medium
 			changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death()
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death(gibbed)
 	if(health > 0)
 		return
 	new /obj/effect/temp_visual/dir_setting/miner_death(loc, dir)

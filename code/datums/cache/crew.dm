@@ -64,13 +64,12 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 		if(C.sensor_mode >= SUIT_SENSOR_TRACKING)
 			var/area/A = get_area(H)
-			crewmemberData["area"] = sanitize(A.name)
+			crewmemberData["area"] = A.name
 			crewmemberData["x"] = pos.x
 			crewmemberData["y"] = pos.y
 
 		crewmembers[++crewmembers.len] = crewmemberData
 
-	crewmembers = sortByKey(crewmembers, "name")
 	cache_entry.timestamp = world.time + 5 SECONDS
 	cache_entry.data = crewmembers
 

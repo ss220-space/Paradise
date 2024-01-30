@@ -5,8 +5,8 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
-	modifystate = 2
-	can_flashlight = 1
+	modifystate = TRUE
+	can_flashlight = TRUE
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
@@ -60,7 +60,7 @@
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/gun/blueshield/can_shoot()
     . = ..()
@@ -77,7 +77,7 @@
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/gun/pdw9/ert
 
@@ -107,9 +107,8 @@
 	icon_state = "nucgun"
 	item_state = "nucgun"
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
-	var/fail_tick = 0
 	charge_delay = 5
-	can_charge = 0
+	can_charge = FALSE
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
-	selfcharge = 1
+	selfcharge = TRUE

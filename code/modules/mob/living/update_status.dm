@@ -8,13 +8,16 @@
 		clear_alert("blind")
 		return 0
 
+
 /mob/living/update_blurry_effects()
+	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
+	if(!game_plane_master_controller)
+		return
 	if(AmountEyeBlurry())
-		add_eyeblur()
-		return TRUE
+		game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(clamp(AmountEyeBlurry() * EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER, 0.6, MAX_EYE_BLURRY_FILTER_SIZE)))
 	else
-		remove_eyeblur()
-		return FALSE
+		game_plane_master_controller.remove_filter("eye_blur")
+
 
 /mob/living/update_druggy_effects()
 	if(AmountDruggy())
@@ -43,7 +46,7 @@
 
 // Whether the mob can hear things
 /mob/living/can_hear()
-	. = !(DEAF in mutations) && !HAS_TRAIT(src, TRAIT_DEAF)
+	return !(DEAF in mutations) && !HAS_TRAIT(src, TRAIT_DEAF)
 
 // Whether the mob is able to see
 // `information_only` is for stuff that's purely informational - like blindness overlays
@@ -116,21 +119,6 @@
 		if("resize")
 			update_transform()
 
-/mob/proc/add_eyeblur()
-	if(client?.screen)
-		var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
-		var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
-		GW.add_screen_filter(EYE_BLUR_FILTER_KEY, FILTER_EYE_BLUR)
-		F.add_screen_filter(EYE_BLUR_FILTER_KEY, FILTER_EYE_BLUR)
-		animate(GW.filters[GW.filters.len], size = 3, time = 5)
-		animate(F.filters[F.filters.len], size = 3, time = 5)
-
-/mob/proc/remove_eyeblur()
-	if(client?.screen)
-		var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
-		var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
-		GW.remove_screen_filter(EYE_BLUR_FILTER_KEY)
-		F.remove_screen_filter(EYE_BLUR_FILTER_KEY)
 
 /mob/living/proc/update_disgust_alert()
 	switch(AmountDisgust())

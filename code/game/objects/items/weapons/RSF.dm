@@ -74,7 +74,8 @@ RSF
 	to_chat(user, "Changed dispensing mode to '" + configured_items[mode][1] + "'")
 	update_desc()
 
-/obj/item/rsf/proc/update_desc()
+/obj/item/rsf/update_desc()
+	. = ..()
 	desc = initial(desc) + " Currently set to dispense '[configured_items[mode][1]]'."
 
 /obj/item/rsf/afterattack(atom/A, mob/user as mob, proximity)

@@ -212,6 +212,10 @@
 
 		if("slimejelly")
 			blood_data["colour"] = dna.species.blood_color
+			blood_data["blood_color"] = dna.species.blood_color
+
+		if("cryoxadone")
+			blood_data["blood_color"] = dna.species.blood_color
 
 	return blood_data
 
@@ -255,13 +259,15 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(get_blood_id() != "blood")//is it blood or welding fuel?
+	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
+	var/check_blood = get_blood_id()
+	if(!check_blood || !(check_blood in acceptable_blood))//is it blood or welding fuel?
 		return
 	if(!T)
 		T = get_turf(src)
 
 	var/list/temp_blood_DNA
-	var/list/b_data = get_blood_data(get_blood_id())
+	var/list/b_data = get_blood_data(check_blood)
 
 	if(small_drip)
 		// Only a certain number of drips (or one large splatter) can be on a given turf.

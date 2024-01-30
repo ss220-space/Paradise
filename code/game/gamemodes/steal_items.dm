@@ -708,6 +708,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/lighter/zippo/ce,
 		/obj/item/lighter/zippo/cmo,
 		/obj/item/lighter/zippo/rd,
+		/obj/item/lighter/zippo/qm,
 	)
 
 /datum/theft_objective/collect/hats
@@ -745,6 +746,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/clothing/under/rank/captain,
 		/obj/item/clothing/suit/hop_jacket,
 		/obj/item/clothing/under/rank/ntrep,
+		/obj/item/clothing/under/rank/ntrep/skirt,
 		/obj/item/clothing/suit/storage/ntrep,
 		/obj/item/clothing/under/rank/blueshield,
 		/obj/item/clothing/suit/armor/vest/blueshield,
@@ -849,8 +851,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	min=3
 	max=6
 
-/datum/theft_objective/collect/number/sybil
-	id = "collect_num_sybil"
+/datum/theft_objective/collect/number/sibyl
+	id = "collect_num_sibyl"
 	typepath = /obj/item/sibyl_system_mod
 	name = "системы Сибил"
 	min=4

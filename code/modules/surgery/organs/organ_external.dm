@@ -18,6 +18,7 @@
 	min_broken_damage = 30
 	max_damage = 0
 	dir = SOUTH
+	blocks_emissive = FALSE
 	/// External body part zone
 	var/limb_zone
 	/// Used to calculate protection from armor

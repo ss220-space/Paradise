@@ -21,6 +21,8 @@
 		tts_seed = SStts.get_random_seed(src)
 
 	setup_dna(new_species)
+	med_hud_set_health()	// Updating med huds is necessary after `setup_dna()` due to the fact that while
+	med_hud_set_status()	// a human does not have a heart, the hud status is displayed incorrectly.
 
 	create_reagents(330)
 
@@ -35,8 +37,6 @@
 	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
-	//Update med hud images...
-	..()
 	//...sec hud images...
 	sec_hud_set_ID()
 	sec_hud_set_implants()
@@ -65,6 +65,15 @@
 
 /mob/living/carbon/human/unathi/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi)
+
+/mob/living/carbon/human/unathi_draconid/Initialize(mapload)
+	. = ..(mapload, /datum/species/unathi/draconid)
+
+/mob/living/carbon/human/unathi_ashwalker/Initialize(mapload)
+	. = ..(mapload, /datum/species/unathi/ashwalker)
+
+/mob/living/carbon/human/unathi_ashwalker_shaman/Initialize(mapload)
+	. = ..(mapload, /datum/species/unathi/ashwalker/shaman)
 
 /mob/living/carbon/human/vox/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox)
@@ -122,8 +131,65 @@
 /mob/living/carbon/human/shadow/Initialize(mapload)
 	. = ..(mapload, /datum/species/shadow)
 
+/mob/living/carbon/human/shadowling/Initialize(mapload)
+	. = ..(mapload, /datum/species/shadow/ling)
+
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
+
+/mob/living/carbon/human/golem_random/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/random)
+
+/mob/living/carbon/human/golem_adamantine/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/adamantine)
+
+/mob/living/carbon/human/golem_plasma/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/plasma)
+
+/mob/living/carbon/human/golem_diamond/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/diamond)
+
+/mob/living/carbon/human/golem_gold/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/gold)
+
+/mob/living/carbon/human/golem_silver/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/silver)
+
+/mob/living/carbon/human/golem_plasteel/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/plasteel)
+
+/mob/living/carbon/human/golem_titanium/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/titanium)
+
+/mob/living/carbon/human/golem_plastitanium/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/plastitanium)
+
+/mob/living/carbon/human/golem_alien_alloy/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/alloy)
+
+/mob/living/carbon/human/golem_uranium/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/uranium)
+
+/mob/living/carbon/human/golem_plastic/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/plastic)
+
+/mob/living/carbon/human/golem_sand/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/sand)
+
+/mob/living/carbon/human/golem_glass/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/glass)
+
+/mob/living/carbon/human/golem_bluespace/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/bluespace)
+
+/mob/living/carbon/human/golem_bananium/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/bananium)
+
+/mob/living/carbon/human/golem_tranquillite/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/tranquillite)
+
+/mob/living/carbon/human/golem_clockwork/Initialize(mapload)
+	. = ..(mapload, /datum/species/golem/clockwork)
 
 /mob/living/carbon/human/wryn/Initialize(mapload)
 	. = ..(mapload, /datum/species/wryn)
@@ -691,7 +757,9 @@
 						for(var/datum/data/record/R in GLOB.data_core.security)
 							if(R.fields["id"] == E.fields["id"])
 
-								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED, "Cancel")
+								var/setcriminal = tgui_input_list(usr, "Specify a new criminal status for this person.", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
+								if(!setcriminal)
+									return
 								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
@@ -2042,3 +2110,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return ..(clicked_on, override = TRUE)
 
 	return ..()
+
+/mob/living/carbon/human/verb/pose()
+	set name = "Set Pose"
+	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
+	set category = "IC"
+
+	pose = sanitize(copytext_char(input(usr, "Это [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+
+/mob/living/carbon/human/verb/set_flavor()
+	set name = "Set Flavour Text"
+	set desc = "Устанавливает подробное описание внешности вашего персонажа."
+	set category = "IC"
+
+	update_flavor_text()

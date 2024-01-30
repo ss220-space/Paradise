@@ -183,6 +183,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
+	/client/proc/reregister_docks,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -321,7 +322,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	verbs += /client/proc/show_verbs
 
 	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/show_verbs()
@@ -335,7 +336,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	add_admin_verbs()
 
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/admin_ghost()
 	set category = "Admin"
@@ -350,7 +351,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ghost.can_reenter_corpse = 1			//just in-case.
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 		if(ishuman(mob))
 			var/mob/living/carbon/human/H = mob
 			H.regenerate_icons() // workaround for #13269
@@ -364,7 +365,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/invisimin()
 	set name = "Invisimin"
@@ -396,7 +397,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	holder.player_panel_new()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Player Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/check_antagonists()
@@ -408,7 +409,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	holder.check_antagonists()
 	log_admin("[key_name(usr)] checked antagonists")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/ban_panel()
@@ -422,7 +423,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		holder.unbanpanel()
 	else
 		holder.DB_ban_panel()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Ban Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Ban Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/game_panel()
@@ -433,7 +434,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	holder.Game()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/secrets()
@@ -444,7 +445,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	holder.Secrets()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Secrets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Secrets") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/getStealthKey()
@@ -480,7 +481,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			holder.fakekey = new_key
 			createStealthKey()
 		log_and_message_admins("has turned stealth mode [holder.fakekey ? "ON with fake key: [holder.fakekey]" : "OFF"]")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/big_brother()
 	set category = "Admin"
@@ -541,7 +542,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "Admin Drop Bomb")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/bless(mob/living/M as mob)
 	set category = "Event"
@@ -563,7 +564,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		btypes += "Human Protector"
 		btypes += "Sentient Pet"
 		btypes += "All Access"
-	var/blessing = input(usr, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
+	var/blessing = tgui_input_list(usr, "How would you like to bless [M]?", "Its good to be good...", btypes)
 	if(!(blessing in btypes))
 		return
 	var/logmsg = null
@@ -703,7 +704,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ptypes += "Dust"
 		ptypes += "Shitcurity Goblin"
 		ptypes += "High RP"
-	var/punishment = input("How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
+	var/punishment = tgui_input_list(usr, "How would you like to smite [M]?", "Its good to be baaaad...", ptypes)
 	if(!(punishment in ptypes))
 		return
 	var/logmsg = null
@@ -871,7 +872,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	else
 		T.AddSpell(new S)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	log_and_message_admins("gave [key_name_log(T)] the spell [S].")
 
 /client/proc/give_disease(mob/T in GLOB.mob_list)
@@ -882,7 +883,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!choosen_disease) return
 	var/datum/disease/D = new choosen_disease()
 	D.Contract(T)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	log_and_message_admins("gave [key_name_log(T)] the disease [D].")
 
 /client/proc/make_sound(obj/O in view(maxview())) // -- TLE
@@ -900,7 +901,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		for(var/mob/V in hearers(O))
 			V.show_message(admin_pencode_to_html(message), 2)
 		log_and_message_admins("made [O] at [COORD(O)] make a sound")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode Self"
@@ -911,7 +912,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	if(src.mob)
 		togglebuildmode(src.mob)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/object_talk(var/msg as text) // -- TLE
 	set category = "Event"
@@ -929,7 +930,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		log_admin("[key_name(usr)] used oSay on [mob.control_object]: [msg]")
 		message_admins("[key_name_admin(usr)] used oSay on [mob.control_object]: [msg]")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/force_hijack()
 	set category = "Event"
@@ -961,7 +962,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	GLOB.deadmins += ckey
 	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/readmin()
 	set name = "Re-admin self"
@@ -1122,7 +1123,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/datum/ui_module/law_manager/L = new(S)
 	L.ui_interact(usr, state = GLOB.admin_state)
 	log_and_message_admins("has opened [S]'s law manager.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H)
 	if(!check_rights(R_EVENT))
@@ -1144,7 +1145,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(holder)
 		log_and_message_admins("is altering the appearance of [H].")
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H)
 	if(!check_rights(R_EVENT))
@@ -1174,7 +1175,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if("No")
 			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Self") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Self") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/free_slot()
 	set name = "Free Job Slot"

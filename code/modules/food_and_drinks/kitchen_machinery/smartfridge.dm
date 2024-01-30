@@ -396,8 +396,7 @@
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
 	desc = "When you need seeds fast!"
-	icon = 'icons/obj/machines/vending.dmi'
-	icon_state = "seeds"
+	icon_state = "smartfridge"
 
 /obj/machinery/smartfridge/seeds/Initialize(mapload)
 	. = ..()
@@ -597,6 +596,7 @@
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "\improper Smart Virus Storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
+	icon_state = "smartfridge_virology"
 	req_access = list(ACCESS_VIROLOGY)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
@@ -616,6 +616,23 @@
 		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/reagent_containers/glass/beaker,
 	))
+
+/obj/machinery/smartfridge/secure/chemistry/virology/update_icon()
+	var/prefix = initial(icon_state)
+	if(stat & (BROKEN|NOPOWER))
+		icon_state = "[prefix]-off"
+	else if(visible_contents)
+		switch(length(contents))
+			if(0)
+				icon_state = "[prefix]"
+			if(1 to 25)
+				icon_state = "[prefix]1"
+			if(26 to 75)
+				icon_state = "[prefix]2"
+			if(76 to INFINITY)
+				icon_state = "[prefix]3"
+	else
+		icon_state = "[prefix]"
 
 /**
   * # Smart Virus Storage (Preloaded)

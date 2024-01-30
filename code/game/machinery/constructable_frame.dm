@@ -298,7 +298,7 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Choose a new brand", "Select an Item") as null|anything in vending_names_paths
+	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", vending_names_paths)
 	if(!choice)
 		return
 	set_type(choice)
@@ -559,7 +559,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1)
 	var/static/list/fridge_names_paths = list(
 							"SmartFridge" = /obj/machinery/smartfridge,
-							"MegaSeed Servitor" = /obj/machinery/smartfridge/seeds,
+							"Seed Storage" = /obj/machinery/smartfridge/seeds,
 							"Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
 							"Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
 							"Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay/organ,
@@ -574,7 +574,7 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in fridge_names_paths
+	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", fridge_names_paths)
 	if(!choice)
 		return
 	set_type(user, choice)

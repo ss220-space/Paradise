@@ -169,7 +169,7 @@
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/ignite/fire = locate() in H.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	if(!fire)
 		fire = new
 		fire.Grant(H)
@@ -178,7 +178,7 @@
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/ignite/fire = locate() in H.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	if(fire)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
@@ -211,7 +211,7 @@
 	if(!finder)
 		finder = new
 		finder.Grant(C)
-	var/datum/action/innate/ignite/fire = locate() in C.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(!fire)
 		fire = new
 		fire.Grant(C)
@@ -224,7 +224,7 @@
 	var/datum/action/innate/anvil_finder/finder = locate() in C.actions
 	if(finder)
 		finder.Remove(C)
-	var/datum/action/innate/ignite/fire = locate() in C.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(fire)
 		fire.Remove(C)
 
@@ -329,14 +329,15 @@ They're basically just lizards with all-around marginally better stats and fire 
 	no_equip = list(slot_shoes) //everyone have to pay for
 	speed_mod = -0.25			//beeing slightly faster
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/unathi,
-		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
-		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
-		) //no need to b-r-e-a-t-h
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/unathi/ash_walker,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/unathi,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/unathi,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/unathi,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	) //no need to b-r-e-a-t-h
 
 /datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	. = ..()
@@ -350,7 +351,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	C.update_inv_head()
 	C.update_inv_wear_suit() //update sprites for digi legs
 	C.weather_immunities |= "ash"
-	var/datum/action/innate/ignite/fire = locate() in C.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(!fire)
 		fire = new
 		fire.Remove(C)
@@ -361,12 +362,12 @@ They're basically just lizards with all-around marginally better stats and fire 
 	C.update_inv_head()
 	C.update_inv_wear_suit()
 	C.weather_immunities -= "ash"
-	var/datum/action/innate/ignite/fire = locate() in C.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(fire)
 		fire.Grant(C)
 
 //igniter. only for ashwalkers and drakonids because of """lore"""
-/datum/action/innate/ignite
+/datum/action/innate/ignite_unathi
 	name = "Ignite"
 	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
 	icon_icon = 'icons/obj/cigarettes.dmi'
@@ -375,7 +376,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	var/cooldown_duration = 40 SECONDS
 	check_flags = AB_CHECK_RESTRAINED
 
-/datum/action/innate/ignite/Activate()
+/datum/action/innate/ignite_unathi/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(world.time <= cooldown)
 		to_chat(user, span_warning("Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again."))

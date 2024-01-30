@@ -106,7 +106,7 @@
 	attacktext = "пронзает"
 	color = "#C80000"
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
 	if(can_die() && loc)
 		// Splash the turf we are on with blood
 		reagents.reaction(get_turf(src))
@@ -209,7 +209,7 @@
 	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
 	var/turf/T = get_turf(src)
 	for(var/i in 1 to 2)
-		new brood_type(T)
+		new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken(T)
 	if(T)
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
@@ -248,10 +248,11 @@
 	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
+	var/can_infest = TRUE
 	var/can_infest_dead = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
-	if(isturf(loc))
+	if(isturf(loc) && can_infest)
 		for(var/mob/living/carbon/human/H in view(src,1)) //Only for corpse right next to/on same tile
 			if(H.stat == UNCONSCIOUS || (can_infest_dead && H.stat == DEAD))
 				infest(H)
@@ -300,6 +301,12 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
 	stat_attack = DEAD
 	can_infest_dead = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken
+	melee_damage_lower = 6
+	melee_damage_upper = 6
+	can_infest = FALSE
+
 
 //Legion that spawns Legions
 /mob/living/simple_animal/hostile/big_legion

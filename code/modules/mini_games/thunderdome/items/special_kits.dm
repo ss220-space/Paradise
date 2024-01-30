@@ -1,6 +1,6 @@
 /**
- * Here lie special thunderdome items.
- * Absurdly strong or weak bundles included.
+ * Here lie special thunderdome bundles.
+ * Absurdly strong or weak items included.
  */
 /obj/item/storage/box/thunderdome
 	name = "Uncle Trasen's special gift"
@@ -11,8 +11,7 @@
 	new /obj/item/clothing/suit/mr_chang_coat(src)
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
-	var/obj/item/stack/spacecash/cash = new(src)
-	cash.amount = 50000
+	new /obj/item/stack/spacecash/c5000(src)
 	for(var/i = 0, i < 10, i++)
 		new /obj/item/coin/silver(src)
 
@@ -25,9 +24,12 @@
 
 /obj/item/storage/box/thunderdome/bombarda/populate_contents()
 	new /obj/item/gun/projectile/bombarda(src)
+	//perfectionsm
 	for(var/i = 0, i < 3, i++)
 		new /obj/item/ammo_casing/grenade/improvised/smoke_shell(src)
+	for(var/i = 0, i < 3, i++)
 		new /obj/item/ammo_casing/grenade/improvised/flame_shell(src)
+	for(var/i = 0, i < 3, i++)
 		new /obj/item/ammo_casing/grenade/improvised/exp_shell(src)
 
 /obj/item/storage/box/thunderdome/crossbow/populate_contents()
@@ -58,12 +60,6 @@
 /obj/item/storage/box/thunderdome/maga/populate_contents()
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
 	new /obj/item/reagent_containers/hypospray/ertm/perfluorodecalin(src)
-
-/**
- * Oh god.
- */
-/obj/item/storage/box/thunderdome/gbs/populate_contents()
-	new /obj/item/reagent_containers/glass/bottle/gbs(src)
 
 /obj/item/storage/box/thunderdome/singulatiry/populate_contents()
 	new /obj/item/twohanded/singularityhammer(src)

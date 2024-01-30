@@ -825,6 +825,22 @@
 	build_path = /obj/item/ammo_box/magazine/sp8
 	category = list("hacked", "Security")
 
+/datum/design/sp91rc_box
+	name = "Ammo Box (9mm TE)"
+	id = "9mmTEbox"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/c9mmte
+	category = list("hacked", "Security")
+
+/datum/design/sp91rc_mag
+	name = "handgun magazine (9mm TE)"
+	id = "9mm-te"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 12000)
+	build_path = /obj/item/ammo_box/magazine/sp91rc
+	category = list("hacked", "Security")
+
 /datum/design/buckshot_shell
 	name = "Buckshot shell"
 	id = "buckshot_shell"

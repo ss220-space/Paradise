@@ -18,6 +18,8 @@
  * Dog emotes
  */
 /datum/emote/living/simple_animal/pet/dog
+	message_postfix = " на %t!"
+	message_param = EMOTE_PARAM_USE_POSTFIX
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/pet/dog)
 
 
@@ -26,7 +28,6 @@
 	key_third_person = "barks"
 	message = "ла%(ет,ют)%."
 	message_postfix = " на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 
@@ -45,7 +46,6 @@
 	key = "yelp"
 	key_third_person = "yelps"
 	message = "тявка%(ет,ют)%!"
-	message_postfix = " на %t."
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 	volume = 75
@@ -59,7 +59,6 @@
 	key = "growl"
 	key_third_person = "growls"
 	message = "рыч%(ит,ат)%!"
-	message_postfix = " на %t!"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 	volume = 75
@@ -73,6 +72,8 @@
  * Mouse
  */
 /datum/emote/living/simple_animal/mouse
+	message_postfix = " на %t!"
+	message_param = EMOTE_PARAM_USE_POSTFIX
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/mouse)
 
 
@@ -80,7 +81,6 @@
 	key = "squeak"
 	key_third_person = "squeaks"
 	message = "пищ%(ит,ат)%!"
-	message_postfix = " на %t!"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 	volume = 40
@@ -94,7 +94,6 @@
 	key = "scream"
 	key_third_person = "screams"
 	message = "тревожно пищ%(ит,ат)%!"
-	message_postfix = " на %t!"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 	volume = 40
@@ -116,6 +115,7 @@
 	key_third_person = "meows"
 	message = "мяука%(ет,ют)%."
 	message_postfix = " на %t."
+	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 
@@ -129,6 +129,7 @@
 	key_third_person = "hisses"
 	message = "шип%(ит,ят)%!"
 	message_postfix = " на %t!"
+	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 
 

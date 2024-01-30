@@ -92,13 +92,11 @@
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
 		H.add_hud_to(M)
-		M.permanent_huds |= H
 
 /obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		M.permanent_huds ^= H
 		H.remove_hud_from(M)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/medical

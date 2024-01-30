@@ -246,3 +246,13 @@
 /obj/structure/mineral_door/resin/TryToSwitchState(atom/user)
 	if(isalien(user))
 		return ..()
+
+/obj/structure/mineral_door/ginger
+	name = "gingerbread door"
+	icon_state = "gingerbread"
+	openSound = 'sound/effects/doorcreaky.ogg'
+	closeSound = 'sound/effects/doorcreaky.ogg'
+	sheetType = /obj/item/stack/sheet/gingerbread
+	hardness = 0.5
+	resistance_flags = FLAMMABLE
+	max_integrity = 200

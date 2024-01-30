@@ -147,6 +147,43 @@
         toggle_gunlight()
         return TRUE
 
+//"SP-91-RC//
+/obj/item/gun/projectile/automatic/sp91rc
+	name = "SP-91-RC"
+	desc = "Compact submachine gun designed for riot control."
+	icon_state = "SP-91-RC"
+	item_state = "SP-91-RC"
+	mag_type = /obj/item/ammo_box/magazine/sp91rc
+	fire_sound = 'sound/weapons/gunshots/1sp_91.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	fire_delay = 2
+	can_suppress = 0
+	can_flashlight = 1
+	burst_size = 3
+	can_bayonet = FALSE
+
+/obj/item/gun/projectile/automatic/sp91rc/update_icon()
+	..()
+	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+	item_state = "SP-91-RC[magazine ? "-[get_ammo(0) ? "20" : "0"]" : ""]"
+
+	if(gun_light)
+		var/iconF = "SP-91-RC-light"
+		if(gun_light.on)
+			iconF = "SP-91-RC-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/sp91rc/attackby(var/obj/item/A, mob/user, params)
+	. = .. ()
+	update_equipped_item()
+
+/obj/item/gun/projectile/automatic/sp91rc/ui_action_click(var/owner, var/action_type)
+    if(..()) return TRUE
+    if (action_type == /datum/action/item_action/toggle_gunlight)
+        toggle_gunlight()
+        return TRUE
+
 //Type-U3 Uzi//
 /obj/item/gun/projectile/automatic/mini_uzi
 	name = "\improper ''Type U3 Uzi"
@@ -287,7 +324,7 @@
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/New()
 	..()
@@ -404,7 +441,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 1
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/lr30/update_icon()
 	..()

@@ -849,7 +849,7 @@
 		return
 
 	if(href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in GLOB.joblist
+		var/new_role = tgui_input_list(usr, "Select new role", "Assigned role", GLOB.joblist)
 		if(!new_role)
 			return
 		assigned_role = new_role
@@ -937,7 +937,7 @@
 			// Кастомная цель//
 			"custom")
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in objective_types
+		var/new_obj_type = tgui_input_list(usr, "Select objective type:", "Objective type", objective_types)
 		if(!new_obj_type)
 			return
 
@@ -1019,7 +1019,7 @@
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
 				if(possible_targets.len)
-					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+					var/mob/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
 					new_objective.owner = src
@@ -1058,7 +1058,7 @@
 					var/list/roles = scan_objective.available_roles.Copy()
 					if(alert(usr, "Do you want to pick roles yourself? No will randomise it", "Pick roles", "Yes", "No") == "Yes")
 						for(var/i in 1 to 3)
-							var/role = input("Select role:", "Objective role") as null|anything in roles
+							var/role = tgui_input_list(usr, "Select role:", "Objective role", roles)
 							if(role)
 								roles -= role
 								scan_objective.possible_roles += role
@@ -2402,7 +2402,6 @@
 					return
 
 				ninja_datum.equip_ninja()
-				ninja_datum.basic_ninja_needs_check()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
 
@@ -2437,7 +2436,6 @@
 						return
 
 				ninja_datum.make_objectives_generate_antags(objective_type)
-				ninja_datum.basic_ninja_needs_check()
 				to_chat(usr, span_notice("Цели для ниндзя: [key] были сгенерированы. Вы можете их отредактировать и оповестить игрока о целях вручную."))
 				log_admin("[key_name(usr)] has automatically forged ninja objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged ninja objectives for [key_name_admin(current)]")
@@ -2933,7 +2931,6 @@
 
 	//"generic" only, we don't want to spawn other antag's
 	ninja_datum.make_objectives_generate_antags(NINJA_TYPE_GENERIC, custom_objective)
-	ninja_datum.basic_ninja_needs_check()
 
 
 /datum/mind/proc/make_Rev()

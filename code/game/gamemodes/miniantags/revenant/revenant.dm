@@ -203,7 +203,7 @@
 /mob/living/simple_animal/revenant/gib()
 	. = death()
 
-/mob/living/simple_animal/revenant/death()
+/mob/living/simple_animal/revenant/death(gibbed)
 	if(!revealed)
 		return FALSE
 	// Only execute the below if we successfully died

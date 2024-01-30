@@ -25,7 +25,8 @@
 	allowed_tools = list(
 	/obj/item/circular_saw = 100, \
 	/obj/item/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/hatchet = 90
+	/obj/item/hatchet = 90, \
+	/obj/item/wirecutters = 70
 	)
 
 	time = 54
