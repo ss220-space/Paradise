@@ -64,6 +64,7 @@ Difficulty: Hard
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
+	enraged_unique_loot = /obj/item/clothing/accessory/necklace/hierophant_talisman
 	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
 							   /datum/action/innate/megafauna_attack/chaser_swarm,
 							   /datum/action/innate/megafauna_attack/cross_blasts,
