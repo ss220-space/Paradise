@@ -195,5 +195,6 @@
 '2024-01-30':
   Dimach:
   - refactor: reduce list count for floor turfs (#4308)
+  - server: update github actions (#4312)
   Zwei:
   - add: Station Goals Logging (#4299)
