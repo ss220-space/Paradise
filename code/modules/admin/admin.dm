@@ -892,7 +892,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		GLOB.event_announcement.Announce("Центральное Командование отозвало оружейный шаттл уровня Гамма.", new_sound = 'sound/AI/commandreport.ogg')
 	fromArea.move_contents_to(toArea)
 
-	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
+	for(var/obj/machinery/mech_bay_recharge_port/P in toArea.machinery_cache)
 		P.update_recharge_turf()
 
 	if(GLOB.gamma_ship_location)
