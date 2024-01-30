@@ -343,15 +343,16 @@
 	if(!target)
 		return
 
-	if(target.has_brain_worms())
-		to_chat(user, span_warning("[target] уже заражён!"))
-		return
-
 	infesting = TRUE
 	to_chat(user, "Вы подползаете к [target] и начинаете искать [genderize_ru(target.gender,"его","её","его","их" )] слуховой проход...")
 
 	if(!do_mob(user, target, 5 SECONDS))
 		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете на пол.")
+		infesting = FALSE
+		return
+
+	if(target.has_brain_worms())
+		to_chat(user, span_warning("[target] уже заражён!"))
 		infesting = FALSE
 		return
 
