@@ -24,8 +24,7 @@
 
 	for(var/thing in epicentreList)
 		var/obj/effect/landmark/epicentre = thing
-		for(var/_apc in GLOB.apcs)
-			var/obj/machinery/power/apc/apc = _apc
+		for(var/obj/machinery/power/apc/apc as anything in GLOB.apcs)
 			if(epicentre.z == apc.z && get_dist(epicentre, apc) <= lightsoutRange)
 				INVOKE_ASYNC(apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
 
