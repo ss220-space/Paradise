@@ -417,6 +417,7 @@
 	phase_allowed = TRUE
 	should_recharge_after_cast = TRUE
 	stat_allowed = UNCONSCIOUS
+	centcom_cancast = FALSE
 	action_icon_state = "hierophant_talisman_teleport"
 	action_background_icon_state = "bg_hierophant_talisman"
 	panel = "Hierophant Talisman"
