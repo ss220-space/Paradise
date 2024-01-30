@@ -151,8 +151,9 @@ Class Procs:
 
 	if(use_power)
 		myArea = get_area(src)
-		RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
-		LAZYADD(myArea.machinery_cache, src)
+		if(myArea)
+			RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
+			LAZYADD(myArea.machinery_cache, src)
 
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
