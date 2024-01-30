@@ -183,7 +183,7 @@
 		return FALSE
 	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
 		if(istype(MA, src))
-			return
+			return FALSE
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
 	if(has_dirslash)
@@ -412,7 +412,7 @@
 	item_state = "syringe_0"
 
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
-	if(!istype(user) || !user)
+	if(!istype(user))
 		return
 	if(user.mind && user.mind.assigned_role == "Chef")
 		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")

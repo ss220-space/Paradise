@@ -37,6 +37,11 @@
 		return FALSE
 	return ..()
 
+/datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
+	for(var/datum/martial_art/cqc/under_siege/chef_art in H.mind.known_martial_arts)
+		chef_art.remove(H)
+	return ..()
+
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE
 
