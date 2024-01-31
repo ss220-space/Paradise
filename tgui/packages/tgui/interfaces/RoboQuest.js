@@ -9,11 +9,11 @@ export const RoboQuest = (props, context) => {
   const {
     hasID,
     name,
-    check,
+    questInfo,
     hasTask,
   } = data;
   return (
-    <Window>
+    <Window theme="ntOS95">
       <Window.Content>
         <Flex>
           <FlexItem basis={36}>
@@ -43,13 +43,29 @@ export const RoboQuest = (props, context) => {
                     onClick={() => act('GetTask')} />
                 </Fragment>
               )}>
-                Тут будет текстовая инфа, аля прошел ли мех проверку, можно ли отправить и тд
-                <Button
-                  icon="arrow-up"
-                  content="Send Mech"
-                  disabled={!hasID || !check}
-                  onClick={() => act('SendMech')} />
+                <Box mx="0.5rem" mb="0.5rem">
+                  <b>Name: </b>{questInfo.name}
+                  <br /><br />
+                  <b>Desc: </b>{questInfo.desc}
+                </Box>
+                <Section title="Modules" level = {2} >
+                  <Box mx="0.5rem" mb="0.5rem">
+                      <b>Module 1: </b>{questInfo.module1}
+                      <br /><br />
+                      <b>Module 2: </b>{questInfo.module2}
+                      <br /><br />
+                      <b>Module 3: </b>{questInfo.module3}
+                      <br /><br />
+                      <b>Module 4: </b>{questInfo.module4}
+                  </Box>
+              </Section>
             </Section>
+
+            <Button
+              icon="arrow-up"
+              content="Send Mech"
+              disabled={!hasID || !hasTask}
+              onClick={() => act('SendMech')} />
           </Flex.Item>
         </Flex>
       </Window.Content>

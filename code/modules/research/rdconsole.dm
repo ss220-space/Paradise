@@ -1083,13 +1083,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(istype(currentID))
 		data["hasID"] = TRUE
 		data["name"] = currentID.registered_name
-		data["hasTask"] = currentID.robotask
-		data["check"] = currentID.robotaskdone
+		if(currentID.robo_bounty)
+			data["questInfo"] = currentID.robo_bounty.questinfo
+			data["hasTask"] = TRUE
+		else
+			data["questInfo"] = "None"
+			data["hasTask"] = FALSE
 	else
 		data["hasID"] = FALSE
 		data["name"] = "None"
+		data["questInfo"] = "None"
 		data["hasTask"] = FALSE
-		data["check"] = FALSE
 	return data
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params)
@@ -1099,8 +1103,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			currentID = null
 		if("GetTask")
 			to_chat(usr, "Тут получаешь задание")
-			if(!currentID.robotask)
-				currentID.robotask = TRUE
+			if(!currentID.robo_bounty)
 				pick_mecha()
 		if("Check")
 			if(!pad)
@@ -1108,7 +1111,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			else
 				to_chat(usr, "Тут идёт проверка")
 				check_pad()
-			currentID.robotaskdone = TRUE
 		if("SendMech")
 			to_chat(usr, "Тут должна быть отправка меха")
 
