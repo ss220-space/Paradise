@@ -594,8 +594,8 @@ BLIND     // can't see anything
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi'
-		//"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Proc that opens and closes jackets.
@@ -803,8 +803,8 @@ BLIND     // can't see anything
 		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		//"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi' - стоки слишком жирные для маленькой одежды
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
