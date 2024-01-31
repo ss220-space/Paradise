@@ -25,6 +25,7 @@
 	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list("Plasmaman")
 	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
+	var/upgradable = FALSE
 
 /obj/item/clothing/head/helmet/space/plasmaman/New()
 	..()
@@ -68,8 +69,20 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
 	on = !on
-	icon_state = "[initial(icon_state)][on ? "-light":""]"
-	item_state = icon_state
+	if(upgradable)
+		switch(armor.getRating("melee"))
+			if(30)
+				icon_state = "[initial(icon_state)][on ? "-light":""]"
+				item_state = icon_state
+			if(40,50)
+				icon_state = "[initial(icon_state)]_reinf[on ? "-light":""]"
+				item_state = icon_state
+			if(60)
+				icon_state = "[initial(icon_state)]_reinf_full[on ? "-light":""]"
+				item_state = icon_state
+	else
+		icon_state = "[initial(icon_state)][on ? "-light":""]"
+		item_state = icon_state
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
@@ -268,6 +281,7 @@
 	vision_flags = SEE_TURFS
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	upgradable = TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit helmet"

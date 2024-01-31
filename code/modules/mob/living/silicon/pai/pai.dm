@@ -155,7 +155,7 @@
 	reset_software()
 
 /mob/living/silicon/pai/proc/reset_software(var/extra_memory = 0)
-	QDEL_LIST(installed_software)
+	QDEL_LIST_ASSOC_VAL(installed_software)
 
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))
@@ -416,6 +416,17 @@
 	update_icons()
 	update_canmove()
 
+/mob/living/silicon/pai/verb/pAI_suicide()
+	set category = "pAI Commands"
+	set name = "pAI Suicide"
+	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
+
+	if(alert("REALLY kill yourself? This action can't be undone.", "Suicide", "No", "Suicide") == "Suicide")
+		do_suicide()
+
+	else
+		to_chat(src, "Aborting suicide attempt.")
+
 /mob/living/silicon/pai/update_sight()
 	if(!client)
 		return
@@ -529,7 +540,7 @@
 /mob/living/silicon/pai/Bumped(atom/movable/moving_atom)
 	return ..()
 
-/mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/silicon/pai/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	return FALSE
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)

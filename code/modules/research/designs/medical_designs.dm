@@ -581,7 +581,7 @@
 	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/implantcase/track
+	build_path = /obj/item/implantcase/tracking
 	category = list("Medical")
 
 /datum/design/implant_mindshield

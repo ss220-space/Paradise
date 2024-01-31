@@ -25,6 +25,7 @@
 #define INVESTIGATE_HALLUCINATIONS "hallucinations"
 #define INVESTIGATE_TELEPORTATION "teleportation"
 #define INVESTIGATE_RECORDS "records"
+#define INVESTIGATE_RENAME "renames"
 #define INVESTIGATE_RESEARCH "research"
 #define INVESTIGATE_SYNDIE_CARGO "syndicate_cargo"
 #define INVESTIGATE_WIRES "wires"

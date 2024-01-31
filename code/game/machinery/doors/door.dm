@@ -319,7 +319,8 @@
 
 /obj/machinery/door/emag_act(mob/user)
 	if(!hackable)
-		to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
+		if(user)
+			to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 		return
 	if(density)
 		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")

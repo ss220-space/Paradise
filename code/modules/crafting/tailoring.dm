@@ -65,6 +65,21 @@
 	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
 				  /obj/item/clothing/glasses/sunglasses = 1,
 				  /obj/item/stack/cable_coil = 5)
+	blacklist = list(
+		/obj/item/clothing/glasses/hud/security/read_only,
+		/obj/item/clothing/glasses/hud/security/sunglasses/read_only,
+		/obj/item/clothing/glasses/hud/security/sunglasses/tajblind
+		)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/readonly_hudsunsec
+	name = "Security HUDsunglasses (read-only)"
+	result = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/security/read_only = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudsunsecremoval
@@ -109,6 +124,26 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/hydroponic/tajblind = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudtajsundiag
+	name = "Diagnostic veil sunglasses"
+	result = /obj/item/clothing/glasses/hud/diagnostic/tajblind/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/tajblind = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudtajsunskills
+	name = "Skills veil sunglasses"
+	result = /obj/item/clothing/glasses/hud/skills/tajblind/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills/tajblind = 1,
 				  /obj/item/clothing/glasses/sunglasses = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING

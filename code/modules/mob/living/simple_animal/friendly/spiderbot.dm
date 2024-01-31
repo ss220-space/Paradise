@@ -128,7 +128,7 @@
 	if(emagged)
 		to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
 		return 0
-	else
+	else if(istype(user))
 		emagged = 1
 		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
@@ -148,7 +148,7 @@
 	if(emagged)
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!</span>")
 
-/mob/living/simple_animal/spiderbot/proc/update_icon()
+/mob/living/simple_animal/spiderbot/update_icon()
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi))
 			icon_state = "spiderbot-chassis-mmi"

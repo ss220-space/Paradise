@@ -32,6 +32,7 @@
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
+	needs_gliding = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -88,6 +89,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	del_on_death = 1
+	needs_gliding = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
@@ -104,7 +106,7 @@
 	attacktext = "пронзает"
 	color = "#C80000"
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
 	if(can_die() && loc)
 		// Splash the turf we are on with blood
 		reagents.reaction(get_turf(src))
@@ -206,8 +208,8 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
 	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
 	var/turf/T = get_turf(src)
-	for(var/i in 1 to 3)
-		new brood_type(T)
+	for(var/i in 1 to 2)
+		new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken(T)
 	if(T)
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
@@ -246,10 +248,11 @@
 	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
+	var/can_infest = TRUE
 	var/can_infest_dead = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
-	if(isturf(loc))
+	if(isturf(loc) && can_infest)
 		for(var/mob/living/carbon/human/H in view(src,1)) //Only for corpse right next to/on same tile
 			if(H.stat == UNCONSCIOUS || (can_infest_dead && H.stat == DEAD))
 				infest(H)
@@ -259,7 +262,7 @@
 	. = ..()
 	if(!isobj(target))
 		var/mob/living/carbon/human/victim = target
-		if(victim.can_inject(null, FALSE, "chest", FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(1))
+		if(victim.can_inject(null, FALSE, BODY_ZONE_CHEST, FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(1))
 			new /obj/item/organ/internal/legion_tumour(victim)
 			visible_message(span_userdanger("[src] вгрызается в шею [target], впрыскивая странную черную жидкость!</span>")) //made it on russian to attract more attention from attacklogs
 
@@ -298,6 +301,12 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
 	stat_attack = DEAD
 	can_infest_dead = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken
+	melee_damage_lower = 6
+	melee_damage_upper = 6
+	can_infest = FALSE
+
 
 //Legion that spawns Legions
 /mob/living/simple_animal/hostile/big_legion

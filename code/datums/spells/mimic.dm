@@ -101,7 +101,7 @@
 		forms += "Original Form"
 
 	forms += available_forms.Copy()
-	var/what = input(user, "Which form do you want to become?", "Mimic") as null|anything in forms
+	var/what = tgui_input_list(user, "Which form do you want to become?", "Mimic", forms)
 	if(!what)
 		to_chat(user, span_notice("You decide against changing forms."))
 		revert_cast(user)

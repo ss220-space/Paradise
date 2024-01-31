@@ -56,6 +56,7 @@
 
 
 /mob/proc/say_dead(message)
+	message = handleDiscordEmojis(message)
 	if(client)
 		if(!check_rights(R_ADMIN, FALSE) && !CONFIG_GET(flag/dsay_allowed))
 			to_chat(src, span_danger("Deadchat is globally muted."))

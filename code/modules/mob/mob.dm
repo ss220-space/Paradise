@@ -307,47 +307,13 @@
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
+		to_chat(src, chat_box_regular("Здесь что-то есть, но вы не видите — что именно."))
 		return TRUE
 
 	face_atom(A)
 	var/list/result = A.examine(src)
-	to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
+	to_chat(src, chat_box_examine(result.Join("\n")))
 
-//same as above
-//note: ghosts can point, this is intended
-//visible_message will handle invisibility properly
-//overriden here and in /mob/dead/observer for different point span classes and sanity checks
-/mob/verb/pointed(atom/A as mob|obj|turf in view(client.maxview()))
-	set name = "Point To"
-	set category = "Object"
-
-	if(next_move >= world.time)
-		return
-	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
-		return FALSE
-
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))
-
-/// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
-/// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
-/mob/proc/run_pointed(atom/A)
-	if(client && !(A in view(client.maxview())))
-		return FALSE
-
-	changeNext_move(CLICK_CD_POINT)
-
-	var/tile = get_turf(A)
-	if(!tile)
-		return FALSE
-	var/obj/P = new /obj/effect/temp_visual/point(tile)
-	P.invisibility = invisibility
-	if(get_turf(src) != tile)
-		// Start off from the pointer and make it slide to the pointee
-		P.pixel_x = (x - A.x) * 32
-		P.pixel_y = (y - A.y) * 32
-		animate(P, 0.5 SECONDS, pixel_x = A.pixel_x, pixel_y = A.pixel_y, easing = QUAD_EASING)
-	return TRUE
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
@@ -672,25 +638,20 @@
 /mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
-/mob/MouseDrop(mob/M as mob)
-	..()
-	if(M != usr) return
-	if(isliving(M))
-		var/mob/living/L = M
-		if(L.mob_size <= MOB_SIZE_SMALL)
-			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
-	if(!M.can_strip)
-		return
-	if(usr == src)
-		return
-	if(!Adjacent(usr))
-		return
-	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
-		return
-	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
-		return
-	show_inv(usr)
+
+/mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	if(!. || usr != user || usr == src || !user.can_strip)
+		return FALSE
+	if(isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
+		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+	if(IsFrozen(src) && !is_admin(user))
+		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
+		return FALSE
+	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
+		return FALSE
+	show_inv(user)
+
 
 /mob/proc/can_use_hands()
 	return
@@ -915,13 +876,15 @@
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if(stat==2 || istype(usr,/mob/dead/observer)) // Always can respawn as NPC
+	if(stat==2 || istype(usr, /mob/dead/observer)) // Always can respawn as NPC
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in GLOB.alive_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L
-		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
+		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
+		if(!picked)
+			return
 		switch(picked)
 			if("Mouse")
 				GLOB.respawnable_list -= usr
@@ -1196,25 +1159,23 @@
 
 /mob/proc/spin(spintime, speed)
 	set waitfor = FALSE
-	var/D = dir
-	if(spintime < world.tick_lag || speed < world.tick_lag || !spintime || !speed)
-		return
+	if(!spintime || !speed || spintime > 100)
+		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
 	while(spintime >= speed)
 		sleep(speed)
-		switch(D)
+		switch(dir)
 			if(NORTH)
-				D = EAST
+				setDir(EAST)
 			if(SOUTH)
-				D = WEST
+				setDir(WEST)
 			if(EAST)
-				D = SOUTH
+				setDir(SOUTH)
 			if(WEST)
-				D = NORTH
-		setDir(D)
+				setDir(NORTH)
 		spintime -= speed
 
 /mob/proc/is_literate()
-	return FALSE
+	return universal_speak
 
 /mob/proc/faction_check_mob(mob/target, exact_match)
 	if(exact_match) //if we need an exact match, we need to do some bullfuckery.

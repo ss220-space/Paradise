@@ -43,7 +43,7 @@
 	//height=42
 	icon='icons/obj/fence-ns.dmi'
 
-/obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration)
 	. = ..()
 	update_icon()
 
@@ -130,7 +130,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
 	if(!shock(user, 70))
-		take_damage(user.obj_damage, BRUTE, "melee", 1)
+		take_damage(user.obj_damage, BRUTE, MELEE, 1, armour_penetration = user.armour_penetration)
 
 
 /obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)

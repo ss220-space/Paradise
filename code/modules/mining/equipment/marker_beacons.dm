@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/item/stack/marker_beacon/AltClick(mob/living/user)
 	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
-	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
+	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
 	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	..()
 	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
-	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
+	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
 	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)

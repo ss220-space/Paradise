@@ -145,7 +145,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = M.get_organ(BODY_ZONE_HEAD)
 
 	if(new_gender)
 		if(new_gender == "Male")

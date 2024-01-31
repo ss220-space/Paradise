@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -592,7 +593,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(C.installed)
 			installed_components += V
 
-	var/toggle = input(src, "Which component do you want to toggle?", "Toggle Component") as null|anything in installed_components
+	var/toggle = tgui_input_list(src, "Which component do you want to toggle?", "Toggle Component", installed_components)
 	if(!toggle)
 		return
 
@@ -809,6 +810,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					demon.exit_to_turf()
 			if(been_hijacked)
 				cell.rigged = FALSE
+
+			module?.update_cells()
 			diag_hud_set_borgcell()
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
@@ -951,7 +954,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			removable_components += V
 	if(module)
 		removable_components += module.custom_removals
-	var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
+	var/remove = tgui_input_list(user, "Which component do you want to pry out?", "Remove Component", removable_components)
 	if(!remove)
 		return
 	if(module && module.handle_custom_removal(remove, user, I))
@@ -979,7 +982,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		spark_system.start()
 	..()
 
-/mob/living/silicon/robot/emag_act(user as mob)
+/mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
 	if(isclocker(src))
@@ -1057,8 +1060,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(module)
 			reset_module()
 		pick_module("Clockwork")
-		emp_protection = TRUE
-		speed = -0.5
 		pdahide = TRUE
 	SSticker.mode.add_clocker(mind)
 	UnlinkSelf()
@@ -1309,7 +1310,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		robot_suit.head.flash2.burn_out()
 		robot_suit.head.flash2 = null
 		robot_suit.head = null
-		robot_suit.updateicon()
+		robot_suit.update_icon(UPDATE_OVERLAYS)
 	else
 		new /obj/item/robot_parts/robot_suit(T)
 		new /obj/item/robot_parts/l_leg(T)
@@ -1341,13 +1342,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(stat != DEAD && isturf(tile))
 				var/floor_only = TRUE
 				for(var/A in tile)
-					if(istype(A, /obj/effect))
-						if(is_cleanable(A))
-							var/obj/effect/decal/cleanable/blood/B = A
+					if(iseffect(A))
+						var/obj/effect/check = A
+						if(check.is_cleanable())
+							var/obj/effect/decal/cleanable/blood/B = check
 							if(istype(B) && B.off_floor)
 								floor_only = FALSE
 							else
-								qdel(A)
+								qdel(B)
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()

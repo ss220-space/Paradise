@@ -33,6 +33,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		msg = typing_input(src.mob, "", "ooc \"text\"")
 
 	msg = trim(sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN)))
+
 	if(!msg)
 		return
 
@@ -57,6 +58,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
+
+	msg = handleDiscordEmojis(msg)
 
 	add_ooc_logs(src, msg)
 
@@ -157,7 +160,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		prefs.save_preferences(src)
 		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Own OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Own OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/resetcolorooc()
 	set name = "Reset Your OOC Color"
@@ -170,7 +173,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	prefs.save_preferences(src)
 	to_chat(usr, "Your OOC color has been reset.")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset Own OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset Own OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/verb/looc(msg = "" as text)
 	set name = "LOOC"
@@ -219,6 +222,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				log_admin("[key_name_log(src)] has attempted to advertise in OOC: [msg]")
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
+
+	msg = handleDiscordEmojis(msg)
 
 	add_ooc_logs(src, msg, TRUE)
 

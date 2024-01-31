@@ -111,11 +111,6 @@
 	var/dismember_head = FALSE
 
 
-/obj/item/projectile/New()
-	permutated = list()
-	return ..()
-
-
 /obj/item/projectile/proc/Range()
 	range--
 	if(damage && tile_dropoff)
@@ -265,7 +260,7 @@
 		if(get_dist(A, original) <= 1)
 			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 		else
-			def_zone = pick(list("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg")) // If we were aiming at one target but another one got hit, no accuracy is applied
+			def_zone = pick(list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)) // If we were aiming at one target but another one got hit, no accuracy is applied
 
 	if(isturf(A) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
@@ -286,7 +281,7 @@
 			forcedodge -= 1
 		loc = target_turf
 		if(A)
-			permutated.Add(A)
+			LAZYADD(permutated, A)
 		return FALSE
 	else
 		if(A && A.density && !ismob(A) && !(A.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.

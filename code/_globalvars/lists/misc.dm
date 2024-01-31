@@ -73,3 +73,5 @@ GLOBAL_LIST_EMPTY(looping_sounds)
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
 
+/// List of cargo consoles that print reports on completed/expired orders
+GLOBAL_LIST_EMPTY(cargo_announcers)

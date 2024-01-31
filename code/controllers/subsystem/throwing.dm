@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(throwing)
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Thrown objects may not react properly. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "throwing"
 
 	var/list/currentrun
 	var/list/processing = list()
@@ -134,8 +135,7 @@ SUBSYSTEM_DEF(throwing)
 	if(thrownthing && isturf(thrownthing.loc))
 		thrownthing.newtonian_move(GetOppositeDir(init_dir))
 
-	if(callback)
-		callback.Invoke()
+	callback?.Invoke()
 
 	thrownthing?.end_throw()
 

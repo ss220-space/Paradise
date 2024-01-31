@@ -109,9 +109,11 @@
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
-		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
-	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
+	if(user)
+		to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
 	addtimer(CALLBACK(src, PROC_REF(post_emag)), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
@@ -122,7 +124,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/structure/sign/barsign/proc/pick_sign()
-	var/picked_name = input("Available Signage", "Bar Sign") as null|anything in barsigns
+	var/picked_name = tgui_input_list(usr, "Available Signage", "Bar Sign", barsigns)
 	if(!picked_name)
 		return
 	set_sign(picked_name)

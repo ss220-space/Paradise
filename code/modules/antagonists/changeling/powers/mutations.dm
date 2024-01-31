@@ -63,11 +63,13 @@
 		qdel(user.get_inactive_hand())
 		done = TRUE
 
-	if(done && !silent)
-		user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"),
-							span_notice("We assimilate the [weapon_name_simple] back into our body."),
-							span_warning("You hear organic matter ripping and tearing!"))
-		playsound(user, "bonebreak", 150, 1)
+	if(done)
+		. = COMPONENT_CANCEL_DROP
+		if(!silent)
+			playsound(user, "bonebreak", 150, TRUE)
+			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"),
+								span_notice("We assimilate the [weapon_name_simple] back into our body."),
+								span_warning("You hear organic matter ripping and tearing!"))
 
 
 //Parent to space suits and armor.
@@ -248,7 +250,7 @@
 	force = 25
 	block_chance = 0
 	armour_penetration = 35
-	hitsound = 'sound/weapons/genhit.ogg'
+	hitsound = "swing_hit"
 	gender = MALE
 	ru_names = list(NOMINATIVE = "молот из плоти", GENITIVE = "молота из плоти", DATIVE = "молоту из плоти", ACCUSATIVE = "молот из плоти", INSTRUMENTAL = "молотом из плоти", PREPOSITIONAL = "молоте из плоти")
 
@@ -463,7 +465,7 @@
 
 	target.apply_damage(offarm_item.force, BRUTE, BODY_ZONE_CHEST)
 	user.do_attack_animation(target, used_item = offarm_item)
-	add_blood(target)
+	offarm_item.add_mob_blood(target)
 	playsound(get_turf(user), offarm_item.hitsound, 75, TRUE)
 
 

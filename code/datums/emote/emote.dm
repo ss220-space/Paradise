@@ -185,12 +185,12 @@
 			to_chat(user, span_warning("[params]' isn't a valid parameter for [key]."))
 			return TRUE
 
-	msg = genderize_decode(user, msg)
-
 	// Keep em quiet if they can't speak
 	if(!can_vocalize_emotes(user) && ((emote_type & EMOTE_MOUTH) && (emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND))))
 		var/noise_emitted = pick(muzzled_noises)
-		msg = "изда[pluralize_ru(user.gender, "ёт", "ют")] [noise_emitted] звуки."
+		msg = "изда%(ёт,ют)% [noise_emitted] звуки."
+
+	msg = genderize_decode(user, msg)
 
 	var/tmp_sound = get_sound(user)
 	var/sound_volume = get_volume(user)
@@ -310,11 +310,12 @@
  * Arguments:
  * * user - Person that is trying to send the emote.
  * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
+ * * ignore_cooldowns - If `TRUE` all cooldowns will be skipped.
  *
  * Returns FALSE if the cooldown is not over, TRUE if the cooldown is over.
  */
-/datum/emote/proc/check_cooldown(mob/user, intentional)
-	if(!intentional && bypass_unintentional_cooldown)
+/datum/emote/proc/check_cooldown(mob/user, intentional, ignore_cooldowns)
+	if((!intentional && bypass_unintentional_cooldown) || ignore_cooldowns)
 		return TRUE
 	// if our emote would play sound but another audio emote is on cooldown, prevent this emote from being used.
 	// Note that this only applies to intentional emotes

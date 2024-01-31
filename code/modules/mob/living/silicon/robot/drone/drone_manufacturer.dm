@@ -77,15 +77,18 @@
 
 	drone_progress = 0
 
-
+/obj/machinery/drone_fabricator/attack_ghost(mob/dead/observer/user)
+	user.become_drone()
 
 /mob/dead/verb/join_as_drone()
 	set category = "Ghost"
 	set name = "Join As Drone"
 	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
+	become_drone(src)
 
+/mob/dead/proc/become_drone(mob/user)
 	if(!(CONFIG_GET(flag/allow_drone_spawn)))
-		to_chat(src, "<span class='warning'>That verb is not currently permitted.</span>")
+		to_chat(src, "<span class='warning'>That action is not currently permitted.</span>")
 		return
 
 	if(!src.stat)

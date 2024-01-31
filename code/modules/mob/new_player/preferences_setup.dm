@@ -230,7 +230,7 @@
 			H.dna.species = current_species
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
-			var/obj/item/organ/external/chest/C = H.get_organ("chest")
+			var/obj/item/organ/external/chest/C = H.get_organ(BODY_ZONE_CHEST)
 			icobase = C.icobase ? C.icobase : C.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.tail ? H.tail : H.dna.species.tail
@@ -249,18 +249,33 @@
 		if(H.icon_state)
 			head = H.icon_state
 	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
-
-	for(var/name in list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand"))
-		if(organ_data[name] == "amputated") continue
-		if(organ_data[name] == "cyborg")
-			var/datum/robolimb/R
-			if(rlimb_data[name]) R = GLOB.all_robolimbs[rlimb_data[name]]
-			if(!R) R = GLOB.basic_robolimb
-			if(name == "chest")
-				name = "torso"
-			preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
+	var/list/check_list = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
+	for(var/limb_zone in check_list)
+		if(organ_data[limb_zone] == "amputated")
 			continue
-		preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)
+		if(organ_data[limb_zone] == "cyborg")
+			var/datum/robolimb/R
+			if(rlimb_data[limb_zone])
+				R = GLOB.all_robolimbs[rlimb_data[limb_zone]]
+			if(!R)
+				R = GLOB.basic_robolimb
+			if(limb_zone == BODY_ZONE_CHEST)
+				limb_zone = "torso"
+			preview_icon.Blend(icon(R.icon, "[limb_zone]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
+			continue
+		preview_icon.Blend(new /icon(icobase, "[limb_zone]"), ICON_OVERLAY)
 
 	// Skin color
 	if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR) && !(current_species.bodyflags & HAS_ICON_SKIN_TONE))

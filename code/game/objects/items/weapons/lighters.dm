@@ -51,7 +51,7 @@
 		to_chat(user, "<span class='notice'>You light [src].</span>")
 	else
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+		var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(affecting.receive_damage( 0, 5 ))		//INFERNO
 			H.UpdateDamageIcon()
 		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
@@ -242,6 +242,14 @@
 	item_state = "rdzippo"
 	icon_on = "zippo_rd_on"
 	icon_off = "zippo_rd"
+
+/obj/item/lighter/zippo/qm
+	name = "Quartermaster Lighter"
+	desc = "It costs 400.000 credits to fire this lighter for 12 seconds."
+	icon_state = "zippo_qm"
+	item_state = "qmzippo"
+	icon_on = "zippo_qm_on"
+	icon_off = "zippo_qm"
 
 //Ninja-Zippo//
 /obj/item/lighter/zippo/ninja

@@ -2,7 +2,7 @@
 	var/obj/item/item_in_hand = get_active_hand()
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, item_in_hand) & COMPONENT_BLOCK_SWAP)
-		to_chat(src, SPAN_WARNING("Ваши руки заняты удержанием [item_in_hand]."))
+		to_chat(src, span_warning("Ваши руки заняты удержанием [item_in_hand]."))
 		return FALSE
 
 	hand = !hand
@@ -75,13 +75,16 @@
 
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
+	update_hands_HUD()
 
+
+/mob/living/carbon/proc/update_hands_HUD()
 	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
 		var/obj/screen/inventory/hand/hand
 		hand = hud_used.inv_slots[slot_l_hand]
-		hand.update_icon()
+		hand.update_icon(UPDATE_OVERLAYS)
 		hand = hud_used.inv_slots[slot_r_hand]
-		hand.update_icon()
+		hand.update_icon(UPDATE_OVERLAYS)
 
 
 /**
@@ -272,7 +275,7 @@
 								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
 
 				var/no_mask
-				if(!get_organ_slot("breathing_tube"))
+				if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 					if(!(wear_mask && wear_mask.flags & AIRTIGHT))
 						if(!(head && head.flags & AIRTIGHT))
 							no_mask = 1
@@ -286,7 +289,7 @@
 						update_action_buttons_icon()
 					else
 						var/no_mask2
-						if(!get_organ_slot("breathing_tube"))
+						if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 							if(!(wear_mask && wear_mask.flags & AIRTIGHT))
 								if(!(head && head.flags & AIRTIGHT))
 									no_mask2 = 1
@@ -298,10 +301,6 @@
 
 					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
 									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
-
-
-/mob/living/carbon/proc/has_organ()
-	return
 
 
 /mob/living/carbon/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
@@ -401,7 +400,7 @@
 				if(!ignore_anim)
 					I.do_pickup_animation(src)
 				if(item_stack.merge(active_stack))
-					to_chat(src, SPAN_NOTICE("Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s."))
+					to_chat(src, span_notice("Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s."))
 					return TRUE
 			else
 				var/obj/item/stack/inactive_stack = get_inactive_hand()
@@ -409,7 +408,7 @@
 					if(!ignore_anim)
 						I.do_pickup_animation(src)
 					if(item_stack.merge(inactive_stack))
-						to_chat(src, SPAN_NOTICE("Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s."))
+						to_chat(src, span_notice("Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s."))
 						return TRUE
 
 	if(put_in_active_hand(I, force, ignore_anim))

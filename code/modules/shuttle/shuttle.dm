@@ -171,7 +171,7 @@
 		throw EXCEPTION("docking port [src] could not initialize.")
 		return 0
 
-	SSshuttle.stationary += src
+	SSshuttle.stationary |= src
 	if(!id)
 		id = "[SSshuttle.stationary.len]"
 	if(name == "dock")
@@ -893,7 +893,8 @@
 		add_attack_logs(user, src, "emagged")
 		src.req_access = list()
 		emagged = 1
-		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
 //for restricting when the computer can be used, needed for some console subtypes.
 /obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)
@@ -940,7 +941,7 @@
 	desc = "Used to control the Regular Civilian Shuttle."
 	circuit = /obj/item/circuitboard/ruins_civil_shuttle
 	shuttleId = "ruins_civil_shuttle"
-	possible_destinations = "spacebar;spacehotelv1"
+	possible_destinations = "spacebar;spacehotelv1;ntstation"
 
 
 /obj/machinery/computer/shuttle/white_ship
@@ -958,6 +959,7 @@
 // Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
 /obj/machinery/computer/shuttle/white_ship/LateInitialize()
 	Initialize()
+	. = ..()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"

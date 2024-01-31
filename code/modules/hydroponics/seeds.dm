@@ -310,16 +310,12 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	text += "- Lifespan: [lifespan]\n"
 	text += "- Weed Growth Rate: [weed_rate]\n"
 	text += "- Weed Vulnerability: [weed_chance]\n"
-	if(rarity)
-		text += "- Species Discovery Value: [rarity]\n"
 	var/all_traits = ""
 	for(var/datum/plant_gene/trait/traits in genes)
 		if(istype(traits, /datum/plant_gene/trait/plant_type))
 			continue
 		all_traits += " [traits.get_name()]"
 	text += "- Plant Traits:[all_traits]\n"
-
-	text += "*---------*"
 
 	return text
 
@@ -328,7 +324,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
+		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")

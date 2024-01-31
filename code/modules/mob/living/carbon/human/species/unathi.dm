@@ -50,28 +50,30 @@
 	female_sneeze_sound = list('sound/voice/unathi/f_u_sneeze.ogg')
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/unathi,
-		"lungs" =    /obj/item/organ/internal/lungs/unathi,
-		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/unathi,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/unathi,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/unathi,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/unathi,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,	// 3 darksight.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right),
-		"tail" =   list("path" = /obj/item/organ/external/tail/unathi))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/unathi),
+	)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
@@ -92,7 +94,7 @@
 	button_icon_state = "tail"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
-/datum/action/innate/tail_lash/Trigger()
+/datum/action/innate/tail_lash/Trigger(left_click = TRUE)
 	if(IsAvailable(show_message = TRUE))
 		..()
 
@@ -105,7 +107,7 @@
 		to_chat(user, "<span class='warning'>Передохните перед повторным взмахом хвоста!</span>")
 		return
 	for(var/mob/living/carbon/human/C in orange(1))
-		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
+		var/obj/item/organ/external/E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN))
 
 		if(E)
 			user.changeNext_move(CLICK_CD_MELEE) //User бьет С в Е. Сука... С - это цель. Е - это орган.
@@ -128,11 +130,11 @@
 /datum/action/innate/tail_lash/IsAvailable(show_message = FALSE)
 	. = ..()
 	var/mob/living/carbon/human/user = owner
-	if(!user.bodyparts_by_name["tail"])
+	if(!user.bodyparts_by_name[BODY_ZONE_TAIL])
 		if(show_message)
 			to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
 		return FALSE
-	if(!istype(user.bodyparts_by_name["tail"], /obj/item/organ/external/tail/unathi))
+	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi))
 		if(show_message)
 			to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
 		return FALSE
@@ -155,18 +157,19 @@
 	species_traits = list(NOGUNS, LIPS, PIERCEIMMUNE)
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/unathi,
-		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
-		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/unathi/ash_walker,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/unathi,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/unathi,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/unathi,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/ignite/fire = locate() in H.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	if(!fire)
 		fire = new
 		fire.Grant(H)
@@ -175,7 +178,7 @@
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/ignite/fire = locate() in H.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	if(fire)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
@@ -208,7 +211,7 @@
 	if(!finder)
 		finder = new
 		finder.Grant(C)
-	var/datum/action/innate/ignite/fire = locate() in C.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(!fire)
 		fire = new
 		fire.Grant(C)
@@ -221,7 +224,7 @@
 	var/datum/action/innate/anvil_finder/finder = locate() in C.actions
 	if(finder)
 		finder.Remove(C)
-	var/datum/action/innate/ignite/fire = locate() in C.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(fire)
 		fire.Remove(C)
 
@@ -326,28 +329,29 @@ They're basically just lizards with all-around marginally better stats and fire 
 	no_equip = list(slot_shoes) //everyone have to pay for
 	speed_mod = -0.25			//beeing slightly faster
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/unathi,
-		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
-		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
-		) //no need to b-r-e-a-t-h
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/unathi/ash_walker,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/unathi,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/unathi,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/unathi,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	) //no need to b-r-e-a-t-h
 
 /datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	. = ..()
 	var/obj/shoes = C.get_item_by_slot(slot_shoes)
 	if(shoes && C.can_unEquip(shoes))
 		C.drop_item_ground(shoes)
-	var/obj/item/organ/external/head/head_organ = C.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = C.get_organ(BODY_ZONE_HEAD)
 	head_organ?.ha_style = "Drake"
 	C.change_eye_color("#A02720")
 	C.update_dna()
 	C.update_inv_head()
 	C.update_inv_wear_suit() //update sprites for digi legs
 	C.weather_immunities |= "ash"
-	var/datum/action/innate/ignite/fire = locate() in C.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(!fire)
 		fire = new
 		fire.Remove(C)
@@ -358,12 +362,12 @@ They're basically just lizards with all-around marginally better stats and fire 
 	C.update_inv_head()
 	C.update_inv_wear_suit()
 	C.weather_immunities -= "ash"
-	var/datum/action/innate/ignite/fire = locate() in C.actions
+	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(fire)
 		fire.Grant(C)
 
 //igniter. only for ashwalkers and drakonids because of """lore"""
-/datum/action/innate/ignite
+/datum/action/innate/ignite_unathi
 	name = "Ignite"
 	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
 	icon_icon = 'icons/obj/cigarettes.dmi'
@@ -372,7 +376,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	var/cooldown_duration = 40 SECONDS
 	check_flags = AB_CHECK_RESTRAINED
 
-/datum/action/innate/ignite/Activate()
+/datum/action/innate/ignite_unathi/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(world.time <= cooldown)
 		to_chat(user, span_warning("Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again."))

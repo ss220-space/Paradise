@@ -21,11 +21,13 @@
 
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"brain" =    /obj/item/organ/internal/brain/crystal,
-		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
-		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/crystal,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_STRANGE_CRYSTAL = /obj/item/organ/internal/nucleation/strange_crystal,
+		INTERNAL_ORGAN_RESONANT_CRYSTAL = /obj/item/organ/internal/nucleation/resonant_crystal,
+	)
 	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)

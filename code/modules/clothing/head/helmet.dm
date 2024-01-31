@@ -412,3 +412,12 @@
 		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
 		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
+
+//Dredd
+/obj/item/clothing/head/helmet/street_judge
+	name = "Judge's helmet"
+	desc = "Commonly used security headgear for the more theatrically inclined. Wear this in hostage situations to make everything worse."
+	icon_state = "streetjudge_helmet"
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")

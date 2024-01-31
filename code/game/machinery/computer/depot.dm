@@ -39,8 +39,8 @@
 	return
 
 /obj/machinery/computer/syndicate_depot/emag_act(mob/user)
-	to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
-	return
+	if(user)
+		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 
 /obj/machinery/computer/syndicate_depot/allowed(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -416,6 +416,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/syndicate_depot/teleporter/LateInitialize()
+	. = ..()
 	findbeacon()
 	update_portal()
 
@@ -473,7 +474,7 @@
 		else
 			areaindex[tmpname] = 1
 		L[tmpname] = R
-	var/desc = input("Please select a location to lock in.", "Syndicate Teleporter") in L
+	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Syndicate Teleporter", L)
 	if(usr == last_opener && world.time >= last_opened_time + timeout)
 		return FALSE
 	return(L[desc])

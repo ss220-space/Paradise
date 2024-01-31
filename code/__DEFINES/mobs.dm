@@ -1,11 +1,12 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN     1
-#define ORGAN_ROBOT      2
-#define ORGAN_SPLINTED   4
-#define ORGAN_DEAD       8
-#define ORGAN_MUTATED    16
+#define ORGAN_BROKEN 1
+#define ORGAN_ROBOT 2
+#define ORGAN_SPLINTED 4
+#define ORGAN_DEAD 8
+#define ORGAN_MUTATED 16
+#define ORGAN_INT_BLEED 32
 
 #define PROCESS_ACCURACY 10
 
@@ -271,7 +272,8 @@
 
 #define isnewplayer(A)  (istype((A), /mob/new_player))
 
-#define isorgan(A)		(istype((A), /obj/item/organ/external))
+#define isexternalorgan(A)		(istype((A), /obj/item/organ/external))
+
 #define hasorgans(A)	(ishuman(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
@@ -286,5 +288,15 @@
 #define HEARING_PROTECTION_MINOR	1
 #define HEARING_PROTECTION_MAJOR	2
 #define HEARING_PROTECTION_TOTAL	3
+
+// Eye protection
+#define FLASH_PROTECTION_VERYVUNERABLE -4
+#define FLASH_PROTECTION_SENSITIVE -1
+#define FLASH_PROTECTION_NONE 0
+#define FLASH_PROTECTION_FLASH 1
+#define FLASH_PROTECTION_WELDER 2
+
+#define MAX_EYE_BLURRY_FILTER_SIZE 5
+#define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
 
 #define FIRE_DMI (issmall(src) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')

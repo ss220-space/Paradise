@@ -212,7 +212,6 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 		diag_hud.add_hud_to(src)
-		permanent_huds |= diag_hud
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
@@ -287,7 +286,8 @@
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
 		locked = FALSE
 		emagged = 1
-		to_chat(user, span_notice("You bypass [src]'s controls."))
+		if(user)
+			to_chat(user, span_notice("You bypass [src]'s controls."))
 		return
 
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
@@ -301,7 +301,7 @@
 		show_laws()
 		return
 
-	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
+	if(user) //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, span_warning("You need to open maintenance panel first!"))
 
 
@@ -1088,7 +1088,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		add_attack_logs(user, src, "Dehacked")
 
 
-/mob/living/simple_animal/bot/proc/update_icon()
+/mob/living/simple_animal/bot/update_icon_state()
 	icon_state = "[initial(icon_state)][on]"
 
 

@@ -53,24 +53,23 @@
 		var/temp_bleed = 0
 		var/internal_bleeding_rate = 0
 		//Bleeding out
-		for(var/X in bodyparts)
-			var/obj/item/organ/external/BP = X
-			var/brutedamage = BP.brute_dam
+		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+			var/brutedamage = bodypart.brute_dam
 
-			if(BP.is_robotic())
+			if(bodypart.is_robotic())
 				continue
 
-			//We want an accurate reading of .len
-			listclearnulls(BP.embedded_objects)
-			temp_bleed += 0.5*BP.embedded_objects.len
+			var/embedded_length = LAZYLEN(bodypart.embedded_objects)
+			if(embedded_length)
+				temp_bleed += 0.5 * embedded_length
 
 			if(brutedamage >= 20)
 				temp_bleed += (brutedamage * 0.013)
 
-			if(BP.open)
+			if(bodypart.open)
 				temp_bleed += 0.5
 
-			if(BP.internal_bleeding)
+			if(bodypart.has_internal_bleeding())
 				internal_bleeding_rate += 0.5
 
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects naturally decreases
@@ -127,14 +126,6 @@
 				else
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
-/mob/living/carbon/human/proc/check_internal_bleedings()
-	var/list/internals_list = list()
-	if(NO_BLOOD in dna.species.species_traits)
-		return
-	for(var/obj/item/organ/external/limb in bodyparts)
-		if(limb.internal_bleeding)
-			internals_list.Add(limb)
-	return internals_list
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
@@ -221,6 +212,10 @@
 
 		if("slimejelly")
 			blood_data["colour"] = dna.species.blood_color
+			blood_data["blood_color"] = dna.species.blood_color
+
+		if("cryoxadone")
+			blood_data["blood_color"] = dna.species.blood_color
 
 	return blood_data
 
@@ -264,13 +259,15 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(get_blood_id() != "blood")//is it blood or welding fuel?
+	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
+	var/check_blood = get_blood_id()
+	if(!check_blood || !(check_blood in acceptable_blood))//is it blood or welding fuel?
 		return
 	if(!T)
 		T = get_turf(src)
 
 	var/list/temp_blood_DNA
-	var/list/b_data = get_blood_data(get_blood_id())
+	var/list/b_data = get_blood_data(check_blood)
 
 	if(small_drip)
 		// Only a certain number of drips (or one large splatter) can be on a given turf.

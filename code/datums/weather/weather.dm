@@ -4,21 +4,21 @@
 	var/name = "space wind"
 	var/desc = "Heavy gusts of wind blanket the area, periodically knocking down anyone caught in the open."
 
-	var/telegraph_message = "<span class='warning'>The wind begins to pick up.</span>" //The message displayed in chat to foreshadow the weather's beginning
-	var/telegraph_duration = 300 //In deciseconds, how long from the beginning of the telegraph until the weather begins
+	var/telegraph_message = span_warning("The wind begins to pick up.") //The message displayed in chat to foreshadow the weather's beginning
+	var/telegraph_duration = 30 SECONDS //In deciseconds, how long from the beginning of the telegraph until the weather begins
 	var/telegraph_sound //The sound file played to everyone on an affected z-level
 	var/telegraph_overlay //The overlay applied to all tiles on the z-level
 
-	var/weather_message = "<span class='userdanger'>The wind begins to blow ferociously!</span>" //Displayed in chat once the weather begins in earnest
-	var/weather_duration = 1200 //In deciseconds, how long the weather lasts once it begins
-	var/weather_duration_lower = 1200 //See above - this is the lowest possible duration
-	var/weather_duration_upper = 1500 //See above - this is the highest possible duration
+	var/weather_message = span_userdanger("The wind begins to blow ferociously!") //Displayed in chat once the weather begins in earnest
+	var/weather_duration = 120 SECONDS //In deciseconds, how long the weather lasts once it begins
+	var/weather_duration_lower = 120 SECONDS //See above - this is the lowest possible duration
+	var/weather_duration_upper = 150 SECONDS //See above - this is the highest possible duration
 	var/weather_sound
 	var/weather_overlay
 	var/weather_color = null
 
-	var/end_message = "<span class='danger'>The wind relents its assault.</span>" //Displayed once the wather is over
-	var/end_duration = 300 //In deciseconds, how long the "wind-down" graphic will appear before vanishing entirely
+	var/end_message = span_danger("The wind relents its assault.") //Displayed once the wather is over
+	var/end_duration = 30 SECONDS //In deciseconds, how long the "wind-down" graphic will appear before vanishing entirely
 	var/end_sound
 	var/end_overlay
 
@@ -28,7 +28,7 @@
 	var/impacted_z_levels // The list of z-levels that this weather is actively affecting
 
 	var/overlay_layer = AREA_LAYER //Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
-	var/overlay_plane = BLACKNESS_PLANE
+	var/overlay_plane = AREA_PLANE
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
 
@@ -58,9 +58,11 @@
 
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
-		return
-	stage = STARTUP_STAGE
+		return TRUE	// If weather already active, don't need to mark it as invalid. More at `/datum/controller/subsystem/weather/fire()`
 	generate_area_list()
+	if(!impacted_areas.len)
+		return FALSE
+	stage = STARTUP_STAGE
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	START_PROCESSING(SSweather, src)
 	update_areas()
@@ -72,6 +74,7 @@
 			if(telegraph_sound)
 				SEND_SOUND(M, sound(telegraph_sound))
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
+	return TRUE
 
 /datum/weather/proc/start()
 	if(stage >= MAIN_STAGE)
@@ -103,7 +106,7 @@
 
 /datum/weather/proc/end()
 	if(stage == END_STAGE)
-		return 1
+		return TRUE
 	stage = END_STAGE
 	STOP_PROCESSING(SSweather, src)
 	update_areas()
@@ -111,14 +114,14 @@
 /datum/weather/proc/can_weather_act(mob/living/L) //Can this weather impact a mob?
 	var/turf/mob_turf = get_turf(L)
 	if(!istype(L))
-		return
+		return FALSE
 	if(mob_turf && !(mob_turf.z in impacted_z_levels))
-		return
+		return FALSE
 	if(immunity_type in L.weather_immunities)
-		return
+		return FALSE
 	if(!(get_area(L) in impacted_areas))
-		return
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/weather/proc/weather_act(mob/living/L) //What effect does this weather have on the hapless mob?
 	return

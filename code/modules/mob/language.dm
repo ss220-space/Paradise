@@ -195,7 +195,7 @@
 
 /datum/language/tajaran/get_random_name(gender) //code by @valtor0
 	var/static/list/tajaran_female_endings_list = list("и","а","о","е","й","ь") // Customise this with ru_name_syllables changes.
-	var/static/list/ru_name_syllables = list("кан","тай","кир","раи","кии","мир","кра","тэк","нал","вар","хар","марр","ран","дарр", \
+	var/list/ru_name_syllables = list("кан","тай","кир","раи","кии","мир","кра","тэк","нал","вар","хар","марр","ран","дарр", \
 	"мирк","ири","дин","манг","рик","зар","раз","кель","шера","тар","кей","ар","но","маи","зир","кер","нир","ра",\
 	"ми","рир","сей","эка","гир","ари","нэй","нре","ак","таир","эрай","жин","мра","зур","рин","сар","кин","рид","эра","ри","эна")
 	var/apostrophe = "’"
@@ -349,8 +349,8 @@
 /datum/language/grey/check_can_speak(mob/living/speaker)
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/S = speaker
-		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
-		var/obj/item/organ/external/lhand = S.get_organ("l_hand")
+		var/obj/item/organ/external/rhand = S.get_organ(BODY_ZONE_PRECISE_R_HAND)
+		var/obj/item/organ/external/lhand = S.get_organ(BODY_ZONE_PRECISE_L_HAND)
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
 			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
 			return FALSE

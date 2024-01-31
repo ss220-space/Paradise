@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ResetUI(1)
 	// Hair
 	// FIXME:  Species-specific defaults pls
-	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/external/head/H = character.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
 	// Body Accessory

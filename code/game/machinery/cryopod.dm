@@ -202,7 +202,7 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
-	var/base_icon_state = "bodyscanner-open"
+	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
 	var/on_store_message = "помещен в криохранилище."
 	var/on_store_name = "Cryogenic Oversight"
@@ -247,7 +247,8 @@
 		/obj/item/key,
 		/obj/item/door_remote,
 		/obj/item/stamp,
-		/obj/item/sensor_device/advanced
+		/obj/item/sensor_device/advanced,
+		/obj/item/qm_quest_tablet
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (

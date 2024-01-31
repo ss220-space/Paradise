@@ -440,9 +440,10 @@
 	inserted_item = null
 	SStgui.update_uis(src)
 
-/obj/machinery/vending/emag_act(user as mob)
+/obj/machinery/vending/emag_act(mob/user)
 	emagged = TRUE
-	to_chat(user, "You short out the product lock on [src]")
+	if(user)
+		to_chat(user, "You short out the product lock on [src]")
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
@@ -1078,7 +1079,7 @@
 					  /obj/item/ammo_box/foambox/riot = 20,
 					  /obj/item/toy/katana = 10,
 					  /obj/item/twohanded/dualsaber/toy = 5,
-					  /obj/item/toy/cards/deck/syndicate = 10) //Gambling and it hurts, making it a +18 item
+					  /obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -1218,6 +1219,39 @@
 				    /obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 	refill_canister = /obj/item/vending_refill/security
+
+/obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/security_voucher))
+		if(!powered())
+			return
+		add_fingerprint(user)
+		var/list/available_kits = list(
+			"Dominator Kit" = list(/obj/item/gun/energy/dominator/sibyl, /obj/item/clothing/accessory/holster),
+			"Enforcer Kit" = list(/obj/item/gun/projectile/automatic/pistol/enforcer/security, /obj/item/ammo_box/magazine/enforcer, /obj/item/ammo_box/magazine/enforcer, /obj/item/clothing/accessory/holster),
+		)
+		var/weapon_kit = input(user, "Select a weaponary kit.") as null|anything in available_kits
+		if(!weapon_kit)
+			return
+		if(!Adjacent(user) || QDELETED(I) || I.loc != user)
+			return
+		qdel(I)
+		sleep(0.5 SECONDS)
+		var/obj/item/storage/box/box = new(get_turf(src))
+		playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
+		box.icon_state = "box_sec"
+		for(var/path in available_kits[weapon_kit])
+			new path(box)
+		if(Adjacent(user))
+			user.put_in_hands(box, ignore_anim = FALSE)
+		return
+	. = ..()
+
+
+/obj/item/security_voucher
+	name = "security voucher"
+	desc = "A token to redeem a weapon kit. Use it on a SecTech."
+	icon_state = "security_voucher"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/machinery/vending/hydronutrients
 	name = "\improper NutriMax"
@@ -1402,6 +1436,7 @@
 					/obj/item/twohanded/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
 					/obj/item/clothing/under/rank/clown/sexy = 1,
+					/obj/item/clothing/under/rank/clown/clussy = 1,
 					/obj/item/clothing/mask/gas/mime/sexy = 1,
 					/obj/item/clothing/under/sexymime = 1,
 					/obj/item/clothing/mask/face/bat = 1,
@@ -1619,9 +1654,28 @@
 	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
 	icon_state = "suits"
 	ads_list = list("Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*","Blood of your enemies washes right out!","Who are YOU wearing?","Look dapper! Look like an idiot!","Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*")
-	products = list(/obj/item/clothing/under/color/black = 10,/obj/item/clothing/under/color/blue = 10,/obj/item/clothing/under/color/green = 10,/obj/item/clothing/under/color/grey = 10,/obj/item/clothing/under/color/pink = 10,/obj/item/clothing/under/color/red = 10,
-					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/aqua = 10,/obj/item/clothing/under/color/purple = 10,/obj/item/clothing/under/color/lightgreen = 10,
-					/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/lightbrown = 10,/obj/item/clothing/under/color/brown = 10,/obj/item/clothing/under/color/yellowgreen = 10,/obj/item/clothing/under/color/darkblue = 10,/obj/item/clothing/under/color/lightred = 10, /obj/item/clothing/under/color/darkred = 10)
+	products = list(
+		/obj/item/clothing/under/color/black = 10,
+		/obj/item/clothing/under/color/blue = 10,
+		/obj/item/clothing/under/color/green = 10,
+		/obj/item/clothing/under/color/grey = 10,
+		/obj/item/clothing/under/color/pink = 10,
+		/obj/item/clothing/under/color/red = 10,
+		/obj/item/clothing/under/color/white = 10,
+		/obj/item/clothing/under/color/yellow = 10,
+		/obj/item/clothing/under/color/lightblue = 10,
+		/obj/item/clothing/under/color/aqua = 10,
+		/obj/item/clothing/under/color/purple = 10,
+		/obj/item/clothing/under/color/lightgreen = 10,
+		/obj/item/clothing/under/color/lightblue = 10,
+		/obj/item/clothing/under/color/lightbrown = 10,
+		/obj/item/clothing/under/color/brown = 10,
+		/obj/item/clothing/under/color/yellowgreen = 10,
+		/obj/item/clothing/under/color/darkblue = 10,
+		/obj/item/clothing/under/color/lightred = 10,
+		/obj/item/clothing/under/color/darkred = 10,
+		/obj/item/clothing/under/colour/skirt = 10
+		)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/suitdispenser
@@ -1862,6 +1916,8 @@
 		/obj/item/clothing/suit/tracksuit/red				= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/security	= 5,
 		/obj/item/clothing/suit/jacket/pilot	= 5,
+		/obj/item/clothing/suit/armor/vest/sec_rps	= 5,
+		/obj/item/clothing/suit/armor/secjacket = 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
@@ -1897,7 +1953,8 @@
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
 		/obj/item/clothing/suit/storage/brigdoc = 3,
-		/obj/item/clothing/under/rank/security/brigmedical = 3
+		/obj/item/clothing/under/rank/security/brigmedical = 3,
+		/obj/item/clothing/under/rank/security/brigmedical/skirt = 3
 		)
 
 
@@ -1934,6 +1991,7 @@
 		/obj/item/clothing/under/rank/orderly				= 10,
 
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
+		/obj/item/clothing/suit/storage/suragi_jacket/medic = 10,
 		/obj/item/clothing/suit/apron/surgical 		= 10,
 		/obj/item/clothing/suit/storage/fr_jacket 	= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/medical	= 5,
@@ -1984,6 +2042,7 @@
 
 		/obj/item/clothing/under/rank/psych				= 2,
 		/obj/item/clothing/under/rank/psych/turtleneck	= 2,
+		/obj/item/clothing/under/rank/psych/skirt	= 2,
 
 		/obj/item/clothing/suit/storage/labcoat/mortician 	= 2,
 		/obj/item/clothing/under/rank/medical/mortician  	= 2,
@@ -2038,6 +2097,7 @@
 		/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
 		/obj/item/clothing/head/beret/atmos = 3,
 		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 5,
+		/obj/item/clothing/suit/storage/suragi_jacket/atmos = 5,
 		/obj/item/storage/backpack/duffel/atmos = 3.
 		)
 
@@ -2104,8 +2164,10 @@
 
 		/obj/item/clothing/under/rank/cargotech 		= 10,
 		/obj/item/clothing/under/rank/cargotech/skirt 	= 10,
+		/obj/item/clothing/under/rank/cargotech/alt		= 5,
 		/obj/item/clothing/under/rank/miner/lavaland 	= 10,
 		/obj/item/clothing/under/overalls 				= 10,
+		/obj/item/clothing/under/rank/miner/alt			= 5,
 
 
 		/obj/item/clothing/mask/bandana/black 	= 10,
@@ -2132,6 +2194,8 @@
 
 		/obj/item/clothing/under/pants/tan 		= 10,
 		/obj/item/clothing/under/pants/track 	= 10,
+
+		/obj/item/clothing/suit/storage/cargotech = 5,
 
 		/obj/item/clothing/suit/hooded/wintercoat/cargo	= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/miner	= 5,
@@ -2278,10 +2342,10 @@
 		/obj/item/ammo_box/shotgun = 4,
 		/obj/item/ammo_box/shotgun/buck = 4,
 		/obj/item/ammo_box/shotgun/rubbershot = 4,
-		/obj/item/ammo_casing/shotgun/stunslug = 35,
-		/obj/item/ammo_casing/shotgun/ion = 14,
-		/obj/item/ammo_casing/shotgun/laserslug = 35,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 8,
+		/obj/item/ammo_box/shotgun/stunslug = 5,
+		/obj/item/ammo_box/shotgun/ion = 2,
+		/obj/item/ammo_box/shotgun/laserslug = 5,
+		/obj/item/ammo_box/speedloader/shotgun = 8,
 
 		/obj/item/ammo_box/magazine/lr30mag = 12,
 		/obj/item/ammo_box/magazine/enforcer = 8,
@@ -2316,15 +2380,13 @@
 		/obj/item/gun/projectile/automatic/lasercarbine = 3,
 		/obj/item/ammo_box/magazine/laser = 6,
 		/obj/item/suppressor = 4,
-		/obj/item/gun/projectile/automatic/wt550 = 3,
-		/obj/item/ammo_box/magazine/wt550m9 = 6,
-		/obj/item/gun/projectile/shotgun/riot = 6,
-		/obj/item/ammo_box/shotgun/rubbershot = 6,
-		/obj/item/ammo_box/shotgun/beanbag = 4,
-		/obj/item/ammo_box/shotgun/tranquilizer = 4,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
+		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
-		/obj/item/ammo_box/magazine/sfg9mm = 6
+		/obj/item/ammo_box/magazine/sfg9mm = 6,
+		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
+		/obj/item/ammo_box/shotgun = 4,
+		/obj/item/ammo_box/shotgun/buck = 4,
+		/obj/item/ammo_box/shotgun/dragonsbreath = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
@@ -2347,11 +2409,6 @@
 		/obj/item/gun/energy/xray = 2,
 		/obj/item/gun/energy/immolator/multi = 2,
 		/obj/item/gun/energy/gun/nuclear = 3,
-		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
-		/obj/item/ammo_box/shotgun = 4,
-		/obj/item/ammo_box/shotgun/buck = 4,
-		/obj/item/ammo_box/shotgun/dragonsbreath = 2,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4
@@ -2375,9 +2432,13 @@
 		/obj/item/gun/energy/gun/advtaser = 4,
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
 		/obj/item/storage/box/barrier = 2,
-		/obj/item/gun/projectile/shotgun/riot = 1,
-		/obj/item/ammo_box/shotgun/rubbershot = 3,
-		/obj/item/ammo_box/speedloader/shotgun/universal = 4,
+		/obj/item/gun/projectile/shotgun/riot = 3,
+		/obj/item/ammo_box/shotgun/rubbershot = 6,
+		/obj/item/ammo_box/shotgun/beanbag = 4,
+		/obj/item/ammo_box/shotgun/tranquilizer = 4,
+		/obj/item/ammo_box/speedloader/shotgun = 4,
+		/obj/item/gun/projectile/automatic/wt550 = 3,
+		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)

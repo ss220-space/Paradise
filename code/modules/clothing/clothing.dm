@@ -91,7 +91,7 @@
 	// For clothing that are faction restricted
 	if(faction_restricted && !M.is_general_slot(slot) && faction_check(faction_restricted, M.faction))
 		if(!disable_warning)
-			to_chat(M, SPAN_WARNING("[src] не могут использовать такие как Вы."))
+			to_chat(M, span_warning("[src] не могут использовать такие как Вы."))
 		return FALSE
 
 
@@ -154,10 +154,10 @@
 	var/invis_override = 0
 	var/lighting_alpha
 
-	var/emagged = 0
+	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
-	var/prescription = 0
-	var/prescription_upgradable = 0
+	var/prescription = FALSE
+	var/prescription_upgradable = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
@@ -260,7 +260,9 @@ BLIND     // can't see anything
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
+	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode+1])
+	if(!switchMode)
+		return
 	if(get_dist(user, src) > 1)
 		to_chat(user, "You have moved too far away.")
 		return
@@ -400,7 +402,7 @@ BLIND     // can't see anything
 		mask_adjusted = 1
 		if(adjusted_flags)
 			slot_flags = adjusted_flags
-		if(ishuman(user) && H.internal && !H.get_organ_slot("breathing_tube") && user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
+		if(ishuman(user) && H.internal && !H.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE) && user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
 																Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
 			H.internal = null
 			H.update_action_buttons_icon()
@@ -587,9 +589,11 @@ BLIND     // can't see anything
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
+				user.update_tail_layer()
 		else
 			if(!(initial(flags_inv) & HIDETAIL) && (flags_inv & HIDETAIL)) //Otherwise, remove the HIDETAIL flag if it wasn't already in the flags_inv to start with.
 				flags_inv &= ~HIDETAIL
+				user.update_tail_layer()
 
 /obj/item/clothing/suit/ui_action_click(mob/user) //This is what happens when you click the HUD action button to adjust your suit.
 	if(!ignore_suitadjust)
@@ -738,15 +742,17 @@ BLIND     // can't see anything
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
 	var/sensor_mode = SENSOR_OFF
-	var/random_sensor = TRUE
 		/*
-		1 = Report living/dead
-		2 = Report detailed damages
-		3 = Report location
+		SENSOR_OFF		= Report nothing
+		SENSOR_LIVING	= Report living/dead
+		SENSOR_VITALS	= Report detailed damages
+		SENSOR_COORDS	= Report location
 		*/
+	var/random_sensor = TRUE
+	var/displays_id = TRUE
+	var/over_shoes = FALSE
+	var/rolled_down = FALSE
 	var/list/accessories = list()
-	var/displays_id = 1
-	var/rolled_down = 0
 	var/basecolor
 
 /obj/item/clothing/under/rank/New()
@@ -797,8 +803,8 @@ BLIND     // can't see anything
 				return FALSE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory))
-		attach_accessory(I, user, TRUE)
+	if(istype(I, /obj/item/clothing/accessory) && attach_accessory(I, user, TRUE))
+		return TRUE
 
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
@@ -839,7 +845,7 @@ BLIND     // can't see anything
 				. += "<span class='notice'>Its vital tracker and tracking beacon appear to be enabled.</span>"
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			. += "<span class='notice'>\A [A] is attached to it.</span>"
+			. += A.attached_examine()
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Roll Down Jumpsuit"

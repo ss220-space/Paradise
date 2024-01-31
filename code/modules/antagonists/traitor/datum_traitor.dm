@@ -8,6 +8,8 @@
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_name = "hudsyndicate"
 	antag_hud_type = ANTAG_HUD_TRAITOR
+	wiki_page_name = "Traitor"
+	russian_wiki_name = "Предатель"
 	clown_gain_text = "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
 	/// Should the traitor get codewords?
@@ -201,8 +203,9 @@
  * Give traitors their uplink. Play the traitor an alert sound.
  */
 /datum/antagonist/traitor/finalize_antag()
+	var/list/messages = list()
 	if(give_codewords)
-		give_codewords()
+		messages.Add(give_codewords())
 
 	if(give_uplink)
 		give_uplink()
@@ -212,8 +215,9 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	if(is_contractor)
-		owner.add_antag_datum(/datum/antagonist/contractor)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/datum/mind, add_antag_datum), /datum/antagonist/contractor), 1)
 
+	return messages
 
 /**
  * Notify the traitor of their codewords and write them to `antag_memory` (notes).
@@ -231,13 +235,15 @@
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
+	var/list/messages = list()
 	if(!silent)
-		to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-		to_chat(traitor_mob, "<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-		to_chat(traitor_mob, "<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
-		to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-		to_chat(traitor_mob, "<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+		messages.Add("<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
+		messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
+		messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+		messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+		messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
+	return messages
 
 /**
  * Gives a traitor their uplink, and uplink code.

@@ -186,8 +186,7 @@
 /obj/machinery/door/firedoor/attack_alien(mob/user)
 	add_fingerprint(user)
 	if(welded)
-		to_chat(user, span_warning("[src] refuses to budge!"))
-		return
+		return ..()
 	open()
 
 /obj/machinery/door/firedoor/attack_animal(mob/user)

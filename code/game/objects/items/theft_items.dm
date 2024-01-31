@@ -171,7 +171,7 @@
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK gibbing memes
 	return
 
-/obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
+/obj/item/nuke_core/supermatter_sliver/can_be_pulled(atom/movable/user, force, show_message = FALSE) // no drag memes
 	return FALSE
 
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
@@ -209,22 +209,24 @@
 	else
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
 		investigate_log("has consumed [key_name(victim)] via throw impact.", "supermatter")
-		victim.visible_message("<span class='danger'>As [victim] is hit by [src], both burst into flames and silence fills the room...</span>",
-		"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] bursts into flames, and soon as you can register this, you do as well.</span>",
-		"<span class='hear'>Everything suddenly goes silent.</span>")
-		victim.gib()
-		for(var/mob/living/L in view(5, src))
-			L.apply_effect(120, IRRADIATE)
-		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
-		qdel(src)
+	victim.visible_message("<span class='danger'>As [victim] is hit by [src], both burst into flames and silence fills the room...</span>",
+	"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] bursts into flames, and soon as you can register this, you do as well.</span>",
+	"<span class='hear'>Everything suddenly goes silent.</span>")
+	victim.gib()
+	for(var/mob/living/L in view(5, src))
+		L.apply_effect(120, IRRADIATE)
+	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+	qdel(src)
 
 
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
 	if(!isliving(user) || user.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
-	user.visible_message(span_danger("[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before bursting into flames!"),
-						span_userdanger("You reach for [src] with your hands. That was dumb."),
-						span_hear("Everything suddenly goes silent."))
+	user.visible_message(
+		span_danger("[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before bursting into flames!"),
+		span_userdanger("You reach for [src] with your hands. That was dumb."),
+		span_italics("Everything suddenly goes silent."),
+	)
 	for(var/mob/living/L in view(5, src))
 		L.apply_effect(80, IRRADIATE)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)

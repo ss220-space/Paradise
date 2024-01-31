@@ -149,7 +149,7 @@
 	return
 
 /obj/item/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(user.zone_selected == "eyes")
+	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 		user.visible_message("<span class='warning'>[user] is trying to show the paper to you. </span>", \
 			"<span class='notice'>You hold up a paper and try to show it to [M]. </span>")
 
@@ -160,7 +160,7 @@
 		else
 			to_chat(user, span_warning("You fail to show the paper to [M]."))
 
-	else if(user.zone_selected == "mouth")
+	else if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		if(!istype(M, /mob))	return
 
 		if(ishuman(M))
@@ -679,6 +679,11 @@
 	info =  ""
 	language = "Neo-Russkiya"
 
+/obj/item/paper/solgov
+	name = "paper"
+	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='solgovlogo.png' width='220' height='135' /></p><hr />"
+	info = ""
+
 /obj/item/paper/central_command
 	name = "Директива Центрального Командования"
 	info = ""
@@ -916,6 +921,12 @@
 	return ..()
 
 //главы станции
+/obj/item/paper/form/NT_COM_ORDER
+	name = "Форма NT-COM-ORDER"
+	id = "NT-COM-ORDER"
+	altername = "Приказ"
+	category = "Главы станции"
+	info = "<font face=\"Verdana\" color=black>Я, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, приказываю:<BR><BR><span class=\"paper_field\"></span><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><BR>Подпись инициатора: <span class=\"paper_field\"></span><BR>Время подписания приказа: <span class=\"paper_field\"></span><BR>Дата подписания приказа: <span class=\"paper_field\"></span><BR><HR><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве должностного лица.</font></font>"
 /obj/item/paper/form/NT_COM_ST
 	name = "Форма NT-COM-ST"
 	id = "NT-COM-ST"
@@ -1306,6 +1317,14 @@
 	category = "Юридический отдел"
 	info = "<font face=\"Verdana\" color=black><BR><center><I><font size=\"4\"><B>Заявление</B></font></I></center><BR><BR><BR><B>Заявитель: </B><span class=\"paper_field\"></span><BR><font size = \"1\">Укажите своё полное имя, должность и номер акаунта.</font><BR><B>Предмет жалобы:</B><span class=\"paper_field\"></span><BR><font size = \"1\">Укажите на что/кого вы жалуетесь.</font><BR><B>Обстоятельства: </B><span class=\"paper_field\"></span><BR><font size = \"1\">Укажите подробные обстоятельства произошедшего.</font><BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><B>Подпись: </B><span class=\"paper_field\"></span><BR><font size = \"1\">Ваша подпись.</font><BR><B>Жалоба рассмотрена: </B><span class=\"paper_field\"></span><BR><font size = \"1\">Имя и фамилия рассмотревшего.</font><BR><BR><HR><BR><font size = \"1\"><I>*Обязательно провести копирование документа для агента внутренних дел, оригинал документа должен быть приложен к отчету о расследовании. Копия документа должна быть сохранена в картотеке офиса агента внутренних дел.</font><BR><BR><font size = \"1\"><I>*Обязательно донести жалобу до главы отдела, который отвечает за данного сотрудника, если таковой имеется. Если главы отдела нет на смене или он отсуствует по какой то причине, жалобу следует донести до вышестоящего сотрудника станции.</font><BR><BR><font size = \"1\"><I>*Если жалоба была написана на главу отдела, следует донести жалобу до вышестоящего сотрудника станции.</font><BR><BR><font size = \"1\"><I>*Глава отдела, которому была донесена жалоба, обязан провести беседу с указаным в жалобе сотрудником станции. В зависимости от тяжести проступка, глава отдела имеет право подать приказ об увольнении.</font></font>"
 	footer = footer_confidential
+
+/obj/item/paper/form/NT_LD_DENY
+	name = "Форма NT-LD-DENY"
+	id = "NT-LD-DENY"
+	altername = "Запрет на реанимацию"
+	category = "Юридический отдел"
+	info = "<font face=\"Verdana\" color=black>Я, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, сообщаю о постановлении запрета на реанимацию в отношении: <span class=\"paper_field\"></span><BR><font size=\"1\">Указать имя члена экипажа.</font><BR><BR>Исходя из того, что вышеупомянутый член экипажа попал под действие особых случаев применения летальной силы, а именно: <span class=\"paper_field\"></span><BR><font size=\"1\">Описать особый случай применения летальной силы указанный в СРП СБ.</font><BR><BR>Тело члена экипажа должно быть помещено в морг, ксерокопия данного документа должна находиться в картотеке патологоанатома, либо приложена к мешку с трупом подсудимого. Служебное оборудование данного члена экипажа должно быть передано вышестоящему главе отдела. Личные вещи не нарушающий Космический Закон должны оставаться вместе с членом экипажа, либо в ячейке морга.<BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Дата и время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><font size =\"1\">Данный документ является недействительным при отсутствии подписи и печати уполномоченного лица.<BR>Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и хранения одного экземпляра в картотеке патологоанатома, либо в мешке для трупов с вышеуказанным членом экипажа.</font></font>"
+	footer = null
 
 //Центральное командование
 /obj/item/paper/form/NT_COM_01

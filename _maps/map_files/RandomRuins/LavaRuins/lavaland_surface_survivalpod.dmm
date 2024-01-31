@@ -78,7 +78,8 @@
 /mob/living/simple_animal/hostile/asteroid/goliath/beast{
 	stat = 2;
 	health = 0;
-	bruteloss = 350
+	bruteloss = 350;
+	icon_state = "goliath_dead"
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,

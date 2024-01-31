@@ -1,7 +1,7 @@
 /datum/surgery/plastic_surgery_robotics
 	name = "Name Changing Procedure"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/reshape_face_robotics,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("head")
+	possible_locs = list(BODY_ZONE_HEAD)
 	requires_organic_bodypart = 0
 
 /datum/surgery/plastic_surgery_robotics/can_start(mob/user, mob/living/carbon/target)
@@ -25,8 +25,7 @@
 /datum/surgery_step/reshape_face_robotics/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	var/species_names = target.dna.species.name
-	if(head.disfigured)
-		head.disfigured = FALSE
+	if(head.undisfigure())
 		user.visible_message("[user] successfully restores [target]'s appearance!", "<span class='notice'>You successfully restore [target]'s appearance.</span>")
 	else
 		var/list/names = list()
@@ -60,7 +59,7 @@
 			for(var/i in 1 to list_size)
 				names += "Subject [target.gender == MALE ? "I" : "O"]-[pick("A", "B", "C", "D", "E")]-[rand(10000, 99999)]"
 			names += random_name(target.gender, species_names) //give one normal name in case they want to do regular plastic surgery
-		var/chosen_name = input(user, "Choose a new name to assign.", "Robotic Name Change") as null|anything in names
+		var/chosen_name = tgui_input_list(user, "Choose a new name to assign.", "Robotic Name Change", names)
 		if(!chosen_name)
 			return
 		var/oldname = target.real_name

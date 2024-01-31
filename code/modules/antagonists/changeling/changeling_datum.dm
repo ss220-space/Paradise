@@ -21,6 +21,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	special_role = SPECIAL_ROLE_CHANGELING
 	antag_hud_name = "hudchangeling"
 	antag_hud_type = ANTAG_HUD_CHANGELING
+	wiki_page_name = "Changeling"
+	russian_wiki_name = "Генокрад"
 	clown_gain_text = "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "As your changeling nature fades, you return to your own clumsy, clownish self."
 	/// List of [/datum/dna] which have been absorbed through the DNA sting or absorb power.
@@ -155,7 +157,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return
 
 	// Brains are optional for changelings.
-	var/obj/item/organ/internal/brain/ling_brain = carbon_user.get_organ_slot("brain")
+	var/obj/item/organ/internal/brain/ling_brain = carbon_user.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 	ling_brain?.decoy_brain = TRUE
 
 
@@ -186,7 +188,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return
 
 	// If they get de-clinged, make sure they can't just chop their own head off for the hell of it
-	var/obj/item/organ/internal/brain/former_ling_brain = carbon_user.get_organ_slot("brain")
+	var/obj/item/organ/internal/brain/former_ling_brain = carbon_user.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 	if(former_ling_brain && former_ling_brain.decoy_brain != initial(former_ling_brain.decoy_brain))
 		former_ling_brain.decoy_brain = FALSE
 
@@ -426,7 +428,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			continue
 		names[DNA.real_name] = DNA
 
-	var/chosen_name = input(message, title, null) as null|anything in names
+	var/chosen_name = tgui_input_list(owner.current, message, title, names)
 	if(!chosen_name)
 		return
 
@@ -565,7 +567,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	// 60 SECONDS of delay overall.
 	var/mob/living/carbon/human/h_user = user
 	var/missing_limbs = 5
-	for(var/obj/item/organ/external/limb in h_user.bodyparts)
+	for(var/obj/item/organ/external/limb as anything in h_user.bodyparts)
 		if(istype(limb, /obj/item/organ/external/head) || \
 			istype(limb, /obj/item/organ/external/arm) || \
 			istype(limb, /obj/item/organ/external/leg))

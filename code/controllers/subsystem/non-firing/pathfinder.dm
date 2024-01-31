@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(pathfinder)
 	name = "Pathfinder"
 	init_order = INIT_ORDER_PATH
 	flags = SS_NO_FIRE
+	ss_id = "pathfinder"
 	var/datum/flowcache/mobs
 	var/static/space_type_cache
 

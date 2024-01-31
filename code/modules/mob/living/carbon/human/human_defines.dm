@@ -70,6 +70,6 @@
 	var/tail
 	/// Same as tail but wing
 	var/wing
-
-	var/list/splinted_limbs = list() //limbs we know are splinted
+	/// Lazy list of all limbs we know are splinted.
+	var/list/splinted_limbs
 	var/original_eye_color = "#000000"

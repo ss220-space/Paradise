@@ -41,7 +41,7 @@
 
 	var/gasefficency = 0.125
 
-	var/base_icon_state = "darkmatter_shard"
+	base_icon_state = "darkmatter_shard"
 
 	var/damage = 0
 	var/damage_archived = 0

@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(sun)
 	init_order = INIT_ORDER_SUN
 	offline_implications = "Solar panels will no longer rotate. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "sun"
 	var/angle
 	var/dx
 	var/dy

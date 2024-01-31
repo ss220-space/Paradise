@@ -46,10 +46,11 @@
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								800),
 		EQUIPMENT("Industrial Mining Satchel",		/obj/item/storage/bag/ore/bigger,									500),
 		EQUIPMENT("Meson Health Scanner HUD",		/obj/item/clothing/glasses/hud/health/meson,						1500),
+		EQUIPMENT("Mining Charge Detonator",		/obj/item/detonator,												150),
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", 				/obj/item/stack/marker_beacon/ten, 									100),
-		EQUIPMENT("30 Marker Beacons",				/obj/item/stack/marker_beacon/thirty,								500),
+		EQUIPMENT("30 Marker Beacons",				/obj/item/stack/marker_beacon/thirty,								300),
 		EQUIPMENT("Pocket Fire Extinguisher",		/obj/item/extinguisher/mini,										400),
 		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									800),
 		EQUIPMENT("Fire First-Aid Kit",				/obj/item/storage/firstaid/fire,									800),
@@ -261,7 +262,7 @@
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Plasma Cutter Kit", "Mining Explosives Kit", "Crusher Kit", "Mining Conscription Kit")
 
-	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
+	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Mining Voucher Redemption", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 
@@ -368,7 +369,7 @@
 		EQUIPMENT("Plushie", 						/obj/random/plushie, 												750),
 		EQUIPMENT("Dnd set", 						/obj/item/storage/box/characters, 									500),
 		EQUIPMENT("Dice set", 						/obj/item/storage/box/dice, 										250),
-		EQUIPMENT("Cards", 							/obj/item/toy/cards/deck, 											150),
+		EQUIPMENT("Cards", 							/obj/item/deck/cards, 											150),
 		EQUIPMENT("Guitar", 						/obj/item/instrument/guitar, 										750),
 		EQUIPMENT("Synthesizer", 					/obj/item/instrument/piano_synth, 									1500),
 		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000)

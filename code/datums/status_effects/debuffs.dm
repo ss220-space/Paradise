@@ -199,10 +199,10 @@
 /datum/status_effect/mark_prey/on_creation(mob/living/new_owner, datum/antagonist/vampire/antag_datum)
 	if(antag_datum)
 		vamp = antag_datum
-		var/t_kidneys = vamp.get_trophies("kidneys")
+		var/t_kidneys = vamp.get_trophies(INTERNAL_ORGAN_KIDNEYS)
 		duration += t_kidneys SECONDS	// 15s. MAX
-		t_eyes = vamp.get_trophies("eyes")
-		t_hearts = vamp.get_trophies("hearts")
+		t_eyes = vamp.get_trophies(INTERNAL_ORGAN_EYES)
+		t_hearts = vamp.get_trophies(INTERNAL_ORGAN_HEART)
 	return ..()
 
 
@@ -596,6 +596,9 @@
 	if(istype(dreamer.buckled, /obj/structure/bed))
 		var/obj/structure/bed/bed = dreamer.buckled
 		comfort += bed.comfort
+	else if(istype(dreamer.buckled, /obj/structure/chair))
+		var/obj/structure/chair/chair = dreamer.buckled
+		comfort += chair.comfort
 	for(var/obj/item/bedsheet/bedsheet in range(dreamer.loc,0))
 		if(bedsheet.loc != dreamer.loc) //bedsheets in your backpack/neck don't give you comfort
 			continue
@@ -713,15 +716,50 @@
 #undef HALLUCINATE_MODERATE_WEIGHT
 #undef HALLUCINATE_MAJOR_WEIGHT
 
+
 /datum/status_effect/transient/eye_blurry
 	id = "eye_blurry"
 
+
 /datum/status_effect/transient/eye_blurry/on_apply()
-	owner.update_blurry_effects()
-	. = ..()
+	if(!ishuman(owner))
+		return FALSE
+	// Refresh the blur when a client jumps into the mob, in case we get put on a clientless mob with no hud
+	RegisterSignal(owner, COMSIG_MOB_LOGIN, PROC_REF(update_blur))
+	// Apply initial blur
+	update_blur()
+	return TRUE
+
 
 /datum/status_effect/transient/eye_blurry/on_remove()
-	owner.update_blurry_effects()
+	UnregisterSignal(owner, COMSIG_MOB_LOGIN)
+	if(!owner.hud_used)
+		return
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+	game_plane_master_controller.remove_filter("eye_blur")
+
+
+/// Updates the blur of the owner of the status effect.
+/// Also a signal proc for [COMSIG_MOB_LOGIN], to trigger then when the mob gets a client.
+/datum/status_effect/transient/eye_blurry/proc/update_blur(datum/source)
+	SIGNAL_HANDLER
+
+	if(!owner.hud_used)
+		return
+
+	var/amount_of_blur = clamp(strength * EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER, 0.6, MAX_EYE_BLURRY_FILTER_SIZE)
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+	game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(amount_of_blur))
+
+
+// Blur lessens the closer we are to expiring, so we update per tick.
+/datum/status_effect/transient/eye_blurry/tick(seconds_per_tick, times_fired)
+	. = ..()
+	if(.)
+		update_blur()
+
 
 /datum/status_effect/transient/eye_blurry/calc_decay()
 	if(ishuman(owner))
@@ -732,7 +770,7 @@
 
 		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
 
-		if(!vision || vision.is_bruised() || vision.is_broken()) // doesn't decay if you have damaged eyesight.
+		if(!vision || vision.is_bruised() || vision.is_traumatized()) // doesn't decay if you have damaged eyesight.
 			return 0
 
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold)) // decays faster if you rest your eyes with a blindfold.
@@ -761,7 +799,7 @@
 
 		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
 
-		if(!vision || vision.is_broken() || vision.is_bruised()) //got no eyes or broken eyes
+		if(!vision || vision.is_traumatized() || vision.is_bruised()) //got no eyes or broken eyes
 			return 0
 
 	return ..() //default decay rate

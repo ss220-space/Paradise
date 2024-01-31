@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(ambience)
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 1 SECONDS
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "ambience"
 	///Assoc list of listening client - next ambience time
 	var/list/ambience_listening_clients = list()
 

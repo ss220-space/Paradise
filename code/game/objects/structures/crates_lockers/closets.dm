@@ -311,7 +311,7 @@
 	if(usr.incapacitated())
 		return
 
-	if(ishuman(usr))
+	if(ishuman(usr) || isrobot(usr))
 		add_fingerprint(usr)
 		toggle(usr)
 	else
@@ -348,6 +348,10 @@
 			L.forceMove(get_turf(src)) // Let's just be safe here
 		return //Door's open... wait, why are you in it's contents then?
 	if(!welded)
+		if(isobj(loc))
+			var/obj/loc_as_obj = loc
+			loc_as_obj.container_resist(L)
+			return
 		open() //for cardboard boxes
 		return //closed but not welded...
 	//	else Meh, lets just keep it at 2 minutes for now
@@ -377,6 +381,9 @@
 			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
+			if(isobj(loc))
+				var/obj/loc_as_obj = loc
+				loc_as_obj.container_resist(L)
 			open()
 
 /obj/structure/closet/tesla_act(var/power)
@@ -404,7 +411,6 @@
 /obj/structure/closet/force_eject_occupant(mob/target)
 	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
 	return
-
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"

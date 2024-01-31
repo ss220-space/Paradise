@@ -19,12 +19,12 @@
 	var/obj/effect/proc_holder/spell/vampire/self/dissect_info/spell_TGUI
 	/// Associated list of all trophies bestia subclass got via round.
 	var/list/trophies = list(
-		"hearts" = 0,
-		"lungs" = 0,
-		"livers" = 0,
-		"kidneys" = 0,
-		"eyes" = 0,
-		"ears" = 0
+		INTERNAL_ORGAN_HEART = 0,
+		INTERNAL_ORGAN_LUNGS = 0,
+		INTERNAL_ORGAN_LIVER = 0,
+		INTERNAL_ORGAN_KIDNEYS = 0,
+		INTERNAL_ORGAN_EYES = 0,
+		INTERNAL_ORGAN_EARS = 0,
 	)
 
 

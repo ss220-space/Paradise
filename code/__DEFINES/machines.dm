@@ -12,6 +12,14 @@
 #define IDLE_POWER_USE 1
 #define ACTIVE_POWER_USE 2
 
+//APC charging
+/// APC is not recieving power
+#define APC_NOT_CHARGING 0
+/// APC is currently recieving power and storing it
+#define APC_IS_CHARGING 1
+/// APC battery is at 100%
+#define APC_FULLY_CHARGED 2
+
 //computer3 error codes, move lower in the file when it passes dev -Sayu
  #define PROG_CRASH      1  // Generic crash
  #define MISSING_PERIPHERAL  2  // Missing hardware
@@ -89,9 +97,35 @@
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%
 
+// Status display maptext stuff
+#define DISPLAY_CHARS_PER_LINE 5
+#define DISPLAY_FONT_SIZE "5pt"
+#define DISPLAY_FONT_COLOR "#09f"
+#define DISPLAY_WARNING_FONT_COLOR "#f90"
+#define DISPLAY_FONT_STYLE "Small Fonts"
+#define DISPLAY_SCROLL_SPEED 2
+
+// AI display mode types
+#define AI_DISPLAY_MODE_BLANK 0
+#define AI_DISPLAY_MODE_EMOTE 1
+#define AI_DISPLAY_MODE_BSOD 2
+
+// Status display mode types
+#define STATUS_DISPLAY_BLANK 0
+#define STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME 1
+#define STATUS_DISPLAY_MESSAGE 2
+#define STATUS_DISPLAY_ALERT 3
+#define STATUS_DISPLAY_TIME 4
+#define STATUS_DISPLAY_CUSTOM 5
+
 // Firelock states
 #define FD_OPEN 1
 #define FD_CLOSED 2
+
+// Door operations
+#define DOOR_OPENING 1
+#define DOOR_CLOSING 2
+#define DOOR_MALF 3
 
 // Computer login types
 #define LOGIN_TYPE_NORMAL 1

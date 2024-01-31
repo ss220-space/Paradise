@@ -463,7 +463,7 @@
 		var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, 3, TRUE)
 		C.damage = 10 // Weaker because there is no cooldown
 		C.monster_damage_boost = FALSE
-		add_attack_logs(user, target, "fired a chaser at", src)
+		add_attack_logs(user, target, "fired a chaser at")
 
 //vetus
 /obj/item/crusher_trophy/adaptive_intelligence_core

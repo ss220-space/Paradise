@@ -260,21 +260,21 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if("set")
 				var/access = text2num(params["access"])
 				if(!(access in req_access))
-					req_access += access
+					LAZYADD(req_access, access)
 				else
-					req_access -= access
+					LAZYREMOVE(req_access, access)
 	if(access_is_configurable())
 		switch(action)
 			if("grant_region")
 				var/region = text2num(params["region"])
 				if(isnull(region))
 					return
-				req_access |= get_region_accesses(region)
+				LAZYADDOR(req_access, get_region_accesses(region))
 			if("deny_region")
 				var/region = text2num(params["region"])
 				if(isnull(region))
 					return
-				req_access -= get_region_accesses(region)
+				LAZYREMOVE(req_access, get_region_accesses(region))
 			if("clear_all")
 				req_access = list()
 			if("grant_all")
@@ -393,7 +393,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(M, span_noticealien("That object is useless to you."))
 	return
 
-/obj/machinery/porta_turret/emag_act(user as mob)
+/obj/machinery/porta_turret/emag_act(mob/user)
 	if(!emagged)
 		//Emagging the turret makes it go bonkers and stun everyone. It also makes
 		//the turret shoot much, much faster.

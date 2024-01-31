@@ -4,16 +4,16 @@
 
 /datum/emote/living/simple_animal/slime
 	mob_type_allowed_typecache = list(/mob/living/simple_animal/slime)
+	mob_type_blacklist_typecache = null
 	/// Apply mood of the emote. Set this to MOOD_RESET to cause the emote to reset the mood back to default.
 	var/mood
 
 
 /datum/emote/living/simple_animal/slime/run_emote(mob/living/simple_animal/slime/user, params, type_override, intentional)
 	. = ..()
-	if(!.)
-		return FALSE
-	if(mood)
-		user.mood = (mood == MOOD_RESET) ? null : user.mood
+	if(. && mood)
+		user.mood = (mood == MOOD_RESET) ? null : mood
+		user.regenerate_icons()
 
 
 /datum/emote/living/simple_animal/slime/bounce
@@ -48,11 +48,16 @@
 
 /datum/emote/living/simple_animal/slime/smile
 	key = "smile"
-	mood = "mischievous"
+	mood = "mischevous"
 
 
 /datum/emote/living/simple_animal/slime/colon_three
 	key = ":3"
+	mood = ":3"
+
+
+/datum/emote/living/simple_animal/slime/colon_double_three
+	key = ":33"
 	mood = ":33"
 
 

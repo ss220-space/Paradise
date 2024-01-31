@@ -25,7 +25,8 @@
 	allowed_tools = list(
 	/obj/item/circular_saw = 100, \
 	/obj/item/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/hatchet = 90
+	/obj/item/hatchet = 90, \
+	/obj/item/wirecutters = 70
 	)
 
 	time = 54
@@ -49,7 +50,7 @@
 
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",		\
 	"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>")
-	affected.fracture()
+	affected.fracture(silent = TRUE)
 	affected.open = 2.5
 	return 1
 

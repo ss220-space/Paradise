@@ -334,7 +334,7 @@
 		var/datum/fish/fish_type = key
 		var/count = length(fish_types[key])
 		fish_types_input += list("[initial(fish_type.fish_name)][count > 1 ? " (x[count])" : ""]" = fish_types[key])
-	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_types_input		//Select a fish from the tank
+	var/caught_fish = tgui_input_list(user, "Select a fish to catch.", "Fishing", fish_types_input)		//Select a fish from the tank
 	if(fish_count <= 0)
 		to_chat(user, "There are no fish in [src] to catch!")
 		return

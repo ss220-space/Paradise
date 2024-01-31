@@ -145,7 +145,7 @@
 	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ("head")
+		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
 			playsound(loc, "desceration", 50, 1, -1)
@@ -210,16 +210,7 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	if(!blood_DNA)
-		return
-	if(blood_overlay && (blood_DNA.len >= 1))	//updated blood overlay, if any
-		overlays.Cut()	//this might delete other item overlays as well but eeeeeh
 
-		var/icon/I = new /icon(icon, icon_state)
-		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)), ICON_ADD)
-		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_overlay = I
-		overlays += blood_overlay
 
 
 // *************************************

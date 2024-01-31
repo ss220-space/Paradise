@@ -426,14 +426,14 @@
 			data["addictions"] += list(list("addiction_name" = a_reagent.name, "id" = a_reagent.id, "stage" = a_reagent.addiction_stage))
 
 	for(var/name in held.bodyparts_by_name)
-		var/obj/item/organ/external/organ = held.bodyparts_by_name[name]
+		var/obj/item/organ/external/bodypart = held.bodyparts_by_name[name]
 		if(data["fractures"] && data["internal_bleeding"])
 			break
-		if(!organ)
+		if(!bodypart)
 			continue
-		if(organ.status & ORGAN_BROKEN)
+		if(bodypart.has_fracture())
 			data["fractures"] = TRUE
-		if(organ.internal_bleeding)
+		if(bodypart.has_internal_bleeding())
 			data["internal_bleeding"] = TRUE
 
 	return data

@@ -221,8 +221,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1014" = 50, // CHANNEL_TTS_LOCAL
 		"1013" = 20, // CHANNEL_TTS_RADIO
 		"1012" = 50, // CHANNEL_RADIO_NOISE
-		"1010" = 100, // CHANNEL_BOSS_MUSIC
-		"1011" = 100, // CHANNEL_INTERACTION_SOUNDS
+		"1011" = 100, // CHANNEL_BOSS_MUSIC
+		"1010" = 100, // CHANNEL_INTERACTION_SOUNDS
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -245,6 +245,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/keybindings_overrides = null
 	/// View range preference for this client
 	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
+
+	/// Minigames notification about their end, start and etc.
+	var/minigames_notifications = TRUE
 
 
 /datum/preferences/New(client/C)
@@ -437,39 +440,39 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
-					if("chest")
+					if(BODY_ZONE_CHEST)
 						organ_name = "torso"
-					if("groin")
+					if(BODY_ZONE_PRECISE_GROIN)
 						organ_name = "lower body"
-					if("head")
+					if(BODY_ZONE_HEAD)
 						organ_name = "head"
-					if("l_arm")
+					if(BODY_ZONE_L_ARM)
 						organ_name = "left arm"
-					if("r_arm")
+					if(BODY_ZONE_R_ARM)
 						organ_name = "right arm"
-					if("l_leg")
+					if(BODY_ZONE_L_LEG)
 						organ_name = "left leg"
-					if("r_leg")
+					if(BODY_ZONE_R_LEG)
 						organ_name = "right leg"
-					if("l_foot")
+					if(BODY_ZONE_PRECISE_L_FOOT)
 						organ_name = "left foot"
-					if("r_foot")
+					if(BODY_ZONE_PRECISE_R_FOOT)
 						organ_name = "right foot"
-					if("l_hand")
+					if(BODY_ZONE_PRECISE_L_HAND)
 						organ_name = "left hand"
-					if("r_hand")
+					if(BODY_ZONE_PRECISE_R_HAND)
 						organ_name = "right hand"
-					if("eyes")
+					if(INTERNAL_ORGAN_EYES)
 						organ_name = "eyes"
-					if("ears")
+					if(INTERNAL_ORGAN_EARS)
 						organ_name = "ears"
-					if("heart")
+					if(INTERNAL_ORGAN_HEART)
 						organ_name = "heart"
-					if("lungs")
+					if(INTERNAL_ORGAN_LUNGS)
 						organ_name = "lungs"
-					if("liver")
+					if(INTERNAL_ORGAN_LIVER)
 						organ_name = "liver"
-					if("kidneys")
+					if(INTERNAL_ORGAN_KIDNEYS)
 						organ_name = "kidneys"
 
 				if(status in list("cyborg", "amputated", "cybernetic"))
@@ -528,6 +531,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(user.client.donator_level > 0)
 				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>Fancy TGUI:</b> <a href='?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Input Lists:</b> <a href='?_src_=prefs;preference=input_lists'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "Default" : "TGUI"]</a><br>"
 			dat += "<b>FPS:</b>	 <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
@@ -551,6 +555,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
+			dat += "<b>Parallax in darkness:</b> <a href='?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
@@ -576,7 +581,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						else
 							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[ERROR]</b></font><br>"
 					else
-						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;role=[i]'><b>[(i in src.be_special) ? "Yes" : "No"]</b></a><br>"
+						var/is_special = (i in src.be_special)
+						dat += "<b>Be [capitalize(i)]:</b><a href='?_src_=prefs;preference=be_special;role=[i]' style='background-color: [is_special ? "#3b7502" : "#bd0802"]'<b>[(is_special) ? "Yes" : "No"]</b></a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_GEAR)
@@ -1296,7 +1302,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				var/datum/job/job = locate(href_list["job"])
 				if(job)
 					var/choices = list(job.title) + job.alt_titles
-					var/choice = input("Pick a title for [job.title].", "Character Generation", GetPlayerAltTitle(job)) as anything in choices | null
+					var/choice = tgui_input_list(user, "Pick a title for [job.title].", "Character Generation", choices)
 					if(choice)
 						SetPlayerAltTitle(job, choice)
 						SetChoices(user)
@@ -1510,7 +1516,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					else //Not using the whitelist? Aliens for everyone!
 						new_species += GLOB.whitelisted_species
 
-					species = input("Please select a species", "Character Generation", null) in sortTim(new_species, cmp = /proc/cmp_text_asc)
+					species = tgui_input_list(user, "Please select a species", "Character Generation", sortTim(new_species, cmp = /proc/cmp_text_asc))
+					if(!species)
+						return
 					var/datum/species/NS = GLOB.all_species[species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						species = prev_species
@@ -1609,12 +1617,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						if(!(lang.flags & RESTRICTED))
 							new_languages += lang.name
 
-					language = input("Please select a secondary language", "Character Generation", null) in sortTim(new_languages, cmp = /proc/cmp_text_asc)
+					language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortTim(new_languages, cmp = /proc/cmp_text_asc))
+					if(!language)
+						return
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
 						var/list/autohiss_choice = list("Off" = AUTOHISS_OFF, "Basic" = AUTOHISS_BASIC, "Full" = AUTOHISS_FULL)
-						var/new_autohiss_pref = input(user, "Choose your character's auto-accent level:", "Character Preference") as null|anything in autohiss_choice
+						var/new_autohiss_pref = tgui_input_list(user, "Choose your character's auto-accent level:", "Character Preference", autohiss_choice)
+						if(!new_autohiss_pref)
+							return
 						autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
@@ -1623,7 +1635,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						metadata = sanitize(copytext_char(new_metadata,1,MAX_MESSAGE_LEN))
 
 				if("b_type")
-					var/new_b_type = input(user, "Choose your character's blood-type:", "Character Preference") as null|anything in list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" )
+					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type:", "Character Preference", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" ))
 					if(new_b_type)
 						b_type = new_b_type
 
@@ -1668,12 +1680,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								valid_hairstyles += hairstyle
 
 					sortTim(valid_hairstyles, cmp = /proc/cmp_text_asc) //this alphabetizes the list
-					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
+					var/new_h_style = tgui_input_list(user, "Choose your character's hair style:", "Character Preference", valid_hairstyles)
 					if(new_h_style)
 						h_style = new_h_style
 
 				if("h_grad_style")
-					var/result = input(user, "Choose your character's hair gradient style:", "Character Preference") as null|anything in GLOB.hair_gradients_list
+					var/result = tgui_input_list(user, "Choose your character's hair gradient style:", "Character Preference", GLOB.hair_gradients_list)
 					if(result)
 						h_grad_style = result
 
@@ -1713,7 +1725,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							valid_head_accessory_styles += head_accessory_style
 
 						sortTim(valid_head_accessory_styles, cmp = /proc/cmp_text_asc)
-						var/new_head_accessory_style = input(user, "Choose the style of your character's head accessory:", "Character Preference") as null|anything in valid_head_accessory_styles
+						var/new_head_accessory_style = tgui_input_list(user, "Choose the style of your character's head accessory:", "Character Preference", valid_head_accessory_styles)
 						if(new_head_accessory_style)
 							ha_style = new_head_accessory_style
 
@@ -1730,7 +1742,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 							valid_alt_heads += alternate_head
 
-						var/new_alt_head = input(user, "Choose your character's alternate head style:", "Character Preference") as null|anything in valid_alt_heads
+						var/new_alt_head = tgui_input_list(user, "Choose your character's alternate head style:", "Character Preference", valid_alt_heads)
 						if(new_alt_head)
 							alt_head = new_alt_head
 						if(m_styles["head"])
@@ -1771,7 +1783,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
-						var/new_marking_style = input(user, "Choose the style of your character's head markings:", "Character Preference", m_styles["head"]) as null|anything in valid_markings
+						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's head markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							m_styles["head"] = new_marking_style
 
@@ -1795,7 +1807,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
-						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference", m_styles["body"]) as null|anything in valid_markings
+						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's body markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							m_styles["body"] = new_marking_style
 
@@ -1825,7 +1837,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
-						var/new_marking_style = input(user, "Choose the style of your character's tail markings:", "Character Preference", m_styles["tail"]) as null|anything in valid_markings
+						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's tail markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							m_styles["tail"] = new_marking_style
 
@@ -1850,10 +1862,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					else
 						possible_body_accessories.Remove("None") // in case an admin is viewing it
 					sortTim(possible_body_accessories, cmp = /proc/cmp_text_asc)
-					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
+					var/new_body_accessory = tgui_input_list(user, "Choose your body accessory:", "Character Preference", possible_body_accessories)
 					if(new_body_accessory)
 						m_styles["tail"] = "None"
 						body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
+
 
 				if("facial")
 					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox")) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
@@ -1898,7 +1911,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 								valid_facial_hairstyles += facialhairstyle
 					sortTim(valid_facial_hairstyles, cmp = /proc/cmp_text_asc)
-					var/new_f_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in valid_facial_hairstyles
+					var/new_f_style = tgui_input_list(user, "Choose your character's facial-hair style:", "Character Preference", valid_facial_hairstyles)
 					if(new_f_style)
 						f_style = new_f_style
 
@@ -1914,7 +1927,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
 					sortTim(valid_underwear, cmp = /proc/cmp_text_asc)
-					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference") as null|anything in valid_underwear
+					var/new_underwear = tgui_input_list(user, "Choose your character's underwear:", "Character Preference", valid_underwear)
 					ShowChoices(user)
 					if(new_underwear)
 						underwear = new_underwear
@@ -1936,7 +1949,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 					sortTim(valid_undershirts, cmp = /proc/cmp_text_asc)
-					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in valid_undershirts
+					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt:", "Character Preference", valid_undershirts)
 					ShowChoices(user)
 					if(new_undershirt)
 						undershirt = new_undershirt
@@ -1958,7 +1971,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, cmp = /proc/cmp_text_asc)
-					var/new_socks = input(user, "Choose your character's socks:", "Character Preference")  as null|anything in valid_sockstyles
+					var/new_socks = tgui_input_list(user, "Choose your character's socks:", "Character Preference", valid_sockstyles)
 					ShowChoices(user)
 					if(new_socks)
 						socks = new_socks
@@ -1999,12 +2012,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						ooccolor = new_ooccolor
 
 				if("bag")
-					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference") as null|anything in GLOB.backbaglist
+					var/new_backbag = tgui_input_list(user, "Choose your character's style of bag:", "Character Preference", GLOB.backbaglist)
 					if(new_backbag)
 						backbag = new_backbag
 
 				if("nt_relation")
-					var/new_relation = input(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference")  as null|anything in list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed")
+					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed"))
 					if(new_relation)
 						nanotrasen_relation = new_relation
 
@@ -2018,7 +2031,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						flavor_text = msg
 
 				if("uplink_pref")
-					var/new_uplink_pref = input(user, "Choose your preferred uplink location:", "Character Preference") as null|anything in list("pda", "headset")
+					var/new_uplink_pref = tgui_input_list(user, "Choose your preferred uplink location:", "Character Preference", list("pda", "headset"))
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
 
@@ -2035,8 +2048,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
 					if(S.bodyflags & ALL_RPARTS)
 						valid_limbs = list("Torso", "Lower Body", "Head", "Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
-					var/limb_name = input(user, "Which limb do you want to change?") as null|anything in valid_limbs
-					if(!limb_name) return
+					var/limb_name = tgui_input_list(user, "Which limb do you want to change?", "Limbs and Parts", valid_limbs)
+					if(!limb_name)
+						return
 
 					var/limb = null
 					var/second_limb = null // if you try to change the arm, the hand should also change
@@ -2046,50 +2060,50 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					switch(limb_name)
 						if("Torso")
-							limb = "chest"
-							second_limb = "groin"
+							limb = BODY_ZONE_CHEST
+							second_limb = BODY_ZONE_PRECISE_GROIN
 							no_amputate = 1
 						if("Lower Body")
-							limb = "groin"
+							limb = BODY_ZONE_PRECISE_GROIN
 							no_amputate = 1
 						if("Head")
-							limb = "head"
+							limb = BODY_ZONE_HEAD
 							no_amputate = 1
 						if("Left Leg")
-							limb = "l_leg"
-							second_limb = "l_foot"
+							limb = BODY_ZONE_L_LEG
+							second_limb = BODY_ZONE_PRECISE_L_FOOT
 						if("Right Leg")
-							limb = "r_leg"
-							second_limb = "r_foot"
+							limb = BODY_ZONE_R_LEG
+							second_limb = BODY_ZONE_PRECISE_R_FOOT
 						if("Left Arm")
-							limb = "l_arm"
-							second_limb = "l_hand"
+							limb = BODY_ZONE_L_ARM
+							second_limb = BODY_ZONE_PRECISE_L_HAND
 						if("Right Arm")
-							limb = "r_arm"
-							second_limb = "r_hand"
+							limb = BODY_ZONE_R_ARM
+							second_limb = BODY_ZONE_PRECISE_R_HAND
 						if("Left Foot")
-							limb = "l_foot"
+							limb = BODY_ZONE_PRECISE_L_FOOT
 							if(!(S.bodyflags & ALL_RPARTS))
-								third_limb = "l_leg"
+								third_limb = BODY_ZONE_L_LEG
 						if("Right Foot")
-							limb = "r_foot"
+							limb = BODY_ZONE_PRECISE_R_FOOT
 							if(!(S.bodyflags & ALL_RPARTS))
-								third_limb = "r_leg"
+								third_limb = BODY_ZONE_R_LEG
 						if("Left Hand")
-							limb = "l_hand"
+							limb = BODY_ZONE_PRECISE_L_HAND
 							if(!(S.bodyflags & ALL_RPARTS))
-								third_limb = "l_arm"
+								third_limb = BODY_ZONE_L_ARM
 						if("Right Hand")
-							limb = "r_hand"
+							limb = BODY_ZONE_PRECISE_R_HAND
 							if(!(S.bodyflags & ALL_RPARTS))
-								third_limb = "r_arm"
+								third_limb = BODY_ZONE_R_ARM
 
-					var/new_state = input(user, "What state do you wish the limb to be in?") as null|anything in valid_limb_states
+					var/new_state = tgui_input_list(user, "What state do you wish the limb to be in?", "[limb_name]", valid_limb_states)
 					if(!new_state) return
 
 					switch(new_state)
 						if("Normal")
-							if(limb == "head")
+							if(limb == BODY_ZONE_HEAD)
 								m_styles["head"] = "None"
 								h_style = GLOB.hair_styles_public_list["Bald"]
 								f_style = GLOB.facial_hair_styles_list["Shaved"]
@@ -2117,7 +2131,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
-							choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in robolimb_companies //Choose from a list of companies that offer the part the user wants.
+							choice = tgui_input_list(user, "Which manufacturer do you wish to use for this limb?", "[limb_name] - Prosthesis", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
 							if(!choice)
 								return
 							R.company = choice
@@ -2133,13 +2147,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
 								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
-									subchoice = input(user, "Which model of [choice] [limb_name] do you wish to use?") as null|anything in robolimb_models
+									subchoice = tgui_input_list(user, "Which model of [choice] [limb_name] do you wish to use?", "[limb_name] - Prosthesis - Model", robolimb_models)
 								if(subchoice)
 									choice = subchoice
-							if(limb in list("head", "chest", "groin"))
+							if(limb in list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))
 								if(!(S.bodyflags & ALL_RPARTS))
 									return
-								if(limb == "head")
+								if(limb == BODY_ZONE_HEAD)
 									ha_style = "None"
 									alt_head = null
 									h_style = GLOB.hair_styles_public_list["Bald"]
@@ -2156,26 +2170,26 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									rlimb_data[second_limb] = choice
 									organ_data[second_limb] = "cyborg"
 				if("organs")
-					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Eyes", "Ears", "Heart", "Lungs", "Liver", "Kidneys")
+					var/organ_name = tgui_input_list(user, "Which internal function do you want to change?", "Internal Organs", list("Eyes", "Ears", "Heart", "Lungs", "Liver", "Kidneys"))
 					if(!organ_name)
 						return
 
 					var/organ = null
 					switch(organ_name)
 						if("Eyes")
-							organ = "eyes"
+							organ = INTERNAL_ORGAN_EYES
 						if("Ears")
-							organ = "ears"
+							organ = INTERNAL_ORGAN_EARS
 						if("Heart")
-							organ = "heart"
+							organ = INTERNAL_ORGAN_HEART
 						if("Lungs")
-							organ = "lungs"
+							organ = INTERNAL_ORGAN_LUNGS
 						if("Liver")
-							organ = "liver"
+							organ = INTERNAL_ORGAN_LIVER
 						if("Kidneys")
-							organ = "kidneys"
+							organ = INTERNAL_ORGAN_KIDNEYS
 
-					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal", "Cybernetic")
+					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", list("Normal", "Cybernetic"))
 					if(!new_state) return
 
 					switch(new_state)
@@ -2212,7 +2226,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("gender")
 					if(!S.has_gender)
-						var/newgender = input(user, "Choose Gender:") as null|anything in list("Male", "Female", "Genderless")
+						var/newgender = tgui_input_list(user, "Choose Gender:", "Gender", list("Male", "Female", "Genderless"))
 						switch(newgender)
 							if("Male")
 								gender = MALE
@@ -2230,19 +2244,22 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					switch(UI_style)
+					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White"))
+					if(!new_UI_style)
+						return
+					switch(new_UI_style)
 						if("Midnight")
-							UI_style = "Plasmafire"
-						if("Plasmafire")
-							UI_style = "Retro"
-						if("Retro")
-							UI_style = "Slimecore"
-						if("Slimecore")
-							UI_style = "Operative"
-						if("Operative")
-							UI_style = "White"
-						else
 							UI_style = "Midnight"
+						if("Plasmafire")
+							UI_style = "Plasmafire"
+						if("Retro")
+							UI_style = "Retro"
+						if("Slimecore")
+							UI_style = "Slimecore"
+						if("Operative")
+							UI_style = "Operative"
+						if("White")
+							UI_style = "White"
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
@@ -2253,6 +2270,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
+
+				if("input_lists")
+					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
 
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
@@ -2267,7 +2287,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						"19x15 (Ultrawide)" = "19x15"
 					)
 
-					var/new_range = input(user, "Select a view range") as anything in viewrange_options
+					var/new_range = tgui_input_list(user, "Select a view range", "Range", viewrange_options)
+					if(!new_range)
+						return
 					var/actual_new_range = viewrange_options[new_range]
 
 					viewrange = actual_new_range
@@ -2382,14 +2404,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
 
-
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
-					if(parent && parent.screen && parent.screen.len)
+					if(length(parent?.screen))
 						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
-						PM.remove_screen_filter(AMBIENT_OCCLUSION_FILTER_KEY)
-						if(toggles & PREFTOGGLE_AMBIENT_OCCLUSION)
-							PM.add_screen_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
+						PM.backdrop(parent.mob)
 
 				if("parallax")
 					var/parallax_styles = list(
@@ -2399,9 +2418,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						"High" = PARALLAX_HIGH,
 						"Insane" = PARALLAX_INSANE
 					)
-					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
+
+					var/new_parallax = tgui_input_list(user, "Pick a parallax style", "Parallax Style", parallax_styles)
+					if(!new_parallax)
+						return
+					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
+
+				if("parallax_darkness")
+					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
+					parent.mob?.hud_used?.update_parallax_pref()
+
 				if("keybindings")
 					if(!keybindings_overrides)
 						keybindings_overrides = list()
@@ -2576,7 +2604,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.dna.tts_seed_dna = tts_seed
 
 	//Head-specific
-	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/external/head/H = character.get_organ(BODY_ZONE_HEAD)
 
 	H.hair_colour = h_colour
 
@@ -2613,20 +2641,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			else if(status == "cyborg")
 				if(rlimb_data[name])
-					O.robotize(rlimb_data[name], convert_all = 0)
+					O.robotize(company = rlimb_data[name], convert_all = FALSE)
 				else
 					O.robotize()
 		else
-			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
-			if(I)
-				if(status == "cybernetic")
-					I.robotize()
+			var/obj/item/organ/internal/I = character.internal_organs_slot[name]
+			if(I && status == "cybernetic")
+				I.robotize()
 
 	character.dna.blood_type = b_type
 
 	// Wheelchair necessary?
-	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
-	var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
+	var/obj/item/organ/external/l_foot = character.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+	var/obj/item/organ/external/r_foot = character.get_organ(BODY_ZONE_PRECISE_R_FOOT)
 	if(!l_foot && !r_foot)
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)

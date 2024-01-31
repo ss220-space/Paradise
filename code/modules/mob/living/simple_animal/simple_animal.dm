@@ -632,6 +632,7 @@
 			return
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	sync_lighting_plane_alpha()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
@@ -728,7 +729,7 @@
 	if(. && length(src.damaged_sound))
 		playsound(src, pick(src.damaged_sound), 40, 1)
 
-/mob/living/simple_animal/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/simple_animal/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	if(pull_constraint(AM, show_message))
 		return ..()
 
