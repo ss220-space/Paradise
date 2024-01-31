@@ -18,8 +18,6 @@
 	var/lum_g = 0
 	var/lum_b = 0
 
-	var/needs_update = FALSE
-
 	//true color values, guaranteed to be between 0 and 1
 	var/cache_r  = LIGHTING_SOFT_THRESHOLD
 	var/cache_g  = LIGHTING_SOFT_THRESHOLD

@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	// This path is really hot. this is faster
 	// Really this should be a global var or something, but lets not think about that yes?
 	if(CONFIG_GET(flag/starlight))
-		for(var/turf/open/space/space_tile in RANGE_TURFS(1, affected_turf))
+		for(var/turf/space/space_tile in RANGE_TURFS(1, affected_turf))
 			space_tile.update_starlight()
 
 	needs_update = TRUE
@@ -49,15 +49,6 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	return ..()
 
 /datum/lighting_object/proc/update()
-	if(loc != myturf)
-		if(loc)
-			var/turf/oldturf = get_turf(myturf)
-			var/turf/newturf = get_turf(loc)
-			warning("A lighting object realised it's loc had changed in update() ([myturf]\[[myturf ? myturf.type : "null"]]([COORD(oldturf)]) -> [loc]\[[ loc ? loc.type : "null"]]([COORD(newturf)]))!")
-
-		qdel(src, TRUE)
-		return
-
 	// To the future coder who sees this and thinks
 	// "Why didn't he just use a loop?"
 	// Well my man, it's because the loop performed like shit.
