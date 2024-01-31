@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	name = "stok hide"
 	desc = "The by-product of stok farming."
 	singular_name = "stok hide piece"
-	icon_state = "sheet-stok"
+	icon_state = "sheet-lizzard"
 
 /obj/item/stack/sheet/animalhide/neara
 	name = "neara hide"
