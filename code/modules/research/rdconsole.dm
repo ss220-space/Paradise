@@ -1038,15 +1038,34 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				M.buffer = null
 
 /obj/machinery/computer/roboquest/proc/check_pad()
-	for(var/atom/movable/AM in get_turf(pad))
-		if(AM == pad)
-			visible_message("тут всё ок")
-			continue
-		if(AM != currentID.robo_bounty.choosen_mech)
-			visible_message("это не мех/мех не тот!")
-			return
+	var/obj/mecha/M
+	var/needed_mech = currentID.robo_bounty.choosen_mech
+	var/list/needed_modules = currentID.robo_bounty.choosen_modules
+	var/amount = 0
+	if(locate(/obj/mecha) in get_turf(pad))
+		M = (locate(/obj/mecha) in get_turf(pad))
+		if(M.type == needed_mech)
+			visible_message("мех тот! Дальше...")
+			for(var/i in (needed_modules))
+				for(var/obj/item/mecha_parts/mecha_equipment/weapon in M.equipment)
+					if(i == weapon.type)
+						amount++
+			if(amount == 0)
+				visible_message("на мехе нет нужных модулей, ты чего?")
+				return TRUE
+			else if(amount == currentID.robo_bounty.modules_amount)
+				visible_message("модули те, количество нужное, молодец!")
+				return TRUE
+			else
+				visible_message("модулей не хватает, ты получишь меньше денег.")
+				//тут должен быть другой ретурн или что-то умнее
+				return TRUE
 		else
-			visible_message("всё норм!")
+			visible_message("мех не тот!")
+			return FALSE
+	else
+		visible_message("меха нет!")
+		return FALSE
 
 /obj/machinery/computer/roboquest/attack_hand(mob/user)
 	if(..())

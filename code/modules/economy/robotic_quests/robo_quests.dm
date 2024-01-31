@@ -14,6 +14,7 @@
 	//всякая хрень, отвечает за сам сгенерированный мех
 	var/choosen_mech
 	var/list/choosen_modules
+	var/modules_amount
 
 /datum/roboquest/New()
 	..()
@@ -28,7 +29,8 @@
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
 		for(var/i in 1 to rand(1, 4))
-			choosen_modules += pick_n_take(weapons)
+			choosen_modules += list(pick_n_take(weapons))
+			modules_amount = i
 
 
 
