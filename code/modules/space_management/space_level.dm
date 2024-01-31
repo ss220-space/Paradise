@@ -25,6 +25,11 @@
 	name = level_name
 	zpos = z
 	flags = traits
+
+	if(length(GLOB.default_lighting_underlays_by_z) < z_value)
+		GLOB.default_lighting_underlays_by_z.len = z_value
+	GLOB.default_lighting_underlays_by_z[z_value] = mutable_appearance(LIGHTING_ICON, "transparent", new_z, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
+
 	build_space_destination_arrays()
 	set_linkage(transition_type)
 	set_navbeacon()

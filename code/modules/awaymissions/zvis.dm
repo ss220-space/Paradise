@@ -85,7 +85,7 @@
 /obj/effect/portal_sensor/proc/check_light()
 	var/turf/T = loc
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
-		var/atom/movable/lighting_object/O = T.lighting_object
+		var/datum/lighting_object/O = T.lighting_object
 		var/hash = 0
 
 		for(var/lighting_corner in O)
