@@ -233,7 +233,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	actions_types = list() //No inbuilt light
+	actions_types = null //No inbuilt light
 	magical = TRUE
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)

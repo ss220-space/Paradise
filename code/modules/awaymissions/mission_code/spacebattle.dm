@@ -705,7 +705,6 @@
 	.=..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
-	actions_types = list()
 	on = 1
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
