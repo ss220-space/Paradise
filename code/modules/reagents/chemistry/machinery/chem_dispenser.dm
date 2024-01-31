@@ -1,3 +1,7 @@
+#define UPDATE_TYPE_HACK 1
+#define UPDATE_TYPE_COMPONENTS 2
+
+
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
 	density = TRUE
@@ -111,7 +115,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
 			componentscheck = TRUE
-			update_reagents(UPDATE_COMPONENTS)
+			update_reagents(UPDATE_TYPE_COMPONENTS)
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/Destroy()
@@ -298,12 +302,12 @@
 
 /obj/machinery/chem_dispenser/proc/update_reagents(update_type)
 	switch(update_type)
-		if(UPDATE_HACK)
+		if(UPDATE_TYPE_HACK)
 			if(hackedcheck)
 				dispensable_reagents += hacked_reagents
 			else
 				dispensable_reagents -= hacked_reagents
-		if(UPDATE_COMPONENTS)
+		if(UPDATE_TYPE_COMPONENTS)
 			dispensable_reagents |= upgrade_reagents
 
 	dispensable_reagents = sortAssoc(dispensable_reagents)
@@ -316,7 +320,7 @@
 
 	hackedcheck = !hackedcheck
 	to_chat(user, hackedcheck ? hack_message : unhack_message)
-	update_reagents(UPDATE_HACK)
+	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
 
 
@@ -394,13 +398,13 @@
 
 
 /obj/machinery/chem_dispenser/soda/update_reagents(update_type)
-	if(update_type == UPDATE_HACK && componentscheck)
+	if(update_type == UPDATE_TYPE_HACK && componentscheck)
 		if(hackedcheck)
 			dispensable_reagents += hackedupgrade_reagents
 		else
 			dispensable_reagents -= hackedupgrade_reagents
 
-	else if(update_type == UPDATE_COMPONENTS && hackedcheck)
+	else if(update_type == UPDATE_TYPE_COMPONENTS && hackedcheck)
 		dispensable_reagents += hackedupgrade_reagents
 	..()
 
@@ -687,3 +691,6 @@
 		"ammonia",
 		"ash",
 		"diethylamine")
+
+#undef UPDATE_TYPE_HACK
+#undef UPDATE_TYPE_COMPONENTS

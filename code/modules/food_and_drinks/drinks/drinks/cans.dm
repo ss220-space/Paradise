@@ -284,14 +284,6 @@
 	icon_state = "synthanolcan"
 	list_reagents = list("synthanol" = 50)
 
-
-/obj/item/reagent_containers/food/drinks/cans/zaza
-	name = "Cherry Zaza"
-	desc = "fill_desc"
-	icon_state = "zaza"
-	list_reagents = list("zaza" = 80)
-
-
 /obj/item/reagent_containers/food/drinks/cans/bottler
 	name = "generic beverage container"
 	desc = "this shouldn't ever be spawned. shame on you"
