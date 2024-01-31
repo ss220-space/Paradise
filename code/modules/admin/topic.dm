@@ -2992,6 +2992,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins("<span class='notice'>made all SMESs powered</span>")
 				power_restore_quick()
+
 			if("prisonwarp")
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
@@ -3498,7 +3499,7 @@
 			if(!description)
 				return
 			G.report_message = description
-		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
+		log_and_message_admins("created \"[G.name]\" station goal.")
 		SSticker.mode.station_goals += G
 		modify_goals()
 

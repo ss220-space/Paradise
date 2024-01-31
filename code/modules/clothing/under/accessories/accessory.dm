@@ -31,7 +31,7 @@
 	has_suit = S
 	loc = has_suit
 	has_suit.overlays += inv_overlay
-	has_suit.actions += actions
+	LAZYADD(has_suit.actions, actions)
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -55,7 +55,7 @@
 	if(!has_suit)
 		return
 	has_suit.overlays -= inv_overlay
-	has_suit.actions -= actions
+	LAZYREMOVE(has_suit.actions, actions)
 
 	for(var/X in actions)
 		var/datum/action/A = X

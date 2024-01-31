@@ -79,7 +79,7 @@
 		user.put_in_hands(attached_badge)
 
 		for(var/datum/action/item_action/remove_badge/action in actions)
-			src.actions.Remove(action)
+			LAZYREMOVE(actions, action)
 			action.Remove(user)
 
 		icon_state = "armor"
