@@ -6,8 +6,7 @@
 	/// Description of our current mech quest
 	var/desc
 	/// Text info for tgui
-	var/list/questinfo = list("name" = "None", "desc" = "None", "module1" = "None",
-								"module2" = "None", "module3" = "None", "module4" = "None",)
+	var/list/questinfo = list()
 	/// Reward for our current quest
 	var/reward
 	/// Difficulty type
@@ -31,6 +30,7 @@
 	questinfo["name"] = name
 	desc = "Блаблабла"
 	questinfo["desc"] = desc
+	questinfo["icon"] = icon2base64(selected.mech_icon)
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
@@ -40,6 +40,7 @@
 		for(var/i in choosen_modules)
 			modules_amount++
 			var/obj/module = new i
+			questinfo["module[modules_amount]-icon"]=icon2base64(icon(module.icon, module.icon_state))
 			questinfo["module[modules_amount]"] = module.name
 			qdel(module)
 

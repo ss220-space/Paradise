@@ -1,6 +1,6 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Section, Button, Flex, LabeledList } from '../components';
+import { Box, Section, Button, Flex, LabeledList, Divider } from '../components';
 import { Window } from '../layouts';
 import { FlexItem } from '../components/Flex';
 
@@ -24,7 +24,26 @@ export const RoboQuest = (props, context) => {
                     disabled={!hasID || !hasTask}
                     onClick={() => act('Check')} />
               )}>
-                Тут будут картинки с выбранным мехов и модулями
+                <Flex>
+                  <FlexItem basis={60} textAlign="center">
+                    {!!hasTask && (
+                      <img
+                        height="128px"
+                        width="128px"
+                        src={`data:image/jpeg;base64,${questInfo.icon}`}
+                        style={{
+                          "margin-left": "0px",
+                          "-ms-interpolation-mode": "nearest-neighbor",
+                        }} />
+                      )}
+                  </FlexItem>
+                  <FlexItem>
+                    <Divider vertical/>
+                  </FlexItem>
+                  <FlexItem basis={40}>
+
+                  </FlexItem>
+                </Flex>
             </Section>
           </FlexItem>
           <FlexItem basis={20}/>

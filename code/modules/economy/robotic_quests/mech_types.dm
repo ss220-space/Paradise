@@ -1,11 +1,13 @@
 /datum/quest_mech
 	var/name
 	var/mech_type
+	var/icon/mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open")
 	var/list/wanted_modules
 
 /datum/quest_mech/ripley
 	name = "APLU MK-II \"Ripley\""
 	mech_type = /obj/mecha/working/ripley
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open")
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -21,6 +23,7 @@
 /datum/quest_mech/firefighter
 	name = "APLU \"Firefighter\""
 	mech_type = /obj/mecha/working/ripley/firefighter
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "firefighter-open")
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -36,6 +39,7 @@
 /datum/quest_mech/clarke
 	name =  "APLU \"Clarke\""
 	mech_type = /obj/mecha/working/clarke
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "clarke")
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
