@@ -19,7 +19,8 @@
 
 	if(isitem(loc))
 		parent = loc
-		LAZYADDOR(parent.actions, actions)
+		if(actions)
+			LAZYADDOR(parent.actions, actions)
 
 /obj/item/voice_changer/Destroy()
 	if(isitem(parent))
