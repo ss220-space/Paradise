@@ -606,7 +606,7 @@
 	name = "Second Chance Implant"
 	desc = "An implant injected into the body, and later activated at the user's will. It will simulate the death of the operator and transport him to an exact safe place."
 	item = /obj/item/implanter/second_chance
-	cost = 8
+	cost = 40
 	race = list("Nucleation")
 
 // DANGEROUS WEAPONS
