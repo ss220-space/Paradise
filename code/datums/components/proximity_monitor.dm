@@ -244,7 +244,10 @@
 		toggle_checkers(FALSE)
 		return // Need a sanity check here for certain situations like objects moving into disposal holders. Their turf will be null in these cases.
 	var/index = 1
-	for(var/T in RANGE_TURFS(radius, parent_turf))
+	var/checkercount = length(proximity_checkers)
+	for(var/turf/T as anything in RANGE_TURFS(radius, parent_turf))
+		if(index > checkercount)
+			return
 		var/obj/checker = proximity_checkers[index++]
 		checker.loc = T
 
