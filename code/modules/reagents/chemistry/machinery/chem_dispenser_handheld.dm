@@ -23,6 +23,9 @@
 	// Integer. Higher - less efficient rechange rate per tick.
 	var/recharge_rate = 1
 
+	var/recharge_counter = 0
+	var/recharge_counter_threshold = 4
+
 /obj/item/chem_dispenser_handheld/Initialize()
 	..()
 	cell = new(src)
@@ -133,9 +136,9 @@
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
 
-			current_reagent = params["reagent"]
 			R.add_reagent(params["reagent"], amount_to_add)
-			update_icon()
+			current_reagent = params["reagent"]
+			update_icon(UPDATE_OVERLAYS)
 
 		if("remove")
 			var/amount = text2num(params["amount"])
@@ -155,47 +158,43 @@
 
 	add_fingerprint(usr)
 
-/obj/item/chem_dispenser_handheld/update_icon()
-	cut_overlays()
+/obj/item/chem_dispenser_handheld/update_overlays()
+	. = ..()
 
 	if(cell && cell.charge)
-		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
+
 		switch(percent)
 			if(0 to 33)
-				power_light.icon_state = "light_low"
+				. += "light_low"
+
 			if(34 to 66)
-				power_light.icon_state = "light_mid"
+				. += "light_mid"
+
 			if(67 to INFINITY)
-				power_light.icon_state = "light_full"
-		add_overlay(power_light)
+				. += "light_full"
 
-		var/image/mode_light = image('icons/obj/chemical.dmi', src, "light_remove")
-		mode_light.icon_state = "light_[mode]"
-		add_overlay(mode_light)
+	var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
 
+	// If no current reagent selected, don't update the icon to avoid exceptions.
+	if (R != null)
 		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
-		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
-
-		// If no current reagent selected, don't update the icon to avoid exceptions.
-		if (R != null)
-			chamber_contents.icon += R.color
-			add_overlay(chamber_contents)
-
-	..()
+		chamber_contents.icon += R.color
+		. += chamber_contents
 
 /obj/item/chem_dispenser_handheld/process()
-	// Recharge built in battery from borg battery right away.
-	if(isrobot(loc) && cell.charge < cell.maxcharge)
-		var cell_charge_diff = cell.maxcharge - cell.charge
-
-		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell && R.cell.charge > cell_charge_diff)
-			R.cell.use(cell_charge_diff / recharge_rate)
-			cell.give(cell_charge_diff / recharge_rate)
-
-	update_icon()
-	return TRUE
+	if(recharge_counter >= recharge_counter_threshold)
+		// Recharge built in battery from borg battery right away.
+		if(isrobot(loc) && cell.charge < cell.maxcharge)
+			var cell_charge_diff = cell.maxcharge - cell.charge
+			var/mob/living/silicon/robot/R = loc
+			if(R && R.cell && R.cell.charge > cell_charge_diff)
+				R.cell.use(cell_charge_diff / recharge_rate)
+				cell.give(cell_charge_diff / recharge_rate)
+				update_icon(UPDATE_OVERLAYS)
+				return TRUE
+		recharge_counter = 0
+	recharge_counter++
 
 /obj/item/chem_dispenser_handheld/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
