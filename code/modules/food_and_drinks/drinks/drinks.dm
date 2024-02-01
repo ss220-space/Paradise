@@ -412,18 +412,18 @@
 
 
 /obj/item/reagent_containers/food/drinks/zaza/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/reagent_containers/food/drinks/zaza/update_overlays()
 	. = ..()
 
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]40")
+		var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]50")
 
 		switch(round(reagents.total_volume))
 			if(1 to 50)
-				filling.icon_state = "[icon_state]40"
+				filling.icon_state = "[icon_state]50"
 			if(51 to 60)
 				filling.icon_state = "[icon_state]60"
 			if(61 to 65)
@@ -448,4 +448,4 @@
 	else
 		to_chat(user, span_notice("You take the lid off [src]."))
 		container_type &= ~OPENCONTAINER
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
