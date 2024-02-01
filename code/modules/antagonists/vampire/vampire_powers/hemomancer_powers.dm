@@ -79,8 +79,10 @@
 	return ..()
 
 
-/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
-	if(!proximity)
+/obj/item/twohanded/required/vamp_claws/attack(atom/target, mob/user, def_zone)
+	. = ..()
+
+	if(!.)
 		return
 
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
