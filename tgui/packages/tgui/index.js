@@ -36,6 +36,7 @@ import './styles/themes/ntos_darkmode.scss';
 import './styles/themes/ntos_lightmode.scss';
 import './styles/themes/ntos_spooky.scss';
 import './styles/themes/ntos_terminal.scss';
+import './styles/themes/ntos_roboquest.scss';
 import './styles/themes/ntOS95.scss';
 import './styles/themes/retro.scss';
 import './styles/themes/safe.scss';
