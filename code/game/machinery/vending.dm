@@ -2275,6 +2275,7 @@
 	req_access = list(ACCESS_CHAPEL_OFFICE)
 	products = list(
 		/obj/item/clothing/under/rank/chaplain = 5,
+		/obj/item/clothing/under/rank/chaplain/skirt = 5,
 		/obj/item/clothing/suit/witchhunter = 2,
 		/obj/item/clothing/head/witchhunter_hat = 2,
 		/obj/item/clothing/suit/armor/riot/knight/templar = 1,

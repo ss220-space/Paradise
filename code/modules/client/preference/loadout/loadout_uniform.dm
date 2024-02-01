@@ -269,6 +269,7 @@
 	display_name = "skirt, chaplain"
 	path = /obj/item/clothing/under/rank/chaplain/skirt
 	allowed_roles = list("Chaplain")
+
 /datum/gear/uniform/skirt/job/barber
 	display_name = "skirt, barber"
 	path = /obj/item/clothing/under/barber/skirt
