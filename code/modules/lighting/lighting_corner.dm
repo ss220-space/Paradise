@@ -152,6 +152,23 @@
 	if(!force)
 		return QDEL_HINT_LETMELIVE
 
-	stack_trace("Attempted qdel of a lighting corner.")
+	for (var/datum/light_source/light_source as anything in affecting)
+		LAZYREMOVE(light_source.effect_str, src)
+	affecting = null
+
+	if (master_NE)
+		master_NE.lighting_corner_SW = null
+		master_NE.lighting_corners_initialised = FALSE
+	if (master_SE)
+		master_SE.lighting_corner_NW = null
+		master_SE.lighting_corners_initialised = FALSE
+	if (master_SW)
+		master_SW.lighting_corner_NE = null
+		master_SW.lighting_corners_initialised = FALSE
+	if (master_NW)
+		master_NW.lighting_corner_SE = null
+		master_NW.lighting_corners_initialised = FALSE
+	if (needs_update)
+		SSlighting.corners_queue -= src
 
 	return ..()
