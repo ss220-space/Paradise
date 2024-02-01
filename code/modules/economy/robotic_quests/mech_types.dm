@@ -7,6 +7,7 @@
 	/// Path to the actual mech in code
 	var/mech_type
 	/// List of all compatible modules with this kind of mecha
+	var/icon/mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open")
 	var/list/wanted_modules
 	/// Type of mech (combat | medical | working)
 	var/mech_class
@@ -15,6 +16,8 @@
 	name = "APLU MK-II \"Ripley\""
 	mech_type = /obj/mecha/working/ripley
 	mech_class = WORKING_MECH
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open")
+
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -31,6 +34,7 @@
 	name = "APLU \"Firefighter\""
 	mech_type = /obj/mecha/working/ripley/firefighter
 	mech_class = WORKING_MECH
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "firefighter-open")
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -46,7 +50,8 @@
 /datum/quest_mech/clarke
 	name =  "APLU \"Clarke\""
 	mech_type = /obj/mecha/working/clarke
-	mech_class = WORKING_MECH
+	mech_class = WORKING_MECH==
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "clarke")
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,

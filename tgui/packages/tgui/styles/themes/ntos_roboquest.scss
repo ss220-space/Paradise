@@ -51,6 +51,7 @@
      '../components/ProgressBar.scss',
      $with: ('color-default': #9528CC)
    );
+   @include meta.load-css('../components/Divider.scss');
    @include meta.load-css(
      '../components/Section.scss',
      $with: ('color-background': #CAC6CC)
@@ -80,6 +81,15 @@
    .ProgressBar {
      color: black;
    }
+
+   .Divider--vertical {
+    height: 100%;
+    margin: 0 0px;
+
+    &:not(.Divider--hidden) {
+      border-left: 2px solid black;
+    }
+    }
 
    .Layout__content {
      background-image: url('../../assets/Ripley1.svg');
