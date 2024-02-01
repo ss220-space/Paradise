@@ -1016,13 +1016,28 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef BUILD_POWER
 #undef DECONSTRUCT_POWER
 
+#define NO_SUCCESS 0
+#define CORRECT_MECHA 1
+#define SOME_CORRECT_MODULES 2
+#define ALL_CORRECT_MODULES 3
 /obj/machinery/computer/roboquest
 	name = "RoboQuest console"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
+	var/canSend = FALSE
+	var/canCheck = FALSE
+	var/success
 	var/obj/item/card/id/currentID
 	var/obj/machinery/roboquest_pad/pad
+
+
+/obj/machinery/computer/roboquest/Destroy()
+	for(var/obj/item/I in contents)
+		I.forceMove(get_turf(src))
+	pad = null
+	currentID = null
+	. = ..()
 
 /obj/machinery/computer/roboquest/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/id))
@@ -1035,6 +1050,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			add_fingerprint(user)
 			if(istype(M.buffer, /obj/machinery/roboquest_pad))
 				pad = M.buffer
+				if(pad.console)
+					pad.console.pad = null
+				pad.console = src
+				canCheck = TRUE
 				M.buffer = null
 
 /obj/machinery/computer/roboquest/proc/check_pad()
@@ -1050,22 +1069,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				for(var/obj/item/mecha_parts/mecha_equipment/weapon in M.equipment)
 					if(i == weapon.type)
 						amount++
+			if(amount == currentID.robo_bounty.modules_amount)
+				success = ALL_CORRECT_MODULES
+				canSend = TRUE
+				return
 			if(amount == 0)
-				visible_message("на мехе нет нужных модулей, ты чего?")
-				return TRUE
-			else if(amount == currentID.robo_bounty.modules_amount)
-				visible_message("модули те, количество нужное, молодец!")
-				return TRUE
-			else
-				visible_message("модулей не хватает, ты получишь меньше денег.")
-				//тут должен быть другой ретурн или что-то умнее
-				return TRUE
-		else
-			visible_message("мех не тот!")
-			return FALSE
-	else
-		visible_message("меха нет!")
-		return FALSE
+				success = CORRECT_MECHA
+				canSend = TRUE
+				return
+			success = SOME_CORRECT_MODULES
+			canSend = TRUE
+			return
+	success = NO_SUCCESS
+	canSend = FALSE
 
 /obj/machinery/computer/roboquest/attack_hand(mob/user)
 	if(..())
@@ -1094,6 +1110,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		data["name"] = "None"
 		data["questInfo"] = "None"
 		data["hasTask"] = FALSE
+	data["canCheck"] = canCheck
+	data["canSend"] = canSend
 	return data
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params)
@@ -1102,17 +1120,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			currentID.forceMove(get_turf(src))
 			currentID = null
 		if("GetTask")
-			to_chat(usr, "Тут получаешь задание")
 			if(!currentID.robo_bounty)
 				pick_mecha()
 		if("Check")
 			if(!pad)
 				to_chat(usr, "Привязанного пада нет, че ты собрался проверять, дебил")
 			else
-				to_chat(usr, "Тут идёт проверка")
 				check_pad()
 		if("SendMech")
-			to_chat(usr, "Тут должна быть отправка меха")
+			check_pad()
+			to_chat(usr, "Вы отправили меха с оценкой успеха [success] из трех")
 
 /obj/machinery/computer/roboquest/proc/pick_mecha()
 	currentID.robo_bounty = new /datum/roboquest
@@ -1123,6 +1140,21 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "RoboQuest pad"
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "separator-A1" //ультра WIP
+	var/obj/machinery/computer/roboquest/console
+
+/obj/machinery/roboquest_pad/Destroy()
+	console.pad = null
+	console.canSend = FALSE
+	console = null
+	. = ..()
+
+/obj/machinery/roboquest_pad/New()
+	RegisterSignal(src, COMSIG_MOVABLE_UNCROSSED, PROC_REF(ismechgone))
+	. = ..()
+
+/obj/machinery/roboquest_pad/proc/ismechgone(datum/source, atom/movable/exiting)
+	if(ismecha(exiting) && console)
+		console.canSend = FALSE
 
 /obj/machinery/roboquest_pad/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE

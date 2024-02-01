@@ -11,6 +11,8 @@ export const RoboQuest = (props, context) => {
     name,
     questInfo,
     hasTask,
+    canCheck,
+    canSend,
   } = data;
   return (
     <Window theme="ntos_roboquest" resizable>
@@ -21,7 +23,7 @@ export const RoboQuest = (props, context) => {
               buttons={(
                 <Button
                     content="Check Mech"
-                    disabled={!hasID || !hasTask}
+                    disabled={!hasID || !hasTask || !canCheck}
                     onClick={() => act('Check')} />
               )}>
                 <Flex>
@@ -126,7 +128,7 @@ export const RoboQuest = (props, context) => {
                   bold
                   content="Send Mech"
                   textAlign="center"
-                  disabled={!hasID || !hasTask}
+                  disabled={!hasID || !hasTask || !canSend}
                   onClick={() => act('SendMech')}/>
               </Box>
             </Section>
