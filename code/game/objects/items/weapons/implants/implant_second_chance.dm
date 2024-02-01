@@ -17,6 +17,9 @@
 		do_teleport(imp_in, new_turf, 0)
 		playsound(imp_in, 'sound/effects/sparks4.ogg', 50, TRUE)
 		do_sparks(4, TRUE, imp_in)
+		imp_in.rejuvenate()
+		investigate_log("[key_name_log(imp_in)] fake-gib himself using [name] and teleports to [COORD(new_turf)].", INVESTIGATE_TELEPORTATION)
+
 		explosion(old_turf, 0, 0, 3, 6, cause = imp_in)
 
 		if(isnucleation(imp_in))
@@ -30,7 +33,9 @@
 			playsound(old_turf, 'sound/goonstation/effects/robogib.ogg', 50, TRUE)
 			new /obj/effect/decal/cleanable/blood/gibs/robot(old_turf)
 
-		investigate_log("[key_name_log(imp_in)] fake-gib himself using [name] and teleports to [COORD(new_turf)].", INVESTIGATE_TELEPORTATION)
+	else
+		to_chat(imp_in, span_userdanger("[src] is malfunctioning!"))
+		explosion(old_turf, 0, 0, 3, 6, cause = imp_in)
 	qdel(src)
 
 
