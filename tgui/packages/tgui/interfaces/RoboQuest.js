@@ -13,7 +13,7 @@ export const RoboQuest = (props, context) => {
     hasTask,
   } = data;
   return (
-    <Window theme="ntos_roboquest">
+    <Window theme="ntos_roboquest" resizable>
       <Window.Content>
         <Flex>
           <FlexItem basis={40}>
@@ -25,7 +25,7 @@ export const RoboQuest = (props, context) => {
                     onClick={() => act('Check')} />
               )}>
                 <Flex>
-                  <FlexItem basis={60} textAlign="center">
+                  <FlexItem basis={60} textAlign="center" align="center">
                     {!!hasTask && (
                       <img
                         height="128px"
@@ -41,7 +41,46 @@ export const RoboQuest = (props, context) => {
                     <Divider vertical/>
                   </FlexItem>
                   <FlexItem basis={40}>
-
+                      {!!questInfo.module1 && (
+                        <img
+                          height="64px"
+                          width="64px"
+                          src={`data:image/jpeg;base64,${questInfo.module1_icon}`}
+                          style={{
+                            "margin-left": "0px",
+                            "-ms-interpolation-mode": "nearest-neighbor",
+                          }} />
+                      )}
+                      {!!questInfo.module2 && (
+                        <img
+                          height="64px"
+                          width="64px"
+                          src={`data:image/jpeg;base64,${questInfo.module2_icon}`}
+                          style={{
+                            "margin-left": "0px",
+                            "-ms-interpolation-mode": "nearest-neighbor",
+                          }} />
+                      )}
+                      {!!questInfo.module3 && (
+                        <img
+                          height="64px"
+                          width="64px"
+                          src={`data:image/jpeg;base64,${questInfo.module3_icon}`}
+                          style={{
+                            "margin-left": "0px",
+                            "-ms-interpolation-mode": "nearest-neighbor",
+                          }} />
+                      )}
+                      {!!questInfo.module4 && (
+                        <img
+                          height="64px"
+                          width="64px"
+                          src={`data:image/jpeg;base64,${questInfo.module4_icon}`}
+                          style={{
+                            "margin-left": "0px",
+                            "-ms-interpolation-mode": "nearest-neighbor",
+                          }} />
+                      )}
                   </FlexItem>
                 </Flex>
             </Section>
@@ -65,7 +104,7 @@ export const RoboQuest = (props, context) => {
               )}>
                 <Box mx="0.5rem" mb="1rem">
                   <b>Name: </b>{questInfo.name}
-                  <br /><br />
+                  <br />
                   <b>Desc: </b>{questInfo.desc}
                 </Box>
                 <Section title="Modules" level = {2}>

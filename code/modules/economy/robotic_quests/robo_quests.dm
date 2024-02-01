@@ -28,13 +28,13 @@
 /datum/roboquest/proc/generate_mecha()
 	var/mech = pick(subtypesof(/datum/quest_mech))
 	var/datum/quest_mech/selected = new mech
+	mech_class = selected.mech_class //наверное можно перенести данные из одного датума как-то умнее, но и так в целом норм.
 	name = selected.name
 	questinfo["name"] = name
 	generate_flavour()
 	questinfo["desc"] = desc
 	questinfo["icon"] = icon2base64(selected.mech_icon)
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
-	mech_class = selected.mech_class //наверное можно перенести данные из одного датума как-то умнее, но и так в целом норм.
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
 		for(var/i in 1 to rand(1, 4))
@@ -43,8 +43,8 @@
 		for(var/i in choosen_modules)
 			modules_amount++
 			var/obj/module = new i
-			questinfo["module[modules_amount]-icon"]=icon2base64(icon(module.icon, module.icon_state))
-			questinfo["module[modules_amount]"] = module.name
+			questinfo["module[modules_amount]_icon"] = icon2base64(icon(module.icon, module.icon_state, SOUTH, 0))
+			questinfo["module[modules_amount]"] = capitalize(module.name)
 			qdel(module)
 
 /datum/roboquest/proc/generate_flavour()

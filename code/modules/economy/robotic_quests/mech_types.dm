@@ -7,7 +7,7 @@
 	/// Path to the actual mech in code
 	var/mech_type
 	/// List of all compatible modules with this kind of mecha
-	var/icon/mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open")
+	var/icon/mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open", SOUTH, 0)
 	var/list/wanted_modules
 	/// Type of mech (combat | medical | working)
 	var/mech_class
@@ -16,7 +16,7 @@
 	name = "APLU MK-II \"Ripley\""
 	mech_type = /obj/mecha/working/ripley
 	mech_class = WORKING_MECH
-	mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open")
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open", SOUTH, 0)
 
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
@@ -34,7 +34,7 @@
 	name = "APLU \"Firefighter\""
 	mech_type = /obj/mecha/working/ripley/firefighter
 	mech_class = WORKING_MECH
-	mech_icon = icon('icons/obj/mecha/mecha.dmi', "firefighter-open")
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "firefighter-open", SOUTH, 0)
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -50,8 +50,8 @@
 /datum/quest_mech/clarke
 	name =  "APLU \"Clarke\""
 	mech_type = /obj/mecha/working/clarke
-	mech_class = WORKING_MECH==
-	mech_icon = icon('icons/obj/mecha/mecha.dmi', "clarke")
+	mech_class = WORKING_MECH
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "clarke", SOUTH, 0)
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -69,6 +69,7 @@
 	name = "Odysseus"
 	mech_type = /obj/mecha/medical/odysseus
 	mech_class = MEDICAL_MECH
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "odysseus", SOUTH, 0)
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
 		/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun,
@@ -80,6 +81,7 @@
 	name = "Gygax"
 	mech_type = /obj/mecha/combat/gygax
 	mech_class = COMBAT_MECH
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "gygax", SOUTH, 0)
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser,
@@ -102,6 +104,7 @@
 	name = "Durand Mk. II"
 	mech_type = /obj/mecha/combat/durand
 	mech_class = COMBAT_MECH
+	mech_icon = icon('icons/obj/mecha/mecha.dmi', "durand", SOUTH, 0)
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser,
