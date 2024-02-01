@@ -87,10 +87,10 @@
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
 		GLOB.all_unique_areas[type] = src
+	GLOB.all_areas += src
 	..()
 
 /area/Initialize(mapload)
-	GLOB.all_areas += src
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid
