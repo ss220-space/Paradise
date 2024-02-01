@@ -1,13 +1,23 @@
+#define WORKING_MECH	1
+#define MEDICAL_MECH	2
+#define COMBAT_MECH 	3
 /datum/quest_mech
+	/// Original name of Mecha
 	var/name
+	/// Path to the actual mech in code
 	var/mech_type
+	/// List of all compatible modules with this kind of mecha
 	var/icon/mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open")
 	var/list/wanted_modules
+	/// Type of mech (combat | medical | working)
+	var/mech_class
 
 /datum/quest_mech/ripley
 	name = "APLU MK-II \"Ripley\""
 	mech_type = /obj/mecha/working/ripley
+	mech_class = WORKING_MECH
 	mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open")
+
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -23,6 +33,7 @@
 /datum/quest_mech/firefighter
 	name = "APLU \"Firefighter\""
 	mech_type = /obj/mecha/working/ripley/firefighter
+	mech_class = WORKING_MECH
 	mech_icon = icon('icons/obj/mecha/mecha.dmi', "firefighter-open")
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
@@ -39,6 +50,7 @@
 /datum/quest_mech/clarke
 	name =  "APLU \"Clarke\""
 	mech_type = /obj/mecha/working/clarke
+	mech_class = WORKING_MECH==
 	mech_icon = icon('icons/obj/mecha/mecha.dmi', "clarke")
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
@@ -56,6 +68,7 @@
 /datum/quest_mech/odysseus
 	name = "Odysseus"
 	mech_type = /obj/mecha/medical/odysseus
+	mech_class = MEDICAL_MECH
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
 		/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun,
@@ -65,8 +78,8 @@
 
 /datum/quest_mech/gygax
 	name = "Gygax"
-	//difficulty = hard. пока так. Это нужно будет если будет возможность выбирать из трёх.
 	mech_type = /obj/mecha/combat/gygax
+	mech_class = COMBAT_MECH
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser,
@@ -88,6 +101,7 @@
 /datum/quest_mech/durand
 	name = "Durand Mk. II"
 	mech_type = /obj/mecha/combat/durand
+	mech_class = COMBAT_MECH
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser,
