@@ -29724,7 +29724,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "xTi" = (
-/obj/machinery/crematorium,
+/obj/machinery/crematorium{
+	id = "taipan";
+	req_access = list(150)
+	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -29960,6 +29963,7 @@
 "xZn" = (
 /obj/machinery/crema_switch{
 	pixel_x = 26;
+	id = "taipan";
 	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/southeast,
