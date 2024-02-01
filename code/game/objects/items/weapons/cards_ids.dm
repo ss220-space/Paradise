@@ -135,8 +135,6 @@
 	var/photo
 	var/dat
 	var/stamped = 0
-	var/robotask = FALSE
-	var/robotaskdone = FALSE
 	/// назвать по человечески
 	var/datum/roboquest/robo_bounty
 

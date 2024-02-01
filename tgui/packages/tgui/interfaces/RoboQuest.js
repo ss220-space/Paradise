@@ -9,14 +9,14 @@ export const RoboQuest = (props, context) => {
   const {
     hasID,
     name,
-    check,
+    questInfo,
     hasTask,
   } = data;
   return (
-    <Window>
+    <Window theme="ntos_roboquest">
       <Window.Content>
         <Flex>
-          <FlexItem basis={36}>
+          <FlexItem basis={40}>
             <Section title="Mecha"
               buttons={(
                 <Button
@@ -27,7 +27,8 @@ export const RoboQuest = (props, context) => {
                 Тут будут картинки с выбранным мехов и модулями
             </Section>
           </FlexItem>
-          <Flex.Item grow={1} basis={0}>
+          <FlexItem basis={20}/>
+          <Flex.Item grow={1} basis={40}>
             <Section title="Task's info"
               buttons={(
                 <Fragment>
@@ -43,12 +44,33 @@ export const RoboQuest = (props, context) => {
                     onClick={() => act('GetTask')} />
                 </Fragment>
               )}>
-                Тут будет текстовая инфа, аля прошел ли мех проверку, можно ли отправить и тд
+                <Box mx="0.5rem" mb="1rem">
+                  <b>Name: </b>{questInfo.name}
+                  <br /><br />
+                  <b>Desc: </b>{questInfo.desc}
+                </Box>
+                <Section title="Modules" level = {2}>
+                  <Box mx="0.5rem" mb="0.5rem">
+                      <b>Module 1: </b>{questInfo.module1}
+                      <br /><br />
+                      <b>Module 2: </b>{questInfo.module2}
+                      <br /><br />
+                      <b>Module 3: </b>{questInfo.module3}
+                      <br /><br />
+                      <b>Module 4: </b>{questInfo.module4}
+                  </Box>
+              </Section>
+              <Box mb="0.5rem" textAlign="center">
+                <br />
                 <Button
                   icon="arrow-up"
+                  width="15rem"
+                  bold
                   content="Send Mech"
-                  disabled={!hasID || !check}
-                  onClick={() => act('SendMech')} />
+                  textAlign="center"
+                  disabled={!hasID || !hasTask}
+                  onClick={() => act('SendMech')}/>
+              </Box>
             </Section>
           </Flex.Item>
         </Flex>
