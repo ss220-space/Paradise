@@ -151,6 +151,9 @@ Class Procs:
 
 	if(use_power)
 		myArea = get_area(src)
+		if(myArea)
+			RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
+			LAZYADD(myArea.machinery_cache, src)
 
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
@@ -160,13 +163,6 @@ Class Procs:
 	power_change()
 
 	init_multitool_menu()
-
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/LateInitialize()
-	if(myArea)
-		RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
-		LAZYADD(myArea.machinery_cache, src)
 
 /obj/machinery/proc/onAreaExited()
 	if(myArea == get_area(src))
