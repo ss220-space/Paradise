@@ -79,20 +79,20 @@
 	overlays.Cut()
 	if((stat & NOPOWER) || force_no_power_icon_state)
 		if(icon_keyboard && abductor)
-			overlays += image(icon,"alien_key_off",overlay_layer)
+			overlays += image(icon, "alien_key_off", overlay_layer)
 		else if(icon_keyboard)
-			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
+			overlays += image(icon, "[icon_keyboard]_off", overlay_layer)
 		return
 
 	if(stat & BROKEN)
 		overlays += image(icon,"[icon_state]_broken",overlay_layer)
 	else
-		overlays += image(icon,icon_screen,overlay_layer)
+		overlays += image(icon, icon_screen, overlay_layer)
 
 	if(icon_keyboard && abductor)
-		overlays += image(icon, "alien_key" ,overlay_layer)
+		overlays += image(icon, "alien_key", overlay_layer)
 	else if(icon_keyboard)
-		overlays += image(icon, icon_keyboard ,overlay_layer)
+		overlays += image(icon, icon_keyboard, overlay_layer)
 
 
 /obj/machinery/computer/power_change()

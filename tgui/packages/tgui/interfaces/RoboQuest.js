@@ -14,18 +14,24 @@ export const RoboQuest = (props, context) => {
     canCheck,
     canSend,
     checkMessage,
+    style,
   } = data;
   return (
-    <Window theme="ntos_roboquest" resizable>
+    <Window theme={style} resizable>
       <Window.Content>
         <Flex>
           <FlexItem basis={40}>
             <Section title="Mecha"
               buttons={(
-                  <Button
-                    content="Check Mech"
-                    disabled={!hasID || !hasTask || !canCheck}
-                    onClick={() => act('Check')} />
+                  <Fragment>
+                    <Button
+                      content="Check Mech"
+                      disabled={!hasID || !hasTask || !canCheck}
+                      onClick={() => act('Check')} />
+                    <Button
+                      icon="cog"
+                      onClick={() => act('ChangeStyle')} />
+                  </Fragment>
               )}>
                 <Flex>
                   <FlexItem basis={60} textAlign="center" align="center">

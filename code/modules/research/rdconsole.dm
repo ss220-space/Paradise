@@ -1024,9 +1024,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/roboquest
 	name = "Robotics Request Console"
 	desc = "Console used for receiving requests for construction of exosuits."
-	icon_screen = "rdcomp"
+	icon_screen = "ntos_roboquest"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
+	var/style = "ntos_roboquest"
 	var/canSend = FALSE
 	var/canCheck = FALSE
 	var/success
@@ -1129,6 +1130,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["canCheck"] = canCheck
 	data["canSend"] = canSend
 	data["checkMessage"] = checkMessage
+	data["style"] = style
 	return data
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params)
@@ -1159,6 +1161,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			flick("sqpad-beam", pad)
 			pad.sparks()
 			to_chat(usr, "Вы отправили меха с оценкой успеха [success] из трех")
+		if("ChangeStyle")
+			switch(style)
+				if("ntos_roboquest")
+					style = "ntos_roboblue"
+				if("ntos_roboblue")
+					style = "ntos_terminal"
+				if("ntos_terminal")
+					style = "ntos_roboquest"
+			icon_screen = style
+			SStgui.update_uis(src)
+			update_icon()
+
 
 /obj/machinery/computer/roboquest/proc/pick_mecha()
 	currentID.robo_bounty = new /datum/roboquest

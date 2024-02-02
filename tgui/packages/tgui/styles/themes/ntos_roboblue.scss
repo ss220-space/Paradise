@@ -17,7 +17,7 @@ $nanotrasen: #384e68;
   $border-radius: 2px,
 );
 
-.theme-ntos {
+.theme-ntos_roboblue {
   // Components
   @include meta.load-css('../components/Button.scss', $with: (
     'color-default': $nanotrasen,
@@ -35,4 +35,9 @@ $nanotrasen: #384e68;
   @include meta.load-css('../layouts/TitleBar.scss', $with: (
     'color-background': color.scale($nanotrasen, $lightness: -25%),
   ));
+  .Layout__content {
+    background-image: url('../../assets/bg-grayripley.svg');
+    background-size: 300%;
+    background-repeat: no-repeat;
+  }
 }
