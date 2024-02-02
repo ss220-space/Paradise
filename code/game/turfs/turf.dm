@@ -34,6 +34,9 @@
 
 	//If set TRUE, won't init gas_mixture/air and shouldn't interact with atmos.
 	var/blocks_air = FALSE
+	// If this turf should initialize atmos adjacent turfs or not
+	// Optimization, not for setting outside of initialize
+	var/init_air = TRUE
 
 	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
 

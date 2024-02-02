@@ -2,6 +2,7 @@
 	if(!istype(T))
 		return FALSE
 	var/direction = vertical ? get_dir_multiz(src, T) : get_dir(src, T)//if not UP and DOWN, get_dir_multiz returns get_dir
+	var/reverse_direction = REVERSE_DIR(direction)
 	var/can_pass = TRUE
 	if(vertical && !(zAirOut(direction, T) && T.zAirIn(direction, src)))
 		can_pass = FALSE
@@ -18,7 +19,7 @@
 		can_pass = FALSE
 		if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
 			atmos_supeconductivity |= direction
-			T.atmos_supeconductivity |= reverse_direction(direction)
+			T.atmos_supeconductivity |= reverse_direction
 			return FALSE				//no need to keep going, we got all we asked
 
 	for(var/obj/O in T.contents) //from T turf to ours
@@ -27,11 +28,11 @@
 		can_pass = FALSE
 		if(O.BlockSuperconductivity())
 			atmos_supeconductivity |= direction
-			T.atmos_supeconductivity |= reverse_direction(direction)
+			T.atmos_supeconductivity |= reverse_direction
 			return FALSE
 
 	atmos_supeconductivity &= ~direction
-	T.atmos_supeconductivity &= ~reverse_direction(direction)
+	T.atmos_supeconductivity &= ~reverse_direction
 
 	return can_pass
 
@@ -40,6 +41,49 @@
 
 /atom/movable/proc/BlockSuperconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
 	return FALSE
+
+/// This proc is a more deeply optimized version of CalculateAdjacentTurfs
+/// It contains dumbshit, and also stuff I just can't do at runtime
+/// If you're not editing behavior, just read that proc. It's less bad
+/turf/simulated/proc/InitCalculateAdjacentTurfs()
+	atmos_adjacent_turfs_amount = 0
+	var/canpass = CanAtmosPass(src, FALSE)
+	var/list/z_traits = SSmapping.multiz_levels[z]
+	var/list/turf/simulated/passed_turfs = list()
+	for(var/direction in GLOB.cardinals_multiz)
+		var/turf/simulated/current_turf = (direction & (UP|DOWN)) ? \
+				(direction & UP) ? \
+					(z_traits[Z_LEVEL_UP]) ? \
+						(get_step(locate(x, y, z + 1), NONE)) : \
+					(null) : \
+					(z_traits[Z_LEVEL_DOWN]) ? \
+						(get_step(locate(x, y, z - 1), NONE)) : \
+					(null) : \
+				(get_step(src, direction))
+		if(!istype(current_turf) || current_turf.blocks_air) // not interested in you brother
+			continue
+		// The assumption is that ONLY DURING INIT if two tiles have the same cycle, there's no way canpass(a->b) will be different then canpass(b->a), so this is faster
+		// Saves like 1.2 seconds
+		if(current_turf.current_cycle >= current_cycle)
+			continue
+
+		var/counterdir = REVERSE_DIR(direction)
+		//Can you and me form a deeper relationship, or is this just a passing wind
+		// (direction & (UP | DOWN)) is just "is this vertical" by the by
+		if(canpass && current_turf.CanAtmosPass(src, (direction & (UP|DOWN))) && !(blocks_air || current_turf.blocks_air))
+			atmos_adjacent_turfs_amount += 1
+			atmos_adjacent_turfs |= direction
+			passed_turfs += current_turf
+			if(!(current_turf.atmos_adjacent_turfs & counterdir))
+				current_turf.atmos_adjacent_turfs_amount += 1
+			current_turf.atmos_adjacent_turfs |= counterdir
+		else
+			atmos_adjacent_turfs &= ~direction
+			if(current_turf.atmos_adjacent_turfs & counterdir)
+				current_turf.atmos_adjacent_turfs_amount -= 1
+			current_turf.atmos_adjacent_turfs &= ~counterdir
+
+	return passed_turfs
 
 /turf/proc/CalculateAdjacentTurfs()
 	atmos_adjacent_turfs_amount = 0
@@ -51,7 +95,7 @@
 			turf_target = get_step(src, direction)
 		if(!istype(turf_target))
 			continue
-		var/counterdir = get_dir_multiz(turf_target, src)
+		var/counterdir = REVERSE_DIR(direction)
 		var/vertical = (direction & (UP | DOWN))
 		if(CanAtmosPass(turf_target, vertical))
 			atmos_adjacent_turfs_amount += 1

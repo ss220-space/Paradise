@@ -12,6 +12,8 @@
 	light_power = 0.25
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	intact = FALSE
+	// We do NOT want atmos adjacent turfs
+	init_air = FALSE
 
 	var/destination_z
 	var/destination_x

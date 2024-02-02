@@ -20,6 +20,7 @@
 	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
+	init_air = FALSE
 	explosion_block = 1
 	explosion_vertical_block = 1
 

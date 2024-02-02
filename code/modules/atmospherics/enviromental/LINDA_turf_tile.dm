@@ -553,27 +553,22 @@
 				(heat_capacity*HEAT_CAPACITY_VACUUM/(heat_capacity+HEAT_CAPACITY_VACUUM)) //700000 is the heat_capacity from a space turf, hardcoded here
 			temperature -= heat/heat_capacity
 
-/turf/proc/Initialize_Atmos(times_fired)
+/// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
+/turf/proc/Initialize_Atmos(time)
 	CalculateAdjacentTurfs()
 
-/turf/simulated/Initialize_Atmos(times_fired)
-	..()
+/turf/simulated/Initialize_Atmos(time)
 	update_visuals()
-	for(var/direction in GLOB.cardinals_multiz)
-		if(!(atmos_adjacent_turfs & direction))
-			continue
-		var/turf/enemy_tile = get_step_multiz(src, direction)
-		if(issimulatedturf(enemy_tile))
-			var/turf/simulated/enemy_simulated = enemy_tile
-			if(!air.compare(enemy_simulated.air))
-				excited = 1
-				SSair.active_turfs |= src
-				break
-		else
-			if(!enemy_tile)
-				log_runtime(EXCEPTION("Tried to AtmosInit null turf! And the direction to it was somehow calculated incorrectly! Correcting mistakes."))
-				atmos_adjacent_turfs &= ~direction
-				continue // We may want to continue with others at least
-			else if(!air.check_turf_total(enemy_tile))
-				excited = 1
-				SSair.active_turfs |= src
+	current_cycle = time
+	var/list/turf/simulated/passed_turfs = InitCalculateAdjacentTurfs() // will returns only simulated
+	for(var/turf/simulated/T as anything in passed_turfs)
+		if(!air.compare(T.air))
+			excited = 1
+			SSair.active_turfs |= src
+			// No sense continuing to iterate
+			return
+		else if(!air.check_turf_total(T))
+			excited = 1
+			SSair.active_turfs |= src
+			// No sense continuing to iterate
+			return

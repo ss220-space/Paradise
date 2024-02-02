@@ -322,13 +322,18 @@ SUBSYSTEM_DEF(air)
 			add_to_active(S)
 
 
-/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	for(var/thing in turfs_to_init)
-		var/turf/T = thing
-		if(T.blocks_air)
+/datum/controller/subsystem/air/proc/setup_allturfs()
+	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
+	// Clear active turfs - faster than removing every single turf in the world
+	// one-by-one, and Initialize_Atmos only ever adds `src` back in.
+	active_turfs.Cut()
+	var/time = 0
+	for(var/turf/T as anything in turfs_to_init)
+		if(T.blocks_air || !T.init_air)
 			continue
-		T.Initialize_Atmos(times_fired)
-		CHECK_TICK
+		T.Initialize_Atmos(time)
+		if(CHECK_TICK)
+			time++
 
 
 /turf/simulated/proc/resolve_active_graph()
