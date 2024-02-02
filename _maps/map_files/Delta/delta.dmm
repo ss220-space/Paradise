@@ -34440,6 +34440,7 @@
 "dsE" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -118795,6 +118796,7 @@
 /area/hallway/secondary/exit)
 "vuD" = (
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/computer/roboquest,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
