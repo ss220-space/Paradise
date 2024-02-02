@@ -27,7 +27,7 @@
   );
 
  @use '../base.scss' with (
-    $color-bg: #651e88,
+    $color-bg: #3f055c,
     $color-bg-grad-spread: 12%,
     //$border-radius: 0,
   );
@@ -40,7 +40,7 @@
    @include meta.load-css(
      '../components/Button.scss',
      $with: (
-       'color-default': #6318a9,
+       'color-default': #9524ff,
        'color-transparent-text': rgba(227, 240, 255, 0.75),
        'color-disabled': #363636,
        'color-selected': #465899,
@@ -53,8 +53,7 @@
    );
    @include meta.load-css('../components/Divider.scss');
    @include meta.load-css(
-     '../components/Section.scss',
-     $with: ('color-background': rgba(205, 205, 205, 0.595))
+     '../components/Section.scss'
    );
    @include meta.load-css(
      '../components/Tooltip.scss',
@@ -70,7 +69,6 @@
    );
 
    .Section {
-     color: black;
      outline: 2px inset 	#651e88;
      font-size: 14px;
    }
