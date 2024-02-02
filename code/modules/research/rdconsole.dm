@@ -1028,6 +1028,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/canSend = FALSE
 	var/canCheck = FALSE
 	var/success
+	var/checkMessage = ""
 	var/obj/item/card/id/currentID
 	var/obj/machinery/roboquest_pad/pad
 
@@ -1064,7 +1065,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(locate(/obj/mecha) in get_turf(pad))
 		M = (locate(/obj/mecha) in get_turf(pad))
 		if(M.type == needed_mech)
-			visible_message("мех тот! Дальше...")
 			for(var/i in (needed_modules))
 				for(var/obj/item/mecha_parts/mecha_equipment/weapon in M.equipment)
 					if(i == weapon.type)
@@ -1072,16 +1072,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(amount == currentID.robo_bounty.modules_amount)
 				success = ALL_CORRECT_MODULES
 				canSend = TRUE
-				return
+				return	amount
 			if(amount == 0)
 				success = CORRECT_MECHA
 				canSend = TRUE
-				return
+				return amount
 			success = SOME_CORRECT_MODULES
 			canSend = TRUE
-			return
+			return	amount
 	success = NO_SUCCESS
 	canSend = FALSE
+
+/obj/machinery/computer/roboquest/proc/clear_checkMessage()
+	checkMessage = ""
 
 /obj/machinery/computer/roboquest/attack_hand(mob/user)
 	if(..())
@@ -1091,7 +1094,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/roboquest/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "RoboQuest", name, 800, 500, master_ui, state)
+		ui = new(user, src, ui_key, "RoboQuest", name, 800, 475, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/roboquest/ui_data(mob/user)
@@ -1112,6 +1115,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		data["hasTask"] = FALSE
 	data["canCheck"] = canCheck
 	data["canSend"] = canSend
+	data["checkMessage"] = checkMessage
 	return data
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params)
@@ -1126,7 +1130,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(!pad)
 				to_chat(usr, "Привязанного пада нет, че ты собрался проверять, дебил")
 			else
-				check_pad()
+				var/amount = check_pad()
+				switch(success)
+					if(NO_SUCCESS)
+						checkMessage = "Мех отсутствует или не соответствует заказу"
+					if(CORRECT_MECHA)
+						checkMessage = "Мех соответствует заказу, но не имеет заказанных модулей. Награда Будет сильно урезана"
+					if(SOME_CORRECT_MODULES)
+						checkMessage = "Мех соответствует заказу, но имеет лишь [amount]/[currentID.robo_bounty.modules_amount] модулей. Награда будет слегка урезана."
+					if(ALL_CORRECT_MODULES)
+						checkMessage = "Мех и модули полностью соответствуют заказу. Награда будет максимальной."
+				addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
 		if("SendMech")
 			check_pad()
 			to_chat(usr, "Вы отправили меха с оценкой успеха [success] из трех")

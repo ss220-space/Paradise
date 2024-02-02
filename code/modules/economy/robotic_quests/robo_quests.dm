@@ -43,7 +43,7 @@
 		for(var/i in choosen_modules)
 			modules_amount++
 			var/obj/module = new i
-			questinfo["module[modules_amount]_icon"] = icon2base64(icon(module.icon, module.icon_state, SOUTH, 0))
+			questinfo["module[modules_amount]_icon"] = icon2base64(icon(module.icon, module.icon_state, SOUTH, 1))
 			questinfo["module[modules_amount]"] = capitalize(module.name)
 			qdel(module)
 

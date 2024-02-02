@@ -13,6 +13,7 @@ export const RoboQuest = (props, context) => {
     hasTask,
     canCheck,
     canSend,
+    checkMessage,
   } = data;
   return (
     <Window theme="ntos_roboquest" resizable>
@@ -85,10 +86,12 @@ export const RoboQuest = (props, context) => {
                       )}
                   </FlexItem>
                 </Flex>
+                <Divider horizontal />
+                <b>{checkMessage}</b>
             </Section>
           </FlexItem>
           <FlexItem basis={20}/>
-          <Flex.Item grow={1} basis={40}>
+          <Flex.Item basis={40}>
             <Section title="Task's info"
               buttons={(
                 <Fragment>

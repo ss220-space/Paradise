@@ -18,8 +18,8 @@
 
  @use '../colors.scss' with (
     $primary: black,
-    $label: #9528CC,
-    $good: #AA66CC,
+    $label: #CAC6CC,
+    $good: #CAC6CC,
 
     $bad: red,
     // $fg-map-keys: (),
@@ -27,7 +27,7 @@
   );
 
  @use '../base.scss' with (
-    $color-bg: #9528CC,
+    $color-bg: #651e88,
     $color-bg-grad-spread: 12%,
     //$border-radius: 0,
   );
@@ -40,7 +40,7 @@
    @include meta.load-css(
      '../components/Button.scss',
      $with: (
-       'color-default': #9528CC,
+       'color-default': #9524ff,
        'color-transparent-text': rgba(227, 240, 255, 0.75),
        'color-disabled': #363636,
        'color-selected': #465899,
@@ -49,16 +49,16 @@
    );
    @include meta.load-css(
      '../components/ProgressBar.scss',
-     $with: ('color-default': #9528CC)
+     $with: ('color-default': #CAC6CC)
    );
    @include meta.load-css('../components/Divider.scss');
    @include meta.load-css(
      '../components/Section.scss',
-     $with: ('color-background': #CAC6CC)
+     $with: ('color-background': rgba(205, 205, 205, 0.595))
    );
    @include meta.load-css(
      '../components/Tooltip.scss',
-     $with: ('color-background': #9528CC)
+     $with: ('color-background': #CAC6CC)
    );
 
    // Layouts
@@ -66,16 +66,29 @@
    @include meta.load-css('../layouts/Window.scss');
    @include meta.load-css(
      '../layouts/TitleBar.scss',
-     $with: ('color-background': #651e88)
+     $with: ('color-background': #7d00bc)
    );
 
    .Section {
      color: black;
-     outline: 2px inset 	#9528CC;
+     outline: 2px inset 	#651e88;
+     font-size: 14px;
    }
+
+   .Section__buttons {
+    position: absolute;
+    display: inline-block;
+    right: 6px;
+    margin-top: 2px;
+  }
+
+   .Section--level--1 .Section__titleText {
+    font-size: 18px;
+  }
+
    .Button {
      color: #F0EBF2;
-     background-color: #9528CC;
+     background-color: #8400ff;
    }
 
    .ProgressBar {
@@ -83,16 +96,25 @@
    }
 
    .Divider--vertical {
-    height: 100%;
-    margin: 0 0px;
+    height: 105%;
+    margin: -10px 0px;
 
     &:not(.Divider--hidden) {
       border-left: 2px solid black;
     }
     }
 
+    .Divider--horizontal {
+      margin: 0px -6px;
+
+      &:not(.Divider--hidden) {
+        border-top: 2px solid black;
+      }
+    }
+
+
    .Layout__content {
-     background-image: url('../../assets/Ripley1.svg');
+     background-image: url('../../assets/bg-nanotrasen.svg');
      background-size: 75%;
      background-repeat: no-repeat;
    }
