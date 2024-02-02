@@ -50,16 +50,15 @@ GLOBAL_LIST_INIT(huds, list( \
 /datum/atom_hud/proc/remove_hud_from(mob/M)
 	if(!M)
 		return
-
-	for (var/i in hud_icons)
-		if ((i in M.huds_counter["icons"]) && --M.huds_counter["icons"][i] < 1)
-			M.huds_counter["icons"] -= i
-
 	if (src in M.huds_counter["huds"])
 		if (--M.huds_counter["huds"][src] > 0) // check duplicated huds
 			return
 		else
 			M.huds_counter["huds"] -= src
+
+	for (var/i in hud_icons)
+		if ((i in M.huds_counter["icons"]) && --M.huds_counter["icons"][i] < 1)
+			M.huds_counter["icons"] -= i
 
 	for(var/atom/A in hudatoms)
 		remove_from_single_hud(M, A, TRUE)
@@ -87,7 +86,7 @@ GLOBAL_LIST_INIT(huds, list( \
 		return
 	hudusers |= M
 
-	if (src in M.huds_counter["huds"])
+	if (src in M.huds_counter)
 		M.huds_counter["huds"][src]++
 	else
 		M.huds_counter["huds"][src] = 1
