@@ -18057,6 +18057,7 @@
 /obj/item/pen/multi/fountain,
 /obj/item/stamp/rep,
 /obj/item/lighter/zippo/nt_rep,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "caF" = (
@@ -65532,7 +65533,10 @@
 /obj/machinery/alarm{
 	pixel_y = 22
 	},
-/turf/space,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
 /area/teleporter/abandoned)
 "jAa" = (
 /obj/machinery/light/small{
@@ -78393,6 +78397,7 @@
 	c_tag = "NT Representative's Office";
 	dir = 8
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "mFk" = (
@@ -103907,7 +103912,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/space,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
 /area/toxins/explab)
 "sui" = (
 /obj/structure/grille,
@@ -107931,6 +107939,7 @@
 	pixel_x = -5;
 	pixel_y = 12
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "trA" = (
