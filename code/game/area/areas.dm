@@ -58,6 +58,13 @@
 	var/list/firedoors
 	var/list/cameras
 	var/list/firealarms
+
+	///Used for performance in light manipulation operations
+	var/list/lights_cache
+
+	///Used for perfomance in machinery manipulation operations
+	var/list/machinery_cache
+
 	var/firedoors_last_closed_on = 0
 
 	var/fast_despawn = FALSE
@@ -80,10 +87,10 @@
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
 		GLOB.all_unique_areas[type] = src
+	GLOB.all_areas += src
 	..()
 
 /area/Initialize(mapload)
-	GLOB.all_areas += src
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid
@@ -139,14 +146,14 @@
 
 /area/proc/get_cameras()
 	var/list/cameras = list()
-	for(var/obj/machinery/camera/C in src)
+	for(var/obj/machinery/camera/C in machinery_cache)
 		cameras += C
 	return cameras
 
 /area/proc/air_doors_close()
 	if(!air_doors_activated)
 		air_doors_activated = TRUE
-		for(var/obj/machinery/door/firedoor/D in src)
+		for(var/obj/machinery/door/firedoor/D in firedoors)
 			if(!D.welded)
 				D.activate_alarm()
 				if(D.operating)
@@ -158,7 +165,7 @@
 /area/proc/air_doors_open()
 	if(air_doors_activated)
 		air_doors_activated = FALSE
-		for(var/obj/machinery/door/firedoor/D in src)
+		for(var/obj/machinery/door/firedoor/D in firedoors)
 			if(!D.welded)
 				D.deactivate_alarm()
 				if(D.operating)
@@ -328,7 +335,7 @@
 	//Trigger alarm effect
 	set_fire_alarm_effect()
 	//Lockdown airlocks
-	for(var/obj/machinery/door/DOOR in src)
+	for(var/obj/machinery/door/DOOR in machinery_cache)
 		close_and_lock_door(DOOR)
 
 	if(SSalarm.triggerAlarm("Burglar", src, cameras, trigger))
@@ -348,9 +355,9 @@
 		F.update_fire_light(fire)
 	if(area_emergency_mode) //Fires are not legally allowed if the power is off
 		return
-	for(var/obj/machinery/light/L in src)
-		L.fire_mode = TRUE
-		L.update()
+	for(var/obj/machinery/light/light as anything in lights_cache)
+		light.fire_mode = TRUE
+		light.update()
 
 ///unset the fire alarm visual affects in an area
 /area/proc/unset_fire_alarm_effects()
@@ -361,9 +368,9 @@
 		F.update_fire_light(fire)
 	if(area_emergency_mode) //The lights stay red until the crisis is resolved
 		return
-	for(var/obj/machinery/light/L in src)
-		L.fire_mode = FALSE
-		L.update()
+	for(var/obj/machinery/light/light as anything in lights_cache)
+		light.fire_mode = FALSE
+		light.update()
 
 /area/proc/updateicon()
 	var/weather_icon
@@ -409,8 +416,9 @@
   * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
   */
 /area/proc/power_change()
-	for(var/obj/machinery/M in src)	// for each machine in the area
-		M.power_change()			// reverify power status (to update icons etc.)
+	for(var/obj/machinery/machine as anything in machinery_cache)	// for each machine in the area
+		machine.power_change()			// reverify power status (to update icons etc.)
+
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	updateicon()
 
@@ -511,6 +519,8 @@
 	else if(!(our_client.prefs.sound & SOUND_BUZZ))
 		our_client.ambience_playing = FALSE
 
+/area/Exited(atom/movable/departed)
+	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
 
 /area/proc/gravitychange(gravitystate = 0, area/our_area)
 	our_area.has_gravity = gravitystate
@@ -563,11 +573,11 @@
 
 
 /area/proc/prison_break()
-	for(var/obj/machinery/power/apc/temp_apc in src)
+	for(var/obj/machinery/power/apc/temp_apc in machinery_cache)
 		INVOKE_ASYNC(temp_apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting), 70)
-	for(var/obj/machinery/door/airlock/temp_airlock in src)
+	for(var/obj/machinery/door/airlock/temp_airlock in machinery_cache)
 		INVOKE_ASYNC(temp_airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, prison_open))
-	for(var/obj/machinery/door/window/temp_windoor in src)
+	for(var/obj/machinery/door/window/temp_windoor in machinery_cache)
 		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
 

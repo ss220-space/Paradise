@@ -91,7 +91,7 @@
 			reactor = R
 			R.has_overloaded = FALSE
 
-	for(var/obj/machinery/door/airlock/A in src)
+	for(var/obj/machinery/door/airlock/A in machinery_cache)
 		if(A.density && A.locked)
 			spawn(0)
 				A.unlock()
@@ -185,7 +185,7 @@
 		alert_log += "Visitor mode ended."
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
 			N.a_intent = INTENT_HARM
-		for(var/obj/machinery/door/airlock/A in src)
+		for(var/obj/machinery/door/airlock/A in machinery_cache)
 			A.req_access = list(ACCESS_SYNDICATE_LEADER)
 		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)
 			if(L.locked)
@@ -301,22 +301,22 @@
 	if(used_lockdown)
 		return
 	used_lockdown = TRUE
-	for(var/obj/machinery/door/airlock/A in src)
+	for(var/obj/machinery/door/airlock/A in machinery_cache)
 		spawn(0)
 			A.close()
 			if(A.density && !A.locked)
 				A.lock()
 
 /area/syndicate_depot/core/proc/lockout_computers()
-	for(var/obj/machinery/computer/syndicate_depot/C in src)
+	for(var/obj/machinery/computer/syndicate_depot/C in machinery_cache)
 		C.activate_security_lockout()
 
 /area/syndicate_depot/core/proc/unlock_computers()
-	for(var/obj/machinery/computer/syndicate_depot/C in src)
+	for(var/obj/machinery/computer/syndicate_depot/C in machinery_cache)
 		C.security_lockout = FALSE
 
 /area/syndicate_depot/core/proc/set_emergency_access(var/openaccess)
-	for(var/obj/machinery/door/airlock/A in src)
+	for(var/obj/machinery/door/airlock/A in machinery_cache)
 		if(istype(A, /obj/machinery/door/airlock/hatch/syndicate/vault))
 			continue
 		A.emergency = !!openaccess
@@ -328,7 +328,7 @@
 			F.toggle()
 
 /area/syndicate_depot/core/proc/toggle_teleport_beacon()
-	for(var/obj/machinery/bluespace_beacon/syndicate/B in src)
+	for(var/obj/machinery/bluespace_beacon/syndicate/B in machinery_cache)
 		return B.toggle()
 
 /area/syndicate_depot/core/proc/announce_here(a_header = "Depot Defense Alert", a_text = "")
@@ -358,7 +358,7 @@
 		if(!L.locked)
 			L.locked = !L.locked
 		L.update_icon()
-	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in src)
+	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in machinery_cache)
 		A.lock()
 
 /area/syndicate_depot/core/proc/shields_key_check()
@@ -378,7 +378,7 @@
 		if(L.locked)
 			L.locked = !L.locked
 			L.update_icon()
-	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in src)
+	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/A in machinery_cache)
 		A.unlock()
 
 /area/syndicate_depot/core/proc/despawn_guards()
