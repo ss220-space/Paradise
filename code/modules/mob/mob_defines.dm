@@ -211,7 +211,7 @@
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
-	var/list/huds_counter = list("huds" = list(), "icons" = list()) // Counters for huds and icon types
+	var/list/permanent_huds = list()
 
 	var/list/actions = list()
 	var/list/datum/action/chameleon_item_actions
