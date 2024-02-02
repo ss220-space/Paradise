@@ -1020,8 +1020,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define CORRECT_MECHA 1
 #define SOME_CORRECT_MODULES 2
 #define ALL_CORRECT_MODULES 3
+
 /obj/machinery/computer/roboquest
-	name = "RoboQuest console"
+	name = "Robotics Request Console"
+	desc = "Console used for receiving requests for construction of exosuits."
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -1029,9 +1031,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/canCheck = FALSE
 	var/success
 	var/checkMessage = ""
+	req_access = list(ACCESS_ROBOTICS)
+	circuit = /obj/item/circuitboard/roboquest
 	var/obj/item/card/id/currentID
 	var/obj/machinery/roboquest_pad/pad
 
+/obj/machinery/computer/roboquest/Initialize(mapload)
+	..()
+	var/mapping_pad = locate(/obj/machinery/roboquest_pad) in range(2, src)
+	if(mapping_pad)
+		pad = mapping_pad
+		pad.console = src
+		canCheck = TRUE
 
 /obj/machinery/computer/roboquest/Destroy()
 	for(var/obj/item/I in contents)
@@ -1143,24 +1154,49 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
 		if("SendMech")
 			check_pad()
+
+			flick("sqpad-beam", pad)
+			pad.sparks()
 			to_chat(usr, "Вы отправили меха с оценкой успеха [success] из трех")
 
 /obj/machinery/computer/roboquest/proc/pick_mecha()
 	currentID.robo_bounty = new /datum/roboquest
-
-//roboquest shit
-
 /obj/machinery/roboquest_pad
-	name = "RoboQuest pad"
-	icon = 'icons/obj/machines/recycling.dmi'
-	icon_state = "separator-A1" //ультра WIP
+	name = "Robotics Request Quantum Pad"
+	desc = "A bluespace quantum-linked telepad linked to a orbital long-range matter transmitter."
+	icon = 'icons/obj/telescience.dmi'
+	icon_state = "sqpad-idle"
+	idle_power_usage = 500
 	var/obj/machinery/computer/roboquest/console
+
+/obj/machinery/roboquest_pad/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/roboquest_pad(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	RefreshParts()
 
 /obj/machinery/roboquest_pad/Destroy()
 	console.pad = null
 	console.canSend = FALSE
 	console = null
 	. = ..()
+
+/obj/machinery/roboquest_pad/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/roboquest_pad/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
+
+/obj/machinery/roboquest_pad/proc/sparks()
+	do_sparks(5, 1, get_turf(src))
 
 /obj/machinery/roboquest_pad/New()
 	RegisterSignal(src, COMSIG_MOVABLE_UNCROSSED, PROC_REF(ismechgone))
