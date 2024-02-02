@@ -1047,7 +1047,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/roboquest/Destroy()
 	for(var/obj/item/I in contents)
 		I.forceMove(get_turf(src))
-	pad = null
+	if(pad)
+		pad.console=null
+		pad = null
 	currentID = null
 	. = ..()
 
@@ -1154,7 +1156,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
 		if("SendMech")
 			check_pad()
-
 			flick("sqpad-beam", pad)
 			pad.sparks()
 			to_chat(usr, "Вы отправили меха с оценкой успеха [success] из трех")
@@ -1178,9 +1179,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	RefreshParts()
 
 /obj/machinery/roboquest_pad/Destroy()
-	console.pad = null
-	console.canSend = FALSE
-	console = null
+	if(console)
+		console.canSend = FALSE
+		console.pad = null
+		console = null
 	. = ..()
 
 /obj/machinery/roboquest_pad/crowbar_act(mob/user, obj/item/I)

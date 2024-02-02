@@ -40,7 +40,7 @@
    @include meta.load-css(
      '../components/Button.scss',
      $with: (
-       'color-default': #9524ff,
+       'color-default': #6318a9,
        'color-transparent-text': rgba(227, 240, 255, 0.75),
        'color-disabled': #363636,
        'color-selected': #465899,
@@ -66,7 +66,7 @@
    @include meta.load-css('../layouts/Window.scss');
    @include meta.load-css(
      '../layouts/TitleBar.scss',
-     $with: ('color-background': #7d00bc)
+     $with: ('color-background': #3e1c50)
    );
 
    .Section {
@@ -88,7 +88,7 @@
 
    .Button {
      color: #F0EBF2;
-     background-color: #8400ff;
+     background-color: #651e88;
    }
 
    .ProgressBar {
@@ -114,8 +114,8 @@
 
 
    .Layout__content {
-     background-image: url('../../assets/bg-nanotrasen.svg');
-     background-size: 75%;
+     background-image: url('../../assets/bg-grayripley.svg');
+     background-size: 300%;
      background-repeat: no-repeat;
    }
    .Layout,

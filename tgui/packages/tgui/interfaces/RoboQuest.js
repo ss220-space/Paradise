@@ -1,5 +1,5 @@
 import { Fragment } from 'inferno';
-import { useBackend } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Box, Section, Button, Flex, LabeledList, Divider } from '../components';
 import { Window } from '../layouts';
 import { FlexItem } from '../components/Flex';
@@ -22,7 +22,7 @@ export const RoboQuest = (props, context) => {
           <FlexItem basis={40}>
             <Section title="Mecha"
               buttons={(
-                <Button
+                  <Button
                     content="Check Mech"
                     disabled={!hasID || !hasTask || !canCheck}
                     onClick={() => act('Check')} />
