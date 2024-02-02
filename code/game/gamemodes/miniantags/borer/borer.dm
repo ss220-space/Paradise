@@ -380,6 +380,7 @@
 
 	if(stat)
 		to_chat(src, "Вы не можете производить химикаты в вашем нынешнем состоянии.")
+		return
 
 	if(docile)
 		to_chat(src, "<font color='blue'>Вы слишком обессилели для этого.</font>")
