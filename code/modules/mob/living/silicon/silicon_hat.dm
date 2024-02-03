@@ -112,6 +112,9 @@
 		if("mopgearrex") //Высотой: 22
 			canBeHatted = TRUE
 			hat_offset_y = -6
+		if("zoomba_jani") //Высотой: 14
+			canBeHatted = FALSE
+			hat_offset_y = -14
 
 	if(inventory_head)
 		if (!canBeHatted)

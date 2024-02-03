@@ -384,7 +384,8 @@
 		"Mop Gear Rex" = "mopgearrex",
 		"Standard" = "Standard-Jani",
 		"Noble-CLN" = "Noble-CLN",
-		"Cricket" = "Cricket-JANI"
+		"Cricket" = "Cricket-JANI",
+		"Zoomba" = "zoomba_jani"
 	)
 	has_transform_animation = TRUE
 
