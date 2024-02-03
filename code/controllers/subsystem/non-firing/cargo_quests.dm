@@ -151,6 +151,9 @@ SUBSYSTEM_DEF(cargo_quests)
 	if(!target_storage)
 		return FALSE
 
+	for(var/datum/cargo_quest/quest in target_storage.current_quests)
+		quest.completed_quest()
+
 	if(target_storage.customer in corporations)
 		max_reward = max_reward * 10
 

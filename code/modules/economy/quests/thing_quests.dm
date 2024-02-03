@@ -672,7 +672,7 @@
 
 /datum/cargo_quest/thing/virus/check_required_item(atom/movable/check_item)
 
-	if(!length(required_symptoms))
+	if(!length(current_list))
 		return FALSE
 
 	var/obj/item/reagent_containers/glass/beaker/vial/vial = check_item
@@ -700,3 +700,85 @@
 /datum/cargo_quest/thing/virus/after_check()
 	. = TRUE
 	current_list = required_symptoms.Copy()
+
+#undef REQUIRED_BLOOD_AMOUNT
+
+/datum/cargo_quest/thing/capsule
+	quest_type_name = "Mob in lazarus capsule"
+	interface_icons = list('icons/obj/mobcap.dmi')
+	interface_icon_states = list("mobcap3")
+	req_items = list(/obj/item/mobcapsule)
+
+	var/list/required_mobs = list()
+	var/list/capsules
+
+	normal_items = list(
+		/mob/living/simple_animal/hostile/asteroid/goliath/beast = 180,
+		/mob/living/simple_animal/hostile/asteroid/goldgrub = 120,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 130,
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver = 210,
+	)
+	hard_items = list(
+		/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient = 450,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing = 330,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing = 350,
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 350
+	)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
+
+/datum/cargo_quest/thing/capsule/update_interface_icon()
+	return
+
+/datum/cargo_quest/thing/capsule/length_quest()
+	return length(required_mobs)
+
+/datum/cargo_quest/thing/capsule/generate_goal(difficultly, request_obj, target_reward)
+	var/list/difficult_list
+	switch(difficultly)
+		if(QUEST_DIFFICULTY_EASY)
+			difficult_list = easy_items
+
+		if(QUEST_DIFFICULTY_NORMAL)
+			difficult_list = normal_items
+
+		if(QUEST_DIFFICULTY_HARD)
+			difficult_list = hard_items
+
+		if(QUEST_DIFFICULTY_VERY_HARD)
+			difficult_list = very_hard_items
+
+	var/mob/generated_mob = pick(difficult_list)
+	q_storage.reward += difficult_list[generated_mob]
+	if(unique_things)
+		difficult_list.Remove(generated_mob)
+
+	required_mobs += generated_mob
+	current_list = required_mobs.Copy()
+
+	desc += "[capitalize(format_text(initial(generated_mob.name)))]<br>"
+
+/datum/cargo_quest/thing/capsule/check_required_item(atom/movable/check_item)
+
+	if(!length(current_list))
+		return FALSE
+
+	var/obj/item/mobcapsule/capsule = check_item
+	if(!capsule.captured)
+		return FALSE
+	var/mob/living/simple_animal/captured_mob = capsule.captured
+
+	for(var/mobtype in current_list)
+		if(istype(captured_mob, mobtype))
+			current_list.Remove(mobtype)
+			LAZYADD(capsules, capsule)
+			return TRUE
+	return FALSE
+
+
+/datum/cargo_quest/thing/capsule/after_check()
+	. = TRUE
+	current_list = required_mobs.Copy()
+
+/datum/cargo_quest/thing/capsule/completed_quest()
+	if(length(capsules))
+		QDEL_LIST(capsules)

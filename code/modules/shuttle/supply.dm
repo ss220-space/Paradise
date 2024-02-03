@@ -18,7 +18,6 @@
 
 /obj/docking_port/mobile/supply/proc/forbidden_atoms_check(atom/A)
 	var/static/list/cargo_blacklist = list(
-		/mob/living,
 		/obj/structure/blob,
 		/obj/structure/spider/spiderling,
 		/obj/item/disk/nuclear,
@@ -38,6 +37,12 @@
 		/obj/item/paicard
 	)
 	if(A)
+		if(isliving(A))
+			if(!istype(A.loc, /obj/item/mobcapsule))
+				return TRUE
+			var/mob/living/living = A
+			if(living.client) //You cannot get out of the capsule and you will be destroyed. Saving clients
+				return TRUE
 		if(is_type_in_list(A, cargo_blacklist))
 			return TRUE
 		for(var/thing in A)

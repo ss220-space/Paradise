@@ -171,4 +171,7 @@
 /datum/cargo_quest/proc/after_check()
 	return TRUE
 
+/datum/cargo_quest/proc/completed_quest()
+	return TRUE
+
 #undef MIN_PLAYERS_FOR_MIX
