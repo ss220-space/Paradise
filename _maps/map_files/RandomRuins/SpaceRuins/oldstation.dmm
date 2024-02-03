@@ -2569,6 +2569,7 @@
 /area/ruin/space/ancientstation/hydroponics)
 "vf" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
@@ -5992,19 +5993,9 @@
 	},
 /area/ruin/space/ancientstation/kitchen)
 "VH" = (
-/obj/item/seeds/harebell,
-/obj/item/seeds/carrot,
-/obj/item/seeds/potato,
-/obj/item/seeds/ambrosia,
-/obj/item/seeds/poppy,
-/obj/item/seeds/grape,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/item/seeds/wheat,
-/obj/item/seeds/tomato,
-/obj/item/seeds/apple,
-/obj/item/seeds/banana,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/hydroponics)
 "VJ" = (
