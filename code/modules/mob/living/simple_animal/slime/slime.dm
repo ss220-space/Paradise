@@ -308,41 +308,35 @@
 		attacked += 10 - age_state.attacked
 
 /mob/living/simple_animal/slime/attack_hand(mob/living/carbon/human/M)
-	if(buckled)
-		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-		if(buckled == M)
-			if(prob(60))
-				M.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>", \
-					"<span class='danger'>You attempt to wrestle \the [name] off!</span>")
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-
-			else
-				M.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off!</span>", \
-					"<span class='notice'>You manage to wrestle \the [name] off!</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-
-				discipline_slime(M)
-
-		else
-			if(prob(30))
-				buckled.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='warning'>[M] attempts to wrestle \the [name] off of you!</span>")
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-
-			else
-				buckled.visible_message("<span class='warning'>[M] manages to wrestle \the [name] off of [buckled]!</span>", \
-					"<span class='notice'>[M] manage to wrestle \the [name] off of you!</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-
-				discipline_slime(M)
+	if(M.a_intent == INTENT_HELP)
+		return ..()
 	else
-		if(stat == DEAD && surgeries.len)
-			if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_DISARM)
-				for(var/datum/surgery/S in surgeries)
-					if(S.next_step(M, src))
-						return 1
-		if(..()) //successful attack
-			attacked += 10 - age_state.attacked
+		if(buckled)
+			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			if(buckled == M)
+				return remove_slime(M, 40)
+			else
+				return remove_slime(M, 70)
+		else
+			. = ..()
+			if(.) //successful attack
+				attacked += 10 - age_state.attacked
+
+
+/mob/living/simple_animal/slime/proc/remove_slime(mob/living/carbon/human/attacker, success_prob)
+
+	if(prob(success_prob))
+		attacker.visible_message("<span class='warning'>[attacker] manages to wrestle \the [name] off!</span>", \
+			"<span class='notice'>You manage to wrestle \the [name] off!</span>")
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+		discipline_slime(attacker)
+		return TRUE
+	else
+		attacker.visible_message(span_warning("[attacker] attempts to wrestle \the [name] off!"),
+						span_danger("You attempt to wrestle \the [name] off!"))
+		playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
+		return FALSE
+
 
 /mob/living/simple_animal/slime/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent.
