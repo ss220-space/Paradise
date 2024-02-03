@@ -91,6 +91,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query, dont bother slowing roundstart
 
+	SScargo_quests.roll_start_quests()
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()

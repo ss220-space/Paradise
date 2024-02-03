@@ -48,6 +48,7 @@ SUBSYSTEM_DEF(cargo_quests)
 			easy_mode_difficulties[quest_difficulty] = quest_difficulty.weight
 
 
+/datum/controller/subsystem/cargo_quests/proc/roll_start_quests()
 	for(var/I = 1 to NUMBER_OF_CC_QUEST)
 		create_new_quest(pick(centcomm_departaments), easy_mode = TRUE)
 	for(var/I = 1 to NUMBER_OF_CORP_QUEST)
