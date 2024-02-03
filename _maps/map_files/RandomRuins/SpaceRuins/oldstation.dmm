@@ -5992,7 +5992,6 @@
 	},
 /area/ruin/space/ancientstation/kitchen)
 "VH" = (
-/obj/structure/table,
 /obj/item/seeds/harebell,
 /obj/item/seeds/carrot,
 /obj/item/seeds/potato,
@@ -6001,6 +6000,11 @@
 /obj/item/seeds/grape,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/seeds/wheat,
+/obj/item/seeds/tomato,
+/obj/item/seeds/apple,
+/obj/item/seeds/banana,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/hydroponics)
 "VJ" = (
