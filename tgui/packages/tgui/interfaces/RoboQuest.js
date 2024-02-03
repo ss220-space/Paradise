@@ -16,7 +16,9 @@ export const RoboQuest = (props, context) => {
     checkMessage,
     style,
     cooldown,
+    shopItems,
   } = data;
+  const [ shopState, changeShopState ] = useLocalState(context, "shopState", false);
   return (
     <Window theme={style} resizable>
       <Window.Content>
@@ -93,56 +95,67 @@ export const RoboQuest = (props, context) => {
                       )}
                   </FlexItem>
                 </Flex>
-                {!!hasTask && <Divider/>}
-                <b>{checkMessage}</b>
+                {!!hasTask &&
+                  <Fragment>
+                    <Divider/>
+                    <b>{checkMessage}</b>
+                  </Fragment>}
                 {!!cooldown &&
-                <Fragment>
-                  <b>За отказ от заказа, вы были отстранены от работы на некоторое время.</b>
-                  <br />
-                  <b>{cooldown}</b>
-                </Fragment>}
+                  <Fragment>
+                    <b>За отказ от заказа, вы были отстранены от работы на некоторое время.</b>
+                    <br />
+                    <b>{cooldown}</b>
+                  </Fragment>}
             </Section>
           </FlexItem>
-          <FlexItem basis={20}/>
-          <Flex.Item basis={40}>
-            <Section title="Task's info"
-              buttons={(
-                <Fragment>
-                  <Button
-                    icon="id-card"
-                    content="Eject ID"
-                    disabled={!hasID}
-                    onClick={() => act('RemoveID')} />
-                  {!hasTask &&
+          <FlexItem basis={20}>
+            <Section title="Other"
+            buttons={
+              <Button
+                content="Shop"
+                onClick={() => changeShopState(!shopState)}/>
+            } />
+          </FlexItem>
+          <FlexItem basis={40}>
+            {!shopState &&
+              <Section title="Task's info"
+                buttons={(
+                  <Fragment>
                     <Button
-                    icon="arrow-down"
-                    content="Get Task"
-                    disabled={!hasID || cooldown}
-                    onClick={() => act('GetTask')} />}
-                  {!!hasTask &&
-                    <Button
+                      icon="id-card"
+                      content="Eject ID"
+                      disabled={!hasID}
+                      onClick={() => act('RemoveID')} />
+                    {!hasTask &&
+                      <Button
                       icon="arrow-down"
-                      content="Remove Task"
+                      content="Get Task"
                       disabled={!hasID || cooldown}
-                      onClick={() => act('RemoveTask')} />}
-                </Fragment>
-              )}>
-                <Box mx="0.5rem" mb="1rem">
-                  <b>Name: </b>{questInfo.name}
-                  <br />
-                  <b>Desc: </b>{questInfo.desc}
-                </Box>
-                <Section title="Modules" level = {2}>
-                  <Box mx="0.5rem" mb="0.5rem">
-                      <b>Module 1: </b>{questInfo.module1}
-                      <br /><br />
-                      <b>Module 2: </b>{questInfo.module2}
-                      <br /><br />
-                      <b>Module 3: </b>{questInfo.module3}
-                      <br /><br />
-                      <b>Module 4: </b>{questInfo.module4}
+                      onClick={() => act('GetTask')} />}
+                    {!!hasTask &&
+                      <Button
+                        icon="arrow-down"
+                        content="Remove Task"
+                        disabled={!hasID || cooldown}
+                        onClick={() => act('RemoveTask')} />}
+                  </Fragment>
+                )}>
+                  <Box mx="0.5rem" mb="1rem">
+                    <b>Name: </b>{questInfo.name}
+                    <br />
+                    <b>Desc: </b>{questInfo.desc}
                   </Box>
-              </Section>
+                  <Section title="Modules" level = {2}>
+                    <Box mx="0.5rem" mb="0.5rem">
+                        <b>Module 1: </b>{questInfo.module1}
+                        <br /><br />
+                        <b>Module 2: </b>{questInfo.module2}
+                        <br /><br />
+                        <b>Module 3: </b>{questInfo.module3}
+                        <br /><br />
+                        <b>Module 4: </b>{questInfo.module4}
+                    </Box>
+                </Section>
               <Box mb="0.5rem" textAlign="center">
                 <br />
                 <Button
@@ -154,8 +167,30 @@ export const RoboQuest = (props, context) => {
                   disabled={!hasID || !hasTask || !canSend || cooldown}
                   onClick={() => act('SendMech')}/>
               </Box>
-            </Section>
-          </Flex.Item>
+            </Section>}
+            {!!shopState &&
+              <Section title = "Shop">
+                <Box maxHeight={30} overflowY="auto" overflowX="hidden">
+                  {shopItems.map(i => (
+                    <Section
+                      key={i.name}
+                      title={i.name}
+                      buttons={
+                        <Button
+                          content={
+                            "Buy ("
+                            + i.cost
+                            + "P)"
+                          }
+                        />
+                      }>
+                      <Box italic>{i.desc}</Box>
+                    </Section>
+                  ))}
+                </Box>
+              </Section>
+            }
+          </FlexItem>
         </Flex>
       </Window.Content>
     </Window>

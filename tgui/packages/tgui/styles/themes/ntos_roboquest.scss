@@ -132,11 +132,11 @@
        $lightness: 0% * $scrollbar-color-multiplier
      );
      scrollbar-track-color: color.scale(
-       #ba753a,
+       #7c3aba,
        $lightness: -25% * $scrollbar-color-multiplier
      );
      scrollbar-arrow-color: color.scale(
-       orange,
+       rgb(47, 3, 94),
        $lightness: 50% * $scrollbar-color-multiplier
      );
      scrollbar-shadow-color: color.scale(

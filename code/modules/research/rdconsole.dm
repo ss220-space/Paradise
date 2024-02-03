@@ -1036,6 +1036,22 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/roboquest
 	var/obj/item/card/id/currentID
 	var/obj/machinery/roboquest_pad/pad
+	var/list/shop_items = list(	list("name" = "fisrt thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "second thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "third thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "foutrh thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "fisrt thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "second thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "third thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "foutrh thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "fisrt thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "second thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "third thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "foutrh thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "fisrt thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "second thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "third thing", "cost" = 10, "desc" = "Блаблабла"),
+								list("name" = "foutrh thing", "cost" = 10, "desc" = "Блаблабла"),)
 
 /obj/machinery/computer/roboquest/Initialize(mapload)
 	..()
@@ -1133,6 +1149,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["checkMessage"] = checkMessage
 	data["style"] = style
 	data["cooldown"] = currentID?.bounty_penalty ? time2text((currentID.bounty_penalty-world.time), "mm:ss") : FALSE
+	return data
+
+/obj/machinery/computer/roboquest/ui_static_data(mob/user)
+	var/list/data = list()
+	data["shopItems"] = shop_items
 	return data
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params)
