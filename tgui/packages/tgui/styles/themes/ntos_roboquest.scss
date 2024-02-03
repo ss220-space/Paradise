@@ -70,18 +70,13 @@
 
    .Section {
      outline: 2px inset 	#651e88;
-     font-size: 14px;
    }
 
    .Section__buttons {
     position: absolute;
     display: inline-block;
     right: 6px;
-    margin-top: 2px;
-  }
-
-   .Section--level--1 .Section__titleText {
-    font-size: 18px;
+    margin-top: 0px;
   }
 
    .Button {
@@ -173,6 +168,5 @@
    .Flex {
      color: white;
      background-color: rgba(0, 0, 0, 0);
-     font-size: 14px;
    }
  }

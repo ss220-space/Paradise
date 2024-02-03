@@ -15,6 +15,7 @@ export const RoboQuest = (props, context) => {
     canSend,
     checkMessage,
     style,
+    cooldown,
   } = data;
   return (
     <Window theme={style} resizable>
@@ -26,7 +27,7 @@ export const RoboQuest = (props, context) => {
                   <Fragment>
                     <Button
                       content="Check Mech"
-                      disabled={!hasID || !hasTask || !canCheck}
+                      disabled={!hasID || !hasTask || !canCheck || cooldown}
                       onClick={() => act('Check')} />
                     <Button
                       icon="cog"
@@ -92,8 +93,14 @@ export const RoboQuest = (props, context) => {
                       )}
                   </FlexItem>
                 </Flex>
-                <Divider horizontal />
+                {!!hasTask && <Divider/>}
                 <b>{checkMessage}</b>
+                {!!cooldown &&
+                <Fragment>
+                  <b>За отказ от заказа, вы были отстранены от работы на некоторое время.</b>
+                  <br />
+                  <b>{cooldown}</b>
+                </Fragment>}
             </Section>
           </FlexItem>
           <FlexItem basis={20}/>
@@ -106,11 +113,18 @@ export const RoboQuest = (props, context) => {
                     content="Eject ID"
                     disabled={!hasID}
                     onClick={() => act('RemoveID')} />
-                  <Button
+                  {!hasTask &&
+                    <Button
                     icon="arrow-down"
                     content="Get Task"
-                    disabled={!hasID || hasTask}
-                    onClick={() => act('GetTask')} />
+                    disabled={!hasID || cooldown}
+                    onClick={() => act('GetTask')} />}
+                  {!!hasTask &&
+                    <Button
+                      icon="arrow-down"
+                      content="Remove Task"
+                      disabled={!hasID || cooldown}
+                      onClick={() => act('RemoveTask')} />}
                 </Fragment>
               )}>
                 <Box mx="0.5rem" mb="1rem">
@@ -137,7 +151,7 @@ export const RoboQuest = (props, context) => {
                   bold
                   content="Send Mech"
                   textAlign="center"
-                  disabled={!hasID || !hasTask || !canSend}
+                  disabled={!hasID || !hasTask || !canSend || cooldown}
                   onClick={() => act('SendMech')}/>
               </Box>
             </Section>

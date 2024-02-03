@@ -137,6 +137,7 @@
 	var/stamped = 0
 	/// назвать по человечески
 	var/datum/roboquest/robo_bounty
+	var/bounty_penalty
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 

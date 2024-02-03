@@ -1059,6 +1059,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		currentID = O
 		user.drop_item_ground(O)
 		O.forceMove(src)
+		SStgui.try_update_ui(user, src)
 	if(istype(O, /obj/item/multitool))
 		var/obj/item/multitool/M = O
 		if(M.buffer)
@@ -1131,6 +1132,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["canSend"] = canSend
 	data["checkMessage"] = checkMessage
 	data["style"] = style
+	data["cooldown"] = currentID?.bounty_penalty ? time2text((currentID.bounty_penalty-world.time), "mm:ss") : FALSE
 	return data
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params)
@@ -1138,9 +1140,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("RemoveID")
 			currentID.forceMove(get_turf(src))
 			currentID = null
+			SStgui.update_uis(src)
 		if("GetTask")
 			if(!currentID.robo_bounty)
 				pick_mecha()
+		if("RemoveTask")
+			currentID.robo_bounty = null
+			addtimer(CALLBACK(src, PROC_REF(cooldown_end), currentID), 5 MINUTES)
+			currentID.bounty_penalty = world.time + 5 MINUTES
 		if("Check")
 			if(!pad)
 				to_chat(usr, "Привязанного пада нет, че ты собрался проверять, дебил")
@@ -1173,6 +1180,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			SStgui.update_uis(src)
 			update_icon()
 
+/obj/machinery/computer/roboquest/proc/cooldown_end(obj/item/card/id/penaltycard)
+	penaltycard.bounty_penalty = null
 
 /obj/machinery/computer/roboquest/proc/pick_mecha()
 	currentID.robo_bounty = new /datum/roboquest
