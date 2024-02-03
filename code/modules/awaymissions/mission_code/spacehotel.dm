@@ -202,18 +202,20 @@
 
 	var/obj/item/radio/radio	// for shouting at deadbeats
 
-/obj/effect/hotel_controller/New()
-	..()
+/obj/effect/hotel_controller/Initialize(mapload)
+	. = ..()
+
 	if(controller)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
+
 	controller = src
 
 	radio = new()
 	radio.broadcasting = 0
 	radio.listening = 0
-
+	var/area/myArea = get_area(src)
 	// get room doors
-	for(var/obj/machinery/door/unpowered/hotel_door/D in get_area(src))
+	for(var/obj/machinery/door/unpowered/hotel_door/D in myArea?.machinery_cache)
 		add_room(D)
 
 /obj/effect/hotel_controller/proc/add_room(obj/machinery/door/unpowered/hotel_door/D)

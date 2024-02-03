@@ -40,7 +40,7 @@
 	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
@@ -65,7 +65,7 @@
 	burst_size = 1
 	fire_delay = 0
 	select = 0
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/speargun/update_icon()
 	return

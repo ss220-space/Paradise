@@ -17,9 +17,9 @@ jobs:
     name: Run Linters
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
@@ -45,9 +45,9 @@ jobs:
     name: Compile All Maps
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
@@ -75,9 +75,9 @@ jobs:
           - 3306
         options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond

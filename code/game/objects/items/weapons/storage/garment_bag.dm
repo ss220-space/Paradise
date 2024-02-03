@@ -99,6 +99,8 @@
 	new /obj/item/clothing/under/rank/head_of_security/skirt(src)
 	new /obj/item/clothing/under/rank/head_of_security/alt(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/security/hos(src)
+	new /obj/item/clothing/under/rank/head_of_security/alt/skirt(src)
+	new /obj/item/clothing/under/rank/head_of_security/paradef(src)
 
 /obj/item/storage/garmentbag/warden/populate_contents()
 	new /obj/item/clothing/head/warden(src)
@@ -121,6 +123,7 @@
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
 	new /obj/item/clothing/accessory/blue(src)
+	new /obj/item/clothing/under/rank/blueshield/skirt(src)
 
 /obj/item/storage/garmentbag/ntrep/populate_contents()
 	new /obj/item/clothing/head/ntrep(src)
@@ -132,6 +135,8 @@
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/sandal/fancy(src)
 	new /obj/item/clothing/shoes/centcom(src)
+	new /obj/item/clothing/under/rank/ntrep/skirt(src)
+	new /obj/item/clothing/accessory/ntrjacket(src)
 
 /obj/item/storage/garmentbag/detective/populate_contents()
 	new /obj/item/clothing/head/det_hat(src)
@@ -158,7 +163,8 @@
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/accessory/red(src)
 	new /obj/item/clothing/shoes/black(src)
-
+	new /obj/item/clothing/under/det/noir(src)
+	new /obj/item/clothing/under/det/noir/skirt(src)
 
 /obj/item/storage/garmentbag/magistrate/populate_contents()
 	new /obj/item/clothing/head/powdered_wig(src)
@@ -223,6 +229,7 @@
 	new /obj/item/clothing/under/wedding/bride_white(src)
 	new /obj/item/clothing/under/rank/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/under/rank/chaplain/skirt(src)
 
 /obj/item/storage/garmentbag/quartermaster/populate_contents()
 	new /obj/item/clothing/head/soft(src)
@@ -235,3 +242,4 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/cargo/qm(src)
+	new /obj/item/clothing/under/rank/cargo/alt(src)

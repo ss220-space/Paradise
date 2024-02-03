@@ -310,8 +310,6 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	text += "- Lifespan: [lifespan]\n"
 	text += "- Weed Growth Rate: [weed_rate]\n"
 	text += "- Weed Vulnerability: [weed_chance]\n"
-	if(rarity)
-		text += "- Species Discovery Value: [rarity]\n"
 	var/all_traits = ""
 	for(var/datum/plant_gene/trait/traits in genes)
 		if(istype(traits, /datum/plant_gene/trait/plant_type))

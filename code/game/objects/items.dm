@@ -67,12 +67,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/max_heat_protection_temperature //Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
 	var/min_cold_protection_temperature //Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
 
-	var/list/actions = list() //list of /datum/action's that this item has.
-	var/list/actions_types = list() //list of paths of action datums to give to the item on New().
-	var/list/action_icon = list() //list of icons-sheets for a given action to override the icon.
-	var/list/action_icon_state = list() //list of icon states for a given action to override the icon_state.
+	var/list/actions = null //list of /datum/action's that this item has.
+	var/list/actions_types = null //list of paths of action datums to give to the item on New().
+	var/list/action_icon = null //list of icons-sheets for a given action to override the icon.
+	var/list/action_icon_state = null //list of icon states for a given action to override the icon_state.
 
-	var/list/materials = list()
+	var/list/materials = null
 	var/materials_coeff = 1
 	//Since any item can now be a piece of clothing, this has to be put here so all items share it.
 	var/flags_inv //This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
@@ -86,6 +86,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/is_speedslimepotioned = FALSE
 	var/cant_be_faster = FALSE
 	var/armour_penetration = 0 //percentage of armour effectiveness to remove
+	var/shields_penetration = 0 //amount by which block_chance decreases
 	/// Allows you to override the attack animation with an attack effect
 	var/attack_effect_override
 	var/list/allowed = null //suit storage stuff.
@@ -167,11 +168,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///Datum used in item pixel shift TGUI
 	var/datum/ui_module/item_pixel_shift/item_pixel_shift
 
-
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
-		new path(src, action_icon[path], action_icon_state[path])
+		if(action_icon && action_icon_state)
+			new path(src, action_icon[path], action_icon_state[path])
+		else
+			new path(src)
 
 	if(!hitsound)
 		if(damtype == "fire")
@@ -211,7 +214,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(ismob(loc))
 		var/mob/M = loc
 		M.drop_item_ground(src, TRUE)
-	QDEL_LIST(actions)
+
+	//Reason behind why it's not QDEL_LIST: works badly with lazy removal in Destroy() of item_action
+	for(var/i in actions)
+		qdel(i)
+
 	QDEL_NULL(item_pixel_shift)
 
 	return ..()
@@ -1167,7 +1174,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Item will be forceMoved() to turf below its holder.
  */
 /obj/item/proc/forceMove_turf()
-	var/turf/newloc = get(src, /turf)
+	var/turf/newloc = get_turf(src)
 	if(!newloc)
 		CRASH("Item holder is not in turf contents.")
 	forceMove(newloc)
@@ -1261,3 +1268,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	// This is instant on byond's end, but to our clients this looks like a quick drop
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
+
+/obj/item/proc/sharpen_act(increase)
+	force += increase
+	throwforce += increase
+
+/obj/item/proc/get_force()
+	var/datum/component/sharpening/sharpening = GetComponent(/datum/component/sharpening)
+	return initial(force) + sharpening?.damage_increase
+
+/obj/item/proc/get_throwforce()
+	var/datum/component/sharpening/sharpening = GetComponent(/datum/component/sharpening)
+	return initial(throwforce) + sharpening?.damage_increase

@@ -247,7 +247,8 @@
 		/obj/item/key,
 		/obj/item/door_remote,
 		/obj/item/stamp,
-		/obj/item/sensor_device/advanced
+		/obj/item/sensor_device/advanced,
+		/obj/item/qm_quest_tablet
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (

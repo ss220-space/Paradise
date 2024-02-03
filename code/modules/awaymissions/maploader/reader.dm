@@ -281,7 +281,11 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	// instanciate the first /turf
 	var/turf/T
 	if(members[first_turf_index] != /turf/template_noop)
-		T = instance_atom(members[first_turf_index], members_attributes[first_turf_index], xcrd, ycrd, zcrd)
+		if(members[first_turf_index] == /turf/simulated/floor/plating/lava/smooth/lava_land_surface)
+			T = instance_atom(SSmapping.lavaland_theme?.primary_turf_type, members_attributes[first_turf_index], xcrd, ycrd, zcrd)
+		else
+			T = instance_atom(members[first_turf_index], members_attributes[first_turf_index], xcrd, ycrd, zcrd)
+
 
 	if(T)
 		// if others /turf are presents, simulates the underlays piling effect

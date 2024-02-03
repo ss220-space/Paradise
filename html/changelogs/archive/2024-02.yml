@@ -1,0 +1,20 @@
+'2024-02-01':
+  Arceniu:
+  - tweak: Death Squad with advanced syndicate magboots (#4319)
+  Nerrol:
+  - bugfix: hotfix implants and huds (#4324)
+  NightDawnFox:
+  - bugfix: no more real cryopod in lavaland ruins (#4331)
+  SAAD:
+  - tweak: disable syndiebase griefsky autopatrol (#4333)
+  Valtor:
+  - add: Borer health scan (#4300)
+  Vladisvell:
+  - refactor: Optimized timed events CPU usage (#4332)
+  - bugfix: Fixed ninja's impossibility to initialize properly (#4328)
+  - refactor: Optimized ancient goliath tendrils spawning (#4329)
+  - refactor: Allowed usage of GLOB.all_areas before atoms subsystem initialize (#4316)
+  Zwei:
+  - bugfix: Crematorium IDs (#4327)
+  - bugfix: Temporaty Shieldgen Fix (#4330)
+  - bugfix: HUD Zone Select Fixes (#4325)

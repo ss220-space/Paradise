@@ -185,3 +185,6 @@
 	name = "snake crate"
 	content_mob = /mob/living/simple_animal/hostile/retaliate/poison/snake
 
+/obj/structure/closet/critter/slime
+	name = "slime crate"
+	content_mob = /mob/living/simple_animal/slime
