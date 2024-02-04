@@ -89,7 +89,6 @@
 	if(!message)
 		return
 
-	var/verb = "states,"
 	var/rendered = "<i><span class='blob[blob_reagent_datum.id]'>Blob Telepathy,</span> <span class='name'>[name](<span class='blob[blob_reagent_datum.id]'>[blob_reagent_datum.name]</span>)</span> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
 
 	for(var/mob/M in GLOB.mob_list)
