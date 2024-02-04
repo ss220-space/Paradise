@@ -21,6 +21,7 @@ body {
 	scrollbar-face-color:#1A1A1A;
 	scrollbar-track-color:#171717;
 	scrollbar-highlight-color:#171717;
+	scrollbar-arrow-color: #a4bad6;
 }
 h1, h2, h3, h4, h5, h6 {color: #06f; font-family: Georgia, Verdana, sans-serif;}
 
@@ -266,7 +267,7 @@ em				{font-style: normal;font-weight: bold;}
 .ooc				{font-weight: bold;}
 .looc				{color: #6699CC;}
 .adminobserverooc			{color: #0099cc;font-weight: bold;}
-.adminooc			{color: #b82e00;font-weight: bold;}
+.adminooc			{color: #a0320e;font-weight: bold;}
 .adminobserver			{color: #996600;font-weight: bold;}
 .admin				{color: #386aff;font-weight: bold;}
 .adminsay			{color: #9611D4;font-weight: bold;}
@@ -292,7 +293,7 @@ em				{font-style: normal;font-weight: bold;}
 .event_gamma			{color: #d46549;}
 .dsquadradio			{color: #998599;}
 .resteamradio			{color: #18BC46;}
-.airadio				{color: #ff5ed7;}
+.airadio				{color: #de4fbb;}
 .centradio			{color: #2681a5;}
 .secradio				{color: #CF0000;}
 /* .engradio				{color: #FEAC20;} */
@@ -300,7 +301,7 @@ em				{font-style: normal;font-weight: bold;}
 .sciradio				{color: #c68cfa;}
 .supradio				{color: #9F8545;}
 .srvradio				{color: #bbd164;}
-.proradio				{color: #b84f92;}
+/* .proradio				{color: #b84f92;} */
 .admin_channel			{color: #fcba03;}
 .all_admin_ping			{color: #12A5F4;	font-weight: bold; font-size: 120%; text-align: center;}
 .mentor_channel			{color: #775BFF;font-weight: bold;}
@@ -314,8 +315,8 @@ h1.alert, h2.alert			{color: #a4bad6;}
 .emote				{font-style: italic;}
 .selecteddna			{color: #a4bad6; 	background-color: #001B1B}
 
-.attack				{color: #ff0000;}
-.moderate			{color: #CC0000;}
+.attack				{color: #be2020;}
+.moderate			{color: #a91b1b;}
 .disarm				{color: #990000;}
 .passive				{color: #660000;}
 
@@ -328,26 +329,35 @@ h1.alert, h2.alert			{color: #a4bad6;}
 .info				{color: #9ab0ff;}
 .notice				{color: #6685f5;}
 .boldnotice			{color: #6685f5;font-weight: bold;}
-.suicide				{color: #ff5050;font-style: italic;}
+.suicide				{color: #d33838;font-style: italic;}
 .green				{color: #03bb39;}
 .pr_announce 			{color: #c51e1e;font-weight: bold;}
 .boldannounce			{color: #c51e1e;font-weight: bold;}
 .greenannounce			{color: #059223;font-weight: bold;}
 
-.alien					{color: #543354;}
-.noticealien				{color: #00c000;}
-.alertalien				{color: #00c000; font-weight: bold;}
-.terrorspider				{color: #822382;}
+.alien					{color: #923492;}
+.noticealien				{color: #00a000;}
+.alertalien				{color: #00a000; font-weight: bold;}
+.terrorspider				{color: #7d0284;}
 .dantalion				{color: #1a7d5b;}
 
 .sinister				{color: #800080;font-weight: bold;font-style: italic;} /* /vg/ */
-.blob				{color: #006221;font-weight: bold;font-style: italic;}
-.confirm				{color: #00af3b;}
+.blob						{color: #006221;font-weight: bold;font-style: italic;}
+.blobteslium_paste			{color: #512e89;font-weight: bold;font-style: italic;}
+.blobradioactive_gel		{color: #2476f0;font-weight: bold;font-style: italic;}
+.blobb_sorium				{color: #808000;font-weight: bold;font-style: italic;}
+.blobcryogenic_liquid		{color: #8BA6E9;font-weight: bold;font-style: italic;}
+.blobkinetic				{color: #FFA500;font-weight: bold;font-style: italic;}
+.bloblexorin_jelly			{color: #00FFC5;font-weight: bold;font-style: italic;}
+.blobenvenomed_filaments	{color: #9ACD32;font-weight: bold;font-style: italic;}
+.blobboiling_oil			{color: #B68D00;font-weight: bold;font-style: italic;}
+.blobripping_tendrils		{color: #7F0000;font-weight: bold;font-style: italic;}
+.confirm			{color: #00af3b;}
 .rose				{color: #ff5050;}
 .sans				{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings			{font-family: Wingdings, Webdings;}
 .robot				{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
-.ancient				{color: #008B8B;font-style: italic;}
+.ancient			{color: #008B8B;font-style: italic;}
 .newscaster			{color: #CC0000;}
 .mod				{color: #735638;font-weight: bold;}
 .modooc				{color: #184880;font-weight: bold;}
