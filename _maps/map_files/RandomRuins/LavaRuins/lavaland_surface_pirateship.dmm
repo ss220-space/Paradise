@@ -1752,7 +1752,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/cryopod,
+/obj/structure/showcase/machinery/oldpod,
 /turf/simulated/floor/wood/fancy/oak{
 	nitrogen = 23;
 	oxygen = 14;
