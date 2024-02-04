@@ -564,7 +564,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "alG" = (
@@ -952,7 +952,7 @@
 	},
 /turf/simulated/floor/indestructible/beach/coastline{
 	dir = 10;
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "atT" = (
@@ -5579,7 +5579,7 @@
 "cLL" = (
 /turf/simulated/floor/indestructible/beach/coastline{
 	dir = 6;
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "cMd" = (
@@ -6214,7 +6214,7 @@
 /turf/simulated/floor/indestructible/beach/coastline{
 	dir = 1;
 	icon_state = "beachcorner";
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "dfC" = (
@@ -6626,7 +6626,7 @@
 "dtu" = (
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/indestructible/beach/coastline{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "dtA" = (
@@ -7529,7 +7529,7 @@
 "dQf" = (
 /turf/simulated/floor/indestructible/beach/coastline{
 	dir = 4;
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "dQq" = (
@@ -11519,7 +11519,7 @@
 	},
 /turf/simulated/floor/indestructible/beach/coastline{
 	dir = 6;
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "fQJ" = (
@@ -14787,7 +14787,7 @@
 	},
 /turf/simulated/floor/indestructible/beach/coastline{
 	dir = 8;
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "hLH" = (
@@ -18790,7 +18790,7 @@
 	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "jXt" = (
@@ -19282,7 +19282,7 @@
 	},
 /turf/simulated/floor/indestructible/beach/coastline{
 	icon_state = "beachcorner";
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "kkB" = (
@@ -21571,7 +21571,7 @@
 "lnx" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "lnR" = (
@@ -23399,7 +23399,7 @@
 "mjh" = (
 /turf/simulated/floor/indestructible/beach/coastline{
 	icon_state = "beachcorner";
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "mjx" = (
@@ -28132,7 +28132,7 @@
 "obw" = (
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "obF" = (
@@ -35337,7 +35337,7 @@
 	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "rvw" = (
@@ -35888,7 +35888,7 @@
 /area/centcom/specops)
 "rHU" = (
 /turf/simulated/floor/indestructible/beach/coastline{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "rHV" = (
@@ -36605,7 +36605,7 @@
 /area/centcom/zone1)
 "rXH" = (
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "rXN" = (
@@ -36662,7 +36662,7 @@
 "rYz" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "rYU" = (
@@ -38169,7 +38169,7 @@
 /turf/simulated/floor/indestructible/beach/coastline{
 	dir = 1;
 	icon_state = "beachcorner";
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "sOT" = (
@@ -38560,7 +38560,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "sXk" = (
@@ -39709,7 +39709,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "tyB" = (
@@ -40859,7 +40859,7 @@
 	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "tWd" = (
@@ -41935,7 +41935,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "uuY" = (
@@ -48384,7 +48384,7 @@
 "xAp" = (
 /turf/simulated/floor/indestructible/beach/coastline{
 	dir = 10;
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "xAs" = (
@@ -48969,7 +48969,7 @@
 "xOg" = (
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "xOo" = (
@@ -50101,7 +50101,7 @@
 /obj/structure/flora/ausbushes/reedbush,
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/simulated/floor/indestructible/beach/water{
-	water_overlay_image = null
+	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
 "ylY" = (

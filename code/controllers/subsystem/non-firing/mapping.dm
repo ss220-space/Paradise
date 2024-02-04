@@ -82,13 +82,13 @@ SUBSYSTEM_DEF(mapping)
 		loadTaipan()
 	// Pick a random away mission.
 	if(!CONFIG_GET(flag/disable_away_missions))
-		createRandomZlevel()
+		loadAwayLevel()
 	// Seed space ruins
 	if(!CONFIG_GET(flag/disable_space_ruins))
 		handleRuins()
 
 	// Makes a blank space level for the sake of randomness
-	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))
+	GLOB.space_manager.add_new_zlevel(EMPTY_AREA, linkage = CROSSLINKED, traits = list(REACHABLE))
 
 
 	// Setup the Z-level linkage
@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(mapping)
 
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.station_name]...")
-	// This should always be Z3, but you never know. Re: Yes, you know.
+
 	var/map_z_level
 	if(map_datum.traits && map_datum.traits?.len && islist(map_datum.traits[1])) // we work with list of lists
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])

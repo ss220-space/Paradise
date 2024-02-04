@@ -46,7 +46,6 @@
 /// It contains dumbshit, and also stuff I just can't do at runtime
 /// If you're not editing behavior, just read that proc. It's less bad
 /turf/simulated/proc/InitCalculateAdjacentTurfs()
-	atmos_adjacent_turfs_amount = 0
 	var/canpass = CanAtmosPass(src, FALSE)
 	var/list/z_traits = SSmapping.multiz_levels[z]
 	var/list/turf/simulated/passed_turfs = list()
@@ -60,28 +59,31 @@
 						(get_step(locate(x, y, z - 1), NONE)) : \
 					(null) : \
 				(get_step(src, direction))
-		if(!istype(current_turf) || current_turf.blocks_air) // not interested in you brother
+		if(!istype(current_turf)) // not interested in you brother
 			continue
 		// The assumption is that ONLY DURING INIT if two tiles have the same cycle, there's no way canpass(a->b) will be different then canpass(b->a), so this is faster
 		// Saves like 1.2 seconds
-		if(current_turf.current_cycle >= current_cycle)
+		// Note: current cycle here goes DOWN as we sleep. this is to ensure we can use the > logic in the first step of process_cell
+		// It's not a massive thing, and I'm sorry for the cursed code, but it be this way
+		if(current_turf.current_cycle <= current_cycle)
 			continue
 
 		var/counterdir = REVERSE_DIR(direction)
 		//Can you and me form a deeper relationship, or is this just a passing wind
 		// (direction & (UP | DOWN)) is just "is this vertical" by the by
 		if(canpass && current_turf.CanAtmosPass(src, (direction & (UP|DOWN))) && !(blocks_air || current_turf.blocks_air))
-			atmos_adjacent_turfs_amount += 1
 			atmos_adjacent_turfs |= direction
-			passed_turfs += current_turf
-			if(!(current_turf.atmos_adjacent_turfs & counterdir))
-				current_turf.atmos_adjacent_turfs_amount += 1
 			current_turf.atmos_adjacent_turfs |= counterdir
+			passed_turfs += current_turf
 		else
 			atmos_adjacent_turfs &= ~direction
-			if(current_turf.atmos_adjacent_turfs & counterdir)
-				current_turf.atmos_adjacent_turfs_amount -= 1
 			current_turf.atmos_adjacent_turfs &= ~counterdir
+	// Hey look. I was trying to make this into upper loop but that shit only works this way.
+	// I hate this, but that's how it's gonna work.
+	atmos_adjacent_turfs_amount = 0
+	for(var/direction in GLOB.cardinals_multiz)
+		if(atmos_adjacent_turfs & direction)
+			atmos_adjacent_turfs_amount++
 
 	return passed_turfs
 

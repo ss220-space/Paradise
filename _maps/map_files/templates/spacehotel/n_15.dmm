@@ -50,19 +50,14 @@
 	},
 /turf/space,
 /area/template_noop)
-"l" = (
-/turf/simulated/wall/indestructible{
-	icon = null;
-	dynamic_lighting = 0
-	},
-/area/template_noop)
-"m" = (
+"j" = (
 /obj/effect/view_portal/visual{
-	dist = 5;
-	frustrum = 1;
 	id = "turbinespace"
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/wall/indestructible/invisible/view_portal,
+/area/template_noop)
+"m" = (
+/turf/simulated/wall/indestructible/invisible/view_portal,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -80,7 +75,7 @@ b
 c
 b
 h
-l
+m
 a
 "}
 (3,1,1) = {"
@@ -89,7 +84,7 @@ b
 b
 b
 h
-l
+m
 a
 "}
 (4,1,1) = {"
@@ -98,7 +93,7 @@ b
 d
 f
 i
-m
+j
 a
 "}
 (5,1,1) = {"
@@ -107,7 +102,7 @@ b
 b
 b
 h
-l
+m
 a
 "}
 (6,1,1) = {"
@@ -116,7 +111,7 @@ b
 e
 b
 h
-l
+m
 a
 "}
 (7,1,1) = {"

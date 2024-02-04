@@ -37,8 +37,8 @@
 	deconstruct()
 
 /obj/structure/lattice/deconstruct(disassembled)
-	..()
 	var/turf/O = get_turf(loc)
+	..() //then we delete ourself proper way
 	if(isopenspaceturf(O))
 		for(var/atom/movable/movable in O)
 			if(!movable.currently_z_moving)

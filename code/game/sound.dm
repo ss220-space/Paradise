@@ -58,14 +58,14 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/sound/S = sound(get_sfx(soundin))
 	var/maxdistance = SOUND_RANGE + extrarange
 	var/source_z = turf_source.z
-	var/list/listeners = SSmobs.clients_by_zlevel[source_z]
+	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
 	if(!ignore_walls) //these sounds don't carry through walls
 		listeners = listeners & hearers(maxdistance, turf_source)
 	else
-		var/turf/above_turf = GET_TURF_BELOW(turf_source)
+		var/turf/above_turf = GET_TURF_ABOVE(turf_source)
 		if(above_turf?.transparent_floor)
 			listeners += SSmobs.clients_by_zlevel[above_turf.z]
-		var/turf/below_turf = GET_TURF_ABOVE(turf_source)
+		var/turf/below_turf = GET_TURF_BELOW(turf_source)
 		if(below_turf?.transparent_floor)
 			listeners += SSmobs.clients_by_zlevel[below_turf.z]
 	for(var/mob/M in listeners)
