@@ -1816,6 +1816,7 @@
 #include "code\modules\economy\quests\thing_quests.dm"
 #include "code\modules\economy\robotic_quests\mech_types.dm"
 #include "code\modules\economy\robotic_quests\robo_quests.dm"
+#include "code\modules\economy\robotic_quests\robo_quest_console.dm"
 #include "code\modules\emoji\emoji_parse.dm"
 #include "code\modules\error_handler\error_handler.dm"
 #include "code\modules\error_handler\error_viewer.dm"
