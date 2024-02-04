@@ -25,11 +25,11 @@
 	var/modules_amount = 0
 	var/obj/check
 
-/datum/roboquest/New()
+/datum/roboquest/New(difficulty)
 	..()
-	generate_mecha()
+	generate_mecha(difficulty)
 
-/datum/roboquest/proc/generate_mecha()
+/datum/roboquest/proc/generate_mecha(difficulty)
 	var/mech
 	var/static/easy_mechas = list(/datum/quest_mech/ripley, /datum/quest_mech/firefighter, /datum/quest_mech/odysseus)
 	var/static/hard_mechas = list(/datum/quest_mech/gygax, /datum/quest_mech/clarke, /datum/quest_mech/durand)
@@ -40,6 +40,7 @@
 			mech = pick(subtypesof(/datum/quest_mech))
 		if(DIFFICULTY_HARD)
 			mech = pick(subtypesof(/datum/quest_mech) - easy_mechas)
+	reward = difficulty
 	var/datum/quest_mech/selected = new mech
 	mech_class = selected.mech_class //наверное можно перенести данные из одного датума как-то умнее, но и так в целом норм.
 	name = selected.name
@@ -48,6 +49,7 @@
 	questinfo["desc"] = desc
 	questinfo["icon"] = icon2base64(selected.mech_icon)
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
+	questinfo["modules"] = list()
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
 		for(var/i in 1 to rand(1, selected.max_modules))
@@ -55,9 +57,12 @@
 			choosen_modules += the_choosen_one
 		for(var/i in choosen_modules)
 			modules_amount++
+			var/list/newmodule = list()
 			var/obj/module = new i
-			questinfo["module[modules_amount]_icon"] = icon2base64(icon(module.icon, module.icon_state, SOUTH, 1))
-			questinfo["module[modules_amount]"] = capitalize(module.name)
+			newmodule["id"] = modules_amount
+			newmodule["icon"] = icon2base64(icon(module.icon, module.icon_state, SOUTH, 1))
+			newmodule["name"] = capitalize(module.name)
+			questinfo["modules"] += list(newmodule)
 			qdel(module)
 
 /datum/roboquest/proc/generate_flavour()
@@ -102,3 +107,6 @@
 		if(COMBAT_MECH)
 			desc = pick(combat)
 
+#undef DIFFICULTY_EASY
+#undef DIFFICULTY_NORMAL
+#undef DIFFICULTY_HARD

@@ -2,6 +2,10 @@
 #define CORRECT_MECHA 1
 #define SOME_CORRECT_MODULES 2
 #define ALL_CORRECT_MODULES 3
+#define DIFFICULTY_EASY		1
+#define DIFFICULTY_NORMAL	2
+#define DIFFICULTY_HARD		3
+
 
 /obj/machinery/computer/roboquest
 	name = "Robotics Request Console"
@@ -12,6 +16,7 @@
 	var/style = "ntos_roboquest"
 	var/canSend = FALSE
 	var/canCheck = FALSE
+	var/check_timer
 	var/success
 	var/checkMessage = ""
 	req_access = list(ACCESS_ROBOTICS)
@@ -116,6 +121,7 @@
 	if(istype(currentID))
 		data["hasID"] = TRUE
 		data["name"] = currentID.registered_name
+		data["points"] = currentID.robo_points
 		if(currentID.robo_bounty)
 			data["questInfo"] = currentID.robo_bounty.questinfo
 			data["hasTask"] = TRUE
@@ -124,8 +130,9 @@
 			data["hasTask"] = FALSE
 	else
 		data["hasID"] = FALSE
-		data["name"] = "None"
-		data["questInfo"] = "None"
+		data["name"] = FALSE
+		data["points"] = FALSE
+		data["questInfo"] = FALSE
 		data["hasTask"] = FALSE
 	data["canCheck"] = canCheck
 	data["canSend"] = canSend
@@ -146,17 +153,18 @@
 			currentID = null
 			SStgui.update_uis(src)
 		if("GetTask")
-			difficulty = tgui_input_list(usr, "Select event type.", "Select", list("easy", "medium", "hard"))
+			var/list/difficulties = list("Easy" = DIFFICULTY_EASY, "Medium" = DIFFICULTY_NORMAL, "Hard" = DIFFICULTY_HARD)
+			difficulty = tgui_input_list(usr, "Select event type.", "Select", difficulties)
 			if(!difficulty)
 				return
-			pick_mecha(difficulty)
+			pick_mecha(difficulties[difficulty])
 		if("RemoveTask")
 			currentID.robo_bounty = null
 			addtimer(CALLBACK(src, PROC_REF(cooldown_end), currentID), 5 MINUTES)
 			currentID.bounty_penalty = world.time + 5 MINUTES
 		if("Check")
 			if(!pad)
-				to_chat(usr, "Привязанного пада нет, че ты собрался проверять, дебил")
+				checkMessage = "Привязанный пад не обнаружен"
 			else
 				var/amount = check_pad()
 				switch(success)
@@ -168,12 +176,17 @@
 						checkMessage = "Мех соответствует заказу, но имеет лишь [amount]/[currentID.robo_bounty.modules_amount] модулей. Награда будет слегка урезана."
 					if(ALL_CORRECT_MODULES)
 						checkMessage = "Мех и модули полностью соответствуют заказу. Награда будет максимальной."
-				addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
+			check_timer = null
+			check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
 		if("SendMech")
 			check_pad()
 			flick("sqpad-beam", pad)
-			pad.sparks()
-			to_chat(usr, "Вы отправили меха с оценкой успеха [success] из трех")
+			pad.teleport()
+			checkMessage = "Вы отправили меха с оценкой успеха [success] из трех"
+			check_timer = null
+			check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
+			currentID.robo_points += success
+			success = 0
 		if("ChangeStyle")
 			switch(style)
 				if("ntos_roboquest")
@@ -189,8 +202,11 @@
 /obj/machinery/computer/roboquest/proc/cooldown_end(obj/item/card/id/penaltycard)
 	penaltycard.bounty_penalty = null
 
-/obj/machinery/computer/roboquest/proc/pick_mecha()
-	currentID.robo_bounty = new /datum/roboquest
+/obj/machinery/computer/roboquest/proc/pick_mecha(difficulty)
+	currentID.robo_bounty = new /datum/roboquest(difficulty)
+
+
+
 /obj/machinery/roboquest_pad
 	name = "Robotics Request Quantum Pad"
 	desc = "A bluespace quantum-linked telepad linked to a orbital long-range matter transmitter."
@@ -226,8 +242,11 @@
 		return
 	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
 
-/obj/machinery/roboquest_pad/proc/sparks()
+/obj/machinery/roboquest_pad/proc/teleport()
 	do_sparks(5, 1, get_turf(src))
+	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
+	if(istype(M))
+		qdel(M)
 
 /obj/machinery/roboquest_pad/New()
 	RegisterSignal(src, COMSIG_MOVABLE_UNCROSSED, PROC_REF(ismechgone))

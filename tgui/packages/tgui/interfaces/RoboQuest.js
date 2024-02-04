@@ -17,6 +17,7 @@ export const RoboQuest = (props, context) => {
     style,
     cooldown,
     shopItems,
+    points
   } = data;
   const [ shopState, changeShopState ] = useLocalState(context, "shopState", false);
   return (
@@ -52,47 +53,35 @@ export const RoboQuest = (props, context) => {
                   <FlexItem>
                     <Divider vertical/>
                   </FlexItem>
-                  <FlexItem basis={40}>
-                      {!!questInfo.module1 && (
-                        <img
-                          height="64px"
-                          width="64px"
-                          src={`data:image/jpeg;base64,${questInfo.module1_icon}`}
-                          style={{
-                            "margin-left": "0px",
-                            "-ms-interpolation-mode": "nearest-neighbor",
-                          }} />
-                      )}
-                      {!!questInfo.module2 && (
-                        <img
-                          height="64px"
-                          width="64px"
-                          src={`data:image/jpeg;base64,${questInfo.module2_icon}`}
-                          style={{
-                            "margin-left": "0px",
-                            "-ms-interpolation-mode": "nearest-neighbor",
-                          }} />
-                      )}
-                      {!!questInfo.module3 && (
-                        <img
-                          height="64px"
-                          width="64px"
-                          src={`data:image/jpeg;base64,${questInfo.module3_icon}`}
-                          style={{
-                            "margin-left": "0px",
-                            "-ms-interpolation-mode": "nearest-neighbor",
-                          }} />
-                      )}
-                      {!!questInfo.module4 && (
-                        <img
-                          height="64px"
-                          width="64px"
-                          src={`data:image/jpeg;base64,${questInfo.module4_icon}`}
-                          style={{
-                            "margin-left": "0px",
-                            "-ms-interpolation-mode": "nearest-neighbor",
-                          }} />
-                      )}
+                  <FlexItem basis={42}>
+                    <Flex>
+                      <FlexItem>
+                        {!!hasTask && questInfo.modules.map(i => (
+                            i.id < 4 && <img
+                              key={i.id}
+                              height="64px"
+                              width="64px"
+                              src={`data:image/jpeg;base64,${i.icon}`}
+                              style={{
+                                "margin-left": "0px",
+                                "-ms-interpolation-mode": "nearest-neighbor",
+                              }} />
+                          ))}
+                      </FlexItem>
+                      <FlexItem>
+                        {!!hasTask && questInfo.modules.map(i => (
+                            i.id > 3 && <img
+                              key={i.id}
+                              height="64px"
+                              width="64px"
+                              src={`data:image/jpeg;base64,${i.icon}`}
+                              style={{
+                                "margin-left": "0px",
+                                "-ms-interpolation-mode": "nearest-neighbor",
+                              }} />
+                          ))}
+                      </FlexItem>
+                    </Flex>
                   </FlexItem>
                 </Flex>
                 {!!hasTask &&
@@ -114,9 +103,17 @@ export const RoboQuest = (props, context) => {
               <Button
                 content="Shop"
                 onClick={() => changeShopState(!shopState)}/>
-            } />
+            }>
+            Здраствуйте,
+            <br />
+            <b>{name}</b>
+            <br />
+            Текущий баланс:
+            <br />
+            <b>{points}</b> очков
+            </Section>
           </FlexItem>
-          <FlexItem basis={40}>
+          <FlexItem basis={38}>
             {!shopState &&
               <Section title="Task's info"
                 buttons={(
@@ -147,13 +144,10 @@ export const RoboQuest = (props, context) => {
                   </Box>
                   <Section title="Modules" level = {2}>
                     <Box mx="0.5rem" mb="0.5rem">
-                        <b>Module 1: </b>{questInfo.module1}
-                        <br /><br />
-                        <b>Module 2: </b>{questInfo.module2}
-                        <br /><br />
-                        <b>Module 3: </b>{questInfo.module3}
-                        <br /><br />
-                        <b>Module 4: </b>{questInfo.module4}
+                      {!!hasTask && questInfo.modules.map(i => (
+                        <Fragment key={i.id}><b>Module {i.id}</b>: {i.name} <br /><br /></Fragment>
+                        ))
+                      }
                     </Box>
                 </Section>
               <Box mb="0.5rem" textAlign="center">

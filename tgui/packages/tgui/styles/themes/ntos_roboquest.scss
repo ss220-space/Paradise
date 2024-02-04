@@ -17,7 +17,7 @@
  $scrollbar-color-multiplier: 0.5;
 
  @use '../colors.scss' with (
-    $primary: black,
+    $primary: #651e88,
     $label: #CAC6CC,
     $good: #CAC6CC,
 
@@ -85,23 +85,20 @@
    }
 
    .ProgressBar {
-     color: black;
+     color: #651e88;
    }
 
    .Divider--vertical {
-    height: 105%;
-    margin: -10px 0px;
 
     &:not(.Divider--hidden) {
-      border-left: 2px solid black;
+      border-left: 2px solid #651e88;
     }
     }
 
     .Divider--horizontal {
-      margin: 0px -6px;
 
       &:not(.Divider--hidden) {
-        border-top: 2px solid black;
+        border-top: 2px solid #651e88;
       }
     }
 
