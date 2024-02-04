@@ -98,7 +98,7 @@
 	if(!is_type_in_typecache(entity, valid_targets))
 		return
 
-	processing_targets |= entity
+	processing_targets[entity] = TRUE //associative for perfomance
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
