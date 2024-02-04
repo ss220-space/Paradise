@@ -1,3 +1,7 @@
+#define DIFFICULTY_EASY		1
+#define DIFFICULTY_NORMAL	2
+#define DIFFICULTY_HARD		3
+
 //robotics quests console datums
 
 /datum/roboquest
@@ -26,7 +30,16 @@
 	generate_mecha()
 
 /datum/roboquest/proc/generate_mecha()
-	var/mech = pick(subtypesof(/datum/quest_mech))
+	var/mech
+	var/static/easy_mechas = list(/datum/quest_mech/ripley, /datum/quest_mech/firefighter, /datum/quest_mech/odysseus)
+	var/static/hard_mechas = list(/datum/quest_mech/gygax, /datum/quest_mech/clarke, /datum/quest_mech/durand)
+	switch(difficulty) //вероятно нихуя не работает, Роден, поправь потом...
+		if(DIFFICULTY_EASY)
+			mech = pick(subtypesof(/datum/quest_mech) - hard_mechas)
+		if(DIFFICULTY_NORMAL)
+			mech = pick(subtypesof(/datum/quest_mech))
+		if(DIFFICULTY_HARD)
+			mech = pick(subtypesof(/datum/quest_mech) - easy_mechas)
 	var/datum/quest_mech/selected = new mech
 	mech_class = selected.mech_class //наверное можно перенести данные из одного датума как-то умнее, но и так в целом норм.
 	name = selected.name
@@ -37,7 +50,7 @@
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
-		for(var/i in 1 to rand(1, 4))
+		for(var/i in 1 to rand(1, selected.max_modules))
 			var/the_choosen_one = list(pick_n_take(weapons))
 			choosen_modules += the_choosen_one
 		for(var/i in choosen_modules)
