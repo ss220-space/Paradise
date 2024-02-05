@@ -312,3 +312,11 @@
 		return
 	var/obj/item/multitool/M = I
 	M.set_multitool_buffer(user, src)
+
+#undef NO_SUCCESS
+#undef CORRECT_MECHA
+#undef SOME_CORRECT_MODULES
+#undef ALL_CORRECT_MODULES
+#undef DIFFICULTY_EASY
+#undef DIFFICULTY_NORMAL
+#undef DIFFICULTY_HARD
