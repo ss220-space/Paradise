@@ -238,3 +238,8 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	return -1
 
 // Every new proc that should be edited or added here. Also needs to be copied into /turf/space/openspace. I'm not sorry.
+
+/turf/simulated/openspace/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	if(caller && !caller.can_z_move(DOWN, get_turf(src), null, ZMOVE_FALL_FLAGS)) //If we can't fall (flying/lattice), it's fine to path through
+		return TRUE
+	return FALSE
