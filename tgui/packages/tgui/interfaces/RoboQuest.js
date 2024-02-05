@@ -84,11 +84,10 @@ export const RoboQuest = (props, context) => {
                     </Flex>
                   </FlexItem>
                 </Flex>
-                {!!hasTask &&
                   <Fragment>
                     <Divider/>
                     <b>{checkMessage}</b>
-                  </Fragment>}
+                  </Fragment>
                 {!!cooldown &&
                   <Fragment>
                     <b>За отказ от заказа, вы были отстранены от работы на некоторое время.</b>

@@ -190,13 +190,15 @@
 			check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
 		if("SendMech")
 			check_pad()
-			flick("sqpad-beam", pad)
-			pad.teleport()
-			checkMessage = "Вы отправили меха с оценкой успеха [success] из трех"
-			check_timer = null
-			check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
-			currentID.robo_points += success
-			success = 0
+			if(canSend)
+				flick("sqpad-beam", pad)
+				pad.teleport()
+				checkMessage = "Вы отправили меха с оценкой успеха [success] из трех"
+				check_timer = null
+				check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
+				currentID.robo_points += success
+				currentID.robo_bounty = null
+				success = 0
 		if("ChangeStyle")
 			switch(style)
 				if("ntos_roboquest")
