@@ -416,6 +416,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/syndicate_depot/teleporter/LateInitialize()
+	. = ..()
 	findbeacon()
 	update_portal()
 

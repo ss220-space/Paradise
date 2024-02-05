@@ -196,5 +196,14 @@
   Dimach:
   - refactor: reduce list count for floor turfs (#4308)
   - server: update github actions (#4312)
+  Vladisvell:
+  - refactor: Cached areas machinery and lights to improve perfomance (#4306)
+  - refactor: Cut down memory usage by lists of some objects (#4313)
   Zwei:
   - add: Station Goals Logging (#4299)
+  - bugfix: Abductor Surgery Fix (#4303)
+'2024-01-31':
+  Aziz Chynaliev:
+  - del: unlock all tts seeds"
+  Vladisvell:
+  - bugfix: Removed machinery caching in late initialize (#4317)
