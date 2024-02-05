@@ -100,9 +100,15 @@ export const RoboQuest = (props, context) => {
           <FlexItem basis={20}>
             <Section title="Other"
             buttons={
-              <Button
-                content="Shop"
-                onClick={() => changeShopState(!shopState)}/>
+              <Fragment>
+                <Button
+                  content="Print"
+                  onClick={() => act("printOrder")}
+                  disabled = {!hasTask}/>
+                <Button
+                  content="Shop"
+                  onClick={() => changeShopState(!shopState)}/>
+              </Fragment>
             }>
             Здраствуйте,
             <br />
@@ -166,7 +172,7 @@ export const RoboQuest = (props, context) => {
               <Section title = "Shop">
                 <Box maxHeight={30} overflowY="auto" overflowX="hidden">
                   {shopItems.map(i => (
-                    <Section
+                    (!i.emagOnly || style==="syndicate") && <Section
                       key={i.name}
                       title={i.name}
                       buttons={
@@ -176,6 +182,12 @@ export const RoboQuest = (props, context) => {
                             + i.cost
                             + "P)"
                           }
+                          onClick={() =>
+                            act("buyItem", {
+                              item: i.path,
+                              cost: i.cost,
+                            })}
+                          disabled={!hasID || i.cost > points}
                         />
                       }>
                       <Box italic>{i.desc}</Box>

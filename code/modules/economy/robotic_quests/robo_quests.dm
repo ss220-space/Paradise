@@ -107,6 +107,27 @@
 		if(COMBAT_MECH)
 			desc = pick(combat)
 
+/datum/roboshop_item
+	var/name
+	var/desc
+	var/path
+	var/cost
+	var/emag_only = FALSE
+
+/datum/roboshop_item/bluespace_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = 0
+
+/datum/roboshop_item/syndicate_core
+	name = "\improper syndicate anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = 999
+	emag_only = TRUE
+
+
 #undef DIFFICULTY_EASY
 #undef DIFFICULTY_NORMAL
 #undef DIFFICULTY_HARD

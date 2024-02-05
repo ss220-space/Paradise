@@ -10,9 +10,10 @@
 /obj/machinery/computer/roboquest
 	name = "Robotics Request Console"
 	desc = "Console used for receiving requests for construction of exosuits."
-	icon_screen = "ntos_roboquest"
+	icon_screen = "robo_ntos_roboquest"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
+	var/print_delayed = FALSE
 	var/style = "ntos_roboquest"
 	var/canSend = FALSE
 	var/canCheck = FALSE
@@ -24,30 +25,20 @@
 	var/obj/item/card/id/currentID
 	var/obj/machinery/roboquest_pad/pad
 	var/difficulty
-	var/list/shop_items = list(	list("name" = "fisrt thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "second thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "third thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "foutrh thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "fisrt thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "second thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "third thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "foutrh thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "fisrt thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "second thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "third thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "foutrh thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "fisrt thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "second thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "third thing", "cost" = 10, "desc" = "Блаблабла"),
-								list("name" = "foutrh thing", "cost" = 10, "desc" = "Блаблабла"),)
+	var/list/shop_items = list()
 
 /obj/machinery/computer/roboquest/Initialize(mapload)
 	..()
+	generate_roboshop()
 	var/mapping_pad = locate(/obj/machinery/roboquest_pad) in range(2, src)
 	if(mapping_pad)
 		pad = mapping_pad
 		pad.console = src
 		canCheck = TRUE
+
+/obj/machinery/computer/roboquest/New()
+	generate_roboshop()
+	. = ..()
 
 /obj/machinery/computer/roboquest/Destroy()
 	for(var/obj/item/I in contents)
@@ -76,6 +67,12 @@
 				canCheck = TRUE
 				M.buffer = null
 
+/obj/machinery/computer/roboquest/emag_act(mob/user)
+	if(!emagged)
+		emagged = TRUE
+		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
+
 /obj/machinery/computer/roboquest/proc/check_pad()
 	var/obj/mecha/M
 	var/needed_mech = currentID.robo_bounty.choosen_mech
@@ -101,6 +98,19 @@
 			return	amount
 	success = NO_SUCCESS
 	canSend = FALSE
+
+/obj/machinery/computer/roboquest/proc/generate_roboshop()
+	var/list/newshop = list()
+	for(var/datum/roboshop_item/item_path as anything in subtypesof(/datum/roboshop_item))
+		var/datum/roboshop_item/item = new item_path
+		var/list/newitem = list()
+		newitem["name"] = item.name
+		newitem["desc"] = item.desc
+		newitem["cost"] = item.cost
+		newitem["path"] = item.path
+		newitem["emagOnly"] = item.emag_only
+		newshop += list(newitem)
+	shop_items = newshop
 
 /obj/machinery/computer/roboquest/proc/clear_checkMessage()
 	checkMessage = ""
@@ -194,10 +204,46 @@
 				if("ntos_roboblue")
 					style = "ntos_terminal"
 				if("ntos_terminal")
+					if(emagged)
+						style = "syndicate"
+					else
+						style = "ntos_roboquest"
+				if("syndicate")
 					style = "ntos_roboquest"
-			icon_screen = style
+			icon_screen = "robo_[style]"
 			SStgui.update_uis(src)
 			update_icon()
+		if("buyItem")
+			var/path = params["item"]
+			new path(get_turf(src))
+			currentID.robo_points -= params["cost"]
+		if("printOrder")
+			if(print_delayed)
+				return FALSE
+			var/datum/roboquest/quest = currentID?.robo_bounty
+			if(!istype(quest))
+				return FALSE
+			print_delayed = TRUE
+			print_task(quest)
+			addtimer(VARSET_CALLBACK(src, print_delayed, FALSE), 10 SECONDS)
+
+/obj/machinery/computer/roboquest/proc/print_task(datum/roboquest/quest)
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	var/obj/item/paper/paper = new(get_turf(src))
+	paper.info = "<div id=\"output\"><center> <h3> Mecha request form </h3> </center><br><hr><br>"
+	paper.info += "Mecha request accepted by: [currentID.registered_name] - [currentID.rank]<br>"
+	paper.info += "<ul> <h3> Mecha info</h3>"
+	paper.info += "<li> Name: [quest.name]</li><br />"
+	paper.info += "<li> Desc: [quest.desc]</li><br />"
+	paper.info += "<h4> Modules:</h4><br />"
+	for(var/i in quest.questinfo["modules"])
+		paper.info += "<li> -[i["name"]]</li><br />"
+	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.reward] points</span><br>"
+	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
+	var/obj/item/stamp/navcom/stamp = new()
+	paper.stamp(stamp)
+	paper.update_icon()
+	paper.name = "Mecha request form"
 
 /obj/machinery/computer/roboquest/proc/cooldown_end(obj/item/card/id/penaltycard)
 	penaltycard.bounty_penalty = null
