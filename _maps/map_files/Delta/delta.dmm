@@ -98921,7 +98921,10 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/space,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
 /area/toxins/explab)
 "rkP" = (
 /obj/structure/extinguisher_cabinet{
