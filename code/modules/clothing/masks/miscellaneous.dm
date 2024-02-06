@@ -544,6 +544,15 @@
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
 
+/obj/item/clothing/mask/bandana/adjustmask(mob/user)
+	..()
+	var/mob/living/carbon/human/H = usr
+	if(H.l_hand && H.r_hand)
+		user.drop_item_ground(src)
+	else
+		user.drop_item_ground(src)
+		user.put_in_hands(src)
+
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
 	icon_state = "bandred"
@@ -651,3 +660,39 @@
 /obj/item/clothing/mask/gas/voice_modulator/change_speech_verb()
 	if(voice_modulator.active)
 		return pick("modulates", "drones", "hums", "buzzes")
+
+//sec scarf
+
+/obj/item/clothing/mask/secscarf
+	name = "security scarf"
+	desc = "Bleck security snood. Excellent replacement for a balaclava."
+	icon_state = "secscarf"
+	item_state = "secscarf"
+	icon = 'icons/obj/clothing/masks.dmi'
+	flags_inv = HIDENAME
+	flags = BLOCKFACIALHAIR
+	flags_cover = MASKCOVERSMOUTH
+	can_toggle = TRUE
+	strip_delay = 20
+	put_on_delay = 20
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	gas_transfer_coefficient = 0.90
+	permeability_coefficient = 0.90
+	actions_types = list(/datum/action/item_action/adjust)
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
+	)
+
+/obj/item/clothing/mask/secscarf/attack_self(mob/user)
+	adjustmask(user)

@@ -1921,6 +1921,7 @@
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
 		/obj/item/clothing/mask/bandana/black 	= 10,
+		/obj/item/clothing/mask/secscarf 		= 10,
 
 		/obj/item/clothing/gloves/color/black	= 10,
 		/obj/item/clothing/gloves/color/red	= 10,

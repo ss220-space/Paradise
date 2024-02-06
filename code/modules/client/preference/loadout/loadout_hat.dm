@@ -202,3 +202,8 @@
 /datum/gear/hat/capsolgov
 	display_name = "cap, Sol Gov"
 	path = /obj/item/clothing/head/soft/solgov
+
+/datum/gear/hat/lwhelmet
+	display_name = "security lightweight helmet"
+	path = /obj/item/clothing/head/helmet/lightweighthelmet
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
