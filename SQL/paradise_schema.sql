@@ -67,7 +67,7 @@ CREATE TABLE `characters` (
   `med_record` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `sec_record` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `gen_record` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exploit_record` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exploit_record` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `disabilities` mediumint(8) NOT NULL,
   `player_alt_titles` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `organ_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,

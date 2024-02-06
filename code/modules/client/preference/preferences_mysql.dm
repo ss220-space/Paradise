@@ -284,7 +284,7 @@
 		med_record = query.item[42]
 		sec_record = query.item[43]
 		gen_record = query.item[44]
-		exploit_record = query.item[45]
+		exploit_record = null_longtextfix(query.item[45])
 		// Apparently, the preceding vars weren't always encoded properly...
 		if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 			flavor_text = html_encode(flavor_text)

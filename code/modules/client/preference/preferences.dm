@@ -924,6 +924,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	parent?.update_active_keybindings()
 	return keybindings
 
+/datum/preferences/proc/null_longtextfix(raw)
+	var/text
+	if(raw)
+		try
+			text = raw
+		catch
+			text = ""
+	return text
+
 /datum/preferences/proc/capture_keybinding(mob/user, datum/keybinding/KB, old)
 	var/HTML = {"
 	<div id='focus' style="outline: 0;" tabindex=0>Keybinding: [KB.name]<br><br><b>Press any key to change<br>Press ESC to clear</b></div>
