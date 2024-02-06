@@ -30,6 +30,7 @@
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
 		if(do_after(user, 50, target = src) && P.use(1))
 			make_new_table(/obj/structure/table/reinforced)
+
 	else if(istype(I, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = I
 		if(M.get_amount() < 1)
@@ -38,6 +39,7 @@
 		to_chat(user, "<span class='notice'>You start adding [M] to [src]...</span>")
 		if(do_after(user, 20, target = src) && M.use(1))
 			make_new_table(/obj/structure/table)
+
 	else if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 1)
@@ -46,22 +48,16 @@
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
 		if(do_after(user, 20, target = src) && G.use(1))
 			make_new_table(/obj/structure/table/glass)
-	else if(istype(I, /obj/item/stack/tile/carpet/black))
-		var/obj/item/stack/tile/carpet/black/C = I
-		if(C.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one black carpet sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
-		if(do_after(user, 20, target = src) && C.use(1))
-			make_new_table(/obj/structure/table/wood/fancy/black)
+
 	else if(istype(I, /obj/item/stack/tile/carpet))
 		var/obj/item/stack/tile/carpet/C = I
 		if(C.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one carpet sheet to do this!</span>")
+			to_chat(user, "<span class='warning'>You need one [C.name] sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
 		if(do_after(user, 20, target = src) && C.use(1))
-			make_new_table(/obj/structure/table/wood/fancy)
+			make_new_table(C.fancy_table_type)
+
 	else
 		return ..()
 
@@ -81,6 +77,7 @@
 	T.frame = type
 	T.framestack = framestack
 	T.framestackamount = framestackamount
+	T.add_fingerprint(usr)
 	qdel(src)
 
 /obj/structure/table_frame/deconstruct(disassembled = TRUE)
@@ -133,12 +130,12 @@
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch."
 	icon_state = "brass_frame"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	framestack = /obj/item/stack/tile/brass
+	framestack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 
 /obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tile/brass))
-		var/obj/item/stack/tile/brass/W = I
+	if(istype(I, /obj/item/stack/sheet/brass))
+		var/obj/item/stack/sheet/brass/W = I
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
 			return
@@ -152,5 +149,25 @@
 	..()
 	if(src) //do we still exist?
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
+
+/obj/structure/table_frame/brass/fake
+	name = "brass table frame"
+	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch, and not because of magic!"
+	icon_state = "brass_frame"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	framestack = /obj/item/stack/sheet/brass_fake
+	framestackamount = 1
+
+/obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/brass_fake))
+		var/obj/item/stack/sheet/brass_fake/W = I
+		if(W.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
+			return
+		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
+		if(do_after(user, 20, target = src) && W.use(1))
+			make_new_table(/obj/structure/table/reinforced/brass/fake)
+	else
+		return ..()

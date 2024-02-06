@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { classes } from 'common/react';
 import { decodeHtmlEntities, toTitleCase } from 'common/string';
 import { Component, Fragment } from 'inferno';
@@ -104,6 +110,12 @@ const TitleBar = props => {
     onDragStart,
     onClose,
   } = props;
+  const finalTitle = (
+    typeof title === 'string'
+    && title === title.toLowerCase()
+    && toTitleCase(title)
+    || title
+  );
   return (
     <div
       className={classes([
@@ -115,9 +127,7 @@ const TitleBar = props => {
         color={statusToColor(status)}
         name="eye" />
       <div className="TitleBar__title">
-        {title === title.toLowerCase()
-          ? toTitleCase(title)
-          : title}
+        {finalTitle}
       </div>
       <div
         className="TitleBar__dragZone"

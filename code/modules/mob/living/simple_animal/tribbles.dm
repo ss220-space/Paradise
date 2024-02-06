@@ -12,6 +12,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	speak_emote = list("purrs", "trills")
 	emote_hear = list("shuffles", "purrs")
 	emote_see = list("trundles around", "rolls")
+	tts_seed = "Meepo"
 	speak_chance = 10
 	turns_per_move = 5
 	maxHealth = 10
@@ -93,15 +94,15 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "tribble1"
 	item_state = "tribble1"
-	w_class = 10
+	w_class = 1
 	var/gestation = 0
 	flags = DROPDEL
 
-/obj/item/toy/tribble/attack_self(mob/user as mob) //hug that tribble (and play a sound if we add one)
+/obj/item/toy/tribble/attack_self(mob/user) //hug that tribble (and play a sound if we add one)
 	..()
 	to_chat(user, "<span class='notice'>You nuzzle the tribble and it trills softly.</span>")
 
-/obj/item/toy/tribble/dropped(mob/user as mob) //now you can't item form them to get rid of them all so easily
+/obj/item/toy/tribble/dropped(mob/user, silent = FALSE) //now you can't item form them to get rid of them all so easily
 	new /mob/living/simple_animal/tribble(user.loc)
 	for(var/mob/living/simple_animal/tribble/T in user.loc)
 		T.icon_state = src.icon_state
@@ -112,7 +113,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	to_chat(user, "<span class='notice'>The tribble gets up and wanders around.</span>")
 	. = ..()
 
-/obj/item/toy/tribble/attackby(var/obj/item/O as obj, var/mob/user as mob) //neutering and un-neutering
+/obj/item/toy/tribble/attackby(obj/item/O, mob/user) //neutering and un-neutering
 	..()
 	if(istype(O, /obj/item/scalpel) && src.gestation != null)
 		gestation = null
@@ -180,17 +181,16 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	item_state = "furcoat"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO
-	allowed = list (/obj/item/tank/emergency_oxygen)
+	allowed = list (/obj/item/tank/internals/emergency_oxygen)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
-/obj/item/clothing/suit/furcape
+/obj/item/clothing/neck/cloak/furcape
 	name = "fur cape"
 	desc = "A cape made from fur. You'll really be stylin' now."
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "furcape"
 	item_state = "furcape"
-	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|ARMS
 	cold_protection = UPPER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

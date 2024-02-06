@@ -31,7 +31,7 @@
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
-	SEND_SOUND(world, pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg'))
+	SEND_SOUND(world, 'sound/effects/narsie_risen.ogg')
 
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
@@ -44,9 +44,12 @@
 
 	narsie_spawn_animation()
 
-	sleep(7 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(call_shuttle)), 7 SECONDS)
+
+/obj/singularity/narsie/large/proc/call_shuttle()
 	SSshuttle.emergency.request(null, 0.3)
 	SSshuttle.emergency.canRecall = FALSE // Cannot recall
+
 
 /obj/singularity/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
@@ -62,8 +65,6 @@
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user)
 	make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE)
-	new /obj/effect/particle_effect/smoke/sleeping(user.loc)
-
 
 /obj/singularity/narsie/process()
 	eat()
@@ -78,8 +79,8 @@
 	godsmack(A)
 	return
 
-/obj/singularity/narsie/Bumped(atom/A)
-	godsmack(A)
+/obj/singularity/narsie/Bumped(atom/movable/moving_atom)
+	godsmack(moving_atom)
 	return
 
 /obj/singularity/narsie/proc/godsmack(atom/A)
@@ -97,7 +98,7 @@
 		if(M.stat == CONSCIOUS)
 			if(!iscultist(M))
 				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
-				M.apply_effect(3, STUN)
+				M.Stun(6 SECONDS)
 
 
 /obj/singularity/narsie/consume(atom/A)

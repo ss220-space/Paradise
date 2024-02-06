@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/pipe/cap
 	name = "pipe endcap"
 	desc = "An endcap for pipes"
-	icon = 'icons/atmos/pipes.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi'
 	icon_state = "cap"
 	level = 2
 
@@ -18,7 +18,7 @@
 
 /obj/machinery/atmospherics/pipe/cap/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
-		invisibility = i ? 101 : 0
+		invisibility = i ? INVISIBILITY_ABSTRACT : 0
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/cap/pipeline_expansion()
@@ -76,20 +76,24 @@
 				break
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact
-	if(!istype(T)) return
+	if(!istype(T) || T.transparent_floor)
+		return
 	hide(T.intact)
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/cap/visible
 	level = 2
 	icon_state = "cap"
+	plane = GAME_PLANE
+	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/cap/visible/scrubbers
 	name = "scrubbers pipe endcap"
 	desc = "An endcap for scrubbers pipes"
 	icon_state = "cap-scrubbers"
 	connect_types = list(3)
-	layer = 2.38
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
@@ -98,7 +102,8 @@
 	desc = "An endcap for supply pipes"
 	icon_state = "cap-supply"
 	connect_types = list(2)
-	layer = 2.39
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
@@ -106,13 +111,16 @@
 	level = 1
 	icon_state = "cap"
 	alpha = 128
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/cap/hidden/scrubbers
 	name = "scrubbers pipe endcap"
 	desc = "An endcap for scrubbers pipes"
 	icon_state = "cap-scrubbers"
 	connect_types = list(3)
-	layer = 2.38
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
@@ -121,6 +129,7 @@
 	desc = "An endcap for supply pipes"
 	icon_state = "cap-supply"
 	connect_types = list(2)
-	layer = 2.39
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE

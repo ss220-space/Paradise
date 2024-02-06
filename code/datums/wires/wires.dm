@@ -51,9 +51,9 @@
 		colors = GLOB.wire_color_directory[holder_type]
 
 /datum/wires/Destroy()
-	holder = null
 	for(var/color in colors)
 		detach_assembly(color)
+	holder = null
 	return ..()
 
 /**
@@ -157,7 +157,17 @@
 	if(!interactable(user))
 		return
 
-	var/obj/item/I = user.get_active_hand()
+	var/obj/item/I
+
+	if(ismecha(user.loc))
+		var/obj/mecha/mecha = user.loc
+		if(istype(mecha.selected, /obj/item/mecha_parts/mecha_equipment/eng_toolset))
+			var/obj/item/mecha_parts/mecha_equipment/eng_toolset/toolset = mecha.selected
+			I = toolset.selected_item
+
+	else
+		I = user.get_active_hand()
+
 	var/color = lowertext(params["wire"])
 	holder.add_hiddenprint(user)
 
@@ -193,14 +203,14 @@
 			if(is_attached(color))
 				var/obj/item/O = detach_assembly(color)
 				if(O)
-					user.put_in_hands(O)
+					user.put_in_hands(O, ignore_anim = FALSE)
 					return TRUE
 
 			if(!istype(I, /obj/item/assembly/signaler))
 				to_chat(user, "<span class='error'>You need a remote signaller!</span>")
 				return
 
-			if(user.drop_item())
+			if(user.drop_from_active_hand())
 				attach_assembly(color, I)
 				return TRUE
 			else
@@ -367,6 +377,16 @@
 	on_pulse(wire)
 
 /**
+ * Pulses random wire. Calls `on_pulse()`.
+ *
+ */
+/datum/wires/proc/pulse_random()
+	var/cable = wires[rand(1, length(wires))]
+	if(is_cut(cable))
+		return
+	on_pulse(cable)
+
+/**
  * Pulses the wire associated with the given color.
  *
  * Arugments:
@@ -413,6 +433,7 @@
  */
 /datum/wires/proc/attach_assembly(color, obj/item/assembly/signaler/S)
 	if(S && istype(S) && !is_attached(color))
+		S.do_pickup_animation(holder)
 		assemblies[color] = S
 		S.forceMove(holder)
 		S.connected = src

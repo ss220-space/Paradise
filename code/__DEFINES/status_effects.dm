@@ -21,6 +21,12 @@
 
 #define STATUS_EFFECT_REGENERATIVE_CORE /datum/status_effect/regenerative_core
 
+#define STATUS_EFFECT_TERROR_REGEN /datum/status_effect/terror/regeneration   //over time healing, 125 HP within 25~ seconds
+
+#define STATUS_EFFECT_TERROR_FOOD_REGEN /datum/status_effect/terror/food_regen   //over time healing for mobs to gain full HP within 25~ seconds
+
+#define STATUS_EFFECT_THRALL_NET /datum/status_effect/thrall_net
+
 //#define STATUS_EFFECT_VANGUARD /datum/status_effect/vanguard_shield //Grants temporary stun absorption, but will stun the user based on how many stuns they absorbed.
 //#define STATUS_EFFECT_INATHNEQS_ENDOWMENT /datum/status_effect/inathneqs_endowment //A 15-second invulnerability and stun absorption, granted by Inath-neq.
 //#define STATUS_EFFECT_WRAITHSPECS /datum/status_effect/wraith_spectacles
@@ -33,17 +39,30 @@
 
 #define STATUS_EFFECT_BLOODDRUNK /datum/status_effect/blooddrunk //Stun immunity and greatly reduced damage taken
 
+#define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
+
+#define STATUS_EFFECT_DRAGON_STRENGTH /datum/status_effect/dragon_strength //similar to hope, but less powerfull.
+
+/// Rapid burn/brute/oxy/blood healing from the changeling ability
+#define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
+
+/// Handles changeling speed boost and chemical cost.
+#define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs
+
+/// Handles changeling anatomic panacea ability effects.
+#define STATUS_EFFECT_PANACEA /datum/status_effect/panacea
+
+/// Stun resistance and halved damage for gargantua vampires.
+#define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell
+
+/// Speed boost for gargantua vampires.
+#define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush
+
 /////////////
 // DEBUFFS //
 /////////////
 
-//#define STATUS_EFFECT_STUN /datum/status_effect/incapacitating/stun //the affected is stunned
-
 //#define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown //the affected is knocked down
-
-//#define STATUS_EFFECT_UNCONSCIOUS /datum/status_effect/incapacitating/unconscious //the affected is unconscious
-
-//#define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping //the affected is asleep
 
 //#define STATUS_EFFECT_BELLIGERENT /datum/status_effect/belligerent //forces the affected to walk, doing damage if they try to run
 
@@ -57,9 +76,27 @@
 
 #define STATUS_EFFECT_SUMMONEDGHOST /datum/status_effect/cultghost //is a cult ghost: can see dead people, can't manifest more ghosts
 
+#define STATUS_EFFECT_DELAYED /datum/status_effect/delayed //delayed status effect: gets /datum/callback to call on expire, signal if we want to prevent and duration
+
 #define STATUS_EFFECT_CRUSHERMARK /datum/status_effect/crusher_mark //if struck with a proto-kinetic crusher, takes a ton of damage
 
 #define STATUS_EFFECT_SAWBLEED /datum/status_effect/saw_bleed //if the bleed builds up enough, takes a ton of damage
+
+#define STATUS_EFFECT_STAMINADOT /datum/status_effect/stamina_dot
+
+#define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
+
+#define STATUS_EFFECT_TAMING /datum/status_effect/taming //tames the target after enough tame stacks
+
+#define STATUS_EFFECT_PACIFIED /datum/status_effect/pacifism //forces the pacifism trait
+
+#define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
+
+#define STATUS_EFFECT_MARK_PREY /datum/status_effect/mark_prey
+
+#define STATUS_EFFECT_BUBBLEGUM_CURSE /datum/status_effect/bubblegum_curse //Bleeding. Damage over time. Fog. And, of course, a suprise for people that try to run away.
+
+#define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few seconds
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -71,14 +108,59 @@
 
 //#define STATUS_EFFECT_ICHORIAL_STAIN /datum/status_effect/ichorial_stain //Prevents a servant from being revived by vitality matrices for one minute.
 
+/// Whether a moth's wings are burnt
+#define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings
+
+/// If a moth is in a cocoon
+#define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned
+
+//human status effects
+// incapacitating
+#define STATUS_EFFECT_STUN /datum/status_effect/incapacitating/stun
+#define STATUS_EFFECT_WEAKENED /datum/status_effect/incapacitating/weakened
+#define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
+#define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
+#define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
+#define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
+
+// transient
+#define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion
+#define STATUS_EFFECT_DISORIENTED /datum/status_effect/transient/disoriented
+#define STATUS_EFFECT_DIZZINESS /datum/status_effect/transient/dizziness
+#define STATUS_EFFECT_DROWSINESS /datum/status_effect/transient/drowsiness
+#define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
+#define STATUS_EFFECT_SILENCED /datum/status_effect/transient/silence
+#define STATUS_EFFECT_ABSSILENCED /datum/status_effect/transient/silence/absolute
+#define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
+#define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
+#define STATUS_EFFECT_CLOCK_CULT_SLUR /datum/status_effect/transient/clock_cult_slurring
+#define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering
+#define STATUS_EFFECT_SLURRING /datum/status_effect/transient/slurring
+#define STATUS_EFFECT_LOSE_BREATH /datum/status_effect/transient/lose_breath
+#define STATUS_EFFECT_HALLUCINATION /datum/status_effect/transient/hallucination
+#define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
+#define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
+#define STATUS_EFFECT_DRUGGED /datum/status_effect/transient/drugged
+#define STATUS_EFFECT_DISGUST /datum/status_effect/transient/disgust
+#define STATUS_EFFECT_DEAF /datum/status_effect/transient/deaf
+
 /////////////
 // NEUTRAL //
 /////////////
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
+#define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
+#define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
+
+#define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 
 #define STATUS_EFFECT_CRUSHERDAMAGETRACKING /datum/status_effect/crusher_damage //tracks total kinetic crusher damage on a target
 
 #define STATUS_EFFECT_SYPHONMARK /datum/status_effect/syphon_mark //tracks kills for the KA death syphon module
+
+#define STATUS_EFFECT_ADAPTIVELEARNING /datum/status_effect/adaptive_learning //tracks the total bonus damage needed to be done to target
+
+/// Status effect given when someone uses the Give Item command to offer an item to another player.
+#define STATUS_EFFECT_OFFERING_ITEM /datum/status_effect/offering_item

@@ -2,7 +2,7 @@
 /obj/machinery/kitchen_machine/grill
 	name = "grill"
 	desc = "Backyard grilling, IN SPACE."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "grill_off"
 	cook_verbs = list("Grilling", "Searing", "Frying")
 	recipe_type = RECIPE_GRILL
@@ -49,6 +49,7 @@
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return 0
+		add_fingerprint(user)
 		var/mob/living/carbon/human/C = G.affecting
 		C.visible_message("<span class='danger'>[user] forces [C] onto [src], searing [C]'s body!</span>", \
 						"<span class='userdanger'>[user] forces you onto [src]! It burns!</span>")

@@ -9,7 +9,7 @@
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=60)
-	item_color = "cargo"
+	item_color = "cargo" //Если у кого-то как у меня возникнет непонимание зачем вообще нужен этот параметр, то он нужен для окрашивания вещей в стиральной машине...
 	pressure_resistance = 2
 	attack_verb = list("stamped")
 	var/list/stamp_sounds = list('sound/effects/stamp1.ogg','sound/effects/stamp2.ogg','sound/effects/stamp3.ogg')
@@ -97,8 +97,42 @@
 	icon_state = "stamp-cent"
 	item_color = "centcom"
 
+/obj/item/stamp/ploho
+	name = "'Very Bad, Redo' rubber stamp"
+	icon_state = "stamp-ploho"
+	item_color = "hop"
+
+/obj/item/stamp/BIGdeny
+	name = "BIG DENY rubber stamp"
+	icon_state = "stamp-BIGdeny"
+	item_color = "redcoat"
+
+/obj/item/stamp/navcom
+	name = "Nanotrasen Naval Command rubber stamp"
+	icon_state = "stamp-navcom"
+	item_color = "captain"
+
 /obj/item/stamp/syndicate
 	name = "suspicious rubber stamp"
 	icon_state = "stamp-syndicate"
 	item_color = "syndicate"
 
+/obj/item/stamp/syndicate/taipan
+	name = "taipan rubber stamp"
+	icon_state = "stamp-taipan"
+	item_color = "syndicate"
+
+/obj/item/stamp/mime
+	name = "mime's rubber stamp"
+	icon_state = "stamp-mime"
+	item_color = "mime"
+
+/obj/item/stamp/ussp
+	name = "Old USSP rubber stamp"
+	icon_state = "stamp-ussp"
+	item_color = "redcoat"
+
+/obj/item/stamp/solgov
+	name = "Solar Federation rubber stamp"
+	icon_state = "stamp-solgov"
+	item_color = "solgov"

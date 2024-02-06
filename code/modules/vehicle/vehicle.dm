@@ -2,7 +2,7 @@
 /obj/vehicle
 	name = "vehicle"
 	desc = "A basic vehicle, vroom"
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "scooter"
 	density = 1
 	anchored = 0
@@ -51,16 +51,15 @@
 	var/healthpercent = obj_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
-			. += "It looks slightly damaged."
+			. += "<span class='notice'>It looks slightly damaged.</span>"
 		if(25 to 50)
-			. += "It appears heavily damaged."
+			. += "<span class='notice'>It appears heavily damaged.</span>"
 		if(0 to 25)
 			. += "<span class='warning'>It's falling apart!</span>"
 
 /obj/vehicle/attackby(obj/item/I, mob/user, params)
 	if(key_type && !is_key(inserted_key) && is_key(I))
-		if(user.drop_item())
-			I.forceMove(src)
+		if(user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 			if(inserted_key)	//just in case there's an invalid key
 				inserted_key.forceMove(drop_location())
@@ -70,16 +69,18 @@
 		return
 	return ..()
 
-/obj/vehicle/AltClick(mob/user)
+/obj/vehicle/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(inserted_key && user.Adjacent(user))
 		if(!(user in buckled_mobs))
 			to_chat(user, "<span class='warning'>You must be riding [src] to remove [src]'s key!</span>")
 			return
 		to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
-		inserted_key.forceMove(drop_location())
-		user.put_in_hands(inserted_key)
+		inserted_key.forceMove_turf()
+		user.put_in_hands(inserted_key, ignore_anim = FALSE)
 		inserted_key = null
-	return ..()
 
 /obj/vehicle/proc/is_key(obj/item/I)
 	return I ? (key_type_exact ? (I.type == key_type) : istype(I, key_type)) : FALSE
@@ -95,7 +96,7 @@
 //APPEARANCE
 /obj/vehicle/proc/handle_vehicle_layer()
 	if(dir != NORTH)
-		layer = MOB_LAYER+0.1
+		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
 
@@ -119,7 +120,7 @@
 /obj/item/key
 	name = "key"
 	desc = "A small grey key."
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "key"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -167,7 +168,7 @@
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
 
-		last_vehicle_move = config.human_delay + vehicle_move_delay
+		last_vehicle_move = CONFIG_GET(number/human_delay) + vehicle_move_delay
 		Move(get_step(src, direction), direction, last_vehicle_move)
 
 		if(direction & (direction - 1))		//moved diagonally
@@ -181,7 +182,7 @@
 					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 					for(var/m in buckled_mobs)
 						var/mob/living/buckled_mob = m
-						buckled_mob.Weaken(5)
+						buckled_mob.Weaken(10 SECONDS)
 					unbuckle_all_mobs()
 					step(src, dir)
 

@@ -2,10 +2,13 @@
 	name = "iron ring"
 	desc = "A band that goes around your finger.  It's considered gauche to wear more than one."
 	gender = "neuter" // not plural anymore
+	material_type = MATERIAL_CLASS_NONE
 	transfer_prints = TRUE
 	icon_state = "ironring"
 	item_state = ""
 	icon = 'icons/obj/clothing/rings.dmi'
+	pickup_sound = 'sound/items/handling/ring_pickup.ogg'
+	drop_sound = 'sound/items/handling/ring_drop.ogg'
 	var/fluff_material = FALSE	//If true, will ignore the material when examining
 	var/material = "iron"
 	var/stud = 0
@@ -21,9 +24,9 @@
 /obj/item/clothing/gloves/ring/examine(mob/user)
 	. = ..()
 	if(!fluff_material)
-		. += "This one is made of [material]."
+		. += "<span class='notice'>This one is made of [material].</span>"
 	if(stud)
-		. += "It is adorned with a single gem."
+		. += "<span class='notice'>It is adorned with a single gem.</span>"
 
 /obj/item/clothing/gloves/ring/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))

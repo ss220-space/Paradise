@@ -1,6 +1,6 @@
 #define LIGHT_DAM_THRESHOLD 4
 #define LIGHT_HEAL_THRESHOLD 2
-#define LIGHT_DAMAGE_TAKEN 7
+#define LIGHT_DAMAGE_TAKEN 6
 
 /*
 
@@ -74,14 +74,14 @@ Made by Xhuis
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
 
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
 	to_chat(world, "<b>There are alien <span class='deadsay'>shadowlings</span> on the station. Crew: Kill the shadowlings before they can eat or enthrall the crew. Shadowlings: Enthrall the crew while remaining in hiding.</b>")
 
 /datum/game_mode/shadowling/pre_setup()
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_shadowlings = get_players_for_role(ROLE_SHADOWLING)
@@ -95,7 +95,6 @@ Made by Xhuis
 		var/datum/mind/shadow = pick(possible_shadowlings)
 		shadows += shadow
 		possible_shadowlings -= shadow
-		modePlayer += shadow
 		shadow.special_role = SPECIAL_ROLE_SHADOWLING
 		shadow.restricted_roles = restricted_jobs
 		shadowlings--
@@ -112,22 +111,26 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
-		log_game("[key_name(shadow)] has been selected as a Shadowling.")
+		add_game_logs("has been selected as a Shadowling.", shadow.current)
+
+		var/list/messages = list()
 		spawn(rand(10,100))
-			to_chat(shadow.current, "<br>")
-			to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
-			greet_shadow(shadow)
+			messages.Add("<br>")
+			messages.Add("<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
+			messages.Add(greet_shadow(shadow))
+			messages.Add(process_shadow_objectives(shadow))
 			finalize_shadowling(shadow)
-			process_shadow_objectives(shadow)
+			to_chat(shadow.current, chat_box_red(messages.Join("<br>")))
 		//give_shadowling_abilities(shadow)
 	..()
 
 /datum/game_mode/proc/greet_shadow(var/datum/mind/shadow)
-	to_chat(shadow.current, "<b>Currently, you are disguised as an employee aboard [world.name].</b>")
-	to_chat(shadow.current, "<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind (:8).</b>")
-	to_chat(shadow.current, "<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>")
-	to_chat(shadow.current, "<b>If you are new to shadowling, or want to read about abilities, check the wiki page at https://www.paradisestation.org/wiki/index.php/Shadowling</b><br>")
-
+	var/list/messages = list()
+	messages.Add("<b>Currently, you are disguised as an employee aboard [world.name].</b>")
+	messages.Add("<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind (:8).</b>")
+	messages.Add("<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>")
+	messages.Add("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Shadowling\">Тенеморф</a></b><br>")
+	return messages
 
 
 /datum/game_mode/proc/process_shadow_objectives(var/datum/mind/shadow_mind)
@@ -137,12 +140,12 @@ Made by Xhuis
 		objective_explanation = "Ascend to your true form by use of the Ascendance ability. This may only be used with [required_thralls] collective thralls, while hatched, and is unlocked with the Collective Mind ability."
 		shadow_objectives += "enthrall"
 		shadow_mind.memory += "<b>Objective #1</b>: [objective_explanation]"
-		to_chat(shadow_mind.current, "<b>Objective #1</b>: [objective_explanation]<br>")
+		return "<b>Objective #1</b>: [objective_explanation]<br>"
 
 
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
-	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_hatch(null))
+	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_hatch(null))
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)
@@ -157,34 +160,37 @@ Made by Xhuis
 		shadowling_thralls += new_thrall_mind
 		new_thrall_mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 		update_shadow_icons_added(new_thrall_mind)
-		new_thrall_mind.current.create_attack_log("<span class='danger'>Became a thrall</span>")
-		new_thrall_mind.current.create_log(CONVERSION_LOG, "Became a thrall")
+		add_conversion_logs(new_thrall_mind.current, "Became a Shadow thrall")
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall(null))
-		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
-		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>")
-		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>")
-		to_chat(new_thrall_mind.current, "<span class='shadowling'>Your body has been irreversibly altered. The attentive can see this - you may conceal it by wearing a mask.</span>")
-		to_chat(new_thrall_mind.current, "<span class='shadowling'>Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab.</span>")
-		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>")
+		//If you add spells to thrall, be sure to remove them on dethrallize
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_guise(null))
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision/thrall(null))
+		var/list/messages = list()
+		messages.Add("<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
+		messages.Add("<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>")
+		messages.Add("<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>")
+		messages.Add("<span class='shadowling'>Your body has been irreversibly altered. The attentive can see this - you may conceal it by wearing a mask.</span>")
+		messages.Add("<span class='shadowling'>Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab.</span>")
+		messages.Add("<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>")
+		to_chat(new_thrall_mind.current, chat_box_red(messages.Join("<br>")))
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
-			GLOB.command_announcement.Announce("Large concentration of psychic bluespace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+			GLOB.command_announcement.Announce("Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Событие вознесения тенеморфов неизбежно. Предотвратите его любой ценой!", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+			log_game("Shadowling reveal. Powergame and validhunt allowed.")
 		return 1
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)
 	if(!istype(thrall_mind) || !(thrall_mind in shadowling_thralls) || !isliving(thrall_mind.current))
 		return 0 //If there is no mind, the mind isn't a thrall, or the mind's mob isn't alive, return
 	shadowling_thralls.Remove(thrall_mind)
-	thrall_mind.current.create_attack_log("<span class='danger'>Dethralled</span>")
-	thrall_mind.current.create_log(CONVERSION_LOG, "Dethralled")
+	add_conversion_logs(thrall_mind.current, "De-shadow thralled")
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
-	for(var/obj/effect/proc_holder/spell/S in thrall_mind.spell_list)
-		thrall_mind.RemoveSpell(S)
+	//If you add spells to thrall, be sure to remove them on dethrallize
+	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_guise)
+	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_vision/thrall)
 	thrall_mind.current.remove_language("Shadowling Hivemind")
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
 		var/mob/living/carbon/human/H = thrall_mind.current
@@ -215,13 +221,13 @@ Made by Xhuis
 		if(shadow.current.stat == DEAD)
 			continue
 		shadows_alive++
-		if(shadow.special_role == SPECIAL_ROLE_SHADOWLING && config.shadowling_max_age)
+		if(shadow.special_role == SPECIAL_ROLE_SHADOWLING && CONFIG_GET(number/shadowling_max_age))
 			if(ishuman(shadow.current))
 				var/mob/living/carbon/human/H = shadow.current
 				if(!isshadowling(H))
-					for(var/obj/effect/proc_holder/spell/targeted/shadowling_hatch/hatch_ability in shadow.spell_list)
+					for(var/obj/effect/proc_holder/spell/shadowling_hatch/hatch_ability in shadow.spell_list)
 						hatch_ability.cycles_unused++
-						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > config.shadowling_max_age)
+						if(!H.IsStunned() && prob(20) && hatch_ability.cycles_unused > CONFIG_GET(number/shadowling_max_age))
 							var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
 							H.take_overall_damage(0, 3)
 							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")
@@ -237,8 +243,7 @@ Made by Xhuis
 	if(!istype(ling_mind) || !(ling_mind in shadows)) return 0
 	update_shadow_icons_removed(ling_mind)
 	shadows.Remove(ling_mind)
-	ling_mind.current.create_attack_log("<span class='danger'>Deshadowlinged</span>")
-	ling_mind.current.create_log(CONVERSION_LOG, "Deshadowlinged")
+	add_conversion_logs(ling_mind.current, "Deshadowlinged")
 	ling_mind.special_role = null
 	for(var/obj/effect/proc_holder/spell/S in ling_mind.spell_list)
 		ling_mind.RemoveSpell(S)
@@ -290,7 +295,7 @@ Made by Xhuis
 	if(shadows.len)
 		text += "<br><span class='big'><b>The shadowlings were:</b></span>"
 		for(var/datum/mind/shadow in shadows)
-			text += "<br>[shadow.key] was [shadow.name] ("
+			text += "<br>[shadow.get_display_key()] was [shadow.name] ("
 			if(shadow.current)
 				if(shadow.current.stat == DEAD)
 					text += "died"
@@ -305,7 +310,7 @@ Made by Xhuis
 		if(shadowling_thralls.len)
 			text += "<br><span class='big'><b>The thralls were:</b></span>"
 			for(var/datum/mind/thrall in shadowling_thralls)
-				text += "<br>[thrall.key] was [thrall.name] ("
+				text += "<br>[thrall.get_display_key()] was [thrall.name] ("
 				if(thrall.current)
 					if(thrall.current.stat == DEAD)
 						text += "died"

@@ -2,11 +2,11 @@
 #define TVALVE_STATE_SIDE 1
 
 /obj/machinery/atmospherics/trinary/tvalve
-	icon = 'icons/atmos/tvalve.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/tvalve.dmi'
 	icon_state = "map_tvalve0"
 
 	name = "manual switching valve"
-	desc = "A pipe valve"
+	desc = "A pipe valve."
 
 	can_unwrench = 1
 
@@ -68,7 +68,7 @@
 	parent3.update = 0
 	parent1.reconcile_air()
 
-	investigate_log("was set to side by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was set to side by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return 1
 
 /obj/machinery/atmospherics/trinary/tvalve/proc/go_straight()
@@ -83,7 +83,7 @@
 	parent3.update = 0
 	parent1.reconcile_air()
 
-	investigate_log("was set to straight by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was set to straight by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return 1
 
 /obj/machinery/atmospherics/trinary/tvalve/attack_ai(mob/user)
@@ -102,7 +102,7 @@
 /obj/machinery/atmospherics/trinary/tvalve/digital		// can be controlled by AI
 	name = "digital switching valve"
 	desc = "A digitally controlled valve."
-	icon = 'icons/atmos/digital_tvalve.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/digital_tvalve.dmi'
 
 	var/id = null
 
@@ -144,7 +144,7 @@
 	if(!powered())
 		return
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, span_alert("Access denied."))
 		return
 	..()
 

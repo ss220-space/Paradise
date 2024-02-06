@@ -19,6 +19,7 @@
 	name = "collectable xenomorph helmet!"
 	desc = "Hiss hiss hiss!"
 	icon_state = "xenom"
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/head/collectable/chef
 	name = "collectable chef's hat"
@@ -64,12 +65,20 @@
 	desc = "A Collectable Welding Helmet. Now with 80% less lead! Not for actual welding. Any welding done while wearing this Helmet is done so at the owner's own risk!"
 	icon_state = "welding"
 	item_state = "welding"
-
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 
 /obj/item/clothing/head/collectable/slime
@@ -142,5 +151,10 @@
 	item_state = "swat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 		)

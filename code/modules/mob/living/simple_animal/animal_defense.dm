@@ -1,9 +1,13 @@
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
-	if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
-		add_collar(O, user)
-		return
-	else
-		return ..()
+	if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
+		if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
+			add_collar(O, user)
+			return
+		if(istype(O, /obj/item/pet_carrier))
+			var/obj/item/pet_carrier/C = O
+			if(C.put_in_carrier(src, user))
+				return
+	return ..()
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	..()
@@ -15,10 +19,12 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if(INTENT_GRAB)
-			grabbedby(M)
-
+			if(holder_type)
+				get_scooped(M)
+			else
+				grabbedby(M)
 		if(INTENT_HARM, INTENT_DISARM)
-			if(HAS_TRAIT(M, TRAIT_PACIFISM))
+			if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 				to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
@@ -29,17 +35,6 @@
 			updatehealth()
 			return TRUE
 
-/mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
-			return FALSE
-		..(user, TRUE)
-		playsound(loc, "punch", 25, 1, -1)
-		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
-		adjustBruteLoss(15)
-		return TRUE
-
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent.
 		if(M.a_intent == INTENT_DISARM)
@@ -47,7 +42,7 @@
 			visible_message("<span class='danger'>[M] [response_disarm] [name]!</span>", "<span class='userdanger'>[M] [response_disarm] you!</span>")
 			add_attack_logs(M, src, "Alien disarmed")
 		else
-			var/damage = rand(15, 30)
+			var/damage = M.attack_damage
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 					"<span class='userdanger'>[M] has slashed at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
@@ -58,10 +53,9 @@
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite
 		if(stat != DEAD)
-			var/damage = rand(5, 10)
-			. = attack_threshold_check(damage)
+			. = attack_threshold_check(L.attack_damage)
 			if(.)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+				L.evolution_points = min(L.evolution_points + L.attack_damage, L.max_evolution_points)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -72,8 +66,8 @@
 /mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = rand(15, 25)
-		if(M.is_adult)
-			damage = rand(20, 35)
+		if(M.age_state.age != SLIME_BABY)
+			damage = rand(20 + M.age_state.damage, 35 + M.age_state.damage)
 		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = "melee")

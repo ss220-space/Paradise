@@ -10,6 +10,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, GLOB.head_accessory_styles_list)
 	//hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hair_styles_public_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list, GLOB.hair_styles_full_list)
+	//hair gradients
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair_gradient, GLOB.hair_gradients_list)
 	//facial hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hair_styles_list, GLOB.facial_hair_styles_male_list, GLOB.facial_hair_styles_female_list)
 	//underwear
@@ -22,11 +24,13 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
 
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
-
+	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
 	// Different bodies
 	__init_body_accessory(/datum/body_accessory/body)
 	// Different tails
 	__init_body_accessory(/datum/body_accessory/tail)
+	// Different wings
+	__init_body_accessory(/datum/body_accessory/wing)
 
 	// Setup species:accessory relations
 	initialize_body_accessory_by_species()
@@ -45,6 +49,9 @@
 			GLOB.language_keys[":[lowertext(L.key)]"] = L
 			GLOB.language_keys[".[lowertext(L.key)]"] = L
 			GLOB.language_keys["#[lowertext(L.key)]"] = L
+			GLOB.language_keys[":[sanitize_english_string_to_russian(L.key)]"] = L
+			GLOB.language_keys[".[sanitize_english_string_to_russian(L.key)]"] = L
+			GLOB.language_keys["#[sanitize_english_string_to_russian(L.key)]"] = L
 
 	var/rkey = 0
 	for(var/spath in subtypesof(/datum/species))
@@ -111,7 +118,7 @@
 		var/datum/robolimb/R = new limb_type()
 		GLOB.all_robolimbs[R.company] = R
 		if(!R.unavailable_at_chargen)
-			if(R != "head" && R != "chest" && R != "groin" ) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
+			if(R != BODY_ZONE_HEAD && R != BODY_ZONE_CHEST && R != BODY_ZONE_PRECISE_GROIN ) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
 				if(R.has_subtypes) //Ensures solos get added to the list as well be incorporating has_subtypes == 1 and has_subtypes == 2.
 					GLOB.chargen_robolimbs[R.company] = R //List only main brands and solo parts.
 		if(R.selectable)
@@ -128,18 +135,53 @@
 			continue
 		GLOB.world_topic_handlers[wth.topic_key] = topic_handler_type
 
-/* // Uncomment to debug chemical reaction list.
-/client/verb/debug_chemical_list()
+	GLOB.emote_list = init_emote_list()
+	GLOB.uplink_items = init_uplink_items_list()
 
-	for(var/reaction in GLOB.chemical_reactions_list)
-		. += "GLOB.chemical_reactions_list\[\"[reaction]\"\] = \"[GLOB.chemical_reactions_list[reaction]]\"\n"
-		if(islist(GLOB.chemical_reactions_list[reaction]))
-			var/list/L = GLOB.chemical_reactions_list[reaction]
-			for(var/t in L)
-				. += "    has: [t]\n"
-	to_chat(world, .)
-*/
+	// Keybindings
+	for(var/path in subtypesof(/datum/keybinding))
+		var/datum/keybinding/D = path
+		if(initial(D.name))
+			GLOB.keybindings += new path()
 
+	// Init chemical reagents
+	init_datum_subtypes(/datum/reagent, GLOB.chemical_reagents_list, null, "id")
+
+	// Chemical Reactions - Initialises all /datum/chemical_reaction into an assoc list of: reagent -> list of chemical reactions
+	// For example:
+	// chemical_reaction_list["plasma"] is a list of all reactions relating to plasma
+	for(var/path in subtypesof(/datum/chemical_reaction))
+		var/datum/chemical_reaction/reaction_datum = new path()
+		if(!length(reaction_datum?.required_reagents))
+			continue
+
+		for(var/reagent in reaction_datum.required_reagents)
+			if(!GLOB.chemical_reactions_list[reagent])
+				GLOB.chemical_reactions_list[reagent] = list()
+			GLOB.chemical_reactions_list[reagent] += reaction_datum
+
+	// Init disease archive
+	GLOB.archive_diseases += list(
+		"sneeze" = new /datum/disease/virus/advance/preset/sneezing(),
+		"cough" = new /datum/disease/virus/advance/preset/cough(),
+		"voice_change" = new /datum/disease/virus/advance/preset/voice_change(),
+		"heal" = new /datum/disease/virus/advance/preset/heal(),
+		"hallucigen" = new /datum/disease/virus/advance/preset/hullucigen(),
+		"sensory_restoration" = new /datum/disease/virus/advance/preset/sensory_restoration(),
+		"mind_restoration" = new /datum/disease/virus/advance/preset/mind_restoration(),
+		"damage_converter:heal:viralevolution" = new /datum/disease/virus/advance/preset/advanced_regeneration(),
+		"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/virus/advance/preset/stealth_necrosis(),
+		"beard:itching:voice_change" = new /datum/disease/virus/advance/preset/pre_kingstons(),
+		"love" = new /datum/disease/virus/advance/preset/love(),
+		"aggression" = new /datum/disease/virus/advance/preset/aggression(),
+		"obsession" = new /datum/disease/virus/advance/preset/obsession(),
+		"confusion" = new /datum/disease/virus/advance/preset/confusion(),
+		"bones" = new /datum/disease/virus/advance/preset/bones(),
+		"laugh" = new /datum/disease/virus/advance/preset/laugh(),
+		"moan" = new /datum/disease/virus/advance/preset/moan(),
+		"infection" = new /datum/disease/virus/advance/preset/infection(),
+		"hallucigen:laugh:moan" = new /datum/disease/virus/advance/preset/pre_loyalty()
+	)
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
@@ -160,3 +202,32 @@
 			if(assoc) //value gotten
 				L["[assoc]"] = D //put in association
 	return L
+
+
+/proc/init_emote_list()
+	. = list()
+	for(var/path in subtypesof(/datum/emote))
+		var/datum/emote/E = new path()
+		if(E.key)
+			if(!.[E.key])
+				.[E.key] = list(E)
+			else
+				.[E.key] += E
+		else if(E.message) //Assuming all non-base emotes have this
+			stack_trace("Keyless emote: [E.type]")
+
+		if(E.key_third_person) //This one is optional
+			if(!.[E.key_third_person])
+				.[E.key_third_person] = list(E)
+			else
+				.[E.key_third_person] |= E
+
+
+/proc/init_uplink_items_list()
+	. = list()
+	for(var/datum/uplink_item/item_path as anything in subtypesof(/datum/uplink_item))
+		if(!initial(item_path.item))
+			continue
+		var/datum/uplink_item/item = new item_path
+		. += item
+

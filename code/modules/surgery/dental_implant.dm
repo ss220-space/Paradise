@@ -1,7 +1,7 @@
 /datum/surgery/dental_implant
 	name = "dental implant"
 	steps = list(/datum/surgery_step/generic/drill, /datum/surgery_step/insert_pill)
-	possible_locs = list("mouth")
+	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
 
 /datum/surgery/dental_implant/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))
@@ -30,8 +30,7 @@
 		user.visible_message("[user] pulls \the [tool] back out of [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You pull \the [tool] back out of [target]'s [parse_zone(target_zone)], there wans't enough room...</span>")
 		return 0
 
-	user.drop_item()
-	tool.forceMove(target)
+	user.drop_transfer_item_to_loc(tool, target)
 
 	var/datum/action/item_action/hands_free/activate_pill/P = new
 	P.button_icon_state = tool.icon_state
@@ -45,7 +44,7 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
 
-/datum/action/item_action/hands_free/activate_pill/Trigger()
+/datum/action/item_action/hands_free/activate_pill/Trigger(left_click = TRUE)
 	if(!..())
 		return
 	to_chat(owner, "<span class='caution'>You grit your teeth and burst the implanted [target]!</span>")

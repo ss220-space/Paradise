@@ -1,15 +1,17 @@
 /obj/machinery/atmospherics/binary/valve
-	icon = 'icons/atmos/valve.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/valve.dmi'
 	icon_state = "map_valve0"
 
 	name = "manual valve"
-	desc = "A pipe valve"
+	desc = "A pipe valve."
 
 	can_unwrench = 1
 
 	var/open = 0
 
-	req_one_access_txt = "24;10"
+/obj/machinery/atmospherics/binary/valve/examine(mob/user)
+	. = ..()
+	. += "It is currently [open ? "open" : "closed"]."
 
 /obj/machinery/atmospherics/binary/valve/open
 	open = 1
@@ -38,13 +40,13 @@
 	parent1.update = 0
 	parent2.update = 0
 	parent1.reconcile_air()
-	investigate_log("was opened by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was opened by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return
 
 /obj/machinery/atmospherics/binary/valve/proc/close()
 	open = 0
 	update_icon()
-	investigate_log("was closed by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was closed by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return
 
 /obj/machinery/atmospherics/binary/valve/attack_ai(mob/user)
@@ -62,15 +64,17 @@
 		close()
 	else
 		open()
+	to_chat(user, span_notice("You [open ? "open" : "close"] [src]."))
 
 /obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
 	name = "digital valve"
 	desc = "A digitally controlled valve."
-	icon = 'icons/atmos/digital_valve.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/digital_valve.dmi'
+
+	req_access = list(ACCESS_ATMOSPHERICS,ACCESS_ENGINE)
 
 	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
-	settagwhitelist = list("id_tag")
 
 /obj/machinery/atmospherics/binary/valve/digital/Destroy()
 	if(SSradio)
@@ -85,7 +89,7 @@
 	if(!powered())
 		return
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, span_alert("Access denied."))
 		return
 	..()
 
@@ -134,17 +138,3 @@
 			else
 				if(open)
 					close()
-
-/obj/machinery/atmospherics/binary/valve/digital/attackby(var/obj/item/W as obj, var/mob/user)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-	return ..()
-
-/obj/machinery/atmospherics/binary/valve/digital/multitool_menu(var/mob/user,var/obj/item/multitool/P)
-	return {"
-		<ul>
-			<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
-			<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
-		</ul>
-		"}

@@ -1,28 +1,35 @@
+#define MIN_SHOCK_REDUCTION 50 //The minimum amount of shock reduction in reagents for absence of pain
+
 /mob/living/carbon/human
 	var/last_pain_message = ""
 	var/next_pain_time = 0
 
+/mob/living/carbon/human/proc/has_pain()
+	if(stat)
+		return FALSE
+	if(NO_PAIN in dna.species.species_traits)
+		return FALSE
+	if(shock_reduction() >= MIN_SHOCK_REDUCTION)
+		return FALSE
+	return TRUE
+
 // partname is the name of a body part
 // amount is a num from 1 to 100
 /mob/living/carbon/human/proc/pain(partname, amount)
-	if(stat >= UNCONSCIOUS)
-		return
 	if(reagents.has_reagent("sal_acid"))
 		return
-	if(reagents.has_reagent("morphine"))
-		return
-	if(reagents.has_reagent("hydrocodone"))
+	if(!has_pain())
 		return
 	if(world.time < next_pain_time)
 		return
 	var/msg
 	switch(amount)
 		if(1 to 10)
-			msg = "<b>Your [partname] hurts.</b>"
+			msg = span_userdanger("<b>Your [partname] hurts.</b>")
 		if(11 to 90)
-			msg = "<b><font size=2>Your [partname] hurts badly.</font></b>"
+			msg = span_userdanger("<b><font size=2>Your [partname] hurts badly.</font></b>")
 		if(91 to INFINITY)
-			msg = "<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>"
+			msg = span_userdanger("<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>")
 	if(msg && (msg != last_pain_message || prob(10)))
 		last_pain_message = msg
 		to_chat(src, msg)
@@ -31,14 +38,7 @@
 
 // message is the custom message to be displayed
 /mob/living/carbon/human/proc/custom_pain(message)
-	if(stat >= UNCONSCIOUS)
-		return
-
-	if(NO_PAIN in dna.species.species_traits)
-		return
-	if(reagents.has_reagent("morphine"))
-		return
-	if(reagents.has_reagent("hydrocodone"))
+	if(!has_pain())
 		return
 
 	var/msg = "<span class='userdanger'>[message]</span>"
@@ -52,33 +52,29 @@
 /mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
-	if(stat >= UNCONSCIOUS)
-		return
-	if(NO_PAIN in dna.species.species_traits)
-		return
-	if(reagents.has_reagent("morphine"))
-		return
-	if(reagents.has_reagent("hydrocodone"))
+	if(!has_pain())
 		return
 
 	var/maxdam = 0
 	var/obj/item/organ/external/damaged_organ = null
-	for(var/obj/item/organ/external/E in bodyparts)
-		if((E.status & ORGAN_DEAD|ORGAN_ROBOT) || E.hidden_pain)
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if((bodypart.status & ORGAN_DEAD|ORGAN_ROBOT) || bodypart.hidden_pain)
 			continue
-		var/dam = E.get_damage()
+		var/dam = bodypart.get_damage()
 		// make the choice of the organ depend on damage,
 		// but also sometimes use one of the less damaged ones
 		if(dam > maxdam && (maxdam == 0 || prob(70)))
-			damaged_organ = E
+			damaged_organ = bodypart
 			maxdam = dam
 		if(damaged_organ)
 			pain(damaged_organ.name, maxdam)
 
 	// Damage to internal organs hurts a lot.
-	for(var/obj/item/organ/internal/I in internal_organs)
-		if(I.hidden_pain)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		if(organ.hidden_pain)
 			continue
-		if(I.damage > 2 && prob(2))
-			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
-			custom_pain("You feel a sharp pain in your [parent.limb_name]")
+		if(organ.damage > 2 && prob(2))
+			var/obj/item/organ/external/parent = get_organ(organ.parent_organ_zone)
+			custom_pain("You feel a sharp pain in your [parent.name]")
+
+#undef MIN_SHOCK_REDUCTION

@@ -43,11 +43,12 @@
 	var/range_flash = 3
 
 /obj/effect/mine/explosive/mineEffect(mob/living/victim)
+	add_attack_logs(victim, src, "Stepped on")
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
 
 /obj/effect/mine/stun
 	name = "stun mine"
-	var/stun_time = 8
+	var/stun_time = 16 SECONDS
 
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
@@ -118,7 +119,7 @@
 	if(triggered)
 		return
 	triggered = 1
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	mineEffect(victim)
 	qdel(src)
 
@@ -146,7 +147,7 @@
 	victim.drop_r_hand()
 	victim.put_in_hands(chainsaw)
 	chainsaw.attack_self(victim)
-	chainsaw.wield(victim)
+	victim.mode()	// Same as wielded
 	victim.reagents.add_reagent("adminordrazine", 25)
 
 	victim.client.color = pure_red
@@ -169,17 +170,25 @@
 	to_chat(victim, "<span class='notice'>You feel great!</span>")
 	victim.revive()
 
+
 /obj/effect/mine/pickup/speed
 	name = "Yellow Orb"
 	desc = "You feel faster just looking at it."
 	color = "yellow"
-	duration = 300
+	duration = 30 SECONDS
+
 
 /obj/effect/mine/pickup/speed/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.status_flags |= GOTTAGOFAST
-	spawn(duration)
-		victim.status_flags &= ~GOTTAGOFAST
-		to_chat(victim, "<span class='notice'>You slow down.</span>")
+
+	ADD_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
+	to_chat(victim, span_notice("You feel fast!"))
+
+	addtimer(CALLBACK(src, PROC_REF(mine_effect_callback), victim), duration, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+
+
+/obj/effect/mine/pickup/speed/proc/mine_effect_callback(mob/living/carbon/victim)
+	if(!QDELETED(victim))
+		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
+		to_chat(victim, span_notice("You slow down."))

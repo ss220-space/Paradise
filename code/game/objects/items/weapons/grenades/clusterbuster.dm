@@ -4,7 +4,7 @@
 /obj/item/grenade/clusterbuster
 	desc = "Use of this weapon may constiute a war crime in your area, consult your local captain."
 	name = "clusterbang"
-	icon = 'icons/obj/grenade.dmi'
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "clusterbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
 
@@ -34,7 +34,7 @@
 /obj/item/grenade/clusterbuster/segment
 	desc = "A smaller segment of a clusterbang. Better run."
 	name = "clusterbang segment"
-	icon = 'icons/obj/grenade.dmi'
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
 /obj/item/grenade/clusterbuster/segment/New(var/loc, var/payload_type = /obj/item/grenade/flashbang/cluster)
@@ -199,7 +199,7 @@
 	desc = "An assistant's every dream."
 	payload = /obj/random/tool
 
-/obj/item/grenade/clusterbuster/tools
+/obj/item/grenade/clusterbuster/eng_tools
 	name = "Engineering Deployment Platfom"
 	desc = "For the that time when gearing up was just too hard."
 	payload = /obj/random/tech_supply
@@ -225,7 +225,7 @@
 /obj/item/grenade/clusterbuster/monkey
 	name = "Barrel of Monkeys"
 	desc = "Not really that much fun."
-	payload = /mob/living/carbon/human/monkey
+	payload = /mob/living/carbon/human/lesser/monkey
 
 /obj/item/grenade/clusterbuster/fluffy
 	name = "Fluffy Love Bomb"

@@ -1,7 +1,7 @@
 /obj/item/gun/grenadelauncher
 	name = "grenade launcher"
 	desc = "a terrible, terrible thing. it's really awful!"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "riotgun"
 	w_class = WEIGHT_CLASS_BULKY
@@ -21,7 +21,7 @@
 /obj/item/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 	if((istype(I, /obj/item/grenade)))
 		if(grenades.len < max_grenades)
-			if(!user.unEquip(I))
+			if(!user.drop_item_ground(I))
 				return
 			I.loc = src
 			grenades += I
@@ -48,8 +48,7 @@
 	grenades -= F
 	F.loc = user.loc
 	F.throw_at(target, 30, 2, user)
-	message_admins("[key_name_admin(user)] fired a grenade ([F.name]) from a grenade launcher ([name]).")
-	log_game("[key_name(user)] fired a grenade ([F.name]) from a grenade launcher ([name]).")
+	add_attack_logs(user, target, "fired [F.name] from [name]")
 	F.active = 1
 	F.icon_state = initial(icon_state) + "_active"
 	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)

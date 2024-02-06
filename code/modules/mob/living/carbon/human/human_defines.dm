@@ -1,6 +1,6 @@
 /mob/living/carbon/human
 
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD)
 	pressure_resistance = 25
 	//Marking colour and style
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
@@ -17,7 +17,9 @@
 	var/age = 30		//Player's age (pure fluff)
 
 	var/underwear = "Nude"	//Which underwear the player wants
+	var/color_underwear = "#ffffff"
 	var/undershirt = "Nude"	//Which undershirt the player wants
+	var/color_undershirt = "#ffffff"
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 
@@ -26,6 +28,7 @@
 	var/obj/item/shoes = null
 	var/obj/item/belt = null
 	var/obj/item/gloves = null
+	var/obj/item/neck = null
 	var/obj/item/glasses = null
 	var/obj/item/l_ear = null
 	var/obj/item/r_ear = null
@@ -42,6 +45,7 @@
 	var/datum/personal_crafting/handcrafting
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
+	var/special_tts_voice = ""
 
 	var/hand_blood_color
 
@@ -61,11 +65,11 @@
 	var/heartbeat = 0
 	var/receiving_cpr = FALSE
 
-	var/fire_dmi = 'icons/mob/OnFire.dmi'
-	var/fire_sprite = "Standing"
-
 	var/datum/body_accessory/body_accessory = null
-	var/tail // Name of tail image in species effects icon file.
-
-	var/list/splinted_limbs = list() //limbs we know are splinted
+	/// Name of tail image in species effects icon file.
+	var/tail
+	/// Same as tail but wing
+	var/wing
+	/// Lazy list of all limbs we know are splinted.
+	var/list/splinted_limbs
 	var/original_eye_color = "#000000"

@@ -4,10 +4,10 @@
 #define HIDEJUMPSUIT	4	//APPLIES ONLY TO THE EXTERIOR SUIT!!
 #define HIDESHOES		8	//APPLIES ONLY TO THE EXTERIOR SUIT!!
 #define HIDETAIL 		16	//APPLIES ONLY TO THE EXTERIOR SUIT!!
-#define HIDEMASK	1	//APPLIES ONLY TO HELMETS/MASKS!!
-#define HIDEEARS	2	//APPLIES ONLY TO HELMETS/MASKS!! (ears means headsets and such)
-#define HIDEEYES	4	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
-#define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
+#define HIDEMASK	32	//APPLIES ONLY TO HELMETS/MASKS!!
+#define HIDEHEADSETS	64	//APPLIES ONLY TO HELMETS/MASKS!! (headsets and such)
+#define HIDEGLASSES	128	//APPLIES ONLY TO HELMETS/MASKS!!
+#define HIDENAME	256	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
 // slots
 #define slot_back 1
@@ -33,7 +33,8 @@
 #define slot_wear_pda 21
 #define slot_tie 22
 #define slot_collar 23
-#define slots_amt 23
+#define slot_neck 24
+#define slots_amt 24
 
 // accessory slots
 #define ACCESSORY_SLOT_DECOR 1
@@ -60,6 +61,7 @@
 #define HANDS			1536
 #define FULL_BODY		2047
 #define TAIL			4096
+#define WING			8192
 
 // bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
@@ -90,10 +92,13 @@
 #define SUIT_SENSOR_VITAL 2
 #define SUIT_SENSOR_TRACKING 3
 
-#define BLOCKHEADHAIR 			4		// temporarily removes the user's hair overlay. Leaves facial hair.
-#define BLOCKHAIR				32768	// temporarily removes the user's hair, facial and otherwise.
-
 //flags for muzzle speech blocking
 #define MUZZLE_MUTE_NONE 0 // Does not mute you.
 #define MUZZLE_MUTE_MUFFLE 1 // Muffles everything you say "MHHPHHMMM!!!
 #define MUZZLE_MUTE_ALL 2 // Completely mutes you.
+
+//MATERIAL CLASS FOR RACE EAT
+#define MATERIAL_CLASS_NONE     0
+#define MATERIAL_CLASS_CLOTH    1
+#define MATERIAL_CLASS_TECH		2
+#define MATERIAL_CLASS_SOAP		3

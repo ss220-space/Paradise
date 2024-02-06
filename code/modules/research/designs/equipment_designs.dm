@@ -11,6 +11,16 @@
 	build_path = /obj/item/weldingtool/experimental
 	category = list("Equipment")
 
+/datum/design/rcd
+	name = "Rapid Construction Device (RCD)"
+	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
+	id = "rcd"
+	req_tech = list("materials" = 1, "engineering" = 3, "programming" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/rcd
+	category = list("Equipment")
+
 /datum/design/health_hud
 	name = "Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
@@ -289,4 +299,73 @@
 	build_path = /obj/structure/closet/bluespace
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+	category = list("Equipment")
+
+/datum/design/atmos_holofan
+	name = "ATMOS holofan projector"
+	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions."
+	id = "signmaker_atmos"
+	req_tech = list("engineering" = 7, "programming" = 6, "bluespace" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/holosign_creator/atmos
+	category = list("Equipment")
+
+/datum/design/sec_tray_scanner
+	name = "Security T-ray"
+	desc = "An advance use of a terahertz-ray to find any invisible biological creature nearby."
+	id = "sec_tray"
+	req_tech = list("magnets" = 7, "biotech" = 7, "engineering" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_DIAMOND = 500)
+	build_path = /obj/item/t_scanner/security
+	category = list("Equipment")
+
+/datum/design/gravboots
+	name = "Gravitational Boots"
+	desc = "Experimental magboots that use miniture gravity generators. No slowdown, can let the user leap like jump boots, and lets the user kick and stomp like they have krav maga."
+	id = "gravboots"
+	req_tech = list("magnets" = 7,"engineering" = 7, "materials" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_PLASMA = 4000, MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000)
+	build_path = /obj/item/clothing/shoes/magboots/gravity
+
+/datum/design/tray_scanner_range
+	name = "Extended range T-ray"
+	desc = "T-ray сканер расширенной дальности."
+	id = "tray_range"
+	req_tech = list("magnets" = 3, "engineering" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500, MAT_DIAMOND = 200)
+	build_path = /obj/item/t_scanner/extended_range
+	category = list("Equipment")
+
+/datum/design/tray_scanner_pulse
+	name = "Longer pulse T-ray"
+	desc = "T-ray сканер c продолжительным импульсом."
+	id = "tray_pulse"
+	req_tech = list("magnets" = 5, "engineering" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500, MAT_DIAMOND = 200)
+	build_path = /obj/item/t_scanner/longer_pulse
+	category = list("Equipment")
+
+/datum/design/tray_scanner_advanced
+	name = "Advanced T-ray"
+	desc = "T-ray сканер расширенной дальности c продолжительным импульсом."
+	id = "tray_advanced"
+	req_tech = list("magnets" = 7, "programming" = 5, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 1000, MAT_DIAMOND = 500)
+	build_path = /obj/item/t_scanner/advanced
+	category = list("Equipment")
+
+/datum/design/tray_scanner_science
+	name = "Science T-ray"
+	desc = "Высокотехнологичный T-ray сканер"
+	id = "tray_science"
+	req_tech = list("magnets" = 8, "programming" = 7, "engineering" = 7) // придется постараться чтобы найти 8-й уровень технологий
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 2000, MAT_DIAMOND = 1500)
+	build_path = /obj/item/t_scanner/science
 	category = list("Equipment")

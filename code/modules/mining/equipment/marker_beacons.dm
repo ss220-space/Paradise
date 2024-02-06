@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/item/stack/marker_beacon/AltClick(mob/living/user)
 	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
-	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
+	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
 	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)
@@ -112,11 +112,11 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		return
 	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 	if(do_after(user, remove_speed, target = src))
-		var/obj/item/stack/marker_beacon/M = new(loc)
+		var/obj/item/stack/marker_beacon/M = new(drop_location())
 		M.picked_color = picked_color
 		M.update_icon()
 		transfer_fingerprints_to(M)
-		user.put_in_hands(M)
+		user.put_in_hands(M, ignore_anim = FALSE)
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		qdel(src)
 
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	..()
 	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
-	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
+	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
 	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)

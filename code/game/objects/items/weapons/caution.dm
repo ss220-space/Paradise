@@ -50,15 +50,15 @@
 			var/mob/living/carbon/C = AM
 			if(C.m_intent != MOVE_INTENT_WALK)
 				src.visible_message("The [src.name] beeps, \"Running on wet floors is hazardous to your health.\"")
-				explosion(src.loc,-1,0,2)
+				explosion(src.loc,-1,0,2, cause = src)
 				if(ishuman(C))
 					dead_legs(C)
 				if(src)
 					qdel(src)
 
 /obj/item/caution/proximity_sign/proc/dead_legs(mob/living/carbon/human/H as mob)
-	var/obj/item/organ/external/l = H.get_organ("l_leg")
-	var/obj/item/organ/external/r = H.get_organ("r_leg")
+	var/obj/item/organ/external/l = H.get_organ(BODY_ZONE_L_LEG)
+	var/obj/item/organ/external/r = H.get_organ(BODY_ZONE_L_LEG)
 	if(l)
 		l.droplimb(0, DROPLIMB_SHARP)
 	if(r)

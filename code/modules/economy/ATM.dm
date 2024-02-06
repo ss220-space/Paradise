@@ -17,7 +17,7 @@ log transactions
 /obj/machinery/atm
 	name = "Nanotrasen automatic teller machine"
 	desc = "For all your monetary needs! Just insert your ID card to make a withdrawal or deposit!"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "atm"
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -86,8 +86,8 @@ log transactions
 			return
 
 		if(!held_card)
-			user.drop_item()
-			I.forceMove(src)
+			add_fingerprint(user)
+			user.drop_transfer_item_to_loc(I, src)
 			held_card = I
 			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 				authenticated_account = null
@@ -97,12 +97,13 @@ log transactions
 			//consume the money
 			if(!powered())
 				return
+			add_fingerprint(user)
 			var/obj/item/stack/spacecash/C = I
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 
 			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
 
-			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
+			to_chat(user, "<span class='notice'>You insert [C] into [src].</span>")
 			SStgui.update_uis(src)
 			C.use(C.amount)
 	else
@@ -169,7 +170,7 @@ log transactions
 				var/target_account_number = text2num(params["target_acc_number"])
 				var/transfer_purpose = params["purpose"]
 				if(linked_db.charge_to_account(target_account_number, authenticated_account, transfer_purpose, machine_id, transfer_amount))
-					to_chat(usr, "[bicon(src)]<span class='info'>Funds transfer successful.</span>")
+					to_chat(usr, "[bicon(src)]<span class='notice'>Funds transfer successful.</span>")
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>Funds transfer failed.</span>")
 			else
@@ -181,8 +182,8 @@ log transactions
 			if(screen_proper in valid_screen)
 				view_screen = screen_proper
 			else
-				message_admins("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
-				log_debug("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
+				message_admins("Warning: possible href exploit by [ADMIN_FULLMONTY(usr)] - Invalid screen number passed into an ATM")
+				log_debug("Warning: possible href exploit by [key_name_log(usr)] - Invalid screen number passed into an ATM")
 
 		if("change_security_level")
 			if(authenticated_account)
@@ -251,8 +252,9 @@ log transactions
 					if(amount > 100000) // prevent crashes
 						to_chat(usr, "<span class='notice'>The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 100,000.'</span>")
 						amount = 100000
-					withdraw_arbitrary_sum(amount)
-					authenticated_account.charge(amount, null, "Credit withdrawal", machine_id, authenticated_account.owner_name)
+					if(authenticated_account.charge(amount, null, "Credit withdrawal", machine_id, authenticated_account.owner_name))
+						withdraw_arbitrary_sum(amount)
+
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
@@ -285,16 +287,15 @@ log transactions
 
 		if("insert_card")
 			if(held_card)
-				held_card.forceMove(loc)
+				held_card.forceMove_turf()
 				authenticated_account = null
 				if(ishuman(usr) && !usr.get_active_hand())
-					usr.put_in_hands(held_card)
+					usr.put_in_hands(held_card, ignore_anim = FALSE)
 				held_card = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
-					usr.drop_item()
-					I.forceMove(src)
+					usr.drop_transfer_item_to_loc(I, src)
 					held_card = I
 
 		if("logout")
@@ -304,6 +305,7 @@ log transactions
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
-	var/obj/item/stack/spacecash/C = new(amt = arbitrary_sum)
-	if(!usr?.put_in_hands(C))
-		C.forceMove(get_step(get_turf(src), turn(dir, 180)))
+	var/obj/item/stack/spacecash/C = new(drop_location(), arbitrary_sum)
+	if(usr)
+		usr.put_in_hands(C, ignore_anim = FALSE)
+

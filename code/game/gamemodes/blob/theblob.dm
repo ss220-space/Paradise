@@ -5,7 +5,7 @@
 	light_range = 3
 	desc = "Some blob creature thingy"
 	density = 0
-	opacity = 0
+	opacity = 1
 	anchored = 1
 	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
@@ -15,6 +15,7 @@
 	var/fire_resist = 1 //multiplies burn damage by this
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
+	creates_cover = TRUE
 
 /obj/structure/blob/New(loc)
 	..()
@@ -34,6 +35,9 @@
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
 
+/obj/structure/blob/has_prints()
+	return FALSE
+
 /obj/structure/blob/BlockSuperconductivity()
 	return atmosblock
 
@@ -47,11 +51,13 @@
 /obj/structure/blob/CanAtmosPass(turf/T)
 	return !atmosblock
 
-/obj/structure/blob/CanAStarPass(ID, dir, caller)
-	. = 0
+
+/obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	. = FALSE
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSBLOB)
+
 
 /obj/structure/blob/process()
 	Life()
@@ -90,6 +96,8 @@
 		var/dirn = pick(dirs)
 		dirs.Remove(dirn)
 		var/turf/T = get_step(src, dirn)
+		if(!is_location_within_transition_boundaries(T))
+			continue
 		var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 		if(!B)
 			expand(T,1,a_color)//No blob here so try and expand
@@ -124,6 +132,8 @@
 			else	T = null
 
 	if(!T)	return 0
+	if(!is_location_within_transition_boundaries(T))
+		return
 	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(obj_integrity, 30))
 	B.color = a_color
 	B.density = 1
@@ -147,8 +157,6 @@
 	..()
 	take_damage(power / 400, BURN, "energy")
 
-/obj/structure/blob/hulk_damage()
-	return 15
 
 /obj/structure/blob/attack_animal(mob/living/simple_animal/M)
 	if(ROLE_BLOB in M.faction) //sorry, but you can't kill the blob as a blobbernaut
@@ -200,13 +208,12 @@
 /obj/structure/blob/proc/adjustcolors(var/a_color)
 	if(a_color)
 		color = a_color
-	return
+
 
 /obj/structure/blob/examine(mob/user)
 	. = ..()
-	. += "It looks like it's made of [get_chem_name()]."
-	. += "It looks like this chemical does: [get_chem_desc()]"
-
+	. += "<span class='notice'>It looks like it's made of [get_chem_name()].</span>"
+	. += "<span class='notice'>It looks like this chemical does: [get_chem_desc()].</span>"
 
 /obj/structure/blob/proc/get_chem_name()
 	for(var/mob/camera/blob/B in GLOB.mob_list)
@@ -219,6 +226,13 @@
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.description
 	return "something unknown"
+
+
+/obj/structure/blob/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	damage *= 0.25 // Lets not have sorium be too much of a blender / rapidly kill itself
+	return ..()
+
+
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0

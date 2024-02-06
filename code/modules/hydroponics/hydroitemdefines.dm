@@ -5,6 +5,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
+	belt_icon = "plant_analyzer"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
@@ -57,6 +58,7 @@
 	desc = "It's used for removing weeds or scratching your back."
 	icon_state = "cultivator"
 	item_state = "cultivator"
+	belt_icon = "cultivator"
 	origin_tech = "engineering=2;biotech=2"
 	flags = CONDUCT
 	force = 5
@@ -69,6 +71,7 @@
 /obj/item/cultivator/rake
 	name = "rake"
 	icon_state = "rake"
+	belt_icon = null
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "sliced", "bashed", "clawed")
 	hitsound = null
@@ -81,6 +84,7 @@
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
 	icon_state = "hatchet"
 	item_state = "hatchet"
+	belt_icon = "hatchet"
 	flags = CONDUCT
 	force = 12
 	w_class = WEIGHT_CLASS_TINY
@@ -92,6 +96,8 @@
 	attack_verb = list("chopped", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
+	embed_chance = 70
+	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -102,11 +108,15 @@
 	name = "duelling knife"
 	desc = "A length of leather-bound wood studded with razor-sharp teeth. How crude."
 	icon_state = "unathiknife"
+	item_state = "unathiknife"
+	belt_icon = null
 	attack_verb = list("ripped", "torn", "cut")
 
 /obj/item/hatchet/wooden
+	name = "wooden hatchet"
 	desc = "A crude axe blade upon a short wooden handle."
 	icon_state = "woodhatchet"
+	belt_icon = "wooden_hatchet"
 	materials = null
 	flags = NONE
 
@@ -126,6 +136,8 @@
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
+	embed_chance = 15
+	embedded_ignore_throwspeed_threshold = TRUE
 	var/extend = 1
 	var/swiping = FALSE
 
@@ -133,10 +145,10 @@
 	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ("head")
+		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
-			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, 1, -1)
+			playsound(loc, "desceration", 50, 1, -1)
 	return BRUTELOSS
 
 /obj/item/scythe/pre_attackby(atom/A, mob/living/user, params)
@@ -198,16 +210,7 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	if(!blood_DNA)
-		return
-	if(blood_overlay && (blood_DNA.len >= 1))	//updated blood overlay, if any
-		overlays.Cut()	//this might delete other item overlays as well but eeeeeh
 
-		var/icon/I = new /icon(icon, icon_state)
-		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)), ICON_ADD)
-		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_overlay = I
-		overlays += blood_overlay
 
 
 // *************************************
@@ -227,7 +230,7 @@
 	container_type = OPENCONTAINER
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
-	throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
+	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 	force = 0.2
 	throwforce = 0.2
 
@@ -242,10 +245,10 @@
 	update_icon()
 	if(reagents.total_volume)
 		hitsound = 'sound/weapons/jug_filled_impact.ogg'
-		throwhitsound = 'sound/weapons/jug_filled_impact.ogg'
+		mob_throw_hit_sound = 'sound/weapons/jug_filled_impact.ogg'
 	else
 		hitsound = 'sound/weapons/jug_empty_impact.ogg'
-		throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
+		mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 
 /obj/item/reagent_containers/glass/bottle/nutrient/update_icon()
 	cut_overlays()

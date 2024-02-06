@@ -1,8 +1,10 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging
-	icon = 'icons/atmos/heat.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/heat.dmi'
 	icon_state = "intact"
 	pipe_icon = "hepipe"
 	level = 2
+	plane = GAME_PLANE
+	layer = GAS_PIPE_VISIBLE_LAYER
 	var/initialize_directions_he
 	var/surface = 2
 
@@ -56,7 +58,7 @@
 		if(pipe_air.temperature > heat_limit + 1)
 			for(var/m in buckled_mobs)
 				var/mob/living/buckled_mob = m
-				buckled_mob.apply_damage(4 * log(pipe_air.temperature - heat_limit), BURN, "chest")
+				buckled_mob.apply_damage(4 * log(pipe_air.temperature - heat_limit), BURN, BODY_ZONE_CHEST)
 
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/New()
@@ -85,12 +87,14 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden
 	level=1
 	icon_state="intact-f"
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER
 
 /////////////////////////////////
 // JUNCTION
 /////////////////////////////////
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
-	icon = 'icons/atmos/junction.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/junction.dmi'
 	icon_state = "intact"
 	pipe_icon = "hejunction"
 	level = 2
@@ -130,3 +134,5 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden
 	level=1
 	icon_state="intact-f"
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER

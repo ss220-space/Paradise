@@ -13,13 +13,14 @@
 	vision_range = 5
 	aggro_vision_range = 9
 	speed = 3
-	maxHealth = 75
-	health = 75
+	maxHealth = 100
+	health = 100
 	harm_intent_damage = 5
 	melee_damage_lower = 0
 	melee_damage_upper = 0
-	attacktext = "lashes out at"
+	attacktext = "хлещет"
 	speak_emote = list("telepathically cries")
+	tts_seed = "Ladyvashj"
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
 	ranged_cooldown = 0
@@ -29,8 +30,9 @@
 	retreat_distance = 3
 	minimum_distance = 3
 	pass_flags = PASSTABLE
-	loot = list(/obj/item/organ/internal/regenerative_core)
+	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
+	needs_gliding = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -77,8 +79,9 @@
 	harm_intent_damage = 5
 	melee_damage_lower = 2
 	melee_damage_upper = 2
-	attacktext = "slashes"
+	attacktext = "кромсает"
 	speak_emote = list("telepathically cries")
+	tts_seed = "Ladyvashj"
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
 	obj_damage = 0
@@ -86,10 +89,11 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	del_on_death = 1
+	needs_gliding = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/death), 100)
+	addtimer(CALLBACK(src, PROC_REF(death)), 100)
 	AddComponent(/datum/component/swarming)
 
 
@@ -99,10 +103,10 @@
 	icon_state = "bloodbrood"
 	icon_living = "bloodbrood"
 	icon_aggro = "bloodbrood"
-	attacktext = "pierces"
+	attacktext = "пронзает"
 	color = "#C80000"
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
 	if(can_die() && loc)
 		// Splash the turf we are on with blood
 		reagents.reaction(get_turf(src))
@@ -164,12 +168,14 @@
 	obj_damage = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "lashes out at"
+	attacktext = "хлещет"
 	speak_emote = list("echoes")
+	tts_seed = "Bloodseeker"
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "bounces harmlessly off of"
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	loot = list(/obj/item/organ/internal/regenerative_core/legion)
+	butcher_results = null
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	del_on_death = 1
 	stat_attack = UNCONSCIOUS
@@ -190,8 +196,8 @@
 	icon_living = "dwarf_legion"
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
-	maxHealth = 60
-	health = 60
+	maxHealth = 80
+	health = 80
 	speed = 2 //faster!
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
@@ -202,9 +208,13 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
 	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
 	var/turf/T = get_turf(src)
+	for(var/i in 1 to 2)
+		new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken(T)
 	if(T)
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
+			stored_mob.rejuvenate()
+			stored_mob.death()
 			stored_mob = null
 		else if(fromtendril)
 			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
@@ -231,21 +241,30 @@
 	harm_intent_damage = 5
 	melee_damage_lower = 12
 	melee_damage_upper = 12
-	attacktext = "bites"
+	attacktext = "кусает"
 	speak_emote = list("echoes")
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "is shrugged off by"
 	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
+	var/can_infest = TRUE
 	var/can_infest_dead = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
-	if(isturf(loc))
+	if(isturf(loc) && can_infest)
 		for(var/mob/living/carbon/human/H in view(src,1)) //Only for corpse right next to/on same tile
 			if(H.stat == UNCONSCIOUS || (can_infest_dead && H.stat == DEAD))
 				infest(H)
 	..()
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/AttackingTarget()
+	. = ..()
+	if(!isobj(target))
+		var/mob/living/carbon/human/victim = target
+		if(victim.can_inject(null, FALSE, BODY_ZONE_CHEST, FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(1))
+			new /obj/item/organ/internal/legion_tumour(victim)
+			visible_message(span_userdanger("[src] вгрызается в шею [target], впрыскивая странную черную жидкость!</span>")) //made it on russian to attract more attention from attacklogs
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
@@ -259,6 +278,10 @@
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H
 	H.forceMove(L)
+	if(prob(75) && !H.get_int_organ(/obj/item/organ/internal/legion_tumour)) // Congratulations you have won a special prize: cancer!
+		var/obj/item/organ/internal/legion_tumour/cancer = new()
+		cancer.insert(H, special = TRUE)
+
 	qdel(src)
 
 //Advanced Legion is slightly tougher to kill and can raise corpses (revive other legions)
@@ -272,9 +295,18 @@
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril
+	fromtendril = TRUE
+
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
 	stat_attack = DEAD
 	can_infest_dead = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken
+	melee_damage_lower = 6
+	melee_damage_upper = 6
+	can_infest = FALSE
+
 
 //Legion that spawns Legions
 /mob/living/simple_animal/hostile/big_legion
@@ -308,11 +340,12 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	tts_seed = "Mannoroth"
 
 
 /mob/living/simple_animal/hostile/big_legion/Initialize(mapload)
 	.=..()
-	AddComponent(/datum/component/spawner, list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion), 200, faction, "peels itself off from", 3)
+	AddComponent(/datum/component/spawner, list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril), 200, faction, "peels itself off from", 3)
 
 //Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton
@@ -326,7 +359,7 @@
 
 //Legion infested mobs
 
-/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
+/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	. = ..()
 	H.dna.SetSEState(GLOB.smallsizeblock, 1, 1)
 	H.mutations.Add(DWARF)
@@ -344,7 +377,7 @@
 			else if(prob(10))
 				belt = pickweight(list(/obj/item/pickaxe = 8, /obj/item/pickaxe/mini = 4, /obj/item/pickaxe/silver = 2, /obj/item/pickaxe/diamond = 1))
 			else
-				belt = /obj/item/tank/emergency_oxygen/engi
+				belt = /obj/item/tank/internals/emergency_oxygen/engi
 			if(mob_species != /datum/species/unathi)
 				shoes = /obj/item/clothing/shoes/workboots/mining
 			gloves = /obj/item/clothing/gloves/color/black
@@ -357,7 +390,7 @@
 				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown = 1 ))
 		if("Ashwalker")
 			mob_species = /datum/species/unathi/ashwalker
-			uniform = /obj/item/clothing/under/gladiator/ash_walker
+			uniform = /obj/item/clothing/under/ash_walker
 			if(prob(95))
 				head = /obj/item/clothing/head/helmet/gladiator
 			else
@@ -378,11 +411,13 @@
 			belt = null
 			backpack_contents = list()
 			if(prob(70))
-				backpack_contents += pick(list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1))
+				backpack_contents += list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1)
 			if(prob(30))
 				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list( 1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
+			if(prob(10))
+				r_pocket = /obj/item/implanter/sad_trombone
 		if("Golem")
 			mob_species = pick(list(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium))
 			if(prob(30))
@@ -402,7 +437,7 @@
 			suit = /obj/item/clothing/suit/armor/riot/knight
 			back = /obj/item/shield/riot/buckler
 			belt = /obj/item/nullrod/claymore
-			r_pocket = /obj/item/tank/emergency_oxygen
+			r_pocket = /obj/item/tank/internals/emergency_oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Operative")
 			id_job = "Operative"
@@ -413,7 +448,7 @@
 			shoes = /obj/item/clothing/shoes/black
 			suit = /obj/item/clothing/suit/storage/labcoat
 			glasses = /obj/item/clothing/glasses/sunglasses/blindfold
-			back = /obj/item/tank/oxygen
+			back = /obj/item/tank/internals/oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")
 			uniform = /obj/item/clothing/under/roman

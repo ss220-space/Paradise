@@ -15,6 +15,16 @@
 	var/template_id = "shelter_alpha"
 	var/datum/map_template/shelter/template
 	var/used = FALSE
+	var/emagged = FALSE
+
+/obj/item/survivalcapsule/emag_act(mob/user)
+	if(!emagged)
+		if(user)
+			to_chat(user, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+		emagged = TRUE
+		return
+	if(user)
+		to_chat(user, "<span class='warning'>The safeties are already shorted out!</span>")
 
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
@@ -27,13 +37,18 @@
 /obj/item/survivalcapsule/examine(mob/user)
 	. = ..()
 	get_template()
-	. += "This capsule has the [template.name] stored."
-	. += template.description
+	. += "<span class='notice'>This capsule has the [template.name] stored.</span>"
+	. += "<span class='notice'>[template.description]</span>"
 
 /obj/item/survivalcapsule/attack_self()
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(used == FALSE)
+		var/turf/UT = get_turf(usr)
+		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
+			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
+			playsound(usr, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
+			return
 		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
 		used = TRUE
 		sleep(50)
@@ -55,8 +70,8 @@
 
 		var/turf/T = deploy_location
 		if(!is_mining_level(T.z))//only report capsules away from the mining/lavaland level
-			message_admins("[key_name_admin(usr)] ([ADMIN_QUE(usr,"?")]) ([ADMIN_FLW(usr,"FLW")]) activated a bluespace capsule away from the mining level! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
-			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] activated a bluespace capsule away from the mining level!")
+			add_game_logs("activated a bluespace capsule away from the mining level at [COORD(T)]", usr)
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
 		qdel(src)
@@ -66,6 +81,11 @@
 	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace."
 	origin_tech = "engineering=3;bluespace=4"
 	template_id = "shelter_beta"
+
+/obj/item/survivalcapsule/luxuryelite
+	name = "luxury elite bar capsule"
+	desc = "A luxury bar in a capsule. Bartender required and not included."
+	template_id = "shelter_charlie"
 
 //Pod turfs and objects
 
@@ -165,7 +185,11 @@
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
 	req_access = list()
 
-	products = list(/obj/item/stack/medical/splint = 2)
+	products = list(/obj/item/stack/medical/splint = 2,
+					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 2,
+					/obj/item/reagent_containers/food/pill/patch/styptic = 2,
+					/obj/item/reagent_containers/hypospray/autoinjector = 1,
+					/obj/item/healthanalyzer = 1)
 	contraband = list()
 
 //Computer
@@ -182,8 +206,9 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/gps(loc)
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+			var/obj/item/gps/gps = new(loc)
+			gps.add_fingerprint(user)
 			qdel(src)
 			return ..()
 
@@ -229,7 +254,7 @@
 	return
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
-	return isitem(O)
+	return isitem(O) && !(O.flags & ABSTRACT)
 
 /obj/machinery/smartfridge/survival_pod/default_unfasten_wrench()
 	return FALSE
@@ -274,7 +299,7 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
 			deconstruct()
 			return ..()
 
@@ -317,8 +342,9 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/stack/rods(loc)
+		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+			var/obj/item/stack/rods/rods = new(loc)
+			rods.add_fingerprint(user)
 			qdel(src)
 			return ..()
 
@@ -331,15 +357,15 @@
 						/obj/item/sleeping_carp_scroll,
 						/obj/item/shield/changeling,
 						/obj/item/lava_staff,
-						/obj/item/katana/energy,
 						/obj/item/hierophant_club,
+						/obj/item/melee/energy_katana,
 						/obj/item/storage/toolbox/green/memetic,
 						/obj/item/gun/projectile/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
 						/obj/item/gun/magic/staff/spellblade,
 						/obj/item/gun/magic/wand/death,
 						/obj/item/gun/magic/wand/fireball,
-						/obj/item/stack/telecrystal/twenty,
+						/obj/item/stack/telecrystal/hundread,
 						/obj/item/banhammer)
 
 /obj/item/fakeartefact/New()

@@ -53,6 +53,13 @@
 	item_state = "b_suit"
 	item_color = "mailman"
 
+/obj/item/clothing/under/rank/mailman/skirt
+	name = "mailman's jumpskirt"
+	desc = "<i>'Special delivery!'</i>"
+	icon_state = "mail_skirt"
+	item_state = "b_suit"
+	item_color = "mail_skirt"
+
 /obj/item/clothing/under/rank/vice
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
@@ -69,12 +76,24 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/solgov/elite
+	name = "\improper Trans-Solar Federation Specops marine uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
+	icon_state = "solgovelite"
+	item_color = "solgovelite"
+
 /obj/item/clothing/under/solgov/command
 	name = "Sol Federation Lieutenant's uniform"
 	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+
+/obj/item/clothing/under/solgov/command/elite
+	name = "\improper Trans-Solar Federation Specops Lieutenant's uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces. This one has additional insignia on its shoulders and cuffs."
+	icon_state = "solgovcelite"
+	item_color = "solgovcelite"
 
 /obj/item/clothing/under/solgov/rep
 	name = "Sol Federation representative's uniform"
@@ -101,7 +120,7 @@
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Officer Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
@@ -109,14 +128,36 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/rank/centcom/officer/skirt
+	desc = "Gold trim on space-black cloth, this skirt displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Officer Skirt"
+	icon_state = "navy_goldf"
+	item_state = "navy_goldf"
+	item_color = "navy_goldf"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
+
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	name = "\improper Nanotrasen Naval Captain Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
+
+/obj/item/clothing/under/rank/centcom/captain/solgov
+	name = "\improper Trans-Solar Federation commander's uniform"
+	desc = "Gold trim on space-black cloth, this uniform is worn by generals of the Trans-Solar Federation. It has exotic materials for protection."
 
 /obj/item/clothing/under/rank/centcom/blueshield
 	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
@@ -276,6 +317,18 @@
 	item_state = "r_suit"
 	item_color = "red_suit"
 
+/obj/item/clothing/under/suit_jacket/red/skirt
+	name = "red jumpskirt"
+	desc = "A red jumpskirt and blue tie. Somewhat formal."
+	icon_state = "red_suitf"
+	item_state = "r_suit"
+	item_color = "red_suitf"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+		)
+
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
 	desc = "A navy suit and red tie, intended for the station's finest."
@@ -341,11 +394,26 @@
 	item_color = "piraterags"
 
 /obj/item/clothing/under/soviet
-	name = "soviet uniform"
-	desc = "For the Motherland!"
+	name = "\improper Soviet uniform"
+	desc = "A standard U.S.S.P military uniform."
 	icon_state = "soviet"
 	item_state = "soviet"
 	item_color = "soviet"
+
+
+/obj/item/clothing/under/sovietofficer
+	name = "\improper Soviet officer uniform"
+	desc = "A U.S.S.P commanding officer's uniform."
+	icon_state = "sovietofficer"
+	item_state = "sovietofficer"
+	item_color = "sovietofficer"
+
+/obj/item/clothing/under/sovietadmiral
+	name = "\improper Soviet admiral uniform"
+	desc = "A U.S.S.P naval admiral's uniform."
+	icon_state = "sovietadmiral"
+	item_state = "sovietadmiral"
+	item_color = "sovietadmiral"
 
 /obj/item/clothing/under/redcoat
 	name = "redcoat uniform"
@@ -370,6 +438,22 @@
 	item_color = "sexymime"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/mimeshorts
+	name = "mime shorts"
+	desc = "..."
+	icon_state = "mime_shorts"
+	item_state = "mime_shorts"
+	item_color = "mime_shorts"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/under/mimeskirt
+	name = "sexy mime skirt"
+	desc = "..."
+	icon_state = "mime_skirt"
+	item_state = "mime_skirt"
+	item_color = "mime_skirt"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
 /obj/item/clothing/under/gladiator
 	name = "gladiator uniform"
 	desc = "Are you not entertained? Is that not why you are here?"
@@ -379,9 +463,22 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	resistance_flags = NONE
 
-/obj/item/clothing/under/gladiator/ash_walker
-	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
+/obj/item/clothing/under/ash_walker
+	name = "ash-walker uniform"
+	desc = ""
+	icon_state = "ash"
+	item_state = "ash"
+	item_color = "ash"
 	has_sensor = FALSE
+
+/obj/item/clothing/under/ash_walker_shaman
+	name = "shaman tribal rags"
+	desc = "Rags from Lavaland, drenched with ash, it has fine jewel coated bones sewn around the neck. This one seems to be for the shaman of a tribe."
+	icon_state = "shamanrags"
+	item_state = "shamanrags"
+	item_color = "shamanrags"
+	has_sensor = FALSE
+	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
 
 //dress
 
@@ -402,6 +499,7 @@
 	desc = "A fancy orange gown for those who like to show leg."
 	icon_state = "dress_orange"
 	item_color = "dress_orange"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/dress/dress_pink
 	name = "pink dress"
@@ -432,6 +530,12 @@
 	desc = "Feminine fashion for the style concious captain."
 	icon_state = "dress_cap"
 	item_color = "dress_cap"
+
+/obj/item/clothing/under/dress/dress_parade
+	name = "captain parade dress uniform"
+	desc = "Feminine fashion for the style concious captain."
+	icon_state = "dress_parade"
+	item_state = "dress_parade"
 
 /obj/item/clothing/under/dress/dress_hop
 	name = "head of personal dress uniform"
@@ -470,35 +574,35 @@
 	desc = "A big and puffy orange dress."
 	icon_state = "bride_orange"
 	item_color = "bride_orange"
-	flags_inv = HIDESHOES
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_purple
 	name = "purple wedding dress"
 	desc = "A big and puffy purple dress."
 	icon_state = "bride_purple"
 	item_color = "bride_purple"
-	flags_inv = HIDESHOES
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_blue
 	name = "blue wedding dress"
 	desc = "A big and puffy blue dress."
 	icon_state = "bride_blue"
 	item_color = "bride_blue"
-	flags_inv = HIDESHOES
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_red
 	name = "red wedding dress"
 	desc = "A big and puffy red dress."
 	icon_state = "bride_red"
 	item_color = "bride_red"
-	flags_inv = HIDESHOES
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_white
 	name = "white wedding dress"
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	item_color = "bride_white"
-	flags_inv = HIDESHOES
+	over_shoes = TRUE
 
 /obj/item/clothing/under/sundress
 	name = "sundress"
@@ -514,6 +618,23 @@
 	icon_state = "captain_parade"
 	item_state = "by_suit"
 	item_color = "captain_parade"
+
+/obj/item/clothing/under/captainparade/alt
+	icon_state = "cap_parade"
+	item_state = "cap_parade"
+	item_color = "cap_parade"
+
+/obj/item/clothing/under/captainparade/dress
+	icon_state = "dress_parade"
+	item_state = "dress_parade"
+	item_color = "dress_parade"
+
+/obj/item/clothing/under/captainparade/office
+	name = "captain's office uniform"
+	desc = "for everyday bureaucracy"
+	icon_state = "cap_office"
+	item_state = "cap_office"
+	item_color = "cap_office"
 
 /obj/item/clothing/under/roman
 	name = "roman armor"
@@ -546,6 +667,7 @@
 	icon_state = "ysing"
 	item_state = "ysing"
 	item_color = "ysing"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/singerb
 	name = "blue performer's outfit"
@@ -653,6 +775,21 @@
 	item_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/rockso
+	name = "Rockso Costume"
+	desc = "I DO COCAINE!"
+	icon_state = "rocksouniform"
+	item_color = "rocksouniform"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		"Wryn" = 'icons/mob/clothing/species/wryn/uniform.dmi'
+	)
+
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"
 	desc = "An assistant's formal-wear. Why an assistant needs formal-wear is still unknown."
@@ -666,6 +803,7 @@
 	icon_state = "black_tango"
 	item_state = "wcoat"
 	item_color = "black_tango"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/stripeddress
 	name = "striped dress"
@@ -687,6 +825,7 @@
 	icon_state = "red_evening_gown"
 	item_state = "redeveninggown"
 	item_color = "red_evening_gown"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/suit_jacket/checkered
 	name = "checkered suit"
@@ -722,24 +861,33 @@
 	item_color = "atmos"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
-	if(!user.ventcrawler)
-		user.ventcrawler = 2
-	..()
+/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
 
-/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
+	if(slot == slot_w_uniform)
+		if(!user.ventcrawler)
+			user.ventcrawler = 1
+
+/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user, silent = FALSE)
 	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
 		user.ventcrawler = 0
 	..()
 
-/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user as mob)
+
+/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(slot_back,slot_handcuffed,slot_legcuffed,slot_l_hand,slot_r_hand,slot_belt,slot_head,slot_wear_suit)
+	var/list/slot_must_be_empty = list(slot_back, slot_handcuffed, slot_legcuffed, slot_l_hand, \
+										slot_r_hand, slot_belt, slot_head, slot_wear_suit)
+
+	var/obj/item/slot_item
 	for(var/slot_id in slot_must_be_empty)
-		if(user.get_item_by_slot(slot_id))
-			to_chat(user,"<span class='warning'>You can't fit inside while wearing that \the [user.get_item_by_slot(slot_id)].</span>")
-			return 0
-	return 1
+		slot_item = user.get_item_by_slot(slot_id)
+		if(slot_item)
+			to_chat(user, span_warning("Вы не можете залезть в вентиляцию с [slot_item.name]."))
+			return FALSE
+
+	return TRUE
+
 
 /obj/item/clothing/under/cursedclown
 	name = "cursed clown suit"
@@ -762,12 +910,14 @@
 	item_state = "victorianblackdress"
 	item_color = "victorianblackdress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	over_shoes = TRUE
 
 /obj/item/clothing/under/victdress/red
 	name = "red victorian dress"
 	icon_state = "victorianreddress"
 	item_state = "victorianreddress"
 	item_color = "victorianreddress"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/victsuit
 	name = "victorian suit"
@@ -853,3 +1003,77 @@
 	icon_state = "tourist"
 	icon_state = "tourist"
 	item_color = "tourist"
+
+/obj/item/clothing/under/red_chaps
+	name = "red chaps"
+	desc = "A stylish chaps that will make you look like a desert bandit."
+	icon_state = "red_chaps"
+	icon_state = "red_chaps"
+	item_color = "red_chaps"
+	over_shoes = TRUE
+
+/obj/item/clothing/under/white_chaps
+	name = "white chaps"
+	desc = "A stylish chaps that will make you look like one of that cool guys from old movies."
+	icon_state = "white_chaps"
+	icon_state = "white_chaps"
+	item_color = "white_chaps"
+	over_shoes = TRUE
+
+/obj/item/clothing/under/tan_chaps
+	name = "tan chaps"
+	desc = "A stylish chaps that will make you look like a real sheriff."
+	icon_state = "tan_chaps"
+	icon_state = "tan_chaps"
+	item_color = "tan_chaps"
+	over_shoes = TRUE
+
+/obj/item/clothing/under/brown_chaps
+	name = "brown chaps"
+	desc = "A stylish chaps that will make you look like a real cowboy."
+	icon_state = "brown_chaps"
+	icon_state = "brown_chaps"
+	item_color = "brown_chaps"
+	over_shoes = TRUE
+
+/obj/item/clothing/under/colour/skirt
+	name = "dyeable skirt"
+	desc = "A skirt that can be dyed any color you want!"
+	icon_state = "colorize_skirt"
+	item_state = "colorize_skirt"
+	item_color = "colorize_skirt"
+	var/colour = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
+
+/obj/item/clothing/under/colour/skirt/Initialize(mapload)
+	. = ..()
+	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
+	update_icon()
+
+/obj/item/clothing/under/colour/skirt/attack_self(mob/user)
+	if(icon_state == initial(icon_state))
+		icon_state = icon_state + "_t"
+		item_state = icon_state + "_t"
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+	user.update_inv_wear_suit()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/clothing/under/colour/skirt/New()
+	..()
+	AddComponent(/datum/component/spraycan_paintable)
+	START_PROCESSING(SSobj, src)
+	update_icon()

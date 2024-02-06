@@ -102,6 +102,7 @@
 /datum/hud/robot/New(mob/user)
 	..()
 
+	user.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	var/obj/screen/using
 	var/mob/living/silicon/robot/mymobR = mymob
 
@@ -165,13 +166,13 @@
 	module_store_icon.screen_loc = ui_borg_store
 
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = 'icons/mob/screen_robot.dmi'
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_borg_pull
 	hotkeybuttons += mymob.pullin
 
-	zone_select = new /obj/screen/zone_sel/robot()
-	zone_select.update_icon(mymob)
+	zone_select = new /obj/screen/zone_sel/robot(null, src)
 	static_inventory += zone_select
 
 //Headlamp
@@ -205,6 +206,13 @@
 
 	if(!R.module)
 		return
+
+	if(R.module_state_1)
+		R.client.screen += R.module_state_1
+	if(R.module_state_2)
+		R.client.screen += R.module_state_2
+	if(R.module_state_3)
+		R.client.screen += R.module_state_3
 
 	if(R.shown_robot_modules && hud_shown)
 		//Modules display is shown
@@ -245,10 +253,10 @@
 				A.layer = ABOVE_HUD_LAYER
 				A.plane = ABOVE_HUD_PLANE
 
-				x++
-				if(x == 4)
-					x = -4
-					y++
+			x++
+			if(x == 4)
+				x = -4
+				y++
 
 	else
 		//Modules display is hidden

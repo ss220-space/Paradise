@@ -11,7 +11,7 @@
 	name = "Electromagnetic Generator"
 	desc = "A device that uses station power to create points of magnetic energy."
 	level = 1		// underfloor
-	layer = 2.5
+	layer = WIRE_LAYER+0.001
 	anchored = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
@@ -32,6 +32,8 @@
 /obj/machinery/magnetic_module/New()
 	..()
 	var/turf/T = loc
+	if(!T.transparent_floor)
+		hide(T.intact)
 	hide(T.intact)
 	center = T
 
@@ -44,7 +46,7 @@
 
 	// update the invisibility and icon
 /obj/machinery/magnetic_module/hide(intact)
-	invisibility = intact ? 101 : 0
+	invisibility = intact ? INVISIBILITY_ABSTRACT : 0
 	updateicon()
 
 	// update the icon_state
@@ -175,7 +177,7 @@
 
 /obj/machinery/magnetic_controller
 	name = "Magnetic Control Console"
-	icon = 'icons/obj/airlock_machines.dmi' // uses an airlock machine icon, THINK GREEN HELP THE ENVIRONMENT - RECYCLING!
+	icon = 'icons/obj/machines/airlock_machines.dmi' // uses an airlock machine icon, THINK GREEN HELP THE ENVIRONMENT - RECYCLING!
 	icon_state = "airlock_control_standby"
 	density = 1
 	anchored = 1.0
@@ -250,6 +252,7 @@
 			i++
 			dat += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;< \[[i]\] (<a href='?src=[UID()];radio-op=togglepower'>[M.on ? "On":"Off"]</a>) | Electricity level: <a href='?src=[UID()];radio-op=minuselec'>-</a> [M.electricity_level] <a href='?src=[UID()];radio-op=pluselec'>+</a>; Magnetic field: <a href='?src=[UID()];radio-op=minusmag'>-</a> [M.magnetic_field] <a href='?src=[UID()];radio-op=plusmag'>+</a><br>"
 
+	add_fingerprint(user)
 	dat += "<br>Speed: <a href='?src=[UID()];operation=minusspeed'>-</a> [speed] <a href='?src=[UID()];operation=plusspeed'>+</a><br>"
 	dat += "Path: {<a href='?src=[UID()];operation=setpath'>[path]</a>}<br>"
 	dat += "Moving: <a href='?src=[UID()];operation=togglemoving'>[moving ? "Enabled":"Disabled"]</a>"

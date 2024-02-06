@@ -1,7 +1,7 @@
 /obj/machinery/computer/arcade
 	name = "random arcade"
 	desc = "random arcade machine"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "arcade"
 	icon_keyboard = null
 	icon_screen = "invaders"
@@ -51,7 +51,7 @@
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
 	desc = "Does not support Pinball."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villian"
@@ -98,7 +98,7 @@
 
 	//user << browse(dat, "window=arcade")
 	//onclose(user, "arcade")
-	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000")
+	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000", 420, 280, src)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -113,7 +113,7 @@
 			blocked = 1
 			var/attackamt = rand(2,6)
 			temp = "You attack for [attackamt] damage!"
-			playsound(src.loc, 'sound/arcade/hit.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/hit.ogg', 50, TRUE)
 			updateUsrDialog()
 			if(turtle > 0)
 				turtle--
@@ -127,7 +127,7 @@
 			var/pointamt = rand(1,3)
 			var/healamt = rand(6,8)
 			temp = "You use [pointamt] magic to heal for [healamt] damage!"
-			playsound(src.loc, 'sound/arcade/heal.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/heal.ogg', 50, TRUE)
 			updateUsrDialog()
 			turtle++
 
@@ -142,7 +142,7 @@
 			blocked = 1
 			var/chargeamt = rand(4,7)
 			temp = "You regain [chargeamt] points"
-			playsound(src.loc, 'sound/arcade/mana.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/mana.ogg', 50, TRUE)
 			player_mp += chargeamt
 			if(turtle > 0)
 				turtle--
@@ -177,14 +177,14 @@
 		if(!gameover)
 			gameover = 1
 			temp = "[enemy_name] has fallen! Rejoice!"
-			playsound(src.loc, 'sound/arcade/win.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
 
 			if(emagged)
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_emagged")
 				new /obj/effect/spawner/newbomb/timer/syndicate(get_turf(src))
 				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
-				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
+				add_game_logs("has outbombed Cuban Pete and been awarded a bomb.", usr)
 				Reset()
 				emagged = 0
 			else
@@ -195,13 +195,13 @@
 	else if(emagged && (turtle >= 4))
 		var/boomamt = rand(5,10)
 		temp = "[enemy_name] throws a bomb, exploding you for [boomamt] damage!"
-		playsound(src.loc, 'sound/arcade/boom.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/boom.ogg', 50, TRUE)
 		player_hp -= boomamt
 
 	else if((enemy_mp <= 5) && (prob(70)))
 		var/stealamt = rand(2,3)
 		temp = "[enemy_name] steals [stealamt] of your power!"
-		playsound(src.loc, 'sound/arcade/steal.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/steal.ogg', 50, TRUE)
 		player_mp -= stealamt
 		updateUsrDialog()
 
@@ -209,7 +209,7 @@
 			gameover = 1
 			sleep(10)
 			temp = "You have been drained! GAME OVER"
-			playsound(src.loc, 'sound/arcade/lose.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
 			if(emagged)
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_emagged")
 				usr.gib()
@@ -218,20 +218,20 @@
 
 	else if((enemy_hp <= 10) && (enemy_mp > 4))
 		temp = "[enemy_name] heals for 4 health!"
-		playsound(src.loc, 'sound/arcade/heal.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/heal.ogg', 50, TRUE)
 		enemy_hp += 4
 		enemy_mp -= 4
 
 	else
 		var/attackamt = rand(3,6)
 		temp = "[enemy_name] attacks for [attackamt] damage!"
-		playsound(src.loc, 'sound/arcade/hit.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/hit.ogg', 50, TRUE)
 		player_hp -= attackamt
 
 	if((player_mp <= 0) || (player_hp <= 0))
 		gameover = 1
 		temp = "You have been crushed! GAME OVER"
-		playsound(src.loc, 'sound/arcade/lose.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
 		if(emagged)
 			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_emagged")
 			usr.gib()
@@ -242,8 +242,9 @@
 	return
 
 
-/obj/machinery/computer/arcade/battle/emag_act(user as mob)
+/obj/machinery/computer/arcade/battle/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		temp = "If you die in the game, you die for real!"
 		player_hp = 30
 		player_mp = 10
@@ -367,18 +368,18 @@
 				dat += "<br>You ran out of food and starved."
 				if(emagged)
 					user.set_nutrition(0) //yeah you pretty hongry
-					to_chat(user, "<span class='userdanger'><font size=3>Your body instantly contracts to that of one who has not eaten in months. Agonizing cramps seize you as you fall to the floor.</span>")
+					to_chat(user, span_userdanger("<font size=3>Your body instantly contracts to that of one who has not eaten in months. Agonizing cramps seize you as you fall to the floor."))
 			if(fuel <= 0)
 				dat += "<br>You ran out of fuel, and drift, slowly, into a star."
 				if(emagged)
 					var/mob/living/M = user
 					M.adjust_fire_stacks(5)
 					M.IgniteMob() //flew into a star, so you're on fire
-					to_chat(user, "<span class='userdanger'><font size=3>You feel an immense wave of heat emanate from the arcade machine. Your skin bursts into flames.</span>")
+					to_chat(user, span_userdanger("<font size=3>You feel an immense wave of heat emanate from the arcade machine. Your skin bursts into flames."))
 		dat += "<br><P ALIGN=Right><a href='byond://?src=[UID()];menu=1'>OK...</a></P>"
 
 		if(emagged)
-			to_chat(user, "<span class='userdanger'><font size=3>You're never going to make it to Orion...</span></font>")
+			to_chat(user, span_userdanger("<font size=3>You're never going to make it to Orion...</font>"))
 			user.death()
 			emagged = 0 //removes the emagged status after you lose
 			playing = 0 //also a new game
@@ -407,7 +408,7 @@
 		dat += "<br><center><h3>Experience the journey of your ancestors!</h3></center><br><br>"
 		dat += "<center><b><a href='byond://?src=[UID()];newgame=1'>New Game</a></b></center>"
 		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
-	var/datum/browser/popup = new(user, "arcade", "The Orion Trail",400,700)
+	var/datum/browser/popup = new(user, "arcade", "The Orion Trail", 420, 420, src)
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -420,7 +421,6 @@
 	if(href_list["close"])
 		usr.unset_machine()
 		usr << browse(null, "window=arcade")
-
 	if(busy)
 		return
 	busy = 1
@@ -446,41 +446,42 @@
 			switch(event)
 				if(ORION_TRAIL_RAIDERS)
 					if(prob(50))
-						to_chat(usr, "<span class='userdanger'>You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?</span>")
-						M.AdjustHallucinate(30)
+						to_chat(usr, span_userdanger("You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?"))
+						M.AdjustHallucinate(30 SECONDS)
+						M.last_hallucinator_log = "Emagged Orion Trail"
 					else
-						to_chat(usr, "<span class='userdanger'>Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there...</span>")
+						to_chat(usr, span_userdanger("Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there..."))
 						M.take_organ_damage(30)
-						playsound(loc, 'sound/weapons/genhit2.ogg', 100, 1)
+						playsound(loc, 'sound/weapons/genhit2.ogg', 100, TRUE)
 				if(ORION_TRAIL_ILLNESS)
 					var/severity = rand(1,3) //pray to RNGesus. PRAY, PIGS
 					if(severity == 1)
-						to_chat(M, "<span class='userdanger'>You suddenly feel slightly nauseous.</span>")//got off lucky
+						to_chat(M, span_userdanger("You suddenly feel slightly nauseous."))//got off lucky
 
 					if(severity == 2)
-						to_chat(usr, "<span class='userdanger'>You suddenly feel extremely nauseous and hunch over until it passes.</span>")
-						M.Stun(3)
+						to_chat(usr, span_userdanger("You suddenly feel extremely nauseous and hunch over until it passes."))
+						M.Stun(6 SECONDS)
 					if(severity >= 3) //you didn't pray hard enough
-						to_chat(M, "<span class='warning'>An overpowering wave of nausea consumes over you. You hunch over, your stomach's contents preparing for a spectacular exit.</span>")
-						M.Stun(5)
+						to_chat(M, span_warning("An overpowering wave of nausea consumes over you. You hunch over, your stomach's contents preparing for a spectacular exit."))
+						M.Stun(10 SECONDS)
 						sleep(30)
 						atom_say("[M] violently throws up!")
-						playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+						playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 						M.adjust_nutrition(-50) //lose a lot of food
 						var/turf/location = usr.loc
 						if(istype(location, /turf/simulated))
 							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
 					if(prob(75))
-						M.Weaken(3)
+						M.Weaken(6 SECONDS)
 						atom_say("A sudden gust of powerful wind slams [M] into the floor!")
 						M.take_organ_damage(25)
-						playsound(src.loc, 'sound/weapons/genhit.ogg', 100, 1)
+						playsound(src.loc, 'sound/weapons/genhit.ogg', 100, TRUE)
 					else
-						to_chat(M, "<span class='userdanger'>A violent gale blows past you, and you barely manage to stay standing!</span>")
+						to_chat(M, span_userdanger("A violent gale blows past you, and you barely manage to stay standing!"))
 				if(ORION_TRAIL_COLLISION) //by far the most damaging event
 					if(prob(90))
-						playsound(src.loc, 'sound/effects/bang.ogg', 100, 1)
+						playsound(src.loc, 'sound/effects/bang.ogg', 100, TRUE)
 						var/turf/simulated/floor/F
 						for(F in orange(1, src))
 							F.ChangeTurf(F.baseturf)
@@ -488,16 +489,16 @@
 						if(hull)
 							sleep(10)
 							atom_say("A new floor suddenly appears around [src]. What the hell?")
-							playsound(src.loc, 'sound/weapons/genhit.ogg', 100, 1)
+							playsound(loc, 'sound/weapons/genhit.ogg', 100, TRUE)
 							var/turf/space/T
 							for(T in orange(1, src))
 								T.ChangeTurf(/turf/simulated/floor/plating)
 					else
 						atom_say("Something slams into the floor around [src] - luckily, it didn't get through!")
-						playsound(src.loc, 'sound/effects/bang.ogg', 20, 1)
+						playsound(loc, 'sound/effects/bang.ogg', 20, TRUE)
 				if(ORION_TRAIL_MALFUNCTION)
-					playsound(src.loc, 'sound/effects/empulse.ogg', 20, 1)
-					visible_message("<span class='danger'>[src] malfunctions, randomizing in-game stats!</span>")
+					playsound(loc, 'sound/effects/empulse.ogg', 20, TRUE)
+					visible_message(span_danger("[src] malfunctions, randomizing in-game stats!"))
 					var/oldfood = food
 					var/oldfuel = fuel
 					food = rand(10,80) / rand(1,2)
@@ -505,12 +506,12 @@
 					if(electronics)
 						sleep(10)
 						if(oldfuel > fuel && oldfood > food)
-							audible_message("<span class='danger'>[src] lets out a somehow reassuring chime.</span>")
+							audible_message(span_danger("[src] lets out a somehow reassuring chime."))
 						else if(oldfuel < fuel || oldfood < food)
-							audible_message("<span class='danger'>[src] lets out a somehow ominous chime.</span>")
+							audible_message(span_danger("[src] lets out a somehow ominous chime."))
 						food = oldfood
 						fuel = oldfuel
-						playsound(src.loc, 'sound/machines/chime.ogg', 20, 1)
+						playsound(loc, 'sound/machines/chime.ogg', 20, TRUE)
 
 	else if(href_list["newgame"]) //Reset everything
 		newgame()
@@ -553,9 +554,11 @@
 			event = ORION_TRAIL_BLACKHOLE
 			event()
 			if(emagged) //has to be here because otherwise it doesn't work
-				playsound(src.loc, 'sound/effects/supermatter.ogg', 100, 1)
+				playsound(loc, 'sound/effects/supermatter.ogg', 100, TRUE)
 				atom_say("A miniature black hole suddenly appears in front of [src], devouring [usr] alive!")
-				usr.Stun(10) //you can't run :^)
+				if(isliving(usr))
+					var/mob/living/L = usr
+					L.Stun(20 SECONDS) //you can't run :^)
 				var/S = new /obj/singularity/academy(usr.loc)
 				emagged = 0 //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
 				sleep(50)
@@ -574,7 +577,7 @@
 		if(length(settlers) <= 0 || alive <= 0)
 			return
 		var/sheriff = remove_crewmember() //I shot the sheriff
-		playsound(loc, 'sound/weapons/gunshots/gunshot.ogg', 100, 1)
+		playsound(loc, 'sound/weapons/gunshots/gunshot.ogg', 100, TRUE)
 
 		if(length(settlers) == 0 || alive == 0)
 			atom_say("The last crewmember [sheriff], shot themselves, GAME OVER!")
@@ -949,7 +952,7 @@
 	if(emagged)
 		new /obj/item/orion_ship(get_turf(src))
 		message_admins("[key_name_admin(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
-		log_game("[key_name(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
+		add_game_logs("made it to Orion on an emagged machine and got an explosive toy ship.", usr)
 	else
 		var/score = alive + round(food/2) + round(fuel/5) + engine + hull + electronics - lings_aboard
 		prizevend(score)
@@ -959,7 +962,9 @@
 
 /obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>")
+		add_attack_logs(user, src, "emagged")
+		if(user)
+			to_chat(user, span_notice("You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode."))
 		name = "The Orion Trail: Realism Edition"
 		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
 		newgame()
@@ -984,31 +989,31 @@
 	. = ..()
 	if(in_range(user, src))
 		if(!active)
-			. += "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>"
+			. += span_notice("There's a little switch on the bottom. It's flipped down.")
 		else
-			. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
+			. += span_notice("There's a little switch on the bottom. It's flipped up.")
 
 /obj/item/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)
 		return
 
 	message_admins("[key_name_admin(usr)] primed an explosive Orion ship for detonation.")
-	log_game("[key_name(usr)] primed an explosive Orion ship for detonation.")
+	add_game_logs("primed an explosive Orion ship for detonation.", usr)
 
-	to_chat(user, "<span class='warning'>You flip the switch on the underside of [src].</span>")
+	to_chat(user, span_warning("You flip the switch on the underside of [src]."))
 	active = 1
-	visible_message("<span class='notice'>[src] softly beeps and whirs to life!</span>")
-	playsound(src.loc, 'sound/machines/defib_saftyon.ogg', 25, 1)
+	visible_message(span_notice("[src] softly beeps and whirs to life!"))
+	playsound(src.loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
 	atom_say("This is ship ID #[rand(1,1000)] to Orion Port Authority. We're coming in for landing, over.")
 	sleep(20)
-	visible_message("<span class='warning'>[src] begins to vibrate...</span>")
+	visible_message(span_warning("[src] begins to vibrate..."))
 	atom_say("Uh, Port? Having some issues with our reactor, could you check it out? Over.")
 	sleep(30)
 	atom_say("Oh, God! Code Eight! CODE EIGHT! IT'S GONNA BL-")
-	playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 25, 1)
+	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 	sleep(3.6)
-	visible_message("<span class='userdanger'>[src] explodes!</span>")
-	explosion(src.loc, 1,2,4, flame_range = 3)
+	visible_message(span_userdanger("[src] explodes!"))
+	explosion(src.loc, 1,2,4, flame_range = 3, cause = user)
 	qdel(src)
 
 

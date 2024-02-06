@@ -1,0 +1,24 @@
+# When the .py is changed
+python:
+- changed-files:
+  - any-glob-to-any-file: '**/*.py'
+
+# Javascript changes
+javascript:
+- changed-files:
+  - any-glob-to-any-file: '**/*.js'
+
+# Any .dmi changes
+DMI:
+- changed-files:
+  - any-glob-to-any-file: '**/*.dmi'
+
+# Changes to a .dmm
+MAP:
+- changed-files:
+  - any-glob-to-any-file: '**/*.dmm'
+
+# Encompasses both the tgui and the tgui-next folder
+TGUI:
+- changed-files:
+  - any-glob-to-any-file: ['tgui/**', 'tgui-next/**']

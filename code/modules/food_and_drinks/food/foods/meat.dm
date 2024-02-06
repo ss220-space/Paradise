@@ -11,6 +11,7 @@
 	bitesize = 3
 	list_reagents = list("protein" = 3)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -36,21 +37,49 @@
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
 
+/obj/item/reagent_containers/food/snacks/meat/bird
+	name = "bird meat"
+	desc = "Light and tasty meat"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "birdmeat"
+
 /obj/item/reagent_containers/food/snacks/meat/monkey
-	//same as plain meat
+	name = "lesser meat"
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "corgi meat"
 	desc = "Tastes like the Head of Personnel's hopes and dreams"
 
+/obj/item/reagent_containers/food/snacks/meat/dog
+	name = "dog meat"
+	desc = "Не слишком питательно. Но говорят деликатес космокорейцев."
+	list_reagents = list("protein" = 2, "epinephrine" = 2)
+
 /obj/item/reagent_containers/food/snacks/meat/pug
 	name = "pug meat"
 	desc = "Slightly less adorable in sliced form."
+	list_reagents = list("protein" = 2, "epinephrine" = 2)
+
+/obj/item/reagent_containers/food/snacks/meat/security
+	name = "security meat"
+	desc = "Мясо наполненное чувством мужества и долга."
+	list_reagents = list("protein" = 3, "epinephrine" = 5)
 
 /obj/item/reagent_containers/food/snacks/meat/ham
 	name = "ham"
 	desc = "For when you need to go ham."
 	list_reagents = list("protein" = 3, "porktonium" = 10)
+
+/obj/item/reagent_containers/food/snacks/meat/ham/old
+	name = "жесткая ветчина"
+	desc = "Мясо почтенного хряка."
+	list_reagents = list("protein" = 2, "porktonium" = 10)
+
+/obj/item/reagent_containers/food/snacks/meat/mouse
+	name = "мышатина"
+	desc = "На безрыбье и мышь мясо. Кто знает чем питался этот грызун до его подачи к столу."
+	icon_state = "meat_clear"
+	list_reagents = list("nutriment" = 2, "blood" = 3, "toxin" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/meatwheat
 	name = "meatwheat clump"
@@ -59,6 +88,7 @@
 	filling_color = rgb(150, 0, 0)
 	icon_state = "meatwheat_clump"
 	bitesize = 4
+	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/rawcutlet
 	name = "raw cutlet"
@@ -67,6 +97,7 @@
 	icon_state = "rawcutlet"
 	bitesize = 1
 	list_reagents = list("protein" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/kitchen/knife))
@@ -91,6 +122,7 @@
 	name = "abstract monster meat"
 	desc = "A slab of abstract monster meat. This shouldn't exist, contact a coder about this if you are seeing it in-game."
 	icon_state = "bearmeat"
+	foodtype = MEAT | TOXIC | RAW
 
 /obj/item/reagent_containers/food/snacks/monstermeat/bearmeat
 	name = "bear meat"
@@ -100,6 +132,7 @@
 	bitesize = 3
 	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
 	name = "meat"
@@ -109,6 +142,7 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 1)
 	tastes = list("meat" = 1, "acid" = 1)
+	foodtype = MEAT | GROSS | RAW
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spidermeat
 	name = "spider meat"
@@ -140,6 +174,7 @@
 	icon_state = "raw_bacon"
 	list_reagents = list("nutriment" = 1, "porktonium" = 10)
 	tastes = list("bacon" = 1)
+	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spidereggs
 	name = "spider eggs"
@@ -160,6 +195,27 @@
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
+/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub
+	name= "goldgrub meat"
+	desc = "Gross, slimy, and green intestines with goldgrub skin, retrieved from a Goldgrub. Legends say it is valuable in traditional medicines, however it's highly toxic now."
+	icon_state = "Goldgrubmeat"
+	list_reagents = list("grub_juice" = 5, "toxin" = 10)
+	bitesize = 2
+	tastes = list("meat" = 1)
+
+/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/burn()
+	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	new /obj/item/reagent_containers/food/snacks/goldgrubmeat(loc)
+	qdel(src)
+
+/obj/item/reagent_containers/food/snacks/monstermeat/rotten
+	name = "rotten meat"
+	desc = "A slab of rotten meat. Looks really awful, a couple of flies sit on it."
+	icon_state = "rottenmeatslab"
+	list_reagents = list("protein" = 1, "toxin" = 10, "????" = 20)
+	tastes = list("slimy meat" = 3, "rotten meat" = 3, "stink" = 3)
+	foodtype = MEAT | GROSS | RAW | TOXIC
+
 //////////////////////
 //	Cooked Meat		//
 //////////////////////
@@ -173,6 +229,17 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 5)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/birdsteak
+	name = "Chicken steak"
+	desc = "A piece of hot light bird meat."
+	icon_state = "birdsteak"
+	filling_color = "#7A3D11"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5)
+	tastes = list("meat" = 1, "chicken" = 2)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/bacon
 	name = "bacon"
@@ -180,6 +247,7 @@
 	icon_state = "bacon"
 	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
 	tastes = list("bacon" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/telebacon
 	name = "tele bacon"
@@ -188,6 +256,7 @@
 	var/obj/item/radio/beacon/bacon/baconbeacon
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 	tastes = list("bacon" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/telebacon/New()
 	..()
@@ -206,6 +275,7 @@
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sausage
 	name = "sausage"
@@ -214,6 +284,7 @@
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 6, "vitamin" = 1, "porktonium" = 10)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/cutlet
 	name = "cutlet"
@@ -222,6 +293,7 @@
 	icon_state = "cutlet"
 	list_reagents = list("protein" = 2)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/spidereggsham
 	name = "green eggs and ham"
@@ -231,6 +303,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 6)
 	tastes = list("cobwebs" = 1, "the colour green" = 1)
+	foodtype = EGG | GROSS
 
 /obj/item/reagent_containers/food/snacks/boiledspiderleg
 	name = "boiled spider leg"
@@ -240,6 +313,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "capsaicin" = 2)
 	tastes = list("cobwebs" = 1, "hot peppers" = 1)
+	foodtype = MEAT | GROSS
 
 /obj/item/reagent_containers/food/snacks/wingfangchu
 	name = "wing fang chu"
@@ -249,6 +323,7 @@
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 6, "soysauce" = 5, "vitamin" = 2)
 	tastes = list("soy" = 1)
+	foodtype = MEAT | GROSS
 
 /obj/item/reagent_containers/food/snacks/goliath_steak
 	name = "goliath steak"
@@ -258,14 +333,41 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/fried_vox
-	name = "Kentucky Fried Vox"
-	desc = "Bucket of voxxy, yaya!"
-	icon_state = "fried_vox"
-	trash = /obj/item/trash/fried_vox
-	list_reagents = list("nutriment" = 3, "protein" = 5)
-	tastes = list("quills" = 1, "the shoal" = 1)
+/obj/item/reagent_containers/food/snacks/goldgrubmeat
+	name= "goldgrub steak"
+	desc = "Cooked intestines with goldgrub skin, retrieved from a Goldgrub. Legends say it is valuable in traditional medicines."
+	icon_state = "Goldgrubsteak"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	list_reagents = list("grub_juice" = 5)
+	tastes = list("meat" = 1)
+
+
+/obj/item/reagent_containers/food/snacks/smokedsausage
+	name = "Smoked sausage"
+	desc = "Piece of smoked sausage. Oh, really?"
+	icon_state = "smokedsausage"
+	list_reagents = list("protein" = 12)
+	tastes = list("meat" = 3)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/sliceable/salami
+	name = "Salami"
+	desc = "Not the best for sandwiches."
+	icon_state = "salami"
+	slice_path = /obj/item/reagent_containers/food/snacks/slice/salami
+	slices_num = 6
+	list_reagents = list("protein" = 12)
+	tastes = list("meat" = 3, "garlic" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/slice/salami
+	name = "Salami's slice"
+	desc = "A slice of salami. The best for sandwiches"
+	icon_state = "salami_s"
+	bitesize = 2
+	foodtype = MEAT
 
 //////////////////////
 //		Cubes		//
@@ -281,6 +383,7 @@
 	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
 	tastes = list("the jungle" = 1, "bananas" = 1)
+	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -288,29 +391,31 @@
 		return Expand()
 
 /obj/item/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
-	user.drop_item()
+	user.drop_from_active_hand()
 	forceMove(get_turf(source))
 	return 1
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
-	if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
-		if(fingerprintslast)
-			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
-		else
-			visible_message("<span class='notice'>[src] fails to expand!</span>")
+	if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))
 		return
+		//Due to server crashing capabilities, chat feature is disabled.
+
+		//if(fingerprintslast)
+		//	to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
+		//else
+		//	visible_message("<span class='notice'>[src] fails to expand!</span>")
+
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		if(fingerprintslast)
-			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
+			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else
-			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
-		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
+			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: NO_DATA")
+		var/mob/living/carbon/human/lesser/creature = new(get_turf(src), monkey_type)
 		if(faction)
 			creature.faction = faction
 		if(LAZYLEN(fingerprintshidden))
 			creature.fingerprintshidden = fingerprintshidden
-		creature.set_species(monkey_type)
 		SSmobs.cubemonkeys += creature
 		qdel(src)
 
@@ -345,9 +450,9 @@
 	filling_color = "#FDFFD1"
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
+	foodtype = EGG
 
-
-/obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
+/obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	var/turf/T = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/egg_smudge(T)
@@ -405,12 +510,11 @@
 /obj/item/reagent_containers/food/snacks/egg/gland
 	desc = "An egg! It looks weird..."
 
-/obj/item/reagent_containers/food/snacks/egg/gland/New()
-	..()
+/obj/item/reagent_containers/food/snacks/egg/gland/Initialize(mapload)
 	reagents.add_reagent(get_random_reagent_id(), 15)
 
-	var/reagent_color = mix_color_from_reagents(reagents.reagent_list)
-	color = reagent_color
+	color = mix_color_from_reagents(reagents.reagent_list)
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/friedegg
 	name = "fried egg"
@@ -420,6 +524,7 @@
 	bitesize = 1
 	list_reagents = list("nutriment" = 3, "egg" = 5)
 	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/boiledegg
 	name = "boiled egg"
@@ -427,6 +532,7 @@
 	icon_state = "egg"
 	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/chocolateegg
 	name = "chocolate egg"
@@ -434,6 +540,7 @@
 	icon_state = "chocolateegg"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 4, "sugar" = 2, "cocoa" = 2)
+	foodtype = SUGAR
 
 /obj/item/reagent_containers/food/snacks/omelette
 	name = "omelette du fromage"
@@ -444,6 +551,7 @@
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	bitesize = 1
 	tastes = list("egg" = 1, "cheese" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/benedict
 	name = "eggs benedict"
@@ -452,6 +560,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
+	foodtype = EGG | GRAIN
 
 
 //////////////////////
@@ -465,6 +574,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "ketchup" = 3, "vitamin" = 3)
 	tastes = list("bun" = 3, "meat" = 2)
+	foodtype = MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/meatbun
 	name = "meat bun"
@@ -473,6 +583,7 @@
 	bitesize = 6
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("bun" = 3, "meat" = 2)
+	foodtype = MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/sliceable/turkey
 	name = "turkey"
@@ -482,6 +593,7 @@
 	slices_num = 6
 	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
 	tastes = list("turkey" = 2, "stuffing" = 2)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/turkeyslice
 	name = "turkey serving"
@@ -490,6 +602,28 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#B97A57"
 	tastes = list("turkey" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/pelmeni
+	name = "Pelmeni"
+	desc = "Meat wrapped in thin uneven dough."
+	icon_state = "pelmeni"
+	filling_color = "#d9be29"
+	list_reagents = list("protein" = 2)
+	bitesize = 2
+	tastes = list("raw meat" = 1, "raw dough" = 1)
+	foodtype = MEAT | RAW | GRAIN
+
+/obj/item/reagent_containers/food/snacks/boiledpelmeni
+	name = "Boiled pelmeni"
+	desc = "We don't know what was Siberia, but these tasty pelmeni definitely arrived from there."
+	icon_state = "boiledpelmeni"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#d9be29"
+	list_reagents = list("protein" = 5)
+	bitesize = 3
+	tastes = list("meat" = 2, "dough" = 2)
+	foodtype = MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/organ
 	name = "organ"
@@ -499,6 +633,7 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
+	foodtype = MEAT | GROSS
 
 /obj/item/reagent_containers/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future
@@ -509,9 +644,92 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "vitamin" = 2)
+	foodtype = MEAT | GROSS
 
 /obj/item/reagent_containers/food/snacks/appendix/inflamed
 	name = "inflamed appendix"
 	desc = "An appendix which appears to be inflamed."
 	icon_state = "appendixinflamed"
 	filling_color = "#E00D7A"
+
+//Food made of species
+/obj/item/reagent_containers/food/snacks/fried_vox
+	name = "Kentucky Fried Vox"
+	desc = "Bucket of voxxy, yaya!"
+	icon_state = "fried_vox"
+	trash = /obj/item/trash/fried_vox
+	list_reagents = list("nutriment" = 3, "protein" = 5)
+	tastes = list("quills" = 1, "the shoal" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/kidanragu
+	name = "Spicy chitin ragu"
+	desc = "Stew with very tough chitinous meat and stewed vegetables."
+	icon_state = "kidanragu"
+	list_reagents = list("nutriment" = 8, "vitamin" = 4, "protein" = 4)
+	tastes = list("insect" = 3, "vegetable" = 2)
+	foodtype = GROSS | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/sliceable/lizard
+	name = "Fried reptile meat"
+	desc = " A Juicy steaks from the tail of a large lizard, makes you want to lie on warm rocks. Slicable"
+	icon_state = "lizard_steak"
+	slice_path = /obj/item/reagent_containers/food/snacks/lizardslice
+	slices_num = 5
+	list_reagents = list("zessulblood" = 50, "protein" = 30, "nutriment" = 20, "vitamin" = 10)
+	tastes = list("lizard meat" = 4, "chicken meat" = 2)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/lizardslice
+	name = "reptile steak"
+	desc = "A serving of unathi meat."
+	icon_state = "lizard_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#a55f3a"
+	tastes = list("lizard meat" = 2, "chicken meat" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/tajaroni
+	name = "Tajaroni"
+	desc = "Spicy dried sausage with pepper and... Did it just meow?"
+	icon_state = "tajaroni"
+	list_reagents = list("nutriment" = 8, "vitamin" = 4, "protein" = 4)
+	tastes = list("dry meat" = 3, "cat meat" = 2)
+	foodtype = MEAT
+
+//vulpix
+/obj/item/reagent_containers/food/snacks/vulpix
+	name = "Vulpixes"
+	desc = "Appetizing-looking meat balls in the dough.. The main thing is not to think about WHO they are made of!"
+	icon_state = "vulpix"
+	list_reagents = list("nutriment" = 10, "vitamin" = 4, "protein" = 5)
+	tastes = list("dough" = 2, "dog meat" = 3)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/vulpix/cheese
+	name = "Cheese vulpixes"
+	desc = "Appetizing-looking meat balls in the dough filled with cheese.. The main thing is not to think about WHO they are made of!"
+	icon_state = "vulpix_cheese"
+	tastes = list("dough" = 2, "dog meat" = 3, "cheese" = 2)
+
+/obj/item/reagent_containers/food/snacks/vulpix/bacon
+	name = "Bacon and mushroom vulpixes"
+	desc = "Appetizing-looking meat balls in the dough filled with.. The main thing is not to think about WHO they are made of!"
+	icon_state = "vulpix_bacon"
+	tastes = list("dough" = 2, "dog meat" = 3, "bacon" = 2, "mushroom" = 2)
+
+/obj/item/reagent_containers/food/snacks/vulpix/chilli
+	name = "Chilli vulpixes"
+	desc = "Appetizing-looking meat balls in the dough.. The main thing is not to think about WHO they are made of! Makes your tongue burn."
+	icon_state = "vulpix_chillie"
+	tastes = list("dough" = 2, "dog meat" = 3, "chillie" = 2)
+
+/obj/item/reagent_containers/food/snacks/bakedvulp
+	name = "oven-baked vulp"
+	desc = "Oven-baked vulp meat with a juicy apple in the mouth. She was unintelligent... Wasn't she?"
+	icon_state = "bakedvulp"
+	trash = /obj/item/trash/tray
+	list_reagents = list("protein" = 12, "nutriment" = 10, "vitamin" = 5)
+	tastes = list("dog meat" = 2, "apple" = 1)
+	foodtype = MEAT
+

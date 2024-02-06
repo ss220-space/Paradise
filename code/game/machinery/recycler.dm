@@ -3,7 +3,7 @@
 /obj/machinery/recycler
 	name = "recycler"
 	desc = "A large crushing machine used to recycle small items inefficiently. There are lights on the side."
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "grinder-o0"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = 1
@@ -51,7 +51,6 @@
 	update_icon()
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
 	if(exchange_parts(user, I))
 		return
 	return ..()
@@ -76,8 +75,10 @@
 		if(emergency_mode)
 			emergency_mode = FALSE
 			update_icon()
-		playsound(loc, "sparks", 75, 1, -1)
-		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on the [name].</span>")
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		if(user)
+			to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
+		add_attack_logs(user, src, "emagged")
 
 /obj/machinery/recycler/update_icon()
 	..()
@@ -92,7 +93,8 @@
 	if(AM)
 		Bumped(AM)
 
-/obj/machinery/recycler/Bumped(atom/movable/AM)
+/obj/machinery/recycler/Bumped(atom/movable/moving_atom)
+	..()
 
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -101,9 +103,9 @@
 	if(emergency_mode)
 		return
 
-	var/move_dir = get_dir(loc, AM.loc)
+	var/move_dir = get_dir(loc, moving_atom.loc)
 	if(move_dir == eat_dir)
-		eat(AM)
+		eat(moving_atom)
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
@@ -148,7 +150,7 @@
 	emergency_mode = TRUE
 	update_icon()
 	L.loc = loc
-	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
@@ -178,12 +180,12 @@
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
-		for(var/obj/item/I in L.get_equipped_items(TRUE))
-			if(L.unEquip(I))
+		for(var/obj/item/I in L.get_equipped_items(TRUE, TRUE))
+			if(L.drop_item_ground(I))
 				eat(I, sound = 0)
 
 	// Instantly lie down, also go unconscious from the pain, before you die.
-	L.Paralyse(5)
+	L.Paralyse(10 SECONDS)
 
 	// For admin fun, var edit emagged to 2.
 	if(gib || emagged == 2)
@@ -205,7 +207,7 @@
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 270)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
+	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
 	return 1
 
 /obj/machinery/recycler/verb/rotateccw()
@@ -221,7 +223,7 @@
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 90)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
+	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
 	return 1
 
 

@@ -11,7 +11,7 @@
 /obj/item/assembly/mousetrap/examine(mob/user)
 	. = ..()
 	if(armed)
-		. += "It looks like it's armed."
+		. += "<span class='warning'>It looks like it's armed.</span>"
 
 /obj/item/assembly/mousetrap/activate()
 	if(..())
@@ -21,7 +21,7 @@
 				var/mob/living/carbon/human/user = usr
 				if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
 					to_chat(user, "Your hand slips, setting off the trigger.")
-					pulse(0)
+					pulse(0, user)
 		update_icon()
 		if(usr)
 			playsound(usr.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
@@ -47,39 +47,37 @@
 			playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 			armed = FALSE
 			update_icon()
-			pulse(FALSE)
+			pulse(FALSE, target)
 			return FALSE
 		switch(type)
 			if("feet")
 				if(!H.shoes)
-					affecting = H.get_organ(pick("l_leg", "r_leg"))
-					H.Weaken(3)
-			if("l_hand", "r_hand")
+					affecting = H.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+					H.Weaken(6 SECONDS)
+			if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 				if(!H.gloves)
 					affecting = H.get_organ(type)
-					H.Stun(3)
+					H.Stun(6 SECONDS)
 		if(affecting)
 			affecting.receive_damage(1, 0)
 	else if(ismouse(target))
 		var/mob/living/simple_animal/mouse/M = target
 		visible_message("<span class='danger'>SPLAT!</span>")
-		M.death()
-		M.splat()
+		M.apply_damage(5, "brute")
+		if (M.stat == DEAD)
+			M.splat(item = src)
 	playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 	layer = MOB_LAYER - 0.2
 	armed = FALSE
 	update_icon()
-	pulse(0)
+	pulse(0, target)
 
 /obj/item/assembly/mousetrap/attack_self(mob/living/user)
 	if(!armed)
 		to_chat(user, "<span class='notice'>You arm [src].</span>")
 	else
 		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
-			var/which_hand = "l_hand"
-			if(!user.hand)
-				which_hand = "r_hand"
-			triggered(user, which_hand)
+			triggered(user, user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			user.visible_message("<span class='warning'>[user] accidentally sets off [src], breaking [user.p_their()] fingers.</span>", \
 								 "<span class='warning'>You accidentally trigger [src]!</span>")
 			return
@@ -91,10 +89,7 @@
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
 	if(armed)
 		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
-			var/which_hand = "l_hand"
-			if(!user.hand)
-				which_hand = "r_hand"
-			triggered(user, which_hand)
+			triggered(user, user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			user.visible_message("<span class='warning'>[user] accidentally sets off [src], breaking [user.p_their()] fingers.</span>", \
 								 "<span class='warning'>You accidentally trigger [src]!</span>")
 			return
@@ -118,7 +113,7 @@
 	if(armed)
 		finder.visible_message("<span class='warning'>[finder] accidentally sets off [src], breaking [finder.p_their()] fingers.</span>", \
 							   "<span class='warning'>You accidentally trigger [src]!</span>")
-		triggered(finder, finder.hand ? "l_hand" : "r_hand")
+		triggered(finder, finder.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		return TRUE	//end the search!
 	return FALSE
 

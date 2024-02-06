@@ -50,7 +50,7 @@
 
 /obj/item/sample/attackby(obj/O, mob/user)
 	if(O.type == src.type)
-		user.unEquip(O)
+		user.drop_item_ground(O)
 		if(merge_evidence(O, user))
 			qdel(O)
 		return 1
@@ -102,13 +102,13 @@
 		user.visible_message("<span class='danger'>\The [user] tries to take prints from \the [H], but they move away.</span>")
 		return 1
 
-	if(user.zone_selected == "r_hand" || user.zone_selected == "l_hand")
+	if(user.zone_selected == BODY_ZONE_PRECISE_L_HAND || user.zone_selected == BODY_ZONE_PRECISE_R_HAND)
 		var/has_hand
-		var/obj/item/organ/external/O = H.has_organ("r_hand")
+		var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_PRECISE_R_HAND)
 		if(istype(O))
 			has_hand = 1
 		else
-			O = H.has_organ("l_hand")
+			O = H.get_organ(BODY_ZONE_PRECISE_L_HAND)
 			if(istype(O))
 				has_hand = 1
 		if(!has_hand)
@@ -156,9 +156,22 @@
 		to_chat(user, "<span class='warning'>You are unable to locate any [evidence_type]s on \the [A].</span>")
 		. = ..()
 
+
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)
-	if(ismob(src.loc))
-		afterattack(over, usr, TRUE)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(istype(over, /obj/screen))
+		return FALSE
+
+	if(loc != user || user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	afterattack(over, user, TRUE)
+	return TRUE
+
 
 /obj/item/forensics/sample_kit/powder
 	name = "fingerprint powder"

@@ -1,12 +1,17 @@
 
-/datum/contractor_hub/ui_act(action, list/params)
+/datum/contractor_hub/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
 	. = TRUE
+
+	var/mob/living/user = usr
+	if(!istype(user))
+		return
+
 	if(!contracts)
 		if(action == "complete_load_animation")
-			first_login(usr)
+			first_login(user)
 	else
 		switch(action)
 			if("page")
@@ -15,24 +20,31 @@
 					return
 				page = newpage
 			if("extract")
-				var/error_message = current_contract?.start_extraction_process(ui_host(), usr)
+				var/error_message = current_contract?.start_extraction_process(ui_host(), user)
 				if(length(error_message))
-					to_chat(usr, "<span class='warning'>[error_message]</span>")
+					to_chat(user, "<span class='warning'>[error_message]</span>")
 			if("claim")
-				claim_tc(usr)
+				claim_tc(user)
 			if("activate")
 				var/datum/syndicate_contract/C = locateUID(params["uid"])
 				var/difficulty = text2num(params["difficulty"])
 				if(!istype(C) || !(C in contracts) || !(difficulty in list(EXTRACTION_DIFFICULTY_EASY, EXTRACTION_DIFFICULTY_MEDIUM, EXTRACTION_DIFFICULTY_HARD)))
 					return
-				C.initiate(usr, difficulty)
+				C.initiate(user, difficulty)
 			if("abort")
 				current_contract?.fail("Aborted by agent.")
 			if("purchase")
 				var/datum/rep_purchase/P = locateUID(params["uid"])
 				if(!istype(P) || !(P in purchases) || rep < P.cost)
 					return
-				P.buy(src, usr)
+				P.buy(src, user)
+			if("refund")
+				var/datum/rep_purchase/P = locateUID(params["uid"])
+				if(!istype(P) || !(P in purchases))
+					return
+				var/obj/item/item = user.get_active_hand()
+				if(item)
+					P.refund(src, item, user)
 			else
 				return FALSE
 
@@ -44,7 +56,6 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "Contractor", "Syndicate Contractor Uplink", 500, 600, master_ui, state)
 		ui.open()
-		ui.set_autoupdate(FALSE)
 
 /datum/contractor_hub/ui_data(mob/user)
 	var/list/data = list()
@@ -99,15 +110,22 @@
 						contract_data["dead_extraction"] = C.dead_extraction
 					if(CONTRACT_STATUS_FAILED)
 						contract_data["fail_reason"] = C.fail_reason
+
 				if(C.contract.extraction_zone)
+					var/area/A = get_area(user)
 					contract_data["objective"] = list(
-						extraction_zone = C.contract.extraction_zone.map_name,
-						reward_tc = C.reward_tc[C.chosen_difficulty],
-						reward_credits = C.reward_credits,
+						extraction_name = C.contract.extraction_zone.map_name,
+						locs = list(
+							user_area_id = A.uid,
+							user_coords = ATOM_COORDS(user),
+							target_area_id = C.contract.extraction_zone.uid,
+							target_coords = ATOM_COORDS(C.contract.extraction_zone),
+						),
+						rewards = list(tc = C.reward_tc[C.chosen_difficulty], credits = C.reward_credits)
 					)
 				contracts_out += list(contract_data)
 
-			data["can_extract"] = current_contract?.contract.can_start_extraction_process(ui_host(), usr) || FALSE
+			data["can_extract"] = current_contract?.contract.can_start_extraction_process(user) || FALSE
 		if(HUB_PAGE_SHOP)
 			var/list/buyables = list()
 			for(var/p in purchases)
@@ -118,6 +136,7 @@
 					description = P.description,
 					cost = P.cost,
 					stock = P.stock,
+					refundable = P.refundable,
 				))
 			data["buyables"] = buyables
 

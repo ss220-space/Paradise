@@ -5,130 +5,6 @@
 	//This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
 	var/list/locked = list()
 
-/datum/datacore/proc/get_manifest(monochrome, OOC)
-	var/list/heads = new()
-	var/list/sec = new()
-	var/list/eng = new()
-	var/list/med = new()
-	var/list/sci = new()
-	var/list/ser = new()
-	var/list/sup = new()
-	var/list/bot = new()
-	var/list/misc = new()
-	var/list/isactive = new()
-	var/dat = {"
-	<meta charset="UTF-8">
-	<head><style>
-		.manifest {border-collapse:collapse;}
-		.manifest td, th {border:1px solid [monochrome?"black":"#DEF; background-color:white; color:black"]; padding:.25em}
-		.manifest th {height: 2em; [monochrome?"border-top-width: 3px":"background-color: #48C; color:white"]}
-		.manifest tr.head th { [monochrome?"border-top-width: 1px":"background-color: #488;"] }
-		.manifest td:first-child {text-align:right}
-		.manifest tr.alt td {[monochrome?"border-top-width: 2px":"background-color: #DEF"]}
-	</style></head>
-	<table class="manifest" width='350px'>
-	<tr class='head'><th>Name</th><th>Rank</th><th>Activity</th></tr>
-	"}
-	var/even = 0
-	// sort mobs
-	for(var/datum/data/record/t in GLOB.data_core.general)
-		var/name = t.fields["name"]
-		var/rank = t.fields["rank"]
-		var/real_rank = t.fields["real_rank"]
-		if(OOC)
-			var/activetext = "Inactive"
-			for(var/thing in GLOB.human_list)
-				var/mob/living/carbon/human/H = thing
-				if(H.real_name != name)
-					continue
-				if(H.client && H.client.inactivity <= 6000)
-					activetext = "Active"
-					break
-				if(isLivingSSD(H))
-					activetext = "SSD"
-					break
-			isactive[name] = activetext
-		else
-			isactive[name] = t.fields["p_stat"]
-		var/department = 0
-		if(real_rank in GLOB.command_positions)
-			heads[name] = rank
-			department = 1
-		if(real_rank in GLOB.security_positions)
-			sec[name] = rank
-			department = 1
-		if(real_rank in GLOB.engineering_positions)
-			eng[name] = rank
-			department = 1
-		if(real_rank in GLOB.medical_positions)
-			med[name] = rank
-			department = 1
-		if(real_rank in GLOB.science_positions)
-			sci[name] = rank
-			department = 1
-		if(real_rank in GLOB.service_positions)
-			ser[name] = rank
-			department = 1
-		if(real_rank in GLOB.supply_positions)
-			sup[name] = rank
-			department = 1
-		if(real_rank in GLOB.nonhuman_positions)
-			bot[name] = rank
-			department = 1
-		if(!department && !(name in heads))
-			misc[name] = rank
-	if(heads.len > 0)
-		dat += "<tr><th colspan=3>Heads</th></tr>"
-		for(var/name in heads)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[heads[name]]</td><td>[isactive[name]]</td></tr>"
-			even = !even
-	if(sec.len > 0)
-		dat += "<tr><th colspan=3>Security</th></tr>"
-		for(var/name in sec)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[sec[name]]</td><td>[isactive[name]]</td></tr>"
-			even = !even
-	if(eng.len > 0)
-		dat += "<tr><th colspan=3>Engineering</th></tr>"
-		for(var/name in eng)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[eng[name]]</td><td>[isactive[name]]</td></tr>"
-			even = !even
-	if(med.len > 0)
-		dat += "<tr><th colspan=3>Medical</th></tr>"
-		for(var/name in med)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[med[name]]</td><td>[isactive[name]]</td></tr>"
-			even = !even
-	if(sci.len > 0)
-		dat += "<tr><th colspan=3>Science</th></tr>"
-		for(var/name in sci)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[sci[name]]</td><td>[isactive[name]]</td></tr>"
-			even = !even
-	if(ser.len > 0)
-		dat += "<tr><th colspan=3>Service</th></tr>"
-		for(var/name in ser)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[ser[name]]</td><td>[isactive[name]]</td></tr>"
-			even = !even
-	if(sup.len > 0)
-		dat += "<tr><th colspan=3>Supply</th></tr>"
-		for(var/name in sup)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[sup[name]]</td><td>[isactive[name]]</td></tr>"
-			even = !even
-	if(bot.len > 0)
-		dat += "<tr><th colspan=3>Silicon</th></tr>"
-		for(var/name in bot)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[bot[name]]</td><td>[isactive[name]]</td></tr>"
-			even = !even
-	if(misc.len > 0)
-		dat += "<tr><th colspan=3>Miscellaneous</th></tr>"
-		for(var/name in misc)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[misc[name]]</td><td>[isactive[name]]</td></tr>"
-			even = !even
-
-	dat += "</table>"
-	dat = replacetext(dat, "\n", "") // so it can be placed on paper correctly
-	dat = replacetext(dat, "\t", "")
-	return dat
-
-
 /*
 We can't just insert in HTML into the TGUI so we need the raw data to play with.
 Instead of creating this list over and over when someone leaves their PDA open to the page
@@ -142,6 +18,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 	if(GLOB.PDA_Manifest.len)
 		return
 	var/heads[0]
+	var/pro[0]
 	var/sec[0]
 	var/eng[0]
 	var/med[0]
@@ -162,8 +39,14 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 			heads[++heads.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			depthead = 1
-			if(rank == "Captain" && heads.len != 1)
+			if(real_rank == "Captain" && heads.len != 1)
 				heads.Swap(1,  heads.len)
+
+		if((real_rank == "Magistrate") || (real_rank == "Internal Affairs Agent") || (real_rank == "Nanotrasen Representative"))
+			pro[++pro.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			department = 1
+			if((real_rank == "Magistrate") && pro.len != 1)
+				pro.Swap(1,  pro.len)
 
 		if(real_rank in GLOB.security_positions)
 			sec[++sec.len] = list("name" = name, "rank" = rank, "active" = isactive)
@@ -211,6 +94,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 	GLOB.PDA_Manifest = list(\
 		"heads" = heads,\
+		"pro" = pro,\
 		"sec" = sec,\
 		"eng" = eng,\
 		"med" = med,\
@@ -228,11 +112,10 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		manifest_inject(H)
 
-/datum/datacore/proc/manifest_modify(name, assignment)
+/datum/datacore/proc/manifest_modify(name, rank, assignment)
 	if(GLOB.PDA_Manifest.len)
 		GLOB.PDA_Manifest.Cut()
 	var/datum/data/record/foundrecord
-	var/real_title = assignment
 
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
@@ -240,18 +123,9 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 				foundrecord = t
 				break
 
-	var/list/all_jobs = get_job_datums()
-
-	for(var/datum/job/J in all_jobs)
-		var/list/alttitles = get_alternate_titles(J.title)
-		if(!J)	continue
-		if(assignment in alttitles)
-			real_title = J.title
-			break
-
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
-		foundrecord.fields["real_rank"] = real_title
+		foundrecord.fields["real_rank"] = rank
 
 GLOBAL_VAR_INIT(record_id_num, 1001)
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
@@ -348,7 +222,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 /proc/get_id_photo(mob/living/carbon/human/H, var/custom_job = null)
 	var/icon/preview_icon = null
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/internal/eyes/eyes_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
 
 	var/g = "m"
@@ -370,21 +244,23 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Tail
-	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/tail))
+	if(H.body_accessory && (istype(H.body_accessory, /datum/body_accessory/tail) || istype(H.body_accessory, /datum/body_accessory/wing)))
 		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
-		if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+		if(H.dna.species.bodyflags & HAS_SKIN_COLOR  && !(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 			temp.Blend(H.skin_colour, H.body_accessory.blend_mode)
 		preview_icon.Blend(temp, ICON_OVERLAY)
 	else if(H.tail && H.dna.species.bodyflags & HAS_TAIL)
 		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.tail]_s")
-		if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+		if(H.dna.species.bodyflags & HAS_SKIN_COLOR  && !(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 			temp.Blend(H.skin_colour, ICON_ADD)
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
-	for(var/obj/item/organ/external/E in H.bodyparts)
-		if(istype(E,/obj/item/organ/external/tail))
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		if(istype(bodypart, /obj/item/organ/external/tail))
 			continue
-		preview_icon.Blend(E.get_icon(), ICON_OVERLAY)
+		if(istype(bodypart, /obj/item/organ/external/wing))
+			continue
+		preview_icon.Blend(bodypart.get_icon(), ICON_OVERLAY)
 
 /* At this point all bodyparts already colored!
 	// Skin tone
@@ -395,7 +271,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			preview_icon.Blend(rgb(-H.s_tone,  -H.s_tone,  -H.s_tone), ICON_SUBTRACT)
 
 	// Proper Skin color - Fix, you can't have HAS_SKIN_TONE *and* HAS_SKIN_COLOR
-	if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+	if(H.dna.species.bodyflags & HAS_SKIN_COLOR  && !(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 		preview_icon.Blend(H.skin_colour, ICON_ADD)
 */
 	//Tail Markings
@@ -487,159 +363,174 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		job_clothes = H.mind.assigned_role
 	switch(job_clothes)
 		if("Head of Personnel")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "hop_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "hop_alt_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 		if("Nanotrasen Representative")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "officer_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "officer_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 		if("Blueshield")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "officer_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/hands.dmi', "swat_gl"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "blueshield"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "officer_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "blueshield"), ICON_OVERLAY)
 		if("Magistrate")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "really_black_suit_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "judge"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "really_black_suit_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "judge"), ICON_OVERLAY)
 		if("Bartender")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "ba_suit_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "ba_suit_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Botanist")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "hydroponics_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "hydroponics_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Chef")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "chef_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "chef_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Janitor")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "janitor_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "janitor_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Librarian")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "red_suit_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "red_suit_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Barber")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "barber_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "barber_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Clown")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "clown_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "clown"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "clown_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "clown"), ICON_UNDERLAY)
 		if("Mime")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "mime_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "mime_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Quartermaster")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "qm_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "qm_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 		if("Cargo Technician")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "cargotech_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "cargotech_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Shaft Miner")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "explorer_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "explorer"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "explorer_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "explorer"), ICON_UNDERLAY)
 		if("Lawyer")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "internalaffairs_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "internalaffairs_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 		if("Chaplain")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "chapblack_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "chapblack_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Research Director")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "director_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "director_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_OVERLAY)
 		if("Scientist")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "toxinswhite_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "white"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_tox_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "toxinswhite_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_tox_open"), ICON_OVERLAY)
+		if("Student Scientist")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "student_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_tox_open"), ICON_OVERLAY)
 		if("Chemist")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "chemistrywhite_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "white"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_chem_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "chemistrywhite_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_chem_open"), ICON_OVERLAY)
 		if("Chief Medical Officer")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "cmo_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_cmo_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "cmo_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_cmo_open"), ICON_OVERLAY)
 		if("Medical Doctor")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "medical_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "white"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "medical_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_OVERLAY)
 		if("Coroner")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "scrubsblack_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "white"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_mort_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "scrubsblack_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_mort_open"), ICON_OVERLAY)
 		if("Geneticist")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "geneticswhite_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "white"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_gen_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "geneticswhite_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_gen_open"), ICON_OVERLAY)
 		if("Virologist")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "virologywhite_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "white"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_vir_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "virologywhite_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_vir_open"), ICON_OVERLAY)
 		if("Psychiatrist")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "psych_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "psych_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_UNDERLAY)
 		if("Paramedic")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "paramedic_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "paramedic_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
+		if("Intern")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "intern_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_OVERLAY)
 		if("Captain")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "captain_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "captain_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 		if("Head of Security")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "hosred_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "hosred_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 		if("Warden")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "warden_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "warden_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 		if("Detective")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "detective_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "detective"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "detective_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "detective"), ICON_OVERLAY)
 		if("Security Pod Pilot")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "secred_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "bomber"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "secred_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "bomber"), ICON_OVERLAY)
 		if("Brig Physician")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "medical_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "white"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "fr_jacket_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "medical_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "fr_jacket_open"), ICON_OVERLAY)
 		if("Security Officer")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "secred_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "secred_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
+		if("Security Cadet")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "cadet_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 		if("Chief Engineer")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "chief_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/belt.dmi', "utility"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "chief_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
 		if("Station Engineer")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "engine_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "orange"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/belt.dmi', "utility"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "engine_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
 		if("Life Support Specialist")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "atmos_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/belt.dmi', "utility"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "atmos_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
 		if("Mechanic")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "mechanic_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "orange"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/belt.dmi', "utility"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "mechanic_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
+		if("Trainee Engineer")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "trainee_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
 		if("Roboticist")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "robotics_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_OVERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "robotics_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_OVERLAY)
 		if("Syndicate Agent")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "syndicate_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "syndicate_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Syndicate Officer")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "syndicate_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/hands.dmi', "swat_gl"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "syndicate_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
 		if("Syndicate Nuclear Operative")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "syndicate_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/hands.dmi', "swat_gl"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "syndicate_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
 		else if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
-			clothes_s = new /icon('icons/mob/uniform.dmi', "officer_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "officer_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 		else
-			clothes_s = new /icon('icons/mob/uniform.dmi', "grey_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "grey_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY) // Why do we do this twice
 	if(clothes_s)

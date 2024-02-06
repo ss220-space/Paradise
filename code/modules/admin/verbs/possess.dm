@@ -1,12 +1,12 @@
 /proc/possess(obj/O as obj in world)
-	set name = "Possess Obj"
+	set name = "\[Admin\] Possess Obj"
 	set category = null
 
 	if(!check_rights(R_POSSESS))
 		return
 
 	if(istype(O,/obj/singularity))
-		if(config.forbid_singulo_possession)
+		if(CONFIG_GET(flag/forbid_singulo_possession))
 			to_chat(usr, "It is forbidden to possess singularities.")
 			return
 
@@ -16,12 +16,7 @@
 
 	if(confirm != "Yes")
 		return
-	if(T)
-		log_admin("[key_name(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])")
-		message_admins("[key_name_admin(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])", 1)
-	else
-		log_admin("[key_name(usr)] has possessed [O] ([O.type]) at an unknown location")
-		message_admins("[key_name_admin(usr)] has possessed [O] ([O.type]) at an unknown location", 1)
+	log_and_message_admins("has possessed [O] ([O.type]) at [COORD(T)]")
 
 	if(!usr.control_object) //If you're not already possessing something...
 		usr.name_archive = usr.real_name
@@ -31,10 +26,10 @@
 	usr.name = O.name
 	usr.client.eye = O
 	usr.control_object = O
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /proc/release(obj/O as obj in world)
-	set name = "Release Obj"
+	set name = "\[Admin\] Release Obj"
 	set category = null
 	//usr.loc = get_turf(usr)
 
@@ -52,4 +47,4 @@
 	usr.loc = O.loc // Appear where the object you were controlling is -- TLE
 	usr.client.eye = usr
 	usr.control_object = null
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

@@ -2,6 +2,8 @@
 	internal_damage_threshold = 60
 	var/list/cargo = new
 	var/cargo_capacity = 15
+	var/fast_pressure_step_in = 2
+	var/slow_pressure_step_in = 2
 
 /obj/mecha/working/New()
 	..()
@@ -34,6 +36,19 @@
 	. = ..()
 	if(.)
 		collect_ore()
+	update_pressure()
+
+/obj/mecha/working/proc/update_pressure()
+	var/turf/T = get_turf(loc)
+
+	if(lavaland_equipment_pressure_check(T))
+		step_in = fast_pressure_step_in
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)/2
+	else
+		step_in = slow_pressure_step_in
+		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)
 
 /obj/mecha/working/go_out()
 	..()
@@ -58,6 +73,8 @@
 	if(cargo.len)
 		for(var/obj/O in cargo)
 			output += "<a href='?src=[UID()];drop_from_cargo=\ref[O]'>Unload</a> : [O]<br>"
+		for(var/mob/living/L in cargo)
+			output += "<a href='?src=[UID()];drop_from_cargo=\ref[L]'>Unload</a> : [L]<br>"
 	else
 		output += "Nothing"
 	output += "</div>"

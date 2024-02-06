@@ -11,6 +11,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(), \
 	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(), \
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(), \
+	ANTAG_HUD_CLOCK = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_OPS = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_WIZ  = new/datum/atom_hud/antag(), \
@@ -23,7 +24,10 @@ GLOBAL_LIST_INIT(huds, list( \
 	DATA_HUD_ABDUCTOR = new/datum/atom_hud/abductor(),\
 	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden()\
+	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden(),\
+	TAIPAN_HUD = new/datum/atom_hud/antag(),\
+	ANTAG_HUD_THIEF = new/datum/atom_hud/antag/hidden(),\
+	THOUGHTS_HUD = new/datum/atom_hud/thoughts()\
 ))
 
 /datum/atom_hud
@@ -46,10 +50,19 @@ GLOBAL_LIST_INIT(huds, list( \
 /datum/atom_hud/proc/remove_hud_from(mob/M)
 	if(!M)
 		return
-	if(src in M.permanent_huds)
-		return
+
+	for (var/i in hud_icons)
+		if ((i in M.huds_counter["icons"]) && --M.huds_counter["icons"][i] < 1)
+			M.huds_counter["icons"] -= i
+
+	if (src in M.huds_counter["huds"])
+		if (--M.huds_counter["huds"][src] > 0) // check duplicated huds
+			return
+		else
+			M.huds_counter["huds"] -= src
+
 	for(var/atom/A in hudatoms)
-		remove_from_single_hud(M, A)
+		remove_from_single_hud(M, A, TRUE)
 	hudusers -= M
 
 /datum/atom_hud/proc/remove_from_hud(atom/A)
@@ -59,18 +72,33 @@ GLOBAL_LIST_INIT(huds, list( \
 		remove_from_single_hud(M, A)
 	hudatoms -= A
 
-/datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
+/datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A, remove_from_mob=FALSE) //unsafe, no sanity apart from client
 	if(!M || !M.client || !A)
 		return
+	if(!length(A.hud_list))
+		return
 	for(var/i in hud_icons)
+		if (remove_from_mob && (i in M.huds_counter["icons"]))
+			continue
 		M.client.images -= A.hud_list[i]
 
 /datum/atom_hud/proc/add_hud_to(mob/M)
 	if(!M)
 		return
 	hudusers |= M
+
+	if (src in M.huds_counter["huds"])
+		M.huds_counter["huds"][src]++
+	else
+		M.huds_counter["huds"][src] = 1
+
 	for(var/atom/A in hudatoms)
 		add_to_single_hud(M, A)
+	for (var/i in hud_icons)
+		if (i in M.huds_counter["icons"])
+			M.huds_counter["icons"][i]++
+		else
+			M.huds_counter["icons"][i] = 1
 
 /datum/atom_hud/proc/add_to_hud(atom/A)
 	if(!A)
@@ -95,13 +123,32 @@ GLOBAL_LIST_INIT(huds, list( \
 
 	var/serv_huds = list()//mindslaves and/or vampire thralls
 	if(SSticker.mode)
-		for(var/datum/mindslaves/serv in (SSticker.mode.vampires | SSticker.mode.traitors))
+		for(var/datum/mindslaves/serv in (SSticker.mode.vampires | SSticker.mode.goon_vampires | SSticker.mode.traitors))
 			serv_huds += serv.thrallhud
-
 
 	for(var/datum/atom_hud/hud in (GLOB.all_huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
 			hud.add_hud_to(src)
+
+	for(var/obj/item/check in contents)
+		if(istype(check, /obj/item/clothing/glasses/hud))
+			var/obj/item/clothing/glasses/hud/glasses = check
+			if(glasses.HUDType && get_slot_by_item(glasses) == slot_glasses)
+				var/datum/atom_hud/my_hud = GLOB.huds[glasses.HUDType]
+				my_hud.add_hud_to(src)
+
+		if(istype(check, /obj/item/clothing/head))
+			var/obj/item/clothing/head/helmet = check
+			if(helmet.HUDType && get_slot_by_item(helmet) == slot_head)
+				var/datum/atom_hud/my_hud = GLOB.huds[helmet.HUDType]
+				my_hud.add_hud_to(src)
+
+		if(istype(check, /obj/item/organ/internal/cyberimp/eyes/hud))
+			var/obj/item/organ/internal/cyberimp/eyes/hud/implant = check
+			if(implant.HUD_type && !implant.is_equipped(TRUE, TRUE))
+				var/datum/atom_hud/my_hud = GLOB.huds[implant.HUD_type]
+				my_hud.add_hud_to(src)
+
 
 /mob/new_player/reload_huds()
 	return

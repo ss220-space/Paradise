@@ -3,6 +3,7 @@
 	desc = "A box suited for pizzas."
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "pizzabox1"
+	throw_range = 1
 	var/timer = 10 //Adjustable timer
 	var/timer_set = 0
 	var/primed = 0
@@ -30,8 +31,8 @@
 		timer = clamp(timer, 10, 100)
 		icon_state = "pizzabox1"
 		to_chat(user, "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing \the [src].")
-		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
-		log_game("[key_name(usr)] has set the timer on a pizza bomb to [timer/10] seconds ([loc.x],[loc.y],[loc.z]).")
+		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at [ADMIN_COORDJMP(loc)].")
+		add_game_logs("has set the timer on a pizza bomb to [timer/10] seconds [COORD(loc)].", usr)
 		armer = usr
 		name = "pizza box"
 		desc = "A box suited for pizzas."
@@ -42,8 +43,8 @@
 		icon_state = "pizzabox_bomb"
 		audible_message("<span class='warning'>[bicon(src)] *beep* *beep*</span>")
 		to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
-		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [armer] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
-		log_game("[key_name(usr)] has triggered a pizza bomb armed by [armer] ([loc.x],[loc.y],[loc.z]).")
+		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [armer] at [ADMIN_COORDJMP(loc)].")
+		add_game_logs("has triggered a pizza bomb armed by [armer] [COORD(loc)].", usr)
 		primed = 1
 		sleep(timer)
 		return go_boom()
@@ -52,7 +53,7 @@
 	if(disarmed)
 		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on \the [src], but it's disarmed!")
 		return
-	atom_say("Enjoy the pizza!")
+	atom_say("Наслаждайтесь пиццей!")
 	src.visible_message("<span class='userdanger'>\The [src] violently explodes!</span>")
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
 	qdel(src)
@@ -84,12 +85,11 @@
 			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from \the [src].</span>")
-		if(do_after(user, 40 * I.toolspeed, target = src))
+		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(src, I.usesound, 50, 1, 1)
-			user.unEquip(src)
+			user.drop_item_ground(src)
 			user.visible_message("<span class='notice'>[user] removes the insides of \the [src]!</span>")
-			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)
-			C.amount = 3
+			new /obj/item/stack/cable_coil(src.loc, 3)
 			new /obj/item/bombcore/miniature(src.loc)
 			new /obj/item/pizzabox(src.loc)
 			qdel(src)

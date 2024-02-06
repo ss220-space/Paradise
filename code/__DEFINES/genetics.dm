@@ -8,18 +8,22 @@
 // mob/var/list/mutations
 
 // Used in preferences.
-#define DISABILITY_FLAG_NEARSIGHTED 1
-#define DISABILITY_FLAG_FAT         2
-#define DISABILITY_FLAG_BLIND       4
-#define DISABILITY_FLAG_MUTE        8
-#define DISABILITY_FLAG_COLOURBLIND 16
-#define DISABILITY_FLAG_WINGDINGS   32
-#define DISABILITY_FLAG_NERVOUS     64
-#define DISABILITY_FLAG_SWEDISH     128
-#define DISABILITY_FLAG_LISP        256
-#define DISABILITY_FLAG_DIZZY       512
-#define DISABILITY_FLAG_CHAV        1024
-#define DISABILITY_FLAG_DEAF        2048
+#define DISABILITY_FLAG_NEARSIGHTED   (1<<0)
+#define DISABILITY_FLAG_FAT           (1<<1)
+#define DISABILITY_FLAG_BLIND         (1<<2)
+#define DISABILITY_FLAG_MUTE          (1<<3)
+#define DISABILITY_FLAG_COLOURBLIND   (1<<4)
+#define DISABILITY_FLAG_WINGDINGS     (1<<5)
+#define DISABILITY_FLAG_NERVOUS       (1<<6)
+#define DISABILITY_FLAG_SWEDISH       (1<<7)
+#define DISABILITY_FLAG_LISP          (1<<8)
+#define DISABILITY_FLAG_DIZZY         (1<<9)
+#define DISABILITY_FLAG_AULD_IMPERIAL (1<<10)
+#define DISABILITY_FLAG_DEAF          (1<<11)
+#define DISABILITY_FLAG_COFFEE_ADDICT (1<<12)
+#define DISABILITY_FLAG_TEA_ADDICT    (1<<13)
+#define DISABILITY_FLAG_ALCOHOLE_ADDICT (1<<14)
+#define DISABILITY_FLAG_NICOTINE_ADDICT (1<<15)
 
 ///////////////////////////////////////
 // MUTATIONS
@@ -34,7 +38,7 @@
 #define FAT				"fat"
 #define HUSK			"husk"
 #define NOCLONE			"noclone"
-#define LASER			"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
+#define LASEREYES		"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
 #define WINGDINGS		"wingdings"			// Ayy lmao
 #define SKELETON 		"skeleton"
 #define BREATHLESS		"breathless"		// no breathing
@@ -49,7 +53,7 @@
 #define NO_SHOCK		"no_shock" 			// insulated hands
 #define DWARF			"dwarf"				// table climbing
 #define OBESITY       	"obesity"			// Decreased metabolism
-#define STRONG        	"strong"			// (Nothing)
+#define STRONG        	"strong"			// No slowdown from pull
 #define SOBER         	"sober"				// Increased alcohol metabolism
 #define PSY_RESIST    	"psy_resist"		// Block remoteview
 #define EMPATH			"empathy"			//Read minds
@@ -58,7 +62,7 @@
 #define DIZZY			"dizzy"				// Trippy.
 #define LISP			"lisp"
 #define RADIOACTIVE 	"radioactive"
-#define CHAV			"chav"
+#define AULD_IMPERIAL	"auld_imperial"
 #define SWEDISH			"swedish"
 #define SCRAMBLED		"scrambled"
 #define HORNS			"horns"
@@ -69,6 +73,7 @@
 #define EATER			"matter_eater"
 #define JUMPY			"jumpy"
 #define POLYMORPH		"polymorph"
+#define SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
 //disabilities
 #define NEARSIGHTED		"nearsighted"
 #define EPILEPSY		"epilepsy"
@@ -79,6 +84,7 @@
 #define COLOURBLIND		"colorblind"
 #define MUTE			"mute"
 #define DEAF			"deaf"
+#define WEAK			"weak"
 
 //Nutrition levels for humans. No idea where else to put it
 #define NUTRITION_LEVEL_FAT 600
@@ -97,9 +103,10 @@
 #define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_NORMAL			560
 #define BLOOD_VOLUME_SAFE			501
-#define BLOOD_VOLUME_OKAY			336
-#define BLOOD_VOLUME_BAD			224
-#define BLOOD_VOLUME_SURVIVE		122
+#define BLOOD_VOLUME_PALE			448
+#define BLOOD_VOLUME_OKAY			346
+#define BLOOD_VOLUME_BAD			234
+#define BLOOD_VOLUME_SURVIVE		168
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
@@ -134,6 +141,7 @@
 #define NO_DNA			"no_dna"
 #define NO_SCAN 		"no_scan"
 #define NO_PAIN 		"no_pain"
+#define NO_PAIN_FEEL	"no_pain_feel"
 #define IS_PLANT 		"is_plant"
 #define NO_INTORGANS	"no_internal_organs"
 #define RADIMMUNE		"rad_immunity"
@@ -148,6 +156,8 @@
 #define NO_GERMS		"no_germs"
 #define NO_DECAY		"no_decay"
 #define PIERCEIMMUNE	"pierce_immunity"
+#define EMBEDIMMUNE		"embed_immunity"
 #define NO_HUNGER		"no_hunger"
 #define EXOTIC_COLOR	"exotic_blood_colour"
 #define NO_OBESITY		"no_obesity"
+#define RUNIC_MIND		"runic_mind"

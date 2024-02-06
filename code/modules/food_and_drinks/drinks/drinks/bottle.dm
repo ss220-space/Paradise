@@ -20,7 +20,7 @@
 	if(ranged)
 		B.loc = new_location
 	else
-		user.drop_item()
+		user.drop_from_active_hand()
 		user.put_in_active_hand(B)
 	B.icon_state = icon_state
 
@@ -50,7 +50,7 @@
 	if(user.a_intent != INTENT_HARM || !isGlass)
 		return ..()
 
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return
 
@@ -66,14 +66,14 @@
 
 		var/mob/living/carbon/human/H = target
 		var/headarmor = 0 // Target's head armor
-		armor_block = H.run_armor_check(affecting, "melee","","",armour_penetration) // For normal attack damage
+		armor_block = H.run_armor_check(affecting, MELEE,"","",armour_penetration) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
-		if(istype(H.head, /obj/item/clothing/head) && affecting == "head")
+		if(istype(H.head, /obj/item/clothing/head) && affecting == BODY_ZONE_HEAD)
 
 			// If their head has an armor value, assign headarmor to it, else give it 0.
-			if(H.head.armor.getRating("melee"))
-				headarmor = H.head.armor.getRating("melee")
+			if(H.head.armor.getRating(MELEE))
+				headarmor = H.head.armor.getRating(MELEE)
 			else
 				headarmor = 0
 		else
@@ -84,8 +84,8 @@
 
 	else
 		//Only humans can have armor, right?
-		armor_block = target.run_armor_check(affecting, "melee")
-		if(affecting == "head")
+		armor_block = target.run_armor_check(affecting, MELEE)
+		if(affecting == BODY_ZONE_HEAD)
 			armor_duration = duration + force
 	armor_duration /= 10
 
@@ -95,11 +95,12 @@
 
 	// You are going to knock someone out for longer if they are not wearing a helmet.
 	var/head_attack_message = ""
-	if(affecting == "head" && iscarbon(target))
+	if(affecting == BODY_ZONE_HEAD && iscarbon(target))
 		head_attack_message = " on the head"
 		//Weaken the target for the duration that we calculated and divide it by 5.
 		if(armor_duration)
-			target.apply_effect(min(armor_duration, 10) , WEAKEN) // Never weaken more than a flash!
+			var/stun_time = (min(armor_duration, 10)) STATUS_EFFECT_CONSTANT
+			target.Weaken(stun_time)
 
 	//Display an attack message.
 	if(target != user)
@@ -147,6 +148,8 @@
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 	sharp = 1
+	embed_chance = 10
+	embedded_ignore_throwspeed_threshold = TRUE
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 3
@@ -271,6 +274,54 @@
 	icon_state = "fernetbottle"
 	list_reagents = list("fernet" = 100)
 
+/obj/item/reagent_containers/food/drinks/bottle/champagne
+	name = "Sparkling Sunny Champagne"
+	desc = "A bottle of pure sizzling sun, ready to hit your brain."
+	icon_state = "champagnebottle"
+	list_reagents = list("champagne" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/aperol
+	name = "Jungle Aperol Aperitivo"
+	desc = "A true aperitif experienced in the most remote jungle."
+	icon_state = "aperolbottle"
+	list_reagents = list("aperol" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/jagermeister
+	name = "Infused Space Jaegermeister"
+	desc = "Das ist des Jägers Ehrenschild, daß er beschützt und hegt sein Wild, weidmännisch jagt, wie sich gehört, den Schöpfer im Geschöpfe ehrt."
+	icon_state = "jagermeisterbottle"
+	list_reagents = list("jagermeister" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/schnaps
+	name = "Grainy Mint Schnapps"
+	desc = "A real horror for a true connoisseur, high-quality mint schnapps."
+	icon_state = "schnapsbottle"
+	list_reagents = list("schnaps" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/sheridan
+	name = "Sheridan’s Coffee Layered"
+	desc = "A double miracle with a new innovative neck, much better than yours."
+	icon_state = "sheridanbottle"
+	list_reagents = list("sheridan" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/bitter
+	name = "Vacuum Cherry Bitter"
+	desc = "Try not to suffocate after drinking such wonderful bitterness."
+	icon_state = "bitterbottle"
+	list_reagents = list("bitter" = 50)
+
+/obj/item/reagent_containers/food/drinks/bottle/bluecuracao
+	name = "Grenadier Blue Curacao"
+	desc = "The explosion is an art, but the blue explosion is much better."
+	icon_state = "bluecuracao"
+	list_reagents = list("bluecuracao" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/sambuka
+	name = "The Headless Horseman 's Sambuka"
+	desc = "I haven't drunk sambuca since I was twenty."
+	icon_state = "sambukabottle"
+	list_reagents = list("sambuka" = 100)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
@@ -338,7 +389,7 @@
 			desc += " You're not sure if making this out of a carton was the brightest idea."
 			isGlass = 0
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/target,mob/thrower)
+/obj/item/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	var/firestarter = 0
 	for(var/datum/reagent/R in reagents.reagent_list)
 		for(var/A in accelerants)
@@ -355,9 +406,8 @@
 	if(is_hot(I) && !active)
 		active = 1
 		var/turf/bombturf = get_turf(src)
-		var/area/bombarea = get_area(bombturf)
-		message_admins("[key_name(user)][ADMIN_QUE(user,"?")] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[bombarea] (JMP)</a>.")
-		log_game("[key_name(user)] has primed a [name] for detonation at [bombarea] ([bombturf.x],[bombturf.y],[bombturf.z]).")
+		message_admins("[ADMIN_LOOKUP(user)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)].")
+		add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)].", user)
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
 		overlays += GLOB.fire_overlay

@@ -10,6 +10,7 @@
 	var/shoes = null
 	var/head = null
 	var/mask = null
+	var/neck = null
 	var/l_ear = null
 	var/r_ear = null
 	var/glasses = null
@@ -20,7 +21,7 @@
 	var/l_hand = null
 	var/r_hand = null
 	/// Should the toggle helmet proc be called on the helmet during equip
-	var/toggle_helmet = TRUE
+	var/toggle_helmet = FALSE
 	var/pda = null
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
@@ -55,13 +56,13 @@
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	pre_equip(H, visualsOnly)
 
-	//Start with uniform,suit,backpack for additional slots
+	//Start with backpack,suit,uniform for additional slots
+	if(back)
+		equip_item(H, back, slot_back)
 	if(uniform)
 		equip_item(H, uniform, slot_w_uniform)
 	if(suit)
 		equip_item(H, suit, slot_wear_suit)
-	if(back)
-		equip_item(H, back, slot_back)
 	if(belt)
 		equip_item(H, belt, slot_belt)
 	if(gloves)
@@ -72,6 +73,8 @@
 		equip_item(H, head, slot_head)
 	if(mask)
 		equip_item(H, mask, slot_wear_mask)
+	if(neck)
+		equip_item(H, neck, slot_neck)
 	if(l_ear)
 		equip_item(H, l_ear, slot_l_ear)
 	if(r_ear)
@@ -94,8 +97,7 @@
 	if(uniform)
 		for(var/path in accessories)
 			var/obj/item/clothing/accessory/A = new path()
-			var/obj/item/clothing/under/U = uniform
-			U.attach_accessory(A, H)
+			H.w_uniform.attach_accessory(A, H)
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
@@ -108,6 +110,7 @@
 				backpack_contents = list()
 			backpack_contents.Insert(1, box)
 			backpack_contents[box] = 1
+			box = null	// if it's added to backpack_contents ... we don't need it anymore.
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
@@ -115,12 +118,7 @@
 				H.equip_or_collect(new path(H), slot_in_backpack)
 
 		for(var/path in cybernetic_implants)
-			var/obj/item/organ/internal/O = new path(H)
-			O.insert(H)
-
-	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
-		HS.ToggleHelmet()
+			new path(H)	// Just creating internal organ inside a human forcing it to call insert() proc.
 
 	post_equip(H, visualsOnly)
 
@@ -131,12 +129,20 @@
 			H.update_action_buttons_icon()
 
 	if(implants)
-		for(var/implant_type in implants)
-			var/obj/item/implant/I = new implant_type(H)
+		for(var/path in implants)	// Implantation is required here, bcs below we have a ToggleHelmet() hardsuit proc that is based on the isertmindshielded() proc.
+			var/obj/item/implant/I = new path(H)
 			I.implant(H, null)
 
-	H.update_body()
-	return 1
+	if(!H.head && toggle_helmet)
+		if(istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
+			var/obj/item/clothing/suit/space/hardsuit/hardsuit = H.wear_suit
+			hardsuit.ToggleHelmet()
+		else if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
+			var/obj/item/clothing/suit/hooded/S = H.wear_suit
+			S.ToggleHood()
+
+	H.regenerate_icons()
+	return TRUE
 
 /datum/outfit/proc/apply_fingerprints(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -153,6 +159,8 @@
 		H.wear_suit.add_fingerprint(H, 1)
 	if(H.wear_mask)
 		H.wear_mask.add_fingerprint(H, 1)
+	if(H.neck)
+		H.neck.add_fingerprint(H, 1)
 	if(H.head)
 		H.head.add_fingerprint(H, 1)
 	if(H.shoes)
@@ -179,12 +187,6 @@
 		H.wear_pda.add_fingerprint(H, 1)
 	return 1
 
-/datum/outfit/proc/get_chameleon_disguise_info()
-	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
-	types += chameleon_extras
-	listclearnulls(types)
-	return types
-
 /datum/outfit/proc/save_to_file(mob/admin)
 	var/stored_data = get_json_data()
 	var/json = json_encode(stored_data)
@@ -206,6 +208,7 @@
 	shoes = text2path(outfit_data["shoes"])
 	head = text2path(outfit_data["head"])
 	mask = text2path(outfit_data["mask"])
+	neck = text2path(outfit_data["neck"])
 	l_ear = text2path(outfit_data["l_ear"])
 	r_ear = text2path(outfit_data["r_ear"])
 	glasses = text2path(outfit_data["glasses"])
@@ -240,9 +243,9 @@
 		if(cybtype)
 			cybernetic_implants += cybtype
 
-	var/list/accessories = outfit_data["accessories"]
+	var/list/attachments = outfit_data["accessories"]
 	accessories = list()
-	for(var/A in accessories)
+	for(var/A in attachments)
 		var/accessorytype = text2path(A)
 		if(accessorytype)
 			accessories += accessorytype
@@ -262,6 +265,7 @@
 	.["shoes"] = shoes
 	.["head"] = head
 	.["mask"] = mask
+	.["neck"] = neck
 	.["l_ear"] = l_ear
 	.["r_ear"] = r_ear
 	.["glasses"] = glasses

@@ -1,10 +1,11 @@
-/obj/machinery/meter
+/obj/machinery/atmospherics/meter
 	name = "gas flow meter"
 	desc = "It measures something."
-	icon = 'icons/obj/meter.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/meter.dmi'
 	icon_state = "meterX"
 
-	layer = GAS_PUMP_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
+	layer_offset = GAS_PUMP_OFFSET
 
 	var/obj/machinery/atmospherics/pipe/target = null
 	anchored = TRUE
@@ -17,29 +18,20 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 5
-	req_one_access_txt = "24;10"
-	Mtoollink = TRUE
-	settagwhitelist = list("id_tag")
 
-/obj/machinery/meter/New()
-	..()
+/obj/machinery/atmospherics/meter/Initialize(mapload)
+	. = ..(mapload)
 	SSair.atmos_machinery += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
 		id_tag = id
-	return 1
 
-/obj/machinery/meter/Destroy()
+/obj/machinery/atmospherics/meter/Destroy()
 	SSair.atmos_machinery -= src
 	target = null
 	return ..()
 
-/obj/machinery/meter/Initialize()
-	..()
-	if(!target)
-		target = locate(/obj/machinery/atmospherics/pipe) in loc
-
-/obj/machinery/meter/process_atmos()
+/obj/machinery/atmospherics/meter/process_atmos()
 	if(!target)
 		icon_state = "meterX"
 		return 0
@@ -84,7 +76,7 @@
 		)
 		radio_connection.post_signal(src, signal)
 
-/obj/machinery/meter/proc/status()
+/obj/machinery/atmospherics/meter/proc/status()
 	var/t = ""
 	if(target)
 		var/datum/gas_mixture/environment = target.return_air()
@@ -96,79 +88,63 @@
 		t += "The connect error light is blinking."
 	return t
 
-/obj/machinery/meter/examine(mob/user)
-	var/t = "A gas flow meter. "
-
+/obj/machinery/atmospherics/meter/examine(mob/user)
+	. = ..()
 	if(get_dist(user, src) > 3 && !(istype(user, /mob/living/silicon/ai) || istype(user, /mob/dead)))
-		t += "<span class='boldnotice'>You are too far away to read it.</span>"
+		. += span_boldnotice("You are too far away to read it.")
 
 	else if(stat & (NOPOWER|BROKEN))
-		t += "<span class='danger'>The display is off.</span>"
+		. += span_danger("The display is off.")
 
 	else if(target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)
-			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C)"
+			. += span_notice("The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C).")
 		else
-			t += "The sensor error light is blinking."
+			. += span_warning("The sensor error light is blinking.")
 	else
-		t += "The connect error light is blinking."
+		. += span_warning("The connect error light is blinking.")
 
-	. = list(t)
-
-/obj/machinery/meter/Click()
+/obj/machinery/atmospherics/meter/Click()
 	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine
 		usr.examinate(src)
 		return 1
 
 	return ..()
 
-/obj/machinery/meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	if(!istype(W, /obj/item/wrench))
-		return ..()
-	playsound(loc, W.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-	if(do_after(user, 40 * W.toolspeed, target = src))
+/obj/machinery/atmospherics/meter/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	playsound(loc, I.usesound, 50, 1)
+	to_chat(user, span_notice("You begin to unfasten [src]..."))
+	if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
 		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
+			"[user] unfastens [src].", \
+			span_notice("You have unfastened [src]."), \
 			"You hear ratchet.")
 		deconstruct(TRUE)
 
-/obj/machinery/meter/deconstruct(disassembled = TRUE)
+/obj/machinery/atmospherics/meter/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/pipe_meter(loc)
 	qdel(src)
 
-/obj/machinery/meter/singularity_pull(S, current_size)
+/obj/machinery/atmospherics/meter/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
 // TURF METER - REPORTS A TILE'S AIR CONTENTS
 
-/obj/machinery/meter/turf/New()
+/obj/machinery/atmospherics/meter/turf/New()
 	..()
 	target = loc
 	return 1
 
 
-/obj/machinery/meter/turf/Initialize()
+/obj/machinery/atmospherics/meter/turf/Initialize()
 	if(!target)
 		target = loc
 	..()
 
-/obj/machinery/meter/turf/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+/obj/machinery/atmospherics/meter/turf/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	return
-
-/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/multitool/P)
-	return {"
-	<b>Main</b>
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag")]</li>
-	</ul>"}

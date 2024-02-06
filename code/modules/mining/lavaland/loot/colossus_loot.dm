@@ -6,6 +6,7 @@
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
 	new random_crystal(src)
+	new /obj/item/gem/void(src)
 	new /obj/item/organ/internal/vocal_cords/colossus(src)
 
 /obj/structure/closet/crate/necropolis/colossus/crusher
@@ -14,6 +15,7 @@
 /obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
 	. = ..()
 	new /obj/item/crusher_trophy/blaster_tubes(src)
+	new /obj/item/clothing/glasses/hud/godeye(src)
 
 ///Anomolous Crystal///
 
@@ -68,10 +70,10 @@
 	playsound(user, activation_sound, 100, 1)
 	return 1
 
-/obj/machinery/anomalous_crystal/Bumped(atom/AM as mob|obj)
+/obj/machinery/anomalous_crystal/Bumped(atom/movable/moving_atom)
 	..()
-	if(ismob(AM))
-		ActivationReaction(AM,"mob_bump")
+	if(ismob(moving_atom))
+		ActivationReaction(moving_atom,"mob_bump")
 
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
@@ -90,7 +92,7 @@
 	if(..() && ishuman(user) && !(user in affected_targets))
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
-			H.unEquip(W)
+			H.drop_item_ground(W)
 		var/datum/job/clown/C = SSjobs.GetJob("Clown")
 		C.equip(H)
 		affected_targets.Add(H)
@@ -131,7 +133,7 @@
 			NewTerrainChairs = /obj/structure/chair/wood
 			NewTerrainTables = /obj/structure/table/wood
 			NewFlora = list(/obj/structure/flora/ausbushes/sparsegrass, /obj/structure/flora/ausbushes/fernybush, /obj/structure/flora/ausbushes/leafybush,
-							/obj/structure/flora/ausbushes/grassybush, /obj/structure/flora/ausbushes/sunnybush, /obj/structure/flora/tree/palm, /mob/living/carbon/human/monkey,
+							/obj/structure/flora/ausbushes/grassybush, /obj/structure/flora/ausbushes/sunnybush, /obj/structure/flora/tree/palm, /mob/living/carbon/human/lesser/monkey,
 							/obj/item/gun/projectile/bow, /obj/item/storage/backpack/quiver/full)
 			florachance = 20
 		if("alien") //Beneficial, turns stuff into alien alloy which is useful to cargo and research. Also repairs atmos.
@@ -305,7 +307,8 @@
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
-										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)
+										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
+										   /obj/item/dice/d20/fate, /obj/item/gem)
 
 /obj/machinery/anomalous_crystal/refresher/New()
 	..()
@@ -373,7 +376,7 @@
 		L.mutations |= MUTE
 		L.status_flags |= GODMODE
 		L.mind.transfer_to(holder_animal)
-		var/obj/effect/proc_holder/spell/targeted/exit_possession/P = new /obj/effect/proc_holder/spell/targeted/exit_possession
+		var/obj/effect/proc_holder/spell/exit_possession/P = new(null)
 		holder_animal.mind.AddSpell(P)
 		holder_animal.verbs -= /mob/living/verb/pulled
 
@@ -385,7 +388,7 @@
 		L.notransform = 0
 		if(holder_animal && !QDELETED(holder_animal))
 			holder_animal.mind.transfer_to(L)
-			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
+			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)
 		if(kill || !isanimal(loc))
 			L.death(0)
 	..()
@@ -396,22 +399,24 @@
 /obj/structure/closet/stasis/ex_act()
 	return
 
-/obj/effect/proc_holder/spell/targeted/exit_possession
+
+/obj/effect/proc_holder/spell/exit_possession
 	name = "Exit Possession"
 	desc = "Exits the body you are possessing"
-	charge_max = 60
-	clothes_req = 0
-	invocation_type = "none"
-	max_targets = 1
-	range = -1
-	include_user = 1
-	selection_type = "view"
+	base_cooldown = 6 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
 	action_icon_state = "exit_possession"
-	sound = null
 
-/obj/effect/proc_holder/spell/targeted/exit_possession/cast(list/targets, mob/user = usr)
+
+/obj/effect/proc_holder/spell/exit_possession/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/exit_possession/cast(list/targets, mob/user = usr)
 	if(!isfloorturf(user.loc))
 		return
+
 	var/datum/mind/target_mind = user.mind
 	var/mob/living/current = user // Saving the current mob here to gib as usr seems to get confused after the mind's been transferred, due to delay in transfer_to
 	for(var/i in user)
@@ -421,4 +426,5 @@
 			qdel(S)
 			break
 	current.gib()
-	target_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
+	target_mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)
+

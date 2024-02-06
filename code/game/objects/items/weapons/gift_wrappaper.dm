@@ -26,7 +26,7 @@
 	return
 
 /obj/item/gift/attack_self(mob/user as mob)
-	user.drop_item()
+	user.drop_from_active_hand()
 	if(src.gift)
 		user.put_in_active_hand(gift)
 		src.gift.add_fingerprint(user)
@@ -104,18 +104,20 @@
 		/obj/item/toy/flash,
 		/obj/item/toy/minigibber,
 		/obj/item/toy/nuke,
-		/obj/item/toy/cards/deck,
+		/obj/item/deck/cards,
 		/obj/item/toy/AI,
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/gun/projectile/shotgun/toy/tommygun,
 		/obj/item/stack/tile/fakespace/loaded,
+		/obj/item/toy/pet_rock/naughty_coal,
+		/obj/item/reagent_containers/food/snacks/sugar_coal,
 		)
 
 	if(!ispath(gift_type,/obj/item))	return
 
 	var/obj/item/I = new gift_type(M)
-	M.unEquip(src, 1)
+	M.temporarily_remove_item_from_inventory(src, force = TRUE)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 	qdel(src)

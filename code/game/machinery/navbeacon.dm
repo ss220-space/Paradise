@@ -8,7 +8,8 @@
 	name = "navigation beacon"
 	desc = "A radio beacon used for bot navigation."
 	level = 1		// underfloor
-	layer = 2.5
+	layer = WIRE_LAYER
+	plane = FLOOR_PLANE
 	anchored = 1
 	max_integrity = 500
 	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
@@ -26,7 +27,8 @@
 	set_codes()
 
 	var/turf/T = loc
-	hide(T.intact)
+	if(!T.transparent_floor)
+		hide(T.intact)
 	if(!codes || !codes.len)
 		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
 	if("patrol" in codes)
@@ -92,22 +94,24 @@
 		return		// prevent intraction when T-scanner revealed
 
 	if(istype(I, /obj/item/screwdriver))
+		add_fingerprint(user)
 		open = !open
 
-		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
+		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", span_notice("You [open ? "open" : "close"] the beacon's cover."))
 
 		updateicon()
 
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	else if(I.GetID())
 		if(open)
 			if(allowed(user))
+				add_fingerprint(user)
 				locked = !locked
-				to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
+				to_chat(user, span_notice("Controls are now [locked ? "locked" : "unlocked"]."))
 			else
-				to_chat(user, "<span class='danger'>Access denied.</span>")
+				to_chat(user, span_danger("Access denied."))
 			updateDialog()
 		else
-			to_chat(user, "<span class='warning'>You must open the cover first!</span>")
+			to_chat(user, span_warning("You must open the cover first!"))
 	else
 		return ..()
 
@@ -115,6 +119,7 @@
 	interact(user, 1)
 
 /obj/machinery/navbeacon/attack_hand(mob/user)
+	add_fingerprint(user)
 	interact(user, 0)
 
 /obj/machinery/navbeacon/interact(mob/user, ai = 0)
@@ -123,7 +128,7 @@
 		return		// prevent intraction when T-scanner revealed
 
 	if(!open && !ai)	// can't alter controls if not open, unless you're an AI
-		to_chat(user, "<span class='warning'>The beacon's control cover is closed!</span>")
+		to_chat(user, span_warning("The beacon's control cover is closed!"))
 		return
 
 

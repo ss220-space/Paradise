@@ -1,10 +1,10 @@
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
-import { Box, Button, Flex, LabeledList, ProgressBar, Section } from "../components";
+import { Box, Button, Flex, LabeledList, ProgressBar, Section, Tooltip } from "../components";
 import { BeakerContents } from "../interfaces/common/BeakerContents";
 import { Window } from "../layouts";
 
-const dispenseAmounts = [1, 5, 10, 20, 30, 50];
+const dispenseAmounts = [1, 5, 10, 20, 30, 50, 100];
 const removeAmounts = [1, 5, 10];
 
 export const ChemDispenser = (props, context) => {
@@ -50,6 +50,7 @@ const ChemDispenserSettings = (properties, context) => {
                   icon="cog"
                   selected={amount === a}
                   content={a}
+                  align="center"
                   m="0"
                   width="100%"
                   onClick={() => act('amount', {
@@ -171,6 +172,16 @@ const ChemDispenserBeaker = (properties, context) => {
               onClick={() => act('remove', {
                 reagent: chemical.id,
                 amount: chemical.volume,
+              })}
+            />
+            <Button
+              content={"Floor"}
+              tooltip={'Set to ' + Math.trunc(chemical.volume)}
+              tooltipPosition="bottom-left"
+              icon="arrow-circle-down"
+              onClick={() => act('remove', {
+                reagent: chemical.id,
+                amount: -2,
               })}
             />
           </Fragment>

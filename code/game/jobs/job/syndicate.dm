@@ -20,13 +20,15 @@
 	jobtype = /datum/job/syndicateofficer
 
 	uniform = /obj/item/clothing/under/syndicate
+	suit = /obj/item/clothing/suit/space/deathsquad/officer/syndie
+	neck = /obj/item/clothing/neck/cloak/syndieadm
 	back = /obj/item/storage/backpack
-	head = /obj/item/clothing/head/beret
+	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	belt = /obj/item/gun/projectile/automatic/pistol/deagle/camo
-	l_ear = /obj/item/radio/headset/syndicate/alt/syndteam
+	l_ear = /obj/item/radio/headset/syndicate/admin_officer
 	pda = /obj/item/pinpointer/advpinpointer
 	id = /obj/item/card/id/syndicate/command
 	box = /obj/item/storage/box/survival_syndi
@@ -49,10 +51,10 @@
 
 	var/obj/item/implant/uplink/admin/U = new /obj/item/implant/uplink/admin(H)
 	U.implant(H)
-	U.hidden_uplink.uses = 500
+	U.hidden_uplink.uses = 2500
 	H.faction += "syndicate"
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.join_hud(H.mind.current)
-	H.mind.offstation_role = TRUE
+	H.mind?.offstation_role = TRUE
 	set_antag_hud(H.mind.current, "hudoperative")
 	H.regenerate_icons()

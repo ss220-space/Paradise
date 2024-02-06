@@ -101,13 +101,18 @@
 	[get_footer()]
 	"}
 
-/datum/browser/proc/open(var/use_onclose = 1, var/no_focus = 0)
+/datum/browser/proc/open(use_onclose = TRUE, no_focus = FALSE)
+	set waitfor = FALSE
 	var/window_size = ""
 	if(width && height)
 		window_size = "size=[width]x[height];"
 	user << browse(get_content(), "window=[window_id];[window_size][window_options]")
-	while(!winexists(user,window_id))
-		continue
+	for(var/i in 1 to 1000)
+		if(!user || !user.client)
+			return
+		if(winexists(user, window_id))
+			break
+		sleep(1)
 	if(no_focus)
 		winset(user, "mapwindow.map", "focus=true")
 	if(use_onclose)

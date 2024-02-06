@@ -6,7 +6,7 @@
 	icon_state = "leap_off"
 
 /obj/screen/alien/leap/Click()
-	if(istype(usr, /mob/living/carbon/alien/humanoid))
+	if(istype(usr, /mob/living/carbon/alien/humanoid/hunter))
 		var/mob/living/carbon/alien/humanoid/hunter/AH = usr
 		AH.toggle_leap()
 
@@ -56,7 +56,7 @@
 	if(istype(mymob, /mob/living/carbon/alien/humanoid/hunter))
 		mymob.leap_icon = new /obj/screen/alien/leap()
 		mymob.leap_icon.icon = 'icons/mob/screen_alien.dmi'
-		mymob.leap_icon.screen_loc = ui_alien_storage_r
+		mymob.leap_icon.screen_loc = ui_alien_leap
 		static_inventory += mymob.leap_icon
 
 //equippable shit
@@ -90,6 +90,22 @@
 	using.screen_loc = ui_swaphand2
 	static_inventory += using
 
+	inv_box = new /obj/screen/inventory()
+	inv_box.name = "storage1"
+	inv_box.icon = 'icons/mob/screen_alien.dmi'
+	inv_box.icon_state = "pocket"
+	inv_box.screen_loc = ui_alien_storage_l
+	inv_box.slot_id = slot_l_store
+	static_inventory += inv_box
+
+	inv_box = new /obj/screen/inventory()
+	inv_box.name = "storage2"
+	inv_box.icon = 'icons/mob/screen_alien.dmi'
+	inv_box.icon_state = "pocket"
+	inv_box.screen_loc = ui_alien_storage_r
+	inv_box.slot_id = slot_r_store
+	static_inventory += inv_box
+
 //end of equippable shit
 
 	using = new /obj/screen/resist()
@@ -118,16 +134,16 @@
 	infodisplay += nightvisionicon
 
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = 'icons/mob/screen_alien.dmi'
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	hotkeybuttons += mymob.pullin
 
 	alien_plasma_display = new /obj/screen/alien/plasma_display()
 	infodisplay += alien_plasma_display
 
-	zone_select = new /obj/screen/zone_sel/alien()
-	zone_select.update_icon(mymob)
+	zone_select = new /obj/screen/zone_sel/alien(null, src)
 	static_inventory += zone_select
 
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
@@ -147,8 +163,18 @@
 		if(H.l_hand)
 			H.l_hand.screen_loc = ui_lhand
 			H.client.screen += H.l_hand
+		if(H.r_store)
+			H.r_store.screen_loc = ui_alien_storage_r
+			H.client.screen += H.r_store
+		if(H.l_store)
+			H.l_store.screen_loc = ui_alien_storage_l
+			H.client.screen += H.l_store
 	else
 		if(H.r_hand)
 			H.r_hand.screen_loc = null
 		if(H.l_hand)
 			H.l_hand.screen_loc = null
+		if(H.r_store)
+			H.r_store.screen_loc = null
+		if(H.l_store)
+			H.l_store.screen_loc = null

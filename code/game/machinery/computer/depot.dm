@@ -8,7 +8,7 @@
 
 /obj/machinery/computer/syndicate_depot
 	name = "depot computer"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
 	light_color = LIGHT_COLOR_PURE_CYAN
@@ -31,7 +31,7 @@
 
 /obj/machinery/computer/syndicate_depot/attack_ai(mob/user)
 	if(length(req_access) && !("syndicate" in user.faction))
-		to_chat(user, "<span class='warning'>A firewall blocks your access.</span>")
+		to_chat(user, span_warning("A firewall blocks your access."))
 		return TRUE
 	return ..()
 
@@ -39,8 +39,8 @@
 	return
 
 /obj/machinery/computer/syndicate_depot/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
-	return
+	if(user)
+		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 
 /obj/machinery/computer/syndicate_depot/allowed(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -110,7 +110,8 @@
 		return
 	. = FALSE
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	switch(action)
 		if("primary")
@@ -174,16 +175,16 @@
 		pub_access = !pub_access
 		if(pub_access)
 			depotarea.set_emergency_access(TRUE)
-			to_chat(user, "<span class='notice'>Emergency Access enabled.</span>")
+			to_chat(user, span_notice("Emergency Access enabled."))
 		else
 			depotarea.set_emergency_access(FALSE)
-			to_chat(user, "<span class='notice'>Emergency Access disabled.</span>")
+			to_chat(user, span_notice("Emergency Access disabled."))
 		playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/doors/secondary(mob/user, subcommand)
 	if(depotarea)
 		depotarea.toggle_falsewalls(src)
-		to_chat(user, "<span class='notice'>False walls toggled.</span>")
+		to_chat(user, span_notice("False walls toggled."))
 		playsound(user, sound_yes, 50, 0)
 
 
@@ -327,7 +328,7 @@
 		return
 	if(message_sent)
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
-		to_chat(user, "<span class='warning'>[src] has already been used to transmit a message to the Syndicate.</span>")
+		to_chat(user, span_warning("[src] has already been used to transmit a message to the Syndicate."))
 		return
 	message_sent = TRUE
 	var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This function may only be used ONCE.", "To abort, send an empty message.", "")
@@ -336,27 +337,27 @@
 		return
 	Syndicate_announce(input, user)
 	to_chat(user, "Message transmitted.")
-	log_say("[key_name(user)] has sent a Syndicate comms message from the depot: [input]", user)
+	add_game_logs("has sent a Syndicate comms message from the depot: [input]", user)
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(mob/user)
 	if(!istype(depotarea))
-		to_chat(user, "<span class='warning'>ERROR: [src] is unable to uplink to depot network.</span>")
+		to_chat(user, span_warning("ERROR: [src] is unable to uplink to depot network."))
 		return
 	if(depotarea.local_alarm || depotarea.called_backup || depotarea.used_self_destruct)
-		to_chat(user, "<span class='warning'>Visitor sign-in is not possible while the depot is on security alert.</span>")
+		to_chat(user, span_warning("Visitor sign-in is not possible while the depot is on security alert."))
 		return
 	if(depotarea.something_looted)
-		to_chat(user, "<span class='warning'>Visitor sign-in is not possible after supplies have been taken from a locker in the depot.</span>")
+		to_chat(user, span_warning("Visitor sign-in is not possible after supplies have been taken from a locker in the depot."))
 		return
 	if("syndicate" in user.faction)
-		to_chat(user, "<span class='warning'>You are already recognized as a member of the Syndicate, and do not need to sign in.</span>")
+		to_chat(user, span_warning("You are already recognized as a member of the Syndicate, and do not need to sign in."))
 		return
 	if(!user.mind || user.mind.special_role != SPECIAL_ROLE_TRAITOR)
-		to_chat(user, "<span class='warning'>Only verified agents of the Syndicate may sign in as visitors. Everyone else will be shot on sight.</span>")
+		to_chat(user, span_warning("Only verified agents of the Syndicate may sign in as visitors. Everyone else will be shot on sight."))
 		return
 	if(depotarea.list_includes(user, depotarea.peaceful_list))
-		to_chat(user, "<span class='warning'>[user] is already signed in as a visiting agent.</span>")
+		to_chat(user, span_warning("[user] is already signed in as a visiting agent."))
 		return
 	if(!depotarea.on_peaceful)
 		depotarea.peaceful_mode(TRUE, TRUE)
@@ -387,21 +388,35 @@
 // Syndicate teleporter control, used to manage incoming/outgoing teleports
 
 /obj/machinery/computer/syndicate_depot/teleporter
-	name = "syndicate teleporter console"
+	name = "Syndicate Redspace Teleporter Console"
+	desc = "This suspicious high-tech machine creates a Bi-Directional teleporter that is capable to ignore any bluespace interference!"
 	icon_screen = "telesci"
 	icon_keyboard = "teleport_key"
-	window_height = 300
+	window_height = 320
 	var/obj/machinery/bluespace_beacon/syndicate/mybeacon
 	var/obj/effect/portal/redspace/myportal
 	var/obj/effect/portal/redspace/myportal2
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
+	var/blocked = FALSE 		//Блокирует кнопки телепортера если TRUE
+	var/last_opened_time = null	//Время когда в последний раз было открыто меню выбора телепорта
+	var/last_opener = null		//Последний открывший меню выбора телепорта
+	var/timeout = 300			//Время в течении которого никто не может использовать консоль пока кто то выбирает телепорт
+	var/is_cooldown = FALSE		//На кулдауне ли мы?
+	var/wait_time = 0 			//Сколько осталось до конца кулдауна.
+	var/lifespan = 300			//Сколько будут жить созданные порталы прежде чем удалиться
+
+/obj/machinery/computer/syndicate_depot/teleporter/taipan
+	req_access = list(154)
+	circuit = /obj/item/circuitboard/syndicate_teleporter
+	armor = list("melee" = 0, "bullet" = 100, "laser" = 40, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
 
 /obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/syndicate_depot/teleporter/LateInitialize()
+	. = ..()
 	findbeacon()
 	update_portal()
 
@@ -430,10 +445,23 @@
 		return TRUE
 	return FALSE
 
+/obj/machinery/computer/syndicate_depot/teleporter/proc/cooldown()
+	if(is_cooldown)
+		wait_time = round((last_opened_time + timeout - world.time) / 10)
+		if(wait_time <=0)
+			wait_time = 0
+			is_cooldown = FALSE
+			blocked = FALSE
+		return wait_time
+	return 0
+
 /obj/machinery/computer/syndicate_depot/teleporter/proc/choosetarget()
 	var/list/L = list()
 	var/list/areaindex = list()
-
+	last_opened_time = world.time
+	last_opener = usr
+	is_cooldown = TRUE
+	blocked = TRUE
 	for(var/obj/item/radio/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
@@ -446,25 +474,34 @@
 		else
 			areaindex[tmpname] = 1
 		L[tmpname] = R
-	var/desc = input("Please select a location to lock in.", "Syndicate Teleporter") in L
+	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Syndicate Teleporter", L)
+	if(usr == last_opener && world.time >= last_opened_time + timeout)
+		return FALSE
 	return(L[desc])
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
-	if(portal_enabled && !myportal)
+	if(portal_enabled && !myportal &&!myportal2)
 		var/turf/tele_target = choosetarget()
-		if(!tele_target)
+		log_debug("[last_opener] attempted to open a two-way portal using [src.name]")
+		if(!in_range(usr, src) || !tele_target || myportal || myportal2)
 			return
+		is_cooldown = FALSE
+		wait_time = 0
+		blocked = FALSE
 		var/turf/portal_turf = get_step(src, portaldir)
-		var/obj/effect/portal/redspace/P = new(portal_turf, tele_target, src, 0)
+		var/obj/effect/portal/redspace/P = new(portal_turf, tele_target, src, lifespan)
 		myportal = P
 		var/area/A = get_area(tele_target)
 		P.name = "[A] portal"
-		var/obj/effect/portal/redspace/P2 = new(get_turf(tele_target), portal_turf, src, 0)
+		log_debug("First Portal: [P] opened at ([portal_turf.x],[portal_turf.y],[portal_turf.z])")
+		var/obj/effect/portal/redspace/P2 = new(get_turf(tele_target), portal_turf, src, lifespan)
 		myportal2 = P2
-		P2.name = "mysterious portal"
-	else if(!portal_enabled && myportal)
-		qdel(myportal)
-		myportal = null
+		P2.name = "Mysterious portal"
+		log_debug("Second Portal: [P2] opened at ([tele_target.x],[tele_target.y],[tele_target.z])")
+	else if(!portal_enabled)
+		if(myportal)
+			qdel(myportal)
+			myportal = null
 		if(myportal2)
 			qdel(myportal2)
 			myportal2 = null
@@ -472,13 +509,17 @@
 /obj/machinery/computer/syndicate_depot/teleporter/ui_data(mob/user)
 	findbeacon()
 	var/list/data = ..()
+	data["rows"] += list(list(
+		"title" = "Status",
+		"status" = is_cooldown ? "Awaiting teleport position: [cooldown()]" : "Ready"
+	))
 	if(mybeacon)
 		data["rows"] += list(list(
 			"title" = "Incoming Teleport Beacon",
 			"status" = mybeacon.enabled ? "ON" : "OFF",
 			"buttontitle" = mybeacon.enabled ? "Disable" : "Enable",
 			"buttonact" = "primary",
-			"buttondisabled" = !allowed(user),
+			"buttondisabled" = (!allowed(user) || blocked),
 			"buttontooltip" = "When on, emagged teleporters can lock onto this location and open portals here."
 		))
 	data["rows"] += list(list(
@@ -486,35 +527,37 @@
 		"status" = portal_enabled ? "ON" : "OFF",
 		"buttontitle" = portal_enabled ? "Disable" : "Enable",
 		"buttonact" = "secondary",
-		"buttondisabled" = (!allowed(user) || (!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))),
+		"buttondisabled" = (!allowed(user)|| blocked),
+		//"buttondisabled" = (!allowed(user) || (!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))),
 		"buttontooltip" = "When on, creates a bi-directional portal to the beacon of your choice."
 	))
 	return data
 
 /obj/machinery/computer/syndicate_depot/teleporter/primary(mob/user)
 	if(!mybeacon && user)
-		to_chat(user, "<span class='notice'>Unable to connect to teleport beacon.</span>")
+		to_chat(user, span_notice("Unable to connect to teleport beacon."))
 		return
 	var/bresult = mybeacon.toggle()
-	to_chat(user, "<span class='notice'>Syndicate Teleporter Beacon: [bresult ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
+	to_chat(user, span_notice("Syndicate Teleporter Beacon: [bresult ? span_green("ON") : span_red("OFF")]"))
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
-	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))
-		to_chat(user, "<span class='notice'>Outgoing Teleport Portal controls are only enabled when the depot has a signed-in agent visitor.</span>")
+/*	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))
+		to_chat(user, span_notice("Outgoing Teleport Portal controls are only enabled when the depot has a signed-in agent visitor."))
 		return
+		*/
+
 	if(!portal_enabled && myportal)
-		to_chat(user, "<span class='notice'>Outgoing Teleport Portal: deactivating... please wait...</span>")
+		to_chat(user, span_notice("Outgoing Teleport Portal: deactivating... please wait..."))
 		return
 	toggle_portal()
-	to_chat(user, "<span class='notice'>Outgoing Teleport Portal: [portal_enabled ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
+	to_chat(user, span_notice("Outgoing Teleport Portal: [portal_enabled ? span_green("ON") : span_red("OFF")]"))
 	updateUsrDialog()
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/toggle_portal()
 	portal_enabled = !portal_enabled
 	update_portal()
-
 
 /obj/machinery/computer/syndicate_depot/aiterminal
 	name = "syndicate ai terminal"

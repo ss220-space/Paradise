@@ -43,7 +43,7 @@
 
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
-	. += "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots."
+	. += "<span class='notice'>There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots.</span>"
 
 /obj/machinery/computer/telescience/Initialize()
 	..()
@@ -54,20 +54,22 @@
 		if(crystals >= max_crystals)
 			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
 			return
+		add_fingerprint(user)
 		crystals += 1
 		user.visible_message("<span class='notice'>[user] inserts a [B.singular_name] into [src]'s crystal slot.</span>")
 		B.use(1)
 		updateUsrDialog()
 	else if(istype(W, /obj/item/gps))
 		if(!inserted_gps)
+			add_fingerprint(user)
 			inserted_gps = W
-			user.unEquip(W)
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			user.visible_message("<span class='notice'>[user] inserts [W] into [src]'s GPS device slot.</span>")
 			updateUsrDialog()
 	else if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
+			add_fingerprint(user)
 			telepad = M.buffer
 			M.buffer = null
 			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
@@ -75,11 +77,12 @@
 	else
 		return ..()
 
-/obj/machinery/computer/telescience/emag_act(user as mob)
+/obj/machinery/computer/telescience/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
 		emagged = 1
-	else
+	else if(user)
 		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
@@ -225,7 +228,7 @@
 				dest = target
 
 			flick("pad-beam", telepad)
-			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 50, TRUE)
 			for(var/atom/movable/ROI in source)
 				// if is anchored, don't let through
 				if(ROI.anchored)
@@ -267,7 +270,6 @@
 			else
 				log_msg += "nothing"
 			log_msg += " [sending ? "to" : "from"] [trueX], [trueY], [z_co] ([A ? A.name : "null area"])"
-			investigate_log(log_msg, "telesci")
 			updateUsrDialog()
 
 /obj/machinery/computer/telescience/proc/teleport(mob/user)
@@ -360,7 +362,8 @@
 
 	if(href_list["ejectGPS"])
 		if(inserted_gps)
-			usr.put_in_hands(inserted_gps)
+			inserted_gps.forceMove_turf()
+			usr.put_in_hands(inserted_gps, ignore_anim = FALSE)
 			inserted_gps = null
 
 	if(href_list["setMemory"])

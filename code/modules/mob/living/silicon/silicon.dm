@@ -41,8 +41,8 @@
 	..()
 	add_language("Galactic Common")
 	init_subsystems()
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
+	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/Initialize()
 	. = ..()
@@ -52,13 +52,17 @@
 	diag_hud_set_health()
 
 /mob/living/silicon/med_hud_set_health()
-	return //we use a different hud
+	return diag_hud_set_health() //we use a different hud
 
 /mob/living/silicon/med_hud_set_status()
-	return //we use a different hud
+	return diag_hud_set_status() //we use a different hud
 
 /mob/living/silicon/Destroy()
 	GLOB.silicon_mob_list -= src
+	QDEL_NULL(atmos_control)
+	QDEL_NULL(crew_monitor)
+	QDEL_NULL(law_manager)
+	QDEL_NULL(power_monitor)
 	return ..()
 
 /mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
@@ -79,7 +83,7 @@
 	if(in_cooldown)
 		return
 
-	addtimer(CALLBACK(src, .proc/show_alarms), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(show_alarms)), 3 SECONDS)
 
 /mob/living/silicon/proc/show_alarms()
 	if(alarms_to_show.len < 5)
@@ -158,7 +162,7 @@
 /mob/living/silicon/proc/show_laws()
 	return
 
-/mob/living/silicon/drop_item()
+/mob/living/silicon/drop_from_active_hand(force = FALSE)
 	return
 
 /mob/living/silicon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
@@ -167,12 +171,12 @@
 /mob/living/silicon/emp_act(severity)
 	..()
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			take_organ_damage(20)
-			Stun(8)
-		if(2)
+			Stun(16 SECONDS)
+		if(EMP_LIGHT)
 			take_organ_damage(10)
-			Stun(3)
+			Stun(6 SECONDS)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
@@ -181,13 +185,22 @@
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
-/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
+/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
+
+
+/mob/living/silicon/handle_ventcrawl(atom/clicked_on)
+	. = ..()
+
+	if(. && inventory_head)
+		drop_hat()
+		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -210,6 +223,7 @@
 
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
 
+	Proj.on_hit(src,2)
 
 	if(!Proj.nodamage)
 		switch(Proj.damage_type)
@@ -218,7 +232,6 @@
 			if(BURN)
 				adjustFireLoss(Proj.damage)
 
-	Proj.on_hit(src,2)
 
 	return 2
 
@@ -244,7 +257,7 @@
 	updatehealth()
 	return 1*/
 
-/proc/islinked(var/mob/living/silicon/robot/bot, var/mob/living/silicon/ai/ai)
+/proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
 		return 0
 	if(bot.connected_ai == ai)
@@ -296,7 +309,7 @@
 			if(L == default_language)
 				default_str = " - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a>"
 			else
-				default_str = " - <a href='byond://?src=[UID()];default_lang=[L]'>set default</a>"
+				default_str = " - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a>"
 
 			var/synth = (L in speech_synthesizer_langs)
 			. += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[L.desc]<br><br>"
@@ -304,13 +317,7 @@
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
-	var/dat = {"<meta charset="UTF-8">"}
-	dat += "<h4>Crew Manifest</h4>"
-	if(GLOB.data_core)
-		dat += GLOB.data_core.get_manifest(1) // make it monochrome
-	dat += "<br>"
-	src << browse(dat, "window=airoster")
-	onclose(src, "airoster")
+	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.not_incapacitated_state)
 
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10
@@ -355,7 +362,7 @@
 
 
 /mob/living/silicon/proc/toggle_sensor_mode()
-	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Diagnostic","Disable")
+	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Diagnostic", "Multisensor","Disable")
 	remove_med_sec_hud()
 	switch(sensor_type)
 		if("Security")
@@ -367,10 +374,16 @@
 		if("Diagnostic")
 			add_diag_hud()
 			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+		if("Multisensor")
+			add_sec_hud()
+			add_med_hud()
+			add_diag_hud()
+			to_chat(src, "<span class='notice'>Multisensor overlay enabled.</span>")
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 
-/mob/living/silicon/adjustToxLoss(var/amount)
+
+/mob/living/silicon/adjustToxLoss(amount, updating_health)
 	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()
@@ -388,5 +401,4 @@
 
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
-	. = TRUE
-
+	return TRUE

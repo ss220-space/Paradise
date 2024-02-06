@@ -27,6 +27,7 @@
 #define DIAG_TRACK_HUD		"22"// Mech tracking beacon
 #define DIAG_PATH_HUD 		"23"//Bot path indicators
 #define GLAND_HUD 			"24"//Gland indicators for abductors
+#define THOUGHT_HUD			"25"//Telepathy bubbles
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -42,20 +43,24 @@
 #define DATA_HUD_DIAGNOSTIC_ADVANCED	6
 #define DATA_HUD_HYDROPONIC			7
 //antag HUD defines
-#define ANTAG_HUD_CULT		8
-#define ANTAG_HUD_REV		9
-#define ANTAG_HUD_OPS		10
-#define ANTAG_HUD_WIZ		11
-#define ANTAG_HUD_SHADOW    12
-#define ANTAG_HUD_TRAITOR 13
-#define ANTAG_HUD_NINJA 14
-#define ANTAG_HUD_CHANGELING 15
-#define ANTAG_HUD_VAMPIRE 16
-#define ANTAG_HUD_ABDUCTOR 17
-#define DATA_HUD_ABDUCTOR	18
-#define ANTAG_HUD_DEVIL 19
-#define ANTAG_HUD_EVENTMISC 20
-#define ANTAG_HUD_BLOB 21
+#define ANTAG_HUD_CULT 8
+#define ANTAG_HUD_CLOCK 9
+#define ANTAG_HUD_REV 10
+#define ANTAG_HUD_OPS 11
+#define ANTAG_HUD_WIZ 12
+#define ANTAG_HUD_SHADOW 13
+#define ANTAG_HUD_TRAITOR 14
+#define ANTAG_HUD_NINJA 15
+#define ANTAG_HUD_CHANGELING 16
+#define ANTAG_HUD_VAMPIRE 17
+#define ANTAG_HUD_ABDUCTOR 18
+#define DATA_HUD_ABDUCTOR 19
+#define ANTAG_HUD_DEVIL 20
+#define ANTAG_HUD_EVENTMISC 21
+#define ANTAG_HUD_BLOB 22
+#define TAIPAN_HUD 23
+#define ANTAG_HUD_THIEF 24
+#define THOUGHTS_HUD 25
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
@@ -69,3 +74,14 @@
 #define EXAMINE_HUD_SECURITY_WRITE "security_write"
 #define EXAMINE_HUD_MEDICAL "medical"
 #define EXAMINE_HUD_SKILLS "skills"
+
+
+// Consider these images/atoms as part of the UI/HUD (apart of the appearance_flags)
+/// Used for progress bars and chat messages
+#define APPEARANCE_UI_IGNORE_ALPHA (RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE)
+/// Used for HUD objects
+#define APPEARANCE_UI (RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|PIXEL_SCALE)
+
+//Just for comfortable thoughts_hud management.
+#define THOUGHTS_HUD_PRECISE 1
+#define THOUGHTS_HUD_DISPERSE -1

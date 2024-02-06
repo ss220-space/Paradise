@@ -4,14 +4,16 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	item_state = "crowbar"
+	belt_icon = "pocket_crowbar"
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5
 	throwforce = 7
-	item_state = "crowbar"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
+	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
+	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
@@ -23,6 +25,10 @@
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
 	force = 8
+
+/obj/item/crowbar/red/sec
+	icon_state = "crowbar_sec"
+	item_state = "crowbar_sec"
 
 /obj/item/crowbar/brass
 	name = "brass crowbar"
@@ -38,6 +44,8 @@
 	icon = 'icons/obj/abductor.dmi'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "crowbar"
+	item_state = "alien_crowbar"
+	belt_icon = "alien_crowbar"
 	toolspeed = 0.1
 	origin_tech = "combat=4;engineering=4;abductor=3"
 
@@ -65,15 +73,17 @@
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
+	belt_icon = "jaws_of_life"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25
+	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] помеща[pluralize_ru(user.gender,"ет","ют")] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!</span>")
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
 	return BRUTELOSS
 

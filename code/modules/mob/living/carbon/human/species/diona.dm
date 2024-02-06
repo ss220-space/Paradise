@@ -25,10 +25,10 @@
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
-	dietflags = DIET_HERB		//Diona regenerate nutrition in light and water, no diet necessary, but if they must, they eat other plants *scream
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	skinned_type = /obj/item/stack/sheet/wood
 
+	blood_species = "Diona"
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
@@ -36,34 +36,37 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
-		"respiratory vacuoles" =   /obj/item/organ/internal/lungs/diona,
-		"neural strata" =      /obj/item/organ/internal/heart/diona,
-		"receptor node" =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
-		"gas bladder" =        /obj/item/organ/internal/brain/diona,
-		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
-		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
-		)
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/diona,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/diona,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/diona,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/diona,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/diona,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix/diona,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/diona,
+	)
 
-	vision_organ = /obj/item/organ/internal/eyes/diona
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
-		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
-		"head" =   list("path" = /obj/item/organ/external/head/diona),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/diona),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/diona),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/diona),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/diona),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/diona),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/diona),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/diona),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/diona)
-		)
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/diona),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/diona),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/diona),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm/diona),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right/diona),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg/diona),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right/diona),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand/diona),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right/diona),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot/diona),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right/diona),
+	)
 
 	suicide_messages = list(
-		"is losing branches!",
-		"pulls out a secret stash of herbicide and takes a hearty swig!",
-		"is pulling themselves apart!")
+		"теряет ветви!",
+		"вытаскивает из тайника бутыль с гербицидом и делает большой глоток!",
+		"разваливается на множество нимф!")
+
+	disliked_food = MEAT | RAW | EGG
+	liked_food = VEGETABLES | FRUIT
 
 /datum/species/diona/can_understand(mob/other)
 	if(istype(other, /mob/living/simple_animal/diona))
@@ -91,7 +94,7 @@
 
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-	var/is_vamp = H.mind?.vampire != null
+	var/is_vamp = isvampire(H)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5

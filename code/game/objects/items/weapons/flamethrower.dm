@@ -1,7 +1,7 @@
 /obj/item/flamethrower
 	name = "flamethrower"
 	desc = "You are a firestarter!"
-	icon = 'icons/obj/flamethrower.dmi'
+	icon = 'icons/obj/weapons/flamethrower.dmi'
 	icon_state = "flamethrowerbase"
 	item_state = "flamethrower_0"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -20,7 +20,7 @@
 	var/operating = FALSE//cooldown
 	var/obj/item/weldingtool/weldtool = null
 	var/obj/item/assembly/igniter/igniter = null
-	var/obj/item/tank/plasma/ptank = null
+	var/obj/item/tank/internals/plasma/ptank = null
 	var/warned_admins = FALSE //for the message_admins() when lit
 	//variables for prebuilt flamethrowers
 	var/create_full = FALSE
@@ -64,6 +64,13 @@
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
+/obj/item/flamethrower/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
+
 /obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	if(flag)
@@ -74,6 +81,7 @@
 			var/turflist = getline(user, target_turf)
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
 			flame_turf(turflist)
+			playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 50, 1)
 
 /obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
 	if(isigniter(I))
@@ -82,30 +90,25 @@
 			return
 		if(igniter)
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(IG, src))
 			return
-		IG.forceMove(src)
 		igniter = IG
 		update_icon()
 		return
 
-	else if(istype(I, /obj/item/tank/plasma))
+	else if(istype(I, /obj/item/tank/internals/plasma))
 		if(ptank)
-			if(user.drop_item())
-				I.forceMove(src)
+			if(user.drop_transfer_item_to_loc(I, src))
 				ptank.forceMove(get_turf(src))
 				ptank = I
 				to_chat(user, "<span class='notice'>You swap the plasma tank in [src]!</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
-		I.forceMove(src)
 		ptank = I
 		update_icon()
 		return
 
-	else if(istype(I, /obj/item/analyzer) && ptank)
-		atmosanalyzer_scan(ptank.air_contents, user)
 	else
 		return ..()
 
@@ -138,12 +141,21 @@
 	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
 	update_icon()
 
+/obj/item/flamethrower/return_analyzable_air()
+	if(ptank)
+		return ptank.return_analyzable_air()
+	return null
+
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)
 
-/obj/item/flamethrower/AltClick(mob/user)
-	if(ptank && isliving(user) && user.Adjacent(src))
-		user.put_in_hands(ptank)
+/obj/item/flamethrower/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(ptank && user.Adjacent(src))
+		ptank.forceMove_turf()
+		user.put_in_hands(ptank, ignore_anim = FALSE)
 		ptank = null
 		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
 		update_icon()
@@ -227,7 +239,7 @@
 		igniter.secured = FALSE
 		status = TRUE
 		if(create_with_tank)
-			ptank = new /obj/item/tank/plasma/full(src)
+			ptank = new /obj/item/tank/internals/plasma/full(src)
 		update_icon()
 
 /obj/item/flamethrower/full
@@ -241,7 +253,7 @@
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
 		var/turf/target_turf = get_turf(owner)
-		log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
+		add_game_logs("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]", owner)
 		igniter.ignite_turf(src,target_turf, release_amount = 100)
 		QDEL_NULL(ptank)
 		return 1 //It hit the flamethrower, not them

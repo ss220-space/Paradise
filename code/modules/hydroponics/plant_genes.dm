@@ -159,7 +159,7 @@
 			return FALSE
 	return TRUE
 
-/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	if(!origin_tech) // This ugly code segment adds RnD tech levels to resulting plants.
 		return
 
@@ -206,19 +206,19 @@
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
 	dangerous = TRUE
 
-/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	. = ..()
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return
 
-	var/stun_len = G.seed.potency * rate * 0.8
+	var/stun_len = G.seed.potency * rate * 0.8 SECONDS
 
 	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
 		stun_len /= 3
 
-	stun_len = min(stun_len, 7) // No fun allowed
+	stun_len = min(stun_len, 14 SECONDS)// No fun allowed
 
-	G.AddComponent(/datum/component/slippery, G, stun_len, stun_len, 100, 0, FALSE)
+	G.AddComponent(/datum/component/slippery, G, stun_len, 100, 0, FALSE)
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
@@ -233,6 +233,8 @@
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
 	if(prob(power))
+		add_attack_logs(G, C, "shocked for [round(power)] for slipping on")
+		C.investigate_log("got shocked for [round(power)] while slipped on [G](last touched: [G.fingerprintslast])", INVESTIGATE_BOTANY)
 		C.electrocute_act(round(power), G, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
@@ -240,6 +242,8 @@
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
+			add_attack_logs(G, C, "shocked for [round(power)], squashing [G]")
+			C.investigate_log("got shocked for [round(power)], squashing [G]", INVESTIGATE_BOTANY)
 			C.electrocute_act(round(power), G, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
@@ -261,32 +265,43 @@
 
 /datum/plant_gene/trait/glow
 	// Makes plant glow. Makes plant in tray glow too.
-	// Adds 1 + potency*rate light range and potency*(rate + 0.01) light_power to products.
+	// Adds (20+potency)*rate light range and potency*rate light_power to products.
 	name = "Bioluminescence"
-	rate = 0.03
+	rate = 0.02
 	examine_line = "<span class='info'>It emits a soft glow.</span>"
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
 
 /datum/plant_gene/trait/glow/proc/glow_range(obj/item/seeds/S)
-	return 1.4 + S.potency*rate
+	return (20+S.potency)*rate
 
 /datum/plant_gene/trait/glow/proc/glow_power(obj/item/seeds/S)
-	return max(S.potency*(rate + 0.01), 0.1)
+	return max(S.potency*rate, 0.1)
 
-/datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
 
+/datum/plant_gene/trait/glow/blue
+	name = "Blue Bioluminescence"
+	glow_color = "#6699FF"
+
+/datum/plant_gene/trait/glow/purple
+	name = "Purple Bioluminescence"
+	glow_color = "#b434df"
+
+/datum/plant_gene/trait/glow/yellow
+	name = "Yellow Bioluminescence"
+	glow_color = "#FFFF66"
+
 /datum/plant_gene/trait/glow/shadow
 	//makes plant emit slightly purple shadows
-	//adds -potency*(rate*0.05) light power to products
+	//adds -potency*rate light power to products
 	name = "Shadow Emission"
-	rate = 0.04
 	glow_color = "#AAD84B"
 
 /datum/plant_gene/trait/glow/shadow/glow_power(obj/item/seeds/S)
-	return -max(S.potency*(rate*0.05), 0.075)
+	return -max(S.potency*rate, 0.1)
 
 /datum/plant_gene/trait/glow/red
 	name = "Red Electrical Glow"
@@ -294,7 +309,7 @@
 
 /datum/plant_gene/trait/glow/berry
 	name = "Strong Bioluminescence"
-	rate = 0.05
+	rate = 0.04
 	glow_color = null
 
 /datum/plant_gene/trait/teleport
@@ -305,17 +320,25 @@
 	origin_tech = list("bluespace" = 5)
 	dangerous = TRUE
 
-/datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(isliving(target))
+		var/mob/living/living_target = target
+		//squash_trait already has "do_after", no need to double it here
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
-		var/turf/T = get_turf(target)
+		var/turf/T = get_turf(living_target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
+		add_attack_logs(target, T, "teleport squash [G](max radius: [teleport_radius])")
 		do_teleport(target, T, teleport_radius)
+		if(thrower == living_target)
+			living_target.adjustStaminaLoss(33)
+		living_target.investigate_log("teleported from [COORD(T)] to [COORD(living_target)], squashing [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	if(do_teleport(C, T, teleport_radius))
+		add_attack_logs(C, T, "tele-slipped on [G](max radius: [teleport_radius])")
+		C.investigate_log("teleported from [COORD(T)] to [COORD(C)], slipping on [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
 		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 		if(prob(50))
 			do_teleport(G, T, teleport_radius)
@@ -332,12 +355,19 @@
 	// Makes plant reagents not react until squashed.
 	name = "Separated Chemicals"
 
-/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.reagents.set_reacting(FALSE)
 
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(G && G.reagents)
+		var/reglist = ""
+		for(var/datum/reagent/R in G.reagents.reagent_list)
+			reglist += "[R.name] [R.volume], "
+		if(thrower)
+			thrower.investigate_log("thrown [G] and started reaction on squash. [reglist]", INVESTIGATE_BOTANY)
+		else
+			target.investigate_log("squashed [G] starting a reaction. [reglist]", INVESTIGATE_BOTANY)
 		G.reagents.set_reacting(TRUE)
 		G.reagents.handle_reactions()
 
@@ -347,7 +377,7 @@
 	name = "Densified Chemicals"
 	rate = 2
 
-/datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.reagents.maximum_volume *= rate
 
@@ -371,7 +401,7 @@
 			to_chat(user, "<span class='notice'>You add some cable to [G] and slide it inside the battery encasing.</span>")
 			var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
 			pocell.icon_state = G.icon_state
-			pocell.maxcharge = G.seed.potency * 20
+			pocell.maxcharge = G.seed.potency * 4
 
 			// The secret of potato supercells!
 			var/datum/plant_gene/trait/cell_charge/CG = G.seed.get_gene(/datum/plant_gene/trait/cell_charge)
@@ -398,16 +428,20 @@
 		var/mob/living/L = target
 		// It would be nice to inject the body part the original thrower aimed at,
 		// but we don't have this kind of information here. So pick something at random.
-		var/target_zone = pick("chest", "chest", "chest", "l_leg", "r_leg", "l_arm", "r_arm", "head")
+		var/target_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD)
 		if(L.reagents && L.can_inject(null, FALSE, target_zone))
 			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, REAGENT_INGEST, fraction)
 			G.reagents.trans_to(L, injecting_amount)
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
+			var/reglist = ""
+			for(var/datum/reagent/R in G.reagents.reagent_list)
+				reglist += "[R.name] [R.volume], "
+			target.investigate_log("got throw-pricked with [G]. [reglist]")
 
 /datum/plant_gene/trait/smoke
-	name = "gaseous decomposition"
+	name = "Gaseous Decomposition"
 	dangerous = TRUE
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
@@ -415,7 +449,11 @@
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
 	S.set_up(G.reagents, splat_location)
-	S.start(smoke_amount)
+	var/reglist = ""
+	for(var/datum/reagent/R in G.reagents.reagent_list)
+		reglist += "[R.name] [R.volume], "
+	target.investigate_log("started a chemical smoke, squashing [G]. [reglist]")
+	addtimer(CALLBACK(S, TYPE_PROC_REF(/datum/effect_system/smoke_spread/chem, start), smoke_amount), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 /datum/plant_gene/trait/fire_resistance // Lavaland
 	name = "Fire Resistance"
@@ -424,7 +462,7 @@
 	if(!(S.resistance_flags & FIRE_PROOF))
 		S.resistance_flags |= FIRE_PROOF
 
-/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	if(!(G.resistance_flags & FIRE_PROOF))
 		G.resistance_flags |= FIRE_PROOF
 
@@ -440,3 +478,22 @@
 
 /datum/plant_gene/trait/plant_type/alien_properties
 	name ="?????"
+
+//laughter gene
+
+/**
+ * Plays a laughter sound when someone slips on it.
+ * Like the sitcom component but for plants.
+ * Just like slippery skin, if we have a trash type this only functions on that. (Banana peels)
+ */
+/datum/plant_gene/trait/plant_laughter
+	name = "Hallucinatory Feedback"
+	//description = "Makes sounds when people slip on it."
+	/// Sounds that play when this trait triggers
+	var/list/sounds = list('sound/items/SitcomLaugh1.ogg', 'sound/items/SitcomLaugh2.ogg', 'sound/items/SitcomLaugh3.ogg')
+
+/datum/plant_gene/trait/plant_laughter/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+
+	if(C.IsWeakened())
+		playsound(C, pick(sounds), 100, 1)
+		C.visible_message("<span class='notice'>[G] lets out burst of laughter.</span>")

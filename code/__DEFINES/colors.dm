@@ -2,6 +2,7 @@
 #define COLOR_INPUT_DISABLED "#F0F0F0"
 #define COLOR_INPUT_ENABLED "#D3B5B5"
 #define COLOR_RED 			   "#FF0000"
+#define COLOR_CULT_RED			"#960000"
 #define COLOR_GREEN 		   "#00FF00"
 #define COLOR_BLUE 			   "#0000FF"
 #define COLOR_CYAN 			   "#00FFFF"
@@ -11,6 +12,7 @@
 #define COLOR_WHITE 		   "#FFFFFF"
 #define COLOR_GRAY      	   "#808080"
 #define COLOR_BLACK            "#000000"
+#define COLOR_HALF_TRANSPARENT_BLACK "#0000007A"
 #define COLOR_NAVY_BLUE        "#000080"
 #define COLOR_LIGHT_GREEN      "#008000"
 #define COLOR_DARK_GRAY        "#404040"
@@ -80,6 +82,8 @@
 #define COLOR_ALUMINIUM        "#bbbbbb"
 #define COLOR_CRYSTAL          "#00c8a5"
 #define COLOR_ASTEROID_ROCK    "#735555"
+#define COLOR_ANCIENT_ROCK     "#575757"
+#define COLOR_COLD_ROCK        "#575764"
 #define COLOR_NULLGLASS        "#ff6088"
 #define COLOR_DIAMOND          "#d8d4ea"
 #define COLOR_APC_RED          "#ff7060"
@@ -127,3 +131,16 @@
 #define	WIRE_COLOR_PINK		"#dd20cc"
 #define	WIRE_COLOR_YELLOW	"#eebb20"
 #define	WIRE_COLOR_CYAN		"#20ddcc"
+
+///Main colors for UI themes
+#define COLOR_THEME_MIDNIGHT "#6086A0"
+#define COLOR_THEME_PLASMAFIRE "#FFB200"
+#define COLOR_THEME_RETRO "#24CA00"
+#define COLOR_THEME_SLIMECORE "#4FB259"
+#define COLOR_THEME_OPERATIVE "#B8221F"
+#define COLOR_THEME_GLASS "#75A4C4"
+#define COLOR_THEME_CLOCKWORK "#CFBA47"
+
+// Color matrix utilities
+#define COLOR_MATRIX_ADD(C) list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, C)
+#define COLOR_MATRIX_OVERLAY(C) list(COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, C)

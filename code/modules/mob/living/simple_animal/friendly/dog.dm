@@ -12,14 +12,28 @@
 	speak_emote = list("barks", "woofs")
 	emote_hear = list("barks!", "woofs!", "yaps.", "pants.")
 	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
+	tts_seed = "Stetmann"
 	faction = list("neutral")
+	maxHealth = 50
+	health = 50
+	melee_damage_type = STAMINA
+	melee_damage_lower = 6
+	melee_damage_upper = 10
+	attacktext = "кусает"
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
+	mob_size = MOB_SIZE_SMALL
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
+	var/bark_emote = list("ла%(ет,ют)%.", "гавка%(ет,ют)%.")	// used in emote.
+	var/growl_sound = list('sound/creatures/dog_grawl1.ogg','sound/creatures/dog_grawl2.ogg') //Used in emote.
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
+	footstep_type = FOOTSTEP_MOB_CLAW
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/dog = 4)
+	collar_type = "dog"
+
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
@@ -36,39 +50,6 @@
 		return
 	playsound(src, yelp_sound, 75, TRUE)
 
-/mob/living/simple_animal/pet/dog/emote(act, m_type = 1, message = null, force)
-	if(incapacitated())
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("bark")
-			on_CD = handle_emote_CD()
-		if("yelp")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("bark")
-			message = "<B>[src]</B> [pick(src.speak_emote)]!"
-			m_type = 2 //audible
-			playsound(src, pick(src.bark_sound), 50, TRUE)
-		if("yelp")
-			message = "<B>[src]</B> yelps!"
-			m_type = 2 //audible
-			playsound(src, yelp_sound, 75, TRUE)
-		if("growl")
-			message = "<B>[src]</B> growls!"
-			m_type = 2 //audible
-		if("help")
-			to_chat(src, "scream, bark, growl")
-
-	..()
 
 /mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -83,13 +64,12 @@
 		if(change > 0)
 			if(M && stat != DEAD) // Added check to see if this mob (the corgi) is dead to fix issue 2454
 				new /obj/effect/temp_visual/heart(loc)
-				custom_emote(1, "yaps happily!")
+				custom_emote(EMOTE_VISIBLE, "радостно тявка%(ет,ют)%!")
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-				custom_emote(1, "growls!")
+				custom_emote(EMOTE_VISIBLE, "рыч%(ит,ат)%!")
 
 //Corgis and pugs are now under one dog subtype
-
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
 	real_name = "corgi"
@@ -97,7 +77,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/clothing/head/corgipelt = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
@@ -105,6 +85,8 @@
 	var/obj/item/inventory_back
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+	tts_seed = "Stetmann"
+	holder_type = /obj/item/holder/corgi
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
@@ -151,7 +133,7 @@
 	var/armorval = 0
 
 	if(def_zone)
-		if(def_zone == "head")
+		if(def_zone == BODY_ZONE_HEAD)
 			if(inventory_head)
 				armorval = inventory_head.armor.getRating(type)
 		else
@@ -203,7 +185,8 @@
 					if(inventory_head.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
-					usr.put_in_hands(inventory_head)
+					drop_item_ground(inventory_head)
+					usr.put_in_hands(inventory_head, ignore_anim = FALSE)
 					inventory_head = null
 					update_corgi_fluff()
 					regenerate_icons()
@@ -215,7 +198,8 @@
 					if(inventory_back.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
-					usr.put_in_hands(inventory_back)
+					drop_item_ground(inventory_back)
+					usr.put_in_hands(inventory_back, ignore_anim = FALSE)
 					inventory_back = null
 					update_corgi_fluff()
 					regenerate_icons()
@@ -225,8 +209,8 @@
 			if("collar")
 				if(pcollar)
 					var/the_collar = pcollar
-					unEquip(pcollar)
-					usr.put_in_hands(the_collar)
+					drop_item_ground(pcollar)
+					usr.put_in_hands(the_collar, ignore_anim = FALSE)
 					pcollar = null
 					update_corgi_fluff()
 					regenerate_icons()
@@ -256,7 +240,7 @@
 						usr.visible_message("<span class='notice'>[usr] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s back for a moment.</span>")
 						return
 
-					if(!usr.unEquip(item_to_add))
+					if(!usr.drop_item_ground(item_to_add))
 						to_chat(usr, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s back!</span>")
 						return
 
@@ -309,7 +293,7 @@
 			return
 		return
 
-	if(user && !user.unEquip(item_to_add))
+	if(user && !user.drop_item_ground(item_to_add))
 		to_chat(user, "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>")
 		return 0
 
@@ -426,7 +410,7 @@
 	. = ..()
 	SSpersistent_data.register(src)
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/death()
+/mob/living/simple_animal/pet/dog/corgi/Ian/death(gibbed)
 	write_memory(TRUE)
 	SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 	..()
@@ -451,6 +435,7 @@
 		icon_dead = "old_corgi_dead"
 		desc = "At a ripe old age of [record_age], Ian's not as spry as he used to be, but he'll always be the HoP's beloved corgi." //RIP
 		turns_per_move = 20
+		holder_type = /obj/item/holder/old_corgi
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/persistent_save()
 	write_memory(FALSE)
@@ -544,10 +529,10 @@
 							movement_target.attack_animal(src)
 						else if(ishuman(movement_target.loc) )
 							if(prob(20))
-								custom_emote(1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+								custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
-			custom_emote(1, pick("dances around.","chases its tail!"))
+			custom_emote(EMOTE_VISIBLE, pick("танцу%(ет,ют)% на месте.", "гоня%(ет,ют)%ся за своим хвостом."))
 			spin(20, 1)
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
@@ -560,6 +545,12 @@
 	N.setDir(dir)
 	gib()
 
+/mob/living/simple_animal/pet/dog/corgi/Ian/ratvar_act()
+	playsound(src, 'sound/misc/demon_dies.ogg', 75, TRUE)
+	var/mob/living/simple_animal/pet/dog/corgi/ratvar/N = new(loc)
+	N.setDir(dir)
+	gib()
+
 /mob/living/simple_animal/pet/dog/corgi/narsie
 	name = "Nars-Ian"
 	desc = "Ia! Ia!"
@@ -567,9 +558,17 @@
 	icon_living = "narsian"
 	icon_dead = "narsian_dead"
 	faction = list("neutral", "cult")
+	bark_emote = list("рыч%(ит,ат)%.", "зловеще ла%(ет,ют)%.")
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE
+	tts_seed = "Mannoroth"
+	holder_type = /obj/item/holder/narsian
+	maxHealth = 300
+	health = 300
+	melee_damage_type = STAMINA	//Пади ниц!
+	melee_damage_lower = 50
+	melee_damage_upper = 100
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
@@ -596,6 +595,30 @@
 /mob/living/simple_animal/pet/dog/corgi/narsie/narsie_act()
 	adjustBruteLoss(-maxHealth)
 
+/mob/living/simple_animal/pet/dog/corgi/ratvar
+	name = "Cli-k"
+	desc = "It's a coolish Ian that clicks!"
+	icon = 'icons/mob/clockwork_mobs.dmi'
+	icon_state = "clik"
+	icon_living = "clik"
+	icon_dead = "clik_dead"
+	faction = list("neutral", "clockwork_cult")
+	gold_core_spawnable = NO_SPAWN
+	nofur = TRUE
+	unique_pet = TRUE
+	maxHealth = 100
+	health = 100
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar/update_corgi_fluff()
+	..()
+	speak = list("V'z fuvavat jneevbe!", "CLICK!", "KL-KL-KLIK")
+	speak_emote = list("growls", "barks ominously")
+	emote_hear = list("barks echoingly!", "woofs hauntingly!", "yaps in an judicial manner.", "mutters something unspeakable.")
+	emote_see = list("communes with the unnameable.", "seeks the light in souls.", "shakes.")
+
+/mob/living/simple_animal/pet/dog/corgi/ratvar/ratvar_act()
+	adjustBruteLoss(-maxHealth)
+
 /mob/living/simple_animal/pet/dog/corgi/puppy
 	name = "\improper corgi puppy"
 	real_name = "corgi"
@@ -607,9 +630,15 @@
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
+	tts_seed = "Jaina"
+	maxHealth = 20
+	health = 20
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 1)
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
+	if(href_list["remove_inv"] == "collar" || href_list["add_inv"] == "collar")
+		return ..()
 	if(href_list["remove_inv"] || href_list["add_inv"])
 		to_chat(usr, "<span class='warning'>You can't fit this on [src]!</span>")
 		return
@@ -626,9 +655,25 @@
 	unsuitable_atmos_damage = 0
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
+	tts_seed = "Kael"
+	holder_type = /obj/item/holder/void_puppy
+	maxHealth = 60
+	health = 60
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/slime
+	name = "\improper slime puppy"
+	real_name = "slimy"
+	desc = "Крайне склизкий. Но прикольный!"
+	icon_state = "slime_puppy"
+	icon_living = "slime_puppy"
+	icon_dead = "slime_puppy_dead"
+	nofur = TRUE
+	holder_type = /obj/item/holder/slime_puppy
+	minbodytemp = 250 //Weak to cold
+	maxbodytemp = INFINITY
 
 //LISA! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/Lisa
@@ -646,6 +691,8 @@
 	response_harm   = "kicks"
 	var/turns_since_scan = 0
 	var/puppies = 0
+	tts_seed = "Luna"
+	holder_type = /obj/item/holder/lisa
 
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Topic(href, href_list)
@@ -662,7 +709,7 @@
 	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("dances around.","chases her tail."))
+			custom_emote(EMOTE_VISIBLE, pick("танцу%(ет,ют)% на месте.", "гоня%(ет,ют)%ся за своим хвостом."))
 			spin(20, 1)
 
 /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
@@ -688,6 +735,7 @@
 	icon_living = "borgi"
 	bark_sound = null	//No robo-bjork...
 	yelp_sound = null	//Or robo-Yelp.
+	tts_seed = "Glados"
 	var/emagged = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -696,16 +744,17 @@
 	deathmessage = "blows apart!"
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
+	holder_type = /obj/item/holder/borgi
 
-/mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(user as mob)
+/mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
-		addtimer(CALLBACK(src, .proc/explode), 1000)
+		addtimer(CALLBACK(src, PROC_REF(explode)), 1000)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
-	explosion(get_turf(src), 0, 1, 4, 7)
+	explosion(get_turf(src), 0, 1, 4, 7, cause = src)
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(var/atom/movable/target)
@@ -718,6 +767,7 @@
 	A.icon_state = "eyelasers"
 	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)
 	A.current = T
+	A.firer = src
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
 	A.fire()
@@ -733,6 +783,16 @@
 		var/mob/living/carbon/target = locate() in view(10, src)
 		if(target)
 			shootAt(target)
+
+/mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = I
+		N.use(1)
+		if(diseases?.len)
+			CureAllDiseases()
+			visible_message("<span class='notice'>[name] looks happy! </span>")
+			chasetail()
+	return ..()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/death(gibbed)
 	// Only execute the below if we successfully died
@@ -753,13 +813,58 @@
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/pug = 3)
 	collar_type = "pug"
+	tts_seed = "Kleiner"
+	holder_type = /obj/item/holder/pug
+	maxHealth = 30
+	health = 30
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("chases its tail."))
+			custom_emote(EMOTE_VISIBLE, pick("гоня%(ет,ют)%ся за своим хвостом."))
 			spawn(0)
 				for(var/i in list(1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2))
 					dir = i
 					sleep(1)
+
+/mob/living/simple_animal/pet/dog/bullterrier
+	name = "\improper bullterrier"
+	real_name = "bullterrier"
+	desc = "Кого-то его мордочка напоминает..."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "bullterrier"
+	icon_living = "bullterrier"
+	icon_dead = "bullterrier_dead"
+	//tts_seed = "Kleiner"
+	holder_type = /obj/item/holder/bullterrier
+
+/mob/living/simple_animal/pet/dog/tamaskan
+	name = "\improper tamaskan"
+	real_name = "tamaskan"
+	desc = "Хорошая семейная собака. Уживается с другими собаками и ассистентами."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "tamaskan"
+	icon_living = "tamaskan"
+	icon_dead = "tamaskan_dead"
+	//tts_seed = "Kleiner"
+	holder_type = /obj/item/holder/bullterrier
+
+/mob/living/simple_animal/pet/dog/german
+	name = "\improper german"
+	real_name = "german"
+	desc = "Немецкая овчарка с помесью двортерьера. Судя по крупу - явно не породистый."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "german"
+	icon_living = "german"
+	icon_dead = "german_dead"
+	//tts_seed = "Kleiner"
+
+/mob/living/simple_animal/pet/dog/brittany
+	name = "\improper brittany"
+	real_name = "brittany"
+	desc = "Старая порода, которую любят аристократы."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "brittany"
+	icon_living = "brittany"
+	icon_dead = "brittany_dead"

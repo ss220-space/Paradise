@@ -197,13 +197,16 @@
 /obj/machinery/computer/library/checkout/emag_act(mob/user)
 	if(density && !emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/W as obj, mob/user as mob)
 	if(default_unfasten_wrench(user, W))
+		add_fingerprint(user)
 		power_change()
 		return
 	if(istype(W, /obj/item/barcodescanner))
+		add_fingerprint(user)
 		var/obj/item/barcodescanner/scanner = W
 		scanner.computer = src
 		to_chat(user, "[scanner]'s associated machine has been set to [src].")
@@ -286,7 +289,7 @@
 			if(!query.warn_execute())
 				qdel(query)
 				return
-		
+
 			if(query.affected == 0)
 				to_chat(usr, "<span class='danger'>Unable to find any matching rows.</span>")
 				qdel(query)
@@ -395,7 +398,7 @@
 								"category" = upload_category,
 								"ckey" = usr.ckey
 							))
-						
+
 						if(!query.warn_execute())
 							qdel(query)
 							return

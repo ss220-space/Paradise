@@ -14,9 +14,10 @@
 	depotarea = get_area(src)
 	if(istype(depotarea))
 		depotarea.reactor = src
-		for(var/obj/machinery/porta_turret/syndicate/T in range(50, loc))
-			if(!istype(T.depotarea))
-				T.depotarea = depotarea
+		for(var/obj/machinery/porta_turret/syndicate/T in GLOB.machines)
+			if(z == T.z && get_dist(T, loc) <= 50)
+				if(!istype(T.depotarea))
+					T.depotarea = depotarea
 	else
 		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
@@ -42,7 +43,7 @@
 		return
 	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
 	if(prob(50))
-		empulse(src, 4, 10)
+		empulse(src, 4, 10, TRUE, "[user] screwed with [name]")
 	else
 		for(var/mob/living/M in range(10, loc))
 			M.apply_effect(rand(5, 25), IRRADIATE)
@@ -69,7 +70,7 @@
 
 
 /obj/effect/overload
-	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
+	icon = 'icons/obj/engines_and_power/tesla/energy_ball.dmi'
 	icon_state = "energy_ball"
 	pixel_x = -32
 	pixel_y = -32

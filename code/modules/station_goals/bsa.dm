@@ -18,17 +18,18 @@
 	//Unlock BSA parts
 	var/datum/supply_packs/misc/station_goal/bsa/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B)
+	for(var/obj/machinery/bsa/full/B in GLOB.machines)
 		if(B && !B.stat && is_station_contact(B.z))
 			return TRUE
 	return FALSE
 
 /obj/machinery/bsa
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi'
 	density = 1
 	anchored = 1
 
@@ -39,10 +40,12 @@
 
 /obj/machinery/bsa/back/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/multitool))
+		add_fingerprint(user)
 		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
 	else if(istype(W, /obj/item/wrench))
+		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
 	else
@@ -55,10 +58,12 @@
 
 /obj/machinery/bsa/front/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/multitool))
+		add_fingerprint(user)
 		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
 	else if(istype(W, /obj/item/wrench))
+		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
 	else
@@ -75,6 +80,7 @@
 	if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
 		if(M.buffer)
+			add_fingerprint(user)
 			if(istype(M.buffer,/obj/machinery/bsa/back))
 				back = M.buffer
 				M.buffer = null
@@ -84,6 +90,7 @@
 				M.buffer = null
 				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
 	else if(istype(W, /obj/item/wrench))
+		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
 	else
@@ -214,9 +221,9 @@
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 
-	message_admins("[key_name_admin(user)] has launched an artillery strike.")
-	log_admin("[key_name(user)] has launched an artillery strike.") // Line below handles logging the explosion to disk
-	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
+	message_admins("[key_name_admin(user)] has launched an artillery strike into [ADMIN_COORDJMP(bullseye)].")
+	log_admin("[key_name_log(user)] has launched an artillery strike into [COORD(bullseye)].") // Line below handles logging the explosion to disk
+	explosion(bullseye,ex_power,ex_power*2,ex_power*4, cause = "Bluespace artillery strike")
 
 	reload()
 
@@ -225,7 +232,7 @@
 	last_fire_time = world.time / 10
 
 /obj/item/circuitboard/machine/bsa/back
-	name = "Bluespace Artillery Generator (Machine Board)"
+	board_name = "Bluespace Artillery Generator"
 	build_path = /obj/machinery/bsa/back
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -233,7 +240,7 @@
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/machine/bsa/middle
-	name = "Bluespace Artillery Fusor (Machine Board)"
+	board_name = "Bluespace Artillery Fusor"
 	build_path = /obj/machinery/bsa/middle
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -241,7 +248,7 @@
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/machine/bsa/front
-	name = "Bluespace Artillery Bore (Machine Board)"
+	board_name = "Bluespace Artillery Bore"
 	build_path = /obj/machinery/bsa/front
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -249,7 +256,7 @@
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/computer/bsa_control
-	name = "Bluespace Artillery Controls (Computer Board)"
+	board_name = "Bluespace Artillery Controls"
 	build_path = /obj/machinery/computer/bsa_control
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 
@@ -260,7 +267,7 @@
 	var/target
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi'
 	icon_state = "control_boxp"
 	var/icon_state_broken = "control_box"
 	var/icon_state_nopower = "control_boxw"

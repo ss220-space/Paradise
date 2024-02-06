@@ -10,11 +10,12 @@
 	var/shuttlePortId = ""
 	var/shuttlePortName = "custom location"
 	var/list/jumpto_ports = list() //list of ports to jump to
-	var/access_station = TRUE //can we park near X?
-	var/access_tcomms = TRUE
-	var/access_construction = TRUE
-	var/access_mining = TRUE
-	var/access_derelict = FALSE
+	var/access_station = TRUE 		//can we park near station?
+	var/access_admin_zone = FALSE	//can we park on Admin z_lvls?
+	var/access_mining = FALSE		//can we park on Lavaland z_lvl?
+	var/access_taipan = FALSE 		//can we park on Taipan z_lvl?
+	var/access_away = FALSE 		//can we park on Away_Mission z_lvl?
+	var/access_derelict = FALSE		//can we park in Unexplored Space?
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 7
@@ -28,14 +29,26 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/Initialize()
 	. = ..()
 	GLOB.navigation_computers += src
-	if(access_station)
-		jumpto_ports += list("nav_z1" = 1)
-	if(access_tcomms)
-		jumpto_ports += list("nav_z3" = 1)
-	if(access_mining)
-		jumpto_ports += list("nav_z5" = 1)
-	if(access_derelict)
-		jumpto_ports += list("nav_z6" = 1)
+	CalculateAvailable_z_lvls()
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/proc/CalculateAvailable_z_lvls() //Вынесла в отдельный прок, для удобства работы с VV
+	jumpto_ports = list()
+	var/list/levels = GLOB.space_manager.z_list.Copy()
+	var/iterator = 1
+	for(var/level in levels)
+		if(access_station && is_station_level(level))
+			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+		else if(access_admin_zone && is_admin_level(level))
+			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+		else if(access_mining && is_mining_level(level))
+			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+		else if(access_taipan && is_taipan(level))
+			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+		else if(access_away && is_away_level(level))
+			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+		else if(access_derelict && is_explorable_space(level))
+			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+		iterator++
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
 	. = ..()
@@ -69,8 +82,19 @@
 		shuttle_port = null
 		return
 
-	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(null, src)
+	var/turf/shuttle_eye_pos = get_turf(locate("landmark*Observer-Start"))
+
+	if(jumpto_ports.len)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
+			if(!S)
+				continue
+			if(jumpto_ports[S.id])
+				shuttle_eye_pos = get_turf(S)
+				break
+
+	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(shuttle_eye_pos, src) // There should always be an observer start landmark
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
+	the_eye.eye_initialized = TRUE
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)
 	for(var/V in shuttle_port.shuttle_areas)
@@ -111,7 +135,7 @@
 			to_remove += SSshuttle.hidden_shuttle_turf_images
 
 		user.client.images -= to_remove
-		user.client.SetView(7)
+		user.client.SetView(user.client.prefs.viewrange)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/placeLandingSpot()
 	if(designating_target_loc || !current_user)
@@ -122,7 +146,7 @@
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
 		designating_target_loc = the_eye.loc
-		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget))
+		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
@@ -151,6 +175,10 @@
 		my_port.register()
 	my_port.setDir(the_eye.dir)
 	my_port.forceMove(locate(eyeobj.x - x_offset, eyeobj.y - y_offset, eyeobj.z))
+	if(is_mining_level(my_port.z))
+		my_port.turf_type = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	else
+		my_port.turf_type  =/turf/space
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
 
@@ -234,7 +262,7 @@
 
 	if(space_turfs_only)
 		var/turf_type = hidden_turf_info ? hidden_turf_info[2] : T.type
-		if(!ispath(turf_type, /turf/space))
+		if(!ispath(turf_type, /turf/space) && !is_mining_level(T.z))
 			return SHUTTLE_DOCKER_BLOCKED
 
 	if(istype(T.loc.type, /area/syndicate_depot))
@@ -279,7 +307,7 @@
 	return ..()
 
 /mob/camera/aiEye/remote/shuttle_docker/setLoc(T)
-	if(istype(get_turf(T), /turf/space) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
+	if(/*istype(get_turf(T), /turf/space) ||*/ istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle) ||  istype(get_area(T), /area/lavaland) || istype(get_area(T), /area/ruin))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()
@@ -341,7 +369,7 @@
 			L[S.name] = S
 
 	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, 0)
-	var/selected = input("Choose location to jump to", "Locations", null) as null|anything in L
+	var/selected = tgui_input_list(target, "Choose location to jump to", "Locations", L)
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
 	playsound(src, "terminal_type", 25, 0)

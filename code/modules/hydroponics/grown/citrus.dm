@@ -114,17 +114,15 @@
 	wine_flavor = "fire"
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/attack_self(mob/living/user)
-	var/area/A = get_area(user)
 	user.visible_message("<span class='warning'>[user] primes the [src]!</span>", "<span class='userdanger'>You prime the [src]!</span>")
-	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
+	investigate_log("[key_name_log(user)] primed a combustible lemon for detonation at [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
-	log_game("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].")
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.throw_mode_on()
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
+	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/burn()
 	prime()
@@ -133,7 +131,7 @@
 /obj/item/reagent_containers/food/snacks/grown/firelemon/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.unEquip(src)
+		M.drop_item_ground(src)
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion
@@ -142,23 +140,23 @@
 	switch(seed.potency) //Combustible lemons are alot like IEDs, lots of flame, very little bang.
 		if(0 to 30)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 1)
+			explosion(loc,-1,-1,2, flame_range = 1, cause = src)
 			qdel(src)
 		if(31 to 50)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 2)
+			explosion(loc,-1,-1,2, flame_range = 2, cause = src)
 			qdel(src)
 		if(51 to 70)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 3)
+			explosion(loc,-1,-1,2, flame_range = 3, cause = src)
 			qdel(src)
 		if(71 to 90)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 4)
+			explosion(loc,-1,-1,2, flame_range = 4, cause = src)
 			qdel(src)
 		else
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 5)
+			explosion(loc,-1,-1,2, flame_range = 5, cause = src)
 			qdel(src)
 
 //3D Orange
@@ -192,6 +190,6 @@
 	. = ..()
 	icon_state = "orange"
 
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user, silent = FALSE)
 	. = ..()
 	icon_state = "orang"

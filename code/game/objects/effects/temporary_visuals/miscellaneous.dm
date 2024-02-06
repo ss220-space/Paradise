@@ -1,12 +1,3 @@
-/obj/effect/temp_visual/point
-	name = "arrow"
-	desc = "It's an arrow hanging in mid-air. There may be a wizard about."
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "arrow"
-	layer = POINT_LAYER
-	duration = 20
-	randomdir = FALSE
-
 /obj/effect/temp_visual/dir_setting/bloodsplatter
 	icon = 'icons/effects/blood.dmi'
 	duration = 5
@@ -97,6 +88,15 @@
 /obj/effect/temp_visual/dir_setting/wraith/out/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.wraith_jaunt_out_animation
+
+/obj/effect/temp_visual/dir_setting/holy_shift
+	name = "blood"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "holy_shift"
+	duration = 12
+
+/obj/effect/temp_visual/dir_setting/holy_shift/out
+	icon_state = "holy_shift_out"
 
 /obj/effect/temp_visual/dir_setting/tailsweep
 	icon_state = "tailsweep"
@@ -218,7 +218,7 @@
 
 /obj/effect/temp_visual/kinetic_blast
 	name = "kinetic explosion"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "kinetic_blast"
 	layer = ABOVE_MOB_LAYER
 	duration = 4
@@ -292,6 +292,14 @@
 	duration = 12
 	shrink = FALSE
 
+
+/obj/effect/temp_visual/gib
+	name = "gib"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "gibbed-h"
+	duration = 1.5 SECONDS
+
+
 /obj/effect/temp_visual/small_smoke
 	icon_state = "smoke"
 	duration = 50
@@ -354,3 +362,71 @@
 /obj/effect/temp_visual/impact_effect/ion
 	icon_state = "shieldsparkles"
 	duration = 6
+
+/obj/effect/temp_visual/scan
+	name = "scan waves"
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "scan"
+	pixel_x = -32
+	pixel_y = -32
+	duration = 8
+
+/obj/effect/temp_visual/holo_scan
+	name = "holo scan waves"
+	icon = 'icons/effects/holoscan.dmi'
+	icon_state = "scan_alpha_red"
+	layer = ABOVE_MOB_LAYER
+	pixel_x = -16
+	pixel_y = -8
+	duration = 2 SECONDS
+	var/scan_color = "red"
+	var/scan_type = "alpha"
+	var/obj/effect/temp_visual/holo_scan/beta = null
+
+/obj/effect/temp_visual/holo_scan/Initialize(mapload, force_scan_color, force_scan_type, create_beta = TRUE)
+	scan_color = force_scan_color ? force_scan_color : initial(scan_color)
+	scan_type = force_scan_type ? force_scan_type : initial(scan_type)
+	if(scan_type == "beta")
+		layer = BELOW_MOB_LAYER
+	if(scan_type == "alpha" && create_beta)
+		beta = new(get_turf(src), scan_color, "beta", FALSE)
+	icon_state = "scan_[scan_type]_[scan_color]"
+	. = ..()
+/obj/effect/temp_visual/holo_scan/Destroy()
+	if(beta)
+		qdel(beta)
+	. = ..()
+
+/obj/effect/temp_visual/bsg_kaboom
+	name = "bluespace explosion"
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "explosionfast"
+	color = "blue"
+	pixel_x = -32
+	pixel_y = -32
+	duration = 42
+
+/obj/effect/temp_visual/bsg_kaboom/Initialize(mapload)
+	. = ..()
+	new /obj/effect/warp_effect/bsg(loc)
+
+/obj/effect/warp_effect/bsg
+
+/obj/effect/warp_effect/bsg/Initialize(mapload)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
+	QDEL_IN(src, 0.8 SECONDS)
+
+/obj/effect/temp_visual/love_heart
+	name = "love heart"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "heart"
+	duration = 2.5 SECONDS
+
+/obj/effect/temp_visual/love_heart/Initialize(mapload)
+	. = ..()
+	pixel_x = rand(-10,10)
+	pixel_y = rand(-10,10)
+	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)

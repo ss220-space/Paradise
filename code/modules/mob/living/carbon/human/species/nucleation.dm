@@ -13,20 +13,21 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_PAIN_FEEL, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
 	dies_at_threshold = TRUE
-	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
 	//Default styles for created mobs.
 	default_hair = "Nucleation Crystals"
 
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"crystallized brain" =    /obj/item/organ/internal/brain/crystal,
-		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
-		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/crystal,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/luminescent_crystal, //Standard darksight of 2.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_STRANGE_CRYSTAL = /obj/item/organ/internal/nucleation/strange_crystal,
+		INTERNAL_ORGAN_RESONANT_CRYSTAL = /obj/item/organ/internal/nucleation/resonant_crystal,
+	)
 	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
@@ -34,8 +35,24 @@
 	H.light_color = "#1C1C00"
 	H.set_light(2)
 
+/datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.light_color = null
+	H.set_light(0)
+
+/datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "radium")
+		if(R.volume >= 1)
+			H.adjustBruteLoss(-3)
+			H.adjustFireLoss(-3)
+			H.reagents.remove_reagent(R.id, 1)
+			if(H.radiation < 80)
+				H.apply_effect(4, IRRADIATE, negate_armor = 1)
+			return FALSE //Что бы не выводилось больше одного, который уже вывелся за счет прока
+	return ..()
+
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
-	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
-	explosion(T, 0, 0, 2, 3) // Create a small explosion burst upon death
+	H.visible_message("<span class='warning'>Тело [H] взрывается, оставляя после себя множество микроскопических кристаллов!</span>")
+	explosion(T, 0, 0, 3, 6, cause = H) // Create a small explosion burst upon death
 	qdel(H)

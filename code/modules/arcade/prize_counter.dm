@@ -2,7 +2,7 @@
 /obj/machinery/prize_counter
 	name = "Prize Counter"
 	desc = "A machine which exchanges tickets for a variety of fabulous prizes!"
-	icon = 'icons/obj/arcade.dmi'
+	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "prize_counter-on"
 	density = 1
 	anchored = 1
@@ -34,7 +34,7 @@
 /obj/machinery/prize_counter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/stack/tickets))
 		var/obj/item/stack/tickets/T = O
-		if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
+		if(user.temporarily_remove_item_from_inventory(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
 			tickets += T.amount
 			qdel(T)
 		else

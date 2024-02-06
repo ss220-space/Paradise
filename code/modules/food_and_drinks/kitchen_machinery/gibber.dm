@@ -24,16 +24,16 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 
-/obj/machinery/gibber/suicide_act(mob/user)
+/obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
 	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
-	user.Stun(10)
+	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
 	update_icon()
 	feedinTopanim()
-	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
+	addtimer(CALLBACK(src, PROC_REF(startgibbing), user), 33)
 	return OBLITERATION
 
 /obj/machinery/gibber/Destroy()
@@ -87,6 +87,7 @@
 		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
 		return
 
+	add_fingerprint(user)
 	startgibbing(user)
 
 /obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
@@ -95,11 +96,13 @@
 		if(G.state < 2)
 			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
 			return
+		add_fingerprint(user)
 		move_into_gibber(user,G.affecting)
 		qdel(G)
 		return
 
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, P))
@@ -124,6 +127,7 @@
 	if(targetl.buckled)
 		return
 
+	add_fingerprint(user)
 	move_into_gibber(user,target)
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
@@ -234,8 +238,7 @@
 		return
 
 	if(UserOverride)
-		add_attack_logs(user, occupant, "gibbed by an autogibber ([src])")
-		log_game("[key_name(occupant)] was gibbed by an autogibber ([src]) (X:[x] Y:[y] Z:[z])")
+		add_attack_logs(user, occupant, "gibbed by an autogibber ([src])", ATKLOG_FEW)
 
 	if(operating)
 		return
@@ -279,7 +282,6 @@
 		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey ? ATKLOG_FEW : ATKLOG_ALL)
 
 	else //this looks ugly but it's better than a copy-pasted startgibbing proc override
-		occupant.create_attack_log("Was gibbed by <b>an autogibber (\the [src])</b>")
 		add_attack_logs(src, occupant, "gibbed")
 
 	occupant.emote("scream")
@@ -391,7 +393,7 @@
 			continue
 		if(O.flags & NODROP || stealthmode)
 			qdel(O) //they are already dead by now
-		H.unEquip(O)
+		H.drop_item_ground(O)
 		O.loc = loc
 		O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
@@ -399,7 +401,7 @@
 	for(var/obj/item/clothing/C in H)
 		if(C.flags & NODROP || stealthmode)
 			qdel(C)
-		H.unEquip(C)
+		H.drop_item_ground(C)
 		C.loc = loc
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)

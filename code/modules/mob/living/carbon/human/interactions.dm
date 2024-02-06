@@ -28,15 +28,15 @@
 
 	var/mob/living/carbon/human/H = usr
 	var/mob/living/carbon/human/P = H.partner
-	var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
+	var/obj/item/organ/external/temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 	var/hashands = (temp?.is_usable())
 	if (!hashands)
-		temp = H.bodyparts_by_name["l_hand"]
+		temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		hashands = (temp?.is_usable())
-	temp = P.bodyparts_by_name["r_hand"]
+	temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 	var/hashands_p = (temp?.is_usable())
 	if (!hashands_p)
-		temp = P.bodyparts_by_name["l_hand"]
+		temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		hashands = (temp?.is_usable())
 	var/mouthfree = !((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH)))
 	var/mouthfree_p = !((P.head && (P.head.flags_cover & HEADCOVERSMOUTH)) || (P.wear_mask && (P.wear_mask.flags_cover & MASKCOVERSMOUTH)))
@@ -57,6 +57,8 @@
 			if (hashands_p)
 				dat +=  {"• <A href='?src=[UID()];interaction=give'>Передать предмет.</A><BR>"}
 			dat +=  {"• <A href='?src=[UID()];interaction=slap'><font color=darkred>Дать пощечину!</font></A><BR>"}
+			if (P.dna.species.name == "Nian")
+				dat +=  {"• <A href='?src=[UID()];interaction=pullwing'><font color=darkred>Дёрнуть за крылья!</font></A><BR>"}
 			if ((P.dna.species.name == "Tajaran")  || (P.dna.species.name == "Vox")|| (P.dna.species.name == "Vulpkanin") || (P.dna.species.name == "Unathi"))
 				dat +=  {"• <A href='?src=[UID()];interaction=pull'><font color=darkred>Дёрнуть за хвост!</font></A><BR>"}
 				if(P.can_inject(H))

@@ -1,4 +1,6 @@
 /obj/effect/decal/remains
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "remains"
 	gender = PLURAL
 
 /obj/effect/decal/remains/acid_act()
@@ -24,7 +26,7 @@
 /obj/effect/decal/remains/robot
 	name = "remains"
 	desc = "They look like the remains of something mechanical. They have a strange aura about them."
-	icon = 'icons/mob/robots.dmi'
+	icon = 'icons/effects/robot.dmi'
 	icon_state = "remainsrobot"
 	anchored = TRUE
 
@@ -50,3 +52,12 @@
 	R.add_reagent("water", 5)
 	R.reaction(get_turf(src))
 	qdel(src)
+
+/obj/effect/decal/remains/mouse
+	name = "remains"
+	desc = "Некогда бывшая мышь. Её останки. Больше не будет пищать..."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "mouse_skeleton"
+	anchored = FALSE
+	move_resist = MOVE_FORCE_EXTREMELY_WEAK
+

@@ -45,7 +45,9 @@ CREATE TABLE `characters` (
   `alt_head_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `eye_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `underwear` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `underwear_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#ffffff',
   `undershirt` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `undershirt_color` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#ffffff',
   `backbag` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `b_type` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alternate_option` smallint(4) NOT NULL,
@@ -75,6 +77,13 @@ CREATE TABLE `characters` (
   `body_accessory` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `gear` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `autohiss` tinyint(1) NOT NULL,
+  `uplink_pref` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tts_seed` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hair_gradient` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hair_gradient_offset` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0,0',
+  `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
+  `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '200',
+  `custom_emotes` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -264,9 +273,9 @@ CREATE TABLE `player` (
   `be_role` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` int(11) DEFAULT NULL,
-  `toggles_2` int(11) DEFAULT '0',
+  `toggles_2` int(11) DEFAULT NULL,
   `sound` mediumint(8) DEFAULT '31',
-  `volume` smallint(4) DEFAULT '100',
+  `volume_mixer` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `exp` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `clientfps` smallint(4) DEFAULT '0',
@@ -277,6 +286,8 @@ CREATE TABLE `player` (
   `byond_date` DATE DEFAULT NULL,
   `discord_id` varchar(32) NULL DEFAULT NULL,
   `discord_name` varchar(32) NULL DEFAULT NULL,
+  `keybindings` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
+  `viewrange` VARCHAR(5) NOT NULL DEFAULT '17x15' COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -582,3 +593,60 @@ CREATE TABLE `round` (
   `station_name` VARCHAR(80) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `ckey_whitelist`
+--
+DROP TABLE IF EXISTS `ckey_whitelist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ckey_whitelist`
+(
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`date` DATETIME DEFAULT now() NOT NULL,
+	`ckey` VARCHAR(32) NOT NULL,
+	`adminwho` VARCHAR(32) NOT NULL,
+	`port` INT(5) UNSIGNED NOT NULL,
+	`date_start` DATETIME DEFAULT now() NOT NULL,
+	`date_end` DATETIME NULL,
+	`is_valid` BOOLEAN DEFAULT true NOT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ban_whitelist`
+--
+DROP TABLE IF EXISTS `ban_whitelist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ban_whitelist`
+(
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `ckey` VARCHAR(32) NOT NULL,
+  `computerid` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ckey` (`ckey`),
+  KEY `computerid` (`computerid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `budget`
+--
+DROP TABLE IF EXISTS `budget`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `budget`
+(
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`date` DATETIME DEFAULT now() NOT NULL,
+	`ckey` VARCHAR(32) NOT NULL,
+	`amount` INT(10) UNSIGNED NOT NULL,
+	`source` VARCHAR(32) NOT NULL,
+	`date_start` DATETIME DEFAULT now() NOT NULL,
+	`date_end` DATETIME DEFAULT (now() + INTERVAL 1 MONTH),
+	`is_valid` BOOLEAN DEFAULT true NOT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;

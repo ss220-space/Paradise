@@ -21,7 +21,7 @@
 	if(owner_AI && owner_AI.malf_cooldown > world.time)
 		return
 
-/datum/action/innate/ai/Trigger()
+/datum/action/innate/ai/Trigger(left_click = TRUE)
 	. = ..()
 	if(auto_use_uses)
 		adjust_uses(-1)
@@ -93,18 +93,18 @@
 	. = ..()
 	owner_AI.malf_picker = new /datum/module_picker
 
-/datum/action/innate/ai/choose_modules/Trigger()
+/datum/action/innate/ai/choose_modules/Trigger(left_click = TRUE)
 	. = ..()
 	owner_AI.malf_picker.use(owner_AI)
 
 /datum/action/innate/ai/return_to_core
 	name = "Return to Main Core"
 	desc = "Leave the APC you are shunted to, and return to your core."
-	icon_icon = 'icons/obj/power.dmi'
+	icon_icon = 'icons/obj/engines_and_power/power.dmi'
 	button_icon_state = "apcemag"
 	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
 
-/datum/action/innate/ai/return_to_core/Trigger()
+/datum/action/innate/ai/return_to_core/Trigger(left_click = TRUE)
 	. = ..()
 	var/obj/machinery/power/apc/apc = owner_AI.loc
 	if(!istype(apc)) // This shouldn't happen but here for safety.
@@ -170,7 +170,7 @@
 				AM.upgrade(A)
 				possible_modules -= AM
 				to_chat(A, AM.unlock_text)
-				A.playsound_local(A, AM.unlock_sound, 50, 0)
+				A.playsound_local(A, AM.unlock_sound, 50, FALSE, use_reverb = FALSE)
 			else
 				if(AM.power_type)
 					if(!action) //Unlocking for the first time
@@ -183,7 +183,7 @@
 						if(AM.unlock_text)
 							to_chat(A, AM.unlock_text)
 						if(AM.unlock_sound)
-							A.playsound_local(A, AM.unlock_sound, 50, 0)
+							A.playsound_local(A, AM.unlock_sound, 50, FALSE, use_reverb = FALSE)
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
@@ -248,7 +248,7 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, "<span class='notice'>Nuclear device armed.</span>")
-	GLOB.event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
+	GLOB.event_announcement.Announce("Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", new_sound = 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
@@ -280,7 +280,7 @@
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
 		SSshuttle.emergency.timer = world.time
-		GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+		GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
@@ -295,12 +295,12 @@
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
-		GLOB.minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+		GLOB.minor_announcement.Announce("УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.", "ОШИБКА ОШИБКА $0ШБК$!А41.%%!!(%$^^__+ @#Ш0E4", 'sound/misc/notice1.ogg')
 		SSshuttle.emergencyNoEscape = 0
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time
-			GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+			GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
@@ -312,8 +312,8 @@
 		qdel(src)
 	else
 		if(!(sec_left % 60) && !announced)
-			var/message = "[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!"
-			GLOB.minor_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+			var/message = "[sec_left] СЕКУНД ДО АКТИВАЦИИ УСТРОЙСТВА СУДНОГО ДНЯ!"
+			GLOB.minor_announcement.Announce(message, "ОШИБКА ОШИБКА $0ШБК$!А41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
 			announced = 10
 		announced = max(0, announced-1)
 
@@ -321,16 +321,9 @@
 	for(var/mob/M in GLOB.player_list)
 		M << 'sound/machines/alarm.ogg'
 	sleep(100)
-	for(var/mob/living/L in GLOB.mob_list)
-		var/turf/T = get_turf(L)
-		if(!T || T.z != z_level)
-			continue
-		if(issilicon(L))
-			continue
-		to_chat(L, "<span class='danger'><B>The blast wave from [src] tears you atom from atom!</B></span>")
-		L.dust()
+	SSticker.station_explosion_cinematic(null, "AI malfunction")
 	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
-	SSticker.force_ending = 1
+	SSticker.mode.station_was_nuked = TRUE
 
 //AI Turret Upgrade: Increases the health and damage of all turrets.
 /datum/AI_Module/large/upgrade_turrets
@@ -385,7 +378,7 @@
 	name = "Destroy RCDs"
 	desc = "Detonate all non-cyborg RCDs on the station."
 	button_icon_state = "detonate_rcds"
-	uses = 1
+	uses = 2
 	cooldown_period = 100
 
 /datum/action/innate/ai/destroy_rcds/Activate()
@@ -394,7 +387,7 @@
 			RCD.detonate_pulse()
 
 	to_chat(owner, "<span class='danger'>RCD detonation pulse emitted.</span>")
-	owner.playsound_local(owner, 'sound/machines/twobeep.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/machines/twobeep.ogg', 50, FALSE, use_reverb = FALSE)
 
 //Unlock Mech Domination: Unlocks the ability to dominate mechs. Big shocker, right?
 /datum/AI_Module/large/mecha_domination
@@ -433,7 +426,7 @@
 			continue
 		F.emagged = TRUE
 	to_chat(owner, "<span class='notice'>All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized.</span>")
-	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
 //Air Alarm Safety Override: Unlocks the ability to enable flooding on all air alarms.
 /datum/AI_Module/large/break_air_alarms
@@ -458,7 +451,7 @@
 			continue
 		AA.emagged = TRUE
 	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode.")
-	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
 
 //Overload Machine: Allows the AI to overload a machine, detonating it after a delay. Two uses per purchase.
@@ -484,7 +477,7 @@
 
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0,1,1,0)
+		explosion(get_turf(M), 0,1,1,0, cause = "AI Machine Overload")
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
@@ -503,14 +496,17 @@
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only overload machines!</span>")
 		return
+	if(target.resistance_flags & NO_MALF_EFFECT)
+		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overloaded!</span>")
+		return
 
-	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, 0)
+	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
 	if(attached_action && attached_action.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machine.proc/detonate_machine, target), 50) //kaboom!
+	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine), target), 50) //kaboom!
 	remove_ranged_ability(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
 	return TRUE
 
@@ -555,17 +551,17 @@
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only animate machines!</span>")
 		return
-	if(!target.can_be_overridden())
+	if(target.resistance_flags & NO_MALF_EFFECT)
 		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overridden!</span>")
 		return
 
-	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, 0)
+	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
 	if(attached_action && attached_action.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machine.proc/animate_machine, target), 50) //kabeep!
+	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
 	remove_ranged_ability(ranged_ability_user, "<span class='danger'>Sending override signal...</span>")
 	return TRUE
 
@@ -639,7 +635,7 @@
 		I.loc = T
 		client.images += I
 		I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
-		addtimer(CALLBACK(src, .proc/remove_transformer_image, client, I, T), 30)
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, T), 30)
 	if(!success)
 		to_chat(src, "<span class='warning'>[alert_msg]</span>")
 	return success
@@ -669,11 +665,11 @@
 	for(var/thing in GLOB.apcs)
 		var/obj/machinery/power/apc/apc = thing
 		if(prob(30 * apc.overload))
-			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
+			INVOKE_ASYNC(apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
 		else
 			apc.overload++
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
-	owner.playsound_local(owner, "sparks", 50, 0)
+	owner.playsound_local(owner, "sparks", 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1)
 	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		desc = "[initial(desc)] It has [uses] use\s remaining."
@@ -714,7 +710,7 @@
 			fixed_cameras++
 			uses-- //Not adjust_uses() so it doesn't automatically delete or show a message
 	to_chat(owner, "<span class='notice'>Diagnostic complete! Cameras reactivated: <b>[fixed_cameras]</b>. Reactivations remaining: <b>[uses]</b>.</span>")
-	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, FALSE, use_reverb = FALSE)
 	adjust_uses(0, TRUE) //Checks the uses remaining
 	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		desc = "[initial(desc)] It has [uses] use\s remaining."

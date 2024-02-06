@@ -1,6 +1,6 @@
 /obj/machinery/floodlight
 	name = "emergency floodlight"
-	icon = 'icons/obj/machines/floodlight.dmi'
+	icon = 'icons/obj/floodlight.dmi'
 	icon_state = "flood00"
 	anchored = FALSE
 	density = TRUE
@@ -32,7 +32,7 @@
 /obj/machinery/floodlight/process()
 	if(!cell && on)
 		on = FALSE
-		visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+		visible_message(span_warning("[src] shuts down due to lack of power!"))
 		update_icon()
 		set_light(0)
 	if(on)
@@ -41,7 +41,7 @@
 			on = FALSE
 			updateicon()
 			set_light(0)
-			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+			visible_message(span_warning("[src] shuts down due to lack of power!"))
 
 /obj/machinery/floodlight/attack_ai()
 	return
@@ -50,10 +50,12 @@
 	if(open && cell)
 		if(ishuman(user))
 			if(!user.get_active_hand())
-				user.put_in_hands(cell)
+				cell.forceMove_turf()
+				user.put_in_hands(cell, ignore_anim = FALSE)
 		else
 			cell.loc = loc
 
+		add_fingerprint(user)
 		cell.add_fingerprint(user)
 		cell.update_icon()
 
@@ -61,22 +63,24 @@
 		to_chat(user, "You remove the power cell.")
 		if(on)
 			on = FALSE
-			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+			visible_message(span_warning("[src] shuts down due to lack of power!"))
 			set_light(0)
 		updateicon()
 		return
 
 	if(on)
+		add_fingerprint(user)
 		on = FALSE
-		to_chat(user, "<span class='notice'>You turn off the light.</span>")
+		to_chat(user, span_notice("You turn off the light."))
 		set_light(0)
 	else
 		if(!cell)
 			return
 		if(cell.charge <= 0)
 			return
+		add_fingerprint(user)
 		on = TRUE
-		to_chat(user, "<span class='notice'>You turn on the light.</span>")
+		to_chat(user, span_notice("You turn on the light."))
 		set_light(brightness_on)
 
 	updateicon()
@@ -92,23 +96,25 @@
 
 /obj/machinery/floodlight/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/wrench))
+		add_fingerprint(user)
 		if(!anchored && !isinspace())
 			playsound(loc, W.usesound, 50, 1)
 			user.visible_message( \
 				"[user] tightens \the [src]'s casters.", \
-				"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
+				span_notice(" You have tightened \the [src]'s casters."), \
 				"You hear ratchet.")
 			anchored = TRUE
 		else if(anchored)
 			playsound(loc, W.usesound, 50, 1)
 			user.visible_message( \
 				"[user] loosens \the [src]'s casters.", \
-				"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+				span_notice(" You have loosened \the [src]'s casters."), \
 				"You hear ratchet.")
 			anchored = FALSE
 		updateicon()
 		return
 	if(istype(W, /obj/item/screwdriver))
+		add_fingerprint(user)
 		if(!open)
 			if(unlocked)
 				unlocked = FALSE
@@ -119,6 +125,7 @@
 		updateicon()
 		return
 	if(istype(W, /obj/item/crowbar))
+		add_fingerprint(user)
 		if(unlocked)
 			if(open)
 				open = FALSE
@@ -135,15 +142,16 @@
 			if(cell)
 				to_chat(user, "There is a power cell already installed.")
 			else
-				user.drop_item()
-				W.loc = src
+				add_fingerprint(user)
+				user.drop_transfer_item_to_loc(W, src)
 				cell = W
 				to_chat(user, "You insert the power cell.")
 		updateicon()
 		return
 	return ..()
 
-/obj/machinery/floodlight/extinguish_light()
-	on = 0
-	set_light(0)
-	update_icon()
+/obj/machinery/floodlight/extinguish_light(force = FALSE)
+	if(on)
+		on = FALSE
+		set_light(0)
+		update_icon()

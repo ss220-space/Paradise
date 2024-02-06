@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 // UI states, which are mirrored from the BYOND code.
 export const UI_INTERACTIVE = 2;
 export const UI_UPDATE = 1;
@@ -9,6 +15,7 @@ export const COLORS = {
   // Department colors
   department: {
     command: '#526aff',
+    procedure: '#e3027a',
     security: '#CF0000',
     medical: '#009190',
     science: '#993399',
@@ -59,6 +66,21 @@ export const RADIO_CHANNELS = [
     name: 'SyndTeam',
     freq: 1244,
     color: '#a52a2a',
+  },
+  {
+    name: 'Soviet',
+    freq: 1217,
+    color: '#f7941d',
+  },
+  {
+    name: 'SyndTaipan',
+    freq: 1227,
+    color: '#ffec8b',
+  },
+  {
+    name: 'Spider Clan',
+    freq: 1265,
+    color: '#3cfd1e',
   },
   {
     name: 'Red Team',
@@ -139,6 +161,21 @@ export const RADIO_CHANNELS = [
     name: 'Common',
     freq: 1459,
     color: '#1ecc43',
+  },
+  {
+    name: 'Alpha wave',
+    freq: 1522,
+    color: '#88910f',
+  },
+  {
+    name: 'Beta wave',
+    freq: 1532,
+    color: '#1d83f7',
+  },
+  {
+    name: 'Gamma wave',
+    freq: 1542,
+    color: '#d46549',
   },
 ];
 

@@ -22,7 +22,7 @@
 	obj_damage = 50
 	robust_searching = 1
 	stat_attack = UNCONSCIOUS
-	attacktext = "savages"
+	attacktext = "кусает"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
 	see_in_dark = 9
@@ -45,11 +45,11 @@
 		return
 	if(resting)
 		if(!wants_to_rest())
-			custom_emote(1, "growls, and gets up.")
+			custom_emote(EMOTE_AUDIBLE, "рыч%(ит,ат)% и поднима%(ет,ют)%ся.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
 			StopResting()
 	else if(wants_to_rest())
-		custom_emote(1, "lays down, and starts to lick their wounds.")
+		custom_emote(EMOTE_VISIBLE, "лож%(ит,ат)%ся и начина%(ет,ют)% зализывать свои раны.")
 		StartResting()
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
@@ -117,22 +117,24 @@
 /mob/living/simple_animal/hostile/hellhound/greater/New()
 	. = ..()
 	// Movement
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
-	var/obj/effect/proc_holder/spell/targeted/area_teleport/teleport/telespell = new
+	AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
+	var/obj/effect/proc_holder/spell/area_teleport/teleport/telespell = new
 	telespell.clothes_req = FALSE
+	telespell.human_req = FALSE
 	telespell.invocation_type = "none"
 	AddSpell(telespell)
-	var/obj/effect/proc_holder/spell/aoe_turf/knock/knockspell = new
+	var/obj/effect/proc_holder/spell/aoe/knock/knockspell = new
 	knockspell.invocation_type = "none"
 	AddSpell(knockspell)
 	// Defense
-	var/obj/effect/proc_holder/spell/targeted/forcewall/greater/wallspell = new
+	var/obj/effect/proc_holder/spell/forcewall/greater/wallspell = new
 	wallspell.clothes_req = FALSE
+	wallspell.human_req = FALSE
 	wallspell.invocation_type = "none"
 	AddSpell(wallspell)
 	// Offense
-	var/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/summonspell = new
-	summonspell.charge_max = 1
+	var/obj/effect/proc_holder/spell/aoe/conjure/creature/summonspell = new
+	summonspell.base_cooldown = 1
 	summonspell.invocation_type = "none"
 	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
 	summonspell.summon_amt = 1

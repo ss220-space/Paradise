@@ -76,6 +76,17 @@
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
+				var/list/other_antags = list()
+
+				if(GLOB.ts_spiderlist.len && M.ckey)
+					var/list/spider_minds = list()
+					for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
+						if(S.key)
+							spider_minds += S.mind
+					other_antags += list(
+						"Terror Spiders ([spider_minds.len])" = (mind.current in GLOB.ts_spiderlist),
+					)
+
 				if(user.antagHUD)
 					// If a mind is many antags at once, we'll display all of them, each
 					// under their own antag sub-section.
@@ -90,29 +101,33 @@
 
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
-					var/other_antags = list(
-						"Changeling" = (mind.changeling != null),
-						"Vampire" = (mind.vampire != null),
-					)
 					if(SSticker && SSticker.mode)
 						other_antags += list(
-							"Cultist" = (mind in SSticker.mode.cult),
-							"Wizard" = (mind in SSticker.mode.wizards),
-							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
-							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Shadowling" = (mind in SSticker.mode.shadows),
-							"Shadowling Thrall" = (mind in SSticker.mode.shadowling_thralls),
-							"Abductor" = (mind in SSticker.mode.abductors),
-							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
+							"Abductees — ([length(SSticker.mode.abductees)])" = (mind in SSticker.mode.abductees),
+							"Abductors — ([length(SSticker.mode.abductors)])" = (mind in SSticker.mode.abductors),
+							"Demons — ([length(SSticker.mode.demons)])" = (mind in SSticker.mode.demons),
+							"Devils — ([length(SSticker.mode.devils)])" = (mind in SSticker.mode.devils),
+							"Event Roles — ([length(SSticker.mode.eventmiscs)])" = (mind in SSticker.mode.eventmiscs),
+							"Nar’Sie Cultists — ([length(SSticker.mode.cult)])" = (mind in SSticker.mode.cult),
+							"Nuclear Operatives — ([length(SSticker.mode.syndicates)])" = (mind in SSticker.mode.syndicates),
+							"Ratvar Cultists — ([length(SSticker.mode.clockwork_cult)])" = (mind in SSticker.mode.clockwork_cult),
+							"Revolutionary Comrades — ([length(SSticker.mode.revolutionaries)])" = (mind in SSticker.mode.revolutionaries),
+							"Revolutionary Heads — ([length(SSticker.mode.head_revolutionaries)])" = (mind in SSticker.mode.head_revolutionaries),
+							"Shadowling Thralls — ([length(SSticker.mode.shadowling_thralls)])" = (mind in SSticker.mode.shadowling_thralls),
+							"Shadowlings — ([length(SSticker.mode.shadows)])" = (mind in SSticker.mode.shadows),
+							"Sintouched — ([length(SSticker.mode.sintouched)])" = (mind in SSticker.mode.sintouched),
+							"Wizards — ([length(SSticker.mode.wizards)])" = (mind in SSticker.mode.wizards),
+							"Wizard’s Apprentices — ([length(SSticker.mode.apprentices)])" = (mind in SSticker.mode.apprentices),
+							"Xenomorphs — ([length(SSticker.mode.xenos)])" = (mind in SSticker.mode.xenos),
 						)
 
-					for(var/antag_name in other_antags)
-						var/is_antag = other_antags[antag_name]
-						if(!is_antag)
-							continue
-						var/antag_serialized = serialized.Copy()
-						antag_serialized["antag"] = antag_name
-						antagonists += list(antag_serialized)
+				for(var/antag_name in other_antags)
+					var/is_antag = other_antags[antag_name]
+					if(!is_antag)
+						continue
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = antag_name
+					antagonists += list(antag_serialized)
 
 		else
 			misc += list(serialized)

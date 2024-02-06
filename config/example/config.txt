@@ -1,3 +1,7 @@
+# You can use the "$include" directive to split your configs however you want
+
+$include testing.txt
+
 ## Server name: This appears at the top of the screen in-game. In this case it will read "spacestation13: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'spacestation13' with the name of your choice
 # SERVERNAME spacestation13
 
@@ -70,6 +74,9 @@ LOG_EMOTE
 ## log attack messages
 LOG_ATTACK
 
+## log conversion mobs
+LOG_CONVERSION
+
 ## log pda messages
 LOG_PDA
 
@@ -101,45 +108,91 @@ AUTO_DESPAWN_AFK 0
 ##
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
+PROBABILITY ANTAG-PARADISE 3
 PROBABILITY EXTEND-A-TRAITORMONGOUS 3
 PROBABILITY TRAITOR 3
 PROBABILITY TRAITORCHAN 3
 PROBABILITY TRAITORVAMP 3
+PROBABILITY TRAITORTHIEF 3
+PROBABILITY TRAITORTHIEFVAMP 2
+PROBABILITY TRAITORTHIEFCHAN 2
+PROBABILITY THIEFCHAN 1
+PROBABILITY THIEFVAMP 1
+PROBABILITY THIEF 0
 PROBABILITY REVOLUTION 0
 PROBABILITY SHADOWLING 2
 PROBABILITY CULT 4
 PROBABILITY CHANGELING 3
+PROBABILITY CHANGELINGTHIEF 3
 PROBABILITY WIZARD 2
 PROBABILITY BLOB 1
 PROBABILITY RAGINMAGES 0
 PROBABILITY METEOR 0
 PROBABILITY HEIST 0
 PROBABILITY VAMPIRE 3
+PROBABILITY GOONVAMPIRE 0
+PROBABILITY VAMPIRETHIEF 3
 PROBABILITY EXTENDED 2
 PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVILAGENTS 0
 
+MINPLAYERS ANTAG-PARADISE 10
 MINPLAYERS EXTEND-A-TRAITORMONGOUS 0
 MINPLAYERS TRAITOR 0
 MINPLAYERS TRAITORCHAN 10
 MINPLAYERS TRAITORVAMP 10
+MINPLAYERS TRAITORTHIEF 0
+MINPLAYERS TRAITORTHIEFVAMP 25
+MINPLAYERS TRAITORTHIEFCHAN 25
+MINPLAYERS THIEFCHAN 15
+MINPLAYERS THIEFVAMP 15
+MINPLAYERS THIEF 0
 MINPLAYERS REVOLUTION 20
 MINPLAYERS SHADOWLING 30
 MINPLAYERS CULT 30
 MINPLAYERS CHANGELING 15
+MINPLAYERS CHANGELINGTHIEF 10
 MINPLAYERS WIZARD 20
 MINPLAYERS BLOB 30
 MINPLAYERS RAGINMAGES 20
 MINPLAYERS METEOR 35
 MINPLAYERS HEIST 25
 MINPLAYERS VAMPIRE 15
+MINPLAYERS GOONVAMPIRE 15
+MINPLAYERS VAMPIRETHIEF 10
 MINPLAYERS EXTENDED 0
 MINPLAYERS NUCLEAR 30
 MINPLAYERS ABDUCTION 15
 MINPLAYERS DEVIL 2
 MINPLAYERS DEVILAGENTS 25
+
+## List of minor antags in ANTAG-PARADISE gamemode. Only listed here antags will be spawned as main antags
+#ANTAG_PARADISE_MAIN_ANTAGS TRAITOR
+#ANTAG_PARADISE_MAIN_ANTAGS THIEF
+#ANTAG_PARADISE_MAIN_ANTAGS VAMPIRE
+#ANTAG_PARADISE_MAIN_ANTAGS CHANGELING
+
+## Chances for ANTAG-PARADISE gamemode subtypes.
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_SINGLE 10
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_DOUBLE 10
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_TRIPPLE 10
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_RANDOM 10
+
+## Relative weights for each antag in gamemode subtypes for ANTAG-PARADISE gamemode. Works in pair with ANTAG_PARADISE_MODE_SUBTYPES.
+#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_SINGLE 6
+#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_DOUBLE 4
+#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_TRIPPLE 2
+
+## Weights for all special antags in ANTAG-PARADISE gamemode. Traitor Hijacker, Malfunctioning AI and Space Ninja currently. If Nothing is chosen special antag will not spawn.
+#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS HIJACKER 10
+#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS MALFAI 10
+#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS NINJA 10
+#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS NOTHING 30
+
+## Chance for traitors to roll additional antag role in ANTAG-PARADISE gamemode. Leave it commented for default 10% chance.
+#ANTAG_PARADISE_DOUBLE_ANTAG_CHANCE 10
 
 ## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
 SHADOWLING_MAX_AGE 0
@@ -162,9 +215,6 @@ ALLOW_METADATA
 ## The time it takes for a round to start in seconds
 PREGAME_TIMESTART 240
 
-## allow players to initiate a restart vote
-#ALLOW_VOTE_RESTART
-
 ## allow players to initate a mode-change start
 #ALLOW_VOTE_MODE
 
@@ -181,7 +231,7 @@ VOTE_AUTOTRANSFER_INITIAL 72000
 VOTE_AUTOTRANSFER_INTERVAL 18000
 
 ## prevents dead players from voting or starting votes
-#NO_DEAD_VOTE
+#VOTE_NO_DEAD
 
 ## players' votes default to "No vote" (otherwise,  default to "No change")
 DEFAULT_NO_VOTE
@@ -248,6 +298,15 @@ CHECK_RANDOMIZER
 ## the whitelist
 #USEWHITELIST
 
+## Use DB to load and store whitelist instead of text file.
+#USEWHITELIST_DATABASE
+
+## Prevent jobbanned to pass through whitelist
+#USEWHITELIST_NOJOBBANNED
+
+## Minimum age of byond account that allowed to play withoud discord verification
+#MINIMUM_BYONDACC_AGE 0
+
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 # SERVER server.net:port
 
@@ -268,6 +327,9 @@ CHECK_RANDOMIZER
 
 ## Discord address (forum-based invite)
 # DISCORDFORUMURL http://example.org
+
+## Discord address (bug report)
+# DISCORDBUGREPORTURL http://example.org
 
 ## Donations address
 # DONATIONSURL http://example.org
@@ -346,17 +408,24 @@ EXPECTED_ROUND_LENGTH 120
 
 ## The lower delay between events in minutes.
 ## Affect mundane, moderate, and major events respectively
-EVENT_DELAY_LOWER 10;30;50
+EVENT_DELAY_LOWER EV_LEVEL_MUNDANE 10
+EVENT_DELAY_LOWER EV_LEVEL_MODERATE 30
+EVENT_DELAY_LOWER EV_LEVEL_MAJOR 50
 
 ## The upper delay between events in minutes.
 ## Affect mundane, moderate, and major events respectively
-EVENT_DELAY_UPPER 15;45;70
+EVENT_DELAY_UPPER EV_LEVEL_MUNDANE 15
+EVENT_DELAY_UPPER EV_LEVEL_MODERATE 45
+EVENT_DELAY_UPPER EV_LEVEL_MAJOR 70
 
 ## The delay until the first time an event of the given severity runs in minutes.
 ## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
-#EVENT_CUSTOM_START_MINOR 10;15
-#EVENT_CUSTOM_START_MODERATE 30;45
-EVENT_CUSTOM_START_MAJOR 80;100
+#EVENT_CUSTOM_START_MINOR LOWER 10
+#EVENT_CUSTOM_START_MINOR UPPER 15
+#EVENT_CUSTOM_START_MODERATE LOWER 30
+#EVENT_CUSTOM_START_MODERATE UPPER 45
+EVENT_CUSTOM_START_MAJOR LOWER 80
+EVENT_CUSTOM_START_MAJOR UPPER 100
 
 ## Starlight for exterior walls and breaches. Uncomment for starlight!
 ## This is disabled by default to make testing quicker, should be enabled on production servers or testing servers messing with lighting
@@ -370,6 +439,9 @@ PLAYER_REROUTE_CAP 0
 
 ## Server to reroute to
 #OVERFLOW_SERVER_URL byond://example.org:1111
+
+## Server to reroute to
+#TUTORIAL_SERVER_URL byond://example.org:1111
 
 ## Disable the loading of away missions
 #DISABLE_AWAY_MISSIONS
@@ -472,20 +544,31 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## If you are going to enable discord webhooks, fill out EVERYTHING in this section
 
 ## Uncomment the line below to enable Discord webhooks
-#ENABLE_DISCORD_WEBHOOKS
+#DISCORD_WEBHOOKS_ENABLED
 
 ## Role ID to be pinged with administrative events. If unset, all pings to this role will be disabled
 ## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
 #DISCORD_WEBHOOKS_ADMIN_ROLE_ID
 
-## Webhook URLs for the main discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_MAIN_URL
+## Webhook URLs for the main discord webhook. Separate multiple URLs with enter, like:
+## DISCORD_MAIN_WEBHOOK_URLS https://url1
+## DISCORD_MAIN_WEBHOOK_URLS https://url2
+#DISCORD_MAIN_WEBHOOK_URLS
 
-## Webhook URLs for the admin discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_ADMIN_URL
+## Webhook URLs for the admin discord webhook. Separate multiple URLs with enter, like:)
+## DISCORD_ADMIN_WEBHOOK_URLS https://url1
+## DISCORD_ADMIN_WEBHOOK_URLS https://url2
+#DISCORD_ADMIN_WEBHOOK_URLS
 
-## Webhook URLs for the mentor discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
-#DISCORD_WEBHOOKS_MENTOR_URL
+## Webhook URLs for the requests discord webhook. Separate multiple URLs with enter, like:
+## DISCORD_REQUESTS_WEBHOOK_URLS https://url1
+## DISCORD_REQUESTS_WEBHOOK_URLS https://url2
+#DISCORD_REQUESTS_WEBHOOK_URLS
+
+## Webhook URLs for the mentor discord webhook. Separate multiple URLs with enter, like:
+## DISCORD_MENTOR_WEBHOOK_URLS https://url1
+## DISCORD_MENTOR_WEBHOOK_URLS https://url2
+#DISCORD_MENTOR_WEBHOOK_URLS
 
 ## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
 ## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above
@@ -517,3 +600,51 @@ RESPAWN_DELAY_DRONE 10
 
 ## Disable splitting logs by Round_ID.
 #FULL_DAY_LOGS
+
+# Allow head to departments to assign civilian to his departament around Head of Personal
+#ALLOW_HEAD_OF_DEPARTAMENTS_ASSIGN_CIVILIAN
+
+# Do not write world logs to DreamDaemon log window/stdout on Unix
+#DISABLE_ROOT_LOG
+
+# Log all timers on timer auto reset
+LOG_TIMERS_ON_BUCKET_RESET
+
+## List of IP addresses (separated with space) to be ignored by the world/Topic rate limiting. Useful if you have other services
+TOPIC_FILTERING_WHITELIST 127.0.0.1
+
+## Silero Text-to-speech
+#TTS_TOKEN_SILERO mytoken
+#TTS_URL_SILERO https://example.com
+#TTS_ENABLED
+#TTS_CACHE
+
+# Number of players required for automatic gamemode change to extended. Doesn't work if set to zero or commented
+#AUTO_EXTENDED_PLAYERS_NUM 10
+
+
+## CPU Affinity for FFmpeg. Check out taskset man page.
+## Example valid values: "0-3" or "1,4-7"
+#FFMPEG_CPUAFFINITY 0-3
+
+## Server map rotate strategy:
+##  none - select same map
+##  random - select random map
+##  rotate - select next map in list
+MAP_ROTATE none
+
+## Default server map
+DEFAULT_MAP /datum/map/cyberiad
+
+## Override server map by specified, uncomment to apply
+# OVERRIDE_MAP /datum/map/delta
+
+## Enable animations on item pickup and drop down
+# ITEM_ANIMATIONS_ENABLED
+
+## Disable the loading of "Taipan"
+# DISABLE_TAIPAN
+
+## Disable the loading of Lavaland
+# DISABLE_LAVALAND
+

@@ -70,14 +70,14 @@
 
 /obj/machinery/alarm
 	name = "alarm"
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
@@ -112,6 +112,7 @@
 
 	var/target_temperature = T20C
 	var/regulating_temperature = 0
+	var/thermostat_state = FALSE
 
 	var/list/TLV = list()
 
@@ -124,7 +125,6 @@
 	report_danger_level = FALSE
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
-	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
@@ -140,7 +140,7 @@
 
 /obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
 	// Propogate settings.
-	for(var/obj/machinery/alarm/AA in alarm_area)
+	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
 			AA.preset=preset
 			apply_preset(1) // Only this air alarm should send a cycle.
@@ -237,6 +237,9 @@
 /obj/machinery/alarm/Initialize()
 	..()
 	set_frequency(frequency)
+	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
+		req_access = list(ACCESS_SYNDICATE)
+
 	if(!master_is_operating())
 		elect_master()
 
@@ -250,7 +253,7 @@
 
 
 /obj/machinery/alarm/proc/elect_master(exclude_self = 0) //Why is this an alarm and not area proc?
-	for(var/obj/machinery/alarm/AA in alarm_area)
+	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(exclude_self && AA == src)
 			continue
 		if(!(AA.stat & (NOPOWER|BROKEN)))
@@ -323,8 +326,8 @@
 			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature)
-				regulating_temperature = 1
+			if(!regulating_temperature && thermostat_state)
+				regulating_temperature = TRUE
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
 			if(target_temperature > MAX_TEMPERATURE)
@@ -333,24 +336,25 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			var/heat_capacity = gas.heat_capacity()
-			var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
+			if(thermostat_state)
+				var/heat_capacity = gas.heat_capacity()
+				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
-			//Use power.  Assuming that each power unit represents 1000 watts....
-			use_power(energy_used/1000, ENVIRON)
+				//Use power.  Assuming that each power unit represents 1000 watts....
+				use_power(energy_used / 1000, ENVIRON)
 
-			//We need to cool ourselves.
-			if(heat_capacity)
-				if(environment.temperature > target_temperature)
-					gas.temperature -= energy_used / heat_capacity
-				else
-					gas.temperature += energy_used / heat_capacity
+				//We need to cool ourselves.
+				if(heat_capacity)
+					if(environment.temperature > target_temperature)
+						gas.temperature -= energy_used / heat_capacity
+					else
+						gas.temperature += energy_used / heat_capacity
+
+				if(abs(environment.temperature - target_temperature) <= 0.5)
+					regulating_temperature = FALSE
+					visible_message("[src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 			environment.merge(gas)
-
-			if(abs(environment.temperature - target_temperature) <= 0.5)
-				regulating_temperature = 0
-				visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 /obj/machinery/alarm/update_icon()
 	if(wiresexposed)
@@ -534,7 +538,7 @@
 
 /obj/machinery/alarm/proc/apply_danger_level()
 	var/new_area_danger_level = ATMOS_ALARM_NONE
-	for(var/obj/machinery/alarm/AA in alarm_area)
+	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = max(new_area_danger_level, AA.danger_level)
 	if(alarm_area.atmosalert(new_area_danger_level, src)) //if area was in normal state or if area was in alert state
@@ -601,7 +605,8 @@
 		return
 
 	var/datum/gas_mixture/environment = location.return_air()
-	var/total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
+	var/known_total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
+	var/total = environment.total_moles()
 	if(total == 0)
 		return null
 
@@ -614,23 +619,24 @@
 
 	cur_tlv = TLV["oxygen"]
 	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen*GET_PP)
-	var/oxygen_percent = round(environment.oxygen / total * 100, 2)
+	var/oxygen_percent = environment.oxygen / total * 100
 
 	cur_tlv = TLV["nitrogen"]
 	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)
-	var/nitrogen_percent = round(environment.nitrogen / total * 100, 2)
+	var/nitrogen_percent = environment.nitrogen / total * 100
 
 	cur_tlv = TLV["carbon dioxide"]
 	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide*GET_PP)
-	var/co2_percent = round(environment.carbon_dioxide / total * 100, 2)
+	var/co2_percent = environment.carbon_dioxide / total * 100
 
 	cur_tlv = TLV["plasma"]
 	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins*GET_PP)
-	var/plasma_percent = round(environment.toxins / total * 100, 2)
+	var/plasma_percent = environment.toxins / total * 100
 
 	cur_tlv = TLV["other"]
-	var/other_moles = environment.total_trace_moles()
-	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles * GET_PP)
+	var/other_moles = total - known_total
+	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
+	var/other_percent = other_moles / total * 100
 
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
@@ -639,13 +645,14 @@
 	data["pressure"] = environment_pressure
 	data["temperature"] = environment.temperature
 	data["temperature_c"] = round(environment.temperature - T0C, 0.1)
+	data["thermostat_state"] = thermostat_state
 
 	var/list/percentages = list()
 	percentages["oxygen"] = oxygen_percent
 	percentages["nitrogen"] = nitrogen_percent
 	percentages["co2"] = co2_percent
 	percentages["plasma"] = plasma_percent
-	percentages["other"] = other_moles
+	percentages["other"] = other_percent
 	data["contents"] = percentages
 
 	var/list/danger = list()
@@ -788,7 +795,7 @@
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || isrobot(user) || emagged)
+	else if(isAI(user) || (isrobot(user) || emagged || user.has_unlimited_silicon_privilege) && !iscogscarab(user))
 		return TRUE
 	else
 		return !locked
@@ -798,7 +805,7 @@
 		return STATUS_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
-		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
 		return STATUS_CLOSE
 
 	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
@@ -924,35 +931,37 @@
 				return
 			input_temperature = input_temperature + T0C
 			if(input_temperature > max_temperature || input_temperature < min_temperature)
-				to_chat(usr, "<span class='warning'>Temperature must be between [min_temperature_c]C and [max_temperature_c]C</span>")
+				to_chat(usr, span_warning("Temperature must be between [min_temperature_c]C and [max_temperature_c]C"))
 			else
 				target_temperature = input_temperature
 
+		if("thermostat_state")
+			thermostat_state = !thermostat_state
 
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
+			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], disabling its safeties."))
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
 
 	switch(buildstage)
 		if(2)
-			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
+			if(I.GetID() || ispda(I)) // trying to unlock the interface
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
 					return
 				else
 					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
+						add_fingerprint(user)
 						locked = !locked
-						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+						to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
 						SStgui.update_uis(src)
 					else
-						to_chat(user, "<span class='warning'>Access denied.</span>")
+						to_chat(user, span_warning("Access denied."))
 				return
 
 		if(1)
@@ -962,6 +971,7 @@
 					to_chat(user, "You need more cable for this!")
 					return
 
+				add_fingerprint(user)
 				to_chat(user, "You wire \the [src]!")
 				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.use(5)
@@ -974,6 +984,7 @@
 				return
 		if(0)
 			if(istype(I, /obj/item/airalarm_electronics))
+				add_fingerprint(user)
 				to_chat(user, "You insert the circuit!")
 				playsound(get_turf(src), I.usesound, 50, 1)
 				qdel(I)
@@ -1027,8 +1038,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(wires.is_all_cut()) // all wires cut
-		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
-		new_coil.amount = 5
+		new /obj/item/stack/cable_coil(user.drop_location(), 5)
 		buildstage = AIR_ALARM_BUILDING
 		update_icon()
 	if(wiresexposed)
@@ -1068,9 +1078,9 @@
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	if(buildstage < 2)
-		. += "It is not wired."
+		. += span_notice("It is not wired.")
 	if(buildstage < 1)
-		. += "The circuit is missing."
+		. += span_notice("The circuit is missing.")
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
@@ -1086,7 +1096,6 @@
 	desc = "This particular atmos control unit appears to have no access restrictions."
 	locked = FALSE
 	req_access = null
-	req_one_access = null
 
 /*
 AIR ALARM CIRCUIT

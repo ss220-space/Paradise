@@ -104,8 +104,13 @@
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
-	broken_states = list()
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+/turf/simulated/floor/vines/broken_states()
+	return list()
 
 //All of this shit is useless for vines
 
@@ -137,7 +142,7 @@
 		if(prob(50))
 			ChangeTurf(baseturf)
 
-/turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+/turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	. = ..()
 	//Do this *after* the turf has changed as qdel in spacevines will call changeturf again if it hasn't
 	for(var/obj/structure/spacevine/SV in src)
@@ -432,7 +437,7 @@
 	else
 		text += " normal"
 	text += " vine."
-	. += text
+	. += "<span class='notice'>[text]</span>"
 
 /obj/structure/spacevine/proc/wither()
 	for(var/datum/spacevine_mutation/SM in mutations)
@@ -458,6 +463,9 @@
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
 	return ..()
+
+/obj/structure/spacevine/has_prints()
+	return FALSE
 
 /obj/structure/spacevine/proc/add_mutation(datum/spacevine_mutation/mutation)
 	mutations |= mutation
@@ -528,7 +536,7 @@
 	eat(user)
 
 /obj/structure/spacevine_controller
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/list/obj/structure/spacevine/vines = list()
 	var/list/growth_queue = list()
 	var/spread_multiplier = 5
@@ -569,6 +577,9 @@
 /obj/structure/spacevine_controller/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/structure/spacevine_controller/has_prints()
+	return FALSE
 
 /obj/structure/spacevine_controller/proc/spawn_spacevine_piece(turf/location, obj/structure/spacevine/parent, list/muts)
 	var/obj/structure/spacevine/SV = new(location)

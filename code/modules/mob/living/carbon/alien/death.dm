@@ -6,7 +6,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	animation = new(loc)
 	animation.icon_state = "blank"
@@ -29,7 +29,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
 	new /obj/effect/decal/remains/xeno(loc)
 	GLOB.dead_mob_list -= src
@@ -50,6 +50,14 @@
 /mob/living/carbon/alien/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
+
+	if(stat == DEAD && gibbed)
+		for(var/mob/living/mob_in_stomach in stomach_contents)
+			mob_in_stomach.forceMove(loc)
+			LAZYREMOVE(stomach_contents, mob_in_stomach)
+			if(prob(90))
+				step(mob_in_stomach, pick(GLOB.alldirs))
+
 	if(!.)
 		return FALSE
 	if(healths)
@@ -58,5 +66,5 @@
 	if(!gibbed)
 		if(death_sound)
 			playsound(loc, death_sound, 80, 1, 1)
-		visible_message("<B>[src]</B> [death_message]")
+		visible_message("<B>[src]</B> [genderize_decode(src, death_message)]")
 		update_icons()

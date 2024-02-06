@@ -7,6 +7,7 @@
 	var/skipears = 0
 	var/skipeyes = 0
 	var/skipface = 0
+	var/skipprostheses = 0
 
 	//exosuits and helmets obscure our view and stuff.
 	if(wear_suit)
@@ -14,18 +15,19 @@
 		skipsuitstorage = wear_suit.flags_inv & HIDESUITSTORAGE
 		skipjumpsuit = wear_suit.flags_inv & HIDEJUMPSUIT
 		skipshoes = wear_suit.flags_inv & HIDESHOES
+		skipprostheses = wear_suit.flags_inv & (HIDEGLOVES|HIDEJUMPSUIT|HIDESHOES)
 
 	if(head)
 		skipmask = head.flags_inv & HIDEMASK
-		skipeyes = head.flags_inv & HIDEEYES
-		skipears = head.flags_inv & HIDEEARS
-		skipface = head.flags_inv & HIDEFACE
+		skipeyes = head.flags_inv & HIDEGLASSES
+		skipears = head.flags_inv & HIDEHEADSETS
+		skipface = head.flags_inv & HIDENAME
 
 	if(wear_mask)
-		skipface |= wear_mask.flags_inv & HIDEFACE
-		skipeyes |= wear_mask.flags_inv & HIDEEYES
+		skipface |= wear_mask.flags_inv & HIDENAME
+		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 
-	var/msg = "<span class='info'>*---------*\nThis is "
+	var/msg = "This is "
 
 	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
 		msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
@@ -67,6 +69,13 @@
 		else
 			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(head)] \a [head] on [p_their()] head.\n"
 
+	//neck
+	if(neck && !(neck.flags & ABSTRACT))
+		if(neck.blood_DNA)
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(neck)] [neck.gender==PLURAL?"some":"a"] [neck.blood_color != "#030303" ? "blood-stained":"oil-stained"] [neck.name] around [p_their()] neck!</span>\n"
+		else
+			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(neck)] \a [neck] around [p_their()] neck.\n"
+
 	//suit/armour
 	if(wear_suit && !(wear_suit.flags & ABSTRACT))
 		if(wear_suit.blood_DNA)
@@ -103,13 +112,16 @@
 			msg += "[p_they(TRUE)] [p_are()] holding [bicon(r_hand)] \a [r_hand] in [p_their()] right hand.\n"
 
 	//gloves
-	if(gloves && !skipgloves && !(gloves.flags & ABSTRACT))
-		if(gloves.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(gloves)] [gloves.gender==PLURAL?"some":"a"] [gloves.blood_color != "#030303" ? "blood-stained":"oil-stained"] [gloves.name] on [p_their()] hands!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_have()] [bicon(gloves)] \a [gloves] on [p_their()] hands.\n"
-	else if(blood_DNA)
-		msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+	if(!skipgloves)
+		if(gloves && !(gloves.flags & ABSTRACT))
+			if(gloves.blood_DNA)
+				msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(gloves)] [gloves.gender==PLURAL?"some":"a"] [gloves.blood_color != "#030303" ? "blood-stained":"oil-stained"] [gloves.name] on [p_their()] hands!</span>\n"
+			else
+				msg += "[p_they(TRUE)] [p_have()] [bicon(gloves)] \a [gloves] on [p_their()] hands.\n"
+		else if(blood_DNA)
+			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+		else if(isclocker(src) && HAS_TRAIT(src, CLOCK_HANDS))
+			msg += "<span class='clockitalic'>[p_their(TRUE)] hands are sparkling with an unnatural amber!</span>\n"
 
 	//handcuffed?
 	if(handcuffed)
@@ -128,14 +140,18 @@
 			msg += "[p_they(TRUE)] [p_have()] [bicon(belt)] \a [belt] about [p_their()] waist.\n"
 
 	//shoes
-	if(shoes && !skipshoes && !(shoes.flags & ABSTRACT))
-		if(shoes.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(shoes)] [shoes.gender==PLURAL?"some":"a"] [shoes.blood_color != "#030303" ? "blood-stained":"oil-stained"] [shoes.name] on [p_their()] feet!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(shoes)] \a [shoes] on [p_their()] feet.\n"
-	else if(blood_DNA)
-		msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [feet_blood_color != "#030303" ? "blood-stained":"oil-stained"] feet!</span>\n"
+	if(!skipshoes)
+		if(shoes && !(shoes.flags & ABSTRACT))
+			if(shoes.blood_DNA)
+				msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(shoes)] [shoes.gender==PLURAL?"some":"a"] [shoes.blood_color != "#030303" ? "blood-stained":"oil-stained"] [shoes.name] on [p_their()] feet!</span>\n"
+			else
+				msg += "[p_they(TRUE)] [p_are()] wearing [bicon(shoes)] \a [shoes] on [p_their()] feet.\n"
+		else if(blood_DNA)
+			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [feet_blood_color != "#030303" ? "blood-stained":"oil-stained"] feet!</span>\n"
 
+	//legcuffed?
+	if(legcuffed)
+		msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] restrained with [legcuffed]!</span>\n"
 
 	//mask
 	if(wear_mask && !skipmask && !(wear_mask.flags & ABSTRACT))
@@ -151,7 +167,7 @@
 				msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [p_their()] eyes!</span>\n"
 			else
 				msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
-		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES) && get_int_organ(/obj/item/organ/internal/eyes))
 			msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 
 	//left ear
@@ -167,17 +183,17 @@
 		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
 
 	//Jitters
-	switch(jitteriness)
-		if(300 to INFINITY)
+	switch(AmountJitter())
+		if(600 SECONDS to INFINITY)
 			msg += "<span class='warning'><B>[p_they(TRUE)] [p_are()] convulsing violently!</B></span>\n"
-		if(200 to 300)
+		if(400 SECONDS to 600 SECONDS)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
-		if(100 to 200)
+		if(200 SECONDS to 400 SECONDS)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
 
 
 	var/appears_dead = FALSE
-	if(stat == DEAD || (status_flags & FAKEDEATH))
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
@@ -202,57 +218,55 @@
 	msg += "<span class='warning'>"
 
 	var/list/wound_flavor_text = list()
-	var/list/is_destroyed = list()
-	for(var/organ_tag in dna.species.has_limbs)
+	for(var/limb_zone in dna.species.has_limbs)
 
-		var/list/organ_data = dna.species.has_limbs[organ_tag]
+		var/list/organ_data = dna.species.has_limbs[limb_zone]
 		var/organ_descriptor = organ_data["descriptor"]
-		is_destroyed["[organ_data["descriptor"]]"] = 1
 
-		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
-		if(!E)
-			wound_flavor_text["[organ_tag]"] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[limb_zone]
+		if(!bodypart)
+			wound_flavor_text[limb_zone] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
 		else
-			if(!ismachineperson(src))
-				if(E.is_robotic())
-					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
+			if(!ismachineperson(src) && !skipprostheses)
+				if(bodypart.is_robotic())
+					wound_flavor_text[limb_zone] = "[p_they(TRUE)] [p_have()] a robotic [bodypart.name]!\n"
 
-				else if(E.status & ORGAN_SPLINTED)
-					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
+				else if(bodypart.is_splinted())
+					wound_flavor_text[limb_zone] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [bodypart.name]!\n"
 
-			if(E.open)
-				if(E.is_robotic())
-					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
+			if(bodypart.open)
+				if(bodypart.is_robotic())
+					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(limb_zone)] is open!</b>\n"
 				else
-					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
+					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(limb_zone)] has an open incision!</b>\n"
 
-			for(var/obj/item/I in E.embedded_objects)
-				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</B>\n"
+			for(var/obj/item/embed in bodypart.embedded_objects)
+				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(embed)] [embed] embedded in [p_their()] [bodypart.name]!</B>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
-	if(wound_flavor_text["head"] && (is_destroyed["head"] || (!skipmask && !(wear_mask && istype(wear_mask, /obj/item/clothing/mask/gas)))))
-		msg += wound_flavor_text["head"]
-	if(wound_flavor_text["chest"] && !w_uniform && !skipjumpsuit) //No need.  A missing chest gibs you.
-		msg += wound_flavor_text["chest"]
-	if(wound_flavor_text["l_arm"] && (is_destroyed["left arm"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["l_arm"]
-	if(wound_flavor_text["l_hand"] && (is_destroyed["left hand"] || (!gloves && !skipgloves)))
-		msg += wound_flavor_text["l_hand"]
-	if(wound_flavor_text["r_arm"] && (is_destroyed["right arm"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["r_arm"]
-	if(wound_flavor_text["r_hand"] && (is_destroyed["right hand"] || (!gloves && !skipgloves)))
-		msg += wound_flavor_text["r_hand"]
-	if(wound_flavor_text["groin"] && (is_destroyed["groin"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["groin"]
-	if(wound_flavor_text["l_leg"] && (is_destroyed["left leg"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["l_leg"]
-	if(wound_flavor_text["l_foot"]&& (is_destroyed["left foot"] || (!shoes && !skipshoes)))
-		msg += wound_flavor_text["l_foot"]
-	if(wound_flavor_text["r_leg"] && (is_destroyed["right leg"] || (!w_uniform && !skipjumpsuit)))
-		msg += wound_flavor_text["r_leg"]
-	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skipshoes)))
-		msg += wound_flavor_text["r_foot"]
+	if(wound_flavor_text[BODY_ZONE_HEAD] && !skipmask && !(wear_mask && istype(wear_mask, /obj/item/clothing/mask/gas)))
+		msg += wound_flavor_text[BODY_ZONE_HEAD]
+	if(wound_flavor_text[BODY_ZONE_CHEST] && !w_uniform && !skipjumpsuit) //No need.  A missing chest gibs you.
+		msg += wound_flavor_text[BODY_ZONE_CHEST]
+	if(wound_flavor_text[BODY_ZONE_L_ARM] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_L_ARM]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_L_HAND] && !gloves && !skipgloves)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_L_HAND]
+	if(wound_flavor_text[BODY_ZONE_R_ARM] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_R_ARM]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_R_HAND] && !gloves && !skipgloves)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_R_HAND]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_GROIN] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_GROIN]
+	if(wound_flavor_text[BODY_ZONE_L_LEG] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_L_LEG]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_L_FOOT] && !shoes && !skipshoes)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_L_FOOT]
+	if(wound_flavor_text[BODY_ZONE_R_LEG] && !w_uniform && !skipjumpsuit)
+		msg += wound_flavor_text[BODY_ZONE_R_LEG]
+	if(wound_flavor_text[BODY_ZONE_PRECISE_R_FOOT] && !shoes  && !skipshoes)
+		msg += wound_flavor_text[BODY_ZONE_PRECISE_R_FOOT]
 
 	var/damage = getBruteLoss() //no need to calculate each of these twice
 
@@ -306,8 +320,12 @@
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
 		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
 
-	if(blood_volume < BLOOD_VOLUME_SAFE)
+	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
+
+	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(istype(vampire_datum) && vampire_datum.draining)
+		msg += "<B>[p_they(TRUE)] bit into [vampire_datum.draining]'s neck with his fangs.\n</B>"
 
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
@@ -332,10 +350,10 @@
 				else if(!client)
 					msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 
-		if(digitalcamo)
+		if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 			msg += "[p_they(TRUE)] [p_are()] moving [p_their()] body in an unnatural and blatantly inhuman manner.\n"
 
-	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
+	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
 
 	if(decaylevel == 1)
@@ -398,19 +416,17 @@
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
-	if(print_flavor_text() && !skipface)
-		if(get_organ("head"))
-			var/obj/item/organ/external/head/H = get_organ("head")
-			if(!H.disfigured)
-				msg += "[print_flavor_text()]\n"
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(print_flavor_text() && !skipface && !head_organ?.is_disfigured())
+		msg += "[print_flavor_text()]\n"
 
-	msg += "*---------*</span>"
 	if(pose)
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
 	. = list(msg)
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)
@@ -423,6 +439,11 @@
 			if(hudglasses?.examine_extensions)
 				have_hudtypes += hudglasses.examine_extensions
 
+		if(istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman))
+			var/obj/item/clothing/head/helmet/space/plasmaman/helmet = H.head
+			if(helmet?.examine_extensions)
+				have_hudtypes += helmet.examine_extensions
+
 		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
 		if(CIH?.examine_extensions)
 			have_hudtypes += CIH.examine_extensions
@@ -432,35 +453,40 @@
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL))
 
+	else if(ispAI(M))
+		var/mob/living/silicon/pai/P = M
+		if(P.adv_secHUD)
+			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE))
+
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
-		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
+		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
 			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SKILLS))
 
 	return FALSE
 
 // Ignores robotic limb branding prefixes like "Morpheus Cybernetics"
-/proc/ignore_limb_branding(limb_name)
-	switch(limb_name)
-		if("chest")
+/proc/ignore_limb_branding(limb_zone)
+	switch(limb_zone)
+		if(BODY_ZONE_CHEST)
 			. = "upper body"
-		if("groin")
+		if(BODY_ZONE_PRECISE_GROIN)
 			. = "lower body"
-		if("head")
+		if(BODY_ZONE_HEAD)
 			. = "head"
-		if("l_arm")
+		if(BODY_ZONE_L_ARM)
 			. = "left arm"
-		if("r_arm")
+		if(BODY_ZONE_R_ARM)
 			. = "right arm"
-		if("l_leg")
+		if(BODY_ZONE_L_LEG)
 			. = "left leg"
-		if("r_leg")
+		if(BODY_ZONE_R_LEG)
 			. = "right leg"
-		if("l_foot")
+		if(BODY_ZONE_PRECISE_L_FOOT)
 			. = "left foot"
-		if("r_foot")
+		if(BODY_ZONE_PRECISE_R_FOOT)
 			. = "right foot"
-		if("l_hand")
+		if(BODY_ZONE_PRECISE_L_HAND)
 			. = "left hand"
-		if("r_hand")
+		if(BODY_ZONE_PRECISE_R_HAND)
 			. = "right hand"

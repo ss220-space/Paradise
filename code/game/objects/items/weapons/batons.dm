@@ -16,12 +16,14 @@
 	// Settings
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE
-	/// The stun time (in life cycles) for non-silicons
-	var/stun_time = 6 SECONDS_TO_LIFE_CYCLES
-	/// The stun time (in life cycles) for silicons
-	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
+	/// The stun time (in seconds) for non-silicons
+	var/stun_time = 2 SECONDS
+	/// Stamina damage
+	var/staminaforce = 15
+	/// The stun time (in seconds) for silicons
+	var/stun_time_silicon = 10 SECONDS
 	/// Cooldown in deciseconds between two knockdowns
-	var/cooldown = 4 SECONDS
+	var/cooldown = 2 SECONDS
 	/// Sound to play when knocking someone down
 	var/stun_sound = 'sound/effects/woodhit.ogg'
 	// Variables
@@ -38,10 +40,10 @@
 	if((CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
 							 "<span class='userdanger'>You accidentally club yourself with [src]!</span>")
-		user.Weaken(force * 3)
+		user.Weaken(stun_time)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(force * 2, BRUTE, "head")
+			H.apply_damage(force * 2, BRUTE, BODY_ZONE_HEAD)
 		else
 			user.take_organ_damage(force * 2)
 		return
@@ -63,10 +65,17 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/stun(mob/living/target, mob/living/user)
-	if(issilicon(target))
-		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
-							 "<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
+	if(isbot(target))
+		user.visible_message(span_danger("[user] pulses [target]'s sensors with [src]!"),\
+							span_danger("You pulse [target]'s sensors with [src]!"))
+		var/mob/living/simple_animal/bot/bot = target
+		bot.disable(stun_time_silicon)
+
+	else if(issilicon(target))
+		user.visible_message(span_danger("[user] pulses [target]'s sensors with [src]!"),\
+							 span_danger("You pulse [target]'s sensors with [src]!"))
 		on_silicon_stun(target, user)
+
 	else
 		// Check for shield/countering
 		if(ishuman(target))
@@ -75,8 +84,8 @@
 				return FALSE
 			if(check_martial_counter(H, user))
 				return FALSE
-		user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
-							 "<span class='danger'>You knock down [target] with [src]!</span>")
+		user.visible_message(span_danger("[user] knocks down [target] with [src]!"),\
+							 span_danger("You knock down [target] with [src]!"))
 		on_non_silicon_stun(target, user)
 	// Visuals and sound
 	user.do_attack_animation(target)
@@ -84,9 +93,13 @@
 	add_attack_logs(user, target, "Stunned with [src]")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
-	target.Weaken(stun_time)
+	target.adjustStaminaLoss(staminaforce)
+	if(prob(75))
+		target.Weaken(stun_time)
+	else
+		target.Weaken(stun_time + 2 SECONDS)
 	on_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
+	addtimer(CALLBACK(src, PROC_REF(cooldown_finished)), cooldown)
 	return TRUE
 
 /**
@@ -162,53 +175,32 @@
 	if(!attack_verb_off)
 		attack_verb_off = list("hit", "poked")
 		attack_verb_on = list("smacked", "struck", "cracked", "beaten")
-	icon_state = icon_state_off
+	update_icon(UPDATE_ICON_STATE)
 	force = force_off
 	attack_verb = on ? attack_verb_on : attack_verb_off
 
+
+/obj/item/melee/classic_baton/telescopic/update_icon_state()
+	icon_state = on ? icon_state_on : icon_state_off
+	item_state = on ? item_state_on :  null //no sprite for concealment even when in hand
+
+
 /obj/item/melee/classic_baton/telescopic/attack_self(mob/user)
 	on = !on
-	icon_state = on ? icon_state_on : icon_state_off
+	update_icon(UPDATE_ICON_STATE)
 	if(on)
 		to_chat(user, "<span class='warning'>You extend [src].</span>")
-		item_state = item_state_on
 		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = force_on //stunbaton damage
 		attack_verb = attack_verb_on
 	else
 		to_chat(user, "<span class='notice'>You collapse [src].</span>")
-		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off //not so robust now
 		attack_verb = attack_verb_off
 	// Update mob hand visuals
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	// Update blood splatter
-	if(blood_overlay)
-		cut_overlay(blood_overlay)
-		qdel(blood_overlay)
-		add_blood_overlay(blood_overlay_color)
+	update_equipped_item()
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
 
-/obj/item/melee/classic_baton/telescopic/blood_splatter_index()
-	return "\ref[icon]-[icon_state]"
-
-/obj/item/melee/classic_baton/telescopic/add_blood_overlay(color)
-	var/index = blood_splatter_index()
-	var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-	if(!blood_splatter_icon)
-		blood_splatter_icon = icon(icon, icon_state)
-		blood_splatter_icon.Blend("#ffffff", ICON_ADD)
-		blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-		GLOB.blood_splatter_icons[index] = blood_splatter_icon
-
-	blood_overlay = image(blood_splatter_icon)
-	blood_overlay.color = color
-	blood_overlay_color = color
-	add_overlay(blood_overlay)

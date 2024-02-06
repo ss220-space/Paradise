@@ -17,7 +17,7 @@
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
-	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
+	bonefragility = 1.2 //20% more chance to break bones. Fragile bird bones.
 
 	breathid = "n2"
 
@@ -25,11 +25,11 @@
 
 	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
-	dietflags = DIET_OMNI
-	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
+	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR
 
 	silent_steps = TRUE
 
+	blood_species = "Vox"
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 	//Default styles for created mobs.
@@ -39,13 +39,13 @@
 	butt_sprite = "vox"
 
 	reagent_tag = PROCESS_ORG | PROCESS_SYN
-	scream_verb = "скрипит"
-	male_scream_sound = 'sound/voice/shriek1.ogg'
-	female_scream_sound = 'sound/voice/shriek1.ogg'
+	scream_verb = "скрип%(ит,ят)%"
+	male_scream_sound = list('sound/voice/shriek1.ogg')
+	female_scream_sound = list('sound/voice/shriek1.ogg')
 	male_cough_sounds = list('sound/voice/shriekcough.ogg')
 	female_cough_sounds = list('sound/voice/shriekcough.ogg')
-	male_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
-	female_sneeze_sound = 'sound/voice/shrieksneeze.ogg'
+	male_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
+	female_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
 
 	icon_skin_tones = list(
 		1 = "Default Green",
@@ -57,37 +57,43 @@
 		)
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/vox,
-		"lungs" =    /obj/item/organ/internal/lungs/vox,
-		"liver" =    /obj/item/organ/internal/liver/vox,
-		"kidneys" =  /obj/item/organ/internal/kidneys/vox,
-		"cortical stack" =    /obj/item/organ/internal/brain/vox,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
-		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/vox,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/vox,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/vox,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/vox,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/vox,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/vox,	// Default darksight of 2.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right),
-		"tail" =   list("path" = /obj/item/organ/external/tail/vox))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/vox),
+	)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!",
-		"is deeply inhaling oxygen!")
+		"пытается откусить себе язык!",
+		"вонзает когти себе в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!",
+		"глубоко вдыхает кислород!")
 
 	speciesbox = /obj/item/storage/box/survival_vox
+
+	toxic_food = NONE
+	disliked_food = NONE //According to lore voxes does not care about food. Food is food.
+	liked_food = NONE
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -106,22 +112,22 @@
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
-		H.unEquip(H.wear_mask)
+		H.drop_item_ground(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
-	var/obj/item/tank/internal_tank
+	var/obj/item/tank/internals/internal_tank
 	if(tank_pref)//Diseasel, here you go
-		internal_tank = new /obj/item/tank/nitrogen(H)
+		internal_tank = new /obj/item/tank/internals/nitrogen(H)
 	else
-		internal_tank = new /obj/item/tank/emergency_oxygen/vox(H)
-	if(!H.equip_to_appropriate_slot(internal_tank))
+		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
+	if(!H.equip_to_appropriate_slot(internal_tank, silent = TRUE))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
-			H.unEquip(H.l_hand)
+			H.drop_item_ground(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
-	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
+	to_chat(H, "<span class='notice'>Теперь вы живете на азоте из [internal_tank]. Кислород токсичен для вашего вида, поэтому вы должны дышать только азотом.</span>")
 	H.update_action_buttons_icon()
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)
@@ -162,7 +168,7 @@
 
 /datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "oxygen") //Armalis are above such petty things.
-		H.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER) //Same as plasma.
+		H.adjustToxLoss(0.5) //Same as plasma.
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own.
 
@@ -206,20 +212,21 @@
 	icon_template = 'icons/mob/human_races/r_armalis.dmi'
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs/vox,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"cortical stack" =    /obj/item/organ/internal/brain/vox,
-		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
-		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/vox,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/vox,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!",
-		"is huffing oxygen!")
+		"пытается откусить себе язык!",
+		"вонзает когти в глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!",
+		"пыхтит кислородом!")
 
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return TRUE

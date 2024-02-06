@@ -1,7 +1,6 @@
 /client/proc/dsay(msg as text)
 	set category = "Admin"
 	set name = "Dsay" //Gave this shit a shorter name so you only have to time out "dsay" rather than "dead say" to use it --NeoFite
-	set hidden = 1
 
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
@@ -37,13 +36,17 @@
 	if(!msg)
 		return
 
+	msg = handleDiscordEmojis(msg)
+
 	var/prefix = "[stafftype] ([src.key])"
 	if(holder.fakekey)
 		prefix = "Administrator"
 	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/get_dead_say()
-	var/msg = input(src, null, "dsay \"text\"") as text
+	if(!check_rights(R_ADMIN|R_MOD))
+		return
+	var/msg = input(src, null, "dsay \"text\"") as text | null
 	dsay(msg)

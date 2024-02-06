@@ -14,9 +14,8 @@
 	icon_state = ""
 	var/list/icons = list()
 
-/turf/simulated/floor/mineral/Initialize(mapload)
-	. = ..()
-	broken_states = list("[initial(icon_state)]_dam")
+/turf/simulated/floor/mineral/broken_states()
+	return list("[initial(icon_state)]_dam")
 
 /turf/simulated/floor/mineral/update_icon()
 	if(!..())
@@ -39,25 +38,23 @@
 
 /turf/simulated/floor/mineral/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma flooring was ignited by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("Plasma flooring was <b>ignited by [key_name(user)] in ([x],[y],[z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(is_hot(W))
 		return
 	..()
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
-						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
-						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+		user.visible_message(span_danger("[user] sets [src] on fire!"),\
+						span_danger("[src] disintegrates into a cloud of plasma!"),\
+						span_warning("You hear a 'whoompf' and a roar."))
 		ignite(2500) //Big enough to ignite
-		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 
 /turf/simulated/floor/mineral/plasma/proc/PlasmaBurn()
-	make_plating()
+	make_plating(FALSE)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 20)
 
 /turf/simulated/floor/mineral/plasma/proc/ignite(exposed_temperature)
@@ -94,7 +91,9 @@
 	name = "shuttle floor"
 	icon_state = "titanium"
 	floor_tile = /obj/item/stack/tile/mineral/titanium
-	broken_states = list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
+
+/turf/simulated/floor/mineral/titanium/broken_states()
+	return list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
 
 /turf/simulated/floor/mineral/titanium/airless
 	oxygen = 0
@@ -131,7 +130,9 @@
 	name = "shuttle floor"
 	icon_state = "plastitanium"
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
-	broken_states = list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
+
+/turf/simulated/floor/mineral/plastitanium/broken_states()
+	return list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
 
 /turf/simulated/floor/mineral/plastitanium/red
 	icon_state = "plastitanium_red"
@@ -191,8 +192,8 @@
 /turf/simulated/floor/mineral/bananium/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
-		H.slip("the floor", 0, 5, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
+		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
 //TRANQUILLITE
@@ -200,8 +201,10 @@
 	name = "silent floor"
 	icon_state = "tranquillite"
 	floor_tile = /obj/item/stack/tile/mineral/tranquillite
-	shoe_running_volume = 0
-	shoe_walking_volume = 0
+	footstep = null
+	barefootstep = null
+	clawfootstep = null
+	heavyfootstep = null
 
 //DIAMOND
 /turf/simulated/floor/mineral/diamond
@@ -219,33 +222,13 @@
 	var/last_event = 0
 	var/active = null
 
-/turf/simulated/floor/mineral/uranium/Entered(mob/AM)
-	.=..()
-	if(!.)
-		if(istype(AM))
-			radiate()
-
-/turf/simulated/floor/mineral/uranium/attackby(obj/item/W, mob/user, params)
-	.=..()
-	if(!.)
-		radiate()
-
-/turf/simulated/floor/mineral/uranium/attack_hand(mob/user)
-	.=..()
-	if(!.)
-		radiate()
-
-/turf/simulated/floor/mineral/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(1,IRRADIATE,0)
-			for(var/turf/simulated/floor/mineral/uranium/T in orange(1,src))
-				T.radiate()
-			last_event = world.time
-			active = 0
-			return
+/turf/simulated/floor/mineral/uranium/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_interaction = 1, \
+				rad_interaction_radius = 3, \
+				rad_interaction_cooldown = 1.5 SECONDS \
+	)
 
 // ALIEN ALLOY
 /turf/simulated/floor/mineral/abductor
@@ -264,7 +247,13 @@
 /turf/simulated/floor/mineral/abductor/burn_tile()
 	return //unburnable
 
-/turf/simulated/floor/mineral/abductor/make_plating()
+/turf/simulated/floor/mineral/abductor/make_plating(make_floor_tile, mob/user)
+	if(make_floor_tile && floor_tile && !broken && !burnt)
+		var/obj/item/stack/stack_dropped = new floor_tile(src)
+		if(istype(user))
+			var/obj/item/stack/stack_offhand = user.get_inactive_hand()
+			if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
+				user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return ChangeTurf(/turf/simulated/floor/plating/abductor2)
 
 /turf/simulated/floor/plating/abductor2

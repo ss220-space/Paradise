@@ -17,7 +17,11 @@
 #define RADIO_HIGH_FREQ 1600 //maximum radio freq
 
 #define SYND_FREQ 1213
+#define SYND_TAIPAN_FREQ 1227 //Taipan frequency
 #define SYNDTEAM_FREQ 1244
+#define SOV_FREQ 1217 //Soviet
+#define SPY_SPIDER_FREQ	1251
+#define NINJA_FREQ 1265
 #define DTH_FREQ 1341 //Special Operations
 #define AI_FREQ 1343
 #define ERT_FREQ 1345
@@ -25,6 +29,10 @@
 #define PROC_FREQ 1339 //Procedure
 #define BOT_FREQ 1447 //mulebot, secbot, ed209
 
+// Event channels
+#define EVENT_ALPHA_FREQ 1522
+#define EVENT_BETA_FREQ 1532
+#define EVENT_GAMMA_FREQ 1542
 
 // Department channels
 #define PUB_FREQ 1459 //standard radio chat

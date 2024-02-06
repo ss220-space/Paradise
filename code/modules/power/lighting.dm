@@ -8,6 +8,9 @@
 #define LIGHT_BROKEN 2
 #define LIGHT_BURNED 3
 
+#define MAXIMUM_SAFE_BACKUP_CHARGE 600
+#define EMERGENCY_LIGHT_POWER_USE 0.5
+
 /**
   * # Light fixture frame
   *
@@ -33,8 +36,8 @@
 	/// Holder for the completed fixture
 	var/obj/machinery/light/newlight = null
 
-/obj/machinery/light_construct/New()
-	..()
+/obj/machinery/light_construct/Initialize(mapload, ndir, building)
+	. = ..()
 	if(fixture_type == "bulb")
 		icon_state = "bulb-construct-stage1"
 
@@ -43,11 +46,11 @@
 	if(get_dist(user, src) <= 2)
 		switch(stage)
 			if(1)
-				. += "It's an empty frame."
+				. += "<span class='notice'>It's an empty frame.</span>"
 			if(2)
-				. += "It's wired."
+				. += "<span class='notice'>It's wired.</span>"
 			if(3)
-				. += "The casing is closed."
+				. += "<span class='notice'>The casing is closed.</span>"
 
 /obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -76,7 +79,7 @@
 			icon_state = "tube-construct-stage1"
 		if("bulb")
 			icon_state = "bulb-construct-stage1"
-	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
+	new /obj/item/stack/cable_coil(get_turf(loc), 1, TRUE, COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
 /obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
@@ -99,15 +102,13 @@
 			newlight = new /obj/machinery/light/built(loc)
 		if("bulb")
 			newlight = new /obj/machinery/light/small/built(loc)
-
 	newlight.setDir(dir)
 	transfer_fingerprints_to(newlight)
 	qdel(src)
 
 /obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
-	add_fingerprint(user)
-
 	if(istype(W, /obj/item/stack/cable_coil))
+		add_fingerprint(user)
 		if(stage != 1)
 			return
 		var/obj/item/stack/cable_coil/coil = W
@@ -165,7 +166,7 @@
 	icon_state = "tube1"
 	desc = "A lighting fixture."
 	anchored = 1
-	layer = 5
+	layer = WALL_OBJ_LAYER
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
@@ -187,6 +188,8 @@
 	var/status = LIGHT_OK
 	/// Is the light currently flickering?
 	var/flickering = FALSE
+	/// Was this light extinguished with an antag ability? Used to ovveride flicker events
+	var/extinguished = FALSE
 
 	/// Item type of the light bulb
 	var/light_type = /obj/item/light/tube
@@ -211,6 +214,10 @@
 	var/nightshift_light_color = "#FFDDCC"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
+
+	var/emergency_mode = FALSE // if true, the light is in emergency mode
+	var/fire_mode = FALSE // if true, the light swaps over to emergency colour
+	var/no_emergency = FALSE // if true, this light cannot ever have an emergency mode
 
 
 /**
@@ -250,6 +257,11 @@
 	if(A && !A.requires_power)
 		on = TRUE
 
+	if(dir == SOUTH)
+		layer = ABOVE_ALL_MOB_LAYER
+
+	LAZYADD(A.lights_cache, src)
+
 	switch(fitting)
 		if("tube")
 			brightness_range = 8
@@ -267,14 +279,15 @@
 	if(A)
 		on = FALSE
 //		A.update_lights()
+		LAZYREMOVE(A.lights_cache, src)
+
 	return ..()
 
 /obj/machinery/light/update_icon()
 
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
-			var/area/A = get_area(src)
-			if(A && A.fire)
+			if(emergency_mode)
 				icon_state = "[base_state]_emergency"
 			else
 				icon_state = "[base_state][on]"
@@ -298,18 +311,22 @@
   * * trigger - Should this update make the light explode/burn out? (Defaults to TRUE)
   */
 /obj/machinery/light/proc/update(trigger = TRUE)
+	var/area/current_area = get_area(src)
+	UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 	switch(status)
 		if(LIGHT_BROKEN, LIGHT_BURNED, LIGHT_EMPTY)
 			on = FALSE
-	update_icon()
+	emergency_mode = FALSE
+	if(fire_mode)
+		set_emergency_lights()
 	var/BR = nightshift_enabled ? nightshift_light_range : brightness_range
 	var/PO = nightshift_enabled ? nightshift_light_power : brightness_power
 	if(on)
+		extinguished = FALSE
 		var/CO = nightshift_enabled ? nightshift_light_color : brightness_color
 		if(color)
 			CO = color
-		var/area/A = get_area(src)
-		if(A && A.fire)
+		if(emergency_mode)
 			BR = brightness_range
 			PO = brightness_power
 			CO = bulb_emergency_colour
@@ -330,9 +347,12 @@
 			else
 				use_power = ACTIVE_POWER_USE
 				set_light(BR, PO, CO)
+	else if(!turned_off())
+		set_emergency_lights()
 	else
 		use_power = IDLE_POWER_USE
 		set_light(0)
+	update_icon()
 
 	active_power_usage = (BR * PO * 10)
 	if(on != power_state) // Light was turned on/off, so update the power usage
@@ -367,6 +387,7 @@
 // examine verb
 /obj/machinery/light/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>"
 	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
@@ -377,6 +398,7 @@
 				. += "The [fitting] is burnt out."
 			if(LIGHT_BROKEN)
 				. += "The [fitting] has been smashed."
+	. += "</span>"
 
 
 
@@ -386,17 +408,19 @@
 	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
+		add_fingerprint(user)
 		var/obj/item/lightreplacer/LR = W
 		LR.ReplaceLight(src, user)
+		return
 
 	// attempt to insert light
-	else if(istype(W, /obj/item/light))
+	if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
 			to_chat(user, "<span class='warning'>There is a [fitting] already inserted.</span>")
 		else
-			add_fingerprint(user)
 			var/obj/item/light/L = W
 			if(istype(L, light_type))
+				add_fingerprint(user)
 				status = L.status
 				to_chat(user, "<span class='notice'>You insert [L].</span>")
 				switchcount = L.switchcount
@@ -408,7 +432,7 @@
 				on = has_power()
 				update()
 
-				user.drop_item()	//drop the item to update overlays and such
+				user.drop_transfer_item_to_loc(L, src)	//drop the item to update overlays and such
 				qdel(L)
 
 				if(on && rigged)
@@ -419,13 +443,14 @@
 					explode()
 			else
 				to_chat(user, "<span class='warning'>This type of light requires a [fitting].</span>")
-				return
+			return
 
 		// attempt to break the light
 		//If xenos decide they want to smash a light bulb with a toolbox, who am I to stop them? /N
 
-	else if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
+	if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 
+		add_fingerprint(user)
 		user.do_attack_animation(src)
 		if(prob(1 + W.force * 5))
 
@@ -440,9 +465,10 @@
 			user.visible_message("<span class='danger'>[user] hits the light.</span>", "<span class='danger'>You hit the light.</span>", \
 			"<span class='danger'>You hear someone hitting a light.</span>")
 			playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
+		return
 
 	// attempt to stick weapon into light socket
-	else if(status == LIGHT_EMPTY)
+	if(status == LIGHT_EMPTY)
 		if(istype(W, /obj/item/screwdriver)) //If it's a screwdriver open it.
 			playsound(loc, W.usesound, W.tool_volume, 1)
 			user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
@@ -451,14 +477,16 @@
 			return
 
 		if(has_power() && (W.flags & CONDUCT))
+			add_fingerprint(user)
 			do_sparks(3, 1, src)
 			if(prob(75)) // If electrocuted
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
 				to_chat(user, "<span class='userdanger'>You are electrocuted by [src]!</span>")
 			else // If not electrocuted
 				to_chat(user, "<span class='danger'>You stick [W] into the light socket!</span>")
-	else
-		return ..()
+			return
+
+	return ..()
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -512,21 +540,49 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
+// returns if the light has power /but/ is manually turned off
+// if a light is turned off, it won't activate emergency power
+/obj/machinery/light/proc/turned_off()
+	var/area/A = get_area(src)
+	return !A.lightswitch && A.power_light
+
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/proc/has_power()
 	var/area/A = get_area(src)
 	return A.lightswitch && A.power_light
 
+// attempts to set emergency lights
+/obj/machinery/light/proc/set_emergency_lights()
+	var/area/current_area = get_area(src)
+	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
+	if(status != LIGHT_OK || !current_apc || flickering || no_emergency)
+		emergency_lights_off(current_area, current_apc)
+		return
+	if(current_apc.emergency_lights || !current_apc.emergency_power)
+		emergency_lights_off(current_area, current_apc)
+		return
+	if(fire_mode)
+		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
+		return
+	emergency_mode = TRUE
+	set_light(3, 1.7, bulb_emergency_colour)
+	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
+
+/obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
+	set_light(0, 0, 0) //you, sir, are off!
+	if(current_apc)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
+
 /obj/machinery/light/flicker(amount = rand(20, 30))
 	if(flickering)
 		return FALSE
 
-	if(!on || status != LIGHT_OK)
+	if(!on || status != LIGHT_OK || emergency_mode)
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/light/.proc/flicker_event, amount)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/light, flicker_event), amount)
 
 	return TRUE
 
@@ -537,7 +593,7 @@
 /obj/machinery/light/proc/flicker_event(var/amount)
 	if(on && status == LIGHT_OK)
 		for(var/i = 0; i < amount; i++)
-			if(status != LIGHT_OK)
+			if(status != LIGHT_OK || extinguished)
 				break
 			on = FALSE
 			update(FALSE)
@@ -545,14 +601,16 @@
 			on = (status == LIGHT_OK)
 			update(FALSE)
 			sleep(rand(1, 10))
-		on = (status == LIGHT_OK)
+		on = (status == LIGHT_OK && !extinguished)
 		update(FALSE)
 	flickering = FALSE
 
 
-// ai attack - make lights flicker, because why not
+// ai attack - toggle emergency lighting
 /obj/machinery/light/attack_ai(mob/user)
-	flicker(1)
+	no_emergency = !no_emergency
+	to_chat(user, "<span class='notice'>Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"].</span>")
+	update(FALSE)
 
 // attack with hand - remove tube/bulb
 // if hands aren't protected and the light is on, burn the player
@@ -586,7 +644,7 @@
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
 				to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
 
-				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+				var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				if(affecting.receive_damage(0, 5)) // 5 burn damage
 					H.UpdateDamageIcon()
 				H.updatehealth()
@@ -619,7 +677,7 @@
 
 	if(user) //puts it in our active hand
 		L.add_fingerprint(user)
-		user.put_in_active_hand(L)
+		user.put_in_active_hand(L, ignore_anim = FALSE)
 
 	status = LIGHT_EMPTY
 	update(FALSE)
@@ -651,7 +709,8 @@
 	if(status == LIGHT_OK)
 		return
 	status = LIGHT_OK
-	on = 1
+	extinguished = FALSE
+	on = TRUE
 	update()
 
 /obj/machinery/light/tesla_act(power, explosive = FALSE)
@@ -681,7 +740,7 @@
 	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
 	sleep(2)
-	explosion(T, 0, 0, 2, 2)
+	explosion(T, 0, 0, 2, 2, cause = src)
 	qdel(src)
 
 
@@ -765,15 +824,15 @@
 	brightness_range = 5
 	brightness_color = "#a0a080"
 
-/obj/item/light/throw_impact(atom/hit_atom)
+/obj/item/light/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	shatter()
 
 /obj/item/light/bulb/fire
 	name = "fire bulb"
 	desc = "A replacement fire bulb."
-	icon_state = "fbulb"
-	base_state = "fbulb"
+	icon_state = "flight"
+	base_state = "flight"
 	item_state = "egg4"
 	brightness_range = 5
 
@@ -829,7 +888,7 @@
 	..()
 	shatter()
 
-/obj/item/light/attack_obj(obj/O, mob/living/user)
+/obj/item/light/attack_obj(obj/O, mob/living/user, params)
 	..()
 	shatter()
 
@@ -845,13 +904,29 @@
 /obj/item/light/suicide_act(mob/living/carbon/human/user)
 	user.visible_message("<span class=suicide>[user] touches [src], burning [user.p_their()] hands off!</span>", "<span class=suicide>You touch [src], burning your hands off!</span>")
 
-	for(var/oname in list("l_hand", "r_hand"))
+	for(var/oname in list(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 		var/obj/item/organ/external/limb = user.get_organ(oname)
 		if(limb)
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
 
-/obj/machinery/light/extinguish_light()
-	on = FALSE
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+/obj/machinery/light/extinguish_light(force = FALSE)
+	if(on)
+		on = FALSE
+		extinguished = TRUE
+		emergency_mode = FALSE
+		no_emergency = TRUE
+		addtimer(CALLBACK(src, PROC_REF(enable_emergency_lighting)), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
+		visible_message(span_danger("[src] flickers and falls dark."))
+		update(FALSE)
+
+/obj/machinery/light/proc/enable_emergency_lighting()
+	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
+	no_emergency = FALSE
 	update(FALSE)
+
+#undef MAXIMUM_SAFE_BACKUP_CHARGE
+#undef EMERGENCY_LIGHT_POWER_USE
+#undef LIGHT_OK
+#undef LIGHT_EMPTY
+#undef LIGHT_BROKEN

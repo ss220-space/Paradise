@@ -20,7 +20,7 @@
 	harm_intent_damage = 8
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	attacktext = "bites"
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	emote_taunt = list("flutters")
@@ -58,7 +58,7 @@
 	var/mob/living/L = .
 	if(istype(L))
 		if(prob(15))
-			L.Stun(1)
+			L.Stun(2 SECONDS)
 			L.visible_message("<span class='danger'>\the [src] scares \the [L]!</span>")
 
 

@@ -5,6 +5,7 @@
 	amount = 6
 	max_amount = 6
 	w_class = WEIGHT_CLASS_TINY
+	full_w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	resistance_flags = FLAMMABLE
@@ -30,7 +31,8 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(!H.can_inject(user, TRUE))
+		if(isgolem(M))
+			to_chat(user, "<span class='danger'>This can't be used on golems!</span>")
 			return TRUE
 
 		if(!affecting)
@@ -45,6 +47,12 @@
 			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
 			if(!do_mob(user, H, self_delay))
 				return TRUE
+
+		if(H.head && H.head.flags & THICKMATERIAL)
+			if(H.wear_suit && H.wear_suit.flags & THICKMATERIAL)
+				to_chat(user, "<span class='danger'>There is no thin material to inject into.")
+				return TRUE
+
 		return
 
 	if(isanimal(M))
@@ -83,7 +91,7 @@
 	var/nremburn = remburn
 	affecting.heal_damage(heal_brute, heal_burn)
 	var/list/achildlist
-	if(!isnull(affecting.children))
+	if(LAZYLEN(affecting.children))
 		achildlist = affecting.children.Copy()
 	var/parenthealed = FALSE
 	while(rembrute + remburn > 0) // Don't bother if there's not enough leftover heal
@@ -95,7 +103,7 @@
 			parenthealed = TRUE
 		else
 			break // If the organ have no child left and no parent / parent healed, break
-		if(E.status & ORGAN_ROBOT || E.open) // Ignore robotic or open limb
+		if(E.is_robotic() || E.open) // Ignore robotic or open limb
 			continue
 		else if(!E.brute_dam && !E.burn_dam) // Ignore undamaged limb
 			continue
@@ -164,6 +172,7 @@
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
+	belt_icon = "advanced_trauma_kit"
 	heal_brute = 25
 	stop_bleeding = 0
 
@@ -215,6 +224,7 @@
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
 	icon_state = "burnkit"
+	belt_icon = "advanced_burn_kit"
 	heal_burn = 25
 
 /obj/item/stack/medical/ointment/advanced/cyborg
@@ -224,7 +234,7 @@
 	if(!get_amount())
 		to_chat(user, "<span class='danger'>Not enough medical supplies!</span>")
 		return 1
-	else 
+	else
 		.=..()
 
 //Medical Herbs//
@@ -237,6 +247,9 @@
 	color = "#378C61"
 	stop_bleeding = 0
 	heal_brute = 12
+	drop_sound = 'sound/misc/moist_impact.ogg'
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	hitsound = 'sound/misc/moist_impact.ogg'
 
 
 /obj/item/stack/medical/ointment/aloe
@@ -254,58 +267,80 @@
 	singular_name = "medical splint"
 	icon_state = "splint"
 	unique_handling = TRUE
-	self_delay = 100
+	self_delay = 10 SECONDS
 	var/other_delay = 0
+	var/static/list/available_splint_zones = list(
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
 
 /obj/item/stack/medical/splint/cyborg
-	is_cyborg = 1
+	is_cyborg = TRUE
+
 
 /obj/item/stack/medical/splint/cyborg/attack(mob/living/M, mob/user)
 	if(!get_amount())
-		to_chat(user, "<span class='danger'>No splints left!</span>")
-		return 1
-	else 
-		.=..()
-/obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
-	if(..())
+		to_chat(user, span_danger("No splints left!"))
+		return TRUE
+	return ..()
+
+
+/obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user)
+	. = ..()
+	if(. || !ishuman(target))
+		return .
+
+	var/obj/item/organ/external/bodypart = target.get_organ(user.zone_selected)
+	var/bodypart_name = bodypart.name
+
+	if(!(bodypart.limb_zone in available_splint_zones))
+		to_chat(user, span_danger("You can't apply a splint there!"))
 		return TRUE
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
-		var/limb = affecting.name
+	if(bodypart.is_splinted())
+		to_chat(user, span_danger("[target]'s [bodypart_name] is already splinted!"))
+		if(alert(user, "Would you like to remove the splint from [target]'s [bodypart_name]?", "Splint removal.", "Yes", "No") == "Yes")
+			bodypart.remove_splint()
+			to_chat(user, span_notice("You remove the splint from [target]'s [bodypart_name]."))
+		return TRUE
 
-		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
-			to_chat(user, "<span class='danger'>You can't apply a splint there!</span>")
-			return TRUE
+	if((target == user && self_delay > 0) || (target != user && other_delay > 0))
+		user.visible_message(
+			span_notice("[user] starts to apply [src] to [target == user ? "[user.p_their()]" : "[target]'s"] [bodypart_name]."),
+			span_notice("You start to apply [src] to [target == user ? "your" : "[target]'s"] [bodypart_name]."),
+			span_italics("You hear something being wrapped."),
+		)
 
-		if(affecting.status & ORGAN_SPLINTED)
-			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
-			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal.", "Yes", "No") == "Yes")
-				affecting.status &= ~ORGAN_SPLINTED
-				H.handle_splints()
-				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
-			return TRUE
+	if(target == user && !do_mob(user, target, self_delay))
+		return TRUE
+	else if(!do_mob(user, target, other_delay))
+		return TRUE
 
-		if((M == user && self_delay > 0) || (M != user && other_delay > 0))
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You hear something being wrapped.</span>")
+	user.visible_message(
+		span_notice("[user] applies [src] to [target == user ? "[user.p_their()]" : "[target]'s"] [bodypart_name]."),
+		span_notice("You apply [src] to [target == user ? "your" : "[target]'s"] [bodypart_name]."),
+	)
 
-		if(M == user && !do_mob(user, H, self_delay))
-			return TRUE
-		else if(!do_mob(user, H, other_delay))
-			return TRUE
+	bodypart.apply_splint()
+	use(1)
 
-		user.visible_message("<span class='notice'>[user] applies [src] to [H]'s [limb].</span>", \
-								"<span class='notice'>You apply [src] to [H]'s [limb].</span>")
-
-		affecting.status |= ORGAN_SPLINTED
-		affecting.splinted_count = H.step_count
-		H.handle_splints()
-		use(1)
 
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"
 	icon_state = "tribal_splint"
-	other_delay = 50
+	other_delay = 5 SECONDS
+
+
+/obj/item/stack/medical/splint/makeshift
+	name = "makeshift splints"
+	desc = "Makeshift splint for fixing bones. Better than nothing and more based than others."
+	icon_state = "makeshift_splint"
+	other_delay = 3 SECONDS
+	self_delay = 15 SECONDS
+

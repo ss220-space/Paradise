@@ -46,15 +46,18 @@
 	if(istype(AM, /obj/effect))
 		return
 	if(AM.move_speed < 12)
-		sense()
+		sense(AM)
 
-/obj/item/assembly/prox_sensor/proc/sense()
+/obj/item/assembly/prox_sensor/proc/sense(atom/movable/AM)
+	var/mob/triggered
+	if(ismob(AM))
+		triggered = AM
 	if(!secured || !scanning || cooldown > 0)
 		return FALSE
 	cooldown = 2
-	pulse(FALSE)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
+	pulse(FALSE, triggered)
 
 /obj/item/assembly/prox_sensor/process()
 	if(timing && (time >= 0))
@@ -64,10 +67,10 @@
 		toggle_scan()
 		time = 10
 
-/obj/item/assembly/prox_sensor/dropped()
+/obj/item/assembly/prox_sensor/dropped(mob/user, silent = FALSE)
 	..()
 	spawn(0)
-		sense()
+		sense(user)
 		return
 
 /obj/item/assembly/prox_sensor/proc/toggle_scan()
@@ -89,11 +92,11 @@
 		holder.update_icon()
 
 /obj/item/assembly/prox_sensor/Move()
-	..()
+	. = ..()
 	sense()
 
-/obj/item/assembly/prox_sensor/holder_movement()
-	sense()
+/obj/item/assembly/prox_sensor/holder_movement(user)
+	sense(user)
 
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
@@ -105,10 +108,9 @@
 	dat += "<BR><A href='?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</A> (Movement sensor active when armed!)"
 	dat += "<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>"
 	dat += "<BR><BR><A href='?src=[UID()];close=1'>Close</A>"
-	var/datum/browser/popup = new(user, "prox", name, 400, 400)
+	var/datum/browser/popup = new(user, "prox", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "prox")
+	popup.open()
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()

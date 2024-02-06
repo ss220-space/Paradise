@@ -8,7 +8,7 @@
 	origin_tech = "combat=4;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -32,8 +32,23 @@
 	force = 10
 	origin_tech = null
 	ammo_x_offset = 3
-	selfcharge = 1
+	selfcharge = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	unique_reskin = TRUE
+
+/obj/item/gun/energy/laser/captain/New()
+	..()
+	options["The Original"] = "caplaser"
+	options["Restored"] = "caplaser_new"
+	options["Alternative"] = "caplaser_newer"
+	options["Cancel"] = null
+
+/obj/item/gun/energy/laser/captain/update_icon()
+	..()
+	if(current_skin)
+		icon_state = "[current_skin]"
+	else
+		icon_state = "[initial(icon_state)]"
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -42,12 +57,13 @@
 	desc = "An industrial-grade heavy-duty laser rifle with a modified laser lense to scatter its shot into multiple smaller lasers. The inner-core can self-charge for theorically infinite use."
 	origin_tech = "combat=5;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
-	shaded_charge = 0
+	shaded_charge = FALSE
+	unique_reskin = FALSE
 
 /obj/item/gun/energy/laser/cyborg
-	can_charge = 0
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
+	can_charge = FALSE
 	origin_tech = null
 
 /obj/item/gun/energy/laser/cyborg/newshot()
@@ -81,7 +97,7 @@
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator
 	select_name = "accelerator"
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
 
 /obj/item/projectile/beam/laser/accelerator
 	name = "accelerator laser"
@@ -103,7 +119,7 @@
 	return
 
 /obj/item/gun/energy/xray
-	name = "xray laser gun"
+	name = "x-ray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated xray blasts. These blasts will penetrate solid objects, but will decrease in power the longer they have to travel."
 	icon_state = "xray"
 	origin_tech = "combat=6;materials=4;magnets=4"
@@ -116,7 +132,7 @@
 	item_state = "laser"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/immolator/multi
 	name = "multi lens immolator cannon"
@@ -131,7 +147,6 @@
 	var/append = shot.select_name
 	overlays += image(icon = icon, icon_state = "multilensimmolator-[append]")
 
-
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
@@ -143,10 +158,10 @@
 	name = "laser tag gun"
 	desc = "Standard issue weapon of the Imperial Guard"
 	origin_tech = "combat=2;magnets=2"
-	clumsy_check = 0
-	needs_permit = 0
+	clumsy_check = FALSE
+	needs_permit = FALSE
 	ammo_x_offset = 2
-	selfcharge = 1
+	selfcharge = TRUE
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"

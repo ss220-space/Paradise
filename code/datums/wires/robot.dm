@@ -27,8 +27,10 @@
 					to_chat(R, "LawSync protocol engaged.")
 					R.lawsync()
 					R.show_laws()
+					if(R.connected_ai?.laws)
+						SSticker?.score?.save_silicon_laws(R, usr, "laws sync with AI", log_all_laws = TRUE)
 			else
-				if(!R.lawupdate && !R.emagged)
+				if(!R.lawupdate && !R.emagged && !isclocker(R))
 					R.lawupdate = TRUE
 
 		if(WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
@@ -50,8 +52,9 @@
 	var/mob/living/silicon/robot/R = holder
 	switch(wire)
 		if(WIRE_AI_CONTROL) //pulse the AI wire to make the borg reselect an AI
-			if(!R.emagged)
+			if(!R.emagged && !isclocker(R))
 				R.connect_to_ai(select_active_ai())
+				R.show_laws()
 
 		if(WIRE_BORG_CAMERA)
 			if(!isnull(R.camera) && R.camera.can_use() && !R.scrambledcodes)

@@ -12,6 +12,9 @@
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
 	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+	var/datum/action/innate/mecha/mech_energywall/energywall_action = new
+	var/datum/action/innate/mecha/mech_strafe/strafe_action = new
+	var/list/select_actions = list()
 
 /obj/mecha/proc/GrantActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -19,6 +22,10 @@
 	internals_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
+	if(strafe_allowed)
+		strafe_action.Grant(user, src)
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
+		equipment_mod.give_targeted_action()
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -26,6 +33,10 @@
 	internals_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
+	if(strafe_allowed)
+		strafe_action.Remove(user)
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
+		equipment_mod.remove_targeted_action()
 
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
@@ -74,7 +85,7 @@
 		return
 	chassis.lights = !chassis.lights
 	if(chassis.lights)
-		chassis.set_light(chassis.lights_power)
+		chassis.set_light(chassis.lights_power, null, chassis.lights_color)
 		button_icon_state = "mech_lights_on"
 	else
 		chassis.set_light(-chassis.lights_power)
@@ -230,3 +241,81 @@
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
 	UpdateButtonIcon()
+
+/datum/action/innate/mecha/mech_energywall
+	name = "Energy Wall"
+	button_icon_state = "energywall"
+
+/datum/action/innate/mecha/mech_energywall/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	if(chassis.wall_ready)
+		new chassis.wall_type(get_turf(chassis), chassis)
+		if(chassis.large_wall)
+			if(chassis.dir == SOUTH || chassis.dir == NORTH)
+				new chassis.wall_type(get_step(chassis, EAST), chassis)
+				new chassis.wall_type(get_step(chassis, WEST), chassis)
+			else
+				new chassis.wall_type(get_step(chassis, NORTH), chassis)
+				new chassis.wall_type(get_step(chassis, SOUTH), chassis)
+		chassis.wall_ready = 0
+		spawn(chassis.wall_cooldown)
+			chassis.wall_ready = 1
+	else
+		chassis.occupant_message("<span class='warning'>Energy wall is not ready yet!</span>")
+
+/////////////////////////////////// STRAFE PROCS ////////////////////////////////////////////////
+/datum/action/innate/mecha/mech_strafe
+	name = "Toggle Strafing. Disabled when Alt is held."
+	button_icon_state = "strafe"
+
+/datum/action/innate/mecha/mech_strafe/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	chassis.toggle_strafe()
+
+/obj/mecha/AltClick(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
+	if(!occupant || occupant != user)
+		return
+	toggle_strafe()
+
+/**
+ * Proc that toggles strafe mode of the mecha ON/OFF
+ *
+ * Arguments
+ * * silent - if we want to stop showing messages for mecha pilot and prevent logging
+ */
+/obj/mecha/proc/toggle_strafe(silent = FALSE)
+	if(!strafe_allowed)
+		occupant_message("This mecha doesn't support strafing!")
+		return
+	var/datum/action/innate/mecha/mech_strafe/mech_strafe = locate(/datum/action/innate/mecha/mech_strafe) in occupant.actions
+	if(!mech_strafe)
+		return
+	strafe = !strafe
+	mech_strafe.button_icon_state = "strafe[strafe ? "_on" : ""]"
+	mech_strafe.UpdateButtonIcon()
+	if(!silent)
+		occupant_message("<font color='[strafe ? "green" : "red"]'>Strafing mode [strafe ? "en" : "dis"]abled.")
+		log_message("Toggled strafing mode [strafe ? "on" : "off"].")
+
+/datum/action/innate/mecha/select_module
+	name = "Hey, you shouldn't see it"
+	var/obj/item/mecha_parts/mecha_equipment/equipment
+
+/datum/action/innate/mecha/select_module/Grant(mob/living/L, obj/mecha/M, obj/item/mecha_parts/mecha_equipment/_equipment)
+	if(!_equipment)
+		return FALSE
+	equipment = _equipment
+	name = "Switched module to [equipment.name]"
+	icon_icon = equipment.icon
+	button_icon_state = equipment.icon_state
+	. = ..()
+
+/datum/action/innate/mecha/select_module/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	chassis.selected = equipment
+	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
+	chassis.visible_message("[chassis] raises [equipment.name]")
+	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())

@@ -4,7 +4,7 @@
 /obj/machinery/power/port_gen
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
 	desc = "A portable generator for emergency backup power"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "portgen0_0"
 	density = 1
 	anchored = 0
@@ -80,7 +80,7 @@
 			stat &= ~EMPED
 
 /obj/machinery/power/port_gen/proc/explode()
-	explosion(src.loc, -1, 3, 5, -1)
+	explosion(src.loc, -1, 3, 5, -1, cause = src)
 	qdel(src)
 
 #define TEMPERATURE_DIVISOR 40
@@ -157,8 +157,8 @@
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	. = ..()
-	. += "\The [src] appears to be producing [power_gen*power_output] W."
-	. += "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper."
+	. += "<span class='notice'>\The [src] appears to be producing [power_gen*power_output] W.</span>"
+	. += "<span class='notice'>There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper.</span>"
 	if(IsBroken())
 		. += "<span class='warning'>\The [src] seems to have broken down.</span>"
 	if(overheating)
@@ -264,21 +264,23 @@
 	sheet_left = 0
 	..()
 
-/obj/machinery/power/port_gen/pacman/emag_act(var/remaining_charges, var/mob/user)
+/obj/machinery/power/port_gen/pacman/emag_act(mob/user)
 	if(active && prob(25))
 		explode() //if they're foolish enough to emag while it's running
 
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = 1
 		return 1
 
-/obj/machinery/power/port_gen/pacman/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attackby(obj/item/O, mob/user)
 	if(istype(O, sheet_path))
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
 			to_chat(user, "<span class='notice'>The [src.name] is full!</span>")
 			return
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>")
 		sheets += amount
 		addstack.use(amount)
@@ -309,6 +311,7 @@
 			return
 		else if(istype(O, /obj/item/crowbar) && panel_open)
 			default_deconstruction_crowbar(user, O)
+		add_fingerprint(user)
 	else
 		return ..()
 
@@ -368,7 +371,7 @@
 	switch(action)
 		if("toggle_power")
 			if(!powernet) //only a warning, process will disable
-				atom_say("Not connected to powernet.")
+				atom_say("Не подключен к электросет+и.")
 			active = !active
 			update_icon()
 		if("eject_fuel")
@@ -414,7 +417,7 @@
 		//I dunno, maybe physics works different when you live in 2D -- SM radiation also works like this, apparently
 		L.apply_effect(max(20, round(rads/get_dist(L,src))), IRRADIATE)
 
-	explosion(src.loc, 3, 3, 5, 3)
+	explosion(src.loc, 3, 3, 5, 3, cause = src)
 	qdel(src)
 
 /obj/machinery/power/port_gen/pacman/mrs
@@ -448,5 +451,5 @@
 
 /obj/machinery/power/port_gen/pacman/mrs/explode()
 	//no special effects, but the explosion is pretty big (same as a supermatter shard).
-	explosion(src.loc, 3, 6, 12, 16, 1)
+	explosion(src.loc, 3, 6, 12, 16, 1, cause = src)
 	qdel(src)

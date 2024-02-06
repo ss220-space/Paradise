@@ -1,7 +1,7 @@
 #define BASE_POINT_MULT 0.65
-#define BASE_SHEET_MULT 0.65
+#define BASE_SHEET_MULT 0.5
 #define POINT_MULT_ADD_PER_RATING 0.35
-#define SHEET_MULT_ADD_PER_RATING 0.35
+#define SHEET_MULT_ADD_PER_RATING 0.2
 
 /**
   * # Ore Redemption Machine
@@ -44,7 +44,7 @@
 	/// The number of unclaimed points.
 	var/points = 0
 	/// Sheet multiplier applied when smelting ore. Updated by [/obj/machinery/proc/RefreshParts].
-	var/sheet_per_ore = 1
+	var/sheet_per_ore = 0.7
 	/// Point multiplier applied when smelting ore. Updated by [/obj/machinery/proc/RefreshParts].
 	var/point_upgrade = 1
 	/// Whether the message to relevant supply consoles was sent already or not for an ore dump. If FALSE, another will be sent.
@@ -60,7 +60,7 @@
 	..()
 	ore_buffer = list()
 	// Components
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, .proc/on_material_insert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
 	files = new /datum/research/smelter(src)
 	// Stock parts
 	component_parts = list()
@@ -71,6 +71,11 @@
 	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+	//Проверка на случай постройки такой на Тайпане
+	var/area/MyArea = getArea(src)
+	if(istype(MyArea, /area/syndicate/unpowered/syndicate_space_base))
+		req_access = list(ACCESS_SYNDICATE)
+		req_access_claim = ACCESS_SYNDICATE
 
 /obj/machinery/mineral/ore_redemption/upgraded/New()
 	..()
@@ -136,18 +141,13 @@
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
-	var/P = 1
-	var/S = 1
-	for(var/sp in component_parts)
-		var/obj/item/stock_parts/SP = sp
-		if(!istype(SP))
-			continue
-		switch(SP.type)
-			if(/obj/item/stock_parts/micro_laser)
-				P = BASE_POINT_MULT + (POINT_MULT_ADD_PER_RATING * SP.rating)
-			if(/obj/item/stock_parts/matter_bin)
-				S = BASE_SHEET_MULT + (SHEET_MULT_ADD_PER_RATING * SP.rating)
-			// Manipulators do nothing
+	var/P = BASE_POINT_MULT
+	var/S = BASE_SHEET_MULT
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
+		P += POINT_MULT_ADD_PER_RATING * M.rating
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
+		S += SHEET_MULT_ADD_PER_RATING * M.rating
+		// Manipulators do nothing
 	// Update our values
 	point_upgrade = P
 	sheet_per_ore = S
@@ -199,12 +199,13 @@
 		return ..()
 
 	if(istype(W, /obj/item/card/id))
-		try_insert_id(user)
+		if(try_insert_id(user))
+			add_fingerprint(user)
 		return
 	else if(istype(W, /obj/item/disk/design_disk))
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(W, src))
 			return
-		W.forceMove(src)
+		add_fingerprint(user)
 		inserted_disk = W
 		SStgui.update_uis(src)
 		interact(user)
@@ -256,7 +257,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
 	// General info
-	data["id"] = inserted_id ? list("name" = "[inserted_id.registered_name] ([inserted_id.assignment])", "points" = inserted_id.mining_points) : null
+	data["id"] = inserted_id ? list("name" = "[inserted_id.registered_name] ([inserted_id.assignment])", "points" = inserted_id.mining_points, "total_points" = inserted_id.total_mining_points) : null
 	data["points"] = points
 	data["disk"] = inserted_disk ? list(
 		"name" = inserted_disk.name,
@@ -286,6 +287,7 @@
 		alloys += list(list(
 			"id" = D.id,
 			"name" = D.name,
+			"description" = D.desc,
 			"amount" = get_num_smeltable_alloy(D)
 		))
 	data["alloys"] = alloys
@@ -303,7 +305,8 @@
 				return
 			if(anyone_claim || (req_access_claim in inserted_id.access))
 				inserted_id.mining_points += points
-				to_chat(usr, "<span class='notice'>[points] points claimed.</span>")
+				inserted_id.total_mining_points += points
+				to_chat(usr, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[inserted_id.total_mining_points] Mining Points</b> this Shift!</span>")
 				points = 0
 			else
 				to_chat(usr, "<span class='warning'>Required access not found.</span>")
@@ -330,12 +333,14 @@
 					return FALSE
 				var/stored = get_num_smeltable_alloy(D)
 				var/desired = min(amount, stored, MAX_STACK_SIZE)
+				if(!desired)
+					return FALSE
 				materials.use_amount(D.materials, desired)
 				// Spawn the alloy
 				var/result = new D.build_path(src)
-				if(istype(result, /obj/item/stack/sheet))
-					var/obj/item/stack/sheet/mineral/A = result
-					A.amount = amount
+				if(istype(result, /obj/item/stack))
+					var/obj/item/stack/A = result
+					A.amount = desired
 					unload_mineral(A)
 				else
 					unload_mineral(result)
@@ -345,7 +350,8 @@
 			if(!inserted_id)
 				return FALSE
 			if(ishuman(usr))
-				usr.put_in_hands(inserted_id)
+				inserted_id.forceMove_turf()
+				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
 				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_id] from [src].</span>", \
 									"<span class='notice'>You retrieve [inserted_id] from [src].</span>")
 			else
@@ -355,7 +361,8 @@
 			if(!inserted_disk)
 				return FALSE
 			if(ishuman(usr))
-				usr.put_in_hands(inserted_disk)
+				inserted_disk.forceMove_turf()
+				usr.put_in_hands(inserted_disk, ignore_anim = FALSE)
 				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_disk] from [src].</span>", \
 									"<span class='notice'>You retrieve [inserted_disk] from [src].</span>")
 			else
@@ -375,7 +382,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "OreRedemption", name, 400, 600)
+		ui = new(user, src, ui_key, "OreRedemption", name, 500, 820)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -393,7 +400,10 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/amount_compatible = materials.get_item_material_amount(O)
 	if(amount_compatible)
-		materials.insert_item(O, sheet_per_ore)
+		if(O.refined_type) // Prevents duping
+			materials.insert_item(O, sheet_per_ore)
+		else
+			materials.insert_item(O, 1)
 	// Delete the stack
 	ore_buffer -= O
 	qdel(O)
@@ -440,7 +450,7 @@
 	if(!is_station_level(z))
 		return
 
-	var/msg = "Now available in [get_area_name(src, TRUE) || "Unknown"]:"
+	var/msg = "Сейчас доступно в [get_area_name(src, TRUE) || "Unknown"]:"
 	var/mats_in_stock = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/MAT in materials.materials)
@@ -448,7 +458,7 @@
 		var/mineral_amount = M.amount / MINERAL_MATERIAL_AMOUNT
 		if(mineral_amount)
 			mats_in_stock += M.id
-		msg += "[capitalize(M.name)]: [mineral_amount] sheets"
+		msg += "\n - [capitalize(M.name)]: [mineral_amount] единиц"
 
 	// No point sending a message if we're dry
 	if(!length(mats_in_stock))
@@ -460,7 +470,7 @@
 		if(!(C.department in supply_consoles))
 			continue
 		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
-			C.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, 1) // RQ_NORMALPRIORITY
+			C.createMessage("Плавильная печь", "Новые ресурсы доступны!", msg, 1) // RQ_NORMALPRIORITY
 
 /**
   * Tries to insert the ID card held by the given user into the machine.
@@ -476,9 +486,8 @@
 	if(inserted_id)
 		to_chat(user, "<span class='warning'>There is already an ID inside!</span>")
 		return
-	if(!user.drop_item())
+	if(!user.drop_transfer_item_to_loc(I, src))
 		return
-	I.forceMove(src)
 	inserted_id = I
 	SStgui.update_uis(src)
 	interact(user)

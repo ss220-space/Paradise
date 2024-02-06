@@ -29,6 +29,17 @@
 	icon_state = "atmosf"
 	item_color = "atmosf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
 
 /obj/item/clothing/under/rank/engineer
 	desc = "It's an orange high visibility jumpsuit worn by engineers. It has minor radiation shielding."
@@ -43,6 +54,27 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
+/obj/item/clothing/under/rank/engineer/trainee
+	name = "engineer trainee jumpsuit"
+	icon_state = "trainee_s"
+	item_color = "trainee"
+
+/obj/item/clothing/under/rank/engineer/trainee/skirt
+	name = "engineer trainee jumpskirt"
+	icon_state = "traineef_s"
+	item_color = "traineef"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/under/rank/engineer/trainee/assistant
+	name = "engineer assistant jumpsuit"
+	icon_state = "eng_ass_s"
+	item_color = "eng_ass"
+
+/obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
+	name = "engineer assistant jumpskirt"
+	icon_state = "eng_ass_f_s"
+	item_color = "eng_ass_f"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/engineer/skirt
 	desc = "It's an orange high visibility jumpskirt worn by engineers. It has minor radiation shielding."
@@ -50,6 +82,17 @@
 	icon_state = "enginef"
 	item_color = "enginef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
 
 /obj/item/clothing/under/rank/roboticist
 	desc = "It's a slimming black with reinforced seams; great for industrial work."
@@ -59,11 +102,17 @@
 	item_color = "robotics"
 	resistance_flags = NONE
 
+/obj/item/clothing/under/rank/roboticist/student
+	name = "student robotist jumpsuit"	//What a good time to add a cute sprite here.
+
 /obj/item/clothing/under/rank/roboticist/skirt
 	desc = "It's a slimming black jumpskirt with reinforced seams; great for industrial work."
 	name = "roboticist's jumpskirt"
 	icon_state = "roboticsf"
 	item_color = "roboticsf"
+
+/obj/item/clothing/under/rank/roboticist/skirt/student
+	name = "student robotist jumpskirt"	//And here too.
 
 /obj/item/clothing/under/rank/mechanic
 	desc = "It's a pair of overalls worn by mechanics."

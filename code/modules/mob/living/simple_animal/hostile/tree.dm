@@ -21,7 +21,7 @@
 	harm_intent_damage = 5
 	melee_damage_lower = 8
 	melee_damage_upper = 12
-	attacktext = "bites"
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("pines")
 	emote_taunt = list("growls")
@@ -41,5 +41,5 @@
 	if(. && iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(prob(15))
-			C.Weaken(3)
+			C.Weaken(6 SECONDS)
 			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")

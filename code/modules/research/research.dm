@@ -98,7 +98,8 @@ research holder datum.
 		if(T.level > known.level)
 			known.level = T.level
 		return
-	known_tech[T.id] = T
+	var/datum/tech/copy = T.copyTech()
+	known_tech[T.id] = copy
 
 /datum/research/proc/CanAddDesign2Known(var/datum/design/D)
 	if (D.id in known_designs)
@@ -125,7 +126,7 @@ research holder datum.
 		T.level = clamp(T.level, 0, 20)
 
 //Refreshes the levels of a given tech.
-//Input: Tech's ID and Level; Output: null
+//Input: Tech's ID and Level; Output: new level or Null
 /datum/research/proc/UpdateTech(var/ID, var/level)
 	var/datum/tech/KT = known_tech[ID]
 	if(KT)
@@ -135,6 +136,8 @@ research holder datum.
 			// than the source tech
 			KT.level = max((KT.level + 1), level)
 			SSblackbox.log_research(KT.name, KT.level)
+			return KT.level
+	return null
 
 //Checks if the origin level can raise current tech levels
 //Input: Tech's ID and Level; Output: TRUE for yes, FALSE for no
@@ -156,7 +159,8 @@ research holder datum.
 /datum/research/proc/push_data(datum/research/other)
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
-		other.AddTech2Known(T)
+		var/datum/tech/copied_tech = T.copyTech()
+		other.AddTech2Known(copied_tech)
 	for(var/v in known_designs)
 		var/datum/design/D = known_designs[v]
 		other.AddDesign2Known(D)
@@ -330,6 +334,10 @@ datum/tech/robotics
 	id = "robotics"
 	req_tech = list("materials" = 3, "programming" = 3)
 */
+/datum/tech/proc/copyTech()
+	var/datum/tech/copied = new src.type
+	copied.level = src.level
+	return copied
 
 /datum/tech/proc/getCost(var/current_level = null)
 	// Calculates tech disk's supply points sell cost
@@ -373,6 +381,58 @@ datum/tech/robotics
 	desc = default_desc
 	stored = null
 
+/obj/item/disk/tech_disk/loaded
+	var/tech_name
+
+/obj/item/disk/tech_disk/loaded/Initialize(mapload)
+	. = ..()
+	var/datum/tech/our_tech
+	for(var/tt in (subtypesof(/datum/tech) - /datum/tech/abductor - /datum/tech/syndicate))
+		var/datum/tech/tech = tt
+		if(initial(tech.name) == tech_name)
+			our_tech = new tech
+			our_tech.level = 8
+			break
+
+	load_tech(our_tech)
+
+/obj/item/disk/tech_disk/loaded/materials
+	tech_name = "Materials Research"
+
+/obj/item/disk/tech_disk/loaded/engineering
+	tech_name = "Engineering Research"
+
+/obj/item/disk/tech_disk/loaded/plasmatech
+	tech_name = "Plasma Research"
+
+/obj/item/disk/tech_disk/loaded/powerstorage
+	tech_name = "Power Manipulation Technology"
+
+/obj/item/disk/tech_disk/loaded/bluespace
+	tech_name = "'Blue-space' Research"
+
+/obj/item/disk/tech_disk/loaded/biotech
+	tech_name = "Biological Technology"
+
+/obj/item/disk/tech_disk/loaded/combat
+	tech_name = "Combat Systems Research"
+
+/obj/item/disk/tech_disk/loaded/magnets
+	tech_name = "Electromagnetic Spectrum Research"
+
+/obj/item/disk/tech_disk/loaded/programming
+	tech_name = "Data Theory Research"
+
+/obj/item/disk/tech_disk/loaded/toxins
+	tech_name = "Toxins Research"
+
+/obj/structure/closet/crate/full_tech
+	name = "Crate with Tech Disks"
+
+/obj/structure/closet/crate/full_tech/populate_contents()
+	for(var/path in subtypesof(/obj/item/disk/tech_disk/loaded))
+		new path(src)
+
 /obj/item/disk/design_disk
 	name = "\improper Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
@@ -410,3 +470,36 @@ datum/tech/robotics
 	. = ..()
 	var/datum/design/golem_shell/G = new
 	blueprint = G
+
+/* Station goals design disks */
+/** Base */
+/obj/item/disk/design_disk/station_goal_machinery
+	name = ""
+	desc = ""
+	icon_state = "datadisk5"
+	var/design_type
+
+/obj/item/disk/design_disk/station_goal_machinery/Initialize()
+	. = ..()
+	if(isnull(design_type))
+		return INITIALIZE_HINT_QDEL
+
+	blueprint = new design_type()
+
+/** Bluespace rift scan server */
+/obj/item/disk/design_disk/station_goal_machinery/brs_server
+	name = "Bluespace rift scan server design"
+	desc = "Экспериментальный проект сервера сканирования блюспейс разлома."
+	design_type = /datum/design/brs_server
+
+/** Bluespace rift small scanner */
+/obj/item/disk/design_disk/station_goal_machinery/brs_portable_scanner
+	name = "Bluespace rift portable scanner design"
+	desc = "Экспериментальный проект портативного сканера блюспейс разлома."
+	design_type = /datum/design/brs_portable_scanner
+
+/** Bluespace rift big scanner */
+/obj/item/disk/design_disk/station_goal_machinery/brs_stationary_scanner
+	name = "Bluespace rift stationary scanner design"
+	desc = "Экспериментальный проект стационарного сканера блюспейс разлома."
+	design_type = /datum/design/brs_stationary_scanner

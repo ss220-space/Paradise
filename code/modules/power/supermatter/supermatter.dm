@@ -3,6 +3,7 @@
 #define PLASMA_RELEASE_MODIFIER 1500		//Higher == less phor.. plasma released by reaction
 #define OXYGEN_RELEASE_MODIFIER 15000		//Higher == less oxygen released at high temperature/power
 #define REACTION_POWER_MODIFIER 1.1			//Higher == more overall power
+#define SHARD_CUT_COEF 7
 
 /*
 	How to tweak the SM
@@ -26,30 +27,29 @@
 #define DETONATION_HALLUCINATION 600
 
 
-
 #define WARNING_DELAY 20			//seconds between warnings.
 /obj/machinery/power/supermatter_shard
 	name = "supermatter shard"
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. <span class='danger'>You get headaches just from looking at it.</span>"
-	icon = 'icons/obj/supermatter.dmi'
+	icon = 'icons/obj/engines_and_power/supermatter.dmi'
 	icon_state = "darkmatter_shard"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	light_range = 4
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
 
 
 	var/gasefficency = 0.125
 
-	var/base_icon_state = "darkmatter_shard"
+	base_icon_state = "darkmatter_shard"
 
 	var/damage = 0
 	var/damage_archived = 0
-	var/safe_alert = "Crystalline hyperstructure returning to safe operating levels."
+	var/safe_alert = "Гиперструктура кристалла возвращается к безопасному эксплуатационному уровню."
 	var/warning_point = 50
-	var/warning_alert = "Danger! Crystal hyperstructure instability!"
+	var/warning_alert = "ОПАСНОСТЬ! Дестабилизация гиперструктуры кристалла!"
 	var/emergency_point = 400
-	var/emergency_alert = "CRYSTAL DELAMINATION IMMINENT."
+	var/emergency_alert = "РАСЩЕПЛЕНИЕ КРИСТАЛЛА НЕМИНУЕМО."
 	var/explosion_point = 600
 
 	var/emergency_issued = 0
@@ -85,6 +85,8 @@
 	var/has_been_powered = 0
 	var/has_reached_emergency = 0
 
+	var/datum/supermatter_explosive_effects/supermatter_explosive_effects
+
 /obj/machinery/power/supermatter_shard/crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -106,7 +108,9 @@
 	SSair.atmos_machinery += src
 	radio = new(src)
 	radio.listening = 0
-	investigate_log("has been created.", "supermatter")
+	investigate_log("has been created.", INVESTIGATE_ENGINE)
+	supermatter_explosive_effects = new()
+	supermatter_explosive_effects.z = src.z
 
 
 /obj/machinery/power/supermatter_shard/proc/handle_admin_warnings()
@@ -126,14 +130,15 @@
 	if(status >= min_status)
 		if(!current_state)
 			log_and_message_admins(message)
-			SSdiscord.send2discord_simple_noadmins(message)
+			investigate_log(message, INVESTIGATE_ENGINE)
+			// SSdiscord.send2discord_simple_noadmins(message)
 		return TRUE
 	else
 		return FALSE
 
 
 /obj/machinery/power/supermatter_shard/Destroy()
-	investigate_log("has been destroyed.", "supermatter")
+	investigate_log("has been destroyed.", INVESTIGATE_ENGINE)
 	if(damage > emergency_point)
 		emergency_lighting(0)
 	QDEL_NULL(radio)
@@ -142,8 +147,10 @@
 	return ..()
 
 /obj/machinery/power/supermatter_shard/proc/explode()
-	investigate_log("has exploded.", "supermatter")
-	explosion(get_turf(src), explosion_power, explosion_power * 1.2, explosion_power * 1.5, explosion_power * 2, 1, 1)
+	investigate_log("has exploded.", INVESTIGATE_ENGINE)
+	supermatter_explosive_effects.z = src.z
+	supermatter_explosive_effects.handle_special_effects()
+	explosion(get_turf(src), explosion_power, explosion_power * 1.2, explosion_power * 1.5, explosion_power * 2, 1, 1, cause = src)
 	qdel(src)
 	return
 
@@ -163,15 +170,15 @@
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Instability: [stability]%", src.name)
+				radio.autosay("[emergency_alert] Дестабилизация: [stability]%", src.name)
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
-					investigate_log("has reached the emergency point for the first time.", "supermatter")
-					message_admins("[src] has reached the emergency point <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINE)
+					message_admins("[src] has reached the emergency point [ADMIN_COORDJMP(src)].")
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Instability: [stability]%", src.name)
+				radio.autosay("[warning_alert] Дестабилизация: [stability]%", src.name)
 				lastwarning = world.timeofday - 150
 
 			else                                                 // Phew, we're safe
@@ -188,10 +195,10 @@
 						if(ishuman(mob))
 							//Hilariously enough, running into a closet should make you get hit the hardest.
 							var/mob/living/carbon/human/H = mob
-							H.AdjustHallucinate(max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
+							H.AdjustHallucinate(max(100 SECONDS, min(300 SECONDS, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
+							H.last_hallucinator_log = "Supermatter explosion"
 						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
 						mob.apply_effect(rads, IRRADIATE)
-
 			explode()
 			emergency_lighting(0)
 
@@ -257,15 +264,18 @@
 	transfer_energy()
 
 	for(var/mob/living/carbon/human/l in view(src, min(7, round(sqrt(power/6)))))
-		// If they can see it without mesons on.  Bad on them.
-		if(l.glasses && istype(l.glasses, /obj/item/clothing/glasses/meson))
+		// No more hallucinate for ded pipol.
+		if(!l.stat)
 			continue
 		// Where we're going, we don't need eyes.
-		// Prosthetic eyes will also protect against this business.
 		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))
 			continue
-		l.Hallucinate(min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
+		// If they can see it without mesons on or can see objects through mesons. Bad on them.
+		if((l.sight >= SEE_TURFS) && !(l.sight >= (SEE_TURFS|SEE_OBJS)))
+			continue
+		l.Hallucinate(min(200 SECONDS, l.AmountHallucinate() + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
+		l.last_hallucinator_log = "seeing SM without mesons"
 
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )
@@ -288,8 +298,8 @@
 	if(Proj.flag != "bullet")
 		power += Proj.damage * config_bullet_energy
 		if(!has_been_powered)
-			investigate_log("has been powered for the first time.", "supermatter")
-			message_admins("[src] has been powered for the first time <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+			investigate_log("has been powered for the first time.", INVESTIGATE_ENGINE)
+			message_admins("[src] has been powered for the first time [ADMIN_COORDJMP(src)].")
 			has_been_powered = 1
 	else
 		damage += Proj.damage * config_bullet_energy
@@ -298,8 +308,8 @@
 
 /obj/machinery/power/supermatter_shard/singularity_act()
 	var/gain = 100
-	investigate_log("Supermatter shard consumed by singularity.","singulo")
-	message_admins("Singularity has consumed a supermatter shard and can now become stage six.<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+	investigate_log("consumed by singularity.", INVESTIGATE_ENGINE)
+	message_admins("<span class='danger'>Singularity has consumed a supermatter shard and can now become stage six</span> [ADMIN_COORDJMP(src)].")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	for(var/mob/M in GLOB.mob_list)
 		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
@@ -335,9 +345,80 @@
 	return
 
 /obj/machinery/power/supermatter_shard/attackby(obj/item/W as obj, mob/living/user as mob, params)
-	if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
+	if(istype(W,/obj/item/wrench)) //allows wrench/unwrench shards
+		add_fingerprint(user)
+		if(!anchored)
+			anchored = !anchored
+			WRENCH_ANCHOR_MESSAGE
+			playsound(src.loc,W.usesound, 75, 1)
+			if(isrobot(user))
+				var/mob/living/silicon/robot/U = user
+				var/datum/robot_component/A = U.get_armour()
+				if(A)
+					audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
+					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+					A.destroy()
+				else
+					Consume(U)
+			else
+				consume_wrench(W)
+			user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
+		else if (anchored)
+			anchored = !anchored
+			WRENCH_UNANCHOR_MESSAGE
+			playsound(src.loc,W.usesound, 75, 1)
+			if(isrobot(user))
+				var/mob/living/silicon/robot/U = user
+				var/datum/robot_component/A = U.get_armour()
+				if(A)
+					audible_message("<span class='warning'>[U] sounds an alarm! \"CRITICAL ERROR: Armour plate was broken.\"</span>")
+					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+					A.destroy()
+				else
+					Consume(U)
+			else
+				consume_wrench(W)
+			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
+	if(istype(W, /obj/item/scalpel/supermatter))
+		if(ishuman(user))
+			var/mob/living/carbon/human/M = user
+			var/obj/item/scalpel/supermatter/scalpel = W
+			to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [W]...</span>")
+
+			if(W.use_tool(src, M, 10 SECONDS, volume = 100))
+				if(scalpel.uses_left)
+					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
+					power += 200 //well...
+					var/turf/shard_loc = get_turf(src)
+					var/datum/gas_mixture/shard_env = shard_loc.return_air()
+					var/datum/gas_mixture/new_mixture = new
+					new_mixture.toxins = 10000
+					new_mixture.temperature += src.power*SHARD_CUT_COEF
+					shard_env.merge(new_mixture)
+					scalpel.uses_left--
+					if(!scalpel.uses_left)
+						to_chat(user, "<span class='boldwarning'>A tiny piece of [W] falls off, rendering it useless!</span>")
+					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+
+					var/obj/item/retractor/supermatter/tongs = M.get_inactive_hand()
+					if(!istype(tongs))
+						return
+					if(tongs && !tongs.sliver)
+						tongs.sliver = S
+						S.forceMove(tongs)
+						tongs.icon_state = "supermatter_tongs_loaded"
+						tongs.item_state = "supermatter_tongs_loaded"
+						to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
+				else
+					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [W] isn't sharp enough anymore.</span>")
 		return
-	if(user.drop_item(W))
+	if(istype(W, /obj/item/retractor/supermatter))
+		to_chat(user, "<span class='notice'>[W] bounces off [src], you need to cut a sliver off first!</span>")
+	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
+		return
+	else if(user.drop_item_ground(W))
+		W.do_pickup_animation(src)
+		add_fingerprint(user)
 		Consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.\"</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\
@@ -347,43 +428,45 @@
 
 		user.apply_effect(150, IRRADIATE)
 
-/obj/machinery/power/supermatter_shard/Bumped(atom/AM as mob|obj)
-	if(istype(AM, /mob/living))
-		AM.visible_message("<span class='danger'>\The [AM] slams into \the [src] inducing a resonance... [AM.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
+/obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
+	if(istype(moving_atom, /mob/living))
+		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
-	else if(isobj(AM) && !istype(AM, /obj/effect))
-		AM.visible_message("<span class='danger'>\The [AM] smacks into \the [src] and rapidly flashes to ash.</span>",\
+	else if(isobj(moving_atom) && !istype(moving_atom, /obj/effect))
+		moving_atom.visible_message("<span class='danger'>\The [moving_atom] smacks into \the [src] and rapidly flashes to ash.</span>",\
 		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 	else
 		return
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
-	Consume(AM)
+	Consume(moving_atom)
 
 
 /obj/machinery/power/supermatter_shard/proc/Consume(atom/movable/AM)
 	if(istype(AM, /mob/living))
 		var/mob/living/user = AM
-		user.dust()
+		user.gib()
 		power += 200
-		message_admins("[src] has consumed [key_name_admin(user)] <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
-		investigate_log("has consumed [key_name(user)].", "supermatter")
+		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_COORDJMP(src)].")
+		investigate_log("has consumed [key_name_log(user)].", INVESTIGATE_ENGINE)
 	else if(isobj(AM) && !istype(AM, /obj/effect))
-		investigate_log("has consumed [AM].", "supermatter")
+		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
 		qdel(AM)
 
 	power += 200
 	supermatter_zap()
 
+/obj/machinery/power/supermatter_shard/proc/consume_wrench(atom/movable/AM)
+	qdel(AM) //destroys wrench when anchored\unanchored supermatter
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
 	for(var/mob/living/L in range(10))
 		var/rads = 500 * sqrt( 1 / (get_dist(L, src) + 1) )
 		L.apply_effect(rads, IRRADIATE)
-		investigate_log("has irradiated [L] after consuming [AM].", "supermatter")
-		if(L in view())
+		investigate_log("has irradiated [L] after consuming [AM].", INVESTIGATE_ENGINE)
+		if(src in view(L.client.maxview()))
 			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
 		else
@@ -419,11 +502,11 @@
 /obj/machinery/power/supermatter_shard/proc/alarm()
 	switch(get_status())
 		if(SUPERMATTER_DELAMINATING)
-			playsound(src, 'sound/misc/bloblarm.ogg', 100)
+			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 		if(SUPERMATTER_EMERGENCY)
-			playsound(src, 'sound/machines/engine_alert1.ogg', 100)
+			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_DANGER)
-			playsound(src, 'sound/machines/engine_alert2.ogg', 100)
+			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 

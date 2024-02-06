@@ -6,7 +6,7 @@
 	recoil = 2
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
-	fire_sound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
+	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 40
@@ -18,7 +18,7 @@
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	slot_flags = SLOT_BACK
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
@@ -27,19 +27,23 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator
 	name = "syndicate penetrator sniper rifle"
+	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator/Initialize(mapload)
 	. = ..()
 	desc += " It comes loaded with a penetrator magazine, but can use different magazines."
 
 	QDEL_NULL(magazine)
-	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator(src)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/update_icon()
 	if(magazine)
 		icon_state = "sniper-mag"
 	else
 		icon_state = "sniper"
+	..()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	return
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
 	name = "compact sniper rifle"
@@ -65,7 +69,7 @@
 	icon_state = ".50mag"
 	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/point50
-	max_ammo = 6
+	max_ammo = 5
 	caliber = ".50"
 
 /obj/item/ammo_box/magazine/sniper_rounds/update_icon()
@@ -83,11 +87,13 @@
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper
+	//speed = 0.75
+	//range = 100
 	damage = 70
-	stun = 5
-	weaken = 5
+	weaken = 4 SECONDS
 	dismemberment = 50
 	armour_penetration = 50
+	forced_accuracy = TRUE
 	var/breakthings = TRUE
 
 /obj/item/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
@@ -110,13 +116,12 @@
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/soporific
-	icon_state = ".50"
+	icon_state = ".50sop"
 	harmful = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific
 	armour_penetration = 0
 	nodamage = 1
-	stun = 0
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
@@ -124,11 +129,37 @@
 /obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && istype(target, /mob/living))
 		var/mob/living/L = target
-		L.SetSleeping(20)
+		L.SetSleeping(40 SECONDS)
 
 	return ..()
 
+//hemorrhage ammo
+/obj/item/ammo_box/magazine/sniper_rounds/explosive
+	name = "sniper rounds (boom)"
+	desc = "What did you mean by saying warcrimes? There wasn't any millitary"
+	icon_state = "explosive"
+	ammo_type = /obj/item/ammo_casing/explosive
+	max_ammo = 5
 
+/obj/item/ammo_casing/explosive
+	desc = "A .50 bullet casing, specialised in destruction"
+	caliber = ".50"
+	projectile_type = /obj/item/projectile/bullet/sniper/explosive
+	icon_state = ".50exp"
+
+/obj/item/projectile/bullet/sniper/explosive
+	armour_penetration = 50
+	damage = 85
+	stun = 6 SECONDS
+	dismemberment = 0
+	weaken = 6 SECONDS
+	breakthings = TRUE
+
+/obj/item/projectile/bullet/sniper/explosive/on_hit(var/atom/target, blocked = 0, hit_zone)
+	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))
+		explosion(target, -1, 1, 3, 5, cause = "[type] fired by [key_name(firer)]")
+
+	return ..()
 
 //hemorrhage ammo
 /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
@@ -142,12 +173,11 @@
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
-	icon_state = ".50"
+	icon_state = ".50exp"
 
 /obj/item/projectile/bullet/sniper/haemorrhage
 	armour_penetration = 15
 	damage = 15
-	stun = 0
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
@@ -163,6 +193,7 @@
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator
 	name = "sniper rounds (penetrator)"
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
+	icon_state = "penetrator"
 	ammo_type = /obj/item/ammo_casing/penetrator
 	origin_tech = "combat=6"
 	max_ammo = 5
@@ -171,36 +202,67 @@
 	desc = "A .50 caliber penetrator round casing."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
-	icon_state = ".50"
+	icon_state = ".50pen"
 
 /obj/item/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"
 	name = "penetrator round"
 	damage = 60
-	forcedodge = 1
-	stun = 0
+	forcedodge = -1
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
 
-//compact ammo
+//compact and penetrator ammo to avoid taipan abuse by traitors
 /obj/item/ammo_box/magazine/sniper_rounds/compact
 	name = "sniper rounds (compact)"
 	desc = "An extremely powerful round capable of inflicting massive damage on a target."
 	ammo_type = /obj/item/ammo_casing/compact
 	max_ammo = 4
+	caliber = ".50L"
 
 /obj/item/ammo_casing/compact
 	desc = "A .50 caliber compact round casing."
-	caliber = ".50"
+	caliber = ".50L"
 	projectile_type = /obj/item/projectile/bullet/sniper/compact
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
-	dismemberment = 0
+	damage = 70
+	stun = 4 SECONDS
+	weaken = 4 SECONDS
+	armour_penetration = 50
 	breakthings = FALSE
+	dismemberment = 0
+
+/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator
+	name = "penetrator sniper rounds(compact)"
+	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
+	icon_state = "penetrator"
+	ammo_type = /obj/item/ammo_casing/compact/penetrator
+	origin_tech = "combat=6"
+	max_ammo = 5
+
+/obj/item/ammo_casing/compact/penetrator
+	desc = "A .50 caliber penetrator round casing."
+	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
+	icon_state = ".50pen"
+
+/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific
+	name = "soporofic sniper rounds(compact)"
+	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
+	icon_state = "soporific"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/compact/soporific
+	max_ammo = 3
+
+/obj/item/ammo_casing/compact/soporific
+	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
+	projectile_type = /obj/item/projectile/bullet/sniper/soporific
+	icon_state = ".50sop"
+	harmful = FALSE
 
 //toy magazine
 /obj/item/ammo_box/magazine/toy/sniper_rounds
@@ -215,8 +277,8 @@
 
 	var/ammo = ammo_count()
 	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
-		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-r")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = ".50mag-r")
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-f")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = ".50mag-f")
 	else
 		icon_state = "[initial(icon_state)]"

@@ -7,12 +7,18 @@
 
 //ATMOS
 //stuff you should probably leave well alone!
-#define R_IDEAL_GAS_EQUATION	8.31	//kPa*L/(K*mol)
-#define ONE_ATMOSPHERE			101.325	//kPa
-#define TCMB					2.7		// -270.3degC
-#define TCRYO					265		// -48.15degC
-#define T0C						273.15	// 0degC
-#define T20C					293.15	// 20degC
+/// kPa*L/(K*mol)
+#define R_IDEAL_GAS_EQUATION 8.31
+/// kPa
+#define ONE_ATMOSPHERE 101.325
+/// -270.3degC
+#define TCMB 2.7
+/// -48.15degC
+#define TCRYO 265
+/// 0degC
+#define T0C 273.15
+/// 20degC
+#define T20C 293.15
 
 #define MOLES_CELLSTANDARD		(ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))	//moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 #define M_CELL_WITH_RATIO		(MOLES_CELLSTANDARD * 0.005) //compared against for superconductivity
@@ -21,8 +27,8 @@
 #define MOLES_O2STANDARD		(MOLES_CELLSTANDARD*O2STANDARD)	// O2 standard value (21%)
 #define MOLES_N2STANDARD		(MOLES_CELLSTANDARD*N2STANDARD)	// N2 standard value (79%)
 #define CELL_VOLUME				2500	//liters in a cell
-#define BREATH_VOLUME			0.5		//liters in a normal breath
-#define BREATH_MOLES 			(ONE_ATMOSPHERE * BREATH_VOLUME /(T20C*R_IDEAL_GAS_EQUATION))
+//liters in a normal breath
+#define BREATH_VOLUME			1
 #define BREATH_PERCENTAGE		(BREATH_VOLUME/CELL_VOLUME)					//Amount of air to take a from a tile
 
 //EXCITED GROUPS
@@ -82,7 +88,7 @@
 #define BODYTEMP_AUTORECOVERY_MINIMUM		10		//Minimum amount of kelvin moved toward 310.15K per tick. So long as abs(310.15 - bodytemp) is more than 50.
 #define BODYTEMP_COLD_DIVISOR				6		//Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is lower than their body temperature. Make it lower to lose bodytemp faster.
 #define BODYTEMP_HEAT_DIVISOR				6		//Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is higher than their body temperature. Make it lower to gain bodytemp faster.
-#define BODYTEMP_COOLING_MAX				30		//The maximum number of degrees that your body can cool in 1 tick, when in a cold area.
+#define BODYTEMP_COOLING_MAX				-30		//The maximum number of degrees that your body can cool in 1 tick, when in a cold area.
 #define BODYTEMP_HEATING_MAX				30		//The maximum number of degrees that your body can heat up in 1 tick, when in a hot area.
 
 #define BODYTEMP_HEAT_DAMAGE_LIMIT			(BODYTEMP_NORMAL + 50) // The limit the human body can take before it starts taking damage from heat.
@@ -126,6 +132,8 @@
 #define TANK_RUPTURE_PRESSURE				(40.*ONE_ATMOSPHERE)	//Tank spills all contents into atmosphere
 #define TANK_FRAGMENT_PRESSURE				(50.*ONE_ATMOSPHERE)	//Boom 3x3 base explosion
 #define TANK_FRAGMENT_SCALE	    			(10.*ONE_ATMOSPHERE)	//+1 for each SCALE kPa aboe threshold
+#define TANK_MAX_RELEASE_PRESSURE 			(ONE_ATMOSPHERE * 3)
+#define TANK_MIN_RELEASE_PRESSURE 			0
 #define TANK_DEFAULT_RELEASE_PRESSURE 		16
 
 // Atmos alarm defines

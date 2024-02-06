@@ -6,6 +6,7 @@
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
 	icon_resting = "cat2_rest"
+	var/icon_sit = "sit"
 	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
@@ -26,7 +27,21 @@
 	collar_type = "cat"
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
-	var/eats_mice = 1
+	var/eats_mice = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
+	tts_seed = "Valerian"
+	holder_type = /obj/item/holder/cat2
+
+/mob/living/simple_animal/pet/cat/floppa
+	name = "Big Floppa"
+	desc = "He looks like he is about to commit a warcrime.."
+	icon_state = "floppa"
+	icon_living = "floppa"
+	icon_dead = "floppa_dead"
+	icon_resting = "floppa_rest"
+	unique_pet = TRUE
+	tts_seed = "Uther"
+	holder_type = null
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
@@ -41,6 +56,7 @@
 	unique_pet = TRUE
 	var/list/family = list()
 	var/list/children = list() //Actual mob instances of children
+	holder_type = /obj/item/holder/cat
 
 /mob/living/simple_animal/pet/cat/Runtime/New()
 	SSpersistent_data.register(src)
@@ -59,7 +75,7 @@
 		children += baby
 		return baby
 
-/mob/living/simple_animal/pet/cat/Runtime/death()
+/mob/living/simple_animal/pet/cat/Runtime/death(gibbed)
 	if(can_die())
 		write_memory(TRUE)
 		SSpersistent_data.registered_atoms -= src // We just saved. Dont save at round end
@@ -97,38 +113,51 @@
 	..()
 	make_babies()
 
+
+/mob/living/simple_animal/pet/cat/verb/sit()
+	set name = "Sit Down"
+	set category = "IC"
+
+	if(resting)
+		StopResting()
+		return
+
+	resting = TRUE
+	custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
+	icon_state = "[icon_living]_[icon_sit]"
+	collar_type = "[initial(collar_type)]_[icon_sit]"
+	update_canmove()
+
+
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+			custom_emote(EMOTE_VISIBLE, pick("вытягива%(ет,ют)%ся, чтобы почистить желудок.", "виля%(ет,ют)% хвостом.", "лож%(ит,ат)%ся."))
 			StartResting()
 		else if(prob(1))
-			custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
-			icon_state = "[icon_living]_sit"
-			collar_type = "[initial(collar_type)]_sit"
-			resting = TRUE
-			update_canmove()
+			sit()
 		else if(prob(1))
 			if(resting)
-				custom_emote(1, pick("gets up and meows.", "walks around.", "stops resting."))
+				custom_emote(EMOTE_VISIBLE, pick("поднима%(ет,ют)%ся и мяука%(ет,ют)%.", "подскакива%(ет,ют)%.", "переста%(ёт,ют)% валяться."))
 				StopResting()
 			else
-				custom_emote(1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+				custom_emote(EMOTE_VISIBLE, pick("вылизыва%(ет,ют)% шерсть.", "подёргива%(ет,ют)% усами.", "отряхива%(ет,ют)% шерсть."))
 
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
-		for(var/mob/living/simple_animal/mouse/M in view(1, src))
-			if(!M.stat && Adjacent(M))
-				custom_emote(1, "splats \the [M]!")
-				M.death()
-				M.splat()
+		for(var/mob/living/simple_animal/mouse/mouse in view(1, src))
+			if(!mouse.stat && Adjacent(mouse))
+				custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)%ся на мышь!")
+				mouse.death()
+				mouse.splat(user = src)
 				movement_target = null
-				stop_automated_movement = 0
+				stop_automated_movement = FALSE
 				break
-		for(var/obj/item/toy/cattoy/T in view(1, src))
-			if(T.cooldown < (world.time - 400))
-				custom_emote(1, "bats \the [T] around with its paw!")
-				T.cooldown = world.time
+		for(var/obj/item/toy/cattoy/toy in view(1, src))
+			if(toy.cooldown < world.time)
+				custom_emote(EMOTE_VISIBLE, "подбрасыва%(ет,ют)% игрушечную мышь своей лапой!")
+				toy.cooldown = world.time + 40 SECONDS
+
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	. = ..()
@@ -149,42 +178,9 @@
 						break
 			if(movement_target)
 				stop_automated_movement = 1
+				glide_for(3)
 				walk_to(src,movement_target,0,3)
 
-/mob/living/simple_animal/pet/cat/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("meow")
-			on_CD = handle_emote_CD()
-		if("hiss")
-			on_CD = handle_emote_CD()
-		if("purr")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("meow")
-			message = "<B>[src]</B> [pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, meow_sound, 50, 0.75)
-		if("hiss")
-			message = "<B>[src]</B> hisses!"
-			m_type = 2
-		if("purr")
-			message = "<B>[src]</B> purrs."
-			m_type = 2
-		if("help")
-			to_chat(src, "scream, meow, hiss, purr")
-
-	..()
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
@@ -198,7 +194,7 @@
 	icon_state = "kitten"
 	icon_living = "kitten"
 	icon_dead = "kitten_dead"
-	icon_resting = null
+	icon_resting = "kitten_sit"
 	gender = NEUTER
 	density = 0
 	pass_flags = PASSMOB
@@ -222,6 +218,10 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 
+/mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
+	. = ..()
+	add_language("Galactic Common")
+
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"
 	desc = "It's a cat made out of cake."
@@ -242,6 +242,7 @@
 	attacked_sound = "sound/items/eatfood.ogg"
 	deathmessage = "loses its false life and collapses!"
 	death_sound = "bodyfall"
+	holder_type = /obj/item/holder/cak
 
 /mob/living/simple_animal/pet/cat/cak/Life()
 	..()
@@ -275,3 +276,61 @@
 	if(new_name)
 		to_chat(src, "<span class='notice'>Your name is now <b>\"[new_name]\"</b>!</span>")
 		name = new_name
+
+/mob/living/simple_animal/pet/cat/white
+	name = "white"
+	desc = "Белоснежная шерстка. Плохо различается на белой плитке, зато отлично виден в темноте!"
+	icon_state = "penny"
+	icon_living = "penny"
+	icon_dead = "penny_dead"
+	icon_resting = "penny_rest"
+	icon_sit = "rest"
+	gender = MALE
+	holder_type = /obj/item/holder/cak
+
+/mob/living/simple_animal/pet/cat/birman
+	name = "birman"
+	desc = "Священная порода Бирма"
+	icon_state = "crusher"
+	icon_living = "crusher"
+	icon_dead = "crusher_dead"
+	icon_resting = "crusher_rest"
+	icon_sit = "rest"
+	gender = MALE
+	holder_type = /obj/item/holder/crusher
+
+/mob/living/simple_animal/pet/cat/spacecat
+	name = "spacecat"
+	desc = "Space Kitty!!"
+	icon_state = "spacecat"
+	icon_living = "spacecat"
+	icon_dead = "spacecat_dead"
+	icon_resting = "spacecat_rest"
+	unsuitable_atmos_damage = 0
+	minbodytemp = TCMB
+	maxbodytemp = T0C + 40
+	holder_type = /obj/item/holder/spacecat
+
+/mob/living/simple_animal/pet/cat/fat
+	name = "FatCat"
+	desc = "Упитана. Счастлива."
+	icon = 'icons/mob/iriska.dmi'
+	icon_state = "iriska"
+	icon_living = "iriska"
+	icon_dead = "iriska_dead"
+	icon_resting = "iriska"
+	gender = FEMALE
+	mob_size = MOB_SIZE_LARGE	//THICK!!!
+	//canmove = FALSE
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 8)
+	tts_seed = "Huntress"
+	maxHealth = 40	//Sooooo faaaat...
+	health = 40
+	speed = 10		// TOO FAT
+	wander = 0		// LAZY
+	can_hide = 0
+	resting = TRUE
+	holder_type = /obj/item/holder/fatcat
+
+/mob/living/simple_animal/pet/cat/fat/handle_automated_action()
+	return

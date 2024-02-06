@@ -7,7 +7,6 @@
 	icon_dead = "headcrab_dead"
 	health = 60
 	maxHealth = 60
-	dodging = 1
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	ranged = 1
@@ -15,7 +14,7 @@
 	ranged_cooldown_time = 40
 	var/jumpdistance = 4
 	var/jumpspeed = 1
-	attacktext = "bites"
+	attacktext = "грызёт"
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
 	speak_emote = list("hisses")
 	var/is_zombie = 0
@@ -55,7 +54,7 @@
 /mob/living/simple_animal/hostile/headcrab/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())
 		H.death()
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
@@ -73,7 +72,7 @@
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
 	speak_chance = 50
 	speak_emote = list("groans")
-	attacktext = "bites"
+	attacktext = "грызёт"
 	attack_sound = 'sound/creatures/zombie_attack.ogg'
 	icon_state = "zombie2_s"
 	if(head_organ)
@@ -85,7 +84,7 @@
 	H.forceMove(src)
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
-/mob/living/simple_animal/hostile/headcrab/death()
+/mob/living/simple_animal/hostile/headcrab/death(gibbed)
 	..()
 	if(is_zombie)
 		qdel(src)
@@ -185,9 +184,9 @@
 /mob/living/simple_animal/hostile/headcrab/poison/AttackingTarget()
 	. = ..()
 	if(iscarbon(target) && target.reagents)
-		var/inject_target = pick("chest", "head")
+		var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 		var/mob/living/carbon/C = target
-		if(C.stunned || C.can_inject(null, FALSE, inject_target, FALSE))
-			if(C.eye_blurry < 60)
-				C.AdjustEyeBlurry(10)
+		if(C.IsStunned() || C.can_inject(null, FALSE, inject_target, FALSE))
+			if(C.AmountEyeBlurry() < 120 SECONDS)
+				C.AdjustEyeBlurry(20 SECONDS)
 				visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")

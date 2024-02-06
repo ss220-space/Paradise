@@ -147,6 +147,14 @@
 	build_path = /obj/item/airlock_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/syndie_airlock_board
+	name = "Suspicious Airlock Electronics"
+	id = "syndie_airlock_board"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	build_path = /obj/item/airlock_electronics/syndicate
+	category = list("hacked", "Electronics")
+
 /datum/design/firelock_board
 	name = "Firelock Electronics"
 	id = "firelock_board"
@@ -239,6 +247,7 @@
 
 /datum/design/rglass
 	name = "Reinforced Glass"
+	desc = "Metal + Glass"
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
 	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
@@ -259,7 +268,7 @@
 	name = "Compressed Matter Cartridge"
 	id = "rcd_ammo"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 16000, MAT_GLASS=8000)
+	materials = list(MAT_METAL = 48000, MAT_GLASS=24000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
 
@@ -455,6 +464,30 @@
 	build_path = /obj/item/reagent_containers/glass/beaker/large
 	category = list("initial", "Medical")
 
+/datum/design/vial
+	name = "Vial"
+	id = "vial"
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 250)
+	build_path = /obj/item/reagent_containers/glass/beaker/vial
+	category = list("initial", "Medical")
+
+/datum/design/vial_storage_box
+	name = "Vial storage box"
+	id = "vial_storage_box"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 250, MAT_GLASS = 1500)
+	build_path = /obj/item/storage/fancy/vials
+	category = list("initial", "Medical")
+
+/datum/design/secure_vial_storage_box
+	name = "Secure vial storage box"
+	id = "secure_vial_storage_box"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 1500)
+	build_path = /obj/item/storage/lockbox/vials
+	category = list("initial", "Medical")
+
 /datum/design/healthanalyzer
 	name = "Health Analyzer"
 	id = "healthanalyzer"
@@ -475,7 +508,7 @@
 	name = "Beanbag Slug"
 	id = "beanbag_slug"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 250)
+	materials = list(MAT_METAL = 1000)
 	build_path = /obj/item/ammo_casing/shotgun/beanbag
 	category = list("initial", "Security")
 
@@ -483,7 +516,7 @@
 	name = "Rubber shot"
 	id = "rubber_shot"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 1000)
 	build_path = /obj/item/ammo_casing/shotgun/rubbershot
 	category = list("initial", "Security")
 
@@ -491,9 +524,17 @@
 	name = "Speed Loader (.38)"
 	id = "c38"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/ammo_box/c38
+	materials = list(MAT_METAL = 5900)
+	build_path = /obj/item/ammo_box/speedloader/c38
 	category = list("initial", "Security")
+
+/datum/design/c38hp
+	name = "Speed Loader (.38 Hollow-Point)"
+	id = "c38hp"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/ammo_box/speedloader/c38/hp
+	category = list("hacked", "Security")
 
 /datum/design/recorder
 	name = "Universal Recorder"
@@ -647,6 +688,14 @@
 	build_path = /obj/item/reagent_containers/applicator
 	category = list("initial", "Medical")
 
+/datum/design/iv_bag
+	name = "IV bag"
+	id = "iv_bag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 3000)
+	build_path = /obj/item/reagent_containers/iv_bag
+	category = list("initial", "Medical")
+
 /datum/design/prox_sensor
 	name = "Proximity Sensor"
 	id = "prox_sensor"
@@ -659,7 +708,7 @@
 	name = "Box of Foam Darts"
 	id = "foam_dart"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 500)
+	materials = list(MAT_METAL = 900)
 	build_path = /obj/item/ammo_box/foambox
 	category = list("initial", "Miscellaneous")
 
@@ -667,7 +716,7 @@
 	name = "Box of Sniper Foam Darts"
 	id = "foam_dart_sniper"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 900)
+	materials = list(MAT_METAL = 1300)
 	build_path = /obj/item/ammo_box/foambox/sniper
 	category = list("initial", "Miscellaneous")
 
@@ -675,7 +724,7 @@
 	name = "Ammo Box (rubber 9mm)"
 	id = "rubber9mm"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 19500) //меньше меттала, потому что пули резиновые
+	materials = list(MAT_METAL = 20000)
 	build_path = /obj/item/ammo_box/rubber9mm
 	category = list("initial", "Security")
 
@@ -695,6 +744,7 @@
 	materials = list(MAT_METAL = 10000) //8000 за пули + 2000 за корпус
 	build_path = /obj/item/ammo_box/magazine/enforcer/lethal
 	category = list("hacked", "Security")
+
 /datum/design/flamethrower
 	name = "Flamethrower"
 	id = "flamethrower"
@@ -702,14 +752,6 @@
 	materials = list(MAT_METAL = 500)
 	build_path = /obj/item/flamethrower/full
 	category = list("hacked", "Security")
-
-/datum/design/rcd
-	name = "Rapid Construction Device (RCD)"
-	id = "rcd"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/rcd
-	category = list("hacked", "Construction")
 
 /datum/design/rpd
 	name = "Rapid Pipe Dispenser (RPD)"
@@ -767,6 +809,38 @@
 	build_path = /obj/item/ammo_casing/shotgun
 	category = list("hacked", "Security")
 
+/datum/design/sp8box
+	name = "Ammo Box (40n&r)"
+	id = "fortynrbox"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 45000)
+	build_path = /obj/item/ammo_box/fortynr
+	category = list("hacked", "Security")
+
+/datum/design/sp8mag
+	name = "handgun magazine (40n&r)"
+	id = "fortynrmag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 13000)
+	build_path = /obj/item/ammo_box/magazine/sp8
+	category = list("hacked", "Security")
+
+/datum/design/sp91rc_box
+	name = "Ammo Box (9mm TE)"
+	id = "9mmTEbox"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/c9mmte
+	category = list("hacked", "Security")
+
+/datum/design/sp91rc_mag
+	name = "handgun magazine (9mm TE)"
+	id = "9mm-te"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 12000)
+	build_path = /obj/item/ammo_box/magazine/sp91rc
+	category = list("hacked", "Security")
+
 /datum/design/buckshot_shell
 	name = "Buckshot shell"
 	id = "buckshot_shell"
@@ -779,7 +853,7 @@
 	name = "Shotgun Dart"
 	id = "shotgun_dart"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
 	build_path = /obj/item/ammo_casing/shotgun/dart
 	category = list("hacked", "Security")
 
@@ -795,7 +869,7 @@
 	name = "Foam riot dart"
 	id = "riot_dart"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1000) //Discount for making individually - no box = less metal!
+	materials = list(MAT_METAL = 1000)
 	build_path = /obj/item/ammo_casing/caseless/foam_dart/riot
 	category = list("hacked", "Security")
 
@@ -803,7 +877,7 @@
 	name = "Foam riot sniper dart"
 	id = "riot_dart_sniper"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1800) //Discount for making individually - no box = less metal!
+	materials = list(MAT_METAL = 1800)
 	build_path = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	category = list("hacked", "Security")
 
@@ -811,7 +885,7 @@
 	name = "Foam riot dart box"
 	id = "riot_darts"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50000) //Comes with 40 darts
+	materials = list(MAT_METAL = 26500)
 	build_path = /obj/item/ammo_box/foambox/riot
 	category = list("hacked", "Security")
 
@@ -819,7 +893,7 @@
 	name = "Foam riot sniper dart box"
 	id = "riot_darts_sniper"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 90000) //Comes with 40 darts
+	materials = list(MAT_METAL = 72500)
 	build_path = /obj/item/ammo_box/foambox/sniper/riot
 	category = list("hacked", "Security")
 
@@ -827,7 +901,7 @@
 	name = "Ammo Box (.357)"
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 75000)
 	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
 
@@ -835,7 +909,7 @@
 	name = "Ammo Box (10mm)"
 	id = "c10mm"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c10mm
 	category = list("hacked", "Security")
 
@@ -843,7 +917,7 @@
 	name = "Ammo Box (.45)"
 	id = "c45"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c45
 	category = list("hacked", "Security")
 
@@ -851,8 +925,16 @@
 	name = "Ammo Box (9mm)"
 	id = "c9mm"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c9mm
+	category = list("hacked", "Security")
+
+/datum/design/knuckles
+	name = "Knuckles"
+	id = "knuckles"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 18000)
+	build_path = /obj/item/clothing/gloves/knuckles
 	category = list("hacked", "Security")
 
 /datum/design/cleaver
@@ -961,3 +1043,30 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
+
+/datum/design/tts
+	name = "TTS device"
+	desc = "A small device with a keyboard attached. Anything entered on the keyboard is played out the speaker."
+	id = "tts"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 200)
+	build_path = /obj/item/ttsdevice
+	category = list("initial", "Miscellaneous")
+
+/datum/design/desk_bell
+	name = "Desk Bell"
+	desc = "Prints a ring-able bell."
+	id = "desk_bell"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/desk_bell
+	category = list("initial", "Miscellaneous")
+
+/datum/design/cap_ammo
+	name = "Speed Loader(caps)"
+	desc = "Capgun speedloader"
+	id = "cap_ammo"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100)
+	build_path = /obj/item/ammo_box/speedloader/caps
+	category = list("initial", "Miscellaneous")

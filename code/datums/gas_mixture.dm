@@ -30,14 +30,14 @@ What are the archived variables for?
 
 	var/last_share
 
-	var/tmp/oxygen_archived
-	var/tmp/carbon_dioxide_archived
-	var/tmp/nitrogen_archived
-	var/tmp/toxins_archived
-	var/tmp/sleeping_agent_archived
-	var/tmp/agent_b_archived
+	var/tmp/oxygen_archived = 0
+	var/tmp/carbon_dioxide_archived = 0
+	var/tmp/nitrogen_archived = 0
+	var/tmp/toxins_archived = 0
+	var/tmp/sleeping_agent_archived = 0
+	var/tmp/agent_b_archived = 0
 
-	var/tmp/temperature_archived
+	var/tmp/temperature_archived = 0
 
 	var/tmp/fuel_burnt = 0
 
@@ -79,7 +79,7 @@ What are the archived variables for?
 //Procedures used for very specific events
 
 
-/datum/gas_mixture/proc/react(atom/dump_location)
+/datum/gas_mixture/proc/react()
 	var/reacting = 0 //set to 1 if a notable reaction occured (used by pipe_network)
 
 	if(agent_b && temperature > 900)
@@ -340,6 +340,10 @@ What are the archived variables for?
 
 /datum/gas_mixture/share(datum/gas_mixture/sharer, atmos_adjacent_turfs = 4)
 	if(!sharer)
+		return 0
+	//If there is no difference why do the calculations?
+	if(oxygen_archived == sharer.oxygen_archived && carbon_dioxide_archived == sharer.carbon_dioxide_archived && nitrogen_archived == sharer.nitrogen_archived &&\
+	toxins_archived == sharer.toxins_archived && sleeping_agent_archived == sharer.sleeping_agent_archived && agent_b_archived == sharer.agent_b_archived && temperature_archived == sharer.temperature_archived)
 		return 0
 	var/delta_oxygen = QUANTIZE(oxygen_archived - sharer.oxygen_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_carbon_dioxide = QUANTIZE(carbon_dioxide_archived - sharer.carbon_dioxide_archived) / (atmos_adjacent_turfs + 1)

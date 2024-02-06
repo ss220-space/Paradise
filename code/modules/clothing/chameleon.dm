@@ -21,22 +21,22 @@
 			var/datum/outfit/O = path
 			if(initial(O.can_be_admin_equipped))
 				standard_outfit_options[initial(O.name)] = path
-		sortTim(standard_outfit_options, /proc/cmp_text_asc)
+		sortTim(standard_outfit_options, cmp = /proc/cmp_text_asc)
 	outfit_options = standard_outfit_options
 
-/datum/action/chameleon_outfit/Trigger()
+/datum/action/chameleon_outfit/Trigger(left_click = TRUE)
 	return select_outfit(owner)
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
 	if(!user || !IsAvailable())
 		return FALSE
-	var/selected = input("Select outfit to change into", "Chameleon Outfit") as null|anything in outfit_options
+	var/selected = tgui_input_list(user, "Select outfit to change into", "Chameleon Outfit", outfit_options)
 	if(!IsAvailable() || QDELETED(src) || QDELETED(user))
 		return FALSE
 	var/outfit_type = outfit_options[selected]
 	if(!outfit_type)
 		return FALSE
-	var/datum/outfit/O = new outfit_type()
+	var/datum/outfit/job/O = new outfit_type()
 	var/list/outfit_types = O.get_chameleon_disguise_info()
 
 	for(var/V in user.chameleon_item_actions)
@@ -105,12 +105,18 @@
 			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
 				continue
 			var/chameleon_item_name = "[initial(I.name)] ([initial(I.icon_state)])"
-			chameleon_list[chameleon_item_name] = I
+			var/copies = FALSE
+			for(var/chameleon_item_index in chameleon_list)
+				if(chameleon_item_index == chameleon_item_name)
+					copies = TRUE
+					break
+			if(!copies)
+				chameleon_list[chameleon_item_name] = I
 
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
 	var/obj/item/picked_item
 	var/picked_name
-	picked_name = input("Select [chameleon_name] to change into", "Chameleon [chameleon_name]", picked_name) as null|anything in chameleon_list
+	picked_name = tgui_input_list(user, "Select [chameleon_name] to change into", "Chameleon [chameleon_name]", chameleon_list)
 	if(!picked_name)
 		return
 	picked_item = chameleon_list[picked_name]
@@ -140,7 +146,7 @@
 
 		update_item(picked_item)
 		var/obj/item/thing = target
-		thing.update_slot_icon()
+		thing.update_equipped_item()
 	UpdateButtonIcon()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
@@ -161,14 +167,14 @@
 			I.sprite_sheets = P.sprite_sheets
 			qdel(P)
 
-		if(istype(I, /obj/item/clothing) && istype(initial(picked_item), /obj/item/clothing))
+		if(istype(I, /obj/item/clothing) && ispath(picked_item, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
 
 	target.icon = initial(picked_item.icon)
 
-/datum/action/item_action/chameleon/change/Trigger()
+/datum/action/item_action/chameleon/change/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return
 
@@ -232,7 +238,12 @@
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -266,9 +277,14 @@
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -299,6 +315,10 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = -1
 	prescription_upgradable = TRUE
+
+/obj/item/clothing/glasses/chameleon/meson
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	flash_protect = 1
@@ -366,7 +386,12 @@
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -399,18 +424,26 @@
 	resistance_flags = NONE
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	flags = AIRTIGHT | BLOCK_GAS_SMOKE_EFFECT
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
 	var/obj/item/voice_changer/voice_changer
@@ -483,7 +516,7 @@
 	name = "backpack"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
 	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -594,5 +627,63 @@
 	return ..()
 
 /obj/item/stamp/chameleon/broken/Initialize(mapload)
+	. = ..()
+	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/under/plasmaman/chameleon
+	name = "plasma envirosuit"
+	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy."
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)
+	sensor_mode = SENSOR_OFF
+	random_sensor = FALSE
+
+	var/datum/action/item_action/chameleon/change/chameleon_action
+
+/obj/item/clothing/under/plasmaman/chameleon/Initialize(mapload)
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/clothing/under
+	chameleon_action.chameleon_name = "Envirosuit"
+	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/under, /obj/item/clothing/under/color, /obj/item/clothing/under/rank), only_root_path = TRUE)
+	chameleon_action.initialize_disguises()
+
+/obj/item/clothing/under/plasmaman/chameleon/Destroy()
+	QDEL_NULL(chameleon_action)
+	return ..()
+
+/obj/item/clothing/under/plasmaman/chameleon/emp_act(severity)
+	. = ..()
+	chameleon_action.emp_randomise()
+
+/obj/item/clothing/under/plasmaman/chameleon/broken/Initialize(mapload)
+	. = ..()
+	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	actions_types = null
+
+	var/datum/action/item_action/chameleon/change/chameleon_action
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon/Initialize(mapload)
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/clothing/head
+	chameleon_action.chameleon_name = "Envirohelm"
+	chameleon_action.chameleon_blacklist = list()
+	chameleon_action.initialize_disguises()
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon/Destroy()
+	QDEL_NULL(chameleon_action)
+	return ..()
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon/emp_act(severity)
+	. = ..()
+	chameleon_action.emp_randomise()
+
+/obj/item/clothing/head/helmet/space/plasmaman/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)

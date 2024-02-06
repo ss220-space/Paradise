@@ -21,7 +21,7 @@
 	turns_per_move = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 1
-	attacktext = "stings"
+	attacktext = "жалит"
 	response_help  = "shoos"
 	response_disarm = "swats away"
 	response_harm   = "squashes"
@@ -125,11 +125,14 @@
 	wings = bee_icons["[icon_base]_wings"]
 	overlays += wings
 
-//We don't attack beekeepers/people dressed as bees//Todo: bee costume
+//We don't attack beekeepers/people dressed as bees/wryns //Todo: bee costume
 /mob/living/simple_animal/hostile/poison/bees/CanAttack(atom/the_target)
 	. = ..()
 	if(!.)
 		return FALSE
+	if(iswryn(the_target))
+		var/mob/living/H = the_target
+		return H.bee_friendly()
 	if(!bee_syndicate && isliving(the_target))
 		var/mob/living/H = the_target
 		return !H.bee_friendly()
@@ -167,7 +170,7 @@
 					beegent.reaction_mob(L, REAGENT_INGEST)
 					L.reagents.add_reagent(beegent.id, rand(1, 5))
 				else
-					L.reagents.add_reagent("spidertoxin", 5)
+					L.reagents.add_reagent("beetoxin", 5)
 
 /mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
 	if(istype(R))

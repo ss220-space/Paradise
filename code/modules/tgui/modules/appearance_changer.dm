@@ -20,7 +20,7 @@
 /datum/ui_module/appearance_changer/New(datum/host, mob/living/carbon/human/H, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
 	..()
 	owner = H
-	head_organ = owner.get_organ("head")
+	head_organ = owner.get_organ(BODY_ZONE_HEAD)
 	check_whitelist = check_species_whitelist
 	whitelist = species_whitelist
 	blacklist = species_blacklist
@@ -38,7 +38,7 @@
 				if(owner.set_species(S.type))
 					cut_and_generate_data()
 					// Species change creates new organs - runtimes ahoy if we forget this
-					head_organ = owner.get_organ("head")
+					head_organ = owner.get_organ(BODY_ZONE_HEAD)
 
 		if("gender")
 			if(can_change(APPEARANCE_GENDER))
@@ -92,6 +92,30 @@
 				var/new_hair = input("Please select secondary hair color.", "Secondary Hair Color", head_organ.sec_hair_colour) as color|null
 				if(new_hair && (!..()) && owner.change_hair_color(new_hair, 1))
 					update_dna()
+
+		if("hair_gradient")
+			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
+				var/new_style = tgui_input_list(usr, "Please select gradient style", "Hair Gradient", GLOB.hair_gradients_list, head_organ.h_grad_style)
+				if(new_style)
+					owner.change_hair_gradient(style = new_style)
+
+		if("hair_gradient_offset")
+			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
+				var/new_offset = input("Please enter gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Hair Gradient", "[head_organ.h_grad_offset_x],[head_organ.h_grad_offset_y]") as null|text
+				if(new_offset)
+					owner.change_hair_gradient(offset_raw = new_offset)
+
+		if("hair_gradient_colour")
+			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
+				var/new_color = input("Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour) as null|color
+				if(new_color)
+					owner.change_hair_gradient(color = new_color)
+
+		if("hair_gradient_alpha")
+			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
+				var/new_alpha = input("Please enter gradient alpha (0-200).", "Hair Gradient", head_organ.h_grad_alpha) as null|num
+				if(!isnull(new_alpha))
+					owner.change_hair_gradient(alpha = new_alpha)
 
 		if("facial_hair")
 			if(can_change(APPEARANCE_FACIAL_HAIR) && (params["facial_hair"] in valid_facial_hairstyles))
@@ -171,7 +195,7 @@
 			if(can_change_alt_head() && (params["alt_head"] in valid_alt_head_styles))
 				if(owner.change_alt_head(params["alt_head"]))
 					update_dna()
-					head_organ = owner.get_organ("head") //Update the head with the new information.
+					head_organ = owner.get_organ(BODY_ZONE_HEAD) //Update the head with the new information.
 					cut_and_generate_data()
 
 
@@ -243,7 +267,8 @@
 
 	data["change_tail_markings"] = can_change_markings("tail")
 	if(data["change_tail_markings"])
-		var/m_style = owner.bodyparts_by_name["tail"].m_styles["tail"]
+		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+		var/m_style = bodypart_tail.m_styles["tail"]
 		var/list/tail_marking_styles = list()
 		for(var/tail_marking_style in valid_tail_marking_styles)
 			tail_marking_styles += list(list("tailmarkingstyle" = tail_marking_style))
@@ -252,11 +277,16 @@
 
 	data["change_body_accessory"] = can_change_body_accessory()
 	if(data["change_body_accessory"])
+		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+		var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
 		var/list/body_accessory_styles = list()
 		for(var/body_accessory_style in valid_body_accessories)
 			body_accessory_styles += list(list("bodyaccessorystyle" = body_accessory_style))
 		data["body_accessory_styles"] = body_accessory_styles
-		data["body_accessory_style"] = (owner.bodyparts_by_name["tail"].body_accessory ? owner.bodyparts_by_name["tail"].body_accessory.name : "None")
+		if(bodypart_tail)
+			data["body_accessory_style"] = (bodypart_tail.body_accessory ? bodypart_tail.body_accessory.name : "None")
+		if(bodypart_wing)
+			data["body_accessory_style"] = (bodypart_wing.body_accessory ? bodypart_wing.body_accessory.name : "None")
 
 	data["change_alt_head"] = can_change_alt_head()
 	if(data["change_alt_head"])
@@ -274,6 +304,7 @@
 	data["change_head_marking_color"] = can_change_markings("head")
 	data["change_body_marking_color"] = can_change_markings("body")
 	data["change_tail_marking_color"] = can_change_markings("tail")
+	data["change_hair_gradient"] = can_change(APPEARANCE_HAIR) && length(valid_hairstyles)
 
 	return data
 
@@ -288,7 +319,7 @@
 	return owner && (flags & APPEARANCE_SKIN) && owner.dna && ((owner.dna.species.bodyflags & HAS_SKIN_TONE) || (owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 
 /datum/ui_module/appearance_changer/proc/can_change_skin_color()
-	return owner && (flags & APPEARANCE_SKIN) && owner.dna && (owner.dna.species.bodyflags & HAS_SKIN_COLOR)
+	return owner && (flags & APPEARANCE_SKIN) && owner.dna && ((owner.dna.species.bodyflags & HAS_SKIN_COLOR) && !(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 
 /datum/ui_module/appearance_changer/proc/can_change_head_accessory()
 	if(!head_organ)
@@ -303,6 +334,8 @@
 	var/marking_flag = HAS_BODY_MARKINGS
 	var/body_flags = owner.dna.species.bodyflags
 	var/tailcheck = TRUE
+	var/wingcheck = TRUE
+
 	if(location == "head")
 		if(!head_organ)
 			log_debug("Missing head!")
@@ -315,12 +348,22 @@
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
 	if(location == "tail")
-		tailcheck = owner.bodyparts_by_name["tail"] && (owner.bodyparts_by_name["tail"].dna.species.bodyflags & HAS_TAIL_MARKINGS)
-
-	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag) && tailcheck
+		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+		tailcheck = bodypart_tail && (bodypart_tail.dna?.species?.bodyflags & HAS_TAIL_MARKINGS & HAS_BODY_ACCESSORY)
+	if(location == "wing")
+		var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
+		wingcheck = bodypart_wing && (bodypart_wing.dna?.species?.bodyflags & HAS_BODY_ACCESSORY)
+	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag) && tailcheck && wingcheck
 
 /datum/ui_module/appearance_changer/proc/can_change_body_accessory()
-	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodyparts_by_name["tail"] && check_rights(R_ADMIN, 0, owner)
+	var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+	var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
+	if(bodypart_tail)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_tail && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+	if(bodypart_wing)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_wing && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+	else
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
 
 /datum/ui_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)

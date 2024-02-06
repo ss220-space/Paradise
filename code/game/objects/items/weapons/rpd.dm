@@ -7,6 +7,7 @@
 #define RPD_MENU_ROTATE "Rotate pipes" //Stuff for radial menu
 #define RPD_MENU_FLIP "Flip pipes" //Stuff for radial menu
 #define RPD_MENU_DELETE "Delete pipes" //Stuff for radial menu
+#define RPD_MENU_WRENCH "Toggle auto-wrenching"
 
 /obj/item/rpd
 	name = "rapid pipe dispenser"
@@ -38,6 +39,8 @@
 	var/ranged = FALSE
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
+	var/obj/item/wrench/integrated_wrench = new
+	var/auto_wrench = FALSE
 
 	//Lists of things
 	var/list/mainmenu = list(
@@ -114,6 +117,8 @@
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
 	activate_rpd(TRUE)
+	if(auto_wrench)
+		P.wrench_act(user, integrated_wrench)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
@@ -126,6 +131,8 @@
 		P.flip()
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
 	activate_rpd(TRUE)
+	if(auto_wrench)
+		P.wrench_act(user, integrated_wrench)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)
@@ -178,7 +185,10 @@
 		ui.open()
 
 
-/obj/item/rpd/AltClick(mob/user)
+/obj/item/rpd/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	radial_menu(user)
 
 /obj/item/rpd/ui_data(mob/user)
@@ -191,6 +201,7 @@
 	data["pipe_category"] = pipe_category
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
+	data["auto_wrench"] = auto_wrench
 	return data
 
 /obj/item/rpd/ui_act(action, list/params)
@@ -210,6 +221,8 @@
 			pipe_category = text2num(sanitize(params["pipe_category"]))
 		if("mode")
 			mode = text2num(sanitize(params["mode"]))
+		if("auto_wrench")
+			auto_wrench = !auto_wrench
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)
@@ -229,9 +242,10 @@
 		RPD_MENU_ROTATE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_rotate"),
 		RPD_MENU_FLIP = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_flip"),
 		RPD_MENU_DELETE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_delete"),
+		RPD_MENU_WRENCH = image(icon = 'icons/obj/tools.dmi', icon_state = "wrench"),
 		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
-	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	if(selected_mode == "UI")
@@ -244,6 +258,10 @@
 				mode = RPD_FLIP_MODE
 			if(RPD_MENU_DELETE)
 				mode = RPD_DELETE_MODE
+			if(RPD_MENU_WRENCH)
+				auto_wrench = !auto_wrench
+				to_chat(user, "<span class='notice'>You [auto_wrench ? "enable" : "disable"] auto-wrenching new-placed pipes.</span>")
+				return
 			else
 				return //Either nothing was selected, or an invalid mode was selected
 		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
@@ -256,7 +274,8 @@
 		return
 	if(world.time < lastused + spawndelay)
 		return
-
+	if(ranged && !(target in view(user)))
+		return
 
 	var/turf/T = get_turf(target)
 	if(target != T)
@@ -279,7 +298,8 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+		if(get_dist(src, T) <= (user.client.maxview() + 2))\
+			user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
 	T.rpd_act(user, src)
 
 #undef RPD_COOLDOWN_TIME
@@ -287,3 +307,4 @@
 #undef RPD_MENU_ROTATE
 #undef RPD_MENU_FLIP
 #undef RPD_MENU_DELETE
+#undef RPD_MENU_WRENCH

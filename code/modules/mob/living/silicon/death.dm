@@ -4,7 +4,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	animation = new(loc)
 	animation.icon_state = "blank"
@@ -13,8 +13,9 @@
 
 	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
 
-//	flick("gibbed-r", animation)
 	robogibs(loc)
+
+	drop_hat()
 
 	GLOB.dead_mob_list -= src
 	spawn(15)
@@ -27,7 +28,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
 	GLOB.dead_mob_list -= src
 	QDEL_IN(src, 15)

@@ -9,7 +9,7 @@
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
 
-	var/list/network = list()
+	var/list/network = list("SS13","Mining Outpost")
 	var/obj/machinery/camera/active_camera
 	var/list/watchers = list()
 
@@ -51,7 +51,12 @@
 	qdel(cam_screen)
 	QDEL_LIST(cam_plane_masters)
 	qdel(cam_background)
+	active_camera = null
 	return ..()
+
+/obj/machinery/computer/security/process()
+	. = ..()
+	update_camera_view()
 
 /obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// Update UI
@@ -76,8 +81,12 @@
 			user.client.register_map_obj(plane)
 		user.client.register_map_obj(cam_background)
 		// Open UI
-		ui = new(user, src, ui_key, "CameraConsole", name, 870, 708, master_ui, state)
+		ui = new(user, src, ui_key, "CameraConsole", name, 1200, 600, master_ui, state)
 		ui.open()
+
+/obj/machinery/computer/security/ui_close(mob/user)
+	..()
+	watchers -= user.UID()
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
@@ -88,20 +97,24 @@
 			name = active_camera.c_tag,
 			status = active_camera.status,
 		)
-	return data
-
-/obj/machinery/computer/security/ui_static_data()
-	var/list/data = list()
-	data["mapRef"] = map_name
 	var/list/cameras = get_available_cameras()
 	data["cameras"] = list()
 	for(var/i in cameras)
 		var/obj/machinery/camera/C = cameras[i]
 		data["cameras"] += list(list(
 			name = C.c_tag,
+			x = C.x,
+			y = C.y,
+			z = C.z,
+			status = C.status
 		))
 	return data
 
+/obj/machinery/computer/security/ui_static_data()
+	var/list/data = list()
+	data["mapRef"] = map_name
+	data["stationLevel"] = level_name_to_num(MAIN_STATION)
+	return data
 
 /obj/machinery/computer/security/ui_act(action, params)
 	if(..())
@@ -111,7 +124,9 @@
 		var/c_tag = params["name"]
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/C = cameras[c_tag]
+		active_camera?.computers_watched_by -= src
 		active_camera = C
+		active_camera.computers_watched_by += src
 		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
 		// Show static if can't use the camera
@@ -119,19 +134,24 @@
 			show_camera_static()
 			return TRUE
 
-		var/list/visible_turfs = list()
-		for(var/turf/T in view(C.view_range, get_turf(C)))
-			visible_turfs += T
-
-		var/list/bbox = get_bbox_of_atoms(visible_turfs)
-		var/size_x = bbox[3] - bbox[1] + 1
-		var/size_y = bbox[4] - bbox[2] + 1
-
-		cam_screen.vis_contents = visible_turfs
-		cam_background.icon_state = "clear"
-		cam_background.fill_rect(1, 1, size_x, size_y)
+		update_camera_view()
 
 		return TRUE
+
+/obj/machinery/computer/security/proc/update_camera_view()
+	if(!active_camera || !active_camera.can_use())
+		return
+	var/list/visible_turfs = list()
+	for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))
+		visible_turfs += T
+
+	var/list/bbox = get_bbox_of_atoms(visible_turfs)
+	var/size_x = bbox[3] - bbox[1] + 1
+	var/size_y = bbox[4] - bbox[2] + 1
+
+	cam_screen.vis_contents = visible_turfs
+	cam_background.icon_state = "clear"
+	cam_background.fill_rect(1, 1, size_x, size_y)
 
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()
@@ -158,11 +178,12 @@
 		user.unset_machine()
 		return
 
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/computer/security/attack_ai(mob/user)
 	if(isAI(user))
-		to_chat(user, "<span class='notice'>You realise its kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips</span>")
+		to_chat(user, span_notice("You realise its kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips"))
 		return
 
 	ui_interact(user)
@@ -177,7 +198,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+	var/direction = tgui_input_list(user, "Which direction?", "Select direction!", list("North", "East", "South", "West", "Centre"))
 	if(!direction || !Adjacent(user))
 		return
 	pixel_x = 0
@@ -212,7 +233,34 @@
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
+	layer = 4 //becouse of plasma glass with layer = 3
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+
+/obj/machinery/computer/security/telescreen/singularity
+	name = "Singularity Engine Telescreen"
+	desc = "Used for watching the singularity chamber."
+	network = list("Singularity")
+	circuit = /obj/item/circuitboard/camera/telescreen/singularity
+
+/obj/machinery/computer/security/telescreen/toxin_chamber
+	name = "Toxins Telescreen"
+	desc = "Used for watching the test chamber."
+	network = list("Toxins")
+
+/obj/machinery/computer/security/telescreen/test_chamber
+	name = "Test Chamber Telescreen"
+	desc = "Used for watching the test chamber."
+	network = list("TestChamber")
+
+/obj/machinery/computer/security/telescreen/research
+	name = "Research Monitor"
+	desc = "Used for watching the RD's goons from the safety of his office."
+	network = list("Research","Research Outpost","RD")
+
+/obj/machinery/computer/security/telescreen/prison
+	name = "Prison Monitor"
+	desc = "Used for watching Prison Wing holding areas."
+	network = list("Prison")
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"

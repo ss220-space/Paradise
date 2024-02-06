@@ -14,15 +14,17 @@
 	response_help  = "pokes"
 	response_disarm = "shoos"
 	response_harm   = "splats"
+	death_sound = 'sound/creatures/crack_death2.ogg'
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/squish_chance = 50
 	loot = list(/obj/effect/decal/cleanable/insectguts)
 	del_on_death = 1
+	tts_seed = "Villagerm"
 
 /mob/living/simple_animal/cockroach/can_die()
-	return ..() && !SSticker.cinematic //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
+	return ..() && !SSticker?.mode?.explosion_in_progress //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 
 /mob/living/simple_animal/cockroach/Crossed(var/atom/movable/AM, oldloc)
 	if(isliving(AM))

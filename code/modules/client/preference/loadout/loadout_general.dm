@@ -23,6 +23,11 @@
 	path = /obj/item/clothing/mask/cigarette/pipe
 	cost = 2
 
+/datum/gear/robustpipe
+	display_name = "robust smoking pipe"
+	path = /obj/item/clothing/mask/cigarette/pipe/oldpipe
+	cost = 2
+
 /datum/gear/lighter
 	display_name = "a cheap lighter"
 	path = /obj/item/lighter
@@ -68,10 +73,90 @@
 	display_name = "a carp plushie"
 	path = /obj/item/toy/carpplushie
 
+/datum/gear/nianplushie
+	display_name = "Nian plushie"
+	path = /obj/item/toy/plushie/nianplushie
+
+/datum/gear/bubblegumplushie
+	display_name = "Bubblegum plushie"
+	path = /obj/item/toy/plushie/bubblegumplushie
+
+/datum/gear/greyplushie
+	display_name = "Grey Plushie"
+	path = /obj/item/toy/plushie/greyplushie
+
+/datum/gear/plasmamanplushie
+	display_name = "Plasmaman Plushie"
+	path = /obj/item/toy/plushie/plasmamanplushie
+
+/datum/gear/shardplushie
+	display_name = "Shard Plushie"
+	path = /obj/item/toy/plushie/shardplushie
+
+/datum/gear/akulaplushie
+	display_name = "Akula Plushie"
+	path = /obj/item/toy/plushie/blahaj/twohanded
+	cost = 2
+
+/datum/gear/hampter
+	display_name = "Hampter"
+	path = /obj/item/toy/plushie/hampter
+	cost = 1
+
+/datum/gear/hampter_assistant
+	display_name = "Hampter, Assitant"
+	path = /obj/item/toy/plushie/hampter/asisstant
+	cost = 1
+
+/datum/gear/hampter_security
+	display_name = "Hampter, Security"
+	path = /obj/item/toy/plushie/hampter/security
+	cost = 1
+
+/datum/gear/hampter_medic
+	display_name = "Hampter, Doctor"
+	path = /obj/item/toy/plushie/hampter/medic
+	cost = 1
+
+/datum/gear/hampter_janitor
+	display_name = "Hampter, Janitor"
+	path = /obj/item/toy/plushie/hampter/janitor
+	cost = 1
+
+/datum/gear/hampter_captain
+	display_name = "Hampter, Captain"
+	path = /obj/item/toy/plushie/hampter/captain
+	cost = 1
+
+/datum/gear/hampter_old_captain
+	display_name = "Hampter, Old Captain"
+	path = /obj/item/toy/plushie/hampter/captain/old
+	cost = 1
+
+/datum/gear/hampter_syndi
+	display_name = "Hampter, Syndi"
+	path = /obj/item/toy/plushie/hampter/syndi
+	cost = 1
+
+/datum/gear/hampter_death_squad
+	display_name = "Hampter, Grandpa"
+	path = /obj/item/toy/plushie/hampter/death_squad
+	cost = 1
+
+/datum/gear/hampter_ert_squad
+	display_name = "Hampter, ERT"
+	path = /obj/item/toy/plushie/hampter/ert_squad
+	cost = 1
+
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Magistrate")
+
+/datum/gear/read_only_sechud
+	display_name = "a classic security HUD (read-only)"
+	path = /obj/item/clothing/glasses/hud/security/read_only
+	allowed_roles = list("Internal Affairs Agent")
 
 /datum/gear/cryaonbox
 	display_name = "a box of crayons"
@@ -87,7 +172,7 @@
 
 /datum/gear/doublecards
 	display_name = "a double deck of standard cards"
-	path = /obj/item/deck/doublecards
+	path = /obj/item/deck/cards/doublecards
 
 /datum/gear/tarot
 	display_name = "a deck of tarot cards"
@@ -100,6 +185,34 @@
 /datum/gear/fannypack
 	display_name = "a fannypack"
 	path = /obj/item/storage/belt/fannypack
+
+/datum/gear/wallet
+	display_name = "a wallet(leather)"
+	path = /obj/item/storage/wallet
+
+/datum/gear/walletbb
+	display_name = "a wallet(blue)"
+	path = /obj/item/storage/wallet/color/blue
+
+/datum/gear/walletr
+	display_name = "a wallet(red)"
+	path = /obj/item/storage/wallet/color/red
+
+/datum/gear/wallety
+	display_name = "a wallet(yellow)"
+	path = /obj/item/storage/wallet/color/yellow
+
+/datum/gear/walletg
+	display_name = "a wallet(green)"
+	path = /obj/item/storage/wallet/color/green
+
+/datum/gear/walletp
+	display_name = "a wallet(pink)"
+	path = /obj/item/storage/wallet/color/pink
+
+/datum/gear/walletb
+	display_name = "a wallet(black)"
+	path = /obj/item/storage/wallet/color/black
 
 /datum/gear/blackbandana
 	display_name = "bandana, black"
@@ -142,6 +255,15 @@
 	display_name ="synthesizer"
 	path = /obj/item/instrument/piano_synth
 	cost = 2
+
+/datum/gear/tts
+	display_name ="TTS device"
+	path = /obj/item/ttsdevice
+
+/datum/gear/blindfold
+	display_name ="Blindfold"
+	path = /obj/item/clothing/glasses/sunglasses/blindfold
+
 //////////////////////
 //		Mugs		//
 //////////////////////
@@ -172,19 +294,19 @@
 /datum/gear/mug/department/eng
 	display_name = "engineer coffee mug"
 	description = "An engineer's coffee mug, emblazoned in the colors of the Engineering department."
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist")
 	path = /obj/item/reagent_containers/food/drinks/mug/eng
 
 /datum/gear/mug/department/med
 	display_name = "doctor coffee mug"
 	description = "A doctor's coffee mug, emblazoned in the colors of the Medical department."
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
 	path = /obj/item/reagent_containers/food/drinks/mug/med
 
 /datum/gear/mug/department/sci
 	display_name = "scientist coffee mug"
 	description = "A scientist's coffee mug, emblazoned in the colors of the Science department."
-	allowed_roles = list("Research Director", "Scientist", "Roboticist")
+	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Student Scientist", "Roboticist")
 	path = /obj/item/reagent_containers/food/drinks/mug/sci
 
 /datum/gear/mug/department/sec

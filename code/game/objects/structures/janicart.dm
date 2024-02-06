@@ -8,6 +8,7 @@
 	anchored = 0
 	density = 1
 	container_type = OPENCONTAINER
+	pull_push_speed_modifier = 1
 	//copypaste sorry
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 	var/obj/item/storage/bag/trash/mybag	= null
@@ -31,21 +32,14 @@
 	QDEL_NULL(myreplacer)
 	return ..()
 
-/obj/structure/janitorialcart/proc/wet_mop(obj/item/mop, mob/user)
-	if(reagents.total_volume < 1)
-		to_chat(user, "[src] is out of water!</span>")
-	else
-		reagents.trans_to(mop, 5)	//
-		to_chat(user, "<span class='notice'>You wet [mop] in [src].</span>")
-		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
-	user.drop_item()
-	I.loc = src
+	user.drop_transfer_item_to_loc(I, src)
 	updateUsrDialog()
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
 
+/obj/structure/janitorialcart/on_reagent_change()
+	update_icon()
 
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
@@ -54,21 +48,24 @@
 		if(istype(I, /obj/item/mop))
 			var/obj/item/mop/m=I
 			if(m.reagents.total_volume < m.reagents.maximum_volume)
-				wet_mop(m, user)
+				m.wet_mop(src, user)
 				return
 			if(!mymop)
+				add_fingerprint(user)
 				m.janicart_insert(user, src)
 			else
 				to_chat(user, fail_msg)
 
 		else if(istype(I, /obj/item/storage/bag/trash))
 			if(!mybag)
+				add_fingerprint(user)
 				var/obj/item/storage/bag/trash/t=I
 				t.janicart_insert(user, src)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 			if(!myspray)
+				add_fingerprint(user)
 				put_in_cart(I, user)
 				myspray=I
 				update_icon()
@@ -76,12 +73,14 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/lightreplacer))
 			if(!myreplacer)
+				add_fingerprint(user)
 				var/obj/item/lightreplacer/l=I
 				l.janicart_insert(user,src)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/caution))
 			if(signs < max_signs)
+				add_fingerprint(user)
 				put_in_cart(I, user)
 				signs++
 				update_icon()
@@ -89,11 +88,13 @@
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		else if(istype(I, /obj/item/crowbar))
 			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
-			if(do_after(user, 30 * I.toolspeed, target = src))
+			if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
+				add_fingerprint(user)
 				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
 				reagents.reaction(src.loc)
 				src.reagents.clear_reagents()
 		else if(istype(I, /obj/item/wrench))
+			add_fingerprint(user)
 			if(!anchored && !isinspace())
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
@@ -109,11 +110,13 @@
 					"You hear ratchet.")
 				anchored = 0
 		else if(mybag)
+			add_fingerprint(user)
 			mybag.attackby(I, user, params)
 	else
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
 
 /obj/structure/janitorialcart/attack_hand(mob/user)
+	add_fingerprint(user)
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8">"}
 	if(mybag)
@@ -139,29 +142,34 @@
 	var/mob/living/user = usr
 	if(href_list["garbage"])
 		if(mybag)
-			user.put_in_hands(mybag)
+			mybag.forceMove_turf()
+			user.put_in_hands(mybag, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [mybag] from [src].</span>")
 			mybag = null
 	if(href_list["mop"])
 		if(mymop)
-			user.put_in_hands(mymop)
+			mymop.forceMove_turf()
+			user.put_in_hands(mymop, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
 			mymop = null
 	if(href_list["spray"])
 		if(myspray)
-			user.put_in_hands(myspray)
+			myspray.forceMove_turf()
+			user.put_in_hands(myspray, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [myspray] from [src].</span>")
 			myspray = null
 	if(href_list["replacer"])
 		if(myreplacer)
-			user.put_in_hands(myreplacer)
+			myreplacer.forceMove_turf()
+			user.put_in_hands(myreplacer, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You take [myreplacer] from [src].</span>")
 			myreplacer = null
 	if(href_list["sign"])
 		if(signs)
 			var/obj/item/caution/Sign = locate() in src
 			if(Sign)
-				user.put_in_hands(Sign)
+				Sign.forceMove_turf()
+				user.put_in_hands(Sign, ignore_anim = FALSE)
 				to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")
 				signs--
 			else
@@ -184,3 +192,17 @@
 		overlays += "cart_replacer"
 	if(signs)
 		overlays += "cart_sign[signs]"
+	if(reagents.total_volume > 0)
+		var/image/reagentsImage = image(icon,src,"cart_reagents0")
+		reagentsImage.alpha = 150
+		switch((reagents.total_volume/reagents.maximum_volume)*100)
+			if(1 to 25)
+				reagentsImage.icon_state = "cart_reagents1"
+			if(26 to 50)
+				reagentsImage.icon_state = "cart_reagents2"
+			if(51 to 75)
+				reagentsImage.icon_state = "cart_reagents3"
+			if(76 to 100)
+				reagentsImage.icon_state = "cart_reagents4"
+		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
+		add_overlay(reagentsImage)

@@ -123,11 +123,11 @@
 	..()
 
 /datum/food_processor_process/mob/monkey
-	input = /mob/living/carbon/human/monkey
+	input = /mob/living/carbon/human/lesser/monkey
 	output = null
 
 /datum/food_processor_process/mob/monkey/process_food(loc, what, processor)
-	var/mob/living/carbon/human/monkey/O = what
+	var/mob/living/carbon/human/lesser/monkey/O = what
 	if(O.client) //grief-proof
 		O.loc = loc
 		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \
@@ -161,12 +161,14 @@
 	return 0
 
 /obj/machinery/processor/attackby(obj/item/O, mob/user, params)
+	add_fingerprint(user)
 
 	if(processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
 		return 1
 
 	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, O))
@@ -192,9 +194,8 @@
 	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
 		"<span class='notice'>You put \the [what] into \the [src].")
 
-	user.drop_item()
+	user.drop_transfer_item_to_loc(what, src)
 
-	what.loc = src
 	return
 
 /obj/machinery/processor/attack_hand(mob/user)

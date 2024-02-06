@@ -13,9 +13,22 @@
 	name = "Hotel Reception"
 	icon_state = "entry"
 
+/area/awaymission/spacehotel/amazing_place
+	name = "Amazing Place"
+	requires_power = 0
+
+/area/awaymission/spacehotel/snowland
+	name = "Snowland"
+	requires_power = 0
+
+/area/awaymission/spacehotel/undersea
+	name = "Undersea"
+	icon_state = "undersea"
+	requires_power = 0
+
 // "Directional" map template loader for N or S hotel room
 /obj/effect/landmark/map_loader/hotel_room
-	icon = 'icons/testing/turf_analysis.dmi'
+	icon = 'icons/misc/Testing/turf_analysis.dmi'
 	icon_state = "arrow"
 
 /obj/item/paper/crumpled/hotel_scrap_1
@@ -122,7 +135,7 @@
 
 /obj/machinery/door/unpowered/hotel_door/examine(mob/user)
 	. = ..()
-	. += "This room is currently [occupant ? "" : "un"]occupied."
+	. += "<span class='notice'>This room is currently [occupant ? "" : "un"]occupied.</span>"
 
 /obj/machinery/door/unpowered/hotel_door/allowed(mob/living/carbon/user)
 	for(var/obj/item/card/hotel_card/C in user.get_all_slots())
@@ -179,7 +192,7 @@
 	name = "Deep Space Hotel 419"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	anchored = 1
 	density = 0
 	opacity = 0
@@ -189,18 +202,20 @@
 
 	var/obj/item/radio/radio	// for shouting at deadbeats
 
-/obj/effect/hotel_controller/New()
-	..()
+/obj/effect/hotel_controller/Initialize(mapload)
+	. = ..()
+
 	if(controller)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
+
 	controller = src
 
 	radio = new()
 	radio.broadcasting = 0
 	radio.listening = 0
-
+	var/area/myArea = get_area(src)
 	// get room doors
-	for(var/obj/machinery/door/unpowered/hotel_door/D in get_area(src))
+	for(var/obj/machinery/door/unpowered/hotel_door/D in myArea?.machinery_cache)
 		add_room(D)
 
 /obj/effect/hotel_controller/proc/add_room(obj/machinery/door/unpowered/hotel_door/D)
@@ -217,21 +232,21 @@
 	return ..()
 
 // to check a person into a room; no financial stuff; returns the keycard
-/obj/effect/hotel_controller/proc/checkin(roomid, mob/living/carbon/occupant, obj/item/card/id/id)
+/obj/effect/hotel_controller/proc/checkin(roomid, mob/living/carbon/occupant)
 	if(!istype(occupant))
 		return null
 	var/obj/machinery/door/unpowered/hotel_door/D = room_doors["[roomid]"]
 	if(!D || D.occupant || (occupant in guests))
 		return null
 
-	D.account = get_card_account(id, occupant)
+	D.account = get_card_account(occupant)
 	if(!D.account)
 		return null
 	if(!D.account.charge(100, null, "10 minutes hotel stay", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
 		return null
 
 	D.occupant = occupant
-	D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
+	D.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	vacant_rooms -= D
 	guests[occupant] = roomid
 
@@ -245,7 +260,7 @@
 		return
 
 	if(D.account.charge(100, null, "10 minutes hotel stay extension", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
-		D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
+		D.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	else
 		force_checkout(roomid)
 

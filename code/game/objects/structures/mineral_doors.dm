@@ -36,10 +36,10 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/mineral_door/Bumped(atom/user)
+/obj/structure/mineral_door/Bumped(atom/movable/moving_atom)
 	..()
 	if(!state)
-		return TryToSwitchState(user)
+		return TryToSwitchState(moving_atom)
 
 /obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it
@@ -55,6 +55,8 @@
 		SwitchState()
 
 /obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
@@ -73,8 +75,10 @@
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				if(!C.handcuffed)
+					add_fingerprint(user)
 					SwitchState()
 			else
+				add_fingerprint(user)
 				SwitchState()
 	else if(istype(user, /obj/mecha))
 		SwitchState()
@@ -128,7 +132,7 @@
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
-		if(do_after(user, 40 * digTool.toolspeed * hardness, target = src) && src)
+		if(do_after(user, 40 * digTool.toolspeed * gettoolspeedmod(user) * hardness, target = src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
 	else if(user.a_intent != INTENT_HARM)
@@ -186,9 +190,9 @@
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user)
 	if(is_hot(W))
-		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
-		log_game("Plasma mineral door ignited by [key_name(user)] in ([x], [y], [z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		add_fingerprint(user)
+		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		TemperatureAct(100)
 	else
 		return ..()
@@ -218,6 +222,17 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 
+/obj/structure/mineral_door/wood/paperframe
+	name = "Paperframe door"
+	desc = "Just looking at it's clean and simple design makes you at piece with your demons"
+	icon_state = "paperframe"
+	openSound = 'sound/effects/glider_door.ogg'
+	closeSound = 'sound/effects/glider_door.ogg'
+	sheetType = /obj/item/stack/sheet/wood
+	hardness = 1
+	resistance_flags = FLAMMABLE
+	max_integrity = 200
+
 /obj/structure/mineral_door/resin
 	name = "resin door"
 	icon_state = "resin"
@@ -231,3 +246,13 @@
 /obj/structure/mineral_door/resin/TryToSwitchState(atom/user)
 	if(isalien(user))
 		return ..()
+
+/obj/structure/mineral_door/ginger
+	name = "gingerbread door"
+	icon_state = "gingerbread"
+	openSound = 'sound/effects/doorcreaky.ogg'
+	closeSound = 'sound/effects/doorcreaky.ogg'
+	sheetType = /obj/item/stack/sheet/gingerbread
+	hardness = 0.5
+	resistance_flags = FLAMMABLE
+	max_integrity = 200

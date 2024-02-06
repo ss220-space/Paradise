@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/pipe/simple
-	icon = 'icons/atmos/pipes.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi'
 	icon_state = ""
 	var/pipe_icon = "" //what kind of pipe it is and from which dmi is the icon manager getting its icons, "" for simple pipes, "hepipe" for HE pipes, "hejunction" for HE junctions
 	name = "pipe"
@@ -30,9 +30,9 @@
 	alpha = 255
 
 	switch(dir)
-		if(SOUTH || NORTH)
+		if(SOUTH, NORTH)
 			initialize_directions = SOUTH|NORTH
-		if(EAST || WEST)
+		if(EAST, WEST)
 			initialize_directions = EAST|WEST
 		if(NORTHEAST)
 			initialize_directions = NORTH|EAST
@@ -68,7 +68,8 @@
 							break
 
 		var/turf/T = loc			// hide if turf is not intact
-		hide(T.intact)
+		if(!T.transparent_floor)
+			hide(T.intact)
 		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
@@ -87,7 +88,7 @@
 	else return 1
 
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
-	src.visible_message("<span class='danger'>\The [src] bursts!</span>")
+	src.visible_message(span_danger("\The [src] bursts!"))
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1,0, src.loc, 0)
@@ -164,4 +165,4 @@
 
 /obj/machinery/atmospherics/pipe/simple/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
-		invisibility = i ? 101 : 0
+		invisibility = i ? INVISIBILITY_ABSTRACT : 0

@@ -72,6 +72,10 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
+/obj/machinery/power/smes/on_construction()
+	connect_to_network()
+	return ..()
+
 /obj/machinery/power/smes/RefreshParts()
 	var/IO = 0
 	var/C = 0
@@ -87,29 +91,31 @@
 	overlays.Cut()
 	if(stat & BROKEN)	return
 
-	overlays += image('icons/obj/power.dmi', "smes-op[outputting]")
+	overlays += image('icons/obj/engines_and_power/power.dmi', "smes-op[outputting]")
 
 	if(inputting == 2)
-		overlays += image('icons/obj/power.dmi', "smes-oc2")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc2")
 	else if(inputting == 1)
-		overlays += image('icons/obj/power.dmi', "smes-oc1")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc1")
 	else
 		if(input_attempt)
-			overlays += image('icons/obj/power.dmi', "smes-oc0")
+			overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc0")
 
 	var/clevel = chargedisplay()
 	if(clevel>0)
-		overlays += image('icons/obj/power.dmi', "smes-og[clevel]")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-og[clevel]")
 	return
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
+		add_fingerprint(user)
 		update_icon()
 		return
 
 	//changing direction using wrench
 	if(default_change_direction_wrench(user, I))
+		add_fingerprint(user)
 		terminal = null
 		var/turf/T = get_step(src, dir)
 		for(var/obj/machinery/power/terminal/term in T)
@@ -178,6 +184,7 @@
 
 		if(do_after(user, 50, target = src))
 			if(!terminal && panel_open)
+				add_fingerprint(user)
 				T = get_turf(user)
 				var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
 				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE)) //animate the electrocution if uncautious and unlucky
@@ -190,6 +197,7 @@
 					"<span class='notice'>You add the cables and connect the power terminal.</span>")
 
 				make_terminal(user, tempDir, tempLoc)
+				terminal.add_fingerprint(user)
 				terminal.connect_to_network()
 		return
 
@@ -203,7 +211,7 @@
 		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
 		playsound(src.loc, I.usesound, 50, 1)
 
-		if(do_after(user, 50 * I.toolspeed, target = src))
+		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
 			if(terminal && panel_open)
 				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
 					do_sparks(5, 1, src)
@@ -241,9 +249,9 @@
 	if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 		var/area/area = get_area(src)
 		if(area)
-			message_admins("SMES deleted at (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
-			log_game("SMES deleted at ([area.name])")
-			investigate_log("<font color='red'>deleted</font> at ([area.name])","singulo")
+			message_admins("SMES deleted at [ADMIN_VERBOSEJMP(src)]")
+			add_game_logs("SMES deleted at [AREACOORD(src)]")
+			investigate_log("<font color='red'>deleted</font> at [AREACOORD(src)]", INVESTIGATE_ENGINE)
 	if(terminal)
 		disconnect_terminal()
 	return ..()
@@ -294,7 +302,7 @@
 
 			if(output_used < 0.0001)		// either from no charge or set to 0
 				outputting = FALSE
-				investigate_log("lost power and turned <font color='red'>off</font>", "singulo")
+				investigate_log("lost power and turned <font color='red'>off</font>", INVESTIGATE_ENGINE)
 		else if(output_attempt && charge > output_level && output_level > 0)
 			outputting = TRUE
 		else
@@ -345,6 +353,9 @@
 	ui_interact(user)
 
 /obj/machinery/power/smes/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -423,7 +434,7 @@
 		log_smes(usr)
 
 /obj/machinery/power/smes/proc/log_smes(mob/user)
-		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", "singulo")
+		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name_log(user) : "outside forces"]", INVESTIGATE_ENGINE)
 
 /obj/machinery/power/smes/proc/ion_act()
 	if(is_station_level(src.z))
@@ -435,7 +446,7 @@
 			smoke.set_up(3, 0, src.loc)
 			smoke.attach(src)
 			smoke.start()
-			explosion(src.loc, -1, 0, 1, 3, 1, 0)
+			explosion(src.loc, -1, 0, 1, 3, 1, 0, cause = src)
 			qdel(src)
 			return
 		if(prob(15)) //Power drain
@@ -486,5 +497,11 @@
 	capacity = INFINITY
 	charge = INFINITY
 	..()
+
+/obj/machinery/power/smes/vintage
+	name = "power storage unit"
+	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Old but not useless."
+	icon_state = "oldsmes"
+	capacity = 2500000
 
 #undef SMESRATE

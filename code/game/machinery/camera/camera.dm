@@ -1,7 +1,7 @@
 /obj/machinery/camera
 	name = "security camera"
 	desc = "It's used to monitor rooms."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "camera"
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 5
@@ -16,11 +16,12 @@
 	var/list/network = list("SS13")
 	var/c_tag = null
 	var/c_tag_order = 999
-	var/status = 1
+	var/status = TRUE
 	anchored = TRUE
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
+	var/list/computers_watched_by = list()
 
 	//OTHER
 
@@ -29,7 +30,6 @@
 
 	var/alarm_on = FALSE
 	var/busy = FALSE
-	var/emped = FALSE  //Number of consecutive EMP's on this camera
 
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
@@ -68,6 +68,7 @@
 	area_motion = null
 	cancelCameraAlarm()
 	cancelAlarm()
+	LAZYCLEARLIST(computers_watched_by)
 	return ..()
 
 /obj/machinery/camera/emp_act(severity)
@@ -76,33 +77,31 @@
 	if(!isEmpProof())
 		if(prob(150/severity))
 			update_icon()
-			var/list/previous_network = network
-			network = list()
-			GLOB.cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
-			emped = emped+1  //Increase the number of consecutive EMP's
 			update_icon()
-			var/thisemp = emped //Take note of which EMP this proc is for
-			spawn(900)
-				if(!QDELETED(src))
-					triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
-					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
-						network = previous_network
-						stat &= ~EMPED
-						update_icon()
-						if(can_use())
-							GLOB.cameranet.addCamera(src)
-						emped = 0 //Resets the consecutive EMP count
-						spawn(100)
-							if(!QDELETED(src))
-								cancelCameraAlarm()
+
+			GLOB.cameranet.removeCamera(src)
+
+			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE | TIMER_DELETE_ME)
+			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_DELETE_ME)
+
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
 					M.unset_machine()
 					M.reset_perspective(null)
 					to_chat(M, "The screen bursts into static.")
 			..()
+
+
+/obj/machinery/camera/proc/restore_from_emp()
+	stat &= ~EMPED
+	update_icon()
+
+	if(can_use())
+		GLOB.cameranet.addCamera(src)
+
+	cancelCameraAlarm()
 
 /obj/machinery/camera/tesla_act(power)//EMP proof upgrade also makes it tesla immune
 	if(isEmpProof())
@@ -125,26 +124,28 @@
 	..()
 
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
-	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
-	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
+	var/msg = span_notice("You attach [I] into the assembly inner circuits.")
+	var/msg2 = span_notice("The camera already has that upgrade!")
 
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+		if(!user.drop_from_active_hand())
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		if(!isEmpProof())
 			var/obj/item/stack/sheet/mineral/plasma/P = I
 			upgradeEmpProof()
+			add_fingerprint(user)
 			to_chat(user, "[msg]")
 			P.use(1)
 		else
 			to_chat(user, "[msg2]")
 	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+		if(!user.drop_transfer_item_to_loc(I, src))
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		if(!isMotion())
 			upgradeMotion()
+			add_fingerprint(user)
 			to_chat(user, "[msg]")
 			qdel(I)
 		else
@@ -153,7 +154,7 @@
 	// OTHER
 	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
 		if (!can_use())
-			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
+			to_chat(user, span_warning("You can't show something to a disabled camera!"))
 			return
 
 		var/mob/living/U = user
@@ -200,7 +201,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+	to_chat(user, span_notice("You screw [src]'s panel [panel_open ? "open" : "closed"]."))
 
 /obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -224,8 +225,8 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-						"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+		visible_message(span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+						span_warning("You unweld [src], leaving it as just a frame bolted to the wall"))
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -281,16 +282,15 @@
 	var/change_msg = "deactivates"
 	if(status)
 		change_msg = "reactivates"
-		triggerCameraAlarm()
-		spawn(100)
-			if(!QDELETED(src))
-				cancelCameraAlarm()
+		cancelCameraAlarm()
+	else
+		addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_DELETE_ME)
 	if(displaymessage)
 		if(user)
-			visible_message("<span class='danger'>[user] [change_msg] [src]!</span>")
+			visible_message(span_danger("[user] [change_msg] [src]!"))
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
+			visible_message(span_danger("\The [src] [change_msg]!"))
 
 		playsound(loc, toggle_sound, 100, 1)
 	update_icon()
@@ -305,10 +305,14 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
+	if(status || alarm_on || (assembly && assembly.state == 1)) // checks if camera still off OR alarms already on OR camera disasembled
+		return
 	alarm_on = TRUE
 	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
+	if (!alarm_on) // you don't have to turn off alarm twice
+		return
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)
 
@@ -327,6 +331,10 @@
 	else
 		see = hear(view_range, pos)
 	return see
+
+/obj/machinery/camera/proc/update_computers_watched_by()
+	for(var/obj/machinery/computer/security/computer as anything in computers_watched_by)
+		computer.update_camera_view()
 
 /atom/proc/auto_turn()
 	//Automatically turns based on nearby walls.

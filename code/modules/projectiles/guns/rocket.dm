@@ -3,7 +3,7 @@
 	name = "rocket launcher"
 	desc = "Say hello to my little friend"
 	icon_state = "rocket"
-	item_state = "rocket"
+	item_state = "launcher"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 10
@@ -30,8 +30,7 @@
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
 		if(rockets.len < max_rockets)
-			user.drop_item()
-			I.loc = src
+			user.drop_transfer_item_to_loc(I, src)
 			rockets += I
 			to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
 			to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
@@ -47,11 +46,10 @@
 	if(rockets.len)
 		var/obj/item/ammo_casing/rocket/I = rockets[1]
 		var/obj/item/missile/M = new /obj/item/missile(user.loc)
-		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
+		playsound(user.loc, 'sound/weapons/gunshots/1launcher.ogg', 70, 1)
 		M.primed = 1
 		M.throw_at(target, missile_range, missile_speed, user, 1)
-		message_admins("[key_name_admin(user)] fired a rocket from a rocket launcher ([name]).")
-		log_game("[key_name_admin(user)] used a rocket launcher ([name]).")
+		add_attack_logs(user, target, "fired rocket launcher [name]")
 		rockets -= I
 		qdel(I)
 	else

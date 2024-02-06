@@ -18,21 +18,20 @@
 
 	maxHealth = 50
 	health = 50
-
 	voice_name = "diona nymph"
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
 	emote_see = list("chirrups")
+	tts_seed = "Priest"
 
 	response_help  = "pets"
 	response_disarm = "pushes"
 	response_harm   = "kicks"
 
-	melee_damage_lower = 5
-	melee_damage_upper = 8
-	attacktext = "bites"
+	melee_damage_lower = 1
+	melee_damage_upper = 1
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
-	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
 
 	speed = 0
 	stop_automated_movement = 0
@@ -43,6 +42,8 @@
 	can_collar = TRUE
 
 	a_intent = INTENT_HELP
+
+	var/random_name = TRUE
 	var/gestalt_alert = "merged with gestalt" //used in adding and clearing alert
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
 	var/awareness_donors = 3 //amount of blood donors needed for understand language
@@ -63,7 +64,7 @@
 
 /datum/action/innate/diona/evolve
 	name = "Evolve"
-	icon_icon = 'icons/obj/cloning.dmi'
+	icon_icon = 'icons/obj/machines/cloning.dmi'
 	button_icon_state = "pod_1"
 
 /datum/action/innate/diona/evolve/Activate()
@@ -95,7 +96,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/diona/resist()
+/mob/living/simple_animal/diona/run_resist()
 	..()
 	split()
 
@@ -191,13 +192,19 @@
 		adult.add_language(L.name)
 	adult.regenerate_icons()
 
-	adult.name = "diona ([rand(100,999)])"
-	adult.real_name = adult.name
-	adult.ckey = ckey
-	adult.real_name = adult.dna.species.get_random_name()	//I hate this being here of all places but unfortunately dna is based on real_name!
+	if(random_name)
+		adult.name = "diona ([rand(100,999)])"
+		adult.real_name = adult.name
+		adult.real_name = adult.dna.species.get_random_name()
+		//I hate this being here of all places but unfortunately dna is based on real_name!
+	else
+		adult.name = name
+		adult.real_name = real_name
+
+	mind.transfer_to(adult)
 
 	for(var/obj/item/W in contents)
-		unEquip(W)
+		drop_item_ground(W)
 
 	qdel(src)
 	return TRUE
@@ -264,37 +271,16 @@
 		to_chat(src, "<span class='noticealien'>The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind.</span>")
 
 
-/mob/living/simple_animal/diona/put_in_hands(obj/item/W)
-	W.forceMove(get_turf(src))
-	W.layer = initial(W.layer)
-	W.plane = initial(W.plane)
-	W.dropped()
+/mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
+	I.forceMove(drop_location())
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
+	I.layer = initial(I.layer)
+	I.plane = initial(I.plane)
+	I.dropped()
 
-/mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
+
+/mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)
 	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
 	return
 
-/mob/living/simple_animal/diona/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("chirp")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
-		if("chirp")
-			message = "<B>\The [src]</B> chirps!"
-			m_type = 2 //audible
-			playsound(src, chirp_sound, 40, 1, 1)
-		if("help")
-			to_chat(src, "scream, chirp")
-
-	..()

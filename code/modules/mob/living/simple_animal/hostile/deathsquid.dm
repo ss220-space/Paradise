@@ -4,6 +4,7 @@
 
 	speed = 1
 	speak_emote = list("telepathically thunders", "telepathically booms")
+	tts_seed = "Earth"
 	maxHealth = 2500 // same as megafauna
 	health = 2500
 
@@ -14,7 +15,7 @@
 	pixel_x = -24
 	pixel_y = -24
 
-	attacktext = "slices"
+	attacktext = "режет"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 25
 	melee_damage_lower = 10

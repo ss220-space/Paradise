@@ -35,6 +35,17 @@
 	. = ..()
 	icon_state = ""
 
+/obj/effect/decal/cleanable/dust
+	name = "dust"
+	desc = "It's a little dusty. Someone should clean that up."
+	gender = PLURAL
+	density = FALSE
+	anchored = TRUE
+	layer = TURF_LAYER
+	icon = 'icons/effects/dirt.dmi'
+	icon_state = "dust"
+	mouse_opacity = FALSE
+
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"
 	mouse_opacity = TRUE
@@ -155,6 +166,7 @@
 	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
+	icon_state = "tomato_floor1"
 	random_icon_states = list("tomato_floor1", "tomato_floor2", "tomato_floor3")
 
 /obj/effect/decal/cleanable/plant_smudge
@@ -164,6 +176,7 @@
 	layer = TURF_LAYER
 	gender = NEUTER
 	icon = 'icons/effects/tomatodecal.dmi'
+	icon_state = "smashed_plant"
 	random_icon_states = list("smashed_plant")
 
 /obj/effect/decal/cleanable/egg_smudge
@@ -173,6 +186,7 @@
 	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
+	icon_state = "smashed_egg1"
 	random_icon_states = list("smashed_egg1", "smashed_egg2", "smashed_egg3")
 
 /obj/effect/decal/cleanable/pie_smudge //honk
@@ -182,6 +196,7 @@
 	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
+	icon_state = "smashed_pie"
 	random_icon_states = list("smashed_pie")
 
 /obj/effect/decal/cleanable/fungus
@@ -196,6 +211,7 @@
 	color = "#D5820B"
 	scoop_reagents = list("fungus" = 10)
 
+
 /obj/effect/decal/cleanable/confetti //PARTY TIME!
 	name = "confetti"
 	desc = "Party time!"
@@ -204,6 +220,23 @@
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
 	anchored = TRUE
+	mergeable_decal = FALSE
+
+
+/**
+ * Used for the confetti gibspawner, moves in a direction leaving a trail of confetti.
+ */
+/obj/effect/decal/cleanable/confetti/proc/streak(list/directions)
+	set waitfor = FALSE
+
+	var/direction = pick(directions)
+	for(var/i in 0 to pick(0, 20;1)) //small chance of going farther than 1 tile
+		sleep(2) //smooths movement
+		if(i > 0)
+			new /obj/effect/decal/cleanable/confetti(loc)
+		if(!step_to(src, get_step(src, direction), 0))
+			break
+
 
 /obj/effect/decal/cleanable/insectguts
 	name = "cockroach guts"
@@ -212,3 +245,13 @@
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
 	anchored = TRUE
+
+/obj/effect/decal/cleanable/glass
+	name = "tiny shards"
+	desc = "Back to sand."
+	icon = 'icons/obj/shards.dmi'
+	icon_state = "tiny"
+	anchored = TRUE
+
+/obj/effect/decal/cleanable/glass/plasma
+	icon_state = "plasmatiny"

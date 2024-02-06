@@ -8,7 +8,7 @@
 
 /obj/machinery/portable_atmospherics/pump
 	name = "Portable Air Pump"
-	icon = 'icons/obj/atmos.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "psiphon:0"
 	density = TRUE
 	volume = 1000
@@ -106,16 +106,19 @@
 				on = FALSE
 				update_icon()
 		else if(on && holding && direction == DIRECTION_OUT)
-			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
+			investigate_log("[key_name_log(user)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/pump/attack_ai(mob/user)
-	add_hiddenprint(user)
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/pump/attack_ghost(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/pump/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -149,7 +152,7 @@
 		if("power")
 			on = !on
 			if(on && direction == DIRECTION_OUT)
-				investigate_log("[key_name(usr)] started a transfer into [holding].<br>", "atmos")
+				investigate_log("[key_name_log(usr)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
 			update_icon()
 			return TRUE
 
@@ -159,14 +162,13 @@
 			else
 				direction = DIRECTION_OUT
 			if(on && holding)
-				investigate_log("[key_name(usr)] started a transfer into [holding].<br>", "atmos")
+				investigate_log("[key_name_log(usr)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("remove_tank")
 			if(holding)
 				on = FALSE
-				holding.forceMove(get_turf(src))
-				holding = null
+				replace_tank(usr, FALSE)
 			update_icon()
 			return TRUE
 

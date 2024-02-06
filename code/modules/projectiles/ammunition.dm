@@ -1,14 +1,15 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "A bullet casing."
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
+	materials = list(MAT_METAL = 1000)
 	var/fire_sound = null						//What sound should play when this ammo is fired
-	var/drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
+	var/casing_drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called
 	var/obj/item/projectile/BB = null 			//The loaded bullet
@@ -48,7 +49,13 @@
 		BB = new projectile_type(src, params)
 	return
 
-/obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!BB)
+		qdel(src)
+		return TRUE
+	return ..()
+
+/obj/item/ammo_casing/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box))
 		var/obj/item/ammo_box/box = I
 		if(isturf(loc))
@@ -57,16 +64,16 @@
 				if(box.stored_ammo.len >= box.max_ammo)
 					break
 				if(bullet.BB)
-					if(box.give_round(bullet, 0))
+					if(box.give_round(bullet, FALSE))
 						boolets++
 				else
 					continue
 			if(boolets > 0)
 				box.update_icon()
-				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
+				to_chat(user, span_notice("You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s."))
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
-				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
+				to_chat(user, span_warning("You fail to collect anything!"))
 	else
 		if(istype(I, /obj/item/screwdriver))
 			if(BB)
@@ -74,43 +81,46 @@
 					var/tmp_label = ""
 					var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
 					if(length(label_text) > 20)
-						to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
+						to_chat(user, span_warning("The inscription can be at most 20 characters long."))
 					else
 						if(label_text == "")
-							to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
+							to_chat(user, span_notice("You scratch the inscription off of [initial(BB)]."))
 							BB.name = initial(BB.name)
 						else
-							to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
+							to_chat(user, span_notice("You inscribe \"[label_text]\" into \the [initial(BB.name)]."))
 							BB.name = "[initial(BB.name)] \"[label_text]\""
 				else
-					to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
+					to_chat(user, span_notice("You can only inscribe a metal bullet."))	//because inscribing beanbags is silly
 
 			else
-				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
+				to_chat(user, span_notice("There is no bullet in the casing to inscribe anything into."))
 		..()
 
 /obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
-	for(H)
-		if(H.gloves)
-			var/obj/item/clothing/G = H.gloves
-			G.gunshot_residue = caliber
-		else
-			H.gunshot_residue = caliber
+	if(QDELETED(H))
+		return
+	if(istype(H) && H.gloves)
+		var/obj/item/clothing/G = H.gloves
+		G.gunshot_residue = caliber
+	else
+		H.gunshot_residue = caliber
 
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"
 	desc = "A box of ammo?"
 	icon_state = "357"
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "syringe_kit"
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 500)
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 10
+	pickup_sound = 'sound/items/handling/ammobox_pickup.ogg'
+	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
@@ -118,12 +128,17 @@
 	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
 	var/multiload = 1
-	var/list/initial_mats //For calculating refund values.
+	var/list/initial_mats
+	var/replacing_sound = 'sound/weapons/gun_interactions/shotguninsert.ogg'
+	var/remove_sound = 'sound/weapons/gun_interactions/remove_bullet.ogg'
+	var/insert_sound = 'sound/weapons/gun_interactions/bulletinsert.ogg'
+	var/load_sound = 'sound/weapons/gun_interactions/shotguninsert.ogg'
 
 /obj/item/ammo_box/New()
 	..()
-	for(var/i in 1 to max_ammo)
-		stored_ammo += new ammo_type(src)
+	if(ammo_type)
+		for(var/i in 1 to max_ammo)
+			stored_ammo += new ammo_type(src)
 	update_icon()
 	initial_mats = materials.Copy()
 	update_mat_value()
@@ -145,17 +160,17 @@
 		update_icon()
 		return b
 
-/obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)
+/obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = FALSE)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
-		return 0
+		return FALSE
 
 	if(stored_ammo.len < max_ammo)
 		stored_ammo += R
 		R.loc = src
-		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
+		playsound(src, insert_sound, 50, 1)
 		update_mat_value()
-		return 1
+		return TRUE
 	//for accessibles magazines (e.g internal ones) when full, start replacing spent ammo
 	else if(replace_spent)
 		for(var/obj/item/ammo_casing/AC in stored_ammo)
@@ -165,16 +180,16 @@
 
 				stored_ammo += R
 				R.loc = src
-				playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
+				playsound(src, replacing_sound, 50, 1)
 				update_mat_value()
-				return 1
+				return TRUE
 
-	return 0
+	return FALSE
 
 /obj/item/ammo_box/proc/can_load(mob/user)
-	return 1
+	return TRUE
 
-/obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = 0, replace_spent = 0)
+/obj/item/ammo_box/attackby(obj/item/A, mob/user, params, silent = FALSE, replace_spent = FALSE)
 	var/num_loaded = 0
 	if(!can_load(user))
 		return
@@ -187,27 +202,27 @@
 				num_loaded++
 			if(!multiload || !did_load)
 				break
+		AM.update_mat_value()
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC, replace_spent))
-			user.drop_item()
-			AC.loc = src
+			user.drop_transfer_item_to_loc(AC, src)
 			num_loaded++
 	if(num_loaded)
 		if(!silent)
-			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
-		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
+			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]!"))
+		playsound(src, load_sound, 50, 1)
 		A.update_icon()
 		update_icon()
 
 	return num_loaded
 
-/obj/item/ammo_box/attack_self(mob/user as mob)
+/obj/item/ammo_box/attack_self(mob/user)
 	var/obj/item/ammo_casing/A = get_round()
 	if(A)
 		user.put_in_hands(A)
-		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
+		playsound(src, remove_sound, 50, 1)
+		to_chat(user, span_notice("You remove a round from \the [src]!"))
 		update_icon()
 
 /obj/item/ammo_box/update_icon()
@@ -219,22 +234,27 @@
 			icon_state = "[icon_base]-[stored_ammo.len ? "[max_ammo]" : "0"]"
 	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
 
-/obj/item/ammo_box/proc/update_mat_value()
-	var/num_ammo = 0
-	for(var/B in stored_ammo)
-		var/obj/item/ammo_casing/AC = B
-		if(!AC.BB) //Skip any casing which are empty
+/obj/item/ammo_box/update_materials_coeff(new_coeff)
+	. = ..()
+	for(var/obj/item/ammo_casing/ammo in stored_ammo)
+		if(!ammo.BB || !length(ammo.materials)) //Skip any casing which are empty
 			continue
-		num_ammo++
-	for(var/M in initial_mats) //In case we have multiple types of materials
-		var/materials_per = initial_mats[M] / max_ammo
+		ammo.update_materials_coeff(materials_coeff)
+	update_mat_value()
 
-		var/value = max(materials_per * num_ammo, 500) //Enforce a minimum of 500 units even if empty.
-		materials[M] = value
+/obj/item/ammo_box/proc/update_mat_value()
+	materials = initial_mats.Copy()
+	for(var/material in materials)
+		materials[material] *= materials_coeff
+	for(var/obj/item/ammo_casing/ammo in stored_ammo)
+		if(!ammo.BB || !length(ammo.materials)) //Skip any casing which are empty
+			continue
+		for(var/material in ammo.materials)
+			materials[material] += ammo.materials[material]
 
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count()
-	return stored_ammo.len
+	return length(stored_ammo)
 
 /obj/item/ammo_box/magazine/proc/empty_magazine()
 	var/turf_mag = get_turf(src)

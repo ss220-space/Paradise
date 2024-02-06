@@ -8,27 +8,27 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	language = null
+	language = "Galactic Common"
 	default_language = "Chimpanzee"
 	species_traits = list(NO_EXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
-	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)
+	no_equip = list(slot_belt, slot_gloves)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
 	ventcrawler = VENTCRAWLER_NUDE
-	dietflags = DIET_OMNI
 	show_ssd = 0
 	eyes = "blank_eyes"
-	death_message = "lets out a faint chimper as it collapses and stops moving..."
+	death_message = "изда%(ёт,ют)% тихий визг, пада%(ет,ют)% и переста%(ёт,ют)% двигаться..."
 
-	scream_verb = "визжит"
-	male_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
-	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+	scream_verb = "визж%(ит,ат)%"
+	male_scream_sound = list('sound/goonstation/voice/monkey_scream.ogg')
+	female_scream_sound = list('sound/goonstation/voice/monkey_scream.ogg')
 	male_dying_gasp_sounds = list('sound/goonstation/voice/male_dying_gasp_1.ogg', 'sound/goonstation/voice/male_dying_gasp_2.ogg', 'sound/goonstation/voice/male_dying_gasp_3.ogg', 'sound/goonstation/voice/male_dying_gasp_4.ogg', 'sound/goonstation/voice/male_dying_gasp_5.ogg')
 	female_dying_gasp_sounds = list('sound/goonstation/voice/female_dying_gasp_1.ogg', 'sound/goonstation/voice/female_dying_gasp_2.ogg', 'sound/goonstation/voice/female_dying_gasp_3.ogg', 'sound/goonstation/voice/female_dying_gasp_4.ogg', 'sound/goonstation/voice/female_dying_gasp_5.ogg')
 
+	blood_species = "Human"
 	tail = "chimptail"
 	bodyflags = HAS_TAIL
 	reagent_tag = PROCESS_ORG
@@ -41,18 +41,19 @@
 	burn_mod = 1.5
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right),
-		"tail" =   list("path" = /obj/item/organ/external/tail/monkey))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey),
+	)
 
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
@@ -86,33 +87,37 @@
 
 	greater_form = /datum/species/tajaran
 	default_language = "Farwa"
+	blood_species = "Tajaran"
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
 	tail = "farwatail"
 	reagent_tag = PROCESS_ORG
+
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/tajaran,
-		"lungs" =    /obj/item/organ/internal/lungs/tajaran,
-		"liver" =    /obj/item/organ/internal/liver/tajaran,
-		"kidneys" =  /obj/item/organ/internal/kidneys/tajaran,
-		"brain" =    /obj/item/organ/internal/brain/tajaran,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/tajaran,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/tajaran,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/tajaran,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/tajaran,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/tajaran,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/tajaran/farwa, //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"tail" =   list("path" = /obj/item/organ/external/tail/monkey/tajaran),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/tajaran),
+	)
 
 
 /datum/species/monkey/vulpkanin
@@ -124,33 +129,37 @@
 
 	greater_form = /datum/species/vulpkanin
 	default_language = "Wolpin"
+	blood_species = "Vulpkanin"
 	flesh_color = "#966464"
 	base_color = "#000000"
 	tail = "wolpintail"
 	reagent_tag = PROCESS_ORG
+
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
-		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,
-		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
-		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
-		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/vulpkanin,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/vulpkanin,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/vulpkanin,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/vulpkanin,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/vulpkanin,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES =  /obj/item/organ/internal/eyes/vulpkanin/wolpin, // Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"tail" =   list("path" = /obj/item/organ/external/tail/monkey/vulpkanin),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/vulpkanin/wolpin),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/vulpkanin),
+	)
 
 /datum/species/monkey/skrell
 	name = "Neara"
@@ -161,20 +170,38 @@
 
 	greater_form = /datum/species/skrell
 	default_language = "Neara"
+	blood_species = "Skrell"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	reagent_tag = PROCESS_ORG
 	tail = null
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/skrell,
-		"lungs" =    /obj/item/organ/internal/lungs/skrell,
-		"liver" =    /obj/item/organ/internal/liver/skrell,
-		"kidneys" =  /obj/item/organ/internal/kidneys/skrell,
-		"brain" =    /obj/item/organ/internal/brain/skrell,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/skrell //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/skrell,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/skrell,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/skrell,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/skrell,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/skrell,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/skrell,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
+
+	has_limbs = list(
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+	)
+
+
 /datum/species/monkey/skrell/on_species_gain(mob/living/carbon/human/H)
 	..()
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
@@ -193,6 +220,7 @@
 	tail = "stoktail"
 	greater_form = /datum/species/unathi
 	default_language = "Stok"
+	blood_species = "Unathi"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
 	reagent_tag = PROCESS_ORG
@@ -200,25 +228,27 @@
 	bodyflags = HAS_TAIL
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/unathi,
-		"lungs" =    /obj/item/organ/internal/lungs/unathi,
-		"liver" =    /obj/item/organ/internal/liver/unathi,
-		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/unathi
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/unathi,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/unathi,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/unathi,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/unathi,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"tail" =   list("path" = /obj/item/organ/external/tail/monkey/unathi),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/unathi),
+	)

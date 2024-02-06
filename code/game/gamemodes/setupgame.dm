@@ -72,10 +72,9 @@
 	GLOB.muteblock      = getAssignedBlock("MUTE",       numsToAssign)
 	GLOB.radblock       = getAssignedBlock("RAD",        numsToAssign)
 	GLOB.fatblock       = getAssignedBlock("FAT",        numsToAssign)
-	GLOB.chavblock      = getAssignedBlock("CHAV",       numsToAssign)
 	GLOB.swedeblock     = getAssignedBlock("SWEDE",      numsToAssign)
 	GLOB.scrambleblock  = getAssignedBlock("SCRAMBLE",   numsToAssign)
-	GLOB.strongblock    = getAssignedBlock("STRONG",     numsToAssign, good=1)
+	GLOB.weakblock      = getAssignedBlock("WEAK",     numsToAssign)
 	GLOB.hornsblock     = getAssignedBlock("HORNS",      numsToAssign)
 	GLOB.comicblock     = getAssignedBlock("COMIC",      numsToAssign)
 
@@ -90,6 +89,7 @@
 	GLOB.immolateblock  = getAssignedBlock("IMMOLATE",   numsToAssign)
 	GLOB.empathblock    = getAssignedBlock("EMPATH",     numsToAssign, DNA_HARD_BOUNDS, good=1)
 	GLOB.polymorphblock = getAssignedBlock("POLYMORPH",  numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.strongblock   = getAssignedBlock("STRONG",     numsToAssign, DNA_HARDER_BOUNDS, good=1)
 
 	//
 	// /vg/ Blocks
@@ -99,6 +99,8 @@
 	GLOB.loudblock      = getAssignedBlock("LOUD",       numsToAssign)
 	GLOB.dizzyblock     = getAssignedBlock("DIZZY",      numsToAssign)
 
+	// Paradise220 Disabilities
+	GLOB.auld_imperial_block = getAssignedBlock("AULD_IMPERIAL", numsToAssign)
 
 	//
 	// Static Blocks

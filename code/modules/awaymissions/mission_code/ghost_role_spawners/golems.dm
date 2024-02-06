@@ -34,7 +34,8 @@
 		/obj/item/stack/sheet/wood					= /datum/species/golem/wood,
 		/obj/item/stack/sheet/bluespace_crystal		= /datum/species/golem/bluespace,
 		/obj/item/stack/sheet/mineral/adamantine	= /datum/species/golem/adamantine,
-		/obj/item/stack/sheet/plastic				= /datum/species/golem/plastic)
+		/obj/item/stack/sheet/plastic				= /datum/species/golem/plastic,
+		/obj/item/stack/sheet/brass					= /datum/species/golem/clockwork)
 
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/O = I
@@ -72,12 +73,13 @@
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
-		name += " ([initial(species.prefix)])"
+		name += " ([initial(species.prefix)]ая)"
 		mob_species = species
 	. = ..()
 	var/area/A = get_area(src)
 	if(!mapload && A)
-		notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src)
+		var/golem_type_text = initial(species.prefix) != null ? initial(species.prefix) + "ая " : initial(species.prefix)
+		notify_ghosts("Собрана [golem_type_text]оболочка голема на [A.name].", source = src) //здесь пробел перед не нужен, это не ошибка!
 	if(has_owner && creator)
 		important_info = "Serve your creator, even if they are an antag."
 		flavour_text = "You are a golem created to serve your creator."
@@ -97,20 +99,19 @@
 		but avoid actively interfering with the station unless you have a valid roleplay reason to do so, such as an invitation by crewmembers.</span>")
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
-		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
-		log_admin("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
+		add_game_logs("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 	if(ishuman(new_spawn))
 		var/mob/living/carbon/human/H = new_spawn
 		if(has_owner)
 			var/datum/species/golem/G = H.dna.species
 			G.owner = owner
-		if(!name)
+		if(!name || name == "Unknown")
 			H.rename_character(null, H.dna.species.get_random_name())
 		else
 			H.rename_character(null, name)
 		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
+			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
+			H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 			H.mind.miming = TRUE
 
 	if(has_owner)
@@ -128,9 +129,9 @@
 			return
 		if(QDELETED(src) || uses <= 0)
 			return
-		log_game("[key_name(user)] golem-swapped into [src]")
+		add_game_logs("golem-swapped into [src]", user)
 		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
-		create(ckey = user.ckey, name = user.real_name)
+		create(plr = user, name = user.real_name)
 		user.death()
 		return
 
@@ -145,3 +146,22 @@
 	mob_name = "a free golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
+
+/obj/effect/mob_spawn/human/golem/clockwork
+	name = "fleshed golem shell"
+	desc = "This body used to be made of flesh, but now... it's just shaped shell into brass."
+	mob_name = "a clockwork golem"
+	can_transfer = FALSE
+	mob_species = /datum/species/golem/clockwork
+	banType = ROLE_CLOCKER
+	offstation_role = FALSE
+	random = TRUE
+	important_info = "You are an antag, but you have to serve other human-servants in order to summen Ratvar!"
+	description = "You are a Golem. You move slowly. You are unable to wear clothes, but can still use most tools. Serve Ratvar and complete the ritual at any cost."
+	flavour_text = "You are a clock working golem convened to serve Ratvar."
+
+/obj/effect/mob_spawn/human/golem/clockwork/special(mob/living/new_spawn, name)
+	var/datum/species/golem/X = mob_species
+	to_chat(new_spawn, "[initial(X.info_text)]")
+	new_spawn.rename_character(null, new_spawn.dna.species.get_random_name())
+	SSticker.mode.add_clocker(new_spawn)

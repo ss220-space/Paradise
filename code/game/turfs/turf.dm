@@ -6,6 +6,10 @@
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
+	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
+
+	var/real_layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
 
 	///Properties for open tiles (/floor)
 	/// All the gas vars, on the turf, are meant to be utilized for initializing a gas datum and setting its first gas values; the turf vars are never further modified at runtime; it is never directly used for calculations by the atmospherics system.
@@ -35,15 +39,25 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	var/list/footstep_sounds
-	var/shoe_running_volume = 50
-	var/shoe_walking_volume = 20
+	var/footstep = null
+	var/barefootstep = null
+	var/clawfootstep = null
+	var/heavyfootstep = null
+
+	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
+	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
+	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
+
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+
+	if(layer == MAP_EDITOR_TURF_LAYER)
+		layer = real_layer
+
 
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()
@@ -93,6 +107,7 @@
 	..()
 
 /turf/attack_hand(mob/user as mob)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	user.Move_Pulled(src)
 
 /turf/ex_act(severity)
@@ -104,7 +119,7 @@
 	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
 		for(var/obj/machinery/door/airlock/A in src)
 			if(A.density)
-				to_chat(user, "<span class='warning'>That type of pipe won't fit under [A]!</span>")
+				to_chat(user, span_warning("That type of pipe won't fit under [A]!"))
 				return
 		our_rpd.create_disposals_pipe(user, src)
 	else if(our_rpd.mode == RPD_ROTATE_MODE)
@@ -122,11 +137,12 @@
 
 /turf/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/bullet/gyro))
-		explosion(src, -1, 0, 2)
+		explosion(src, -1, 0, 2, cause = Proj)
 	..()
 	return FALSE
 
-/turf/Enter(atom/movable/mover as mob|obj, atom/forget)
+
+/turf/Enter(atom/movable/mover, atom/oldloc)
 	if(!mover)
 		return TRUE
 
@@ -134,7 +150,7 @@
 	if(isturf(mover.loc))
 		// Nothing but border objects stop you from leaving a tile, only one loop is needed
 		for(var/obj/obstacle in mover.loc)
-			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != forget)
+			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != oldloc)
 				mover.Bump(obstacle, TRUE)
 				return FALSE
 
@@ -142,23 +158,31 @@
 	//Next, check objects to block entry that are on the border
 	for(var/atom/movable/border_obstacle in src)
 		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, mover.loc, 1) && (forget != border_obstacle))
+			if(!border_obstacle.CanPass(mover, mover.loc, 1) && border_obstacle != oldloc)
 				mover.Bump(border_obstacle, TRUE)
 				return FALSE
 		else
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
-	if(!src.CanPass(mover, src))
+	if(!CanPass(mover, src))
 		mover.Bump(src, TRUE)
 		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
+	var/atom/movable/tompost_bump
+	var/top_layer = 0
 	for(var/atom/movable/obstacle in large_dense)
-		if(!obstacle.CanPass(mover, mover.loc, 1) && (forget != obstacle))
-			mover.Bump(obstacle, TRUE)
-			return FALSE
+		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
+			if(obstacle.layer > top_layer)
+				tompost_bump = obstacle
+				top_layer = obstacle.layer	//Probably separate variable is a better solution, but its good for now.
+	if(tompost_bump)
+		mover.Bump(tompost_bump, TRUE)
+		return FALSE
+
 	return TRUE //Nothing found to block so return success!
+
 
 /turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
 	..()
@@ -180,13 +204,13 @@
 // override for space turfs, since they should never hide anything
 /turf/space/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1)
+		if(O.level == 1 && O.initialized)
 			O.hide(FALSE)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-	if(L)
+	if(L && L.initialized)
 		qdel(L)
 
 /turf/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
@@ -196,7 +220,7 @@
 	return ChangeTurf(path, defer_change, keep_icon, ignore_air)
 
 //Creates a new turf
-/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	if(!path)
 		return
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
@@ -217,7 +241,8 @@
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
 	var/turf/W = new path(src)
-	W.baseturf = old_baseturf
+	if(copy_existing_baseturf)
+		W.baseturf = old_baseturf
 
 	if(!defer_change)
 		W.AfterChange(ignore_air)
@@ -249,6 +274,9 @@
 /turf/proc/BeforeChange()
 	return
 
+/turf/proc/is_safe()
+	return FALSE
+
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
@@ -268,50 +296,6 @@
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
 
-/turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
-	..()
-	RemoveLattice()
-	if(!ignore_air)
-		Assimilate_Air()
-
-//////Assimilate Air//////
-/turf/simulated/proc/Assimilate_Air()
-	if(air)
-		var/aoxy = 0 //Holders to assimilate air from nearby turfs
-		var/anitro = 0
-		var/aco = 0
-		var/atox = 0
-		var/asleep = 0
-		var/ab = 0
-		var/atemp = 0
-		var/turf_count = 0
-
-		for(var/direction in GLOB.cardinal)//Only use cardinals to cut down on lag
-			var/turf/T = get_step(src, direction)
-			if(istype(T, /turf/space))//Counted as no air
-				turf_count++//Considered a valid turf for air calcs
-				continue
-			else if(istype(T, /turf/simulated/floor))
-				var/turf/simulated/S = T
-				if(S.air)//Add the air's contents to the holders
-					aoxy += S.air.oxygen
-					anitro += S.air.nitrogen
-					aco += S.air.carbon_dioxide
-					atox += S.air.toxins
-					asleep += S.air.sleeping_agent
-					ab += S.air.agent_b
-					atemp += S.air.temperature
-				turf_count++
-		air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
-		air.nitrogen = (anitro / max(turf_count, 1))
-		air.carbon_dioxide = (aco / max(turf_count, 1))
-		air.toxins = (atox / max(turf_count, 1))
-		air.sleeping_agent = (asleep / max(turf_count, 1))
-		air.agent_b = (ab / max(turf_count, 1))
-		air.temperature = (atemp / max(turf_count, 1))
-		if(SSair)
-			SSair.add_to_active(src)
-
 /turf/proc/ReplaceWithLattice()
 	ChangeTurf(baseturf)
 	new /obj/structure/lattice(locate(x, y, z))
@@ -324,9 +308,9 @@
 	for(var/mob/living/M in src)
 		if(M == U)
 			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
-		INVOKE_ASYNC(M, /mob/.proc/gib)
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, gib))
 	for(var/obj/mecha/M in src)//Mecha are not gibbed but are damaged.
-		INVOKE_ASYNC(M, /obj/mecha/.proc/take_damage, 100, "brute")
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
@@ -404,7 +388,7 @@
 				L.Add(T)
 	return L
 
-// check for all turfs, including unsimulated ones
+// check for all turfs, including space ones
 /turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T
@@ -482,6 +466,7 @@
 		GLOB.cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
+	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params)
 	if(can_lay_cable())
 		if(istype(I, /obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/C = I
@@ -509,14 +494,6 @@
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
 
-/turf/ratvar_act(force, ignore_mobs, probability = 40)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.ratvar_act()
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
@@ -526,6 +503,8 @@
 
 /turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
+	I.plane = GAME_PLANE
+	I.layer = OBJ_LAYER
 	I.appearance = AM.appearance
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
@@ -561,5 +540,53 @@
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/water_act(volume, temperature, source)
- 	return FALSE
+
+/**
+ * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
+ *
+ * Arguments:
+ * * caller: The movable, if one exists, being used for mobility checks to see what tiles it can reach
+ * * ID: An ID card that decides if we can gain access to doors that would otherwise block a turf
+ * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
+ * * no_id: When true, doors with public access will count as impassible
+*/
+/turf/proc/reachableAdjacentTurfs(caller, ID, simulated_only, no_id = FALSE)
+	var/static/space_type_cache = typecacheof(/turf/space)
+	. = list()
+
+	for(var/iter_dir in GLOB.cardinal)
+		var/turf/turf_to_check = get_step(src, iter_dir)
+		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))
+			continue
+		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID, no_id = no_id))
+			continue
+		. += turf_to_check
+
+
+/**
+ * Makes an image of up to 20 things on a turf + the turf.
+ */
+/turf/proc/photograph(limit = 20)
+	var/image/I = new()
+	I.add_overlay(src)
+	for(var/V in contents)
+		var/atom/A = V
+		if(A.invisibility)
+			continue
+		I.add_overlay(A)
+		if(limit)
+			limit--
+		else
+			return I
+	return I
+
+
+/turf/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(mob_hurt || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
+	C.visible_message(span_danger("[C] slams into [src]!"),
+					span_userdanger("You slam into [src]!"))
+	C.take_organ_damage(damage)
+	C.Weaken(3 SECONDS)
+

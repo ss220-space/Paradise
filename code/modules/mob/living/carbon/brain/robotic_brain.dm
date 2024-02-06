@@ -1,3 +1,5 @@
+#define ROBOTIC_BRAIN_COOLDOWN 10 MINUTES
+
 /obj/item/mmi/robotic_brain
 	name = "robotic brain"
 	desc = "An advanced circuit, capable of housing a non-sentient synthetic intelligence."
@@ -22,6 +24,25 @@
 	var/ejected_flavor_text = "circuit"
 
 	dead_icon = "boris_blank"
+
+/obj/item/mmi/robotic_brain/syndicate
+	name = "suspicious robotic brain"
+	syndicate = 1
+	icon_state = "sofia_blank"
+	blank_icon = "sofia_blank"
+	searching_icon = "sofia_recharging"
+	occupied_icon = "sofia" //придерживаюсь странных традиций с именами робомозга ага
+	dead_icon = "sofia_blank"
+	origin_tech = "biotech=3;programming=3;plasmatech=2;syndicate=5"
+
+/obj/item/mmi/robotic_brain/ninja
+	name = "technological robotic brain"
+	ninja = 1
+	icon_state = "wanter_blank"
+	blank_icon = "wanter_blank"
+	searching_icon = "wanter_recharging"
+	occupied_icon = "wanter"
+	dead_icon = "wanter_blank"
 
 /obj/item/mmi/robotic_brain/Destroy()
 	imprinted_master = null
@@ -105,13 +126,16 @@
 	if(radio)
 		radio_action.ApplyIcon()
 
-/obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/H)
-	if(..())
-		if(imprinted_master)
-			to_chat(H, "<span class='biggerdanger'>You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost.</span>")
+
+/obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+	. = ..()
+	if(. && imprinted_master)
+		to_chat(target, span_dangerbigger("You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost."))
+
 
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
 	searching = FALSE
+	brainmob.revive() /// in case of death
 	brainmob.key = candidate.key
 	name = "[src] ([brainmob.name])"
 
@@ -160,16 +184,29 @@
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
 		to_chat(O, "<span class='warning'>You are job banned from this role.</span>")
 		return
+	var/deathtime = world.time - O.timeofdeath
+	if(ROBOTIC_BRAIN_COOLDOWN && deathtime < ROBOTIC_BRAIN_COOLDOWN && O.started_as_observer == 0)
+		var/deathtimeminutes = round(deathtime / (60 SECONDS))
+		var/pluralcheck = "minute"
+		if(deathtimeminutes == 0)
+			pluralcheck = ""
+		else if(deathtimeminutes == 1)
+			pluralcheck = " [deathtimeminutes] minute and"
+		else if(deathtimeminutes > 1)
+			pluralcheck = " [deathtimeminutes] minutes and"
+		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
+		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(usr, "<span class='warning'>You must wait [ROBOTIC_BRAIN_COOLDOWN / 600] minutes to respawn as [src]!</span>")
+		return
 	to_chat(O, "<span class='notice'>You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer.</span>")
 	ghost_volunteers.Add(O)
 
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
-	. += "Its speaker is turned [silenced ? "off" : "on"]."
-	. += "<span class='info'>*---------*</span>"
+	. += "<span class='notice'>Its speaker is turned [silenced ? "off" : "on"].</span>"
 	. = ..()
 
-	var/list/msg = list("<span class='info'>")
+	var/list/msg = list("<span class='notice'>")
 
 	if(brainmob && brainmob.key)
 		switch(brainmob.stat)
@@ -182,7 +219,7 @@
 				msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	else
 		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
-	msg += "*---------*</span>"
+	msg += "</span>"
 	. += msg.Join("")
 
 /obj/item/mmi/robotic_brain/emp_act(severity)
@@ -201,8 +238,8 @@
 	brainmob = new(src)
 	brainmob.name = "[pick(list("PBU", "HIU", "SINA", "ARMA", "OSI"))]-[rand(100, 999)]"
 	brainmob.real_name = brainmob.name
-	brainmob.forceMove(src)
 	brainmob.container = src
+	brainmob.forceMove(src)
 	brainmob.stat = CONSCIOUS
 	brainmob.SetSilence(0)
 	brainmob.dna = new(brainmob)

@@ -1,5 +1,3 @@
-#define TANK_MAX_RELEASE_PRESSURE (3*ONE_ATMOSPHERE)
-
 /obj/item/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
@@ -8,16 +6,17 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
-	force = 5.0
-	throwforce = 10.0
+	force = 5
+	throwforce = 10
 	throw_speed = 1
 	throw_range = 4
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0, fire = 80, acid = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
-	var/distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
+	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
 	var/volume = 70
+	var/fillable = TRUE
 
 /obj/item/tank/New()
 	..()
@@ -25,6 +24,9 @@
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
 	air_contents.temperature = T20C
+
+	populate_gas()
+
 	START_PROCESSING(SSobj, src)
 	return
 
@@ -35,6 +37,8 @@
 
 	return ..()
 
+/obj/item/tank/proc/populate_gas()
+	return
 
 /obj/item/tank/ui_action_click(mob/user)
 	toggle_internals(user)
@@ -48,7 +52,7 @@
 		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
 		C.internal = null
 	else
-		if(!C.get_organ_slot("breathing_tube")) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
+		if(!C.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE)) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
 			if(!C.wear_mask) // Do we have a mask equipped?
 				return FALSE
 
@@ -69,9 +73,11 @@
 		C.internal = src
 	C.update_action_buttons_icon()
 
-
-/obj/item/tank/examine(mob/user)
+/obj/item/tank/examine(mob/user, show_contents_info = TRUE)
 	. = ..()
+
+	if(!show_contents_info)
+		return
 
 	var/obj/icon = src
 	if(istype(loc, /obj/item/assembly))
@@ -82,7 +88,7 @@
 			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
 		return
 
-	var/celsius_temperature = air_contents.temperature-T0C
+	var/celsius_temperature = air_contents.temperature - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
@@ -99,6 +105,7 @@
 		descriptive = "furiously hot"
 
 	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
+	. += "<span class='notice'>The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
@@ -127,9 +134,6 @@
 	if(istype(loc, /obj/item/assembly))
 		icon = loc
 
-	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(air_contents, user)
-
 	if(istype(W, /obj/item/assembly_holder))
 		bomb_assemble(W,user)
 
@@ -147,10 +151,10 @@
 
 /obj/item/tank/ui_data(mob/user)
 	var/list/data = list()
-	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
-	data["releasePressure"] = round(distribute_pressure ? distribute_pressure : 0)
+	data["tankPressure"] = round(air_contents.return_pressure())
+	data["releasePressure"] = round(distribute_pressure)
 	data["defaultReleasePressure"] = round(TANK_DEFAULT_RELEASE_PRESSURE)
-	data["minReleasePressure"] = round(TANK_DEFAULT_RELEASE_PRESSURE)
+	data["minReleasePressure"] = round(TANK_MIN_RELEASE_PRESSURE)
 	data["maxReleasePressure"] = round(TANK_MAX_RELEASE_PRESSURE)
 	var/mob/living/carbon/C = user
 	if(!istype(C))
@@ -171,7 +175,7 @@
 			if(pressure == "reset")
 				pressure = initial(distribute_pressure)
 			else if(pressure == "min")
-				pressure = TANK_DEFAULT_RELEASE_PRESSURE
+				pressure = TANK_MIN_RELEASE_PRESSURE
 			else if(pressure == "max")
 				pressure = TANK_MAX_RELEASE_PRESSURE
 			else if(text2num(pressure) != null)
@@ -179,7 +183,7 @@
 			else
 				. = FALSE
 			if(.)
-				distribute_pressure = clamp(round(pressure), TANK_DEFAULT_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
+				distribute_pressure = clamp(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
 		if("internals")
 			toggle_internals(usr)
 		else
@@ -193,6 +197,9 @@
 /obj/item/tank/return_air()
 	return air_contents
 
+/obj/item/tank/return_analyzable_air()
+	return air_contents
+
 /obj/item/tank/assume_air(datum/gas_mixture/giver)
 	air_contents.merge(giver)
 
@@ -204,10 +211,9 @@
 		return null
 
 	var/tank_pressure = air_contents.return_pressure()
-	if(tank_pressure < distribute_pressure)
-		distribute_pressure = tank_pressure
+	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = distribute_pressure*volume_to_return/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 	return remove_air(moles_needed)
 
@@ -226,8 +232,8 @@
 	var/pressure = air_contents.return_pressure()
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		if(!istype(loc,/obj/item/transfer_valve))
-			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-			log_game("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [x], [y], [z]")
+			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [ADMIN_COORDJMP(src)]")
+			add_game_logs("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [COORD(src)]")
 //		to_chat(world, "<span class='notice'>[x],[y] tank is exploding: [pressure] kPa</span>")
 		//Give the gas a chance to build up more pressure through reacting
 		air_contents.react()
@@ -239,7 +245,7 @@
 
 //		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
 
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cause = src)
 		if(istype(loc,/obj/item/transfer_valve))
 			qdel(loc)
 		else

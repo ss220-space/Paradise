@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned syndicates have internals cameras which are viewable through a monitor inside the Syndicate Mothership Bridge. Assigning the team's detailed task is recommended from there. The first one selected/spawned will be the team leader.")
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a Syndicate Strike Team.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a Syndicate Strike Team.</span>")
 
 	var/input = null
 	while(!input)
@@ -94,9 +94,9 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			is_leader = FALSE
 			syndicate_commando_number--
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>")
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send SST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send SST") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/create_syndicate_death_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
@@ -120,52 +120,9 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.offstation_role = TRUE
 	SSticker.mode.traitors |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
-	new_syndicate_commando.equip_syndicate_commando(is_leader)
+	if(is_leader)
+		new_syndicate_commando.equipOutfit(/datum/outfit/admin/syndicate_strike_team/officer)
+	else
+		new_syndicate_commando.equipOutfit(/datum/outfit/admin/syndicate_strike_team)
 	qdel(spawn_location)
 	return new_syndicate_commando
-
-/mob/living/carbon/human/proc/equip_syndicate_commando(is_leader = FALSE, full_gear = FALSE)
-	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt/syndteam(src)
-	R.set_frequency(SYNDTEAM_FREQ)
-	equip_to_slot_or_del(R, slot_l_ear)
-	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)
-	if(!full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
-
-	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(src), slot_in_backpack)
-
-	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
-	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
-		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
-	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/card/emag(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), slot_l_store)
-
-	if(full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), slot_wear_suit)
-		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
-		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), slot_belt)
-		equip_to_slot_or_del(new /obj/item/tank/jetpack/oxygen/harness(src), slot_s_store)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_shoes)
-		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), slot_r_hand)
-		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), slot_in_backpack)
-
-	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
-	D.implant(src)
-	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
-	W.name = "[real_name]'s ID Card"
-	W.icon_state = "syndie"
-	W.assignment = "Syndicate Commando"
-	W.access += get_syndicate_access(W.assignment)
-	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
-
-	return 1

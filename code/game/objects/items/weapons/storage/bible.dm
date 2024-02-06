@@ -6,10 +6,14 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 	/// Is the sprite of this bible customisable
 	var/customisable = FALSE
+	var/god_punishment = 0 //used for diffrent abuse with bible (healing self is one of them)
+	var/last_used = 0
 
 	/// Associative list of accociative lists of bible variants, used for the radial menu
 	var/static/list/bible_variants = list(
@@ -34,41 +38,48 @@
 	user.dust()
 	return OBLITERATION
 
-/obj/item/storage/bible/fart_act(mob/living/M)
-	if(QDELETED(M) || M.stat == DEAD)
-		return
-	M.visible_message("<span class='danger'>[M] farts on \the [name]!</span>")
-	M.visible_message("<span class='userdanger'>A mysterious force smites [M]!</span>")
-	M.suiciding = TRUE
-	do_sparks(3, 1, M)
-	M.gib()
+
+/obj/item/storage/bible/fart_act(mob/living/user)
+	if(QDELETED(user) || user.stat == DEAD)
+		return FALSE
+	user.visible_message(span_danger("[user] farts on \the [name]!"))
+	user.visible_message(span_userdanger("A mysterious force smites [user]!"))
+	user.suiciding = TRUE
+	do_sparks(3, 1, user)
+	user.gib()
 	return TRUE // Don't run the fart emote
+
 
 /obj/item/storage/bible/booze
 	name = "bible"
 	desc = "To be applied to the head repeatedly."
 	icon_state ="bible"
 
-/obj/item/storage/bible/booze/New()
-	..()
+/obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
+
 //BS12 EDIT
  // All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/heal_amt = 10
-		for(var/obj/item/organ/external/affecting in H.bodyparts)
+		for(var/obj/item/organ/external/affecting as anything in H.bodyparts)
 			if(affecting.heal_damage(heal_amt, heal_amt))
 				H.UpdateDamageIcon()
 	return
 
+/obj/item/storage/bible/proc/god_forgive()
+	god_punishment = max(0, god_punishment - round((world.time - last_used) / (30 SECONDS))) //forgive 1 sin every 30 seconds
+	last_used = world.time
+
 /obj/item/storage/bible/attack(mob/living/M, mob/living/user)
 	add_attack_logs(user, M, "Hit with [src]")
+	god_forgive() //god forgives everyone
 	if(!iscarbon(user))
 		M.LAssailant = null
 	else
@@ -85,11 +96,12 @@
 	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>The [src] slips out of your hand and hits your head.</span>")
 		user.take_organ_damage(10)
-		user.Paralyse(20)
+		user.Paralyse(40 SECONDS)
 		return
 
 	if(M.stat != DEAD && ishuman(M))
 		var/mob/living/carbon/human/H = M
+		var/mob/living/carbon/human/chaplain = user
 		if(prob(60))
 			bless(H)
 			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_them()]self" : "[H]"] with the power of [deity_name]!</span>",
@@ -101,6 +113,18 @@
 				to_chat(M, "<span class='warning'>You feel dumber.</span>")
 			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
 			playsound(src.loc, "punch", 25, 1, -1)
+		if(H == chaplain)
+			god_punishment++
+
+		if(god_punishment == 5)
+			to_chat(chaplain, "<h1><span class='danger'>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</span></h1>")
+		else if(god_punishment > 5) //lets apply punishment AFTER heal
+			chaplain.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+			playsound(get_turf(chaplain), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+			chaplain.adjustFireLoss(65)
+			chaplain.Weaken(10 SECONDS)
+			to_chat(chaplain, "<span class='userdanger'>Вы злоупотребили волей бога и за что были наказаны!</span>")
+
 	else
 		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
 		playsound(src.loc, "punch", 25, 1, -1)
@@ -122,17 +146,20 @@
 			airlock.cult_reveal()
 
 	if(user.mind?.isholy && target.reagents)
-		if(target.reagents.has_reagent("water")) //blesses all the water in the holder
-			to_chat(user, "<span class='notice'>You bless [target].</span>")
-			var/water2holy = target.reagents.get_reagent_amount("water")
-			target.reagents.del_reagent("water")
-			target.reagents.add_reagent("holywater", water2holy)
+		add_holy_water(user, target)
 
-		if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
-			to_chat(user, "<span class='notice'>You purify [target].</span>")
-			var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
-			target.reagents.del_reagent("unholywater")
-			target.reagents.add_reagent("holywater", unholy2clean)
+/obj/item/storage/bible/proc/add_holy_water(mob/user, atom/target)
+	if(target.reagents.has_reagent("water")) //blesses all the water in the holder
+		to_chat(user, "<span class='notice'>You bless [target].</span>")
+		var/water2holy = target.reagents.get_reagent_amount("water")
+		target.reagents.del_reagent("water")
+		target.reagents.add_reagent("holywater", water2holy)
+
+	if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
+		to_chat(user, "<span class='notice'>You purify [target].</span>")
+		var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
+		target.reagents.del_reagent("unholywater")
+		target.reagents.add_reagent("holywater", unholy2clean)
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()
@@ -145,7 +172,7 @@
 		var/image/bible_image = image('icons/obj/storage.dmi', icon_state = icons["state"])
 		skins[I] = bible_image
 
-	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, .proc/radial_check, user), TRUE)
+	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, PROC_REF(radial_check), user), TRUE)
 	if(!choice || !radial_check(user))
 		return
 	var/choice_icons = bible_variants[choice]
@@ -180,6 +207,6 @@
 	if(!user?.mind.isholy || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(!src || !H.is_in_hands(src) || H.incapacitated())
+	if(!src || !H.is_type_in_hands(src) || H.incapacitated())
 		return FALSE
 	return TRUE

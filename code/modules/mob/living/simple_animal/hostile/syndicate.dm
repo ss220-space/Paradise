@@ -17,7 +17,7 @@
 	harm_intent_damage = 5
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	attacktext = "punches"
+	attacktext = "бьёт"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
@@ -27,6 +27,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
 	del_on_death = 1
 	sentience_type = SENTIENCE_OTHER
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 ///////////////Sword and shield////////////
 
@@ -35,11 +36,11 @@
 	melee_damage_upper = 25
 	icon_state = "syndicate_sword"
 	icon_living = "syndicate_sword"
-	attacktext = "slashes"
+	attacktext = "рубит"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 28
 	status_flags = 0
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy/syndie)
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
@@ -195,7 +196,7 @@
 		say("Intruder!")
 		depotarea.increase_alert(reason)
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death(gibbed)
 	if(!istype(depotarea))
 		return ..()
 	if(alert_on_death)
@@ -234,7 +235,7 @@
 		// Does almost no danage in melee, but decent damage at range, and its shots go through glass.
 		melee_damage_lower = 10
 		melee_damage_upper = 10
-		attacktext = "punches"
+		attacktext = "бьёт"
 		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = 1
 		rapid = 3
@@ -264,7 +265,7 @@
 		// 50% chance of switching to extremely dangerous ranged variant
 		melee_damage_lower = 10
 		melee_damage_upper = 10
-		attacktext = "punches"
+		attacktext = "бьёт"
 		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = 1
 		retreat_distance = 3
@@ -310,11 +311,10 @@
 	icon_state = "syndicate_space_sword"
 	icon_living = "syndicate_space_sword"
 	speed = 1
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy/syndie)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
 	return TRUE
-
 
 /mob/living/simple_animal/hostile/syndicate/ranged
 	ranged = 1
@@ -355,7 +355,7 @@
 	obj_damage = 0
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "cuts"
+	attacktext = "терзает"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list("syndicate")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

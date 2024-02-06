@@ -19,9 +19,6 @@
 /obj/item/assembly_holder/proc/process_activation(var/obj/item/D)
 	return
 
-/obj/item/assembly_holder/IsAssemblyHolder()
-	return TRUE
-
 /obj/item/assembly_holder/Destroy()
 	if(a_left)
 		a_left.holder = null
@@ -40,11 +37,11 @@
 		return FALSE
 	if(!A1.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A1)
+			user.drop_transfer_item_to_loc(A1, src)
 		A1.forceMove(src)
 	if(!A2.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(A2)
+			user.drop_transfer_item_to_loc(A2, src)
 		A2.forceMove(src)
 	A1.holder = src
 	A2.holder = src
@@ -79,9 +76,9 @@
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			. += "[src] is ready!"
+			. += "<span class='notice'>[src] is ready!</span>"
 		else
-			. += "[src] can be attached!"
+			. += "<span class='notice'>[src] can be attached!</span>"
 
 
 /obj/item/assembly_holder/HasProximity(atom/movable/AM)
@@ -116,32 +113,42 @@
 	if(a_right)
 		a_right.hear_message(M, msg)
 
-/obj/item/assembly_holder/proc/process_movement() // infrared beams and prox sensors
+/obj/item/assembly_holder/proc/process_movement(mob/user) // infrared beams and prox sensors
 	if(a_left && a_right)
-		a_left.holder_movement()
-		a_right.holder_movement()
+		a_left.holder_movement(user)
+		a_right.holder_movement(user)
 
 /obj/item/assembly_holder/Move()
 	. = ..()
 	process_movement()
 	return
 
-/obj/item/assembly_holder/pickup()
+/obj/item/assembly_holder/pickup(mob/user)
 	. = ..()
-	process_movement()
+	process_movement(user)
 
-/obj/item/assembly_holder/Bump()
+/obj/item/assembly_holder/Bump(atom/A)
 	..()
-	process_movement()
+	var/triggered
+	if(ismob(A) || isobj(A))
+		var/atom/movable/AM = A
+		if(AM.throwing?.thrower)
+			triggered = AM.throwing.thrower
+		else if(ismob(AM))
+			triggered = AM
+	process_movement(triggered)
 
-/obj/item/assembly_holder/throw_impact() // called when a throw stops
+/obj/item/assembly_holder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops
 	..()
-	process_movement()
+	var/triggered
+	if(throwing?.thrower)
+		triggered = throwing.thrower
+	process_movement(triggered)
 
-/obj/item/assembly_holder/attack_hand()//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
+/obj/item/assembly_holder/attack_hand(mob/user)//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
 	if(a_left && a_right)
-		a_left.holder_movement()
-		a_right.holder_movement()
+		a_left.holder_movement(user)
+		a_right.holder_movement(user)
 	..()
 	return
 
@@ -190,7 +197,7 @@
 		qdel(src)
 
 
-/obj/item/assembly_holder/process_activation(obj/D, normal = TRUE, special = TRUE)
+/obj/item/assembly_holder/process_activation(obj/D, normal = TRUE, special = TRUE, mob/user)
 	if(!D)
 		return FALSE
 	if(normal && a_right && a_left)
@@ -199,5 +206,8 @@
 		if(a_left != D)
 			a_left.pulsed(0)
 	if(master)
-		master.receive_signal()
+		var/datum/signal/signal = new
+		signal.source = src
+		signal.user = user
+		master.receive_signal(signal)
 	return TRUE

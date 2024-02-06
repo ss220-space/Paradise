@@ -27,37 +27,39 @@ effective or pretty fucking useless.
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 
-	var/times_used = 0 //Number of times it's been used.
-	var/max_uses = 5
+	var/charges = 3
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
-	if(times_used >= max_uses)
-		. += "<span class='notice'>[src] is out of charge.</span>"
-	if(times_used < max_uses)
-		. += "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>"
+	. += "<span class='notice'>[src] has [charges] charges left.</span>"
 
 /obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user)
 		return
-	if(times_used >= max_uses)
-		to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
+	if(charges == 0)
+		to_chat(user, "<span class='danger'>The mind batterer is out of charge!</span>")
 		return
 
 
-	for(var/mob/living/carbon/human/M in oview(7, user))
+	for(var/mob/living/carbon/human/M in orange (10, user))
 		if(prob(50))
-			M.Weaken(rand(4,7))
+			M.Weaken(rand(2,6) SECONDS)
+			M.adjustStaminaLoss(rand(35, 60))
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
 			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
+			M.Slowed(10 SECONDS)
+			M.Confused(6 SECONDS)
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
-	times_used++
-	to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
-	if(times_used >= max_uses)
-		icon_state = "battererburnt"
+	charges--
+	to_chat(user, "<span class='notice'>You trigger [src]. It has [charges] charges left.</span>")
+	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
+
+/obj/item/batterer/proc/recharge()
+	charges++
+
 
 
 /*
@@ -101,8 +103,8 @@ effective or pretty fucking useless.
 		spawn((wavelength+(intensity*4))*10)
 			if(M)
 				if(intensity >= 5)
-					M.apply_effect(round(intensity/1.5), PARALYZE)
-				M.apply_effect(intensity*10, IRRADIATE)
+					M.Paralyse(intensity * 40/3 SECONDS)
+					M.apply_effect(intensity * 10, IRRADIATE)
 	else
 		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
 
@@ -171,7 +173,7 @@ effective or pretty fucking useless.
 
 /obj/item/teleporter
 	name = "Syndicate teleporter"
-	desc = "A strange syndicate version of a cult veil shifter. Warrenty voided if exposed to EMP."
+	desc = "A strange syndicate version of a cult veil shifter. Warranty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele"
 	throwforce = 5
@@ -254,9 +256,9 @@ effective or pretty fucking useless.
 			var/turf/fragging_location = destination
 			telefrag(fragging_location, user)
 			C.forceMove(destination)
-			playsound(mobloc, "sparks", 50, TRUE)
+			playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-			playsound(destination, "sparks", 50, TRUE)
+			playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 		else if (EMP_D == FALSE && !(bagholding.len && !flawless)) // This is where the fun begins
 			var/direction = get_dir(user, destination)
@@ -267,26 +269,26 @@ effective or pretty fucking useless.
 		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
-	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(T, /turf/simulated/shuttle/floor) || istype(T, /turf/simulated/shuttle/floor4) || istype(T, /turf/simulated/shuttle/plating))
+	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(T, /turf/simulated/floor/shuttle) || istype(T, /turf/simulated/floor/shuttle/objective_check) || istype(T, /turf/simulated/floor/shuttle/plating))
 		return TRUE
 
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first
 	var/temp_direction = user.dir
 	switch(temp_direction)
-		if(NORTHEAST || SOUTHEAST)
+		if(NORTHEAST, SOUTHEAST)
 			user.dir = EAST
-		if(NORTHWEST || SOUTHWEST)
+		if(NORTHWEST, SOUTHWEST)
 			user.dir = WEST
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
 	var/saving_throw
 	switch(direction)
-		if(NORTH || SOUTH)
+		if(NORTH, SOUTH)
 			if(prob(50))
 				saving_throw = EAST
 			else
 				saving_throw = WEST
-		if(EAST || WEST)
+		if(EAST, WEST)
 			if(prob(50))
 				saving_throw = NORTH
 			else
@@ -315,10 +317,10 @@ effective or pretty fucking useless.
 		var/turf/fragging_location = new_destination
 		telefrag(fragging_location, user)
 		C.forceMove(new_destination)
-		playsound(mobloc, "sparks", 50, TRUE)
+		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
-		playsound(new_destination, "sparks", 50, TRUE)
+		playsound(new_destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	else //We tried to save. We failed. Death time.
 		get_fragged(user, destination)
 
@@ -326,16 +328,16 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
 	user.forceMove(destination)
-	playsound(mobloc, "sparks", 50, TRUE)
+	playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-	playsound(destination, "sparks", 50, TRUE)
+	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
 	for(var/obj/item/W in user)
 		if(istype(W, /obj/item/organ)|| istype(W, /obj/item/implant))
 			continue
-		if(!user.unEquip(W))
+		if(!user.drop_item_ground(W))
 			qdel(W)
 	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
 	user.gib()
@@ -343,9 +345,8 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
-		M.Stun(3)
-		M.Weaken(3)
-		to_chat(M, "<span_class='warning'> [user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		M.Weaken(6 SECONDS)
+		to_chat(M, "<span_class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
@@ -363,12 +364,10 @@ effective or pretty fucking useless.
 /obj/item/storage/box/syndie_kit/teleporter
 	name = "syndicate teleporter kit"
 
-/obj/item/storage/box/syndie_kit/teleporter/New()
-	..()
+/obj/item/storage/box/syndie_kit/teleporter/populate_contents()
 	new /obj/item/teleporter(src)
 	new /obj/item/paper/teleporter(src)
-	return
-
+	new /obj/item/clothing/glasses/chameleon/meson(src)
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
 

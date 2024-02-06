@@ -7,19 +7,32 @@
 	anchored = TRUE
 	max_integrity = 1
 	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
-	var/obj/item/holosign_creator/projector
+	var/obj/item/projector
 
 /obj/structure/holosign/Initialize(mapload, source_projector)
 	. = ..()
-	if(source_projector)
-		projector = source_projector
-		projector.signs += src
+	if(istype(source_projector, /obj/item/holosign_creator))
+		var/obj/item/holosign_creator/holosign = source_projector
+		holosign.signs += src
+		projector = holosign
+	else if(istype(source_projector, /obj/item/mecha_parts/mecha_equipment/holowall))
+		var/obj/item/mecha_parts/mecha_equipment/holowall/holoproj = source_projector
+		holoproj.barriers += src
+		projector = holoproj
 
 /obj/structure/holosign/Destroy()
-	if(projector)
-		projector.signs -= src
+	if(istype(projector, /obj/item/holosign_creator))
+		var/obj/item/holosign_creator/holosign = projector
+		holosign.signs -= src
+		projector = null
+	else if(istype(projector, /obj/item/mecha_parts/mecha_equipment/holowall))
+		var/obj/item/mecha_parts/mecha_equipment/holowall/holoproj = projector
+		holoproj.barriers -= src
 		projector = null
 	return ..()
+
+/obj/structure/holosign/has_prints()
+	return FALSE
 
 /obj/structure/holosign/attack_hand(mob/living/user)
 	. = ..()
@@ -41,6 +54,28 @@
 	desc = "The words flicker as if they mean nothing."
 	icon_state = "holosign"
 
+/obj/structure/holosign/wetsign/proc/wet_timer_start(obj/item/holosign_creator/HS_C)
+	addtimer(CALLBACK(src, PROC_REF(wet_timer_finish), HS_C), 82 SECONDS, TIMER_UNIQUE)
+
+/obj/structure/holosign/wetsign/proc/wet_timer_finish(obj/item/holosign_creator/HS_C)
+	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, 1)
+	qdel(src)
+
+/obj/structure/holosign/wetsign/mine
+	desc = "The words flicker as if they mean something."
+
+/obj/structure/holosign/wetsign/mine/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(!isliving(AM))
+		return
+	triggermine(AM)
+
+/obj/structure/holosign/wetsign/mine/proc/triggermine(mob/living/victim)
+	empulse(src, 1, 1, TRUE, "[victim] triggered holosign")
+	if(ishuman(victim))
+		victim.adjustStaminaLoss(100)
+	qdel(src)
+
 /obj/structure/holosign/barrier
 	name = "holo barrier"
 	desc = "A short holographic barrier which can only be passed by walking."
@@ -58,6 +93,10 @@
 	if(iscarbon(mover))
 		var/mob/living/carbon/C = mover
 		if(allow_walk && (C.m_intent == MOVE_INTENT_WALK || (C.pulledby && C.pulledby.m_intent == MOVE_INTENT_WALK)))
+			return TRUE
+	else if(issilicon(mover))
+		var/mob/living/silicon/S = mover
+		if(allow_walk && (S.m_intent == MOVE_INTENT_WALK || (S.pulledby && S.pulledby.m_intent == MOVE_INTENT_WALK)))
 			return TRUE
 
 /obj/structure/holosign/barrier/engineering
@@ -120,16 +159,18 @@
 			var/mob/living/M = user
 			M.electrocute_act(15, "Energy Barrier", safety = TRUE)
 			shockcd = TRUE
-			addtimer(CALLBACK(src, .proc/cooldown), 5)
+			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
-/obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
+/obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/moving_atom)
+	..()
+
 	if(shockcd)
 		return
 
-	if(!isliving(AM))
+	if(!isliving(moving_atom))
 		return
 
-	var/mob/living/M = AM
+	var/mob/living/M = moving_atom
 	M.electrocute_act(15, "Energy Barrier", safety = TRUE)
 	shockcd = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), 5)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)

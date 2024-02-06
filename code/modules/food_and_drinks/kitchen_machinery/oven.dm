@@ -1,7 +1,7 @@
 /obj/machinery/cooking
 	name = "oven"
 	desc = "Cookies are ready, dear."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "oven_off"
 	layer = 2.9
 	density = 1
@@ -16,6 +16,7 @@
 	updatefood()
 
 /obj/machinery/cooking/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
 	if(on)
 		to_chat(user, "The machine is already running.")
 		return
@@ -27,8 +28,7 @@
 			return
 		else
 			to_chat(user, "You put [F] into [src] for cooking.")
-			user.drop_item()
-			F.loc = src
+			user.drop_transfer_item_to_loc(F, src)
 			on = TRUE
 			if(!candy)
 				icon_state = "oven_on"
@@ -52,7 +52,7 @@
 /obj/machinery/cooking/oven
 	name = "oven"
 	desc = "Cookies are ready, dear."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "oven_off"
 
 /obj/machinery/cooking/oven/updatefood()
@@ -66,7 +66,7 @@
 /obj/machinery/cooking/candy
 	name = "candy machine"
 	desc = "Get yer box of deep fried deep fried deep fried deep fried cotton candy cereal sandwich cookies here!"
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "mixer_off"
 	candy = 1
 

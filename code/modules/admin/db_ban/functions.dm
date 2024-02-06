@@ -80,10 +80,10 @@
 		computerid = bancid
 		ip = banip
 	else if(ismob(banned_mob))
-		message_admins("<font color='red'>[key_name_admin(usr)] attempted to add a ban based on a ckey-less mob, with no ckey provided. Report this bug.",1)
+		message_admins("<font color='red'>[key_name_admin(usr)] attempted to add a ban based on a ckey-less mob, with no ckey provided. Report this bug.")
 		return
 	else
-		message_admins("<font color='red'>[key_name_admin(usr)] attempted to add a ban based on a non-existent mob, with no ckey provided. Report this bug.",1)
+		message_admins("<font color='red'>[key_name_admin(usr)] attempted to add a ban based on a non-existent mob, with no ckey provided. Report this bug.")
 		return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("player")] WHERE ckey=:ckey", list(
@@ -97,7 +97,7 @@
 		validckey = TRUE
 	if(!validckey)
 		if(!banned_mob || (banned_mob && !IsGuestKey(banned_mob.key)))
-			message_admins("<font color='red'>[key_name_admin(usr)] attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>",1)
+			message_admins("<font color='red'>[key_name_admin(usr)] attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>")
 			qdel(query)
 			return
 
@@ -131,7 +131,7 @@
 			adminwho += ", [C]"
 
 	if(maxadminbancheck)
-		var/datum/db_query/adm_query = SSdbcore.NewQuery("SELECT count(id) AS num FROM [format_table_name("ban")] WHERE (a_ckey=:a_ckey) AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)", list(
+		var/datum/db_query/adm_query = SSdbcore.NewQuery("SELECT count(id) AS num FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")] WHERE (a_ckey=:a_ckey) AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)", list(
 			"a_ckey" = a_ckey
 		))
 		if(!adm_query.warn_execute())
@@ -146,7 +146,7 @@
 		qdel(adm_query)
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`)
+		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`)
 		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
 	"}, list(
 		// Get ready for parameters
@@ -171,7 +171,7 @@
 
 	qdel(query_insert)
 	to_chat(usr, "<span class='notice'>Ban saved to database.</span>")
-	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
+	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.")
 
 	if(announce_in_discord)
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Ban]** [a_ckey] applied a [bantype_str] on [ckey]")
@@ -232,7 +232,7 @@
 	else
 		bantype_sql = "bantype = '[bantype_str]'"
 
-	var/sql = "SELECT id FROM [format_table_name("ban")] WHERE ckey=:ckey AND [bantype_sql] AND (unbanned is null OR unbanned = false)"
+	var/sql = "SELECT id FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")] WHERE ckey=:ckey AND [bantype_sql] AND (unbanned is null OR unbanned = false)"
 	var/list/sql_params = list(
 		"ckey" = ckey
 	)
@@ -282,7 +282,7 @@
 		to_chat(usr, "Cancelled")
 		return
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, duration, reason, job FROM [format_table_name("ban")] WHERE id=:banid", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, duration, reason, job FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")] WHERE id=:banid", list(
 		"banid" = banid
 	))
 	if(!query.warn_execute())
@@ -317,7 +317,7 @@
 					return
 
 			var/edit_reason = "- [eckey] changed ban reason from <cite><b>\\\"[reason]\\\"</b></cite> to <cite><b>\\\"[value]\\\"</b></cite><BR>"
-			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET reason=:value, edits = CONCAT(IFNULL(edits,''), :edittext) WHERE id=:banid", list(
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("ban")] SET reason=:value, edits = CONCAT(IFNULL(edits,''), :edittext) WHERE id=:banid", list(
 				"edittext" = edit_reason,
 				"banid" = banid,
 				"value" = value
@@ -327,7 +327,7 @@
 				qdel(update_query)
 				return
 			qdel(update_query)
-			message_admins("[key_name_admin(usr)] has edited a ban for [pckey]'s reason from [reason] to [value]",1)
+			message_admins("[key_name_admin(usr)] has edited a ban for [pckey]'s reason from [reason] to [value]")
 		if("duration")
 			if(!value)
 				value = input("Insert the new duration (in minutes) for [pckey]'s ban", "New Duration", "[duration]", null) as null|num
@@ -336,7 +336,7 @@
 					return
 
 			var/edittext = "- [eckey] changed ban duration from [duration] to [value]<br>"
-			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET duration=:value, edits = CONCAT(IFNULL(edits, ''), :edittext), expiration_time = DATE_ADD(bantime, INTERVAL :value MINUTE) WHERE id=:banid", list(
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("ban")] SET duration=:value, edits = CONCAT(IFNULL(edits, ''), :edittext), expiration_time = DATE_ADD(bantime, INTERVAL :value MINUTE) WHERE id=:banid", list(
 				"edittext" = edittext,
 				"banid" = banid,
 				"value" = value
@@ -346,7 +346,7 @@
 				return
 
 			qdel(update_query)
-			message_admins("[key_name_admin(usr)] has edited a ban for [pckey]'s duration from [duration] to [value]",1)
+			message_admins("[key_name_admin(usr)] has edited a ban for [pckey]'s duration from [duration] to [value]")
 		if("unban")
 			if(alert("Unban [pckey]?", "Unban?", "Yes", "No") == "Yes")
 				DB_ban_unban_by_id(banid)
@@ -372,7 +372,7 @@
 	var/ban_number = 0 //failsafe
 
 	var/pckey
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("ban")] WHERE id=:banid", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")] WHERE id=:banid", list(
 		"banid" = id
 	))
 	if(!query.warn_execute())
@@ -399,7 +399,7 @@
 	var/unban_computerid = src.owner:computer_id
 	var/unban_ip = src.owner:address
 
-	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip WHERE id=:id", list(
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip WHERE id=:id", list(
 		"unban_ckey" = unban_ckey,
 		"unban_computerid" = unban_computerid,
 		"unban_ip" = unban_ip,
@@ -475,7 +475,8 @@
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in list("Syndicate") + GLOB.antag_roles)
 		output += "<option value='[j]'>[j]</option>"
-	output += "</select></td></tr></table>"
+	output += "</select></td></tr>"
+	output += "<tr><td width='50%' align='right'><input type='checkbox' value='round' name='dbbanaddround'> Add current ID and server name</td></tr></table>"
 	output += "<b>Reason:<br></b><textarea name='dbbanreason' cols='50'></textarea><br>"
 	output += "<input type='submit' value='Add ban'>"
 	output += "</form>"
@@ -583,7 +584,7 @@
 
 			var/datum/db_query/select_query = SSdbcore.NewQuery({"
 				SELECT id, bantime, bantype, reason, job, duration, expiration_time, ckey, a_ckey, unbanned, unbanned_ckey, unbanned_datetime, edits, ip, computerid
-				FROM [format_table_name("ban")] WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
+				FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")] WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
 
 			if(!select_query.warn_execute())
 				qdel(select_query)

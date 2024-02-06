@@ -14,7 +14,7 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	melee_damage_type = BURN
-	attacktext = "shocks"
+	attacktext = "бьёт током"
 	attack_sound = "sparks"
 
 	response_help  = "pets"
@@ -23,6 +23,7 @@
 	speed = 0
 	mob_size = MOB_SIZE_SMALL
 	speak_emote = list("beeps","clicks","chirps")
+	tts_seed = "Antimage"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -40,7 +41,7 @@
 /mob/living/simple_animal/spiderbot/Destroy()
 	if(emagged)
 		QDEL_NULL(mmi)
-		explosion(get_turf(src), -1, -1, 3, 5)
+		explosion(get_turf(src), -1, -1, 3, 5, cause = src)
 	else
 		eject_brain()
 	return ..()
@@ -79,15 +80,14 @@
 
 		to_chat(user, "<span class='notice'>You install [B] in [src]!</span>")
 
-		user.drop_item()
-		B.forceMove(src)
+		user.drop_transfer_item_to_loc(B, src)
 		mmi = B
 		transfer_personality(B)
 
 		update_icon()
 		return 1
 
-	else if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
+	else if(O.GetID())
 		if(!mmi)
 			to_chat(user, "<span class='warning'>There's no reason to swipe your ID - the spiderbot has no brain to remove.</span>")
 			return 0
@@ -96,13 +96,7 @@
 			to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
 			return 0
 
-		var/obj/item/card/id/id_card
-
-		if(istype(O, /obj/item/card/id))
-			id_card = O
-		else
-			var/obj/item/pda/pda = O
-			id_card = pda.id
+		var/obj/item/card/id/id_card = O.GetID()
 
 		if(ACCESS_ROBOTICS in id_card.access)
 			to_chat(user, "<span class='notice'>You swipe your access card and pop the brain out of [src].</span>")
@@ -134,7 +128,7 @@
 	if(emagged)
 		to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
 		return 0
-	else
+	else if(istype(user))
 		emagged = 1
 		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
@@ -154,7 +148,7 @@
 	if(emagged)
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!</span>")
 
-/mob/living/simple_animal/spiderbot/proc/update_icon()
+/mob/living/simple_animal/spiderbot/update_icon()
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi))
 			icon_state = "spiderbot-chassis-mmi"

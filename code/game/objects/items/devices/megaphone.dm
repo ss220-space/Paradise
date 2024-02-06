@@ -11,7 +11,7 @@
 	var/emagged = 0
 	var/insults = 0
 	var/span = ""
-	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
+	var/list/insultmsg = list("ИДИТЕ НАХУЙ!", "Я АГЕНТ СИНДИКАТА!", "СБ, ЗАСТРЕЛИТЕ МЕНЯ НЕМЕДЛЕННО!", "У МЕНЯ БОМБА!", "КАПИТАН ГАНДОН!", "ЗА СИНДИКАТ!")
 
 /obj/item/megaphone/attack_self(mob/living/user as mob)
 	if(user.client && (user.client.prefs.muted & MUTE_IC))
@@ -65,18 +65,26 @@
 		spawn(20)
 			spamcheck = 0
 
-/obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
+/obj/item/megaphone/proc/saymsg(mob/living/user, message)
+	add_say_logs(user, message, language = "Megaphone")
+	var/message_tts = message
+	message = replace_characters(message, list("+"))
 	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
-	log_say(message, user)
-	for(var/obj/O in oview(14, get_turf(src)))
+	for(var/obj/O in range(14, get_turf(src)))
 		O.hear_talk(user, message_to_multilingual("<span class='reallybig'>[message]</span>"))
 
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear() && M.stat != UNCONSCIOUS)
 			M.create_chat_message(user, message, FALSE, FALSE)
+		var/effect = SOUND_EFFECT_MEGAPHONE
+		if(isrobot(user))
+			effect = SOUND_EFFECT_MEGAPHONE_ROBOT
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, M, message_tts, user.tts_seed, FALSE, effect)
+		log_debug("megaphone.saymsg(): [message]")
 
-/obj/item/megaphone/emag_act(user as mob)
+/obj/item/megaphone/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
 		emagged = 1
 		insults = rand(1, 3)//to prevent dickflooding

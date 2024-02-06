@@ -138,6 +138,13 @@
 			else
 				if(!S.tails_allowed || !(body_accessory in S.tails_allowed))
 					continue
+		if(location == "wing")
+			if(!body_accessory)
+				if(S.wings_allowed)
+					continue
+			else
+				if(!S.wings_allowed || !(body_accessory in S.wings_allowed))
+					continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
 			if(species == "Machine")//If the user is a species that can have a robotic head...
@@ -158,21 +165,21 @@
 
 	return m_style
 
-/proc/random_body_accessory(species = "Vulpkanin")
-	var/body_accessory = null
+/**
+  * Returns a random body accessory for a given species name. Can be null based on is_optional argument.
+  *
+  * Arguments:
+  * * species - The name of the species to filter valid body accessories.
+  * * is_optional - Whether *no* body accessory (null) is an option.
+ */
+/proc/random_body_accessory(species = "Vulpkanin", is_optional = FALSE)
 	var/list/valid_body_accessories = list()
-	for(var/B in GLOB.body_accessory_by_name)
-		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(!istype(A))
-			valid_body_accessories += "None" //The only null entry should be the "None" option.
-			continue
-		if(species in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-			valid_body_accessories += B
-
-	if(valid_body_accessories.len)
-		body_accessory = pick(valid_body_accessories)
-
-	return body_accessory
+	if(is_optional)
+		valid_body_accessories += null
+	if(GLOB.body_accessory_by_species[species])
+		for(var/name in GLOB.body_accessory_by_species[species])
+			valid_body_accessories.Add(name)
+	return length(valid_body_accessories) ? pick(valid_body_accessories) : null
 
 /proc/random_name(gender, species = "Human")
 
@@ -251,6 +258,7 @@
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
+				usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			else
 				return 0
 		if("search", SEC_RECORD_STATUS_SEARCH)
@@ -259,6 +267,7 @@
 			status = SEC_RECORD_STATUS_MONITOR
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
 			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
+			usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
@@ -272,64 +281,7 @@
 	update_all_mob_security_hud()
 	return 1
 
-/*
-Proc for attack log creation, because really why not
-1 argument is the actor
-2 argument is the target of action
-3 is the full description of the action
-4 is whether or not to message admins
-This is always put in the attack log.
-*/
-
-/proc/add_attack_logs(atom/user, target, what_done, custom_level)
-	if(islist(target)) // Multi-victim adding
-		var/list/targets = target
-		for(var/t in targets)
-			add_attack_logs(user, t, what_done, custom_level)
-		return
-
-	var/user_str = key_name_log(user) + COORD(user)
-	var/target_str
-	var/target_info
-	if(isatom(target))
-		var/atom/AT = target
-		target_str = key_name_log(AT) + COORD(AT)
-		target_info = key_name_admin(target)
-	else
-		target_str = target
-		target_info = target
-	var/mob/MU = user
-	var/mob/MT = target
-	if(istype(MU))
-		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
-		MU.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
-	if(istype(MT))
-		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
-		MT.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
-	log_attack(user_str, target_str, what_done)
-
-	var/loglevel = ATKLOG_MOST
-	if(!isnull(custom_level))
-		loglevel = custom_level
-	else if(istype(MT))
-		if(istype(MU))
-			if(!MU.ckey && !MT.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
-				loglevel = ATKLOG_ALL
-			else if(!MU.ckey || !MT.ckey || (MU.ckey == MT.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
-				loglevel = ATKLOG_ALMOSTALL
-		else
-			var/area/A = get_area(MT)
-			if(A && A.hide_attacklogs)
-				loglevel = ATKLOG_ALMOSTALL
-	else
-		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
-	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
-		loglevel = ATKLOG_FEW
-
-
-	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
-
-/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
+/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -355,7 +307,10 @@ This is always put in the attack log.
 		if(!user || !target)
 			. = 0
 			break
-		if(uninterruptible)
+		if(only_use_extra_checks)
+			if(check_for_true_callbacks(extra_checks))
+				. = 0
+				break
 			continue
 
 		if(drifting && !user.inertia_dir)
@@ -386,7 +341,7 @@ This is always put in the attack log.
 	if(target)
 		Tloc = target.loc
 
-	var/atom/Uloc = user.loc
+	var/turf/Uturf = get_turf(user)
 
 	var/drifting = FALSE
 	if(!user.Process_Spacemove(0) && user.inertia_dir)
@@ -409,8 +364,12 @@ This is always put in the attack log.
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
 	if(use_default_checks)
-		extra_checks += CALLBACK(user, /mob.proc/IsWeakened)
-		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsWeakened))
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsStunned))
+		if(istype(holding, /obj/item/gripper/))
+			var/obj/item/gripper/gripper = holding
+			if(!(gripper.isEmpty()))
+				extra_checks += CALLBACK(gripper, TYPE_PROC_REF(/obj/item/gripper, isEmpty))
 
 	while(world.time < endtime)
 		sleep(1)
@@ -419,9 +378,9 @@ This is always put in the attack log.
 
 		if(drifting && !user.inertia_dir)
 			drifting = FALSE
-			Uloc = user.loc
+			Uturf = get_turf(user)
 
-		if(!user || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
+		if(!user || user.stat || (!drifting && get_turf(user) != Uturf) || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 
@@ -461,7 +420,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, .proc/do_after_once_checks, cache_key)))
+	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, /proc/do_after_once_checks, cache_key)))
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)
@@ -561,14 +520,22 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	if(!.)
 		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
 
+// Gets the first mob contained in an atom but doesn't warn the user at all
+/proc/get_mob_in_atom_without_warning(atom/A)
+	if(!istype(A))
+		return null
+	if(ismob(A))
+		return A
+
+	return locate(/mob) in A
+
 // Suppress the mouse macros
 /client/var/next_mouse_macro_warning
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return
 	if(!client.next_mouse_macro_warning) // Log once
-		log_admin("[key_name(usr)] attempted to use a mouse macro: [verbused] [params]")
-		message_admins("[key_name_admin(usr)] attempted to use a mouse macro: [verbused] [html_encode(params)]")
+		log_and_message_admins("attempted to use a mouse macro: [verbused] [html_encode(params)]")
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
 		usr << 'sound/misc/sadtrombone.ogg'
 		client.next_mouse_macro_warning = world.time + 600
@@ -655,3 +622,37 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 			if(player.stat == CONSCIOUS)
 				active++
 	return list(total, active, dead, antag)
+
+
+/**
+  * Safe ckey getter
+  *
+  * Should be used whenever broadcasting public information about a mob,
+  * as this proc will make a best effort to hide the users ckey if they request it.
+  * It will first check the mob for a client, then use the mobs last ckey as a directory lookup.
+  * If a client cant be found to check preferences on, it will just show as DC'd.
+  * This proc should only be used for public facing stuff, not administration related things.
+  *
+  * Arguments:
+  * * M - Mob to get a safe ckey of
+  */
+/proc/safe_get_ckey(mob/M)
+	var/client/C = null
+	if(M.client)
+		C = M.client
+	else if(M.last_known_ckey in GLOB.directory)
+		C = GLOB.directory[M.last_known_ckey]
+
+	// Now we see if we need to respect their privacy
+	var/out_ckey
+	if(C)
+		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
+			out_ckey = "(Anon)"
+		else
+			out_ckey = C.ckey
+	else
+		// No client. Just mark as DC'd.
+		out_ckey = "(Disconnected)"
+
+	return out_ckey
+

@@ -1,7 +1,7 @@
 /datum/surgery/plastic_surgery
 	name = "Plastic Surgery"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/reshape_face, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("head")
+	possible_locs = list(BODY_ZONE_HEAD)
 
 /datum/surgery/plastic_surgery/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -25,41 +25,29 @@
 /datum/surgery_step/reshape_face/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	var/species_names = target.dna.species.name
-	if(head.disfigured)
-		head.disfigured = FALSE
+	if(head.undisfigure())
 		user.visible_message("[user] successfully restores [target]'s appearance!", "<span class='notice'>You successfully restore [target]'s appearance.</span>")
 	else
 		var/list/names = list()
 		var/list_size = 10
-		var/obj/item/card/id/ID
 
 		//IDs in hand
 		if(istype(user, /mob/living/carbon/human)) //Only 'humans' can hold ID cards
 			var/mob/living/carbon/human/H = user
-			ID = H.get_id_from_hands()
-			if(ID)
-				names += ID.registered_name
+			var/obj/item/card/id/id = H.get_id_from_hands()
+			if(istype(id))
+				names += id.registered_name
 				list_size-- //To stop list bloat
 
 		//IDs on body
-		var/list/ID_list = list()
+		var/list/id_list = list()
 		for(var/obj/item/I in range(0, target)) //Get ID cards
-			if(istype(I, /obj/item/card/id))
-				ID_list += I
-			else if(istype(I, /obj/item/pda))
-				var/obj/item/pda/PDA = I
-				if(PDA.id)
-					ID_list += PDA.id
-			else if(istype(I, /obj/item/storage/wallet))
-				var/obj/item/storage/wallet/W = I
-				if(W.front_id)
-					ID_list += W.front_id
+			if(I.GetID())
+				id_list += I.GetID()
 
-		for(var/I in ID_list) //Add card names to 'names'
-			var/obj/item/card/id/Card = I
-			ID = Card.registered_name
-			if(ID != target.real_name)
-				names += ID
+		for(var/obj/item/card/id/id in id_list) //Add card names to 'names'
+			if(id.registered_name != target.real_name)
+				names += id.registered_name
 				list_size--
 
 		if(!isabductor(user))
@@ -71,7 +59,7 @@
 			for(var/i in 1 to list_size)
 				names += "Subject [target.gender == MALE ? "I" : "O"]-[pick("A", "B", "C", "D", "E")]-[rand(10000, 99999)]"
 			names += random_name(target.gender, species_names) //give one normal name in case they want to do regular plastic surgery
-		var/chosen_name = input(user, "Choose a new name to assign.", "Plastic Surgery") as null|anything in names
+		var/chosen_name = tgui_input_list(user, "Choose a new name to assign.", "Plastic Surgery", names)
 		if(!chosen_name)
 			return
 		var/oldname = target.real_name

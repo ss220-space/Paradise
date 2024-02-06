@@ -9,8 +9,7 @@
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
-	src.transfer_fingerprints_to(R)
-	R.add_fingerprint(user)
+	transfer_fingerprints_to(R)
 	qdel(src)
 
 /obj/structure/inflatable
@@ -35,7 +34,10 @@
 	T.air_update_turf(TRUE)
 
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
-	return 0
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
+	else
+		return FALSE
 
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
@@ -43,10 +45,11 @@
 /obj/structure/inflatable/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 
-/obj/structure/inflatable/AltClick()
-	if(usr.stat || usr.restrained())
+/obj/structure/inflatable/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated() || user.restrained())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 	deconstruct(TRUE)
 
@@ -113,6 +116,8 @@
 	return TryToSwitchState(user)
 
 /obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
@@ -131,8 +136,10 @@
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				if(!C.handcuffed)
+					add_fingerprint(user)
 					SwitchState()
 			else
+				add_fingerprint(user)
 				SwitchState()
 	else if(istype(user, /obj/mecha))
 		SwitchState()
@@ -200,8 +207,7 @@
 	max_combined_w_class = 21
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/briefcase/inflatable/New()
-	..()
+/obj/item/storage/briefcase/inflatable/populate_contents()
 	new /obj/item/inflatable/door(src)
 	new /obj/item/inflatable/door(src)
 	new /obj/item/inflatable/door(src)

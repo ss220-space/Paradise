@@ -48,7 +48,7 @@
 	return BRUTELOSS|TOXLOSS
 
 /obj/item/grown/nettle/pickup(mob/living/user)
-	..()
+	. = ..()
 	if(!ishuman(user))
 		return TRUE
 	var/mob/living/carbon/human/H = user
@@ -64,8 +64,6 @@
 	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
 	return TRUE
 
-
-
 /obj/item/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)
 		return
@@ -73,7 +71,7 @@
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off
 	else
 		to_chat(usr, "All the leaves have fallen off the nettle from violent whacking.")
-		usr.unEquip(src)
+		usr.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 
 /obj/item/grown/nettle/basic
@@ -97,21 +95,24 @@
 	force = round((5 + seed.potency / 2.5), 1)
 
 /obj/item/grown/nettle/death/pickup(mob/living/carbon/user)
-	. = ..()
-	if(. && ishuman(user)) // If the pickup succeeded and is humanoid
+	if(ishuman(user)) // If the pickup succeeded and is humanoid
 		var/mob/living/carbon/human/H = user
+		if(PIERCEIMMUNE in H.dna.species.species_traits)
+			return ..()
 		if(!H.gloves && prob(50))
-			user.Paralyse(5)
-			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
+			user.Paralyse(4 SECONDS)
+			to_chat(user, span_userdanger("You are stunned by the Deathnettle when you try picking it up!"))
+			return FALSE
+	return ..()
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
-	..()
-	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
+	. = ..()
+	if(. && isliving(M))
+		to_chat(M, span_danger("You are stunned by the powerful acid of the Deathnettle!"))
 		add_attack_logs(user, M, "Hit with [src]")
 
-		M.AdjustEyeBlurry(force/7)
+		M.AdjustEyeBlurry((force / 7) STATUS_EFFECT_CONSTANT)
 		if(prob(20))
-			M.Paralyse(force / 6)
-			M.Weaken(force / 15)
-		M.drop_item()
+			M.Paralyse(2 SECONDS)
+			M.Weaken(2 SECONDS)
+		M.drop_from_active_hand()

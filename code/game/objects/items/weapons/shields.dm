@@ -1,14 +1,24 @@
 /obj/item/shield
 	name = "shield"
 	block_chance = 50
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	obj_integrity = 380
+	max_integrity = 380
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
-	if(attack_type == LEAP_ATTACK)
-		final_block_chance = 100
-	return ..()
+	. = ..()
+	if(.)
+		var/damage_type = BRUTE
+		if(isobj(hitby))
+			var/obj/hitby_obj = hitby
+			damage_type = hitby_obj.damtype
+		take_damage(damage, damage_type, sound_effect = FALSE)
+
+/obj/item/shield/obj_destruction(damage_flag)
+	playsound(src, 'sound/weapons/smash.ogg', 50)
+	..()
 
 /obj/item/shield/riot
 	name = "riot shield"
@@ -19,6 +29,8 @@
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 3
+	obj_integrity = 400
+	max_integrity = 400
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
 	origin_tech = "materials=3;combat=4"
@@ -40,6 +52,8 @@
 	icon_state = "roman_shield"
 	item_state = "roman_shield"
 	materials = list(MAT_METAL=8500)
+	obj_integrity = 380
+	max_integrity = 380
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
@@ -55,6 +69,19 @@
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
 	block_chance = 30
+	obj_integrity = 380
+	max_integrity = 380
+
+/obj/item/shield/riot/goliath
+	name = "goliath shield"
+	desc = "A shield made from interwoven plates of goliath hide."
+	icon_state = "goliath_shield"
+	item_state = "goliath_shield"
+	materials = list()
+	origin_tech = "materials=1;combat=3;biotech=2"
+	block_chance = 30
+	obj_integrity = 380
+	max_integrity = 380
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -70,7 +97,7 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	return 0
+	return FALSE
 
 /obj/item/shield/energy/IsReflect()
 	return (active)
@@ -80,12 +107,11 @@
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
 	active = !active
-	icon_state = "eshield[active]"
-
 	if(active)
 		force = 10
 		throwforce = 8
 		throw_speed = 2
+		update_icon()
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
@@ -93,6 +119,7 @@
 		force = 3
 		throwforce = 3
 		throw_speed = 3
+		update_icon()
 		w_class = WEIGHT_CLASS_TINY
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
@@ -102,6 +129,16 @@
 		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return
+
+/obj/item/shield/energy/update_icon()
+	icon_state = "eshield[active]"
+
+/obj/item/shield/energy/syndie
+	icon_state = "syndieshield0"
+	desc = "Reverse-engineered shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere. Property of Gorlex marauders."
+
+/obj/item/shield/energy/syndie/update_icon()
+	icon_state = "syndieshield[active]"
 
 /obj/item/shield/riot/tele
 	name = "telescopic shield"
@@ -114,12 +151,14 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
+	obj_integrity = 360
+	max_integrity = 360
 	var/active = 0
 
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
-	return 0
+	return FALSE
 
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active

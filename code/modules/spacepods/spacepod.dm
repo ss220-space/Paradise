@@ -1,5 +1,5 @@
 #define DAMAGE			1
-#define FIRE			2
+#define FIRE_OLAY		2
 #define POD_LIGHT		1
 #define WINDOW			2
 #define RIM	    		3
@@ -61,7 +61,7 @@
 
 	var/unlocked = TRUE
 
-	var/move_delay = 2
+	var/move_delay = 1.5
 	var/next_move = 0
 	var/can_paint = TRUE
 
@@ -96,7 +96,7 @@
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
 		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
@@ -119,7 +119,7 @@
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 	START_PROCESSING(SSobj, src)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 
 /obj/spacepod/proc/create_trail()
 	var/turf/T = get_turf(src)
@@ -171,7 +171,7 @@
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
 
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
@@ -202,15 +202,15 @@
 	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
-			overlays += pod_overlays[FIRE]
+			overlays += pod_overlays[FIRE_OLAY]
 
 
 	light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
+	. = P.on_hit(src)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
-	P.on_hit(src)
 
 /obj/spacepod/AllowDrop()
 	return TRUE
@@ -235,24 +235,25 @@
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
-		user.custom_emote(1, "[user.friendly] [src].")
+		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [src].")
 		return FALSE
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
 		visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
-		user.create_attack_log("<font color='red'>attacked [src.name]</font>")
 		add_attack_logs(user, src, "attacked")
 		return TRUE
 
-/obj/spacepod/attack_alien(mob/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	deal_damage(15)
-	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
-	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
+/obj/spacepod/attack_alien(mob/living/carbon/alien/user)
+	if(user.a_intent == INTENT_HARM)
+		user.do_attack_animation(src)
+		user.changeNext_move(CLICK_CD_MELEE)
+		deal_damage(user.obj_damage)
+		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
+		to_chat(user, "<span class='warning'>You slash at [src]!</span>")
+		visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 
-/obj/spacepod/proc/deal_damage(var/damage)
+/obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
@@ -273,7 +274,7 @@
 				for(var/M in passengers + pilot)
 					var/mob/living/L = M
 					L.adjustBruteLoss(300)
-			explosion(loc, 0, 0, 2)
+			explosion(loc, 0, 0, 2, cause = src)
 			robogibs(loc)
 			robogibs(loc)
 			qdel(src)
@@ -345,10 +346,19 @@
 			to_chat(user, "<span class='notice'>The pod already has a battery.</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [W] into the pod.</span>")
-		user.drop_item(W)
+		user.drop_transfer_item_to_loc(W, src)
 		battery = W
-		W.forceMove(src)
 		return
+
+	else if(istype(W, /obj/item/spacepod_equipment/key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
+		var/obj/item/spacepod_equipment/key/key = W
+		if(key.id == equipment_system.lock_system.id)
+			lock_pod()
+			return
+		else
+			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
+			return
+
 	else if(istype(W, /obj/item/spacepod_equipment))
 		if(!hatch_open)
 			to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
@@ -372,21 +382,12 @@
 			add_equipment(user, W, "lock_system")
 			return
 
-	else if(istype(W, /obj/item/spacepod_key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
-		var/obj/item/spacepod_key/key = W
-		if(key.id == equipment_system.lock_system.id)
-			lock_pod()
-			return
-		else
-			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
-			return
-
 	else if(istype(W, /obj/item/lock_buster))
 		var/obj/item/lock_buster/L = W
 		if(L.on && equipment_system.lock_system)
 			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
-			if(do_after(user, 100 * W.toolspeed, target = src))
+			if(do_after(user, 100 * W.toolspeed * gettoolspeedmod(user), target = src))
 				QDEL_NULL(equipment_system.lock_system)
 				unlocked = TRUE
 				user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
@@ -445,8 +446,7 @@
 		return
 	else
 		to_chat(user, "<span class='notice'>You insert [SPE] into the pod.</span>")
-		user.drop_item(SPE)
-		SPE.forceMove(src)
+		user.drop_transfer_item_to_loc(SPE, src)
 		equipment_system.vars[slot] = SPE
 		var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
 		system.my_atom = src
@@ -455,19 +455,20 @@
 		cargo_hold.storage_slots += SPE.storage_mod["slots"]
 		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
 
-/obj/spacepod/attack_hand(mob/user as mob)
+
+/obj/spacepod/attack_hand(mob/user)
 	if(user.a_intent == INTENT_GRAB && unlocked)
-		var/mob/target
+		var/mob/living/target
 		if(pilot)
 			target = pilot
 		else if(passengers.len > 0)
 			target = passengers[1]
 
-		if(target && istype(target))
+		if(istype(target))
 			src.visible_message("<span class='warning'>[user] is trying to rip the door open and pull [target] out of the [src]!</span>",
 				"<span class='warning'>You see [user] outside the door trying to rip it open!</span>")
 			if(do_after(user, 50, target = src))
-				target.Stun(1)
+				target.Stun(2 SECONDS)
 				if(pilot)
 					eject_pilot()
 				else
@@ -501,13 +502,15 @@
 		possible.Add("Secondary Cargo System")
 	if(equipment_system.lock_system)
 		possible.Add("Lock System")
-	switch(input(user, "Remove which equipment?", null, null) as null|anything in possible)
+	switch(tgui_input_list(user, "Remove which equipment?", "Equipment",possible))
 		if("Energy Cell")
-			if(user.put_in_any_hand_if_possible(battery))
-				to_chat(user, "<span class='notice'>You remove [battery] from the space pod</span>")
-				battery = null
-			else
+			if(user.get_active_hand() && user.get_inactive_hand())
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+				return
+			battery.forceMove_turf()
+			user.put_in_any_hand_if_possible(battery, ignore_anim = FALSE)
+			to_chat(user, "<span class='notice'>You remove [battery] from the space pod</span>")
+			battery = null
 			return
 		if("Weapon System")
 			remove_equipment(user, equipment_system.weapon_system, "weapon_system")
@@ -524,7 +527,8 @@
 		if("Lock System")
 			remove_equipment(user, equipment_system.lock_system, "lock_system")
 
-/obj/spacepod/proc/remove_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, var/slot)
+
+/obj/spacepod/proc/remove_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 
 	if(passengers.len > max_passengers - SPE.occupant_mod)
 		to_chat(user, "<span class='warning'>Someone is sitting in [SPE]!</span>")
@@ -537,17 +541,20 @@
 		to_chat(user, "<span class='warning'>Empty [SPE] first!</span>")
 		return
 
-	if(user.put_in_any_hand_if_possible(SPE))
-		to_chat(user, "<span class='notice'>You remove [SPE] from the equipment system.</span>")
-		equipment_system.installed_modules -= SPE
-		max_passengers -= SPE.occupant_mod
-		cargo_hold.storage_slots -= SPE.storage_mod["slots"]
-		cargo_hold.max_combined_w_class -= SPE.storage_mod["w_class"]
-		SPE.removed(user)
-		SPE.my_atom = null
-		equipment_system.vars[slot] = null
+	if(user.get_active_hand() && user.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
 		return
-	to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
+
+	SPE.forceMove(get_turf(src))
+	user.put_in_any_hand_if_possible(SPE, ignore_anim = FALSE)
+	to_chat(user, "<span class='notice'>You remove [SPE] from the equipment system.</span>")
+	equipment_system.installed_modules -= SPE
+	max_passengers -= SPE.occupant_mod
+	cargo_hold.storage_slots -= SPE.storage_mod["slots"]
+	cargo_hold.max_combined_w_class -= SPE.storage_mod["w_class"]
+	SPE.removed(user)
+	SPE.my_atom = null
+	equipment_system.vars[slot] = null
 
 
 /obj/spacepod/hear_talk/hear_talk(mob/M, list/message_pieces)
@@ -590,8 +597,8 @@
 /obj/spacepod/sec
 	name = "\improper security spacepod"
 	desc = "An armed security spacepod with reinforced armor plating."
-	icon_state = "pod_mil"
-	health = 400
+	icon_state = "pod_dece"
+	health = 600
 
 /obj/spacepod/syndi
 	name = "syndicate spacepod"
@@ -871,6 +878,7 @@
 		user.forceMove(get_turf(src))
 		passengers -= user
 		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
+	user.update_gravity(user.mob_has_gravity())
 
 /obj/spacepod/verb/lock_pod()
 	set name = "Lock Doors"
@@ -1103,8 +1111,17 @@
 	battery.charge = max(0, battery.charge - 1)
 	next_move = world.time + move_delay
 
+//// Damaged spacepod
+/obj/spacepod/civilian/damaged
+	desc = "Heavy damaged spacepod"
+
+/obj/spacepod/civilian/damaged/Initialize()
+	..()
+	deal_damage(200)
+	update_icon()
+
 #undef DAMAGE
-#undef FIRE
+#undef FIRE_OLAY
 #undef WINDOW
 #undef POD_LIGHT
 #undef RIM

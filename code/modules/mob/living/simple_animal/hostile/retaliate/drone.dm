@@ -33,7 +33,7 @@
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 	update_icons()
 
 /mob/living/simple_animal/hostile/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
@@ -110,16 +110,12 @@
 		step_to(O, get_turf(pick(view(7, src))))
 
 	//rods
-	var/obj/item/stack/K = new /obj/item/stack/rods(T)
+	var/obj/item/stack/K = new /obj/item/stack/rods(T, pick(1, 2, 3, 4))
 	step_to(K, get_turf(pick(view(7, src))))
-	K.amount = pick(1, 2, 3, 4)
-	K.update_icon()
 
 	//plasteel
-	K = new /obj/item/stack/sheet/plasteel(T)
+	K = new /obj/item/stack/sheet/plasteel(T, pick(1, 2, 3, 4))
 	step_to(K, get_turf(pick(view(7, src))))
-	K.amount = pick(1, 2, 3, 4)
-	K.update_icon()
 
 	//also drop dummy circuit boards deconstructable for research (loot)
 	var/obj/item/circuitboard/C

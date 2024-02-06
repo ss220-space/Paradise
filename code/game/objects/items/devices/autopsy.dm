@@ -2,7 +2,7 @@
 	name = "autopsy scanner"
 	desc = "Extracts information on wounds."
 	icon = 'icons/obj/autopsy_scanner.dmi'
-	icon_state = ""
+	icon_state = "autopsy_scanner"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=1;biotech=1"
@@ -39,30 +39,29 @@
 	W.time_inflicted = time_inflicted
 	return W
 
-/obj/item/autopsy_scanner/proc/add_data(obj/item/organ/O)
-	if(O.autopsy_data.len)
-		for(var/V in O.autopsy_data)
-			var/datum/autopsy_data/W = O.autopsy_data[V]
+/obj/item/autopsy_scanner/proc/add_data(obj/item/organ/check_organ)
+	for(var/index in check_organ.autopsy_data)
+		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
 
-			var/datum/autopsy_data_scanner/D = wdata[V]
-			if(!D)
-				D = new()
-				D.weapon = W.weapon
-				wdata[V] = D
+		var/datum/autopsy_data_scanner/scanner_data = wdata[index]
+		if(!scanner_data)
+			scanner_data = new
+			scanner_data.weapon = weapon_data.weapon
+			wdata[index] = scanner_data
 
-			if(!D.organs_scanned[O.name])
-				if(D.organ_names == "")
-					D.organ_names = O.name
-				else
-					D.organ_names += ", [O.name]"
+		if(!scanner_data.organs_scanned[check_organ.name])
+			if(scanner_data.organ_names == "")
+				scanner_data.organ_names = check_organ.name
+			else
+				scanner_data.organ_names += ", [check_organ.name]"
 
-			qdel(D.organs_scanned[O.name])
-			D.organs_scanned[O.name] = W.copy()
+		qdel(scanner_data.organs_scanned[check_organ.name])
+		scanner_data.organs_scanned[check_organ.name] = weapon_data.copy()
 
-	if(O.trace_chemicals.len)
-		for(var/V in O.trace_chemicals)
-			if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
-				chemtraces += V
+	for(var/chemID in check_organ.trace_chemicals)
+		if(check_organ.trace_chemicals[chemID] > 0 && !chemtraces.Find(chemID))
+			chemtraces += chemID
+
 
 /obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
 	if(istype(P, /obj/item/pen))
@@ -74,10 +73,10 @@
 		var/dead_notes = input("Insert any relevant notes")
 		var/obj/item/paper/R = new(user.loc)
 		R.name = "Official Coroner's Report - [dead_name]"
-		R.info = "<b>Nanotrasen Science Station [GLOB.using_map.station_short] - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Trace Chemicals:</b> [dead_chems]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
+		R.info = "<b>Nanotrasen Science Station [SSmapping.map_datum.station_short] - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Trace Chemicals:</b> [dead_chems]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(10)
-		user.put_in_hands(R)
+		user.put_in_hands(R, ignore_anim = FALSE)
 	else
 		return ..()
 
@@ -140,14 +139,15 @@
 	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	sleep(10)
+	flick("autopsy_scanner_anim", src)
+	sleep(3 SECONDS)
 
-	var/obj/item/paper/P = new(user.loc)
+	var/obj/item/paper/P = new(drop_location())
 	P.name = "Autopsy Data ([target_name])"
 	P.info = "<tt>[scan_data]</tt>"
 	P.overlays += "paper_words"
 
-	user.put_in_hands(P)
+	user.put_in_hands(P, ignore_anim = FALSE)
 
 /obj/item/autopsy_scanner/attack(mob/living/carbon/human/M, mob/living/carbon/user)
 	if(!istype(M))

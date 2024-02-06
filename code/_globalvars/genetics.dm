@@ -39,10 +39,10 @@ GLOBAL_VAR_INIT(lispblock, 0)
 GLOBAL_VAR_INIT(muteblock, 0)
 GLOBAL_VAR_INIT(radblock, 0)
 GLOBAL_VAR_INIT(fatblock, 0)
-GLOBAL_VAR_INIT(chavblock, 0)
+GLOBAL_VAR_INIT(auld_imperial_block, 0)
 GLOBAL_VAR_INIT(swedeblock, 0)
 GLOBAL_VAR_INIT(scrambleblock, 0)
-GLOBAL_VAR_INIT(strongblock, 0)
+GLOBAL_VAR_INIT(weakblock, 0)
 GLOBAL_VAR_INIT(hornsblock, 0)
 GLOBAL_VAR_INIT(comicblock, 0)
 
@@ -57,6 +57,8 @@ GLOBAL_VAR_INIT(jumpblock, 0)
 GLOBAL_VAR_INIT(empathblock, 0)
 GLOBAL_VAR_INIT(immolateblock, 0)
 GLOBAL_VAR_INIT(polymorphblock, 0)
+GLOBAL_VAR_INIT(silentfootstepsblock, 0)
+GLOBAL_VAR_INIT(strongblock, 0)
 
 ///////////////////////////////
 // /vg/ Mutations

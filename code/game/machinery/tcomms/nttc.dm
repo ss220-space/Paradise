@@ -23,26 +23,19 @@
 		"Cyborg" = "airadio",
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
-		// Civilian + Varients
-		"Assistant" = "radio",
-		"Businessman" = "radio",
+		// Civilian
 		"Civilian" = "radio",
-		"Tourist" = "radio",
-		"Trader" = "radio",
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
 		"Head of Personnel" = "comradio",
 		"Nanotrasen Representative" = "comradio",
 		// Engineeering
-		"Atmospheric Technician" = "engradio",
 		"Chief Engineer" = "engradio",
-		"Electrician" = "engradio",
-		"Engine Technician" = "engradio",
 		"Life Support Specialist" = "engradio",
-		"Maintenance Technician" = "engradio",
 		"Mechanic" = "engradio",
 		"Station Engineer" = "engradio",
+		"Trainee Engineer" = "engradio",
 		// Central Command
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Emergency Response Team Leader" = "dsquadradio",
@@ -50,76 +43,60 @@
 		"Emergency Response Team Member" = "dsquadradio",
 		"Emergency Response Team Officer" = "dsquadradio",
 		"Nanotrasen Navy Officer" = "dsquadradio",
+		"Nanotrasen Navy Field Officer" = "dsquadradio",
 		"Special Operations Officer" = "dsquadradio",
+		"Syndicate Officer" = "syndiecom",
+		"Supreme Commander" = "dsquadradio",
 		// Medical
 		"Chemist" = "medradio",
 		"Chief Medical Officer" = "medradio",
 		"Coroner" = "medradio",
 		"Medical Doctor" = "medradio",
-		"Microbiologist" = "medradio",
-		"Nurse" = "medradio",
+		"Intern" = "medradio",
 		"Paramedic" = "medradio",
-		"Pharmacologist" = "medradio",
-		"Pharmacist" = "medradio",
 		"Psychiatrist" = "medradio",
-		"Psychologist" = "medradio",
-		"Surgeon" = "medradio",
-		"Therapist" = "medradio",
 		"Virologist" = "medradio",
 		// Science
-		"Anomalist" = "sciradio",
-		"Biomechanical Engineer" = "sciradio",
-		"Chemical Researcher" = "sciradio",
 		"Geneticist" = "sciradio",
-		"Mechatronic Engineer" = "sciradio",
-		"Plasma Researcher" = "sciradio",
 		"Research Director" = "sciradio",
 		"Roboticist" = "sciradio",
 		"Scientist" = "sciradio",
-		"Xenoarcheologist" = "sciradio",
-		"Xenobiologist" = "sciradio",
+		"Student Scientist" = "sciradio",
 		// Security
 		"Brig Physician" = "secradio",
 		"Detective" = "secradio",
-		"Forensic Technician" = "secradio",
 		"Head of Security" = "secradio",
-		"Human Resources Agent" = "secradio",
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
+		"Security Cadet" = "secradio",
 		"Security Pod Pilot" = "secradio",
 		"Warden" = "secradio",
 		// Supply
 		"Quartermaster" = "supradio",
 		"Cargo Technician" = "supradio",
 		"Shaft Miner" = "supradio",
-		"Spelunker" = "supradio",
 		// Service
 		"Barber" = "srvradio",
 		"Bartender" = "srvradio",
-		"Beautician" = "srvradio",
-		"Botanical Researcher" = "srvradio",
 		"Botanist" = "srvradio",
-		"Butcher" = "srvradio",
 		"Chaplain" = "srvradio",
 		"Chef" = "srvradio",
 		"Clown" = "srvradio",
-		"Cook" = "srvradio",
-		"Culinary Artist" = "srvradio",
-		"Custodial Technician" = "srvradio",
-		"Hair Stylist" = "srvradio",
-		"Hydroponicist" = "srvradio",
 		"Janitor" = "srvradio",
-		"Journalist" = "srvradio",
 		"Librarian" = "srvradio",
 		"Mime" = "srvradio",
 	)
 	/// List of Command jobs
-	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
+	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI", "Syndicate Research Director", "Syndicate Comms Officer")
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
-	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Syndicate Officer", "Nanotrasen Navy Captain", "Solar Federation General", "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", "Supreme Commander")
+	/// List of SolGov Marine jobs
+	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Marine")
+	//  List of USSP jobs
+	var/list/soviet_jobs = list("Soviet Tourist", "Soviet Conscript", "Soviet Soldier", "Soviet Officer", "Soviet Marine", "Soviet Marine Captain", "Soviet General", "Soviet Engineer", "Soviet Scientist", "Soviet Medic")
 	// Defined so code compiles and incase someone has a non-standard job
 	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES
@@ -191,7 +168,7 @@
 // Fucking broken as shit, someone help me fix this.
 /datum/nttc_configuration/proc/nttc_deserialize(text, var/ckey)
 	if(word_blacklist.Find(text)) //uh oh, they tried to be naughty
-		message_admins("<span class='danger'>EXPLOIT WARNING: </span> [ckey] attempted to upload an NTTC configuration containing JS abusable tags!")
+		message_admins(span_danger("EXPLOIT WARNING: ") + "[ckey] attempted to upload an NTTC configuration containing JS abusable tags!")
 		log_admin("EXPLOIT WARNING: [ckey] attempted to upload an NTTC configuration containing JS abusable tags")
 		return FALSE
 	var/list/var_list = json_decode(text)
@@ -233,8 +210,8 @@
 		tcm.pass = FALSE
 	// All job and coloring shit
 	if(toggle_job_color || toggle_name_color)
-		var/job = tcm.sender_job
-		job_class = all_jobs[job]
+		var/rank = tcm.sender_rank
+		job_class = all_jobs[rank]
 
 	if(toggle_name_color)
 		var/new_name = "<span class=\"[job_class]\">" + tcm.sender_name + "</span>"
@@ -277,11 +254,15 @@
 
 	// Makes heads of staff bold
 	if(toggle_command_bold)
-		var/job = tcm.sender_job
-		if((job in ert_jobs) || (job in heads) || (job in cc_jobs))
-			for(var/datum/multilingual_say_piece/S in message_pieces)
-				if(S.message)
-					S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
+		var/rank = tcm.sender_rank
+		if((rank in ert_jobs) || (rank in heads) || (rank in cc_jobs))
+			for(var/I in 1 to length(message_pieces))
+				var/datum/multilingual_say_piece/S = message_pieces[I]
+				if(!S.message)
+					continue
+				if(I == 1 && !istype(S.speaking, /datum/language/noise)) // Capitalise the first section only, unless it's an emote.
+					S.message = "[capitalize(S.message)]"
+				S.message = "<b>[S.message]</b>" // Make everything bolded
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])

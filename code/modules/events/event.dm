@@ -176,7 +176,7 @@
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
 
-/datum/event/New(var/datum/event_meta/EM)
+/datum/event/New(datum/event_meta/EM)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
 	SSevents.active_events += src
 
@@ -185,8 +185,14 @@
 
 	event_meta = EM
 	severity = event_meta.severity
-	if(severity < EVENT_LEVEL_MUNDANE) severity = EVENT_LEVEL_MUNDANE
-	if(severity > EVENT_LEVEL_MAJOR) severity = EVENT_LEVEL_MAJOR
+
+	// Validate severity
+	if(severity != EVENT_LEVEL_NONE \
+		|| severity != EVENT_LEVEL_MUNDANE \
+		|| severity != EVENT_LEVEL_MODERATE \
+		|| severity != EVENT_LEVEL_MAJOR \
+	)
+		severity = EVENT_LEVEL_NONE
 
 	startedAt = world.time
 

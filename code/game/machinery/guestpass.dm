@@ -5,6 +5,7 @@
 	name = "guest pass"
 	desc = "Allows temporary access to station areas."
 	icon_state = "guest"
+	item_state = "guestpass-id"
 
 	var/temp_access = list() //to prevent agent cards stealing access as permanent
 	var/expiration_time = 0
@@ -19,13 +20,13 @@
 /obj/item/card/id/guest/examine(mob/user)
 	. = ..()
 	if(world.time < expiration_time)
-		. += "<span class='notice'>This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
+		. += span_notice("This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].")
 	else
-		. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
-	. += "<span class='notice'>It grants access to following areas:</span>"
+		. += span_warning("It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].")
+	. += span_notice("It grants access to following areas:")
 	for(var/A in temp_access)
-		. += "<span class='notice'>[get_access_desc(A)].</span>"
-	. += "<span class='notice'>Issuing reason: [reason].</span>"
+		. += span_notice("[get_access_desc(A)].")
+	. += span_notice("Issuing reason: [reason].")
 
 /////////////////////////////////////////////
 //Guest pass terminal////////////////////////
@@ -51,12 +52,12 @@
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		if(!giver)
-			if(user.drop_item())
-				I.forceMove(src)
+			if(user.drop_transfer_item_to_loc(I, src))
+				add_fingerprint(user)
 				giver = I
 				updateUsrDialog()
 		else
-			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
+			to_chat(user, span_warning("There is already ID card inside."))
 		return
 	return ..()
 
@@ -125,7 +126,7 @@
 					if(dur > 0 && dur <= 30)
 						duration = dur
 					else
-						to_chat(usr, "<span class='warning'>Invalid duration.</span>")
+						to_chat(usr, span_warning("Invalid duration."))
 			if("access")
 				var/A = text2num(href_list["access"])
 				if(A in accesses)
@@ -140,7 +141,8 @@
 					if(ishuman(usr))
 						giver.loc = usr.loc
 						if(!usr.get_active_hand())
-							usr.put_in_hands(giver)
+							giver.forceMove_turf()
+							usr.put_in_hands(giver, ignore_anim = FALSE)
 						giver = null
 					else
 						giver.loc = src.loc
@@ -149,8 +151,7 @@
 				else
 					var/obj/item/I = usr.get_active_hand()
 					if(istype(I, /obj/item/card/id))
-						usr.drop_item()
-						I.loc = src
+						usr.drop_transfer_item_to_loc(I, src)
 						giver = I
 				updateUsrDialog()
 
@@ -184,7 +185,7 @@
 					pass.reason = reason
 					pass.name = "guest pass #[number]"
 				else
-					to_chat(usr, "<span class='warning'>Cannot issue pass without issuing ID.</span>")
+					to_chat(usr, span_warning("Cannot issue pass without issuing ID."))
 	updateUsrDialog()
 	return
 
@@ -195,3 +196,45 @@
 	. = ..()
 	if(. && (ACCESS_CHANGE_IDS in .))
 		return get_all_accesses()
+
+/obj/machinery/computer/guestpass/syndicate
+	name = "\improper Syndicate guest pass terminal"
+
+/obj/machinery/computer/guestpass/syndicate/get_changeable_accesses()
+	. = ..()
+	if(. && (ACCESS_CHANGE_IDS in .))
+		return get_taipan_syndicate_access()
+
+/obj/machinery/computer/guestpass/syndicate/attack_hand(var/mob/user as mob)
+	if(..())
+		return
+
+	user.set_machine(src)
+	var/dat = {"<meta charset="UTF-8">"}
+
+	if(mode == 1) //Logs
+		dat += "<h3>Activity log</h3><br>"
+		for(var/entry in internal_log)
+			dat += "[entry]<br><hr>"
+		dat += "<a href='?src=[UID()];action=print'>Print</a><br>"
+		dat += "<a href='?src=[UID()];mode=0'>Back</a><br>"
+	else
+		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
+		dat += "<a href='?src=[UID()];mode=1'>View activity log</a><br><br>"
+		dat += "Issuing ID: <a href='?src=[UID()];action=id'>[giver]</a><br>"
+		dat += "Issued to: <a href='?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
+		dat += "Reason:  <a href='?src=[UID()];choice=reason'>[reason]</a><br>"
+		dat += "Duration (minutes):  <a href='?src=[UID()];choice=duration'>[duration] m</a><br>"
+		dat += "Access to areas:<br>"
+		if(giver && giver.access)
+			for(var/A in get_changeable_accesses())
+				var/area = get_syndicate_access_desc(A)
+				if(A in accesses)
+					area = "<b>[area]</b>"
+				dat += "<a href='?src=[UID()];choice=access;access=[A]'>[area]</a><br>"
+		dat += "<br><a href='?src=[UID()];action=issue'>Issue pass</a><br>"
+
+	var/datum/browser/popup = new(user, "guestpass", name, 400, 520)
+	popup.set_content(dat)
+	popup.open(0)
+	onclose(user, "guestpass")

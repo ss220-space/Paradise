@@ -21,24 +21,25 @@
 	build_path = /obj/item/pickaxe/drill/diamonddrill
 	category = list("Mining")
 
-/datum/design/plasmacutter
-	name = "Plasma Cutter"
-	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
-	id = "plasmacutter"
-	req_tech = list("materials" = 3, "plasmatech" = 3, "magnets" = 2)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1500, MAT_GLASS = 500, MAT_PLASMA = 400)
-	build_path = /obj/item/gun/energy/plasmacutter
-	category = list("Mining")
 
 /datum/design/plasmacutter_adv
 	name = "Advanced Plasma Cutter"
 	desc = "It's an advanced plasma cutter, oh my god."
 	id = "plasmacutter_adv"
-	req_tech = list("materials" = 4, "plasmatech" = 4, "engineering" = 2, "combat" = 3, "magnets" = 3)
+	req_tech = list("materials" = 5, "plasmatech" = 6, "engineering" = 6, "combat" = 3, "magnets" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_PLASMA = 2000, MAT_GOLD = 500)
 	build_path = /obj/item/gun/energy/plasmacutter/adv
+	category = list("Mining")
+
+/datum/design/plasmacutter_shotgun
+	name = "Plasma Cutter Shotgun"
+	desc = "An industrial-grade heavy-duty mining shotgun."
+	id = "plasmacutter_shotgun"
+	req_tech = list("materials" = 7, "powerstorage" = 5, "plasmatech" = 7, "engineering" = 7, "combat" = 6, "magnets" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000, MAT_PLASMA = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 3000)
+	build_path = /obj/item/gun/energy/plasmacutter/shotgun
 	category = list("Mining")
 
 /datum/design/jackhammer
@@ -76,30 +77,30 @@
 	desc = "A device which allows kinetic accelerators to deal more damage."
 	id = "damagemod"
 	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
-	build_type = PROTOLATHE | MECHFAB
+	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/damage
-	category = list("Mining", "Cyborg Upgrade Modules")
+	build_path = /obj/item/borg/upgrade/modkit/damage/borg
+	category = list("Mining")
 
 /datum/design/cooldown_mod
 	name = "Kinetic Accelerator Cooldown Mod"
 	desc = "A device which decreases the cooldown of a Kinetic Accelerator."
 	id = "cooldownmod"
 	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
-	build_type = PROTOLATHE | MECHFAB
+	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/cooldown
-	category = list("Mining", "Cyborg Upgrade Modules")
+	build_path = /obj/item/borg/upgrade/modkit/cooldown/borg
+	category = list("Mining")
 
 /datum/design/range_mod
 	name = "Kinetic Accelerator Range Mod"
 	desc = "A device which allows kinetic accelerators to fire at a further range."
 	id = "rangemod"
 	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
-	build_type = PROTOLATHE | MECHFAB
+	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/range
-	category = list("Mining", "Cyborg Upgrade Modules")
+	build_path = /obj/item/borg/upgrade/modkit/range/borg
+	category = list("Mining")
 
 /datum/design/hyperaccelerator
 	name = "Kinetic Accelerator Mining AoE Mod"
@@ -109,7 +110,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/kineticexperimental
 	name = "Experimental Kinetic Accelerator"
@@ -119,4 +120,24 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 8000, MAT_BLUESPACE = 1000, MAT_DIAMOND = 2000, )
 	build_path = /obj/item/gun/energy/kinetic_accelerator/experimental
+	category = list("Mining")
+
+/datum/design/f_rods
+	name = "Fireproof Rods"
+	desc = "Iron (x2) + Plasma + Titanium"
+	id = "f_rods"
+	req_tech = list("materials" = 6, "engineering" = 3, "plasmatech" = 4)
+	build_type = PROTOLATHE | SMELTER
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500, MAT_TITANIUM = 1000)
+	build_path = /obj/item/stack/fireproof_rods
+	category = list("Mining")
+
+/datum/design/mining_charge
+	name = "Experimental Mining Charge"
+	desc = "An experimental mining charge"
+	id = "megacharge"
+	req_tech = list("materials" = 5, "engineering" = 5, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 6000, MAT_URANIUM = 1000)
+	build_path = /obj/item/grenade/plastic/miningcharge/mega
 	category = list("Mining")

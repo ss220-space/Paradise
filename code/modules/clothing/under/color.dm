@@ -1,5 +1,6 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
+	dyeable = TRUE
 
 
 /obj/item/clothing/under/color/random/New()
@@ -109,7 +110,12 @@
 	item_color = "psyche"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
 /obj/item/clothing/under/color/lightblue

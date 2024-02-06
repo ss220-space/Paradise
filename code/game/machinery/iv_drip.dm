@@ -33,12 +33,15 @@
 		return
 
 	if(Adjacent(target) && usr.Adjacent(target))
+		add_fingerprint(usr)
 		bag.afterattack(target, usr, TRUE)
 		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(bag)
-		user.put_in_hands(bag)
+		add_fingerprint(user)
+		bag.forceMove_turf()
+		user.put_in_hands(bag, ignore_anim = FALSE)
 		bag.update_icon()
 		bag = null
 		update_icon()
@@ -46,17 +49,18 @@
 /obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/iv_bag))
 		if(bag)
-			to_chat(user, "<span class='warning'>[src] already has an IV bag!</span>")
+			to_chat(user, span_warning("[src] already has an IV bag!"))
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 
-		I.forceMove(src)
+		add_fingerprint(user)
 		bag = I
-		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
+		to_chat(user, span_notice("You attach [I] to [src]."))
 		update_icon()
 		START_PROCESSING(SSmachines, src)
 	else if (bag && istype(I, /obj/item/reagent_containers))
+		add_fingerprint(user)
 		bag.attackby(I)
 		I.afterattack(bag, usr, TRUE)
 		update_icon()

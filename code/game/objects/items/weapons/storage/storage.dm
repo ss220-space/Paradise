@@ -9,26 +9,94 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	var/silent = FALSE // No message on putting items in
-	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
-	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
-	var/empty = FALSE // Will this spawn as an empty box
-	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
-	var/max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
-	var/storage_slots = 7 //The number of storage slots in this container.
+	///No message on putting items in
+	var/silent = FALSE
+	///List of objects which this item can store (if set, it can't store anything else)
+	var/list/can_hold = list()
+	/// List of objects that can be stored, regardless of w_class
+	var/list/w_class_override = list()
+	///List of objects which this item can't store (in effect only if can_hold isn't set)
+	var/list/cant_hold = list()
+	///Max size of objects that this object can store (in effect only if can_hold isn't set)
+	var/max_w_class = WEIGHT_CLASS_SMALL
+	///Min size of objects that this object can store (in effect only if can_hold isn't set)
+	var/min_w_class
+	///The sum of the w_classes of all the items in this storage item.
+	var/max_combined_w_class = 14
+	var/storage_slots = 7
+	///The number of storage slots in this container.
 	var/obj/screen/storage/boxes = null
 	var/obj/screen/close/closer = null
-	var/use_to_pickup	//Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
-	var/display_contents_with_number	//Set this to make the storage item group contents of the same type and display them as a number.
-	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
-	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
-	var/pickup_all_on_tile = TRUE  //FALSE = pick one at a time, TRUE = pick all on tile
-	var/use_sound = "rustle"	//sound played when used. null for no sound.
+	///Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
+	var/use_to_pickup
+	///Set this to make the storage item group contents of the same type and display them as a number.
+	var/display_contents_with_number
+	///Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
+	var/allow_quick_empty
+	///Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
+	var/allow_quick_gather
+	///FALSE = pick one at a time, TRUE = pick all on tile
+	var/pickup_all_on_tile = TRUE
+	///Sound played when used. null for no sound.
+	var/use_sound = "rustle"
 
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
 	/// How much of the stack item do you get.
 	var/foldable_amt = 0
+	/// Lazy list of mobs which are currently viewing the storage inventory.
+	var/list/mobs_viewing
+
+/obj/item/storage/Initialize(mapload)
+	. = ..()
+
+	can_hold = typecacheof(can_hold)
+	cant_hold = typecacheof(cant_hold)
+
+	if(allow_quick_empty)
+		verbs += /obj/item/storage/verb/quick_empty
+	else
+		verbs -= /obj/item/storage/verb/quick_empty
+
+	if(allow_quick_gather)
+		verbs += /obj/item/storage/verb/toggle_gathering_mode
+	else
+		verbs -= /obj/item/storage/verb/toggle_gathering_mode
+
+	populate_contents()
+
+	boxes = new /obj/screen/storage()
+	boxes.name = "storage"
+	boxes.master = src
+	boxes.icon_state = "block"
+	boxes.screen_loc = "7,7 to 10,8"
+	boxes.layer = HUD_LAYER
+	boxes.plane = HUD_PLANE
+	closer = new /obj/screen/close()
+	closer.master = src
+	closer.icon_state = "backpack_close"
+	closer.layer = ABOVE_HUD_LAYER
+	closer.plane = ABOVE_HUD_PLANE
+	orient2hud()
+
+/obj/item/storage/Destroy()
+	for(var/obj/O in contents)
+		O.mouse_opacity = initial(O.mouse_opacity)
+
+	. = ..()
+	QDEL_NULL(boxes)
+	QDEL_NULL(closer)
+	LAZYCLEARLIST(mobs_viewing)
+
+/obj/item/storage/forceMove(atom/destination)
+	. = ..()
+	if(!destination)
+		return
+	if(!ismob(destination.loc))
+		for(var/mob/player in mobs_viewing)
+			if(player == destination)
+				continue
+			hide_from(player)
 
 /obj/item/storage/MouseDrop(obj/over_object)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
@@ -40,7 +108,7 @@
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
 			if(M.s_active)
 				M.s_active.close(M)
-			show_to(M)
+			open(M)
 			return
 
 		if((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
@@ -63,37 +131,14 @@
 			update_icon() // For content-sensitive icons
 			return
 
-		if(!(istype(over_object, /obj/screen)))
-			return ..()
-		if(!(loc == usr) || (loc && loc.loc == usr))
-			return
-		playsound(loc, "rustle", 50, TRUE, -5)
-		if(!(M.restrained()) && !(M.stat))
-			switch(over_object.name)
-				if("r_hand")
-					if(!M.unEquip(src))
-						return
-					M.put_in_r_hand(src)
-				if("l_hand")
-					if(!M.unEquip(src))
-						return
-					M.put_in_l_hand(src)
-			add_fingerprint(usr)
-			return
-		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if(usr.s_active)
-				usr.s_active.close(usr)
-			show_to(usr)
-			return
+		return ..()
+
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		show_to(user)
-		playsound(loc, "rustle", 50, TRUE, -5)
-		add_fingerprint(user)
+		open(user)
 	else if(isobserver(user))
 		show_to(user)
-	return ..()
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()
@@ -113,8 +158,10 @@
 /obj/item/storage/proc/show_to(mob/user)
 	if(!user.client)
 		return
-	if(user.s_active != src)
-		for(var/obj/item/I in src)
+	if(QDELETED(src))
+		return
+	if(user.s_active != src && !isobserver(user))
+		for(var/obj/item/I in src) // For bombs with mousetraps, facehuggers etc
 			if(I.on_found(user))
 				return
 	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
@@ -127,23 +174,29 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	return
+	LAZYADDOR(mobs_viewing, user)
 
 /obj/item/storage/proc/hide_from(mob/user)
+	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
 		return
-
 	user.client.screen -= boxes
 	user.client.screen -= closer
 	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
-	return
 
-/obj/item/storage/proc/open(mob/user as mob)
-	if(use_sound)
+/obj/item/storage/proc/update_viewers()
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
+			continue
+		hide_from(M)
+
+/obj/item/storage/proc/open(mob/user)
+	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)
-
+		add_fingerprint(user)
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
@@ -170,6 +223,8 @@
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
 /obj/item/storage/proc/standard_orient_objs(rows, cols, list/datum/numbered_display/display_contents)
+	if(!boxes)
+		return
 	var/cx = 4
 	var/cy = 2 + rows
 	boxes.screen_loc = "4:16,2:16 to [4 + cols]:16,[2 + rows]:16"
@@ -248,6 +303,20 @@
 
 	if(loc == W)
 		return FALSE //Means the item is already in the storage item
+
+	if(!W.can_enter_storage(src, usr))
+		return FALSE
+
+	if(usr)
+		var/turf/item = get(W, /turf)
+		var/turf/storage = get(src, /turf)
+		if(!item || !storage)
+			return FALSE
+		if(get_dist(item, storage) > 1)
+			if(!stop_messages)
+				to_chat(usr, "<span class='warning'>[src] is too far from [W]!</span>")
+			return FALSE
+
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
 			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
@@ -265,8 +334,19 @@
 		return FALSE
 
 	if(W.w_class > max_w_class)
+		if(length(w_class_override) && is_type_in_list(W, w_class_override))
+			return TRUE
+
 		if(!stop_messages)
 			to_chat(usr, "<span class='notice'>[W] is too big for [src].</span>")
+		return FALSE
+
+	if(W.w_class < min_w_class)
+		if(length(w_class_override) && is_type_in_list(W, w_class_override))
+			return TRUE
+
+		if(!stop_messages)
+			to_chat(usr, "<span class='notice'>[W] is too small for [src].</span>")
 		return FALSE
 
 	var/sum_w_class = W.w_class
@@ -288,6 +368,13 @@
 		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
 		return FALSE
 
+	// item unequip delay
+	if(usr && W.equip_delay_self && W.is_equipped() && !usr.is_general_slot(usr.get_slot_by_item(W)))
+		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
+							span_notice("Вы начинаете снимать [W.name]..."))
+		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
+			return FALSE
+
 	return TRUE
 
 //This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
@@ -297,13 +384,27 @@
 	if(!istype(W))
 		return FALSE
 	if(usr)
-		if(!usr.unEquip(W))
+		if(!usr.drop_item_ground(W))
 			return FALSE
 		usr.update_icons()	//update our overlays
 	if(silent)
 		prevent_warning = TRUE
+
+	if(usr)
+		W.do_pickup_animation(src)
+
 	W.forceMove(src)
+	if(QDELING(W))
+		return FALSE
 	W.on_enter_storage(src)
+	if(QDELING(W))
+		return FALSE
+
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if((M.s_active == src) && M.client)
+			M.client.screen += W
+
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
@@ -322,6 +423,9 @@
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
+
+	W.pixel_y = initial(W.pixel_y)
+	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	W.in_inventory = TRUE
 	update_icon()
@@ -336,33 +440,40 @@
 		var/obj/item/storage/fancy/F = src
 		F.update_icon(TRUE)
 
-	for(var/mob/M in range(1, loc))
-		if(M.s_active == src)
-			if(M.client)
-				M.client.screen -= W
+	for(var/_M in mobs_viewing)
+		var/mob/M = _M
+		if((M.s_active == src) && M.client)
+			M.client.screen -= W
 
 	if(new_location)
-		if(ismob(loc))
+		var/is_on_mob = get(loc, /mob)
+		if(is_on_mob)
 			W.dropped(usr)
-		if(ismob(new_location))
+
+		if(ismob(new_location) || get(new_location, /mob))
+			if(usr && !is_on_mob && CONFIG_GET(flag/item_animations_enabled))
+				W.loc = get_turf(src)	// This bullshit is required since /image/ registered in turf contents only
+				W.pixel_x = pixel_x
+				W.pixel_y = pixel_y
+				W.do_pickup_animation(usr)
 			W.layer = ABOVE_HUD_LAYER
 			W.plane = ABOVE_HUD_PLANE
+			W.pixel_y = initial(W.pixel_y)
+			W.pixel_x = initial(W.pixel_x)
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
+
 		W.forceMove(new_location)
-	else
-		W.forceMove(get_turf(src))
 
 	if(usr)
 		orient2hud(usr)
-		if(usr.s_active)
+		if(usr.s_active && !QDELETED(src))
 			usr.s_active.show_to(usr)
 	if(W.maptext)
 		W.maptext = ""
 	W.on_exit_storage(src)
 	update_icon()
-	W.mouse_opacity = initial(W.mouse_opacity)
 	return TRUE
 
 /obj/item/storage/Exited(atom/A, loc)
@@ -396,8 +507,6 @@
 	handle_item_insertion(I)
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(loc, "rustle", 50, TRUE, -5)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == src && !H.get_active_hand())	//Prevents opening if it's in a pocket.
@@ -413,13 +522,14 @@
 	if(loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
-		show_to(user)
+		open(user)
 	else
 		..()
-		for(var/mob/M in range(1))
-			if(M.s_active == src)
-				close(M)
 	add_fingerprint(user)
+
+/obj/item/storage/equipped(mob/user, slot, initial)
+	. = ..()
+	update_viewers()
 
 /obj/item/storage/attack_ghost(mob/user)
 	if(isobserver(user))
@@ -454,42 +564,13 @@
 		remove_from_storage(I, T)
 		CHECK_TICK
 
-/obj/item/storage/New()
-	..()
-	can_hold = typecacheof(can_hold)
-	cant_hold = typecacheof(cant_hold)
-
-	if(allow_quick_empty)
-		verbs += /obj/item/storage/verb/quick_empty
-	else
-		verbs -= /obj/item/storage/verb/quick_empty
-
-	if(allow_quick_gather)
-		verbs += /obj/item/storage/verb/toggle_gathering_mode
-	else
-		verbs -= /obj/item/storage/verb/toggle_gathering_mode
-
-	boxes = new /obj/screen/storage()
-	boxes.name = "storage"
-	boxes.master = src
-	boxes.icon_state = "block"
-	boxes.screen_loc = "7,7 to 10,8"
-	boxes.layer = HUD_LAYER
-	boxes.plane = HUD_PLANE
-	closer = new /obj/screen/close()
-	closer.master = src
-	closer.icon_state = "backpack_close"
-	closer.layer = ABOVE_HUD_LAYER
-	closer.plane = ABOVE_HUD_PLANE
-	orient2hud()
-
-/obj/item/storage/Destroy()
-	for(var/obj/O in contents)
-		O.mouse_opacity = initial(O.mouse_opacity)
-
-	QDEL_NULL(boxes)
-	QDEL_NULL(closer)
-	return ..()
+/**
+  * Populates the container with items
+  *
+  * Override with whatever you want to put in the container
+  */
+/obj/item/storage/proc/populate_contents()
+	return // Override
 
 /obj/item/storage/emp_act(severity)
 	..()
@@ -635,3 +716,4 @@
 	if(user && user.s_active == src)
 		orient2hud(user)
 		show_to(user)
+	return TRUE

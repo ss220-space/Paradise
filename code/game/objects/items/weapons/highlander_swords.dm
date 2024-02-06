@@ -5,8 +5,9 @@
 /datum/martial_art/highlander
 	name = "Highlander Style"
 	deflection_chance = 100
+	weight = 100
 	no_guns = TRUE
-	no_guns_message = "You'd never stoop so low as to use the weapon of a COWARD!"
+	no_guns_message = "Вы никогда не опуститесь таааак низко, чтобы пользоваться оружием ПОДЛЕЦОВ!"
 
 
 //Highlander Claymore
@@ -24,7 +25,9 @@
 	QDEL_NULL(style)
 	return ..()
 
-/obj/item/claymore/highlander/equipped(mob/user, slot)
+/obj/item/claymore/highlander/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(!ishuman(user) || !user.mind)
 		return
 	var/mob/living/carbon/human/H = user
@@ -34,17 +37,19 @@
 			to_chat(H, "<span class='notice'>THERE CAN ONLY BE ONE!</span>")
 	else if(H.mind.martial_art && H.mind.martial_art == style)
 		style.remove(H)
-		var/obj/item/claymore/highlander/sword = H.is_in_hands(/obj/item/claymore/highlander)
+		var/obj/item/claymore/highlander/sword = H.is_type_in_hands(/obj/item/claymore/highlander)
 		if(sword)
 			//if we have a highlander sword in the other hand, relearn the style from that sword.
 			sword.style.teach(H, 1)
 
-/obj/item/claymore/highlander/dropped(mob/user)
+/obj/item/claymore/highlander/dropped(mob/user, silent = FALSE)
+	. = ..()
+
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	style.remove(H)
-	var/obj/item/claymore/highlander/sword = H.is_in_hands(/obj/item/claymore/highlander)
+	var/obj/item/claymore/highlander/sword = H.is_type_in_hands(/obj/item/claymore/highlander)
 	if(sword)
 		//if we have a highlander sword in the other hand, relearn the style from that sword.
 		sword.style.teach(H, 1)

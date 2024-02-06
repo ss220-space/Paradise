@@ -20,7 +20,7 @@
 /datum/chemical_reaction/crank/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	fireflash(holder.my_atom, 1)
-	explosion(T, 0, 0, 2)
+	explosion(T, 0, 0, 2, cause = src)
 
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"
@@ -46,7 +46,7 @@
 	for(var/mob/living/carbon/C in range(T, 1))
 		if(C.can_breathe_gas())
 			C.emote("gasp")
-			C.AdjustLoseBreath(1)
+			C.AdjustLoseBreath(2 SECONDS)
 			C.reagents.add_reagent("toxin", 10)
 			C.reagents.add_reagent("neurotoxin2", 20)
 
@@ -114,3 +114,25 @@
 	required_reagents = list("thermite" = 3, "uranium" = 1, "fluorosurfactant" = 1, "sacid" = 1)
 	result_amount = 6
 	mix_message = "The mixture congeals into a metallic green gel that crackles with electrical activity."
+
+/datum/chemical_reaction/crack
+	name = "Crack"
+	id = "crack"
+	result = "crack"
+	required_reagents = list("cocaextract" = 5, "ammonia" = 3, "fuel" = 2, "water" = 5)
+	result_amount = 5
+
+/datum/chemical_reaction/cocaine
+	name = "Cocaine"
+	id = "cocaine"
+	result = "cocaine"
+	required_reagents = list("crack" = 1, "diethylamine"=1)
+	result_amount = 1
+
+/datum/chemical_reaction/matedecoca
+	name = "Mate de Coca"
+	id = "matedecoca"
+	result = "matedecoca"
+	required_reagents = list("cocaextract" = 1, "water"=5)
+	result_amount = 5
+	min_temp = 400

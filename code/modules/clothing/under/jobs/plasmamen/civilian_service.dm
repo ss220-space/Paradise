@@ -20,12 +20,20 @@
 	item_state = "chef_envirosuit"
 	item_color = "chef_envirosuit"
 
+/obj/item/clothing/under/plasmaman/nt
+	name = "Nanotrasen Representative plasma envirosuit"
+	desc = "A Nanotrasen Representative plasmaman envirosuit designed specially for official occasions."
+	icon_state = "ntrep_envirosuit"
+	item_state = "ntrep_envirosuit"
+	item_color = "ntrep_envirosuit"
+
 /obj/item/clothing/under/plasmaman/enviroslacks
 	name = "enviroslacks"
 	desc = "The pet project of a particularly posh plasmaman, this custom suit was quickly appropriated by Nanotrasen for its detectives, lawyers, and bartenders alike."
 	icon_state = "enviroslacks"
 	item_state = "enviroslacks"
 	item_color = "enviroslacks"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)
 
 /obj/item/clothing/under/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit"
@@ -98,6 +106,7 @@
 	icon_state = "cap_envirosuit"
 	item_state = "cap_envirosuit"
 	item_color = "cap_envirosuit"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)
 
 /obj/item/clothing/under/plasmaman/blueshield
 	name = "blueshield envirosuit"
@@ -105,3 +114,4 @@
 	icon_state = "bs_envirosuit"
 	item_state = "bs_envirosuit"
 	item_color = "bs_envirosuit"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)

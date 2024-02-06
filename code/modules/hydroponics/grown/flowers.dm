@@ -65,6 +65,35 @@
 	filling_color = "#008B8B"
 
 
+// Moonlight
+/obj/item/seeds/moonlight
+	name = "pack of moonlight seeds"
+	desc = "These seeds grow into moonlight."
+	icon_state = "seed-moonlight"
+	species = "moonlight"
+	plantname = "Moonlight Plants"
+	product = /obj/item/reagent_containers/food/snacks/grown/moonlight
+	lifespan = 45
+	endurance = 40
+	maturation = 8
+	production = 5
+	yield = 3
+	growthstages = 6
+	genes = list(/datum/plant_gene/trait/glow)
+	growing_icon = 'icons/obj/hydroponics/growing.dmi'
+	icon_grow = "moonlight-grow"
+	icon_dead = "moonlight-dead"
+	reagents_add = list("plantmatter" = 0.02, "vitamin" = 0.03, "moonlin" = 0.1)
+/obj/item/reagent_containers/food/snacks/grown/moonlight
+	seed = /obj/item/seeds/moonlight
+	name = "moonlight"
+	desc = "A beautiful sparkling flower."
+	origin_tech = "biotech=4"
+	icon_state = "moonlight"
+	tastes = list("moonlin" = 1)
+	filling_color = "#46fdfd"
+	slot_flags = SLOT_HEAD
+
 // Harebell
 /obj/item/seeds/harebell
 	name = "pack of harebell seeds"
@@ -194,8 +223,7 @@
 		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of the [name]!</span>")
 		M.adjust_fire_stacks(seed.potency / 20)
 		if(M.IgniteMob())
-			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
-			log_game("[key_name(user)] set [key_name(M)] on fire")
+			add_attack_logs(user, M, "set on fire", ATKLOG_FEW)
 
 /obj/item/grown/novaflower/afterattack(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)
@@ -204,7 +232,7 @@
 		force -= rand(1, (force / 3) + 1)
 	else
 		to_chat(usr, "<span class='warning'>All the petals have fallen off the [name] from violent whacking!</span>")
-		usr.unEquip(src)
+		usr.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)
@@ -212,3 +240,32 @@
 	if(!user.gloves)
 		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
 		user.adjustFireLoss(rand(1, 5))
+//Shavel
+/obj/item/seeds/shavel
+	name = "pack of shavel seeds"
+	desc = "These seeds grow into shavel."
+	icon_state = "seed-shavel"
+	species = "shavel"
+	plantname = "Shavel Plants"
+	product = /obj/item/reagent_containers/food/snacks/grown/shavel
+	lifespan = 60
+	endurance = 65
+	potency = 15
+	maturation = 6
+	production = 2
+	yield = 7
+	growthstages = 3
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	growing_icon = 'icons/obj/hydroponics/growing.dmi'
+	icon_grow = "shavel-grow"
+	icon_dead = "shavel-dead"
+	icon_harvest = "shavel-harvest"
+	reagents_add = list("plantmatter" = 0.04, "vitamin" = 0.15)
+/obj/item/reagent_containers/food/snacks/grown/shavel
+	seed = /obj/item/seeds/shavel
+	name = "shavel"
+	desc = "A shavel leaf."
+	origin_tech = "biotech=2"
+	icon_state = "shavel"
+	tastes = list("sour weed" = 1)
+	filling_color = "#177025"

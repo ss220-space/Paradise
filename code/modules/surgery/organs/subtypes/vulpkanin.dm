@@ -1,3 +1,9 @@
+/obj/item/organ/external/head/vulpkanin
+	species_type = /datum/species/vulpkanin
+
+/obj/item/organ/external/head/vulpkanin/wolpin
+	species_type = /datum/species/monkey/vulpkanin
+
 /obj/item/organ/internal/liver/vulpkanin
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin liver"
@@ -8,7 +14,7 @@
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin eyeballs"
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
+	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will recieve when they get the disability.
 	replace_colours = PROTANOPIA_COLOR_REPLACE
 	see_in_dark = 8
 

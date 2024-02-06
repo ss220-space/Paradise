@@ -29,7 +29,7 @@
 	harm_intent_damage = 8
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "slashes"
+	attacktext = "кромсает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
@@ -41,5 +41,5 @@
 	if(.)
 		if(prob(15) && iscarbon(target))
 			var/mob/living/carbon/C = target
-			C.Weaken(3)
+			C.Weaken(6 SECONDS)
 			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")

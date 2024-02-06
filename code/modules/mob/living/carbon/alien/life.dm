@@ -1,3 +1,13 @@
+/mob/living/carbon/alien/Life(seconds, times_fired)
+	if(..() && can_evolve && evolution_points < max_evolution_points)
+		var/points_to_add = 1
+		if(locate(/obj/structure/alien/weeds) in loc)
+			points_to_add *= 2
+		if(lying)
+			points_to_add *= 2
+		evolution_points = min(evolution_points + points_to_add, max_evolution_points)
+		update_icons()
+
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return
@@ -14,7 +24,7 @@
 	var/Toxins_pp = (breath.toxins / breath.total_moles()) * breath_pressure
 
 	if(Toxins_pp > tox_detect_threshold) // Detect toxins in air
-		adjustPlasma(breath.toxins*250)
+		adjust_alien_plasma(breath.toxins*250)
 		throw_alert("alien_tox", /obj/screen/alert/alien_tox)
 
 		toxins_used = breath.toxins
@@ -40,3 +50,14 @@
 	if(!.) //if the mob isn't on fire anymore
 		return
 	adjust_bodytemperature(BODYTEMP_HEATING_MAX) //If you're on fire, you heat up!
+
+/mob/living/carbon/alien/handle_stomach(times_fired)
+	for(var/thing in stomach_contents)
+		var/mob/living/M = thing
+		if(M.loc != src)
+			LAZYREMOVE(stomach_contents, M)
+			continue
+		if(stat != DEAD)
+			M.SetWeakened(4 SECONDS)
+			M.SetEyeBlind(4 SECONDS)
+			M.adjustBruteLoss(1.5)

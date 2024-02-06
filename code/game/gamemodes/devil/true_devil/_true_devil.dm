@@ -23,23 +23,19 @@
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
-	dna = dna_source.dna.Clone()
-	var/obj/item/organ/internal/brain/B = new(src)
-	var/obj/item/organ/internal/ears/E = new(src)
-	B.insert()
-	E.insert()
+	if(dna_source)
+		dna = dna_source.dna.Clone()
+	else
+		dna = new
+
+	new /obj/item/organ/internal/brain(src)
+	new /obj/item/organ/internal/ears(src)
 	..()
 
-// inventory system could use some love
-/mob/living/carbon/true_devil/put_in_hands(obj/item/W)
-	if(!W)
-		return 0
-	if(put_in_active_hand(W))
-		return TRUE
-	else if(put_in_inactive_hand(W))
-		return TRUE
-	else
-		..()
+// Determines if mob has and can use his hands like a human
+/mob/living/carbon/true_devil/real_human_being()
+	return TRUE
+
 
 /mob/living/carbon/true_devil/proc/convert_to_archdevil()
 	maxHealth = 5000 // not an IMPOSSIBLE amount, but still near impossible.
@@ -53,9 +49,11 @@
 
 /mob/living/carbon/true_devil/Login()
 	..()
+	var/list/messages = list()
 	if(mind.devilinfo)
-		mind.devilinfo.announce_laws(src)
-	mind.announce_objectives()
+		messages.Add(mind.devilinfo.announce_laws(src))
+	messages.Add(mind.prepare_announce_objectives())
+	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
 
 
 /mob/living/carbon/true_devil/death(gibbed)
@@ -65,7 +63,7 @@
 
 
 /mob/living/carbon/true_devil/examine(mob/user)
-	var/msg = "<span class='info'>*---------*\nThis is [bicon(src)] <b>[src]</b>!\n"
+	var/msg = "This is [bicon(src)] <b>[src]</b>!\n"
 
 	//Left hand items
 	if(l_hand && !(l_hand.flags & ABSTRACT))
@@ -83,7 +81,7 @@
 
 	//Braindead
 	if(!client && stat != DEAD)
-		msg += "The devil seems to be in deep contemplation.\n"
+		msg += "<span class='deadsay'>The devil seems to be in deep contemplation.</span>\n"
 
 	//Damaged
 	if(stat == DEAD)
@@ -92,7 +90,7 @@
 		msg += "<span class='warning'>You can see hellfire inside of it's gaping wounds.</span>\n"
 	else if(health < (maxHealth/2))
 		msg += "<span class='warning'>You can see hellfire inside of it's wounds.</span>\n"
-	msg += "*---------*</span>"
+
 	. = list(msg)
 
 
@@ -178,15 +176,15 @@
 						// Weaken knocks people over
 						// Paralyse knocks people out
 						// It's Paralyse for parity though
-						// Weaken(2)
-						Paralyse(2)
+						// Weaken(4 SECONDS)
+						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "pushed")
 						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
 							"<span class='userdanger'>[M] has pushed down [src]!</span>")
 					else
 						if(prob(25))
-							drop_item()
+							drop_from_active_hand()
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 							visible_message("<span class='danger'>[M] has disarmed [src]!</span>", \
 							"<span class='userdanger'>[M] has disarmed [src]!</span>")

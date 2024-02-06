@@ -103,7 +103,8 @@
 					to_chat(user, "<span class='notice'>\t [R]</span>")
 				else
 					var/blood_type = R.data["blood_type"]
-					to_chat(user, "<span class='notice'>\t [R] [blood_type]</span>")
+					var/blood_species = R.data["blood_species"]
+					to_chat(user, "<span class='notice'>\t [R] [blood_type] [blood_species]</span>")
 		else
 			to_chat(user, "<span class='notice'>No active chemical agents found in [A].</span>")
 	else
@@ -113,28 +114,5 @@
 	base_name = "Gas Scanner"
 	icon = "tachometer-alt"
 
-/datum/data/pda/utility/scanmode/gas/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
-	if(istype(A, /obj/item/tank))
-		var/obj/item/tank/T = A
-		pda.atmosanalyzer_scan(T.air_contents, user, T)
-	else if(istype(A, /obj/machinery/portable_atmospherics))
-		var/obj/machinery/portable_atmospherics/T = A
-		pda.atmosanalyzer_scan(T.air_contents, user, T)
-	else if(istype(A, /obj/machinery/atmospherics/pipe))
-		var/obj/machinery/atmospherics/pipe/T = A
-		pda.atmosanalyzer_scan(T.parent.air, user, T)
-	else if(istype(A, /obj/machinery/power/rad_collector))
-		var/obj/machinery/power/rad_collector/T = A
-		if(T.P)
-			pda.atmosanalyzer_scan(T.P.air_contents, user, T)
-	else if(istype(A, /obj/item/flamethrower))
-		var/obj/item/flamethrower/T = A
-		if(T.ptank)
-			pda.atmosanalyzer_scan(T.ptank.air_contents, user, T)
-	else if(istype(A, /obj/machinery/portable_atmospherics/scrubber/huge))
-		var/obj/machinery/portable_atmospherics/scrubber/huge/T = A
-		pda.atmosanalyzer_scan(T.air_contents, user, T)
-	else if(istype(A, /obj/machinery/atmospherics/unary/tank))
-		var/obj/machinery/atmospherics/unary/tank/T = A
-		pda.atmosanalyzer_scan(T.air_contents, user, T)
-
+/datum/data/pda/utility/scanmode/gas/scan_atom(atom/A, mob/user)
+	atmos_scan(user=user, target=A, silent=FALSE, print=TRUE)

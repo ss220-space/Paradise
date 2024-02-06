@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { classes, isFalsy } from 'common/react';
 import { Component, createRef } from 'inferno';
 import { Box } from './Box';
@@ -76,11 +82,15 @@ export class Input extends Component {
     const input = this.inputRef.current;
     if (input) {
       input.value = toInputValue(nextValue);
-      if (this.props.autofocus) {
+    }
+
+    if (this.props.autoFocus || this.props.autoSelect) {
+      setTimeout(() => {
         input.focus();
-        input.selectionStart = 0;
-        input.selectionEnd = input.value.length;
-      }
+        if (this.props.autoSelect) {
+          input.select();
+        }
+      }, 1);
     }
   }
 

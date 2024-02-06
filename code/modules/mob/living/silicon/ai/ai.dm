@@ -21,7 +21,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
 	/mob/living/silicon/ai/proc/change_arrival_message,
-	/mob/living/silicon/ai/proc/arrivals_announcement
+	/mob/living/silicon/ai/proc/arrivals_announcement,
+	/mob/living/silicon/ai/proc/ai_change_voice,
 ))
 
 //Not sure why this is necessary...
@@ -59,6 +60,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/item/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
 	var/custom_hologram = 0 //For our custom holograms
+	var/on_the_card = FALSE //If our ai is on the Intelicard, or not
 
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
 
@@ -106,7 +108,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/announce_arrivals = TRUE
-	var/arrivalmsg = "$name, $rank, has arrived on the station."
+	var/arrivalmsg = "$name, $rank, прибыл на станцию."
 
 	var/list/all_eyes = list()
 
@@ -120,8 +122,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
 	announcement = new()
-	announcement.title = "A.I. Announcement"
-	announcement.announcement_type = "A.I. Announcement"
+	announcement.title = "Оповещение ИИ"
+	announcement.announcement_type = "Оповещение ИИ"
 	announcement.announcer = name
 	announcement.newscast = 0
 
@@ -146,6 +148,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	proc_holder_list = new()
 
+	if(B?.clock || isclocker(B?.brainmob))
+		laws = new /datum/ai_laws/ratvar
+		overlays += "clockwork_frame"
 	if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
@@ -184,6 +189,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Chittin", 1)
 	add_language("Bubblish", 1)
 	add_language("Clownish", 1)
+	add_language("Tkachi", 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -413,7 +419,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Glitchman",
 		"House",
 		"Database",
-		"Alien"
+		"Alien",
+		"Cheese",
+		"Voiddonut",
+		"Bee",
+		"Fox",
+		"Tiger",
+		"Vox",
+		"Liz",
+		"Darkmatter",
+		"Nadburn",
+		"Rainbowslime",
+		"Borb",
+		"Catamari"
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -496,6 +514,30 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-database"
 		if("Alien")
 			icon_state = "ai-alien"
+		if("Cheese")
+			icon_state = "ai-cheese"
+		if("Voiddonut")
+			icon_state = "ai-voiddonut"
+		if("Bee")
+			icon_state = "ai-bee"
+		if("Fox")
+			icon_state = "ai-fox"
+		if("Tiger")
+			icon_state = "ai-tiger"
+		if("Vox")
+			icon_state = "ai-vox"
+		if("Liz")
+			icon_state = "ai-liz"
+		if("Darkmatter")
+			icon_state = "ai-darkmatter"
+		if("Nadburn")
+			icon_state = "ai-nadburn"
+		if("Rainbowslime")
+			icon_state = "ai-rainbowslime"
+		if("Borb")
+			icon_state = "ai-borb"
+		if("Catamari")
+			icon_state = "ai-catamari"
 		else
 			icon_state = "ai"
 	//else
@@ -636,6 +678,17 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return
 
+/mob/living/silicon/ai/ratvar_act()
+	if(isclocker(src))
+		return
+	SSticker.mode.add_clocker(mind)
+	laws = new /datum/ai_laws/ratvar
+	overlays += "clockwork_frame"
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		to_chat(R, "<span class='danger'>ERROR: Master AI has be&# &#@)!-")
+		to_chat(R, "<span class='clocklarge'>\"Your master is under my control, so do you\"")
+		R.ratvar_act(TRUE)
+		SSticker?.score?.save_silicon_laws(R, additional_info = "Ratvar act via master AI conversion", log_all_laws = TRUE)
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	if(usr != src)
@@ -713,8 +766,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			mech_has_controlbeacon = TRUE
 			break
 		if(!can_dominate_mechs && !mech_has_controlbeacon)
-			message_admins("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
-			log_debug("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			message_admins("Warning: possible href exploit by [ADMIN_LOOKUPFLW(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
+			log_debug("Warning: possible href exploit by [key_name_log(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
 			return
 
 		if(controlled_mech)
@@ -903,7 +956,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in cameralist
+	network = tgui_input_list(U, "Which network would you like to view?", "Jump To Network", cameralist)
 
 	if(check_unable())
 		return
@@ -984,11 +1037,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if("Crew Member")
 			var/personnel_list[] = list()
 
-			for(var/datum/data/record/t in GLOB.data_core.locked)//Look in data core locked.
-				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
+				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in personnel_list
+				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -1018,14 +1071,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"Turkey"
 			)
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
 					if("Bear")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"bear"))
 					if("Carp")
-						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"carp"))
+						holo_icon = getHologramIcon(icon('icons/mob/carp.dmi',"carp"))
 					if("Chicken")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"chicken_brown"))
 					if("Corgi")
@@ -1065,12 +1118,15 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"floating face",
 			"xeno queen",
 			"eldritch",
-			"ancient machine"
+			"ancient machine",
+			"AUTO",
+			"beach ball",
+			"pair of bees"
 			)
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1082,6 +1138,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo3"))
 					if("eldritch")
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo4"))
+					if("AUTO")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo5"))
+					if("beach ball")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo6"))
+					if("pair of bees")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo7"))
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
@@ -1129,6 +1191,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	toggle_sensor_mode()
 
+/mob/living/silicon/ai/proc/ai_change_voice()
+	set name = "Change Voice"
+	set desc = "Express yourself!"
+	set category = "AI Commands"
+	change_voice()
+
 /mob/living/silicon/ai/proc/arrivals_announcement()
 	set name = "Toggle Arrivals Announcer"
 	set desc = "Change whether or not you wish to announce arrivals."
@@ -1174,7 +1242,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(istype(W, /obj/item/wrench))
 		if(anchored)
 			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
+			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
@@ -1182,7 +1250,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		else
 			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
+			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
@@ -1234,11 +1302,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!mind)
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return
+		drop_hat()
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
+		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.
+		update_blind_effects()
 		control_disabled = 1//Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
-		loc = card//Throw AI into the card.
+		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
@@ -1266,12 +1337,15 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
 /mob/living/silicon/ai/proc/relay_speech(mob/living/M, list/message_pieces, verb)
-	var/message = combine_message(message_pieces, verb, M)
+	var/message_clean = combine_message(message_pieces, M)
+	message_clean = replace_characters(message_clean, list("+"))
+
+	var/message = verb_message(message_pieces, message_clean, verb)
+
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-		var/message_clean = combine_message(message_pieces, null, M)
 		create_chat_message(M, message_clean, TRUE, FALSE)
 	show_message(rendered, 2)
 
@@ -1351,6 +1425,42 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
+
+/mob/living/silicon/ai/var/current_camera = 0
+
+/mob/living/silicon/ai/proc/set_camera_by_index(client/user, var/camnum)
+	var/camnum_length = length(stored_locations)
+	if(camnum > camnum_length || (camnum == 0 && camnum_length < 10))
+		to_chat(user, "<span class='warning'>You have no stored camera on [camnum] position</span>")
+		return FALSE
+	if(camnum == 0)
+		camnum = 10
+	current_camera = camnum
+	return TRUE
+
+/mob/living/silicon/ai/proc/check_for_binded_cameras(client/user)
+	if(!length(stored_locations))
+		to_chat(user, "<span class='warning'>You have no stored camera positions</span>")
+		return FALSE
+	return TRUE
+
+/mob/living/silicon/ai/proc/update_binded_camera(client/user)
+	var/camname
+	camname = stored_locations[current_camera]
+	ai_goto_location(camname)
+	to_chat(user, "<span class='notice'>Now you on camera position: [camname]</span>")
+
+/mob/living/silicon/ai/proc/current_camera_next(client/user)
+	if(current_camera >= length(stored_locations))
+		current_camera = 1
+	else
+		current_camera += 1
+
+/mob/living/silicon/ai/proc/current_camera_back(client/user)
+	if(current_camera <= 1)
+		current_camera = length(stored_locations)
+	else
+		current_camera -= 1
 
 /mob/living/silicon/ai/handle_fire()
 	return

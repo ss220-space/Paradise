@@ -7,6 +7,8 @@
 	can_unwrench = 1
 	damage_deflection = 12
 	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
+	resistance_flags = NO_MALF_EFFECT
+	can_be_undertile = TRUE
 
 	//Buckling
 	can_buckle = TRUE
@@ -16,7 +18,7 @@
 /obj/machinery/atmospherics/pipe/New()
 	..()
 	//so pipes under walls are hidden
-	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/shuttle/wall) || istype(get_turf(src), /turf/unsimulated/wall))
+	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/wall/shuttle))
 		level = 1
 
 /obj/machinery/atmospherics/pipe/Destroy()
@@ -24,7 +26,7 @@
 	QDEL_NULL(air_temporary)
 
 	var/turf/T = loc
-	for(var/obj/machinery/meter/meter in T)
+	for(var/obj/machinery/atmospherics/meter/meter in T)
 		if(meter.target == src)
 			var/obj/item/pipe_meter/PM = new (T)
 			meter.transfer_fingerprints_to(PM)
@@ -36,15 +38,8 @@
 		qdel(parent)
 	parent = null
 
-/obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/analyzer))
-		atmosanalyzer_scan(parent.air, user)
-		return
-
-	if(istype(W,/obj/item/pipe_painter))
-		return
-
-	return ..()
+/obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
+	return parent
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
@@ -65,6 +60,16 @@
 	if(!parent)
 		return 0
 	return parent.air
+
+/obj/machinery/atmospherics/pipe/return_analyzable_air()
+	if(!parent)
+		return 0
+	return parent.air
+
+/obj/machinery/atmospherics/pipe/remove_air(amount)
+	if(!parent)
+		return 0
+	return parent.air.remove(amount)
 
 /obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
 	if(!parent)

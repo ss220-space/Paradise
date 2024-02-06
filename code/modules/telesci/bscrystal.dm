@@ -19,9 +19,14 @@
 	pixel_y = rand(-5, 5)
 
 /obj/item/stack/ore/bluespace_crystal/attack_self(var/mob/user)
-	if(use(1))
-		blink_mob(user)
-		user.visible_message("<span class='notice'>[user] crushes a [singular_name]!</span>")
+	if(do_after(user, 1 SECONDS, target = user))
+		var/mob/living/carbon/human/bs_user = user
+		if(use(1))
+			blink_mob(bs_user)
+			bs_user.adjustStaminaLoss(33) // same as taser ; balance ideas - increase staminoloss / time to crush, move staminaLoss before blink or even do_after, replace if(do_after...) and if(use(1))
+			bs_user.visible_message("<span class='notice'>[bs_user] crushes a [singular_name]!</span>")
+	else
+		to_chat(user, "<span class='notice'>You need to hold still to crush [singular_name].</span>")
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
 	if(!is_teleport_allowed(L.z))
@@ -30,7 +35,7 @@
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
 
-/obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom)
+/obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if(isliving(hit_atom))
 		blink_mob(hit_atom)
@@ -69,8 +74,11 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	usesound = 'sound/items/deconstruct.ogg'
 	point_value = 30
 
-/obj/item/stack/sheet/bluespace_crystal/New()
-	..()
+/obj/item/stack/sheet/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.bluespace_crystal_recipes
+
+/obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
+	..()
 	pixel_x = rand(0,4)-4
 	pixel_y = rand(0,4)-4

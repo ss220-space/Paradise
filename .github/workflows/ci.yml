@@ -2,19 +2,24 @@ name: CI
 on:
   push:
     branches:
-    - master
+    - master220
+    - whitelist220
+    - testmerge
+    - dev
   pull_request:
     branches:
-    - master
+    - master220
+    - whitelist220
+  workflow_call:
 
 jobs:
   run_linters:
     name: Run Linters
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
@@ -28,20 +33,21 @@ jobs:
           tools/ci/build_tgui.sh
           tools/ci/check_grep.sh
           python3 tools/ci/check_line_endings.py
+          python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
       - name: Annotate Lints
-        uses: yogstation13/DreamAnnotate@v1
+        uses: yogstation13/DreamAnnotate@v2
         if: always()
         with:
           outputFile: output-annotations.txt
 
   compile_all_maps:
     name: Compile All Maps
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
@@ -54,7 +60,12 @@ jobs:
 
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false # Let all map tests run to completion
+      matrix:
+        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/cerestation']
+        byondtype: ['STABLE'] # 'BETA'
     services:
       mariadb:
         image: mariadb:latest
@@ -62,11 +73,11 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+        options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
@@ -79,11 +90,17 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update || true
-          sudo apt install libssl1.1:i386
+          sudo apt install libgcc-s1:i386
+          bash tools/ci/install_rustg.sh
+      - name: Install DMJIT
+        run: |
+          sudo apt install libncurses6:i386
+          bash tools/ci/install_dmjit.sh
       - name: Compile & Run Unit Tests
         run: |
-          tools/ci/install_byond.sh
+          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/dm.sh -DCIBUILDING paradise.dme
+          echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh
 

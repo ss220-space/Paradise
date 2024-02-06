@@ -2,7 +2,8 @@
 	name = "dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/populate_contents()
-	var/loot = rand(1,4)
+	new /obj/item/gem/amber(src)
+	var/loot = rand(1,5)
 	switch(loot)
 		if(1)
 			new /obj/item/melee/ghost_sword(src)
@@ -13,6 +14,8 @@
 			new /obj/item/gun/magic/wand/fireball(src)
 		if(4)
 			new /obj/item/dragons_blood(src)
+		if(5)
+			new /obj/item/dragons_blood/refined(src) //turning into lizard stuff
 
 
 /obj/structure/closet/crate/necropolis/dragon/crusher
@@ -35,6 +38,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
+	embed_chance = 25
+	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 	var/summon_cooldown = 0
@@ -126,10 +131,13 @@
 			to_chat(user, "<span class='danger'>Your flesh begins to melt! Miraculously, you seem fine otherwise.</span>")
 			H.set_species(/datum/species/skeleton)
 		if(2)
-			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
 			if(user.mind)
-				var/obj/effect/proc_holder/spell/targeted/shapeshift/dragon/D = new
-				user.mind.AddSpell(D)
+				if(locate(/obj/effect/proc_holder/spell/shapeshift/dragon) in user.mind.spell_list)
+					to_chat(user, "<span class='danger'>Familiar power courses through you! But you already can shift into dragons...")
+				else
+					to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
+					var/obj/effect/proc_holder/spell/shapeshift/dragon/D = new
+					user.mind.AddSpell(D)
 		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
 			H.weather_immunities |= "lava"
@@ -137,15 +145,30 @@
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)
 
-/datum/disease/transformation/dragon
+/obj/item/dragons_blood/refined
+	name = "bottle of refined dragons blood"
+	desc = "You're totally going to drink this, aren't you?"
+
+/obj/item/dragons_blood/refined/attack_self(mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+	to_chat(user, span_danger("You feel warmth spread through you, paired with an odd desire to burn down a village. You're suddenly a very small, humanoid ash dragon!"))
+	H.set_species(/datum/species/unathi/draconid, save_appearance = TRUE)
+
+	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	qdel(src)
+
+/datum/disease/virus/transformation/dragon
 	name = "dragon transformation"
-	cure_text = "nothing"
+	cure_text = "Nothing"
 	cures = list("adminordrazine")
 	agent = "dragon's blood"
 	desc = "What do dragons have to do with Space Station 13?"
 	stage_prob = 20
 	severity = BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = VISIBLE
 	stage1	= list("Your bones ache.")
 	stage2	= list("Your skin feels scaley.")
 	stage3	= list("<span class='danger'>You have an overwhelming urge to terrorize some peasants.</span>", "<span class='danger'>Your teeth feel sharper.</span>")
@@ -158,11 +181,10 @@
 /obj/item/lava_staff
 	name = "staff of lava"
 	desc = "The power of fire and rocks in your hands!"
-	icon_state = "staffofstorms"
-	item_state = "staffofstorms"
-	icon = 'icons/obj/guns/magic.dmi'
+	icon_state = "lavastaff"
+	item_state = "lavastaff"
+	icon = 'icons/obj/weapons/magic.dmi'
 	slot_flags = SLOT_BACK
-	item_state = "staffofstorms"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
@@ -181,7 +203,7 @@
 
 /obj/item/lava_staff/New()
 	. = ..()
-	banned_turfs = typecacheof(list(/turf/space/transit, /turf/unsimulated))
+	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
@@ -197,7 +219,7 @@
 		do_sparks(5, FALSE, user)
 		return
 
-	if(target in view(user.client.view, get_turf(user)))
+	if(target in view(user.client.maxview(), get_turf(user)))
 
 		var/turf/simulated/T = get_turf(target)
 		if(!istype(T))
@@ -210,8 +232,8 @@
 			timer = world.time + create_delay + 1
 			if(do_after(user, create_delay, target = T))
 				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
-				message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
-				log_game("[key_name(user)] fired the lava staff at [get_area(target)] ([T.x], [T.y], [T.z]).")
+				message_admins("[key_name_admin(user)] fired the lava staff at [ADMIN_COORDJMP(T)]")
+				add_attack_logs(user, target, "fired lava staff", ATKLOG_MOST)
 				T.TerraformTurf(turf_type, keep_icon = FALSE)
 				timer = world.time + create_cooldown
 				qdel(L)

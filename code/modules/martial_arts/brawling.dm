@@ -1,5 +1,7 @@
 /datum/martial_art/boxing
 	name = "Boxing"
+	has_dirslash = FALSE
+	weight = 1
 
 /datum/martial_art/boxing/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	to_chat(A, "<span class='warning'>Can't disarm while boxing!</span>")
@@ -38,8 +40,8 @@
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.apply_effect(10,WEAKEN,armor_block)
-			D.Weaken(5)
+			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
+			D.Weaken(6 SECONDS)
 			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
 			D.forcesay(GLOB.hit_appends)
@@ -47,6 +49,7 @@
 
 /datum/martial_art/drunk_brawling
 	name = "Drunken Brawling"
+	weight = 2
 
 /datum/martial_art/drunk_brawling/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(prob(70))
@@ -91,14 +94,16 @@
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
 
 	D.apply_damage(damage, BRUTE, null, armor_block)
-	D.apply_effect(damage, STAMINA, armor_block)
+	objective_damage(A, D, damage, BRUTE)
+
+	D.apply_damage(damage, STAMINA, armor_block)
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.apply_effect(10,WEAKEN,armor_block)
-			D.Paralyse(5)
+			D.Paralyse(10 SECONDS)
+			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
 			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
 			D.forcesay(GLOB.hit_appends)

@@ -2,22 +2,21 @@
 // Store Item
 /////////////////////////////
 /datum/storeitem
-	var/name="Thing"
-	var/desc="It's a thing."
-	var/typepath=/obj/item/storage/box
-	var/cost=0
+	var/name = "Thing"
+	var/desc = "It's a thing."
+	var/typepath = /obj/item/storage/box
+	var/cost = 0
 
-/datum/storeitem/proc/deliver(var/mob/usr)
-	if(!istype(typepath,/obj/item/storage))
-		var/obj/item/storage/box/box=new(usr.loc)
-		new typepath(box)
-		box.name="[name] package"
-		box.desc="A special gift for doing your job."
-		usr.put_in_hands(box)
+/datum/storeitem/proc/deliver(mob/user)
+	if(ispath(typepath, /obj/item/storage))
+		var/thing = new typepath(user.loc)
+		user.put_in_hands(thing)
 	else
-		var/thing = new typepath(usr.loc)
-		usr.put_in_hands(thing)
-
+		var/obj/item/storage/box/box = new(user.loc)
+		new typepath(box)
+		box.name = "[name] package"
+		box.desc = "A special gift for doing your job."
+		user.put_in_hands(box)
 
 /////////////////////////////
 // Shit for robotics/science
@@ -45,6 +44,11 @@
 	typepath = /obj/item/storage/box/snappops
 	cost = 100
 
+/datum/storeitem/space_chips
+	name = "Poker Chips"
+	desc = "Chips for playing poker"
+	typepath = /obj/item/stack/spacechips/c2000
+	cost = 100
 /datum/storeitem/dnd
 	name = "Dungeons & Dragons Set"
 	desc = "A box containing minifigures suitable for a good game of D&D."
@@ -99,12 +103,6 @@
 	typepath = /obj/item/instrument/violin
 	cost = 250
 
-/datum/storeitem/guitar
-	name = "Guitar"
-	desc = "It's made of wood and has bronze strings."
-	typepath = /obj/item/instrument/guitar
-	cost = 250
-
 /datum/storeitem/eguitar
 	name = "Electric Guitar"
 	desc = "Makes all your shredding needs possible."
@@ -116,6 +114,12 @@
 	desc = "It's pretty much just a drum with a neck and strings."
 	typepath = /obj/item/instrument/banjo
 	cost = 250
+
+/datum/storeitem/guitar_bag
+	name = "Guitar Bag"
+	desc = "Hold guitar, made of wood and has bronze strings."
+	typepath = /obj/item/storage/backpack/guitarbag/with_guitar
+	cost = 400
 
 /datum/storeitem/piano_synth
 	name = "Piano Synthesizer"
@@ -205,6 +209,12 @@
 	name = "Plasmaman Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
 	typepath = /obj/item/flag/species/plasma
+	cost = 500
+
+/datum/storeitem/flag_nian
+	name = "Nian Flag"
+	desc = "A flag proudly proclaiming the superior heritage of Nian."
+	typepath = /obj/item/flag/species/nian
 	cost = 500
 
 /datum/storeitem/flag_ian

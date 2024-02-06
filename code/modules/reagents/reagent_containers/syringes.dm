@@ -8,21 +8,22 @@
 	icon = 'icons/goonstation/objects/syringe.dmi'
 	item_state = "syringe_0"
 	icon_state = "0"
+	belt_icon = "syringe"
 	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 15
 	sharp = TRUE
+	pass_open_check = TRUE
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
 
-/obj/item/reagent_containers/syringe/New()
-	..()
+/obj/item/reagent_containers/syringe/Initialize(mapload)
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
-		update_icon()
+	. = ..()
 
 /obj/item/reagent_containers/syringe/set_APTFT()
 	set hidden = TRUE
@@ -34,7 +35,7 @@
 	. = ..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/dropped(mob/user)
+/obj/item/reagent_containers/syringe/dropped(mob/user, silent = FALSE)
 	..()
 	update_icon()
 
@@ -133,17 +134,16 @@
 					L.visible_message("<span class='danger'>[user] injects [L] with the syringe!", \
 									"<span class='userdanger'>[user] injects [L] with the syringe!")
 
-				var/list/rinject = list()
-				for(var/datum/reagent/R in reagents.reagent_list)
-					rinject += R.name
-				var/contained = english_list(rinject)
-
-				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+			add_attack_logs(user, target, "Injected with [name] containing [reagents.log_list()], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
+			if(istype(target, /obj/item/reagent_containers/food))
+				var/obj/item/reagent_containers/food/F = target
+				F.log_eating = TRUE
+
 			if(reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
 				mode = SYRINGE_DRAW
 				update_icon()

@@ -33,39 +33,39 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 		switch(level)
 			if(SEC_LEVEL_GREEN)
-				GLOB.security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.")
+				GLOB.security_announcement_down.Announce("Все угрозы для станции устранены. Все оружие должно быть в кобуре, и законы о конфиденциальности вновь полностью соблюдаются.","ВНИМАНИЕ! Уровень угрозы понижен до ЗЕЛЁНОГО.")
 				GLOB.security_level = SEC_LEVEL_GREEN
-
+				unset_stationwide_emergency_lighting()
 				post_status("alert", "outline")
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_green")
 						FA.update_icon()
 
 			if(SEC_LEVEL_BLUE)
 				if(GLOB.security_level < SEC_LEVEL_BLUE)
-					GLOB.security_announcement_up.Announce("The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted.","Attention! Security level elevated to blue.")
+					GLOB.security_announcement_up.Announce("На станции обнаружено присутствие враждебных элементов, представляющих незначительную угрозу экипажу и активам корпорации. Служба Безопасности может держать оружие на виду и использовать летальную силу в соответствии с рабочими процедурами отдела защиты активов.","ВНИМАНИЕ! Уровень угрозы повышен до СИНЕГО")
 				else
-					GLOB.security_announcement_down.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.","Attention! Security level lowered to blue.")
+					GLOB.security_announcement_down.Announce("Непосредственная угроза миновала. Служба безопасности может больше не держать оружие в полной боевой готовности, но может по-прежнему держать его на виду. Выборочные обыски запрещены.","ВНИМАНИЕ! Уровень угрозы понижен до СИНЕГО")
 				GLOB.security_level = SEC_LEVEL_BLUE
 
 				post_status("alert", "default")
-
+				unset_stationwide_emergency_lighting()
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_blue")
 						FA.update_icon()
 
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
-					GLOB.security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
+					GLOB.security_announcement_up.Announce("На борту станции подтверждена серьезная угроза для экипажа и активов корпорации. Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены и рекомендуются.","ВНИМАНИЕ! КОД КРАСНЫЙ!")
 				else
-					GLOB.security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
+					GLOB.security_announcement_down.Announce("Угроза уничтожения станции миновала, но враждебная активность остается на высоком уровне. Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены.","ВНИМАНИЕ! КОД КРАСНЫЙ!")
+					unset_stationwide_emergency_lighting()
 				GLOB.security_level = SEC_LEVEL_RED
-
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
 				if(R && is_station_level(R.z))
 					R.locked = 0
@@ -76,14 +76,12 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_red")
 						FA.update_icon()
 
 			if(SEC_LEVEL_GAMMA)
-				GLOB.security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!", new_sound = sound('sound/effects/new_siren.ogg'))
+				GLOB.security_announcement_up.Announce("Центральным Командованием был установлен Код Гамма. Станция находится под угрозой полного уничтожения. Службе безопасности следует получить полное вооружение и приготовиться к ведению боевых действий с враждебными элементами на борту станции. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения дальнейших указаний.", "Внимание! Код ГАММА!", sound('sound/effects/new_siren.ogg'))
 				GLOB.security_level = SEC_LEVEL_GAMMA
-
-				move_gamma_ship()
 
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in GLOB.airlocks)
@@ -91,33 +89,27 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 							R.locked = 0
 							R.update_icon()
 
-				for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-					if(is_station_level(H.z))
-						H.locked = 0
-						H.update_icon()
-
 				post_status("alert", "gammaalert")
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_gamma")
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
-				GLOB.security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.","Attention! Epsilon security level activated!", new_sound = sound('sound/effects/purge_siren.ogg'))
-				GLOB.security_level = SEC_LEVEL_EPSILON
-
-				post_status("alert", "epsilonalert")
-
-				for(var/obj/machinery/firealarm/FA in GLOB.machines)
-					if(is_station_contact(FA.z))
-						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
-						FA.update_icon()
+				for(var/mob/M in GLOB.player_list)
+					var/turf/T = get_turf(M)
+					if(!M.client || !is_station_level(T.z))
+						continue
+					SEND_SOUND(M, sound('sound/effects/powerloss.ogg'))
+				set_stationwide_emergency_lighting()
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(epsilon_process)), 15 SECONDS)
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+				return
 
 			if(SEC_LEVEL_DELTA)
-				GLOB.security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", new_sound = sound('sound/effects/deltaalarm.ogg'))
+				GLOB.security_announcement_up.Announce("Механизм самоуничтожения станции задействован. Все члены экипажа обязан подчиняться всем указаниям, данными Главами отделов. Любые нарушения этих приказов наказуемы уничтожением на месте. Это не учебная тревога.","ВНИМАНИЕ! КОД ДЕЛЬТА!", new_sound = sound('sound/effects/deltaalarm.ogg'))
 				GLOB.security_level = SEC_LEVEL_DELTA
 
 				post_status("alert", "deltaalert")
@@ -125,30 +117,18 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_delta")
 						FA.update_icon()
+				set_stationwide_emergency_lighting()
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
+				return
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 
-		if(GLOB.sibsys_automode && !isnull(GLOB.guns_registry))
-			var/limit = SIBYL_NONLETHAL
-			switch(GLOB.security_level)
-				if(SEC_LEVEL_GREEN)
-					limit = SIBYL_NONLETHAL
-				if(SEC_LEVEL_BLUE)
-					limit = SIBYL_LETHAL
-				if(SEC_LEVEL_RED)
-					limit = SIBYL_LETHAL
-				if(SEC_LEVEL_GAMMA)
-					limit = SIBYL_DESTRUCTIVE
-				if(SEC_LEVEL_EPSILON)
-					limit = SIBYL_DESTRUCTIVE
-				if(SEC_LEVEL_DELTA)
-					limit = SIBYL_DESTRUCTIVE
-
-			for(var/obj/item/sibyl_system_mod/mod in GLOB.guns_registry)
-				mod.set_limit(limit)
+		if(GLOB.sibsys_automode && !isnull(GLOB.sybsis_registry))
+			for(var/obj/item/sibyl_system_mod/mod in GLOB.sybsis_registry)
+				mod.sync_limit()
 	else
 		return
 
@@ -210,7 +190,23 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_EPSILON)
 			return "ЭПСИЛОН"
 		if(SEC_LEVEL_DELTA)
-			return "ДЭЛЬТА"
+			return "ДЕЛЬТА"
+
+
+/proc/get_security_level_ru_colors()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			return "<font color='limegreen'>Зелёный</font>"
+		if(SEC_LEVEL_BLUE)
+			return "<font color='dodgerblue'>Синий</font>"
+		if(SEC_LEVEL_RED)
+			return "<font color='red'>Красный</font>"
+		if(SEC_LEVEL_GAMMA)
+			return "<font color='gold'>Гамма</font>"
+		if(SEC_LEVEL_EPSILON)
+			return "<font color='blueviolet'>Эпсилон</font>"
+		if(SEC_LEVEL_DELTA)
+			return "<font color='orangered'>Дельта</font>"
 
 /proc/get_security_level_l_range()
 	switch(GLOB.security_level)
@@ -253,6 +249,75 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_GAMMA)
 			return COLOR_AMBER
 		if(SEC_LEVEL_EPSILON)
-			return COLOR_ORANGE
+			return COLOR_WHITE
 		if(SEC_LEVEL_DELTA)
-			return COLOR_DARK_ORANGE
+			return COLOR_PURPLE
+
+/proc/set_stationwide_emergency_lighting()
+	for(var/A in GLOB.apcs)
+		var/obj/machinery/power/apc/apc = A
+		var/area/AR = get_area(apc)
+		if(!is_station_level(apc.z))
+			continue
+		apc.emergency_lights = FALSE
+		AR.area_emergency_mode = TRUE
+		for(var/L in AR.lights_cache)
+			var/obj/machinery/light/light = L
+			if(light.status)
+				continue
+			if(GLOB.security_level == SEC_LEVEL_DELTA)
+				light.fire_mode = TRUE
+			light.on = FALSE
+			light.emergency_mode = TRUE
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+
+/proc/unset_stationwide_emergency_lighting()
+	for(var/area/A as anything in GLOB.all_areas)
+		if(!is_station_level(A.z))
+			continue
+		if(!A.area_emergency_mode)
+			continue
+		A.area_emergency_mode = FALSE
+		for(var/L in A.lights_cache)
+			var/obj/machinery/light/light = L
+			if(A.fire)
+				continue
+			if(light.status)
+				continue
+			light.fire_mode = FALSE
+			light.emergency_mode = FALSE
+			light.on = TRUE
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+
+
+/proc/epsilon_process()
+	GLOB.security_announcement_up.Announce("Центральным командованием был установлен код ЭПСИЛОН. Все контракты расторгнуты.","ВНИМАНИЕ! КОД ЭПСИЛОН", new_sound = sound('sound/effects/epsilon.ogg'))
+	GLOB.security_level = SEC_LEVEL_EPSILON
+	post_status("alert", "epsilonalert")
+	for(var/area/A as anything in GLOB.all_areas)
+		if(!is_station_level(A.z))
+			continue
+		for(var/L in A.lights_cache)
+			var/obj/machinery/light/light = L
+			if(light.status)
+				continue
+			light.fire_mode = TRUE
+			light.update()
+
+	for(var/obj/machinery/firealarm/FA in GLOB.machines)
+		if(is_station_contact(FA.z))
+			FA.overlays.Cut()
+			FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_epsilon")
+			FA.update_icon()
+	GLOB.PDA_Manifest = list(\
+					"heads" = list(),\
+					"pro" = list(),\
+					"sec" = list(),\
+					"eng" = list(),\
+					"med" = list(),\
+					"sci" = list(),\
+					"ser" = list(),\
+					"sup" = list(),\
+					"bot" = list(),\
+					"misc" = list()\
+					)

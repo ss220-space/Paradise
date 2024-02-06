@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
 	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
-	icon = 'icons/obj/tcomms.dmi'
+	icon = 'icons/obj/machines/tcomms.dmi'
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
@@ -137,7 +137,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	if(active)
 		active = FALSE
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
-		addtimer(CALLBACK(src, /atom.proc/visible_message, "<span class='warning'>Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.</span>"), 5)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), span_warning("Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.")), 5)
 	update_icon()
 
 
@@ -151,8 +151,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   * * adminmsg - Should an admin log be sent when this happens
   */
 /obj/machinery/tcomms/proc/log_action(user, msg, adminmsg = FALSE)
-	log_game("NTTC: [key_name(user)] [msg]")
-	log_investigate("[key_name(user)] [msg]", "nttc")
+	add_misc_logs(user, "NTTC: [key_name(user)] [msg]")
 	if(adminmsg)
 		message_admins("[key_name_admin(user)] [msg]")
 /**
@@ -179,6 +178,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/sender_name = "Error"
 	/// What job are they
 	var/sender_job = "Error"
+	/// What rank are they
+	var/sender_rank = "Error"
 	/// Pieces of the message
 	var/list/message_pieces = list()
 	/// Source Z-level
@@ -275,7 +276,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/bad_connection = FALSE
 	var/datum/radio_frequency/new_connection = tcm.connection
 
-	if(tcm.connection.frequency != display_freq)
+	if(tcm?.connection?.frequency != display_freq)
 		bad_connection = is_bad_connection(tcm.connection.frequency, display_freq)
 		new_connection = SSradio.return_frequency(display_freq)
 
@@ -309,11 +310,11 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			if(R.receive_range(display_freq, tcm.zlevels) > -1)
 				radios += R
 
-		// Add syndie radios for intercepts if its a regular department frequency
+	// Add syndie radios for intercepts if its a regular department frequency
 		for(var/antag_freq in SSradio.ANTAG_FREQS)
 			var/datum/radio_frequency/antag_connection = SSradio.return_frequency(antag_freq)
 			for(var/obj/item/radio/R in antag_connection.devices["[RADIO_CHAT]"])
-				if(R.receive_range(antag_freq, tcm.zlevels) > -1)
+				if(R.receive_range(display_freq, tcm.zlevels) > -1)
 					// Only add if it wasnt there already
 					radios |= R
 

@@ -7,13 +7,13 @@
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/m10mm
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
+	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
 	can_suppress = 1
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/pistol/update_icon()
 	..()
@@ -27,6 +27,7 @@
 	icon_state = "m1911"
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
+	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	can_suppress = 0
 
 //Enforcer//
@@ -36,6 +37,7 @@
 	icon_state = "enforcer_grey"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
+	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
@@ -82,16 +84,115 @@
 	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
+	can_suppress = TRUE
+
+//SP8 Pistol OBR and Warden//
+/obj/item/gun/projectile/automatic/pistol/sp8
+	name = "SP-8"
+	desc = "Базовая версия новейшего пистолета сил защиты активов. Под патрон 40N&R."
+	icon_state = "sp8_black"  // thanks split
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/sp8
+	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
+	can_suppress = TRUE
+	unique_reskin = TRUE
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/pistol/sp8/New()
+	..()
+	options["Black"] = "sp8_black"
+	options["Red"] = "sp8_red"
+	options["Green"] = "sp8_green"
+	options["Olive"] = "sp8_olive"
+	options["Yellow"] = "sp8_yellow"
+	options["White"] = "sp8_white"
+	options["Cancel"] = null
+
+/obj/item/gun/projectile/automatic/pistol/sp8/update_icon()
+	..()
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	overlays.Cut()
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "sp8_supp")
+	if(gun_light)
+		var/iconF = "sp8-light"
+		if(gun_light.on)
+			iconF = "sp8-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/pistol/sp8/ui_action_click()
+	toggle_gunlight()
+
+/obj/item/gun/projectile/automatic/pistol/sp8t
+	name = "SP-8-T"
 	can_suppress = FALSE
+	icon_state = "sp8t_dust"
+	desc = "Новейшая разработка для сил защиты активов."
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/sp8
+	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
+	unique_reskin = TRUE
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/pistol/sp8t/New()
+	..()
+	options["Dust"] = "sp8t_dust"
+	options["Sea"] = "sp8t_sea"
+	options["Cancel"] = null
+
+/obj/item/gun/projectile/automatic/pistol/sp8t/update_icon()
+	..()
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	overlays.Cut()
+	if(suppressed)
+		overlays += image(icon = icon, icon_state = "sp8_supp")
+	if(gun_light)
+		var/iconF = "sp8-light"
+		if(gun_light.on)
+			iconF = "sp8-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/pistol/sp8t/ui_action_click()
+	toggle_gunlight()
+
+/obj/item/gun/projectile/automatic/pistol/sp8ar
+	name = "SP-8-AR"
+	desc = "Пистолет сил защиты активов оснащённый ДТК."
+	can_suppress = FALSE
+	icon_state = "sp8ar"
+	unique_reskin = FALSE
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/sp8
+	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/pistol/sp8ar/update_icon()
+	..()
+	if(gun_light)
+		var/iconF = "sp8-light"
+		if(gun_light.on)
+			iconF = "sp8-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/pistol/sp8ar/ui_action_click()
+	toggle_gunlight()
+
 
 //Desert Eagle//
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "desert eagle"
 	desc = "A robust .50 AE handgun."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "deagle"
 	force = 14.0
 	mag_type = /obj/item/ammo_box/magazine/m50
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistolH.ogg'
+	fire_sound = 'sound/weapons/gunshots/1deagle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
 	can_suppress = 0
@@ -118,7 +219,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
-	can_suppress = 0
+	can_suppress = 1
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)

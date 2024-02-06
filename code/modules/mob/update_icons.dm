@@ -22,11 +22,21 @@
 /mob/proc/update_inv_r_hand()
 	return
 
+/mob/proc/update_inv_hands()
+	update_inv_l_hand()
+	update_inv_r_hand()
+
 /mob/proc/update_inv_wear_mask()
+	return
+
+/mob/proc/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
 	return
 
 /mob/proc/update_inv_wear_suit()
 	return
+
+/mob/proc/wear_suit_update()
+		return
 
 /mob/proc/update_inv_w_uniform()
 	return
@@ -37,7 +47,13 @@
 /mob/proc/update_inv_head()
 	return
 
+/mob/proc/update_head(obj/item/I, forced)
+	return
+
 /mob/proc/update_inv_gloves()
+	return
+
+/mob/proc/update_inv_neck()
 	return
 
 /mob/proc/update_mutations()
@@ -50,6 +66,9 @@
 	return
 
 /mob/proc/update_inv_glasses()
+	return
+
+/mob/proc/wear_glasses_update(obj/item/clothing/glasses/our_glasses)
 	return
 
 /mob/proc/update_inv_s_store()

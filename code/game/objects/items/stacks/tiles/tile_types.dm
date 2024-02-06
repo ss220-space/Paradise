@@ -16,7 +16,7 @@
 	var/turf_type = null
 	var/mineralType = null
 
-/obj/item/stack/tile/New(loc, amount)
+/obj/item/stack/tile/New(loc, new_amount, merge = TRUE)
 	..()
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3) //randomize a little
@@ -41,7 +41,7 @@
 		if(!R && replace)
 			user.put_in_hands(new_item)
 
-//Grass
+// GRASS
 /obj/item/stack/tile/grass
 	name = "grass tiles"
 	gender = PLURAL
@@ -52,7 +52,7 @@
 	turf_type = /turf/simulated/floor/grass
 	resistance_flags = FLAMMABLE
 
-//Wood
+// WOOD
 /obj/item/stack/tile/wood
 	name = "wood floor tiles"
 	gender = PLURAL
@@ -63,10 +63,52 @@
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/wood/oak
+	name = "oak wood floor tiles"
+	singular_name = "oak wood floor tile"
+	icon_state = "tile-wood-oak"
+	turf_type = /turf/simulated/floor/wood/oak
+
+/obj/item/stack/tile/wood/birch
+	name = "birch wood floor tiles"
+	singular_name = "birch wood floor tile"
+	icon_state = "tile-wood-birch"
+	turf_type = /turf/simulated/floor/wood/birch
+
+/obj/item/stack/tile/wood/cherry
+	name = "cherry wood floor tiles"
+	singular_name = "cherry wood floor tile"
+	icon_state = "tile-wood-cherry"
+	turf_type = /turf/simulated/floor/wood/cherry
+
+/obj/item/stack/tile/wood/fancy/oak
+	name = "fancy oak wood floor tiles"
+	singular_name = "fancy oak wood floor tile"
+	icon_state = "tile-wood-fancy-oak"
+	turf_type = /turf/simulated/floor/wood/fancy/oak
+
+/obj/item/stack/tile/wood/fancy/birch
+	name = "fancy birch wood floor tiles"
+	singular_name = "fancy birch wood floor tile"
+	icon_state = "tile-wood-fancy-birch"
+	turf_type = /turf/simulated/floor/wood/fancy/birch
+
+/obj/item/stack/tile/wood/fancy/cherry
+	name = "fancy cherry wood floor tiles"
+	singular_name = "fancy cherry wood floor tile"
+	icon_state = "tile-wood-fancy-cherry"
+	turf_type = /turf/simulated/floor/wood/fancy/cherry
+
+/obj/item/stack/tile/wood/fancy/light
+	name = "fancy light oak wood floor tiles"
+	singular_name = "fancy light oak wood floor tile"
+	icon_state = "tile-wood-fancy-light"
+	turf_type = /turf/simulated/floor/wood/fancy/light
+
 /obj/item/stack/tile/wood/cyborg
 	is_cyborg = 1
 
-//Carpets
+// CARPETS
 /obj/item/stack/tile/carpet
 	name = "carpet"
 	singular_name = "carpet"
@@ -74,6 +116,7 @@
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
 	resistance_flags = FLAMMABLE
+	var/fancy_table_type = /obj/structure/table/wood/fancy // Decides what table will be built with what carpet tile
 
 /obj/item/stack/tile/carpet/twenty
 	amount = 20
@@ -82,11 +125,90 @@
 	name = "black carpet"
 	icon_state = "tile-carpet-black"
 	turf_type = /turf/simulated/floor/carpet/black
+	fancy_table_type = /obj/structure/table/wood/fancy/black
 
 /obj/item/stack/tile/carpet/black/twenty
 	amount = 20
 
-//Plasteel
+/obj/item/stack/tile/carpet/blue
+	name = "blue carpet"
+	icon_state = "tile-carpet-blue"
+	turf_type = /turf/simulated/floor/carpet/blue
+	fancy_table_type = /obj/structure/table/wood/fancy/blue
+
+/obj/item/stack/tile/carpet/blue/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/cyan
+	name = "cyan carpet"
+	icon_state = "tile-carpet-cyan"
+	turf_type = /turf/simulated/floor/carpet/cyan
+	fancy_table_type = /obj/structure/table/wood/fancy/cyan
+
+/obj/item/stack/tile/carpet/cyan/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/green
+	name = "green carpet"
+	icon_state = "tile-carpet-green"
+	turf_type = /turf/simulated/floor/carpet/green
+	fancy_table_type = /obj/structure/table/wood/fancy/green
+
+/obj/item/stack/tile/carpet/green/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/orange
+	name = "orange carpet"
+	icon_state = "tile-carpet-orange"
+	turf_type = /turf/simulated/floor/carpet/orange
+	fancy_table_type = /obj/structure/table/wood/fancy/orange
+
+/obj/item/stack/tile/carpet/orange/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/purple
+	name = "purple carpet"
+	icon_state = "tile-carpet-purple"
+	turf_type = /turf/simulated/floor/carpet/purple
+	fancy_table_type = /obj/structure/table/wood/fancy/purple
+
+/obj/item/stack/tile/carpet/purple/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/red
+	name = "red carpet"
+	icon_state = "tile-carpet-red"
+	turf_type = /turf/simulated/floor/carpet/red
+	fancy_table_type = /obj/structure/table/wood/fancy/red
+
+/obj/item/stack/tile/carpet/red/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/royalblack
+	name = "royal black carpet"
+	icon_state = "tile-carpet-royalblack"
+	turf_type = /turf/simulated/floor/carpet/royalblack
+	fancy_table_type = /obj/structure/table/wood/fancy/royalblack
+
+/obj/item/stack/tile/carpet/royalblack/ten
+	amount = 10
+
+/obj/item/stack/tile/carpet/royalblack/twenty
+	amount = 20
+
+/obj/item/stack/tile/carpet/royalblue
+	name = "royal blue carpet"
+	icon_state = "tile-carpet-royalblue"
+	turf_type = /turf/simulated/floor/carpet/royalblue
+	fancy_table_type = /obj/structure/table/wood/fancy/royalblue
+
+/obj/item/stack/tile/carpet/royalblue/ten
+	amount = 10
+
+/obj/item/stack/tile/carpet/royalblue/twenty
+	amount = 20
+
+// PLASTEEL
 /obj/item/stack/tile/plasteel
 	name = "floor tiles"
 	gender = PLURAL
@@ -107,7 +229,7 @@
 /obj/item/stack/tile/plasteel/cyborg
 	is_cyborg = 1
 
-//Light
+// LIGHT
 /obj/item/stack/tile/light
 	name = "light tiles"
 	gender = PLURAL
@@ -119,7 +241,7 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 	turf_type = /turf/simulated/floor/light
 
-//Fakespace
+// FAKESPACE
 /obj/item/stack/tile/fakespace
 	name = "astral carpet"
 	singular_name = "astral carpet"
@@ -178,3 +300,22 @@
 
 /obj/item/stack/tile/arcade_carpet/loaded
 	amount = 20
+
+//Cult tiles
+/obj/item/stack/tile/clockwork
+	name = "clockwork floor tile"
+	singular_name = "clockwork floor tile"
+	desc = "Tightly-pressed brass tiles. They emit minute vibration in your hand."
+	icon_state = "tile_goldfancy"
+	turf_type = /turf/simulated/floor/clockwork
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF
+
+/obj/item/stack/tile/harsie
+	name = "engraved floor tile"
+	singular_name = "engraved floor tile"
+	desc = "dark tiles. You dont feel good about this."
+	icon_state = "tile_basalt"
+	turf_type = /turf/simulated/floor/engine/cult
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF

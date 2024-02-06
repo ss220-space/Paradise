@@ -4,16 +4,20 @@
 	icon_state = "larva0"
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-
+	attack_damage = 3
+	obj_damage = 10
 	maxHealth = 25
 	health = 25
 	density = 0
 
-	var/amount_grown = 0
-	var/max_grown = 200
-	var/time_of_birth
-	death_message = "lets out a waning high-pitched cry."
+	tts_seed = "Templar"
+
+	can_evolve = TRUE
+	death_message = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
 	death_sound = null
+
+	var/datum/action/innate/hide/alien_larva/hide_action
+
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()
@@ -23,18 +27,25 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
+	hide_action = new
+	hide_action.Grant(src)
 	..()
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
 
-//This needs to be fixed
-/mob/living/carbon/alien/larva/Stat()
-	..()
-	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/adjustPlasma(amount)
-	if(stat != DEAD && amount > 0)
-		amount_grown = min(amount_grown + 1, max_grown)
-	..(amount)
+
+
+/mob/living/carbon/alien/larva/Destroy()
+	if(hide_action)
+		hide_action.Remove(src)
+		hide_action = null
+	return ..()
+
+
+/mob/living/carbon/alien/larva/get_caste_organs()
+	. = ..()
+	. += /obj/item/organ/internal/xenos/plasmavessel/larva
+
 
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()
@@ -52,13 +63,13 @@
 
 			f_loss += 60
 
-			AdjustEarDamage(30, 120)
+			AdjustDeaf(120 SECONDS)
 
 		if(3.0)
 			b_loss += 30
 			if(prob(50))
-				Paralyse(1)
-			AdjustEarDamage(15, 60)
+				Paralyse(2 SECONDS)
+			AdjustDeaf(60 SECONDS)
 
 	adjustBruteLoss(b_loss)
 	adjustFireLoss(f_loss)
@@ -81,7 +92,7 @@
 /mob/living/carbon/alien/larva/show_inv(mob/user as mob)
 	return
 
-/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	return FALSE
 
 /* Commented out because it's duplicated in life.dm

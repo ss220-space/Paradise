@@ -11,10 +11,11 @@
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore))
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(W, src))
 			return
-		W.forceMove(src)
+		add_fingerprint(user)
 	else if(istype(W, /obj/item/storage))
+		add_fingerprint(user)
 		var/obj/item/storage/S = W
 		S.hide_from(usr)
 		for(var/obj/item/stack/ore/O in S.contents)
@@ -24,7 +25,7 @@
 	else if(istype(W, /obj/item/crowbar))
 		playsound(src, W.usesound, 50, 1)
 		var/obj/item/crowbar/C = W
-		if(do_after(user, 50 * C.toolspeed, target = src))
+		if(do_after(user, 50 * C.toolspeed * gettoolspeedmod(user), target = src))
 			user.visible_message("<span class='notice'>[user] pries [src] apart.</span>", "<span class='notice'>You pry apart [src].</span>", "<span class='italics'>You hear splitting wood.</span>")
 			deconstruct(TRUE, user)
 	else
@@ -32,6 +33,7 @@
 
 /obj/structure/ore_box/attack_hand(mob/user)
 	if(Adjacent(user))
+		add_fingerprint(user)
 		show_contents(user)
 
 /obj/structure/ore_box/attack_robot(mob/user)

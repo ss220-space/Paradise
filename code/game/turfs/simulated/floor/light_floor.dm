@@ -15,7 +15,6 @@
 	light_range = 5
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light
-	broken_states = list("light_broken")
 	var/on = TRUE
 	var/state = LIGHTFLOOR_ON
 	var/can_modify_colour = TRUE
@@ -23,6 +22,9 @@
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()
 	update_icon()
+
+/turf/simulated/floor/light/broken_states()
+	return list("light_broken")
 
 /turf/simulated/floor/light/update_icon()
 	..()
@@ -80,9 +82,9 @@
 			qdel(C)
 			state = LIGHTFLOOR_ON
 			update_icon()
-			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
+			to_chat(user, span_notice("You replace the light bulb."))
 		else
-			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
+			to_chat(user, span_notice("The light bulb seems fine, no need to replace it."))
 	else
 		return ..()
 
@@ -97,10 +99,10 @@
 			state++
 		else
 			state = LIGHTFLOOR_ON
-		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+		to_chat(user, span_notice("You change [src]'s light bulb color."))
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")
+		to_chat(user, span_warning("[src]'s light bulb appears to have burned out."))
 
 /turf/simulated/floor/light/proc/toggle_light(light)
 	// 0 = OFF
@@ -108,9 +110,10 @@
 	on = light
 	update_icon()
 
-/turf/simulated/floor/light/extinguish_light()
-	toggle_light(FALSE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+/turf/simulated/floor/light/extinguish_light(force = FALSE)
+	if(on)
+		toggle_light(FALSE)
+		visible_message(span_danger("[src] flickers and falls dark."))
 
 //Cycles through all of the colours
 /turf/simulated/floor/light/colour_cycle

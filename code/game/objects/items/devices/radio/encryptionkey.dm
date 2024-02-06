@@ -36,12 +36,31 @@
 /obj/item/encryptionkey/syndicate/nukeops
 	change_voice = FALSE
 
+/obj/item/encryptionkey/syndicate/taipan
+	change_voice = FALSE
+	icon_state = "taipan_cypherkey"
+	channels = list("SyndTaipan" = 1)
+
+/obj/item/encryptionkey/syndicate/taipan/borg
+	change_voice = FALSE
+	icon_state = "taipan_cypherkey"
+	channels = list("SyndTaipan" = 1, "Syndicate" = 1)
+/obj/item/encryptionkey/syndicate/taipan/tcomms_agent
+	icon_state = "ofcom_cypherkey"
+	channels = list("SyndTaipan" = 1, "Syndicate" = 1, "Common" = 1)
+
 /obj/item/encryptionkey/syndteam
 	name = "syndicate encryption key"
 	icon_state = "syn_cypherkey"
 	channels = list("SyndTeam" = 1, "Syndicate" = 1)
 	origin_tech = "syndicate=4"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
+
+/obj/item/encryptionkey/soviet
+	name = "\improper Soviet encryption key"
+	desc = "An encryption key for a radio headset. To access the Soviet military channel, use :'."
+	icon_state = "sov_cypherkey"
+	channels = list("Soviet" = 1)
 
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
@@ -56,7 +75,7 @@
 	channels = list("Security" = 1)
 
 /obj/item/encryptionkey/headset_iaa
-	name = "IAA Radio Encryption Key"
+	name = "Internal Affairs Radio Encryption Key"
 	icon_state = "sec_cypherkey"
 	channels = list("Security" = 1, "Procedure" = 1)
 
@@ -84,6 +103,11 @@
 	name = "Medical Research Radio Encryption Key"
 	icon_state = "medsci_cypherkey"
 	channels = list("Medical" = 1, "Science" = 1)
+
+/obj/item/encryptionkey/headset_medsec
+	name = "Medical Security Radio Encryption Key"
+	icon_state = "sec_cypherkey"
+	channels = list("Security" = 1, "Medical" = 1)
 
 /obj/item/encryptionkey/headset_com
 	name = "Command Radio Encryption Key"
@@ -169,3 +193,27 @@
 	desc = "Integrated encryption key"
 	icon_state = "cap_cypherkey"
 	channels = list("Command" = 1, "Security" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1, "AI Private" = 1, "Procedure" = 1)
+
+/obj/item/encryptionkey/admin //totally shitspawn
+	name = "Admin Radio Encryption Key"
+	channels = list("Common" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1, "AI Private" = 1, "Syndicate" = 1, \
+		"Response Team" = 1, "Special Ops" = 1, "SyndTaipan" = 1, "SyndTeam" = 1, "Soviet" = 1, "Medical(I)" = 1, "Security(I)" = 1, "Spy Spider" = 1, "Spider Clan" = 1, "Alpha wave" = 1, "Beta wave" = 1, "Gamma wave" = 1)
+
+/obj/item/encryptionkey/event_1
+	name = "Encryption key"
+	desc = "An encryption key for a radio headset. To access special radio channel, use :q."
+	icon_state = "sov_cypherkey"
+	channels = list("Alpha wave" = 1)
+
+/obj/item/encryptionkey/event_2
+	name = "Encryption key"
+	desc = "An encryption key for a radio headset. To access special radio channel, use :vi."
+	icon_state = "sov_cypherkey"
+	channels = list("Beta wave" = 1)
+
+/obj/item/encryptionkey/event_3
+	name = "Encryption key"
+	desc = "An encryption key for a radio headset. To access special radio channel, use :y."
+	icon_state = "sov_cypherkey"
+	channels = list("Gamma wave" = 1)
+

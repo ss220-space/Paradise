@@ -19,15 +19,18 @@
 	GLOB.beacons -= src
 	return ..()
 
-/obj/item/radio/beacon/emag_act(user as mob)
+/obj/item/radio/beacon/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
 		syndicate = 1
-		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
 
 /obj/item/radio/beacon/hear_talk()
 	return
 
+/obj/item/radio/beacon/talk_into()
+	return FALSE
 
 /obj/item/radio/beacon/send_hear()
 	return null
@@ -65,12 +68,16 @@
 	return ..()
 
 /obj/item/radio/beacon/syndicate/attack_self(mob/user)
-	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
-		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
-		user.drop_item()
-		qdel(src)
+	if(!user)
+		return
+	if(!isturf(user.loc))
+		to_chat(user, "<span class='warning'>You need space to call in!</span>")
+		return
+	to_chat(user, "<span class='notice'>Locked In</span>")
+	new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
+	playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+	user.temporarily_remove_item_from_inventory(src)
+	qdel(src)
 
 /obj/item/radio/beacon/syndicate/bomb
 	name = "suspicious beacon"
@@ -79,12 +86,16 @@
 	var/bomb = /obj/machinery/syndicatebomb
 
 /obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user)
-	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
-		new bomb(user.loc)
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
-		user.drop_item()
-		qdel(src)
+	if(!user)
+		return
+	if(!isturf(user.loc))
+		to_chat(user, "<span class='warning'>You need space to call in!</span>")
+		return
+	to_chat(user, "<span class='notice'>Locked In</span>")
+	new bomb(user.loc)
+	playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+	user.temporarily_remove_item_from_inventory(src)
+	qdel(src)
 
 /obj/item/radio/beacon/syndicate/bomb/emp
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance EMP explosive to your location</i>."

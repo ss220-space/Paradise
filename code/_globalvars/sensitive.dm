@@ -6,7 +6,11 @@
 GLOBAL_REAL_VAR(sqladdress) = "localhost"
 GLOBAL_REAL_VAR(sqlport) = "3306"
 GLOBAL_REAL_VAR(sqlfdbkdb) = "test"
+GLOBAL_REAL_VAR(sqlfdbkdbutil) = "test"
 GLOBAL_REAL_VAR(sqlfdbklogin) = "root"
 GLOBAL_REAL_VAR(sqlfdbkpass) = ""
 GLOBAL_REAL_VAR(sqlfdbktableprefix) = "erro_"
 GLOBAL_REAL_VAR(sql_version) = 0
+
+GLOBAL_REAL_VAR(tts_token_silero) = "" // Token we use to talk with text-to-speech service
+GLOBAL_REAL_VAR(tts_url_silero) = "" // URL we use to talk with text-to-speech service

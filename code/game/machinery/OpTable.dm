@@ -31,13 +31,6 @@
 	patient = null
 	return ..()
 
-/obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		..(user, TRUE)
-		visible_message("<span class='warning'>[user] destroys the operating table!</span>")
-		qdel(src)
-		return TRUE
-
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return TRUE
@@ -55,6 +48,7 @@
 		return
 	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
 		return
+	add_fingerprint(user)
 	take_patient(O, user)
 
 /**
@@ -75,7 +69,7 @@
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(iscarbon(AM) && LAZYLEN(injected_reagents))
-		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
+		to_chat(AM, span_danger("You feel a series of tiny pricks!"))
 
 /obj/machinery/optable/process()
 	update_patient()
@@ -86,10 +80,14 @@
 				R.check_and_add(chemical,reagent_target_amount,inject_amount)
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
+	var/turf/table_turf = get_turf(src)
+	if(!table_turf.CanPass(new_patient, table_turf))
+		return FALSE
+
 	if(new_patient == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
-		visible_message("<span class='alert'>[new_patient] has been laid on the operating table by [user].</span>")
+		visible_message(span_alert("[new_patient] has been laid on the operating table by [user]."))
 	new_patient.resting = TRUE
 	new_patient.update_canmove()
 	new_patient.forceMove(loc)
@@ -112,6 +110,7 @@
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(iscarbon(G.affecting))
+			add_fingerprint(user)
 			take_patient(G.affecting, user)
 			qdel(G)
 	else
@@ -122,14 +121,14 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
+		to_chat(user, span_notice("You deconstruct the table."))
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)
 
 /obj/machinery/optable/proc/check_table()
 	update_patient()
 	if(patient != null)
-		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
+		to_chat(usr, span_notice("The table is already occupied!"))
 		return FALSE
 	else
 		return TRUE

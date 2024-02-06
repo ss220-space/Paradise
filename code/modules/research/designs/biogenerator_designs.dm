@@ -3,7 +3,7 @@
 ///////////////////////////////////
 
 /datum/design/milk
-	name = "10 milk"
+	name = "10u milk"
 	id = "milk"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 20)
@@ -11,7 +11,7 @@
 	category = list("initial","Food")
 
 /datum/design/cream
-	name = "10 cream"
+	name = "10u cream"
 	id = "cream"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 30)
@@ -131,14 +131,6 @@
 	build_path = /obj/item/stack/sheet/leather
 	category = list("initial", "Organic Materials")
 
-/datum/design/strange_seeds
-	name = "Strange seeds"
-	id = "strange_seeds"
-	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 5000)
-	build_path = /obj/item/seeds/random
-	category = list("initial","Organic Materials")
-
 /datum/design/hydrobelt
 	name = "Botanist belt"
 	id = "hydrobelt"
@@ -179,6 +171,38 @@
 	build_path = /obj/item/clothing/accessory/holster
 	category = list("initial","Leather and Cloth")
 
+/datum/design/k_holster
+	name = "Knife holster"
+	id = "k_holster"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 400)
+	build_path = /obj/item/clothing/accessory/holster/knives
+	category = list("initial","Leather and Cloth")
+
+/datum/design/webbing
+	name = "Webbing"
+	id = "webbing"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 500)
+	build_path = /obj/item/clothing/accessory/storage/webbing
+	category = list("initial","Leather and Cloth")
+
+/datum/design/brown_vest
+	name = "Brown vest"
+	id = "brown_vest"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 800)
+	build_path = /obj/item/clothing/accessory/storage/brown_vest
+	category = list("initial","Leather and Cloth")
+
+/datum/design/black_vest
+	name = "Black vest"
+	id = "black_vest"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 800)
+	build_path = /obj/item/clothing/accessory/storage/black_vest
+	category = list("initial","Leather and Cloth")
+
 /datum/design/rice_hat
 	name = "Rice hat"
 	id = "rice_hat"
@@ -186,3 +210,11 @@
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/clothing/head/rice_hat
 	category = list("initial","Leather and Cloth")
+
+/datum/design/rollingpapers
+	name = "Rolling paper pack"
+	id = "rolling_paper_pack"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 50)
+	build_path = /obj/item/storage/fancy/rollingpapers
+	category = list("initial","Organic Materials")

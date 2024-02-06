@@ -25,8 +25,7 @@
 
 	if(LAZYLEN(processing_patches))
 		handle_patches()
-	if(mind)
-		handle_changeling()
+
 	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
@@ -47,7 +46,7 @@
 	else
 		if(istype(loc, /obj/))
 			var/obj/location_as_object = loc
-			location_as_object.handle_internal_lifeform(src,0)
+			location_as_object.handle_internal_lifeform(src, 0)
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe()
@@ -63,11 +62,10 @@
 	var/datum/gas_mixture/breath
 
 	if(health <= HEALTH_THRESHOLD_CRIT && check_death_method())
-		AdjustLoseBreath(1)
+		AdjustLoseBreath(2 SECONDS)
 
 	//Suffocate
-	if(losebreath > 0)
-		AdjustLoseBreath(-1)
+	if(AmountLoseBreath())
 		if(prob(75))
 			emote("gasp")
 		if(istype(loc, /obj/))
@@ -81,7 +79,7 @@
 
 			if(isobj(loc)) //Breathe from loc as object
 				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_MOLES)
+				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
 
 			else if(isturf(loc)) //Breathe from loc as turf
 				var/breath_moles = 0
@@ -92,7 +90,7 @@
 		else //Breathe from loc as obj again
 			if(istype(loc, /obj/))
 				var/obj/loc_as_obj = loc
-				loc_as_obj.handle_internal_lifeform(src,0)
+				loc_as_obj.handle_internal_lifeform(src, 0)
 
 	check_breath(breath)
 
@@ -105,7 +103,7 @@
 	if(status_flags & GODMODE)
 		return FALSE
 
-	var/lungs = get_organ_slot("lungs")
+	var/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	if(!lungs)
 		adjustOxyLoss(2)
 
@@ -153,7 +151,7 @@
 		if(!co2overloadtime)
 			co2overloadtime = world.time
 		else if(world.time - co2overloadtime > 120)
-			Paralyse(3)
+			Paralyse(6 SECONDS)
 			adjustOxyLoss(3)
 			if(world.time - co2overloadtime > 300)
 				adjustOxyLoss(8)
@@ -174,9 +172,9 @@
 	//TRACE GASES
 	if(breath.sleeping_agent)
 		if(SA_partialpressure > SA_para_min)
-			Paralyse(3)
+			Paralyse(6 SECONDS)
 			if(SA_partialpressure > SA_sleep_min)
-				AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
+				AdjustSleeping(4 SECONDS, bound_lower = 0, bound_upper = 20 SECONDS)
 		else if(SA_partialpressure > 0.01)
 			if(prob(20))
 				emote(pick("giggle","laugh"))
@@ -194,7 +192,7 @@
 	if(internal)
 		if(internal.loc != src)
 			internal = null
-		if(!get_organ_slot("breathing_tube"))
+		if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 			if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
 				if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
 					internal = null //turn off internals
@@ -204,26 +202,16 @@
 		else
 			update_action_buttons_icon()
 
+
 /mob/living/carbon/proc/handle_organs()
-	for(var/thing in internal_organs)
-		var/obj/item/organ/internal/O = thing
-		O.on_life()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		organ.on_life()
 
-/mob/living/carbon/handle_diseases()
-	for(var/thing in viruses)
-		var/datum/disease/D = thing
-		if(prob(D.infectivity))
-			D.spread()
-
-		if(stat != DEAD)
-			D.stage_act()
 
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()
 	return
 
-/mob/living/carbon/proc/handle_changeling()
-	return
 
 /mob/living/carbon/handle_mutations_and_radiation()
 	if(radiation)
@@ -271,9 +259,11 @@
 				continue
 			if(times_fired % 3 == 1)
 				M.adjustBruteLoss(5)
-				adjust_nutrition(10)
+				//Vampires don't get nutrition from devouring mobs
+				if(!isvampire(src))
+					adjust_nutrition(10)
 
-//this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
+//this updates all special effects: only stamina for now
 /mob/living/carbon/handle_status_effects()
 	..()
 	if(stam_regen_start_time <= world.time)
@@ -281,96 +271,11 @@
 			update_stamina()
 		if(staminaloss)
 			setStaminaLoss(0, FALSE)
-			update_health_hud()
-
-	var/restingpwr = 1 + 4 * resting
-
-	//Dizziness
-	if(dizziness)
-		var/client/C = client
-		var/pixel_x_diff = 0
-		var/pixel_y_diff = 0
-		var/temp
-		var/saved_dizz = dizziness
-		if(C)
-			var/oldsrc = src
-			var/amplitude = dizziness*(sin(dizziness * 0.044 * world.time) + 1) / 70 // This shit is annoying at high strength
-			src = null
-			spawn(0)
-				if(C)
-					temp = amplitude * sin(0.008 * saved_dizz * world.time)
-					pixel_x_diff += temp
-					C.pixel_x += temp
-					temp = amplitude * cos(0.008 * saved_dizz * world.time)
-					pixel_y_diff += temp
-					C.pixel_y += temp
-					sleep(3)
-					if(C)
-						temp = amplitude * sin(0.008 * saved_dizz * world.time)
-						pixel_x_diff += temp
-						C.pixel_x += temp
-						temp = amplitude * cos(0.008 * saved_dizz * world.time)
-						pixel_y_diff += temp
-						C.pixel_y += temp
-					sleep(3)
-					if(C)
-						C.pixel_x -= pixel_x_diff
-						C.pixel_y -= pixel_y_diff
-			src = oldsrc
-		AdjustDizzy(-restingpwr)
-
-	if(drowsyness)
-		AdjustDrowsy(-restingpwr)
-		EyeBlurry(2)
-		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
-
-	if(confused)
-		AdjustConfused(-1)
-
-	//Jitteryness
-	if(jitteriness)
-		do_jitter_animation(jitteriness)
-		AdjustJitter(-restingpwr)
-
-	if(hallucination)
-		spawn handle_hallucinations()
-
-		AdjustHallucinate(-2)
+			update_stamina_hud()
 
 	// Keep SSD people asleep
 	if(player_logged)
-		Sleeping(2)
-
-/mob/living/carbon/handle_sleeping()
-	if(..())
-		if(mind?.vampire)
-			if(istype(loc, /obj/structure/closet/coffin))
-				adjustBruteLoss(-1, FALSE)
-				adjustFireLoss(-1, FALSE)
-				adjustToxLoss(-1)
-		handle_dreams()
-		adjustStaminaLoss(-10)
-		var/comfort = 1
-		if(istype(buckled, /obj/structure/bed))
-			var/obj/structure/bed/bed = buckled
-			comfort+= bed.comfort
-		for(var/obj/item/bedsheet/bedsheet in range(loc,0))
-			if(bedsheet.loc != loc) //bedsheets in your backpack/neck don't give you comfort
-				continue
-			comfort+= bedsheet.comfort
-			break //Only count the first bedsheet
-		if(drunk)
-			comfort += 1 //Aren't naps SO much better when drunk?
-			AdjustDrunk(-0.2*comfort) //reduce drunkenness while sleeping.
-		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
-			adjustBruteLoss(-1 * comfort, FALSE)
-			adjustFireLoss(-1 * comfort)
-		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
-			emote("snore")
-
-	return sleeping
+		Sleeping(4 SECONDS)
 
 /mob/living/carbon/update_health_hud(shown_health_amount)
 	if(!client)
@@ -401,10 +306,14 @@
 /mob/living/carbon/update_damage_hud()
 	if(!client)
 		return
+	var/shock_reduction = shock_reduction()
+	if(NO_PAIN_FEEL in dna?.species?.species_traits)
+		shock_reduction = INFINITY
+
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
-			switch(health)
+			switch(health - shock_reduction)
 				if(-20 to -10)
 					severity = 1
 				if(-30 to -20)
@@ -431,7 +340,7 @@
 			clear_fullscreen("crit")
 			if(getOxyLoss())
 				var/severity = 0
-				switch(getOxyLoss())
+				switch(getOxyLoss() - shock_reduction)
 					if(10 to 20)
 						severity = 1
 					if(20 to 25)
@@ -451,11 +360,11 @@
 				clear_fullscreen("oxy")
 
 		//Fire and Brute damage overlay (BSSR)
-		var/hurtdamage = getBruteLoss() + getFireLoss() + damageoverlaytemp
+		var/percent_damage = (getBruteLoss() + getFireLoss() + damageoverlaytemp)/(maxHealth/100)
 		damageoverlaytemp = 0 // We do this so we can detect if someone hits us or not.
-		if(hurtdamage)
+		if(percent_damage - shock_reduction > 0)
 			var/severity = 0
-			switch(hurtdamage)
+			switch(percent_damage)
 				if(5 to 15) severity = 1
 				if(15 to 30) severity = 2
 				if(30 to 45) severity = 3

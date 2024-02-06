@@ -8,6 +8,7 @@
 	icon_state = "term"
 	desc = "It's an underfloor wiring terminal for power equipment."
 	level = 1
+	plane = FLOOR_PLANE
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
 	var/obj/machinery/power/master = null
 
@@ -15,6 +16,9 @@
 /obj/machinery/power/terminal/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
+	if(T.transparent_floor)
+		layer = ABOVE_TRANSPARENT_TURF_LAYER
+		return
 	if(level == 1)
 		hide(T.intact)
 
@@ -24,10 +28,14 @@
 		master = null
 	return ..()
 
+/obj/machinery/power/terminal/update_icon()
+	. = ..()
+	var/turf/T = get_turf(src)
+	layer = T.transparent_floor ? ABOVE_TRANSPARENT_TURF_LAYER : WIRE_TERMINAL_LAYER
 
 /obj/machinery/power/terminal/hide(i)
 	if(i)
-		invisibility = 101
+		invisibility = INVISIBILITY_ABSTRACT
 		icon_state = "term-f"
 	else
 		invisibility = 0
@@ -59,7 +67,7 @@
 								"<span class='notice'>You begin to cut the cables...</span>")
 
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			if(do_after(user, 50*W.toolspeed, target = src))
+			if(do_after(user, 50*W.toolspeed * gettoolspeedmod(user), target = src))
 				if(!master || master.can_terminal_dismantle())
 					if(prob(50) && electrocute_mob(user, powernet, src, 1, TRUE))
 						do_sparks(5, TRUE, master)

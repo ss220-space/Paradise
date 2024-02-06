@@ -88,7 +88,7 @@
 // Gatfruit
 /obj/item/seeds/gatfruit
 	name = "pack of gatfruit seeds"
-	desc = "These seeds grow into .357 revolvers."
+	desc = "These seeds grow into .36 revolvers."
 	icon_state = "seed-gatfruit"
 	species = "gatfruit"
 	plantname = "Gatfruit Tree"
@@ -111,7 +111,7 @@
 	desc = "It smells like burning."
 	icon_state = "gatfruit"
 	origin_tech = "combat=6"
-	trash = /obj/item/gun/projectile/revolver
+	trash = /obj/item/gun/projectile/revolver/c36
 	tastes = list("2nd amendment" = 1, "freedom" = 1)
 	bitesize_mod = 2
 	wine_power = 0.9 //It burns going down, too.
@@ -141,10 +141,9 @@
 	wine_power = 0.8
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/attack_self(mob/living/user)
-	var/area/A = get_area(user)
 	user.visible_message("<span class='warning'>[user] plucks the stem from [src]!</span>", "<span class='userdanger'>You pluck the stem from [src], which begins to hiss loudly!</span>")
-	message_admins("[user] ([user.key ? user.key : "no key"]) primed a cherry bomb for detonation at [A] ([user.x], [user.y], [user.z]) <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>(JMP)</a>")
-	log_game("[user] ([user.key ? user.key : "no key"]) primed a cherry bomb for detonation at [A] ([user.x],[user.y],[user.z]).")
+	message_admins("[ADMIN_LOOKUPFLW(user)] primed a cherry bomb for detonation at [ADMIN_COORDJMP(user)]")
+	add_attack_logs(user, src, "primed cherry bomb")
 	prime()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user

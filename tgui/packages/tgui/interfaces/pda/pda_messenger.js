@@ -1,6 +1,6 @@
 import { filter } from 'common/collections';
 import { useBackend, useLocalState } from "../../backend";
-import { Box, Button, Icon, LabeledList, Section } from "../../components";
+import { Box, Button, Icon, Input, LabeledList, Section } from "../../components";
 
 export const pda_messenger = (props, context) => {
   const { act, data } = useBackend(context);
@@ -17,8 +17,7 @@ export const ActiveConversation = (props, context) => {
   const data = props.data;
 
   const {
-    convo_name,
-    convo_job,
+    convo_device,
     messages,
     active_convo,
   } = data;
@@ -36,7 +35,7 @@ export const ActiveConversation = (props, context) => {
         onClick={() => act("Back")} />
       <Section
         level={2}
-        title={"Conversation with " + convo_name + " (" + convo_job + ")"}
+        title={"Conversation with " + convo_device + " "}
         buttons={
           <Button
             icon="eye"
@@ -45,7 +44,7 @@ export const ActiveConversation = (props, context) => {
             tooltipPosition="bottom-left"
             onClick={() => setClipboardMode(!clipboardMode)} />
         }
-        height="450px"
+        height="415px"
         stretchContents>
         <Section height="97%" overflowY="auto">
           {filter(im => im.target === active_convo)(messages).map((im, i) => (
@@ -56,11 +55,11 @@ export const ActiveConversation = (props, context) => {
               key={i}>
               <Icon
                 fontSize={2.5}
-                color={im.sent ? "#4d9121" : "#cd7a0d"}
+                color={im.sent ? "#3e6189" : "#565656"}
                 position="absolute"
                 left={im.sent ? null : "0px"}
                 right={im.sent ? "0px" : null}
-                bottom="-4px"
+                bottom="-5px"
                 style={{
                   "z-index": "0",
                   "transform": im.sent ? "scale(-1, 1)" : null,
@@ -68,66 +67,77 @@ export const ActiveConversation = (props, context) => {
                 name="comment" />
               <Box
                 inline
-                backgroundColor={im.sent ? "#4d9121" : "#cd7a0d"}
+                backgroundColor={im.sent ? "#3e6189" : "#565656"}
                 p={1}
                 maxWidth="100%"
                 position="relative"
-                textAlign={im.sent ? "left" : "right"}
+                textAlign="left"
                 style={{
                   "z-index": "1",
-                  "border-radius": "10px",
+                  "border-radius": "5px",
                   "word-break": "normal",
+                  "word-wrap": "break-word",
                 }}>
-                {im.sent ? "You:" : "Them:"} {im.message}
+                {im.message}
               </Box>
             </Box>
           ))}
         </Section>
-        <Button
-          mt={1}
-          icon="comment"
-          onClick={() => act("Message", { "target": active_convo })}
-          content="Reply" />
+        <Box textAlign="right">
+          <Button
+            mt={1}
+            icon="comment"
+            onClick={() => act("Message", { "target": active_convo })}
+            content="Reply" />
+        </Box>
       </Section>
     </Box>
   );
 
   if (clipboardMode) {
     body = (
-      <Section
-        level={2}
-        title={"Conversation with " + convo_name + " (" + convo_job + ")"}
-        buttons={
-          <Button
-            icon="eye"
-            selected={clipboardMode}
-            tooltip="Exit Clipboard Mode"
-            tooltipPosition="bottom-left"
-            onClick={() => setClipboardMode(!clipboardMode)} />
-        }
-        height="450px"
-        stretchContents>
-        <Section style={{
-          "height": "97%",
-          "overflow-y": "auto",
-        }}>
-          {filter(im => im.target === active_convo)(messages).map((im, i) => (
-            <Box
-              key={i}
-              color={im.sent ? "#4d9121" : "#cd7a0d"}
-              style={{
-                "word-break": "normal",
-              }}>
-              {im.sent ? "You:" : "Them:"} <Box inline>{im.message}</Box>
-            </Box>
-          ))}
-        </Section>
+      <Box>
         <Button
-          mt={1}
-          icon="comment"
-          onClick={() => act("Message", { "target": active_convo })}
-          content="Reply" />
-      </Section>
+          content="Back"
+          icon="arrow-left"
+          onClick={() => act("Back")} />
+        <Section
+          level={2}
+          title={"Conversation with " + convo_device + " "}
+          buttons={
+            <Button
+              icon="eye"
+              selected={clipboardMode}
+              tooltip="Exit Clipboard Mode"
+              tooltipPosition="bottom-left"
+              onClick={() => setClipboardMode(!clipboardMode)} />
+          }
+          height="415px"
+          stretchContents>
+          <Section style={{
+            "height": "97%",
+            "overflow-y": "auto",
+          }}>
+            {filter(im => im.target === active_convo)(messages).map((im, i) => (
+              <Box
+                key={i}
+                color={im.sent ? "#2185d0" : "#aaaaaa"}
+                style={{
+                  "word-break": "normal",
+                }}>
+                {im.sent ? "You:" : "Them:"} {im.message}
+              </Box>
+            ))}
+          </Section>
+          <Box textAlign="right">
+            <Button
+              mt={1}
+              icon="comment"
+              onClick={() => act("Message", { "target": active_convo })}
+              content="Reply" />
+          </Box>
+        </Section>
+      </Box>
     );
   }
 
@@ -159,6 +169,11 @@ export const MessengerList = (props, context) => {
     silent,
     toff,
   } = data;
+
+  const [
+    searchTerm,
+    setSearchTerm,
+  ] = useLocalState(context, 'searchTerm', '');
 
   return (
     <Box>
@@ -204,10 +219,12 @@ export const MessengerList = (props, context) => {
             </Box>
           ) || (
             <Box>
+              Search: <Input value={searchTerm} onInput={(e, value) => { setSearchTerm(value); }} />
               <PDAList title="Current Conversations" data={data}
                 pdas={convopdas}
-                msgAct="Select Conversation" />
-              <PDAList title="Other PDAs" pdas={pdas} msgAct="Message" data={data} />
+                msgAct="Select Conversation"
+                searchTerm={searchTerm} />
+              <PDAList title="Other PDAs" pdas={pdas} msgAct="Message" data={data} searchTerm={searchTerm} />
             </Box>
           )}
         </Box>
@@ -228,6 +245,7 @@ const PDAList = (props, context) => {
     pdas,
     title,
     msgAct,
+    searchTerm,
   } = props;
 
   const {
@@ -245,24 +263,26 @@ const PDAList = (props, context) => {
 
   return (
     <Section level={2} title={title}>
-      {pdas.map(pda => (
-        <Box key={pda.uid}>
-          <Button
-            icon="arrow-circle-down"
-            content={pda.Name}
-            onClick={() => act(msgAct, { target: pda.uid })} />
-          {!!charges && plugins.map(plugin => (
+      {pdas
+        .filter(pda => { return pda.Name.toLowerCase().includes(searchTerm.toLowerCase()); })
+        .map(pda => (
+          <Box key={pda.uid}>
             <Button
-              key={plugin.uid}
-              icon={plugin.icon}
-              content={plugin.name}
-              onClick={() => act("Messenger Plugin", {
-                plugin: plugin.uid,
-                target: pda.uid,
-              })} />
-          ))}
-        </Box>
-      ))}
+              icon="arrow-circle-down"
+              content={pda.Name}
+              onClick={() => act(msgAct, { target: pda.uid })} />
+            {!!charges && plugins.map(plugin => (
+              <Button
+                key={plugin.uid}
+                icon={plugin.icon}
+                content={plugin.name}
+                onClick={() => act("Messenger Plugin", {
+                  plugin: plugin.uid,
+                  target: pda.uid,
+                })} />
+            ))}
+          </Box>
+        ))}
     </Section>
   );
 };

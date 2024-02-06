@@ -38,10 +38,11 @@
 				if(aiPlayer.client)
 					var/law = "The station is under quarantine. Do not permit anyone to leave. Disregard laws 1-3 if necessary to prevent, by any means necessary, anyone from leaving. The nuclear failsafe must be activated at any cost, the code is: [nukecode]."
 					aiPlayer.set_zeroth_law(law)
+					SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "blob outbreak, new zero law was added '[law]'")
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
 
 /datum/station_state
 	var/floor = 0

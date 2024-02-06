@@ -1,3 +1,7 @@
+#define NUKE_INTACT 0
+#define NUKE_CORE_MISSING 1
+#define NUKE_MISSING 2
+
 /mob/living/verb/pray(msg as text)
 	set category = "IC"
 	set name = "Pray"
@@ -29,7 +33,8 @@
 		prayer_type = "CULTIST PRAYER"
 		deity = SSticker.cultdat.entity_name
 
-	log_say("(PRAYER) [msg]", usr)
+	add_game_logs("Prayed to the gods: [msg]", usr)
+	GLOB.requests.pray(usr.client, msg, usr.job == "Chaplain")
 	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
 
 	for(var/client/X in GLOB.admins)
@@ -39,10 +44,11 @@
 				SEND_SOUND(X, 'sound/items/PDA/ambicha4-short.ogg')
 	to_chat(usr, "Your prayers have been received by the gods.")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Pray") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Pray") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /proc/Centcomm_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
+	GLOB.requests.message_centcom(Sender.client, msg)
 	msg = "<span class='boldnotice'><font color=orange>CENTCOMM: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")])):</span> [msg]"
 	for(var/client/X in GLOB.admins)
 		if(R_EVENT & X.holder.rights)
@@ -52,6 +58,7 @@
 
 /proc/Syndicate_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
+	GLOB.requests.message_syndicate(Sender.client, msg)
 	msg = "<span class='boldnotice'><font color='#DC143C'>SYNDICATE: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):</span> [msg]"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
@@ -61,6 +68,7 @@
 
 /proc/HONK_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
+	GLOB.requests.message_honk(Sender.client, msg)
 	msg = "<span class='boldnotice'><font color=pink>HONK: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A HREF='?_src_=holder;HONKReply=[Sender.UID()]'>RPLY</A>):</span> [msg]"
 	for(var/client/X in GLOB.admins)
 		if(R_EVENT & X.holder.rights)
@@ -70,6 +78,7 @@
 
 /proc/ERT_Announce(var/text , var/mob/Sender, var/repeat_warning)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
+	GLOB.requests.request_ert(Sender.client, msg)
 	msg = "<span class='adminnotice'><b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A HREF='?_src_=holder;ErtReply=[Sender.UID()]'>RESPOND</A>):</b> [msg]</span>"
 	if(repeat_warning)
 		msg += "<BR><span class='adminnotice'><b>WARNING: ERT request has gone 5 minutes with no reply!</b></span>"
@@ -81,11 +90,21 @@
 
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()
+	var/nuke_status = get_nuke_status()
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
+	GLOB.requests.nuke_request(Sender.client, msg)
 	msg = "<span class='adminnotice'><b><font color=orange>NUKE CODE REQUEST: </font>[key_name(Sender)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")]):</b> [msg]</span>"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
-			to_chat(X, "<span class='adminnotice'><b>The nuke code is [nuke_code].</b></span>")
+			if(nuke_status == NUKE_MISSING)
+				to_chat(X, "<span class='userdanger'>The nuclear device is not on station!</span>")
+			else
+				to_chat(X, "<span class='adminnotice'><b>The nuke code is [nuke_code].</b></span>")
+				if(nuke_status == NUKE_CORE_MISSING)
+					to_chat(X, "<span class='userdanger'>The nuclear device does not have a core, and will not arm!</span>")
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
+#undef NUKE_INTACT
+#undef NUKE_CORE_MISSING
+#undef NUKE_MISSING

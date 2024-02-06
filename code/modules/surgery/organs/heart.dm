@@ -1,9 +1,8 @@
 /obj/item/organ/internal/heart
 	name = "heart"
 	icon_state = "heart-on"
-	organ_tag = "heart"
-	parent_organ = "chest"
-	slot = "heart"
+	parent_organ_zone = BODY_ZONE_CHEST
+	slot = INTERNAL_ORGAN_HEART
 	origin_tech = "biotech=5"
 	var/beating = TRUE
 	dead_icon = "heart-off"
@@ -15,34 +14,28 @@
 	else
 		icon_state = "[icon_base]-off"
 
-/obj/item/organ/internal/heart/remove(mob/living/carbon/M, special = 0)
-	. = ..()
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.stat == DEAD)
-			Stop()
-			return
-
+/obj/item/organ/internal/heart/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 120)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 12 SECONDS)
+	. = ..()
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(!is_robotic() || emp_proof)
 		return
 	Stop()
 
-/obj/item/organ/internal/heart/necrotize()
-	..()
-	Stop()
+/obj/item/organ/internal/heart/necrotize(silent = FALSE)
+	if(..())
+		Stop()
 
 /obj/item/organ/internal/heart/attack_self(mob/user)
 	..()
-	if(status & ORGAN_DEAD)
+	if(is_dead())
 		to_chat(user, "<span class='warning'>You can't restart a dead heart.</span>")
 		return
 	if(!beating)
 		Restart()
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 80)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
 /obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
 	Restart()
@@ -89,7 +82,7 @@
 			to_chat(H, "<span class='userdanger'>[src] is not compatible with your form!</span>")
 			return
 		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
-		user.drop_item()
+		user.drop_item_ground(src)
 		insert(user)
 	else
 		return ..()
@@ -106,7 +99,7 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-/obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	if(owner)
 		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
@@ -115,7 +108,7 @@
 	name = "pump your blood"
 
 //You are now brea- pumping blood manually
-/datum/action/item_action/organ_action/cursed_heart/Trigger()
+/datum/action/item_action/organ_action/cursed_heart/Trigger(left_click = TRUE)
 	. = ..()
 	if(. && istype(target, /obj/item/organ/internal/heart/cursed))
 		var/obj/item/organ/internal/heart/cursed/cursed_heart = target
@@ -146,6 +139,8 @@
 	icon_base = "heart-c"
 	dead_icon = "heart-c-off"
 	status = ORGAN_ROBOT
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
@@ -160,54 +155,54 @@
 	if(!ishuman(owner))
 		return
 
-	if(!(status & ORGAN_DEAD) && !attempted_restart && !beating)
+	if(!is_dead() && !attempted_restart && !beating)
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
 		if(prob(20) && emagged)
 			attempted_restart = TRUE
 			Restart()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 200)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else if(prob(10))
 			attempted_restart = TRUE
 			Restart()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 300)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, .proc/recharge), 200)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
-				addtimer(CALLBACK(src, .proc/recharge), 300)
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
-	if(!(status & ORGAN_DEAD) && !attempted_restart && owner.HasDisease(new /datum/disease/critical/heart_failure(0)))
+	if(!is_dead() && !attempted_restart && owner.HasDisease(/datum/disease/critical/heart_failure))
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
 		if(prob(40) && emagged)
 			attempted_restart = TRUE
-			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
+			for(var/datum/disease/critical/heart_failure/HF in owner.diseases)
 				HF.cure()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 200)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else if(prob(25))
 			attempted_restart = TRUE
-			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
+			for(var/datum/disease/critical/heart_failure/HF in owner.diseases)
 				HF.cure()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 200)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, .proc/recharge), 200)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
-				addtimer(CALLBACK(src, .proc/recharge), 300)
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
-	if(!(status & ORGAN_DEAD))
+	if(!is_dead())
 		var/boost = emagged ? 2 : 1
-		owner.AdjustDrowsy(-4 * boost)
-		owner.AdjustParalysis(-1 * boost)
-		owner.AdjustStunned(-1 * boost)
-		owner.AdjustWeakened(-1 * boost)
+		owner.AdjustDrowsy(-8 SECONDS * boost)
+		owner.AdjustParalysis(-2 SECONDS * boost)
+		owner.AdjustStunned(-2 SECONDS * boost)
+		owner.AdjustWeakened(-2 SECONDS * boost)
 		owner.SetSleeping(0)
 		owner.adjustStaminaLoss(-1 * boost)
 
@@ -222,10 +217,14 @@
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='warning'>You disable the safeties on [src]</span>")
+		add_attack_logs(user, src, "emagged")
+		if(user)
+			to_chat(user, "<span class='warning'>You disable the safeties on [src]</span>")
 		emagged = TRUE
 	else
-		to_chat(user, "<span class='warning'>You re-enable the safeties on [src]</span>")
+		add_attack_logs(user, src, "un-emagged")
+		if(user)
+			to_chat(user, "<span class='warning'>You re-enable the safeties on [src]</span>")
 		emagged = FALSE
 
 
@@ -245,7 +244,7 @@
 	var/numHigh = round(intensity / 5)
 	var/numMid = round(intensity / 10)
 	var/numLow = round(intensity / 20)
-	if(emagged && !(status & ORGAN_DEAD))
+	if(emagged && !is_dead())
 		if(prob(numHigh))
 			to_chat(owner, "<span class='warning'>Your [name] spasms violently!</span>")
 			owner.adjustBruteLoss(numHigh)
@@ -254,14 +253,15 @@
 			owner.adjustFireLoss(numHigh)
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
-			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+			var/datum/disease/critical/heart_failure/D = new
+			D.Contract(owner)
 		if(prob(numMid))
 			to_chat(owner, "<span class='danger'>Your [name] stops beating!</span>")
 			Stop()
 		if(prob(numLow))
 			to_chat(owner, "<span class='danger'>Your [name] shuts down!</span>")
 			necrotize()
-	else if(!emagged && !(status & ORGAN_DEAD))
+	else if(!emagged && !is_dead())
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] spasms violently!</span>")
 			owner.adjustBruteLoss(numMid)
@@ -270,4 +270,5 @@
 			owner.adjustFireLoss(numMid)
 		if(prob(numLow))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
-			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+			var/datum/disease/critical/heart_failure/D = new
+			D.Contract(owner)

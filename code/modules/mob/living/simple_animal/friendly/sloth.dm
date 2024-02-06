@@ -10,6 +10,7 @@
 	speak_emote = list("yawns")
 	emote_hear = list("snores.","yawns.")
 	emote_see = list("dozes off.", "looks around sleepily.")
+	tts_seed = "Peon"
 	speak_chance = 1
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
@@ -22,6 +23,8 @@
 	health = 50
 	maxHealth = 50
 	speed = 2
+	footstep_type = FOOTSTEP_MOB_CLAW
+	holder_type = /obj/item/holder/sloth
 
 
 //Cargo Sloth
@@ -30,3 +33,6 @@
 	desc = "Cargo's pet sloth. About as useful as the rest of the techs."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+	icon_state = "cool_sloth"
+	icon_living = "cool_sloth"
+	icon_dead = "cool_sloth_dead"

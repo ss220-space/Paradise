@@ -44,10 +44,10 @@
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD)
 
 /datum/atom_hud/data/diagnostic/advanced
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_PATH_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_PATH_HUD)
 
 /datum/atom_hud/data/bot_path
 	hud_icons = list(DIAG_PATH_HUD)
@@ -56,7 +56,10 @@
 	hud_icons = list(GLAND_HUD)
 
 /datum/atom_hud/data/hydroponic
-	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
+	hud_icons = list(PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
+
+/datum/atom_hud/thoughts
+	hud_icons = list(THOUGHT_HUD)
 
 /* MED/SEC/DIAG HUD HOOKS */
 
@@ -73,7 +76,7 @@
 /// Whether the carbon mob is currently in crit.
 // Even though "crit" does not realistically happen for non-humans..
 /mob/living/carbon/proc/is_in_crit()
-	for(var/thing in viruses)
+	for(var/thing in diseases)
 		var/datum/disease/D = thing
 		if(istype(D, /datum/disease/critical))
 			return TRUE
@@ -87,16 +90,18 @@
 	return FALSE
 
 /// Whether a virus worthy displaying on the HUD is present.
-/mob/living/carbon/proc/has_virus()
-	for(var/thing in viruses)
+/mob/living/proc/has_virus()
+	for(var/thing in diseases)
 		var/datum/disease/D = thing
-		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
+		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
+			continue
+		if((!(D.visibility_flags & HIDDEN_HUD)) && (D.severity != NONTHREAT))
 			return TRUE
 	return FALSE
 
 //helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
-	if(M.stat == DEAD || (M.status_flags & FAKEDEATH))
+	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		return "health-100-dead" //what's our health? it doesn't matter, we're dead, or faking
 
 	var/maxi_health = M.maxHealth
@@ -171,6 +176,8 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	if(stat == DEAD)
 		holder.icon_state = "huddead"
+	else if(has_virus())
+		holder.icon_state = "hudill"
 	else
 		holder.icon_state = "hudhealthy"
 
@@ -178,15 +185,16 @@
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	var/dead = stat == DEAD || (status_flags & FAKEDEATH)
 	// To the right of health bar
-	if(dead)
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
+		if(!ghost_can_reenter() || suiciding) // DNR or AntagHUD or Suicide
+			revivable = FALSE
 		if(revivable)
 			holder.icon_state = "hudflatline"
 		else
 			holder.icon_state = "huddead"
-	else if(status_flags & XENO_HOST)
+	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
 	else if(B && B.controlling)
 		holder.icon_state = "hudbrainworm"
@@ -207,12 +215,11 @@
 
 /mob/living/carbon/human/proc/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
-	holder.icon_state = "hudunknown"
 	if(wear_id)
 		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
+	else
+		holder.icon_state = "hudunknown"
 	sec_hud_set_security_status()
-
-
 
 /mob/living/carbon/human/proc/sec_hud_set_implants()
 	var/image/holder
@@ -465,6 +472,35 @@
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
+
+/*~~~~~~~~~~~~~~~~~~
+	TELEPATHY HUD
+~~~~~~~~~~~~~~~~~~*/
+
+/mob/living/proc/thoughts_hud_set(thoughts, say_test)
+	if(!src)
+		return
+	var/image/holder = hud_list[THOUGHT_HUD]
+	if(!thoughts || (client?.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
+		holder.icon_state = ""
+	else
+		if(istext(say_test))
+			holder.icon_state = "hudthoughts-[say_test]"
+			addtimer(CALLBACK(src, PROC_REF(thoughts_hud_set), FALSE), 3 SECONDS)
+		else if(!typing)
+			holder.icon_state = "hudthoughtstyping"
+			typing = TRUE
+
+/datum/atom_hud/thoughts/proc/manage_hud(mob/user, perception)
+	if(!user)
+		return
+	user.thoughtsHUD += perception
+	if(user.thoughtsHUD && !(user in hudusers))
+		add_hud_to(user)
+		add_to_hud(user)
+	else if(!user.thoughtsHUD && (user in hudusers))
+		remove_hud_from(user)
+		remove_from_hud(user)
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

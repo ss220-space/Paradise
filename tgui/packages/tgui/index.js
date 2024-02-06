@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 // Polyfills
 import 'core-js/es';
 import 'core-js/web/immediate';
@@ -21,6 +27,7 @@ import { createStore, StoreProvider } from './store';
 import './styles/main.scss';
 import './styles/themes/cardtable.scss';
 import './styles/themes/changeling.scss';
+import './styles/themes/clockwork.scss';
 import './styles/themes/hackerman.scss';
 import './styles/themes/malfunction.scss';
 import './styles/themes/ntos.scss';
@@ -28,7 +35,10 @@ import './styles/themes/retro.scss';
 import './styles/themes/safe.scss';
 import './styles/themes/security.scss';
 import './styles/themes/syndicate.scss';
+import './styles/themes/nologo.scss';
+import './styles/themes/spider_clan.scss';
 
+import { captureExternalLinks } from './links';
 
 
 const enteredBundleAt = Date.now();
@@ -127,6 +137,8 @@ const setupApp = () => {
   store.subscribe(() => {
     renderLayout();
   });
+
+  captureExternalLinks();
 
   // Subscribe for bankend updates
   window.update = stateJson => {

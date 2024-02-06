@@ -10,7 +10,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress
 	name = "Empress of Terror"
 	desc = "The unholy offspring of spiders, nightmares, and lovecraft fiction."
-	spider_role_summary = "Adminbus spider"
 	ai_target_method = TS_DAMAGE_SIMPLE
 	maxHealth = 1000
 	health = 1000
@@ -21,7 +20,7 @@
 	ai_playercontrol_allowtype = 0
 	canlay = 1000
 	spider_tier = TS_TIER_5
-	projectiletype = /obj/item/projectile/terrorqueenspit/empress
+	projectiletype = /obj/item/projectile/terrorspider/empress
 	icon = 'icons/mob/terrorspider64.dmi'
 	pixel_x = -16
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
@@ -31,7 +30,7 @@
 	icon_dead = "terror_empress_dead"
 	var/datum/action/innate/terrorspider/queen/empress/empresslings/empresslings_action
 	var/datum/action/innate/terrorspider/queen/empress/empresserase/empresserase_action
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	tts_seed = "Queen"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/New()
 	..()
@@ -48,26 +47,26 @@
 	queeneggs_action.button.name = "Empress Eggs"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/LayQueenEggs()
-	var/eggtype = input("What kind of eggs?") as null|anything in list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE, TS_DESC_WHITE, TS_DESC_BROWN)
+	var/eggtype = input("What kind of eggs?") as null|anything in list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_WIDOW, TS_DESC_GUARDIAN, TS_DESC_DEFILER, TS_DESC_DESTROYER)
 	var/numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5, 10, 15, 20, 30, 40, 50)
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
 	switch(eggtype)
-		if(TS_DESC_RED)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, numlings)
-		if(TS_DESC_GRAY)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, numlings)
-		if(TS_DESC_GREEN)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, numlings)
-		if(TS_DESC_BLACK)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, numlings)
-		if(TS_DESC_PURPLE)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, numlings)
-		if(TS_DESC_WHITE)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, numlings)
-		if(TS_DESC_BROWN)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, numlings)
+		if(TS_DESC_KNIGHT)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/knight, numlings)
+		if(TS_DESC_LURKER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, numlings)
+		if(TS_DESC_HEALER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/healer, numlings)
+		if(TS_DESC_WIDOW)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/widow, numlings)
+		if(TS_DESC_GUARDIAN)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/guardian, numlings)
+		if(TS_DESC_DEFILER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/defiler, numlings)
+		if(TS_DESC_DESTROYER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, numlings)
 		if(TS_DESC_PRINCE)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, numlings)
 		if(TS_DESC_PRINCESS)
@@ -84,11 +83,11 @@
 	var/sbpc = input("%chance to be stillborn?") as null|anything in list(0, 25, 50, 75, 100)
 	for(var/i=0, i<numlings, i++)
 		var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
-		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, \
-		/mob/living/simple_animal/hostile/poison/terror_spider/gray, \
-		/mob/living/simple_animal/hostile/poison/terror_spider/green, \
-		/mob/living/simple_animal/hostile/poison/terror_spider/white, \
-		/mob/living/simple_animal/hostile/poison/terror_spider/black)
+		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/knight, \
+		/mob/living/simple_animal/hostile/poison/terror_spider/lurker, \
+		/mob/living/simple_animal/hostile/poison/terror_spider/healer, \
+		/mob/living/simple_animal/hostile/poison/terror_spider/defiler, \
+		/mob/living/simple_animal/hostile/poison/terror_spider/widow)
 		S.spider_myqueen = spider_myqueen
 		S.spider_mymother = src
 		if(prob(sbpc))
@@ -108,6 +107,9 @@
 		qdel(T)
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 
-/obj/item/projectile/terrorqueenspit/empress
-	damage = 90
 
+/obj/item/projectile/terrorspider/empress
+	name = "empress venom"
+	icon_state = "toxin5"
+	damage = 90
+	damage_type = BRUTE

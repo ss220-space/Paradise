@@ -12,17 +12,21 @@
 
 	universal_speak = 1		// Tell the humans spooky things about the afterlife
 	speak_emote = list("mumbles", "moans", "whispers", "laments", "screeches")
+	tts_seed = "Sylvanas"
 
 	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
 	no_spin_thrown = 1
 	del_on_death = TRUE
 
+	/// The probability % of us escaping if stuffed into a bag/toolbox/etc
+	var/escape_chance = 10
+	/// What is the actual item we are "possessing"
 	var/obj/item/possessed_item
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
-		. += "<span class='warning'>[src] appears to be floating without any support!</span>"
+		. += "<span class='notice'>[src] appears to be floating without any support!</span>"
 	else
 		. += "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
 
@@ -32,9 +36,9 @@
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
 
 
-/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
+/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
 	if(show_message)
-		to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
+		to_chat(src, span_warning("You are unable to pull [AM]!"))
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
@@ -55,6 +59,7 @@
 			possessed_item.forceMove(loc)
 	return ..()
 
+
 /mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
 	..()
 
@@ -72,6 +77,13 @@
 		drop_l_hand()
 	if(r_hand)
 		drop_r_hand()
+
+	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
+		visible_message("<span class='notice'>[src] refuses to be contained!</span>")
+		forceMove(get_turf(src))
+		if(possessed_item.loc != src) //safety so the item doesn't somehow become detatched from us while doing this
+			possessed_item.forceMove(src)
+
 
 /mob/living/simple_animal/possessed_object/Login()
 	..()
@@ -140,7 +152,8 @@
 
 	update_icon()
 
-/mob/living/simple_animal/possessed_object/proc/update_icon(update_pixel_xy = 0)
+
+/mob/living/simple_animal/possessed_object/update_icon(update_pixel_xy = 0)
 	name = possessed_item.name // Take on all the attributes of the item we've possessed.
 	real_name = name
 	desc = possessed_item.desc
@@ -154,3 +167,5 @@
 	color = possessed_item.color
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
+	return ..(NONE)
+

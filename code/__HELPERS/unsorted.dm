@@ -147,6 +147,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return FALSE
 	if(A.tele_proof)
 		return TRUE
+	if(!is_teleport_allowed(O.z))
+		return TRUE
 	else
 		return FALSE
 
@@ -252,34 +254,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/format_frequency(var/f)
 	return "[round(f / 10)].[f % 10]"
 
-/obj/proc/atmosanalyzer_scan(var/datum/gas_mixture/air_contents, mob/user, var/obj/target = src)
-	var/obj/icon = target
-	user.visible_message("[user] has used the analyzer on [target].", "<span class='notice'>You use the analyzer on [target].</span>")
-	var/pressure = air_contents.return_pressure()
-	var/total_moles = air_contents.total_moles()
-
-	user.show_message("<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>", 1)
-	if(total_moles>0)
-		var/o2_concentration = air_contents.oxygen/total_moles
-		var/n2_concentration = air_contents.nitrogen/total_moles
-		var/co2_concentration = air_contents.carbon_dioxide/total_moles
-		var/plasma_concentration = air_contents.toxins/total_moles
-
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
-
-		user.show_message("<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>", 1)
-		user.show_message("<span class='notice'>Nitrogen: [round(n2_concentration*100)] % ([round(air_contents.nitrogen,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Oxygen: [round(o2_concentration*100)] % ([round(air_contents.oxygen,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>CO2: [round(co2_concentration*100)] % ([round(air_contents.carbon_dioxide,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Plasma: [round(plasma_concentration*100)] % ([round(air_contents.toxins,0.01)] moles)</span>", 1)
-		if(unknown_concentration>0.01)
-			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Total: [round(total_moles,0.01)] moles</span>", 1)
-		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>", 1)
-	else
-		user.show_message("<span class='notice'>[target] is empty!</span>", 1)
-	return
-
 //Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
@@ -289,7 +263,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || iscogscarab(A) || isclocker(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -305,6 +279,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(A.stat == DEAD)
 			continue
 		if(A.control_disabled == 1)
+			continue
+		if(isclocker(A)) //the active ais list used for uploads. Avoiding to changing the laws even the AI is fully converted
 			continue
 		. += A
 	return .
@@ -465,12 +441,6 @@ Returns 1 if the chain up to the area contains the given typepath
 		A = A.loc
 	return 0
 
-// the on-close client verb
-// called when a browser popup window is closed after registering with proc/onclose()
-// if a valid atom reference is supplied, call the atom's Topic() with "close=1"
-// otherwise, just reset the client mob's machine var.
-
-
 // returns the turf located at the map edge in the specified direction relative to A
 // used for mass driver
 /proc/get_edge_target_turf(var/atom/A, var/direction)
@@ -579,14 +549,20 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return 1
 
-/proc/is_blocked_turf(turf/T, exclude_mobs)
-	if(T.density)
-		return 1
-	for(var/i in T)
-		var/atom/A = i
-		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
+
+/proc/is_blocked_turf(turf/target_turf, exclude_mobs)
+	if(target_turf.density)
+		return TRUE
+
+	if(locate(/mob/living/silicon/ai) in target_turf) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+		return TRUE
+
+	for(var/atom/target in target_turf)
+		if(target.density && (!exclude_mobs || !ismob(target)))
+			return TRUE
+
+	return FALSE
+
 
 /proc/get_step_towards2(var/atom/ref , var/atom/trg)
 	var/base_dir = get_dir(ref, get_step_towards(ref,trg))
@@ -616,11 +592,17 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	else return get_step(ref, base_dir)
 
-//Takes: Anything that could possibly have variables and a varname to check.
-//Returns: 1 if found, 0 if not.
-/proc/hasvar(var/datum/A, var/varname)
-	if(A.vars.Find(lowertext(varname))) return 1
-	else return 0
+
+/**
+ * Takes: Anything that could possibly have variables and a varname to check.
+ * Returns: `TRUE` if found, `FALSE` if not.
+ */
+/proc/has_variable(datum/check, varname)
+	if(check.vars.Find(lowertext(varname)))
+		return TRUE
+
+	return FALSE
+
 
 //Returns: all the areas in the world
 /proc/return_areas()
@@ -658,7 +640,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	var/list/turfs = new/list()
 	for(var/area/N in world)
-		if(istype(N, areatype))
+		if(N.type == areatype)
 			for(var/turf/T in N) turfs += T
 	return turfs
 
@@ -776,7 +758,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 						// Reset the shuttle corners
 						if(O.tag == "delete me")
-							X.icon = 'icons/turf/shuttle.dmi'
+							X.icon = 'icons/turf/shuttle/shuttle.dmi'
 							X.icon_state = replacetext(O.icon_state, "_f", "_s") // revert the turf to the old icon_state
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking
@@ -822,7 +804,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 
-/proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0, var/atom/newloc = null)
+/proc/DuplicateObject(obj/original, perfectcopy = FALSE , sameloc = FALSE, atom/newloc = null)
 	if(!original)
 		return null
 
@@ -834,8 +816,8 @@ Returns 1 if the chain up to the area contains the given typepath
 		O=new original.type(newloc)
 
 	if(perfectcopy)
-		if((O) && (original))
-			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group")
+		if(O)
+			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
 				if(istype(original.vars[V],/list))
@@ -849,14 +831,15 @@ Returns 1 if the chain up to the area contains the given typepath
 		O.update_icon()
 	return O
 
-/area/proc/copy_contents_to(var/area/A , var/platingRequired = 0 )
+/area/proc/copy_contents_to(area/A , platingRequired = FALSE, perfect_copy = TRUE)
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
 	//       Movement based on lower left corner. Tiles that do not fit
 	//		 into the new area will not be moved.
 
-	if(!A || !src) return 0
+	if(!A || !src)
+		return FALSE
 
 	var/list/turfs_src = get_area_turfs(src.type)
 	var/list/turfs_trg = get_area_turfs(A.type)
@@ -864,14 +847,18 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/src_min_x = 0
 	var/src_min_y = 0
 	for(var/turf/T in turfs_src)
-		if(T.x < src_min_x || !src_min_x) src_min_x	= T.x
-		if(T.y < src_min_y || !src_min_y) src_min_y	= T.y
+		if(T.x < src_min_x || !src_min_x)
+			src_min_x	= T.x
+		if(T.y < src_min_y || !src_min_y)
+			src_min_y	= T.y
 
 	var/trg_min_x = 0
 	var/trg_min_y = 0
 	for(var/turf/T in turfs_trg)
-		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
-		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
+		if(T.x < trg_min_x || !trg_min_x)
+			trg_min_x	= T.x
+		if(T.y < trg_min_y || !trg_min_y)
+			trg_min_y	= T.y
 
 	var/list/refined_src = new/list()
 	for(var/turf/T in turfs_src)
@@ -900,67 +887,29 @@ Returns 1 if the chain up to the area contains the given typepath
 			for(var/turf/B in refined_trg)
 				var/datum/coords/C_trg = refined_trg[B]
 				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
-
 					var/old_dir1 = T.dir
 					var/old_icon_state1 = T.icon_state
 					var/old_icon1 = T.icon
 
 					if(platingRequired)
-						if(istype(B, /turf/space))
+						if(isspaceturf(B))
 							continue moving
-
 					var/turf/X = new T.type(B)
 					X.dir = old_dir1
 					X.icon_state = old_icon_state1
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
-
-					var/list/objs = new/list()
-					var/list/newobjs = new/list()
-					var/list/mobs = new/list()
-					var/list/newmobs = new/list()
-
 					for(var/obj/O in T)
-
-						if(!istype(O,/obj))
-							continue
-
-						objs += O
-
-
-					for(var/obj/O in objs)
-						newobjs += DuplicateObject(O , 1)
-
-
-					for(var/obj/O in newobjs)
-						O.loc = X
+						copiedobjs += DuplicateObject(O, perfect_copy, newloc = X)
 
 					for(var/mob/M in T)
-
 						if(!M.move_on_shuttle)
 							continue
-						mobs += M
-
-					for(var/mob/M in mobs)
-						newmobs += DuplicateObject(M , 1)
-
-					for(var/mob/M in newmobs)
-						M.loc = X
-
-					copiedobjs += newobjs
-					copiedobjs += newmobs
-
-
+						copiedobjs += DuplicateObject(M, perfect_copy, newloc = X)
 
 					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","contents", "luminosity", "group")))
+						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
-
-//					var/area/AR = X.loc
-
-//					if(AR.lighting_use_dynamic)
-//						X.opacity = !X.opacity
-//						X.sd_set_opacity(!X.opacity)			//TODO: rewrite this code so it's not messed by lighting ~Carn
 
 					toupdate += X
 
@@ -984,10 +933,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/dx = abs(B.x - A.x)
 	var/dy = abs(B.y - A.y)
 	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
-
-//chances are 1:value. anyprob(1) will always return true
-/proc/anyprob(value)
-	return (rand(1,value)==value)
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
@@ -1014,19 +959,40 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 /proc/parse_zone(zone)
-	if(zone == "r_hand") return "right hand"
-	else if(zone == "l_hand") return "left hand"
-	else if(zone == "l_arm") return "left arm"
-	else if(zone == "r_arm") return "right arm"
-	else if(zone == "l_leg") return "left leg"
-	else if(zone == "r_leg") return "right leg"
-	else if(zone == "l_foot") return "left foot"
-	else if(zone == "r_foot") return "right foot"
-	else if(zone == "l_hand") return "left hand"
-	else if(zone == "r_hand") return "right hand"
-	else if(zone == "l_foot") return "left foot"
-	else if(zone == "r_foot") return "right foot"
-	else return zone
+	switch(zone)
+		if(BODY_ZONE_HEAD)
+			return "head"
+		if(BODY_ZONE_CHEST)
+			return "chest"
+		if(BODY_ZONE_L_ARM)
+			return "left arm"
+		if(BODY_ZONE_R_ARM)
+			return "right arm"
+		if(BODY_ZONE_L_LEG)
+			return "left leg"
+		if(BODY_ZONE_R_LEG)
+			return "right leg"
+		if(BODY_ZONE_TAIL)
+			return "tail"
+		if(BODY_ZONE_WING)
+			return "wings"
+		if(BODY_ZONE_PRECISE_EYES)
+			return "eyes"
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return "mouth"
+		if(BODY_ZONE_PRECISE_GROIN)
+			return "groin"
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return "left hand"
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return "right hand"
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return "left foot"
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return "right foot"
+		else
+			stack_trace("Wrong zone input.")
+
 
 /*
 
@@ -1068,8 +1034,8 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
 	if(!T)
 		return null
-	var/final_x = T.x + rough_x
-	var/final_y = T.y + rough_y
+	var/final_x = clamp(T.x + rough_x, 1, world.maxx)
+	var/final_y = clamp(T.y + rough_y, 1, world.maxy)
 
 	if(final_x || final_y)
 		return locate(final_x, final_y, T.z)
@@ -1249,66 +1215,69 @@ Standard way to write links -Sayu
 	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
 
 
-
+// This proc is made to check if we can interact or use (directly or in the other way) the specific bodypart
+// Not to check if one clothing blocks access to the other clothing
+// for that we have flags_inv var
 /proc/get_location_accessible(mob/M, location)
 	var/covered_locations	= 0	//based on body_parts_covered
-	var/face_covered		= 0	//based on flags_inv
 	var/eyesmouth_covered	= 0	//based on flags_cover
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		for(var/obj/item/clothing/I in list(C.back, C.wear_mask))
 			covered_locations |= I.body_parts_covered
-			face_covered |= I.flags_inv
 			eyesmouth_covered |= I.flags_cover
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
-			for(var/obj/item/I in list(H.wear_suit, H.w_uniform, H.shoes, H.belt, H.gloves, H.glasses, H.head, H.r_ear, H.l_ear))
+			for(var/obj/item/I in list(H.wear_suit, H.w_uniform, H.shoes, H.belt, H.gloves, H.glasses, H.head, H.r_ear, H.l_ear, H.neck))
 				covered_locations |= I.body_parts_covered
-				face_covered |= I.flags_inv
 				eyesmouth_covered |= I.flags_cover
-
+	// If we check for mouth or eyes for gods sake use the appropriate flags for THEM!
+	// Not for the face, head e.t.c.
+	// HIDENAME(formerly known as HIDEFACE) flag was made to check if we appear as unknown
+	// HIDEGLASSES(formerly known as HIDEEYES) flag was made, ironically, to check if it hides our GLASSES
+	// not to check if it makes using the fucking mouth/eyes impossible!!!
 	switch(location)
-		if("head")
+		if(BODY_ZONE_HEAD)
 			if(covered_locations & HEAD)
-				return 0
-		if("eyes")
-			if(face_covered & HIDEEYES || eyesmouth_covered & GLASSESCOVERSEYES || eyesmouth_covered & HEADCOVERSEYES)
-				return 0
-		if("mouth")
-			if(covered_locations & HEAD || face_covered & HIDEFACE || eyesmouth_covered & MASKCOVERSMOUTH)
-				return 0
-		if("chest")
+				return FALSE
+		if(BODY_ZONE_PRECISE_EYES)
+			if(eyesmouth_covered & MASKCOVERSEYES || eyesmouth_covered & GLASSESCOVERSEYES || eyesmouth_covered & HEADCOVERSEYES)
+				return FALSE
+		if(BODY_ZONE_PRECISE_MOUTH)
+			if(eyesmouth_covered & HEADCOVERSMOUTH || eyesmouth_covered & MASKCOVERSMOUTH)
+				return FALSE
+		if(BODY_ZONE_CHEST)
 			if(covered_locations & UPPER_TORSO)
-				return 0
-		if("groin")
+				return FALSE
+		if(BODY_ZONE_PRECISE_GROIN)
 			if(covered_locations & LOWER_TORSO)
-				return 0
-		if("l_arm")
+				return FALSE
+		if(BODY_ZONE_L_ARM)
 			if(covered_locations & ARM_LEFT)
-				return 0
-		if("r_arm")
+				return FALSE
+		if(BODY_ZONE_R_ARM)
 			if(covered_locations & ARM_RIGHT)
-				return 0
-		if("l_leg")
+				return FALSE
+		if(BODY_ZONE_L_LEG)
 			if(covered_locations & LEG_LEFT)
-				return 0
-		if("r_leg")
+				return FALSE
+		if(BODY_ZONE_R_LEG)
 			if(covered_locations & LEG_RIGHT)
-				return 0
-		if("l_hand")
+				return FALSE
+		if(BODY_ZONE_PRECISE_L_HAND)
 			if(covered_locations & HAND_LEFT)
-				return 0
-		if("r_hand")
+				return FALSE
+		if(BODY_ZONE_PRECISE_R_HAND)
 			if(covered_locations & HAND_RIGHT)
-				return 0
-		if("l_foot")
+				return FALSE
+		if(BODY_ZONE_PRECISE_L_FOOT)
 			if(covered_locations & FOOT_LEFT)
-				return 0
-		if("r_foot")
+				return FALSE
+		if(BODY_ZONE_PRECISE_R_FOOT)
 			if(covered_locations & FOOT_RIGHT)
-				return 0
+				return FALSE
 
-	return 1
+	return TRUE
 
 /proc/check_target_facings(mob/living/initator, mob/living/target)
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
@@ -1399,7 +1368,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	GLOB.dview_mob.loc = null
 
 /mob/dview
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	density = 0
 	move_force = 0
 	pull_force = 0
@@ -1525,7 +1494,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	shift.Translate(0,radius)
 	transform = shift
 
-	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
+	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
@@ -1537,20 +1506,21 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			loc = targetloc
 		lastloc = loc
 		var/atom/movable/B = A
-		if(B?.glide_size)
+		if(istype(B))
 			glide_size = B.glide_size
 		sleep(0.6)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		orbiting = null
-		SpinAnimation(0, 0)
 		transform = cached_transform
-
+		SpinAnimation(0, 0, parallel = FALSE)
 
 
 /atom/movable/proc/stop_orbit()
 	orbiting = null
 	transform = cached_transform
+	SpinAnimation(0, 0, parallel = FALSE)
+
 
 //Centers an image.
 //Requires:
@@ -1618,17 +1588,21 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 		y = t_center.y + c_dist - 1
 		x = t_center.x + c_dist
+		var/list/temp_list_one = list()
 		for(y in t_center.y-c_dist to y)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_one += T
+		L += reverselist(temp_list_one)
 
 		y = t_center.y - c_dist
 		x = t_center.x + c_dist - 1
+		var/list/temp_list_two = list()
 		for(x in t_center.x-c_dist to x)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_two += T
+		L += reverselist(temp_list_two)
 
 		y = t_center.y - c_dist + 1
 		x = t_center.x - c_dist
@@ -1801,10 +1775,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/vehicle = "VEHICLE",
 			/obj = "O",
 			/datum = "D",
-			/turf/simulated/floor = "SIM_FLOOR",
-			/turf/simulated/wall = "SIM_WALL",
-			/turf/unsimulated/floor = "UNSIM_FLOOR",
-			/turf/unsimulated/wall = "UNSIM_WALL",
+			/turf/simulated/floor = "FLOOR",
+			/turf/simulated/wall = "WALL",
 			/turf = "T",
 			/mob/living/carbon/alien = "XENO",
 			/mob/living/carbon/human = "HUMAN",
@@ -1920,7 +1892,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return pois
 
-/proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
+/proc/flash_color(mob_or_client, flash_color=COLOR_CULT_RED, flash_time=20)
 	var/client/C
 	if(istype(mob_or_client, /mob))
 		var/mob/M = mob_or_client
@@ -2055,3 +2027,76 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return TRUE
 
 	return contains(location.loc)
+
+/**
+  * Returns the clean name of an audio channel.
+  *
+  * Arguments:
+  * * channel - The channel number.
+  */
+/proc/get_channel_name(channel)
+	switch(channel)
+		if(CHANNEL_GENERAL)
+			return "General Sounds"
+		if(CHANNEL_LOBBYMUSIC)
+			return "Lobby Music"
+		if(CHANNEL_ADMIN)
+			return "Admin MIDIs"
+		if(CHANNEL_VOX)
+			return "AI Announcements"
+		if(CHANNEL_JUKEBOX)
+			return "Dance Machines"
+		if(CHANNEL_HEARTBEAT)
+			return "Heartbeat"
+		if(CHANNEL_BUZZ)
+			return "White Noise"
+		if(CHANNEL_AMBIENCE)
+			return "Ambience"
+		if(CHANNEL_TTS_LOCAL)
+			return "TTS Local"
+		if(CHANNEL_TTS_RADIO)
+			return "TTS Radio"
+		if(CHANNEL_RADIO_NOISE)
+			return "Radio Noise"
+		if(CHANNEL_INTERACTION_SOUNDS)
+			return "Item Interaction Sounds"
+		if(CHANNEL_BOSS_MUSIC)
+			return "Boss Music"
+
+/proc/get_compass_dir(atom/start, atom/end) //get_dir() only considers an object to be north/south/east/west if there is zero deviation. This uses rounding instead. // Ported from CM-SS13
+	if(!start || !end)
+		return 0
+	if(!start.z || !end.z)
+		return 0 //Atoms are not on turfs.
+
+	var/dy = end.y - start.y
+	var/dx = end.x - start.x
+	if(!dy)
+		return (dx >= 0) ? 4 : 8
+
+	var/angle = arctan(dx / dy)
+	if(dy < 0)
+		angle += 180
+	else if(dx < 0)
+		angle += 360
+
+	switch(angle) //diagonal directions get priority over straight directions in edge cases
+		if (22.5 to 67.5)
+			return NORTHEAST
+		if (112.5 to 157.5)
+			return SOUTHEAST
+		if (202.5 to 247.5)
+			return SOUTHWEST
+		if (292.5 to 337.5)
+			return NORTHWEST
+		if (0 to 22.5)
+			return NORTH
+		if (67.5 to 112.5)
+			return EAST
+		if (157.5 to 202.5)
+			return SOUTH
+		if (247.5 to 292.5)
+			return WEST
+		else
+			return NORTH
+

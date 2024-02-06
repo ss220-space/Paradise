@@ -84,13 +84,10 @@
 				if(M)
 					more = " "
 				add_attack_logs(M, location, "Caused a chemical smoke reaction containing [contained]. Last associated key is [carry.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-				log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [carry.my_atom.fingerprintslast].")
 			else
-				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key.", ATKLOG_FEW)
-				log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
+				add_attack_logs(carry.my_atom, "A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key.", ATKLOG_FEW)
 		else
-			msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key. CODERS: carry.my_atom may be null.", ATKLOG_FEW)
-			log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key. CODERS: carry.my_atom may be null.")
+			add_attack_logs(carry, "A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key. CODERS: carry.my_atom may be null.", ATKLOG_FEW)
 
 
 /datum/effect_system/smoke_spread/chem/start(effect_range = 2)
@@ -98,29 +95,46 @@
 
 	var/color = mix_color_from_reagents(chemholder.reagents.reagent_list)
 
-	for(var/x in 0 to 99)
-		for(var/i = 0, i < rand(2, 6), i++)
-			if(effect_range < 3)
+	if(!effect_range)
+		INVOKE_ASYNC(src, PROC_REF(SmokeEm), effect_range, chemholder.reagents, 1)
+		for(var/x in 0 to 9)
+			for(var/i = 0, i < rand(2, 6), i++)
 				new /obj/effect/particle_effect/chem_smoke/small(location, color)
-			else
-				new /obj/effect/particle_effect/chem_smoke(location, color)
+			sleep(1)
+	else
+		var/obj/tile_reagents = new
+		tile_reagents.create_reagents(1000)
+		tile_reagents.reagents.set_reacting(FALSE) // Just in case
+		for(var/x in 0 to (effect_range * 10 - 1))
+			for(var/i = 0, i < rand(2, 6), i++)
+				if(x < 20)
+					new /obj/effect/particle_effect/chem_smoke/small(location, color)
+				else
+					new /obj/effect/particle_effect/chem_smoke(location, color)
 
-		if(x % 10 == 0) //Once every 10 ticks.
-			INVOKE_ASYNC(src, .proc/SmokeEm, effect_range)
+			if(x % 10 == 0) //Once every 10 ticks.
+				var/range = x / 10 + 1
+				tile_reagents.reagents.clear_reagents()
+				var/square_size = range * 2 + 1
+				chemholder.reagents.copy_to(tile_reagents, chemholder.reagents.total_volume, 1 / (square_size * square_size) / effect_range)
+				INVOKE_ASYNC(src, PROC_REF(SmokeEm), range, tile_reagents.reagents)
 
-		sleep(1)
+			sleep(1)
 	qdel(src)
 
-
-/datum/effect_system/smoke_spread/chem/proc/SmokeEm(effect_range = 2)
-	for(var/atom/A in view(effect_range, get_turf(location)))
-		if(istype(A, /obj/effect/particle_effect)) // Don't impact particle effects, as there can be hundreds of them in a small area. Also, we don't want smoke particles adding themselves to this list. Major performance issue.
-			continue
-		if(A in smoked_atoms)
-			continue
-		smoked_atoms += A
-		chemholder.reagents.reaction(A)
-		if(iscarbon(A))
-			var/mob/living/carbon/C = A
-			if(C.can_breathe_gas())
-				chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
+/datum/effect_system/smoke_spread/chem/proc/SmokeEm(effect_range, var/datum/reagents/reagents)
+	for(var/turf/T in view(effect_range, get_turf(location)))
+		var/list/mob/living/carbon/carbons = list()
+		for(var/atom/A in T.contents)
+			if(istype(A, /obj/effect/particle_effect)) // Don't impact particle effects, as there can be hundreds of them in a small area. Also, we don't want smoke particles adding themselves to this list. Major performance issue.
+				continue
+			if(A in smoked_atoms)
+				continue
+			smoked_atoms += A
+			reagents.reaction(A)
+			if(iscarbon(A))
+				var/mob/living/carbon/C = A
+				if(C.can_breathe_gas())
+					carbons += C
+		for(var/mob/living/carbon/C in carbons)
+			reagents.copy_to(C, reagents.total_volume, 1 / carbons.len)

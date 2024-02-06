@@ -5,7 +5,8 @@
 	locked = 0
 	anchored = 1
 	req_access = list()
-	layer = 2.9 // ensures the loot they drop always appears on top of them.
+	max_integrity = 250
+	icon_state = "secure"
 	var/is_armory = FALSE
 	var/ignore_use = FALSE
 

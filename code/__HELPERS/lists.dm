@@ -37,6 +37,46 @@
 		LIST.Insert(__BIN_MID, IN);\
 	}
 
+/// Passed into BINARY_INSERT to compare keys
+#define COMPARE_KEY __BIN_LIST[__BIN_MID]
+/// Passed into BINARY_INSERT to compare values
+#define COMPARE_VALUE __BIN_LIST[__BIN_LIST[__BIN_MID]]
+
+/****
+	* Binary search sorted insert from TG
+	* INPUT: Object to be inserted
+	* LIST: List to insert object into
+	* TYPECONT: The typepath of the contents of the list
+	* COMPARE: The object to compare against, usualy the same as INPUT
+	* COMPARISON: The variable on the objects to compare
+	* COMPTYPE: How should the values be compared? Either COMPARE_KEY or COMPARE_VALUE.
+	*/
+#define BINARY_INSERT_TG(INPUT, LIST, TYPECONT, COMPARE, COMPARISON, COMPTYPE) \
+	do {\
+		var/list/__BIN_LIST = LIST;\
+		var/__BIN_CTTL = length(__BIN_LIST);\
+		if(!__BIN_CTTL) {\
+			__BIN_LIST += INPUT;\
+		} else {\
+			var/__BIN_LEFT = 1;\
+			var/__BIN_RIGHT = __BIN_CTTL;\
+			var/__BIN_MID = (__BIN_LEFT + __BIN_RIGHT) >> 1;\
+			var ##TYPECONT/__BIN_ITEM;\
+			while(__BIN_LEFT < __BIN_RIGHT) {\
+				__BIN_ITEM = COMPTYPE;\
+				if(__BIN_ITEM.##COMPARISON <= COMPARE.##COMPARISON) {\
+					__BIN_LEFT = __BIN_MID + 1;\
+				} else {\
+					__BIN_RIGHT = __BIN_MID;\
+				};\
+				__BIN_MID = (__BIN_LEFT + __BIN_RIGHT) >> 1;\
+			};\
+			__BIN_ITEM = COMPTYPE;\
+			__BIN_MID = __BIN_ITEM.##COMPARISON > COMPARE.##COMPARISON ? __BIN_MID : __BIN_MID + 1;\
+			__BIN_LIST.Insert(__BIN_MID, INPUT);\
+		};\
+	} while(FALSE)
+
 
 //Returns a list in plain english as a string
 /proc/english_list(var/list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
@@ -75,6 +115,12 @@
 		return
 	return pick(list)
 
+/// Returns the top (last) element from the list, does not remove it from the list. Stack functionality.
+/proc/peek(list/target_list)
+	var/list_length = length(target_list)
+	if(list_length != 0)
+		return target_list[list_length]
+
 //Checks if the list is empty
 /proc/isemptylist(list/list)
 	if(!list.len)
@@ -82,13 +128,17 @@
 	return 0
 
 //Checks for specific types in a list
-/proc/is_type_in_list(atom/A, list/L)
+/proc/is_type_in_list(atom/A, list/L, include_children = TRUE)
 	if(!L || !L.len || !A)
-		return 0
+		return FALSE
 	for(var/type in L)
-		if(istype(A, type))
-			return 1
-	return 0
+		if(include_children)
+			if(istype(A, type))
+				return TRUE
+		else
+			if(A.type == type)
+				return TRUE
+	return FALSE
 
 //Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
 /proc/is_type_in_typecache(atom/A, list/L)
@@ -186,18 +236,61 @@
 		result = first ^ second
 	return result
 
-//Pretends to pick an element based on its weight but really just seems to pick a random element.
-/proc/pickweight(list/L)
+/**
+ * Picks a random element from a list based on a weighting system.
+ * All keys with zero or non integer weight will be considered as one
+ * For example, given the following list:
+ * A = 5, B = 3, C = 1, D = 0
+ * A would have a 50% chance of being picked,
+ * B would have a 30% chance of being picked,
+ * C would have a 10% chance of being picked,
+ * and D would have a 10% chance of being picked.
+ * This proc not modify input list
+ */
+/proc/pickweight(list/list_to_pick)
 	var/total = 0
-	var/item
-	for(item in L)
-		if(!L[item])
-			L[item] = 1
-		total += L[item]
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			weight = 1
+		total += weight
 
 	total = rand(1, total)
-	for(item in L)
-		total -=L [item]
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			weight = 1
+		total -= weight
+		if(total <= 0)
+			return item
+
+	return null
+
+/**
+ * Picks a random element from a list based on a weighting system.
+ * All keys with zero or non integer weight will be considered as zero
+ * For example, given the following list:
+ * A = 6, B = 3, C = 1, D = 0
+ * A would have a 60% chance of being picked,
+ * B would have a 30% chance of being picked,
+ * C would have a 10% chance of being picked,
+ * and D would have a 0% chance of being picked.
+ * This proc not modify input list
+ */
+/proc/pick_weight_classic(list/list_to_pick)
+	var/total = 0
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			continue
+		total += weight
+
+	total = rand(1, total)
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			continue
+		total -= weight
 		if(total <= 0)
 			return item
 
@@ -210,6 +303,25 @@
 		listfrom -= picked
 		return picked
 	return null
+
+
+/**
+ * Picks multiple unique elements from the suplied list.
+ * If the given list has a length less than the amount given then it will return a list with an equal amount
+ *
+ * Arguments:
+ * * listfrom - The list where to pick from
+ * * amount - The amount of elements it tries to pick.
+ */
+/proc/pick_multiple_unique(list/listfrom, amount)
+	var/list/result = list()
+	var/list/copy = listfrom.Copy() // Ensure the original ain't modified
+	while(length(copy) && length(result) < amount)
+		var/picked = pick(copy)
+		result += picked
+		copy -= picked
+	return result
+
 
 //Returns the top(last) element from the list and removes it from the list (typical stack function)
 /proc/pop(list/L)
@@ -339,23 +451,23 @@
 	return (result + R.Copy(Ri, 0))
 
 
-
-
 //Mergesort: any value in a list
-/proc/sortList(var/list/L)
+/proc/sortList(list/L)
 	if(L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1 // Copy is first,second-1
 	return mergeLists(sortList(L.Copy(0,middle)), sortList(L.Copy(middle))) //second parameter null = to end of list
 
+
 //Mergsorge: uses sortAssoc() but uses the var's name specifically. This should probably be using mergeAtom() instead
-/proc/sortNames(var/list/L)
+/proc/sortNames(list/L)
 	var/list/Q = new()
 	for(var/atom/x in L)
 		Q[x.name] = x
 	return sortAssoc(Q)
 
-/proc/mergeLists(var/list/L, var/list/R)
+
+/proc/mergeLists(list/L, list/R)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()
@@ -680,9 +792,13 @@ proc/dd_sortedObjectList(list/incoming)
 #define UNSETEMPTY(L) if (L && !L.len) L = null
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
+/// Adds I to L, initializing L if necessary, if I is not already in L
+#define LAZYADDOR(L, I) if(!L) { L = list(); } L |= I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 #define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
+///If the lazy list is currently initialized find item I in list L
+#define LAZYIN(L, I) (L && (I in L))
 
 // LAZYING PT 2: THE LAZENING
 #define LAZYREINITLIST(L) LAZYCLEARLIST(L); LAZYINITLIST(L);
@@ -840,3 +956,17 @@ proc/dd_sortedObjectList(list/incoming)
 	. = list()
 	for(var/thing in flat_list)
 		.[thing] = TRUE
+
+
+/proc/listclearduplicates(check, list/list)
+	if(!istype(list))
+		stack_trace("Wrong type of list passed.")
+		return
+	while(check in list)
+		list -= check
+
+
+///sort any value in a list
+/proc/sort_list(list/list_to_sort, cmp = /proc/cmp_text_asc)
+	return sortTim(list_to_sort.Copy(), cmp)
+

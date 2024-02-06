@@ -11,22 +11,32 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
+	)
 
 /obj/item/clothing/mask/breath/attack_self(var/mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/breath/AltClick(mob/user)
-	..()
-	if( (!in_range(src, user)) || user.stat || user.restrained() )
+/obj/item/clothing/mask/breath/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated() || user.restrained())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user))
 		return
 	adjustmask(user)
 
@@ -45,7 +55,7 @@
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
 	species_restricted = list("Vox", "Vox Armalis") //These should fit the "Mega Vox" just fine.
-	actions_types = list()
+	actions_types = null
 
 /obj/item/clothing/mask/breath/vox/attack_self(var/mob/user)
 	return

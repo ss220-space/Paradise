@@ -80,7 +80,7 @@
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	attacktext = "shocks"
+	attacktext = "бьёт током"
 	attack_sound = 'sound/effects/empulse.ogg'
 	friendly = "pinches"
 	speed = 0
@@ -142,6 +142,14 @@
 	..()
 	if(statpanel("Status"))
 		stat("Resources:",resources)
+
+
+/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(atom/clicked_on)
+	. = ..()
+
+	if(. && light_range)
+		ToggleLight()
+
 
 /mob/living/simple_animal/hostile/swarmer/emp_act()
 	if(health > 1)
@@ -390,7 +398,32 @@
 			return TRUE
 	return ..()
 
+/turf/simulated/mineral/ancient/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	var/isonshuttle = istype(loc, /area/shuttle)
+	for(var/turf/T in range(1, src))
+		var/area/A = get_area(T)
+		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			S.target = null
+			return TRUE
+	return ..()
+
+
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	for(var/turf/T in range(1, src))
+		var/area/A = get_area(T)
+		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			S.target = null
+			return TRUE
+		else if(istype(A, /area/engine/supermatter))
+			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+			S.target = null
+			return TRUE
+	return ..()
+
+/obj/structure/holosign/barrier/atmos/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
@@ -510,7 +543,7 @@
 		return
 
 	var/turf/simulated/floor/F
-	F = find_safe_turf(zlevels = z, extended_safety_checks = TRUE)
+	F = find_safe_turf(zlevels = z)
 
 	if(!F)
 		return
@@ -518,13 +551,13 @@
 	// them to keep them away from us a little longer
 
 	var/mob/living/carbon/human/H = target
-	if(ishuman(target) && (!H.handcuffed))
-		var/obj/item/restraints/handcuffs/energy/used/Z = new /obj/item/restraints/handcuffs/energy/used(src)
-		Z.apply_cuffs(target, src)
+	if(istype(H) && (!H.handcuffed))
+		H.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(H))
 
 	do_sparks(4, 0, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	do_teleport(target, F, 0)
+	investigate_log("[key_name_log(src)] teleported [key_name_log(target)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)
 
 /mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	if(!tesla_shock)
@@ -550,6 +583,7 @@
 		N.pixel_z = target.pixel_z
 		target.dropContents()
 		if(istype(target, /obj/machinery/computer))
+			add_attack_logs(src, target, "Swarm-dismantled [target]")
 			var/obj/machinery/computer/C = target
 			if(C.circuit)
 				new C.circuit(Tsec)
@@ -619,7 +653,7 @@
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
 			L.electrocute_act(0, src, 1, TRUE, TRUE)
 			if(isrobot(L) || ismachineperson(L))
-				L.Weaken(5)
+				L.Weaken(10 SECONDS)
 			qdel(src)
 	..()
 

@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { shallowDiffers } from 'common/react';
 import { debounce } from 'common/timer';
 import { Component, createRef } from 'inferno';
@@ -56,7 +62,7 @@ window.addEventListener('beforeunload', () => {
 /**
  * Get the bounding box of the DOM element.
  */
-const getBoundingBox = element => {
+export const getBoundingBox = element => {
   const rect = element.getBoundingClientRect();
   return {
     pos: [

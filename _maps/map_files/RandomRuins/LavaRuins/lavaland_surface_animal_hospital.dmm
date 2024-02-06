@@ -290,10 +290,10 @@
 /area/ruin/powered/animal_hospital)
 "aN" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -629,15 +629,15 @@
 /area/ruin/powered/animal_hospital)
 "bH" = (
 /obj/structure/table,
-/obj/item/tank/oxygen,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bI" = (

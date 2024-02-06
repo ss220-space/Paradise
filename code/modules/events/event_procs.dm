@@ -8,14 +8,14 @@
 
 	if(ispath(type))
 		new type(new /datum/event_meta(EVENT_LEVEL_MAJOR))
-		message_admins("[key_name_admin(usr)] has triggered an event. ([type])", 1)
+		message_admins("[key_name_admin(usr)] has triggered an event. ([type])")
 
 /client/proc/event_manager_panel()
 	set name = "Event Manager Panel"
 	set category = "Event"
 	if(SSevents)
 		SSevents.Interact(usr)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
@@ -91,16 +91,16 @@
 			if(R.module && (R.module.name == "security robot module"))
 				active_with_role["Security"]++
 
-		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer"))
+		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer", "Trainee Engineer"))
 			active_with_role["Engineer"]++
 
-		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor"))
+		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor", "Intern"))
 			active_with_role["Medical"]++
 
 		if(M.mind.assigned_role in GLOB.security_positions)
 			active_with_role["Security"]++
 
-		if(M.mind.assigned_role in list("Research Director", "Scientist"))
+		if(M.mind.assigned_role in list("Research Director", "Scientist", "Student Scientist"))
 			active_with_role["Scientist"]++
 
 		if(M.mind.assigned_role == "AI")

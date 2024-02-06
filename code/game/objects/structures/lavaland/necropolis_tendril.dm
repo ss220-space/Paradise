@@ -8,20 +8,57 @@
 
 	faction = list("mining")
 	max_mobs = 3
-	max_integrity = 250
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)
+	max_integrity = 300
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 90,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 5,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 5
+	)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
 	var/obj/effect/light_emitter/tendril/emitted_light
+	scanner_taggable = TRUE
+	mob_gps_id = "WT"
+	spawner_gps_id = "Necropolis Tendril"
 
 /obj/structure/spawner/lavaland/goliath
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
+	mob_gps_id = "GL"
 
 /obj/structure/spawner/lavaland/legion
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
+	spawn_time = 400 // say no to core farming
+	mob_gps_id = "LG"
+
+/obj/structure/spawner/lavaland/random_threat
+	max_integrity = 400
+	mob_types = list(
+		/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril = 27,
+		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril = 26,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 26,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 1,
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 20
+	)
+	max_mobs = 5
+	spawn_time = 250 //they spawn a little faster
+	mob_gps_id = "RND"
+
+/obj/structure/spawner/lavaland/random_threat/dangerous //rare
+	max_integrity = 500
+	mob_types = list(
+		/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril = 17,
+		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril = 15,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril = 18,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/tendril = 12,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/tendril = 12,
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril = 12,
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril = 14
+	)
+	mob_gps_id = "CHAOS"
+	max_mobs = 7
+	spawn_time = 150
 
 GLOBAL_LIST_INIT(tendrils, list())
 
@@ -80,7 +117,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	visible_message("<span class='boldannounce'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")
 	visible_message("<span class='warning'>Something falls free of the tendril!</span>")
 	playsound(loc, 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
-	addtimer(CALLBACK(src, .proc/collapse), 50)
+	addtimer(CALLBACK(src, PROC_REF(collapse)), 50)
 
 /obj/effect/collapse/Destroy()
 	QDEL_NULL(emitted_light)

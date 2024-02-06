@@ -8,6 +8,7 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	dyeable = TRUE
 
 /obj/item/clothing/shoes/black/redcoat
 	item_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
@@ -19,6 +20,7 @@
 	name = "brown shoes"
 	desc = "A pair of brown shoes."
 	icon_state = "brown"
+	dyeable = TRUE
 
 /obj/item/clothing/shoes/brown/captain
 	item_color = "captain"	//Exists for washing machines. Is not different from brown shoes in any way.
@@ -106,8 +108,7 @@
 
 /obj/item/clothing/shoes/orange/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/restraints/handcuffs) && !shackles)
-		if(user.drop_item())
-			I.forceMove(src)
+		if(user.drop_transfer_item_to_loc(I, src))
 			shackles = I
 			slowdown = 15
 			icon_state = "orange1"

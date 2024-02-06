@@ -1,9 +1,11 @@
 SUBSYSTEM_DEF(jobs)
 	name = "Jobs"
-	init_order = INIT_ORDER_JOBS // 12
+	init_order = INIT_ORDER_JOBS // 9
 	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Время игры на профессиях больше не будет сохраняться. Немедленных действий не требуется."
+	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "jobs"
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -14,27 +16,29 @@ SUBSYSTEM_DEF(jobs)
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
+	/// Used to grant AI job if antag was rolled.
+	var/mob/new_player/new_malf
 	//Debug info
 	var/list/job_debug = list()
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
-	if(!occupations.len)
-		SetupOccupations()
-	LoadJobs("config/jobs.txt")
-	return ..()
+
+/datum/controller/subsystem/jobs/Initialize()
+	SetupOccupations()
+
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !CONFIG_GET(flag/use_exp_tracking))
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
-/datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
+
+/datum/controller/subsystem/jobs/proc/SetupOccupations()
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
 		to_chat(world, "<span class='warning'>Ошибка выдачи профессий, датумы профессий не найдены</span>")
-		return 0
+		return
 
 	for(var/J in all_jobs)
 		var/datum/job/job = new J()
@@ -44,30 +48,34 @@ SUBSYSTEM_DEF(jobs)
 		name_occupations[job.title] = job
 		type_occupations[J] = job
 
-	return 1
+	LoadJobsFile("config/jobs.txt", FALSE)
+	LoadJobsFile("config/jobs_highpop.txt", TRUE)
 
 
-/datum/controller/subsystem/jobs/proc/Debug(var/text)
-	if(!GLOB.debug2)
-		return 0
-	job_debug.Add(text)
-	return 1
+/datum/controller/subsystem/jobs/proc/ApplyHighpopConfig()
+	for(var/datum/job/J in occupations)
+		if(J.positions_highpop)
+			var/positions_lowpop = J.positions_lowpop
+			if(!positions_lowpop)
+				positions_lowpop = initial(J.total_positions)
+			J.total_positions += (J.positions_highpop - positions_lowpop)
+
+
+/datum/controller/subsystem/jobs/proc/Debug(text)
+	if(GLOB.debug2)
+		job_debug.Add(text)
 
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
-	if(!occupations.len)
-		SetupOccupations()
 	return name_occupations[rank]
 
 /datum/controller/subsystem/jobs/proc/GetJobType(jobtype)
-	if(!occupations.len)
-		SetupOccupations()
 	return type_occupations[jobtype]
 
 /datum/controller/subsystem/jobs/proc/GetPlayerAltTitle(mob/new_player/player, rank)
 	return player.client.prefs.GetPlayerAltTitle(GetJob(rank))
 
-/datum/controller/subsystem/jobs/proc/AssignRole(var/mob/new_player/player, var/rank, var/latejoin = 0)
+/datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = FALSE)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player && player.mind && rank)
 		var/datum/job/job = GetJob(rank)
@@ -78,6 +86,8 @@ SUBSYSTEM_DEF(jobs)
 		if(!job.player_old_enough(player.client))
 			return 0
 		if(job.available_in_playtime(player.client))
+			return 0
+		if(!job.can_novice_play(player.client))
 			return 0
 		if(job.barred_by_disability(player.client))
 			return 0
@@ -107,19 +117,18 @@ SUBSYSTEM_DEF(jobs)
 
 			unassigned -= player
 			job.current_positions++
-			log_game("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])")
-			player.create_log(MISC_LOG, "Вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])")
+			add_game_logs("Игрок [player.mind.key] вошел в раунд с профессией [rank] ([job.current_positions]/[position_limit])", player)
 			return 1
 
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
-/datum/controller/subsystem/jobs/proc/FreeRole(var/rank)	//making additional slot on the fly
+/datum/controller/subsystem/jobs/proc/FreeRole(rank)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
 	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/controller/subsystem/jobs/proc/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
@@ -134,6 +143,9 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(job.available_in_playtime(player.client))
 			Debug("FOC player not enough playtime, Player: [player]")
+			continue
+		if(!job.can_novice_play(player.client))
+			Debug("FOC player has too much playtime, Player: [player]")
 			continue
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
@@ -152,7 +164,7 @@ SUBSYSTEM_DEF(jobs)
 			candidates += player
 	return candidates
 
-/datum/controller/subsystem/jobs/proc/GiveRandomJob(var/mob/new_player/player)
+/datum/controller/subsystem/jobs/proc/GiveRandomJob(mob/new_player/player)
 	Debug("GRJ Giving random job, Player: [player]")
 	for(var/datum/job/job in shuffle(occupations))
 		if(!job)
@@ -182,6 +194,10 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player not enough playtime, Player: [player]")
 			continue
 
+		if(!job.can_novice_play(player.client))
+			Debug("GRJ player has too much playtime, Player: [player]")
+			continue
+
 		if(job.barred_by_disability(player.client))
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
 			continue
@@ -202,13 +218,12 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/ResetOccupations()
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player) && (player.mind))
+		if(player?.mind)
 			player.mind.assigned_role = null
 			player.mind.special_role = null
-	SetupOccupations()
-	unassigned = list()
-	return
-
+			player.mind.offstation_role = FALSE
+	for(var/datum/job/job in occupations)
+		job.current_positions = initial(job.current_positions)
 
 ///This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
 /datum/controller/subsystem/jobs/proc/FillHeadPosition()
@@ -240,7 +255,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
-/datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
+/datum/controller/subsystem/jobs/proc/CheckHeadPositions(level)
 	for(var/command_position in GLOB.command_positions)
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
@@ -252,30 +267,16 @@ SUBSYSTEM_DEF(jobs)
 		AssignRole(candidate, command_position)
 
 
-/datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(config && !config.allow_ai)
-		return 0
+/datum/controller/subsystem/jobs/proc/FillMalfAIPosition()
+	if(!CONFIG_GET(flag/allow_ai))
+		return FALSE
 
-	var/ai_selected = 0
 	var/datum/job/job = GetJob("AI")
 	if(!job)
-		return 0
+		return FALSE
 
-	for(var/i = job.total_positions, i > 0, i--)
-		for(var/level = 1 to 3)
-			var/list/candidates = list()
-			candidates = FindOccupationCandidates(job, level)
-			if(candidates.len)
-				var/mob/new_player/candidate = pick(candidates)
-				if(AssignRole(candidate, "AI"))
-					ai_selected++
-					break
-
-		if(ai_selected)
-			return 1
-
-		return 0
-
+	if(new_malf && AssignRole(new_malf, "AI"))
+		return TRUE
 
 /** Proc DivideOccupations
 *  fills var "assigned_role" for all ready players.
@@ -286,20 +287,19 @@ SUBSYSTEM_DEF(jobs)
 	var/watch = start_watch()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
-	SetupOccupations()
 
-	//Holder for Triumvirate is stored in the ticker, this just processes it
-	if(SSticker)
+	if(!CONFIG_GET(flag/allow_ai))
 		for(var/datum/job/ai/A in occupations)
-			if(SSticker.triai)
-				A.spawn_positions = 3
+			A.spawn_positions = 0
+	else if(SSticker && SSticker.triai) //Holder for Triumvirate is stored in the ticker, this just processes it
+		for(var/datum/job/ai/A in occupations)
+			A.spawn_positions = 3
 
+	unassigned = list()
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
+		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
-			if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
-				player.client.prefs.load_random_character_slot(player.client)
 
 	Debug("DO, Len: [unassigned.len]")
 	if(unassigned.len == 0)
@@ -309,6 +309,12 @@ SUBSYSTEM_DEF(jobs)
 	unassigned = shuffle(unassigned)
 
 	HandleFeedbackGathering()
+
+	if(new_malf)	// code to assign malf AI before civs.
+		Debug("DO, Running AI Check")
+		FillMalfAIPosition()
+		Debug("DO, AI Check end")
+		new_malf = null
 
 	//People who wants to be assistants, sure, go on.
 	Debug("DO, Running Civilian Check 1")
@@ -325,11 +331,6 @@ SUBSYSTEM_DEF(jobs)
 	Debug("DO, Running Head Check")
 	FillHeadPosition()
 	Debug("DO, Head Check end")
-
-	//Check for an AI
-	Debug("DO, Running AI Check")
-	FillAIPosition()
-	Debug("DO, AI Check end")
 
 	//Other jobs are now checked
 	Debug("DO, Running Standard Check")
@@ -363,6 +364,10 @@ SUBSYSTEM_DEF(jobs)
 
 				if(job.available_in_playtime(player.client))
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
+					continue
+
+				if(!job.can_novice_play(player.client))
+					Debug("DO player has too much playtime, Player: [player], Job:[job.title]")
 					continue
 
 				if(job.barred_by_disability(player.client))
@@ -418,13 +423,14 @@ SUBSYSTEM_DEF(jobs)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, "Civilian")
 		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+			to_chat(player, "<span class='danger'>Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot.</span>")
 			player.ready = 0
 			unassigned -= player
 
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
-/datum/controller/subsystem/jobs/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -438,31 +444,36 @@ SUBSYSTEM_DEF(jobs)
 		alt_title = H.mind.role_alt_title
 
 		CreateMoneyAccount(H, rank, job)
-
-	to_chat(H, "<B>Вы <span class='red'>[alt_title ? alt_title : rank]</span>.</B>")
-	to_chat(H, "<b>На этой должности вы отвечаете непосредственно перед <span class='red'>[replacetext(job.supervisors,"the ","")]</span>. Особые обстоятельства могут это изменить.</b>")
-	to_chat(H, "<b>Для получения дополнительной информации о работе на станции, см. <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
+	var/list/L = list()
+	L.Add("<B>Вы <span class='red'>[alt_title ? alt_title : rank]</span>.</B>")
+	L.Add("<b>На этой должности вы отвечаете непосредственно перед <span class='red'>[replacetext(job.supervisors,"the ","")]</span>. Особые обстоятельства могут это изменить.</b>")
+	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
 	if(job.is_service)
-		to_chat(H, "<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
 	if(job.is_supply)
-		to_chat(H, "<b>Будучи работником отдела Снабжения, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником отдела Снабжения, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">СРП своего отдела</a></b>")
 	if(job.is_command)
-		to_chat(H, "<b>Будучи важным членом Командования, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи важным членом Командования, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">СРП своего отдела</a></b>")
 	if(job.is_legal)
-		to_chat(H, "<b>Ваша должность требует полного знания <a href=\"http://rv666.asuscomm.com/wiki/index.php/Space_Law\">Космического Закона</a> и <a href=\"http://rv666.asuscomm.com/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых Стандартных Рабочих Процедур</a></b>")
+		L.Add("<b>Ваша должность требует полного знания <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a> и <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых Стандартных Рабочих Процедур</a></b>")
 	if(job.is_engineering)
-		to_chat(H, "<b>Будучи работником Инженерного отдела, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Инженерного отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">СРП своего отдела</a></b>")
 	if(job.is_medical)
-		to_chat(H, "<b>Будучи работником Медицинского отдела, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Медицинского отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">СРП своего отдела</a></b>")
 	if(job.is_science)
-		to_chat(H, "<b>Будучи работником Научного отдела, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Научного отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">СРП своего отдела</a></b>")
 	if(job.is_security)
-		to_chat(H, "<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"http://rv666.asuscomm.com/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"http://rv666.asuscomm.com/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
 	if(job.req_admin_notify)
-		to_chat(H, "<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
+		L.Add("<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
+	if(job.is_novice)
+		L.Add("<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства. Не забудьте ознакомиться с СРП вашей должности. По истечению срока прохождения стажировки, данная должность более не будет вам доступна. Используйте её для обучения, не стесняйтесь задавать вопросы вашим старшим коллегам!</b>")
+
+	to_chat(H, chat_box_green(L.Join("<br>")))
 
 	return H
-/datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
+
+/datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = FALSE) // Equip and put them in an area
 	if(!H)
 		return null
 
@@ -483,7 +494,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!S)
 			S = locate("start*[rank]") // use old stype
 		if(!S) // still no spawn, fall back to the arrivals shuttle
-			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival))
+			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
 				if(!TS.density)
 					var/clear = 1
 					for(var/obj/O in TS)
@@ -529,9 +540,9 @@ SUBSYSTEM_DEF(jobs)
 
 
 
-/datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
-	if(!config.load_jobs_from_txt)
-		return 0
+/datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
+	if(!CONFIG_GET(flag/load_jobs_from_txt))
+		return
 
 	var/list/jobEntries = file2list(jobsfile)
 
@@ -544,25 +555,24 @@ SUBSYSTEM_DEF(jobs)
 			continue
 
 		var/pos = findtext(job, "=")
-		var/name = null
-		var/value = null
 
-		if(pos)
-			name = copytext(job, 1, pos)
-			value = copytext(job, pos + 1)
-		else
+		if(!pos)
 			continue
+		var/name = copytext(job, 1, pos)
+		var/value = copytext(job, pos + 1)
 
 		if(name && value)
+			if(name == "AI")  //AI use diferent config
+				continue
 			var/datum/job/J = GetJob(name)
-			if(!J)	continue
-			J.total_positions = text2num(value)
-			J.spawn_positions = text2num(value)
-			if(name == "AI" || name == "Cyborg")//I dont like this here but it will do for now
-				J.total_positions = 0
-
-	return 1
-
+			if(!J)
+				continue
+			if(highpop)
+				J.positions_highpop = text2num(value)
+			else
+				J.positions_lowpop = text2num(value)
+				J.spawn_positions = J.positions_lowpop
+				J.total_positions = J.positions_lowpop
 
 /datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
@@ -612,7 +622,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
+	var/money_amount = job ? rand(500, 1500) * get_job_factor(job, job.random_money_factor) : rand(500, 1500)
+	var/datum/money_account/M = create_account(H.real_name, money_amount, null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"
@@ -641,12 +652,18 @@ SUBSYSTEM_DEF(jobs)
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
 
+/datum/controller/subsystem/jobs/proc/get_job_factor(datum/job/job, randomized)
+	if(randomized)
+		return job.money_factor*rand(0.25, 4) // for now only used for civillians
+	else
+		return job.money_factor
+
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
 	if(tgtcard)
 		var/mob/M = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
-			if(tgtcard.assignment && tgtcard.assignment == job.title)
+			if(tgtcard.rank && tgtcard.rank == job.title)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"

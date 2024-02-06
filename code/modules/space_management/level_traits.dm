@@ -28,6 +28,12 @@
 /proc/level_boosts_signal(z)
 	return check_level_trait(z, BOOSTS_SIGNAL)
 
+/proc/is_explorable_space(z)
+	return check_level_trait(z, SPAWN_RUINS)
+
+/proc/is_taipan(z)
+	return check_level_trait(z, TAIPAN)
+
 // Used for the nuke disk, or for checking if players survived through xenos
 /proc/is_secure_level(z)
 	var/secure = check_level_trait(z, STATION_LEVEL)
@@ -60,17 +66,20 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 
 /proc/level_name_to_num(name)
 	var/datum/space_level/S = GLOB.space_manager.get_zlev_by_name(name)
+	if(!S)
+		CRASH("Unknown z-level name: [name]")
 	return S.zpos
 
 /**
   * Proc to get a list of all the linked-together Z-Levels
   *
   * Returns a list of zlevel numbers which can be accessed from travelling space naturally
+  * ignores Taipan tho
   */
 /proc/get_all_linked_levels_zpos()
 	var/list/znums = list()
 	for(var/i in GLOB.space_manager.z_list)
 		var/datum/space_level/SL = GLOB.space_manager.z_list[i]
-		if(SL.linkage == CROSSLINKED)
+		if(SL.linkage == CROSSLINKED && !is_taipan(SL.zpos))
 			znums |= SL.zpos
 	return znums

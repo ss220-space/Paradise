@@ -4,7 +4,7 @@ VOX HEIST ROUNDTYPE
 GLOBAL_LIST_EMPTY(raider_spawn)
 GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
 
-/datum/game_mode/
+/datum/game_mode
 	var/list/datum/mind/raiders = list()  //Antags.
 	var/list/raid_objectives = list()     //Raid objectives
 
@@ -27,16 +27,14 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	to_chat(world, "<B>Personnel:</B> Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
 
 /datum/game_mode/heist/can_start()
-
 	if(!..())
-		return 0
-
+		return FALSE
 	var/list/candidates = get_players_for_role(ROLE_RAIDER)
 	var/raider_num = 0
 
 	//Check that we have enough vox.
 	if(candidates.len < required_enemies)
-		return 0
+		return FALSE
 	else if(candidates.len < recommended_enemies)
 		raider_num = candidates.len
 	else
@@ -44,20 +42,18 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 	//Grab candidates randomly until we have enough.
 	while(raider_num > 0)
-		var/datum/mind/new_raider = pick(candidates)
+		var/datum/mind/new_raider = pick_n_take(candidates)
 		raiders += new_raider
-		candidates -= new_raider
 		raider_num--
 
+	return TRUE
+
+/datum/game_mode/heist/pre_setup()
 	for(var/datum/mind/raider in raiders)
 		raider.assigned_role = SPECIAL_ROLE_RAIDER
 		raider.special_role = SPECIAL_ROLE_RAIDER
 		raider.offstation_role = TRUE
-	..()
-	return 1
-
-/datum/game_mode/heist/pre_setup()
-	return 1
+	return TRUE
 
 /datum/game_mode/heist/post_setup()
 
@@ -79,7 +75,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		greet_vox(raider)
 
 		if(raid_objectives)
-			raider.objectives = raid_objectives
+			raider.objectives = raid_objectives.Copy()
 
 	return ..()
 
@@ -94,7 +90,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
 
 	var/mob/living/carbon/human/vox = newraider.current
-	var/obj/item/organ/external/head/head_organ = vox.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = vox.get_organ(BODY_ZONE_HEAD)
 
 	vox.real_name = capitalize(newname)
 	vox.dna.real_name = vox.real_name
@@ -121,7 +117,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	vox.update_dna()
 	vox.update_eyes()
 
-	for(var/obj/item/organ/external/limb in vox.bodyparts)
+	for(var/obj/item/organ/external/limb as anything in vox.bodyparts)
 		limb.status &= ~ORGAN_ROBOT
 
 	//Now apply cortical stack.
@@ -149,21 +145,18 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	return 0
 
 /datum/game_mode/proc/forge_vox_objectives()
-	var/i = 1
-	var/max_objectives = pick(2,2,2,2,3,3,3,4)
+	var/max_objectives = pick(5,6)
 	var/list/objs = list()
-	var/list/goals = list("kidnap","loot","salvage")
-	while(i<= max_objectives)
-		var/goal = pick(goals)
+	for(var/i in 1 to max_objectives)
 		var/datum/objective/heist/O
-
-		if(goal == "kidnap")
-			goals -= "kidnap"
-			O = new /datum/objective/heist/kidnap()
-		else if(goal == "loot")
-			O = new /datum/objective/heist/loot()
-		else
-			O = new /datum/objective/heist/salvage()
+		switch(i)
+			if(1 to 3)
+				O = new /datum/objective/heist/salvage()
+			else
+				if(prob(50))
+					O = new /datum/objective/heist/loot()
+				else
+					O = new /datum/objective/heist/kidnap()
 		O.choose_target()
 		objs += O
 
@@ -172,7 +165,6 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	//-All- vox raids have these two objectives. Failing them loses the game.
 	objs += new /datum/objective/heist/inviolate_crew
 	objs += new /datum/objective/heist/inviolate_death
-
 	return objs
 
 /datum/game_mode/proc/greet_vox(var/datum/mind/raider)
@@ -258,7 +250,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		var/text = "<FONT size = 2><B>The Vox raiders were:</B></FONT>"
 
 		for(var/datum/mind/vox in raiders)
-			text += "<br>[vox.key] was [vox.name] ("
+			text += "<br>[vox.get_display_key()] was [vox.name] ("
 			if(check_return)
 				var/obj/stack = raiders[vox]
 				if(get_area(stack.loc) != locate(/area/shuttle/vox))
@@ -290,12 +282,13 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /obj/machinery/vox_win_button
 	name = "shoal contact computer"
 	desc = "Used to contact the Vox Shoal, generally to arrange for pickup."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "tcstation"
+	anchored = TRUE
 
 /obj/machinery/vox_win_button/New()
 	. = ..()
-	overlays += icon('icons/obj/computer.dmi', "syndie")
+	overlays += icon('icons/obj/machines/computer.dmi', "syndie")
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)
 	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round

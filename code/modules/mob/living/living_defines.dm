@@ -6,6 +6,7 @@
 	move_resist = null
 	move_force = null
 	pull_force = null
+	pull_push_speed_modifier = 1
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
@@ -24,7 +25,7 @@
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
-	var/incorporeal_move = 0 //0 is off, 1 is normal, 2 is for ninjas.
+	var/incorporeal_move = INCORPOREAL_NONE
 
 	var/now_pushing = null
 
@@ -62,14 +63,21 @@
 
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/emote_log = list() //like say_log but for emotes
+	var/last_hallucinator_log // Used to log, what was last infliction to hallucination
 
 	var/blood_volume = 0 //how much blood the mob has
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD,THOUGHT_HUD)
 
 	var/list/status_effects //a list of all status effects the mob has
 
 	var/deathgasp_on_death = FALSE
 
-	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
+	var/status_effect_absorption = null //converted to a list of status effect absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
+	var/stam_regen_start_modifier = 1 //Modifier of time until regeneration starts
 	var/stam_paralyzed = FALSE //knocks you down
+
+	///if this exists AND the normal sprite is bigger than 32x32, this is the replacement icon state (because health doll size limitations). the icon will always be screen_gen.dmi
+	var/health_doll_icon
+	///If mob can attack by choosing direction
+	var/dirslash_enabled = FALSE

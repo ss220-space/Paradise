@@ -45,6 +45,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
 	var/list/default_blocks = list() //list of all blocks toggled at roundstart
+	var/tts_seed_dna
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -52,15 +53,21 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/datum/dna/new_dna = new()
 	new_dna.unique_enzymes = unique_enzymes
 	new_dna.struc_enzymes_original = struc_enzymes_original // will make clone's SE the same as the original, do we want this?
+	new_dna.default_blocks = default_blocks
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
-	for(var/b=1;b<=DNA_SE_LENGTH;b++)
+
+	for(var/b = 1; b <= DNA_SE_LENGTH; b++)
 		new_dna.SE[b]=SE[b]
-		if(b<=DNA_UI_LENGTH)
-			new_dna.UI[b]=UI[b]
+		if(b <= DNA_UI_LENGTH)
+			if(b <= length(UI)) //We check index against the length of UI provided, because it may be shorter and thus be out of bounds
+				new_dna.UI[b] = UI[b]
+				continue
+			new_dna.UI[b] = 0
 	new_dna.UpdateUI()
 	new_dna.UpdateSE()
+	new_dna.tts_seed_dna = tts_seed_dna
 	return new_dna
 
 ///////////////////////////////////////
@@ -83,7 +90,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ResetUI(1)
 	// Hair
 	// FIXME:  Species-specific defaults pls
-	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/external/head/H = character.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
 	// Body Accessory
@@ -99,7 +106,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/body_marks	= GLOB.marking_styles_list.Find(character.m_styles["body"])
 	var/tail_marks	= GLOB.marking_styles_list.Find(character.m_styles["tail"])
 
-	head_traits_to_dna(H)
+	head_traits_to_dna(character, H)
 	eye_color_to_dna(eyes_organ)
 
 	SetUIValueRange(DNA_UI_SKIN_R,		color2R(character.skin_colour),			255,	1)
@@ -124,6 +131,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
+
+	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), 1)
 
 	//Set the Gender
 	switch(character.gender)
@@ -151,6 +160,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 // Get a DNA UI block's raw value.
 /datum/dna/proc/GetUIValue(block)
 	if(block <= 0)
+		return FALSE
+	if(block >= length(UI))
 		return FALSE
 	return UI[block]
 
@@ -436,7 +447,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 
 	// We manually set the species to ensure all proper species change procs are called.
-	destination.set_species(species.type, retain_damage = TRUE)
+	destination.set_species(species.type, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 	var/datum/dna/new_dna = Clone()
 	new_dna.species = destination.dna.species
 	destination.dna = new_dna

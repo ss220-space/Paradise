@@ -6,11 +6,14 @@
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING)
+	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING, NO_PAIN, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOCLONE)
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
-	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
+
+	cold_level_1 = 240
+	cold_level_2 = 180
+	cold_level_3 = 100
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
@@ -18,32 +21,56 @@
 
 	breathid = "tox"
 
+	brute_mod = 0.9
 	burn_mod = 1.5
 	heatmod = 1.5
 
 	//Has default darksight of 2.
 
 	suicide_messages = list(
-		"is twisting their own neck!",
-		"is letting some O2 in!",
-		"realizes the existential problem of being made out of plasma!",
-		"shows their true colors, which happens to be the color of plasma!")
+		"сворачивает себе шею!",
+		"впускает себе немного O2!",
+		"осознает экзистенциальную проблему быть рождённым из плазмы!",
+		"показывает свою истинную природу, которая оказывается плазмой!")
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/plasmaman,
-		"lungs" =    /obj/item/organ/internal/lungs/plasmaman,
-		"liver" =    /obj/item/organ/internal/liver/plasmaman,
-		"kidneys" =  /obj/item/organ/internal/kidneys/plasmaman,
-		"brain" =    /obj/item/organ/internal/brain/plasmaman,
-		"eyes" =     /obj/item/organ/internal/eyes/plasmaman
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/plasmaman,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/plasmaman,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/plasmaman,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/plasmaman,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/plasmaman,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/plasmaman,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	speciesbox = /obj/item/storage/box/survival_plasmaman
 	flesh_color = "#8b3fba"
 
+	toxic_food = NONE
+	disliked_food = NONE
+	liked_food = NONE
+
+
+/datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_rattle
+
+
+/datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_rattle
+
+
+//внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")
 		message = replacetext(message, "s", stutter("ss"))
+		message = replacetextEx_char(message, "С", "ш")
+		message = replacetextEx_char(message, "с", "ш")
+		message = replacetextEx_char(message, "Ш", stutter("Шш"))
+		message = replacetextEx_char(message, "ш", stutter("шш"))
+		message = replacetextEx_char(message, "Щ", stutter("Щщ"))
+		message = replacetextEx_char(message, "щ", stutter("щщ"))
 	return message
 
 /datum/species/plasmaman/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -62,14 +89,29 @@
 		if("Botanist")
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer")
+		if("Bartender")
 			O = new /datum/outfit/plasmaman/bar
+
+		if("Internal Affairs Agent", "Magistrate")
+			O = new /datum/outfit/plasmaman/nt
+
+		if("Nanotrasen Representative")
+			O = new /datum/outfit/plasmaman/nt_rep
 
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Pod Pilot", "Special Operations Officer")
+		if("Security Officer", "Security Cadet")
 			O = new /datum/outfit/plasmaman/security
+
+		if("Special Operations Officer", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer")
+			O = new /datum/outfit/plasmaman/specops_officer
+
+		if("Syndicate Officer")
+			O = new /datum/outfit/plasmaman/syndicate_officer
+
+		if("Security Pod Pilot")
+			O = new /datum/outfit/plasmaman/security/pod
 
 		if("Detective")
 			O = new /datum/outfit/plasmaman/detective
@@ -86,7 +128,7 @@
 		if("Shaft Miner")
 			O = new /datum/outfit/plasmaman/mining
 
-		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner")
+		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner", "Intern")
 			O = new /datum/outfit/plasmaman/medical
 
 		if("Chief Medical Officer")
@@ -104,14 +146,20 @@
 		if("Virologist")
 			O = new /datum/outfit/plasmaman/viro
 
-		if("Scientist")
+		if("Scientist", "Student Scientist")
 			O = new /datum/outfit/plasmaman/science
+
+		if("Xenobiologist")
+			O = new /datum/outfit/plasmaman/xeno
 
 		if("Research Director")
 			O = new /datum/outfit/plasmaman/rd
 
-		if("Station Engineer", "Mechanic")
+		if("Station Engineer", "Trainee Engineer",)
 			O = new /datum/outfit/plasmaman/engineering
+
+		if("Mechanic")
+			O = new /datum/outfit/plasmaman/engineering/mecha
 
 		if("Chief Engineer")
 			O = new /datum/outfit/plasmaman/ce
@@ -153,7 +201,7 @@
 				if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
+						H.visible_message("<span class='danger'>Тело [H] вступает в реакцию с атмосферой и загорается!</span>","<span class='userdanger'>Ваше тело вступает в реакцию с атмосферой и загорается!</span>")
 					H.IgniteMob()
 	else
 		if(H.fire_stacks)
@@ -162,13 +210,17 @@
 				P.Extinguish(H)
 	H.update_fire()
 	..()
+	if(H.stat == DEAD)
+		return
+	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
+		H.reagents.add_reagent("pure_plasma", 5)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "plasma" || R.id == "plasma_dust")
-		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustPlasma(20)
+		H.adjustBruteLoss(-0.25)
+		H.adjustFireLoss(-0.25)
+		H.adjust_alien_plasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
+		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
 
 	return ..()

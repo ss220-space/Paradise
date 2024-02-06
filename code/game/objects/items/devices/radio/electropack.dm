@@ -32,22 +32,20 @@
 		if(!b_stat)
 			to_chat(user, "<span class='notice'>[src] is not ready to be attached!</span>")
 			return
-		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit( user )
+		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(drop_location())
 		A.icon = 'icons/obj/assemblies.dmi'
 
-		if(!user.unEquip(W))
+		if(!user.drop_transfer_item_to_loc(W, A))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot attach it to \the [src]!</span>")
 			return
-		W.loc = A
 		W.master = A
 		A.part1 = W
 
-		user.unEquip(src)
-		loc = A
+		user.drop_transfer_item_to_loc(src, A)
 		master = A
 		A.part2 = src
 
-		user.put_in_hands(A)
+		user.put_in_hands(A, ignore_anim = FALSE)
 		A.add_fingerprint(user)
 		if(src.flags & NODROP)
 			A.flags |= NODROP
@@ -57,8 +55,8 @@
 	if(!signal || signal.encryption != code)
 		return
 
-	if(ismob(loc) && on)
-		var/mob/M = loc
+	if(isliving(loc) && on)
+		var/mob/living/M = loc
 		var/turf/T = M.loc
 		if(istype(T, /turf))
 			if(!M.moved_recently && M.last_move)
@@ -70,7 +68,7 @@
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
 		do_sparks(3, 1, M)
 
-		M.Weaken(5)
+		M.Weaken(10 SECONDS)
 
 	if(master)
 		master.receive_signal()
@@ -102,7 +100,7 @@
 		if("freq")
 			var/value = params["freq"]
 			if(value)
-				frequency = sanitize_frequency(value)
+				frequency = sanitize_frequency(text2num(value) * 10)
 				set_frequency(frequency)
 			else
 				. = FALSE

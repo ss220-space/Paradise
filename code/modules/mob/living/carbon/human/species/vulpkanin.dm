@@ -18,60 +18,53 @@
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
-	dietflags = DIET_OMNI
-	hunger_drain = 0.17
-	speed_mod = -0.5
-	burn_mod = 2
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
-	cold_level_1 = 230
-	cold_level_2 = 170
-	cold_level_3 = 100
-
-	heat_level_1 = 330
-	heat_level_2 = 370
-	heat_level_3 = 430
-
+	blood_species = "Vulpkanin"
 	flesh_color = "#966464"
 	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
 
-	scream_verb = "скулит"
+	scream_verb = "скул%(ит,ят)%"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
-		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,
-		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
-		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
-		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
-															   unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/vulpkanin,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/vulpkanin,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/vulpkanin,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/vulpkanin,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/vulpkanin,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/vulpkanin,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right),
-		"tail" =   list("path" = /obj/item/organ/external/tail/vulpkanin))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/vulpkanin),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/vulpkanin),
+	)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
 	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their claws into their eye sockets!",
-		"is twisting their own neck!",
-		"is holding their breath!")
+		"пытается откусить себе язык!",
+		"выдавливает когтями свои глазницы!",
+		"сворачивает себе шею!",
+		"задерживает дыхание!")
+
+	disliked_food = VEGETABLES | FRUIT | GRAIN
+	liked_food = MEAT | RAW | DAIRY | GROSS | EGG
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

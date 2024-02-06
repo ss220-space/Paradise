@@ -14,6 +14,8 @@
 	var/garrote_time
 
 /obj/item/twohanded/garrote/Destroy()
+	if(strangling)
+		strangling.garroted_by.Remove(src)
 	strangling = null
 	return ..()
 
@@ -37,17 +39,16 @@
 
 	icon_state = "garrot_I_[wielded ? "un" : ""]wrap"
 
-/obj/item/twohanded/garrote/wield(mob/living/carbon/user)
-	if(strangling)
-		user.visible_message("<span class='info'>[user] removes the [src] from [strangling]'s neck.</span>", \
-				"<span class='warning'>You remove the [src] from [strangling]'s neck.</span>")
 
+/obj/item/twohanded/garrote/unwield(obj/item/source, mob/living/carbon/user)
+	if(strangling)
+		usr.visible_message("<span class='info'>[usr] removes the [src] from [strangling]'s neck.</span>", \
+				"<span class='warning'>You remove the [src] from [strangling]'s neck.</span>")
+		strangling.garroted_by.Remove(src)
 		strangling = null
 		update_icon()
 		STOP_PROCESSING(SSobj, src)
 
-	else
-		..()
 
 /obj/item/twohanded/garrote/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(garrote_time > world.time) // Cooldown
@@ -81,7 +82,7 @@
 		to_chat(user, "<span class = 'warning'>You cannot use [src] on two people at once!</span>")
 		return
 
-	unwield(U)
+	user.mode()
 
 	U.swap_hand() // For whatever reason the grab will not properly work if we don't have the free hand active.
 	var/obj/item/grab/G = M.grabbedby(U, 1)
@@ -96,7 +97,7 @@
 			G.state = GRAB_NECK
 			G.hud.icon_state = "kill"
 			G.hud.name = "kill"
-			M.AdjustSilence(1)
+			M.AdjustSilence(2 SECONDS)
 
 	garrote_time = world.time + 10
 	START_PROCESSING(SSobj, src)
@@ -138,6 +139,7 @@
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
+		strangling.garroted_by.Remove(src)
 		strangling = null
 		update_icon()
 		STOP_PROCESSING(SSobj, src)
@@ -148,6 +150,7 @@
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
+		strangling.garroted_by.Remove(src)
 		strangling = null
 		update_icon()
 		STOP_PROCESSING(SSobj, src)
@@ -156,13 +159,15 @@
 
 
 	if(improvised)
-		strangling.stuttering = max(strangling.stuttering, 3)
-		strangling.apply_damage(2, OXY, "head")
+		strangling.Stuttering(6 SECONDS)
+		strangling.apply_damage(2, OXY, BODY_ZONE_HEAD)
 		return
 
 
-	strangling.Silence(3) // Non-improvised effects
-	strangling.apply_damage(4, OXY, "head")
+	if(!(src in strangling.garroted_by))
+		strangling.garroted_by+=src
+	strangling.Silence(6 SECONDS) // Non-improvised effects
+	strangling.apply_damage(20, OXY, BODY_ZONE_HEAD)
 
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)

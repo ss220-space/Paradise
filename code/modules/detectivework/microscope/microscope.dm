@@ -1,8 +1,5 @@
 //This is the output of the stringpercent(print) proc, and means about 80% of
 //the print must be there for it to be complete.  (Prints are 32 digits)
-var/const/FINGERPRINT_COMPLETE = 6
-proc/is_complete_print(print)
-	return stringpercent(print) <= FINGERPRINT_COMPLETE
 
 //microscope code itself
 /obj/machinery/microscope
@@ -15,6 +12,7 @@ proc/is_complete_print(print)
 
 	var/obj/item/sample = null
 	var/report_num = 0
+	var/fingerprint_complete = 6
 
 /obj/machinery/microscope/Initialize(mapload)
 	. = ..()
@@ -30,9 +28,9 @@ proc/is_complete_print(print)
 		return
 
 	if(istype(W, /obj/item/forensics/swab)|| istype(W, /obj/item/sample/fibers) || istype(W, /obj/item/sample/print))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>Вы вставили \the [W] в микроскоп.</span>")
-		user.unEquip(W)
-		W.forceMove(src)
+		user.drop_transfer_item_to_loc(W, src)
 		sample = W
 		update_icon()
 
@@ -45,6 +43,7 @@ proc/is_complete_print(print)
 		to_chat(user, "<span class='warning'>В микроскопе нет образца для анализа.</span>")
 		return
 
+	add_fingerprint(user)
 	to_chat(user, "<span class='notice'>Микроскоп жужжит, пока вы анализируете \the [sample].</span>")
 
 	if(!do_after(user, 25, src) || !sample)
@@ -102,15 +101,18 @@ proc/is_complete_print(print)
 
 /obj/machinery/microscope/proc/remove_sample(mob/living/remover)
 	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
-		return ..()
+		return
 	if(!sample)
 		to_chat(remover, "<span class='warning'>Внутри микроскопа нет образца!</span>")
 		return
 	to_chat(remover, "<span class='notice'>Вы вытащили \the [sample] из микроскопа.</span>")
-	sample.forceMove(get_turf(src))
-	remover.put_in_hands(sample)
+	sample.forceMove_turf()
+	remover.put_in_hands(sample, ignore_anim = FALSE)
 	sample = null
 	update_icon()
+
+/obj/machinery/microscope/proc/is_complete_print(print)
+	return stringpercent(print) <= fingerprint_complete
 
 /obj/machinery/microscope/AltClick()
 	remove_sample(usr)

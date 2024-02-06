@@ -4,6 +4,7 @@
 	var/throwforce_on = 20
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
 	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
+	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/icon_state_on
@@ -13,10 +14,11 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
+	flags = NOSHARPENING
 	toolspeed = 1
 	light_power = 2
 	var/brightness_on = 2
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -122,7 +124,7 @@
 /obj/item/melee/energy/sword/New()
 	..()
 	if(item_color == null)
-		item_color = pick("red", "blue", "green", "purple")
+		item_color = pick("red", "blue", "green", "purple", "yellow", "pink", "darkblue", "orange")
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
@@ -178,6 +180,18 @@
 /obj/item/melee/energy/sword/saber/red
 	item_color = "red"
 
+/obj/item/melee/energy/sword/saber/darkblue
+	item_color = "darkblue"
+
+/obj/item/melee/energy/sword/saber/orange
+	item_color = "orange"
+
+/obj/item/melee/energy/sword/saber/pink
+	item_color = "pink"
+
+/obj/item/melee/energy/sword/saber/yellow
+	item_color = "yellow"
+
 /obj/item/melee/energy/sword/saber/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/melee/energy/sword/saber))
@@ -187,15 +201,15 @@
 				user.adjustBrainLoss(10)
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
-			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(user.loc)
+			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(drop_location())
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = 1
 				newSaber.item_color = "rainbow"
-			user.unEquip(W)
-			user.unEquip(src)
+			user.temporarily_remove_item_from_inventory(W)
+			user.temporarily_remove_item_from_inventory(src)
 			qdel(W)
 			qdel(src)
-			user.put_in_hands(newSaber)
+			user.put_in_hands(newSaber, ignore_anim = FALSE)
 	else if(istype(W, /obj/item/multitool))
 		if(hacked == 0)
 			hacked = 1
@@ -213,6 +227,25 @@
 
 		else
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+
+
+/obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(!active)
+		return FALSE
+	. = ..()
+	if(!.) // they did not block the attack
+		return
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
+			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+			return TRUE
+		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
+		return -1
+	return TRUE
+
 
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
@@ -272,6 +305,8 @@
 	var/swiping = FALSE
 
 /obj/item/melee/energy/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite)) // you get the bonus damage, but the bleed buildup is too much.
+		return
 	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
 	if(!B)
 		if(!active) //This isn't in the above if-check so that the else doesn't care about active

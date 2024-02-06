@@ -99,8 +99,8 @@
 		return
 
 	if(iscarbon(AM))
-		var/mob/living/carbon/M =	AM
-		if(M.slip("foam", 5, 2))
+		var/mob/living/carbon/M = AM
+		if(M.slip("foam", 4 SECONDS))
 			if(reagents)
 				for(var/reagent_id in reagents.reagent_list)
 					var/amount = M.reagents.get_reagent_amount(reagent_id)
@@ -188,7 +188,7 @@
 
 /obj/structure/foamedmetal/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	move_update_air(T)
 
 /obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -211,11 +211,15 @@
 		user.visible_message("<span class='warning'>[user] smashes through [src].</span>", "<span class='notice'>You smash through [src].</span>")
 		qdel(src)
 	else
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
 /obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
-	return !density
+	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+		return TRUE
+	else
+		return !density
 
 /obj/structure/foamedmetal/CanAtmosPass()
 	return !density

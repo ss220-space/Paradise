@@ -178,10 +178,8 @@
 	desc = "An energy gun that recharges wirelessly during away missions. Does not work on the main station."
 	force = 10
 	origin_tech = null
-	selfcharge = 1
-	can_charge = 0
-	// Selfcharge is enabled and disabled, and used as the away mission tracker
-	selfcharge = TRUE
+	can_charge = FALSE
+	selfcharge = TRUE	// Selfcharge is enabled and disabled, and used as the away mission tracker
 
 /obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
 	. = ..()
@@ -203,12 +201,7 @@
 
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
-
-/obj/item/reagent_containers/glass/beaker/terror_black_toxin/New()
-	..()
-	reagents.add_reagent("terror_black_toxin", 50)
-	update_icon()
-
+	list_reagents = list("terror_black_toxin" = 50)
 
 /obj/machinery/computer/id_upgrader
 	name = "ID Upgrade Machine"
@@ -219,8 +212,8 @@
 	var/door_to_open = "UO71_Start"
 
 /obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/D = I
+	if(I.GetID())
+		var/obj/item/card/id/D = I.GetID()
 		if(!access_to_give.len)
 			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
 			return
@@ -232,6 +225,7 @@
 				D.access |= this_access
 				did_upgrade = 1
 		if(did_upgrade)
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
 			if(beenused)
 				return

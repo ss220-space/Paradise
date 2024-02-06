@@ -26,7 +26,7 @@
 	desc = "Communicate telepathically with your guardian."
 	button_icon_state = "communicate"
 
-/datum/action/guardian/communicate/Trigger()
+/datum/action/guardian/communicate/Trigger(left_click = TRUE)
 	var/input = stripped_input(owner, "Enter a message to tell your guardian:", "Message", "")
 	if(!input)
 		return
@@ -34,8 +34,7 @@
 	// Show the message to our guardian and to host.
 	to_chat(guardian, "<span class='changeling'><i>[owner]:</i> [input]</span>")
 	to_chat(owner, "<span class='changeling'><i>[owner]:</i> [input]</span>")
-	log_say("(HOST to [key_name(guardian)]): [input]", owner)
-	owner.create_log(SAY_LOG, "HOST to GUARDIAN: [input]", guardian)
+	add_say_logs(owner, input, guardian, "Guardian")
 
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
@@ -52,7 +51,7 @@
 	desc = "Forcibly recall your guardian."
 	button_icon_state = "recall"
 
-/datum/action/guardian/recall/Trigger()
+/datum/action/guardian/recall/Trigger(left_click = TRUE)
 	guardian.Recall()
 
 /**
@@ -71,7 +70,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/guardian/reset_guardian/Trigger()
+/datum/action/guardian/reset_guardian/Trigger(left_click = TRUE)
 	if(cooldown_timer)
 		to_chat(owner, "<span class='warning'>This ability is still recharging.</span>")
 		return
@@ -81,7 +80,7 @@
 		return
 
 	// Do this immediately, so the user can't spam a bunch of polls.
-	cooldown_timer = addtimer(CALLBACK(src, .proc/reset_cooldown), 5 MINUTES)
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 5 MINUTES)
 	UpdateButtonIcon()
 
 	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")
@@ -89,14 +88,17 @@
 
 	if(!length(candidates))
 		to_chat(owner, "<span class='danger'>There were no ghosts willing to take control of your guardian. You can try again in 5 minutes.</span>")
+		log_game("[owner](ckey: [owner.ckey]) has tried to replace their guardian, but there were no candidates willing to enroll.")
 		return
 
 	var/mob/dead/observer/new_stand = pick(candidates)
 	to_chat(guardian, "<span class='danger'>Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.</span>")
 	to_chat(owner, "<span class='danger'>Your guardian has been successfully reset.</span>")
 	message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(guardian)])")
+
 	guardian.ghostize()
 	guardian.key = new_stand.key
+	log_game("[guardian.key] has taken control of [guardian], owner: [guardian]")
 	qdel(src)
 
 /**

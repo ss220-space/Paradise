@@ -6,10 +6,8 @@
 	var/auth_need = 3
 	var/list/authorized = list()
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/card/W, mob/user, params)
+/obj/machinery/computer/emergency_shuttle/attackby(obj/item/W, mob/user, params)
 	if(stat & (BROKEN|NOPOWER))
-		return
-	if(!istype(W, /obj/item/card))
 		return
 	if(SSshuttle.emergency.mode != SHUTTLE_DOCKED)
 		return
@@ -17,24 +15,22 @@
 		return
 	if(SSshuttle.emergency.timeLeft() < 11)
 		return
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		if(istype(W, /obj/item/pda))
-			var/obj/item/pda/pda = W
-			W = pda.id
-		if(!W:access) //no access
-			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
+	if(W.GetID())
+		var/obj/item/card/id/id = W.GetID()
+		if(!id.access) //no access
+			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
 			return
 
-		var/list/cardaccess = W:access
+		var/list/cardaccess = id.access
 		if(!istype(cardaccess, /list) || !cardaccess.len) //no access
-			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
+			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
 			return
 
-		if(!(ACCESS_HEADS in W:access)) //doesn't have this access
-			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
+		if(!(ACCESS_HEADS in id.access)) //doesn't have this access
+			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
 			return 0
 
-		var/choice = alert(user, text("Would you like to (un)authorize a shortened launch time? [] authorization\s are still needed. Use abort to cancel all authorizations.", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
+		var/choice = alert(user, text("Вы хотите (де)авторизовать досрочный запуск? [] Авторизация(-и) всё ещё необходима. Используйте команду 'Abort', чтобы отозвать все авторизации", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
 		if(SSshuttle.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
 			return 0
 
@@ -44,33 +40,37 @@
 
 		switch(choice)
 			if("Authorize")
-				if(!authorized.Find(W:registered_name))
-					authorized += W:registered_name
+				if(!authorized.Find(id.registered_name))
+					add_fingerprint(user)
+					authorized += id.registered_name
 					if(auth_need - authorized.len > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
-						log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
-						GLOB.minor_announcement.Announce("[auth_need - authorized.len] more authorization(s) needed until shuttle is launched early")
+						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
+						GLOB.minor_announcement.Announce("Осталось получить [auth_need - authorized.len] авторизацию(-й) для досрочного запуска шаттла.")
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
-						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
-						GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds")
+						add_game_logs("has launched the emergency shuttle in [COORD(src)] [seconds] seconds before launch.", user)
+						GLOB.minor_announcement.Announce("До запуска эвакуационного шаттла осталось 10 секунд.")
 						SSshuttle.emergency.setTimer(100)
 
 			if("Repeal")
-				if(authorized.Remove(W:registered_name))
-					GLOB.minor_announcement.Announce("[auth_need - authorized.len] authorizations needed until shuttle is launched early")
+				if(authorized.Remove(id.registered_name))
+					add_fingerprint(user)
+					GLOB.minor_announcement.Announce("Для досрочного запуска шаттла необходимо получить [auth_need - authorized.len] авторизацию(-й).")
 
 			if("Abort")
 				if(authorized.len)
-					GLOB.minor_announcement.Announce("All authorizations to launch the shuttle early have been revoked.")
+					add_fingerprint(user)
+					GLOB.minor_announcement.Announce("Все авторизации на досрочный запуск шаттла были отозваны.")
 					authorized.Cut()
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
-	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED)
+	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED && user)
 		var/time = SSshuttle.emergency.timeLeft()
+		add_attack_logs(user, src, "emagged")
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
-		log_game("[key_name(user)] has emagged the emergency shuttle in ([x], [y], [z]): [time] seconds before launch.")
-		GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
+		add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
+		GLOB.minor_announcement.Announce("Запуск эвакуационного шаттла через 10 секунд", "СИСТЕМНАЯ ОШИБКА:")
 		SSshuttle.emergency.setTimer(100)
 		emagged = 1
 
@@ -92,6 +92,7 @@
 	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
+	var/forceHijacked = FALSE // forced change of arrival at the syndicate base
 
 
 /obj/docking_port/mobile/emergency/register()
@@ -148,7 +149,7 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 
-	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
+	emergency_shuttle_called.Announce("Был вызван эвакуационный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nВызов шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]")
 
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
@@ -165,7 +166,7 @@
 		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
 		SSshuttle.emergencyLastCallLoc = null
-	emergency_shuttle_recalled.Announce("The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]")
+	emergency_shuttle_recalled.Announce("Эвакуационный шаттл был отозван.[SSshuttle.emergencyLastCallLoc ? " Отзыв шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]")
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	for(var/mob/living/player in GLOB.player_list)
@@ -231,7 +232,7 @@
 					return
 				mode = SHUTTLE_DOCKED
 				timer = world.time
-				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
+				emergency_shuttle_docked.Announce("Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.")
 
 /*
 				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
@@ -244,14 +245,14 @@
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
-				GLOB.priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
+				GLOB.priority_announcement.Announce("Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.")
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_begin.ogg'
+					E << 'sound/effects/hyperspace_begin_new.ogg'
 
 			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
@@ -260,11 +261,10 @@
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_progress.ogg'
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
-				GLOB.priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
+				GLOB.priority_announcement.Announce("Эвакуационный шаттл покинул станцию. До прибытия в доки ЦК осталось [timeLeft(600)] минуты.")
 				for(var/mob/M in GLOB.player_list)
 					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
 						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
@@ -276,14 +276,14 @@
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_end.ogg'
+					E << 'sound/effects/hyperspace_end_new.ogg'
 
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
 				var/destination_dock = "emergency_away"
-				if(is_hijacked())
+				if(is_hijacked() || forceHijacked)
 					destination_dock = "emergency_syndicate"
-					GLOB.priority_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.")
+					GLOB.priority_announcement.Announce("Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.")
 
 				dock_id(destination_dock)
 
@@ -306,9 +306,9 @@
 	name = "escape pod"
 	id = "pod"
 
-	dwidth = 1
-	width = 3
-	height = 4
+	dwidth = 2
+	width = 5
+	height = 6
 
 /obj/docking_port/mobile/pod/New()
 	..()
@@ -330,15 +330,16 @@
 	admin_controlled = 1
 	shuttleId = "pod"
 	possible_destinations = "pod_asteroid"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "dorm_available"
 	density = 0
 
 /obj/machinery/computer/shuttle/pod/update_icon()
 	return
 
-/obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)
-	to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
+/obj/machinery/computer/shuttle/pod/emag_act(mob/user)
+	if(user)
+		to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
 	admin_controlled = 0
 	icon_state = "dorm_emag"
 

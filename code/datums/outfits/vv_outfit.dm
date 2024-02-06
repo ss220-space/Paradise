@@ -27,6 +27,8 @@
 			head = item_path
 		if(slot_wear_mask)
 			mask = item_path
+		if(slot_neck)
+			neck = item_path
 		if(slot_l_ear)
 			l_ear = item_path
 		if(slot_r_ear)
@@ -71,7 +73,7 @@
 
 	//Copy equipment
 	var/list/result = list()
-	var/list/slots_to_check = list(slot_w_uniform, slot_back, slot_wear_suit, slot_belt, slot_gloves, slot_shoes, slot_head, slot_wear_mask, slot_l_ear, slot_r_ear, slot_glasses, slot_wear_id, slot_wear_pda, slot_s_store, slot_l_store, slot_r_store)
+	var/list/slots_to_check = list(slot_w_uniform, slot_back, slot_wear_suit, slot_belt, slot_gloves, slot_shoes, slot_head, slot_wear_mask, slot_neck, slot_l_ear, slot_r_ear, slot_glasses, slot_wear_id, slot_wear_pda, slot_s_store, slot_l_store, slot_r_store)
 	for(var/s in slots_to_check)
 		var/obj/item/I = get_item_by_slot(s)
 		var/vedits = collect_vv(I)
@@ -158,6 +160,10 @@
 				I = H.get_item_by_slot(text2num(slot))
 		for(var/vname in edits)
 			I.vv_edit_var(vname,edits[vname])
+	//Dat thing will make your capes colored by using `"24":{"atom_colours":{"#ffffff":"3"}}` in "vv_values".
+	var/obj/item/neck_slot = H.get_item_by_slot(slot_neck)
+	if(neck_slot)
+		neck_slot.update_atom_colour()
 	//Apply access
 	var/obj/item/id_slot = H.get_item_by_slot(slot_wear_id)
 	if(id_slot)
@@ -167,6 +173,7 @@
 		if(update_id_name)
 			card.registered_name = H.real_name
 			card.update_label()
+		H.sec_hud_set_ID()
 
 /datum/outfit/varedit/get_json_data()
 	. = .. ()

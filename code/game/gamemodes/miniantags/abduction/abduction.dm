@@ -50,7 +50,7 @@
 	team_names[team_number] = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
 	//Team Objective
 	var/datum/objective/experiment/team_objective = new
-	team_objective.team = team_number
+	team_objective.abductor_team_number = team_number
 	team_objectives[team_number] = team_objective
 	//Team Members
 
@@ -77,12 +77,12 @@
 	scientist.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.offstation_role = TRUE
-	log_game("[key_name(scientist)] has been selected as an abductor team [team_number] scientist.")
+	add_game_logs("has been selected as an abductor team [team_number] scientist.", scientist)
 
 	agent.assigned_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	agent.offstation_role = TRUE
-	log_game("[key_name(agent)] has been selected as an abductor team [team_number] agent.")
+	add_game_logs("has been selected as an abductor team [team_number] agent.", agent)
 
 	abductors |= agent
 	abductors |= scientist
@@ -149,17 +149,20 @@
 	greet_scientist(scientist,team_number)
 	update_abductor_icons_added(scientist)
 
-/datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor,team_number)
+/datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor, team_number)
 	var/datum/objective/stay_hidden/O = new
 	abductor.objectives += O
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
-	to_chat(abductor.current, "<span class='notice'>You are an agent of [team_name]!</span>")
-	to_chat(abductor.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
-	to_chat(abductor.current, "<span class='notice'>Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve.</span>")
-
-	abductor.announce_objectives()
+	var/list/messages = list()
+	messages.Add("<span class='notice'>You are an agent of [team_name]!</span>")
+	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
+	messages.Add("<span class='notice'>Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve.</span>")
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Abductor\">Абдуктор</a></span>")
+	messages.Add(abductor.prepare_announce_objectives())
+	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
+	log_game("[abductor] has become an abductor agent.")
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
 	var/datum/objective/stay_hidden/O = new
@@ -167,11 +170,15 @@
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
-	to_chat(abductor.current, "<span class='notice'>You are a scientist of [team_name]!</span>")
-	to_chat(abductor.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
-	to_chat(abductor.current, "<span class='notice'>Use your tool and ship consoles to support the agent and retrieve human specimens.</span>")
-
-	abductor.announce_objectives()
+	var/list/messages = list()
+	messages.Add("<span class='notice'>You are a scientist of [team_name]!</span>")
+	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
+	messages.Add("<span class='notice'>Use your tool and ship consoles to support the agent and retrieve human specimens.</span>")
+	messages.Add("<span class='motd'>For more information, check the wiki page: <a href=\"https://wiki.ss220.space/index.php/Abductor\">Абдуктор</a></span>")
+	messages.Add(abductor.prepare_announce_objectives())
+	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
+	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
+	log_game("[abductor] has become an abductor scientist.")
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)
@@ -231,8 +238,10 @@
 
 // OBJECTIVES
 /datum/objective/experiment
+	needs_target = FALSE
 	target_amount = 6
-	var/team
+	/// Which abductor team number does this belong to.
+	var/abductor_team_number
 
 /datum/objective/stay_hidden
 
@@ -244,30 +253,32 @@
 /datum/objective/experiment/New()
 	explanation_text = "Experiment on [target_amount] humans."
 
+
 /datum/objective/experiment/check_completion()
-	var/ab_team = team
-	if(owner)
-		if(!owner.current || !ishuman(owner.current))
+	var/ab_team = abductor_team_number
+	for(var/datum/mind/player in get_owners())
+		if(!player.current || !ishuman(player.current) || !isabductor(player.current))
 			return FALSE
-		var/mob/living/carbon/human/H = owner.current
-		if(!isabductor(H))
-			return FALSE
-		var/datum/species/abductor/S = H.dna.species
-		ab_team = S.team
-	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
-		if(E.team == ab_team)
-			if(E.points >= target_amount)
+
+		var/mob/living/carbon/human/human_owner = player.current
+		var/datum/species/abductor/abductor = human_owner.dna.species
+		ab_team = abductor.team
+
+	for(var/obj/machinery/abductor/experiment/experiment in GLOB.machines)
+		if(experiment.team == ab_team)
+			if(experiment.points >= target_amount)
 				return TRUE
 			else
 				return FALSE
+
 	return FALSE
+
 
 /datum/game_mode/proc/remove_abductor(datum/mind/abductor_mind)
 	if(abductor_mind in abductors)
 		SSticker.mode.abductors -= abductor_mind
 		abductor_mind.special_role = null
-		abductor_mind.current.create_attack_log("<span class='danger'>No longer abductor</span>")
-		abductor_mind.current.create_log(CONVERSION_LOG, "No longer abductor")
+		add_conversion_logs(abductor_mind.current, "No longer abductor")
 		if(issilicon(abductor_mind.current))
 			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
 		else

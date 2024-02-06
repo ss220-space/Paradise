@@ -1,6 +1,6 @@
 /datum/sprite_accessory/facial_hair/unathi
 	icon = 'icons/mob/sprite_accessories/unathi/unathi_facial_hair.dmi'
-	species_allowed = list("Unathi")
+	species_allowed = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
 	gender = NEUTER
 	over_hair = 1
 
@@ -48,12 +48,32 @@
 	icon_state = "shortfrills"
 	secondary_theme = "webbing"
 
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_short_alt
+	name = "Short Webbed Frills Alt"
+	icon_state = "shortfrillsalt"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_big
+	name = "Big Webbed Frills"
+	icon_state = "bigfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_neckfull
+	name = "Neckfull Webbed Frills"
+	icon_state = "neckfullfrills"
+	secondary_theme = "webbing"
+
+/datum/sprite_accessory/facial_hair/unathi/una_frills_webbed_neck
+	name = "Neck Webbed Frills"
+	icon_state = "neckfrills"
+	secondary_theme = "webbing"
+
 // These hairstyles are repeated from unathi_hair
 /datum/sprite_accessory/facial_hair/unathi/una_side_frills
 	name = "Side Frills"
 	icon_state = "sidefrills"
 	secondary_theme = "webbing"
-    
+
 /datum/sprite_accessory/facial_hair/unathi/una_frills_dorsal
 	over_hair = null
 	name = "Dorsal Frills"

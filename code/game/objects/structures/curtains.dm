@@ -40,6 +40,7 @@
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/toy/crayon))
+		add_fingerprint(user)
 		color = input(user, "Choose Color") as color
 		return
 	return ..()
@@ -74,7 +75,7 @@
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cloth(loc, 2)
-	new /obj/item/stack/sheet/plastic(loc, 2)
+	new /obj/item/stack/sheet/plastic(loc, 1)
 	new /obj/item/stack/rods(loc, 1)
 	qdel(src)
 

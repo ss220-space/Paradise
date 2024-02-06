@@ -19,6 +19,7 @@
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 7
 	outfit = /datum/outfit/job/cmo
 
 /datum/outfit/job/cmo
@@ -30,6 +31,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/heads/cmo
 	id = /obj/item/card/id/cmo
+	l_pocket = /obj/item/lighter/zippo/cmo
 	suit_store = /obj/item/flashlight/pen
 	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/heads/cmo
@@ -40,6 +42,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+
 
 /datum/job/doctor
 	title = "Medical Doctor"
@@ -52,11 +55,12 @@
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
 	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 600
+	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 3
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
@@ -76,6 +80,51 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
+
+/datum/job/doctor/intern
+	title = "Intern"
+	flag = JOB_INTERN
+	total_positions = 5
+	spawn_positions = 3
+	department_head = list("Chief Medical Officer", "Medical Doctor")
+	selection_color = "#ffeef0"
+	alt_titles = list("Student Medical Doctor", "Medical Assistant")
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
+	exp_max	= 600
+	exp_type_max = EXP_TYPE_MEDICAL
+	is_novice = TRUE
+	money_factor = 2
+	outfit = /datum/outfit/job/doctor/intern
+
+/datum/outfit/job/doctor/intern
+	name = "Intern"
+	jobtype = /datum/job/doctor/intern
+
+	uniform = /obj/item/clothing/under/rank/medical/intern
+	l_pocket = /obj/item/paper/deltainfo
+	id = /obj/item/card/id/medical/intern
+	l_hand = /obj/item/storage/firstaid/o2
+	backpack_contents = list(
+		/obj/item/clothing/mask/surgical = 1,
+		/obj/item/clothing/gloves/color/latex = 1
+	)
+
+/datum/outfit/job/doctor/intern/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/medical/intern/skirt
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Medical Assistant")
+				uniform = /obj/item/clothing/under/rank/medical/intern/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/medical/intern/assistant/skirt
+			if("Student Medical Doctor")
+				head = /obj/item/clothing/head/surgery/lightgreen
+				uniform = /obj/item/clothing/under/rank/medical/lightgreen
+
+
 /datum/job/coroner
 	title = "Coroner"
 	flag = JOB_CORONER
@@ -87,10 +136,11 @@
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE)
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
+	money_factor = 3
 	outfit = /datum/outfit/job/coroner
 
 /datum/outfit/job/coroner
@@ -149,11 +199,12 @@
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 600
+	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 4
 	outfit = /datum/outfit/job/chemist
 
 /datum/outfit/job/chemist
@@ -172,6 +223,7 @@
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
 
+
 /datum/job/geneticist
 	title = "Geneticist"
 	flag = JOB_GENETICIST
@@ -183,10 +235,11 @@
 	department_head = list("Chief Medical Officer", "Research Director")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH)
 	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 4
 	outfit = /datum/outfit/job/geneticist
 
 /datum/outfit/job/geneticist
@@ -197,7 +250,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_medsci
-	id = /obj/item/card/id/medical
+	id = /obj/item/card/id/genetics
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/geneticist
 
@@ -216,12 +269,13 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_MEDICAL
+	money_factor = 4
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
@@ -241,6 +295,7 @@
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
 
+
 /datum/job/psychiatrist
 	title = "Psychiatrist"
 	flag = JOB_PSYCHIATRIST
@@ -252,8 +307,9 @@
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST)
 	alt_titles = list("Psychologist","Therapist")
+	money_factor = 3
 	outfit = /datum/outfit/job/psychiatrist
 
 /datum/outfit/job/psychiatrist
@@ -279,6 +335,7 @@
 			if("Therapist")
 				uniform = /obj/item/clothing/under/rank/medical
 
+
 /datum/job/paramedic
 	title = "Paramedic"
 	flag = JOB_PARAMEDIC
@@ -289,11 +346,12 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
-	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
+	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
+	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
+	money_factor = 3
 	outfit = /datum/outfit/job/paramedic
 
 /datum/outfit/job/paramedic

@@ -7,15 +7,24 @@
 	flags = BLOCKHAIR | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 80, "fire" = 30, "acid" = 100)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	resistance_flags = ACID_PROOF
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/head.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/head.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/suit/bio_suit
@@ -29,17 +38,26 @@
 	flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 1
-	allowed = list(/obj/item/tank/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 80, "fire" = 30, "acid" = 100)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = ACID_PROOF
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 
@@ -103,8 +121,17 @@
 	put_on_delay = 20
 
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vulpkanin")
+	hide_tail_by_species = list("Unathi, Ash Walker, Ash Walker Shaman, Draconid, Tajaran, Vulpkanin")

@@ -1,7 +1,7 @@
 /obj/structure/displaycase
 	name = "display case"
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "glassbox0"
+	icon_state = "glassbox_open"
 	desc = "A display case for prized possessions."
 	density = TRUE
 	anchored = TRUE
@@ -20,7 +20,7 @@
 
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()
-	if(start_showpieces.len && !start_showpiece_type)
+	if(length(start_showpieces) && !start_showpiece_type)
 		var/list/showpiece_entry = pick(start_showpieces)
 		if (showpiece_entry && showpiece_entry["type"])
 			start_showpiece_type = showpiece_entry["type"]
@@ -28,7 +28,7 @@
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/displaycase/Destroy()
 	QDEL_NULL(electronics)
@@ -42,7 +42,7 @@
 	if(showpiece)
 		. += "<span class='notice'>There's [showpiece] inside.</span>"
 	if(trophy_message)
-		. += "The plaque reads:\n [trophy_message]"
+		. += "<span class='notice'>The plaque reads:\n [trophy_message]</span>"
 
 /obj/structure/displaycase/proc/dump()
 	if(showpiece)
@@ -70,7 +70,7 @@
 		broken = 1
 		new /obj/item/shard( src.loc )
 		playsound(src, "shatter", 70, TRUE)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		trigger_alarm()
 
 /obj/structure/displaycase/proc/trigger_alarm()
@@ -84,33 +84,34 @@
 			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
 			sleep(74) // 7.4 seconds long
 
-/obj/structure/displaycase/update_icon()
-	var/icon/I
-	if(open)
-		I = icon('icons/obj/stationobjs.dmi',"glassbox_open")
-	else
-		I = icon('icons/obj/stationobjs.dmi',"glassbox0")
+
+/obj/structure/displaycase/update_overlays()
+	. = ..()
 	if(broken)
-		I = icon('icons/obj/stationobjs.dmi',"glassboxb0")
+		. += "glassbox_broken"
 	if(showpiece)
-		var/icon/S = getFlatIcon(showpiece)
-		S.Scale(17, 17)
-		I.Blend(S,ICON_UNDERLAY,8,8)
-	icon = I
+		var/mutable_appearance/showpiece_overlay = mutable_appearance(showpiece.icon, showpiece.icon_state)
+		showpiece_overlay.copy_overlays(showpiece)
+		showpiece_overlay.transform *= 0.6
+		. += showpiece_overlay
+	if(!open && !broken)
+		. += "glassbox_closed"
+
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(I.GetID() && !broken && openable)
 		if(allowed(user))
+			add_fingerprint(user)
 			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
 			toggle_lock(user)
 		else
 			to_chat(user,  "<span class='warning'>Access denied.</span>")
-	else if(open && !showpiece)
-		if(user.drop_item())
-			I.forceMove(src)
+	else if(open && !showpiece && !(I.flags & ABSTRACT))
+		if(user.drop_transfer_item_to_loc(I, src))
+			add_fingerprint(user)
 			showpiece = I
 			to_chat(user, "<span class='notice'>You put [I] on display</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 	else if(istype(I, /obj/item/stack/sheet/glass) && broken)
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 2)
@@ -118,10 +119,11 @@
 			return
 		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
 		if(do_after(user, 20, target = src))
+			add_fingerprint(user)
 			G.use(2)
 			broken = 0
 			obj_integrity = max_integrity
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 
@@ -151,7 +153,7 @@
 
 /obj/structure/displaycase/proc/toggle_lock(mob/user)
 	open = !open
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/displaycase/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -159,12 +161,13 @@
 		to_chat(user, "<span class='notice'>You deactivate the hover field built into the case.</span>")
 		dump()
 		add_fingerprint(user)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	else
 	    //prevents remote "kicks" with TK
 		if(!Adjacent(user))
 			return
+		add_fingerprint(user)
 		user.visible_message("<span class='danger'>[user] kicks the display case.</span>")
 		user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 		take_damage(2)
@@ -183,8 +186,8 @@
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
 		playsound(src.loc, I.usesound, 50, 1)
 		if(do_after(user, 30, target = src))
-			if(user.drop_item())
-				I.forceMove(src)
+			if(user.drop_transfer_item_to_loc(I, src))
+				add_fingerprint(user)
 				electronics = I
 				to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 
@@ -197,13 +200,12 @@
 		if(do_after(user, 20, target = src))
 			G.use(10)
 			var/obj/structure/displaycase/display = new(src.loc)
+			display.add_fingerprint(user)
 			if(electronics)
 				electronics.forceMove(display)
 				display.electronics = electronics
-				if(electronics.one_access)
-					display.req_one_access = electronics.selected_accesses
-				else
-					display.req_access = electronics.selected_accesses
+				display.req_access= electronics.selected_accesses
+				display.check_one_access = electronics.one_access
 			qdel(src)
 	else
 		return ..()
@@ -236,3 +238,9 @@
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
 	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
 	req_access = list(ACCESS_SYNDICATE_COMMAND)
+
+/obj/structure/displaycase/dartgun
+	name = "Display case"
+	desc = "A display case containing a dartgun. One of the favourite weapons of infamous Vox Raiders!"
+	start_showpiece_type = /obj/item/gun/dartgun
+	req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)

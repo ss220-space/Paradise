@@ -42,7 +42,7 @@
 					else
 						targets3 += C
 				else if(ai_target_method == TS_DAMAGE_POISON)
-					if(C.can_inject(null, FALSE, "chest", FALSE))
+					if(C.can_inject(null, FALSE, BODY_ZONE_CHEST, FALSE))
 						targets1 += C
 					else if(C in enemies)
 						targets2 += C
@@ -55,7 +55,7 @@
 					else
 						targets3 += C
 		else
-			if(istype(H,/mob/living/simple_animal))
+			if(isanimal(H))
 				var/mob/living/simple_animal/S = H
 				if(S.force_threshold > melee_damage_upper)
 					continue
@@ -63,6 +63,11 @@
 				targets2 += H
 			else
 				targets3 += H
+		if(issilicon(H))
+			if(H in enemies)
+				targets3 += H
+			else
+				targets2 += H
 	for(var/obj/mecha/M in view(src, vision_range))
 		if(get_dist(M, src) <= 2)
 			targets2 += M
@@ -70,9 +75,9 @@
 			targets3 += M
 	for(var/obj/spacepod/S in view(src, vision_range))
 		targets3 += S
-	if(targets1.len)
+	if(length(targets1))
 		return targets1
-	if(targets2.len)
+	if(length(targets2))
 		return targets2
 	return targets3
 
@@ -81,7 +86,6 @@
 		var/mob/living/T = target
 		if(T.stat > 0)
 			killcount++
-			regen_points += regen_points_per_kill
 	attackstep = 0
 	attackcycles = 0
 	..()
@@ -162,15 +166,15 @@
 			spider_special_action()
 		..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(damage)
-	. = ..(damage)
+/mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(amount, updating_health = TRUE)
+	. = ..()
 	Retaliate()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/adjustFireLoss(damage)
-	. = ..(damage)
+/mob/living/simple_animal/hostile/poison/terror_spider/adjustFireLoss(amount, updating_health)
+	. = ..()
 	Retaliate()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/Retaliate()
+/mob/living/simple_animal/hostile/poison/terror_spider/Retaliate()
 	var/list/around = oview(src, 7)
 	var/list/ts_nearby = list()
 	for(var/atom/movable/A in around)

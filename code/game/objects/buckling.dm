@@ -10,14 +10,18 @@
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
+
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
 			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
+			if(isnull(unbuckled))
+				return
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
 		else
 			if(user_unbuckle_mob(buckled_mobs[1], user))
 				return TRUE
+
 
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
@@ -48,7 +52,10 @@
 	if(!istype(M))
 		return FALSE
 
-	if(check_loc && M.loc != loc)
+	if(check_loc && !in_range(M, src))
+		return FALSE
+
+	if(M.loc != loc && !M.Move(loc))
 		return FALSE
 
 	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
@@ -56,21 +63,21 @@
 	M.buckling = src
 	if(!M.can_buckle() && !force)
 		if(M == usr)
-			to_chat(M, "<span class='warning'>You are unable to buckle yourself to [src]!</span>")
+			to_chat(M, span_warning("You are unable to buckle yourself to [src]!"))
 		else
-			to_chat(usr, "<span class='warning'>You are unable to buckle [M] to [src]!</span>")
+			to_chat(usr, span_warning("You are unable to buckle [M] to [src]!"))
 		M.buckling = null
 		return FALSE
 
 	if(M.pulledby)
 		if(buckle_prevents_pull)
 			M.pulledby.stop_pulling()
+		else
+			M.pulledby.pulling = src
+			M.pulledby = null
 
 	for(var/obj/item/grab/G in M.grabbed_by)
 		qdel(G)
-
-	if(!check_loc && M.loc != loc)
-		M.forceMove(loc)
 
 	M.buckling = null
 	M.buckled = src
@@ -119,32 +126,41 @@
 
 //Wrapper procs that handle sanity and user feedback
 /atom/movable/proc/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
-	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored)
+	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored || !in_range(M, src))
 		return FALSE
 
 	add_fingerprint(user)
-	. = buckle_mob(M, check_loc = check_loc)
-	if(.)
-		if(M == user)
-			M.visible_message("<span class='notice'>[M] buckles [M.p_them()]self to [src].</span>",\
-				"<span class='notice'>You buckle yourself to [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+
+	if(M != user) // Cheks if user interacts with himself
+		M.visible_message(span_warning("[user] is trying to buckle [M] to [src]!"),\
+					span_warning("[user] is trying to buckle you to [src]!"),\
+					span_italics("You hear metal clanking."))
+		if(do_mob(user, M, 0.7 SECONDS))
+			if(buckle_mob(M, check_loc = check_loc))
+				M.visible_message(span_warning("[user] buckles [M] to [src]!"),\
+					span_warning("[user] buckles you to [src]!"),\
+					span_italics("You hear metal clanking."))
+				return TRUE
 		else
-			M.visible_message("<span class='warning'>[user] buckles [M] to [src]!</span>",\
-				"<span class='warning'>[user] buckles you to [src]!</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			to_chat(user, span_warning("You fail to buckle [M]."))
+	else
+		if(buckle_mob(M, check_loc = check_loc))
+			M.visible_message(span_notice("[M] buckles [M.p_them()]self to [src]."),\
+				span_notice("You buckle yourself to [src]."),\
+				span_italics("You hear metal clanking."))
+			return TRUE
 
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)
-			M.visible_message("<span class='notice'>[user] unbuckles [M] from [src].</span>",\
-				"<span class='notice'>[user] unbuckles you from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(span_notice("[user] unbuckles [M] from [src]."),\
+				span_notice("[user] unbuckles you from [src]."),\
+				span_italics("You hear metal clanking."))
 		else
-			M.visible_message("<span class='notice'>[M] unbuckles [M.p_them()]self from [src].</span>",\
-				"<span class='notice'>You unbuckle yourself from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(span_notice("[M] unbuckles [M.p_them()]self from [src]."),\
+				span_notice("You unbuckle yourself from [src]."),\
+				span_italics("You hear metal clanking."))
 		add_fingerprint(user)
 	return M
 

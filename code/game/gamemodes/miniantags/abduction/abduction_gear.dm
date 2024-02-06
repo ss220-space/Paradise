@@ -308,7 +308,7 @@
 /obj/item/abductor/mind_device/proc/mind_control(atom/target, mob/living/user)
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot("heart")
+		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(!istype(G))
 			to_chat(user, "<span class='warning'>Your target does not have an experimental gland!</span>")
 			return
@@ -347,7 +347,7 @@
 
 		to_chat(L, "<span class='italics'>You hear a voice in your head saying: </span><span class='abductor'>[message]</span>")
 		to_chat(user, "<span class='notice'>You send the message to your target.</span>")
-		log_say("[key_name(user)] sent an abductor mind message to [key_name(L)]: '[message]'", user)
+		add_say_logs(user, message, L, "Mind device")
 
 /obj/item/gun/energy/alien
 	name = "alien pistol"
@@ -374,11 +374,14 @@
  8.Apply retractor again to specimen's torso.<br>
  9.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
  10.Insert replacement gland (Retrieve one from gland storage).<br>
- 11.Cauterize the patient's torso with a cautery.<br>
- 12.Consider dressing the specimen back to not disturb the habitat. <br>
- 13.Put the specimen in the experiment machinery.<br>
- 14.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
- 15.You will receive one supply credit, and the subject will be counted towards your quota.<br>
+ 11.Apply bone gel to mend the ribcage.<br>
+ 12.Use the bone setter to finish mending the ribcage.<br>
+ 13.Apply bone gel to mend the ribcage once more.<br>
+ 14.Cauterize the patient's torso with a cautery.<br>
+ 15.Consider dressing the specimen back to not disturb the habitat.<br>
+ 16.Put the specimen in the experiment machinery.<br>
+ 17.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
+ 18.You will receive one supply credit, and the subject will be counted towards your quota.<br>
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
@@ -483,9 +486,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
 
-	L.Stun(7)
-	L.Weaken(7)
-	L.apply_effect(STUTTER, 7)
+	L.Weaken(14 SECONDS)
+	L.Stun(14 SECONDS)
+	L.Stuttering(14 SECONDS)
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
 							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
@@ -498,14 +501,14 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(L.stunned || L.sleeping)
+	if(L.IsStunned() || L.IsSleeping() || L.IsWeakened())
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
-		L.Sleeping(60)
+		L.Sleeping(120 SECONDS)
 		add_attack_logs(user, L, "Put to sleep with [src]")
 	else
-		L.AdjustDrowsy(1)
+		L.AdjustDrowsy(2 SECONDS)
 		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens! </span>")
 		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel drowsy!</span>")
@@ -519,11 +522,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
 		if(do_mob(user, C, 30))
-			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
-				C.update_handcuffed()
-				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-				add_attack_logs(user, C, "Handcuffed ([src])")
+			if(C.handcuffed)
+				return
+
+			C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+
+			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
+			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
@@ -537,7 +542,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		species = "<span clas=='notice'>[H.dna.species.name]</span>"
-		if(L.mind && L.mind.changeling)
+		if(ischangeling(L))
 			species = "<span class='warning'>Changeling lifeform</span>"
 		var/obj/item/organ/internal/heart/gland/temp = locate() in H.internal_organs
 		if(temp)
@@ -560,9 +565,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "energy discharge"
 	flags = DROPDEL
 
-/obj/item/restraints/handcuffs/energy/used/dropped(mob/user)
-	user.visible_message("<span class='danger'>[user]'s [src] break in a discharge of energy!</span>", \
-							"<span class='userdanger'>[user]'s [src] break in a discharge of energy!</span>")
+/obj/item/restraints/handcuffs/energy/used/dropped(mob/user, silent = FALSE)
+	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", \
+							"<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
 	do_sparks(4, 0, user.loc)
 	. = ..()
 
@@ -570,13 +575,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	. = ..()
 	switch(mode)
 		if(BATON_STUN)
-			. += "<span class='warning'>The baton is in stun mode.</span>"
+			. += "<span class='notice'>The baton is in stun mode.</span>"
 		if(BATON_SLEEP)
-			. += "<span class='warning'>The baton is in sleep inducement mode.</span>"
+			. += "<span class='notice'>The baton is in sleep inducement mode.</span>"
 		if(BATON_CUFF)
-			. += "<span class='warning'>The baton is in restraining mode.</span>"
+			. += "<span class='notice'>The baton is in restraining mode.</span>"
 		if(BATON_PROBE)
-			. += "<span class='warning'>The baton is in probing mode.</span>"
+			. += "<span class='notice'>The baton is in probing mode.</span>"
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"
@@ -620,6 +625,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien saw"
 	desc = "Do the aliens also lose this, and need to find an alien hatchet?"
 	icon = 'icons/obj/abductor.dmi'
+	item_state = "alien_saw"
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
@@ -666,7 +672,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	blockTracking = 1
 	origin_tech = "materials=7;magnets=4;abductor=3"
 	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 // Operating Table / Beds / Lockers
 
@@ -734,9 +741,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien locker"
 	desc = "Contains secrets of the universe."
 	icon_state = "abductor"
-	icon_closed = "abductor"
-	icon_opened = "abductoropen"
 	material_drop = /obj/item/stack/sheet/mineral/abductor
+	material_drop_amount = 1
 
 /obj/structure/door_assembly/door_assembly_abductor
 	name = "alien airlock assembly"
@@ -746,3 +752,111 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	airlock_type = /obj/machinery/door/airlock/abductor
 	material_type = /obj/item/stack/sheet/mineral/abductor
 	noglass = TRUE
+
+/obj/item/reagent_containers/applicator/abductor
+	name = "alien mender"
+	desc = "Hidden behind a high-tech look is a time-tested mechanism"
+	origin_tech = "materials=2;biotech=3;abductor=2"
+	icon_state = "alien_mender_empty"
+	item_state = "alien_mender"
+	icon = 'icons/obj/abductor.dmi'
+	emagged = TRUE
+	ignore_flags = TRUE
+	var/base_icon = "alien_mender_brute"
+
+/obj/item/reagent_containers/applicator/abductor/update_icon()
+	var/reag_pct = round((reagents.total_volume / volume) * 100)
+
+	switch(reag_pct)
+		if(51 to 100)
+			icon_state = "[base_icon]_full[applying ? "_active" : ""]"
+		if(1 to 50)
+			icon_state = "[base_icon][applying ? "_active" : ""]"
+		if(0)
+			icon_state = "alien_mender_empty"
+
+/obj/item/reagent_containers/applicator/abductor/brute
+	name = "alien brute mender"
+	base_icon = "alien_mender_brute"
+	list_reagents = list("styptic_powder" = 200)
+
+/obj/item/reagent_containers/applicator/abductor/burn
+	name = "alien burn mender"
+	base_icon = "alien_mender_burn"
+	list_reagents = list("silver_sulfadiazine" = 200)
+
+/obj/item/reagent_containers/glass/bottle/abductor
+	name = "alien bottle"
+	desc = "A durable bottle, made from alien alloy"
+	icon = 'icons/obj/abductor.dmi'
+	origin_tech = "materials=4"
+	icon_state = "alien_bottle"
+	item_state = "alien_bottle"
+	volume = 50
+
+/obj/item/reagent_containers/glass/bottle/abductor/rezadone
+	name = "rezadone bottle"
+	list_reagents = list("rezadone" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/epinephrine
+	name = "epinephrine bottle"
+	list_reagents = list("epinephrine" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/salgu
+	name = "saline-glucose solution bottle"
+	list_reagents = list("salglu_solution" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/oculine
+	name = "oculine bottle"
+	list_reagents = list("oculine" = 50)
+
+/obj/item/reagent_containers/glass/bottle/abductor/pen_acid
+	name = "pentetic acid bottle"
+	list_reagents = list("pen_acid" = 50)
+
+/obj/item/healthanalyzer/abductor
+	name = "alien health analyzer"
+	icon = 'icons/obj/abductor.dmi'
+	origin_tech = "materials=4;biotech=4;abductor=2"
+	advanced = TRUE
+	icon_state = "alien_hscanner"
+	item_state = "alien_hscanner"
+	desc = "Why its interface looks so familiar?"
+
+/obj/item/storage/firstaid_abductor
+	name = "alien medkit"
+	desc = "Kit that contains some advanced alien medicine. Keep it away from alien-kids"
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "alien_medkit"
+	item_state = "alien_medkit"
+	throw_speed = 2
+	throw_range = 8
+
+/obj/item/storage/firstaid_abductor/populate_contents()
+	new /obj/item/reagent_containers/applicator/abductor/brute(src)
+	new /obj/item/reagent_containers/applicator/abductor/burn(src)
+	new /obj/item/reagent_containers/glass/bottle/abductor/rezadone(src)
+	new /obj/item/reagent_containers/glass/bottle/abductor/epinephrine(src)
+	new /obj/item/reagent_containers/glass/bottle/abductor/salgu(src)
+	new /obj/item/reagent_containers/glass/bottle/abductor/oculine(src)
+	new /obj/item/reagent_containers/glass/bottle/abductor/pen_acid(src)
+
+/obj/item/clothing/gloves/abductor_agent
+	desc = "These gloves seems to protect the wearer from electric shock."
+	name = "high-tech insulated gloves"
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "gloves_agent"
+	item_state = "abductor_gloves_agent"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
+	resistance_flags = NONE
+
+/obj/item/clothing/gloves/abductor_science
+	name = "high-tech science gloves"
+	desc = "High-tech sterile gloves that are stronger than latex."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "gloves_science"
+	item_state = "abductor_gloves_science"
+	siemens_coefficient = 0.30
+	permeability_coefficient = 0.01
+	resistance_flags = NONE

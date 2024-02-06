@@ -3,7 +3,7 @@
 	//The name of the job
 	var/title = "NOPE"
 
-	//Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
+	//Job access. The use of minimal_access or access is determined by a config setting: CONFIG_GET(flag/jobs_have_minimal_access)
 	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
 	var/list/access = list()				//Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
 
@@ -17,6 +17,10 @@
 
 	//How many players can spawn in as this job
 	var/spawn_positions = 0
+
+	//Position count override from config/jobs.txt and jobs_highpop.txt
+	var/positions_lowpop = null
+	var/positions_highpop = null
 
 	//How many players have this job
 	var/current_positions = 0
@@ -42,12 +46,15 @@
 	var/is_medical
 	var/is_science
 	var/is_security
+	var/is_novice
 
 	//If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
 	var/minimal_player_age = 0
 
 	var/exp_requirements = 0
 	var/exp_type = ""
+	var/exp_max = 0	//Max EXP, then hide
+	var/exp_type_max = ""
 
 	var/min_age_allowed = 0
 	var/disabilities_allowed = 1
@@ -57,6 +64,9 @@
 	var/admin_only = 0
 	var/spawn_ert = 0
 	var/syndicate_command = 0
+
+	var/money_factor = 1 // multiplier of starting funds
+	var/random_money_factor = FALSE // is miltiplier randomized (from 4x to 0.25x for now)
 
 	var/outfit = null
 
@@ -89,7 +99,7 @@
 	if(!config)	//Needed for robots.
 		return src.minimal_access.Copy()
 
-	if(config.jobs_have_minimal_access)
+	if(CONFIG_GET(flag/jobs_have_minimal_access))
 		return src.minimal_access.Copy()
 	else
 		return src.access.Copy()
@@ -104,7 +114,7 @@
 /datum/job/proc/available_in_days(client/C)
 	if(!C)
 		return 0
-	if(!config.use_age_restriction_for_jobs)
+	if(!CONFIG_GET(flag/use_age_restriction_for_jobs))
 		return 0
 	if(!isnum(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
@@ -193,8 +203,17 @@
 				if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
 					permitted = FALSE
 
+				if(H.client.donator_level < G?.donator_tier)
+					permitted = FALSE
+
 				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [gear]!</span>")
+					to_chat(H, "<span class='warning'>Your current job, donator tier or whitelist status does not permit you to spawn with [gear]!</span>")
+					continue
+
+				if(G.implantable) //only works for organ-implants
+					var/obj/item/organ/internal/I = new G.path
+					I.insert(H)
+					to_chat(H, span_notice("Implanting you with [gear]!"))
 					continue
 
 				if(G.slot)
@@ -217,21 +236,15 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.loadout_gear[G.display_name]))
-			if(istype(placed_in))
-				if(isturf(placed_in))
-					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
-				else
-					to_chat(H, "<span class='notice'>Placing [G.display_name] in [placed_in.name].</span>")
-				continue
-			if(H.equip_to_appropriate_slot(G))
+			var/obj/item/placed_in = G.spawn_item(get_turf(H), H.client.prefs.loadout_gear[G.display_name])
+			if(placed_in.equip_to_best_slot(H))
 				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
 				continue
-			if(H.put_in_hands(G))
+			if(H.put_in_hands(placed_in))
 				to_chat(H, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
 				continue
 			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
-			qdel(G)
+			qdel(placed_in)
 
 		qdel(gear_leftovers)
 
@@ -271,6 +284,13 @@
 		PDA.ownrank = C.rank
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
+/datum/outfit/job/proc/get_chameleon_disguise_info()
+	var/on_back = (allow_backbag_choice) ? backpack : back
+	var/list/types = list(uniform, suit, on_back, belt, gloves, shoes, head, mask, neck, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
+	types += chameleon_extras
+	listclearnulls(types)
+	return types
+
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
 	if(!transfer_allowed)
 		return FALSE
@@ -279,3 +299,15 @@
 	if(!istype(player))
 		return FALSE
 	return is_job_whitelisted(player, title)
+
+
+/datum/job/proc/can_novice_play(client/C)
+	if(!is_novice)
+		return TRUE
+	if(exp_max && exp_type_max)
+		var/list/play_records = params2list(C.prefs.exp)
+		var/job_exp = text2num(play_records[exp_type_max])
+		var/job_requirement = text2num(exp_max)
+		if(job_exp >= job_requirement)
+			return FALSE
+	return TRUE

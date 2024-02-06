@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/portable_atmospherics/canister
 	name = "canister"
-	icon = 'icons/obj/atmos.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "yellow"
 	density = 1
 	flags = CONDUCT
@@ -68,7 +68,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	volume = 1000
 	use_power = NO_POWER_USE
 	interact_offline = 1
-	var/release_log = ""
 	var/update_flag = 0
 
 /obj/machinery/portable_atmospherics/canister/New()
@@ -141,7 +140,7 @@ update_flag
 (note: colors has to be applied every icon update)
 */
 
-	if(destroyed)
+	if(stat & BROKEN)
 		overlays = 0
 		icon_state = text("[]-1", canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 		return
@@ -214,7 +213,7 @@ update_flag
 		holding = null
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
-	if(destroyed)
+	if(stat & BROKEN)
 		return
 
 	..()
@@ -250,9 +249,6 @@ update_flag
 	else
 		can_label = 0
 
-	updateDialog()
-	return
-
 /obj/machinery/portable_atmospherics/canister/return_air()
 	return air_contents
 
@@ -274,18 +270,21 @@ update_flag
 		if(close_valve)
 			valve_open = FALSE
 			update_icon()
-			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", "atmos")
+			investigate_log("Valve was <b>closed</b> by [key_name_log(user)].", INVESTIGATE_ATMOS)
 		else if(valve_open && holding)
-			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
+			investigate_log("[key_name_log(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
-	add_hiddenprint(user)
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user)
 	return ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
+	if(..())
+		return TRUE
+
+	add_fingerprint(user)
 	return ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
@@ -328,7 +327,7 @@ update_flag
 					else
 						name = "canister"
 				else
-					to_chat(usr, "<span class='warning'>As you attempted to rename it the pressure rose!</span>")
+					to_chat(usr, span_warning("As you attempted to rename it the pressure rose!"))
 					. = FALSE
 		if("pressure")
 			var/pressure = params["pressure"]
@@ -346,29 +345,28 @@ update_flag
 				pressure = text2num(pressure)
 			if(.)
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
-				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", "atmos")
+				investigate_log("was set to [release_pressure] kPa by [key_name_log(usr)].", INVESTIGATE_ATMOS)
 		if("valve")
 			var/logmsg
 			valve_open = !valve_open
 			if(valve_open)
-				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the [holding || "air"].<br>"
+				logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into [holding || "air"]."
 				if(!holding)
-					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the air.<br>"
+					logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into the air."
 					if(air_contents.toxins > 0)
-						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
+						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [ADMIN_VERBOSEJMP(src)]!")
+						log_admin("[key_name(usr)] opened a canister that contains plasma at [AREACOORD(src)]")
 					if(air_contents.sleeping_agent > 0)
-						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
+						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [ADMIN_VERBOSEJMP(src)]!")
+						log_admin("[key_name(usr)] opened a canister that contains N2O at [AREACOORD(src)]")
 			else
-				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding || "air"].<br>"
-			investigate_log(logmsg, "atmos")
-			release_log += logmsg
+				logmsg = "Valve was <b>closed</b> by [key_name_log(usr)], stopping the transfer into the [holding || "air"]."
+			investigate_log(logmsg, INVESTIGATE_ATMOS)
 		if("eject")
 			if(holding)
 				if(valve_open)
 					valve_open = FALSE
-					release_log += "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
+					investigate_log("Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]", INVESTIGATE_ATMOS)
 				replace_tank(usr, FALSE)
 		if("recolor")
 			if(can_label)
@@ -486,6 +484,6 @@ update_flag
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You salvage whats left of [src]!</span>")
+		to_chat(user, span_notice("You salvage whats left of [src]!"))
 		new /obj/item/stack/sheet/metal(drop_location(), 3)
 		qdel(src)

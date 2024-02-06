@@ -11,53 +11,46 @@
 		new /obj/item/storage/backpack(src)
 	else
 		new /obj/item/storage/backpack/satchel_norm(src)
-	new /obj/item/radio/headset( src )
-
+	new /obj/item/radio/headset(src)
 
 /obj/structure/closet/secure_closet/personal/patient
 	name = "patient's closet"
 
 /obj/structure/closet/secure_closet/personal/patient/populate_contents()
-	new /obj/item/clothing/under/color/white( src )
-	new /obj/item/clothing/shoes/white( src )
+	new /obj/item/clothing/under/color/white(src)
+	new /obj/item/clothing/shoes/white(src)
 
+/obj/structure/closet/secure_closet/personal/mining
+	name = "personal miner's locker"
 
+/obj/structure/closet/secure_closet/personal/mining/populate_contents()
+	new /obj/item/stack/sheet/cardboard(src)
 
 /obj/structure/closet/secure_closet/personal/cabinet
-	icon_state = "cabinetdetective_locked"
-	icon_closed = "cabinetdetective"
-	icon_locked = "cabinetdetective_locked"
-	icon_opened = "cabinetdetective_open"
-	icon_broken = "cabinetdetective_broken"
-	icon_off = "cabinetdetective_broken"
+	icon_state = "cabinetdetective"
+	overlay_locked = "c_locked"
+	overlay_locker = "c_locker"
+	overlay_unlocked = "c_unlocked"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-
-/obj/structure/closet/secure_closet/personal/cabinet/update_icon()
-	if(broken)
-		icon_state = icon_broken
-	else
-		if(!opened)
-			if(locked)
-				icon_state = icon_locked
-			else
-				icon_state = icon_closed
-		else
-			icon_state = icon_opened
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	open_sound_volume = 25
+	close_sound_volume = 50
 
 /obj/structure/closet/secure_closet/personal/cabinet/populate_contents()
-	new /obj/item/storage/backpack/satchel/withwallet( src )
-	new /obj/item/radio/headset( src )
+	new /obj/item/storage/backpack/satchel/withwallet(src)
+	new /obj/item/radio/headset(src)
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/W, mob/user, params)
-	if(opened || !istype(W, /obj/item/card/id))
+	if(opened || !W.GetID())
 		return ..()
 
 	if(broken)
 		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
 		return
 
-	var/obj/item/card/id/I = W
+	var/obj/item/card/id/I = W.GetID()
 	if(!I || !I.registered_name)
 		return
 
@@ -67,13 +60,11 @@
 	else if(allowed(user) || !registered_name || (istype(I) && (registered_name == I.registered_name)))
 		//they can open all lockers, or nobody owns this, or they own this locker
 		locked = !locked
-		if(locked)
-			icon_state = icon_locked
-		else
-			icon_state = icon_closed
+		if(!locked)
 			registered_name = null
 			desc = initial(desc)
 
+		update_icon()
 		if(!registered_name && locked)
 			registered_name = I.registered_name
 			desc = "Owned by [I.registered_name]."

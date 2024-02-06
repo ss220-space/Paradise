@@ -3,6 +3,10 @@
 	sort_category = "Donor"
 	subtype_path = /datum/gear/donor
 
+/datum/gear/donor/kittyears
+	display_name = "Kitty ears"
+	path = /obj/item/clothing/head/kitty
+
 /datum/gear/donor/furgloves
 	display_name = "Fur Gloves"
 	path = /obj/item/clothing/gloves/furgloves
@@ -17,7 +21,7 @@
 
 /datum/gear/donor/furcape
 	display_name = "Fur Cape"
-	path = /obj/item/clothing/suit/furcape
+	path = /obj/item/clothing/neck/cloak/furcape
 
 /datum/gear/donor/furcoat
 	display_name = "Fur Coat"
@@ -69,28 +73,34 @@
 
 /datum/gear/donor/fawkes
 	display_name = "Guy Fawkes mask"
-	path = /obj/item/clothing/mask/fawkes
+	path = /obj/item/clothing/mask/face/fawkes
 
 /datum/gear/donor/id_decal_silver
 	display_name = "Silver ID Decal"
 	path = /obj/item/id_decal/silver
 	donator_tier = 3
-	cost = 2
+	cost = 1
 
 /datum/gear/donor/id_decal_prisoner
 	display_name = "Prisoner ID Decal"
 	path = /obj/item/id_decal/prisoner
 	donator_tier = 3
-	cost = 2
+	cost = 1
 
 /datum/gear/donor/id_decal_emag
 	display_name = "Emag ID Decal"
 	path = /obj/item/id_decal/emag
 	donator_tier = 3
-	cost = 2
+	cost = 1
 
 /datum/gear/donor/id_decal_gold
 	display_name = "Gold ID Decal"
 	path = /obj/item/id_decal/gold
 	donator_tier = 4
-	cost = 4
+	cost = 1
+
+/datum/gear/donor/zippolghtr
+	display_name = "Zippo lighter"
+	path = /obj/item/lighter/zippo
+	donator_tier = 1
+	cost = 1

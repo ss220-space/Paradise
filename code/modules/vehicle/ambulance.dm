@@ -2,6 +2,7 @@
 	name = "ambulance"
 	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
+	vehicle_move_delay = 1.5
 	key_type = /obj/item/key/ambulance
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
@@ -14,14 +15,14 @@
 
 /datum/action/ambulance_alarm
 	name = "Toggle Sirens"
-	icon_icon = 'icons/obj/vehicles.dmi'
+	icon_icon = 'icons/obj/vehicles/vehicles.dmi'
 	button_icon_state = "docwagon2"
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
 	var/toggle_cooldown = 40
 	var/cooldown = 0
 
 
-/datum/action/ambulance_alarm/Trigger()
+/datum/action/ambulance_alarm/Trigger(left_click = TRUE)
 	if(!..())
 		return FALSE
 
@@ -102,9 +103,10 @@
 
 /obj/structure/bed/amb_trolley
 	name = "ambulance train trolley"
-	icon = 'icons/vehicles/CargoTrain.dmi'
+	icon = 'icons/obj/vehicles/CargoTrain.dmi'
 	icon_state = "ambulance"
 	anchored = FALSE
+	pull_push_speed_modifier = 1
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()

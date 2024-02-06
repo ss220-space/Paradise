@@ -1,4 +1,4 @@
-#define SYNDICATE_CHALLENGE_TIMER 12000 //20 minutes
+#define SYNDICATE_CHALLENGE_TIMER 13 MINUTES
 
 /obj/machinery/computer/shuttle/syndicate
 	name = "syndicate shuttle terminal"
@@ -20,14 +20,14 @@
 
 /obj/machinery/computer/shuttle/syndicate/can_call_shuttle(user, action)
 	if(action == "move")
-		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
-			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
+		if(challenge && (world.time - SSticker.round_start_time) < SYNDICATE_CHALLENGE_TIMER)
+			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - (world.time - SSticker.round_start_time)) / 10) / 60)] more minutes to allow them to prepare.</span>")
 			return FALSE
 	return TRUE
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod
 	name = "syndicate assault pod control"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "dorm_available"
 	req_access = list(ACCESS_SYNDICATE)
 	circuit = /obj/item/circuitboard/shuttle/syndicate/drop_pod
@@ -49,7 +49,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	shuttleId = "sst"
-	possible_destinations = "sst_home;sst_away;sst_custom"
+	possible_destinations = "sst_home;sst_away;sst_custom;sst_taipan"
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/sit
@@ -60,7 +60,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
+	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom;sit_taipan"
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
@@ -76,6 +76,12 @@
 	y_offset = -1
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE
+	access_station = TRUE 		//can we park near station?
+	access_admin_zone = FALSE	//can we park on Admin z_lvls?
+	access_mining = FALSE		//can we park on Lavaland z_lvl?
+	access_taipan = FALSE 		//can we park on Taipan z_lvl?
+	access_away = FALSE 		//can we park on Away_Mission z_lvl?
+	access_derelict = FALSE		//can we park in Unexplored Space?
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst
 	name = "SST shuttle navigation computer"
@@ -86,6 +92,7 @@
 	view_range = 13
 	x_offset = 0
 	y_offset = 0
+	access_taipan = TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit
 	name = "SIT shuttle navigation computer"
@@ -96,5 +103,6 @@
 	view_range = 13
 	x_offset = 0
 	y_offset = 0
+	access_taipan = TRUE
 
 #undef SYNDICATE_CHALLENGE_TIMER

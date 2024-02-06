@@ -35,16 +35,18 @@
 	if(busy) //So that you can't mess with it while deconstructing
 		return TRUE
 	if(is_type_in_list(O, allowed_books))
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(O, src))
 			return
-		O.forceMove(src)
+		add_fingerprint(user)
 		update_icon()
 		return TRUE
 	else if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
 			if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook) || istype(T, /obj/item/tome) || istype(T, /obj/item/storage/bible))
+				T.add_fingerprint(user)
 				B.remove_from_storage(T, src)
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
 		return TRUE
@@ -54,7 +56,7 @@
 		playsound(get_turf(src), O.usesound, 50, 1)
 		busy = TRUE
 
-		if(do_after(user, 50 * O.toolspeed, target = src))
+		if(do_after(user, 50 * O.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(get_turf(src), O.usesound, 75, 1)
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
 			"<span class='notice'>You disassemble \the [src].</span>")
@@ -65,6 +67,7 @@
 			busy = FALSE
 		return TRUE
 	else if(istype(O, /obj/item/pen))
+		add_fingerprint(user)
 		rename_interactive(user, O)
 		return TRUE
 	else
@@ -72,12 +75,14 @@
 
 /obj/structure/bookcase/attack_hand(var/mob/user as mob)
 	if(contents.len)
-		var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
+		var/obj/item/book/choice = tgui_input_list(user, "Which book would you like to remove from [src]?", "Bookcase", contents)
 		if(choice)
 			if(user.incapacitated() || user.lying || !Adjacent(user))
 				return
+			add_fingerprint(user)
 			if(!user.get_active_hand())
-				user.put_in_hands(choice)
+				choice.forceMove_turf()
+				user.put_in_hands(choice, ignore_anim = FALSE)
 			else
 				choice.forceMove(get_turf(src))
 			update_icon()
@@ -94,7 +99,6 @@
 		icon_state = "book-[contents.len]"
 	else
 		icon_state = "book-5"
-
 
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
@@ -140,6 +144,8 @@
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("bashed", "whacked")
 	resistance_flags = FLAMMABLE
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 
 	var/dat			 // Actual page content
 	var/due_date = 0 // Game time in 1/10th seconds
@@ -151,6 +157,16 @@
 	var/obj/item/store	// What's in the book?
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
 	var/has_drm = FALSE
+
+/obj/item/book/examine(mob/user)
+	. = ..()
+	if(user.is_literate())
+		if(in_range(user, src) || istype(user, /mob/dead/observer))
+			attack_self(user)
+		else
+			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+	else
+		. += "<span class='notice'>You don't know how to read.</span>"
 
 /obj/item/book/attack_self(var/mob/user as mob)
 	if(carved)
@@ -174,7 +190,7 @@
 	if(carved)
 		if(!store)
 			if(W.w_class < WEIGHT_CLASS_NORMAL)
-				user.drop_item()
+				user.drop_from_active_hand()
 				W.forceMove(src)
 				store = W
 				to_chat(user, "<span class='notice'>You put [W] in [title].</span>")
@@ -189,7 +205,7 @@
 		if(unique)
 			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
 			return 1
-		var/choice = input("What would you like to change?") in list("Title", "Contents", "Author", "Cancel")
+		var/choice = tgui_input_list(user, "What would you like to change?", "Book Edit", list("Title", "Contents", "Author", "Cancel"))
 		switch(choice)
 			if("Title")
 				var/newtitle = reject_bad_text(stripped_input(usr, "Write a new title:"))

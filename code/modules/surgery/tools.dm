@@ -3,6 +3,7 @@
 	desc = "Retracts stuff."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
+	item_state = "retractor"
 	materials = list(MAT_METAL=6000, MAT_GLASS=3000)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
@@ -18,6 +19,7 @@
 	desc = "You think you have seen this before."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
+	item_state = "hemostat"
 	materials = list(MAT_METAL=5000, MAT_GLASS=2500)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
@@ -33,6 +35,7 @@
 	desc = "This stops bleeding."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
+	item_state = "cautery"
 	materials = list(MAT_METAL=2500, MAT_GLASS=750)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
@@ -48,6 +51,7 @@
 	desc = "You can drill using this item. You dig?"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "drill"
+	item_state = "drills"
 	hitsound = 'sound/weapons/drill.ogg'
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	flags = CONDUCT
@@ -82,6 +86,8 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
+	embed_chance = 10
+	embedded_ignore_throwspeed_threshold = TRUE
 	materials = list(MAT_METAL=4000, MAT_GLASS=1000)
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -138,7 +144,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "saw3"
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	throwhitsound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound =  'sound/weapons/pierce.ogg'
 	flags = CONDUCT
 	force = 15.0
 	sharp = 1
@@ -146,6 +152,8 @@
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
+	embed_chance = 20
+	embedded_ignore_throwspeed_threshold = TRUE
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
@@ -161,6 +169,7 @@
 	name = "bone gel"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
+	item_state = "bone-gel"
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
@@ -173,6 +182,7 @@
 	name = "FixOVein"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "fixovein"
+	item_state = "fixovein"
 	force = 0
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
@@ -185,6 +195,7 @@
 	name = "bone setter"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone setter"
+	item_state = "bone setter"
 	force = 8.0
 	throwforce = 9.0
 	throw_speed = 3

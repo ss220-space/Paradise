@@ -7,7 +7,7 @@
 /obj/machinery/poolcontroller
 	name = "Pool Controller"
 	desc = "A controller for the nearby pool."
-	icon = 'icons/obj/airlock_machines.dmi'
+	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
 	anchored = 1 //this is what I get for assuming /obj/machinery has anchored set to 1 by default
 	var/list/linkedturfs = list() //List contains all of the linked pool turfs to this controller, assignment happens on New()
@@ -39,8 +39,8 @@
 			var/turf/simulated/floor/beach/water/W = T
 			W.linkedcontroller = src
 			linkedturfs += T
-		else if(istype(T, /turf/unsimulated/beach/water))
-			var/turf/unsimulated/beach/water/W = T
+		else if(istype(T, /turf/simulated/floor/indestructible/beach/water))
+			var/turf/simulated/floor/indestructible/beach/water/W = T
 			W.linkedcontroller = src
 			linkedturfs += T
 
@@ -52,7 +52,8 @@
 
 /obj/machinery/poolcontroller/emag_act(user as mob) //Emag_act, this is called when it is hit with a cryptographic sequencer.
 	if(!emagged) //If it is not already emagged, emag it.
-		to_chat(user, "<span class='warning'>You disable \the [src]'s temperature safeguards.</span>")//Inform the mob of what emagging does.
+		if(user)
+			to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
 
 		emagged = 1 //Set the emag var to true.
 
@@ -61,12 +62,13 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(emagged) //Check the emag status
-		to_chat(user, "<span class='warning'>You re-enable [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
+		to_chat(user, span_warning("You re-enable [src]'s temperature safeguards."))//Inform the user that they have just fixed the safeguards.
 		emagged = FALSE //Set the emagged var to false.
 	else
-		to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
+		to_chat(user, span_warning("Nothing happens."))//If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
 /obj/machinery/poolcontroller/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/poolcontroller/process()
@@ -76,12 +78,15 @@
 /obj/machinery/poolcontroller/proc/processMob()
 	for(var/M in mobinpool) //They're already typecasted when entering the turf
 		// Following two are sanity check. If the mob is no longer in the pool for whatever reason (Looking at you teleport), remove them
-		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/unsimulated/beach/water)) // Water component when?
+		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/simulated/floor/indestructible/beach/water)) // Water component when?
 			mobinpool -= M
 			continue
 		handleTemp(M)	//handles pool temp effects on the swimmers
 		if(ishuman(M)) //Only human types will drown, to keep things simple for non-human mobs that live in the water
 			handleDrowning(M)
+		if(isliving(M))
+			var/mob/living/mob = M
+			mob.ExtinguishMob()
 
 /obj/machinery/poolcontroller/proc/cleanPool()
 	for(var/obj/effect/decal/cleanable/decal in decalinpool)		//Cleans up cleanable decals like blood and such
@@ -95,18 +100,18 @@
 	M.water_act(100, temperature, src)//leave temp at 0, we handle it in the switch. oh wait
 	switch(temperature) //Apply different effects based on what the temperature is set to.
 		if(SCALDING) //Burn the mob.
-			to_chat(M, "<span class='danger'>The water is searing hot!</span>")
+			to_chat(M, span_danger("The water is searing hot!"))
 
 		if(WARM) //Warm the mob.
 			if(prob(5)) //inform the mob of warm water occasionally
-				to_chat(M, "<span class='warning'>The water is quite warm.</span>")//Inform the mob it's warm water.
+				to_chat(M, span_warning("The water is quite warm."))//Inform the mob it's warm water.
 
 		if(COOL) //Cool the mob.
 			if(prob(5)) //inform the mob of cold water occasionally
-				to_chat(M, "<span class='warning'>The water is chilly.</span>")//Inform the mob it's chilly water.
+				to_chat(M, span_warning("The water is chilly."))//Inform the mob it's chilly water.
 
 		if(FRIGID) //YOU'RE AS COLD AS ICE
-			to_chat(M, "<span class='danger'>The water is freezing!</span>")
+			to_chat(M, span_danger("The water is freezing!"))
 
 /obj/machinery/poolcontroller/proc/handleDrowning(var/mob/living/carbon/human/drownee)
 	if(!drownee)
@@ -122,17 +127,17 @@
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more
 			return
-		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
+		if(drownee.AmountLoseBreath() > 40 SECONDS)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
-		add_attack_logs(src, drownee, "Drowned", isLivingSSD(drownee) ? null : ATKLOG_ALL)
+		add_attack_logs(src, drownee, "Drowned")
 		if(drownee.stat) //Mob is in critical.
-			drownee.AdjustLoseBreath(3, bound_lower = 0, bound_upper = 20)
-			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.
+			drownee.AdjustLoseBreath(6 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
+			drownee.visible_message(span_danger("\The [drownee] appears to be drowning!"),span_userdanger("You're quickly drowning!")) //inform them that they are fucked.
 		else
-			drownee.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 20)		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
+			drownee.AdjustLoseBreath(4 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
 			if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
-				drownee.visible_message("<span class='danger'>\The [drownee] flails, almost like [drownee.p_they()] [drownee.p_are()] drowning!</span>","<span class='userdanger'>You're lacking air!</span>") //*gasp* *gasp* *gasp* *gasp* *gasp*
+				drownee.visible_message(span_danger("\The [drownee] flails, almost like [drownee.p_they()] [drownee.p_are()] drowning!"),span_userdanger("You're lacking air!")) //*gasp* *gasp* *gasp* *gasp* *gasp*
 
 
 

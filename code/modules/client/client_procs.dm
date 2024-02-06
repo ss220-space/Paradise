@@ -6,10 +6,10 @@
 
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
+#define MIN_CLIENT_VERSION	514		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD	1536		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION	514		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD	1568		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -77,7 +77,7 @@
 			if (minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				topiclimiter[ADMINSWARNED_AT] = minute
 				msg += " Administrators have been informed."
-				log_game("[key_name(src)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
+				add_game_logs("has hit the per-minute topic limit of [mtl] topic calls in a given game minute", src)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
 			to_chat(src, "<span class='danger'>[msg]</span>")
 			return
@@ -120,13 +120,12 @@
 		return
 
 
-
 	//Logs all hrefs
-	if(config && config.log_hrefs)
+	if(config && CONFIG_GET(flag/log_hrefs))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	if(href_list["karmashop"])
-		if(config.disable_karma)
+		if(CONFIG_GET(flag/disable_karma))
 			return
 
 		switch(href_list["karmashop"])
@@ -174,6 +173,8 @@
 							karma_purchase(karma,45,"species","Plasmaman")
 						if("7")
 							karma_purchase(karma,30,"species","Drask")
+						if("8")
+							karma_purchase(karma,30,"species","Nian")
 					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
@@ -190,15 +191,39 @@
 
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
-		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
+		to_chat(src, span_notice("SSD warning acknowledged."))
+		return	//Otherwise, we will get 30+ messages of acknowledgement.
 	if(href_list["link_forum_account"])
 		link_forum_account()
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
+
+	if(href_list["__keydown"])
+		var/keycode = href_list["__keydown"]
+		if(keycode)
+			KeyDown(keycode)
+		return
+
+	if(href_list["__keyup"])
+		var/keycode = href_list["__keyup"]
+		if(keycode)
+			KeyUp(keycode)
+		return
+
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
 
+	//fun fact: Topic() acts like a verb and is executed at the end of the tick like other verbs. So we have to queue it if the server is
+	//overloaded
+	if(hsrc && hsrc != holder && DEFAULT_TRY_QUEUE_VERB(VERB_CALLBACK(src, PROC_REF(_Topic), hsrc, href, href_list)))
+		return
+
 	..()	//redirect to hsrc.Topic()
+
+///dumb workaround because byond doesnt seem to recognize the Topic() typepath for /datum/proc/Topic() from the client Topic,
+///so we cant queue it without this
+/client/proc/_Topic(datum/hsrc, href, list/href_list)
+	return hsrc.Topic(href, href_list)
 
 /client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)
@@ -217,7 +242,7 @@
 			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
 			return 1
 		last_message_time = world.time
-	if(config.automute_on && !check_rights(R_ADMIN, 0) && last_message == message)
+	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
@@ -258,7 +283,7 @@
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
-	if(byond_build < config.minimum_client_build)
+	if(byond_build < CONFIG_GET(number/minimum_client_build))
 		version_blocked = TRUE
 
 	var/show_update_prompt = FALSE
@@ -273,7 +298,7 @@
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
-	if(!config.disable_localhost_admin)
+	if(!CONFIG_GET(flag/disable_localhost_admin))
 		if(is_connecting_from_localhost())
 			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 	holder = GLOB.admin_datums[ckey]
@@ -288,13 +313,19 @@
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
+
+
+	// Setup widescreen
+	view = prefs.viewrange
+
+	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
 		fps = prefs.clientfps
 
 	if(world.byond_version >= 511 && byond_version >= 511 && !prefs.clientfps)
-		fps = config.clientfps
+		fps = CONFIG_GET(number/clientfps)
 
 	// Check if the client has or has not accepted TOS
 	check_tos_consent()
@@ -316,7 +347,7 @@
 		on_holder_add()
 		add_admin_verbs()
 		// Must be async because any sleeps (happen in sql queries) will break connectings clients
-		INVOKE_ASYNC(src, .proc/admin_memo_output, "Show", FALSE, TRUE)
+		INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
@@ -325,6 +356,13 @@
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
+	// Try doing this before mob login
+	generate_clickcatcher()
+	apply_clickcatcher()
+
+	connection_time = world.time
+	connection_realtime = world.realtime
+	connection_timeofday = world.timeofday
 	log_client_to_db(tdata)
 	. = ..()	//calls mob.Login()
 
@@ -343,18 +381,16 @@
 
 	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
 		activate_darkmode()
-	else
-		// activate_darkmode() calls the CL update button proc, so we dont want it double called
-		SSchangelog.UpdatePlayerChangelogButton(src)
 
+	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
+		to_chat(src, span_info("You have unread updates in the changelog."))
+		winset(src, "rpane.changelog", "font-style=bold")
 
 	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
 		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
 	else
 		to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
-	generate_clickcatcher()
-	apply_clickcatcher()
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -370,8 +406,12 @@
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
+	update_ambience_pref()
+
 	if(!geoip)
 		geoip = new(src, address)
+
+	url = winget(src, null, "url")
 
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
@@ -386,7 +426,7 @@
 			playercount += 1
 
 	// Update the state of the panic bunker based on current playercount
-	var/threshold = config.panic_bunker_threshold
+	var/threshold = CONFIG_GET(number/panic_bunker_threshold)
 
 	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
 		GLOB.panic_bunker_enabled = TRUE
@@ -412,6 +452,7 @@
 	return ..()
 
 /client/Destroy()
+	SSdebugview.stop_processing(src)
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -420,6 +461,9 @@
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+	SSambience.ambience_listening_clients -= src
+	SSinput.processing -= src
+	SSping.currentrun -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
@@ -439,28 +483,51 @@
 		return
 
 	//Donator stuff.
-	var/datum/db_query/query_donor_select = SSdbcore.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey=:ckey", list(
-		"ckey" = ckey
-	))
+	var/datum/db_query/query_donor_select = SSdbcore.NewQuery({"
+		SELECT CAST(SUM(amount) as UNSIGNED INTEGER) FROM [CONFIG_GET(string/utility_database)].[format_table_name("budget")]
+		WHERE ckey=:ckey
+			AND is_valid=true
+			AND date_start <= NOW()
+			AND (NOW() < date_end OR date_end IS NULL)
+		GROUP BY ckey
+	"}, list("ckey" = ckey))
 
 	if(!query_donor_select.warn_execute())
 		qdel(query_donor_select)
 		return
 
-	while(query_donor_select.NextRow())
-		if(!text2num(query_donor_select.item[3]))
-			// Inactive donator.
-			donator_level = 0
-			qdel(query_donor_select)
-			return
-		donator_level = text2num(query_donor_select.item[2])
+	if(query_donor_select.NextRow())
+		var/total = query_donor_select.item[1]
+		if(total >= 100)
+			donator_level = 1
+		if(total >= 300)
+			donator_level = 2
+		if(total >= 500)
+			donator_level = 3
+		if(total >= 1000)
+			donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
-		break
 	qdel(query_donor_select)
 
 /client/proc/donor_loadout_points()
 	if(donator_level > 0 && prefs)
-		prefs.max_gear_slots = config.max_loadout_points + 5
+		prefs.max_gear_slots = CONFIG_GET(number/max_loadout_points) + 15
+
+/client/proc/send_to_server_by_url(url)
+	if (!url)
+		return
+	src << browse({"
+            <a id='link' href='[url]'>
+                LINK
+            </a>
+            <script type='text/javascript'>
+                document.getElementById("link").click();
+                window.location="byond://winset?command=.quit"
+            </script>
+            "},
+            "border=0;titlebar=0;size=1x1"
+        )
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -528,7 +595,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
@@ -539,10 +606,38 @@
 		if(!isnum(sql_id))
 			return
 
+	var/is_tutorial_needed = FALSE
+
 	if(sql_id)
 		var/client_address = address
 		if(!client_address) // Localhost can sometimes have no address set
 			client_address = "127.0.0.1"
+
+		if(CONFIG_GET(string/tutorial_server_url))
+			var/datum/db_query/exp_read = SSdbcore.NewQuery(
+				"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
+				list("ckey" = ckey)
+			)
+			exp_read.warn_execute()
+
+			var/list/exp = list()
+			exp = params2list(exp_read.rows[1][1])
+			if(!exp[EXP_TYPE_BASE_TUTORIAL])
+				if(exp[EXP_TYPE_LIVING] && text2num(exp[EXP_TYPE_LIVING]) > 300)
+					exp[EXP_TYPE_BASE_TUTORIAL] = TRUE
+					var/datum/db_query/update_query = SSdbcore.NewQuery(
+						"UPDATE [format_table_name("player")] SET exp =:newexp WHERE ckey=:ckey",
+						list(
+							"newexp" = list2params(exp),
+							"ckey" = ckey
+						)
+					)
+					update_query.warn_execute()
+					qdel(update_query)
+				else
+					is_tutorial_needed = TRUE
+			qdel(exp_read)
+
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
 			"sql_ip" = client_address,
@@ -556,16 +651,18 @@
 			return
 		qdel(query_update)
 		// After the regular update
-		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 	else
 		//New player!! Need to insert all the stuff
 
 		// Check new peeps for panic bunker
 		if(GLOB.panic_bunker_enabled)
-			var/threshold = config.panic_bunker_threshold
+			var/threshold = CONFIG_GET(number/panic_bunker_threshold)
 			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
 			qdel(src)
 			return // Dont insert or they can just go in again
+
+		is_tutorial_needed = TRUE
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
@@ -579,7 +676,7 @@
 		qdel(query_insert)
 		// This is their first connection instance, so TRUE here to nofiy admins
 		// This needs to happen here to ensure they actually have a row to update
-		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
 	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(), :ckey, :ip, :cid)", list(
@@ -591,13 +688,15 @@
 	// If you ever extend this proc below this point, please wrap these with an if() in the same way its done above
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)
+	if(is_tutorial_needed)
+		send_to_server_by_url(CONFIG_GET(string/tutorial_server_url))
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
-	if(config.ipintel_email)
-		if(config.ipintel_maxplaytime && config.use_exp_tracking)
+	if(CONFIG_GET(string/ipintel_email))
+		if(CONFIG_GET(number/ipintel_maxplaytime) && CONFIG_GET(flag/use_exp_tracking))
 			var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
-			if(living_hours >= config.ipintel_maxplaytime)
+			if(living_hours >= CONFIG_GET(number/ipintel_maxplaytime))
 				return
 
 		if(is_connecting_from_localhost())
@@ -613,14 +712,14 @@
 		verify_ip_intel()
 
 /client/proc/verify_ip_intel()
-	if(ip_intel >= config.ipintel_rating_bad)
-		var/detailsurl = config.ipintel_detailsurl ? "(<a href='[config.ipintel_detailsurl][address]'>IP Info</a>)" : ""
-		if(config.ipintel_whitelist)
+	if(ip_intel >= CONFIG_GET(number/ipintel_rating_bad))
+		var/detailsurl = CONFIG_GET(string/ipintel_detailsurl) ? "(<a href='[CONFIG_GET(string/ipintel_detailsurl)][address]'>IP Info</a>)" : ""
+		if(CONFIG_GET(flag/ipintel_whitelist))
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
 				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
-				if(config.banappeals)
-					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [config.banappeals]"
+				if(CONFIG_GET(string/banappeals))
+					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [CONFIG_GET(string/banappeals)]"
 				to_chat(src, blockmsg)
 				qdel(src)
 		else
@@ -628,9 +727,9 @@
 
 
 /client/proc/check_forum_link()
-	if(!config.forum_link_url || !prefs || prefs.fuid)
+	if(!CONFIG_GET(string/forum_link_url) || !prefs || prefs.fuid)
 		return
-	if(config.use_exp_tracking)
+	if(CONFIG_GET(flag/use_exp_tracking))
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 		if(living_hours < 20)
 			return
@@ -664,7 +763,7 @@
 	return tokenstr
 
 /client/proc/link_forum_account(fromban)
-	if(!config.forum_link_url)
+	if(!CONFIG_GET(string/forum_link_url))
 		return
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.")
@@ -690,7 +789,7 @@
 	if(!tokenid)
 		to_chat(src, "link_forum_account: unable to create token")
 		return
-	var/url = "[config.forum_link_url][tokenid]"
+	var/url = "[CONFIG_GET(string/forum_link_url)][tokenid]"
 	if(fromban)
 		url += "&fwd=appeal"
 		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
@@ -710,7 +809,7 @@
 	if(connection != "seeker")					//Invalid connection type.
 		return null
 	topic = params2list(topic)
-	if(!config.check_randomizer)
+	if(!CONFIG_GET(flag/check_randomizer))
 		return
 	// Stash o' ckeys
 	var/static/cidcheck = list()
@@ -750,7 +849,7 @@
 	else
 		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
 			if (!cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] appears to have attempted to spoof a cid randomizer check.</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] appears to have attempted to spoof a cid randomizer check.</span>")
 				cidcheck_spoofckeys[ckey] = TRUE
 			cidcheck[ckey] = computer_id
 			tokens[ckey] = cid_check_reconnect()
@@ -767,7 +866,7 @@
 			to_chat(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>")
 
 			if(!cidcheck_failedckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
 				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
@@ -780,11 +879,11 @@
 			// don't shoot, I'm innocent
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
-				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
 				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
+				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
 				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
 
@@ -792,7 +891,7 @@
 	var/const/adminckey = "CID-Error"
 
 	// Check for notes in the last day - only 1 note per 24 hours
-	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY < NOW()", list(
+	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT id from [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:adminckey AND timestamp + INTERVAL 1 DAY < NOW()", list(
 		"ckey" = ckey,
 		"adminckey" = adminckey
 	))
@@ -805,7 +904,7 @@
 	qdel(query_get_notes)
 
 	// Only add a note if their most recent note isn't from the randomizer blocker, either
-	var/datum/db_query/query_get_note = SSdbcore.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey=:ckey ORDER BY timestamp DESC LIMIT 1", list(
+	var/datum/db_query/query_get_note = SSdbcore.NewQuery("SELECT adminckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE ckey=:ckey ORDER BY timestamp DESC LIMIT 1", list(
 		"ckey" = ckey
 	))
 	if(!query_get_note.warn_execute())
@@ -843,10 +942,10 @@
 //Send resources to the client.
 /client/proc/send_resources()
 	// Change the way they should download resources.
-	if(config.resource_urls)
-		preload_rsc = pick(config.resource_urls)
+	if(CONFIG_GET(str_list/resource_urls))
+		preload_rsc = pick(CONFIG_GET(str_list/resource_urls))
 	else
-		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
+		preload_rsc = 1 // If CONFIG_GET(str_list/resource_urls) is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(
 		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
@@ -877,7 +976,6 @@
 // IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
 /client/proc/activate_darkmode()
 	///// BUTTONS /////
-	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.fullscreenb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
@@ -886,6 +984,7 @@
 	winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
 	/* Mainwindow */
 	winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
@@ -910,7 +1009,6 @@
 
 /client/proc/deactivate_darkmode()
 	///// BUTTONS /////
-	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.fullscreenb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
@@ -919,6 +1017,7 @@
 	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
+	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
 	/* Mainwindow */
 	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
 	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
@@ -952,7 +1051,7 @@
 	void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/send_ssd_warning(mob/M)
-	if(!config.ssd_warning)
+	if(!CONFIG_GET(flag/ssd_warning))
 		return FALSE
 	if(ssd_warning_acknowledged)
 		return FALSE
@@ -985,26 +1084,43 @@
 
 	fit_viewport()
 
+
+// Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
+	set desc = "Fit the size of the map window to match the viewport."
 	set category = "OOC"
-	set desc = "Fit the width of the map window to match the viewport"
 
 	// Fetch aspect ratio
-	var/view_size = getviewsize(view)
+	var/list/view_size = getviewsize(view)
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
-	var/sizes = params2list(winget(src, "mainwindow.mainvsplit;mapwindow", "size"))
-	var/map_size = splittext(sizes["mapwindow.size"], "x")
+	var/list/sizes = params2list(winget(src, "mainwindow.mainvsplit;mapwindow", "size"))
+
+	// Client closed the window? Some other error? This is unexpected behaviour, let's CRASH with some info.
+	if(!sizes["mapwindow.size"])
+		CRASH("sizes does not contain mapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
+
+	var/list/map_size = splittext(sizes["mapwindow.size"], "x")
+
+	// Looks like we didn't expect mapwindow.size to be "ixj" where i and j are numbers.
+	// If we don't get our expected 2 outputs, let's give some useful error info.
+	if(length(map_size) != 2)
+		CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+
+
 	var/height = text2num(map_size[2])
 	var/desired_width = round(height * aspect_ratio)
-	if (text2num(map_size[1]) == desired_width)
-		// Nothing to do
+	if(text2num(map_size[1]) == desired_width)
+		// Nothing to do.
 		return
 
-	var/split_size = splittext(sizes["mainwindow.mainvsplit.size"], "x")
+	var/list/split_size = splittext(sizes["mainwindow.mainvsplit.size"], "x")
 	var/split_width = text2num(split_size[1])
+
+	// Avoid auto-resizing the statpanel and chat into nothing.
+	desired_width = min(desired_width, split_width - 300)
 
 	// Calculate and apply a best estimate
 	// +4 pixels are for the width of the splitter's handle
@@ -1016,20 +1132,21 @@
 	for(var/safety in 1 to 10)
 		var/after_size = winget(src, "mapwindow", "size")
 		map_size = splittext(after_size, "x")
-		var/got_width = text2num(map_size[1])
+		var/produced_width = text2num(map_size[1])
 
-		if (got_width == desired_width)
-			// success
+		if(produced_width == desired_width)
+			// Success!
 			return
-		else if (isnull(delta))
-			// calculate a probable delta value based on the difference
-			delta = 100 * (desired_width - got_width) / split_width
-		else if ((delta > 0 && got_width > desired_width) || (delta < 0 && got_width < desired_width))
-			// if we overshot, halve the delta and reverse direction
-			delta = -delta/2
+		else if(isnull(delta))
+			// Calculate a probably delta based on the difference
+			delta = 100 * (desired_width - produced_width) / split_width
+		else if((delta > 0 && produced_width > desired_width) || (delta < 0 && produced_width < desired_width))
+			// If we overshot, halve the delta and reverse direction
+			delta = -delta / 2
 
-		pct += delta
-		winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+	pct += delta
+	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+
 
 /client/verb/fitviewport() // wrapper for mainwindow
 	set hidden = 1
@@ -1040,7 +1157,7 @@
 	set category = "Special Verbs"
 	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
 
-	if(!config.discordurl)
+	if(!CONFIG_GET(string/discordurl))
 		return
 	if(IsGuestKey(key))
 		to_chat(usr, "Гостевой аккаунт не может быть связан.")
@@ -1048,7 +1165,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, "<span class='darkmblue'>Аккаунт Discord уже привязан! Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span> на Discord-сервере.</span>")
+		to_chat(usr, "<span class='darkmblue'>Аккаунт Discord уже привязан! Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1059,7 +1176,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, "<span class='darkmblue'>Для завершения используйте команду <span class='boldannounce'>!привязать_аккаунт [token]</span> на Discord-сервере!</span>")
+		to_chat(usr, "<span class='darkmblue'>Для завершения используйте команду <span class='boldannounce'>!привязать_аккаунт [token]</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
 		if(prefs)
 			prefs.load_preferences(usr)
 
@@ -1109,8 +1226,9 @@
 			keysend_tripped = TRUE
 			next_keysend_trip_reset = world.time + (2 SECONDS)
 		else
-			log_admin("Client [ckey] was just autokicked for flooding Say sends; likely abuse but potentially lagspike.")
-			message_admins("Client [ckey] was just autokicked for flooding Say sends; likely abuse but potentially lagspike.")
+			to_chat(usr, "<span class='warning'><big><b>Вы были кикнуты из игры за спам. Пожалуйста постарайтесь не делать этого в следующий раз.</b></big></span>")
+			log_admin("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
+			message_admins("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
 			qdel(src)
 			return
 
@@ -1224,11 +1342,24 @@
 	qdel(query_age)
 
 	// Notify admins on new clients connecting, if the byond account age is less than a config value
-	if(notify && (byondacc_age < config.byond_account_age_threshold))
-		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
+	if(notify && (byondacc_age < CONFIG_GET(number/byond_account_age_threshold)))
+		message_admins("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
+		log_adminwarn("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
 	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
+
+
+/client/proc/update_ambience_pref()
+	if(prefs.sound & SOUND_AMBIENCE)
+		if(SSambience.ambience_listening_clients[src] > world.time)
+			return // If already properly set we don't want to reset the timer.
+
+		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+
+	else
+		SSambience.ambience_listening_clients -= src
+
 
 /**
   * Checks if the client has accepted TOS
@@ -1265,6 +1396,13 @@
 	qdel(query)
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
+
+
+/// Returns the biggest number from client.view so we can do easier maths
+/client/proc/maxview()
+	var/list/screensize = getviewsize(view)
+	return max(screensize[1], screensize[2])
+
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

@@ -40,8 +40,6 @@
 
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
-		if("attack_log_old", "debug_log")
-			return debug_variable(var_name, vars[var_name], 0, src, sanitize = FALSE)
 		if("vars")
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
@@ -78,7 +76,7 @@
 
 /client/proc/debug_variables(datum/D in world)
 	set category = "Debug"
-	set name = "View Variables"
+	set name = "\[Admin\] View Variables"
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
@@ -647,7 +645,7 @@
 			var/datum/martial_art/M = i
 			artnames[initial(M.name)] = M
 
-		var/result = input(usr, "Choose the martial art to teach", "JUDO CHOP") as null|anything in artnames
+		var/result = tgui_input_list(usr, "Choose the martial art to teach", "JUDO CHOP", artnames)
 		if(!usr)
 			return
 		if(QDELETED(C))
@@ -671,6 +669,22 @@
 
 		src.give_disease(M)
 		href_list["datumrefresh"] = href_list["give_spell"]
+
+	else if(href_list["give_taipan_hud"])
+		if(!check_rights(R_ADMIN|R_EVENT))	return
+
+		var/mob/living/M = locateUID(href_list["give_taipan_hud"])
+		if(!istype(M))
+			to_chat(usr, "This can only be used on instances of type /mob/living")
+			return
+		var/selected_job = tgui_input_list(usr, "Select a job", "Hud Job Selection", GLOB.all_taipan_jobs)
+
+		if(!selected_job)
+			to_chat(usr, "No job selected!")
+			return
+
+		var/selected_role = M.find_taipan_hud_number_by_job(job = selected_job)
+		M.give_taipan_hud(role = selected_role)
 
 	else if(href_list["godmode"])
 		if(!check_rights(R_REJUVINATE))	return
@@ -739,8 +753,7 @@
 			return
 
 		H.makeSkeleton()
-		message_admins("[key_name(usr)] has turned [key_name(H)] into a skeleton")
-		log_admin("[key_name_admin(usr)] has turned [key_name_admin(H)] into a skeleton")
+		log_and_message_admins("has turned [key_name_admin(H)] into a skeleton")
 		href_list["datumrefresh"] = href_list["make_skeleton"]
 
 	else if(href_list["offer_control"])
@@ -791,8 +804,7 @@
 				if(!i)
 					to_chat(usr, "No objects of this type exist")
 					return
-				log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
-				message_admins("[key_name_admin(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
+				log_and_message_admins("deleted all objects of type [O_type] ([i] objects deleted)")
 			if("Type and subtypes")
 				var/i = 0
 				for(var/obj/Obj in world)
@@ -802,8 +814,7 @@
 				if(!i)
 					to_chat(usr, "No objects of this type exist")
 					return
-				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
-				message_admins("[key_name_admin(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
+				log_and_message_admins("deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 
 	else if(href_list["makespeedy"])
 		if(!check_rights(R_DEBUG|R_ADMIN))
@@ -813,8 +824,7 @@
 			return
 		A.var_edited = TRUE
 		A.makeSpeedProcess()
-		log_admin("[key_name(usr)] has made [A] speed process")
-		message_admins("<span class='notice'>[key_name(usr)] has made [A] speed process</span>")
+		log_and_message_admins("has made [A] speed process")
 		return TRUE
 
 	else if(href_list["makenormalspeed"])
@@ -825,8 +835,7 @@
 			return
 		A.var_edited = TRUE
 		A.makeNormalProcess()
-		log_admin("[key_name(usr)] has made [A] process normally")
-		message_admins("<span class='notice'>[key_name(usr)] has made [A] process normally</span>")
+		log_and_message_admins("has made [A] process normally")
 		return TRUE
 
 	else if(href_list["modifyarmor"])
@@ -878,8 +887,7 @@
 
 		A.armor = A.armor.setRating(armorlist["melee"], armorlist["bullet"], armorlist["laser"], armorlist["energy"], armorlist["bomb"], armorlist["bio"], armorlist["rad"], armorlist["fire"], armorlist["acid"], armorlist["magic"])
 
-		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
-		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
+		log_and_message_admins("modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
 		return TRUE
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
@@ -908,13 +916,12 @@
 						if(!valid_id)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
 				if("Choose ID")
-					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in reagent_options
+					chosen_id = tgui_input_list(usr, "Choose a reagent to add.", "Choose a reagent.", reagent_options)
 			if(chosen_id)
 				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
 				if(amount)
 					A.reagents.add_reagent(chosen_id, amount)
-					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]")
-					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
+					log_and_message_admins("has added [amount] units of [chosen_id] to \the [A]")
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
@@ -981,8 +988,7 @@
 			if("right")	A.dir = turn(A.dir, -45)
 			if("left")	A.dir = turn(A.dir, 45)
 
-		message_admins("[key_name_admin(usr)] has rotated \the [A]")
-		log_admin("[key_name(usr)] has rotated \the [A]")
+		log_and_message_admins("has rotated \the [A]")
 		href_list["datumrefresh"] = href_list["rotatedatum"]
 
 	else if(href_list["makemonkey"])
@@ -1077,7 +1083,10 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
 
-		var/new_species = input("Please choose a new species.","Species",null) as null|anything in GLOB.all_species
+		var/new_species = tgui_input_list(usr, "Please choose a new species.","Species", GLOB.all_species)
+
+		if(!new_species)
+			return
 
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -1087,8 +1096,7 @@
 		if(H.set_species(S.type))
 			to_chat(usr, "Set species of [H] to [H.dna.species].")
 			H.regenerate_icons()
-			message_admins("[key_name_admin(usr)] has changed the species of [key_name_admin(H)] to [new_species]")
-			log_admin("[key_name(usr)] has changed the species of [key_name(H)] to [new_species]")
+			log_and_message_admins("has changed the species of [key_name_admin(H)] to [new_species]")
 		else
 			to_chat(usr, "Failed! Something went wrong.")
 
@@ -1100,7 +1108,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		var/new_language = input("Please choose a language to add.","Language",null) as null|anything in GLOB.all_languages
+		var/new_language = tgui_input_list(usr, "Please choose a language to add.","Language", GLOB.all_languages)
 
 		if(!new_language)
 			return
@@ -1111,8 +1119,7 @@
 
 		if(H.add_language(new_language))
 			to_chat(usr, "Added [new_language] to [H].")
-			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the language [new_language]")
-			log_admin("[key_name(usr)] has given [key_name(H)] the language [new_language]")
+			log_and_message_admins("has given [key_name_admin(H)] the language [new_language]")
 		else
 			to_chat(usr, "Mob already knows that language.")
 
@@ -1128,7 +1135,7 @@
 			to_chat(usr, "This mob knows no languages.")
 			return
 
-		var/datum/language/rem_language = input("Please choose a language to remove.","Language",null) as null|anything in H.languages
+		var/datum/language/rem_language = tgui_input_list(usr, "Please choose a language to remove.","Language", H.languages)
 
 		if(!rem_language)
 			return
@@ -1139,10 +1146,41 @@
 
 		if(H.remove_language(rem_language.name))
 			to_chat(usr, "Removed [rem_language] from [H].")
-			message_admins("[key_name_admin(usr)] has removed language [rem_language] from [key_name_admin(H)]")
-			log_admin("[key_name(usr)] has removed language [rem_language] from [key_name(H)]")
+			log_and_message_admins("has removed language [rem_language] from [key_name(H)]")
 		else
 			to_chat(usr, "Mob doesn't know that language.")
+
+	else if(href_list["grantalllanguage"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/H = locateUID(href_list["grantalllanguage"])
+
+		if(!istype(H))
+			to_chat(usr, "This can only be done to instances of type /mob")
+			return
+
+		H.grant_all_languages()
+
+		to_chat(usr, "Added all languages to [H].")
+		log_and_message_admins("has given [key_name(H)] all languages")
+
+	else if(href_list["changevoice"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/H = locateUID(href_list["changevoice"])
+
+		if(!istype(H))
+			to_chat(usr, "This can only be done to instances of type /mob")
+			return
+
+		var/old_tts_seed = H.tts_seed
+		var/new_tts_seed = H.change_voice(usr)
+		if(!new_tts_seed)
+			return
+
+		to_chat(usr, "Changed voice from [old_tts_seed] to [new_tts_seed] for [H].")
+		to_chat(H, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>")
+		log_and_message_admins("has changed [key_name(H)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
 	else if(href_list["addverb"])
 		if(!check_rights(R_DEBUG))			return
@@ -1173,8 +1211,7 @@
 			return
 		else
 			H.verbs += verb
-			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the verb [verb]")
-			log_admin("[key_name(usr)] has given [key_name(H)] the verb [verb]")
+			log_and_message_admins("has given [key_name(H)] the verb [verb]")
 
 	else if(href_list["remverb"])
 		if(!check_rights(R_DEBUG))			return
@@ -1184,7 +1221,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
-		var/verb = input("Please choose a verb to remove.","Verbs",null) as null|anything in H.verbs
+		var/verb = tgui_input_list(usr, "Please choose a verb to remove.","Verbs", H.verbs)
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
@@ -1192,8 +1229,7 @@
 			return
 		else
 			H.verbs -= verb
-			message_admins("[key_name_admin(usr)] has removed verb [verb] from [key_name_admin(H)]")
-			log_admin("[key_name(usr)] has removed verb [verb] from [key_name(H)]")
+			log_and_message_admins("has removed verb [verb] from [key_name(H)]")
 
 	else if(href_list["addorgan"])
 		if(!check_rights(R_SPAWN))	return
@@ -1203,7 +1239,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/new_organ = input("Please choose an organ to add.","Organ",null) as null|anything in subtypesof(/obj/item/organ)-/obj/item/organ
+		var/new_organ = tgui_input_list(usr, "Please choose an organ to add.","Organ", subtypesof(/obj/item/organ)-/obj/item/organ)
 		if(!new_organ) return
 
 		if(!M)
@@ -1215,8 +1251,7 @@
 			return
 		new new_organ(M)
 		M.regenerate_icons()
-		message_admins("[key_name_admin(usr)] has given [key_name_admin(M)] the organ [new_organ]")
-		log_admin("[key_name(usr)] has given [key_name(M)] the organ [new_organ]")
+		log_and_message_admins("has given [key_name(M)] the organ [new_organ]")
 
 	else if(href_list["remorgan"])
 		if(!check_rights(R_SPAWN))	return
@@ -1226,7 +1261,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/obj/item/organ/internal/rem_organ = input("Please choose an organ to remove.","Organ",null) as null|anything in M.internal_organs
+		var/obj/item/organ/internal/rem_organ = tgui_input_list(usr, "Please choose an organ to remove.", "Organ", M.internal_organs)
 
 		if(!M)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -1238,8 +1273,7 @@
 
 		to_chat(usr, "Removed [rem_organ] from [M].")
 		rem_organ.remove(M)
-		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(M)]")
-		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
+		log_and_message_admins("has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)
 
 	else if(href_list["regenerateicons"])
@@ -1293,8 +1327,7 @@
 				return
 
 		if(amount != 0)
-			log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [L]")
-			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [L]")
+			log_and_message_admins("dealt [amount] amount of [Text] damage to [L]")
 			href_list["datumrefresh"] = href_list["mobToDamage"]
 
 	else if(href_list["traitmod"])

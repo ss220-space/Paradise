@@ -15,6 +15,9 @@
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 
+	if(mind in SSticker.mode.traitors)
+		GLOB.disable_robotics_consoles = FALSE
+
 	if(nuking)
 		set_security_level("red")
 		nuking = 0
@@ -27,12 +30,12 @@
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time
-			GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+			GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
 		qdel(doomsday_device)
 
 	if(explosive)
 		spawn(10)
-			explosion(src.loc, 3, 6, 12, 15)
+			explosion(src.loc, 3, 6, 12, 15, cause = "AI exploded")
 
 	for(var/obj/machinery/ai_status_display/O in GLOB.machines) //change status
 		O.mode = 2

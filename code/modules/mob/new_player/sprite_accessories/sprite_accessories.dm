@@ -49,10 +49,11 @@
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human", "Slime People")
-	var/list/sprite_sheets = list() //For accessories common across species but need to use 'fitted' sprites (like underwear). e.g. list("Vox" = 'icons/mob/species/vox/iconfile.dmi')
+	var/list/sprite_sheets = list() //For accessories common across species but need to use 'fitted' sprites (like underwear). e.g. list("Vox" = 'icons/mob/clothing/species/vox/iconfile.dmi')
 	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
 	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
 	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
+	var/list/wings_allowed
 	var/marking_location //Specifies which bodypart a body marking is located on.
 	var/secondary_theme = null //If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
 	var/no_sec_colour = null //If exists, prohibit the colouration of the secondary theme.
@@ -70,7 +71,7 @@
 	icon = 'icons/mob/human_face.dmi' // Keep bald hair here, as for some reason, putting it elsewhere lead to it being colourable - Also it make sense as it is shared by everyone.
 	name = "Bald"
 	icon_state = "bald"
-	species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
+	species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran", "Nian")
 	glasses_over = 1
 
 /datum/sprite_accessory/facial_hair
@@ -84,7 +85,7 @@
 /* HEAD ACCESSORY */
 
 /datum/sprite_accessory/head_accessory
-	icon = 'icons/mob/body_accessory.dmi'
+	icon = 'icons/mob/clothing/body_accessory.dmi'
 	species_allowed = list("Unathi", "Vulpkanin", "Tajaran", "Machine")
 	icon_state = "accessory_none"
 	var/over_hair
@@ -98,7 +99,7 @@
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/sprite_accessories/human/human_body_markings.dmi'
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox", "Kidan")
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine", "Vox", "Kidan", "Nian")
 	icon_state = "accessory_none"
 	marking_location = "body"
 
@@ -167,192 +168,166 @@
 // Underwear Definitions //
 ///////////////////////////
 /datum/sprite_accessory/underwear
-	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	icon = 'icons/mob/clothing/underwear.dmi'
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	)
 	gender = NEUTER
+	var/allow_change_color = FALSE
 
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 
 /datum/sprite_accessory/underwear/male
 	gender = MALE
 
-/datum/sprite_accessory/underwear/male/male_white
-	name = "Mens White"
-	icon_state = "male_white"
-
-/datum/sprite_accessory/underwear/male/male_grey
-	name = "Mens Grey"
-	icon_state = "male_grey"
-
-/datum/sprite_accessory/underwear/male/male_grey
-	name = "Mens Grey Alt"
-	icon_state = "male_greyalt"
-
-/datum/sprite_accessory/underwear/male/male_green
-	name = "Mens Green"
-	icon_state = "male_green"
-
-/datum/sprite_accessory/underwear/male/male_blue
-	name = "Mens Blue"
-	icon_state = "male_blue"
-
-/datum/sprite_accessory/underwear/male/male_red
-	name = "Mens Red"
-	icon_state = "male_red"
-
-/datum/sprite_accessory/underwear/male/male_black
-	name = "Mens Black"
-	icon_state = "male_black"
-
-/datum/sprite_accessory/underwear/male/male_black_alt
-	name = "Mens Black Alt"
-	icon_state = "male_blackalt"
-
-/datum/sprite_accessory/underwear/male/male_striped
-	name = "Mens Striped"
-	icon_state = "male_stripe"
+/datum/sprite_accessory/underwear/male/male_striped_alt
+	name = "Mens Striped Alt"
+	icon_state = "male_stripe_alt"
 
 /datum/sprite_accessory/underwear/male/male_heart
 	name = "Mens Hearts"
 	icon_state = "male_hearts"
 
-/datum/sprite_accessory/underwear/male/male_kinky
-	name = "Mens Kinky"
-	icon_state = "male_kinky"
+/datum/sprite_accessory/underwear/male/colorized
+	allow_change_color = TRUE
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
 
-/datum/sprite_accessory/underwear/male/male_mankini
+/datum/sprite_accessory/underwear/male/colorized/mankini
 	name = "Mankini"
 	icon_state = "male_mankini"
+
+/datum/sprite_accessory/underwear/male/colorized/briefs
+	name = "Mens Briefs"
+	icon_state = "male_briefs"
+
+/datum/sprite_accessory/underwear/male/colorized/boxers
+	name = "Mens Boxers"
+	icon_state = "male_boxers"
+
+/datum/sprite_accessory/underwear/male/colorized/stripe
+	name = "Mens Stripe"
+	icon_state = "male_stripe"
+
+/datum/sprite_accessory/underwear/male/colorized/midway
+	name = "Mens Midway"
+	icon_state = "male_midway"
+
+/datum/sprite_accessory/underwear/male/colorized/male_kinky
+	name = "Mens Kinky"
+	icon_state = "male_kinky"
 
 /datum/sprite_accessory/underwear/female
 	gender = FEMALE
 
-/datum/sprite_accessory/underwear/female/female_red
-	name = "Ladies Red"
-	icon_state = "female_red"
-
-/datum/sprite_accessory/underwear/female/female_green
-	name = "Ladies Green"
-	icon_state = "female_green"
-
-/datum/sprite_accessory/underwear/female/female_white
-	name = "Ladies White"
-	icon_state = "female_white"
-
-/datum/sprite_accessory/underwear/female/female_whiter
-	name = "Ladies Whiter"
-	icon_state = "female_whiter"
-
-/datum/sprite_accessory/underwear/female/female_whitealt
-	name = "Ladies White Alt"
-	icon_state = "female_whitealt"
-
-/datum/sprite_accessory/underwear/female/female_yellow
-	name = "Ladies Yellow"
-	icon_state = "female_yellow"
-
-/datum/sprite_accessory/underwear/female/female_blue
-	name = "Ladies Blue"
-	icon_state = "female_blue"
-/datum/sprite_accessory/underwear/female/female_babyblue
-	name = "Ladies Baby Blue"
-	icon_state = "female_babyblue"
-
-/datum/sprite_accessory/underwear/female/female_black
-	name = "Ladies Black"
-	icon_state = "female_black"
-
-/datum/sprite_accessory/underwear/female/female_blacker
-	name = "Ladies Blacker"
-	icon_state = "female_blacker"
-
-/datum/sprite_accessory/underwear/female/female_blackalt
-	name = "Ladies Black Alt"
-	icon_state = "female_blackalt"
-
-/datum/sprite_accessory/underwear/female/female_kinky
-	name = "Ladies Kinky"
-	icon_state = "female_kinky"
+/datum/sprite_accessory/underwear/female/female_red_alt
+	name = "Ladies Red Alt"
+	icon_state = "female_red_alt"
 
 /datum/sprite_accessory/underwear/female/female_babydoll
 	name = "Ladies Full Grey"
 	icon_state = "female_babydoll"
 
-/datum/sprite_accessory/underwear/female/female_pink
-	name = "Ladies Pink"
-	icon_state = "female_pink"
+/datum/sprite_accessory/underwear/female/female_kinky_alt
+	name = "Ladies Kinky Alt"
+	icon_state = "female_kinky_alt"
 
-/datum/sprite_accessory/underwear/female/female_thong
+/datum/sprite_accessory/underwear/female/female_kinky_black
+	name = "Ladies Kinky Full Black"
+	icon_state = "female_kinky_black"
+
+/datum/sprite_accessory/underwear/female/female_neko_black
+	name = "Ladies Neko Black"
+	icon_state = "neko_female_black"
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
+
+/datum/sprite_accessory/underwear/female/colorized
+	allow_change_color = TRUE
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
+
+/datum/sprite_accessory/underwear/female/colorized/neko_female
+	name = "Ladies Neko"
+	icon_state = "neko_female"
+
+/datum/sprite_accessory/underwear/female/colorized/swimhalter_female
+	name = "Ladies Swimhalter"
+	icon_state = "swimhalter_female"
+
+/datum/sprite_accessory/underwear/female/colorized/female_stripless
+	name = "Ladies Stripless"
+	icon_state = "female_stripless"
+
+/datum/sprite_accessory/underwear/female/colorized/female_sport
+	name = "Ladies Sport"
+	icon_state = "female_sport"
+
+/datum/sprite_accessory/underwear/female/colorized/female_bralette
+	name = "Ladies Bralette"
+	icon_state = "female_bralette"
+
+/datum/sprite_accessory/underwear/female/colorized/female_bikini
+	name = "Ladies Bikini"
+	icon_state = "female_bikini"
+
+/datum/sprite_accessory/underwear/female/colorized/female_thong
 	name = "Ladies Thong"
-	icon_state = "female_thong"
+	icon_state = "thong_female"
 
 ////////////////////////////
 // Undershirt Definitions //
 ////////////////////////////
 /datum/sprite_accessory/undershirt
-	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	icon = 'icons/mob/clothing/underwear.dmi'
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/species/vox/underwear.dmi',
-	"Grey" = 'icons/mob/species/grey/underwear.dmi')
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	)
 	gender = NEUTER
+	var/allow_change_color = FALSE
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 
 //plain color shirts
-/datum/sprite_accessory/undershirt/shirt_white
-	name = "White Shirt"
-	icon_state = "shirt_white"
+/datum/sprite_accessory/undershirt/shirt_colorized
+	name = "Colorized Shirt"
+	icon_state = "shirt"
+	allow_change_color = TRUE
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
 
-/datum/sprite_accessory/undershirt/shirt_black
-	name = "Black Shirt"
-	icon_state = "shirt_black"
-
-/datum/sprite_accessory/undershirt/shirt_blacker
-	name = "Blacker Shirt"
-	icon_state = "shirt_blacker"
-
-/datum/sprite_accessory/undershirt/shirt_grey
-	name = "Grey Shirt"
-	icon_state = "shirt_grey"
-
-/datum/sprite_accessory/undershirt/shirt_red
-	name = "Red Shirt"
-	icon_state = "shirt_red"
-
-/datum/sprite_accessory/undershirt/shirt_blue
-	name = "Blue Shirt"
-	icon_state = "shirt_blue"
-
-/datum/sprite_accessory/undershirt/shirt_yellow
-	name = "Yellow Shirt"
-	icon_state = "shirt_yellow"
-
-/datum/sprite_accessory/undershirt/shirt_green
-	name = "Green Shirt"
-	icon_state = "shirt_green"
-
-/datum/sprite_accessory/undershirt/shirt_darkblue
-	name = "Dark Blue Shirt"
-	icon_state = "shirt_darkblue"
-
-/datum/sprite_accessory/undershirt/shirt_darkred
-	name = "Dark Red Shirt"
-	icon_state = "shirt_darkred"
-
-/datum/sprite_accessory/undershirt/shirt_darkgreen
-	name = "Dark Green Shirt"
-	icon_state = "shirt_darkgreen"
+/datum/sprite_accessory/undershirt/shirt_colorized/female
+	name = "Female Colorized Shirt"
+	icon_state = "female_shirt"
+	gender = FEMALE
 //end plain color shirts
 
 //graphic shirts
@@ -430,25 +405,16 @@
 //end graphic shirts
 
 //short sleeved
-/datum/sprite_accessory/undershirt/short_white
-	name = "White Short-sleeved Shirt"
-	icon_state = "short_white"
-
-/datum/sprite_accessory/undershirt/short_purple
-	name = "Purple Short-sleeved Shirt"
-	icon_state = "short_purple"
-
-/datum/sprite_accessory/undershirt/short_blue
-	name = "Blue Short-sleeved Shirt"
-	icon_state = "short_blue"
-
-/datum/sprite_accessory/undershirt/short_green
-	name = "Green Short-sleeved Shirt"
-	icon_state = "short_green"
-
-/datum/sprite_accessory/undershirt/short_black
-	name = "Black Short-sleeved Shirt"
-	icon_state = "short_black"
+/datum/sprite_accessory/undershirt/short_colorized
+	name = "Short-sleeved Shirt"
+	icon_state = "short"
+	allow_change_color = TRUE
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
 //end short sleeved
 
 //polo shirts
@@ -488,10 +454,11 @@
 //end sport shirts
 
 //tanktops
-/datum/sprite_accessory/undershirt/tank_redtop
-	name = "Red Crop-Top"
-	icon_state = "tank_redtop"
+/datum/sprite_accessory/undershirt/tank_top_colorize
+	name = "Female Crop-Top"
+	icon_state = "tank_top"
 	gender = FEMALE
+	allow_change_color = TRUE
 
 /datum/sprite_accessory/undershirt/tank_whitetop
 	name = "White Crop-Top"
@@ -499,29 +466,25 @@
 	gender = FEMALE
 
 /datum/sprite_accessory/undershirt/tank_midriff
-	name = "White Mid Tank-Top"
-	icon_state = "tank_midriff"
+	name = "Mid Tank-Top"
+	icon_state = "tank_midriff_female"
 	gender = FEMALE
+	allow_change_color = TRUE
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
 
-/datum/sprite_accessory/undershirt/tank_white
-	name = "White Tank-Top"
-	icon_state = "tank_white"
+/datum/sprite_accessory/undershirt/tank_colorized
+	name = "Colorized Tank-Top"
+	icon_state = "tank"
+	allow_change_color = TRUE
 
-/datum/sprite_accessory/undershirt/tank_black
-	name = "Black Tank-Top"
+/datum/sprite_accessory/undershirt/tank_black_alt
+	name = "Full Black Tank-Top"
 	icon_state = "tank_black"
-
-/datum/sprite_accessory/undershirt/tank_blacker
-	name = "Blacker Tank-Top"
-	icon_state = "tank_blacker"
-
-/datum/sprite_accessory/undershirt/tank_grey
-	name = "Grey Tank-Top"
-	icon_state = "tank_grey"
-
-/datum/sprite_accessory/undershirt/tank_red
-	name = "Red Tank-Top"
-	icon_state = "tank_red"
 
 /datum/sprite_accessory/undershirt/tank_fire
 	name = "Fire Tank-Top"
@@ -536,15 +499,20 @@
 // Socks Definitions //
 ///////////////////////
 /datum/sprite_accessory/socks
-	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/underwear.dmi')
+	icon = 'icons/mob/clothing/underwear.dmi'
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
+	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Ash Walker" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	"Draconid" = 'icons/mob/clothing/species/unathi/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal White"
@@ -616,3 +584,48 @@
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"
 	icon_state = "black_fishnet"
+
+/* HAIR GRADIENT */
+
+/datum/sprite_accessory/hair_gradient
+	icon = 'icons/mob/hair_gradients.dmi'
+
+/datum/sprite_accessory/hair_gradient/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/hair_gradient/fadeup
+	name = "Fade Up"
+	icon_state = "fadeup"
+
+/datum/sprite_accessory/hair_gradient/fadedown
+	name = "Fade Down"
+	icon_state = "fadedown"
+
+/datum/sprite_accessory/hair_gradient/vertical_split
+	name = "Vertical Split"
+	icon_state = "vsplit"
+
+/datum/sprite_accessory/hair_gradient/_split
+	name = "Horizontal Split"
+	icon_state = "bottomflat"
+
+/datum/sprite_accessory/hair_gradient/reflected
+	name = "Reflected"
+	icon_state = "reflected_high"
+
+/datum/sprite_accessory/hair_gradient/reflected_inverse
+	name = "Reflected Inverse"
+	icon_state = "reflected_inverse_high"
+
+/datum/sprite_accessory/hair_gradient/wavy
+	name = "Wavy"
+	icon_state = "wavy"
+
+/datum/sprite_accessory/hair_gradient/long_fade_up
+	name = "Long Fade Up"
+	icon_state = "long_fade_up"
+
+/datum/sprite_accessory/hair_gradient/long_fade_down
+	name = "Long Fade Down"
+	icon_state = "long_fade_down"

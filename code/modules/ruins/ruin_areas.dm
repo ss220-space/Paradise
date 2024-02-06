@@ -7,6 +7,7 @@
 	there_can_be_many = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = RUINS_SOUNDS
+	sound_environment = SOUND_ENVIRONMENT_STONEROOM
 
 /area/ruin/unpowered
 	always_unpowered = FALSE
@@ -28,6 +29,12 @@
 /area/ruin/powered/golem_ship
 	name = "Free Golem Ship"
 
+/area/ruin/powered/space_bar
+	name = "Space Bar"
+
+/area/ruin/powered/shuttle
+	name = "Shuttle"
+
 // Ruins of "onehalf" ship
 /area/ruin/onehalf/hallway
 	name = "Hallway"
@@ -42,10 +49,10 @@
 	icon_state = "Sleep"
 
 /area/ruin/onehalf/bridge
-	name = "Bridge"
+	name = "Old Mining Bay Bridge"
 	icon_state = "bridge"
 
-// Old tcommsat
-/area/ruin/tcommsat
-	name = "Telecommunications Satellite"
-	icon_state = "tcomsatcham"
+// Space Prison
+/area/ruin/spaceprison
+	name = "Space Prison"
+	icon_state = "spaceprison"

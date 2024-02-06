@@ -13,7 +13,7 @@ Thus, the two variables affect pump operation are set in New():
 */
 
 /obj/machinery/atmospherics/binary/volume_pump
-	icon = 'icons/atmos/volume_pump.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/volume_pump.dmi'
 	icon_state = "map_off"
 
 	name = "volumetric gas pump"
@@ -28,14 +28,13 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/volume_pump/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	toggle()
-	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/AICtrlClick()
 	toggle()
@@ -43,14 +42,13 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/volume_pump/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user) && !issilicon(usr))
 		return
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	set_max()
-	return
 
 /obj/machinery/atmospherics/binary/volume_pump/AIAltClick()
 	set_max()
@@ -160,7 +158,7 @@ Thus, the two variables affect pump operation are set in New():
 		)
 
 	if(on != old_on)
-		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
+		investigate_log("was turned [on ? "on" : "off"] by a remote signal", INVESTIGATE_ATMOS)
 
 	if(signal.data["status"])
 		spawn(2)
@@ -176,7 +174,7 @@ Thus, the two variables affect pump operation are set in New():
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
+		to_chat(user, span_alert("Access denied."))
 		return
 
 	add_fingerprint(user)
@@ -208,7 +206,7 @@ Thus, the two variables affect pump operation are set in New():
 	switch(action)
 		if("power")
 			toggle()
-			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			investigate_log("was turned [on ? "on" : "off"] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("max_rate")
@@ -223,7 +221,7 @@ Thus, the two variables affect pump operation are set in New():
 			transfer_rate = clamp(text2num(params["rate"]), 0 , MAX_TRANSFER_RATE)
 			. = TRUE
 	if(.)
-		investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
+		investigate_log("was set to [transfer_rate] L/s by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/binary/volume_pump/power_change()
 	var/old_stat = stat
@@ -238,6 +236,6 @@ Thus, the two variables affect pump operation are set in New():
 	else if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!(stat & NOPOWER) && on)
-		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
+		to_chat(user, span_alert("You cannot unwrench this [src], turn it off first."))
 		return 1
 	return ..()

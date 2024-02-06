@@ -30,8 +30,7 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 		return
 
 	// Robots can interact with anything they can see.
-	var/list/clientviewlist = getviewsize(client.view)
-	if((src_object in view(src)) && (get_dist(src, src_object) <= min(clientviewlist[1],clientviewlist[2])))
+	if((src_object in (view(client) + src.contents)) && (get_dist(src, src_object) <= client.maxview()))
 		return STATUS_INTERACTIVE
 	return STATUS_DISABLED // Otherwise they can keep the UI open.
 
@@ -47,6 +46,17 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 
 /mob/living/simple_animal/revenant/default_can_use_topic(src_object)
 	return STATUS_UPDATE
+
+/mob/living/simple_animal/demon/pulse_demon/default_can_use_topic(src_object)
+	. = shared_ui_interaction(src_object)
+	if(. < STATUS_INTERACTIVE)
+		return
+
+	// anything in its APC's area
+	if(get_area(src_object) == controlling_area)
+		return STATUS_INTERACTIVE
+	return STATUS_CLOSE
+
 
 /mob/living/simple_animal/default_can_use_topic(src_object)
 	. = shared_ui_interaction(src_object)

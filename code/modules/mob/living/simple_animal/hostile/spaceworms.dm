@@ -67,7 +67,7 @@
 
 	melee_damage_lower = 10//was 20, dear god
 	melee_damage_upper = 15//was 25, dear god
-	attacktext = "bites"
+	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	animate_movement = SLIDE_STEPS
@@ -223,14 +223,15 @@
 //Move all segments if one piece moves.
 /mob/living/simple_animal/hostile/spaceWorm/Move()
 	var/segmentNextPos = loc
-	if(..())
+	. = ..()
+	if(.)
 		if(previousWorm)
 			previousWorm.Move(segmentNextPos)
 		update_icon()
 
 
 //Update the appearence of this big weird chain-worm-thingy
-/mob/living/simple_animal/hostile/spaceWorm/proc/update_icon()
+/mob/living/simple_animal/hostile/spaceWorm/update_icon()
 	if(stat != DEAD)
 		if(previousWorm)
 			icon_state = "spaceworm[get_dir(src,previousWorm) | get_dir(src,nextWorm)]"

@@ -32,7 +32,7 @@
 				owner.visible_message("<span class='danger'>[owner] bursts open! Holy fuck!</span>")
 				owner.gib()
 
-/obj/item/organ/internal/body_egg/spider_eggs/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
 	if(!QDELETED(src))
@@ -50,7 +50,7 @@
 
 	var/cycle_num = 0 // # of on_life() cycles completed, never reset
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
-	var/egg_progress_per_hatch = 90 // if egg_progress > this, chance to hatch and reset egg_progress
+	var/egg_progress_per_hatch = 120 // if egg_progress > this, chance to hatch and reset egg_progress
 	var/eggs_hatched = 0 // num of hatch events completed
 	var/awaymission_checked = FALSE
 	var/awaymission_infection = FALSE // TRUE if infection occurred inside gateway
@@ -63,7 +63,7 @@
 
 	// Parasite growth
 	cycle_num += 1
-	egg_progress += pick(0, 1, 2)
+	egg_progress += 1
 	egg_progress += calc_variable_progress()
 
 	// Detect & stop people attempting to bring a gateway white spider infection back to the main station.
@@ -78,10 +78,6 @@
 			qdel(src)
 			return
 
-	// Once at least one egg has hatched from you, you'll need help to reach medbay.
-	if(eggs_hatched >= 1)
-		owner.SetConfused(45)
-
 	if(egg_progress > egg_progress_per_hatch)
 		egg_progress -= egg_progress_per_hatch
 		hatch_egg()
@@ -91,7 +87,7 @@
 	if(owner.nutrition > NUTRITION_LEVEL_FULL)
 		extra_progress += 1
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-	if(antibiotics > 50)
+	if(antibiotics > 15)
 		extra_progress -= 0.5
 	var/boosters = owner.reagents.get_reagent_amount("salglu_solution")
 	if(boosters > 1)
@@ -103,24 +99,25 @@
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
 		if(0) // 1st spiderling
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/reaper)
 		if(1) // 2nd
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
-		if(2) // 3rd
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/brown
-		if(3) // 4th
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
-		if(4) // 5th
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/builder)
+		if(2) // 3d spiderling. can only grow if egg owner is being healed, and/or eggs isnt removed by surgeons
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/builder, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/knight)
+			owner.adjustBruteLoss(200)
+			owner.death()
 			infection_completed = TRUE
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
+	owner.adjustBruteLoss(80)
+	owner.Paralyse(20 SECONDS)
+	owner.SetConfused(40 SECONDS)
 	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
-	owner.Paralyse(10)
+
 	if(infection_completed && !QDELETED(src))
 		qdel(src)
 
-/obj/item/organ/internal/body_egg/terror_eggs/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/body_egg/terror_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	if(!QDELETED(src))
 		qdel(src) // prevent people re-implanting them into others

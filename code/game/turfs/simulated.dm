@@ -1,5 +1,4 @@
-#define WATER_STUN_TIME 2 //Stun time for water, to edit/find easier
-#define WATER_WEAKEN_TIME 1 //Weaken time for water, to edit/find easier
+#define WATER_WEAKEN_TIME 4 SECONDS //Weaken time for slipping on water
 /turf/simulated
 	name = "station"
 	var/wet = 0
@@ -61,7 +60,7 @@
 		return
 	if(!time)
 		time =	rand(790, 820)
-	addtimer(CALLBACK(src, .proc/MakeDry, wet_setting), time)
+	addtimer(CALLBACK(src, PROC_REF(MakeDry), wet_setting), time)
 
 /turf/simulated/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)
@@ -83,32 +82,66 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", WATER_STUN_TIME, WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
+					if(!(M.slip("the wet floor", WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
 						M.inertia_dir = 0
 						return
 
 				if(TURF_WET_LUBE) //lube
-					M.slip("the floor", 0, 5, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
+					M.slip("the floor", 4 SECONDS, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
 
 
 				if(TURF_WET_ICE) // Ice
-					if(M.slip("the icy floor", 4, 2, tilesSlipped = 0, walkSafely = 0))
+					if(M.slip("the icy floor", 4 SECONDS, tilesSlipped = 0, walkSafely = 0))
 						M.inertia_dir = 0
 						if(prob(5))
-							var/obj/item/organ/external/affected = M.get_organ("head")
+							var/obj/item/organ/external/affected = M.get_organ(BODY_ZONE_HEAD)
 							if(affected)
-								M.apply_damage(5, BRUTE, "head")
-								M.visible_message("<span class='warning'><b>[M]</b> hits their head on the ice!</span>")
+								M.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
+								M.visible_message(span_warning("<b>[M]</b> hits their head on the ice!"))
 								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
 
 				if(TURF_WET_PERMAFROST) // Permafrost
-					M.slip("the frosted floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
+					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
+	var/mob/living/simple_animal/Hulk = A
+	if(istype(A, /mob/living/simple_animal/hulk))
+		if(!Hulk.lying)
+			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
+	if (istype(A, /mob/living/simple_animal/hulk/clown_hulk))
+		if(!Hulk.lying)
+			playsound(src, "clownstep", CHANNEL_BUZZ)
+	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
+		playsound(src, "clownstep", CHANNEL_BUZZ)
 
-/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
-	. = ..()
+
+/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
+	if(air && !defer_change && !ignore_air)
+		var/aoxy = air.oxygen
+		var/anitro = air.nitrogen
+		var/aco = air.carbon_dioxide
+		var/atox = air.toxins
+		var/asleep = air.sleeping_agent
+		var/ab = air.agent_b
+		var/atemp = air.temperature
+		. = ..()
+		var/turf/simulated/T = .
+		if(istype(T) && T.air)
+			T.air.oxygen = aoxy
+			T.air.nitrogen = anitro
+			T.air.carbon_dioxide = aco
+			T.air.toxins = atox
+			T.air.sleeping_agent = asleep
+			T.air.agent_b = ab
+			T.air.temperature = atemp
+	else
+		. = ..()
 	queue_smooth_neighbors(src)
+
+/turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
+	..()
+	RemoveLattice()
+	if(!ignore_air && air && SSair)
+		SSair.add_to_active(src)
 
 /turf/simulated/proc/is_shielded()
 
-#undef WATER_STUN_TIME
 #undef WATER_WEAKEN_TIME

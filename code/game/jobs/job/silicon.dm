@@ -2,14 +2,14 @@
 	title = "AI"
 	flag = JOB_AI
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 0 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
+	total_positions = -1 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
 	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
 	department_head = list("Captain")
 	req_admin_notify = 1
 	minimal_player_age = 30
-	exp_requirements = 300
+	exp_requirements = 3000
 	exp_type = EXP_TYPE_SILICON
 
 /datum/job/ai/equip(mob/living/carbon/human/H)
@@ -17,7 +17,7 @@
 		return 0
 
 /datum/job/ai/is_position_available()
-	return (GLOB.empty_playable_ai_cores.len != 0)
+	return GLOB.empty_playable_ai_cores.len && CONFIG_GET(flag/allow_ai)
 
 
 /datum/job/cyborg
@@ -36,5 +36,8 @@
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H)
 	if(!H)
-		return 0
-	return H.Robotize()
+		return FALSE
+	var/mob/living/silicon/robot/new_robot = H.Robotize()
+	if(new_robot)
+		SSticker?.score?.save_silicon_laws(new_robot, additional_info = "job assignment", log_all_laws = TRUE)
+	return new_robot

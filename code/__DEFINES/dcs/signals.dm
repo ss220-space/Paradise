@@ -23,6 +23,8 @@
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
 /// ingame button pressed (/obj/machinery/button/button)
 #define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"
+/// cable was placed or joined somewhere : (turf)
+#define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
 
 /// signals from globally accessible objects
 
@@ -53,6 +55,8 @@
 #define COMSIG_ATOM_CREATED "atom_created"
 //from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
+///from base of atom/attackby(): (/obj/item, /atom/source, params) sends singal on user who attacked source
+#define COMSIG_ATOM_ATTACK "atom_attack"
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
 ///Return this in response if you don't want afterattack to be called
@@ -70,13 +74,29 @@
 	#define EXAMINE_POSITION_BEFORE (1<<1)
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED (1<<0)
-///from base of atom/update_icon(): ()
+	///from base of [/atom/proc/update_appearance]: (updates)
+	#define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
+	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its name.
+	#define COMSIG_ATOM_NO_UPDATE_NAME UPDATE_NAME
+	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its desc.
+	#define COMSIG_ATOM_NO_UPDATE_DESC UPDATE_DESC
+	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its icon.
+	#define COMSIG_ATOM_NO_UPDATE_ICON UPDATE_ICON
+///from base of [/atom/proc/update_name]: (updates)
+#define COMSIG_ATOM_UPDATE_NAME "atom_update_name"
+///from base of [/atom/proc/update_desc]: (updates)
+#define COMSIG_ATOM_UPDATE_DESC "atom_update_desc"
+///from base of [/atom/update_icon]: ()
 #define COMSIG_ATOM_UPDATE_ICON "atom_update_icon"
-	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE	(1<<0)
-	#define COMSIG_ATOM_NO_UPDATE_OVERLAYS		(1<<1)
-///from base of atom/update_overlays(): (list/new_overlays)
+	/// If returned from [COMSIG_ATOM_UPDATE_ICON] it prevents the atom from updating its icon state.
+	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE UPDATE_ICON_STATE
+	/// If returned from [COMSIG_ATOM_UPDATE_ICON] it prevents the atom from updating its overlays.
+	#define COMSIG_ATOM_NO_UPDATE_OVERLAYS UPDATE_OVERLAYS
+///Sent after [atom/update_icon_state] is called by [/atom/update_icon]: ()
+#define COMSIG_ATOM_UPDATE_ICON_STATE "atom_update_icon_state"
+///Sent after [atom/update_overlays] is called by [/atom/update_icon]: (list/new_overlays)
 #define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
-///from base of atom/update_icon(): (signalOut, did_anything)
+///from base of [/atom/update_icon]: (signalOut, did_anything)
 #define COMSIG_ATOM_UPDATED_ICON "atom_updated_icon"
 ///from base of atom/Entered(): (atom/movable/entering, /atom)
 #define COMSIG_ATOM_ENTERED "atom_entered"
@@ -156,6 +176,8 @@
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 ///called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
+///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+#define COMSIG_ATOM_HITBY "atom_hitby"
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"
@@ -265,13 +287,15 @@
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
-
+///called when the movable is removed from a disposal holder object: /obj/structure/disposalpipe/proc/expel(): (obj/structure/disposalholder/H, turf/T, direction)
+#define COMSIG_MOVABLE_EXIT_DISPOSALS "movable_exit_disposals"
 
 // /datum/mind signals
 
 ///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
 #define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
-
+///called on the mob instead of the mind
+#define COMSIG_BODY_TRANSFER_TO "body_transfer_to"
 // /mob signals
 
 ///from base of /mob/Login(): ()
@@ -280,6 +304,8 @@
 #define COMSIG_MOB_LOGOUT "mob_logout"
 ///from base of mob/death(): (gibbed)
 #define COMSIG_MOB_DEATH "mob_death"
+///from base of mob/ghostize(): (mob/dead/observer/ghost)
+#define COMSIG_MOB_GHOSTIZE "mob_ghostize"
 ///from base of mob/set_stat(): (new_stat)
 #define COMSIG_MOB_STATCHANGE "mob_statchange"
 ///from base of mob/clickon(): (atom/A, params)
@@ -289,6 +315,10 @@
 ///from base of mob/AltClickOn(): (atom/A)
 #define COMSIG_MOB_ALTCLICKON "mob_altclickon"
 	#define COMSIG_MOB_CANCEL_CLICKON (1<<0)
+
+///from base of mob/key_down(): (_key, client/user)
+#define COMSIG_MOB_KEY_DROP_ITEM_DOWN "mob_key_drop_item_down"
+	#define COMPONENT_CANCEL_DROP (1<<0)
 
 ///from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
 #define COMSIG_MOB_ALLOWED "mob_allowed"
@@ -303,7 +333,7 @@
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
 ///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
-#define COMSIG_MOB_APPLY_DAMGE	"mob_apply_damage"
+#define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
 ///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, proxiumity_flag, click_parameters)
@@ -312,6 +342,8 @@
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
 ///from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_THROW "mob_throw"
+///called when a user is getting new weapon and we want to remove previous weapon to clear hands
+#define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
 ///from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_EXAMINATE "mob_examinate"
 ///from base of /mob/update_sight(): ()
@@ -327,15 +359,37 @@
 	#define SPEECH_LANGUAGE 5
 	#define SPEECH_IGNORE_SPAM 6
 	#define SPEECH_FORCED 7 */
+////from mob/living/adjust_fire_stacks()
+#define COMSIG_MOB_ADJUST_FIRE "mob_adjust_fire"
 
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT (1<<0)
-///from /mob/living/emote(): ()
+
+/// Signal fired when an emote is used but before it's executed.
+///from /datum/emote/proc/try_run_emote(): (key, intentional)
+#define COMSIG_MOB_PREEMOTE "mob_preemote"
+	// Use these to block execution of emotes from components.
+	/// Return this to block an emote and let the user know the emote is unusable.
+	#define COMPONENT_BLOCK_EMOTE_UNUSABLE (1<<0)
+	/// Return this to block an emote silently.
+	#define COMPONENT_BLOCK_EMOTE_SILENT (1<<1)
+/// General signal fired when a mob does any old emote
+///from /datum/emote/proc/run_emote(): (key, intentional)
 #define COMSIG_MOB_EMOTE "mob_emote"
-///from base of mob/swap_hand(): (obj/item)
-#define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
+/// Specific signal used to track when a specific emote is used.
+/// From /datum/emote/run_emote(): (P, key, m_type, message, intentional)
+#define COMSIG_MOB_EMOTED(emote_key) "mob_emoted_[emote_key]"
+/// From /datum/emote/select_param(): (target, key, intentional)
+#define COMSIG_MOB_EMOTE_AT "mob_emote_at"
+	#define COMPONENT_BLOCK_EMOTE_ACTION (1<<2)
+
+///from base of mob/swap_hand(): (obj/item/currently_held_item)
+#define COMSIG_MOB_SWAPPING_HANDS "mob_swapping_hands"
 	#define COMPONENT_BLOCK_SWAP (1<<0)
+/// from base of mob/swap_hand(): ()
+/// Performed after the hands are swapped.
+#define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 
 // /mob/living signals
 
@@ -364,20 +418,36 @@
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 ///sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)
 #define COMSIG_BORG_SAFE_DECONSTRUCT "borg_safe_decon"
+///sent from living mobs every tick of fire
+#define COMSIG_LIVING_FIRE_TICK "living_fire_tick"
+//sent from living mobs when they are ahealed
+#define COMSIG_LIVING_AHEAL "living_aheal"
+///From living/Life(). (deltatime, times_fired)
+#define COMSIG_LIVING_LIFE "living_life"
+///from base of mob/living/death(): (gibbed)
+#define COMSIG_LIVING_DEATH "living_death"
+//sent from mobs when they exit their body as a ghost
+#define COMSIG_LIVING_GHOSTIZED "ghostized"
+//sent from mobs when they re-enter their body as a ghost
+#define COMSIG_LIVING_REENTERED_BODY "reentered_body"
+//sent from a mob when they set themselves to DNR
+#define COMSIG_LIVING_SET_DNR "set_dnr"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
-
-///from base of mob/living/Stun() (amount, update, ignore)
+// none of these are called as of right now, as there is nothing listening for them.
+///from base of mob/living/Stun() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_STUN "living_stun"
-///from base of mob/living/Knockdown() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
-///from base of mob/living/Paralyze() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
-///from base of mob/living/Immobilize() (amount, update, ignore)
+///from base of mob/living/Stun() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_WEAKEN "living_weaken"
+///from base of mob/living/Knockdown() (amount, ignore_canstun)
+///#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown" // one day
+///from base of mob/living/Paralyse() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_PARALYSE "living_paralyse"
+///from base of mob/living/Immobilize() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
-///from base of mob/living/Unconscious() (amount, update, ignore)
+///from base of mob/living/Unconscious() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
-///from base of mob/living/Sleeping() (amount, update, ignore)
+///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
 	#define COMPONENT_NO_STUN (1<<0)									//For all of them
 ///from base of /mob/living/can_track(): (mob/user)
@@ -400,10 +470,24 @@
 #define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"
 ///called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
+///called when something thrown hits a mob, from /mob/living/carbon/human/hitby(mob/living/carbon/target, /obj/item)
+#define COMSIG_CARBON_HITBY "carbon_hitby"
+/// From /mob/living/carbon/human/hitby()
+#define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
+/// From /mob/living/carbon/toggle_throw_mode()
+#define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
+
+// /mob/living/simple_animal signals
+///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
+#define COMSIG_SIMPLE_ANIMAL_ATTACKEDBY "simple_animal_attackedby"
+	#define COMPONENT_SIMPLE_ANIMAL_NO_ATTACK (1<<0)
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
+
+/// Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
+#define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
 
 // /obj signals
 
@@ -415,8 +499,7 @@
 #define COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH "obj_default_unfasten_wrench"
 ///from base of /turf/proc/levelupdate(). (intact) true to hide and false to unhide
 #define COMSIG_OBJ_HIDE	"obj_hide"
-///called in /obj/update_icon()
-#define COMSIG_OBJ_UPDATE_ICON "obj_update_icon"
+
 
 // /obj/machinery signals
 
@@ -446,15 +529,21 @@
 #define COMSIG_ITEM_ATTACK_QDELETED "item_attack_qdeleted"
 ///from base of obj/item/equipped(): (/mob/equipper, slot)
 #define COMSIG_ITEM_EQUIPPED "item_equip"
+///called on [/obj/item] before unequip from base of [mob/proc/do_Equip]: (force, atom/newloc, no_move, invdrop)
+#define COMSIG_ITEM_PRE_UNEQUIP "item_pre_unequip"
+	///only the pre unequip can be cancelled
+	#define COMPONENT_ITEM_BLOCK_UNEQUIP (1<<0)
+///called on [/obj/item] AFTER unequip from base of [mob/proc/do_unEquip]: (force, atom/newloc, no_move, invdrop)
+#define COMSIG_ITEM_POST_UNEQUIP "item_post_unequip"
 ///from base of obj/item/dropped(): (mob/user)
 #define COMSIG_ITEM_DROPPED "item_drop"
 ///from base of obj/item/pickup(): (/mob/taker)
 #define COMSIG_ITEM_PICKUP "item_pickup"
 ///from base of mob/living/carbon/attacked_by(): (mob/living/carbon/target, mob/living/user, hit_zone)
 #define COMSIG_ITEM_ATTACK_ZONE "item_attack_zone"
-///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/targeted/lichdom/cast(): (mob/user)
+///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/lichdom/cast(): (mob/user)
 #define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul"
-///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/targeted/summonitem/cast() : (mob/user)
+///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/summonitem/cast() : (mob/user)
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
@@ -493,7 +582,7 @@
 
 // /obj/item/clothing signals
 
-///from base of obj/item/clothing/shoes/proc/step_action(): ()
+///from [/mob/living/carbon/human/Move]: ()
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"
 ///from base of /obj/item/clothing/suit/space/proc/toggle_spacesuit(): (obj/item/clothing/suit/space/suit)
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"
@@ -582,9 +671,17 @@
 #define COMSIG_JOB_RECEIVED "job_received"
 // called after DNA is updated
 #define COMSIG_HUMAN_UPDATE_DNA "human_update_dna"
+/// From mob/living/carbon/human/change_body_accessory(): (mob/living/carbon/human/H, body_accessory_style)
+#define COMSIG_HUMAN_CHANGE_BODY_ACCESSORY "human_change_body_accessory"
+	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
+/// From mob/living/carbon/human/change_head_accessory(): (mob/living/carbon/human/H, head_accessory_style)
+#define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
+//from /mob/living/carbon/human/proc/apply_overlay
+#define COMSIG_HUMAN_APPLY_OVERLAY "living_apply_overlay"
+///From mob/living/carbon/human/do_suicide()
+#define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 
 // /datum/species signals
-
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
@@ -740,3 +837,23 @@
 ///SSalarm signals
 #define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
 #define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+
+// /datum/objective signals
+///from datum/objective/proc/find_target()
+#define COMSIG_OBJECTIVE_TARGET_FOUND "objective_target_found"
+///from datum/objective/is_invalid_target()
+#define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"
+	#define OBJECTIVE_VALID_TARGET		(1<<0)
+	#define OBJECTIVE_INVALID_TARGET	(1<<1)
+
+// /datum/component/bluespace_rift_scanner signals
+/// from scanner's `process()` : (seconds, emagged)
+#define COMSIG_SCANNING_RIFTS "scanning_rifts"
+	/// No rifts within the scanner's range
+	#define COMPONENT_SCANNED_NOTHING (1<<0)
+	/// There are some rifts within the scanner's range
+	#define COMPONENT_SCANNED_NORMAL (1<<1)
+	/// The scanner is within critical range of a rift
+	#define COMPONENT_SCANNED_CRITICAL (1<<2)
+	/// There are no servers available
+	#define COMPONENT_SCANNED_NO_SERVERS (1<<3)

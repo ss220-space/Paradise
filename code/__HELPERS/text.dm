@@ -10,7 +10,7 @@
 
 
 /proc/format_table_name(table as text)
-	return sqlfdbktableprefix + table
+	return CONFIG_GET(string/feedback_tableprefix) + table
 
 /*
  * Text sanitization
@@ -38,6 +38,17 @@
 		t = replacetext(t, char, repl_chars[char])
 	return t
 
+/proc/sanitize_censored_patterns(var/t)
+	if(!global.config || !CONFIG_GET(flag/twitch_censor) || !GLOB.twitch_censor_list)
+		return t
+
+	var/text = sanitize_simple(t, GLOB.twitch_censor_list)
+	if(t != text)
+		message_admins("CENSOR DETECTION: [ADMIN_FULLMONTY(usr)] inputs: \"[html_encode(t)]\"")
+		log_adminwarn("CENSOR DETECTION: [key_name_log(usr)] inputs: \"[t]\"")
+
+	return text
+
 /proc/readd_quotes(var/t)
 	var/list/repl_chars = list("&#34;" = "\"")
 	for(var/char in repl_chars)
@@ -49,7 +60,12 @@
 
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(var/t,var/list/repl_chars = null)
-	return html_encode(sanitize_simple(t,repl_chars))
+	return sanitize_censored_patterns(html_encode(sanitize_simple(t,repl_chars)))
+
+// Gut ANYTHING that isnt alphanumeric, or brackets
+/proc/filename_sanitize(t)
+	var/regex/alphanum_only = regex("\[^a-zA-Z0-9._/-]", "g")
+	return alphanum_only.Replace(t, "")
 
 // Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
@@ -235,9 +251,12 @@
  * Text modification
  */
 // See bygex.dm
-/proc/replace_characters(var/t,var/list/repl_chars)
+/proc/replace_characters(var/t,var/list/repl_chars, case_sensitive = FALSE)
 	for(var/char in repl_chars)
-		t = replacetext_char(t, char, repl_chars[char])
+		if(case_sensitive)
+			t = replacetextEx_char(t, char, repl_chars[char])
+		else
+			t = replacetext_char(t, char, repl_chars[char])
 	return t
 
 //Strips the first char and returns it and the new string as a list
@@ -405,16 +424,6 @@
 /proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
 	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
-
-//Replace BYOND text macros with span classes for to_chat
-/proc/replace_text_macro(match, code, rest)
-	var/regex/text_macro = new("(\\xFF.)(.*)$")
-	return text_macro.Replace(rest, /proc/replace_text_macro)
-
-/proc/macro2html(text)
-    var/static/regex/text_macro = new("(\\xFF.)(.*)$")
-    return text_macro.Replace(text, /proc/replace_text_macro)
-
 /proc/dmm_encode(text)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
 	// Some coder will probably despise me for this, years down the line
@@ -505,6 +514,10 @@
 		text = replacetext(text, "\[row\]", 	"")
 		text = replacetext(text, "\[cell\]", 	"")
 		text = replacetext(text, "\[logo\]", 	"")
+		text = replacetext(text, "\[slogo\]", 	"")
+		text = replacetext(text, "\[time\]", 	"")
+		text = replacetext(text, "\[date\]", 	"")
+		text = replacetext(text, "\[station\]", "")
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
@@ -521,10 +534,19 @@
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
 		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
+		text = replacetext(text, "\[slogo\]",	"&ZeroWidthSpace;<img src = syndielogo.png>")
+		text = replacetext(text, "\[ussplogo\]", "&ZeroWidthSpace;<img src = ussplogo.png>")
+		text = replacetext(text, "\[solgov\]", "&ZeroWidthSpace;<img src = solgovlogo.png>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
+		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
+		text = replacetext(text, "\[station\]", "[station_name()]")
+		text = replacetext(text, "\[gender\]", "[user ? user.gender : "neuter"]")
+		text = replacetext(text, "\[species\]", "[user?.dna?.species ? user.dna.species : "unknown"]")
 		if(!no_font)
 			if(P)
-				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
+				text = "<font face=\"[P.fake_signing ? signfont : deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
+				if(P.fake_signing) //or this, or one string in Kmetres
+					text = "<I>[text]</I>"
 			else
 				text = "<font face=\"[deffont]\">[text]</font>"
 
@@ -533,6 +555,7 @@
 
 /proc/convert_pencode_arg(text, tag, arg)
 	arg = sanitize_simple(html_encode(arg), list("''"="","\""="", "?"=""))
+	arg = sanitize_censored_patterns(arg)
 	// https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#rule-4---css-escape-and-strictly-validate-before-inserting-untrusted-data-into-html-style-property-values
 	var/list/style_attacks = list("javascript:", "expression", "byond:", "file:")
 
@@ -601,6 +624,8 @@
 	text = replacetext(text, "</td><tr>",				"\[row\]")
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	text = replacetext(text, "<img src = syndielogo.png>",	"\[slogo\]")
+	text = replacetext(text, "<img src = ussplogo.png>",	"\[ussplogo\]")
 	return text
 
 /datum/html/split_holder
@@ -660,3 +685,107 @@
 
 	// return the split html object to the caller
 	return s
+
+
+// Returns the rot13'ed text
+/proc/rot13(text = "")
+	var/lentext = length(text)
+	var/char = ""
+	var/ascii = 0
+	. = ""
+	for(var/i = 1, i <= lentext, i += length(char))
+		char = text[i]
+		ascii = text2ascii(char)
+		switch(ascii)
+			if(65 to 77, 97 to 109) //A to M, a to m
+				ascii += 13
+			if(78 to 90, 110 to 122) //N to Z, n to z
+				ascii -= 13
+			if(1072 to 1084, 1040 to 1052)
+				ascii += 13
+			if(1085 to 1097, 1053 to 1065)
+				ascii -= 13
+		. += ascii2text(ascii)
+
+//Used for applying byonds text macros to strings that are loaded at runtime
+/proc/apply_text_macros(string)
+	var/next_backslash = findtext(string, "\\")
+	if(!next_backslash)
+		return string
+
+	var/leng = length(string)
+
+	var/next_space = findtext(string, " ", next_backslash + length(string[next_backslash]))
+	if(!next_space)
+		next_space = leng - next_backslash
+
+	if(!next_space)	//trailing bs
+		return string
+
+	var/base = next_backslash == 1 ? "" : copytext(string, 1, next_backslash)
+	var/macro = lowertext(copytext(string, next_backslash + length(string[next_backslash]), next_space))
+	var/rest = next_backslash > leng ? "" : copytext(string, next_space + length(string[next_space]))
+
+	//See https://secure.byond.com/docs/ref/info.html#/DM/text/macros
+	switch(macro)
+		//prefixes/agnostic
+		if("the")
+			rest = text("\the []", rest)
+		if("a")
+			rest = text("\a []", rest)
+		if("an")
+			rest = text("\an []", rest)
+		if("proper")
+			rest = text("\proper []", rest)
+		if("improper")
+			rest = text("\improper []", rest)
+		if("roman")
+			rest = text("\roman []", rest)
+		//postfixes
+		if("th")
+			base = text("[]\th", rest)
+		if("s")
+			base = text("[]\s", rest)
+		if("he")
+			base = text("[]\he", rest)
+		if("she")
+			base = text("[]\she", rest)
+		if("his")
+			base = text("[]\his", rest)
+		if("himself")
+			base = text("[]\himself", rest)
+		if("herself")
+			base = text("[]\herself", rest)
+		if("hers")
+			base = text("[]\hers", rest)
+
+	. = base
+	if(rest)
+		. += .(rest)
+
+/// Removes characters incompatible with file names.
+/proc/sanitize_filename(text)
+	var/static/regex/regex = regex(@{""|[\\\n\t/?%*:|<>]|\.\."}, "g")
+	return regex.Replace(text, "")
+
+/**
+  * Formats num with an SI prefix.
+  *
+  * Returns a string formatted with a multiple of num and an SI prefix corresponding to an exponent of 10.
+  * Only considers exponents that are multiples of 3 (deca, deci, hecto, and centi are not included).
+  * A unit is not included in the string, the prefix is placed after the number with no spacing added anywhere.
+  * Listing of prefixes: https://en.wikipedia.org/wiki/Metric_prefix#List_of_SI_prefixes
+  */
+/proc/format_si_suffix(num)
+	if(num == 0)
+		return "[num]"
+
+	var/exponent = round_down(log(10, abs(num)))
+	var/ofthree = exponent / 3
+	if(exponent < 0)
+		ofthree = round(ofthree)
+	else
+		ofthree = round_down(ofthree)
+	if(ofthree == 0)
+		return "[num]"
+	return "[num / (10 ** (ofthree * 3))][GLOB.si_suffixes[round(length(GLOB.si_suffixes) / 2) + ofthree + 1]]"

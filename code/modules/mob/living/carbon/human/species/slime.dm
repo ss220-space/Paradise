@@ -5,6 +5,8 @@
 #define SLIMEPERSON_HUNGERCOST 50
 #define SLIMEPERSON_MINHUNGER 250
 #define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
+#define SLIMEPERSON_HAIRGROWTHDELAY 50
+#define SLIMEPERSON_HAIRGROWTHCOST 10
 
 /datum/species/slime
 	name = "Slime People"
@@ -23,13 +25,12 @@
 
 	brain_mod = 1.5
 
-	male_cough_sounds = list('sound/effects/slime_squish.ogg')
-	female_cough_sounds = list('sound/effects/slime_squish.ogg')
+	male_cough_sounds = list('sound/effects/mob_effects/slime_squish.ogg')
+	female_cough_sounds = list('sound/effects/mob_effects/slime_squish.ogg')
 
 	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN, EXOTIC_COLOR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
-	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
 
 	flesh_color = "#5fe8b1"
@@ -37,57 +38,85 @@
 	exotic_blood = "slimejelly"
 
 	butt_sprite = "slime"
-	//Has default darksight of 2.
 
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/slime,
-		"heart" = /obj/item/organ/internal/heart/slime,
-		"lungs" = /obj/item/organ/internal/lungs/slime
-		)
-	mutantears = null
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/slime,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/slime,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/slime,
+	)
+
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/unbreakable),
-		"groin" =  list("path" = /obj/item/organ/external/groin/unbreakable),
-		"head" =   list("path" = /obj/item/organ/external/head/unbreakable),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/unbreakable),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/unbreakable),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/unbreakable),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/unbreakable),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/unbreakable),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/unbreakable),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/unbreakable),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable)
-		)
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/unbreakable),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/unbreakable),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/unbreakable),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm/unbreakable),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right/unbreakable),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg/unbreakable),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right/unbreakable),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand/unbreakable),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right/unbreakable),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot/unbreakable),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right/unbreakable),
+	)
+
 	suicide_messages = list(
-		"is melting into a puddle!",
-		"is ripping out their own core!",
-		"is turning a dull, brown color and melting into a puddle!")
+		"тает в лужу!",
+		"растекается в лужу!",
+		"становится растаявшим желе!",
+		"вырывает собственное ядро!",
+		"становится коричневым, тусклым и растекается в лужу!")
 
 	var/reagent_skin_coloring = FALSE
-	var/datum/action/innate/regrow/grow
-	var/datum/action/innate/slimecolor/recolor
+
+	disliked_food = SUGAR | FRIED
+	liked_food = MEAT | TOXIC | RAW
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
-	grow = new()
-	grow.Grant(H)
-	recolor = new()
-	recolor.Grant(H)
+	var/datum/action/innate/regrow/grow = locate() in H.actions
+	if(!grow)
+		grow = new
+		grow.Grant(H)
+	var/datum/action/innate/slimecolor/recolor = locate() in H.actions
+	if(!recolor)
+		recolor = new
+		recolor.Grant(H)
+	var/datum/action/innate/slimehair/changehair = locate() in H.actions
+	if(!changehair)
+		changehair = new
+		changehair.Grant(H)
+	var/datum/action/innate/slimebeard/changebeard = locate() in H.actions
+	if(!changebeard)
+		changebeard = new
+		changebeard.Grant(H)
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
-	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
+	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(H)
 	H.verbs |= /mob/living/carbon/human/proc/emote_squish
+	H.verbs |= /mob/living/carbon/human/proc/emote_bubble
+	H.verbs |= /mob/living/carbon/human/proc/emote_pop
 
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
 	..()
+	var/datum/action/innate/regrow/grow = locate() in H.actions
 	if(grow)
 		grow.Remove(H)
+	var/datum/action/innate/slimecolor/recolor = locate() in H.actions
 	if(recolor)
 		recolor.Remove(H)
+	var/datum/action/innate/slimehair/changehair = locate() in H.actions
+	if(changehair)
+		changehair.Remove(H)
+	var/datum/action/innate/slimebeard/changebeard = locate() in H.actions
+	if(changebeard)
+		changebeard.Remove(H)
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 	H.verbs -= /mob/living/carbon/human/proc/emote_squish
+	H.verbs -= /mob/living/carbon/human/proc/emote_bubble
+	H.verbs -= /mob/living/carbon/human/proc/emote_pop
+
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
 	var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
@@ -113,36 +142,36 @@
 	..()
 
 
+/datum/species/slime/can_hear(mob/living/carbon/human/user)
+	return !(DEAF in user.mutations) && !HAS_TRAIT(user, TRAIT_DEAF)
 
-/datum/species/slime/can_hear() // fucking snowflakes
-	. = TRUE
 
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "slime_change"
 
 /datum/action/innate/slimecolor/Activate()
 	var/mob/living/carbon/human/H = owner
 	var/datum/species/slime/S = H.dna.species
 	if(S.reagent_skin_coloring)
 		S.reagent_skin_coloring = FALSE
-		to_chat(H, "You adjust your internal chemistry to filter out pigments from things you consume.")
+		to_chat(H, "Вы настраиваете свою внутреннюю химию, чтобы отфильтровывать пигменты из употребляемых продуктов.")
 	else
 		S.reagent_skin_coloring = TRUE
-		to_chat(H, "You adjust your internal chemistry to permit pigments in chemicals you consume to tint you.")
+		to_chat(H, "Вы настраиваете свою внутреннюю химию, позволяя окрашивать себя пигментами употребляемых веществ.")
 
 /datum/action/innate/regrow
 	name = "Regrow limbs"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "slime_renew"
 
 /datum/action/innate/regrow/Activate()
 	var/mob/living/carbon/human/H = owner
 	if(H.nutrition < SLIMEPERSON_MINHUNGER)
-		to_chat(H, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
+		to_chat(H, "<span class='warning'>Вы слишком голодны для регенерации конечности!</span>")
 		return
 
 	var/list/missing_limbs = list()
@@ -151,29 +180,51 @@
 		if(!istype(E))
 			var/list/limblist = H.dna.species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
-			var/parent_organ = initial(limb.parent_organ)
+			var/parent_organ = initial(limb.parent_organ_zone)
 			var/obj/item/organ/external/parentLimb = H.bodyparts_by_name[parent_organ]
 			if(!istype(parentLimb))
 				continue
 			missing_limbs[initial(limb.name)] = l
 
 	if(!missing_limbs.len)
-		to_chat(H, "<span class='warning'>You're not missing any limbs!</span>")
+		to_chat(H, "<span class='warning'>Ваши конечности на месте!</span>")
 		return
 
-	var/limb_select = input(H, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
+	var/limb_select = tgui_input_list(H, "Choose a limb to regrow", "Limb Regrowth", missing_limbs)
 	if(!limb_select) // If the user hit cancel on the popup, return
 		return
 	var/chosen_limb = missing_limbs[limb_select]
 
-	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
-	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-			to_chat(H, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
+	//перевод конечности со склонением
+	var/chosen_limb_rus = chosen_limb
+	switch(chosen_limb_rus)
+		if(BODY_ZONE_L_LEG, "left leg", "the left leg")
+			chosen_limb_rus = "левой ноги"
+		if(BODY_ZONE_R_LEG, "right leg", "the right leg")
+			chosen_limb_rus = "правой ноги"
+		if(BODY_ZONE_PRECISE_L_FOOT, "left foot", "the left foot")
+			chosen_limb_rus = "левой ступни"
+		if(BODY_ZONE_PRECISE_R_FOOT, "right foot", "the right foot")
+			chosen_limb_rus = "правой ступни"
+		if(BODY_ZONE_PRECISE_GROIN, "lower body", "the lower body")
+			chosen_limb_rus = "нижней части тела"
+		if(BODY_ZONE_L_ARM, "left arm", "the left arm")
+			chosen_limb_rus = "левой руки"
+		if(BODY_ZONE_R_ARM, "right arm", "the right arm")
+			chosen_limb_rus = "правой руки"
+		if(BODY_ZONE_PRECISE_L_HAND, "left hand", "the left hand")
+			chosen_limb_rus = "левой кисти"
+		if(BODY_ZONE_PRECISE_R_HAND, "right hand", "the right hand")
+			chosen_limb_rus = "правой кисти"
+
+	H.visible_message("<span class='notice'>[H] замирает и концентрируется на [genderize_ru(H.gender,"его","её","своей","их")] потерянной [chosen_limb_rus]...</span>", "<span class='notice'>Вы концентрируетесь на отращивании [chosen_limb_rus]... (Это займет [round(SLIMEPERSON_REGROWTHDELAY/10)] секунд, нужно подождать в спокойствии.)</span>")
+	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob/living, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob/living, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+			to_chat(H, "<span class='warning'>Вы не можете регенерировать недостающие конечности в текущем состоянии</span>")
 			return
 
 		if(H.nutrition < SLIMEPERSON_MINHUNGER)
-			to_chat(H, "<span class='warning'>You're too hungry to regenerate a limb!</span>")
+			to_chat(H, "<span class='warning'>Вы слишком голодны чтобы регенерировать!</span>")
 			return
 
 		var/obj/item/organ/external/O = H.bodyparts_by_name[chosen_limb]
@@ -181,7 +232,7 @@
 		var/stored_brute = 0
 		var/stored_burn = 0
 		if(istype(O))
-			to_chat(H, "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>")
+			to_chat(H, "<span class='warning'>Вы распределяете поврежденную ткань по всему телу, освобождая место для ложноножки!</span>")
 			var/obj/item/organ/external/doomedStump = O
 			stored_brute = doomedStump.brute_dam
 			stored_burn = doomedStump.burn_dam
@@ -190,9 +241,9 @@
 		var/limb_list = H.dna.species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
-		var/obj/item/organ/external/potential_parent = H.bodyparts_by_name[initial(limb_path.parent_organ)]
+		var/obj/item/organ/external/potential_parent = H.bodyparts_by_name[initial(limb_path.parent_organ_zone)]
 		if(!istype(potential_parent))
-			to_chat(H, "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>")
+			to_chat(H, "<span class='danger'>Вы потеряли орган, на котором выращивали новую конечность!</span>")
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
@@ -204,9 +255,75 @@
 		H.updatehealth()
 		H.UpdateDamageIcon()
 		H.adjust_nutrition(-SLIMEPERSON_HUNGERCOST)
-		H.visible_message("<span class='notice'>[H] finishes regrowing [H.p_their()] missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
+
+		//перевод конечности со склонением
+		var/new_limb_rus = new_limb.name
+		switch(new_limb_rus)
+			if(BODY_ZONE_L_LEG, "left leg", "the left leg")
+				chosen_limb_rus = "левую ногу"
+			if(BODY_ZONE_R_LEG, "right leg", "the right leg")
+				chosen_limb_rus = "правую ногу"
+			if(BODY_ZONE_PRECISE_L_FOOT, "left foot", "the left foot")
+				chosen_limb_rus = "левую ступню"
+			if(BODY_ZONE_PRECISE_R_FOOT, "right foot", "the right foot")
+				chosen_limb_rus = "правую ступню"
+			if(BODY_ZONE_PRECISE_GROIN, "lower body", "the lower body")
+				chosen_limb_rus = "нижнюю часть тела"
+			if(BODY_ZONE_L_ARM, "left arm", "the left arm")
+				chosen_limb_rus = "левую руку"
+			if(BODY_ZONE_R_ARM, "right arm", "the right arm")
+				chosen_limb_rus = "правую руку"
+			if(BODY_ZONE_PRECISE_L_HAND, "left hand", "the left hand")
+				chosen_limb_rus = "левую кисть"
+			if(BODY_ZONE_PRECISE_R_HAND, "right hand", "the right hand")
+				chosen_limb_rus = "правую кисть"
+
+		H.visible_message("<span class='notice'>[H] отращивает [genderize_ru(H.gender,"его","её","своей","их")] потерянную [new_limb_rus]!</span>", "<span class='notice'>Вы отрастили [new_limb_rus]</span>")
 	else
-		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
+		to_chat(H, "<span class='warning'>Для отращивания конечности вам нужно стоять на месте!</span>")
+
+/datum/action/innate/slimehair
+	name = "Change Hairstyle"
+	check_flags = AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "greenglow"
+
+/datum/action/innate/slimehair/Activate()
+	var/mob/living/carbon/human/H = owner
+	var/list/valid_hairstyles = H.generate_valid_hairstyles()
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
+	if(new_style)
+		H.visible_message("<span class='notice'>Волосы на голове [H] начинают шевелиться!.</span>", "<span class='notice'>Вы концентрируетесь на своей прическе.</span>")
+		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, target = H))
+			H.change_hair(new_style)
+			H.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
+			H.visible_message("<span class='notice'>[H] изменил свою прическу.</span>", "<span class='notice'>Вы изменили свою прическу.</span>")
+		else
+			to_chat(H, "<span class='warning'>Вы теряете концентрацию.</span>")
+
+/datum/action/innate/slimebeard
+	name = "Change Beard"
+	check_flags = AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "greenglow"
+
+/datum/action/innate/slimebeard/Activate()
+	var/mob/living/carbon/human/H = owner
+	var/list/valid_facial_hairstyles = H.generate_valid_facial_hairstyles()
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+	if(H.gender == FEMALE)
+		to_chat(H, "<span class='warning'> Вы не можете изменить бороду.</span>")
+		return
+	var/new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
+	if(new_style)
+		H.visible_message("<span class='notice'>Волосы на лице [H] начинают шевелиться!.</span>", "<span class='notice'>Вы концентрируетесь на своей бороде.</span>")
+		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, target = H))
+			H.change_facial_hair(new_style)
+			H.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
+			H.visible_message("<span class='notice'>[H] изменил свою бороду.</span>", "<span class='notice'>Вы изменили свою бороду.</span>")
+		else
+			to_chat(H, "<span class='warning'>Вы теряете концентрацию.</span>")
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
@@ -215,3 +332,5 @@
 #undef SLIMEPERSON_HUNGERCOST
 #undef SLIMEPERSON_MINHUNGER
 #undef SLIMEPERSON_REGROWTHDELAY
+#undef SLIMEPERSON_HAIRGROWTHDELAY
+#undef SLIMEPERSON_HAIRGROWTHCOST

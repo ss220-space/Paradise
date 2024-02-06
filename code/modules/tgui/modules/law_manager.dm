@@ -32,8 +32,8 @@
 		return
 
 	if(usr != owner && !check_rights(R_ADMIN))
-		message_admins("Warning: possible href exploit by [key_name_admin(usr)] - failed permissions check in law manager!")
-		log_debug("Warning: possible href exploit by [key_name(usr)] - failed permissions check in law manager!")
+		message_admins("Warning: possible href exploit by [ADMIN_LOOKUPFLW(usr)] - failed permissions check in law manager!")
+		log_debug("Warning: possible href exploit by [key_name_log(usr)] - failed permissions check in law manager!")
 		return
 
 	. = TRUE
@@ -55,18 +55,22 @@
 		if("add_zeroth_law")
 			if(zeroth_law && is_admin(usr) && !owner.laws.zeroth_law)
 				owner.set_zeroth_law(zeroth_law)
+				SSticker?.score?.save_silicon_laws(owner, usr, "admin used law manager, new zero law was added '[zeroth_law]'")
 
 		if("add_ion_law")
 			if(ion_law && is_malf(usr))
 				owner.add_ion_law(ion_law)
+				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new ion law was added '[ion_law]'")
 
 		if("add_inherent_law")
 			if(inherent_law && is_malf(usr))
 				owner.add_inherent_law(inherent_law)
+				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new inherent law was added '[inherent_law]'")
 
 		if("add_supplied_law")
 			if(supplied_law && supplied_law_position >= 1 && MIN_SUPPLIED_LAW_NUMBER <= MAX_SUPPLIED_LAW_NUMBER && is_malf(usr))
 				owner.add_supplied_law(supplied_law_position, supplied_law)
+				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new supplied law was added '[supplied_law]'")
 
 		if("change_zeroth_law")
 			var/new_law = sanitize(input("Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law))
@@ -104,7 +108,9 @@
 					var/new_law = sanitize(input(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law))
 					if(new_law && new_law != AL.law && is_malf(usr) && (!..()))
 						log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
+						var/old_law = AL.law
 						AL.law = new_law
+						SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, law '[old_law]' was changed to '[new_law]'")
 
 		if("delete_law")
 			if(is_malf(usr))
@@ -114,7 +120,9 @@
 					to_chat(usr, "<span class='warning'>You cant delete that law.</span>")
 					return
 				if(AL && is_malf(usr))
+					var/old_law = AL.law
 					owner.delete_law(AL)
+					SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, law '[old_law]' was deleted")
 
 		if("state_laws")
 			owner.statelaws(owner.laws)
@@ -129,8 +137,9 @@
 				var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (is_admin(usr) ? admin_laws : player_laws)
 				if(ALs)
 					log_and_message_admins("has transfered the [ALs.name] laws to [owner].")
-					ALs.sync(owner, 0)
+					ALs.sync(owner, 0, TRUE)
 					current_view = 0
+					SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, '[ALs.name]' laws set was loaded", log_all_laws = TRUE)
 
 		if("notify_laws")
 			to_chat(owner, "<span class='danger'>Law Notice</span>")
@@ -201,7 +210,14 @@
 	return law_sets
 
 /datum/ui_module/law_manager/proc/is_malf(var/mob/user)
-	return (is_admin(user) && !owner.is_slaved()) || is_special_character(owner)
+	if(is_admin(user) && !owner.is_slaved())
+		return TRUE
+	if(isAI(owner))
+		var/mob/living/silicon/ai/malf = owner
+		return malf.malf_picker
+	else
+		var/mob/living/silicon/robot/silic = owner
+		return silic.module?.module_type == "Malf" || silic.emagged
 
 /mob/living/silicon/proc/is_slaved()
 	return FALSE

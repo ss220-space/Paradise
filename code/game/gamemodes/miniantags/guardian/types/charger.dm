@@ -6,10 +6,10 @@
 	ranged_cooldown_time = 40
 	speed = -1
 	damage_transfer = 0.6
-	playstyle_string = "As a <b>Charger</b> type you do medium damage, have medium damage resistance, move very fast, and can charge at a location, damaging any target hit and forcing them to drop any items they are holding. (Click a tile to use your charge ability)"
-	magic_fluff_string = "..And draw the Hunter, an alien master of rapid assault."
-	tech_fluff_string = "Boot sequence complete. Charge modules loaded. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to deal damage."
+	playstyle_string = "Будучи <b>Налетчиком</b> вы наносите слабый урон, имеете среднее сопротивление урону, очень быстро передвигаетесь, наносите более быстрые атаки по живым и можете атаковать цель, нанося ей урон и опрокидывая на пол. <b>Нажмите на плитку дальше одного тайла, чтобы использовать рывок!</b>"
+	magic_fluff_string = ".. и вытягиваете Охотника, инопланетного мастера стремительных атак."
+	tech_fluff_string = "Последовательность загрузки завершена. Скоростные модули загружены. Рой голопаразитов запущен."
+	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый нанести урон."
 	var/charging = 0
 	var/obj/screen/alert/chargealert
 
@@ -30,9 +30,14 @@
 		chargealert = null
 		Shoot(A)
 
+/mob/living/simple_animal/hostile/guardian/charger/AttackingTarget()
+	. = ..()
+	if(iscarbon(target))
+		changeNext_move(CLICK_CD_RANGE)
+
 /mob/living/simple_animal/hostile/guardian/charger/Shoot(atom/targeted_atom)
 	charging = 1
-	throw_at(targeted_atom, range, 1, src, 0, callback = CALLBACK(src, .proc/charging_end))
+	throw_at(targeted_atom, range, 1, src, 0, callback = CALLBACK(src, PROC_REF(charging_end)))
 
 /mob/living/simple_animal/hostile/guardian/charger/proc/charging_end()
 	charging = 0
@@ -46,7 +51,7 @@
 	if(!charging)
 		..()
 
-/mob/living/simple_animal/hostile/guardian/charger/throw_impact(atom/A)
+/mob/living/simple_animal/hostile/guardian/charger/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	if(!charging)
 		return ..()
 
@@ -62,11 +67,12 @@
 				if(H.check_shields(src, 90, "[name]", attack_type = THROWN_PROJECTILE_ATTACK))
 					blocked = TRUE
 			if(!blocked)
-				L.Stun(1)
+				L.Weaken(2 SECONDS)
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] slams into you!</span>")
-				L.apply_damage(20, BRUTE)
+				L.apply_damage(30, BRUTE)
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, 1)
 				shake_camera(L, 4, 3)
 				shake_camera(src, 2, 3)
 
 		charging = 0
+

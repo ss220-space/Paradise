@@ -93,8 +93,8 @@
 
 /datum/design/pod_gun_taser
 	construction_time = 200
-	name = "Spacepod Equipment (Taser)"
-	desc = "Allows for the construction of a spacepod mounted taser."
+	name = "Spacepod Equipment (Disabler)"
+	desc = "Allows for the construction of a spacepod mounted disabler."
 	id = "podgun_taser"
 	build_type = PODFAB
 	req_tech = list("materials" = 2, "combat" = 2)
@@ -105,8 +105,8 @@
 
 /datum/design/pod_gun_btaser
 	construction_time = 200
-	name = "Spacepod Equipment (Burst Taser)"
-	desc = "Allows for the construction of a spacepod mounted taser. This is the burst-fire model."
+	name = "Spacepod Equipment (Burst Disabler)"
+	desc = "Allows for the construction of a spacepod mounted disabler. This is the burst-fire model."
 	id = "podgun_btaser"
 	build_type = PODFAB
 	req_tech = list("materials" = 3, "combat" = 3)
@@ -127,10 +127,22 @@
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)
 	locked = 1
 
+/datum/design/pod_gun_solaris
+	construction_time = 200
+	name = "Spacepod Equipment (Heavy laser)"
+	desc = "Allows for the construction of a spacepod mounted  heavy laser."
+	id = "podgun_solaris"
+	build_type = PODFAB
+	req_tech = list("combat" = 4, "magnets" = 4, "engineering" = 4)
+	build_path = /obj/item/spacepod_equipment/weaponry/solaris
+	category = list("Pod_Weaponry")
+	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_GOLD=2000,MAT_SILVER=4000)
+	locked = 1
+
 /datum/design/pod_mining_laser_basic
 	construction_time = 200
-	name = "Basic Mining Laser"
-	desc = "Allows for the construction of a weak mining laser"
+	name = "Spacepod Equipment (Kinetic Accelerator)"
+	desc = "Allows for the construction of a kinetic accelerator"
 	id = "pod_mining_laser_basic"
 	req_tech = list("materials" = 3, "powerstorage" = 2, "engineering" = 2, "magnets" = 3, "combat" = 2)
 	build_type = PODFAB
@@ -140,8 +152,8 @@
 
 /datum/design/pod_mining_laser
 	construction_time = 200
-	name = "Mining Laser"
-	desc = "Allows for the construction of a mining laser."
+	name = "Spacepod Equipment (Industrial Kinetic Accelerator)"
+	desc = "Allows for the construction of a industrial kinetic accelerator."
 	id = "pod_mining_laser"
 	req_tech = list("materials" = 6, "powerstorage" = 6, "engineering" = 5, "magnets" = 6, "combat" = 4)
 	build_type = PODFAB
@@ -238,5 +250,5 @@
 	req_tech = list("materials" = 1) //The most basic kind of locking system
 	build_type = PODFAB
 	materials = list(MAT_METAL=500)
-	build_path = /obj/item/spacepod_key
+	build_path = /obj/item/spacepod_equipment/key
 	category = list("Pod_Parts")

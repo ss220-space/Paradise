@@ -13,7 +13,7 @@
 	var/datum/effect_system/spark_spread/sparks = new
 	sparks.set_up(n, c, source)
 	sparks.autocleanup = TRUE
-	sparks.start()
+	INVOKE_ASYNC(sparks, TYPE_PROC_REF(/datum/effect_system, start))
 
 /obj/effect/particle_effect/sparks
 	name = "sparks"
@@ -25,7 +25,7 @@
 /obj/effect/particle_effect/sparks/New()
 	..()
 	flick("sparks", src) // replay the animation
-	playsound(loc, "sparks", 100, 1)
+	playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	var/turf/T = loc
 	if(isturf(T))
 		T.hotspot_expose(hotspottemp, 100)
@@ -38,7 +38,7 @@
 	return ..()
 
 /obj/effect/particle_effect/sparks/Move()
-	..()
+	. = ..()
 	var/turf/T = loc
 	if(isturf(T))
 		T.hotspot_expose(hotspottemp,100)

@@ -16,12 +16,12 @@
 	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+	/// Update_fire_overlay will check if a different icon state should be used
+	var/custom_fire_overlay
 
 	var/acid_level = 0 //how much acid is on that obj
 
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
-
-	var/Mtoollink = FALSE // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
 	var/being_shocked = FALSE
 	var/speed_process = FALSE
@@ -117,7 +117,9 @@
 	//		datum/air_group to tell lifeform to process using that breath return
 	//DEFAULT: Take air from turf to give to have mob process
 	if(breath_request > 0)
-		return remove_air(breath_request)
+		var/datum/gas_mixture/environment = return_air()
+		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
+		return remove_air(environment.total_moles() * breath_percentage)
 	else
 		return null
 
@@ -159,11 +161,15 @@
 		if(!ai_in_use && !is_in_use)
 			in_use = FALSE
 
+
+/**
+ * Hidden uplink interaction proc. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
+ *
+ * Arguments:
+ * * user - who interacts with uplink.
+ */
 /obj/proc/interact(mob/user)
 	return
-
-/obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 
 /mob/proc/unset_machine()
 	if(machine)
@@ -193,88 +199,6 @@
 	return
 
 /obj/proc/hear_message(mob/M, text)
-
-/obj/proc/multitool_menu(mob/user, obj/item/multitool/P)
-	return "<b>NO MULTITOOL_MENU!</b>"
-
-/obj/proc/linkWith(mob/user, obj/buffer, context)
-	return FALSE
-
-/obj/proc/unlinkFrom(mob/user, obj/buffer)
-	return FALSE
-
-/obj/proc/canLink(obj/O, list/context)
-	return FALSE
-
-/obj/proc/isLinkedWith(obj/O)
-	return FALSE
-
-/obj/proc/getLink(idx)
-	return null
-
-/obj/proc/linkMenu(obj/O)
-	var/dat = ""
-	if(canLink(O, list()))
-		dat += " <a href='?src=[UID()];link=1'>\[Link\]</a> "
-	return dat
-
-/obj/proc/format_tag(label, varname, act = "set_tag")
-	var/value = vars[varname]
-	if(!value || value == "")
-		value = "-----"
-	return "<b>[label]:</b> <a href=\"?src=[UID()];[act]=[varname]\">[value]</a>"
-
-
-/obj/proc/update_multitool_menu(mob/user)
-	var/obj/item/multitool/P = get_multitool(user)
-
-	if(!istype(P))
-		return FALSE
-
-	var/dat = {"<html>
-	<meta charset="UTF-8">
-	<head>
-		<title>[name] Configuration</title>
-		<style type="text/css">
-html,body {
-	font-family:courier;
-	background:#999999;
-	color:#333333;
-}
-
-a {
-	color:#000000;
-	text-decoration:none;
-	border-bottom:1px solid black;
-}
-		</style>
-	</head>
-	<body>
-		<h3>[name]</h3>
-"}
-	if(allowed(user))//no, assistants, you're not ruining all vents on the station with just a multitool
-		dat += multitool_menu(user, P)
-		if(Mtoollink)
-			if(P)
-				if(P.buffer)
-					var/id = null
-					if("id_tag" in P.buffer.vars)
-						id = P.buffer:id_tag
-					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] [id ? "([id])" : ""]"
-
-					dat += linkMenu(P.buffer)
-
-					if(P.buffer)
-						dat += "<a href='?src=[UID()];flush=1'>\[Flush\]</a>"
-					dat += "</p>"
-				else
-					dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=[UID()];buffer=1'>\[Add Machine\]</a></p>"
-	else
-		dat += "<b>ACCESS DENIED</a>"
-	dat += "</body></html>"
-	user << browse(dat, "window=mtcomputer")
-	user.set_machine(src)
-	onclose(user, "mtcomputer")
 
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
 	if(obj_integrity >= max_integrity)
@@ -321,9 +245,6 @@ a {
 /obj/proc/container_resist(mob/living)
 	return
 
-/obj/proc/CanAStarPass(ID, dir, caller)
-	. = !density
-
 /obj/proc/on_mob_move(dir, mob/user)
 	return
 
@@ -359,8 +280,36 @@ a {
 /obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
 	return
 
+/obj/proc/is_mob_spawnable() //Called by spawners_menu methods to determine if you can use an object through spawn-menu
+	//just override it to return TRUE in your object if you want to use it through spawn menu
+	return
+
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
 
+/proc/get_obj_in_atom_without_warning(atom/A)
+	if(!istype(A))
+		return null
+	if(isobj(A))
+		return A
+
+	return locate(/obj) in A
+
+
+#define CARBON_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
+
+/obj/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	damage *= CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
+	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
+	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
+		return
+	C.visible_message(span_danger("[C] slams into [src]!"),
+					span_userdanger("You slam into [src]!"))
+	C.take_organ_damage(damage)
+	if(!self_hurt)
+		take_damage(damage, BRUTE)
+	C.Weaken(3 SECONDS)
+
+#undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER

@@ -93,7 +93,7 @@
 
 	for(var/A in loc)
 		var/atom/item = A
-		if(item && item != src) // It's possible that the item is deleted in temperature_expose
+		if(!QDELETED(item) && item != src) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
 
 	color = heat2color(temperature)
@@ -164,12 +164,12 @@
 /obj/effect/hotspot/Destroy()
 	set_light(0)
 	SSair.hotspots -= src
-	if(!fake)
-		DestroyTurf()
 	if(istype(loc, /turf/simulated))
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)
 			T.active_hotspot = null
+	if(!fake)
+		DestroyTurf()
 	return ..()
 
 /obj/effect/hotspot/proc/DestroyTurf()
@@ -253,7 +253,7 @@
 		var/turf/T = open[1]
 		var/dist = open[T]
 		open -= T
-		closed += T
+		closed[T] = TRUE
 
 		if(isspaceturf(T))
 			continue
@@ -303,9 +303,7 @@
 
 		if(T.density)
 			continue
-		for(var/obj/O in T)
-			if(O.density)
-				continue
+
 		if(dist == max_dist)
 			continue
 
@@ -313,10 +311,11 @@
 			var/turf/link = get_step(T, dir)
 			if (!link)
 				continue
-			var/dx = link.x - Ce.x
-			var/dy = link.y - Ce.y
-			var/target_dist = max((dist + 1 + sqrt(dx * dx + dy * dy)) / 2, dist)
-			if(!(link in closed))
+			// Check if it wasn't already visited and if you can get to that turf
+			if(!closed[link] && T.CanAtmosPass(link))
+				var/dx = link.x - Ce.x
+				var/dy = link.y - Ce.y
+				var/target_dist = max((dist + 1 + sqrt(dx * dx + dy * dy)) / 2, dist)
 				if(link in open)
 					if(open[link] > target_dist)
 						open[link] = target_dist

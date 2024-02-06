@@ -10,7 +10,7 @@
 					toggles,
 					toggles_2,
 					sound,
-					volume,
+					volume_mixer,
 					lastchangelog,
 					exp,
 					clientfps,
@@ -18,7 +18,9 @@
 					fuid,
 					parallax,
 					discord_id,
-					discord_name
+					discord_name,
+					keybindings,
+					viewrange
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -40,7 +42,7 @@
 		toggles = text2num(query.item[7])
 		toggles2 = text2num(query.item[8])
 		sound = text2num(query.item[9])
-		volume = text2num(query.item[10])
+		volume_mixer = deserialize_volume_mixer(query.item[10])
 		lastchangelog = query.item[11]
 		exp = query.item[12]
 		clientfps = text2num(query.item[13])
@@ -49,19 +51,20 @@
 		parallax = text2num(query.item[16])
 		discord_id = query.item[17]
 		discord_name = query.item[18]
+		keybindings = init_keybindings(raw = query.item[19])
+		viewrange = query.item[20]
 
 	qdel(query)
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
-	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
+	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight", "Plasmafire", "Retro", "Slimecore", "Operative"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
 	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
-	volume			= sanitize_integer(volume, 0, 100, initial(volume))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	exp	= sanitize_text(exp, initial(exp))
 	clientfps = sanitize_integer(clientfps, -1, 1000, initial(clientfps))
@@ -80,6 +83,11 @@
 			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
 			be_special -= role
 
+	// We're saving volume_mixer here as well, so no point in keeping the timer running
+	if(volume_mixer_saving)
+		deltimer(volume_mixer_saving)
+		volume_mixer_saving = null
+
 	var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE [format_table_name("player")]
 				SET
 					ooccolor=:ooccolour,
@@ -92,10 +100,12 @@
 					toggles_2=:toggles2,
 					atklog=:atklog,
 					sound=:sound,
-					volume=:volume,
+					volume_mixer=:volume_mixer,
 					lastchangelog=:lastchangelog,
 					clientfps=:clientfps,
-					parallax=:parallax
+					parallax=:parallax,
+					keybindings=:keybindings,
+					viewrange=:viewrange
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -109,10 +119,12 @@
 						"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
 						"atklog" = atklog,
 						"sound" = sound,
-						"volume" = volume,
+						"volume_mixer" = serialize_volume_mixer(volume_mixer),
 						"lastchangelog" = lastchangelog,
 						"clientfps" = clientfps,
 						"parallax" = parallax,
+						"keybindings" = json_encode(keybindings_overrides),
+						"viewrange" = viewrange,
 						"ckey" = C.ckey
 					)
 					)
@@ -124,10 +136,11 @@
 	qdel(query)
 	return 1
 
-/datum/preferences/proc/load_character(client/C,slot)
+/datum/preferences/proc/load_character(client/C, slot)
 	saved = FALSE
 
-	if(!slot)	slot = default_slot
+	if(!slot)
+		slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
 	if(slot != default_slot)
 		default_slot = slot
@@ -139,6 +152,9 @@
 			qdel(firstquery)
 			return
 		qdel(firstquery)
+
+	if(!C) // If the client disconnected during the query, try again later.
+		return TRUE
 
 	// Let's not have this explode if you sneeze on the DB
 	var/datum/db_query/query = SSdbcore.NewQuery({"SELECT
@@ -164,7 +180,9 @@
 					alt_head_name,
 					eye_colour,
 					underwear,
+					underwear_color,
 					undershirt,
+					undershirt_color,
 					backbag,
 					b_type,
 					alternate_option,
@@ -193,7 +211,14 @@
 					socks,
 					body_accessory,
 					gear,
-					autohiss
+					autohiss,
+					uplink_pref,
+					tts_seed,
+					custom_emotes,
+					hair_gradient,
+					hair_gradient_offset,
+					hair_gradient_colour,
+					hair_gradient_alpha
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
@@ -227,31 +252,33 @@
 		alt_head = query.item[20]
 		e_colour = query.item[21]
 		underwear = query.item[22]
-		undershirt = query.item[23]
-		backbag = query.item[24]
-		b_type = query.item[25]
+		underwear_color = query.item[23]
+		undershirt = query.item[24]
+		undershirt_color = query.item[25]
+		backbag = query.item[26]
+		b_type = query.item[27]
 
 
 		//Jobs
-		alternate_option = text2num(query.item[26])
-		job_support_high = text2num(query.item[27])
-		job_support_med = text2num(query.item[28])
-		job_support_low = text2num(query.item[29])
-		job_medsci_high = text2num(query.item[30])
-		job_medsci_med = text2num(query.item[31])
-		job_medsci_low = text2num(query.item[32])
-		job_engsec_high = text2num(query.item[33])
-		job_engsec_med = text2num(query.item[34])
-		job_engsec_low = text2num(query.item[35])
-		job_karma_high = text2num(query.item[36])
-		job_karma_med = text2num(query.item[37])
-		job_karma_low = text2num(query.item[38])
+		alternate_option = text2num(query.item[28])
+		job_support_high = text2num(query.item[29])
+		job_support_med = text2num(query.item[30])
+		job_support_low = text2num(query.item[31])
+		job_medsci_high = text2num(query.item[32])
+		job_medsci_med = text2num(query.item[33])
+		job_medsci_low = text2num(query.item[34])
+		job_engsec_high = text2num(query.item[35])
+		job_engsec_med = text2num(query.item[36])
+		job_engsec_low = text2num(query.item[37])
+		job_karma_high = text2num(query.item[38])
+		job_karma_med = text2num(query.item[39])
+		job_karma_low = text2num(query.item[40])
 
 		//Miscellaneous
-		flavor_text = query.item[39]
-		med_record = query.item[40]
-		sec_record = query.item[41]
-		gen_record = query.item[42]
+		flavor_text = query.item[41]
+		med_record = query.item[42]
+		sec_record = query.item[43]
+		gen_record = query.item[44]
 		// Apparently, the preceding vars weren't always encoded properly...
 		if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 			flavor_text = html_encode(flavor_text)
@@ -261,18 +288,31 @@
 			sec_record = html_encode(sec_record)
 		if(findtext(gen_record, "<"))
 			gen_record = html_encode(gen_record)
-		disabilities = text2num(query.item[43])
-		player_alt_titles = params2list(query.item[44])
-		organ_data = params2list(query.item[45])
-		rlimb_data = params2list(query.item[46])
-		nanotrasen_relation = query.item[47]
-		speciesprefs = text2num(query.item[48])
+		disabilities = text2num(query.item[45])
+		player_alt_titles = params2list(query.item[46])
+		organ_data = params2list(query.item[47])
+		rlimb_data = params2list(query.item[48])
+		nanotrasen_relation = query.item[49]
+		speciesprefs = text2num(query.item[50])
 
 		//socks
-		socks = query.item[49]
-		body_accessory = query.item[50]
-		loadout_gear = params2list(query.item[51])
-		autohiss_mode = text2num(query.item[52])
+		socks = query.item[51]
+		body_accessory = query.item[52]
+		loadout_gear = params2list(query.item[53])
+		autohiss_mode = text2num(query.item[54])
+		uplink_pref = query.item[55]
+
+		// TTS
+		tts_seed = query.item[56]
+
+		//Emotes
+		custom_emotes_tmp = query.item[57]
+
+		// Gradient
+		h_grad_style = query.item[58]
+		h_grad_offset_x = query.item[59] // parsed down below
+		h_grad_colour = query.item[60]
+		h_grad_alpha = query.item[61]
 
 		saved = TRUE
 
@@ -306,10 +346,16 @@
 	alt_head		= sanitize_inlist(alt_head, GLOB.alt_heads_list, initial(alt_head))
 	e_colour		= sanitize_hexcolor(e_colour)
 	underwear		= sanitize_text(underwear, initial(underwear))
+	underwear_color	= sanitize_hexcolor(underwear_color)
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
+	undershirt_color= sanitize_hexcolor(undershirt_color)
 	backbag			= sanitize_text(backbag, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
+	uplink_pref     = sanitize_text(uplink_pref, initial(uplink_pref))
+	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
+	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
+	custom_emotes = init_custom_emotes(custom_emotes_tmp)
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -328,6 +374,13 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+	h_grad_style = sanitize_text(length(h_grad_style) ? h_grad_style : null, "None")
+	var/list/expl = splittext(h_grad_offset_x, ",")
+	if(length(expl) == 2)
+		h_grad_offset_x = text2num(expl[1]) || 0
+		h_grad_offset_y = text2num(expl[2]) || 0
+	h_grad_colour = sanitize_hexcolor(h_grad_colour)
+	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 200, initial(h_grad_alpha))
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -342,6 +395,13 @@
 	return 1
 
 /datum/preferences/proc/save_character(client/C)
+
+	for(var/title in player_alt_titles)
+		var/datum/job/job = SSjobs.GetJob(title)
+		if(job && !(player_alt_titles[title] in job.alt_titles))
+			log_runtime(EXCEPTION("[C.key] had a malformed job title entry: '[title]:[player_alt_titles[title]]'. Removing!"), src)
+			player_alt_titles -= title
+
 	var/organlist
 	var/rlimblist
 	var/playertitlelist
@@ -390,7 +450,9 @@
 												alt_head_name=:alt_head,
 												eye_colour=:e_colour,
 												underwear=:underwear,
+												underwear_color=:underwear_color,
 												undershirt=:undershirt,
+												undershirt_color=:undershirt_color,
 												backbag=:backbag,
 												b_type=:b_type,
 												alternate_option=:alternate_option,
@@ -419,7 +481,14 @@
 												socks=:socks,
 												body_accessory=:body_accessory,
 												gear=:gearlist,
-												autohiss=:autohiss_mode
+												autohiss=:autohiss_mode,
+												hair_gradient=:h_grad_style,
+												hair_gradient_offset=:h_grad_offset,
+												hair_gradient_colour=:h_grad_colour,
+												hair_gradient_alpha=:h_grad_alpha,
+												uplink_pref=:uplink_pref,
+												tts_seed=:tts_seed,
+												custom_emotes=:custom_emotes
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -442,10 +511,12 @@
 													"f_style" = f_style,
 													"markingstyleslist" = markingstyleslist,
 													"ha_style" = ha_style,
-													"alt_head" = alt_head,
+													"alt_head" = alt_head || "",
 													"e_colour" = e_colour,
 													"underwear" = underwear,
+													"underwear_color" = underwear_color,
 													"undershirt" = undershirt,
+													"undershirt_color" = undershirt_color,
 													"backbag" = backbag,
 													"b_type" = b_type,
 													"alternate_option" = alternate_option,
@@ -474,7 +545,14 @@
 													"socks" = socks,
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
-													"autohiss_mode" = autohiss_mode,
+													"autohiss_mode" = isnull(autohiss_mode) ? initial(autohiss_mode) : autohiss_mode,
+													"h_grad_style" = h_grad_style,
+													"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+													"h_grad_colour" = h_grad_colour,
+													"h_grad_alpha" = h_grad_alpha,
+													"uplink_pref" = uplink_pref,
+													"tts_seed" = tts_seed,
+													"custom_emotes" = json_encode(custom_emotes),
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -504,7 +582,7 @@
 											head_accessory_style_name,
 											alt_head_name,
 											eye_colour,
-											underwear, undershirt,
+											underwear, underwear_color, undershirt, undershirt_color,
 											backbag, b_type, alternate_option,
 											job_support_high, job_support_med, job_support_low,
 											job_medsci_high, job_medsci_med, job_medsci_low,
@@ -516,7 +594,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss)
+											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -532,7 +610,7 @@
 											:ha_style,
 											:alt_head,
 											:e_colour,
-											:underwear, :undershirt,
+											:underwear, :underwear_color, :undershirt, :undershirt_color,
 											:backbag, :b_type, :alternate_option,
 											:job_support_high, :job_support_med, :job_support_low,
 											:job_medsci_high, :job_medsci_med, :job_medsci_low,
@@ -544,7 +622,7 @@
 											:gen_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -572,7 +650,9 @@
 		"alt_head" = alt_head,
 		"e_colour" = e_colour,
 		"underwear" = underwear,
+		"underwear_color" = underwear_color,
 		"undershirt" = undershirt,
+		"undershirt_color" = undershirt_color,
 		"backbag" = backbag,
 		"b_type" = b_type,
 		"alternate_option" = alternate_option,
@@ -601,7 +681,14 @@
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
-		"autohiss_mode" = autohiss_mode
+		"autohiss_mode" = autohiss_mode,
+		"h_grad_style" = h_grad_style,
+		"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+		"h_grad_colour" = h_grad_colour,
+		"h_grad_alpha" = h_grad_alpha,
+		"uplink_pref" = uplink_pref,
+		"tts_seed" = tts_seed,
+		"custom_emotes" = json_encode(custom_emotes)
 	))
 
 	if(!query.warn_execute())
@@ -663,3 +750,36 @@
 
 	saved = FALSE
 	return TRUE
+
+/**
+  * Saves [/datum/preferences/proc/volume_mixer] for the current client.
+  */
+/datum/preferences/proc/save_volume_mixer()
+	volume_mixer_saving = null
+
+	var/datum/db_query/update_query = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET volume_mixer=:volume_mixer WHERE ckey=:ckey",
+		list(
+			"volume_mixer" = serialize_volume_mixer(volume_mixer),
+			"ckey" = parent.ckey
+		)
+	)
+
+	if(!update_query.warn_execute())
+		qdel(update_query)
+		return FALSE
+
+	qdel(update_query)
+	return TRUE
+
+/datum/preferences/proc/init_custom_emotes(overrides)
+
+	custom_emotes = overrides
+
+	for(var/datum/keybinding/custom/custom_emote in GLOB.keybindings)
+		var/emote_text = overrides && overrides[custom_emote.name]
+		if(!emote_text)
+			continue //we set anything without an override back to default, in case it isn't that
+		custom_emotes[custom_emote.name] = emote_text
+
+	return custom_emotes

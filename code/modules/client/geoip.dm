@@ -1,7 +1,3 @@
-var/global/geoip_query_counter = 0
-var/global/geoip_next_counter_reset = 0
-var/global/list/geoip_ckey_updated = list()
-
 /datum/geoip_data
 	var/holder = null
 	var/status = null
@@ -17,7 +13,7 @@ var/global/list/geoip_ckey_updated = list()
 	var/ip = null
 
 /datum/geoip_data/New(client/C, addr)
-	INVOKE_ASYNC(src, .proc/get_geoip_data, C, addr)
+	INVOKE_ASYNC(src, PROC_REF(get_geoip_data), C, addr)
 
 /datum/geoip_data/proc/get_geoip_data(client/C, addr)
 
@@ -37,8 +33,8 @@ var/global/list/geoip_ckey_updated = list()
 	if(status == "updated")
 		var/msg = "[holder] connected from ([country], [regionName], [city]) using ISP: ([isp]) with IP: ([ip]) Proxy: ([proxy])"
 		log_admin(msg)
-		if(SSticker.current_state > GAME_STATE_STARTUP && !(C.ckey in geoip_ckey_updated))
-			geoip_ckey_updated |= C.ckey
+		if(SSticker.current_state > GAME_STATE_STARTUP && !(C.ckey in GLOB.geoip_ckey_updated))
+			GLOB.geoip_ckey_updated |= C.ckey
 			message_admins(msg)
 
 		if(proxy == "true")
@@ -47,13 +43,19 @@ var/global/list/geoip_ckey_updated = list()
 			else
 				proxy = "<span style='color: red'>true</span>"
 
-				if(config.proxy_autoban)
-					var/reason = "Your IP was detected as proxy. No proxy allowed on server."
+				if(CONFIG_GET(flag/proxy_autoban))
+					var/reason = "Ваш IP определяется как прокси. Прокси запрещены на сервере. Обратитесь к администрации за разрешением. Client ISP: ([isp])"
+					// var/list/play_records = params2list(C.prefs.exp)
+					// var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
+					// if(livingtime > 600) // 10 hours * 60 min
+					// 	to_chat(C, "<span class='danger'><BIG><B>[reason]</B></BIG></span>")
+					// 	del(C)
+					// 	return
 					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
 					to_chat(C, "<span class='danger'><BIG><B>You have been banned by SyndiCat.\nReason: [reason].</B></BIG></span>")
 					to_chat(C, "<span class='red'>This is a permanent ban.</span>")
-					if(config.banappeals)
-						to_chat(C, "<span class='red'>To try to resolve this matter head to [config.banappeals]</span>")
+					if(CONFIG_GET(string/banappeals))
+						to_chat(C, "<span class='red'>To try to resolve this matter head to [CONFIG_GET(string/banappeals)]</span>")
 					else
 						to_chat(C, "<span class='red'>No ban appeals URL has been set.</span>")
 					ban_unban_log_save("SyndiCat has permabanned [C.ckey]. - Reason: [reason] - This is a permanent ban.")
@@ -103,15 +105,19 @@ var/global/list/geoip_ckey_updated = list()
 				if("query")
 					ip = msg[data]
 		status = "updated"
+		if(proxy == "true")
+			proxy = (isp in GLOB.isp_whitelist) ? "false" : "true"
+		else
+			proxy = (isp in GLOB.isp_blacklist) ? "true" : "false"
 	return TRUE
 
 /proc/geoip_check(addr)
-	if(world.time > geoip_next_counter_reset)
-		geoip_next_counter_reset = world.time + 900
-		geoip_query_counter = 0
+	if(world.time > GLOB.geoip_next_counter_reset)
+		GLOB.geoip_next_counter_reset = world.time + 900
+		GLOB.geoip_query_counter = 0
 
-	geoip_query_counter++
-	if(geoip_query_counter > 130)
+	GLOB.geoip_query_counter++
+	if(GLOB.geoip_query_counter > 130)
 		return "limit reached"
 
 	var/list/vl = world.Export("http://ip-api.com/json/[addr]?fields=205599")
@@ -189,10 +195,10 @@ var/global/list/geoip_ckey_updated = list()
 		computerid = bancid
 		ip = banip
 	else if(ismob(banned_mob))
-		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a ckey-less mob, with no ckey provided. Report this bug.",1)
+		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a ckey-less mob, with no ckey provided. Report this bug.")
 		return
 	else
-		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a non-existent mob, with no ckey provided. Report this bug.",1)
+		message_admins("<font color='red'>SyndiCat attempted to add a ban based on a non-existent mob, with no ckey provided. Report this bug.")
 		return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("player")] WHERE ckey=:ckey", list(
@@ -206,7 +212,7 @@ var/global/list/geoip_ckey_updated = list()
 		validckey = TRUE
 	if(!validckey)
 		if(!banned_mob || (banned_mob && !IsGuestKey(banned_mob.key)))
-			message_admins("<font color='red'>SyndiCat attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>",1)
+			message_admins("<font color='red'>SyndiCat attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>")
 			qdel(query)
 			return
 	qdel(query)
@@ -230,7 +236,7 @@ var/global/list/geoip_ckey_updated = list()
 			adminwho += ", [C]"
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`)
+		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`)
 		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
 	"}, list(
 		// Get ready for parameters
@@ -254,7 +260,7 @@ var/global/list/geoip_ckey_updated = list()
 		return
 
 	qdel(query_insert)
-	message_admins("SyndiCat has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
+	message_admins("SyndiCat has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.")
 
 	if(announce_in_discord)
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** [a_ckey] applied a [bantype_str] on [ckey]")
@@ -270,10 +276,12 @@ var/global/list/geoip_ckey_updated = list()
 
 /proc/proxy_whitelist_check(target_ckey)
 	var/target_sql_ckey = ckey(target_ckey)
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey=:ckey", list("ckey" = target_sql_ckey))
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT * FROM [CONFIG_GET(string/utility_database)].[format_table_name("vpn_whitelist")] WHERE ckey=:ckey", list("ckey" = target_sql_ckey))
 	if(!query.warn_execute())
 		qdel(query)
 		return FALSE
 	if(query.NextRow())
+		qdel(query)
 		return TRUE // At least one row in the whitelist names their ckey. That means they are whitelisted.
+	qdel(query)
 	return FALSE

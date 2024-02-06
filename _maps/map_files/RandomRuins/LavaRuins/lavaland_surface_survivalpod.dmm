@@ -3,12 +3,14 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "c" = (
 /obj/structure/sign/mining/survival{
 	pixel_y = -32
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "d" = (
@@ -19,6 +21,7 @@
 	dir = 4;
 	pixel_x = 32
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "f" = (
@@ -39,10 +42,12 @@
 	dir = 8;
 	pixel_x = -32
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "j" = (
 /obj/effect/decal/cleanable/blood/drip,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "k" = (
@@ -65,13 +70,18 @@
 /area/ruin/powered)
 "n" = (
 /obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "o" = (
 /obj/effect/decal/cleanable/blood,
 /mob/living/simple_animal/hostile/asteroid/goliath/beast{
-	health = 0
+	stat = 2;
+	health = 0;
+	bruteloss = 350;
+	icon_state = "goliath_dead"
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "p" = (
@@ -98,6 +108,7 @@
 /area/ruin/powered)
 "s" = (
 /obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "t" = (
@@ -109,24 +120,28 @@
 "v" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "w" = (
 /obj/structure/sign/mining/survival{
 	pixel_y = 32
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "x" = (
 /obj/structure/sign/mining{
 	pixel_y = 32
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "y" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 

@@ -21,21 +21,21 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
+	/client/proc/cmd_admin_offer_control,
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
-	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
-	/client/proc/Jump,
-	/client/proc/jumptokey,				/*allows us to jump to the location of a mob with a certain ckey*/
 	/client/proc/jumptomob,				/*allows us to jump to a specific mob*/
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
+	/client/proc/jump_to,				/*Opens a menu for jumping to an Area, Mob, Key or Coordinate*/
 	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
 	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
 	/client/proc/admin_deny_shuttle,	/*toggles availability of shuttle calling*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
+	/client/proc/open_borgopanel,		/* Opens Cyborg Panel to change anything in it */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
 	/client/proc/toggleprayers,			/*toggles prayers on/off*/
@@ -56,8 +56,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggleattacklogs,
 	/client/proc/toggleadminlogs,
 	/client/proc/toggledebuglogs,
-	/client/proc/update_mob_sprite,
-	/client/proc/man_up,
 	/client/proc/global_man_up,
 	/client/proc/delbook,
 	/client/proc/view_flagged_books,
@@ -70,8 +68,13 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
+	/client/proc/start_vote,
+	/client/proc/toggle_mctabs,
 	/client/proc/list_ssds_afks,
-	/client/proc/ccbdb_lookup_ckey
+	/client/proc/ccbdb_lookup_ckey,
+	/client/proc/toggle_pacifism_gt,
+	/client/proc/toogle_ghost_vision,
+	/datum/admins/proc/changetitlescreen
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -101,7 +104,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
-	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/cmd_admin_create_centcom_report,
@@ -110,8 +112,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/modify_goals,
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
-	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
+	/client/proc/force_hijack,
+	/client/proc/requests
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -129,7 +131,9 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/toggleaban,
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
 	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
+	/client/proc/select_next_map,
 	/client/proc/toggle_log_hrefs,
+	/client/proc/toggle_twitch_censor,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
@@ -160,7 +164,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
 	/client/proc/test_snap_UI,
-	/client/proc/cinematic,
 	/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
@@ -170,7 +173,17 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
-	/client/proc/reestablish_db_connection
+	/client/proc/reestablish_db_connection,
+	/client/proc/ss_breakdown,
+	/client/proc/dmjit_debug_toggle_call_counts,
+	/client/proc/dmjit_debug_dump_call_count,
+	/client/proc/dmjit_debug_dump_opcode_count,
+	/client/proc/dmjit_debug_toggle_hooks,
+	/client/proc/dmjit_debug_dump_deopts,
+	/client/proc/timer_log,
+	/client/proc/debug_timers,
+	/client/proc/force_verb_bypass,
+	/client/proc/reregister_docks,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -265,8 +278,12 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
 			verbs += GLOB.admin_verbs_proccall
+		if(holder.rights == R_HOST)
+			verbs += /client/proc/view_pingstat
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
+			verbs += /client/proc/ss_breakdown
+			verbs += /client/proc/toggle_mctabs
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
@@ -283,6 +300,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		GLOB.admin_verbs_possess,
 		GLOB.admin_verbs_permissions,
 		/client/proc/stealth,
+		/client/proc/view_pingstat,
 		GLOB.admin_verbs_rejuv,
 		GLOB.admin_verbs_sounds,
 		GLOB.admin_verbs_spawn,
@@ -305,7 +323,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	verbs += /client/proc/show_verbs
 
 	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/show_verbs()
@@ -319,7 +337,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	add_admin_verbs()
 
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/admin_ghost()
 	set category = "Admin"
@@ -334,7 +352,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ghost.can_reenter_corpse = 1			//just in-case.
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 		if(ishuman(mob))
 			var/mob/living/carbon/human/H = mob
 			H.regenerate_icons() // workaround for #13269
@@ -348,7 +366,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/invisimin()
 	set name = "Invisimin"
@@ -357,17 +375,20 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	if(!check_rights(R_ADMIN))
 		return
+	if(!isliving(mob))
+		return
 
-	if(mob)
-		if(mob.invisibility == INVISIBILITY_OBSERVER)
-			mob.invisibility = initial(mob.invisibility)
-			to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
-			mob.add_to_all_human_data_huds()
-			//TODO: Make some kind of indication for the badmin that they are currently invisible
-		else
-			mob.invisibility = INVISIBILITY_OBSERVER
-			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
-			mob.remove_from_all_data_huds()
+	if(mob.invisibility == INVISIBILITY_OBSERVER)
+		mob.invisibility = initial(mob.invisibility)
+		mob.add_to_all_human_data_huds()
+		to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>")
+		log_admin("[key_name(mob)] has turned Invisimin OFF")
+	else
+		mob.invisibility = INVISIBILITY_OBSERVER
+		mob.remove_from_all_data_huds()
+		to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
+		log_admin("[key_name(mob)] has turned Invisimin ON")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Invisimin")
 
 /client/proc/player_panel_new()
 	set name = "Player Panel"
@@ -377,7 +398,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	holder.player_panel_new()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Player Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/check_antagonists()
@@ -389,7 +410,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	holder.check_antagonists()
 	log_admin("[key_name(usr)] checked antagonists")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/ban_panel()
@@ -399,11 +420,11 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_BAN))
 		return
 
-	if(config.ban_legacy_system)
+	if(CONFIG_GET(flag/ban_legacy_system))
 		holder.unbanpanel()
 	else
 		holder.DB_ban_panel()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Ban Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Ban Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/game_panel()
@@ -414,7 +435,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	holder.Game()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/secrets()
@@ -425,7 +446,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	holder.Secrets()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Secrets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Secrets") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/getStealthKey()
@@ -460,9 +481,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
 			createStealthKey()
-		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
-		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		log_and_message_admins("has turned stealth mode [holder.fakekey ? "ON with fake key: [holder.fakekey]" : "OFF"]")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/big_brother()
 	set category = "Admin"
@@ -487,52 +507,6 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
 
-#define MAX_WARNS 3
-#define AUTOBANTIME 10
-
-/client/proc/warn(warned_ckey)
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(!warned_ckey || !istext(warned_ckey))	return
-	if(warned_ckey in GLOB.admin_datums)
-		to_chat(usr, "<font color='red'>Error: warn(): You can't warn admins.</font>")
-		return
-
-	var/datum/preferences/D
-	var/client/C = GLOB.directory[warned_ckey]
-	if(C)	D = C.prefs
-	else	D = GLOB.preferences_datums[warned_ckey]
-
-	if(!D)
-		to_chat(src, "<font color='red'>Error: warn(): No such ckey found.</font>")
-		return
-
-	if(++D.warns >= MAX_WARNS)					//uh ohhhh...you'reee iiiiin trouuuubble O:)
-		ban_unban_log_save("[ckey] warned [warned_ckey], resulting in a [AUTOBANTIME] minute autoban.")
-		if(C)
-			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
-			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")
-			to_chat(C, "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes.")
-			qdel(C)
-		else
-			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
-			log_admin("[key_name(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
-		AddBan(warned_ckey, D.last_id, "Autobanning due to too many formal warnings", ckey, 1, AUTOBANTIME)
-	else
-		if(C)
-			to_chat(C, "<font color='red'><BIG><B>You have been formally warned by an administrator.</B></BIG><br>Further warnings will result in an autoban.</font>")
-			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
-			log_admin("[key_name(src)] has warned [key_name(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
-		else
-			message_admins("[key_name_admin(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")
-			log_admin("[key_name(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Warning") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-#undef MAX_WARNS
-#undef AUTOBANTIME
-
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
 	set category = "Event"
 	set name = "Drop Bomb"
@@ -548,11 +522,11 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if(null)
 			return 0
 		if("Small Bomb")
-			explosion(epicenter, 1, 2, 3, 3)
+			explosion(epicenter, 1, 2, 3, 3, cause = "Admin Drop Bomb")
 		if("Medium Bomb")
-			explosion(epicenter, 2, 3, 4, 4)
+			explosion(epicenter, 2, 3, 4, 4, cause = "Admin Drop Bomb")
 		if("Big Bomb")
-			explosion(epicenter, 3, 5, 7, 5)
+			explosion(epicenter, 3, 5, 7, 5, cause = "Admin Drop Bomb")
 		if("Custom Bomb")
 			var/devastation_range = input("Devastation range (in tiles):") as null|num
 			if(devastation_range == null)
@@ -566,10 +540,317 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			var/flash_range = input("Flash range (in tiles):") as null|num
 			if(flash_range == null)
 				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "Admin Drop Bomb")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
+/client/proc/bless(mob/living/M as mob)
+	set category = "Event"
+	set name = "Bless"
+	if(!check_rights(R_EVENT))
+		return
+	if(!istype(M))
+		to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
+		return
+	var/btypes = list("To Arrivals", "Moderate Heal")
+	var/mob/living/carbon/human/H
+	if(ishuman(M))
+		H = M
+		btypes += "Spawn Cookie"
+		btypes += "Heal Over Time"
+		btypes += "Permanent Regeneration"
+		btypes += "Super Powers"
+		btypes += "Scarab Guardian"
+		btypes += "Human Protector"
+		btypes += "Sentient Pet"
+		btypes += "All Access"
+	var/blessing = tgui_input_list(usr, "How would you like to bless [M]?", "Its good to be good...", btypes)
+	if(!(blessing in btypes))
+		return
+	var/logmsg = null
+	switch(blessing)
+		if("Spawn Cookie")
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_l_hand )
+			if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
+				H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
+				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
+					log_and_message_admins("tried to spawn for [key_name(H)] a cookie, but their hands were full, so they did not receive their cookie.")
+					return
+				else
+					H.update_inv_r_hand()//To ensure the icon appears in the HUD
+			else
+				H.update_inv_l_hand()
+			logmsg = "spawn cookie."
+		if("To Arrivals")
+			M.forceMove(pick(GLOB.latejoin))
+			to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+			logmsg = "a teleport to arrivals."
+		if("Moderate Heal")
+			M.adjustBruteLoss(-25)
+			M.adjustFireLoss(-25)
+			M.adjustToxLoss(-25)
+			M.adjustOxyLoss(-25)
+			to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
+			logmsg = "a moderate heal."
+		if("Heal Over Time")
+			H.reagents.add_reagent("salglu_solution", 30)
+			H.reagents.add_reagent("salbutamol", 20)
+			H.reagents.add_reagent("spaceacillin", 20)
+			logmsg = "a heal over time."
+		if("Permanent Regeneration")
+			H.dna.SetSEState(GLOB.regenerateblock, 1)
+			genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
+			H.update_mutations()
+			H.gene_stability = 100
+			logmsg = "permanent regeneration."
+		if("Super Powers")
+			var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
+			for(var/gene in default_genes)
+				H.dna.SetSEState(gene, 1)
+				genemutcheck(H, gene,  null, MUTCHK_FORCED)
+				H.update_mutations()
+			H.gene_stability = 100
+			logmsg = "superpowers."
+		if("Scarab Guardian")
+			var/obj/item/guardiancreator/biological/scarab = new /obj/item/guardiancreator/biological(H)
+			var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Random")
+			var/typechoice = input("Select Guardian Type", "Type") as null|anything in possible_guardians
+			if(isnull(typechoice))
+				return
+			if(typechoice != "Random")
+				possible_guardians -= "Random"
+				scarab.possible_guardians = list()
+				scarab.possible_guardians += typechoice
+			scarab.attack_self(H)
+			spawn(700)
+				qdel(scarab)
+			logmsg = "scarab guardian."
+		if("Sentient Pet")
+			var/pets = subtypesof(/mob/living/simple_animal)
+			var/petchoice = input("Select pet type", "Pets") as null|anything in pets
+			if(isnull(petchoice))
+				return
+			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
+			var/mob/dead/observer/theghost = null
+			if(candidates.len)
+				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
+				theghost = pick(candidates)
+				P.key = theghost.key
+				P.master_commander = H
+				P.universal_speak = 1
+				P.universal_understand = 1
+				P.can_collar = 1
+				P.faction = list("neutral")
+				var/obj/item/clothing/accessory/petcollar/C = new
+				P.add_collar(C)
+				var/obj/item/card/id/I = H.wear_id
+				if(I)
+					var/obj/item/card/id/D = new /obj/item/card/id(C)
+					D.access = I.access
+					D.registered_name = P.name
+					D.assignment = "Pet"
+					C.access_id = D
+				spawn(30)
+					var/newname = sanitize(copytext_char(input(P, "You are [P], special event pet of [H]. Change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
+					if(newname && newname != P.name)
+						P.name = newname
+						if(P.mind)
+							P.mind.name = newname
+				logmsg = "pet ([P])."
+			else
+				to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play the special event pet.</span>")
+				logmsg = "pet (no volunteers)."
+		if("Human Protector")
+			usr.client.create_eventmob_for(H, 0)
+			logmsg = "syndie protector."
+		if("All Access")
+			var/obj/item/card/id/I = H.wear_id
+			if(I)
+				var/list/access_to_give = get_all_accesses()
+				for(var/this_access in access_to_give)
+					if(!(this_access in I.access))
+						// don't have it - add it
+						I.access |= this_access
+			else
+				to_chat(usr, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>")
+			logmsg = "all access."
+	if(logmsg)
+		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
+
+/client/proc/smite(mob/living/M as mob)
+	set category = "Event"
+	set name = "Smite"
+	if(!check_rights(R_EVENT))
+		return
+	var/mob/living/carbon/human/H
+	if(!istype(M))
+		to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
+		return
+	var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
+	if(ishuman(M))
+		H = M
+		ptypes += "Brain Damage"
+		ptypes += "Honk Tumor"
+		ptypes += "Hallucinate"
+		ptypes += "Cold"
+		ptypes += "Hunger"
+		ptypes += "Cluwne"
+		ptypes += "Mutagen Cookie"
+		ptypes += "Hellwater Cookie"
+		ptypes += "Hunter"
+		ptypes += "Crew Traitor"
+		ptypes += "Floor Cluwne"
+		ptypes += "Shamebrero"
+		ptypes += "Dust"
+		ptypes += "Shitcurity Goblin"
+		ptypes += "High RP"
+	var/punishment = tgui_input_list(usr, "How would you like to smite [M]?", "Its good to be baaaad...", ptypes)
+	if(!(punishment in ptypes))
+		return
+	var/logmsg = null
+	switch(punishment)
+		// These smiting types are valid for all living mobs
+		if("Lightning bolt")
+			M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+			M.adjustFireLoss(75)
+			M.Weaken(10 SECONDS)
+			to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
+			logmsg = "a lightning bolt."
+		if("Fire Death")
+			to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+			var/turf/simulated/T = get_turf(M)
+			new /obj/effect/hotspot(T)
+			M.adjustFireLoss(150)
+			logmsg = "a firey death."
+		if("Gib")
+			M.gib(FALSE)
+			logmsg = "gibbed."
+
+		// These smiting types are only valid for ishuman() mobs
+		if("Brain Damage")
+			H.adjustBrainLoss(75)
+			logmsg = "75 brain damage."
+		if("Honk Tumor")
+			if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
+				var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
+				to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
+				organ.insert(H)
+			logmsg = "a honk tumor."
+		if("Hallucinate")
+			H.Hallucinate(1000 SECONDS)
+			H.last_hallucinator_log = "Hallucination smite"
+			logmsg = "hallucinations."
+		if("Cold")
+			H.reagents.add_reagent("frostoil", 40)
+			H.reagents.add_reagent("ice", 40)
+			logmsg = "cold."
+		if("Hunger")
+			H.set_nutrition(NUTRITION_LEVEL_CURSED)
+			logmsg = "starvation."
+		if("Cluwne")
+			H.makeCluwne()
+			H.mutations |= NOCLONE
+			logmsg = "cluwned."
+		if("Mutagen Cookie")
+			var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
+			evilcookie.reagents.add_reagent("mutagen", 10)
+			evilcookie.desc = "It has a faint green glow."
+			evilcookie.bitesize = 100
+			evilcookie.flags = NODROP | DROPDEL
+			H.drop_l_hand()
+			H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+			logmsg = "a mutagen cookie."
+		if("Hellwater Cookie")
+			var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
+			evilcookie.reagents.add_reagent("hell_water", 25)
+			evilcookie.desc = "Sulphur-flavored."
+			evilcookie.bitesize = 100
+			evilcookie.flags = NODROP | DROPDEL
+			H.drop_l_hand()
+			H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+			logmsg = "a hellwater cookie."
+		if("Hunter")
+			H.mutations |= NOCLONE
+			usr.client.create_eventmob_for(H, 1)
+			logmsg = "hunter."
+		if("Crew Traitor")
+			if(!H.mind)
+				to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>")
+				return
+			var/list/possible_traitors = list()
+			for(var/mob/living/player in GLOB.alive_mob_list)
+				if(player.client && player.mind && player.stat != DEAD && player != H)
+					if(ishuman(player) && !player.mind.special_role)
+						if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+							possible_traitors += player.mind
+			for(var/datum/mind/player in possible_traitors)
+				if(player.current)
+					if(ismindshielded(player.current))
+						possible_traitors -= player
+			if(possible_traitors.len)
+				var/datum/mind/newtraitormind = pick(possible_traitors)
+				var/datum/objective/assassinate/kill_objective = new()
+				kill_objective.target = H.mind
+				kill_objective.owner = newtraitormind
+				kill_objective.explanation_text = "Assassinate [H.mind.name], the [H.mind.assigned_role]"
+				newtraitormind.objectives += kill_objective
+				var/datum/antagonist/traitor/T = new()
+				T.give_objectives = FALSE
+				to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+				to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
+				newtraitormind.add_antag_datum(T)
+			else
+				to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [H].</span>")
+				return
+			logmsg = "crew traitor."
+		if("Floor Cluwne")
+			var/turf/T = get_turf(M)
+			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
+			FC.smiting = TRUE
+			FC.Acquire_Victim(M)
+			logmsg = "floor cluwne"
+		if("Shamebrero")
+			if(H.head)
+				H.drop_item_ground(H.head, force = TRUE)
+			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
+			H.equip_to_slot_or_del(S, slot_head)
+			logmsg = "shamebrero"
+		if("Dust")
+			H.dust()
+			logmsg = "dust"
+		if("Shitcurity Goblin")
+			var/turf/T = get_turf(M)
+			var/mob/living/simple_animal/hostile/shitcur_goblin/goblin = new (T)
+			goblin.GiveTarget(M)
+			logmsg = "shitcurity goblin"
+		if("High RP")
+			var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = H.get_int_organ(/obj/item/organ/internal/high_rp_tumor)
+			if(!hrp_tumor)
+				var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
+				"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
+				var/effect_strength = input("What effect strength do you want?(delay in seconds -  oxy damage)", "") as null|anything in effect_variants
+				var/pdelay
+				var/oxy_dmg
+				if(effect_strength == "custom")
+					pdelay = input("Input pump delay.") as num|null
+					oxy_dmg = input("Input oxy damage.") as num|null
+				else
+					var/list/strenght = text2numlist(effect_strength, " - ")
+					pdelay = strenght[1]
+					oxy_dmg = strenght[2]
+				H.curse_high_rp(pdelay*10, oxy_dmg)
+				H.mind.curses += "high_rp"
+				logmsg = "high rp([pdelay] - [oxy_dmg])"
+			else
+				hrp_tumor.remove(H)
+				qdel(hrp_tumor)
+				H.mind.curses -= "high_rp"
+				logmsg = "high rp(cure)"
+
+	if(logmsg)
+		log_and_message_admins("smited [key_name_log(M)] with: [logmsg]")
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = "Event"
@@ -592,24 +873,23 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	else
 		T.AddSpell(new S)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
-	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	log_and_message_admins("gave [key_name_log(T)] the spell [S].")
 
 /client/proc/give_disease(mob/T in GLOB.mob_list)
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
-	if(!D) return
-	T.ForceContractDisease(new D)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
+	var/choosen_disease = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
+	if(!choosen_disease) return
+	var/datum/disease/D = new choosen_disease()
+	D.Contract(T)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	log_and_message_admins("gave [key_name_log(T)] the disease [D].")
 
-/client/proc/make_sound(var/obj/O in view()) // -- TLE
+/client/proc/make_sound(obj/O in view(maxview())) // -- TLE
 	set category = "Event"
-	set name = "Make Sound"
+	set name = "\[Admin\] Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
 
 	if(!check_rights(R_EVENT))
@@ -621,9 +901,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return
 		for(var/mob/V in hearers(O))
 			V.show_message(admin_pencode_to_html(message), 2)
-		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound</span>")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		log_and_message_admins("made [O] at [COORD(O)] make a sound")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode Self"
@@ -634,7 +913,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	if(src.mob)
 		togglebuildmode(src.mob)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/object_talk(var/msg as text) // -- TLE
 	set category = "Event"
@@ -652,7 +931,23 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		log_admin("[key_name(usr)] used oSay on [mob.control_object]: [msg]")
 		message_admins("[key_name_admin(usr)] used oSay on [mob.control_object]: [msg]")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
+/client/proc/force_hijack()
+	set category = "Event"
+	set name = "Toggle Shuttle Force Hijack"
+	set desc = "Force shuttle fly to syndicate base."
+
+	if(!check_rights(R_EVENT))
+		return
+
+	var/obj/docking_port/mobile/emergency/S = locate()
+	if(!S)
+		return
+	S.forceHijacked = !S.forceHijacked
+	var/admin_verb = S.forceHijacked ? "enabled" : "disabled"
+	log_and_message_admins("[admin_verb] forced shuttle hijack.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "[admin_verb] forced shuttle hijack")
 
 /client/proc/deadmin_self()
 	set name = "De-admin self"
@@ -666,8 +961,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	deadmin()
 	verbs += /client/proc/readmin
 	GLOB.deadmins += ckey
+	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/readmin()
 	set name = "Re-admin self"
@@ -676,7 +972,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	var/datum/admins/D = GLOB.admin_datums[ckey]
 	var/rank = null
-	if(config.admin_legacy_system)
+	if(CONFIG_GET(flag/admin_legacy_system))
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
@@ -710,7 +1006,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 		qdel(rank_read)
 	if(!D)
-		if(config.admin_legacy_system)
+		if(CONFIG_GET(flag/admin_legacy_system))
 			if(GLOB.admin_ranks[rank] == null)
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
@@ -754,6 +1050,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		D.associate(C)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
+		update_active_keybindings()
 		GLOB.deadmins -= ckey
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
@@ -763,6 +1060,22 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		GLOB.deadmins -= ckey
 		return
 
+/client/proc/select_next_map()
+	set name = "Select next map"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	var/list/all_maps = subtypesof(/datum/map)
+	var/next_map = input("Select next map:", "Next map", SSmapping.map_datum.type) as null|anything in all_maps
+
+	if(next_map)
+		message_admins("[key_name_admin(usr)] select [next_map] as next map")
+		log_admin("[key_name(usr)] select [next_map] as next map")
+		SSmapping.next_map = new next_map
+		to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
+
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"
 	set category = "Server"
@@ -771,12 +1084,23 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(config)
-		if(config.log_hrefs)
-			config.log_hrefs = 0
+		if(CONFIG_GET(flag/log_hrefs))
+			CONFIG_SET(flag/log_hrefs, FALSE)
 			to_chat(src, "<b>Stopped logging hrefs</b>")
 		else
-			config.log_hrefs = 1
+			CONFIG_SET(flag/log_hrefs, TRUE)
 			to_chat(src, "<b>Started logging hrefs</b>")
+
+/client/proc/toggle_twitch_censor()
+	set name = "Toggle Twitch censor"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	if(config)
+		CONFIG_SET(flag/twitch_censor, !CONFIG_GET(flag/twitch_censor))
+		to_chat(src, "<b>Twitch censor is [CONFIG_GET(flag/twitch_censor) ? "enabled" : "disabled"]</b>")
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
@@ -800,13 +1124,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/datum/ui_module/law_manager/L = new(S)
 	L.ui_interact(usr, state = GLOB.admin_state)
 	log_and_message_admins("has opened [S]'s law manager.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
-/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Admin"
-	set desc = "Allows you to change the mob appearance"
-	set category = null
-
+/client/proc/change_human_appearance_admin(mob/living/carbon/human/H)
 	if(!check_rights(R_EVENT))
 		return
 
@@ -826,13 +1146,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(holder)
 		log_and_message_admins("is altering the appearance of [H].")
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
-/client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
-	set name = "C.M.A. - Self"
-	set desc = "Allows the mob to change its appearance"
-	set category = null
-
+/client/proc/change_human_appearance_self(mob/living/carbon/human/H)
 	if(!check_rights(R_EVENT))
 		return
 
@@ -860,7 +1176,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if("No")
 			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Self") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Self") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/free_slot()
 	set name = "Free Job Slot"
@@ -960,9 +1276,10 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_SERVER))
 		return
 
-	config.allow_drone_spawn = !(config.allow_drone_spawn)
-	log_admin("[key_name(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
-	message_admins("[key_name_admin(usr)] has [config.allow_drone_spawn ? "enabled" : "disabled"] maintenance drones.")
+	CONFIG_SET(flag/allow_drone_spawn, !CONFIG_GET(flag/allow_drone_spawn))
+
+	log_admin("[key_name(usr)] has [CONFIG_GET(flag/allow_drone_spawn) ? "enabled" : "disabled"] maintenance drones.")
+	message_admins("[key_name_admin(usr)] has [CONFIG_GET(flag/allow_drone_spawn) ? "enabled" : "disabled"] maintenance drones.")
 
 /client/proc/toggledebuglogs()
 	set name = "Toggle Debug Log Messages"
@@ -978,20 +1295,14 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	else
 		to_chat(usr, "You now won't get debug log messages")
 
-/client/proc/man_up(mob/T as mob in GLOB.player_list)
-	set category = null
-	set name = "Man Up"
-	set desc = "Tells mob to man up and deal with it."
-
+/client/proc/man_up(mob/T)
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
-	to_chat(T, "<span class='notice'>Move on.</span>")
+	to_chat(T, chat_box_notice_thick(span_notice("<b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.")))
 	T << 'sound/voice/manup1.ogg'
 
-	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
-	message_admins("[key_name_admin(usr)] told [key_name(T)] to man up and deal with it.")
+	log_and_message_admins("told [key_name_log(T)] to man up and deal with it.")
 
 /client/proc/global_man_up()
 	set category = "Admin"
@@ -1005,7 +1316,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	if(confirm == "Yes")
 		for(var/mob/T as mob in GLOB.mob_list)
-			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
+			to_chat(T, chat_box_notice_thick(span_notice("<b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.")))
 			T << 'sound/voice/manup1.ogg'
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
@@ -1023,3 +1334,50 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+
+/client/proc/cmd_admin_alert_message(mob/about_to_be_banned)
+	set name = "Send Alert Message"
+	set category = "Admin"
+
+	if(!ismob(about_to_be_banned))
+		return
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/alert_type = alert(src, "Do you wish to send an admin alert to [key_name(about_to_be_banned, FALSE)]?",,"Yes", "No", "Custom Message")
+
+	switch(alert_type)
+		if("Yes")
+			var/message = "Администратор пытается связаться с тобой! \nОткрой диалоговое окно с администратором, нажав на его сикей в чате, в случае игнорирования, вы можете получить бан!"
+			show_blurb(about_to_be_banned, 15, message, null, "center", "center", COLOR_RED, null, null, 1)
+			log_admin("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+			message_admins("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+
+		if("Custom Message")
+			var/message = input(src, "Input your custom admin alert text:", "Message") as text|null
+			if(!message)
+				return
+			message = strip_html(message, 500)
+
+			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
+			if(!message_color)
+				return
+
+			var/alert_type2 = alert(src, "Do you wish to change speed of an admin alert to? (No - default speed)",,"Yes", "No")
+			switch(alert_type2)
+				if("Yes")
+					var/speedmsg = input(src, "Input speed (0.5 - 2x faster. 2 - 2x slower):", "speedmsg") as text|null
+					if(!speedmsg)
+						return
+					speedmsg = text2num(speedmsg)
+					show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, speedmsg)
+					log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+					message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+				if("No")
+					show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
+					log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+					message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+
+				else
+					return

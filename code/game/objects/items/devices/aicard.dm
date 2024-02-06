@@ -22,19 +22,40 @@
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 	update_state() //Whatever happened, update the card's state (icon, name) to match.
 
-/obj/item/aicard/proc/update_state()
-	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
+
+/obj/item/aicard/update_icon_state()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI)
-		name = "intelliCard - [AI.name]"
 		if(AI.stat == DEAD)
 			icon_state = "aicard-404"
 		else
 			icon_state = "aicard-full"
-		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
 	else
 		icon_state = "aicard"
+
+
+/obj/item/aicard/update_overlays()
+	. = ..()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
+	if(AI)
+		. += "aicard-on"
+
+
+/obj/item/aicard/update_name(updates = ALL)
+	. = ..()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
+	if(AI)
+		name = "intelliCard - [AI.name]"
+	else
 		name = "intelliCard"
-		overlays.Cut()
+
+
+/obj/item/aicard/proc/update_state()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
+	update_appearance(UPDATE_ICON|UPDATE_NAME)
+	if(AI)
+		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
+
 
 /obj/item/aicard/attack_self(mob/user)
 	ui_interact(user)
@@ -91,9 +112,8 @@
 				return
 			var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
 			if(confirm == "Yes" && (ui_status(user, GLOB.inventory_state) == STATUS_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
-				msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].", ATKLOG_FEW)
-				add_attack_logs(user, AI, "Wiped with [src].")
-				INVOKE_ASYNC(src, .proc/wipe_ai)
+				add_attack_logs(user, AI, "Wiped with [src].", ATKLOG_FEW)
+				INVOKE_ASYNC(src, PROC_REF(wipe_ai))
 
 		if("radio")
 			AI.aiRadio.disabledAi = !AI.aiRadio.disabledAi
@@ -116,4 +136,24 @@
 	while(AI && AI.stat != DEAD)
 		AI.adjustOxyLoss(2)
 		sleep(10)
+	for(var/mob/living/silicon/robot/R in AI.connected_robots)
+		R.disconnect_from_ai()
+		R.show_laws()
 	flush = FALSE
+
+
+/obj/item/aicard/add_tape()
+	var/mob/living/silicon/ai/AI = locate() in src
+	if(!AI)
+		return
+	QDEL_NULL(AI.builtInCamera)
+
+
+/obj/item/aicard/remove_tape()
+	var/mob/living/silicon/ai/AI = locate() in src
+	if(!AI)
+		return
+	AI.builtInCamera = new /obj/machinery/camera/portable(AI)
+	AI.builtInCamera.c_tag = AI.name
+	AI.builtInCamera.network = list("SS13")
+

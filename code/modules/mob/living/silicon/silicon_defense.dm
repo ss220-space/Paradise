@@ -3,7 +3,7 @@
 
 /mob/living/silicon/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent
-		var/damage = 20
+		var/damage = M.attack_damage
 		if(prob(90))
 			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", "<span class='userdanger'>[M] has slashed at [src]!</span>")
@@ -41,25 +41,14 @@
 	if(L.a_intent == INTENT_HELP)
 		visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")
 
-/mob/living/silicon/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	if(user.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
-			return FALSE
-		..(user, TRUE)
-		adjustBruteLoss(rand(10, 15))
-		playsound(loc, "punch", 25, 1, -1)
-		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
-		return TRUE
-	return FALSE
-
 /mob/living/silicon/attack_hand(mob/living/carbon/human/M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			M.visible_message("<span class='notice'>[M] pets [src]!</span>", \
 							"<span class='notice'>You pet [src]!</span>")
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-		if("grab")
+		if(INTENT_GRAB)
+			remove_from_head(M)
 			grabbedby(M)
 		else
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)

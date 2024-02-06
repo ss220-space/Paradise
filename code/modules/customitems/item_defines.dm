@@ -66,7 +66,7 @@
 
 	else
 		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
-		if(!do_after(user, 30 * toolspeed, target = M))
+		if(!do_after(user, 30 * toolspeed * gettoolspeedmod(user), target = M))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
@@ -210,6 +210,7 @@
 	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "purple_zippo_off"
+	item_state = "purplezippo"
 	icon_on = "purple_zippo_on"
 	icon_off = "purple_zippo_off"
 
@@ -218,6 +219,7 @@
 	desc = "A golden lighter, engraved with some ornaments and a G."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "guessip"
+	item_state = "rubysfluffzippo"
 	icon_on = "guessipon"
 	icon_off = "guessip"
 
@@ -239,7 +241,7 @@
 
 /obj/item/fluff/dogwhistle/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
-	addtimer(CALLBACK(src, .proc/summon_sax, user), 20)
+	addtimer(CALLBACK(src, PROC_REF(summon_sax), user), 20)
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
 	var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
@@ -250,7 +252,7 @@
 	C.place_on_head(D)
 	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
 	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
-	user.drop_item()
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
 /obj/item/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad
@@ -265,8 +267,7 @@
 	max_combined_w_class = 9
 	storage_slots = 3
 
-/obj/item/storage/toolbox/fluff/lunchbox/New()
-	..()
+/obj/item/storage/toolbox/fluff/lunchbox/populate_contents()
 	new /obj/item/reagent_containers/food/snacks/sandwich(src)
 	new /obj/item/reagent_containers/food/snacks/chips(src)
 	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
@@ -344,7 +345,12 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+			"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -625,7 +631,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "polarbearpelt"
 
-/obj/item/clothing/head/fluff/sparkyninja_beret // Sparkyninja: Neil Wilkinson
+/*/obj/item/clothing/head/fluff/sparkyninja_beret // Sparkyninja: Neil Wilkinson
 	name = "royal marines commando beret"
 	desc = "Dark Green beret with an old insignia on it."
 	icon = 'icons/obj/custom_items.dmi'
@@ -635,7 +641,7 @@
 	name = "Lieutenant Starsong's beret"
 	desc = "This beret bears insignia of the SOLGOV Marine Corps 417th Regiment, 2nd Battalion, Bravo Company. It looks meticulously maintained."
 	icon_state = "beret_hos"
-	item_state = "beret_hos"
+	item_state = "beret_hos" */
 
 /obj/item/clothing/head/pirate/fluff/stumpy //MrFroztee: Stumpy
 	name = "The Sobriety Skullcap"
@@ -655,7 +661,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.head == src)
-			H.Slur(3) //always slur
+			H.Slur(6 SECONDS) //always slur
 
 /obj/item/clothing/head/beret/fluff/linda //Epic_Charger: Linda Clark
 	name = "Green beret"
@@ -679,7 +685,7 @@
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/change_jaws.ogg'
 	flags = BLOCKHAIR
-	flags_inv = HIDEEYES|HIDEMASK|HIDEFACE|HIDEEARS
+	flags_inv = HIDEGLASSES|HIDEMASK|HIDENAME|HIDEHEADSETS
 	var/state = "Soldier Up"
 
 /obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self(mob/user)
@@ -692,8 +698,8 @@
 			)
 		options["Soldier Down"] = list(
 			"icon_state"	= "merchant_sallet_visor",
-			"visor_flags"	= HIDEEYES,
-			"mask_flags"	= HIDEMASK|HIDEFACE
+			"visor_flags"	= HIDEGLASSES,
+			"mask_flags"	= HIDEMASK|HIDENAME
 			)
 		options["Technician Up"] = list(
 			"icon_state"	= "merchant_sallet_bevor",
@@ -702,11 +708,11 @@
 			)
 		options["Technician Down"] = list(
 			"icon_state"	= "merchant_sallet",
-			"visor_flags"	= HIDEEYES,
-			"mask_flags"	= HIDEMASK|HIDEFACE
+			"visor_flags"	= HIDEGLASSES,
+			"mask_flags"	= HIDEMASK|HIDENAME
 			)
 
-		var/choice = input(user, "How would you like to adjust the helmet?", "Adjust Helmet") as null|anything in options
+		var/choice = tgui_input_list(user, "How would you like to adjust the helmet?", "Adjust Helmet", options)
 
 		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
 			var/list/new_state = options[choice]
@@ -717,16 +723,16 @@
 			user.update_inv_head()
 			return 1
 
-/obj/item/clothing/head/beret/fluff/elo	//V-Force_Bomber: E.L.O.
+/*/obj/item/clothing/head/beret/fluff/elo	//V-Force_Bomber: E.L.O.
 	name = "E.L.O.'s medical beret"
 	desc = "E.L.O.s personal medical beret, issued by Nanotrassen and awarded along with her medal."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "elo-beret"
+	icon_state = "elo-beret" */
 
 //////////// Suits ////////////
 /obj/item/clothing/suit/fluff
 	icon = 'icons/obj/custom_items.dmi'
-	actions_types = list()
+	actions_types = null
 	ignore_suitadjust = 1
 	adjust_flavour = null
 	sprite_sheets = null
@@ -738,7 +744,7 @@
 	icon_state = "pulsecoat"
 	item_state = "pulsecoat"
 	ignore_suitadjust = 1
-	actions_types = list()
+	actions_types = null
 
 /obj/item/clothing/suit/jacket/miljacket/patch // sniper_fairy : P.A.T.C.H.
 	name = "custom purple military jacket"
@@ -773,7 +779,7 @@
 	options["lime"] ="shazjacket_lime"
 	options["army green"] ="shazjacket_army"
 
-	var/choice = input(user, "What color do you wish your jacket to be?", "Change color") as null|anything in options
+	var/choice = tgui_input_list(user, "What color do you wish your jacket to be?", "Change color", options)
 
 	if(choice && !user.stat && in_range(user, src))
 		if(suit_adjusted)
@@ -807,7 +813,7 @@
 	item_state = "supplymaster_jacket_open"
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/button)
@@ -827,7 +833,7 @@
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 	ignore_suitadjust = 1
-	actions_types = list()
+	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -837,7 +843,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jacksvest"
 	ignore_suitadjust = TRUE
-	actions_types = list()
+	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -939,7 +945,14 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
 	suit_adjusted = 0
@@ -971,7 +984,7 @@
 	icon_state = "xantholne_wintercoat"
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xantholne
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 
 /obj/item/clothing/head/hooded/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
@@ -981,7 +994,7 @@
 	icon_state = "xantholne_winterhood"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xydonus //Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
 	name = "custom fit bomber jacket"
@@ -992,7 +1005,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xydonus
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 
 /obj/item/clothing/head/hooded/hood/fluff/xydonus
 	name = "custom fit hood"
@@ -1001,7 +1014,7 @@
 	icon_state = "xydonus_bomberhood"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
 	name = "red trench coat"
@@ -1046,7 +1059,7 @@
 	icon_state = "shesicoat_hood2"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
 	name = "telecommunications bomber jacket"
@@ -1055,7 +1068,7 @@
 	icon_state = "dtxbomber"
 	item_state = "dtxbomber"
 	ignore_suitadjust = 0
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/zipper)
@@ -1079,6 +1092,7 @@
 	icon_state = "fallout_dress"
 	item_state = "fallout_dress"
 	item_color = "fallout_dress"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
     icon = 'icons/obj/custom_items.dmi'
@@ -1213,7 +1227,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/revolver/detective)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/revolver/detective)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -1243,15 +1257,15 @@
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
 								 "coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
 
-/obj/item/toy/plushie/fluff/fox/proc/change_color()
+/obj/item/toy/plushie/fluff/fox/proc/change_color(mob/user)
 	if(prompting_change)
 		return
 	prompting_change = TRUE
-	var/plushie_color = input("Select a color", "[src]") as null|anything in plush_colors
+	var/plushie_color = tgui_input_list(user, "Select a color", "[src]", plush_colors)
 	prompting_change = FALSE
 	if(!plushie_color)
 		return
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 	name = plushie_color
 	icon_state = plush_colors[plushie_color]
@@ -1260,7 +1274,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/toy/plushie/fluff/fox/ui_action_click()
+/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
 	change_color()
 
 
@@ -1273,7 +1287,6 @@
 	item_state = "superior_suit"
 	item_color = "superior_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES
 
 /obj/item/clothing/head/fluff/arachno_mask
 	name = "Arachno-Man mask"
@@ -1283,8 +1296,8 @@
 	item_state = "superior_mask"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
-
+	flags_inv = HIDENAME
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/shoes/fluff/arachno_boots
 	name = "Arachno-Man boots"
@@ -1401,14 +1414,14 @@
 	icon_state = "greeyfluff"
 	item_state = "greeyfluff"
 
-/obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
+/obj/item/clothing/head/wizard/fluff/dreamy //phantasmicdream : Dreamy Rockwall
 	name = "strange witch hat"
 	desc = "A shapeshifting witch hat. A strange aura comes from it..."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "classic_witch"
 	item_state = "classic_witch"
 
-/obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self(mob/user)
+/obj/item/clothing/head/wizard/fluff/dreamy/attack_self(mob/user)
 	var/list/options = list()
 	options["Classic"] = "classic_witch"
 	options["Good"] = "good_witch"
@@ -1423,7 +1436,7 @@
 	options["Syndicate"] = "syndie_witch"
 	options["Nanotrasen"] ="nt_witch"
 
-	var/choice = input(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat") as null|anything in options
+	var/choice = tgui_input_list(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat", options)
 
 	if(choice && !user.stat && in_range(user, src))
 		icon_state = options[choice]
@@ -1510,7 +1523,10 @@
 	pod.icon_state = "pod_dece"
 	pod.name = "sleek spacepod"
 	pod.desc = "A modified varient of a space pod."
+	pod.pod_paint_effect = null
 	pod.can_paint = FALSE
+	pod.has_paint = FALSE
+	pod.update_icons()
 	used = 1
 	qdel(src)
 
@@ -1583,7 +1599,7 @@
 	item_state = "asmer_accordion"
 
 
-/obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello 
+/obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello
 	name = "Bluespace Horns"
 	desc = "A pair of fake horns. Now with added bluespace!"
 	icon = 'icons/obj/custom_items.dmi'
@@ -1601,7 +1617,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
@@ -1624,7 +1640,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/mask.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 	icon_state = "kiamask"
 	item_state = "kiamask"
 	item_color = "kiamask"
@@ -1657,7 +1673,7 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"

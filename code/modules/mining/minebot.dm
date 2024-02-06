@@ -24,7 +24,7 @@
 	environment_smash = 0
 	check_friendly_fire = TRUE
 	stop_automated_movement_when_pulled = TRUE
-	attacktext = "drills"
+	attacktext = "сверлит"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	sentience_type = SENTIENCE_MINEBOT
 	speak_emote = list("states")
@@ -123,7 +123,7 @@
 		WELDER_REPAIR_SUCCESS_MESSAGE
 	return
 
-/mob/living/simple_animal/hostile/mining_drone/death()
+/mob/living/simple_animal/hostile/mining_drone/death(gibbed)
 	DropOre(0)
 	if(stored_gun)
 		for(var/obj/item/borg/upgrade/modkit/M in stored_gun.modkits)
@@ -249,7 +249,7 @@
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 		user.update_sight()
 	else
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 		user.update_sight()
 
 	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")

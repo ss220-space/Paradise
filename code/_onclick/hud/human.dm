@@ -21,7 +21,11 @@
 
 /obj/screen/human/equip/Click()
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
-		return 1
+		return TRUE
+
+	if(is_ventcrawling(usr)) // stops inventory actions in vents
+		return TRUE
+
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
 
@@ -33,8 +37,13 @@
 	screen_loc = ui_lingstingdisplay
 
 /obj/screen/ling/sting/Click()
-	var/mob/living/carbon/U = usr
-	U.unset_sting()
+	var/datum/antagonist/changeling/cling = usr?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	cling?.chosen_sting?.unset_sting()
+
+/obj/screen/ling/chems
+	name = "chemical storage"
+	icon_state = "power_display"
+	screen_loc = ui_lingchemdisplay
 
 /obj/screen/devil
 	invisibility = INVISIBILITY_ABSTRACT
@@ -65,18 +74,6 @@
 /obj/screen/devil/soul_counter/proc/clear()
 	invisibility = INVISIBILITY_ABSTRACT
 
-/obj/screen/ling/chems
-	name = "chemical storage"
-	icon_state = "power_display"
-	screen_loc = ui_lingchemdisplay
-
-
-/mob/living/carbon/human/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
-	QDEL_NULL(hud_used)
-	create_mob_hud()
-	update_action_buttons_icon()
-	if(hud_used)
-		hud_used.show_hud(hud_used.hud_version)
 
 /mob/living/carbon/human/create_mob_hud()
 	if(client && !hud_used)
@@ -212,6 +209,16 @@
 	inv_box.icon_state = "mask"
 	inv_box.screen_loc = ui_mask
 	inv_box.slot_id = slot_wear_mask
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
+	toggleable_inventory += inv_box
+
+	inv_box = new /obj/screen/inventory()
+	inv_box.name = "neck"
+	inv_box.icon = ui_style
+	inv_box.icon_state = "neck"
+	inv_box.screen_loc = ui_neck
+	inv_box.slot_id = slot_neck
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -361,10 +368,14 @@
 	infodisplay += mymob.healthdoll
 
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
+
+	mymob.stamina_bar = new /obj/screen/stamina_bar()
+	infodisplay += mymob.stamina_bar
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	infodisplay += lingchemdisplay
@@ -375,14 +386,14 @@
 	devilsouldisplay = new /obj/screen/devil/soul_counter
 	infodisplay += devilsouldisplay
 
-	zone_select =  new /obj/screen/zone_sel()
-	zone_select.color = ui_color
-	zone_select.icon = ui_style
-	zone_select.alpha = ui_alpha
-	zone_select.update_icon(mymob)
+	zone_select =  new /obj/screen/zone_sel(null, src, ui_style, ui_alpha, ui_color)
 	static_inventory += zone_select
 
 	inventory_shown = FALSE
+
+	combo_display = new()
+	infodisplay += combo_display
+
 
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
@@ -413,7 +424,7 @@
 			crafting.invisibility = initial(crafting.invisibility)
 
 /datum/hud/human/hidden_inventory_update()
-	if(!mymob)
+	if(!mymob?.client)
 		return
 	var/mob/living/carbon/human/H = mymob
 	if(inventory_shown && hud_shown)
@@ -441,6 +452,9 @@
 		if(H.wear_mask)
 			H.wear_mask.screen_loc = ui_mask
 			H.client.screen += H.wear_mask
+		if(H.neck)
+			H.neck.screen_loc = ui_neck
+			H.client.screen += H.neck
 		if(H.head)
 			H.head.screen_loc = ui_head
 			H.client.screen += H.head
@@ -453,6 +467,7 @@
 		if(H.w_uniform)	H.w_uniform.screen_loc = null
 		if(H.wear_suit)	H.wear_suit.screen_loc = null
 		if(H.wear_mask)	H.wear_mask.screen_loc = null
+		if(H.neck) 		H.neck.screen_loc = null
 		if(H.head)		H.head.screen_loc = null
 
 /datum/hud/human/persistent_inventory_update()

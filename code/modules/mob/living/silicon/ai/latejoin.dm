@@ -14,6 +14,10 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
 	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
 
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		R.disconnect_from_ai()
+		R.show_laws()
+
 	//Handle job slot/tater cleanup.
 	var/job = mind.assigned_role
 
@@ -22,13 +26,12 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	if(mind.objectives.len)
 		mind.objectives.Cut()
 		mind.special_role = null
-	else
-		if(SSticker.mode.name == "AutoTraitor")
-			var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
-			current_mode.possible_traitors.Remove(src)
 
-	// Ghost the current player and disallow them to return to the body
-	ghostize(FALSE)
+	// Ghost the current player and allow or disallow them to respawn, depends on time
+	if(TOO_EARLY_TO_GHOST)
+		ghostize(FALSE)
+	else
+		ghostize(TRUE)
 	// Delete the old AI shell
 	qdel(src)
 

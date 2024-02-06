@@ -181,7 +181,7 @@ const CataloguePane = (_properties, context) => {
           {cratesToShow.map(c => (
             <Table.Row key={c.name}>
               <Table.Cell bold>
-                {c.name} ({c.cost} Points)
+                <Box color={c.has_sale ? 'good' : 'default'}>{c.name} ({c.cost} Points)</Box>
               </Table.Cell>
               <Table.Cell textAlign="right" pr={1}>
                 <Button
@@ -237,6 +237,9 @@ const DetailsPane = (_properties, context) => {
                 </Box>
                 <Box italic>
                   Reason: {r.comment}
+                </Box>
+                <Box italic>
+                  Required Techs: {r.pack_techs}
                 </Box>
               </Table.Cell>
               <Table.Cell textAlign="right" pr={1}>

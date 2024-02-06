@@ -65,7 +65,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "al" = (
-/obj/structure/shuttle/window,
+/obj/structure/window/full/shuttle,
 /obj/structure/grille,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
@@ -169,9 +169,7 @@
 /area/ruin/unpowered)
 "aD" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/item/storage/backpack/satchel,
 /obj/item/lighter/zippo,
@@ -369,6 +367,7 @@
 /area/ruin/unpowered)
 "bl" = (
 /mob/living/simple_animal/hostile/creature{
+	maxHealth = 150;
 	health = 150;
 	name = "Experiment 17e"
 	},
@@ -492,7 +491,7 @@
 /area/ruin/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
@@ -534,7 +533,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bO" = (
-/obj/structure/shuttle/window,
+/obj/structure/window/full/shuttle,
 /obj/structure/grille,
 /turf/space,
 /area/ruin/unpowered)

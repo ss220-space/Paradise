@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
 	if(!.)
-		dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
-	icon_state = "gibbl5"
+	icon_state = "gib2"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
 	mergeable_decal = FALSE

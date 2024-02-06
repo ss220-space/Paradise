@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { classes, pureComponentHooks } from 'common/react';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
@@ -25,6 +31,7 @@ export const LabeledListItem = props => {
     content,
     children,
     noColon = false,
+    ...rest
   } = props;
   const colon = noColon ? '' : ':';
   return (
@@ -52,7 +59,8 @@ export const LabeledListItem = props => {
           'LabeledList__cell',
           'LabeledList__content',
         ])}
-        colSpan={buttons ? undefined : 2}>
+        colSpan={buttons ? undefined : 2}
+        {...rest}>
         {content}
         {children}
       </Box>

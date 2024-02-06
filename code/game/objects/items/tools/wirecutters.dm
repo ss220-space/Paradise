@@ -3,6 +3,7 @@
 	desc = "This cuts wires."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
+	belt_icon = "wirecutters"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 6
@@ -14,7 +15,11 @@
 	attack_verb = list("pinched", "nipped")
 	hitsound = 'sound/items/wirecutter.ogg'
 	usesound = 'sound/items/wirecutter.ogg'
+	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
+	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
 	sharp = 1
+	embed_chance = 5
+	embedded_ignore_throwspeed_threshold = TRUE
 	toolspeed = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_WIRECUTTER
@@ -30,10 +35,9 @@
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		QDEL_NULL(C.handcuffed)
-		if(C.buckled && C.buckled.buckle_requires_restraints)
-			C.buckled.unbuckle_mob(C)
-		C.update_handcuffed()
+		var/obj/item/cuffs = C.handcuffed
+		C.temporarily_remove_item_from_inventory(cuffs, TRUE)
+		qdel(cuffs)
 		return
 	else
 		..()
@@ -56,6 +60,8 @@
 	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cutters"
+	item_state = "alien_cutters"
+	belt_icon = "alien_wirecutters"
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
@@ -70,6 +76,7 @@
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
+	belt_icon = "jaws_of_life"
 	origin_tech = "materials=2;engineering=2"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	usesound = 'sound/items/jaws_cut.ogg'
@@ -81,10 +88,10 @@
 	playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
+		var/obj/item/organ/external/head/head = H.bodyparts_by_name[BODY_ZONE_HEAD]
 		if(head)
 			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
-			playsound(loc,pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg') ,50, 1, -1)
+			playsound(loc,"desceration" ,50, 1, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/power/attack_self(mob/user)

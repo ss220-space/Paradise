@@ -2,6 +2,17 @@
 
 /*
 	Datum based languages. Easily editable and modular.
+
+	Busy letters for language:
+	a b d f g j k o q v x y
+	aa as bo db fa fm fn fs vu
+
+	Busy symbols for language:
+	0 1 2 3 4 5 6 7 8 9
+	% ? ^
+
+	CAUTION! The key must not repeat the key of the radio channel
+	and must not contain prohibited characters
 */
 
 /datum/language
@@ -20,6 +31,8 @@
 	var/follow = 0                              // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
 	var/english_names = 0                       // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
+	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
+	var/join_override
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
@@ -36,7 +49,6 @@
 		for(var/x = rand(FLOOR(syllable_count/2, 1),syllable_count);x>0;x--)
 			new_name += pick(syllables)
 		full_name += " [capitalize(lowertext(new_name))]"
-
 	return "[trim(full_name)]"
 
 /datum/language/proc/scramble(input)
@@ -62,7 +74,9 @@
 			capitalize = 0
 		scrambled_text += next
 		var/chance = rand(100)
-		if(chance <= 5)
+		if(join_override)
+			scrambled_text += join_override
+		else if(chance <= 5)
 			scrambled_text += ". "
 			capitalize = 1
 		else if(chance > 5 && chance <= space_chance)
@@ -70,7 +84,7 @@
 
 	scrambled_text = trim(scrambled_text)
 	var/ending = copytext(scrambled_text, length(scrambled_text))
-	if(ending == ".")
+	if(ending == "." || ending == "-")
 		scrambled_text = copytext(scrambled_text,1,length(scrambled_text)-1)
 	var/input_ending = copytext(input, input_size)
 	if(input_ending in list("!","?","."))
@@ -98,9 +112,7 @@
 	if(!check_can_speak(speaker))
 		return FALSE
 
-	var/log_message = "([name]-HIVE) [message]"
-	log_say(log_message, speaker)
-	speaker.create_log(SAY_LOG, log_message)
+	add_say_logs(speaker, message, language = "([name]-HIVE)")
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
@@ -181,13 +193,31 @@
 	"ka","aasi","far","wa","baq","ara","qara","zir","sam","mak","hrar","nja","rir","khan","jun","dar","rik","kah", \
 	"hal","ket","jurl","mah","tul","cresh","azu","ragh")
 
-/datum/language/tajaran/get_random_name(gender)
-	var/new_name = ..(gender,1)
-	if(prob(80))
-		new_name += " [pick(list("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan"))]"
-	else
-		new_name += " [..(gender,1)]"
-	return new_name
+/datum/language/tajaran/get_random_name(gender) //code by @valtor0
+	var/static/list/tajaran_female_endings_list = list("и","а","о","е","й","ь") // Customise this with ru_name_syllables changes.
+	var/list/ru_name_syllables = list("кан","тай","кир","раи","кии","мир","кра","тэк","нал","вар","хар","марр","ран","дарр", \
+	"мирк","ири","дин","манг","рик","зар","раз","кель","шера","тар","кей","ар","но","маи","зир","кер","нир","ра",\
+	"ми","рир","сей","эка","гир","ари","нэй","нре","ак","таир","эрай","жин","мра","зур","рин","сар","кин","рид","эра","ри","эна")
+	var/apostrophe = "’"
+	var/new_name = ""
+	var/full_name = ""
+
+	for(var/i = 0; i<2; i++)
+		for(var/x = rand(1,2); x>0; x--)
+			new_name += pick_n_take(ru_name_syllables)
+		new_name += apostrophe
+		apostrophe = ""
+	full_name = "[capitalize(lowertext(new_name))]"
+	if(gender == FEMALE)
+		var/ending = copytext(full_name, -2)
+		if(!(ending in tajaran_female_endings_list))
+			full_name += "а"
+	//20% for "Sendai" clan; 18,75% (75%) for other regular clan; 5% for names without clan.
+	if(prob(75))
+		full_name += " [pick(list("Хадии","Кайтам","Жан-Хазан","Нъярир’Ахан"))]"
+	else if(prob(80))
+		full_name += " [pick(list("Энай-Сэндай","Наварр-Сэндай","Року-Сэндай","Шенуар-Сэндай"))]"
+	return full_name
 
 /datum/language/vulpkanin
 	name = "Canilunzt"
@@ -261,7 +291,7 @@
 	colour = "trinary"
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
+	syllables = list("0+2+0+1+1","0+1+2+2+2","1+0+1+0+0","1+0+2+1+0","2+1+0+1+2","0+2+0+1+1","2+1+2+0+0","1+0+0+2","2+0+0+1","0+0+0+2","0+0+1+2","0+0+1+2","0+0+0","1+2+0","1+2+1","2+0+1","2+2+0","1+0","1+1","0")
 
 /datum/language/trinary/get_random_name()
 	var/new_name
@@ -311,6 +341,7 @@
 	colour = "abductor"
 	key = "^"
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)
@@ -318,8 +349,8 @@
 /datum/language/grey/check_can_speak(mob/living/speaker)
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/S = speaker
-		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
-		var/obj/item/organ/external/lhand = S.get_organ("l_hand")
+		var/obj/item/organ/external/rhand = S.get_organ(BODY_ZONE_PRECISE_R_HAND)
+		var/obj/item/organ/external/lhand = S.get_organ(BODY_ZONE_PRECISE_L_HAND)
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
 			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
 			return FALSE
@@ -351,6 +382,28 @@
 	var/new_name = "[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
 	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
 	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
+	return new_name
+
+/datum/language/moth
+	name = "Tkachi"
+	desc = "The language of the Nianae mothpeople borders on complete unintelligibility."
+	speech_verb = "buzzes"
+	ask_verb = "flaps"
+	exclaim_verbs = list("chatters")
+	colour = "moth"
+	key = "#"
+	flags = RESTRICTED | WHITELISTED
+	join_override = "-"
+	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
+					 "lit", "ygg", "van", "dår", "nø", "møt", "idd", "hvo", "ja", "på", "han",
+					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+
+/datum/language/moth/get_random_name()
+	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
+	new_name += "[pick(list(" of"," for"," in Service of",", Servant of"," for the Good of",", Student of"," to"))]"
+	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
 /datum/language/common
@@ -482,9 +535,10 @@
 	ask_verb = "chitters"
 	exclaim_verbs = list("chitters")
 	colour = "terrorspider"
-	key = "ts"
+	key = "as"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
+
 
 /datum/language/ling
 	name = "Changeling"
@@ -495,11 +549,28 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
+
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
-	if(speaker.mind && speaker.mind.changeling)
-		..(speaker, message, speaker.mind.changeling.changelingID)
-	else if(speaker.mind && speaker.mind.linglink)
-		..()
+	var/datum/antagonist/changeling/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	if(cling)
+		..(speaker, message, cling.changelingID)
+	else
+		..(speaker,message)
+
+/datum/language/eventling
+	name = "Infiltrated changeling"
+	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
+	speech_verb = "says"
+	colour = "changeling"
+	key = "gi"
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
+
+
+/datum/language/eventling/broadcast(mob/living/speaker, message, speaker_mask)
+	var/datum/antagonist/changeling/evented/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling/evented)
+	if(cling)
+		..(speaker, message, cling.changelingID)
 	else
 		..(speaker,message)
 
@@ -527,7 +598,7 @@
 	ask_verb = "gibbers"
 	exclaim_verbs = list("gibbers")
 	colour = "abductor"
-	key = "zw" //doesn't matter, this is their default and only language
+	key = "aa" //doesn't matter, this is their default and only language
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -545,6 +616,7 @@
 /datum/language/abductor/golem
 	name = "Golem Mindlink"
 	desc = "Communicate with other alien alloy golems through a psychic link."
+	follow = TRUE
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE
@@ -592,9 +664,7 @@
 	if(!message)
 		return
 
-	var/log_message = "(ROBOT) [message]"
-	log_say(log_message, speaker)
-	speaker.create_log(SAY_LOG, log_message)
+	add_say_logs(speaker, message, language = "ROBOT")
 
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
@@ -605,7 +675,7 @@
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
-		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
+		if(drone_only && !(isdrone(S)||iscogscarab(S)))
 			continue
 		else if(isAI(S))
 			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
@@ -640,7 +710,7 @@
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("declares")
-	key = "]"
+	key = "db"
 	flags = RESTRICTED
 	follow = TRUE
 	syllables = list ("beep", "boop")
@@ -652,7 +722,7 @@
 	ask_verb = "tones"
 	exclaim_verbs = list("tones")
 	colour = "say_quote"
-	key = "z"//Zwarmer...Or Zerg!
+	key = "as"//Zwarmer...Or Zerg!
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -712,6 +782,9 @@
 	popup.open()
 
 /mob/living/Topic(href, href_list)
+	. = ..()
+	if(.)
+		return TRUE
 	if(href_list["default_lang"])
 		if(href_list["default_lang"] == "reset")
 			set_default_language(null)
@@ -721,8 +794,6 @@
 				set_default_language(L)
 		check_languages()
 		return TRUE
-	else
-		return ..()
 
 /datum/language/human/monkey
 	name = "Chimpanzee"
@@ -730,17 +801,17 @@
 	speech_verb = "chimpers"
 	ask_verb = "chimpers"
 	exclaim_verbs = list("screeches")
-	key = "mo"
+	key = "fm"
 
 /datum/language/skrell/monkey
 	name = "Neara"
 	desc = "Squik squik squik."
-	key = "ne"
+	key = "fn"
 
 /datum/language/unathi/monkey
 	name = "Stok"
 	desc = "Hiss hiss hiss."
-	key = "st"
+	key = "fs"
 
 /datum/language/tajaran/monkey
 	name = "Farwa"
@@ -758,5 +829,9 @@
 		if(new_language.flags & NOBABEL)
 			continue
 		languages |= new_language
+
+/mob/proc/grant_all_languages()
+	for(var/la in GLOB.all_languages)
+		add_language(la)
 
 #undef SCRAMBLE_CACHE_LEN

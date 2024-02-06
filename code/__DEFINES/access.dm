@@ -92,11 +92,35 @@
 #define ACCESS_CENT_BRIDGE 113//Bridge.
 #define ACCESS_CENT_COMMANDER 114//Commander's Office/ID computer.
 
+// USSP ACCESS
+#define ACCESS_USSP_TOURIST 120
+#define ACCESS_USSP_CONSCRIPT 121
+#define ACCESS_USSP_SOLDIER 122
+#define ACCESS_USSP_OFFICER 123
+#define ACCESS_USSP_MARINE 124
+#define ACCESS_USSP_MARINE_CAPTAIN 125
+#define ACCESS_USSP_MARINE_ADMIRAL 126
+#define ACCESS_USSP_MEDICAL 127
+#define ACCESS_USSP_SECURITY 128 // Ghost role 'USSP'
+#define ACCESS_USSP_COMAND 129 // Ghost role 'USSP'
+#define ACCESS_USSP_ENGINEERING 130 // Ghost role 'USSP'
+#define ACCESS_USSP_SCIENTIST 131 // Ghost role 'USSP'
+
 //The Syndicate
 #define ACCESS_SYNDICATE 150//General Syndicate Access
 #define ACCESS_SYNDICATE_LEADER 151//Nuke Op Leader Access
 #define ACCESS_VOX 152//Vox Access
 #define ACCESS_SYNDICATE_COMMAND 153//Admin syndi officer
+#define ACCESS_SYNDICATE_COMMS_OFFICER 154 // Ghost role 'Taipan' Syndicate Comms Officer Access
+#define ACCESS_SYNDICATE_RESEARCH_DIRECTOR 155 // Ghost role 'Taipan' Syndicate Research Director Access
+#define ACCESS_SYNDICATE_SCIENTIST 156 // Ghost role 'Taipan' Syndicate Scientist Access
+#define ACCESS_SYNDICATE_CARGO 157 // Ghost role 'Taipan' Syndicate Cargo Access
+#define ACCESS_SYNDICATE_KITCHEN 158 // Ghost role 'Taipan' Syndicate Kitchen Access
+#define ACCESS_SYNDICATE_ENGINE 159 // Ghost role 'Taipan' Syndicate Engineering Access
+//Поскольку дальше уже зона Сол трейдеров и т.д. Следующие доступы будут идти по убывающей начиная с 149-ой
+#define ACCESS_SYNDICATE_MEDICAL 149 // Ghost role 'Taipan' Syndicate Medical Access
+#define ACCESS_SYNDICATE_BOTANY 148 // Ghost role 'Taipan' Syndicate Botany Access
+
 
 //Trade Stations
 #define ACCESS_TRADE_SOL 160

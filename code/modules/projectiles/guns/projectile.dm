@@ -23,7 +23,7 @@
 	if(current_skin)
 		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
 	else
-		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 	if(bayonet && can_bayonet)
 		overlays += knife_overlay
 
@@ -35,7 +35,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.drop_sound, 100, 1)
+		playsound(src, chambered.casing_drop_sound, 100, 1)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -58,7 +58,7 @@
 	return !magazine
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)
-		user.remove_from_mob(AM)
+		user.drop_item_ground(AM)
 		magazine = AM
 		magazine.loc = src
 		playsound(src, magin_sound, 50, 1)
@@ -92,16 +92,15 @@
 		var/obj/item/suppressor/S = A
 		if(can_suppress)
 			if(!suppressed)
-				if(!user.unEquip(A))
+				if(!user.drop_transfer_item_to_loc(A, src))
 					return
 				to_chat(user, "<span class='notice'>You screw [S] onto [src].</span>")
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
 				S.initial_w_class = w_class
-				fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
+				fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 				w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
-				A.loc = src
 				update_icon()
 				return
 			else
@@ -152,7 +151,7 @@
 
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
-	. += "Has [get_ammo()] round\s remaining."
+	. += "<span class='notice'>Has [get_ammo()] round\s remaining.</span>"
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people
@@ -167,7 +166,7 @@
 		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
-			process_fire(user, user, 0, zone_override = "head")
+			process_fire(user, user, 0, zone_override = BODY_ZONE_HEAD)
 			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with the [name]!</span>")
 			return BRUTELOSS
 		else

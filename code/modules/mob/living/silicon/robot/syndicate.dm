@@ -1,6 +1,7 @@
 /mob/living/silicon/robot/syndicate
 	base_icon = "syndie_bloodhound"
 	icon_state = "syndie_bloodhound"
+	has_transform_animation = TRUE
 	lawupdate = 0
 	scrambledcodes = 1
 	has_camera = FALSE
@@ -16,6 +17,10 @@
 	burn_mod = 0.7
 	can_lock_cover = TRUE
 	lawchannel = "State"
+	drain_act_protected = TRUE
+	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	ear_protection = 1 // Immunity to the audio part of flashbangs
+	default_cell_type = /obj/item/stock_parts/cell/hyper	//Не очень понимаю почему вместо замены типа батареи тут, какого то чёрта вставляли новую батарею, оставляя старую валяться в contents борга...
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
 							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
@@ -23,14 +28,20 @@
 
 /mob/living/silicon/robot/syndicate/New(loc)
 	..()
-	cell = new /obj/item/stock_parts/cell/hyper(src)
+	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
+	mmi.icon_state = "sofia"
 
 /mob/living/silicon/robot/syndicate/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/syndicate_override
 	module = new /obj/item/robot_module/syndicate(src)
 
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
-	radio = new /obj/item/radio/borg/syndicate(src)
+
+	if(is_taipan(z))
+		radio = new /obj/item/radio/borg/syndicate/taipan(src)
+	else
+		radio = new /obj/item/radio/borg/syndicate(src)
+
 	radio.recalculateChannels()
 
 	spawn(5)
@@ -39,13 +50,20 @@
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
+/mob/living/silicon/robot/syndicate/reset_module()
+	..()
+	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
+
 /mob/living/silicon/robot/syndicate/medical
 	base_icon = "syndi-medi"
 	icon_state = "syndi-medi"
+	has_transform_animation = TRUE
 	modtype = "Syndicate Medical"
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
 	burn_mod = 0.8
+	eye_protection = 0
+	ear_protection = 0
 	playstyle_string = "<span class='userdanger'>You are a Syndicate medical cyborg!</span><br>\
 						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
 						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
@@ -55,15 +73,19 @@
 
 /mob/living/silicon/robot/syndicate/medical/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	..()
+	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_medical(src)
 
 /mob/living/silicon/robot/syndicate/saboteur
 	base_icon = "syndi-engi"
 	icon_state = "syndi-engi"
+	has_transform_animation = TRUE
 	modtype = "Syndicate Saboteur"
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8
 	burn_mod = 0.8
+	eye_protection = 0
+	ear_protection = 0
 	var/mail_destination = 0
 	var/obj/item/borg_chameleon/cham_proj = null
 	playstyle_string = "<span class='userdanger'>You are a Syndicate saboteur cyborg!</span><br>\
@@ -77,14 +99,11 @@
 
 /mob/living/silicon/robot/syndicate/saboteur/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	..()
+	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 
 	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
-	SR.cyborg = src
-	SR.icon_state = "selfrepair_off"
-
-	var/datum/action/self_repair = new /datum/action/item_action/toggle(SR)
-	self_repair.Grant(src)
+	SR.action(src)
 
 	var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
 	thermals.Grant(src)

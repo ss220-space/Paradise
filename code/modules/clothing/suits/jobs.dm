@@ -8,12 +8,32 @@
 	icon_state = "paramedic-vest"
 	item_state = "paramedic-vest"
 	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
-	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/emergency_oxygen,/obj/item/rad_laser)
+	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10, fire = 50, acid = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+
+/obj/item/clothing/suit/storage/paramedic_jacket
+	name = "paramedic jacket"
+	desc = "Standard issue paramedic jacket. Not that different from any other work apparel, except for the bright, reflective stripes"
+	blood_overlay_type = "armor"
+	icon_state = "paramedic_jacket_open"
+	item_state = "paramedic_jacket_open"
+	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
+	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10, fire = 50, acid = 50)
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 //Brig Physician
 /obj/item/clothing/suit/storage/brigdoc
@@ -23,11 +43,17 @@
 	item_state = "brigphysician-vest"
 	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
 	/obj/item/healthanalyzer, /obj/item/flashlight, \
-	/obj/item/radio, /obj/item/tank/emergency_oxygen,/obj/item/rad_laser)
+	/obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 50, acid = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Botanist
@@ -41,7 +67,13 @@
 	allowed = list(/obj/item/reagent_containers/spray/plantbgone,/obj/item/plant_analyzer,/obj/item/seeds,/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/cultivator,/obj/item/reagent_containers/spray/pestspray,/obj/item/hatchet,/obj/item/storage/bag/plants)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Captain
@@ -52,30 +84,57 @@
 	item_state = "bio_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
-/obj/item/clothing/suit/captunic/capjacket
-	name = "captain's uniform jacket"
-	desc = "A less formal jacket for everyday captain use."
-	icon_state = "capjacket"
-	item_state = "bio_suit"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	flags_inv = HIDEJUMPSUIT
+/obj/item/clothing/suit/captunic/coat
+	name = "captain fur coat"
+	desc = "Made of real fur."
+	item_state = "cap_coat"
+	icon_state = "cap_coat"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
-		)
+/obj/item/clothing/suit/captunic/parade
+	name = "captain's parade jacket"
+	desc = "Worn by a Captain to show their class."
+	icon_state = "cap_jacket_black_open"
+	item_state = "cap_jacket_black_open"
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
-/obj/item/clothing/suit/mantle/armor/captain
-	name = "captain's cloak"
-	desc = "An armor-plated piece of fashion for the ruling elite. Protect your upper half in style."
-	icon_state = "capmantle"
-	item_state = "capmantle"
-	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
+/obj/item/clothing/suit/captunic/parade/alt
+	icon_state = "dress_capjacket_black_open"
+	item_state = "dress_capjacket_black_open"
+
+/obj/item/clothing/suit/captunic/jacket
+	name = "captain's jacket"
+	desc = "Worn by a Captain to show their class."
+	icon_state = "cap_jacket_open"
+	item_state = "cap_jacket_open"
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/captunic/bomber
+	name = "captain's bomber jacket"
+	desc = "Worn by a Captain to show their class."
+	icon_state = "bomber_captain_open"
+	item_state = "bomber_captain_open"
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 //Chaplain
 /obj/item/clothing/suit/hooded/chaplain_hoodie
@@ -85,11 +144,22 @@
 	item_state = "chaplain_hoodie"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/no_name
+	name = "dark hoodie"
+	desc = "A dark robe made of thick fabric that looks intimidating"
+	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/no_name
 
 //Chaplain
 /obj/item/clothing/suit/hooded/nun
@@ -100,10 +170,16 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/nun_hood
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Chaplain
@@ -113,9 +189,9 @@
 	icon_state = "monkrobe"
 	item_state = "monkrobe"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
-	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/monk_hood
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 /obj/item/clothing/suit/witchhunter
 	name = "witchhunter garb"
@@ -123,13 +199,7 @@
 	icon_state = "witchhunter"
 	item_state = "witchhunter"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
-
-
-	//Chef
-/obj/item/clothing/suit/toggle/chef
-  	name = "chef's apron"
-
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 //Chef
 /obj/item/clothing/suit/chef
@@ -143,7 +213,13 @@
 	allowed = list (/obj/item/kitchen/knife)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Chef
@@ -156,21 +232,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list(/obj/item/kitchen/knife)
 
-//Chief Engineer
-/obj/item/clothing/suit/mantle/chief_engineer
-	name = "chief engineer's mantle"
-	desc = "A slick, authoritative cloak designed for the Chief Engineer."
-	icon_state = "cemantle"
-	item_state = "cemantle"
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
-
-//Chief Medical Officer
-/obj/item/clothing/suit/mantle/labcoat/chief_medical_officer
-	name = "chief medical officer's mantle"
-	desc = "An absorbent, clean cover found on the shoulders of the Chief Medical Officer."
-	icon_state = "cmomantle"
-	item_state = "cmomantle"
-
 //Detective
 /obj/item/clothing/suit/storage/det_suit
 	name = "coat"
@@ -179,14 +240,28 @@
 	item_state = "det_suit"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/tank/emergency_oxygen, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight, /obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight, /obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder)
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+
+/obj/item/clothing/suit/storage/det_suit/black
+	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+	icon_state = "detective_black"
 
 //Forensics
 /obj/item/clothing/suit/storage/det_suit/forensics
@@ -207,6 +282,25 @@
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_blue"
 
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser
+	name = "black jacket"
+	desc = "A black forensics technician jacket."
+	icon_state = "dec_blazer_black"
+	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" =  'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/brown
+	name = "brown jacket"
+	desc = "A brown forensics technician jacket."
+	icon_state = "dec_blazer_brown"
+
+/obj/item/clothing/suit/storage/det_suit/forensics/blaser/grey
+	name = "grey jacket"
+	desc = "A grey forensics technician jacket."
+	icon_state = "dec_blazer_grey"
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield
 	name = "blueshield coat"
@@ -221,8 +315,19 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+
+/obj/item/clothing/suit/storage/blueshield/srt
+	name = "SRT coat"
+	desc = "Dark blue armored coat. Excellent defense against most types of damage."
+	armor = list(melee = 45, bullet = 35, laser = 35, energy = 20, bomb = 50, rad = 40, fire = 40, acid = 90)
 
 //Engineering
 /obj/item/clothing/suit/storage/hazardvest
@@ -231,17 +336,29 @@
 	icon_state = "hazard"
 	item_state = "hazard"
 	blood_overlay_type = "armor"
-	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/emergency_oxygen, /obj/item/rcd, /obj/item/rpd)
+	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/rcd, /obj/item/rpd)
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Lawyer
 /obj/item/clothing/suit/storage/lawyer
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/storage/lawyer/blackjacket
@@ -276,28 +393,28 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 
-//Head of Security
-/obj/item/clothing/suit/mantle/armor
-	name = "armored shawl"
-	desc = "A reinforced shawl, worn by the Head of Security. Do you dare take up their mantle?"
-	icon_state = "hosmantle"
-	item_state = "hosmantle"
-	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
-	armor = list(melee = 30, bullet = 30, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	heat_protection = UPPER_TORSO|ARMS
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	strip_delay = 60
-	put_on_delay = 40
-	resistance_flags = NONE
+/obj/item/clothing/suit/storage/qm
+	name = "quartermaster jacket"
+	desc = "Comfortable for work cargo jacket with extra pockets."
+	icon_state = "qm_jacket_open"
+	item_state = "qm_jacket_open"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	flags_inv = HIDEJUMPSUIT
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp, /obj/item/qm_quest_tablet)
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
-//Head of Personnel
-/obj/item/clothing/suit/mantle/armor/head_of_personnel
-	name = "head of personnel's shawl"
-	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
-	icon_state = "hopmantle"
-	item_state = "hopmantle"
-	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
+	sprite_sheets = list(
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
@@ -313,7 +430,13 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/storage/ntrep
@@ -328,7 +451,13 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Medical
@@ -339,27 +468,66 @@
 	item_state = "fr_jacket_open"
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
-	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/emergency_oxygen,/obj/item/rad_laser)
+	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
 	ignore_suitadjust = 0
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
-//Mime
+//Suspenders
 /obj/item/clothing/suit/suspenders
 	name = "suspenders"
-	desc = "They suspend the illusion of the mime's play."
+	desc = "Two braids to support your jeans. Weared by noire-detectives. Or skinheads. Now comes in any color!"
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "suspenders"
 	blood_overlay_type = "armor" //it's the less thing that I can put here
+	var/paintable = TRUE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
+
+/obj/item/clothing/suit/suspenders/Initialize(mapload)
+	. = ..()
+	if(!color && paintable)
+		color = "#a30e22"
+	update_icon()
+
+/obj/item/clothing/suit/suspenders/attackby(obj/D, mob/user, params)
+	. = ..()
+	if(paintable && istype(D, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = D
+		if(!can.capped && Adjacent(can, 1))
+			color = can.colour
+			update_icon(UPDATE_OVERLAYS)
+
+/obj/item/clothing/suit/suspenders/update_overlays()
+	. = ..()
+	if(color)
+		var/mutable_appearance/suspenders_overlay = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_overlay")
+		. += suspenders_overlay
+		var/mutable_appearance/suspenders_clips = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_clips", appearance_flags = RESET_COLOR)
+		. += suspenders_clips
+
+		
 
 /obj/item/clothing/suit/suspenders/nodrop
 	flags = NODROP
@@ -372,11 +540,52 @@
 	item_state = "surgical"
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
 
-//Research Director
-/obj/item/clothing/suit/mantle/labcoat
-	name = "research director's mantle"
-	desc = "A tweed mantle, worn by the Research Director. Smells like science."
-	icon_state = "rdmantle"
-	item_state = "rdmantle"
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/rad_laser)
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 50, rad = 0, fire = 50, acid = 50)
+/obj/item/clothing/suit/hop_jacket
+	name = "head of personnel's jacket"
+	desc = "This is the head of personnel jacket"
+	icon_state = "suitjacket_hop_open"
+	item_state = "suitjacket_hop_open"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|ARMS
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/hop_jacket/female
+	icon_state = "suitjacket_hop_fem_open"
+	item_state = "suitjacket_hop_fem_open"
+
+//Culinary Artist
+/obj/item/clothing/suit/storage/chefbluza
+	name = "deluxe chef suit"
+	desc = "Well made expensive chief suit"
+	icon_state = "bluza"
+	item_state = "bluza"
+	allowed = list(/obj/item/kitchen/utensil,/obj/item/kitchen/knife,/obj/item/kitchen/rollingpin,/obj/item/kitchen/mould,/obj/item/kitchen/sushimat,/obj/item/kitchen/cutter,/obj/item/assembly/mousetrap,/obj/item/reagent_containers/spray/pestspray,/obj/item/reagent_containers/food/drinks/flask,/obj/item/reagent_containers/food/drinks/drinkingglass,/obj/item/reagent_containers/food/drinks/bottle,/obj/item/reagent_containers/food/drinks/cans,/obj/item/reagent_containers/food/drinks/shaker,/obj/item/reagent_containers/food/snacks,/obj/item/reagent_containers/food/condiment,/obj/item/reagent_containers/glass/beaker,/obj/item/radio)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 10, acid = 10)
+
+// Cargotech
+/obj/item/clothing/suit/storage/cargotech
+	name = "cargo overalls"
+	desc = "Durable and reliable overalls for the introduction of physical work and labor."
+	icon_state = "overalls_cargo"
+	item_state = "overalls_cargo"
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/rcd, /obj/item/rpd, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp, /obj/item/qm_quest_tablet)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 30, acid = 30)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		)

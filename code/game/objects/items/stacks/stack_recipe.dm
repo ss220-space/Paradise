@@ -10,11 +10,12 @@
 	var/max_res_amount = 1
 	var/time = 0
 	var/one_per_turf = 0
-	var/on_floor = 0
+	var/on_floor = 0    //must have floor under it?
+	var/on_lattice = 0  //ONLY if has on_floor = 1 checks could be built in space on lattice. Otherwise won't work.
 	var/window_checks = FALSE
-	var/no_cult_structure = FALSE
+	var/cult_structure = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, window_checks = FALSE, no_cult_structure = FALSE)
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, window_checks = FALSE, cult_structure = FALSE, on_lattice = FALSE)
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount
@@ -24,7 +25,8 @@
 	src.one_per_turf = one_per_turf
 	src.on_floor = on_floor
 	src.window_checks = window_checks
-	src.no_cult_structure = no_cult_structure
+	src.cult_structure = cult_structure
+	src.on_lattice = on_lattice
 
 /datum/stack_recipe/proc/post_build(obj/item/stack/S, obj/result)
 	return
@@ -33,16 +35,35 @@
 
 /datum/stack_recipe/cable_restraints
 /datum/stack_recipe/cable_restraints/post_build(obj/item/stack/S, obj/result)
-	if(istype(result, /obj/item/restraints/handcuffs/cable))
-		result.color = S.color
+	var/obj/item/restraints/handcuffs/cable/cable_restraints = result
+	if(istype(cable_restraints))
+		var/color = "white"
+
+		switch(S.color)
+			if(WIRE_COLOR_BLUE)
+				color = "blue"
+			if(WIRE_COLOR_CYAN)
+				color = "cyan"
+			if(WIRE_COLOR_GREEN)
+				color = "green"
+			if(WIRE_COLOR_ORANGE)
+				color = "orange"
+			if(WIRE_COLOR_PINK)
+				color = "pink"
+			if(WIRE_COLOR_RED)
+				color = "red"
+			if(WIRE_COLOR_YELLOW)
+				color = "yellow"
+
+		cable_restraints.icon_state = "cuff_[color]"
 	..()
 
 
 /datum/stack_recipe/dangerous
 /datum/stack_recipe/dangerous/post_build(obj/item/stack/S, obj/result)
 	var/turf/targ = get_turf(usr)
-	message_admins("[title] made by [key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in [get_area(usr)] [ADMIN_COORDJMP(targ)]!",0,1)
-	log_game("[title] made by [key_name_admin(usr)] at [get_area(usr)] [targ.x], [targ.y], [targ.z].")
+	message_admins("[title] made by [key_name_admin(usr)] in [ADMIN_VERBOSEJMP(usr)]!",0,1)
+	add_game_logs("made [title] at [AREACOORD(targ)].", usr)
 	..()
 
 /datum/stack_recipe/rods

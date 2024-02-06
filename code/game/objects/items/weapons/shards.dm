@@ -52,7 +52,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves && !(PIERCEIMMUNE in H.dna.species.species_traits))
-			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			var/obj/item/organ/external/affecting = H.get_organ(H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			if(affecting.is_robotic())
 				return
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
@@ -63,22 +63,31 @@
 	if(istype(I, /obj/item/lightreplacer))
 		I.attackby(src, user)
 		return
+	if(istype(I, /obj/item/stack/sheet/cloth))
+		var/obj/item/stack/sheet/cloth/CL = I
+		CL.use(1)
+		to_chat(user, "<span class='notice'>You wrap the [name] with some cloth.</span>")
+		if(istype(src, /obj/item/shard/plasma))
+			new /obj/item/kitchen/knife/glassshiv/plasma(user.loc, src)
+		else
+			new /obj/item/kitchen/knife/glassshiv(user.loc, src)
+		qdel(src)
 	return ..()
 
 /obj/item/shard/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	var/obj/item/stack/sheet/NG = new welded_type(user.loc)
-	for(var/obj/item/stack/sheet/G in user.loc)
+	new welded_type(drop_location())
+	var/new_amount = 0
+	for(var/obj/item/stack/sheet/G in drop_location())
 		if(!istype(G, welded_type))
-			continue
-		if(G == NG)
 			continue
 		if(G.amount >= G.max_amount)
 			continue
-		G.attackby(NG, user)
-	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
+		new_amount += G.amount
+	if(new_amount > 1)
+		to_chat(user, span_notice("You add the newly-formed glass to the stack. It now contains [new_amount] sheet\s."))
 	qdel(src)
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)

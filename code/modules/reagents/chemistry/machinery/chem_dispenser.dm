@@ -40,7 +40,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
-	dispensable_reagents = sortList(dispensable_reagents)
+	dispensable_reagents = sortAssoc(dispensable_reagents)
 
 /obj/machinery/chem_dispenser/upgraded/New()
 	..()
@@ -85,7 +85,7 @@
 		"ammonia",
 		"ash",
 		"diethylamine")
-	upgrade_reagents = null
+	upgrade_reagents = list()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/New()
 	..()
@@ -111,6 +111,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
 			dispensable_reagents |= upgrade_reagents
+			dispensable_reagents = sortAssoc(dispensable_reagents)
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/Destroy()
@@ -160,7 +161,7 @@
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 390, 655)
+		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 477, 655)
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
@@ -204,8 +205,9 @@
 
 	. = TRUE
 	switch(actions)
+		//Chem dispenser dispense amount
 		if("amount")
-			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
+			amount = clamp(round(text2num(params["amount"]), 1), 0, 100) //Round to nearest 1 and clamp to 0 - 100
 		if("dispense")
 			if(!is_operational() || QDELETED(cell))
 				return
@@ -215,7 +217,7 @@
 			var/free = R.maximum_volume - R.total_volume
 			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
 			if(!cell.use(actual / powerefficiency))
-				atom_say("Not enough energy to complete operation!")
+				atom_say("Недостаточно энергии для завершения операции!")
 				return
 			R.add_reagent(params["reagent"], actual)
 			overlays.Cut()
@@ -233,12 +235,14 @@
 				R.remove_reagent(id, amount)
 			else if(amount == -1) //Isolate instead
 				R.isolate_reagent(id)
+			else if(amount == -2) //Round to lesser number (a.k.a 14.61 -> 14)
+				R.floor_reagent(id)
 		if("ejectBeaker")
 			if(!beaker)
 				return
 			beaker.forceMove(loc)
 			if(Adjacent(usr) && !issilicon(usr))
-				usr.put_in_hands(beaker)
+				usr.put_in_hands(beaker, ignore_anim = FALSE)
 			beaker = null
 			overlays.Cut()
 		else
@@ -262,11 +266,11 @@
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
-		if(!user.drop_item())
+		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+		add_fingerprint(user)
 		beaker =  I
-		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
 		if(!icon_beaker)
@@ -332,6 +336,11 @@
 /obj/machinery/chem_dispenser/attack_hand(mob/user)
 	if(stat & BROKEN)
 		return
+
+	if(..())
+		return TRUE
+
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/chem_dispenser/soda
@@ -377,9 +386,9 @@
 	name = "booze dispenser"
 	ui_title = "Booze Portal 9001"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol")
+	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan")
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
-	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake")
+	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "alcohol_free_beer")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
@@ -424,6 +433,18 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
+/obj/machinery/chem_dispenser/botanical/upgraded/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
@@ -591,9 +612,8 @@
 			if(C.maxcharge < 100)
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
 				return
-			if(!user.unEquip(W))
+			if(!user.drop_transfer_item_to_loc(W, src))
 				return
-			W.loc = src
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon()
@@ -614,16 +634,19 @@
 	icon_state = "handheld_booze"
 	is_drink = TRUE
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
-	 "vermouth", "cognac", "ale", "mead", "synthanol")
+	"vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan", "iced_beer",
+	"irishcream", "manhattan", "antihol", "synthignon", "bravebull", "goldschlager", "patron", "absinthe", "ethanol", "nothing",
+	"sake", "bitter", "champagne", "aperol", "alcohol_free_beer")
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"
 	item_state = "handheld_soda"
 	icon_state = "handheld_soda"
 	is_drink = TRUE
-	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
-	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb",
+	"space_up", "tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice",
+	"banana", "watermelonjuice", "carrotjuice", "potato", "berryjuice", "bananahonk", "milkshake", "cafe_latte", "cafe_mocha",
+	"triple_citrus", "icecoffe", "icetea", "thirteenloko")
 
 /obj/item/handheld_chem_dispenser/botanical
 	name = "handheld botanical chemical dispenser"

@@ -21,11 +21,10 @@
 		hijack_objective.owner = H.mind
 		H.mind.objectives += hijack_objective
 
-		to_chat(H, "<B>You are a Highlander. Kill all other Highlanders. There can be only one.</B>")
-		var/obj_count = 1
-		for(var/datum/objective/OBJ in H.mind.objectives)
-			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-			obj_count++
+		var/list/messages = list()
+		messages.Add("<b>You are a Highlander. Kill all other Highlanders. There can be only one.</b>")
+		messages.Add(H.mind.prepare_announce_objectives(FALSE))
+		to_chat(H, chat_box_red(messages.Join("<br>")))
 
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
@@ -52,10 +51,19 @@
 		H.dna.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
-	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
-	log_admin("[key_name(usr)] used there can be only one.")
+	log_and_message_admins("used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	GLOB.nologevent = 1
-	world << sound('sound/music/thunderdome.ogg')
+
+	GLOB.pacifism_after_gt = FALSE
+	SSticker.toggle_pacifism = FALSE
+
+	var/sound/music = sound('sound/music/thunderdome.ogg', channel = CHANNEL_ADMIN)
+	for(var/mob/M in GLOB.player_list)
+		if(M.client.prefs.sound & SOUND_MIDI)
+			if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
+				M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			music.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+			SEND_SOUND(M, music)
 
 /client/proc/only_me()
 	if(!SSticker)
@@ -73,16 +81,15 @@
 		hijack_objective.owner = H.mind
 		H.mind.objectives += hijack_objective
 
-		to_chat(H, "<B>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</B>")
-		var/obj_count = 1
-		for(var/datum/objective/OBJ in H.mind.objectives)
-			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-			obj_count++
+		var/list/messages = list()
+		messages.Add("<b>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</b>")
+		messages.Add(H.mind.prepare_announce_objectives(FALSE))
+		to_chat(H, chat_box_red(messages.Join("<br>")))
 
 		var/obj/item/slot_item_ID = H.get_item_by_slot(slot_wear_id)
 		qdel(slot_item_ID)
 		var/obj/item/slot_item_hand = H.get_item_by_slot(slot_r_hand)
-		H.unEquip(slot_item_hand)
+		H.drop_item_ground(slot_item_hand)
 
 		var/obj/item/multisword/pure_evil/multi = new(H)
 		H.equip_to_slot_or_del(multi, slot_r_hand)
@@ -98,7 +105,7 @@
 
 		H.update_icons()
 
-	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ME! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
+	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ME! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	log_admin("[key_name(usr)] used there can be only me.")
 	GLOB.nologevent = 1
 	world << sound('sound/music/thunderdome.ogg')

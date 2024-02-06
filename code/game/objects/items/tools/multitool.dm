@@ -11,12 +11,15 @@
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
+	belt_icon = "multitool"
 	flags = CONDUCT
 	force = 5.0
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
 	throw_range = 7
 	throw_speed = 3
+	drop_sound = 'sound/items/handling/multitool_drop.ogg'
+	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	origin_tech = "magnets=1;engineering=2"
 	toolspeed = 1
@@ -24,6 +27,11 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
 	var/obj/machinery/buffer // simple machine buffer for device linkage
+	var/datum/multitool_menu_host/menu
+
+/obj/item/multitool/Initialize()
+	. = ..()
+	menu = new(src)
 
 /obj/item/multitool/proc/IsBufferA(typepath)
 	if(!buffer)
@@ -41,8 +49,12 @@
 	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
 	return TRUE
 
+/obj/item/multitool/attack_self(mob/user)
+	menu.interact(user)
+
 /obj/item/multitool/Destroy()
 	buffer = null
+	QDEL_NULL(menu)
 	return ..()
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
@@ -115,6 +127,14 @@
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
+	belt_icon = "alien_multitool"
 	toolspeed = 0.1
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 	shows_wire_information = TRUE
+
+/obj/item/multitool/brass
+	name = "brass multitool"
+	desc = "A multitool made of brass. You feel some signals coming out."
+	icon_state = "multitool_brass"
+	toolspeed = 0.5
+	resistance_flags = FIRE_PROOF | ACID_PROOF

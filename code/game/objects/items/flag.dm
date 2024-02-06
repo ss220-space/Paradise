@@ -5,6 +5,7 @@
 	icon_state = "ntflag"
 	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
+	flags = NO_PIXEL_RANDOM_DROP
 	w_class = WEIGHT_CLASS_BULKY
 	max_integrity = 40
 	resistance_flags = FLAMMABLE
@@ -137,6 +138,11 @@
 	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
 	icon_state = "plasmaflag"
 
+/obj/item/flag/species/nian
+	name = "NIAN flag"
+	desc = "A flag proudly proclaiming the superior heritage of Nian."
+	icon_state = "nianflag"
+
 //Department Flags
 
 /obj/item/flag/cargo
@@ -191,6 +197,16 @@
 	desc = "A flag proudly boasting the logo of the cultists, sworn enemies of NT."
 	icon_state = "cultflag"
 
+/obj/item/flag/ninja
+	name = "Spider Clan flag"
+	desc = "A flag proudly boasting the logo of the fearfull Spider Clan, known for their assassins, they work for the ones who pay them most."
+	icon_state = "ninjaflag"
+
+/obj/item/flag/ussp
+	name = "USSP flag"
+	desc = "A flag proudly boasting the logo of the Union of Soviet Socialist Planets, proclaiming the superior heritage of Revolution and Soviet People."
+	icon_state = "usspflag"
+
 //Chameleon
 
 /obj/item/flag/chameleon
@@ -235,21 +251,18 @@
 
 /obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grenade) && !boobytrap)
-		if(user.drop_item())
+		if(user.drop_transfer_item_to_loc(I, src))
 			boobytrap = I
 			trapper = user
-			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You hide [I] in the [src]. It will detonate some time after the flag is lit on fire.</span>")
 			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
-			log_game("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
-			investigate_log("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
+			add_game_logs("has hidden [I] in the [src] ready for detonation at [AREACOORD(bombturf)].", user)
+			investigate_log("[key_name_log(user)] has hidden [I] in the [src] ready for detonation.", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has hidden [I] ready for detonation in", ATKLOG_MOST)
 	else if(is_hot(I) && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
 		var/turf/bombturf = get_turf(src)
-		var/area/A = get_area(bombturf)
-		log_game("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
-		investigate_log("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
+		add_game_logs("has lit the [src] trapped with [boobytrap] by [key_name_log(trapper)] at [AREACOORD(bombturf)].", user)
+		investigate_log("[key_name_log(user)] has lit the [src] trapped with [boobytrap] by [key_name_log(trapper)].", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has lit (booby trapped with [boobytrap]", ATKLOG_FEW)
 		burn()
 	else
@@ -269,7 +282,7 @@
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)
 		fire_act()
-		addtimer(CALLBACK(src, .proc/prime_boobytrap), boobytrap.det_time)
+		addtimer(CALLBACK(src, PROC_REF(prime_boobytrap)), boobytrap.det_time)
 	else
 		..()
 

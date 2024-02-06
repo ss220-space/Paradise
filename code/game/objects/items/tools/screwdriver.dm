@@ -4,6 +4,7 @@
 	desc = "You can be totally screwy with this."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_map"
+	belt_icon = "screwdriver"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5
@@ -11,6 +12,8 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
+	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
+	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
 	materials = list(MAT_METAL=75)
 	attack_verb = list("stabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -25,6 +28,7 @@
 	desc = "A screwdriver with an ultra thin tip."
 	icon_state = "screwdriver_nuke"
 	toolspeed = 0.5
+	random_color = FALSE
 
 /obj/item/screwdriver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -43,7 +47,7 @@
 /obj/item/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!istype(M) || user.a_intent == INTENT_HELP)
 		return ..()
-	if(user.zone_selected != "eyes" && user.zone_selected != "head")
+	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
 		return ..()
 	if((CLUMSY in user.mutations) && prob(50))
 		M = user
@@ -62,6 +66,7 @@
 	desc = "An ultrasonic screwdriver."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "screwdriver"
+	belt_icon = "alien_screwdriver"
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
@@ -71,6 +76,7 @@
 	desc = "A simple hand drill with a screwdriver bit attached."
 	icon_state = "drill_screw"
 	item_state = "drill"
+	belt_icon = "hand_drill"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
 	force = 8 //might or might not be too high, subject to change

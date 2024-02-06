@@ -62,7 +62,7 @@
 	var/obj/machinery/hydroponics/parent = loc
 	var/make_podman = 0
 	var/ckey_holder = null
-	if(config.revival_pod_plants)
+	if(CONFIG_GET(number/revival_pod_plants))
 		if(ckey)
 			for(var/mob/M in GLOB.player_list)
 				if(isobserver(M))
@@ -109,4 +109,5 @@
 			var/obj/item/seeds/replicapod/harvestseeds = src.Copy()
 			harvestseeds.forceMove(output_loc)
 
+	investigate_log("[key_name_log(mind)] cloned as a diona via [src] in [parent]", INVESTIGATE_BOTANY)
 	parent.update_tray()

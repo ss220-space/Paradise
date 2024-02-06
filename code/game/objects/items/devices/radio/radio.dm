@@ -22,11 +22,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
-	name = "station bounced radio"
+	name = "shortwave radio"
+	desc = "A basic handheld radio that can communicate with local telecommunication networks."
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
+	belt_icon = "radio"
 	/// boolean for radio enabled or not
 	var/on = TRUE
 	var/last_transmission
@@ -236,15 +238,17 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
-/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/proc/has_internal_radio_channel_access(mob/user, list/req_accesses)
 	var/obj/item/card/id/I = user.get_id_card()
-	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
+	return has_access(req_accesses, TRUE, I ? I.GetAccess() : list())
 
-/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
-	var/list/access = get_all_accesses()
-	return has_access(list(), req_one_accesses, access)
+/mob/living/silicon/has_internal_radio_channel_access(mob/user, list/req_accesses)
+	return has_access(req_accesses, TRUE, get_all_accesses())
 
-/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/living/simple_animal/demon/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_accesses)
+	return has_access(req_accesses, TRUE, get_all_accesses())
+
+/mob/dead/observer/has_internal_radio_channel_access(mob/user, list/req_accesses)
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
@@ -287,6 +291,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
 	tcm.sender_job = "Automated Announcement"
+	tcm.sender_rank = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
@@ -303,6 +308,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	qdel(tcm) // Delete the message datum
 	qdel(A)
 
+/obj/item/radio/sec
+	name = "security shortwave radio"
+	desc = "A basic handheld radio that can communicate with local telecommunication networks. This model is painted in black colors."
+	icon_state = "walkietalkie_sec"
+	frequency = SEC_FREQ
+
 // Just a dummy mob used for making announcements, so we don't create AIs to do this
 // I'm not sure who thought that was a good idea. -- Crazylemon
 /mob/living/automatedannouncer
@@ -312,7 +323,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	universal_speak = 1
 
 /mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), 10 SECONDS, TIMER_STOPPABLE)
+	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
 	..()
 
 /mob/living/automatedannouncer/Destroy()
@@ -357,6 +368,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(!M.IsVocal())
 		return 0
 
+	if(M.is_muzzled())
+		var/obj/item/clothing/mask/muzzle/muzzle = M.wear_mask
+		if(muzzle.radio_mute)
+			return 0
+
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)
 	for(var/J in GLOB.active_jammers)
@@ -384,6 +400,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/displayname = M.name	// grab the display name (name you get when you hover over someone's icon)
 	var/voicemask = 0 // the speaker is wearing a voice mask
 	var/jobname // the mob's "job"
+	var/rank // the mob's "rank"
 
 	if(jammed)
 		Gibberish_all(message_pieces, 100)
@@ -392,27 +409,38 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		jobname = H.get_assignment()
+		rank = H.get_authentification_rank()
 
 	// --- Carbon Nonhuman ---
 	else if(iscarbon(M)) // Nonhuman carbon mob
 		jobname = "No id"
+		rank = "No id"
 
 	// --- AI ---
 	else if(isAI(M))
 		jobname = "AI"
+		rank = "AI"
 
 	// --- Cyborg ---
 	else if(isrobot(M))
 		jobname = "Cyborg"
+		rank = "Cyborg"
 
 	// --- Personal AI (pAI) ---
-	else if(istype(M, /mob/living/silicon/pai))
-		jobname = "Personal AI"
+	else if(ispAI(M))
+		var/mob/living/silicon/pai/pai = M
+		displayname = pai.radio_name
+		jobname = pai.radio_rank
+		rank = pai.radio_rank
+
+	// --- Cogscarab ---
+	else if(iscogscarab(M))
+		jobname = "Unknown"
 
 	// --- Unidentifiable mob ---
 	else
 		jobname = "Unknown"
-
+		rank = "Unknown"
 
 	// --- Modifications to the mob's identity ---
 
@@ -426,6 +454,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
 		jobname = "Unknown"
+		rank = "Unknown"
 		voicemask = TRUE
 
 	// Copy the message pieces so we can safely edit comms line without affecting the actual line
@@ -437,6 +466,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/datum/tcomms_message/tcm = new
 	tcm.sender_name = displayname
 	tcm.sender_job = jobname
+	tcm.sender_rank = rank
 	tcm.message_pieces = message_pieces_copy
 	tcm.source_level = position.z
 	tcm.freq = connection.frequency
@@ -462,8 +492,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/broadcast_message, tcm), 20)
-			QDEL_IN(tcm, 20)
+			addtimer(CALLBACK(src, PROC_REF(broadcast_callback), tcm), 2 SECONDS)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
 			broadcast_message(tcm)
@@ -480,6 +509,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, message_pieces, null, verb)
 
+// To the person who asks "Why is this in a callback?"
+// You see, if you use QDEL_IN on the tcm and on broadcast_message()
+// The timer SS races itself and the message can be deleted before its sent
+// Having both in this callback removes that risk
+/obj/item/radio/proc/broadcast_callback(datum/tcomms_message/tcm)
+	broadcast_message(tcm)
+	qdel(tcm) // Delete the message datum
 
 /*
 /obj/item/radio/proc/accept_rad(obj/item/radio/R as obj, message)
@@ -508,9 +544,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
+		if(freq == SYND_TAIPAN_FREQ && !istype(syndiekey, /obj/item/encryptionkey/syndicate/taipan)) //Чтобы тайпановскую частоту, слышали только тайпановцы
+			return -1
+
 	if(!freq) //recieved on main frequency
 		if(!listening)
 			return -1
+	else if(syndiekey && !(freq in SSradio.syndicate_blacklist))
+		return canhear_range
 	else
 		var/accept = (freq==frequency && listening)
 		if(!accept)
@@ -552,6 +593,29 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
 		else
 			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
+		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
+
+/obj/item/radio/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(!iscarbon(usr) && !isrobot(usr))
+		return
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	broadcasting = !broadcasting
+	to_chat(user, "<span class='notice'>You toggle broadcasting [broadcasting ? "on" : "off"].</span>")
+
+/obj/item/radio/CtrlShiftClick(mob/user) //weird checks
+	if(!Adjacent(user))
+		return
+	if(!iscarbon(usr) && !isrobot(usr))
+		return
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	listening = !listening
+	to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -581,7 +645,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/emp_act(severity)
 	on = 0
 	disable_timer++
-	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
+	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
 
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")
@@ -621,6 +685,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
+
+/obj/item/radio/borg/syndicate/taipan
+	keyslot = new /obj/item/encryptionkey/syndicate/taipan/borg
 
 /obj/item/radio/borg/syndicate/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
@@ -663,8 +730,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			return
 
 		if(!keyslot)
-			user.drop_item()
-			W.loc = src
+			user.drop_transfer_item_to_loc(W, src)
 			keyslot = W
 
 		recalculateChannels()
@@ -756,6 +822,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	listening = 1
 	name = "phone"
 	dog_fashion = null
+	drop_sound = 'sound/items/handling/phone_drop.ogg'
+	pickup_sound = 'sound/items/handling/phone_pickup.ogg'
 
 /obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ
@@ -763,3 +831,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/phone/medbay/New()
 	..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
+
+/obj/item/radio/bot
+	tts_seed = null
+
+/obj/item/radio/phone/ussp
+	name = "Red phone"
+	has_loudspeaker = TRUE
+	frequency = SOV_FREQ

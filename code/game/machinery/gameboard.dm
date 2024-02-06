@@ -8,6 +8,7 @@
 	use_power = IDLE_POWER_USE
 	var/cooling_down = 0
 	light_color = LIGHT_COLOR_LIGHTBLUE
+	var/list/processing_players = list()
 
 /obj/machinery/gameboard/New()
 	..()
@@ -17,6 +18,12 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 3)
 	component_parts += new /obj/item/stack/sheet/glass(null, 1)
 	RefreshParts()
+
+/obj/machinery/gameboard/process()
+	for(var/player in processing_players)
+		var/mob/p = player
+		if(get_dist(src, p) > 1 && !istype(p, /mob/living/silicon))
+			close_game(p)
 
 /obj/machinery/gameboard/power_change()
 	. = ..()
@@ -64,26 +71,28 @@
 	popup.set_window_options("titlebar=0")
 	popup.open()
 	user.set_machine(src)
+	processing_players |= user
 
-/obj/machinery/gameboard/proc/close_game() //yes, shamelessly copied over from arcade_base
+/obj/machinery/gameboard/proc/close_game(mob/user) //yes, shamelessly copied over from arcade_base
 	in_use = 0
-	for(var/mob/user in viewers(world.view, src))			// I don't know who you are.
-		if(user.client && user.machine == src)				// I will look for you,
-			user.unset_machine()							// I will find you,
-			user << browse(null, "window=SpessChess")	// And I will kill you.
+	user.unset_machine(src)
+	user << browse(null, "window=SpessChess")
+	if(user in processing_players)
+		processing_players -= user
 	return
 
 /obj/machinery/gameboard/Topic(var/href, var/list/href_list)
 	. = ..()
 	var/prize = /obj/item/stack/tickets
 	if(.)
+		close_game(usr)
 		return
 
 	if(href_list["checkmate"])
 		if(cooling_down)
-			message_admins("Too many checkmates on chessboard, possible HREF exploits: [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+			message_admins("Too many checkmates on chessboard, possible HREF exploits: [ADMIN_LOOKUPFLW(usr)]")
 			return
-		visible_message("<span class='info'><span class='name'>[src.name]</span> beeps, \"WINNER!\"</span>")
+		visible_message(span_info("[span_name("[src.name]")] beeps, \"WINNER!\""))
 		new prize(get_turf(src), 80)
 		close_game()
 		cooling_down = 1
@@ -91,7 +100,7 @@
 			cooling_down = 0
 
 	if(href_list["close"])
-		close_game()
+		close_game(usr)
 
 /obj/machinery/gameboard/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I, ignore_panel = TRUE))

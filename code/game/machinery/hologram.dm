@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
-	layer = TURF_LAYER+0.1 //Preventing mice and drones from sneaking under them.
+	layer = HOLOPAD_LAYER //Preventing mice and drones from sneaking under them.
 	plane = FLOOR_PLANE
 	max_integrity = 300
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
@@ -59,13 +59,15 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/ringing = FALSE
 	var/dialling_input = FALSE //The user is currently selecting where to send their call
 
-/obj/machinery/hologram/holopad/New()
-	..()
+
+/obj/machinery/hologram/holopad/Initialize(mapload)
+	. = ..()
 	GLOB.holopads += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/holopad(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+
 
 /obj/machinery/hologram/holopad/Destroy()
 	if(outgoing_call)
@@ -80,13 +82,44 @@ GLOBAL_LIST_EMPTY(holopads)
 	GLOB.holopads -= src
 	return ..()
 
-/obj/machinery/hologram/holopad/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+
+/obj/machinery/hologram/holopad/power_change(forced = FALSE)
+	if(!..())
+		return
+	if(stat & NOPOWER)
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/hologram/holopad/update_icon_state()
+	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	if(icon_state == "holopad_open")
+		return
+	else if(ringing)
+		icon_state = "holopad_ringing"
+	else if(total_users)
+		icon_state = "holopad1"
+	else
+		icon_state = "holopad0"
+
+
+/obj/machinery/hologram/holopad/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	if(ringing)
+		underlays += emissive_appearance(icon, "holopad_ringing_lightmask")
+	else if(total_users)
+		underlays += emissive_appearance(icon, "holopad1_lightmask")
+
 
 /obj/machinery/hologram/holopad/obj_break()
 	. = ..()
@@ -195,7 +228,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
+				to_chat(AI, span_info("Your presence is requested at <a href='?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>."))
 		else
 			temp = "A request for AI presence was already sent recently.<br>"
 			temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -204,7 +237,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		if(outgoing_call)
 			return
 		if(dialling_input)
-			to_chat(usr, "<span class='notice'>Finish dialling first!</span>")
+			to_chat(usr, span_notice("Finish dialling first!"))
 			return
 		temp = "You must stand on the holopad to make a call!<br>"
 		temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -217,7 +250,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			callnames -= get_area(src)
 			var/list/sorted_callnames = sortAtom(callnames)
 			dialling_input = TRUE
-			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in sorted_callnames
+			var/result = tgui_input_list(usr, "Choose an area to call", "Holocall", sorted_callnames)
 			dialling_input = FALSE
 			if(QDELETED(usr) || !result || outgoing_call)
 				return
@@ -277,7 +310,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		var/datum/holocall/HC = I
 		//Sanity check and skip if no longer valid call
 		if(!HC.Check())
-			atom_say("Call was terminated at remote terminal.")
+			atom_say("Вызов был завершен на удаленном терминале.")
 			continue
 
 		if(HC.connected_holopad != src)
@@ -290,7 +323,7 @@ GLOBAL_LIST_EMPTY(holopads)
 				playsound(src, 'sound/machines/twobeep.ogg', 100)	//bring, bring!
 				ringing = TRUE
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 //Try to transfer hologram to another pad that can project on T
@@ -351,7 +384,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
 	if(!(stat & NOPOWER) && (!AI || force))
 		if(AI && (istype(AI.current, /obj/machinery/hologram/holopad)))
-			to_chat(user, "<span class='danger'>ERROR:</span> Image feed in progress.")
+			to_chat(user, "[span_danger("ERROR:")] Image feed in progress.")
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
@@ -378,7 +411,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		return hologram
 
 
-	to_chat(user, "<span class='danger'>ERROR:</span> Hologram Projection Malfunction.")
+	to_chat(user, span_danger("ERROR: ") + "Hologram Projection Malfunction.")
 	clear_holo(user)//safety check
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
@@ -405,22 +438,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users)
 		set_light(2)
-		icon_state = "holopad1"
 	else
 		set_light(0)
-		icon_state = "holopad0"
 	update_icon()
-
-/obj/machinery/hologram/holopad/update_icon()
-	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
-	if(icon_state == "holopad_open")
-		return
-	else if(ringing)
-		icon_state = "holopad_ringing"
-	else if(total_users)
-		icon_state = "holopad1"
-	else
-		icon_state = "holopad0"
 
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, var/obj/effect/overlay/holo_pad_hologram/h)

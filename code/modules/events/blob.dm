@@ -2,10 +2,12 @@
 	announceWhen	= 180
 	endWhen			= 240
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
+	var/for_players = 40 		//Количество людей для спавна доп. мыши
 
 /datum/event/blob/announce()
 	if(successSpawn)
-		GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+		GLOB.event_announcement.Announce("Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
+		cancel_call_proc(usr)
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 
@@ -16,20 +18,26 @@
 	if(!T)
 		return kill()
 
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
 	if(!length(candidates))
 		return kill()
 
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	if(!length(vents))
 		return
-	var/obj/vent = pick(vents)
-	var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
-	var/mob/M = pick(candidates)
-	B.key = M.key
-	SSticker.mode.update_blob_icons_added(B.mind)
 
-	to_chat(B, "<span class='userdanger'>You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around.</span>")
-	notify_ghosts("Infected Mouse has appeared in [get_area(B)].", source = B)
+	var/num_blobs = round((length(GLOB.clients) / for_players)) + 1
+	for(var/i in 1 to num_blobs)
+		if (length(candidates))
+			var/obj/vent = pick(vents)
+			var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
+			var/mob/M = pick(candidates)
+			candidates.Remove(M)
+			B.key = M.key
+			SSticker.mode.update_blob_icons_added(B.mind)
+
+			to_chat(B, "<span class='userdanger'>Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии.</span>")
+			log_game("[B.key] has become blob infested mouse.")
+			notify_ghosts("Заражённая мышь появилась в [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
 	successSpawn = TRUE
 	processing = TRUE // Let it naturally end, if it runs successfully

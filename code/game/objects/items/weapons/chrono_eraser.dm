@@ -16,7 +16,7 @@
 /obj/item/chrono_eraser/proc/pass_mind(var/datum/mind/M)
 	erased_minds += M
 
-/obj/item/chrono_eraser/dropped()
+/obj/item/chrono_eraser/dropped(mob/user, silent = FALSE)
 	..()
 	if(PA)
 		qdel(PA)
@@ -49,7 +49,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = NODROP | DROPDEL
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
-	can_charge = 0
+	can_charge = FALSE
 	fire_delay = 50
 	var/obj/item/chrono_eraser/TED = null
 	var/obj/structure/chrono_field/field = null
@@ -155,7 +155,7 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
-	blend_mode = BLEND_MULTIPLY
+	blend_mode = BLEND_ADD
 	var/mob/living/captured = null
 	var/obj/item/gun/energy/chrono_gun/gun = null
 	var/tickstokill = 15
@@ -188,6 +188,9 @@
 		gun.field_disconnect(src)
 	return ..()
 
+/obj/structure/chrono_field/has_prints()
+	return FALSE
+
 /obj/structure/chrono_field/update_icon()
 	var/ttk_frame = 1 - (tickstokill / initial(tickstokill))
 	ttk_frame = clamp(CEILING(ttk_frame * CHRONO_FRAME_COUNT, 1), 1, CHRONO_FRAME_COUNT)
@@ -214,7 +217,7 @@
 			qdel(captured)
 			qdel(src)
 		else
-			captured.Paralyse(4)
+			captured.Paralyse(8 SECONDS)
 			if(captured.loc != src)
 				captured.forceMove(src)
 			update_icon()

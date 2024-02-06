@@ -1,11 +1,9 @@
 /obj/machinery/atmospherics/binary/dp_vent_pump
-	icon = 'icons/atmos/vent_pump.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	icon_state = "map_dp_vent"
 
 	//node2 is output port
 	//node1 is input port
-
-	req_one_access_txt = "24;10"
 
 	name = "dual-port air vent"
 	desc = "Has a valve and pump attached to it. There are two ports."
@@ -17,7 +15,7 @@
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
 
 	var/on = 0
-	var/pump_direction = 1 //0 = siphoning, 1 = releasing
+	var/releasing = 1 //0 = siphoning, 1 = releasing
 
 	var/external_pressure_bound = ONE_ATMOSPHERE
 	var/input_pressure_min = 0
@@ -25,8 +23,6 @@
 
 	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
-
-	settagwhitelist = list("id_tag")
 
 	var/pressure_checks = 1
 	//1: Do not pass external_pressure_bound
@@ -45,6 +41,9 @@
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
+
+/obj/machinery/atmospherics/binary/dp_vent_pump/init_multitool_menu()
+	multitool_menu = new /datum/multitool_menu/idtag/freq/dp_vent_pump(src)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/atmos_init()
 	..()
@@ -91,7 +90,7 @@
 	if(!powered())
 		vent_icon += "off"
 	else
-		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
+		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
 	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
 
@@ -121,7 +120,7 @@
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
 
-	if(pump_direction) //input -> external
+	if(releasing) //input -> external
 		var/pressure_delta = 10000
 
 		if(pressure_checks&1)
@@ -171,7 +170,7 @@
 		"tag" = id_tag,
 		"device" = "ADVP",
 		"power" = on,
-		"direction" = pump_direction?("release"):("siphon"),
+		"direction" = releasing?("release"):("siphon"),
 		"checks" = pressure_checks,
 		"input" = input_pressure_min,
 		"output" = output_pressure_max,
@@ -192,18 +191,18 @@
 		on = !on
 
 	if(signal.data["direction"] != null)
-		pump_direction = text2num(signal.data["direction"])
+		releasing = text2num(signal.data["direction"])
 
 	if(signal.data["checks"] != null)
 		pressure_checks = text2num(signal.data["checks"])
 
 	if(signal.data["purge"])
 		pressure_checks &= ~1
-		pump_direction = 0
+		releasing = 0
 
 	if(signal.data["stabilize"])//the fact that this was "stabalize" shows how many fucks people give about these wonders, none
 		pressure_checks |= 1
-		pump_direction = 1
+		releasing = 1
 
 	if(signal.data["set_input_pressure"] != null)
 		input_pressure_min = between(
@@ -235,17 +234,6 @@
 		broadcast_status()
 	update_icon()
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	return ..()
-
-/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_menu(var/mob/user,var/obj/item/multitool/P)
-	return {"
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
-		<li><b>ID Tag:</b> <a href="?src=[UID()];set_id=1">[id_tag]</a></li>
-	</ul>
-	"}
+/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)

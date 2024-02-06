@@ -28,7 +28,6 @@
 
 /obj/item/toy/crayon/New()
 	..()
-	name = "[colourName] crayon" //Makes crayons identifiable in things like grinders
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
 /obj/item/toy/crayon/attack_self(mob/living/user as mob)
@@ -90,7 +89,7 @@
 			temp = "graffiti"
 		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
-		if(instant || do_after(user, 50 * toolspeed, target = target))
+		if(instant || do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = target))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
@@ -111,42 +110,50 @@
 				return
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
-		user.adjust_nutrition(5)
+		if(!isvampire(user))
+			user.adjust_nutrition(5)
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+				to_chat(user, "<span class='warning'>There is no more of [huffable ? "paint in " : ""][name] left!</span>")
 				qdel(src)
+
 	else
 		..()
 
 
 /obj/item/toy/crayon/red
+	name = "red crayon"
 	icon_state = "crayonred"
 	colour = COLOR_RED
 	colourName = "red"
 
 /obj/item/toy/crayon/orange
+	name = "orange crayon"
 	icon_state = "crayonorange"
 	colour = COLOR_ORANGE
 	colourName = "orange"
 
 /obj/item/toy/crayon/yellow
+	name = "yellow crayon"
 	icon_state = "crayonyellow"
 	colour = COLOR_YELLOW
 	colourName = "yellow"
 
 /obj/item/toy/crayon/green
+	name = "green crayon"
 	icon_state = "crayongreen"
 	colour = COLOR_GREEN
 	colourName = "green"
 
 /obj/item/toy/crayon/blue
+	name = "blue crayon"
 	icon_state = "crayonblue"
 	colour = COLOR_BLUE
 	colourName = "blue"
 
 /obj/item/toy/crayon/purple
+	name = "purple crayon"
 	icon_state = "crayonpurple"
 	colour = COLOR_PURPLE
 	colourName = "purple"
@@ -155,33 +162,47 @@
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
 	switch(icon_state)
 		if("crayonred")
+			name = "red crayon"
 			colour = COLOR_RED
 			colourName = "red"
 		if("crayonorange")
+			name = "orange crayon"
 			colour = COLOR_ORANGE
 			colourName = "orange"
 		if("crayonyellow")
+			name = "yellow crayon"
 			colour = COLOR_YELLOW
 			colourName = "yellow"
 		if("crayongreen")
+			name = "green crayon"
 			colour =COLOR_GREEN
 			colourName = "green"
 		if("crayonblue")
+			name = "blue crayon"
 			colour = COLOR_BLUE
 			colourName = "blue"
 		if("crayonpurple")
+			name = "purple crayon"
 			colour = COLOR_PURPLE
 			colourName = "purple"
 	..()
 
+/obj/item/toy/crayon/black
+	name = "black crayon"
+	icon_state = "crayonblack"
+	colour = "#000000"
+	colourName = "black"
+
 /obj/item/toy/crayon/white
+	name = "white crayon"
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
 	colourName = "white"
 
 /obj/item/toy/crayon/mime
-	icon_state = "crayonmime"
+	name = "mime crayon"
 	desc = "A very sad-looking crayon."
+	icon_state = "crayonmime"
 	colour = "#FFFFFF"
 	colourName = "mime"
 	uses = 0
@@ -206,6 +227,7 @@
 		..()
 
 /obj/item/toy/crayon/rainbow
+	name = "rainbow crayon"
 	icon_state = "crayonrainbow"
 	colour = "#FFF000"
 	colourName = "rainbow"
@@ -232,6 +254,7 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
+	name = "spraycan"
 	icon_state = "spraycan_cap"
 	desc = "A metallic container containing tasty paint."
 	var/capped = 1
@@ -269,15 +292,16 @@
 				var/mob/living/carbon/human/C = target
 				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
 				if(C.client)
-					C.EyeBlurry(3)
-					C.EyeBlind(1)
+					C.EyeBlurry(6 SECONDS)
+					C.EyeBlind(2 SECONDS)
 					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
-						C.Confused(3)
-						C.Weaken(3)
+						C.Confused(6 SECONDS)
+						C.Weaken(6 SECONDS)
 				C.lip_style = "spray_face"
 				C.lip_color = colour
 				C.update_body()
-		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		if(loc == user) //sound play only if it in user hands
+			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
 /obj/item/toy/crayon/spraycan/update_icon()

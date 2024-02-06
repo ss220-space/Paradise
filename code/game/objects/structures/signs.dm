@@ -64,6 +64,7 @@
 		S.name = name
 		S.desc = desc
 		S.icon_state = sign_state
+		src.transfer_fingerprints_to(S)
 		to_chat(user, "You fasten \the [S] with your [tool].")
 		qdel(src)
 	else
@@ -324,3 +325,8 @@
 	name = "\improper HIGH EXPLOSIVES"
 	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
 	icon_state = "explosives2"
+
+/obj/structure/sign/cave
+	name = "\improper Cave Johnson portrait"
+	desc = "The beAn couNters tolD me we liteRally could not afford to buy sEven dollars worth of plasma rocks, much less seventY million. Bought 'em anyway. Engineers said the plasma rocks were too volatile to experiment on. Tested on 'em anyway. Ground 'em up, mixed em into a gel. And guess what? Ground up plasma rocks are pure poison. I am deathly ill. Still, it turns out they're a great fire hazard. We're done here."
+	icon_state = "cave"

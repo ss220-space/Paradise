@@ -35,6 +35,7 @@
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
 	var/photo_size = 3
+	var/log_text = "" //Used for sending to Discord and just logging
 
 /obj/item/photo/attack_self(mob/user as mob)
 	user.examinate(src)
@@ -65,7 +66,7 @@
 				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
 				if(user.is_in_inactive_hand(src))
-					user.unEquip(src)
+					user.temporarily_remove_item_from_inventory(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				qdel(src)
@@ -122,30 +123,29 @@
 	item_state = "briefcase"
 	can_hold = list(/obj/item/photo)
 	resistance_flags = FLAMMABLE
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 
-/obj/item/storage/photo_album/MouseDrop(obj/over_object as obj)
 
-	if((istype(usr, /mob/living/carbon/human)))
-		var/mob/M = usr
-		if(!( istype(over_object, /obj/screen) ))
-			return ..()
-		playsound(loc, "rustle", 50, 1, -5)
-		if((!( M.restrained() ) && !( M.stat ) && M.back == src))
-			switch(over_object.name)
-				if("r_hand")
-					M.unEquip(src)
-					M.put_in_r_hand(src)
-				if("l_hand")
-					M.unEquip(src)
-					M.put_in_l_hand(src)
-			add_fingerprint(usr)
-			return
-		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
-			if(usr.s_active)
-				usr.s_active.close(usr)
-			show_to(usr)
-			return
-	return
+/obj/item/storage/photo_album/MouseDrop(atom/over)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/user = usr
+	if(user.incapacitated() || !ishuman(user))
+		return FALSE
+
+	if(over == user)
+		playsound(loc, "rustle", 50, TRUE, -5)
+		user.put_in_hands(src, ignore_anim = FALSE)
+		if(user.s_active)
+			user.s_active.close(user)
+		show_to(user)
+		return TRUE
+
+	return FALSE
+
 
 /*********
 * camera *
@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
 	set category = "Object"
-	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
+	var/nsize = tgui_input_list(usr, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
 	if(nsize)
 		size = nsize
 		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-		user.drop_item()
+		user.drop_transfer_item_to_loc(I, src)
 		qdel(I)
 		pictures_left = pictures_max
 		return
@@ -291,7 +291,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	return res
 
 
-/obj/item/camera/proc/get_mobs(turf/the_turf as turf)
+/obj/item/camera/proc/get_mobs(turf/the_turf)
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		if(M.invisibility)
@@ -324,6 +324,25 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
+/obj/item/camera/proc/add_log(turf/the_turf)
+	var/mob_detail
+	for(var/mob/M in the_turf)
+		var/holding = null
+		if(istype(M, /mob/living/carbon))
+			var/mob/living/carbon/A = M
+			if(A.l_hand || A.r_hand)
+				if(A.l_hand) holding = "holding [A.l_hand]"
+				if(A.r_hand)
+					if(holding)
+						holding += " and [A.r_hand]"
+					else
+						holding = "holding [A.r_hand]"
+			if(!mob_detail)
+				mob_detail = "[A.client ? "[A.client.ckey]/" : "nockey"]([A]) on photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]. "
+			else
+				mob_detail += "Also [A.client ? "[A.client.ckey]/" : "nockey"]([A]) on the photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]."
+	return mob_detail
+
 /obj/item/camera/afterattack(atom/target, mob/user, flag)
 	if(!on || !pictures_left || ismob(target.loc))
 		return
@@ -331,7 +350,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
-	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
@@ -357,6 +376,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/y_c = target.y + (size-1)/2
 	var/z_c	= target.z
 	var/list/turfs = list()
+	var/log = "Made by [user.name] in [get_area(user)]. "
 	var/mobs = ""
 	for(var/i = 1; i <= size; i++)
 		for(var/j = 1; j <= size; j++)
@@ -364,14 +384,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(can_capture_turf(T, user))
 				turfs.Add(T)
 				mobs += get_mobs(T)
+				log += add_log(T)
 			x_c++
 		y_c--
 		x_c = x_c - size
 
-	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag, blueprints)
+	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag, blueprints, log)
 	printpicture(user, P)
 
-/obj/item/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, flag)
+/obj/item/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, flag, blueprints, logs)
 	var/icon/photoimage = get_icon(turfs, target, user)
 
 	var/icon/small_img = icon(photoimage)
@@ -397,6 +418,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	P.fields["pixel_x"] = rand(-10, 10)
 	P.fields["pixel_y"] = rand(-10, 10)
 	P.fields["size"] = size
+	P.fields["log"] = logs
 
 	return P
 
@@ -420,6 +442,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	pixel_x = P.fields["pixel_x"]
 	pixel_y = P.fields["pixel_y"]
 	photo_size = P.fields["size"]
+	log_text = P.fields["log"]
 
 /obj/item/photo/proc/copy()
 	var/obj/item/photo/p = new/obj/item/photo()
@@ -466,6 +489,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/y_c = target.y + (size-1)/2
 	var/z_c	= target.z
 	var/list/turfs = list()
+	var/log = "Made by [user.name] in [get_area(user)]. "
 	var/mobs = ""
 	for(var/i = 1; i <= size; i++)
 		for(var/j = 1; j <= size; j++)
@@ -473,11 +497,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(can_capture_turf(T, user))
 				turfs.Add(T)
 				mobs += get_mobs(T)
+				log += add_log(T)
 			x_c++
 		y_c--
 		x_c = x_c - size
 
-	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag)
+	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag, blueprints, log)
 	saved_pictures += P
 
 /obj/item/camera/digital/verb/print_picture()
@@ -493,7 +518,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 
 	var/datum/picture/P = null
-	P = input("Select image to print:",P) as null|anything in saved_pictures
+	P = tgui_input_list(usr, "Select image to print", "Print image", saved_pictures)
 	if(P)
 		printpicture(usr,P)
 		pictures_left --
@@ -507,7 +532,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		to_chat(usr, "<span class='userdanger'>No images saved</span>")
 		return
 	var/datum/picture/P = null
-	P = input("Select image to delete:",P) as null|anything in saved_pictures
+	P = tgui_input_list(usr, "Select image to delete", "Delete image", saved_pictures)
 	if(P)
 		saved_pictures -= P
 
@@ -553,7 +578,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active."
+		. += "<span class='notice'>This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active.</span>"
 
 /obj/item/videocam/hear_talk(mob/M as mob, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)

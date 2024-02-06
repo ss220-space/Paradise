@@ -18,13 +18,12 @@
 	M.setBrainLoss(0, FALSE)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		for(var/thing in H.internal_organs)
-			var/obj/item/organ/internal/I = thing
-			I.receive_damage(-5, FALSE)
-		for(var/obj/item/organ/external/E in H.bodyparts)
-			E.mend_fracture()
-			E.internal_bleeding = FALSE
-	M.SetEyeBlind(0, FALSE)
+		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+			organ.receive_damage(-5, FALSE)
+		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			bodypart.mend_fracture()
+			bodypart.stop_internal_bleeding()
+	M.SetEyeBlind(0)
 	M.CureNearsighted(FALSE)
 	M.CureBlind(FALSE)
 	M.CureMute()
@@ -33,11 +32,13 @@
 	M.CureTourettes()
 	M.CureCoughing()
 	M.CureNervous()
-	M.SetEyeBlurry(0, FALSE)
-	M.SetWeakened(0, FALSE)
-	M.SetStunned(0, FALSE)
-	M.SetParalysis(0, FALSE)
-	M.SetSilence(0, FALSE)
+	M.SetEyeBlurry(0)
+	M.SetDisgust(0)
+	M.SetWeakened(0)
+	M.SetStunned(0)
+	M.SetImmobilized(0)
+	M.SetParalysis(0)
+	M.SetSilence(0)
 	M.SetHallucinate(0)
 	REMOVE_TRAITS_NOT_IN(M, list(ROUNDSTART_TRAIT))
 	M.SetDizzy(0)
@@ -47,11 +48,11 @@
 	M.SetConfused(0)
 	M.SetSleeping(0, FALSE)
 	M.SetJitter(0)
-	for(var/thing in M.viruses)
+	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(D.severity == NONTHREAT)
 			continue
-		D.cure(0)
+		D.cure(need_immunity = FALSE)
 	..()
 	return STATUS_UPDATE_ALL
 

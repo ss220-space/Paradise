@@ -1,13 +1,13 @@
 //allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
 /client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
 	set category = null
-	set name = "Admin PM Mob"
+	set name = "\[Admin\] Admin PM Mob"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	if(!ismob(M) || !M.client)
 		return
 	cmd_admin_pm(M.client,null)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Mob") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
@@ -28,9 +28,11 @@
 		else
 			targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) in sorted|null
+	var/target = tgui_input_list(src,"To whom shall we send a message?","Admin PM", sorted)
+	if(!target)
+		return
 	cmd_admin_pm(targets[target],null)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Name") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Name") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_by_key_panel()
@@ -50,9 +52,11 @@
 		else
 			targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) in sorted|null
+	var/target = tgui_input_list(src, "To whom shall we send a message?", "Admin PM", sorted)
+	if(!target)
+		return
 	cmd_admin_pm(targets[target],null)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Key") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
@@ -87,6 +91,7 @@
 	if(!msg)
 		set_typing(C, TRUE)
 		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", , src)
+		msg = handleDiscordEmojis(msg)
 		set_typing(C, FALSE)
 
 		if(!msg)
@@ -104,6 +109,7 @@
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
 		msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
+		msg = sanitize_censored_patterns(msg)
 		if(!msg)
 			return
 	else
@@ -130,7 +136,6 @@
 		return
 
 	var/recieve_message = ""
-
 	pm_tracker.add_message(C, src, msg, mob)
 	C.pm_tracker.add_message(src, src, msg, C.mob)
 
@@ -142,7 +147,7 @@
 			C.adminhelped = 0
 
 		//AdminPM popup for ApocStation and anybody else who wants to use it. Set it with POPUP_ADMIN_PM in config.txt ~Carn
-		if(config.popup_admin_pm)
+		if(CONFIG_GET(flag/popup_admin_pm))
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
@@ -154,14 +159,13 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>: [emoji_msg]</span>"
+	recieve_message = chat_box_red("<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>:<br><br>[emoji_msg]</span>")
 	to_chat(C, recieve_message)
-	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/ping_link = check_rights(R_MOD, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-	to_chat(src, "<span class='pmsend'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</span> [ping_link] [window_link]")
-
+	var/alert_link = "(<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)"
+	to_chat(src, "<span class='pmsend'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</span> [ping_link] [window_link] [alert_link]")
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
 		C.ckey_last_pm = ckey*/
@@ -377,6 +381,15 @@
 		current_title = href_list["newtitle"]
 		show_ui(usr)
 		return
+
+	if(href_list["adminalert"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
+		usr.client.cmd_admin_alert_message(about_to_be_banned)
+		if(!check_rights(R_ADMIN))
+			return
 
 	if(href_list["ping"])
 		var/client/C = pms[href_list["ping"]].client

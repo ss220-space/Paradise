@@ -29,11 +29,11 @@
 	. = ..()
 	var/num = get_part_rating()
 	if (num == INFINITY)
-		. += "It's sealed tight, completely full of supplies."
+		. += "<span class='notice'>It's sealed tight, completely full of supplies.</span>"
 	else if (num == 0)
-		. += "It's empty!"
+		. += "<span class='notice'>It's empty!</span>"
 	else
-		. += "It can restock [num] item\s."
+		. += "<span class='notice'>It can restock [num] item\s.</span>"
 
 /obj/item/vending_refill/get_part_rating()
 	if (!products || !contraband || !premium)
@@ -87,6 +87,33 @@
 	machine_name = "ClothesMate"
 	icon_state = "refill_clothes"
 
+/obj/item/vending_refill/clothing/security
+	machine_name = "Security Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/medical
+	machine_name = "Medical Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/science
+	machine_name = "Science Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/engineering
+	machine_name = "Engineering Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/cargo
+	machine_name = "Cargo Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/law
+	machine_name = "Law Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/service
+	machine_name = "Service Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/service/chaplain
+	machine_name = "Service Departament ClothesMate Chaplain"
+
+/obj/item/vending_refill/clothing/service/botanical
+	machine_name = "Service Departament ClothesMate Botanical"
+
 /obj/item/vending_refill/crittercare
 	machine_name = "CritterCare"
 	icon_state = "refill_pet"
@@ -112,6 +139,10 @@
 
 /obj/item/vending_refill/engineering
 	machine_name = "Robco Tool Maker"
+	icon_state = "refill_engi"
+
+/obj/item/vending_refill/youtool
+	machine_name = "YouTool"
 	icon_state = "refill_engi"
 
 /obj/item/vending_refill/engivend
@@ -148,3 +179,10 @@
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"
 	icon_state = "refill_engi"
+
+/obj/item/vending_refill/nta
+	machine_name = "NT Ammunition"
+	icon_state = "refill_nta"
+
+/obj/item/vending_refill/pai
+	machine_name = "RoboFriends"

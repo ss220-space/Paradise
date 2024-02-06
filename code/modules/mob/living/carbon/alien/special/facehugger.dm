@@ -19,6 +19,10 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	equip_sound = 'sound/items/handling/flesh_pickup.ogg'
+	drop_sound = 'sound/items/handling/flesh_drop.ogg'
+	pickup_sound = 'sound/misc/moist_impact.ogg'
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 
@@ -37,8 +41,11 @@
 	if(obj_integrity < 90)
 		Die()
 
+/obj/item/clothing/mask/facehugger/allowed_for_alien()
+	return TRUE
+
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
-	return O.attack_obj(src, user)
+	return O.attack_obj(src, user, params)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)
@@ -47,12 +54,12 @@
 	if((stat == CONSCIOUS && !sterile) && !isalien(user))
 		if(Attach(user))
 			return
-	..()
+	. = ..()
 
 /obj/item/clothing/mask/facehugger/attack(mob/living/M, mob/user)
-	..()
-	user.unEquip(src)
-	Attach(M)
+	. = ..()
+	if(user.drop_item_ground(src))
+		Attach(M)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
 	. = ..()
@@ -71,14 +78,16 @@
 		Die()
 
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
-	Attach(M)
+	//SHOULD_CALL_PARENT(FALSE)
+	if(!Attach(M))
+		return ..()
 
 /obj/item/clothing/mask/facehugger/Crossed(atom/target, oldloc)
 	HasProximity(target)
 	return
 
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		return HasProximity(finder)
 	return 0
 
@@ -87,18 +96,18 @@
 		return Attach(AM)
 	return 0
 
-/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	if(!..())
 		return
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		icon_state = "[initial(icon_state)]_thrown"
 		spawn(15)
 			if(icon_state == "[initial(icon_state)]_thrown")
 				icon_state = "[initial(icon_state)]"
 
-/obj/item/clothing/mask/facehugger/throw_impact(atom/hit_atom)
+/obj/item/clothing/mask/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		icon_state = "[initial(icon_state)]"
 		Attach(hit_atom)
 
@@ -144,15 +153,15 @@
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
 				return 0
-			target.unEquip(W)
+			target.drop_item_ground(W)
 
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
+		target.equip_to_slot_if_possible(src, slot_wear_mask, disable_warning = TRUE)
 		if(!sterile)
-			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
+			M.Paralyse(MAX_IMPREGNATION_TIME SECONDS / 6) //something like 25 ticks = 20 seconds with the default settings
 
 	GoIdle() //so it doesn't jump the people that tear it off
 

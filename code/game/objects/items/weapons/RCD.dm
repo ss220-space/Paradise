@@ -1,15 +1,3 @@
-
-#define MATTER_100 100
-#define MATTER_500 500
-
-#define TAB_AIRLOCK_TYPE	1
-#define TAB_AIRLOCK_ACCESS	2
-
-#define MODE_TURF		"Floors and Walls"
-#define MODE_AIRLOCK	"Airlocks"
-#define MODE_WINDOW		"Windows"
-#define MODE_DECON		"Deconstruction"
-
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
@@ -29,14 +17,21 @@
 	req_access = list(ACCESS_ENGINE)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
+
+	//RCD for the borgs or not?
+	// If this is a borg RCD we use power instead of matter
+	var/borg_rcd = FALSE
+	// A multipler which is applied to matter amount checks by borg RCDs. A higher number means more power usage per RCD usage.
+	var/power_use_multiplier = 160
+
 	/// The spark system used to create sparks when the user interacts with the RCD.
 	var/datum/effect_system/spark_spread/spark_system
 	/// The current amount of matter stored.
 	var/matter = NONE
 	/// The max amount of matter that can be stored.
-	var/max_matter = MATTER_100
+	var/max_matter = RCD_MATTER_100
 	/// The RCD's current build mode.
-	var/mode = MODE_TURF
+	var/mode = RCD_MODE_TURF
 	/// If the RCD can deconstruct reinforced walls.
 	var/canRwall = FALSE
 	/// Is the RCD's airlock access selection menu locked?
@@ -48,17 +43,34 @@
 	/// If this is TRUE, any airlocks that gets built will require only ONE of the checked accesses. If FALSE, it will require ALL of them.
 	var/one_access = TRUE
 	/// Which airlock tab the UI is currently set to display.
-	var/ui_tab = TAB_AIRLOCK_TYPE
+	var/ui_tab = RCD_TAB_AIRLOCK_TYPE
 	/// A list of access numbers which have been checked off by the user in the UI.
 	var/list/selected_accesses = list()
-	/// A list of valid atoms that RCDs can target. Clicking on an atom with an RCD which is not in this list, will do nothing.
-	var/static/list/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock)
+	/// List of areas where we can't deconstruct stuff
+	var/static/list/areas_blacklist = list(/area/lavaland/surface/outdoors/necropolis, /area/mine/necropolis)
 	/// An associative list of airlock type paths as keys, and their names as values.
 	var/static/list/rcd_door_types = list()
+
+	var/list/current_rcd_door_types = list()
 	/// An associative list containing an airlock's name, type path, and image. For use with the UI.
 	var/static/list/door_types_ui_list = list()
+
+	var/list/current_door_types_ui_list = list()
 	/// An associative list containing all station accesses. Includes their name and access number. For use with the UI.
 	var/static/list/door_accesses_list = list()
+
+	var/list/current_door_accesses_list = list()
+
+	var/region_min = REGION_GENERAL
+	var/region_max = REGION_COMMAND
+
+	var/fulltile_window = FALSE // Do we place fulltile windows?
+	var/window_type = /obj/structure/window/reinforced
+	var/floor_type = /turf/simulated/floor/plating
+	var/wall_type = /turf/simulated/wall
+	var/firelock_type = /obj/machinery/door/firedoor
+	var/matter_type = /obj/item/rcd_ammo
+	var/matter_type_large = /obj/item/rcd_ammo/large
 
 /obj/item/rcd/Initialize()
 	. = ..()
@@ -111,10 +123,14 @@
 				"id" = access
 			))
 
+	current_rcd_door_types = rcd_door_types
+	current_door_types_ui_list = door_types_ui_list
+	current_door_accesses_list = door_accesses_list
+
 /obj/item/rcd/examine(mob/user)
 	. = ..()
-	. += "MATTER: [matter]/[max_matter] matter-units."
-	. += "MODE: [mode]."
+	. += "<span class='notice'>MATTER: [matter]/[max_matter] matter-units.</span>"
+	. += "<span class='notice'>MODE: [mode].</span>"
 
 /obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)
@@ -134,7 +150,7 @@
 	proto.icon_state = "closed"
 	if(!proto.glass)
 		proto.add_overlay("fill_closed")
-	var/icon/I = getFlatIcon(proto)
+	var/icon/I = getFlatIcon(proto, no_anim = TRUE)
 	qdel(proto)
 	return "[icon2base64(I)]"
 
@@ -154,20 +170,25 @@
 /obj/item/rcd/attackby(obj/item/W, mob/user, params)
 	if(!istype(W, /obj/item/rcd_ammo))
 		return ..()
+	rcd_reload(W, user)
 
-	var/obj/item/rcd_ammo/R = W
-	if((matter + R.ammoamt) > max_matter)
+/obj/item/rcd/proc/rcd_reload(obj/item/rcd_ammo/rcd_ammo, mob/user)
+	if(matter >= max_matter)
 		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 		return
 
-	if(!user.unEquip(R))
-		to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
+	if(!user.drop_item_ground(rcd_ammo))
+		to_chat(user, "<span class='warning'>[rcd_ammo] is stuck to your hand!</span>")
 		return
 
-	matter += R.ammoamt
-	qdel(R)
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
+	user.put_in_active_hand(rcd_ammo)
+	if(rcd_ammo.type == matter_type || rcd_ammo.type == matter_type_large)
+		matter = min(matter + rcd_ammo.ammoamt, max_matter)
+		qdel(rcd_ammo)
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
+	else
+		to_chat(user, "<span class='warning'>This matter cartridge is incompatible with your RCD</span>")
 	SStgui.update_uis(src)
 
 /**
@@ -180,33 +201,34 @@
 	if(!check_menu(user))
 		return
 	var/list/choices = list(
-		MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "airlock"),
-		MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "delete"),
-		MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
-		MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
+		RCD_MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "airlock"),
+		RCD_MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "delete"),
+		RCD_MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
+		RCD_MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
+		RCD_MODE_FIRELOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "firelock"),
 		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
-	if(mode == MODE_AIRLOCK)
+	if(mode == RCD_MODE_AIRLOCK)
 		choices += list(
 			"Change Access" = image(icon = 'icons/obj/interface.dmi', icon_state = "access"),
 			"Change Airlock Type" = image(icon = 'icons/obj/interface.dmi', icon_state = "airlocktype")
 		)
 	choices -= mode // Get rid of the current mode, clicking it won't do anything.
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	switch(choice)
-		if(MODE_AIRLOCK, MODE_DECON, MODE_WINDOW, MODE_TURF)
+		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF, RCD_MODE_FIRELOCK)
 			mode = choice
 		if("UI")
 			ui_interact(user)
 			return
 		if("Change Access")
-			ui_tab = TAB_AIRLOCK_ACCESS
+			ui_tab = RCD_TAB_AIRLOCK_ACCESS
 			ui_interact(user)
 			return
 		if("Change Airlock Type")
-			ui_tab = TAB_AIRLOCK_TYPE
+			ui_tab = RCD_TAB_AIRLOCK_TYPE
 			ui_interact(user)
 			return
 		else
@@ -245,9 +267,9 @@
 /obj/item/rcd/ui_static_data(mob/user)
 	var/list/data = list(
 		"max_matter" = max_matter,
-		"regions" = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND),
-		"door_accesses_list" = door_accesses_list,
-		"door_types_ui_list" = door_types_ui_list
+		"regions" = get_accesslist_static_data(region_min, region_max),
+		"door_accesses_list" = current_door_accesses_list,
+		"door_types_ui_list" = current_door_types_ui_list
 	)
 	return data
 
@@ -265,20 +287,20 @@
 	switch(action)
 		if("set_tab")
 			var/tab = text2num(params["tab"])
-			if(!(tab in list(TAB_AIRLOCK_TYPE, TAB_AIRLOCK_ACCESS)))
+			if(!(tab in list(RCD_TAB_AIRLOCK_TYPE, RCD_TAB_AIRLOCK_ACCESS)))
 				return FALSE
 			ui_tab = tab
 
 		if("mode")
 			var/new_mode = params["mode"]
-			if(!(new_mode in list(MODE_TURF, MODE_AIRLOCK, MODE_DECON, MODE_WINDOW)))
+			if(!(new_mode in list(RCD_MODE_TURF, RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_FIRELOCK)))
 				return FALSE
 			mode = new_mode
 
 		if("door_type")
 			var/new_door_type = text2path(params["door_type"])
-			if(!(new_door_type in rcd_door_types))
-				message_admins("RCD Door HREF exploit attempted by [key_name(usr)]!")
+			if(!(new_door_type in current_rcd_door_types))
+				message_admins("<span class='warning'>RCD Door HREF exploit</span> attempted by [ADMIN_FULLMONTY(usr)]!")
 				return FALSE
 			door_type = new_door_type
 
@@ -302,13 +324,13 @@
 
 		if("grant_region")
 			var/region = text2num(params["region"])
-			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
+			if(isnull(region) || region < region_min || region > region_max)
 				return
 			selected_accesses |= get_region_accesses(region)
 
 		if("deny_region")
 			var/region = text2num(params["region"])
-			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
+			if(isnull(region) || region < region_min || region > region_max)
 				return
 			selected_accesses -= get_region_accesses(region)
 
@@ -338,240 +360,18 @@
 		else
 			return FALSE
 
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_TURF`.
- *
- * Creates either a plating, or a wall, depending on the turf that already exists at the location.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
-/obj/item/rcd/proc/mode_turf(atom/A, mob/user)
-	if(isspaceturf(A) || istype(A, /obj/structure/lattice))
-		if(useResource(1, user))
-			to_chat(user, "Building Floor...")
-			playsound(loc, usesound, 50, 1)
-			var/turf/AT = get_turf(A)
-			AT.ChangeTurf(/turf/simulated/floor/plating)
-			return TRUE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this floor!</span>")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
 
-	if(isfloorturf(A))
-		if(checkResource(3, user))
-			to_chat(user, "Building Wall...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 20 * toolspeed, target = A))
-				if(!useResource(3, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				var/turf/AT = A
-				AT.ChangeTurf(/turf/simulated/wall)
-				return TRUE
-			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this wall!</span>")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for wall construction!</span>")
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	return FALSE
-
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_AIRLOCK`.
- *
- * Creates an `door_type` airlock at the given location `A`, and assigns it accesses from `selected_accesses`.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
-/obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
-	if(isfloorturf(A))
-		if(checkResource(10, user))
-			to_chat(user, "Building Airlock...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 50 * toolspeed, target = A))
-				if(locate(/obj/machinery/door/airlock) in A.contents)
-					return FALSE
-				if(!useResource(10, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				var/obj/machinery/door/airlock/T = new door_type(A)
-				T.name = door_name
-				T.autoclose = TRUE
-				if(one_access)
-					T.req_one_access = selected_accesses.Copy()
-				else
-					T.req_access = selected_accesses.Copy()
-				return FALSE
-			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this airlock!</span>")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for airlock construction!</span>")
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	return FALSE
-
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_DECON`.
- *
- * Deconstrcts the target atom `A`.
- * Valid atoms are: basic walls, reinforced walls (if `canRwall` is `TRUE`), airlocks, and windows.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
-/obj/item/rcd/proc/mode_decon(atom/A, mob/user)
-	if(iswallturf(A))
-		if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
-			return FALSE
-		if(checkResource(5, user))
-			to_chat(user, "Deconstructing Wall...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 40 * toolspeed, target = A))
-				if(!useResource(5, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				var/turf/AT = A
-				AT.ChangeTurf(/turf/simulated/floor/plating)
-				return TRUE
-			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this wall!</span>")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-
-	if(isfloorturf(A))
-		if(checkResource(5, user))
-			to_chat(user, "Deconstructing Floor...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 50 * toolspeed, target = A))
-				if(!useResource(5, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				var/turf/AT = A
-				AT.ChangeTurf(AT.baseturf)
-				return TRUE
-			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this floor!</span>")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-
-	if(istype(A, /obj/machinery/door/airlock))
-		if(checkResource(20, user))
-			to_chat(user, "Deconstructing Airlock...")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, 50 * toolspeed, target = A))
-				if(!useResource(20, user))
-					return FALSE
-				playsound(loc, usesound, 50, 1)
-				qdel(A)
-				return TRUE
-			return FALSE
-		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this airlock!</span>")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return FALSE
-
-	if(istype(A, /obj/structure/window)) // You mean the grille of course, do you?
-		A = locate(/obj/structure/grille) in A.loc
-	if(istype(A, /obj/structure/grille))
-		if(!checkResource(2, user))
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this window!</span>")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			return FALSE
-		to_chat(user, "Deconstructing window...")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		if(!do_after(user, 20 * toolspeed, target = A))
-			return FALSE
-		if(!useResource(2, user))
-			return FALSE
-		playsound(loc, usesound, 50, 1)
-		var/turf/T1 = get_turf(A)
-		QDEL_NULL(A)
-		for(var/obj/structure/window/W in T1.contents)
-			qdel(W)
-		for(var/cdir in GLOB.cardinal)
-			var/turf/T2 = get_step(T1, cdir)
-			if(locate(/obj/structure/window/full/shuttle) in T2)
-				continue // Shuttle windows? Nah. We don't need extra windows there.
-			if(!(locate(/obj/structure/grille) in T2))
-				continue
-			for(var/obj/structure/window/W in T2)
-				if(W.dir == turn(cdir, 180))
-					qdel(W)
-			var/obj/structure/window/reinforced/W = new(T2)
-			W.dir = turn(cdir, 180)
-		return TRUE
-	return FALSE
-
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_WINDOW`.
- *
- * Constructs a grille and 4 reinforced window panes at the given location `A`.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
-/obj/item/rcd/proc/mode_window(atom/A, mob/user)
-	if(isfloorturf(A))
-		if(locate(/obj/structure/grille) in A)
-			return FALSE // We already have window
-		if(!checkResource(2, user))
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this window!</span>")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			return FALSE
-		to_chat(user, "Constructing window...")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		if(!do_after(user, 20 * toolspeed, target = A))
-			return FALSE
-		if(locate(/obj/structure/grille) in A)
-			return FALSE // We already have window
-		if(!useResource(2, user))
-			return FALSE
-		playsound(loc, usesound, 50, 1)
-		new /obj/structure/grille(A)
-		for(var/obj/structure/window/W in A)
-			qdel(W)
-		for(var/cdir in GLOB.cardinal)
-			var/turf/T = get_step(A, cdir)
-			if(locate(/obj/structure/grille) in T)
-				for(var/obj/structure/window/W in T)
-					if(W.dir == turn(cdir, 180))
-						qdel(W)
-			else // Build a window!
-				var/obj/structure/window/reinforced/W = new(A)
-				W.dir = cdir
-		var/turf/AT = A
-		AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
-		return TRUE
-	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for window construction!</span>")
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	return FALSE
-
-/obj/item/rcd/afterattack(atom/A, mob/user, proximity)
+/obj/item/rcd/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
-		return FALSE
-	if(istype(A, /turf/space/transit))
-		return FALSE
-	if(!is_type_in_list(A, allowed_targets))
-		return FALSE
-
-	switch(mode)
-		if(MODE_TURF)
-			. = mode_turf(A, user)
-		if(MODE_AIRLOCK)
-			. = mode_airlock(A, user)
-		if(MODE_DECON)
-			. = mode_decon(A, user)
-		if(MODE_WINDOW)
-			. = mode_window(A, user)
-		else
-			to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
-			. = 0
-
+		return
+	if(istype(target, /obj/item/rcd_ammo))
+		rcd_reload(target, user)
+		return
+	var/area/check_area = get_area(target)
+	if(check_area?.type in areas_blacklist)
+		to_chat(user, span_warning("Something prevents you from using [src] in here..."))
+		return
+	target.rcd_act(user, src, mode)
 	SStgui.update_uis(src)
 
 /**
@@ -583,11 +383,18 @@
  * * amount - the amount of matter that was used.
  */
 /obj/item/rcd/proc/useResource(amount, mob/user)
-	if(matter < amount)
+	if(!borg_rcd)
+		if(matter < amount)
+			return FALSE
+		matter -= amount
+		SStgui.update_uis(src)
+		return TRUE
+
+	if(!isrobot(user))
 		return FALSE
-	matter -= amount
-	SStgui.update_uis(src)
-	return TRUE
+
+	var/mob/living/silicon/robot/R = user
+	return R.cell.use(amount * power_use_multiplier)
 
 /**
  * Called in each of the four build modes before an object gets build. Makes sure there is enough matter to build the object.
@@ -596,27 +403,21 @@
  * * amount - an amount of matter to check for
  */
 /obj/item/rcd/proc/checkResource(amount, mob/user)
-	return matter >= amount
+	if(!borg_rcd)
+		return matter >= amount
+
+	if(!isrobot(user))
+		return FALSE
+
+	var/mob/living/silicon/robot/R = user
+	return R.cell.charge >= (amount * power_use_multiplier)
 
 /obj/item/rcd/borg
 	canRwall = TRUE
-	/// A multipler which is applied to matter amount checks. A higher number means more power usage per RCD usage.
-	var/power_use_multiplier = 160
+	borg_rcd = TRUE
 
 /obj/item/rcd/borg/syndicate
 	power_use_multiplier = 80
-
-/obj/item/rcd/borg/useResource(amount, mob/user)
-	if(!isrobot(user))
-		return FALSE
-	var/mob/living/silicon/robot/R = user
-	return R.cell.use(amount * power_use_multiplier)
-
-/obj/item/rcd/borg/checkResource(amount, mob/user)
-	if(!isrobot(user))
-		return FALSE
-	var/mob/living/silicon/robot/R = user
-	return R.cell.charge >= (amount * power_use_multiplier)
 
 /**
  * Called from malf AI's "detonate RCD" ability.
@@ -624,30 +425,34 @@
  * Creates a delayed explosion centered around the RCD.
  */
 /obj/item/rcd/proc/detonate_pulse()
+	if(is_taipan(z) || is_admin_level(z)) //Защищает тайпан и админские Z-lvla от взрыва RCD
+		return
 	audible_message("<span class='danger'><b>[src] begins to vibrate and buzz loudly!</b></span>", "<span class='danger'><b>[src] begins vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
-	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
+	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 
 /**
  * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
  */
 /obj/item/rcd/proc/detonate_pulse_explode()
-	explosion(src, 0, 0, 3, 1, flame_range = 1)
+	explosion(src, 0, 0, 3, 1, flame_range = 1, cause = "AI detonate RCD")
 	qdel(src)
 
 /obj/item/rcd/preloaded
 	matter = 100
 
 /obj/item/rcd/combat
+	icon_state = "combat-rcd"
+	item_state = "combat_rcd"
 	name = "combat RCD"
-	max_matter = MATTER_500
-	matter = MATTER_500
+	max_matter = RCD_MATTER_500
+	matter = RCD_MATTER_500
 	canRwall = TRUE
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "rcd"
 	item_state = "rcdammo"
 	opacity = FALSE
@@ -660,5 +465,19 @@
 /obj/item/rcd_ammo/large
 	ammoamt = 100
 
-#undef MATTER_100
-#undef MATTER_500
+/obj/item/rcd/mecha_ref
+	name = "Mecha inner RCD"
+	desc = "You should not be able to see it..."
+	power_use_multiplier = 250
+	var/obj/mecha/chassis = null
+
+/obj/item/rcd/mecha_ref/useResource(amount, mob/user)
+	if(!chassis)
+		return
+	chassis.spark_system.start()
+	return chassis.use_power(power_use_multiplier)
+
+/obj/item/rcd/mecha_ref/checkResource(amount, mob/user)
+	if(!chassis)
+		return
+	return chassis.cell.charge >= power_use_multiplier

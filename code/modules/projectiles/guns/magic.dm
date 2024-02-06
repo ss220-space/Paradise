@@ -1,13 +1,15 @@
 /obj/item/gun/magic
 	name = "staff of nothing"
 	desc = "This staff is boring to watch because even though it came first you've seen everything it can do in other staves for years."
-	icon = 'icons/obj/guns/magic.dmi'
+	icon = 'icons/obj/weapons/magic.dmi'
 	icon_state = "staffofnothing"
 	item_state = "staff"
 	fire_sound = 'sound/weapons/emitter.ogg'
 	fire_sound_text = "energy blast"
 	flags =  CONDUCT
 	w_class = WEIGHT_CLASS_HUGE
+	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 	var/max_charges = 6
 	var/charges = 0
 	var/recharge_rate = 4

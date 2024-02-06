@@ -1,5 +1,5 @@
 import { useBackend } from "../../backend";
-import { LabeledList, Button, ProgressBar, Box } from "../../components";
+import { LabeledList, Button, Box } from "../../components";
 
 export const pai_doorjack = (props, context) => {
   const { act, data } = useBackend(context);
@@ -17,14 +17,11 @@ export const pai_doorjack = (props, context) => {
     cableContent = (
       <Button selected content="Connected" />
     );
-  } else if (cable) {
-    cableContent = (
-      <Button color={"orange"} content="Extended" />
-    );
   } else {
     cableContent = (
       <Button
-        content="Retracted"
+        content={cable ? "Extended" : "Retracted"}
+        color={cable ? "orange" : null}
         onClick={() => act('cable')}
       />
     );
@@ -34,14 +31,7 @@ export const pai_doorjack = (props, context) => {
   if (machine) {
     hackContent = (
       <LabeledList.Item label="Hack">
-        <ProgressBar
-          ranges={{
-            good: [67, Infinity],
-            average: [33, 67],
-            bad: [-Infinity, 33],
-          }}
-          value={progress}
-          maxValue={100} />
+        <Box color={inprogress ? "green" : "red"}> In progress: {inprogress ? "Yes" : "No"} </Box>
         {inprogress ? (
           <Button
             mt={1}

@@ -58,15 +58,16 @@
 /obj/item/watertank/proc/make_noz()
 	return new /obj/item/reagent_containers/spray/mister(src)
 
-/obj/item/watertank/equipped(mob/user, slot)
-	..()
+/obj/item/watertank/equipped(mob/user, slot, initial)
+	. = ..()
+
 	if(slot != slot_back)
 		remove_noz()
 
 /obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
 		var/mob/M = noz.loc
-		M.unEquip(noz, 1)
+		M.drop_item_ground(noz, force = TRUE)
 	return
 
 /obj/item/watertank/Destroy()
@@ -81,23 +82,6 @@
 		return
 	..()
 
-/obj/item/watertank/MouseDrop(obj/over_object)
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		switch(over_object.name)
-			if("r_hand")
-				if(H.r_hand)
-					return
-				if(!H.unEquip(src))
-					return
-				H.put_in_r_hand(src)
-			if("l_hand")
-				if(H.l_hand)
-					return
-				if(!H.unEquip(src))
-					return
-				H.put_in_l_hand(src)
-	return
 
 /obj/item/watertank/attackby(obj/item/W, mob/user, params)
 	if(W == noz)
@@ -132,7 +116,7 @@
 		loc = tank
 	return
 
-/obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
+/obj/item/reagent_containers/spray/mister/dropped(mob/user, silent = FALSE)
 	..()
 	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
 	tank.on = 0
@@ -143,14 +127,14 @@
 
 /proc/check_tank_exists(parent_tank, var/mob/living/carbon/human/M, var/obj/O)
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
-		M.unEquip(O)
-		qdel(0)
+		M.temporarily_remove_item_from_inventory(O)
+		qdel(O)
 		return 0
 	else
 		return 1
 
 /obj/item/reagent_containers/spray/mister/Move()
-	..()
+	. = ..()
 	if(loc != tank.loc)
 		loc = tank.loc
 
@@ -206,7 +190,7 @@
 /obj/item/watertank/atmos/make_noz()
 	return new /obj/item/extinguisher/mini/nozzle(src)
 
-/obj/item/watertank/atmos/dropped(mob/user as mob)
+/obj/item/watertank/atmos/dropped(mob/user, silent = FALSE)
 	..()
 	icon_state = "waterbackpackatmos"
 	if(istype(noz, /obj/item/extinguisher/mini/nozzle))
@@ -241,7 +225,7 @@
 	return
 
 /obj/item/extinguisher/mini/nozzle/Move()
-	..()
+	. = ..()
 	if(tank && loc != tank.loc)
 		loc = tank
 	return
@@ -265,7 +249,7 @@
 			return
 	return
 
-/obj/item/extinguisher/mini/nozzle/dropped(mob/user as mob)
+/obj/item/extinguisher/mini/nozzle/dropped(mob/user, silent = FALSE)
 	..()
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = 0
@@ -291,7 +275,7 @@
 		nanofrost_cooldown = 1
 		R.remove_any(100)
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
-		log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
+		add_game_logs("used Nanofrost at [AREACOORD(user)].", user)
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
 		for(var/a=0, a<5, a++)
 			step_towards(A, target)

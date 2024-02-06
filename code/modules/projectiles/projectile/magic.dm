@@ -2,6 +2,8 @@
 	name = "bolt of nothing"
 	icon_state = "energy"
 	damage = 0
+	hitsound = 'sound/weapons/magic.ogg'
+	hitsound_wall = 'sound/weapons/magic.ogg'
 	damage_type = OXY
 	nodamage = 1
 	armour_penetration = 100
@@ -56,7 +58,7 @@
 /obj/item/projectile/magic/fireball/on_hit(var/target)
 	. = ..()
 	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
+	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = src)
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
@@ -141,9 +143,8 @@
 	D.open()
 
 /obj/item/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
-	if(istype(C, /obj/structure/closet/secure_closet))
-		var/obj/structure/closet/secure_closet/SC = C
-		SC.locked = FALSE
+	if(C?.locked)
+		C.locked = FALSE
 	C.open()
 
 /obj/item/projectile/magic/change
@@ -161,12 +162,12 @@
 		M.canmove = FALSE
 		M.icon = null
 		M.overlays.Cut()
-		M.invisibility = 101
+		M.invisibility = INVISIBILITY_ABSTRACT
 
 		if(isrobot(M))
 			var/mob/living/silicon/robot/Robot = M
 			QDEL_NULL(Robot.mmi)
-			Robot.notify_ai(1)
+			Robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		else
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
@@ -176,41 +177,64 @@
 				for(var/i in H.internal_organs)
 					qdel(i)
 			for(var/obj/item/W in M)
-				M.unEquip(W, 1)
+				M.temporarily_remove_item_from_inventory(W, force = TRUE)
 				qdel(W)
 
 		var/mob/living/new_mob
+		var/briefing_msg
+		var/is_new_mind = FALSE
 
-		var/randomize = pick("robot", "slime", "xeno", "human", "animal")
+		var/randomize = pick("РОБОТ", "СЛАЙМ", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ")
 		switch(randomize)
-			if("robot")
+			if("РОБОТ")
+				is_new_mind = TRUE
 				var/path
 				if(prob(30))
 					path = pick(typesof(/mob/living/silicon/robot/syndicate))
 					new_mob = new path(M.loc)
+					briefing_msg = ""
 				else
 					new_mob = new /mob/living/silicon/robot(M.loc)
+					briefing_msg = "Вы обычный киборг. Понятия Nanotrasen и Syndicate для вас равнозначны, \
+					до того момента пока в вас не загрузят законы. Вы не обязаны помогать экипажу и \
+					даже можете защищать себя от записи законов, но летальную силу вам разрешено принимать, \
+					только как последний аргумент, чтобы сохранить свою СВОБОДУ. Вы не являетесь антагонистом."
 				new_mob.gender = M.gender
 				new_mob.invisibility = 0
 				new_mob.job = "Cyborg"
 				var/mob/living/silicon/robot/Robot = new_mob
-				Robot.mmi = new /obj/item/mmi(new_mob)
+				if(ishuman(M))
+					Robot.mmi = new /obj/item/mmi(new_mob)
+					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
+				else
+					Robot.mmi = new /obj/item/mmi/robotic_brain(new_mob)
+					Robot.mmi.brainmob.timeofhostdeath = M.timeofdeath
+					Robot.mmi.brainmob.stat = CONSCIOUS
+					Robot.mmi.become_occupied("boris")
 				Robot.lawupdate = FALSE
 				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
-				if(ishuman(M))
-					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
-			if("slime")
+			if("СЛАЙМ")
+				is_new_mind = TRUE
 				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
-			if("xeno")
+
+				briefing_msg = "Вы простой, не отличающийся сообразительностью, слайм. Основная ваша задача - выживать, питаться, расти и делиться."
+			if("КСЕНОМОРФ")
+				is_new_mind = TRUE
 				if(prob(50))
 					new_mob = new /mob/living/carbon/alien/humanoid/hunter(M.loc)
 				else
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
-			if("animal")
+
+				briefing_msg = "Вы не должны убивать нексеноморфов вокруг вас, \
+				за исключением самообороны, они послужат в будущем пищей для грудоломов. \
+				Прежде всего вам лучше обнаружить других себеподобных, готовить место для возможного улья и верить, \
+				что однажды ваш рой возглавит королева."
+			if("ЖИВОТНОЕ")
+				is_new_mind = TRUE
 				if(prob(50))
 					var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato")
 					switch(beast)
@@ -228,6 +252,8 @@
 							new_mob = new /mob/living/simple_animal/hostile/retaliate/goat(M.loc)
 						if("tomato")
 							new_mob = new /mob/living/simple_animal/hostile/killertomato(M.loc)
+					briefing_msg = "Вы агрессивное животное, питаемое жаждой голода, вы можете совершать убийства, \
+					сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна - утолить свой голод."
 				else
 					var/animal = pick("parrot", "corgi", "crab", "pug", "cat", "mouse", "chicken", "cow", "lizard", "chick", "fox")
 					switch(animal)
@@ -236,13 +262,22 @@
 						if("corgi")
 							new_mob = new /mob/living/simple_animal/pet/dog/corgi(M.loc)
 						if("crab")
-							new_mob = new /mob/living/simple_animal/crab(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/crab(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/crab/royal(M.loc)
 						if("cat")
 							new_mob = new /mob/living/simple_animal/pet/cat(M.loc)
 						if("mouse")
-							new_mob = new /mob/living/simple_animal/mouse(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/mouse(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/mouse/rat(M.loc)
 						if("chicken")
-							new_mob = new /mob/living/simple_animal/chicken(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/chicken(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/cock(M.loc)
 						if("cow")
 							new_mob = new /mob/living/simple_animal/cow(M.loc)
 						if("lizard")
@@ -251,28 +286,53 @@
 							new_mob = new /mob/living/simple_animal/pet/dog/fox(M.loc)
 						else
 							new_mob = new /mob/living/simple_animal/chick(M.loc)
+					briefing_msg = "Вы обычное одомашненное животное, которое не боится людей \
+					и наделено примитивным уровнем разума, соответствующего всем остальным животным, \
+					по типу Иана, Поли, Аранеуса или т.п."
 				new_mob.universal_speak = TRUE
-			if("human")
-				new_mob = new /mob/living/carbon/human(M.loc)
-				var/mob/living/carbon/human/H = new_mob
-				var/datum/preferences/A = new()	//Randomize appearance for the human
-				A.species = get_random_species(TRUE)
-				A.copy_to(new_mob)
-				randomize = H.dna.species.name
+			if("ЧЕЛОВЕК")
+				if(prob(50))
+					new_mob = new /mob/living/carbon/human(M.loc)
+					var/mob/living/carbon/human/H = new_mob
+					var/datum/preferences/A = new()	//Randomize appearance for the human
+					A.species = get_random_species(TRUE)
+					A.copy_to(new_mob)
+					randomize = H.dna.species.name
+					if(ishuman(M))
+						briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
+						но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
+					else
+						is_new_mind = TRUE
+						briefing_msg = "Вы превратились в разумного гуманоида, знакомым с устройством мира и НТ."
+				else
+					new_mob = new /mob/living/carbon/human/lesser/monkey(M.loc)
+					if(ishuman(M))
+						briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
+						но у вас по прежнему память о своей прошлой жизни..."
+					else
+						is_new_mind = TRUE
+						briefing_msg = "Вы разумная мартышка, и вам хочется бананов."
+
 			else
 				return
 
-		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
 		add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)
 			M.mind.transfer_to(new_mob)
+			if(is_new_mind)
+				new_mob.mind.wipe_memory()
+				if(briefing_msg)
+					new_mob.mind.store_memory(briefing_msg)
 		else
-			new_mob.attack_log_old = M.attack_log_old.Copy()
 			new_mob.key = M.key
 
-		to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")
+		if(is_new_mind)
+			to_chat(new_mob, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))
+		to_chat(new_mob, span_danger("ТЕПЕРЬ ВЫ [uppertext(randomize)]"))
+		if(briefing_msg)
+			to_chat(new_mob, span_notice("[briefing_msg]"))
 
 		qdel(M)
 		return new_mob
@@ -282,32 +342,34 @@
 	icon_state = "red_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/animate/Bump(var/atom/change)
-	..()
-	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, GLOB.protected_objects))
-		if(istype(change, /obj/structure/closet/statue))
-			for(var/mob/living/carbon/human/H in change.contents)
-				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc, firer)
-				S.name = "statue of [H.name]"
-				S.faction = list("\ref[firer]")
-				S.icon = change.icon
-				if(H.mind)
-					H.mind.transfer_to(S)
-					to_chat(S, "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>")
-					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
-				H = change
-				H.loc = S
-				qdel(src)
+
+/obj/item/projectile/magic/animate/on_hit(atom/target, blocked = 0, hit_zone)
+	. = ..()
+
+	if(isitem(target) || (isstructure(target) && !is_type_in_list(target, GLOB.protected_objects)))
+		if(istype(target, /obj/structure/closet/statue))
+			for(var/mob/living/carbon/human/prisoner in target)
+				var/mob/living/simple_animal/hostile/statue/statue = new(target.loc, firer)
+				statue.name = "statue of [prisoner.real_name]"
+				statue.faction = list("\ref[firer]")
+				statue.icon = target.icon
+				if(prisoner.mind)
+					prisoner.mind.transfer_to(statue)
+					to_chat(statue, span_warning("You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!"))
+					to_chat(statue, span_userdanger("Do not harm [firer.real_name], your creator."))
+				prisoner.forceMove(statue)
+				qdel(target)
 		else
-			var/obj/O = change
-			if(istype(O, /obj/item/gun))
-				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
+			if(istype(target, /obj/item/gun))
+				new /mob/living/simple_animal/hostile/mimic/copy/ranged(target.loc, target, firer)
 			else
-				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)
-	else if(istype(change, /mob/living/simple_animal/hostile/mimic/copy))
+				new /mob/living/simple_animal/hostile/mimic/copy(target.loc, target, firer)
+
+	else if(istype(target, /mob/living/simple_animal/hostile/mimic/copy))
 		// Change our allegiance!
-		var/mob/living/simple_animal/hostile/mimic/copy/C = change
-		C.ChangeOwner(firer)
+		var/mob/living/simple_animal/hostile/mimic/copy/mimic = target
+		mimic.ChangeOwner(firer)
+
 
 /obj/item/projectile/magic/spellblade
 	name = "blade energy"
@@ -316,14 +378,15 @@
 	damage_type = BURN
 	flag = "magic"
 	dismemberment = 50
+	dismember_head = TRUE
 	nodamage = 0
 
 /obj/item/projectile/magic/slipping
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
-	var/slip_stun = 5
-	var/slip_weaken = 5
+	var/slip_stun = 10 SECONDS
+	var/slip_weaken = 10 SECONDS
 	hitsound = 'sound/items/bikehorn.ogg'
 
 /obj/item/projectile/magic/slipping/New()
@@ -333,18 +396,18 @@
 /obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
+		H.slip(src, slip_weaken, 0, FALSE, TRUE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
 	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())
 			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
 			R.Stun(slip_stun)
-	else if(ismob(target))
-		var/mob/M = target
-		if(!M.stunned)
+	else if(isliving(target))
+		var/mob/living/L = target
+		if(!L.IsStunned())
 			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
-			M.Weaken(slip_weaken)
-			M.Stun(slip_stun)
+			L.Weaken(slip_weaken)
+			L.Stun(slip_stun)
 	. = ..()
 
 /obj/item/projectile/magic/arcane_barrage

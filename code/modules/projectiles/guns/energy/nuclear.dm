@@ -5,8 +5,8 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
-	modifystate = 2
-	can_flashlight = 1
+	modifystate = TRUE
+	can_flashlight = TRUE
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
@@ -48,7 +48,7 @@
 	icon_state = "hoslaser"
 	origin_tech = null
 	force = 10
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/dominator/slaughter)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -58,14 +58,35 @@
 	icon_state = "bsgun"
 	item_state = "gun"
 	force = 7
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 
-/obj/item/gun/energy/gun/blueshield/pdw9
+/obj/item/gun/energy/gun/blueshield/can_shoot()
+    . = ..()
+    if (. && !isertmindshielded(usr))
+        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+        return FALSE
+    return .
+
+/obj/item/gun/energy/gun/pdw9
 	name = "PDW-9 taser pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
+	item_state = "gun"
+	force = 7
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_x_offset = 1
+	shaded_charge = TRUE
+
+/obj/item/gun/energy/gun/pdw9/ert
+
+/obj/item/gun/energy/gun/pdw9/ert/can_shoot()
+    . = ..()
+    if (. && !isertmindshielded(usr))
+        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+        return FALSE
+    return .
 
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
@@ -86,9 +107,8 @@
 	icon_state = "nucgun"
 	item_state = "nucgun"
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
-	var/fail_tick = 0
 	charge_delay = 5
-	can_charge = 0
+	can_charge = FALSE
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
-	selfcharge = 1
+	selfcharge = TRUE

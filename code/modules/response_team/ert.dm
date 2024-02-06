@@ -4,6 +4,11 @@
 #define ERT_TYPE_RED		2
 #define ERT_TYPE_GAMMA		3
 
+//Ranks
+
+#define MEDIUM_RANK_HOURS	200
+#define MAX_RANK_HOURS		500
+
 /datum/game_mode
 	var/list/datum/mind/ert = list()
 
@@ -47,7 +52,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return 0
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
-	if(player_age_check && config.use_age_restriction_for_antags)
+	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
 		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return 0
 
@@ -88,7 +93,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/list/ert_gender_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
 		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/get_ert_role_prefs, GLOB.response_team_members, ert_gender_prefs), 100)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/get_ert_role_prefs, GLOB.response_team_members, ert_gender_prefs), 100)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
 	var/list/ert_role_prefs = list()
@@ -96,7 +101,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		A.close()
 	for(var/mob/M in response_team_members)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
 
 /proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_role_prefs)
 	var/spawn_index = 1
@@ -124,6 +129,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 				new_commando.mind.key = M.key
 				new_commando.key = M.key
 				new_commando.update_icons()
+				new_commando.change_voice()
 				break
 	GLOB.send_emergency_team = FALSE
 
@@ -139,7 +145,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = M.get_organ(BODY_ZONE_HEAD)
 
 	if(new_gender)
 		if(new_gender == "Male")
@@ -164,17 +170,14 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	M.s_tone = skin_tone
 	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
-
-	M.rename_character(null, "[pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")] [M.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+	M.rename_character(null, "Безымянный") // Rewritten in /datum/outfit/job/centcom/response_team/pre_equip
 	M.age = rand(23,35)
 	M.regenerate_icons()
-	M.update_body()
-	M.update_dna()
 
 	//Creates mind stuff.
 	M.mind = new
 	M.mind.current = M
-	M.mind.original = M
+	M.mind.set_original_mob(M)
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in SSticker.minds))
@@ -185,6 +188,9 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	SSjobs.CreateMoneyAccount(M, role, null)
 
 	GLOB.active_team.equip_officer(role, M)
+
+	M.update_body()
+	M.update_dna()
 
 	return M
 
@@ -254,10 +260,10 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
-	GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
+	GLOB.event_announcement.Announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.", "Оповещение: ОБР недоступен.")
 
 /datum/response_team/proc/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи(?) вам. Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- AMBER TEAM --
 
@@ -270,7 +276,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ЭМБЕР». Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- RED TEAM --
 
@@ -284,7 +290,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «РЭД». Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- GAMMA TEAM --
 
@@ -298,13 +304,19 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ГАММА». Ожидайте.", "Оповещение: ОБР в пути.")
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"
 	var/rt_assignment = "Emergency Response Team Member"
 	var/rt_job = "This is a bug"
 	var/rt_mob_job = "This is a bug" // The job set on the actual mob.
+	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира - в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
+	var/hours_dif = 0 // Subtracted from the total number of hours. Needs to be done that Gamma ERT/individual roles will require more hours
+	var/exp_type = FALSE
+	var/list/ranks = list("Min" = "Рядовой",
+				"Med" = "Младший капрал",
+				"Max" = "Капрал")
 	allow_backbag_choice = FALSE
 	allow_loadout = FALSE
 	pda = /obj/item/pda/heads/ert
@@ -313,6 +325,29 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	box = /obj/item/storage/box/responseteam
 
 	implants = list(/obj/item/implant/mindshield/ert)
+
+/datum/outfit/job/centcom/response_team/pre_equip(mob/H) // Used to give specific rank
+	. = ..()
+	if(H.client)
+		var/client/C = H.client
+		var/list/all_hours = params2list(C.prefs.exp)
+		var/hours = text2num(all_hours[EXP_TYPE_CREW])
+		if(exp_type) // If the ERT have special exp type: EXP_TYPE_COMMAND for Leaders, EXP_TYPE_MEDICAL for medics, etc
+			hours -= text2num(all_hours[exp_type])
+			hours += text2num(all_hours[exp_type]) * 2
+		hours *= rand(0.8, 1.2)
+		if((hours - hours_dif) <= MEDIUM_RANK_HOURS)
+			H.rename_character(null, "[ranks["Min"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+		else if((hours - hours_dif) < MAX_RANK_HOURS)
+			H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+		else
+			H.rename_character(null, "[ranks["Max"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+	else
+		H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+
+/datum/outfit/job/centcom/response_team/post_equip(mob/H)
+	. = ..()
+	to_chat(H, special_message)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"

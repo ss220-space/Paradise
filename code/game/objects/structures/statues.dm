@@ -10,15 +10,15 @@
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
-	add_fingerprint(user)
 	if(!(flags & NODECONSTRUCT))
 		if(default_unfasten_wrench(user, W))
+			add_fingerprint(user)
 			return
 		if(istype(W, /obj/item/gun/energy/plasmacutter))
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
 								 "<span class='notice'>You are slicing apart the [name]...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
+			if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
@@ -41,8 +41,8 @@
 
 
 /obj/structure/statue/attack_hand(mob/living/user)
+	. = ..()
 	user.changeNext_move(CLICK_CD_MELEE)
-	add_fingerprint(user)
 	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
 						 "<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
 
@@ -76,26 +76,14 @@
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
 
-/obj/structure/statue/uranium/attackby(obj/item/W, mob/user, params)
-	radiate()
-	return ..()
+/obj/structure/statue/uranium/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/radioactivity, \
+				rad_per_interaction = 12, \
+				rad_interaction_radius = 3, \
+				rad_interaction_cooldown = 1.5 SECONDS \
+	)
 
-/obj/structure/statue/uranium/Bumped(atom/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/attack_hand(mob/user)
-	radiate()
-	..()
-
-/obj/structure/statue/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
-			last_event = world.time
-			active = null
 
 /obj/structure/statue/plasma
 	max_integrity = 200
@@ -119,20 +107,19 @@
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			if(P.firer)
-				message_admins("[key_name_admin(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]")
-				log_game("[key_name(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]")
-				investigate_log("[key_name(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]", "atmos")
+				add_attack_logs(P.firer, src, "Ignited by firing with [P.name]", ATKLOG_FEW)
+				investigate_log("was <span class='warning'>ignited</span> by [key_name_log(P.firer)] with [P.name]",INVESTIGATE_ATMOS)
 			else
-				message_admins("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
-				log_game("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
+				message_admins("A plasma statue was ignited with [P.name] at [ADMIN_COORDJMP(loc)]. No known firer.")
+				add_game_logs("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
 			PlasmaBurn()
 	..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
-		log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
-		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
+		add_fingerprint(user)
+		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(is_hot(W))
 		return
 	return ..()
@@ -144,9 +131,8 @@
 	user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
 						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
 						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
-	message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
-	log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
-	investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
+	add_attack_logs(user, src, "ignited using [I]", ATKLOG_FEW)
+	investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 	ignite(2500)
 
 /obj/structure/statue/plasma/proc/PlasmaBurn()
@@ -234,7 +220,7 @@
 	name = "statue of a clown"
 	icon_state = "clown"
 
-/obj/structure/statue/bananium/Bumped(atom/user)
+/obj/structure/statue/bananium/Bumped(atom/movable/moving_atom)
 	honk()
 	..()
 
@@ -253,6 +239,11 @@
 		spawn(20)
 			spam_flag = 0
 
+/obj/structure/statue/bananium/clown/unique
+	name = "статуя великого Хонкера"
+	desc = "Искусно слепленная статуя из бананиума, бананового сока и непонятного белого материала. Судя по его выдающейся улыбки, двум золотым гудкам в руках и наряду, он был лучшим стендапером и шутником на станции. Полное имя, к сожалению плохо читаемо и затерто, похоже кто-то явно завидовал его таланту."
+	icon_state = "clown_unique"
+
 /obj/structure/statue/sandstone
 	max_integrity = 50
 	material_drop_type = /obj/item/stack/sheet/mineral/sandstone
@@ -264,7 +255,7 @@
 
 /obj/structure/statue/sandstone/venus //call me when we add marble i guess
 	name = "statue of a pure maiden"
-	desc = "An ancient marble statue. The subject is depicted with a floor-length braid and is wielding a toolbox. By Jove, it's easily the most gorgeous depiction of a woman you've ever seen. The artist must truly be a master of his craft. Shame about the broken arm, though."
+	desc = "Похоже, что это древняя мраморная статуя. Девушка имеет длинные косы, которые спускаются по всему телу до пола. В руках она держит ящик инструментов. Пожалуй, это лучшее изображение женщины, которое вы когда-либо видели. Художник должен действительно быть мастером своего дела. Жаль что рука сломана."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "venus"
 
@@ -288,6 +279,11 @@
 		return
 	setDir(turn(dir, 90))
 
+/obj/structure/statue/tranquillite/mime/unique
+	name = "статуя гордости пантомимы"
+	desc = "Искусно слепленная статуя из транквилиума, если приглядеться, то на статую надета старая униформа мима, перекрашенная под текстуру транквилиума, а рот статуи заклеен скотчем. Похоже кто-то полностью отдавал себя искусству пантомимы. На груди виднеется медаль с еле различимой закрашенной надписью \"За Отвагу\", поверх которой написано \"За Военные Преступления\"."
+	icon_state = "mime_unique"
+
 /obj/structure/statue/kidanstatue
 	name = "Obsidian Kidan warrior statue"
 	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of obsidian. It looks very heavy."
@@ -310,12 +306,149 @@
 	anchored = TRUE
 	oreAmount = 10
 
+/obj/structure/statue/armor
+	name = "Knight's armor"
+	desc = "Shiny metallic armor."
+	icon_state = "posarmor"
+	anchored = TRUE
 /obj/structure/statue/elwycco
 	name = "Unknown Hero"
-	desc = "Этот шустрый герой сразил многих врагов корпорации, и его бантопор готов нарубить ещё. На топоре выгравировано число 220, по количеству его жертв."
+	desc = "Похоже это какой-то очень важный человек, или очень значимый для многих людей. Вы замечаете огроменный топор в его руках, с выгравированным числом 220. Что это число значит? Каждый понимает по своему, однако по слухам оно означает количество его жертв. \n Надпись на табличке - Мы с тобой, Шустрила! Аве, Легион!"
 	icon_state = "elwycco"
 	anchored = TRUE
 	oreAmount = 0
+
+/obj/structure/statue/thaumicnik
+	name = "Unknown Hero"
+	desc = "Перед собою вы наблюдаете интересного молодого человека, который держит в руках чертежи станции очень похожие на станцию Керберос. Возможно он как то принимал участие в разработке или в конструировании этой станции. В другой же руке вы замечаете планшет с листком, на котором расписаны какие-то даты и заметки к ним. Все что удается вам разглядеть, так это заголовок *event-times* на листочке. \n Надпись на табличке - Один из главных инженеров, принимающих участие в разработке передовой научно-исследовательской станции Kerberos."
+	icon_state = "thaumicnik"
+	anchored = TRUE
+	oreAmount = 0
+
+/obj/structure/statue/hooker
+	name = "Unknown Hero"
+	desc = "Возможно вы и не встречали подобного героя, ведь он всегда ходит в маске, и в белом техническом халате. Скорее всего, он все еще скрывается среди экипажа, но уже другой личностью. \n Надпись на табличке - Герой, который пожертвовав собою, уничтожил угрозу станции. Награжден посмертно."
+	icon_state = "hooker"
+	anchored = TRUE
+	oreAmount = 0
+
+/obj/structure/statue/artchair
+	name = "Unknown Hero"
+	desc = "Еще один герой корп. NanoTrasen. Вы замечаете интересную деталь, что спинка стула похожа на тюремное окошко. Так же на нем почему-то присутствует кровь, которая уже налегает слоями и хранится около года. По всей видимости этот стул символизирует какую то личность, которая внесла большой вклад в развитие и поддержание нашей галактической системы. \n Надпись на табличке - Спасибо тебе за все, мы всегда были и будем рады тебе."
+	icon_state = "artchair"
+	anchored = TRUE
+	oreAmount = 0
+
+/obj/structure/statue/furukai
+	name = "София Вайт"
+	desc = "Загадочная девушка, ныне одна из множества офицеров синдиката. Получившая столь высокую позицию не за связи, а за свои способности. \
+			Движимая местью за потерю родной сестры из-за коррупционных верхушек Нанотрейзен, она вступила в Синдикат,  \
+			где стала известна и как способный агент и как отличный инженер. Хоть ее позывной и отсылал на пушистых, в душе она их ненавидела..."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "furukai"
+	pixel_y = 7
+	anchored = TRUE
+	oreAmount = 0
+
+/obj/structure/statue/ell_good
+	name = "Mr.Буум"
+	desc = "Загадочный клоун с жёлтым оттенком кожи и выразительными зелёными глазами. Лучший двойной агент синдиката умудрявшийся захватить власть множества объектов. \
+			Его имя часто произносят неправильно из-за чего его заслуги по документам принадлежат сразу нескольким Буумам. \
+			Так же знаменит тем, что убедил руководство НТ тратить время, силы и средства, на золотой унитаз."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "ell_good"
+	pixel_y = 7
+	anchored = TRUE
+	oreAmount = 0
+
+/obj/structure/statue/mooniverse
+	name = "Неизвестный агент"
+	desc = "Информация на табличке под статуей исцарапана и нечитабельна..."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "mooniverse"
+	pixel_y = 7
+	anchored = TRUE
+	oreAmount = 0
+
+/obj/structure/statue/noble
+	name = "Noble person"
+	desc = "Giant person, not like us... May be a hero from an ancient fairy tale?"
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "frank"
+	max_integrity = 2000
+	anchored = 1
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/dude
+	name = "Unknown monk"
+	desc = "Seems to be one of thinkers from ancient times."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "dude"
+	max_integrity = 2000
+	anchored = 1
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/death
+	name = "Death"
+	desc = "One day It will come and take you and your dreams."
+	icon = 'icons/obj/statuebig.dmi'
+	icon_state = "death"
+	max_integrity = 2000
+	anchored = 1
+	bound_width = 64
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/unknown
+	name = "Unknown hero"
+	desc = "A pedestal for an unknown soldier, perhaps he was somehow connected with the solar system."
+	icon = 'icons/obj/statuebig.dmi'
+	icon_state = "unknown"
+	max_integrity = 2000
+	anchored = 1
+	bound_width = 64
+	var/lit = 0
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/unknown/Destroy()
+	return ..()
+
+/obj/structure/statue/unknown/update_icon()
+	if(lit)
+		lit = 1
+		icon_state = "unknown_lit"
+	else
+		icon_state = "unknown"
+
+/obj/structure/statue/unknown/attackby(obj/item/W, mob/user, params)
+	if(is_hot(W))
+		light(span_notice("[user] lights [src] with [W]."))
+		return
+	return ..()
+
+/obj/structure/statue/unknown/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(I.tool_use_check(user, 0))
+		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
+
+/obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	if(!lit)
+		light()
+	return ..()
+
+/obj/structure/statue/unknown/proc/light(show_message)
+	if(!lit)
+		lit = 1
+		if(show_message)
+			usr.visible_message(show_message)
+		set_light(CANDLE_LUM)
+		update_icon()
+
+/obj/structure/statue/unknown/attack_hand(mob/user)
+	if(lit)
+		user.visible_message(span_notice("[user] snuffs out [src]."))
+		lit = 0
+		update_icon()
+		set_light(0)
 
 ////////////////////////////////
 
@@ -337,6 +470,9 @@
 	new /obj/item/grown/log(drop_location())
 	return ..()
 
+/obj/structure/snowman/built/has_prints()
+	return FALSE
+
 /obj/structure/snowman/built/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
 		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
@@ -349,3 +485,68 @@
 	..()
 	qdel(src)
 
+/obj/structure/snowman/high
+	icon_state = "snowman_high"
+
+/obj/structure/snowman/medium
+	icon_state = "snowman_medium"
+
+/obj/structure/snowman/short
+	name = "snowboy"
+	icon_state = "snowman_short"
+
+///////// Cheese
+/obj/structure/statue/cheese
+	max_integrity = 100
+	material_drop_type = /obj/item/stack/sheet/cheese
+
+/obj/structure/statue/cheese/cheesus
+	name = "statue of cheesus"
+	desc = "Cheese expertly crafted into a representation of our mighty lord and saviour."
+	icon_state = "cheesus1"
+
+/obj/structure/statue/cheese/cheesus/attackby(obj/item/W, mob/user, params)
+	if(obj_integrity <= 20)
+		icon_state = "cheesus4"
+		return ..()
+	if(obj_integrity <= 40)
+		icon_state = "cheesus3"
+		return ..()
+	if(obj_integrity <= 60)
+		icon_state = "cheesus2"
+		return ..()
+	return ..()
+
+//////BONES
+/obj/structure/bones
+	name = "large bone"
+	desc = "a large bone that belong to the unknown creature"
+	icon = 'icons/obj/bones_64x64.dmi'
+	icon_state = "l_bone"
+	anchored = TRUE
+	density = TRUE
+	max_integrity = 1000
+
+/obj/structure/bones/right
+	icon_state = "r_bone"
+
+/obj/structure/bones/skull
+	name = "large skull"
+	desc = "a large skull that belong to the unknown creature"
+	icon_state = "skull"
+
+/obj/structure/bones/ribs_left
+	name = "large ribs"
+	desc = "a large ribs that belong to the unknown creature"
+	icon_state = "l_ribs"
+
+/obj/structure/bones/ribs_right
+	name = "large ribs"
+	desc = "a large ribs that belong to the unknown creature"
+	icon_state = "r_ribs"
+
+/obj/structure/statue/bone/rib
+	name = "colossal rib"
+	desc = "It's staggering to think that something this big could have lived, let alone died."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "rib"

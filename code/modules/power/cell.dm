@@ -1,7 +1,7 @@
 /obj/item/stock_parts/cell
 	name = "power cell"
 	desc = "A rechargeable electrochemical power cell."
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "cell"
 	item_state = "cell"
 	origin_tech = "powerstorage=1"
@@ -29,6 +29,7 @@
 	..()
 	START_PROCESSING(SSobj, src)
 	charge = maxcharge
+
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
 	update_icon()
@@ -55,7 +56,7 @@
 /obj/item/stock_parts/cell/update_icon()
 	overlays.Cut()
 	if(grown_battery)
-		overlays += image('icons/obj/power.dmi', "grown_wires")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "grown_wires")
 	if(charge < 0.01)
 		return
 	else if(charge/maxcharge >=0.995)
@@ -92,7 +93,7 @@
 	if(rigged)
 		. += "<span class='danger'>This power cell seems to be faulty!</span>"
 	else
-		. += "The charge meter reads [round(percent() )]%."
+		. += "<span class='notice'>The charge meter reads [round(percent() )]%.</span>"
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -125,14 +126,14 @@
 	var/light_impact_range = round(sqrt(charge) / 30)
 	var/flash_range = light_impact_range
 	if(light_impact_range == 0)
-		rigged = FALSE
 		corrupt()
 		return
 	//explosion(T, 0, 1, 2, 2)
 	log_admin("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
+	rigged = FALSE
 
-	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
+	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range, cause = src)
 	qdel(src)
 
 /obj/item/stock_parts/cell/proc/corrupt()
@@ -363,3 +364,14 @@
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
 	materials = list(MAT_GLASS = 60)
+
+/obj/item/stock_parts/cell/bsg
+	name = "\improper B.S.G power cell"
+	desc = "A high capacity, slow charging cell for the B.S.G."
+	maxcharge = 40000
+	chargerate = 2600 // about 30 seconds to charge with a default recharger
+
+/obj/item/stock_parts/cell/emittergun // 11 emitter shots
+	name = "emitter gun power cell"
+	maxcharge = 2200
+	chargerate = 100

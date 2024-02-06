@@ -10,12 +10,13 @@
 	health = 50
 	speak_emote = list("hisses")
 	emote_hear = list("wails","screeches")
+	tts_seed = "Kelthuzad"
 	response_help  = "puts their hand through"
 	response_disarm = "flails at"
 	response_harm   = "punches the"
 	melee_damage_lower = 5
 	melee_damage_upper = 15
-	attacktext = "drains the life from"
+	attacktext = "опустошает"
 	minbodytemp = 0
 	maxbodytemp = 4000
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -51,6 +52,7 @@
 /mob/living/simple_animal/shade/cult/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.shade_icon_state
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
 
 /mob/living/simple_animal/shade/holy
 	holy = TRUE

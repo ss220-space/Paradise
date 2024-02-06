@@ -92,9 +92,9 @@
 	return
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
-	if(isrobot(user) || isAI(user))
+	if(isrobot(user) && !iscogscarab(user) || isAI(user))
 		if(ailock)
-			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
+			to_chat(user, span_notice("There seems to be a firewall preventing you from accessing this device."))
 			return TRUE
 		else
 			return FALSE
@@ -110,27 +110,29 @@
 
 	return FALSE
 
-/obj/machinery/turretid/attackby(obj/item/W, mob/user)
+/obj/machinery/turretid/attackby(obj/item/I, mob/user)
 	if(stat & BROKEN)
+		add_fingerprint(user)
 		return
 
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
+	if(I.GetID() || ispda(I))
 		if(src.allowed(usr))
+			add_fingerprint(user)
 			if(emagged)
-				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")
+				to_chat(user, span_notice("The turret control is unresponsive."))
 			else
 				locked = !locked
-				to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
+				to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the panel."))
 		return
 	return ..()
 
-/obj/machinery/turretid/emag_act(user as mob)
+/obj/machinery/turretid/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
+		if(user)
+			to_chat(user, span_danger("You short out the turret controls' access analysis module."))
 		emagged = TRUE
 		locked = FALSE
 		ailock = FALSE
-		return
 
 /obj/machinery/turretid/attack_ai(mob/user as mob)
 	ui_interact(user)
@@ -139,6 +141,8 @@
 	ui_interact(user)
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	ui_interact(user)
 
 /obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -211,7 +215,7 @@
 	TC.ailock = ailock
 
 	if(istype(control_area))
-		for(var/obj/machinery/porta_turret/aTurret in control_area)
+		for(var/obj/machinery/porta_turret/aTurret in control_area.machinery_cache)
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
 

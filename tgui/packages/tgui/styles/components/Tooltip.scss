@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use '../base.scss';
 @use '../functions.scss' as *;
 
@@ -12,11 +17,11 @@ $border-radius: base.$border-radius !default;
   bottom: 0;
   font-style: normal;
   font-weight: normal;
+  line-height: 1.5;
 
   &::after {
     position: absolute;
     display: block;
-    white-space: nowrap;
     z-index: 2;
     padding: 6px 10px;
     transform: translateX(-50%);
@@ -24,7 +29,9 @@ $border-radius: base.$border-radius !default;
     visibility: hidden;
     opacity: 0;
     text-align: left;
+    white-space: pre;
     content: attr(data-tooltip);
+
     transition: all 150ms;
     background-color: $color-background;
     box-shadow: 1px 1px 15px -1px rgba(0, 0, 0, 0.5);
@@ -42,7 +49,7 @@ $border-radius: base.$border-radius !default;
 .Tooltip--long {
   &::after {
     width: 250px;
-    white-space: normal;
+    white-space: pre-line;
   }
 }
 
