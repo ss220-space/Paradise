@@ -4789,7 +4789,7 @@
 /area/hallway/secondary/entry/eastarrival)
 "aKe" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/trading)
 "aKg" = (
 /obj/structure/sign/securearea{
@@ -14038,7 +14038,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/trading)
 "bHv" = (
 /obj/structure/table/wood,
@@ -14979,7 +14979,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/trading)
 "bMQ" = (
 /obj/structure/cable{
