@@ -38,6 +38,8 @@
 	return ..()
 
 /datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
+	if(!H.mind)
+		return FALSE
 	for(var/datum/martial_art/cqc/under_siege/chef_art in H.mind.known_martial_arts)
 		chef_art.remove(H)
 	return ..()
