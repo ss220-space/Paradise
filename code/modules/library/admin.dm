@@ -31,13 +31,20 @@
 
 	holder.view_flagged_books()
 
-/datum/admins/proc/view_flagged_books()
+#define FLAGGED_BOOKS_PER_PAGE 10
+
+/datum/admins/proc/view_flagged_books(page_num = 1)
 	if(!usr.client.holder)
 		return
 
 	var/dat = {"<meta charset="UTF-8"><table><tr><th>ISBN</th><th>Title</th><th>Total Flags</th><th>Options</th></tr>"}
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, title, flagged FROM [format_table_name("library")] WHERE flagged > 0 ORDER BY flagged DESC")
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, title, flagged FROM [format_table_name("library")] WHERE \
+	 flagged > 0 ORDER BY flagged DESC LIMIT :lowerlimit, :upperlimit", list(
+		"lowerlimit" = text2num((page_num - 1) * FLAGGED_BOOKS_PER_PAGE),
+		"upperlimit" = FLAGGED_BOOKS_PER_PAGE
+		))
+
 	if(!query.warn_execute())
 		qdel(query)
 		return
@@ -58,7 +65,8 @@
 	if(!books)
 		dat = "<h1>No flagged books! :)</h1>"
 
-	var/datum/browser/popup = new(usr, "admin_view_flagged_books", "Flagged Books", 700, 400)
+	var/datum/browser/popup = new(usr, "admin_view_flagged_books", "Flagged Books (Shown first [FLAGGED_BOOKS_PER_PAGE] books)", 700, 400)
 	popup.set_content(dat)
 	popup.open(0)
 
+#undef FLAGGED_BOOKS_PER_PAGE
