@@ -88,6 +88,7 @@
 	if(on)
 		on = FALSE
 		update_brightness()
+		update_equipped_item()
 
 /obj/item/flashlight/pen
 	name = "penlight"

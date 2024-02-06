@@ -17,8 +17,7 @@ export const ActiveConversation = (props, context) => {
   const data = props.data;
 
   const {
-    convo_name,
-    convo_job,
+    convo_device,
     messages,
     active_convo,
   } = data;
@@ -36,7 +35,7 @@ export const ActiveConversation = (props, context) => {
         onClick={() => act("Back")} />
       <Section
         level={2}
-        title={"Conversation with " + convo_name + " (" + convo_job + ")"}
+        title={"Conversation with " + convo_device + " "}
         buttons={
           <Button
             icon="eye"
@@ -104,7 +103,7 @@ export const ActiveConversation = (props, context) => {
           onClick={() => act("Back")} />
         <Section
           level={2}
-          title={"Conversation with " + convo_name + " (" + convo_job + ")"}
+          title={"Conversation with " + convo_device + " "}
           buttons={
             <Button
               icon="eye"
