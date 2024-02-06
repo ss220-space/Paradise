@@ -46,6 +46,7 @@
 	var/enraged_loot
 	/// Hardmode one loot
 	var/enraged_unique_loot
+	/// Only one loot from hardmode
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -149,13 +150,6 @@
 	if(istype(L) && L.mind)
 		add_attack_logs(src, L, "Spotted a new target")
 		mob_attack_logs += "[time_stamp()] Spotted a new target [L][COORD(L)] at [COORD(src)]"
-	..()
-
-/mob/living/simple_animal/hostile/megafauna/Aggro()
-	var/mob/living/L = target
-	if(istype(L) && L.mind)
-		add_attack_logs(src, L, "Aggrod on")
-		mob_attack_logs += "[time_stamp()] Aggrod on [L][COORD(L)] at [COORD(src)]"
 	..()
 
 /mob/living/simple_animal/hostile/megafauna/LoseTarget()
