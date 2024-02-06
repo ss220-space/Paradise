@@ -61847,12 +61847,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/turret_protected/ai)
-"iGn" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
-	},
-/area/turret_protected/ai_upload)
 "iGo" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -168235,7 +168229,7 @@ bJh
 bJh
 bJh
 bJh
-iGn
+bJh
 bJh
 bJh
 coE
