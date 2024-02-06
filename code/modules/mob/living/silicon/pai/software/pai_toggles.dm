@@ -11,6 +11,8 @@
 	user.secHUD = !user.secHUD
 	if(user.secHUD)
 		user.add_sec_hud()
+		user.medHUD = FALSE
+		user.adv_secHUD = FALSE
 
 /datum/pai_software/sec_hud/is_active(mob/living/silicon/pai/user)
 	return user.secHUD
@@ -28,6 +30,8 @@
 	user.medHUD = !user.medHUD
 	if(user.medHUD)
 		user.add_med_hud()
+		user.secHUD = FALSE
+		user.adv_secHUD = FALSE
 
 /datum/pai_software/med_hud/is_active(mob/living/silicon/pai/user)
 	return user.medHUD
@@ -137,6 +141,8 @@
 	user.adv_secHUD = !user.adv_secHUD
 	if(user.adv_secHUD)
 		user.add_sec_hud()
+		user.medHUD = FALSE
+		user.secHUD = FALSE
 
 /datum/pai_software/adv_sec_hud/is_active(mob/living/silicon/pai/user)
 	return user.adv_secHUD
