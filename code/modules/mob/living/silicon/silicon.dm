@@ -346,6 +346,12 @@
 		diagsensor.remove_hud_from(src)
 	secsensor.remove_hud_from(src)
 	medsensor.remove_hud_from(src)
+	if (src.type == /mob/living/silicon/pai)
+		var/mob/living/silicon/pai/P = src
+		P.adv_secHUD = FALSE
+		P.secHUD = FALSE
+		P.medHUD = FALSE
+
 
 
 /mob/living/silicon/proc/add_sec_hud()

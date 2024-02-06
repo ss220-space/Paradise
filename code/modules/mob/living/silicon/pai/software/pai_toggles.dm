@@ -7,8 +7,8 @@
 	toggle_software = TRUE
 
 /datum/pai_software/sec_hud/toggle(mob/living/silicon/pai/user)
-	user.secHUD = !user.secHUD
 	user.remove_med_sec_hud()
+	user.secHUD = !user.secHUD
 	if(user.secHUD)
 		user.add_sec_hud()
 
@@ -24,8 +24,8 @@
 	toggle_software = TRUE
 
 /datum/pai_software/med_hud/toggle(mob/living/silicon/pai/user)
-	user.medHUD = !user.medHUD
 	user.remove_med_sec_hud()
+	user.medHUD = !user.medHUD
 	if(user.medHUD)
 		user.add_med_hud()
 
@@ -133,8 +133,8 @@
 	only_syndi = TRUE
 
 /datum/pai_software/adv_sec_hud/toggle(mob/living/silicon/pai/user)
-	user.adv_secHUD = !user.adv_secHUD
 	user.remove_med_sec_hud()
+	user.adv_secHUD = !user.adv_secHUD
 	if(user.adv_secHUD)
 		user.add_sec_hud()
 
