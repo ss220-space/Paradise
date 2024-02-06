@@ -4,7 +4,7 @@
 	item_type = /obj/item/twohanded/pitchfork/demonic
 	action_icon_state = "pitchfork"
 	action_background_icon_state = "bg_demon"
-
+	human_req = FALSE
 
 /obj/effect/proc_holder/spell/conjure_item/pitchfork/greater
 	item_type = /obj/item/twohanded/pitchfork/demonic/greater
@@ -104,7 +104,8 @@
 	action_icon_state = "jaunt"
 	action_background_icon_state = "bg_demon"
 	phase_allowed = TRUE
-
+	clothes_req = FALSE
+	human_req = FALSE
 
 /obj/effect/proc_holder/spell/infernal_jaunt/create_new_targeting()
 	return new /datum/spell_targeting/self
