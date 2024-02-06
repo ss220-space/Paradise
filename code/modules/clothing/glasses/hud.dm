@@ -31,16 +31,6 @@
 		emagged = TRUE
 		desc = desc + " The display flickers slightly."
 
-/obj/item/clothing/glasses/hud/weldingvisortoggle(mob/user)
-	. = ..()
-	if(. && user)
-		if(ishuman(user))
-			var/mob/living/carbon/human/human = user
-			human.wear_glasses_update(src)
-		else
-			user.update_sight()
-			user.update_inv_glasses()
-
 /obj/item/clothing/glasses/hud/visor_toggling(mob/living/carbon/human/user)
 	. = ..()
 
