@@ -1,6 +1,7 @@
 //Used by the gang of the same name. Uses combos. Basic attacks bypass armor and never miss
 /datum/martial_art/the_sleeping_carp
 	name = "Спящий Карп"
+	weight = 9
 	deflection_chance = 100
 	reroute_deflection = TRUE
 	no_guns = TRUE
