@@ -149,7 +149,7 @@
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
-		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/vulpkanin/wolpin),
 		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
 		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
 		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),

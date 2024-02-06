@@ -20,11 +20,11 @@
 	if(ispath(active_item))
 		active_item = new active_item(src)
 
-	update_icon()
+	update_transform()
 	slot = parent_organ_zone + "_device"
 	items_list = contents.Copy()
 
-/obj/item/organ/internal/cyberimp/arm/update_icon()
+/obj/item/organ/internal/cyberimp/arm/proc/update_transform()
 	if(parent_organ_zone == BODY_ZONE_R_ARM)
 		transform = null
 	else // Mirroring the icon
@@ -45,7 +45,7 @@
 		parent_organ_zone = BODY_ZONE_R_ARM
 	slot = parent_organ_zone + "_device"
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>")
-	update_icon()
+	update_transform()
 
 /obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/arm_owner, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
@@ -239,7 +239,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
-		to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
 		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
 		return TRUE
 	return FALSE
@@ -344,12 +345,6 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "syndie_mantis")
 	icon_state = "syndie_mantis"
 
-/obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/update_icon()
-	if(parent_organ_zone == BODY_ZONE_R_ARM)
-		transform = null
-
-	else // Mirroring the icon
-		transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
 	parent_organ_zone = BODY_ZONE_L_ARM
@@ -478,7 +473,7 @@
 		if(A.cell.charge == 0)
 			to_chat(H, "<span class='warning'>\The [A] has no more charge.</span>")
 			break
-		A.charging = 1
+		A.charging = APC_IS_CHARGING
 		if(A.cell.charge >= 500)
 			H.adjust_nutrition(50)
 			A.cell.charge -= 500

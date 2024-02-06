@@ -127,23 +127,8 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 
 		if(GLOB.sibsys_automode && !isnull(GLOB.sybsis_registry))
-			var/limit = SIBYL_NONLETHAL
-			switch(GLOB.security_level)
-				if(SEC_LEVEL_GREEN)
-					limit = SIBYL_NONLETHAL
-				if(SEC_LEVEL_BLUE)
-					limit = SIBYL_LETHAL
-				if(SEC_LEVEL_RED)
-					limit = SIBYL_LETHAL
-				if(SEC_LEVEL_GAMMA)
-					limit = SIBYL_DESTRUCTIVE
-				if(SEC_LEVEL_EPSILON)
-					limit = SIBYL_DESTRUCTIVE
-				if(SEC_LEVEL_DELTA)
-					limit = SIBYL_DESTRUCTIVE
-
 			for(var/obj/item/sibyl_system_mod/mod in GLOB.sybsis_registry)
-				mod.set_limit(limit)
+				mod.sync_limit()
 	else
 		return
 
@@ -269,19 +254,21 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return COLOR_PURPLE
 
 /proc/set_stationwide_emergency_lighting()
-	for(var/obj/machinery/power/apc/A in GLOB.apcs)
-		var/area/AR = get_area(A)
-		if(!is_station_level(A.z))
+	for(var/A in GLOB.apcs)
+		var/obj/machinery/power/apc/apc = A
+		var/area/AR = get_area(apc)
+		if(!is_station_level(apc.z))
 			continue
-		A.emergency_lights = FALSE
+		apc.emergency_lights = FALSE
 		AR.area_emergency_mode = TRUE
-		for(var/obj/machinery/light/L in A.area)
-			if(L.status)
+		for(var/L in AR.lights_cache)
+			var/obj/machinery/light/light = L
+			if(light.status)
 				continue
 			if(GLOB.security_level == SEC_LEVEL_DELTA)
-				L.fire_mode = TRUE
-			L.on = FALSE
-			L.emergency_mode = TRUE
+				light.fire_mode = TRUE
+			light.on = FALSE
+			light.emergency_mode = TRUE
 			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /proc/unset_stationwide_emergency_lighting()
@@ -291,14 +278,15 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(!A.area_emergency_mode)
 			continue
 		A.area_emergency_mode = FALSE
-		for(var/obj/machinery/light/L in A)
+		for(var/L in A.lights_cache)
+			var/obj/machinery/light/light = L
 			if(A.fire)
 				continue
-			if(L.status)
+			if(light.status)
 				continue
-			L.fire_mode = FALSE
-			L.emergency_mode = FALSE
-			L.on = TRUE
+			light.fire_mode = FALSE
+			light.emergency_mode = FALSE
+			light.on = TRUE
 			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 
@@ -309,11 +297,13 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 	for(var/area/A as anything in GLOB.all_areas)
 		if(!is_station_level(A.z))
 			continue
-		for(var/obj/machinery/light/L in A)
-			if(L.status)
+		for(var/L in A.lights_cache)
+			var/obj/machinery/light/light = L
+			if(light.status)
 				continue
-			L.fire_mode = TRUE
-			L.update()
+			light.fire_mode = TRUE
+			light.update()
+
 	for(var/obj/machinery/firealarm/FA in GLOB.machines)
 		if(is_station_contact(FA.z))
 			FA.overlays.Cut()

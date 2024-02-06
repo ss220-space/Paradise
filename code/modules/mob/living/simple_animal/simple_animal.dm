@@ -632,6 +632,7 @@
 			return
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	sync_lighting_plane_alpha()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)

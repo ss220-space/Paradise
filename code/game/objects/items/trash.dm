@@ -127,6 +127,10 @@
 	desc = "Not sticky anymore."
 	throw_range = 1
 
+/obj/item/trash/tapetrash/thick
+	icon_state = "thicktape"
+	desc = "Still sticky a bit."
+
 /obj/item/trash/doshik
 	name = "packaging from doshik"
 	icon_state = "doshik"

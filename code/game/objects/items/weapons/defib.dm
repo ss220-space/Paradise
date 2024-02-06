@@ -63,7 +63,7 @@
 	else
 		powered = FALSE
 
-/obj/item/defibrillator/proc/update_overlays()
+/obj/item/defibrillator/update_overlays()
 	overlays.Cut()
 	if(paddles_on_defib)
 		overlays += "[icon_state]-paddles"
@@ -128,15 +128,17 @@
 	update_icon()
 	return
 
-/obj/item/defibrillator/emag_act(user as mob)
+/obj/item/defibrillator/emag_act(mob/user)
 	if(safety)
 		add_attack_logs(user, src, "emagged")
 		safety = FALSE
-		to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the card.")
+		if(user)
+			to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the card.")
 	else
 		add_attack_logs(user, src, "un-emagged")
 		safety = TRUE
-		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
+		if(user)
+			to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
 	update_icon()
 
 /obj/item/defibrillator/emp_act(severity)
@@ -158,7 +160,7 @@
 	set category = "Object"
 
 	if(!paddles)
-		to_chat(usr, SPAN_WARNING("[src] has no paddles!</span>"))
+		to_chat(usr, span_warning("[src] has no paddles!</span>"))
 		return
 
 	if(paddles_on_defib)
@@ -172,11 +174,11 @@
 			return
 
 		if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
-			to_chat(user, SPAN_WARNING("You can't use your hand to take out the paddles!"))
+			to_chat(user, span_warning("You can't use your hand to take out the paddles!"))
 			return
 
 		if((user.r_hand != null && user.l_hand != null))
-			to_chat(user, SPAN_WARNING("You need a free hand to hold the paddles!"))
+			to_chat(user, span_warning("You need a free hand to hold the paddles!"))
 			return
 
 		//We need to do this like that since defib paddles have their own behavior on dropped()
@@ -185,7 +187,7 @@
 
 		if(!user.put_in_hands(paddles, ignore_anim = FALSE))
 			paddles.forceMove(src)
-			to_chat(user, SPAN_WARNING("You need a free hand to hold the paddles!"))
+			to_chat(user, span_warning("You need a free hand to hold the paddles!"))
 			return
 
 		paddles_on_defib = FALSE
@@ -368,7 +370,7 @@
 /obj/item/twohanded/shockpaddles/dropped(mob/user, silent = FALSE)
 	update_icon()
 	if(defib)
-		to_chat(user, SPAN_NOTICE("The paddles snap back into the main unit."))
+		to_chat(user, span_notice("The paddles snap back into the main unit."))
 		if(!defib.is_on_user(user))
 			do_pickup_animation(defib)
 		forceMove(defib)

@@ -54,6 +54,10 @@
 	active_camera = null
 	return ..()
 
+/obj/machinery/computer/security/process()
+	. = ..()
+	update_camera_view()
+
 /obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -135,7 +139,7 @@
 		return TRUE
 
 /obj/machinery/computer/security/proc/update_camera_view()
-	if(!active_camera)
+	if(!active_camera || !active_camera.can_use())
 		return
 	var/list/visible_turfs = list()
 	for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))
@@ -194,7 +198,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+	var/direction = tgui_input_list(user, "Which direction?", "Select direction!", list("North", "East", "South", "West", "Centre"))
 	if(!direction || !Adjacent(user))
 		return
 	pixel_x = 0

@@ -127,7 +127,7 @@ const CrewMonitorTable = ({ crewData, context }) => {
           </Table.Cell>
         </Table.Row>
         {crew.filter(searcher).map(cm => (
-          <Table.Row key={cm.name} bold={!!cm.is_command}>
+          <Table.Row key={cm.ref} bold={!!cm.is_command}>
             <TableCell>
               {cm.name} ({cm.assignment})
             </TableCell>

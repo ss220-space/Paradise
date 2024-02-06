@@ -51,10 +51,19 @@ GLOBAL_LIST_INIT(huds, list( \
 /datum/atom_hud/proc/remove_hud_from(mob/M)
 	if(!M)
 		return
-	if(src in M.permanent_huds)
-		return
+
+	for (var/i in hud_icons)
+		if ((i in M.huds_counter["icons"]) && --M.huds_counter["icons"][i] < 1)
+			M.huds_counter["icons"] -= i
+
+	if (src in M.huds_counter["huds"])
+		if (--M.huds_counter["huds"][src] > 0) // check duplicated huds
+			return
+		else
+			M.huds_counter["huds"] -= src
+
 	for(var/atom/A in hudatoms)
-		remove_from_single_hud(M, A)
+		remove_from_single_hud(M, A, TRUE)
 	hudusers -= M
 
 /datum/atom_hud/proc/remove_from_hud(atom/A)
@@ -64,20 +73,33 @@ GLOBAL_LIST_INIT(huds, list( \
 		remove_from_single_hud(M, A)
 	hudatoms -= A
 
-/datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
+/datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A, remove_from_mob=FALSE) //unsafe, no sanity apart from client
 	if(!M || !M.client || !A)
 		return
 	if(!length(A.hud_list))
 		return
 	for(var/i in hud_icons)
+		if (remove_from_mob && (i in M.huds_counter["icons"]))
+			continue
 		M.client.images -= A.hud_list[i]
 
 /datum/atom_hud/proc/add_hud_to(mob/M)
 	if(!M)
 		return
 	hudusers |= M
+
+	if (src in M.huds_counter["huds"])
+		M.huds_counter["huds"][src]++
+	else
+		M.huds_counter["huds"][src] = 1
+
 	for(var/atom/A in hudatoms)
 		add_to_single_hud(M, A)
+	for (var/i in hud_icons)
+		if (i in M.huds_counter["icons"])
+			M.huds_counter["icons"][i]++
+		else
+			M.huds_counter["icons"][i] = 1
 
 /datum/atom_hud/proc/add_to_hud(atom/A)
 	if(!A)

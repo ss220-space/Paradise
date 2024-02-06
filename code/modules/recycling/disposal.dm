@@ -816,7 +816,6 @@
 	damage_deflection = 10
 	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
-	var/base_icon_state	// initial icon state on map
 
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/Initialize(mapload)
@@ -921,9 +920,7 @@
 		return
 	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
-		new F.floor_tile(H)
-		F.remove_tile(null, TRUE, FALSE)
-
+		F.remove_tile(null, TRUE, TRUE)
 	if(direction)		// direction is specified
 		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
 			target = get_edge_target_turf(T, direction)
@@ -935,6 +932,7 @@
 			for(var/atom/movable/AM in H)
 				AM.forceMove(T)
 				AM.pipe_eject(direction)
+				SEND_SIGNAL(AM, COMSIG_MOVABLE_EXIT_DISPOSALS)
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 100, 1)
@@ -950,6 +948,7 @@
 
 				AM.forceMove(T)
 				AM.pipe_eject(0)
+				SEND_SIGNAL(AM, COMSIG_MOVABLE_EXIT_DISPOSALS)
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 5, 1)

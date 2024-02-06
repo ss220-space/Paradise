@@ -232,6 +232,10 @@
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
 
+/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(increase)
+	razor_damage_low += increase
+	razor_damage_high += increase
+
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE
 	if(!ishuman(loc))

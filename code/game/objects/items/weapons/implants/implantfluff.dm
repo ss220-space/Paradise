@@ -73,6 +73,13 @@
 	function = "Contains a bulky, electrically triggered explosive that detonates upon receiving a specially encoded signal or upon host death."
 
 
+/datum/implant_fluff/second_chance
+	name = "Cybersun Industries RX-87 Employee Management Bio-chip"
+	life = "Destroyed upon activation."
+	notes = "A small chip containing a familiar explosive device, the warhead of which has been partially replaced by a redspace crystal."
+	function = "Contains a compact, electrically triggered explosive that detonates upon receiving a specially encoded signal and teleports the operator to an exact safe location."
+
+
 /datum/implant_fluff/freedom
 	name = "Cybersun Industries RX-92 Quick Escape Bio-chip"
 	life = "Destroyed after 4 uses."

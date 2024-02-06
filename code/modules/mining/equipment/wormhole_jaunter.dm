@@ -43,7 +43,7 @@
 		to_chat(user, "<span class='notice'>The [name] found no beacons in the world to anchor a wormhole to.</span>")
 		return
 	var/chosen_beacon = pick(L)
-	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100)
+	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100, user)
 	J.emagged = emagged
 	if(adjacent)
 		try_move_adjacent(J)
@@ -63,7 +63,8 @@
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You emag [src].</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You emag [src].</span>")
 		var/turf/T = get_turf(src)
 		do_sparks(5, 0, T)
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -75,6 +76,11 @@
 	desc = "A stable hole in the universe made by a wormhole jaunter. Turbulent doesn't even begin to describe how rough passage through one of these is, but at least it will always get you somewhere near a beacon."
 	failchance = 0
 	var/emagged = FALSE
+
+
+/obj/effect/portal/jaunt_tunnel/update_overlays()
+	. = list()	// we need no mask here
+
 
 /obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/M)
 	if(!emagged && ismegafauna(M))

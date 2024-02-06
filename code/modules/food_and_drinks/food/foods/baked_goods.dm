@@ -329,6 +329,31 @@
 	tastes = list("sweetness" = 1)
 	foodtype = SUGAR | GRAIN
 
+/obj/item/reagent_containers/food/snacks/gingercookie
+	name = "ginger cookie"
+	desc = "Just like your granny used to make."
+	icon_state = "ginger_man"
+	list_reagents = list("nutriment" = 1, "sugar" = 3)
+	tastes = list("sweetness" = 1)
+	foodtype = SUGAR | GRAIN
+
+/obj/item/reagent_containers/food/snacks/gingercookie/ball
+	icon_state = "ginger_ball"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/heart
+	icon_state = "ginger_heart"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/home
+	icon_state = "ginger_home"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/tree
+	icon_state = "ginger_tree"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/cane
+	icon_state = "ginger_cane"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/mitten
+	icon_state = "ginger_mitten"
 
 //////////////////////
 //		Pies		//
@@ -615,7 +640,7 @@
 	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
-	name = "jelly donut"
+	name = "slimejelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"

@@ -4,7 +4,8 @@
 		/mob/living/carbon/brain,	// nice try
 		/mob/living/captive_brain,
 		/mob/living/silicon,
-		/mob/living/simple_animal/bot
+		/mob/living/simple_animal/bot,
+		/mob/living/simple_animal/slime,
 	)
 	message_postfix = " на %t."
 
@@ -111,10 +112,10 @@
 	message = "цепене%(ет,ют)% и расслабля%(ет,ют)%ся, %(его,её,его,их)% взгляд становится пустым и безжизненным..."
 	message_robot = "на мгновение вздрагива%(ет,ют)% и замира%(ет,ют)%, %(его,её,его,их)% глаза медленно темнеют..."
 	message_AI = "скрип%(ит,ят)% и мерца%(ет,ют)% экраном, пока %(его,её,его,их)% системы медленно отключаются..."
-	message_alien = "изда%(ет,ют)% тихий гортанный звук, зелёная кровь пузырится из %(его,её,его,их)% пасти..."
+	message_alien = "изда%(ёт,ют)% тихий гортанный звук, зелёная кровь пузырится из %(его,её,его,их)% пасти..."
 	message_larva = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
 	message_monkey = "изда%(ёт,ют)% тихий визг, пада%(ет,ют)% и переста%(ёт,ют)% двигаться..."
-	message_simple = "переста%(ет,ют)% двигаться..."
+	message_simple = "переста%(ёт,ют)% двигаться..."
 
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
@@ -267,10 +268,10 @@
 	message_param = initial(message_param) // reset
 	if(ishuman(user) && (!user.has_left_hand() && !user.has_right_hand()))
 		if(user.get_num_legs())	// MY LEEEG!
-			message_param = "пыта[pluralize_ru(user.gender, "ет", "ют")]ся указать ногой на %t."
+			message_param = "пыта%(ет,ют)%ся указать ногой на %t."
 		else
 			// nugget
-			message_param = "[span_userdanger("ударя[pluralize_ru(user.gender, "ет", "ют")]ся головой об пол")], пытаясь указать на %t."
+			message_param = "[span_userdanger("ударя%(ет,ют)%ся головой об пол")], пытаясь указать на %t."
 	return ..()
 
 
@@ -293,6 +294,7 @@
 		/mob/living/carbon/human,
 		/mob/living/silicon,
 		/mob/living/captive_brain,
+		/mob/living/simple_animal/slime,
 	)
 	vary = TRUE
 	volume = 80
@@ -452,7 +454,7 @@
 	key = "stretch"
 	key_third_person = "stretches"
 	message = "размина%(ет,ют)% конечности."
-	message_robot = "проверя%(ет,ет,ет,ют)% приводы."
+	message_robot = "проверя%(ет,ют)% приводы."
 
 
 /datum/emote/living/sulk
@@ -480,6 +482,7 @@
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
 		/mob/living/captive_brain,
+		/mob/living/simple_animal/slime,
 	)
 
 
@@ -512,7 +515,7 @@
 	key = "whimper"
 	key_third_person = "whimpers"
 	message = "хныч%(ет,ут)%."
-	message_mime = "каж%(ет,ут)%ся раненым%(*,и)%."
+	message_mime = "каж%(ет,ут)%ся ранен%(ым,ой,ым,ыми)%."
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("тихие", "жалкие")
 

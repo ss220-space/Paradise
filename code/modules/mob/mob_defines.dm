@@ -7,6 +7,7 @@
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
@@ -210,7 +211,7 @@
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
-	var/list/permanent_huds = list()
+	var/list/huds_counter = list("huds" = list(), "icons" = list()) // Counters for huds and icon types
 
 	var/list/actions = list()
 	var/list/datum/action/chameleon_item_actions

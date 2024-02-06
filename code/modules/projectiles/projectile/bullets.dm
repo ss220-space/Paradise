@@ -88,6 +88,11 @@
 	stamina = 30
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/weakbullet4/c9mmte
+	name = "9mm TE"
+	damage = 7
+	stamina = 15
+
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX
@@ -355,7 +360,7 @@
 	if(isalien(target))
 		weaken = 0
 		nodamage = 1
-	if(ismecha(target) || issilicon(target))
+	if(isobj(target) || issilicon(target) || ismachineperson(target))
 		damage_type = BURN
 	. = ..() // Execute the rest of the code.
 

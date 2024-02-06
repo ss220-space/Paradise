@@ -71,7 +71,7 @@
 /area/ruin/unpowered)
 "ajL" = (
 /obj/structure/table/abductor,
-/obj/item/toy/cards/deck/syndicate/black,
+/obj/item/deck/cards/syndicate/black,
 /obj/item/flashlight/lamp/green{
 	pixel_x = -6;
 	pixel_y = 9
@@ -191,8 +191,7 @@
 /obj/item/stack/sheet/mineral/gold{
 	amount = 50
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
-	amount = 20;
+/obj/item/stack/telecrystal/hundred{
 	desc = null
 	},
 /obj/machinery/door/poddoor{
@@ -3479,12 +3478,12 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dfx" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "syndie_base_air_sensor"
 	},
 /turf/simulated/floor/engine/air,
@@ -3556,12 +3555,12 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "diC" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "syndie_base_o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
@@ -3585,12 +3584,12 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dlO" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "syndie_base_n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
@@ -6019,7 +6018,7 @@
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "fGx" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/toy/cards/deck/syndicate{
+/obj/item/deck/cards/syndicate{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -6112,7 +6111,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "fLc" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "syndie_base_mix_sensor"
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
@@ -7199,7 +7198,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -7567,7 +7566,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n20,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -8388,7 +8387,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "hLa" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "syndie_base_n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -11062,7 +11061,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/plasma,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -12207,7 +12206,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lkI" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "syndie_base_tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -14538,7 +14537,7 @@
 	on = 1;
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/co2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -15735,7 +15734,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "nSR" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "syndie_base_co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -16093,7 +16092,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/bot/secbot/griefsky/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "okK" = (
@@ -19767,6 +19765,9 @@
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo11"
 	},
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate{
+	auto_patrol = 0
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "qQP" = (
@@ -20277,7 +20278,7 @@
 /obj/item/stack/spacecash/c1000{
 	amount = 50000
 	},
-/obj/item/toy/cards/deck/syndicate/black,
+/obj/item/deck/cards/syndicate/black,
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 /obj/item/pda/syndicate/no_cartridge,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -29722,7 +29723,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "xTi" = (
-/obj/structure/crematorium,
+/obj/machinery/crematorium{
+	id = "taipan";
+	req_access = list(150)
+	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -29958,6 +29962,7 @@
 "xZn" = (
 /obj/machinery/crema_switch{
 	pixel_x = 26;
+	id = "taipan";
 	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/southeast,

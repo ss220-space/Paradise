@@ -175,53 +175,32 @@
 	if(!attack_verb_off)
 		attack_verb_off = list("hit", "poked")
 		attack_verb_on = list("smacked", "struck", "cracked", "beaten")
-	icon_state = icon_state_off
+	update_icon(UPDATE_ICON_STATE)
 	force = force_off
 	attack_verb = on ? attack_verb_on : attack_verb_off
 
+
+/obj/item/melee/classic_baton/telescopic/update_icon_state()
+	icon_state = on ? icon_state_on : icon_state_off
+	item_state = on ? item_state_on :  null //no sprite for concealment even when in hand
+
+
 /obj/item/melee/classic_baton/telescopic/attack_self(mob/user)
 	on = !on
-	icon_state = on ? icon_state_on : icon_state_off
+	update_icon(UPDATE_ICON_STATE)
 	if(on)
 		to_chat(user, "<span class='warning'>You extend [src].</span>")
-		item_state = item_state_on
 		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = force_on //stunbaton damage
 		attack_verb = attack_verb_on
 	else
 		to_chat(user, "<span class='notice'>You collapse [src].</span>")
-		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off //not so robust now
 		attack_verb = attack_verb_off
 	// Update mob hand visuals
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	// Update blood splatter
-	if(blood_overlay)
-		cut_overlay(blood_overlay)
-		qdel(blood_overlay)
-		add_blood_overlay(blood_overlay_color)
+	update_equipped_item()
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
 
-/obj/item/melee/classic_baton/telescopic/blood_splatter_index()
-	return "\ref[icon]-[icon_state]"
-
-/obj/item/melee/classic_baton/telescopic/add_blood_overlay(color)
-	var/index = blood_splatter_index()
-	var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-	if(!blood_splatter_icon)
-		blood_splatter_icon = icon(icon, icon_state)
-		blood_splatter_icon.Blend("#ffffff", ICON_ADD)
-		blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-		GLOB.blood_splatter_icons[index] = blood_splatter_icon
-
-	blood_overlay = image(blood_splatter_icon)
-	blood_overlay.color = color
-	blood_overlay_color = color
-	add_overlay(blood_overlay)

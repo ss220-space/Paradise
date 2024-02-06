@@ -230,7 +230,7 @@
 	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
 		return
 
-	if(ishuman(usr))
+	if(ishuman(usr) || isrobot(usr))
 		src.add_fingerprint(usr)
 		src.togglelock(usr)
 	else
@@ -265,7 +265,8 @@
 		src.locked = 0
 		src.broken = 1
 		update_icon()
-		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/O in src)
@@ -611,7 +612,8 @@
 
 /obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
 	if(locked && !broken)
-		to_chat(user, span_notice("Отличная попытка, но нет!"))
+		if(user)
+			to_chat(user, span_notice("Отличная попытка, но нет!"))
 		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)

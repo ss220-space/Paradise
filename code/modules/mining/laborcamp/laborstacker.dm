@@ -137,7 +137,8 @@
 /obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
 	if(!(emagged))
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 
 
 /**********************Prisoner Collection Unit**************************/

@@ -47,6 +47,7 @@
 
 /obj/item/sensor_device/advanced/command
 	name = "command crew monitor"
+	item_state = "blueshield_monitor"
 	icon_state = "c_scanner"
 
 /obj/item/sensor_device/advanced/command/Initialize(mapload)
@@ -55,6 +56,7 @@
 
 /obj/item/sensor_device/advanced/security
 	name = "security crew monitor"
+	item_state = "brig_monitor"
 	icon_state = "s_scanner"
 
 /obj/item/sensor_device/advanced/security/Initialize(mapload)

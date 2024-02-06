@@ -83,10 +83,10 @@
 			if(can.capped)
 				to_chat(user, span_warning("You need to toggle cap off before repainting."))
 				return
-			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
+			var/decalselection = tgui_input_list(user, "Please select a decal", "Paint box", list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
 			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
 			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",
-			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
+			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology"))
 			if(!decalselection)
 				return
 			if(user.incapacitated())
