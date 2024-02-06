@@ -440,6 +440,7 @@
 	modules += new /obj/item/plant_analyzer(src)
 	modules += new /obj/item/kitchen/rollingpin(src)
 	modules += new /obj/item/bikehorn(src)
+	modules += new /obj/item/reagent_containers/spray/pestspray(src)
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
