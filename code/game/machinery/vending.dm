@@ -108,7 +108,7 @@
 	else
 		component_parts = list()
 		var/obj/item/circuitboard/vendor/V = new
-		V.set_type(replacetext(name, "\improper", ""))
+		V.set_type(replacetext(initial(name), "\improper", ""))
 		component_parts += V
 		component_parts += new refill_canister
 		RefreshParts()
@@ -1184,7 +1184,7 @@
 	refill_canister = /obj/item/vending_refill/wallmed
 
 /obj/machinery/vending/wallmed/syndicate
-	name = "\improper SyndiMed Plus"
+	name = "\improper SyndiWallMed"
 	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
 	icon_state = "syndimed"
 	icon_deny = "syndimed-deny"
