@@ -1500,6 +1500,7 @@
 					  /obj/item/clothing/head/powdered_wig = 1,
 					  /obj/item/gun/magic/wand = 1,
 					  /obj/item/clothing/mask/balaclava =1,
+					  /obj/item/clothing/under/syndicate/blackops_civ = 1,
 					  /obj/item/clothing/glasses/thermal_fake = 1,
 					  /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
@@ -1815,6 +1816,7 @@
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
 					/obj/item/clothing/mask/balaclava = 1,
+					/obj/item/clothing/under/syndicate/blackops_civ = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/under/soviet = 1,
 					/obj/item/storage/belt/fannypack/black = 1)
