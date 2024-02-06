@@ -77482,7 +77482,10 @@
 /obj/item/radio/intercom{
 	pixel_x = 30
 	},
-/turf/space,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
 /area/toxins/test_chamber)
 "mxb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -89719,7 +89722,10 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/turf/space,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
 /area/toxins/misc_lab)
 "plt" = (
 /obj/machinery/light/small{
@@ -107327,7 +107333,10 @@
 	pixel_x = 25
 	},
 /obj/structure/table/glass,
-/turf/space,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
 /area/medical/genetics)
 "tkg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
