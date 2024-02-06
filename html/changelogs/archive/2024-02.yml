@@ -26,6 +26,10 @@
   - tweak: job updating for PDA messenger receiver. (#4338)
   - add: Nucleation racial implant for uplink. (#4335)
   - add: cucumber mask craft. (#4277)
+  - bugfix: AI can't see roundstart `restricted_camera_networks` and normal borg accessability
+      for malf hacked APC. (#4239)
+  - refactor: mecha `Actions` and `Radial Menu` not only for selecting modules. (#4219)
+  - add: delayed examine. (#4080)
   Dimach:
   - bugfix: fixed cqc runtime (#4363)
   KriegThunder:
@@ -44,6 +48,8 @@
   - qol: add the ability to animals to ask to be picked up. (#4164)
   ROdenFL:
   - add: highlight list for ghosts (#3870)
+  Renascitur:
+  - add: New spell and suit for hardmode Blood-Drunk miner (#4262)
   Rerik007:
   - bugfix: circuits of mapping vendors with custom names broken (#4357)
   - bugfix: cable healing roboparts runtime (#4351)
