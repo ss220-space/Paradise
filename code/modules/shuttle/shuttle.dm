@@ -959,6 +959,7 @@
 // Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
 /obj/machinery/computer/shuttle/white_ship/LateInitialize()
 	Initialize()
+	. = ..()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"

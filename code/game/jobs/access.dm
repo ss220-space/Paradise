@@ -1,4 +1,4 @@
-/obj/var/list/req_access = list()
+/obj/var/list/req_access
 /obj/var/check_one_access = TRUE
 
 //returns 1 if this mob has sufficient access to use this object

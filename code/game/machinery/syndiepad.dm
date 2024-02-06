@@ -53,6 +53,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/syndiepad/LateInitialize()
+	. = ..()
 	pad_sync()
 
 /obj/machinery/syndiepad/Destroy()
