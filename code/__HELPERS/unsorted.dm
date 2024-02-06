@@ -1477,6 +1477,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		stop_orbit()
 
 	orbiting = A
+	if(ismob(A))
+		var/mob/M = A
+		M.ghost_orbiting += 1
 	var/matrix/initial_transform = matrix(transform)
 	cached_transform = initial_transform
 	var/lastloc = loc
@@ -1511,12 +1514,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		sleep(0.6)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
+		if(ismob(orbiting))
+			var/mob/M = orbiting
+			M.ghost_orbiting -= 1
 		orbiting = null
 		transform = cached_transform
 		SpinAnimation(0, 0, parallel = FALSE)
 
 
 /atom/movable/proc/stop_orbit()
+	if(ismob(orbiting))
+		var/mob/M = orbiting
+		M.ghost_orbiting -= 1
 	orbiting = null
 	transform = cached_transform
 	SpinAnimation(0, 0, parallel = FALSE)
@@ -1891,6 +1900,13 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			pois[name] = A
 
 	return pois
+
+/proc/get_observers()
+	var/list/ghosts = list()
+	for(var/mob/dead/observer/M in GLOB.player_list) // for every observer with a client
+		ghosts += M
+
+	return ghosts
 
 /proc/flash_color(mob_or_client, flash_color=COLOR_CULT_RED, flash_time=20)
 	var/client/C
