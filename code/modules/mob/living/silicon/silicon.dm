@@ -348,7 +348,6 @@
 	medsensor.remove_hud_from(src)
 
 
-
 /mob/living/silicon/proc/add_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	secsensor.add_hud_to(src)
