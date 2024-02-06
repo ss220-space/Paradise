@@ -2088,15 +2088,15 @@
 	item = /obj/item/stack/telecrystal/twenty_five
 	cost = 25
 
-/datum/uplink_item/bundles_TC/telecrystal/hundread
+/datum/uplink_item/bundles_TC/telecrystal/hundred
 	name = "100 Raw Telecrystals"
-	desc = "Hundread telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/hundread
+	desc = "Hundred telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	item = /obj/item/stack/telecrystal/hundred
 	cost = 100
 
-/datum/uplink_item/bundles_TC/telecrystal/twohundread_fifty
+/datum/uplink_item/bundles_TC/telecrystal/twohundred_fifty
 	name = "250 Raw Telecrystals"
-	desc = "Two hundread fifty telecrystals in their rawest and purest form. You know you want that Mauler."
-	item = /obj/item/stack/telecrystal/twohundread_fifty
+	desc = "Two hundred fifty telecrystals in their rawest and purest form. You know you want that Mauler."
+	item = /obj/item/stack/telecrystal/twohundred_fifty
 	cost = 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

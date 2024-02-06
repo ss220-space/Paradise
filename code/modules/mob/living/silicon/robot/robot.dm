@@ -1663,7 +1663,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/extinguish_light(force = FALSE)
 	..()
-	update_headlamp(1, 150)
+	update_headlamp(turn_off = TRUE, cooldown = 15 SECONDS)
 
 /mob/living/silicon/robot/rejuvenate()
 	..()
