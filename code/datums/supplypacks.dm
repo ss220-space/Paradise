@@ -2364,7 +2364,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/tank/jetpack/suit,
 					/obj/item/tank/jetpack/suit
 					)
-	cost = 500
+	cost = 180
 	containername = "Jetpack upgrade crate"
 
 /datum/supply_packs/misc/crematorium
