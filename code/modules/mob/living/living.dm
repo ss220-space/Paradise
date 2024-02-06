@@ -1241,7 +1241,7 @@
 /mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
 		if(A.light_range > 0)
-			A.extinguish_light()
+			A.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1379,3 +1379,44 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(target_move)
 				remove_ventcrawl()
 			add_ventcrawl(loc, target_move)
+
+
+/mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return "Unknown"
+
+
+/mob/living/run_examinate(atom/target)
+	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
+	if(user_staring_effect || hindered_inspection(target))
+		return
+
+	var/examine_time = target.get_examine_time()
+	face_atom(target)
+	if(examine_time && target != src)
+		var/visible_gender = target.get_visible_gender()
+		var/visible_species = "Unknown"
+
+		if(isliving(target))
+			var/mob/living/target_living = target
+			visible_species = target_living.get_visible_species()
+
+			if(ishuman(target))	// Yep. Only humans affected by catched looks.
+				var/datum/status_effect/staring/target_staring_effect = target_living.has_status_effect(STATUS_EFFECT_STARING)
+				if(target_staring_effect)
+					target_staring_effect.catch_look(src)
+
+		user_staring_effect = apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
+		if(do_mob(src, target, examine_time, FALSE, list(CALLBACK(src, PROC_REF(hindered_inspection), target)), TRUE))
+			..()
+	else
+		..()
+
+
+/mob/living/proc/hindered_inspection(atom/target)
+	if(QDELETED(src) || QDELETED(target))
+		return TRUE
+	if(!has_vision(information_only = TRUE))
+		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
+		return TRUE
+	return FALSE
+

@@ -1,5 +1,6 @@
 /datum/martial_art/throwing
 	name = "Knife techniques"
+	weight = 6
 	combos = list(/datum/martial_combo/throwing/remove_embended)
 	block_chance = 50	//if holding knife in hand
 	has_explaination_verb = TRUE

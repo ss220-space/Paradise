@@ -78,6 +78,8 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	books_flagged_this_round["[id]"] = 1
 	message_admins("[key_name_admin(user)] has flagged book #[id] as inappropriate.")
 
+	log_game("[user] (ckey: [user.key]) has flagged book #[id] as inappropriate.")
+
 	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=:id", list(
 		"id" = text2num(id)
 	))
