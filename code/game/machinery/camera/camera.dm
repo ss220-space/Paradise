@@ -34,7 +34,7 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-/obj/machinery/camera/Initialize(mapload)
+/obj/machinery/camera/Initialize(mapload, list/networks)
 	. = ..()
 	wires = new(src)
 	assembly = new(src)
@@ -43,7 +43,13 @@
 	assembly.update_icon()
 
 	GLOB.cameranet.cameras += src
-	GLOB.cameranet.addCamera(src)
+	if(networks)
+		network = networks
+	var/list/tempnetwork = difflist(network, GLOB.restricted_camera_networks)
+	if(tempnetwork.len)
+		GLOB.cameranet.addCamera(src)
+	else
+		GLOB.cameranet.removeCamera(src)
 	if(isturf(loc))
 		LAZYADD(myArea.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
