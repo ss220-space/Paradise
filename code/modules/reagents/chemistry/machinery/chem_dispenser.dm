@@ -663,3 +663,11 @@
 		"ammonia",
 		"ash",
 		"diethylamine")
+
+/obj/item/handheld_chem_dispenser/cooking
+	name = "handheld cooking chemical dispenser"
+	dispensable_reagents = list(
+		"sodiumchloride",
+		"blackpepper",
+		"ketchup",
+		"herbsmix")
