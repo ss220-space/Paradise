@@ -75,13 +75,6 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 
-/mob/living/carbon/human/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
-	QDEL_NULL(hud_used)
-	create_mob_hud()
-	update_action_buttons_icon()
-	if(hud_used)
-		hud_used.show_hud(hud_used.hud_version)
-
 /mob/living/carbon/human/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/human(src, ui_style2icon(client.prefs.UI_style), client.prefs.UI_style_color, client.prefs.UI_style_alpha)
@@ -375,8 +368,9 @@
 	infodisplay += mymob.healthdoll
 
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
@@ -392,11 +386,7 @@
 	devilsouldisplay = new /obj/screen/devil/soul_counter
 	infodisplay += devilsouldisplay
 
-	zone_select =  new /obj/screen/zone_sel()
-	zone_select.color = ui_color
-	zone_select.icon = ui_style
-	zone_select.alpha = ui_alpha
-	zone_select.update_icon(mymob)
+	zone_select =  new /obj/screen/zone_sel(null, src, ui_style, ui_alpha, ui_color)
 	static_inventory += zone_select
 
 	inventory_shown = FALSE

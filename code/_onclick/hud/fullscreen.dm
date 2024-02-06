@@ -3,21 +3,22 @@
 
 /mob/proc/overlay_fullscreen(category, type, severity)
 	var/obj/screen/fullscreen/screen = screens[category]
-	if (!screen || screen.type != type)
+	if(!screen || screen.type != type)
 		// needs to be recreated
 		clear_fullscreen(category, FALSE)
 		screens[category] = screen = new type()
-	else if ((!severity || severity == screen.severity) && (!client || screen.screen_loc != "CENTER-7,CENTER-7" || screen.view == client.view))
+	else if((!severity || severity == screen.severity) && (!client || screen.screen_loc != "CENTER-7,CENTER-7" || screen.view == client.view))
 		// doesn't need to be updated
 		return screen
 
 	screen.icon_state = "[initial(screen.icon_state)][severity]"
 	screen.severity = severity
-	if (client && screen.should_show_to(src))
+	if(client && screen.should_show_to(src))
 		screen.update_for_view(client.view)
 		client.screen += screen
 
 	return screen
+
 
 /mob/proc/clear_fullscreen(category, animated = 10)
 	var/obj/screen/fullscreen/screen = screens[category]
@@ -27,20 +28,24 @@
 	screens -= category
 
 	if(animated)
-		spawn(0)
-			animate(screen, alpha = 0, time = animated)
-			sleep(animated)
-			if(client)
-				client.screen -= screen
-			qdel(screen)
+		animate(screen, alpha = 0, time = animated)
+		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen_after_animate), screen), animated, TIMER_CLIENT_TIME)
 	else
 		if(client)
 			client.screen -= screen
 		qdel(screen)
 
+
+/mob/proc/clear_fullscreen_after_animate(obj/screen/fullscreen/screen)
+	if(client)
+		client.screen -= screen
+	qdel(screen)
+
+
 /mob/proc/clear_fullscreens()
 	for(var/category in screens)
 		clear_fullscreen(category)
+
 
 /datum/hud/proc/reload_fullscreen()
 	if(mymob.client)

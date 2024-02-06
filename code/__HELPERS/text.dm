@@ -540,6 +540,8 @@
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
 		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
 		text = replacetext(text, "\[station\]", "[station_name()]")
+		text = replacetext(text, "\[gender\]", "[user ? user.gender : "neuter"]")
+		text = replacetext(text, "\[species\]", "[user?.dna?.species ? user.dna.species : "unknown"]")
 		if(!no_font)
 			if(P)
 				text = "<font face=\"[P.fake_signing ? signfont : deffont]\" color=[P ? P.colour : "black"]>[text]</font>"

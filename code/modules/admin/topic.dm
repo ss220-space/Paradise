@@ -388,8 +388,8 @@
 		if(!check_rights(R_SERVER))	return
 
 		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft() ) as num
+		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
-		SSshuttle.emergency.setTimer(timer*10)
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination,"минуту","минуты","минут")].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds</span>")
@@ -2992,6 +2992,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins("<span class='notice'>made all SMESs powered</span>")
 				power_restore_quick()
+
 			if("prisonwarp")
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
@@ -3498,7 +3499,7 @@
 			if(!description)
 				return
 			G.report_message = description
-		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
+		log_and_message_admins("created \"[G.name]\" station goal.")
 		SSticker.mode.station_goals += G
 		modify_goals()
 

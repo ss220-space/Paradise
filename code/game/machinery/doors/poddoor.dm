@@ -33,6 +33,11 @@
 	else
 		return 0
 
+/obj/machinery/door/poddoor/impassable/preopen
+	icon_state = "open"
+	density = FALSE
+	opacity = 0
+
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity)
 	if(severity == 3)

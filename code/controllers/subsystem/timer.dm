@@ -517,13 +517,15 @@ SUBSYSTEM_DEF(timer)
   */
 /datum/timedevent/proc/bucketJoin()
 	// Generate debug-friendly name for timer
-	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
+
+	/*	Uncomment for explicit debugging, debug info is now handled in /datum/timedevent/proc/getTimerInfo()
 	name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
 		callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
 		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
+	*/
 
 	if (bucket_joined)
-		stack_trace("Bucket already joined! [name]")
+		stack_trace("Bucket already joined! [getTimerInfo()]")
 
 	// Check if this timed event should be diverted to the client time bucket, or the secondary queue
 	var/list/L
@@ -543,7 +545,7 @@ SUBSYSTEM_DEF(timer)
 
 	if (bucket_pos < timer_subsystem.practical_offset && timeToRun < (timer_subsystem.head_offset + TICKS2DS(BUCKET_LEN)))
 		WARNING("Bucket pos in past: bucket_pos = [bucket_pos] < practical_offset = [timer_subsystem.practical_offset] \
-			&& timeToRun = [timeToRun] < [timer_subsystem.head_offset + TICKS2DS(BUCKET_LEN)], Timer: [name]")
+			&& timeToRun = [timeToRun] < [timer_subsystem.head_offset + TICKS2DS(BUCKET_LEN)], Timer: [getTimerInfo()]")
 		bucket_pos = timer_subsystem.practical_offset // Recover bucket_pos to avoid timer blocking queue
 
 	var/datum/timedevent/bucket_head = bucket_list[bucket_pos]
@@ -564,6 +566,11 @@ SUBSYSTEM_DEF(timer)
 	prev = null
 	bucket_list[bucket_pos] = src
 
+/datum/timedevent/proc/getTimerInfo()
+	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
+	return "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
+		callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
+		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
 
 /**
   * Returns a string of the type of the callback for this timer

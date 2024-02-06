@@ -71,3 +71,9 @@
 	icon_living = "brownbear"
 	icon_dead = "brownbear_dead"
 	icon_gib = "brownbear_gib"
+
+/mob/living/simple_animal/hostile/bear/polar
+	icon_state = "polarbear"
+	icon_living = "polarbear"
+	icon_dead = "polarbear_dead"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat= 5, /obj/item/clothing/head/bearpelt/fluff/polar = 1)

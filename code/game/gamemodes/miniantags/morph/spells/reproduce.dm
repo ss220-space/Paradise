@@ -6,12 +6,14 @@
 	action_icon_state = "morph_reproduce"
 	create_attack_logs = FALSE
 
+
 /obj/effect/proc_holder/spell/morph_spell/reproduce/Initialize(mapload)
 	. = ..()
-	update_name()
+	update_appearance(UPDATE_NAME)
 
 
-/obj/effect/proc_holder/spell/morph_spell/reproduce/proc/update_name()
+/obj/effect/proc_holder/spell/morph_spell/reproduce/update_name(updates = ALL)
+	. = ..()
 	if(hunger_cost && action)
 		name = "[initial(name)] ([hunger_cost])"
 		updateButtonIcon(change_name = TRUE)
@@ -49,7 +51,7 @@
 	hunger_cost += 30
 	var/datum/spell_handler/morph/handler = custom_handler
 	handler.hunger_cost += 30
-	update_name()
+	update_appearance(UPDATE_NAME)
 
 	playsound(user, "bonebreak", 75, TRUE)
 	var/mob/living/simple_animal/hostile/morph/new_morph = new /mob/living/simple_animal/hostile/morph(get_turf(user))

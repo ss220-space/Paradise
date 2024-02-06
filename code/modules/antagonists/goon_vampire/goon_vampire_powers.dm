@@ -91,7 +91,8 @@
 	update_name()
 
 
-/obj/effect/proc_holder/spell/goon_vampire/proc/update_name(mob/user = usr)
+/obj/effect/proc_holder/spell/goon_vampire/update_name(updates = ALL, mob/user)
+	. = ..()
 	if(required_blood)
 		var/new_name = "[name] ([required_blood])"
 		name = new_name
@@ -437,8 +438,8 @@
 	base_cooldown = 1 SECONDS
 
 
-/obj/effect/proc_holder/spell/goon_vampire/self/cloak/update_name(mob/user = usr)
-
+/obj/effect/proc_holder/spell/goon_vampire/self/cloak/update_name(updates = ALL, mob/user)
+	. = ..()
 	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
 	if(!vamp)
 		return
@@ -455,7 +456,7 @@
 		return
 
 	vamp.iscloaking = !vamp.iscloaking
-	update_name(user)
+	update_name(user = user)
 	to_chat(user, span_notice("Теперь вас будет <b>[vamp.iscloaking ? "не видно" : "видно"]</b> в темноте."))
 
 

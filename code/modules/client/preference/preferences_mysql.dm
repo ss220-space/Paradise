@@ -403,6 +403,13 @@
 	return 1
 
 /datum/preferences/proc/save_character(client/C)
+
+	for(var/title in player_alt_titles)
+		var/datum/job/job = SSjobs.GetJob(title)
+		if(job && !(player_alt_titles[title] in job.alt_titles))
+			log_runtime(EXCEPTION("[C.key] had a malformed job title entry: '[title]:[player_alt_titles[title]]'. Removing!"), src)
+			player_alt_titles -= title
+
 	var/organlist
 	var/rlimblist
 	var/playertitlelist
@@ -548,7 +555,7 @@
 													"socks" = socks,
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
-													"autohiss_mode" = autohiss_mode ? autohiss_mode : initial(autohiss_mode),
+													"autohiss_mode" = isnull(autohiss_mode) ? initial(autohiss_mode) : autohiss_mode,
 													"h_grad_style" = h_grad_style,
 													"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
 													"h_grad_colour" = h_grad_colour,

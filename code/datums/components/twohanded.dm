@@ -28,8 +28,6 @@
 	var/icon_wielded = FALSE
 	/// Reference to the offhand created for the item
 	var/obj/item/twohanded/offhand/offhand_item = null
-	/// The amount of increase recived from sharpening the item
-	var/sharpened_increase = 0
 	/// A callback on the parent to be called when the item is wielded
 	var/datum/callback/wield_callback
 	/// A callback on the parent to be called when the item is unwielded
@@ -109,9 +107,8 @@
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
-	RegisterSignal(parent, COMSIG_OBJ_UPDATE_ICON, PROC_REF(on_update_icon))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
-	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
 
 
 // Remove all siginals registered to the parent item
@@ -120,9 +117,8 @@
 								COMSIG_ITEM_DROPPED,
 								COMSIG_ITEM_ATTACK_SELF,
 								COMSIG_ITEM_ATTACK,
-								COMSIG_OBJ_UPDATE_ICON,
-								COMSIG_MOVABLE_MOVED,
-								COMSIG_ITEM_SHARPEN_ACT))
+								COMSIG_ATOM_UPDATE_ICON,
+								COMSIG_MOVABLE_MOVED))
 
 
 /// Triggered on equip of the item containing the component
@@ -184,24 +180,24 @@
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, SPAN_WARNING("[parent] слишком тяжел и громоздок для Вас!"))
+				to_chat(user, span_warning("[parent] слишком тяжел и громоздок для Вас!"))
 			user.drop_item_ground(parent, force = TRUE)
 		else
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, SPAN_WARNING("Ваши руки для этого не приспособлены."))
+				to_chat(user, span_warning("Ваши руки для этого не приспособлены."))
 		return
 
 	if(user.get_inactive_hand())
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, SPAN_WARNING("[parent] слишком громоздок, чтобы носить в одной руке!"))
+				to_chat(user, span_warning("[parent] слишком громоздок, чтобы носить в одной руке!"))
 			user.drop_item_ground(parent, force = TRUE)
 		else
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, SPAN_WARNING("Вторая рука должна быть свободна!"))
+				to_chat(user, span_warning("Вторая рука должна быть свободна!"))
 		return
 
 	if(user.l_arm_broken() || user.r_arm_broken())
@@ -209,7 +205,7 @@
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, SPAN_WARNING("Вы чувствуете как двигаются кости, когда пытаетесь взять [parent] в обе руки."))
+			to_chat(user, span_warning("Вы чувствуете как двигаются кости, когда пытаетесь взять [parent] в обе руки."))
 		return
 
 	if(!user.has_left_hand() || !user.has_right_hand())
@@ -217,7 +213,7 @@
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, SPAN_WARNING("У Вас отсутствует вторая рука!"))
+			to_chat(user, span_warning("У Вас отсутствует вторая рука!"))
 		return
 
 	// wield update status
@@ -241,25 +237,26 @@
 		parent_item.force *= force_multiplier
 	else if(force_wielded)
 		parent_item.force = force_wielded
-	if(sharpened_increase)
-		parent_item.force += sharpened_increase
+	var/datum/component/sharpening/sharpening = item.GetComponent(/datum/component/sharpening)
+	if(sharpening)
+		parent_item.force += sharpening.damage_increase
 	if(sharp_when_wielded)
 		parent_item.sharp = TRUE
 
 	var/original_name = parent_item.name
 	parent_item.name = "[original_name] (Wielded)"
-	parent_item.update_icon()
+	parent_item.update_appearance()
 	if(user)
 		user.update_inv_hands()
 
 	if(isrobot(user))
 		if(world.time > antispam_timer + 0.1 SECONDS)
 			antispam_timer = world.time
-			to_chat(user, SPAN_NOTICE("Вы сконцентировались на поддержании [original_name]."))
+			to_chat(user, span_notice("Вы сконцентировались на поддержании [original_name]."))
 	else
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, SPAN_NOTICE("Вы взяли [original_name] в обе руки."))
+			to_chat(user, span_notice("Вы взяли [original_name] в обе руки."))
 
 	// Play sound if one is set
 	if(wieldsound)
@@ -303,8 +300,9 @@
 
 	// update item stats
 	var/obj/item/parent_item = parent
-	if(sharpened_increase)
-		parent_item.force -= sharpened_increase
+	var/datum/component/sharpening/sharpening = item.GetComponent(/datum/component/sharpening)
+	if(sharpening)
+		parent_item.force -= sharpening.damage_increase
 	if(force_multiplier)
 		parent_item.force /= force_multiplier
 	else
@@ -320,7 +318,7 @@
 		parent_item.name = "[initial(parent_item.name)]"
 
 	// Update icons
-	parent_item.update_icon()
+	parent_item.update_appearance()
 
 	if(istype(user)) // tk showed that we might not have a mob here
 		user.update_inv_hands()
@@ -333,20 +331,20 @@
 		if(show_message)
 			var/abstract_check = !(item.flags & ABSTRACT)
 			if(isrobot(parent))
-				to_chat(user, SPAN_NOTICE("Вы снизили нагрузку на [parent_item]."))
+				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item]."))
 			else
 				if(require_twohands || parent_item.loc != user)
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, SPAN_NOTICE("Вы уронили [parent_item]."))
+						to_chat(user, span_notice("Вы уронили [parent_item]."))
 				if(parent_item.loc == user && user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, SPAN_NOTICE("Теперь вы держите [parent_item] одной рукой."))
+						to_chat(user, span_notice("Теперь вы держите [parent_item] одной рукой."))
 				if(parent_item.loc == user && !user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, SPAN_NOTICE("Вы экипировали [parent_item]."))
+						to_chat(user, span_notice("Вы экипировали [parent_item]."))
 
 	// Play sound if set
 	if(unwieldsound)
@@ -379,10 +377,12 @@
 /datum/component/two_handed/proc/on_update_icon(obj/item/source)
 	SIGNAL_HANDLER
 
+	if(!wielded)
+		return NONE
 	if(!icon_wielded)
-		return
-
-	source.icon_state = wielded ? icon_wielded : initial(source.icon_state)
+		return NONE
+	source.icon_state = icon_wielded
+	return COMSIG_ATOM_NO_UPDATE_ICON_STATE
 
 
 /**
@@ -404,39 +404,6 @@
 		return
 	if(held_item == parent)
 		return COMPONENT_BLOCK_SWAP
-
-
-/**
- * on_sharpen Triggers on usage of a sharpening stone on the item
- *
- * Has no usage for now.
- */
-/datum/component/two_handed/proc/on_sharpen(obj/item/item, amount, max_amount)
-	SIGNAL_HANDLER
-
-	if(!item)
-		return COMPONENT_BLOCK_SHARPEN_BLOCKED
-	if(wielded)
-		return COMPONENT_BLOCK_SHARPEN_BLOCKED
-	if(sharpened_increase)
-		return COMPONENT_BLOCK_SHARPEN_ALREADY
-
-	var/wielded_val = 0
-	if(force_multiplier)
-		var/obj/item/parent_item = parent
-		if(wielded)
-			wielded_val = parent_item.force
-		else
-			wielded_val = parent_item.force * force_multiplier
-	else
-		wielded_val = force_wielded
-
-	if(wielded_val > max_amount)
-		return COMPONENT_BLOCK_SHARPEN_MAXED
-
-	sharpened_increase = min(amount, (max_amount - wielded_val))
-
-	return COMPONENT_BLOCK_SHARPEN_APPLIED
 
 
 /**

@@ -77,7 +77,7 @@
 		broken = TRUE
 		locked = FALSE
 		overlays += overlay_sparking
-		addtimer(CALLBACK(src, PROC_REF(update_icon)), 1 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
 		if(user)
 			to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
 
@@ -96,7 +96,7 @@
 	if(usr.incapacitated()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
 		return
 
-	if(ishuman(usr))
+	if(ishuman(usr) || isrobot(usr))
 		add_fingerprint(usr)
 		togglelock(usr)
 	else

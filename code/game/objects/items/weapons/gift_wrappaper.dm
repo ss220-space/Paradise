@@ -110,6 +110,8 @@
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/gun/projectile/shotgun/toy/tommygun,
 		/obj/item/stack/tile/fakespace/loaded,
+		/obj/item/toy/pet_rock/naughty_coal,
+		/obj/item/reagent_containers/food/snacks/sugar_coal,
 		)
 
 	if(!ispath(gift_type,/obj/item))	return

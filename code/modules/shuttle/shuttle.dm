@@ -171,7 +171,7 @@
 		throw EXCEPTION("docking port [src] could not initialize.")
 		return 0
 
-	SSshuttle.stationary += src
+	SSshuttle.stationary |= src
 	if(!id)
 		id = "[SSshuttle.stationary.len]"
 	if(name == "dock")
@@ -941,7 +941,7 @@
 	desc = "Used to control the Regular Civilian Shuttle."
 	circuit = /obj/item/circuitboard/ruins_civil_shuttle
 	shuttleId = "ruins_civil_shuttle"
-	possible_destinations = "spacebar;spacehotelv1"
+	possible_destinations = "spacebar;spacehotelv1;ntstation"
 
 
 /obj/machinery/computer/shuttle/white_ship
@@ -959,6 +959,7 @@
 // Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
 /obj/machinery/computer/shuttle/white_ship/LateInitialize()
 	Initialize()
+	. = ..()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"

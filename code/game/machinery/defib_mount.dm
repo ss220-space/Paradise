@@ -94,7 +94,7 @@
 	defib.paddles.forceMove_turf()
 	if(!user.put_in_hands(defib.paddles, ignore_anim = FALSE))
 		defib.paddles.forceMove(defib)
-		to_chat(user, SPAN_WARNING("You need a free hand to hold the paddles!"))
+		to_chat(user, span_warning("You need a free hand to hold the paddles!"))
 		return
 
 	add_fingerprint(user)

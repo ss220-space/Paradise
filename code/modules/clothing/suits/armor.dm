@@ -79,7 +79,7 @@
 		user.put_in_hands(attached_badge)
 
 		for(var/datum/action/item_action/remove_badge/action in actions)
-			src.actions.Remove(action)
+			LAZYREMOVE(actions, action)
 			action.Remove(user)
 
 		icon_state = "armor"
@@ -165,6 +165,12 @@
 	name = "warden's jacket"
 	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
 	icon_state = "warden_jacket_alt"
+
+/obj/item/clothing/suit/armor/vest/sec_rps
+	name = "security belt-shoulder system"
+	desc = "A belt-shoulder system for officers that are more inclined towards style than safety."
+	icon_state = "sec_rps"
+	armor=  list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"

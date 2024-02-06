@@ -249,6 +249,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	/// How dark things are if client is a ghost, 0-255
 	var/ghost_darkness_level = LIGHTING_PLANE_ALPHA_VISIBLE
 
+	/// Minigames notification about their end, start and etc.
+	var/minigames_notifications = TRUE
+
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -555,6 +558,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
+			dat += "<b>Parallax in darkness:</b> <a href='?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
@@ -1749,6 +1753,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						return
 					if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 						var/list/valid_alt_heads = list()
+						valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option
 						for(var/alternate_head in GLOB.alt_heads_list)
 							var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
 							if(!(species in head.species_allowed))
@@ -1768,6 +1773,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("m_style_head")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
 						var/list/valid_markings = list()
+						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[markingstyle]
 							if(!(species in M.species_allowed))
@@ -1810,6 +1816,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
 						var/list/valid_markings = list()
+						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
 							if(!(species in M.species_allowed))
@@ -1833,6 +1840,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						var/list/valid_markings = list()
+						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/tail/M = GLOB.marking_styles_list[markingstyle]
 							if(M.marking_location != "tail")
@@ -1861,21 +1869,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
-					if(check_rights(R_ADMIN, 1, user))
-						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
-					else
-						for(var/B in GLOB.body_accessory_by_name)
-							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
-							if(isnull(accessory)) // None
-								continue
-							if(species in accessory.allowed_species)
-								possible_body_accessories += B
+					for(var/B in GLOB.body_accessory_by_name)
+						var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
+						if(!istype(accessory))
+							possible_body_accessories += "None" //the only null entry should be the "None" option
+							continue
+						if(species in accessory.allowed_species)
+							possible_body_accessories += B
 					if(S.optional_body_accessory)
-						possible_body_accessories += "None" //the only null entry should be the "None" option
+						possible_body_accessories.Add("None") //the only null entry should be the "None" option
 					else
-						possible_body_accessories -= "None" // in case an admin is viewing it
-					sortTim(possible_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_body_accessory = tgui_input_list(user, "Choose your body accessory", "Character Preference", possible_body_accessories)
+						possible_body_accessories.Remove("None") // in case an admin is viewing it
+					sortTim(possible_body_accessories, cmp = /proc/cmp_text_asc)
+					var/new_body_accessory = tgui_input_list(user, "Choose your body accessory:", "Character Preference", possible_body_accessories)
 					if(new_body_accessory)
 						m_styles["tail"] = "None"
 						body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
@@ -2417,14 +2423,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
 
-
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
-					if(parent && parent.screen && parent.screen.len)
+					if(length(parent?.screen))
 						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
-						PM.remove_screen_filter(AMBIENT_OCCLUSION_FILTER_KEY)
-						if(toggles & PREFTOGGLE_AMBIENT_OCCLUSION)
-							PM.add_screen_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
+						PM.backdrop(parent.mob)
 
 				if("parallax")
 					var/parallax_styles = list(
@@ -2441,6 +2444,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
+
+				if("parallax_darkness")
+					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
+					parent.mob?.hud_used?.update_parallax_pref()
+
 				if("keybindings")
 					if(!keybindings_overrides)
 						keybindings_overrides = list()

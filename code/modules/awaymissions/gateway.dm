@@ -148,7 +148,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 	if(!awaygate)
 		return
-
 	if(awaygate.calibrated)
 		moving_atom.forceMove(get_step(awaygate.loc, SOUTH))
 		moving_atom.dir = SOUTH
@@ -176,6 +175,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	density = 1
 	icon_state = "offcenter"
 	use_power = NO_POWER_USE
+	var/calibrating_on_activating = FALSE
 	var/calibrated = 1
 	var/list/linked = list()	//a list of the connected gateway chunks
 	var/ready = 0
@@ -228,6 +228,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		if(!stationgate)
 			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return
+	if(!calibrated && calibrating_on_activating)
+		calibrated = TRUE
 
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = 1
@@ -275,7 +277,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			if(exilecheck(L))
 				atom_say("Rejecting [moving_atom]: Exile implant detected in close proximity lifeform.")
 				return
-	moving_atom.forceMove(get_step(stationgate.loc, SOUTH))
+	var/turf/destination = get_step(stationgate.loc, SOUTH)
+	moving_atom.forceMove(destination)
 	moving_atom.setDir(SOUTH)
 	if(ismob(moving_atom))
 		var/mob/M = moving_atom

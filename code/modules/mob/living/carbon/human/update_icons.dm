@@ -186,6 +186,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		qdel(stand_icon)
 
 	update_misc_effects()
+	update_hands_HUD()
 	stand_icon = new (dna.species.icon_template ? dna.species.icon_template : 'icons/mob/human.dmi', "blank")
 	var/list/standing = list()
 	var/icon_key = generate_icon_render_key()
@@ -198,7 +199,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/icon/base_icon
 		//BEGIN CACHED ICON GENERATION.
 		var/obj/item/organ/external/chest = get_organ(BODY_ZONE_CHEST)
-		base_icon = chest.get_icon(skeleton)
+		if(chest) //I hate it.
+			base_icon = chest.get_icon(skeleton)
 
 		for(var/obj/item/organ/external/part as anything in bodyparts)
 			if(part.limb_zone == BODY_ZONE_TAIL || part.limb_zone == BODY_ZONE_WING)
@@ -553,6 +555,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
+	update_emissive_block()
+	update_hands_HUD()
+
+
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 
