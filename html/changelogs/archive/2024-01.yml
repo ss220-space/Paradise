@@ -149,3 +149,61 @@
   - tweak: All Species Are Spawnable (#4255)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4254)
+'2024-01-24':
+  Rerik007:
+  - bugfix: some cargo fixes and tweaks/ part 2 (#4261)
+'2024-01-26':
+  ArtemDerp:
+  - bugfix: added missing firelocks at bar (#4281)
+  - bugfix: ussp golem docking port size (#4270)
+  Daeberdir:
+  - bugfix: slimeman and diona initialised with wrong hud. (#4279)
+  - bugfix: infinity wethersound in gate level. (#4272)
+  - bugfix: missed value returning in `user_buckle_mob()`. (#4271)
+  - add: admin button for docking ports refilling. (#4273)
+  LiquidPotroh:
+  - unknown: Loyalty syndrome now use mob's real name (#4264)
+  NightDawnFox:
+  - bugfix: megafauna are no longer afraid of chasms & normal pathing for shitspawn
+      species & plasma golems now have normal explode ability (#4276)
+  - add: megaseed servitor to Thetta. Also bubblegum arena fix (#4266)
+  Rerik007:
+  - bugfix: cargo fixes/ part3 (#4274)
+  - bugfix: old alt titles are available (#4267)
+  Zwei:
+  - bugfix: Temporary Dominator Fix (#4250)
+  xTrogwaRx:
+  - bugfix: Fixed link in books with iframe (#4282)
+'2024-01-29':
+  Daeberdir:
+  - bugfix: initial zone selecting and human icon for "damage zone" HUD. (#4292)
+  Ksaikok46:
+  - bugfix: no more invisible seedstorage with seeds (#4310)
+  LiquidPotroh:
+  - bugfix: bestia can crawl after transform (#4304)
+  - bugfix: Nettle and deathnettle special effects now blocking (#4302)
+  - bugfix: Correct display eyes trophy of bestia (#4297)
+  Nerrol:
+  - bugfix: fix bug with removing one of several HUDs (#4245)
+  ROdenFL:
+  - bugfix: headslug announce (#4296)
+  - bugfix: terror hivemind colourfix (#4289)
+  Renascitur:
+  - add: Reanimation paper deny (#4305)
+  fankroll:
+  - bugfix: Leopard tail for Tajaran  (#4290)
+'2024-01-30':
+  Dimach:
+  - refactor: reduce list count for floor turfs (#4308)
+  - server: update github actions (#4312)
+  Vladisvell:
+  - refactor: Cached areas machinery and lights to improve perfomance (#4306)
+  - refactor: Cut down memory usage by lists of some objects (#4313)
+  Zwei:
+  - add: Station Goals Logging (#4299)
+  - bugfix: Abductor Surgery Fix (#4303)
+'2024-01-31':
+  Aziz Chynaliev:
+  - del: unlock all tts seeds"
+  Vladisvell:
+  - bugfix: Removed machinery caching in late initialize (#4317)

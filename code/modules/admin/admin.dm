@@ -294,7 +294,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	"}
 
 	usr << browse(body, "window=adminplayeropts;size=550x615")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
 /datum/player_info/var/author // admin who authored the information
@@ -395,7 +395,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			return FALSE
 
 	if(result)
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot World") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot World") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 		var/init_by = "Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]."
 		switch(result)
 
@@ -433,7 +433,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_and_message_admins("has admin ended the round with message: '[input]'")
 	SSticker.force_ending = TRUE
 	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	SSticker.mode_result = "admin ended"
 
 /datum/admins/proc/announce()
@@ -452,7 +452,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
 		to_chat(world, chat_box_notice("<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p></span>"))
 		log_admin("Announce: [key_name(usr)] : [message]")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
 	set category = "Server"
@@ -464,7 +464,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	toggle_ooc()
 	log_and_message_admins("toggled OOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/togglelooc()
 	set category = "Server"
@@ -481,7 +481,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<B>The LOOC channel has been globally disabled!</B>")
 	log_and_message_admins("toggled LOOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle LOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle LOOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggledsay()
 	set category = "Server"
@@ -514,7 +514,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<B>Dead OOC has been globally disabled!</B>")
 	log_and_message_admins("toggled Dead OOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleemoji()
 	set category = "Server"
@@ -551,7 +551,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
 		message_admins("<span class='darkmblue'>[usr.key] has started the game.[msg]</span>")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 		return 1
 	else
 		to_chat(usr, "<font color='red'>Error: Start Now: Game has already started.</font>")
@@ -572,7 +572,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>New players may now enter the game.</B>")
 	log_and_message_admins("toggled new player game entering.")
 	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleAI()
 	set category = "Event"
@@ -589,7 +589,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>The AI job is chooseable now.</B>")
 	log_and_message_admins("toggled AI allowed.")
 	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleaban()
 	set category = "Server"
@@ -606,7 +606,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>You may no longer respawn :(</B>")
 	log_and_message_admins("toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].")
 	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
 	set category = "Server"
@@ -631,7 +631,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		SSticker.ticker_going = TRUE
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
@@ -794,7 +794,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		A.admin_spawned = TRUE
 
 	log_and_message_admins("spawned [chosen] at [COORD(usr)]")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
 /datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
@@ -813,7 +813,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	M.mind.edit_memory()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Traitor Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Traitor Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleguests()
 	set category = "Server"
@@ -829,7 +829,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
 	log_and_message_admins("toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
@@ -892,7 +892,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		GLOB.event_announcement.Announce("Центральное Командование отозвало оружейный шаттл уровня Гамма.", new_sound = 'sound/AI/commandreport.ogg')
 	fromArea.move_contents_to(toArea)
 
-	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
+	for(var/obj/machinery/mech_bay_recharge_port/P in toArea.machinery_cache)
 		P.update_recharge_turf()
 
 	if(GLOB.gamma_ship_location)

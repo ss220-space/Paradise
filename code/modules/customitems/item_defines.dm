@@ -732,7 +732,7 @@
 //////////// Suits ////////////
 /obj/item/clothing/suit/fluff
 	icon = 'icons/obj/custom_items.dmi'
-	actions_types = list()
+	actions_types = null
 	ignore_suitadjust = 1
 	adjust_flavour = null
 	sprite_sheets = null
@@ -744,7 +744,7 @@
 	icon_state = "pulsecoat"
 	item_state = "pulsecoat"
 	ignore_suitadjust = 1
-	actions_types = list()
+	actions_types = null
 
 /obj/item/clothing/suit/jacket/miljacket/patch // sniper_fairy : P.A.T.C.H.
 	name = "custom purple military jacket"
@@ -833,7 +833,7 @@
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 	ignore_suitadjust = 1
-	actions_types = list()
+	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -843,7 +843,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jacksvest"
 	ignore_suitadjust = TRUE
-	actions_types = list()
+	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
 
