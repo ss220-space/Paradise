@@ -19825,6 +19825,9 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "baq" = (
@@ -41359,7 +41362,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	icon_state = "pipe-j2s";
-	name = "Sci RD Office 2";
+	name = "RD Office";
 	sortType = 13
 	},
 /turf/simulated/floor/plasteel{
@@ -78637,6 +78640,12 @@
 	icon_state = "neutralfull"
 	},
 /area/maintenance/engineering)
+"ntA" = (
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "nui" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -133033,12 +133042,12 @@ kuS
 aGX
 bbh
 bau
-bcp
+ntA
 bci
 bep
 bfZ
 bkn
-bcp
+ntA
 bll
 bcp
 boG
