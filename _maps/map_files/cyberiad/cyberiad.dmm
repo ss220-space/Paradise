@@ -32501,7 +32501,7 @@
 /area/engine/gravitygenerator)
 "bFQ" = (
 /obj/structure/morgue{
-	dir = 1
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -32518,10 +32518,10 @@
 	},
 /area/crew_quarters/toilet)
 "bFT" = (
-/obj/structure/morgue{
-	dir = 1
-	},
 /obj/effect/landmark/event/revenantspawn,
+/obj/structure/morgue{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
