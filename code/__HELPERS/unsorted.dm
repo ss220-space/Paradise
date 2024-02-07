@@ -278,7 +278,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 		if(A.stat == DEAD)
 			continue
-		if(A.control_disabled == 1)
+		if(A.control_disabled)
 			continue
 		if(isclocker(A)) //the active ais list used for uploads. Avoiding to changing the laws even the AI is fully converted
 			continue

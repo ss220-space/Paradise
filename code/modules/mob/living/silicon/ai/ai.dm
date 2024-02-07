@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/can_dominate_mechs = 0
 	var/shunted = 0 //1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
 
-	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
+	var/control_disabled = FALSE // Set to TRUE to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
 	var/malf_cooldown = 0 //Cooldown var for malf modules, stores a worldtime + cooldown
 
@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/datum/trackable/track = new()
 
 	var/last_paper_seen = null
-	var/can_shunt = 1
+	var/can_shunt = TRUE
 	var/last_announcement = ""
 	var/datum/announcement/priority/announcement
 	var/mob/living/simple_animal/bot/Bot
@@ -1307,8 +1307,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		update_blind_effects()
-		control_disabled = 1//Can't control things remotely if you're stuck in a card!
-		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
+		control_disabled = TRUE//Can't control things remotely if you're stuck in a card!
+		aiRadio.disabledAi = TRUE 	//No talking on the built-in radio for you either!
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")

@@ -18,3 +18,67 @@
   - bugfix: Crematorium IDs (#4327)
   - bugfix: Temporaty Shieldgen Fix (#4330)
   - bugfix: HUD Zone Select Fixes (#4325)
+'2024-02-06':
+  ArtemDerp:
+  - bugfix: Gorkiy17 reduced number of active turfs (#4253)
+  Daeberdir:
+  - bugfix: pet vanishing in pet carrier. (#4355)
+  - tweak: job updating for PDA messenger receiver. (#4338)
+  - add: Nucleation racial implant for uplink. (#4335)
+  - add: cucumber mask craft. (#4277)
+  - bugfix: AI can't see roundstart `restricted_camera_networks` and normal borg accessability
+      for malf hacked APC. (#4239)
+  - refactor: mecha `Actions` and `Radial Menu` not only for selecting modules. (#4219)
+  - add: delayed examine. (#4080)
+  Dimach:
+  - bugfix: fixed cqc runtime (#4363)
+  KriegThunder:
+  - add: Black ops kit and black ops coverall (#4295)
+  LiquidPotroh:
+  - bugfix: afterattacks is not called (#4356)
+  - tweak: Vampires can eat creatures that their race allows, but they don't get any
+      nutrients (#4293)
+  MadGRaf:
+  - add: add wrench action to raise bolt on unpowered airlock (#4288)
+  MataVsn:
+  - add: Kidan's Pheromones (#4043)
+  MeowEmiya:
+  - tweak: Ashwalkers guaranteed spawn (#4275)
+  Pavel Poltaves:
+  - qol: add the ability to animals to ask to be picked up. (#4164)
+  ROdenFL:
+  - add: highlight list for ghosts (#3870)
+  Renascitur:
+  - add: New spell and suit for hardmode Blood-Drunk miner (#4262)
+  Rerik007:
+  - bugfix: circuits of mapping vendors with custom names broken (#4357)
+  - bugfix: cable healing roboparts runtime (#4351)
+  - tweak: add some cargo tweaks (#4286)
+  - refactor: martials now use a weight system to determine which one is active (#4265)
+  RuinaRuiner:
+  - bugfix: small-syndicate-fix (#4226)
+  SAAD:
+  - bugfix: February Delta patch (#4334)
+  - bugfix: delta feb patch (#4366)
+  TimChi:
+  - qol: add pestspray for jani borg (#4283)
+  Valtor:
+  - bugfix: fixed devil`s powers (#4350)
+  VasilevAY:
+  - bugfix: medical gown unathi sprite (#4353)
+  Vladisvell:
+  - refactor: Optimized announcement reciever getting (#4349)
+  - bugfix: Fixed meson vision for cyborgs (#4344)
+  - tweak: Allowed view timer's info in View Variables (#4347)
+  - tweak: added Show/Hide MC Tabs for people with access to runtimes view (#4348)
+  - add: Added pagination for View Flagged Books Admin tool (#4345)
+  - refactor: Optimized cables performance (#4342)
+  - bugfix: Fixed runtime on unequipping clothing with accessories attached (#4358)
+  - refactor: Optimized turrets target search algorithm (#4323)
+  - bugfix: Robots now can't be stunned by watcher's beam (#4364)
+  - bugfix: Fixed turrets runtime (#4365)
+  WolfLox:
+  - tweak: some bugfix and minor changes based on feedback (#4337)
+  Zwei:
+  - bugfix: Animate Projectile Fix (#4339)
+  - bugfix: Extinguish Light Fixes (#4340)
