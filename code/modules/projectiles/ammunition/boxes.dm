@@ -22,36 +22,36 @@
 
 // SHOTGUN
 /obj/item/ammo_box/shotgun
-	name = "ammunition Box (Slug)"
+	name = "ammunition box (Slug)"
 	icon_state = "slugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 7
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/ammo_box/shotgun/buck
-	name = "ammunition Box (Buckshot)"
+	name = "ammunition box (buckshot)"
 	icon_state = "buckshotbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/shotgun/buck/assassination
-	name = "ammunition Box (Assassination shells)"
+	name = "ammunition box (assassination shells)"
 	ammo_type = /obj/item/ammo_casing/shotgun/assassination
 
 /obj/item/ammo_box/shotgun/buck/nuclear
-	name = "elite Ammunition Box (Buckshot)"
+	name = "elite ammunition box (buckshot)"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
 
 /obj/item/ammo_box/shotgun/rubbershot
-	name = "ammunition Box (Rubbershot shells)"
+	name = "ammunition box (rubbershot shells)"
 	icon_state = "rubbershotbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 
 /obj/item/ammo_box/shotgun/rubbershot/dart
-	name = "ammunition Box (Dart shells)"
+	name = "ammunition box (dart shells)"
 	ammo_type = /obj/item/ammo_casing/shotgun/dart
 
 /obj/item/ammo_box/shotgun/beanbag
-	name = "ammunition Box (Beanbag shells)"
+	name = "ammunition box (beanbag shells)"
 	icon_state = "beanbagbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 
@@ -59,72 +59,72 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag/fake
 
 /obj/item/ammo_box/shotgun/stunslug
-	name = "ammunition Box (Stun shells)"
+	name = "ammunition box (stun shells)"
 	icon_state = "stunslugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/ammo_box/shotgun/breaching
-	name = "ammunition Box (Breaching shells)"
+	name = "ammunition box (breaching shells)"
 	icon_state = "meteorshotbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
 /obj/item/ammo_box/shotgun/pulseslug
-	name = "ammunition Box (Pulse slugs)"
+	name = "ammunition box (pulse slugs)"
 	icon_state = "pulseslugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/pulseslug
 
 /obj/item/ammo_box/shotgun/incendiary
-	name = "ammunition Box (Incendiary slugs)"
+	name = "ammunition box (incendiary slugs)"
 	icon_state = "incendiarybox"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary
 
 /obj/item/ammo_box/shotgun/frag12
-	name = "ammunition Box (FRAG-12 slugs)"
+	name = "ammunition box (frag-12 slugs)"
 	icon_state = "frag12box"
 	ammo_type = /obj/item/ammo_casing/shotgun/frag12
 
 /obj/item/ammo_box/shotgun/dragonsbreath
-	name = "ammunition Box (Dragonsbreath)"
+	name = "ammunition box (dragonsbreath)"
 	icon_state = "dragonsbreathbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/ammo_box/shotgun/dragonsbreath/nuclear
-	name = "elite Ammunition Box (Dragonsbreath)"
+	name = "elite ammunition box (dragonsbreath)"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
 
 /obj/item/ammo_box/shotgun/ion
-	name = "ammunition Box (Ion shells)"
+	name = "ammunition box (ion shells)"
 	icon_state = "ionbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/ion
 
 /obj/item/ammo_box/shotgun/laserslug
-	name = "ammunition Box (Laser slugs)"
+	name = "ammunition box (laser slugs)"
 	icon_state = "laserslugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/laserslug
 
 /obj/item/ammo_box/shotgun/bioterror
-	name = "ammunition Box (Bioterror shells)"
+	name = "ammunition box (bioterror shells)"
 	icon_state = "bioterrorbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/bioterror
 
 /obj/item/ammo_box/shotgun/tranquilizer
-	name = "ammunition Box (Tranquilizer darts)"
+	name = "ammunition box (tranquilizer darts)"
 	icon_state = "tranquilizerbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
 /obj/item/ammo_box/shotgun/flechette
-	name = "ammunition Box (Flechette)"
+	name = "ammunition box (flechette)"
 	icon_state = "flechettebox"
 	ammo_type = /obj/item/ammo_casing/shotgun/flechette
 
 /obj/item/ammo_box/shotgun/improvised
-	name = "ammunition Box (Improvised shells)"
+	name = "ammunition box (improvised shells)"
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "largebox"
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised
 
 /obj/item/ammo_box/shotgun/improvised/overload
-	name = "ammunition Box (Overload shells)"
+	name = "ammunition box (overload shells)"
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised/overload
 
 // AUTOMATIC

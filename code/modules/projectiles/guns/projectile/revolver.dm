@@ -329,19 +329,18 @@
 /obj/item/gun/projectile/revolver/improvisedrevolver/New()
 	..()
 	barrel = new	// I just want it to spawn with barrel.
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/revolver/improvisedrevolver/update_icon()
-	overlays.Cut()
-
+/obj/item/gun/projectile/revolver/improvisedrevolver/update_overlays()
+	. = ..()
 	if(magazine)
-		overlays +=  icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
+		. +=  icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
 	if(barrel)
 		var/icon/barrel_icon = icon('icons/obj/weapons/projectile.dmi', barrel.icon_state)
 		if(unscrewed)
 			barrel_icon.Turn(-90)
 			barrel_icon.Shift(WEST, 5)
-		overlays +=  barrel_icon
+		. +=  barrel_icon
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/afterattack(atom/target, mob/living/user, flag, params)
 	if(unscrewed)
@@ -349,9 +348,9 @@
 	else if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
 		..()
 	else
-		chamber_round(1)
+		chamber_round(TRUE)
 		user.visible_message(span_dangerbigger("*CRACK*"))
-		playsound(user, 'sound/weapons/jammed.ogg', 140, 1)
+		playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/proc/radial_menu(mob/user)
 	var/list/choices = list()
@@ -378,7 +377,7 @@
 			magazine = null
 			verbs -= /obj/item/gun/projectile/revolver/verb/spin
 	playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/attack_hand(mob/user)
 	if(loc == user && unscrewed)
@@ -394,7 +393,7 @@
 	else
 		to_chat(user, span_notice("You [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine] from [src]"]."))
 		unscrewed = !unscrewed
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gun/projectile/revolver/improvisedrevolver/attackby(obj/item/A, mob/user, params)
 	if(unscrewed)
@@ -404,7 +403,7 @@
 			else if(user.drop_transfer_item_to_loc(A, src))
 				magazine = A
 				verbs += /obj/item/gun/projectile/revolver/verb/spin
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
 			if(barrel)
@@ -414,7 +413,7 @@
 					var/obj/item/weaponcrafting/revolverbarrel/new_barrel = A
 					barrel = A
 					fire_sound = new_barrel.new_fire_sound
-					update_icon()
+					update_icon(UPDATE_OVERLAYS)
 					playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 	else
 		return ..()
