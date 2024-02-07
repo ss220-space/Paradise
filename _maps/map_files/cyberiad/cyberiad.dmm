@@ -19825,12 +19825,6 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
-	},
-/obj/item/stack/packageWrap,
 /turf/simulated/floor/wood,
 /area/library)
 "baq" = (
@@ -19903,10 +19897,6 @@
 	name = "north station intercom (General)";
 	pixel_y = 28
 	},
-/obj/structure/table/wood,
-/obj/item/dice/d20,
-/obj/item/dice,
-/obj/item/storage/box/characters,
 /turf/simulated/floor/wood,
 /area/library)
 "baw" = (
@@ -20561,7 +20551,6 @@
 	},
 /area/maintenance/livingcomplex)
 "bch" = (
-/obj/structure/chair/office/dark,
 /obj/machinery/camera{
 	c_tag = "Library North"
 	},
@@ -21570,17 +21559,19 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "beo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /obj/structure/chair/office/dark{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/library)
 "bep" = (
-/obj/machinery/newscaster{
-	name = "east newscaster";
-	pixel_x = 32;
-	pixel_y = 1
-	},
+/obj/structure/table/wood,
+/obj/item/dice/d20,
+/obj/item/dice,
+/obj/item/storage/box/characters,
 /turf/simulated/floor/wood,
 /area/library)
 "beq" = (
@@ -22293,12 +22284,6 @@
 	icon_state = "darkblue"
 	},
 /area/chapel/main)
-"bfT" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/library)
 "bfU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -22950,9 +22935,6 @@
 /turf/simulated/floor/wood,
 /area/library)
 "bhx" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
@@ -23242,6 +23224,11 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/obj/item/stack/packageWrap,
 /turf/simulated/floor/wood,
 /area/library)
 "bii" = (
@@ -23252,9 +23239,6 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/library)
 "bio" = (
@@ -24133,11 +24117,11 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bkn" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /obj/structure/chair/office/dark{
 	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -131509,7 +131493,7 @@ aWg
 aGY
 bau
 bau
-btl
+bjF
 bih
 bia
 bju
@@ -132024,7 +132008,7 @@ aYY
 bqj
 bfU
 bhx
-bij
+bfU
 bkp
 bfU
 bfU
@@ -132280,9 +132264,9 @@ bbh
 bau
 bau
 bch
-bem
-bfY
-bkn
+bcp
+bcp
+bkK
 bcp
 blj
 blj
@@ -132536,10 +132520,10 @@ aGX
 bbh
 bau
 bav
-bci
-btl
-bfZ
-bkn
+bcp
+bij
+bij
+bkK
 bcp
 blj
 blj
@@ -132793,10 +132777,10 @@ aGX
 bbh
 bau
 bao
-bcp
+bci
+bem
+bfY
 beo
-beo
-bkK
 bcp
 bcp
 blj
@@ -133050,11 +133034,11 @@ aGX
 bbh
 bau
 bcp
-bcp
+bci
 bep
-bfT
-wjB
-bjF
+bfZ
+bkn
+bcp
 bll
 bcp
 boG
