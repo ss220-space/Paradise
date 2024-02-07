@@ -108,7 +108,7 @@
 	else
 		component_parts = list()
 		var/obj/item/circuitboard/vendor/V = new
-		V.set_type(replacetext(name, "\improper", ""))
+		V.set_type(replacetext(initial(name), "\improper", ""))
 		component_parts += V
 		component_parts += new refill_canister
 		RefreshParts()
@@ -1184,7 +1184,7 @@
 	refill_canister = /obj/item/vending_refill/wallmed
 
 /obj/machinery/vending/wallmed/syndicate
-	name = "\improper SyndiMed Plus"
+	name = "\improper SyndiWallMed"
 	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
 	icon_state = "syndimed"
 	icon_deny = "syndimed-deny"
@@ -1500,6 +1500,7 @@
 					  /obj/item/clothing/head/powdered_wig = 1,
 					  /obj/item/gun/magic/wand = 1,
 					  /obj/item/clothing/mask/balaclava =1,
+					  /obj/item/clothing/under/syndicate/blackops_civ = 1,
 					  /obj/item/clothing/glasses/thermal_fake = 1,
 					  /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
@@ -1676,7 +1677,7 @@
 		/obj/item/clothing/under/color/darkred = 10,
 		/obj/item/clothing/under/colour/skirt = 10
 		)
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5)
+	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5, /obj/item/clothing/under/syndicate/tacticool/skirt = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
@@ -1813,10 +1814,12 @@
 					/obj/item/clothing/neck/cloak/grey = 1)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
-					  /obj/item/clothing/mask/balaclava = 1,
-					  /obj/item/clothing/head/ushanka = 1,
-					  /obj/item/clothing/under/soviet = 1,
-					  /obj/item/storage/belt/fannypack/black = 1)
+					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
+					/obj/item/clothing/mask/balaclava = 1,
+					/obj/item/clothing/under/syndicate/blackops_civ = 1,
+					/obj/item/clothing/head/ushanka = 1,
+					/obj/item/clothing/under/soviet = 1,
+					/obj/item/storage/belt/fannypack/black = 1)
 
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
 				   /obj/item/clothing/head/mailman = 1,
@@ -2274,6 +2277,7 @@
 	req_access = list(ACCESS_CHAPEL_OFFICE)
 	products = list(
 		/obj/item/clothing/under/rank/chaplain = 5,
+		/obj/item/clothing/under/rank/chaplain/skirt = 5,
 		/obj/item/clothing/suit/witchhunter = 2,
 		/obj/item/clothing/head/witchhunter_hat = 2,
 		/obj/item/clothing/suit/armor/riot/knight/templar = 1,
@@ -2304,6 +2308,7 @@
 	req_access = list(ACCESS_HYDROPONICS)
 	products = list(
 		/obj/item/clothing/under/rank/hydroponics = 5,
+		/obj/item/clothing/under/rank/hydroponics/skirt = 5,
 		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3,
 		/obj/item/clothing/suit/apron = 4,
 		/obj/item/clothing/suit/apron/overalls = 2,

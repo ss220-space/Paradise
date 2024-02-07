@@ -21,6 +21,8 @@
 		tts_seed = SStts.get_random_seed(src)
 
 	setup_dna(new_species)
+	med_hud_set_health()	// Updating med huds is necessary after `setup_dna()` due to the fact that while
+	med_hud_set_status()	// a human does not have a heart, the hud status is displayed incorrectly.
 
 	create_reagents(330)
 
@@ -35,8 +37,6 @@
 	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
-	//Update med hud images...
-	..()
 	//...sec hud images...
 	sec_hud_set_ID()
 	sec_hud_set_implants()
@@ -66,13 +66,13 @@
 /mob/living/carbon/human/unathi/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi)
 
-/mob/living/carbon/human/unathi/draconid/Initialize(mapload)
+/mob/living/carbon/human/unathi_draconid/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi/draconid)
 
-/mob/living/carbon/human/unathi/ashwalker/Initialize(mapload)
+/mob/living/carbon/human/unathi_ashwalker/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi/ashwalker)
 
-/mob/living/carbon/human/unathi/ashwalker/shaman/Initialize(mapload)
+/mob/living/carbon/human/unathi_ashwalker_shaman/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi/ashwalker/shaman)
 
 /mob/living/carbon/human/vox/Initialize(mapload)
@@ -137,58 +137,58 @@
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
 
-/mob/living/carbon/human/golem/random/Initialize(mapload)
+/mob/living/carbon/human/golem_random/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/random)
 
-/mob/living/carbon/human/golem/adamantine/Initialize(mapload)
+/mob/living/carbon/human/golem_adamantine/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/adamantine)
 
-/mob/living/carbon/human/golem/plasma/Initialize(mapload)
+/mob/living/carbon/human/golem_plasma/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/plasma)
 
-/mob/living/carbon/human/golem/diamond/Initialize(mapload)
+/mob/living/carbon/human/golem_diamond/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/diamond)
 
-/mob/living/carbon/human/golem/gold/Initialize(mapload)
+/mob/living/carbon/human/golem_gold/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/gold)
 
-/mob/living/carbon/human/golem/silver/Initialize(mapload)
+/mob/living/carbon/human/golem_silver/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/silver)
 
-/mob/living/carbon/human/golem/plasteel/Initialize(mapload)
+/mob/living/carbon/human/golem_plasteel/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/plasteel)
 
-/mob/living/carbon/human/golem/titanium/Initialize(mapload)
+/mob/living/carbon/human/golem_titanium/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/titanium)
 
-/mob/living/carbon/human/golem/plastitanium/Initialize(mapload)
+/mob/living/carbon/human/golem_plastitanium/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/plastitanium)
 
-/mob/living/carbon/human/golem/alien_alloy/Initialize(mapload)
+/mob/living/carbon/human/golem_alien_alloy/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/alloy)
 
-/mob/living/carbon/human/golem/uranium/Initialize(mapload)
+/mob/living/carbon/human/golem_uranium/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/uranium)
 
-/mob/living/carbon/human/golem/plastic/Initialize(mapload)
+/mob/living/carbon/human/golem_plastic/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/plastic)
 
-/mob/living/carbon/human/golem/sand/Initialize(mapload)
+/mob/living/carbon/human/golem_sand/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/sand)
 
-/mob/living/carbon/human/golem/glass/Initialize(mapload)
+/mob/living/carbon/human/golem_glass/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/glass)
 
-/mob/living/carbon/human/golem/bluespace/Initialize(mapload)
+/mob/living/carbon/human/golem_bluespace/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/bluespace)
 
-/mob/living/carbon/human/golem/bananium/Initialize(mapload)
+/mob/living/carbon/human/golem_bananium/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/bananium)
 
-/mob/living/carbon/human/golem/tranquillite/Initialize(mapload)
+/mob/living/carbon/human/golem_tranquillite/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/tranquillite)
 
-/mob/living/carbon/human/golem/clockwork/Initialize(mapload)
+/mob/living/carbon/human/golem_clockwork/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem/clockwork)
 
 /mob/living/carbon/human/wryn/Initialize(mapload)
@@ -1094,12 +1094,20 @@
 		return 0
 	return 1
 
-/mob/living/carbon/human/proc/get_visible_gender()
+/mob/living/carbon/human/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
 	if((slot_w_uniform in obscured) && skipface)
 		return PLURAL
 	return gender
+
+/mob/living/carbon/human/get_visible_species()
+	var/displayed_species = dna.species.name
+	for(var/obj/item/clothing/C in src)			//Disguise checks
+		if(C == head || C == wear_suit || C == wear_mask || C == w_uniform || C == belt || C == back)
+			if(C.species_disguise)
+				displayed_species = C.species_disguise
+	return displayed_species
 
 /mob/living/carbon/human/proc/increase_germ_level(n)
 	if(gloves)

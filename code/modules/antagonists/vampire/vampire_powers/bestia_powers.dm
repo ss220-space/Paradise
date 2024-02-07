@@ -66,7 +66,7 @@
 		if(INTERNAL_ORGAN_KIDNEYS)
 			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
 		if(INTERNAL_ORGAN_EYES)
-			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
+			return bestia.trophies[INTERNAL_ORGAN_EYES]
 		if(INTERNAL_ORGAN_EARS)
 			return bestia.trophies[INTERNAL_ORGAN_EARS]
 		else
@@ -1081,7 +1081,7 @@
 
 	original_body.notransform = FALSE
 	original_body.status_flags &= ~GODMODE
-	original_body.canmove = TRUE
+	original_body.update_canmove()
 	is_transformed = FALSE
 	var/list/all_spells = original_body.mind.spell_list | original_body.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)

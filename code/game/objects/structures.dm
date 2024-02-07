@@ -8,8 +8,9 @@
 	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
-	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished structure has been lit up
+	/// Amount of timer ticks that an extinguished structure has been lit up
 	var/light_process = 0
+	var/extinguish_timer_id
 
 /obj/structure/New()
 	..()
@@ -257,11 +258,13 @@
 		update_light()
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the object. Perhaps shining a light will force it to clear?"
-		START_PROCESSING(SSobj, src)
+		extinguish_timer_id = addtimer(CALLBACK(src, PROC_REF(extinguish_light_check)), 2 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_LOOP|TIMER_DELETE_ME|TIMER_STOPPABLE)
 
 
-/obj/structure/process()
+/obj/structure/proc/extinguish_light_check()
 	var/turf/source_turf = get_turf(src)
+	if(!source_turf)
+		return
 	if(source_turf.get_lumcount() > 0.2)
 		light_process++
 		if(light_process > 3)
@@ -277,4 +280,5 @@
 	update_light()
 	name = initial(name)
 	desc = initial(desc)
-	STOP_PROCESSING(SSobj, src)
+	deltimer(extinguish_timer_id)
+

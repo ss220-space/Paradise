@@ -34,12 +34,16 @@
 	var/order_date
 	/// Time when the order was accepted
 	var/order_time
+	/// List of quest modificators
+	var/list/modificators
+	/// How many times we add time for order
+	var/time_add_count = -1
 
-/datum/cargo_quests_storage/proc/generate()
+/datum/cargo_quests_storage/proc/generate(easy_mode)
 	if(!quest_difficulty)
 		quest_difficulty = customer.get_difficulty()
 	if(!quest_difficulty)
-		quest_difficulty = pickweight(SScargo_quests.difficulties)
+		quest_difficulty = easy_mode ? pickweight(SScargo_quests.easy_mode_difficulties) : pickweight(SScargo_quests.difficulties)
 	quest_difficulty.generate_timer(src)
 	for(var/I in 1 to rand(MIN_QUEST_LEN, MAX_QUEST_LEN))
 		var/datum/cargo_quest/cargo_quest = add_quest()
@@ -84,39 +88,50 @@
 /datum/cargo_quests_storage/proc/after_activated()
 	if(!fast_check_timer)
 		return
+	add_time()
 	if(world.time - time_start - 0.4 * quest_time + 120 SECONDS >= 0)
 		deltimer(fast_check_timer)
 		fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 120 SECONDS, TIMER_STOPPABLE)
 
-/datum/cargo_quests_storage/proc/check_quest_completion(obj/structure/bigDelivery/closet, failed_quest_length, mismatch_content)
-	var/old_reward = reward
-	var/list/modificators = list()
+/datum/cargo_quests_storage/proc/add_time(time = 3 MINUTES)
+	var/timeleft = time_start + quest_time - world.time
+	deltimer(quest_check_timer)
+	quest_time += time
+	quest_check_timer = addtimer(CALLBACK(SScargo_quests, TYPE_PROC_REF(/datum/controller/subsystem/cargo_quests, remove_quest), UID()), timeleft + time, TIMER_STOPPABLE)
+	time_add_count++
+
+/datum/cargo_quests_storage/proc/check_quest_completion(obj/structure/bigDelivery/closet, failed_quest_length, mismatch_content, quest_len)
+	var/new_reward = reward
+	modificators = list()
 
 	if(closet.cc_tag != customer.departament_name)
-		reward -= old_reward * 0.2
+		new_reward -= reward * 0.2
 		modificators["departure_mismatch"] = TRUE
 
 	if(mismatch_content)
-		reward -= old_reward * 0.3 * mismatch_content
+		new_reward -= reward * 0.3 * mismatch_content
 		modificators["content_mismatch"] = mismatch_content
 
 	if(failed_quest_length)
-		reward -= old_reward * 0.5 * failed_quest_length
+		new_reward -= reward * (1/quest_len) * failed_quest_length
 		modificators["content_missing"] = failed_quest_length
+		modificators["quest_len"] = quest_len
 
 	if(!failed_quest_length && !fast_failed)
-		reward += old_reward * 0.4
+		new_reward += reward * 0.4
 		modificators["quick_shipment"] = TRUE
 		if(closet.cc_tag == customer.departament_name)
 			customer.set_sale()
 
-	if(reward <= 0)
-		reward = 1
+	if(time_add_count)
+		new_reward -= time_add_count * reward * 0.1
 
-	reward = round(reward)
-	SScargo_quests.remove_quest(UID(), complete = TRUE, modificators = modificators, old_reward = old_reward)
+	if(new_reward <= 0)
+		new_reward = 1
 
-	return reward
+	new_reward = round(new_reward)
+
+	return new_reward
 
 /datum/cargo_quest
 	/// Quest name, using in interface.
@@ -152,5 +167,11 @@
 
 /datum/cargo_quest/proc/check_required_item(atom/movable/check_item)
 	return
+
+/datum/cargo_quest/proc/after_check()
+	return TRUE
+
+/datum/cargo_quest/proc/completed_quest()
+	return TRUE
 
 #undef MIN_PLAYERS_FOR_MIX

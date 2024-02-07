@@ -44,6 +44,7 @@
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 	var/datum/martial_art/martial_art
+	var/list/known_martial_arts = list()
 
 	var/role_alt_title
 
@@ -171,10 +172,10 @@
 	transfer_actions(new_character, old_current)
 
 	if(martial_art)
-		if(martial_art.temporary)
-			martial_art.remove(current)
-		else
-			martial_art.teach(current)
+		for(var/datum/martial_art/MA in known_martial_arts)
+			MA.remove(current)
+			if(!MA.temporary)
+				MA.teach(current)
 
 	for(var/datum/antagonist/antag in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)

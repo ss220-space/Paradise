@@ -4,4 +4,4 @@
 	set desc = "Open the request manager panel to view all requests during this round"
 	set category = "Event"
 	GLOB.requests.ui_interact(usr)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Request Manager") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Request Manager") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

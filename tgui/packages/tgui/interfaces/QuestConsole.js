@@ -238,13 +238,19 @@ const QuestItem = (properties, context) => {
                   position="absolute" top="50%" left="50%"
                   textAlign="center"
                   style={{ 'z-index': '2', 'transform': 'translate(-50%, -50%)' }}>
-                  <Box bold fontSize={1.3}>The order is already being processed</Box>
+                  <Box bold fontSize={1.2}>The order is already being processed</Box>
                   <Button
-                    mt={2}
                     icon="print" color="blue"
                     fontSize={1.2} py={1} px={2}
                     onClick={() => act('print_order', { uid: quest.ref })}>
                     Print
+                  </Button>
+                  <Button
+                    ml={2}
+                    icon="hourglass-half" color="orange"
+                    fontSize={1.2} py={1} px={2}
+                    onClick={() => act('add_time', { uid: quest.ref })}>
+                    Delay
                   </Button>
                 </Box>
               )

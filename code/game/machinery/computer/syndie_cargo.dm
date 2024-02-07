@@ -269,6 +269,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/syndie_supplycomp/LateInitialize()
+	. = ..()
 	compSync()
 
 /obj/machinery/computer/syndie_supplycomp/Destroy()

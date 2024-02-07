@@ -283,8 +283,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	if(istype(src.loc, /obj/mecha/medical/odysseus))
-		var/obj/mecha/medical/odysseus/O = src.loc
+	if(istype(loc, /obj/mecha/medical/odysseus))
+		var/obj/mecha/medical/odysseus/O = loc
 		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/S in O.equipment)
 			S.detach()
 
@@ -312,11 +312,11 @@
 	if(istype(target, /obj/item/reagent_containers/syringe) || istype(target, /obj/item/storage))
 		if(get_dist(src, target) < 2)
 			for(var/obj/structure/D in target.loc)//Basic level check for structures in the way (Like grilles and windows)
-				if(!(D.CanPass(target, src.loc)))
+				if(!(D.CanPass(target, loc)))
 					occupant_message("Unable to load syringe.")
 					return FALSE
 			for(var/obj/machinery/door/D in target.loc)//Checks for doors
-				if(!(D.CanPass(target, src.loc)))
+				if(!(D.CanPass(target, loc)))
 					occupant_message("Unable to load syringe.")
 					return FALSE
 			return start_syringe_loading(target)
@@ -419,7 +419,7 @@
 	if(!emagged)
 		emagged = TRUE
 		user.visible_message(span_warning("Sparks fly out of the [src]!</span>"), span_notice("You short out the safeties on[src]."))
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_page()
 	var/output = {"<html>
@@ -561,7 +561,7 @@
 	icon_state = "beaker_upgrade"
 	origin_tech = "materials=5;engineering=5;biotech=6"
 	energy_drain = 10
-	selectable = FALSE
+	selectable = MODULE_SELECTABLE_NONE
 	var/improv_max_volume = 300
 	var/imrov_synth_speed = 20
 

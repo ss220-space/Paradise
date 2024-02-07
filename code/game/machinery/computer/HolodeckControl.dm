@@ -598,7 +598,7 @@
 
 	var/numbuttons = 0
 	var/numready = 0
-	for(var/obj/machinery/readybutton/button in currentarea)
+	for(var/obj/machinery/readybutton/button in currentarea.machinery_cache)
 		numbuttons++
 		if(button.ready)
 			numready++

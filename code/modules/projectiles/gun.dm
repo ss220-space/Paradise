@@ -447,7 +447,8 @@
 
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
-		toggle_gunlight()
+		gun_light.on = FALSE
+		update_gun_light()
 		visible_message(span_danger("[src]'s light fades and turns off."))
 
 
