@@ -231,11 +231,13 @@
 			adir = assailant.dir
 			affecting.setDir(assailant.dir)
 			affecting.forceMove(assailant.loc)
+			affecting.bump_priority = BUMP_PRIORITY_HIGH
 		if(GRAB_KILL)
 			shift = 0
 			adir = 1
 			affecting.setDir(SOUTH)//face up
 			affecting.forceMove(assailant.loc)
+			affecting.bump_priority = BUMP_PRIORITY_HIGH
 
 	switch(adir)
 		if(NORTH)
@@ -481,6 +483,7 @@
 			affecting.pixel_x = 0
 			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
 			affecting.layer = initial(affecting.layer)
+			affecting.bump_priority = BUMP_PRIORITY_NORMAL
 		affecting.grabbed_by -= src
 		affecting = null
 	if(assailant)

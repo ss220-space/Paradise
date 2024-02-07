@@ -174,9 +174,9 @@
 	var/top_layer = 0
 	for(var/atom/movable/obstacle in large_dense)
 		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
-			if(obstacle.layer > top_layer)
+			if((obstacle.bump_priority + obstacle.layer) > top_layer)
 				tompost_bump = obstacle
-				top_layer = obstacle.layer	//Probably separate variable is a better solution, but its good for now.
+				top_layer = obstacle.bump_priority + obstacle.layer
 	if(tompost_bump)
 		mover.Bump(tompost_bump, TRUE)
 		return FALSE

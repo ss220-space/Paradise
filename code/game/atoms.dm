@@ -8,6 +8,7 @@
 
 /atom
 	layer = TURF_LAYER
+	var/bump_priority = BUMP_PRIORITY_NORMAL
 	plane = GAME_PLANE
 	var/level = 2
 	var/flags = NONE
