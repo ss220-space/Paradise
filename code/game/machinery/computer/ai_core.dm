@@ -170,6 +170,7 @@
 			else
 				if(brain.brainmob.mind)
 					SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
+					SSticker.mode.remove_clocker(brain.brainmob.mind, 1)
 					SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
 
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
