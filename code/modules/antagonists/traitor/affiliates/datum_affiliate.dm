@@ -7,24 +7,6 @@
 	var/list/objectives
 	var/obj/item/uplink/hidden/uplink
 
-/datum/affiliate/cybersun
-	name = "Cybersun Industries"
-	desc = "Вы - очередная игрушка в руках CyberSun Industries. По принуждению или \n\
-			из-за обещаний материальных благ вы согласились выполнить некоторые задания для неё. \n\
-			Как вам стоит работать: Нет особых предпочтений. \n\
-			Особые условия: Словно насмешка над вами, вам предоставлена скидка на продукции вашего Нанимателя;\n\
-			Вам доступен специальный модуль улучшения, что предоставляет киборгу НТ модули Киберсана. \n\
-			Стандартные цели: Кража высокотехнологичной продукции NT (ИИ, боевые мехи, иные важные предметы),\n\
-			устранение, кража технологий"
-	key = "cybersun"
-	cats_to_exclude = CATEGORY_DANGEROUS
-	objectives = list(list(/datum/objective/steal = 50, /datum/objective/steal/ai = 50),
-						/datum/objective/mecha_hijack,
-						/datum/objective/download_data,
-						/datum/objective/maroon,
-						/datum/objective/escape,
-						)
-
 /datum/affiliate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
