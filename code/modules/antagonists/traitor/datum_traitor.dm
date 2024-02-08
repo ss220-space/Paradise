@@ -12,7 +12,6 @@
 	russian_wiki_name = "Предатель"
 	clown_gain_text = "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
-	give_objectives = FALSE
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Whether the traitor should get his uplink.
@@ -33,6 +32,9 @@
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
+
+	if(CONFIG_GET(flag/enable_syndicate_affiliates))
+		give_objectives = FALSE
 	return ..()
 
 
@@ -78,7 +80,10 @@
 
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
-	antag_hud_name = "hudsyndicate"
+	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+		antag_hud_name = "hudhijack"
+	else
+		antag_hud_name = "hudsyndicate"
 	return ..()
 
 

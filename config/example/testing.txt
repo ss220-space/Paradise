@@ -2,3 +2,5 @@
 
 ## Enables bombarda craft.
 ENABLE_BOMBARDA_CRAFT 
+## Enables syndicate affiliates
+ENABLE_SYNDICATE_AFFILIATES
