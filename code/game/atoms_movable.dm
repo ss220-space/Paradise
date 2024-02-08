@@ -1,5 +1,6 @@
 /atom/movable
 	layer = 3
+	var/bump_priority = BUMP_PRIORITY_NORMAL
 	appearance_flags = TILE_BOUND
 	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null

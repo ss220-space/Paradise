@@ -172,11 +172,16 @@
 	//Finally, check objects/mobs to block entry that are not on the border
 	var/atom/movable/tompost_bump
 	var/top_layer = 0
+	var/current_layer = 0
+	var/reverse_movement_dir = get_dir(src, oldloc)
 	for(var/atom/movable/obstacle in large_dense)
 		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
-			if((obstacle.bump_priority + obstacle.layer) > top_layer)
+			current_layer = obstacle.layer
+			if(obstacle.bump_priority < BUMP_PRIORITY_NORMAL && reverse_movement_dir == obstacle.dir)
+				current_layer += obstacle.bump_priority
+			if(current_layer > top_layer)
 				tompost_bump = obstacle
-				top_layer = obstacle.bump_priority + obstacle.layer
+				top_layer = current_layer
 	if(tompost_bump)
 		mover.Bump(tompost_bump, TRUE)
 		return FALSE
