@@ -232,20 +232,21 @@
 /obj/machinery/computer/roboquest/proc/print_task(datum/roboquest/quest)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/paper = new(get_turf(src))
-	paper.info = "<div id=\"output\"><center> <h3> Mecha request form </h3> </center><br><hr><br>"
-	paper.info += "Mecha request accepted by: [currentID.registered_name] - [currentID.rank]<br>"
-	paper.info += "<ul> <h3> Mecha info</h3>"
-	paper.info += "<li> Name: [quest.name]</li><br />"
-	paper.info += "<li> Desc: [quest.desc]</li><br />"
-	paper.info += "<h4> Modules:</h4><br />"
+	paper.header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr noshade size='4'>"
+	paper.info = "<center> <h2> Mecha request form </h2> </center>"
+	paper.info += "<ul> <h3> Mecha info:</h3>"
+	paper.info += "<li> Mecha type: [quest.name]</li><br>"
+	paper.info += "<li> Report: [quest.desc]</li><br>"
+	paper.info += "<h3>Requested modules:</h3>"
 	for(var/i in quest.questinfo["modules"])
-		paper.info += "<li> -[i["name"]]</li><br />"
-	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.reward] points</span><br>"
-	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
-	var/obj/item/stamp/navcom/stamp = new()
+		paper.info += "<li> [i["name"]]</li><br>"
+	paper.info += "<br><b> Initial reward:</b> [quest.reward] point(s)"
+	paper.info += "<p><b>Mecha request accepted by:</b> [currentID.registered_name] - [currentID.rank] at [station_time_timestamp()].</p></ul>"
+	paper.info += "<hr><center><small><i>The request has been approved and certified by NAS Trurl.</i></small></center>"
+	var/obj/item/stamp/centcom/stamp = new()
 	paper.stamp(stamp)
 	paper.update_icon()
-	paper.name = "Mecha request form"
+	paper.name = "NT-CC-RND-[rand(10, 51)] \"Mecha request form\" "
 
 /obj/machinery/computer/roboquest/proc/cooldown_end(obj/item/card/id/penaltycard)
 	penaltycard.bounty_penalty = null
