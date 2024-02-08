@@ -5,6 +5,7 @@
 	base_cooldown = 1 SECONDS
 	cooldown_min = 1 SECONDS
 	clothes_req = FALSE
+	human_req = FALSE
 	centcom_cancast = FALSE
 	invocation = "NECREM IMORTIUM!"
 	invocation_type = "shout"
