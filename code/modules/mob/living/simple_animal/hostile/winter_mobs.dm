@@ -89,15 +89,18 @@
 /mob/living/simple_animal/hostile/winter/santa/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
-	bossfight_area.ready_or_not()
 	if(!.)
 		return FALSE
 	if(death_message)
 		visible_message(death_message)
 	if(next_stage)
 		spawn(1 SECONDS)
-			new next_stage(get_turf(src))
-			qdel(src)	//hide the body
+			if(!QDELETED(src))
+				new next_stage(get_turf(src))
+				qdel(src)	//hide the body
+			bossfight_area.ready_or_not()
+	else
+		bossfight_area.ready_or_not()
 
 /mob/living/simple_animal/hostile/winter/santa/stage_1		//stage 1: slow melee
 	maxHealth = 150

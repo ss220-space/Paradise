@@ -146,7 +146,7 @@
 
 		update_item(picked_item)
 		var/obj/item/thing = target
-		thing.update_slot_icon()
+		thing.update_equipped_item()
 	UpdateButtonIcon()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
@@ -664,7 +664,7 @@
 	permeability_coefficient = 0.01
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	actions_types = list()
+	actions_types = null
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 

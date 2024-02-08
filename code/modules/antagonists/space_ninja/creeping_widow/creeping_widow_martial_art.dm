@@ -38,6 +38,7 @@
 
 /datum/martial_art/ninja_martial_art
 	name = "Creeping Widow"
+	weight = 10
 	combos = list(	/datum/martial_combo/ninja_martial_art/energy_tornado,
 					/datum/martial_combo/ninja_martial_art/palm_strike,
 					/datum/martial_combo/ninja_martial_art/wrench_wrist,

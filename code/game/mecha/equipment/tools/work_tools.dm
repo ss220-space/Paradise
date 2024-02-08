@@ -61,7 +61,7 @@
 			start_cooldown()
 		else if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded)
 			if(ismegafauna(M))
-				occupant_message(SPAN_WARNING("БЕГИ, ИДИОТ, НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
+				occupant_message(span_warning("БЕГИ, ИДИОТ, НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
 				return FALSE
 			if(!M.anchored)
 				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
@@ -146,7 +146,7 @@
 	desc = "A working exosuit module that allows you to turn your Ripley into a hearse, zoo, or armored personnel carrier."
 	icon_state = "tesla"
 	origin_tech = "materials=5;bluespace=6;"
-	selectable = FALSE
+	selectable = MODULE_SELECTABLE_NONE
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade/can_attach(obj/mecha/M)
 	if(..())
@@ -155,14 +155,14 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade/attach_act()
-	if(istype(src.loc, /obj/mecha/working))
-		var/obj/mecha/working/W = src.loc
+	if(istype(loc, /obj/mecha/working))
+		var/obj/mecha/working/W = loc
 		W.cargo_expanded = TRUE
 		W.cargo_capacity = 40
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade/detach_act()
-	if(istype(src.loc, /obj/mecha/working))
-		var/obj/mecha/working/R = src.loc
+	if(istype(loc, /obj/mecha/working))
+		var/obj/mecha/working/R = loc
 		R.cargo_expanded = FALSE
 		R.cargo_capacity = initial(R.cargo_capacity)
 
@@ -323,7 +323,7 @@
 /obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/M)
 	for(var/thing in modules)
 		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
-		module.chassis = src.chassis
+		module.chassis = chassis
 		module.attach_act(M)
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/detach_act()
@@ -508,13 +508,13 @@
 	NC.cable_color("red")
 	NC.d1 = 0
 	NC.d2 = fdirn
-	NC.updateicon()
+	NC.update_icon(UPDATE_ICON_STATE)
 
 	var/datum/powernet/PN
 	if(last_piece && last_piece.d2 != Dir)
 		last_piece.d1 = min(last_piece.d2, Dir)
 		last_piece.d2 = max(last_piece.d2, Dir)
-		last_piece.updateicon()
+		last_piece.update_icon(UPDATE_ICON_STATE)
 		PN = last_piece.powernet
 
 	if(!PN)
@@ -589,7 +589,7 @@
 						sleep(2)
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_module_equip_info()
-	return " \[[src.reagents.total_volume]\]"
+	return " \[[reagents.total_volume]\]"
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/on_reagent_change()
 	return
@@ -633,7 +633,7 @@
 				occupant_message(span_notice("[src] is projecting at max capacity!"))
 				return FALSE
 			else
-				playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
+				playsound(loc, 'sound/machines/click.ogg', 20, 1)
 				if(creation_time)
 					holocreator_busy = TRUE
 					if(!do_after_mecha(target, creation_time))
@@ -756,6 +756,6 @@
 	if(!emagged)
 		items_list.Add(new emag_item)
 		emagged = TRUE
-		user.visible_message(span_warning("Sparks fly out of [src.name]"), span_notice("You short out the safeties on [src.name]."))
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		user.visible_message(span_warning("Sparks fly out of [name]"), span_notice("You short out the safeties on [name]."))
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		update_equip_info()

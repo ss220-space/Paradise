@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -809,6 +810,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					demon.exit_to_turf()
 			if(been_hijacked)
 				cell.rigged = FALSE
+
+			module?.update_cells()
 			diag_hud_set_borgcell()
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
@@ -1307,7 +1310,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		robot_suit.head.flash2.burn_out()
 		robot_suit.head.flash2 = null
 		robot_suit.head = null
-		robot_suit.updateicon()
+		robot_suit.update_icon(UPDATE_OVERLAYS)
 	else
 		new /obj/item/robot_parts/robot_suit(T)
 		new /obj/item/robot_parts/l_leg(T)
@@ -1660,7 +1663,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/extinguish_light(force = FALSE)
 	..()
-	update_headlamp(1, 150)
+	update_headlamp(turn_off = TRUE, cooldown = 15 SECONDS)
 
 /mob/living/silicon/robot/rejuvenate()
 	..()

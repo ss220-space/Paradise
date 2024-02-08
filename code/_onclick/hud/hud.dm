@@ -43,11 +43,15 @@
 	var/action_buttons_hidden = FALSE
 
 	var/list/obj/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
+	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
+	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
+
 
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud(src)
 		update_sight()
+
 
 /datum/hud/New(mob/owner)
 	mymob = owner
@@ -58,6 +62,11 @@
 		var/obj/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
 		instance.backdrop(mymob)
+
+	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
+		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
+		plane_master_controllers[controller_instance.name] = controller_instance
+
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -100,9 +109,11 @@
 	devilsouldisplay = null
 
 	QDEL_LIST_ASSOC_VAL(plane_masters)
+	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
 
 	mymob = null
 	return ..()
+
 
 /datum/hud/proc/show_hud(version = 0)
 	if(!ismob(mymob))
@@ -178,6 +189,7 @@
 	update_parallax_pref(mymob)
 	plane_masters_update()
 
+
 /datum/hud/proc/plane_masters_update()
 	// Plane masters are always shown to OUR mob, never to observers
 	for(var/thing in plane_masters)
@@ -185,11 +197,13 @@
 		PM.backdrop(mymob)
 		mymob.client.screen += PM
 
+
 /datum/hud/human/show_hud(version = 0)
 	. = ..()
 	if(!.)
 		return
 	hidden_inventory_update()
+
 
 /datum/hud/robot/show_hud(version = 0)
 	. = ..()
@@ -197,11 +211,14 @@
 		return
 	update_robot_modules_display()
 
+
 /datum/hud/proc/hidden_inventory_update()
 	return
 
+
 /datum/hud/proc/persistent_inventory_update()
 	return
+
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()
@@ -214,5 +231,15 @@
 	else
 		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
 
+
 /datum/hud/proc/update_locked_slots()
 	return
+
+
+/mob/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
+	QDEL_NULL(hud_used)
+	create_mob_hud()
+	update_action_buttons_icon()
+	if(hud_used)
+		hud_used.show_hud(hud_used.hud_version)
+

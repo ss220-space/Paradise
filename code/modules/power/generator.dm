@@ -20,7 +20,8 @@
 	..()
 	update_desc()
 
-/obj/machinery/power/generator/proc/update_desc()
+/obj/machinery/power/generator/update_desc()
+	. = ..()
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
 
 /obj/machinery/power/generator/Destroy()

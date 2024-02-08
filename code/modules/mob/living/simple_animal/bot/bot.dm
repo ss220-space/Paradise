@@ -212,7 +212,6 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 		diag_hud.add_hud_to(src)
-		permanent_huds |= diag_hud
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
@@ -1089,7 +1088,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		add_attack_logs(user, src, "Dehacked")
 
 
-/mob/living/simple_animal/bot/proc/update_icon()
+/mob/living/simple_animal/bot/update_icon_state()
 	icon_state = "[initial(icon_state)][on]"
 
 

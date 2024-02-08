@@ -91,6 +91,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query, dont bother slowing roundstart
 
+	SScargo_quests.roll_start_quests()
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
@@ -602,6 +603,7 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 
+	var/list/goals = list()
 	for(var/datum/station_goal/goal in station_goals)
 
 		var/message_text = "<div style='text-align:center;'><img src = ntlogo.png>"
@@ -610,6 +612,9 @@
 		goal.on_report()
 		message_text += goal.get_report()
 		print_command_report(message_text, "Приказания [command_name()]", FALSE, goal)
+		goals += goal.name
+
+	log_game("Station goals at round start were: [english_list(goals)].")
 
 
 /datum/game_mode/proc/declare_station_goal_completion()

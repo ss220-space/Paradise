@@ -516,7 +516,7 @@
 	list_reagents = list("sugar" = 15, "watermelonjuice" = 5)
 
 /obj/item/reagent_containers/food/snacks/candy/cotton/rainbow
-	name = "cotton candy"
+	name = "rainbow cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_rainbow"
 	trash = /obj/item/c_tube
@@ -524,7 +524,7 @@
 	list_reagents = list("omnizine" = 20)
 
 /obj/item/reagent_containers/food/snacks/candy/cotton/bad_rainbow
-	name = "cotton candy"
+	name = "bad rainbow cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_rainbow"
 	trash = /obj/item/c_tube

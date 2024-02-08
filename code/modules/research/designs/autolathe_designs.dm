@@ -532,7 +532,7 @@
 	name = "Speed Loader (.38 Hollow-Point)"
 	id = "c38hp"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list("hacked", "Security")
 
@@ -825,6 +825,22 @@
 	build_path = /obj/item/ammo_box/magazine/sp8
 	category = list("hacked", "Security")
 
+/datum/design/sp91rc_box
+	name = "Ammo Box (9mm TE)"
+	id = "9mmTEbox"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/c9mmte
+	category = list("hacked", "Security")
+
+/datum/design/sp91rc_mag
+	name = "handgun magazine (9mm TE)"
+	id = "9mm-te"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 12000)
+	build_path = /obj/item/ammo_box/magazine/sp91rc
+	category = list("hacked", "Security")
+
 /datum/design/buckshot_shell
 	name = "Buckshot shell"
 	id = "buckshot_shell"
@@ -885,7 +901,7 @@
 	name = "Ammo Box (.357)"
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 75000)
+	materials = list(MAT_METAL = 75500)
 	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
 

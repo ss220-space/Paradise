@@ -19,7 +19,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_строительству" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_строительству" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -37,7 +37,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Тесла-двигатель" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Тесла-двигатель" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -55,7 +55,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Двигатель_Суперматерии" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Двигатель_Суперматерии" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -73,7 +73,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_взлому" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_взлому" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -91,7 +91,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Сингулярный_двигатель" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Сингулярный_двигатель" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -690,7 +690,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Космический_Закон" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Космический_Закон" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -713,7 +713,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Guide_to_Engineering" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_инженерии" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -731,7 +731,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -746,7 +746,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Основные_ингредиенты_и_приправы" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Основные_ингредиенты_и_приправы" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -761,7 +761,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Тесто_и_базовый_хлеб" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Тесто_и_базовый_хлеб" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -776,7 +776,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Мясные_блюда" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Мясные_блюда" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -791,7 +791,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Рыба,_морепродукты,_суши" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Рыба,_морепродукты,_суши" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -806,7 +806,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Бутерброды" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Бутерброды" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -821,7 +821,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Паста_и_пицца" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Паста_и_пицца" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -836,7 +836,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Супы,_салаты_и_гарниры" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Супы,_салаты_и_гарниры" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -851,7 +851,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Хлебобулочные_изделия_и_десерты" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Хлебобулочные_изделия_и_десерты" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -866,7 +866,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Шоколадки_и_конфеты" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Шоколадки_и_конфеты" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -881,7 +881,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Остальные_рецепты" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Остальные_рецепты" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -899,7 +899,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_напиткам" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_напиткам" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -914,7 +914,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Ассортимент_бухломата" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Ассортимент_бухломата" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -929,7 +929,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Раздатчик_выпивки" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Раздатчик_выпивки" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -944,7 +944,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Фонтан_газировки" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Фонтан_газировки" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -959,7 +959,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Рецепты_Бутылочницы" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Рецепты_Бутылочницы" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -974,7 +974,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Алкогольные_напитки_и_коктейли" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Алкогольные_напитки_и_коктейли" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -989,7 +989,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Напитки_на_основе_синтанола" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Напитки_на_основе_синтанола" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -1004,7 +1004,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Безалкогольные_напитки" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Безалкогольные_напитки" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -1019,7 +1019,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Напитки_из_ингредиентов_с_кухни" frameborder="0" id="main_frame"></iframe>        </body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Напитки_из_ингредиентов_с_кухни" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
@@ -1343,7 +1343,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Science)" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Science)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -1361,7 +1361,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Medical)" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Medical)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -1379,7 +1379,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Engineering)" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Engineering)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -1397,7 +1397,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Service)" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Стандартные_рабочие_процедуры_(Сервис)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -1415,7 +1415,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Supply)" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Стандартные_рабочие_процедуры_(Снабжение)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -1433,7 +1433,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Security)" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Security)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -1451,7 +1451,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Legal_Standard_Operating_Procedure" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Legal_Standard_Operating_Procedure" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -1469,7 +1469,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -1487,7 +1487,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Command)" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Command)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 

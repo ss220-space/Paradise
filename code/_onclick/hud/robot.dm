@@ -102,6 +102,7 @@
 /datum/hud/robot/New(mob/user)
 	..()
 
+	user.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	var/obj/screen/using
 	var/mob/living/silicon/robot/mymobR = mymob
 
@@ -165,13 +166,13 @@
 	module_store_icon.screen_loc = ui_borg_store
 
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = 'icons/mob/screen_robot.dmi'
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_borg_pull
 	hotkeybuttons += mymob.pullin
 
-	zone_select = new /obj/screen/zone_sel/robot()
-	zone_select.update_icon(mymob)
+	zone_select = new /obj/screen/zone_sel/robot(null, src)
 	static_inventory += zone_select
 
 //Headlamp
