@@ -481,12 +481,8 @@
 /proc/show_objectives(datum/mind/player)
 	if(!player?.current)
 		return
-
-	var/obj_count = 1
-	to_chat(player.current, span_notice("Your current objectives:"))
-	for(var/datum/objective/objective in player.get_all_objectives())
-		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+	var/list/message = player.prepare_announce_objectives()
+	to_chat(player.current, chat_box_objectives(message.Join("<br/>")))
 
 
 /proc/get_nuke_code()

@@ -12,6 +12,7 @@
 	russian_wiki_name = "Предатель"
 	clown_gain_text = "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
+	give_objectives = FALSE
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Whether the traitor should get his uplink.
@@ -22,6 +23,8 @@
 	var/is_hijacker = FALSE
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
+	/// Current traitor affiliate
+	var/datum/affiliate/affiliate
 
 
 /datum/antagonist/traitor/on_gain()
@@ -75,10 +78,7 @@
 
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
-	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
-		antag_hud_name = "hudhijack"
-	else
-		antag_hud_name = "hudsyndicate"
+	antag_hud_name = "hudsyndicate"
 	return ..()
 
 

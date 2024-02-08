@@ -5,6 +5,7 @@
 #define THEFT_FLAG_STRUCTURE	5
 #define THEFT_FLAG_ANIMAL		6
 #define THEFT_FLAG_COLLECT 		7
+#define THEFT_FLAG_AI 			8
 
 
 GLOBAL_LIST_EMPTY(all_objectives)
@@ -809,6 +810,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			return GLOB.potential_theft_objectives_structure
 		if(THEFT_FLAG_ANIMAL)
 			return GLOB.potential_theft_objectives_animal
+		if(THEFT_FLAG_AI)
+			return list(/datum/theft_objective/highrisk/ai)
 		else
 			return GLOB.potential_theft_objectives
 
@@ -923,6 +926,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/collect
 	type_theft_flag = THEFT_FLAG_COLLECT
 
+/datum/objective/steal/ai
+	type_theft_flag = THEFT_FLAG_AI
 
 /datum/objective/steal/exchange
 	martyr_compatible = FALSE
@@ -1729,3 +1734,13 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	Подойдёт только консоль в этой зоне из-за уязвимости оставленной заранее для вируса. \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
 
+// Affiliates objectives custom
+/datum/objective/download_data
+	needs_target = FALSE
+	completed = TRUE
+	explanation_text = "Проверка: загрузка"
+
+/datum/objective/mecha_hijack
+	needs_target = FALSE
+	completed = TRUE
+	explanation_text = "Проверка: мехи"

@@ -1,3 +1,20 @@
+#define NO_CATEGORY 				0
+#define	CATEGORY_JOBSPECIFIC   	 	(1<<0)
+#define	CATEGORY_RACIAL 		 	(1<<1)
+#define	CATEGORY_DANGEROUS 	  	 	(1<<2)
+#define CATEGORY_AMMO		  	 	(1<<3)
+#define CATEGORY_STEALTH_WEAPONS    (1<<4)
+#define CATEGORY_EXPLOSIVE 	     	(1<<5)
+#define CATEGORY_STEALTH_ITEMS		(1<<6)
+#define CATEGORY_DEVICES 		 	(1<<7)
+#define CATEGORY_SUITS 	         	(1<<8)
+#define CATEGORY_IMPLANTS        	(1<<9)
+#define CATEGORY_BADASS             (1<<10)
+#define CATEGORY_BUNDLE             (1<<11)
+#define CATEGORY_DISCOUNT           (1<<12)
+
+#define ALL_CATEGORY 				(~0)
+
 /**
  * Proc that generates a list of items, available for certain uplink.
  *
@@ -52,6 +69,8 @@
 	var/name = "item name"
 	/// Uplink category.
 	var/category = "item category"
+	/// Category bitflag
+	var/category_flag = NO_CATEGORY
 	/// Uplink description.
 	var/desc = "Item Description"
 	/// Item object, must be defined in every datum entry and must be /obj path.
@@ -66,6 +85,8 @@
 	var/list/job
 	/// Empty list means it is available for every in game species.
 	var/list/race
+	/// Empty list means it is available for every in game affiliates.
+	var/list/affiliate
 	/// Chance of being included in the surplus crate (when pick() selects it).
 	var/surplus = 100
 	/// Whether item can be on sales category.
@@ -186,11 +207,29 @@
 
 /datum/uplink_item/discounts
 	category = "Discounted Gear"
+	category_flag = CATEGORY_DISCOUNT
+
+//Affiliate specific
+
+/datum/uplink_item/affiliate
+	category = "Affiliate specific"
+	can_discount = FALSE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/affiliate/cybersun
+	affiliate = list("cybersun")
+
+/datum/uplink_item/affiliate/cybersun/test
+	name = "Banana Grenade"
+	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on"
+	item = /obj/item/grenade/clown_grenade
+	cost = 10
 
 //Job specific gear
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
+	category_flag = CATEGORY_JOBSPECIFIC
 	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
@@ -560,6 +599,7 @@
 
 /datum/uplink_item/racial
 	category = "Racial Specific Tools"
+	category_flag = CATEGORY_RACIAL
 	can_discount = FALSE
 	surplus = 0
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -613,6 +653,7 @@
 
 /datum/uplink_item/dangerous
 	category = "Highly Visible and Dangerous Weapons"
+	category_flag = CATEGORY_DANGEROUS
 
 /datum/uplink_item/dangerous/minotaur
 	name = "AS-12 'Minotaur' Shotgun"
@@ -832,6 +873,7 @@
 
 /datum/uplink_item/ammo
 	category = "Ammunition"
+	category_flag = CATEGORY_AMMO
 	surplus = 40
 
 /datum/uplink_item/ammo/pistol
@@ -1082,6 +1124,7 @@
 
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
+	category_flag = CATEGORY_STEALTH_WEAPONS
 
 /datum/uplink_item/stealthy_weapons/garrote
 	name = "Fiber Wire Garrote"
@@ -1202,6 +1245,7 @@
 
 /datum/uplink_item/explosives
 	category = "Grenades and Explosives"
+	category_flag = CATEGORY_EXPLOSIVE
 
 /datum/uplink_item/explosives/plastic_explosives
 	name = "Composition C-4"
@@ -1374,6 +1418,7 @@
 
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
+	category_flag = CATEGORY_STEALTH_ITEMS
 
 /datum/uplink_item/stealthy_tools/syndie_kit/counterfeiter_bundle
 	name = "Syndicate Counterfeiter Bundle"
@@ -1515,6 +1560,7 @@
 
 /datum/uplink_item/device_tools
 	category = "Devices and Tools"
+	category_flag = CATEGORY_DEVICES
 
 /datum/uplink_item/device_tools/emag
 	name = "Cryptographic Sequencer"
@@ -1660,6 +1706,7 @@
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
 	category = "Space Suits and Hardsuits"
+	category_flag = CATEGORY_SUITS
 	surplus = 40
 
 /datum/uplink_item/suits/space_suit
@@ -1829,6 +1876,7 @@
 
 /datum/uplink_item/implants
 	category = "Implants"
+	category_flag = CATEGORY_IMPLANTS
 
 /datum/uplink_item/implants/freedom
 	name = "Freedom Implant"
@@ -1928,6 +1976,7 @@
 
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
+	category_flag = CATEGORY_BADASS
 	surplus = 0
 
 /datum/uplink_item/badass/syndiecigs
@@ -1975,6 +2024,7 @@
 
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"
+	category_flag = CATEGORY_BUNDLE
 	surplus = 0
 	can_discount = FALSE
 
