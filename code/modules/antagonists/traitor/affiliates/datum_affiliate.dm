@@ -1,11 +1,39 @@
 /datum/affiliate
+	/// Affiliate name(OMG)
 	var/name
+	/// Description for tgui, better to have plus and minus
 	var/desc
-	var/key
+	/// Icon for tgui 256X256
 	var/tgui_icon = "1"
+	/// Cats, which this affeliate does not have.
 	var/cats_to_exclude
+	/// Special objectives, use lists with weight to roll them. Ex. list(kill = 10, steal = 90), and just a objectives for 100% giving them.
 	var/list/objectives
+	/// Bad thing that I can`t delete, used as tool to give traitor his affeliate. If you dont doing refactor, you dont neew this one.
 	var/obj/item/uplink/hidden/uplink
+
+/// If your affiliate need special effects, it is place for them
+/datum/affiliate/finalize_affiliate(datum/mind/owner)
+	//Тут надо будет рольнуть хиджака думаю, хз
+	var/datum/antagonist/traitor/traitor = owner.has_antag_datum(/datum/antagonist/traitor)
+	traitor.affiliate = src
+	give_objectives(owner)
+	show_objectives(owner)
+
+/datum/affiliate/proc/give_objectives(datum/mind/mind)
+	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
+	if(!traitor)
+		return
+	for(var/objective in objectives)
+		var/datum/objective/new_objective
+		if(islist(objective))
+			var/list/roll_objective = objective
+			var/path_objective = pickweight(roll_objective)
+			new_objective = new path_objective
+		else
+			new_objective = new objective
+		traitor.add_objective(new_objective)
+
 
 /datum/affiliate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -39,21 +67,7 @@
 			var/datum/affiliate/newaffiliate = new path
 			uplink.affiliate = newaffiliate
 			ui.close()
-			uplink.affiliate.give_objectives(traitor)
-			show_objectives(traitor)
+			uplink.affiliate.finalize_affiliate(traitor)
 			uplink.trigger(ui.user)
 			qdel(src)
 
-/datum/affiliate/proc/give_objectives(datum/mind/mind)
-	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
-	if(!traitor)
-		return
-	for(var/objective in objectives)
-		var/datum/objective/new_objective
-		if(islist(objective))
-			var/list/roll_objective = objective
-			var/path_objective = pickweight(roll_objective)
-			new_objective = new path_objective
-		else
-			new_objective = new objective
-		traitor.add_objective(new_objective)
