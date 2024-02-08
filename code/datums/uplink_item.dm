@@ -217,7 +217,7 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/affiliate/cybersun
-	affiliate = list("cybersun")
+	affiliate = list("Cybersun Industries")
 
 /datum/uplink_item/affiliate/cybersun/test
 	name = "Banana Grenade"

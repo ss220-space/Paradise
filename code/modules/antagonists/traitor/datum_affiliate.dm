@@ -1,5 +1,3 @@
-#define AFFILIATE_BY_KEY list("cybersun" = "/datum/affiliate/cybersun")
-
 /datum/affiliate
 	var/name
 	var/desc
@@ -41,7 +39,6 @@
 		var/datum/affiliate/affiliate = new affiliate_path
 		affiliates += list(list("name" = affiliate.name,
 								"desc" = affiliate.desc,
-								"key" = affiliate.key,
 								"path" = affiliate_path,
 								"icon" = icon2base64(icon('icons/misc/affiliates.dmi', affiliate.tgui_icon, SOUTH))))
 

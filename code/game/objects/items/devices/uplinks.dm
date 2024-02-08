@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				continue
 			if(length(uplink_item.race) && !uplink_item.race.Find(race) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
-			if(affiliate && length(uplink_item.affiliate) && !uplink_item.affiliate.Find(affiliate.key) && uplink_type != UPLINK_TYPE_ADMIN)
+			if(affiliate && length(uplink_item.affiliate) && !uplink_item.affiliate.Find(affiliate.name) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
 			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name), "desc" = sanitize(uplink_item.description()), "cost" = uplink_item.cost, "hijack_only" = uplink_item.hijack_only, "obj_path" = ref(uplink_item), "refundable" = uplink_item.refundable))
 

@@ -36,7 +36,7 @@ const ExploitableInfoPage = (_properties, context) => {
     <Section title="Affiliates">
       <Flex>
         {affiliates.map(i =>
-          <Flex.Item grow={1} basis={0} key={i.key}>
+          <Flex.Item grow={1} basis={0} key={i.name}>
             <Section
             style={{ "text-align": "center" }}>
               <img
