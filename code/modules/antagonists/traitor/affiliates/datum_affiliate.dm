@@ -13,7 +13,7 @@
 	var/obj/item/uplink/hidden/uplink
 
 /// If your affiliate need special effects, it is place for them
-/datum/affiliate/finalize_affiliate(datum/mind/owner)
+/datum/affiliate/proc/finalize_affiliate(datum/mind/owner)
 	//Тут надо будет рольнуть хиджака думаю, хз
 	var/datum/antagonist/traitor/traitor = owner.has_antag_datum(/datum/antagonist/traitor)
 	traitor.affiliate = src
