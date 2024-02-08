@@ -3,6 +3,8 @@
 	var/name
 	/// Description for tgui, better to have plus and minus
 	var/desc
+	/// Description for tgui, if you get hijacl role
+	var/hij_desc
 	/// Icon for tgui 256X256
 	var/tgui_icon = "1"
 	/// Cats, which this affeliate does not have.
@@ -72,7 +74,7 @@
 			qdel(src)
 
 /datum/affiliate/ui_close(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(src.type in subtypesof(/datum/affiliate))
+	if(src != uplink.affiliate)
 		return
 	uplink.affiliate = null
 	qdel(src)

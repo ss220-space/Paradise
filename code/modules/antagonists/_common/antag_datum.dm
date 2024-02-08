@@ -376,7 +376,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!found_valid_target)
 		new_objective.explanation_text = "Yeah. Do whatever..."
 		new_objective.target = null
-
+		if(istype(new_objective, /datum/objective/assassinate/procedure))
+			return
 	objectives += new_objective
 	return new_objective
 

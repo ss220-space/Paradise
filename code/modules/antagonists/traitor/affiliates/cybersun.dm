@@ -7,7 +7,6 @@
 			Вам доступен специальный модуль улучшения, что предоставляет киборгу НТ модули Киберсана. \n\
 			Стандартные цели: Кража высокотехнологичной продукции NT (ИИ, боевые мехи, иные важные предметы),\n\
 			устранение, кража технологий"
-	cats_to_exclude = CATEGORY_DANGEROUS
 	objectives = list(list(/datum/objective/steal = 50, /datum/objective/steal/ai = 50),
 						/datum/objective/mecha_hijack,
 						/datum/objective/download_data,
