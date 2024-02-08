@@ -39,9 +39,9 @@
 				SSticker?.score?.save_silicon_laws(currentAI, ninja, "AI upload hacked by ninja, all inherent laws were deleted", log_all_laws = TRUE)
 
 		add_attack_logs(ninja, null, "hacked AI upload, causing Ion storms!", ATKLOG_FEW)
-		new /datum/event/ion_typhoon
-		new /datum/event/ion_typhoon
-		new /datum/event/ion_typhoon
+		new /datum/event/ion_typhoon(cause = ninja)
+		new /datum/event/ion_typhoon(cause = ninja)
+		new /datum/event/ion_typhoon(cause = ninja)
 
 		to_chat(ninja, span_notice("Искусственный интеллект станции успешно взломан!"))
 		objective.completed = TRUE

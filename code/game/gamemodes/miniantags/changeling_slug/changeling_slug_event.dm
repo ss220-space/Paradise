@@ -11,7 +11,7 @@
 	announceWhen = rand(announceWhen, announceWhen + 50) //announce just like borers
 	spawncount = round(length(GLOB.data_core.general)/30)
 
-/datum/event/borer_infestation/announce()
+/datum/event/headslug_infestation/announce()
 	if(successSpawn)
 		GLOB.command_announcement.Announce("Обнаружены неопознанные формы жизни на борту [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.", new_sound = 'sound/AI/aliens.ogg')
 	else

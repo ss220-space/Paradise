@@ -282,7 +282,8 @@
 	var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No")
 	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
 
-	new /datum/event/ion_storm(0, announce_ion_laws)
+	var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "Admin ([key_name(src)]) added random law.", /datum/event/ion_storm)
+	new /datum/event/ion_storm(EM = meta_info, botEmagChance = 0, announceEvent = announce_ion_laws)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Random AI Law") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/toggle_antagHUD_use()
@@ -582,7 +583,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No")
 	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
 
-	new /datum/event/ion_storm(0, announce_ion_laws, input)
+	var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "Admin ([key_name(src)]) added freeform law.", /datum/event/ion_storm)
+	new /datum/event/ion_storm(EM = meta_info, botEmagChance = 0, announceEvent = announce_ion_laws, ionMessage = input)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 

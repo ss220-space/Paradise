@@ -342,32 +342,34 @@
 	icon_state = "red_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/animate/Bump(var/atom/change)
-	..()
-	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, GLOB.protected_objects))
-		if(istype(change, /obj/structure/closet/statue))
-			for(var/mob/living/carbon/human/H in change.contents)
-				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc, firer)
-				S.name = "statue of [H.name]"
-				S.faction = list("\ref[firer]")
-				S.icon = change.icon
-				if(H.mind)
-					H.mind.transfer_to(S)
-					to_chat(S, "<span class='warning'>You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!</span>")
-					to_chat(S, "<span class='userdanger'>Do not harm [firer.name], your creator.</span>")
-				H = change
-				H.loc = S
-				qdel(src)
+
+/obj/item/projectile/magic/animate/on_hit(atom/target, blocked = 0, hit_zone)
+	. = ..()
+
+	if(isitem(target) || (isstructure(target) && !is_type_in_list(target, GLOB.protected_objects)))
+		if(istype(target, /obj/structure/closet/statue))
+			for(var/mob/living/carbon/human/prisoner in target)
+				var/mob/living/simple_animal/hostile/statue/statue = new(target.loc, firer)
+				statue.name = "statue of [prisoner.real_name]"
+				statue.faction = list("\ref[firer]")
+				statue.icon = target.icon
+				if(prisoner.mind)
+					prisoner.mind.transfer_to(statue)
+					to_chat(statue, span_warning("You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!"))
+					to_chat(statue, span_userdanger("Do not harm [firer.real_name], your creator."))
+				prisoner.forceMove(statue)
+				qdel(target)
 		else
-			var/obj/O = change
-			if(istype(O, /obj/item/gun))
-				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
+			if(istype(target, /obj/item/gun))
+				new /mob/living/simple_animal/hostile/mimic/copy/ranged(target.loc, target, firer)
 			else
-				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)
-	else if(istype(change, /mob/living/simple_animal/hostile/mimic/copy))
+				new /mob/living/simple_animal/hostile/mimic/copy(target.loc, target, firer)
+
+	else if(istype(target, /mob/living/simple_animal/hostile/mimic/copy))
 		// Change our allegiance!
-		var/mob/living/simple_animal/hostile/mimic/copy/C = change
-		C.ChangeOwner(firer)
+		var/mob/living/simple_animal/hostile/mimic/copy/mimic = target
+		mimic.ChangeOwner(firer)
+
 
 /obj/item/projectile/magic/spellblade
 	name = "blade energy"

@@ -396,6 +396,7 @@
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/holosign_creator/janitor(src)
 	modules += new /obj/item/extinguisher/mini(src)
+	modules += new /obj/item/reagent_containers/spray/pestspray(src) //kill all kidans!
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/reagent_containers/spray(src)
