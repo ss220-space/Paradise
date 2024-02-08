@@ -71,3 +71,8 @@
 			uplink.trigger(ui.user)
 			qdel(src)
 
+/datum/affiliate/ui_close(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(src.type in subtypesof(/datum/affiliate))
+		return
+	uplink.affiliate = null
+	qdel(src)
