@@ -97,7 +97,7 @@
 					return
 
 				var/datum/job/job_ai = SSjobs.name_occupations["AI"]
-				if(!job_ai.available_in_playtime(M.brainmob.client))
+				if(job_ai.available_in_playtime(M.brainmob.client))
 					to_chat(user, span_warning("This [P] does not seem to fit."))
 					return
 
