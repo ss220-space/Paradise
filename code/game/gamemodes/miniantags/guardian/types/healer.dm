@@ -9,7 +9,7 @@
 	magic_fluff_string = "...и берете карту Главного Врача, мощную силу жизни... и смерти."
 	tech_fluff_string = "Последовательность загрузки завершена. Медицинские модули активированы. Активированы модули блюпространства. Голопаразитный рой активирован."
 	bio_fluff_string = "Ваш рой скарабеев завершает мутацию и оживает, способный залечивать раны и путешествовать через блюспейс."
-	var/turf/simulated/floor/beacon
+	var/obj/effect/bluespace_beacon/beacon
 	var/beacon_cooldown = 0
 	var/default_beacon_cooldown = 300 SECONDS
 	var/toggle = FALSE
@@ -30,14 +30,19 @@
 	melee_damage_type = STAMINA
 	admin_spawned = TRUE
 
-/mob/living/simple_animal/hostile/guardian/healer/New()
-	..()
-	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(summoner))
+/mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload, mob/living/host)
+	. = ..()
+	AddSpell(new /obj/effect/proc_holder/spell/summon_guardian_beacon(null))
+	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(host))
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
+
+/mob/living/simple_animal/hostile/guardian/healer/Destroy()
+	QDEL_NULL(beacon)
+	return ..()
 
 /mob/living/simple_animal/hostile/guardian/healer/Stat()
 	..()
@@ -91,26 +96,12 @@
 	else
 		to_chat(src, "<span class='danger'>Нужно быть в хозяине для переключения режимов!</span>")
 
-/mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
-	set name = "Установить блюспейс маяк"
-	set category = "Guardian"
-	set desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
-	if(beacon_cooldown < world.time)
-		var/turf/beacon_loc = get_turf(loc)
-		if(istype(beacon_loc, /turf/simulated/floor))
-			var/turf/simulated/floor/F = beacon_loc
-			F.icon = 'icons/turf/floors.dmi'
-			F.name = "bluespace recieving pad"
-			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
-			F.icon_state = "light_on-w"
-			to_chat(src, "<span class='danger'>Маяк установлен! Вы можете телепортировать на него вещи и людей, нажав Alt+Click </span>")
-			if(beacon)
-				beacon.ChangeTurf(/turf/simulated/floor/plating)
-			beacon = F
-			beacon_cooldown = world.time + default_beacon_cooldown
-
-	else
-		to_chat(src, "<span class='danger'>Ваша сила на перезарядке! Нужно дождаться ещё [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] секунд, пока вы сможете переставить маяк.</span>")
+/obj/effect/bluespace_beacon
+	name = "bluespace receiving pad"
+	desc = "A receiving zone for bluespace teleportations. Building a wall over it should disable it."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "light_on"
+	plane = FLOOR_PLANE
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
@@ -133,7 +124,7 @@
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
 				return
-			var/turf/T = beacon
+			var/turf/T = get_turf(beacon)
 			if(T.is_safe())
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
 				do_teleport(A, beacon, 0)
@@ -145,6 +136,28 @@
 	else
 		to_chat(src, "<span class='danger'>Вам нужно стоять смирно!</span>")
 
+/obj/effect/proc_holder/spell/summon_guardian_beacon
+	name = "Установить блюспейс маяк"
+	desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
+	clothes_req = FALSE
+	base_cooldown = 300 SECONDS
+	action_icon_state = "no_state"
+	action_background_icon_state = "reset"
+	action_icon = 'icons/mob/guardian.dmi'
+
+/obj/effect/proc_holder/spell/summon_guardian_beacon/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/summon_guardian_beacon/cast(list/targets, mob/living/user = usr)
+	var/target = targets[1]
+	var/mob/living/simple_animal/hostile/guardian/healer/guardian_user = user
+	var/turf/beacon_loc = get_turf(target)
+	if(isfloorturf(beacon_loc) && !islava(beacon_loc) && !ischasm(beacon_loc))
+		QDEL_NULL(guardian_user.beacon)
+		guardian_user.beacon = new(beacon_loc)
+		to_chat(guardian_user, "<span class='notice'>Маяк установлен! Вы можете телепортировать на него вещи и людей, нажав <b>Alt+Click</b>.</span>")
+
+	return TRUE
 
 /obj/effect/proc_holder/spell/guardian_quickmend
 	name = "Быстрое исцеление"

@@ -22,26 +22,25 @@
 	create_reagents(volume)
 	noz = make_noz()
 
-/obj/item/watertank/ui_action_click()
-	toggle_mister()
+/obj/item/watertank/ui_action_click(mob/user)
+	toggle_mister(user)
 
 /obj/item/watertank/item_action_slot_check(slot, mob/user)
 	if(slot == slot_back)
 		return 1
 
-/obj/item/watertank/verb/toggle_mister()
-	set name = "Toggle Mister"
-	set category = "Object"
-	if(usr.get_item_by_slot(slot_back) != src)
-		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
+/obj/item/watertank/proc/toggle_mister(mob/user)
+	if(user.stat || user.restrained() || !Adjacent(user))
 		return
-	if(usr.incapacitated())
+	if(user.get_item_by_slot(slot_back) != src)
+		to_chat(user, "<span class='notice'>The watertank needs to be on your back to use.</span>")
+		return
+	if(user.incapacitated())
 		return
 	on = !on
 
-	var/mob/living/carbon/human/user = usr
 	if(on)
-		if(noz == null)
+		if(!noz)
 			noz = make_noz()
 
 		//Detach the nozzle into the user's hands
@@ -49,7 +48,7 @@
 			on = 0
 			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
 			return
-		noz.loc = user
+		noz.forceMove(user)
 	else
 		//Remove from their hands and put back "into" the tank
 		remove_noz()

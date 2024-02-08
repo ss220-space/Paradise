@@ -140,15 +140,14 @@
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
 
+/obj/item/flashlight/lamp/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to turn it on/off.</span>"
 
-
-/obj/item/flashlight/lamp/verb/toggle_light()
-	set name = "Toggle light"
-	set category = "Object"
-	set src in oview(1)
-
-	if(!usr.stat)
-		attack_self(usr)
+/obj/item/flashlight/lamp/AltClick(mob/user)
+	if(user.stat || user.restrained() || !Adjacent(user))
+		return
+	attack_self(usr)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp

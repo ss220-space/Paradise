@@ -29,7 +29,8 @@
 
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
+	. += "<span class='info'><b>Alt-Click</b> to rotate it.</span>"
+	. += "<span class='info'><b>Alt-Shift-Click</b> to flip it.</span>"
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
 	. = ..()
@@ -293,51 +294,32 @@
 		qdel(src)
 
 
-//Rotates the windoor assembly clockwise
-/obj/structure/windoor_assembly/verb/revrotate()
-	set name = "Rotate Windoor Assembly"
-	set category = "Object"
-	set src in oview(1)
-	if(usr.stat || !usr.canmove || usr.restrained())
+/obj/structure/windoor_assembly/AltClick(mob/user)
+	if(user.stat || user.restrained() || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
-		return FALSE
-	var/target_dir = turn(dir, 270)
+		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		return
+	var/target_dir = turn(dir, 90)
 
 	if(!valid_window_location(loc, target_dir))
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
-		return FALSE
+		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
+		return
 
 	setDir(target_dir)
 
 	ini_dir = dir
 	update_icon(UPDATE_ICON_STATE)
-	return TRUE
 
-/obj/structure/windoor_assembly/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user))
-		return
-	else
-		revrotate()
-
-//Flips the windoor assembly, determines whather the door opens to the left or the right
-/obj/structure/windoor_assembly/verb/flip()
-	set name = "Flip Windoor Assembly"
-	set category = "Object"
-	set src in oview(1)
-	if(usr.stat || !usr.canmove || usr.restrained())
+/obj/structure/windoor_assembly/AltShiftClick(mob/user)
+	if(user.stat || user.restrained() || !Adjacent(user))
 		return
 
 	if(facing == "l")
-		to_chat(usr, "The windoor will now slide to the right.")
+		to_chat(user, "The windoor will now slide to the right.")
 		facing = "r"
 	else
 		facing = "l"
-		to_chat(usr, "The windoor will now slide to the left.")
+		to_chat(user, "The windoor will now slide to the left.")
 
 	update_icon(UPDATE_ICON_STATE)
-

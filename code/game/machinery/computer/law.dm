@@ -11,22 +11,6 @@
 	light_range_on = 2
 
 
-// What the fuck even is this
-/obj/machinery/computer/aiupload/verb/AccessInternals()
-	set category = "Object"
-	set name = "Access Computer's Internals"
-	set src in oview(1)
-	if(get_dist(src, usr) > 1 || usr.restrained() || usr.lying || usr.stat || istype(usr, /mob/living/silicon))
-		return
-
-	opened = !opened
-	if(opened)
-		to_chat(usr, span_notice("The access panel is now open."))
-	else
-		to_chat(usr, span_notice("The access panel is now closed."))
-	return
-
-
 /obj/machinery/computer/aiupload/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/aiModule))
 		if(!current)//no AI selected

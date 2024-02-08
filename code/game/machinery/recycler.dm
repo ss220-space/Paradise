@@ -194,38 +194,14 @@
 		L.adjustBruteLoss(crush_damage)
 
 
-/obj/machinery/recycler/verb/rotate()
-	set name = "Rotate Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	var/mob/living/user = usr
-
-	if(usr.incapacitated())
+/obj/machinery/recycler/AltClick(mob/user)
+	if(user.stat || user.restrained() || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 270)
 	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
-	return 1
-
-/obj/machinery/recycler/verb/rotateccw()
-	set name = "Rotate Counter Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	var/mob/living/user = usr
-
-	if(usr.incapacitated())
-		return
-	if(anchored)
-		to_chat(usr, "[src] is fastened to the floor!")
-		return 0
-	eat_dir = turn(eat_dir, 90)
-	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
-	return 1
-
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"

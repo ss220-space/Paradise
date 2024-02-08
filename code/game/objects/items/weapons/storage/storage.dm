@@ -54,16 +54,6 @@
 	can_hold = typecacheof(can_hold)
 	cant_hold = typecacheof(cant_hold)
 
-	if(allow_quick_empty)
-		verbs += /obj/item/storage/verb/quick_empty
-	else
-		verbs -= /obj/item/storage/verb/quick_empty
-
-	if(allow_quick_gather)
-		verbs += /obj/item/storage/verb/toggle_gathering_mode
-	else
-		verbs -= /obj/item/storage/verb/toggle_gathering_mode
-
 	populate_contents()
 
 	boxes = new /obj/screen/storage()
@@ -88,6 +78,13 @@
 	QDEL_NULL(boxes)
 	QDEL_NULL(closer)
 	LAZYCLEARLIST(mobs_viewing)
+
+/obj/item/storage/examine(mob/user)
+	. = ..()
+	if(allow_quick_empty)
+		. += "<span class='notice'>You can use [src] in hand to empty it's entire contents.</span>"
+	if(allow_quick_gather)
+		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to switch it's gathering method.</span>"
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
@@ -550,25 +547,14 @@
 		show_to(user)
 	return ..()
 
-/obj/item/storage/verb/toggle_gathering_mode()
-	set name = "Switch Gathering Method"
-	set category = "Object"
+/obj/item/storage/AltShiftClick(mob/living/carbon/human/user)
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
 		if(TRUE)
-			to_chat(usr, "[src] now picks up all items in a tile at once.")
+			to_chat(user, "[src] now picks up all items in a tile at once.")
 		if(FALSE)
-			to_chat(usr, "[src] now picks up one item at a time.")
-
-/obj/item/storage/verb/quick_empty()
-	set name = "Empty Contents"
-	set category = "Object"
-
-	if((!ishuman(usr) && (loc != usr)) || usr.stat || usr.restrained())
-		return
-
-	drop_inventory(usr)
+			to_chat(user, "[src] now picks up one item at a time.")
 
 /obj/item/storage/proc/drop_inventory(user)
 	var/turf/T = get_turf(src)

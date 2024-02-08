@@ -17,6 +17,10 @@
 	var/propelled = FALSE // Check for fire-extinguisher-driven chairs
 	var/comfort = 0.3
 
+/obj/structure/chair/examine(mob/user)
+	. = ..()
+	. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
+
 /obj/structure/chair/narsie_act()
 	if(prob(20))
 		var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
@@ -133,36 +137,21 @@
 	..()
 	handle_rotation(newdir)
 
-
-/obj/structure/chair/examine(mob/user)
-	. = ..()
-	. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
-
-
-/obj/structure/chair/proc/rotate(mob/living/user)
-	if(user)
-		if(isobserver(user))
-			if(!CONFIG_GET(flag/ghost_interaction))
-				return FALSE
-		else if(!isliving(user) || user.incapacitated() || user.restrained() || !Adjacent(user))
-			return FALSE
-
+/obj/structure/chair/proc/rotate(mob/user)
+	add_fingerprint(user)
 	setDir(turn(dir, 90))
 	handle_rotation()
-	return TRUE
 
+/obj/structure/chair/attack_ghost(mob/dead/observer/user)
+	if(CONFIG_GET(flag/ghost_interaction))
+		rotate()
+		return
+	..()
 
-/obj/structure/chair/AltClick(mob/living/user)
+/obj/structure/chair/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 	rotate(user)
-
-
-/obj/structure/chair/verb/rotate_chair()
-	set name = "Rotate Chair"
-	set category = "Object"
-	set src in oview(1)
-
-	rotate(usr)
-
 
 // CHAIR TYPES
 

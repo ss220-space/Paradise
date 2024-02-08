@@ -16,10 +16,12 @@
 		eject_case()
 	return ..()
 
-
 /obj/item/implantpad/update_icon_state()
 	icon_state = "implantpad-[case ? "on" : "off"]"
 
+/obj/item/implantpad/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove it's stored implant.</span>"
 
 /obj/item/implantpad/attack_self(mob/user)
 	ui_interact(user)

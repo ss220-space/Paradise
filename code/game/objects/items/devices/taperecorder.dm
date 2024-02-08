@@ -375,6 +375,7 @@
 				. += span_notice("It has [remaining_capacity] seconds remaining.") // to avoid having 0 minutes
 			else
 				. += span_notice("It has [seconds_to_time(remaining_capacity)] remaining.")
+		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to wipe the current tape."
 
 
 /obj/item/tape/update_overlays()
@@ -430,18 +431,21 @@
 		update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/tape/verb/wipe()
+/obj/item/tape/AltClick(mob/user)
 	set name = "Wipe Tape"
 	set category = "Object"
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr
-	if(!istype(user) || user.incapacitated())
+	if(user.stat || user.restrained() || !Adjacent(user))
 		return
 	if(ruined)
+		to_chat(user, "<span class='notice'>This tape is already ruined!</span>")
+		return
+	if(!do_after(user, 3 SECONDS, target = src))
 		return
 
-	to_chat(usr, span_notice("You erase the data from [src]."))
+	to_chat(user, span_notice("You erase the data from [src]."))
 	used_capacity = 0
 	storedinfo.Cut()
 	timestamp.Cut()

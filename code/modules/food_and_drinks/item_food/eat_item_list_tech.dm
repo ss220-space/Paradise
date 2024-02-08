@@ -314,9 +314,3 @@
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 10
 	nutritional_value = 50
-
-/obj/item/card/data/clown
-	material_type = MATERIAL_CLASS_TECH
-	max_bites = 1000
-	nutritional_value = 1
-

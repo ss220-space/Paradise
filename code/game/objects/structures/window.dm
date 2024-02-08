@@ -387,60 +387,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else
 		return RCD_ACT_FAILED
 
-/obj/structure/window/verb/rotate()
-	set name = "Rotate Window Counter-Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
-		return
-
-	if(anchored)
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
-		return FALSE
-
-	var/target_dir = turn(dir, 90)
-	if(!valid_window_location(loc, target_dir))
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
-		return FALSE
-
-	setDir(target_dir)
-	air_update_turf(1)
-	ini_dir = dir
-	add_fingerprint(usr)
-	return TRUE
-
-/obj/structure/window/verb/revrotate()
-	set name = "Rotate Window Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
-		return
-
-	if(anchored)
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
-		return FALSE
-
-	var/target_dir = turn(dir, 270)
-
-	if(!valid_window_location(loc, target_dir))
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
-		return FALSE
-
-	setDir(target_dir)
-	ini_dir = dir
-	add_fingerprint(usr)
-	return TRUE
-
 /obj/structure/window/AltClick(mob/user)
-
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-
-	if(!Adjacent(user))
-		to_chat(user, "<span class='warning'>Move closer to the window!</span>")
+	if(user.stat || user.restrained() || !Adjacent(user))
 		return
 
 	if(anchored)
@@ -458,7 +406,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	setDir(target_dir)
 	ini_dir = dir
 	add_fingerprint(user)
-	return TRUE
 
 /obj/structure/window/Destroy()
 	density = FALSE

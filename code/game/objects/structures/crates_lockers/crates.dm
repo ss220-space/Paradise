@@ -232,20 +232,10 @@
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
 
-
-/obj/structure/closet/crate/secure/verb/verb_togglelock()
-	set src in oview(1) // One square distance
-	set category = null
-	set name = "Toggle Lock"
-
-	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
+/obj/structure/closet/crate/secure/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
 		return
-
-	if(ishuman(usr) || isrobot(usr))
-		src.add_fingerprint(usr)
-		src.togglelock(usr)
-	else
-		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+	togglelock(user)
 
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)

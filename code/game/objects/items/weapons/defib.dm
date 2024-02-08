@@ -177,11 +177,9 @@
 	update_icon(UPDATE_OVERLAYS)
 	..()
 
-
-/obj/item/defibrillator/verb/toggle_paddles_verb()
-	set name = "Toggle Paddles"
-	set category = "Object"
-	set src in oview(1)
+/obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 
 	toggle_paddles(usr)
 
@@ -195,10 +193,6 @@
 		dispence_paddles(user)
 	else
 		retrieve_paddles(user)
-
-	for(var/datum/action/action as anything in actions)
-		action.UpdateButtonIcon()
-
 
 /obj/item/defibrillator/proc/dispence_paddles(mob/living/carbon/human/user)
 	if(!paddles || !paddles_on_defib || !ishuman(user) || user.incapacitated())

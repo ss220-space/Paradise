@@ -286,6 +286,10 @@ REAGENT SCANNER
 
 	var/isPrinting = FALSE
 
+/obj/item/healthanalyzer/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>To swap between showing specific limb damage, use <b>Alt-Click</b> on [src] in hand.</span>"
+
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 //	healthscan(user, M, mode, advanced)
 	add_fingerprint(user)
@@ -621,16 +625,14 @@ REAGENT SCANNER
 	var/scan_data = medical_scan_results(M, mode, advanced)
 	to_chat(user, "[jointext(scan_data, "<br>")]")
 
-/obj/item/healthanalyzer/verb/toggle_mode()
-	set name = "Вкл/Выкл локализацию"
-	set category = "Object"
-
+/obj/item/healthanalyzer/AltClick(mob/user)
+	. = ..()
 	mode = !mode
 	switch(mode)
 		if(1)
-			to_chat(usr, "Сканер теперь показывает повреждения конечностей.")
+			to_chat(user, span_notice("Сканер теперь показывает повреждения конечностей."))
 		if(0)
-			to_chat(usr, "Сканер больше не показывает повреждения конечностей.")
+			to_chat(user, span_notice("Сканер больше не показывает повреждения конечностей."))
 
 
 /obj/item/healthanalyzer/update_overlays()

@@ -188,23 +188,11 @@
 	if(usr)
 		attack_self(usr)
 
-
 /obj/item/assembly/infra/AltClick(mob/user)
-	if(!Adjacent(user))
-		return ..()
 	rotate(user)
 
-
-/obj/item/assembly/infra/verb/rotate_verb()
-	set name = "Rotate Infrared Laser"
-	set category = "Object"
-	set src in usr
-
-	rotate(usr)
-
-
-/obj/item/assembly/infra/proc/rotate(mob/living/user = usr)
-	if(!isliving(user) || user.incapacitated() || user.restrained())
+/obj/item/assembly/infra/proc/rotate(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
 		return
 
 	dir = turn(dir, 90)

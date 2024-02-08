@@ -25,6 +25,10 @@
 	var/list/snares = list()
 	var/toggle = FALSE
 
+/mob/living/simple_animal/hostile/guardian/ranged/Initialize(mapload, mob/living/host)
+	. = ..()
+	AddSpell(new /obj/effect/proc_holder/spell/surveillance_snare(null))
+
 /mob/living/simple_animal/hostile/guardian/ranged/Life(seconds, times_fired)
 	..()
 	if(energy <=145)
@@ -94,29 +98,37 @@
 
 	to_chat(src, "<span class='notice'>[msg]</span>")
 
-/mob/living/simple_animal/hostile/guardian/ranged/verb/Snare()
-	set name = "Установить ловушку для слежки"
-	set category = "Guardian"
-	set desc = "Установите невидимую ловушку, которая оповестит вас, когда по ней пройдут живые существа. Максимум 5"
-	if(snares.len <6)
-		var/turf/snare_loc = get_turf(loc)
-		var/obj/item/effect/snare/S = new /obj/item/effect/snare(snare_loc)
-		S.spawner = src
-		S.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"
-		snares |= S
-		to_chat(src, "<span class='danger'>Ловушка слежения установлена!</span>")
-	else
-		to_chat(src, "<span class='danger'>У вас установлено слишком много ловушек. Сначала удалите некоторые.</span>")
+/obj/effect/proc_holder/spell/surveillance_snare
+	name = "Установить ловушку для слежки"
+	desc = "Установите невидимую ловушку, которая оповестит вас, когда по ней пройдут живые существа. Максимум 5"
+	clothes_req = FALSE
+	base_cooldown = 3 SECONDS
+	action_icon_state = "no_state"
+	action_background_icon_state = "reset"
+	action_icon = 'icons/mob/guardian.dmi'
 
-/mob/living/simple_animal/hostile/guardian/ranged/verb/DisarmSnare()
-	set name = "Удалить ловушку для наблюдения"
-	set category = "Guardian"
-	set desc = "Обезвреживание нежелательных ловушек наблюдения."
-	var/picked_snare = input(src, "Выберите ловушку для обезвреживания", "Уничтожить ловушку") as null|anything in snares
-	if(picked_snare)
-		snares -= picked_snare
-		qdel(picked_snare)
-		to_chat(src, "<span class='danger'>Ловушка убрана.</span>")
+/obj/effect/proc_holder/spell/surveillance_snare/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/surveillance_snare/cast(list/targets, mob/living/user = usr)
+	var/target = targets[1]
+	var/mob/living/simple_animal/hostile/guardian/ranged/guardian_user = user
+	if(length(guardian_user.snares) < 6)
+		var/turf/snare_loc = get_turf(target)
+		var/obj/item/effect/snare/S = new /obj/item/effect/snare(snare_loc)
+		S.spawner = guardian_user
+		S.name = "[get_area(snare_loc)] trap ([snare_loc.x],[snare_loc.y],[snare_loc.z])"
+		guardian_user.snares |= S
+		to_chat(guardian_user, "<span class='notice'>Surveillance trap deployed!</span>")
+		return TRUE
+	else
+		to_chat(guardian_user, "<span class='notice'>You have too many traps deployed. Delete one to place another.</span>")
+		var/picked_snare = input(guardian_user, "Pick which trap to disarm", "Disarm Trap") as null|anything in guardian_user.snares
+		if(picked_snare)
+			guardian_user.snares -= picked_snare
+			qdel(picked_snare)
+			to_chat(src, "<span class='notice'>Snare disarmed.</span>")
+			revert_cast()
 
 /obj/item/effect/snare
 	name = "snare"

@@ -116,15 +116,16 @@
 		return
 	go_out()
 
-/obj/machinery/dna_scannernew/verb/eject()
-	set src in oview(1)
-	set category = null
-	set name = "Eject DNA Scanner"
+/obj/machinery/dna_scannernew/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
+	. += "<span class='info'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
 
-	if(usr.incapacitated())
+/obj/machinery/dna_scannernew/AltClick(mob/user)
+	if(user.stat || usr.incapacitated() || !Adjacent(user))
 		return
-	eject_occupant(usr)
-	add_fingerprint(usr)
+	eject_occupant(user)
+	add_fingerprint(user)
 
 /obj/machinery/dna_scannernew/Destroy()
 	eject_occupant(null, TRUE)
@@ -141,32 +142,6 @@
 	if(!occupant)
 		for(var/mob/M in src)//Failsafe so you can get mobs out
 			M.forceMove(get_turf(src))
-
-/obj/machinery/dna_scannernew/verb/move_inside()
-	set src in oview(1)
-	set category = null
-	set name = "Enter DNA Scanner"
-
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
-		return
-	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>The [src] is already occupied!</span>")
-		return
-	if(usr.abiotic())
-		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into the [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
-		return
-	usr.stop_pulling()
-	usr.forceMove(src)
-	occupant = usr
-	icon_state = "scanner_occupied"
-	add_fingerprint(usr)
-	SStgui.update_uis(src)
 
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(!istype(O))

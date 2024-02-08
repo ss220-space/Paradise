@@ -31,6 +31,10 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
+/obj/machinery/sleeper/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
+
 /obj/machinery/sleeper/power_change()
 	..()
 	if(!(stat & (BROKEN|NOPOWER)))
@@ -453,36 +457,29 @@
 	else
 		to_chat(user, "There's no occupant in the sleeper!")
 
-/obj/machinery/sleeper/verb/eject()
-	set name = "Eject Sleeper"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+/obj/machinery/sleeper/AltClick(mob/user)
+	if(issilicon(user))
+		eject()
 		return
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(!Adjacent(user) || !ishuman(user) || user.restrained())
 		return
+	eject()
 
-	icon_state = "[base_icon]-open"
+/obj/machinery/sleeper/proc/eject(mob/user)
 	go_out()
 	add_fingerprint(usr)
-	return
 
-/obj/machinery/sleeper/verb/remove_beaker()
-	set name = "Remove Beaker"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated() || !Adjacent(usr))
+/obj/machinery/sleeper/proc/remove_beaker(mob/user)
+	if(user.stat || user.restrained() || !Adjacent(user))
 		return
 
 	if(beaker)
 		filtering = FALSE
 		beaker.forceMove_turf()
-		usr.put_in_hands(beaker, ignore_anim = FALSE)
+		user.put_in_hands(beaker, ignore_anim = FALSE)
 		beaker = null
 		SStgui.update_uis(src)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	return
 
 /obj/machinery/sleeper/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
@@ -542,40 +539,6 @@
 
 /obj/machinery/sleeper/AllowDrop()
 	return FALSE
-
-/obj/machinery/sleeper/verb/move_inside()
-	set name = "Enter Sleeper"
-	set category = "Object"
-	set src in oview(1)
-	if(usr.stat != 0 || !(ishuman(usr)))
-		return
-	if(occupant)
-		to_chat(usr, span_boldnotice("The sleeper is already occupied!"))
-		return
-	if(panel_open)
-		to_chat(usr, span_boldnotice("Close the maintenance panel first."))
-		return
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))
-		return
-	visible_message("[usr] starts climbing into the sleeper.")
-	if(do_after(usr, 20, target = usr))
-		if(occupant)
-			to_chat(usr, span_boldnotice("The sleeper is already occupied!"))
-			return
-		usr.stop_pulling()
-		usr.forceMove(src)
-		occupant = usr
-		icon_state = "[base_icon]"
-
-		for(var/obj/O in src)
-			qdel(O)
-		add_fingerprint(usr)
-		SStgui.update_uis(src)
-		return
-	return
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"

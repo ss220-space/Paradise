@@ -226,17 +226,8 @@
 		return
 	..()
 
-
-/obj/item/pinpointer/advpinpointer/verb/toggle_mode_verb()
-	set category = "Object"
-	set name = "Toggle Pinpointer Mode"
-	set src in usr
-
-	toggle_mode(usr)
-
-
 /obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(user.incapacitated() || !Adjacent(user))
 		return
 
 	if(modelocked)

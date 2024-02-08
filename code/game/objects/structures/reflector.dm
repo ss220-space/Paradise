@@ -104,25 +104,12 @@
 	return 0
 
 
-/obj/structure/reflector/verb/rotate()
-	set name = "Rotate"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/structure/reflector/AltClick(mob/user)
+	if(user.stat || user.incapacitated() || Adjacent(user))
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(anchored)
-		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
-		return 0
-	dir = turn(dir, 270)
-	return 1
-
-
-/obj/structure/reflector/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user))
+		to_chat(user, span_warning("You cannot rotate [src] right now. It is fastened to the floor!"))
 		return
 	else
 		rotate()

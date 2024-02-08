@@ -19,8 +19,6 @@
 			queue_smooth(src)
 			queue_smooth_neighbors(src)
 		icon_state = ""
-	if(climbable)
-		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 
@@ -70,18 +68,10 @@
 		add_fingerprint(user)
 	return ..()
 
-/obj/structure/proc/climb_on()
-
-	set name = "Climb structure"
-	set desc = "Climbs onto a structure."
-	set category = null
-	set src in oview(1)
-
-	do_climb(usr)
-
-/obj/structure/MouseDrop_T(atom/movable/dropping, mob/user, params)
-	. = ..()
-	if(!. && dropping == user)
+/obj/structure/MouseDrop_T(atom/movable/C, mob/user, params)
+	if(..())
+		return
+	if(C == user)
 		do_climb(user)
 		return TRUE
 

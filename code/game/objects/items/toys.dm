@@ -2044,13 +2044,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/item/toy/desk/verb/rotate()
-	set name = "Rotate"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
-		return
+/obj/item/toy/desk/proc/rotate()
 	dir = turn(dir, 270)
 	return 1
 
