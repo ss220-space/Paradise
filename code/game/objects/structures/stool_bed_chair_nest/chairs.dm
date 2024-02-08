@@ -17,6 +17,10 @@
 	var/propelled = FALSE // Check for fire-extinguisher-driven chairs
 	var/comfort = 0.3
 
+/obj/structure/chair/examine(mob/user)
+	. = ..()
+	. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
+
 /obj/structure/chair/narsie_act()
 	if(prob(20))
 		var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
@@ -138,12 +142,15 @@
 
 	setDir(turn(dir, 90))
 	handle_rotation()
-	return TRUE
 
+/obj/structure/chair/attack_ghost(mob/dead/observer/user)
+	if(CONFIG_GET(flag/ghost_interaction))
+		rotate()
+		return
+	..()
 
-/obj/structure/chair/AltClick(mob/living/user)
+/obj/structure/chair/AltClick(mob/user)
 	rotate(user)
-
 
 // CHAIR TYPES
 

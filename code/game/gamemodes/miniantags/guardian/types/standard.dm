@@ -12,13 +12,9 @@
 	bio_fluff_string = "Ваш рой скарабеев оживает, готовый разорвать ваших врагов на части."
 	var/battlecry = "ORA"
 
-/mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
-	set name = "Боевой клич"
-	set category = "Guardian"
-	set desc = "Выбери крик при ударе"
-	var/input = tgui_input_text(src, "Какой боевой клич вы бы хотели? Максимальная длина 8 символов.", "Change Battlecry", battlecry, 8)
-	if(input)
-		battlecry = input
+/mob/living/simple_animal/hostile/guardian/punch/Initialize(mapload, mob/living/host)
+	. = ..()
+	AddSpell(new /obj/effect/proc_holder/spell/choose_battlecry(null))
 
 /mob/living/simple_animal/hostile/guardian/punch/AttackingTarget()
 	. = ..()
@@ -37,6 +33,26 @@
 	for(var/mob/living/carbon/human/L in view(2, src))
 		if(L.stat != DEAD && L != summoner)
 			L.Slowed(4 SECONDS)
+
+/obj/effect/proc_holder/spell/choose_battlecry
+	name = "Change battlecry"
+	desc = "Changes your battlecry."
+	clothes_req = FALSE
+	base_cooldown = 1 SECONDS
+	action_icon_state = "no_state"
+	action_background_icon_state = "communicate"
+	action_icon = 'icons/mob/guardian.dmi'
+
+/obj/effect/proc_holder/spell/choose_battlecry/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/choose_battlecry/cast(list/targets, mob/living/user = usr)
+	var/mob/living/simple_animal/hostile/guardian/punch/guardian_user = user
+	var/input = tgui_input_text(src, "Какой боевой клич вы бы хотели? Максимальная длина 8 символов.", "Change Battlecry", battlecry, 8)
+	if(!input)
+		revert_cast()
+		return
+	guardian_user.battlecry = input
 
 /mob/living/simple_animal/hostile/guardian/punch/sealpunch
 	name = "Seal Sprit"

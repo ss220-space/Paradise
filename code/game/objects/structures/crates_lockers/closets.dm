@@ -319,19 +319,6 @@ GLOBAL_LIST_EMPTY(closets)
 	add_fingerprint(user)
 	toggle()
 
-/obj/structure/closet/verb/verb_toggleopen()
-	set src in oview(1)
-	set name = "Toggle Open"
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
-		add_fingerprint(usr)
-		toggle(usr)
-	else
-		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
-
 
 /obj/structure/closet/update_icon(updates = ALL)
 	if(no_overlays)

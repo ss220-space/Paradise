@@ -143,9 +143,9 @@
 /obj/item/pipe/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	. = TRUE
 	if(our_rpd.mode == RPD_ROTATE_MODE)
-		rotate()
+		rotate(user)
 	else if(our_rpd.mode == RPD_FLIP_MODE)
-		flip()
+		flip(user)
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_single_pipe(user, src)
 	else
@@ -154,6 +154,10 @@
 /obj/item/pipe/AltClick(mob/user)
 	if(Adjacent(user))
 		rotate()
+
+/obj/item/pipe/AltShiftClick(mob/user)
+	if(Adjacent(user))
+		flip(user)
 
 /obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
@@ -178,16 +182,12 @@
 
 // rotate the pipe item clockwise
 
-/obj/item/pipe/verb/rotate()
-	set category = "Object"
-	set name = "Rotate Pipe"
-	set src in view(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/item/pipe/proc/rotate(mob/user)
+	if(user.stat || !Adjacent(user) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(pipe_type == PIPE_CIRCULATOR)
-		flip()
+		flip(user)
 		return
 
 	src.dir = turn(src.dir, -90)
@@ -195,12 +195,8 @@
 	fixdir()
 
 
-/obj/item/pipe/verb/flip()
-	set category = "Object"
-	set name = "Flip Pipe"
-	set src in view(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/item/pipe/proc/flip(mob/user)
+	if(user.stat || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE, PIPE_CIRCULATOR))
@@ -324,7 +320,7 @@
 		dir = 2
 
 /obj/item/pipe/attack_self(mob/user)
-	return rotate()
+	return rotate(user)
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
 	. = TRUE

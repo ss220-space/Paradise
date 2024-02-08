@@ -237,7 +237,11 @@
 		update_icon()
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
-	add_fingerprint(user)
+
+/obj/structure/closet/crate/secure/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
+	togglelock(user)
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)

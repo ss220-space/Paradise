@@ -27,7 +27,6 @@
 		part.part1 = part1
 		part.part2 = part2
 
-
 /obj/structure/chair/e_chair/Destroy()
 	if(part)
 		QDEL_NULL(part)
@@ -49,9 +48,17 @@
 	if(shocking)
 		. += image(icon, icon_state = "echair_shock", layer = ABOVE_MOB_LAYER)
 
+/obj/structure/chair/e_chair/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>You can <b>Alt-Shift-Click</b> [src] to activate it.</span>"
 
+<<<<<<< HEAD
 /obj/structure/chair/e_chair/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
+=======
+/obj/structure/chair/e_chair/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/wrench))
+>>>>>>> eae269574d7 (Part 1)
 		var/obj/structure/chair/chair = new (loc)
 		transfer_fingerprints_to(chair)
 		playsound(loc, W.usesound, 50, TRUE)
@@ -63,24 +70,14 @@
 		return
 	return ..()
 
-
-/obj/structure/chair/e_chair/examine(mob/user)
-	. = ..()
-	. += span_warning("You can <b>Alt-Shift-Click</b> [src] to activate it.")
-
-
-/obj/structure/chair/e_chair/AltShiftClick(mob/living/user)
-	if(!Adjacent(user))
-		return ..()
+/obj/structure/chair/e_chair/AltShiftClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
+	if(last_time + delay_time > world.time)
+		to_chat(user, "<span class='warning'>[src] is not ready yet!</span>")
+		return
+	to_chat(user, "<span class='notice'>You activate [src].</span>")
 	shock(user)
-
-
-/obj/structure/chair/e_chair/verb/activate_e_chair()
-	set name = "Activate Electric Chair"
-	set category = "Object"
-	set src in oview(1)
-
-	shock(usr)
 
 
 /obj/structure/chair/e_chair/proc/shock(mob/living/user)

@@ -151,6 +151,14 @@
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
 
+/obj/item/flashlight/lamp/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to turn it on/off.</span>"
+
+/obj/item/flashlight/lamp/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+	attack_self(usr)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp

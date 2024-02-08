@@ -2082,14 +2082,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/item/toy/desk/verb/rotate()
-	set name = "Rotate"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/toy/desk/proc/rotate()
 	dir = turn(dir, 270)
 	return TRUE
 

@@ -101,17 +101,15 @@
 /obj/machinery/recharge_station/Bumped(atom/movable/moving_atom)
 	. = ..()
 	if(ismob(moving_atom))
-		move_inside(moving_atom)
+		move_inside(moving_atom, moving_atom)
 
 /obj/machinery/recharge_station/AllowDrop()
 	return FALSE
 
 /obj/machinery/recharge_station/relaymove(mob/user as mob)
-	if(ispulsedemon(user))
+	if(ispulsedemon(user) || user.stat)
 		return
-	if(user.stat)
-		return
-	src.go_out()
+	go_out()
 	return
 
 /obj/machinery/recharge_station/emp_act(severity)
@@ -237,29 +235,26 @@
 						S.reagents.add_reagent("sacid", 2 * coeff)
 
 
-/obj/machinery/recharge_station/verb/move_eject()
-	set category = "Object"
-	set src in oview(1)
-	go_out(usr)
-
-
-/obj/machinery/recharge_station/verb/move_inside_verb()
-	set category = "Object"
-	set src in oview(1)
-	move_inside(usr)
-
-
-/obj/machinery/recharge_station/proc/move_inside(mob/user = usr)
-	set category = "Object"
-	set src in oview(1)
-	if(!user || !usr)
+/obj/machinery/recharge_station/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
+	go_out()
 
-	if(usr.stat != CONSCIOUS)
+/obj/machinery/recharge_station/force_eject_occupant(mob/target)
+	go_out()
+
+/obj/machinery/recharge_station/MouseDrop_T(mob/living/target, mob/user)
+	if(!istype(target))
+		return
+	INVOKE_ASYNC(src, PROC_REF(move_inside), user, target)
+	return TRUE
+
+/obj/machinery/recharge_station/proc/move_inside(mob/user, mob/target)
+	if(!user || user.stat)
 		return
 
 	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
-		to_chat(usr, "They are too far away to put inside")
+		to_chat(usr, span_notice("They are too far away to put inside"))
 		return
 
 	if(panel_open)
@@ -267,8 +262,8 @@
 		return
 
 	var/can_accept_user
-	if(isrobot(user))
-		var/mob/living/silicon/robot/R = user
+	if(isrobot(target))
+		var/mob/living/silicon/robot/R = target
 
 		if(R.stat == DEAD)
 			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
@@ -283,7 +278,7 @@
 		can_accept_user = 1
 
 	else if(ishuman(user))
-		var/mob/living/carbon/human/H = user
+		var/mob/living/carbon/human/H = target
 
 		if(H.stat == DEAD)
 			return
@@ -298,8 +293,8 @@
 		to_chat(user, span_notice("Only non-organics may enter the recharger!"))
 		return
 
-	user.forceMove(src)
-	occupant = user
+	target.forceMove(src)
+	occupant = target
 
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)

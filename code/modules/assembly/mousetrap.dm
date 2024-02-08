@@ -163,23 +163,8 @@
 
 
 /obj/item/assembly/mousetrap/AltClick(mob/user)
-	if(!Adjacent(user))
-		return ..()
-	hide_under(user)
-
-
-/obj/item/assembly/mousetrap/verb/hide_under_verb()
-	set src in oview(1)
-	set name = "Hide"
-	set category = "Object"
-
-	hide_under(usr)
-
-
-/obj/item/assembly/mousetrap/proc/hide_under(mob/user = usr)
-	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	layer = TURF_LAYER + 0.2
-	to_chat(user, span_notice("You hide [src]."))
-
+	layer = TURF_LAYER+0.2
+	to_chat(user, "<span class='notice'>You hide [src].</span>")

@@ -332,7 +332,7 @@
 
 
 // Modified quick_empty verb drops appropriate sized stacks
-/obj/item/storage/bag/sheetsnatcher/quick_empty()
+/obj/item/storage/bag/sheetsnatcher/drop_inventory(mob/user)
 	var/location = get_turf(src)
 	for(var/obj/item/stack/sheet/S in contents)
 		while(S.amount)
@@ -342,8 +342,8 @@
 			S.amount -= stacksize
 		if(!S.amount)
 			qdel(S) // todo: there's probably something missing here
-	if(usr.s_active)
-		usr.s_active.show_to(usr)
+	if(user.s_active)
+		user.s_active.show_to(user)
 	update_icon()
 
 // Instead of removing

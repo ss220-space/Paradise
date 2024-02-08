@@ -359,36 +359,43 @@
 	return check_table.straight_table_check(direction)
 
 
-/obj/structure/table/verb/do_flip()
-	set name = "Flip/Unflip table"
-	set desc = "Flips or unflips a table"
-	set src in oview(1)
-	actual_flip(usr)
+/obj/structure/table/AltShiftClick(mob/user)
+	actual_flip(user)
 
 
-/// Used to determine whether the table can be flipped over.
-/obj/structure/table/proc/flip_check()
-	return can_be_flipped
-
-
-/// Used for determine the proc of subsequent flipping/unflipping.
-/obj/structure/table/proc/actual_flip(mob/living/user)
-	if(!flip_check() || !can_touch(user, flip = TRUE))
-		return
+/obj/structure/table/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	var/dir = get_cardinal_dir(src, over_object)
+	var/mob/user = usr
+	if(!isturf(over_object) || (user.dir != dir) || user.incapacitated() || !Adjacent(user) || !can_be_flipped)
+		return ..()
 
 	if(!flipped)
-		if(!flip(get_cardinal_dir(user, src)))
-			to_chat(user, span_notice("It won't budge."))
+		if(!flip(dir))
+			to_chat(user, "<span class='notice'>It won't budge.</span>")
 			return
-
+		add_fingerprint(usr)
 		user.visible_message(span_warning("[user] flips \the [src]!"))
-
 		if(climbable)
 			structure_shaken()
 	else
 		if(!unflip())
 			to_chat(user, span_notice("It won't budge."))
 
+/obj/structure/table/AltShiftClick(mob/living/carbon/human/user)
+	if(user.incapacitated() || !Adjacent(user) || !can_be_flipped)
+		return
+
+	if(!flipped)
+		if(!flip(get_cardinal_dir(user, src)))
+			to_chat(user, "<span class='notice'>It won't budge.</span>")
+			return
+		add_fingerprint(usr)
+		user.visible_message("<span class='warning'>[user] flips \the [src]!</span>")
+		if(climbable)
+			structure_shaken()
+	else
+		if(!unflip())
+			to_chat(user, "<span class='notice'>It won't budge.</span>")
 
 
 /obj/structure/table/proc/flip(direction)

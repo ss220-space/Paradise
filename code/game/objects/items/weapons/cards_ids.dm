@@ -143,7 +143,7 @@
 	else
 		. += "<span class='warning'>It is too far away.</span>"
 	if(guest_pass)
-		. += "<span class='notice'>There is a guest pass attached to this ID card</span>"
+		. += "<span class='notice'>There is a guest pass attached to this ID card, <b>Alt-Click</b> to remove it.</span>"
 		if(world.time < guest_pass.expiration_time)
 			. += "<span class='notice'>It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
 		else
@@ -283,20 +283,16 @@
 			return
 		guest_pass = G
 
-/obj/item/card/id/verb/remove_guest_pass()
-	set name = "Remove Guest Pass"
-	set category = "Object"
-	set src in range(0)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/item/card/id/AltClick(mob/user)
+	if(user.stat || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(guest_pass)
-		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
+		to_chat(user, "<span class='notice'>You remove the guest pass from this ID.</span>")
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID.</span>")
+		to_chat(user, "<span class='warning'>There is no guest pass attached to this ID</span>")
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()

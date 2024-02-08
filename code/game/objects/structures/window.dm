@@ -425,11 +425,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else
 		return RCD_ACT_FAILED
 
-
 /obj/structure/window/AltClick(mob/user)
-
-	if(!Adjacent(user))
-		to_chat(user, "<span class='warning'>Move closer to the window!</span>")
+	if(user.stat || !Adjacent(user))
 		return
 
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -449,7 +446,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	setDir(target_dir)
 	ini_dir = dir
 	add_fingerprint(user)
-	return TRUE
 
 
 /obj/structure/window/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
