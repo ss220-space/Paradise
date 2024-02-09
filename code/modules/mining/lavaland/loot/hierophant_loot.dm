@@ -311,11 +311,6 @@
 	var/obj/effect/proc_holder/spell/hierophant_talisman_teleport/spell_teleport
 	var/obj/effect/proc_holder/spell/hierophant_talisman_message/spell_message
 
-/obj/item/clothing/accessory/necklace/hierophant_talisman/proc/update_icon_state()
-		icon_state = "hierpohant_talisman_active"
-		item_state = "hierpohant_talisman_active"
-		item_color = "hierophant_talisman_active"
-
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attack_self(mob/living/user)
 	if(possessed)
 		if(!slave)
@@ -355,11 +350,16 @@
 			slave.name = input
 		log_game("[slave.ckey] has become spirit of [user.real_name]'s talisman.")
 		to_chat(slave, span_hierophant("Now you are serving to [user.real_name]. You must ward him."))
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		log_game("No one has decided to be [user.real_name]'s talisman.")
 		to_chat(user, span_hierophant("This talisman is dormnant... Try again or later..."))
 		possessed = FALSE
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/update_icon_state()
+		icon_state = "hierpohant_talisman_active"
+		item_state = "hierpohant_talisman_active"
+		item_color = "hierophant_talisman_active"
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/Initialize(mapload)
 	.=..()
