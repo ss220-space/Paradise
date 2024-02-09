@@ -311,6 +311,11 @@
 	var/obj/effect/proc_holder/spell/hierophant_talisman_teleport/spell_teleport
 	var/obj/effect/proc_holder/spell/hierophant_talisman_message/spell_message
 
+/obj/item/clothing/accessory/necklace/hierophant_talisman/proc/update_icon_state()
+		icon_state = "hierpohant_talisman_active"
+		item_state = "hierpohant_talisman_active"
+		item_color = "hierophant_talisman_active"
+
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attack_self(mob/living/user)
 	if(possessed)
 		if(!slave)
@@ -340,7 +345,7 @@
 		slave.master = user.ckey
 		name = "Talisman of warding"
 		slave.real_name = name
-		slave.name = name 
+		slave.name = name
 		var/input = stripped_input(slave, "What are you named?", null, "", MAX_NAME_LEN)
 		if(QDELETED(src))
 			return
@@ -350,9 +355,7 @@
 			slave.name = input
 		log_game("[slave.ckey] has become spirit of [user.real_name]'s talisman.")
 		to_chat(slave, span_hierophant("Now you are serving to [user.real_name]. You must ward him."))
-		icon_state = "hierpohant_talisman_active"
-		item_state = "hierpohant_talisman_active"
-		item_color = "hierophant_talisman_active"
+		update_icon_state()
 	else
 		log_game("No one has decided to be [user.real_name]'s talisman.")
 		to_chat(user, span_hierophant("This talisman is dormnant... Try again or later..."))
@@ -444,13 +447,14 @@
 			new /obj/effect/temp_visual/hierophant/telegraph(target_turf, src)
 			new /obj/effect/temp_visual/hierophant/telegraph(start_turf, src)
 			playsound(start_turf,'sound/machines/airlock_open.ogg', 200, 1)
-			user.say("Blink, my fellow friend!")
 			if(H.health / H.maxHealth <= 0.25)
 				cooldown_handler.start_recharge(15 SECONDS)
 				to_chat(user, span_hierophant("Blink! Blink! Blink! You shall never surrender."))
+				user.say("Instant teleportation, my fellow friend!")
 			else
 				cooldown_handler.start_recharge(30 SECONDS)
 				to_chat(user, span_hierophant("Dance, my pretties!"))
+				user.say("Blink, my fellow friend!")
 			addtimer(CALLBACK(src, PROC_REF(talisman_teleport_2), target_turf, start_turf), 2)
 			break
 
