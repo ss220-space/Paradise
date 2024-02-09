@@ -510,7 +510,7 @@
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/user)
 	. = ..()
-	if(!ishuman(user))
+	if(!ishuman(user) || !slave)
 		return
 	slave.mob_spell_list -= spell_heal
 	slave.mob_spell_list -= spell_teleport
