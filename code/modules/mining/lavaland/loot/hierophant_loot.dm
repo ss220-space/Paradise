@@ -314,6 +314,7 @@
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attack_self(mob/living/user)
 	if(possessed)
 		if(!slave)
+			to_chat(user, span_hierophant("Still searching unique soul for you.."))
 			return
 		if(slave.master != user.ckey)
 			to_chat(slave, span_hierophant("Now you are serving to [user.real_name]. You must ward him."))
