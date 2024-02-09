@@ -139,12 +139,18 @@
 	return ..()
 
 
-/obj/structure/morgue/wirecutter_act(mob/user)
-	if(name != initial(name))
-		to_chat(user, span_notice("You cut the tag off the morgue."))
-		name = initial(name)
-		update_icon(UPDATE_OVERLAYS)
-		return TRUE
+/obj/structure/morgue/wirecutter_act(mob/user, obj/item/I)
+	if(name == initial(name))
+		return FALSE
+
+	. = TRUE
+
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return .
+
+	to_chat(user, span_notice("You cut the tag off the morgue."))
+	name = initial(name)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/structure/morgue/attack_hand(mob/user)
