@@ -522,6 +522,8 @@
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attached_unequip()
 	if(!ishuman(usr))
 		return
+	if(!slave)
+		return ..()
 	slave.mob_spell_list -= spell_heal
 	slave.mob_spell_list -= spell_teleport
 	slave.mob_spell_list -= spell_message
