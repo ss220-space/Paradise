@@ -69,16 +69,18 @@
 	if(!infinite)
 		wax--
 	if(!wax)
-		new/obj/item/trash/candle(src.loc)
-		if(istype(src.loc, /mob))
-			var/mob/M = src.loc
-			M.temporarily_remove_item_from_inventory(src, force = TRUE) //src is being deleted anyway
+		spawn_candle_trash()
 		qdel(src)
 	update_icon(UPDATE_ICON_STATE)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
 		T.hotspot_expose(700, 5)
 
+/obj/item/candle/proc/spawn_candle_trash()
+	new/obj/item/trash/candle(src.loc)
+	if(istype(src.loc, /mob))
+		var/mob/M = src.loc
+		M.temporarily_remove_item_from_inventory(src, force = TRUE) //src is being deleted anyway
 
 /obj/item/candle/attack_self(mob/user)
 	if(lit)
@@ -146,22 +148,12 @@
 		START_PROCESSING(SSobj, src)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/candle/torch/process()
-	if(!lit)
-		return
-	if(!infinite)
-		wax--
-	if(wax<=0)
-		var/obj/item/burnt_torch/T = new(loc)
-		if(ismob(loc))
-			var/mob/M = loc
-			M.temporarily_remove_item_from_inventory(src, force = TRUE)
-			M.put_in_hands(T)
-		qdel(src)
-	update_icon(UPDATE_ICON_STATE)
-	if(isturf(loc)) //start a fire if possible
-		var/turf/T = loc
-		T.hotspot_expose(700, 5)
+/obj/item/candle/torch/spawn_candle_trash()
+	var/obj/item/burnt_torch/T = new(loc)
+	if(ismob(loc))
+		var/mob/M = loc
+		M.temporarily_remove_item_from_inventory(src, force = TRUE)
+		M.put_in_hands(T)
 
 /obj/item/candle/torch/can_enter_storage(obj/item/storage/S, mob/user)
 	return
