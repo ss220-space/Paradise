@@ -313,6 +313,8 @@
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attack_self(mob/living/user)
 	if(possessed)
+		if(!slave)
+			return
 		if(slave.master != user.ckey)
 			to_chat(slave, span_hierophant("Now you are serving to [user.real_name]. You must ward him."))
 			to_chat(user, span_hierophant("Now this talisman is yours... It will ward you..."))
