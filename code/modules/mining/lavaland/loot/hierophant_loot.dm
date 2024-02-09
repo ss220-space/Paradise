@@ -498,7 +498,7 @@
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/on_attached(obj/item/clothing/under/S, mob/user)
 	. = ..()
-	if(!ishuman(user))
+	if(!ishuman(user) || !slave)
 		return
 	if(slave.master == user.ckey)
 		slave.mob_spell_list += spell_heal
