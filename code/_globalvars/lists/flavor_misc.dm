@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(TAGGERLOCATIONS, list("Disposals", //1
 	"Robotics", "HoP Office", "Library", "Chapel", //14, 15, 16, 17
 	"Captain's Office", "Bar", "Kitchen", "Hydroponics", //18, 19, 20, 21
 	"Janitor Closet","Genetics","Brig Physician", "Morgue", //22, 23, 24, 25
-	"NTR Office", "Detective", "Magistrate's Office", "IAA Office", //26, 27, 28, 29
+	"NTRep Office", "Detective", "Magistrate's Office", "IAA Office", //26, 27, 28, 29
 	"Mechanic")) // 30
 
 GLOBAL_LIST_INIT(hit_appends, list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF"))
