@@ -335,19 +335,20 @@
 	if(length(candidates))
 		theghost = pick(candidates)
 		slave = new(src)
-		slave.real_name = name
-		slave.name = name
 		slave.ckey = theghost.ckey
 		slave.master = user.ckey
+		name = "Talisman of warding"
+		slave.real_name = name
+		slave.name = name 
 		var/input = stripped_input(slave, "What are you named?", null, "", MAX_NAME_LEN)
-
-		if(src && input)
+		if(QDELETED(src))
+			return
+		if(input)
 			name = input
 			slave.real_name = input
 			slave.name = input
 		log_game("[slave.ckey] has become spirit of [user.real_name]'s talisman.")
 		to_chat(slave, span_hierophant("Now you are serving to [user.real_name]. You must ward him."))
-		name = "Talisman of warding"
 		icon_state = "hierpohant_talisman_active"
 		item_state = "hierpohant_talisman_active"
 		item_color = "hierophant_talisman_active"
