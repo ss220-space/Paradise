@@ -10,11 +10,11 @@ export STABLE_BYOND_MINOR=1575
 # Beta Byond Major
 export BETA_BYOND_MAJOR=515
 # Beta Byond Minor
-export BETA_BYOND_MINOR=1606
+export BETA_BYOND_MINOR=1630
 # For the RUSTG library. Not actually installed by CI but kept as a reference
 export RUSTG_VERSION=3.0.0-ss220
 #For DMJIT librarry
-export DMJIT_VERSION=v0.1.0
+export DMJIT_VERSION=v0.1.1
 
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.11.6
