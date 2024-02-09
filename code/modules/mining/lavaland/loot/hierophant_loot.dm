@@ -535,6 +535,8 @@
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attached_equip()
 	if(!ishuman(usr))
 		return
+	if(!slave)
+		return ..()
 	if(slave.master == usr.ckey)
 		slave.mob_spell_list += spell_heal
 		slave.mob_spell_list += spell_teleport
