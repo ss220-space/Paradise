@@ -1354,7 +1354,7 @@
 	msg += "Ваша версия: [byond_version].[byond_build]<br>"
 	msg += "Требуемая версия, чтобы убрать это окно: [SUGGESTED_CLIENT_VERSION].[SUGGESTED_CLIENT_BUILD] или выше<br>"
 	msg += "Посетите <a href=\"https://secure.byond.com/download\">сайт BYOND</a>, чтобы получить последнюю версию.<br>"
-	src << browse(msg, "window=warning_popup")
+	src << browse(msg.Join(""), "window=warning_popup")
 	to_chat(src, span_userdanger("Ваш клиент BYOND (версия: [byond_version].[byond_build]) устарел. Это может вызвать лаги. Мы крайне рекомендуем скачать последнюю версию с <a href='https://www.byond.com/download/'>byond.com</a> Прежде чем играть. Также можете обновиться через приложение BYOND."))
 
 
