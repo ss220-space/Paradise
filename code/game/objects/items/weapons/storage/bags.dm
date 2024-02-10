@@ -10,6 +10,7 @@
  *		Plant Bag
  *		Sheet Snatcher
  *		Book Bag
+ *      Construction bag
  *		Tray
  *
  *	-Sayu
@@ -22,6 +23,9 @@
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
 	slot_flags = SLOT_BELT
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 
 // -----------------------------
 //          Trash bag
@@ -146,6 +150,12 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
 
+/obj/item/storage/bag/ore/bigger
+	name = "industrial mining satchel"
+	desc = "This bugger can be used to store and transport ores. This one has additional utility pockets for ore."
+	icon_state = "satchel_better"
+	storage_slots = 16 //little better
+
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
 	flags = NODROP
@@ -160,6 +170,23 @@
 
 /obj/item/storage/bag/ore/holding/cyborg
 	name = "cyborg mining satchel of holding"
+	flags = NODROP
+
+/obj/item/storage/bag/gem
+	name = "gem satchel"
+	desc = "You thought it would be more like what those cartoon robbers wear."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "gem_satchel"
+	slot_flags = SLOT_BELT | SLOT_POCKET
+	w_class = WEIGHT_CLASS_NORMAL
+	storage_slots = 48
+	max_combined_w_class = 48
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(/obj/item/gem)
+
+
+/obj/item/storage/bag/gem/cyborg
+	name = "cyborg gem satchel"
 	flags = NODROP
 
 // -----------------------------
@@ -364,6 +391,26 @@
 	can_hold = list(/obj/item/book, /obj/item/storage/bible, /obj/item/tome, /obj/item/spellbook)
 	resistance_flags = FLAMMABLE
 
+// ------------------------------------------
+//           Construction bag
+// ------------------------------------------
+
+/obj/item/storage/bag/construction
+	name = "construction bag"
+	desc = "A bag for construction stuff."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "construction_bag"
+	storage_slots = 50
+	max_combined_w_class = 100
+	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(
+	 /obj/item/assembly, /obj/item/circuitboard, /obj/item/intercom_electronics,
+	 /obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/tracker_electronics,
+	 /obj/item/firealarm_electronics, /obj/item/airalarm_electronics, /obj/item/apc_electronics,
+	 /obj/item/stock_parts/cell, /obj/item/stock_parts, /obj/item/camera_assembly)
+	resistance_flags = FLAMMABLE
+
 /*
  * Trays - Agouri
  */
@@ -555,3 +602,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/iv_bag,/obj/item/reagent_containers/hypospray/autoinjector)
 	resistance_flags = FLAMMABLE
+
+/*
+ *  Medicinal Pouch (mostly for ashwalkers)
+ */
+
+/obj/item/storage/bag/medpouch
+	name = "medicinal pouch"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "pouch_ash"
+	desc = "A small pouch for holding plants, poultices, resin, and pestles."
+	storage_slots = 40
+	max_combined_w_class = 200
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown, /obj/item/stack/medical)

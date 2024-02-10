@@ -6,7 +6,7 @@
 	icon_state = "hardsuit0-contractor"
 	item_state = "contractor_helm"
 	item_color = "contractor"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 90)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/suit/space/hardsuit/contractor
@@ -15,7 +15,7 @@
 	icon_state = "hardsuit-contractor"
 	item_state = "contractor_hardsuit"
 	item_color = "contractor"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 90)
 	slowdown = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor
@@ -52,12 +52,30 @@
 	H.update_inv_head()
 	H.update_inv_wear_suit()
 
+//agent version disguised as engi hardsuit
+
+/obj/item/clothing/head/helmet/space/hardsuit/contractor/agent
+	name = "engineering hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
+	description_antag = "Шлем хардсьюта-хамелеона, замаскированный изначально под инженерный шлем."
+	icon_state = "hardsuit0-engineering"
+	item_state = "eng_helm"
+	item_color = "engineering"
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+
+/obj/item/clothing/suit/space/hardsuit/contractor/agent
+	name = "engineering hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
+	description_antag = "Хардсьют-хамелеон, замаскированный изначально под инженерный хардсьют. Красный - предатель!"
+	icon_state = "hardsuit-engineering"
+	item_state = "eng_hardsuit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor/agent
+
 /*
 		Hook
 		Much worse version of lava and ninja hook for balance reasons.
 
 */
-
 /datum/action/item_action/advanced/hook_upgrade
 	name = "Hardsuit SCORPION hook module"
 	desc = "A module installed in the wrist of your hardsuit, this highly illegal module uses a hardlight hook to forcefully pull a target towards you at high speed, knocking them down and partially exhausting them."
@@ -194,11 +212,11 @@
 		usr.visible_message("<span class='warning'>[usr] changes the look of his hardsuit!</span>", "<span class='notice'>Turning off the disguise..</span>")
 		return
 	var/list/choices = list(
-		"EVA" = image(icon = 'icons/mob/contractor.dmi', icon_state = "EVA"),
-		"Mining Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "mining"),
-		"Medical Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "medical"),
-		"Security Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "security"),
-		"Engineering Hardsuit" = image(icon = 'icons/mob/contractor.dmi', icon_state = "engineering")
+		"EVA" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "EVA"),
+		"Mining Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "mining"),
+		"Medical Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "medical"),
+		"Security Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "security"),
+		"Engineering Hardsuit" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "engineering")
 	)
 	var/selected_chameleon = show_radial_menu(usr, loc, choices, require_near = TRUE)
 	switch(selected_chameleon)
@@ -208,7 +226,7 @@
 			src.desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 			helmet.name = "EVA helmet"
 			helmet.desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
-			helmet.icon_state = "hardsuit0-medical" //well...
+			helmet.icon_state = "spacenew"
 			helmet.item_color = "medical"
 		if("Mining Hardsuit")
 			src.name = "mining hardsuit"

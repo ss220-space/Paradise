@@ -9,13 +9,14 @@
 	var/protected_species_changeling = list("Machine")
 	var/list/datum/mind/pre_changelings = list()
 
+
 /datum/game_mode/traitor/thief/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Thief+Changeling!</B>")
 	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров, генокрадов и агентов Синдиката. Не дайте агентам Синдиката и Генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</B>")
 
 
 /datum/game_mode/traitor/thief/changeling/pre_setup()
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
@@ -32,6 +33,7 @@
 		return ..()
 	else
 		return FALSE
+
 
 /datum/game_mode/traitor/thief/changeling/post_setup()
 	for(var/datum/mind/changeling in pre_changelings)

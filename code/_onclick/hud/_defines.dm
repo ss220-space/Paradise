@@ -37,6 +37,7 @@
 #define ui_storage1 "CENTER+1:18,SOUTH:5"
 #define ui_storage2 "CENTER+2:20,SOUTH:5"
 #define ui_pda "CENTER+3:22,SOUTH:5"
+#define ui_combo "CENTER+4:24,SOUTH+1:7" //combo meter for martial arts
 
 #define ui_alien_head "4:12,1:5"	//aliens
 #define ui_alien_oclothing "5:14,1:5"	//aliens
@@ -108,6 +109,7 @@
 #define ui_healthdoll "EAST-1:28,CENTER-1:15"
 #define ui_health "EAST-1:28,CENTER:17"
 #define ui_internal "EAST-1:28,CENTER+1:19"
+#define ui_stamina "EAST-1:28,CENTER-2:13"
 
 //borgs
 #define ui_borg_health "EAST-1:28,CENTER-1:15" //borgs have the health display where humans have the pressure damage indicator.
@@ -144,21 +146,23 @@
 
 // AI
 
-#define ui_ai_core "SOUTH:6,WEST"
-#define ui_ai_camera_list "SOUTH:6,WEST+1"
-#define ui_ai_track_with_camera "SOUTH:6,WEST+2"
-#define ui_ai_camera_light "SOUTH:6,WEST+3"
-#define ui_ai_crew_monitor "SOUTH:6,WEST+4"
-#define ui_ai_crew_manifest "SOUTH:6,WEST+5"
-#define ui_ai_alerts "SOUTH:6,WEST+6"
-#define ui_ai_announcement "SOUTH:6,WEST+7"
-#define ui_ai_shuttle "SOUTH:6,WEST+8"
-#define ui_ai_state_laws "SOUTH:6,WEST+9"
-#define ui_ai_pda_send "SOUTH:6,WEST+10"
-#define ui_ai_pda_log "SOUTH:6,WEST+11"
-#define ui_ai_take_picture "SOUTH:6,WEST+12"
-#define ui_ai_view_images "SOUTH:6,WEST+13"
-#define ui_ai_sensor "SOUTH:6,WEST+14"
+#define ui_ai_view_images "BOTTOM+1:6,LEFT"
+#define ui_ai_take_picture "BOTTOM+1:6,LEFT+1"
+#define ui_ai_camera_list "BOTTOM:6,LEFT"
+#define ui_ai_camera_light "BOTTOM:6,LEFT+1"
+#define ui_ai_track_with_camera "BOTTOM:6,LEFT+2"
+
+#define ui_ai_crew_monitor "BOTTOM:6,CENTER-3"
+#define ui_ai_crew_manifest "BOTTOM:6,CENTER-2"
+#define ui_ai_alerts "BOTTOM:6,CENTER-1"
+#define ui_ai_announcement "BOTTOM:6,CENTER"
+#define ui_ai_shuttle "BOTTOM:6,CENTER+1"
+#define ui_ai_pda_log "BOTTOM:6,CENTER+2"
+#define ui_ai_pda_send "BOTTOM:6,CENTER+3"
+
+#define ui_ai_state_laws "SOUTH:6,RIGHT-2"
+#define ui_ai_core "SOUTH:6,RIGHT-1"
+#define ui_ai_sensor "SOUTH:6,RIGHT"
 
 // Bots
 #define ui_bot_radio "EAST-1:28,SOUTH:7"
@@ -171,7 +175,8 @@
 #define ui_ghost_teleport "SOUTH:6,CENTER+1"
 #define ui_ghost_respawn_list "SOUTH:6,CENTER+2"
 #define ui_ghost_respawn_mob "SOUTH:6+1,CENTER+2"
-#define ui_ghost_respawn_pai "SOUTH:6+2,CENTER+2"
+#define ui_ghost_minigames "SOUTH:6+2,CENTER+2"
+#define ui_ghost_respawn_pai "SOUTH:6+3,CENTER+2"
 
 //HUD styles. Please ensure HUD_VERSIONS is the same as the maximum index. Index order defines how they are cycled in F12.
 #define HUD_STYLE_STANDARD 1
@@ -184,7 +189,3 @@
 //2 = reduced hud (just hands and intent switcher)
 //3 = no hud (for screenshots)
 
-
-#define HUD_LAYER_SCREEN 20
-
-#define HUD_LAYER_BUILDMODE 30

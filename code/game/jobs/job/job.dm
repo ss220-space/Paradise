@@ -3,7 +3,7 @@
 	//The name of the job
 	var/title = "NOPE"
 
-	//Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
+	//Job access. The use of minimal_access or access is determined by a config setting: CONFIG_GET(flag/jobs_have_minimal_access)
 	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
 	var/list/access = list()				//Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
 
@@ -17,6 +17,10 @@
 
 	//How many players can spawn in as this job
 	var/spawn_positions = 0
+
+	//Position count override from config/jobs.txt and jobs_highpop.txt
+	var/positions_lowpop = null
+	var/positions_highpop = null
 
 	//How many players have this job
 	var/current_positions = 0
@@ -61,6 +65,9 @@
 	var/spawn_ert = 0
 	var/syndicate_command = 0
 
+	var/money_factor = 1 // multiplier of starting funds
+	var/random_money_factor = FALSE // is miltiplier randomized (from 4x to 0.25x for now)
+
 	var/outfit = null
 
 	/////////////////////////////////
@@ -92,7 +99,7 @@
 	if(!config)	//Needed for robots.
 		return src.minimal_access.Copy()
 
-	if(config.jobs_have_minimal_access)
+	if(CONFIG_GET(flag/jobs_have_minimal_access))
 		return src.minimal_access.Copy()
 	else
 		return src.access.Copy()
@@ -107,7 +114,7 @@
 /datum/job/proc/available_in_days(client/C)
 	if(!C)
 		return 0
-	if(!config.use_age_restriction_for_jobs)
+	if(!CONFIG_GET(flag/use_age_restriction_for_jobs))
 		return 0
 	if(!isnum(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
@@ -201,6 +208,12 @@
 
 				if(!permitted)
 					to_chat(H, "<span class='warning'>Your current job, donator tier or whitelist status does not permit you to spawn with [gear]!</span>")
+					continue
+
+				if(G.implantable) //only works for organ-implants
+					var/obj/item/organ/internal/I = new G.path
+					I.insert(H)
+					to_chat(H, span_notice("Implanting you with [gear]!"))
 					continue
 
 				if(G.slot)

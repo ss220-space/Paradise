@@ -1,3 +1,13 @@
+/mob/living/carbon/alien/Life(seconds, times_fired)
+	if(..() && can_evolve && evolution_points < max_evolution_points)
+		var/points_to_add = 1
+		if(locate(/obj/structure/alien/weeds) in loc)
+			points_to_add *= 2
+		if(lying)
+			points_to_add *= 2
+		evolution_points = min(evolution_points + points_to_add, max_evolution_points)
+		update_icons()
+
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return
@@ -47,7 +57,7 @@
 		if(M.loc != src)
 			LAZYREMOVE(stomach_contents, M)
 			continue
-		if(stat != DEAD && times_fired % 3 == 1)
-			M.Weaken(10 SECONDS)
-			M.adjustBruteLoss(5)
-			adjust_nutrition(10)
+		if(stat != DEAD)
+			M.SetWeakened(4 SECONDS)
+			M.SetEyeBlind(4 SECONDS)
+			M.adjustBruteLoss(1.5)

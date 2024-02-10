@@ -19,7 +19,10 @@
 	icon_state = "bodybag_closed"
 	icon_closed = "bodybag_closed"
 	icon_opened = "bodybag_open"
-	sound = 'sound/items/zip.ogg'
+	open_sound = 'sound/items/zip.ogg'
+	close_sound = 'sound/items/zip.ogg'
+	open_sound_volume = 15
+	close_sound_volume = 15
 	var/item_path = /obj/item/bodybag
 	density = 0
 	integrity_failure = 0
@@ -65,6 +68,12 @@
 		return
 
 	// Make it possible to escape from bodybags in morgues and crematoriums
-	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
+	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/machinery/crematorium)))
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
+
+/obj/structure/closet/body_bag/update_icon()
+	if(!opened)
+		icon_state = icon_closed
+	else
+		icon_state = icon_opened

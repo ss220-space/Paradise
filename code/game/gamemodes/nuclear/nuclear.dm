@@ -1,10 +1,7 @@
-#define NUKESCALINGMODIFIER 1.2
+#define NUKESCALINGMODIFIER 6
 
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
-
-/proc/issyndicate(mob/living/M as mob)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.syndicates)
 
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
@@ -25,40 +22,36 @@
 	to_chat(world, "<B>A [syndicate_name()] Strike Force is approaching [station_name()]!</B>")
 	to_chat(world, "A nuclear explosive was being transported by Nanotrasen to a military base. The transport ship mysteriously lost contact with Space Traffic Control (STC). About that time a strange disk was discovered around [station_name()]. It was identified by Nanotrasen as a nuclear authentication disk and now Syndicate Operatives have arrived to retake the disk and detonate SS13! There are most likely Syndicate starships are in the vicinity, so take care not to lose the disk!\n<B>Syndicate</B>: Reclaim the disk and detonate the nuclear bomb anywhere on SS13.\n<B>Personnel</B>: Hold the disk and <B>escape with the disk</B> on the shuttle!")
 
-/datum/game_mode/nuclear/can_start()//This could be better, will likely have to recode it later
+/datum/game_mode/nuclear/can_start()
 	if(!..())
-		return 0
-
+		return FALSE
 	var/list/possible_syndicates = get_players_for_role(ROLE_OPERATIVE)
 	var/agent_number = 0
 
-	if(possible_syndicates.len < 1)
-		return 0
+	if(!length(possible_syndicates))
+		return FALSE
 
-	if(LAZYLEN(possible_syndicates) > agents_possible)
+	if(possible_syndicates.len > agents_possible)
 		agent_number = agents_possible
 	else
 		agent_number = possible_syndicates.len
 
 	var/n_players = num_players()
 	if(agent_number > n_players)
-		agent_number = n_players/2
+		agent_number = n_players / 2
 
 	while(agent_number > 0)
-		var/datum/mind/new_syndicate = pick(possible_syndicates)
+		var/datum/mind/new_syndicate = pick_n_take(possible_syndicates)
 		syndicates += new_syndicate
-		possible_syndicates -= new_syndicate //So it doesn't pick the same guy each time.
 		agent_number--
 
+	return TRUE
+
+/datum/game_mode/nuclear/pre_setup()
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
-	return 1
-
-
-/datum/game_mode/nuclear/pre_setup()
-	..()
-	return 1
+	return TRUE
 
 /datum/game_mode/proc/remove_operative(datum/mind/operative_mind)
 	if(operative_mind in syndicates)
@@ -169,7 +162,7 @@
 	M.overeatduration = 0
 	M.flavor_text = null
 
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = M.get_organ(BODY_ZONE_HEAD)
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
 	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
@@ -238,12 +231,12 @@
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
 	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
+	var/list/messages = list()
 	if(you_are)
-		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
-	var/obj_count = 1
-	for(var/datum/objective/objective in syndicate.objectives)
-		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+		messages.Add("<span class='notice'>You are a [syndicate_name()] agent!</span>")
+	messages.Add(syndicate.prepare_announce_objectives(FALSE))
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Nuclear_Agent\">Ядерный Оперативник</a></span>")
+	to_chat(syndicate.current, chat_box_red(messages.Join("<br>")))
 	return
 
 
@@ -251,7 +244,7 @@
 	return 1337 // WHY??? -- Doohl
 
 
-/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 20)
+/datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob, uplink_uses = 100)
 	var/radio_freq = SYND_FREQ
 
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
@@ -432,55 +425,55 @@
 	return newname
 
 
-/datum/game_mode/nuclear/set_scoreboard_gvars()
+/datum/game_mode/nuclear/set_scoreboard_vars()
+	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
+
 	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 		if(!M || !M.current)
-			GLOB.score_opkilled++
+			scoreboard.score_ops_killed++
 			continue
 
 		if(M.current.stat == DEAD)
-			GLOB.score_opkilled++
+			scoreboard.score_ops_killed++
 
 		else if(M.current.restrained())
-			GLOB.score_arrested++
+			scoreboard.score_arrested++
 
-	if(foecount == GLOB.score_arrested)
-		GLOB.score_allarrested = 1
+	if(foecount == scoreboard.score_arrested)
+		scoreboard.all_arrested = TRUE // how the hell did they manage that
 
-	for(var/obj/machinery/nuclearbomb/nuke in GLOB.machines)
-		if(nuke.r_code == "Nope")	continue
-		var/turf/T = get_turf(nuke)
-		var/area/A = T.loc
+	var/obj/machinery/nuclearbomb/syndicate/nuke = locate() in GLOB.poi_list
+	if(nuke?.r_code != "Nope")
+		var/area/A = get_area(nuke)
 
-		var/list/thousand_penalty = list(/area/wizard_station, /area/solar, /area)
+		var/list/thousand_penalty = list(/area/wizard_station, /area/solar)
 		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armory, /area/security/checkpoint/south)
 
 		if(is_type_in_list(A, thousand_penalty))
-			GLOB.score_nuked_penalty = 1000
+			scoreboard.nuked_penalty = 1000
 
 		else if(is_type_in_list(A, fiftythousand_penalty))
-			GLOB.score_nuked_penalty = 50000
+			scoreboard.nuked_penalty = 50000
 
 		else if(istype(A, /area/engine))
-			GLOB.score_nuked_penalty = 100000
+			scoreboard.nuked_penalty = 100000
 
 		else
-			GLOB.score_nuked_penalty = 10000
+			scoreboard.nuked_penalty = 10000
 
-		break
-
-		var/killpoints = GLOB.score_opkilled * 250
-		var/arrestpoints = GLOB.score_arrested * 1000
-		GLOB.score_crewscore += killpoints
-		GLOB.score_crewscore += arrestpoints
-		if(GLOB.score_nuked)
-			GLOB.score_crewscore -= GLOB.score_nuked_penalty
+	var/killpoints = scoreboard.score_ops_killed * 250
+	var/arrestpoints = scoreboard.score_arrested * 1000
+	scoreboard.crewscore += killpoints
+	scoreboard.crewscore += arrestpoints
+	if(scoreboard.nuked)
+		scoreboard.crewscore -= scoreboard.nuked_penalty
 
 
 
 /datum/game_mode/nuclear/get_scoreboard_stats()
+	var/datum/scoreboard/scoreboard = SSticker.score
 	var/foecount = 0
 	var/crewcount = 0
 
@@ -508,7 +501,7 @@
 				diskdat += "Carried by [M.real_name] "
 			if(isobj(disk_loc))
 				var/obj/O = disk_loc
-				diskdat += "in \a [O] "
+				diskdat += "in \a [O]"
 			disk_loc = disk_loc.loc
 		diskdat += "in [disk_loc.loc]"
 
@@ -527,13 +520,14 @@
 
 	dat += "<br>"
 
-	dat += "<b>Operatives Arrested:</b> [GLOB.score_arrested] ([GLOB.score_arrested * 1000] Points)<br>"
-	dat += "<b>All Operatives Arrested:</b> [GLOB.score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+	dat += "<b>Operatives Arrested:</b> [scoreboard.score_arrested] ([scoreboard.score_arrested * 1000] Points)<br>"
+	dat += "<b>All Operatives Arrested:</b> [scoreboard.all_arrested ? "Yes" : "No"] (Score tripled)<br>"
 
-	dat += "<b>Operatives Killed:</b> [GLOB.score_opkilled] ([GLOB.score_opkilled * 1000] Points)<br>"
-	dat += "<b>Station Destroyed:</b> [GLOB.score_nuked ? "Yes" : "No"] (-[GLOB.score_nuked_penalty] Points)<br>"
+	dat += "<b>Operatives Killed:</b> [scoreboard.score_ops_killed] ([scoreboard.score_ops_killed * 1000] Points)<br>"
+	dat += "<b>Station Destroyed:</b> [scoreboard.nuked ? "Yes" : "No"] (-[scoreboard.nuked_penalty] Points)<br>"
 	dat += "<hr>"
 
 	return dat
+
 
 #undef NUKESCALINGMODIFIER

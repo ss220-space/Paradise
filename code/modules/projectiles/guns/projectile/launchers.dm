@@ -40,7 +40,7 @@
 	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
@@ -65,7 +65,7 @@
 	burst_size = 1
 	fire_delay = 0
 	select = 0
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/speargun/update_icon()
 	return
@@ -102,13 +102,23 @@
 		chamber_round()
 		cut_overlays()
 
-
-/obj/item/gun/projectile/revolver/rocketlauncher/afterattack()
-	. = ..()
-	magazine.get_round(FALSE) //Hack to clear the mag after it's fired
-	chambered = null //weird thing
+/obj/item/gun/projectile/revolver/rocketlauncher/process_chamber()
+	var/obj/item/ammo_casing/AC = chambered
+	if(isnull(AC) || !istype(AC))
+		chamber_round()
+		return
+	chambered = null
+	chamber_round()
 	update_icon()
+	return
 
+/obj/item/gun/projectile/revolver/rocketlauncher/chamber_round()
+	if(chambered || !magazine)
+		return
+	else if(magazine.ammo_count())
+		chambered = magazine.get_round()
+		chambered.loc = src
+	return
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attack_self(mob/living/user)
 	var/num_unloaded = 0

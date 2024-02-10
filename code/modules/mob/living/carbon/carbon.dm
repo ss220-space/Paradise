@@ -42,7 +42,7 @@
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
 	if(.)
-		if(nutrition && stat != DEAD)
+		if(nutrition && stat != DEAD && !isvampire(src))
 			adjust_nutrition(-(hunger_drain * 0.1))
 			if(m_intent == MOVE_INTENT_RUN)
 				adjust_nutrition(-(hunger_drain * 0.1))
@@ -72,7 +72,7 @@
 
 				if(istype(src, /mob/living/carbon/human))
 					var/mob/living/carbon/human/H = src
-					var/obj/item/organ/external/organ = H.get_organ("chest")
+					var/obj/item/organ/external/organ = H.get_organ(BODY_ZONE_CHEST)
 					if(istype(organ))
 						if(organ.receive_damage(d, 0))
 							H.UpdateDamageIcon()
@@ -136,25 +136,27 @@
 	return TRUE
 
 /mob/living/carbon/gib()
-	. = death(1)
+	. = death(TRUE)
 	if(!.)
 		return
-	for(var/obj/item/organ/internal/I in internal_organs)
-		if(isturf(loc))
-			I.remove(src)
-			I.forceMove(get_turf(src))
-			I.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
+	var/drop_loc = drop_location()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		var/atom/movable/thing = organ.remove(src)
+		if(!QDELETED(thing))
+			thing.forceMove(drop_loc)
+			if(isturf(thing.loc))
+				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
-		M.forceMove(drop_location())
+		M.forceMove(drop_loc)
 		visible_message("<span class='danger'>[M] вырыва[pluralize_ru(M.gender,"ет","ют")]ся из [src.name]!</span>")
 
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
 	if(status_flags & GODMODE)	//godmode
 		return FALSE
-	if(NO_SHOCK in mutations) //shockproof
+	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE)) //shockproof
 		return FALSE
 	if(tesla_shock && tesla_ignore)
 		return FALSE
@@ -235,7 +237,7 @@
 					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
 						protected = TRUE
 
-					var/obj/item/organ/external/active_hand = H.get_organ("[H.hand ? "l" : "r"]_hand")
+					var/obj/item/organ/external/active_hand = H.get_organ(H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 					if(active_hand && !protected) // Wouldn't really work without a hand
 						active_hand.receive_damage(0, 5)
 						self_message = "<span class='danger'>Вы обжигаете ваши руки пытаясь потушить [src.name]!</span>"
@@ -248,7 +250,7 @@
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(M.zone_selected == "head")
+				if(M.zone_selected == BODY_ZONE_HEAD)
 					M.visible_message(\
 					"<span class='notice'>[M] глад[pluralize_ru(M.gender,"ит","ят")] [src.name] по голове.</span>",\
 					"<span class='notice'>Вы погладили [src.name] по голове.</span>",\
@@ -274,13 +276,23 @@
 		"<span class='notice'>Вы осмотрели себя на наличие травм.</span>", \
 		)
 
-	var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
-	for(var/X in H.bodyparts)
-		var/obj/item/organ/external/LB = X
-		missing -= LB.limb_name
+	var/list/missing = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
+	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+		missing -= bodypart.limb_zone
 		var/status = ""
-		var/brutedamage = LB.brute_dam
-		var/burndamage = LB.burn_dam
+		var/brutedamage = bodypart.brute_dam
+		var/burndamage = bodypart.burn_dam
 
 		if(brutedamage > 0)
 			status = "bruised"
@@ -297,14 +309,14 @@
 			status += "blistered"
 		else if(burndamage > 0)
 			status += "numb"
-		if(LB.status & ORGAN_MUTATED)
+		if(bodypart.is_mutated())
 			status = "weirdly shapen."
 		if(status == "")
 			status = "OK"
-		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
+		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [bodypart.name] is [status].</span>")
 
-		for(var/obj/item/I in LB.embedded_objects)
-			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>В твоем [LB.name] застрял [I]!</a>")
+		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
+			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В твоем [bodypart.name] застрял [embedded]!</a>")
 
 	for(var/t in missing)
 		to_chat(src, "<span class='boldannounce'>У вас отсутствует [parse_zone(t)]!</span>")
@@ -316,7 +328,7 @@
 			to_chat(src, "<span class='info'>Вы полностью истощены.</span>")
 		else
 			to_chat(src, "<span class='info'>Вы чувствуете усталость.</span>")
-	if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
+	if((isskeleton(H) || (SKELETON in H.mutations)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 
@@ -392,6 +404,11 @@
 	return 0
 
 
+/mob/living/carbon/proc/create_dna()
+	if(!dna)
+		dna = new()
+
+
 /mob/living/carbon/proc/getDNA()
 	return dna
 
@@ -413,7 +430,7 @@
 
 //Throwing stuff
 
-/mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, speed)
 	. = ..()
 
 	if(has_status_effect(STATUS_EFFECT_CHARGING))
@@ -445,33 +462,30 @@
 				hit_something = TRUE
 
 		if(hit_something)
-			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+			visible_message(span_danger("[src] slams into [hit_atom]!"),
+							span_userdanger("You slam into [hit_atom]!"))
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
 		return
 
-	var/hurt = TRUE
-	/*if(istype(throwingdatum, /datum/thrownthing))
-		var/datum/thrownthing/D = throwingdatum
-		if(isrobot(D.thrower))
-			var/mob/living/silicon/robot/R = D.thrower
-			if(!R.emagged)
-				hurt = FALSE*/
-	if(hit_atom.density && isturf(hit_atom))
-		if(hurt)
-			Weaken(2 SECONDS)
-			take_organ_damage(10)
-	if(iscarbon(hit_atom) && hit_atom != src)
-		var/mob/living/carbon/victim = hit_atom
-		if(victim.flying)
+	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
+	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
+
+
+/mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	/*
+	for(var/obj/item/twohanded/dualsaber/D in contents)
+		if(D.wielded && D.force)
+			visible_message(span_danger("[src] impales [C] with [D], before dropping them on the ground!"))
+			C.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
+			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
+			C.Weaken(2 SECONDS)
+			D.melee_attack_chain(src, C) //attack animation / jedi spin
+			C.emote("scream")
 			return
-		if(hurt)
-			victim.take_organ_damage(10)
-			take_organ_damage(10)
-			victim.Weaken(2 SECONDS)
-			Weaken(2 SECONDS)
-			visible_message("<span class='danger'>[src.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [victim.name], сбивая друг друга с ног!</span>", "<span class='userdanger'>Вы жестко врезаетесь в [victim.name]!</span>")
-		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	*/
+	. = ..()
+	Weaken(3 SECONDS)
 
 
 /mob/living/carbon/proc/toggle_throw_mode()
@@ -479,18 +493,30 @@
 		throw_mode_off()
 	else
 		throw_mode_on()
+	var/obj/item/I = get_active_hand()
+	if(I)
+		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
+
+#define THROW_MODE_ICON 'icons/effects/cult_target.dmi'
 
 /mob/living/carbon/proc/throw_mode_off()
-	src.in_throw_mode = 0
-	if(src.throw_icon) //in case we don't have the HUD and we use the hotkey
-		src.throw_icon.icon_state = "act_throw_off"
+	in_throw_mode = FALSE
+	if(throw_icon) //in case we don't have the HUD and we use the hotkey
+		throw_icon.icon_state = "act_throw_off"
+	if(client?.mouse_pointer_icon == THROW_MODE_ICON)
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
 
 /mob/living/carbon/proc/throw_mode_on()
-	src.in_throw_mode = 1
-	if(src.throw_icon)
-		src.throw_icon.icon_state = "act_throw_on"
+	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
+	in_throw_mode = TRUE
+	if(throw_icon)
+		throw_icon.icon_state = "act_throw_on"
+	if(client?.mouse_pointer_icon == initial(client.mouse_pointer_icon))
+		client.mouse_pointer_icon = THROW_MODE_ICON
+
+#undef THROW_MODE_ICON
 
 
 /mob/proc/throw_item(atom/target)
@@ -502,7 +528,7 @@
 		throw_mode_off()
 		return
 
-	var/obj/item/I = src.get_active_hand()
+	var/obj/item/I = get_active_hand()
 
 	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
 		throw_mode_off()
@@ -518,7 +544,7 @@
 		if(throwable_mob)
 			thrown_thing = throwable_mob
 			if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-				to_chat(src, "<span class='notice'>[pluralize_ru(src.gender,"Ты","Вы")] осторожно отпускае[pluralize_ru(src.gender,"шь","те")] [throwable_mob.declent_ru(ACCUSATIVE)].</span>")
+				to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] осторожно отпускае[pluralize_ru(src.gender,"шь","те")] [throwable_mob.declent_ru(ACCUSATIVE)]."))
 				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
@@ -531,17 +557,16 @@
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
-		drop_item_ground(I)
+		drop_item_ground(I, silent = TRUE)
 
 		if(GLOB.pacifism_after_gt || (HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce))
-			to_chat(src, "<span class='notice'>[pluralize_ru(src.gender,"Ты","Вы")] осторожно опускае[pluralize_ru(src.gender,"шь","те")] [I.declent_ru(ACCUSATIVE)] на землю.</span>")
+			to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] осторожно опускае[pluralize_ru(src.gender,"шь","те")] [I.declent_ru(ACCUSATIVE)] на землю."))
 			return
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] броса[pluralize_ru(src.gender,"ет","ют")] [thrown_thing.declent_ru(ACCUSATIVE)].</span>")
+		visible_message(span_danger("[src.declent_ru(NOMINATIVE)] броса[pluralize_ru(src.gender,"ет","ют")] [thrown_thing.declent_ru(ACCUSATIVE)]."))
 		newtonian_move(get_dir(target, src))
 		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
-
 
 
 //generates realistic-ish pulse output based on preset levels
@@ -616,9 +641,8 @@
 
 /mob/living/carbon/emp_act(severity)
 	..()
-	for(var/X in internal_organs)
-		var/obj/item/organ/internal/O = X
-		O.emp_act(severity)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		organ.emp_act(severity)
 
 /mob/living/carbon/Stat()
 	..()
@@ -692,7 +716,7 @@
 		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]u) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	GLOB.score_foodeaten++
+	SSticker.score.score_food_eaten++
 	return 1
 
 
@@ -800,8 +824,8 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/shock_internal_organs(intensity)
-	for(var/obj/item/organ/O in internal_organs)
-		O.shock_organ(intensity)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		organ.shock_organ(intensity)
 
 
 /mob/living/carbon/update_sight()
@@ -817,14 +841,14 @@ so that different stomachs can handle things in different ways VB*/
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.see_in_dark)
-			see_in_dark = max(see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-		if(!isnull(E.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
+	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
+		sight |= cyber_eyes.vision_flags
+		if(cyber_eyes.see_in_dark)
+			see_in_dark = max(see_in_dark, cyber_eyes.see_in_dark)
+		if(cyber_eyes.see_invisible)
+			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
+		if(!isnull(cyber_eyes.lighting_alpha))
+			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
 
 	if(client.eye != src)
 		var/atom/A = client.eye

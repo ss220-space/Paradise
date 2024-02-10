@@ -11,6 +11,13 @@
 	put_on_delay = 20
 	clipped = 1
 
+/obj/item/clothing/gloves/fingerless/weaver
+	name = "weaver chitin gloves"
+	desc = "Grey gloves without fingertips made from the hide of a dead arachnid found on lavaland. Makes wearer stronger in disarming ability."
+	icon_state = "weaver_chitin"
+	item_state = "weaver_chitin"
+	extra_knock_chance = 5
+
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"
 	name = "cyborg gloves"
@@ -168,6 +175,28 @@
 /obj/item/clothing/gloves/fingerless/rapid
 	var/accepted_intents = list(INTENT_HARM)
 	var/click_speed_modifier = CLICK_CD_RAPID
+	var/mob/living/owner
+
+/obj/item/clothing/gloves/fingerless/rapid/equipped(mob/user, slot, initial)
+	owner = user
+	if(istype(owner) && slot == slot_gloves)
+		owner.dirslash_enabled = TRUE
+		owner.verbs += /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+	. = ..()
+
+/obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, silent)
+	owner.verbs -= /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+	owner.dirslash_enabled = initial(owner.dirslash_enabled)
+	. = ..()
+
+/obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling()
+	set name = "Enable/Disable direction slash"
+	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
+	set category = "Object"
+	var/mob/living/L = usr
+	L.dirslash_enabled = !L.dirslash_enabled
+	to_chat(src, span_notice("Directrion slash is [L.dirslash_enabled? "enabled" : "disabled"] now."))
+
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc
@@ -202,6 +231,10 @@
 	extra_knock_chance = 5
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
+
+/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(increase)
+	razor_damage_low += increase
+	razor_damage_high += increase
 
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE
@@ -265,8 +298,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
 	species_exception = list(/datum/species/monkey)
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/gloves.dmi',
-		"Monkey" = 'icons/mob/species/monkey/gloves.dmi',)
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/gloves.dmi',)
 
 /obj/item/clothing/gloves/knuckles/Touch(atom/A, proximity)
 	. = FALSE

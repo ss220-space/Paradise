@@ -1,5 +1,6 @@
 /datum/martial_art/mimejutsu
 	name = "Mimejutsu"
+	weight = 6
 	block_chance = 50
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/mimejutsu/mimechucks, /datum/martial_combo/mimejutsu/silent_palm, /datum/martial_combo/mimejutsu/silencer, /datum/martial_combo/mimejutsu/execution)
@@ -58,7 +59,7 @@
 		used = TRUE
 		desc = "An old manual of the martial art of mimes. The pages are blank."
 	else
-		to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+		to_chat(user, "<span class='notice'>You must dedicate yourself to silence first.</span>")
 
 /datum/martial_art/mimejutsu/explaination_header(user)
 	to_chat(user, "<b><i>...</i></b>")

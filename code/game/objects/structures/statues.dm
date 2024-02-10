@@ -306,6 +306,11 @@
 	anchored = TRUE
 	oreAmount = 10
 
+/obj/structure/statue/armor
+	name = "Knight's armor"
+	desc = "Shiny metallic armor."
+	icon_state = "posarmor"
+	anchored = TRUE
 /obj/structure/statue/elwycco
 	name = "Unknown Hero"
 	desc = "Похоже это какой-то очень важный человек, или очень значимый для многих людей. Вы замечаете огроменный топор в его руках, с выгравированным числом 220. Что это число значит? Каждый понимает по своему, однако по слухам оно означает количество его жертв. \n Надпись на табличке - Мы с тобой, Шустрила! Аве, Легион!"
@@ -365,6 +370,86 @@
 	anchored = TRUE
 	oreAmount = 0
 
+/obj/structure/statue/noble
+	name = "Noble person"
+	desc = "Giant person, not like us... May be a hero from an ancient fairy tale?"
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "frank"
+	max_integrity = 2000
+	anchored = 1
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/dude
+	name = "Unknown monk"
+	desc = "Seems to be one of thinkers from ancient times."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "dude"
+	max_integrity = 2000
+	anchored = 1
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/death
+	name = "Death"
+	desc = "One day It will come and take you and your dreams."
+	icon = 'icons/obj/statuebig.dmi'
+	icon_state = "death"
+	max_integrity = 2000
+	anchored = 1
+	bound_width = 64
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/unknown
+	name = "Unknown hero"
+	desc = "A pedestal for an unknown soldier, perhaps he was somehow connected with the solar system."
+	icon = 'icons/obj/statuebig.dmi'
+	icon_state = "unknown"
+	max_integrity = 2000
+	anchored = 1
+	bound_width = 64
+	var/lit = 0
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/statue/unknown/Destroy()
+	return ..()
+
+/obj/structure/statue/unknown/update_icon()
+	if(lit)
+		lit = 1
+		icon_state = "unknown_lit"
+	else
+		icon_state = "unknown"
+
+/obj/structure/statue/unknown/attackby(obj/item/W, mob/user, params)
+	if(is_hot(W))
+		light(span_notice("[user] lights [src] with [W]."))
+		return
+	return ..()
+
+/obj/structure/statue/unknown/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(I.tool_use_check(user, 0))
+		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
+
+/obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	if(!lit)
+		light()
+	return ..()
+
+/obj/structure/statue/unknown/proc/light(show_message)
+	if(!lit)
+		lit = 1
+		if(show_message)
+			usr.visible_message(show_message)
+		set_light(CANDLE_LUM)
+		update_icon()
+
+/obj/structure/statue/unknown/attack_hand(mob/user)
+	if(lit)
+		user.visible_message(span_notice("[user] snuffs out [src]."))
+		lit = 0
+		update_icon()
+		set_light(0)
+
 ////////////////////////////////
 
 /obj/structure/snowman
@@ -400,6 +485,16 @@
 	..()
 	qdel(src)
 
+/obj/structure/snowman/high
+	icon_state = "snowman_high"
+
+/obj/structure/snowman/medium
+	icon_state = "snowman_medium"
+
+/obj/structure/snowman/short
+	name = "snowboy"
+	icon_state = "snowman_short"
+
 ///////// Cheese
 /obj/structure/statue/cheese
 	max_integrity = 100
@@ -421,3 +516,37 @@
 		icon_state = "cheesus2"
 		return ..()
 	return ..()
+
+//////BONES
+/obj/structure/bones
+	name = "large bone"
+	desc = "a large bone that belong to the unknown creature"
+	icon = 'icons/obj/bones_64x64.dmi'
+	icon_state = "l_bone"
+	anchored = TRUE
+	density = TRUE
+	max_integrity = 1000
+
+/obj/structure/bones/right
+	icon_state = "r_bone"
+
+/obj/structure/bones/skull
+	name = "large skull"
+	desc = "a large skull that belong to the unknown creature"
+	icon_state = "skull"
+
+/obj/structure/bones/ribs_left
+	name = "large ribs"
+	desc = "a large ribs that belong to the unknown creature"
+	icon_state = "l_ribs"
+
+/obj/structure/bones/ribs_right
+	name = "large ribs"
+	desc = "a large ribs that belong to the unknown creature"
+	icon_state = "r_ribs"
+
+/obj/structure/statue/bone/rib
+	name = "colossal rib"
+	desc = "It's staggering to think that something this big could have lived, let alone died."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "rib"

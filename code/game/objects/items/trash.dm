@@ -67,14 +67,14 @@
 	slot_flags = SLOT_HEAD
 	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
 	sprite_sheets = list(
-		"Skrell" = 'icons/mob/species/skrell/head.dmi',
-		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Kidan" = 'icons/mob/species/kidan/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/trash/pistachios
@@ -119,13 +119,17 @@
 	icon = 'icons/obj/weapons/ammo.dmi'
 	name = "bullet casing"
 	desc = "A spent bullet casing. Smells like cordite."
-	icon_state = "gshell"
+	icon_state = "buckshotshell"
 
 /obj/item/trash/tapetrash
 	name = "old duct tape"
 	icon_state = "tape"
 	desc = "Not sticky anymore."
 	throw_range = 1
+
+/obj/item/trash/tapetrash/thick
+	icon_state = "thicktape"
+	desc = "Still sticky a bit."
 
 /obj/item/trash/doshik
 	name = "packaging from doshik"
@@ -146,7 +150,7 @@
 
 /obj/item/spentcasing
 	icon = 'icons/obj/weapons/ammo.dmi'
-	icon_state = "gshell"
+	icon_state = "buckshotshell"
 	name = "Old bullet casing"
 	desc = "A spent bullet casing. Smells like rusty metal."
 

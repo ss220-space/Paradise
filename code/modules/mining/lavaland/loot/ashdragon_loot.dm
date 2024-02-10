@@ -2,7 +2,8 @@
 	name = "dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/populate_contents()
-	var/loot = rand(1,4)
+	new /obj/item/gem/amber(src)
+	var/loot = rand(1,5)
 	switch(loot)
 		if(1)
 			new /obj/item/melee/ghost_sword(src)
@@ -13,6 +14,8 @@
 			new /obj/item/gun/magic/wand/fireball(src)
 		if(4)
 			new /obj/item/dragons_blood(src)
+		if(5)
+			new /obj/item/dragons_blood/refined(src) //turning into lizard stuff
 
 
 /obj/structure/closet/crate/necropolis/dragon/crusher
@@ -142,15 +145,30 @@
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)
 
-/datum/disease/transformation/dragon
+/obj/item/dragons_blood/refined
+	name = "bottle of refined dragons blood"
+	desc = "You're totally going to drink this, aren't you?"
+
+/obj/item/dragons_blood/refined/attack_self(mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+	to_chat(user, span_danger("You feel warmth spread through you, paired with an odd desire to burn down a village. You're suddenly a very small, humanoid ash dragon!"))
+	H.set_species(/datum/species/unathi/draconid, save_appearance = TRUE)
+
+	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	qdel(src)
+
+/datum/disease/virus/transformation/dragon
 	name = "dragon transformation"
-	cure_text = "nothing"
+	cure_text = "Nothing"
 	cures = list("adminordrazine")
 	agent = "dragon's blood"
 	desc = "What do dragons have to do with Space Station 13?"
 	stage_prob = 20
 	severity = BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = VISIBLE
 	stage1	= list("Your bones ache.")
 	stage2	= list("Your skin feels scaley.")
 	stage3	= list("<span class='danger'>You have an overwhelming urge to terrorize some peasants.</span>", "<span class='danger'>Your teeth feel sharper.</span>")
@@ -163,11 +181,10 @@
 /obj/item/lava_staff
 	name = "staff of lava"
 	desc = "The power of fire and rocks in your hands!"
-	icon_state = "staffofstorms"
-	item_state = "staffofstorms"
+	icon_state = "lavastaff"
+	item_state = "lavastaff"
 	icon = 'icons/obj/weapons/magic.dmi'
 	slot_flags = SLOT_BACK
-	item_state = "staffofstorms"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
@@ -202,7 +219,7 @@
 		do_sparks(5, FALSE, user)
 		return
 
-	if(target in view(user.client.view, get_turf(user)))
+	if(target in view(user.client.maxview(), get_turf(user)))
 
 		var/turf/simulated/T = get_turf(target)
 		if(!istype(T))

@@ -581,7 +581,7 @@
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/moving_atom) //Go straight into the chute
 	..()
 
-	if(istype(moving_atom, /obj/item/projectile))  return
+	if(istype(moving_atom, /obj/item/projectile) || istype(moving_atom, /obj/effect))  return
 	switch(dir)
 		if(NORTH)
 			if(moving_atom.loc.y != src.loc.y+1) return
@@ -636,7 +636,7 @@
 // this allows the gas flushed to be tracked
 
 /obj/structure/disposalholder
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/datum/gas_mixture/gas = null	// gas used to flush, will appear at exit point
 	var/active = 0	// true if the holder is moving, otherwise inactive
@@ -816,7 +816,6 @@
 	damage_deflection = 10
 	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
-	var/base_icon_state	// initial icon state on map
 
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/Initialize(mapload)
@@ -890,7 +889,7 @@
 // hide called by levelupdate if turf intact status changes
 // change visibility status and force update of icon
 /obj/structure/disposalpipe/hide(var/intact)
-	invisibility = intact ? 101: 0	// hide if floor is intact
+	invisibility = intact ? INVISIBILITY_ABSTRACT: 0	// hide if floor is intact
 	update_icon()
 
 // update actual icon_state depending on visibility
@@ -921,9 +920,7 @@
 		return
 	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
-		new F.floor_tile(H)
-		F.remove_tile(null, TRUE, FALSE)
-
+		F.remove_tile(null, TRUE, TRUE)
 	if(direction)		// direction is specified
 		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
 			target = get_edge_target_turf(T, direction)
@@ -935,6 +932,7 @@
 			for(var/atom/movable/AM in H)
 				AM.forceMove(T)
 				AM.pipe_eject(direction)
+				SEND_SIGNAL(AM, COMSIG_MOVABLE_EXIT_DISPOSALS)
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 100, 1)
@@ -950,6 +948,7 @@
 
 				AM.forceMove(T)
 				AM.pipe_eject(0)
+				SEND_SIGNAL(AM, COMSIG_MOVABLE_EXIT_DISPOSALS)
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 5, 1)
@@ -968,7 +967,7 @@
 				var/obj/structure/disposalpipe/broken/P = new(src.loc)
 				P.setDir(D)
 
-	invisibility = 101	// make invisible (since we won't delete the pipe immediately)
+	invisibility = INVISIBILITY_ABSTRACT	// make invisible (since we won't delete the pipe immediately)
 	var/obj/structure/disposalholder/H = locate() in src
 	if(H)
 		// holder was present
@@ -1469,6 +1468,8 @@
 //When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
 /obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir)
 	. = ..()
+	if(!loc)
+		return
 	var/turf/T = OldLoc
 	if(T.intact)
 		var/turf/simulated/floor/F = T

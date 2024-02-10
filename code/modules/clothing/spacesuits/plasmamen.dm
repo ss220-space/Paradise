@@ -24,7 +24,8 @@
 	visor_flags_inv = HIDEGLASSES|HIDENAME
 	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list("Plasmaman")
-	sprite_sheets = list("Plasmaman" = 'icons/mob/species/plasmaman/helmet.dmi')
+	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
+	var/upgradable = FALSE
 
 /obj/item/clothing/head/helmet/space/plasmaman/New()
 	..()
@@ -68,8 +69,20 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
 	on = !on
-	icon_state = "[initial(icon_state)][on ? "-light":""]"
-	item_state = icon_state
+	if(upgradable)
+		switch(armor.getRating("melee"))
+			if(30)
+				icon_state = "[initial(icon_state)][on ? "-light":""]"
+				item_state = icon_state
+			if(40,50)
+				icon_state = "[initial(icon_state)]_reinf[on ? "-light":""]"
+				item_state = icon_state
+			if(60)
+				icon_state = "[initial(icon_state)]_reinf_full[on ? "-light":""]"
+				item_state = icon_state
+	else
+		icon_state = "[initial(icon_state)][on ? "-light":""]"
+		item_state = icon_state
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
@@ -92,6 +105,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
+		update_equipped_item()
 
 /obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -100,7 +114,7 @@
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
 
-/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, silent = FALSE)
 	..()
 	if(HUDType && istype(user) && user.head == src)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
@@ -268,6 +282,7 @@
 	vision_flags = SEE_TURFS
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	upgradable = TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit helmet"
@@ -290,6 +305,14 @@
 	item_state = "white_envirohelm"
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
+
+/obj/item/clothing/head/helmet/space/plasmaman/nt_rep
+	name = "nanotrasen representative envirosuit helmet"
+	desc = "An envirohelm designed for plasmamen NT representatives."
+	icon_state = "ntrep_envirohelm"
+	item_state = "ntrep_envirohelm"
+	HUDType = DATA_HUD_SECURITY_BASIC
+	examine_extensions = list(EXAMINE_HUD_SKILLS)
 
 /obj/item/clothing/head/helmet/space/plasmaman/chef
 	name = "chef plasma envirosuit helmet"
@@ -371,3 +394,20 @@
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
+
+/obj/item/clothing/head/helmet/space/plasmaman/syndicate
+	name = "syndicate officer envirosuit helmet"
+	desc = "Tactical plasmaman envirohelm designed for Syndicate officers."
+	icon_state = "syndicatecentcomm_envirohelm"
+	item_state = "syndicatecentcomm_envirohelm"
+	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+
+/obj/item/clothing/head/helmet/space/plasmaman/centcomm
+	name = "Central command officer envirosuit helmet"
+	desc = "Central command plasmaman envirohelm designed specially for Nanotrasen officers."
+	icon_state = "centcomm_envirohelm"
+	item_state = "centcomm_envirohelm"
+	HUDType = DATA_HUD_SECURITY_BASIC
+	examine_extensions = list(EXAMINE_HUD_SKILLS)

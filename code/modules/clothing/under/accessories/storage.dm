@@ -4,6 +4,9 @@
 	icon_state = "webbing"
 	item_color = "webbing"
 	slot = ACCESSORY_SLOT_UTILITY
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 	var/slots = 3
 	var/obj/item/storage/internal/hold
 	actions_types = list(/datum/action/item_action/accessory/storage)
@@ -68,7 +71,7 @@
 	else
 		to_chat(user, "<span class='notice'>You empty [src].</span>")
 		var/turf/T = get_turf(src)
-		hold.hide_from(usr)
+		hold.hide_from(user)
 		for(var/obj/item/I in hold.contents)
 			hold.remove_from_storage(I, T)
 		src.add_fingerprint(user)
@@ -80,12 +83,12 @@
 	item_color = "webbing"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/storage/black_vest

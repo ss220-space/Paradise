@@ -52,7 +52,8 @@
 
 /obj/machinery/poolcontroller/emag_act(user as mob) //Emag_act, this is called when it is hit with a cryptographic sequencer.
 	if(!emagged) //If it is not already emagged, emag it.
-		to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
+		if(user)
+			to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
 
 		emagged = 1 //Set the emag var to true.
 
@@ -83,6 +84,9 @@
 		handleTemp(M)	//handles pool temp effects on the swimmers
 		if(ishuman(M)) //Only human types will drown, to keep things simple for non-human mobs that live in the water
 			handleDrowning(M)
+		if(isliving(M))
+			var/mob/living/mob = M
+			mob.ExtinguishMob()
 
 /obj/machinery/poolcontroller/proc/cleanPool()
 	for(var/obj/effect/decal/cleanable/decal in decalinpool)		//Cleans up cleanable decals like blood and such

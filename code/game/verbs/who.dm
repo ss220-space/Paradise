@@ -56,7 +56,7 @@
 				continue
 
 			if(C.holder && C.holder.fakekey)
-				Lines += C.holder.fakekey
+				Lines += "[C.holder.fakekey] ([round(C.avgping, 1)]ms)"
 			else
 				Lines += "[C.key] ([round(C.avgping, 1)]ms)"
 

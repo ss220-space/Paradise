@@ -310,10 +310,12 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
 	security_level = 6
+	hackable = FALSE
 
-/obj/machinery/door/airlock/centcom/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
-	return
+/obj/machinery/door/airlock/centcom/attack_hand(mob/user)
+	. = ..()
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		return
 
 /////////////////////////////////
 /*
@@ -329,6 +331,12 @@
 	normal_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
 	security_level = 6
 	paintable = FALSE
+
+/obj/machinery/door/airlock/vault/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	if(!our_rcd.canRwall)
+		return RCD_NO_ACT
+	. = ..()
+
 
 //////////////////////////////////
 /*
@@ -353,10 +361,7 @@
 	explosion_block = 2
 	normal_integrity = 1000
 	security_level = 6
-
-/obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
-	return
+	hackable = FALSE
 
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
@@ -403,9 +408,9 @@
 	if(!I.use_tool(src, user, 0, amount = 0, volume = I.tool_volume))
 		return
 	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
+	visible_message(span_notice("[user] [welded ? null : "un"]welds [src]!"),\
+					span_notice("You [welded ? null : "un"]weld [src]!"),\
+					span_italics("You hear welding."))
 	update_icon()
 
 /obj/machinery/door/airlock/maintenance_hatch
@@ -431,6 +436,11 @@
 	security_level = 1
 	damage_deflection = 30
 	paintable = FALSE
+
+/obj/machinery/door/airlock/highsecurity/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	if(!our_rcd.canRwall)
+		return RCD_NO_ACT
+	. = ..()
 
 /obj/machinery/door/airlock/highsecurity/red
 	name = "secure armory airlock"
@@ -458,9 +468,9 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
+	visible_message(span_notice("[user] [welded ? null : "un"]welds [src]!"),\
+					span_notice("You [welded ? null : "un"]weld [src]!"),\
+					span_italics("You hear welding."))
 	update_icon()
 
 
@@ -840,6 +850,11 @@
 	opacity = 0
 	glass = TRUE
 	normal_integrity = 300
+
+/obj/machinery/door/airlock/syndicate/extmai/glass/attack_hand(mob/user)
+	. = ..()
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		return
 
 /*
 	Misc Airlocks

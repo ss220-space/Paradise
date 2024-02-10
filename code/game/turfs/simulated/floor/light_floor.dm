@@ -15,7 +15,6 @@
 	light_range = 5
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light
-	broken_states = list("light_broken")
 	var/on = TRUE
 	var/state = LIGHTFLOOR_ON
 	var/can_modify_colour = TRUE
@@ -23,6 +22,9 @@
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()
 	update_icon()
+
+/turf/simulated/floor/light/broken_states()
+	return list("light_broken")
 
 /turf/simulated/floor/light/update_icon()
 	..()

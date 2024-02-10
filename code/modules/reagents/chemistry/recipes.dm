@@ -5,6 +5,8 @@
 	var/result = null
 	var/list/required_reagents = list()
 	var/list/required_catalysts = list()
+	/// Count of required catalysts. -1 if required all catalysts
+	var/count_of_catalysts = -1
 	var/list/required_blood_group  = null //requested blood groups, for example, "A+"
 	var/list/required_blood_species = null //requested blood's species name, for example, "Vox"
 
@@ -23,7 +25,7 @@
 	return
 
 
-/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE)
+/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE, gold_core_spawn = FALSE)
 	if(holder && holder.my_atom)
 		var/atom/A = holder.my_atom
 		var/turf/T = get_turf(A)
@@ -50,6 +52,8 @@
 				S = create_random_mob(get_turf(holder.my_atom), mob_class)
 			else
 				S = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
+			if(gold_core_spawn) //For tracking xenobiology mobs
+				S.xenobiology_spawned = TRUE
 			S.faction |= mob_faction
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)

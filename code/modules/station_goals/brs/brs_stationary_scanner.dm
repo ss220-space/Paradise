@@ -8,7 +8,7 @@
 #define SCAN_CRITICAL 3 //! The scanner is within critical range of a rift
 
 /obj/item/circuitboard/brs_stationary_scanner
-	name = "Стационарный сканер разлома (Machine Board)"
+	board_name = "Стационарный сканер разлома"
 	desc = "Плата стационарного сканера блюспейс разлома."
 	build_path = /obj/machinery/power/brs_stationary_scanner
 	icon_state = "bluespace_scannerplat"
@@ -65,6 +65,7 @@
 	var/switching
 
 	var/scanning_status = SCAN_OFF
+	var/is_there_any_servers = FALSE
 
 /obj/machinery/power/brs_stationary_scanner/Initialize(mapload)
 	. = ..()
@@ -81,12 +82,14 @@
 	name = "[name] \[#[id]\]"
 
 	GLOB.bluespace_rifts_scanner_list.Add(src)
+	GLOB.poi_list |= src
 	new_component_parts()
 	connect_to_network()
 	update_icon()
 
 /obj/machinery/power/brs_stationary_scanner/Destroy()
 	GLOB.bluespace_rifts_scanner_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/power/brs_stationary_scanner/ComponentInitialize()
@@ -102,7 +105,7 @@
 		return
 	if(scanning_status == SCAN_OFF)
 		return
-	
+
 	var/previous_status = scanning_status
 
 	// Set status
@@ -115,7 +118,9 @@
 		scanning_status = SCAN_CRITICAL
 	else
 		CRASH("Component returned unexpected value.")
-	
+
+	is_there_any_servers = (scan_result & COMPONENT_SCANNED_NO_SERVERS) ? FALSE : TRUE
+
 	if(scanning_status != previous_status)
 		status_change()
 
@@ -141,7 +146,7 @@
 	if(!cable_powered)
 		cable_powered = TRUE
 		on_power_change()
-	
+
 	add_load(current_power_need)
 
 /obj/machinery/power/brs_stationary_scanner/proc/process_critical_status()
@@ -150,10 +155,10 @@
 	else
 		obj_break()
 		explosion(
-			loc, 
-			light_impact_range = failure_force, 
-			flash_range = 2 * failure_force, 
-			flame_range =  2 * failure_force, 
+			loc,
+			light_impact_range = failure_force,
+			flash_range = 2 * failure_force,
+			flame_range =  2 * failure_force,
 			cause = "[src] was working too long within critical range of a rift."
 		)
 
@@ -163,7 +168,7 @@
 	overlays.Cut()
 	if(panel_open)
 		overlays += image(icon, "[prefix]-panel")
-	
+
 	if (stat & BROKEN)
 		icon_state = "[prefix]-broken"
 		return
@@ -196,12 +201,12 @@
 
 	// It's a large machine, add a delay
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] [panel_open ? "От" : "За"]кручивать панель [src].", 
+		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] [panel_open ? "От" : "За"]кручивать панель [src].",
 		"Вы начинаете [panel_open ? "От" : "За"]кручивать панель [src]."
 	)
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return
-	
+
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	update_icon()
 
@@ -233,7 +238,8 @@
 
 /obj/machinery/power/brs_stationary_scanner/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
+		if(user)
+			to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
 		emagged = TRUE
 
 /obj/machinery/power/brs_stationary_scanner/emp_act(severity)
@@ -284,8 +290,10 @@
 /obj/machinery/power/brs_stationary_scanner/ui_data(mob/user)
 	var/list/data = list()
 	data["scanStatus"] = scanning_status
-	data["noServers"] = !is_there_any_servers()
+	data["serversFound"] = is_there_any_servers
 	data["switching"] = switching
+	data["time_for_failure"] = time_for_failure
+	data["time_till_failure"] = (world.time < failure_time) ? (failure_time - world.time) : 0
 	return data
 
 /obj/machinery/power/brs_stationary_scanner/ui_act(action, params)
@@ -302,7 +310,7 @@
 			return TRUE
 
 /** This should be called every time `scanning_status` has been changed. */
-/obj/machinery/power/brs_stationary_scanner/proc/status_change()	
+/obj/machinery/power/brs_stationary_scanner/proc/status_change()
 	if(scanning_status == SCAN_CRITICAL)
 		// Our state just changed to critical
 		// Set timer to kaboom
@@ -329,15 +337,6 @@
 	status_change()
 	if(cable_powered && (!(stat & BROKEN)))
 		playsound(loc, deactivation_sound, 100)
-
-/obj/machinery/power/brs_stationary_scanner/proc/is_there_any_servers()
-	for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
-		if(server.z != z)
-			continue
-		if(server.stat & (NOPOWER|BROKEN))
-			continue
-		return TRUE
-	return FALSE
 
 #undef SCAN_OFF
 #undef SCAN_NO_RIFTS

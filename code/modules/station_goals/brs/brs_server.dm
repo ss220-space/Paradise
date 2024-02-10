@@ -7,7 +7,7 @@
 #define DATA_RECORD_LENGTH 6
 
 /obj/item/circuitboard/brs_server
-	name = "Сервер сканирирования разлома (Computer Board)"
+	board_name = "Сервер сканирирования разлома"
 	desc = "Плата сервера сканирования и изучения блюспейс разлома."
 	build_path = /obj/machinery/brs_server
 	icon_state = "cpuboard_super"
@@ -36,13 +36,18 @@
 	active_power_usage = 12000
 
 	/// One probe price
-	var/points_per_probe = 500
+	var/points_per_probe = 1500
 	/// One probe price if the server is emagged
-	var/points_per_probe_emagged = 250
+	var/points_per_probe_emagged = 500
 	/// 0 <= chance <= 1, 0-never, 1-always
 	var/probe_success_chance = 0.5
 	///	0 <= chance <= 1, 0-never, 1-always
 	var/probe_success_chance_emagged = 0.2
+
+	/// Minimal time delay between probes
+	var/probe_cooldown_time = 15 SECONDS
+	/// World time when probe cooldown ends
+	var/probe_cooldown_end_time = 0
 
 	var/research_points_on_probe_success = 100
 
@@ -75,18 +80,23 @@
 	name = "[name] \[#[id]\]"
 
 	GLOB.bluespace_rifts_server_list.Add(src)
+	GLOB.poi_list |= src
+
+	probe_cooldown_end_time = world.time + probe_cooldown_time
+
 	new_component_parts()
 	update_icon()
 
 /obj/machinery/brs_server/Destroy()
 	GLOB.bluespace_rifts_server_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/brs_server/process()
 	for(var/list/record in data)
 		if(record[DATA_RECORD_TIMES_RIFT_SCANNED] == 0)
 			continue
-		
+
 		record[DATA_RECORD_GOAL_POINTS] += record[DATA_RECORD_MINED_GOAL_POINTS] * (1 + log(record[DATA_RECORD_TIMES_RIFT_SCANNED]))
 		record[DATA_RECORD_PROBE_POINTS] += record[DATA_RECORD_MINED_PROBE_POINTS] * (1 + log(record[DATA_RECORD_TIMES_RIFT_SCANNED]))
 
@@ -189,7 +199,7 @@
 	component_parts = list()
 
 	component_parts += new /obj/item/circuitboard/brs_server(null)
-	
+
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 
@@ -210,7 +220,8 @@
 	probe_success_chance = probe_success_chance_emagged
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 	update_icon()
-	to_chat(user, span_warning("@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@"))
+	if(user)
+		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@"))
 
 /obj/machinery/brs_server/emp_act(severity)
 	if(!(stat & (BROKEN|NOPOWER)))
@@ -235,7 +246,7 @@
 /obj/machinery/brs_server/attack_hand(mob/user)
 	if(..())
 		return TRUE
-	
+
 	add_fingerprint(user)
 
 	if(stat & (BROKEN|NOPOWER))
@@ -255,13 +266,16 @@
 	uidata["pointsPerProbe"] = points_per_probe
 	uidata["emagged"] = emagged
 
+	var/cooldown_ends_in = (probe_cooldown_end_time > world.time) ? (probe_cooldown_end_time - world.time) : 0
+	uidata["cooldown"] = cooldown_ends_in / (1 SECONDS)
+
 	uidata["goals"] = list()
 	for(var/datum/station_goal/bluespace_rift/goal in SSticker.mode.station_goals)
 		var/rift_id = goal.UID()
 		var/record = get_record(rift_id)
 		uidata["goals"] += list(list(
 			"riftId" = rift_id,
-			"riftName" = goal.rift.name,
+			"riftName" = goal.rift ? goal.rift.name : "Unknown",
 			"targetResearchPoints" = goal.target_research_points,
 			"rewardGiven" = goal.reward_given,
 			"researchPoints" = data[record][DATA_RECORD_GOAL_POINTS],
@@ -270,9 +284,9 @@
 
 	uidata["scanners"] = list()
 	for(var/obj/machinery/power/brs_stationary_scanner/scanner in GLOB.bluespace_rifts_scanner_list)
-		if(scanner.z != z)
-			continue
 		if(scanner.stat & (BROKEN|NOPOWER))
+			continue
+		if(!scanner.cable_powered)
 			continue
 		uidata["scanners"] += list(list(
 			"scannerId" = scanner.UID(),
@@ -282,8 +296,6 @@
 			"switching" = scanner.switching,
 		))
 	for(var/obj/machinery/brs_portable_scanner/scanner in GLOB.bluespace_rifts_scanner_list)
-		if(scanner.z != z)
-			continue
 		if(scanner.stat & (BROKEN|NOPOWER))
 			continue
 		uidata["scanners"] += list(list(
@@ -295,8 +307,6 @@
 
 	uidata["servers"] = list()
 	for(var/obj/machinery/brs_server/server in GLOB.bluespace_rifts_server_list)
-		if(server.z != z)
-			continue
 		if(server.stat & (BROKEN|NOPOWER))
 			continue
 
@@ -304,7 +314,7 @@
 		for(var/datum/station_goal/bluespace_rift/goal in SSticker.mode.station_goals)
 			var/record = server.get_record(goal.UID())
 			server_probe_points += list(list(
-				"riftName" = goal.rift.name,
+				"riftName" = goal.rift ? goal.rift.name : "Unknown",
 				"probePoints" = server.data[record][DATA_RECORD_PROBE_POINTS],
 			))
 
@@ -330,8 +340,11 @@
 			return TRUE
 		if("probe")
 			flick_active()
+			if(probe_cooldown_end_time > world.time)
+				return FALSE
+			probe_cooldown_end_time = world.time + probe_cooldown_time
 			var/goal_uid = params["rift_id"]
-			probe(goal_uid)
+			probe(goal_uid, usr)
 			return TRUE
 		if("reward")
 			flick_active()
@@ -345,12 +358,13 @@
 			if(data[record][DATA_RECORD_GOAL_POINTS] < goal.target_research_points)
 				return FALSE
 
+			new /obj/effect/spawner/lootdrop/bluespace_rift_server(get_turf(src))
 			goal.rift.spawn_reward()
 			goal.reward_given = TRUE
 			visible_message(span_notice("Исследование завершено. Судя по индикации сервера, из разлома выпало что-то, что может представлять большую научную ценность."))
 			return TRUE
 
-/obj/machinery/brs_server/proc/probe(goal_uid)
+/obj/machinery/brs_server/proc/probe(goal_uid, mob/user)
 	var/record = get_record(goal_uid)
 
 	if(data[record][DATA_RECORD_PROBE_POINTS] < points_per_probe)
@@ -377,6 +391,12 @@
 	else
 		goal.rift.probe(successful = FALSE)
 		visible_message(span_warning("Судя по индикации сервера, зондирование спровоцировало изменение стабильности блюспейс-разлома. Это не хорошо."))
+
+	// Log it
+	if(successful)
+		add_game_logs("used [src] to probe a bluespace rift, successful (random reward given).", user)
+	else
+		add_game_logs("used [src] to probe a bluespace rift, unsuccessful (random rift event triggered).", user)
 
 #undef DATA_RECORD_RIFT_ID
 #undef DATA_RECORD_GOAL_POINTS

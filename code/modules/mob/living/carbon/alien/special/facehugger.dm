@@ -19,6 +19,10 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	equip_sound = 'sound/items/handling/flesh_pickup.ogg'
+	drop_sound = 'sound/items/handling/flesh_drop.ogg'
+	pickup_sound = 'sound/misc/moist_impact.ogg'
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 
@@ -41,7 +45,7 @@
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
-	return O.attack_obj(src, user)
+	return O.attack_obj(src, user, params)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)
@@ -83,7 +87,7 @@
 	return
 
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		return HasProximity(finder)
 	return 0
 
@@ -92,10 +96,10 @@
 		return Attach(AM)
 	return 0
 
-/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	if(!..())
 		return
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		icon_state = "[initial(icon_state)]_thrown"
 		spawn(15)
 			if(icon_state == "[initial(icon_state)]_thrown")
@@ -103,7 +107,7 @@
 
 /obj/item/clothing/mask/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		icon_state = "[initial(icon_state)]"
 		Attach(hit_atom)
 

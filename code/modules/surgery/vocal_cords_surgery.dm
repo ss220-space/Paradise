@@ -7,7 +7,7 @@
 /datum/surgery/vocal_cords_surgery
 	name = "Vocal Cords Tuning Surgery"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/tune_vocal_cords, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("mouth")
+	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
 
 /datum/surgery/vocal_cords_surgery/can_start(mob/user, mob/living/carbon/target)
 	if(!ishuman(target))

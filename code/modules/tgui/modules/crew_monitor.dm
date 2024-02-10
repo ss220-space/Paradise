@@ -1,7 +1,6 @@
 /datum/ui_module/crew_monitor
 	name = "Crew monitor"
-	var/with_command = FALSE
-	var/with_security = FALSE
+	var/crew_vision = CREW_VISION_COMMON
 
 /datum/ui_module/crew_monitor/ui_act(action, params)
 	if(..())
@@ -24,6 +23,13 @@
 
 /datum/ui_module/crew_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+	if(GLOB.communications_blackout)
+		to_chat(user, span_warning("Monitor shows strange symbols. There is no useful information, because of noise."))
+		if(ui)
+			ui.close()
+		return
+
 	if(!ui)
 		ui = new(user, src, ui_key, "CrewMonitor", name, 800, 600, master_ui, state)
 
@@ -41,12 +47,10 @@
 	data["isAI"] = isAI(user)
 	data["crewmembers"] = GLOB.crew_repository.health_data(T)
 	data["critThreshold"] = HEALTH_THRESHOLD_CRIT
-	if(with_command)
-		data["isBS"] = 1
-		data["IndexToggler"] = 0
-	else if(with_security)
-		data["isBP"] = 1
-		data["IndexToggler"] = 1
-	else
-		data["IndexToggler"] = 2
+	data["IndexToggler"] = crew_vision
+	switch(crew_vision)
+		if(CREW_VISION_COMMAND)
+			data["isBS"] = 1
+		if(CREW_VISION_SECURITY)
+			data["isBP"] = 1
 	return data

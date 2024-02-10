@@ -1,16 +1,18 @@
 // Security Hud //
 /datum/pai_software/sec_hud
 	name = "Security HUD"
-	ram_cost = 20
+	ram_cost = 15
 	id = "sec_hud"
 	ui_icon = "exclamation-triangle"
 	toggle_software = TRUE
 
 /datum/pai_software/sec_hud/toggle(mob/living/silicon/pai/user)
-	user.secHUD = !user.secHUD
 	user.remove_med_sec_hud()
+	user.secHUD = !user.secHUD
 	if(user.secHUD)
 		user.add_sec_hud()
+		user.medHUD = FALSE
+		user.adv_secHUD = FALSE
 
 /datum/pai_software/sec_hud/is_active(mob/living/silicon/pai/user)
 	return user.secHUD
@@ -18,16 +20,18 @@
 // Medical Hud //
 /datum/pai_software/med_hud
 	name = "Medical HUD"
-	ram_cost = 20
+	ram_cost = 15
 	id = "med_hud"
 	ui_icon = "first-aid"
 	toggle_software = TRUE
 
 /datum/pai_software/med_hud/toggle(mob/living/silicon/pai/user)
-	user.medHUD = !user.medHUD
 	user.remove_med_sec_hud()
+	user.medHUD = !user.medHUD
 	if(user.medHUD)
 		user.add_med_hud()
+		user.secHUD = FALSE
+		user.adv_secHUD = FALSE
 
 /datum/pai_software/med_hud/is_active(mob/living/silicon/pai/user)
 	return user.medHUD
@@ -35,7 +39,7 @@
 // Universal Translator //
 /datum/pai_software/translator
 	name = "Universal Translator"
-	ram_cost = 35
+	ram_cost = 25
 	id = "translator"
 	ui_icon = "language"
 	toggle_software = TRUE
@@ -117,7 +121,7 @@
 // Meson Vision //
 /datum/pai_software/vision/meson_vision
 	name = "Meson Vision"
-	ram_cost = 10
+	ram_cost = 5
 	id = "meson_vis"
 	ui_icon = "adjust"
 	toggle_software = TRUE
@@ -133,10 +137,12 @@
 	only_syndi = TRUE
 
 /datum/pai_software/adv_sec_hud/toggle(mob/living/silicon/pai/user)
-	user.adv_secHUD = !user.adv_secHUD
 	user.remove_med_sec_hud()
+	user.adv_secHUD = !user.adv_secHUD
 	if(user.adv_secHUD)
 		user.add_sec_hud()
+		user.medHUD = FALSE
+		user.secHUD = FALSE
 
 /datum/pai_software/adv_sec_hud/is_active(mob/living/silicon/pai/user)
 	return user.adv_secHUD
@@ -144,7 +150,7 @@
 // Weakened AI Сapability //
 /datum/pai_software/weak_ai
 	name = "Weakened AI Capability"
-	ram_cost = 75
+	ram_cost = 60
 	id = "weak_ai"
 	ui_icon = "bug"
 	toggle_software = TRUE

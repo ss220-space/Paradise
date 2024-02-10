@@ -195,8 +195,18 @@
 			if(istype(A, /area/space))
 				to_chat(usr, "<span class='warning'>The beacon must be inside the station itself to properly work.")
 				return FALSE
-			if(A.get_beacon())
+			if(!A.type == /area) //The only one that is made by blueprints
+				to_chat(usr, "<span class='warning'>This area is too fresh for the beacon!")
+				return FALSE
+			if(locate(/obj/structure/clockwork/functional/beacon) in A)
 				to_chat(usr, "<span class='warning'>This area already has beacon!</span>")
+				return FALSE
+		if(R.result_type == /obj/structure/clockwork/functional/cogscarab_fabricator)
+			if(GLOB.clockwork_fabricators.len >= MAX_COG_FABRICATORS)
+				to_chat(usr, "<span class='warning'>You can't build more than [MAX_COG_FABRICATORS] fabricators!</span>")
+				return FALSE
+			if(usr.type == /mob/living/silicon/robot/cogscarab)
+				to_chat(usr, "<span class='warning'>You're too small to build this machinery.</span>")
 				return FALSE
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
@@ -257,7 +267,7 @@
 			. += "There are [amount] [singular_name]\s in the stack."
 		else
 			. += "There are [amount] [name]\s in the stack."
-		. += SPAN_NOTICE("<b>Alt-click</b> with an empty hand to take a custom amount.")
+		. += span_notice("<b>Alt-click</b> with an empty hand to take a custom amount.")
 
 
 /obj/item/stack/Crossed(obj/item/crossing, oldloc)
@@ -282,7 +292,7 @@
 
 /obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, SPAN_WARNING("You can't do that right now!</span>"))
+		to_chat(user, span_warning("You can't do that right now!</span>"))
 		return
 	if(!in_range(src, user))
 		return
@@ -299,7 +309,7 @@
 		return
 	split_stack(user, stackmaterial)
 	do_pickup_animation(user)
-	to_chat(user, SPAN_NOTICE("You take [stackmaterial] sheets out of the stack."))
+	to_chat(user, span_notice("You take [stackmaterial] sheets out of the stack."))
 
 
 /obj/item/stack/attack_tk(mob/user)
@@ -335,7 +345,7 @@
 		do_pickup_animation(user)
 		var/obj/item/stack/S = W
 		if(merge(S))
-			to_chat(user, SPAN_NOTICE("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
+			to_chat(user, span_notice("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
 	else
 		. = ..()
 
@@ -458,6 +468,8 @@
  * - [inhand][boolean]: Whether or not the stack to check should act like it's in a mob's hand.
  */
 /obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
+	if(QDELETED(src) || QDELETED(check))
+		return FALSE
 	if(!istype(check, merge_type))
 		return FALSE
 	if(is_cyborg) // No merging cyborg stacks into other stacks
@@ -483,9 +495,9 @@
 /obj/item/stack/proc/merge_without_del(obj/item/stack/target_stack, limit)
 	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
-	if(!target_stack)
+	if(QDELETED(target_stack))
 		CRASH("Stack merge attempted on qdeleted target stack.")
-	if(!src)
+	if(QDELETED(src))
 		CRASH("Stack merge attempted on qdeleted source stack.")
 	if(target_stack == src)
 		CRASH("Stack attempted to merge into itself.")

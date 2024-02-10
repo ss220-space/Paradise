@@ -123,6 +123,8 @@
 	item_state = "briefcase"
 	can_hold = list(/obj/item/photo)
 	resistance_flags = FLAMMABLE
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 
 
 /obj/item/storage/photo_album/MouseDrop(atom/over)
@@ -187,7 +189,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
 	set category = "Object"
-	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
+	var/nsize = tgui_input_list(usr, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
 	if(nsize)
 		size = nsize
 		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
@@ -289,7 +291,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	return res
 
 
-/obj/item/camera/proc/get_mobs(turf/the_turf as turf)
+/obj/item/camera/proc/get_mobs(turf/the_turf)
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		if(M.invisibility)
@@ -322,7 +324,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
-/obj/item/camera/proc/add_log(turf/the_turf as turf)
+/obj/item/camera/proc/add_log(turf/the_turf)
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		var/holding = null
@@ -336,9 +338,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 					else
 						holding = "holding [A.r_hand]"
 			if(!mob_detail)
-				mob_detail = "[A.client.ckey]/([A]) on photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]. "
+				mob_detail = "[A.client ? "[A.client.ckey]/" : "nockey"]([A]) on photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]. "
 			else
-				mob_detail += "Also [A.client.ckey]/([A]) on the photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]."
+				mob_detail += "Also [A.client ? "[A.client.ckey]/" : "nockey"]([A]) on the photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
 /obj/item/camera/afterattack(atom/target, mob/user, flag)
@@ -516,7 +518,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 
 	var/datum/picture/P = null
-	P = input("Select image to print:",P) as null|anything in saved_pictures
+	P = tgui_input_list(usr, "Select image to print", "Print image", saved_pictures)
 	if(P)
 		printpicture(usr,P)
 		pictures_left --
@@ -530,7 +532,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		to_chat(usr, "<span class='userdanger'>No images saved</span>")
 		return
 	var/datum/picture/P = null
-	P = input("Select image to delete:",P) as null|anything in saved_pictures
+	P = tgui_input_list(usr, "Select image to delete", "Delete image", saved_pictures)
 	if(P)
 		saved_pictures -= P
 

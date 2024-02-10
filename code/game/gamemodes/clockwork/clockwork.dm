@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 /datum/game_mode/clockwork
 	name = "Clockwork Cult"
 	config_tag = "clockwork"
-	restricted_jobs = list("Chaplain", "AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Security Cadet", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
+	restricted_jobs = list("Chaplain", "AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	to_chat(world, "<B>Some crewmembers are attempting to start a clockwork cult!<BR>\nClockers - complete your objectives. Convert crewmembers to your cause by using the credence structure. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
 
 /datum/game_mode/clockwork/pre_setup()
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/clockers_possible = get_players_for_role(ROLE_CLOCKER)
@@ -80,12 +80,12 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	return (length(clockwork_cult) > 0)
 
 /datum/game_mode/clockwork/post_setup()
-	modePlayer += clockwork_cult
 	clocker_objs.setup()
 
 	for(var/datum/mind/clockwork_mind in clockwork_cult)
 		SEND_SOUND(clockwork_mind.current, 'sound/ambience/antag/clockcult.ogg')
-		to_chat(clockwork_mind.current, CLOCK_GREETING)
+		var/list/messages = list(CLOCK_GREETING)
+		to_chat(clockwork_mind.current, chat_box_yellow(messages.Join("<br>")))
 		equip_clocker(clockwork_mind.current)
 		clockwork_mind.current.faction |= "clockwork_cult"
 		var/datum/objective/serveclock/obj = new
@@ -233,8 +233,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(crew_reveal)
 		return
 	var/clocker_players = get_clockers()
-	if((clocker_players >= crew_reveal_number) && !crew_reveal)
-		crew_reveal = TRUE
+	if((clocker_players >= clocker_objs.clocker_goal) && !clocker_objs.obj_demand.clockers_get)
 		clocker_objs.obj_demand.clockers_get = TRUE
 		for(var/datum/mind/M in clockwork_cult)
 			if(!M.current)
@@ -244,12 +243,18 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				to_chat(M.current, "<span class='clock'>But there's still more tasks to do.</span>")
 			else
 				clocker_objs.ratvar_is_ready()
+	if((clocker_players >= crew_reveal_number) && !crew_reveal)
+		crew_reveal = TRUE
+		for(var/datum/mind/M in clockwork_cult)
+			if(!M.current)
+				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			if(!ishuman(M.current))
 				continue
 			to_chat(M.current, "<span class='clocklarge'>Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!")
 			addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
+		log_game("Clockwork cult reveal. Powergame allowed.")
 
 /datum/game_mode/proc/powered(clocker)
 	if(ishuman(clocker) && isclocker(clocker))

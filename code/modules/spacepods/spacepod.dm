@@ -1,5 +1,5 @@
 #define DAMAGE			1
-#define FIRE			2
+#define FIRE_OLAY		2
 #define POD_LIGHT		1
 #define WINDOW			2
 #define RIM	    		3
@@ -96,7 +96,7 @@
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
 		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
@@ -171,7 +171,7 @@
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays[FIRE_OLAY] = image(icon, icon_state="pod_fire")
 
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
@@ -202,15 +202,15 @@
 	if(health <= round(initial(health)/2))
 		overlays += pod_overlays[DAMAGE]
 		if(health <= round(initial(health)/4))
-			overlays += pod_overlays[FIRE]
+			overlays += pod_overlays[FIRE_OLAY]
 
 
 	light_color = icon_light_color[src.icon_state]
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
+	. = P.on_hit(src)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
-	P.on_hit(src)
 
 /obj/spacepod/AllowDrop()
 	return TRUE
@@ -235,7 +235,7 @@
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
-		user.custom_emote(1, "[user.friendly] [src].")
+		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [src].")
 		return FALSE
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
@@ -245,13 +245,15 @@
 		return TRUE
 
 /obj/spacepod/attack_alien(mob/living/carbon/alien/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	deal_damage(user.attack_damage)
-	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
-	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
+	if(user.a_intent == INTENT_HARM)
+		user.do_attack_animation(src)
+		user.changeNext_move(CLICK_CD_MELEE)
+		deal_damage(user.obj_damage)
+		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
+		to_chat(user, "<span class='warning'>You slash at [src]!</span>")
+		visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 
-/obj/spacepod/proc/deal_damage(var/damage)
+/obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
@@ -500,7 +502,7 @@
 		possible.Add("Secondary Cargo System")
 	if(equipment_system.lock_system)
 		possible.Add("Lock System")
-	switch(input(user, "Remove which equipment?", null, null) as null|anything in possible)
+	switch(tgui_input_list(user, "Remove which equipment?", "Equipment",possible))
 		if("Energy Cell")
 			if(user.get_active_hand() && user.get_inactive_hand())
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
@@ -1119,7 +1121,7 @@
 	update_icon()
 
 #undef DAMAGE
-#undef FIRE
+#undef FIRE_OLAY
 #undef WINDOW
 #undef POD_LIGHT
 #undef RIM

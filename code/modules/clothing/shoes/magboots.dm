@@ -14,6 +14,8 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
@@ -99,6 +101,8 @@
 	magpulse_name = "honk-powered traction system"
 	item_color = "clown"
 	origin_tech = "magnets=4;syndicate=2"
+	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
+	drop_sound = 'sound/items/handling/shoes_drop.ogg'
 	var/enabled_waddle = TRUE
 
 /obj/item/clothing/shoes/magboots/clown/Initialize(mapload)
@@ -110,7 +114,7 @@
 	if(slot == slot_shoes && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
-/obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
+/obj/item/clothing/shoes/magboots/clown/dropped(mob/user, silent = FALSE)
 	. = ..()
 	user.RemoveElement(/datum/element/waddling)
 
@@ -259,7 +263,7 @@
 	if(slot == slot_shoes && cell && core)
 		style.teach(user, TRUE)
 
-/obj/item/clothing/shoes/magboots/gravity/dropped(mob/user)
+/obj/item/clothing/shoes/magboots/gravity/dropped(mob/user, silent = FALSE)
 	..()
 	if(!ishuman(user))
 		return

@@ -122,21 +122,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/MouseDrop(atom/over)
 	. = ..()
-	if(!.)
-		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated())
 		return FALSE
 
-	if(user.incapacitated() || !ishuman(user))
-		return FALSE
-
-	if(over == user)
-		attack_self(user)
-		return TRUE
-
-	return FALSE
+	attack_self(user)
+	return TRUE
 
 
 /obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
@@ -185,6 +177,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-m"
 	gpstag = "MINE0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+	tracking = FALSE
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
@@ -263,7 +256,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/attackby(obj/item/C as obj)
 	if(istype(C, /obj/item/gpsupgrade) && !upgraded)
-		upgraded = 1
-		del(C)
+		upgraded = TRUE
+		qdel(C)
 
 #undef EMP_DISABLE_TIME

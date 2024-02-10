@@ -23,7 +23,7 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	sprite_sheets_inhand = list("Skrell" = 'icons/mob/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
 /obj/item/melee/cultblade/New()
 	if(SSticker.mode)
@@ -39,15 +39,13 @@
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 		return
 	..()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
-	. = ..()
-
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
 		return FALSE
@@ -58,13 +56,16 @@
 		user.Confused(20 SECONDS)
 		user.Jitter(12 SECONDS)
 
+	return ..()
+
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
+	item_state = "bola_cult"
 	breakouttime = 45
-	weaken = 2 SECONDS
+	weaken_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -101,7 +102,10 @@
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
@@ -118,7 +122,7 @@
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/suit/space/cult
@@ -134,7 +138,7 @@
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
@@ -152,7 +156,7 @@
 	var/shield_on = "shield-cult"
 	species_restricted = null
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
 /obj/item/clothing/head/hooded/cult_hoodie
@@ -202,13 +206,13 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
 
@@ -226,7 +230,7 @@
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 
-/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
+/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user, silent = FALSE)
 	. = ..()
 	if(user)
 		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
@@ -242,14 +246,14 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/whetstone/cult

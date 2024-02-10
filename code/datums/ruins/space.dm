@@ -181,13 +181,13 @@
 	name = "Abandoned Teleporter"
 	description = "An old teleporter, seemingly part of what used to be a larger satellite."
 
-/datum/map_template/ruin/space/blowntcommsat
-	id = "blowntcommsat"
-	suffix = "blowntcommsat.dmm"
-	name = "Blown-out Telecommunications Satellite"
-	description = "The remains of an old telecommunications satellite once utilised by NanoTrasen. It lays derelict, with quite a few pieces missing."
-	cost = 5 // This is a chonky boy
-	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
+/datum/map_template/ruin/space/spaceprison
+	id = "spaceprison"
+	suffix = "spaceprison.dmm"
+	name = "Space Prison"
+	description = "This is an abandoned space prison. It looks like it was stormed and many things were stolen."
+	cost = 3
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"
@@ -341,16 +341,6 @@
 	allow_duplicates = FALSE
 	cost = 3 // 76x76 space ship
 
-/* Старый код для добавления Тайпана. Оставлено на всякий случай
-/datum/map_template/ruin/space/syndicate_space_base
-	id = "syndicate_space_base"
-	suffix = "syndicatebase.dmm"
-	name = "Syndicate Research and Monitoring Space Station - 'Taipan' "
-	description = "Top secret syndicate space station designated to monitor NT activity, be a trading point for the black market and research illegal bioweapons! It is closely guarded by an elite team of syndicate agents."
-	allow_duplicates = FALSE // One of these is enough
-	always_place = TRUE // This is on the always spawn list
-	cost = 0 // Force spawned so shouldnt have a cost
-*/
 /datum/map_template/ruin/space/blood_ship
 	id = "blood_ship"
 	suffix = "space_bloodship.dmm"
@@ -377,3 +367,21 @@
 	cost = 6 // 200x200 station in asteroid belt, has self destruct system and may spawn secret documents or 8 lvl tech
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/space/magestavern
+	id = "magestavern"
+	suffix = "magestavern.dmm"
+	name = "Magestavern"
+	description = "A mage's tavern, created to relax after exams for students. \
+	Complete freedom of action, with one condition - to clean up everything after yourself, keeping everything in its original form.\
+	Well, apparently, something went wrong, since the tavern was closed forever. What will you learn by getting into it?"
+	cost = 3
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/graveyard
+	id = "graveyard"
+	suffix = "graveyard.dmm"
+	name = "Space graveyard"
+	description = "An abandoned graveyard with a church drifts across the vastness of space; memorial services and the ringing of bells have long since left this place.\
+	What secrets does the “Church of Salvation” keep and who is buried in its graveyard?"
+	cost = 4
+	allow_duplicates = FALSE

@@ -31,8 +31,8 @@
 
 	return
 
-/obj/machinery/pdapainter/New()
-	..()
+/obj/machinery/pdapainter/Initialize(mapload)
+	. = ..()
 	var/blocked = list(/obj/item/pda/silicon, /obj/item/pda/silicon/ai, /obj/item/pda/silicon/robot, /obj/item/pda/silicon/pai, /obj/item/pda/heads,
 						/obj/item/pda/clear, /obj/item/pda/syndicate, /obj/item/pda/chameleon, /obj/item/pda/chameleon/broken)
 
@@ -196,6 +196,7 @@
 				statusLabel = "Уберите карту и картридж"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 			else
+				qdel(storedpda)
 				storedpda = new /obj/item/pda(src)
 				to_chat(usr, span_notice("Данные на PDA полностью стерты."))
 				statusLabel = "PDA очищен"

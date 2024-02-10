@@ -211,7 +211,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"large_stamp-BIGdeny.png"	= 'icons/misc/paper_icons/large_stamp-BIGdeny.png',
 		"large_stamp-navcom.png"	= 'icons/misc/paper_icons/large_stamp-navcom.png',
 		"large_stamp-ussp.png"		= 'icons/misc/paper_icons/large_stamp-ussp.png',
-		"ussplogo.png"			= 'icons/misc/paper_icons/ussplogo.png'
+		"ussplogo.png"			= 'icons/misc/paper_icons/ussplogo.png',
+		"solgovlogo.png" = 'icons/misc/paper_icons/solgovlogo.png',
+		"large_stamp-solgov.png" = 'icons/misc/paper_icons/large_stamp-solgov.png'
 	)
 
 /datum/asset/simple/chess
@@ -343,8 +345,11 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	verify = FALSE
 
 /datum/asset/simple/materials/register()
-	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic"))
+	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic",
+		"rglass", "plasteel", "plastitanium", "plasmaglass", "titaniumglass", "plastitaniumglass", "f_rods"))
 		assets["sheet-[n].png"] = icon('icons/obj/items.dmi', "sheet-[n]")
+	for(var/n in list("alienalloy")) //because this file in abductor.dmi, not items.dmi
+		assets["sheet-[n].png"] = icon('icons/obj/abductor.dmi', "sheet-abductor")
 	assets["sheet-bluespace.png"] = icon('icons/obj/telescience.dmi', "polycrystal")
 	..()
 

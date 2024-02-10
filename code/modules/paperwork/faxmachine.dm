@@ -81,6 +81,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		GLOB.hidden_ussp |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -102,8 +105,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		add_attack_logs(user, src, "emagged")
 		emagged = 1
 		req_access = list()
-		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
-	else
+		if(user)
+			to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
+	else if(user)
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
 /obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
@@ -234,7 +238,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 						if(F.ussp_restricted)
 							combineddepartments |= F.department
-				destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
+				destination = tgui_input_list(usr, "To which department?", "Choose a department", combineddepartments)
 				if(!destination)
 					destination = lastdestination
 		if("send") // actually send the fax

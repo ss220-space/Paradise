@@ -20,7 +20,7 @@
 	response_disarm = "flails at"
 	response_harm   = "punches"
 	environment_smash = 2
-
+	sentience_type = SENTIENCE_OTHER
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
@@ -140,7 +140,7 @@
 		adjustFireLoss(-health_regen)
 	..()
 
-/mob/living/simple_animal/hulk/death()
+/mob/living/simple_animal/hulk/death(gibbed)
 	unmutate()
 
 /mob/living/simple_animal/hulk/proc/unmutate()

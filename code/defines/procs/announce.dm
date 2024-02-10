@@ -81,22 +81,23 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/list/garbled_receivers = list()
 
 	if(admin_announcement)
-		for(var/mob/M in GLOB.player_list)
+		for(var/mob/M as anything in GLOB.player_list)
 			if(!isnewplayer(M) && M.client)
-				receivers |= M
+				receivers[M] = TRUE
 	else
-		for(var/obj/item/radio/R in GLOB.global_radios)
-			receivers |= R.send_announcement()
+		for(var/obj/item/radio/R as anything in GLOB.global_radios)
+			for(var/mob/M as anything in R.send_announcement())
+				receivers[M] = TRUE
 		for(var/mob/M in receivers)
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())
 				receivers -= M
 				continue
 			if(!M.say_understands(null, message_language))
 				receivers -= M
-				garbled_receivers |= M
-		for(var/mob/M in GLOB.dead_mob_list)
+				garbled_receivers[M] = TRUE
+		for(var/mob/M as anything in GLOB.dead_mob_list)
 			if(M.client && M.stat == DEAD && !isnewplayer(M))
-				receivers |= M
+				receivers[M] = TRUE
 
 	return list(receivers, garbled_receivers)
 
@@ -175,7 +176,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	if(!message_sound)
 		return
 	for(var/mob/M in receivers)
-		if(config.tts_enabled)
+		if(CONFIG_GET(flag/tts_enabled))
 			var/volume = M.client.prefs.get_channel_volume(CHANNEL_TTS_RADIO)
 			if(volume > 0)
 				continue

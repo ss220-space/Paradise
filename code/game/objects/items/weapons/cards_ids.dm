@@ -16,6 +16,8 @@
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	pickup_sound = 'sound/items/handling/card_pickup.ogg'
+	drop_sound = 'sound/items/handling/card_drop.ogg'
 	var/associated_account_number = 0
 
 	var/list/files = list(  )
@@ -105,7 +107,10 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
-	var/mining_points = 0 //For redeeming at mining equipment lockers
+	/// For redeeming at mining equipment lockers
+	var/mining_points = 0
+	/// Total mining points for the Shift.
+	var/total_mining_points = 0
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
@@ -170,7 +175,7 @@
 	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
 		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
 	if(mining_points)
-		to_chat(user, "There's [mining_points] mining equipment redemption points loaded onto this card.")
+		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
 	src.add_fingerprint(user)
 	return
 
@@ -316,6 +321,7 @@
 	data["account"] = associated_account_number
 	data["owner"] = registered_name
 	data["mining"] = mining_points
+	data["total_mining"] = total_mining_points
 	return data
 
 /obj/item/card/id/deserialize(list/data)
@@ -329,6 +335,7 @@
 	associated_account_number = data["account"]
 	registered_name = data["owner"]
 	mining_points = data["mining"]
+	total_mining_points = data["total_mining"]
 	// We'd need to use icon serialization(b64) to save the photo, and I don't feel like i
 	UpdateName()
 	RebuildHTML()

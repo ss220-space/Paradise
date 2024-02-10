@@ -8,16 +8,20 @@
 	butt_sprite = "grey"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/grey,
-		"lungs" =    /obj/item/organ/internal/lungs/grey,
-		"liver" =    /obj/item/organ/internal/liver/grey,
-		"kidneys" =  /obj/item/organ/internal/kidneys/grey,
-		"brain" =    /obj/item/organ/internal/brain/grey,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/grey //5 darksight.
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/grey,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/grey,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/grey,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/grey,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/grey,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/grey, //5 darksight.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
-	brute_mod = 1.25 //greys are fragile
+	total_health = 90
+	oxy_mod = 1.2  //greys are fragile
+	stamina_mod = 1.2
+
 	toolspeedmod = 0.8 //25% faster
 
 	default_genes = list(REMOTE_TALK)
@@ -34,11 +38,26 @@
 	disliked_food = SUGAR | FRIED
 	liked_food = VEGETABLES | GRAIN | MEAT
 
-/datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
+
+/datum/species/grey/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.dna.SetSEState(GLOB.remotetalkblock, !remove, 1)
+	H.gene_stability += GENE_INSTABILITY_MODERATE
+
+
+/datum/species/grey/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.gene_stability -= GENE_INSTABILITY_MODERATE
+
+
+/datum/species/grey/handle_dna(mob/living/carbon/human/H, remove = FALSE)
+	..()
+	H.dna.SetSEState(GLOB.remotetalkblock, !remove)
 	genemutcheck(H, GLOB.remotetalkblock, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.remotetalkblock)
+	if(remove)
+		H.dna.default_blocks -= GLOB.remotetalkblock
+	else
+		H.dna.default_blocks |= GLOB.remotetalkblock
+
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -56,7 +75,7 @@
 			if(prob(75))
 				H.take_organ_damage(5, 10)
 				H.emote("scream")
-				var/obj/item/organ/external/affecting = H.get_organ("head")
+				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 				if(affecting)
 					affecting.disfigure()
 			else
@@ -86,6 +105,12 @@
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "sacid")
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return FALSE
+	if(R.id == "facid")
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		return FALSE
+	if(R.id == "acetic_acid")
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return FALSE
 	if(R.id == "water")

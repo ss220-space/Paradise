@@ -7,6 +7,8 @@
 	item_color = "bluetie"
 	slot_flags = SLOT_TIE
 	w_class = WEIGHT_CLASS_SMALL
+	pickup_sound = 'sound/items/handling/accessory_pickup.ogg'
+	drop_sound = 'sound/items/handling/accessory_drop.ogg'
 	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
@@ -29,7 +31,8 @@
 	has_suit = S
 	loc = has_suit
 	has_suit.overlays += inv_overlay
-	has_suit.actions += actions
+	if(actions)
+		LAZYADD(has_suit.actions, actions)
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -53,7 +56,7 @@
 	if(!has_suit)
 		return
 	has_suit.overlays -= inv_overlay
-	has_suit.actions -= actions
+	LAZYREMOVE(has_suit.actions, actions)
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -101,6 +104,9 @@
 /obj/item/clothing/accessory/proc/attached_equip(mob/user) // If we need to do something special when clothing is removed from the user
 	return
 
+/obj/item/clothing/accessory/proc/attached_examine(mob/user) // additional info when examine accessory on the suit
+	return span_notice("\A [src] is attached to it.")
+
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
 	icon_state = "bluetie"
@@ -130,12 +136,12 @@
 	item_color = "waistcoat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/stethoscope
@@ -214,6 +220,7 @@
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
+	icon_state = "ion"
 
 // SILVER (awarded by Captain)
 
@@ -266,8 +273,74 @@
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
 	icon_state = "bronze_heart"
 
+// Plasma, from NT research departments. For now, used by the HRD-MDE project for the moderate 2 fauna, drake and hierophant.
+/obj/item/clothing/accessory/medal/plasma
+	name = "plasma medal"
+	desc = "An eccentric medal made of plasma."
+	icon_state = "plasma"
+	item_color = "plasma"
+	materials = list(MAT_PLASMA = 1000)
 
 
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
+	..()
+	if(temperature > T0C + 200)
+		burn_up()
+
+/obj/item/clothing/accessory/medal/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	. = ..()
+	burn_up()
+
+/obj/item/clothing/accessory/medal/plasma/proc/burn_up()
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T))
+		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 10) //Technically twice as much plasma as it should spawn but a little more never hurt anyone.
+	visible_message("<span class='warning'>[src] bursts into flame!</span>")
+	qdel(src)
+
+// Alloy, for the vetus speculator, or abductors I guess.
+
+/obj/item/clothing/accessory/medal/alloy
+	name = "alloy medal"
+	desc = "An eccentric medal made of some strange alloy."
+	icon_state = "alloy"
+	item_color = "alloy"
+	materials = list(MAT_METAL = 500, MAT_PLASMA = 500)
+
+// Mostly mining medals past here
+
+/obj/item/clothing/accessory/medal/gold/bubblegum
+	name = "bubblegum HRD-MDE award"
+	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
+
+/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
+	name = "medal of incredible dedication"
+	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
+
+/obj/item/clothing/accessory/medal/silver/colossus
+	name = "colossus HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing a colossus."
+
+/obj/item/clothing/accessory/medal/silver/legion
+	name = "legion HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Legion."
+
+/obj/item/clothing/accessory/medal/blood_drunk
+	name = "blood drunk HRD-MDE award"
+	desc = "A award which represents minor contributions to the HRD-MDE project in the form of analysing the blood drunk miner."
+
+/obj/item/clothing/accessory/medal/plasma/hierophant
+	name = "hierophant HRD-MDE award"
+	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing the Hierophant."
+
+
+/obj/item/clothing/accessory/medal/plasma/ash_drake
+	name = "ash drake HRD-MDE award"
+	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing an ash drake."
+
+/obj/item/clothing/accessory/medal/alloy/vetus
+	name = "vetus speculator HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Vetus Speculator."
 
 /*
 	Holobadges are worn on the belt or neck, and can be used to show that the holder is an authorized
@@ -319,10 +392,12 @@
 
 /obj/item/clothing/accessory/holobadge/emag_act(mob/user)
 	if(emagged)
-		to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
 	else
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))
@@ -563,6 +638,28 @@
 	else
 		return ..()
 
+/obj/item/clothing/accessory/ntrjacket
+	name = "black light jacket"
+	desc = "For the formidable guardians of work procedures. Looks like it can clip on to a uniform."
+	icon_state = "jacket_ntrf"
+	item_state = "jacket_ntrf"
+	item_color = "jacket_ntrf"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
+
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt
 	name = "black cowboy shirt"
@@ -572,12 +669,12 @@
 	item_color = "cowboyshirt"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
@@ -588,12 +685,12 @@
 	item_color = "cowboyshirt_s"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/white
@@ -604,12 +701,12 @@
 	item_color = "cowboyshirt_white"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
@@ -620,12 +717,12 @@
 	item_color = "cowboyshirt_whites"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink
@@ -636,12 +733,12 @@
 	item_color = "cowboyshirt_pink"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
@@ -652,12 +749,12 @@
 	item_color = "cowboyshirt_pinks"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy
@@ -668,12 +765,12 @@
 	item_color = "cowboyshirt_navy"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
@@ -684,12 +781,12 @@
 	item_color = "cowboyshirt_navys"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/red
@@ -700,12 +797,12 @@
 	item_color = "cowboyshirt_red"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
@@ -716,14 +813,14 @@
 	item_color = "cowboyshirt_reds"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/corset
@@ -810,7 +907,7 @@
 	if(istype(user))
 		START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user)
+/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user, silent = FALSE)
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
@@ -819,14 +916,25 @@
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
 	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
-
+	var/announce_channel = "Common"			// Channel toggler for mobs, who dies in specific locations.
 	var/area/t = get_area(M)
-	var/obj/item/radio/headset/a = new /obj/item/radio/headset(src)
-	if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite))
-		//give the syndicats a bit of stealth
-		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
-	else
-		a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm")
+	var/obj/item/radio/headset/all_channels/a = new /obj/item/radio/headset/all_channels(src)
+	if(M.z == level_name_to_num(RAMSS_TAIPAN))
+		announce_channel = "SyndTaipan"		// Taipan channel for Руж.
+	else if(istype(t, /area/centcom))
+		announce_channel = "Response Team"	// For animals who dare to infiltrate CC.
+	else if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) || istype(t, /area/shuttle/syndicate_sit))
+		announce_channel = "SyndTeam"		// Just to be sure ...
+	else if(istype(t, /area/ninja))
+		announce_channel = "Spider Clan"	// Even ninja may have a little pet.
+	else if(istype(t, /area/ussp_centcom))
+		announce_channel = "Soviet"			// MISHA, FU!
+	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
+		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
+		qdel(a)
+		STOP_PROCESSING(SSobj, src)
+		return
+	a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm", announce_channel)
 	qdel(a)
 	STOP_PROCESSING(SSobj, src)
 

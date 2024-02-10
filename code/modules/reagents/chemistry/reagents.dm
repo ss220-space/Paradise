@@ -134,6 +134,39 @@
 /datum/reagent/proc/on_merge(data)
 	return
 
+// Called in on_merge() proc if reagent can carry diseases
+/datum/reagent/proc/merge_diseases_data(list/mix_data)
+	if(!(id in GLOB.diseases_carrier_reagents))
+		return
+
+	if(data && mix_data)
+		if(data["diseases"] || mix_data["diseases"])
+			var/list/preserve = list()
+			var/list/all_diseases = data["diseases"] + mix_data["diseases"]
+
+			var/list/advances_to_mix = list()
+			for(var/datum/disease/virus/advance/A in all_diseases)
+				advances_to_mix += A
+				all_diseases -= A
+
+			var/datum/disease/virus/advance/A = Advance_Mix(advances_to_mix)
+			if(istype(A))
+				preserve += A
+
+			// It's almost always 1-3 items in this list, so there shouldn't be any problems with nested loops.
+			for(var/datum/disease/D1 in all_diseases)
+				var/unique = TRUE
+				for(var/datum/disease/D2 in preserve)
+					if(D1.GetDiseaseID() == D2.GetDiseaseID())
+						unique = FALSE
+						break
+				if(unique)
+					preserve += D1.Copy()
+
+			data["diseases"] = preserve
+
+	return
+
 /datum/reagent/proc/on_update(atom/A)
 	return
 

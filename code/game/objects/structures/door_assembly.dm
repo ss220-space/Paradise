@@ -57,7 +57,7 @@
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage, damage_flag = "melee")
+		attack_generic(user, user.dna.species.obj_damage)
 		return
 	. = ..()
 
@@ -276,7 +276,8 @@
 		overlays += get_airlock_overlay("glass_construction", overlays_file)
 	overlays += get_airlock_overlay("panel_c[state+1]", overlays_file)
 
-/obj/structure/door_assembly/proc/update_name()
+/obj/structure/door_assembly/update_name()
+	. = ..()
 	name = ""
 	switch(state)
 		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)

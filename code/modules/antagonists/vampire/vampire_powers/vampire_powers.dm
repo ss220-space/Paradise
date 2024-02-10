@@ -64,8 +64,13 @@
 
 /obj/effect/proc_holder/spell/proc/update_vampire_spell_name(mob/user = usr)
 	var/datum/spell_handler/vampire/handler = custom_handler
-	if(istype(handler) && handler.required_blood)
-		var/new_name = "[name] ([handler.required_blood])"
+	if(istype(handler))
+		var/new_name
+		if(handler.required_blood)
+			new_name = "[initial(name)] ([handler.required_blood])"
+		else
+			new_name = "[initial(name)]"
+
 		name = new_name
 		action?.name = new_name
 		action?.UpdateButtonIcon()
@@ -148,7 +153,7 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "VampireSpecMenu", "Specialisation Menu", 1200, 760, master_ui, state)
+		ui = new(user, src, ui_key, "VampireSpecMenu", "Specialisation Menu", 1500, 820, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -186,11 +191,17 @@
 			vamp.add_subclass(SUBCLASS_DANTALION)
 			vamp.upgrade_tiers -= type
 			vamp.remove_ability(src)
+		if("bestia")
+			vamp.add_subclass(SUBCLASS_BESTIA)
+			vamp.upgrade_tiers -= type
+			vamp.remove_ability(src)
 
 
 /datum/antagonist/vampire/proc/add_subclass(subclass_to_add, announce = TRUE, log_choice = TRUE)
 	var/datum/vampire_subclass/new_subclass = new subclass_to_add
 	subclass = new_subclass
+	if(subclass_to_add == SUBCLASS_BESTIA)
+		suck_rate = BESTIA_SUCK_RATE
 	check_vampire_upgrade(announce)
 	if(log_choice)
 		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
@@ -211,11 +222,15 @@
 	return T
 
 
+/obj/effect/proc_holder/spell/vampire/glare/valid_target(mob/living/target, mob/user)
+	return !isnull(target.mind) && target.stat != DEAD && target.affects_vampire(user)
+
+
 /obj/effect/proc_holder/spell/vampire/glare/create_new_cooldown()
 	var/datum/spell_cooldown/charges/C = new
 	C.max_charges = 2
 	C.recharge_duration = base_cooldown
-	C.charge_duration = 2 SECONDS
+	C.charge_duration = 3 SECONDS
 	return C
 
 
@@ -226,21 +241,17 @@
 /// Full deviation. Flashed from directly behind or behind-left/behind-rack. Not flashed at all.
 #define DEVIATION_FULL 1
 
-/obj/effect/proc_holder/spell/vampire/glare/cast(list/targets, mob/living/user = usr)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
-			var/obj/item/clothing/glasses/sunglasses/blindfold/B = H.glasses
-			if(B.tint)
-				to_chat(user, span_warning("You're blindfolded!"))
-				return
+/obj/effect/proc_holder/spell/vampire/glare/cast(list/targets, mob/living/carbon/human/user = usr)
+	if(ishuman(user) && istype(user.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
+		var/obj/item/clothing/glasses/sunglasses/blindfold/blindfold = user.glasses
+		if(blindfold.tint)
+			to_chat(user, span_warning("You're blindfolded!"))
+			return
+
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 0.2 SECONDS)
 	user.visible_message(span_warning("[user]'s eyes emit a blinding flash!"))
 
-	for(var/mob/living/target in targets)
-		if(!target.affects_vampire(user))
-			continue
-
+	for(var/mob/living/target as anything in targets)
 		var/deviation
 		if(user.lying || user.resting)
 			deviation = DEVIATION_PARTIAL
@@ -347,10 +358,10 @@
 		visible_message(span_notice("[H] looks refreshed!"))
 		H.adjustBruteLoss(-60)
 		H.adjustFireLoss(-60)
-		for(var/obj/item/organ/external/E in H.bodyparts)
+		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			if(prob(25))
-				E.mend_fracture()
-				E.internal_bleeding = FALSE
+				bodypart.mend_fracture()
+				bodypart.stop_internal_bleeding()
 
 		return
 	if(H.stat != DEAD)

@@ -42,7 +42,7 @@
 		//Random events (vomiting etc)
 		handle_random_events()
 
-	if(LAZYLEN(viruses))
+	if(LAZYLEN(diseases))
 		handle_diseases()
 
 	if(QDELETED(src)) // diseases can qdel the mob via transformations
@@ -58,6 +58,10 @@
 		handle_environment(environment)
 
 	handle_fire()
+
+	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vamp)
+		vamp.handle_vampire()
 
 	update_gravity(mob_has_gravity())
 
@@ -81,7 +85,7 @@
 			if(!isnum(forced_look))
 				var/atom/A = locateUID(forced_look)
 				if(istype(A))
-					var/view = client ? client.view : world.view
+					var/view = client ? client.maxview() : world.view
 					if(get_dist(src, A) > view || !(src in viewers(view, A)))
 						forced_look = null
 						to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
@@ -107,7 +111,9 @@
 	return
 
 /mob/living/proc/handle_diseases()
-	return
+	for(var/thing in diseases)
+		var/datum/disease/D = thing
+		D.stage_act()
 
 /mob/living/proc/handle_random_events()
 	return
@@ -175,6 +181,32 @@
 			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
+
+/mob/living/update_stamina_hud(shown_stamina_amount)
+	if(!client)
+		return
+
+	if(stamina_bar)
+		if(stat != DEAD)
+			. = TRUE
+			if(shown_stamina_amount == null)
+				shown_stamina_amount = staminaloss
+			if(shown_stamina_amount >= maxHealth)
+				stamina_bar.icon_state = "stamina6"
+			else if(shown_stamina_amount > maxHealth * 0.8)
+				stamina_bar.icon_state = "stamina5"
+			else if(shown_stamina_amount > maxHealth * 0.6)
+				stamina_bar.icon_state = "stamina4"
+			else if(shown_stamina_amount > maxHealth * 0.4)
+				stamina_bar.icon_state = "stamina3"
+			else if(shown_stamina_amount > maxHealth * 0.2)
+				stamina_bar.icon_state = "stamina2"
+			else if(shown_stamina_amount > 0)
+				stamina_bar.icon_state = "stamina1"
+			else
+				stamina_bar.icon_state = "stamina0"
+		else
+			stamina_bar.icon_state = "stamina6"
 
 /mob/living/simple_animal/update_health_hud()
 	if(!client)

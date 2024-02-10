@@ -2,18 +2,17 @@
 /obj/item/organ/internal/wryn/hivenode
 	species_type = /datum/species/wryn
 	name = "antennae"
-	organ_tag = "antennae"
 	icon = 'icons/mob/human_races/r_wryn.dmi'
 	icon_state = "antennae"
-	parent_organ = "head"
-	slot = "hivenode"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_HIVENODE
 
 /obj/item/organ/internal/wryn/glands
 	species_type = /datum/species/wryn
 	name = "wryn wax glands"
-	parent_organ = "mouth"
 	icon_state = "eggsac"
-	slot = "wax glands"
+	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
+	slot = INTERNAL_ORGAN_WAX_GLANDS
 	var/datum/action/innate/honeycomb/honeycomb = new
 	var/datum/action/innate/honeyfloor/honeyfloor = new
 	var/datum/action/innate/toggle_producing/toggle_producing = new
@@ -29,13 +28,13 @@
 		if(prob(10))
 			to_chat(owner, "<span class='notice'>Вы чувствуете лёгкое бурление в восковых железах.</span>")
 
-/obj/item/organ/internal/wryn/glands/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/wryn/glands/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	honeycomb.Grant(M)
 	honeyfloor.Grant(M)
 	toggle_producing.Grant(M)
 
-/obj/item/organ/internal/wryn/glands/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/wryn/glands/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	honeycomb.Remove(M)
 	honeyfloor.Remove(M)
 	toggle_producing.Remove(M)

@@ -15,6 +15,8 @@
 	origin_tech = "combat=1"
 	needs_permit = 1
 	attack_verb = list("struck", "hit", "bashed")
+	pickup_sound = 'sound/items/handling/gun_pickup.ogg'
+	drop_sound = 'sound/items/handling/gun_drop.ogg'
 
 	var/fire_sound = "gunshot"
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
@@ -39,6 +41,7 @@
 	var/bolt_open = FALSE
 	var/spread = 0
 	var/randomspread = 1
+	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
 
 	var/unique_rename = TRUE //allows renaming with a pen
 	var/unique_reskin = FALSE //allows reskinning
@@ -185,7 +188,7 @@
 		if(istype(user))
 			if((CLUMSY in user.mutations) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
-				var/shot_leg = pick("l_foot", "r_foot")
+				var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 				process_fire(user, user, 0, params, zone_override = shot_leg)
 				user.drop_from_active_hand()
 				return
@@ -221,7 +224,10 @@
 	return
 
 /obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
-	add_fingerprint(user)
+	var/is_tk_grab = !isnull(user.tkgrabbed_objects[src])
+	if (is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
+		add_fingerprint(user)
+
 	if(chambered)
 		chambered.leave_residue(user)
 
@@ -233,6 +239,9 @@
 	if(spread)
 		randomized_gun_spread =	rand(0,spread)
 	var/randomized_bonus_spread = rand(0, bonus_spread)
+
+	if (is_tk_grab)
+		rotate_to_target(target)
 
 	if(burst_size > 1)
 		if(chambered && chambered.harmful)
@@ -251,7 +260,7 @@
 					sprd = round((rand() - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
 				else
 					sprd = round((i / burst_size - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
-				if(!chambered.fire(target, user, params, ,suppressed, zone_override, sprd))
+				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 					shoot_with_empty_chamber(user)
 					break
 				else
@@ -273,7 +282,7 @@
 					to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
 					return
 			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
-			if(!chambered.fire(target, user, params, , suppressed, zone_override, sprd))
+			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 				shoot_with_empty_chamber(user)
 				return
 			else
@@ -296,8 +305,19 @@
 		else
 			user.update_inv_r_hand()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
-	if(rusted_weapon == TRUE)
+
+	if(rusted_weapon)
 		malf_counter -= burst_size
+		// if the gun grabbed by telekinesis, it's can exploise but without damage for user
+		if (user.tkgrabbed_objects[src])
+			if (malf_counter <= 0 && prob(50))
+				user.drop_item_ground(user.tkgrabbed_objects[src])
+				new /obj/effect/decal/cleanable/ash(loc)
+				to_chat(user, "<span class='userdanger'>WOAH! [src] blows up!</span>")
+				playsound(user, 'sound/effects/explosion1.ogg', 30, 1)
+				qdel(src)
+				return FALSE
+			return TRUE
 		if(malf_counter <= 0 && prob(50))
 			new /obj/effect/decal/cleanable/ash(user.loc)
 			user.take_organ_damage(0,30)
@@ -319,7 +339,7 @@
 		else
 			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user)
+/obj/item/gun/attack_obj(obj/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(bayonet)
 			O.attackby(bayonet, user)
@@ -427,11 +447,12 @@
 
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
-		toggle_gunlight()
+		gun_light.on = FALSE
+		update_gun_light()
 		visible_message(span_danger("[src]'s light fades and turns off."))
 
 
-/obj/item/gun/dropped(mob/user)
+/obj/item/gun/dropped(mob/user, silent = FALSE)
 	..()
 	zoom(user,FALSE)
 	if(azoom)
@@ -498,7 +519,7 @@
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
-/datum/action/toggle_scope_zoom/Trigger()
+/datum/action/toggle_scope_zoom/Trigger(left_click = TRUE)
 	gun.zoom(owner)
 
 /datum/action/toggle_scope_zoom/IsAvailable()
@@ -584,13 +605,43 @@
 	var/matrix/M = matrix()
 	M.Turn(-90)
 	transform = M
+	barrel_dir = NORTH
 
 /obj/item/gun/proc/remove_from_rack()
-	if(on_rack)
-		var/matrix/M = matrix()
-		transform = M
-		on_rack = FALSE
+	var/matrix/M = matrix()
+	transform = M
+	on_rack = FALSE
+	barrel_dir = EAST
+
+// rotating the gun to targer for a shot with telekinesis
+/obj/item/gun/proc/rotate_to_target(atom/target)
+	setDir(barrel_dir)
+	var/upd_dir = get_dir(src, target)
+	if (barrel_dir == upd_dir)
+		return
+	var/angle = dir2angle(upd_dir) - dir2angle(barrel_dir)
+	if (angle > 180)
+		angle -= 360
+	var/matrix/M = matrix(transform)
+	M.Turn(angle)
+	animate(src, transform = M, time = 2)
+	barrel_dir = upd_dir
+
+// if the gun have rotate transformation - reset it
+/obj/item/gun/proc/reset_direction()
+	if (barrel_dir == EAST)
+		return
+	var/matrix/M = matrix()
+	transform = M
+	barrel_dir = EAST
 
 /obj/item/gun/pickup(mob/user)
 	. = ..()
-	remove_from_rack()
+	if (on_rack)
+		remove_from_rack()
+	else
+		reset_direction()
+
+/obj/item/gun/equipped(mob/user, slot, initial)
+	reset_direction()
+	return ..()

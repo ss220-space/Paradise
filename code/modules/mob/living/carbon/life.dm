@@ -105,7 +105,7 @@
 	if(status_flags & GODMODE)
 		return FALSE
 
-	var/lungs = get_organ_slot("lungs")
+	var/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	if(!lungs)
 		adjustOxyLoss(2)
 
@@ -194,7 +194,7 @@
 	if(internal)
 		if(internal.loc != src)
 			internal = null
-		if(!get_organ_slot("breathing_tube"))
+		if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 			if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
 				if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
 					internal = null //turn off internals
@@ -204,24 +204,15 @@
 		else
 			update_action_buttons_icon()
 
+
 /mob/living/carbon/proc/handle_organs()
-	for(var/thing in internal_organs)
-		var/obj/item/organ/internal/O = thing
-		O.on_life()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		organ.on_life()
 
-/mob/living/carbon/handle_diseases()
-	for(var/thing in viruses)
-		var/datum/disease/D = thing
-		if(prob(D.infectivity))
-			D.spread()
-
-		if(stat != DEAD)
-			D.stage_act()
 
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()
 	return
-
 
 
 /mob/living/carbon/handle_mutations_and_radiation()
@@ -270,7 +261,9 @@
 				continue
 			if(times_fired % 3 == 1)
 				M.adjustBruteLoss(5)
-				adjust_nutrition(10)
+				//Vampires don't get nutrition from devouring mobs
+				if(!isvampire(src))
+					adjust_nutrition(10)
 
 //this updates all special effects: only stamina for now
 /mob/living/carbon/handle_status_effects()
@@ -280,7 +273,7 @@
 			update_stamina()
 		if(staminaloss)
 			setStaminaLoss(0, FALSE)
-			update_health_hud()
+			update_stamina_hud()
 
 	// Keep SSD people asleep
 	if(player_logged)
@@ -316,6 +309,9 @@
 	if(!client)
 		return
 	var/shock_reduction = shock_reduction()
+	if(NO_PAIN_FEEL in dna?.species?.species_traits)
+		shock_reduction = INFINITY
+
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0

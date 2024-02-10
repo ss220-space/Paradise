@@ -80,12 +80,83 @@
 /datum/gear/bubblegumplushie
 	display_name = "Bubblegum plushie"
 	path = /obj/item/toy/plushie/bubblegumplushie
+
+/datum/gear/greyplushie
+	display_name = "Grey Plushie"
+	path = /obj/item/toy/plushie/greyplushie
+
+/datum/gear/plasmamanplushie
+	display_name = "Plasmaman Plushie"
+	path = /obj/item/toy/plushie/plasmamanplushie
+
+/datum/gear/shardplushie
+	display_name = "Shard Plushie"
+	path = /obj/item/toy/plushie/shardplushie
+
+/datum/gear/akulaplushie
+	display_name = "Akula Plushie"
+	path = /obj/item/toy/plushie/blahaj/twohanded
+	cost = 2
+
+/datum/gear/hampter
+	display_name = "Hampter"
+	path = /obj/item/toy/plushie/hampter
+	cost = 1
+
+/datum/gear/hampter_assistant
+	display_name = "Hampter, Assitant"
+	path = /obj/item/toy/plushie/hampter/asisstant
+	cost = 1
+
+/datum/gear/hampter_security
+	display_name = "Hampter, Security"
+	path = /obj/item/toy/plushie/hampter/security
+	cost = 1
+
+/datum/gear/hampter_medic
+	display_name = "Hampter, Doctor"
+	path = /obj/item/toy/plushie/hampter/medic
+	cost = 1
+
+/datum/gear/hampter_janitor
+	display_name = "Hampter, Janitor"
+	path = /obj/item/toy/plushie/hampter/janitor
+	cost = 1
+
+/datum/gear/hampter_captain
+	display_name = "Hampter, Captain"
+	path = /obj/item/toy/plushie/hampter/captain
+	cost = 1
+
+/datum/gear/hampter_old_captain
+	display_name = "Hampter, Old Captain"
+	path = /obj/item/toy/plushie/hampter/captain/old
+	cost = 1
+
+/datum/gear/hampter_syndi
+	display_name = "Hampter, Syndi"
+	path = /obj/item/toy/plushie/hampter/syndi
+	cost = 1
+
+/datum/gear/hampter_death_squad
+	display_name = "Hampter, Grandpa"
+	path = /obj/item/toy/plushie/hampter/death_squad
+	cost = 1
+
+/datum/gear/hampter_ert_squad
+	display_name = "Hampter, ERT"
+	path = /obj/item/toy/plushie/hampter/ert_squad
 	cost = 1
 
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Magistrate")
+
+/datum/gear/read_only_sechud
+	display_name = "a classic security HUD (read-only)"
+	path = /obj/item/clothing/glasses/hud/security/read_only
+	allowed_roles = list("Internal Affairs Agent")
 
 /datum/gear/cryaonbox
 	display_name = "a box of crayons"
@@ -101,7 +172,7 @@
 
 /datum/gear/doublecards
 	display_name = "a double deck of standard cards"
-	path = /obj/item/deck/doublecards
+	path = /obj/item/deck/cards/doublecards
 
 /datum/gear/tarot
 	display_name = "a deck of tarot cards"
@@ -241,7 +312,7 @@
 /datum/gear/mug/department/sec
 	display_name = "officer coffee mug"
 	description = "An officer's coffee mug, emblazoned in the colors of the Security department."
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot", "Brig Physician", "Internal Affairs Agent")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot", "Brig Physician", "Internal Affairs Agent")
 	path = /obj/item/reagent_containers/food/drinks/mug/sec
 
 /datum/gear/mug/department/serv

@@ -3,7 +3,7 @@
 	if(!usr.client.holder)
 		return
 	// This stops the panel from being invoked by mentors who press F7.
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_MOD))
 		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
 		return
 	var/dat = {"<html><meta charset="UTF-8"><head><title>Admin Player Panel</title></head>"}
@@ -85,7 +85,8 @@
 					body += "<a href='?src=[UID()];traitor="+mobUID+"'>TP</a> - "
 					body += "<a href='?src=[usr.UID()];priv_msg="+client_ckey+"'>PM</a> - "
 					body += "<a href='?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
-					body += "<a href='?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a>"
+					body += "<a href='?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a> - "
+					body += "<a href='?src=[UID()];adminalert="+mobUID+"'>ALERT</a>"
 					if(eyeUID)
 						body += "|<a href='?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
 					body += "<br>"
@@ -536,6 +537,9 @@
 
 		if(SSticker.mode.vampire_enthralled.len)
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
+
+		if(length(SSticker.mode.demons))
+			dat += check_role_table("Demons", SSticker.mode.demons)
 
 		if(SSticker.mode.devils.len)
 			dat += check_role_table("Devils", SSticker.mode.devils)

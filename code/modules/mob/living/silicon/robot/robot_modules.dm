@@ -231,6 +231,7 @@
 		"Standard" = "Standard-Medi",
 		"Basic" = "Robot-MED",
 		"Surgeon" = "surgeon",
+		"Chiefbot" = "chiefbot",
 		"Advanced Droid" = "droid-medical",
 		"Needles" = "Robot-SRG",
 		"Noble-MED" = "Noble-MED",
@@ -268,10 +269,9 @@
 	modules += new /obj/item/gps/cyborg(src)
 	modules += new /obj/item/rlf(src)
 
-	emag = new /obj/item/reagent_containers/spray(src)
+	emag = new /obj/item/reagent_containers/borghypo/emagged(src) // emagged med. cyborg gets a special hypospray.
+// can pierce through thick skin and hardsuits.
 
-	emag.reagents.add_reagent("sacid", 250)
-	emag.name = "Sulfuric acid spray"
 
 	fix_modules()
 	handle_storages()
@@ -295,6 +295,7 @@
 		"Basic" = "Robot-ENG",
 		"Antique" = "Robot-ENG2",
 		"Landmate" = "landmate",
+		"Сhiefmate" = "chiefmate",
 		"Standard" = "Standard-Engi",
 		"Noble-ENG" = "Noble-ENG",
 		"Cricket" = "Cricket-ENGI"
@@ -368,6 +369,10 @@
 
 	fix_modules()
 
+/obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
+	var/obj/item/melee/baton/baton = locate() in modules
+	baton?.link_new_cell(unlink_cell)
+
 /obj/item/robot_module/janitor
 	name = "Janitor"
 	module_type = "Janitor"
@@ -391,6 +396,7 @@
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/holosign_creator/janitor(src)
 	modules += new /obj/item/extinguisher/mini(src)
+	modules += new /obj/item/reagent_containers/spray/pestspray(src) //kill all kidans!
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/reagent_containers/spray(src)
@@ -508,6 +514,7 @@
 /obj/item/robot_module/miner/New()
 	..()
 	modules += new /obj/item/storage/bag/ore/cyborg(src)
+	modules += new /obj/item/storage/bag/gem/cyborg(src)
 	modules += new /obj/item/pickaxe/drill/cyborg(src)
 	modules += new /obj/item/shovel(src)
 	modules += new /obj/item/weldingtool/mini(src)
@@ -899,7 +906,7 @@
 	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/roller_holder(src)
-	modules += new /obj/item/reagent_containers/borghypo/upgraded(src)
+	modules += new /obj/item/reagent_containers/borghypo/upgraded/super(src)
 	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
 	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
 
@@ -989,3 +996,15 @@
 	max_energy = 160
 	recharge_rate = 2
 	name = "Wood Storage"
+
+
+/**
+ * Called when the robot owner of this module has their power cell replaced.
+ *
+ * Changes the linked power cell for module items to the newly inserted cell, or to `null`.
+ * Arguments:
+ * * unlink_cell - If TRUE, set the item's power cell variable to `null` rather than linking it to a new one.
+ */
+/obj/item/robot_module/proc/update_cells(unlink_cell = FALSE)
+	return
+

@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/can_dominate_mechs = 0
 	var/shunted = 0 //1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
 
-	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
+	var/control_disabled = FALSE // Set to TRUE to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
 	var/malf_cooldown = 0 //Cooldown var for malf modules, stores a worldtime + cooldown
 
@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/datum/trackable/track = new()
 
 	var/last_paper_seen = null
-	var/can_shunt = 1
+	var/can_shunt = TRUE
 	var/last_announcement = ""
 	var/datum/announcement/priority/announcement
 	var/mob/living/simple_animal/bot/Bot
@@ -148,10 +148,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	proc_holder_list = new()
 
-	if(B?.clock || isclocker(B?.brainmob))
-		laws = new /datum/ai_laws/ratvar
-		overlays += "clockwork_frame"
-	if(L)
+	if(B?.clock)
+		ratvar_act()
+	else if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
 	else
@@ -419,7 +418,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Glitchman",
 		"House",
 		"Database",
-		"Alien"
+		"Alien",
+		"Cheese",
+		"Voiddonut",
+		"Bee",
+		"Fox",
+		"Tiger",
+		"Vox",
+		"Liz",
+		"Darkmatter",
+		"Nadburn",
+		"Rainbowslime",
+		"Borb",
+		"Catamari"
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -502,6 +513,30 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-database"
 		if("Alien")
 			icon_state = "ai-alien"
+		if("Cheese")
+			icon_state = "ai-cheese"
+		if("Voiddonut")
+			icon_state = "ai-voiddonut"
+		if("Bee")
+			icon_state = "ai-bee"
+		if("Fox")
+			icon_state = "ai-fox"
+		if("Tiger")
+			icon_state = "ai-tiger"
+		if("Vox")
+			icon_state = "ai-vox"
+		if("Liz")
+			icon_state = "ai-liz"
+		if("Darkmatter")
+			icon_state = "ai-darkmatter"
+		if("Nadburn")
+			icon_state = "ai-nadburn"
+		if("Rainbowslime")
+			icon_state = "ai-rainbowslime"
+		if("Borb")
+			icon_state = "ai-borb"
+		if("Catamari")
+			icon_state = "ai-catamari"
 		else
 			icon_state = "ai"
 	//else
@@ -652,6 +687,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(R, "<span class='danger'>ERROR: Master AI has be&# &#@)!-")
 		to_chat(R, "<span class='clocklarge'>\"Your master is under my control, so do you\"")
 		R.ratvar_act(TRUE)
+		SSticker?.score?.save_silicon_laws(R, additional_info = "Ratvar act via master AI conversion", log_all_laws = TRUE)
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	if(usr != src)
@@ -919,7 +955,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in cameralist
+	network = tgui_input_list(U, "Which network would you like to view?", "Jump To Network", cameralist)
 
 	if(check_unable())
 		return
@@ -1004,7 +1040,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in personnel_list
+				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -1034,7 +1070,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"Turkey"
 			)
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1089,7 +1125,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
 
-			input = input("Please select a hologram:") as null|anything in icon_list
+			input = tgui_input_list(usr, "Please select a hologram", "Change Hologram", icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -1270,8 +1306,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		update_blind_effects()
-		control_disabled = 1//Can't control things remotely if you're stuck in a card!
-		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
+		control_disabled = TRUE//Can't control things remotely if you're stuck in a card!
+		aiRadio.disabledAi = TRUE 	//No talking on the built-in radio for you either!
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")

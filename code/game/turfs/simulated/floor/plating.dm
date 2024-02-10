@@ -4,8 +4,6 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null
-	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	burnt_states = list("floorscorched1", "floorscorched2")
 
 	var/unfastened = FALSE
 
@@ -13,11 +11,18 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	real_layer = PLATING_LAYER
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
 	icon_plating = icon_state
 	update_icon()
+
+/turf/simulated/floor/plating/broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+
+/turf/simulated/floor/plating/burnt_states()
+	return list("floorscorched1", "floorscorched2")
 
 /turf/simulated/floor/plating/damaged/Initialize(mapload)
 	. = ..()
@@ -168,12 +173,12 @@
 /turf/simulated/floor/engine/burn_tile()
 	return //unburnable
 
-/turf/simulated/floor/engine/make_plating(force = 0)
+/turf/simulated/floor/engine/make_plating(make_floor_tile = FALSE, mob/user, force = FALSE)
 	if(force)
-		..()
+		..(make_floor_tile, user)
 	return //unplateable
 
-/turf/simulated/floor/engine/attack_hand(mob/user as mob)
+/turf/simulated/floor/engine/attack_hand(mob/user)
 	user.Move_Pulled(src)
 
 /turf/simulated/floor/engine/pry_tile(obj/item/C, mob/user, silent = FALSE)
@@ -183,7 +188,7 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-/turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
+/turf/simulated/floor/engine/attackby(obj/item/C, mob/user, params)
 	if(!C || !user)
 		return
 	if(istype(C, /obj/item/wrench))
@@ -193,7 +198,7 @@
 			if(!istype(src, /turf/simulated/floor/engine))
 				return
 			new /obj/item/stack/rods(src, 2)
-			ChangeTurf(/turf/simulated/floor/plating)
+			make_plating(make_floor_tile = FALSE, force = TRUE)
 			return
 
 	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
@@ -279,12 +284,10 @@
 
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
-	..()
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
 			if(prob(30))
-				new floor_tile(src)
-				make_plating()
+				make_plating(make_floor_tile = TRUE, force = TRUE)
 		else if(prob(30))
 			ReplaceWithLattice()
 
@@ -368,6 +371,21 @@
 /turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
+
+	if(istype(C, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/metal = C
+		if(metal.get_amount() < 2)
+			to_chat(user, span_warning("You need at least 2 [metal] to make a plating!"))
+			return TRUE
+		else
+			to_chat(user, span_notice("You begin swapping the plating for [metal]..."))
+			if(do_after(user, 3 SECONDS * metal.toolspeed * gettoolspeedmod(user), target = src))
+				if(metal.get_amount() >= 2)
+					ChangeTurf(/turf/simulated/floor/plating, FALSE, FALSE)
+					playsound(src, metal.usesound, 80, TRUE)
+					metal.use(2)
+					to_chat(user, span_notice("You swap the plating for [metal]."))
+				return TRUE
 
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)

@@ -290,6 +290,10 @@
 	name = "Purple Bioluminescence"
 	glow_color = "#b434df"
 
+/datum/plant_gene/trait/glow/yellow
+	name = "Yellow Bioluminescence"
+	glow_color = "#FFFF66"
+
 /datum/plant_gene/trait/glow/shadow
 	//makes plant emit slightly purple shadows
 	//adds -potency*rate light power to products
@@ -319,9 +323,7 @@
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(thrower == living_target && !do_after(living_target, 1 SECONDS, target = living_target))
-			to_chat(target, "<span class='notice'>You need to hold still to squash [G.name].</span>")
-			return
+		//squash_trait already has "do_after", no need to double it here
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(living_target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
@@ -426,7 +428,7 @@
 		var/mob/living/L = target
 		// It would be nice to inject the body part the original thrower aimed at,
 		// but we don't have this kind of information here. So pick something at random.
-		var/target_zone = pick("chest", "chest", "chest", "l_leg", "r_leg", "l_arm", "r_arm", "head")
+		var/target_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD)
 		if(L.reagents && L.can_inject(null, FALSE, target_zone))
 			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
@@ -492,6 +494,6 @@
 
 /datum/plant_gene/trait/plant_laughter/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 
-	if(C.IsStunned())
-		playsound(G, pick(sounds), 100, 1)
+	if(C.IsWeakened())
+		playsound(C, pick(sounds), 100, 1)
 		C.visible_message("<span class='notice'>[G] lets out burst of laughter.</span>")

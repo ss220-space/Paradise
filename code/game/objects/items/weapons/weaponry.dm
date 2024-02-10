@@ -54,6 +54,8 @@
 	throwforce = 10
 	sharp = 1
 	embed_chance = 20
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -84,6 +86,8 @@
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
@@ -98,6 +102,28 @@
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
 	return BRUTELOSS
+
+/obj/item/katana/basalt
+	name = "basalt katana"
+	desc = "a katana made out of hardened basalt. Particularly damaging to lavaland fauna."
+	icon_state = "basalt_katana"
+	item_state = "basalt_katana"
+	force = 30
+	block_chance = 30
+	var/faction_bonus_force = 30
+	var/nemesis_factions = list("mining", "boss")
+
+/obj/item/katana/basalt/attack(mob/living/target, mob/living/carbon/human/user)
+	var/nemesis_faction = FALSE
+	if(LAZYLEN(nemesis_factions))
+		for(var/F in target.faction)
+			if(F in nemesis_factions)
+				nemesis_faction = TRUE
+				force += faction_bonus_force
+				break
+	. = ..()
+	if(nemesis_faction)
+		force -= faction_bonus_force
 
 /obj/item/harpoon
 	name = "harpoon"
@@ -192,6 +218,8 @@
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
+	pickup_sound = 'sound/items/handling/wooden_pickup.ogg'
+	drop_sound = 'sound/items/handling/wooden_drop.ogg'
 	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
@@ -214,7 +242,7 @@
 				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
 				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
-				I.throw_at(I.thrownby, 20, 20, owner)
+				I.throw_at(locateUID(I.thrownby), 20, 20, owner)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 600
@@ -364,17 +392,17 @@
 	homerun_able = on
 
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
-	. = ..()
 	if(!(isertmindshielded(user)))
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		to_chat(user, "<span class='cultlarge'>\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\"</span>")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		else
 			user.adjustBruteLoss(rand(force/2, force))
-		return
+		return FALSE
+	return ..()
 
 /obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
 	on = !on
@@ -401,3 +429,15 @@
 		H.update_inv_r_hand()
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
+
+/obj/item/claymore/bone
+	name = "bone sword"
+	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
+	icon_state = "bone_sword"
+	item_state = "bone_sword"
+	slot_flags = SLOT_BELT | SLOT_BACK
+	force = 18
+	throwforce = 10
+	armour_penetration = 15
+	w_class = WEIGHT_CLASS_BULKY
+	block_chance = 30

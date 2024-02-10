@@ -13,81 +13,46 @@
 	return FALSE
 
 
-/mob/living/carbon/human/has_organ(name)
-	var/obj/item/organ/external/O = bodyparts_by_name[name]
-	return O
-
-
 /mob/living/carbon/human/has_organ_for_slot(slot)
 	switch(slot)
-		if(slot_back)
-			return has_organ("chest")
-		if(slot_wear_mask)
-			return has_organ("head")
-		if(slot_neck)
-			return has_organ("chest")
-		if(slot_handcuffed)
-			return has_organ("l_hand") && has_organ("r_hand")
+		if(slot_in_backpack, slot_wear_pda, slot_wear_id, slot_tie)
+			return TRUE
+		if(slot_back, slot_belt, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_neck)
+			return get_organ(BODY_ZONE_CHEST)
+		if(slot_head, slot_wear_mask, slot_l_ear, slot_r_ear, slot_glasses)
+			return get_organ(BODY_ZONE_HEAD)
+		if(slot_handcuffed, slot_gloves)
+			return get_organ(BODY_ZONE_PRECISE_L_HAND) && get_organ(BODY_ZONE_PRECISE_R_HAND)
 		if(slot_legcuffed)
-			return has_organ("l_leg") && has_organ("r_leg")
+			return get_organ(BODY_ZONE_L_LEG) && get_organ(BODY_ZONE_R_LEG)
 		if(slot_l_hand)
-			return has_organ("l_hand")
+			return get_organ(BODY_ZONE_PRECISE_L_HAND)
 		if(slot_r_hand)
-			return has_organ("r_hand")
-		if(slot_belt)
-			return has_organ("chest")
-		if(slot_wear_id)
-			// the only relevant check for this is the uniform check
-			return TRUE
-		if(slot_wear_pda)
-			return TRUE
-		if(slot_l_ear)
-			return has_organ("head")
-		if(slot_r_ear)
-			return has_organ("head")
-		if(slot_glasses)
-			return has_organ("head")
-		if(slot_gloves)
-			return has_organ("l_hand") && has_organ("r_hand")
-		if(slot_head)
-			return has_organ("head")
+			return get_organ(BODY_ZONE_PRECISE_R_HAND)
 		if(slot_shoes)
-			return has_organ("r_foot") && has_organ("l_foot")
-		if(slot_wear_suit)
-			return has_organ("chest")
-		if(slot_w_uniform)
-			return has_organ("chest")
-		if(slot_l_store)
-			return has_organ("chest")
-		if(slot_r_store)
-			return has_organ("chest")
-		if(slot_s_store)
-			return has_organ("chest")
-		if(slot_in_backpack)
-			return TRUE
-		if(slot_tie)
-			return TRUE
+			return get_organ(BODY_ZONE_PRECISE_L_FOOT) && get_organ(BODY_ZONE_PRECISE_R_FOOT)
 
 
 /**
  * Handle stuff to update when a mob equips/unequips a glasses.
  */
-/mob/living/carbon/human/proc/wear_glasses_update(obj/item/clothing/glasses/glasses)
-	if(istype(glasses))
-		if(glasses.tint || initial(glasses.tint))
+/mob/living/carbon/human/wear_glasses_update(obj/item/clothing/glasses/our_glasses)
+	if(istype(our_glasses))
+		if(our_glasses.tint || initial(our_glasses.tint))
 			update_tint()
-		if(glasses.prescription)
+		if(our_glasses.prescription)
 			update_nearsighted_effects()
-		if(glasses.vision_flags || glasses.see_in_dark || glasses.invis_override || glasses.invis_view || !isnull(glasses.lighting_alpha))
+		if(our_glasses.vision_flags || our_glasses.see_in_dark || our_glasses.invis_override || our_glasses.invis_view || !isnull(our_glasses.lighting_alpha))
 			update_sight()
-		update_client_colour()
+			update_client_colour()
+
 	update_inv_glasses()
 
 
 /**
  * Handle stuff to update when a mob equips/unequips a mask.
  */
-/mob/living/carbon/human/proc/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
+/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
@@ -96,7 +61,7 @@
 		update_fhair()
 		update_head_accessory()
 
-	if(toggle_off && internal && !get_organ_slot("breathing_tube"))
+	if(toggle_off && internal && !get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 		internal = null
 		update_action_buttons_icon()
 
@@ -112,26 +77,31 @@
 /**
  * Handles stuff to update when a mob equips/unequips a headgear.
  */
-/mob/living/carbon/human/proc/update_head(obj/item/I, forced)
-	if(I.flags & BLOCKHAIR || I.flags & BLOCKHEADHAIR || forced)
+/mob/living/carbon/human/update_head(obj/item/clothing/head/check_item, forced = FALSE)
+	check_item = check_item || head
+	if(!check_item)
+		return
+
+	if(forced || (check_item.flags & BLOCKHAIR) || (check_item.flags & BLOCKHEADHAIR))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
 
 	// Bandanas and paper hats go on the head but are not head clothing
-	if(istype(I, /obj/item/clothing/head))
-		var/obj/item/clothing/head/hat = I
-		if(hat.tint || initial(hat.tint))
+	if(istype(check_item, /obj/item/clothing/head))
+		var/obj/item/clothing/head/hat = check_item
+		if(forced || hat.tint || initial(hat.tint))
 			update_tint()
 
-		if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
+		if(forced || hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 			update_sight()
-		if(hat.flags_inv & HIDEGLASSES || forced)
-			update_inv_glasses()
-		if(hat.flags_inv & HIDEHEADSETS || forced)
-			update_inv_ears()
-		if(hat.flags_inv & HIDEMASK || forced)
-			update_inv_wear_mask()
+
+	if(forced || (check_item.flags_inv & HIDEHEADSETS))
+		update_inv_ears()
+	if(forced || (check_item.flags_inv & HIDEMASK))
+		update_inv_wear_mask()
+	if(forced || (check_item.flags_inv & HIDEGLASSES))
+		update_inv_glasses()
 
 	sec_hud_set_ID()
 	update_inv_head()
@@ -140,7 +110,7 @@
 /**
  * Handles stuff to update when a mob equips/unequips a suit.
  */
-/mob/living/carbon/human/proc/wear_suit_update(obj/item/clothing/suit)
+/mob/living/carbon/human/wear_suit_update(obj/item/clothing/suit)
 	if(suit.flags_inv & HIDEJUMPSUIT)
 		update_inv_w_uniform()
 	if(suit.flags_inv & HIDESHOES)
@@ -310,7 +280,6 @@
 	I.pixel_y = initial(I.pixel_y)
 	I.screen_loc = null
 	I.forceMove(src)
-	I.equipped(src, slot, initial)
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 
@@ -420,11 +389,13 @@
 				I.forceMove(drop_location())
 
 		if(slot_tie)
-			var/obj/item/clothing/under/uniform = src.w_uniform
+			var/obj/item/clothing/under/uniform = w_uniform
 			uniform.attackby(I, src)
 
 		else
-			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
+			to_chat(src, span_warning("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
+
+	return I.equipped(src, slot, initial)
 
 
 /**

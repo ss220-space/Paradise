@@ -17,21 +17,19 @@
 	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
 
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+	var/list/messages = list()
 	if(you_are)
-		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
-	to_chat(wizard.current, "<B>The Space Wizard Federation has given you the following tasks:</B>")
-
-	var/obj_count = 1
-	to_chat(wizard.current, "<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
-	for(var/datum/objective/objective in wizard.objectives)
-		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
+	messages.Add("<B>The Space Wizards Federation has given you the following tasks:</B>")
+	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
+	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
+	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	return
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
-	if(config.traitor_scaling)
-		players_per_mage = config.traitor_scaling
+	if(CONFIG_GET(number/traitor_scaling))
+		players_per_mage = CONFIG_GET(number/traitor_scaling)
 	var/wizard_cap = CEILING((num_players_started() / players_per_mage), 1)
 	max_mages = wizard_cap
 	add_game_logs("Number of wizards chosen: [wizard_cap]")
@@ -139,6 +137,7 @@
 			var/mob/living/carbon/human/new_character= makeBody(harry)
 			new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
 			mages_made++
+			log_game("Spawned [new_character] (ckey: [new_character.key]) as Wizard as Raging Mage.")
 			return TRUE
 		else
 			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)

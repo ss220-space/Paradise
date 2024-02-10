@@ -99,7 +99,7 @@
 	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
 		return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.setAngle(new_angle_s)
+	P.set_angle(new_angle_s)
 	visible_message("<span class='warning'>[P] reflects off [src]!</span>")
 	return TRUE
 
@@ -123,7 +123,7 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body", "Voice")
+	var/choice = tgui_input_list(user, "Something to change?", "Magical Grooming", list("Name", "Body", "Voice"))
 
 	add_fingerprint(user)
 
@@ -145,7 +145,7 @@
 
 		if("Body")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
-			if(config.usealienwhitelist)
+			if(CONFIG_GET(flag/usealienwhitelist))
 				for(var/Spec in GLOB.whitelisted_species)
 					if(is_alien_whitelisted(H, Spec))
 						race_list += Spec
@@ -162,7 +162,7 @@
 			AC.ui_interact(user)
 
 		if("Voice")
-			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Староимперский", "Mute")
+			var/voice_choice = tgui_input_list(user, "Perhaps...", "Voice effects", list("Comic Sans", "Wingdings", "Swedish", "Староимперский", "Mute"))
 			var/voice_mutation
 			switch(voice_choice)
 				if("Comic Sans")

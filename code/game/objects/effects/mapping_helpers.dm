@@ -37,6 +37,10 @@
 	name = "asteroid snow baseturf editor"
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 
+/obj/effect/baseturf_helper/asteroid/ancient_sand
+	name = "ancient asteroid sand baseturf editor"
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient
+
 /obj/effect/baseturf_helper/beach/sand
 	name = "beach sand baseturf editor"
 	baseturf = /turf/simulated/floor/beach/sand
@@ -51,7 +55,7 @@
 
 /obj/effect/baseturf_helper/lava_land/surface
 	name = "lavaland baseturf editor"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'

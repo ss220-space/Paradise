@@ -15,6 +15,7 @@ Thumbs.db
 *.pyc
 data/
 !data/logs/.keep
+!data/mode.txt
 cfg/
 tmp/
 tools/Runtime Condenser/Input.txt

@@ -178,7 +178,7 @@
 				break
 
 		if(banround)
-			banreason = "Round [GLOB.round_id || "NULL"] [config?.server_name]: " + banreason
+			banreason = "Round [GLOB.round_id || "NULL"] [CONFIG_GET(string/servername)]: " + banreason
 		banreason = "(MANUAL BAN) "+banreason
 
 		if(!playermob)
@@ -303,19 +303,19 @@
 				if(null,"") return
 				if("*Новый Ранг*")
 					new_rank = input("Введите название нового ранга", "Новый Ранг", null, null) as null|text
-					if(config.admin_legacy_system)
+					if(CONFIG_GET(flag/admin_legacy_system))
 						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>")
 						return
-					if(config.admin_legacy_system)
+					if(CONFIG_GET(flag/admin_legacy_system))
 						if(GLOB.admin_ranks.len)
 							if(new_rank in GLOB.admin_ranks)
 								rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
 							else
 								GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
 				else
-					if(config.admin_legacy_system)
+					if(CONFIG_GET(flag/admin_legacy_system))
 						new_rank = ckeyEx(new_rank)
 						rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
 
@@ -388,8 +388,8 @@
 		if(!check_rights(R_SERVER))	return
 
 		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft() ) as num
+		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
-		SSshuttle.emergency.setTimer(timer*10)
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination,"минуту","минуты","минут")].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds</span>")
@@ -525,7 +525,7 @@
 
 		var/banreason = appearance_isbanned(M)
 		if(banreason)
-	/*		if(!config.ban_legacy_system)
+	/*		if(!CONFIG_GET(flag/ban_legacy_system))
 				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
 				DB_ban_panel(M.ckey)
 				return	*/
@@ -553,8 +553,8 @@
 				to_chat(M, "<span class='warning'><big><b>You have been appearance banned by [usr.client.ckey].</b></big></span>")
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 				to_chat(M, "<span class='warning'>Appearance ban can be lifted only upon request.</span>")
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(CONFIG_GET(string/banappeals))
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [CONFIG_GET(string/banappeals)]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 			if("No")
@@ -892,7 +892,7 @@
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
 			switch(alert("Temporary Ban of [M.ckey]?",,"Yes","No", "Cancel"))
 				if("Yes")
-					if(config.ban_legacy_system)
+					if(CONFIG_GET(flag/ban_legacy_system))
 						to_chat(usr, "<span class='warning'>Your server is using the legacy banning system, which does not support temporary job bans. Consider upgrading. Aborting ban.</span>")
 						return
 					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
@@ -945,7 +945,7 @@
 		//Unbanning joblist
 		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
 		if(joblist.len) //at least 1 banned job exists in joblist so we have stuff to unban.
-			if(!config.ban_legacy_system)
+			if(!CONFIG_GET(flag/ban_legacy_system))
 				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
 				DB_ban_panel(M.ckey)
 				return
@@ -1043,8 +1043,8 @@
 
 	else if(href_list["webtools"])
 		var/target_ckey = href_list["webtools"]
-		if(config.forum_playerinfo_url)
-			var/url_to_open = config.forum_playerinfo_url + target_ckey
+		if(CONFIG_GET(string/forum_playerinfo_url))
+			var/url_to_open = CONFIG_GET(string/forum_playerinfo_url) + target_ckey
 			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
 				usr.client << link(url_to_open)
 
@@ -1095,8 +1095,8 @@
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				if(M.client)
 					M.client.link_forum_account(TRUE)
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(CONFIG_GET(string/banappeals))
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [CONFIG_GET(string/banappeals)]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
@@ -1112,8 +1112,8 @@
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
 				if(M.client)
 					M.client.link_forum_account(TRUE)
-				if(config.banappeals)
-					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
+				if(CONFIG_GET(string/banappeals))
+					to_chat(M, "<span class='warning'>To try to resolve this matter head to [CONFIG_GET(string/banappeals)]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")
@@ -1161,7 +1161,7 @@
 
 	else if(href_list["watcheditlog"])
 		var/target_ckey = href_list["watcheditlog"]
-		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey=:targetkey", list(
+		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [CONFIG_GET(string/utility_database)].[format_table_name("watch")] WHERE ckey=:targetkey", list(
 			"targetkey" = target_ckey
 		))
 		if(!query_watchedits.warn_execute())
@@ -1238,6 +1238,91 @@
 		log_and_message_admins("<span class='notice'>set the forced secret mode as [GLOB.secret_force_mode].</span>")
 		Game() // updates the main game menu
 		.(href, list("f_secret"=1))
+
+	else if(href_list["change_weights"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
+			return alert(usr, "The game mode has to be Antag Paradise!", null, null, null, null)
+
+		var/dat = {"<meta charset="UTF-8"><b>Edit the antag weights for minor antagonists. Higher the weight higher the chance for antag to roll. Press reset if you want default behavior.</b><hr>"}
+		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
+		var/list/antags_list
+		if(GLOB.antag_paradise_weights)
+			antags_list = GLOB.antag_paradise_weights
+		else
+			antags_list = CONFIG_GET(str_list/antag_paradise_main_antags)
+			antags_list = antags_list.Copy()
+			for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
+				antags_list[key] = !!(key in antags_list)
+
+		for(var/antag in antags_list)
+			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</A></td></tr>"}
+
+		dat += {"</table><br><b>Edit the antag weights for special antag. Only one antag from below will be chosen for the mode. Rolling NOTHING means no special antag at all.</b><hr>"}
+		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
+		var/list/special_antags_list = GLOB.antag_paradise_special_weights ? GLOB.antag_paradise_special_weights : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_antags_weights))
+		for(var/antag in special_antags_list)
+			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_special_[antag]'>\[[special_antags_list[antag]]\]</A></td></tr>"}
+
+		dat += {"</table><br><b>Edit the chance to roll double antag ([capitalize(ROLE_VAMPIRE)]/[capitalize(ROLE_CHANGELING)]) for [capitalize(ROLE_TRAITOR)].</b><hr>"}
+		dat += {"<table><tr><td>Chance = </td><td><A href='?src=[UID()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "[CONFIG_GET(number/antag_paradise_double_antag_chance)]" : "[GLOB.antag_paradise_double_antag_chance]%"]</A></td></tr></table>"}
+
+		dat += {"<br><A href='?src=[UID()];change_weights2=reset'>Reset everything to default.</A><br>"}
+
+		usr << browse(dat, "window=change_weights")
+
+	else if(href_list["change_weights2"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
+			return alert(usr, "The game mode has to be Antag Paradise!", null, null, null, null)
+
+		var/command = href_list["change_weights2"]
+		if(command == "reset")
+			GLOB.antag_paradise_weights = null
+			GLOB.antag_paradise_special_weights = null
+			GLOB.antag_paradise_double_antag_chance = null
+			log_and_message_admins(span_notice("resets everything to default in Antag Paradise gamemode."))
+
+		else if(command == "chance")
+			var/choice = input(usr, "Adjust the chance for [capitalize(ROLE_TRAITOR)] antag to roll additional role on top", "Double Antag Adjustment", 0) as null|num
+			if(isnull(choice))
+				return
+			choice = round(clamp(choice, 0, 100))
+			GLOB.antag_paradise_double_antag_chance = choice
+			log_and_message_admins(span_notice("set the [choice]% chance to roll double antag for [capitalize(ROLE_TRAITOR)] antagonist in Antag Paradise gamemode."))
+
+		else if(findtext(command, "weights_normal_"))
+			if(!GLOB.antag_paradise_weights)
+				var/list/antags_list = CONFIG_GET(str_list/antag_paradise_main_antags)
+				antags_list = antags_list.Copy()
+				for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
+					antags_list[key] = !!(key in antags_list)
+				GLOB.antag_paradise_weights = antags_list
+			var/antag = replacetext(command, "weights_normal_", "")
+			var/choice = input(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0) as null|num
+			if(isnull(choice))
+				return
+			choice = round(clamp(choice, 0, 100))
+			GLOB.antag_paradise_weights[antag] = choice
+			log_and_message_admins(span_notice("set the weight for [capitalize(antag)] as antagonist to [choice] in Antag Paradise gamemode."))
+
+		else if(findtext(command, "weights_special_"))
+			if(!GLOB.antag_paradise_special_weights)
+				GLOB.antag_paradise_special_weights = config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_antags_weights))
+			var/antag = replacetext(command, "weights_special_", "")
+			var/choice = input(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0) as null|num
+			if(isnull(choice))
+				return
+			choice = round(clamp(choice, 0, 100))
+			GLOB.antag_paradise_special_weights[antag] = choice
+			log_and_message_admins(span_notice("set the weight for [capitalize(antag)] as special antagonist to [choice] in Antag Paradise gamemode."))
+		.(href, list("change_weights"=1))
 
 	else if(href_list["monkeyone"])
 		if(!check_rights(R_SPAWN))	return
@@ -1708,6 +1793,7 @@
 		log_and_message_admins("AIized [key_name(H)]")
 		var/mob/living/silicon/ai/ai_character = H.AIize()
 		ai_character.moveToAILandmark()
+		SSticker?.score?.save_silicon_laws(ai_character, usr, "admin AIzed user", log_all_laws = TRUE)
 
 	else if(href_list["makesuper"])
 		if(!check_rights(R_SPAWN))	return
@@ -2288,21 +2374,21 @@
 		P.name = "Центральное командование - paper"
 		var/stypes = list("Разберитесь с этим сами!","Неразборчивый факс","Факс не подписан","Не сейчас","Вы напрасно тратите наше время", "Продолжайте в том же духе", "Инструкции ОБР")
 		var/stype = input(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?","Выберите этот документ", "") as null|anything in stypes
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></font><BR><BR><BR><font size='4'>Отчет отдела коммуникаций УСН 'Трурль'</font></center><BR><BR>"
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></font><BR><BR><BR><font size='4'>Отчет отдела коммуникаций АКН 'Трурль'</font></center><BR><BR>"
 		if(stype == "Разберитесь с этим сами!")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального Командования.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального Командования.<BR><BR><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Неразборчивый факс")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Грамматика, синтаксис и/или типография вашего факса находятся на низком уровне и не позволяют нам понять содержание сообщения.<BR><BR>Пожалуйста, обратитесь к ближайшему словарю и/или тезаурусу и повторите попытку.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Грамматика, синтаксис и/или типография вашего факса находятся на низком уровне и не позволяют нам понять содержание сообщения.<BR><BR>Пожалуйста, обратитесь к ближайшему словарю и/или тезаурусу и повторите попытку.<BR><BR><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Факс не подписан")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Ваш факс был неправильно подписан, и поэтому мы не можем подтвердить вашу личность.<BR><BR>Пожалуйста, подпишите свои факсы перед их отправкой, чтобы мы могли вас идентифицировать.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Ваш факс был неправильно подписан, и поэтому мы не можем подтвердить вашу личность.<BR><BR>Пожалуйста, подпишите свои факсы перед их отправкой, чтобы мы могли вас идентифицировать.<BR><BR><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Не сейчас")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Из-за неотложных проблем, связанных с вопросом, превышающим ваш текущий уровень оплаты, мы не можем оказать помощь по любому вопросу, на который ссылается ваш факс.<BR><BR>Это может быть связано с отключением электроэнергии, бюрократическим аудитом, распространением вредителей, 'Восхождением', быстрым ростом популяции корги или любой другой ситуацией, которая может повлиять на надлежащее функционирование УСН 'Трурль'.<BR><BR>Пожалуйста, повторите попытку позднее.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Из-за неотложных проблем, связанных с вопросом, превышающим ваш текущий уровень оплаты, мы не можем оказать помощь по любому вопросу, на который ссылается ваш факс.<BR><BR>Это может быть связано с отключением электроэнергии, бюрократическим аудитом, распространением вредителей, 'Восхождением', быстрым ростом популяции корги или любой другой ситуацией, которая может повлиять на надлежащее функционирование АКН 'Трурль'.<BR><BR>Пожалуйста, повторите попытку позднее.<BR><BR><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Вы напрасно тратите наше время")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>В интересах предотвращения дальнейшего нерационального использования ресурсов компании, пожалуйста, не тратьте наше время на такую мелкую чушь.<BR><BR>Пожалуйста, помните, что мы ожидаем, что наши сотрудники будут поддерживать, по крайней мере, полу-достойный уровень профессионализма. Не испытывайте наше терпение.<BR><BR><i><small>Это автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>В интересах предотвращения дальнейшего нерационального использования ресурсов компании, пожалуйста, не тратьте наше время на такую мелкую чушь.<BR><BR>Пожалуйста, помните, что мы ожидаем, что наши сотрудники будут поддерживать, по крайней мере, полу-достойный уровень профессионализма. Не испытывайте наше терпение.<BR><BR><i><small>Это автоматическое сообщение.</i></small>"
 		else if(stype == "Продолжайте в том же духе")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был успешно получено службой регистрации факсов УСН 'Трурль'.<BR><BR>Мы в УСН 'Трурль' искренне ценим хорошую работу, которую вы здесь проделали, и искренне рекомендуем вам продолжать демонстрировать такую преданность компании.<BR><BR><i><small>Это точно не автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был успешно получено службой регистрации факсов АКН 'Трурль'.<BR><BR>Мы в АКН 'Трурль' искренне ценим хорошую работу, которую вы здесь проделали, и искренне рекомендуем вам продолжать демонстрировать такую преданность компании.<BR><BR><i><small>Это точно не автоматическое сообщение.</i></small>"
 		else if(stype == "Инструкции ОБР")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов УСН 'Трурль'.<BR><BR>Пожалуйста, используйте карту, если вы хотите вызвать ОБР.<BR><BR><i><small>Это автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Пожалуйста, используйте карту, если вы хотите вызвать ОБР.<BR><BR><i><small>Это автоматическое сообщение.</i></small>"
 		else
 			return
 		tmsg += "</font>"
@@ -2442,7 +2528,7 @@
 				P = new /obj/item/paper(null)
 		if(!fax)
 			var/list/departmentoptions = GLOB.alldepartments + GLOB.hidden_departments + "All Departments"
-			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
+			destination = tgui_input_list(usr, "To which department?", "Choose a department", departmentoptions)
 			if(!destination)
 				qdel(P)
 				return
@@ -2813,7 +2899,7 @@
 	else if(href_list["memoeditlist"])
 		if(!check_rights(R_SERVER)) return
 		var/sql_key = href_list["memoeditlist"]
-		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("memo")] WHERE (ckey=:sql_key)", list(
+		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")] WHERE (ckey=:sql_key)", list(
 			"sql_key" = sql_key
 		))
 		if(!query_memoedits.warn_execute())
@@ -2906,6 +2992,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins("<span class='notice'>made all SMESs powered</span>")
 				power_restore_quick()
+
 			if("prisonwarp")
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
@@ -3330,7 +3417,7 @@
 				var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
 				switch(val)
 					if("Automatic")
-						if(config.enable_night_shifts)
+						if(CONFIG_GET(flag/enable_night_shifts))
 							SSnightshift.can_fire = TRUE
 							SSnightshift.fire()
 						else
@@ -3377,11 +3464,6 @@
 				if(!J) return
 				J.total_positions = -1
 				J.spawn_positions = -1
-				J = SSjobs.GetJob("Security Cadet")
-				if(!J) return
-				J.total_positions = -1
-				J.spawn_positions = -1
-				message_admins("[key_name_admin(usr)] has removed the cap on security officers and cadets.")
 
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])
@@ -3417,7 +3499,7 @@
 			if(!description)
 				return
 			G.report_message = description
-		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
+		log_and_message_admins("created \"[G.name]\" station goal.")
 		SSticker.mode.station_goals += G
 		modify_goals()
 
@@ -3526,6 +3608,14 @@
 		else if(answer == "no")
 			log_sql("[usr.key] | Reported no server hang. Please investigate")
 
+	else if(href_list["adminalert"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
+		usr.client.cmd_admin_alert_message(about_to_be_banned)
+
+
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
@@ -3560,7 +3650,7 @@
 	N.mode = 3 //MODE_ADV, not defined here
 	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.target = H
-	N.point_at(N.target)
+	N.pinpoint_at(N.target)
 	N.modelocked = TRUE
 	if(!locate(/obj/item/implant/dust, hunter_mob))
 		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)

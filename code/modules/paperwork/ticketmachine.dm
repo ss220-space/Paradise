@@ -35,7 +35,8 @@
 	if(emagged)
 		return
 	add_attack_logs(user, src, "emagged")
-	to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
+	if(user)
+		to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
 	emagged = TRUE
@@ -75,7 +76,7 @@
 
 /obj/machinery/door_control/ticket_machine_button/do_main_action(mob/user as mob)
 	for(var/obj/machinery/ticket_machine/M in GLOB.machines)
-		if(M.id != id || cooldown)
+		if(!(M.id in id) || cooldown)
 			continue
 		cooldown = TRUE
 		M.increment()

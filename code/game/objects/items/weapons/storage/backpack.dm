@@ -18,10 +18,13 @@
 	resistance_flags = NONE
 	max_integrity = 300
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/back.dmi',
-		"Grey" = 'icons/mob/species/grey/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/back.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
 		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(in_range(user, src))
@@ -106,6 +109,21 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
+
+/obj/item/storage/backpack/santabag/update_icon()
+	var/items_count = length(contents)
+	switch(items_count)
+		if(1 to 10)
+			icon_state = "giftbag0"
+		if(11 to 20)
+			icon_state = "giftbag1"
+		if(21 to INFINITY)
+			icon_state = "giftbag2"
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
 
 /obj/item/storage/backpack/cultpack
 	name = "trophy rack"
@@ -397,7 +415,7 @@
 
 /obj/item/storage/backpack/satchel_flat/hide(var/intact)
 	if(intact)
-		invisibility = 101
+		invisibility = INVISIBILITY_ABSTRACT
 		anchored = 1 //otherwise you can start pulling, cover it, and drag around an invisible backpack.
 		icon_state = "[initial(icon_state)]2"
 	else
@@ -495,7 +513,7 @@
 /obj/item/storage/backpack/duffel/mining_conscript/populate_contents()
 	new /obj/item/pickaxe(src)
 	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/mining_scanner(src)
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
@@ -504,6 +522,7 @@
 	new /obj/item/kitchen/knife/combat/survival(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/suit/hooded/explorer(src)
+	new /obj/item/storage/bag/gem(src)
 
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
@@ -729,14 +748,14 @@
 	max_combined_w_class = 4
 	storage_slots = 1
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi',
-		"Drask" = 'icons/mob/species/drask/back.dmi',
-		"Grey" = 'icons/mob/species/grey/back.dmi',
-		"Monkey" = 'icons/mob/species/monkey/back.dmi',
-		"Farwa" = 'icons/mob/species/monkey/back.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/back.dmi',
-		"Neara" = 'icons/mob/species/monkey/back.dmi',
-		"Stok" = 'icons/mob/species/monkey/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/back.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/back.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/back.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/back.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/back.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/back.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/back.dmi'
 		)
 	can_hold = list(/obj/item/instrument, /obj/item/gun)
 	cant_hold = list(/obj/item/instrument/accordion, /obj/item/instrument/harmonica)

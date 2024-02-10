@@ -232,6 +232,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Notice Board", /obj/item/noticeboard, 5, time = 10),
 ))
 
 /obj/item/stack/sheet/wood
@@ -296,6 +297,8 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cloth
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/cloth/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -326,6 +329,8 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/durathread
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -503,6 +508,7 @@ GLOBAL_LIST_INIT(brass_recipes, list(
 	new /datum/stack_recipe("Altar of credence", /obj/structure/clockwork/functional/altar, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/functional/workshop, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe("Herald's beacon", /obj/structure/clockwork/functional/beacon, 6, time = 80, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe("Cogscarab fabricator", /obj/structure/clockwork/functional/cogscarab_fabricator, 5, time = 100, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe("Wall gear", /obj/structure/clockwork/wall_gear, time = 10, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	null,
 	new /datum/stack_recipe_list("Windows and furniture", list(
@@ -644,6 +650,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("Plastic ashtray", /obj/item/storage/ashtray/, 2, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = TRUE),
+	new /datum/stack_recipe("Baggie", /obj/item/reagent_containers/glass/beaker/drugs, 1, on_floor = TRUE),
 	new /datum/stack_recipe("Plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Plastic flaps", /obj/structure/plasticflaps, 5, time = 40, one_per_turf = TRUE, on_floor = TRUE),
 	null,
@@ -792,3 +799,33 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 
 /obj/item/stack/sheet/cheese/fifteen
 	amount = 15
+
+/*
+ * Gingerbread
+ */
+
+GLOBAL_LIST_INIT(gingerbread_recipes, list(
+	new /datum/stack_recipe("Gingerbread door", /obj/structure/mineral_door/ginger, 10, time = 20, one_per_turf = TRUE, on_floor = TRUE),
+))
+
+/obj/item/stack/sheet/gingerbread
+	name = "gingerbread"
+	desc = "A brick of gingerbread that seems sturdier than regular one."
+	icon_state = "sheet-gingerbread"
+	item_state = "sheet-gingerbread"
+	singular_name = "gingerbread block"
+	icon = 'icons/obj/items.dmi'
+	sheettype = "gingerbread"
+	force = 1
+	throwforce = 2
+	merge_type = /obj/item/stack/sheet/gingerbread
+
+/obj/item/stack/sheet/gingerbread/fifty
+	amount = 50
+
+/obj/item/stack/sheet/gingerbread/five
+	amount = 5
+
+/obj/item/stack/sheet/gingerbread/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.gingerbread_recipes

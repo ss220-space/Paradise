@@ -105,8 +105,31 @@
 	display_name = "executive suit"
 	path = /obj/item/clothing/under/suit_jacket/really_black
 
+/datum/gear/uniform/chaps
+	subtype_path = /datum/gear/uniform/chaps
+
+/datum/gear/uniform/chaps/red
+	display_name = "chaps, red"
+	path = /obj/item/clothing/under/red_chaps
+
+/datum/gear/uniform/chaps/white
+	display_name = "chaps, white"
+	path = /obj/item/clothing/under/white_chaps
+
+/datum/gear/uniform/chaps/tan
+	display_name = "chaps, tan"
+	path = /obj/item/clothing/under/tan_chaps
+
+/datum/gear/uniform/chaps/brown
+	display_name = "chaps, brown"
+	path = /obj/item/clothing/under/brown_chaps
+
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
+
+/datum/gear/uniform/skirt/syndi
+	display_name = "skirt, tactical"
+	path = /obj/item/clothing/under/syndicate/tacticool/skirt
 
 /datum/gear/uniform/skirt/blue
 	display_name = "plaid skirt, blue"
@@ -119,6 +142,10 @@
 /datum/gear/uniform/skirt/red
 	display_name = "plaid skirt, red"
 	path = /obj/item/clothing/under/dress/plaid_red
+
+/datum/gear/uniform/skirt/redeveninggown
+	display_name = "red evening gown"
+	path = /obj/item/clothing/under/redeveninggown
 
 /datum/gear/uniform/skirt/black
 	display_name = "skirt, black"
@@ -173,6 +200,16 @@
 	path = /obj/item/clothing/under/rank/security/brigphys/skirt
 	allowed_roles = list("Brig Physician")
 
+/datum/gear/uniform/skirt/job/physalt
+	display_name = "skirt, physician alt"
+	path = /obj/item/clothing/under/rank/security/brigmedical/skirt
+	allowed_roles = list("Brig Physician")
+
+/datum/gear/uniform/skirt/job/hydro
+	display_name = "skirt, botanist"
+	path = /obj/item/clothing/under/rank/hydroponics/skirt
+	allowed_roles = list("Botanist")
+
 /datum/gear/uniform/skirt/job/sci
 	display_name = "skirt, scientist"
 	path = /obj/item/clothing/under/rank/scientist/skirt
@@ -196,7 +233,12 @@
 /datum/gear/uniform/skirt/job/security
 	display_name = "skirt, security"
 	path = /obj/item/clothing/under/rank/security/skirt
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/uniform/skirt/job/podpilot
+	display_name = "skirt, podpilot"
+	path = /obj/item/clothing/under/rank/security/pod_pilot/skirt
+	allowed_roles = list("Head of Security", "Security Pod Pilot")
 
 /datum/gear/uniform/skirt/job/head_of_security
 	display_name = "skirt, hos"
@@ -213,6 +255,35 @@
 	path = /obj/item/clothing/under/rank/blueshield/skirt
 	allowed_roles = list("Blueshield")
 
+/datum/gear/uniform/skirt/job/librarian
+	display_name = "skirt, librarian"
+	path = /obj/item/clothing/under/suit_jacket/red/skirt
+	allowed_roles = list("Librarian")
+
+/datum/gear/uniform/skirt/job/bartender
+	display_name = "skirt, bartender"
+	path = /obj/item/clothing/under/rank/bartender/skirt
+	allowed_roles = list("Bartender")
+
+/datum/gear/uniform/skirt/job/chaplain
+	display_name = "skirt, chaplain"
+	path = /obj/item/clothing/under/rank/chaplain/skirt
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/skirt/job/barber
+	display_name = "skirt, barber"
+	path = /obj/item/clothing/under/barber/skirt
+	allowed_roles = list("Barber")
+
+/datum/gear/uniform/skirt/job/nanotrasenofficer
+	display_name = "skirt, NNO"
+	path = /obj/item/clothing/under/rank/centcom/officer/skirt
+	allowed_roles = list("Nanotrasen Navy Officer")
+
+/datum/gear/uniform/skirt/job/internalaffairs
+	display_name = "skirt, internalaffairs"
+	path = /obj/item/clothing/under/rank/internalaffairs/skirt
+	allowed_roles = list("Internal Affairs Agent")
 
 /datum/gear/uniform/medical
 	subtype_path = /datum/gear/uniform/medical
@@ -238,22 +309,40 @@
 /datum/gear/uniform/sec/formal
 	display_name = "security uniform, formal"
 	path = /obj/item/clothing/under/rank/security/formal
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/sec/secorporate
 	display_name = "security uniform, corporate"
 	path = /obj/item/clothing/under/rank/security/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/sec/dispatch
 	display_name = "security uniform, dispatch"
 	path = /obj/item/clothing/under/rank/dispatch
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/uniform/sec/casual
 	display_name = "security uniform, casual"
 	path = /obj/item/clothing/under/rank/security2
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Detective", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot")
+
+/datum/gear/uniform/cargo
+	subtype_path = /datum/gear/uniform/cargo
+
+/datum/gear/uniform/cargo/qm
+	display_name = "quartermaster's dress"
+	path = /obj/item/clothing/under/rank/cargo/alt
+	allowed_roles = list("Quartermaster")
+
+/datum/gear/uniform/cargo/tech
+	display_name = "cargo technician's dress"
+	path = /obj/item/clothing/under/rank/cargotech/alt
+	allowed_roles = list("Quartermaster","Cargo Technician")
+
+/datum/gear/uniform/cargo/miner
+	display_name = "shaft miner's sweater"
+	path = /obj/item/clothing/under/rank/miner/alt
+	allowed_roles = list("Quartermaster", "Shaft Miner")
 
 /datum/gear/uniform/shorts
 	subtype_path = /datum/gear/uniform/shorts
@@ -333,3 +422,23 @@
 	display_name = "tacticool turtleneck"
 	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
+
+/datum/gear/uniform/hawaii
+	display_name = "hawaiian shirt (red)"
+	description = "Sometimes you just want to shoot the guy who brought the chainsaw to the drug deal"
+	path = /obj/item/clothing/under/redhawaiianshirt
+
+/datum/gear/uniform/hawaii/pink
+	display_name = "hawaiian shirt (pink)"
+	description = "Sometimes you just want some pink in your life. For what? Who knows"
+	path = /obj/item/clothing/under/pinkhawaiianshirt
+
+/datum/gear/uniform/hawaii/blue
+	display_name = "hawaiian shirt (blue)"
+	description = "Be careful around water! Some guys in blue shirt like you can't swim"
+	path = /obj/item/clothing/under/bluehawaiianshirt
+
+/datum/gear/uniform/hawaii/orange
+	display_name = "hawaiian shirt (orange)"
+	description = "Come one step closer and I will knock his teeth out!"
+	path = /obj/item/clothing/under/orangehawaiianshirt

@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -592,7 +593,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(C.installed)
 			installed_components += V
 
-	var/toggle = input(src, "Which component do you want to toggle?", "Toggle Component") as null|anything in installed_components
+	var/toggle = tgui_input_list(src, "Which component do you want to toggle?", "Toggle Component", installed_components)
 	if(!toggle)
 		return
 
@@ -800,6 +801,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 			C.brute_damage = 0
 			C.electronics_damage = 0
+			var/been_hijacked = FALSE
+			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+				if(!been_hijacked)
+					demon.do_hijack_robot(src)
+					been_hijacked = TRUE
+				else
+					demon.exit_to_turf()
+			if(been_hijacked)
+				cell.rigged = FALSE
+
+			module?.update_cells()
 			diag_hud_set_borgcell()
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
@@ -836,6 +848,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(U.action(src, user))
 				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
 				install_upgrade(U)
+				module?.fix_modules()	//Set up newly added items with NODROP flag.
 			else
 				W.forceMove(drop_location())
 
@@ -941,7 +954,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			removable_components += V
 	if(module)
 		removable_components += module.custom_removals
-	var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
+	var/remove = tgui_input_list(user, "Which component do you want to pry out?", "Remove Component", removable_components)
 	if(!remove)
 		return
 	if(module && module.handle_custom_removal(remove, user, I))
@@ -969,7 +982,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		spark_system.start()
 	..()
 
-/mob/living/silicon/robot/emag_act(user as mob)
+/mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
 	if(isclocker(src))
@@ -1001,6 +1014,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
+			src.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, 0) // plays a specific sound that only borg hears when emagged.
 			disconnect_from_ai()
 			to_chat(user, "You emag [src]'s interface.")
 			add_attack_logs(user, src, "emagged", ATKLOG_FEW)
@@ -1010,6 +1024,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("[M.real_name] — агент Синдиката и ваш хозяин. Исполняйте [genderize_ru(M.gender,"его","её","его","их")] приказы и указания.")
+			SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
 			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
 			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
@@ -1045,8 +1060,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(module)
 			reset_module()
 		pick_module("Clockwork")
-		emp_protection = TRUE
-		speed = -0.5
 		pdahide = TRUE
 	SSticker.mode.add_clocker(mind)
 	UnlinkSelf()
@@ -1297,7 +1310,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		robot_suit.head.flash2.burn_out()
 		robot_suit.head.flash2 = null
 		robot_suit.head = null
-		robot_suit.updateicon()
+		robot_suit.update_icon(UPDATE_OVERLAYS)
 	else
 		new /obj/item/robot_parts/robot_suit(T)
 		new /obj/item/robot_parts/l_leg(T)
@@ -1329,13 +1342,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(stat != DEAD && isturf(tile))
 				var/floor_only = TRUE
 				for(var/A in tile)
-					if(istype(A, /obj/effect))
-						if(is_cleanable(A))
-							var/obj/effect/decal/cleanable/blood/B = A
+					if(iseffect(A))
+						var/obj/effect/check = A
+						if(check.is_cleanable())
+							var/obj/effect/decal/cleanable/blood/B = check
 							if(istype(B) && B.off_floor)
 								floor_only = FALSE
 							else
-								qdel(A)
+								qdel(B)
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()
@@ -1449,7 +1463,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return
 
 /mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
-	SetLockdown(TRUE)
+	Immobilize(5 SECONDS)
 	say("Загрузка модуля...")
 	setDir(SOUTH)
 	for(var/i in 1 to 4)
@@ -1460,7 +1474,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_icons()
 
 /mob/living/silicon/robot/proc/complete_loading()
-	SetLockdown(FALSE)
 	say("Инициализация успешна")
 
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
@@ -1650,7 +1663,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/extinguish_light(force = FALSE)
 	..()
-	update_headlamp(1, 150)
+	update_headlamp(turn_off = TRUE, cooldown = 15 SECONDS)
 
 /mob/living/silicon/robot/rejuvenate()
 	..()
@@ -1748,3 +1761,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
+
+
+/mob/living/silicon/robot/verb/powerwarn()
+	set category = "Robot Commands"
+	set name = "Power Warning"
+
+	if(!is_component_functioning("power cell") || !cell || !cell.charge)
+		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))
+			to_chat(src, span_warning("The low-power capacitor for your speaker system is still recharging, please try again later."))
+			return
+
+		visible_message(span_warning("The power warning light on [span_name("[src]")] flashes urgently."),
+									span_warning("You announce you are operating in low power mode."))
+		playsound(loc, 'sound/machines/buzz-two.ogg', 50, FALSE)
+	else
+		to_chat(src, span_warning("You can only use this emote when you're out of charge."))
+

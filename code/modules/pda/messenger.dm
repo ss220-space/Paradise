@@ -28,8 +28,8 @@
 		data["messages"] = tnote
 		for(var/c in tnote)
 			if(c["target"] == active_conversation)
-				data["convo_name"] = sanitize(c["owner"])
-				data["convo_job"] = sanitize(c["job"])
+				var/obj/item/pda/device = locateUID(c["target"])
+				data["convo_device"] = QDELETED(device) ? "Error#1133: Unable to find UserName." : "[device.owner] ([device.ownjob])"
 				break
 	else
 		var/list/convopdas = list()
@@ -171,8 +171,8 @@
 
 
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
-		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "[P.UID()]")))
-		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[t]", "target" = "[pda.UID()]")))
+		tnote.Add(list(list("sent" = 1, "message" = "[t]", "target" = "[P.UID()]")))
+		PM.tnote.Add(list(list("sent" = 0, "message" = "[t]", "target" = "[pda.UID()]")))
 
 		// Show it to ghosts
 		for(var/mob/M in GLOB.dead_mob_list)

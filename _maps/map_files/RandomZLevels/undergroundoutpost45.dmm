@@ -862,18 +862,7 @@
 /area/awaymission/UO45/central_hall)
 "cz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(201)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /obj/item/clothing/under/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
@@ -883,18 +872,7 @@
 	initialize_directions = 7;
 	tag = "icon-manifold-b-f (WEST)"
 	},
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(201)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /obj/item/clothing/under/suit_jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
@@ -1427,12 +1405,7 @@
 /area/awaymission/UO45/central_hall)
 "dM" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
+	icon_state = "hydro";
 	locked = 0;
 	name = "botanist's locker";
 	req_access = list(201)
@@ -1478,12 +1451,7 @@
 /area/awaymission/UO45/central_hall)
 "dQ" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
 	req_access = list(201)
 	},
@@ -1600,12 +1568,7 @@
 /area/awaymission/UO45/central_hall)
 "ee" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
+	icon_state = "hydro";
 	locked = 0;
 	name = "botanist's locker";
 	req_access = list(201)
@@ -2555,11 +2518,6 @@
 /area/awaymission/UO45/crew_quarters)
 "go" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
 	icon_state = "fridge";
 	locked = 0;
 	name = "meat fridge";
@@ -3661,11 +3619,6 @@
 /area/awaymission/UO45/crew_quarters)
 "iM" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
 	icon_state = "fridge";
 	locked = 0;
 	name = "refrigerator";
@@ -4092,12 +4045,7 @@
 /area/awaymission/UO45/central_hall)
 "jG" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres";
+	icon_state = "sec";
 	locked = 0;
 	name = "scientist's locker";
 	req_access = list(201)
@@ -4114,12 +4062,7 @@
 	dir = 1
 	},
 /obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres";
+	icon_state = "res";
 	locked = 0;
 	name = "scientist's locker";
 	req_access = list(201)
@@ -5666,18 +5609,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "mw" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(201)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /obj/item/clothing/under/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
@@ -5789,12 +5721,7 @@
 /area/awaymission/UO45/gateaway)
 "mI" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "rdsecurebroken";
-	icon_closed = "rdsecure";
-	icon_locked = "rdsecure1";
-	icon_off = "rdsecureoff";
-	icon_opened = "rdsecureopen";
-	icon_state = "rdsecure1";
+	icon_state = "rd";
 	name = "research director's locker";
 	req_access = list(201)
 	},
@@ -5964,18 +5891,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "mZ" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(201)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
@@ -7177,7 +7093,7 @@
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
 "pb" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "UO45_air_sensor";
 	output = 7
@@ -7253,12 +7169,7 @@
 /area/awaymission/UO45/research)
 "pi" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
 	req_access = list(201)
 	},
@@ -7455,7 +7366,7 @@
 	internal_pressure_bound = 2000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
@@ -7655,7 +7566,7 @@
 "qe" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_mair_out_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank Out"
@@ -7667,7 +7578,7 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_mair_in_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank In"
@@ -7695,7 +7606,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Server Base";
@@ -7941,12 +7852,7 @@
 /area/awaymission/UO45/engineering)
 "qH" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secureengbroken";
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
+	icon_state = "eng";
 	name = "engineer's locker";
 	req_access = list(201)
 	},
@@ -8915,7 +8821,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_dloop_atm_meter";
 	name = "Distribution Loop"
 	},
@@ -8959,7 +8865,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -8982,7 +8888,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -9333,7 +9239,7 @@
 "td" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -9366,7 +9272,7 @@
 	},
 /area/awaymission/UO45/engineering)
 "tg" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_waste_sensor";
 	output = 63
 	},
@@ -9635,7 +9541,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "tH" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_wloop_atm_meter";
 	name = "Waste Loop"
 	},
@@ -9838,12 +9744,7 @@
 	req_access = list(201)
 	},
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
 	req_access = list(201)
 	},
@@ -9860,12 +9761,12 @@
 /area/awaymission/UO45/caves)
 "ud" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/awaymission/UO45/engineering)
 "ue" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/awaymission/UO45/engineering)
 "uf" = (
@@ -10145,7 +10046,7 @@
 "uJ" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
@@ -10154,7 +10055,7 @@
 "uK" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -10354,7 +10255,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
@@ -10375,7 +10276,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO45/engineering)
@@ -10593,7 +10494,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "vE" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_n2_sensor"
 	},
 /obj/machinery/light/small,
@@ -10604,7 +10505,7 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
 "vG" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_o2_sensor"
 	},
 /obj/machinery/light/small,
@@ -10905,18 +10806,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wq" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(201)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wr" = (
@@ -11213,12 +11103,7 @@
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/engineering_personal{
-	icon_broken = "miningsecbroken";
-	icon_closed = "miningsec";
-	icon_locked = "miningsec1";
-	icon_off = "miningsecoff";
-	icon_opened = "miningsecopen";
-	icon_state = "miningsec";
+	icon_state = "mining";
 	locked = 0;
 	name = "miner's equipment";
 	req_access = list(201)
@@ -11249,18 +11134,7 @@
 	dir = 4;
 	on = 1
 	},
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access = list(201)
-	},
+/obj/structure/closet/secure_closet/civillian,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wY" = (

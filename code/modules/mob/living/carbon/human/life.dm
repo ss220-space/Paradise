@@ -38,10 +38,8 @@
 	pulse = handle_pulse(times_fired)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vamp)
-		vamp.handle_vampire()
-		if(life_tick == 1)
-			regenerate_icons() // Make sure the inventory updates
+	if(vamp && life_tick == 1)
+		regenerate_icons() // Make sure the inventory updates
 
 	var/datum/antagonist/goon_vampire/g_vamp = mind?.has_antag_datum(/datum/antagonist/goon_vampire)
 	if(g_vamp)
@@ -49,8 +47,9 @@
 		if(life_tick == 1)
 			regenerate_icons()
 
-	if(mind?.ninja)
-		mind.ninja.handle_ninja()
+	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
+	if(ninja)
+		ninja.handle_ninja()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
@@ -74,7 +73,7 @@
 	player_logged++
 	if(istype(loc, /obj/machinery/cryopod))
 		return
-	if(config.auto_cryo_ssd_mins && (player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
+	if(CONFIG_GET(number/auto_cryo_ssd_mins) && (player_logged >= (CONFIG_GET(number/auto_cryo_ssd_mins) * 30)) && player_logged % 30 == 0)
 		var/turf/T = get_turf(src)
 		if(!is_station_level(T.z))
 			return
@@ -108,7 +107,7 @@
 		SetEyeBlind(0)
 		SetEyeBlurry(0)
 
-	else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
+	else if(!vision || vision.is_traumatized())   // Vision organs cut out or broken? Permablind.
 		EyeBlind(4 SECONDS)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
@@ -255,7 +254,7 @@
 						domutcheck(src, null)
 
 			if(autopsy_damage)
-				var/obj/item/organ/external/chest/chest = get_organ("chest")
+				var/obj/item/organ/external/chest/chest = get_organ(BODY_ZONE_CHEST)
 				if(chest)
 					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 
@@ -263,33 +262,34 @@
 	if(!dna.species.breathe(src))
 		..()
 
+
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
-	var/obj/item/organ/internal/L = get_organ_slot("lungs")
+	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 
-	if(!L || L && (L.status & ORGAN_DEAD))
+	if(!lungs || (lungs && lungs.is_dead()))
 		if(health >= HEALTH_THRESHOLD_CRIT)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
 		else if(!(NOCRITDAMAGE in dna.species.species_traits))
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 
 		if(dna.species)
-			var/datum/species/S = dna.species
+			var/datum/species/species = dna.species
 
-			if(S.breathid == "o2")
+			if(species.breathid == "o2")
 				throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
-			else if(S.breathid == "tox")
+			else if(species.breathid == "tox")
 				throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
-			else if(S.breathid == "co2")
+			else if(species.breathid == "co2")
 				throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
-			else if(S.breathid == "n2")
+			else if(species.breathid == "n2")
 				throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
 
 		return FALSE
-	else
-		if(istype(L, /obj/item/organ/internal/lungs))
-			var/obj/item/organ/internal/lungs/lun = L
-			lun.check_breath(breath, src)
+	else if(istype(lungs, /obj/item/organ/internal/lungs))
+		var/obj/item/organ/internal/lungs/really_lungs = lungs
+		really_lungs.check_breath(breath, src)
+
 
 // USED IN DEATHWHISPERS
 /mob/living/carbon/human/proc/isInCrit()
@@ -302,7 +302,7 @@
 		var/null_internals = 0      //internals are invalid, therefore turn them off
 		var/skip_contents_check = 0 //rigsuit snowflake, oxygen tanks aren't stored inside the mob, so the 'contents.Find' check has to be skipped.
 
-		if(!get_organ_slot("breathing_tube"))
+		if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 			if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
 				if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
 					null_internals = 1 //not wearing a mask or suitable helmet
@@ -381,6 +381,9 @@
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = dna.species.coldmod
 			if(mult>0)
+				if(bodytemperature < dna.species.cold_level_2 && prob(0.3))
+					var/datum/disease/virus/cold/D = new
+					D.Contract(src)
 				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 					throw_alert("temp", /obj/screen/alert/cold, 1)
 					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
@@ -646,7 +649,9 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(!(NO_HUNGER in dna.species.species_traits))
+	var/is_vamp = isvampire(src)
+
+	if(!(NO_HUNGER in dna.species.species_traits) || is_vamp)
 		if(FAT in mutations)
 			if(overeatduration < 100)
 				becomeSlim()
@@ -658,7 +663,7 @@
 		if(nutrition >= 0 && stat != DEAD)
 			handle_nutrition_alerts()
 			// THEY HUNGER
-			var/hunger_rate = hunger_drain
+			var/hunger_rate = is_vamp ? HUNGER_FACTOR_VAMPIRE : hunger_drain
 			if(satiety > 0)
 				satiety--
 			if(satiety < 0)
@@ -680,8 +685,8 @@
 					overeatduration -= 2
 
 		if(!ismachineperson(src) && !isLivingSSD(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
-			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
-			ForceContractDisease(D)
+			var/datum/disease/critical/hypoglycemia/D = new
+			D.Contract(src)
 
 		//metabolism change
 		if(nutrition > NUTRITION_LEVEL_FAT)
@@ -749,24 +754,24 @@
 							var/mob/living/carbon/human/H = src
 							H.set_heartattack(TRUE)
 					if(prob(health * -0.2))
-						var/datum/disease/D = new /datum/disease/critical/heart_failure
-						ForceContractDisease(D)
+						var/datum/disease/critical/heart_failure/D = new
+						D.Contract(src)
 					Paralyse(10 SECONDS)
 				if(-99 to -80)
 					adjustOxyLoss(1)
 					if(prob(4))
 						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
 						Paralyse(4 SECONDS)
-						var/datum/disease/D = new /datum/disease/critical/heart_failure
-						ForceContractDisease(D)
+						var/datum/disease/critical/heart_failure/D = new
+						D.Contract(src)
 				if(-79 to -50)
 					adjustOxyLoss(1)
 					if(prob(10))
-						var/datum/disease/D = new /datum/disease/critical/shock
-						ForceContractDisease(D)
+						var/datum/disease/critical/shock/D = new
+						D.Contract(src)
 					if(prob(health * -0.08))
-						var/datum/disease/D = new /datum/disease/critical/heart_failure
-						ForceContractDisease(D)
+						var/datum/disease/critical/heart_failure/D = new
+						D.Contract(src)
 					if(prob(6))
 						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
 						Weaken(6 SECONDS)
@@ -775,8 +780,8 @@
 				if(-49 to 0)
 					adjustOxyLoss(1)
 					if(prob(3))
-						var/datum/disease/D = new /datum/disease/critical/shock
-						ForceContractDisease(D)
+						var/datum/disease/critical/shock/D = new
+						D.Contract(src)
 					if(prob(5))
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
 						Weaken(6 SECONDS)
@@ -790,6 +795,9 @@
 		return
 	else
 		var/shock_reduction = shock_reduction()
+		if(NO_PAIN_FEEL in dna.species.species_traits)
+			shock_reduction = INFINITY
+
 		if(healths)
 			var/health_amount = get_perceived_trauma(shock_reduction)
 			if(..(health_amount)) //not dead
@@ -806,17 +814,18 @@
 				healthdoll.icon_state = "healthdoll_DEAD"
 				if(healthdoll.overlays.len)
 					healthdoll.overlays.Cut()
-				if(bodypart_tail && bodypart_tail.dna.species.tail)
+				var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
+				if(bodypart_tail?.dna?.species?.tail)
 					healthdoll.overlays += "[bodypart_tail.dna.species.tail]_DEAD"
 			else
 				var/list/new_overlays = list()
 				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
 				// Use the dead health doll as the base, since we have proper "healthy" overlays now
 				healthdoll.icon_state = "healthdoll_DEAD"
-				for(var/obj/item/organ/external/O in bodyparts)
-					var/damage = O.burn_dam + O.brute_dam
+				for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+					var/damage = bodypart.burn_dam + bodypart.brute_dam
 					damage -= shock_reduction / BODYPART_PAIN_REDUCTION
-					var/comparison = (O.max_damage/5)
+					var/comparison = (bodypart.max_damage/5)
 					var/icon_num = 0
 					if(damage > 0)
 						icon_num = 1
@@ -828,12 +837,12 @@
 						icon_num = 4
 					if(damage > (comparison*4))
 						icon_num = 5
-					if(istype(O, /obj/item/organ/external/tail) && O.dna.species.tail)
-						new_overlays += "[O.dna.species.tail][icon_num]"
-					if(istype(O, /obj/item/organ/external/wing) && O.dna.species.tail)
-						new_overlays += "[O.dna.species.wing][icon_num]"
+					if(istype(bodypart, /obj/item/organ/external/tail) && bodypart.dna?.species.tail)
+						new_overlays += "[bodypart.dna.species.tail][icon_num]"
+					if(istype(bodypart, /obj/item/organ/external/wing) && bodypart.dna?.species.tail)
+						new_overlays += "[bodypart.dna.species.wing][icon_num]"
 					else
-						new_overlays += "[O.limb_name][icon_num]"
+						new_overlays += "[bodypart.limb_zone][icon_num]"
 				healthdoll.overlays += (new_overlays - cached_overlays)
 				healthdoll.overlays -= (cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
@@ -878,21 +887,21 @@
 				adjustToxLoss(-3)
 				lastpuke = 0
 
-/mob/living/carbon/human/proc/handle_embedded_objects()
-	for(var/X in bodyparts)
-		var/obj/item/organ/external/BP = X
-		for(var/obj/item/I in BP.embedded_objects)
-			if(prob(I.embedded_pain_chance))
-				BP.receive_damage(I.w_class*I.embedded_pain_multiplier)
-				to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
 
-			if(prob(I.embedded_fall_chance))
-				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
-				BP.embedded_objects -= I
-				I.forceMove(get_turf(src))
-				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
-				if(!has_embedded_objects())
-					clear_alert("embeddedobject")
+/mob/living/carbon/human/proc/handle_embedded_objects()
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		for(var/obj/item/thing in bodypart.embedded_objects)
+			if(prob(thing.embedded_pain_chance))
+				bodypart.receive_damage(thing.w_class * thing.embedded_pain_multiplier)
+				to_chat(src, span_userdanger("[thing] embedded in your [bodypart.name] hurts!"))
+
+			if(prob(thing.embedded_fall_chance))
+				bodypart.remove_embedded_object(thing)
+				bodypart.receive_damage(thing.w_class * thing.embedded_fall_pain_multiplier)
+				visible_message(
+					span_danger("[thing] falls out of [name]'s [bodypart.name]!"),
+					span_userdanger("[thing] falls out of your [bodypart.name]!"),
+				)
 
 
 /mob/living/carbon/human/proc/handle_pulse(times_fired)
@@ -1035,7 +1044,7 @@
 		return FALSE
 	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
 	if(istype(heart))
-		if(heart.status & ORGAN_DEAD)
+		if(heart.is_dead())
 			return TRUE
 		if(heart.beating)
 			return FALSE

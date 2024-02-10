@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin
 	name = "Neurotoxin spit"
 	desc = "This ability allows you to fire some neurotoxin. Knocks down anyone you hit, applies a small amount of stamina damage as well."
-	base_cooldown = 0.5 SECONDS
+	base_cooldown = 1 SECONDS
 	plasma_cost = 50
 	selection_activated_message		= span_noticealien("<B>Your prepare some neurotoxin!</B>")
 	selection_deactivated_message	= span_noticealien("<B>You swallow your prepared neurotoxin.</B>")
@@ -9,6 +9,8 @@
 	action_icon_state = "alien_neurotoxin_0"
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
 
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/sentinel
+	base_cooldown = 0.5 SECONDS
 
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
@@ -38,6 +40,10 @@
 
 	return TRUE
 
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/after_cast(list/targets, mob/user)
+	. = ..()
+	if(should_remove_click_intercept(user))
+		remove_ranged_ability(user)
 
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/should_remove_click_intercept(mob/living/carbon/user)
 	if(user.get_plasma() < plasma_cost)

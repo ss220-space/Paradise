@@ -27,6 +27,8 @@
 	var/light_on = FALSE
 	var/brightness_on = 5
 	var/adaptive_damage_bonus = 0
+	var/upgraded = FALSE //whether is our crusher is magmite-upgraded
+	var/obj/item/projectile/destabilizer/destab = /obj/item/projectile/destabilizer
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -90,16 +92,25 @@
 	. = ..()
 	if(!wielded)
 		return
+	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
+		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
+			playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+			user.visible_message("<span class='warning'>[user] dashes!</span>")
+		else
+			to_chat(user, "<span class='warning'>Something prevents you from dashing!</span>")
+		user.remove_status_effect(STATUS_EFFECT_DASH)
+		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = user.loc
 		if(!isturf(proj_turf))
 			return
-		var/obj/item/projectile/destabilizer/D = new /obj/item/projectile/destabilizer(proj_turf)
+		var/obj/item/projectile/destabilizer/D = new destab(proj_turf)
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_projectile_fire(D, user)
 		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
 		D.firer = user
+		D.firer_source_atom = src
 		D.hammer_synced = src
 		playsound(user, 'sound/weapons/crusher_shot.ogg', 160, 1)
 		D.fire()
@@ -164,7 +175,10 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-	item_state = "crusher[wielded]"
+	if(!upgraded)
+		item_state = "crusher[wielded]"
+	else
+		item_state = "magmite_crusher[wielded]"
 
 //destablizing force
 /obj/item/projectile/destabilizer
@@ -198,7 +212,7 @@
 		else
 			var/turf/simulated/mineral/M = target_turf
 			new /obj/effect/temp_visual/kinetic_blast(M)
-			M.gets_drilled(firer)
+			M.attempt_drill(firer)
 	..()
 
 //trophies
@@ -442,21 +456,16 @@
 	denied_type = /obj/item/crusher_trophy/vortex_talisman
 
 /obj/item/crusher_trophy/vortex_talisman/effect_desc()
-	return "mark detonation to create a barrier you can pass"
+	return "mark detonation to create a homing hierophant chaser" //Wall was way too cheesy and allowed miners to be nearly invincible while dumb mob AI just rubbed its face on the wall.
 
 /obj/item/crusher_trophy/vortex_talisman/on_mark_detonation(mob/living/target, mob/living/user)
-	var/turf/T = get_turf(user)
-	new /obj/effect/temp_visual/hierophant/wall/crusher(T, user) //a wall only you can pass!
-	var/turf/otherT = get_step(T, turn(user.dir, 90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
-	otherT = get_step(T, turn(user.dir, -90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
+	if(isliving(target))
+		var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, 3, TRUE)
+		C.damage = 10 // Weaker because there is no cooldown
+		C.monster_damage_boost = FALSE
+		add_attack_logs(user, target, "fired a chaser at")
 
-/obj/effect/temp_visual/hierophant/wall/crusher
-	duration = 75
-
+//vetus
 /obj/item/crusher_trophy/adaptive_intelligence_core
 	name = "adaptive intelligence core"
 	desc = "Seems to be one of the cores from a massive robot. Suitable as a trophy for a kinetic crusher."
@@ -476,3 +485,58 @@
 	. = ..()
 	if(.)
 		H.adaptive_damage_bonus -= bonus_value
+
+//legion
+
+/obj/item/crusher_trophy/empowered_legion_skull
+	name = "empowered legion skull"
+	desc = "A powerful looking skull with glowing red eyes."
+	icon_state = "ashen_skull"
+	denied_type = /obj/item/crusher_trophy/empowered_legion_skull
+
+/obj/item/crusher_trophy/empowered_legion_skull/effect_desc()
+	return "mark detonation grants the ability to dash a short distance on help intent"
+
+/obj/item/crusher_trophy/empowered_legion_skull/on_mark_detonation(mob/living/target, mob/living/user)
+	user.apply_status_effect(STATUS_EFFECT_DASH)
+
+//Magmite Crusher
+
+/obj/item/twohanded/kinetic_crusher/mega
+	icon_state = "magmite_crusher"
+	item_state = "magmite_crusher0"
+	name = "magmite proto-kinetic crusher"
+	desc = "An early design of the proto-kinetic accelerator, it is now a combination of various mining tools infused with magmite, forming a high-tech club, increasing its capacity as a mining tool."
+	destab = /obj/item/projectile/destabilizer/mega
+	upgraded = TRUE
+
+/obj/item/projectile/destabilizer/mega
+	icon_state = "pulse0"
+	range = 4 //you know....
+
+/obj/item/projectile/destabilizer/mega/on_hit(atom/target, blocked = FALSE)
+	var/target_turf = get_turf(target)
+	if(ismineralturf(target_turf))
+		if(isancientturf(target_turf))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			forcedodge = 0
+		else
+			var/turf/simulated/mineral/M = target_turf
+			new /obj/effect/temp_visual/kinetic_blast(M)
+			forcedodge = 1
+			M.attempt_drill(firer)
+	else
+		forcedodge = 0
+	..()
+
+//almost ready magmite crusher
+/obj/item/twohanded/kinetic_crusher/almost
+	icon_state = "magmite_crusher"
+	item_state = "magmite_crusher0"
+	name = "unfinished proto-kinetic crusher"
+	desc = "An early design of the proto-kinetic accelerator, it is now a combination of various mining tools infused with magmite, forming a new design, but there is not enough magmite to upgrade it's destabilizer."
+	upgraded = TRUE
+
+/obj/item/twohanded/kinetic_crusher/almost/examine(mob/living/user)
+	. = ..()
+	. += "<span class='notice'>Perhaps you could use another magmite upgrade part to fully upgrade your crusher.</span>"

@@ -45,7 +45,7 @@
 	// Components
 	component_parts = list()
 	var/obj/item/circuitboard/smartfridge/board = new(null)
-	board.set_type(type)
+	board.set_type(null, type)
 	component_parts += board
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
@@ -141,11 +141,6 @@
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
-
-	if (istype(O, /obj/item/gripper))
-		var/obj/item/gripper/G = O
-		if (G.gripped_item)
-			O = G.gripped_item /// Borgs can fully operate fridges
 
 	add_fingerprint(user)
 	if(load(O, user))
@@ -296,7 +291,15 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return FALSE
 		else
-			if(istype(I.loc, /obj/item/storage))
+			if(istype(I, /obj/item/gripper))
+				var/obj/item/gripper/gripper = I
+				var/obj/item/gripped_item = gripper.gripped_item
+				gripper.drop_gripped_item(silent = TRUE)
+				I = gripped_item
+				I.do_pickup_animation(src)
+				I.forceMove(src)
+
+			else if(istype(I.loc, /obj/item/storage))
 				var/obj/item/storage/S = I.loc
 				if(user)
 					S.remove_from_storage(I, user.drop_location())
@@ -304,6 +307,7 @@
 					I.forceMove(src)
 				else
 					S.remove_from_storage(I, src)
+
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
 				if(M.get_active_hand() == I)
@@ -352,8 +356,11 @@
   * Arguments:
   * * O - The item to check.
   */
-/obj/machinery/smartfridge/proc/accept_check(obj/item/O)
-	return is_type_in_typecache(O, accepted_items_typecache)
+/obj/machinery/smartfridge/proc/accept_check(obj/item/I)
+	if(istype(I, /obj/item/gripper))
+		var/obj/item/gripper/gripper = I
+		I = gripper.gripped_item
+	return is_type_in_typecache(I, accepted_items_typecache)
 
 /**
   * # Syndie Fridge
@@ -372,7 +379,8 @@
 
 /obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = TRUE
-	to_chat(user, "<span class='notice'>You short out the product lock on \the [src].</span>")
+	if(user)
+		to_chat(user, "<span class='notice'>You short out the product lock on \the [src].</span>")
 
 /obj/machinery/smartfridge/secure/emp_act(severity)
 	if(!emagged && prob(40 / severity))
@@ -388,8 +396,7 @@
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
 	desc = "When you need seeds fast!"
-	icon = 'icons/obj/machines/vending.dmi'
-	icon_state = "seeds"
+	icon_state = "smartfridge"
 
 /obj/machinery/smartfridge/seeds/Initialize(mapload)
 	. = ..()
@@ -530,13 +537,18 @@
 /obj/machinery/smartfridge/secure/medbay/organ
 	req_access = list(ACCESS_SURGERY)
 	name = "\improper Secure Refrigerated Organ Storage"
-	desc = "A refrigerated storage unit for storing organs, limbs and implants."
+	desc = "A refrigerated storage unit for storing organs, limbs, implants and IV bags."
 	opacity = 1
 
 /obj/machinery/smartfridge/secure/medbay/organ/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/organ
+		/obj/item/organ,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/robot_parts/l_arm,
+		/obj/item/robot_parts/r_arm,
+		/obj/item/robot_parts/l_leg,
+		/obj/item/robot_parts/r_leg,
 	))
 
 /// Copy pasting to reuse existing sprites
@@ -584,13 +596,16 @@
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "\improper Smart Virus Storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
+	icon_state = "smartfridge_virology"
 	req_access = list(ACCESS_VIROLOGY)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
 	spawn_meds = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
 		/obj/item/reagent_containers/glass/bottle/cold = 1,
-		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
+		/obj/item/reagent_containers/glass/bottle/flu = 1,
+		/obj/item/reagent_containers/glass/bottle/sneezing = 1,
+		/obj/item/reagent_containers/glass/bottle/cough = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
 		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
@@ -601,6 +616,23 @@
 		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/reagent_containers/glass/beaker,
 	))
+
+/obj/machinery/smartfridge/secure/chemistry/virology/update_icon()
+	var/prefix = initial(icon_state)
+	if(stat & (BROKEN|NOPOWER))
+		icon_state = "[prefix]-off"
+	else if(visible_contents)
+		switch(length(contents))
+			if(0)
+				icon_state = "[prefix]"
+			if(1 to 25)
+				icon_state = "[prefix]1"
+			if(26 to 75)
+				icon_state = "[prefix]2"
+			if(76 to INFINITY)
+				icon_state = "[prefix]3"
+	else
+		icon_state = "[prefix]"
 
 /**
   * # Smart Virus Storage (Preloaded)
@@ -614,7 +646,9 @@
 	spawn_meds = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
 		/obj/item/reagent_containers/glass/bottle/cold = 1,
-		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
+		/obj/item/reagent_containers/glass/bottle/flu = 1,
+		/obj/item/reagent_containers/glass/bottle/sneezing = 1,
+		/obj/item/reagent_containers/glass/bottle/cough = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
 		/obj/item/reagent_containers/glass/bottle/reagent/synaptizine = 1,

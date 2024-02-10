@@ -77,7 +77,7 @@
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
 		to_chat(usr, "<span class='warning'>You must wait [respawn_cooldown / 600] minutes to respawn as [mob_name]!</span>")
 		return
-	if(config.use_exp_restrictions && min_hours)
+	if(CONFIG_GET(flag/use_exp_restrictions) && min_hours)
 		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
 			to_chat(user, "<span class='warning'>У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней.</span>")
 			return
@@ -168,7 +168,8 @@
 	if(faction)
 		M.faction = list(faction)
 	if(disease)
-		M.ForceContractDisease(new disease)
+		var/datum/disease/D = new disease
+		D.Contract(M)
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)
@@ -199,6 +200,8 @@
 		uses--
 	if(!permanent && !uses)
 		qdel(src)
+
+	return M
 
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
@@ -309,7 +312,7 @@
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
-	var/obj/item/organ/external/head/D = H.get_organ("head")
+	var/obj/item/organ/external/head/D = H.get_organ(BODY_ZONE_HEAD)
 	if(!use_prefs)
 		if(!random)
 			if(_mob_name)
@@ -448,13 +451,13 @@
 	outfit = /datum/outfit/job/assistant
 
 /obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
-	disease = /datum/disease/beesease
+	disease = /datum/disease/virus/beesease
 
 /obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection
-	disease = /datum/disease/brainrot
+	disease = /datum/disease/virus/brainrot
 
 /obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection
-	disease = /datum/disease/fluspanish
+	disease = /datum/disease/virus/fluspanish
 
 /obj/effect/mob_spawn/human/cook
 	name = "Cook"
@@ -509,7 +512,7 @@
 
 /datum/outfit/job/engineer/suit
 	name = "Station Engineer"
-
+	toggle_helmet = TRUE
 	uniform = /obj/item/clothing/under/rank/engineer
 	belt = /obj/item/storage/belt/utility/full
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
@@ -612,6 +615,7 @@
 
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
+	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
@@ -820,7 +824,7 @@
 /obj/effect/mob_spawn/human/corpse/tacticool
 	mob_type = /mob/living/carbon/human
 	name = "Tacticool corpse"
-	icon = 'icons/mob/uniform.dmi'
+	icon = 'icons/mob/clothing/uniform.dmi'
 	icon_state = "tactifool_s"
 	mob_name = "Unknown"
 	random = TRUE

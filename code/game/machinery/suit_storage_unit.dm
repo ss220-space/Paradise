@@ -1,9 +1,10 @@
 // SUIT STORAGE UNIT /////////////////
 /obj/machinery/suit_storage_unit
 	name = "suit storage unit"
-	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\"."
+	desc = "An industrial \"U-Stor-It Storage\" unit designed to accommodate all types of spacesuits.	\
+			Its onboard equipment also allows the user to decontaminate the contents through a UV-ray purging cycle."
 	icon = 'icons/obj/machines/suit_storage.dmi'
-	icon_state = "close"
+	icon_state = "classic"
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 250
@@ -51,9 +52,12 @@
 	helmet_type  = /obj/item/clothing/head/helmet/space/ert_eva_amber
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/internals/oxygen/red
+
 /obj/machinery/suit_storage_unit/captain
 	name = "captain's suit storage unit"
-	desc = "An industrial U-Stor-It Storage unit designed to accomodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
+	desc = "An industrial \"U-Stor-It Storage\" unit designed to accommodate all types of spacesuits.	\
+			Its onboard equipment also allows the user to decontaminate the contents through a UV-ray purging cycle.	\
+			This one looks kind of fancy."
 	suit_type    = /obj/item/clothing/suit/space/captain
 	helmet_type  = /obj/item/clothing/head/helmet/space/capspace
 	mask_type    = /obj/item/clothing/mask/gas
@@ -122,6 +126,7 @@
 	name = "mining suit storage unit"
 	suit_type = /obj/item/clothing/suit/hooded/explorer
 	mask_type = /obj/item/clothing/mask/gas/explorer
+	storage_type = /obj/item/gps/mining
 	req_access = list(ACCESS_MINING_STATION)
 
 /obj/machinery/suit_storage_unit/cmo
@@ -148,6 +153,7 @@
 	magboots_type = /obj/item/clothing/shoes/magboots/security
 	storage_type = /obj/item/tank/internals/oxygen
 	req_access = list(ACCESS_BLUESHIELD)
+
 /obj/machinery/suit_storage_unit/rd
 	name = "research director's suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/rd
@@ -263,31 +269,35 @@
 	QDEL_NULL(wires)
 	return ..()
 
+/obj/machinery/suit_storage_unit/examine(mob/user)
+	. = ..()
+	. += " There's a warning label dangling from the control pad that reads:<br>[span_danger("\"BIOLOGICAL SUBJECTS ARE STRICTLY PROHIBITED IN THE CONFINES OF THE UNIT.\"")]"
+
 /obj/machinery/suit_storage_unit/update_icon()
 	cut_overlays()
 
 	if(uv)
 		if(uv_super)
-			add_overlay("super")
+			add_overlay("[icon_state]_super")
 		else if(occupant)
-			add_overlay("uvhuman")
+			add_overlay("[icon_state]_uvhuman")
 		else
-			add_overlay("uv")
+			add_overlay("[icon_state]_uv")
 	else if(state_open)
 		if(stat & BROKEN)
-			add_overlay("broken")
+			add_overlay("[icon_state]_broken")
 		else
-			add_overlay("open")
+			add_overlay("[icon_state]_open")
 			if(suit)
-				add_overlay("suit")
+				add_overlay("[icon_state]_suit")
 			if(helmet)
-				add_overlay("helm")
+				add_overlay("[icon_state]_helm")
 			if(storage)
-				add_overlay("storage")
+				add_overlay("[icon_state]_storage")
 	else if(occupant)
-		add_overlay("human")
+		add_overlay("[icon_state]_human")
 	if(!locked)
-		add_overlay("unlocked")
+		add_overlay("[icon_state]_unlocked")
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
@@ -323,7 +333,7 @@
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return
-	default_deconstruction_screwdriver(user, "panel", "close", I)
+	default_deconstruction_screwdriver(user, "[icon_state]_panel", "[initial(icon_state)]", I)
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
@@ -520,9 +530,6 @@
 	SStgui.update_uis(src)
 	update_icon()
 
-
-////////
-
 /obj/machinery/suit_storage_unit/attack_hand(mob/user)
 	if(..() || (stat & NOPOWER))
 		return
@@ -631,7 +638,7 @@
 			usr.put_in_active_hand(storage, ignore_anim = FALSE)
 		storage = null
 
-/obj/machinery/suit_storage_unit/proc/toggle_open(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/toggle_open(mob/user)
 	if(locked || uv)
 		to_chat(user, span_danger("Unable to open unit."))
 		return
@@ -640,7 +647,7 @@
 		return
 	state_open = !state_open
 
-/obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user)
 	if(!allowed(user))
 		to_chat(user, span_warning("Access denied."))
 		return
@@ -654,7 +661,7 @@
 		return
 	locked = !locked
 
-/obj/machinery/suit_storage_unit/proc/eject_occupant(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/eject_occupant(mob/user)
 	if(locked)
 		return
 
@@ -669,7 +676,7 @@
 	occupant.forceMove(loc)
 	occupant = null
 	if(!state_open)
-		state_open = 1
+		state_open = TRUE
 	update_icon()
 	return
 
@@ -681,7 +688,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
+	if(usr.stat)
 		return
 	eject_occupant(usr)
 	add_fingerprint(usr)
@@ -694,7 +701,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
+	if(usr.stat)
 		return
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
@@ -721,7 +728,7 @@
 	else
 		occupant = null
 
-/obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
+/obj/machinery/suit_storage_unit/attack_ai(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/suit_storage_unit/proc/check_electrified_callback()
@@ -737,6 +744,25 @@
 	emagged = TRUE
 	update_icon()
 	SStgui.update_uis(src)
-	to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
+	if(user)
+		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
 	do_sparks(5, 0, loc)
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
+//pirate ssu
+/obj/machinery/suit_storage_unit/industrial
+	name = "industrial suit storage unit"
+	desc = "An industrial unit made to hold and decontaminate irradiated equipment. It comes with a built-in UV cauterization mechanism. A small warning label advises that organic matter should not be placed into the unit."
+	icon_state = "industrial"
+
+/obj/machinery/suit_storage_unit/pirate
+	suit_type    = /obj/item/clothing/suit/space/eva/pirate
+	helmet_type  = /obj/item/clothing/head/helmet/space/eva/pirate
+	mask_type    = /obj/item/clothing/mask/gas
+	storage_type = /obj/item/tank/internals/oxygen
+
+/obj/machinery/suit_storage_unit/industrial/pirate_leader
+	suit_type    = /obj/item/clothing/suit/space/eva/pirate/leader
+	helmet_type  = /obj/item/clothing/head/helmet/space/eva/pirate/leader
+	mask_type    = /obj/item/clothing/mask/gas
+	storage_type = /obj/item/tank/internals/oxygen

@@ -126,13 +126,13 @@
 		return
 	return ..()
 
-/obj/machinery/turretid/emag_act(user as mob)
+/obj/machinery/turretid/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, span_danger("You short out the turret controls' access analysis module."))
+		if(user)
+			to_chat(user, span_danger("You short out the turret controls' access analysis module."))
 		emagged = TRUE
 		locked = FALSE
 		ailock = FALSE
-		return
 
 /obj/machinery/turretid/attack_ai(mob/user as mob)
 	ui_interact(user)
@@ -141,6 +141,8 @@
 	ui_interact(user)
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	ui_interact(user)
 
 /obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -213,7 +215,7 @@
 	TC.ailock = ailock
 
 	if(istype(control_area))
-		for(var/obj/machinery/porta_turret/aTurret in control_area)
+		for(var/obj/machinery/porta_turret/aTurret in control_area.machinery_cache)
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
 

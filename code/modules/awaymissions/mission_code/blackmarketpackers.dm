@@ -222,3 +222,4 @@
 	mob_types = list(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter)
 	spawn_text = "crawls out of"
 	faction = list("spiders")
+	mob_gps_id = "SPD"

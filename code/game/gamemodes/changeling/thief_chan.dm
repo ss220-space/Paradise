@@ -1,7 +1,6 @@
 /datum/game_mode/thief/changeling
 	name = "thief+changeling(less)"
 	config_tag = "thiefchan"
-	thieves_amount = 3 //hard limit if scaling is turned off
 	restricted_jobs = list("AI", "Cyborg")
 	required_players = 15
 	required_enemies = 1	// how many of each type are required
@@ -15,7 +14,7 @@
 
 
 /datum/game_mode/thief/changeling/pre_setup()
-	if(config.protect_roles_from_antagonist)
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)

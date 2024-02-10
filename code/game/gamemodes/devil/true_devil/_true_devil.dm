@@ -25,11 +25,11 @@
 /mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
 	if(dna_source)
 		dna = dna_source.dna.Clone()
+	else
+		dna = new
 
-	var/obj/item/organ/internal/brain/B = new(src)
-	var/obj/item/organ/internal/ears/E = new(src)
-	B.insert()
-	E.insert()
+	new /obj/item/organ/internal/brain(src)
+	new /obj/item/organ/internal/ears(src)
 	..()
 
 // Determines if mob has and can use his hands like a human
@@ -49,9 +49,11 @@
 
 /mob/living/carbon/true_devil/Login()
 	..()
+	var/list/messages = list()
 	if(mind.devilinfo)
-		mind.devilinfo.announce_laws(src)
-	mind.announce_objectives()
+		messages.Add(mind.devilinfo.announce_laws(src))
+	messages.Add(mind.prepare_announce_objectives())
+	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
 
 
 /mob/living/carbon/true_devil/death(gibbed)

@@ -88,7 +88,6 @@
 	internal_damage_threshold = 30
 	deflect_chance = 20
 	force = 20
-	maint_access = 0
 	mech_enter_time = 20
 	max_equip = 4
 	wreckage = null

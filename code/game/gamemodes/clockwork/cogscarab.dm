@@ -51,14 +51,14 @@
 	var/wind_up_timer = CLOCK_MAX_WIND_UP_TIMER
 	var/wind_up_icon_segment = CLOCK_MAX_WIND_UP_TIMER / 5
 	var/warn_wind_up = WINDUP_STATE_NONE
+	var/obj/structure/clockwork/functional/cogscarab_fabricator/fabr
 
-/mob/living/silicon/robot/cogscarab/Initialize()
+/mob/living/silicon/robot/cogscarab/Initialize(mapload)
 	. = ..()
 	remove_language("Robot Talk")
 	add_language("Drone Talk", 1)
 	if(radio)
 		radio.wires.cut(WIRE_RADIO_TRANSMIT)
-
 
 	//Shhhh it's a secret. No one needs to know about infinite power for clockwork drone
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
@@ -78,7 +78,6 @@
 /mob/living/silicon/robot/drone/Destroy()
 	for(var/datum/action/innate/hide/drone/cogscarab/hide in actions)
 		hide.Remove(src)
-
 	. = ..()
 
 
@@ -119,7 +118,7 @@
 		adjustBruteLoss(2)
 	else
 		wind_up_timer -= seconds
-	hud_used.wind_up_timer?.icon_state = "windup_display-[6-(round(wind_up_timer, wind_up_icon_segment) / wind_up_icon_segment)]"
+	hud_used?.wind_up_timer?.icon_state = "windup_display-[6-(round(wind_up_timer, wind_up_icon_segment) / wind_up_icon_segment)]"
 	//rounds to 30 and divides by 30. if timer full, 6 - 5, state 1. from 1 to 6.
 
 
@@ -157,6 +156,20 @@
 		get_scooped(M)
 		return TRUE
 	return ..()
+
+/mob/living/silicon/robot/cogscarab/get_scooped(mob/living/carbon/grabber)
+	var/obj/item/holder/cogscarab/H = new(loc)
+	src.forceMove(H)
+	H.name = name
+	H.icon = icon
+	H.w_class = WEIGHT_CLASS_TINY
+	H.attack_hand(grabber)
+
+	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
+	to_chat(src, "<span class='notice'>[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас.</span>")
+	grabber.status_flags |= PASSEMOTES
+
+	return H
 
 /mob/living/silicon/robot/cogscarab/choose_icon()
 	return
@@ -197,6 +210,7 @@
 
 /mob/living/silicon/robot/cogscarab/death(gibbed)
 	. = ..(gibbed)
+	fabr?.close_slot(src)
 	SSticker.mode.remove_clocker(mind, FALSE)
 	adjustBruteLoss(health)
 
@@ -204,7 +218,7 @@
 	if(is_type_in_list(AM, allowed_bumpable_objects))
 		return ..()
 
-/mob/living/silicon/robot/cogscarab/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/silicon/robot/cogscarab/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 
 	if(is_type_in_list(AM, pullable_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
@@ -213,13 +227,13 @@
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)
-				to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+				to_chat(src, span_warning("You are too small to pull that."))
 			return
 		else
 			..()
 	else
 		if(show_message)
-			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+			to_chat(src, span_warning("You are too small to pull that."))
 
 /mob/living/silicon/robot/cogscarab/add_robot_verbs()
 	src.verbs |= silicon_subsystems

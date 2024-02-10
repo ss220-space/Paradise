@@ -2,7 +2,7 @@
 #define MENU_RECORDS 2
 
 /obj/machinery/computer/cloning
-	name = "cloning console"
+	name = "biomass pod console"
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
@@ -71,7 +71,11 @@
 
 	//Then look for a free one in the area
 	if(!scannerf)
-		for(var/obj/machinery/dna_scannernew/S in get_area(src))
+		var/area/search_area = get_area(src)
+		if(!search_area)
+			return
+
+		for(var/obj/machinery/dna_scannernew/S in search_area.machinery_cache)
 			return S
 
 	return 0
@@ -108,7 +112,7 @@
 				pods += P
 				P.connected = src
 				P.name = "[initial(P.name)] #[pods.len]"
-				to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
+				to_chat(user, span_notice("You connect [P] to [src]."))
 	else
 		return ..()
 
@@ -117,6 +121,9 @@
 	return attack_hand(user)
 
 /obj/machinery/computer/cloning/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
+
 	user.set_machine(src)
 	add_fingerprint(user)
 
@@ -363,7 +370,7 @@
 						set_temp(emagged ? "Error: Not enough MEAT!" : "Error: Not enough biomass.", "danger")
 					else if(pod.mess)
 						set_temp(emagged ? "Error: The killing pod is ok." : "Error: The cloning pod is malfunctioning.", emagged? "good" : "danger")
-					else if(!config.revival_cloning)
+					else if(!CONFIG_GET(flag/revival_cloning))
 						set_temp(emagged ? "Error: Unable to initiate killing cycle. " : "Error: Unable to initiate cloning cycle.", "danger")
 					else
 						cloneresult = pod.growclone(C)

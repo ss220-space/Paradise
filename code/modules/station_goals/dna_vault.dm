@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 
 /obj/item/circuitboard/machine/dna_vault
-	name = "DNA Vault (Machine Board)"
+	board_name = "DNA Vault"
 	build_path = /obj/machinery/dna_vault
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	name = "big machinery part"
 	density = 1
 	anchored = 1
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/obj/machinery/parent
 
 /obj/structure/filler/Destroy()
@@ -322,6 +322,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
 			S.stun_mod *= 0.5
+			S.stamina_mod *= 0.5
+			H.stam_regen_start_modifier *= 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, "<span class='notice'>You feel tough.</span>")
 			S.brute_mod *= 0.7

@@ -13,6 +13,8 @@
 	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 10, "rad" = 0, "fire" = 70, "acid" = 50)
 	strip_delay = 70
 	resistance_flags = NONE
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT shoes"
@@ -85,7 +87,7 @@
 	if(slot == slot_shoes && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
-/obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
+/obj/item/clothing/shoes/clown_shoes/dropped(mob/user, silent = FALSE)
 	. = ..()
 	user.RemoveElement(/datum/element/waddling)
 
@@ -120,6 +122,8 @@
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/jackboots/Initialize(mapload)
 	. = ..()
@@ -143,6 +147,8 @@
 	desc = "Thick-soled boots for industrial work environments."
 	can_cut_open = 1
 	icon_state = "workboots"
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/workboots/mining
 	name = "mining boots"
@@ -317,6 +323,8 @@
 	desc = "A pair a' brown boots."
 	icon_state = "cowboy_brown"
 	item_color = "cowboy_brown"
+	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
+	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
 /obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
@@ -401,6 +409,22 @@
  	icon_state = "brown_wrap"
  	item_state = "brown_wrap"
 
+/obj/item/clothing/shoes/footwraps/goliath
+	name = "goliath hide footwraps"
+	desc = "These wraps, made from goliath hide, make your feet feel snug and secure, while still being breathable and light."
+	icon_state = "footwraps_goliath"
+	item_state = "footwraps_goliath"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 0)
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/shoes/footwraps/dragon
+	name = "ash drake hide footwraps"
+	desc = "These wraps, made from ash drake hide, make your feet feel snug and secure, while still being breathable and light."
+	icon_state = "footwraps_dragon"
+	item_state = "footwraps_dragon"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 10, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 15, "acid" = 0)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
 	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid foward movement."
@@ -473,7 +497,7 @@
 	if(slot == slot_shoes && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
-/obj/item/clothing/shoes/bhop/clown/dropped(mob/user)
+/obj/item/clothing/shoes/bhop/clown/dropped(mob/user, silent = FALSE)
 	. = ..()
 	user.RemoveElement(/datum/element/waddling)
 
@@ -500,8 +524,27 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/squeaktoy.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
+/obj/item/clothing/shoes/pathtreads
+	name = "pathfinder treads"
+	desc = "Massive boots made from chitin, they look hand-crafted."
+	icon_state = "pathtreads"
+	item_state = "pathtreads"
+	body_parts_covered = LEGS|FEET
+	resistance_flags = FIRE_PROOF
+	heat_protection = LEGS|FEET
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	cold_protection = LEGS|FEET
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
 /obj/item/clothing/shoes/mr_chang_sandals
 	name = "Flashy slippers"
 	desc = "Made of wood. Used to support world's economics stable."
 	icon_state = "mr_chang_sandals"
 	item_state = "mr_chang_sandals"
+
+/obj/item/clothing/shoes/combat/commando //basic syndicate combat boots for nuke ops and mob corpses
+	name = "Black military boots"
+	desc = "A pair of black military boots. They look really well-made. They have a metal sole, as if specially added to crush bones."
+	can_cut_open = FALSE
+	icon_state = "commandos_boots"
+	item_state = "commandos_boots"

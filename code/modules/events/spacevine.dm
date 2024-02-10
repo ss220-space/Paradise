@@ -104,12 +104,13 @@
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
-	broken_states = list()
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+/turf/simulated/floor/vines/broken_states()
+	return list()
 
 //All of this shit is useless for vines
 
@@ -535,7 +536,7 @@
 	eat(user)
 
 /obj/structure/spacevine_controller
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/list/obj/structure/spacevine/vines = list()
 	var/list/growth_queue = list()
 	var/spread_multiplier = 5

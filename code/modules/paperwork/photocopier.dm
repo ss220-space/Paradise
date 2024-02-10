@@ -306,10 +306,12 @@
 	var/image/img                                //and puts a matching
 	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
 		if(copy.ico.len)
-			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep"))
+			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
 			else if(findtext(copy.ico[j], "deny"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
+			else if(findtext(copy.ico[j], "ok"))
+				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
 			else
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
 			img.pixel_x = copy.offset_x[j]
@@ -452,11 +454,12 @@
 		atom_say("Внимание: обнаружена задница на печатном полотне!")
 		return 1
 
-/obj/machinery/photocopier/emag_act(user as mob)
+/obj/machinery/photocopier/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
-	else
+		if(user)
+			to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
+	else if(user)
 		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 
 /obj/item/toner

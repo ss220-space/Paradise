@@ -9,6 +9,9 @@
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
 
 /obj/item/storage/belt/update_icon()
@@ -32,6 +35,8 @@
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/crowbar,
@@ -368,6 +373,10 @@
 		new /obj/item/grenade/chem_grenade/drugs(src) //2
 		new /obj/item/grenade/gas/knockout(src)	//2
 
+/obj/item/storage/belt/grenade/frag/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/frag(src)
+
 /obj/item/storage/belt/rocketman
 	name = "rocket belt"
 	desc = "A belt for holding rockets."
@@ -414,6 +423,15 @@
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m45(src)
 	new /obj/item/ammo_box/magazine/m45(src)
+	update_icon()
+
+/obj/item/storage/belt/military/assault/marines/cats/full/populate_contents()
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/large(src)
 	update_icon()
 
 /obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
@@ -516,6 +534,14 @@
 /obj/item/storage/belt/bandolier/full/populate_contents()
 	for(var/I in 1 to 16)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
+	update_icon()
+
+/obj/item/storage/belt/bandolier/booze
+	description_antag = "Этот бандольер содержит 16 усыпляющих алкопатрон для превращения противника или жертву в беспомощное нечто. Учтите, патроны супер эффективны против цели с алкоголем внутри, на трезвых работают не так здорово!"
+
+/obj/item/storage/belt/bandolier/booze/populate_contents()
+	for(var/I in 1 to 16)
+		new /obj/item/ammo_casing/shotgun/beanbag/fake(src)
 	update_icon()
 
 /obj/item/storage/belt/bandolier/update_icon()
@@ -821,6 +847,7 @@
 	max_combined_w_class = 20
 	can_hold = list(
 		/obj/item/crowbar,
+		/obj/item/grenade/plastic/miningcharge,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -856,11 +883,14 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/gem)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()
 	new /obj/item/survivalcapsule(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
@@ -913,3 +943,81 @@
 		/obj/item/reagent_containers/food/condiment,
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/radio)
+
+/obj/item/storage/belt/chef/artist
+	name = "delicate apron"
+	desc = "Apron with pockets. Ideal for the best butchers!"
+	icon_state = "cabelt"
+	item_state = "cabelt"
+
+/obj/item/storage/belt/chef/artistred
+	name = "red delicate apron"
+	desc = "Red apron with pockets. Ideal for the best butchers!"
+	icon_state = "cabeltred"
+	item_state = "cabeltred"
+
+/obj/item/storage/belt/claymore
+	name = "holy claymore sheath"
+	desc = "Can hold claymore."
+	icon_state = "sheath_holy"
+	item_state = "sheath_holy"
+	storage_slots = 1
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_BULKY
+	can_hold = list(/obj/item/nullrod/claymore)
+	var/claymore_path = /obj/item/nullrod/claymore
+	var/sheath_sound = 'sound/weapons/blade_holy_sheath.ogg'
+	var/unsheath_sound = 'sound/weapons/blade_holy_unsheath.ogg'
+
+/obj/item/storage/belt/claymore/dark
+	name = "dark claymore sheath"
+	icon_state = "sheath_dark"
+	item_state = "sheath_dark"
+	claymore_path = /obj/item/nullrod/claymore/darkblade
+	sheath_sound = 'sound/weapons/blade_dark_sheath.ogg'
+	unsheath_sound = 'sound/weapons/blade_dark_unsheath.ogg'
+
+/obj/item/storage/belt/claymore/update_icon()
+	. = ..()
+	if(length(contents))
+		icon_state = "[initial(icon_state)]_blade"
+		item_state = "[initial(icon_state)]_blade"
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+	if(isliving(loc))
+		var/mob/living/L = loc
+		L.update_inv_belt()
+		L.update_inv_s_store()
+
+/obj/item/storage/belt/claymore/populate_contents()
+	new claymore_path(src)
+	update_icon()
+
+/obj/item/storage/belt/claymore/attack_hand(mob/user)
+	if(loc != user)
+		return ..()
+
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.incapacitated())
+		return
+
+	if(length(contents))
+		var/obj/item/I = contents[1]
+		H.visible_message(span_notice("[H] takes [I] out of [src]."), span_notice("You take [I] out of [src]."))
+		H.put_in_hands(I, ignore_anim = FALSE)
+		update_icon()
+	else
+		to_chat(user, span_warning("[src] is empty!"))
+
+/obj/item/storage/belt/claymore/handle_item_insertion(obj/item/W, prevent_warning)
+	if(!..())
+		return
+	playsound(src, sheath_sound, 20)
+
+/obj/item/storage/belt/claymore/remove_from_storage(obj/item/W, atom/new_location)
+	if(!..())
+		return
+	playsound(src, unsheath_sound, 20)

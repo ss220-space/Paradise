@@ -1133,11 +1133,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1
@@ -4570,7 +4566,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -4590,11 +4586,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1
@@ -6169,8 +6161,7 @@
 "rE" = (
 /obj/structure/closet{
 	density = 0;
-	icon_closed = "yellow";
-	icon_state = "open";
+	custom_door_overlay = "yellow";
 	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
@@ -6800,11 +6791,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1
@@ -7595,7 +7582,7 @@
 /obj/structure/closet/crate/secure/weapon{
 	opened = 1
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
@@ -8422,8 +8409,7 @@
 "xx" = (
 /obj/structure/closet{
 	density = 0;
-	icon_closed = "yellow";
-	icon_state = "open";
+	custom_door_overlay = "yellow";
 	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
@@ -8539,7 +8525,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/spacebattle)
 "xL" = (
-/obj/item/storage/box/slug{
+/obj/item/ammo_box/shotgun{
 	layer = 2.7
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -8711,11 +8697,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1
@@ -9082,10 +9064,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "zg" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/soft/yellow{
-	blood_color = "#A10808";
-	blood_overlay = "#A10808"
-	},
+/obj/item/clothing/head/soft/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -10411,11 +10390,7 @@
 /obj/structure/closet/secure_closet{
 	broken = 1;
 	density = 0;
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureengopen";
+	icon_state = "eng";
 	initialized = 1;
 	locked = 0;
 	opened = 1
@@ -11084,15 +11059,14 @@
 /area/awaymission/spacebattle/syndicate3)
 "EG" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck/syndicate,
+/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/awaymission/spacebattle/syndicate1)
 "EI" = (
 /obj/structure/closet{
-	icon_closed = "red";
-	icon_state = "red";
+	custom_door_overlay = "red";
 	name = "Sec. gear"
 	},
 /obj/item/clothing/under/retro/security,
@@ -12665,7 +12639,7 @@
 /area/awaymission/spacebattle/kitchen)
 "Jc" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -12713,8 +12687,7 @@
 /area/awaymission/spacebattle/prhallway3)
 "Jl" = (
 /obj/structure/closet{
-	icon_closed = "red";
-	icon_state = "red";
+	custom_door_overlay = "red";
 	name = "Sec. gear"
 	},
 /obj/item/clothing/suit/space/hardsuit/security,
@@ -13550,7 +13523,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "Lz" = (
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -15083,7 +15056,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret9)
 "PG" = (
@@ -17955,8 +17928,7 @@
 "Xz" = (
 /obj/structure/closet{
 	density = 0;
-	icon_closed = "yellow";
-	icon_state = "open";
+	custom_door_overlay = "yellow";
 	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
@@ -18340,7 +18312,7 @@
 /area/awaymission/spacebattle/sec_storage)
 "YE" = (
 /obj/structure/closet/walllocker/emerglocker/north,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{

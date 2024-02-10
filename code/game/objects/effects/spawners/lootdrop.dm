@@ -140,6 +140,7 @@
 				/obj/item/gun/projectile/automatic/pistol = 1,
 				/obj/item/ammo_box/magazine/m10mm = 4,
 				/obj/item/soap/syndie = 7,
+				/obj/item/stack/tape_roll/thick = 7,
 				/obj/item/gun/syringe/syndicate = 2,
 				/obj/item/suppressor = 4,
 				/obj/item/clothing/under/chameleon = 2,
@@ -155,11 +156,12 @@
 				/obj/item/multitool/ai_detect = 2,
 				/obj/item/implanter/storage = 1,
 				/obj/item/storage/box/syndie_kit/dangertray = 2,
-				/obj/item/toy/cards/deck/syndicate = 2,
+				/obj/item/deck/cards/syndicate = 2,
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
 				/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
+				/obj/item/clothing/glasses/chameleon/meson = 7,
 				"" = 68
 				)
 
@@ -373,8 +375,8 @@
 		/obj/item/melee/classic_baton/telescopic = 100,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 150,
 		/obj/item/gun/projectile/shotgun/automatic/dual_tube = 100,
-		/obj/item/storage/box/buck = 150,
-		/obj/item/ammo_box/shotgun/buck = 100,
+		/obj/item/ammo_box/shotgun/buck = 150,
+		/obj/item/ammo_box/speedloader/shotgun/buck = 100,
 		/obj/item/grenade/clusterbuster = 100,
 		/obj/item/grenade/clusterbuster/teargas = 50,
 		/obj/item/grenade/clusterbuster/n2o = 50)
@@ -463,3 +465,23 @@
 		/obj/item/toy/desk/fan,
 		/obj/item/hourglass
 	)
+
+/obj/effect/spawner/lootdrop/marrow_weaver
+	name = "40% marrow weaver spawner"
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "weaver"
+	lootdoubles = 0
+	lootcount = 1
+	loot = list(/mob/living/simple_animal/hostile/asteroid/marrowweaver = 40,
+	/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 20,
+	"" = 40)
+
+/obj/effect/spawner/lootdrop/bouquet_spawner
+	name = "50% bouquet spawner"
+	icon_state = "bouquet"
+	lootdoubles = 0
+
+	loot = list(
+				/obj/item/decorations/bouquets/random = 50,
+				"" = 50,
+				)

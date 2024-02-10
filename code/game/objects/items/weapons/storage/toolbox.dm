@@ -13,7 +13,10 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("robusted")
+	use_sound = 'sound/effects/toolbox.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
+	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	var/blurry_chance = 5
 
 /obj/item/storage/toolbox/attack(mob/living/carbon/human/H, mob/living/carbon/user)
@@ -22,18 +25,18 @@
 	if(!istype(H))
 		return
 
-	if(user.zone_selected != "eyes" && user.zone_selected != "head")
+	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
 		return
 
 	if(!prob(blurry_chance))
 		return
 
 	if(force && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
-		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
+		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return
 
 	H.AdjustEyeBlurry(8 SECONDS)
-	to_chat(H, SPAN_DANGER("You feel a buzz in your head and your vision gets blurry."))
+	to_chat(H, span_danger("You feel a buzz in your head and your vision gets blurry."))
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
@@ -191,7 +194,11 @@
 		/obj/item/retractor,
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
-		/obj/item/circular_saw)
+		/obj/item/circular_saw,
+		/obj/item/roller/holo,
+		/obj/item/stack/nanopaste,
+		/obj/item/healthanalyzer,
+		/obj/item/robotanalyzer)
 
 /obj/item/storage/toolbox/surgery/populate_contents()
 	new /obj/item/stack/medical/bruise_pack/advanced(src)

@@ -1,3 +1,5 @@
+#define COUNT_PLASMA_QUESTS 3
+
 /datum/station_goal/bfl
 	name = "BFL Mining laser"
 
@@ -26,6 +28,12 @@
 	P.special_enabled = TRUE
 	supply_list.Add(P)
 
+	if(length(SScargo_quests.plasma_quests) > COUNT_PLASMA_QUESTS)
+		return
+
+	for(var/I = 1 to COUNT_PLASMA_QUESTS)
+		SScargo_quests.create_new_quest(pick(SScargo_quests.plasma_departaments))
+
 /datum/station_goal/bfl/check_completion()
 	if(..())
 		return TRUE
@@ -34,34 +42,36 @@
 			return TRUE
 	return FALSE
 
+/datum/station_goal/bfl/Destroy()
+	. = ..()
+	if(locate(/datum/station_goal/bfl) in SSticker.mode.station_goals)
+		return
+	SScargo_quests.remove_bfl_quests(COUNT_PLASMA_QUESTS)
+
 ////////////
 //Building//
 ////////////
 /obj/item/circuitboard/machine/bfl_emitter
-	name = "BFL Emitter (Machine Board)"
+	board_name = "BFL Emitter"
 	desc = "Be cautious, when emitter will be done it move up by one step"
 	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
-					/obj/item/stack/sheet/metal = 5,
-					/obj/item/stack/rods = 20,
+					/obj/item/stack/sheet/plasteel = 10,
 					/obj/item/stack/sheet/plasmaglass = 4,
-					/obj/item/stock_parts/manipulator/femto = 2,
 					/obj/item/stock_parts/capacitor/quadratic = 5,
-					/obj/item/stock_parts/micro_laser/quadultra = 20,
-					/obj/item/gun/energy/lasercannon = 4,
-					/obj/item/stack/cable_coil = 6)
+					/obj/item/stock_parts/micro_laser/quadultra = 10,
+					/obj/item/stack/sheet/mineral/diamond = 2)
 
 /obj/item/circuitboard/machine/bfl_receiver
-	name = "BFL Receiver (Machine Board)"
+	board_name = "BFL Receiver"
 	desc = "Must be built in the middle of the deposit"
 	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
 					/obj/item/stack/sheet/metal = 20,
 					/obj/item/stack/sheet/plasteel = 10,
-					/obj/item/stack/sheet/plasmaglass = 20,
-					/obj/item/stack/sheet/mineral/diamond = 8)
+					/obj/item/stack/sheet/plasmaglass = 20)
 
 ///////////
 //Emitter//
@@ -85,6 +95,8 @@
 	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
 
 /obj/machinery/power/bfl_emitter/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	var/response
 	src.add_fingerprint(user)
 	if(state)
@@ -121,7 +133,8 @@
 	if(!emag)
 		add_attack_logs(user, src, "emagged")
 		emag = TRUE
-		to_chat(user, "Emitter successfully sabotaged")
+		if(user)
+			to_chat(user, "Emitter successfully sabotaged")
 
 /obj/machinery/power/bfl_emitter/process()
 	if(!state)
@@ -140,7 +153,7 @@
 		for(var/M in GLOB.player_list)
 			var/turf/mob_turf = get_turf(M)
 			if(mob_turf?.z == lavaland_z_lvl)
-				to_chat(M, "<span class='boldwarning'>You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky.</span>")
+				to_chat(M, span_boldwarning("You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky."))
 		laser.move = rand_location.x
 		if(receiver)
 			receiver.mining = FALSE
@@ -162,10 +175,14 @@
 	location.ex_act(1)
 	working_sound()
 
+	if(QDELETED(receiver))
+		receiver = null
+
 	if(!receiver)
-		for(var/turf/T as anything in block(locate(1, 1, lavaland_z_lvl), locate(world.maxx, world.maxy, lavaland_z_lvl)))
-			receiver = locate() in T
-			if(receiver)
+		for(var/obj/machinery/bfl_receiver/bfl_receiver in GLOB.machines)
+			var/turf/receiver_turf = get_turf(bfl_receiver)
+			if(receiver_turf.z == lavaland_z_lvl)
+				receiver = bfl_receiver
 				break
 
 	receiver_test()
@@ -227,6 +244,7 @@
 
 /obj/item/storage/bag/ore/bfl_storage
 	storage_slots = 20
+
 /obj/item/storage/bag/ore/bfl_storage/proc/empty_storage(turf/location)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, location)
@@ -238,19 +256,26 @@
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
+	interact_offline = TRUE
 
 	var/state = FALSE
 	var/mining = FALSE
+	///Receiver's internal storage for ore
 	var/obj/item/storage/bag/ore/bfl_storage/internal
 	var/internal_type = /obj/item/storage/bag/ore/bfl_storage
 	var/obj/machinery/bfl_lens/lens = null
 	var/ore_type = FALSE
 	var/last_user_ckey
+	///An "overlay"-like light for receiver to indicate storage filling
 	var/atom/movable/bfl_receiver_light/receiver_light = null
+	///Used to define bits of ore mined, instead of stacks.
 	var/ore_count = 0
-	var/last_icon_change = 0
+	///Used for storing last icon update for receiver lights on borders of receiver
+	var/last_light_state_number = 0
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	var/response
 	src.add_fingerprint(user)
 	if(state)
@@ -286,27 +311,28 @@
 	else
 		receiver_activate()
 
+///This proc handles light updating on borders of BFL receiver.
 /obj/machinery/bfl_receiver/proc/icon_change()
-	if(last_icon_change == internal.contents.len)
+	var/light_state = clamp(length(internal.contents), 0, 20)
+	if(last_light_state_number == light_state)
 		return
-	receiver_light.icon_state = "Receiver_Light_[internal.contents.len]"
-	last_icon_change = internal.contents.len
+	receiver_light.icon_state = "Receiver_Light_[light_state]"
+	last_light_state_number = light_state
 
 /obj/machinery/bfl_receiver/process()
-	receiver_light.icon_state = "Receiver_Light_[internal.contents.len]"
 	if (!(mining && state))
 		return
 	if (ore_count >= internal.storage_slots * 50)
 		return
 	switch(ore_type)
 		if(PLASMA)
-			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, 1)
-			ore_count++
-			icon_change()
+			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, TRUE)
+			ore_count += 1
 		if(SAND)
-			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
-			ore_count++
-			icon_change()
+			internal.handle_item_insertion(new /obj/item/stack/ore/glass, TRUE)
+			ore_count += 1
+
+	icon_change()
 
 /obj/machinery/bfl_receiver/Initialize()
 	. = ..()
@@ -346,13 +372,8 @@
 /obj/machinery/bfl_receiver/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(istype(AM, /obj/machinery/bfl_lens))
-		lens = AM
-		lens.step_count = 0
-
-/obj/machinery/bfl_receiver/Uncrossed(atom/movable/AM)
-	. = ..()
-	if(AM == lens)
-		lens = null
+		var/obj/machinery/bfl_lens/bfl_lens = AM
+		bfl_lens.step_count = 0
 
 #undef PLASMA
 #undef SAND
@@ -363,6 +384,8 @@
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Receiver_Light_0"
 	layer = LOW_ITEM_LAYER
+	flags = INDESTRUCTIBLE
+	anchored = TRUE
 
 /atom/movable/bfl_receiver_light/Initialize(mapload)
 	. = ..()
@@ -414,7 +437,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	default_unfasten_wrench(user, I, time = 140)
+	if(default_unfasten_wrench(user, I, time = 140))
+		var/obj/machinery/bfl_receiver/receiver = locate() in get_turf(src)
+		if(receiver)
+			receiver.lens = anchored ? src : null
+
 	update_icon()
 
 /obj/machinery/bfl_lens/Initialize()
@@ -436,6 +463,8 @@
 	if(step_count > 5)
 		Destroy()
 	step_count++
+	pixel_x = -32
+	pixel_y = -32 //Explictly stating, that pixel_x and pixel_y will ALWAYS be -32/-32 when moved, because moving objects reset their offset.
 
 
 //everything else

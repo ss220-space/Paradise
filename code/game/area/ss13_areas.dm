@@ -401,6 +401,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = TRUE
+	ambientsounds = null
 
 // === end remove
 
@@ -545,6 +546,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "cave"
 	requires_power = FALSE
 	outdoors = TRUE
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/asteroid/artifactroom
 	name = "\improper Asteroid - Artifact"
@@ -1331,6 +1334,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 
+/area/library/game_zone
+	name = "\improper Library Games Room"
+	icon_state = "library"
+
 /area/chapel
 	icon_state = "chapel"
 	ambientsounds = HOLY_SOUNDS
@@ -1490,7 +1497,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"
 	icon_state = "engine_smes"
-	requires_power = FALSE //This area only covers the batteries and they deal with their own power
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/engine/engineering
@@ -1674,6 +1680,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical
 	ambientsounds = MEDICAL_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	min_ambience_cooldown = 90 SECONDS
+	max_ambience_cooldown = 180 SECONDS
 
 /area/medical/medbay
 	name = "\improper Medbay"
@@ -1793,6 +1801,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Surgery 2"
 	icon_state = "surgery2"
 
+/area/medical/surgery/theatre
+	name = "\improper Surgery Theatre"
+	icon_state = "surgery_theatre"
+
 /area/medical/surgeryobs
 	name = "\improper Surgery Observation"
 	icon_state = "surgery"
@@ -1842,8 +1854,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/brig/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
-		temp_closet.icon_state = temp_closet.icon_closed
-	for(var/obj/machinery/door_timer/temp_timer in src)
+		temp_closet.update_icon()
+	for(var/obj/machinery/door_timer/temp_timer in machinery_cache)
 		temp_timer.releasetime = 1
 	..()
 
@@ -1861,8 +1873,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/prison/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
-		temp_closet.icon_state = temp_closet.icon_closed
-	for(var/obj/machinery/door_timer/temp_timer in src)
+		temp_closet.update_icon()
+	for(var/obj/machinery/door_timer/temp_timer in machinery_cache)
 		temp_timer.releasetime = 1
 	..()
 
@@ -2916,3 +2928,38 @@ GLOBAL_LIST_INIT(the_station_areas, list(
 	/area/turret_protected/ai_upload_foyer,
 	/area/turret_protected/ai,
 ))
+
+
+//// Special event areas
+
+/area/special_event
+	name = "Special event area"
+	icon_state = "unknown"
+	requires_power = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	report_alerts = FALSE
+
+/area/special_event/alpha
+	name = "Special event area Alpha"
+	icon_state = "away1"
+
+/area/special_event/beta
+	name = "Special event area Beta"
+	icon_state = "away2"
+
+/area/special_event/gamma
+	name = "Special event area Gamma"
+	icon_state = "away3"
+
+/area/special_event/delta
+	name = "Special event area Delta"
+	icon_state = "away4"
+
+/area/special_event/epsilon
+	name = "Special event area Epsilon"
+	icon_state = "away5"
+
+//space area
+/area/ruin/space/bubblegum_arena
+	name = "Bubblegum Arena"
+

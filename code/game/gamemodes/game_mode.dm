@@ -23,17 +23,13 @@
 	var/station_was_nuked = FALSE
 	/// See nuclearbomb.dm and malfunction.dm
 	var/explosion_in_progress = FALSE //sit back and relax
-	var/list/datum/mind/modePlayer = new
+	var/false_report_weight = 0 //How often will this show up incorrectly in a centcom report? --Not used--
 	// Jobs it doesn't make sense to be antags. I.E chaplain or AI cultist
 	var/list/restricted_jobs = list()
 	/// Jobs that can't be antags.
 	var/list/protected_jobs = list()
 	/// Species that can't be antags.
 	var/list/protected_species = list()
-	/// Species duplicate for antags.
-	var/list/prefered_species = list()
-	/// If prefered_species list is not empty antagonist mind with that specie will be duplicated passed number of times in get_players_for_role().
-	var/prefered_species_mod = 0
 	/// How many players should press ready for mode to activate.
 	var/required_players = 0
 	/// How many antagonists are required for mode start.
@@ -43,8 +39,6 @@
 	/// Whether ERT call is even allowed in this mode.
 	var/ert_disabled = FALSE
 	var/newscaster_announcements = null
-	var/uplink_welcome = "Syndicate Uplink Console:"
-	var/uplink_uses = 20
 
 	/// Lower bound on time before intercept arrives.
 	var/const/waittime_l = 60 SECONDS
@@ -62,6 +56,9 @@
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
 
+/datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
+	return "Gamemode report for [name] not set.  Contact a coder."
+
 /**
  * Checks to see if the game can be setup and ran with the current number of players or whatnot.
  */
@@ -71,17 +68,10 @@
 	if(playerC < required_enemies)
 		return FALSE
 
-	if(!config.enable_gamemode_player_limit || (playerC >= config.mode_required_players[src.config_tag]))
+	if(!CONFIG_GET(flag/enable_gamemode_player_limit) || (playerC >= config.mode_required_players[src.config_tag]))
 		return TRUE
 
 	return FALSE
-
-
-/**
- * For when you really don't want certain jobs ingame.
- */
-/datum/game_mode/proc/pre_pre_setup()
-	return TRUE
 
 
 /**
@@ -101,6 +91,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query, dont bother slowing roundstart
 
+	SScargo_quests.roll_start_quests()
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
@@ -288,17 +279,16 @@
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
  */
-/datum/game_mode/proc/get_players_for_role(role)
+/datum/game_mode/proc/get_players_for_role(role, list/prefered_species)
 	var/list/players = list()
 	var/list/candidates = list()
 
-	var/roletext = get_roletext(role)
-
-	// Assemble a list of active players without jobbans.
+	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
-			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, roletext) \
-			|| !player_old_enough_antag(player.client, role))
+			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
+			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
+			|| !(role in player.client.prefs.be_special))
 			continue
 
 		players += player
@@ -308,23 +298,17 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(player.client.skip_antag)
+		if(length(protected_species) && (player.client.prefs.species in protected_species))
 			continue
-
-		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
-			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-			candidates += player.mind
-			if(length(prefered_species) && (player.client.prefs.species in prefered_species))
+		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+			continue
+		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
+		candidates += player.mind
+		if(length(prefered_species))
+			var/prefered_species_mod = prefered_species[player.client.prefs.species]
+			if(isnum(prefered_species_mod))
 				for (var/i in 1 to prefered_species_mod)	//prefered mod
 					candidates += player.mind
-			players -= player
-
-	// Remove candidates who want to be antagonist but have a job that precludes it
-	if(restricted_jobs)
-		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					candidates -= player
 
 	return candidates
 
@@ -505,10 +489,6 @@
 		obj_count++
 
 
-/proc/get_roletext(role)
-	return role
-
-
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
 	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
@@ -534,12 +514,13 @@
 		theghost = pick(candidates)
 		to_chat(player, span_userdanger("Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!"))
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(player)]) to replace a jobbanned player.")
+		log_game("[theghost.key] has taken control of ([player.key]) to replace a jobbanned for [role_type] player.")
 		player.ghostize()
 		player.key = theghost.key
 	else
+		log_game("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take player's place.")
 		message_admins("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [player.p_their()] place.")
 		to_chat(player, span_dangerbigger("You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban."))
-
 
 /proc/printplayer(datum/mind/player, flee_check)
 	var/jobtext = ""
@@ -622,6 +603,7 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 
+	var/list/goals = list()
 	for(var/datum/station_goal/goal in station_goals)
 
 		var/message_text = "<div style='text-align:center;'><img src = ntlogo.png>"
@@ -630,6 +612,9 @@
 		goal.on_report()
 		message_text += goal.get_report()
 		print_command_report(message_text, "Приказания [command_name()]", FALSE, goal)
+		goals += goal.name
+
+	log_game("Station goals at round start were: [english_list(goals)].")
 
 
 /datum/game_mode/proc/declare_station_goal_completion()

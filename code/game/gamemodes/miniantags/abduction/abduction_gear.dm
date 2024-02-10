@@ -308,7 +308,7 @@
 /obj/item/abductor/mind_device/proc/mind_control(atom/target, mob/living/user)
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot("heart")
+		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(!istype(G))
 			to_chat(user, "<span class='warning'>Your target does not have an experimental gland!</span>")
 			return
@@ -374,11 +374,14 @@
  8.Apply retractor again to specimen's torso.<br>
  9.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
  10.Insert replacement gland (Retrieve one from gland storage).<br>
- 11.Cauterize the patient's torso with a cautery.<br>
- 12.Consider dressing the specimen back to not disturb the habitat. <br>
- 13.Put the specimen in the experiment machinery.<br>
- 14.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
- 15.You will receive one supply credit, and the subject will be counted towards your quota.<br>
+ 11.Apply bone gel to mend the ribcage.<br>
+ 12.Use the bone setter to finish mending the ribcage.<br>
+ 13.Apply bone gel to mend the ribcage once more.<br>
+ 14.Cauterize the patient's torso with a cautery.<br>
+ 15.Consider dressing the specimen back to not disturb the habitat.<br>
+ 16.Put the specimen in the experiment machinery.<br>
+ 17.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
+ 18.You will receive one supply credit, and the subject will be counted towards your quota.<br>
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
@@ -562,7 +565,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "energy discharge"
 	flags = DROPDEL
 
-/obj/item/restraints/handcuffs/energy/used/dropped(mob/user)
+/obj/item/restraints/handcuffs/energy/used/dropped(mob/user, silent = FALSE)
 	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", \
 							"<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
 	do_sparks(4, 0, user.loc)
@@ -738,8 +741,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien locker"
 	desc = "Contains secrets of the universe."
 	icon_state = "abductor"
-	icon_closed = "abductor"
-	icon_opened = "abductoropen"
 	material_drop = /obj/item/stack/sheet/mineral/abductor
 	material_drop_amount = 1
 

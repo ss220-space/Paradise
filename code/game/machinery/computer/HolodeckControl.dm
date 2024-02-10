@@ -162,13 +162,14 @@
 /obj/machinery/computer/HolodeckControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
 	return
 
-/obj/machinery/computer/HolodeckControl/emag_act(user as mob)
+/obj/machinery/computer/HolodeckControl/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
-		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
+		if(user)
+			to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
+			to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		src.updateUsrDialog()
 
 /obj/machinery/computer/HolodeckControl/New()
@@ -237,15 +238,14 @@
 		visible_message("The [oldobj.name] fades away!")
 	qdel(obj)
 
-/obj/machinery/computer/HolodeckControl/proc/checkInteg(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
 	for(var/turf/T in A)
 		if(istype(T, /turf/space))
 			return 0
 
 	return 1
 
-/obj/machinery/computer/HolodeckControl/proc/togglePower(var/toggleOn = 0)
-
+/obj/machinery/computer/HolodeckControl/proc/togglePower(toggleOn = 0)
 	if(toggleOn)
 		var/area/targetsource = locate(/area/holodeck/source_emptycourt)
 		holographic_items = targetsource.copy_contents_to(linkedholodeck)
@@ -265,11 +265,11 @@
 		for(var/item in holographic_items)
 			derez(item)
 		var/area/targetsource = locate(/area/holodeck/source_plating)
-		targetsource.copy_contents_to(linkedholodeck , 1)
+		targetsource.copy_contents_to(linkedholodeck, TRUE)
 		active = 0
 
 
-/obj/machinery/computer/HolodeckControl/proc/loadProgram(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
 
 	if(world.time < (last_change + 25))
 		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
@@ -291,7 +291,7 @@
 	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
 		qdel(C)
 
-	holographic_items = A.copy_contents_to(linkedholodeck , 1)
+	holographic_items = A.copy_contents_to(linkedholodeck, TRUE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)
@@ -320,7 +320,7 @@
 		loadProgram(target)
 
 	var/area/targetsource = locate(/area/holodeck/source_plating)
-	targetsource.copy_contents_to(linkedholodeck , 1)
+	targetsource.copy_contents_to(linkedholodeck, TRUE)
 	active = 0
 
 // Holographic Items!
@@ -471,14 +471,14 @@
 		hitsound = "sound/weapons/blade1.ogg"
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
 		icon_state = "sword0"
 		hitsound = "swing_hit"
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, span_notice("[src] can now be concealed."))
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -514,16 +514,16 @@
 	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
 		var/obj/item/grab/G = W
 		if(G.state<2)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
 		G.affecting.loc = src.loc
 		G.affecting.Weaken(10 SECONDS)
-		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
+		visible_message(span_warning("[G.assailant] dunks [G.affecting] into [src]!"))
 		qdel(W)
 		return
 	else if(istype(W, /obj/item) && get_dist(src,user)<2)
 		user.drop_from_active_hand(src)
-		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>")
+		visible_message(span_notice("[user] dunks [W] into the [src]!"))
 		return
 
 /obj/structure/holohoop/has_prints()
@@ -536,9 +536,9 @@
 			return
 		if(prob(50))
 			I.loc = src.loc
-			visible_message("<span class='notice'>Swish! \the [I] lands in \the [src].</span>")
+			visible_message(span_notice("Swish! \the [I] lands in \the [src]."))
 		else
-			visible_message("<span class='alert'>\The [I] bounces off of \the [src]'s rim!</span>")
+			visible_message(span_alert("\The [I] bounces off of \the [src]'s rim!"))
 		return 0
 	else
 		return ..(mover, target, height)
@@ -547,10 +547,10 @@
 	if(isitem(AM) && !istype(AM,/obj/item/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
-			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
+			visible_message(span_warning("Swish! [AM] lands in [src]."))
 			return
 		else
-			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
+			visible_message(span_danger("[AM] bounces off of [src]'s rim!"))
 			return ..()
 	else
 		return ..()
@@ -598,7 +598,7 @@
 
 	var/numbuttons = 0
 	var/numready = 0
-	for(var/obj/machinery/readybutton/button in currentarea)
+	for(var/obj/machinery/readybutton/button in currentarea.machinery_cache)
 		numbuttons++
 		if(button.ready)
 			numready++

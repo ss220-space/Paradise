@@ -5,16 +5,16 @@
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
-	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, rad = 75, fire = 100, acid = 80)
+	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 80)
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/camera/camera
 	var/has_camera = TRUE
 	strip_delay = 130
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
@@ -55,7 +55,7 @@
 	item_state = "suit-command"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, rad = 75, fire = 100, acid = 80)
+	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 80)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
@@ -66,9 +66,9 @@
 	slowdown = 0
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/gamma
@@ -83,7 +83,7 @@
 	item_state = "helm-command"
 	item_color = "ert_commander"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/commander
@@ -207,15 +207,18 @@
 	icon_state = "hardsuit0-ert_paranormal"
 	item_color = "ert_paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	actions_types = list()
+	actions_types = null
 	resistance_flags = FIRE_PROOF
 	has_camera = FALSE
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal
@@ -227,12 +230,16 @@
 	jetpack = null
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
+	hide_tail_by_species = list("Unathi, Ash Walker, Ash Walker Shaman, Draconid, Tajaran, Vox, Vulpkanin")
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/New()
 	..()
@@ -304,7 +311,7 @@
 	HUDType = MEDHUD
 	strip_delay = 130
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
 
 /obj/item/clothing/suit/space/hardsuit/deathsquad
@@ -324,12 +331,12 @@
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 /obj/item/clothing/suit/space/ert_eva_amber
 	name = "ERT Amber Spacesuit"

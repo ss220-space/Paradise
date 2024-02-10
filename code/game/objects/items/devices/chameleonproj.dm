@@ -18,11 +18,11 @@
 	var/saved_overlays = null
 	var/saved_underlays = null
 
-/obj/item/chameleon/dropped()
+/obj/item/chameleon/dropped(mob/user, silent = FALSE)
 	. = ..()
 	disrupt()
 
-/obj/item/chameleon/equipped()
+/obj/item/chameleon/equipped(mob/user, slot, initial)
 	. = ..()
 	disrupt()
 
@@ -188,8 +188,8 @@
 	var/mob/living/silicon/robot/syndicate/saboteur/S
 	var/list/possible_disguises = list("Last One",
 										"Standard" = list("Robot-STD", "droid", "Standard", "Noble-STD"),
-										"Medical" = list("Standard-Medi", "Robot-MED", "surgeon", "droid-medical", "Robot-SRG", "Noble-MED", "Cricket-MEDI"),
-										"Engineering" = list("Robot-ENG", "Robot-ENG2", "landmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI"),
+										"Medical" = list("Standard-Medi", "Robot-MED", "surgeon", "chiefbot", "droid-medical", "Robot-SRG", "Noble-MED", "Cricket-MEDI"),
+										"Engineering" = list("Robot-ENG", "Robot-ENG2", "landmate", "chiefmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI"),
 										"Security" = list("Robot-SEC", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC"),
 										"Service" = list("Robot-LDY", "toiletbot", "Robot-RLX", "maximillion", "Robot-MAN", "Standard-Serv", "Noble-SRV", "Cricket-SERV"),
 										"Miner" = list("Robot-MNR", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland"),
@@ -200,11 +200,11 @@
 		S.cham_proj = null
 	return ..()
 
-/obj/item/borg_chameleon/dropped(mob/user)
+/obj/item/borg_chameleon/dropped(mob/user, silent = FALSE)
 	. = ..()
 	disrupt(user)
 
-/obj/item/borg_chameleon/equipped(mob/user)
+/obj/item/borg_chameleon/equipped(mob/user, slot, initial)
 	. = ..()
 	disrupt(user)
 

@@ -48,7 +48,7 @@
 	description = "A race of unbreathing lizards live here, that run faster than a human can, worship a broken dead city, and are capable of reproducing by something involving tentacles? \
 	Probably best to stay clear."
 	suffix = "lavaland_surface_ash_walker1.dmm"
-	cost = 20
+	always_place = TRUE
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/syndicate_base
@@ -159,6 +159,7 @@
 	Quality memes."
 	suffix = "lavaland_surface_xeno_nest.dmm"
 	cost = 20
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/fountain
 	name = "Fountain Hall"
@@ -245,3 +246,67 @@
 	cost = 5
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/lavaland/worldanvil
+	name = "World Anvil"
+	id = "worldanvil"
+	description = "An ancient anvil, standing untainted for millennia. Wonders were once forged here."
+	suffix = "lavaland_surface_worldanvil.dmm"
+	always_place = TRUE
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/biodome/green
+	name = "Biodome Summer"
+	id = "biodome-summer"
+	description = "For those getaways where you want to get back to nature, but you don't want to leave the fortified military compound where you spend your days. \
+	Includes the recently introduced I.C.E(tm)."
+	suffix = "lavaland_biodome_green.dmm"
+
+/datum/map_template/ruin/lavaland/drake_nest
+	name = "Ash Drake Nest"
+	id = "drakenest"
+	description = "A huge nest for horrific monster, surrouded by it's victims."
+	suffix = "lavaland_surface_dragon.dmm"
+	cost = 5
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/shinobi
+	name = "Shinobi Grave"
+	id = "grave"
+	description = "The last resting place of the great warrior."
+	suffix = "lavaland_surface_grave.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/legion
+	name = "Legion Barracks"
+	id = "barraks"
+	description = "The place where the great ones gathered to fight."
+	suffix = "lavaland_surface_legion.dmm"
+	cost = 5
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/weaver_nest
+	name = "Marrow Weaver Nest"
+	id = "marrownest"
+	description = "A huge den of terrifyingly dangerous spiders along with their victims."
+	suffix = "lavaland_surface_nest.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/pirateship
+	name = "Wrecked Starwalker"
+	id = "pirateship"
+	description = "An old derelict pirate cruiser, now only a shadow of its former self."
+	suffix = "lavaland_surface_pirateship.dmm"
+	cost = 20 //huge
+	allow_duplicates = FALSE
+
+/*
+/datum/map_template/ruin/lavaland/althland_facility
+	name = "Althland Facility"
+	id = "althlandfacility"
+	description = "Nanotrasen wasn't the only one company interested in plasma. Lavaland Filled with old derelict mining operations."
+	suffix = "lavaland_surface_althland_facility.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+*/

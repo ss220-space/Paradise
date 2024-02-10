@@ -20,7 +20,6 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
-	blood_nutrients = 20
 	blood_volume = BLOOD_VOLUME_SURVIVE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 1)
 	response_help  = "pets"
@@ -51,7 +50,7 @@
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
-		if(istype(F) && !F.intact)
+		if(istype(F) && !F.intact && !F.transparent_floor)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
 				if(C.avail())
@@ -74,7 +73,7 @@
 		if(prob(1))
 			StopResting()
 		else if(prob(5))
-			custom_emote(2, "snuffles")
+			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
 		StartResting()
 
@@ -132,7 +131,7 @@
 	desc = "It's toast."
 	death()
 
-/mob/living/simple_animal/mouse/proc/splat(var/obj/item/item = null, var/mob/living/user = null)
+/mob/living/simple_animal/mouse/proc/splat(obj/item/item = null, mob/living/user = null)
 	if(non_standard)
 		var/temp_state = initial(icon_state)
 		icon_dead = "[temp_state]_splat"
@@ -164,31 +163,6 @@
 	remains.pixel_x = pixel_x
 	remains.pixel_y = pixel_y
 
-/mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("squeak")		//Mouse time
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("squeak")
-			message = "[pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, squeak_sound, 40, 1)
-		if("help")
-			to_chat(src, "scream, squeak")
-			playsound(src, damaged_sound, 40, 1)
-
-	..()
 
 /*
  * Mouse types
@@ -225,7 +199,6 @@
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100
 	health = 100
-	blood_nutrients = 500
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
@@ -312,7 +285,6 @@
 	mouse_color = null
 	maxHealth = 15
 	health = 15
-	blood_nutrients = 30
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 2)
 
@@ -417,10 +389,11 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	can_collar = 0
 	holder_type = /obj/item/holder/hamster
 
-/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+
+/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	if(show_message)
-		to_chat(src, "<span class='warning'>Вы слишком малы чтобы что-то тащить.</span>")
-	return
+		to_chat(src, span_warning("Вы слишком малы чтобы что-то тащить."))
+
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
 	. =..()

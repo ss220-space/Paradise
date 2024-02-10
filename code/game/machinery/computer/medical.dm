@@ -71,7 +71,7 @@
 	if(..())
 		return
 	if(is_away_level(z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -146,7 +146,7 @@
 				data["virus"] = list()
 				for(var/D in typesof(/datum/disease))
 					var/datum/disease/DS = new D(0)
-					if(istype(DS, /datum/disease/advance))
+					if(istype(DS, /datum/disease/virus/advance))
 						continue
 					if(!DS.desc)
 						continue
@@ -218,7 +218,7 @@
 				var/list/payload = list(
 					name = D.name,
 					max_stages = D.max_stages,
-					spread_text = D.spread_text,
+					spread_text = D.additional_info,
 					cure = D.cure_text || "None",
 					desc = D.desc,
 					severity = D.severity
@@ -399,9 +399,9 @@
 		<br>\nImportant Notes:
 		<br>\n\t[active2.fields["notes"]]<br>\n
 		<br>\n
-		<center></b>Comments/Log</b></center><br>"}
+		<center></b>Comments/Log</b></center>"}
 		for(var/c in active2.fields["comments"])
-			P.info += "[c]<br>"
+			P.info += "<br>[c["header"]]<br>Comment: [c["text"]]<br>"
 	else
 		P.info += "</b>Medical Record Lost!</b><br>"
 	P.info += "</tt>"

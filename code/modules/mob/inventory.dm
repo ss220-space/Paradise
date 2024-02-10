@@ -41,7 +41,7 @@
 /mob/proc/run_quick_equip()
 	var/obj/item/I = get_active_hand()
 	if(!I)
-		to_chat(src, SPAN_WARNING("Вы ничего не держите в руке!"))
+		to_chat(src, span_warning("Вы ничего не держите в руке!"))
 		return
 
 	if(!QDELETED(I))
@@ -63,7 +63,7 @@
 
 	if(I.equip_delay_self)
 		if(!silent)
-			to_chat(src, SPAN_WARNING("Вы должны экипировать [I] вручную!"))
+			to_chat(src, span_warning("Вы должны экипировать [I] вручную!"))
 		return FALSE
 
 	var/priority_list = list( \
@@ -212,10 +212,14 @@
 
 
 /**
- * Returns `TRUE` if item is in mob's left or right hand
+ * Returns item if its in mob's left or right hand
  */
 /mob/proc/is_in_hands(obj/item/I)
-	return I == l_hand || I == r_hand
+	if(I == l_hand)
+		return l_hand
+	if(I == r_hand)
+		return r_hand
+	return null
 
 
 /**
@@ -278,6 +282,13 @@
 
 
 /**
+ * Specal proc for special mobs that use "hands" in weird ways.
+ */
+/mob/proc/special_hands_drop_action()
+	return
+
+
+/**
  * DO NO USE THIS PROC, there are plenty of helpers below: put_in_l_hand, put_in_active_hand, put_in_hands etc.
  * Puts an item into hand by `hand_id` ("HAND_LEFT" / "HAND_RIGHT") and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
@@ -307,18 +318,18 @@
 
 	if(hand_id == "HAND_LEFT")
 		l_hand = I
-		update_inv_l_hand()
 		I.equipped(src, slot_l_hand)
+		update_inv_l_hand()
 	else if(hand_id == "HAND_RIGHT")
 		r_hand = I
-		update_inv_r_hand()
 		I.equipped(src, slot_r_hand)
+		update_inv_r_hand()
 
 	if(pulling == I)
 		stop_pulling()
 
-	// Qdel on equip happened
-	if(QDELETED(I))
+	// Qdel or loc change on equip happened
+	if(QDELETED(I) || I.loc != src)
 		if(hand_id == "HAND_LEFT")
 			l_hand = null
 			update_inv_l_hand()
@@ -385,34 +396,42 @@
 /**
  * Drops item in left hand.
  */
-/mob/proc/drop_l_hand(force = FALSE)
-	return drop_item_ground(l_hand, force)
+/mob/proc/drop_l_hand(force = FALSE, silent = FALSE)
+	return drop_item_ground(l_hand, force, silent = silent)
 
 
 /**
  * Drops item in right hand.
  */
-/mob/proc/drop_r_hand(force = FALSE)
-	return drop_item_ground(r_hand, force)
+/mob/proc/drop_r_hand(force = FALSE, silent = FALSE)
+	return drop_item_ground(r_hand, force, silent = silent)
 
 
 /**
  * Drops item in active hand.
  */
-/mob/proc/drop_from_active_hand(force = FALSE)
+/mob/proc/drop_from_active_hand(force = FALSE, silent = FALSE)
 	if(hand)
-		return drop_l_hand(force)
+		return drop_l_hand(force, silent)
 	else
-		return drop_r_hand(force)
+		return drop_r_hand(force, silent)
 
 /**
  * Drops item in inactive hand.
  */
-/mob/proc/drop_from_inactive_hand(force = FALSE)
+/mob/proc/drop_from_inactive_hand(force = FALSE, silent = FALSE)
 	if(hand)
-		return drop_r_hand(force)
+		return drop_r_hand(force, silent)
 	else
-		return drop_l_hand(force)
+		return drop_l_hand(force, silent)
+
+
+/**
+ * Drops items in both hands.
+ */
+/mob/proc/drop_from_hands(force = FALSE, silent = FALSE)
+	drop_l_hand(force, silent)
+	drop_r_hand(force, silent)
 
 
 /**
@@ -487,7 +506,7 @@
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
-/mob/proc/transfer_item_to_loc(obj/item/I, atom/newloc, force = FALSE, invdrop = TRUE, silent = TRUE)
+/mob/proc/transfer_item_to_loc(obj/item/I, atom/newloc, force = FALSE, invdrop = TRUE, silent = FALSE)
 	. = do_unEquip(I, force, newloc, FALSE, invdrop, silent)
 	I.do_drop_animation(src)
 
@@ -543,7 +562,7 @@
 				I.move_to_null_space()
 			else
 				I.forceMove(newloc)
-		I.dropped(src)
+		I.dropped(src, silent)
 
 	return TRUE
 
@@ -566,14 +585,14 @@
 	if((I.flags & NODROP) && !force)
 		if(!(I.flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
 			can_unEquip_message_delay = world.time
-			to_chat(src, SPAN_WARNING("Неведомая сила не позволяет Вам снять [I]."))
+			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I]."))
 		return FALSE
 
 	// Checking clothing obscuration
 	if(I.is_obscured_for_unEquip(src) && !force)
 		if((world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
 			can_unEquip_message_delay = world.time
-			to_chat(src, SPAN_WARNING("Вы не можете снять [I], слот закрыт другой одеждой."))
+			to_chat(src, span_warning("Вы не можете снять [I], слот закрыт другой одеждой."))
 		return FALSE
 
 	//Possible component blocking

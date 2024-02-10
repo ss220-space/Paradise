@@ -71,7 +71,7 @@
 	if(rotting)
 		. += span_warning("There is fungus growing on [src].")
 
-/turf/simulated/wall/proc/update_icon()
+/turf/simulated/wall/update_icon()
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
@@ -134,7 +134,7 @@
 	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
 		return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.setAngle(new_angle_s)
+	P.set_angle(new_angle_s)
 	return TRUE
 
 /turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
@@ -431,8 +431,8 @@
 
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, span_notice("You begin to disintegrates the wall."))
-
-		if(do_after(user, isdiamond ? 600 * I.toolspeed * gettoolspeedmod(user) : 300 * I.toolspeed * gettoolspeedmod(user), target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
+		var/obj/item/pickaxe/drill/jackhammer/jh = I
+		if(do_after(user, isdiamond ? 600 * jh.wall_toolspeed * gettoolspeedmod(user) : 300 * jh.wall_toolspeed * gettoolspeedmod(user), target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
 			to_chat(user, span_notice("Your [I.name] disintegrates the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] disintegrates [src]!"),span_warning("You hear the grinding of metal."))

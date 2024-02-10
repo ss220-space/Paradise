@@ -24,14 +24,14 @@
 #define FASTSWORD_SPELL 2
 // Buckler
 #define PUSHOFF_SPELL 1
+#define FLASH_SPELL 2
 // Clockwork robe
 #define INVIS_SPELL 1
 #define SPEED_SPELL 2
 // armour
 #define REFLECT_SPELL 1
-#define FLASH_SPELL 2
-#define ABSORB_SPELL 3
-#define ARMOR_SPELL 4
+#define ABSORB_SPELL 2
+#define ARMOR_SPELL 3
 // Clockwork gloves
 #define FASTPUNCH_SPELL 1
 #define STUNHAND_SPELL 2
@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(clockslab_spells, list(
 	new /datum/spell_enchant("Force Passage", KNOCK_SPELL, 100),
 	new /datum/spell_enchant("Terraform", REFORM_SPELL, 40),
 	new /datum/spell_enchant("Teleportation", TELEPORT_SPELL, 25, 5), // has do_after 1.5 seconds
-	new /datum/spell_enchant("Seal Wounds", HEAL_SPELL, 100, 5),
+	new /datum/spell_enchant("Seal Wounds", HEAL_SPELL, 100, 7),
 	new /datum/spell_enchant("Hidings Clock", HIDE_SPELL, 100)
 ))
 GLOBAL_LIST_INIT(spear_spells, list(
@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(sword_spells, list(
 	new /datum/spell_enchant("Swordsman", FASTSWORD_SPELL, 100, 6, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(shield_spells, list(
+	new /datum/spell_enchant("Flash", FLASH_SPELL, 25, spell_action = TRUE),
 	new /datum/spell_enchant("Push off", PUSHOFF_SPELL, 100)
 ))
 GLOBAL_LIST_INIT(robe_spells, list(
@@ -71,8 +72,7 @@ GLOBAL_LIST_INIT(robe_spells, list(
 ))
 GLOBAL_LIST_INIT(armour_spells, list(
 	new /datum/spell_enchant("Reflection", REFLECT_SPELL, 100, 8),
-	new /datum/spell_enchant("Flash", FLASH_SPELL, 25, spell_action = TRUE),
-	new /datum/spell_enchant("Absorb", ABSORB_SPELL, 100, 8),
+	new /datum/spell_enchant("Absorb", ABSORB_SPELL, 100, 4),
 	new /datum/spell_enchant("Harden plates", ARMOR_SPELL, 100, 10, spell_action = TRUE)
 ))
 GLOBAL_LIST_INIT(gloves_spell, list(
@@ -88,22 +88,28 @@ GLOBAL_LIST_INIT(shard_spells, list(
 
 /// Power gains permanent
 #define CLOCK_POWER_CONVERT 200
-#define CLOCK_POWER_SACRIFICE 500
+#define CLOCK_POWER_SACRIFICE 600
 /// Power gains as time progresses. Goes in process() so it makes x power per second.
-#define CLOCK_POWER_BEACON 2
+#define CLOCK_POWER_BEACON 5
 #define CLOCK_POWER_GENERATOR 10
 #define CLOCK_POWER_COG 1
 #define COG_MAX_SIPHON_THRESHOLD 0.25 //The cog will not siphon power if the APC's cell is at this % of power
 // amount of metal per brass
-#define CLOCK_METAL_TO_BRASS 10
+#define CLOCK_METAL_TO_BRASS 5
 //Cogscarab: a wind up timer of how long can droney live without beacon
 #define CLOCK_MAX_WIND_UP_TIMER 150
+//Cogscarab: Maximum amount of cogscarab on one fabricator.
+#define MAX_COGSCRAB_PER_FABRICATOR 2
+// Cogscarab: Maximum amount of fabricators for cult.
+#define MAX_COG_FABRICATORS 2
+//Cogscarab: Amount of time to wait until a new cogscrab is ready.
+#define TIME_NEW_COGSCRAB 120
 
 // Clockwork Status
 /// At what population does it switch to highpop values
 #define CLOCK_POPULATION_THRESHOLD 70
 /// Power per crew demand. (Lowpop)
-#define CLOCK_POWER_PER_CREW_LOW 320
+#define CLOCK_POWER_PER_CREW_LOW 260
 /// Percent for power to reveal (Lowpop)
 #define CLOCK_POWER_REVEAL_LOW 0.7
 /// Percent clockers to reveal (Lowpop)

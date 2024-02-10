@@ -7,7 +7,6 @@
 	icon_dead = "headcrab_dead"
 	health = 60
 	maxHealth = 60
-	dodging = 1
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	ranged = 1
@@ -55,7 +54,7 @@
 /mob/living/simple_animal/hostile/headcrab/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())
 		H.death()
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
@@ -85,7 +84,7 @@
 	H.forceMove(src)
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
-/mob/living/simple_animal/hostile/headcrab/death()
+/mob/living/simple_animal/hostile/headcrab/death(gibbed)
 	..()
 	if(is_zombie)
 		qdel(src)
@@ -185,7 +184,7 @@
 /mob/living/simple_animal/hostile/headcrab/poison/AttackingTarget()
 	. = ..()
 	if(iscarbon(target) && target.reagents)
-		var/inject_target = pick("chest", "head")
+		var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 		var/mob/living/carbon/C = target
 		if(C.IsStunned() || C.can_inject(null, FALSE, inject_target, FALSE))
 			if(C.AmountEyeBlurry() < 120 SECONDS)

@@ -113,7 +113,7 @@
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
-	update_name()
+	update_appearance(UPDATE_NAME)
 	slime_mutation = mutation_table(colour)
 	var/sanitizedcolour = replacetext(colour, " ", "")
 	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
@@ -128,7 +128,8 @@
 	else
 		cores = age_state.cores
 
-/mob/living/simple_animal/slime/proc/update_name()
+/mob/living/simple_animal/slime/update_name(updates = ALL)
+	. = ..()
 	if(is_renamed)
 		return
 
@@ -175,7 +176,7 @@
 	if(health <= 0) // if damaged, the slime moves twice as slow
 		. *= 2
 
-	. += config.slime_delay
+	. += CONFIG_GET(number/slime_delay)
 
 /mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)
@@ -273,11 +274,10 @@
 	..()
 	powerlevel = 0 // oh no, the power!
 
-/mob/living/simple_animal/slime/MouseDrop(atom/movable/A)
-	if(isliving(A) && A != src && usr == src)
-		var/mob/living/Food = A
-		if(CanFeedon(Food))
-			Feedon(Food)
+/mob/living/simple_animal/slime/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(isliving(over_object) && over_object != src && usr == src && CanFeedon(over_object))
+		Feedon(over_object)
+		return FALSE
 	return ..()
 
 
@@ -285,8 +285,9 @@
 	return
 
 
-/mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
-	return
+/mob/living/simple_animal/slime/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+	return FALSE
+
 
 /mob/living/simple_animal/slime/attack_ui(slot)
 	return
@@ -503,3 +504,45 @@
 		return FALSE
 
 	return ..()
+
+/mob/living/simple_animal/slime/invalid
+	var/dead_for_sure = FALSE
+	var/obj/effect/proc_holder/spell/slime_degradation/parent_spell
+	var/mob/living/carbon/human/sman
+	powerlevel = 10
+
+/mob/living/simple_animal/slime/invalid/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700, mob/living/carbon/human/slimeman, obj/effect/proc_holder/spell/slime_degradation/slime_spell)
+	..()
+	for(var/datum/action/innate/slime/A in actions)
+		if(!istype(A,/datum/action/innate/slime/feed))
+			A.Remove(src)
+	if(slimeman)
+		sman = slimeman
+	if(slime_spell)
+		parent_spell = slime_spell
+	verbs -= /mob/living/simple_animal/slime/verb/Evolve
+	verbs -= /mob/living/simple_animal/slime/verb/Reproduce
+
+/mob/living/simple_animal/slime/invalid/Destroy()
+	parent_spell = null
+	return ..()
+
+
+/mob/living/simple_animal/slime/invalid/death(gibbed)
+	if(dead_for_sure)
+		return
+	dead_for_sure = TRUE
+	if(parent_spell)
+		transform_back()
+		return
+	qdel(src)
+
+/mob/living/simple_animal/slime/invalid/proc/transform_back()
+	var/mob/living/carbon/human/our_slime = sman
+	parent_spell.slime_transform_back(src, death_provoked = TRUE)
+	our_slime.emote("moan")
+	our_slime.Stun(5 SECONDS)
+	our_slime.AdjustConfused(5 SECONDS)
+	our_slime.Jitter(6 SECONDS)
+
+

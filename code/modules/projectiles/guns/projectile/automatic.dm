@@ -147,6 +147,43 @@
         toggle_gunlight()
         return TRUE
 
+//"SP-91-RC//
+/obj/item/gun/projectile/automatic/sp91rc
+	name = "SP-91-RC"
+	desc = "Compact submachine gun designed for riot control."
+	icon_state = "SP-91-RC"
+	item_state = "SP-91-RC"
+	mag_type = /obj/item/ammo_box/magazine/sp91rc
+	fire_sound = 'sound/weapons/gunshots/1sp_91.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	fire_delay = 2
+	can_suppress = 0
+	can_flashlight = 1
+	burst_size = 3
+	can_bayonet = FALSE
+
+/obj/item/gun/projectile/automatic/sp91rc/update_icon()
+	..()
+	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+	item_state = "SP-91-RC[magazine ? "-[get_ammo(0) ? "20" : "0"]" : ""]"
+
+	if(gun_light)
+		var/iconF = "SP-91-RC-light"
+		if(gun_light.on)
+			iconF = "SP-91-RC-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/sp91rc/attackby(var/obj/item/A, mob/user, params)
+	. = .. ()
+	update_equipped_item()
+
+/obj/item/gun/projectile/automatic/sp91rc/ui_action_click(var/owner, var/action_type)
+    if(..()) return TRUE
+    if (action_type == /datum/action/item_action/toggle_gunlight)
+        toggle_gunlight()
+        return TRUE
+
 //Type-U3 Uzi//
 /obj/item/gun/projectile/automatic/mini_uzi
 	name = "\improper ''Type U3 Uzi"
@@ -287,7 +324,7 @@
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/New()
 	..()
@@ -346,6 +383,32 @@
 	..()
 	empty_alarm()
 
+//Combat Automatic Tactical Shotgun//
+
+/obj/item/gun/projectile/automatic/cats
+	name = "\improper C.A.T. Shotgun"
+	desc = "Terra Light Armories - Combat Automatic Tactical Shotgun - мощный автоматический дробовик, в основном используемый силами Транс-Солнечной Федерации. Производится корпорацией Terra Industries."
+	icon_state = "tla_cats"
+	item_state = "arg"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/cats12g
+	fire_delay = 0
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	burst_size = 2
+	can_suppress = 0
+
+/obj/item/gun/projectile/automatic/cats/update_icon()
+	..()
+	icon_state = "tla_cats[magazine ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/cats/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		if(user.say_understands(null, GLOB.all_languages["Sol Common"]))
+			. += "Вы видите гравировку на прикладе, написанную на Общесолнечном: 'Свобода через тотальное превосходство'"
+		else
+			. += "Вы видите символы на прикладе, но не понимаете что они значат."
+
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-60 Laser Carbine"
@@ -378,7 +441,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 1
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/lr30/update_icon()
 	..()
@@ -409,4 +472,15 @@
     if (action_type == /datum/action/item_action/toggle_gunlight)
         toggle_gunlight()
         return TRUE
+
+//Aussec Armory M-52
+
+/obj/item/gun/projectile/automatic/m52
+	name = "aussec armory M-52"
+	desc = "One of the least popular examples of heavy assault rifles. It has impressive firepower."
+	icon_state = "M52"
+	item_state = "arg"
+	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
+	mag_type = /obj/item/ammo_box/magazine/m52mag
+	can_suppress = 0
 

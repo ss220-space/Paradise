@@ -49,7 +49,7 @@
 		return O
 	return null
 
-/obj/item/grenade/chem_grenade/proc/update_overlays()
+/obj/item/grenade/chem_grenade/update_overlays()
 	underlays = list()
 	if(nadeassembly)
 		underlays += "[nadeassembly.a_left.icon_state]_left"

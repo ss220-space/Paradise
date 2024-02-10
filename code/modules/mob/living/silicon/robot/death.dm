@@ -6,7 +6,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	animation = new(loc)
 	animation.icon_state = "blank"
@@ -35,7 +35,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	if(mmi)
 		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
 	GLOB.dead_mob_list -= src
@@ -53,12 +53,8 @@
 	QDEL_IN(animation, 15)
 
 /mob/living/silicon/robot/death(gibbed)
-	if(can_die())
-		if(!gibbed && deathgasp_on_death)
-			emote("deathgasp", force = TRUE)
-
-		if(module)
-			module.handle_death(src, gibbed)
+	if(can_die() && module)
+		module.handle_death(src, gibbed)
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)

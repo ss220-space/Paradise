@@ -25,6 +25,7 @@ SUBSYSTEM_DEF(verb_manager)
 	flags = SS_TICKER | SS_NO_INIT
 	priority = FIRE_PRIORITY_DELAYED_VERBS
 	runlevels = RUNLEVEL_INIT | RUNLEVELS_DEFAULT
+	ss_id = "verb_manager"
 
 	///list of callbacks to procs called from verbs or verblike procs that were executed when the server was overloaded and had to delay to the next tick.
 	///this list is ran through every tick, and the subsystem does not yield until this queue is finished.
@@ -156,9 +157,8 @@ SUBSYSTEM_DEF(verb_manager)
 	verbs_executed_per_second = MC_AVG_SECONDS(verbs_executed_per_second, executed_verbs, wait SECONDS)
 	//note that wait SECONDS is incorrect if this is called outside of fire() but because byond is garbage i need to add a timer to rustg to find a valid solution
 
-/datum/controller/subsystem/verb_manager/stat_entry(msg)
-	msg += "V/S: [round(verbs_executed_per_second, 0.01)]"
-	..(msg)
+/datum/controller/subsystem/verb_manager/get_stat_details()
+	return "V/S: [round(verbs_executed_per_second, 0.01)]"
 
 /datum/controller/subsystem/verb_manager/Recover()
 	verb_queue = SSverb_manager.verb_queue

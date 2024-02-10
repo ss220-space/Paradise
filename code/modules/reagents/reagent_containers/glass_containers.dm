@@ -285,11 +285,10 @@
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)
 
-/obj/item/reagent_containers/glass/beaker/sulphuric
+/obj/item/reagent_containers/glass/beaker/sacid
 	list_reagents = list("sacid" = 50)
 
-
-/obj/item/reagent_containers/glass/beaker/slime
+/obj/item/reagent_containers/glass/beaker/slimejelly
 	list_reagents = list("slimejelly" = 50)
 
 /obj/item/reagent_containers/glass/beaker/drugs/meth
@@ -313,6 +312,32 @@
 	slot_flags = SLOT_HEAD
 	resistance_flags = NONE
 	container_type = OPENCONTAINER
+	var/paintable = TRUE
+
+/obj/item/reagent_containers/glass/bucket/Initialize(mapload)
+	. = ..()
+	if(!color && paintable)
+		color = "#0085E5"
+	update_icon() //in case bucket's color has been changed in editor or by some deriving buckets
+
+/obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
+	. = ..()
+	if(paintable && istype(D, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = D
+		if(!can.capped && Adjacent(can, 1))
+			color = can.colour
+			update_icon()
+
+/obj/item/reagent_containers/glass/bucket/update_icon()
+	. = ..()
+	overlays.Cut()
+	if(color)
+		var/mutable_appearance/bucket_mask = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_mask")
+		overlays += bucket_mask
+
+		var/mutable_appearance/bucket_hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand")
+		bucket_hand.appearance_flags |= RESET_COLOR
+		overlays += bucket_hand
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
@@ -321,6 +346,11 @@
 	materials = null
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	resistance_flags = FLAMMABLE
+	paintable = FALSE
+
+/obj/item/reagent_containers/glass/bucket/wooden/update_icon()
+	. = ..()
+	overlays.Cut()
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)
     . = ..()

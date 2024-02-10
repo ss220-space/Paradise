@@ -334,7 +334,7 @@
 /datum/reagent/hair_dye/reaction_mob(mob/living/M, volume)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		head_organ.facial_colour = rand_hex_color()
 		head_organ.sec_facial_colour = rand_hex_color()
 		head_organ.hair_colour = rand_hex_color()
@@ -355,7 +355,7 @@
 /datum/reagent/hairgrownium/reaction_mob(mob/living/M, volume)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
 		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
@@ -374,7 +374,7 @@
 /datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, volume)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
 		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
 
@@ -430,8 +430,7 @@
 				if(C == M)
 					continue
 				if(!C.stat)
-					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
-					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+					C.attack_hand(M)  //now real hugs, not fake
 					break
 	return ..()
 

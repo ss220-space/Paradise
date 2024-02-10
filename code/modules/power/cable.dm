@@ -98,12 +98,12 @@ By design, d1 is the smallest direction and d2 is the highest
 
 //If underfloor, hide the cable
 /obj/structure/cable/hide(i)
-
 	if(level == 1 && isturf(loc))
-		invisibility = i ? 101 : 0
-	updateicon()
+		invisibility = i ? INVISIBILITY_ABSTRACT : 0
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/cable/proc/updateicon()
+
+/obj/structure/cable/update_icon_state()
 	if(invisibility)
 		icon_state = "[d1]-[d2]-f"
 	else
@@ -503,13 +503,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 
-/obj/item/stack/cable_coil/suicide_act(mob/user)
-	if(locate(/obj/structure/chair/stool) in user.loc)
-		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	else
-		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return OXYLOSS
-
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
 	. = ..()
@@ -518,84 +511,34 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	recipes = GLOB.cable_coil_recipes
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	update_weight()
 
-
-///////////////////////////////////
-// General procedures
-///////////////////////////////////
-//you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/M, mob/user)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
-
-		if(!S)
-			return
-		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.open == 2)
-			return ..()
-
-		if(S.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
-			to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
-			return
-
-		if(!S.burn_dam)
-			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
-			return
-
-		if(H == user)
-			if(!do_mob(user, H, 10))
-				return 0
-		var/cable_used = 0
-		var/childlist
-		if(!isnull(S.children))
-			childlist = S.children.Copy()
-		var/parenthealed = FALSE
-		while(cable_used <= MAXCABLEPERHEAL && amount >= 1)
-			var/obj/item/organ/external/E
-			if(S.burn_dam)
-				E = S
-			else if(LAZYLEN(childlist))
-				E = pick_n_take(childlist)
-				if(!E.burn_dam || !E.is_robotic())
-					continue
-			else if(S.parent && !parenthealed)
-				E = S.parent
-				parenthealed = TRUE
-				if(!E.burn_dam || !E.is_robotic())
-					break
-			else
-				break
-			while(cable_used <= MAXCABLEPERHEAL && E.burn_dam && amount >= 1)
-				use(1)
-				cable_used += 1
-				E.heal_damage(0, HEALPERCABLE, 0, 1)
-				H.UpdateDamageIcon()
-			user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [E.name] with \the [src].</span>")
-		return 1
-
-	else
-		return ..()
 
 /obj/item/stack/cable_coil/split_stack()
 	var/obj/item/stack/cable_coil/C = ..()
 	C.color = color
 	return C
 
-/obj/item/stack/cable_coil/update_icon()
+
+/obj/item/stack/cable_coil/update_name(updates = ALL)
+	. = ..()
+	if(amount > 2)
+		name = "cable coil"
+	else
+		name = "cable piece"
+
+
+/obj/item/stack/cable_coil/update_icon_state()
 	if(!color)
 		color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_ORANGE, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
 	if(amount == 1)
 		icon_state = "coil1"
-		name = "cable piece"
 	else if(amount == 2)
 		icon_state = "coil2"
-		name = "cable piece"
 	else
 		icon_state = "coil"
-		name = "cable coil"
-	..()
+
 
 /obj/item/stack/cable_coil/update_weight()
 	if(amount == 1)
@@ -603,15 +546,78 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	else
 		w_class = WEIGHT_CLASS_SMALL
 
+
 /obj/item/stack/cable_coil/examine(mob/user)
 	. = ..()
-	if(in_range(user, src))
-		if(get_amount() == 1)
-			. += "<span class='notice'>A short piece of power cable.</span>"
-		else if(get_amount() == 2)
-			. += "<span class='notice'>A piece of power cable.</span>"
+	if(is_cyborg || !in_range(user, src))
+		return
+	if(get_amount() == 1)
+		. += span_notice("A short piece of power cable.")
+	else if(get_amount() == 2)
+		. += span_notice("A piece of power cable.")
+	else
+		. += span_notice("A coil of power cable. There are [get_amount()] lengths of cable in the coil.")
+
+
+/obj/item/stack/cable_coil/suicide_act(mob/user)
+	if(locate(/obj/structure/chair/stool) in user.loc)
+		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	else
+		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	return OXYLOSS
+
+
+///////////////////////////////////
+// General procedures
+///////////////////////////////////
+//you can use wires to heal robotics
+/obj/item/stack/cable_coil/attack(mob/living/carbon/human/target, mob/user)
+	if(!ishuman(target))
+		return ..()
+
+	var/obj/item/organ/external/target_organ = target.get_organ(check_zone(user.zone_selected))
+	if(!target_organ || !target_organ.is_robotic() || user.a_intent != INTENT_HELP || target_organ.open == 2)
+		return ..()
+
+	if(target_organ.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
+		to_chat(user, span_danger("The damage is far too severe to patch over externally."))
+		return FALSE
+
+	if(!target_organ.burn_dam)
+		to_chat(user, span_notice("Nothing to fix!"))
+		return FALSE
+
+	if(target == user)
+		if(!do_mob(user, target, 1 SECONDS))
+			return FALSE
+
+	var/cable_used = 0
+	var/list/childlist = LAZYLEN(target_organ.children) ? target_organ.children.Copy() : null
+	var/parenthealed = FALSE
+	while(cable_used <= MAXCABLEPERHEAL && amount)
+		var/obj/item/organ/external/current_organ
+		if(target_organ.burn_dam)
+			current_organ = target_organ
+		else if(LAZYLEN(childlist))
+			current_organ = pick_n_take(childlist)
+			if(!current_organ.burn_dam || !current_organ.is_robotic())
+				continue
+		else if(target_organ.parent && !parenthealed)
+			current_organ = target_organ.parent
+			parenthealed = TRUE
+			if(!current_organ.burn_dam || !current_organ.is_robotic())
+				break
 		else
-			. += "<span class='notice'>A coil of power cable. There are [get_amount()] lengths of cable in the coil.</span>"
+			break
+		while(cable_used <= MAXCABLEPERHEAL && current_organ.burn_dam && amount)
+			use(1)
+			cable_used++
+			current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
+		target.updatehealth("cable repair")
+		target.UpdateDamageIcon()
+		user.visible_message(span_alert("[user] repairs some burn damage on [target]'s [current_organ.name] with [src]."))
+	return TRUE
+
 
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
@@ -624,13 +630,13 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		var/obj/item/stack/cable_coil/C = W
 		// Cable merging is handled by parent proc
 		if(C.amount >= MAXCOIL)
-			to_chat(user, "The coil is as long as it will get.")
+			to_chat(user, span_warning("The coil is as long as it will get."))
 			return
-		if( (C.amount + src.amount <= MAXCOIL) )
-			to_chat(user, "You join the cable coils together.")
+		if(C.amount + amount <= MAXCOIL)
+			to_chat(user, span_notice("You join the cable coils together."))
 			return
 		else
-			to_chat(user, "You transfer cables from one coil to the other.")
+			to_chat(user, span_notice("You transfer cables from one coil to the other."))
 			return
 
 	if(istype(W, /obj/item/toy/crayon))
@@ -684,7 +690,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	C.d1 = 0 //it's a O-X node cable
 	C.d2 = dirn
 	C.add_fingerprint(user)
-	C.updateicon()
+	C.update_icon(UPDATE_ICON_STATE)
 
 	//create a new powernet with the cable, if needed it will be merged later
 	var/datum/powernet/PN = new()
@@ -703,6 +709,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			new /obj/item/stack/cable_coil(get_turf(C), 1, TRUE, C.color)
 			C.deconstruct()
 
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
 	return C
 
 // called when cable_coil is click on an installed obj/cable
@@ -727,46 +734,46 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		return
 
 	var/dirn = get_dir(C, user)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
 
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == dirn || C.d2 == dirn)
 		if(U.intact || U.transparent_floor)						// can't place a cable if the floor is complete
 			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
 			return
-		else
-			// cable is pointing at us, we're standing on an open tile
-			// so create a stub pointing at the clicked cable on our tile
+		// cable is pointing at us, we're standing on an open tile
+		// so create a stub pointing at the clicked cable on our tile
 
-			var/fdirn = turn(dirn, 180)		// the opposite direction
+		var/fdirn = turn(dirn, 180)		// the opposite direction
 
-			for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
-				if(LC.d1 == fdirn || LC.d2 == fdirn)
-					to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
-					return
+		for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
+			if(LC.d1 == fdirn || LC.d2 == fdirn)
+				to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+				return
 
-			var/obj/structure/cable/NC = get_new_cable (U)
+		var/obj/structure/cable/NC = get_new_cable (U)
 
-			NC.d1 = 0
-			NC.d2 = fdirn
-			NC.add_fingerprint(user)
-			NC.update_icon()
+		NC.d1 = 0
+		NC.d2 = fdirn
+		NC.add_fingerprint(user)
+		NC.update_icon()
 
-			//create a new powernet with the cable, if needed it will be merged later
-			var/datum/powernet/newPN = new()
-			newPN.add_cable(NC)
+		//create a new powernet with the cable, if needed it will be merged later
+		var/datum/powernet/newPN = new()
+		newPN.add_cable(NC)
 
-			NC.mergeConnectedNetworks(NC.d2) //merge the powernet with adjacents powernets
-			NC.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
+		NC.mergeConnectedNetworks(NC.d2) //merge the powernet with adjacents powernets
+		NC.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
 
-			if(NC.d2 & (NC.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
-				NC.mergeDiagonalsNetworks(NC.d2)
+		if(NC.d2 & (NC.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
+			NC.mergeDiagonalsNetworks(NC.d2)
 
-			use(1)
+		use(1)
 
-			if(NC.shock(user, 50))
-				if(prob(50)) //fail
-					NC.deconstruct()
-			return
+		if(NC.shock(user, 50))
+			if(prob(50)) //fail
+				NC.deconstruct()
+				return
 
 	// exisiting cable doesn't point at our position, so see if it's a stub
 	else if(C.d1 == 0)
@@ -794,7 +801,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		C.d2 = nd2
 
 		C.add_fingerprint()
-		C.updateicon()
+		C.update_icon(UPDATE_ICON_STATE)
 
 
 		C.mergeConnectedNetworks(C.d1) //merge the powernets...
@@ -815,7 +822,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				return
 
 		C.denode()// this call may have disconnected some cables that terminated on the centre of the turf, if so split the powernets.
-		return
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
 
 //////////////////////////////
 // Misc.

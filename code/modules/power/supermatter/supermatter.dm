@@ -27,7 +27,6 @@
 #define DETONATION_HALLUCINATION 600
 
 
-
 #define WARNING_DELAY 20			//seconds between warnings.
 /obj/machinery/power/supermatter_shard
 	name = "supermatter shard"
@@ -42,7 +41,7 @@
 
 	var/gasefficency = 0.125
 
-	var/base_icon_state = "darkmatter_shard"
+	base_icon_state = "darkmatter_shard"
 
 	var/damage = 0
 	var/damage_archived = 0
@@ -86,6 +85,8 @@
 	var/has_been_powered = 0
 	var/has_reached_emergency = 0
 
+	var/datum/supermatter_explosive_effects/supermatter_explosive_effects
+
 /obj/machinery/power/supermatter_shard/crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -108,6 +109,8 @@
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", INVESTIGATE_ENGINE)
+	supermatter_explosive_effects = new()
+	supermatter_explosive_effects.z = src.z
 
 
 /obj/machinery/power/supermatter_shard/proc/handle_admin_warnings()
@@ -145,6 +148,8 @@
 
 /obj/machinery/power/supermatter_shard/proc/explode()
 	investigate_log("has exploded.", INVESTIGATE_ENGINE)
+	supermatter_explosive_effects.z = src.z
+	supermatter_explosive_effects.handle_special_effects()
 	explosion(get_turf(src), explosion_power, explosion_power * 1.2, explosion_power * 1.5, explosion_power * 2, 1, 1, cause = src)
 	qdel(src)
 	return
@@ -194,7 +199,6 @@
 							H.last_hallucinator_log = "Supermatter explosion"
 						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
 						mob.apply_effect(rads, IRRADIATE)
-
 			explode()
 			emergency_lighting(0)
 
@@ -260,13 +264,15 @@
 	transfer_energy()
 
 	for(var/mob/living/carbon/human/l in view(src, min(7, round(sqrt(power/6)))))
-		// If they can see it without mesons on.  Bad on them.
-		if(l.glasses && istype(l.glasses, /obj/item/clothing/glasses/meson))
+		// No more hallucinate for ded pipol.
+		if(!l.stat)
 			continue
 		// Where we're going, we don't need eyes.
-		// Prosthetic eyes will also protect against this business.
 		var/obj/item/organ/internal/eyes/eyes = l.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(eyes))
+			continue
+		// If they can see it without mesons on or can see objects through mesons. Bad on them.
+		if((l.sight >= SEE_TURFS) && !(l.sight >= (SEE_TURFS|SEE_OBJS)))
 			continue
 		l.Hallucinate(min(200 SECONDS, l.AmountHallucinate() + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
 		l.last_hallucinator_log = "seeing SM without mesons"
@@ -460,7 +466,7 @@
 		var/rads = 500 * sqrt( 1 / (get_dist(L, src) + 1) )
 		L.apply_effect(rads, IRRADIATE)
 		investigate_log("has irradiated [L] after consuming [AM].", INVESTIGATE_ENGINE)
-		if(L in view())
+		if(src in view(L.client.maxview()))
 			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
 		else

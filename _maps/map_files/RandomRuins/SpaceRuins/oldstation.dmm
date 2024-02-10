@@ -620,7 +620,7 @@
 "eY" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/item/folder/blue,
 /obj/item/pen,
 /turf/simulated/floor/plasteel,
@@ -2562,6 +2562,7 @@
 /area/ruin/space/ancientstation/hydroponics)
 "vf" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
@@ -3571,7 +3572,7 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Do" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -6053,7 +6054,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation)
 "Wc" = (

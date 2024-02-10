@@ -197,7 +197,6 @@
 	death_sound = 'sound/creatures/mouse_squeak.ogg'
 	health = 3
 	maxHealth = 3
-	blood_nutrients = 20
 	ventcrawler = 2
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -247,7 +246,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
-	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
+	food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -257,7 +256,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	talk_sound = list('sound/creatures/chicken_talk.ogg')
 	health = 15
 	maxHealth = 15
-	blood_nutrients = 30
 	ventcrawler = 2
 	var/eggsleft = 0
 	var/eggsFertile = TRUE

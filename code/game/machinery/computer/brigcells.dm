@@ -17,8 +17,12 @@
 /obj/machinery/computer/brigcells/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
+	if(..())
+		return TRUE
+
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -51,7 +55,7 @@
 		return FALSE
 
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return FALSE
 

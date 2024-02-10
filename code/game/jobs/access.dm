@@ -1,4 +1,4 @@
-/obj/var/list/req_access = list()
+/obj/var/list/req_access
 /obj/var/check_one_access = TRUE
 
 //returns 1 if this mob has sufficient access to use this object
@@ -32,25 +32,25 @@
 		L = list()
 	return check_access_list(L)
 
-/obj/proc/check_access_list(var/list/L)
+/obj/proc/check_access_list(list/L)
 	if(!L)
-		return 0
+		return FALSE
 	if(!istype(L, /list))
-		return 0
+		return FALSE
 	return has_access(req_access, check_one_access, L)
 
-/proc/has_access(var/list/req_access, check_one_access, var/list/accesses)
+/proc/has_access(list/req_access, check_one_access, list/accesses)
 	if(check_one_access)
-		if(req_access.len)
+		if(length(req_access))
 			for(var/req in req_access)
 				if(req in accesses) //has an access from the single access list
-					return 1
-			return 0
+					return TRUE
+			return FALSE
 	else
 		for(var/req in req_access)
 			if(!(req in accesses)) //doesn't have this access
-				return 0
-	return 1
+				return FALSE
+	return TRUE
 
 /proc/get_centcom_access(job)
 	switch(job)
@@ -458,50 +458,7 @@
 /proc/get_all_special_jobs()
 	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
 
-//gets the actual job rank (ignoring alt titles)
-//this is used solely for sechuds
-/obj/proc/GetJobRealName()
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/rank
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			rank = src:id:rank
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		rank = src:rank
-		assignment = src:assignment
-
-	if( rank in GLOB.joblist )
-		return rank
-
-	if( assignment in GLOB.joblist )
-		return assignment
-
-	return "Unknown"
-
-//gets the alt title, failing that the actual job rank
-//this is unused
-// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
-/obj/proc/sdsdsd()	//GetJobDisplayName
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		assignment = src:assignment
-
-	if(assignment)
-		return assignment
-
-	return "Unknown"
-
-/proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -509,35 +466,6 @@
 	if(H.get_active_hand())
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
-
-/proc/FindNameFromID(var/mob/living/carbon/human/H)
-	ASSERT(istype(H))
-	var/obj/item/card/id/C = H.get_active_hand()
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
-
-	C = H.wear_id
-
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
 
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")
@@ -559,6 +487,11 @@
 	var/special = get_all_special_jobs()
 
 	if(rankName in centcom) //Return with the NT logo if it is a Centcom job
+		switch(rankName)
+			if("Deathsquad Officer")
+				return "deathsquad"
+			if("Death Commando")
+				return "deathsquad"
 		return "Centcom"
 
 	if(rankName in solgov) //Return with the SolGov logo if it is a SolGov job

@@ -8,7 +8,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
-/obj/item/clothing/head/helmet/space/chronos/dropped()
+/obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, silent = FALSE)
 	if(suit)
 		suit.deactivate()
 	..()
@@ -48,7 +48,7 @@
 		else
 			deactivate()
 
-/obj/item/clothing/suit/space/chronos/dropped()
+/obj/item/clothing/suit/space/chronos/dropped(mob/user, silent = FALSE)
 	if(activated)
 		deactivate()
 	..()
@@ -181,7 +181,7 @@
 	name = "Chronosuit View"
 	density = 0
 	anchored = 1
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	opacity = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null

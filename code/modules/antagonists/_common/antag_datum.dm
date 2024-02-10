@@ -37,6 +37,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_gain_text = "You are no longer clumsy."
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
+	/// If antagonist has his own wiki page
+	var/wiki_page_name
+	/// Russian name of wiki page
+	var/russian_wiki_name
 
 
 /datum/antagonist/New()
@@ -103,6 +107,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	message_admins("[key_name_admin(chosen)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
 	owner.current.ghostize(FALSE)
 	owner.current.key = chosen.key
+	log_game("[owner.current.key] has taken control of ([owner.current]) to replace a jobbaned player.")
 	return TRUE
 
 
@@ -117,16 +122,21 @@ GLOBAL_LIST_EMPTY(antagonists)
 	add_owner_to_gamemode()
 	if(give_objectives)
 		give_objectives()
+	var/list/messages = list()
 	if(!silent)
-		greet()
-		announce_objectives()
+		messages.Add(greet())
+		messages.Add(owner.prepare_announce_objectives())
 	apply_innate_effects()
-	finalize_antag()
+	messages.Add(finalize_antag())
+	if(wiki_page_name)
+		messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/[wiki_page_name]\">[russian_wiki_name]</span>")
+	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
 	return TRUE
+
 
 
 /**
@@ -149,8 +159,10 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Called in `on_gain()` if silent it set to FALSE.
  */
 /datum/antagonist/proc/greet()
+	var/list/messages = list()
+	. = messages
 	if(owner?.current && !silent)
-		to_chat(owner.current, span_userdanger("You are a [special_role]!"))
+		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
 
 
 /**
@@ -323,7 +335,9 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * mob/target_override - a target for the objective
  */
 /datum/antagonist/proc/add_objective(objective_type, explanation_text = "", mob/target_override = null)
-	var/datum/objective/new_objective = new objective_type(explanation_text)
+	var/datum/objective/new_objective = objective_type
+	if(ispath(objective_type))
+		new_objective = new objective_type(explanation_text)
 	new_objective.owner = owner
 
 	if(!new_objective.needs_target)
@@ -339,22 +353,20 @@ GLOBAL_LIST_EMPTY(antagonists)
 	else
 		if(istype(new_objective, /datum/objective/steal))
 			var/datum/objective/steal/our_objective = new_objective
-			var/list/steal_targets = list()
+			var/list/steal_target_ids = list()
 			for(var/datum/objective/steal/steal_objective in owner.get_all_objectives())
-				if(!steal_objective.steal_target.name)
+				if(!steal_objective.steal_target?.id)
 					continue
-				steal_targets |= steal_objective.steal_target.name
-			our_objective.find_target(target_blacklist = steal_targets)
+				steal_target_ids |= steal_objective.steal_target.id
 
-			if(our_objective.steal_target)
+			if(our_objective.find_target(target_blacklist = steal_target_ids))
 				found_valid_target = TRUE
 
 		else
 			var/list/general_targets = list()
 			for(var/datum/objective/general_objective in owner.get_all_objectives())
-				if(istype(general_objective, /datum/objective/steal))
+				if(istype(general_objective, /datum/objective/steal) || !general_objective.target)
 					continue
-
 				general_targets |= general_objective.target
 
 			new_objective.find_target(target_blacklist = general_targets)

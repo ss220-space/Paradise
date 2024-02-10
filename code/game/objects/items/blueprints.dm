@@ -162,19 +162,24 @@
 		set_viewer(usr)
 
 	attack_self(usr)
-/obj/item/areaeditor/blueprints/proc/get_images(turf/T, viewsize)
+
+
+/obj/item/areaeditor/blueprints/proc/get_images(turf/central_turf, viewsize)
 	. = list()
-	for(var/tt in RANGE_TURFS(viewsize, T))
-		var/turf/TT = tt
-		if(TT.blueprint_data)
-			. += TT.blueprint_data
+	var/list/dimensions = getviewsize(viewsize)
+	var/horizontal_radius = dimensions[1] / 2
+	var/vertical_radius = dimensions[2] / 2
+	for(var/turf/nearby_turf as anything in RECT_TURFS(horizontal_radius, vertical_radius, central_turf))
+		if(nearby_turf.blueprint_data)
+			. += nearby_turf.blueprint_data
+
 
 /obj/item/areaeditor/blueprints/proc/set_viewer(mob/user, message = "")
 	if(user && user.client)
 		if(viewing)
 			clear_viewer()
 		viewing = user.client
-		showing = get_images(get_turf(user), viewing.view)
+		showing = get_images(get_turf(viewing.eye || user), viewing.view)
 		viewing.images |= showing
 		if(message)
 			to_chat(user, message)
@@ -187,7 +192,7 @@
 	if(message)
 		to_chat(user, message)
 
-/obj/item/areaeditor/blueprints/dropped(mob/user)
+/obj/item/areaeditor/blueprints/dropped(mob/user, silent = FALSE)
 	..()
 	clear_viewer()
 
@@ -238,6 +243,7 @@
 		A.power_light = FALSE
 		A.power_environ = FALSE
 		A.always_unpowered = FALSE
+		A.valid_territory = FALSE
 		A.set_dynamic_lighting()
 
 		for(var/i in 1 to turfs.len)
@@ -252,6 +258,7 @@
 		A.power_light = FALSE
 		A.power_environ = FALSE
 		A.always_unpowered = FALSE
+		A.valid_territory = FALSE
 		A.set_dynamic_lighting()
 
 		for(var/i in 1 to turfs.len)
@@ -293,15 +300,15 @@
 /obj/item/areaeditor/proc/set_area_machinery_title(var/area/A,var/title,var/oldtitle)
 	if(!oldtitle) // or replacetext goes to infinite loop
 		return
-	for(var/obj/machinery/alarm/M in A)
+	for(var/obj/machinery/alarm/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/power/apc/M in A)
+	for(var/obj/machinery/power/apc/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/atmospherics/unary/vent_scrubber/M in A)
+	for(var/obj/machinery/atmospherics/unary/vent_scrubber/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/atmospherics/unary/vent_pump/M in A)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/door/M in A)
+	for(var/obj/machinery/door/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 

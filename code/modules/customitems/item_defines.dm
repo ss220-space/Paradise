@@ -345,12 +345,12 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-			"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-			"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-			"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-			"Neara" = 'icons/mob/species/monkey/mask.dmi',
-			"Stok" = 'icons/mob/species/monkey/mask.dmi'
+			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+			"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+			"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -712,7 +712,7 @@
 			"mask_flags"	= HIDEMASK|HIDENAME
 			)
 
-		var/choice = input(user, "How would you like to adjust the helmet?", "Adjust Helmet") as null|anything in options
+		var/choice = tgui_input_list(user, "How would you like to adjust the helmet?", "Adjust Helmet", options)
 
 		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
 			var/list/new_state = options[choice]
@@ -732,7 +732,7 @@
 //////////// Suits ////////////
 /obj/item/clothing/suit/fluff
 	icon = 'icons/obj/custom_items.dmi'
-	actions_types = list()
+	actions_types = null
 	ignore_suitadjust = 1
 	adjust_flavour = null
 	sprite_sheets = null
@@ -744,7 +744,7 @@
 	icon_state = "pulsecoat"
 	item_state = "pulsecoat"
 	ignore_suitadjust = 1
-	actions_types = list()
+	actions_types = null
 
 /obj/item/clothing/suit/jacket/miljacket/patch // sniper_fairy : P.A.T.C.H.
 	name = "custom purple military jacket"
@@ -779,7 +779,7 @@
 	options["lime"] ="shazjacket_lime"
 	options["army green"] ="shazjacket_army"
 
-	var/choice = input(user, "What color do you wish your jacket to be?", "Change color") as null|anything in options
+	var/choice = tgui_input_list(user, "What color do you wish your jacket to be?", "Change color", options)
 
 	if(choice && !user.stat && in_range(user, src))
 		if(suit_adjusted)
@@ -833,7 +833,7 @@
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 	ignore_suitadjust = 1
-	actions_types = list()
+	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -843,7 +843,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jacksvest"
 	ignore_suitadjust = TRUE
-	actions_types = list()
+	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -946,12 +946,12 @@
 	icon_state = "k3_webbing"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
@@ -1092,6 +1092,7 @@
 	icon_state = "fallout_dress"
 	item_state = "fallout_dress"
 	item_color = "fallout_dress"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
     icon = 'icons/obj/custom_items.dmi'
@@ -1256,15 +1257,15 @@
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
 								 "coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
 
-/obj/item/toy/plushie/fluff/fox/proc/change_color()
+/obj/item/toy/plushie/fluff/fox/proc/change_color(mob/user)
 	if(prompting_change)
 		return
 	prompting_change = TRUE
-	var/plushie_color = input("Select a color", "[src]") as null|anything in plush_colors
+	var/plushie_color = tgui_input_list(user, "Select a color", "[src]", plush_colors)
 	prompting_change = FALSE
 	if(!plushie_color)
 		return
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 	name = plushie_color
 	icon_state = plush_colors[plushie_color]
@@ -1273,7 +1274,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/toy/plushie/fluff/fox/ui_action_click()
+/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
 	change_color()
 
 
@@ -1435,7 +1436,7 @@
 	options["Syndicate"] = "syndie_witch"
 	options["Nanotrasen"] ="nt_witch"
 
-	var/choice = input(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat") as null|anything in options
+	var/choice = tgui_input_list(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat", options)
 
 	if(choice && !user.stat && in_range(user, src))
 		icon_state = options[choice]
@@ -1522,7 +1523,10 @@
 	pod.icon_state = "pod_dece"
 	pod.name = "sleek spacepod"
 	pod.desc = "A modified varient of a space pod."
+	pod.pod_paint_effect = null
 	pod.can_paint = FALSE
+	pod.has_paint = FALSE
+	pod.update_icons()
 	used = 1
 	qdel(src)
 
@@ -1613,7 +1617,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
@@ -1636,7 +1640,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/mask.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 	icon_state = "kiamask"
 	item_state = "kiamask"
 	item_color = "kiamask"
@@ -1669,7 +1673,7 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"

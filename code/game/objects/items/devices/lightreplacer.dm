@@ -152,7 +152,7 @@
 		return
 	return ..()
 
-/obj/item/lightreplacer/emag_act(user as mob)
+/obj/item/lightreplacer/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		Emag()
@@ -251,7 +251,7 @@
 		return
 	if(!isturf(T))
 		return
-	if(get_dist(src, T) >= (U.client.view + 2)) // To prevent people from using it over cameras
+	if(get_dist(src, T) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
 		return
 
 	var/used = FALSE

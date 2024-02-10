@@ -2,7 +2,10 @@
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "hudvampire"
+	job_rank = ROLE_VAMPIRE
 	special_role = SPECIAL_ROLE_VAMPIRE
+	wiki_page_name = "Vampire"
+	russian_wiki_name = "Вампир"
 	var/bloodtotal = 0
 	var/bloodusable = 0
 	/// What vampire subclass the vampire is.
@@ -15,6 +18,8 @@
 	var/mob/living/carbon/human/draining
 	/// Nullrods and holywater make their abilities cost more.
 	var/nullified = 0
+	/// Time between each suck iteration.
+	var/suck_rate = 5 SECONDS
 	/// List of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum.
 	var/list/upgrade_tiers = list(/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
 									/obj/effect/proc_holder/spell/vampire/glare = 0,
@@ -24,22 +29,34 @@
 
 	/// List of the peoples UIDs that we have drained, and how much blood from each one.
 	var/list/drained_humans = list()
+	/// List of the peoples UIDs that we have dissected, and how many times for each one.
+	var/list/dissected_humans = list()
+	/// Associated list of all damage modifiers human vampire has.
+	var/list/damage_modifiers = list(
+		BRUTE = 0,
+		BURN = 0,
+		TOX = 0,
+		OXY = 0,
+		CLONE = 0,
+		BRAIN = 0,
+		STAMINA = 0
+	)
 
 
 /datum/antagonist/vampire/Destroy(force, ...)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
-	//QDEL_NULL(subclass)
+	QDEL_NULL(subclass)
 	return ..()
 
 
 /datum/antagonist/vampire/greet()
-	var/dat
+	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	dat = "<span class='danger'>You are a Vampire!</span><br>"
-	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
-		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
-	to_chat(owner.current, dat)
+	messages.Add("<span class='danger'>You are a Vampire!</span><br>")
+	messages.Add("To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers. \
+		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water.")
+	return messages
 
 
 /datum/antagonist/vampire/farewell()
@@ -68,28 +85,47 @@
 	SSticker.mode.vampires -= owner
 
 
-/datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)
-	mob_override = ..()
+/datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	if(isvampireanimal(new_body))
+		remove_innate_effects(old_body, transformation = TRUE)
+		apply_innate_effects(new_body, transformation = TRUE)
+	else
+		remove_innate_effects(old_body)
+		apply_innate_effects(new_body)
+
+
+/datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override, transformation = FALSE)
+	var/mob/living/user = ..()
+
 	if(!owner.som) //thralls and mindslaves
 		owner.som = new()
 		owner.som.masters += owner
 
-	mob_override.dna.species.hunger_type = "vampire"
-	mob_override.dna.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
-	check_vampire_upgrade(FALSE)
+	if(!transformation)
+		check_vampire_upgrade(announce = FALSE)
+		user.faction |= ROLE_VAMPIRE
+		user.dna?.species?.hunger_type = "vampire"
+		user.dna?.species?.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 
 
-/datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	remove_all_powers()
-	var/datum/hud/hud = mob_override.hud_used
-	if(hud?.vampire_blood_display)
-		hud.remove_vampire_hud()
+/datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
+	var/mob/living/user = ..()
 
-	mob_override.dna.species.hunger_type = initial(mob_override.dna.species.hunger_type)
-	mob_override.dna.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
-	animate(mob_override, alpha = 255)
-	REMOVE_TRAITS_IN(mob_override, VAMPIRE_TRAIT)
+	if(!mob_override)	// mob override means body transfer
+		remove_all_powers()
+
+	if(!transformation)
+		user.faction -= ROLE_VAMPIRE
+
+		var/datum/hud/hud = user.hud_used
+		if(hud?.vampire_blood_display)
+			hud.remove_vampire_hud()
+
+		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
+		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
+
+	animate(user, alpha = 255)
+	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 
 
 /**
@@ -117,6 +153,7 @@
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
 		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
 
+	suck_rate = initial(suck_rate)
 	remove_all_powers()
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
@@ -143,12 +180,28 @@
 
 
 #define BLOOD_GAINED_MODIFIER 0.5
+#define CLOSING_IN_TIME_MOD 0.2
+#define GRABBING_TIME_MOD 0.3
+#define BITE_TIME_MOD 0.15
+#define STATE_CLOSING_IN 1
+#define STATE_GRABBING 2
+#define STATE_BITE 3
+#define STATE_SUCKING 4
 
-/datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate = 5 SECONDS)
+/datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate_override)
 	draining = target
 	var/unique_suck_id = target.UID()
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
+	var/cycle_counter = 0
+	var/time_per_action
+	var/vampire_dir = get_dir(owner.current, target)
+
+	var/suck_rate_final
+	if(suck_rate_override)
+		suck_rate_final = suck_rate_override
+	else
+		suck_rate_final = suck_rate
 
 	if(owner.current.is_muzzled())
 		to_chat(owner.current, span_warning("[owner.current.wear_mask] prevents you from biting [target]!"))
@@ -156,18 +209,52 @@
 		return
 
 	add_attack_logs(owner.current, target, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
-	owner.current.visible_message(span_danger("[owner.current] grabs [target]'s neck harshly and sinks in [owner.current.p_their()] fangs!"), \
-								span_danger("You sink your fangs into [target] and begin to drain [target.p_their()] blood."), \
-								span_italics("You hear a soft puncture and a wet sucking noise."))
 
 	if(!iscarbon(owner.current))
 		target.LAssailant = null
 	else
 		target.LAssailant = owner.current
 
-	while(do_mob(owner.current, target, suck_rate))
+	var/is_target_grabbed = FALSE
+	for(var/obj/item/grab/grab in target.grabbed_by)
+		var/mob/living/carbon/grabber = grab.assailant
+		if(owner.current == grabber)
+			is_target_grabbed = TRUE
+
+	if(!is_target_grabbed || vampire_dir == NORTHEAST || vampire_dir == NORTHWEST || \
+		vampire_dir ==  SOUTHEAST || vampire_dir ==  SOUTHWEST)
+		//first, the vampire gets closer to the victim, its quick
+		time_per_action = suck_rate_final*CLOSING_IN_TIME_MOD
+	else
+		//skip getting_closer_animation(), if we are already close enough
+		cycle_counter = STATE_GRABBING
+		time_per_action = suck_rate_final*BITE_TIME_MOD
+
+	while(do_mob(owner.current, target, time_per_action))
+		cycle_counter++
 		owner.current.face_atom(target)
-		owner.current.do_attack_animation(target, ATTACK_EFFECT_BITE)
+
+		switch(cycle_counter)
+			if(STATE_CLOSING_IN)
+				owner.current.visible_message(span_danger("[owner.current] gets closer to [target]"), \
+					span_danger("You getting closer to [target]"))
+				getting_closer_animation(target, STATE_CLOSING_IN, vampire_dir)
+				time_per_action = suck_rate_final*GRABBING_TIME_MOD
+				continue
+			if(STATE_GRABBING)
+				owner.current.visible_message(span_danger("[owner.current] grabs [target]'s neck harshly"), \
+					span_danger("You grabs [target]'s neck harshly"))
+				getting_closer_animation(target, STATE_GRABBING, vampire_dir)
+				time_per_action = suck_rate_final*BITE_TIME_MOD
+				continue
+			if(STATE_BITE)
+				owner.current.visible_message(span_danger("[owner.current] sinks in [owner.current.p_their()] fangs!"), \
+					span_danger("You sink your fangs into [target] and begin to drain [target.p_their()] blood."), \
+					span_italics("You hear a soft puncture and a wet sucking noise."))
+				bite_animation(target, vampire_dir)
+				time_per_action = suck_rate_final
+				continue
+
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(owner.current, span_warning("You have drained most of the life force from [target]'s blood, and you will get no more useable blood from them!"))
@@ -204,16 +291,78 @@
 		else
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + (blood / 2)))
 
+	stop_sucking(target)
+
+
+/datum/antagonist/vampire/proc/getting_closer_animation(mob/living/carbon/human/target, stage, vampire_dir)
+	var/shift = 0
+	owner.current.layer = MOB_LAYER
+	switch(stage)
+		if(STATE_CLOSING_IN)
+			shift = 8
+		if(STATE_GRABBING)
+			shift = 20
+
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
+
+	if(vampire_dir & NORTH)
+		pixel_y_diff = shift
+	else if(vampire_dir & SOUTH)
+		pixel_y_diff = -shift
+		//If vampire is standing north of the target and facing south, the target should be displayed on top of the vampire
+		owner.current.layer = BEHIND_MOB_LAYER
+
+	if(vampire_dir & EAST)
+		pixel_x_diff = shift
+	else if(vampire_dir & WEST)
+		pixel_x_diff = -shift
+
+	animate(owner.current, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, 5, 1, LINEAR_EASING)
+
+/datum/antagonist/vampire/proc/bite_animation(mob/living/carbon/human/target, vampire_dir)
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
+
+	if(vampire_dir & NORTH)
+		pixel_y_diff = 8
+	else if(vampire_dir & SOUTH)
+		pixel_y_diff = -8
+
+	if(vampire_dir & EAST)
+		pixel_x_diff = 8
+	else if(vampire_dir & WEST)
+		pixel_x_diff = -8
+	animate(owner.current, pixel_x = owner.current.pixel_x + pixel_x_diff, pixel_y = owner.current.pixel_y + pixel_y_diff, time = 0.5)
+	animate(pixel_x = owner.current.pixel_x - pixel_x_diff, pixel_y = owner.current.pixel_y - pixel_y_diff, time = 7)
+	owner.current.do_item_attack_animation(target, ATTACK_EFFECT_BITE)
+
+
+/datum/antagonist/vampire/proc/stop_sucking(mob/living/carbon/human/target)
 	draining = null
 	to_chat(owner.current, span_notice("You stop draining [target.name] of blood."))
+	owner.current.pixel_x = 0
+	owner.current.pixel_y = 0
+	owner.current.layer = initial(owner.current.layer)
 
 #undef BLOOD_GAINED_MODIFIER
-
+#undef CLOSING_IN_TIME_MOD
+#undef GRABBING_TIME_MOD
+#undef BITE_TIME_MOD
+#undef STATE_CLOSING_IN
+#undef STATE_GRABBING
+#undef STATE_BITE
+#undef STATE_SUCKING
 
 /datum/antagonist/vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
 	if(istype(spell, /obj/effect/proc_holder/spell))
 		owner.AddSpell(spell)
+		if(istype(spell, /obj/effect/proc_holder/spell/vampire) && subclass)
+			var/obj/effect/proc_holder/spell/vampire/v_spell = spell
+			v_spell.on_trophie_update(src, force = TRUE)
+		if(istype(spell, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
+			subclass.spell_TGUI = spell
 
 	if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
@@ -222,6 +371,7 @@
 
 	powers += spell
 	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
+	return spell
 
 
 /datum/antagonist/vampire/proc/get_ability(path)
@@ -240,6 +390,8 @@
 	if(ability && (ability in powers))
 		powers -= ability
 		owner.spell_list.Remove(ability)
+		if(istype(ability, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
+			subclass.spell_TGUI = null
 		qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
@@ -262,9 +414,14 @@
 
 	if(!subclass)
 		return
+
 	subclass.add_subclass_ability(src)
 
+	if(subclass.spell_TGUI)
+		SStgui.update_uis(subclass.spell_TGUI, TRUE)
+
 	check_full_power_upgrade()
+	check_trophies_passives()
 
 	if(announce)
 		announce_new_power(old_powers)
@@ -320,6 +477,20 @@
 
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
+
+	if(isvampireanimal(owner.current))
+		var/half_health = round(owner.current.maxHealth / 2)
+
+		if(prob(burn_chance) && owner.current.health >= half_health)
+			to_chat(owner.current, span_warning("You feel incredible heat!"))
+			owner.current.adjustFireLoss(3)
+
+		else if(owner.current.health < half_health)
+			to_chat(owner.current, span_warning("You are melting!"))
+			owner.current.adjustFireLoss(8)
+
+		return
+
 	if(prob(burn_chance) && owner.current.health >= 50)
 		switch(owner.current.health)
 			if(75 to 100)
@@ -339,16 +510,7 @@
 
 
 /datum/antagonist/vampire/proc/handle_vampire()
-	if(owner.current.hud_used)
-		var/datum/hud/hud = owner.current.hud_used
-		if(!hud.vampire_blood_display)
-			hud.vampire_blood_display = new /obj/screen()
-			hud.vampire_blood_display.name = "Usable Blood"
-			hud.vampire_blood_display.icon_state = "blood_display"
-			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
-			hud.static_inventory += hud.vampire_blood_display
-			hud.show_hud(hud.hud_version)
-		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
+	draw_HUD()
 
 	handle_vampire_cloak()
 	if(isspaceturf(get_turf(owner.current)))
@@ -358,6 +520,21 @@
 		vamp_burn(7)
 
 	nullified = max(0, nullified - 2)
+
+
+/datum/antagonist/vampire/proc/draw_HUD()
+	var/datum/hud/hud = owner?.current?.hud_used
+	if(!hud)
+		return
+
+	if(!hud.vampire_blood_display)
+		hud.vampire_blood_display = new /obj/screen()
+		hud.vampire_blood_display.name = "Usable Blood"
+		hud.vampire_blood_display.icon_state = "blood_display"
+		hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
+		hud.static_inventory += hud.vampire_blood_display
+		hud.show_hud(hud.hud_version)
+	hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
 
 
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
@@ -463,13 +640,15 @@
 
 
 /datum/antagonist/mindslave/thrall/apply_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
+	var/mob/living/user = ..()
+	user.faction |= ROLE_VAMPIRE
+	if(!mob_override)
+		user.mind?.AddSpell(new /obj/effect/proc_holder/spell/vampire/thrall_commune)
 
 
 /datum/antagonist/mindslave/thrall/remove_innate_effects(mob/living/mob_override)
-	mob_override = ..()
-	var/datum/mind/M = mob_override.mind
-	M.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
+	var/mob/living/user = ..()
+	user.faction -= ROLE_VAMPIRE
+	if(!mob_override)
+		user.mind?.RemoveSpell(/obj/effect/proc_holder/spell/vampire/thrall_commune)
 

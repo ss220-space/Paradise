@@ -54,6 +54,10 @@
 	active_camera = null
 	return ..()
 
+/obj/machinery/computer/security/process()
+	. = ..()
+	update_camera_view()
+
 /obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -135,7 +139,7 @@
 		return TRUE
 
 /obj/machinery/computer/security/proc/update_camera_view()
-	if(!active_camera)
+	if(!active_camera || !active_camera.can_use())
 		return
 	var/list/visible_turfs = list()
 	for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))
@@ -179,7 +183,7 @@
 
 /obj/machinery/computer/security/attack_ai(mob/user)
 	if(isAI(user))
-		to_chat(user, "<span class='notice'>You realise it's kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips.</span>")
+		to_chat(user, span_notice("You realise its kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips"))
 		return
 
 	ui_interact(user)
@@ -194,7 +198,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+	var/direction = tgui_input_list(user, "Which direction?", "Select direction!", list("North", "East", "South", "West", "Centre"))
 	if(!direction || !Adjacent(user))
 		return
 	pixel_x = 0
@@ -229,7 +233,34 @@
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
+	layer = 4 //becouse of plasma glass with layer = 3
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+
+/obj/machinery/computer/security/telescreen/singularity
+	name = "Singularity Engine Telescreen"
+	desc = "Used for watching the singularity chamber."
+	network = list("Singularity")
+	circuit = /obj/item/circuitboard/camera/telescreen/singularity
+
+/obj/machinery/computer/security/telescreen/toxin_chamber
+	name = "Toxins Telescreen"
+	desc = "Used for watching the test chamber."
+	network = list("Toxins")
+
+/obj/machinery/computer/security/telescreen/test_chamber
+	name = "Test Chamber Telescreen"
+	desc = "Used for watching the test chamber."
+	network = list("TestChamber")
+
+/obj/machinery/computer/security/telescreen/research
+	name = "Research Monitor"
+	desc = "Used for watching the RD's goons from the safety of his office."
+	network = list("Research","Research Outpost","RD")
+
+/obj/machinery/computer/security/telescreen/prison
+	name = "Prison Monitor"
+	desc = "Used for watching Prison Wing holding areas."
+	network = list("Prison")
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"

@@ -36,6 +36,7 @@
 	if(current)
 		qdel(current)
 		to_chat(user, span_notice("You dispel your claws!"))
+		return COMPONENT_CANCEL_DROP
 
 
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
@@ -58,7 +59,7 @@
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
-	sprite_sheets_inhand = list("Vox" = 'icons/mob/species/vox/held.dmi', "Drask" = 'icons/mob/species/drask/held.dmi')
+	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
 	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
@@ -91,12 +92,13 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		// no parameter in [affects_vampire()] so holy always protects
-		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
+		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna?.species?.species_traits))
 			C.bleed(blood_drain_amount)
-			V.adjust_blood(C, blood_absorbed_amount)
 			attacker.adjustStaminaLoss(-20) // security is dead
 			attacker.heal_overall_damage(4, 4) // the station is full
 			attacker.AdjustWeakened(-1 SECONDS) // blood is fuel
+			if(!C.dna.species.exotic_blood)
+				V.adjust_blood(C, blood_absorbed_amount)
 
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
 		durability--
@@ -314,7 +316,7 @@
 	name = "Sanguine Pool"
 	desc = "You shift your form into a pool of blood, making you invulnerable and able to move through anything that's not a wall or space. You leave a trail of blood behind you when you do this."
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
-	jaunt_duration = 3 SECONDS
+	jaunt_duration = 8 SECONDS
 	clothes_req = FALSE
 	panel = "Vampire"
 	school = "vampire"

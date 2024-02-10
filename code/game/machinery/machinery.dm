@@ -151,6 +151,10 @@ Class Procs:
 
 	if(use_power)
 		myArea = get_area(src)
+		if(myArea)
+			RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
+			LAZYADD(myArea.machinery_cache, src)
+
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
 	else
@@ -159,6 +163,19 @@ Class Procs:
 	power_change()
 
 	init_multitool_menu()
+
+/obj/machinery/proc/onAreaExited()
+	if(myArea == get_area(src))
+		return
+
+	LAZYREMOVE(myArea.machinery_cache, src)
+	UnregisterSignal(myArea, COMSIG_AREA_EXITED)
+	//message_admins("[src] exited [myArea]") Uncomment for debugging
+	myArea = get_area(src)
+	RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
+	LAZYADDOR(myArea.machinery_cache, src)
+	//message_admins("[src] entered [myArea]")
+	power_change()
 
 /obj/machinery/proc/init_multitool_menu()
 	return
@@ -181,6 +198,7 @@ Class Procs:
 
 /obj/machinery/Destroy()
 	if(myArea)
+		LAZYREMOVE(myArea.machinery_cache, src)
 		myArea = null
 	GLOB.machines.Remove(src)
 	if(!speed_process)
@@ -273,6 +291,9 @@ Class Procs:
 		return attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
+	if(istype(user, /mob/dead/observer))
+		return FALSE
+
 	if(user.incapacitated())
 		return TRUE
 
@@ -282,11 +303,9 @@ Class Procs:
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.getBrainLoss() >= 60)
+		if(!H.check_brain_for_complex_interactions())
 			visible_message(span_warning("[H] stares cluelessly at [src] and drools."))
-			return TRUE
-		else if(prob(H.getBrainLoss()))
-			to_chat(user, span_warning("You momentarily forget how to use [src]."))
+			to_chat(H, span_warning("You momentarily forget how to use [src]."))
 			return TRUE
 
 	if(panel_open)

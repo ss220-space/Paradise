@@ -16,6 +16,8 @@
 	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+	/// Update_fire_overlay will check if a different icon state should be used
+	var/custom_fire_overlay
 
 	var/acid_level = 0 //how much acid is on that obj
 
@@ -159,11 +161,15 @@
 		if(!ai_in_use && !is_in_use)
 			in_use = FALSE
 
+
+/**
+ * Hidden uplink interaction proc. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
+ *
+ * Arguments:
+ * * user - who interacts with uplink.
+ */
 /obj/proc/interact(mob/user)
 	return
-
-/obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 
 /mob/proc/unset_machine()
 	if(machine)
@@ -239,9 +245,6 @@
 /obj/proc/container_resist(mob/living)
 	return
 
-/obj/proc/CanAStarPass(ID, dir, caller)
-	. = !density
-
 /obj/proc/on_mob_move(dir, mob/user)
 	return
 
@@ -295,3 +298,18 @@
 	return locate(/obj) in A
 
 
+#define CARBON_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
+
+/obj/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	damage *= CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
+	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
+	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
+		return
+	C.visible_message(span_danger("[C] slams into [src]!"),
+					span_userdanger("You slam into [src]!"))
+	C.take_organ_damage(damage)
+	if(!self_hurt)
+		take_damage(damage, BRUTE)
+	C.Weaken(3 SECONDS)
+
+#undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER

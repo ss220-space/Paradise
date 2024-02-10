@@ -43,7 +43,7 @@
 	product_cost = cost
 
 /obj/item/circuitboard/machine/bluespace_tap
-	name = "Bluespace Harvester (Machine Board)"
+	board_name = "Bluespace Harvester"
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
@@ -375,6 +375,9 @@
 
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -427,7 +430,7 @@
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk
-/obj/machinery/power/bluespace_tap/emag_act(mob/living/user as mob)
+/obj/machinery/power/bluespace_tap/emag_act(mob/user)
 	if(emagged)
 		return
 	add_attack_logs(user, src, "emagged")

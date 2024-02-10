@@ -18,8 +18,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
 		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев отклонен.")
-		// if the docking request was refused, fire another major event in 60 seconds
-		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+		// if the docking request was refused, fire another moderate event in 60 seconds
+		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + (60 * 10)
 		return
 
@@ -53,7 +53,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 				M.mind.objectives += trader_objectives
 				M.mind.offstation_role = TRUE
 				greet_trader(M)
-				success_spawn = 1
+				log_game("[M.ckey] has become TSF trader.")
+				success_spawn = TRUE
 		if(success_spawn)
 			var/map_trader_port = 5
 			if(station_name() == "NSS Cyberiad")
@@ -63,11 +64,13 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
 /datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
-	to_chat(M, "<span class='boldnotice'>Вы - торговец!</span>")
-	to_chat(M, "<span class='notice'>В данный момент вы находитесь на [get_area(M)].</span>")
-	to_chat(M, "<span class='notice'>Вам предстоит торговать со станцией [station_name()].</span>")
-	spawn(25)
-		show_objectives(M.mind)
+	var/list/messages = list()
+	messages.Add(span_boldnotice("Вы - торговец!"))
+	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))
+	messages.Add(span_notice("Вам предстоит торговать со станцией [station_name()]."))
+	messages.Add(M.mind.prepare_announce_objectives())
+	to_chat(M, chat_box_green(messages.Join("<br>")))
+	log_game("[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()

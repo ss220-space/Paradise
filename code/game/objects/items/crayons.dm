@@ -254,6 +254,7 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
+	name = "spraycan"
 	icon_state = "spraycan_cap"
 	desc = "A metallic container containing tasty paint."
 	var/capped = 1

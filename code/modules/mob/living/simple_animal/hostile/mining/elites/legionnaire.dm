@@ -145,7 +145,7 @@
 	var/turf/T = get_step(get_turf(src), move_dir)
 	if(ismineralturf(T))
 		var/turf/simulated/mineral/M = T
-		M.gets_drilled()
+		M.attempt_drill()
 	if(T.density)
 		charging = FALSE
 		return
@@ -269,7 +269,7 @@
 	ranged = FALSE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/body = null
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/death()
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/death(gibbed)
 	. = ..()
 	if(body)
 		body.onHeadDeath()

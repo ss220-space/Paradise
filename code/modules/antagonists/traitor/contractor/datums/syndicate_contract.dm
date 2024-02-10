@@ -304,7 +304,7 @@
 	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.station_name]'s bluespace transport jamming systems have been sabotaged. "\
 			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
-	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
+	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
 	P.contractor_mind = M.mind
 	P.target_mind = contract.target
@@ -356,6 +356,14 @@
 	// Shove all of the victim's items in the secure locker.
 	victim_belongings = list()
 	var/list/obj/item/stuff_to_transfer = list()
+
+	// Speciall skrell headpocket handling
+	var/obj/item/organ/internal/headpocket/headpocket = M.get_organ_slot(INTERNAL_ORGAN_HEADPOCKET)
+	if(headpocket)
+		var/turf/target_turf = get_turf(M)
+		for(var/obj/item/item in headpocket.pocket.contents)
+			stuff_to_transfer += item
+			headpocket.pocket.remove_from_storage(item, target_turf)
 
 	// Cybernetic implants get removed first (to deal with NODROP stuff)
 	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)

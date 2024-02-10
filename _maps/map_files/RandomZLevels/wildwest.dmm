@@ -489,9 +489,7 @@
 /area/awaymission/wwmines)
 "bH" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -653,7 +651,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bZ" = (
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "ca" = (
@@ -1773,7 +1771,7 @@
 "eW" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "eX" = (
@@ -1801,7 +1799,7 @@
 /obj/structure/toilet{
 	dir = 1
 	},
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "fc" = (
@@ -1969,9 +1967,7 @@
 /area/awaymission/wwgov)
 "fz" = (
 /obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
+	icon_state = "cabinet"
 	},
 /obj/machinery/light/small{
 	dir = 1;

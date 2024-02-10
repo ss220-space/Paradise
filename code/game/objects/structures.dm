@@ -4,10 +4,13 @@
 	max_integrity = 300
 	pull_push_speed_modifier = 1.2
 	var/climbable
+	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
+	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
-	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished structure has been lit up
+	/// Amount of timer ticks that an extinguished structure has been lit up
 	var/light_process = 0
+	var/extinguish_timer_id
 
 /obj/structure/New()
 	..()
@@ -24,6 +27,8 @@
 /obj/structure/Initialize(mapload)
 	if(!armor)
 		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	if(creates_cover && isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/structure/Destroy()
@@ -33,9 +38,24 @@
 		var/turf/T = get_turf(src)
 		spawn(0)
 			queue_smooth_neighbors(T)
+	if(creates_cover && isturf(loc))
+		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	if(isprocessing)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/structure/Move()
+	var/atom/old = loc
+	if(!..())
+		return FALSE
+
+	if(creates_cover)
+		if(isturf(old))
+			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+		if(isturf(loc))
+			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+	return TRUE
+
 
 /obj/structure/has_prints()
 	return TRUE
@@ -168,15 +188,15 @@
 
 			switch(pick(list("ankle","wrist","head","knee","elbow")))
 				if("ankle")
-					affecting = H.get_organ(pick("l_foot", "r_foot"))
+					affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 				if("knee")
-					affecting = H.get_organ(pick("l_leg", "r_leg"))
+					affecting = H.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 				if("wrist")
-					affecting = H.get_organ(pick("l_hand", "r_hand"))
+					affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 				if("elbow")
-					affecting = H.get_organ(pick("l_arm", "r_arm"))
+					affecting = H.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 				if("head")
-					affecting = H.get_organ("head")
+					affecting = H.get_organ(BODY_ZONE_HEAD)
 
 			if(affecting)
 				to_chat(M, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
@@ -238,11 +258,13 @@
 		update_light()
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the object. Perhaps shining a light will force it to clear?"
-		START_PROCESSING(SSobj, src)
+		extinguish_timer_id = addtimer(CALLBACK(src, PROC_REF(extinguish_light_check)), 2 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_LOOP|TIMER_DELETE_ME|TIMER_STOPPABLE)
 
 
-/obj/structure/process()
+/obj/structure/proc/extinguish_light_check()
 	var/turf/source_turf = get_turf(src)
+	if(!source_turf)
+		return
 	if(source_turf.get_lumcount() > 0.2)
 		light_process++
 		if(light_process > 3)
@@ -258,4 +280,5 @@
 	update_light()
 	name = initial(name)
 	desc = initial(desc)
-	STOP_PROCESSING(SSobj, src)
+	deltimer(extinguish_timer_id)
+

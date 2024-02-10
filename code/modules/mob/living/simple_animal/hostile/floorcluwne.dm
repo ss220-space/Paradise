@@ -123,6 +123,7 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
 	if(!manifested && !is_type_in_typecache(get_area(current_victim.loc), invalid_area_typecache))
+		glide_for(delay)
 		walk_to(src, target, minimum_distance, delay)
 	else
 		walk_to(src,0)
@@ -379,13 +380,8 @@
 
 		H.adjustBruteLoss(30)
 		H.adjustBrainLoss(100)
-		for(var/I in H.bodyparts)
-			var/obj/item/organ/external/O = I
-			if(O.name == "head")//irksome runtimes
-				O.droplimb()
-				continue
-			O.drop_organs()
-			O.droplimb()
+		var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
+		chest?.drop_organs()
 
 	Reset_View(FALSE, old_color, H)
 	H.CureBlind()

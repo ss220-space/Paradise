@@ -247,6 +247,7 @@
 
 /datum/design/rglass
 	name = "Reinforced Glass"
+	desc = "Metal + Glass"
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
 	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
@@ -524,15 +525,15 @@
 	id = "c38"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5900)
-	build_path = /obj/item/ammo_box/c38
+	build_path = /obj/item/ammo_box/speedloader/c38
 	category = list("initial", "Security")
 
 /datum/design/c38hp
 	name = "Speed Loader (.38 Hollow-Point)"
 	id = "c38hp"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/ammo_box/c38/hp
+	materials = list(MAT_METAL = 30500)
+	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list("hacked", "Security")
 
 /datum/design/recorder
@@ -824,6 +825,22 @@
 	build_path = /obj/item/ammo_box/magazine/sp8
 	category = list("hacked", "Security")
 
+/datum/design/sp91rc_box
+	name = "Ammo Box (9mm TE)"
+	id = "9mmTEbox"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/c9mmte
+	category = list("hacked", "Security")
+
+/datum/design/sp91rc_mag
+	name = "handgun magazine (9mm TE)"
+	id = "9mm-te"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 12000)
+	build_path = /obj/item/ammo_box/magazine/sp91rc
+	category = list("hacked", "Security")
+
 /datum/design/buckshot_shell
 	name = "Buckshot shell"
 	id = "buckshot_shell"
@@ -846,14 +863,6 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
-	category = list("hacked", "Security")
-
-/datum/design/speedloader_univ
-	name = "Speedloader"
-	id = "speedloader_univ"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 500)
-	build_path = /obj/item/ammo_box/shotgun/universal
 	category = list("hacked", "Security")
 
 /datum/design/riot_dart
@@ -889,10 +898,10 @@
 	category = list("hacked", "Security")
 
 /datum/design/a357
-	name = "Speed Loader (.357)"
+	name = "Ammo Box (.357)"
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 75500)
 	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
 
@@ -1059,5 +1068,5 @@
 	id = "cap_ammo"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 100)
-	build_path = /obj/item/ammo_box/caps
+	build_path = /obj/item/ammo_box/speedloader/caps
 	category = list("initial", "Miscellaneous")

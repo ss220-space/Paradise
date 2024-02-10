@@ -38,7 +38,7 @@
 #define FAT				"fat"
 #define HUSK			"husk"
 #define NOCLONE			"noclone"
-#define LASER			"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
+#define LASEREYES		"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
 #define WINGDINGS		"wingdings"			// Ayy lmao
 #define SKELETON 		"skeleton"
 #define BREATHLESS		"breathless"		// no breathing
@@ -84,6 +84,7 @@
 #define COLOURBLIND		"colorblind"
 #define MUTE			"mute"
 #define DEAF			"deaf"
+#define WEAK			"weak"
 
 //Nutrition levels for humans. No idea where else to put it
 #define NUTRITION_LEVEL_FAT 600
@@ -140,6 +141,7 @@
 #define NO_DNA			"no_dna"
 #define NO_SCAN 		"no_scan"
 #define NO_PAIN 		"no_pain"
+#define NO_PAIN_FEEL	"no_pain_feel"
 #define IS_PLANT 		"is_plant"
 #define NO_INTORGANS	"no_internal_organs"
 #define RADIMMUNE		"rad_immunity"
@@ -154,6 +156,7 @@
 #define NO_GERMS		"no_germs"
 #define NO_DECAY		"no_decay"
 #define PIERCEIMMUNE	"pierce_immunity"
+#define EMBEDIMMUNE		"embed_immunity"
 #define NO_HUNGER		"no_hunger"
 #define EXOTIC_COLOR	"exotic_blood_colour"
 #define NO_OBESITY		"no_obesity"

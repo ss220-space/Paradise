@@ -3,11 +3,6 @@
 # In order to run this script on Windows, you need to make sure you have Python **3** installed. Tested on 3.8.2
 # It won't work on 2.7 at all.
 
-# To run this, supply the following args in a command shell
-# python 30-31.py address username password database table_old table_new
-# Example:
-# python 30-31.py localhost paradise ban_old ban
-
 # !/usr/bin/env python3
 
 
@@ -48,7 +43,11 @@ commitsSet = set()
 
 
 def add_commits(commit):
-    if date.fromtimestamp(commit.committed_date).month >= today.month - 1:
+    commit_mount = date.fromtimestamp(commit.committed_date).month
+    mount_fixed = today.month
+    if commit_mount > 10 and today.month < 3:
+        mount_fixed += 12
+    if commit_mount >= mount_fixed - 1:
         if not commit.message.startswith("Automatic changelog generation"):
             commitsSet.add(commit)
         for parent in commit.parents:

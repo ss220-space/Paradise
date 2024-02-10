@@ -7,7 +7,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 	gibs(loc, dna)
@@ -25,7 +25,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)
 	return TRUE
 
@@ -36,7 +36,7 @@
 	notransform = 1
 	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)
 	return TRUE
 
@@ -51,8 +51,8 @@
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
 
-	..()
 	stat = DEAD
+	..()
 
 	timeofdeath = world.time
 	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]")
@@ -64,7 +64,7 @@
 	SetEyeBlurry(0)
 
 	if(!gibbed && deathgasp_on_death)
-		emote("deathgasp", force = TRUE)
+		emote("deathgasp")
 
 	if(HAS_TRAIT(src, TRAIT_SECDEATH))
 		playsound(loc, pick('sound/misc/die1.ogg', 'sound/misc/die2.ogg', 'sound/misc/die3.ogg', 'sound/misc/die4.ogg'), 80)
@@ -78,6 +78,7 @@
 
 	update_damage_hud()
 	update_health_hud()
+	update_stamina_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))

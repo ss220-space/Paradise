@@ -195,6 +195,19 @@
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
+/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub
+	name= "goldgrub meat"
+	desc = "Gross, slimy, and green intestines with goldgrub skin, retrieved from a Goldgrub. Legends say it is valuable in traditional medicines, however it's highly toxic now."
+	icon_state = "Goldgrubmeat"
+	list_reagents = list("grub_juice" = 5, "toxin" = 10)
+	bitesize = 2
+	tastes = list("meat" = 1)
+
+/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/burn()
+	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	new /obj/item/reagent_containers/food/snacks/goldgrubmeat(loc)
+	qdel(src)
+
 /obj/item/reagent_containers/food/snacks/monstermeat/rotten
 	name = "rotten meat"
 	desc = "A slab of rotten meat. Looks really awful, a couple of flies sit on it."
@@ -322,6 +335,15 @@
 	tastes = list("meat" = 1)
 	foodtype = MEAT
 
+/obj/item/reagent_containers/food/snacks/goldgrubmeat
+	name= "goldgrub steak"
+	desc = "Cooked intestines with goldgrub skin, retrieved from a Goldgrub. Legends say it is valuable in traditional medicines."
+	icon_state = "Goldgrubsteak"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	list_reagents = list("grub_juice" = 5)
+	tastes = list("meat" = 1)
+
+
 /obj/item/reagent_containers/food/snacks/smokedsausage
 	name = "Smoked sausage"
 	desc = "Piece of smoked sausage. Oh, really?"
@@ -374,12 +396,15 @@
 	return 1
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
-	if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
-		if(fingerprintslast)
-			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
-		else
-			visible_message("<span class='notice'>[src] fails to expand!</span>")
+	if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))
 		return
+		//Due to server crashing capabilities, chat feature is disabled.
+
+		//if(fingerprintslast)
+		//	to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
+		//else
+		//	visible_message("<span class='notice'>[src] fails to expand!</span>")
+
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		if(fingerprintslast)
@@ -698,4 +723,13 @@
 	desc = "Appetizing-looking meat balls in the dough.. The main thing is not to think about WHO they are made of! Makes your tongue burn."
 	icon_state = "vulpix_chillie"
 	tastes = list("dough" = 2, "dog meat" = 3, "chillie" = 2)
+
+/obj/item/reagent_containers/food/snacks/bakedvulp
+	name = "oven-baked vulp"
+	desc = "Oven-baked vulp meat with a juicy apple in the mouth. She was unintelligent... Wasn't she?"
+	icon_state = "bakedvulp"
+	trash = /obj/item/trash/tray
+	list_reagents = list("protein" = 12, "nutriment" = 10, "vitamin" = 5)
+	tastes = list("dog meat" = 2, "apple" = 1)
+	foodtype = MEAT
 

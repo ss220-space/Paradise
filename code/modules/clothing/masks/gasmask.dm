@@ -11,18 +11,21 @@
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
 // **** Welding gas mask ****
@@ -55,17 +58,20 @@
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
@@ -162,7 +168,7 @@
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 /obj/item/clothing/mask/gas/clownwiz
@@ -193,38 +199,39 @@
 	if(!user?.mind || slot != slot_wear_mask)
 		return
 
-	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
-	if(!spell)
-		var/obj/effect/proc_holder/spell/mime/speak/mask/new_spell = new
-		new_spell.cooldown_handler?.starts_off_cooldown = FALSE
-		user.mind.AddSpell(new_spell)
-	else
-		if(spell.action?.invisibility)
-			spell.action?.ToggleInvisibility()
+	var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
+	for(var/obj/effect/proc_holder/spell/mime/speak/spell in user.mind.spell_list)
+		if(istype(spell, /obj/effect/proc_holder/spell/mime/speak/mask))
+			mask_spell = spell
+			continue
+		if(spell)
+			return
+
+	if(mask_spell)
+		mask_spell.action.enable_invisibility(FALSE)
+		return
+
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
 
 
-/obj/item/clothing/mask/gas/mime/dropped(mob/user)
+/obj/item/clothing/mask/gas/mime/dropped(mob/user, silent = FALSE)
 	. = ..()
 
 	if(!user?.mind)
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
-	if(!spell?.cooldown_handler)
+	if(!spell)
 		return
 
 	if(spell.cooldown_handler.is_on_cooldown())
-		if(!spell.action?.invisibility)
-			spell.action.ToggleInvisibility()
-	else
-		if(user.mind.miming)
-			spell.cast(list(user))
-		user.mind.RemoveSpell(spell)
+		spell.action.enable_invisibility(TRUE)
+		return
 
+	if(user.mind.miming)
+		spell.cast(list(user))
+	user.mind.RemoveSpell(spell)
 
-/obj/item/clothing/mask/gas/mime/item_action_slot_check(slot, mob/user)
-	if(slot == slot_wear_mask)
-		return TRUE
 
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"
@@ -312,7 +319,7 @@
 	if(slot == slot_wear_mask && !HAS_TRAIT(user, TRAIT_SECDEATH))
 		ADD_TRAIT(user, TRAIT_SECDEATH, src)
 
-/obj/item/clothing/mask/gas/sechailer/dropped(mob/user)
+/obj/item/clothing/mask/gas/sechailer/dropped(mob/user, silent = FALSE)
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_SECDEATH, src)
 
@@ -428,9 +435,8 @@
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
 	if(safety)
 		safety = 0
-		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
-	else
-		return
+		if(user)
+			to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
 
 /obj/item/clothing/mask/gas/sechailer/proc/halt()
 	var/key = phrase_list[phrase]

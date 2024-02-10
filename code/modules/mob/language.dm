@@ -49,7 +49,6 @@
 		for(var/x = rand(FLOOR(syllable_count/2, 1),syllable_count);x>0;x--)
 			new_name += pick(syllables)
 		full_name += " [capitalize(lowertext(new_name))]"
-
 	return "[trim(full_name)]"
 
 /datum/language/proc/scramble(input)
@@ -194,13 +193,31 @@
 	"ka","aasi","far","wa","baq","ara","qara","zir","sam","mak","hrar","nja","rir","khan","jun","dar","rik","kah", \
 	"hal","ket","jurl","mah","tul","cresh","azu","ragh")
 
-/datum/language/tajaran/get_random_name(gender)
-	var/new_name = ..(gender,1)
-	if(prob(80))
-		new_name += " [pick(list("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan"))]"
-	else
-		new_name += " [..(gender,1)]"
-	return new_name
+/datum/language/tajaran/get_random_name(gender) //code by @valtor0
+	var/static/list/tajaran_female_endings_list = list("и","а","о","е","й","ь") // Customise this with ru_name_syllables changes.
+	var/list/ru_name_syllables = list("кан","тай","кир","раи","кии","мир","кра","тэк","нал","вар","хар","марр","ран","дарр", \
+	"мирк","ири","дин","манг","рик","зар","раз","кель","шера","тар","кей","ар","но","маи","зир","кер","нир","ра",\
+	"ми","рир","сей","эка","гир","ари","нэй","нре","ак","таир","эрай","жин","мра","зур","рин","сар","кин","рид","эра","ри","эна")
+	var/apostrophe = "’"
+	var/new_name = ""
+	var/full_name = ""
+
+	for(var/i = 0; i<2; i++)
+		for(var/x = rand(1,2); x>0; x--)
+			new_name += pick_n_take(ru_name_syllables)
+		new_name += apostrophe
+		apostrophe = ""
+	full_name = "[capitalize(lowertext(new_name))]"
+	if(gender == FEMALE)
+		var/ending = copytext(full_name, -2)
+		if(!(ending in tajaran_female_endings_list))
+			full_name += "а"
+	//20% for "Sendai" clan; 18,75% (75%) for other regular clan; 5% for names without clan.
+	if(prob(75))
+		full_name += " [pick(list("Хадии","Кайтам","Жан-Хазан","Нъярир’Ахан"))]"
+	else if(prob(80))
+		full_name += " [pick(list("Энай-Сэндай","Наварр-Сэндай","Року-Сэндай","Шенуар-Сэндай"))]"
+	return full_name
 
 /datum/language/vulpkanin
 	name = "Canilunzt"
@@ -324,6 +341,7 @@
 	colour = "abductor"
 	key = "^"
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)
@@ -331,8 +349,8 @@
 /datum/language/grey/check_can_speak(mob/living/speaker)
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/S = speaker
-		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
-		var/obj/item/organ/external/lhand = S.get_organ("l_hand")
+		var/obj/item/organ/external/rhand = S.get_organ(BODY_ZONE_PRECISE_R_HAND)
+		var/obj/item/organ/external/lhand = S.get_organ(BODY_ZONE_PRECISE_L_HAND)
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
 			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
 			return FALSE
@@ -539,6 +557,23 @@
 	else
 		..(speaker,message)
 
+/datum/language/eventling
+	name = "Infiltrated changeling"
+	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
+	speech_verb = "says"
+	colour = "changeling"
+	key = "gi"
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
+
+
+/datum/language/eventling/broadcast(mob/living/speaker, message, speaker_mask)
+	var/datum/antagonist/changeling/evented/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling/evented)
+	if(cling)
+		..(speaker, message, cling.changelingID)
+	else
+		..(speaker,message)
+
 /datum/language/shadowling
 	name = "Shadowling Hivemind"
 	desc = "Shadowlings and their thralls are capable of communicating over a psychic hivemind."
@@ -581,6 +616,7 @@
 /datum/language/abductor/golem
 	name = "Golem Mindlink"
 	desc = "Communicate with other alien alloy golems through a psychic link."
+	follow = TRUE
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE

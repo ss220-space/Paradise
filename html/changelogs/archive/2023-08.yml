@@ -137,3 +137,177 @@
   - server: Automatic NanoMap Update (#3340)
   Сиротка:
   - add: Fake cult sheets and armour (#3080)
+'2023-08-16':
+  Den109G:
+  - bugfix: Dead do not should spam death message (#3352)
+  Furukia:
+  - bugfix: taipan sector accessibility (#3350)
+  LiquidPotroh:
+  - bugfix: Invisible viruses (#3358)
+  Vladisvell:
+  - imageadd: some missing sprites for drasks and voxes, flags (#3354)
+  Zwei:
+  - bugfix: Defined Descreation Sound (#3351)
+  aeternaclose:
+  - bugfix: Cere CMO Fix (#3360)
+'2023-08-17':
+  Den109G:
+  - bugfix: few fixes (#3357)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3362)
+'2023-08-18':
+  Den109G:
+  - bugfix: cult-healing to robots (#3363)
+  Zwei:
+  - bugfix: MouseDrop In Range (#3364)
+'2023-08-19':
+  Den109G:
+  - bugfix: ACTUALLY healing robot parts (#3366)
+  - bugfix: more fixes (#3367)
+  Dimach:
+  - bugfix: runtime in taipan code (#3369)
+  - bugfix: wormholes teleport only to other wormholes (#3370)
+'2023-08-22':
+  Albonix:
+  - add: new spraycan icons (#3372)
+  Daeberdir:
+  - tweak: security medic's sensor device now stored in cryo storage. (#3379)
+  Den109G:
+  - bugfix: delete CC camera (#3382)
+  - bugfix: station trurl -> ship trurl (#3378)
+  Dimach:
+  - bugfix: return normal font (#3389)
+  Igz0m:
+  - tweak: Increase the required playtime for cadets to 10 hours crew (#3386)
+  NightDawnFox:
+  - tweak: event tweaks (#3375)
+  - add: 3 new tail options for unathi. Also tail clipping fix (#3353)
+  - add: new engiborg skin (#3377)
+  Vladisvell:
+  - add: thunderdome clears after all player death (#3380)
+  Zwei:
+  - add: WideScreen Port (#3204)
+'2023-08-23':
+  Bizzonium:
+  - del: use and migrate old TTS cache"
+  - bugfix: move play tts callback creation
+  - unknown: bump rust-g to 3.0.0-ss220
+  DeDerevce:
+  - imageadd: holy constructs (#3347)
+  Honker9999999:
+  - tweak: vault stun gene+golem (#3381)
+  LiquidPotroh:
+  - tweak: Holy water braindamage (#3393)
+  NightDawnFox:
+  - add: gas mask with voice modulator (#3359)
+  - add: new weapon to Gamma ERT/armory (#3374)
+  SAAD:
+  - add: Remap Bridge, Central Hallway, Barber (#3361)
+  - bugfix: Bridge accesses and account console (#3394)
+  Vladisvell:
+  - add: New icons for quiver and Santa's gift bag (#3355)
+  Zardesse:
+  - add: Rockso costume (#3376)
+  Zwei:
+  - bugfix: Items Offer Fix (#3391)
+  - tweak: Abductors Fixes (#3373)
+  Сиротка:
+  - bugfix: Guardian issues (#3390)
+'2023-08-24':
+  SAAD:
+  - bugfix: Bridge disposal pipes and some improvements (#3403)
+  Vladisvell:
+  - refactor: Closets render (#3384)
+  - refactor: 'span refactor: machinery pack part 2 (#3279)'
+  - add: New xenomorph type - Alien Vector (#3247)
+  - refactor: Guardian booby traps refactor to component (#3383)
+  Zwei:
+  - bugfix: Morph Reproduce Fix (#3399)
+  - bugfix: Borgs Gripper And Smartfridges (#3401)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3398)
+'2023-08-25':
+  Honker9999999:
+  - add: capitalism (starting money depending on job) (#3343)
+  Vladisvell:
+  - bugfix: custom closets render (#3406)
+  - add: Supermatter Engine explosion special effects (#3303)
+  - qol: Fireproof rods design can be imported into ore redemption (#3402)
+  Zwei:
+  - bugfix: Stack Fixes Once More (#3404)
+  - refactor: Datumized Thief (#3387)
+  aeternaclose:
+  - add: CereImprovement-pt6 (#3392)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3405)
+  yosoyrebelde:
+  - tweak: (bluespace rift) patch pack for new station goal (#3365)
+'2023-08-27':
+  Daeberdir:
+  - bugfix: completed plasmamen operations. (#3416)
+  Vladisvell:
+  - tweak: overlay locker and critter closet fix (#3414)
+  Zwei:
+  - refactor: Subsystems Polishing (#3271)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3413)
+  Сиротка:
+  - bugfix: BSG (#3397)
+  - tweak: RND SPAI nerf (#3395)
+  - tweak: chameleon counterfeiter illegal level (#3396)
+  - tweak: Ninja borgo hypo pierce (#3412)
+'2023-08-28':
+  Daxya:
+  - add: Spacebar update (#3388)
+  DeDerevce:
+  - add: culinary artist clothes (#3415)
+  Den109G:
+  - bugfix: check syndie ban in ninja objectives (#3428)
+  Dimach:
+  - bugfix: wormholes runtime (#3425)
+  NightDawnFox:
+  - bugfix: unathi cult robes  (#3421)
+  - add: radio AltClick, radio CtrlShiftClick, new intercom sprites (#3342)
+  Vladisvell:
+  - tweak: bluespace closet icon adjust (#3419)
+  - tweak: Thunderdome update (#3420)
+  - bugfix: mr.cheng thunderdome runtime fix (#3430)
+  Zwei:
+  - bugfix: Mass Hallucination Runtime (#3424)
+  - bugfix: Radioactivity Fix (#3422)
+  - tweak: GPS & PDA Mousedrop (#3426)
+  - bugfix: Collect Objective Completion (#3429)
+  Сиротка:
+  - balance: Guns (#3417)
+  - tweak: increase solaris damage (#3418)
+'2023-08-29':
+  SAAD:
+  - bugfix: remove missclicked windows spawner   (#3432)
+  Vladisvell:
+  - add: Self-hosted Silero TTS Server (#3344)
+  Zwei:
+  - tweak: Title Screen (#3434)
+  - add: Items Pixel Shift (#3175)
+  Сиротка:
+  - add: Uplink Chameleon hardsuit (#3411)
+'2023-08-30':
+  Daeberdir:
+  - bugfix: user sight updating while modifying glasses prescription. (#3437)
+  DeDerevce:
+  - bugfix: bluza stats (#3435)
+  Dimach:
+  - bugfix: incorrect shuttles camera starting pos (#3445)
+  LiquidPotroh:
+  - bugfix: don't stumble if both walking (#3448)
+  NightDawnFox:
+  - add: Lavaland rework (#3130)
+  - bugfix: Old ussp station (#3446)
+  - bugfix: lavaland hotfixes (#3447)
+  SAAD:
+  - bugfix: delta detective and IFA disposals (#3449)
+  Zwei:
+  - bugfix: Transfer Plasma (#3438)
+  - bugfix: Terror Spiders Fixes (#3443)
+  - bugfix: Identity Theft Objective (#3440)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3442)

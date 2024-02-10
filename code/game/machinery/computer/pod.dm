@@ -274,7 +274,7 @@
 
 /obj/machinery/computer/pod/old/syndicate/attack_hand(var/mob/user as mob)
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access Denied</span>")
+		to_chat(user, span_warning("Access Denied"))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	else
@@ -312,7 +312,7 @@
 		var/obj/effect/landmark/L = thing
 		if(L.name == "Marauder Exit")
 			var/obj/effect/portal/P = new(L.loc, pick(spawn_marauder))
-			P.invisibility = 101//So it is not seen by anyone.
+			P.invisibility = INVISIBILITY_ABSTRACT//So it is not seen by anyone.
 			P.failchance = 0//So it has no fail chance when teleporting.
 			P.can_mecha_pass = TRUE
 			spawn_marauder.Remove(P.target)

@@ -73,6 +73,9 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/spider/eggcluster/process()
+	if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS - 10) //eggs gonna chill out until there is less spiders
+		return
+
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)
 		var/num = rand(3, 12)
@@ -99,6 +102,8 @@
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 	var/selecting_player = 0
+	///Is this spiderling created from a xenobiology mob?
+	var/xenobiology_spawned = FALSE
 
 /obj/structure/spider/spiderling/Initialize(mapload)
 	. = ..()
@@ -182,17 +187,24 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
+				glide_for(3)
 				walk_to(src, entry_vent, 1)
 				break
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
+			if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS && xenobiology_spawned)
+				qdel(src)
+				return
 			if(!grow_as)
 				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
 			S.mind?.store_memory(new_mind_memory)
+			S.xenobiology_spawned = xenobiology_spawned
+			if(xenobiology_spawned)
+				SSmobs.xenobiology_mobs++
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
@@ -204,6 +216,7 @@
 							S.key = C.key
 							if(S.master_commander)
 								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+							add_game_logs("was made giant spider, master: [S.master_commander ? S.master_commander : "None"]")
 			qdel(src)
 
 /obj/structure/spider/spiderling/proc/random_skitter()
@@ -215,6 +228,7 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
+	glide_for(3)
 	walk_to(src, pick(available_turfs))
 	return TRUE
 

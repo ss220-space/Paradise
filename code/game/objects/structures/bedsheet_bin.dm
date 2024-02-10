@@ -19,6 +19,8 @@ LINEN BINS
 	item_color = "white"
 	resistance_flags = FLAMMABLE
 	slot_flags = SLOT_NECK
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")
@@ -26,11 +28,11 @@ LINEN BINS
 	var/comfort = 0.5
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/species/monkey/neck.dmi',
-		"Farwa" = 'icons/mob/species/monkey/neck.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/neck.dmi',
-		"Neara" = 'icons/mob/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/species/monkey/neck.dmi'
+		"Monkey" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi'
 		)
 
 

@@ -76,6 +76,7 @@
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
+	delay = 11
 	e_cost = 100
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 
@@ -86,23 +87,23 @@
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/item/projectile/beam/immolator/strong
-	e_cost = 125
+	e_cost = 50
 	select_name = "precise"
 
 /obj/item/ammo_casing/energy/immolator/strong/cyborg
 	// Used by gamma ERT borgs
-	e_cost = 1000 // 5x that of the standard laser, for 2.25x the damage (if 1/1 shots hit) plus ignite. Not energy-efficient, but can be used for sniping.
+	e_cost = 250 // 5x that of the standard laser, for 2.25x the damage (if 1/1 shots hit) plus ignite. Not energy-efficient, but can be used for sniping.
 
 /obj/item/ammo_casing/energy/immolator/scatter
 	projectile_type = /obj/item/projectile/beam/immolator/weak
-	e_cost = 125
+	e_cost = 50
 	pellets = 6
 	variance = 25
 	select_name = "scatter"
 
 /obj/item/ammo_casing/energy/immolator/scatter/cyborg
 	// Used by gamma ERT borgs
-	e_cost = 1000 // 5x that of the standard laser, for 7.5x the damage (if 6/6 shots hit) plus ignite. Efficient only if you hit with at least 4/6 of the shots.
+	e_cost = 250 // 5x that of the standard laser, for 7.5x the damage (if 6/6 shots hit) plus ignite. Efficient only if you hit with at least 4/6 of the shots.
 
 /obj/item/ammo_casing/energy/electrode
 	projectile_type = /obj/item/projectile/energy/electrode
@@ -126,6 +127,7 @@
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	delay = 20
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
@@ -193,12 +195,27 @@
 	select_name = "plasma burst"
 	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
-	e_cost = 25
+	e_cost = 50 //30 shots
 
 /obj/item/ammo_casing/energy/plasma/adv
 	projectile_type = /obj/item/projectile/plasma/adv
 	delay = 10
-	e_cost = 10
+	e_cost = 25 //60 shots
+
+/obj/item/ammo_casing/energy/plasma/adv/mega
+	e_cost = 20 //75 shots
+	projectile_type = /obj/item/projectile/plasma/adv/mega
+
+/obj/item/ammo_casing/energy/plasma/shotgun
+	projectile_type = /obj/item/projectile/plasma/shotgun
+	delay = 15
+	e_cost = 75 //20 shots
+	pellets = 5
+	variance = 35
+
+/obj/item/ammo_casing/energy/plasma/shotgun/mega
+	e_cost = 50 //30 shots
+	projectile_type = /obj/item/projectile/plasma/adv/mega/shotgun
 
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/item/projectile/beam/wormhole

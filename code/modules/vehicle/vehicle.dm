@@ -96,7 +96,7 @@
 //APPEARANCE
 /obj/vehicle/proc/handle_vehicle_layer()
 	if(dir != NORTH)
-		layer = MOB_LAYER+0.1
+		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
 
@@ -168,7 +168,7 @@
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
 
-		last_vehicle_move = config.human_delay + vehicle_move_delay
+		last_vehicle_move = CONFIG_GET(number/human_delay) + vehicle_move_delay
 		Move(get_step(src, direction), direction, last_vehicle_move)
 
 		if(direction & (direction - 1))		//moved diagonally

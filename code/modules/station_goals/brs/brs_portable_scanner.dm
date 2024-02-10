@@ -8,7 +8,7 @@
 #define SCAN_CRITICAL 3 //! The scanner is within critical range of a rift
 
 /obj/item/circuitboard/brs_portable_scanner
-	name = "Портативный сканер разлома (Machine Board)"
+	board_name = "Портативный сканер разлома"
 	desc = "Плата портативного сканера блюспейс разлома."
 	build_path = /obj/machinery/brs_portable_scanner
 	icon_state = "scannerplat"
@@ -59,6 +59,7 @@
 	var/switching
 
 	var/scanning_status = SCAN_OFF
+	var/is_there_any_servers = FALSE
 
 /obj/machinery/brs_portable_scanner/Initialize(mapload)
 	. = ..()
@@ -75,11 +76,13 @@
 	name = "[name] \[#[id]\]"
 
 	GLOB.bluespace_rifts_scanner_list.Add(src)
+	GLOB.poi_list |= src
 	new_component_parts()
 	status_change()
 
 /obj/machinery/brs_portable_scanner/Destroy()
 	GLOB.bluespace_rifts_scanner_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/brs_portable_scanner/ComponentInitialize()
@@ -94,7 +97,7 @@
 		return
 
 	var/previous_status = scanning_status
-	
+
 	// Set status
 	var/scan_result = SEND_SIGNAL(src, COMSIG_SCANNING_RIFTS, seconds_per_tick, emagged)
 	if(scan_result & COMPONENT_SCANNED_NOTHING)
@@ -105,7 +108,9 @@
 		scanning_status = SCAN_CRITICAL
 	else
 		CRASH("Component returned unexpected value.")
-	
+
+	is_there_any_servers = (scan_result & COMPONENT_SCANNED_NO_SERVERS) ? FALSE : TRUE
+
 	if(scanning_status != previous_status)
 		status_change()
 
@@ -118,10 +123,10 @@
 	else
 		obj_break()
 		explosion(
-			loc, 
-			light_impact_range = failure_force, 
-			flash_range = 2 * failure_force, 
-			flame_range =  2 * failure_force, 
+			loc,
+			light_impact_range = failure_force,
+			flash_range = 2 * failure_force,
+			flame_range =  2 * failure_force,
 			cause = "[src] was working too long within critical range of a rift."
 		)
 
@@ -135,11 +140,11 @@
 
 	if(panel_open)
 		overlays += image(icon, "[prefix]-panel")
-	
+
 	if(!anchored)
 		icon_state = prefix
 		return
-	
+
 	if((scanning_status == SCAN_OFF) || (stat & NOPOWER))
 		icon_state ="[prefix]-anchored"
 		return
@@ -174,6 +179,10 @@
 /obj/machinery/brs_portable_scanner/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 
+	if(stat & BROKEN)
+		to_chat(user, span_warning("[src] сломан, [panel_open ? "за" : "от"]крыть панель невозможно."))
+		return
+
 	var/operating = (scanning_status != SCAN_OFF) && (!(stat & NOPOWER))
 	if((!panel_open) && operating)
 		to_chat(user, span_warning("Панель заблокирована протоколом безопасности. Выключите сканер."))
@@ -187,10 +196,19 @@
 
 /obj/machinery/brs_portable_scanner/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
+
+	if(panel_open && (stat & BROKEN))
+		to_chat(user, span_warning("[src] сломан, извлечь детали невозможно."))
+		return
+
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/brs_portable_scanner/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
+
+	if(stat & BROKEN)
+		to_chat(user, span_warning("[src] сломан, [anchored ? "от" : "за"]крутить болты невозможно."))
+		return
 
 	if(anchored && (scanning_status != SCAN_OFF) && !(stat & (NOPOWER|BROKEN)))
 		to_chat(user, span_warning("Болты заблокированы протоколом безопасности. Выключите сканер."))
@@ -203,6 +221,21 @@
 	if(!anchored)
 		SStgui.close_uis(src)
 
+	// Allow only one anchored scanner per tile
+	if(anchored)
+		for(var/obj/machinery/brs_portable_scanner/scanner in get_turf(src))
+			if(scanner == src)
+				continue
+			if(scanner.anchored)
+				anchored = FALSE
+				update_icon()
+				return
+
+	// Update density
+	if(anchored)
+		density = TRUE
+	else
+		density = FALSE
 
 /obj/machinery/brs_portable_scanner/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -215,7 +248,8 @@
 
 /obj/machinery/brs_portable_scanner/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
+		if(user)
+			to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
 		emagged = TRUE
 
 /obj/machinery/brs_portable_scanner/emp_act(severity)
@@ -243,7 +277,7 @@
 	if(panel_open)
 		to_chat(user, span_warning("Управление заблокировано протоколом безопасности. Закройте и зафиксируйте панель."))
 		return TRUE
-	
+
 	ui_interact(user)
 	return TRUE
 
@@ -273,8 +307,10 @@
 /obj/machinery/brs_portable_scanner/ui_data(mob/user)
 	var/list/data = list()
 	data["scanStatus"] = scanning_status
-	data["noServers"] = !is_there_any_servers()
+	data["serversFound"] = is_there_any_servers
 	data["switching"] = switching
+	data["time_for_failure"] = time_for_failure
+	data["time_till_failure"] = (world.time < failure_time) ? (failure_time - world.time) : 0
 	return data
 
 /obj/machinery/brs_portable_scanner/ui_act(action, params)
@@ -300,12 +336,12 @@
 		idle_power_usage = initial(idle_power_usage)
 	else
 		use_power = ACTIVE_POWER_USE
-	
+
 	if(scanning_status == SCAN_CRITICAL)
 		// Our state just changed to critical
 		// Set timer to kaboom
 		failure_time = world.time + time_for_failure
-	
+
 	update_icon()
 
 /obj/machinery/brs_portable_scanner/proc/toggle()
@@ -330,14 +366,6 @@
 	status_change()
 	if(!(stat & (NOPOWER|BROKEN)))
 		playsound(loc, deactivation_sound, 100)
-
-/obj/machinery/brs_portable_scanner/proc/is_there_any_servers()
-	for(var/obj/machinery/brs_server/server as anything in GLOB.bluespace_rifts_server_list)
-		if(server.stat & (NOPOWER|BROKEN))
-			continue
-		if(server.z == z)
-			return TRUE
-	return FALSE
 
 #undef SCAN_OFF
 #undef SCAN_NO_RIFTS

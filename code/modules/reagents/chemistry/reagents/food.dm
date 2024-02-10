@@ -230,39 +230,47 @@
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/M)
 	if(prob(5))
-		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+		M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","splutters!")]"))
 	return ..()
 
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
-			var/mouth_covered = 0
-			var/eyes_covered = 0
+			var/mouth_covered = FALSE
+			var/eyes_covered = FALSE
 			var/obj/item/safe_thing = null
 			if( victim.wear_mask )
 				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
-					eyes_covered = 1
+					eyes_covered = TRUE
 					safe_thing = victim.wear_mask
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
-					mouth_covered = 1
+					mouth_covered = TRUE
 					safe_thing = victim.wear_mask
-			if( victim.head )
+				if(victim.wear_mask.flags & BLOCK_CAPSAICIN)
+					mouth_covered = TRUE
+					eyes_covered = TRUE
+					safe_thing = victim.wear_mask
+			if(victim.head)
 				if(victim.head.flags_cover & MASKCOVERSEYES)
-					eyes_covered = 1
+					eyes_covered = TRUE
 					safe_thing = victim.head
 				if(victim.head.flags_cover & MASKCOVERSMOUTH)
-					mouth_covered = 1
+					mouth_covered = TRUE
+					safe_thing = victim.head
+				if(victim.head.flags & BLOCK_CAPSAICIN)
+					mouth_covered = TRUE
+					eyes_covered = TRUE
 					safe_thing = victim.head
 			if(victim.glasses)
-				eyes_covered = 1
-				if( !safe_thing )
+				eyes_covered = TRUE
+				if(!safe_thing)
 					safe_thing = victim.glasses
 			if( eyes_covered && mouth_covered )
-				to_chat(victim, "<span class='danger'>Your [safe_thing] protects you from the pepperspray!</span>")
+				to_chat(victim, span_danger("Your [safe_thing] protects you from the pepperspray!"))
 				return
 			else if( mouth_covered )	// Reduced effects if partially protected
-				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
+				to_chat(victim, span_danger("Your [safe_thing] protect you from most of the pepperspray!"))
 				if(prob(20))
 					victim.emote("scream")
 				victim.EyeBlurry(6 SECONDS)
@@ -273,7 +281,7 @@
 				victim.drop_from_active_hand()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover but not best
-				to_chat(victim, "<span class='danger'>Your [safe_thing] partially protects your eyes from the pepperspray!</span>")
+				to_chat(victim, span_danger("Your [safe_thing] partially protects your eyes from the pepperspray!"))
 				if(prob(20))
 					victim.emote("scream")
 				victim.EyeBlurry(4 SECONDS)
@@ -286,7 +294,7 @@
 			else // Oh dear :D
 				if(prob(20))
 					victim.emote("scream")
-				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
+				to_chat(victim, span_danger("You're sprayed directly in the eyes with pepperspray!"))
 				victim.EyeBlurry(10 SECONDS)
 				victim.EyeBlind(4 SECONDS)
 				victim.Confused(12 SECONDS)
@@ -433,7 +441,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Security Officer", "Security Cadet", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
+	if(ishuman(M) && (M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -630,7 +638,7 @@
 /datum/reagent/consumable/onion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
 		if(!M.is_mouth_covered() && !M.is_eyes_covered())
-			if(!M.get_organ_slot("eyes"))	//can't blind somebody with no eyes
+			if(!M.get_organ_slot(INTERNAL_ORGAN_EYES))	//can't blind somebody with no eyes
 				to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
 			else
 				if(!M.AmountEyeBlurry())
@@ -877,7 +885,8 @@
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return
-		H.ForceContractDisease(new /datum/disease/food_poisoning)
+		var/datum/disease/food_poisoning/D = new
+		D.Contract(H)
 
 /datum/reagent/msg
 	name = "Monosodium glutamate"
@@ -923,7 +932,8 @@
 	else if(volume >= 150 && prob(volume*0.01))
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
 		M.Weaken(2 SECONDS)
-		M.ForceContractDisease(new /datum/disease/critical/heart_failure)
+		var/datum/disease/critical/heart_failure/D = new
+		D.Contract(M)
 	return ..() | update_flags
 
 /datum/reagent/fungus
@@ -942,7 +952,8 @@
 			M.reagents.add_reagent("toxin", rand(1,5))
 		else if(ranchance <= 5)
 			to_chat(M, "<span class='warning'>That tasted absolutely FOUL.</span>")
-			M.ForceContractDisease(new /datum/disease/food_poisoning)
+			var/datum/disease/food_poisoning/D = new
+			D.Contract(M)
 		else
 			to_chat(M, "<span class='warning'>Yuck!</span>")
 

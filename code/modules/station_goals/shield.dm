@@ -37,7 +37,7 @@
 	return coverage.len
 
 /obj/item/circuitboard/computer/sat_control
-	name = "Контроллер сети спутников (Computer Board)"
+	board_name = "Контроллер сети спутников"
 	build_path = /obj/machinery/computer/sat_control
 	origin_tech = "engineering=3"
 
@@ -197,7 +197,8 @@
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		to_chat(user, "<span class='danger'>Вы переписали схемы метеорного щита, заставив его привлекать метеоры, а не уничтожать их.</span>")
+		if(user)
+			to_chat(user, "<span class='danger'>Вы переписали схемы метеорного щита, заставив его привлекать метеоры, а не уничтожать их.</span>")
 		emagged = 1
 		if(active)
 			change_meteor_chance(2)

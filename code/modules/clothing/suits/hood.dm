@@ -14,6 +14,7 @@
 	. = ..()
 
 /obj/item/clothing/suit/hooded/proc/MakeHood()
+	item_color = initial(icon_state)
 	if(!hood)
 		var/obj/item/clothing/head/hooded/W = new hoodtype(src)
 		W.suit = src
@@ -35,7 +36,7 @@
 /obj/item/clothing/suit/hooded/proc/RemoveHood()
 	if(isnull(hood))
 		return
-	icon_state = "[initial(icon_state)]"
+	icon_state = item_color
 	suit_adjusted = 0
 	if(ishuman(hood.loc))
 		var/mob/living/carbon/H = hood.loc
@@ -47,7 +48,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/suit/hooded/dropped()
+/obj/item/clothing/suit/hooded/dropped(mob/user, silent = FALSE)
 	..()
 	RemoveHood()
 
@@ -63,7 +64,7 @@
 				return
 			else if(H.equip_to_slot_if_possible(hood, slot_head))
 				suit_adjusted = 1
-				icon_state = "[initial(icon_state)]_hood"
+				icon_state = "[item_color]_hood"
 				H.update_inv_wear_suit()
 				for(var/X in actions)
 					var/datum/action/A = X
@@ -78,7 +79,7 @@
 	suit = null
 	return ..()
 
-/obj/item/clothing/head/hooded/dropped()
+/obj/item/clothing/head/hooded/dropped(mob/user, silent = FALSE)
 	..()
 	if(suit)
 		suit.RemoveHood()

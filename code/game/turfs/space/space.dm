@@ -59,7 +59,7 @@
 	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
-	if(config.starlight)
+	if(CONFIG_GET(flag/starlight))
 		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			if(isspaceturf(t))
 				//let's NOT update this that much pls
@@ -177,7 +177,7 @@
 		if(is_taipan(destination_z))
 			destination_z = pick(get_all_linked_levels_zpos())
 	//notification if we do get to taipan
-	if(is_taipan(destination_z))
+	if(istype(check_mob) && is_taipan(destination_z))
 		to_chat(check_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
 	return destination_z
 

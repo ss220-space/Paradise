@@ -14,16 +14,18 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/helmet
+	pickup_sound = 'sound/items/handling/helmet_pickup.ogg'
+	drop_sound = 'sound/items/handling/helmet_drop.ogg'
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Drask" = 'icons/mob/species/drask/helmet.dmi',
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
 
 /obj/item/clothing/head/helmet/attack_self(mob/user)
@@ -85,8 +87,8 @@
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = null
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot
@@ -100,8 +102,8 @@
 	strip_delay = 80
 	dog_fashion = null
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot/knight
@@ -113,7 +115,7 @@
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	dog_fashion = null
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/justice
@@ -151,13 +153,13 @@
 	strip_delay = 80
 	dog_fashion = null
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
 
 /obj/item/clothing/head/helmet/swat/syndicate
@@ -251,33 +253,33 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/helmet/riot/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot/knight/yellow
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot/knight/red
 	icon_state = "knight_red"
 	item_state = "knight_red"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot/knight/templar
@@ -287,7 +289,7 @@
 	item_state = "knight_templar"
 	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0, fire = 80, acid = 80)
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/skull
@@ -300,12 +302,17 @@
 	item_state = "skull"
 	strip_delay = 100
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
-	)
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+    	"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+    	)
 
 /obj/item/clothing/head/helmet/skull/Yorick
 	name = "Йорик"
 	desc = "Бедный Йорик..."
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+    	"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+    	)
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
@@ -323,7 +330,7 @@
 	desc = "An in-atmosphere helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights."
 	icon_state = "erthelmet_cmd"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Security
@@ -333,7 +340,7 @@
 	desc = "An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "erthelmet_sec"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 /obj/item/clothing/head/helmet/ert/security/paranormal
@@ -343,7 +350,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 //Engineer
@@ -353,7 +360,7 @@
 	desc = "An in-atmosphere helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."
 	icon_state = "erthelmet_eng"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Medical
@@ -363,7 +370,7 @@
 	desc = "A set of armor worn by medical members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_med"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Janitorial
@@ -373,7 +380,7 @@
 	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_jan"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 /obj/item/clothing/head/helmet/buckhelm
@@ -386,19 +393,31 @@
 	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	strip_delay = 7 SECONDS
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Drask" = 'icons/mob/species/drask/helmet.dmi',
-		"Grey" = 'icons/mob/species/grey/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
-		"Kidan" = 'icons/mob/species/kidan/head.dmi',
-		"Nian" = 'icons/mob/species/nian/helmet.dmi',
-		"Machine" = 'icons/mob/species/machine/helmet.dmi',
-		"Skrell" = 'icons/mob/species/skrell/helmet.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Nian" = 'icons/mob/clothing/species/nian/helmet.dmi',
+		"Machine" = 'icons/mob/clothing/species/machine/helmet.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
+
+//Dredd
+/obj/item/clothing/head/helmet/street_judge
+	name = "Judge's helmet"
+	desc = "Commonly used security headgear for the more theatrically inclined. Wear this in hostage situations to make everything worse."
+	icon_state = "streetjudge_helmet"
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")

@@ -54,8 +54,8 @@
 
 	var/static/list/payday = list( // 35TC + four 0TC
 		/obj/item/gun/projectile/revolver, // 13TC
-		/obj/item/ammo_box/a357, // 3TC
-		/obj/item/ammo_box/a357, // 3TC
+		/obj/item/ammo_box/speedloader/a357, // 3TC
+		/obj/item/ammo_box/speedloader/a357, // 3TC
 		/obj/item/card/emag, // 6TC
 		/obj/item/jammer, // 5TC
 		/obj/item/card/id/syndicate, // 2TC
@@ -123,8 +123,10 @@
 		/obj/item/ammo_box/magazine/m10mm/hp,  // 1 TC
 		/obj/item/storage/box/sec,  // 0 TC
 		/obj/item/restraints/handcuffs,  // 0 TC
-		/obj/item/flash) // 0 TC
-
+		/obj/item/flash, // 0 TC
+		/obj/item/implanter/mindshield, //0 TC
+		/obj/item/clothing/suit/armor/vest/security, //0 TC
+		)
 
 /obj/item/storage/box/syndicate/populate_contents()
 	var/list/bundle = pick(spy, thief, bond, sabotage, payday, implant, hacker, darklord, professional, secoff)
@@ -165,19 +167,35 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
+/obj/item/storage/box/syndie_kit/chameleon_hardsuit
+	name = "oxygen deprivation first aid kit"
+	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
+	description_antag = "Высокотехнологичная коробка, содержащая набор хардсьюта-хамелеона, искусно скрытая под аптечку первой оксигенной помощи. Можно разобрать на картон, на самом деле это просто качественная краска."
+	icon_state = "o2"
+	item_state = "firstaid-o2"
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+
+/obj/item/storage/box/syndie_kit/counterfeiter_bundle
+	name = "Counterfeiter Bundle"
+	desc = "A box containing all the neccessary equipment to forge stamps and insignias, making the user capable of faking any NanoTrasen documents."
+
+/obj/item/storage/box/syndie_kit/counterfeiter_bundle/populate_contents()
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pen/fakesign(src)
+
+/obj/item/storage/box/syndie_kit/chameleon_hardsuit/populate_contents()
+	new /obj/item/clothing/suit/space/hardsuit/contractor/agent(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+
 /obj/item/storage/box/syndie_kit/conversion
 	name = "box (CK)"
 
 /obj/item/storage/box/syndie_kit/conversion/populate_contents()
 	new /obj/item/conversion_kit(src)
-	new /obj/item/ammo_box/a357(src)
-
-/obj/item/storage/box/syndie_kit/boolets
-	name = "Shotgun shells"
-
-/obj/item/storage/box/syndie_kit/boolets/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
 
 /obj/item/storage/box/syndie_kit/emp
 	name = "boxed EMP kit"
@@ -217,8 +235,9 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/throwing_weapons/populate_contents()
-	for(var/I in 1 to 5)
+	for(var/I in 1 to 4)
 		new /obj/item/throwing_star(src)
+	new /obj/item/restraints/legcuffs/bola/tactical(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 
@@ -315,16 +334,6 @@
 To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin repair after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><BR><HR></font>
 	"}
 
-/obj/item/storage/box/syndie_kit/safecracking
-	name = "Safe-cracking Kit"
-	desc = "Everything you need to quietly open a mechanical combination safe."
-
-/obj/item/storage/box/syndie_kit/safecracking/populate_contents()
-	new /obj/item/clothing/gloves/color/latex/nitrile(src)
-	new /obj/item/clothing/mask/balaclava(src)
-	new /obj/item/clothing/accessory/stethoscope(src)
-	new /obj/item/book/manual/engineering_hacking(src)
-
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"
 
@@ -335,6 +344,23 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/shoes/chameleon(src)
 	new /obj/item/clothing/glasses/chameleon(src)
 	new /obj/item/clothing/head/chameleon(src)
+	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/storage/backpack/chameleon(src)
+	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/stamp/chameleon(src)
+	new /obj/item/pda/chameleon(src)
+	new /obj/item/pen/fakesign(src)
+
+/obj/item/storage/box/syndie_kit/plasma_chameleon
+	name = "plasmaman chameleon kit"
+
+/obj/item/storage/box/syndie_kit/plasma_chameleon/populate_contents()
+	new /obj/item/clothing/under/plasmaman/chameleon(src)
+	new /obj/item/clothing/suit/chameleon(src)
+	new /obj/item/clothing/gloves/chameleon(src)
+	new /obj/item/clothing/shoes/chameleon(src)
+	new /obj/item/clothing/glasses/chameleon(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
@@ -446,8 +472,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	name = "additional .357 ammunition kit"
 
 /obj/item/storage/box/syndie_kit/revolver_ammo/populate_contents()
-	new /obj/item/ammo_box/a357(src)
-	new /obj/item/ammo_box/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
 
 /obj/item/storage/box/syndie_kit/dangertray
 	name = "Danger Tray pack"
@@ -470,3 +496,46 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/suit/mr_chang_coat(src)
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
+
+/obj/item/storage/box/syndie_kit/bowman_conversion_kit
+	name = "Bowman headset conversion kit"
+	desc = "Easy-to-apply device which enchances headset with loud noise protection."
+
+/obj/item/storage/box/syndie_kit/bowman_conversion_kit/populate_contents()
+	new /obj/item/encryptionkey/syndicate(src)
+	new /obj/item/bowman_conversion_tool(src)
+
+/obj/item/storage/box/syndie_kit/commando_kit
+	name = "Commandos knife operation kit"
+	desc = "A box that smells like a mix of gunpowder, napalm and cheap whiskey.  Contains everything you need to survive in such places."
+	icon_state = "commandos_kit"
+
+/obj/item/storage/box/syndie_kit/commando_kit/populate_contents()
+	new /obj/item/throwing_manual(src)
+	new /obj/item/clothing/under/pants/camo/commando(src)
+	new /obj/item/clothing/shoes/combat/commando(src)
+	new /obj/item/clothing/head/commando(src)
+	new /obj/item/poster/commando(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/clothing/accessory/holster/knives(src)
+	new /obj/item/storage/box/syndie_kit/knives_kit(src)
+
+/obj/item/storage/box/syndie_kit/knives_kit
+	name = "Throwing knives kit"
+
+/obj/item/storage/box/syndie_kit/knives_kit/populate_contents()
+	for(var/i in 1 to 7)
+		new /obj/item/kitchen/knife/combat/throwing(src)
+/obj/item/storage/box/syndie_kit/blackops_kit
+	name = "Black ops kit"
+
+/obj/item/storage/box/syndie_kit/blackops_kit/populate_contents()
+	new /obj/item/clothing/under/syndicate/blackops(src)
+	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/clothing/suit/armor/vest(src)
+	new /obj/item/clothing/glasses/night(src)
+	new /obj/item/clothing/accessory/storage/webbing(src)
+	new /obj/item/storage/belt/military/assault(src)
+	new /obj/item/clothing/mask/balaclava(src)

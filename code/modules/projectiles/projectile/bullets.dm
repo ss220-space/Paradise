@@ -23,6 +23,7 @@
 		M.AdjustConfused(40 SECONDS)
 		M.AdjustEyeBlurry(40 SECONDS)
 		M.AdjustDrowsy(40 SECONDS)
+		M.AdjustDrunk(50 SECONDS)
 		for(var/datum/reagent/consumable/ethanol/A in M.reagents.reagent_list)
 			M.AdjustParalysis(4 SECONDS)
 			M.AdjustDizzy(20 SECONDS)
@@ -86,6 +87,11 @@
 	damage = 5
 	stamina = 30
 	icon_state = "bullet-r"
+
+/obj/item/projectile/bullet/weakbullet4/c9mmte
+	name = "9mm TE"
+	damage = 7
+	stamina = 15
 
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
@@ -184,11 +190,15 @@
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20
-	stamina = 33 //two rounds from the c20r knocks people down
+	stamina = 33 //four rounds from the c20r knocks people down
+
+/obj/item/projectile/bullet/midbullet_AC2S
+	damage = 20
+	stamina = 40 //three rounds from the AC 2 Special knocks people down
 
 /obj/item/projectile/bullet/midbullet_r
 	damage = 5
-	stamina = 33 //Still two rounds to knock people down
+	stamina = 33 //Still four rounds to knock people down
 
 /obj/item/projectile/bullet/midbullet2
 	damage = 25
@@ -350,7 +360,7 @@
 	if(isalien(target))
 		weaken = 0
 		nodamage = 1
-	if(ismecha(target) || issilicon(target))
+	if(isobj(target) || issilicon(target) || ismachineperson(target))
 		damage_type = BURN
 	. = ..() // Execute the rest of the code.
 
@@ -373,3 +383,6 @@
 	damage = 8
 	stamina = 1
 	armour_penetration = 5
+
+/obj/item/projectile/bullet/weakbullet3/c257
+	damage = 20

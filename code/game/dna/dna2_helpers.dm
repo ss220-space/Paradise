@@ -134,7 +134,7 @@
 			dna.UpdateUI()
 		dna.check_integrity()
 		var/mob/living/carbon/human/H = src
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		var/obj/item/organ/internal/eyes/eye_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(istype(head_organ))
 			dna.write_head_attributes(head_organ)
@@ -170,14 +170,16 @@
 		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, GLOB.body_accessory_by_name.len)
 		if((bodyacc > 0) && (bodyacc <= GLOB.body_accessory_by_name.len))
 			var/datum/body_accessory/body_acc = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
+			var/obj/item/organ/external/tail/bodypart_tail = H.get_organ(BODY_ZONE_TAIL)
+			var/obj/item/organ/external/wing/bodypart_wing = H.get_organ(BODY_ZONE_WING)
 			if(!body_acc)
 				H.body_accessory = null
-				H.bodypart_tail?.body_accessory = null
-				H.bodypart_wing?.body_accessory = null
+				bodypart_tail?.body_accessory = null
+				bodypart_wing?.body_accessory = null
 			else if(H.dna.species.name in body_acc.allowed_species)
 				H.body_accessory = body_acc
-				H.bodypart_tail?.body_accessory = body_acc
-				H.bodypart_wing?.body_accessory = body_acc
+				bodypart_tail?.body_accessory = body_acc
+				bodypart_wing?.body_accessory = body_acc
 		//Tail Markings
 		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, GLOB.marking_styles_list.len)
 		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
@@ -226,7 +228,7 @@
 		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
 			continue
 		available.Add(head_accessory)
-	var/list/sorted = sortTim(available, /proc/cmp_text_asc)
+	var/list/sorted = sortTim(available, cmp = /proc/cmp_text_asc)
 
 	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE, length(sorted))
 	if(headacc > 0 && headacc <= length(sorted))

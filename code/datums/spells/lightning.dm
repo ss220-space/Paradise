@@ -29,6 +29,7 @@
 	clothes_req = FALSE
 	invocation = "За С+инд+ик+ат!"
 	energy_divisor = 4
+	human_req = FALSE
 
 
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/New()
@@ -53,7 +54,7 @@
 
 
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/apply_bounce_effect(mob/origin, mob/living/target, energy, mob/user)
-	if(NO_SHOCK in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_SHOCKIMMUNE))
 		return
 
 	if(damaging)

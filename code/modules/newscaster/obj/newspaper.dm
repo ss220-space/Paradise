@@ -36,13 +36,25 @@
 	. = ..()
 	if(!news_content)
 		news_content = list()
+		
+/obj/item/newspaper/examine(mob/user)
+	. = ..()	
+	if(rolled)
+		. += "<span class='notice'>You have to unroll it if you want to read it.</span>"
+	else
+		if(user.is_literate())
+			if(in_range(user, src) || istype(user, /mob/dead/observer))
+				attack_self(user)
+			else
+				. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+		else
+			. += "<span class='notice'>You don't know how to read.</span>"
 
 /obj/item/newspaper/attack_self(mob/user)
 	if(rolled)
 		to_chat(user, "<span class='warning'>Unroll it first!</span>")
 		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/human_user = user
+	if(user.is_literate())
 		var/dat = {"<meta charset="UTF-8">"}
 		pages = 0
 		switch(screen)
@@ -67,7 +79,7 @@
 					dat += "</ul>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<hr><div style='float:right;'><a href='?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='?src=[human_user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
+				dat+= "<hr><div style='float:right;'><a href='?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='?src=[user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
 			if(SCREEN_PAGE_INNER) // X channel pages inbetween.
 				for(var/datum/feed_channel/NP in news_content)
 					pages++ //Let's get it right again.
@@ -117,18 +129,17 @@
 				dat += "i'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
 
 		dat += "<br><hr><div align='center'>[curr_page+1]</div>"
-		human_user << browse(dat, "window=newspaper_main;size=300x400")
-		onclose(human_user, "newspaper_main")
+		user << browse(dat, "window=newspaper_main;size=300x400")
+		onclose(user, "newspaper_main")
 	else
 		to_chat(user, "<span class='warning'>The paper is full of unintelligible symbols!</span>")
 
 /obj/item/newspaper/Topic(href, href_list)
 	if(..())
 		return
-	var/mob/living/M = usr
-	if(!Adjacent(M))
+	if(!( (Adjacent(usr) && !istype(usr, /mob/dead/observer)) || (istype(usr, /mob/dead/observer) && usr.can_advanced_admin_interact()) ))
 		return
-	M.set_machine(src)
+	usr.set_machine(src)
 	if(href_list["next_page"])
 		if(curr_page == pages + 1)
 			return //Don't need that at all, but anyway.
@@ -138,6 +149,7 @@
 			screen = SCREEN_PAGE_INNER
 		curr_page++
 		playsound(loc, "pageturn", 50, TRUE)
+		attack_self(usr)
 	else if(href_list["prev_page"])
 		if(curr_page == 0)
 			return
@@ -147,8 +159,7 @@
 			screen = SCREEN_PAGE_INNER
 		curr_page--
 		playsound(loc, "pageturn", 50, TRUE)
-	if(loc == M)
-		attack_self(M)
+		attack_self(usr)
 
 /obj/item/newspaper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))

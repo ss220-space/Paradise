@@ -22,7 +22,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
-	name = "station bounced radio"
+	name = "shortwave radio"
+	desc = "A basic handheld radio that can communicate with local telecommunication networks."
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
 	icon_state = "walkietalkie"
@@ -237,15 +238,17 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
-/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
+/mob/proc/has_internal_radio_channel_access(mob/user, list/req_accesses)
 	var/obj/item/card/id/I = user.get_id_card()
 	return has_access(req_accesses, TRUE, I ? I.GetAccess() : list())
 
-/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
-	var/list/access = get_all_accesses()
-	return has_access(req_accesses, TRUE, access)
+/mob/living/silicon/has_internal_radio_channel_access(mob/user, list/req_accesses)
+	return has_access(req_accesses, TRUE, get_all_accesses())
 
-/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
+/mob/living/simple_animal/demon/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_accesses)
+	return has_access(req_accesses, TRUE, get_all_accesses())
+
+/mob/dead/observer/has_internal_radio_channel_access(mob/user, list/req_accesses)
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
@@ -304,8 +307,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		C.handle_message(tcm)
 	qdel(tcm) // Delete the message datum
 	qdel(A)
+
 /obj/item/radio/sec
-	name = "security station bounced radio"
+	name = "security shortwave radio"
+	desc = "A basic handheld radio that can communicate with local telecommunication networks. This model is painted in black colors."
 	icon_state = "walkietalkie_sec"
 	frequency = SEC_FREQ
 
@@ -363,6 +368,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(!M.IsVocal())
 		return 0
 
+	if(M.is_muzzled())
+		var/obj/item/clothing/mask/muzzle/muzzle = M.wear_mask
+		if(muzzle.radio_mute)
+			return 0
+
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)
 	for(var/J in GLOB.active_jammers)
@@ -418,8 +428,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))
-		jobname = "Personal AI"
-		rank = "Personal AI"
+		var/mob/living/silicon/pai/pai = M
+		displayname = pai.radio_name
+		jobname = pai.radio_rank
+		rank = pai.radio_rank
 
 	// --- Cogscarab ---
 	else if(iscogscarab(M))
@@ -581,6 +593,29 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
 		else
 			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
+		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
+
+/obj/item/radio/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(!iscarbon(usr) && !isrobot(usr))
+		return
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	broadcasting = !broadcasting
+	to_chat(user, "<span class='notice'>You toggle broadcasting [broadcasting ? "on" : "off"].</span>")
+
+/obj/item/radio/CtrlShiftClick(mob/user) //weird checks
+	if(!Adjacent(user))
+		return
+	if(!iscarbon(usr) && !isrobot(usr))
+		return
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	listening = !listening
+	to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -787,6 +822,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	listening = 1
 	name = "phone"
 	dog_fashion = null
+	drop_sound = 'sound/items/handling/phone_drop.ogg'
+	pickup_sound = 'sound/items/handling/phone_pickup.ogg'
 
 /obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ

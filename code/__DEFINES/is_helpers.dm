@@ -1,6 +1,8 @@
 // Atoms
 #define isatom(A) (isloc(A))
 
+#define isdatum(thing) (istype(thing, /datum))
+
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
@@ -22,15 +24,17 @@
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
+#define isapc(A) (istype(A, /obj/machinery/power/apc))
+
 #define ismecha(A) (istype(A, /obj/mecha))
+
+#define isvampirecoffin(A) (istype(A, /obj/structure/closet/coffin/vampire))
 
 #define isspacepod(A) (istype(A, /obj/spacepod))
 
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define isprojectile(A) (istype(A, /obj/item/projectile))
-
-#define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 
@@ -54,7 +58,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/plasmaglass,
 	/obj/item/stack/sheet/plasmarglass,
 	/obj/item/stack/sheet/titaniumglass,
-	/obj/item/stack/sheet/plastitaniumglass)))
+	/obj/item/stack/sheet/plastitaniumglass,
+	/obj/item/stack/sheet/abductorglass)))
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
@@ -91,6 +96,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isbrain(A) (istype(A, /mob/living/carbon/brain))
 
+#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
+
 //Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
 
@@ -108,6 +115,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
 #define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
+
+#define isvampireanimal(A)		(istype((A), /mob/living/simple_animal/hostile/vampire))
 
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))

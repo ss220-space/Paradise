@@ -4,6 +4,8 @@
 	name = "\improper Academy Asteroids"
 	icon_state = "away"
 	report_alerts = FALSE
+	no_teleportlocs = TRUE
+	tele_proof = TRUE
 
 /area/awaymission/academy/headmaster
 	name = "\improper Academy Fore Block"
@@ -142,9 +144,9 @@
 			explosion(get_turf(user),-1,0,2, flame_range = 2, cause = src)
 		if(9)
 			//Cold
-			var/datum/disease/D = new /datum/disease/cold
 			T.visible_message("<span class='userdanger'>[user] looks a little under the weather!</span>")
-			user.ForceContractDisease(D)
+			var/datum/disease/virus/cold/D = new
+			D.Contract(user)
 		if(10)
 			//Nothing
 			T.visible_message("<span class='userdanger'>Nothing seems to happen.</span>")
@@ -236,4 +238,31 @@
 	head = /obj/item/clothing/head/bowlerhat
 	glasses = /obj/item/clothing/glasses/monocle
 	gloves = /obj/item/clothing/gloves/color/white
+
+/obj/effect/bump_teleporter/academy_no_mesons
+    var/list/items_to_remove = list(
+		/obj/item/clothing/glasses/meson,
+		/obj/item/clothing/glasses/hud/health/meson,
+		/obj/item/clothing/head/helmet/meson,
+		/obj/item/organ/internal/cyberimp/eyes/meson,
+		/obj/item/organ/internal/cyberimp/eyes/xray
+	)
+
+/obj/effect/bump_teleporter/academy_no_mesons/process_special_effects(mob/living/target)
+	if(XRAY in target.mutations)
+		target.mutations.Remove(XRAY)
+		target.update_sight()
+	process_item_removal(target)
+
+/obj/effect/bump_teleporter/academy_no_mesons/proc/process_item_removal(mob/living/target)
+	if(!istype(target))
+		return
+	for(var/item in items_to_remove)
+		remove_item_type(target, item)
+
+/obj/effect/bump_teleporter/academy_no_mesons/proc/remove_item_type(mob/living/target, item_type)
+	var/list/items = target.search_contents_for(item_type)
+	for(var/it in items)
+		var/obj/item = it
+		qdel(item)
 

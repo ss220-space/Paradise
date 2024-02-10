@@ -77,7 +77,7 @@
 	. = ..()
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease
-		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
+		var/list/data = list("diseases" = list(F), "blood_color" = "#A10808")
 		reagents.add_reagent("blood", disease_amount, data)
 	add_initial_reagents()
 	update_icon()
@@ -104,13 +104,13 @@
 		container_type |= REFILLABLE | DRAINABLE
 		update_icon()
 
-/obj/item/reagent_containers/attack_self(mob/user)
+/obj/item/reagent_containers/attack_self(mob/user = usr)
 	if(has_lid)
 		if(is_open_container())
-			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+			to_chat(user, "<span class='notice'>You put the lid on [src].</span>")
 			add_lid()
 		else
-			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+			to_chat(user, "<span class='notice'>You take the lid off [src].</span>")
 			remove_lid()
 
 /obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
@@ -135,3 +135,4 @@
 
 	if(possible_transfer_amounts)
 		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
+

@@ -101,17 +101,21 @@
 	if(essence == 0)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
 
+
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
+
 	add_say_logs(src, message)
-	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
+
+	if(copytext(message, 1, 2) == "*")
+		return emote(copytext(message, 2), intentional = TRUE)
+
 	for(var/mob/M in GLOB.mob_list)
-		if(istype(M, /mob/living/simple_animal/revenant))
+		var/rendered = "<span class='revennotice'><b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] says, \"[message]\"</span>"
+		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
 			to_chat(M, rendered)
-		if(isobserver(M))
-			to_chat(M, "<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> [rendered]")
-	return
+
 
 /mob/living/simple_animal/revenant/Stat()
 	..()
@@ -164,23 +168,23 @@
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
 			mind.wipe_memory()
 			SEND_SOUND(src, 'sound/effects/ghost.ogg')
-			to_chat(src, "<br>")
-			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
-			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
-			to_chat(src, "<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")
-			to_chat(src, "<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
-			to_chat(src, "<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
-			to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
-			to_chat(src, "<b>Be sure to read the wiki page at https://wiki.ss220.space/index.php/Ревенант to learn more.</b>")
+			var/list/messages = list()
+			messages.Add("<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
+			messages.Add("<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
+			messages.Add("<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")
+			messages.Add("<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
+			messages.Add("<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
+			messages.Add("<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
+			messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Revenant\">Ревенант</a></span>")
 			var/datum/objective/revenant/objective = new
 			objective.owner = mind
 			mind.objectives += objective
-			to_chat(src, "<b>Objective #1</b>: [objective.explanation_text]")
 			var/datum/objective/revenantFluff/objective2 = new
 			objective2.owner = mind
 			mind.objectives += objective2
-			to_chat(src, "<b>Objective #2</b>: [objective2.explanation_text]")
 			SSticker.mode.traitors |= mind //Necessary for announcing
+			messages.Add(mind.prepare_announce_objectives(FALSE))
+			to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
@@ -199,7 +203,7 @@
 /mob/living/simple_animal/revenant/gib()
 	. = death()
 
-/mob/living/simple_animal/revenant/death()
+/mob/living/simple_animal/revenant/death(gibbed)
 	if(!revealed)
 		return FALSE
 	// Only execute the below if we successfully died

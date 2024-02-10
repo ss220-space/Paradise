@@ -39,6 +39,8 @@
 	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
 	var/sound_ready = TRUE
 	var/sound_cooldown = 1 SECONDS
+	//Emag vulnerability.
+	var/hackable = TRUE
 
 /obj/machinery/door/New()
 	..()
@@ -269,9 +271,9 @@
 
 	if(!cleaning)
 		return
-	user.visible_message("<span class='notice'>[user] starts to clean the ooze off the access panel.</span>", "<span class='notice'>You start to clean the ooze off the access panel.</span>")
+	user.visible_message(span_notice("[user] starts to clean the ooze off the access panel."), span_notice("You start to clean the ooze off the access panel."))
 	if(do_after(user, 50, target = src))
-		user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
+		user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
@@ -316,13 +318,17 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/emag_act(mob/user)
+	if(!hackable)
+		if(user)
+			to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
+		return
 	if(density)
 		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 		flick("door_spark", src)
 		sleep(6)
 		open()
-		emagged = 1
-		return 1
+		emagged = TRUE
+		return TRUE
 
 /obj/machinery/door/cmag_act(mob/user)
 	if(!density)
@@ -347,7 +353,7 @@
 			if(!density)
 				return
 			do_animate("deny")
-			to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
+			to_chat(H, span_warning("The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'"))
 			if(sound_ready)
 				playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 				soundcooldown() //Thanks, mechs
@@ -445,7 +451,7 @@
 
 /obj/machinery/door/proc/crush()
 	for(var/mob/living/L in get_turf(src))
-		L.visible_message("<span class='warning'>[src] closes on [L], crushing [L.p_them()]!</span>", "<span class='userdanger'>[src] closes on you and crushes you!</span>")
+		L.visible_message(span_warning("[src] closes on [L], crushing [L.p_them()]!"), span_userdanger("[src] closes on you and crushes you!"))
 		if(isalien(L))  //For xenos
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 			L.emote("roar")

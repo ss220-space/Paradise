@@ -4,6 +4,7 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 	wait = 1
 	flags = SS_TICKER|SS_BACKGROUND|SS_KEEP_TIMING
 	offline_implications = "Instruments will no longer play. No immediate action is needed."
+	ss_id = "instruments"
 
 	/// List of all instrument data, associative id = datum
 	var/list/datum/instrument/instrument_data
@@ -22,10 +23,11 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 	/// Single cached list for synthesizer instrument ids, so you don't have to have a new list with every synthesizer.
 	var/list/synthesizer_instrument_ids
 
+
 /datum/controller/subsystem/processing/instruments/Initialize()
 	initialize_instrument_data()
 	synthesizer_instrument_ids = get_allowed_instrument_ids()
-	return ..()
+
 
 /**
   * Initializes all instrument datums
@@ -45,6 +47,7 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 			instrument_data[I.id] = I
 		CHECK_TICK
 
+
 /**
   * Reserves a sound channel for a given instrument datum
   *
@@ -58,6 +61,7 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 	if(!isnull(.))
 		current_instrument_channels++
 
+
 /**
   * Called when a datum/song is created
   *
@@ -67,6 +71,7 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 /datum/controller/subsystem/processing/instruments/proc/on_song_new(datum/song/S)
 	LAZYADD(songs, S)
 
+
 /**
   * Called when a datum/song is deleted
   *
@@ -75,6 +80,7 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
   */
 /datum/controller/subsystem/processing/instruments/proc/on_song_del(datum/song/S)
 	LAZYREMOVE(songs, S)
+
 
 /**
   * Returns the instrument datum at the given ID or path

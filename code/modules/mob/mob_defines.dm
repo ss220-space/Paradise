@@ -7,6 +7,7 @@
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
@@ -19,12 +20,13 @@
 	var/obj/screen/m_select = null
 	var/obj/screen/healths = null
 	var/obj/screen/throw_icon = null
+	var/obj/screen/stamina_bar = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
 	The current method unnecessarily clusters up the variable list, especially for humans (although rearranging won't really clean it up a lot but the difference will be noticable for other mobs).
 	I'll make some notes on where certain variable defines should probably go.
-	Changing this around would probably require a good look-over the pre-existing code.
+	Changing this around would probably require a good look-over the pre-existing code.   :resident_sleeper:
 	*/
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
@@ -46,7 +48,7 @@
 	var/memory = ""
 	var/next_move = null
 	var/notransform = null	//Carbon
-	var/hand = null
+	var/hand = null			// 0 - right hand is active, 1 - left hand is active
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
@@ -60,7 +62,8 @@
 	var/list/temporary_languages = list() // For reagents that grant language knowlege.
 	var/list/abilities = list()           // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says")   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
-	var/emote_type = 1		// Define emote default type, 1 for seen emotes, 2 for heard emotes
+	/// Define emote default type, EMOTE_VISIBLE for seen emotes, EMOTE_AUDIBLE for heard emotes.
+	var/emote_type = EMOTE_VISIBLE
 	var/name_archive //For admin things like possession
 	var/gunshot_residue
 
@@ -100,9 +103,21 @@
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
-	var/in_throw_mode = 0
+	var/in_throw_mode = FALSE
 
-	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
+	// See /datum/emote
+
+	/// Cooldown on audio effects from emotes.
+	var/audio_emote_cd_status = EMOTE_READY
+
+	/// Cooldown on audio effects from unintentional emotes.
+	var/audio_emote_unintentional_cd_status = EMOTE_READY
+
+	/// Override for cooldowns on non-audio emotes. Should be a number in deciseconds.
+	var/emote_cooldown_override = null
+
+	/// Tracks last uses of emotes for cooldown purposes
+	var/list/emotes_used
 
 	var/job = null //Living
 
@@ -122,6 +137,7 @@
 	/// Whether antagHUD has been enabled previously.
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
+	var/thoughtsHUD = 0 //Just a handler for permanent/temporary THOUGHTS_HUD changing.
 	var/can_change_intents = 1 //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
@@ -149,7 +165,7 @@
 
 //List of active diseases
 
-	var/list/viruses = list() // list of all diseases in a mob
+	var/list/diseases = list() // list of all diseases in a mob
 	var/list/resistances = list()
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
@@ -195,7 +211,7 @@
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
-	var/list/permanent_huds = list()
+	var/list/huds_counter = list("huds" = list(), "icons" = list()) // Counters for huds and icon types
 
 	var/list/actions = list()
 	var/list/datum/action/chameleon_item_actions
@@ -212,3 +228,5 @@
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
 	var/last_emote = null
+
+	var/ghost_orbiting = 0

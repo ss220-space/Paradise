@@ -5,14 +5,17 @@ SUBSYSTEM_DEF(processing)
 	priority = FIRE_PRIORITY_PROCESS
 	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT
 	wait = 10
+	ss_id = "processing"
 
 	var/stat_tag = "P" //Used for logging
 	var/list/processing = list()
 	var/list/currentrun = list()
 	offline_implications = "Objects using the default processor will no longer process. Shuttle call recommended."
 
-/datum/controller/subsystem/processing/stat_entry()
-	..("[stat_tag]:[processing.len]")
+
+/datum/controller/subsystem/processing/get_stat_details()
+	return "[stat_tag]:[length(processing)]"
+
 
 /datum/controller/subsystem/processing/fire(resumed = 0)
 	if(!resumed)

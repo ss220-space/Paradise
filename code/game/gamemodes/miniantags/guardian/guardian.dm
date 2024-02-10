@@ -206,12 +206,6 @@
 		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, "<span class='alien'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 
-//override set to true if message should be passed through instead of going to host communication
-/mob/living/simple_animal/hostile/guardian/say(message, override = FALSE)
-	if(admin_spawned || override)//if it's an admin-spawned guardian without a host it can still talk normally
-		return ..(message)
-	Communicate(message)
-
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, span_danger("У вас нет другого режима!"))
@@ -277,7 +271,7 @@
 			picked_random_type = pick(possible_guardians)
 		guardian_type = picked_random_type
 	else
-		guardian_type = input(user, "Выберите тип [mob_name]", "Создание [mob_name] ") as null|anything in possible_guardians
+		guardian_type = tgui_input_list(user, "Выберите тип [mob_name]", "Создание [mob_name] ", possible_guardians)
 		if(!guardian_type)
 			to_chat(user, span_warning("Вы решили не использовать [name]."))
 			used = FALSE
@@ -288,9 +282,11 @@
 
 	if(candidates.len)
 		theghost = pick(candidates)
+		log_game("[user](ckey: [user.key]) has successfully spawned [guardian_type] type guardian(ckey: [theghost.key])")
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")
+		log_game("[user](ckey: [user.key]) has failed to spawn Guardian.")
 		used = FALSE
 
 /obj/item/guardiancreator/examine(mob/user, distance)

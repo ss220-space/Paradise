@@ -162,12 +162,12 @@
 		dispense_item(I)
 
 /obj/item/circuitboard/cryopodcontrol
-	name = "Circuit board (Cryogenic Oversight Console)"
+	board_name = "Cryogenic Oversight Console"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
 
 /obj/item/circuitboard/robotstoragecontrol
-	name = "Circuit board (Robotic Storage Console)"
+	board_name = "Robotic Storage Console"
 	build_path = "/obj/machinery/computer/cryopod/robot"
 	origin_tech = "programming=1"
 
@@ -202,7 +202,7 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
-	var/base_icon_state = "bodyscanner-open"
+	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
 	var/on_store_message = "помещен в криохранилище."
 	var/on_store_name = "Cryogenic Oversight"
@@ -247,7 +247,8 @@
 		/obj/item/key,
 		/obj/item/door_remote,
 		/obj/item/stamp,
-		/obj/item/sensor_device/command
+		/obj/item/sensor_device/advanced,
+		/obj/item/qm_quest_tablet
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -384,6 +385,10 @@
 			control_computer.freeze_item(I, preserve)
 		else
 			I.forceMove(loc)
+
+	// Log antag special role and objectives
+	if(SSticker?.score && occupant.mind?.special_role)
+		SSticker.score.save_antag_info(occupant.mind)
 
 	// Find a new sacrifice target if needed, if unable allow summoning
 	if(is_sacrifice_target(occupant.mind))

@@ -75,6 +75,7 @@
 	if(.)
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
+	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /mob/living/proc/OpenCraftingMenu()
 	return
@@ -99,6 +100,18 @@
 /mob/living/proc/MobBump(mob/M)
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
+
+	if(get_confusion() && get_disoriented())
+		Weaken(1 SECONDS)
+		take_organ_damage(rand(5, 10))
+		var/mob/living/victim = M
+		if(istype(victim))
+			victim.Weaken(1 SECONDS)
+			victim.take_organ_damage(rand(5, 10))
+		visible_message("<span class='danger'>[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [M.name], сбивая друг друга с ног!</span>", \
+					 "<span class='userdanger'>Вы жестко врезаетесь в [M.name]!</span>")
+		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+		return
 
 	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
 	if(now_pushing || M.anchored)
@@ -174,6 +187,12 @@
 
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/O)
+	if(get_confusion() && get_disoriented())
+		Weaken(1 SECONDS)
+		take_organ_damage(rand(5, 10))
+		visible_message("<span class='danger'>[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [O.name]!</span>", \
+						"<span class='userdanger'>Вы жестко врезаетесь в [O.name]!</span>")
+		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 	return
 
 /mob/living/get_pull_push_speed_modifier(current_delay)
@@ -258,6 +277,10 @@
 	return TRUE
 
 
+/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return TRUE // Unless you're a mule, something's trying to run you over.
+
+
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
@@ -272,7 +295,7 @@
 /mob/living/stop_pulling()
 	..()
 	if(pullin)
-		pullin.update_icon(src)
+		pullin.update_icon(UPDATE_ICON_STATE)
 
 /mob/living/verb/stop_pulling1()
 	set name = "Stop Pulling"
@@ -280,30 +303,49 @@
 	stop_pulling()
 
 //same as above
-/mob/living/pointed(atom/A as mob|obj|turf)
+/mob/living/pointed(atom/A as mob|obj|turf in view(client.maxview()))
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
 	return ..()
 
-/mob/living/run_pointed(atom/A)
+
+/mob/living/run_pointed(atom/target)
 	if(!..())
 		return FALSE
+
 	var/obj/item/hand_item = get_active_hand()
-	if(istype(hand_item, /obj/item/gun) && A != hand_item)
-		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]")
-			add_emote_logs(src, "point [hand_item] to [key_name(A)] [COORD(A)]")
+	var/pointed_object = "[target.declent_ru(ACCUSATIVE)]"
+
+	if(target.loc in src)
+		var/atom/inside = target.loc
+		pointed_object += " внутри [inside.declent_ru(GENITIVE)]"
+
+	if(istype(hand_item, /obj/item/gun) && target != hand_item)
+		if(a_intent == INTENT_HELP || !ismob(target))
+			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
-		A.visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]!</span>",
-											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(A.gender,"тебя","вас")]!</span>")
-		A << 'sound/weapons/targeton.ogg'
-		add_emote_logs(src, "point [hand_item] HARM to [key_name(A)] [COORD(A)]")
+
+		target.visible_message(
+			span_danger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
+			span_userdanger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
+		)
+		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
+		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
 		return TRUE
-	visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] на [A.declent_ru(ACCUSATIVE)]")
-	add_emote_logs(src, "point to [key_name(A)] [COORD(A)]")
+
+	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
+		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руке!"))
+		trick.shoot_gun(src)
+		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
+		return TRUE
+
+	visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] на [pointed_object].")
+	add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 	return TRUE
+
 
 /mob/living/verb/succumb()
 	set hidden = 1
@@ -346,6 +388,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
+	update_stamina_hud()
 	update_damage_hud()
 	if(should_log)
 		log_debug("[src] update_stat([reason][status_flags & GODMODE ? ", GODMODE" : ""])")
@@ -520,6 +563,7 @@
 	SetDeaf(0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
+	CureAllDiseases(FALSE)
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
@@ -530,9 +574,9 @@
 		var/mob/living/carbon/C = src
 		C.uncuff()
 
-		for(var/thing in C.viruses)
+		for(var/thing in C.diseases)
 			var/datum/disease/D = thing
-			D.cure(0)
+			D.cure(need_immunity = FALSE)
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
@@ -575,7 +619,7 @@
 	set category = "OOC"
 	set src in view()
 
-	if(config.allow_Metadata)
+	if(CONFIG_GET(flag/allow_metadata))
 		if(client)
 			to_chat(usr, "[src]'s Metainfo:<br>[client.prefs.metadata]")
 		else
@@ -630,13 +674,10 @@
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
 					if(!H.lying)
-						if(H.get_confusion() > 0 && prob(4))
+						if(H.get_confusion() > 0 && m_intent != MOVE_INTENT_WALK && prob(4))
 							H.Weaken(4 SECONDS)
 							pulling.stop_pulling()
 							visible_message(span_danger("Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол!"))
-						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
-							H.Weaken(4 SECONDS)
-							visible_message(span_danger("[H] не поспевает за [src] и с грохотом падает на пол!"))
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
 				pulling.pixel_y = initial(pulling.pixel_y)
@@ -817,21 +858,31 @@
 		resisting++
 		switch(G.state)
 			if(GRAB_PASSIVE)
-				qdel(G)
+				if(prob(100 / get_grab_strength(G, src)))
+					qdel(G)
 
 			if(GRAB_AGGRESSIVE)
-				if(prob(60))
+				if(prob(60 / get_grab_strength(G, src)))
 					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
 
 			if(GRAB_NECK)
-				if(prob(5))
+				if(prob(5 / get_grab_strength(G, src)))
 					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s headlock!</span>")
 					qdel(G)
 
 	if(resisting)
 		visible_message("<span class='danger'>[src] resists!</span>")
 		return 1
+
+/mob/living/proc/get_grab_strength(obj/item/grab/G, mob/living/M)
+	var/modifier = 0
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		modifier = G.strength / H.dna.species.strength_modifier
+	else
+		modifier = G.strength
+	return modifier
 
 /mob/living/proc/resist_buckle()
 	spawn(0)
@@ -859,6 +910,9 @@
 
 /mob/living/proc/get_visible_name()
 	return name
+
+/mob/living/proc/is_facehugged()
+	return FALSE
 
 /mob/living/update_gravity(has_gravity)
 	if(!SSticker)
@@ -896,10 +950,23 @@
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
 
+
 /mob/living/proc/check_eye_prot()
-	return 0
+	var/number = 0
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
+		number++
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
+		number++
+	return number
+
 
 /mob/living/proc/check_ear_prot()
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/ears_bang_protection))
+		return HEARING_PROTECTION_TOTAL
+	return HEARING_PROTECTION_NONE
+
 
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
@@ -1010,6 +1077,10 @@
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
+	else if(isvampirecoffin(loc))
+		var/obj/structure/closet/coffin/vampire/coffin = loc
+		loc_temp = coffin.return_temperature()
+
 	else if(istype(loc, /obj/spacepod))
 		var/obj/spacepod/S = loc
 		loc_temp = S.return_temperature()
@@ -1079,15 +1150,15 @@
 	if(forced_look)
 		. += 3
 	if(ignorewalk)
-		. += config.run_speed
+		. += CONFIG_GET(number/run_speed)
 	else
 		switch(m_intent)
 			if(MOVE_INTENT_RUN)
 				if(get_drowsiness() > 0)
 					. += 6
-				. += config.run_speed
+				. += CONFIG_GET(number/run_speed)
 			if(MOVE_INTENT_WALK)
-				. += config.walk_speed
+				. += CONFIG_GET(number/walk_speed)
 
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
@@ -1096,33 +1167,16 @@
 		return 0
 	return 1
 
-/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
-	if(!AM || !src)
-		return FALSE
-	if(!(AM.can_be_pulled(src, state, force, show_message)))
-		return FALSE
+
+/mob/living/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	if(incapacitated())
-		return
-	// If we're pulling something then drop what we're currently pulling and pull this instead.
-	AM.add_fingerprint(src)
-	if(pulling)
-		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
-			return
-		stop_pulling()
-		if(AM.pulledby)
-			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
-			AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
-	pulling = AM
-	AM.pulledby = src
+		return FALSE
+
+	. = ..()
+
 	if(pullin)
-		pullin.update_icon(src)
-	if(ismob(AM))
-		var/mob/M = AM
-		add_attack_logs(src, M, "pulls", ATKLOG_ALMOSTALL)
-		if(!iscarbon(src))
-			M.LAssailant = null
-		else
-			M.LAssailant = usr
+		pullin.update_icon(UPDATE_ICON_STATE)
+
 
 /mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))
@@ -1187,7 +1241,7 @@
 /mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
 		if(A.light_range > 0)
-			A.extinguish_light()
+			A.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1206,6 +1260,25 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+	stop_pulling()
+	return ..()
+
+
+/mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(C == src || flying || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
+	if(mob_hurt)
+		return
+	if(!self_hurt)
+		take_organ_damage(damage)
+	C.take_organ_damage(damage)
+	C.Weaken(3 SECONDS)
+	C.visible_message(span_danger("[C.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [name], сбивая друг друга с ног!"),
+					span_userdanger("Вы жестко врезаетесь в [name]!"))
 
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
@@ -1306,3 +1379,44 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(target_move)
 				remove_ventcrawl()
 			add_ventcrawl(loc, target_move)
+
+
+/mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return "Unknown"
+
+
+/mob/living/run_examinate(atom/target)
+	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
+	if(user_staring_effect || hindered_inspection(target))
+		return
+
+	var/examine_time = target.get_examine_time()
+	face_atom(target)
+	if(examine_time && target != src)
+		var/visible_gender = target.get_visible_gender()
+		var/visible_species = "Unknown"
+
+		if(isliving(target))
+			var/mob/living/target_living = target
+			visible_species = target_living.get_visible_species()
+
+			if(ishuman(target))	// Yep. Only humans affected by catched looks.
+				var/datum/status_effect/staring/target_staring_effect = target_living.has_status_effect(STATUS_EFFECT_STARING)
+				if(target_staring_effect)
+					target_staring_effect.catch_look(src)
+
+		user_staring_effect = apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
+		if(do_mob(src, target, examine_time, FALSE, list(CALLBACK(src, PROC_REF(hindered_inspection), target)), TRUE))
+			..()
+	else
+		..()
+
+
+/mob/living/proc/hindered_inspection(atom/target)
+	if(QDELETED(src) || QDELETED(target))
+		return TRUE
+	if(!has_vision(information_only = TRUE))
+		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
+		return TRUE
+	return FALSE
+

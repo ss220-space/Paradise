@@ -31,6 +31,22 @@
 
 #define NO_PIXEL_RANDOM_DROP	131072	// If dropped, it wont have a randomized pixel_x/pixel_y
 
+#define BLOCK_CAPSAICIN			262144 	// Prevents from passing capsaicin onto human
+
+#define NOSHARPENING			524288 	// Prevents from sharpening item with whetstone
+
+// Update flags for [/atom/proc/update_appearance]
+/// Update the atom's name
+#define UPDATE_NAME (1<<0)
+/// Update the atom's desc
+#define UPDATE_DESC (1<<1)
+/// Update the atom's icon state
+#define UPDATE_ICON_STATE (1<<2)
+/// Update the atom's overlays
+#define UPDATE_OVERLAYS (1<<3)
+/// Update the atom's icon
+#define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
 
@@ -65,6 +81,8 @@
 
 #define CHECK_RICOCHET_2		8192
 
+#define BLOCKS_LIGHT_2			16384
+
 //Reagent flags
 #define REAGENT_NOREACT			1
 
@@ -92,8 +110,8 @@
 #define ALL_RPARTS			32768
 
 //Pre-baked combinations of the above body flags
-#define HAS_BODY_ACCESSORY 	HAS_TAIL|HAS_WING
-#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
+#define HAS_BODY_ACCESSORY (HAS_TAIL|HAS_WING)
+#define HAS_MARKINGS (HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS)
 
 //Species Diet Flags
 #define DIET_CARN		1
@@ -118,7 +136,12 @@
 #define PASSFENCE 		64
 #define PASSDOOR		128
 #define PASS_OTHER_THINGS 256
-#define PASS_EVERYTHING PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSFENCE|PASSDOOR|PASS_OTHER_THINGS
+#define PASS_EVERYTHING (PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSFENCE|PASSDOOR|PASS_OTHER_THINGS)
+
+// for /datum/var/datum_flags
+#define DF_USE_TAG (1<<0)
+#define DF_VAR_EDITED (1<<1)
+#define DF_ISPROCESSING (1<<2)
 
 //turf-only flags
 #define NOJAUNT		1
