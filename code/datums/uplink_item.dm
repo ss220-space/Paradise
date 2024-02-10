@@ -600,18 +600,7 @@
 	cost = 20
 	race = list("Plasmaman")
 
-//Diona
-
-/datum/uplink_item/racial/love_pen
-	name = "Aggression Supression Pen"
-	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
-	item = /obj/item/pen/love
-	cost = 10
-	race = list("Diona")
-
-
 //Nucleation
-
 
 /datum/uplink_item/racial/second_chance
 	name = "Second Chance Implant"
@@ -620,6 +609,14 @@
 	cost = 40
 	race = list("Nucleation")
 
+//Diona
+
+/datum/uplink_item/racial/love_pen
+	name = "Aggression Supression Pen"
+	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
+	item = /obj/item/pen/love
+	cost = 10
+	race = list("Diona")
 
 // DANGEROUS WEAPONS
 
