@@ -10,6 +10,7 @@
 									//I would just like the code ready should it ever need to be used.
 #define SUGGESTED_CLIENT_VERSION	514		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
 #define SUGGESTED_CLIENT_BUILD	1568		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define MINIMUM_FPS_VERSION 511 // used as check, if you can update fps or not
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -321,10 +322,10 @@
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
-	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
+	if(world.byond_version >= MINIMUM_FPS_VERSION && byond_version >= MINIMUM_FPS_VERSION && prefs.clientfps)
 		fps = prefs.clientfps
 
-	if(world.byond_version >= 511 && byond_version >= 511 && !prefs.clientfps)
+	if(world.byond_version >= MINIMUM_FPS_VERSION && byond_version >= MINIMUM_FPS_VERSION && !prefs.clientfps)
 		fps = CONFIG_GET(number/clientfps)
 
 	// Check if the client has or has not accepted TOS
@@ -1347,7 +1348,14 @@
 		log_adminwarn("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
-	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
+	var/msg = {"<meta charset="UTF-8">"}
+	msg += "<b>Ваша версия BYOND может быть устарела:</b><br>"
+	msg += "Это может привести к проблемам, таким как к неправильному отображением вещей или лагам." + "<br><br>"
+	msg += "Ваша версия: [byond_version].[byond_build]<br>"
+	msg += "Требуемая версия, чтобы убрать это окно: [SUGGESTED_CLIENT_VERSION].[SUGGESTED_CLIENT_BUILD] или выше<br>"
+	msg += "Посетите <a href=\"https://secure.byond.com/download\">сайт BYOND</a>, чтобы получить последнюю версию.<br>"
+	src << browse(msg, "window=warning_popup")
+	to_chat(src, "<span class='userdanger'>Ваш клеинт BYOND (версия: [byond_version].[byond_build]) устарел. Это может вызвать лаги. Мы крайне рекомендуем скачать последнюю версию с <a href='https://www.byond.com/download/'>byond.com</a> Прежде чем играть. Также можете обновиться через приложение BYOND.</span>")
 
 
 /client/proc/update_ambience_pref()
