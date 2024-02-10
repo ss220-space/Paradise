@@ -1350,7 +1350,7 @@
 /client/proc/show_update_notice()
 	var/msg = {"<meta charset="UTF-8">"}
 	msg += "<b>Ваша версия BYOND может быть устарела:</b><br>"
-	msg += "Это может привести к проблемам, таким как к неправильному отображением вещей или лагам." + "<br><br>"
+	msg += "Это может привести к проблемам, таким как к неправильному отображением вещей или лагам.<br><br>"
 	msg += "Ваша версия: [byond_version].[byond_build]<br>"
 	msg += "Требуемая версия, чтобы убрать это окно: [SUGGESTED_CLIENT_VERSION].[SUGGESTED_CLIENT_BUILD] или выше<br>"
 	msg += "Посетите <a href=\"https://secure.byond.com/download\">сайт BYOND</a>, чтобы получить последнюю версию.<br>"
