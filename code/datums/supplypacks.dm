@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	/// List of names for being done in TGUI
 	var/list/ui_manifest = list()
 
-	var/list/required_tech = list()
+	var/list/required_tech
 
 
 /datum/supply_packs/New()
@@ -79,6 +79,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	if(SSshuttle.points <= cost)
 		to_chat(user, span_warning("There are insufficient supply points for this request."))
 		return FALSE
+	if(!length(required_tech))
+		return TRUE
 	for(var/tech_id in required_tech)
 		if(!SSshuttle.techLevels[tech_id] || required_tech[tech_id] > SSshuttle.techLevels[tech_id])
 			to_chat(user, span_warning("You have not sent the necessary technological disks to Centcomm."))
@@ -246,6 +248,56 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "crate"
 	hidden = 1
 	order_limit = 5
+
+/datum/supply_packs/emergency/highrisk
+	name = "HEADER"
+	cost = 450
+	containertype = /obj/structure/closet/crate/secure
+	containername = "high-risk crate"
+	access = ACCESS_CAPTAIN
+
+/datum/supply_packs/emergency/highrisk/rd_handtp
+	name = "Hand Teleporter Crate"
+	access = ACCESS_RD
+	contains = list(/obj/item/hand_tele)
+	required_tech = list("programming" = 7, "bluespace" = 8)
+
+/datum/supply_packs/emergency/highrisk/rd_tp_armor
+	name = "Reactive Armor Crate"
+	access = ACCESS_RD
+	contains = list(/obj/item/clothing/suit/armor/reactive/teleport)
+	required_tech = list("combat" = 8, "bluespace" = 5)
+
+/datum/supply_packs/emergency/highrisk/capt_jet
+	name = "Deluxe Jetpack Crate"
+	access = ACCESS_CAPTAIN
+	contains = list(/obj/item/tank/jetpack/oxygen/captain)
+	required_tech = list("toxins" = 8, "materials" = 7)
+
+/datum/supply_packs/emergency/highrisk/ce_combatrcd
+	name = "Combat R.C.D. Crate"
+	access = ACCESS_CE
+	contains = list(/obj/item/rcd/combat)
+	required_tech = list("materials" = 6, "engineering" = 8)
+
+/datum/supply_packs/emergency/highrisk/ce_advmagboots
+	name = "Advanced Magboots Crate"
+	access = ACCESS_CE
+	contains = list(/obj/item/clothing/shoes/magboots/advance)
+	required_tech = list("engineering" = 8, "magnets" = 6)
+
+/datum/supply_packs/emergency/highrisk/cmo_defib
+	name = "Advanced Defibrillator Crate"
+	access = ACCESS_CMO
+	contains = list(/obj/item/defibrillator/compact/advanced)
+	required_tech = list("biotech" = 7, "powerstorage" = 8)
+
+/datum/supply_packs/emergency/highrisk/cmo_hypospray
+	name = "Advanced Hypospray Crate"
+	access = ACCESS_CMO
+	contains = list(/obj/item/reagent_containers/hypospray/CMO/empty)
+	required_tech = list("materials" = 7, "biotech" = 8)
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Security ////////////////////////////////////////
@@ -641,6 +693,42 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "exile implant crate"
 	required_tech = list("materials" = 2, "biotech" = 4, "programming" = 6)
 
+/datum/supply_packs/security/armory/ion_carbine
+	name = "Ion Carbine Crate"
+	containername = "ion carbine crate"
+	cost = 120
+	contains = list(
+		/obj/item/gun/energy/ionrifle/carbine,
+		/obj/item/gun/energy/ionrifle/carbine,
+		/obj/item/gun/energy/ionrifle/carbine
+	)
+	required_tech = list("combat" = 5, "magnets" = 4)
+
+/datum/supply_packs/security/armory/tele_shield
+	name = "Telescopic Riot Shield Crate"
+	containername = "telescopic riot shield crate"
+	cost = 80
+	contains = list(
+		/obj/item/shield/riot/tele,
+		/obj/item/shield/riot/tele,
+		/obj/item/shield/riot/tele
+	)
+	required_tech = list("combat" = 4, "engineering" = 4, "materials" = 3)
+
+/datum/supply_packs/security/armory/shotgun_shells
+	name = "Various Shotgun Shells Crate"
+	containername = "various shotgun shells crate"
+	cost = 250
+	contains = list(
+		/obj/item/ammo_casing/shotgun/stunslug,
+		/obj/item/ammo_casing/shotgun/pulseslug,
+		/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath,
+		/obj/item/ammo_casing/shotgun/frag12,
+		/obj/item/ammo_casing/shotgun/ion,
+		/obj/item/ammo_casing/shotgun/laserslug,
+	)
+	required_tech = list("powerstorage" = 4, "combat" = 4, "magnets" = 4, "materials" = 4)
+
 /datum/supply_packs/security/securitybarriers
 	name = "Security Barriers Crate"
 	contains = list(/obj/item/grenade/barrier,
@@ -854,7 +942,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list("powerstorage" = 4, "magnets" = 4, "materials" = 3)
 
 /datum/supply_packs/engineering/inflatable
-	name = "Inflatable barriers Crate"
+	name = "Inflatable Barriers Crate"
 	contains = list(/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable)
@@ -1299,6 +1387,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "surgery crate"
 	access = ACCESS_MEDICAL
 
+/datum/supply_packs/medical/incision
+	name = "Incision System Crate"
+	containername = "incision system crate"
+	cost = 180
+	contains = list(
+		/obj/item/scalpel/laser/manager,
+		/obj/item/scalpel/laser/manager,
+		/obj/item/scalpel/laser/manager,
+	)
+	required_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
@@ -1430,6 +1529,183 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 35
 	containername = "radiation suit crate"
 	required_tech = list("biotech" = 3, "materials" = 2)
+
+/datum/supply_packs/science/sohs
+	name = "Satchel of Holding Crate"
+	contains = list(
+		/obj/item/storage/backpack/holding/satchel,
+		/obj/item/storage/backpack/holding/satchel,
+		/obj/item/storage/backpack/holding/satchel,
+	)
+	cost = 400
+	containername = "satchel of holding crate"
+	required_tech = list("plasmatech" = 6, "engineering" = 5, "bluespace" = 6, "materials" = 5)
+
+/datum/supply_packs/science/belt_of_hold
+	name = "Belt of Holding Crate"
+	containername = "belt of holding crate"
+	cost = 220
+	contains = list(
+		/obj/item/storage/belt/bluespace,
+		/obj/item/storage/belt/bluespace,
+		/obj/item/storage/belt/bluespace,
+	)
+	required_tech = list("plasmatech" = 6, "engineering" = 5, "bluespace" = 6, "materials" = 5)
+
+/datum/supply_packs/science/mining_sohs
+	name = "Mining Satchel of Holding Crate"
+	containername = "mining satchel of holding of holding crate"
+	cost = 200
+	contains = list(
+		/obj/item/storage/bag/ore/holding,
+		/obj/item/storage/bag/ore/holding,
+		/obj/item/storage/bag/ore/holding,
+	)
+	required_tech = list("engineering" = 4, "bluespace" = 4, "materials" = 3)
+
+/datum/supply_packs/science/cutters
+	name = "Advanced Plasma Cutter Crate"
+	containername = "advanced plasma cutter crate"
+	cost = 220
+	contains = list(
+		/obj/item/gun/energy/plasmacutter/adv,
+		/obj/item/gun/energy/plasmacutter/adv,
+		/obj/item/gun/energy/plasmacutter/adv
+	)
+	required_tech = list("engineering" = 6, "combat" = 3, "plasmatech" = 6, "materials" = 5, "magnets" = 3)
+
+/datum/supply_packs/science/cutters_shotgun
+	name = "Industrial Fan Cutter Crate"
+	containername = "industrial fan cutter crate"
+	cost = 320
+	contains = list(
+		/obj/item/gun/energy/plasmacutter/shotgun,
+		/obj/item/gun/energy/plasmacutter/shotgun,
+		/obj/item/gun/energy/plasmacutter/shotgun
+	)
+	required_tech = list("powerstorage" = 5, "engineering" = 6, "combat" = 7, "plasmatech" = 7, "materials" = 7, "magnets" = 6)
+
+/datum/supply_packs/science/eka
+	name = "E.K.A. Crate"
+	containername = "E.K.A. crate"
+	cost = 270
+	contains = list(
+		/obj/item/gun/energy/kinetic_accelerator/experimental,
+		/obj/item/gun/energy/kinetic_accelerator/experimental,
+		/obj/item/gun/energy/kinetic_accelerator/experimental
+	)
+	required_tech = list("powerstorage" = 4, "engineering" = 6, "combat" = 6, "materials" = 4)
+
+/datum/supply_packs/science/fireproof_rods
+	name = "Fireproof Rods Crate"
+	containername = "fireproof rods crate"
+	cost = 150
+	contains = list(/obj/item/stack/fireproof_rods/twentyfive)
+	required_tech = list("plasmatech" = 4, "engineering" = 3, "materials" = 6)
+
+/datum/supply_packs/science/super_cell
+	name = "Super Power Cell Crate"
+	containername = "super power cell crate"
+	cost = 100
+	contains = list(
+		/obj/item/stock_parts/cell/super/empty,
+		/obj/item/stock_parts/cell/super/empty,
+		/obj/item/stock_parts/cell/super/empty,
+		/obj/item/stock_parts/cell/super,
+		/obj/item/stock_parts/cell/super,
+		/obj/item/stock_parts/cell/super
+	)
+	required_tech = list("powerstorage" = 3, "materials" = 3)
+
+/datum/supply_packs/science/bluespace_cell
+	name = "Bluespace Power Cell Crate"
+	containername = "bluespace power cell crate"
+	cost = 200
+	contains = list(
+		/obj/item/stock_parts/cell/bluespace/empty,
+		/obj/item/stock_parts/cell/bluespace/empty,
+		/obj/item/stock_parts/cell/bluespace/empty,
+		/obj/item/stock_parts/cell/bluespace,
+		/obj/item/stock_parts/cell/bluespace,
+		/obj/item/stock_parts/cell/bluespace
+	)
+	required_tech = list("powerstorage" = 6, "materials" = 6, "engineering" = 5, "bluespace" = 5,)
+
+/datum/supply_packs/science/adv_tools
+	name = "Advanced Tools Crate"
+	containername = "advanced tools crate"
+	cost = 200
+	contains = list(
+		/obj/item/weldingtool/experimental,
+		/obj/item/weldingtool/experimental,
+		/obj/item/screwdriver/power,
+		/obj/item/screwdriver/power,
+		/obj/item/crowbar/power,
+		/obj/item/crowbar/power,
+		/obj/item/clothing/mask/gas/welding,
+		/obj/item/clothing/mask/gas/welding,
+	)
+	required_tech = list("powerstorage" = 7, "engineering" = 4, "magnets" = 6, "bluespace" = 5, "biotech" = 3, "materials" = 2)
+
+/datum/supply_packs/science/rcd_crate
+	name = "R.C.D. Crate"
+	containername = "R.C.D. crate"
+	cost = 200
+	contains = list(
+		/obj/item/rcd,
+		/obj/item/rcd,
+		/obj/item/rcd
+	)
+	required_tech = list("engineering" = 3, "programming" = 2)
+
+/datum/supply_packs/science/bluespace_beakers
+	name = "Bluespace Beakers Crate"
+	containername = "bluespace beakers crate"
+	cost = 150
+	contains = list(
+		/obj/item/storage/box/beakers/bluespace,
+		/obj/item/storage/box/beakers/bluespace
+	)
+	required_tech = list("plasmatech" = 4, "bluespace" = 6, "materials" = 5)
+
+/datum/supply_packs/science/deluxe_parts
+	name = "Deluxe Parts Crate"
+	containername = "deluxe parts crate"
+	cost = 180
+	contains = list(
+		/obj/item/storage/box/stockparts/deluxe,
+		/obj/item/storage/box/stockparts/deluxe
+	)
+	required_tech = list("powerstorage" = 7, "engineering" = 5, "magnets" = 6, "bluespace" = 6, "programming" = 6, "materials" = 7)
+
+/datum/supply_packs/science/cyborg_upgrades
+	name = "Cyborg Upgrades Crate"
+	containername = "cyborg upgrades crate"
+	cost = 250
+	contains = list(
+		/obj/item/borg/upgrade/vtec,
+		/obj/item/borg/upgrade/vtec,
+		/obj/item/borg/upgrade/vtec,
+		/obj/item/borg/upgrade/thrusters,
+		/obj/item/borg/upgrade/thrusters,
+		/obj/item/borg/upgrade/thrusters,
+	)
+	required_tech = list("powerstorage" = 5, "engineering" = 5, "magnets" = 6, "materials" = 6)
+
+/datum/supply_packs/science/civ_implants
+	name = "Civillian Implants Crate"
+	containername = "civillian implants crate"
+	cost = 160
+	contains = list(
+		/obj/item/organ/internal/cyberimp/eyes/shield,
+		/obj/item/organ/internal/cyberimp/eyes/shield,
+		/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+		/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+		/obj/item/organ/internal/cyberimp/eyes/meson,
+		/obj/item/organ/internal/cyberimp/eyes/meson,
+	)
+	required_tech = list("materials" = 4, "biotech" = 4, "engineering" = 5, "plasmatech" = 4)
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
@@ -1722,6 +1998,41 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/critter/slime
 	containername = "slime crate"
+
+/datum/supply_packs/organic/barthender_rare
+	name = "Bartender Rare Reagents Crate"
+	containername = "bartender rare crate"
+	cost = 60
+	contains = list(
+		/obj/item/storage/box/bartender_rare_ingredients_kit
+	)
+
+/datum/supply_packs/organic/chef_rare
+	name = "Chef Rare Reagents Crate"
+	containername = "chef rare crate"
+	cost = 40
+	contains = list(
+		/obj/item/storage/box/chef_rare_ingredients_kit,
+		/obj/item/storage/box/chef_rare_ingredients_kit
+	)
+
+/datum/supply_packs/science/strange_seeds
+	name = "Strange Seeds Crate"
+	containername = "strange seeds crate"
+	cost = 300
+	contains = list(
+		/obj/item/seeds/random,
+		/obj/item/seeds/random,
+		/obj/item/seeds/random,
+		/obj/item/seeds/random,
+		/obj/item/seeds/random,
+		/obj/item/seeds/random,
+		/obj/item/seeds/random,
+		/obj/item/seeds/random,
+		/obj/item/seeds/random,
+		/obj/item/seeds/random
+	)
+	required_tech = list("biotech" = 6)
 
 ////// hippy gear
 

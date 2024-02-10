@@ -4,6 +4,7 @@
 	school = "transmutation"
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
+	human_req = FALSE
 	invocation = "DIRI CEL"
 	invocation_type = "whisper"
 	cooldown_min = 40 SECONDS //50 deciseconds reduction per rank

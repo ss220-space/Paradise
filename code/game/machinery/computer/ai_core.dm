@@ -97,7 +97,7 @@
 					return
 
 				var/datum/job/job_ai = SSjobs.name_occupations["AI"]
-				if(!job_ai.available_in_playtime(M.brainmob.client))
+				if(job_ai.available_in_playtime(M.brainmob.client))
 					to_chat(user, span_warning("This [P] does not seem to fit."))
 					return
 
@@ -170,6 +170,7 @@
 			else
 				if(brain.brainmob.mind)
 					SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
+					SSticker.mode.remove_clocker(brain.brainmob.mind, 1)
 					SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
 
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
