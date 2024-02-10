@@ -111,21 +111,88 @@
 	var/name
 	var/desc
 	var/path
-	var/cost
+	var/list/cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 0)
+	var/icon_name = "anomaly_core"
+	var/icon_file = 'icons/obj/assemblies/new_assemblies.dmi'
+	var/icon/tgui_icon
 	var/emag_only = FALSE
+
+/datum/roboshop_item/New()
+	src.tgui_icon = icon(icon_file, icon_name, SOUTH, 1, FALSE)
 
 /datum/roboshop_item/bluespace_core
 	name = "\improper bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
 	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = 0
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 1)
 
 /datum/roboshop_item/syndicate_core
 	name = "\improper syndicate anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
 	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = 999
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 999)
 	emag_only = TRUE
+
+/datum/roboshop_item/medical_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 0, "medical" = 1, "security" = 0, "robo" = 0)
+
+/datum/roboshop_item/another_medical_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 0, "medical" = 2, "security" = 0, "robo" = 0)
+
+/datum/roboshop_item/yet_another_medical_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 0, "medical" = 3, "security" = 0, "robo" = 0)
+
+/datum/roboshop_item/working_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 1, "medical" = 0, "security" = 0, "robo" = 0)
+
+/datum/roboshop_item/another_working_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 2, "medical" = 0, "security" = 0, "robo" = 0)
+
+/datum/roboshop_item/security_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 0, "medical" = 0, "security" = 1, "robo" = 0)
+
+/datum/roboshop_item/working_medical_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 1, "medical" = 1, "security" = 0, "robo" = 0)
+
+/datum/roboshop_item/another_working_medical_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 2, "medical" = 2, "security" = 0, "robo" = 0)
+
+/datum/roboshop_item/medical_security_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 0, "medical" = 1, "security" = 1, "robo" = 0)
+
+/datum/roboshop_item/super_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 1, "medical" = 1, "security" = 1, "robo" = 0)
+
 
 
 #undef DIFFICULTY_EASY

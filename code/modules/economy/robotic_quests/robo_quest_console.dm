@@ -5,7 +5,7 @@
 #define DIFFICULTY_EASY		1
 #define DIFFICULTY_NORMAL	2
 #define DIFFICULTY_HARD		3
-
+#define CATS_BY_STAGE list("number" = list("first", "second", "third"), "first" = list("working", "medical", "security"), "second" = list("working_medical", "medical_security"), "third" = list("working_medical_security"))
 
 /obj/machinery/computer/roboquest
 	name = "Robotics Request Console"
@@ -20,6 +20,7 @@
 	var/check_timer
 	var/success
 	var/checkMessage = ""
+	var/points = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 0)
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/roboquest
 	var/obj/item/card/id/currentID
@@ -101,15 +102,19 @@
 
 /obj/machinery/computer/roboquest/proc/generate_roboshop()
 	var/list/newshop = list()
-	for(var/datum/roboshop_item/item_path as anything in subtypesof(/datum/roboshop_item))
-		var/datum/roboshop_item/item = new item_path
-		var/list/newitem = list()
-		newitem["name"] = item.name
-		newitem["desc"] = item.desc
-		newitem["cost"] = item.cost
-		newitem["path"] = item.path
-		newitem["emagOnly"] = item.emag_only
-		newshop += list(newitem)
+	for(var/path in subtypesof(/datum/roboshop_item))
+		var/datum/roboshop_item/item = new path
+		var/category
+		for(var/cat in item.cost)
+			if(item.cost[cat])
+				if(category)
+					category += "_[cat]"
+				else
+					category = cat
+		var/icon/combined = icon('icons/misc/robo_ui2.dmi', category)
+		combined.Blend(item.tgui_icon, ICON_OVERLAY)
+		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = icon2base64(combined), "path" = path, "emagOnly" = item.emag_only)
+		newshop[category] += list(newitem)
 	shop_items = newshop
 
 /obj/machinery/computer/roboquest/proc/clear_checkMessage()
@@ -131,7 +136,7 @@
 	if(istype(currentID))
 		data["hasID"] = TRUE
 		data["name"] = currentID.registered_name
-		data["points"] = currentID.robo_points
+		data["points"] = points
 		if(currentID.robo_bounty)
 			data["questInfo"] = currentID.robo_bounty.questinfo
 			data["hasTask"] = TRUE
@@ -153,6 +158,7 @@
 
 /obj/machinery/computer/roboquest/ui_static_data(mob/user)
 	var/list/data = list()
+	data["cats"] = CATS_BY_STAGE
 	data["shopItems"] = shop_items
 	return data
 
@@ -196,7 +202,7 @@
 				checkMessage = "Вы отправили меха с оценкой успеха [success] из трех"
 				check_timer = null
 				check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
-				currentID.robo_points += success
+				points["robo"] += success
 				currentID.robo_bounty = null
 				success = 0
 		if("ChangeStyle")
@@ -218,7 +224,6 @@
 		if("buyItem")
 			var/path = params["item"]
 			new path(get_turf(src))
-			currentID.robo_points -= params["cost"]
 		if("printOrder")
 			if(print_delayed)
 				return FALSE
@@ -321,3 +326,4 @@
 #undef DIFFICULTY_EASY
 #undef DIFFICULTY_NORMAL
 #undef DIFFICULTY_HARD
+#undef CATS_BY_STAGE

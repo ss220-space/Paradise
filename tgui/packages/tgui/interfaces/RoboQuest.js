@@ -1,6 +1,6 @@
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Section, Button, Flex, LabeledList, Divider } from '../components';
+import { Box, Section, Tooltip, Button, Flex, LabeledList, Divider } from '../components';
 import { Window } from '../layouts';
 import { FlexItem } from '../components/Flex';
 
@@ -17,7 +17,8 @@ export const RoboQuest = (props, context) => {
     style,
     cooldown,
     shopItems,
-    points
+    points,
+    cats,
   } = data;
   const [ shopState, changeShopState ] = useLocalState(context, "shopState", false);
   return (
@@ -25,7 +26,7 @@ export const RoboQuest = (props, context) => {
       <Window.Content>
         <Flex>
           <FlexItem basis={40}>
-            <Section title="Mecha"
+            {!shopState && <Section title="Mecha"
               buttons={(
                   <Fragment>
                     <Button
@@ -94,7 +95,51 @@ export const RoboQuest = (props, context) => {
                     <br />
                     <b>{cooldown}</b>
                   </Fragment>}
-            </Section>
+            </Section>}
+            {!!shopState && <Section title="Благодарности)">
+              {/* <Box overflowY="auto" overflowX="hiddem"> */}
+                <Flex
+                  direction="column"
+                  alignContent="center">
+                  {cats.number.map( stage => (
+                  <FlexItem key={stage}>
+                    <Flex
+                      direction="row"
+                      alignContent="center"
+                      textAlign="center"
+                      mr={8}
+                      ml={8}>
+                    {cats[stage].map( cat =>(
+                      <FlexItem grow="1" key={cat}>
+                        <Flex
+                          direction="column"
+                          alignContent="center">
+                          {shopItems[cat].map( i => (
+                            <FlexItem grow="1" basis="33" key={i.path}>
+                              <Button
+                                height="64px"
+                                width="64px">
+                                <img
+                                  height="64px"
+                                  width="64px"
+                                  src={`data:image/jpeg;base64,${i.icon}`}
+                                  style={{
+                                    "margin-left": "-6px",
+                                    "-ms-interpolation-mode": "nearest-neighbor",
+                                  }} />
+                                <Tooltip
+                                  title={i.name}
+                                  content = {i.desc}
+                                  position="bottom-right"/>
+                              </Button>
+                            </FlexItem>))}
+                        </Flex>
+                      </FlexItem>))}
+                    </Flex>
+                  </FlexItem>))}
+                </Flex>
+              {/* </Box> */}
+            </Section>}
           </FlexItem>
           <FlexItem basis={20}>
             <Section title="Other"
@@ -170,7 +215,7 @@ export const RoboQuest = (props, context) => {
             {!!shopState &&
               <Section title = "Shop">
                 <Box maxHeight={30} overflowY="auto" overflowX="hidden">
-                  {shopItems.map(i => (
+                  {shopItems.robo.map(i => (
                     (!i.emagOnly || style==="syndicate") && <Section
                       key={i.name}
                       title={i.name}
@@ -178,7 +223,7 @@ export const RoboQuest = (props, context) => {
                         <Button
                           content={
                             "Buy ("
-                            + i.cost
+                            + i.cost.robo
                             + "P)"
                           }
                           onClick={() =>

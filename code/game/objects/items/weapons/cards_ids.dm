@@ -138,7 +138,6 @@
 	/// Roboquest shit
 	var/datum/roboquest/robo_bounty
 	var/bounty_penalty
-	var/robo_points = 0
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
