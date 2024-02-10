@@ -103,6 +103,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
+/obj/item/stack/fireproof_rods/twentyfive
+	amount = 25
+
 /obj/item/stack/fireproof_rods/update_icon()
 	var/amount = get_amount()
 	if((amount <= 5) && (amount > 0))
