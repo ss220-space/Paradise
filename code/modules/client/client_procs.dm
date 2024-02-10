@@ -1348,7 +1348,7 @@
 		log_adminwarn("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
-	var/msg = {"<meta charset="UTF-8">"}
+	var/list/msg = list({"<meta charset="UTF-8">"})
 	msg += "<b>Ваша версия BYOND может быть устарела:</b><br>"
 	msg += "Это может привести к проблемам, таким как к неправильному отображением вещей или лагам.<br><br>"
 	msg += "Ваша версия: [byond_version].[byond_build]<br>"
