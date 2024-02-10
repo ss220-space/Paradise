@@ -415,10 +415,11 @@
 		if(SO)
 			if(!SO.comment)
 				SO.comment = "No comment."
-			var/pack_techs
-			for(var/tech_id in SO.object.required_tech)
-				pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]];  "
-			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum), "pack_techs" = pack_techs)))
+			var/list/pack_techs = list()
+			if(length(SO.object.required_tech))
+				for(var/tech_id in SO.object.required_tech)
+					pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]];  "
+			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum), "pack_techs" = pack_techs.Join(""))))
 	data["requests"] = requests_list
 
 	var/list/orders_list = list()
