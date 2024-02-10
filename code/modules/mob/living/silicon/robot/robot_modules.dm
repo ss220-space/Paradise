@@ -220,6 +220,7 @@
 	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
 	C.reagents.add_reagent("cleaner", 3)
 	..()
+
 /obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R)
 	var/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller/C = locate() in modules
 	C.reagents.add_reagent("pestkiller", 3)
