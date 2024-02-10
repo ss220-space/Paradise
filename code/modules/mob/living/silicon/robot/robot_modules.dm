@@ -225,6 +225,7 @@
 	var/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller/C = locate() in modules
 	C.reagents.add_reagent("pestkiller", 3)
 	..()
+
 /obj/item/robot_module/medical
 	name = "Medical"
 	module_type = "Medical"
