@@ -527,3 +527,15 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/knives_kit/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/kitchen/knife/combat/throwing(src)
+/obj/item/storage/box/syndie_kit/blackops_kit
+	name = "Black ops kit"
+
+/obj/item/storage/box/syndie_kit/blackops_kit/populate_contents()
+	new /obj/item/clothing/under/syndicate/blackops(src)
+	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/clothing/suit/armor/vest(src)
+	new /obj/item/clothing/glasses/night(src)
+	new /obj/item/clothing/accessory/storage/webbing(src)
+	new /obj/item/storage/belt/military/assault(src)
+	new /obj/item/clothing/mask/balaclava(src)

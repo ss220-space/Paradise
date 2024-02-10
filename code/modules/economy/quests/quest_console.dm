@@ -75,8 +75,6 @@
 		if(for_active_quests && !quest_storage.active)
 			continue
 		var/timeleft_sec = round((quest_storage.time_start + quest_storage.quest_time - world.time) / 10)
-		if(quest_storage.active)
-			timeleft_sec += 180
 		var/list/quests_items = list()
 		for(var/datum/cargo_quest/cargo_quest as anything in quest_storage.current_quests)
 			var/image_index = rand(1, length(cargo_quest.interface_icons))
@@ -155,6 +153,21 @@
 			print_delayed = TRUE
 			print_order(quest)
 			addtimer(VARSET_CALLBACK(src, print_delayed, FALSE), PRINT_COOLDOWN)
+
+		if("add_time")
+			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
+			if(!istype(quest))
+				return FALSE
+			var/obj/item/card/id/I = user.get_id_card()
+			if(!has_access(list(ACCESS_QM), TRUE, I ? I.GetAccess() : list()) && !user.can_admin_interact())
+				to_chat(user, span_warning("Access Denied."))
+				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				return FALSE
+			if(quest.time_add_count > 4)
+				to_chat(user, span_warning("You've done that too many times already."))
+				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				return FALSE
+			quest.add_time()
 
 		if("buy_tech")
 			if(hightech_recovery)
@@ -266,6 +279,9 @@
 	if(!complete)
 		paper.info += "time expired (-100%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "not_complete_phrases")
+	else if(quest.time_add_count > 0)
+		paper.info += "shipment delay (-[10 * quest.time_add_count]%)<br>"
+
 	else if(!length(modificators))
 		paper.info += "- none <br>"
 	paper.info += "</i><br>Bonus:<br><i>"
@@ -274,9 +290,13 @@
 		phrases += pick_list(QUEST_NOTES_STRINGS, "fast_complete_phrases")
 	else
 		paper.info += "- none <br>"
-		if(complete)
+		if(complete && !length(phrases))
 			phrases += pick_list(QUEST_NOTES_STRINGS, "good_complete_phrases")
 	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? new_reward : "0"]</span><br>"
+	if(modificators["quick_shipment"] && !modificators["departure_mismatch"])
+		paper.info += "<hr><br>"
+		for(var/sale_category in quest.customer.cargo_sale)
+			paper.info += "<span class=\"small-text\">You have received a <b>[100 - quest.customer.cargo_sale[sale_category]*100]%</b> discount on <b>[sale_category]</b> category in orders. </span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
 	var/obj/item/stamp/navcom/stamp = new()

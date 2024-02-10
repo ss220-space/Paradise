@@ -314,6 +314,7 @@
 	icon_state = "barberf"
 	item_state = "barberf"
 	item_color = "barberf"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/artist
 	desc = "Formal uniform with buttons on a side"
