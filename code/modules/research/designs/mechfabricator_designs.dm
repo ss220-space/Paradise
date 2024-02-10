@@ -1417,7 +1417,7 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 /datum/design/service_bs_beaker
-	name = "Cyborg Service Upgrade"
+	name = "Cyborg Service Upgrade (Bluespace Beaker)"
 	id = "service_bs_beaker"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/bs_beaker
