@@ -811,7 +811,6 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/butler
 
-
 /obj/item/borg/upgrade/bs_beaker/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
