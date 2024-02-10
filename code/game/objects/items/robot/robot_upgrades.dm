@@ -822,6 +822,7 @@
 	robot.module.rebuild()
 	return TRUE
 
+
 /obj/item/borg/upgrade/bs_beaker/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
