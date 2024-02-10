@@ -70,32 +70,32 @@
 /datum/cargo_quest/thing/xenobio
 	quest_type_name = "Xenobiological extract"
 	easy_items = list(
-		/obj/item/slime_extract/grey = 25,
-		/obj/item/slime_extract/orange = 60,
-		/obj/item/slime_extract/purple = 60,
-		/obj/item/slime_extract/blue = 60,
-		/obj/item/slime_extract/metal = 60,
-		/obj/item/slime_extract/yellow = 85,
-		/obj/item/slime_extract/darkblue = 85,
-		/obj/item/slime_extract/darkpurple = 85,
-		/obj/item/slime_extract/silver = 85,
+		/obj/item/slime_extract/grey = 45,
+		/obj/item/slime_extract/orange = 90,
+		/obj/item/slime_extract/purple = 90,
+		/obj/item/slime_extract/blue = 90,
+		/obj/item/slime_extract/metal = 90,
+		/obj/item/slime_extract/yellow = 115,
+		/obj/item/slime_extract/darkblue = 115,
+		/obj/item/slime_extract/darkpurple = 115,
+		/obj/item/slime_extract/silver = 115,
 	)
 	normal_items = list(
-		/obj/item/slime_extract/bluespace = 115,
-		/obj/item/slime_extract/sepia = 115,
-		/obj/item/slime_extract/cerulean = 115,
-		/obj/item/slime_extract/pyrite = 115,
-		/obj/item/slime_extract/green = 145,
-		/obj/item/slime_extract/red = 145,
-		/obj/item/slime_extract/pink = 145,
-		/obj/item/slime_extract/gold = 145
+		/obj/item/slime_extract/bluespace = 170,
+		/obj/item/slime_extract/sepia = 170,
+		/obj/item/slime_extract/cerulean = 170,
+		/obj/item/slime_extract/pyrite = 170,
+		/obj/item/slime_extract/green = 215,
+		/obj/item/slime_extract/red = 215,
+		/obj/item/slime_extract/pink = 215,
+		/obj/item/slime_extract/gold = 215
 	)
 	hard_items = list(
-		/obj/item/slime_extract/adamantine = 200,
-		/obj/item/slime_extract/oil = 200,
-		/obj/item/slime_extract/black = 200,
-		/obj/item/slime_extract/lightpink = 200,
-		/obj/item/slime_extract/rainbow = 270
+		/obj/item/slime_extract/adamantine = 270,
+		/obj/item/slime_extract/oil = 270,
+		/obj/item/slime_extract/black = 270,
+		/obj/item/slime_extract/lightpink = 270,
+		/obj/item/slime_extract/rainbow = 300
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
@@ -108,11 +108,14 @@
 		/obj/item/organ/internal/eyes/unathi = 170,
 		/obj/item/organ/internal/eyes/nian = 170,
 		/obj/item/organ/internal/liver/skrell = 170,
+		/obj/item/organ/internal/kidneys/grey = 175,
+		/obj/item/organ/internal/liver/kidan = 175,
 		/obj/item/organ/internal/lungs/slime = 185,
-		/obj/item/organ/internal/heart/slime = 210,
-		/obj/item/organ/external/wing/nian = 210
 	)
 	hard_items = list(
+		/obj/item/organ/internal/liver/grey = 200,
+		/obj/item/organ/internal/heart/slime = 210,
+		/obj/item/organ/external/wing/nian = 210,
 		/obj/item/organ/internal/liver/diona = 300,
 		/obj/item/organ/internal/lungs/unathi/ash_walker = 325,
 		/obj/item/organ/internal/lantern = 400
@@ -154,32 +157,43 @@
 		/obj/item/reagent_containers/food/snacks/vulpix/chilli = 60,
 		/obj/item/reagent_containers/food/snacks/vulpix/cheese = 60,
 		/obj/item/reagent_containers/food/snacks/vulpix = 60,
+		/obj/item/reagent_containers/food/snacks/monkeysdelight = 60,
+		/obj/item/reagent_containers/food/snacks/aesirsalad = 60,
+		/obj/item/reagent_containers/food/snacks/rofflewaffles = 60,
+	)
+
+	normal_items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jawbreaker = 70,
+		/obj/item/reagent_containers/food/snacks/weirdoliviersalad = 70,
 		/obj/item/reagent_containers/food/snacks/doner_mushroom = 70,
+		/obj/item/reagent_containers/food/snacks/doner_vegan = 70,
 		/obj/item/reagent_containers/food/snacks/tajaroni = 70,
 		/obj/item/reagent_containers/food/snacks/boiledslimecore = 70,
 		/obj/item/reagent_containers/food/snacks/sliceable/lizard = 70,
+		/obj/item/reagent_containers/food/snacks/shawarma = 70,
 		/obj/item/reagent_containers/food/snacks/dionaroast = 80,
 		/obj/item/reagent_containers/food/snacks/chawanmushi = 90,
+		/obj/item/reagent_containers/food/snacks/fruitcup = 90,
 		/obj/item/reagent_containers/food/snacks/candy/cotton/bad_rainbow = 100,
 		/obj/item/reagent_containers/food/snacks/candy/cotton/rainbow = 100,
-		/obj/item/reagent_containers/food/snacks/fried_vox = 100
+		/obj/item/reagent_containers/food/snacks/fried_vox = 100,
+		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno = 110,
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_EASY)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL)
 
 /datum/cargo_quest/thing/miner
 	quest_type_name = "Shaft Miner Loot"
 	easy_items = list(
-		/obj/item/crusher_trophy/legion_skull = 50,
+		/obj/item/crusher_trophy/legion_skull = 60,
 		/obj/item/crusher_trophy/watcher_wing = 50,
 		/obj/item/gem/topaz = 60,
 		/obj/item/gem/emerald = 60,
 		/obj/item/gem/sapphire = 60,
 		/obj/item/gem/ruby = 60,
 		/obj/item/gem/fdiamond = 60,
-		/obj/item/crusher_trophy/goliath_tentacle = 80,
-		/obj/item/crusher_trophy/blaster_tubes/magma_wing = 100,
-		/obj/item/crusher_trophy/watcher_wing/ice_wing = 100,
+		/obj/item/crusher_trophy/goliath_tentacle = 95,
+		/obj/item/crusher_trophy/blaster_tubes/magma_wing = 110,
+		/obj/item/crusher_trophy/watcher_wing/ice_wing = 110,
 	)
 	normal_items = list(
 		/obj/item/gem/rupee = 130,
@@ -214,23 +228,23 @@
 	var/static/list/unique_minerals = list(/obj/item/stack/sheet/bluespace_crystal, /obj/item/stack/sheet/mineral/bananium, /obj/item/stack/sheet/mineral/tranquillite)
 	req_items = list(/obj/item/stack/sheet)
 	easy_items = list(
-		/obj/item/stack/sheet/metal = list("reward" = 40, "amount" = 50),
-		/obj/item/stack/sheet/mineral/gold = list("reward" = 90, "amount" = 20),
-		/obj/item/stack/sheet/mineral/titanium = list("reward" = 70, "amount" = 30),
-		/obj/item/stack/sheet/mineral/uranium = list("reward" = 80, "amount" = 15),
-		/obj/item/stack/sheet/glass = list("reward" = 25, "amount" = 50),
+		/obj/item/stack/sheet/metal = list("reward" = 20, "amount" = 50),
+		/obj/item/stack/sheet/mineral/gold = list("reward" = 70, "amount" = 20),
+		/obj/item/stack/sheet/mineral/titanium = list("reward" = 60, "amount" = 30),
+		/obj/item/stack/sheet/mineral/uranium = list("reward" = 65, "amount" = 15),
+		/obj/item/stack/sheet/glass = list("reward" = 15, "amount" = 50),
 	)
 	normal_items = list(
-		/obj/item/stack/sheet/mineral/diamond = list("reward" = 130, "amount" = 10),
-		/obj/item/stack/sheet/plasteel/lowplasma = list("reward" = 120, "amount" = 30),
-		/obj/item/stack/sheet/mineral/plasma = list("reward" = 150, "amount" = 40),
-		/obj/item/stack/sheet/mineral/silver = list("reward" = 100, "amount" = 25)
+		/obj/item/stack/sheet/mineral/diamond = list("reward" = 100, "amount" = 10),
+		/obj/item/stack/sheet/plasteel = list("reward" = 90, "amount" = 30),
+		/obj/item/stack/sheet/mineral/plasma = list("reward" = 120, "amount" = 40),
+		/obj/item/stack/sheet/mineral/silver = list("reward" = 90, "amount" = 25)
 	)
 	hard_items = list(
-		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 250, "amount" = 7),
-		/obj/item/stack/sheet/mineral/bananium = list("reward" = 370, "amount" = 4),
-		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 480, "amount" = 4),
-		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 310, "amount" = 20)
+		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 220, "amount" = 7),
+		/obj/item/stack/sheet/mineral/bananium = list("reward" = 340, "amount" = 4),
+		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 440, "amount" = 4),
+		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 280, "amount" = 20)
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
@@ -259,6 +273,8 @@
 	if(generated_mineral in unique_minerals)
 		difficult_list.Remove(generated_mineral)
 	current_list = required_minerals.Copy()
+	if(unique_things)
+		difficult_list.Remove(generated_mineral)
 
 /datum/cargo_quest/thing/minerals/check_required_item(atom/movable/check_item)
 	if(!length(required_minerals))
@@ -412,17 +428,20 @@
 
 /datum/cargo_quest/thing/botanygenes/generate_goal(difficultly, request_obj, target_reward)
 
-	var/datum/plant_gene/generated_gene
+	var/list/difficult_list
 	switch(difficultly)
 		if(QUEST_DIFFICULTY_EASY)
-			generated_gene = pick(easy_items)
-			q_storage.reward += easy_items[generated_gene]
+			difficult_list = easy_items
 		if(QUEST_DIFFICULTY_NORMAL)
-			generated_gene = pick(normal_items)
-			q_storage.reward += normal_items[generated_gene]
+			difficult_list = normal_items
 		if(QUEST_DIFFICULTY_HARD)
-			generated_gene = pick(hard_items)
-			q_storage.reward += hard_items[generated_gene]
+			difficult_list = hard_items
+
+	var/datum/plant_gene/generated_gene = pick(difficult_list)
+
+	q_storage.reward += difficult_list[generated_gene]
+	if(unique_things)
+		difficult_list.Remove(generated_gene)
 
 	required_genes += generated_gene
 	current_list = required_genes.Copy()
@@ -517,8 +536,19 @@
 
 /datum/cargo_quest/thing/genes/generate_goal(difficultly, request_obj, target_reward)
 
-	var/generated_gene = pick(hard_items)
-	q_storage.reward += hard_items[generated_gene]
+	var/list/difficult_list
+	switch(difficultly)
+		if(QUEST_DIFFICULTY_EASY)
+			difficult_list = easy_items
+		if(QUEST_DIFFICULTY_NORMAL)
+			difficult_list = normal_items
+		if(QUEST_DIFFICULTY_HARD)
+			difficult_list = hard_items
+
+	var/generated_gene = pick(difficult_list)
+	q_storage.reward += difficult_list[generated_gene]
+	if(unique_things)
+		difficult_list.Remove(generated_gene)
 
 	for(var/block in GLOB.assigned_blocks)
 		if(block == generated_gene)
@@ -615,30 +645,34 @@
 	return length(required_symptoms)
 
 /datum/cargo_quest/thing/virus/generate_goal(difficultly, request_obj, target_reward)
-	var/datum/symptom/generated_symptom
-
+	var/list/difficult_list
 	switch(difficultly)
 		if(QUEST_DIFFICULTY_EASY)
-			generated_symptom = pick(easy_items)
-			q_storage.reward += easy_items[generated_symptom]
+			difficult_list = easy_items
 
 		if(QUEST_DIFFICULTY_NORMAL)
-			generated_symptom = pick(normal_items)
-			q_storage.reward += normal_items[generated_symptom]
+			difficult_list = normal_items
 
 		if(QUEST_DIFFICULTY_HARD)
-			generated_symptom = pick(hard_items)
-			q_storage.reward += hard_items[generated_symptom]
+			difficult_list = hard_items
+
+		if(QUEST_DIFFICULTY_VERY_HARD)
+			difficult_list = very_hard_items
+
+	var/datum/symptom/generated_symptom = pick(difficult_list)
+	q_storage.reward += difficult_list[generated_symptom]
+	if(unique_things)
+		difficult_list.Remove(generated_symptom)
 
 	required_symptoms += generated_symptom
 	required_symptoms[generated_symptom] = REQUIRED_BLOOD_AMOUNT
 	current_list = required_symptoms.Copy()
 
-	desc += "[capitalize(format_text(initial(generated_symptom.name)))] <br>"
+	desc += "[capitalize(format_text(initial(generated_symptom.name)))], [REQUIRED_BLOOD_AMOUNT]u<br>"
 
 /datum/cargo_quest/thing/virus/check_required_item(atom/movable/check_item)
 
-	if(!length(required_symptoms))
+	if(!length(current_list))
 		return FALSE
 
 	var/obj/item/reagent_containers/glass/beaker/vial/vial = check_item
@@ -666,3 +700,85 @@
 /datum/cargo_quest/thing/virus/after_check()
 	. = TRUE
 	current_list = required_symptoms.Copy()
+
+#undef REQUIRED_BLOOD_AMOUNT
+
+/datum/cargo_quest/thing/capsule
+	quest_type_name = "Mob in lazarus capsule"
+	interface_icons = list('icons/obj/mobcap.dmi')
+	interface_icon_states = list("mobcap3")
+	req_items = list(/obj/item/mobcapsule)
+
+	var/list/required_mobs = list()
+	var/list/capsules
+
+	normal_items = list(
+		/mob/living/simple_animal/hostile/asteroid/goliath/beast = 180,
+		/mob/living/simple_animal/hostile/asteroid/goldgrub = 120,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 130,
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver = 210,
+	)
+	hard_items = list(
+		/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient = 450,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing = 330,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing = 350,
+		/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 350
+	)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
+
+/datum/cargo_quest/thing/capsule/update_interface_icon()
+	return
+
+/datum/cargo_quest/thing/capsule/length_quest()
+	return length(required_mobs)
+
+/datum/cargo_quest/thing/capsule/generate_goal(difficultly, request_obj, target_reward)
+	var/list/difficult_list
+	switch(difficultly)
+		if(QUEST_DIFFICULTY_EASY)
+			difficult_list = easy_items
+
+		if(QUEST_DIFFICULTY_NORMAL)
+			difficult_list = normal_items
+
+		if(QUEST_DIFFICULTY_HARD)
+			difficult_list = hard_items
+
+		if(QUEST_DIFFICULTY_VERY_HARD)
+			difficult_list = very_hard_items
+
+	var/mob/generated_mob = pick(difficult_list)
+	q_storage.reward += difficult_list[generated_mob]
+	if(unique_things)
+		difficult_list.Remove(generated_mob)
+
+	required_mobs += generated_mob
+	current_list = required_mobs.Copy()
+
+	desc += "[capitalize(format_text(initial(generated_mob.name)))]<br>"
+
+/datum/cargo_quest/thing/capsule/check_required_item(atom/movable/check_item)
+
+	if(!length(current_list))
+		return FALSE
+
+	var/obj/item/mobcapsule/capsule = check_item
+	if(!capsule.captured)
+		return FALSE
+	var/mob/living/simple_animal/captured_mob = capsule.captured
+
+	for(var/mobtype in current_list)
+		if(istype(captured_mob, mobtype))
+			current_list.Remove(mobtype)
+			LAZYADD(capsules, capsule)
+			return TRUE
+	return FALSE
+
+
+/datum/cargo_quest/thing/capsule/after_check()
+	. = TRUE
+	current_list = required_mobs.Copy()
+
+/datum/cargo_quest/thing/capsule/completed_quest()
+	if(length(capsules))
+		QDEL_LIST(capsules)

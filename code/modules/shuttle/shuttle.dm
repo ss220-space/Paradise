@@ -364,16 +364,16 @@
 	mode = SHUTTLE_RECALL
 
 /obj/docking_port/mobile/proc/enterTransit()
+	. = FALSE
 	previous = null
-//		if(!destination)
-//			return
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/obj/docking_port/stationary/S1 = findTransitDock()
 	if(S1)
-		if(dock(S1, , TRUE))
+		if(dock(S1, transit = TRUE))
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
+			return TRUE
 	else
 		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
 
@@ -441,7 +441,7 @@
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
-/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE, transit=FALSE)
+/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force = FALSE, transit = FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(S1.get_docked() == src)
 		remove_ripples()
@@ -665,10 +665,10 @@
 					setTimer(20)	//can't dock for some reason, try again in 2 seconds
 					return
 			if(SHUTTLE_IGNITING)
-				mode = SHUTTLE_CALL
-				setTimer(callTime)
-				enterTransit()
-				return
+				if(enterTransit())
+					mode = SHUTTLE_CALL
+					setTimer(callTime)
+					return
 		mode = SHUTTLE_IDLE
 		timer = 0
 		destination = null

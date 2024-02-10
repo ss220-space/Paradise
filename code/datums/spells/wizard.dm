@@ -129,7 +129,7 @@
 	base_cooldown = 12 SECONDS
 	cooldown_min = 2 SECONDS //25 deciseconds reduction per rank
 	clothes_req = FALSE
-
+	human_req = FALSE
 	smoke_type = SMOKE_COUGHING
 	smoke_amt = 10
 
@@ -208,6 +208,7 @@
 	base_cooldown = 10 SECONDS
 	cooldown_min = 5 SECONDS //12 deciseconds reduction per rank
 	clothes_req = FALSE
+	human_req = FALSE
 	invocation = "TARCOL MINTI ZHERI"
 	invocation_type = "whisper"
 	sound = 'sound/magic/forcewall.ogg'
@@ -311,6 +312,7 @@
 	school = "transmutation"
 	action_icon_state = "blind"
 	clothes_req = FALSE
+	human_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
 	message = "<span class='notice'>Your eyes cry out in pain!</span>"
@@ -357,6 +359,7 @@
 	base_cooldown = 6 SECONDS
 	cooldown_min = 2 SECONDS //10 deciseconds reduction per rank
 	clothes_req = FALSE
+	human_req = FALSE
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
 
@@ -458,6 +461,7 @@
 	desc = "Makes everyone around you more flammable, and lights yourself on fire."
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
+	human_req = FALSE
 	invocation = "FI'RAN DADISKO"
 	invocation_type = "shout"
 	action_icon_state = "sacredflame"

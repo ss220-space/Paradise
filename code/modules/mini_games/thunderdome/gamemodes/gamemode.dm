@@ -39,8 +39,6 @@
 		/obj/item/CQC_manual = 1,
 		/obj/item/sleeping_carp_scroll = 1,
 		/obj/item/clothing/gloves/fingerless/rapid = 1,
-		/obj/item/storage/box/thunderdome/mr_chang_technique = 1,
-		/obj/item/storage/box/thunderdome/mr_chang_technique/spicy = 1,
 		/obj/item/storage/box/thunderdome/spears = 1,
 		/obj/item/storage/box/thunderdome/maga = 1,
 		/obj/item/storage/box/thunderdome/singulatiry = 1,
