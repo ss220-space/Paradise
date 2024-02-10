@@ -2,8 +2,6 @@
 	holder_type = /obj/machinery/smartfridge
 	wire_count = 3
 	proper_name = "Smartfridge"
-	window_x = 340
-	window_y = 103
 
 /datum/wires/smartfridge/New(atom/_holder)
 	wires = list(WIRE_ELECTRIFY, WIRE_IDSCAN, WIRE_THROW_ITEM)

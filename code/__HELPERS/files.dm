@@ -31,15 +31,15 @@
 
 	return text
 
-//Sends resource files to client cache
-/client/proc/getFiles()
-	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
-		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
-		return
+// //Sends resource files to client cache
+// /client/proc/getFiles()
+// 	if(IsAdminAdvancedProcCall())
+// 		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
+// 		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
+// 		return
 
-	for(var/file in args)
-		src << browse_rsc(file)
+// 	for(var/file in args)
+// 		src << browse_rsc(file)
 
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list(".txt",".log",".htm"))
 	if(IsAdminAdvancedProcCall())

@@ -5,6 +5,8 @@
 		"EditorConfig.EditorConfig",
 		"dbaeumer.vscode-eslint",
 		"anturk.dmi-editor",
-		"eamodio.gitlens"
+		"eamodio.gitlens",
+		"esbenp.prettier-vscode",
+		"arcanis.vscode-zipfs"
     ]
 }
