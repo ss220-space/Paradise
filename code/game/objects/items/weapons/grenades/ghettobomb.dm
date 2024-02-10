@@ -114,7 +114,7 @@
 	to_chat(user, span_notice("You tickled a makeshift wick made of wires, it looks like it needs to be set on fire."))
 
 /obj/item/grenade/iedsatchel/attackby(obj/item/W, user)
-	if(active == 1)
+	if(active)
 		return
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/I = W
@@ -126,7 +126,7 @@
 		var/obj/item/match/I = W
 		if(!I.lit)
 			return
-		trigger()
+		trigger(user)
 		return
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/I = W
