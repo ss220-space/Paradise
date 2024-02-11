@@ -532,68 +532,15 @@
 /*
  *	Antag Tray
  */
-/obj/item/storage/bag/dangertray
-	name = "tray"
-	icon = 'icons/obj/food/containers.dmi'
+/obj/item/storage/bag/tray/dangertray
 	icon_state = "dangertray"
 	desc = "A metal tray to lay food on. The edges are razor sharp"
 	force = 25
 	throwforce = 25.0
-	throw_speed = 3
 	throw_range = 7
 	armour_penetration = 15
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	flags = CONDUCT
-	materials = list(MAT_METAL=3000)
-
-	// Two dimensional array for X slots with XY pixel position
-	var/static/list/item_positions_px = list(
-		list(0 , 0), // x , y center
-		list(0 , 10), // x , y 12 o'clock
-		list(5 , 5), // x , y 2 o'clock
-		list(5 , -5), // x , y 4 o'clock
-		list(0 , -10), // x , y 6 o'clock
-		list(-10 , -5), // x , y 8 o'clock
-		list(-10 , -5)) // x , y 10 o'clock
-
-/obj/item/storage/bag/dangertray/attack(mob/living/M, mob/living/user)
-	..()
-	// Drop all the things. All of them.
-	var/list/obj/item/oldContents = contents.Copy()
-	drop_inventory(user)
-
-	// Make each item scatter a bit
-	for(var/obj/item/I in oldContents)
-		spawn()
-			for(var/i = 1, i <= rand(1,2), i++)
-				if(I)
-					step(I, pick(NORTH,SOUTH,EAST,WEST))
-					sleep(rand(2,4))
-
-	if(prob(50))
-		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
-	else
-		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
-
-	if(ishuman(M))
-		if(prob(10))
-			M.Weaken(4 SECONDS)
-
-/obj/item/storage/bag/dangertray/update_overlays()
-	. = ..()
-	var/index = 1
-
-	for(var/obj/item/I in contents)
-		// Check index and process from there
-		// storage_slots
-		var/pixel_x = item_positions_px[index][1]
-		var/pixel_y = item_positions_px[index][2]
-		index++
-		if (index > 7)
-			index = 1
-
-		. += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1, "pixel_x" = pixel_x, "pixel_y" = pixel_y)
 
 /*
  *	Chemistry bag
