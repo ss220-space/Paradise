@@ -211,8 +211,8 @@
 		cell.loc = get_turf(src)
 		cell = null
 		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
-		update_icon()
-		return
+		update_icon(UPDATE_OVERLAYS)
+		return TRUE
 	..()
 
 /obj/item/chem_dispenser_handheld/booze
