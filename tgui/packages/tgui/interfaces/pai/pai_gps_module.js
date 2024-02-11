@@ -1,14 +1,14 @@
 import { useBackend } from "../../backend";
 import { LabeledList, Button } from "../../components";
 
-export const pai_camera_bug = (props, context) => {
+export const pai_gps_module = (props, context) => {
   const { act, data } = useBackend(context);
 
   return (
     <LabeledList>
-      <LabeledList.Item label="Special Syndicate options">
+      <LabeledList.Item label="GPS menu">
         <Button
-          content="Select Monitor"
+          content="Open GPS"
           onClick={() => act('ui_interact')} />
       </LabeledList.Item>
     </LabeledList>

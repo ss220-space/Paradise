@@ -28,6 +28,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	/// Turf reference. If set, it will appear in the UI. Used by [/obj/machinery/computer/telescience].
 	var/turf/locked_location
 	var/upgraded = 0
+	/// For GPS in pAI
+	var/atom/movable/parent
 
 /obj/item/gps/Initialize(mapload)
 	. = ..()
@@ -62,6 +64,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	toggle_gps(user)
+
+/obj/item/gps/proc/toggle_gps(mob/living/user)
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
 		return
@@ -130,6 +135,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	attack_self(user)
 	return TRUE
 
+/obj/item/gps/ui_host()
+	return parent ? parent : src
 
 /obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -151,7 +158,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			gpstag = newtag
 			name = "global positioning system ([gpstag])"
 		if("toggle")
-			AltClick(usr)
+			toggle_gps(usr)
 			return FALSE
 		if("same_z")
 			same_z = !same_z
