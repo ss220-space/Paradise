@@ -109,7 +109,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 // ---------------------------------------------------------------------------------------------------------
 
-/client/proc/create_syndicate_infiltrator(obj/spawn_location, syndicate_leader_selected = 0, uplink_tc = 20, is_mgmt = 0)
+/client/proc/create_syndicate_infiltrator(obj/spawn_location, syndicate_leader_selected = 0, uplink_tc, is_mgmt = 0)
 	var/mob/living/carbon/human/new_syndicate_infiltrator = new(spawn_location.loc)
 
 	var/syndicate_infiltrator_name = random_name(pick(MALE,FEMALE))
@@ -132,57 +132,15 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 // ---------------------------------------------------------------------------------------------------------
 
 /mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc, flag_mgmt)
-	// Storage items
-	equip_to_slot_or_del(new /obj/item/storage/backpack(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), slot_w_uniform)
-	if(!flag_mgmt)
-		equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
-		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), slot_belt)
+	equipOutfit(/datum/outfit/admin/syndicate_infiltrator)
+	for(var/obj/item/implant/uplink/sit/U in src)
+		if(num_tc)
+			U.hidden_uplink.uses = num_tc
+		else if(flag_mgmt)
+			U.hidden_uplink.uses = 2500
 
-	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
-	G.name = "black gloves"
-	equip_to_slot_or_del(G, slot_gloves)
-
-	// Implants:
-	// Uplink
-	var/obj/item/implant/uplink/sit/U = new /obj/item/implant/uplink/sit(src)
-	U.implant(src)
-	if (flag_mgmt)
-		U.hidden_uplink.uses = 2500
-	else
-		U.hidden_uplink.uses = num_tc
-	// Dust
-	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
-	D.implant(src)
-
-	// Radio & PDA
-	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/syndteam(src)
-	R.set_frequency(SYNDTEAM_FREQ)
-	equip_to_slot_or_del(R, slot_l_ear)
-	equip_or_collect(new /obj/item/pda(src), slot_in_backpack)
-
-	// Other gear
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), slot_shoes)
-
-	var/obj/item/card/id/syndicate/W = new(src)
-	if (flag_mgmt)
-		W.icon_state = "commander"
-	else
-		W.icon_state = "id"
-	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
-	W.assignment = "Civilian"
-	W.access += get_access("Civilian")
-	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
-	if(flag_mgmt)
-		W.assignment = "Syndicate Management Consultant"
-		W.access += get_syndicate_access("Syndicate Commando")
-	else if(syndicate_leader_selected)
-		W.access += get_syndicate_access("Syndicate Commando")
-	else
-		W.access += get_syndicate_access("Syndicate Operative")
-	W.name = "[real_name]'s ID Card ([W.assignment])"
-	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
-
-	return 1
+	if(flag_mgmt || syndicate_leader_selected)
+		var/obj/item/card/id/I = wear_id
+		if(istype(I))
+			apply_to_card(I, src, get_syndicate_access("Syndicate Management Consultant"), flag_mgmt ? "Syndicate Management Consultant" : "Civilian", flag_mgmt ? "commander" : "id")
+	return TRUE

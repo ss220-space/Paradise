@@ -62,6 +62,7 @@
 	max_combined_w_class = 35
 	resistance_flags = FIRE_PROOF
 	flags_2 = NO_MAT_REDEMPTION_2
+	w_class_override = list(/obj/item/storage)
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 
@@ -142,7 +143,7 @@
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/pda/clown(src)
-	new /obj/item/storage/box/survival(src)
+	new /obj/item/storage/box/survival/regular(src)
 	new /obj/item/reagent_containers/food/snacks/grown/banana(src)
 	new /obj/item/stamp/clown(src)
 	new /obj/item/toy/crayon/rainbow(src)

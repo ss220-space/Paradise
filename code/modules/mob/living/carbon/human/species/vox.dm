@@ -19,6 +19,7 @@
 
 	bonefragility = 1.2 //20% more chance to break bones. Fragile bird bones.
 
+	speciesbox = TRUE
 	breathid = "n2"
 
 	eyes = "vox_eyes_s"
@@ -88,8 +89,6 @@
 		"сворачивает себе шею!",
 		"задерживает дыхание!",
 		"глубоко вдыхает кислород!")
-
-	speciesbox = /obj/item/storage/box/survival_vox
 
 	toxic_food = NONE
 	disliked_food = NONE //According to lore voxes does not care about food. Food is food.

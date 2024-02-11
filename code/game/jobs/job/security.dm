@@ -52,7 +52,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/survival_security/hos
+	box = /obj/item/storage/box/survival/security
 
 
 
@@ -102,7 +102,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/survival_security/warden
+	box = /obj/item/storage/box/survival/security
 
 
 
@@ -146,7 +146,7 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 	satchel = /obj/item/storage/backpack/satchel_detective
-	box = /obj/item/storage/box/survival_security/detective
+	box = /obj/item/storage/box/survival/security
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -207,7 +207,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/survival_security
+	box = /obj/item/storage/box/survival/security
 
 /datum/outfit/job/officer/cadet
 	name = "Security Cadet"
@@ -217,7 +217,7 @@
 	l_pocket = /obj/item/reagent_containers/spray/pepper
 	r_pocket = /obj/item/paper/deltainfo
 	suit_store = /obj/item/gun/energy/gun/advtaser
-	box = /obj/item/storage/box/survival_security/cadet
+	box = /obj/item/storage/box/survival/security
 
 /datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -266,8 +266,6 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
-	box = /obj/item/storage/box/survival/brigphys
-
 
 /datum/job/pilot
 	title = "Security Pod Pilot"
@@ -307,4 +305,4 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/survival_security/pilot
+	box = /obj/item/storage/box/survival/security

@@ -31,7 +31,7 @@
 	l_ear = /obj/item/radio/headset/syndicate/admin_officer
 	pda = /obj/item/pinpointer/advpinpointer
 	id = /obj/item/card/id/syndicate/command
-	box = /obj/item/storage/box/survival_syndi
+	box = /obj/item/storage/box/survival/syndicate
 	backpack_contents = list(
 		/obj/item/flashlight = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
@@ -40,18 +40,14 @@
 		/obj/item/lighter/zippo/gonzofist = 1,
 		/obj/item/storage/box/matches = 1
 	)
-	implants = list(
-		/obj/item/implant/dust
-	)
+	implants = list(/obj/item/implant/dust, /obj/item/implant/uplink/admin)
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus)
 
 /datum/outfit/job/syndicateofficer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
 
-	var/obj/item/implant/uplink/admin/U = new /obj/item/implant/uplink/admin(H)
-	U.implant(H)
-	U.hidden_uplink.uses = 2500
 	H.faction += "syndicate"
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.join_hud(H.mind.current)

@@ -26,6 +26,10 @@
 	return UPLINK_TYPE_SIT
 
 
+/obj/item/implant/uplink/sit/get_uses_amount()
+	return 100
+
+
 /obj/item/implant/uplink/nuclear/Initialize(mapload)
 	. = ..()
 	GLOB.nuclear_uplink_list += src

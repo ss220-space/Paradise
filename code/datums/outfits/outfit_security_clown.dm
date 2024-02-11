@@ -1,3 +1,47 @@
+//=========== Regular HONKsquad outfits ===========
+/datum/outfit/admin/honksquad
+	name = "HONKsquad Commando"
+	back = /obj/item/storage/backpack/clown
+	uniform = /obj/item/clothing/under/rank/clown
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	pda = /obj/item/pda/clown
+	id = /obj/item/card/id
+	l_ear = /obj/item/radio/headset
+	r_pocket = /obj/item/reagent_containers/food/pill/patch/jestosterone
+	backpack_contents = list(
+		/obj/item/storage/box/survival/regular,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/bikehorn,
+		/obj/item/clown_recorder,
+		/obj/item/stamp/clown,
+		/obj/item/toy/crayon/rainbow,
+		/obj/item/reagent_containers/spray/waterflower
+	)
+	implants = list(/obj/item/implant/sad_trombone)
+
+/datum/outfit/admin/honksquad/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(H.gender == FEMALE)
+		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
+		uniform = /obj/item/clothing/under/rank/clown/sexy
+
+	if(prob(50))
+		backpack_contents += /obj/item/gun/energy/clown
+	else
+		backpack_contents += /obj/item/gun/throw/piecannon
+
+/datum/outfit/admin/honksquad/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+
+	if(visualsOnly)
+		return
+
+	var/obj/item/radio/R = H.l_ear
+	if(istype(R))
+		R.set_frequency(1442)
+	H.mutations.Add(CLUMSY)
+
 //=========== Security CLown outfits ===========
 /datum/outfit/admin/clown_security
 	name = "Clown Security Officer"
@@ -132,7 +176,6 @@
 		I.access.Add(ACCESS_CLOWN, ACCESS_MIME, ACCESS_THEATRE)
 		I.assignment = name
 	H.sec_hud_set_ID()
-
 
 //=========== security clown equipment ===========
 /obj/item/pda/clown/security

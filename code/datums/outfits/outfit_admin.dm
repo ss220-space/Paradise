@@ -35,8 +35,8 @@
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
 	r_pocket = /obj/item/radio/uplink
+	box = /obj/item/storage/box/survival/engineer
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/card/emag = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1
@@ -62,18 +62,66 @@
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
 		R.set_frequency(SYND_FREQ)
-	H.faction += "syndicate"
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate_infiltrator
 	name = "Syndicate Infiltrator"
+	back = /obj/item/storage/backpack
+	uniform = /obj/item/clothing/under/chameleon
+	gloves = /obj/item/clothing/gloves/combat
+	belt = /obj/item/storage/belt/utility/full/multitool
+	l_ear = /obj/item/radio/headset/syndicate/syndteam
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
+	id = /obj/item/card/id/syndicate
+	backpack_contents = list(/obj/item/flashlight)
+	implants = list(/obj/item/implant/dust, /obj/item/implant/uplink/sit)
 
-/datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
+/datum/outfit/admin/syndicate_infiltrator/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+
+	var/obj/item/clothing/gloves/G = H.gloves
+	if(istype(G))
+		G.name = "black gloves"
+		G.icon_state = "black"
+
+	if(visualsOnly)
+		return
+
+	var/obj/item/radio/R = H.l_ear
+	if(istype(R))
+		R.set_frequency(SYNDTEAM_FREQ)
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_syndicate_access("Syndicate Infiltrator"), "Civilian", "id")
 	H.sec_hud_set_ID()
-	if(!visualsOnly)
-		H.faction += "syndicate"
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate/operative
+	name = "Syndicate Nuclear Operative"
+	back = /obj/item/storage/backpack
+	uniform = /obj/item/clothing/under/syndicate
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	id = /obj/item/card/id/syndicate
+	belt = /obj/item/gun/projectile/automatic/pistol
+	box = /obj/item/storage/box/survival/syndicate
+	pda = /obj/item/pinpointer/nukeop
+	l_ear = /obj/item/radio/headset/syndicate/alt
+	r_pocket = /obj/item/radio/uplink/nuclear
+	implants = list(/obj/item/implant/explosive)
+
+	id_access = "Syndicate Nuclear Operative"
+
+/datum/outfit/admin/syndicate/operative/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(visualsOnly)
+		return
+	if(H.dna.species.name == "Plasmaman")
+		backpack_contents += /obj/item/extinguisher_refill
+		backpack_contents += /obj/item/extinguisher_refill
+
+/datum/outfit/admin/syndicate/operative/full_gear
 	name = "Syndicate Nuclear Operative"
 	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
@@ -85,9 +133,8 @@
 	r_pocket = /obj/item/radio/uplink/nuclear
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_hand = /obj/item/tank/jetpack/oxygen/harness
-
+	box = /obj/item/storage/box/survival/syndicate
 	backpack_contents = list(
-		/obj/item/storage/box/survival_syndi = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
@@ -97,16 +144,7 @@
 		/obj/item/clothing/shoes/combat = 1
 	)
 
-/datum/outfit/admin/syndicate/operative/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/implant/explosive/E = new(H)
-	E.implant(H)
-
-
-/datum/outfit/admin/syndicate/operative/freedom
+/datum/outfit/admin/syndicate/operative/full_gear/freedom
 	name = "Syndicate Freedom Operative"
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 
@@ -120,7 +158,7 @@
 	l_pocket = /obj/item/card/emag
 	r_pocket = /obj/item/melee/energy/sword/saber/red
 	id = /obj/item/card/id/syndicate
-	box = /obj/item/storage/box/survival_syndi
+	box = /obj/item/storage/box/survival/syndicate
 	backpack_contents = list(
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
@@ -192,9 +230,7 @@
 	l_ear = /obj/item/radio/headset/ert
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda
-	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1
-	)
+	box = /obj/item/storage/box/survival/engineer
 
 /datum/outfit/admin/nt_vip/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -221,18 +257,16 @@
 	r_pocket = /obj/item/reagent_containers/food/snacks/candy/mre
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	id = /obj/item/card/id/centcom
-
+	box = /obj/item/storage/box/survival/ert
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8ar = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
-		/obj/item/storage/box/responseteam = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
 		/obj/item/gun/projectile/automatic/proto = 1,
 		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/suppressor = 1,
-		/obj/item/CQC_manual = 1,
-		/obj/item/storage/box/responseteam = 1
+		/obj/item/CQC_manual = 1
 	)
 
 	accessories = list(
@@ -277,8 +311,8 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
+	box = /obj/item/storage/box/survival/centcomm
 	backpack_contents = list(
-		/obj/item/storage/box/centcomofficer = 1,
 		/obj/item/implanter/death_alarm = 1
 	)
 	implants = list(
@@ -308,8 +342,8 @@
 	r_pocket = /obj/item/lighter/zippo/nt_rep
 	l_pocket = /obj/item/storage/fancy/cigarettes/dromedaryco
 	pda = /obj/item/pda/centcom
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/implanter/death_alarm = 1,
 	)
 	implants = list(
@@ -339,8 +373,8 @@
 	l_ear = /obj/item/radio/headset/centcom
 	id = /obj/item/card/id
 	pda = /obj/item/pda
+	box = /obj/item/storage/box/survival/engineer
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/pinpointer/crew = 1
 	)
@@ -389,7 +423,7 @@
 	l_ear = /obj/item/radio/headset/alt
 	id = /obj/item/card/id
 	pda = /obj/item/pinpointer
-	box = /obj/item/storage/box/responseteam
+	box = /obj/item/storage/box/survival/ert
 
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
@@ -438,8 +472,8 @@
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
 	r_hand = /obj/item/melee/energy/sword/pirate
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1
 	)
 
@@ -517,8 +551,8 @@
 	l_pocket = /obj/item/reagent_containers/food/snacks/grown/banana
 	r_pocket = /obj/item/bikehorn
 	r_hand = /obj/item/twohanded/fireaxe
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
 		/obj/item/grenade/clown_grenade = 1,
@@ -551,8 +585,8 @@
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	id = /obj/item/card/id/syndicate
 	pda = /obj/item/pda/mime
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
@@ -597,8 +631,8 @@
 	id = /obj/item/card/id
 	l_hand = /obj/item/storage/toolbox/mechanical
 	r_hand = /obj/item/flag/grey
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1
 	)
 
@@ -616,9 +650,8 @@
 
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/yellow
-
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/clothing/head/welding = 1,
 		/obj/item/flashlight = 1
 	)
@@ -645,8 +678,8 @@
 	glasses = /obj/item/clothing/glasses/thermal
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	r_pocket = /obj/item/toy/toy_xeno
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/clothing/head/welding = 1,
 		/obj/item/flashlight = 1
 	)
@@ -671,8 +704,8 @@
 	r_ear = /obj/item/clothing/ears/headphones
 	pda = /obj/item/pda
 	id = /obj/item/card/id
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/instrument/violin = 1,
 		/obj/item/instrument/piano_synth = 1,
@@ -683,6 +716,12 @@
 		/obj/item/instrument/trombone = 1,
 		/obj/item/instrument/harmonica = 1
 	)
+
+/datum/outfit/admin/musician/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(H.gender == MALE)
+		uniform = /obj/item/clothing/under/singery
+		shoes = /obj/item/clothing/shoes/singery
 
 /datum/outfit/admin/musician/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -707,7 +746,7 @@
 	id = /obj/item/card/id
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/alt/soviet
-	box = /obj/item/storage/box/soviet
+	box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/admin/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -727,7 +766,7 @@
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"
 	gloves = null
-	box = /obj/item/storage/box/survival
+	box = /obj/item/storage/box/survival/regular
 
 /datum/outfit/admin/soviet/conscript
 	name = "Soviet Conscript"
@@ -833,8 +872,8 @@
 	r_pocket = /obj/item/lighter/zippo/blue
 	l_pocket = /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	pda = /obj/item/pda
+	box = /obj/item/storage/box/survival/ert
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
 		/obj/item/implanter/dust = 1,
 		/obj/item/implanter/death_alarm = 1,
 		/obj/item/stamp/solgov = 1,
@@ -867,8 +906,8 @@
 	id = /obj/item/card/id
 	r_pocket = /obj/item/flashlight/seclite
 	pda = /obj/item/pda
+	box = /obj/item/storage/box/survival/ert
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -897,8 +936,8 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	id = /obj/item/card/id
+	box = /obj/item/storage/box/survival/ert
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -924,8 +963,8 @@
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	id = /obj/item/card/id
+	box = /obj/item/storage/box/survival/ert
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -960,8 +999,8 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/hand_labeler = 1,
 		/obj/item/hand_labeler_refill = 1
 	)
@@ -1149,9 +1188,7 @@
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
-	backpack_contents = list(
-		/obj/item/storage/box/survival = 1
-	)
+	box = /obj/item/storage/box/survival/regular
 
 /datum/outfit/admin/survivor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -1183,8 +1220,8 @@
 	l_pocket = /obj/item/kitchen/knife
 	r_pocket = /obj/item/scalpel
 	r_hand = /obj/item/twohanded/fireaxe
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1
 	)
 
@@ -1217,8 +1254,8 @@
 	glasses = /obj/item/clothing/glasses/meson/cyber
 	id = /obj/item/card/id
 	suit_store = /obj/item/tank/internals/oxygen
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1
 	)
 
@@ -1242,8 +1279,8 @@
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
 	l_hand = /obj/item/twohanded/dualsaber/red
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
 	)
 
@@ -1272,8 +1309,8 @@
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/clothing/under/color/black = 1
 	)
@@ -1315,6 +1352,32 @@
 	H.gene_stability = 100
 
 /datum/outfit/admin/wizard
+	name = "Wizard"
+	l_ear = /obj/item/radio/headset
+	uniform = /obj/item/clothing/under/color/lightpurple
+	shoes = /obj/item/clothing/shoes/sandal
+	suit = /obj/item/clothing/suit/wizrobe
+	head = /obj/item/clothing/head/wizard
+	back = /obj/item/storage/backpack/satchel
+	box = /obj/item/storage/box/survival/regular
+	r_pocket = /obj/item/teleportation_scroll
+
+/datum/outfit/admin/wizard/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+
+	if(visualsOnly)
+		return
+
+	H.faction = list("wizard")
+
+/datum/outfit/admin/wizard/apprentice
+	name = "Wizard Appretince"
+	head = /obj/item/clothing/head/wizard/red
+	suit = /obj/item/clothing/suit/wizrobe/red
+	r_pocket = /obj/item/teleportation_scroll/apprentice
+	backpack_contents = list(/obj/item/reagent_containers/food/drinks/mugwort)
+
+/datum/outfit/admin/wizard/full_gear
 	name = "Blue Wizard"
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
@@ -1326,11 +1389,9 @@
 	r_pocket = /obj/item/teleportation_scroll
 	l_hand = /obj/item/twohanded/staff
 	r_hand = /obj/item/spellbook
-	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1
-	)
+	box = /obj/item/storage/box/survival/engineer
 
-/datum/outfit/admin/wizard/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/wizard/full_gear/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -1339,13 +1400,13 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Wizard")
 
-/datum/outfit/admin/wizard/red
+/datum/outfit/admin/wizard/full_gear/red
 	name = "Red Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/red
 	head = /obj/item/clothing/head/wizard/red
 
-/datum/outfit/admin/wizard/marisa
+/datum/outfit/admin/wizard/full_gear/marisa
 	name = "Marisa Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/marisa
@@ -1359,8 +1420,8 @@
 	head = /obj/item/clothing/head/wizard/magus
 	belt = /obj/item/storage/belt/wands/full
 	l_hand = null
+	box = /obj/item/storage/box/survival/engineer
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
 		/obj/item/clothing/suit/space/hardsuit/wizard/arch/shielded = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
@@ -1392,8 +1453,8 @@
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
 	r_hand = /obj/item/nullrod/armblade
+	box = /obj/item/storage/box/survival/regular
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
 	)
 	implants = list(

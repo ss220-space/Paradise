@@ -15,6 +15,8 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
+
+	speciesbox = TRUE
 	brute_mod = 1 // 100% * 2.28 * 0.66 (robolimbs) ~= 150% // nope
 	burn_mod = 1  // So they take 50% extra damage from brute/burn overall // nope
 	tox_mod = 0
@@ -79,8 +81,6 @@
 		"is blocking their ventilation port!")
 
 	var/datum/action/innate/change_monitor/monitor
-
-	speciesbox = /obj/item/storage/box/survival_machine
 
 	liked_food = NONE
 	disliked_food = NONE

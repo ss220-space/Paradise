@@ -139,10 +139,7 @@
 	name = "NT first-aid kit"
 	icon_state = "NTfirstaid"
 	desc = "I hope you've got insurance."
-	max_w_class = WEIGHT_CLASS_NORMAL
 	med_bot_skin = "bezerk"
-	storage_slots = 2
-	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
 /obj/item/storage/firstaid/with_mousetrap/tactical/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
@@ -156,10 +153,7 @@
 	name = "first-aid tacticool kit"
 	icon_state = "bezerk"
 	desc = "I hope you've got insurance."
-	max_w_class = WEIGHT_CLASS_NORMAL
 	med_bot_skin = "bezerk"
-	storage_slots = 2
-	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
 /obj/item/storage/firstaid/with_mousetrap/syndie/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)

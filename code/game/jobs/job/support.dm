@@ -230,7 +230,7 @@
 
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel_explorer
-	box = /obj/item/storage/box/survival_mining
+	box = /obj/item/storage/box/survival/miner
 
 /datum/outfit/job/mining/equipped
 	name = "Shaft Miner"

@@ -140,7 +140,6 @@
 
 /obj/item/storage/box/syndie_kit/mantisblade
 	name = "Horlex Mantis blade set"
-	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/mantisblade/populate_contents()
 	new /obj/item/autoimplanter/oneuse/mantisblade(src)
@@ -148,8 +147,7 @@
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
-	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class_override = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/clothing/mask/gas/syndicate)
 
 /obj/item/storage/box/syndie_kit/space/populate_contents()
 	new /obj/item/clothing/suit/space/syndicate/black/red(src)
@@ -159,8 +157,7 @@
 
 /obj/item/storage/box/syndie_kit/hardsuit
 	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
-	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class_override = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/clothing/mask/gas/syndicate)
 
 /obj/item/storage/box/syndie_kit/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
@@ -173,9 +170,7 @@
 	description_antag = "Высокотехнологичная коробка, содержащая набор хардсьюта-хамелеона, искусно скрытая под аптечку первой оксигенной помощи. Можно разобрать на картон, на самом деле это просто качественная краска."
 	icon_state = "o2"
 	item_state = "firstaid-o2"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
-	max_w_class = WEIGHT_CLASS_NORMAL
-
+	w_class_override = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent, /obj/item/clothing/mask/gas/syndicate)
 
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 	name = "Counterfeiter Bundle"

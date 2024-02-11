@@ -55,17 +55,7 @@
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/scientist
 	implants = list(/obj/item/implant/weapons_auth)
-
-/datum/outfit/space_base_syndicate/pre_equip(mob/living/carbon/human/H)
-	if(H.dna.species)
-		var/race = H.dna.species.name
-		switch(race)
-			if("Vox", "Vox Armalis")
-				box = /obj/item/storage/box/survival_vox
-			if("Plasmaman")
-				box = /obj/item/storage/box/survival_plasmaman
-			else
-				box = /obj/item/storage/box/survival_syndi
+	box = "syndicate"
 
 /datum/outfit/space_base_syndicate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "syndicate"
@@ -116,6 +106,7 @@
 	assignedrole = TAIPAN_MEDIC
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
+
 /datum/outfit/space_base_syndicate/medic
 	name = "Space Base Syndicate Medic"
 	r_hand = /obj/item/melee/energy/sword/saber
@@ -150,6 +141,7 @@
 	assignedrole = TAIPAN_BOTANIST
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
+
 /datum/outfit/space_base_syndicate/botanist
 	name = "Space Base Syndicate Botanist"
 	r_hand = /obj/item/melee/energy/sword/saber
@@ -176,6 +168,7 @@
 	assignedrole = TAIPAN_CARGO
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
+
 /datum/outfit/space_base_syndicate/cargotech
 	name = "Space Base Syndicate Cargo Technician"
 	head = /obj/item/clothing/head/soft
@@ -224,6 +217,7 @@
 	assignedrole = TAIPAN_ENGINEER
 	min_hours = 10
 	exp_type = EXP_TYPE_ENGINEERING
+
 /datum/outfit/space_base_syndicate/engineer
 	name = "Space Base Syndicate Engineer"
 	head = /obj/item/clothing/head/beret/eng
@@ -246,6 +240,7 @@
 	assignedrole = TAIPAN_COMMS
 	min_hours = 50
 	exp_type = EXP_TYPE_COMMAND
+
 /datum/outfit/space_base_syndicate/comms
 	name = "Space Base Syndicate Comms Officer"
 	r_ear = /obj/item/radio/headset/syndicate/taipan/tcomms_agent // See del_types above
@@ -273,6 +268,7 @@
 	assignedrole = TAIPAN_RD
 	min_hours = 50
 	exp_type = EXP_TYPE_SCIENCE
+
 /datum/outfit/space_base_syndicate/rd
 	name = "Space Base Syndicate Research Director"
 	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above

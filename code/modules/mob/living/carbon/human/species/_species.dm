@@ -92,6 +92,7 @@
 
 	var/list/species_traits = list()
 
+	var/speciesbox = FALSE	// Set to TRUE, if your species using exotic emergency boxes. More info: `code\game\objects\items\weapons\storage\emergency_boxes.dm`
 	var/breathid = "o2"
 
 	var/clothing_flags = 0 // Underwear and socks.
@@ -207,8 +208,6 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 	)
 
-	// Species specific boxes
-	var/speciesbox
 	/// Whether the presence of a body accessory on this species is optional or not.
 	var/optional_body_accessory = TRUE
 
