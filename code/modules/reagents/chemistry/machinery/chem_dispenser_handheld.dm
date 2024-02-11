@@ -75,7 +75,7 @@
 	data["mode"] = mode
 	data["isContainerLoaded"] = reagent_container ? 1 : 0
 
-	var/containerContents[0]
+	var/list/containerContents = list()
 	var/containerCurrentVolume = 0
 
 	if(reagent_container.reagents)
