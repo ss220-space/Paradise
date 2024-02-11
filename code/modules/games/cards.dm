@@ -159,7 +159,7 @@
 /datum/action/item_action/shuffle/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
-		return D.deckshuffle(usr)
+		return D.deckshuffle(owner)
 	return ..()
 
 

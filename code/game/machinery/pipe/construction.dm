@@ -183,7 +183,7 @@
 // rotate the pipe item clockwise
 
 /obj/item/pipe/proc/rotate(mob/user)
-	if(user.stat || !Adjacent(user) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(user.stat || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(pipe_type == PIPE_CIRCULATOR)
@@ -196,7 +196,7 @@
 
 
 /obj/item/pipe/proc/flip(mob/user)
-	if(user.stat || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.stat || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE, PIPE_CIRCULATOR))

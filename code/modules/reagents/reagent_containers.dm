@@ -16,11 +16,9 @@
 	var/temperature_max = 10000
 	var/pass_open_check = FALSE // Pass open check in empty verb
 
-/obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
-	set name = "Set transfer amount"
-	set category = "Object"
-	set src in usr
-
+/obj/item/reagent_containers/AltClick(mob/user)
+	if(!length(possible_transfer_amounts))
+		return
 	if(!ishuman(usr) && !isrobot(usr))
 		return
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -41,25 +39,17 @@
 		return
 
 	amount_per_transfer_from_this = N
-	to_chat(usr, "<span class='notice'>[src] will now transfer [N] units at a time.</span>")
+	to_chat(user, "<span class='notice'>[src] will now transfer [N] units at a time.</span>")
 
-/obj/item/reagent_containers/AltClick(mob/user)
-	if(Adjacent(user))
-		set_APTFT()
 
-/obj/item/reagent_containers/verb/empty()
-
-	set name = "Empty Container"
-	set category = "Object"
-	set src in usr
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/item/reagent_containers/AltShiftClick(mob/user)
+	if(!length(possible_transfer_amounts))
 		return
-	if(alert(usr, "Are you sure you want to empty that?", "Empty Container:", "Yes", "No") != "Yes")
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(usdr, TRAIT_HANDS_BLOCKED))
 		return
-	if(!usr.Adjacent(src) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Container:", list("Yes", "No")) != "Yes")
 		return
-	if(isturf(usr.loc) && loc == usr)
+	if(isturf(user.loc) && loc == user)
 		if(!is_open_container() && !pass_open_check)
 			to_chat(usr, "<span class='warning'>Open [src] first.</span>")
 			return
@@ -73,8 +63,6 @@
 /obj/item/reagent_containers/New()
 	create_reagents(volume, temperature_min, temperature_max)
 	..()
-	if(!possible_transfer_amounts)
-		verbs -= /obj/item/reagent_containers/verb/set_APTFT
 
 /obj/item/reagent_containers/Initialize(mapload)
 	. = ..()
@@ -137,5 +125,6 @@
 		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this != 1 ? "s" : ""] at a time.</span>"
 
 	if(possible_transfer_amounts)
-		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
+		. += span_notice("<b>Alt-Click</b> to change the transfer amount.")
+		. += span_notice("<b>Alt-Shift-Click</b> to empty [src].")
 

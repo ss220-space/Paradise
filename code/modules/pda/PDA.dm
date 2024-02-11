@@ -200,9 +200,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
 /obj/item/pda/AltClick(mob/living/user)
-	if(!iscarbon(user))
+	if(issilicon(user))
 		return
-	if(can_use(user))
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(can_use(user)) // Checks Adjacency
 		if(id)
 			remove_id(user)
 		else

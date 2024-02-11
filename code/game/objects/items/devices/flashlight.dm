@@ -158,7 +158,7 @@
 /obj/item/flashlight/lamp/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	attack_self(usr)
+	attack_self(user)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp

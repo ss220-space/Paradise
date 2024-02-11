@@ -15,10 +15,6 @@
 	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
 
-/obj/item/reagent_containers/food/drinks/set_APTFT()
-	set hidden = FALSE
-	..()
-
 /obj/item/reagent_containers/food/drinks/empty()
 	set hidden = FALSE
 	..()

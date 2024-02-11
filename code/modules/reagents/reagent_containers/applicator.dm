@@ -27,9 +27,6 @@
 		if(user)
 			to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 
-/obj/item/reagent_containers/applicator/set_APTFT()
-	set hidden = TRUE
-
 /obj/item/reagent_containers/applicator/on_reagent_change()
 	if(!emagged)
 		var/found_forbidden_reagent = FALSE

@@ -54,28 +54,20 @@
 		power_usage -= 50 * M.rating
 	active_power_usage = power_usage
 
-/obj/machinery/power/emitter/verb/rotate()
-	set name = "Rotate"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
-
+/obj/machinery/power/emitter/proc/rotate(mob/user)
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
-		return FALSE
-
-	add_fingerprint(usr)
+		return
+	add_fingerprint(user)
 	dir = turn(dir, 90)
-	return TRUE
-
 
 /obj/machinery/power/emitter/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
-
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	rotate(user)
 
 /obj/machinery/power/emitter/Destroy()
 	message_admins("Emitter deleted at [ADMIN_COORDJMP(src)] [usr ? "Broken by [ADMIN_LOOKUPFLW(usr)]" : ""]")

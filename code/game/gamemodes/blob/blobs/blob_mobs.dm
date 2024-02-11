@@ -195,6 +195,24 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
 
+/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/communicate_overmind_blob/overmind_chat = new
+	overmind_chat.Grant(src)
+
+/datum/action/innate/communicate_overmind_blob
+	name = "Speak with the overmind"
+	icon_icon = 'icons/mob/guardian.dmi'
+	button_icon_state = "communicate"
+
+/datum/action/innate/communicate_overmind_blob/Activate()
+	var/mob/living/simple_animal/hostile/blob/blobbernaut/user = owner
+	if(user.stat)
+		return
+	user.blob_talk()
+
+/mob/living/simple_animal/hostile/blob/blobbernaut/mob_negates_gravity()
+	return magpulse
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
 	. = ..()
@@ -233,14 +251,6 @@
 	if(!.)
 		return FALSE
 	flick("blobbernaut_death", src)
-
-/mob/living/simple_animal/hostile/blob/blobbernaut/verb/communicate_overmind()
-	set category = "Blobbernaut"
-	set name = "Blob Telepathy"
-	set desc = "Send a message to the Overmind"
-
-	if(stat != DEAD)
-		blob_talk()
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
 	var/message = tgui_input_text(usr, "Announce to the overmind", "Blob Telepathy")

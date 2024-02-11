@@ -462,6 +462,8 @@
 		to_chat(user, "There's no occupant in the sleeper!")
 
 /obj/machinery/sleeper/AltClick(mob/user)
+	if(user.incapacitated())
+		return
 	if(issilicon(user))
 		eject()
 		return

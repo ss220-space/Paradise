@@ -111,8 +111,7 @@
 	if(anchored)
 		to_chat(user, span_warning("You cannot rotate [src] right now. It is fastened to the floor!"))
 		return
-	else
-		rotate()
+	rotate()
 
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX
