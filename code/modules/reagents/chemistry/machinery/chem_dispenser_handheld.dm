@@ -203,7 +203,7 @@
 				return
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/chem_dispenser_handheld/screwdriver_act(mob/user, obj/item/I)
 	if(!isrobot(loc) && cell)
