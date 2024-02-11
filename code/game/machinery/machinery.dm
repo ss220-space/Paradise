@@ -149,11 +149,10 @@ Class Procs:
 	. = ..()
 	GLOB.machines += src
 
-	if(use_power)
-		myArea = get_area(src)
-		if(myArea)
-			RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
-			LAZYADD(myArea.machinery_cache, src)
+	myArea = get_area(src)
+	if(myArea)
+		RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
+		LAZYADD(myArea.machinery_cache, src)
 
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)

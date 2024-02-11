@@ -21,6 +21,7 @@
 '2024-02-06':
   ArtemDerp:
   - bugfix: Gorkiy17 reduced number of active turfs (#4253)
+  - bugfix: fixed missed floor tiles (#4368)
   Daeberdir:
   - bugfix: pet vanishing in pet carrier. (#4355)
   - tweak: job updating for PDA messenger receiver. (#4338)
@@ -44,6 +45,8 @@
   - add: Kidan's Pheromones (#4043)
   MeowEmiya:
   - tweak: Ashwalkers guaranteed spawn (#4275)
+  Nerrol:
+  - bugfix: reload huds issues (#4367)
   Pavel Poltaves:
   - qol: add the ability to animals to ask to be picked up. (#4164)
   ROdenFL:
@@ -82,3 +85,33 @@
   Zwei:
   - bugfix: Animate Projectile Fix (#4339)
   - bugfix: Extinguish Light Fixes (#4340)
+'2024-02-07':
+  BeebBeebBoob:
+  - bugfix: Corrects costs of ammo casings and ammo box itself (#4370)
+  - bugfix: making ai from clocked mmi + fabricator building (#4369)
+  dontbetank:
+  - bugfix: PAI HUD fix (#4360)
+'2024-02-09':
+  Aziz Chynaliev:
+  - unknown: bump byond version to 515.1630 and add CI trigger on merge queue
+  - unknown: enable BETA byond CI
+  - unknown: bump dmjit version
+  BeebBeebBoob:
+  - bugfix: AI core playtime requirement (#4380)
+'2024-02-10':
+  Aziz Chynaliev:
+  - unknown: bump stable byond and dmjit versions
+  Rerik007:
+  - add: (added) new cargo packs (#4383)
+  - bugfix: two small typo fixes (#4385)
+  Valtor:
+  - bugfix: returns mage-simplemob spells (#4378)
+  Vladisvell:
+  - bugfix: Fixed wrong machinery cache initialization (#4376)
+  Zwei:
+  - bugfix: Morgue Label Return (#4382)
+  - tweak: Pointing With Gun Spelling (#4374)
+  dontbetank:
+  - add: Remove Mr.Cheng Technique from melee thunderdome (#4359)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4372)
