@@ -27,7 +27,7 @@
 	var/recharge_counter_threshold = 4
 
 /obj/item/chem_dispenser_handheld/Initialize()
-	..()
+	. = ..()
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
 	current_reagent = pick(dispensable_reagents)
