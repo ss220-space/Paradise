@@ -430,13 +430,13 @@
 
 	// Two dimensional array for X slots with XY pixel position
 	var/list/item_positions_px = list(
+		list(0 , 0), // x , y center
 		list(0 , 10), // x , y 12 o'clock
 		list(5 , 5), // x , y 2 o'clock
 		list(5 , -5), // x , y 4 o'clock
 		list(0 , -10), // x , y 6 o'clock
 		list(-10 , -5), // x , y 8 o'clock
-		list(-10 , -5), // x , y 10 o'clock
-		list(0 , 0)) // x , y center
+		list(-10 , -5)) // x , y 10 o'clock
 
 /obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
 	..()
