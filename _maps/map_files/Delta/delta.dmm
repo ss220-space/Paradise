@@ -47,7 +47,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "aah" = (
@@ -3918,7 +3918,7 @@
 	tag = "icon-pipe-j1 (EAST)"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "aEp" = (
@@ -6833,8 +6833,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/crew_quarters/fitness)
 "aWY" = (
@@ -7736,7 +7735,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "bck" = (
@@ -21434,8 +21433,7 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/maintenance/banya)
 "crF" = (
@@ -24468,7 +24466,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "cEE" = (
@@ -24680,7 +24678,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "cFE" = (
@@ -24790,7 +24788,7 @@
 	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "cFW" = (
@@ -27823,7 +27821,7 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "cTl" = (
@@ -32900,7 +32898,7 @@
 	name = "Toilet"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "doi" = (
@@ -32977,7 +32975,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "doy" = (
@@ -33036,7 +33034,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "doP" = (
@@ -40800,7 +40798,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "dVy" = (
@@ -51413,8 +51411,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/research)
 "gio" = (
@@ -57159,7 +57156,6 @@
 	},
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "bluefull"
 	},
 /area/bridge/checkpoint/south)
@@ -61242,8 +61238,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/reception)
 "ixu" = (
@@ -67268,14 +67263,6 @@
 	icon_state = "darkblue"
 	},
 /area/bridge)
-"jWl" = (
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
-	},
-/area/medical/reception)
 "jWn" = (
 /obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
@@ -73898,8 +73885,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/research)
 "lGO" = (
@@ -74823,8 +74809,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/reception)
 "lRk" = (
@@ -81476,7 +81461,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "nqH" = (
@@ -81639,8 +81624,7 @@
 /obj/structure/delta_statue/nw,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/bridge/vip)
 "nsi" = (
@@ -83361,8 +83345,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/research)
 "nMs" = (
@@ -83895,7 +83878,7 @@
 	name = "Toilet"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "nSz" = (
@@ -84241,8 +84224,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/virology/lab)
 "nXm" = (
@@ -91084,8 +91066,7 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/crew_quarters/fitness)
 "pBl" = (
@@ -96751,7 +96732,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "qKI" = (
@@ -102279,8 +102260,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/research)
 "sbb" = (
@@ -105642,8 +105622,7 @@
 "sQt" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/medical/medbay)
 "sQx" = (
@@ -127230,7 +127209,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "bluefull"
 	},
 /area/bridge/checkpoint/south)
@@ -167742,8 +167720,8 @@ xMi
 gZr
 uzj
 xYU
-jWl
-jWl
+hiQ
+hiQ
 xYU
 cNI
 xYU
