@@ -46,29 +46,3 @@
 /obj/mecha/working/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	..()
 	update_icon()
-
-/obj/mecha/working/Exit(atom/movable/O)
-	if(O in cargo)
-		return 0
-	return ..()
-
-
-/obj/mecha/working/Destroy()
-	for(var/atom/movable/cargo_thing as anything in cargo)
-		cargo -= cargo_thing
-		cargo_thing.forceMove(drop_location())
-		step_rand(cargo_thing)
-	for(var/mob/M in src)
-		if(M == occupant)
-			continue
-		M.forceMove(drop_location())
-		step_rand(M)
-	return ..()
-
-/obj/mecha/working/ex_act(severity)
-	..()
-	for(var/X in cargo)
-		var/atom/movable/cargo_thing = X
-		if(prob(30 / severity))
-			cargo -= cargo_thing
-			cargo_thing.forceMove(drop_location())

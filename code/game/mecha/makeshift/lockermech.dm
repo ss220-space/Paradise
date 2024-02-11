@@ -23,11 +23,6 @@
 	update_icon()
 
 
-/obj/mecha/makeshift/Exit(atom/movable/O)
-	if(O in cargo)
-		return 0
-	return ..()
-
 // /obj/mecha/makeshift/contents_explosion(severity, target)
 // 	for(var/X in cargo)
 // 		var/obj/O = X

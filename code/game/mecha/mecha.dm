@@ -748,6 +748,12 @@
 	if(occupant)
 		occupant.ex_act(severity)
 
+	for(var/X in cargo)
+		var/atom/movable/cargo_thing = X
+		if(prob(30 / severity))
+			cargo -= cargo_thing
+			cargo_thing.forceMove(drop_location())
+
 /obj/mecha/handle_atom_del(atom/A)
 	if(A == occupant)
 		occupant = null
@@ -757,6 +763,12 @@
 		trackers -= A
 
 /obj/mecha/Destroy()
+
+	for(var/atom/movable/cargo_thing as anything in cargo)
+		cargo -= cargo_thing
+		cargo_thing.forceMove(drop_location())
+		step_rand(cargo_thing)
+
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
@@ -1347,13 +1359,15 @@
 		return TRUE
 	return FALSE
 
-/obj/mecha/proc/pilot_mmi_hud(var/mob/living/carbon/brain/pilot)
-	return
-
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
 	..()
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		go_out(1, newloc)
+
+/obj/mecha/Exit(atom/movable/O)
+	if(O in cargo)
+		return FALSE
+	return ..()
 
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
