@@ -626,7 +626,8 @@ REAGENT SCANNER
 	to_chat(user, "[jointext(scan_data, "<br>")]")
 
 /obj/item/healthanalyzer/AltClick(mob/user)
-	. = ..()
+	if(!Adjacent(user) || user.incapacitated())
+		return
 	mode = !mode
 	switch(mode)
 		if(1)

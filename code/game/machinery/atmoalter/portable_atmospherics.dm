@@ -83,12 +83,10 @@
 	return air_contents
 
 /obj/machinery/portable_atmospherics/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!Adjacent(user) || (!ishuman(user) && !issilicon(user)))
+		return
+	if(user.incapacitated())
 		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(!in_range(src, user))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
 		return
 	if(holding)
 		to_chat(user, span_notice("You remove [holding] from [src]."))

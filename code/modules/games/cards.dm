@@ -142,7 +142,7 @@
 /datum/action/item_action/shuffle/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
-		return D.deckshuffle()
+		return D.deckshuffle(owner)
 	return ..()
 
 
@@ -237,16 +237,17 @@
 	cardhand.throw_at(get_step(target,target.dir), 3, 1, cardhand)
 
 
-/obj/item/deck/attack_self()
-	deckshuffle()
+/obj/item/deck/attack_self(mob/user)
+	deckshuffle(user)
 
 
-/obj/item/deck/AltClick()
-	deckshuffle()
+/obj/item/deck/AltClick(mob/user)
+	deckshuffle(user)
 
 
-/obj/item/deck/proc/deckshuffle()
-	var/mob/living/user = usr
+/obj/item/deck/proc/deckshuffle(mob/living/user)
+	if(!Adjacent(user) || user.incapacitated())
+		return
 	if(cooldown < world.time - 1 SECONDS)
 		cards = shuffle(cards)
 		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")

@@ -65,8 +65,9 @@
 
 
 /obj/item/pet_carrier/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		try_free_content(null, user)
+	if(!Adjacent(user) || user.incapacitated() || !ishuman(user))
+		return
+	try_free_content(null, user)
 
 
 /obj/item/pet_carrier/proc/put_in_carrier(mob/living/target, mob/living/user)

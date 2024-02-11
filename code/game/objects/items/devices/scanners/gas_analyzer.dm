@@ -40,10 +40,10 @@
 	return BRUTELOSS
 
 /obj/item/analyzer/AltClick(mob/living/user) //Barometer output for measuring when the next storm happens
+	if(!Adjacent(user))
+		return
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
 		return
 	if(cooldown)
 		to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")

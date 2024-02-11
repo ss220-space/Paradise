@@ -131,7 +131,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return formatted
 
 /obj/machinery/computer/card/AltClick(mob/user)
-	if(user.stat || user.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 
 	if(scan)

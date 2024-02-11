@@ -118,14 +118,16 @@
 	return connected
 
 /obj/machinery/hydroponics/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(wrenchable && !user.lying && Adjacent(user))
 		toggle_lid(user)
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
-	if(!user || user.stat || user.restrained())
+	if(!user || user.incapacitated())
 		return
 
 	lid_state = !lid_state

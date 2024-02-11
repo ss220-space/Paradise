@@ -19,7 +19,7 @@
 /obj/item/detective_scanner/attack_self(mob/user)
 	var/search = input(user, "Введите имя, отпечатки пальцев или код ДНК.", "Найти запись", "")
 
-	if(!search || user.stat || user.incapacitated())
+	if(!search || user.incapacitated())
 		return
 
 	search = lowertext(search) //This is here so that it doesn't run 'lowertext()' until the checks have passed.

@@ -176,7 +176,7 @@
 // rotate the pipe item clockwise
 
 /obj/item/pipe/proc/rotate(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 
 	if(pipe_type == PIPE_CIRCULATOR)
@@ -190,7 +190,7 @@
 	return
 
 /obj/item/pipe/proc/flip(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 
 	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE, PIPE_CIRCULATOR))

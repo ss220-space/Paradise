@@ -195,7 +195,7 @@
 
 
 /obj/machinery/recycler/AltClick(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")

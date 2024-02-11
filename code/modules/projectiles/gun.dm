@@ -490,6 +490,8 @@
 /obj/item/gun/AltClick(mob/user)
 	if(!unique_reskin || current_skin || loc != user)
 		return ..()
+	if(!Adjacent(user))
+		return
 	if(user.incapacitated())
 		to_chat(user, span_warning("You can't do that right now!"))
 		return ..()

@@ -238,7 +238,7 @@
 							S.reagents.add_reagent("sacid", 2 * coeff)
 
 /obj/machinery/recharge_station/AltClick(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	go_out()
 

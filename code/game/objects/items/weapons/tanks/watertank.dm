@@ -30,7 +30,7 @@
 		return 1
 
 /obj/item/watertank/proc/toggle_mister(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	if(user.get_item_by_slot(slot_back) != src)
 		to_chat(user, "<span class='notice'>The watertank needs to be on your back to use.</span>")

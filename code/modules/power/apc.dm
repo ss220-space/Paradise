@@ -637,12 +637,8 @@
 	else
 		return ..()
 
-/obj/machinery/power/apc/AltClick(mob/user)
-	var/mob/living/carbon/human/human = user
-	if(!istype(human))
-		return
-
-	if(!Adjacent(human) || (get_turf(user) != user.loc))
+/obj/machinery/power/apc/AltClick(mob/mob/living/carbon/human/user)
+	if(!istype(user) || !Adjacent(user))
 		return
 
 	var/obj/item/card/id/card = human.get_id_card()

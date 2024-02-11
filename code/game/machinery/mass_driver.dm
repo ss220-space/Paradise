@@ -192,8 +192,6 @@
 			build = 1
 
 /obj/machinery/mass_driver_frame/AltClick(mob/user)
-	if(usr.stat || usr.restrained()  || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
-
-	src.dir = turn(src.dir, -90)
-	return
+	dir = turn(dir, -90)

@@ -55,10 +55,10 @@
 	add_fingerprint(user)
 
 /obj/structure/inflatable/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	deconstruct(TRUE)
 

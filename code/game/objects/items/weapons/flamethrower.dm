@@ -154,10 +154,12 @@
 	toggle_igniter(user)
 
 /obj/item/flamethrower/AltClick(mob/living/user)
+	if(!Adjacent(user))
+		return
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(ptank && user.Adjacent(src))
+	if(ptank)
 		ptank.forceMove_turf()
 		user.put_in_hands(ptank, ignore_anim = FALSE)
 		ptank = null

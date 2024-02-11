@@ -85,25 +85,17 @@
 //		VERBS & PROCS		//
 //////////////////////////////
 
-/obj/machinery/fishtank/verb/toggle_lid_verb()
-	set name = "Toggle Tank Lid"
-	set category = "Object"
-	set src in view(1)
+/obj/machinery/fishtank/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 
-	toggle_lid()
-
-/obj/machinery/fishtank/proc/toggle_lid()
 	lid_switch = !lid_switch
 	update_icon()
 
-/obj/machinery/fishtank/verb/toggle_light_verb()
-	set name = "Toggle Tank Light"
-	set category = "Object"
-	set src in view(1)
+/obj/machinery/fishtank/AltShiftClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 
-	toggle_light()
-
-/obj/machinery/fishtank/proc/toggle_light()
 	light_switch = !light_switch
 	if(light_switch)
 		set_light(2, 2, "#a0a080")
@@ -114,14 +106,8 @@
 //		NEW() PROCS			//
 //////////////////////////////
 
-/obj/machinery/fishtank/New()
-	..()
-	if(!has_lid)				//Tank doesn't have a lid/light, remove the verbs for then
-		verbs -= /obj/machinery/fishtank/verb/toggle_lid_verb
-		verbs -= /obj/machinery/fishtank/verb/toggle_light_verb
-
-/obj/machinery/fishtank/tank/New()
-	..()
+/obj/machinery/fishtank/tank/Initialize(mapload)
+	. = ..()
 	if(prob(5))					//5% chance to get the castle decoration
 		icon_state = "tank2"
 
@@ -521,6 +507,8 @@
 
 	//Finally, report the full examine_message constructed from the above reports
 	. += "<span class='notice'>[examine_message]</span>"
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to open/close its lid.</span>"
+	. += "<span class='info'>You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.</span>"
 
 //////////////////////////////
 //		ATACK PROCS			//

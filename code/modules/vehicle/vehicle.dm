@@ -70,10 +70,12 @@
 	return ..()
 
 /obj/vehicle/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(inserted_key && user.Adjacent(user))
+	if(inserted_key)
 		if(!(user in buckled_mobs))
 			to_chat(user, "<span class='warning'>You must be riding [src] to remove [src]'s key!</span>")
 			return

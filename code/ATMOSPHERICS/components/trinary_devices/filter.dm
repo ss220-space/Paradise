@@ -46,12 +46,10 @@
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if((!Adjacent(user) && !issilicon(user)) || (!ishuman(user) && !issilicon(user)))
+		return
+	if(user.incapacitated())
 		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
 		return
 	set_max()
 

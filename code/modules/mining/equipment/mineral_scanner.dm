@@ -17,6 +17,8 @@
 	origin_tech = "engineering=1;magnets=1"
 
 /obj/item/mining_scanner/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
+		return
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
@@ -57,6 +59,8 @@
 	origin_tech = "engineering=3;magnets=3"
 
 /obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
+		return
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 

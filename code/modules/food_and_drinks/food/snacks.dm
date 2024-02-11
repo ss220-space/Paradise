@@ -197,7 +197,9 @@
 	. += "<span class='notice'>Alt-click to put something small inside.</span>"
 
 /obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	var/obj/item/I = user.get_active_hand()

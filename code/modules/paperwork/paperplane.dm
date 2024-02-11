@@ -115,15 +115,20 @@
 			E.take_damage(8, 1)
 		H.emote("scream")
 
-
-/obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/paper)
+/obj/item/paper/AltClick(mob/user, obj/item/I)
 	if(ishuman(user))
-		if(!Adjacent(user) || user.incapacitated())
-			return
-		to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
-		user.drop_item_ground(src)
-		paper = new /obj/item/paperplane(user, src)
-		user.put_in_hands(paper, ignore_anim = FALSE)
-	else
-		to_chat(user, "<span class='notice'>You lack the dexterity to fold [src].</span>")
+		var/mob/living/carbon/human/H = user
+		I = H.is_type_in_hands(/obj/item/paper)
+		if(I)
+			fold_plane(H, I)
 
+/obj/item/paper/proc/fold_plane(mob/living/carbon/user, obj/item/I)
+	if(!Adjacent(user) || user.incapacitated())
+		return
+	if(!istype(user))
+		to_chat(user, "<span class='notice'>You lack the dexterity to fold [src].</span>")
+		return
+	to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
+	user.drop_item_ground(src)
+	I = new /obj/item/paperplane(user, src)
+	user.put_in_hands(I)

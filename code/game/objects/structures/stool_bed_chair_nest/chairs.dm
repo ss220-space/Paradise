@@ -518,10 +518,10 @@
 	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
+	if(!Adjacent(user))
 		return
-	if(!in_range(src, user))
+	if(user.incapacitated())
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	add_fingerprint(user)
 	turns = 0

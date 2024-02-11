@@ -391,7 +391,7 @@
 	. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to flip it's strap side.</span>"
 
 /obj/item/storage/backpack/satchel/AltShiftClick(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	strap_side_straight = !strap_side_straight
 	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"

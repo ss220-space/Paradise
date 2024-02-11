@@ -269,10 +269,10 @@
 	icon_state = "mime"
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
+	if(!Adjacent(user))
+		return
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
 		return
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")

@@ -29,12 +29,11 @@
 	icon_state = "[item_color]poncho[flipped ? "_flip" : ""]"
 
 /obj/item/clothing/neck/poncho/AltClick(mob/living/carbon/human/user)
-	if(!iscarbon(user))
-		..()
-	else if(user.neck != src)
-		..()
-	else
-		flip(user)
+	if(!istype(user))
+		return
+	if(user.neck != src)
+		return
+	flip(user)
 
 /obj/item/clothing/neck/poncho/verb/flip_poncho()
 	set name = "Flip poncho"

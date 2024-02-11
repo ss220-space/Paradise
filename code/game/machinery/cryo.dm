@@ -28,6 +28,8 @@
 	var/next_trans = 0
 	var/current_heat_capacity = 50
 	var/efficiency
+	/// Timer that we use to remove people that are in us for too long
+	var/removal_timer
 	var/conduction_coefficient = 1
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
@@ -94,6 +96,17 @@
 	if(beaker)
 		beaker.ex_act(severity)
 	..()
+
+/obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
+	. = ..()
+	if(occupant)
+		if(occupant.is_dead())
+			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
+		else
+			. += "<span class='notice'>You see [occupant.name] inside.</span>"
+	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
+	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
+	. += "<span class='info'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
 
 /obj/machinery/atmospherics/unary/cryo_cell/handle_atom_del(atom/A)
 	..()
@@ -443,6 +456,7 @@
 		occupant.bodytemperature = 261
 	occupant = null
 	update_icon()
+	deltimer(removal_timer)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
@@ -483,30 +497,14 @@
 	add_fingerprint(usr)
 	update_icon()
 	M.ExtinguishMob()
-	return 1
+	removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
+	return TRUE
 
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
-	set name = "Извлечь пациента"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr == occupant)//If the user is inside the tube...
-		if(usr.stat == DEAD)
-			return
-		to_chat(usr, span_notice("Активирована высвобождающая последовательность. Время ожидания: одна минута."))
-		sleep(60 SECONDS)
-		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
-			return
-		go_out()//and release him from the eternal prison.
-	else
-		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
-			return
-		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
-			return
-		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
-		go_out()
-	add_fingerprint(usr)
-	return
+/obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
+	go_out()
+	add_fingerprint(user)
 
 /obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
 	go_out()
@@ -518,26 +516,6 @@
 	go_out()
 	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(src))
 	qdel(src)
-
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("[usr] не влез[pluralize_ru(usr.gender,"ет","ут")] в [src], потому что к [genderize_ru(usr.gender,"его","её","его","их")] голове прилеплен слайм."))
-		return
-
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-
-	put_mob(usr)
-	return
-
-
 
 /datum/data/function/proc/reset()
 	return

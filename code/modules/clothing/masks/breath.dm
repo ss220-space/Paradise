@@ -34,10 +34,10 @@
 	adjustmask(user)
 
 /obj/item/clothing/mask/breath/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated() || user.restrained())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(!Adjacent(user))
 		return
-	if(!in_range(src, user))
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	adjustmask(user)
 

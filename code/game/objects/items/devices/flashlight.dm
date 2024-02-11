@@ -145,9 +145,9 @@
 	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to turn it on/off.</span>"
 
 /obj/item/flashlight/lamp/AltClick(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
-	attack_self(usr)
+	attack_self(user)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp

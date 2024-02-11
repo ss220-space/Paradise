@@ -189,28 +189,22 @@ SEE_PIXELS// if an object is located on an unlit area, but some of its pixels ar
 BLIND     // can't see anything
 */
 
-
 /obj/item/clothing/glasses/update_icon_state()
 	if(..())
 		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
 
+/obj/item/clothing/glasses/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to adjust if it fits over or under your mask.</span>"
 
-/obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
-	set name = "Adjust Eyewear"
-	set category = "Object"
-	set desc = "Adjust your eyewear to be worn over or under a mask."
-	set src in usr
-
-	var/mob/living/carbon/human/user = usr
-	if(!istype(user))
-		return
-	if(user.incapacitated()) //Dead spessmen adjust no glasses. Resting/buckled ones do, though
+/obj/item/clothing/glasses/AltClick(mob/living/carbon/human/user)
+	if(user.incapacitated() || !Adjacent(user) || !istype(user))
 		return
 
 	var/action_fluff = "You adjust \the [src]"
 	if(user.glasses == src)
 		if(!user.can_unEquip(src))
-			to_chat(usr, "[src] is stuck to you!")
+			to_chat(user, span_warning("[src] is stuck to you!</span>"))
 			return
 		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
 			action_fluff = "You remove \the [src] and adjust it"
@@ -247,7 +241,7 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(!clipped)
-			playsound(src.loc, W.usesound, 100, 1)
+			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
 			clipped = TRUE
 			update_appearance()
@@ -269,7 +263,7 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
-	if(user.stat || user.restrained())
+	if(user.incapacitated())
 		return
 	if(length(user.grabbed_by))
 		for(var/obj/item/grab/grabbed in user.grabbed_by)
@@ -292,7 +286,7 @@ BLIND     // can't see anything
 		return
 	sensor_mode = modes.Find(switchMode) - 1
 
-	if(src.loc == user)
+	if(loc == user)
 		switch(sensor_mode)
 			if(0)
 				to_chat(user, "You disable your suit's remote sensing equipment.")
@@ -307,20 +301,20 @@ BLIND     // can't see anything
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-	else if(istype(src.loc, /mob))
+	else if(istype(loc, /mob))
 		switch(sensor_mode)
 			if(0)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>", 1)
+					V.show_message("<span class='warning'>[user] disables [loc]'s remote sensing equipment.</span>", 1)
 			if(1)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("[user] turns [src.loc]'s remote sensors to binary.", 1)
+					V.show_message("[user] turns [loc]'s remote sensors to binary.", 1)
 			if(2)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("[user] sets [src.loc]'s sensors to track vitals.", 1)
+					V.show_message("[user] sets [loc]'s sensors to track vitals.", 1)
 			if(3)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
+					V.show_message("[user] sets [loc]'s sensors to maximum.", 1)
 		if(istype(src,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			if(H.w_uniform == src)
@@ -331,6 +325,9 @@ BLIND     // can't see anything
 	set category = "Object"
 	set src in usr
 	set_sensors(usr)
+
+/obj/item/clothing/under/AltShiftClick(mob/user)
+	set_sensors(user)
 
 /obj/item/clothing/under/GetID()
 	if(accessories)
@@ -522,7 +519,7 @@ BLIND     // can't see anything
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/match) && src.loc == user)
+	if(istype(I, /obj/item/match) && loc == user)
 		var/obj/item/match/M = I
 		if(M.matchignite()) // Match isn't lit, but isn't burnt.
 			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
@@ -535,7 +532,7 @@ BLIND     // can't see anything
 	if(I.tool_behaviour == TOOL_WIRECUTTER)
 		if(can_cut_open)
 			if(!cut_open)
-				playsound(src.loc, I.usesound, 100, 1)
+				playsound(loc, I.usesound, 100, 1)
 				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
 				cut_open = TRUE
 				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
@@ -904,57 +901,43 @@ BLIND     // can't see anything
 	. = ..()
 	if(has_sensor)
 		switch(sensor_mode)
-			if(0)
+			if(SENSOR_OFF)
 				. += "<span class='notice'>Its sensors appear to be disabled.</span>"
-			if(1)
+			if(SENSOR_LIVING)
 				. += "<span class='notice'>Its binary life sensors appear to be enabled.</span>"
-			if(2)
+			if(SENSOR_VITALS)
 				. += "<span class='notice'>Its vital tracker appears to be enabled.</span>"
-			if(3)
+			if(SENSOR_COORDS)
 				. += "<span class='notice'>Its vital tracker and tracking beacon appear to be enabled.</span>"
+		. += "<span class='info'>Alt-shift-click to toggle the sensors mode.</span>"
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += A.attached_examine()
+		. += "<span class='info'>Alt-click to remove an accessory.</span>"
+	. += "<span class='info'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
 
-/obj/item/clothing/under/verb/rollsuit()
-	set name = "Roll Down Jumpsuit"
-	set category = "Object"
-	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
+/obj/item/clothing/under/CtrlShiftClick(mob/living/carbon/human/user)
+	if(user.incapacitated() || !Adjacent(user) || !istype(user))
+		to_chat(user, "<span class='notice'>You cannot roll down the uniform!</span>")
+		return
 
-	if(!usr.incapacitated())
-		if(copytext(item_color,-2) != "_d")
-			basecolor = item_color
-		if((basecolor + "_d_s") in icon_states('icons/mob/clothing/uniform.dmi'))
-			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-			usr.update_inv_w_uniform()
-		else
-			to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
+	if(copytext(item_color,-2) != "_d")
+		basecolor = item_color
+	if((basecolor + "_d_s") in icon_states('icons/mob/clothing/uniform.dmi'))
+		item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+		usr.update_inv_w_uniform()
 	else
-		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
+		to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
 
-/obj/item/clothing/under/verb/removetie()
-	set name = "Remove Accessory"
-	set category = "Object"
-	set src in usr
-	handle_accessories_removal()
-
-/obj/item/clothing/under/proc/handle_accessories_removal()
-	if(!isliving(usr))
-		return
-	if(usr.incapacitated())
-		return
-	if(!Adjacent(usr))
-		return
-	if(!accessories.len)
+/obj/item/clothing/under/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user) || !accessories.len)
 		return
 	var/obj/item/clothing/accessory/A
 	if(accessories.len > 1)
 		A = input("Select an accessory to remove from [src]") as null|anything in accessories
 	else
 		A = accessories[1]
-	remove_accessory(usr,A)
+	remove_accessory(user,A)
 
 /obj/item/clothing/under/proc/remove_accessory(mob/user, obj/item/clothing/accessory/A)
 	if(!(A in accessories))
@@ -968,16 +951,13 @@ BLIND     // can't see anything
 	A.on_removed(user)
 	accessories -= A
 	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
-	usr.update_inv_w_uniform()
+	user.update_inv_w_uniform()
 
 /obj/item/clothing/under/emp_act(severity)
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()
-
-/obj/item/clothing/under/AltClick()
-	handle_accessories_removal()
 
 /obj/item/clothing/obj_destruction(damage_flag)
 	if(damage_flag == "bomb" || damage_flag == "melee")

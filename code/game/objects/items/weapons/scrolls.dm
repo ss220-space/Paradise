@@ -54,7 +54,7 @@
 
 	var/area/thearea = GLOB.teleportlocs[A]
 
-	if(user.stat || user.restrained())
+	if(user.incapacitated())
 		return
 	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
 		return

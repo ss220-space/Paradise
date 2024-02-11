@@ -168,10 +168,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/AltClick(mob/living/user)
 	if(issilicon(user))
 		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(can_use(user))
+	if(can_use(user)) // Checks Adjacency
 		if(id)
 			remove_id(user)
 		else

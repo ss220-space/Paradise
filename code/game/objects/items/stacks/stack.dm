@@ -290,13 +290,11 @@
 	list_recipes(user)
 
 
-/obj/item/stack/AltClick(mob/living/user)
+/obj/item/stack/AltClick(mob/living/carbon/human/user)
+	if(!Adjacent(user))
+		return
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, span_warning("You can't do that right now!</span>"))
-		return
-	if(!in_range(src, user))
-		return
-	if(!ishuman(user))
 		return
 	if(amount < 1)
 		return

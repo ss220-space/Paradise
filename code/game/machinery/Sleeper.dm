@@ -458,10 +458,12 @@
 		to_chat(user, "There's no occupant in the sleeper!")
 
 /obj/machinery/sleeper/AltClick(mob/user)
+	if(user.incapacitated())
+		return
 	if(issilicon(user))
 		eject()
 		return
-	if(!Adjacent(user) || !ishuman(user) || user.restrained())
+	if(!Adjacent(user) || !ishuman(user))
 		return
 	eject()
 
@@ -470,7 +472,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/sleeper/proc/remove_beaker(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 
 	if(beaker)

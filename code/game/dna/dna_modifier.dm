@@ -122,7 +122,7 @@
 	. += "<span class='info'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
 
 /obj/machinery/dna_scannernew/AltClick(mob/user)
-	if(user.stat || usr.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	eject_occupant(user)
 	add_fingerprint(user)

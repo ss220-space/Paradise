@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	rotate(user)
 
 /obj/machinery/doppler_array/proc/rotate(mob/user)
-	if(user.stat || user.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, span_warning("You don't have the dexterity to do that!"))

@@ -90,7 +90,7 @@
 		to_chat(user, "Вы даже не гуманоид... Вы не понимаете как это открыть")
 		return 0
 
-	if(user.stat || user.restrained())
+	if(user.incapacitated())
 		return 0
 
 	if(loc == user || (in_range(src, user) && isturf(loc)))

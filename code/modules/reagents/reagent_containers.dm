@@ -16,12 +16,10 @@
 	var/temperature_max = 10000
 	var/pass_open_check = FALSE // Pass open check in empty verb
 
-/obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
-	set name = "Set transfer amount"
-	set category = "Object"
-	set src in usr
-
-	if(!usr.Adjacent(src) || !(ishuman(usr) || isrobot(usr)) || usr.incapacitated())
+/obj/item/reagent_containers/AltClick(mob/user)
+	if(!length(possible_transfer_amounts))
+		return
+	if(!Adjacent(user) || !(ishuman(user) || isrobot(user)) || user.incapacitated())
 		return
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
@@ -30,33 +28,28 @@
 
 	if(!N)
 		return
-	if(!usr.Adjacent(src))
-		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+	if(!Adjacent(user))
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 
-	if(usr.incapacitated())
-		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
 
 	amount_per_transfer_from_this = N
-	to_chat(usr, "<span class='notice'>[src] will now transfer [N] units at a time.</span>")
+	to_chat(user, "<span class='notice'>[src] will now transfer [N] units at a time.</span>")
 
-/obj/item/reagent_containers/AltClick()
-	set_APTFT()
 
-/obj/item/reagent_containers/verb/empty()
-
-	set name = "Empty Container"
-	set category = "Object"
-	set src in usr
-
-	if(!usr.Adjacent(src) || usr.stat || !usr.canmove || usr.incapacitated())
+/obj/item/reagent_containers/AltShiftClick(mob/user)
+	if(!length(possible_transfer_amounts))
 		return
-	if(alert(usr, "Are you sure you want to empty that?", "Empty Container:", "Yes", "No") != "Yes")
+	if(!Adjacent(user) || user.incapacitated())
 		return
-	if(!usr.Adjacent(src) || usr.stat || !usr.canmove || usr.incapacitated())
+	if(alert(user, "Are you sure you want to empty that?", "Empty Container:", "Yes", "No") != "Yes")
 		return
-	if(isturf(usr.loc) && loc == usr)
+	if(!Adjacent(user) || user.incapacitated())
+		return
+	if(isturf(user.loc) && loc == user)
 		if(!is_open_container() && !pass_open_check)
 			to_chat(usr, "<span class='warning'>Open [src] first.</span>")
 			return
@@ -70,8 +63,6 @@
 /obj/item/reagent_containers/New()
 	create_reagents(volume, temperature_min, temperature_max)
 	..()
-	if(!possible_transfer_amounts)
-		verbs -= /obj/item/reagent_containers/verb/set_APTFT
 
 /obj/item/reagent_containers/Initialize(mapload)
 	. = ..()
@@ -134,5 +125,6 @@
 		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this != 1 ? "s" : ""] at a time.</span>"
 
 	if(possible_transfer_amounts)
-		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
+		. += span_notice("<b>Alt-Click</b> to change the transfer amount.")
+		. += span_notice("<b>Alt-Shift-Click</b> to empty [src].")
 

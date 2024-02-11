@@ -28,7 +28,7 @@
 	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle."
 
 /obj/machinery/washing_machine/AltClick(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	start(user)
 

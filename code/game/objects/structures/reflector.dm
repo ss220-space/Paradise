@@ -105,14 +105,15 @@
 
 
 /obj/structure/reflector/AltClick(mob/user)
-	if(user.stat || user.incapacitated() || Adjacent(user))
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(anchored)
 		to_chat(user, span_warning("You cannot rotate [src] right now. It is fastened to the floor!"))
 		return
-	else
-		rotate()
+	rotate()
 
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX

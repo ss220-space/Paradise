@@ -22,17 +22,16 @@
 			QDEL_NULL(I)
 	return ..()
 
-/obj/item/clothing/accessory/holster/proc/can_holster(obj/item/I)
-	if(!istype(I, holster_allow))
+/obj/item/clothing/accessory/holster/proc/can_holster(obj/item/W)
+	if(!W.can_holster)
 		return FALSE
-	var/obj/item/gun/G = I
-	if(istype(G) && (!G.can_holster || G.w_class > WEIGHT_CLASS_NORMAL))
+	if(!is_type_in_list(W, holster_allow))
 		return FALSE
 	return TRUE
 
 /obj/item/clothing/accessory/holster/attack_self(mob/user = usr)
 	var/holsteritem = user.get_active_hand()
-	if(istype(holsteritem, /obj/item/clothing/accessory/holster))
+	if(holsteritem == src) // It's us
 		unholster(user)
 	else if(holsteritem)
 		holster(holsteritem, user)
@@ -115,34 +114,11 @@
 	else
 		. += span_notice("It is empty.")
 
-/obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user)
-	..()
-	has_suit.verbs += /obj/item/clothing/accessory/holster/verb/holster_verb
-
-/obj/item/clothing/accessory/holster/on_removed(mob/user)
-	has_suit.verbs -= /obj/item/clothing/accessory/holster/verb/holster_verb
-	..()
-
 //For the holster hotkey
-/obj/item/clothing/accessory/holster/verb/holster_verb()
-	set name = "Holster"
-	set category = "Object"
-	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-
-	var/obj/item/clothing/accessory/holster/H = null
-	if(istype(src, /obj/item/clothing/accessory/holster))
-		H = src
-	else if(istype(src, /obj/item/clothing/under))
-		var/obj/item/clothing/under/S = src
-		if(S.accessories.len)
-			H = locate() in S.accessories
-
-	if(!H)
+/obj/item/clothing/accessory/holster/proc/handle_holster_usage(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
 		return
-
-	H.attack_self(usr)
+	attack_self(user)
 
 /obj/item/clothing/accessory/holster/armpit
 	name = "shoulder holster"
@@ -185,8 +161,8 @@
 		user.visible_message(span_notice("[user] takes the [I] out."),
 			span_notice("You takes the [I] out, [holstered.len] knives left"))
 
-/obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
-	return is_type_in_list(I, holster_allow, FALSE)
+/obj/item/clothing/accessory/holster/knives/can_holster(obj/item/W)
+	return is_type_in_list(W, holster_allow, FALSE)
 
 /obj/item/clothing/accessory/holster/attached_examine(mob/user)
 	return span_notice("\A [src] with [holstered.len] knives attached to it.")

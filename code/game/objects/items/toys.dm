@@ -2049,13 +2049,12 @@
 	return 1
 
 /obj/item/toy/desk/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!in_range(src, user))
-		return
-	else
-		rotate()
+	rotate()
 
 /obj/item/toy/desk/officetoy
 	name = "office toy"

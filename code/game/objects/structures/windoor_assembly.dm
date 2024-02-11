@@ -295,7 +295,7 @@
 
 
 /obj/structure/windoor_assembly/AltClick(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
@@ -312,7 +312,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/AltShiftClick(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 
 	if(facing == "l")

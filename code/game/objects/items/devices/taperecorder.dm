@@ -114,7 +114,7 @@
 
 
 /obj/item/taperecorder/AltClick(mob/living/user)
-	if(istype(user) && in_range(user, src) && mytape && !user.incapacitated())
+	if(istype(user) && Adjacent(user) && mytape && !user.incapacitated())
 		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
 						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
 						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
@@ -432,12 +432,7 @@
 
 
 /obj/item/tape/AltClick(mob/user)
-	set name = "Wipe Tape"
-	set category = "Object"
-	set src in view(1)
-
-	var/mob/living/carbon/user = usr
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	if(ruined)
 		to_chat(user, "<span class='notice'>This tape is already ruined!</span>")

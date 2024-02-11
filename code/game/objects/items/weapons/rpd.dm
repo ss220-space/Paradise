@@ -186,6 +186,8 @@
 
 
 /obj/item/rpd/AltClick(mob/living/user)
+	if(!Adjacent(user))
+		return
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return

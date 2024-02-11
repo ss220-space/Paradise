@@ -221,10 +221,7 @@
 
 
 /obj/item/pinpointer/advpinpointer/AltClick(mob/user)
-	if(Adjacent(user))
-		toggle_mode(user)
-		return
-	..()
+	toggle_mode(user)
 
 /obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
 	if(user.incapacitated() || !Adjacent(user))
@@ -603,18 +600,11 @@
 
 
 /obj/item/pinpointer/thief/AltClick(mob/user)
-	if(Adjacent(user))
-		toggle_mode(user)
+	toggle_mode(user)
+
+/obj/item/pinpointer/thief/proc/toggle_mode(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
 		return
-	..()
-
-
-/obj/item/pinpointer/thief/verb/toggle_mode_verb()
-	set category = "Object"
-	set name = "Переключить Режим Пинпоинтера"
-	set src in usr
-
-	toggle_mode(usr)
 
 
 /obj/item/pinpointer/thief/proc/toggle_mode(mob/user)
@@ -623,154 +613,160 @@
 
 	switch(alert("Выберите режим пинпоинтера.", "Выбор режима пинпоинтера", "Локация", "Сигнатура Объекта", "Цели"))
 		if("Локация")
-			setting = SETTING_LOCATION
-
-			var/locationx = input(user, "Введите X координату для поиска.", "Локация?" , "") as null|num
-			if(isnull(locationx) || !(user in view(1,src)))
-				return
-			var/locationy = input(user, "Введите Y координату для поиска.", "Локация?" , "") as null|num
-			if(isnull(locationy) || !(user in view(1,src)))
-				return
-
-			source_turf = get_turf(src)
-			locationx = clamp(locationx, 1, 255)
-			locationy = clamp(locationy, 1, 255)
-			target = locate(locationx, locationy, source_turf.z)
-			to_chat(user, span_notice("Вы переключили пинпоинтер на координаты: [locationx], [locationy]."))
-
+			set_location(user)
 		if("Сигнатура Объекта")
-			setting = SETTING_OBJECT
-			var/list/targets_list = list()
-			var/list/target_names = list()
-			var/list/target_paths = list()
-			var/input_ask = "Выберите сигнатуру"
-			var/input_tittle = "Режим выбора"
-
-			var/input_type
-			input_type = alert("Какие типы сигнатуры объектов необходимо найти?" , "Выбор Сигнатуры Объектов" , "Предмет" , "Структура" , "Питомец")
-			if(!input_type)
-				return
-
-			var/input_subtype
-			switch(input_type)
-				if("Предмет")
-					input_subtype = alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
-					switch(input_subtype)
-						if("Сложнодоступен")
-							for(var/datum/theft_objective/theft as anything in (GLOB.potential_theft_objectives_hard|GLOB.potential_theft_objectives))
-								targets_list += initial(theft.typepath)
-
-						if("Доступен")
-							for(var/datum/theft_objective/theft as anything in GLOB.potential_theft_objectives_medium)
-								targets_list += initial(theft.typepath)
-
-						if("Коллекционный")
-							for(var/datum/theft_objective/collect/theft as anything in GLOB.potential_theft_objectives_collect)
-								var/typepath_datum = initial(theft.typepath)
-								if(typepath_datum)
-									targets_list += typepath_datum
-									continue
-								var/subtype_datum = initial(theft.subtype)
-								var/list/type_list = subtype_datum ? subtypesof(subtype_datum) : initial(theft.type_list)
-								targets_list += type_list
-
-					if(!input_subtype)
-						return
-
-					input_subtype = " ([input_subtype])"
-					if(!length(targets_list))
-						return
-
-				if("Структура")
-					for(var/datum/theft_objective/structure/theft as anything in GLOB.potential_theft_objectives_structure)
-						targets_list += initial(theft.typepath)
-
-				if("Питомец")
-					for(var/datum/theft_objective/animal/theft as anything in GLOB.potential_theft_objectives_animal)
-						targets_list += initial(theft.typepath)
-
-			for(var/atom/theft_typepath as anything in targets_list)
-				var/theft_name = initial(theft_typepath.name)
-				target_names += theft_name
-				target_paths[theft_name] = theft_typepath
-
-			var/choosen_target = tgui_input_list(user, "[input_ask], типа \"[input_type][input_subtype]\"", "[input_tittle]: [input_type][input_subtype]", target_names)
-			if(!choosen_target)
-				return
-
-			current_targets = get_theft_targets_station(target_paths[choosen_target], subtypes = TRUE, blacklist = list(user))
-			if(!length(current_targets))
-				to_chat(user, span_warning("Не удалось обнаружить <b>[choosen_target]</b>!"))
-				return
-
-			targets_index = 1
-			target = current_targets[targets_index]
-			to_chat(user, span_notice("Вы переключили пинпоинтер для обнаружения <b>[choosen_target]</b>. Найдено целей: <b>[length(current_targets)]</b>."))
-
+			set_signature(user)
 		if("Цели")
-			var/input_type = alert("Какую операцию стоит произвести?", "Выбор Операции", "Показать Цели", "Следующая Цель")
-			switch(input_type)
-				if("Показать Цели")
-					setting = SETTING_OBJECT
-					var/list/all_objectives = user.mind.get_all_objectives()
-					if(length(all_objectives) && user.mind.has_antag_datum(/datum/antagonist/thief))
-						var/list/targets_list = list()
-						var/list/target_names = list()
-						var/list/target_paths = list()
-
-						for(var/datum/objective/steal/objective in all_objectives)
-							if(istype(objective, /datum/objective/steal/collect))
-								var/datum/theft_objective/collect/theft = objective.steal_target
-								var/list/wanted_item_types = theft?.wanted_items
-								if(wanted_item_types && length(wanted_item_types))
-									targets_list |= wanted_item_types
-
-							else
-								var/wanted_type = objective.steal_target?.typepath
-								if(wanted_type)
-									targets_list |= wanted_type
-
-						for(var/atom/theft_typepath as anything in targets_list)
-							var/theft_name = initial(theft_typepath.name)
-							target_names += theft_name
-							target_paths[theft_name] = theft_typepath
-
-						var/choosen_target = tgui_input_list(user, "Выберите интересующую вас цель:", "Режим Выбора Цели", target_names)
-						if(!choosen_target)
-							return
-
-						current_targets = get_theft_targets_station(target_paths[choosen_target], subtypes = TRUE, blacklist = list(user))
-						if(!length(current_targets))
-							to_chat(user, span_warning("Не удалось обнаружить <b>[choosen_target]</b>!"))
-							return
-
-						targets_index = 1
-						target = current_targets[targets_index]
-						to_chat(user, span_notice("Вы переключили пинпоинтер для обнаружения <b>[choosen_target]</b>. Найдено целей: <b>[length(current_targets)]</b>."))
-
-					else
-						to_chat(user, span_warning("Не удалось обнаружить интересные цели для #REDACTED#! Если вы не член #REDACTED#, верните устройство владельцу или обратитесь по зашифрованному номеру на обратной стороне пинпоинтера."))
-						return
-
-				if("Следующая Цель")
-					if(!length(current_targets))
-						to_chat(user, span_warning("Не удалось идентифицировать режим отслеживания!"))
-						return
-
-					targets_index++
-					if(targets_index > length(current_targets))
-						targets_index = 1
-						var/atom/temp_target = current_targets[targets_index]
-						to_chat(user, span_warning("Доступные цели, с сигнатурой <b>[initial(temp_target.name)]</b>, закончились, возвращаемся к первой!"))
-
-					else
-						var/atom/temp_target = current_targets[targets_index]
-						to_chat(user, span_notice("Вы переключили пинпоинтер на <b>[targets_index]</b> цель из <b>[length(current_targets)]</b>, сигнатура: <b>[initial(temp_target.name)]</b>."))
-
-					target = current_targets[targets_index]
+			set_objective(user)
 
 	if(mode == MODE_OFF)
 		cycle(user, silent = TRUE)
+
+
+/obj/item/pinpointer/thief/proc/set_location(mob/user)
+	setting = SETTING_LOCATION
+
+	var/locationx = input(user, "Введите X координату для поиска.", "Локация?" , "") as null|num
+	if(isnull(locationx) || !(Adjacent(user)))
+		return
+	var/locationy = input(user, "Введите Y координату для поиска.", "Локация?" , "") as null|num
+	if(isnull(locationy) || !(Adjacent(user)))
+		return
+
+	source_turf = get_turf(src)
+	locationx = clamp(locationx, 1, 255)
+	locationy = clamp(locationy, 1, 255)
+	target = locate(locationx, locationy, source_turf.z)
+	to_chat(user, span_notice("Вы переключили пинпоинтер на координаты: [locationx], [locationy]."))
+
+/obj/item/pinpointer/thief/proc/set_signature(mob/user)
+	setting = SETTING_OBJECT
+	var/list/targets_list = list()
+	var/list/target_names[0]
+	var/list/target_paths[0]
+	var/input_type
+	input_type = alert("Какие типы сигнатуры объектов необходимо найти?" , "Выбор Сигнатуры Объектов" , "Предмет" , "Структура" , "Питомец")
+	if(!input_type)
+		return
+
+	var/input_subtype
+	switch(input_type)
+		if("Предмет")
+			if(!input_subtype)
+				return
+			input_subtype = alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
+			switch(input_subtype)
+				if("Сложнодоступен")
+					for(var/datum/theft_objective/theft as anything in (GLOB.potential_theft_objectives_hard|GLOB.potential_theft_objectives))
+						targets_list += initial(theft.typepath)
+
+				if("Доступен")
+					for(var/datum/theft_objective/theft as anything in GLOB.potential_theft_objectives_medium)
+						targets_list += initial(theft.typepath)
+
+				if("Коллекционный")
+					for(var/datum/theft_objective/collect/theft as anything in GLOB.potential_theft_objectives_collect)
+						var/typepath_datum = initial(theft.typepath)
+						if(typepath_datum)
+							targets_list += typepath_datum
+							continue
+						var/subtype_datum = initial(theft.subtype)
+						var/list/type_list = subtype_datum ? subtypesof(subtype_datum) : initial(theft.type_list)
+						targets_list += type_list
+
+
+			input_subtype = " ([input_subtype])"
+			if(!length(targets_list))
+				return
+
+		if("Структура")
+			for(var/datum/theft_objective/structure/theft as anything in GLOB.potential_theft_objectives_structure)
+				targets_list += initial(theft.typepath)
+
+		if("Питомец")
+			for(var/datum/theft_objective/animal/theft as anything in GLOB.potential_theft_objectives_animal)
+				targets_list += initial(theft.typepath)
+
+	for(var/atom/theft_typepath as anything in targets_list)
+		var/theft_name = initial(theft_typepath.name)
+		target_names += theft_name
+		target_paths[theft_name] = theft_typepath
+
+	var/choosen_target = tgui_input_list(user, "Выберите сигнатуру, типа \"[input_type][input_subtype]\"", "Режим выбора: [input_type][input_subtype]", target_names)
+	if(!choosen_target)
+		return
+
+	current_targets = get_theft_targets_station(target_paths[choosen_target], subtypes = TRUE, blacklist = list(user))
+	if(!length(current_targets))
+		to_chat(user, span_warning("Не удалось обнаружить <b>[choosen_target]</b>!"))
+		return
+
+	targets_index = 1
+	target = current_targets[targets_index]
+	to_chat(user, span_notice("Вы переключили пинпоинтер для обнаружения <b>[choosen_target]</b>. Найдено целей: <b>[length(current_targets)]</b>."))
+
+/obj/item/pinpointer/thief/proc/set_objective(mob/user)
+	var/input_type = alert("Какую операцию стоит произвести?", "Выбор Операции", "Показать Цели", "Следующая Цель")
+	switch(input_type)
+		if("Показать Цели")
+			setting = SETTING_OBJECT
+			var/list/all_objectives = user.mind.get_all_objectives()
+			if(length(all_objectives) && user.mind.has_antag_datum(/datum/antagonist/thief))
+				var/list/targets_list = list()
+				var/list/target_names = list()
+				var/list/target_paths = list()
+
+				for(var/datum/objective/steal/objective in all_objectives)
+					if(istype(objective, /datum/objective/steal/collect))
+						var/datum/theft_objective/collect/theft = objective.steal_target
+						var/list/wanted_item_types = theft?.wanted_items
+						if(wanted_item_types && length(wanted_item_types))
+							targets_list |= wanted_item_types
+
+					else
+						var/wanted_type = objective.steal_target?.typepath
+						if(wanted_type)
+							targets_list |= wanted_type
+
+				for(var/atom/theft_typepath as anything in targets_list)
+					var/theft_name = initial(theft_typepath.name)
+					target_names += theft_name
+					target_paths[theft_name] = theft_typepath
+
+				var/choosen_target = tgui_input_list(user, "Выберите интересующую вас цель:", "Режим Выбора Цели", target_names)
+				if(!choosen_target)
+					return
+
+				current_targets = get_theft_targets_station(target_paths[choosen_target], subtypes = TRUE, blacklist = list(user))
+				if(!length(current_targets))
+					to_chat(user, span_warning("Не удалось обнаружить <b>[choosen_target]</b>!"))
+					return
+
+				targets_index = 1
+				target = current_targets[targets_index]
+				to_chat(user, span_notice("Вы переключили пинпоинтер для обнаружения <b>[choosen_target]</b>. Найдено целей: <b>[length(current_targets)]</b>."))
+
+			else
+				to_chat(user, span_warning("Не удалось обнаружить интересные цели для #REDACTED#! Если вы не член #REDACTED#, верните устройство владельцу или обратитесь по зашифрованному номеру на обратной стороне пинпоинтера."))
+
+			return
+
+		if("Следующая Цель")
+			if(!length(current_targets))
+				to_chat(user, span_warning("Не удалось идентифицировать режим отслеживания!"))
+				return
+
+			targets_index++
+			if(targets_index > length(current_targets))
+				targets_index = 1
+				var/atom/temp_target = current_targets[targets_index]
+				to_chat(user, span_warning("Доступные цели, с сигнатурой <b>[initial(temp_target.name)]</b>, закончились, возвращаемся к первой!"))
+
+			else
+				var/atom/temp_target = current_targets[targets_index]
+				to_chat(user, span_notice("Вы переключили пинпоинтер на <b>[targets_index]</b> цель из <b>[length(current_targets)]</b>, сигнатура: <b>[initial(temp_target.name)]</b>."))
+
+			target = current_targets[targets_index]
 
 
 /obj/item/pinpointer/tendril

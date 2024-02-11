@@ -142,9 +142,9 @@
 
 
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/human/user)
-	if(!Adjacent(user))
+	if(!istype(user) || !Adjacent(user))
 		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated())
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!defib)

@@ -263,7 +263,7 @@
 		guest_pass = G
 
 /obj/item/card/id/AltClick(mob/user)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return
 
 	if(guest_pass)
