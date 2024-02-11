@@ -428,6 +428,16 @@
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
+	// Two dimensional array for X slots with XY pixel position
+	var/list/item_positions_px = list(
+		list(0 , 10), // x , y 12 o'clock
+		list(5 , 5), // x , y 2 o'clock
+		list(5 , -5), // x , y 4 o'clock
+		list(0 , -10), // x , y 6 o'clock
+		list(-10 , -5), // x , y 8 o'clock
+		list(-10 , -5), // x , y 10 o'clock
+		list(0 , 0)) // x , y center
+
 /obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
 	..()
 	// Drop all the things. All of them.
@@ -452,16 +462,28 @@
 			M.Weaken(4 SECONDS)
 
 /obj/item/storage/bag/tray/proc/rebuild_overlays()
-	overlays.Cut()
+	update_icon()
+
+/obj/item/storage/bag/tray/update_overlays()
+	. = ..()
+	var/index = 1
+
 	for(var/obj/item/I in contents)
-		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+		// Check index and process from there
+		// storage_slots
+		var/pixel_x = item_positions_px[index][1]
+		var/pixel_y = item_positions_px[index][2]
+		index++
+		if (index > 7)
+			index = 1
+
+		. += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1, "pixel_x" = pixel_x, "pixel_y" = pixel_y)
+
 
 /obj/item/storage/bag/tray/remove_from_storage(obj/item/W, atom/new_location)
 	..()
-	rebuild_overlays()
 
 /obj/item/storage/bag/tray/handle_item_insertion(obj/item/I, prevent_warning = 0)
-	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
 	..()
 
 /obj/item/storage/bag/tray/cyborg
