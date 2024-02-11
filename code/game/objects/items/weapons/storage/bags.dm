@@ -541,6 +541,7 @@
 	armour_penetration = 15
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	cant_hold = list() // /obj/item/disk/nuclear can be stored in this tray
 
 /*
  *	Chemistry bag
