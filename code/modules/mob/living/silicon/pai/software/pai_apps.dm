@@ -401,7 +401,7 @@
 	ram_cost = 10
 	id = "pai_gps"
 	template_file = "pai_gps_module"
-	ui_icon = "gps-c"
+	ui_icon = "location-arrow"
 
 /obj/item/gps/internal/pai_gps
 	icon_state = null
