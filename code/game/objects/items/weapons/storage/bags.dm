@@ -429,7 +429,7 @@
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
 	// Two dimensional array for X slots with XY pixel position
-	var/list/item_positions_px = list(
+	var/static/list/item_positions_px = list(
 		list(0 , 0), // x , y center
 		list(0 , 10), // x , y 12 o'clock
 		list(5 , 5), // x , y 2 o'clock
@@ -461,9 +461,6 @@
 		if(prob(10))
 			M.Weaken(4 SECONDS)
 
-/obj/item/storage/bag/tray/proc/rebuild_overlays()
-	update_icon()
-
 /obj/item/storage/bag/tray/update_overlays()
 	. = ..()
 	var/index = 1
@@ -478,13 +475,6 @@
 			index = 1
 
 		. += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1, "pixel_x" = pixel_x, "pixel_y" = pixel_y)
-
-
-/obj/item/storage/bag/tray/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-
-/obj/item/storage/bag/tray/handle_item_insertion(obj/item/I, prevent_warning = 0)
-	..()
 
 /obj/item/storage/bag/tray/cyborg
 
@@ -535,7 +525,6 @@
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
 		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
-	rebuild_overlays()
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
@@ -557,6 +546,16 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
+
+	// Two dimensional array for X slots with XY pixel position
+	var/static/list/item_positions_px = list(
+		list(0 , 0), // x , y center
+		list(0 , 10), // x , y 12 o'clock
+		list(5 , 5), // x , y 2 o'clock
+		list(5 , -5), // x , y 4 o'clock
+		list(0 , -10), // x , y 6 o'clock
+		list(-10 , -5), // x , y 8 o'clock
+		list(-10 , -5)) // x , y 10 o'clock
 
 /obj/item/storage/bag/dangertray/attack(mob/living/M, mob/living/user)
 	..()
@@ -581,19 +580,20 @@
 		if(prob(10))
 			M.Weaken(4 SECONDS)
 
+/obj/item/storage/bag/dangertray/update_overlays()
+	. = ..()
+	var/index = 1
 
-/obj/item/storage/bag/dangertray/proc/rebuild_overlays()
-	overlays.Cut()
 	for(var/obj/item/I in contents)
-		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+		// Check index and process from there
+		// storage_slots
+		var/pixel_x = item_positions_px[index][1]
+		var/pixel_y = item_positions_px[index][2]
+		index++
+		if (index > 7)
+			index = 1
 
-/obj/item/storage/bag/dangertray/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-	rebuild_overlays()
-
-/obj/item/storage/bag/dangertray/handle_item_insertion(obj/item/I, prevent_warning = 0)
-	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
-	..()
+		. += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1, "pixel_x" = pixel_x, "pixel_y" = pixel_y)
 
 /*
  *	Chemistry bag
