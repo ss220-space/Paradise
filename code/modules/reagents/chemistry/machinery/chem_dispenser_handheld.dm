@@ -78,8 +78,8 @@
 	var/containerContents[0]
 	var/containerCurrentVolume = 0
 
-	if(reagent_container && reagent_container.reagents && reagent_container.reagents.reagent_list.len)
-		for(var/datum/reagent/R in reagent_container.reagents.reagent_list)
+	if(reagent_container.reagents)
+		for(var/datum/reagent/R as anything in reagent_container.reagents.reagent_list)
 			containerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			containerCurrentVolume += R.volume
 	data["containerContents"] = containerContents
