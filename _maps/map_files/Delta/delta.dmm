@@ -37538,7 +37538,6 @@
 	scrub_Toxins = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/securearmory)
@@ -47808,7 +47807,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/interrogation)
@@ -53735,8 +53733,7 @@
 "gKd" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency/old,
-/turf/simulated/floor/plasteel{
-	dir = 10;
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkredfull"
 	},
 /area/space)
@@ -56340,7 +56337,6 @@
 	},
 /obj/effect/landmark/start/warden,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/warden)
@@ -59445,9 +59441,9 @@
 /area/chapel/office)
 "icl" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkred";
+	dir = 9
 	},
 /area/space)
 "icp" = (
@@ -66323,7 +66319,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/warden)
@@ -66747,7 +66742,7 @@
 /area/bridge/vip)
 "jPC" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkred"
 	},
 /area/space)
@@ -68548,11 +68543,6 @@
 	icon_state = "darkblue"
 	},
 /area/construction/hallway)
-"kna" = (
-/turf/simulated/floor/greengrid{
-	temperature = 80
-	},
-/area/toxins/xenobiology)
 "knb" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -75853,7 +75843,6 @@
 	},
 /obj/effect/landmark/start/warden,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/warden)
@@ -92751,7 +92740,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/warden)
@@ -111640,7 +111628,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/evidence)
@@ -114786,7 +114773,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/visiting_room)
@@ -119554,7 +119540,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/securearmory)
@@ -119576,7 +119561,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/securearmory)
@@ -158271,7 +158255,7 @@ sHq
 tNx
 jfk
 wBr
-kna
+wMW
 iRu
 oOo
 fvu
@@ -158528,7 +158512,7 @@ mkL
 lGo
 mZA
 oKx
-kna
+wMW
 rbA
 oOo
 fvu
@@ -158785,7 +158769,7 @@ gsc
 jhm
 feg
 cTz
-kna
+wMW
 iRu
 oOo
 ksG
