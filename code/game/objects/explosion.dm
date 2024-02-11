@@ -149,18 +149,18 @@
 		if(multiz_explosions)
 			var/turf/above = GET_TURF_ABOVE(epicenter)
 			var/turf/below = GET_TURF_BELOW(epicenter)
-			floor_block[z0] = epicenter.explosion_vertical_block
+			floor_block["[z0]"] = epicenter.explosion_vertical_block
 
 			//We check for multi-z here. So in the code below(readtional explosives), we don't need to care about checking for above or below.
 			if(above)
 				affected_turfs += spiral_range_turfs(max_range, above)
 				epicenter_list += above
-				floor_block[above.z] = above.explosion_vertical_block
+				floor_block["[above.z]"] = above.explosion_vertical_block
 
 			if(below)
 				affected_turfs += spiral_range_turfs(max_range, below)
 				epicenter_list += below
-				floor_block[below.z] = below.explosion_vertical_block
+				floor_block["[below.z]"] = below.explosion_vertical_block
 
 		if(reactionary_explosions)
 			for(var/A in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
@@ -181,9 +181,9 @@
 			var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 			if(multiz_explosions && T.z != z0)
 				if(T.z < z0) // we hit the turf that is below our epicenter. Check epicenter turf
-					dist += floor_block[T.z + 1] + (z0 - T.z) //(z0 - z) is a cheaper way to implement hypotenuse
+					dist += floor_block["[T.z + 1]"] + 1 //cheapest way to implement hypotenuse with z coordinates
 				else
-					dist += floor_block[T.z] + (T.z - z0)
+					dist += floor_block["[T.z]"] + 1
 
 
 			if(reactionary_explosions)
@@ -303,23 +303,23 @@
 	if(zmode == "Yes")
 		var/turf/above = GET_TURF_ABOVE(epicenter)
 		var/turf/below = GET_TURF_BELOW(epicenter)
-		floor_block[z0] = epicenter.explosion_vertical_block
+		floor_block["[z0]"] = epicenter.explosion_vertical_block
 		if(above)
 			affected_turfs += spiral_range_turfs(max_range, above)
 			epicenter_list += above
-			floor_block[above.z] = above.explosion_vertical_block
+			floor_block["[above.z]"] = above.explosion_vertical_block
 		if(below)
 			affected_turfs += spiral_range_turfs(max_range, below)
 			epicenter_list += below
-			floor_block[below.z] = below.explosion_vertical_block
+			floor_block["[below.z]"] = below.explosion_vertical_block
 	for(var/turf/T in affected_turfs)
 		wipe_colours += T
 		var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 		if((zmode == "Yes") && (T.z != z0))
 			if(T.z < z0)
-				dist += floor_block[T.z + 1] + (z0 - T.z)
+				dist += floor_block["[T.z + 1]"] + 1
 			else
-				dist += floor_block[T.z] + (T.z - z0)
+				dist += floor_block["[T.z]"] + 1
 
 		if(newmode == "Yes")
 			var/turf/TT = T
