@@ -19,7 +19,8 @@
 			"thc" = list("volume" = 30, "reward" = 90),
 			"fliptonium" = list("volume" = 10, "reward" = 90),
 			"glycerol" = list("volume" = 30, "reward" = 110),
-			"weak_omnizine" = list("volume" = 30, "reward" = 45)
+			"weak_omnizine" = list("volume" = 30, "reward" = 45),
+			"super_hairgrownium" = list("volume" = 15, "reward" = 110),
 		)
 	var/list/unique_reagents = list("strange_reagent" = list("volume" = 15, "reward" = 80),
 			"fomepizole" = list("volume" = 20, "reward" = 60),
@@ -54,19 +55,9 @@
 	if(!container.reagents)
 		return FALSE
 
-	var/has_required_reagent
 	for(var/datum/reagent/R in container.reagents.reagent_list)
-		if(R.id in required_reagents)
-			has_required_reagent = TRUE
-			required_reagents[R.id]["volume"] -= R.volume
-			if(required_reagents[R.id]["volume"] <= 0)
-				required_reagents.Remove(R.id)
-
-	if(!has_required_reagent)
-		return FALSE
-
-	return TRUE
-
+		if((R.id in required_reagents) && required_reagents[R.id]["volume"] <= R.volume)
+			return TRUE
 
 /datum/cargo_quest/reagents/length_quest()
 	return length(required_reagents)

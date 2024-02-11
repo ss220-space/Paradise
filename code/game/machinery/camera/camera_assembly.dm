@@ -81,17 +81,11 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = new(loc)
+	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork))
 	loc = C
 	C.assembly = src
 
 	C.auto_turn()
-
-	C.network = uniquelist(tempnetwork)
-	tempnetwork = difflist(C.network,GLOB.restricted_camera_networks)
-	if(!tempnetwork.len) // Camera isn't on any open network - remove its chunk from AI visibility.
-		GLOB.cameranet.removeCamera(C)
-
 	C.c_tag = input
 
 	for(var/i = 5; i >= 0; i -= 1)

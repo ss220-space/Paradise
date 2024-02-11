@@ -2562,6 +2562,7 @@
 /area/ruin/space/ancientstation/hydroponics)
 "vf" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"

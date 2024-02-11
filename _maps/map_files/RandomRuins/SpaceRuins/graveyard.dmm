@@ -655,7 +655,8 @@
 /obj/machinery/crematorium{
 	name = "crematorium No3";
 	id = "No3";
-	dir = 1
+	dir = 1;
+	req_access = list(666)
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
@@ -682,7 +683,8 @@
 /obj/machinery/crematorium{
 	id = "No2";
 	name = "crematorium No2";
-	dir = 1
+	dir = 1;
+	req_access = list(666)
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/wood/oak,
@@ -1163,7 +1165,8 @@
 /obj/machinery/crematorium{
 	id = "No1";
 	name = "crematorium No1";
-	dir = 1
+	dir = 1;
+	req_access = list(666)
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)

@@ -1,6 +1,6 @@
 /obj/item/ammo_casing/a357
 	desc = "A .357 bullet casing."
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 3750)
 	caliber = ".357"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -61,7 +61,7 @@
 /obj/item/ammo_casing/c38/hp
 	desc = "A .38 Hollow-Point bullet casing"
 	icon_state = "rhp-casing"
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 5000)
 	projectile_type = /obj/item/projectile/bullet/hp38
 
 /obj/item/ammo_casing/c38/invisible
@@ -120,7 +120,7 @@
 
 /obj/item/ammo_casing/c46x30mm
 	desc = "A 4.6x30mm bullet casing."
-	materials = list(MAT_METAL = 1000)
+	materials = list(MAT_METAL = 500)
 	caliber = "4.6x30mm"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/foursix
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
@@ -128,7 +128,7 @@
 
 /obj/item/ammo_casing/c9mmte
 	desc = "A 9mm TE bullet casing."
-	materials = list(MAT_METAL = 800)
+	materials = list(MAT_METAL = 550)
 	caliber = "9mm TE"
 	projectile_type = /obj/item/projectile/bullet/weakbullet4/c9mmte
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK

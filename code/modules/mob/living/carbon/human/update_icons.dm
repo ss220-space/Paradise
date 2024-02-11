@@ -199,7 +199,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/icon/base_icon
 		//BEGIN CACHED ICON GENERATION.
 		var/obj/item/organ/external/chest = get_organ(BODY_ZONE_CHEST)
-		base_icon = chest.get_icon(skeleton)
+		if(chest) //I hate it.
+			base_icon = chest.get_icon(skeleton)
 
 		for(var/obj/item/organ/external/part as anything in bodyparts)
 			if(part.limb_zone == BODY_ZONE_TAIL || part.limb_zone == BODY_ZONE_WING)
