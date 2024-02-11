@@ -119,7 +119,7 @@
 		P.attach(src)
 
 	//Add ore box to cargo
-	cargo.Add(new /obj/structure/ore_box(src))
+	LAZYADD(cargo, new /obj/structure/ore_box(src))
 
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new

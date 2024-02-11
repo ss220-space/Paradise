@@ -34,7 +34,6 @@
 	var/add_req_access = TRUE
 	var/maint_access = TRUE
 	var/dna	//dna-locking the mech
-	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
@@ -42,7 +41,12 @@
 	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
-	var/cargo_expanded = FALSE // for wide cargo module
+	/// The internal storage of the exosuit. For the cargo module
+	var/list/cargo
+	/// You can fit a few things in this mecha but not much.
+	var/cargo_capacity = 1
+	/// for wide cargo module
+	var/cargo_expanded = FALSE
 
 	//inner atmos
 	var/use_internal_tank = FALSE

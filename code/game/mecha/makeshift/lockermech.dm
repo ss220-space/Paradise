@@ -12,19 +12,7 @@
 	max_equip = 2 //You only have two arms and the control system is shitty
 	wreckage = null
 	mech_enter_time = 20
-	var/list/cargo = list()
-	var/cargo_capacity = 5 // you can fit a few things in this locker but not much.
-
-/obj/mecha/makeshift/Topic(href, href_list)
-	..()
-	if(href_list["drop_from_cargo"])
-		var/obj/O = locate(sanitize(href_list["drop_from_cargo"]))
-		if(O && (O in cargo))
-			occupant_message("<span class='notice'>You unload [O].</span>")
-			O.forceMove(loc)
-			cargo -= O
-			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - src.cargo.len]")
-	return
+	cargo_capacity = 5 // you can fit a few things in this locker but not much.
 
 /obj/mecha/makeshift/go_out()
 	..()
@@ -48,16 +36,6 @@
 // 			O.forceMove(loc)
 // 	. = ..()
 
-/obj/mecha/makeshift/get_stats_part()
-	var/output = ..()
-	output += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
-	if(cargo.len)
-		for(var/obj/O in cargo)
-			output += "<a href='?src=\ref[src];drop_from_cargo=\ref[O]'>Unload</a> : [O]<br>"
-	else
-		output += "Nothing"
-	output += "</div>"
-	return output
 
 // /obj/mecha/makeshift/relay_container_resist(mob/living/user, obj/O)
 // 	to_chat(user, "<span class='notice'>You lean on the back of [O] and start pushing so it falls out of [src].</span>")
