@@ -10,7 +10,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 /world/New()
 #ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
-	init_byond_tracy()
+	prof_init()
 #endif
 
 	dmjit_hook_main_init()
@@ -306,19 +306,5 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
+	prof_stop()
 	..()
-
-/world/proc/init_byond_tracy()
-	var/library
-
-	switch (system_type)
-		if (MS_WINDOWS)
-			library = "prof.dll"
-		if (UNIX)
-			library = "libprof.so"
-		else
-			CRASH("Unsupported platform: [system_type]")
-
-	var/init_result = CALL_EXT(library, "init")()
-	if (init_result != "0")
-		CRASH("Error initializing byond-tracy: [init_result]")

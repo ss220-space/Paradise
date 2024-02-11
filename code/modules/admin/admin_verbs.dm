@@ -280,6 +280,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_proccall
 		if(holder.rights == R_HOST)
 			verbs += /client/proc/view_pingstat
+			verbs += /client/proc/profiler_start
+			verbs += /client/proc/profiler_stop
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
 			verbs += /client/proc/ss_breakdown
@@ -301,6 +303,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		GLOB.admin_verbs_permissions,
 		/client/proc/stealth,
 		/client/proc/view_pingstat,
+		/client/proc/profiler_start,
+		/client/proc/profiler_stop,
 		GLOB.admin_verbs_rejuv,
 		GLOB.admin_verbs_sounds,
 		GLOB.admin_verbs_spawn,
