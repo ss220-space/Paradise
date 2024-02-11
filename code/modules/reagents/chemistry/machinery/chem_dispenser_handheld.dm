@@ -31,7 +31,7 @@
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
 	current_reagent = pick(dispensable_reagents)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/chem_dispenser_handheld/Destroy()
