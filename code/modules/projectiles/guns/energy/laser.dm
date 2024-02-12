@@ -1,8 +1,8 @@
 /obj/item/gun/energy/laser
 	name = "laser gun"
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
-	icon_state = "laser"
-	item_state = "laser"
+	icon_state = "lasergun"
+	item_state = null
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
@@ -13,6 +13,8 @@
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
+	icon_state = "laser"
+	item_state = "laser"
 	origin_tech = "combat=2;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
