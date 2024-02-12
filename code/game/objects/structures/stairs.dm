@@ -24,7 +24,6 @@
 	if(force_open_above)
 		force_open_above()
 		build_signal_listener()
-	update_surrounding()
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -42,15 +41,6 @@
 	. = ..()
 	if(force_open_above)
 		build_signal_listener()
-	update_surrounding()
-
-/obj/structure/stairs/proc/update_surrounding()
-	update_icon()
-	for(var/i in GLOB.cardinal)
-		var/turf/T = get_step(get_turf(src), i)
-		var/obj/structure/stairs/S = locate() in T
-		if(S)
-			S.update_icon()
 
 /obj/structure/stairs/proc/on_exit(datum/source, atom/movable/leaving, atom/newloc)
 	SIGNAL_HANDLER

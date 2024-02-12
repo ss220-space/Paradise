@@ -3,7 +3,7 @@ import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
 import { Fragment } from 'inferno';
-import { useBackend, useLocalState, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Button, ByondUi, Input, Section, Box, NanoMap, Tabs, Icon } from '../components';
 import { refocusLayout, Window } from '../layouts';
 

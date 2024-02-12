@@ -91,7 +91,7 @@
 	var/state = FALSE
 	var/obj/singularity/bfl_red/laser = null
 	var/obj/machinery/bfl_receiver/receiver = FALSE
-	var/list/obj/bfl_laser/turf_lasers = list()
+	var/list/obj/effect/bfl_laser/turf_lasers = list()
 	var/deactivate_time = 0
 	var/list/obj/structure/fillers = list()
 	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
@@ -179,7 +179,7 @@
 	working_sound()
 	var/turf/below = GET_TURF_BELOW(location)
 	while(below)
-		var/obj/bfl_laser/turf_laser = new(below)
+		var/obj/effect/bfl_laser/turf_laser = new(below)
 		turf_lasers += turf_laser
 		below = GET_TURF_BELOW(below) // dig deeper and try another laser
 
@@ -208,7 +208,7 @@
 		qdel(laser)
 		laser = null
 
-	for(var/obj/bfl_laser/turf_laser in turf_lasers)
+	for(var/obj/effect/bfl_laser/turf_laser in turf_lasers)
 		turf_laser.remove_self()
 
 /obj/machinery/power/bfl_emitter/proc/working_sound()
@@ -569,31 +569,30 @@
 	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)
 
-/obj/bfl_laser
+/obj/effect/bfl_laser
 	name = "big laser beam"
 	desc = "A huge shining laser beam, goes through above hitting down. You wouldn't like to touch it."
 	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
 	icon_state = "laser"
-	anchored = TRUE
 
-/obj/bfl_laser/Initialize(mapload)
+/obj/effect/bfl_laser/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 
-/obj/bfl_laser/proc/remove_self()
+/obj/effect/bfl_laser/proc/remove_self()
 	STOP_PROCESSING(SSprocessing, src)
 	qdel(src)
 
-/obj/bfl_laser/Entered(atom/movable/AM)
+/obj/effect/bfl_laser/Entered(atom/movable/AM)
 	burn_stuff(AM)
 
-/obj/bfl_laser/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+/obj/effect/bfl_laser/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	burn_stuff(AM)
 
-/obj/bfl_laser/process()
+/obj/effect/bfl_laser/process()
 	burn_stuff()
 
-/obj/bfl_laser/proc/burn_stuff(atom/movable/AM)
+/obj/effect/bfl_laser/proc/burn_stuff(atom/movable/AM)
 	. = FALSE
 	var/turf/T = get_turf(src)
 	if(!isopenspaceturf(T) && !isspaceturf(T)) //we're not open. REOPEN
@@ -632,3 +631,6 @@
 				L.IgniteMob()
 	if(.)
 		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE, -4)
+
+/obj/effect/bfl_laser/ex_act(severity)
+	return
