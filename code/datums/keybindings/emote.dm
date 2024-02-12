@@ -268,7 +268,9 @@
 	linked_emote = /datum/emote/living/carbon/twirl
 	name = "Вертеть в руках"
 
-
+/datum/keybinding/emote/ok
+	linked_emote = /datum/emote/living/carbon/ok
+	name = "Показать жест окей"
 /**
  * Alien
  */

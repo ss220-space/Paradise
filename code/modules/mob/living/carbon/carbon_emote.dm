@@ -213,6 +213,10 @@
 	hands_use_check = TRUE
 	target_behavior = EMOTE_TARGET_BHVR_NUM
 
+/datum/emote/living/carbon/ok
+	key = "ok"
+	key_third_person = "ok"
+	message = "показыва%(ет,ют)% жест окей"
 
 /datum/emote/living/carbon/faint
 	key = "faint"
