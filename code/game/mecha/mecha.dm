@@ -34,7 +34,6 @@
 	var/add_req_access = TRUE
 	var/maint_access = TRUE
 	var/dna	//dna-locking the mech
-	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
@@ -42,7 +41,12 @@
 	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
-	var/cargo_expanded = FALSE // for wide cargo module
+	/// The internal storage of the exosuit. For the cargo module
+	var/list/cargo
+	/// You can fit a few things in this mecha but not much.
+	var/cargo_capacity = 1
+	/// for wide cargo module
+	var/cargo_expanded = FALSE
 
 	//inner atmos
 	var/use_internal_tank = FALSE
@@ -744,6 +748,12 @@
 	if(occupant)
 		occupant.ex_act(severity)
 
+	for(var/X in cargo)
+		var/atom/movable/cargo_thing = X
+		if(prob(30 / severity))
+			cargo -= cargo_thing
+			cargo_thing.forceMove(drop_location())
+
 /obj/mecha/handle_atom_del(atom/A)
 	if(A == occupant)
 		occupant = null
@@ -753,6 +763,12 @@
 		trackers -= A
 
 /obj/mecha/Destroy()
+
+	for(var/atom/movable/cargo_thing as anything in cargo)
+		cargo -= cargo_thing
+		cargo_thing.forceMove(drop_location())
+		step_rand(cargo_thing)
+
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
@@ -1348,13 +1364,15 @@
 		return TRUE
 	return FALSE
 
-/obj/mecha/proc/pilot_mmi_hud(var/mob/living/carbon/brain/pilot)
-	return
-
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
 	..()
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		go_out(1, newloc)
+
+/obj/mecha/Exit(atom/movable/O)
+	if(O in cargo)
+		return FALSE
+	return ..()
 
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
