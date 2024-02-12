@@ -106,11 +106,11 @@ export const AutoDoc = (props, context) => {
                     locked={isHealing}
                     onClick={() => act('FixOrgan', {organ: organ.name, type: "remove"})}/>
                   <br />
-                  {!!organ.dead ? "dead": ""}
+                  {organ.dead ? "dead": ""}
                   {!!organ.dead && <br />}
-                  {!!organ.germ_level ? "Germ level is " + (organ.germ_level): ""}
+                  {organ.germ_level ? "Germ level is " + (organ.germ_level): ""}
                   {!!organ.germ_level && <br />}
-                  {!!organ.totalLoss ? "Total damage is " + (organ.damage) : ""}
+                  {organ.totalLoss ? "Total damage is " + (organ.damage) : ""}
                   {!!organ.totalLoss &&
                     <Fragment>
                       <Button
