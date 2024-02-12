@@ -1,6 +1,6 @@
 /obj/item/pet_carrier
 	name = "маленькая переноска"
-	desc = "Переноска для маленьких животных. "
+	desc = "Переноска для маленьких животных."
 	icon_state = "pet_carrier"
 	item_state = "pet_carrier"
 	max_integrity = 100
@@ -15,9 +15,10 @@
 	var/contains_pet_color_open = "#d8d8d8ff"
 	var/contains_pet_color_close = "#949494ff"
 
+
 /obj/item/pet_carrier/normal
 	name = "переноска"
-	desc = "Переноска для небольших животных. "
+	desc = "Переноска для небольших животных."
 	icon_state = "pet_carrier_normal"
 	item_state = "pet_carrier_normal"
 	max_integrity = 200
@@ -29,15 +30,18 @@
 	. = ..()
 	if(!color_skin)
 		color_skin = pick(possible_skins)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/pet_carrier/Destroy()
 	free_content()
 	. = ..()
 
+
 /obj/item/pet_carrier/attack_self(mob/user)
 	..()
 	change_state()
+
 
 /obj/item/pet_carrier/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/holder))
@@ -49,73 +53,89 @@
 		return FALSE
 	. = ..()
 
-/obj/item/pet_carrier/emp_act(var/intensity)
+
+/obj/item/pet_carrier/emp_act(intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 
-/obj/item/pet_carrier/ex_act(var/intensity)
+
+/obj/item/pet_carrier/ex_act(intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
+
 /obj/item/pet_carrier/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		try_free_content(user = user)
+		try_free_content(null, user)
 
-/obj/item/pet_carrier/proc/put_in_carrier(var/mob/living/target, var/mob/living/user)
+
+/obj/item/pet_carrier/proc/put_in_carrier(mob/living/target, mob/living/user)
 	if(!opened)
-		to_chat(user, "<span class='warning'>Ваша переноска закрыта!</span>")
+		to_chat(user, span_warning("Ваша переноска закрыта!"))
 		return FALSE
 	if(contains_pet)
-		to_chat(user, "<span class='warning'>Ваша переноска заполнена!</span>")
+		to_chat(user, span_warning("Ваша переноска заполнена!"))
 		return FALSE
 	if(target.mob_size > mob_size)
-		to_chat(user, "<span class='warning'>Ваша переноска слишком мала!</span>")
+		to_chat(user, span_warning("Ваша переноска слишком мала!"))
 		return FALSE
 	if(istype(target, /mob/living/simple_animal/revenant))
 		return FALSE
-	//if(target.mob_size < mob_size)
-	//	to_chat(user, "<span class='warning'>Ваша переноска слишком большая!</span>")
-	//	return FALSE
 
 	target.forceMove(src)
-	name += " ([target.name])"
-	if(target.desc)
-		desc += "\n\nВнутри [target.name]\n"
-		desc += target.desc
 	contains_pet = TRUE
+	update_appearance(UPDATE_OVERLAYS|UPDATE_NAME|UPDATE_DESC)
 
-	to_chat(user, 	"<span class='notice'>Вы поместили [target.name] в [src.name].")
-	to_chat(target, "<span class='notice'>[user.name] поместил[genderize_ru(user.gender,"","а","о","и")] вас в [src.name].</span>")
-	update_icon()
+	to_chat(user, 	span_notice("Вы поместили [target.name] в [name]."))
+	to_chat(target, span_notice("[user.name] поместил[genderize_ru(user.gender,"","а","о","и")] вас в [name]."))
 	return TRUE
 
+
 /obj/item/pet_carrier/proc/try_free_content(atom/new_location, mob/user)
+	add_fingerprint(user)
 	if(!opened)
 		if(user)
-			to_chat(user, "<span class='warning'>Ваша переноска закрыта! Содержимое невозможно выгрузить!</span>")
+			to_chat(user, span_warning("Ваша переноска закрыта! Содержимое невозможно выгрузить!"))
 		return FALSE
 	free_content(new_location)
 
+
 /obj/item/pet_carrier/proc/free_content(atom/new_location)
-	if(istype(loc,/turf) || length(contents))
-		for(var/mob/living/L in contents)
-			var/atom/movable/mob_container
-			mob_container = L
-			mob_container.forceMove(new_location ? new_location : get_turf(src))
+	if(isturf(loc) || length(contents))
+		var/atom/drop_loc = new_location ? new_location : get_turf(src)
+		for(var/mob/living/animal in contents)
+			animal.forceMove(drop_loc)
 			contains_pet = FALSE
-			name = initial(name)
-			desc = initial(desc)
-			update_icon()
-			L.resting = FALSE
+			update_appearance(UPDATE_OVERLAYS|UPDATE_NAME|UPDATE_DESC)
+			animal.resting = FALSE
 		return TRUE
 	return FALSE
 
+
 /obj/item/pet_carrier/proc/change_state()
 	opened = !opened
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pet_carrier/update_icon()
-	overlays.Cut()
+
+/obj/item/pet_carrier/update_name(updates = ALL)
+	. = ..()
+	name = initial(name)
+	var/mob/living/animal = locate() in src
+	if(animal)
+		name += " ([animal.name])"
+
+
+/obj/item/pet_carrier/update_desc(updates = ALL)
+	. = ..()
+	desc = initial(desc)
+	var/mob/living/animal = locate() in src
+	if(animal)
+		desc += "\n\nВнутри [animal.name]\n"
+		desc += animal.desc
+
+
+/obj/item/pet_carrier/update_overlays()
+	. = ..()
 	if(contains_pet)
 		var/mob/living/M
 		for(var/mob/living/temp_M in contents)
@@ -124,59 +144,59 @@
 		var/image/I = image(M.icon, icon_state = M.icon_state)
 		I.color = opened ? contains_pet_color_open : contains_pet_color_close
 		I.pixel_y = M.mob_size <= MOB_SIZE_TINY ? 6 : 3
-		overlays += I
+		. += I
 
 	if(!opened)
-		var/image/I = image(icon, icon_state = "[icon_state]_door")
-		overlays += I
+		. += image(icon, icon_state = "[icon_state]_door")
 
 	if(color_skin)
-		var/image/I = image(icon, icon_state = "[icon_state]_[color_skin]")
-		overlays += I
+		. += image(icon, icon_state = "[icon_state]_[color_skin]")
 
-/obj/item/pet_carrier/emp_act(var/intensity)
+
+/obj/item/pet_carrier/emp_act(intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 
-/obj/item/pet_carrier/ex_act(var/intensity)
+
+/obj/item/pet_carrier/ex_act(intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-/obj/item/pet_carrier/container_resist(var/mob/living/L)
-	var/breakout_time = 60 //1 minute
-	var/breakout_time_open = 5 //seconds for escape
-	var/dcsec = 10 //seconds * 10deciseconds
 
-	to_chat(L, "<span class='warning'>Вы начали вылезать из переноски (это займет [breakout_time_open] секунд, не двигайтесь)</span>")
+/obj/item/pet_carrier/container_resist(mob/living/L)
+	var/breakout_time = 60 SECONDS
+	var/breakout_time_open = 5 SECONDS
+
+	to_chat(L, span_warning("Вы начали вылезать из переноски (это займет [breakout_time_open/10] секунд, не двигайтесь)."))
 
 	var/atom/target_atom = src
-	if(ishuman(src.loc))
-		target_atom = src.loc
+	if(ishuman(loc))
+		target_atom = loc
 
 	if(opened && L.loc == src)
 		spawn(0)
-			if(do_after(L,(breakout_time_open*dcsec), target = target_atom))
+			if(do_after(L, (breakout_time_open), target = target_atom))
 				if(!src || !L || L.stat != CONSCIOUS || L.loc != src || !opened)
-					to_chat(L, "<span class='warning'>Побег прерван!</span>")
+					to_chat(L, span_warning("Побег прерван!"))
 					return
 
 				free_content()
-				visible_message("<span class='warning'>[L.name] вылез из переноски.</span>")
+				visible_message(span_warning("[L.name] вылез из переноски."))
 		return
 
-	to_chat(L, "<span class='warning'>Вы начали ломиться в закрытую дверцу переноски и пытаетесь её выбить или открыть. (это займет [breakout_time] секунд, не двигайтесь)</span>")
+	to_chat(L, span_warning("Вы начали ломиться в закрытую дверцу переноски и пытаетесь её выбить или открыть (это займет [breakout_time/10] секунд, не двигайтесь)."))
 	for(var/mob/O in viewers(usr.loc))
-		O.show_message("<span class='danger'>[src.name] начинает трястись!</span>", 1)
+		O.show_message(span_danger("[name] начинает трястись!"), 1)
 
 	spawn(0)
-		if(do_after(L,(breakout_time*dcsec), target = target_atom))
+		if(do_after(L, (breakout_time), target = target_atom))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
-				to_chat(L, "<span class='warning'>Побег прерван!</span>")
+				to_chat(L, span_warning("Побег прерван!"))
 				return
 
-			var/mob/M = src.loc
+			var/mob/M = loc
 			if(istype(M))
-				to_chat(M, "[src.name] вырывается из вашей переноски!")
+				to_chat(M, "[name] вырывается из вашей переноски!")
 				to_chat(L, "Вы вырываетесь из переноски [M.name]!")
 			else
 				to_chat(L, "Вы выбираетесь из переноски.")
@@ -185,6 +205,7 @@
 			free_content()
 			change_state()
 		return
+
 
 /obj/item/pet_carrier/verb/open_close()
 	set name = "Открыть/закрыть переноску"
@@ -196,6 +217,7 @@
 
 	change_state()
 
+
 /obj/item/pet_carrier/verb/unload_content()
 	set name = "Опустошить переноску"
 	set desc = "Вытаскивает животное из переноски."
@@ -204,51 +226,40 @@
 	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
 		return
 
-	try_free_content(user = usr)
+	try_free_content(null, usr)
 
-/obj/item/pet_carrier/MouseDrop(obj/over_object)
-	if(ishuman(usr))
-		var/mob/M = usr
 
-		if(istype(M.loc,/obj/mecha) || M.incapacitated(FALSE, TRUE, TRUE)) // Stops inventory actions in a mech as well as while being incapacitated
-			return
 
-		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
-			try_free_content(M, M)
-			return
+/obj/item/pet_carrier/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(!ishuman(usr))
+		return FALSE
 
-		if((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
-			&& length(contents) && loc == usr && !usr.stat && !usr.restrained() && usr.canmove && over_object.Adjacent(usr))
-			var/turf/T = get_turf(over_object)
-			if(istype(over_object, /turf/simulated/floor))
-				if(get_turf(usr) != T)
-					return // Can only empty containers onto the floor under you
-				if("Да" != alert(usr,"Вытащить питомца из [src.name] на [T.name]?","Подтверждение","Да","Нет"))
-					return
-				if(!(usr && over_object && contents.len && loc == usr && !usr.stat && !usr.restrained() && usr.canmove && get_turf(usr) == T))
-					return // Something happened while the player was thinking
+	var/mob/living/carbon/human/user = usr
 
-			usr.face_atom(over_object)
-			usr.visible_message("<span class='notice'>[usr] вытащил питомца из [src.name] на [over_object.name].</span>",
-				"<span class='notice'>Вы вытащили питомца из [src.name] на [over_object.name].</span>")
+	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
+	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated(FALSE, TRUE, TRUE))
+		return FALSE
 
-			try_free_content(T, usr)
-			return TRUE
+	if(over_object == user && user.Adjacent(src)) // this must come before the screen objects only block
+		try_free_content(user = user)
+		return FALSE
 
-		if(!(istype(over_object, /obj/screen)))
-			return ..()
-		if(!(loc == usr) || (loc && loc.loc == usr))
-			return
-		playsound(loc, "rustle", 50, TRUE, -5)
-		if(!(M.restrained()) && !(M.stat))
-			switch(over_object.name)
-				if("r_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_r_hand(src, ignore_anim = FALSE)
-				if("l_hand")
-					if(!M.drop_item_ground(src))
-						return
-					M.put_in_l_hand(src, ignore_anim = FALSE)
-			add_fingerprint(usr)
-			return
+	if(opened && (istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor) \
+		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
+
+		if(alert(user, "Вытащить питомца из [name] на [over_object.name]?", "Подтверждение", "Да", "Нет") != "Да")
+			return FALSE
+
+		if(!opened || !user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
+			return FALSE
+
+		user.face_atom(over_object)
+		user.visible_message(
+			span_notice("[user] вытащил питомца из [name] на [over_object.name]."),
+			span_notice("Вы вытащили питомца из [name] на [over_object.name]."),
+		)
+		try_free_content(get_turf(over_object), user)
+		return FALSE
+
+	return ..()
+

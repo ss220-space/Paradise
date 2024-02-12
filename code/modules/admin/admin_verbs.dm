@@ -283,6 +283,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
 			verbs += /client/proc/ss_breakdown
+			verbs += /client/proc/toggle_mctabs
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 

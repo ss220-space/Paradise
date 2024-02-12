@@ -16,6 +16,41 @@
 	height = 7
 	roundstart_move = "supply_away"
 
+/obj/docking_port/mobile/supply/proc/forbidden_atoms_check(atom/A)
+	var/static/list/cargo_blacklist = list(
+		/obj/structure/blob,
+		/obj/structure/spider/spiderling,
+		/obj/item/disk/nuclear,
+		/obj/machinery/nuclearbomb,
+		/obj/item/radio/beacon,
+		/obj/machinery/the_singularitygen,
+		/obj/singularity,
+		/obj/machinery/teleport/station,
+		/obj/machinery/teleport/hub,
+		/obj/machinery/telepad,
+		/obj/machinery/telepad_cargo,
+		/obj/machinery/clonepod,
+		/obj/effect/hierophant,
+		/obj/item/warp_cube,
+		/obj/machinery/quantumpad,
+		/obj/structure/extraction_point,
+		/obj/item/paicard
+	)
+	if(A)
+		if(isliving(A))
+			if(!istype(A.loc, /obj/item/mobcapsule))
+				return TRUE
+			var/mob/living/living = A
+			if(living.client) //You cannot get out of the capsule and you will be destroyed. Saving clients
+				return TRUE
+		if(is_type_in_list(A, cargo_blacklist))
+			return TRUE
+		for(var/thing in A)
+			if(.(thing))
+				return TRUE
+
+	return FALSE
+
 /obj/docking_port/mobile/supply/register()
 	if(!..())
 		return 0
@@ -32,7 +67,7 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock()
+/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/S1, force, transit)
 	. = ..()
 	if(.)	return .
 
@@ -180,7 +215,7 @@
 								objective.unit_completed(cost)
 						msg += "[tech.name] - new data.<br>"
 
-		qdel(MA)
+		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
 
 
@@ -199,35 +234,6 @@
 		SSshuttle.points += pointsEarned
 
 	SSshuttle.centcom_message += "[msg]<hr>"
-
-/proc/forbidden_atoms_check(atom/A)
-	var/list/blacklist = list(
-		/mob/living,
-		/obj/structure/blob,
-		/obj/structure/spider/spiderling,
-		/obj/item/disk/nuclear,
-		/obj/machinery/nuclearbomb,
-		/obj/item/radio/beacon,
-		/obj/machinery/the_singularitygen,
-		/obj/singularity,
-		/obj/machinery/teleport/station,
-		/obj/machinery/teleport/hub,
-		/obj/machinery/telepad,
-		/obj/machinery/telepad_cargo,
-		/obj/machinery/clonepod,
-		/obj/effect/hierophant,
-		/obj/item/warp_cube,
-		/obj/machinery/quantumpad,
-		/obj/structure/extraction_point
-	)
-	if(A)
-		if(is_type_in_list(A, blacklist))
-			return 1
-		for(var/thing in A)
-			if(.(thing))
-				return 1
-
-	return 0
 
 /********************
     SUPPLY ORDER
@@ -335,12 +341,12 @@
 	if(istype(Crate, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/CR = Crate
 		CR.manifest = slip
-		CR.update_icon()
+		CR.update_icon(UPDATE_OVERLAYS)
 		CR.announce_beacons = object.announce_beacons.Copy()
 	if(istype(Crate, /obj/structure/largecrate))
 		var/obj/structure/largecrate/LC = Crate
 		LC.manifest = slip
-		LC.update_icon()
+		LC.update_icon(UPDATE_OVERLAYS)
 
 	return Crate
 
@@ -409,10 +415,11 @@
 		if(SO)
 			if(!SO.comment)
 				SO.comment = "No comment."
-			var/pack_techs
-			for(var/tech_id in SO.object.required_tech)
-				pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]];  "
-			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum), "pack_techs" = pack_techs)))
+			var/list/pack_techs = list()
+			if(length(SO.object.required_tech))
+				for(var/tech_id in SO.object.required_tech)
+					pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]];  "
+			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum), "pack_techs" = pack_techs.Join(""))))
 	data["requests"] = requests_list
 
 	var/list/orders_list = list()

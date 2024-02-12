@@ -26,37 +26,40 @@
 	if(in_range(user, src))
 		. += "<span class='notice'>[bicon(src)] [src] contains [reagents.total_volume] units of water left.</span>"
 
-/obj/structure/mopbucket/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/mopbucket/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/mop))
-		var/obj/item/mop/m = W
-		if(m.reagents.total_volume < m.reagents.maximum_volume)
+		var/obj/item/mop/mop = W
+		if(mop.reagents.total_volume < mop.reagents.maximum_volume)
 			add_fingerprint(user)
-			m.wet_mop(src, user)
+			mop.wet_mop(src, user)
 			return
 		if(!mymop)
 			add_fingerprint(user)
-			m.janicart_insert(user, src)
+			mop.mopbucket_insert(user, src)
 			return
 		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
 		return
 	return ..()
 
+
 /obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
 	user.drop_transfer_item_to_loc(I, src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
-	return
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/structure/mopbucket/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/mopbucket/update_icon()
-	overlays.Cut()
+
+/obj/structure/mopbucket/update_overlays()
+	. = ..()
 	if(mymop)
-		overlays += image(icon,"mopbucket_mop")
+		. += "mopbucket_mop"
 	if(reagents.total_volume > 0)
 		var/image/reagentsImage = image(icon, src, "mopbucket_reagents0")
 		reagentsImage.alpha = 150
-		switch((reagents.total_volume/reagents.maximum_volume)*100)
+		switch((reagents.total_volume / reagents.maximum_volume) * 100)
 			if(1 to 25)
 				reagentsImage.icon_state = "mopbucket_reagents1"
 			if(26 to 50)
@@ -66,7 +69,8 @@
 			if(76 to 100)
 				reagentsImage.icon_state = "mopbucket_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(reagentsImage)
+		. += reagentsImage
+
 
 /obj/structure/mopbucket/attack_hand(mob/living/user)
 	. = ..()
@@ -75,5 +79,5 @@
 		user.put_in_hands(mymop, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
 		mymop = null
-		update_icon()
-		return
+		update_icon(UPDATE_OVERLAYS)
+

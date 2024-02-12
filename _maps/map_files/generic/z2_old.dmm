@@ -13202,11 +13202,11 @@
 	desc = "Баксоны максона. Возможно кто-то приобретет пропуск.";
 	name = "100.000 �������� �������"
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	amount = 115;
 	desc = null
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	amount = 115;
 	desc = null
 	},

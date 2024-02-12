@@ -11,7 +11,8 @@ REAGENT SCANNER
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
-	var/on = 0
+	base_icon_state = "t-ray"
+	var/on = FALSE
 	slot_flags = SLOT_BELT
 	w_class = 2
 	w_class = WEIGHT_CLASS_SMALL
@@ -26,6 +27,7 @@ REAGENT SCANNER
 	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
 	\nДанная модель обладает расширенным радиусом действия."
 	icon_state = "t-ray-range0"
+	base_icon_state = "t-ray-range"
 	scan_range = 3
 	origin_tech = "magnets=3;engineering=3"
 	materials = list(MAT_METAL=300)
@@ -35,6 +37,7 @@ REAGENT SCANNER
 	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
 	\nДанная модель способна генерировать более продолжительные импульсы."
 	icon_state = "t-ray-pulse0"
+	base_icon_state = "t-ray-pulse"
 	pulse_duration = 50
 	origin_tech = "magnets=5;engineering=3"
 	materials = list(MAT_METAL=300)
@@ -44,6 +47,7 @@ REAGENT SCANNER
 	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
 	\nДанная модель способна генерировать более продолжительные импульсы и обладает расширенным радиусом действия."
 	icon_state = "t-ray-advanced0"
+	base_icon_state = "t-ray-advanced"
 	scan_range = 3
 	pulse_duration = 50
 	origin_tech = "magnets=7;engineering=3"
@@ -54,6 +58,7 @@ REAGENT SCANNER
 	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
 	\nВысокотехнологичная модель, способная генерировать очень продолжительные импульсы в пределах большого радиуса."
 	icon_state = "t-ray-science0"
+	base_icon_state = "t-ray-science"
 	scan_range = 5
 	pulse_duration = 100
 	origin_tech = "magnets=8;engineering=5"
@@ -65,6 +70,7 @@ REAGENT SCANNER
 	\nЭкспериментальный образец, обладающий расширенным радиусом действия и более продолжительным импульсом. \
 	\nСудя по его виду, эта вещь была собрана безумными учеными в ходе спонтанных экспериментов."
 	icon_state = "t-ray-experimental0"
+	base_icon_state = "t-ray-experimental"
 	scan_range = 3
 	pulse_duration = 80
 	origin_tech = null
@@ -76,10 +82,16 @@ REAGENT SCANNER
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
+
+/obj/item/t_scanner/update_icon_state()
+	icon_state = "[base_icon_state][on]"
+
+
+
 /obj/item/t_scanner/attack_self(mob/user)
 
 	on = !on
-	icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
+	update_icon(UPDATE_ICON_STATE)
 
 	if(on)
 		START_PROCESSING(SSobj, src)
@@ -143,12 +155,14 @@ REAGENT SCANNER
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "sb_t-ray"
 	icon_state = "sb_t-ray0"
+	base_icon_state = "sb_t-ray"
 	scan_range = 2
 	pulse_duration = 30
 	var/was_alerted = FALSE // Protection against spam alerts from this scanner
 	var/burnt = FALSE // Did emp break us?
 	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
 	origin_tech = "combat=3;magnets=5;biotech=5"
+
 
 /obj/item/t_scanner/security/Initialize()
 	. = ..()
@@ -157,23 +171,40 @@ REAGENT SCANNER
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+
+/obj/item/t_scanner/security/update_icon_state()
+	if(burnt)
+		icon_state = "[base_icon_state]_burnt"
+		return
+	icon_state = "[base_icon_state][on]"
+
+
+/obj/item/t_scanner/security/update_desc(updates = ALL)
+	. = ..()
+	if(!burnt)
+		desc = initial(desc)
+		return
+	desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство сгорело, теперь можно обнаружить разве что крошки от пончика оставшиеся на нём..."
+
+
 /obj/item/t_scanner/security/attack_self(mob/user)
 	if(!burnt)
 		on = !on
-		icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
+		update_icon(UPDATE_ICON_STATE)
 
 	if(on)
 		START_PROCESSING(SSobj, src)
+
 
 /obj/item/t_scanner/security/emp_act(severity)
 	. = ..()
 	if(prob(25) && !burnt)
 		burnt = TRUE
-		on = FALSE;
-		icon_state = copytext(icon_state, 1, length(icon_state))+"_burnt"
-		desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство сгорело, теперь можно обнаружить разве что крошки от пончика оставшиеся на нём..."
+		on = FALSE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		playsound(loc, "sparks", 50, TRUE, 5)
 		spark_system.start()
+
 
 /obj/item/t_scanner/security/scan()
 
@@ -601,6 +632,13 @@ REAGENT SCANNER
 		if(0)
 			to_chat(usr, "Сканер больше не показывает повреждения конечностей.")
 
+
+/obj/item/healthanalyzer/update_overlays()
+	. = ..()
+	if(advanced)
+		. += "advanced"
+
+
 /obj/item/healthanalyzer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/healthupgrade))
 		if(advanced)
@@ -608,9 +646,9 @@ REAGENT SCANNER
 		else
 			if(user.drop_transfer_item_to_loc(I, src))
 				to_chat(user, "<span class='notice'>Вы установили модуль обновления на [src].</span>")
-				add_overlay("advanced")
 				playsound(loc, I.usesound, 50, 1)
 				advanced = TRUE
+				update_icon(UPDATE_OVERLAYS)
 				qdel(I)
 		return
 	return ..()
@@ -620,7 +658,7 @@ REAGENT SCANNER
 
 /obj/item/healthanalyzer/advanced/Initialize(mapload)
 	. = ..()
-	add_overlay("advanced")
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/healthupgrade
@@ -787,6 +825,7 @@ REAGENT SCANNER
 	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell/upgraded
 	var/ready = TRUE // Ready to scan
+	var/printing = FALSE
 	var/time_to_use = 0 // How much time remaining before next scan is available.
 	var/usecharge = 750
 	var/scan_time = 10 SECONDS //how long does it take to scan
@@ -817,17 +856,24 @@ REAGENT SCANNER
 	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, 0)
 	update_icon()
 
-/obj/item/bodyanalyzer/update_icon(printing = FALSE)
-	overlays.Cut()
-	var/percent = cell.percent()
+
+/obj/item/bodyanalyzer/update_icon_state()
+	if(!cell)
+		icon_state = "bodyanalyzer_0"
+		return
 	if(ready)
 		icon_state = "bodyanalyzer_1"
 	else
 		icon_state = "bodyanalyzer_2"
 
+
+/obj/item/bodyanalyzer/update_overlays()
+	. = ..()
+	var/percent = cell.percent()
 	var/overlayid = round(percent / 10)
-	overlayid = "bodyanalyzer_charge[overlayid]"
-	overlays += icon(icon, overlayid)
+	. += "bodyanalyzer_charge[overlayid]"
+	if(printing)
+		. += "bodyanalyzer_printing"
 
 
 /obj/item/bodyanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
@@ -845,6 +891,7 @@ REAGENT SCANNER
 		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's out of charge!</span>")
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 
+
 /obj/item/bodyanalyzer/borg/attack(mob/living/M, mob/living/silicon/robot/user)
 	if(user.incapacitated() || !user.Adjacent(M))
 		return
@@ -858,6 +905,7 @@ REAGENT SCANNER
 	else
 		to_chat(user, "<span class='notice'>You need to recharge before you can use [src]</span>")
 
+
 /obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
 	if(ishuman(M))
 		var/report = generate_printing_text(M, user)
@@ -867,8 +915,6 @@ REAGENT SCANNER
 			printout.info = report
 			printout.name = "Scan report - [M.name]"
 			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-			flick("bodyanalyzer_anim", src)
-			sleep(3 SECONDS)
 			user.put_in_hands(printout, ignore_anim = FALSE)
 			time_to_use = world.time + scan_cd
 			if(isrobot(user))
@@ -877,14 +923,16 @@ REAGENT SCANNER
 			else
 				cell.use(usecharge)
 			ready = FALSE
-			update_icon(TRUE)
+			printing = TRUE
+			update_icon()
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 20)
-
+			addtimer(VARSET_CALLBACK(src, printing, FALSE), 1.4 SECONDS)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_OVERLAYS), 1.5 SECONDS)
 	else if(iscorgi(M) && M.stat == DEAD)
 		to_chat(user, "<span class='notice'>You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b></span>") // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
 		time_to_use = world.time + scan_cd
 	else

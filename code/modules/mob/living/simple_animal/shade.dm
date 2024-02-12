@@ -45,6 +45,10 @@
 	else
 		..()
 
+/mob/living/simple_animal/shade/update_icon_state()
+	icon_state = holy ? "shade_angelic" : "shade"
+
+
 /mob/living/simple_animal/shade/Process_Spacemove()
 	return TRUE
 
@@ -64,3 +68,18 @@
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
 	status_flags |= GODMODE
+
+/mob/living/simple_animal/shade/talisman
+	faction = list("neutral")
+	tts_seed = "Alextraza_echo"
+	// Ckey check for master of talisman
+	var/master 
+
+/mob/living/simple_animal/shade/talisman/Initialize(mapload)
+	.=..()
+	status_flags |= GODMODE
+
+/mob/living/simple_animal/shade/talisman/New()
+	..()
+	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medsensor.add_hud_to(src)

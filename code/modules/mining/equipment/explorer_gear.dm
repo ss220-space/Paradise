@@ -75,14 +75,17 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	jetpack = /obj/item/tank/jetpack/suit
 
-/obj/item/clothing/suit/space/hostile_environment/New()
+
+/obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 	START_PROCESSING(SSobj, src)
-	..()
+
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
 
 /obj/item/clothing/suit/space/hostile_environment/process()
 	var/mob/living/carbon/C = loc
@@ -103,17 +106,17 @@
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 
-/obj/item/clothing/head/helmet/space/hostile_environment/New()
-	..()
-	AddComponent(/datum/component/spraycan_paintable)
-	update_icon()
 
-/obj/item/clothing/head/helmet/space/hostile_environment/update_icon()
-	..()
-	cut_overlays()
-	var/mutable_appearance/glass_overlay = mutable_appearance(icon, "hostile_env_glass")
-	glass_overlay.appearance_flags = RESET_COLOR
-	add_overlay(glass_overlay)
+/obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, "hostile_env_glass", appearance_flags = RESET_COLOR)
+
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion
 	name = "champion's helmet"

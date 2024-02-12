@@ -27,6 +27,7 @@
 		crawl.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
+	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay"))
 
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
@@ -183,7 +184,7 @@
 	fireball_type = /obj/item/projectile/magic/shadow_hand
 
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon()
+/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
 	return
 
 

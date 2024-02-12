@@ -2258,4 +2258,26 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "crate"
 
 
-
+/datum/syndie_supply_packs/syndicate_special/secoff
+	name = "Syndicate 'Security Officer' Bundle"
+	contains = list(/obj/item/encryptionkey/syndicate, // 2 TC
+					/obj/item/card/id/syndicate, // 2 TC
+					/obj/item/clothing/glasses/hud/security/chameleon, // 2 TC
+					/obj/item/clothing/mask/chameleon,  // In 2 TC bundle (chameleon)
+					/obj/item/clothing/accessory/holster,  // 0 TC
+					/obj/item/storage/belt/military/traitor/sec,  // 0 TC
+					/obj/item/pinpointer/advpinpointer,  // 4 TC
+					/obj/item/gun/projectile/automatic/pistol,  // 4 TC
+					/obj/item/ammo_box/magazine/m10mm, // 1 TC
+					/obj/item/ammo_box/magazine/m10mm/ap,  // 1 TC
+					/obj/item/ammo_box/magazine/m10mm/fire,  // 1 TC
+					/obj/item/ammo_box/magazine/m10mm/hp,  // 1 TC
+					/obj/item/storage/box/sec,  // 0 TC
+					/obj/item/restraints/handcuffs,  // 0 TC
+					/obj/item/flash, // 0 TC
+					/obj/item/implanter/mindshield, //0 TC
+					/obj/item/clothing/suit/armor/vest/security
+					)
+	cost = 30000
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "crate"

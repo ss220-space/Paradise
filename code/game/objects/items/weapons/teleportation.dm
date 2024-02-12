@@ -98,6 +98,7 @@ Frequency:
 	desc = "A portable item using blue-space technology."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hand_tele"
+	base_icon_state = "hand_tele"
 	item_state = "electronic"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -163,7 +164,7 @@ Frequency:
 
 
 /obj/item/hand_tele/proc/make_inactive(severity)
-	var/time = rand(20 SECONDS, 30 SECONDS) * severity
+	var/time = rand(10 SECONDS, 15 SECONDS) * (severity == EMP_HEAVY ? 2 : 1)
 	emp_timer = world.time + time
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(check_inactive), emp_timer), time)
@@ -182,7 +183,7 @@ Frequency:
 
 
 /obj/item/hand_tele/update_icon_state()
-	icon_state = (emp_timer > world.time) ? icon_state_inactive : initial(icon_state)
+	icon_state = (emp_timer > world.time) ? icon_state_inactive : base_icon_state
 
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)

@@ -29,17 +29,18 @@
 	desc = "A white folder."
 	icon_state = "folder_white"
 
-/obj/item/folder/update_icon()
-	overlays.Cut()
+
+/obj/item/folder/update_overlays()
+	. = ..()
 	if(contents.len)
-		overlays += "folder_paper"
-	..()
+		. += "folder_paper"
+
 
 /obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
 		user.drop_transfer_item_to_loc(W, src)
 		to_chat(user, "<span class='notice'>You put the [W] into \the [src].</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else if(istype(W, /obj/item/pen))
 		rename_interactive(user, W)
 	else
@@ -90,8 +91,8 @@
 
 		//Update everything
 		attack_self(usr)
-		update_icon()
-	return
+		update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/folder/documents
 	name = "folder- 'TOP SECRET'"
@@ -100,7 +101,7 @@
 /obj/item/folder/documents/New()
 	..()
 	new /obj/item/documents/nanotrasen(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate
 	name = "folder- 'TOP SECRET'"
@@ -112,7 +113,7 @@
 /obj/item/folder/syndicate/red/New()
 	..()
 	new /obj/item/documents/syndicate/red(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/blue
 	icon_state = "folder_sblue"
@@ -120,7 +121,7 @@
 /obj/item/folder/syndicate/blue/New()
 	..()
 	new /obj/item/documents/syndicate/blue(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/yellow
 	icon_state = "folder_syellow"
@@ -128,11 +129,11 @@
 /obj/item/folder/syndicate/yellow/full/New()
 	..()
 	new /obj/item/documents/syndicate/yellow(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/mining/New()
 	. = ..()
 	new /obj/item/documents/syndicate/mining(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 

@@ -24,8 +24,11 @@
 	rockets = null
 	return ..()
 
-/obj/item/gun/rocketlauncher/update_icon()
+/obj/item/gun/throw/update_icon_state()
 	return
+
+/obj/item/gun/throw/update_overlays()
+	return list()
 
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
