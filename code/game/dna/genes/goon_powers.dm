@@ -98,20 +98,6 @@
 			mutant.RemoveSpell(spell)
 
 
-/datum/dna/gene/basic/grant_verb
-	var/verbtype
-
-
-/datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, flags)
-	. = ..()
-	add_verb(mutant, verbtype)
-
-
-/datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, flags)
-	. = ..()
-	remove_verb(mutant, verbtype)
-
-
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
 	name = "Cryokinesis"

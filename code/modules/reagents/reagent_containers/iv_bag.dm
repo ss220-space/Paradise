@@ -18,9 +18,6 @@
 	var/mob/living/carbon/human/injection_target
 	var/obj/item/organ/external/injection_limb
 
-/obj/item/reagent_containers/iv_bag/empty()
-	set hidden = TRUE
-
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
 	return ..()

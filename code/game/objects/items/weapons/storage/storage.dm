@@ -82,9 +82,9 @@
 /obj/item/storage/examine(mob/user)
 	. = ..()
 	if(allow_quick_empty)
-		. += "<span class='notice'>You can use [src] in hand to empty it's entire contents.</span>"
+		. += span_info("Use [src] in hand to empty it's entire contents.")
 	if(allow_quick_gather)
-		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to switch it's gathering method.</span>"
+		. += span_info("<b>Alt-Shift-Click</b> [src] to switch it's gathering method.")
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()

@@ -490,47 +490,14 @@
 			to_chat(user, span_warning("[src] is already cracked."))
 		return
 
-	emagged = TRUE
-	if(user)
-		to_chat(user, span_warning("You swipe the card and crack the holobadge security checks."))
-	. = ..()
+/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
+	if(isliving(user))
+		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
+		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are the law.</span>")
 
-
-/obj/item/clothing/accessory/holobadge/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
-	. = ..()
-	if(.)
-		has_suit.verbs += /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
-
-
-/obj/item/clothing/accessory/holobadge/on_removed(mob/detacher)
-	. = ..()
-	if(.)
-		var/obj/item/clothing/under/old_suit = .
-		old_suit.verbs -= /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
-
-
-//For the holobadge hotkey
-/obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
-	set name = "Holobadge"
-	set category = "Object"
-	set src in usr
-	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	var/obj/item/clothing/accessory/holobadge/holobadge_ref = null
-	if(istype(src, /obj/item/clothing/accessory/holobadge))
-		holobadge_ref = src
-	else if(istype(src, /obj/item/clothing/under))
-		var/obj/item/clothing/under/suit = src
-		if(LAZYLEN(suit.accessories))
-			holobadge_ref = locate() in suit.accessories
-
-	if(!holobadge_ref)
-		to_chat(usr, span_warning("Something is very wrong."))
-
-	if(!holobadge_ref.stored_name)
-		to_chat(usr, "Waving around a badge before swiping an ID would be pretty pointless.")
-		return
+//////////////
+//OBJECTION!//
+//////////////
 
 	usr.visible_message(
 		span_warning("[usr] displays [usr.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security."),

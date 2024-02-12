@@ -456,11 +456,7 @@
 		to_chat(user, span_notice("You unscrew [bayonet] from [src]."))
 		set_bayonet(null)
 
-
-/obj/item/gun/proc/toggle_gunlight_verb()
-	set name = "Toggle Gun Light"
-	set category = "Object"
-	set desc = "Click to toggle your weapon's attached flashlight."
+/obj/item/gun/proc/toggle_gunlight()
 
 	toggle_gunlight(usr)
 

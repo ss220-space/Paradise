@@ -9,9 +9,9 @@
 	var/burst_chance = 0
 	foodtype = SUGAR
 
-/obj/item/reagent_containers/food/drinks/cans/empty()
+/obj/item/reagent_containers/food/drinks/cans/AltShiftClick(mob/user)
 	if(!canopened)
-		to_chat(usr, "<span class='warning'>Open [src] first.</span>")
+		to_chat(user, "<span class='warning'>Open [src] first.</span>")
 		return
 	..()
 

@@ -21,7 +21,7 @@
 			QDEL_NULL(I)
 	return ..()
 
-/obj/item/clothing/accessory/holster/proc/can_holster(obj/item/W)
+/obj/item/clothing/accessory/holster/proc/can_holster(obj/item/gun/W)
 	if(!W.can_holster)
 		return FALSE
 	if(!is_type_in_list(W, holster_allow))
@@ -47,7 +47,7 @@
 		to_chat(user, span_warning("Holster is full!"))
 		return
 
-	if(!can_holster(I))
+	if(!istype(I) && !can_holster(I))
 		to_chat(user, span_warning("This [I] won't fit in the [src]!"))
 		return
 

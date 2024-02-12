@@ -174,13 +174,6 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user)
-	if(user.incapacitated() || !Adjacent(user)|| HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	toggle_paddles(usr)
-
-
-/obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
 		to_chat(user, span_warning("[src] has no paddles!"))
 		return

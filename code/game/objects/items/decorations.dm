@@ -342,9 +342,6 @@
 /obj/structure/decorative_structures/corpse/play_attack_sound()
 	return
 
-/obj/structure/decorative_structures/corpse/climb_on()
-	return
-
 /obj/structure/decorative_structures/corpse/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	bloodtiles -= 1

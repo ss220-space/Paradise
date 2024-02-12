@@ -163,16 +163,11 @@
 		update_icon(UPDATE_OVERLAYS)
 		feedinTopanim()
 
-/obj/machinery/gibber/verb/eject()
-	set category = "Object"
-	set name = "Empty Gibber"
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/machinery/gibber/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-
 	go_out()
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
 /obj/machinery/gibber/proc/go_out()
 	if(operating || !occupant) //no going out if operating, just in case they manage to trigger go_out before being dead
@@ -188,7 +183,6 @@
 	occupant = null
 
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/gibber/proc/feedinTopanim()
 	if(!occupant)

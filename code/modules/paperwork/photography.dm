@@ -82,6 +82,17 @@
 		show(user)
 	else
 		. += "<span class='notice'>It is too far away.</span>"
+	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
+
+
+/obj/item/photo/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
+
+	if(is_pen(user.get_active_hand()))
+		rename(user)
+	else
+		return ..()
 
 /obj/item/photo/proc/show(mob/user)
 	var/icon/img_shown = new/icon(img)
@@ -102,21 +113,13 @@
 	onclose(usr, "Photo[UID()]")
 	return
 
-/obj/item/photo/verb/rename()
-	set name = "Rename photo"
-	set category = "Object"
-	set src in usr
 
-	if(usr.incapacitated() || !isAI(usr) && HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/item/photo/proc/rename(mob/user)
+	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-
-	var/n_name = tgui_input_text(usr, "What would you like to label the photo?", "Photo Labelling", name)
-	if(!n_name)
-		return
-	//loc.loc check is for making possible renaming photos in clipboards
-	if((loc == usr || (loc.loc && loc.loc == usr)) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		name = "[(n_name ? text("[n_name]") : "photo")]"
-		add_fingerprint(usr)
+	var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", name)
+	name = "[(n_name ? text("[n_name]") : "photo")]"
+	add_fingerprint(user)
 
 
 /**************
@@ -139,7 +142,8 @@
 /obj/item/camera
 	name = "camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "A polaroid camera. 10 photos left."
+	desc = "A polaroid camera."
+	var/digital = FALSE
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
@@ -164,6 +168,12 @@
 		)
 
 
+/obj/item/camera/examine(mob/user)
+	. = ..()
+	if(!digital)
+		. += "<span class='notice'>There is [pictures_left] photos left.</span>"
+	. += "<span class='info'><b>Alt-Click</b> [src] to change the photo size.</span>"
+
 /obj/item/camera/spooky/CheckParts(list/parts_list)
 	..()
 	var/obj/item/camera/C = locate(/obj/item/camera) in contents
@@ -181,17 +191,17 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	desc = "A polaroid camera, some say it can see ghosts!"
 	see_ghosts = 1
 
-/obj/item/camera/verb/change_size()
-	set name = "Set Photo Focus"
-	set category = "Object"
-
-	if(!issilicon(usr) && (usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)))
+/obj/item/camera/AltClick(mob/user)
+	if(!issilicon(user) && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return
 
-	var/nsize = tgui_input_list(usr, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
+	change_size(user)
+
+/obj/item/camera/proc/change_size(mob/user)
+	var/nsize = tgui_input_list(user, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
 	if(nsize)
 		size = nsize
-		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
+		to_chat(user, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
 
 /obj/item/camera/attack(mob/living/carbon/human/M, mob/user)
 	return
@@ -353,7 +363,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	set_light(3, 2, LIGHT_COLOR_TUNGSTEN, l_on = TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	pictures_left--
-	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	on = FALSE
 	update_icon(UPDATE_ICON_STATE)
@@ -500,7 +509,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 ******************/
 /obj/item/camera/digital
 	name = "digital camera"
-	desc = "A digital camera. A small screen shows there is space for 10 photos left."
+	desc = "A digital camera."
+	digital = TRUE
 	var/list/datum/picture/saved_pictures = list()
 	pictures_left = 30
 	var/max_storage = 10
@@ -543,30 +553,32 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag, blueprints, log)
 	saved_pictures += P
 
-/obj/item/camera/digital/verb/print_picture()
-	set name = "Print picture"
-	set category = "Object"
-	set src in usr
+/obj/item/camera/digital/examine(mob/user)
+	. = ..()
+	. += span_info("<b>Alt-Shift-Click</b> [src] to print a specific photo.")
+	. += span_info("<b>Ctrl-Shift-Click</b> [src] to delete a specific photo.")
 
-	if(saved_pictures.len == 0)
-		to_chat(usr, "<span class='userdanger'>No images saved.</span>")
+/obj/item/camera/digital/AltShiftClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
 		return
-	if(pictures_left == 0)
-		to_chat(usr, "<span class='userdanger'>There is no film left to print.</span>")
+	if(!length(saved_pictures))
+		to_chat(user, "<span class='userdanger'>No images saved.</span>")
+		return
+	if(!pictures_left)
+		to_chat(user, "<span class='userdanger'>There is no film left to print.</span>")
 		return
 
 	var/datum/picture/P = null
-	P = tgui_input_list(usr, "Select image to print", "Print image", saved_pictures)
+	P = tgui_input_list(user, "Select image to print", "Print image", saved_pictures)
 	if(P)
-		printpicture(usr,P)
+		printpicture(user,P)
 		pictures_left --
 
-/obj/item/camera/digital/verb/delete_picture()
-	set name = "Delete picture"
-	set category = "Object"
-	set src in usr
+/obj/item/camera/digital/CtrlShiftClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 
-	if(saved_pictures.len == 0)
+	if(!length(saved_pictures))
 		to_chat(usr, "<span class='userdanger'>No images saved</span>")
 		return
 	var/datum/picture/P = null

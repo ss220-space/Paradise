@@ -136,6 +136,8 @@
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
+	. += span_info("<b>Alt-Click</b> [src] with a pen in hand to rename it.")
+	. += span_info("<b>Alt-Shift-Click</b> [src] to undo the paper bundle.")
 	if(in_range(user, src))
 		if(user.is_literate())
 			show_content(user)
@@ -225,33 +227,32 @@
 		src.attack_self(src.loc)
 		updateUsrDialog()
 
-
-
-/obj/item/paper_bundle/verb/rename()
-	set name = "Rename bundle"
-	set category = "Object"
-	set src in usr
-
-	var/n_name = tgui_input_text(usr, "What would you like to label the bundle?", "Bundle Labelling", name)
-	if(!Adjacent(usr) || !n_name || usr.stat)
+/obj/item/paper_bundle/AltClick(mob/user)
+	if(in_range(user, src) && !user.incapacitated())
+		if(is_pen(user.get_active_hand()))
+			rename(user)
 		return
-	name = "[(n_name ? "[n_name]" : "paper bundle")]"
-	add_fingerprint(usr)
+	. = ..()
+
+/obj/item/paper_bundle/proc/rename(mob/user)
+	var/n_name = sanitize(copytext(input(user, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	if((loc == user && !user.stat))
+		name = "[(n_name ? text("[n_name]") : "paper bundle")]"
+	add_fingerprint(user)
 	return
 
 
-/obj/item/paper_bundle/verb/remove_all()
-	set name = "Loose bundle"
-	set category = "Object"
-	set src in usr
+/obj/item/paper_bundle/AltShiftClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 
-	to_chat(usr, "<span class='notice'>You loosen the bundle.</span>")
+	to_chat(user, "<span class='notice'>You loosen the bundle.</span>")
 	for(var/obj/O in src)
-		O.loc = usr.loc
+		O.loc = user.loc
 		O.layer = initial(O.layer)
 		O.plane = initial(O.plane)
-		O.add_fingerprint(usr)
-	usr.temporarily_remove_item_from_inventory(src)
+		O.add_fingerprint(user)
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 	return
 

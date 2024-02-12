@@ -175,15 +175,13 @@
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
-/obj/machinery/bodyscanner/verb/eject()
-	set src in oview(1)
-	set category = "Object"
-	set name = "Eject Body Scanner"
+/obj/machinery/bodyscanner/AltClick(mob/user)
+	eject()
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	go_out()
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
 /obj/machinery/bodyscanner/proc/go_out()
 	if(!occupant)
@@ -363,7 +361,7 @@
 	. = TRUE
 	switch(action)
 		if("ejectify")
-			eject()
+			eject(usr)
 		if("print_p")
 			if(isPrinting)
 				return

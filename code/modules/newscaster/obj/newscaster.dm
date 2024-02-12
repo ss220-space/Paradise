@@ -93,6 +93,29 @@
 	QDEL_NULL(photo)
 	return ..()
 
+/obj/machinery/newscaster/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
+
+/obj/machinery/newscaster/update_icon()
+	cut_overlays()
+	if(inoperable())
+		icon_state = "newscaster_off"
+	else
+		if(!GLOB.news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
+			icon_state = "newscaster_normal"
+			if(alert) //new message alert overlay
+				add_overlay("newscaster_alert")
+	var/hp_percent = obj_integrity * 100 / max_integrity
+	switch(hp_percent)
+		if(75 to INFINITY)
+			return
+		if(50 to 75)
+			add_overlay("crack1")
+		if(25 to 50)
+			add_overlay("crack2")
+		else
+			add_overlay("crack3")
 
 /obj/machinery/newscaster/update_overlays()
 	. = ..()
@@ -709,6 +732,14 @@
 /obj/machinery/newscaster/proc/alert_timer_finish()
 	alert = FALSE
 	update_icon(UPDATE_OVERLAYS)
+
+/**
+  * Ejects the currently loaded photo if there is one.
+  */
+/obj/machinery/newscaster/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
+	eject_photo(user)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

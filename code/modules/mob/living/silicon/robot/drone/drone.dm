@@ -79,6 +79,8 @@
 	// Give us our action button
 	var/datum/action/innate/hide/drone/hide = new()
 	hide.Grant(src)
+	var/datum/action/innate/mail_tag_drone/the_mail = new()
+	the_mail.Grant(src)
 
 	//We need to screw with their HP a bit. They have around one fifth as much HP as a full borg.
 	for(var/V in components) if(V != "power cell")
@@ -117,6 +119,8 @@
 /mob/living/silicon/robot/drone/Destroy()
 	for(var/datum/action/innate/hide/drone/hide in actions)
 		hide.Remove(src)
+	for(var/datum/action/innate/mail_tag_drone/the_mail in actions)
+		the_mail.Remove(src)
 
 	. = ..()
 

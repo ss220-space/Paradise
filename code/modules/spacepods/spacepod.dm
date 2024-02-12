@@ -127,7 +127,7 @@
 	battery = new battery_type(src)
 	add_cabin()
 	add_airtank()
-	src.use_internal_tank = 1
+	use_internal_tank = 1
 	equipment_system = new(src)
 	equipment_system.installed_modules += battery
 	GLOB.spacepods_list += src
@@ -228,6 +228,7 @@
 		eject_passenger(target)
 
 /obj/spacepod/proc/eject_pilot()
+	RemoveActions(pilot, TRUE)
 	pilot.forceMove(get_turf(src))
 	RemoveActions(pilot)
 	pilot = null
@@ -332,12 +333,8 @@
 /obj/spacepod/proc/play_sound_to_riders(mysound)
 	if(length(passengers | pilot) == 0)
 		return
-	var/sound/S = sound(mysound)
-	S.wait = 0 //No queue
-	S.channel = SSsounds.random_available_channel()
-	S.volume = 50
 	for(var/mob/M in passengers | pilot)
-		M << S
+		M.playsound_local(get_turf(src), mysound, 50)
 
 /obj/spacepod/proc/message_to_riders(mymessage)
 	if(length(passengers | pilot) == 0)
@@ -345,7 +342,7 @@
 	for(var/mob/M in passengers | pilot)
 		to_chat(M, mymessage)
 
-/obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/spacepod/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!hatch_open)
 			to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
@@ -361,7 +358,8 @@
 	else if(istype(W, /obj/item/spacepod_equipment/key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
 		var/obj/item/spacepod_equipment/key/key = W
 		if(key.id == equipment_system.lock_system.id)
-			lock_pod()
+			unlocked = !unlocked
+			to_chat(user, span_warning("You [unlocked ? "unlock" : "lock"] the doors."))
 			return
 		else
 			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
@@ -452,16 +450,17 @@
 	if(equipment_system.vars[slot])
 		to_chat(user, "<span class='notice'>The pod already has a [slot], remove it first.</span>")
 		return
-	else
-		to_chat(user, "<span class='notice'>You insert [SPE] into the pod.</span>")
-		user.drop_transfer_item_to_loc(SPE, src)
-		equipment_system.vars[slot] = SPE
-		var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
-		system.my_atom = src
-		equipment_system.installed_modules += SPE
-		max_passengers += SPE.occupant_mod
-		cargo_hold.storage_slots += SPE.storage_mod["slots"]
-		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
+	to_chat(user, "<span class='notice'>You insert [SPE] into the pod.</span>")
+	user.drop_transfer_item_to_loc(SPE, src)
+	for(var/mob/M as anything in (passengers | pilot))
+		RemoveActions(M, M == pilot)
+	equipment_system.vars[slot] = SPE
+	var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
+	system.my_atom = src
+	equipment_system.installed_modules += SPE
+	max_passengers += SPE.occupant_mod
+	cargo_hold.storage_slots += SPE.storage_mod["slots"]
+	cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
 
 
 /obj/spacepod/attack_hand(mob/user)
@@ -560,9 +559,13 @@
 	max_passengers -= SPE.occupant_mod
 	cargo_hold.storage_slots -= SPE.storage_mod["slots"]
 	cargo_hold.max_combined_w_class -= SPE.storage_mod["w_class"]
+	for(var/mob/M as anything in (passengers | pilot))
+		RemoveActions(M, M == pilot)
+
 	SPE.removed(user)
 	SPE.my_atom = null
 	equipment_system.vars[slot] = null
+
 
 
 /obj/spacepod/hear_talk/hear_talk(mob/M, list/message_pieces)
@@ -815,7 +818,7 @@
 
 /obj/spacepod/proc/move_inside(mob/living/user)
 	if(!istype(user))
-		log_debug("SHIT'S GONE WRONG WITH THE SPACEPOD [src] AT [x], [y], [z], AREA [get_area(src)], TURF [get_turf(src)]")
+		return
 
 	occupant_sanity_check()
 
@@ -841,6 +844,24 @@
 			to_chat(user, "<span class='notice'>You stop entering [src].</span>")
 	else
 		to_chat(user, "<span class='danger'>You can't fit in [src], it's full!</span>")
+		return
+
+	visible_message("<span class='notice'>[user] starts to climb into [src].</span>")
+	if(!do_after(user, 40, target = src))
+		to_chat(user, "<span class='notice'>You stop entering [src].</span>")
+		return
+	if(!pilot) // pilot seat empty, else into passangers
+		user.stop_pulling()
+		pilot = user
+		user.forceMove(src)
+		add_fingerprint(user)
+		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+		return
+	user.stop_pulling()
+	passengers += user
+	user.forceMove(src)
+	add_fingerprint(user)
+	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 
 /obj/spacepod/proc/occupant_sanity_check()  // going to have to adjust this later for cargo refactor
 	if(passengers)

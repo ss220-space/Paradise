@@ -743,7 +743,7 @@
 	if(!Adjacent(human) || (get_turf(user) != user.loc))
 		return
 
-	var/obj/item/card/id/card = human.get_id_card()
+	var/obj/item/card/id/card = user.get_id_card()
 	if(!istype(card))
 		return
 

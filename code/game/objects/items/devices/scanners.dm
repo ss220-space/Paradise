@@ -320,7 +320,7 @@ REAGENT SCANNER
 			print_report(user)
 		return 1
 	if(href_list["mode"])
-		toggle_mode()
+		toggle_mode(user)
 		return 1
 	if(href_list["clear"])
 		to_chat(user, "Вы очистили буфер данных [src].")

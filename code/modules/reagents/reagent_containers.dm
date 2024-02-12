@@ -45,7 +45,7 @@
 /obj/item/reagent_containers/AltShiftClick(mob/user)
 	if(!length(possible_transfer_amounts))
 		return
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(usdr, TRAIT_HANDS_BLOCKED))
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Container:", list("Yes", "No")) != "Yes")
 		return

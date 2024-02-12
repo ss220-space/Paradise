@@ -87,14 +87,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "end_cap"
 	reference = "end_cap"
 
-
-/obj/structure/particle_accelerator/verb/rotate()
-	set name = "Rotate Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	rotate_accelerator(usr)
-
 /obj/structure/particle_accelerator/AltClick(mob/user)
 	rotate_accelerator(user)
 
@@ -121,7 +113,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			if(powered)
 				desc = desc_holder
 	if(!anchored)
-		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+		. += span_info("<b>Alt-Click</b> to rotate it.")
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -249,31 +241,21 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	var/strength = 0
 	var/desc_holder = null
 
-
-/obj/machinery/particle_accelerator/examine(mob/user)
+/obj/structure/particle_accelerator/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to rotate it.</span>"
-
-
-/obj/machinery/particle_accelerator/verb/rotate()
-	set name = "Rotate Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	rotate_accelerator(usr)
+	. += span_info("<b>Alt-Click</b> to rotate it.")
 
 /obj/machinery/particle_accelerator/AltClick(mob/user)
-	rotate_accelerator(user)
-
-
-/obj/machinery/particle_accelerator/proc/rotate_accelerator(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(usr, "It is fastened to the floor!")
 		return
+	add_fingerprint(user)
 	dir = turn(dir, 270)
 
+/obj/machinery/particle_accelerator/update_icon()
+	return
 
 /obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(!iscoil(W))

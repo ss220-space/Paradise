@@ -38,6 +38,9 @@
 /obj/machinery/juicer/update_icon_state()
 	icon_state = "juicer"+num2text(!isnull(beaker))
 
+/obj/machinery/juicer/examine(mob/user)
+	. = ..()
+	. += span_info("You can <b>Alt-Click</b> to detach beaker.")
 
 /obj/machinery/juicer/attackby(obj/item/O, mob/user, params)
 	if(istype(O,/obj/item/reagent_containers/glass) || \
@@ -50,7 +53,6 @@
 				return 0
 			add_fingerprint(user)
 			beaker = O
-			verbs += /obj/machinery/juicer/verb/detach
 			update_icon(UPDATE_ICON_STATE)
 			updateUsrDialog()
 			return 0
@@ -126,19 +128,19 @@
 			juice()
 
 		if("detach")
-			detach()
+			detach(usr)
 	updateUsrDialog()
 	return
 
-/obj/machinery/juicer/verb/detach()
-	set category = "Object"
-	set name = "Detach Beaker from the juicer"
-	set src in oview(1)
-	if(usr.stat != 0)
+/obj/machinery/juicer/AltClick(mob/user)
+	detach(user)
+
+/obj/machinery/juicer/proc/detach(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
 		return
 	if(!beaker)
+		to_chat(user, span_warning("There's no beaker attached!"))
 		return
-	verbs -= /obj/machinery/juicer/verb/detach
 	beaker.forceMove(loc)
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)
