@@ -1409,7 +1409,7 @@
 /// Returns the biggest number from client.view so we can do easier maths
 /client/proc/maxview()
 	var/list/screensize = getviewsize(view)
-	return max(screensize[1], screensize[2])
+	return round(max(screensize[1], screensize[2]) / 2)
 
 
 #undef LIMITER_SIZE

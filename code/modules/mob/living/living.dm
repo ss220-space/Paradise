@@ -1388,16 +1388,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/run_examinate(atom/target)
 	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
+	face_atom(target)
+
 	if(user_staring_effect || hindered_inspection(target))
 		return
 
 	var/examine_time = target.get_examine_time()
-	face_atom(target)
 	if(examine_time && target != src)
 		var/visible_gender = target.get_visible_gender()
 		var/visible_species = "Unknown"
 
 		if(isliving(target))
+			to_chat(src, span_notice("You begin to examine [target]."))
 			var/mob/living/target_living = target
 			visible_species = target_living.get_visible_species()
 
@@ -1416,8 +1418,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/proc/hindered_inspection(atom/target)
 	if(QDELETED(src) || QDELETED(target))
 		return TRUE
+	if(!(target in view(client.maxview(), client.eye)))
+		return TRUE
 	if(!has_vision(information_only = TRUE))
 		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
 		return TRUE
 	return FALSE
-
