@@ -74,3 +74,9 @@
 	egg_item = /obj/item/fish_eggs/electric_eel
 	fish_item = /obj/item/fish/electric_eel
 	crossbreeder = 0
+
+/datum/fish/crayfish
+	fish_name = "crayfish"
+	egg_item = /obj/item/fish_eggs/crayfish
+	fish_item = /obj/item/reagent_containers/food/snacks/crayfish_big
+	crossbreeder = 0

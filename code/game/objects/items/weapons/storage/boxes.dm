@@ -1063,6 +1063,42 @@
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
 
+/obj/item/storage/box/crayfish_bucket
+	name = "Mr. Chang's Spicy Lobsters"
+	desc = "Supply of lobsters from Mr. Cheng. Crayfish instead of lobsters, super discount, great rating!"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "crayfish_bucket"
+	storage_slots = 1
+
+	var/static/list/preset1 = list(
+		/obj/item/reagent_containers/food/snacks/crayfish_big,
+		/obj/item/reagent_containers/food/snacks/crayfish_big,
+		/obj/item/reagent_containers/food/snacks/crayfish_big,
+		/obj/item/reagent_containers/food/snacks/crayfish_big,
+		/obj/item/reagent_containers/food/snacks/crayfish_small,
+		/obj/item/reagent_containers/food/drinks/cans/beer)
+
+	var/static/list/preset2 = list(
+		/obj/item/reagent_containers/food/snacks/crayfish_big,
+		/obj/item/reagent_containers/food/snacks/crayfish_big,
+		/obj/item/reagent_containers/food/snacks/crayfish_big,
+		/obj/item/reagent_containers/food/snacks/crayfish_small,
+		/obj/item/reagent_containers/food/snacks/crayfish_small,
+		/obj/item/reagent_containers/food/drinks/cans/beer)
+
+	var/static/list/preset3 = list(
+		/obj/item/reagent_containers/food/snacks/crayfish_small,
+		/obj/item/reagent_containers/food/snacks/crayfish_big,
+		/obj/item/reagent_containers/food/snacks/crayfish_big,
+		/obj/item/reagent_containers/food/snacks/crayfish_small,
+		/obj/item/reagent_containers/food/snacks/crayfish_small,
+		/obj/item/reagent_containers/food/drinks/cans/beer)
+
+/obj/item/storage/box/crayfish_bucket/populate_contents()
+	var/list/preset = pick(preset1,preset2,preset3)
+	for(var/item in preset)
+		new item(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

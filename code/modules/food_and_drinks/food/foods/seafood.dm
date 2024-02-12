@@ -383,3 +383,47 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("grilled eel" = 1, "seaweed" = 1)
 	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/crayfish_small_raw
+	name = "raw small crayfish"
+	desc = "A fillet of raw salmon."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state  = "Small_life_raki"
+	filling_color = "#2e2b2eff"
+	bitesize = 3
+	list_reagents = list("protein" = 1.5, "vitamin" = 1)
+	tastes = list("raw crayfish" = 1)
+	foodtype = MEAT | RAW
+
+/obj/item/reagent_containers/food/snacks/crayfish_big_raw
+	name = "raw crayfish"
+	desc = "A fillet of raw salmon."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "Big_life_raki"
+	filling_color = "#2e2b2eff"
+	bitesize = 6
+	list_reagents = list("protein" = 3, "vitamin" = 2)
+	tastes = list("raw crayfish" = 1)
+	foodtype = MEAT | RAW
+
+/obj/item/reagent_containers/food/snacks/crayfish_small
+	name = "small crayfish"
+	desc = "A fillet of raw salmon."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "Small_raki"
+	filling_color = "#751717"
+	bitesize = 3
+	list_reagents = list("nutriment" = 2, "vitamin" = 1)
+	tastes = list("crayfish" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/crayfish_big
+	name = "crayfish"
+	desc = "A fillet of raw salmon."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "Big_raki"
+	filling_color = "#751717"
+	bitesize = 6
+	list_reagents = list("nutriment" = 4, "vitamin" = 2)
+	tastes = list("crayfish" = 1)
+	foodtype = MEAT
