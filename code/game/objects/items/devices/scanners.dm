@@ -288,7 +288,8 @@ REAGENT SCANNER
 
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>To swap between showing specific limb damage, use <b>Alt-Click</b> on [src] in hand.</span>"
+	. += span_info("To swap between showing specific limb damage, use <b>Alt-Click</b> on [src] in hand.")
+	. += span_info("<b>Alt-Shift-Click to print a report.")
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 //	healthscan(user, M, mode, advanced)
@@ -328,15 +329,8 @@ REAGENT SCANNER
 		user << browse(null, "window=scanner")
 		return 1
 
-/obj/item/healthanalyzer/proc/print_report_verb()
-	set name = "Печать отчета"
-	set category = "Object"
-	set src = usr
-
-	var/mob/user = usr
-	if(!istype(user))
-		return
-	if (user.incapacitated())
+/obj/item/healthanalyzer/AltShiftClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	print_report(user)
 

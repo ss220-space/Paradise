@@ -32,6 +32,7 @@
 	. = ..()
 	if(sibyl_mod)
 		. += span_notice("Вы видите индикаторы модуля Sibyl System.")
+		. += span_info("<b>Alt-Click</b> to toggle Sybil System voice.")
 
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
 	..()
@@ -45,11 +46,7 @@
 			sibyl_mod?.toggleAuthorization(I, user)
 			return
 
-/obj/item/gun/energy/proc/toggle_voice()
-	set name = "Переключить голос Sibyl System"
-	set category = "Object"
-	set desc = "Кликните для переключения голосовой подсистемы."
-
+/obj/item/gun/energy/AltClick(mob/user)
 	if(sibyl_mod)
 		sibyl_mod.toggle_voice(usr)
 

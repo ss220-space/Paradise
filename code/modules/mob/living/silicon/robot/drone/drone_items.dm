@@ -124,13 +124,6 @@
 	..()
 	can_hold = typecacheof(can_hold)
 
-/obj/item/gripper/verb/drop_item_gripped()
-	set name = "Drop Gripped Item"
-	set desc = "Release an item from your magnetic gripper."
-	set category = "Drone"
-
-	drop_gripped_item()
-
 /obj/item/gripper/attack_self(mob/user)
 	if(gripped_item)
 		gripped_item.attack_self(user)

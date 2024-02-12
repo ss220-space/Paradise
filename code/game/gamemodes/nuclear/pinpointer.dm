@@ -491,15 +491,6 @@
 		return
 	..()
 
-
-/obj/item/pinpointer/crew/verb/choose_signal_verb()
-	set category = "Object"
-	set name = "Track Signals"
-	set src in usr
-
-	choose_signal(usr)
-
-
 /obj/item/pinpointer/crew/proc/choose_signal(mob/living/carbon/user)
 	if(!iscarbon(user) || user.incapacitated())
 		return
@@ -602,10 +593,9 @@
 /obj/item/pinpointer/thief/AltClick(mob/user)
 	toggle_mode(user)
 
-/obj/item/pinpointer/thief/proc/toggle_mode(mob/user)
-	if(!iscarbon(user) || user.incapacitated() || !Adjacent(user))
+/obj/item/pinpointer/thief/proc/toggle_mode(mob/living/carbon/user)
+	if(istype(user) || user.incapacitated() || !Adjacent(user))
 		return
-
 	switch(alert("Выберите режим пинпоинтера.", "Выбор режима пинпоинтера", "Локация", "Сигнатура Объекта", "Цели"))
 		if("Локация")
 			set_location(user)

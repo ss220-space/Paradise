@@ -1,10 +1,11 @@
-/proc/machine_upgrade(obj/machinery/M in world)
+/obj/machinery/proc/machine_upgrade()
 	set name = "\[Admin\] Tweak Component Ratings"
 	set category = null
 
 	if(!check_rights(R_DEBUG))
 		return
 
+	var/obj/machinery/M = src
 	if(!istype(M))
 		to_chat(usr, "<span class='danger'>This can only be used on subtypes of /obj/machinery.</span>")
 		return

@@ -113,7 +113,7 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin)
-		. += "<span class='info'>Alt-click it to reskin it.</span>"
+		. += span_info("<b>Alt-Shift-Click</b> it to reskin it.")
 	if(unique_rename)
 		. += "<span class='info'>Use a pen on it to rename it.</span>"
 	if(bayonet)
@@ -484,7 +484,7 @@
 		azoom.Remove(user)
 
 
-/obj/item/gun/AltClick(mob/user)
+/obj/item/gun/AltShiftClick(mob/user)
 	if(!unique_reskin || current_skin || loc != user)
 		return ..()
 	if(!Adjacent(user))

@@ -38,7 +38,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		forceMove(W)
 	weapon = W
 	weapon.sibyl_mod = src
-	weapon.verbs += /obj/item/gun/energy/proc/toggle_voice
 	state = SIBSYS_STATE_INSTALLED
 	register(user)
 	check_unknown_names()
@@ -59,7 +58,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod/proc/uninstall(obj/item/gun/energy/W)
 	GLOB.sybsis_registry -= list(src)
 	forceMove(get_turf(src))
-	W.verbs -= /obj/item/gun/energy/proc/toggle_voice
 
 	state = SIBSYS_STATE_UNINSTALLED
 	lock(silent = TRUE)

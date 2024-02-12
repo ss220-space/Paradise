@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
-	/client/proc/make_sound,
+	// /client/proc/make_sound,
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_ert_calling,
@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
 	/client/proc/test_snap_UI,
-	/proc/machine_upgrade,
+	/obj/machinery/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
@@ -887,6 +887,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	log_and_message_admins("gave [key_name_log(T)] the disease [D].")
 
+/* - Я убрал это из виду того, что он слишком слаб для ивентов. прок даже не указывает правильно на своё обозначение(отправляет сообщение в чат, всем кто видит предмет)
 /client/proc/make_sound(obj/O in view(maxview())) // -- TLE
 	set category = "Event"
 	set name = "\[Admin\] Make Sound"
@@ -903,6 +904,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			V.show_message(admin_pencode_to_html(message), 2)
 		log_and_message_admins("made [O] at [COORD(O)] make a sound")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+*/
 
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode Self"

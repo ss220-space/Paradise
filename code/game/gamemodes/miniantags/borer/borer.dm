@@ -204,11 +204,7 @@
 		to_chat(src, span_notice("Теперь вы сможете говорить, находясь внутри носителя."))
 
 /mob/living/proc/borer_comm()
-	set name = "Converse with Borer"
-	set category = "Borer"
-	set desc = "Communicate mentally with your borer."
-
-	if(src.stat == DEAD) // This shouldn't appear if host is not alive, but double-check
+	if(stat == DEAD) // This shouldn't appear if host is not alive, but double-check
 		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -228,12 +224,8 @@
 	to_chat(src, "<span class='changeling'><i>[src] says:</i> [input]</span>")
 
 /mob/living/proc/trapped_mind_comm()
-	set name = "Converse with Trapped Mind"
-	set category = "Borer"
-	set desc = "Communicate mentally with the trapped mind of your host."
-
-	if(src.stat == DEAD)
-		to_chat(src, span_warning("Мозг жертвы не способен воспринимать вас в этом состоянии!"))
+	if(stat == DEAD)
+		to_chat(src, "<span class='warning'>Мозг жертвы не способен воспринимать вас в этом состоянии!</span>")
 		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -548,7 +540,6 @@
 
 	var/mob/living/carbon/H = host
 	H.borer = null
-	H.verbs -= /mob/living/proc/borer_comm
 	talk_to_borer_action.Remove(host)
 	H.status_flags &= ~PASSEMOTES
 	host = null
@@ -641,12 +632,6 @@
 
 		controlling = TRUE
 
-		host.verbs += /mob/living/carbon/proc/release_control
-		host.verbs += /mob/living/carbon/proc/punish_host
-		host.verbs += /mob/living/carbon/proc/spawn_larvae
-		host.verbs -= /mob/living/proc/borer_comm
-		host.verbs += /mob/living/proc/trapped_mind_comm
-
 		GrantControlActions()
 		talk_to_borer_action.Remove(host)
 		host.med_hud_set_status()
@@ -656,12 +641,7 @@
 		return
 
 /mob/living/carbon/proc/punish_host()
-	set category = "Borer"
-	set name = "Torment Host"
-	set desc = "Punish your host with agony."
-
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
 	if(!B)
 		return
 
@@ -671,11 +651,6 @@
 
 //Brain slug proc for voluntary removal of control.
 /mob/living/carbon/proc/release_control()
-
-	set category = "Borer"
-	set name = "Release Control"
-	set desc = "Release control of your host's body."
-
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
 	if(B && B.host_brain)
@@ -698,12 +673,7 @@
 	return FALSE
 
 /mob/living/carbon/proc/spawn_larvae()
-	set category = "Borer"
-	set name = "Reproduce"
-	set desc = "Spawn several young."
-
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
 	if(!B)
 		return
 
@@ -727,12 +697,6 @@
 	controlling = FALSE
 	reset_perspective(null)
 	machine = null
-
-	host.verbs -= /mob/living/carbon/proc/release_control
-	host.verbs -= /mob/living/carbon/proc/punish_host
-	host.verbs -= /mob/living/carbon/proc/spawn_larvae
-	host.verbs += /mob/living/proc/borer_comm
-	host.verbs -= /mob/living/proc/trapped_mind_comm
 
 	RemoveControlActions()
 	talk_to_borer_action.Grant(host)

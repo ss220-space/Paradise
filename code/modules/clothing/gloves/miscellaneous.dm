@@ -178,25 +178,25 @@
 	var/click_speed_modifier = CLICK_CD_RAPID
 	var/mob/living/owner
 
+/obj/item/clothing/gloves/fingerless/rapid/examine(mob/user)
+	. = ..()
+	. += span_info("<b>Alt-Click</b> to enable direction slash.")
+
 /obj/item/clothing/gloves/fingerless/rapid/equipped(mob/user, slot, initial)
 	owner = user
 	if(istype(owner) && slot == slot_gloves)
 		owner.dirslash_enabled = TRUE
-		owner.verbs += /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
 	. = ..()
 
 /obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, silent)
-	owner.verbs -= /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
 	owner.dirslash_enabled = initial(owner.dirslash_enabled)
 	. = ..()
 
-/obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling()
-	set name = "Enable/Disable direction slash"
-	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
-	set category = "Object"
-	var/mob/living/L = usr
-	L.dirslash_enabled = !L.dirslash_enabled
-	to_chat(src, span_notice("Directrion slash is [L.dirslash_enabled? "enabled" : "disabled"] now."))
+/obj/item/clothing/gloves/fingerless/rapid/AltClick(mob/living/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
+	user.dirslash_enabled = !user.dirslash_enabled
+	to_chat(user, span_notice("Directrion slash is [user.dirslash_enabled? "enabled" : "disabled"] now."))
 
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)

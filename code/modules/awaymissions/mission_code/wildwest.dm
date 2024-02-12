@@ -50,14 +50,14 @@
 	var/chargesa = 1
 	var/insistinga = 0
 
-/obj/machinery/wish_granter_dark/attack_hand(var/mob/living/carbon/human/user as mob)
+/obj/machinery/wish_granter_dark/attack_hand(mob/living/carbon/human/user)
 	usr.set_machine(src)
 
 	if(chargesa <= 0)
 		to_chat(user, "The Wish Granter lies silent.")
 		return
 
-	else if(!istype(user, /mob/living/carbon/human))
+	if(!ishuman(user))
 		to_chat(user, "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.")
 		return
 
@@ -104,7 +104,6 @@
 			if("Immortality")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.verbs += /mob/living/carbon/proc/immortality
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
@@ -113,6 +112,7 @@
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species(/datum/species/shadow)
+				user.mind.AddSpell(new /obj/effect/proc_holder/spell/wishgranter_immortality(null))
 				user.regenerate_icons()
 			if("Peace")
 				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
@@ -158,27 +158,47 @@
 
 /////For the Wishgranter///////////
 
-/mob/living/carbon/proc/immortality()
-	set category = "Immortality"
-	set name = "Resurrection"
+/obj/effect/proc_holder/spell/wishgranter_immortality
+	name = "Immortal Resurrection"
+	desc = "A granted wish at a terrible cost..."
+	base_cooldown = 100 SECONDS
+	panel = null
+	action_icon_state = "revive"
+	invocation_type = "none"
+	invocation = null
+	sound = null
+	clothes_req = FALSE
+	stat_allowed = DEAD
+	var/revival_in_progress = FALSE
 
-	var/mob/living/carbon/C = usr
+
+/obj/effect/proc_holder/spell/wishgranter_immortality/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/wishgranter_immortality/cast_check(charge_check, start_recharge, mob/user)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/living/carbon/C = user
 	if(C.stat != DEAD)
-		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
-		return
+		to_chat(C, span_notice("You're not dead yet!"))
+		return FALSE
 	if(revival_in_progress)
-		to_chat(C, "<span class='notice'>You're already rising from the dead!</span>")
-		return //no spam callbacks
-	C.revival_in_progress = TRUE
-	to_chat(C, "<span class='notice'>Death is not your end!</span>")
-	addtimer(CALLBACK(C, PROC_REF(resurrect), C), rand(80 SECONDS, 120 SECONDS))
+		to_chat(C, span_notice("You're already rising from the dead!</span>"))
+		return FALSE
+	return TRUE
 
-/mob/living/carbon/proc/resurrect(var/mob/living/carbon/user)
+/obj/effect/proc_holder/spell/wishgranter_immortality/cast(list/targets, mob/user)
+	revival_in_progress = TRUE
+	to_chat(user, span_notice("Death is not your end!"))
+	addtimer(CALLBACK(src, PROC_REF(resurrect), user), rand(80 SECONDS, 120 SECONDS))
+
+
+/obj/effect/proc_holder/spell/wishgranter_immortality/proc/resurrect(mob/living/carbon/human/user)
 	user.revive()
-	user.revival_in_progress = FALSE
-	to_chat(user, "<span class='notice'>You have regenerated.</span>")
-	user.visible_message("<span class='warning'>[user] appears to wake from the dead, having healed all wounds.</span>")
-	return 1
+	revival_in_progress = FALSE
+	user.visible_message(span_warning("[user] appears to wake from the dead, having healed all wounds."), span_notice("You have regenerated.</span>"))
 
 /obj/item/wildwest_communicator
 	name = "Syndicate Comms Device"

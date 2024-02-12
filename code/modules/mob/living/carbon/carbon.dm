@@ -1,6 +1,4 @@
 /mob/living/carbon
-	/// Used for wishgranter see wildwest.dm
-	var/revival_in_progress = FALSE
 	/// Just a timer stamp for [/mob/living/carbon/relaymove]
 	var/last_stomach_attack
 

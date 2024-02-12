@@ -658,9 +658,6 @@
 	..()
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
-	set name = "Create trap"
-	set category = "Swarmer"
-	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources."
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, "<span class='warning'>There is already a trap here. Aborting.</span>")
 		return
@@ -668,9 +665,6 @@
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
-	set name = "Create barricade"
-	set category = "Swarmer"
-	set desc = "Creates a barricade that will stop anything but swarmers and disabler beams from passing through."
 	if(locate(/obj/structure/swarmer/blockade) in loc)
 		to_chat(src, "<span class='warning'>There is already a blockade here. Aborting.</span>")
 		return
@@ -695,9 +689,6 @@
 		return 1
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
-	set name = "Replicate"
-	set category = "Swarmer"
-	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
 	to_chat(src, "<span class='info'>We are attempting to replicate ourselves. We will need to stand still until the process is complete.</span>")
 	if(resources < 100)
 		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
@@ -716,9 +707,6 @@
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/RepairSelf()
-	set name = "Self Repair"
-	set category = "Swarmer"
-	set desc = "Attempts to repair damage to our body. You will have to remain motionless until repairs are complete."
 	if(!isturf(loc))
 		return
 	to_chat(src, "<span class='info'>Attempting to repair damage to our body, stand by...</span>")
