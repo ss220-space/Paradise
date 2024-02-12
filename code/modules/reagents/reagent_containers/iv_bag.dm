@@ -25,24 +25,24 @@
 	return ..()
 
 /obj/item/reagent_containers/iv_bag/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/pickup(mob/user)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/dropped(mob/user, silent = FALSE)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/attack_self(mob/user)
 	..()
 	mode = !mode
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/attack_hand()
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
 	injection_target = target
@@ -74,13 +74,13 @@
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1) 	//The amount of reagents we'll transfer to the person
 			reagents.reaction(injection_target, REAGENT_INGEST, fraction) 						//React the amount we're transfering.
 			reagents.trans_to(injection_target, amount_per_transfer_from_this)
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 	else		// Drawing
 		if(reagents.total_volume < reagents.maximum_volume)
 			injection_target.transfer_blood_to(src, amount_per_transfer_from_this)
 			for(var/datum/reagent/x in injection_target.reagents.reagent_list) // Pull small amounts of reagents from the person while drawing blood
 				injection_target.reagents.trans_to(src, amount_per_transfer_from_this/10)
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/attack(mob/living/M, mob/living/user, def_zone)
 	return
@@ -139,24 +139,24 @@
 		return
 
 
-/obj/item/reagent_containers/iv_bag/update_icon()
-	overlays.Cut()
-
+/obj/item/reagent_containers/iv_bag/update_overlays()
+	. = ..()
 	if(reagents.total_volume)
 		var/percent = round((reagents.total_volume / volume) * 10) // We round the 1's place off of our percent for easy image processing.
 		var/image/filling = image('icons/goonstation/objects/iv.dmi', src, "[icon_state][percent]")
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
+		. += filling
 	if(ismob(loc))
 		switch(mode)
 			if(IV_DRAW)
-				overlays += "draw"
+				. += "draw"
 			if(IV_INJECT)
-				overlays += "inject"
+				. += "inject"
+
 
 /obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
 
 // PRE-FILLED IV BAGS BELOW
@@ -177,6 +177,7 @@
 	if(blood_type != null && blood_species != null)
 		name = "[initial(name)] - [blood_type] - [blood_species]"
 		reagents.add_reagent("blood", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+		update_icon(UPDATE_OVERLAYS)
 	. = ..()
 
 
@@ -250,6 +251,8 @@
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
 		reagents.add_reagent("sbloodoxy", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+		update_icon(UPDATE_OVERLAYS)
+
 	. = ..()
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis
@@ -259,6 +262,7 @@
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
 		reagents.add_reagent("sbloodvox", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+		update_icon(UPDATE_OVERLAYS)
 	. = ..()
 
 /obj/item/reagent_containers/iv_bag/slime

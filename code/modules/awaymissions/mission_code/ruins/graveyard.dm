@@ -36,11 +36,10 @@
 	icon_state = "case-0"
 	allowed_books = list(/obj/item/storage/funeral_urn)
 
-/obj/structure/bookcase/ashframe/update_icon()
-	if(contents.len < 5)
-		icon_state = "case-[contents.len]"
-	else
-		icon_state = "case-5"
+
+/obj/structure/bookcase/ashframe/update_icon_state()
+	icon_state = "case-[min(length(contents), 5)]"
+
 
 /obj/structure/bookcase/ashframe/random
 

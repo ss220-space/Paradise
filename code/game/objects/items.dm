@@ -1153,12 +1153,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/update_atom_colour()
 	. = ..()
-	if(!is_equipped())
-		return
 	update_equipped_item()
-	for(var/action in actions)
-		var/datum/action/myaction = action
-		myaction.UpdateButtonIcon()
 
 
 /obj/item/proc/add_tape()

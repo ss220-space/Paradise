@@ -513,7 +513,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			desc += "<u><span class='warning'>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], in the direction of space sector [origin.z]!</span></u>"
 
 	else
-		inner_portal.icon_state = "lava"
+		inner_portal.update_icon(UPDATE_ICON_STATE)
 		light_color = LIGHT_COLOR_FIRE
 		desc += "<br><span class='boldwarning'>A tear in reality reveals a coursing river of lava... something recently teleported here from the Lavaland Mines!</span>"
 
@@ -967,6 +967,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
 	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]."
 
+
+/obj/effect/rune/narsie/update_icon_state()
+	icon_state = used ? "rune_large_distorted" : initial(icon_state)
+
+
 /obj/effect/rune/narsie/check_icon()
 	return
 
@@ -993,7 +998,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	..()
 	SEND_SOUND(world, 'sound/effects/narsie_summon.ogg')
 	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
-	icon_state = "rune_large_distorted"
+	update_icon(UPDATE_ICON_STATE)
 	var/turf/T = get_turf(src)
 	sleep(40)
 	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed

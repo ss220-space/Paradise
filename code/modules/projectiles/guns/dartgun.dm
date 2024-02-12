@@ -10,14 +10,15 @@
 	origin_tech = "materials=2"
 	var/darts = 5
 
-/obj/item/dart_cartridge/update_icon()
+
+/obj/item/dart_cartridge/update_icon_state()
 	if(!darts)
 		icon_state = "darts-0"
 	else if(darts > 5)
 		icon_state = "darts-5"
 	else
 		icon_state = "darts-[darts]"
-	return 1
+
 
 /obj/item/gun/dartgun
 	name = "dart gun"
@@ -32,10 +33,11 @@
 	var/containers_type = /obj/item/reagent_containers/glass/beaker
 	var/list/starting_chems = null
 
-/obj/item/gun/dartgun/update_icon()
+
+/obj/item/gun/dartgun/update_icon_state()
 	if(!cartridge)
 		icon_state = "dartgun-e"
-		return 1
+		return
 
 	if(!cartridge.darts)
 		icon_state = "dartgun-0"
@@ -43,10 +45,11 @@
 		icon_state = "dartgun-5"
 	else
 		icon_state = "dartgun-[cartridge.darts]"
-	return 1
 
-/obj/item/gun/dartgun/New()
-	..()
+
+/obj/item/gun/dartgun/Initialize()
+	. = ..()
+
 	if(starting_chems)
 		for(var/chem in starting_chems)
 			var/obj/B = new containers_type(src)
@@ -54,6 +57,7 @@
 			beakers += B
 	cartridge = new /obj/item/dart_cartridge(src)
 	update_icon()
+
 
 /obj/item/gun/dartgun/examine(mob/user)
 	. = ..()
@@ -150,7 +154,7 @@
 			to_chat(user, "<span class='warning'>There are no reagents available!</span>")
 			return
 		cartridge.darts--
-		src.update_icon()
+		update_icon()
 		S.reagents.trans_to(D, S.reagents.total_volume)
 		qdel(S)
 		D.icon_state = "syringeproj"
@@ -293,6 +297,6 @@
 	anchored = 1
 	density = 0
 
-/obj/effect/syringe_gun_dummy/New()
+/obj/effect/syringe_gun_dummy/Initialize(mapload)
 	. = ..()
 	create_reagents(15)

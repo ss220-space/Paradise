@@ -267,7 +267,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
 	return
 
-/turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
+/turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user, time)
 	return
 
 /turf/simulated/wall/mineral/titanium/nodecon/burn_down()

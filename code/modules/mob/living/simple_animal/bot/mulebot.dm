@@ -168,17 +168,22 @@
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, FALSE)
 
 
-/mob/living/simple_animal/bot/mulebot/update_icon()
+/mob/living/simple_animal/bot/mulebot/update_icon_state()
 	if(open)
 		icon_state="mulebot-hatch"
 	else
 		icon_state = "mulebot[wires.is_cut(WIRE_MOB_AVOIDANCE)]"
-	overlays.Cut()
+
+
+/mob/living/simple_animal/bot/mulebot/update_overlays()
+	. = ..()
 	if(load && !ismob(load))//buckling handles the mob offsets
-		load.pixel_y = initial(load.pixel_y) + 9
+		var/image/load_overlay = image(icon = load.icon, icon_state = load.icon_state)
+		load_overlay.pixel_y = initial(load.pixel_y) + 9
 		if(load.layer < layer)
-			load.layer = layer + 0.1
-		overlays += load
+			load_overlay.layer = layer + 0.1
+		load_overlay.overlays = load.overlays
+		. += load_overlay
 
 
 /mob/living/simple_animal/bot/mulebot/ex_act(severity)
@@ -371,7 +376,7 @@
 
 // mousedrop a crate to load the bot
 // can load anything if hacked
-/mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
+/mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user, params)
 
 	if(!istype(AM) || user.incapacitated() || user.lying || !in_range(user, src))
 		return FALSE
@@ -451,8 +456,6 @@
 
 	mode = BOT_IDLE
 
-	overlays.Cut()
-
 	unbuckle_all_mobs()
 
 	if(load)
@@ -466,6 +469,8 @@
 			if(load.CanPass(load,newT)) //Can't get off onto anything that wouldn't let you pass normally
 				step(load, dirn)
 		load = null
+
+	update_icon(UPDATE_OVERLAYS)
 
 	// in case non-load items end up in contents, dump every else too
 	// this seems to happen sometimes due to race conditions

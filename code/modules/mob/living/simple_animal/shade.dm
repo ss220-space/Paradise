@@ -45,6 +45,10 @@
 	else
 		..()
 
+/mob/living/simple_animal/shade/update_icon_state()
+	icon_state = holy ? "shade_angelic" : "shade"
+
+
 /mob/living/simple_animal/shade/Process_Spacemove()
 	return TRUE
 

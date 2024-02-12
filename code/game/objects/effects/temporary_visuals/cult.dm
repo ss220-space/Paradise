@@ -44,6 +44,12 @@
 	icon_state = "space"
 	duration = 600
 	layer = ABOVE_OBJ_LAYER
+	var/from_lava = FALSE
+
+
+/obj/effect/temp_visual/cult/portal/update_icon_state()
+	icon_state = from_lava ? "lava" : "space"
+
 
 /obj/effect/temp_visual/emp/cult
 	name = "cult emp sparks"
