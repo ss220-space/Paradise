@@ -39,7 +39,6 @@
 					add_fingerprint(user)
 					put_in_cart(I, user)
 					food_slots[s]=I
-					update_icon()
 					success = 1
 					break
 			if(!success)
@@ -51,7 +50,6 @@
 					add_fingerprint(user)
 					put_in_cart(I, user)
 					drink_slots[s]=I
-					update_icon()
 					success = 1
 					break
 			if(!success)
@@ -198,7 +196,6 @@
 			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
 			drink_slots[6] = null
 
-	update_icon()		//Not really needed without overlays, but keeping just in case
 	updateUsrDialog()
 
 /obj/structure/foodcart/deconstruct(disassembled = TRUE)

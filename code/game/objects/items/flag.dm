@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_integrity = 40
 	resistance_flags = FLAMMABLE
+	custom_fire_overlay = "fire"
 	var/rolled = FALSE
 
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
@@ -20,35 +21,33 @@
 /obj/item/flag/attack_self(mob/user)
 	rolled = !rolled
 	user.visible_message("<span class='notice'>[user] [rolled ? "rolls up" : "unfurls"] [src].</span>", "<span class='notice'>You [rolled ? "roll up" : "unfurl"] [src].</span>", "<span class='warning'>You hear fabric rustling.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/flag/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/flag/extinguish()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/flag/update_icon()
-	overlays.Cut()
+
+/obj/item/flag/update_icon_state()
 	updateFlagIcon()
 	item_state = icon_state
 	if(rolled)
 		icon_state = "[icon_state]_rolled"
+		custom_fire_overlay = "fire_rolled"
+	else
+		custom_fire_overlay = initial(custom_fire_overlay)
 	if(resistance_flags & ON_FIRE)
 		item_state = "[item_state]_fire"
-	if((resistance_flags & ON_FIRE) && rolled)
-		overlays += image('icons/obj/flag.dmi', src , "fire_rolled")
-	else if((resistance_flags & ON_FIRE) && !rolled)
-		overlays += image('icons/obj/flag.dmi', src , "fire")
-	if(ismob(loc))
-		var/mob/M = loc
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
+	update_equipped_item()
+
 
 /obj/item/flag/proc/updateFlagIcon()
 	icon_state = initial(icon_state)
+
 
 /obj/item/flag/nt
 	name = "Nanotrasen flag"
@@ -219,9 +218,16 @@
 	var/obj/item/grenade/boobytrap = null
 	var/mob/trapper = null
 
-/obj/item/flag/chameleon/New()
+
+/obj/item/flag/chameleon/Initialize(mapload)
 	updated_icon_state = icon_state
-	..()
+	. = ..()
+
+
+/obj/item/flag/chameleon/Destroy()
+	QDEL_NULL(boobytrap)
+	return ..()
+
 
 /obj/item/flag/chameleon/attack_self(mob/user)
 	if(used)

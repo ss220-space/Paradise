@@ -99,7 +99,7 @@
 	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")
-		if(LAZYLEN(target.butcher_results))
+		if(LAZYLEN(target.butcher_results) || issmall(target))
 			target.harvest(chassis) // Butcher the mob with our drill.
 		else
 			target.gib()
@@ -147,23 +147,19 @@
 	icon_state = "mecha_analyzer"
 	equip_cooldown = 1.5 SECONDS
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSfastprocess, src)
-
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/M)
-	START_PROCESSING(SSfastprocess, src)
+	START_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act()
-	STOP_PROCESSING(SSfastprocess, src)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act(obj/mecha/M)
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()
 	if(!chassis)
-		STOP_PROCESSING(SSfastprocess, src)
+		STOP_PROCESSING(SSobj, src)
 		return TRUE
 	if(!action_checks(src))
 		return FALSE

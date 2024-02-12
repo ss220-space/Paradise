@@ -375,18 +375,23 @@
 				L.Add(T)
 	return L
 
-//Idem, but don't check for ID and goes through open doors
-/turf/proc/AdjacentTurfs(list/closed)
-	var/list/L = new()
-	var/turf/simulated/T
-	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+
+/// Returns the adjacent turfs. Can check for density or cardinal directions only instead of all 8, or just dense turfs entirely. dense_only takes precedence over open_only.
+/turf/proc/AdjacentTurfs(open_only = FALSE, cardinal_only = FALSE, dense_only = FALSE)
+	var/list/L = list()
+	var/turf/T
+	var/list/directions = cardinal_only ? GLOB.cardinal : GLOB.alldirs
+	for(var/dir in directions)
 		T = get_step(src, dir)
-		if(T in closed) //turf already proceeded by A*
+		if(!istype(T))
 			continue
-		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T))
-				L.Add(T)
+		if(dense_only && !T.density)
+			continue
+		if((open_only && T.density) && !dense_only)
+			continue
+		L.Add(T)
 	return L
+
 
 // check for all turfs, including space ones
 /turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed

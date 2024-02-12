@@ -9,26 +9,27 @@
 	w_class = WEIGHT_CLASS_HUGE
 	flags = CONDUCT
 
+
 /obj/item/assembly/shock_kit/Destroy()
 	QDEL_NULL(part1)
 	QDEL_NULL(part2)
 	return ..()
 
-/obj/item/assembly/shock_kit/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench) && !status)
-		var/turf/T = loc
-		if(ismob(T))
-			T = T.loc
-		part1.loc = T
-		part2.loc = T
-		part1.master = null
-		part2.master = null
-		part1 = null
-		part2 = null
-		qdel(src)
-		return
+
+/obj/item/assembly/shock_kit/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!status)
+		return .
 	add_fingerprint(user)
-	return
+	var/drop_loc = drop_location()
+	part1.forceMove(drop_loc)
+	part2.forceMove(drop_loc)
+	part1.master = null
+	part2.master = null
+	part1 = null
+	part2 = null
+	qdel(src)
+
 
 /obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -36,18 +37,19 @@
 		return
 	status = !status
 	if(status)
-		to_chat(user, "<span class='notice'>[src] is now ready to be attached to a chair!</span>")
+		to_chat(user, span_notice("[src] is now ready to be attached to a chair!"))
 	else
-		to_chat(user, "<span class='notice'>[src] is now ready!</span>")
+		to_chat(user, span_notice("[src] is now ready!"))
 
-/obj/item/assembly/shock_kit/attack_self(mob/user as mob)
+
+/obj/item/assembly/shock_kit/attack_self(mob/user)
 	part1.attack_self(user, status)
 	part2.attack_self(user, status)
 	add_fingerprint(user)
-	return
+
 
 /obj/item/assembly/shock_kit/receive_signal()
 	if(istype(loc, /obj/structure/chair/e_chair))
-		var/obj/structure/chair/e_chair/C = loc
-		C.shock()
-	return
+		var/obj/structure/chair/e_chair/chair = loc
+		chair.shock()
+

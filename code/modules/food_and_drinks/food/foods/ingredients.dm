@@ -198,13 +198,12 @@
 	tastes = list("dough" = 1, "sugar" = 1)
 	foodtype = GRAIN | SUGAR
 
-/obj/item/reagent_containers/food/snacks/cookiedough/update_icon()
+/obj/item/reagent_containers/food/snacks/cookiedough/update_icon_state()
     if(flat)
         icon_state = "cookiedough_flat"
         name = "flat pastry dough"
     else
         icon_state = "cookiedough"
-
 
 
 // Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies

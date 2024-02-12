@@ -155,7 +155,8 @@
 		qdel(src)
 
 
-/obj/structure/closet/cardboard/agent/update_icon()	// When the box is opened, it's deleted, so we never need to update this.
+// When the box is opened, it's deleted, so we never need to update this.
+/obj/structure/closet/cardboard/agent/update_icon_state()
 	return
 
 

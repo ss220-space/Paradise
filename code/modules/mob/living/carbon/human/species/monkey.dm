@@ -40,6 +40,8 @@
 	brute_mod = 1.5
 	burn_mod = 1.5
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey
+
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
@@ -70,7 +72,7 @@
 	..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
-	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/monkey = 5)
+	H.meatleft = 5
 
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
@@ -91,6 +93,7 @@
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
 	tail = "farwatail"
+	skinned_type = /obj/item/stack/sheet/animalhide/farwa
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
@@ -103,6 +106,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/tajaran/farwa, //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/farwa
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -133,6 +138,7 @@
 	flesh_color = "#966464"
 	base_color = "#000000"
 	tail = "wolpintail"
+	skinned_type = /obj/item/stack/sheet/animalhide/wolpin
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
@@ -145,6 +151,8 @@
 		INTERNAL_ORGAN_EYES =  /obj/item/organ/internal/eyes/vulpkanin/wolpin, // Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -173,6 +181,7 @@
 	blood_species = "Skrell"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
+	skinned_type = /obj/item/stack/sheet/animalhide/neara
 	reagent_tag = PROCESS_ORG
 	tail = null
 
@@ -186,6 +195,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/skrell,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/neara
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -223,6 +234,7 @@
 	blood_species = "Unathi"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
+	skinned_type = /obj/item/stack/sheet/animalhide/stok
 	reagent_tag = PROCESS_ORG
 
 	bodyflags = HAS_TAIL
@@ -237,6 +249,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/stok
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),

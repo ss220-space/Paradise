@@ -525,7 +525,7 @@
 				filling_color = "#FF69B4"
 	. = ..()
 
-/obj/item/reagent_containers/food/snacks/donut/update_icon()
+/obj/item/reagent_containers/food/snacks/donut/update_icon_state()
 	return
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles

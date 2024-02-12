@@ -114,7 +114,7 @@
 	. = ..()
 	update_icon()
 
-/turf/simulated/floor/grass/update_icon()
+/turf/simulated/floor/grass/update_icon_state()
 	icon_state = "grass[pick("1","2","3","4")]"
 
 /turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
@@ -159,13 +159,13 @@
 	. = ..()
 	update_icon()
 
+
 /turf/simulated/floor/carpet/broken_states()
 	return list("damaged")
 
-/turf/simulated/floor/carpet/update_icon()
-	if(!..())
-		return
-	dir = 0 //Prevents wrong smoothing
+
+/turf/simulated/floor/carpet/update_icon_state()
+	dir = NONE //Prevents wrong smoothing
 	if(!broken && !burnt)
 		if(smooth)
 			queue_smooth(src)

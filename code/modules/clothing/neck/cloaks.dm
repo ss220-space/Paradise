@@ -10,8 +10,8 @@
 
 /obj/item/clothing/neck/cloak/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
-	update_icon()
 
 /obj/item/clothing/neck/cloak/grey
 	colour = "#535353"
@@ -121,20 +121,3 @@
 	icon_state = "syndadmiral"
 	item_state = "syndadmiral"
 
-/obj/item/clothing/neck/toggle/attack_self(mob/user)
-	if(icon_state == initial(icon_state))
-		icon_state = icon_state + "_t"
-		item_state = icon_state + "_t"
-	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-	user.update_inv_neck()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/clothing/neck/cloak/New()
-	..()
-	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-	update_icon()

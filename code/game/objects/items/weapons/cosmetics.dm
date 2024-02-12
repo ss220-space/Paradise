@@ -58,17 +58,23 @@
 	colour = pick(lipstick_colors)
 	name = "[colour] lipstick"
 
+
+/obj/item/lipstick/update_icon_state()
+	. = ..()
+	icon_state = "lipstick[open ? "_uncap" : ""]"
+
+
+/obj/item/lipstick/update_overlays()
+	. = ..()
+	if(open)
+		. += mutable_appearance(icon, icon_state = "lipstick_uncap_color", color = lipstick_colors[colour])
+
+
 /obj/item/lipstick/attack_self(mob/user)
-	cut_overlays()
 	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
 	open = !open
-	if(open)
-		var/mutable_appearance/colored = mutable_appearance('icons/obj/items.dmi', "lipstick_uncap_color")
-		colored.color = lipstick_colors[colour]
-		icon_state = "lipstick_uncap"
-		add_overlay(colored)
-	else
-		icon_state = "lipstick"
+	update_icon()
+
 
 /obj/item/lipstick/attack(mob/M, mob/user)
 	if(!open || !istype(M))

@@ -427,7 +427,7 @@
 	update_icon()
 
 
-/mob/living/simple_animal/bot/floorbot/update_icon()
+/mob/living/simple_animal/bot/floorbot/update_icon_state()
 	if(mode == BOT_REPAIRING)
 		icon_state = "[toolbox_color]floorbot-c"
 		return

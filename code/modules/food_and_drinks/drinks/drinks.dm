@@ -78,10 +78,10 @@
 	else
 		return
 
-/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over) //CHUG! CHUG! CHUG!
-	if(!iscarbon(over))
+/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params) //CHUG! CHUG! CHUG!
+	if(!iscarbon(over_object))
 		return ..()
-	var/mob/living/carbon/chugger = over
+	var/mob/living/carbon/chugger = over_object
 	if(!(container_type & DRAINABLE))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
@@ -301,11 +301,14 @@
 	possible_transfer_amounts = null
 	volume = 10
 
+
+/obj/item/reagent_containers/food/drinks/sillycup/update_icon_state()
+	icon_state = "water_cup[reagents.total_volume ? "" : "_e"]"
+
+
 /obj/item/reagent_containers/food/drinks/sillycup/on_reagent_change()
-	if(reagents.total_volume)
-		icon_state = "water_cup"
-	else
-		icon_state = "water_cup_e"
+	update_icon(UPDATE_ICON_STATE)
+
 
 //////////////////////////drinkingglass and shaker//
 //Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink
@@ -398,3 +401,54 @@
 
 /obj/item/reagent_containers/food/drinks/oilcan/full
 	list_reagents = list("oil" = 100)
+
+
+/obj/item/reagent_containers/food/drinks/zaza
+	name = "Cherry Zaza"
+	desc = "I possess Zaza!"
+	icon_state = "zaza_can"
+	item_state = "zaza_can"
+	volume = 80
+	foodtype = SUGAR
+	container_type = NONE
+	list_reagents = list("zaza" = 80)
+
+
+/obj/item/reagent_containers/food/drinks/zaza/on_reagent_change()
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/reagent_containers/food/drinks/zaza/update_overlays()
+	. = ..()
+
+	if(reagents.total_volume)
+		var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]50")
+
+		switch(round(reagents.total_volume))
+			if(1 to 50)
+				filling.icon_state = "[icon_state]50"
+			if(51 to 60)
+				filling.icon_state = "[icon_state]60"
+			if(61 to 65)
+				filling.icon_state = "[icon_state]65"
+			if(66 to 70)
+				filling.icon_state = "[icon_state]70"
+			if(71 to 75)
+				filling.icon_state = "[icon_state]75"
+			if(76 to INFINITY)
+				filling.icon_state = "[icon_state]80"
+		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		. += filling
+
+	if(!is_open_container())
+		. += "zaza_lid"
+
+
+/obj/item/reagent_containers/food/drinks/zaza/attack_self(mob/user)
+	if(!is_open_container())
+		container_type |= OPENCONTAINER
+		to_chat(user, span_notice("You put the lid on [src]."))
+	else
+		to_chat(user, span_notice("You take the lid off [src]."))
+		container_type &= ~OPENCONTAINER
+	update_icon(UPDATE_OVERLAYS)

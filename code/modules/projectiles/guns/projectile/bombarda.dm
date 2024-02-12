@@ -24,12 +24,10 @@
 		A.update_icon()
 		update_icon()
 
-/obj/item/gun/projectile/bombarda/update_icon()
-	. = ..()
-	if(!chambered)
-		icon_state = "bombarda_open"
-	else
-		icon_state = "bombarda"
+
+/obj/item/gun/projectile/bombarda/update_icon_state()
+	icon_state = "bombarda[chambered ? "" : "_open"]"
+
 
 /obj/item/gun/projectile/bombarda/process_chamber(eject_casing, empty_chamber)
 	var/obj/item/ammo_casing/AC = chambered
@@ -82,11 +80,11 @@
 	remove_sound = 'sound/weapons/bombarda/open.ogg'
 	load_sound = 'sound/weapons/bombarda/load.ogg'
 
-/obj/item/ammo_box/magazine/internal/bombarda/New()
-	..()
+/obj/item/ammo_box/magazine/internal/bombarda/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(stored_ammo)	//not supposed to have initial ammo.
 
-/obj/item/ammo_box/magazine/internal/bombarda/ammo_count(countempties = 1)
+/obj/item/ammo_box/magazine/internal/bombarda/ammo_count(countempties = TRUE)
 	if(!countempties)
 		var/boolets = 0
 		for(var/obj/item/ammo_casing/bullet in stored_ammo)

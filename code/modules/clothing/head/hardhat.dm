@@ -24,24 +24,21 @@
 /obj/item/clothing/head/hardhat/attack_self()
 	toggle_helmet_light()
 
+
 /obj/item/clothing/head/hardhat/proc/toggle_helmet_light()
 	on = !on
 	if(on)
 		turn_on()
 	else
 		turn_off()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/clothing/head/hardhat/update_icon()
+
+/obj/item/clothing/head/hardhat/update_icon_state()
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_head()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-	..()
+	update_equipped_item()
+
 
 /obj/item/clothing/head/hardhat/proc/turn_on()
 	set_light(brightness_on)
