@@ -216,7 +216,7 @@
 /datum/emote/living/carbon/ok
 	key = "ok"
 	key_third_person = "ok"
-	message = "показыва%(ет,ют)% жест окей"
+	message = "показыва%(ет,ют)% жест 'окей'"
 
 /datum/emote/living/carbon/faint
 	key = "faint"
