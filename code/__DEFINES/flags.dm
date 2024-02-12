@@ -22,17 +22,17 @@
 #define HEADBANGPROTECT			(1<<12)
 
 #define BLOCK_GAS_SMOKE_EFFECT	(1<<13)	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
-#define THICKMATERIAL 			(1<<13)	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
+#define THICKMATERIAL 			(1<<14)	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
 
-#define DROPDEL					(1<<14)	// When dropped, it calls qdel on itself
+#define DROPDEL					(1<<15)	// When dropped, it calls qdel on itself
 
-#define BLOCKHEADHAIR 			(1<<15)	// temporarily removes the user's hair overlay. Leaves facial hair.
-#define BLOCKFACIALHAIR			(1<<16)	// temporarily removes the user's facial hair overlay. Leaves head hair.
-#define BLOCKHAIR				(1<<17)	// temporarily removes the user's hair, facial and otherwise.
+#define BLOCKHEADHAIR 			(1<<16)	// temporarily removes the user's hair overlay. Leaves facial hair.
+#define BLOCKFACIALHAIR			(1<<17)	// temporarily removes the user's facial hair overlay. Leaves head hair.
+#define BLOCKHAIR				(1<<18)	// temporarily removes the user's hair, facial and otherwise.
 
-#define NO_PIXEL_RANDOM_DROP	(1<<18)	// If dropped, it wont have a randomized pixel_x/pixel_y
+#define NO_PIXEL_RANDOM_DROP	(1<<19)	// If dropped, it wont have a randomized pixel_x/pixel_y
 
-#define BLOCK_CAPSAICIN			(1<<19)	// Prevents from passing capsaicin onto human
+#define BLOCK_CAPSAICIN			(1<<20)	// Prevents from passing capsaicin onto human
 
 #define NOSHARPENING			1048576 // Prevents from sharpening item with whetstone
 

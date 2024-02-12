@@ -475,12 +475,12 @@ BLIND     // can't see anything
 		if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 			flags &= ~AIRTIGHT
 
-	H.wear_mask_update(src, toggle_off = mask_adjusted)
-	usr.update_inv_wear_mask()
-	usr.update_inv_head()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	if(H?.wear_mask == src)
+		H.wear_mask_update(src, toggle_off = up)
+		for(var/datum/action/action as anything in actions)
+			action.UpdateButtonIcon()
+	else
+		update_equipped_item()
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
