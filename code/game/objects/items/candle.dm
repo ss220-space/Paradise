@@ -23,7 +23,7 @@
 	. = ..()
 	if(start_lit)
 		// No visible message
-		light(show_message = 0)
+		light(show_message = FALSE)
 
 
 /obj/item/candle/Destroy()
@@ -66,7 +66,7 @@
 
 /obj/item/candle/proc/light(show_message)
 	if(!lit)
-		lit = 1
+		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
 		set_light(CANDLE_LUM)
@@ -108,15 +108,18 @@
 			if(update_wax_index())
 				update_icon(UPDATE_ICON_STATE)
 	if(!wax)
-		new/obj/item/trash/candle(loc)
-		if(ismob(loc))
-			var/mob/holder = loc
-			holder.drop_item_ground(src, force = TRUE) //src is being deleted anyway
+		spawn_candle_trash()
 		qdel(src)
+	update_icon(UPDATE_ICON_STATE)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
 		T.hotspot_expose(700, 5)
 
+/obj/item/candle/proc/spawn_candle_trash()
+	new/obj/item/trash/candle(src.loc)
+	if(istype(src.loc, /mob))
+		var/mob/M = src.loc
+		M.temporarily_remove_item_from_inventory(src, force = TRUE) //src is being deleted anyway
 
 /obj/item/candle/proc/unlight()
 	if(lit)
@@ -155,6 +158,63 @@
 	infinite = FALSE
 	wax = 1 // next process will burn it out
 
+/obj/item/candle/torch
+	name = "torch"
+	desc = "A torch fashioned from a stick and a piece of cloth."
+	wax = 300
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "torch"
+	item_state = "torch"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	w_class = WEIGHT_CLASS_BULKY
+	light_color = LIGHT_COLOR_ORANGE
+	slot_flags = SLOT_BELT
+	materials = list(MAT_BIOMASS = 50)
+
+	damtype = BURN
+	force = 7
+	var/force_lower = 5
+	var/force_upp = 10
+
+	var/icon_on = "torch-on"
+	var/fuel_lower = 200
+	var/fuel_upp = 400
+
+/obj/item/candle/torch/New()
+	wax = rand(fuel_lower, fuel_upp)
+	force = rand(force_lower, force_upp)
+	..()
+
+/obj/item/candle/torch/update_icon_state()
+	if(lit)
+		icon_state = icon_on
+		item_state = icon_on
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(icon_state)
+
+	update_equipped_item()
+
+
+/obj/item/candle/torch/light(show_message)
+	if(!lit)
+		lit = TRUE
+		if(show_message)
+			usr.visible_message(show_message)
+		set_light(5)
+		START_PROCESSING(SSobj, src)
+		update_icon(UPDATE_ICON_STATE)
+
+/obj/item/candle/torch/spawn_candle_trash()
+	var/obj/item/burnt_torch/T = new(loc)
+	if(ismob(loc))
+		var/mob/M = loc
+		M.temporarily_remove_item_from_inventory(src, force = TRUE)
+		M.put_in_hands(T)
+
+/obj/item/candle/torch/can_enter_storage(obj/item/storage/S, mob/user)
+	return
 
 #undef TALL_CANDLE
 #undef MID_CANDLE

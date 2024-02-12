@@ -317,7 +317,7 @@
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
-	desc = "A torch fashioned from some leaves and a log."
+	desc = "A torch fashioned from a stick and a piece of oiled cloth. You can't snuff it."
 	w_class = WEIGHT_CLASS_BULKY
 	brightness_on = 7
 	icon_state = "torch"

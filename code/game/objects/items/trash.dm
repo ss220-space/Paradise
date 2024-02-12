@@ -192,3 +192,14 @@
 	lootcount = 5
 
 	loot = list(/obj/item/spentcasing/rifle)
+
+/obj/item/burnt_torch
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "torch-empty"
+	item_state = "torch"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	name = "burnt torch"
+	desc = "Burned stick with black pieces of cloth."
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_BIOMASS = 25)
