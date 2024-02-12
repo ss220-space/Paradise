@@ -1035,6 +1035,24 @@
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
 
+/obj/item/storage/box/dominator_kit
+	name = "Dominator kit"
+	icon_state = "box_dominator"
+
+/obj/item/storage/box/dominator_kit/populate_contents()
+	new /obj/item/gun/energy/dominator/sibyl(src)
+	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/enforcer_kit
+	name = "Enforcer kit"
+	icon_state = "box_enforcer"
+
+/obj/item/storage/box/enforcer_kit/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src)
+	new /obj/item/ammo_box/magazine/enforcer(src)
+	new /obj/item/ammo_box/magazine/enforcer(src)
+	new /obj/item/clothing/accessory/holster(src)
+
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
 	desc = "Contains everything needed to get yourself killed for a medal."
