@@ -1788,7 +1788,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -3212,7 +3212,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -8871,7 +8871,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -20227,7 +20227,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -45408,7 +45408,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,
@@ -46783,7 +46783,7 @@
 	desc = null;
 	name = "SRT uniform"
 	},
-/obj/item/gun/projectile/automatic/pistol/sp8ar,
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/ammo_box/magazine/sp8,
 /obj/item/implanter/dust,

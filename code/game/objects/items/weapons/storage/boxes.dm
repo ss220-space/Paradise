@@ -1018,7 +1018,7 @@
 	new /obj/item/clothing/glasses/sunglasses (src)
 	new /obj/item/clothing/mask/gas/sechailer/swat (src)
 	new /obj/item/gun/energy/gun/pdw9/ert (src)
-	new /obj/item/gun/projectile/automatic/pistol/sp8t (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
 	new /obj/item/storage/backpack/ert/commander/trialmoment/prespawn (src)
 
 /obj/item/storage/backpack/ert/commander/trialmoment/prespawn/populate_contents()
@@ -1051,7 +1051,7 @@
 
 /obj/item/storage/backpack/ert/security/trialmoment/prespawn/populate_contents()
 	new /obj/item/storage/box/responseteam (src)
-	new	/obj/item/gun/projectile/automatic/pistol/sp8t (src)
+	new	/obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
@@ -1085,7 +1085,7 @@
 
 /obj/item/storage/backpack/ert/engineer/trialmoment/prespawn/populate_contents()
 	new /obj/item/storage/box/responseteam (src)
-	new /obj/item/gun/projectile/automatic/pistol/sp8t (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/rcd/preloaded (src)
@@ -1116,7 +1116,7 @@
 
 /obj/item/storage/backpack/ert/medical/trialmoment/prespawn/populate_contents()
 	new /obj/item/storage/box/responseteam (src)
-	new /obj/item/gun/projectile/automatic/pistol/sp8t (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/storage/firstaid/ertm (src)
@@ -1161,7 +1161,7 @@
 	new /obj/item/holosign_creator/janitor (src)
 	new /obj/item/flashlight (src)
 	new /obj/item/melee/flyswatter (src)
-	new /obj/item/gun/projectile/automatic/pistol/sp8t (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/ammo_box/magazine/sp8 (src)
 	new /obj/item/implanter/mindshield/ert (src)
