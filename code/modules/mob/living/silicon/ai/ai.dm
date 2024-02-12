@@ -148,10 +148,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	proc_holder_list = new()
 
-	if(B?.clock || isclocker(B?.brainmob))
-		laws = new /datum/ai_laws/ratvar
-		overlays += "clockwork_frame"
-	if(L)
+	if(B?.clock)
+		ratvar_act()
+	else if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
 	else

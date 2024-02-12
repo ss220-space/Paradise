@@ -6,7 +6,7 @@
 	item_state = "flight"
 	var/label = null
 	var/labels_left = 30
-	var/mode = 0
+	var/mode = FALSE
 
 /obj/item/hand_labeler/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -33,9 +33,14 @@
 	playsound(A, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 	labels_left--
 
-/obj/item/hand_labeler/attack_self(mob/user as mob)
-	mode = !mode
+
+/obj/item/hand_labeler/update_icon_state()
 	icon_state = "labeler[mode]"
+
+
+/obj/item/hand_labeler/attack_self(mob/user)
+	mode = !mode
+	update_icon(UPDATE_ICON_STATE)
 	if(mode)
 		to_chat(user, "<span class='notice'>You turn on \the [src].</span>")
 		//Now let them chose the text.

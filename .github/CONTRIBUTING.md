@@ -377,12 +377,14 @@ This prevents nesting levels from getting deeper then they need to be.
     #define MACRO_ONE (1<<0)
     #define MACRO_TWO (1<<1)
     #define MACRO_THREE (1<<2)
+	#define MACRO_ALL (~0)
     ```
     Is preferable to
     ```
     #define MACRO_ONE 1
     #define MACRO_TWO 2
     #define MACRO_THREE 4
+	#defin MACRO_ALL 7 // or 16777215 as more accurate
     ```
     This make the code more readable and less prone to error
 

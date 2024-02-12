@@ -6,8 +6,8 @@
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
 
-/obj/item/gun/projectile/revolver/New()
-	..()
+/obj/item/gun/projectile/revolver/Initialize(mapload)
+	. = ..()
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -42,7 +42,7 @@
 /obj/item/gun/projectile/revolver/attack_self(mob/living/user)
 	var/num_unloaded = 0
 	chambered = null
-	while(get_ammo() > 0)
+	while(get_ammo(FALSE) > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(FALSE)
 		if(CB)
@@ -75,20 +75,14 @@
 	else
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
-/obj/item/gun/projectile/revolver/can_shoot()
-	return get_ammo(FALSE, 0)
 
-/obj/item/gun/projectile/revolver/get_ammo(countchambered = FALSE, countempties = 1)
-	var/boolets = 0 //mature var names for mature people
-	if(chambered && countchambered)
-		boolets++
-	if(magazine)
-		boolets += magazine.ammo_count(countempties)
-	return boolets
+/obj/item/gun/projectile/revolver/can_shoot()
+	return get_ammo(FALSE, FALSE)
+
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	. += span_notice("[get_ammo(FALSE, 0)] of those are live rounds")
+	. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
 
 /obj/item/gun/projectile/revolver/detective
 	name = ".38 Mars Special"
@@ -99,16 +93,15 @@
 	unique_rename = TRUE
 	unique_reskin = TRUE
 
-/obj/item/gun/projectile/revolver/detective/New()
-	..()
-	options["The Original"] = "detective"
-	options["Leopard Spots"] = "detective_leopard"
-	options["Black Panther"] = "detective_panther"
-	options["White Gold "] = "detective_gold"
-	options["The Peacemaker"] = "detective_peacemaker"
-	options["Gold Wood"] = "detective_gold_alt"
-	options["Silver"] = "detective_silver"
-	options["Cancel"] = null
+
+/obj/item/gun/projectile/revolver/detective/update_gun_skins()
+	add_skin("The Original", "detective")
+	add_skin("Leopard Spots", "detective_leopard")
+	add_skin("Black Panther", "detective_panther")
+	add_skin("White Gold", "detective_gold")
+	add_skin("Gold Wood", "detective_gold_alt")
+	add_skin("The Peacemaker", "detective_peacemaker")
+	add_skin("Silver", "detective_silver")
 
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
@@ -134,8 +127,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 
 
-/obj/item/gun/projectile/revolver/fingergun/New(loc, new_parent_spell)
-	..()
+/obj/item/gun/projectile/revolver/fingergun/Initialize(loc, new_parent_spell)
+	. = ..()
 	parent_spell = new_parent_spell
 	verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -216,15 +209,15 @@
 	var/spun = FALSE
 
 
-/obj/item/gun/projectile/revolver/russian/New()
-	..()
+/obj/item/gun/projectile/revolver/russian/Initialize(mapload)
+	. = ..()
 	Spin()
 	update_icon()
 
 /obj/item/gun/projectile/revolver/russian/proc/Spin()
 	chambered = null
 	var/random = rand(1, magazine.max_ammo)
-	if(random <= get_ammo(0,0))
+	if(random <= get_ammo(FALSE, FALSE))
 		chamber_round()
 	spun = TRUE
 
@@ -439,15 +432,15 @@
 	unique_rename = TRUE
 	unique_reskin = TRUE
 
-/obj/item/gun/projectile/revolver/doublebarrel/New()
-	..()
-	options["Default"] = "dshotgun"
-	options["Dark Red Finish"] = "dshotgun-d"
-	options["Ash"] = "dshotgun-f"
-	options["Faded Grey"] = "dshotgun-g"
-	options["Maple"] = "dshotgun-l"
-	options["Rosewood"] = "dshotgun-p"
-	options["Cancel"] = null
+
+/obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
+	add_skin("Default", "dshotgun")
+	add_skin("Dark Red Finish", "dshotgun-d")
+	add_skin("Ash", "dshotgun-f")
+	add_skin("Faded Grey", "dshotgun-g")
+	add_skin("Maple", "dshotgun-l")
+	add_skin("Rosewood", "dshotgun-p")
+
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
@@ -467,7 +460,7 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
-	while(get_ammo() > 0)
+	while(get_ammo(FALSE) > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
 		chambered = null
@@ -512,10 +505,10 @@
 	else
 		return ..()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
-	..()
-	if(slung && (sawn_state == SAWN_INTACT))
-		icon_state = "ishotgunsling"
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
+	icon_state = "ishotgun[slung ? "sling" : sawn_state == SAWN_OFF ? "-sawn" : ""]"
+
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
@@ -550,8 +543,11 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
 	return TRUE
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon()
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
+	return list()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil))

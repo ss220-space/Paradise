@@ -34,7 +34,7 @@
 /obj/item/hardsuit_taser_proof/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!hardsuit)
 		return FALSE
-	if(!hardsuit.suittoggled)
+	if(!hardsuit.suit_adjusted)
 		return FALSE
 	var/obj/item/projectile/P = hitby
 	if(P.shockbull)

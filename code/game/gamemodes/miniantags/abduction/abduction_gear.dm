@@ -35,17 +35,25 @@
 	if(ismob(loc))
 		to_chat(loc, "<span class='notice'>Your vest is now [flags & NODROP ? "locked" : "unlocked"].</span>")
 
+
+/obj/item/clothing/suit/armor/abductor/vest/update_icon_state()
+	switch(mode)
+		if(VEST_STEALTH)
+			icon_state = "vest_stealth"
+		if(VEST_COMBAT)
+			icon_state = "vest_combat"
+
+
 /obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
 	switch(mode)
 		if(VEST_STEALTH)
 			mode = VEST_COMBAT
 			DeactivateStealth()
 			armor = combat_armor
-			icon_state = "vest_combat"
 		if(VEST_COMBAT)// TO STEALTH
 			mode = VEST_STEALTH
 			armor = stealth_armor
-			icon_state = "vest_stealth"
+	update_icon(UPDATE_ICON_STATE)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_suit()
@@ -158,6 +166,15 @@
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
 
+
+/obj/item/abductor/gizmo/update_icon_state()
+	switch(mode)
+		if(GIZMO_SCAN)
+			icon_state = "gizmo_scan"
+		if(GIZMO_MARK)
+			icon_state = "gizmo_mark"
+
+
 /obj/item/abductor/gizmo/attack_self(mob/user)
 	if(!ScientistCheck(user))
 		return
@@ -167,10 +184,9 @@
 
 	if(mode == GIZMO_SCAN)
 		mode = GIZMO_MARK
-		icon_state = "gizmo_mark"
 	else
 		mode = GIZMO_SCAN
-		icon_state = "gizmo_scan"
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
 
 /obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
@@ -283,16 +299,24 @@
 	item_state = "silencer"
 	var/mode = MIND_DEVICE_MESSAGE
 
+
+/obj/item/abductor/mind_device/update_icon_state()
+	switch(mode)
+		if(MIND_DEVICE_MESSAGE)
+			icon_state = "mind_device_message"
+		if(MIND_DEVICE_CONTROL)
+			icon_state = "mind_device_control"
+
+
 /obj/item/abductor/mind_device/attack_self(mob/user)
 	if(!ScientistCheck(user))
 		return
 
 	if(mode == MIND_DEVICE_MESSAGE)
 		mode = MIND_DEVICE_CONTROL
-		icon_state = "mind_device_control"
 	else
 		mode = MIND_DEVICE_MESSAGE
-		icon_state = "mind_device_message"
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE</span>")
 
 /obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
@@ -385,7 +409,7 @@
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
-/obj/item/paper/abductor/update_icon()
+/obj/item/paper/abductor/update_icon_state()
 	return
 
 /obj/item/paper/abductor/AltClick()
@@ -424,12 +448,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			txt = "probing"
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/abductor_baton/update_icon()
+/obj/item/abductor_baton/update_icon_state()
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
@@ -727,6 +751,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	buildstackamount = 1
 	framestackamount = 1
 	canSmoothWith = null
+	can_be_flipped = FALSE
 	frame = /obj/structure/table_frame/abductor
 
 /obj/machinery/optable/abductor
@@ -764,9 +789,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	ignore_flags = TRUE
 	var/base_icon = "alien_mender_brute"
 
-/obj/item/reagent_containers/applicator/abductor/update_icon()
+/obj/item/reagent_containers/applicator/abductor/update_icon_state()
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
-
 	switch(reag_pct)
 		if(51 to 100)
 			icon_state = "[base_icon]_full[applying ? "_active" : ""]"

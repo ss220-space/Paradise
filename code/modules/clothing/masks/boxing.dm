@@ -6,6 +6,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_SMALL
+	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/adjust)
 	adjusted_flags = SLOT_HEAD
 
@@ -26,12 +27,13 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 
-/obj/item/clothing/mask/balaclava/attack_self(var/mob/user)
+/obj/item/clothing/mask/balaclava/attack_self(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/balaclava/adjustmask(user)
-	..()
-	flags = mask_adjusted ? null : initial(flags)
+	. = ..()
+	if(.)
+		flags = up ? NONE : initial(flags)
 
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"

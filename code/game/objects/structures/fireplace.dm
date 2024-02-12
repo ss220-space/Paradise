@@ -69,10 +69,15 @@
 	else
 		. = ..()
 
-/obj/structure/fireplace/update_icon()
+
+/obj/structure/fireplace/update_desc(updates = ALL)
+	. = ..()
+	desc = lit ? "A large stone brick fireplace, warm and cozy." : initial(desc)
+
+
+/obj/structure/fireplace/update_overlays()
 	. = ..()
 
-	overlays.Cut()
 	if(!lit)
 		return
 
@@ -81,17 +86,18 @@
 	switch(burn_time_remaining())
 		if(0 to 500)
 			firepower = "fireplace_fire0"
-		if(500 to 1000)
+		if(501 to 1000)
 			firepower = "fireplace_fire1"
-		if(1000 to 1500)
+		if(1001 to 1500)
 			firepower = "fireplace_fire2"
-		if(1500 to 2000)
+		if(1501 to 2000)
 			firepower = "fireplace_fire3"
-		if(2000 to MAXIMUM_BURN_TIMER)
+		if(2001 to MAXIMUM_BURN_TIMER)
 			firepower = "fireplace_fire4"
 
-	overlays += icon('icons/obj/fireplace.dmi', "[firepower]")
-	overlays += icon('icons/obj/fireplace.dmi', "fireplace_glow")
+	. += "[firepower]"
+	. += "fireplace_glow"
+
 
 /obj/structure/fireplace/proc/adjust_light()
 	if(!lit)
@@ -101,14 +107,15 @@
 	switch(burn_time_remaining())
 		if(0 to 500)
 			set_light(1, ,"#ffb366")
-		if(500 to 1000)
+		if(501 to 1000)
 			set_light(2, ,"#ffb366")
-		if(1000 to 1500)
+		if(1001 to 1500)
 			set_light(3, ,"#ffb366")
-		if(1500 to 2000)
+		if(1501 to 2000)
 			set_light(4, ,"#ffb366")
-		if(2000 to MAXIMUM_BURN_TIMER)
+		if(2001 to MAXIMUM_BURN_TIMER)
 			set_light(6, ,"#ffb366")
+
 
 /obj/structure/fireplace/process(seconds_per_tick)
 	if(!lit)
@@ -120,8 +127,9 @@
 	playsound(src, 'sound/effects/comfyfire.ogg',40,FALSE, FALSE, TRUE)
 	var/turf/T = get_turf(src)
 	T.hotspot_expose(700, 2.5 * seconds_per_tick)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	adjust_light()
+
 
 /obj/structure/fireplace/extinguish()
 	. = ..()
@@ -131,6 +139,7 @@
 		put_out()
 		adjust_fuel_timer(fuel)
 
+
 /obj/structure/fireplace/proc/adjust_fuel_timer(amount)
 	if(lit)
 		flame_expiry_timer += amount
@@ -139,25 +148,27 @@
 	else
 		fuel_added = clamp(fuel_added + amount, 0, MAXIMUM_BURN_TIMER)
 
+
 /obj/structure/fireplace/proc/burn_time_remaining()
 	if(lit)
 		return max(0, flame_expiry_timer - world.time)
 	else
 		return max(0, fuel_added)
 
+
 /obj/structure/fireplace/proc/ignite()
 	lit = TRUE
-	desc = "A large stone brick fireplace, warm and cozy."
 	flame_expiry_timer = world.time + fuel_added
 	fuel_added = 0
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS|UPDATE_DESC)
 	adjust_light()
+
 
 /obj/structure/fireplace/proc/put_out()
 	lit = FALSE
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS|UPDATE_DESC)
 	adjust_light()
-	desc = initial(desc)
+
 
 #undef LOG_BURN_TIMER
 #undef PAPER_BURN_TIMER

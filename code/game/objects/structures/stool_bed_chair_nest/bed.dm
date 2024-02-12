@@ -149,16 +149,18 @@
 			forceMove(RH)
 			RH.held = src
 
-/obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
-	..()
-	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
-		if(!ishuman(usr) || usr.incapacitated())
-			return
-		if(has_buckled_mobs())
-			return 0
-		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
+
+/obj/structure/bed/roller/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(!has_buckled_mobs() && over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
+		usr.visible_message(
+			span_notice("[usr] collapses [src]."),
+			span_notice("You collapse [src]."),
+		)
 		new folded(get_turf(src))
 		qdel(src)
+		return FALSE
+	return ..()
+
 
 /obj/item/roller/holo
 	name = "holo stretcher"

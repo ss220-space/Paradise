@@ -293,16 +293,19 @@
 	drop_sound = 'sound/items/handling/bone_drop.ogg'
 	var/size
 
+
 /obj/item/kitchen/knife/glassshiv/Initialize(mapload, obj/item/shard/sh)
 	. = ..()
 	if(sh)
 		size = sh.icon_state
-	update_icon()
-
-/obj/item/kitchen/knife/glassshiv/update_icon()
 	if(!size)
 		size = pick("large", "medium", "small")
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/kitchen/knife/glassshiv/update_icon_state()
 	icon_state = "[size]_[initial(icon_state)]"
+
 
 /obj/item/kitchen/knife/glassshiv/plasma
 	name = "plasma glass shiv"

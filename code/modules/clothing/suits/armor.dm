@@ -59,37 +59,46 @@
 	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
+
+/obj/item/clothing/suit/armor/vest/security/update_icon_state()
+	icon_state = "armor[attached_badge ? "sec" : ""]"
+
+
+/obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
+	. = ..()
+	if(attached_badge)
+		desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
+	else
+		desc = initial(desc)
+
+
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge)
-		if(user.drop_transfer_item_to_loc(I, src))
-			add_fingerprint(user)
-			attached_badge = I
-			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
-			A.Grant(user)
-			icon_state = "armorsec"
-			user.update_inv_wear_suit()
-			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
-			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
+	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge && user.drop_transfer_item_to_loc(I, src))
+		add_fingerprint(user)
+		attached_badge = I
+		var/datum/action/item_action/remove_badge/holoaction = new(src)
+		holoaction.Grant(user)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		update_equipped_item()
+		to_chat(user, span_notice("You attach [attached_badge] to [src]."))
 		return
 	..()
+
 
 /obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
 	if(attached_badge)
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
-
 		for(var/datum/action/item_action/remove_badge/action in actions)
 			LAZYREMOVE(actions, action)
 			action.Remove(user)
-
-		icon_state = "armor"
-		user.update_inv_wear_suit()
-		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
-		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
 		attached_badge = null
-
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		update_equipped_item()
+		to_chat(user, span_notice("You remove [attached_badge] from [src]."))
 		return
 	..()
+
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
@@ -321,38 +330,45 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
 
+
+/obj/item/clothing/suit/armor/reactive/update_icon_state()
+	icon_state =  "reactive[active ? "" : "off"]"
+	item_state =  "reactive[active ? "" : "off"]"
+
+
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
-	active = !(active)
 	if(emp_d)
-		to_chat(user, "<span class='warning'>[src] is disabled from an electromagnetic pulse!</span>")
+		to_chat(user, span_warning("[src] is disabled from an electromagnetic pulse!"))
 		return
+	active = !active
+	update_icon(UPDATE_ICON_STATE)
+	add_fingerprint(user)
 	if(active)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
-		icon_state = "reactive"
-		item_state = "reactive"
+		to_chat(user, span_notice("[src] is now active."))
 	else
-		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
-		icon_state = "reactiveoff"
-		item_state = "reactiveoff"
-		add_fingerprint(user)
-	user.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		to_chat(user, span_notice("[src] is now inactive."))
+	update_equipped_item()
+
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = FALSE
 	emp_d = TRUE
-	icon_state = "reactiveoff"
-	item_state = "reactiveoff"
-	if(istype(loc, /mob/living/carbon/human))
-		var/mob/living/carbon/human/C = loc
-		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
+	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/user = loc
+		to_chat(user, span_warning("[src] starts malfunctioning!"))
+		update_equipped_item()
 	..()
+
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
 	emp_d = FALSE
+	if(ishuman(loc))
+		var/mob/living/carbon/human/user = loc
+		update_equipped_item()
+		to_chat(user, span_notice("Looks like [src] returns its functionality."))
+
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
