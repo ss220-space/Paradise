@@ -1492,23 +1492,27 @@
 					/obj/item/clothing/under/redhawaiianshirt = 1,
 					/obj/item/clothing/under/pinkhawaiianshirt = 1,
 					/obj/item/clothing/under/bluehawaiianshirt = 1,
-					/obj/item/clothing/under/orangehawaiianshirt = 1)
+					/obj/item/clothing/under/orangehawaiianshirt = 1,
+					/obj/item/clothing/under/ussptracksuit_red = 4,
+					/obj/item/clothing/under/ussptracksuit_blue = 4)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
-					  /obj/item/clothing/head/powdered_wig = 1,
-					  /obj/item/gun/magic/wand = 1,
-					  /obj/item/clothing/mask/balaclava =1,
-					  /obj/item/clothing/under/syndicate/blackops_civ = 1,
-					  /obj/item/clothing/glasses/thermal_fake = 1,
-					  /obj/item/clothing/mask/horsehead = 2)
+					/obj/item/clothing/head/powdered_wig = 1,
+					/obj/item/gun/magic/wand = 1,
+					/obj/item/clothing/mask/balaclava =1,
+					/obj/item/clothing/under/syndicate/blackops_civ = 1,
+					/obj/item/clothing/glasses/thermal_fake = 1,
+					/obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
-				   /obj/item/clothing/head/hgpiratecap = 1,
-				   /obj/item/clothing/head/helmet/roman/fake = 1,
-				   /obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
-				   /obj/item/clothing/under/roman = 1,
-				   /obj/item/clothing/shoes/roman = 1,
-				   /obj/item/shield/riot/roman/fake = 1,
-				   /obj/item/clothing/under/cuban_suit = 1,
-				   /obj/item/clothing/head/cuban_hat = 1)
+					/obj/item/clothing/head/hgpiratecap = 1,
+					/obj/item/clothing/head/helmet/roman/fake = 1,
+					/obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
+					/obj/item/clothing/under/roman = 1,
+					/obj/item/clothing/shoes/roman = 1,
+					/obj/item/shield/riot/roman/fake = 1,
+					/obj/item/clothing/under/cuban_suit = 1,
+					/obj/item/clothing/head/cuban_hat = 1,
+					/obj/item/clothing/under/ussptracksuit_black = 1,
+					/obj/item/clothing/under/ussptracksuit_white = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/dinnerware
