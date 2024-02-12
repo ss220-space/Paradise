@@ -177,3 +177,44 @@
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(10 SECONDS)
 	return ..()
+
+
+/datum/reagent/consumable/drink/cold/zaza
+	name = "Zaza"
+	description = "The sharp delicious smell of cherries emanates from the drink."
+	id = "zaza"
+	color = "#b10023" // rgb:177, 0, 35
+	drink_icon = "zaza"
+	drink_name = "Zaza"
+	drink_desc = "A glass filled with cherry drink, for a great Zaza Friday."
+	taste_description = "delicious shugary water taste"
+	var/alternate_taste_description = "something messing flavor of this juice... just sugary water taste"
+	var/healamount = 0.5
+
+
+/datum/reagent/consumable/drink/cold/zaza/on_mob_life(mob/living/user)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(ishuman(user) && prob(40))
+		update_flags |= user.adjustBruteLoss(-healamount, FALSE)
+		update_flags |= user.adjustFireLoss(-healamount, FALSE)
+	return ..() | update_flags
+
+
+/datum/reagent/consumable/drink/cold/zaza/taste_amplification(mob/living/user)
+	. = list()
+	var/taste_desc = ismindshielded(user) ? alternate_taste_description : taste_description
+	var/taste_amount = volume * taste_mult
+	.[taste_desc] = taste_amount
+
+
+/datum/reagent/consumable/drink/cold/zaza/fizzy
+	description = "The sharp delicious smell of cherries emanates from the sparkling drink."
+	color = "#f30028" // rgb:243, 0, 40
+	id = "zazafizzy"
+	drink_icon = "zaza_fizzy"
+	drink_desc = "A glass filled with cherry drink, for a great Zaza Friday. Now with bubbles!"
+	taste_description = "delicious fizzy water taste"
+	alternate_taste_description = "something messing flavor of this drink... just fizzy water taste"
+	healamount = 0.25
+
+
