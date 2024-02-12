@@ -386,7 +386,7 @@
 
 /obj/item/reagent_containers/food/snacks/crayfish_small_raw
 	name = "raw small crayfish"
-	desc = "A fillet of raw salmon."
+	desc = "A raw small crayfish."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state  = "Small_life_raki"
 	filling_color = "#2e2b2eff"
@@ -397,7 +397,7 @@
 
 /obj/item/reagent_containers/food/snacks/crayfish_big_raw
 	name = "raw crayfish"
-	desc = "A fillet of raw salmon."
+	desc = "A raw crayfish."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Big_life_raki"
 	filling_color = "#2e2b2eff"
@@ -408,7 +408,7 @@
 
 /obj/item/reagent_containers/food/snacks/crayfish_small
 	name = "small crayfish"
-	desc = "A fillet of raw salmon."
+	desc = "A cooked small crayfish."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Small_raki"
 	filling_color = "#751717"
@@ -419,7 +419,7 @@
 
 /obj/item/reagent_containers/food/snacks/crayfish_big
 	name = "crayfish"
-	desc = "A fillet of raw salmon."
+	desc = "A cooked crayfish."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Big_raki"
 	filling_color = "#751717"
