@@ -1065,7 +1065,7 @@
 
 /obj/item/storage/box/crayfish_bucket
 	name = "Mr. Chang's Spicy Lobsters"
-	desc = "Supply of lobsters from Mr. Cheng. Crayfish instead of lobsters, super discount, great rating!"
+	desc = "Supply of lobsters from Mr. Chang. Crayfish instead of lobsters, super discount, great rating!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "crayfish_bucket"
 	storage_slots = 1
