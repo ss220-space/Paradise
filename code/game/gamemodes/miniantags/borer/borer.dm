@@ -164,9 +164,6 @@
 
 
 /mob/living/simple_animal/borer/proc/Communicate(var/sended_message)
-	set category = "Borer"
-	set name = "Converse with Host"
-	set desc = "Send a silent message to your host."
 	if(!host)
 		to_chat(src, "У вас нет носителя!")
 		return
