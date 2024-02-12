@@ -345,18 +345,6 @@
 	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
 
-/*
-	sprite["Default"] = "repairbot"
-	sprite["Mk2 Mousedrone"] = "mk2"
-	sprite["Mk3 Monkeydrone"] = "mk3"
-	var/icontype
-	icontype = input(player,"Pick an icon") in sprite
-	icon_state = sprite[icontype]
-	updateicon()
-
-	choose_icon(6,sprite)
-*/
-
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
 	if(is_type_in_list(AM, allowed_bumpable_objects))

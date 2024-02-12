@@ -159,6 +159,7 @@
 		mob_attack_logs += "[time_stamp()] Aggrod on [L][COORD(L)] at [COORD(src)]"
 	..()
 
+
 /mob/living/simple_animal/hostile/megafauna/LoseTarget()
 	var/mob/living/L = target
 	if(istype(L) && L.mind)

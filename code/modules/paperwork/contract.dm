@@ -10,7 +10,7 @@
 /obj/item/paper/contract/proc/update_text()
 	return
 
-/obj/item/paper/contract/update_icon()
+/obj/item/paper/contract/update_icon_state()
 	return
 
 

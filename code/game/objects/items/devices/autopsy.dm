@@ -145,7 +145,7 @@
 	var/obj/item/paper/P = new(drop_location())
 	P.name = "Autopsy Data ([target_name])"
 	P.info = "<tt>[scan_data]</tt>"
-	P.overlays += "paper_words"
+	P.update_icon()
 
 	user.put_in_hands(P, ignore_anim = FALSE)
 

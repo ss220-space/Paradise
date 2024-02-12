@@ -10,11 +10,11 @@
 #define STATUS_CLOSE -1 // Close the interface
 
 // bitflags for machine stat variable
-#define BROKEN		1
-#define NOPOWER		2
-#define POWEROFF	4		// tbd
-#define MAINT		8			// under maintaince
-#define EMPED		16		// temporary broken by EMP pulse
+#define BROKEN		(1<<0)
+#define NOPOWER		(1<<1)
+#define POWEROFF	(1<<2)		// tbd
+#define MAINT		(1<<3)			// under maintaince
+#define EMPED		(1<<4)		// temporary broken by EMP pulse
 
 /*
 	Shuttles

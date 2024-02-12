@@ -682,7 +682,7 @@
 				to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its ability to shift!</span>")
 				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 				S.uses = 4
-				S.icon_state = "shifter"
+				S.update_icon(UPDATE_ICON_STATE)
 			else
 				to_chat(user, "<span class='warning'>[target] is already at full charge!</span>")
 				return
@@ -827,7 +827,7 @@
 	var/turf/T = get_turf(target)
 	if(T)
 		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
-			if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime)))
+			if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime) || istype(B, /obj/effect/decal/cleanable/blood/drask)))
 				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 					temp += 30
 				else

@@ -92,6 +92,13 @@
 	return ..()
 
 
+/obj/structure/carp_rift/update_icon_state()
+	if(charge_state == CHARGE_COMPLETED)
+		icon_state = "carp_rift_charged"
+		return
+	icon_state = (carp_stored > 0) ? "carp_rift_carpspawn" : "carp_rift"
+
+
 /obj/structure/carp_rift/process(seconds_per_tick)
 	// If we're fully charged, just start mass spawning carp.
 	if(charge_state == CHARGE_COMPLETED)
@@ -132,7 +139,7 @@
 	// Can we increase the carp spawn pool size?
 	if(last_carp_inc >= carp_interval)
 		carp_stored += 3
-		icon_state = "carp_rift_carpspawn"
+		update_icon(UPDATE_ICON_STATE)
 		if(light_color != LIGHT_COLOR_PURPLE)
 			light_color = LIGHT_COLOR_PURPLE
 			update_light()
@@ -146,7 +153,7 @@
 		GLOB.command_announcement.Announce("Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.", "Отдел Изучения Дикой Природы")
 		max_integrity = INFINITY
 		obj_integrity = INFINITY
-		icon_state = "carp_rift_charged"
+		update_icon(UPDATE_ICON_STATE)
 		light_color = LIGHT_COLOR_YELLOW
 		update_light()
 		armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
@@ -210,7 +217,7 @@
 	to_chat(newcarp, span_boldwarning("Вы прибыли, чтобы помочь космическому дракону защищать разломы. Следуйте поставленной миссии и защитите разлом любой ценой!"))
 	carp_stored--
 	if(carp_stored <= 0 && charge_state < CHARGE_COMPLETED)
-		icon_state = "carp_rift"
+		update_icon(UPDATE_ICON_STATE)
 		light_color = LIGHT_COLOR_BLUE
 		update_light()
 	return TRUE

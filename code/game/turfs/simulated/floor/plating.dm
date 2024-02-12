@@ -32,9 +32,7 @@
 	. = ..()
 	burn_tile()
 
-/turf/simulated/floor/plating/update_icon()
-	if(!..())
-		return
+/turf/simulated/floor/plating/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
@@ -227,12 +225,20 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+	var/holy = FALSE
+
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
-	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
-		if(!icon_state == "holy")
-			icon_state = SSticker.cultdat.cult_floor_icon_state
+	update_icon(UPDATE_ICON_STATE)
+
+
+/turf/simulated/floor/engine/cult/update_icon_state()
+	if(SSticker?.cultdat && !holy)
+		icon_state = SSticker.cultdat.cult_floor_icon_state
+		return
+	icon_state = initial(icon_state)
+
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
@@ -246,6 +252,7 @@
 
 /turf/simulated/floor/engine/cult/holy
 	icon_state = "holy"
+	holy = TRUE
 
 //air filled floors; used in atmos pressure chambers
 
@@ -361,7 +368,7 @@
 	icon_state = "ironfoam"
 	metal = MFOAM_IRON
 
-/turf/simulated/floor/plating/metalfoam/update_icon()
+/turf/simulated/floor/plating/metalfoam/update_icon_state()
 	switch(metal)
 		if(MFOAM_ALUMINUM)
 			icon_state = "metalfoam"
@@ -417,14 +424,6 @@
 
 /turf/simulated/floor/plating/metalfoam/proc/smash()
 	ChangeTurf(baseturf)
-
-/turf/simulated/floor/plating/abductor
-	name = "alien floor"
-	icon_state = "alienpod1"
-
-/turf/simulated/floor/plating/abductor/Initialize(mapload)
-	. = ..()
-	icon_state = "alienpod[rand(1,9)]"
 
 /turf/simulated/floor/plating/ice
 	name = "ice sheet"

@@ -11,7 +11,7 @@
 /obj/effect/decal/cleanable/blood/gibs/robot/can_bloodcrawl_in()
 	return FALSE
 
-/obj/effect/decal/cleanable/blood/gibs/robot/update_icon()
+/obj/effect/decal/cleanable/blood/gibs/robot/update_icon(updates = ALL)
 	color = "#FFFFFF"
 	. = ..(NONE)
 

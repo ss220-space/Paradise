@@ -37,10 +37,10 @@
 	var/photo_size = 3
 	var/log_text = "" //Used for sending to Discord and just logging
 
-/obj/item/photo/attack_self(mob/user as mob)
+/obj/item/photo/attack_self(mob/user)
 	user.examinate(src)
 
-/obj/item/photo/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/item/photo/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
 		txt = copytext(txt, 1, 128)
@@ -81,7 +81,7 @@
 	else
 		. += "<span class='notice'>It is too far away.</span>"
 
-/obj/item/photo/proc/show(mob/user as mob)
+/obj/item/photo/proc/show(mob/user)
 	var/icon/img_shown = new/icon(img)
 	var/colormatrix = user.get_screen_colour()
 	// Apply colorblindness effects, if any.
@@ -125,26 +125,6 @@
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
-
-
-/obj/item/storage/photo_album/MouseDrop(atom/over)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	var/mob/user = usr
-	if(user.incapacitated() || !ishuman(user))
-		return FALSE
-
-	if(over == user)
-		playsound(loc, "rustle", 50, TRUE, -5)
-		user.put_in_hands(src, ignore_anim = FALSE)
-		if(user.s_active)
-			user.s_active.close(user)
-		show_to(user)
-		return TRUE
-
-	return FALSE
 
 
 /*********
@@ -194,19 +174,19 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		size = nsize
 		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
 
-/obj/item/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
+/obj/item/camera/attack(mob/living/carbon/human/M, mob/user)
 	return
 
-/obj/item/camera/attack_self(mob/user as mob)
+/obj/item/camera/attack_self(mob/user)
 	on = !on
-	if(on)
-		src.icon_state = icon_on
-	else
-		src.icon_state = icon_off
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 	return
 
-/obj/item/camera/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/camera/update_icon_state()
+	icon_state = on ? icon_on : icon_off
+
+/obj/item/camera/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/camera_film))
 		if(pictures_left)
 			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
@@ -354,15 +334,19 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
-	icon_state = icon_off
 	on = FALSE
+	update_icon(UPDATE_ICON_STATE)
 	if(istype(src,/obj/item/camera/spooky))
 		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
-	spawn(64)
-		icon_state = icon_on
-		on = TRUE
+	addtimer(CALLBACK(src, PROC_REF(delayed_turn_on)), 6.4 SECONDS)
+
+
+/obj/item/camera/proc/delayed_turn_on()
+	on = TRUE
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/camera/proc/can_capture_turf(turf/T, mob/user)
 	var/viewer = user
@@ -467,18 +451,18 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	pictures_left = 30
 	var/max_storage = 10
 
-/obj/item/camera/digital/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
+
+/obj/item/camera/digital/afterattack(atom/target, mob/user, flag)
 	if(!on || !pictures_left || ismob(target.loc)) return
 	captureimage(target, user, flag)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 
-	desc = "A digital camera. A small screen shows that there are currently [saved_pictures.len] pictures stored."
-	icon_state = icon_off
-	on = 0
-	spawn(64)
-		icon_state = icon_on
-		on = 1
+	desc = "A digital camera. A small screen shows that there are currently [length(saved_pictures)] pictures stored."
+	on = FALSE
+	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/camera, delayed_turn_on)), 6.4 SECONDS)
+
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)

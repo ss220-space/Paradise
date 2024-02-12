@@ -51,7 +51,7 @@
 	if(istype(loc, /obj/item/implanter))
 		var/obj/item/implanter/implanter = loc
 		implanter.imp = null
-		implanter.update_icon()
+		implanter.update_state()
 	if(istype(loc, /obj/item/implantpad))
 		var/obj/item/implantcase/implantcase = loc
 		implantcase.imp = null

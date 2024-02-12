@@ -3,12 +3,15 @@
 	desc = "Destroys a podlock in mere seconds once applied. Waranty void if used."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "lock_buster_off"
-	var/on = 0
+	var/on = FALSE
 
-/obj/item/lock_buster/attack_self(mob/user as mob)
+
+/obj/item/lock_buster/update_icon_state()
+	icon_state = "lock_buster_[on ? "on" : "off"]"
+
+
+/obj/item/lock_buster/attack_self(mob/user = usr)
 	on = !on
-	if(on)
-		icon_state = "lock_buster_on"
-	else
-		icon_state = "lock_buster_off"
-	to_chat(usr, "<span class='notice'>You turn the [src] [on ? "on" : "off"].</span>")
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(user, span_notice("You turn the [src] [on ? "on" : "off"]."))
+

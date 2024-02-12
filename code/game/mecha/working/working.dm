@@ -52,15 +52,15 @@
 
 /obj/mecha/working/go_out()
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/working/moved_inside(mob/living/carbon/human/H)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/working/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/working/Exit(atom/movable/O)
 	if(O in cargo)

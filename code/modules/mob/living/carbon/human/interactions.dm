@@ -2,10 +2,11 @@
 *******Interactions code by HONKERTRON feat TestUnit********
 ***********************************/
 
-/mob/living/carbon/human/MouseDrop(mob/M as mob)
-	..()
+/mob/living/carbon/human/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	. = ..()
 	if(src == usr)
-		interact(M)
+		interact(over_object)
+
 
 /mob/proc/make_interaction()
 	return

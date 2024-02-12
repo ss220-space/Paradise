@@ -63,8 +63,8 @@
 		TED = new(src.loc)
 		qdel(src)
 
-/obj/item/gun/energy/chrono_gun/update_icon()
-	return
+/obj/item/gun/energy/chrono_gun/update_overlays()
+	return list()
 
 /obj/item/gun/energy/chrono_gun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
 	if(field)
@@ -177,7 +177,7 @@
 			cached_icon.Insert(mob_icon, "frame[i]")
 
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].</span>"
 	START_PROCESSING(SSobj, src)
@@ -191,7 +191,7 @@
 /obj/structure/chrono_field/has_prints()
 	return FALSE
 
-/obj/structure/chrono_field/update_icon()
+/obj/structure/chrono_field/update_icon_state()
 	var/ttk_frame = 1 - (tickstokill / initial(tickstokill))
 	ttk_frame = clamp(CEILING(ttk_frame * CHRONO_FRAME_COUNT, 1), 1, CHRONO_FRAME_COUNT)
 	if(ttk_frame != RPpos)
@@ -220,7 +220,7 @@
 			captured.Paralyse(8 SECONDS)
 			if(captured.loc != src)
 				captured.forceMove(src)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			if(gun)
 				if(gun.field_check(src))
 					tickstokill--

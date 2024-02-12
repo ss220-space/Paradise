@@ -78,6 +78,7 @@ MEDICAL
 	icon_state = "tajblind_med"
 	item_state = "tajblind_med"
 	flags_cover = GLASSESCOVERSEYES
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
@@ -94,7 +95,7 @@ MEDICAL
 /obj/item/clothing/glasses/hud/health/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self(mob/user)
 	toggle_veil(user)
@@ -152,12 +153,13 @@ DIAGNOSTIC
 	icon_state = "tajblind_diagnostic"
 	item_state = "tajblind_diagnostic"
 	flags_cover = GLASSESCOVERSEYES
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/attack_self(mob/user)
 	toggle_veil(user)
@@ -243,6 +245,8 @@ SECURITY
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
 	flags_cover = GLASSESCOVERSEYES
+	tint_up = 1
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
@@ -304,12 +308,13 @@ HYDROPONIC
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. There is botanical hud in it."
 	icon_state = "tajblind_bot"
 	item_state = "tajblind_bot"
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/attack_self(mob/user)
 	toggle_veil(user)
@@ -361,12 +366,13 @@ SKILLS
 	icon_state = "tajblind_skill"
 	item_state = "tajblind_skill"
 	flags_cover = GLASSESCOVERSEYES
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/hud/skills/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/skills/tajblind/attack_self(mob/user)
 	toggle_veil(user)

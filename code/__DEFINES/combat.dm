@@ -34,22 +34,22 @@
 #define JITTER		"jitter"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
-#define BRUTELOSS 1
-#define FIRELOSS 2
-#define TOXLOSS 4
-#define OXYLOSS 8
-#define SHAME 16
-#define OBLITERATION 32
+#define BRUTELOSS (1<<0)
+#define FIRELOSS (1<<1)
+#define TOXLOSS (1<<2)
+#define OXYLOSS (1<<3)
+#define SHAME (1<<4)
+#define OBLITERATION (1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN		1
-#define CANWEAKEN	2
-#define CANPARALYSE	4
-#define CANPUSH		8
-#define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define IGNORESLOWDOWN	32
-#define IGNORE_SPEED_CHANGES	64
-#define GODMODE		128
+#define CANSTUN		(1<<0)
+#define CANWEAKEN	(1<<1)
+#define CANPARALYSE	(1<<2)
+#define CANPUSH		(1<<3)
+#define PASSEMOTES	(1<<4)      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define IGNORESLOWDOWN	(1<<5)
+#define IGNORE_SPEED_CHANGES	(1<<6)
+#define GODMODE		(1<<7)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0

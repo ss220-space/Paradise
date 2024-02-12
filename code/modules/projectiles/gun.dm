@@ -43,15 +43,20 @@
 	var/randomspread = 1
 	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
 
-	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = FALSE //allows reskinning
-	var/current_skin = null //the skin choice if we had a reskin
-	var/list/options = list()
+	/// Allows renaming with a pen
+	var/unique_rename = TRUE
+	/// Allows reskinning
+	var/unique_reskin = FALSE
+	/// The skin choice if we had a reskin
+	var/current_skin
+	/// Lazy list of gun visual skins. Filled on Initialize() in proc/update_gun_skins()
+	var/list/skin_options
 
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 
 	var/obj/item/flashlight/gun_light = null
+	var/gun_light_overlay
 	var/can_flashlight = 0
 
 	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
@@ -82,18 +87,23 @@
 	var/malf_high_bound = 80
 	var/malf_counter // random number between malf_low_bound and malf_high_bound
 
+
 /obj/item/gun/Initialize()
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
-	if(rusted_weapon == TRUE)
+	if(rusted_weapon)
 		malf_counter = rand(malf_low_bound, malf_high_bound)
+	update_gun_skins()
+
 
 /obj/item/gun/Destroy()
+	QDEL_NULL(gun_light)
 	QDEL_NULL(bayonet)
 	return ..()
+
 
 /obj/item/gun/handle_atom_del(atom/A)
 	if(A == bayonet)
@@ -112,6 +122,24 @@
 			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
 		. += "<span class='notice'>It has a <b>bayonet</b> lug on it.</span>"
+
+
+/obj/item/gun/proc/update_gun_skins()
+	return
+
+
+/**
+ * Adds skin in associative lazy list: skin_options[skin_name] = skin_icon_state
+ *
+ * Arguments:
+ * * skin_name - what skin name user will see.
+ * * skin_icon_state - which icon_state will be used for the gun.
+ */
+/obj/item/gun/proc/add_skin(skin_name, skin_icon_state)
+	if(!unique_reskin)
+		return
+	LAZYSET(skin_options, skin_name, skin_icon_state)
+
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -357,11 +385,10 @@
 				if(S.on)
 					set_light(0)
 				gun_light = S
-				update_icon()
-				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
 				if(loc == user)
 					A.Grant(user)
+				update_gun_light()
 
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
@@ -376,6 +403,7 @@
 			return
 		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
 		bayonet = K
+		update_icon()
 		var/state = "bayonet"							//Generic state.
 		if(bayonet.icon_state in icon_states('icons/obj/weapons/bayonets.dmi'))		//Snowflake state?
 			state = bayonet.icon_state
@@ -383,7 +411,7 @@
 		knife_overlay = mutable_appearance(bayonet_icons, state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
-		overlays += knife_overlay
+		update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 
@@ -395,14 +423,13 @@
 		for(var/obj/item/flashlight/seclite/S in src)
 			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
 			gun_light = null
-			S.loc = get_turf(user)
-			update_gun_light(user)
+			update_gun_light()
+			S.forceMove_turf()
 			S.update_brightness(user)
-			update_icon()
 			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
 				qdel(TGL)
 	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-		bayonet.forceMove(get_turf(user))
+		bayonet.forceMove_turf()
 		clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
@@ -420,9 +447,10 @@
 	to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
-	update_gun_light(user)
+	update_gun_light()
 
-/obj/item/gun/proc/update_gun_light(mob/user = null)
+
+/obj/item/gun/proc/update_gun_light()
 	if(gun_light)
 		if(gun_light.on)
 			set_light(gun_light.brightness_on)
@@ -432,17 +460,17 @@
 	else
 		set_light(0)
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_icon(UPDATE_OVERLAYS)
+	update_equipped_item()
+
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)
 		return
 	bayonet = null
 	if(knife_overlay)
-		overlays -= knife_overlay
 		knife_overlay = null
+	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
 /obj/item/gun/extinguish_light(force = FALSE)
@@ -458,22 +486,37 @@
 	if(azoom)
 		azoom.Remove(user)
 
+
 /obj/item/gun/AltClick(mob/user)
+	if(!unique_reskin || current_skin || loc != user)
+		return ..()
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
+		return ..()
+	reskin_gun(user)
+
+
+/obj/item/gun/proc/reskin_gun(mob/user)
+	if(!LAZYLEN(skin_options))
+		stack_trace("[src] has unique_reskin set to TRUE but skin_options list is empty.")
 		return
-	if(unique_reskin && loc == user)
-		reskin_gun(user)
+	var/list/skins = list()
+	for(var/skin in skin_options)
+		skins[skin] = image(icon = icon, icon_state = skin_options[skin])
+	var/choice = show_radial_menu(user, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
 
-/obj/item/gun/proc/reskin_gun(mob/M)
-	var/choice = input(M,"Select your skin.","Reskin Gun") in options
-
-	if(src && choice && !M.incapacitated() && in_range(M,src))
-		if(options[choice] == null)
-			return
-		current_skin = options[choice]
-		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
+	if(choice && reskin_radial_check(user) && !current_skin)
+		current_skin = skin_options[choice]
+		to_chat(user, "Your gun is now skinned as [choice]. Say hello to your new friend.")
 		update_icon()
+		update_equipped_item()
+
+
+/obj/item/gun/proc/reskin_radial_check(mob/living/carbon/human/user)
+	if(!ishuman(user) || QDELETED(src) || !user.is_in_hands(src) || user.incapacitated())
+		return FALSE
+	return TRUE
+
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))

@@ -37,25 +37,7 @@
 /datum/stack_recipe/cable_restraints/post_build(obj/item/stack/S, obj/result)
 	var/obj/item/restraints/handcuffs/cable/cable_restraints = result
 	if(istype(cable_restraints))
-		var/color = "white"
-
-		switch(S.color)
-			if(WIRE_COLOR_BLUE)
-				color = "blue"
-			if(WIRE_COLOR_CYAN)
-				color = "cyan"
-			if(WIRE_COLOR_GREEN)
-				color = "green"
-			if(WIRE_COLOR_ORANGE)
-				color = "orange"
-			if(WIRE_COLOR_PINK)
-				color = "pink"
-			if(WIRE_COLOR_RED)
-				color = "red"
-			if(WIRE_COLOR_YELLOW)
-				color = "yellow"
-
-		cable_restraints.icon_state = "cuff_[color]"
+		cable_restraints.cable_color(S.color)
 	..()
 
 

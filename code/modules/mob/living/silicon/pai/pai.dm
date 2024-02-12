@@ -214,7 +214,7 @@
 		return 0
 	..()
 
-/mob/living/silicon/pai/MouseDrop(atom/over_object)
+/mob/living/silicon/pai/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	return
 
 /mob/living/silicon/pai/emp_act(severity)
@@ -608,21 +608,21 @@
 
 	return H
 
-/mob/living/silicon/pai/MouseDrop(atom/over_object)
-	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
-	if(!istype(H) || !Adjacent(H))  return ..()
+/mob/living/silicon/pai/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+	if(!ishuman(user) || !Adjacent(user))
+		return ..()
 	if(usr == src)
-		switch(alert(H, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+		switch(alert(user, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
 			if("Yes")
-				if(Adjacent(H))
-					get_scooped(H)
+				if(Adjacent(user))
+					get_scooped(user)
 				else
-					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+					to_chat(src, span_warning("You need to stay in reaching distance to be picked up."))
 			if("No")
-				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+				to_chat(src, span_warning("[user] decided not to pick you up."))
 	else
-		if(Adjacent(H))
-			get_scooped(H)
+		if(Adjacent(user))
+			get_scooped(user)
 		else
 			return ..()
 
