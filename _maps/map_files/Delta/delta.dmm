@@ -97145,8 +97145,8 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "qNX" = (
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel{

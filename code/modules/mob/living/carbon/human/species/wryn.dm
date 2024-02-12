@@ -37,6 +37,8 @@
 		INTERNAL_ORGAN_WAX_GLANDS = /obj/item/organ/internal/wryn/glands,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/wryn
+
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/wryn),
 		BODY_ZONE_PRECISE_GROIN =  list("path" = /obj/item/organ/external/groin/wryn),

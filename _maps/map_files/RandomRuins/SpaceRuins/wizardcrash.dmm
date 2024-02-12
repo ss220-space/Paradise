@@ -314,7 +314,7 @@
 /area/ruin/unpowered)
 "bc" = (
 /obj/effect/decal/remains/human,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bd" = (
@@ -339,7 +339,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bg" = (
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bh" = (
@@ -353,7 +353,7 @@
 	},
 /area/ruin/unpowered)
 "bj" = (
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"

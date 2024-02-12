@@ -18,6 +18,8 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/grey
+
 	total_health = 90
 	oxy_mod = 1.2  //greys are fragile
 	stamina_mod = 1.2

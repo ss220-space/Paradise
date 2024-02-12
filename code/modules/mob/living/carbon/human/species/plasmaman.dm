@@ -43,6 +43,8 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
+
 	speciesbox = /obj/item/storage/box/survival_plasmaman
 	flesh_color = "#8b3fba"
 

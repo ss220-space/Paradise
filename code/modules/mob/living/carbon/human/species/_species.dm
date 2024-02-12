@@ -190,6 +190,8 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
+	var/meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid
+
 	/// If set, this organ is required for vision. Defaults to "eyes" if the species has them.
 	var/vision_organ
 
@@ -366,8 +368,7 @@
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
-	if(H.butcher_results) //clear it out so we don't butcher a actual human.
-		H.butcher_results = null
+	H.meatleft = initial(H.meatleft)
 	H.ventcrawler = initial(H.ventcrawler)
 
 	if(inherent_factions)

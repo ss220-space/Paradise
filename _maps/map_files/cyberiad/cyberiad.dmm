@@ -54171,7 +54171,7 @@
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat/corgi,
 /obj/item/reagent_containers/food/snacks/meat/corgi,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/item/kitchen/knife,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
