@@ -150,7 +150,7 @@
 	update_vampire_spell_name()
 
 
-/obj/effect/proc_holder/spell/fireball/demonic_grasp/update_icon()
+/obj/effect/proc_holder/spell/fireball/demonic_grasp/update_icon_state()
 	return
 
 

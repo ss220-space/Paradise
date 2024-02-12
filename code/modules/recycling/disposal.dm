@@ -932,6 +932,7 @@
 			for(var/atom/movable/AM in H)
 				AM.forceMove(T)
 				AM.pipe_eject(direction)
+				SEND_SIGNAL(AM, COMSIG_MOVABLE_EXIT_DISPOSALS)
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 100, 1)
@@ -947,6 +948,7 @@
 
 				AM.forceMove(T)
 				AM.pipe_eject(0)
+				SEND_SIGNAL(AM, COMSIG_MOVABLE_EXIT_DISPOSALS)
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 5, 1)

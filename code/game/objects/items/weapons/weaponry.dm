@@ -349,7 +349,6 @@
 	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
 	Выдаваясь только самым верным и эффективным офицерам NanoTrasen, это оружие является одновременно символом статуса \
 	и инструментом высшего правосудия."
-	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 
 	can_deflect = FALSE
@@ -374,22 +373,39 @@
 	/// Attack verbs when extended (created on Initialize)
 	var/list/attack_verb_on = list("smacked", "struck", "cracked", "beaten")
 
+
 /obj/item/melee/baseball_bat/homerun/central_command/srt
 	name = "тактическая бита ГСН"
 	desc = "Выдвижная тактическая бита Центрального Командования Nanotrasen. Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
-
 	item_state = "srt_bat_0"
 	item_state_on = "srt_bat_1"
 	icon_state = "srt_bat_0"
 	icon_state_on = "srt_bat_1"
 
-/obj/item/melee/baseball_bat/homerun/central_command/Initialize(mapload)
-	. = ..()
+
+/obj/item/melee/baseball_bat/homerun/central_command/update_icon_state()
 	icon_state = on ? icon_state_on : initial(icon_state)
+	item_state = on ? item_state_on : initial(item_state)
+
+
+/obj/item/melee/baseball_bat/homerun/central_command/proc/toggle(mob/living/user)
+	on = !on
+	slot_flags = on ? NONE : SLOT_BELT
 	force = on ? force_on : initial(force)
 	attack_verb = on ? attack_verb_on : initial(attack_verb)
 	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
 	homerun_able = on
+	homerun_ready = on
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item()
+	playsound(loc, extend_sound, 50, TRUE)
+	add_fingerprint(user)
+	if(on)
+		to_chat(user, span_userdanger("Вы активировали [name] - время для правосудия!"))
+	else
+		to_chat(user, span_notice("Вы деактивировали [name]."))
+
+
 
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
 	if(!(isertmindshielded(user)))
@@ -404,31 +420,10 @@
 		return FALSE
 	return ..()
 
+
 /obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
-	on = !on
-	icon_state = on ? icon_state_on : initial(icon_state)
-	if(on)
-		to_chat(user, "<span class='userdanger'>Вы активировали [src.name] - время для правосудия!</span>")
-		item_state = item_state_on
-		w_class = WEIGHT_CLASS_HUGE //doesnt fit in backpack when its on for balance
-		force = force_on
-		attack_verb = attack_verb_on
-		homerun_ready = TRUE
-	else
-		to_chat(user, "<span class='notice'>Вы деактивировали [src.name].</span>")
-		item_state = initial(item_state)
-		slot_flags = SLOT_BELT
-		w_class = WEIGHT_CLASS_SMALL
-		force = initial(force)
-		attack_verb = initial(attack_verb)
-		homerun_ready = FALSE
-	// Update mob hand visuals
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	playsound(loc, extend_sound, 50, TRUE)
-	add_fingerprint(user)
+	toggle(user)
+
 
 /obj/item/claymore/bone
 	name = "bone sword"
@@ -441,3 +436,4 @@
 	armour_penetration = 15
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
+

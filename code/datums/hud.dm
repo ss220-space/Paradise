@@ -27,7 +27,8 @@ GLOBAL_LIST_INIT(huds, list( \
 	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden(),\
 	TAIPAN_HUD = new/datum/atom_hud/antag(),\
 	ANTAG_HUD_THIEF = new/datum/atom_hud/antag/hidden(),\
-	THOUGHTS_HUD = new/datum/atom_hud/thoughts()\
+	THOUGHTS_HUD = new/datum/atom_hud/thoughts(),\
+	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones()\
 ))
 
 /datum/atom_hud
@@ -62,7 +63,7 @@ GLOBAL_LIST_INIT(huds, list( \
 			M.huds_counter["huds"] -= src
 
 	for(var/atom/A in hudatoms)
-		remove_from_single_hud(M, A, TRUE)
+		remove_from_single_hud(M, A, remove_from_mob=TRUE)
 	hudusers -= M
 
 /datum/atom_hud/proc/remove_from_hud(atom/A)
@@ -82,23 +83,25 @@ GLOBAL_LIST_INIT(huds, list( \
 			continue
 		M.client.images -= A.hud_list[i]
 
-/datum/atom_hud/proc/add_hud_to(mob/M)
+/datum/atom_hud/proc/add_hud_to(mob/M, only_once=FALSE)
 	if(!M)
 		return
 	hudusers |= M
 
-	if (src in M.huds_counter["huds"])
-		M.huds_counter["huds"][src]++
-	else
-		M.huds_counter["huds"][src] = 1
+	if (!only_once || !(src in M.huds_counter["huds"]))
+		if (src in M.huds_counter["huds"])
+			M.huds_counter["huds"][src]++
+		else
+			M.huds_counter["huds"][src] = 1
+
+		for (var/i in hud_icons)
+			if (i in M.huds_counter["icons"])
+				M.huds_counter["icons"][i]++
+			else
+				M.huds_counter["icons"][i] = 1
 
 	for(var/atom/A in hudatoms)
 		add_to_single_hud(M, A)
-	for (var/i in hud_icons)
-		if (i in M.huds_counter["icons"])
-			M.huds_counter["icons"][i]++
-		else
-			M.huds_counter["icons"][i] = 1
 
 /datum/atom_hud/proc/add_to_hud(atom/A)
 	if(!A)
@@ -128,26 +131,26 @@ GLOBAL_LIST_INIT(huds, list( \
 
 	for(var/datum/atom_hud/hud in (GLOB.all_huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
-			hud.add_hud_to(src)
+			hud.add_hud_to(src, only_once=TRUE)
 
 	for(var/obj/item/check in contents)
 		if(istype(check, /obj/item/clothing/glasses/hud))
 			var/obj/item/clothing/glasses/hud/glasses = check
 			if(glasses.HUDType && get_slot_by_item(glasses) == slot_glasses)
 				var/datum/atom_hud/my_hud = GLOB.huds[glasses.HUDType]
-				my_hud.add_hud_to(src)
+				my_hud.add_hud_to(src, only_once=TRUE)
 
 		if(istype(check, /obj/item/clothing/head))
 			var/obj/item/clothing/head/helmet = check
 			if(helmet.HUDType && get_slot_by_item(helmet) == slot_head)
 				var/datum/atom_hud/my_hud = GLOB.huds[helmet.HUDType]
-				my_hud.add_hud_to(src)
+				my_hud.add_hud_to(src, only_once=TRUE)
 
 		if(istype(check, /obj/item/organ/internal/cyberimp/eyes/hud))
 			var/obj/item/organ/internal/cyberimp/eyes/hud/implant = check
-			if(implant.HUD_type && !implant.is_equipped(TRUE, TRUE))
-				var/datum/atom_hud/my_hud = GLOB.huds[implant.HUD_type]
-				my_hud.add_hud_to(src)
+			if(implant.HUDType && !implant.is_equipped(TRUE, TRUE))
+				var/datum/atom_hud/my_hud = GLOB.huds[implant.HUDType]
+				my_hud.add_hud_to(src, only_once=TRUE)
 
 
 /mob/new_player/reload_huds()

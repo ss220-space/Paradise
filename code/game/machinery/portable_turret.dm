@@ -69,6 +69,10 @@
 	var/always_up = FALSE		//Will stay active
 	var/has_cover = TRUE		//Hides the cover
 
+	var/list/turret_marks
+
+	///Targets that are currently processed by turret. Used by process()
+	var/list/processing_targets = list()
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
@@ -78,7 +82,23 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+	AddComponent(/datum/component/proximity_monitor, scan_range)
 	setup()
+
+/obj/machinery/porta_turret/HasProximity(atom/movable/AM)
+	handleInterloper(AM)
+
+/obj/machinery/porta_turret/proc/handleInterloper(atom/movable/entity)
+	//message_admins("[entity] is in target range of [src]")
+
+	if(entity.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
+		return
+
+	var/static/valid_targets = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
+	if(!is_type_in_typecache(entity, valid_targets))
+		return
+
+	processing_targets[entity] = TRUE //associative for perfomance
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
@@ -487,51 +507,64 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			popDown()
 		return
 
-	var/list/targets = list()			//list of primary targets
-	var/list/secondarytargets = list()	//targets that are least important
-	var/static/things_to_scan = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
+	if(!length(processing_targets))
+		return
 
-	for(var/A in typecache_filter_list(view(scan_range, src), things_to_scan))
-		var/atom/AA = A
+	//Verify that targeted atoms are in our sight. Otherwise, just remove them from processing.
+	for(var/atom/movable/atom as anything in processing_targets)
+		if(!can_see(src, atom, scan_range))
+			processing_targets -= atom
 
-		if(AA.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
+	var/list/primary_candidates
+	var/list/secondary_candidates
+
+	for(var/atom/movable/atom as anything in processing_targets)
+		var/assess_type = TURRET_NOT_TARGET
+		assess_type = set_assess_type(atom)
+		if(assess_type == TURRET_PRIORITY_TARGET)
+			LAZYADD(primary_candidates, atom)
 			continue
 
-		if(istype(A, /obj/mecha))
-			var/obj/mecha/ME = A
-			assess_and_assign(ME.occupant, targets, secondarytargets)
+		if(assess_type == TURRET_SECONDARY_TARGET)
+			LAZYADD(secondary_candidates, atom)
 
-		if(istype(A, /obj/spacepod))
-			var/obj/spacepod/SP = A
-			assess_and_assign(SP.pilot, targets, secondarytargets)
+	if(!primary_candidates && !secondary_candidates)
+		if(!always_up)
+			popDown()
+		return
 
-		if(istype(A, /obj/vehicle))
-			var/obj/vehicle/T = A
-			if(T.has_buckled_mobs())
-				for(var/m in T.buckled_mobs)
-					var/mob/living/buckled_mob = m
-					assess_and_assign(buckled_mob, targets, secondarytargets)
-
-		if(isliving(A))
-			var/mob/living/C = A
-			assess_and_assign(C, targets, secondarytargets)
-
-	if(!tryToShootAt(targets))
-		if(!tryToShootAt(secondarytargets)) // if no valid targets, go for secondary targets
+	if(!tryToShootAt(primary_candidates))
+		if(!tryToShootAt(secondary_candidates))
 			if(!always_up)
-				popDown() // no valid targets, close the cover
+				popDown()
+
+/obj/machinery/porta_turret/proc/set_assess_type(atom/movable/target)
+	if(istype(target, /obj/mecha))
+		var/obj/mecha/ME = target
+		return assess_and_assign(ME.occupant)
+
+	if(istype(target, /obj/spacepod))
+		var/obj/spacepod/SP = target
+		return assess_and_assign(SP.pilot)
+
+	if(istype(target, /obj/vehicle))
+		var/obj/vehicle/T = target
+		if(T.has_buckled_mobs())
+			for(var/m in T.buckled_mobs)
+				var/mob/living/buckled_mob = m
+				return assess_and_assign(buckled_mob)
+
+	if(isliving(target))
+		var/mob/living/C = target
+		return assess_and_assign(C)
 
 /obj/machinery/porta_turret/proc/in_faction(mob/living/target)
 	if(!(faction in target.faction))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
-/obj/machinery/porta_turret/proc/assess_and_assign(mob/living/L, list/targets, list/secondarytargets)
-	switch(assess_living(L))
-		if(TURRET_PRIORITY_TARGET)
-			targets += L
-		if(TURRET_SECONDARY_TARGET)
-			secondarytargets += L
+/obj/machinery/porta_turret/proc/assess_and_assign(mob/living/L)
+	return assess_living(L)
 
 /obj/machinery/porta_turret/proc/assess_living(mob/living/L)
 	if(!L)
@@ -584,15 +617,19 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
 
-/obj/machinery/porta_turret/proc/tryToShootAt(var/list/mob/living/targets)
+/obj/machinery/porta_turret/proc/tryToShootAt(list/mob/living/targets)
+	if(!targets)
+		return FALSE
+
 	if(targets.len && last_target && (last_target in targets) && target(last_target))
-		return 1
+		return TRUE
 
 	while(targets.len)
 		var/mob/living/M = pick(targets)
 		targets -= M
 		if(target(M))
-			return 1
+			return TRUE
+
 
 /obj/machinery/porta_turret/proc/popUp()	//pops the turret up
 	if(disabled)

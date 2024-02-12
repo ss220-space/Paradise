@@ -147,6 +147,28 @@
 		dissipate_track++
 
 
+/obj/singularity/update_icon_state()
+	switch(current_size)
+		if(STAGE_ONE)
+			icon = 'icons/obj/engines_and_power/singularity.dmi'
+			icon_state = "singularity_s1"
+		if(STAGE_TWO)
+			icon = 'icons/effects/96x96.dmi'
+			icon_state = "singularity_s3"
+		if(STAGE_THREE)
+			icon = 'icons/effects/160x160.dmi'
+			icon_state = "singularity_s5"
+		if(STAGE_FOUR)
+			icon = 'icons/effects/224x224.dmi'
+			icon_state = "singularity_s7"
+		if(STAGE_FIVE)
+			icon = 'icons/effects/288x288.dmi'
+			icon_state = "singularity_s9"
+		if(STAGE_SIX)
+			icon = 'icons/effects/352x352.dmi'
+			icon_state = "singularity_s11"
+
+
 /obj/singularity/proc/expand(force_size = 0)
 	var/temp_allowed_size = src.allowed_size
 	if(force_size)
@@ -156,8 +178,6 @@
 	switch(temp_allowed_size)
 		if(STAGE_ONE)
 			current_size = STAGE_ONE
-			icon = 'icons/obj/engines_and_power/singularity.dmi'
-			icon_state = "singularity_s1"
 			pixel_x = 0
 			pixel_y = 0
 			grav_pull = 4
@@ -168,8 +188,6 @@
 		if(STAGE_TWO)
 			if((check_turfs_in(1,1))&&(check_turfs_in(2,1))&&(check_turfs_in(4,1))&&(check_turfs_in(8,1)))
 				current_size = STAGE_TWO
-				icon = 'icons/effects/96x96.dmi'
-				icon_state = "singularity_s3"
 				pixel_x = -32
 				pixel_y = -32
 				grav_pull = 6
@@ -180,8 +198,6 @@
 		if(STAGE_THREE)
 			if((check_turfs_in(1,2))&&(check_turfs_in(2,2))&&(check_turfs_in(4,2))&&(check_turfs_in(8,2)))
 				current_size = STAGE_THREE
-				icon = 'icons/effects/160x160.dmi'
-				icon_state = "singularity_s5"
 				pixel_x = -64
 				pixel_y = -64
 				grav_pull = 8
@@ -192,8 +208,6 @@
 		if(STAGE_FOUR)
 			if((check_turfs_in(1,3))&&(check_turfs_in(2,3))&&(check_turfs_in(4,3))&&(check_turfs_in(8,3)))
 				current_size = STAGE_FOUR
-				icon = 'icons/effects/224x224.dmi'
-				icon_state = "singularity_s7"
 				pixel_x = -96
 				pixel_y = -96
 				grav_pull = 10
@@ -203,8 +217,6 @@
 				dissipate_strength = 10
 		if(STAGE_FIVE)//this one also lacks a check for gens because it eats everything
 			current_size = STAGE_FIVE
-			icon = 'icons/effects/288x288.dmi'
-			icon_state = "singularity_s9"
 			pixel_x = -128
 			pixel_y = -128
 			grav_pull = 10
@@ -212,13 +224,12 @@
 			dissipate = 0 //It cant go smaller due to e loss
 		if(STAGE_SIX) //This only happens if a stage 5 singulo consumes a supermatter shard.
 			current_size = STAGE_SIX
-			icon = 'icons/effects/352x352.dmi'
-			icon_state = "singularity_s11"
 			pixel_x = -160
 			pixel_y = -160
 			grav_pull = 15
 			consume_range = 5
 			dissipate = 0
+	update_icon(UPDATE_ICON_STATE)
 	if(current_size == allowed_size)
 		investigate_log("<font color='red'>grew to size [current_size]</font>", INVESTIGATE_ENGINE)
 		return 1

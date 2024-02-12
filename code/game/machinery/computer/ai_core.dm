@@ -97,7 +97,7 @@
 					return
 
 				var/datum/job/job_ai = SSjobs.name_occupations["AI"]
-				if(!job_ai.available_in_playtime(M.brainmob.client))
+				if(job_ai.available_in_playtime(M.brainmob.client))
 					to_chat(user, span_warning("This [P] does not seem to fit."))
 					return
 
@@ -170,6 +170,7 @@
 			else
 				if(brain.brainmob.mind)
 					SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
+					SSticker.mode.remove_clocker(brain.brainmob.mind, 1)
 					SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
 
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
@@ -306,8 +307,8 @@ That prevents a few funky behaviors.
 		return
  //Transferring a carded AI to a core.
 	if(interaction == AI_TRANS_FROM_CARD)
-		AI.control_disabled = 0
-		AI.aiRadio.disabledAi = 0
+		AI.control_disabled = FALSE
+		AI.aiRadio.disabledAi = FALSE
 		AI.forceMove(loc)//To replace the terminal.
 		AI.on_the_card = FALSE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")

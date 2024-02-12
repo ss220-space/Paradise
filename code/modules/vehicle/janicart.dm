@@ -55,7 +55,7 @@
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'You hook the trashbag onto [src].</span>")
 		trash_bag = I
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else if(istype(I, /obj/item/janiupgrade))
 		if(floorbuffer)
 			to_chat(user, "<span class='warning'>[src] already has an upgrade installed! Use a screwdriver to remove it.</span>")
@@ -63,18 +63,20 @@
 		floorbuffer = TRUE
 		qdel(I)
 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else if(trash_bag && (!is_key(I) || is_key(inserted_key))) // don't put a key in the trash when we need it
 		trash_bag.attackby(I, user)
 	else
 		return ..()
 
-/obj/vehicle/janicart/update_icon()
-	cut_overlays()
+
+/obj/vehicle/janicart/update_overlays()
+	. = ..()
 	if(trash_bag)
-		add_overlay("cart_garbage")
+		. += "cart_garbage"
 	if(floorbuffer)
-		add_overlay("cart_buffer")
+		. += "cart_buffer"
+
 
 /obj/vehicle/janicart/attack_hand(mob/user)
 	if(..())
@@ -83,7 +85,7 @@
 		trash_bag.forceMove_turf()
 		user.put_in_hands(trash_bag, ignore_anim = FALSE)
 		trash_bag = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/key/janitor
 	desc = "A keyring with a small steel key, and a pink fob reading \"Pussy Wagon\"."
