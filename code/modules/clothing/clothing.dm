@@ -435,7 +435,7 @@ BLIND     // can't see anything
 	if(!can_toggle || user.incapacitated()) //This check allows you to adjust your masks while you're buckled into chairs or beds.
 		return FALSE
 	if(is_obscured_for_unEquip(H))
-		return
+		return FALSE
 
 	. = TRUE
 

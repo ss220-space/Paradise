@@ -33,7 +33,8 @@
 
 /obj/item/clothing/glasses/hud/visor_toggling(mob/living/carbon/human/user)
 	. = ..()
-
+	if(!.)
+		return
 	if(visor_vars_to_toggle & VISOR_EXAM_EXTENTIONS)
 		examine_extensions ^= initial(examine_extensions)
 
