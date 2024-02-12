@@ -1398,6 +1398,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/visible_species = "Unknown"
 
 		if(isliving(target))
+			to_chat(user, span_notice("You begin to examine [target]."))
 			var/mob/living/target_living = target
 			visible_species = target_living.get_visible_species()
 
