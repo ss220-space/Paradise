@@ -1092,7 +1092,7 @@
 			/obj/item/reagent_containers/food/drinks/cans/beer))
 
 /obj/item/storage/box/crayfish_bucket/populate_contents()
-	var/list/preset = pick(presets[0], presets[1], presets[2])
+	var/list/preset = pick(presets)
 	for(var/item in preset)
 		new item(src)
 
