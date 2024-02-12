@@ -80,36 +80,18 @@
 		set_density(anchored)
 		playsound(get_turf(src), O.usesound, 50, 1)
 
-
-/obj/item/pod_parts/pod_frame/examine(mob/user)
-	. = ..()
-	. += span_info("<b>Alt-Click</b> to rotate it.")
-
-
-/obj/item/pod_parts/pod_frame/verb/rotate()
-	set name = "Rotate Frame"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return FALSE
-
-	if(anchored)
-		to_chat(usr, "\The [src] is securely bolted!")
-		return FALSE
-
-	dir = turn(dir, -90)
-	return TRUE
-
-
 /obj/item/pod_parts/pod_frame/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
-
-
-/obj/item/pod_parts/pod_frame/attack_hand()
+	if(anchored)
+		to_chat(user, "\The [src] is securely bolted!")
+		return 0
+	dir = turn(dir, -90)
 	return
 
+/obj/item/pod_parts/pod_frame/attack_hand(mob/user, pickupfireoverride)
+	if(anchored)
+		to_chat(user, "\The [src] is securely bolted!")
+		return 0
+	dir = turn(dir, -90)
 
 /obj/item/pod_parts/pod_frame/fore_port
 	name = "fore port pod frame"

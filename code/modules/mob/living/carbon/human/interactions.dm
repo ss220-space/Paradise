@@ -14,7 +14,7 @@
 //Distant interactions
 /mob/living/carbon/human/verb/interact(mob/M as mob)
 	set name = "Interact"
-	set category = "IC"
+	set category = null
 
 	if (ishuman(M) && usr != M && src != M)
 		partner = M

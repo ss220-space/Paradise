@@ -1,3 +1,8 @@
+/mob/living/carbon
+	/// Just a timer stamp for [/mob/living/carbon/relaymove]
+	var/last_stomach_attack
+
+
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src

@@ -490,15 +490,6 @@
 		return
 	..()
 
-
-/obj/item/pinpointer/crew/verb/choose_signal_verb()
-	set category = "Object"
-	set name = "Track Signals"
-	set src in usr
-
-	choose_signal(usr)
-
-
 /obj/item/pinpointer/crew/proc/choose_signal(mob/living/carbon/user)
 	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return

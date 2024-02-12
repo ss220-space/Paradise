@@ -6,10 +6,9 @@
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
 
-/obj/item/gun/projectile/revolver/Initialize(mapload)
+/obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+	. += span_info("<b>Alt-Click</b> to spin revolver's chamber.")
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = TRUE)
 	if(!magazine)
@@ -56,13 +55,8 @@
 	else
 		balloon_alert(user, "уже разряжено!")
 
-/obj/item/gun/projectile/revolver/verb/spin()
-	set name = "Spin Chamber"
-	set category = "Object"
-	set desc = "Click to spin your revolver's chamber."
-	set src in usr
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/item/gun/projectile/revolver/AltClick(mob/user)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
@@ -70,9 +64,7 @@
 		C.spin()
 		chamber_round(FALSE)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
-		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
-	else
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+		user.visible_message("[user] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
 
 
 /obj/item/gun/projectile/revolver/can_shoot(mob/user)
@@ -124,6 +116,13 @@
 	needs_permit = FALSE //go away beepsky
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
 
+/obj/item/gun/projectile/revolver/fingergun/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
+	if(!user.mind.miming)
+		to_chat(user, span_notice("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
+		return
+	user.visible_message("[user] spins his fingergun as it was the real one!")
 
 /obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
 	. = ..()
@@ -138,7 +137,6 @@
 /obj/item/gun/projectile/revolver/fingergun/Initialize(loc, new_parent_spell)
 	. = ..()
 	parent_spell = new_parent_spell
-	verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 
 /obj/item/gun/projectile/revolver/fingergun/Destroy()
