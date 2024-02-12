@@ -1,22 +1,61 @@
 import { useBackend } from '../backend';
-import { Button, Flex, Section, Divider } from '../components';
+import { Button, Flex, Section, Divider, useLocalState, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const VampireSpecMenu = (props, context) => {
+  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const decideTab = index => {
+    switch (index) {
+      case 0:
+        return <HemoMenu />;
+      case 1:
+        return <UmbrMenu />;
+      case 2:
+        return <GarMenu />;
+      case 3:
+        return <DantMenu />;
+      case 4:
+        return <BestMenu />;
+      default:
+        return <HemoMenu />;
+    }
+  };
   return (
     <Window resizable theme="nologo">
       <Window.Content>
-        <Flex justify="space-around">
-          <HemoMenu />
-          <Divider vertical={1} />
-          <UmbrMenu />
-          <Divider vertical={1} />
-          <GarMenu />
-          <Divider vertical={1} />
-          <DantMenu />
-          <Divider vertical={1} />
-          <BestMenu />
-        </Flex>
+        <Tabs>
+          <Tabs.Tab
+            key="Hemomancer"
+            content="Hemomancer"
+            selected={0 === tabIndex}
+            onClick={() => setTabIndex(0)}>
+          </Tabs.Tab>
+          <Tabs.Tab
+            key="Umbrae"
+            content="Umbrae"
+            selected={1 === tabIndex}
+            onClick={() => setTabIndex(1)}>
+          </Tabs.Tab>
+          <Tabs.Tab
+            key="Gargantua"
+            content="Gargantua"
+            selected={2 === tabIndex}
+            onClick={() => setTabIndex(2)}>
+          </Tabs.Tab>
+          <Tabs.Tab
+            key="Dantalion"
+            content="Dantalion"
+            selected={3 === tabIndex}
+            onClick={() => setTabIndex(3)}>
+          </Tabs.Tab>
+          <Tabs.Tab
+            key="Bestia"
+            content="Bestia"
+            selected={4 === tabIndex}
+            onClick={() => setTabIndex(4)}>
+          </Tabs.Tab>
+        </Tabs>
+        {decideTab(tabIndex)}
       </Window.Content>
     </Window>
   );

@@ -158,9 +158,16 @@
 		ui.open()
 
 
-/obj/effect/proc_holder/spell/vampire/self/specialize/ui_data(mob/user)
-	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	var/list/data = list("subclasses" = vamp.subclass)
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_static_data(mob/user)
+	var/list/data = list()
+	data["subclasses"] = list()
+	for(var/path in subtypesof(/datum/vampire_subclass))
+		if(path == /datum/vampire_subclass/ancient)
+			continue
+		// var/list/subclass_info = list()
+		// var/datum/vampire_subclass/new_subclass = new path
+		// subclass_info["name"] = new_subclass.name
+
 	return data
 
 
