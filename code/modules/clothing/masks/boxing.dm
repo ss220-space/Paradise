@@ -39,6 +39,8 @@
 		user.drop_item_ground(src)
 		user.put_in_hands(src)
 
+	flags = up ? NONE : initial(flags)
+
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"
 	desc = "Worn by robust fighters, flying high to defeat their foes!"
