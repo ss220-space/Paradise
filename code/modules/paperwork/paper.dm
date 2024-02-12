@@ -233,7 +233,6 @@
 		qdel(src)
 
 
-
 /obj/item/paper/proc/addtofield(id, text, links = 0)
 	if(id > MAX_PAPER_FIELDS)
 		return
@@ -251,7 +250,7 @@
 		if(!istart)
 			return // No field found with matching id
 
-		laststart = istart++
+		laststart = istart+1
 		locid++
 		if(locid == id)
 			var/iend = 1
@@ -303,7 +302,7 @@
 		var/i = findtext_char(info, "<span class=\"paper_field\">", laststart)
 		if(!i)
 			break
-		laststart = i++
+		laststart = i+1
 		fields++
 
 
@@ -384,10 +383,10 @@
 
 		menu_list.Add(sign_text)	//signature
 
-		if(usr.mind?.initial_account.account_number)
+		if(usr.mind?.initial_account?.account_number)
 			menu_list.Add(account_text)	// account number
 
-		if(usr.mind?.initial_account.remote_access_pin)
+		if(usr.mind?.initial_account?.remote_access_pin)
 			menu_list.Add(pin_text)	// account pin-code
 
 		menu_list.Add(
