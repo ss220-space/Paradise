@@ -32,18 +32,6 @@
 	if(!istype(user))
 		return
 	if(user.neck != src)
-		return
-	flip(user)
-
-/obj/item/clothing/neck/poncho/verb/flip_poncho()
-	set name = "Flip poncho"
-	set category = "Object"
-	set desc = "Flip poncho behind your back"
-
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/human/user = usr
-	if(user.neck != src)
 		to_chat(user, span_warning("Poncho must be equipped before flipping!"))
 		return
 	flip(user)

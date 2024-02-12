@@ -102,18 +102,6 @@
 	..()
 	return TRUE
 
-/datum/dna/gene/basic/grant_verb
-	var/verbtype
-
-/datum/dna/gene/basic/grant_verb/activate(mob/M, connected, flags)
-	..()
-	M.verbs += verbtype
-	return TRUE
-
-/datum/dna/gene/basic/grant_verb/deactivate(mob/M, connected, flags)
-	..()
-	M.verbs -= verbtype
-
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
 	name = "Cryokinesis"

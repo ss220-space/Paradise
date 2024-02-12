@@ -387,7 +387,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else
 		return RCD_ACT_FAILED
 
-/obj/structure/windowmob/user)
+/obj/structure/window/AltClick(mob/user)
 	if(user.incapacitated() || !Adjacent(user))
 		return
 

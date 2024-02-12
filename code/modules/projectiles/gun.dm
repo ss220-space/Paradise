@@ -433,9 +433,6 @@
 		clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
-	set name = "Toggle Gun Light"
-	set category = "Object"
-	set desc = "Click to toggle your weapon's attached flashlight."
 
 	if(!gun_light)
 		return

@@ -37,6 +37,7 @@
 /datum/action/innate/hide/drone
 	desc = "Allows to hide beneath tables or certain items. Toggled on or off. While hiding you can fit under unbolted airlocks."
 	button_icon_state = "repairbot"
+	background_icon = "bg_tech_blue"
 
 
 /datum/action/innate/hide/drone/cogscarab

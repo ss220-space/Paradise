@@ -856,28 +856,24 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/suit/fluff/kluys/verb/toggle()
-	set name = "Toggle Nanofibre Mode"
-	set category = "Object"
-	set src in usr
-
-	if(usr.stat || usr.restrained())
-		return 0
+/obj/item/clothing/suit/fluff/kluys/AltClick(mob/user)
+	if(user.incapacitated())
+		return
 
 	switch(icon_state)
 		if("Kluysfluff1")
 			src.icon_state = "Kluysfluff2"
-			to_chat(usr, "The fibre unfolds into a jacket.")
+			to_chat(user, "The fibre unfolds into a jacket.")
 		if("Kluysfluff2")
 			src.icon_state = "Kluysfluff3"
-			to_chat(usr, "The fibre unfolds into a coat.")
+			to_chat(user, "The fibre unfolds into a coat.")
 		if("Kluysfluff3")
 			src.icon_state = "Kluysfluff1"
-			to_chat(usr, "The fibre gets sucked back into its holder.")
+			to_chat(user, "The fibre gets sucked back into its holder.")
 		else
-			to_chat(usr, "You attempt to hit the button but can't.")
+			to_chat(user, "You attempt to hit the button but can't.")
 			return
-	usr.update_inv_wear_suit()
+	user.update_inv_wear_suit()
 
 /obj/item/clothing/suit/storage/labcoat/fluff/red // Sweetjealousy: Sophie Faust-Noms
 	name = "red labcoat"
@@ -1150,24 +1146,20 @@
 	has_sensor = 2
 	sensor_mode = 3
 
-/obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
-	set name = "Toggle Jumpsuit Zipper"
-	set category = "Object"
-	set src in usr
+/obj/item/clothing/under/fluff/jane_sidsuit/AltClick(mob/user)
+	if(user.incapacitated())
+		return
 
-	if(usr.stat || usr.restrained())
-		return 0
-
-	if(src.icon_state == "jane_sid_suit_down")
-		src.item_color = "jane_sid_suit"
-		to_chat(usr, "You zip up \the [src].")
+	if(icon_state == "jane_sid_suit_down")
+		item_color = "jane_sid_suit"
+		to_chat(user, "You zip up \the [src].")
 	else
-		src.item_color = "jane_sid_suit_down"
-		to_chat(usr, "You unzip and roll down \the [src].")
+		item_color = "jane_sid_suit_down"
+		to_chat(user, "You unzip and roll down \the [src].")
 
-	src.icon_state = "[item_color]"
-	src.item_state = "[item_color]"
-	usr.update_inv_w_uniform()
+	icon_state = "[item_color]"
+	item_state = "[item_color]"
+	user.update_inv_w_uniform()
 
 /obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
 	name = "Viridi Protegat"

@@ -268,15 +268,6 @@
 /mob/living/silicon/robot/cogscarab/use_power() //it's made of gears...
 	return
 
-/mob/living/silicon/robot/cogscarab/verb/light()
-	set name = "Light On/Off"
-	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = "Cogscarab"
-
-	if(lamp_intensity)
-		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp
-	control_headlamp()
-
 /mob/living/silicon/robot/cogscarab/control_headlamp()
 	if(stat || lamp_recharging || low_power_mode)
 		to_chat(src, "<span class='danger'>This function is currently offline.</span>")

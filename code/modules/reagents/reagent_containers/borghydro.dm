@@ -61,10 +61,6 @@
 /obj/item/reagent_containers/borghypo/upgraded/super
 	bypass_protection = TRUE
 
-/obj/item/reagent_containers/borghypo/empty()
-	set hidden = TRUE
-
-
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	for(var/R in reagent_ids)
 		add_reagent(R)

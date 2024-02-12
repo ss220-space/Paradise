@@ -25,6 +25,10 @@
 		dir = direction
 	update()
 
+/obj/structure/disposalconstruct/examine(mob/user)
+	. = ..()
+	. += span_info("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
+
 	// update iconstate and dpdir due to dir and type
 /obj/structure/disposalconstruct/proc/update()
 	base_state = get_pipe_icon(ptype)
@@ -80,39 +84,37 @@
 
 
 // flip and rotate verbs
-/obj/structure/disposalconstruct/verb/rotate()
-	set category = "Object"
-	set name = "Rotate Pipe"
-	set src in view(1)
-
-	if(usr.stat)
-		return
-
-	if(anchored)
-		to_chat(usr, "You must unfasten the pipe before rotating it.")
-		return
-
-	add_fingerprint(usr)
-	dir = turn(dir, -90)
-	update()
-
 /obj/structure/disposalconstruct/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	rotate()
+	add_fingerprint(user)
+	rotate(user)
 
-/obj/structure/disposalconstruct/verb/flip()
-	set category = "Object"
-	set name = "Flip Pipe"
-	set src in view(1)
-	if(usr.stat)
+
+/obj/structure/disposalconstruct/proc/rotate(user)
+	if(anchored)
+		to_chat(user, span_notice("You must unfasten the pipe before rotating it."))
 		return
 
+	add_fingerprint(user)
+	dir = turn(dir, -90)
+	update()
+
+/obj/structure/disposalconstruct/AltShiftClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	add_fingerprint(user)
+	flip(user)
+
+/obj/structure/disposalconstruct/proc/flip()
 	if(anchored)
-		to_chat(usr, "You must unfasten the pipe before flipping it.")
+		to_chat(usr, span_notice("You must unfasten the pipe before flipping it."))
 		return
 
 	dir = turn(dir, 180)
@@ -125,7 +127,6 @@
 			ptype = PIPE_DISPOSALS_SORT_LEFT
 		if(PIPE_DISPOSALS_SORT_LEFT)
 			ptype = PIPE_DISPOSALS_SORT_RIGHT
-
 	update()
 
 // returns the type path of disposalpipe corresponding to this item dtype
@@ -250,9 +251,9 @@
 /obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	. = TRUE
 	if(our_rpd.mode == RPD_ROTATE_MODE)
-		rotate()
+		rotate(user)
 	else if(our_rpd.mode == RPD_FLIP_MODE)
-		flip()
+		flip(user)
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_single_pipe(user, src)
 	else

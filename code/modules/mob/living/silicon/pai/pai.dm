@@ -47,6 +47,7 @@
 		"Feline" = list("purrs","yowls","meows"),
 		"Canine" = list("yaps","barks","growls")
 		)
+	var/speech_state = "Robotic" // Needed for TGUI shit
 
 
 	var/master				// Name of the one who commands us
@@ -110,6 +111,10 @@
 
 	if(istype(loc, /obj/item/paicard))
 		card = loc
+	else
+		card = new(get_turf(src))
+		forceMove(card)
+		card.setPersonality(src)
 
 	if(card)
 		faction = card.faction.Copy()
@@ -128,13 +133,13 @@
 	add_language("Gutter", 1)
 	add_language("Trinary", 1)
 
-	//Verbs for pAI mobile form, chassis and Say flavor text
-	verbs += /mob/living/silicon/pai/proc/choose_chassis
-	verbs += /mob/living/silicon/pai/proc/choose_verbs
-	verbs += /mob/living/silicon/pai/proc/pai_change_voice
+	var/datum/action/innate/pai_software/software = new()
+	software.Grant(src)
+	var/datum/action/innate/unfold_chassis_pai/unfold = new()
+	unfold.Grant(src)
+	var/datum/action/innate/pai_change_voice/voice = new()
+	voice.Grant(src)
 
-	var/datum/action/innate/pai_soft/P = new
-	P.Grant(src)
 
 	//PDA
 	pda = new(src)
@@ -278,30 +283,32 @@
 // mobile pai mob. This also includes handling some of the general shit that can occur
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
 
-/mob/living/silicon/pai/verb/fold_out()
-	set category = "pAI Commands"
-	set name = "Unfold Chassis"
+/datum/action/innate/unfold_chassis_pai
+	name = "Unfold/Fold Chassis"
+	desc = "Allows you to fold in/out of your mobile form."
+	button_icon_state = "repairbot"
+	background_icon_state = "bg_tech_blue"
+	check_flags = AB_CHECK_CONSCIOUS
+	var/unfoldcooldown = 0
+	var/unfold_delay = 20 SECONDS
 
-	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
+/datum/action/innate/unfold_chassis_pai/Activate()
+	var/mob/living/silicon/pai/pai_user = owner
+	if(unfoldcooldown > world.time)
+		to_chat(pai_user, span_warning("You've recently folded. Try again later."))
 		return
 
-	if(loc != card)
-		to_chat(src, "<span class='warning'>You are already in your mobile form!</span>")
-		return
+	unfoldcooldown = world.time + unfold_delay
+	if(pai_user.loc != pai_user.card)
+		pai_user.close_up()
+		return TRUE
+	pai_user.force_fold_out()
 
-	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before folding your chassis out again!</span>")
-		return
-
-	last_special = world.time + 200
-
-	//I'm not sure how much of this is necessary, but I would rather avoid issues.
-	force_fold_out()
-
-	visible_message("<span class='notice'>[src] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
+	pai_user.visible_message("<span class='notice'>[pai_user] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
+	return TRUE
 
 /mob/living/silicon/pai/proc/force_fold_out()
-	if(istype(card.loc, /mob))
+	if(ismob(card.loc))
 		var/mob/holder = card.loc
 		holder.drop_item_ground(card)
 	else if(istype(card.loc, /obj/item/pda))
@@ -313,94 +320,23 @@
 	card.forceMove(src)
 	card.screen_loc = null
 
-/mob/living/silicon/pai/verb/fold_up()
-	set category = "pAI Commands"
-	set name = "Collapse Chassis"
 
-	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
+/datum/action/innate/pai_change_voice
+	name = "Change Voice"
+	desc = "Express yourself!"
+	button_icon_state = "speak_change"
+	background_icon_state = "bg_tech_blue"
+	check_flags = AB_CHECK_CONSCIOUS
+	var/voicecooldown = 0
+	var/voice_delay = 20 SECONDS
+
+/datum/action/innate/pai_change_voice/Activate()
+	if(voicecooldown > world.time)
+		to_chat(owner, span_warning("You've recently changed your voice. Try again later."))
 		return
 
-	if(loc == card)
-		to_chat(src, "<span class='warning'>You are already in your card form!</span>")
-		return
-
-	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before returning to your card form!</span>")
-		return
-
-	close_up()
-
-/mob/living/silicon/pai/proc/choose_chassis()
-	set category = "pAI Commands"
-	set name = "Choose Chassis"
-
-	var/list/my_choices = list()
-	var/choice
-	var/finalized = "No"
-
-	//check for custom_sprite
-	if(!custom_sprite)
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = splittext(file, "\n")
-
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])
-
-			if(Entry.len < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
-				continue
-
-			if(Entry[2] == ckey)							//They're in the list? Custom sprite time, var and icon change required
-				custom_sprite = 1
-				my_choices["Custom"] = "[ckey]-pai"
-
-	my_choices = base_possible_chassis.Copy()
-	for(var/i = 1, i<=special_possible_chassis.len, i++)
-		if(female_chassis && (special_possible_chassis[i] == "Female" || special_possible_chassis[i] == "Red Female"))
-			my_choices += special_possible_chassis.Copy(i, i+1)
-		if((syndipai || snake_chassis) && special_possible_chassis[i] == "Snake")
-			my_choices += special_possible_chassis.Copy(i, i+1)
-		if(custom_sprite)
-			my_choices["Custom"] = "[ckey]-pai"
-
-	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
-		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
-		return
-
-	while(finalized == "No" && client)
-		choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in my_choices
-		if(!choice) return
-		if(choice == "Custom")
-			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		else
-			icon = 'icons/mob/pai.dmi'
-		icon_state = my_choices[choice]
-		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
-
-	chassis = my_choices[choice]
-	verbs -= /mob/living/silicon/pai/proc/choose_chassis
-
-/mob/living/silicon/pai/proc/choose_verbs()
-	set category = "pAI Commands"
-	set name = "Choose Speech Verbs"
-
-	var/choice = input(usr,"What theme would you like to use for your speech verbs? This decision can only be made once.") as null|anything in possible_say_verbs
-	if(!choice) return
-
-	var/list/sayverbs = possible_say_verbs[choice]
-	speak_statement = sayverbs[1]
-	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
-	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
-
-	verbs -= /mob/living/silicon/pai/proc/choose_verbs
-
-/mob/living/silicon/pai/proc/pai_change_voice()
-	set name = "Change Voice"
-	set desc = "Express yourself!"
-	set category = "pAI Commands"
-	change_voice()
+	voicecooldown = world.time + voice_delay
+	owner.change_voice()
 
 /mob/living/silicon/pai/lay_down()
 	set name = "Rest"
@@ -417,8 +353,8 @@
 	update_canmove()
 
 /mob/living/silicon/pai/verb/pAI_suicide()
-	set category = "pAI Commands"
 	set name = "pAI Suicide"
+	set category = "OOC"
 	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
 
 	if(alert("REALLY kill yourself? This action can't be undone.", "Suicide", "No", "Suicide") == "Suicide")
@@ -506,8 +442,6 @@
 
 //I'm not sure how much of this is necessary, but I would rather avoid issues.
 /mob/living/silicon/pai/proc/close_up()
-
-	last_special = world.time + 200
 	resting = 0
 	if(loc == card)
 		return
@@ -638,13 +572,15 @@
 	set_light(0)
 	card.set_light(0)
 
-/datum/action/innate/pai_soft
-	name = "Pai Sowtware"
+/datum/action/innate/pai_software
+	name = "Pai Software"
 	desc = "Activation of your internal application interface."
 	icon_icon = 'icons/obj/aicards.dmi'
 	button_icon_state = "pai-action"
+	background_icon = 'icons/mob/actions/actions.dmi'
+	background_icon_state = "bg_tech_blue"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/pai_soft/Activate()
+/datum/action/innate/pai_software/Activate()
 	var/mob/living/silicon/pai/P = owner
 	P.ui_interact(P)

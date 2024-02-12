@@ -603,12 +603,7 @@
 	toggle_mode(user)
 
 /obj/item/pinpointer/thief/proc/toggle_mode(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-
-
-/obj/item/pinpointer/thief/proc/toggle_mode(mob/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || !Adjacent(user))
 		return
 
 	switch(alert("Выберите режим пинпоинтера.", "Выбор режима пинпоинтера", "Локация", "Сигнатура Объекта", "Цели"))
@@ -652,9 +647,9 @@
 	var/input_subtype
 	switch(input_type)
 		if("Предмет")
+			input_subtype = alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
 			if(!input_subtype)
 				return
-			input_subtype = alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
 			switch(input_subtype)
 				if("Сложнодоступен")
 					for(var/datum/theft_objective/theft as anything in (GLOB.potential_theft_objectives_hard|GLOB.potential_theft_objectives))

@@ -91,41 +91,14 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	..()
 	return
 
-
-/obj/structure/particle_accelerator/verb/rotate()
-	set name = "Rotate Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || !usr.canmove || usr.restrained())
-		return
-	if(anchored)
-		to_chat(usr, "It is fastened to the floor!")
-		return 0
-	add_fingerprint(usr)
-	dir = turn(dir, 270)
-	return 1
-
 /obj/structure/particle_accelerator/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	rotate()
-
-/obj/structure/particle_accelerator/verb/rotateccw()
-	set name = "Rotate Counter Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
-		return 0
-	dir = turn(dir, 90)
-	return 1
+		return
+	add_fingerprint(user)
+	dir = turn(dir, 270)
 
 /obj/structure/particle_accelerator/examine(mob/user)
 	switch(construction_state)
@@ -139,6 +112,8 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			desc = text("The [name] is assembled")
 			if(powered)
 				desc = desc_holder
+	if(!anchored)
+		. += span_info("<b>Alt-Click</b> to rotate it.")
 	. = ..()
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
@@ -267,33 +242,18 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	var/strength = 0
 	var/desc_holder = null
 
+/obj/structure/particle_accelerator/examine(mob/user)
+	. = ..()
+	. += span_info("<b>Alt-Click</b> to rotate it.")
 
-/obj/machinery/particle_accelerator/verb/rotate()
-	set name = "Rotate Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || !usr.canmove || usr.restrained())
+/obj/machinery/particle_accelerator/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
-		return 0
-	add_fingerprint(usr)
+		return
+	add_fingerprint(user)
 	dir = turn(dir, 270)
-	return 1
-
-/obj/machinery/particle_accelerator/verb/rotateccw()
-	set name = "Rotate Counter-Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.stat || !usr.canmove || usr.restrained())
-		return
-	if(anchored)
-		to_chat(usr, "It is fastened to the floor!")
-		return 0
-	dir = turn(dir, 90)
-	return 1
 
 /obj/machinery/particle_accelerator/update_icon()
 	return

@@ -98,14 +98,6 @@
 	add_fingerprint(user)
 	update_patient()
 
-/obj/machinery/optable/verb/climb_on()
-	set name = "Climb On Table"
-	set category = "Object"
-	set src in oview(1)
-	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table())
-		return
-	take_patient(usr, usr)
-
 /obj/machinery/optable/attackby(obj/item/I, mob/living/carbon/user, params)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I

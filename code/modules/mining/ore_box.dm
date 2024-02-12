@@ -9,6 +9,10 @@
 	density = TRUE
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 
+/obj/structure/ore_box/examine(mob/user)
+	. = ..()
+	. += span_info("<b>Alt-Click</b> to empty [src].")
+
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore))
 		if(!user.drop_transfer_item_to_loc(W, src))
@@ -60,6 +64,9 @@
 	usr.set_machine(src)
 	add_fingerprint(usr)
 	if(href_list["removeall"])
+		if(contents.len < 1)
+			to_chat(usr, "<span class='warning'>The ore box is empty.</span>")
+			return
 		dump_box_contents()
 		to_chat(usr, "<span class='notice'>You empty the box.</span>")
 	updateUsrDialog()
@@ -83,23 +90,13 @@
 /obj/structure/ore_box/onTransitZ()
 	return
 
-/obj/structure/ore_box/verb/empty_box()
-	set name = "Empty Ore Box"
-	set category = "Object"
-	set src in view(1)
-
-	if(usr.incapacitated())
+/obj/structure/ore_box/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
 		return
 
-	if(!Adjacent(usr))
-		to_chat(usr, "You cannot reach the ore box.")
-		return
-
-	add_fingerprint(usr)
-
+	add_fingerprint(user)
 	if(contents.len < 1)
-		to_chat(usr, "<span class='warning'>The ore box is empty.</span>")
+		to_chat(user, "<span class='warning'>The ore box is empty.</span>")
 		return
-
 	dump_box_contents()
-	to_chat(usr, "<span class='notice'>You empty the ore box.</span>")
+	to_chat(user, "<span class='notice'>You empty the ore box.</span>")

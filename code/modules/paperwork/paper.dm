@@ -71,7 +71,7 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> the [initial(name)] with a pen in hand to rename it.</span>"
+	. += span_info("<b>Alt-Click</b> the [initial(name)] with a pen in hand to rename it.")
 	if(user.is_literate())
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)
@@ -110,13 +110,13 @@
 
 
 /obj/item/paper/AltClick(mob/living/carbon/human/user)
-	if(!ishuman(user) || user.incapacitated() || !Adjacent(user))
+	if(!istype(user) || user.incapacitated() || !Adjacent(user))
 		return
 	if(is_pen(user.get_active_hand()))
 		rename(user)
 		return
 	if(user.is_in_hands(src))
-		ProcFoldPlane(user, src)
+		fold_plane(user, src)
 		return
 	return ..()
 

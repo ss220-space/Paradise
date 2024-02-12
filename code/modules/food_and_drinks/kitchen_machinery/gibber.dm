@@ -24,6 +24,10 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 
+/obj/machinery/gibber/examine(mob/user)
+	. = ..()
+	. += span_info("You can <b>Alt-Click</b> [src] to empty it.")
+
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
@@ -158,16 +162,11 @@
 		update_icon()
 		feedinTopanim()
 
-/obj/machinery/gibber/verb/eject()
-	set category = "Object"
-	set name = "Empty Gibber"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/gibber/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
 		return
-
 	go_out()
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
 /obj/machinery/gibber/proc/go_out()
 	if(operating || !occupant) //no going out if operating, just in case they manage to trigger go_out before being dead
@@ -177,14 +176,12 @@
 		return
 
 	for(var/obj/O in src)
-		O.loc = loc
+		O.forceMove(get_turf(src))
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
 
 	update_icon()
-
-	return
 
 /obj/machinery/gibber/proc/feedinTopanim()
 	if(!occupant)

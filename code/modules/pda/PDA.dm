@@ -82,6 +82,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 
+/obj/item/pda/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> [src] to remove its ID card.</span>"
+	. += "<span class='info'><b>Ctrl-Click</b> [src] to remove its pen.</span>"
+	. += "<span class='info'>Use a screwdriver on [src] to reset it.</span>"
+
 /obj/item/pda/proc/can_use()
 	if(!ismob(loc))
 		return 0
@@ -148,22 +154,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)
 
-/obj/item/pda/verb/verb_reset_pda()
-	set category = "Object"
-	set name = "Reset PDA"
-	set src in usr
-
-	if(issilicon(usr))
+/obj/item/pda/screwdriver_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
-	if(can_use(usr))
-		start_program(find_program(/datum/data/pda/app/main_menu))
-		notifying_programs.Cut()
-		overlays -= image('icons/obj/pda.dmi', "pda-r")
-		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
-		SStgui.update_uis(src)
-	else
-		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
+	start_program(find_program(/datum/data/pda/app/main_menu))
+	notifying_programs.Cut()
+	update_icon(UPDATE_OVERLAYS)
+	to_chat(user, "<span class='notice'>You press the reset button on \the [src].</span>")
+	SStgui.update_uis(src)
 
 /obj/item/pda/AltClick(mob/living/user)
 	if(issilicon(user))
@@ -196,28 +195,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 			id.forceMove(get_turf(src))
 		overlays -= image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
 		id = null
-
-/obj/item/pda/verb/verb_remove_id()
-	set category = "Object"
-	set name = "Remove id"
-	set src in usr
-
-	if(issilicon(usr))
-		return
-
-	if( can_use(usr) )
-		if(id)
-			remove_id(usr)
-		else
-			to_chat(usr, "<span class='notice'>This PDA does not have an ID in it.</span>")
-	else
-		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
-
-/obj/item/pda/verb/verb_remove_pen()
-	set category = "Object"
-	set name = "Remove pen"
-	set src in usr
-	remove_pen(usr)
 
 /obj/item/pda/proc/remove_pen(mob/user)
 

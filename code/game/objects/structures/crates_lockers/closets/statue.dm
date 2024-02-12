@@ -104,9 +104,6 @@
 /obj/structure/closet/statue/attack_hand()
 	return
 
-/obj/structure/closet/statue/verb_toggleopen()
-	return
-
 /obj/structure/closet/statue/update_icon_state()
 	return
 

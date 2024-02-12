@@ -208,12 +208,12 @@
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
-/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Activate Seed Extraction"
-	set category = "Object"
-	set desc = "Activate to convert your plants into plantable seeds."
+/obj/item/storage/bag/plants/portaseeder/examine(mob/user)
+	. = ..()
+	. += span_notice("You can<b>Alt-Click</b> on [src] to convert your plants into seeds.")
 
-	if(usr.incapacitated())
+/obj/item/storage/bag/plants/portaseeder/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)

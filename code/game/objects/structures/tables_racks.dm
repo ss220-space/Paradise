@@ -51,10 +51,9 @@
 	. += deconstruction_hints(user)
 	if(can_be_flipped)
 		if(flipped)
-			. += span_info("<b>Alt-Shift-Click</b> to right the table again.")
+			. += span_info("<b>Alt-Shift-Click</b> or <b>Click-Drag</b> to opposite side, to right the table again.")
 		else
-			. += span_info("<b>Alt-Shift-Click</b> to flip over the table.")
-
+			. += span_info("<b>Alt-Shift-Click</b> or <b>Click-Drag</b> to opposite side, to flip over the table.")
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
@@ -325,17 +324,15 @@
 		return FALSE
 	return check_table.straight_table_check(direction)
 
-
-/obj/structure/table/AltShiftClick(mob/user)
-	actual_flip(user)
-
-
 /obj/structure/table/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	var/dir = get_cardinal_dir(src, over_object)
 	var/mob/user = usr
-	if(!isturf(over_object) || (user.dir != dir) || user.incapacitated() || !Adjacent(user) || !can_be_flipped)
+	if(user.incapacitated() || !Adjacent(user) || !can_be_flipped || !in_range(src, over_object)) //in_range so we're not randomly mouse dropping.
 		return ..()
 
+	var/dir = get_cardinal_dir(src, over_object)
+	if(user.dir != dir)
+		if(dir == 0) // in our turf
+			dir = get_cardinal_dir(user, src) // Well we still wanna flip
 	if(!flipped)
 		if(!flip(dir))
 			to_chat(user, "<span class='notice'>It won't budge.</span>")

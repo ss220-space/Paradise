@@ -12,6 +12,9 @@
 	var/list/implants_list
 	var/mob/living/carbon/human/occupant
 
+/obj/machinery/implantchair/examine(mob/user)
+	. = ..()
+	. += span_info("You can <b>Alt-Click</b> to eject occupant.")
 
 /obj/machinery/implantchair/Initialize(mapload)
 	. = ..()
@@ -177,17 +180,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-
-/obj/machinery/implantchair/verb/get_out()
-	set name = "Eject occupant"
-	set category = "Object"
-	set src in oview(1)
-	go_out(usr)
-
-
-/obj/machinery/implantchair/verb/move_inside()
-	set name = "Move Inside"
-	set category = "Object"
-	set src in oview(1)
-	put_mob(usr, usr)
-
+/obj/machinery/implantchair/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
+		return
+	go_out(user)

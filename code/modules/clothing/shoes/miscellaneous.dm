@@ -154,37 +154,37 @@
 	name = "mining boots"
 	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
 	icon_state = "explorer"
+	var/obj/item/kitchen/knife/combat/survival/knifeboot = null
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/shoes/workboots/mining/attackby(obj/item/C as obj, mob/user as mob, params)
+/obj/item/clothing/shoes/workboots/mining/examine(mob/user)
+	. = ..()
+	if(knifeboot)
+		. += span_info("You can <b>Alt-Click</b> to remove knife.")
+
+/obj/item/clothing/shoes/workboots/mining/attackby(obj/item/C, mob/user, params)
 	..()
 	if(istype(C, /obj/item/kitchen/knife/combat/survival))
-		var/obj/item/kitchen/knife/combat/survival/O = locate() in src
-		if(O)
+		if(knifeboot)
 			to_chat(user, "<span class='notice'>В креплении уже есть нож.</span>")
 		else
 			user.drop_transfer_item_to_loc(C, src)
+			knifeboot = C
 			to_chat(user, "<span class='notice'>Вы убрали [C] в [src].</span>")
 
-/obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
-	set category = "Object"
-	set name = "Remove knife"
-	set src in usr
-	remove_knife(usr)
-
-/obj/item/clothing/shoes/workboots/mining/proc/remove_knife(mob/user)
+/obj/item/clothing/shoes/workboots/mining/AltClick(mob/user)
 	if(issilicon(user))
 		return
 	if(can_use(user))
-		var/obj/item/kitchen/knife/combat/survival/O = locate() in src
-		if(O)
-			to_chat(user, "<span class='notice'>Вы извлекли [O] из [src].</span>")
-			O.forceMove_turf()
+		if(knifeboot)
+			to_chat(user, "<span class='notice'>Вы извлекли [knifeboot] из [src].</span>")
+			knifeboot.forceMove_turf()
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
-					M.put_in_hands(O, ignore_anim = FALSE)
+					M.put_in_hands(knifeboot, ignore_anim = FALSE)
 					return
+			knifeboot = null
 		else
 			to_chat(user, "<span class='warning'>Крепление пустое.</span>")
 	else

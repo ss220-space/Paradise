@@ -394,6 +394,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crematorium/examine(mob/user)
 	. = ..()
 	. += span_info("You can rotate [src] by using </b>wrench<b>.")
+	. += span_info("You can <b>Alt-Click</b> [src] to cremate items inside.")
 
 
 /obj/machinery/crematorium/update_overlays()
@@ -532,11 +533,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
 
-/obj/machinery/crematorium/verb/cremate_verb()
-	set name = "Cremate"
-	set category = null
-	set src in oview(1)
-
+/obj/machinery/crematorium/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
+		return
 	try_cremate(usr)
 
 

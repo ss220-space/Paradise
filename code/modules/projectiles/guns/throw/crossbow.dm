@@ -61,6 +61,7 @@
 		. += span_notice("\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]")
 	else
 		. += span_notice("It has an empty mount for a battery cell.")
+	. += "<span class='info'><b>Alt-Click</b> [src] to adjust it's tension.</span>"
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
@@ -137,13 +138,8 @@
 	to_chat(user, span_notice("You jimmy [cell] out of [src] with [I]."))
 	cell = null
 
-/obj/item/gun/throw/crossbow/verb/set_tension()
-	set name = "Adjust Tension"
-	set category = "Object"
-	set src in range(0)
-
-	var/mob/user = usr
-	if(user.incapacitated())
+/obj/item/gun/throw/crossbow/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
 		return
 	var/choice = input("Select tension to draw to:", "[src]", XBOW_TENSION_FULL) as null|anything in possible_tensions
 	if(!choice)

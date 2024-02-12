@@ -14,12 +14,6 @@ GLOBAL_LIST_INIT(spec_pai_emotions, list("Syndicate" = 10, "Contractor" = 11, "T
 
 GLOBAL_LIST_EMPTY(pai_software_by_key)
 
-/mob/living/silicon/pai/verb/paiInterface()
-	set category = "pAI Commands"
-	set name = "Software Interface"
-
-	ui_interact(src)
-
 /mob/living/silicon/pai/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.self_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)

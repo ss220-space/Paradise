@@ -134,6 +134,11 @@
 		. += "<span class='notice'>There is an [assembly] attached to it, use a screwdriver to remove it.</span>"
 
 
+/obj/item/reagent_containers/glass/beaker/examine(mob/user)
+	. = ..()
+	if(assembly)
+		. += "<span class='notice'>There is an [assembly] attached to it, use a screwdriver to remove it.</span>"
+
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
@@ -172,21 +177,17 @@
 		. += "assembly"
 
 
-/obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
-	set name = "Remove Assembly"
-	set category = "Object"
-	set src in usr
-	if(usr.incapacitated())
+/obj/item/reagent_containers/glass/beaker/screwdriver_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(assembly)
-		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
-		assembly.forceMove_turf()
-		usr.put_in_hands(assembly, ignore_anim = FALSE)
+		to_chat(user, "<span class='notice'>You detach [assembly] from [src]</span>")
+		user.put_in_hands(assembly)
 		assembly = null
 		qdel(GetComponent(/datum/component/proximity_monitor))
 		update_icon(UPDATE_OVERLAYS)
 	else
-		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
+		to_chat(user, "<span class='notice'>There is no assembly to remove.</span>")
 
 
 /obj/item/reagent_containers/glass/beaker/proc/heat_beaker()

@@ -38,6 +38,10 @@
 	sparks.attach(src)
 	sparks.set_up(5, 1, src)
 
+/obj/machinery/power/emitter/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to rotate [src].</span>"
+
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
 	var/firedelay = 120
@@ -54,20 +58,15 @@
 		power_usage -= 50 * M.rating
 	active_power_usage = power_usage
 
-/obj/machinery/power/emitter/proc/rotate(mob/user)
+/obj/machinery/power/emitter/AltClick(mob/user)
+	if(user.incapacitated() || !Adjacent(user))
+		return
 	if(anchored)
-		to_chat(usr, "It is fastened to the floor!")
+		to_chat(user, span_notice("It is fastened to the floor!"))
 		return
 	add_fingerprint(user)
 	dir = turn(dir, 90)
 
-/obj/machinery/power/emitter/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	rotate(user)
 
 /obj/machinery/power/emitter/Destroy()
 	message_admins("Emitter deleted at [ADMIN_COORDJMP(src)] [usr ? "Broken by [ADMIN_LOOKUPFLW(usr)]" : ""]")

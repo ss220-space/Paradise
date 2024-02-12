@@ -29,9 +29,16 @@
 	. = ..()
 
 
-/obj/item/clipboard/verb/removePen(mob/user)
-	set category = "Object"
-	set name = "Remove clipboard pen"
+/obj/item/clipboard/AltClick(mob/user)
+	if(in_range(user, src) && !user.incapacitated())
+		if(is_pen(user.get_active_hand()))
+			penPlacement(user, user.get_active_hand(), TRUE)
+		else
+			removePen(user)
+		return
+	. = ..()
+
+/obj/item/clipboard/proc/removePen(mob/user)
 	if(!ishuman(user) || user.incapacitated())
 		return
 	penPlacement(user, containedpen, FALSE)

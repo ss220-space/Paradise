@@ -319,7 +319,7 @@ REAGENT SCANNER
 			print_report(user)
 		return 1
 	if(href_list["mode"])
-		toggle_mode()
+		toggle_mode(user)
 		return 1
 	if(href_list["clear"])
 		to_chat(user, "Вы очистили буфер данных [src].")
@@ -626,6 +626,9 @@ REAGENT SCANNER
 	to_chat(user, "[jointext(scan_data, "<br>")]")
 
 /obj/item/healthanalyzer/AltClick(mob/user)
+	toggle_mode(user)
+
+/obj/item/healthanalyzer/proc/toggle_mode(mob/user)
 	if(!Adjacent(user) || user.incapacitated())
 		return
 	mode = !mode

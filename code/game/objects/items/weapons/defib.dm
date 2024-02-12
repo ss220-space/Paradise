@@ -178,13 +178,6 @@
 	..()
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-
-	toggle_paddles(usr)
-
-
-/obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
 		to_chat(user, span_warning("[src] has no paddles!"))
 		return

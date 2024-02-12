@@ -52,6 +52,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments) || ("[department]" in GLOB.hidden_ussp)))
 			GLOB.alldepartments |= department
 
+/obj/machinery/photocopier/faxmachine/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> [src] to remove its currently stored ID.</span>"
+
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
 	fax_network = "Central Command Quantum Entanglement Network"
@@ -285,22 +289,18 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			scan = card
 	SStgui.update_uis(src)
 
-/obj/machinery/photocopier/faxmachine/verb/eject_id()
-	set category = null
-	set name = "Eject ID Card"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/photocopier/faxmachine/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated())
 		return
 
 	if(scan)
-		to_chat(usr, "You remove [scan] from [src].")
+		to_chat(user, span_notice("You remove [scan] from [src]."))
 		scan.forceMove(get_turf(src))
-		if(Adjacent(usr))
-			usr.put_in_hands(scan, ignore_anim = FALSE)
+		if(Adjacent(user))
+			user.put_in_hands(scan, ignore_anim = FALSE)
 		scan = null
 	else
-		to_chat(usr, "There is nothing to remove from [src].")
+		to_chat(user, span_notice("There is nothing to remove from [src]."))
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
 	use_power(active_power_usage)

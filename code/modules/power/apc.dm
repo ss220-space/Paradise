@@ -637,11 +637,11 @@
 	else
 		return ..()
 
-/obj/machinery/power/apc/AltClick(mob/mob/living/carbon/human/user)
+/obj/machinery/power/apc/AltClick(mob/living/carbon/human/user)
 	if(!istype(user) || !Adjacent(user))
 		return
 
-	var/obj/item/card/id/card = human.get_id_card()
+	var/obj/item/card/id/card = user.get_id_card()
 	if(!istype(card))
 		return
 
@@ -649,7 +649,6 @@
 	togglelock(user)
 
 /obj/machinery/power/apc/CtrlClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
 	if(!can_use(usr, TRUE) || (is_locked(usr)))
 		return
 	toggle_breaker(user)

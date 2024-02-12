@@ -107,6 +107,8 @@
 
 	var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
 	thermals.Grant(src)
+	var/datum/action/innate/mail_tag_sabotuer/the_mail = new()
+	the_mail.Grant(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Modify Name"
@@ -128,26 +130,31 @@
 			return
 	cham_proj.attack_self(src)
 
-/mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
-	set name = "Set Mail Tag"
-	set desc = "Tag yourself for delivery through the disposals system."
-	set category = "Saboteur"
+/datum/action/innate/mail_tag_sabotuer
+	name = "Set Mail Tag"
+	desc = "Tag yourself for delivery through the disposals system."
+	check_flags = AB_CHECK_CONSCIOUS
+	button_icon = 'icons/obj/device.dmi'
+	button_icon_state = "dest_tagger"
+	background_icon = 'icons/mob/actions/actions.dmi'
+	background_icon_state = "bg_tech_blue"
 
-	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
+/datum/action/innate/mail_tag_sabotuer/Activate()
+	var/mob/living/silicon/robot/syndicate/saboteur/user = owner
+	var/tag = tgui_input_list(user, "Select the desired destination.", "Set Mail Tag", GLOB.TAGGERLOCATIONS)
 
 	if(!tag || GLOB.TAGGERLOCATIONS[tag])
-		mail_destination = 0
+		user.mail_destination = 0
 		return
 
-	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
-	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
+	to_chat(user, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
+	user.mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
-	var/obj/machinery/disposal/D = src.loc
+	var/obj/machinery/disposal/D = user.loc
 	if(istype(D))
-		to_chat(src, "<span class='notice'>\The [D] acknowledges your signal.</span>")
+		to_chat(user, "<span class='notice'>\The [D] acknowledges your signal.</span>")
 		D.flush_count = D.flush_every_ticks
-
 	return
 
 /mob/living/silicon/robot/syndicate/saboteur/attackby()

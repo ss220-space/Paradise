@@ -320,12 +320,6 @@ BLIND     // can't see anything
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-/obj/item/clothing/under/verb/toggle()
-	set name = "Toggle Suit Sensors"
-	set category = "Object"
-	set src in usr
-	set_sensors(usr)
-
 /obj/item/clothing/under/AltShiftClick(mob/user)
 	set_sensors(user)
 
@@ -909,12 +903,12 @@ BLIND     // can't see anything
 				. += "<span class='notice'>Its vital tracker appears to be enabled.</span>"
 			if(SENSOR_COORDS)
 				. += "<span class='notice'>Its vital tracker and tracking beacon appear to be enabled.</span>"
-		. += "<span class='info'>Alt-shift-click to toggle the sensors mode.</span>"
+		. += span_info("<b>Alt-Shift-Click</b> to toggle the sensors mode.")
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += A.attached_examine()
-		. += "<span class='info'>Alt-click to remove an accessory.</span>"
-	. += "<span class='info'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
+		. += span_info("<b>Alt-click</b> to remove an accessory.")
+	. += span_info("<b>Ctrl-Shift-Click</b> to roll down this jumpsuit.")
 
 /obj/item/clothing/under/CtrlShiftClick(mob/living/carbon/human/user)
 	if(user.incapacitated() || !Adjacent(user) || !istype(user))

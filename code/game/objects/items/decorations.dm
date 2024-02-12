@@ -341,9 +341,6 @@
 /obj/structure/decorative_structures/corpse/play_attack_sound()
 	return
 
-/obj/structure/decorative_structures/corpse/climb_on()
-	return
-
 /obj/structure/decorative_structures/corpse/Move()
 	. = ..()
 	bloodtiles -= 1

@@ -115,12 +115,6 @@
 			E.take_damage(8, 1)
 		H.emote("scream")
 
-/obj/item/paper/AltClick(mob/user, obj/item/I)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		I = H.is_type_in_hands(/obj/item/paper)
-		if(I)
-			fold_plane(H, I)
 
 /obj/item/paper/proc/fold_plane(mob/living/carbon/user, obj/item/I)
 	if(!Adjacent(user) || user.incapacitated())

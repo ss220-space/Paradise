@@ -45,6 +45,8 @@
 		return
 	if(!Adjacent(user) || user.incapacitated())
 		return
+	if(!(isturf(user.loc) && loc == user))
+		to_chat(user, span_warning("You need to hold it in order to empty!"))
 	if(alert(user, "Are you sure you want to empty that?", "Empty Container:", "Yes", "No") != "Yes")
 		return
 	if(!Adjacent(user) || user.incapacitated())

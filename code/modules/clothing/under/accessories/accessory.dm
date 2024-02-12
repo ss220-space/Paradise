@@ -404,41 +404,6 @@
 		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
 		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are the law.</span>")
 
-/obj/item/clothing/accessory/holobadge/on_attached(obj/item/clothing/under/S, mob/user as mob)
-	. = ..()
-	has_suit.verbs += /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
-
-/obj/item/clothing/accessory/holobadge/on_removed(mob/user as mob)
-	has_suit.verbs -= /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
-	. = ..()
-
-//For the holobadge hotkey
-/obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
-	set name = "Holobadge"
-	set category = "Object"
-	set src in usr
-	if(!istype(usr, /mob/living))
-		return
-	if(usr.stat)
-		return
-
-	var/obj/item/clothing/accessory/holobadge/holobadge_ref = null
-	if(istype(src, /obj/item/clothing/accessory/holobadge))
-		holobadge_ref = src
-	else if(istype(src, /obj/item/clothing/under))
-		var/obj/item/clothing/under/suit = src
-		if(suit.accessories.len)
-			holobadge_ref = locate() in suit.accessories
-
-	if(!holobadge_ref)
-		to_chat(usr, "<span class='warning'>Something is very wrong.</span>")
-
-	if(!holobadge_ref.stored_name)
-		to_chat(usr, "Waving around a badge before swiping an ID would be pretty pointless.")
-		return
-	if(isliving(usr))
-		usr.visible_message("<span class='warning'>[usr] displays [usr.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security.</span>",
-		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security.</span>")
 //////////////
 //OBJECTION!//
 //////////////

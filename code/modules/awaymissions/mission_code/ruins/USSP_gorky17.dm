@@ -274,6 +274,10 @@
 	var/cardrank
 	var/possiblerank = list("Советский турист", "Товарищ") // addition before name
 
+/obj/machinery/computer/id_upgrader/ussp/examine(mob/user)
+	. = ..()
+	. += span_info("You can <b>Alt-Click</b> to set cardholder name.")
+
 /obj/machinery/computer/id_upgrader/ussp/attackby(obj/item/I, mob/user, params)
 	if(I.GetID())
 		var/obj/item/card/id/D = I.GetID()
@@ -305,16 +309,11 @@
 		D.registered_name = "[cardrank] [cardholdername]"
 		D.UpdateName()
 
-/obj/machinery/computer/id_upgrader/ussp/verb/set_name()
-	set name = "Enter name"
-	set category = "Object"
-	set src in oview(1)
-	if(usr.incapacitated())
-		return
-	if(!ishuman(usr))
+/obj/machinery/computer/id_upgrader/ussp/AltClick(mob/living/carbon/human/user)
+	if(!istype(user) || user.incapacitated() || !Adjacent(user))
 		return
 
-	var/temp_name = reject_bad_name(input("Enter cardholder name:", "Cardholder name", usr.name), TRUE)
+	var/temp_name = reject_bad_name(input("Enter cardholder name:", "Cardholder name", user.name), TRUE)
 	if(temp_name)
 		cardholdername = temp_name
 	cardrank = input("Select cardholder rank:") in possiblerank

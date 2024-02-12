@@ -113,6 +113,8 @@
 	visible_message("<span class='shadowling'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
+	var/datum/action/innate/possessed_object/possess = new()
+	possess.Grant(src)
 
 /mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.
 	return possessed_item
@@ -168,3 +170,13 @@
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
 	return ..(NONE)
+
+/datum/action/innate/possessed_object
+	name = "End Ghostly Possession"
+	desc = "Leave the possessed object and became spirit once again!"
+	button_icon_state = "exit_possession"
+
+/datum/action/innate/possessed_object/Activate()
+	var/mob/living/user = owner
+	if(istype(user))
+		user.ghost()

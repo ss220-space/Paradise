@@ -106,6 +106,7 @@
 	var/leaving = FALSE
 	var/hiding = FALSE
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
+	var/datum/action/innate/borer/speech_inside/speech_inside_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
 	var/datum/action/innate/borer/talk_to_brain/talk_to_brain_action = new
@@ -194,11 +195,7 @@
 		host.verbs += /mob/living/proc/borer_comm
 		talk_to_borer_action.Grant(host)
 
-/mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Toggle speech inside Host"
-	set category = "Borer"
-	set desc = "Toggle whether you will be able to say audible messages while inside your host."
-
+/mob/living/simple_animal/borer/proc/toggle_silence_inside_host()
 	if(talk_inside_host)
 		talk_inside_host = FALSE
 		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))
@@ -366,11 +363,7 @@
 
 	to_chat(user, span_boldnotice("Вы можете анализировать здоровье носителя при помощи Left-click."))
 
-/mob/living/simple_animal/borer/verb/secrete_chemicals()
-	set category = "Borer"
-	set name = "Secrete Chemicals"
-	set desc = "Push some chemicals into your host's bloodstream."
-
+/mob/living/simple_animal/borer/proc/secrete_chemicals()
 	if(!host)
 		to_chat(src, "Вы не находитесь в теле носителя.")
 		return
@@ -439,11 +432,7 @@
 		qdel(C)
 	..()
 
-/mob/living/simple_animal/borer/verb/hide_borer()
-	set category = "Borer"
-	set name = "Hide"
-	set desc = "Become invisible to the common eye."
-
+/mob/living/simple_animal/borer/proc/hide_borer()
 	if(host)
 		to_chat(usr, span_warning("Вы не можете сделать этого, находясь внутри носителя."))
 		return
@@ -498,12 +487,7 @@
 	to_chat(target, span_warning("Вы чувствуете, как на вас наваливается жуткое чувство страха, леденящее конечности и заставляющее сердце бешено колотиться."))
 	target.Weaken(6 SECONDS)
 
-/mob/living/simple_animal/borer/verb/release_host()
-	set category = "Borer"
-	set name = "Release Host"
-	set desc = "Slither out of your host."
-
-
+/mob/living/simple_animal/borer/proc/release_host()
 	if(!host)
 		to_chat(src, "Вы не находитесь в теле носителя.")
 		return
@@ -570,11 +554,7 @@
 	host = null
 	return
 
-/mob/living/simple_animal/borer/verb/bond_brain()
-	set category = "Borer"
-	set name = "Assume Control"
-	set desc = "Fully connect to the brain of your host."
-
+/mob/living/simple_animal/borer/proc/bond_brain()
 	if(!host)
 		to_chat(src, "Вы не находитесь в теле носителя.")
 		return
@@ -837,12 +817,14 @@
 
 /mob/living/simple_animal/borer/proc/GrantInfestActions()
 	talk_to_host_action.Grant(src)
+	speech_inside_action.Grant(src)
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
 	make_chems_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	talk_to_host_action.Remove(src)
+	speech_inside_action.Remove(src)
 	take_control_action.Remove(src)
 	leave_body_action.Remove(src)
 	make_chems_action.Remove(src)
@@ -870,6 +852,15 @@
 /datum/action/innate/borer/talk_to_host/Activate()
 	var/mob/living/simple_animal/borer/B = owner
 	B.Communicate()
+
+/datum/action/innate/borer/speech_inside
+	name = "Toggle speech inside Host"
+	desc = "Toggle whether you will be able to say audible messages while inside your host."
+	button_icon_state = "neckchop"
+
+/datum/action/innate/borer/speech_inside/Activate()
+	var/mob/living/simple_animal/borer/B = owner
+	B.toggle_silence_inside_host()
 
 /datum/action/innate/borer/toggle_hide
 	name = "Toggle Hide"

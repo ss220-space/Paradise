@@ -29,8 +29,8 @@
 
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to rotate it.</span>"
-	. += "<span class='info'><b>Alt-Shift-Click</b> to flip it.</span>"
+	. += span_info("<b>Alt-Click</b> to rotate it.")
+	. += span_info("<b>Alt-Shift-Click</b> to flip it.")
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
 	. = ..()

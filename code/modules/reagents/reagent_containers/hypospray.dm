@@ -257,9 +257,6 @@
 		return
 	return TRUE
 
-/obj/item/reagent_containers/hypospray/autoinjector/empty()
-	set hidden = TRUE
-
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
 	if(!reagents.total_volume || spent)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
