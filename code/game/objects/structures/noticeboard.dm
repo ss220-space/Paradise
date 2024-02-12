@@ -25,6 +25,7 @@
 			break
 		. += image(src.icon, icon_state = "[src.icon_state][I]")
 
+
 //attaching papers!!
 /obj/structure/noticeboard/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/paper))

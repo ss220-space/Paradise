@@ -30,19 +30,25 @@
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 
+
 /obj/item/ammo_casing/New()
 	..()
 	if(projectile_type)
 		BB = new projectile_type(src)
-	pixel_x = rand(-10.0, 10)
-	pixel_y = rand(-10.0, 10)
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
 	dir = pick(GLOB.alldirs)
-	update_icon()
+	update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-/obj/item/ammo_casing/update_icon()
-	..()
+
+/obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
+
+
+/obj/item/ammo_casing/update_desc(updates = ALL)
+	. = ..()
 	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
+
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
 	if(!BB)
@@ -69,7 +75,7 @@
 				else
 					continue
 			if(boolets > 0)
-				box.update_icon()
+				box.update_appearance(UPDATE_ICON|UPDATE_DESC)
 				to_chat(user, span_notice("You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s."))
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
@@ -139,7 +145,7 @@
 	if(ammo_type)
 		for(var/i in 1 to max_ammo)
 			stored_ammo += new ammo_type(src)
-	update_icon()
+	update_appearance(UPDATE_ICON|UPDATE_DESC)
 	initial_mats = materials.Copy()
 	update_mat_value()
 
@@ -212,8 +218,8 @@
 		if(!silent)
 			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]!"))
 		playsound(src, load_sound, 50, 1)
-		A.update_icon()
-		update_icon()
+		A.update_appearance(UPDATE_ICON|UPDATE_DESC)
+		update_appearance(UPDATE_ICON|UPDATE_DESC)
 
 	return num_loaded
 
@@ -223,16 +229,22 @@
 		user.put_in_hands(A)
 		playsound(src, remove_sound, 50, 1)
 		to_chat(user, span_notice("You remove a round from \the [src]!"))
-		update_icon()
+		update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-/obj/item/ammo_box/update_icon()
+
+/obj/item/ammo_box/update_desc(updates = ALL)
+	. = ..()
+	desc = "[initial(desc)] There are [length(stored_ammo)] shell\s left!"
+
+
+/obj/item/ammo_box/update_icon_state()
 	var/icon_base = initial(icon_prefix) ? initial(icon_prefix) : initial(icon_state)
 	switch(multiple_sprites)
 		if(1)
-			icon_state = "[icon_base]-[stored_ammo.len]"
+			icon_state = "[icon_base]-[length(stored_ammo)]"
 		if(2)
-			icon_state = "[icon_base]-[stored_ammo.len ? "[max_ammo]" : "0"]"
-	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
+			icon_state = "[icon_base]-[length(stored_ammo) ? "[max_ammo]" : "0"]"
+
 
 /obj/item/ammo_box/update_materials_coeff(new_coeff)
 	. = ..()
@@ -253,7 +265,7 @@
 			materials[material] += ammo.materials[material]
 
 //Behavior for magazines
-/obj/item/ammo_box/magazine/proc/ammo_count()
+/obj/item/ammo_box/magazine/proc/ammo_count(countempties = TRUE)
 	return length(stored_ammo)
 
 /obj/item/ammo_box/magazine/proc/empty_magazine()

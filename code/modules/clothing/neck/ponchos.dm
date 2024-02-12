@@ -25,12 +25,8 @@
 		"Wryn" = 'icons/mob/clothing/species/wryn/neck.dmi'
 	)
 
-/obj/item/clothing/neck/poncho/update_icon()
-	. = ..()
-	if(flipped)
-		icon_state = "[item_color]poncho_flip"
-	else
-		icon_state = "[item_color]poncho"
+/obj/item/clothing/neck/poncho/update_icon_state()
+	icon_state = "[item_color]poncho[flipped ? "_flip" : ""]"
 
 /obj/item/clothing/neck/poncho/AltClick(mob/living/carbon/human/user)
 	if(!iscarbon(user))
@@ -57,7 +53,7 @@
 	..()
 	if(flipped)
 		flipped = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/clothing/neck/poncho/equipped(mob/user, slot, initial)
 	. = ..()
@@ -65,18 +61,17 @@
 		var/mob/living/carbon/human/human = user
 		if((slot != human.neck) && flipped)
 			flipped = FALSE
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 /obj/item/clothing/neck/poncho/proc/flip(mob/user)
 	if(user.incapacitated())
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	flipped = !flipped
+	update_icon(UPDATE_ICON_STATE)
 	if(flipped)
-		update_icon()
 		to_chat(user, "You flip [src] behind your back.")
 	else
-		update_icon()
 		to_chat(user, "You flip [src] to its normal position.")
 	user.update_inv_neck()
 

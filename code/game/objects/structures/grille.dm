@@ -43,9 +43,6 @@
 	//height=42
 	icon='icons/obj/fence-ns.dmi'
 
-/obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration)
-	. = ..()
-	update_icon()
 
 /obj/structure/grille/examine(mob/user)
 	. = ..()

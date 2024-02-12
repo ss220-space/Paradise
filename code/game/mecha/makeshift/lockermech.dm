@@ -12,37 +12,9 @@
 	max_equip = 2 //You only have two arms and the control system is shitty
 	wreckage = null
 	mech_enter_time = 20
+
 	cargo_capacity = 5 // you can fit a few things in this locker but not much.
 
-/obj/mecha/makeshift/go_out()
-	..()
-	update_icon()
-
-/obj/mecha/makeshift/moved_inside(mob/living/carbon/human/H)
-	..()
-	update_icon()
-
-
-// /obj/mecha/makeshift/contents_explosion(severity, target)
-// 	for(var/X in cargo)
-// 		var/obj/O = X
-// 		if(prob(30/severity))
-// 			cargo -= O
-// 			O.forceMove(loc)
-// 	. = ..()
-
-
-// /obj/mecha/makeshift/relay_container_resist(mob/living/user, obj/O)
-// 	to_chat(user, "<span class='notice'>You lean on the back of [O] and start pushing so it falls out of [src].</span>")
-// 	if(do_after(user, 10, target = O))//Its a fukken locker
-// 		if(!user || user.stat != CONSCIOUS || user.loc != src || O.loc != src )
-// 			return
-// 		to_chat(user, "<span class='notice'>You successfully pushed [O] out of [src]!</span>")
-// 		O.loc = loc
-// 		cargo -= O
-// 	else
-// 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
-// 			to_chat(user, "<span class='warning'>You fail to push [O] out of [src]!</span>")
 
 /obj/mecha/makeshift/Destroy()
 	new /obj/structure/closet(loc)
@@ -65,13 +37,6 @@
 	max_equip = 4
 	wreckage = null
 
-/obj/mecha/combat/lockersyndie/go_out()
-	..()
-	update_icon()
-
-/obj/mecha/combat/lockersyndie/moved_inside(mob/living/carbon/human/H)
-	..()
-	update_icon()
 
 /obj/mecha/combat/lockersyndie/add_cell()
 	cell = new /obj/item/stock_parts/cell/high/slime(src)

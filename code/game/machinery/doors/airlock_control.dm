@@ -134,8 +134,6 @@
 	if(frequency)
 		set_frequency(frequency)
 
-	update_icon()
-
 
 /obj/machinery/door/airlock/New()
 	..()
@@ -160,7 +158,7 @@
 	var/alert = 0
 	var/previousPressure
 
-/obj/machinery/airlock_sensor/update_icon()
+/obj/machinery/airlock_sensor/update_icon_state()
 	if(on)
 		if(alert)
 			icon_state = "airlock_sensor_alert"
@@ -197,7 +195,7 @@
 
 			alert = (pressure < ONE_ATMOSPHERE*0.8)
 
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/airlock_sensor/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -242,13 +240,13 @@
 				2=Network Access
 	*/
 
-/obj/machinery/access_button/update_icon()
+/obj/machinery/access_button/update_icon_state()
 	if(on)
 		icon_state = "access_button_standby"
 	else
 		icon_state = "access_button_off"
 
-/obj/machinery/access_button/attack_ai(mob/user as mob)
+/obj/machinery/access_button/attack_ai(mob/user)
 	if(wires & 2)
 		return ..(user)
 	else

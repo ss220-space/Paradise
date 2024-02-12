@@ -1225,22 +1225,18 @@
 		if(!powered())
 			return
 		add_fingerprint(user)
-		var/list/available_kits = list(
-			"Dominator Kit" = list(/obj/item/gun/energy/dominator/sibyl, /obj/item/clothing/accessory/holster),
-			"Enforcer Kit" = list(/obj/item/gun/projectile/automatic/pistol/enforcer/security, /obj/item/ammo_box/magazine/enforcer, /obj/item/ammo_box/magazine/enforcer, /obj/item/clothing/accessory/holster),
-		)
-		var/weapon_kit = input(user, "Select a weaponary kit.") as null|anything in available_kits
+		var/list/available_kits = list("Dominator Kit" = /obj/item/storage/box/dominator_kit,
+										"Enforcer Kit" = /obj/item/storage/box/enforcer_kit)
+		var/weapon_kit = tgui_input_list(user, "Select a weaponary kit:", "Weapon kits", available_kits)
 		if(!weapon_kit)
 			return
 		if(!Adjacent(user) || QDELETED(I) || I.loc != user)
 			return
 		qdel(I)
 		sleep(0.5 SECONDS)
-		var/obj/item/storage/box/box = new(get_turf(src))
 		playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-		box.icon_state = "box_sec"
-		for(var/path in available_kits[weapon_kit])
-			new path(box)
+		var/path = available_kits[weapon_kit]
+		var/obj/item/box = new path(get_turf(src))
 		if(Adjacent(user))
 			user.put_in_hands(box, ignore_anim = FALSE)
 		return

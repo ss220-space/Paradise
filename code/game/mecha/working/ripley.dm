@@ -16,49 +16,69 @@
 	var/hides = 0
 	var/plates = 0
 
-/obj/mecha/working/ripley/update_icon()
-	..()
+
+/obj/mecha/working/ripley/Destroy()
+	for(var/i=1, i <= hides, i++)
+		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop
+	return ..()
+
+
+/obj/mecha/working/ripley/update_overlays()
+	. = ..()
 	if(hides && !plates)
-		cut_overlays()
 		if(hides < 3)
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
+			. += occupant ? "ripley-g" : "ripley-g-open"
+		else
+			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+
+	else if(plates && !hides)
+		if(plates < 3)
+			. += occupant ? "ripley-a" : "ripley-a-open"
+		else
+			. += occupant ? "ripley-a-full" : "ripley-a-full-open"
+
+	else if(plates && hides)
+		if(plates < 3 && hides >= 3)
+			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+			. += occupant ? "ripley-a" : "ripley-a-open"
+
+		else if(plates < 3 && hides < 3)
+			. += occupant ? "ripley-a-full" : "ripley-a-full-open"
+			. += occupant ? "ripley-g" : "ripley-g-open"
+
+		else if(plates >= 3 && hides < 3)
+			. += occupant ? "ripley-a-full" : "ripley-a-full-open"
+			. += occupant ? "ripley-g" : "ripley-g-open"
+
+		else if(plates >= 3 && hides >= 3)
+			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+			. += occupant ? "ripley-a" : "ripley-a-open"
+
+
+/obj/mecha/working/ripley/update_desc(updates = ALL)
+	. = ..()
+
+	if(hides && !plates)
+		if(hides < 3)
 			desc = "Autonomous Power Loader Unit. You see reinforcements made of plates of goliath hide attached to the armor."
 		else
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
 			desc = "Autonomous Power Loader Unit. It has an intimidating carapace composed entirely of plates of goliath hide - its pilot must be an experienced monster hunter."
 
-	if(plates && !hides)
-		cut_overlays()
+	else if(plates && !hides)
 		if(plates < 3)
-			add_overlay(occupant ? "ripley-a" : "ripley-a-open")
 			desc = "Autonomous Power Loader Unit. You can see the pieces of homemade armor on the hull."
 		else
-			add_overlay(occupant ? "ripley-a-full" : "ripley-a-full-open")
 			desc = "Autonomous Power Loader Unit. Completely encrusted with reinforced debris, this shiny lump of metal looks incredibly durable."
 
-	if(plates && hides)
-		cut_overlays()
-		if(plates < 3 && hides == 3)
-			cut_overlays()
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
-			add_overlay(occupant ? "ripley-a" : "ripley-a-open")
+	else if(plates && hides)
+		if(plates < 3 && hides >= 3)
 			desc = "Autonomous Power Loader Unit. Not only is the goliath hide armor intimidating, it's additionally covered in pieces of homemade armor. How do you kill that?!"
-		if(plates < 3 && hides < 3)
-			cut_overlays()
-			add_overlay(occupant ? "ripley-a-full" : "ripley-a-full-open")
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
+		else if(plates < 3 && hides < 3)
 			desc = "Autonomous Power Loader Unit. The owner of the mech decided to go all out - clad in pieces of homemade armor and goliath skins."
-		if(plates == 3 && hides < 3)
-			cut_overlays()
-			add_overlay(occupant ? "ripley-a-full" : "ripley-a-full-open")
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
+		else if(plates >= 3 && hides < 3)
+			desc = "Autonomous Power Loader Unit. Fully covered with homemade armor and few goliath hides on top."
+		else if(plates >= 3 && hides >= 3)
 			desc = "Autonomous Power Loader Unit. Clad in homemade armor from ear to toe, with Goliath plates on top - a real tank, no other way."
-		if(plates == 3 && hides == 3)
-			cut_overlays()
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
-			add_overlay(occupant ? "ripley-a" : "ripley-a-open")
-
-
 
 
 /obj/mecha/working/ripley/firefighter

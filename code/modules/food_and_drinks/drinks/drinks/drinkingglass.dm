@@ -46,22 +46,45 @@
 	reagents.clear_reagents()
 	extinguish()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
-	overlays.Cut()
-	if(reagents.reagent_list.len)
-		var/datum/reagent/R = reagents.get_master_reagent()
-		name = R.drink_name
-		desc = R.drink_desc
-		if(R.drink_icon)
-			icon_state = R.drink_icon
-		else
-			var/image/I = image(icon, "glassoverlay")
-			I.color = mix_color_from_reagents(reagents.reagent_list)
-			overlays += I
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/update_icon_state()
+	if(length(reagents.reagent_list))
+		var/datum/reagent/check = reagents.get_master_reagent()
+		if(check.drink_icon)
+			icon_state = check.drink_icon
+
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/update_overlays()
+	. = ..()
+	if(length(reagents.reagent_list))
+		var/datum/reagent/check = reagents.get_master_reagent()
+		if(!check.drink_icon)
+			. += mutable_appearance(icon, "glassoverlay", color = mix_color_from_reagents(reagents.reagent_list))
 	else
-		icon_state = "glass_empty"
-		name = "glass"
-		desc = "Your standard drinking glass."
+		icon_state = initial(icon_state)
+
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/update_name(updates)
+	. = ..()
+	if(length(reagents.reagent_list))
+		var/datum/reagent/check = reagents.get_master_reagent()
+		name = check.drink_name
+	else
+		name = initial(name)
+
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/update_desc(updates)
+	. = ..()
+	if(length(reagents.reagent_list))
+		var/datum/reagent/check = reagents.get_master_reagent()
+		desc = check.drink_desc
+	else
+		desc = initial(desc)
+
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
+	update_appearance()
+
 
 // for /obj/machinery/vending/sovietsoda
 /obj/item/reagent_containers/food/drinks/drinkingglass/soda
