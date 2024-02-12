@@ -39,7 +39,10 @@
 		user.drop_item_ground(src)
 		user.put_in_hands(src)
 
-	flags = up ? NONE : initial(flags)
+	if(!up)
+		flags |= BLOCKHAIR
+	else
+		flags &= ~BLOCKHAIR
 
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"
