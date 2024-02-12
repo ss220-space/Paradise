@@ -1616,6 +1616,19 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"aFp" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/obj/item/gun/projectile/automatic/pistol{
+	layer = 2.9
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 85;
+	icon_state = "seadeep";
+	layer = 9;
+	icon = 'icons/misc/beach.dmi'
+	},
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
+/area/centcom/specops)
 "aFz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/indestructible{
@@ -3499,6 +3512,23 @@
 	icon_state = "floor"
 	},
 /area/ninja/holding)
+"bAl" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 5;
+	pixel_x = 1;
+	pixel_y = 1;
+	density = 0
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2;
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "bAv" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "arust4"
@@ -6119,6 +6149,17 @@
 	water_overlay_image = null
 	},
 /area/syndicate_mothership/outside)
+"cLW" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2;
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "cMd" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -7085,6 +7126,19 @@
 	name = "floor"
 	},
 /area/vox_station)
+"dpA" = (
+/obj/structure/flora/rock/jungle,
+/mob/living/simple_animal/hostile/carp/koi{
+	faction = list("")
+	},
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 85;
+	icon_state = "seadeep";
+	layer = 9;
+	icon = 'icons/misc/beach.dmi'
+	},
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
+/area/centcom/specops)
 "dpF" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 2
@@ -8235,16 +8289,19 @@
 	},
 /area/syndicate_mothership/jail)
 "dQQ" = (
-/obj/structure/table/glass,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign5";
-	pixel_x = -16;
-	pixel_y = -32
+/obj/structure/window/reinforced{
+	dir = 8;
+	layer = 9.1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/flora/rock,
+/obj/structure/flora/ausbushes/stalkybush,
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 85;
+	icon_state = "seadeep";
+	layer = 9;
+	icon = 'icons/misc/beach.dmi'
 	},
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/specops)
 "dRc" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -14644,15 +14701,19 @@
 /area/ninja/outpost)
 "gSU" = (
 /obj/structure/table/glass,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign4";
-	pixel_x = -16;
-	pixel_y = -32
-	},
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 6;
+	pixel_y = -1;
+	pixel_x = 1;
+	density = 0
+	},
+/obj/structure/window/reinforced{
+	layer = 3.1;
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -25647,6 +25708,23 @@
 /obj/item/paper/central_command/archive/station_reports,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
+"maR" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2;
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 9;
+	pixel_y = 1;
+	pixel_x = -1;
+	density = 0
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "navybluealt"
+	},
+/area/centcom/specops)
 "mbd" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "warnwhite"
@@ -33652,6 +33730,20 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/zone3)
+"pol" = (
+/obj/effect/turf_decal/tile/neutral{
+	alpha = 85;
+	icon_state = "seadeep";
+	layer = 9;
+	icon = 'icons/misc/beach.dmi'
+	},
+/obj/structure/window/reinforced{
+	dir = 4;
+	layer = 9.1
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
+/area/centcom/specops)
 "poo" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo19"
@@ -40102,6 +40194,12 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	icon = 'icons/obj/decals.dmi';
+	icon_state = "nanotrasen_sign1";
+	pixel_x = -16;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
@@ -40196,6 +40294,12 @@
 "shB" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
+	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	icon = 'icons/obj/decals.dmi';
+	icon_state = "nanotrasen_sign4";
+	pixel_x = -16;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -41526,6 +41630,17 @@
 /obj/machinery/computer/shuttle/sit,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
+"sNT" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	icon = 'icons/obj/decals.dmi';
+	icon_state = "nanotrasen_sign5";
+	pixel_x = -16;
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood{
+	icon_state = "light-fancy-wood"
+	},
+/area/centcom/specops)
 "sNX" = (
 /obj/machinery/light/spot,
 /turf/simulated/floor/plasteel{
@@ -42792,7 +42907,7 @@
 	name = "Central Command Supply Internal Shutter"
 	},
 /obj/machinery/door_control/secure{
-	id = "CC_supply_internal";
+	id = "CC_supply_internal2";
 	name = "Central Command Supply Internal Shutter";
 	req_access = list(114);
 	pixel_x = -24
@@ -44215,11 +44330,9 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign3";
-	pixel_x = -16;
-	pixel_y = -32
+/obj/structure/window/reinforced{
+	layer = 3.1;
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -44490,6 +44603,12 @@
 "tXe" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/food/snacks/bigbiteburger,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	icon = 'icons/obj/decals.dmi';
+	icon_state = "nanotrasen_sign2";
+	pixel_x = -16;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47377,6 +47496,19 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"viQ" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/food/snacks/validsalad,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	icon = 'icons/obj/decals.dmi';
+	icon_state = "nanotrasen_sign3";
+	pixel_x = -16;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "viX" = (
 /obj/machinery/atmospherics/unary/tank/nitrogen{
 	dir = 4
@@ -48033,11 +48165,14 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign1";
-	pixel_x = -16;
-	pixel_y = -32
+/obj/structure/window/reinforced/survival_pod{
+	dir = 10;
+	pixel_x = -1;
+	pixel_y = -1
+	},
+/obj/structure/window/reinforced{
+	layer = 3.1;
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -48312,11 +48447,9 @@
 	},
 /area/syndicate_mothership)
 "vDP" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "nanotrasen_sign2";
-	pixel_x = -16;
-	pixel_y = -32
+/obj/structure/window/reinforced{
+	layer = 3.1;
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	},
 /turf/simulated/floor/wood{
 	icon_state = "light-fancy-wood"
@@ -50971,7 +51104,7 @@
 "wSE" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/sign/restroom{
-	pixel_x = 28
+	pixel_x = 32
 	},
 /turf/simulated/floor/wood{
 	icon_state = "light-fancy-wood"
@@ -108010,9 +108143,9 @@ tgn
 dyQ
 gYQ
 nAN
-hTD
-fAg
-kZY
+fDP
+fDP
+iXI
 nAN
 nAN
 nAN
@@ -108266,10 +108399,10 @@ quA
 ruu
 wAz
 vwu
-nAN
-fDP
-fDP
-iXI
+dQQ
+maR
+fAg
+kZY
 nAN
 uJn
 dnh
@@ -108523,8 +108656,8 @@ uzP
 uzP
 ocx
 vDP
-nAN
-hTD
+dpA
+cLW
 fAg
 sYW
 qgi
@@ -108780,8 +108913,8 @@ uzP
 uzP
 uLj
 tRk
-nAN
-hTD
+aFp
+cLW
 fAg
 fAg
 fAg
@@ -109030,15 +109163,15 @@ mZo
 shl
 mZo
 mZo
-shl
+nAN
 sfw
 rIY
 uzP
 uzP
 bvK
 gSU
-nAN
-cFn
+pol
+bAl
 cAL
 fAg
 fAg
@@ -109287,13 +109420,13 @@ mZo
 shl
 mZo
 mZo
-shl
+nAN
 tXe
 tSE
 uzP
 uzP
 thl
-dQQ
+tgn
 nAN
 nAN
 cFn
@@ -109544,8 +109677,8 @@ mZo
 shl
 mZo
 mZo
-shl
-dyQ
+nAN
+viQ
 goI
 uzP
 uzP
@@ -109801,7 +109934,7 @@ mZo
 shl
 mXf
 mZo
-shl
+nAN
 shB
 tLb
 uzP
@@ -110059,7 +110192,7 @@ shl
 mZo
 mZo
 nAN
-ocx
+sNT
 ocx
 uzP
 uzP
@@ -110547,13 +110680,13 @@ fID
 fID
 fID
 afP
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+fID
+fID
+fID
+fID
+fID
+fID
+fID
 dwU
 tJJ
 naI
