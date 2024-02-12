@@ -65,17 +65,29 @@ export const AutoDoc = (props, context) => {
                   <br />
                   {organ.open ? "opened" : ""}
                   {organ.broken ? "broken" : ""}
-                  <Button
-                    content="Fix"
-                    locked={isHealing}
-                    onClick={() => act('FixOrgan', {organ: organ.name, type: "fracture"})}/>
-                  {!!organ.broken  && <br />}
+                  {!!organ.broken &&
+                    <Fragment>
+                      <Button
+                        content="Fix"
+                        style={{
+                          "margin-left": "30px"
+                        }}
+                        locked={isHealing}
+                        onClick={() => act('FixOrgan', {organ: organ.name, type: "fracture"})}/>
+                      <br />
+                    </Fragment>}
                   {organ.internalBleeding ? "bleeding" : ""}
-                  <Button
-                    content="Fix"
-                    locked={isHealing}
-                    onClick={() => act('FixOrgan', {organ: organ.name, type: "bleeding"})}/>
-                  {!!organ.internalBleeding  && <br />}
+                  {!!organ.internalBleeding  &&
+                    <Fragment>
+                      <Button
+                        content="Fix"
+                        style={{
+                          "margin-left": "30px"
+                        }}
+                        locked={isHealing}
+                        onClick={() => act('FixOrgan', {organ: organ.name, type: "bleeding"})}/>
+                      <br />
+                    </Fragment>}
                   {organ.dead ? "dead": ""}
                   {!!organ.dead  && <br />}
                   {organ.germ_level ? "Germ level is " + (organ.germ_level) : ""}
@@ -88,20 +100,28 @@ export const AutoDoc = (props, context) => {
                   <b>{organ.name}</b>
                   <Button
                     content="Remove"
+                    style={{
+                      "margin-left": "1.5rem"
+                    }}
                     locked={isHealing}
                     onClick={() => act('FixOrgan', {organ: organ.name, type: "remove"})}/>
                   <br />
-                  {organ.dead ? "dead": ""}
+                  {!!organ.dead ? "dead": ""}
                   {!!organ.dead && <br />}
-                  {organ.germ_level ? "Germ level is " + (organ.germ_level): ""}
+                  {!!organ.germ_level ? "Germ level is " + (organ.germ_level): ""}
                   {!!organ.germ_level && <br />}
-                  {organ.totalLoss ? "Total damage is " + (organ.damage) : ""}
-                  <Button
-                    content="Heal"
-                    locked={isHealing}
-                    onClick={() => act('FixOrgan', {organ: organ.name, type: "damage"})}/>
-                  <br />
-
+                  {!!organ.totalLoss ? "Total damage is " + (organ.damage) : ""}
+                  {!!organ.totalLoss &&
+                    <Fragment>
+                      <Button
+                        content="Heal"
+                        style={{
+                          "margin-left": "30px"
+                        }}
+                        locked={isHealing}
+                        onClick={() => act('FixOrgan', {organ: organ.name, type: "damage"})}/>
+                      <br />
+                    </Fragment>}
                 </Fragment>)}
               {!!occupant.TotalBruteBurn &&
                 <Fragment>

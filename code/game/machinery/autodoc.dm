@@ -132,7 +132,7 @@
 			extOrgan.mend_fracture()
 		if("bleeding")
 			extOrgan.stop_internal_bleeding()
-		if("damage")
+		if("	")
 			intOrgan.damage = 0
 		if("replace")
 			for(var/obj/item/organ/internal/new_organ in contents)
@@ -169,7 +169,7 @@
 /obj/machinery/autodoc/ui_data(mob/user)
 	var/list/data = list()
 	data["HasTray"] = istype(connected)
-	data["isHealing"] = !(isnull(healing) || isnull(organs_to_heal))
+	data["isHealing"] = !(isnull(healing) && isnull(organs_to_heal))
 	var/occupantData[0]
 	occupantData["TotalBruteBurn"] = 0
 
