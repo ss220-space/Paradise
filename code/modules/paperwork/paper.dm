@@ -250,7 +250,7 @@
 		if(!istart)
 			return // No field found with matching id
 
-		laststart = ++istart
+		laststart = istart+1
 		locid++
 		if(locid == id)
 			var/iend = 1
@@ -302,7 +302,7 @@
 		var/i = findtext_char(info, "<span class=\"paper_field\">", laststart)
 		if(!i)
 			break
-		laststart = ++i
+		laststart = i+1
 		fields++
 
 
