@@ -982,7 +982,6 @@
 	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
 	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
 	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.forumb", "background-color=#494949;text-color=#a4bad6")
 	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
 	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
 	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
