@@ -127,6 +127,10 @@
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
 
+/datum/gear/uniform/skirt/syndi
+	display_name = "skirt, tactical"
+	path = /obj/item/clothing/under/syndicate/tacticool/skirt
+
 /datum/gear/uniform/skirt/blue
 	display_name = "plaid skirt, blue"
 	path = /obj/item/clothing/under/dress/plaid_blue
@@ -265,6 +269,7 @@
 	display_name = "skirt, chaplain"
 	path = /obj/item/clothing/under/rank/chaplain/skirt
 	allowed_roles = list("Chaplain")
+
 /datum/gear/uniform/skirt/job/barber
 	display_name = "skirt, barber"
 	path = /obj/item/clothing/under/barber/skirt

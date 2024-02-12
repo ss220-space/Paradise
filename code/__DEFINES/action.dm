@@ -1,10 +1,10 @@
 //Action availability flags
-#define AB_CHECK_RESTRAINED 1
-#define AB_CHECK_STUNNED 2
-#define AB_CHECK_LYING 4
-#define AB_CHECK_CONSCIOUS 8
-#define AB_TRANSFER_MIND 16
-#define AB_CHECK_TURF 32
+#define AB_CHECK_RESTRAINED (1<<0)
+#define AB_CHECK_STUNNED (1<<1)
+#define AB_CHECK_LYING (1<<2)
+#define AB_CHECK_CONSCIOUS (1<<3)
+#define AB_TRANSFER_MIND (1<<4)
+#define AB_CHECK_TURF (1<<5)
 
 //Advanced action types
 //Those actions have cooldown, and unavailable until it ends

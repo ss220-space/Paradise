@@ -24,15 +24,6 @@
 			O.forceMove(loc)
 			cargo -= O
 			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - src.cargo.len]")
-	return
-
-/obj/mecha/makeshift/go_out()
-	..()
-	update_icon()
-
-/obj/mecha/makeshift/moved_inside(mob/living/carbon/human/H)
-	..()
-	update_icon()
 
 
 /obj/mecha/makeshift/Exit(atom/movable/O)
@@ -88,18 +79,10 @@
 	internal_damage_threshold = 30
 	deflect_chance = 20
 	force = 20
-	maint_access = 0
 	mech_enter_time = 20
 	max_equip = 4
 	wreckage = null
 
-/obj/mecha/combat/lockersyndie/go_out()
-	..()
-	update_icon()
-
-/obj/mecha/combat/lockersyndie/moved_inside(mob/living/carbon/human/H)
-	..()
-	update_icon()
 
 /obj/mecha/combat/lockersyndie/add_cell()
 	cell = new /obj/item/stock_parts/cell/high/slime(src)

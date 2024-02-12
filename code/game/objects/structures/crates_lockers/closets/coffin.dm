@@ -11,12 +11,8 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
+	no_overlays = TRUE
 
-/obj/structure/closet/coffin/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened
 
 /obj/structure/closet/coffin/sarcophagus
 	name = "sarcophagus"

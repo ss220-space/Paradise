@@ -11,9 +11,10 @@
 			/obj/structure/window/full/basic,
 			/obj/machinery/door/window)
 
-/obj/item/pipe_painter/window_painter/New()
+
+/obj/item/pipe_painter/window_painter/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	mode = "paint"
 
 
@@ -25,11 +26,12 @@
 		if("Choose Color")
 			mode = "paint"
 			colour = input(user,"Choose Color") as color
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		if("Color Presets")
 			mode = "paint"
 			colour = input("Which color do you want to use?", name, colour) in GLOB.pipe_colors
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/pipe_painter/window_painter/afterattack(atom/A, mob/user as mob)
 	if(!is_type_in_list(A, paintable_windows) || !in_range(user, A))
@@ -43,10 +45,10 @@
 		colour = W.color
 		mode = "paint"
 		to_chat(user, span_notice("You copy color of this window."))
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pipe_painter/window_painter/update_icon()
-	overlays.Cut()
-	var/image/colour_image = image('icons/obj/device.dmi', "window_painter_colour")
-	colour_image.color = colour
-	overlays += colour_image
+
+/obj/item/pipe_painter/window_painter/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, icon_state = "window_painter_colour", color = colour)
+

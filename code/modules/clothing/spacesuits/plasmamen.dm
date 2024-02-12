@@ -27,25 +27,27 @@
 	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
 	var/upgradable = FALSE
 
-/obj/item/clothing/head/helmet/space/plasmaman/New()
-	..()
+
+/obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
+	. = ..()
 	visor_toggling()
 	update_icon()
-	cut_overlays()
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(!user.incapacitated() && Adjacent(user))
 		toggle_welding_screen(user)
 
+
 /obj/item/clothing/head/helmet/space/plasmaman/visor_toggling() //handles all the actual toggling of flags
 	up = !up
 	flags ^= visor_flags
 	flags_inv ^= visor_flags_inv
-	icon_state = "[initial(icon_state)]"
 	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
-		tint ^= initial(tint)
+		tint = up ? tint_up : initial(tint)
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
@@ -53,71 +55,71 @@
 			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 			on = FALSE
 			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
+			actions_types = list(/datum/action/item_action/toggle_helmet_light)
 		else
 			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/clothing/head/helmet/space/plasmaman/update_icon()
-	cut_overlays()
-	add_overlay(visor_icon)
-	..()
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
-/obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
+	if(!upgradable)
+		icon_state = "[initial(icon_state)][on ? "-light":""]"
+		item_state = icon_state
+		return
+
+	switch(armor.getRating(MELEE))
+		if(30)
+			icon_state = "[initial(icon_state)][on ? "-light":""]"
+			item_state = icon_state
+		if(40,50)
+			icon_state = "[initial(icon_state)]_reinf[on ? "-light":""]"
+			item_state = icon_state
+		if(60)
+			icon_state = "[initial(icon_state)]_reinf_full[on ? "-light":""]"
+			item_state = icon_state
+
+
+/obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/living/carbon/human/user)
 	toggle_light(user)
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
 	on = !on
-	if(upgradable)
-		switch(armor.getRating("melee"))
-			if(30)
-				icon_state = "[initial(icon_state)][on ? "-light":""]"
-				item_state = icon_state
-			if(40,50)
-				icon_state = "[initial(icon_state)]_reinf[on ? "-light":""]"
-				item_state = icon_state
-			if(60)
-				icon_state = "[initial(icon_state)]_reinf_full[on ? "-light":""]"
-				item_state = icon_state
-	else
-		icon_state = "[initial(icon_state)][on ? "-light":""]"
-		item_state = icon_state
-
-	var/mob/living/carbon/human/H = user
-	if(istype(H))
-		H.update_inv_head()
+	update_icon(UPDATE_ICON_STATE)
 
 	if(on)
 		if(!up)
-			if(istype(H))
-				to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
+			if(user)
+				to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
 			set_light(0)
 		else
 			set_light(brightness_on)
 	else
 		set_light(0)
 
-	for(var/X in actions)
-		var/datum/action/A=X
-		A.UpdateButtonIcon()
+	update_equipped_item()
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
+		update_equipped_item()
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-
 	if(HUDType && slot == slot_head)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
 
+
 /obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, silent = FALSE)
-	..()
+	. = ..()
 	if(HUDType && istype(user) && user.head == src)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.remove_hud_from(user)
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"

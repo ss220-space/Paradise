@@ -39,7 +39,7 @@
 		prev_access = access_card.access
 
 
-/mob/living/simple_animal/bot/ed209/syndicate/update_icon()
+/mob/living/simple_animal/bot/ed209/syndicate/update_icon_state()
 	icon_state = initial(icon_state)
 
 

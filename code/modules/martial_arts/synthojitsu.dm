@@ -1,5 +1,6 @@
 /datum/martial_art/synthojitsu
 	name = "Synthojitsu"
+	weight = 4
 	block_chance = 0
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/synthojitsu/lock, /datum/martial_combo/synthojitsu/overload, /datum/martial_combo/synthojitsu/reanimate)
@@ -42,7 +43,20 @@
 	icon_state ="viable"
 	var/is_used = FALSE
 
-/obj/item/ipc_combat_upgrade/attack_self(mob/user as mob)
+
+/obj/item/ipc_combat_upgrade/update_icon_state()
+	icon_state = "[is_used ? "un" : ""]viable"
+
+
+/obj/item/ipc_combat_upgrade/update_desc(updates = ALL)
+	. = ..()
+	if(!is_used)
+		desc = initial(desc)
+		return
+	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols.It's hardlocked"
+
+
+/obj/item/ipc_combat_upgrade/attack_self(mob/user)
 	if(!ismachineperson(user) || is_used == TRUE)
 		return
 	to_chat(user, "<span class='notice'>Installation sequence initialized. It will take some time...</span>")
@@ -54,9 +68,8 @@
 		H.Weaken(10 SECONDS)
 		to_chat(H, "<span class='boldannounce'>Melee algorithms installed. Safety disabled.</span>")
 		is_used = TRUE
-		desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols.It's hardlocked"
-		name = "IPC combat upgrade"
-		icon_state = "unviable"
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+
 
 /datum/martial_art/synthojitsu/explaination_header(user)
 	to_chat(user, "<b><i>You reapload some of the basics of synthojitsu.</i></b>")

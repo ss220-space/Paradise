@@ -36,6 +36,11 @@
 
 	addtimer(CALLBACK(src, PROC_REF(call_shuttle)), 7 SECONDS)
 
+
+/obj/singularity/ratvar/update_icon_state()
+	return
+
+
 /obj/singularity/ratvar/proc/call_shuttle()
 	SSshuttle.emergency.request(null, 0.3)
 	SSshuttle.emergency.canRecall = FALSE // Cannot recall

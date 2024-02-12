@@ -5,22 +5,27 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	origin_tech = "magnets=1;engineering=1"
 
-	secured = 0
+	secured = FALSE
 
 	bomb_name = "proximity mine"
 
-	var/scanning = 0
-	var/timing = 0
+	var/scanning = FALSE
+	var/timing = FALSE
 	var/time = 10
+
 
 /obj/item/assembly/prox_sensor/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 
-/obj/item/assembly/prox_sensor/describe()
+
+/obj/item/assembly/prox_sensor/examine(mob/user)
+	. = ..()
 	if(timing)
-		return "<span class='notice'>The proximity sensor is arming.</span>"
-	return "The proximity sensor is [scanning ? "armed" : "disarmed"]."
+		. += span_notice("The proximity sensor is arming.")
+	else
+		. += span_notice("The proximity sensor is [scanning ? "armed" : "disarmed"].")
+
 
 /obj/item/assembly/prox_sensor/activate()
 	if(!..())
@@ -29,16 +34,18 @@
 	update_icon()
 	return FALSE
 
+
 /obj/item/assembly/prox_sensor/toggle_secure()
 	secured = !secured
 	if(secured)
 		START_PROCESSING(SSobj, src)
 	else
-		scanning = 0
-		timing = 0
+		scanning = FALSE
+		timing = FALSE
 		STOP_PROCESSING(SSobj, src)
 	update_icon()
 	return secured
+
 
 /obj/item/assembly/prox_sensor/HasProximity(atom/movable/AM)
 	if(!isobj(AM) && !isliving(AM))
@@ -48,6 +55,7 @@
 	if(AM.move_speed < 12)
 		sense(AM)
 
+
 /obj/item/assembly/prox_sensor/proc/sense(atom/movable/AM)
 	var/mob/triggered
 	if(ismob(AM))
@@ -55,23 +63,24 @@
 	if(!secured || !scanning || cooldown > 0)
 		return FALSE
 	cooldown = 2
-	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	pulse(FALSE, triggered)
+	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
+
 
 /obj/item/assembly/prox_sensor/process()
 	if(timing && (time >= 0))
 		time--
 	if(timing && time <= 0)
-		timing = 0
+		timing = FALSE
 		toggle_scan()
 		time = 10
 
+
 /obj/item/assembly/prox_sensor/dropped(mob/user, silent = FALSE)
-	..()
-	spawn(0)
-		sense(user)
-		return
+	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(sense), user)
+
 
 /obj/item/assembly/prox_sensor/proc/toggle_scan()
 	if(!secured)
@@ -79,28 +88,31 @@
 	scanning = !scanning
 	update_icon()
 
-/obj/item/assembly/prox_sensor/update_icon()
-	overlays.Cut()
+
+/obj/item/assembly/prox_sensor/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(timing)
-		overlays += "prox_timing"
+		. += "prox_timing"
 		attached_overlays += "prox_timing"
 	if(scanning)
-		overlays += "prox_scanning"
+		. += "prox_scanning"
 		attached_overlays += "prox_scanning"
-	if(holder)
-		holder.update_icon()
+	holder?.update_icon()
 
-/obj/item/assembly/prox_sensor/Move()
+
+/obj/item/assembly/prox_sensor/Move(atom/newloc, direct = NONE, movetime)
 	. = ..()
 	sense()
+
 
 /obj/item/assembly/prox_sensor/holder_movement(user)
 	sense(user)
 
+
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
-		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
+		user.show_message(span_warning("The [name] is unsecured!"))
 		return FALSE
 	var/second = time % 60
 	var/minute = (time - second) / 60
@@ -111,6 +123,7 @@
 	var/datum/browser/popup = new(user, "prox", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open()
+
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()
@@ -137,3 +150,4 @@
 
 	if(usr)
 		attack_self(usr)
+

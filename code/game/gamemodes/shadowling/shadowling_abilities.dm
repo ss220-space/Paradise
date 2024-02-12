@@ -644,7 +644,7 @@
 		to_chat(user, "<span class='shadowling'>You sent the APC's power to the void while overloading all it's lights!</span>")
 		target_apc.cell?.charge = 0	//Sent to the shadow realm
 		target_apc.chargemode = FALSE //Won't recharge either until an someone hits the button
-		target_apc.charging = FALSE
+		target_apc.charging = APC_NOT_CHARGING
 		target_apc.null_charge()
 		target_apc.update_icon()
 

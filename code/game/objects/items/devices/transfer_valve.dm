@@ -110,7 +110,8 @@
 			if(tank_one)
 				split_gases()
 				valve_open = FALSE
-				tank_one.forceMove(get_turf(src))
+				tank_one.forceMove_turf()
+				usr?.put_in_hands(tank_one, ignore_anim = FALSE)
 				tank_one = null
 				update_icon()
 				if((!tank_two || tank_two.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
@@ -119,7 +120,8 @@
 			if(tank_two)
 				split_gases()
 				valve_open = FALSE
-				tank_two.forceMove(get_turf(src))
+				tank_two.forceMove_turf()
+				usr?.put_in_hands(tank_two, ignore_anim = FALSE)
 				tank_two = null
 				update_icon()
 				if((!tank_one || tank_one.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
@@ -131,7 +133,8 @@
 				attached_device.attack_self(usr)
 		if("remove_device")
 			if(attached_device)
-				attached_device.forceMove(get_turf(src))
+				attached_device.forceMove_turf()
+				usr?.put_in_hands(attached_device, ignore_anim = FALSE)
 				attached_device.holder = null
 				attached_device = null
 				qdel(GetComponent(/datum/component/proximity_monitor))
@@ -145,28 +148,32 @@
 
 /obj/item/transfer_valve/proc/process_activation(obj/item/D, normal = TRUE, special = TRUE, mob/user)
 	if(toggle)
-		toggle = 0
+		toggle = FALSE
 		toggle_valve(user)
-		spawn(50) // To stop a signal being spammed from a proxy sensor constantly going off or whatever
-			toggle = 1
+		addtimer(VARSET_CALLBACK(src, toggle, TRUE), 5 SECONDS)	// To stop a signal being spammed from a proxy sensor constantly going off or whatever
 
-/obj/item/transfer_valve/update_icon()
-	overlays.Cut()
-	underlays = null
 
+/obj/item/transfer_valve/update_icon_state()
 	if(!tank_one && !tank_two && !attached_device)
 		icon_state = "valve_1"
-		return
-	icon_state = "valve"
+	else
+		icon_state = "valve"
 
+
+/obj/item/transfer_valve/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(!tank_one && !tank_two && !attached_device)
+		return
 	if(tank_one)
-		overlays += "[tank_one.icon_state]"
+		. += "[tank_one.icon_state]"
 	if(tank_two)
 		var/icon/J = new(icon, icon_state = "[tank_two.icon_state]")
 		J.Shift(WEST, 13)
 		underlays += J
 	if(attached_device)
-		overlays += "device"
+		. += "device"
+
 
 /obj/item/transfer_valve/proc/merge_gases()
 	tank_two.air_contents.volume += tank_one.air_contents.volume
@@ -190,7 +197,7 @@
 
 /obj/item/transfer_valve/proc/toggle_valve(mob/user)
 	if(!valve_open && tank_one && tank_two)
-		valve_open = 1
+		valve_open = TRUE
 		var/turf/bombturf = get_turf(src)
 
 
@@ -202,13 +209,17 @@
 		if(user)
 			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher)]. Last touched by: [key_name_log(mob)]", ATKLOG_FEW)
 		merge_gases()
-		spawn(20) // In case one tank bursts
-			for(var/i in 1 to 5)
-				update_icon()
-				sleep(10)
-			update_icon()
+		addtimer(CALLBACK(src, PROC_REF(toggle_process)), 2 SECONDS)	// In case one tank bursts
 
 	else if(valve_open && tank_one && tank_two)
 		split_gases()
-		valve_open = 0
+		valve_open = FALSE
 		update_icon()
+
+
+/obj/item/transfer_valve/proc/toggle_process()
+	for(var/i in 1 to 5)
+		update_icon()
+		sleep(1 SECONDS)
+	update_icon()
+

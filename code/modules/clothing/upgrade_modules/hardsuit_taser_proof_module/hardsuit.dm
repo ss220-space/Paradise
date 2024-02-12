@@ -1,7 +1,7 @@
 /obj/item/clothing/suit/space/hardsuit
 	var/obj/item/hardsuit_taser_proof/taser_proof = null
 
-/obj/item/clothing/suit/space/hardsuit/New()
+/obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	. = ..()
 	if(taser_proof && ispath(taser_proof))
 		taser_proof = new taser_proof(src)

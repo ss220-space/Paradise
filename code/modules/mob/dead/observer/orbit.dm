@@ -39,11 +39,13 @@
 	var/list/data = list()
 
 	var/list/alive = list()
+	var/list/highlights = list()
 	var/list/antagonists = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
 	var/list/misc = list()
 	var/list/npcs = list()
+	var/length_of_ghosts = length(get_observers())
 
 	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
 	for(var/name in pois)
@@ -62,6 +64,12 @@
 			continue
 
 		serialized["ref"] = "\ref[M]"
+		var/orbiters = 0
+		if(ismob(M))
+			orbiters = M.ghost_orbiting
+
+		if(orbiters > 0)
+			serialized["orbiters"] = orbiters
 
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
@@ -73,6 +81,8 @@
 			else if(M.stat == DEAD)
 				dead += list(serialized)
 			else
+				if(orbiters >= 0.2 * length_of_ghosts) // They're important if 20% of observers are watching them
+					highlights += list(serialized)
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
@@ -130,10 +140,13 @@
 					antagonists += list(antag_serialized)
 
 		else
+			if(length(orbiters) >= 0.2 * length_of_ghosts) // If a bunch of people are orbiting an object, like the nuke disk.
+				highlights += list(serialized)
 			misc += list(serialized)
 
 	data["alive"] = alive
 	data["antagonists"] = antagonists
+	data["highlights"] = highlights
 	data["dead"] = dead
 	data["ghosts"] = ghosts
 	data["misc"] = misc

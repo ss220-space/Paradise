@@ -259,7 +259,9 @@
 				continue
 			if(times_fired % 3 == 1)
 				M.adjustBruteLoss(5)
-				adjust_nutrition(10)
+				//Vampires don't get nutrition from devouring mobs
+				if(!isvampire(src))
+					adjust_nutrition(10)
 
 //this updates all special effects: only stamina for now
 /mob/living/carbon/handle_status_effects()

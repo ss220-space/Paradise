@@ -10,6 +10,11 @@
 /turf/simulated/floor/wood/broken_states()
 	return list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 
+/turf/simulated/floor/wood/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
 /turf/simulated/floor/wood/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -109,7 +114,7 @@
 	. = ..()
 	update_icon()
 
-/turf/simulated/floor/grass/update_icon()
+/turf/simulated/floor/grass/update_icon_state()
 	icon_state = "grass[pick("1","2","3","4")]"
 
 /turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
@@ -145,17 +150,22 @@
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+/turf/simulated/floor/carpet/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
 /turf/simulated/floor/carpet/Initialize(mapload)
 	. = ..()
 	update_icon()
 
+
 /turf/simulated/floor/carpet/broken_states()
 	return list("damaged")
 
-/turf/simulated/floor/carpet/update_icon()
-	if(!..())
-		return
-	dir = 0 //Prevents wrong smoothing
+
+/turf/simulated/floor/carpet/update_icon_state()
+	dir = NONE //Prevents wrong smoothing
 	if(!broken && !burnt)
 		if(smooth)
 			queue_smooth(src)
