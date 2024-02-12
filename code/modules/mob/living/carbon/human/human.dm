@@ -987,24 +987,6 @@
 		return HEARING_PROTECTION_MINOR
 
 
-///tintcheck()
-///Checks eye covering items for visually impairing tinting, such as welding masks
-///Checked in life.dm. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = You can see jack, but you can't see shit.
-/mob/living/carbon/human/tintcheck()
-	var/tinted = 0
-	if(istype(src.head, /obj/item/clothing/head))
-		var/obj/item/clothing/head/HT = src.head
-		tinted += HT.tint
-	if(istype(src.glasses, /obj/item/clothing/glasses))
-		var/obj/item/clothing/glasses/GT = src.glasses
-		tinted += GT.tint
-	if(istype(src.wear_mask, /obj/item/clothing/mask))
-		var/obj/item/clothing/mask/MT = src.wear_mask
-		tinted += MT.tint
-
-	return tinted
-
-
 /mob/living/carbon/human/abiotic(var/full_body = 0)
 	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
 		return 1
