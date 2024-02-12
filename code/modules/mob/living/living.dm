@@ -328,16 +328,17 @@
 			return TRUE
 
 		target.visible_message(
-			span_danger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
+			span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
+			span_userdanger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
 		)
-		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
+		SEND_SOUND(target, 'sound/weapons/targeton.ogg')
+		SEND_SOUND(src, 'sound/weapons/targeton.ogg')
 		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
 		return TRUE
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
 		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руке!"))
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руках!"))
 		trick.shoot_gun(src)
 		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 		return TRUE

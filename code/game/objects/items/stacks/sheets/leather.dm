@@ -168,17 +168,18 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			/obj/item/clothing/head/hooded/explorer,
 			/obj/item/clothing/head/helmet/space/plasmaman/mining,
 	))
+
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
-	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
+	var/platable_armor_with_icon = is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache)
+	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || platable_armor_with_icon)
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
-
-		if(current_armor.getRating("melee") < 60)
-			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
-			if(is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
-				switch(C.armor.getRating("melee"))
+		if(current_armor.getRating(MELEE) < 60)
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
+			if(platable_armor_with_icon)
+				switch(C.armor.getRating(MELEE))
 					if(40, 50)
 						C.icon_state = "[initial(C.icon_state)]_reinf"
 						C.item_color = "[initial(C.item_color)]_reinf"
@@ -200,11 +201,11 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		var/obj/mecha/working/ripley/D = target
 		if(D.hides < 3)
 			D.hides++
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
-			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
-			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-			D.update_icon()
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
@@ -230,7 +231,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
 			to_chat(user, "<span class='info'>Вы нашли куда суется [name] и пихнули её на экзокостюм, усиливая защиту против атак.</span>")
-			D.update_icon()
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>Вы больше не можете найти куда [name] пристраивается!</span>")

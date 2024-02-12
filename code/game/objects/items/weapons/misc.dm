@@ -92,12 +92,19 @@
 	icon = 'icons/obj/lightning.dmi'
 	icon_state = "lightning"
 	desc = "test lightning"
+	var/angle
 
-/obj/item/lightning/New()
-	..()
+
+/obj/item/lightning/Initialize(mapload)
+	. = ..()
 	icon_state = "1"
 
-/obj/item/lightning/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
+
+/obj/item/lightning/update_icon_state()
+	icon_state = "[angle]"
+
+
+/obj/item/lightning/afterattack(atom/A, mob/living/user, flag, params)
 	var/angle = get_angle(A, user)
 	//to_chat(world, angle)
 	angle = round(angle) + 45
@@ -108,9 +115,7 @@
 
 	if(!angle)
 		angle = 1
-  //to_chat(world, "adjusted [angle]")
-	icon_state = "[angle]"
-	//to_chat(world, "[angle] [(get_dist(user, A) - 1)]")
+	update_icon(UPDATE_ICON_STATE)
 	user.Beam(A, "lightning", 'icons/obj/zap.dmi', 50, 15)
 
 /obj/item/newton

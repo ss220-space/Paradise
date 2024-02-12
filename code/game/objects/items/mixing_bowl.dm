@@ -155,12 +155,12 @@
 	if(prob(chance))
 		dirty = TRUE
 		flags = null
-		icon_state = dirty_icon
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mixing_bowl/proc/clean()
 	dirty = FALSE
 	flags = OPENCONTAINER
-	icon_state = clean_icon
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mixing_bowl/wash(mob/user, atom/source)
 	if(..())
@@ -187,3 +187,8 @@
 	ffuu.reagents.add_reagent("carbon", amount)
 	ffuu.reagents.add_reagent("????", amount/10)
 	make_dirty(75)
+
+
+/obj/item/mixing_bowl/update_icon_state()
+	icon_state = dirty ? dirty_icon : clean_icon
+

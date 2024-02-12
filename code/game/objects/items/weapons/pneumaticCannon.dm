@@ -182,14 +182,14 @@
 			return
 		to_chat(user, span_notice("You hook [thetank] up to [src]."))
 		tank = thetank
-	update_icons()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pneumatic_cannon/proc/update_icons()
-	overlays.Cut()
-	if(!tank)
-		return
-	overlays += image('icons/obj/weapons/pneumaticCannon.dmi', "[tank.icon_state]")
-	update_icon()
+
+/obj/item/pneumatic_cannon/update_overlays()
+	. = ..()
+	if(tank)
+		. += "[tank.icon_state]"
+
 
 #undef LOW_PRESSURE
 #undef MID_PRESSURE

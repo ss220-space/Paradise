@@ -41,8 +41,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	update_move_direction()
 	for(var/I in GLOB.conveyor_switches)
 		var/obj/machinery/conveyor_switch/S = I
-		if(id == S.id)
-			S.conveyors += src
+		S.link_conveyers(src)
 
 /obj/machinery/conveyor/Destroy()
 	GLOB.conveyor_belts -= src
@@ -96,8 +95,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	add_fingerprint(user)
 	user.Move_Pulled(src)
 
-/obj/machinery/conveyor/update_icon()
-	..()
+/obj/machinery/conveyor/update_icon_state()
 	if(IS_OPERATING)
 		icon_state = "conveyor_started_[clockwise ? "cw" : "ccw"]"
 		if(reversed)
@@ -170,9 +168,12 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		dir = turn(dir, -45)
 		clockwise = FALSE
 
-/obj/machinery/conveyor/power_change()
-	..()
+
+/obj/machinery/conveyor/power_change(forced = FALSE)
+	if(!..())
+		return
 	update_icon()
+
 
 /obj/machinery/conveyor/process()
 	if(!IS_OPERATING)
@@ -213,7 +214,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 
 	var/move_time = 0
-	if (slow_factor>1) // yes, 1 is special
+	if(slow_factor>1) // yes, 1 is special
 		move_time=CEILING(slow_factor, 2) // yes.
 	AM.Move(get_step(loc, forwards), forwards, move_time)
 
@@ -265,6 +266,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/reversed = TRUE  // If we're in neutral, would we go forwards or backwards next?
 	var/slow_factor = 1  // How slow the belts should go. Gets copied into connected belts slow_factor.
 
+
 /obj/machinery/conveyor_switch/New(newloc, new_id)
 	..(newloc)
 	GLOB.conveyor_switches += src
@@ -272,27 +274,42 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		id = new_id
 	for(var/I in GLOB.conveyor_belts)
 		var/obj/machinery/conveyor/C = I
-		if(C.id == id)
-			conveyors += C
+		link_conveyers(C)
+
+
+/obj/machinery/conveyor_switch/proc/link_conveyers(obj/machinery/conveyor/C)
+	if(C.id != id)
+		return
+	conveyors += C
+	RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(unlink_conveyer)) // so it GCs properly
+
+
+/obj/machinery/conveyor_switch/proc/unlink_conveyer(obj/machinery/conveyor/C)
+	conveyors -= C
+
 
 /obj/machinery/conveyor_switch/Destroy()
 	GLOB.conveyor_switches -= src
 	return ..()
 
-// update the icon depending on the position
 
-/obj/machinery/conveyor_switch/update_icon()
-	overlays.Cut()
+// update the icon depending on the position
+/obj/machinery/conveyor_switch/update_icon_state()
 	if(!position)
 		icon_state = "switch-off"
 	else if(position == DIRECTION_REVERSED)
 		icon_state = "switch-rev"
-		if(!(stat & NOPOWER))
-			overlays += "redlight"
 	else if(position == DIRECTION_FORWARDS)
 		icon_state = "switch-fwd"
-		if(!(stat & NOPOWER))
-			overlays += "greenlight"
+
+
+/obj/machinery/conveyor_switch/update_overlays()
+	. = ..()
+	if(position == DIRECTION_REVERSED && !(stat & NOPOWER))
+		. += "redlight"
+	if(position == DIRECTION_FORWARDS && !(stat & NOPOWER))
+		. += "greenlight"
+
 
 /obj/machinery/conveyor_switch/oneway
 	one_way = TRUE
@@ -394,8 +411,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	return TRUE
 
 
-/obj/machinery/conveyor_switch/power_change()
-	..()
+/obj/machinery/conveyor_switch/power_change(forced = FALSE)
+	if(!..())
+		return
 	update_icon()
 
 // CONVEYOR CONSTRUCTION STARTS HERE

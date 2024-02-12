@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		add_fingerprint(user)
 		user.drop_transfer_item_to_loc(W, src)
 		src.P = W
-		update_icons()
+		update_icon()
 	else if(istype(W, /obj/item/crowbar))
 		if(P && !src.locked)
 			add_fingerprint(user)
@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	if(active)
 		toggle_power()
 	else
-		update_icons()
+		update_icon()
 
 /obj/machinery/power/rad_collector/proc/receive_pulse(var/pulse_strength)
 	if(P && active)
@@ -134,26 +134,27 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		add_avail(power_produced)
 		last_power = power_produced
 		return
-	return
 
 
-/obj/machinery/power/rad_collector/proc/update_icons()
-	overlays.Cut()
+/obj/machinery/power/rad_collector/update_icon_state()
+	icon_state = "ca[active ? "_on" : ""]"
+
+
+/obj/machinery/power/rad_collector/update_overlays()
+	. = ..()
 	if(P)
-		overlays += image('icons/obj/engines_and_power/singularity.dmi', "ptank")
+		. +=  "ptank"
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(active)
-		overlays += image('icons/obj/engines_and_power/singularity.dmi', "on")
+		. += "on"
 
 
 /obj/machinery/power/rad_collector/proc/toggle_power()
 	active = !active
 	if(active)
-		icon_state = "ca_on"
 		flick("ca_active", src)
 	else
-		icon_state = "ca"
 		flick("ca_deactive", src)
-	update_icons()
-	return
+	update_icon()
+

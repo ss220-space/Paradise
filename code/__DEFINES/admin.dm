@@ -26,27 +26,27 @@
 
 //Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
-#define R_BUILDMODE		1
-#define R_ADMIN			2
-#define R_BAN			4
-#define R_EVENT			8
-#define R_SERVER		16
-#define R_DEBUG			32
-#define R_POSSESS		64
-#define R_PERMISSIONS	128
-#define R_STEALTH		256
-#define R_REJUVINATE	512
-#define R_VAREDIT		1024
-#define R_SOUNDS		2048
-#define R_SPAWN			4096
-#define R_MOD			8192
-#define R_MENTOR		16384
-#define R_PROCCALL		32768
-#define R_VIEWRUNTIMES	65536
+#define R_BUILDMODE		(1<<0)
+#define R_ADMIN			(1<<1)
+#define R_BAN			(1<<2)
+#define R_EVENT			(1<<3)
+#define R_SERVER		(1<<4)
+#define R_DEBUG			(1<<5)
+#define R_POSSESS		(1<<6)
+#define R_PERMISSIONS	(1<<7)
+#define R_STEALTH		(1<<8)
+#define R_REJUVINATE	(1<<9)
+#define R_VAREDIT		(1<<10)
+#define R_SOUNDS		(1<<11)
+#define R_SPAWN			(1<<12)
+#define R_MOD			(1<<13)
+#define R_MENTOR		(1<<14)
+#define R_PROCCALL		(1<<15)
+#define R_VIEWRUNTIMES	(1<<16)
 
-#define R_MAXPERMISSION 65536 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION (1<<16)//This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
-#define R_HOST			131071 // Sum of all permissions to allow easy setting
+#define R_HOST			(~0) // Sum of all permissions to allow easy setting
 
 #define ADMIN_QUE(user,display) "<a href='?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"

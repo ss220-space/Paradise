@@ -21,11 +21,23 @@
 	var/can_overcharge = TRUE //set this to FALSE if you don't want your flash to be overcharge capable
 	var/use_sound = 'sound/weapons/flash.ogg'
 
+
+/obj/item/flash/update_icon_state()
+	icon_state = "[initial(icon_state)][broken ? "burnt" : ""]"
+
+
+/obj/item/flash/update_overlays()
+	. = ..()
+	if(overcharged)
+		. += "overcharge"
+
+
 /obj/item/flash/proc/clown_check(mob/user)
 	if(user && (CLUMSY in user.mutations) && prob(50))
 		flash_carbon(user, user, 30 SECONDS, 0)
 		return FALSE
 	return TRUE
+
 
 /obj/item/flash/attackby(obj/item/W, mob/user, params)
 	if(can_overcharge)
@@ -41,17 +53,18 @@
 				to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
 				qdel(W)
 				overcharged = TRUE
-				overlays += "overcharge"
+				update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/flash/random/New()
 	..()
 	if(prob(25))
 		broken = TRUE
-		icon_state = "[initial(icon_state)]burnt"
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
-	icon_state = "[initial(icon_state)]burnt"
+	update_icon(UPDATE_ICON_STATE)
 	visible_message("<span class='notice'>The [src.name] burns out!</span>")
 
 

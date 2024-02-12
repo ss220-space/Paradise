@@ -38,6 +38,7 @@
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
 	flash_protect = 2
 	tint = 2
+	can_toggle = TRUE
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
@@ -46,8 +47,14 @@
 	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
 
+
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
+
+
+/obj/item/clothing/mask/gas/welding/adjustmask(mob/user)
+	return
+
 
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
@@ -56,6 +63,7 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 20, "acid" = 40)
 	resistance_flags = FIRE_PROOF
+	can_toggle = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -74,16 +82,32 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
+
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/gas/explorer/adjustmask(user)
-	..()
-	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
-/obj/item/clothing/mask/gas/explorer/folded/Initialize()
+/obj/item/clothing/mask/gas/explorer/adjustmask(mob/user)
 	. = ..()
-	adjustmask()
+	if(.)
+		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+
+/obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
+	. = ..()
+	force_adjust_mask()
+
+
+/obj/item/clothing/mask/gas/explorer/folded/proc/force_adjust_mask()
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+	gas_transfer_coefficient = null
+	permeability_coefficient = null
+	flags_cover &= ~MASKCOVERSMOUTH
+	flags_inv &= ~HIDENAME
+	flags &= ~AIRTIGHT
+	w_class = WEIGHT_CLASS_SMALL
+
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
@@ -291,6 +315,7 @@
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
+	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 	var/phrase_list = list(
 
@@ -329,6 +354,7 @@
 	icon_state = "hosmask"
 	aggressiveness = 3
 	phrase = 12
+	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/warden
@@ -337,6 +363,7 @@
 	icon_state = "wardenmask"
 	aggressiveness = 3
 	phrase = 12
+	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 
@@ -346,6 +373,7 @@
 	icon_state = "officermask"
 	aggressiveness = 3
 	phrase = 12
+	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/blue
@@ -355,6 +383,7 @@
 	item_state = "blue_sechailer"
 	aggressiveness = 3
 	phrase = 12
+	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
@@ -362,6 +391,7 @@
 	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
+	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, actiontype)
@@ -400,6 +430,12 @@
 				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
 			else
 				to_chat(user, "<span class='notice'>It's broken.</span>")
+
+		var/datum/action/item_action/halt/halt_action = locate() in actions
+		if(halt_action)
+			halt_action.name = "[uppertext(key)]!"
+			halt_action.UpdateButtonIcon()
+
 
 /obj/item/clothing/mask/gas/sechailer/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/screwdriver))

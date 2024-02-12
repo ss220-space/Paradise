@@ -186,8 +186,8 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/plasmacutter/update_icon()
-	return
+/obj/item/gun/energy/plasmacutter/update_overlays()
+	return list()
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -285,8 +285,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 
-/obj/item/gun/energy/printer/update_icon()
-	return
+/obj/item/gun/energy/printer/update_overlays()
+	return list()
 
 /obj/item/gun/energy/printer/emp_act()
 	return
@@ -700,9 +700,7 @@
 
 /obj/item/gun/energy/dominator/update_icon(updates = ALL)
 	is_equipped = ismob(loc)
-	update_icon_state()
-	update_overlays()
-	update_equipped_item()
+	..()
 
 
 /obj/item/gun/energy/dominator/update_icon_state()
@@ -714,7 +712,7 @@
 		icon_state = "[base_icon_state][sibyl_mod.auth_id ? "_unlock" : "_lock" ]"
 		return
 
-	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/shot_name = shot.alt_select_name
 	var/new_item_state = base_icon_state
@@ -730,9 +728,9 @@
 /obj/item/gun/energy/dominator/update_overlays()
 	. = list()
 	if(gun_light && can_flashlight)
-		var/iconF = "flight"
+		var/iconF = gun_light_overlay
 		if(gun_light.on)
-			iconF = "[iconF]_on"
+			iconF = "[gun_light_overlay]_on"
 		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 
 

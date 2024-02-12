@@ -15,9 +15,9 @@
 /obj/structure/inflatable
 	name = "inflatable wall"
 	desc = "An inflated membrane. Do not puncture."
-	density = 1
-	anchored = 1
-	opacity = 0
+	density = TRUE
+	anchored = TRUE
+	opacity = FALSE
 	max_integrity = 50
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "wall"
@@ -39,10 +39,19 @@
 	else
 		return FALSE
 
+
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/inflatable/attack_hand(mob/user as mob)
+
+/obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
+	if(I.sharp || is_type_in_typecache(I, GLOB.pointed_types))
+		user.do_attack_animation(src, used_item = I)
+		deconstruct(FALSE)
+		return FALSE
+	return ..()
+
+/obj/structure/inflatable/attack_hand(mob/user)
 	add_fingerprint(user)
 
 /obj/structure/inflatable/AltClick(mob/living/user)
@@ -53,6 +62,7 @@
 		return
 	deconstruct(TRUE)
 
+
 /obj/structure/inflatable/deconstruct(disassembled = TRUE)
 	playsound(loc, 'sound/machines/hiss.ogg', 75, 1)
 	if(!disassembled)
@@ -62,17 +72,20 @@
 		qdel(src)
 	else
 		visible_message("[src] slowly deflates.")
-		spawn(50)
-			var/obj/item/inflatable/R = new intact(loc)
-			transfer_fingerprints_to(R)
-			qdel(src)
+		addtimer(CALLBACK(src, PROC_REF(deflate)), 5 SECONDS)
+
+
+/obj/structure/inflatable/proc/deflate()
+	var/obj/item/inflatable/R = new intact(loc)
+	transfer_fingerprints_to(R)
+	qdel(src)
 
 /obj/structure/inflatable/verb/hand_deflate()
 	set name = "Deflate"
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	deconstruct(TRUE)
@@ -93,27 +106,23 @@
 
 /obj/structure/inflatable/door //Based on mineral door code
 	name = "inflatable door"
-	density = 1
-	anchored = 1
-	opacity = 0
-
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
 	intact = /obj/item/inflatable/door
 
-	var/state = 0 //closed, 1 == open
-	var/isSwitchingStates = 0
+	var/state_open = FALSE
+	var/is_operating = FALSE
 
-/obj/structure/inflatable/door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
+/obj/structure/inflatable/door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it
 		return
 	else if(isrobot(user)) //but cyborgs can
 		if(get_dist(user,src) <= 1) //not remotely though
-			return TryToSwitchState(user)
+			return try_to_operate(user)
 
 /obj/structure/inflatable/door/attack_hand(mob/user as mob)
-	return TryToSwitchState(user)
+	return try_to_operate(user)
 
 /obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
@@ -125,56 +134,41 @@
 /obj/structure/inflatable/door/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/inflatable/door/proc/TryToSwitchState(atom/user)
-	if(isSwitchingStates)
+
+/obj/structure/inflatable/door/proc/try_to_operate(atom/user)
+	if(is_operating)
 		return
 	if(ismob(user))
 		var/mob/M = user
-		if(world.time - user.last_bumped <= 60)
-			return //NOTE do we really need that?
 		if(M.client)
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				if(!C.handcuffed)
-					add_fingerprint(user)
-					SwitchState()
+					operate()
 			else
-				add_fingerprint(user)
-				SwitchState()
-	else if(istype(user, /obj/mecha))
-		SwitchState()
+				operate()
+	else if(ismecha(user))
+		operate()
 
-/obj/structure/inflatable/door/proc/SwitchState()
-	if(state)
-		Close()
+
+/obj/structure/inflatable/door/proc/operate()
+	is_operating = TRUE
+	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
+	if(!state_open)
+		flick("door_opening",src)
 	else
-		Open()
-	air_update_turf(1)
+		flick("door_closing",src)
+	sleep(1 SECONDS)
+	density = !density
+	opacity = !opacity
+	state_open = !state_open
+	update_icon(UPDATE_ICON_STATE)
+	is_operating = FALSE
+	air_update_turf(TRUE)
 
-/obj/structure/inflatable/door/proc/Open()
-	isSwitchingStates = 1
-	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-	flick("door_opening",src)
-	sleep(10)
-	density = 0
-	opacity = 0
-	state = 1
-	update_icon()
-	isSwitchingStates = 0
 
-/obj/structure/inflatable/door/proc/Close()
-	isSwitchingStates = 1
-	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-	flick("door_closing",src)
-	sleep(10)
-	density = 1
-	opacity = 0
-	state = 0
-	update_icon()
-	isSwitchingStates = 0
-
-/obj/structure/inflatable/door/update_icon()
-	if(state)
+/obj/structure/inflatable/door/update_icon_state()
+	if(state_open)
 		icon_state = "door_open"
 	else
 		icon_state = "door_closed"

@@ -78,10 +78,10 @@
 	else
 		return
 
-/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over) //CHUG! CHUG! CHUG!
-	if(!iscarbon(over))
+/obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params) //CHUG! CHUG! CHUG!
+	if(!iscarbon(over_object))
 		return ..()
-	var/mob/living/carbon/chugger = over
+	var/mob/living/carbon/chugger = over_object
 	if(!(container_type & DRAINABLE))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
@@ -301,11 +301,14 @@
 	possible_transfer_amounts = null
 	volume = 10
 
+
+/obj/item/reagent_containers/food/drinks/sillycup/update_icon_state()
+	icon_state = "water_cup[reagents.total_volume ? "" : "_e"]"
+
+
 /obj/item/reagent_containers/food/drinks/sillycup/on_reagent_change()
-	if(reagents.total_volume)
-		icon_state = "water_cup"
-	else
-		icon_state = "water_cup_e"
+	update_icon(UPDATE_ICON_STATE)
+
 
 //////////////////////////drinkingglass and shaker//
 //Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink

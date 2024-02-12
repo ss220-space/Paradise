@@ -9,9 +9,10 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 20
 
-/obj/item/ammo_box/a357/update_icon()
-	icon_state = "[initial(icon_state)]-[round(stored_ammo.len / 3)]"
-	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
+
+/obj/item/ammo_box/a357/update_icon_state()
+	icon_state = "[initial(icon_state)]-[round(length(stored_ammo) / 3)]"
+
 
 /obj/item/ammo_box/n762
 	name = "ammo box (7.62x38mm)"
@@ -294,16 +295,17 @@
 	name = "Shotgun Speedloader"
 	icon_state = "shotgunloader"
 
-/obj/item/ammo_box/speedloader/shotgun/update_icon()
-	overlays.Cut()
 
+/obj/item/ammo_box/speedloader/shotgun/update_overlays()
+	. = ..()
 	for(var/i = 1 to length(stored_ammo))
 		var/obj/item/ammo_casing/shotgun/ammo = stored_ammo[i]
 		var/icon/new_ammo_icon = icon('icons/obj/weapons/ammo.dmi', "[initial(ammo.icon_state)]_loader")
 		if(i < 7)
 			new_ammo_icon.Shift((i % 2) == 0 ? WEST : EAST, 3)
 		new_ammo_icon.Turn(FLOOR((i - 1) * 45, 90))
-		overlays += new_ammo_icon
+		. += new_ammo_icon
+
 
 /obj/item/ammo_box/speedloader/shotgun/slug
 	name = "Shotgun Speedloader (slug)"

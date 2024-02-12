@@ -46,12 +46,10 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	. = ..()
 	recipes = GLOB.rod_recipes
 
-/obj/item/stack/rods/update_icon()
+/obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
-	if((amount <= 5) && (amount > 0))
-		icon_state = "rods-[amount]"
-	else
-		icon_state = "rods"
+	icon_state = "rods-[clamp(amount, 1, 5)]"
+
 
 /obj/item/stack/rods/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 2)
@@ -79,8 +77,8 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/rods
 
-/obj/item/stack/rods/cyborg/update_icon()
-	return
+/obj/item/stack/rods/cyborg/update_icon_state()
+	return // icon_state should always be a full stack of rods.
 
 /obj/item/stack/fireproof_rods
 	name = "fireproof rods"
@@ -103,10 +101,12 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
-/obj/item/stack/fireproof_rods/update_icon()
+
+/obj/item/stack/fireproof_rods/twentyfive
+	amount = 25
+
+
+/obj/item/stack/fireproof_rods/update_icon_state()
 	var/amount = get_amount()
-	if((amount <= 5) && (amount > 0))
-		icon_state = "f_rods-[amount]"
-	else
-		icon_state = "f_rods"
+	icon_state = "f_rods-[clamp(amount, 1, 5)]"
 
