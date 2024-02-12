@@ -35,7 +35,7 @@ $scrollbar-color-multiplier: 1;
       'color-disabled': #707070,
       'color-selected': #007c11,
       'color-caution': #be6209,
-      'color-danger': #9d0808
+      'color-danger': #9d0808,
     )
   );
   @include meta.load-css(
@@ -68,6 +68,9 @@ $scrollbar-color-multiplier: 1;
   .Button:hover {
     background-color: #002ead;
     transition: 0.1s;
+  }
+  .Button--selected {
+    background-color: #007c11;
   }
 
   .Section {
