@@ -364,9 +364,7 @@
 	user.RemoveBorerSpells()
 	user.GrantInfestActions()
 
-	to_chat(src, span_boldnotice("Вы можете анализировать здоровье носителя при помощи Left-click."))
-
-	to_chat(src, span_boldnotice("You can analyze your host health by using Left-click."))
+	to_chat(user, span_boldnotice("Вы можете анализировать здоровье носителя при помощи Left-click."))
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
