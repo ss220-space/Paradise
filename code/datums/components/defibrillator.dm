@@ -356,8 +356,8 @@
 		return
 
 	if(electrocute_mob(affecting, power_source, origin)) // shock anyone touching them >:)
-		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot(INTERNAL_ORGAN_HEART)
-		if(HE.parent_organ_zone == BODY_ZONE_CHEST && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
+		var/obj/item/organ/internal/heart/heart = affecting.get_organ_slot(INTERNAL_ORGAN_HEART)
+		if(istype(heart) && heart.parent_organ_zone == BODY_ZONE_CHEST && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
 			affecting.visible_message(span_danger("[affecting]'s entire body shakes as a shock travels up [affecting.p_their()] arm!"), \
 							span_userdanger("You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ(BODY_ZONE_L_ARM) : affecting.get_organ(BODY_ZONE_R_ARM)] and back down your [affecting.hand ? affecting.get_organ(BODY_ZONE_R_ARM) : affecting.get_organ(BODY_ZONE_L_ARM)]!"))
 			affecting.set_heartattack(TRUE)
