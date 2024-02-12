@@ -21,7 +21,7 @@
 /obj/structure/dispenser/Initialize(mapload)
 	. = ..()
 	initialize_tanks()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/dispenser/Destroy()
 	QDEL_LIST(stored_plasma_tanks)
@@ -37,21 +37,23 @@
 		var/obj/item/tank/internals/oxygen/O = new(src)
 		stored_oxygen_tanks.Add(O)
 
-/obj/structure/dispenser/update_icon()
-	cut_overlays()
+
+/obj/structure/dispenser/update_overlays()
+	. = ..()
 	var/oxy_tank_amount = LAZYLEN(stored_oxygen_tanks)
 	switch(oxy_tank_amount)
 		if(1 to 3)
-			overlays += "oxygen-[oxy_tank_amount]"
+			. += "oxygen-[oxy_tank_amount]"
 		if(4 to INFINITY)
-			overlays += "oxygen-4"
+			. += "oxygen-4"
 
 	var/pla_tank_amount = LAZYLEN(stored_plasma_tanks)
 	switch(pla_tank_amount)
 		if(1 to 4)
-			overlays += "plasma-[pla_tank_amount]"
+			. += "plasma-[pla_tank_amount]"
 		if(5 to INFINITY)
-			overlays += "plasma-5"
+			. += "plasma-5"
+
 
 /obj/structure/dispenser/attack_hand(mob/user)
 	if(..())
@@ -116,14 +118,14 @@
 	if(!LAZYLEN(tank_list))
 		return // There are no tanks left to withdraw.
 
-	var/obj/item/tank/internals/T = tank_list[1]
-	tank_list.Remove(T)
+	var/obj/item/tank/internals/tank = tank_list[1]
+	tank_list.Remove(tank)
 
-	T.forceMove_turf()
-	user.put_in_hands(T)
+	tank.forceMove_turf()
+	user.put_in_hands(tank, ignore_anim = FALSE)
 
-	to_chat(user, "<span class='notice'>You take [T] out of [src].</span>")
-	update_icon()
+	to_chat(user, "<span class='notice'>You take [tank] out of [src].</span>")
+	update_icon(UPDATE_OVERLAYS)
 
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
 /obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/T)
@@ -137,7 +139,7 @@
 
 	add_fingerprint(user)
 	tank_list.Add(T)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
 	SStgui.update_uis(src)
 

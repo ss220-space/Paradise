@@ -13,6 +13,16 @@
 	icon_state = "dnaupgrader"
 	var/used = FALSE
 
+
+/obj/item/dna_upgrader/update_icon_state()
+	icon_state = "dnaupgrader[used ? "0" : ""]"
+
+
+/obj/item/dna_upgrader/update_name(updates = ALL)
+	. = ..()
+	name = used ? "used [initial(name)]" : initial(name)
+
+
 /obj/item/dna_upgrader/attack_self(mob/user)
 	if(!used)
 		ui_interact(user)
@@ -79,7 +89,7 @@
 			H.gene_stability += 25
 			to_chat(H, span_notice("You feel like your body rebasing."))
 			used = TRUE
-			icon_state = "[icon_state]0"
+			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 			return TRUE
 
 #undef VAULT_TOXIN

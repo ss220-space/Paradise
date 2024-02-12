@@ -6,10 +6,18 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/tome/New()
-	if(SSticker.mode)
+
+/obj/item/tome/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/tome/update_icon_state()
+	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.tome_icon
-	..()
+	else
+		icon_state = initial(icon_state)
+
 
 /obj/item/melee/cultblade
 	name = "cult blade"
@@ -25,11 +33,20 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
-/obj/item/melee/cultblade/New()
-	if(SSticker.mode)
+
+/obj/item/melee/cultblade/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/melee/cultblade/update_icon_state()
+	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.sword_icon
 		item_state = SSticker.cultdat.sword_icon
-	..()
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
@@ -265,7 +282,7 @@
 	prefix = "darkened"
 	claw_damage_increase = 4
 
-/obj/item/whetstone/cult/update_icon()
+/obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
@@ -348,6 +365,11 @@
 	else
 		. += "<span class='cultitalic'>It seems drained.</span>"
 
+
+/obj/item/cult_shift/update_icon_state()
+	icon_state = "shifter[uses > 0 ? "" : "_drained"]"
+
+
 /obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user
 	if(C.pulling)
@@ -389,8 +411,7 @@
 	if(turfs)
 		uses--
 		var/turf/destination = pick(turfs)
-		if(uses <= 0)
-			icon_state ="shifter_drained"
+		update_icon(UPDATE_ICON_STATE)
 		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
@@ -591,8 +612,8 @@
 		qdel(spear_act)
 	..()
 
-/obj/item/twohanded/cult_spear/update_icon()
-	icon_state = "bloodspear[wielded]"
+/obj/item/twohanded/cult_spear/update_icon_state()
+	icon_state = "bloodspear[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)

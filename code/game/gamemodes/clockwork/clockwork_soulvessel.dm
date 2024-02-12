@@ -21,15 +21,14 @@
 				chosen_ghost = ghost
 				break
 	if(!chosen_ghost)
-		icon_state = searching_icon
 		searching = TRUE
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='clocklarge'><b>Capture failed!</b></span> The soul has already fled its mortal frame. You attempt to bring it back...")
 		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
 		if(length(candidates))
 			chosen_ghost = pick(candidates)
 		searching = FALSE
-		if(!brainmob?.key)
-			icon_state = blank_icon
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	if(!M)
 		return FALSE
 	if(!chosen_ghost)
@@ -61,10 +60,9 @@
 	brainmob.key = candidate.key
 	brainmob.name = "[pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
 	brainmob.real_name = brainmob.name
-	name = "[src] ([brainmob.name])"
 	brainmob.mind.assigned_role = "Soul Vessel Cube"
 	visible_message("<span class='notice'>[src] chimes quietly.</span>")
-	become_occupied(occupied_icon)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	if(SSticker.mode.add_clocker(brainmob.mind))
 		brainmob.create_log(CONVERSION_LOG, "[brainmob.mind] been converted by [src.name]")
 

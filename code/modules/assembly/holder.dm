@@ -13,11 +13,6 @@
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
 
-/obj/item/assembly_holder/proc/attach(obj/item/D, obj/item/D2, mob/user)
-	return
-
-/obj/item/assembly_holder/proc/process_activation(var/obj/item/D)
-	return
 
 /obj/item/assembly_holder/Destroy()
 	if(a_left)
@@ -26,7 +21,8 @@
 		a_right.holder = null
 	return ..()
 
-/obj/item/assembly_holder/attach(obj/item/D, obj/item/D2, mob/user)
+
+/obj/item/assembly_holder/proc/attach(obj/item/D, obj/item/D2, mob/user)
 	if(!D || !D2)
 		return FALSE
 	if(!isassembly(D) || !isassembly(D2))
@@ -50,35 +46,52 @@
 	if(has_prox_sensors())
 		AddComponent(/datum/component/proximity_monitor)
 	name = "[A1.name]-[A2.name] assembly"
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return TRUE
+
 
 /obj/item/assembly_holder/proc/has_prox_sensors()
 	if(istype(a_left, /obj/item/assembly/prox_sensor) || istype(a_right, /obj/item/assembly/prox_sensor))
 		return TRUE
 	return FALSE
 
-/obj/item/assembly_holder/update_icon()
-	overlays.Cut()
-	if(a_left)
-		overlays += "[a_left.icon_state]_left"
-		for(var/O in a_left.attached_overlays)
-			overlays += "[O]_l"
-	if(a_right)
-		overlays += "[a_right.icon_state]_right"
-		for(var/O in a_right.attached_overlays)
-			overlays += "[O]_r"
+
+/obj/item/assembly_holder/proc/process_activation(obj/D, normal = TRUE, special = TRUE, mob/user)
+	if(!D)
+		return FALSE
+	if(normal && a_right && a_left)
+		if(a_right != D)
+			a_right.pulsed()
+		if(a_left != D)
+			a_left.pulsed()
 	if(master)
-		master.update_icon()
+		var/datum/signal/signal = new
+		signal.source = src
+		signal.user = user
+		master.receive_signal(signal)
+	return TRUE
+
+
+/obj/item/assembly_holder/update_overlays()
+	. = ..()
+	if(a_left)
+		. += "[a_left.icon_state]_left"
+		for(var/O in a_left.attached_overlays)
+			. += "[O]_l"
+	if(a_right)
+		. += "[a_right.icon_state]_right"
+		for(var/O in a_right.attached_overlays)
+			. += "[O]_r"
+	master?.update_icon()
 
 
 /obj/item/assembly_holder/examine(mob/user)
 	. = ..()
-	if(in_range(src, user) || loc == user)
+	if(in_range(src, user))
 		if(secured)
-			. += "<span class='notice'>[src] is ready!</span>"
+			. += span_notice("[src] can be attached!")
 		else
-			. += "<span class='notice'>[src] can be attached!</span>"
+			. += span_notice("[src] need to be secured!")
 
 
 /obj/item/assembly_holder/HasProximity(atom/movable/AM)
@@ -94,6 +107,7 @@
 	if(a_right)
 		a_right.Crossed(AM, oldloc)
 
+
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)
 		a_left.on_found(finder)
@@ -107,25 +121,30 @@
 	if(a_right)
 		a_right.hear_talk(M, message_pieces)
 
+
 /obj/item/assembly_holder/hear_message(mob/living/M, msg)
 	if(a_left)
 		a_left.hear_message(M, msg)
 	if(a_right)
 		a_right.hear_message(M, msg)
 
+
 /obj/item/assembly_holder/proc/process_movement(mob/user) // infrared beams and prox sensors
 	if(a_left && a_right)
 		a_left.holder_movement(user)
 		a_right.holder_movement(user)
+
 
 /obj/item/assembly_holder/Move()
 	. = ..()
 	process_movement()
 	return
 
+
 /obj/item/assembly_holder/pickup(mob/user)
 	. = ..()
 	process_movement(user)
+
 
 /obj/item/assembly_holder/Bump(atom/A)
 	..()
@@ -138,6 +157,7 @@
 			triggered = AM
 	process_movement(triggered)
 
+
 /obj/item/assembly_holder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops
 	..()
 	var/triggered
@@ -145,16 +165,17 @@
 		triggered = throwing.thrower
 	process_movement(triggered)
 
+
 /obj/item/assembly_holder/attack_hand(mob/user)//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
 	if(a_left && a_right)
 		a_left.holder_movement(user)
 		a_right.holder_movement(user)
 	..()
-	return
+
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/I)
 	if(!a_left || !a_right)
-		to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
+		to_chat(user, span_warning("BUG:Assembly part missing, please report this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -163,16 +184,17 @@
 	a_right.toggle_secure()
 	secured = !secured
 	if(secured)
-		to_chat(user, "<span class='notice'>[src] is ready!</span>")
+		to_chat(user, span_notice("[src] can now be attached!"))
 	else
-		to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
+		to_chat(user, span_notice("[src] can now be taken apart!"))
 	update_icon()
+
 
 /obj/item/assembly_holder/attack_self(mob/user)
 	add_fingerprint(user)
 	if(secured)
 		if(!a_left || !a_right)
-			to_chat(user, "<span class='warning'>Assembly part missing!</span>")
+			to_chat(user, span_warning("Assembly part missing!"))
 			return
 		if(istype(a_left, a_right.type))//If they are the same type it causes issues due to window code
 			switch(alert("Which side would you like to use?",,"Left","Right"))
@@ -190,24 +212,11 @@
 			return FALSE
 		if(a_left)
 			a_left.holder = null
-			a_left.loc = T
+			a_left.forceMove(T)
+			user.put_in_hands(a_left, ignore_anim = FALSE)
 		if(a_right)
 			a_right.holder = null
-			a_right.loc = T
+			a_right.forceMove(T)
+			user.put_in_hands(a_left, ignore_anim = FALSE)
 		qdel(src)
 
-
-/obj/item/assembly_holder/process_activation(obj/D, normal = TRUE, special = TRUE, mob/user)
-	if(!D)
-		return FALSE
-	if(normal && a_right && a_left)
-		if(a_right != D)
-			a_right.pulsed(0)
-		if(a_left != D)
-			a_left.pulsed(0)
-	if(master)
-		var/datum/signal/signal = new
-		signal.source = src
-		signal.user = user
-		master.receive_signal(signal)
-	return TRUE

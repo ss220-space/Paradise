@@ -10,15 +10,15 @@
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
-	can_suppress = 1
+	can_suppress = TRUE
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
-/obj/item/gun/projectile/automatic/pistol/update_icon()
-	..()
+
+/obj/item/gun/projectile/automatic/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
-	return
+
 
 //M1911//
 /obj/item/gun/projectile/automatic/pistol/m1911
@@ -28,7 +28,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
-	can_suppress = 0
+	can_suppress = FALSE
 
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
@@ -41,42 +41,42 @@
 	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
+	gun_light_overlay = "enforcer-light"
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/New()
-	..()
-	options["Grey slide"] = "enforcer_grey"
-	options["Red slide"] = "enforcer_red"
-	options["Green slide"] = "enforcer_green"
-	options["Tan slide"] = "enforcer_tan"
-	options["Black slide"] = "enforcer_black"
-	options["Green Handle"] = "enforcer_greengrip"
-	options["Tan Handle"] = "enforcer_tangrip"
-	options["Red Handle"] = "enforcer_redgrip"
-	options["Cancel"] = null
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
+	add_skin("Grey slide", "enforcer_grey")
+	add_skin("Red slide", "enforcer_red")
+	add_skin("Green slide", "enforcer_green")
+	add_skin("Tan slide", "enforcer_tan")
+	add_skin("Black slide", "enforcer_black")
+	add_skin("Green Handle", "enforcer_greengrip")
+	add_skin("Tan Handle", "enforcer_tangrip")
+	add_skin("Red Handle", "enforcer_redgrip")
+
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-	overlays.Cut()
+
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/update_overlays()
+	. = ..()
 	if(suppressed)
-		overlays += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
-	if(gun_light)
-		var/iconF = "Enforcer_light"
-		if(gun_light.on)
-			iconF = "Enforcer_light-on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+		. += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
+
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal/New()
+/obj/item/gun/projectile/automatic/pistol/enforcer/lethal/Initialize(mapload)
 	magazine = new/obj/item/ammo_box/magazine/enforcer/lethal
-	..()
+	. = ..()
+
 
 //СБшный инфорсер//
 /obj/item/gun/projectile/automatic/pistol/enforcer/security
@@ -97,91 +97,58 @@
 	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
+	gun_light_overlay = "sp8-light"
 
-/obj/item/gun/projectile/automatic/pistol/sp8/New()
-	..()
-	options["Black"] = "sp8_black"
-	options["Red"] = "sp8_red"
-	options["Green"] = "sp8_green"
-	options["Olive"] = "sp8_olive"
-	options["Yellow"] = "sp8_yellow"
-	options["White"] = "sp8_white"
-	options["Cancel"] = null
 
-/obj/item/gun/projectile/automatic/pistol/sp8/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/pistol/sp8/update_gun_skins()
+	add_skin("Black", "sp8_black")
+	add_skin("Red", "sp8_red")
+	add_skin("Green", "sp8_green")
+	add_skin("Olive", "sp8_olive")
+	add_skin("Yellow", "sp8_yellow")
+	add_skin("White", "sp8_white")
+
+
+/obj/item/gun/projectile/automatic/pistol/sp8/update_icon_state()
 	if(current_skin)
 		icon_state = "[current_skin][chambered ? "" : "-e"]"
 	else
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-	overlays.Cut()
+
+
+/obj/item/gun/projectile/automatic/pistol/sp8/update_overlays()
+	. = ..()
 	if(suppressed)
-		overlays += image(icon = icon, icon_state = "sp8_supp")
-	if(gun_light)
-		var/iconF = "sp8-light"
-		if(gun_light.on)
-			iconF = "sp8-light-on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+		. += image(icon = icon, icon_state = "sp8_supp")
+
 
 /obj/item/gun/projectile/automatic/pistol/sp8/ui_action_click()
 	toggle_gunlight()
 
-/obj/item/gun/projectile/automatic/pistol/sp8t
+
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	name = "SP-8-T"
-	can_suppress = FALSE
 	icon_state = "sp8t_dust"
 	desc = "Новейшая разработка для сил защиты активов."
-	force = 10
-	mag_type = /obj/item/ammo_box/magazine/sp8
 	fire_sound = 'sound/weapons/gunshots/sp8t.ogg'
+	can_suppress = FALSE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 
-/obj/item/gun/projectile/automatic/pistol/sp8t/New()
-	..()
-	options["Dust"] = "sp8t_dust"
-	options["Sea"] = "sp8t_sea"
-	options["Cancel"] = null
 
-/obj/item/gun/projectile/automatic/pistol/sp8t/update_icon()
-	..()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-	overlays.Cut()
-	if(suppressed)
-		overlays += image(icon = icon, icon_state = "sp8_supp")
-	if(gun_light)
-		var/iconF = "sp8-light"
-		if(gun_light.on)
-			iconF = "sp8-light-on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8t/update_gun_skins()
+	add_skin("Dust", "sp8t_dust")
+	add_skin("Sea", "sp8t_sea")
 
-/obj/item/gun/projectile/automatic/pistol/sp8t/ui_action_click()
-	toggle_gunlight()
 
-/obj/item/gun/projectile/automatic/pistol/sp8ar
+/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar
 	name = "SP-8-AR"
 	desc = "Пистолет сил защиты активов оснащённый ДТК."
-	can_suppress = FALSE
 	icon_state = "sp8ar"
-	unique_reskin = FALSE
-	force = 10
-	mag_type = /obj/item/ammo_box/magazine/sp8
 	fire_sound = 'sound/weapons/gunshots/sp8ar.ogg'
+	can_suppress = FALSE
+	unique_reskin = FALSE
 	can_flashlight = TRUE
-
-/obj/item/gun/projectile/automatic/pistol/sp8ar/update_icon()
-	..()
-	if(gun_light)
-		var/iconF = "sp8-light"
-		if(gun_light.on)
-			iconF = "sp8-light-on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
-
-/obj/item/gun/projectile/automatic/pistol/sp8ar/ui_action_click()
-	toggle_gunlight()
 
 
 //Desert Eagle//
@@ -195,11 +162,12 @@
 	fire_sound = 'sound/weapons/gunshots/1deagle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
-	can_suppress = 0
+	can_suppress = FALSE
 
-/obj/item/gun/projectile/automatic/pistol/deagle/update_icon()
-	..()
+
+/obj/item/gun/projectile/automatic/pistol/deagle/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
+
 
 /obj/item/gun/projectile/automatic/pistol/deagle/gold
 	desc = "A gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -219,7 +187,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
-	can_suppress = 1
+	can_suppress = TRUE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)

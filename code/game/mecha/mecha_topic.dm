@@ -76,23 +76,34 @@
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
 	var/tank_temperature_c = internal_tank ? internal_tank.return_temperature() - T0C : "Unknown"
 	var/cabin_pressure = round(return_pressure(),0.01)
-	. = "[report_internal_damage()]"
-	. += "[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]"
-	. += "<b>Integrity: </b> [integrity]%<br>"
-	. += "<b>Powercell charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>"
-	. += "<b>Air source: </b>[use_internal_tank?"Internal Airtank":"Environment"]<br>"
-	. += "<b>Airtank pressure: </b>[tank_pressure]kPa<br>"
-	. += "<b>Airtank temperature: </b>[tank_temperature]&deg;K|[tank_temperature_c]&deg;C<br>"
-	. += "<b>Cabin pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>"
-	. += "<b>Cabin temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>"
-	. += "<b>Lights: </b>[lights?"on":"off"]<br>"
-	. += "[dna ? "<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='?src=[UID()];reset_dna=1'>Reset</a>\]<br>" : ""]"
-	. += "[defense_action.owner ? "<b>Defence Mode: </b> [defence_mode ? "Enabled" : "Disabled"]<br>" : ""]"
-	. += "[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]"
-	. += "[thrusters_action.owner ? "<b>Thrusters: </b> [thrusters_active ? "Enabled" : "Disabled"]<br>" : ""]"
-	. += "[smoke_action.owner ? "<b>Smoke: </b> [smoke]<br>" : ""]"
-	. += "[zoom_action.owner ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"]<br>" : ""]"
-	. += "[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"]<br>" : ""]"
+	var/list/stats_part_list = list()
+	stats_part_list += "[report_internal_damage()]"
+	stats_part_list += "[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]"
+	stats_part_list += "<b>Integrity: </b> [integrity]%<br>"
+	stats_part_list += "<b>Powercell charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>"
+	stats_part_list += "<b>Air source: </b>[use_internal_tank?"Internal Airtank":"Environment"]<br>"
+	stats_part_list += "<b>Airtank pressure: </b>[tank_pressure]kPa<br>"
+	stats_part_list += "<b>Airtank temperature: </b>[tank_temperature]&deg;K|[tank_temperature_c]&deg;C<br>"
+	stats_part_list += "<b>Cabin pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>"
+	stats_part_list += "<b>Cabin temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>"
+	stats_part_list += "<b>Lights: </b>[lights?"on":"off"]<br>"
+	stats_part_list += "[dna ? "<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='?src=[UID()];reset_dna=1'>Reset</a>\]<br>" : ""]"
+	stats_part_list += "[defense_action.owner ? "<b>Defence Mode: </b> [defence_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	stats_part_list += "[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	stats_part_list += "[thrusters_action.owner ? "<b>Thrusters: </b> [thrusters_active ? "Enabled" : "Disabled"]<br>" : ""]"
+	stats_part_list += "[smoke_action.owner ? "<b>Smoke: </b> [smoke]<br>" : ""]"
+	stats_part_list += "[zoom_action.owner ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	stats_part_list += "[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"]<br>" : ""]"
+	stats_part_list += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
+	if(length(cargo))
+		for(var/obj/O in cargo)
+			stats_part_list += "<a href='?src=[UID()];drop_from_cargo=[O.UID()]'>Unload</a> : [O]<br>"
+		for(var/mob/living/L in cargo)
+			stats_part_list += "<a href='?src=[UID()];drop_from_cargo=[L.UID()]'>Unload</a> : [L]<br>"
+	else
+		stats_part_list += "Nothing"
+	stats_part_list += "</div>"
+	return stats_part_list.Join("")
 
 /obj/mecha/proc/get_commands()
 	. = "<div class='wr'>"
@@ -260,10 +271,7 @@
 		if(usr != occupant)	return
 		var/obj/item/mecha_parts/mecha_equipment/equip = afilter.getObj("select_equip")
 		if(equip)
-			selected = equip
-			occupant_message("You switch to [equip]")
-			visible_message("[src] raises [equip]")
-			send_byjax(occupant, "exosuit.browser", "eq_list", get_equipment_list())
+			equip.select_module()
 		return
 	if(href_list["eject"])
 		if(usr != occupant)	return
@@ -378,7 +386,7 @@
 		return
 	if(href_list["finish_req_access"])
 		if(!in_range(src, usr))	return
-		add_req_access = 0
+		add_req_access = FALSE
 		var/mob/user = afilter.getMob("user")
 		user << browse(null,"window=exosuit_add_access")
 		return
@@ -386,7 +394,7 @@
 		if(usr != occupant)
 			return
 		if(occupant && !iscarbon(occupant))
-			to_chat(occupant, "<span class='danger'>You do not have any DNA!</span>")
+			to_chat(occupant, span_danger("You do not have any DNA!"))
 			return
 		dna = occupant.dna.unique_enzymes
 		occupant_message("You feel a prick as the needle takes your DNA sample.")
@@ -407,6 +415,14 @@
 			else
 				occupant_message("<font color='red'>Recalibration failed.</font>")
 				log_message("Recalibration of coordination system failed with 1 error.",1)
+
+	if(href_list["drop_from_cargo"])
+		var/atom/movable/cargo_thing = locateUID(href_list["drop_from_cargo"])
+		if(istype(cargo_thing) && (cargo_thing in cargo))
+			occupant_message(span_notice("You unload [cargo_thing]."))
+			cargo_thing.forceMove(loc)
+			cargo -= cargo_thing
+			log_message("Unloaded [cargo_thing]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
 
 	//debug
 	/*

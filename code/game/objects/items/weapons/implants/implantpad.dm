@@ -17,11 +17,8 @@
 	return ..()
 
 
-/obj/item/implantpad/update_icon()
-	if(case)
-		icon_state = "implantpad-on"
-	else
-		icon_state = "implantpad-off"
+/obj/item/implantpad/update_icon_state()
+	icon_state = "implantpad-[case ? "on" : "off"]"
 
 
 /obj/item/implantpad/attack_self(mob/user)
@@ -43,7 +40,7 @@
 		return
 	user.drop_transfer_item_to_loc(new_case, src)
 	case = new_case
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/implantpad/proc/eject_case(mob/user)
@@ -57,7 +54,7 @@
 		case.add_fingerprint(user)
 
 	case = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/implantpad/AltClick(mob/living/user)

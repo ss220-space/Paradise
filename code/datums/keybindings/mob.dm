@@ -131,6 +131,14 @@
 	. = ..()
 	C.body_toggle_head()
 
+/datum/keybinding/mob/target_cycle/chest
+	name = "Выбрать грудь/крылья"
+	keys = list("Numpad5")
+
+/datum/keybinding/mob/target_cycle/chest/down(client/C)
+	. = ..()
+	C.body_chest()
+
 /datum/keybinding/mob/target_cycle/r_arm
 	name = "Выбрать правую руку/кисть"
 	keys = list("Numpad4")
@@ -146,6 +154,14 @@
 /datum/keybinding/mob/target_cycle/l_arm/down(client/C)
 	. = ..()
 	C.body_l_arm()
+
+/datum/keybinding/mob/target_cycle/groin
+	name = "Выбрать пах/хвост"
+	keys = list("Numpad2")
+
+/datum/keybinding/mob/target_cycle/groin/down(client/C)
+	. = ..()
+	C.body_groin()
 
 /datum/keybinding/mob/target_cycle/r_leg
 	name = "Выбрать правую ногу/ступню"
@@ -191,12 +207,10 @@
 /datum/keybinding/mob/target/chest
 	name = "Выбрать грудь"
 	body_part = BODY_ZONE_CHEST
-	keys = list("Numpad5")
 
-/datum/keybinding/mob/target/groin
-	name = "Выбрать пах"
-	body_part = BODY_ZONE_PRECISE_GROIN
-	keys = list("Numpad2")
+/datum/keybinding/mob/target/wing
+	name = "Выбрать крылья"
+	body_part = BODY_ZONE_WING
 
 /datum/keybinding/mob/target/r_arm
 	name = "Выбрать правую руку"
@@ -213,6 +227,14 @@
 /datum/keybinding/mob/target/l_hand
 	name = "Выбрать левую кисть"
 	body_part = BODY_ZONE_PRECISE_L_HAND
+
+/datum/keybinding/mob/target/groin
+	name = "Выбрать пах"
+	body_part = BODY_ZONE_PRECISE_GROIN
+
+/datum/keybinding/mob/target/tail
+	name = "Выбрать хвост"
+	body_part = BODY_ZONE_TAIL
 
 /datum/keybinding/mob/target/r_leg
 	name = "Выбрать правую ногу"

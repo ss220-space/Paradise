@@ -12,7 +12,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	active = 0
-	det_time = 50
+	det_time = 5 SECONDS
 	display_timer = 0
 	var/list/times
 
@@ -20,10 +20,10 @@
 	..()
 	overlays += "improvised_grenade_filled"
 	overlays += "improvised_grenade_wired"
-	times = list("5" = 10, "-1" = 20, "[rand(30, 80)]" = 50, "[rand(65, 180)]" = 20)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
+	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[rand(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[rand(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
 	det_time = text2num(pickweight(times))
 	if(det_time < 0) //checking for 'duds'
-		det_time = rand(30,80)
+		det_time = rand(3 SECONDS, 8 SECONDS)
 
 /obj/item/grenade/iedcasing/CheckParts(list/parts_list)
 	..()
@@ -44,6 +44,7 @@
 			active = TRUE
 			overlays -= "improvised_grenade_filled"
 			icon_state = initial(icon_state) + "_active"
+			update_icon()
 			add_fingerprint(user)
 			investigate_log("[key_name_log(user)] has primed a [name] for detonation", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
@@ -67,7 +68,7 @@
 	icon_state = "improvised_satchel"
 	item_state = "plastic-explosive"
 	toolspeed = 1
-	det_time = 80
+	det_time = 8 SECONDS
 	var/atom/target = null
 	var/image_overlay = null
 	var/planted = FALSE
@@ -79,6 +80,17 @@
 		. += span_notice("It's secured in place")
 	if(burned_out)
 		. += span_notice("Looks like wick has burned out")
+
+
+/obj/item/grenade/iedsatchel/update_icon_state()
+	if(active)
+		icon_state = "[initial(icon_state)]_active"
+		return
+	if(anchored || burned_out)
+		icon_state = "[initial(icon_state)]_burned"
+		return
+	icon_state = initial(icon_state)
+
 
 /obj/item/grenade/iedsatchel/afterattack(atom/T, mob/user, proximity)
 	if(!proximity)
@@ -98,12 +110,12 @@
 		layer = ABOVE_OBJ_LAYER
 
 		add_game_logs("planted [src] on [T.name] at [T.loc]", user)
-		icon_state = initial(icon_state) + "_burned"
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("You plant the [src]."))
 
-/obj/item/grenade/iedsatchel/attack_hand(var/mob/user)
+/obj/item/grenade/iedsatchel/attack_hand(mob/user)
 	if(anchored)
-		icon_state = initial(icon_state) + "_burned"
+		update_icon(UPDATE_ICON_STATE)
 		return
 	..()
 
@@ -114,7 +126,7 @@
 	to_chat(user, span_notice("You tickled a makeshift wick made of wires, it looks like it needs to be set on fire."))
 
 /obj/item/grenade/iedsatchel/attackby(obj/item/W, user)
-	if(active == 1)
+	if(active)
 		return
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/I = W
@@ -126,7 +138,7 @@
 		var/obj/item/match/I = W
 		if(!I.lit)
 			return
-		trigger()
+		trigger(user)
 		return
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/I = W
@@ -142,6 +154,7 @@
 		if(I.use(5))
 			to_chat(user, span_notice("You made a new wick from the cable"))
 			burned_out = FALSE
+			update_icon(UPDATE_ICON_STATE)
 			return
 		to_chat(user, span_notice("There is not enough cables to make a wick."))
 	if(istype(W, /obj/item/wirecutters))
@@ -150,9 +163,9 @@
 		pixel_w = 0
 		pixel_z = 0
 		to_chat(user, span_notice("You unattached [src]."))
-		icon_state = "improvised_satchel"
 		layer = TURF_LAYER
 		anchored = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		target = null
 
 /obj/item/grenade/iedsatchel/proc/trigger(mob/user)
@@ -160,9 +173,9 @@
 		to_chat(user, span_notice("There is no wick to ignite [src]."))
 		return
 	var/N = roll(11) - 1
-	active = 1
+	active = TRUE
 	to_chat(user, span_danger("You ignite wires on [src]!"))
-	icon_state = initial(icon_state) + "_active"
+	update_icon(UPDATE_ICON_STATE)
 	add_game_logs("Triggered [name] at [COORD(target)]", user)
 	if(N <= 3)
 		active = 1
@@ -175,10 +188,10 @@
 	prime()
 
 /obj/item/grenade/iedsatchel/proc/prime_fake()
-	src.visible_message(span_notice("The wires on [src] burned out, but nothing happened."))
-	active = 0
+	visible_message(span_notice("The wires on [src] burned out, but nothing happened."))
+	active = FALSE
 	burned_out = TRUE
-	icon_state = initial(icon_state) + "_burned"
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/grenade/iedsatchel/prime()
 	update_mob()

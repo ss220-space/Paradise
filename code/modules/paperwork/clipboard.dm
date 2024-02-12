@@ -16,7 +16,18 @@
 
 /obj/item/clipboard/New()
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/clipboard/AltClick(mob/user)
+	if(Adjacent(user) && !user.incapacitated())
+		if(is_pen(user.get_active_hand()))
+			penPlacement(user, user.get_active_hand(), TRUE)
+		else
+			removePen(user)
+		return
+	. = ..()
+
 
 /obj/item/clipboard/verb/removePen(mob/user)
 	set category = "Object"
@@ -39,6 +50,7 @@
 
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to remove its pen.</span>"
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 
@@ -60,7 +72,7 @@
 		containedpen.forceMove_turf()
 		user.put_in_hands(containedpen, ignore_anim = FALSE)
 		containedpen = null
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
 	var/dat = {"<meta charset="UTF-8"><title>[src]</title>"}
@@ -76,15 +88,23 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/clipboard/update_icon()
-	overlays.Cut()
+
+/obj/item/clipboard/update_overlays()
+	. = ..()
 	if(toppaper)
-		overlays += toppaper.icon_state
-		overlays += toppaper.overlays
+		. += toppaper.icon_state
+		. += toppaper.overlays
 	if(containedpen)
-		overlays += "clipboard_pen"
-	overlays += "clipboard_over"
-	..()
+		. += "clipboard_pen"
+	for(var/obj/O in src)
+		if(istype(O, /obj/item/photo))
+			var/image/img = image('icons/obj/bureaucracy.dmi')
+			var/obj/item/photo/Ph = O
+			img = Ph.tiny
+			. += img
+			break
+	. += "clipboard_over"
+
 
 /obj/item/clipboard/attackby(obj/item/W, mob/user)
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
@@ -93,7 +113,7 @@
 		playsound(loc, "pageturn", 50, 1)
 		if(isPaperwork(W) == PAPERWORK)
 			toppaper = W
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else if(is_pen(W))
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
 			penPlacement(user, W, TRUE)
@@ -113,7 +133,7 @@
 				return
 	else if(istype(W, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
 		toppaper.attackby(W, user)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 
@@ -155,7 +175,7 @@
 		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")
 		playsound(loc, "pageturn", 50, 1)
 		toppaper = P
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	showClipboard(usr)
 
 #undef PAPERWORK

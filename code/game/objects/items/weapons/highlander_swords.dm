@@ -5,6 +5,7 @@
 /datum/martial_art/highlander
 	name = "Highlander Style"
 	deflection_chance = 100
+	weight = 100
 	no_guns = TRUE
 	no_guns_message = "Вы никогда не опуститесь таааак низко, чтобы пользоваться оружием ПОДЛЕЦОВ!"
 

@@ -48,6 +48,22 @@
 	imprinted_master = null
 	return ..()
 
+
+/obj/item/mmi/robotic_brain/update_icon_state()
+	if(brainmob?.key)
+		icon_state = occupied_icon
+		return
+	icon_state = searching ? searching_icon : blank_icon
+
+
+/obj/item/mmi/robotic_brain/update_name(updates = ALL)
+	. = ..()
+	if(brainmob)
+		name = "[src] ([brainmob.name])"
+	else
+		name = initial(name)
+
+
 /obj/item/mmi/robotic_brain/attack_self(mob/user)
 	if(isgolem(user))
 		to_chat(user, "<span class='warning'>Your golem fingers are too large to press the switch on [src].</span>")
@@ -59,23 +75,27 @@
 	if(brainmob && !brainmob.key && !searching)
 		//Start the process of searching for a new user.
 		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start [src]'s boot process.</span>")
-		icon_state = searching_icon
-		ghost_volunteers.Cut()
 		searching = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		ghost_volunteers.Cut()
 		request_player()
-		spawn(600)
-			if(ghost_volunteers.len)
-				var/mob/dead/observer/O
-				while(!istype(O) && ghost_volunteers.len)
-					O = pick_n_take(ghost_volunteers)
-				if(istype(O) && check_observer(O))
-					transfer_personality(O)
-			reset_search()
+		addtimer(CALLBACK(src, PROC_REF(check_volunteers)), 60 SECONDS)
 	else
 		silenced = !silenced
 		to_chat(user, "<span class='notice'>You toggle the speaker [silenced ? "off" : "on"].</span>")
 		if(brainmob && brainmob.key)
 			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")
+
+
+/obj/item/mmi/robotic_brain/proc/check_volunteers()
+	if(length(ghost_volunteers))
+		var/mob/dead/observer/observer
+		while(!istype(observer) && length(ghost_volunteers))
+			observer = pick_n_take(ghost_volunteers)
+		if(istype(observer) && check_observer(observer))
+			transfer_personality(observer)
+	reset_search()
+
 
 /obj/item/mmi/robotic_brain/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
@@ -110,7 +130,6 @@
 	log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain."), src)
 
 /obj/item/mmi/robotic_brain/transfer_identity(mob/living/carbon/H)
-	name = "[src] ([H])"
 	if(isnull(brainmob.dna))
 		brainmob.dna = H.dna.Clone()
 	brainmob.name = brainmob.dna.real_name
@@ -122,9 +141,9 @@
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [ejected_flavor_text].</span>")
-	become_occupied(occupied_icon)
-	if(radio)
-		radio_action.ApplyIcon()
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+	if(radio_action)
+		radio_action.UpdateButtonIcon()
 
 
 /obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
@@ -137,25 +156,23 @@
 	searching = FALSE
 	brainmob.revive() /// in case of death
 	brainmob.key = candidate.key
-	name = "[src] ([brainmob.name])"
-
 	to_chat(brainmob, "<b>You are a [src], brought into existence on [station_name()].</b>")
 	to_chat(brainmob, "<b>As a non-sentient synthetic intelligence, you answer to [imprinted_master], unless otherwise placed inside of a lawed synthetic structure or mech.</b>")
 	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed  or placed into a mech in the future.</b>")
 	brainmob.mind.assigned_role = "Positronic Brain"
-
 	visible_message("<span class='notice'>[src] chimes quietly.</span>")
-	become_occupied(occupied_icon)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+	if(radio_action)
+		radio_action.UpdateButtonIcon()
 
 
 /obj/item/mmi/robotic_brain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
 	if(brainmob && brainmob.key)
 		return
-
 	searching = FALSE
-	icon_state = blank_icon
-
+	update_icon(UPDATE_ICON_STATE)
 	visible_message("<span class='notice'>[src] buzzes quietly as the light fades out. Perhaps you could try again?</span>")
+
 
 /obj/item/mmi/robotic_brain/Topic(href, href_list)
 	if("signup" in href_list)

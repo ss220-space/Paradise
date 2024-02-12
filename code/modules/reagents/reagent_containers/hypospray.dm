@@ -114,6 +114,9 @@
 	list_reagents = list("omnizine" = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/reagent_containers/hypospray/CMO/empty
+	list_reagents = null
+
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
@@ -266,13 +269,14 @@
 		return
 	..()
 	spent = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/item/reagent_containers/hypospray/autoinjector/update_icon()
-	if(spent)
-		if(icon_state != "[icon_state]0")
-			icon_state = "[icon_state]0"
+
+/obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
+	var/real_state = replacetext(icon_state, "0", "")	// we need to do this since customization is available
+	icon_state = "[real_state][spent ? "0" : ""]"
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()

@@ -64,6 +64,7 @@ Difficulty: Hard
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
+	enraged_unique_loot = /obj/item/clothing/accessory/necklace/hierophant_talisman
 	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
 							   /datum/action/innate/megafauna_attack/chaser_swarm,
 							   /datum/action/innate/megafauna_attack/cross_blasts,
@@ -765,6 +766,12 @@ Difficulty: Hard
 	light_range = 2
 	layer = LOW_OBJ_LAYER
 	anchored = TRUE
+	var/teleporting = FALSE
+
+
+/obj/effect/hierophant/update_icon_state()
+	icon_state = "hierophant_tele_[teleporting ? "on" : "off"]"
+
 
 /obj/effect/hierophant/ex_act()
 	return

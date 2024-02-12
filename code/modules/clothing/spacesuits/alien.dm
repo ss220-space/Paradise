@@ -207,36 +207,44 @@
 		"Vox Armalis" = 'icons/mob/clothing/species/armalis/feet.dmi'
 		)
 
-/obj/item/clothing/shoes/magboots/vox/attack_self(mob/user)
+
+/obj/item/clothing/shoes/magboots/vox/update_icon_state()
+	return
+
+
+/obj/item/clothing/shoes/magboots/vox/attack_self(mob/user, forced = FALSE)
+	toggle_magpulse(user, forced)
+
+
+/obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/living/user, forced)
 	if(magpulse)
 		flags &= ~NOSLIP
-		magpulse = 0
-		flags |= NODROP
-		to_chat(user, "You relax your deathgrip on the flooring.")
+		flags &= ~NODROP
+		slowdown = slowdown_passive
+		if(!forced)
+			to_chat(user, "You relax your deathgrip on the flooring.")
 	else
-		//make sure these can only be used when equipped.
-		if(!ishuman(user))
-			return
-		var/mob/living/carbon/human/H = user
-		if(H.shoes != src)
-			to_chat(user, "You will have to put on the [src] before you can do that.")
-			return
-
-
 		flags |= NOSLIP
-		magpulse = 1
-		flags &= ~NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
-		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
-		to_chat(user, "It would be hard to take off the [src] without relaxing your grip first.")
+		flags |= NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
+		slowdown = slowdown_active
+		if(!forced)
+			to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
+	magpulse = !magpulse
+	user.update_gravity(user.mob_has_gravity())
+
+
+/obj/item/clothing/shoes/magboots/vox/item_action_slot_check(slot)
+	if(slot == slot_shoes)
+		return TRUE
+
 
 //In case they somehow come off while enabled.
 /obj/item/clothing/shoes/magboots/vox/dropped(mob/user, silent = FALSE)
-	..()
-	if(src.magpulse)
+	. = ..()
+	if(magpulse)
 		user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
-		flags &= ~NOSLIP
-		magpulse = 0
-		flags &= ~NODROP
+		toggle_magpulse(user, forced = TRUE)
+
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)
 	. = ..()

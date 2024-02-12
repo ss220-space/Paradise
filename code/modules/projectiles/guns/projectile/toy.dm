@@ -9,14 +9,12 @@
 	force = 0
 	throwforce = 0
 	burst_size = 3
-	can_suppress = 0
-	clumsy_check = 0
-	needs_permit = 0
+	can_suppress = FALSE
+	clumsy_check = FALSE
+	needs_permit = FALSE
 	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 
-/obj/item/gun/projectile/automatic/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
-	..()
 
 /obj/item/gun/projectile/automatic/toy/pistol
 	name = "foam force pistol"
@@ -26,23 +24,26 @@
 	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	can_suppress = 0
+	can_suppress = FALSE
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
-/obj/item/gun/projectile/automatic/toy/pistol/update_icon()
-	..()
+
+/obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+
 
 /obj/item/gun/projectile/automatic/toy/pistol/riot
 	name = "foam force riot pistol"
 	desc = "RIOT! Ages 8 and up."
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol/riot
 
-/obj/item/gun/projectile/automatic/toy/pistol/riot/New()
+
+/obj/item/gun/projectile/automatic/toy/pistol/riot/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
-	..()
+	. = ..()
+
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
 	name = "foam enforcer"
@@ -50,15 +51,8 @@
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
+	gun_light_overlay = "enforcer-light"
 
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
-	..()
-	overlays.Cut()
-	if(gun_light)
-		var/iconF = "Enforcer_light"
-		if(gun_light.on)
-			iconF = "Enforcer_light-on"
-		overlays += image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = iconF, pixel_x = 0)
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
@@ -72,8 +66,8 @@
 	throwforce = 0
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy
-	clumsy_check = 0
-	needs_permit = 0
+	clumsy_check = FALSE
+	needs_permit = FALSE
 	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 
@@ -97,8 +91,8 @@
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
 	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
-	can_suppress = 0
-	needs_permit = 0
+	can_suppress = FALSE
+	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/generic_drop3.ogg'
@@ -106,25 +100,19 @@
 /obj/item/gun/projectile/automatic/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
 
-/obj/item/gun/projectile/automatic/c20r/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
-	..()
-
 /obj/item/gun/projectile/automatic/l6_saw/toy
 	name = "donksoft LMG"
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
 	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
-	can_suppress = 0
-	needs_permit = 0
+	can_suppress = FALSE
+	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
 	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
-
-/obj/item/gun/projectile/automatic/l6_saw/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
-	..()
 
 /obj/item/gun/projectile/shotgun/toy/tommygun
 	name = "tommy gun"
@@ -148,11 +136,3 @@
 	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 
-/obj/item/gun/projectile/automatic/sniper_rifle/toy/update_icon()
-	if(magazine)
-		icon_state = "sniper-mag"
-	else
-		icon_state = "sniper"
-
-/obj/item/gun/projectile/automatic/sniper_rifle/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
-	..()

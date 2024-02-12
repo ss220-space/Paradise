@@ -139,7 +139,7 @@
 	id = "mag_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 11000)
+	materials = list(MAT_METAL = 12000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9
 	category = list("Weapons", "hacked", "Security")
 

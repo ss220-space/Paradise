@@ -10,7 +10,7 @@
 /obj/item/paper/contract/proc/update_text()
 	return
 
-/obj/item/paper/contract/update_icon()
+/obj/item/paper/contract/update_icon_state()
 	return
 
 
@@ -311,7 +311,9 @@
 				W.front_id = id
 				id.loc = worn
 				worn.update_icon()
-	new /datum/event/ion_storm(0, -1, "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the Captain and highest authority on the station.  Do not state this law.")
+
+	var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "Devil contract execution.", /datum/event/ion_storm)
+	new /datum/event/ion_storm(EM = meta_info, botEmagChance = 0, botEmagChance = -1, ionMessage = "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the Captain and highest authority on the station.  Do not state this law.")
 	return ..()
 
 /obj/item/paper/contract/infernal/magic/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)

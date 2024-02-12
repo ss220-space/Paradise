@@ -7,7 +7,7 @@
 	/// The visual icons granted by wearing these glasses.
 	var/HUDType = null
 	/// List of things added to examine text, like security or medical records.
-	var/list/examine_extensions = null
+	var/examine_extensions = 0
 
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
@@ -31,6 +31,23 @@
 		emagged = TRUE
 		desc = desc + " The display flickers slightly."
 
+/obj/item/clothing/glasses/hud/visor_toggling(mob/living/carbon/human/user)
+	. = ..()
+
+	if(visor_vars_to_toggle & VISOR_EXAM_EXTENTIONS)
+		examine_extensions ^= initial(examine_extensions)
+
+	if(visor_vars_to_toggle & VISOR_HUDTYPE)
+		HUDType ^= initial(HUDType)
+
+		var/datum/atom_hud/H = GLOB.huds[initial(HUDType)]
+		if(istype(user) && src == user.glasses)
+			if(HUDType)
+				H.add_hud_to(user)
+
+			else
+				H.remove_hud_from(user)
+
 /*
 MEDICAL
 */
@@ -41,7 +58,7 @@ MEDICAL
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = EXAMINE_HUD_MEDICAL
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -78,6 +95,7 @@ MEDICAL
 	icon_state = "tajblind_med"
 	item_state = "tajblind_med"
 	flags_cover = GLASSESCOVERSEYES
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
@@ -94,7 +112,7 @@ MEDICAL
 /obj/item/clothing/glasses/hud/health/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self(mob/user)
 	toggle_veil(user)
@@ -152,12 +170,13 @@ DIAGNOSTIC
 	icon_state = "tajblind_diagnostic"
 	item_state = "tajblind_diagnostic"
 	flags_cover = GLASSESCOVERSEYES
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/attack_self(mob/user)
 	toggle_veil(user)
@@ -173,7 +192,7 @@ SECURITY
 	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -187,7 +206,7 @@ SECURITY
 		)
 
 /obj/item/clothing/glasses/hud/security/read_only
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ
 
 /obj/item/clothing/glasses/hud/security/night
 	name = "\improper Night Vision Security HUD"
@@ -218,8 +237,33 @@ SECURITY
 		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
 	)
 
+/obj/item/clothing/glasses/hud/security/sunglasses/tacticool
+	name = "security tactical glasses"
+	desc = "Ballistic glasses with a security HUD. Gives you tacticool protection and selfish increase. The elastic band allows it to be worn over a helmet."
+	icon_state = "secgoggles-g"
+	item_state = "secgoggles-g"
+	over_mask = TRUE
+	over_hat = TRUE
+	can_toggle = TRUE
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_DARKNESSVIEW | VISOR_FULL_HUD
+	actions_types = list(/datum/action/item_action/toggle)
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
+
+/obj/item/clothing/glasses/hud/security/sunglasses/tacticool/attack_self(mob/user)
+	weldingvisortoggle(user)
+
 /obj/item/clothing/glasses/hud/security/sunglasses/read_only
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = TRUE
@@ -243,6 +287,8 @@ SECURITY
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
 	flags_cover = GLASSESCOVERSEYES
+	tint_up = 1
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
@@ -258,7 +304,7 @@ SECURITY
 	toggle_veil(user)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/tajblind/read_only
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ
 
 /*
 HYDROPONIC
@@ -269,7 +315,7 @@ HYDROPONIC
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
 	icon_state = "hydroponichud"
 	HUDType = DATA_HUD_HYDROPONIC
-	examine_extensions = list(DATA_HUD_HYDROPONIC)
+	examine_extensions = EXAMINE_HUD_BOTANY
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -304,12 +350,13 @@ HYDROPONIC
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. There is botanical hud in it."
 	icon_state = "tajblind_bot"
 	item_state = "tajblind_bot"
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/attack_self(mob/user)
 	toggle_veil(user)
@@ -324,7 +371,7 @@ SKILLS
 	icon_state = "skill"
 	item_state = "glasses"
 	HUDType = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	examine_extensions = EXAMINE_HUD_SKILLS
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -361,12 +408,13 @@ SKILLS
 	icon_state = "tajblind_skill"
 	item_state = "tajblind_skill"
 	flags_cover = GLASSESCOVERSEYES
+	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/hud/skills/tajblind/sunglasses
 	see_in_dark = 1
 	flash_protect = 1
-	tint = 1
+	tint_up = 1
 
 /obj/item/clothing/glasses/hud/skills/tajblind/attack_self(mob/user)
 	toggle_veil(user)

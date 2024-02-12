@@ -1,8 +1,8 @@
 /obj/item/gun/energy/laser
 	name = "laser gun"
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
-	icon_state = "laser"
-	item_state = "laser"
+	icon_state = "lasergun"
+	item_state = null
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
@@ -13,6 +13,8 @@
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
+	icon_state = "laser"
+	item_state = "laser"
 	origin_tech = "combat=2;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
@@ -36,19 +38,12 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	unique_reskin = TRUE
 
-/obj/item/gun/energy/laser/captain/New()
-	..()
-	options["The Original"] = "caplaser"
-	options["Restored"] = "caplaser_new"
-	options["Alternative"] = "caplaser_newer"
-	options["Cancel"] = null
 
-/obj/item/gun/energy/laser/captain/update_icon()
-	..()
-	if(current_skin)
-		icon_state = "[current_skin]"
-	else
-		icon_state = "[initial(icon_state)]"
+/obj/item/gun/energy/laser/captain/update_gun_skins()
+	add_skin("The Original", "caplaser")
+	add_skin("Restored", "caplaser_new")
+	add_skin("Alternative", "caplaser_newer")
+
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -141,11 +136,13 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
 
-/obj/item/gun/energy/immolator/multi/update_icon()
-	..()
+
+/obj/item/gun/energy/immolator/multi/update_overlays()
+	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/append = shot.select_name
-	overlays += image(icon = icon, icon_state = "multilensimmolator-[append]")
+	. += image(icon, icon_state = "multilensimmolator-[append]")
+
 
 /obj/item/gun/energy/immolator/multi/cyborg
 	name = "cyborg immolator cannon"

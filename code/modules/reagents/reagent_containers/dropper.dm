@@ -12,11 +12,14 @@
 	volume = 5
 	pass_open_check = TRUE
 
+
+/obj/item/reagent_containers/dropper/update_icon_state()
+	icon_state = "[initial(icon_state)][reagents.total_volume ? "1" : ""]"
+
+
 /obj/item/reagent_containers/dropper/on_reagent_change()
-	if(!reagents.total_volume)
-		icon_state = "[initial(icon_state)]"
-	else
-		icon_state = "[initial(icon_state)]1"
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/reagent_containers/dropper/attack(mob/living/M, mob/living/user, def_zone)
 	return

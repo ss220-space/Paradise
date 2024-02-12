@@ -179,39 +179,40 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				43
-#define MUTANTRACE_LAYER		42
-#define WING_UNDERLIMBS_LAYER	41
-#define TAIL_UNDERLIMBS_LAYER	40	//Tail split-rendering.
-#define LIMBS_LAYER				39
-#define INTORGAN_LAYER			38
-#define MARKINGS_LAYER			37
-#define UNDERWEAR_LAYER			36
-#define MUTATIONS_LAYER			35
-#define H_DAMAGE_LAYER			34
-#define UNIFORM_LAYER			33
-#define SHOES_LAYER				32
-#define OVER_SHOES_LAYER		31
-#define ID_LAYER				30
-#define GLOVES_LAYER			29
-#define EARS_LAYER				28
-#define SUIT_LAYER				27
-#define BELT_LAYER				26	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				25
-#define SUIT_STORE_LAYER		24
-#define BACK_LAYER				23
-#define HEAD_ACCESSORY_LAYER	22
-#define FHAIR_LAYER				21
-#define GLASSES_LAYER			20
+#define BODY_LAYER				44
+#define MUTANTRACE_LAYER		43
+#define WING_UNDERLIMBS_LAYER	42
+#define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.
+#define LIMBS_LAYER				40
+#define INTORGAN_LAYER			39
+#define MARKINGS_LAYER			38
+#define UNDERWEAR_LAYER			37
+#define MUTATIONS_LAYER			36
+#define H_DAMAGE_LAYER			35
+#define UNIFORM_LAYER			34
+#define SHOES_LAYER				33
+#define OVER_SHOES_LAYER		32
+#define ID_LAYER				31
+#define GLOVES_LAYER			30
+#define EARS_LAYER				29
+#define SUIT_LAYER				28
+#define BELT_LAYER				27	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				26
+#define SUIT_STORE_LAYER		25
+#define BACK_LAYER				24
+#define HEAD_ACCESSORY_LAYER	23
+#define FHAIR_LAYER				22
+#define GLASSES_LAYER			21
+#define FACEMASK_LAYER			20
 #define HAIR_LAYER				19	//TODO: make part of head layer?
 #define HEAD_ACC_OVER_LAYER		18	//Select-layer rendering.
 #define FHAIR_OVER_LAYER		17	//Select-layer rendering.
 #define GLASSES_OVER_LAYER		16	//Select-layer rendering.
 #define WING_LAYER				15
 #define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			13
-#define OVER_MASK_LAYER			12	//Select-layer rendering.
-#define HEAD_LAYER				11
+#define OVER_MASK_LAYER			13	//Select-layer rendering.
+#define HEAD_LAYER				12
+#define OVER_HEAD_LAYER			11
 #define COLLAR_LAYER			10
 #define HANDCUFF_LAYER			9
 #define LEGCUFF_LAYER			8
@@ -222,7 +223,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS 			43
+#define TOTAL_LAYERS 			44
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -489,15 +490,15 @@
 #define SYMPTOM_ACTIVATION_PROB 3
 
 // Atmos stuff that fucking terrifies me
-#define LINDA_SPAWN_HEAT 1
-#define LINDA_SPAWN_20C 2
-#define LINDA_SPAWN_TOXINS 4
-#define LINDA_SPAWN_OXYGEN 8
-#define LINDA_SPAWN_CO2 16
-#define LINDA_SPAWN_NITROGEN 32
-#define LINDA_SPAWN_N2O 64
-#define LINDA_SPAWN_AGENT_B 128
-#define LINDA_SPAWN_AIR 256
+#define LINDA_SPAWN_HEAT		(1<<0)
+#define LINDA_SPAWN_20C			(1<<1)
+#define LINDA_SPAWN_TOXINS		(1<<2)
+#define LINDA_SPAWN_OXYGEN		(1<<3)
+#define LINDA_SPAWN_CO2			(1<<4)
+#define LINDA_SPAWN_NITROGEN	(1<<5)
+#define LINDA_SPAWN_N2O			(1<<6)
+#define LINDA_SPAWN_AGENT_B		(1<<7)
+#define LINDA_SPAWN_AIR			(1<<8)
 
 /// Send to the primary Discord webhook
 #define DISCORD_WEBHOOK_PRIMARY "PRIMARY"

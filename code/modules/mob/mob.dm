@@ -299,18 +299,13 @@
 	popup.open()
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
-/mob/verb/examinate(atom/A as mob|obj|turf in view(client.maxview()))
+/mob/verb/examinate(atom/A as mob|obj|turf in view(client.maxview(), client.eye))
 	set name = "Examine"
 	set category = "IC"
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
-	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, chat_box_regular("Здесь что-то есть, но вы не видите — что именно."))
-		return TRUE
-
-	face_atom(A)
 	var/list/result = A.examine(src)
 	to_chat(src, chat_box_examine(result.Join("\n")))
 
