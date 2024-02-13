@@ -196,7 +196,7 @@
 
 
 /obj/item/organ/internal/xenos/neurotoxin
-	name = "Large xeno neurotoxin gland"
+	name = "large xeno neurotoxin gland"
 	icon_state = "neurotox"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_NEUROTOXIN_GLAND
