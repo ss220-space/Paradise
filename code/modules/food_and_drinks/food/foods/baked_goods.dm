@@ -393,7 +393,7 @@
 
 /obj/item/reagent_containers/food/snacks/meatpie/vulpkanin
 	list_reagents = list("nutriment" = 7, "protein" = 5)
-	tastes = list("pie" = 2, "salty meat" = 2, "vulplanin meat" = 1)
+	tastes = list("pie" = 2, "salty meat" = 2, "vulpkanin meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatpie/tajaran
 	list_reagents = list("nutriment" = 9, "protein" = 3)
