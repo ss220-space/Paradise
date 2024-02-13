@@ -92,7 +92,7 @@
 	var/type1 = "meat_grey"
 	var/type2 = "meat_grey2"
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/drask/New()
+/obj/item/reagent_containers/food/snacks/meat/humanoid/grey/New()
 	..()
 	icon_state = pick(type1, type2)
 

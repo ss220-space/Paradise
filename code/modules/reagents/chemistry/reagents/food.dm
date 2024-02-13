@@ -56,7 +56,7 @@
 	data = taste_amounts
 
 
-/datum/reagent/nutriment/taste_amplification(mob/living/user)
+/datum/reagent/consumable/nutriment/taste_amplification(mob/living/user)
 	. = list()
 	var/list/nutriment_taste_data = data
 	for(var/nutriment_taste in nutriment_taste_data)
