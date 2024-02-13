@@ -463,12 +463,12 @@
 /obj/item/reagent_containers/food/snacks/meatsteak/kidan
 	icon_state = "meatstake_kidan"
 	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
-	tastes = list("kidan meat odor" = 1, "bug" = 1, "herbs" = 2, "olives" = 2, "salt" = 2)
+	tastes = list("kidan meat odor" = 1, "bug odor" = 1, "herbs" = 2, "olives" = 2, "salt" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/nian
 	icon_state = "meatstake_nian"
 	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
-	tastes = list("nian meat odor" = 1, "bug" = 1, "sweetness" = 1, "orange" = 1, "lemon" = 1, "herbs" = 1)
+	tastes = list("nian meat odor" = 1, "bug odor" = 1, "sweetness" = 1, "orange" = 1, "lemon" = 1, "herbs" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/diona
 	name = "grilled vagetables"
@@ -476,7 +476,7 @@
 	filling_color = "#548100"
 	icon_state = "meatstake_diona"
 	list_reagents = list("plantmatter" = 4, "vitamins" = 5)
-	tastes = list("diona meat odor" = 1, "salt" = 2, "herbs" = 1, "garlic" = 1, "lemon" = 1)
+	tastes = list("diona odor" = 1, "salt" = 2, "herbs" = 1, "garlic" = 1, "lemon" = 1)
 	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/meatsteak/monkey
