@@ -485,7 +485,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return damage_explain
 
 /datum/objective/pain_hunter/check_completion()
-	if(start_of_comleting && target && ishuman(target.current) && target.current.stat != DEAD)
+	if(start_of_completing && target && ishuman(target.current) && target.current.stat != DEAD)
 		return TRUE
 	else
 		return completed
