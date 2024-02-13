@@ -43,6 +43,7 @@
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	name = "advanced automatic mining scanner"
 	icon_state = "adv_mining0"
+	base_icon_state = "adv_mining"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
@@ -67,6 +68,7 @@
 /obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"
 	icon_state = "mining0"
+	base_icon_state = "mining"
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	range = 4
 	cooldown = 50
