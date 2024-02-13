@@ -108,20 +108,32 @@ REAGENT SCANNER
 	if(!ismob(viewer) || !viewer.client)
 		return
 	var/list/t_ray_images = list()
-	for(var/obj/in_turf_object in orange(distance, viewer))
-		if(in_turf_object.level != 1)
+	for(var/atom/movable/in_turf_atom in orange(distance, viewer))
+		if(!isobj(in_turf_atom) && !isliving(in_turf_atom))
 			continue
 
-		if(in_turf_object.invisibility == INVISIBILITY_MAXIMUM || in_turf_object.invisibility == INVISIBILITY_ANOMALY)
-			var/image/I = new(loc = get_turf(in_turf_object))
-			var/mutable_appearance/MA = new(in_turf_object)
-			MA.alpha = 128
-			MA.dir = in_turf_object.dir
-			if(MA.layer < TURF_LAYER)
-				MA.layer += TRAY_SCAN_LAYER_OFFSET
-			MA.plane = GAME_PLANE
-			I.appearance = MA
-			t_ray_images += I
+		if(isobj(in_turf_atom))
+			var/obj/in_turf_object = in_turf_atom
+			if(in_turf_object.level != 1)
+				continue
+
+			if(in_turf_object.invisibility != INVISIBILITY_MAXIMUM || in_turf_object.invisibility != INVISIBILITY_ANOMALY)
+				continue
+
+		if(isliving(in_turf_atom))
+			var/mob/living/in_turf_living = in_turf_atom
+			if(!(in_turf_living.alpha < 255 || in_turf_living.invisibility == INVISIBILITY_LEVEL_TWO))
+				continue
+
+		var/image/I = new(loc = get_turf(in_turf_atom))
+		var/mutable_appearance/MA = new(in_turf_atom)
+		MA.alpha = isliving(in_turf_atom) ? 255 : 128
+		MA.dir = in_turf_atom.dir
+		if(MA.layer < TURF_LAYER)
+			MA.layer += TRAY_SCAN_LAYER_OFFSET
+		MA.plane = GAME_PLANE
+		I.appearance = MA
+		t_ray_images += I
 
 	if(length(t_ray_images))
 		flick_overlay(t_ray_images, list(viewer.client), flick_time)
@@ -136,7 +148,7 @@ REAGENT SCANNER
 	icon_state = "sb_t-ray0"
 	base_icon_state = "sb_t-ray"
 	scan_range = 2
-	pulse_duration = 30
+	pulse_duration = 10
 	var/was_alerted = FALSE // Protection against spam alerts from this scanner
 	var/burnt = FALSE // Did emp break us?
 	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
@@ -172,7 +184,9 @@ REAGENT SCANNER
 		update_icon(UPDATE_ICON_STATE)
 
 	if(on)
-		START_PROCESSING(SSobj, src)
+		START_PROCESSING(SSprocessing, src)
+	else
+		STOP_PROCESSING(SSprocessing, src)
 
 
 /obj/item/t_scanner/security/emp_act(severity)
@@ -186,24 +200,29 @@ REAGENT SCANNER
 
 
 /obj/item/t_scanner/security/scan()
-
+	var/mob/viewer = loc
+	if(!ismob(viewer) || !viewer.client)
+		return
 	new /obj/effect/temp_visual/scan(get_turf(src))
 
-	var/list/mobs_in_range = viewers(scan_range, get_turf(src))
-	for(var/mob/living/in_turf_mob in mobs_in_range)
-		var/oldalpha = in_turf_mob.alpha
-		if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
-			in_turf_mob.alpha = 255
-			alert_searchers(in_turf_mob)
-			spawn(pulse_duration)
-				if(in_turf_mob)
-					in_turf_mob.alpha = oldalpha
-		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
-			in_turf_mob.invisibility = 0
-			alert_searchers(in_turf_mob)
-			spawn(pulse_duration)
-				if(in_turf_mob)
-					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
+	var/list/t_ray_images = list()
+	for(var/mob/living/in_turf_living in viewers(scan_range, get_turf(src)))
+		if(!(in_turf_living.alpha < 255 || in_turf_living.invisibility == INVISIBILITY_LEVEL_TWO))
+			continue
+
+		var/image/I = new(loc = get_turf(in_turf_living))
+		var/mutable_appearance/MA = new(in_turf_living)
+		MA.alpha = 255
+		MA.dir = in_turf_living.dir
+		if(MA.layer < TURF_LAYER)
+			MA.layer += TRAY_SCAN_LAYER_OFFSET
+		MA.plane = GAME_PLANE
+		I.appearance = MA
+		t_ray_images += I
+		alert_searchers(in_turf_living)
+
+	if(length(t_ray_images))
+		flick_overlay(t_ray_images, list(viewer.client), pulse_duration)
 
 /obj/item/t_scanner/security/proc/alert_searchers(mob/living/found_mob)
 	var/list/alerted = viewers(7, found_mob)
