@@ -204,7 +204,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
 
 /obj/item/organ/internal/xenos/neurotoxin/sentinel
-	name = "Medium xeno neurotoxin gland"
+	name = "medium xeno neurotoxin gland"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin/sentinel)
 
 /obj/item/organ/internal/xenos/resinspinner
