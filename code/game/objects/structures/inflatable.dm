@@ -200,6 +200,7 @@
 	item_state = "syringe_kit"
 	max_combined_w_class = 21
 	w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(/obj/item/inflatable)
 
 /obj/item/storage/briefcase/inflatable/populate_contents()
 	new /obj/item/inflatable/door(src)
