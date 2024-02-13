@@ -51,9 +51,9 @@
 	. += deconstruction_hints(user)
 	if(can_be_flipped)
 		if(flipped)
-			. += span_info("<b>Alt-Click</b> to right the table again.")
+			. += span_info("<b>Alt-Shift-Click</b> to right the table again.")
 		else
-			. += span_info("<b>Alt-Click</b> to flip over the table.")
+			. += span_info("<b>Alt-Shift-Click</b> to flip over the table.")
 
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
@@ -326,7 +326,7 @@
 	return check_table.straight_table_check(direction)
 
 
-/obj/structure/table/AltClick(mob/user)
+/obj/structure/table/AltShiftClick(mob/user)
 	actual_flip(user)
 
 
