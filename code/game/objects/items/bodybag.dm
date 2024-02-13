@@ -82,3 +82,70 @@
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
 
+/obj/item/bluespace_bag
+	name = "body bag"
+	desc = "A folded bag designed for the storage and transportation of cadavers."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "bodybag_folded"
+	w_class = WEIGHT_CLASS_SMALL
+	var/obj/structure/closet/body_bag/bluespace/bag
+
+/obj/item/bluespace_bag/Destroy()
+	. = ..()
+
+/obj/item/bluespace_bag/New()
+	. = ..()
+	bag = new
+	bag.bag = src
+
+/obj/item/bluespace_bag/Initialize(mapload)
+	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(pre_gib))
+	. = ..()
+
+/obj/item/bluespace_bag/proc/pre_gib()
+	visible_message("пиздец")
+	unfold()
+	bag.bust_open()
+
+/obj/item/bluespace_bag/attack_self(mob/user)
+	unfold(user)
+
+/obj/item/bluespace_bag/proc/unfold(mob/user)
+	if(user)
+		user.drop_item_ground(src)
+	bag.forceMove(get_turf(src))
+	src.forceMove(null)
+
+/obj/structure/closet/body_bag/bluespace
+	name = "body bag"
+	desc = "A plastic bag designed for the storage and transportation of cadavers."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "bodybag_closed"
+	icon_closed = "bodybag_closed"
+	icon_opened = "bodybag_open"
+	open_sound = 'sound/items/zip.ogg'
+	close_sound = 'sound/items/zip.ogg'
+	open_sound_volume = 15
+	close_sound_volume = 15
+	density = FALSE
+	integrity_failure = FALSE
+	var/obj/item/bluespace_bag/bag
+
+/obj/structure/closet/body_bag/bluespace/AltClick(mob/user)
+	fold(user)
+	. = ..()
+
+/obj/structure/closet/body_bag/bluespace/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	fold(usr)
+	return ..()
+
+/obj/structure/closet/body_bag/bluespace/proc/fold(mob/living/carbon/human/user)
+	if(ishuman(usr) && !usr.incapacitated() && !broken && !opened && usr.Adjacent(src))
+		usr.visible_message(
+			span_notice("[usr] folds up [src]."),
+			span_notice("You fold up [src]."),
+		)
+		bag.forceMove(get_turf(src))
+		src.forceMove(bag)
+		user.put_in_hands(bag)
+

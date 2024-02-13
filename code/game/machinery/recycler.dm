@@ -123,6 +123,8 @@
 			else
 				emergency_stop(AM)
 		else if(istype(AM, /obj/item))
+			if(ismob(AM.loc) || ismob(AM.loc.loc))
+				continue
 			recycle_item(AM)
 			items_recycled++
 		else
