@@ -55,7 +55,7 @@
 	name = "Monkey cube"
 	id = "mcube"
 	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 250)
+	materials = list(MAT_BIOMASS = 500)
 	build_path = /obj/item/reagent_containers/food/snacks/monkeycube
 	category = list("initial", "Food")
 

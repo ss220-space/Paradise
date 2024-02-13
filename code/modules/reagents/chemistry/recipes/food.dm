@@ -56,6 +56,7 @@
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel(location)
 
+/*
 /datum/chemical_reaction/syntiflesh
 	name = "Syntiflesh"
 	id = "syntiflesh"
@@ -67,6 +68,7 @@
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/meat/syntiflesh(location)
+*/
 
 /datum/chemical_reaction/hot_ramen
 	name = "Hot Ramen"
