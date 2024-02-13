@@ -14,7 +14,6 @@ REAGENT SCANNER
 	base_icon_state = "t-ray"
 	var/on = FALSE
 	slot_flags = SLOT_BELT
-	w_class = 2
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
@@ -82,20 +81,19 @@ REAGENT SCANNER
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/item/t_scanner/update_icon_state()
 	icon_state = "[base_icon_state][on]"
 
-
-
-/obj/item/t_scanner/attack_self(mob/user)
-
+/obj/item/t_scanner/proc/toggle_on()
 	on = !on
 	update_icon(UPDATE_ICON_STATE)
-
 	if(on)
 		START_PROCESSING(SSobj, src)
+	else
+		STOP_PROCESSING(SSobj, src)
 
+/obj/item/t_scanner/attack_self(mob/user)
+	toggle_on()
 
 /obj/item/t_scanner/process()
 	if(!on)
@@ -104,48 +102,29 @@ REAGENT SCANNER
 	scan()
 
 /obj/item/t_scanner/proc/scan()
+	t_ray_scan(loc, pulse_duration, scan_range)
 
-	for(var/turf/scan_turf in range(scan_range, src.loc) )
-
-		if(!scan_turf.intact)
+/proc/t_ray_scan(mob/viewer, flick_time, distance)
+	if(!ismob(viewer) || !viewer.client)
+		return
+	var/list/t_ray_images = list()
+	for(var/obj/in_turf_object in orange(distance, viewer))
+		if(in_turf_object.level != 1)
 			continue
 
-		for(var/obj/in_turf_object in scan_turf.contents)
+		if(in_turf_object.invisibility == INVISIBILITY_MAXIMUM || in_turf_object.invisibility == INVISIBILITY_ANOMALY)
+			var/image/I = new(loc = get_turf(in_turf_object))
+			var/mutable_appearance/MA = new(in_turf_object)
+			MA.alpha = 128
+			MA.dir = in_turf_object.dir
+			if(MA.layer < TURF_LAYER)
+				MA.layer += TRAY_SCAN_LAYER_OFFSET
+			MA.plane = GAME_PLANE
+			I.appearance = MA
+			t_ray_images += I
 
-			if(in_turf_object.level != 1)
-				continue
-
-			var/temp_invisibility = in_turf_object.invisibility
-			var/temp_alpha = in_turf_object.alpha
-			if(temp_invisibility == INVISIBILITY_ABSTRACT || temp_invisibility == INVISIBILITY_ANOMALY)
-				in_turf_object.invisibility = 0
-				in_turf_object.alpha = 128
-				in_turf_object.drain_act_protected = TRUE
-				if(in_turf_object.layer < TURF_LAYER)
-					in_turf_object.layer += TRAY_SCAN_LAYER_OFFSET
-				spawn(pulse_duration)
-					in_turf_object.plane = GAME_PLANE
-					if(in_turf_object)
-						var/turf/objects_turf = in_turf_object.loc
-						if(objects_turf && objects_turf.intact)
-							in_turf_object.invisibility = temp_invisibility
-						in_turf_object.alpha = temp_alpha
-						in_turf_object.drain_act_protected = FALSE
-		for(var/mob/living/in_turf_mob in scan_turf.contents)
-			var/oldalpha = in_turf_mob.alpha
-			if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
-				in_turf_mob.alpha = 255
-				spawn(10)
-					if(in_turf_mob)
-						in_turf_mob.alpha = oldalpha
-
-		var/mob/living/in_turf_mob = locate() in scan_turf
-
-		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
-			in_turf_mob.invisibility = 0
-			spawn(2)
-				if(in_turf_mob)
-					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
+	if(length(t_ray_images))
+		flick_overlay(t_ray_images, list(viewer.client), flick_time)
 
 /obj/item/t_scanner/security
 	name = "Противо-маскировочное ТГц устройство"
