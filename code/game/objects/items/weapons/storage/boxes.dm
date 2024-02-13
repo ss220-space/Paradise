@@ -1069,27 +1069,6 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "crayfish_bucket"
 	storage_slots = 1
-	var/static/list/presets = list(
-		list(/obj/item/reagent_containers/food/snacks/crayfish_big,
-			/obj/item/reagent_containers/food/snacks/crayfish_big,
-			/obj/item/reagent_containers/food/snacks/crayfish_big,
-			/obj/item/reagent_containers/food/snacks/crayfish_big,
-			/obj/item/reagent_containers/food/snacks/crayfish_small,
-			/obj/item/reagent_containers/food/drinks/cans/beer),
-
-		list(/obj/item/reagent_containers/food/snacks/crayfish_big,
-			/obj/item/reagent_containers/food/snacks/crayfish_big,
-			/obj/item/reagent_containers/food/snacks/crayfish_big,
-			/obj/item/reagent_containers/food/snacks/crayfish_small,
-			/obj/item/reagent_containers/food/snacks/crayfish_small,
-			/obj/item/reagent_containers/food/drinks/cans/beer),
-
-		list(/obj/item/reagent_containers/food/snacks/crayfish_small,
-			/obj/item/reagent_containers/food/snacks/crayfish_big,
-			/obj/item/reagent_containers/food/snacks/crayfish_big,
-			/obj/item/reagent_containers/food/snacks/crayfish_small,
-			/obj/item/reagent_containers/food/snacks/crayfish_small,
-			/obj/item/reagent_containers/food/drinks/cans/beer))
 
 /obj/item/storage/box/crayfish_bucket/populate_contents()
 	var/big_ones = rand(2, 4)
