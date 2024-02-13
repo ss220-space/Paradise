@@ -787,7 +787,6 @@
 	robot.module.rebuild()
 	return TRUE
 
-
 /obj/item/borg/upgrade/syndie_rcd/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
@@ -821,8 +820,6 @@
 	robot.module.modules += new /obj/item/reagent_containers/glass/beaker/bluespace(robot.module)
 	robot.module.rebuild()
 	return TRUE
-
-
 
 /obj/item/borg/upgrade/bs_beaker/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
