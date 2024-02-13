@@ -58,7 +58,7 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 
 /obj/effect/baseturf_helper/lava_land/surface
-	name = "lavaland lava baseturf editor"
+	name = "lavaland baseturf editor"
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 
 /obj/effect/baseturf_helper/lava_land/surface/basalt
