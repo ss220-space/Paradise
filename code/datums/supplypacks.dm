@@ -46,6 +46,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/manifest = ""
 	var/amount = null
 	var/cost = null
+	var/credits_cost = 0
 	var/containertype = /obj/structure/closet/crate
 	var/containername = null
 	var/access = null
@@ -78,6 +79,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/proc/can_approve(mob/user)
 	if(SSshuttle.points <= cost)
 		to_chat(user, span_warning("There are insufficient supply points for this request."))
+		return FALSE
+	if(credits_cost && SSshuttle.cargo_money_account.money <= credits_cost)
+		to_chat(user, span_warning("There are not enough money on cargo account for this request."))
 		return FALSE
 	if(!length(required_tech))
 		return TRUE
@@ -242,12 +246,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/emergency/syndicate
 	name = "ERROR_NULL_ENTRY"
-	contains = list(/obj/item/storage/box/syndicate)
-	cost = 560
-	containertype = /obj/structure/closet/crate
+	contains = list()
+	cost = 0
+	credits_cost = 2500
+	containertype = /obj/structure/closet/crate/syndicate
 	containername = "crate"
 	hidden = 1
-	order_limit = 5
+
+/datum/supply_packs/emergency/syndicate/New()
+	var/list/items = GLOB.uplink_items.Copy()
+	while(contains.len < 3)
+		var/datum/uplink_item/item = pick_n_take(items)
+		if(istype(item, /datum/uplink_item/racial) || item.hijack_only || item.cost > 20)
+			continue
+		contains.Add(item.item)
 
 /datum/supply_packs/emergency/highrisk
 	name = "HEADER"
