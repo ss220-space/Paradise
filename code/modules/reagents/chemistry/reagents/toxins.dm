@@ -1356,3 +1356,26 @@
 		if(prob(25))
 			M.fakevomit(1)
 	return ..() | update_flags
+
+/datum/reagent/metalic_dust
+	name = "Metalic dust"
+	id = "metalicdust"
+	description = "Metal dust with large pieces of various metals and technical liquids."
+	reagent_state = SOLID
+	color = "#353434"
+	process_flags = ORGANIC | SYNTHETIC
+	metabolization_rate = 5
+	taste_description = span_warning("METAL DUST OH GOD")
+
+/datum/reagent/metalic_dust/on_mob_life(mob/living/M)
+	M.emote("scream")
+	to_chat(M, span_warning("OH SHIT!!!!"))
+	M.AdjustWeakened(2 SECONDS)
+	M.EyeBlurry(1 SECONDS)
+	M.adjustBruteLoss(rand(5, 10))
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		for(var/obj/item/organ/internal/organ in C.get_organs_zone(BODY_ZONE_PRECISE_GROIN))
+			organ.receive_damage(rand(5, 10))
+
+	return ..()

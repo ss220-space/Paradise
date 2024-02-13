@@ -1,3 +1,7 @@
+#define UPDATE_TYPE_HACK 1
+#define UPDATE_TYPE_COMPONENTS 2
+
+
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
 	density = TRUE
@@ -15,6 +19,7 @@
 	var/recharge_amount = 100
 	var/recharge_counter = 0
 	var/hackedcheck = FALSE
+	var/componentscheck = FALSE
 	var/obj/item/reagent_containers/beaker = null
 	var/image/icon_beaker = null //cached overlay
 	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
@@ -40,7 +45,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
-	dispensable_reagents = sortAssoc(dispensable_reagents)
 
 /obj/machinery/chem_dispenser/upgraded/New()
 	..()
@@ -110,8 +114,8 @@
 		recharge_amount *= C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
-			dispensable_reagents |= upgrade_reagents
-			dispensable_reagents = sortAssoc(dispensable_reagents)
+			componentscheck = TRUE
+			update_reagents(UPDATE_TYPE_COMPONENTS)
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/Destroy()
@@ -285,19 +289,29 @@
 	return ..()
 
 
+/obj/machinery/chem_dispenser/proc/update_reagents(update_type)
+	switch(update_type)
+		if(UPDATE_TYPE_HACK)
+			if(hackedcheck)
+				dispensable_reagents += hacked_reagents
+			else
+				dispensable_reagents -= hacked_reagents
+		if(UPDATE_TYPE_COMPONENTS)
+			dispensable_reagents |= upgrade_reagents
+
+	dispensable_reagents = sortAssoc(dispensable_reagents)
+
+
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!hackedcheck)
-		to_chat(user, hack_message)
-		dispensable_reagents += hacked_reagents
-		hackedcheck = TRUE
-	else
-		to_chat(user, unhack_message)
-		dispensable_reagents -= hacked_reagents
-		hackedcheck = FALSE
+
+	hackedcheck = !hackedcheck
+	to_chat(user, hackedcheck ? hack_message : unhack_message)
+	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
+
 
 /obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
@@ -342,6 +356,7 @@
 	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
 	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
 	hacked_reagents = list("thirteenloko")
+	var/list/hackedupgrade_reagents = list("zaza")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
 	is_drink = TRUE
@@ -369,6 +384,19 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
+
+
+/obj/machinery/chem_dispenser/soda/update_reagents(update_type)
+	if(update_type == UPDATE_TYPE_HACK && componentscheck)
+		if(hackedcheck)
+			dispensable_reagents += hackedupgrade_reagents
+		else
+			dispensable_reagents -= hackedupgrade_reagents
+
+	else if(update_type == UPDATE_TYPE_COMPONENTS && hackedcheck)
+		dispensable_reagents += hackedupgrade_reagents
+	..()
+
 
 /obj/machinery/chem_dispenser/beer
 	icon_state = "booze_dispenser"
@@ -652,3 +680,6 @@
 		"ammonia",
 		"ash",
 		"diethylamine")
+
+#undef UPDATE_TYPE_HACK
+#undef UPDATE_TYPE_COMPONENTS

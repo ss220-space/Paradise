@@ -292,3 +292,10 @@
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")
+
+
+/datum/reagent/proc/taste_amplification(mob/living/user)
+	. = list()
+	var/taste_desc = taste_description
+	var/taste_amount = volume * taste_mult
+	.[taste_desc] = taste_amount

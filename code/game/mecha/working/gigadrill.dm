@@ -25,14 +25,14 @@
 	turnsound = null
 //	wreckage = /obj/effect/decal/mecha_wreckage/gigadrill // no dmi :(
 
-/obj/mecha/working/gigadrill/New()
-	..()
+/obj/mecha/working/gigadrill/Initialize()
+	. = ..()
 	soundloop = new(list(src), FALSE)
 	pixel_x = -16
 	pixel_y = -16
 	var/obj/item/mecha_parts/mecha_equipment/drill/giga/drill = new
 	drill.attach(src)
-	cargo.Add(new /obj/structure/ore_box(src))
+	LAZYADD(cargo, new /obj/structure/ore_box(src))
 
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/clamp = new
 	clamp.integrated = TRUE

@@ -37,6 +37,8 @@
 		INTERNAL_ORGAN_LANTERN = /obj/item/organ/internal/lantern,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/kidan
+
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/kidan),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/kidan),

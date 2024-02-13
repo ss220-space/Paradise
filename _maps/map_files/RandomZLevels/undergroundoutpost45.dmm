@@ -2523,10 +2523,10 @@
 	name = "meat fridge";
 	req_access = list(201)
 	},
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

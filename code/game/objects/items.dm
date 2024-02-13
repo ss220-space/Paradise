@@ -532,6 +532,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if((src == user.l_ear || src == user.r_ear) && (user.head.flags_inv & HIDEHEADSETS))
 			return TRUE
 
+	if(user.wear_mask)
+		if(src == user.glasses && (user.wear_mask.flags_inv & HIDEGLASSES))
+			return TRUE
+		if((src == user.l_ear || src == user.r_ear) && (user.wear_mask.flags_inv & HIDEHEADSETS))
+			return TRUE
+
 	return FALSE
 
 
