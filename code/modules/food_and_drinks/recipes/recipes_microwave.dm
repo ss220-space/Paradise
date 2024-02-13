@@ -957,6 +957,7 @@
 		/obj/item/reagent_containers/food/snacks/egg
 	)
 	result = /obj/item/reagent_containers/food/snacks/quiche
+
 /datum/recipe/microwave/crayfish_1
 	reagents = list("water" = 5,"sodiumchloride" = 1, "herbsmix" = 1)
 	items = list(/obj/item/reagent_containers/food/snacks/crayfish_big_raw)
