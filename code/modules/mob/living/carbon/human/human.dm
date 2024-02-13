@@ -1020,9 +1020,6 @@
 		else
 			target_zone = user.zone_selected
 
-	if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune)
-		. = FALSE
-
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
@@ -1031,6 +1028,9 @@
 	else if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
+	// affecting.open = 2 after scalpel->hemostat->retractor, sorry im too lazy to rewrite defines in all places where it is used
+	else if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune && affecting.open < 2)
+		. = FALSE
 	else
 		switch(target_zone)
 			if(BODY_ZONE_HEAD)
