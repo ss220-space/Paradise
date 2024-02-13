@@ -1092,9 +1092,13 @@
 			/obj/item/reagent_containers/food/drinks/cans/beer))
 
 /obj/item/storage/box/crayfish_bucket/populate_contents()
-	var/list/preset = pick(presets)
-	for(var/item in preset)
-		new item(src)
+	var/big_ones = rand(2, 4)
+	var/small_ones = 5 - big_ones
+	for(var/i in 1 to big_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_big(src)
+	for(var/i in 1 to small_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_small(src)
+	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
 #undef NODESIGN
 #undef NANOTRASEN
