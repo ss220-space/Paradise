@@ -138,7 +138,7 @@
 		var/obj/item/match/I = W
 		if(!I.lit)
 			return
-		trigger()
+		trigger(user)
 		return
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/I = W

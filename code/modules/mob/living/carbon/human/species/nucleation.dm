@@ -30,6 +30,8 @@
 	)
 	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/nucleation
+
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.light_color = "#1C1C00"

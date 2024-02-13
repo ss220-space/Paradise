@@ -44,7 +44,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "aah" = (
@@ -137,9 +137,6 @@
 /obj/machinery/light{
 	dir = 1;
 	on = 1
-	},
-/obj/machinery/ai_status_display{
-	pixel_y = 32
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -3916,7 +3913,7 @@
 	tag = "icon-pipe-j1 (EAST)"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "aEp" = (
@@ -6835,8 +6832,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/crew_quarters/fitness)
 "aWY" = (
@@ -7749,7 +7745,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "bck" = (
@@ -21462,8 +21458,7 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/maintenance/banya)
 "crF" = (
@@ -24499,7 +24494,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "cEE" = (
@@ -24711,7 +24706,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "cFE" = (
@@ -24821,7 +24816,7 @@
 	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "cFW" = (
@@ -27865,7 +27860,7 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "cTl" = (
@@ -32943,7 +32938,7 @@
 	name = "Toilet"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "doi" = (
@@ -33020,7 +33015,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "doy" = (
@@ -33079,7 +33074,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "doP" = (
@@ -37551,7 +37546,6 @@
 	scrub_Toxins = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/securearmory)
@@ -40812,7 +40806,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "dVy" = (
@@ -41982,6 +41976,9 @@
 	maxcharge = 15000
 	},
 /obj/item/clothing/glasses/welding,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47827,7 +47824,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/interrogation)
@@ -50578,13 +50574,9 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
 /obj/machinery/door_control{
 	id = "SecPilotPriv";
 	name = "Pilot Privacy Shutters Control";
-	pixel_x = 16;
 	pixel_y = 24;
 	req_access = list(71)
 	},
@@ -51380,6 +51372,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -51439,8 +51434,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/research)
 "gio" = (
@@ -53764,8 +53758,7 @@
 "gKd" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency/old,
-/turf/simulated/floor/plasteel{
-	dir = 10;
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkredfull"
 	},
 /area/space)
@@ -56377,7 +56370,6 @@
 	},
 /obj/effect/landmark/start/warden,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/warden)
@@ -57131,7 +57123,7 @@
 	dir = 1
 	},
 /obj/machinery/light_switch{
-	pixel_x = -26;
+	pixel_x = -24;
 	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
@@ -57203,7 +57195,6 @@
 	},
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "bluefull"
 	},
 /area/bridge/checkpoint/south)
@@ -59489,9 +59480,9 @@
 /area/chapel/office)
 "icl" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkred";
+	dir = 9
 	},
 /area/space)
 "icp" = (
@@ -61290,8 +61281,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/reception)
 "ixu" = (
@@ -63894,10 +63884,6 @@
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "jgk" = (
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -2
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -66363,7 +66349,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/warden)
@@ -66787,7 +66772,7 @@
 /area/bridge/vip)
 "jPC" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkred"
 	},
 /area/space)
@@ -67313,14 +67298,6 @@
 	icon_state = "darkblue"
 	},
 /area/bridge)
-"jWl" = (
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
-	},
-/area/medical/reception)
 "jWn" = (
 /obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
@@ -68592,11 +68569,6 @@
 	icon_state = "darkblue"
 	},
 /area/construction/hallway)
-"kna" = (
-/turf/simulated/floor/greengrid{
-	temperature = 80
-	},
-/area/toxins/xenobiology)
 "knb" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -71651,7 +71623,8 @@
 /obj/machinery/door_control{
 	id = "Clown";
 	name = "Clowns Privacy Shutters Control";
-	pixel_x = 26
+	pixel_x = 25;
+	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -73949,8 +73922,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/research)
 "lGO" = (
@@ -74863,8 +74835,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/reception)
 "lRk" = (
@@ -75883,7 +75854,6 @@
 	},
 /obj/effect/landmark/start/warden,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/warden)
@@ -81210,9 +81180,6 @@
 	},
 /area/medical/research/shallway)
 "nmy" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
 /obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -81472,7 +81439,8 @@
 /obj/machinery/door_control{
 	id = "Mime";
 	name = "Mimes Privacy Shutters Control";
-	pixel_x = -27
+	pixel_x = -25;
+	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -81536,7 +81504,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "nqH" = (
@@ -81700,8 +81668,7 @@
 /obj/structure/delta_statue/nw,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "vault";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "vault"
 	},
 /area/bridge/vip)
 "nsi" = (
@@ -83432,8 +83399,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/research)
 "nMs" = (
@@ -83969,7 +83935,7 @@
 	name = "Toilet"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "nSz" = (
@@ -84314,8 +84280,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/virology/lab)
 "nXm" = (
@@ -91184,8 +91149,7 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/crew_quarters/fitness)
 "pBl" = (
@@ -91430,11 +91394,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "pCX" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Magazines for SP-91-RC";
-	req_access = list(1)
-	},
 /obj/item/gun/energy/gun/advtaser{
 	pixel_x = -3;
 	pixel_y = 3
@@ -91448,6 +91407,11 @@
 	dir = 1;
 	name = "Station Intercom (General)";
 	pixel_y = -29
+	},
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Tasers";
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -92844,7 +92808,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/warden)
@@ -96870,7 +96833,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
+	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
 "qKI" = (
@@ -97182,8 +97145,8 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "qNX" = (
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel{
@@ -102420,8 +102383,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/medical/research)
 "sbb" = (
@@ -104691,6 +104653,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "sAN" = (
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"
@@ -105812,8 +105777,7 @@
 "sQt" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/medical/medbay)
 "sQx" = (
@@ -107485,12 +107449,10 @@
 "tkf" = (
 /obj/item/hand_labeler,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 25
-	},
 /obj/structure/table/glass,
+/obj/machinery/newscaster{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -111796,7 +111758,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/evidence)
@@ -112894,13 +112855,18 @@
 /obj/machinery/door_control{
 	id = "Genetics";
 	name = "Genetic Privacy Shutters Control";
-	pixel_y = 26
+	pixel_y = 26;
+	pixel_x = -4
 	},
 /obj/item/storage/box/beakers{
 	pixel_x = 4;
 	pixel_y = 4
 	},
 /obj/item/storage/box/syringes,
+/obj/machinery/light_switch{
+	pixel_x = 7;
+	pixel_y = 27
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -114920,7 +114886,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/visiting_room)
@@ -116297,9 +116262,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
 "vlc" = (
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers{
 	pixel_x = 4;
@@ -119690,7 +119652,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/securearmory)
@@ -119712,7 +119673,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/security/securearmory)
@@ -127389,7 +127349,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "bluefull"
 	},
 /area/bridge/checkpoint/south)
@@ -158415,7 +158374,7 @@ sHq
 tNx
 jfk
 wBr
-kna
+wMW
 iRu
 oOo
 fvu
@@ -158672,7 +158631,7 @@ mkL
 lGo
 mZA
 oKx
-kna
+wMW
 rbA
 oOo
 fvu
@@ -158929,7 +158888,7 @@ gsc
 jhm
 feg
 cTz
-kna
+wMW
 iRu
 oOo
 ksG
@@ -167902,8 +167861,8 @@ xMi
 gZr
 uzj
 xYU
-jWl
-jWl
+hiQ
+hiQ
 xYU
 cNI
 xYU

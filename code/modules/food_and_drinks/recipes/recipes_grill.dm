@@ -126,16 +126,16 @@
 /datum/recipe/grill/human/kabob
 	items = list(
 		/obj/item/stack/rods,
-		/obj/item/reagent_containers/food/snacks/meat/human,
-		/obj/item/reagent_containers/food/snacks/meat/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 	)
 	result = /obj/item/reagent_containers/food/snacks/kabob
 
 /datum/recipe/grill/monkeykabob
 	items = list(
 		/obj/item/stack/rods,
-		/obj/item/reagent_containers/food/snacks/meat/monkey,
-		/obj/item/reagent_containers/food/snacks/meat/monkey,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 	)
 	result = /obj/item/reagent_containers/food/snacks/monkeykabob
 

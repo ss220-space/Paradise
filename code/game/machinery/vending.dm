@@ -1011,10 +1011,11 @@
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10,/obj/item/reagent_containers/food/drinks/cans/starkist = 10,
 					/obj/item/reagent_containers/food/drinks/cans/space_up = 10,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 10)
-	contraband = list(/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5)
+	contraband = list(/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5, /obj/item/reagent_containers/food/drinks/zaza = 1)
 	prices = list(/obj/item/reagent_containers/food/drinks/cans/cola = 20,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 20,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 20,/obj/item/reagent_containers/food/drinks/cans/starkist = 20,
-					/obj/item/reagent_containers/food/drinks/cans/space_up = 20,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 20)
+					/obj/item/reagent_containers/food/drinks/cans/space_up = 20,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 20,
+					/obj/item/reagent_containers/food/drinks/zaza = 200)
 	refill_canister = /obj/item/vending_refill/cola
 
 /obj/machinery/vending/cola/free
@@ -1491,23 +1492,27 @@
 					/obj/item/clothing/under/redhawaiianshirt = 1,
 					/obj/item/clothing/under/pinkhawaiianshirt = 1,
 					/obj/item/clothing/under/bluehawaiianshirt = 1,
-					/obj/item/clothing/under/orangehawaiianshirt = 1)
+					/obj/item/clothing/under/orangehawaiianshirt = 1,
+					/obj/item/clothing/under/ussptracksuit_red = 4,
+					/obj/item/clothing/under/ussptracksuit_blue = 4)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
-					  /obj/item/clothing/head/powdered_wig = 1,
-					  /obj/item/gun/magic/wand = 1,
-					  /obj/item/clothing/mask/balaclava =1,
-					  /obj/item/clothing/under/syndicate/blackops_civ = 1,
-					  /obj/item/clothing/glasses/thermal_fake = 1,
-					  /obj/item/clothing/mask/horsehead = 2)
+					/obj/item/clothing/head/powdered_wig = 1,
+					/obj/item/gun/magic/wand = 1,
+					/obj/item/clothing/mask/balaclava =1,
+					/obj/item/clothing/under/syndicate/blackops_civ = 1,
+					/obj/item/clothing/glasses/thermal_fake = 1,
+					/obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
-				   /obj/item/clothing/head/hgpiratecap = 1,
-				   /obj/item/clothing/head/helmet/roman/fake = 1,
-				   /obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
-				   /obj/item/clothing/under/roman = 1,
-				   /obj/item/clothing/shoes/roman = 1,
-				   /obj/item/shield/riot/roman/fake = 1,
-				   /obj/item/clothing/under/cuban_suit = 1,
-				   /obj/item/clothing/head/cuban_hat = 1)
+					/obj/item/clothing/head/hgpiratecap = 1,
+					/obj/item/clothing/head/helmet/roman/fake = 1,
+					/obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
+					/obj/item/clothing/under/roman = 1,
+					/obj/item/clothing/shoes/roman = 1,
+					/obj/item/shield/riot/roman/fake = 1,
+					/obj/item/clothing/under/cuban_suit = 1,
+					/obj/item/clothing/head/cuban_hat = 1,
+					/obj/item/clothing/under/ussptracksuit_black = 1,
+					/obj/item/clothing/under/ussptracksuit_white = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/dinnerware
@@ -1921,6 +1926,7 @@
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
 		/obj/item/clothing/mask/bandana/black 	= 10,
+		/obj/item/clothing/mask/secscarf 		= 10,
 
 		/obj/item/clothing/gloves/color/black	= 10,
 		/obj/item/clothing/gloves/color/red	= 10,
