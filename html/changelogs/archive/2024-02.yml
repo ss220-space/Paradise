@@ -142,6 +142,7 @@
   Rerik007:
   - bugfix: fix null.len runtime (#4388)
   - bugfix: mecha cargomodule for lockermech broken (#4396)
+  - bugfix: fix runtime to_chat called with invalid message (#4387)
   SAAD:
   - tweak: Remove extra atmos different turfes and useless dirs and tags (#4394)
   Vladisvell:
@@ -155,3 +156,18 @@
   xTrogwaRx:
   - bugfix: show panel virology fridge after screw act (#4321)
   - qol: keybinds for tail and wings (#4320)
+'2024-02-13':
+  ArtemDerp:
+  - bugfix: correct naming for tasers locker (#4415)
+  - bugfix: fixed missed cheks for sec scarf and googles (#4409)
+  BeebBeebBoob:
+  - bugfix: inflatable barrier box could fit anything (#4408)
+  Daeberdir:
+  - bugfix: outfit inhand items disappearing. (#4401)
+  Valtor:
+  - qol: Borer QoL update (#4343)
+  Zwei:
+  - bugfix: Laser Weapons In Hands Fix (#4410)
+  - bugfix: ChemDispenser Overlays Fix (#4418)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4412)
