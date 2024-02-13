@@ -220,8 +220,8 @@ Transponder Codes:<UL>"}
 
 
 /obj/machinery/navbeacon/invisible
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/navbeacon/invisible/hide(intact)
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 	updateicon()

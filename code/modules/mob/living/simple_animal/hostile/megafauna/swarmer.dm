@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	icon_state = null
 	gpstag = "Hungry Signal"
 	desc = "Transmitted over the signal is a strange message repeated in every language you know of, and some you don't too..." //the message is "nom nom nom"
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 //SWARMER AI
 //AI versions of the swarmer mini-antag

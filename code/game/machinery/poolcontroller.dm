@@ -20,7 +20,7 @@
 	var/deep_water = FALSE		//set to 1 to drown even standing people
 
 /obj/machinery/poolcontroller/invisible
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 	name = "Water Controller"
 	desc = "An invisible water controller. Players shouldn't see this."
 

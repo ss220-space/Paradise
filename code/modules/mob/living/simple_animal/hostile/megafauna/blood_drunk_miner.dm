@@ -66,7 +66,7 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "The sweet blood, oh, it sings to me."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /* New costume */
 

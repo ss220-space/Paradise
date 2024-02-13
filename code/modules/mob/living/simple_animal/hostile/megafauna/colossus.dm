@@ -355,7 +355,7 @@ Difficulty: Very Hard
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "Get in the fucking robot."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 #undef RANDOM_SHOTS
 #undef BLAST
