@@ -138,6 +138,10 @@
 				button.icon = button_icon
 			button.icon_state = background_icon_state
 		button.name = name
+		var/list/our_description = list()
+		our_description += desc
+		our_description += initial(button.desc)
+		button.desc = our_description.Join(" ")
 
 		ApplyIcon(button)
 
