@@ -158,7 +158,7 @@
 	name = "reinforced floor"
 	icon_state = "engine"
 	thermal_conductivity = 0.025
-	var/insulated
+	var/insulated = FALSE
 	heat_capacity = 325000
 	explosion_vertical_block = 2
 	floor_tile = /obj/item/stack/rods
@@ -308,7 +308,7 @@
 /turf/simulated/floor/engine/insulated
 	name = "insulated reinforced floor"
 	icon_state = "engine"
-	insulated = 1
+	insulated = TRUE
 	explosion_vertical_block = 3
 	thermal_conductivity = 0
 

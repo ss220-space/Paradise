@@ -130,11 +130,8 @@
 			qdel(A)
 		return
 	// Adds the adjacent turfs to the current atmos processing
-	for(var/direction in GLOB.cardinal)
-		if(atmos_adjacent_turfs & direction)
-			var/turf/simulated/T = get_step(src, direction)
-			if(istype(T))
-				SSair.add_to_active(T)
+	for(var/turf/simulated/T in atmos_adjacent_turfs)
+		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
@@ -299,6 +296,10 @@
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_type = type
+	var/old_air
+	if(isfloorturf(src))
+		var/turf/simulated/old_turf = src
+		old_air = old_turf.air
 
 	BeforeChange()
 
@@ -326,6 +327,10 @@
 
 	if(!defer_change)
 		W.AfterChange(ignore_air, oldType = old_type)
+		if(issimulatedturf(W))
+			var/turf/simulated/new_turf = W
+			new_turf.assimilate_air(old_air)
+
 	W.blueprint_data = old_blueprint_data
 
 	recalc_atom_opacity()

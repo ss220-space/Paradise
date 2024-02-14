@@ -68,27 +68,19 @@
 		if(current_turf.current_cycle <= current_cycle)
 			continue
 
-		var/counterdir = REVERSE_DIR(direction)
 		//Can you and me form a deeper relationship, or is this just a passing wind
 		// (direction & (UP | DOWN)) is just "is this vertical" by the by
 		if(canpass && current_turf.CanAtmosPass(src, (direction & (UP|DOWN))) && !(blocks_air || current_turf.blocks_air))
-			atmos_adjacent_turfs |= direction
-			current_turf.atmos_adjacent_turfs |= counterdir
+			atmos_adjacent_turfs |= current_turf
+			current_turf.atmos_adjacent_turfs |= src
 			passed_turfs += current_turf
 		else
-			atmos_adjacent_turfs &= ~direction
-			current_turf.atmos_adjacent_turfs &= ~counterdir
-	// Hey look. I was trying to make this into upper loop but that shit only works this way.
-	// I hate this, but that's how it's gonna work.
-	atmos_adjacent_turfs_amount = 0
-	for(var/direction in GLOB.cardinals_multiz)
-		if(atmos_adjacent_turfs & direction)
-			atmos_adjacent_turfs_amount++
+			atmos_adjacent_turfs -= current_turf
+			current_turf.atmos_adjacent_turfs -= src
 
 	return passed_turfs
 
 /turf/proc/CalculateAdjacentTurfs()
-	atmos_adjacent_turfs_amount = 0
 	for(var/direction in GLOB.cardinals_multiz)
 		var/turf/turf_target
 		if(direction & (UP|DOWN))
@@ -97,19 +89,13 @@
 			turf_target = get_step(src, direction)
 		if(!istype(turf_target))
 			continue
-		var/counterdir = REVERSE_DIR(direction)
 		var/vertical = (direction & (UP | DOWN))
 		if(CanAtmosPass(turf_target, vertical))
-			atmos_adjacent_turfs_amount += 1
-			atmos_adjacent_turfs |= direction
-			if(!(turf_target.atmos_adjacent_turfs & counterdir))
-				turf_target.atmos_adjacent_turfs_amount += 1
-			turf_target.atmos_adjacent_turfs |= counterdir
+			atmos_adjacent_turfs |= turf_target
+			turf_target.atmos_adjacent_turfs |= src
 		else
-			atmos_adjacent_turfs &= ~direction
-			if(turf_target.atmos_adjacent_turfs & counterdir)
-				turf_target.atmos_adjacent_turfs_amount -= 1
-			turf_target.atmos_adjacent_turfs &= ~counterdir
+			atmos_adjacent_turfs -= turf_target
+			turf_target.atmos_adjacent_turfs -= src
 
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
@@ -118,26 +104,21 @@
 	if(!issimulatedturf(src))
 		return list()
 
-	var/adjacent_turfs = list()
-	var/turf/simulated/curloc = src
-	for(var/direction in GLOB.cardinals_multiz)
-		if(!(curloc.atmos_adjacent_turfs & direction))
-			continue
-
-		var/turf/simulated/S = get_step_multiz(curloc, direction)
-		if(istype(S))
-			adjacent_turfs += S
+	var/adjacent_turfs = atmos_adjacent_turfs.Copy()
 	if(!alldir)
 		return adjacent_turfs
 
+	var/turf/simulated/curloc = src
 	for(var/direction in GLOB.diagonals_multiz)
 		var/matchingDirections = 0
 		var/turf/simulated/S = get_step_multiz(curloc, direction)
+		if(!S)
+			continue
 
 		for(var/checkDirection in GLOB.cardinals_multiz)
-			if(!(S?.atmos_adjacent_turfs & checkDirection))
-				continue
 			var/turf/simulated/checkTurf = get_step(S, checkDirection)
+			if(!(checkTurf in S?.atmos_adjacent_turfs))
+				continue
 
 			if(checkTurf in adjacent_turfs)
 				matchingDirections++

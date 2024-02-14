@@ -327,7 +327,7 @@ SUBSYSTEM_DEF(air)
 	// Clear active turfs - faster than removing every single turf in the world
 	// one-by-one, and Initialize_Atmos only ever adds `src` back in.
 	active_turfs.Cut()
-	var/time = -1
+	var/time = -1 //If it was 0, the very first turfs wouldn't go properly through init. See LINDA_system.dm#95
 	for(var/turf/T as anything in turfs_to_init)
 		if(T.blocks_air || !T.init_air)
 			continue
