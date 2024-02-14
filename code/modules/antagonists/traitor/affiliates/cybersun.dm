@@ -28,4 +28,15 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "syndicate_cyborg_upgrade"
 
+/obj/item/CIndy_patcher/afterattack(atom/target, mob/user, proximity, params)
+	if(isrobot(target))
+		if(do_after_once(user, 10 SECONDS, target = target))
+			var/mob/prev_robot = target
+			var/mob/living/silicon/robot/syndicate/saboteur/robot = new(get_turf(target))
+			prev_robot.mind?.transfer_to(robot)
+			QDEL_NULL(prev_robot)
+		return
+	. = ..()
+
+
 #undef CYBERSUN_DISCOUNT
