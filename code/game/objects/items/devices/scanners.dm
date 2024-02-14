@@ -19,7 +19,7 @@ REAGENT SCANNER
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
 	var/scan_range = 1
-	var/pulse_duration = 10
+	var/pulse_duration = 1 SECONDS
 
 /obj/item/t_scanner/extended_range
 	name = "T-ray сканер расширенной дальности"
@@ -37,7 +37,7 @@ REAGENT SCANNER
 	\nДанная модель способна генерировать более продолжительные импульсы."
 	icon_state = "t-ray-pulse0"
 	base_icon_state = "t-ray-pulse"
-	pulse_duration = 50
+	pulse_duration = 5 SECONDS
 	origin_tech = "magnets=5;engineering=3"
 	materials = list(MAT_METAL=300)
 
@@ -48,7 +48,7 @@ REAGENT SCANNER
 	icon_state = "t-ray-advanced0"
 	base_icon_state = "t-ray-advanced"
 	scan_range = 3
-	pulse_duration = 50
+	pulse_duration = 5 SECONDS
 	origin_tech = "magnets=7;engineering=3"
 	materials = list(MAT_METAL=300)
 
@@ -59,7 +59,7 @@ REAGENT SCANNER
 	icon_state = "t-ray-science0"
 	base_icon_state = "t-ray-science"
 	scan_range = 5
-	pulse_duration = 100
+	pulse_duration = 10 SECONDS
 	origin_tech = "magnets=8;engineering=5"
 	materials = list(MAT_METAL=500)
 
@@ -71,7 +71,7 @@ REAGENT SCANNER
 	icon_state = "t-ray-experimental0"
 	base_icon_state = "t-ray-experimental"
 	scan_range = 3
-	pulse_duration = 80
+	pulse_duration = 8 SECONDS
 	origin_tech = null
 	materials = list()
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -148,7 +148,6 @@ REAGENT SCANNER
 	icon_state = "sb_t-ray0"
 	base_icon_state = "sb_t-ray"
 	scan_range = 2
-	pulse_duration = 10
 	var/was_alerted = FALSE // Protection against spam alerts from this scanner
 	var/burnt = FALSE // Did emp break us?
 	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
