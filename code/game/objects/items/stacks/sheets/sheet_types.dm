@@ -278,6 +278,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 		new /datum/stack_recipe("Fish bag", /obj/item/storage/bag/fish, 4),
 		new /datum/stack_recipe("Mining satchel", /obj/item/storage/bag/ore, 4),
 		new /datum/stack_recipe("Plant bag", /obj/item/storage/bag/plants, 4),
+		new /datum/stack_recipe("Construction bag", /obj/item/storage/bag/construction, 4),
 	)),
 	null,
 	new /datum/stack_recipe("Bedsheet", /obj/item/bedsheet, 3),
