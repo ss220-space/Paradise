@@ -317,18 +317,18 @@
 
 	var/obj/item/paper/transcript = new /obj/item/paper(drop_location())
 
-	var/t1 = "<B>Transcript:</B><BR><BR>"
+	var/list/paper_info = list("<B>Transcript:</B><BR><BR>")
 	for(var/i = 1, length(mytape.storedinfo) >= i, i++)
 		var/datum/tape_piece/piece = mytape.storedinfo[i]
-		t1 += "\[[time2text(piece.time * 10,"mm:ss")]\] "
+		paper_info += "\[[time2text(piece.time * 10,"mm:ss")]\] "
 		if(piece.speaker_name)
-			t1 += "[piece.speaker_name] "
+			paper_info += "[piece.speaker_name] "
 		if(piece.message_verb)
-			t1 += "[piece.message_verb], \"[piece.message]\"<BR>"
+			paper_info += "[piece.message_verb], \"[replace_characters(piece.message, list("+"))]\"<BR>"
 		else
-			t1 += "[piece.message]<BR>"
+			paper_info += "[replace_characters(piece.message, list("+"))]<BR>"
 
-	transcript.info = t1
+	transcript.info = paper_info.Join("")
 	transcript.name = "paper- 'Transcript'"
 	cooldown = world.time + 3 SECONDS
 
