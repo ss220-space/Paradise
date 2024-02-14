@@ -3,7 +3,7 @@
 	var/name
 	/// Description for tgui, better to have plus and minus
 	var/desc
-	/// Description for tgui, if you get hijacl role
+	/// Description for tgui, if you get hijack role
 	var/hij_desc
 	/// Icon for tgui 256X256
 	var/tgui_icon = "1"
