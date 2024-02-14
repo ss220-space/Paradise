@@ -54,3 +54,6 @@
 #define ORGAN_MANIPULATION_NOEFFECT 1
 #define ORGAN_MANIPULATION_ABDUCTOR 2
 
+/// used for species that can see without eyes
+#define NO_VISION_ORGAN "no_vision_organ"
+

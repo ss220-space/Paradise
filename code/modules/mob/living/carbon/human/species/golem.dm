@@ -162,6 +162,11 @@
 	H.name = H.real_name
 	to_chat(H, info_text)
 
+
+/datum/species/golem/get_vision_organ(mob/living/carbon/human/user)
+	return NO_VISION_ORGAN
+
+
 //Random Golem
 
 /datum/species/golem/random
