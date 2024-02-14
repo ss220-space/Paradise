@@ -58,7 +58,6 @@
 	. = ..()
 	underlays.Cut()
 	underlays += emissive_appearance(icon, "indicator")
-	set_light(0)
 
 	if(connected)
 		return
