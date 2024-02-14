@@ -548,12 +548,16 @@
 		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
 			qdel(D)
 			modules -= D // Remove it from this list so it doesn't get added in the rebuild.
-
+	modules += new /obj/item/pickaxe/drill/cyborg/diamond(src)
+	rebuild()
 
 // Readd the normal drill
 /obj/item/robot_module/miner/unemag()
-	var/obj/item/pickaxe/drill/cyborg/C = new(src)
-	modules += C
+	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in modules) 
+		qdel(drill)
+		modules -= drill
+	modules += new /obj/item/pickaxe/drill/cyborg(src)
+	rebuild()
 	return ..()
 
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
