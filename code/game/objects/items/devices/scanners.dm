@@ -84,7 +84,7 @@ REAGENT SCANNER
 /obj/item/t_scanner/update_icon_state()
 	icon_state = "[base_icon_state][on]"
 
-/obj/item/t_scanner/proc/toggle_on()
+/obj/item/t_scanner/proc/toggle_mode()
 	on = !on
 	update_icon(UPDATE_ICON_STATE)
 	if(on)
@@ -93,7 +93,7 @@ REAGENT SCANNER
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/t_scanner/attack_self(mob/user)
-	toggle_on()
+	toggle_mode()
 
 /obj/item/t_scanner/process()
 	if(!on)
