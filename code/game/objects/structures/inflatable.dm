@@ -55,7 +55,7 @@
 	add_fingerprint(user)
 
 /obj/structure/inflatable/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated() || user.restrained())
+	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(!Adjacent(user))
@@ -108,10 +108,11 @@
 	name = "inflatable door"
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
+	opacity = TRUE
 	torn = /obj/item/inflatable/door/torn
 	intact = /obj/item/inflatable/door
 
-	var/state_open = FALSE
+	var/state_closed = TRUE
 	var/is_operating = FALSE
 
 /obj/structure/inflatable/door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
@@ -121,7 +122,7 @@
 		if(get_dist(user,src) <= 1) //not remotely though
 			return try_to_operate(user)
 
-/obj/structure/inflatable/door/attack_hand(mob/user as mob)
+/obj/structure/inflatable/door/attack_hand(mob/user)
 	return try_to_operate(user)
 
 /obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
@@ -153,25 +154,26 @@
 
 /obj/structure/inflatable/door/proc/operate()
 	is_operating = TRUE
-	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-	if(!state_open)
-		flick("door_opening",src)
+	if(state_closed)
+		flick("door_opening", src)
 	else
-		flick("door_closing",src)
+		flick("door_closing", src)
+
 	sleep(1 SECONDS)
-	density = !density
-	opacity = !opacity
-	state_open = !state_open
+	if(QDELETED(src))
+		return
+
+	state_closed = !state_closed
+	density = state_closed
+	set_opacity(state_closed)
 	update_icon(UPDATE_ICON_STATE)
-	is_operating = FALSE
 	air_update_turf(TRUE)
+	is_operating = FALSE
 
 
 /obj/structure/inflatable/door/update_icon_state()
-	if(state_open)
-		icon_state = "door_open"
-	else
-		icon_state = "door_closed"
+	icon_state = "door_[state_closed ? "closed" : "open"]"
+
 
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"
