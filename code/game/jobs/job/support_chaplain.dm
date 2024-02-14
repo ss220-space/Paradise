@@ -11,7 +11,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Priest","Monk","Preacher","Reverend","Oracle","Nun","Imam","Exorcist")
+	alt_titles = list("Priest","Monk","Preacher","Reverend","Oracle","Nun","Imam")
 	money_factor = 2
 	outfit = /datum/outfit/job/chaplain
 
@@ -24,8 +24,7 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chaplain
 	backpack_contents = list(
-		/obj/item/camera/spooky = 1,
-		/obj/item/nullrod = 1
+		/obj/item/camera/spooky = 1
 	)
 
 /datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
