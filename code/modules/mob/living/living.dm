@@ -1418,8 +1418,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(QDELETED(src) || QDELETED(target))
 		return TRUE
 	if(!(target in view(client.maxview(), client.eye)))
-		if(!(target in GetAllContents()))
-			return TRUE
+		for(var/obj/screen/storage/box in client.screen)
+			if(!box.is_item_accessible(target, src))
+				return TRUE
 	if(!has_vision(information_only = TRUE))
 		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
 		return TRUE
