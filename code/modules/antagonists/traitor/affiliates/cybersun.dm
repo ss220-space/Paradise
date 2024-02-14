@@ -1,4 +1,4 @@
-#define CYBERSUN_DISCOUNT 0.5
+#define CYBERSUN_DISCOUNT 0.8
 
 /datum/affiliate/cybersun
 	name = "Cybersun Industries"
@@ -8,7 +8,6 @@
 			Особые условия: Корпорация предоставляет вам скидку на собственную продукцию - щедро, не так ли?;\n\
 			Вам доступен специальный модуль улучшения, который предоставляет киборгу NT модули Киберсана. \n\
 			Стандартные цели: выкрасть высокотехнологичную продукцию NT (ИИ / боевой мех / научные исследования), устранить цель, побег."
-	cats_to_exclude = CATEGORY_IMPLANTS
 	objectives = list(list(/datum/objective/steal = 50, /datum/objective/steal/ai = 50),
 						/datum/objective/mecha_hijack,
 						/datum/objective/download_data,
@@ -21,7 +20,8 @@
 	for(var/path in subtypesof(/datum/uplink_item/implants))
 		var/datum/uplink_item/new_item = new path
 		new_item.cost = round(new_item.cost * CYBERSUN_DISCOUNT)
-		new_item.category_flag = NO_CATEGORY
+		new_item.name += ((1-CYBERSUN_DISCOUNT)*100) +"%"
+		new_item.category = "Discounted Gear"
 		uplink.uplink_items.Add(new_item)
 
 /obj/item/CIndy_patcher

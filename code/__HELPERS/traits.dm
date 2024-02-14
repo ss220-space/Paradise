@@ -188,6 +188,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CULT_EYES "cult_eyes"
 #define CLOCK_HANDS "clock_hands"
 #define PULSEDEMON_TRAIT "pulse_demon"
+#define TIGER_TRAIT "tiger_trait"
 
 // Healing traits
 /// This mob heals from carp rifts.

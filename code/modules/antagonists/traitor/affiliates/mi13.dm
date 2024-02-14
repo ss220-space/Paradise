@@ -6,9 +6,12 @@
 			Если вы и решитесь пойти на открытую конфронтацию - не забудьте прибрать следы, сменить тройку на двойку не будет ошибкой. \n\
 			Особые условия: агентам Корпорации не положено тяжелое и шумное снаряжение, однако набор \"Бонда\" уже ваш - не забудье забрать его. \n\
 			Стандартные цели: заполучить секретные документы, выкрасть предписанный предмет, позаботиться об указанной персоне, покинуть объект."
-	cats_to_exclude = (CATEGORY_DANGEROUS|CATEGORY_EXPLOSIVE|CATEGORY_BADASS)
 	objectives = list(// украсть любые секретные доки,
 					/datum/objective/steal,
 					/datum/objective/maroon,
 					/datum/objective/escape
 					)
+
+/datum/affiliate/mi13/finalize_affiliate(datum/mind/owner)
+	. = ..()
+	uplink.uses = 50

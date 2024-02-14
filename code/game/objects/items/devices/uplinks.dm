@@ -60,13 +60,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		job = user.mind?.assigned_role
 	if(!race)
 		race = user.dna?.species.name
-	var/affiliate_cats_to_exclude
-	if(affiliate)
-		affiliate_cats_to_exclude = affiliate.cats_to_exclude
 	var/list/uplink_items_by_category = list()
 	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
-		if(affiliate_cats_to_exclude && (uplink_item.category_flag & affiliate_cats_to_exclude))
-			continue
 		if(!uplink_items_by_category[uplink_item.category])
 			uplink_items_by_category[uplink_item.category] = list()
 		uplink_items_by_category[uplink_item.category] += uplink_item
@@ -80,6 +75,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(length(uplink_item.race) && !uplink_item.race.Find(race) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
 			if((length(uplink_item.affiliate) && !uplink_item.affiliate.Find(affiliate?.name) && uplink_type != UPLINK_TYPE_ADMIN))
+				continue
+			if((length(uplink_item.exclude_from_affiliate) && uplink_item.exclude_from_affiliate.Find(affiliate?.name) && uplink_type != UPLINK_TYPE_ADMIN))
 				continue
 			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name), "desc" = sanitize(uplink_item.description()), "cost" = uplink_item.cost, "hijack_only" = uplink_item.hijack_only, "obj_path" = ref(uplink_item), "refundable" = uplink_item.refundable))
 

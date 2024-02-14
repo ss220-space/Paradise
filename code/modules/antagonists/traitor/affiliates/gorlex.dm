@@ -16,7 +16,6 @@
 			Вам предоставлен код от системы самоуничтожения станции, а также система отслеживания диска ядерной аутенфикации;\n\
 			Каждый наёмник Gorlex Maraduers будет обязан помочь вам;\n\
 			Возможны помехи от агентов других корпораций - действуейте на свое усмотрение."
-	cats_to_exclude = (CATEGORY_STEALTH_ITEMS|CATEGORY_STEALTH_WEAPONS)
 	objectives = list(/datum/objective/assassinate/headofstaff,
 						/datum/objective/assassinate/headofstaff,
 						/datum/objective/assassinate/procedure,

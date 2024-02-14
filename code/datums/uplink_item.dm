@@ -1,20 +1,3 @@
-#define NO_CATEGORY 				0
-#define	CATEGORY_JOBSPECIFIC   	 	(1<<0)
-#define	CATEGORY_RACIAL 		 	(1<<1)
-#define	CATEGORY_DANGEROUS 	  	 	(1<<2)
-#define CATEGORY_AMMO		  	 	(1<<3)
-#define CATEGORY_STEALTH_WEAPONS    (1<<4)
-#define CATEGORY_EXPLOSIVE 	     	(1<<5)
-#define CATEGORY_STEALTH_ITEMS		(1<<6)
-#define CATEGORY_DEVICES 		 	(1<<7)
-#define CATEGORY_SUITS 	         	(1<<8)
-#define CATEGORY_IMPLANTS        	(1<<9)
-#define CATEGORY_BADASS             (1<<10)
-#define CATEGORY_BUNDLE             (1<<11)
-#define CATEGORY_DISCOUNT           (1<<12)
-
-#define ALL_CATEGORY 				(~0)
-
 /**
  * Proc that generates a list of items, available for certain uplink.
  *
@@ -69,8 +52,6 @@
 	var/name = "item name"
 	/// Uplink category.
 	var/category = "item category"
-	/// Category bitflag
-	var/category_flag = NO_CATEGORY
 	/// Uplink description.
 	var/desc = "Item Description"
 	/// Item object, must be defined in every datum entry and must be /obj path.
@@ -87,6 +68,8 @@
 	var/list/race
 	/// Empty list means it is available for every in game affiliates.
 	var/list/affiliate
+	/// Empty list means it is available for every in game affiliates.
+	var/list/exclude_from_affiliate
 	/// Chance of being included in the surplus crate (when pick() selects it).
 	var/surplus = 100
 	/// Whether item can be on sales category.
@@ -207,7 +190,6 @@
 
 /datum/uplink_item/discounts
 	category = "Discounted Gear"
-	category_flag = CATEGORY_DISCOUNT
 
 //Affiliate specific
 
@@ -229,7 +211,6 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	category_flag = CATEGORY_JOBSPECIFIC
 	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
@@ -268,6 +249,7 @@
 	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 5
+	exclude_from_affiliate = list("Tiger Cooperative")
 	job = list("Clown")
 
 //Mime
@@ -276,6 +258,7 @@
 	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
 	cost = 25
+	exclude_from_affiliate = list("Tiger Cooperative")
 	job = list("Mime")
 
 /datum/uplink_item/jobspecific/mimery
@@ -503,6 +486,7 @@
 	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets. Select the target beacon on the telegun itself; projectiles will send targets to the beacon locked onto."
 	item = /obj/item/gun/energy/telegun
 	cost = 60
+	exclude_from_affiliate = list("Tiger Cooperative")
 	job = list("Research Director")
 
 //Roboticist
@@ -519,6 +503,7 @@
 	desc = "Those missile launcher are known to be used on high-end mechs like mauler and marauder. Way more powerful, than missile modules you can print on standard mech fabs. It comes without lockbox - plug and play!"
 	item = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
 	cost = 50
+	exclude_from_affiliate = list("Tiger Cooperative")
 	job = list("Roboticist")
 	surplus = 0
 	can_discount = FALSE
@@ -599,7 +584,6 @@
 
 /datum/uplink_item/racial
 	category = "Racial Specific Tools"
-	category_flag = CATEGORY_RACIAL
 	can_discount = FALSE
 	surplus = 0
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -653,7 +637,7 @@
 
 /datum/uplink_item/dangerous
 	category = "Highly Visible and Dangerous Weapons"
-	category_flag = CATEGORY_DANGEROUS
+	exclude_from_affiliate = list("MI13")
 
 /datum/uplink_item/dangerous/minotaur
 	name = "AS-12 'Minotaur' Shotgun"
@@ -668,12 +652,14 @@
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
+	exclude_from_affiliate = list("MI13", "Tiger Cooperative")
 
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
 	desc = "A brutally simple syndicate revolver that fires .357 Magnum cartridges and has 7 chambers."
 	item = /obj/item/gun/projectile/revolver
 	cost = 50
+	exclude_from_affiliate = list("MI13", "Tiger Cooperative")
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
@@ -736,6 +722,7 @@
 	cost = 40
 	surplus = 0
 	can_discount = FALSE
+	exclude_from_affiliate = list("Tiger Cooperative")
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/crossbow
@@ -743,6 +730,7 @@
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
 	cost = 45
+	exclude_from_affiliate = list("Tiger Cooperative")
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
@@ -873,7 +861,6 @@
 
 /datum/uplink_item/ammo
 	category = "Ammunition"
-	category_flag = CATEGORY_AMMO
 	surplus = 40
 
 /datum/uplink_item/ammo/pistol
@@ -1124,7 +1111,7 @@
 
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
-	category_flag = CATEGORY_STEALTH_WEAPONS
+	exclude_from_affiliate = list("Gorlex Maraduers")
 
 /datum/uplink_item/stealthy_weapons/garrote
 	name = "Fiber Wire Garrote"
@@ -1191,6 +1178,7 @@
 	desc = "An innocent looking toy pistol designed to fire foam darts. Comes loaded with riot grade darts, to incapacitate a target."
 	item = /obj/item/gun/projectile/automatic/toy/pistol/riot
 	cost = 15
+	exclude_from_affiliate = list("Gorlex Maraduers", "Tiger Cooperative")
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/false_briefcase
@@ -1219,6 +1207,7 @@
 	item = /obj/item/storage/box/syndie_kit/dart_gun
 	cost = 20
 	surplus = 50
+	exclude_from_affiliate = list("Gorlex Maraduers", "Tiger Cooperative")
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_weapons/RSG
@@ -1226,6 +1215,7 @@
 	desc = "A rapid syringe gun able to hold six shot and fire them rapidly. Great together with the bioterror syringe"
 	item = /obj/item/gun/syringe/rapidsyringe
 	cost = 20
+	exclude_from_affiliate = list("Gorlex Maraduers", "Tiger Cooperative")
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_weapons/silencer
@@ -1245,7 +1235,6 @@
 
 /datum/uplink_item/explosives
 	category = "Grenades and Explosives"
-	category_flag = CATEGORY_EXPLOSIVE
 
 /datum/uplink_item/explosives/plastic_explosives
 	name = "Composition C-4"
@@ -1418,7 +1407,7 @@
 
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
-	category_flag = CATEGORY_STEALTH_ITEMS
+	exclude_from_affiliate = list("Gorlex Maraduers")
 
 /datum/uplink_item/stealthy_tools/syndie_kit/counterfeiter_bundle
 	name = "Syndicate Counterfeiter Bundle"
@@ -1560,13 +1549,13 @@
 
 /datum/uplink_item/device_tools
 	category = "Devices and Tools"
-	category_flag = CATEGORY_DEVICES
 
 /datum/uplink_item/device_tools/emag
 	name = "Cryptographic Sequencer"
 	desc = "The cryptographic sequencer, also known as an emag, is a small card that unlocks hidden functions in electronic devices, subverts intended functions and characteristically breaks security mechanisms."
 	item = /obj/item/card/emag
 	cost = 50 // No brainrot allowed
+	exclude_from_affiliate = list("SELF")
 
 /datum/uplink_item/device_tools/access_tuner
 	name = "Access Tuner"
@@ -1706,7 +1695,6 @@
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
 	category = "Space Suits and Hardsuits"
-	category_flag = CATEGORY_SUITS
 	surplus = 40
 
 /datum/uplink_item/suits/space_suit
@@ -1726,6 +1714,7 @@
 			Nanotrasen crew who spot these suits are known to panic."
 	item = /obj/item/storage/box/syndie_kit/hardsuit
 	cost = 30
+	exclude_from_affiliate = list("MI13")
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/chameleon_hardsuit
@@ -1735,6 +1724,7 @@
 	This one disquised as engineering hardsuit."
 	cost = 50 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
+	exclude_from_affiliate = list("MI13")
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
@@ -1772,6 +1762,7 @@
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
 	item = /obj/item/aiModule/syndicate
 	cost = 40
+	exclude_from_affiliate = list("SELF")
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
@@ -1876,7 +1867,7 @@
 
 /datum/uplink_item/implants
 	category = "Implants"
-	category_flag = CATEGORY_IMPLANTS
+	exclude_from_affiliate = list("Cybersun Industries")
 
 /datum/uplink_item/implants/freedom
 	name = "Freedom Implant"
@@ -1976,7 +1967,6 @@
 
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
-	category_flag = CATEGORY_BADASS
 	surplus = 0
 
 /datum/uplink_item/badass/syndiecigs
@@ -2024,7 +2014,6 @@
 
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"
-	category_flag = CATEGORY_BUNDLE
 	surplus = 0
 	can_discount = FALSE
 
