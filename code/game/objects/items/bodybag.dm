@@ -6,9 +6,10 @@
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
 	w_class = WEIGHT_CLASS_SMALL
+	var/unfoldedbag_path = /obj/structure/closet/body_bag
 
 /obj/item/bodybag/attack_self(mob/user)
-	var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
+	var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
 
@@ -25,7 +26,7 @@
 	close_sound_volume = 15
 	density = FALSE
 	integrity_failure = FALSE
-	var/item_path = /obj/item/bodybag
+	var/foldedbag_path = /obj/item/bodybag
 
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
@@ -60,16 +61,32 @@
 	if(name != initial(name))
 		. += "bodybag_label"
 
+/obj/structure/closet/body_bag/proc/attempt_fold(mob/living/carbon/human/the_folder)
+	. = FALSE
+	if(!istype(the_folder))
+		return
+	if(opened)
+		to_chat(the_folder, span_warning("You wrestle with [src], but it won't fold while unzipped."))
+		return
+	if(length(contents))
+		return
+	return TRUE
+
+/obj/structure/closet/body_bag/proc/perform_fold(mob/living/carbon/human/the_folder)
+	var/folding_bodybag = new foldedbag_path(get_turf(src))
+	the_folder.put_in_hands(folding_bodybag)
+
 
 /obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !opened && !length(contents) && usr.Adjacent(src))
-		usr.visible_message(
-			span_notice("[usr] folds up [src]."),
-			span_notice("You fold up [src]."),
-		)
-		new item_path(get_turf(src))
-		qdel(src)
-		return FALSE
+	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
+		if(attempt_fold(usr))
+			usr.visible_message(
+				span_notice("[usr] folds up [src]."),
+				span_notice("You fold up [src]."),
+			)
+			perform_fold(usr)
+			qdel(src)
+			return FALSE
 	return ..()
 
 
@@ -82,70 +99,53 @@
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
 
-/obj/item/bluespace_bag
-	name = "body bag"
-	desc = "A folded bag designed for the storage and transportation of cadavers."
-	icon = 'icons/obj/bodybag.dmi'
-	icon_state = "bodybag_folded"
-	w_class = WEIGHT_CLASS_SMALL
-	var/obj/structure/closet/body_bag/bluespace/bag
-
-/obj/item/bluespace_bag/Destroy()
-	. = ..()
-
-/obj/item/bluespace_bag/New()
-	. = ..()
-	bag = new
-	bag.bag = src
-
-/obj/item/bluespace_bag/Initialize(mapload)
-	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(pre_gib))
-	. = ..()
-
-/obj/item/bluespace_bag/proc/pre_gib()
-	visible_message("пиздец")
-	unfold()
-	bag.bust_open()
-
-/obj/item/bluespace_bag/attack_self(mob/user)
-	unfold(user)
-
-/obj/item/bluespace_bag/proc/unfold(mob/user)
-	if(user)
-		user.drop_item_ground(src)
-	bag.forceMove(get_turf(src))
-	src.forceMove(null)
+/obj/item/bodybag/bluespace
+	name = "bluespace body bag"
+	unfoldedbag_path = /obj/structure/closet/body_bag/bluespace
 
 /obj/structure/closet/body_bag/bluespace
-	name = "body bag"
-	desc = "A plastic bag designed for the storage and transportation of cadavers."
-	icon = 'icons/obj/bodybag.dmi'
-	icon_state = "bodybag_closed"
-	icon_closed = "bodybag_closed"
-	icon_opened = "bodybag_open"
-	open_sound = 'sound/items/zip.ogg'
-	close_sound = 'sound/items/zip.ogg'
-	open_sound_volume = 15
-	close_sound_volume = 15
-	density = FALSE
-	integrity_failure = FALSE
-	var/obj/item/bluespace_bag/bag
+	name = "bluespace body bag"
+	desc = "A bluespace body bag designed for the storage and transportation of cadavers."
+	foldedbag_path = /obj/item/bodybag/bluespace
+	var/max_weight_of_contents
 
-/obj/structure/closet/body_bag/bluespace/AltClick(mob/user)
-	fold(user)
-	. = ..()
+/obj/structure/closet/body_bag/bluespace/attempt_fold(mob/living/carbon/human/the_folder)
+	. = FALSE
 
-/obj/structure/closet/body_bag/bluespace/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	fold(usr)
-	return ..()
+	if(!istype(the_folder))
+		return
 
-/obj/structure/closet/body_bag/bluespace/proc/fold(mob/living/carbon/human/user)
-	if(ishuman(usr) && !usr.incapacitated() && !broken && !opened && usr.Adjacent(src))
-		usr.visible_message(
-			span_notice("[usr] folds up [src]."),
-			span_notice("You fold up [src]."),
-		)
-		bag.forceMove(get_turf(src))
-		src.forceMove(bag)
-		user.put_in_hands(bag)
+	if(opened)
+		to_chat(the_folder, span_warning("You wrestle with [src], but it won't fold while unzipped."))
+		return
 
+	if(the_folder.in_contents_of(src))
+		to_chat(the_folder, span_warning("You can't fold [src] while you're inside of it!"))
+		return
+
+	for(var/obj/item/bodybag/bluespace/B in src)
+		to_chat(the_folder, span_warning("You can't recursively fold bluespace body bags!") )
+		return
+	return TRUE
+
+/obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
+	visible_message(span_notice("[the_folder] folds up [src]."))
+	var/obj/item/bodybag/folding_bodybag = new foldedbag_path
+	for(var/atom/movable/content in contents)
+		content.forceMove(folding_bodybag)
+		if(isliving(content))
+			to_chat(content, span_userdanger("You're suddenly forced into a tiny, compressed space!"))
+		if(ishuman(content))
+			var/mob/living/carbon/human/mob = content
+			if(DWARF in mob.mutations)
+				max_weight_of_contents = max(WEIGHT_CLASS_NORMAL, max_weight_of_contents)
+				continue
+		if(!isitem(content))
+			max_weight_of_contents = max(WEIGHT_CLASS_BULKY, max_weight_of_contents)
+			continue
+		var/obj/item/A_is_item = content
+		if(A_is_item.w_class < max_weight_of_contents)
+			continue
+		max_weight_of_contents = A_is_item.w_class
+	folding_bodybag.w_class = max_weight_of_contents
+	the_folder.put_in_hands(folding_bodybag)
