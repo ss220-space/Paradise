@@ -1581,7 +1581,7 @@
 #include "code\modules\antagonists\traitor\affiliates/gorlex.dm"
 #include "code\modules\antagonists\traitor\affiliates/hematogenic.dm"
 #include "code\modules\antagonists\traitor\affiliates/tiger.dm"
-#include "code\modules\antagonists\traitor\affiliates/mi6.dm"
+#include "code\modules\antagonists\traitor\affiliates/mi13.dm"
 #include "code\modules\antagonists\traitor\affiliates/self.dm"
 #include "code\modules\antagonists\traitor\datum_mindslave.dm"
 #include "code\modules\antagonists\traitor\datum_traitor.dm"

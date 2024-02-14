@@ -68,6 +68,7 @@
 			var/path = params["path"]
 			var/datum/affiliate/newaffiliate = new path
 			uplink.affiliate = newaffiliate
+			newaffiliate.uplink = uplink
 			ui.close()
 			uplink.affiliate.finalize_affiliate(traitor)
 			uplink.trigger(ui.user)
