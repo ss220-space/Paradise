@@ -40,11 +40,17 @@
 	return path
 
 
-/proc/is_path_exist(atom/source, atom/target)
+/proc/is_path_exist(atom/source, atom/target, pass_flags = PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
 	var/obj/dummy = new(source.loc)
-	dummy.pass_flags |= (PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
+	dummy.pass_flags |= pass_flags
+	dummy.density = TRUE
 	for(var/turf/turf in getline(source, target))
+		if(!turf.CanPass(dummy, turf, 1))
+			qdel(dummy)
+			return FALSE
 		for(var/atom/movable/AM in turf)
+			if(AM == source || AM == dummy)
+				continue
 			if(!AM.CanPass(dummy, turf, 1))
 				qdel(dummy)
 				return FALSE

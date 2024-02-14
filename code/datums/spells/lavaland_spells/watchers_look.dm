@@ -1,17 +1,17 @@
 /obj/effect/proc_holder/spell/watchers_look
 	name = "Watcher's Look"
-	desc = ""
+	desc = "Shoot one of the watcher's beams. To change the mode, use alt-click on the icon."
 	invocation = "ONI DRAKT'CEHOR!"
 	invocation_type = "shout"
 	base_cooldown = 8 SECONDS
-	action_icon_state = "lightning"
-	action_background_icon_state = "bg_default"
+	action_icon_state = "watcher_normal"
+	action_background_icon_state = ""
 	need_active_overlay = TRUE
-	var/possible_projectiles = list(
-		/obj/item/projectile/watcher,
-		/obj/item/projectile/temp/basilisk/magmawing,
-		/obj/item/projectile/temp/basilisk/icewing)
-	var/projectile_number = 1
+	var/projectiles_icons = list(
+		"watcher_normal" = /obj/item/projectile/watcher,
+		"watcher_fire" = /obj/item/projectile/temp/basilisk/magmawing,
+		"watcher_ice" = /obj/item/projectile/temp/basilisk/icewing)
+	var/selected_projectile = 1
 
 
 /obj/effect/proc_holder/spell/watchers_look/create_new_targeting()
@@ -24,7 +24,7 @@
 	var/turf/U = get_step(user, user.dir)
 	if(!istype(U) || !istype(T))
 		return FALSE
-	var/projectile_type = possible_projectiles[projectile_number]
+	var/projectile_type = projectiles_icons[projectiles_icons[selected_projectile]]
 	var/obj/item/projectile/proj = new projectile_type(T)
 	proj.current = get_turf(user)
 	proj.original = target
@@ -36,13 +36,7 @@
 
 
 /obj/effect/proc_holder/spell/watchers_look/AltClick(mob/user)
-	projectile_number = (projectile_number % 3) + 1
-	switch(projectile_number)
-		if(1)
-			action.background_icon_state = "bg_default"
-		if(2)
-			action.background_icon_state = "bg_demon"
-		if(3)
-			action.background_icon_state = "bg_spell_old"
-
+	//switch to next type of projectile and update action's icon
+	selected_projectile = selected_projectile % length(projectiles_icons) + 1
+	action.button_icon_state = projectiles_icons[selected_projectile]
 	action.UpdateButtonIcon()
