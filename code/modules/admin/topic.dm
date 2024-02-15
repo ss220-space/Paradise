@@ -1834,13 +1834,17 @@
 
 	else if(href_list["makePAI"])
 		if(!check_rights(R_SPAWN))	return
-
+		var/bespai = FALSE
 		var/mob/living/carbon/human/H = locate(href_list["makePAI"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(alert(usr, "Confirm make pAI?",,"Yes","No") != "Yes")
+
+		if(alert(usr, "Confirm make pAI?",,"Yes","No") == "No")
 			return
+
+		if(alert(usr, "pAI or SpAI?",,"pAI","SpAI") == "SpAI")
+			bespai = TRUE
 
 		var/painame = "Default"
 		var/name = ""
@@ -1853,7 +1857,7 @@
 			name = painame
 
 		log_and_message_admins("pAIzed [key_name(H)]")
-		H.paize(name)
+		H.paize(name, bespai)
 
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN))

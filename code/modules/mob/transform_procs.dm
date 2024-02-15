@@ -184,7 +184,7 @@
 
 	qdel(src)
 
-/mob/living/carbon/human/proc/paize(var/name)
+/mob/living/carbon/human/proc/paize(var/name, var/bespai)
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
@@ -194,12 +194,17 @@
 	canmove = 0
 	icon = null
 	invisibility = 101
+	var/obj/item/paicard/card
 
-	var/obj/item/paicard/card = new(loc)
+	if(bespai)
+		card = new /obj/item/paicard/syndicate(loc)
+
+	else
+		card = new /obj/item/paicard(loc)
+
 	var/mob/living/silicon/pai/pai = new(card)
 	pai.key = key
 	card.setPersonality(pai)
-
 	pai.name = name
 	pai.real_name = name
 	card.name = name
