@@ -127,7 +127,7 @@
 				/obj/item/relic = 35,
 				/obj/item/weaponcrafting/revolverbarrel = 3,
 				/obj/item/weaponcrafting/revolverbarrel/steel = 2,
-				/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver/steel = 2,
+				/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel = 2,
 				/obj/item/weaponcrafting/receiver = 2,
 				/obj/item/clothing/gloves/knuckles = 1,
 				/obj/item/clothing/shoes/brown = 30,

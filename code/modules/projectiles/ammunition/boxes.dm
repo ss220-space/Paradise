@@ -251,7 +251,7 @@
 	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon()
 	icon_prefix = "357" // icon prefix, used in above formula to generate dynamic icons
 
-/obj/item/ammo_box/speedloader/improvisedrevolver
+/obj/item/ammo_box/speedloader/improvised
 	name = "makeshift speedloader"
 	desc = "Speedloader made from shit and sticks."
 	ammo_type = null
@@ -259,14 +259,14 @@
 	max_ammo = 4
 	caliber = ".257"
 
-/obj/item/ammo_box/speedloader/improvisedrevolver/update_icon()
-	overlays.Cut()
+/obj/item/ammo_box/speedloader/improvised/update_overlays()
+	. = ..()
 
 	for(var/i = 1 to length(stored_ammo))
 		var/obj/item/ammo_casing/ammo = stored_ammo[i]
 		var/icon/new_ammo_icon = icon('icons/obj/weapons/ammo.dmi', ammo.icon_state)
 		new_ammo_icon.Shift((i in list(2, 3)) ? 8 / RaiseToPower(2, round(i-2, 2)) : i, ISODD(i) ? 4 : 2)
-		overlays += new_ammo_icon
+		. += new_ammo_icon
 
 /obj/item/ammo_box/speedloader/c38
 	name = "speed loader (.38)"
@@ -291,6 +291,7 @@
 	name = "shotgun speedloader"
 	desc = "Designed to quickly reload shotguns."
 	icon_state = "shotgunloader"
+	icon_prefix = "shotgunloader"
 	origin_tech = "combat=2"
 	caliber = ".12"
 	max_ammo = 7
@@ -300,8 +301,6 @@
 /obj/item/ammo_box/speedloader/shotgun/New()
 	. = ..()
 	name = "shotgun speedloader"
-	icon_state = "shotgunloader"
-
 
 /obj/item/ammo_box/speedloader/shotgun/update_overlays()
 	. = ..()

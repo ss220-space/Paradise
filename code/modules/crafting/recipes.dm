@@ -314,7 +314,7 @@
 
 /datum/crafting_recipe/irevolver
 	name = "Improvised Revolver"
-	result = /obj/item/gun/projectile/revolver/improvisedrevolver
+	result = /obj/item/gun/projectile/revolver/improvised
 	reqs = list(/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/stack/sheet/wood = 2,
 				/obj/item/stack/sheet/metal = 3,
@@ -1401,7 +1401,7 @@
 
 /datum/crafting_recipe/makeshift_speedloader
 	name = "Makeshift Speedloader"
-	result = /obj/item/ammo_box/speedloader/improvisedrevolver
+	result = /obj/item/ammo_box/speedloader/improvised
 	time = 5 SECONDS
 	reqs = list(/obj/item/c_tube = 4,
 				/obj/item/stack/packageWrap = 10,

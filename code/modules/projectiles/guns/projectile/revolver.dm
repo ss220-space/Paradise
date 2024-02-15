@@ -309,7 +309,7 @@
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
-/obj/item/gun/projectile/revolver/improvisedrevolver
+/obj/item/gun/projectile/revolver/improvised
 	name = "improvised revolver"
 	desc = "Weapon for crazy fun with friends."
 	icon_state = "irevolver"
@@ -319,12 +319,12 @@
 	var/unscrewed = TRUE
 	var/obj/item/weaponcrafting/revolverbarrel/barrel
 
-/obj/item/gun/projectile/revolver/improvisedrevolver/New()
+/obj/item/gun/projectile/revolver/improvised/New()
 	..()
 	barrel = new	// I just want it to spawn with barrel.
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/revolver/improvisedrevolver/update_overlays()
+/obj/item/gun/projectile/revolver/improvised/update_overlays()
 	. = ..()
 	if(magazine)
 		. +=  icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
@@ -335,7 +335,7 @@
 			barrel_icon.Shift(WEST, 5)
 		. +=  barrel_icon
 
-/obj/item/gun/projectile/revolver/improvisedrevolver/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/revolver/improvised/afterattack(atom/target, mob/living/user, flag, params)
 	if(unscrewed)
 		shoot_with_empty_chamber()
 	else if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
@@ -345,7 +345,7 @@
 		user.visible_message(span_dangerbigger("*CRACK*"))
 		playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
 
-/obj/item/gun/projectile/revolver/improvisedrevolver/proc/radial_menu(mob/user)
+/obj/item/gun/projectile/revolver/improvised/proc/radial_menu(mob/user)
 	var/list/choices = list()
 
 	if(barrel)
@@ -372,12 +372,12 @@
 	playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/revolver/improvisedrevolver/attack_hand(mob/user)
+/obj/item/gun/projectile/revolver/improvised/attack_hand(mob/user)
 	if(loc == user && unscrewed)
 		radial_menu(user)
 	else ..()
 
-/obj/item/gun/projectile/revolver/improvisedrevolver/screwdriver_act(mob/user, obj/item/I)
+/obj/item/gun/projectile/revolver/improvised/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
@@ -388,9 +388,9 @@
 		unscrewed = !unscrewed
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/revolver/improvisedrevolver/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/improvised/attackby(obj/item/A, mob/user, params)
 	if(unscrewed)
-		if(istype(A, /obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver))
+		if(istype(A, /obj/item/ammo_box/magazine/internal/cylinder/improvised))
 			if(magazine)
 				to_chat(user, span_notice("[src] already have [magazine]."))
 			else if(user.drop_transfer_item_to_loc(A, src))

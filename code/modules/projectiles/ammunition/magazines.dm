@@ -81,7 +81,7 @@
 	caliber = ".36"
 	max_ammo = 6
 
-/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver
+/obj/item/ammo_box/magazine/internal/cylinder/improvised
 	name = "improvised bullet cylinder"
 	desc = "A roughly made revolver cylinder."
 	icon = 'icons/obj/improvised.dmi'
@@ -90,17 +90,17 @@
 	caliber = list(".257")
 	max_ammo = 4
 
-/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver/Initialize(mapload)
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/Initialize(mapload)
 	..()
 	if(!ammo_type)
 		stored_ammo = new(max_ammo)
 
-/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver/ammo_suitability(obj/item/ammo_casing/bullet)
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/bullet)
 	if(!bullet || !(bullet.caliber in caliber))
 		return FALSE
 	return TRUE
 
-/obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver/steel
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
 	name = "steel bullet cylinder"
 	desc = "High quality steel revolver cylinder with increased amount of bullets."
 	icon = 'icons/obj/improvised.dmi'
