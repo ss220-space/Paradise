@@ -1793,6 +1793,17 @@
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	can_discount = FALSE
 
+/datum/uplink_item/device_tools/ion_caller
+	name = "Low Orbit Ion Cannon Remote"
+	desc = "The Syndicate has recently installed a remote satellite nearby capable of generating a localized ion storm every 20 minutes. \
+			However, your local authorities will be informed of your general location when it is activated."
+	item = /obj/item/ion_caller
+	limited_stock = 1	// Might be too annoying if someone had mulitple.
+	cost = 30
+	surplus = 10
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"
 	desc = "The Syndicate Detonator is a companion device to the Syndicate Bomb. Simply press the included button and an encrypted radio frequency will instruct all live syndicate bombs to detonate. \
