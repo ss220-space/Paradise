@@ -40,6 +40,24 @@
 
 	return TRUE
 
+//sets charge_check = FALSE so that you can cancel spell while it's charging
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/can_cast(mob/user, charge_check = FALSE, show_message)
+	. = ..()
+
+//sets charge_check = FALSE so that you can cancel spell while it's charging
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/Click()
+	if(cast_check(FALSE, FALSE, usr))
+		choose_targets(usr)
+	return TRUE
+
+//removes line (user.changeNext_click(CLICK_CD_CLICK_ABILITY)) in parent proc to quick toggle spell
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/InterceptClickOn(mob/user, params, atom/target)
+	if(user.ranged_ability != src)
+		to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been disabled."))
+		user.ranged_ability.remove_ranged_ability(user)
+	else
+		targeting.InterceptClickOn(user, params, target, src)
+
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/after_cast(list/targets, mob/user)
 	. = ..()
 	if(should_remove_click_intercept(user))
