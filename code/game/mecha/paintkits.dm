@@ -325,7 +325,7 @@
 	desc = "A kit containing all the needed tools and parts to show that Durand it is the property of NT"
 
 	new_name = "NT Special Durand"
-	new_icon = "nrdurand"
+	new_icon = "ntrdurand"
 	allowed_types = list("durand")
 
 /obj/item/paintkit/ripley_nt
