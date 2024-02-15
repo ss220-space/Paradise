@@ -1339,6 +1339,14 @@
 				/obj/item/toy/crayon/spraycan = 1)
 	category = CAT_MISC
 
+/datum/crafting_recipe/ntlockerpaint
+	name = "NT Special Mech Paintkit"
+	result = /obj/item/paintkit/lockermech_nt
+	time = 35
+	reqs = list(/obj/item/stack/sheet/cardboard = 5,
+				/obj/item/toy/crayon/spraycan = 1)
+	category = CAT_MISC
+
 /datum/crafting_recipe/stacklifter
 	name = "The weight stacklifter"
 	result = /obj/structure/weightmachine/stacklifter
