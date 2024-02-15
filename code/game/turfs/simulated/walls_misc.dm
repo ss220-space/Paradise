@@ -8,6 +8,7 @@
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
+	var/holy = FALSE
 
 /turf/simulated/wall/cult_fake
 	name = "runed metal wall"
@@ -20,12 +21,18 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult_fake
 
+
 /turf/simulated/wall/cult/Initialize(mapload)
 	. = ..()
-	if(SSticker.mode)//game hasn't started offically don't do shit..
-		new /obj/effect/temp_visual/cult/turf(src)
-		if(!icon_state == "holy")
-			icon_state = SSticker.cultdat.cult_wall_icon_state
+	update_icon(UPDATE_ICON_STATE)
+
+
+/turf/simulated/wall/cult/update_icon_state()
+	if(SSticker?.cultdat && !holy)
+		icon_state = SSticker.cultdat.cult_wall_icon_state
+		return
+	icon_state = initial(icon_state)
+
 
 /turf/simulated/wall/cult_fake/Initialize(mapload)
 	. = ..()
@@ -42,6 +49,7 @@
 	icon_state = "holy"
 	sheet_type = /obj/item/stack/sheet/metal
 	girder_type = /obj/structure/girder
+	holy = TRUE
 
 /turf/simulated/wall/cult/artificer/break_wall()
 	new /obj/effect/temp_visual/cult/turf(get_turf(src))

@@ -73,11 +73,9 @@
 		new buildstacktype(loc, buildstackamount)
 	..()
 
-/obj/structure/chair/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || has_buckled_mobs() || anchored)
-			return
+
+/obj/structure/chair/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(over_object == usr && ishuman(usr) && item_chair && !anchored && !has_buckled_mobs() && usr.Adjacent(src))
 		if(usr.incapacitated())
 			to_chat(usr, span_warning("You can't do that right now!"))
 			return
@@ -87,13 +85,18 @@
 		if(usr.get_active_hand() && usr.get_inactive_hand())
 			to_chat(usr, span_warning("You try to grab the chair, but your hands are already full!"))
 			return
-		if(!ishuman(usr))
-			return
-		usr.visible_message(span_notice("[usr] grabs \the [src]."), span_notice("You grab \the [src]."))
-		var/C = new item_chair(drop_location())
-		usr.put_in_hands(C, ignore_anim = FALSE)
-		transfer_fingerprints_to(C)
+		usr.visible_message(
+			span_notice("[usr] grabs [src]."),
+			span_notice("You grab [src]."),
+		)
+		var/new_chair = new item_chair(drop_location())
+		transfer_fingerprints_to(new_chair)
+		usr.put_in_hands(new_chair, ignore_anim = FALSE)
 		qdel(src)
+		return FALSE
+
+	return ..()
+
 
 /obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
@@ -101,12 +104,13 @@
 	else
 		rotate()
 
+
 /obj/structure/chair/proc/handle_rotation(direction)
 	handle_layer()
 	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
+		for(var/mob/living/buckled_mob as anything in buckled_mobs)
 			buckled_mob.setDir(direction)
+
 
 /obj/structure/chair/proc/handle_layer()
 	if(has_buckled_mobs() && dir == NORTH)
@@ -114,40 +118,51 @@
 	else
 		layer = OBJ_LAYER
 
+
 /obj/structure/chair/post_buckle_mob(mob/living/M)
 	. = ..()
 	handle_layer()
+
 
 /obj/structure/chair/post_unbuckle_mob()
 	. = ..()
 	handle_layer()
 
+
 /obj/structure/chair/setDir(newdir)
 	..()
 	handle_rotation(newdir)
 
-/obj/structure/chair/verb/rotate()
+
+/obj/structure/chair/examine(mob/user)
+	. = ..()
+	. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
+
+
+/obj/structure/chair/proc/rotate(mob/living/user)
+	if(user)
+		if(isobserver(user))
+			if(!CONFIG_GET(flag/ghost_interaction))
+				return FALSE
+		else if(!isliving(user) || user.incapacitated() || user.restrained() || !Adjacent(user))
+			return FALSE
+
+	setDir(turn(dir, 90))
+	handle_rotation()
+	return TRUE
+
+
+/obj/structure/chair/AltClick(mob/living/user)
+	rotate(user)
+
+
+/obj/structure/chair/verb/rotate_chair()
 	set name = "Rotate Chair"
 	set category = "Object"
 	set src in oview(1)
 
-	if(CONFIG_GET(flag/ghost_interaction))
-		add_fingerprint(usr)
-		setDir(turn(dir, 90))
-		handle_rotation()
-		return
+	rotate(usr)
 
-	if(usr.incapacitated())
-		return
-
-	add_fingerprint(usr)
-	setDir(turn(dir, 90))
-	handle_rotation()
-
-/obj/structure/chair/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	rotate()
 
 // CHAIR TYPES
 
@@ -288,7 +303,7 @@
 	anchored = TRUE
 	item_chair = null
 	comfort = 0.6
-	var/image/armrest = null
+	var/mutable_appearance/armrest
 
 /obj/structure/chair/sofa/Initialize(mapload)
 	armrest = GetArmrest()

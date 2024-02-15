@@ -485,7 +485,7 @@
 	return ..()
 
 
-/obj/effect/proc_holder/spell/fireball/hulk_spit/update_icon()
+/obj/effect/proc_holder/spell/fireball/hulk_spit/update_icon_state()
 	return
 
 

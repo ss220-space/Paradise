@@ -148,7 +148,7 @@
 	icon_state = "nymph"
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 
-/obj/item/organ/internal/heart/diona/update_icon()
+/obj/item/organ/internal/heart/diona/update_icon_state()
 	return
 
 /obj/item/organ/internal/eyes/diona

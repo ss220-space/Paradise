@@ -1,8 +1,8 @@
 /obj/item/paper/syndicate/code_words
 	name = "Code Words"
 
-/obj/item/paper/syndicate/code_words/New()
-	..()
+/obj/item/paper/syndicate/code_words/Initialize(mapload)
+	. = ..()
 
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
@@ -11,7 +11,8 @@
 	info += "<B>Кодовые ответы: </B>[responses]<BR>\n"
 	info += "Используйте слова при общении с потенциальными агентами. В тоже время будьте осторожны, ибо кто угодно может оказаться потенциальным врагом."
 	info_links = info
-	overlays += "paper_words"
+	update_icon()
+
 
 // Space Base Spawners. Исспользуется переделанная копия спавнеров лавалендовских.
 /obj/effect/mob_spawn/human/space_base_syndicate

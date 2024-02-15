@@ -38,35 +38,6 @@
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/garmentbag/hop(src)
 
-/*/obj/structure/closet/secure_closet/hop2 //dont realy need this because of garment bag
-	name = "head of personnel's attire"
-	req_access = list(ACCESS_HOP)
-	icon_state = "hopsecure1"
-	icon_closed = "hopsecure"
-	icon_locked = "hopsecure1"
-	icon_opened = "hopsecureopen"
-	icon_broken = "hopsecurebroken"
-	icon_off = "hopsecureoff"
-
-/obj/structure/closet/secure_closet/hop2/populate_contents()
-	new /obj/item/clothing/neck/mantle/head_of_personnel(src)
-	new /obj/item/clothing/neck/cloak/head_of_personnel(src)
-	new /obj/item/clothing/under/dress/dress_hr(src)
-	new /obj/item/clothing/under/lawyer/female(src)
-	new /obj/item/clothing/under/lawyer/black(src)
-	new /obj/item/clothing/under/lawyer/red(src)
-	new /obj/item/clothing/under/lawyer/oldman(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/shoes/leather(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/under/rank/head_of_personnel_whimsy(src)
-	new /obj/item/clothing/under/rank/head_of_personnel_alt(src)
-	new /obj/item/clothing/under/rank/head_of_personnel_f(src)
-	new /obj/item/clothing/suit/hop_jacket(src)
-	new /obj/item/clothing/suit/hop_jacket/female(src)
-*/
-
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
 	req_access = list(ACCESS_HOS)

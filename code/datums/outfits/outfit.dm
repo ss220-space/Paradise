@@ -87,9 +87,9 @@
 		equip_item(H, suit_store, slot_s_store)
 
 	if(l_hand)
-		H.put_in_l_hand(new l_hand(H))
+		H.equip_to_slot_if_possible(new l_hand(H.loc), slot_l_hand, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE)
 	if(r_hand)
-		H.put_in_r_hand(new r_hand(H))
+		H.equip_to_slot_if_possible(new r_hand(H.loc), slot_r_hand, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE)
 
 	if(pda)
 		equip_item(H, pda, slot_wear_pda)

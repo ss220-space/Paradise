@@ -189,6 +189,9 @@ Difficulty: Medium
 		if(ismineralturf(t))
 			var/turf/simulated/mineral/M = t
 			M.attempt_drill(src)
+		if(iswallturf(t))
+			var/turf/simulated/wall/W = t
+			W.thermitemelt(time = 1 SECONDS)
 		for(var/mob/living/M in t)
 			if(faction_check(M.faction, faction, FALSE))
 				continue

@@ -23,5 +23,11 @@
 	return ..() // Fallback if we don't have a species or DNA
 
 
+/mob/living/carbon/human/has_vision(information_only = FALSE)
+	if(dna?.species)
+		return dna.species.has_vision(src, information_only)
+	return ..()
+
+
 /mob/living/carbon/human/check_death_method()
 	return dna.species.dies_at_threshold

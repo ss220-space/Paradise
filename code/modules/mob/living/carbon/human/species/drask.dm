@@ -69,6 +69,8 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/drask,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/drask
+
 	disliked_food = SUGAR | GROSS
 	liked_food = DAIRY
 

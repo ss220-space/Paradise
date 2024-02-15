@@ -726,7 +726,7 @@
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		return 1
 
-/obj/spacepod/MouseDrop_T(atom/A, mob/user)
+/obj/spacepod/MouseDrop_T(atom/A, mob/user, params)
 	if(user == pilot || (user in passengers))
 		return
 

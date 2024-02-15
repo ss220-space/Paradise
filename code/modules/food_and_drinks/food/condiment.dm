@@ -304,19 +304,36 @@
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			qdel(src)
 
-/obj/item/reagent_containers/food/condiment/pack/on_reagent_change()
-	if(reagents.reagent_list.len > 0)
+
+/obj/item/reagent_containers/food/condiment/pack/update_desc(updates = ALL)
+	. = ..()
+	if(length(reagents.reagent_list))
+		var/main_reagent = reagents.get_master_reagent_id()
+		if(main_reagent in possible_states)
+			var/list/temp_list = possible_states[main_reagent]
+			desc = temp_list[3]
+		else
+			desc = "A small condiment pack. The label says it contains [originalname]."
+	else
+		desc = "A small condiment pack. It is empty."
+
+
+/obj/item/reagent_containers/food/condiment/pack/update_icon_state()
+	. = ..()
+	if(length(reagents.reagent_list))
 		var/main_reagent = reagents.get_master_reagent_id()
 		if(main_reagent in possible_states)
 			var/list/temp_list = possible_states[main_reagent]
 			icon_state = temp_list[1]
-			desc = temp_list[3]
 		else
 			icon_state = "condi_mixed"
-			desc = "A small condiment pack. The label says it contains [originalname]."
 	else
 		icon_state = "condi_empty"
-		desc = "A small condiment pack. It is empty."
+
+
+/obj/item/reagent_containers/food/condiment/pack/on_reagent_change()
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+
 
 //Ketchup
 /obj/item/reagent_containers/food/condiment/pack/ketchup

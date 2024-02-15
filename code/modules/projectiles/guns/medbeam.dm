@@ -15,8 +15,8 @@
 
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/medbeam/New()
-	..()
+/obj/item/gun/medbeam/Initialize()
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/gun/medbeam/Destroy()

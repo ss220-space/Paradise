@@ -10,7 +10,7 @@
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_NONE
 	var/draw_sound = 'sound/weapons/draw_bow.ogg'
-	var/ready_to_fire = 0
+	var/ready_to_fire = FALSE
 	var/slowdown_when_ready = 2
 
 /obj/item/gun/projectile/bow/ashen //better than wooden
@@ -23,20 +23,25 @@
 	force = 10
 	slowdown_when_ready = 1
 
-/obj/item/gun/projectile/bow/update_icon()
+
+/obj/item/gun/projectile/bow/update_icon_state()
 	if(magazine.ammo_count() && !ready_to_fire)
 		icon_state = "[initial(icon_state)]_loaded"
 	else if(ready_to_fire)
 		icon_state = "[initial(icon_state)]_firing"
-		slowdown = slowdown_when_ready
 	else
 		icon_state = initial(icon_state)
-		slowdown = initial(slowdown)
+
+
+/obj/item/gun/projectile/bow/proc/update_slowdown()
+	slowdown = ready_to_fire ? slowdown_when_ready : initial(slowdown)
+
 
 /obj/item/gun/projectile/bow/dropped(mob/user, silent = FALSE)
 	if(magazine && magazine.ammo_count())
 		magazine.empty_magazine()
 		ready_to_fire = FALSE
+		update_slowdown()
 		update_icon()
 
 	. = ..()
@@ -45,10 +50,10 @@
 	if(!ready_to_fire && magazine.ammo_count())
 		ready_to_fire = TRUE
 		playsound(user, draw_sound, 100, 1)
-		update_icon()
 	else
 		ready_to_fire = FALSE
-		update_icon()
+	update_slowdown()
+	update_icon()
 
 /obj/item/gun/projectile/bow/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby(A, user, params, 1)
@@ -68,6 +73,7 @@
 /obj/item/gun/projectile/bow/process_chamber(eject_casing = 0, empty_chamber = 1)
 	. = ..()
 	ready_to_fire = FALSE
+	update_slowdown()
 	update_icon()
 
 // ammo
@@ -134,8 +140,8 @@
 		new /obj/item/ammo_casing/caseless/arrow(src)
 	update_icon()
 
-/obj/item/storage/backpack/quiver/update_icon()
-	if(length(contents) > 0)
+/obj/item/storage/backpack/quiver/update_icon_state()
+	if(length(contents))
 		icon_state = "quiver_[clamp(length(contents),1,5)]"
 	else
 		icon_state = initial(icon_state)

@@ -41,7 +41,7 @@
 		active = TRUE
 	else
 		visible_message(span_warning("Error: Another core is already active in this sector. Power-up cancelled due to radio interference."))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * Destructor for the core.
@@ -158,7 +158,7 @@
 		if(C.active)
 			if(C.stat & NOPOWER)	// If another core has no power but is supposed to be on, we shut it down so we can continue.
 				C.active = FALSE	// Since only one active core is allowed per z level, give priority to the one actually working.
-				C.update_icon()
+				C.update_icon(UPDATE_ICON_STATE)
 			else
 				return FALSE
 	// If we got here there isnt an active core on this Z-level. So return true
@@ -231,7 +231,7 @@
 		if("toggle_active")
 			if(check_power_on())
 				active = !active
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 			else
 				to_chat(usr, span_warning("Error: Another core is already active in this sector. Power-up cancelled due to radio interference."))
 

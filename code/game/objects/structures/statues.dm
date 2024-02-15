@@ -409,15 +409,11 @@
 	var/lit = 0
 	layer = EDGED_TURF_LAYER
 
-/obj/structure/statue/unknown/Destroy()
-	return ..()
 
-/obj/structure/statue/unknown/update_icon()
-	if(lit)
-		lit = 1
-		icon_state = "unknown_lit"
-	else
-		icon_state = "unknown"
+/obj/structure/statue/unknown/update_icon_state()
+	icon_state = "unknown[lit ? "_lit" : ""]"
+
+
 
 /obj/structure/statue/unknown/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W))
@@ -425,29 +421,33 @@
 		return
 	return ..()
 
+
 /obj/structure/statue/unknown/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0))
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
+
 
 /obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
 		light()
 	return ..()
 
+
 /obj/structure/statue/unknown/proc/light(show_message)
 	if(!lit)
-		lit = 1
+		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
 		set_light(CANDLE_LUM)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/structure/statue/unknown/attack_hand(mob/user)
 	if(lit)
 		user.visible_message(span_notice("[user] snuffs out [src]."))
-		lit = 0
-		update_icon()
+		lit = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		set_light(0)
 
 ////////////////////////////////

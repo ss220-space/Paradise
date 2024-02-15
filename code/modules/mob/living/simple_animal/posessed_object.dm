@@ -168,4 +168,3 @@
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
 	return ..(NONE)
-

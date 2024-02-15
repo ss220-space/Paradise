@@ -332,13 +332,11 @@
 	icon_state = "grass1"
 	floor_tile = /obj/item/stack/tile/grass
 
-/turf/simulated/floor/holofloor/grass/New()
-	..()
-	spawn(1)
-		update_icon()
+/turf/simulated/floor/holofloor/grass/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), 0.1 SECONDS)
 
-/turf/simulated/floor/holofloor/grass/update_icon()
-	..()
+/turf/simulated/floor/holofloor/grass/update_icon_state()
 	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
 		icon_state = "grass[pick("1","2","3","4")]"
 
@@ -463,18 +461,22 @@
 	..()
 	item_color = pick("red","blue","green","purple")
 
+
+/obj/item/holo/esword/update_icon_state()
+	icon_state = active ? "sword[item_color]" : "sword0"
+
+
 /obj/item/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
+	update_icon(UPDATE_ICON_STATE)
 	if(active)
 		force = 30
-		icon_state = "sword[item_color]"
 		hitsound = "sound/weapons/blade1.ogg"
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
-		icon_state = "sword0"
 		hitsound = "swing_hit"
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
@@ -594,7 +596,7 @@
 	add_fingerprint(user)
 	ready = !ready
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/numbuttons = 0
 	var/numready = 0
@@ -606,11 +608,9 @@
 	if(numbuttons == numready)
 		begin_event()
 
-/obj/machinery/readybutton/update_icon()
-	if(ready)
-		icon_state = "auth_on"
-	else
-		icon_state = "auth_off"
+/obj/machinery/readybutton/update_icon_state()
+	icon_state = ready ? "auth_on" : "auth_off"
+
 
 /obj/machinery/readybutton/proc/begin_event()
 	eventstarted = 1

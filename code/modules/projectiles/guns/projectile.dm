@@ -10,24 +10,50 @@
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
 
-/obj/item/gun/projectile/New()
-	..()
+
+/obj/item/gun/projectile/Initialize(mapload)
+	. = ..()
 	if(!magazine)
 		magazine = new mag_type(src)
 	chamber_round()
+	update_weight()
 	update_icon()
-	return
 
-/obj/item/gun/projectile/update_icon()
-	..()
+
+/obj/item/gun/projectile/update_name(updates = ALL)
+	. = ..()
+	if(sawn_state)
+		name = "sawn-off [name]"
+	else
+		name = initial(name)
+
+
+/obj/item/gun/projectile/update_desc(updates = ALL)
+	. = ..()
+	if(sawn_state)
+		desc = sawn_desc
+	else
+		desc = initial(desc)
+
+
+/obj/item/gun/projectile/update_icon_state()
 	if(current_skin)
-		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
-	if(bayonet && can_bayonet)
-		overlays += knife_overlay
 
-/obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
+
+/obj/item/gun/projectile/update_overlays()
+	. = ..()
+	if(bayonet && knife_overlay)
+		. += knife_overlay
+
+
+/obj/item/gun/proc/update_weight()
+	return
+
+
+/obj/item/gun/projectile/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(isnull(AC) || !istype(AC))
 		chamber_round()
@@ -35,7 +61,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.casing_drop_sound, 100, 1)
+		playsound(src, chambered.casing_drop_sound, 100, TRUE)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -50,24 +76,26 @@
 	return
 
 /obj/item/gun/projectile/can_shoot()
-	if(!magazine || !magazine.ammo_count(0))
-		return 0
-	return 1
+	if(!magazine || !magazine.ammo_count(FALSE))
+		return FALSE
+	return TRUE
 
 /obj/item/gun/projectile/proc/can_reload()
 	return !magazine
 
-/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)
-		user.drop_item_ground(AM)
-		magazine = AM
-		magazine.loc = src
-		playsound(src, magin_sound, 50, 1)
-		chamber_round()
-		AM.update_icon()
-		update_icon()
-		return
 
-/obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user)
+	user.drop_item_ground(AM)
+	magazine = AM
+	magazine.loc = src
+	playsound(src, magin_sound, 50, 1)
+	chamber_round()
+	update_weight()
+	AM.update_icon()
+	update_icon()
+
+
+/obj/item/gun/projectile/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -129,13 +157,14 @@
 			return
 	..()
 
-/obj/item/gun/projectile/attack_self(mob/living/user as mob)
+/obj/item/gun/projectile/attack_self(mob/living/user)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)
 		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
 		magazine.update_icon()
 		magazine = null
+		update_weight()
 		to_chat(user, "<span class='notice'>You pull the magazine out of \the [src]!</span>")
 		playsound(src, magout_sound, 50, 1)
 	else if(chambered)
@@ -153,12 +182,12 @@
 	. = ..()
 	. += "<span class='notice'>Has [get_ammo()] round\s remaining.</span>"
 
-/obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
+/obj/item/gun/projectile/proc/get_ammo(countchambered = TRUE, countempties = TRUE)
 	var/boolets = 0 //mature var names for mature people
 	if(chambered && countchambered)
 		boolets++
 	if(magazine)
-		boolets += magazine.ammo_count()
+		boolets += magazine.ammo_count(countempties)
 	return boolets
 
 /obj/item/gun/projectile/suicide_act(mob/user)
@@ -192,19 +221,17 @@
 		user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
 		return
 
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, target = src))
 		if(sawn_state == SAWN_OFF)
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
-		name = "sawn-off [name]"
-		desc = sawn_desc
 		w_class = WEIGHT_CLASS_NORMAL
 		item_state = "gun"//phil235 is it different with different skin?
 		slot_flags &= ~SLOT_BACK	//you can't sling it on your back
 		slot_flags |= SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF
-		update_icon()
-		return 1
+		update_appearance()
+		return TRUE
 
 // Sawing guns related proc
 /obj/item/gun/projectile/proc/blow_up(mob/user)

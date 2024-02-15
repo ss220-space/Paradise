@@ -8,7 +8,7 @@
 	anchored = 1
 	var/operating = 0 //Is it on?
 	var/dirty = 0 // Does it need cleaning?
-	var/mob/living/occupant // Mob who has been put inside
+	var/mob/living/carbon/human/occupant // Mob who has been put inside
 	var/locked = 0 //Used to prevent mobs from breaking the feedin anim
 
 	var/gib_throw_dir = WEST // Direction to spit meat and gibs in. Defaults to west.
@@ -255,28 +255,19 @@
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
-	var/slab_name = occupant.name
-	var/slab_count = 3
-	var/slab_type = /obj/item/reagent_containers/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
-	var/slab_nutrition = occupant.nutrition / 15
-
-	slab_nutrition /= slab_count
-
-	for(var/i=1 to slab_count)
-		var/obj/item/reagent_containers/food/snacks/meat/new_meat = new slab_type(src)
-		new_meat.name = "[slab_name] [new_meat.name]"
-		new_meat.reagents.add_reagent("nutriment", slab_nutrition)
-
-
-		if(occupant.reagents)
-			occupant.reagents.trans_to(new_meat, round(occupant.reagents.total_volume/slab_count, 1))
+	while(occupant.meatleft > 0)
+		new occupant.dna.species.meat_type(src, occupant)
+		occupant.meatleft--
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
 		var/skinned = H.dna.species.skinned_type
+		if(ismachineperson(H))
+			new /obj/effect/gibspawner/robot(src)
+		else if(!isplasmaman(H) && !isnucleation(H) && !isgolem(H))
+			new /obj/effect/gibspawner(src, H.dna)
 		if(skinned)
 			new skinned(src)
-	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
 		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey ? ATKLOG_FEW : ATKLOG_ALL)
