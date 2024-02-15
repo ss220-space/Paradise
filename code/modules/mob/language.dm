@@ -30,20 +30,35 @@
 */
 
 /datum/language
-	var/name = "an unknown language"			// Fluff name of language if any.
-	var/desc = "A language."					// Short description for 'Check Languages'.
-	var/speech_verb = "says"					// 'says', 'hisses', 'farts'.
-	var/ask_verb = "asks"						// Used when sentence ends in a ?
-	var/list/exclaim_verbs = list("exclaims")	// Used when sentence ends in a !
-	var/whisper_verb							// Optional. When not specified speech_verb + quietly/softly is used instead.
-	var/colour = "body"							// CSS style to use for strings in this language.
-	var/key = "key"								// Character used to speak in language eg. :un for Unathi.
-	var/flags = 0								// Various language flags.
-	var/native									// If set, non-native speakers will have trouble speaking.
-	var/list/syllables							// Used when scrambling text for a non-speaker.
-	var/list/space_chance = 55					// Likelihood of getting a space in the random scramble string.
-	var/follow = 0								// Applies to HIVEMIND languages - should a follow link be included for dead mobs?
-	var/english_names = 0						// Do we want English names by default, no matter what?
+	/// Fluff name of language if any.
+	var/name = "an unknown language"
+	/// Short description for 'Check Languages'.
+	var/desc = "A language."
+	/// 'says', 'hisses', 'farts'.
+	var/speech_verb = "says"
+	/// Used when sentence ends in a '?'.
+	var/ask_verb = "asks"
+	/// Used when sentence ends in a '!'.
+	var/list/exclaim_verbs = list("exclaims")
+	/// Optional. When not specified speech_verb + quietly/softly is used instead.
+	var/whisper_verb
+	/// CSS style to use for strings in this language.
+	var/colour = "body"
+	/// Character used to speak in language eg. '"un"' for Unathi.
+	var/key = "key"
+	/// Various language flags.
+	var/flags = 0
+	/// If set, non-native speakers will have trouble speaking.
+	var/native
+	/// Used when scrambling text for a non-speaker.
+	var/list/syllables
+	/// Likelihood of getting a space in the random scramble string.
+	var/list/space_chance = 55
+	/// Applies to HIVEMIND languages - should a follow link be included for dead mobs?
+	var/follow = FALSE
+	/// Do we want English names by default, no matter what?
+	var/english_names = FALSE
+	/// List that saves sentences spoken in this language, so as not to generate different scrambles of syllables for the same sentences.
 	var/list/scramble_cache = list()
 	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
 	var/join_override
@@ -79,20 +94,20 @@
 
 	var/input_size = length(input)
 	var/scrambled_text = ""
-	var/capitalize = 1
+	var/capitalize = TRUE
 
 	while(length(scrambled_text) < input_size)
 		var/next = pick(syllables)
 		if(capitalize)
 			next = capitalize(next)
-			capitalize = 0
+			capitalize = FALSE
 		scrambled_text += next
 		var/chance = rand(100)
 		if(join_override)
 			scrambled_text += join_override
 		else if(chance <= 5)
 			scrambled_text += ". "
-			capitalize = 1
+			capitalize = TRUE
 		else if(chance > 5 && chance <= space_chance)
 			scrambled_text += " "
 
@@ -428,7 +443,7 @@
 	key = "gc"
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
-	english_names = 1
+	english_names = TRUE
 
 /datum/language/human
 	name = "Sol Common"
@@ -440,7 +455,7 @@
 	key = "sc"
 	flags = RESTRICTED
 	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
-	english_names = 1
+	english_names = TRUE
 
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
@@ -488,7 +503,7 @@
 	colour = "com_srus"
 	key = "nr"
 	space_chance = 65
-	english_names = 1
+	english_names = TRUE
 	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
 					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
 					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
