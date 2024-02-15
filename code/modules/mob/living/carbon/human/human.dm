@@ -1028,7 +1028,7 @@
 	else if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
-	// affecting.open = 2 after scalpel->hemostat->retractor, sorry im too lazy to rewrite defines in all places where it is used
+	// affecting.open = 2 after scalpel->hemostat->retractor
 	else if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune && affecting.open < 2)
 		. = FALSE
 	else
