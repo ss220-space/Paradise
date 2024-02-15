@@ -1870,7 +1870,7 @@
 
 /datum/design/paint_ripley_nt
 	name = "Ripley, Firefighter \"NT Special\""
-	id = "p_titan"
+	id = "p_ripleynt"
 	build_type = MECHFAB
 	req_tech = list("combat" = 5, "engineering" = 5, "materials" = 5, "programming" = 5)
 	build_path = /obj/item/paintkit/ripley_nt
