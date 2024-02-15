@@ -273,7 +273,7 @@
 		return TRUE
 
 
-/obj/item/twohanded/dualsaber/update_icon()
+/obj/item/twohanded/dualsaber/update_icon_state()
 	if(active)
 		icon_state = "dualsaber[blade_color]1"
 		set_light(brightness_on, l_color = colormap[blade_color])
