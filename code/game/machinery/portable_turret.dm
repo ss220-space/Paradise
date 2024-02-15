@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
 	if((stat & BROKEN) && !syndicate)
-		if(istype(I, /obj/item/crowbar))
+		if(I.tool_behaviour == TOOL_CROWBAR)
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			to_chat(user, span_notice("You begin prying the metal coverings off."))
@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, span_notice("You remove the turret but did not manage to salvage anything."))
 				qdel(src) // qdel
 
-	else if((istype(I, /obj/item/wrench)))
+	else if(I.tool_behaviour == TOOL_WRENCH)
 		if(enabled || raised)
 			to_chat(user, span_warning("You cannot unsecure an active turret!"))
 			return
@@ -807,7 +807,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	//this is a bit unwieldy but self-explanatory
 	switch(build_step)
 		if(0)	//first step
-			if(istype(I, /obj/item/wrench) && !anchored)
+			if(I.tool_behaviour == TOOL_WRENCH && !anchored)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, span_notice("You secure the external bolts."))
@@ -815,7 +815,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				build_step = 1
 				return
 
-			else if(istype(I, /obj/item/crowbar) && !anchored)
+			else if(I.tool_behaviour == TOOL_CROWBAR && !anchored)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, span_notice("You dismantle the turret construction."))
 				new /obj/item/stack/sheet/metal( loc, 5)
@@ -834,7 +834,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, span_warning("You need two sheets of metal to continue construction."))
 				return
 
-			else if(istype(I, /obj/item/wrench))
+			else if(I.tool_behaviour == TOOL_WRENCH)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, span_notice("You unfasten the external bolts."))
@@ -844,7 +844,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 
 		if(2)
-			if(istype(I, /obj/item/wrench))
+			if(I.tool_behaviour == TOOL_WRENCH)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, span_notice("You bolt the metal armor into place."))
@@ -876,7 +876,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				qdel(I) //delete the gun :( qdel
 				return
 
-			else if(istype(I, /obj/item/wrench))
+			else if(I.tool_behaviour == TOOL_WRENCH)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, span_notice("You remove the turret's metal armor bolts."))
@@ -897,7 +897,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//attack_hand() removes the gun
 
 		if(5)
-			if(istype(I, /obj/item/screwdriver))
+			if(I.tool_behaviour == TOOL_SCREWDRIVER)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				build_step = 6
@@ -917,13 +917,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, span_warning("You need two sheets of metal to continue construction."))
 				return
 
-			else if(istype(I, /obj/item/screwdriver))
+			else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				build_step = 5
 				to_chat(user, span_notice("You open the internal access hatch."))
 				return
-			else if(istype(I, /obj/item/crowbar))
+			else if(I.tool_behaviour == TOOL_CROWBAR)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, span_notice("You pry off the turret's exterior armor."))

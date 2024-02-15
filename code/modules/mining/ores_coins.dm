@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 
 	if(wires && !primed)
-		if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/multitool) || istype(I, /obj/item/assembly/signaler))
+		if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL || istype(I, /obj/item/assembly/signaler))
 			wires.Interact(user)
 			return
 
@@ -283,7 +283,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		GibtoniteReaction(user)
 		return
 	if(primed)
-		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool) || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner))
+		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || I.tool_behaviour == TOOL_MULTITOOL || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner))
 			primed = 0
 			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
 			icon_state = "Gibtonite ore"

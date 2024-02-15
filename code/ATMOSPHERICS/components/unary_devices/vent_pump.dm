@@ -348,7 +348,7 @@
 		else
 			to_chat(user, "The vent is welded.")
 		return 1
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, span_danger("You cannot unwrench this [src], turn it off first."))
 			return 1
