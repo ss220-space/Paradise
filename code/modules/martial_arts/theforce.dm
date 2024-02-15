@@ -70,6 +70,7 @@
 	for(var/obj/item/I in view(user))
 		if(is_type_in_list(I, list(/obj/item/melee/energy/sword, /obj/item/twohanded/dualsaber)))
 			sword = I
+			break
 
 	if(!sword)
 		cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
