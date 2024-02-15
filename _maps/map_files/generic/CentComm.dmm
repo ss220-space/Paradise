@@ -690,14 +690,11 @@
 	},
 /area/vox_station)
 "amK" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+	dir = 6;
+	icon_state = "darkyellowaltstrip"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "amV" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/indestructible/vox{
@@ -2076,12 +2073,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
-"aPL" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellowaltstrip"
-	},
-/area/centcom/specops)
 "aQh" = (
 /obj/structure/chair/wheelchair/bike{
 	dir = 8
@@ -2340,6 +2331,9 @@
 /obj/effect/turf_decal/siding/blue/corner{
 	color = "#444444";
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
@@ -3522,7 +3516,7 @@
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6105,7 +6099,7 @@
 	dir = 8;
 	icon_state = "darkyellowaltstrip"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "cKU" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "SFBQMLoad2"
@@ -6153,7 +6147,7 @@
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7230,9 +7224,6 @@
 /obj/item/paper/monitorkey,
 /obj/item/paper/tcommskey,
 /obj/structure/window/reinforced,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/siding{
 	color = "#444444";
 	dir = 8
@@ -9591,7 +9582,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "euF" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -9647,7 +9638,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "evL" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -13778,7 +13769,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "gqv" = (
 /obj/machinery/cryopod{
 	dir = 8
@@ -14713,7 +14704,7 @@
 	},
 /obj/structure/window/reinforced{
 	layer = 3.1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15474,7 +15465,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "hmH" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/indestructible/snow,
@@ -15621,6 +15612,9 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/siding/blue/corner{
 	color = "#444444"
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
@@ -15962,9 +15956,20 @@
 	},
 /area/centcom/zone1)
 "hyo" = (
+/obj/effect/turf_decal/tile/neutral{
+	color = "black";
+	icon_state = "tile_full";
+	layer = 9
+	},
+/obj/effect/step_trigger/teleporter{
+	teleport_x = 175;
+	teleport_y = 61;
+	teleport_z = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellowcornersalt"
+	color = "gray";
+	dir = 8;
+	icon_state = "rampbottom"
 	},
 /area/centcom/specops)
 "hza" = (
@@ -17562,6 +17567,7 @@
 	color = "#444444";
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "itg" = (
@@ -23840,11 +23846,6 @@
 	icon_state = "iron6"
 	},
 /area/syndicate_mothership)
-"ljo" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowalt"
-	},
-/area/centcom/specops)
 "ljs" = (
 /obj/structure/chair/stool/bar,
 /obj/machinery/light{
@@ -23903,7 +23904,7 @@
 	dir = 1;
 	icon_state = "darkyellowaltstrip"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "lks" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/shuttle{
@@ -25239,7 +25240,7 @@
 	name = "Ladder"
 	},
 /obj/effect/step_trigger/teleporter{
-	teleport_x = 202;
+	teleport_x = 203;
 	teleport_y = 41;
 	teleport_z = 1
 	},
@@ -25310,11 +25311,11 @@
 /turf/simulated/floor/fakespace,
 /area/centcom/zone1)
 "lRs" = (
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowalt"
+	icon_state = "dark"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "lRx" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper_bin/nanotrasen{
@@ -25712,7 +25713,7 @@
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 9;
@@ -27673,7 +27674,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "mOP" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
@@ -28349,7 +28350,7 @@
 	dir = 4;
 	icon_state = "darkyellowalt"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "mZo" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
@@ -28813,12 +28814,6 @@
 /obj/structure/coatrack,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/zone1)
-"niF" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellowcornersalt"
-	},
-/area/centcom/specops)
 "niV" = (
 /obj/item/grenade/spawnergrenade/manhacks,
 /turf/simulated/floor/plasteel{
@@ -29396,7 +29391,7 @@
 	layer = 2.9
 	},
 /turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/specops)
+/area/centcom/zone3)
 "nsV" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "SFBQMLoad2"
@@ -30196,7 +30191,7 @@
 	},
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 175;
-	teleport_y = 63;
+	teleport_y = 60;
 	teleport_z = 1
 	},
 /obj/structure/railing{
@@ -31523,7 +31518,7 @@
 	color = "#444444"
 	},
 /turf/simulated/floor/transparent/glass,
-/area/centcom/specops)
+/area/centcom/zone3)
 "oor" = (
 /obj/machinery/door_control/secure{
 	id = "Aspid_deck";
@@ -35781,7 +35776,7 @@
 	dir = 4;
 	icon_state = "darkyellowaltstrip"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "qiR" = (
 /turf/simulated/floor/plating,
 /area/syndicate_mothership)
@@ -40820,7 +40815,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "suc" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo12"
@@ -40945,16 +40940,14 @@
 	},
 /area/shuttle/syndicate_elite)
 "syo" = (
-/obj/effect/turf_decal/siding{
-	color = "#444444";
-	dir = 4
+/obj/effect/decal/warning_stripes/west,
+/obj/structure/window/reinforced{
+	dir = 8;
+	layer = 2.9
 	},
-/obj/effect/turf_decal/siding{
-	color = "#444444";
-	dir = 8
-	},
-/turf/simulated/floor/transparent/glass,
-/area/centcom/specops)
+/obj/structure/window/reinforced,
+/turf/simulated/wall/indestructible/fakeglass,
+/area/centcom/zone3)
 "syr" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
@@ -44332,7 +44325,7 @@
 	},
 /obj/structure/window/reinforced{
 	layer = 3.1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -47375,6 +47368,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48172,7 +48166,7 @@
 	},
 /obj/structure/window/reinforced{
 	layer = 3.1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -48201,7 +48195,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "vxG" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 10;
@@ -48449,7 +48443,7 @@
 "vDP" = (
 /obj/structure/window/reinforced{
 	layer = 3.1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
 	},
 /turf/simulated/floor/wood{
 	icon_state = "light-fancy-wood"
@@ -49608,7 +49602,7 @@
 	dir = 10;
 	icon_state = "darkyellowalt"
 	},
-/area/centcom/specops)
+/area/centcom/zone3)
 "wde" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -50189,8 +50183,12 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pod_1)
 "wsY" = (
-/obj/machinery/vending/nta/ertarmory/consumables,
-/turf/simulated/wall/indestructible/reinforced,
+/obj/machinery/vending/nta/ertarmory/consumables{
+	density = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/centcom/supply)
 "wtj" = (
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -51022,13 +51020,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
-"wOD" = (
-/obj/item/flag/nt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellowalt"
-	},
-/area/centcom/specops)
 "wPq" = (
 /obj/structure/noticeboard{
 	pixel_x = -32
@@ -52709,7 +52700,7 @@
 	},
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 175;
-	teleport_y = 63;
+	teleport_y = 62;
 	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -93742,24 +93733,24 @@ ueN
 bbk
 jny
 kWm
-nAN
-nAN
-nAN
-nAN
+kWm
+kWm
+kWm
+kWm
 nsM
 nsM
-nAN
-nAN
+kWm
+kWm
 evD
 evD
-nAN
-nAN
+kWm
+kWm
 nsM
-vJu
-nAN
-nAN
-nAN
-nAN
+syo
+kWm
+kWm
+kWm
+kWm
 pqb
 vkh
 tGz
@@ -94007,15 +93998,15 @@ nHr
 nHr
 nHr
 nHr
-grD
+uku
 cKK
-lRs
-lRs
-lRs
-lRs
+nHr
+nHr
+nHr
+nHr
 wcM
 euy
-tgn
+lRs
 sub
 pqb
 ont
@@ -94264,15 +94255,15 @@ eZi
 iDM
 iDM
 iDM
-aPL
-aPL
-aPL
-aPL
-aPL
-niF
-ljo
+iDM
+iDM
+iDM
+iDM
+iDM
+ozZ
+ueN
 hmB
-tgn
+lRs
 vxF
 pqb
 ont
@@ -94521,15 +94512,15 @@ fvk
 qJa
 lpP
 lpP
-syo
-syo
-syo
-syo
+lpP
+lpP
+lpP
+lpP
 oop
 lkp
-ljo
-fAg
-fAg
+ueN
+oBC
+oBC
 gqg
 pqb
 reY
@@ -94778,15 +94769,15 @@ weF
 uku
 uku
 uku
-grD
-grD
-grD
-grD
-grD
-hyo
-ljo
+uku
+uku
+uku
+uku
+uku
+gul
+ueN
 euy
-tgn
+lRs
 sub
 pqb
 pqb
@@ -95037,11 +95028,11 @@ fhT
 ufi
 qiO
 qiO
-lgU
-wOD
+ufi
+fhT
 mYY
-lgU
-eCT
+ufi
+amK
 hmB
 mOD
 vxF
@@ -100436,7 +100427,7 @@ ilv
 kZY
 nAN
 qTB
-qTB
+nIR
 qTB
 nAN
 pxR
@@ -101189,7 +101180,7 @@ veQ
 fMQ
 tmp
 xAj
-xAj
+hyo
 nIn
 fMQ
 nIr
@@ -102492,7 +102483,7 @@ fAg
 kZY
 nAN
 gqv
-gqv
+ftP
 gqv
 nAN
 pSN
@@ -103509,9 +103500,9 @@ hHu
 hHu
 hHu
 hHu
-mzs
-mzs
 hHu
+mzs
+mzs
 hHu
 hHu
 fDP
@@ -105565,9 +105556,9 @@ nAN
 nNb
 lFv
 qgi
-qto
-qto
 qgi
+qto
+qto
 qgi
 qgi
 qgi
@@ -110720,7 +110711,7 @@ uzP
 uzP
 uzP
 ocx
-amK
+ssL
 byz
 voV
 voV
@@ -111236,7 +111227,7 @@ hoD
 uSN
 uSN
 iKU
-uWy
+iKU
 nAN
 uWy
 uWy
@@ -111492,9 +111483,9 @@ uSN
 uSN
 uSN
 iKU
-uWy
-uWy
-uWy
+mVX
+mVX
+iKU
 uWy
 uWy
 uWy

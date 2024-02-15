@@ -54,8 +54,6 @@
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
-	glass = 1;
-	id = "0";
 	id_tag = "s_docking_airlock";
 	name = "shuttle airlock"
 	},
@@ -112,8 +110,6 @@
 "y" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
-	glass = 1;
-	id = "0";
 	id_tag = "s_docking_airlock";
 	name = "shuttle airlock"
 	},

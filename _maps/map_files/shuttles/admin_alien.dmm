@@ -512,9 +512,7 @@
 	dir = 4;
 	layer = 2.9
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "tA" = (
 /turf/simulated/wall/shuttle,
@@ -700,9 +698,7 @@
 	dir = 4;
 	layer = 2.9
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "Ay" = (
 /obj/structure/chair/comfy/shuttle{
@@ -826,9 +822,7 @@
 	dir = 4;
 	layer = 2.9
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "Fj" = (
 /obj/structure/alien/weeds,
@@ -904,8 +898,7 @@
 	name = "Shutter control";
 	pixel_x = 5;
 	pixel_y = -23;
-	req_access = list(101);
-	ai_control = 1
+	req_access = list(101)
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/alien/weeds,

@@ -114,9 +114,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "iC" = (
 /obj/structure/chair{
@@ -234,9 +232,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "nU" = (
 /obj/structure/closet{
@@ -952,9 +948,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "SJ" = (
 /obj/structure/table/reinforced,

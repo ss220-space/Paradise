@@ -246,6 +246,9 @@
 	dir = 8;
 	do_not_delete_me = 1
 	},
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "podfloor_dark"
@@ -866,9 +869,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "YE" = (
 /obj/structure/shuttle/engine/heater{
@@ -883,9 +884,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "Zo" = (
 /obj/structure/chair/sofa/corp/corner{
@@ -909,9 +908,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "ZL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
