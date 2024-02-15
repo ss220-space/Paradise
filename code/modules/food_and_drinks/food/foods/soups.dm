@@ -191,3 +191,6 @@
 	list_reagents = list("nutriment" = 5, "frostoil" = 1, "tomatojuice" = 2, "vitamin" = 2)
 	tastes = list("tomato" = 1, "mint" = 1)
 	foodtype = VEGETABLES | MEAT
+////////////////
+/// RAT SOUP ///
+////////////////
