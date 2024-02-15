@@ -311,7 +311,7 @@
 	allowed_types = list("mauler")
 
 /obj/item/paintkit/lockermech_nt
-	name = "Pirate Locker Mech customisation kit"
+	name = "NT Special Locker Mech customisation kit"
 	icon_state = "paintkit_nt1"
 	desc = "A kit containing all the needed tools and parts to show that Locker Mech it is the property of NT."
 
@@ -320,12 +320,12 @@
 	allowed_types = list("lockermech")
 
 /obj/item/paintkit/durand_nt
-	name = "Pirate Durand customisation kit"
+	name = "NT Special Durand customisation kit"
 	icon_state = "paintkit_nt"
 	desc = "A kit containing all the needed tools and parts to show that Durand it is the property of NT"
 
 	new_name = "NT Special Durand"
-	new_icon = "ntrdurand"
+	new_icon = "ntdurand"
 	allowed_types = list("durand")
 
 /obj/item/paintkit/ripley_nt
