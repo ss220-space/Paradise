@@ -1,5 +1,6 @@
 /datum/martial_art/theforce
 	name = "The Force"
+	weight = 7
 	has_dirslash = FALSE
 	has_explaination_verb = TRUE
 	var/attack_sword_delimb_chance = 30
@@ -34,7 +35,7 @@
 
 		if(INTENT_GRAB)
 			var/mob/living/carbon/human/victim = A
-			if(victim && get_dist(owner, victim) <= 4)
+			if(istype(victim) && get_dist(owner, victim) <= 4)
 				var/obj/item/grab/force/G = victim.grabbedby(owner, grab_type = /obj/item/grab/force)
 				G.state = GRAB_PASSIVE
 				victim.LoseBreath(10 SECONDS)
@@ -117,18 +118,10 @@
 
 
 /obj/effect/proc_holder/spell/force_lightning/cast(list/targets, mob/user = usr)
-	if(!targets.len)
-		to_chat(user, span_notice("No target found in range."))
-		return
-
-	lightning(pick(targets), user, lethal)
-
-
-/obj/effect/proc_holder/spell/force_lightning/proc/lightning(atom/target, mob/living/carbon/human/user, lethal)
 	playsound(user.loc, 'sound/magic/the force/lightning.mp3', 40, 1)
 
 	var/atom/beam_from = user
-	var/atom/target_atom = target
+	var/atom/target_atom = pick(targets)
 
 	for(var/i in 0 to 3)
 		beam_from.Beam(target_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 6)
