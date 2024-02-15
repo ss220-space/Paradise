@@ -353,7 +353,7 @@
 			. += "<span class='notice'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
 		else
 			. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
-		if (hasHUD(user, DATA_HUD_HYDROPONIC) || isobserver(user))
+		if (hasHUD(user, EXAMINE_HUD_BOTANY) || isobserver(user))
 			. += myseed.get_analyzer_text()
 			. += "<span class='notice'>Weed: [weedlevel] / 10</span>"
 			. += "<span class='notice'>Pest: [pestlevel] / 10</span>"

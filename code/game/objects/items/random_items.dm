@@ -31,7 +31,16 @@
 
 /obj/item/stack/sheet/animalhide/random/New()
 	..()
-	var/htype = pick(/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey)
+	var/htype = pick(/obj/item/stack/sheet/animalhide/cat, \
+					/obj/item/stack/sheet/animalhide/corgi, \
+					/obj/item/stack/sheet/animalhide/human, \
+					/obj/item/stack/sheet/animalhide/lizard, \
+					/obj/item/stack/sheet/animalhide/monkey, \
+					/obj/item/stack/sheet/animalhide/wolpin, \
+					/obj/item/stack/sheet/animalhide/stok, \
+					/obj/item/stack/sheet/animalhide/neara, \
+					/obj/item/stack/sheet/animalhide/farwa \
+					)
 	new htype(loc, amount)
 	qdel(src)
 

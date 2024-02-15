@@ -408,3 +408,24 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")
+
+/obj/item/clothing/head/helmet/lightweighthelmet
+	name = "lightweight helmet"
+	desc = "Standard Security gear. Protects the head from impacts."
+	icon_state = "lightweighthelmet"
+	item_state = "lightweighthelmet"
+	flags_inv = HIDEHEADSETS
+	strip_delay = 60
+	flags = BLOCKHEADHAIR
+	flags_cover = null
+	dog_fashion = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+	)

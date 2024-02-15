@@ -1,8 +1,8 @@
 /obj/item/gun/energy/laser
 	name = "laser gun"
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
-	icon_state = "laser"
-	item_state = "laser"
+	icon_state = "lasergun"
+	item_state = null
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
@@ -13,6 +13,8 @@
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
+	icon_state = "laser"
+	item_state = "laser"
 	origin_tech = "combat=2;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
@@ -21,6 +23,7 @@
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"
 	icon_state = "retro"
+	item_state = "laser"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
 
@@ -150,6 +153,8 @@
 ////////Laser Tag////////////////////
 
 /obj/item/gun/energy/laser/tag
+	icon_state = "bluetag"
+	item_state = "laser"
 	name = "laser tag gun"
 	desc = "Standard issue weapon of the Imperial Guard"
 	origin_tech = "combat=2;magnets=2"

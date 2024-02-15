@@ -196,7 +196,7 @@
 
 
 /obj/item/organ/internal/xenos/neurotoxin
-	name = "xeno neurotoxin gland"
+	name = "large xeno neurotoxin gland"
 	icon_state = "neurotox"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_NEUROTOXIN_GLAND
@@ -204,6 +204,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
 
 /obj/item/organ/internal/xenos/neurotoxin/sentinel
+	name = "medium xeno neurotoxin gland"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin/sentinel)
 
 /obj/item/organ/internal/xenos/resinspinner
