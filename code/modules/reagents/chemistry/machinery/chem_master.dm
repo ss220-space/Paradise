@@ -68,22 +68,23 @@
 	else if(A == loaded_pill_bottle)
 		loaded_pill_bottle = null
 
-/obj/machinery/chem_master/update_icon()
-	overlays.Cut()
+
+/obj/machinery/chem_master/update_icon_state()
 	icon_state = "mixer[beaker ? "1" : "0"][powered() ? "" : "_nopower"]"
+
+
+/obj/machinery/chem_master/update_overlays()
+	. = ..()
 	if(powered())
-		overlays += "waitlight"
+		. += "waitlight"
 
 /obj/machinery/chem_master/blob_act(obj/structure/blob/B)
 	if(prob(50))
 		qdel(src)
 
-/obj/machinery/chem_master/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
+/obj/machinery/chem_master/power_change(forced = FALSE)
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)

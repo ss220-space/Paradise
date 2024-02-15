@@ -514,19 +514,19 @@
 	qdel(src)
 
 
-/obj/item/slimepotion/speed/MouseDrop(atom/over)
+/obj/item/slimepotion/speed/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE, drop = TRUE)
+	afterattack(over_object, user, TRUE, drop = TRUE)
 	return TRUE
 
 
@@ -581,20 +581,19 @@
 		qdel(src)
 
 
-/obj/item/slimepotion/clothing/MouseDrop(atom/over)
+/obj/item/slimepotion/clothing/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE)
-	return TRUE
+	afterattack(over_object, user, TRUE)
 
 
 /obj/item/slimepotion/clothing/fireproof

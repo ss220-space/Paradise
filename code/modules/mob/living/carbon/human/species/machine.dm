@@ -54,7 +54,7 @@
 		INTERNAL_ORGAN_R_ARM_DEVICE = /obj/item/organ/internal/cyberimp/arm/power_cord,
 	)
 
-	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/machine
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/ipc),

@@ -69,8 +69,8 @@
 //Syndicate sub-machine guns.
 /obj/item/gun/projectile/automatic/c20r/sc_c20r
 
-/obj/item/gun/projectile/automatic/c20r/sc_c20r/New()
-	..()
+/obj/item/gun/projectile/automatic/c20r/sc_c20r/Initialize(mapload)
+	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
 			magazine.stored_ammo -= ammo
@@ -78,8 +78,8 @@
 //Barman's shotgun
 /obj/item/gun/projectile/shotgun/sc_pump
 
-/obj/item/gun/projectile/shotgun/sc_pump/New()
-	..()
+/obj/item/gun/projectile/shotgun/sc_pump/Initialize(mapload)
+	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
 			magazine.stored_ammo -= ammo

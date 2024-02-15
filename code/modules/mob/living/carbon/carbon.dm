@@ -399,11 +399,6 @@
 				mind.disrupt_spells(0)
 
 
-
-/mob/living/carbon/proc/tintcheck()
-	return 0
-
-
 /mob/living/carbon/proc/create_dna()
 	if(!dna)
 		dna = new()
@@ -807,8 +802,13 @@ so that different stomachs can handle things in different ways VB*/
 		clear_fullscreen("tint", 0)
 
 
-/mob/living/carbon/proc/get_total_tint()
+/// Checks eye covering items for visually impairing tinting, such as welding masks. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = casual blindness.
+/mob/living/proc/get_total_tint()
 	. = 0
+
+
+/mob/living/carbon/get_total_tint()
+	. = ..()
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/HT = head
 		. += HT.tint

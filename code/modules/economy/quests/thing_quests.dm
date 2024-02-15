@@ -124,13 +124,14 @@
 		/obj/item/organ/internal/heart/cursed = 550,
 		/obj/item/organ/internal/xenos/plasmavessel/hunter = 550,
 		/obj/item/organ/internal/xenos/plasmavessel/drone = 550,
-		/obj/item/organ/internal/xenos/neurotoxin = 650,
+		/obj/item/organ/internal/xenos/neurotoxin/sentinel = 650,
 		/obj/item/organ/internal/wryn/glands = 700,
 		/obj/item/organ/internal/xenos/hivenode = 700,
 		/obj/item/organ/internal/heart/plasmaman = 750,
 		/obj/item/organ/internal/xenos/acidgland/sentinel = 750,
 		/obj/item/organ/internal/xenos/acidgland/praetorian = 750,
 		/obj/item/organ/internal/xenos/resinspinner = 750,
+		/obj/item/organ/internal/xenos/neurotoxin = 850,
 		/obj/item/organ/internal/xenos/acidgland/queen = 900,
 		/obj/item/organ/internal/xenos/plasmavessel/queen = 900
 	)

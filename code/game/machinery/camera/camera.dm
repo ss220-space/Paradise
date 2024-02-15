@@ -2,6 +2,7 @@
 	name = "security camera"
 	desc = "It's used to monitor rooms."
 	icon = 'icons/obj/machines/monitors.dmi'
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	icon_state = "camera"
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 5
@@ -40,7 +41,7 @@
 	assembly = new(src)
 	assembly.state = 4
 	assembly.anchored = 1
-	assembly.update_icon()
+	assembly.update_icon(UPDATE_ICON_STATE)
 
 	GLOB.cameranet.cameras += src
 	if(networks)
@@ -82,15 +83,15 @@
 		return
 	if(!isEmpProof())
 		if(prob(150/severity))
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			stat |= EMPED
 			set_light(0)
 			update_icon()
 
 			GLOB.cameranet.removeCamera(src)
 
-			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE | TIMER_DELETE_ME)
-			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_DELETE_ME)
+			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE|TIMER_DELETE_ME)
+			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_DELETE_ME)
 
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
@@ -102,7 +103,7 @@
 
 /obj/machinery/camera/proc/restore_from_emp()
 	stat &= ~EMPED
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
@@ -254,7 +255,7 @@
 			assembly.forceMove(drop_location())
 			assembly.state = 1
 			assembly.setDir(dir)
-			assembly.update_icon()
+			assembly.update_icon(UPDATE_ICON_STATE)
 			assembly = null
 		else
 			var/obj/item/I = new /obj/item/camera_assembly(loc)
@@ -262,13 +263,15 @@
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
-/obj/machinery/camera/update_icon()
+
+/obj/machinery/camera/update_icon_state()
 	if(!status)
 		icon_state = "[initial(icon_state)]1"
 	else if(stat & EMPED)
 		icon_state = "[initial(icon_state)]emp"
 	else
 		icon_state = "[initial(icon_state)]"
+
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
@@ -299,7 +302,7 @@
 			visible_message(span_danger("\The [src] [change_msg]!"))
 
 		playsound(loc, toggle_sound, 100, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
@@ -424,7 +427,7 @@
 	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
 	assembly.anchored = 0
-	assembly.update_icon()
+	assembly.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.
 	if(GLOB.cameranet && get_turf(src) != prev_turf)

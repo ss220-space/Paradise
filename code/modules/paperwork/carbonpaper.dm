@@ -6,7 +6,7 @@
 	var/iscopy = 0
 
 
-/obj/item/paper/carbon/update_icon()
+/obj/item/paper/carbon/update_icon_state()
 	if(iscopy)
 		if(info)
 			icon_state = "cpaper_words"
@@ -22,7 +22,6 @@
 			icon_state = "paper_stack_words"
 			return
 		icon_state = "paper_stack"
-
 
 
 /obj/item/paper/carbon/verb/removecopy()

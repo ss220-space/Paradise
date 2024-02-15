@@ -2,7 +2,7 @@
 	name = "firepit"
 	desc = "Warm and toasty."
 	icon = 'icons/obj/fireplace.dmi'
-	icon_state = "firepit-active"
+	icon_state = "firepit"
 	density = FALSE
 	anchored = TRUE
 	max_integrity = 50
@@ -10,9 +10,6 @@
 	var/lighter // Who lit the thing
 	var/fire_stack_strength = 5
 
-/obj/structure/firepit/Initialize(mapload)
-	. = ..()
-	update_icon()
 
 /obj/structure/firepit/attack_hand(mob/living/user)
 	if(active)
@@ -31,18 +28,26 @@
 	else
 		W.fire_act()
 
-/obj/structure/firepit/update_icon()
-	. = ..()
+
+/obj/structure/firepit/proc/adjust_light()
 	if(active)
 		set_light(4, ,"#ffb366")
-		icon_state = "firepit-active"
 	else
 		set_light(0)
+
+
+/obj/structure/firepit/update_icon_state()
+	if(active)
+		icon_state = "firepit-active"
+	else
 		icon_state = "firepit"
+
 
 /obj/structure/firepit/proc/toggleFirepit()
 	active = !active
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	adjust_light()
+
 
 /obj/structure/firepit/extinguish()
 	. = ..()

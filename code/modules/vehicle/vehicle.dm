@@ -113,10 +113,6 @@
 			buckled_mob.pixel_y = generic_pixel_y
 
 
-/obj/vehicle/update_icon()
-	return
-
-
 /obj/item/key
 	name = "key"
 	desc = "A small grey key."

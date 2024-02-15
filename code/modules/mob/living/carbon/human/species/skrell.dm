@@ -51,6 +51,8 @@
 		INTERNAL_ORGAN_HEADPOCKET = /obj/item/organ/internal/headpocket,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/skrell
+
 	suicide_messages = list(
 		"пытается откусить себе язык!",
 		"выдавливает большими пальцами свои глазницы!",

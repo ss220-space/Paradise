@@ -13,12 +13,12 @@
 	volume = 30
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/bottle/update_icon()
-	overlays.Cut()
+
+/obj/item/reagent_containers/glass/bottle/update_overlays()
+	. = ..()
 	underlays.Cut()
-
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
@@ -39,8 +39,8 @@
 		underlays += filling
 
 	if(!is_open_container())
-		var/image/lid = image(icon, src, "lid_bottle")
-		overlays += lid
+		. += "lid_[icon_state]"
+
 
 /obj/item/reagent_containers/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)

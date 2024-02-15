@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	return id ? id : ..()
 
 
-/obj/item/pda/MouseDrop(atom/over)
+/obj/item/pda/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 
 	var/mob/user = usr

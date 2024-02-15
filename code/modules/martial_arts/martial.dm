@@ -330,7 +330,22 @@
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
-	var/used = 0
+	var/used = FALSE
+
+
+/obj/item/plasma_fist_scroll/update_icon_state()
+	icon_state = used ? "blankscroll" : initial(icon_state)
+
+
+/obj/item/plasma_fist_scroll/update_name(updates = ALL)
+	. = ..()
+	name = used ? "empty scroll" : initial(name)
+
+
+/obj/item/plasma_fist_scroll/update_desc(updates = ALL)
+	. = ..()
+	desc = used ? "It's completely blank." : initial(desc)
+
 
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
@@ -341,10 +356,9 @@
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
 		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
-		used = 1
-		desc = "It's completely blank."
-		name = "empty scroll"
-		icon_state = "blankscroll"
+		used = TRUE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+
 
 /obj/item/sleeping_carp_scroll
 	name = "mysterious scroll"
@@ -484,9 +498,10 @@
 	icon_state = "bostaff0"
 	block_chance = 50
 
-/obj/item/twohanded/bostaff/update_icon()
-	icon_state = "bostaff[wielded]"
-	return
+
+/obj/item/twohanded/bostaff/update_icon_state()
+	icon_state = "bostaff[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
@@ -512,7 +527,7 @@
 		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
-			if(!wielded)
+			if(!HAS_TRAIT(src, TRAIT_WIELDED))
 				return ..()
 			if(!ishuman(target))
 				return ..()
@@ -543,9 +558,9 @@
 			return ..()
 
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	return 0
+	return FALSE
 
 /obj/screen/combo
 	icon_state = ""
@@ -554,24 +569,33 @@
 	layer = ABOVE_HUD_LAYER
 	var/streak
 
+
 /obj/screen/combo/proc/clear_streak()
 	cut_overlays()
 	streak = ""
 	icon_state = ""
 
+
 /obj/screen/combo/update_icon(updates, _streak)
 	streak = _streak
-	icon_state = ""
-	if(!streak)
-		clear_streak()
-		return
-	icon_state = "combo"
+	return ..()
+
+
+/obj/screen/combo/update_overlays()
+	. = list()
 	for(var/i in 1 to length(streak))
 		var/intent_text = copytext(streak, i, i + 1)
 		var/image/intent_icon = image(icon, src, "combo_[intent_text]")
 		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
-		overlays += intent_icon
-	return ..()
+		. += intent_icon
+
+
+/obj/screen/combo/update_icon_state()
+	icon_state = ""
+	if(!streak)
+		return
+	icon_state = "combo"
+
 
 #undef HAS_COMBOS
 #undef COMBO_ALIVE_TIME

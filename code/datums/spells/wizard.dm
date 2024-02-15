@@ -238,6 +238,7 @@
 	clothes_req = TRUE
 	invocation = "TARCOL GRANDI ZHERI"
 	invocation_type = "shout"
+	action_icon_state = "shield_greater"
 	large = TRUE
 
 
@@ -377,7 +378,7 @@
 	return T
 
 
-/obj/effect/proc_holder/spell/fireball/update_icon()
+/obj/effect/proc_holder/spell/fireball/update_icon_state()
 	if(!action)
 		return
 	action.button_icon_state = "fireball[active]"

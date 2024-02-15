@@ -483,17 +483,22 @@
 	var/modified = FALSE
 	harmful = FALSE
 
-/obj/item/ammo_casing/caseless/foam_dart/update_icon()
-	..()
+
+/obj/item/ammo_casing/caseless/foam_dart/update_icon_state()
 	if(modified)
 		icon_state = "foamdart_empty"
-		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdart_empty"
 	else
 		icon_state = initial(icon_state)
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
+
+
+/obj/item/ammo_casing/caseless/foam_dart/update_desc(updates)
+	. = ..()
+	desc = modified ? "Its nerf or nothing! ... Although, this one doesn't look too safe." : initial(desc)
+
 
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
@@ -537,17 +542,22 @@
 	caliber = "foam_force_sniper"
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper
 
-/obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon()
-	..()
+
+/obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon_state()
 	if(modified)
 		icon_state = "foamdartsniper_empty"
-		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdartsniper_empty"
 	else
 		icon_state = initial(icon_state)
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
+
+
+/obj/item/ammo_casing/caseless/foam_dart/sniper/update_desc(updates)
+	. = ..()
+	desc = modified ? "Its nerf or nothing! ... Although, this one doesn't look too safe." : initial(desc)
+
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	name = "riot foam sniper dart"

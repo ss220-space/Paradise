@@ -74,12 +74,17 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+
+/obj/item/multitool/ai_detect/update_icon_state()
+	icon_state = "[initial(icon_state)][detect_state]"
+
+
 /obj/item/multitool/ai_detect/process()
 	if(track_cooldown > world.time)
 		return
 	detect_state = PROXIMITY_NONE
 	multitool_detect()
-	icon_state = "[initial(icon_state)][detect_state]"
+	update_icon(UPDATE_ICON_STATE)
 	track_cooldown = world.time + track_delay
 
 /obj/item/multitool/ai_detect/proc/multitool_detect()

@@ -29,22 +29,25 @@
 		return
 	qdel(sign)
 	sign = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/signmaker/proc/icon_flick()
 	set waitfor = FALSE
 
-	icon_state = "signmaker_clown_on"
 	pointer_busy = TRUE
-	sleep(10)
+	update_icon(UPDATE_ICON_STATE)
+	sleep(1 SECONDS)
 	pointer_busy = FALSE
-	icon_state = "signmaker_clown_off"
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/signmaker/update_icon()
-	if(sign)
-		icon_state = "signmaker_clown_on"
-	else
+
+/obj/item/signmaker/update_icon_state()
+	if(pointer_busy)
 		icon_state = "signmaker_clown_off"
+		return
+	icon_state = "signmaker_clown_[sign ? "on" : "off"]]"
+
 
 /obj/item/signmaker/emag_act(mob/user)
 	add_attack_logs(user, src, "emagged")

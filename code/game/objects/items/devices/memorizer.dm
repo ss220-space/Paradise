@@ -18,6 +18,17 @@
 	var/can_overcharge = FALSE //set this to FALSE if you don't want your flash to be overcharge capable
 	var/use_sound = 'sound/weapons/flash.ogg'
 
+
+/obj/item/memorizer/update_icon_state()
+	icon_state = "memorizer[broken ? "burnt" : ""]"
+
+
+/obj/item/memorizer/update_overlays()
+	. = ..()
+	if(overcharged)
+		. += "overcharge"
+
+
 /obj/item/memorizer/proc/clown_check(mob/user)
 	if(user && (CLUMSY in user.mutations) && prob(50))
 		memorize_carbon(user, user, 15, FALSE)
@@ -39,12 +50,13 @@
 		to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
 		qdel(W)
 		overcharged = TRUE
-		overlays += "overcharge"
+		update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/memorizer/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
-	icon_state = "[initial(icon_state)]burnt"
-	visible_message("<span class='notice'>The [src.name] burns out!</span>")
+	update_icon(UPDATE_ICON_STATE)
+	visible_message("<span class='notice'>The [name] burns out!</span>")
 
 
 /obj/item/memorizer/proc/flash_recharge(var/mob/user)

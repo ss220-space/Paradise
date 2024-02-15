@@ -26,33 +26,41 @@
 	/// Type of paddles that should be attached to this defib.
 	var/obj/item/twohanded/shockpaddles/paddle_type = /obj/item/twohanded/shockpaddles
 
+
+/obj/item/defibrillator/Initialize(mapload) // Base version starts without a cell for rnd
+	. = ..()
+	paddles = new paddle_type(src)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/defibrillator/Destroy()
+	if(!paddles_on_defib)
+		var/holder = get(paddles.loc, /mob/living/carbon/human)
+		retrieve_paddles(holder)
+	QDEL_NULL(paddles)
+	QDEL_NULL(cell)
+	return ..()
+
+
+/obj/item/defibrillator/loaded/Initialize(mapload) // Loaded version starts with high-capacity cell.
+	. = ..()
+	cell = new(src)
+	update_icon(UPDATE_OVERLAYS)
+
+
 /obj/item/defibrillator/get_cell()
 	return cell
 
-/obj/item/defibrillator/New() //starts without a cell for rnd
-	..()
-	paddles = new paddle_type(src)
-	update_icon()
-	return
 
-/obj/item/defibrillator/loaded/New() //starts with hicap
-	..()
-	cell = new(src)
-	update_icon()
-	return
-
-/obj/item/defibrillator/update_icon()
+/obj/item/defibrillator/update_icon(updates = ALL)
 	update_power()
-	update_overlays()
-	update_charge()
+	..()
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.</span>"
+	. += span_info("<b>Ctrl-Click</b> to remove the paddles from the defibrillator.")
+
 
 /obj/item/defibrillator/proc/update_power()
 	if(cell)
@@ -63,189 +71,191 @@
 	else
 		powered = FALSE
 
-/obj/item/defibrillator/update_overlays()
-	overlays.Cut()
-	if(paddles_on_defib)
-		overlays += "[icon_state]-paddles"
-	if(powered)
-		overlays += "[icon_state]-powered"
-	if(!cell)
-		overlays += "[icon_state]-nocell"
-	if(!safety)
-		overlays += "[icon_state]-emagged"
 
-/obj/item/defibrillator/proc/update_charge()
-	if(powered && cell) //so it doesn't show charge if it's unpowered
+/obj/item/defibrillator/update_overlays()
+	. = ..()
+	if(paddles_on_defib)
+		. += "[icon_state]-paddles"
+	if(powered)
+		. += "[icon_state]-powered"
+	if(!safety)
+		. += "[icon_state]-emagged"
+	if(powered && cell)
 		var/ratio = cell.charge / cell.maxcharge
 		ratio = CEILING(ratio*4, 1) * 25
-		overlays += "[icon_state]-charge[ratio]"
+		. += "[icon_state]-charge[ratio]"
+	if(!cell)
+		. += "[icon_state]-nocell"
+
 
 /obj/item/defibrillator/CheckParts(list/parts_list)
 	..()
 	cell = locate(/obj/item/stock_parts/cell) in contents
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/defibrillator/ui_action_click(mob/user)
 	if(!ishuman(user) || !Adjacent(user))
 		return
 
-	toggle_paddles()
+	toggle_paddles(user)
 
 
 /obj/item/defibrillator/CtrlClick(mob/user)
 	if(!ishuman(user) || !Adjacent(user))
 		return
 
-	toggle_paddles()
+	toggle_paddles(user)
 
 
 /obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			to_chat(user, span_notice("[src] already has a cell."))
 		else
 			if(C.maxcharge < paddles.revivecost)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+				to_chat(user, span_notice("[src] requires a higher capacity cell."))
 				return
 			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 
 			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-
-	else if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(loc)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+			update_icon(UPDATE_OVERLAYS)
+			to_chat(user, span_notice("You install a cell in [src]."))
 
 	else if(W == paddles)
-		toggle_paddles()
+		toggle_paddles(user)
 
-	update_icon()
-	return
+	else
+		return ..()
 
-/obj/item/defibrillator/emag_act(mob/user)
+
+/obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
+	if(!cell)
+		to_chat(user, span_notice("[src] doesn't have a cell."))
+		return
+
+	// we want an infinite power cell to stay inside (used in advanced compact defib)
+	if(istype(cell, /obj/item/stock_parts/cell/infinite))
+		to_chat(user, span_notice("[src] somehow resists your attempt to remove a cell."))
+		return
+
+	cell.update_icon()
+	cell.forceMove_turf()
+	cell = null
+	I.play_tool_sound(src)
+	to_chat(user, span_notice("You remove the cell from [src]."))
+	update_icon(UPDATE_OVERLAYS)
+	return TRUE
+
+
+/obj/item/defibrillator/emag_act(user)
 	if(safety)
 		add_attack_logs(user, src, "emagged")
 		safety = FALSE
 		if(user)
-			to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the card.")
+			to_chat(user, span_warning("You silently disable [src]'s safety protocols with the card."))
 	else
 		add_attack_logs(user, src, "un-emagged")
 		safety = TRUE
-		if(user)
-			to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
-	update_icon()
+		to_chat(user, span_notice("You silently enable [src]'s safety protocols with the card."))
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/defibrillator/emp_act(severity)
 	if(cell)
 		deductcharge(1000 / severity)
 	if(safety)
 		safety = FALSE
-		visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
-		playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
+		visible_message(span_notice("[src] beeps: Safety protocols disabled!"))
+		playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, FALSE)
 	else
 		safety = TRUE
-		visible_message("<span class='notice'>[src] beeps: Safety protocols enabled!</span>")
-		playsound(get_turf(src), 'sound/machines/defib_saftyon.ogg', 50, 0)
-	update_icon()
+		visible_message(span_notice("[src] beeps: Safety protocols enabled!"))
+		playsound(get_turf(src), 'sound/machines/defib_saftyon.ogg', 50, FALSE)
+	update_icon(UPDATE_OVERLAYS)
 	..()
 
-/obj/item/defibrillator/verb/toggle_paddles()
+
+/obj/item/defibrillator/verb/toggle_paddles_verb()
 	set name = "Toggle Paddles"
 	set category = "Object"
+	set src in oview(1)
 
+	toggle_paddles(usr)
+
+
+/obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
-		to_chat(usr, span_warning("[src] has no paddles!</span>"))
+		to_chat(user, span_warning("[src] has no paddles!"))
 		return
 
 	if(paddles_on_defib)
-		//Detach the paddles into the user's hands
+		dispence_paddles(user)
+	else
+		retrieve_paddles(user)
 
-		var/mob/living/carbon/human/user = usr
-		var/obj/item/organ/external/temp2 = user.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
-		var/obj/item/organ/external/temp = user.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
+	for(var/datum/action/action as anything in actions)
+		action.UpdateButtonIcon()
 
-		if(user.incapacitated())
-			return
 
-		if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
-			to_chat(user, span_warning("You can't use your hand to take out the paddles!"))
-			return
+/obj/item/defibrillator/proc/dispence_paddles(mob/living/carbon/human/user)
+	if(!paddles || !paddles_on_defib || !ishuman(user) || user.incapacitated())
+		return
 
-		if((user.r_hand != null && user.l_hand != null))
-			to_chat(user, span_warning("You need a free hand to hold the paddles!"))
-			return
+	//Detach the paddles into the user's hands
+	var/obj/item/organ/external/hand_left = user.get_organ(BODY_ZONE_PRECISE_L_HAND)
+	var/obj/item/organ/external/hand_right = user.get_organ(BODY_ZONE_PRECISE_R_HAND)
 
-		//We need to do this like that since defib paddles have their own behavior on dropped()
-		if(!is_on_user(user))
-			paddles.forceMove_turf()
+	if((!hand_left || !hand_left.is_usable()) && (!hand_right || !hand_right.is_usable()))
+		to_chat(user, span_warning("You can't use your hands to take out the paddles!"))
+		return
 
-		if(!user.put_in_hands(paddles, ignore_anim = FALSE))
-			paddles.forceMove(src)
-			to_chat(user, span_warning("You need a free hand to hold the paddles!"))
-			return
+	paddles.loc = get_turf(src)	// we need this to play animation properly
+	if(!user.put_in_hands(paddles, ignore_anim = FALSE))
+		paddles.loc = src
+		to_chat(user, span_warning("You need a free hand to hold the paddles!"))
+		return
 
-		paddles_on_defib = FALSE
-	else //remove in any case because some automatic shit
-		remove_paddles(usr)
+	paddles_on_defib = FALSE
+	paddles.update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
-	update_icon()
+
+/obj/item/defibrillator/proc/retrieve_paddles(mob/user)
+	if(!paddles || paddles_on_defib)
+		return
+	if(user?.is_in_hands(paddles))
+		user.drop_item_ground(paddles)
+	paddles.do_pickup_animation(src)
+	paddles.forceMove(src)
+	paddles_on_defib = TRUE
+	update_icon(UPDATE_OVERLAYS)
+	paddles.update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/defibrillator/equipped(mob/user, slot)
-	..()
+	. = ..()
 	if(slot != slot_back)
-		remove_paddles(user)
-		update_icon()
+		retrieve_paddles(user)
+
 
 /obj/item/defibrillator/item_action_slot_check(slot, mob/user)
-	if(slot == slot_back)
-		return TRUE
-
-/obj/item/defibrillator/proc/remove_paddles(mob/user) // from your hands
-	if(user.is_in_hands(paddles))
-		return user.drop_item_ground(paddles)
-	return TRUE
+	return slot == slot_back
 
 
-/obj/item/defibrillator/Destroy()
-	if(!paddles_on_defib)
-		var/M = get(paddles, /mob)
-		remove_paddles(M)
-	QDEL_NULL(paddles)
-	QDEL_NULL(cell)
-	return ..()
-
-/obj/item/defibrillator/proc/deductcharge(var/chrgdeductamt)
+/obj/item/defibrillator/proc/deductcharge(chrgdeductamt)
 	if(cell)
 		if(cell.charge < (paddles.revivecost+chrgdeductamt))
 			powered = FALSE
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		if(cell.use(chrgdeductamt))
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 			return TRUE
 		else
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 			return FALSE
-
-/obj/item/defibrillator/proc/cooldowncheck(var/mob/user)
-	paddles.update_icon()
-	spawn(50)
-		if(cell)
-			if(cell.charge >= paddles.revivecost)
-				user.visible_message("<span class='notice'>[src] beeps: Unit ready.</span>")
-				playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
-			else
-				user.visible_message("<span class='notice'>[src] beeps: Charge depleted.</span>")
-				playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
-		paddles.cooldown = FALSE
-		paddles.update_icon()
-		update_icon()
 
 /obj/item/defibrillator/compact
 	name = "compact defibrillator"
@@ -260,11 +270,10 @@
 	if(slot == slot_belt)
 		return TRUE
 
-/obj/item/defibrillator/compact/loaded/New()
-	..()
+/obj/item/defibrillator/compact/loaded/Initialize(mapload)
+	. = ..()
 	cell = new(src)
-	update_icon()
-	return
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/combat
 	name = "combat defibrillator"
@@ -275,11 +284,10 @@
 	combat = TRUE
 	safety = FALSE
 
-/obj/item/defibrillator/compact/combat/loaded/New()
-	..()
+/obj/item/defibrillator/compact/combat/loaded/Initialize(mapload)
+	. = ..()
 	cell = new(src)
-	update_icon()
-	return
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/advanced
 	name = "advanced compact defibrillator"
@@ -292,15 +300,17 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
+
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
-		toggle_paddles()
-		update_icon()
+		toggle_paddles(user)
 
-/obj/item/defibrillator/compact/advanced/loaded/New()
-	..()
+
+/obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)
+	. = ..()
 	cell = new /obj/item/stock_parts/cell/infinite(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)
@@ -339,62 +349,71 @@
 	icon_state = "syndiepaddles"
 	item_state = "syndiepaddles"
 
+
 /obj/item/twohanded/shockpaddles/New(mainunit)
 	..()
-	if(check_defib_exists(mainunit, src))
-		defib = mainunit
-		loc = defib
-		busy = FALSE
-		update_icon()
-	return
+	check_defib_exists(mainunit)
+
 
 /obj/item/twohanded/shockpaddles/proc/spend_charge()
 	defib.deductcharge(revivecost)
 
+
 /obj/item/twohanded/shockpaddles/proc/trigger_cooldown(mob/user)
 	cooldown = TRUE
-	defib.cooldowncheck(user)
+	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(on_cooldown_end), user), 5 SECONDS)
 
-/obj/item/twohanded/shockpaddles/update_icon()
-	icon_state = "[initial(icon_state)][wielded]"
-	item_state = "[initial(icon_state)][wielded]"
-	if(cooldown)
-		icon_state = "[initial(icon_state)][wielded]_cooldown"
+
+/obj/item/twohanded/shockpaddles/proc/on_cooldown_end(mob/living/silicon/robot/user)
+	var/check_cell = isrobot(user) ? user.cell.charge : defib.cell.charge
+	if(check_cell >= revivecost)
+		user.visible_message(span_notice("[src] beeps: Unit ready."))
+		playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50)
+	else
+		user.visible_message(span_notice("[src] beeps: Charge depleted."))
+		playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50)
+	cooldown = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/twohanded/shockpaddles/update_icon_state()
+	var/is_wielded = HAS_TRAIT(src, TRAIT_WIELDED)
+	icon_state = "[initial(icon_state)][is_wielded][cooldown ? "_cooldown" : ""]"
+	item_state = "[initial(icon_state)][is_wielded]"
+
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide."))
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
 
+
 /obj/item/twohanded/shockpaddles/dropped(mob/user, silent = FALSE)
-	update_icon()
+	. = ..()
 	if(defib)
-		to_chat(user, span_notice("The paddles snap back into the main unit."))
-		if(!defib.is_on_user(user))
-			do_pickup_animation(defib)
-		forceMove(defib)
-		defib.paddles_on_defib = TRUE
-		defib.update_icon()
-	else
-		return ..()
+		defib.toggle_paddles(user)
+		if(!silent)
+			to_chat(user, span_notice("The paddles snap back into the main unit."))
 
 
 /obj/item/twohanded/shockpaddles/equip_to_best_slot(mob/user, force = FALSE)
-	 user.drop_item_ground(src)
+	user.drop_item_ground(src)
 
 
 /obj/item/twohanded/shockpaddles/on_mob_move(dir, mob/user)
 	if(defib && !in_range(defib, src))
 		user.drop_item_ground(src, force = TRUE)
 
-/obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
-	if(!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
-		M.temporarily_remove_item_from_inventory(O, TRUE)
-		qdel(O)
-		return FALSE
-	else
-		return TRUE
+
+/obj/item/twohanded/shockpaddles/proc/check_defib_exists(obj/item/defibrillator/mainunit)
+	if(!mainunit || !istype(mainunit))	//To avoid weird issues from admin spawns
+		qdel(src)
+		return
+	loc = mainunit
+	defib = mainunit
+
 
 /obj/item/twohanded/shockpaddles/attack(mob/M, mob/user)
 	var/tobehealed
@@ -411,20 +430,20 @@
 	if(busy)
 		return
 	if(!isrobot(user) && !defib.powered)
-		user.visible_message("<span class='notice'>[defib] beeps: Unit is unpowered.</span>")
+		user.visible_message(span_notice("[defib] beeps: Unit is unpowered."))
 		playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		return
 	if(!isrobot(user) && !wielded)
-		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
+		to_chat(user, span_boldnotice("You need to wield the paddles in both hands before you can use them on someone!"))
 		return
 	if(cooldown)
-		to_chat(user, "<span class='notice'>[defib || src] is recharging.</span>")
+		to_chat(user, span_notice("[defib || src] is recharging."))
 		return
 	if(!ishuman(M))
 		if(isrobot(user))
-			to_chat(user, "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>")
+			to_chat(user, span_notice("This unit is only designed to work on humanoid lifeforms."))
 		else
-			to_chat(user, "<span class='notice'>The instructions on [defib] don't mention how to revive that...</span>")
+			to_chat(user, span_notice("The instructions on [defib] don't mention how to revive that..."))
 		return
 	else
 		var/can_harm
@@ -436,8 +455,10 @@
 
 		if(user.a_intent == INTENT_HARM && can_harm)
 			busy = TRUE
-			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
-					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
+			H.visible_message(
+				span_danger("[user] has touched [H.name] with [src]!"),
+				span_userdanger("[user] has touched [H.name] with [src]!"),
+			)
 			H.adjustStaminaLoss(50)
 			H.Weaken(4 SECONDS)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -450,10 +471,16 @@
 			spend_charge(user)
 			trigger_cooldown(user)
 			return
-		user.visible_message("<span class='warning'>[user] begins to place [src] on [M.name]'s chest.</span>", "<span class='warning'>You begin to place [src] on [M.name]'s chest.</span>")
+		user.visible_message(
+			span_warning("[user] begins to place [src] on [M.name]'s chest."),
+			span_warning("You begin to place [src] on [M.name]'s chest."),
+		)
 		busy = TRUE
 		if(do_after(user, 30 * toolspeed * gettoolspeedmod(user), target = M)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
-			user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
+			user.visible_message(
+				span_notice("[user] places [src] on [M.name]'s chest."),
+				span_warning("You place [src] on [M.name]'s chest."),
+			)
 			playsound(get_turf(src), 'sound/machines/defib_charge.ogg', 50, 0)
 			var/mob/dead/observer/ghost = H.get_ghost(TRUE)
 			if(ghost && !ghost.client)
@@ -469,27 +496,27 @@
 				for(var/obj/item/carried_item in H.contents)
 					if(istype(carried_item, /obj/item/clothing/suit/space))
 						if(!ignores_hardsuits)
-							user.visible_message("<span class='notice'>[defib || src] buzzes: Patient's chest is obscured. Operation aborted.</span>")
+							user.visible_message(span_notice("[defib || src] buzzes: Patient's chest is obscured. Operation aborted."))
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							busy = FALSE
 							return
 				if(H.undergoing_cardiac_arrest())
 					if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
-						user.visible_message("<span class='boldnotice'>[defib || src] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
+						user.visible_message(span_boldnotice("[defib || src] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity."))
 						playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 						busy = FALSE
 						return
 					else
 						var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
 						if(heart.is_dead())
-							user.visible_message("<span class='boldnotice'>[defib || src] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
+							user.visible_message(span_boldnotice("[defib || src] buzzes: Resuscitation failed - Heart necrosis detected."))
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							busy = FALSE
 							return
 						H.set_heartattack(FALSE)
 						H.shock_internal_organs(100)
-						user.visible_message("<span class='boldnotice'>[defib || src] pings: Cardiac arrhythmia corrected.</span>")
-						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
+						user.visible_message(span_boldnotice("[defib || src] pings: Cardiac arrhythmia corrected."))
+						M.visible_message(span_warning("[M]'s body convulses a bit."))
 						playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 						playsound(get_turf(src), "bodyfall", 50, 1)
 						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
@@ -499,7 +526,7 @@
 						return
 				if(H.stat == DEAD)
 					var/health = H.health
-					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
+					M.visible_message(span_warning("[M]'s body convulses a bit."))
 					playsound(get_turf(src), "bodyfall", 50, 1)
 					playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 					var/total_cloneloss = H.cloneloss
@@ -513,7 +540,7 @@
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
 						H.adjustToxLoss(tobehealed)
-						user.visible_message("<span class='boldnotice'>[defib || src] pings: Resuscitation successful.</span>")
+						user.visible_message(span_boldnotice("[defib || src] pings: Resuscitation successful."))
 						playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 						H.update_revive(TRUE, TRUE)
 						H.KnockOut()
@@ -534,25 +561,25 @@
 						add_attack_logs(user, M, "Revived with [src]")
 					else
 						if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
-							user.visible_message("<span class='boldnotice'>[defib || src] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
+							user.visible_message(span_boldnotice("[defib || src] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation."))
 						else if(total_cloneloss > 180 || total_bruteloss > 180 || total_burnloss > 180)
-							user.visible_message("<span class='boldnotice'>[defib || src] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
+							user.visible_message(span_boldnotice("[defib || src] buzzes: Resuscitation failed - Severe tissue damage detected."))
 						else if(ghost)
 							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
-								user.visible_message("<span class='notice'>[defib || src] buzzes: Resucitation failed: No electrical brain activity detected.</span>")
+								user.visible_message(span_notice("[defib || src] buzzes: Resucitation failed: No electrical brain activity detected."))
 							else
-								user.visible_message("<span class='notice'>[defib || src] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
-								to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+								user.visible_message(span_notice("[defib || src] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed."))
+								to_chat(ghost, "[span_ghostalert("Your heart is being defibrillated. Return to your body if you want to be revived!")] (Verbs -> Ghost -> Re-enter corpse)")
 								window_flash(ghost.client)
-								ghost << sound('sound/effects/genetics.ogg')
+								SEND_SOUND(ghost, 'sound/effects/genetics.ogg')
 						else
-							user.visible_message("<span class='notice'>[defib || src] buzzes: Resuscitation failed.</span>")
+							user.visible_message(span_notice("[defib || src] buzzes: Resuscitation failed."))
 						playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 
 					spend_charge(user)
 					trigger_cooldown(user)
 				else
-					user.visible_message("<span class='notice'>[defib || src] buzzes: Patient is not in a valid state. Operation aborted.</span>")
+					user.visible_message(span_notice("[defib || src] buzzes: Patient is not in a valid state. Operation aborted."))
 					playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		busy = FALSE
 /*
@@ -567,8 +594,12 @@
 	if(electrocute_mob(affecting, defib.cell, origin)) // shock anyone touching them >:)
 		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(HE.parent_organ_zone == BODY_ZONE_CHEST && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
-			affecting.visible_message("<span class='danger'>[affecting]'s entire body shakes as a shock travels up their arm!</span>", \
-							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ(BODY_ZONE_L_ARM) : affecting.get_organ(BODY_ZONE_R_ARM)] and back down your [affecting.hand ? affecting.get_organ(BODY_ZONE_L_ARM) : affecting.get_organ(BODY_ZONE_R_ARM)]!</span>")
+			var/obj/item/organ/external/bodypart_upper = affecting.hand ? affecting.get_organ(BODY_ZONE_L_ARM) : affecting.get_organ(BODY_ZONE_R_ARM)
+			var/obj/item/organ/external/bodypart_lower = affecting.hand ? affecting.get_organ(BODY_ZONE_PRECISE_L_HAND) : affecting.get_organ(BODY_ZONE_PRECISE_R_HAND)
+			affecting.visible_message(
+				span_danger("[affecting]'s entire body shakes as a shock travels up their arm!"),
+				span_userdanger("You feel a powerful shock travel up your [bodypart_upper.name] and back down your [bodypart_lower.name]!"),
+			)
 			affecting.set_heartattack(TRUE)
 
 /obj/item/twohanded/shockpaddles/borg
@@ -576,7 +607,7 @@
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 
-/obj/item/twohanded/shockpaddles/borg/check_defib_exists()
+/obj/item/twohanded/shockpaddles/borg/check_defib_exists(obj/item/defibrillator/mainunit)
 	// No-op.
 
 /obj/item/twohanded/shockpaddles/borg/dropped(mob/user, silent = FALSE)
@@ -590,21 +621,6 @@
 /obj/item/twohanded/shockpaddles/borg/attack_self()
 	// Standard two-handed weapon behavior is disabled.
 
-/obj/item/twohanded/shockpaddles/borg/trigger_cooldown(mob/user)
-	cooldown = TRUE
-	update_icon()
-	var/mob/living/silicon/robot/R = user
-	spawn(50)
-		if(R.cell.charge >= revivecost)
-			user.visible_message("<span class='notice'>[src] beeps: Unit ready.</span>")
-			playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
-		else
-			user.visible_message("<span class='notice'>[src] beeps: Charge depleted.</span>")
-			playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
-		cooldown = FALSE
-		update_icon()
+/obj/item/twohanded/shockpaddles/borg/update_icon_state()
+	icon_state = "[initial(icon_state)][cooldown ? "_cooldown" : ""]"
 
-/obj/item/twohanded/shockpaddles/borg/update_icon()
-	icon_state = "[initial(icon_state)]"
-	if(cooldown)
-		icon_state = "[initial(icon_state)]_cooldown"

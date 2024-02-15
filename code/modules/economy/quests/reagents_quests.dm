@@ -101,6 +101,7 @@
 		"gibbfloats" = list("volume" = 30,"reward" = 40),
 		"nuka_cola" = list("volume" = 30,"reward" = 60),
 		"pumpkin_latte" = list("volume" = 30,"reward" = 40),
+		"zazafizzy" = list("volume" = 30, "reward" = 20)
 	)
 	unique_reagents = list()
 
