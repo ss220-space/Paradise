@@ -1476,15 +1476,7 @@ About the new airlock wires panel:
 			else
 				ae = new/obj/item/airlock_electronics(loc)
 			check_access()
-
-			// Doors without access control set (aka public doors) have req_acess variable as null and upon deconstruction that variable overwrites airlock electronics selected_accesses variable data making it null as well.
-			// This breaks airlock electronics GUI as it relies on selected_accesses variable to show what accesses are enabled/disabled.
-			// We reset variable to the default airlock settings if it happened to be null one.
-			if (req_access)
-				ae.selected_accesses = req_access
-			else
-				ae.selected_accesses = list()
-
+			ae.selected_accesses = length(req_access) ? req_access  : list()
 			ae.one_access = check_one_access
 		else
 			ae = electronics
