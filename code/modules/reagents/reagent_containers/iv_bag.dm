@@ -72,6 +72,7 @@
 		end_processing()
 		return
 
+	// injection_limb.open = 2 after scalpel->hemostat->retractor
 	if((PIERCEIMMUNE in injection_target.dna.species.species_traits) && injection_limb.open < 2)
 		end_processing()
 		return
