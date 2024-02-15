@@ -71,6 +71,8 @@
 		L += "**Unknown**"
 
 	var/select = tgui_input_list(user, "Please select a telepad.", "RCS", L)
+	if(!select)
+		return
 	if(select == "**Unknown**") // Randomise the teleport location
 		pad = random_coords()
 	else // Else choose the value of the selection

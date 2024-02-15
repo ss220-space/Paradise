@@ -162,7 +162,7 @@
 	data["shopItems"] = shop_items
 	return data
 
-/obj/machinery/computer/roboquest/ui_act(action, list/params)
+/obj/machinery/computer/roboquest/ui_act(action, list/params, datum/tgui/ui)
 	switch(action)
 		if("RemoveID")
 			currentID.forceMove(get_turf(src))
@@ -197,8 +197,31 @@
 		if("SendMech")
 			check_pad()
 			if(canSend)
+				// copypast of rcs
+				var/list/L = list() // List of avaliable telepads
+				var/list/areaindex = list() // Telepad area location
+				var/atom/quantum
+				for(var/obj/machinery/telepad_cargo/R in GLOB.machines)
+					if(R.stage)
+						continue
+					var/turf/T = get_turf(R)
+					var/locname = T.loc.name // The name of the turf area. (e.g. Cargo Bay, Experimentation Lab)
+
+					if(areaindex[locname]) // If there's another telepad with the same area, increment the value so as to not override (e.g. Cargo Bay 2)
+						locname = "[locname] ([++areaindex[locname]])"
+					else // Else, 1
+						areaindex[locname] = 1
+					L[locname] = R
+
+				var/select = tgui_input_list(ui.user, "Please select a telepad.", "RCS", L)
+				if(!select)
+					return
+				if(select == "**Unknown**") // Randomise the teleport location
+					return
+				else // Else choose the value of the selection
+					quantum = L[select]
 				flick("sqpad-beam", pad)
-				pad.teleport()
+				pad.teleport(quantum)
 				checkMessage = "Вы отправили меха с оценкой успеха [success] из трех"
 				check_timer = null
 				check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
@@ -296,11 +319,13 @@
 		return
 	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
 
-/obj/machinery/roboquest_pad/proc/teleport()
+/obj/machinery/roboquest_pad/proc/teleport(atom/destination)
 	do_sparks(5, 1, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
-		qdel(M)
+		var/obj/structure/closet/critter/mecha/box = new
+		M.forceMove(box)
+		do_teleport(box, destination)
 
 /obj/machinery/roboquest_pad/New()
 	RegisterSignal(src, COMSIG_MOVABLE_UNCROSSED, PROC_REF(ismechgone))
@@ -318,6 +343,9 @@
 		return
 	var/obj/item/multitool/M = I
 	M.set_multitool_buffer(user, src)
+
+/obj/structure/closet/critter/mecha
+	name = "mecha box"
 
 #undef NO_SUCCESS
 #undef CORRECT_MECHA
