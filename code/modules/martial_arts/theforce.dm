@@ -119,7 +119,7 @@
 
 
 /obj/effect/proc_holder/spell/force_lightning/cast(list/targets, mob/user = usr)
-	playsound(user.loc, 'sound/magic/the force/lightning.mp3', 40, 1)
+	playsound(user.loc, 'sound/magic/the force/lightning.mp3', 40, TRUE)
 
 	var/atom/beam_from = user
 	var/atom/target_atom = pick(targets)
