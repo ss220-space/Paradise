@@ -134,7 +134,7 @@
 			else
 				add_attack_logs(user, L, "shocked and weakened with the force")
 				L.Weaken(5 SECONDS)
-			playsound(L.loc, pick('sound/magic/the force/lightninghit1.mp3', 'sound/magic/the force/lightninghit2.mp3', 'sound/magic/the force/lightninghit3.mp3'), 40, 1)
+			playsound(L.loc, pick('sound/magic/the force/lightninghit1.mp3', 'sound/magic/the force/lightninghit2.mp3', 'sound/magic/the force/lightninghit3.mp3'), 40, TRUE)
 
 		var/list/next_shocked = list()
 		for(var/atom/movable/AM in orange(3, target_atom))
