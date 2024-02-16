@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(game_events)
 /datum/controller/subsystem/game_events/Initialize()
 	return
 
-/datum/controller/subsystem/game_events/proc/add_to_process(/datum/event)
+/datum/controller/subsystem/game_events/proc/add_to_process(datum/event)
 	if(!istype(event))
 		return FALSE
 	processing |= event
