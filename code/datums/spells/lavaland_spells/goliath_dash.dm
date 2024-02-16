@@ -32,7 +32,7 @@
 		var/turf/next_step = get_step(user, direction)
 		user.face_atom(target)
 
-		if(!is_path_exist(user, next_step, PASSTABLE|PASSGRILLE|PASSFENCE))
+		if(!is_path_exist(user, next_step, PASSTABLE|PASSFENCE))
 			break
 
 		user.forceMove(next_step)
