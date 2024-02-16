@@ -19552,7 +19552,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/space)
+/area/turret_protected/ai)
 "chX" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -49095,7 +49095,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/space)
+/area/turret_protected/ai)
 "fFv" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -49327,7 +49327,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/space)
+/area/turret_protected/ai)
 "fId" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
@@ -50682,7 +50682,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/space)
+/area/turret_protected/ai)
 "fXQ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
