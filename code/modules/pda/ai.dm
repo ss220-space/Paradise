@@ -44,7 +44,7 @@
 	var/HTML = {"<html><meta charset="UTF-8"><head><title>AI PDA Message Log</title></head><body>"}
 	for(var/index in M.tnote)
 		var/obj/item/pda/target_pda = locateUID(index["target"])
-		HTML += "<i><b>[index["sent"] ? "&rarr; To" : "&larr; From"] <a href='byond://?src=[M.UID()];choice=Message;target=[index["target"]]'>[QDELETED(target_pda) ? "Error#1133: Unable to find UserName." : "[target_pda.owner] ([target_pda.job])"]</a>:</b></i><br>[index["message"]]<br>"
+		HTML += "<i><b>[index["sent"] ? "&rarr; To" : "&larr; From"] <a href='byond://?src=[M.UID()];choice=Message;target=[index["target"]]'>[QDELETED(target_pda) ? "Error#1133: Unable to find UserName." : "[target_pda.owner] ([target_pda.ownjob])"]</a>:</b></i><br>[index["message"]]<br>"
 	HTML +="</body></html>"
 	usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
 
