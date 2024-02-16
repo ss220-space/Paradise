@@ -91394,11 +91394,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "pCX" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Magazines for SP-91-RC";
-	req_access = list(1)
-	},
 /obj/item/gun/energy/gun/advtaser{
 	pixel_x = -3;
 	pixel_y = 3
@@ -91412,6 +91407,11 @@
 	dir = 1;
 	name = "Station Intercom (General)";
 	pixel_y = -29
+	},
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Tasers";
+	req_access = list(1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;

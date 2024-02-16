@@ -28,7 +28,7 @@
 		INTERNAL_ORGAN_STRANGE_CRYSTAL = /obj/item/organ/internal/nucleation/strange_crystal,
 		INTERNAL_ORGAN_RESONANT_CRYSTAL = /obj/item/organ/internal/nucleation/resonant_crystal,
 	)
-	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
+
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/nucleation
 

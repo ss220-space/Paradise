@@ -23,6 +23,7 @@
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"
 	icon_state = "retro"
+	item_state = "laser"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
 
@@ -152,6 +153,8 @@
 ////////Laser Tag////////////////////
 
 /obj/item/gun/energy/laser/tag
+	icon_state = "bluetag"
+	item_state = "laser"
 	name = "laser tag gun"
 	desc = "Standard issue weapon of the Imperial Guard"
 	origin_tech = "combat=2;magnets=2"

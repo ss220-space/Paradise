@@ -148,6 +148,10 @@
 	return !(DEAF in user.mutations) && !HAS_TRAIT(user, TRAIT_DEAF)
 
 
+/datum/species/slime/get_vision_organ(mob/living/carbon/human/user)
+	return NO_VISION_ORGAN
+
+
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"
 	check_flags = AB_CHECK_CONSCIOUS
