@@ -645,6 +645,17 @@
 	armor = list("melee" = 60, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 60)
 	magical = TRUE
 
+//mob_size using for crusher mark
+/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial)
+	. = ..()
+	if(istype(user))
+		user.mob_size = MOB_SIZE_LARGE
+
+/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, silent)
+	. = ..()
+	if(istype(user))
+		user.mob_size = MOB_SIZE_HUMAN
+
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
 	desc = "A tribal armor plate, crafted from animal bone."
