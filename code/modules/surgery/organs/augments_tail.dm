@@ -17,13 +17,37 @@
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4;combat=4"
 	var/activated = FALSE
 	implant_color = "#585857"
-	var/datum/action/innate/tail_lash/implant_ability
+	var/implant_type = 1 // 0 - unathi lash, 1 - blade, 2 - lazer blade, 3 - syndi lazer blade
+	var/datum/action/innate/tail_cut/implant_ability
 
 /obj/item/organ/internal/cyberimp/tail/blade/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = owner.get_organ_slot(INTERNAL_ORGAN_TAIL)
 	implant_ability = new(src)
+
+	switch(implant_type)
+
+		if(1)
+			implant_ability.slash_strength = 3
+			implant_ability.stamina_damage = 10
+			implant_ability.self_stamina_damage = 20
+
+
+		if(2)
+			implant_ability.slash_strength = 3
+			implant_ability.stamina_damage = 10
+			implant_ability.self_stamina_damage = 20
+			implant_ability.damage_type = BURN
+
+		if(3)
+			implant_ability.slash_strength = 4
+			implant_ability.stamina_damage = 20
+			implant_ability.self_stamina_damage = 15
+			implant_ability.damage_type = BURN
+
 	implant.implant_ability.Grant(owner)
+
+
 
 /obj/item/organ/internal/cyberimp/tail/blade/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = owner.get_organ_slot(INTERNAL_ORGAN_TAIL)
@@ -43,9 +67,70 @@
 /obj/item/organ/internal/cyberimp/tail/blade/lazer
 	name = "Tail lazer blade implant"
 	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
+	implant_type = 2
 
 /obj/item/organ/internal/cyberimp/tail/blade/lazer/syndi
 	name = "Tail lazer blade implant"
 	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
+	implant_type = 3
 
+/datum/action/innate/tail_cut
+	name = "Разрез хвостом"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "tail"
+	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
+	var/slash_strength = 1       // Slash damage modifier
+	var/stamina_damage = 0       // Stamina damage to others
+	var/self_stamina_damage = 15 // Stamina damage to self
+	var/damage_type = BRUTE      // BRUTE or BURN
+	var/slash_sound = 'sound/weapons/slash.ogg'
+
+/datum/action/innate/tail_cut/Trigger(left_click = TRUE)
+	if(IsAvailable(show_message = TRUE))
+		. = ..()
+
+/datum/action/innate/tail_cut/Activate()
+	var/mob/living/carbon/human/user = owner
+
+	if((user.restrained() && user.pulledby) || user.buckled)
+		to_chat(user, span_warning("Вам нужно больше свободы движений для взмаха хвостом!"))
+		return
+
+	if(user.getStaminaLoss() >= 50)
+		to_chat(user, span_warning("Вы слишком устали!"))
+		return
+
+	for(var/mob/living/carbon/human/C in orange(1))
+		var/obj/item/organ/external/E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN))
+
+		if(E)
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] режет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
+			user.adjustStaminaLoss(self_stamina_damage)
+			C.apply_damage(5 * slash_strength, damage_type, E)
+			user.spin(20,1)
+			playsound(user.loc, slash_sound, 50, 0)
+			add_attack_logs(user, C, "tail whipped")
+
+			if(user.restrained() && prob(50))
+				user.Weaken(4 SECONDS)
+				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), span_danger("[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!"))
+				return
+
+			if(user.getStaminaLoss() >= 60)
+				to_chat(user, span_warning("Вы выбились из сил!"))
+				return
+
+/datum/action/innate/tail_cut/IsAvailable(show_message = FALSE)
+	. = ..()
+	var/mob/living/carbon/human/user = owner
+
+	if(!user.bodyparts_by_name[BODY_ZONE_TAIL])
+		if(show_message)
+			to_chat(user, span_warning("У вас НЕТ ХВОСТА!"))
+		return FALSE
+
+	if(!istype(owner.get_organ_slot(INTERNAL_ORGAN_TAIL), /obj/item/organ/internal/cyberimp/tail/blade))
+		if(show_message)
+			to_chat(user, span_warning("У вас слабый хвост!"))
