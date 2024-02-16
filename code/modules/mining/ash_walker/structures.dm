@@ -59,3 +59,29 @@ Special thanks to piotrthetchaikowsky, pilygun & the_worm
 	item_state = "chair" //wooden enough
 	origin_type = /obj/structure/chair/stool/wooden
 	break_chance = 10
+
+//rack
+
+/obj/structure/rack/wooden
+	name = "wooden rack"
+	desc = "Middle Ages version of classic rack."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "wooden_rack"
+
+/obj/structure/rack/wooden/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		density = FALSE
+		var/obj/item/gunrack_parts/newparts = new(loc) //временно.
+		transfer_fingerprints_to(newparts)
+	for(var/obj/item/I in loc.contents)
+		if(istype(I, /obj/item/gun))
+			var/obj/item/gun/to_remove = I
+			to_remove.remove_from_rack()
+	qdel(src)
+
+/obj/structure/closet/crate/wooden
+	name = "wooden crate"
+	desc = "A rectangular wooden crate"
+	icon_state = "woodencrate"
+	icon_opened = "woodencrateopen"
+	icon_closed = "woodencrate"

@@ -80,9 +80,8 @@
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 
 /obj/structure/closet/crate/miningcar
+	name = "mining car"
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
-	name = "mining car (not for rails)"
 	icon_state = "miningcar"
-	density = 1
 	icon_opened = "miningcaropen"
 	icon_closed = "miningcar"

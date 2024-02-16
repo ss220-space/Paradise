@@ -964,16 +964,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
-"cU" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/obj/structure/curtain/open{
-	color = "442D15";
-	anchored = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "cV" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
@@ -1266,6 +1256,14 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"dQ" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/closet/crate/necropolis,
+/obj/item/clothing/under/ash_walker,
+/obj/item/clothing/under/ash_walker_shaman,
+/obj/item/clothing/under/ash_walker,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "dR" = (
 /obj/machinery/conveyor{
 	dir = 1;
@@ -1448,6 +1446,16 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
+/obj/structure/rack/wooden,
+/obj/item/twohanded/spear/bonespear,
+/obj/item/twohanded/spear/bonespear{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/twohanded/spear/bonespear{
+	pixel_x = 5;
+	pixel_y = -4
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "ey" = (
@@ -1504,6 +1512,38 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"eN" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
+	pixel_y = -5;
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
+	pixel_x = 2;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
+	pixel_x = -4;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
+	pixel_x = -9;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_y = 8;
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "eO" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -1760,6 +1800,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
+"fz" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/obj/item/storage/backpack/quiver/full{
+	pixel_y = -1;
+	pixel_x = 7
+	},
+/obj/item/gun/projectile/bow{
+	pixel_y = -1;
+	pixel_x = -5
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "fA" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -1899,6 +1952,13 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"fY" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/mob/living/simple_animal/chicken,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "ge" = (
 /obj/structure/mirror{
 	pixel_y = -30
@@ -2423,6 +2483,45 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"il" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/glass/bottle/saline{
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/glass/bottle/saline{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/glass/bottle/salicylic{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/glass/bottle/salicylic{
+	pixel_x = -5;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ip" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/structure/rack/wooden,
+/obj/item/twohanded/spear,
+/obj/item/twohanded/spear{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/twohanded/spear{
+	pixel_y = -4;
+	pixel_x = 3
+	},
+/obj/item/clothing/head/helmet/roman/legionaire,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "ir" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -2612,6 +2711,15 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"jr" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/wood,
+/obj/item/kitchen/knife/combat/survival/bone{
+	pixel_y = -2;
+	pixel_x = 3
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "js" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -2628,6 +2736,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"jB" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/seeds/wheat,
+/obj/item/seeds/wheat,
+/obj/item/seeds/wheat,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "jE" = (
 /obj/machinery/alarm{
 	pixel_y = 24
@@ -3050,6 +3165,17 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"ln" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/closet/crate/miningcar,
+/obj/item/stack/sheet/leather{
+	amount = 5
+	},
+/obj/item/stack/sheet/cloth/ten,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "lp" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -3792,10 +3918,8 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "ot" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/slab/cracked,
+/obj/machinery/the_singularitygen,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "ou" = (
@@ -3939,6 +4063,10 @@
 	icon_state = "bar"
 	},
 /area/mine/living_quarters)
+"pO" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "pP" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -4227,6 +4355,10 @@
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"rv" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "ry" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4288,6 +4420,21 @@
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"sg" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/rack/wooden,
+/obj/item/hatchet/wooden{
+	pixel_x = 3
+	},
+/obj/item/hatchet/wooden{
+	pixel_x = -3;
+	pixel_y = -6
+	},
+/obj/item/hatchet/wooden{
+	pixel_y = -3
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "sh" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -4589,10 +4736,6 @@
 "uc" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/bed/wooden,
-/obj/structure/curtain/open{
-	color = "442D15";
-	anchored = 1
-	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "uf" = (
@@ -4640,6 +4783,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"up" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/seeds/glowshroom,
+/obj/item/seeds/glowshroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "ur" = (
 /obj/structure/closet/secure_closet/personal/mining,
 /obj/structure/sign/poster/random{
@@ -4691,11 +4840,19 @@
 /area/mine/production)
 "uy" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/structure/bed/ash,
-/obj/structure/curtain/open{
-	color = "442D15";
-	anchored = 1
+/obj/structure/rack/wooden,
+/obj/item/reagent_containers/food/drinks/trophy/bronze_cup{
+	pixel_x = -7;
+	pixel_y = 2
 	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/empty{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"uz" = (
+/obj/item/flashlight/lantern,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "uB" = (
@@ -4902,6 +5059,15 @@
 /obj/machinery/torch_holder/mapping{
 	dir = 8
 	},
+/obj/structure/closet/crate/miningcar,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "vI" = (
@@ -5014,6 +5180,28 @@
 /obj/machinery/torch_holder/mapping{
 	dir = 1
 	},
+/obj/structure/rack/wooden,
+/obj/item/stack/medical/bruise_pack/improvised{
+	pixel_x = 4;
+	pixel_y = -8
+	},
+/obj/item/stack/medical/bruise_pack/improvised{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/stack/medical/bruise_pack/improvised{
+	pixel_x = -4;
+	pixel_y = -7
+	},
+/obj/item/stack/medical/bruise_pack/improvised{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"wn" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/closet/crate/wooden,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "wp" = (
@@ -5120,6 +5308,15 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"xn" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "xt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -5176,6 +5373,10 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"xF" = (
+/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "xH" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5254,6 +5455,15 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"xY" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/fireproof_rods{
+	amount = 50
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "yb" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
@@ -5302,10 +5512,6 @@
 "yp" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/bed/wooden,
-/obj/structure/curtain/open{
-	color = "442D15";
-	anchored = 1
-	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "yq" = (
@@ -5657,6 +5863,14 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Av" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/closet/crate/miningcar,
+/obj/item/malf_upgrade,
+/obj/item/rcd/preloaded,
+/obj/item/kitchen/knife/combat,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Aw" = (
 /obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile{
@@ -5670,6 +5884,10 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Az" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "AB" = (
 /obj/machinery/light/small,
 /obj/structure/disposalpipe/segment{
@@ -5849,6 +6067,15 @@
 /obj/structure/stone_tile/block/cracked,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Bz" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/candle/eternal{
+	pixel_x = 11;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "BA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -5900,6 +6127,18 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
+"BV" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/closet/crate/wooden,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "BX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -5952,6 +6191,17 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Cn" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/machinery/torch_holder/mapping{
+	dir = 4
+	},
+/obj/structure/closet/crate/wooden,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/stack/medical/splint/tribal,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Ct" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
@@ -6007,6 +6257,11 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"CT" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "CX" = (
@@ -6102,6 +6357,23 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"DK" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/candle/eternal{
+	pixel_x = 11;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/snacks/goliath_steak{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_y = 6;
+	pixel_x = -6
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "DM" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -6191,10 +6463,6 @@
 "Ei" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/bed/ash,
-/obj/structure/curtain/open{
-	color = "442D15";
-	anchored = 1
-	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "El" = (
@@ -6503,6 +6771,23 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"Gc" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/obj/item/kitchen/knife/combat/survival/bone{
+	pixel_y = -4;
+	pixel_x = -1
+	},
+/obj/item/kitchen/knife/combat/survival/bone{
+	pixel_y = -7;
+	pixel_x = 3
+	},
+/obj/item/kitchen/knife/combat/survival/bone{
+	pixel_y = -1;
+	pixel_x = -5
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Gg" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block/cracked{
@@ -6565,6 +6850,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Gv" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Gy" = (
 /obj/structure/window/reinforced/clockwork{
 	dir = 8;
@@ -6602,6 +6892,12 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"GH" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/rack/wooden,
+/obj/item/storage/bag/plants/portaseeder,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "GJ" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp External";
@@ -6624,6 +6920,11 @@
 /obj/machinery/torch_holder/mapping{
 	dir = 4
 	},
+/obj/structure/closet/crate/wooden,
+/obj/item/seeds/aloe,
+/obj/item/seeds/aloe,
+/obj/item/seeds/aloe,
+/obj/item/seeds/potato,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "GP" = (
@@ -6843,16 +7144,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
-"HZ" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/structure/curtain/open{
-	color = "442D15";
-	anchored = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "Id" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7053,16 +7344,6 @@
 /obj/machinery/mech_bay_recharge_port,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
-"Jr" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
-	},
-/obj/structure/curtain/open{
-	color = "442D15";
-	anchored = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "Jv" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -7550,6 +7831,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
+/obj/structure/bed/ash,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Ms" = (
@@ -7567,6 +7849,10 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
+"My" = (
+/obj/machinery/torch_holder/mapping,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "MC" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -7798,6 +8084,17 @@
 /obj/item/clothing/mask/balaclava,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"Oc" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/dough{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/food/snacks/dough{
+	pixel_x = -6
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Oe" = (
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -7913,6 +8210,22 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"OT" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_y = 5;
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_y = 5;
+	pixel_x = -7
+	},
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "OU" = (
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/indestructible/boss{
@@ -7958,6 +8271,12 @@
 /area/lavaland/surface/outdoors/necropolis)
 "Pv" = (
 /obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"PI" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/seeds/comfrey,
+/obj/item/seeds/comfrey,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "PM" = (
@@ -8052,6 +8371,20 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"Qh" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/rack/wooden,
+/obj/item/shield/riot/goliath,
+/obj/item/claymore/bone{
+	pixel_y = -2;
+	pixel_x = -5
+	},
+/obj/item/claymore/bone{
+	pixel_y = -6;
+	pixel_x = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Qi" = (
 /obj/structure/necropolis_gate/legion_gate,
 /obj/structure/necropolis_arch,
@@ -8163,6 +8496,18 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"QX" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/cultivator/rake,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"QZ" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/seeds/tower,
+/obj/item/seeds/tower,
+/obj/item/seeds/tower,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Rd" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -8194,6 +8539,12 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Rn" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/seeds/reishi,
+/obj/item/seeds/reishi,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Ro" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/burnt{
@@ -8446,6 +8797,10 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"SR" = (
+/obj/item/reagent_containers/glass/bucket/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "ST" = (
 /obj/structure/fluff/drake_statue/falling,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -8502,6 +8857,13 @@
 /obj/structure/stone_tile/center,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/necropolis)
+"Te" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/obj/item/holder/cock,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Th" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
@@ -8525,6 +8887,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"Tp" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/rack/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Tq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -8706,8 +9073,7 @@
 	},
 /area/mine/living_quarters)
 "UF" = (
-/obj/structure/stone_tile/surrounding,
-/obj/structure/table/wood,
+/obj/item/shovel,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "UH" = (
@@ -8949,6 +9315,19 @@
 	dir = 6
 	},
 /obj/structure/stone_tile/center,
+/obj/structure/rack/wooden,
+/obj/item/twohanded/spear{
+	pixel_y = -4;
+	pixel_x = 3
+	},
+/obj/item/twohanded/spear{
+	pixel_y = -3;
+	pixel_x = 1
+	},
+/obj/item/twohanded/spear{
+	pixel_x = 1
+	},
+/obj/item/scythe,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Wj" = (
@@ -9073,6 +9452,16 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"WR" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/rack/wooden,
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "WU" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -9192,6 +9581,8 @@
 "XG" = (
 /obj/structure/stone_tile/surrounding/burnt,
 /obj/structure/stone_tile/center/cracked,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/glass/beaker/waterbottle/large,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "XJ" = (
@@ -9287,6 +9678,10 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Yk" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ym" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -9314,13 +9709,24 @@
 	icon_state = "freezerfloor"
 	},
 /area/mine/living_quarters)
+"Yv" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/obj/item/storage/belt/mining/primitive,
+/obj/item/storage/belt/mining/primitive{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Yw" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/bonfire,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "Yz" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/bed/ash,
-/obj/structure/curtain/open{
-	color = "442D15";
-	anchored = 1
-	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "YA" = (
@@ -9428,6 +9834,10 @@
 "Zb" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/table/wood,
+/obj/item/flashlight/lantern{
+	pixel_x = 7;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Ze" = (
@@ -9506,6 +9916,22 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"ZN" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_y = 5;
+	pixel_x = -7
+	},
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_y = 5;
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "ZQ" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -62989,11 +63415,11 @@ RD
 Jz
 Jz
 Yz
-ra
+fz
 vz
 qP
 DO
-uy
+Qh
 Jz
 zY
 zY
@@ -63244,7 +63670,7 @@ kt
 (210,1,1) = {"
 RD
 Jz
-ra
+Gc
 qP
 He
 fT
@@ -63252,14 +63678,14 @@ wE
 qN
 Mo
 yc
-Vu
-Vu
+Az
+rv
 zY
 zY
 Jz
 yc
 Jz
-ra
+Yv
 Ms
 BB
 Jz
@@ -63515,7 +63941,7 @@ Vu
 Jz
 Jz
 rX
-ra
+Gv
 kY
 MN
 Nr
@@ -63770,13 +64196,13 @@ iS
 qN
 Vu
 Jz
-ra
+Yw
 ra
 to
 jZ
 Vu
 He
-gB
+Oc
 Jz
 aj
 aj
@@ -64027,12 +64453,12 @@ Vu
 ra
 He
 yc
-Tl
+Te
 SA
 CN
 qP
 Vu
-Zb
+jr
 Zb
 Jz
 aj
@@ -64273,19 +64699,19 @@ kt
 RD
 RD
 Jz
-ra
+dQ
 ex
 HS
 ra
 uh
-KJ
+xn
 yc
 Vu
 SH
 pF
 iS
 Fd
-gB
+Bz
 He
 Jv
 zK
@@ -64544,7 +64970,7 @@ to
 xT
 qg
 BZ
-UF
+RT
 jW
 qg
 BZ
@@ -64789,21 +65215,21 @@ RD
 RD
 yc
 zY
-zK
-Vu
-Vu
-Wg
+BV
+AY
+xF
+WR
 qP
 Vu
 nV
 Wg
 yc
-ra
+ZN
 zK
 Wg
-CN
+fY
 qP
-gB
+DK
 CP
 Jz
 aj
@@ -65047,7 +65473,7 @@ RD
 yc
 zY
 zY
-Vu
+CT
 Vu
 tc
 zK
@@ -65056,8 +65482,8 @@ LK
 Vu
 Jz
 Jz
-to
-iS
+Tp
+uy
 cJ
 RV
 OK
@@ -65304,8 +65730,8 @@ RD
 RD
 yc
 zY
-zK
-Vu
+ln
+ng
 yc
 qP
 Vu
@@ -66099,7 +66525,7 @@ aj
 aj
 aj
 jR
-ab
+Yk
 ab
 ab
 ak
@@ -66596,7 +67022,7 @@ ct
 iS
 WL
 Vu
-Vu
+pO
 Vu
 ae
 Br
@@ -67887,7 +68313,7 @@ Nr
 to
 jW
 Pc
-Vu
+SR
 Jz
 Jz
 aj
@@ -68136,7 +68562,7 @@ Vu
 He
 AY
 BZ
-Qm
+ip
 Tl
 Wg
 qP
@@ -68145,7 +68571,7 @@ MU
 Pv
 Vu
 Vu
-Vu
+up
 Jz
 aj
 aj
@@ -68388,21 +68814,21 @@ RD
 RD
 Jz
 yc
-Jr
-cU
+MN
+CN
 yc
 qP
 ct
 EV
 zK
 Vu
-Vu
-ot
+My
+yc
 yc
 qP
 vv
 Vu
-Vu
+UF
 Jz
 aj
 aj
@@ -68647,16 +69073,16 @@ Jz
 wq
 Vu
 Vu
-HZ
+BZ
 Vu
 BZ
 yc
-iR
+xY
 Jf
 eG
-iS
+ot
 yc
-Vu
+PI
 Vu
 vv
 TT
@@ -68900,20 +69326,20 @@ RD
 Jz
 Jz
 yp
-ra
+wn
 LE
 OK
 zK
-HZ
+BZ
 Jf
 Wg
 yc
 yc
-to
+Av
 Wh
 yc
 yc
-Vu
+QZ
 Vu
 vv
 yF
@@ -69164,16 +69590,16 @@ jW
 yc
 yc
 Vu
-Vu
+Az
 yc
 yc
 yc
 yc
+jB
 Vu
 Vu
 Vu
-Vu
-TT
+QX
 Jz
 aj
 aj
@@ -69418,16 +69844,16 @@ Vu
 Wg
 CN
 qP
-Zb
+eN
 Jz
 Vu
 Vu
 tG
 Vu
+Rn
+UF
 Vu
-Vu
-Vu
-Vu
+uz
 Vu
 TT
 Jz
@@ -69673,7 +70099,7 @@ uc
 XG
 xT
 eG
-iI
+il
 gB
 Zb
 Jz
@@ -69928,8 +70354,8 @@ RD
 Jz
 Jz
 Jz
-GO
-ra
+Cn
+OT
 Jz
 RD
 Jz
@@ -69942,7 +70368,7 @@ OK
 RV
 TT
 TT
-TT
+QX
 Jz
 Jz
 aj
@@ -70194,9 +70620,9 @@ RD
 RD
 Jz
 Jz
-to
+GH
 GO
-to
+sg
 Jz
 Jz
 yc
