@@ -76,8 +76,7 @@
 			M.pulledby.pulling = src
 			M.pulledby = null
 
-	for(var/obj/item/grab/G in M.grabbed_by)
-		qdel(G)
+	QDEL_LIST(M.grabbed_by)
 
 	M.buckling = null
 	M.buckled = src

@@ -80,7 +80,7 @@
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/strength_modifier = 1	 //for now only used in resist/grab chances. Maybe sometime it will become more usefull
 	var/obj_damage = 0
-	var/list/default_genes = list()
+	var/list/default_genes
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.

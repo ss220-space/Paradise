@@ -309,7 +309,7 @@
 	Move(T)
 	if(!current_cable && !current_power)
 		var/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/S = locate() in mob_spell_list
-		if(!S.locked && !can_exit_cable)
+		if(S && !S.locked && !can_exit_cable)
 			can_exit_cable = TRUE
 			S.do_toggle(can_exit_cable)
 			to_chat(src, span_danger("Your self-sustaining ability has automatically enabled itself to prevent death from having no connection!"))

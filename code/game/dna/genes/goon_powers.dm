@@ -34,7 +34,7 @@
 
 /datum/dna/gene/basic/stealth/can_activate(mob/M, flags)
 	// Can only activate one of these at a time.
-	if(is_type_in_list(/datum/dna/gene/basic/stealth,M.active_genes))
+	if(is_type_in_list(/datum/dna/gene/basic/stealth, M.active_genes))
 		testing("Cannot activate [type]: /datum/dna/gene/basic/stealth in M.active_genes.")
 		return FALSE
 	return ..()
@@ -96,7 +96,7 @@
 	return TRUE
 
 /datum/dna/gene/basic/grant_spell/deactivate(mob/M, connected, flags)
-	for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)
+	for(var/obj/effect/proc_holder/spell/S as anything in M.mob_spell_list)
 		if(istype(S, spelltype))
 			M.RemoveSpell(S)
 	..()

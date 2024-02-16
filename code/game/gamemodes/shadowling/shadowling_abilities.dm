@@ -461,11 +461,7 @@
 			if(!is_shadow(check))
 				continue
 
-			var/obj/effect/proc_holder/spell/shadowling_collective_mind/cm_spell = locate() in check.mind.spell_list
-			if(cm_spell)
-				check.mind.spell_list -= cm_spell
-				qdel(cm_spell)
-
+			check.mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_collective_mind)
 			check.mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_hatch)
 			check.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_ascend(null))
 
@@ -841,8 +837,7 @@
 		GLOB.event_announcement.Announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.", "Системный сбой.", 'sound/misc/notice1.ogg')
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
-	user.mind.spell_list.Remove(src) //Can only be used once!
-	qdel(src)
+	user.mind.RemoveSpell(src)	//Can only be used once!
 
 
 // ASCENDANT ABILITIES BEYOND THIS POINT //

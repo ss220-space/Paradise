@@ -156,7 +156,7 @@
 
 	if(update_spells)
 		check_vampire_upgrade()
-		var/list/all_spells = owner.spell_list | owner.current.mob_spell_list
+		var/list/all_spells = owner.spell_list + owner.current.mob_spell_list
 		for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 			spell.on_trophie_update(src, trophie_type)
 
@@ -1023,7 +1023,7 @@
 	vampire_animal.status_flags &= ~GODMODE
 	vampire_animal.canmove = TRUE
 	is_transformed = TRUE
-	var/list/all_spells = vampire_animal.mind.spell_list | vampire_animal.mob_spell_list
+	var/list/all_spells = vampire_animal.mind.spell_list + vampire_animal.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 		spell.updateButtonIcon()
 
@@ -1070,7 +1070,7 @@
 	original_body.status_flags &= ~GODMODE
 	original_body.update_canmove()
 	is_transformed = FALSE
-	var/list/all_spells = original_body.mind.spell_list | original_body.mob_spell_list
+	var/list/all_spells = original_body.mind.spell_list + original_body.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 		spell.updateButtonIcon()
 	original_body = null

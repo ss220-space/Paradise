@@ -768,9 +768,11 @@
 
 /obj/effect/timestop/New()
 	..()
-	for(var/mob/living/M in GLOB.player_list)
-		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
-			immune |= M
+	for(var/mob/living/living in GLOB.player_list)
+		if(!living.mind)
+			continue
+		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/spell in living.mind.spell_list) //People who can stop time are immune to timestop
+			immune |= living
 
 
 /obj/effect/timestop/proc/timestop()

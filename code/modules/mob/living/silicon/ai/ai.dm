@@ -146,8 +146,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
 
-	proc_holder_list = new()
-
 	if(B?.clock)
 		ratvar_act()
 	else if(L)

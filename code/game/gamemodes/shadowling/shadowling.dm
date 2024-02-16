@@ -245,8 +245,8 @@ Made by Xhuis
 	shadows.Remove(ling_mind)
 	add_conversion_logs(ling_mind.current, "Deshadowlinged")
 	ling_mind.special_role = null
-	for(var/obj/effect/proc_holder/spell/S in ling_mind.spell_list)
-		ling_mind.RemoveSpell(S)
+	for(var/obj/effect/proc_holder/spell/spell as anything in ling_mind.spell_list)
+		ling_mind.RemoveSpell(spell)
 	var/mob/living/M = ling_mind.current
 	if(issilicon(M))
 		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>")

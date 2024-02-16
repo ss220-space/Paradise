@@ -1382,24 +1382,23 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
 			A.update_pipe_image()
-		pipes_shown += A.pipe_image
+		LAZYADD(pipes_shown, A.pipe_image)
 		client.images += A.pipe_image
 
 
 /mob/living/proc/remove_ventcrawl()
 	if(client)
-		for(var/image/current_image in pipes_shown)
+		for(var/image/current_image as anything in pipes_shown)
 			client.images -= current_image
 		client.eye = src
-
-	pipes_shown.len = 0
+		LAZYCLEARLIST(pipes_shown)
 
 
 /mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
 	if(!client)
-		pipes_shown.Cut()
+		LAZYCLEARLIST(pipes_shown)
 		return
-	if(length(pipes_shown) && !target_move)
+	if(LAZYLEN(pipes_shown) && !target_move)
 		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else

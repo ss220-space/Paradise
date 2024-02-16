@@ -471,7 +471,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/message = multilingual_to_message(message_pieces)
 
-	say_log += "whisper: [message]"
+	LAZYADD(say_log, "whisper: [message]")
 	log_whisper(message, src)
 	var/message_range = 1
 	var/eavesdropping_range = 2

@@ -136,7 +136,7 @@ Difficulty: Medium
 	if(!ishuman(user))
 		return
 	if(slot == SLOT_HUD_OUTER_SUIT)
-		user.mob_spell_list += blood_spell
+		LAZYADD(user.mob_spell_list, blood_spell)
 		blood_spell.action.Grant(user)
 
 /obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user)
@@ -145,7 +145,7 @@ Difficulty: Medium
 	if(!ishuman(user))
 		return
 	if(user.get_item_by_slot(SLOT_HUD_OUTER_SUIT) == src)
-		user.mob_spell_list -= blood_spell
+		LAZYREMOVE(user.mob_spell_list, blood_spell)
 		blood_spell.action.Remove(user)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)

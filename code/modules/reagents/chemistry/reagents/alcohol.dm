@@ -2231,20 +2231,20 @@
 /datum/reagent/consumable/ethanol/trans_siberian_express/on_mob_life(mob/living/M)
 	. = ..()
 	var/datum/language/rus_lang = GLOB.all_languages[LANGUAGE_NEO_RUSSIAN]
-	if((rus_lang in M.languages) && !(rus_lang in M.temporary_languages))
+	if(LAZYIN(M.languages, rus_lang) && !LAZYIN(M.temporary_languages, rus_lang))
 		if(M.default_language != rus_lang)
 			M.default_language = rus_lang
 		if(volume < 0.4)
 			M.default_language = null //reset language we were speaking
 		return
 	else
-		if(!(rus_lang in M.languages))
-			M.temporary_languages += rus_lang
-			M.languages += rus_lang
+		if(!LAZYIN(M.languages, rus_lang))
+			LAZYADD(M.temporary_languages, rus_lang)
+			LAZYADD(M.languages, rus_lang)
 			M.default_language = rus_lang
 		if(volume < 0.4)
 			M.languages ^= M.temporary_languages
-			M.temporary_languages -= rus_lang
+			LAZYREMOVE(M.temporary_languages, rus_lang)
 			M.default_language = null
 
 /datum/reagent/consumable/ethanol/sun
