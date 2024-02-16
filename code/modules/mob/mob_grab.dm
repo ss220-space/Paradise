@@ -502,7 +502,7 @@
 
 /obj/item/grab/force/process()
 	if(..() && state >= GRAB_AGGRESSIVE)
-		playsound(affecting, 'sound/magic/the force/grip.mp3', 40)
+		playsound(affecting, 'sound/magic/theforce/grip.ogg', 40)
 
 /obj/item/grab/force/adjust_position()
 	return
