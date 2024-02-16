@@ -1833,7 +1833,8 @@
 		usr.client.cmd_admin_animalize(M)
 
 	else if(href_list["makePAI"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 		var/bespai = FALSE
 		var/mob/living/carbon/human/H = locate(href_list["makePAI"])
 		if(!istype(H))
