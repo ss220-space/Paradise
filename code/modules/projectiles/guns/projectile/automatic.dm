@@ -332,7 +332,7 @@
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
