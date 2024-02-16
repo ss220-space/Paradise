@@ -1500,23 +1500,22 @@
 /datum/reagent/medicine/pemoline/on_mob_delete(mob/living/M)
 	var/mob/living/carbon/human/H = M
 	if (H.can_heartattack())
-		to_chat(H, span_notice("You no longer feelw fast."))
+		to_chat(H, span_notice("You no longer feel fast."))
 		H.toolspeedincrease = 0
 	return
 
 /datum/reagent/medicine/pemoline/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
 	var/mob/living/carbon/human/H = M
 	if (H.toolspeedincrease > speed_increase && H.reagents.get_reagent_amount("pemoline") < overdose_threshold)
 		H.toolspeedincrease = speed_increase
 		to_chat(H, span_notice("You no longer feel so fast."))
-	return ..() | update_flags
+	return ..() 
 
 /datum/reagent/medicine/pemoline/overdose_start(mob/living/M)
 	var/mob/living/carbon/human/H = M
 	if (H.toolspeedincrease < speed_increase_overdose)
 		H.toolspeedincrease = speed_increase_overdose
-		to_chat(H, span_notice("notice'>You feel realy fast."))
+		to_chat(H, span_notice("You feel really fast."))
 	return
 
 /datum/reagent/medicine/pemoline/overdose_process(mob/living/M, severity)
@@ -1526,11 +1525,11 @@
 	var/mob/living/carbon/human/H = M
 	if (H.can_heartattack())
 		if(effect <= 2)
-			H.visible_message("<span class='warning'>[H] falls unconsciousness.</span>")
+			H.visible_message(span_warning("[H] falls unconsciousness.")) 
 			H.emote("scream")
 			update_flags |= H.set_heartattack(TRUE)
 		else if(effect <= 5)
-			H.visible_message("<span class='warning'>[H] suddenly cluches [H.p_their()] heart!</span>")
+			H.visible_message(span_warning("[H] suddenly cluches [H.p_their()] heart!")) 
 			H.emote("scream")
 			update_flags |= H.adjustHeartLoss(1, FALSE)
 	return list(effect, update_flags)
