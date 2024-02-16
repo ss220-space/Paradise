@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(game_events)
 	name = "Game events"
 	wait = 5 MINUTES
 	cpu_display = SS_CPUDISPLAY_LOW
-	offline_implications = "Timed Gamemode events and other events won't be processed. Shuttle call recommended."
+	offline_implications = "Timed Gamemode events and other events won't be processed. No immediate action is needed."
 	ss_id = "game_modes"
 	init_order = INIT_ORDER_GAME_EVENTS
 	var/list/processing = list()

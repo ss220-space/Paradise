@@ -333,7 +333,7 @@
 	players = shuffle(players)
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
-	for(var/mob/living/player in GLOB.alive_mob_list)
+	for(var/mob/living/player in players)
 		if(length(protected_species) && (player.client.prefs.species in protected_species))
 			continue
 		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
