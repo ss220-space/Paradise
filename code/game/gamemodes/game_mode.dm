@@ -362,6 +362,15 @@
 		if(player.client && player.ready)
 			.++
 
+/datum/game_mode/proc/num_station_players()
+	. = 0
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(!player)
+			continue
+
+		if(player.client && player.mind && !player.mind.offstation_role && !player.mind.special_role)
+			.++
+
 
 /datum/game_mode/proc/num_players_started()
 	. = 0

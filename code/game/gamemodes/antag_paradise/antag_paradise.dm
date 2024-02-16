@@ -51,22 +51,24 @@
 	pre_antags = list()
 	pre_double_antags = list()
 
-	var/players = roundstart ? num_players() : num_players_started()
+	var/players = roundstart ? num_players() : num_station_players()
 	calculate_antags(players)
 	var/scale = CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) : 10
+	var/officers = length(get_living_sec())
 	var/antags_amount
 	var/special_antag_amount
 	if(!roundstart)
-		var/officers = length(get_living_sec())
-		antags_amount = officers ? 1 + round(players / scale) : 0
+		antags_amount = officers ? 1 + round(players / scale + sqrt(officers))  : 0
 		special_antag_amount = officers ? 1 + round(players / 50) : 0
 	else
 		antags_amount = 1 + round(players / scale)
 		special_antag_amount = 1 + round(players / 50)
 
-	if(antags_amount + special_antag_amount > length(GLOB.antagonists))
+	if(length(GLOB.antagonists) >= officers)
 		return
 
+	antags_amount = round(officers - length(GLOB.antagonists))
+	
 	if(special_antag_type == ROLE_NINJA && !roundstart)
 		special_antag_type = pick(ROLE_HIJACKER, ROLE_THIEF, ROLE_MALF_AI)
 
