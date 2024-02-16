@@ -1,5 +1,5 @@
 #define COOLDOWN_TO_SLIMEPERSON (10 SECONDS)
-#define COOLDOWN_TO_SLIME_MOB (1 MINUTES)
+#define COOLDOWN_TO_SLIME_MOB (40 SECONDS)
 /obj/item/anomaly_extract
 	name = "Strange syringe"
 	desc = "Syringe with a blunt needle."
