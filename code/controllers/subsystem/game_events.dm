@@ -1,5 +1,4 @@
 ///This is a subsystem, which helps to process game modes through time.
-/// OOH PERHAPS BLOB WILL FINALLY WIN BY REACHING CRITICAL MASS, EH?
 SUBSYSTEM_DEF(game_events)
 	name = "Game events"
 	wait = 5 MINUTES
