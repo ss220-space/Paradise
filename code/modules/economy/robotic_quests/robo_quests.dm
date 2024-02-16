@@ -12,13 +12,15 @@
 	/// Text info for tgui
 	var/list/questinfo = list()
 	/// Reward for our current quest
-	var/reward
+	var/reward = list("working" = 2, "medical" = 1, "security" = 3, "robo" = 4)
 	/// Difficulty type
 	var/difficulty
 	/// Is our quest was claimed
 	var/claimed = FALSE
 	/// Mech class. Used for special desc text
 	var/mech_class
+	/// Носитель квеста
+	var/obj/item/card/id/id
 	//всякая хрень, отвечает за сам сгенерированный мех
 	var/choosen_mech
 	var/list/choosen_modules
@@ -40,7 +42,6 @@
 			mech = pick(subtypesof(/datum/quest_mech))
 		if(DIFFICULTY_HARD)
 			mech = pick(subtypesof(/datum/quest_mech) - easy_mechas)
-	reward = difficulty
 	var/datum/quest_mech/selected = new mech
 	mech_class = selected.mech_class //наверное можно перенести данные из одного датума как-то умнее, но и так в целом норм.
 	name = selected.name

@@ -160,7 +160,7 @@ export const RoboQuest = (props, context) => {
             <br />
             Текущий баланс:
             <br />
-            <b>{points}</b> очков
+            <b>{points.robo}</b> очков робототехники
             </Section>
           </FlexItem>
           <FlexItem basis={38}>
@@ -229,9 +229,9 @@ export const RoboQuest = (props, context) => {
                           onClick={() =>
                             act("buyItem", {
                               item: i.path,
-                              cost: i.cost,
+                              cost: i.cost.robo,
                             })}
-                          disabled={!hasID || i.cost > points}
+                          disabled={!hasID || i.cost.robo > points}
                         />
                       }>
                       <Box italic>{i.desc}</Box>

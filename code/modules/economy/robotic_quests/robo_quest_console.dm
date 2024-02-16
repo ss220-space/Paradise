@@ -120,6 +120,9 @@
 /obj/machinery/computer/roboquest/proc/clear_checkMessage()
 	checkMessage = ""
 
+/obj/machinery/computer/roboquest/proc/on_quest_complete()
+	return // чето будет наверно
+
 /obj/machinery/computer/roboquest/attack_hand(mob/user)
 	if(..())
 		return TRUE
@@ -136,7 +139,6 @@
 	if(istype(currentID))
 		data["hasID"] = TRUE
 		data["name"] = currentID.registered_name
-		data["points"] = points
 		if(currentID.robo_bounty)
 			data["questInfo"] = currentID.robo_bounty.questinfo
 			data["hasTask"] = TRUE
@@ -146,9 +148,9 @@
 	else
 		data["hasID"] = FALSE
 		data["name"] = FALSE
-		data["points"] = FALSE
 		data["questInfo"] = FALSE
 		data["hasTask"] = FALSE
+	data["points"] = points
 	data["canCheck"] = canCheck
 	data["canSend"] = canSend
 	data["checkMessage"] = checkMessage
@@ -211,7 +213,7 @@
 						locname = "[locname] ([++areaindex[locname]])"
 					else // Else, 1
 						areaindex[locname] = 1
-					L[locname] = R
+					L[locname] = T
 
 				var/select = tgui_input_list(ui.user, "Please select a telepad.", "RCS", L)
 				if(!select)
@@ -221,13 +223,10 @@
 				else // Else choose the value of the selection
 					quantum = L[select]
 				flick("sqpad-beam", pad)
-				pad.teleport(quantum)
+				pad.teleport(quantum, currentID.robo_bounty, src)
 				checkMessage = "Вы отправили меха с оценкой успеха [success] из трех"
 				check_timer = null
 				check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
-				points["robo"] += success
-				currentID.robo_bounty = null
-				success = 0
 		if("ChangeStyle")
 			switch(style)
 				if("ntos_roboquest")
@@ -281,7 +280,7 @@
 
 /obj/machinery/computer/roboquest/proc/pick_mecha(difficulty)
 	currentID.robo_bounty = new /datum/roboquest(difficulty)
-
+	currentID.robo_bounty.id = currentID
 
 
 /obj/machinery/roboquest_pad
@@ -319,11 +318,11 @@
 		return
 	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
 
-/obj/machinery/roboquest_pad/proc/teleport(atom/destination)
+/obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console)
 	do_sparks(5, 1, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
-		var/obj/structure/closet/critter/mecha/box = new
+		var/obj/structure/closet/critter/mecha/box = new(get_turf(src), quest, console)
 		M.forceMove(box)
 		do_teleport(box, destination)
 
@@ -346,6 +345,24 @@
 
 /obj/structure/closet/critter/mecha
 	name = "mecha box"
+	icon_state = "mecha_box"
+	req_access = (ACCESS_ROBOTICS)
+	var/datum/roboquest/quest
+	var/obj/machinery/computer/roboquest/console
+
+/obj/structure/closet/critter/mecha/New(loc, datum/roboquest/quest, obj/machinery/computer/roboquest/console)
+	. = ..()
+	src.quest = quest
+	src.console = console
+
+/obj/structure/closet/critter/mecha/toggle(mob/user)
+	if(!allowed(user))
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		return
+	var/response = alert(user, "This crate has been packed with bluespace compression, opening will destroy container. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
+	if(response == "No" || !Adjacent(user))
+		return FALSE
+	. = ..()
 
 #undef NO_SUCCESS
 #undef CORRECT_MECHA

@@ -144,6 +144,16 @@
 		if(istype(MA, /obj/structure/bigDelivery))
 			quest_reward += SScargo_quests.check_delivery(MA)
 
+		if(istype(MA, /obj/structure/closet/critter/mecha))
+			var/obj/structure/closet/critter/mecha/crate = MA
+			if(crate.console && crate.quest)
+				for(var/category in crate.quest.reward)
+					crate.console.points[category] += crate.quest.reward[category]
+				crate.console.on_quest_complete()
+				crate.quest.id.robo_bounty = null
+				crate.quest = null
+			qdel(crate)
+
 		// Must be in a crate (or a critter crate)!
 		if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
 			SSshuttle.sold_atoms += ":"
