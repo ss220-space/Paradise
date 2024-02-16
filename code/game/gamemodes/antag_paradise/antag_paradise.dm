@@ -54,8 +54,15 @@
 	var/players = roundstart ? num_players() : num_players_started()
 	calculate_antags(players)
 	var/scale = CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) : 10
-	var/antags_amount = 1 + round(players / scale)
-	var/special_antag_amount = 1 + round(players / 50)
+	var/antags_amount
+	var/special_antag_amount
+	if(!roundstart)
+		var/officers = length(get_living_sec())
+		antags_amount = officers ? 1 + round(players / scale) : 0
+		special_antag_amount = officers ? 1 + round(players / 50) : 0
+	else
+		antags_amount = 1 + round(players / scale)
+		special_antag_amount = 1 + round(players / 50)
 
 	if(antags_amount + special_antag_amount > length(GLOB.antagonists))
 		return
@@ -84,14 +91,15 @@
 					antags_amount--
 
 		if(ROLE_MALF_AI)
-			var/datum/mind/special_antag = roundstart ? safepick(get_players_for_role(ROLE_MALF_AI)) : safepick(get_alive_players_for_role(ROLE_MALF_AI))
-			if(special_antag)
-				special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
-				special_antag.restricted_roles -= "AI"
-				special_antag.special_role = SPECIAL_ROLE_TRAITOR
-				SSjobs.new_malf = special_antag.current
-				pre_antags[special_antag] = ROLE_MALF_AI
-				antags_amount--
+			if(special_antag_amount)
+				var/datum/mind/special_antag = roundstart ? safepick(get_players_for_role(ROLE_MALF_AI)) : safepick(get_alive_players_for_role(ROLE_MALF_AI))
+				if(special_antag)
+					special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
+					special_antag.restricted_roles -= "AI"
+					special_antag.special_role = SPECIAL_ROLE_TRAITOR
+					SSjobs.new_malf = special_antag.current
+					pre_antags[special_antag] = ROLE_MALF_AI
+					antags_amount--
 
 		if(ROLE_NINJA)
 			if(length(GLOB.ninjastart))
