@@ -31,7 +31,6 @@
 	base_icon_state = "pflash"
 	strength = 8 SECONDS
 	anchored = FALSE
-	base_state = "pflash"
 	density = TRUE
 
 /obj/machinery/flasher/portable/ComponentInitialize()
