@@ -27,6 +27,7 @@
 		BODY_ZONE_R_ARM,
 		BODY_ZONE_L_LEG,
 		BODY_ZONE_R_LEG,
+		BODY_ZONE_TAIL,
 	)
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1

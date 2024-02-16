@@ -93,6 +93,8 @@
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "tail"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+	var/stamina_mod = 0
+	var/slash_strength = 1
 
 /datum/action/innate/tail_lash/Trigger(left_click = TRUE)
 	if(IsAvailable(show_message = TRUE))
@@ -113,8 +115,7 @@
 			user.changeNext_move(CLICK_CD_MELEE) //User бьет С в Е. Сука... С - это цель. Е - это орган.
 			user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] хлещет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]! </span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!</span>")
 			user.adjustStaminaLoss(15)
-			var/datum/species/unathi/U = user.dna.species
-			C.apply_damage(5 * U.tail_strength, BRUTE, E)
+			C.apply_damage(5 * slash_strength, BRUTE, E)
 			user.spin(20, 1)
 			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
 			add_attack_logs(user, C, "tail whipped")
@@ -135,9 +136,10 @@
 			to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
 		return FALSE
 	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi))
-		if(show_message)
-			to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
-		return FALSE
+		if(!istype(owner.get_organ_slot(INTERNAL_ORGAN_TAIL), /obj/item/organ/internal/cyberimp/tail/blade) && !istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail))
+			if(show_message)
+				to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
+			return FALSE
 	return .
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
