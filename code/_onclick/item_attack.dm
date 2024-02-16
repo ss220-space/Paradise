@@ -21,7 +21,7 @@
 		return TRUE
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
-	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACKBY, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(is_hot(src) && A.reagents && !ismob(A))
 		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")

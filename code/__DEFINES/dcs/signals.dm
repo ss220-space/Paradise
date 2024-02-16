@@ -591,8 +591,8 @@
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 	#define COMPONENT_NO_ATTACK_OBJ (1<<0)
-///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"
+///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)
+#define COMSIG_ITEM_PRE_ATTACKBY "item_pre_attackby"
 	#define COMPONENT_NO_ATTACK (1<<0)
 ///from base of obj/item/afterattack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"

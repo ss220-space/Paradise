@@ -119,7 +119,7 @@
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
 
-	time = 2 SECONDS
+	time = 1 SECONDS
 
 /datum/surgery_step/glue_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
