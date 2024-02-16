@@ -1,5 +1,5 @@
-import { useBackend } from '../backend';
-import { Button, Flex, Section, Divider, useLocalState, Tabs } from '../components';
+import { useBackend, useLocalState } from '../backend';
+import { Button, Flex, Section, Divider, Tabs, Box } from '../components';
 import { Window } from '../layouts';
 
 export const VampireSpecMenu = (props, context) => {
@@ -20,52 +20,54 @@ export const VampireSpecMenu = (props, context) => {
         return <HemoMenu />;
     }
   };
+
   return (
     <Window resizable theme="nologo">
       <Window.Content>
-        <Tabs>
-          <Tabs.Tab
-            key="Hemomancer"
-            content="Hemomancer"
-            selected={0 === tabIndex}
-            onClick={() => setTabIndex(0)}>
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="Umbrae"
-            content="Umbrae"
-            selected={1 === tabIndex}
-            onClick={() => setTabIndex(1)}>
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="Gargantua"
-            content="Gargantua"
-            selected={2 === tabIndex}
-            onClick={() => setTabIndex(2)}>
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="Dantalion"
-            content="Dantalion"
-            selected={3 === tabIndex}
-            onClick={() => setTabIndex(3)}>
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="Bestia"
-            content="Bestia"
-            selected={4 === tabIndex}
-            onClick={() => setTabIndex(4)}>
-          </Tabs.Tab>
-        </Tabs>
-        {decideTab(tabIndex)}
+        <Box fillPositionedParent>
+          <Tabs>
+            <Tabs.Tab
+              key="Hemomancer"
+              content="Hemomancer"
+              selected={0 === tabIndex}
+              onClick={() => setTabIndex(0)}>
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Umbrae"
+              content="Umbrae"
+              selected={1 === tabIndex}
+              onClick={() => setTabIndex(1)}>
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Gargantua"
+              content="Gargantua"
+              selected={2 === tabIndex}
+              onClick={() => setTabIndex(2)}>
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Dantalion"
+              content="Dantalion"
+              selected={3 === tabIndex}
+              onClick={() => setTabIndex(3)}>
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Bestia"
+              content="Bestia"
+              selected={4 === tabIndex}
+              onClick={() => setTabIndex(4)}>
+            </Tabs.Tab>
+          </Tabs>
+          {decideTab(tabIndex)}
+        </Box>
       </Window.Content>
     </Window>
   );
 };
 
-const HemoMenu = (props, context) => {
+export const HemoMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
       <Section title="Hemomancer">
         <h3>
           Focuses on blood magic and the manipulation of blood around you.
@@ -106,15 +108,13 @@ const HemoMenu = (props, context) => {
         </p>
         <Button content="Hemomancer" onClick={() => act('hemomancer')} />
       </Section>
-    </Flex.Item>
   );
 };
 
-const UmbrMenu = (props, context) => {
+export const UmbrMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
       <Section title="Umbrae">
         <h3>Focuses on darkness, stealth ambushing and mobility.</h3>
         <p>
@@ -154,15 +154,13 @@ const UmbrMenu = (props, context) => {
         <p>In addition, you also gain permament X-ray vision.</p>
         <Button content="Umbrae" onClick={() => act('umbrae')} />
       </Section>
-    </Flex.Item>
   );
 };
 
-const GarMenu = (props, context) => {
+export const GarMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
       <Section title="Gargantua">
         <h3>Focuses on tenacity and melee damage.</h3>
         <p>
@@ -204,15 +202,13 @@ const GarMenu = (props, context) => {
         </p>
         <Button content="Gargantua" onClick={() => act('gargantua')} />
       </Section>
-    </Flex.Item>
   );
 };
 
-const DantMenu = (props, context) => {
+export const DantMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
       <Section title="Dantalion">
         <h3>Focuses on thralling and illusions.</h3>
         <p>
@@ -258,15 +254,13 @@ const DantMenu = (props, context) => {
         </p>
         <Button content="Dantalion" onClick={() => act('dantalion')} />
       </Section>
-    </Flex.Item>
   );
 };
 
-const BestMenu = (props, context) => {
+export const BestMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
       <Section title="Bestia">
         <h3>Focuses on transformations and trophies harvesting.</h3>
         <p>
@@ -315,6 +309,5 @@ const BestMenu = (props, context) => {
         </p>
         <Button content="Bestia" onClick={() => act('bestia')} />
       </Section>
-    </Flex.Item>
   );
 };
