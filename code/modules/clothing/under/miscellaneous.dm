@@ -1077,3 +1077,36 @@
 	AddComponent(/datum/component/spraycan_paintable)
 	START_PROCESSING(SSobj, src)
 	update_icon()
+
+
+/obj/item/clothing/under/ussptracksuit_red
+	name = "red track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_red"
+	item_state = "ussptracksuit_red"
+	item_color = "ussptracksuit_red"
+
+
+/obj/item/clothing/under/ussptracksuit_blue
+	name = "blue track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_blue"
+	item_state = "ussptracksuit_blue"
+	item_color = "ussptracksuit_blue"
+
+
+/obj/item/clothing/under/ussptracksuit_black
+	name = "black track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_black"
+	item_state = "ussptracksuit_black"
+	item_color = "ussptracksuit_black"
+
+
+/obj/item/clothing/under/ussptracksuit_white
+	name = "white track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_white"
+	item_state = "ussptracksuit_white"
+	item_color = "ussptracksuit_white"
+

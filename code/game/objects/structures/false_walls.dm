@@ -94,7 +94,7 @@
 		do_the_flick()
 		density = TRUE
 		sleep(0.4 SECONDS)
-		set_opacity(FALSE)
+		set_opacity(TRUE)
 	air_update_turf(TRUE)
 	opening = FALSE
 	update_icon(UPDATE_ICON_STATE)

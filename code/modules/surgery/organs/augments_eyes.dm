@@ -85,7 +85,7 @@
 	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
 	var/HUDType = 0
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
-	var/list/examine_extensions = null
+	var/examine_extensions = 0
 
 /obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
@@ -107,7 +107,7 @@
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	name = "Diagnostic HUD implant"
@@ -126,7 +126,7 @@
 	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 // Welding shield implant
 /obj/item/organ/internal/cyberimp/eyes/shield

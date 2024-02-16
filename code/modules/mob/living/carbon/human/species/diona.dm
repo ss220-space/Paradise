@@ -46,6 +46,8 @@
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/diona,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/diona
+
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/diona),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/diona),
