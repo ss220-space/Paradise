@@ -30,7 +30,7 @@
 			if(!force_lightning_spell.cooldown_handler.is_on_cooldown())
 				var/temp = force_lightning_spell.lethal
 				force_lightning_spell.lethal = FALSE
-				force_lightning_spell.InterceptClickOn(owner, null, A)
+				force_lightning_spell.targeting.InterceptClickOn(owner, null, A, force_lightning_spell)
 				force_lightning_spell.lethal = temp
 
 		if(INTENT_GRAB)
@@ -44,7 +44,7 @@
 			if(!force_lightning_spell.cooldown_handler.is_on_cooldown())
 				var/temp = force_lightning_spell.lethal
 				force_lightning_spell.lethal = TRUE
-				force_lightning_spell.InterceptClickOn(owner, null, A)
+				force_lightning_spell.targeting.InterceptClickOn(owner, null, A, force_lightning_spell)
 				force_lightning_spell.lethal = temp
 
 
@@ -55,7 +55,7 @@
 	clothes_req = FALSE
 	action_icon_state = "summon_sword"
 	action_background_icon_state = "bg_default"
-	sound = 'sound/magic/the force/pull.mp3'
+	sound = 'sound/magic/theforce/pull.ogg'
 
 
 /obj/effect/proc_holder/spell/summon_sword/playMagSound()
@@ -101,7 +101,12 @@
 	action_background_icon_state = "bg_default"
 	need_active_overlay = TRUE
 
+	sound = 'sound/magic/theforce/lightning.ogg'
+
+	/// damaging/stunning lightning switch
 	var/lethal = FALSE
+	/// mostly visual effect for showing how many times the lightning will be reflected in other atoms
+	var/lightning_count = 4
 
 
 /obj/effect/proc_holder/spell/force_lightning/AltClick(mob/user)
@@ -119,12 +124,10 @@
 
 
 /obj/effect/proc_holder/spell/force_lightning/cast(list/targets, mob/user = usr)
-	playsound(user.loc, 'sound/magic/the force/lightning.mp3', 40, 1)
-
 	var/atom/beam_from = user
 	var/atom/target_atom = pick(targets)
 
-	for(var/i in 0 to 3)
+	for(var/i in 1 to lightning_count)
 		beam_from.Beam(target_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 6)
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
@@ -134,7 +137,7 @@
 			else
 				add_attack_logs(user, L, "shocked and weakened with the force")
 				L.Weaken(5 SECONDS)
-			playsound(L.loc, pick('sound/magic/the force/lightninghit1.mp3', 'sound/magic/the force/lightninghit2.mp3', 'sound/magic/the force/lightninghit3.mp3'), 40, 1)
+			playsound(L.loc, pick('sound/magic/theforce/lightninghit1.ogg', 'sound/magic/theforce/lightninghit2.ogg', 'sound/magic/theforce/lightninghit3.ogg'), 40, 1)
 
 		var/list/next_shocked = list()
 		for(var/atom/movable/AM in orange(3, target_atom))
