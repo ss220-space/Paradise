@@ -16129,14 +16129,11 @@
 	},
 /area/janitor)
 "bRO" = (
-/obj/structure/transit_tube{
-	icon_state = "N-SE";
-	tag = "icon-N-SE"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -17566,13 +17563,12 @@
 /turf/simulated/wall,
 /area/library/game_zone)
 "bYl" = (
-/obj/structure/transit_tube{
-	icon_state = "E-SW-NW";
-	tag = "icon-E-SW-NW"
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/transit_tube/junction{
+	dir = 8
 	},
 /turf/space,
 /area/space)
@@ -19793,14 +19789,6 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
-"cjl" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "W-NE";
-	tag = "icon-W-NE"
-	},
-/turf/space,
-/area/space)
 "cjn" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -20880,14 +20868,13 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "coB" = (
-/obj/structure/transit_tube{
-	icon_state = "E-NW";
-	tag = "icon-E-NW"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
 /turf/space,
 /area/space)
 "coE" = (
@@ -32823,7 +32810,9 @@
 	pixel_y = -29
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/transit_tube/cap{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -51500,13 +51489,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
-"gkk" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NW";
-	tag = "icon-D-NW"
-	},
-/turf/space,
-/area/space)
 "gko" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/cable{
@@ -60910,11 +60892,8 @@
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/incinerator)
 "itZ" = (
+/obj/structure/transit_tube/diagonal/crossing,
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-NE";
-	tag = "icon-D-NE"
-	},
 /turf/space,
 /area/space)
 "iuh" = (
@@ -62885,9 +62864,7 @@
 /area/hydroponics)
 "iTF" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "NE-SW"
-	},
+/obj/structure/transit_tube/crossing/horizontal,
 /turf/space,
 /area/space)
 "iTM" = (
@@ -67477,11 +67454,10 @@
 	},
 /area/security/lobby)
 "jXW" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW";
-	tag = "icon-D-SW"
-	},
 /obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/transit_tube/curved/flipped{
 	dir = 8
 	},
 /turf/space,
@@ -68549,11 +68525,6 @@
 	},
 /area/toxins/xenobiology)
 "kmU" = (
-/obj/structure/transit_tube/station{
-	dir = 8;
-	tag = "icon-closed (EAST)"
-	},
-/obj/structure/transit_tube_pod,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -71117,17 +71088,6 @@
 	icon_state = "dark"
 	},
 /area/atmos)
-"kWh" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE";
-	tag = "icon-D-NE"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "kWn" = (
 /obj/item/grown/bananapeel{
 	layer = 1.9
@@ -71177,11 +71137,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "kXY" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NW";
-	tag = "icon-D-NW"
-	},
-/obj/structure/window/reinforced{
+/obj/structure/lattice,
+/obj/structure/transit_tube/curved{
 	dir = 8
 	},
 /turf/space,
@@ -77334,15 +77291,15 @@
 	},
 /area/atmos)
 "muS" = (
-/obj/structure/transit_tube{
-	icon_state = "S-NE";
-	tag = "icon-S-NE"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -77731,19 +77688,6 @@
 	icon_state = "red"
 	},
 /area/security/main)
-"mzX" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/construction/hallway)
 "mzZ" = (
 /obj/structure/sign/science{
 	icon_state = "doors"
@@ -79505,13 +79449,12 @@
 	},
 /area/chapel/main)
 "mSG" = (
-/obj/structure/transit_tube{
-	icon_state = "W-SE";
-	tag = "icon-W-SE"
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/transit_tube/curved{
+	dir = 8
 	},
 /turf/space,
 /area/space)
@@ -90602,9 +90545,6 @@
 	},
 /area/maintenance/kitchen)
 "puA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
-	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1379;
@@ -90612,6 +90552,9 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = 25
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -97709,15 +97652,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/aft)
-"qVm" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE";
-	tag = "icon-D-SE"
-	},
-/obj/structure/window/reinforced,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "qVp" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -100552,10 +100486,12 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "rDm" = (
-/obj/structure/transit_tube,
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/transit_tube/junction{
+	dir = 4
 	},
 /turf/space,
 /area/space)
@@ -104634,6 +104570,9 @@
 	dir = 6;
 	network = list("SS13","MiniSat")
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -105152,9 +105091,9 @@
 	},
 /area/turret_protected/aisat_interior)
 "sHT" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW";
-	tag = "icon-D-SW"
+/obj/structure/lattice,
+/obj/structure/transit_tube/curved/flipped{
+	dir = 8
 	},
 /turf/space,
 /area/space)
@@ -105677,18 +105616,11 @@
 	},
 /area/chapel/main)
 "sPe" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE";
-	tag = "icon-D-NE"
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-SE";
-	tag = "icon-D-SE"
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/transit_tube/crossing/horizontal,
 /turf/space,
 /area/space)
 "sPr" = (
@@ -107840,13 +107772,8 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "tou" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
+/obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/lattice,
 /turf/space,
 /area/space)
 "toB" = (
@@ -108263,15 +108190,17 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research/nhallway)
 "tuQ" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
+/obj/structure/window/reinforced,
+/obj/structure/transit_tube/station{
+	dir = 1
 	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/structure/transit_tube_pod{
+	dir = 8
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/construction/hallway)
 "tuS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
@@ -109535,9 +109464,12 @@
 	},
 /area/security/securehallway)
 "tID" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE";
-	tag = "icon-D-NE"
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/transit_tube/curved/flipped{
+	dir = 4
 	},
 /turf/space,
 /area/space)
@@ -111584,7 +111516,7 @@
 /area/engine/engineering)
 "ufn" = (
 /obj/structure/window/reinforced,
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -112377,10 +112309,8 @@
 	},
 /area/security/podbay)
 "uoI" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE";
-	tag = "icon-D-SE"
-	},
+/obj/structure/lattice,
+/obj/structure/transit_tube/diagonal/topleft,
 /turf/space,
 /area/space)
 "uoK" = (
@@ -114865,6 +114795,7 @@
 	dir = 4;
 	tag = "icon-bulb1 (EAST)"
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -116456,13 +116387,6 @@
 /obj/effect/landmark/start/research_director,
 /turf/simulated/floor/carpet/purple,
 /area/crew_quarters/hor)
-"vns" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
-/turf/space,
-/area/space)
 "vnu" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
@@ -118665,14 +118589,6 @@
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
-"vNO" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-NW";
-	tag = "icon-D-NW"
-	},
-/turf/space,
-/area/space)
 "vNP" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,
@@ -120994,10 +120910,10 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "wpn" = (
-/obj/structure/transit_tube,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -121051,7 +120967,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "wpN" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -121180,14 +121096,14 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "wrb" = (
-/obj/structure/transit_tube/station/reverse{
-	dir = 1
-	},
 /obj/structure/transit_tube_pod{
 	dir = 8
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = -32
+	},
+/obj/structure/transit_tube/station{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -123655,13 +123571,14 @@
 	},
 /area/hallway/primary/central/north)
 "wVA" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "E-NW";
-	tag = "icon-E-NW"
+/obj/structure/window/reinforced,
+/obj/structure/transit_tube/cap{
+	dir = 4
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/construction/hallway)
 "wVP" = (
 /obj/structure/falsewall,
 /turf/simulated/floor/plating,
@@ -123862,10 +123779,6 @@
 	},
 /area/turret_protected/ai_upload)
 "wXY" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW";
-	tag = "icon-D-SW"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -126522,14 +126435,6 @@
 	icon_state = "neutralfull"
 	},
 /area/engine/hardsuitstorage)
-"xBT" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "E-SW";
-	tag = "icon-E-SW"
-	},
-/turf/space,
-/area/space)
 "xCj" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -126590,9 +126495,8 @@
 /area/maintenance/asmaint4)
 "xCP" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "W-SE";
-	tag = "icon-W-SE"
+/obj/structure/transit_tube/curved/flipped{
+	dir = 4
 	},
 /turf/space,
 /area/space)
@@ -126845,10 +126749,7 @@
 /area/medical/morgue)
 "xFr" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-SW";
-	tag = "icon-D-SW"
-	},
+/obj/structure/transit_tube/diagonal/crossing,
 /turf/space,
 /area/space)
 "xFt" = (
@@ -127438,10 +127339,10 @@
 	},
 /area/medical/research/nhallway)
 "xKT" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "NW-SE"
+/obj/structure/transit_tube/curved{
+	dir = 4
 	},
+/obj/structure/lattice,
 /turf/space,
 /area/space)
 "xLb" = (
@@ -144444,9 +144345,9 @@ coE
 gum
 gum
 xAs
-mzX
+wgX
 uNi
-ybH
+wVA
 bXR
 aaq
 dZq
@@ -144703,7 +144604,7 @@ wLE
 xBE
 puA
 uOm
-ybH
+tuQ
 bXR
 coE
 coE
@@ -144952,9 +144853,9 @@ aaq
 bCI
 aaq
 coE
-aaq
+dZq
 acF
-aaq
+dZq
 gum
 gum
 gum
@@ -145205,20 +145106,20 @@ aaq
 aaq
 aaq
 aaq
-aaq
-coE
-aaq
-bCI
-aaq
+acF
+acF
+acF
+acF
+acF
+acF
+acF
 acF
 aaq
-coE
-aaq
-qVm
+oKs
 muS
 kmU
 bRO
-kWh
+bXR
 aaq
 coE
 aaq
@@ -145462,20 +145363,20 @@ aaq
 aaq
 aaq
 aaq
-aaq
-bCI
-aaq
-bCI
-aaq
 acF
-aaq
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+dZq
 coE
-coE
-xBT
-kXY
+wKp
 uOJ
 jXW
-wVA
+coE
 coE
 dZq
 aaq
@@ -145724,15 +145625,15 @@ bCI
 coE
 bCI
 coE
-acF
+dZq
 acF
 acF
 aaq
-vns
+dZq
 coE
-tKX
+tID
 coE
-vns
+dZq
 aaq
 dZq
 dZq
@@ -145741,8 +145642,8 @@ coE
 bCI
 coE
 bCI
-aaq
-aaq
+acF
+acF
 aaq
 aaq
 aaq
@@ -145982,24 +145883,24 @@ coE
 aaq
 coE
 aaq
-coE
 acF
-aaq
-xCP
-tID
-tKX
-uoI
-cjl
-aaq
-dZq
-aaq
-coE
-aaq
-bCI
-coE
-bCI
-coE
-bCI
+acF
+acF
+acF
+acF
+sPe
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
 bCI
 coE
 bCI
@@ -146238,25 +146139,25 @@ coE
 bCI
 bCI
 dZq
-bCI
-coE
+aaq
 acF
-aaq
-xFr
-xKT
+acF
+acF
+acF
+acF
 sPe
-iTF
-vNO
-aaq
-coE
-aaq
-coE
-aaq
-aaq
-coE
-aaq
-aaq
-aaq
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
+acF
 coE
 aaq
 aaq
@@ -146496,15 +146397,15 @@ coE
 coE
 coE
 coE
-coE
+dZq
 acF
+dZq
+dZq
 aaq
-coE
-sHT
 bYl
-gkk
-coE
-coE
+aaq
+dZq
+aaq
 bCI
 bCI
 bCI
@@ -146757,9 +146658,9 @@ coE
 acF
 coE
 coE
-coE
-tuQ
-coE
+xFr
+tKX
+uoI
 coE
 coE
 aaq
@@ -147013,11 +146914,11 @@ bwN
 coE
 acF
 aaq
-dZq
-aaq
-rDm
-aaq
-aaq
+xCP
+coE
+tKX
+coE
+xKT
 bXU
 qEj
 qEj
@@ -147270,11 +147171,11 @@ bwN
 coE
 acF
 aaq
-dZq
+iTF
 aaq
-rDm
+tKX
 aaq
-coE
+iTF
 bXU
 bXU
 bXU
@@ -147527,11 +147428,11 @@ bwN
 coE
 acF
 coE
-dZq
+kXY
 coE
-tuQ
+tKX
 coE
-coE
+sHT
 bXU
 ybU
 ivy
@@ -147785,10 +147686,10 @@ coE
 acF
 aaq
 coE
+tou
+tKX
+itZ
 aaq
-rDm
-aaq
-bXU
 bXU
 cbb
 coE
@@ -148046,7 +147947,7 @@ aaq
 rDm
 aaq
 bXU
-klb
+bXU
 cbb
 rLd
 aaq
@@ -148300,7 +148201,7 @@ acF
 coE
 coE
 coE
-rDm
+sPe
 coE
 bXU
 klb
@@ -148557,7 +148458,7 @@ wcr
 acF
 coE
 coE
-tou
+sPe
 coE
 bXU
 oqc
@@ -148815,7 +148716,7 @@ cTf
 cTf
 coE
 mSG
-itZ
+coE
 bXU
 bZl
 cbb

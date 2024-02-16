@@ -63989,10 +63989,10 @@
 /turf/space,
 /area/solar/starboard)
 "ddC" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
+/obj/structure/transit_tube/junction{
+	dir = 4
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space)
 "ddD" = (
@@ -64776,9 +64776,9 @@
 	name = "north fire alarm";
 	pixel_y = 24
 	},
-/obj/structure/transit_tube{
-	dir = 4;
-	icon_state = "Block"
+/obj/structure/transit_tube/station,
+/obj/structure/transit_tube_pod{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -64797,6 +64797,9 @@
 	name = "north station intercom (General)";
 	pixel_y = 28
 	},
+/obj/structure/transit_tube/cap{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -64804,7 +64807,7 @@
 /area/maintenance/atmospherics)
 "dfD" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "dfE" = (
@@ -64812,10 +64815,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/transit_tube/station,
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67543,12 +67543,13 @@
 	},
 /area/aisat)
 "dmW" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
+/obj/structure/lattice,
 /turf/space,
 /area/space)
 "dmX" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
+/obj/structure/transit_tube/junction{
+	dir = 8
 	},
 /obj/structure/lattice,
 /turf/space,
@@ -67570,12 +67571,12 @@
 	},
 /area/turret_protected/ai)
 "dmZ" = (
-/obj/structure/transit_tube,
 /obj/effect/spawner/window/reinforced,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dna" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dnb" = (
@@ -67672,9 +67673,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dno" = (
-/obj/structure/transit_tube{
-	dir = 8;
-	icon_state = "Block"
+/obj/structure/transit_tube/cap{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
@@ -74680,6 +74680,13 @@
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"jvb" = (
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "jvC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -75794,7 +75801,7 @@
 /area/medical/cloning)
 "kIR" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/space,
 /area/space)
 "kJr" = (
@@ -76205,6 +76212,13 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"lll" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "llO" = (
 /obj/item/radio/intercom{
 	name = "north station intercom (General)";
@@ -81528,6 +81542,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"qYV" = (
+/obj/structure/transit_tube/crossing/horizontal,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space)
 "qZx" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
@@ -82645,6 +82664,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
+"spb" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 8
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "sqy" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -83966,6 +83992,13 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/engine,
 /area/engine/mechanic_workshop)
+"tGW" = (
+/obj/structure/transit_tube/curved{
+	dir = 8
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "tHc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -122494,9 +122527,9 @@ dkT
 cQZ
 doE
 lTl
-lTl
+uTI
 dmX
-lTl
+uTI
 lTl
 uTI
 uTI
@@ -122751,9 +122784,9 @@ cQZ
 cQZ
 doE
 lTl
-uTI
-dmW
-uTI
+lll
+lTl
+jvb
 lTl
 uTI
 uTI
@@ -123007,11 +123040,11 @@ dkV
 dkV
 cQZ
 doE
-lTl
-uTI
-dmW
-uTI
-lTl
+doE
+qYV
+doE
+qYV
+doE
 uTI
 uTI
 uTI
@@ -123265,10 +123298,10 @@ dlx
 cQZ
 doE
 lTl
-uTI
-dmW
-uTI
+tGW
 lTl
+spb
+doE
 uTI
 uTI
 iUc
@@ -123521,10 +123554,10 @@ dkV
 dkV
 cQZ
 doE
-doE
-doE
+uTI
+uTI
 ddC
-doE
+uTI
 ddM
 ddO
 kIR
