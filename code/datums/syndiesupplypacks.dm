@@ -1066,7 +1066,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/food/condiment/enzyme,
 					/obj/item/reagent_containers/food/condiment/sugar,
-					/obj/item/reagent_containers/food/snacks/meat/monkey,
+					/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 					/obj/item/reagent_containers/food/snacks/grown/banana,
 					/obj/item/reagent_containers/food/snacks/grown/banana,
 					/obj/item/reagent_containers/food/snacks/grown/banana)

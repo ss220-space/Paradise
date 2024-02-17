@@ -42,6 +42,30 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	singular_name = "monkey hide piece"
 	icon_state = "sheet-monkey"
 
+/obj/item/stack/sheet/animalhide/wolpin
+	name = "wolpin hide"
+	desc = "The by-product of wolpin farming."
+	singular_name = "wolpin hide piece"
+	icon_state = "sheet-wolpin"
+
+/obj/item/stack/sheet/animalhide/stok
+	name = "stok hide"
+	desc = "The by-product of stok farming."
+	singular_name = "stok hide piece"
+	icon_state = "sheet-lizzard"
+
+/obj/item/stack/sheet/animalhide/neara
+	name = "neara hide"
+	desc = "The by-product of neara farming."
+	singular_name = "neara hide piece"
+	icon_state = "sheet-neara"
+
+/obj/item/stack/sheet/animalhide/farwa
+	name = "farwa hide"
+	desc = "The by-product of farwa farming."
+	singular_name = "farwa hide piece"
+	icon_state = "sheet-farwa"
+
 /obj/item/stack/sheet/animalhide/lizard
 	name = "lizard skin"
 	desc = "Sssssss..."

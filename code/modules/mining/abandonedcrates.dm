@@ -180,7 +180,7 @@
 		if(istype(W, /obj/item/card/emag))
 			boom(user)
 			return 1
-		if(istype(W, /obj/item/multitool))
+		if(W.tool_behaviour == TOOL_MULTITOOL)
 			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
 			if(attempts == 1)

@@ -33,7 +33,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been disabled."))
 		user.ranged_ability.remove_ranged_ability(user)
 		return TRUE //TRUE for failed, FALSE for passed.
-	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	user.face_atom(target)
 	return FALSE
 
@@ -221,6 +220,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
+
+	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user

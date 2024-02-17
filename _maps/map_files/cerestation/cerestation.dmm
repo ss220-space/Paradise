@@ -50189,7 +50189,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/kitchen/knife,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "jtD" = (
