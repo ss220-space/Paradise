@@ -60,7 +60,7 @@
 		return
 
 /obj/machinery/arcade/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver) && anchored)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER && anchored)
 		playsound(src.loc, I.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
@@ -76,7 +76,7 @@
 			if(pay_with_cash(cash, user, token_price, name))
 				tokens += 1
 		return
-	if(panel_open && component_parts && istype(I, /obj/item/crowbar))
+	if(panel_open && component_parts && I.tool_behaviour == TOOL_CROWBAR)
 		default_deconstruction_crowbar(user, I)
 		return
 	return ..()

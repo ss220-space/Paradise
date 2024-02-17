@@ -54,7 +54,7 @@
 					break
 			if(!success)
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/wrench))
+		else if(I.tool_behaviour == TOOL_WRENCH)
 			add_fingerprint(user)
 			if(!anchored && !isinspace())
 				playsound(src.loc, I.usesound, 50, 1)

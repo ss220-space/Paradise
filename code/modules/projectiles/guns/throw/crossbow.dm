@@ -254,7 +254,7 @@
 
 /obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/lighter) || istype(I, /obj/item/weldingtool))
+	if(istype(I, /obj/item/lighter) || I.tool_behaviour == TOOL_WELDER)
 		fire_up()
 
 /obj/item/arrow/rod/fire/proc/fire_up(mob/user)

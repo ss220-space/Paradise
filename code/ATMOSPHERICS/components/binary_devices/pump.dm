@@ -236,7 +236,7 @@ Thus, the two variables affect pump operation are set in New():
 	if(istype(W, /obj/item/pen))
 		rename_interactive(user, W)
 		return
-	else if(!istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour != TOOL_WRENCH)
 		return ..()
 	if(!(stat & NOPOWER) && on)
 		to_chat(user, span_alert("You cannot unwrench this [src], turn it off first."))
