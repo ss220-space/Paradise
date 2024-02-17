@@ -67,7 +67,10 @@
 		var/obj/item/stack/sheet/cloth/CL = I
 		CL.use(1)
 		to_chat(user, "<span class='notice'>You wrap the [name] with some cloth.</span>")
-		new /obj/item/kitchen/knife/glassshiv(user.loc, src)
+		if(istype(src, /obj/item/shard/plasma))
+			new /obj/item/kitchen/knife/glassshiv/plasma(user.loc, src)
+		else
+			new /obj/item/kitchen/knife/glassshiv(user.loc, src)
 		qdel(src)
 	return ..()
 

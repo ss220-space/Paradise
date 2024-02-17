@@ -108,7 +108,7 @@
 	else
 		component_parts = list()
 		var/obj/item/circuitboard/vendor/V = new
-		V.set_type(replacetext(name, "\improper", ""))
+		V.set_type(replacetext(initial(name), "\improper", ""))
 		component_parts += V
 		component_parts += new refill_canister
 		RefreshParts()
@@ -1011,10 +1011,11 @@
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10,/obj/item/reagent_containers/food/drinks/cans/starkist = 10,
 					/obj/item/reagent_containers/food/drinks/cans/space_up = 10,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 10)
-	contraband = list(/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5)
+	contraband = list(/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5, /obj/item/reagent_containers/food/drinks/zaza = 1)
 	prices = list(/obj/item/reagent_containers/food/drinks/cans/cola = 20,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 20,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 20,/obj/item/reagent_containers/food/drinks/cans/starkist = 20,
-					/obj/item/reagent_containers/food/drinks/cans/space_up = 20,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 20)
+					/obj/item/reagent_containers/food/drinks/cans/space_up = 20,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 20,
+					/obj/item/reagent_containers/food/drinks/zaza = 200)
 	refill_canister = /obj/item/vending_refill/cola
 
 /obj/machinery/vending/cola/free
@@ -1184,7 +1185,7 @@
 	refill_canister = /obj/item/vending_refill/wallmed
 
 /obj/machinery/vending/wallmed/syndicate
-	name = "\improper SyndiMed Plus"
+	name = "\improper SyndiWallMed"
 	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
 	icon_state = "syndimed"
 	icon_deny = "syndimed-deny"
@@ -1203,9 +1204,10 @@
 	req_access = list(ACCESS_SECURITY)
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4, /obj/item/storage/belt/security/webbing = 2,
 					)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	prices = list(/obj/item/storage/belt/security/webbing = 2000,)
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/training
@@ -1225,22 +1227,18 @@
 		if(!powered())
 			return
 		add_fingerprint(user)
-		var/list/available_kits = list(
-			"Dominator Kit" = list(/obj/item/gun/energy/dominator/sibyl, /obj/item/clothing/accessory/holster),
-			"Enforcer Kit" = list(/obj/item/gun/projectile/automatic/pistol/enforcer/security, /obj/item/ammo_box/magazine/enforcer, /obj/item/ammo_box/magazine/enforcer, /obj/item/clothing/accessory/holster),
-		)
-		var/weapon_kit = input(user, "Select a weaponary kit.") as null|anything in available_kits
+		var/list/available_kits = list("Dominator Kit" = /obj/item/storage/box/dominator_kit,
+										"Enforcer Kit" = /obj/item/storage/box/enforcer_kit)
+		var/weapon_kit = tgui_input_list(user, "Select a weaponary kit:", "Weapon kits", available_kits)
 		if(!weapon_kit)
 			return
 		if(!Adjacent(user) || QDELETED(I) || I.loc != user)
 			return
 		qdel(I)
 		sleep(0.5 SECONDS)
-		var/obj/item/storage/box/box = new(get_turf(src))
 		playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-		box.icon_state = "box_sec"
-		for(var/path in available_kits[weapon_kit])
-			new path(box)
+		var/path = available_kits[weapon_kit]
+		var/obj/item/box = new path(get_turf(src))
 		if(Adjacent(user))
 			user.put_in_hands(box, ignore_anim = FALSE)
 		return
@@ -1436,6 +1434,7 @@
 					/obj/item/twohanded/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
 					/obj/item/clothing/under/rank/clown/sexy = 1,
+					/obj/item/clothing/under/rank/clown/clussy = 1,
 					/obj/item/clothing/mask/gas/mime/sexy = 1,
 					/obj/item/clothing/under/sexymime = 1,
 					/obj/item/clothing/mask/face/bat = 1,
@@ -1494,22 +1493,27 @@
 					/obj/item/clothing/under/redhawaiianshirt = 1,
 					/obj/item/clothing/under/pinkhawaiianshirt = 1,
 					/obj/item/clothing/under/bluehawaiianshirt = 1,
-					/obj/item/clothing/under/orangehawaiianshirt = 1)
+					/obj/item/clothing/under/orangehawaiianshirt = 1,
+					/obj/item/clothing/under/ussptracksuit_red = 4,
+					/obj/item/clothing/under/ussptracksuit_blue = 4)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
-					  /obj/item/clothing/head/powdered_wig = 1,
-					  /obj/item/gun/magic/wand = 1,
-					  /obj/item/clothing/mask/balaclava =1,
-					  /obj/item/clothing/glasses/thermal_fake = 1,
-					  /obj/item/clothing/mask/horsehead = 2)
+					/obj/item/clothing/head/powdered_wig = 1,
+					/obj/item/gun/magic/wand = 1,
+					/obj/item/clothing/mask/balaclava =1,
+					/obj/item/clothing/under/syndicate/blackops_civ = 1,
+					/obj/item/clothing/glasses/thermal_fake = 1,
+					/obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
-				   /obj/item/clothing/head/hgpiratecap = 1,
-				   /obj/item/clothing/head/helmet/roman/fake = 1,
-				   /obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
-				   /obj/item/clothing/under/roman = 1,
-				   /obj/item/clothing/shoes/roman = 1,
-				   /obj/item/shield/riot/roman/fake = 1,
-				   /obj/item/clothing/under/cuban_suit = 1,
-				   /obj/item/clothing/head/cuban_hat = 1)
+					/obj/item/clothing/head/hgpiratecap = 1,
+					/obj/item/clothing/head/helmet/roman/fake = 1,
+					/obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
+					/obj/item/clothing/under/roman = 1,
+					/obj/item/clothing/shoes/roman = 1,
+					/obj/item/shield/riot/roman/fake = 1,
+					/obj/item/clothing/under/cuban_suit = 1,
+					/obj/item/clothing/head/cuban_hat = 1,
+					/obj/item/clothing/under/ussptracksuit_black = 1,
+					/obj/item/clothing/under/ussptracksuit_white = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/dinnerware
@@ -1653,10 +1657,29 @@
 	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
 	icon_state = "suits"
 	ads_list = list("Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*","Blood of your enemies washes right out!","Who are YOU wearing?","Look dapper! Look like an idiot!","Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*")
-	products = list(/obj/item/clothing/under/color/black = 10,/obj/item/clothing/under/color/blue = 10,/obj/item/clothing/under/color/green = 10,/obj/item/clothing/under/color/grey = 10,/obj/item/clothing/under/color/pink = 10,/obj/item/clothing/under/color/red = 10,
-					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/aqua = 10,/obj/item/clothing/under/color/purple = 10,/obj/item/clothing/under/color/lightgreen = 10,
-					/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/lightbrown = 10,/obj/item/clothing/under/color/brown = 10,/obj/item/clothing/under/color/yellowgreen = 10,/obj/item/clothing/under/color/darkblue = 10,/obj/item/clothing/under/color/lightred = 10, /obj/item/clothing/under/color/darkred = 10)
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5)
+	products = list(
+		/obj/item/clothing/under/color/black = 10,
+		/obj/item/clothing/under/color/blue = 10,
+		/obj/item/clothing/under/color/green = 10,
+		/obj/item/clothing/under/color/grey = 10,
+		/obj/item/clothing/under/color/pink = 10,
+		/obj/item/clothing/under/color/red = 10,
+		/obj/item/clothing/under/color/white = 10,
+		/obj/item/clothing/under/color/yellow = 10,
+		/obj/item/clothing/under/color/lightblue = 10,
+		/obj/item/clothing/under/color/aqua = 10,
+		/obj/item/clothing/under/color/purple = 10,
+		/obj/item/clothing/under/color/lightgreen = 10,
+		/obj/item/clothing/under/color/lightblue = 10,
+		/obj/item/clothing/under/color/lightbrown = 10,
+		/obj/item/clothing/under/color/brown = 10,
+		/obj/item/clothing/under/color/yellowgreen = 10,
+		/obj/item/clothing/under/color/darkblue = 10,
+		/obj/item/clothing/under/color/lightred = 10,
+		/obj/item/clothing/under/color/darkred = 10,
+		/obj/item/clothing/under/colour/skirt = 10
+		)
+	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5, /obj/item/clothing/under/syndicate/tacticool/skirt = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
@@ -1793,10 +1816,12 @@
 					/obj/item/clothing/neck/cloak/grey = 1)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
-					  /obj/item/clothing/mask/balaclava = 1,
-					  /obj/item/clothing/head/ushanka = 1,
-					  /obj/item/clothing/under/soviet = 1,
-					  /obj/item/storage/belt/fannypack/black = 1)
+					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
+					/obj/item/clothing/mask/balaclava = 1,
+					/obj/item/clothing/under/syndicate/blackops_civ = 1,
+					/obj/item/clothing/head/ushanka = 1,
+					/obj/item/clothing/under/soviet = 1,
+					/obj/item/storage/belt/fannypack/black = 1)
 
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
 				   /obj/item/clothing/head/mailman = 1,
@@ -1896,10 +1921,13 @@
 		/obj/item/clothing/suit/tracksuit/red				= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/security	= 5,
 		/obj/item/clothing/suit/jacket/pilot	= 5,
+		/obj/item/clothing/suit/armor/vest/sec_rps	= 5,
+		/obj/item/clothing/suit/armor/secjacket = 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
 		/obj/item/clothing/mask/bandana/red 	= 10,
 		/obj/item/clothing/mask/bandana/black 	= 10,
+		/obj/item/clothing/mask/secscarf 		= 10,
 
 		/obj/item/clothing/gloves/color/black	= 10,
 		/obj/item/clothing/gloves/color/red	= 10,
@@ -1931,7 +1959,8 @@
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
 		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
 		/obj/item/clothing/suit/storage/brigdoc = 3,
-		/obj/item/clothing/under/rank/security/brigmedical = 3
+		/obj/item/clothing/under/rank/security/brigmedical = 3,
+		/obj/item/clothing/under/rank/security/brigmedical/skirt = 3
 		)
 
 
@@ -1968,6 +1997,7 @@
 		/obj/item/clothing/under/rank/orderly				= 10,
 
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
+		/obj/item/clothing/suit/storage/suragi_jacket/medic = 10,
 		/obj/item/clothing/suit/apron/surgical 		= 10,
 		/obj/item/clothing/suit/storage/fr_jacket 	= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/medical	= 5,
@@ -2018,6 +2048,7 @@
 
 		/obj/item/clothing/under/rank/psych				= 2,
 		/obj/item/clothing/under/rank/psych/turtleneck	= 2,
+		/obj/item/clothing/under/rank/psych/skirt	= 2,
 
 		/obj/item/clothing/suit/storage/labcoat/mortician 	= 2,
 		/obj/item/clothing/under/rank/medical/mortician  	= 2,
@@ -2072,6 +2103,7 @@
 		/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
 		/obj/item/clothing/head/beret/atmos = 3,
 		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 5,
+		/obj/item/clothing/suit/storage/suragi_jacket/atmos = 5,
 		/obj/item/storage/backpack/duffel/atmos = 3.
 		)
 
@@ -2138,8 +2170,10 @@
 
 		/obj/item/clothing/under/rank/cargotech 		= 10,
 		/obj/item/clothing/under/rank/cargotech/skirt 	= 10,
+		/obj/item/clothing/under/rank/cargotech/alt		= 5,
 		/obj/item/clothing/under/rank/miner/lavaland 	= 10,
 		/obj/item/clothing/under/overalls 				= 10,
+		/obj/item/clothing/under/rank/miner/alt			= 5,
 
 
 		/obj/item/clothing/mask/bandana/black 	= 10,
@@ -2166,6 +2200,8 @@
 
 		/obj/item/clothing/under/pants/tan 		= 10,
 		/obj/item/clothing/under/pants/track 	= 10,
+
+		/obj/item/clothing/suit/storage/cargotech = 5,
 
 		/obj/item/clothing/suit/hooded/wintercoat/cargo	= 5,
 		/obj/item/clothing/suit/hooded/wintercoat/miner	= 5,
@@ -2244,6 +2280,7 @@
 	req_access = list(ACCESS_CHAPEL_OFFICE)
 	products = list(
 		/obj/item/clothing/under/rank/chaplain = 5,
+		/obj/item/clothing/under/rank/chaplain/skirt = 5,
 		/obj/item/clothing/suit/witchhunter = 2,
 		/obj/item/clothing/head/witchhunter_hat = 2,
 		/obj/item/clothing/suit/armor/riot/knight/templar = 1,
@@ -2274,6 +2311,7 @@
 	req_access = list(ACCESS_HYDROPONICS)
 	products = list(
 		/obj/item/clothing/under/rank/hydroponics = 5,
+		/obj/item/clothing/under/rank/hydroponics/skirt = 5,
 		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3,
 		/obj/item/clothing/suit/apron = 4,
 		/obj/item/clothing/suit/apron/overalls = 2,

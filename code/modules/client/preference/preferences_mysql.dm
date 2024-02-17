@@ -395,6 +395,13 @@
 	return 1
 
 /datum/preferences/proc/save_character(client/C)
+
+	for(var/title in player_alt_titles)
+		var/datum/job/job = SSjobs.GetJob(title)
+		if(job && !(player_alt_titles[title] in job.alt_titles))
+			log_runtime(EXCEPTION("[C.key] had a malformed job title entry: '[title]:[player_alt_titles[title]]'. Removing!"), src)
+			player_alt_titles -= title
+
 	var/organlist
 	var/rlimblist
 	var/playertitlelist

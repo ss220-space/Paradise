@@ -602,8 +602,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			current_organ = pick_n_take(childlist)
 			if(!current_organ.burn_dam || !current_organ.is_robotic())
 				continue
-		else if(current_organ.parent && !parenthealed)
-			current_organ = current_organ.parent
+		else if(target_organ.parent && !parenthealed)
+			current_organ = target_organ.parent
 			parenthealed = TRUE
 			if(!current_organ.burn_dam || !current_organ.is_robotic())
 				break

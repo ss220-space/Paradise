@@ -156,7 +156,7 @@
 		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
 		return
 
-	else if(istype(W, /obj/item/crowbar))
+	else if(W.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
 		return
 
@@ -344,18 +344,6 @@
 	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
 	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
-
-/*
-	sprite["Default"] = "repairbot"
-	sprite["Mk2 Mousedrone"] = "mk2"
-	sprite["Mk3 Monkeydrone"] = "mk3"
-	var/icontype
-	icontype = input(player,"Pick an icon") in sprite
-	icon_state = sprite[icontype]
-	updateicon()
-
-	choose_icon(6,sprite)
-*/
 
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)

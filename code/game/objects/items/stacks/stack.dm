@@ -202,7 +202,7 @@
 				to_chat(usr, "<span class='warning'>This area already has beacon!</span>")
 				return FALSE
 		if(R.result_type == /obj/structure/clockwork/functional/cogscarab_fabricator)
-			if(MAX_COG_FABRICATORS >= GLOB.clockwork_fabricators.len)
+			if(GLOB.clockwork_fabricators.len >= MAX_COG_FABRICATORS)
 				to_chat(usr, "<span class='warning'>You can't build more than [MAX_COG_FABRICATORS] fabricators!</span>")
 				return FALSE
 			if(usr.type == /mob/living/silicon/robot/cogscarab)

@@ -4,13 +4,15 @@
 	icon_state = "echair0"
 	item_chair = null
 	anchored = TRUE
-	var/obj/item/assembly/shock_kit/part = null
-	var/last_time = 1.0
-	var/delay_time = 50
+	var/obj/item/assembly/shock_kit/part
+	var/last_time = 0
+	var/delay_time = 5 SECONDS
+	var/shocking = FALSE
+
 
 /obj/structure/chair/e_chair/Initialize(mapload, obj/item/assembly/shock_kit/sk)
 	. = ..()
-	overlays += image('icons/obj/chairs.dmi', src, "echair_over", MOB_LAYER + 1, dir)
+	update_icon(UPDATE_OVERLAYS)
 
 	if(sk)
 		part = sk
@@ -25,64 +27,96 @@
 		part.part1 = part1
 		part.part2 = part2
 
-/obj/structure/chair/e_chair/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		var/obj/structure/chair/C = new /obj/structure/chair(loc)
-		transfer_fingerprints_to(C)
-		playsound(loc, W.usesound, 50, 1)
-		C.dir = dir
-		part.loc = loc
+
+/obj/structure/chair/e_chair/Destroy()
+	if(part)
+		QDEL_NULL(part)
+	return ..()
+
+
+/obj/structure/chair/e_chair/rotate()
+	if(..())
+		update_icon(UPDATE_OVERLAYS)
+
+
+/obj/structure/chair/e_chair/update_icon_state()
+	icon_state = "echair[shocking]"
+
+
+/obj/structure/chair/e_chair/update_overlays()
+	. = ..()
+	. += image(icon, icon_state = "echair_over", layer = ABOVE_MOB_LAYER, dir = src.dir)
+	if(shocking)
+		. += image(icon, icon_state = "echair_shock", layer = ABOVE_MOB_LAYER)
+
+
+/obj/structure/chair/e_chair/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_WRENCH)
+		var/obj/structure/chair/chair = new (loc)
+		transfer_fingerprints_to(chair)
+		playsound(loc, W.usesound, 50, TRUE)
+		chair.dir = dir
+		part.forceMove(loc)
 		part.master = null
 		part = null
 		qdel(src)
 		return
 	return ..()
 
+
+/obj/structure/chair/e_chair/examine(mob/user)
+	. = ..()
+	. += span_warning("You can <b>Alt-Shift-Click</b> [src] to activate it.")
+
+
+/obj/structure/chair/e_chair/AltShiftClick(mob/living/user)
+	if(!Adjacent(user))
+		return ..()
+	shock(user)
+
+
 /obj/structure/chair/e_chair/verb/activate_e_chair()
 	set name = "Activate Electric Chair"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !usr.canmove || usr.restrained())
-		return
-	if(last_time + delay_time > world.time)
-		to_chat(usr, "<span class='warning'>\The [src] is not ready yet!</span>")
-		return
-	to_chat(usr, "<span class='notice'>You activate \the [src].</span>")
-	shock()
 
-/obj/structure/chair/e_chair/rotate()
-	..()
-	overlays.Cut()
-	overlays += image('icons/obj/chairs.dmi', src, "echair_over", MOB_LAYER + 1, dir)	//there's probably a better way of handling this, but eh. -Pete
+	shock(usr)
 
-/obj/structure/chair/e_chair/proc/shock()
-	if(last_time + delay_time > world.time)
+
+/obj/structure/chair/e_chair/proc/shock(mob/living/user)
+	if(isliving(user) && (user.incapacitated() || user.restrained()))
 		return
-	last_time = world.time
-
-	icon_state = "echair1"
-	spawn(delay_time)
-		icon_state = "echair0"
 
 	// special power handling
-	var/area/A = get_area(src)
-	if(!isarea(A))
+	var/area/our_area = get_area(src)
+	if(!our_area || !our_area.powered(EQUIP))
 		return
-	if(!A.powered(EQUIP))
-		return
-	A.use_power(5000, EQUIP)
-	var/light = A.power_light
-	A.updateicon()
 
-	flick("echair_shock", src)
+	if(last_time + delay_time > world.time)
+		if(user)
+			to_chat(user, span_warning("[src] is not ready yet!"))
+		return
+	last_time = world.time
+	our_area.use_power(5000, EQUIP)
+	our_area.update_icon(UPDATE_ICON_STATE)
+
+	if(user)
+		to_chat(user, span_notice("You activate [src]."))
+
+	shocking = TRUE
+	update_icon()
 	do_sparks(12, 1, src)
-	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
+	visible_message(span_danger("The electric chair went off!"))
+	addtimer(CALLBACK(src, PROC_REF(reset_echair)), delay_time, TIMER_DELETE_ME)
+
 	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
+		for(var/mob/living/buckled_mob as anything in buckled_mobs)
 			buckled_mob.electrocute_act(110, src, 1)
-			to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
-			spawn(1)
-				buckled_mob.electrocute_act(110, src, 1)
-	A.power_light = light
-	A.updateicon()
+			to_chat(buckled_mob, span_userdanger("You feel a deep shock course through your body!"))
+			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, src, 1), 0.1 SECONDS, TIMER_DELETE_ME)
+
+
+/obj/structure/chair/e_chair/proc/reset_echair()
+	shocking = FALSE
+	update_icon()
+

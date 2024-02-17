@@ -115,14 +115,16 @@
 		M.update_inv_l_hand()
 
 // If welding tool ran out of fuel during a construction task, construction fails.
-/obj/item/weldingtool/tool_use_check(mob/living/user, amount)
+/obj/item/weldingtool/tool_use_check(mob/living/user, amount, silent = FALSE)
 	if(!tool_enabled)
-		to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
+		if(!silent)
+			to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
 		return FALSE
 	if(GET_FUEL >= amount * requires_fuel)
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
+		if(!silent)
+			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
 		return FALSE
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
@@ -174,15 +176,8 @@
 	else
 		to_chat(user, "<span class='warning'>There's not enough fuel in [A] to refuel [src]!</span>")
 
-/obj/item/weldingtool/proc/update_torch()
-	overlays.Cut()
-	if(tool_enabled)
-		overlays += "[initial(icon_state)]-on"
-		item_state = "[initial(item_state)]1"
-	else
-		item_state = "[initial(item_state)]"
 
-/obj/item/weldingtool/update_icon()
+/obj/item/weldingtool/update_icon_state()
 	if(low_fuel_changes_icon)
 		var/ratio = GET_FUEL / maximum_fuel
 		ratio = CEILING(ratio*4, 1) * 25
@@ -190,8 +185,16 @@
 			icon_state = initial(icon_state)
 		else
 			icon_state = "[initial(icon_state)][ratio]"
-	update_torch()
-	..()
+	if(tool_enabled)
+		item_state = "[initial(item_state)]1"
+	else
+		item_state = "[initial(item_state)]"
+
+
+/obj/item/weldingtool/update_overlays()
+	. = ..()
+	if(tool_enabled)
+		. += "[initial(icon_state)]-on"
 
 
 /obj/item/weldingtool/largetank

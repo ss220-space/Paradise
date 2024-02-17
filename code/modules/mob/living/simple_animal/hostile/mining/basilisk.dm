@@ -146,7 +146,7 @@
 	. = ..()
 	if(.)
 		var/mob/living/L = target
-		if(istype(L))
+		if(istype(L) && !isrobot(L))
 			L.AdjustWeakened(1 SECONDS)
 			L.Slowed(3 SECONDS)
 			L.Confused(3 SECONDS)

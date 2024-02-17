@@ -46,6 +46,13 @@
 	var/list/choosable_items = list("A coder forgot to set this" = /obj/item/grown/bananapeel)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
 
+
+/obj/structure/cult/functional/Initialize(mapload)
+	. = ..()
+	if(cult_icon_changing)
+		update_icon(UPDATE_ICON_STATE)
+
+
 /obj/structure/cult/functional/obj_destruction()
 	visible_message(death_message)
 	playsound(src, death_sound, 50, TRUE)
@@ -57,15 +64,21 @@
 		. += "<span class='cult'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
 	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
+
+/obj/structure/cult/functional/update_icon_state()
+	var/init_icon = initial(icon_state)
+	if(!SSticker || !SSticker.cultdat || !cult_icon_changing)
+		icon_state = init_icon
+		return
+	icon_state = anchored ? SSticker.cultdat.get_icon("[init_icon]") : SSticker.cultdat.get_icon("[init_icon]_off")
+
+
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		add_fingerprint(user)
 		anchored = !anchored
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
-		if(!anchored)
-			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]_off")
-		else
-			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]")
 		return
 	return ..()
 
@@ -143,10 +156,6 @@
 	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater,
 							"Construct Shell" = /obj/structure/constructshell)
 
-/obj/structure/cult/functional/altar/Initialize(mapload)
-	. = ..()
-	if(cult_icon_changing)
-		icon_state = SSticker.cultdat?.altar_icon_state
 
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
@@ -164,10 +173,6 @@
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe,
 							"Mirror Shield" = /obj/item/shield/mirror)
 
-/obj/structure/cult/functional/forge/Initialize(mapload)
-	. = ..()
-	if(cult_icon_changing)
-		icon_state = SSticker.cultdat?.forge_icon_state
 
 /obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
@@ -253,8 +258,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 		)
 
 	START_PROCESSING(SSobj, src)
-	if(cult_icon_changing)
-		icon_state = SSticker.cultdat?.pylon_icon_state
+
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
@@ -329,10 +333,6 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
 							"Veil Shifter" = /obj/item/cult_shift) //Add void torch to veil shifter spawn
 
-/obj/structure/cult/functional/archives/Initialize(mapload)
-	. = ..()
-	if(cult_icon_changing)
-		icon_state = SSticker.cultdat?.archives_icon_state
 
 /obj/effect/gateway
 	name = "gateway"

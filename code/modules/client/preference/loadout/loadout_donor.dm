@@ -3,6 +3,18 @@
 	sort_category = "Donor"
 	subtype_path = /datum/gear/donor
 
+/datum/gear/donor/ussptracksuit_black
+	donator_tier = 1
+	cost = 1
+	display_name = "track suit (black)"
+	path = /obj/item/clothing/under/ussptracksuit_black
+
+/datum/gear/donor/ussptracksuit_white
+	donator_tier = 1
+	cost = 1
+	display_name = "track suit (white)"
+	path = /obj/item/clothing/under/ussptracksuit_white
+
 /datum/gear/donor/kittyears
 	display_name = "Kitty ears"
 	path = /obj/item/clothing/head/kitty

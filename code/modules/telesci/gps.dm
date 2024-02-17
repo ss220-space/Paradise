@@ -35,23 +35,23 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	GLOB.poi_list.Add(src)
 	if(name == initial(name))
 		name = "global positioning system ([gpstag])"
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gps/Destroy()
 	GLOB.GPS_list.Remove(src)
 	GLOB.poi_list.Remove(src)
 	return ..()
 
-/obj/item/gps/update_icon()
-	cut_overlays()
+/obj/item/gps/update_overlays()
+	. = ..()
 	if(emped)
-		add_overlay("emp")
+		. += "emp"
 	else if(tracking)
-		add_overlay("working")
+		. += "working"
 
 /obj/item/gps/emp_act(severity)
 	emped = TRUE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/living/user)
@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		return
 
 	tracking = !tracking
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(tracking)
 		to_chat(user, "[src] is now tracking, and visible to other GPS devices.")
 	else
@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	ui_interact(user)
 
 
-/obj/item/gps/MouseDrop(atom/over)
+/obj/item/gps/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 
 	var/mob/user = usr
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
   */
 /obj/item/gps/proc/reboot()
 	emped = FALSE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gps/science
 	icon_state = "gps-s"

@@ -174,7 +174,7 @@
 	switch(action)
 		 // Toggles the cut/mend status.
 		if("cut")
-			if(!istype(I, /obj/item/wirecutters) && !user.can_admin_interact())
+			if(I.tool_behaviour != TOOL_WIRECUTTER && !user.can_admin_interact())
 				to_chat(user, "<span class='error'>You need wirecutters!</span>")
 				return
 
@@ -185,7 +185,7 @@
 
 		// Pulse a wire.
 		if("pulse")
-			if(!istype(I, /obj/item/multitool) && !user.can_admin_interact())
+			if(I.tool_behaviour != TOOL_MULTITOOL && !user.can_admin_interact())
 				to_chat(user, "<span class='error'>You need a multitool!</span>")
 				return
 

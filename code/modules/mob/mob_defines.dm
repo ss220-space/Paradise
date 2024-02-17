@@ -211,7 +211,7 @@
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
-	var/list/permanent_huds = list()
+	var/list/huds_counter = list("huds" = list(), "icons" = list()) // Counters for huds and icon types
 
 	var/list/actions = list()
 	var/list/datum/action/chameleon_item_actions
@@ -228,3 +228,5 @@
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
 	var/last_emote = null
+
+	var/ghost_orbiting = 0

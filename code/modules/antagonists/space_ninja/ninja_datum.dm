@@ -143,7 +143,6 @@
 	give_objectives()
 	announce_objectives()
 	SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
-	basic_ninja_needs_check()
 
 
 /datum/antagonist/ninja/proc/name_ninja()
@@ -192,29 +191,6 @@
 	my_suit.n_backpack = my_backpack
 	my_suit.energyKatana = my_katana
 	cell = my_suit.cell
-
-
-/**
- * Proc that checks ninjas needs.
- * Used only for plant explosive objective for now.
- */
-/datum/antagonist/ninja/proc/basic_ninja_needs_check()
-	var/list/all_objectives = owner.get_all_objectives()
-	var/list/ninja_contents = human_ninja.get_contents()
-	for(var/datum/objective/plant_explosive/bomb_objective in all_objectives)
-		if(bomb_objective.completed)
-			continue
-
-		var/bomb_found = FALSE
-		for(var/obj/item/grenade/plastic/c4/ninja/bomb_item in ninja_contents)
-			if(bomb_item.detonation_objective == bomb_objective)
-				bomb_found = TRUE
-				break
-
-		if(!bomb_found)
-			var/obj/item/grenade/plastic/c4/ninja/new_bomb = new(human_ninja)
-			human_ninja.equip_or_collect(new_bomb, slot_l_store)
-			new_bomb.detonation_objective = bomb_objective
 
 
 /**
@@ -467,8 +443,7 @@
 	var/pick_chance = rand(0, 100)
 	if(pick_chance <= 25)
 		var/datum/objective/plant_explosive/bomb_objective = add_objective(/datum/objective/plant_explosive)
-		for(var/obj/item/grenade/plastic/c4/ninja/ninja_bomb in human_ninja.get_contents())	// in case we got bombs in the inventory
-			ninja_bomb.detonation_objective = bomb_objective
+		bomb_objective.give_bomb(delayed = 0)
 
 	else if(pick_chance <= 50)
 		var/datum/objective/set_up/set_up_objective = add_objective(/datum/objective/set_up)
@@ -640,8 +615,7 @@
 		add_objective(/datum/objective/cyborg_hijack)
 
 	var/datum/objective/plant_explosive/bomb_objective = add_objective(/datum/objective/plant_explosive)
-	for(var/obj/item/grenade/plastic/c4/ninja/ninja_bomb in human_ninja.get_contents())	// in case we got bombs in the inventory
-		ninja_bomb.detonation_objective = bomb_objective
+	bomb_objective.give_bomb(delayed = 0)
 
 	add_objective(/datum/objective/find_and_scan)
 

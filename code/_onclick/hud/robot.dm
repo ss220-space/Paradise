@@ -102,6 +102,7 @@
 /datum/hud/robot/New(mob/user)
 	..()
 
+	user.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	var/obj/screen/using
 	var/mob/living/silicon/robot/mymobR = mymob
 
@@ -171,9 +172,7 @@
 	mymob.pullin.screen_loc = ui_borg_pull
 	hotkeybuttons += mymob.pullin
 
-	zone_select = new /obj/screen/zone_sel/robot()
-	zone_select.hud = src
-	zone_select.update_icon(UPDATE_OVERLAYS)
+	zone_select = new /obj/screen/zone_sel/robot(null, src)
 	static_inventory += zone_select
 
 //Headlamp

@@ -1,3 +1,5 @@
+#define COUNT_PLASMA_QUESTS 3
+
 /datum/station_goal/bfl
 	name = "BFL Mining laser"
 
@@ -26,6 +28,12 @@
 	P.special_enabled = TRUE
 	supply_list.Add(P)
 
+	if(length(SScargo_quests.plasma_quests) > COUNT_PLASMA_QUESTS)
+		return
+
+	for(var/I = 1 to COUNT_PLASMA_QUESTS)
+		SScargo_quests.create_new_quest(pick(SScargo_quests.plasma_departaments))
+
 /datum/station_goal/bfl/check_completion()
 	if(..())
 		return TRUE
@@ -33,6 +41,12 @@
 		if(B && is_station_contact(B.z))
 			return TRUE
 	return FALSE
+
+/datum/station_goal/bfl/Destroy()
+	. = ..()
+	if(locate(/datum/station_goal/bfl) in SSticker.mode.station_goals)
+		return
+	SScargo_quests.remove_bfl_quests(COUNT_PLASMA_QUESTS)
 
 ////////////
 //Building//

@@ -1855,7 +1855,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
 		temp_closet.update_icon()
-	for(var/obj/machinery/door_timer/temp_timer in src)
+	for(var/obj/machinery/door_timer/temp_timer in machinery_cache)
 		temp_timer.releasetime = 1
 	..()
 
@@ -1874,7 +1874,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
 		temp_closet.update_icon()
-	for(var/obj/machinery/door_timer/temp_timer in src)
+	for(var/obj/machinery/door_timer/temp_timer in machinery_cache)
 		temp_timer.releasetime = 1
 	..()
 

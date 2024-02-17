@@ -215,7 +215,7 @@
 	TC.ailock = ailock
 
 	if(istype(control_area))
-		for(var/obj/machinery/porta_turret/aTurret in control_area)
+		for(var/obj/machinery/porta_turret/aTurret in control_area.machinery_cache)
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
 

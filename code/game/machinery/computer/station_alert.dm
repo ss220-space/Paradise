@@ -8,7 +8,7 @@
 	circuit = /obj/item/circuitboard/stationalert_engineering
 	var/ui_x = 325
 	var/ui_y = 500
-	var/list/alarms_listend_for = list("Fire", "Atmosphere", "Power")
+	var/list/alarms_listend_for = list("Fire", "Atmosphere", "Power", "Camera")
 
 /obj/machinery/computer/station_alert/Initialize(mapload)
 	. = ..()

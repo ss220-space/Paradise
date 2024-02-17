@@ -88,6 +88,11 @@
 	stamina = 30
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/weakbullet4/c9mmte
+	name = "9mm TE"
+	damage = 7
+	stamina = 15
+
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX

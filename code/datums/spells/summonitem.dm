@@ -5,6 +5,7 @@
 	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
 	clothes_req = FALSE
+	human_req = FALSE
 	invocation = "GAR YOK"
 	invocation_type = "whisper"
 	level_max = 0 //cannot be improved

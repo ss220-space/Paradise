@@ -51,7 +51,7 @@
 	if(istype(loc, /obj/item/implanter))
 		var/obj/item/implanter/implanter = loc
 		implanter.imp = null
-		implanter.update_icon()
+		implanter.update_state()
 	if(istype(loc, /obj/item/implantpad))
 		var/obj/item/implantcase/implantcase = loc
 		implantcase.imp = null
@@ -92,15 +92,13 @@
 			to_chat(user, span_warning("You can't trigger [src] with a custom emote."))
 		return FALSE
 
-	if(!(emote_key in user.usable_emote_keys(trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL)))
+	var/intentional_cause = (trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL) && !(trigger_causes & BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL)
+	if(!(emote_key in user.usable_emote_keys(intentional_cause)))
 		if(!silent)
-			to_chat(user, span_warning("You can't trigger [src] with that emote! Try *help to see emotes you can use."))
+			to_chat(user, span_warning("You can't trigger [src] with that emote [intentional_cause ? "intentionally" : "unintentionally"]! Try *help to see emotes you can use."))
 		return FALSE
 
-	if(!(emote_key in user.usable_emote_keys(trigger_causes & BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL)))
-		CRASH("User was given an bio-chip for an unintentional emote that they can't use.")
-
-	LAZYADD(trigger_emotes, emote_key)
+	LAZYADDOR(trigger_emotes, emote_key)
 	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), PROC_REF(on_emote))
 
 
@@ -113,7 +111,7 @@
 	if(!(intentional && (trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL)) && !(!intentional && (trigger_causes & BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL)))
 		return
 
-	add_attack_logs(user, user, "[intentional ? "intentionally" : "unintentionally"] [src] was [intentional ? "intentionally" : "unintentionally"] triggered with the emote [fired_emote].")
+	add_attack_logs(user, user, "[src] was [intentional ? "intentionally" : "unintentionally"] triggered with the emote [fired_emote].")
 	emote_trigger(key, user, intentional)
 
 
@@ -136,7 +134,7 @@
 	death_trigger(source, gibbed)
 
 
-/obj/item/implant/proc/emote_trigger(emote, mob/source, force)
+/obj/item/implant/proc/emote_trigger(emote, mob/source, intentional)
 	return
 
 
@@ -183,13 +181,13 @@
 	if(trigger_emotes)
 		if(!(trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL|BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL))
 			CRASH("Bio-chip [src] has trigger emotes defined but no trigger cause with which to use them!")
-		if(!activated && (trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL))
+		if(activated == BIOCHIP_ACTIVATED_PASSIVE && (trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL))
 			CRASH("Bio-chip [src] has intentional emote triggers on a passive bio-chip")
 		// If you can't activate the implant manually, you shouldn't be able to deliberately activate it with an emote
 		for(var/emote in trigger_emotes)
 			set_trigger(source, emote, on_implant = TRUE)
 
-	if(activated)
+	if(activated == BIOCHIP_ACTIVATED_ACTIVE)
 		for(var/datum/action/action as anything in actions)
 			action.Grant(source)
 			update_button(action)

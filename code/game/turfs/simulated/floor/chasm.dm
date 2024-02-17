@@ -27,7 +27,8 @@
 		/obj/effect/ebeam,
 		/obj/effect/spawner,
 		/obj/structure/railing,
-		/obj/machinery/atmospherics/pipe/simple
+		/obj/machinery/atmospherics/pipe/simple,
+		/mob/living/simple_animal/hostile/megafauna //failsafe
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -42,6 +43,12 @@
 	..()
 	START_PROCESSING(SSprocessing, src)
 	drop_stuff(AM)
+
+/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	if(!isliving(caller))
+		return TRUE
+	var/mob/living/L = caller
+	return (L.flying || ismegafauna(caller))
 
 /turf/simulated/floor/chasm/process()
 	if(!drop_stuff())

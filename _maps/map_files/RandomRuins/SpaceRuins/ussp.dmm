@@ -4899,6 +4899,7 @@
 /area/derelict/garden)
 "lQ" = (
 /obj/structure/closet/crate/hydroponics,
+/obj/item/seeds/wheat/meat,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
@@ -8131,11 +8132,11 @@
 "zW" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 8;
-	height = 20;
+	dwidth = 10;
+	height = 30;
 	id = "freegolem_ussp";
 	name = "Near USSP Station";
-	width = 16
+	width = 20
 	},
 /turf/space,
 /area/template_noop)

@@ -1,12 +1,12 @@
 /mob/living/update_blind_effects()
-	if(!has_vision(information_only=TRUE))
-		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		throw_alert("blind", /obj/screen/alert/blind)
-		return 1
-	else
+	if(has_vision(information_only = TRUE))
 		clear_fullscreen("blind")
 		clear_alert("blind")
-		return 0
+		return FALSE
+
+	overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+	throw_alert("blind", /obj/screen/alert/blind)
+	return TRUE
 
 
 /mob/living/update_blurry_effects()
@@ -52,7 +52,7 @@
 // `information_only` is for stuff that's purely informational - like blindness overlays
 // This flag exists because certain things like angel statues expect this to be false for dead people
 /mob/living/has_vision(information_only = FALSE)
-	return (information_only && stat == DEAD) || !(AmountBlinded() || (BLINDNESS in mutations) || stat)
+	return (information_only && stat == DEAD) || !(AmountBlinded() || (BLINDNESS in mutations) || stat || get_total_tint() >= 3)
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()

@@ -232,6 +232,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Notice Board", /obj/item/noticeboard, 5, time = 10),
 ))
 
 /obj/item/stack/sheet/wood
@@ -274,6 +275,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 		new /datum/stack_recipe("Bio bag", /obj/item/storage/bag/bio, 4),
 		new /datum/stack_recipe("Book bag", /obj/item/storage/bag/books, 4),
 		new /datum/stack_recipe("Chemistry bag", /obj/item/storage/bag/chemistry, 4),
+		new /datum/stack_recipe("Construction bag", /obj/item/storage/bag/construction, 4),
 		new /datum/stack_recipe("Fish bag", /obj/item/storage/bag/fish, 4),
 		new /datum/stack_recipe("Mining satchel", /obj/item/storage/bag/ore, 4),
 		new /datum/stack_recipe("Plant bag", /obj/item/storage/bag/plants, 4),

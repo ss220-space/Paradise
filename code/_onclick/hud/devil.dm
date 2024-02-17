@@ -50,10 +50,7 @@
 	using.screen_loc = ui_swaphand2
 	static_inventory += using
 
-	zone_select = new /obj/screen/zone_sel()
-	zone_select.hud = src
-	zone_select.icon = ui_style
-	zone_select.update_icon(UPDATE_OVERLAYS)
+	zone_select = new /obj/screen/zone_sel(null, src, ui_style)
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	devilsouldisplay = new /obj/screen/devil/soul_counter

@@ -1,7 +1,7 @@
 /**
  *  Guardian's mines. Can be attached to anything to do explosive stuff on a victim.
  */
-#define MINE_LIFE_TIME 60 SECONDS
+#define MINE_LIFE_TIME (60 SECONDS)
 
 ///Datum specialized for guardian(holoparasite)-bomber.
 /datum/component/guardian_mine

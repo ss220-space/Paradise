@@ -44,6 +44,7 @@
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 	var/datum/martial_art/martial_art
+	var/list/known_martial_arts = list()
 
 	var/role_alt_title
 
@@ -171,10 +172,10 @@
 	transfer_actions(new_character, old_current)
 
 	if(martial_art)
-		if(martial_art.temporary)
-			martial_art.remove(current)
-		else
-			martial_art.teach(current)
+		for(var/datum/martial_art/MA in known_martial_arts)
+			MA.remove(current)
+			if(!MA.temporary)
+				MA.teach(current)
 
 	for(var/datum/antagonist/antag in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
@@ -2402,7 +2403,6 @@
 					return
 
 				ninja_datum.equip_ninja()
-				ninja_datum.basic_ninja_needs_check()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
 
@@ -2437,7 +2437,6 @@
 						return
 
 				ninja_datum.make_objectives_generate_antags(objective_type)
-				ninja_datum.basic_ninja_needs_check()
 				to_chat(usr, span_notice("Цели для ниндзя: [key] были сгенерированы. Вы можете их отредактировать и оповестить игрока о целях вручную."))
 				log_admin("[key_name(usr)] has automatically forged ninja objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged ninja objectives for [key_name_admin(current)]")
@@ -2933,7 +2932,6 @@
 
 	//"generic" only, we don't want to spawn other antag's
 	ninja_datum.make_objectives_generate_antags(NINJA_TYPE_GENERIC, custom_objective)
-	ninja_datum.basic_ninja_needs_check()
 
 
 /datum/mind/proc/make_Rev()

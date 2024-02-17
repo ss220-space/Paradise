@@ -74,6 +74,11 @@
 	update()
 
 
+/obj/structure/disposalconstruct/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
+
+
 // flip and rotate verbs
 /obj/structure/disposalconstruct/verb/rotate()
 	set category = "Object"

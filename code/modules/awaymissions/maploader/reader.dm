@@ -282,7 +282,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/turf/T
 	if(members[first_turf_index] != /turf/template_noop)
 		if(members[first_turf_index] == /turf/simulated/floor/plating/lava/smooth/lava_land_surface)
-			T = instance_atom(SSmapping.lavaland_theme, members_attributes[first_turf_index], xcrd, ycrd, zcrd)
+			T = instance_atom(SSmapping.lavaland_theme?.primary_turf_type, members_attributes[first_turf_index], xcrd, ycrd, zcrd)
 		else
 			T = instance_atom(members[first_turf_index], members_attributes[first_turf_index], xcrd, ycrd, zcrd)
 

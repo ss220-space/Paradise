@@ -300,15 +300,15 @@
 /obj/item/areaeditor/proc/set_area_machinery_title(var/area/A,var/title,var/oldtitle)
 	if(!oldtitle) // or replacetext goes to infinite loop
 		return
-	for(var/obj/machinery/alarm/M in A)
+	for(var/obj/machinery/alarm/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/power/apc/M in A)
+	for(var/obj/machinery/power/apc/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/atmospherics/unary/vent_scrubber/M in A)
+	for(var/obj/machinery/atmospherics/unary/vent_scrubber/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/atmospherics/unary/vent_pump/M in A)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
-	for(var/obj/machinery/door/M in A)
+	for(var/obj/machinery/door/M in A.machinery_cache)
 		M.name = replacetext(M.name,oldtitle,title)
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 

@@ -199,7 +199,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/icon/base_icon
 		//BEGIN CACHED ICON GENERATION.
 		var/obj/item/organ/external/chest = get_organ(BODY_ZONE_CHEST)
-		base_icon = chest.get_icon(skeleton)
+		if(chest) //I hate it.
+			base_icon = chest.get_icon(skeleton)
 
 		for(var/obj/item/organ/external/part as anything in bodyparts)
 			if(part.limb_zone == BODY_ZONE_TAIL || part.limb_zone == BODY_ZONE_WING)
@@ -432,7 +433,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	//masks and helmets can obscure our facial hair, unless we're a synthetic
-	if((head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+	if((head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKFACIALHAIR)))
 		return
 
 	//base icons
@@ -703,6 +704,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(GLASSES_LAYER)
 	remove_overlay(GLASSES_OVER_LAYER)
 	remove_overlay(OVER_MASK_LAYER)
+	remove_overlay(OVER_HEAD_LAYER)
 
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_glasses]
@@ -726,7 +728,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		var/obj/item/clothing/glasses/G = glasses
-		if(istype(G) && G.over_mask) //If the user's used the 'wear over mask' verb on the glasses.
+		if(head && !(head.flags_inv & MASKCOVERSEYES || head.flags_cover & HEADCOVERSEYES) && G.over_hat && istype(G))
+			new_glasses.layer = -OVER_HEAD_LAYER
+			overlays_standing[OVER_HEAD_LAYER] = new_glasses
+			apply_overlay(OVER_HEAD_LAYER)
+		else if(istype(G) && G.over_mask) //If the user's used the 'wear over mask' verb on the glasses.
 			new_glasses.layer = -OVER_MASK_LAYER
 			overlays_standing[OVER_MASK_LAYER] = new_glasses
 			apply_overlay(OVER_MASK_LAYER)

@@ -127,6 +127,10 @@
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
 
+/datum/gear/uniform/skirt/syndi
+	display_name = "skirt, tactical"
+	path = /obj/item/clothing/under/syndicate/tacticool/skirt
+
 /datum/gear/uniform/skirt/blue
 	display_name = "plaid skirt, blue"
 	path = /obj/item/clothing/under/dress/plaid_blue
@@ -196,6 +200,16 @@
 	path = /obj/item/clothing/under/rank/security/brigphys/skirt
 	allowed_roles = list("Brig Physician")
 
+/datum/gear/uniform/skirt/job/physalt
+	display_name = "skirt, physician alt"
+	path = /obj/item/clothing/under/rank/security/brigmedical/skirt
+	allowed_roles = list("Brig Physician")
+
+/datum/gear/uniform/skirt/job/hydro
+	display_name = "skirt, botanist"
+	path = /obj/item/clothing/under/rank/hydroponics/skirt
+	allowed_roles = list("Botanist")
+
 /datum/gear/uniform/skirt/job/sci
 	display_name = "skirt, scientist"
 	path = /obj/item/clothing/under/rank/scientist/skirt
@@ -221,6 +235,11 @@
 	path = /obj/item/clothing/under/rank/security/skirt
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
+/datum/gear/uniform/skirt/job/podpilot
+	display_name = "skirt, podpilot"
+	path = /obj/item/clothing/under/rank/security/pod_pilot/skirt
+	allowed_roles = list("Head of Security", "Security Pod Pilot")
+
 /datum/gear/uniform/skirt/job/head_of_security
 	display_name = "skirt, hos"
 	path = /obj/item/clothing/under/rank/head_of_security/skirt
@@ -236,6 +255,35 @@
 	path = /obj/item/clothing/under/rank/blueshield/skirt
 	allowed_roles = list("Blueshield")
 
+/datum/gear/uniform/skirt/job/librarian
+	display_name = "skirt, librarian"
+	path = /obj/item/clothing/under/suit_jacket/red/skirt
+	allowed_roles = list("Librarian")
+
+/datum/gear/uniform/skirt/job/bartender
+	display_name = "skirt, bartender"
+	path = /obj/item/clothing/under/rank/bartender/skirt
+	allowed_roles = list("Bartender")
+
+/datum/gear/uniform/skirt/job/chaplain
+	display_name = "skirt, chaplain"
+	path = /obj/item/clothing/under/rank/chaplain/skirt
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/skirt/job/barber
+	display_name = "skirt, barber"
+	path = /obj/item/clothing/under/barber/skirt
+	allowed_roles = list("Barber")
+
+/datum/gear/uniform/skirt/job/nanotrasenofficer
+	display_name = "skirt, NNO"
+	path = /obj/item/clothing/under/rank/centcom/officer/skirt
+	allowed_roles = list("Nanotrasen Navy Officer")
+
+/datum/gear/uniform/skirt/job/internalaffairs
+	display_name = "skirt, internalaffairs"
+	path = /obj/item/clothing/under/rank/internalaffairs/skirt
+	allowed_roles = list("Internal Affairs Agent")
 
 /datum/gear/uniform/medical
 	subtype_path = /datum/gear/uniform/medical
@@ -277,6 +325,24 @@
 	display_name = "security uniform, casual"
 	path = /obj/item/clothing/under/rank/security2
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot")
+
+/datum/gear/uniform/cargo
+	subtype_path = /datum/gear/uniform/cargo
+
+/datum/gear/uniform/cargo/qm
+	display_name = "quartermaster's dress"
+	path = /obj/item/clothing/under/rank/cargo/alt
+	allowed_roles = list("Quartermaster")
+
+/datum/gear/uniform/cargo/tech
+	display_name = "cargo technician's dress"
+	path = /obj/item/clothing/under/rank/cargotech/alt
+	allowed_roles = list("Quartermaster","Cargo Technician")
+
+/datum/gear/uniform/cargo/miner
+	display_name = "shaft miner's sweater"
+	path = /obj/item/clothing/under/rank/miner/alt
+	allowed_roles = list("Quartermaster", "Shaft Miner")
 
 /datum/gear/uniform/shorts
 	subtype_path = /datum/gear/uniform/shorts
@@ -376,3 +442,13 @@
 	display_name = "hawaiian shirt (orange)"
 	description = "Come one step closer and I will knock his teeth out!"
 	path = /obj/item/clothing/under/orangehawaiianshirt
+
+/datum/gear/uniform/ussptracksuit_red
+	display_name = "track suit (red)"
+	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	path = /obj/item/clothing/under/ussptracksuit_red
+
+/datum/gear/uniform/ussptracksuit_blue
+	display_name = "track suit (blue)"
+	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	path = /obj/item/clothing/under/ussptracksuit_blue

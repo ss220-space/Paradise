@@ -1861,13 +1861,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
-"ann" = (
-/obj/structure/closet/firecloset/full,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "anr" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8;
@@ -4671,6 +4664,15 @@
 	icon_state = "whiteyellow"
 	},
 /area/assembly/chargebay)
+"aHP" = (
+/obj/machinery/computer/supplyquest/workers{
+	pixel_y = 27
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbrown"
+	},
+/area/quartermaster/office)
 "aHW" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -5682,13 +5684,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbrown"
-	},
-/area/bridge)
-"aPq" = (
-/obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -15214,32 +15209,6 @@
 	icon_state = "white"
 	},
 /area/medical/medbreak)
-"bLf" = (
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/camera{
-	c_tag = "Brig Secure Armory"
-	},
-/obj/structure/rack/gunrack,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/security/armory)
 "bLg" = (
 /obj/structure/sink{
 	dir = 1
@@ -15342,6 +15311,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"bLB" = (
+/obj/structure/table,
+/obj/item/folder,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/item/lighter/zippo/qm{
+	pixel_y = 0;
+	pixel_x = -12
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/qm)
 "bLC" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -23492,25 +23473,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fore2)
-"cDS" = (
-/obj/structure/closet/secure_closet/quartermaster,
-/obj/item/megaphone,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = 5;
-	pixel_y = 3
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = -3
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "cDV" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -28105,6 +28067,41 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
+"dhE" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/item/ammo_box/shotgun{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/item/ammo_box/shotgun/buck{
+	pixel_y = 3
+	},
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/beanbag,
+/obj/item/ammo_box/shotgun/beanbag{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/ammo_box/shotgun/tranquilizer{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Lethal Bullets"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/security/armory)
 "dhH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating{
@@ -30760,6 +30757,28 @@
 	icon_state = "white"
 	},
 /area/medical/medbreak)
+"dGu" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/projectile/automatic/sp91rc{
+	pixel_x = -7
+	},
+/obj/item/gun/projectile/automatic/sp91rc{
+	pixel_x = -2
+	},
+/obj/item/gun/projectile/automatic/sp91rc{
+	pixel_x = 2
+	},
+/obj/item/gun/projectile/automatic/sp91rc{
+	pixel_x = 7
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/security/armory)
 "dGX" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -36636,16 +36655,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/scidock)
-"fCO" = (
-/obj/structure/dispenser/oxygen,
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/security/armory)
 "fCR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -42668,6 +42677,35 @@
 	icon_state = "white"
 	},
 /area/crew_quarters/kitchen)
+"hoz" = (
+/obj/item/gun/projectile/shotgun/riot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot,
+/obj/item/gun/projectile/shotgun/riot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/machinery/camera{
+	c_tag = "Brig Secure Armory"
+	},
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Riot shotguns"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/security/armory)
 "hoU" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -43749,6 +43787,25 @@
 	icon_state = "asteroidplating"
 	},
 /area/hallway/secondary/exit)
+"hDW" = (
+/obj/structure/closet/secure_closet/quartermaster,
+/obj/item/megaphone,
+/obj/item/cartridge/quartermaster{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = -3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "hEi" = (
 /obj/structure/fence,
 /obj/structure/cable/orange{
@@ -49105,6 +49162,16 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/port)
+"jfg" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "red"
+	},
+/area/security/seceqstorage)
 "jfl" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -50122,7 +50189,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/kitchen/knife,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "jtD" = (
@@ -52394,14 +52461,6 @@
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"kbS" = (
-/obj/structure/table,
-/obj/item/folder,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/qm)
 "kcF" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -53135,37 +53194,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
-"klj" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/item/ammo_box/shotgun{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/ammo_box/shotgun/buck{
-	pixel_y = 3
-	},
-/obj/item/ammo_box/shotgun/buck,
-/obj/item/ammo_box/shotgun/beanbag,
-/obj/item/ammo_box/shotgun/beanbag{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/ammo_box/shotgun/tranquilizer{
-	pixel_x = 6;
-	pixel_y = -6
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/security/armory)
 "klo" = (
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
@@ -56956,6 +56984,10 @@
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
 /area/maintenance/fsmaint3)
+"lnB" = (
+/obj/machinery/status_display/supply_display,
+/turf/simulated/mineral/ancient,
+/area/maintenance/disposal)
 "lnF" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/boxing/blue,
@@ -66753,13 +66785,6 @@
 	icon_state = "darkpurple"
 	},
 /area/toxins/rdoffice)
-"oiP" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/security/armory)
 "ojn" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -82025,15 +82050,6 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
-"sIT" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
-	},
-/area/security/seceqstorage)
 "sJe" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -83046,11 +83062,6 @@
 	icon_state = "neutral"
 	},
 /area/hallway/primary/port/east)
-"taz" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/mug/serv,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/qm)
 "taJ" = (
 /obj/machinery/light{
 	dir = 8
@@ -83535,6 +83546,27 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fpmaint)
+"tiU" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	anchored = 1;
+	name = "Magazines for SP-91-RC";
+	req_access = list(1)
+	},
+/obj/item/ammo_box/magazine/sp91rc{
+	pixel_x = 8
+	},
+/obj/item/ammo_box/magazine/sp91rc{
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sp91rc,
+/obj/item/ammo_box/magazine/sp91rc{
+	pixel_x = -4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/security/armory)
 "tja" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood/fancy/light,
@@ -83664,6 +83696,20 @@
 	icon_state = "dark"
 	},
 /area/teleporter)
+"tks" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 4;
+	id = "ntstation";
+	name = "To Space Station";
+	pixel_x = 32;
+	width = 6
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "tkL" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -84873,6 +84919,13 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/courtroom)
+"tCO" = (
+/obj/machinery/computer/supplyquest,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "tCU" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -92852,6 +92905,16 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/medical/medbay)
+"vWA" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "red"
+	},
+/area/security/seceqstorage)
 "vWD" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
@@ -95893,6 +95956,13 @@
 	icon_state = "dark"
 	},
 /area/assembly/robotics)
+"wRf" = (
+/obj/machinery/computer/supplyquest,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbrown"
+	},
+/area/bridge)
 "wRo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -97233,6 +97303,14 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
+"xmO" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/mug/serv,
+/obj/item/qm_quest_tablet{
+	pixel_y = 15
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/qm)
 "xmQ" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -100199,15 +100277,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
-"ylh" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
-	},
-/area/security/seceqstorage)
 "yli" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -119921,7 +119990,7 @@ tNT
 aEh
 bJo
 bQT
-sIT
+vWA
 ccG
 cgA
 cje
@@ -120692,7 +120761,7 @@ tNT
 wTF
 bKt
 ctn
-ylh
+jfg
 ccI
 ijk
 aMN
@@ -122746,7 +122815,7 @@ cOc
 wOD
 psy
 bBH
-bLf
+hoz
 ioE
 rnQ
 hbk
@@ -123003,7 +123072,7 @@ psy
 psy
 wOD
 dkF
-klj
+dhE
 ioE
 aUW
 ioE
@@ -123263,8 +123332,8 @@ bBH
 aOM
 xgR
 kqo
-fCO
-oiP
+dGu
+tiU
 uGo
 cov
 aOM
@@ -135346,7 +135415,7 @@ tpA
 tpA
 cDF
 xYZ
-aPq
+wRf
 aPm
 tpA
 aSf
@@ -135988,12 +136057,12 @@ cYw
 cYw
 cYw
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 jqn
@@ -136245,12 +136314,12 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 jqn
@@ -136502,12 +136571,12 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+jqn
+jqn
+jqn
+jqn
 rNK
 rNK
 jqn
@@ -136759,12 +136828,12 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+jqn
+jqn
+tks
+jqn
+jqn
+jqn
 rNK
 rNK
 jqn
@@ -148694,7 +148763,7 @@ uHP
 rRH
 atW
 waj
-waj
+lnB
 avD
 dgr
 aZr
@@ -148713,7 +148782,7 @@ tEI
 iIK
 czN
 cWB
-cDS
+tCO
 tBK
 iIK
 fae
@@ -148952,7 +149021,7 @@ vZu
 cLa
 waj
 waj
-woa
+aHP
 eJa
 hZJ
 eWU
@@ -148969,7 +149038,7 @@ hZJ
 wlg
 kda
 vnl
-kbS
+bLB
 cDV
 aTj
 iIK
@@ -149227,9 +149296,9 @@ aXB
 cXN
 czO
 aRA
-taz
+xmO
 tPF
-ann
+hDW
 iIK
 wRL
 aRx

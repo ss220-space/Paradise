@@ -4,7 +4,7 @@
 	icon_state = "magboots0"
 	origin_tech = "materials=3;magnets=4;engineering=4"
 	var/magboot_state = "magboots"
-	var/magpulse = 0
+	var/magpulse = FALSE
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
@@ -40,21 +40,31 @@
 	magpulse_name = "anchoring spikes"
 	slowdown_active = 2
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user)
+
+/obj/item/clothing/shoes/magboots/update_icon_state()
+	icon_state = "[magboot_state][magpulse]"
+
+
+/obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
+	toggle_magpulse(user, forced)
+
+
+/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
 	if(magpulse)
+		START_PROCESSING(SSobj, src) //Gravboots
 		flags &= ~NOSLIP
 		slowdown = slowdown_passive
 	else
+		STOP_PROCESSING(SSobj, src)
 		flags |= NOSLIP
 		slowdown = slowdown_active
 	magpulse = !magpulse
-	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
-	user.update_inv_shoes()	//so our mob-overlays update
+	update_icon(UPDATE_ICON_STATE)
+	if(!forced)
+		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_gravity(user.mob_has_gravity())
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_equipped_item()
+
 
 /obj/item/clothing/shoes/magboots/negates_gravity()
 	return flags & NOSLIP
@@ -161,7 +171,7 @@
 	slowdown_active = 0
 	magboot_state = "gravboots"
 	magpulse_name = "micro gravitational traction system"
-	var/datum/martial_art/grav_stomp/style = new //Only works with core and cell installed.
+	var/datum/martial_art/grav_stomp/style
 	var/jumpdistance = 5
 	var/jumpspeed = 3
 	var/recharging_rate = 6 SECONDS
@@ -170,6 +180,12 @@
 	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
 	var/obj/item/assembly/signaler/anomaly/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
+
+
+/obj/item/clothing/shoes/magboots/gravity/Initialize()
+	. = ..()
+	style = new()
+
 
 /obj/item/clothing/shoes/magboots/gravity/Destroy()
 	QDEL_NULL(style)
@@ -189,7 +205,8 @@
 	else
 		. += "<span class='warning'>It is missing a gravitational anomaly core and a power cell.</span>"
 
-/obj/item/clothing/shoes/magboots/gravity/attack_self(mob/user)
+
+/obj/item/clothing/shoes/magboots/gravity/toggle_magpulse(mob/user, forced)
 	if(!cell)
 		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
 		return
@@ -199,8 +216,8 @@
 	if(!core)
 		to_chat(user, "<span class='warning'>There's no core installed!</span>")
 		return
+	return ..()
 
-	..()
 
 /obj/item/clothing/shoes/magboots/gravity/process()
 	if(!cell) //There should be a cell here, but safety first
@@ -209,7 +226,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
-			attack_self(user)
+			attack_self(user, TRUE)
 	else
 		cell.use(power_consumption_rate)
 
@@ -272,7 +289,7 @@
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-			attack_self(user)
+			attack_self(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
 	if(slot == slot_shoes)

@@ -196,6 +196,7 @@
 				statusLabel = "Уберите карту и картридж"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 			else
+				qdel(storedpda)
 				storedpda = new /obj/item/pda(src)
 				to_chat(usr, span_notice("Данные на PDA полностью стерты."))
 				statusLabel = "PDA очищен"

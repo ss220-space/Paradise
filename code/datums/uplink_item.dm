@@ -600,6 +600,15 @@
 	cost = 20
 	race = list("Plasmaman")
 
+//Nucleation
+
+/datum/uplink_item/racial/second_chance
+	name = "Second Chance Implant"
+	desc = "An implant injected into the body, and later activated at the user's will. It will simulate the death of the operator and transport him to an exact safe place."
+	item = /obj/item/implanter/second_chance
+	cost = 40
+	race = list("Nucleation")
+
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
@@ -1563,6 +1572,12 @@
 	item = /obj/item/clothing/accessory/storage/brown_vest
 	cost = 5
 
+/datum/uplink_item/device_tools/blackops_kit
+	name = "Black ops kit"
+	desc = "A package of clothing for dangerous covert operations"
+	item = /obj/item/storage/box/syndie_kit/blackops_kit
+	cost = 10
+
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
 	desc = "The Syndicate Surgical Bag comes with a complete set of everything you need for quality surgery, including a straitjacket and muzzle. The bag itself is unprecedentedly light, doesn't slow you down, and is completely silent."
@@ -2073,15 +2088,15 @@
 	item = /obj/item/stack/telecrystal/twenty_five
 	cost = 25
 
-/datum/uplink_item/bundles_TC/telecrystal/hundread
+/datum/uplink_item/bundles_TC/telecrystal/hundred
 	name = "100 Raw Telecrystals"
-	desc = "Hundread telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/hundread
+	desc = "Hundred telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	item = /obj/item/stack/telecrystal/hundred
 	cost = 100
 
-/datum/uplink_item/bundles_TC/telecrystal/twohundread_fifty
+/datum/uplink_item/bundles_TC/telecrystal/twohundred_fifty
 	name = "250 Raw Telecrystals"
-	desc = "Two hundread fifty telecrystals in their rawest and purest form. You know you want that Mauler."
-	item = /obj/item/stack/telecrystal/twohundread_fifty
+	desc = "Two hundred fifty telecrystals in their rawest and purest form. You know you want that Mauler."
+	item = /obj/item/stack/telecrystal/twohundred_fifty
 	cost = 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

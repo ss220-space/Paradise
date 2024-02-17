@@ -481,7 +481,7 @@
 	icon_state = "bottle3"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag)
+/obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag, drop = FALSE)
 	if(!proximity_flag)
 		return
 	..()
@@ -505,25 +505,28 @@
 			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
 			return ..()
 		V.vehicle_move_delay = vehicle_speed_mod
+	else if (!drop && istype(O, /obj/machinery/smartfridge))
+		// apply speed potion to smart fridge only if the potions drag'n'drop onto it
+		return ..()
 
 	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
 	O.add_atom_colour("#FF0000", WASHABLE_COLOUR_PRIORITY)
 	qdel(src)
 
 
-/obj/item/slimepotion/speed/MouseDrop(atom/over)
+/obj/item/slimepotion/speed/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE)
+	afterattack(over_object, user, TRUE, drop = TRUE)
 	return TRUE
 
 
@@ -578,20 +581,19 @@
 		qdel(src)
 
 
-/obj/item/slimepotion/clothing/MouseDrop(atom/over)
+/obj/item/slimepotion/clothing/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE)
-	return TRUE
+	afterattack(over_object, user, TRUE)
 
 
 /obj/item/slimepotion/clothing/fireproof
