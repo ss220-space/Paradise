@@ -184,7 +184,7 @@
 
 	qdel(src)
 
-/mob/living/carbon/human/proc/paize(var/name, var/bespai)
+/mob/living/carbon/human/proc/paize(name, bespai)
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
