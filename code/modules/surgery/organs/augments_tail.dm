@@ -14,40 +14,37 @@
 /obj/item/organ/internal/cyberimp/tail/blade
 	name = "Tail blade implant"
 	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
-	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4;combat=4"
 	var/activated = FALSE
 	implant_color = "#585857"
 	var/implant_type = 1 // 0 - unathi lash, 1 - blade, 2 - lazer blade, 3 - syndi lazer blade
 	var/datum/action/innate/tail_cut/implant_ability
 
+
 /obj/item/organ/internal/cyberimp/tail/blade/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	var/obj/item/organ/internal/cyberimp/tail/blade/implant = owner.get_organ_slot(INTERNAL_ORGAN_TAIL)
 	implant_ability = new(src)
 
 	switch(implant_type)
 
-		if(1)
+		if(1) // Syndi blade
+			implant_ability.slash_strength = 6
+			implant_ability.stamina_damage = 0
+			implant_ability.self_stamina_damage = 15
+			implant_ability.slash_sound = 'sound/weapons/bladeslice.ogg'
+
+		if(2) // NT laser blade
 			implant_ability.slash_strength = 3
 			implant_ability.stamina_damage = 10
-			implant_ability.self_stamina_damage = 20
-
-
-		if(2)
-			implant_ability.slash_strength = 3
-			implant_ability.stamina_damage = 10
-			implant_ability.self_stamina_damage = 20
+			implant_ability.self_stamina_damage = 10
 			implant_ability.damage_type = BURN
+			implant_ability.slash_sound = 'sound/weapons/blade1.ogg'
 
-		if(3)
+		if(3) // Syndi lazer blade
 			implant_ability.slash_strength = 4
 			implant_ability.stamina_damage = 20
-			implant_ability.self_stamina_damage = 15
+			implant_ability.self_stamina_damage = 5
 			implant_ability.damage_type = BURN
-
-	implant.implant_ability.Grant(owner)
-
-
+			implant_ability.slash_sound = 'sound/weapons/blade1.ogg'
 
 /obj/item/organ/internal/cyberimp/tail/blade/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = owner.get_organ_slot(INTERNAL_ORGAN_TAIL)
@@ -56,13 +53,20 @@
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/tail/blade/ui_action_click(mob/user, actiontype, leftclick)
+	var/obj/item/organ/internal/cyberimp/tail/blade/implant = owner.get_organ_slot(INTERNAL_ORGAN_TAIL)
 	activated = !activated
 	if(activated)
-
+		implant.implant_ability.Grant(owner)
 		to_chat(owner, span_notice("You pulled the blades out of your tail."))
 	else
-
+		implant.implant_ability.Remove(owner)
 		to_chat(owner, span_notice("You retract your tail blades"))
+
+
+/obj/item/organ/internal/cyberimp/tail/blade/standart
+	name = "Tail blade implant"
+	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
+	implant_type = 1
 
 /obj/item/organ/internal/cyberimp/tail/blade/lazer
 	name = "Tail lazer blade implant"
@@ -70,7 +74,7 @@
 	implant_type = 2
 
 /obj/item/organ/internal/cyberimp/tail/blade/lazer/syndi
-	name = "Tail lazer blade implant"
+	name = "Sindi lazer blade implant"
 	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
 	implant_type = 3
 
