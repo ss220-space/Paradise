@@ -171,3 +171,25 @@
   - bugfix: ChemDispenser Overlays Fix (#4418)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4412)
+'2024-02-14':
+  ArtemDerp:
+  - bugfix: security gas mask removed extra cover flags (#4426)
+  - add: new meat steak recipes (#4425)
+  - add: removed meatwheat mutation and syntiflesh reaction (#4417)
+  - add: new meat pie recipes (#4416)
+  BeebBeebBoob:
+  - refactor: Update CONTRIBUTING.md (#4402)
+  Daeberdir:
+  - tweak: progressbar for examining and possibility to examine items in storages.
+      (#4427)
+  ROdenFL:
+  - bugfix: pain hunter late game fix (#4424)
+  Rerik007:
+  - bugfix: glands names was the same (#4421)
+  - qol: bindable action buttons (#4420)
+  Zwei:
+  - bugfix: Inflatable Door Vision Fix (#4429)
+  - bugfix: Falsewall Opacity Fix (#4431)
+  - bugfix: Multicolored Pen Overlay Fix (#4430)
+  - bugfix: Taperecorder Fix (#4419)
+  - tweak: Vision And Emotes Fixes (#4233)

@@ -4899,6 +4899,7 @@
 /area/derelict/garden)
 "lQ" = (
 /obj/structure/closet/crate/hydroponics,
+/obj/item/seeds/wheat/meat,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"

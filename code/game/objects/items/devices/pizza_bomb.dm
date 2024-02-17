@@ -89,7 +89,7 @@
 
 
 /obj/item/pizza_bomb/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/wirecutters) && primed)
+	if(I.tool_behaviour == TOOL_WIRECUTTER && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
 		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
 		if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
@@ -108,7 +108,7 @@
 			to_chat(user, "<span class='userdanger'>WRONG WIRE!</span>")
 			go_boom()
 			return
-	if(istype(I, /obj/item/wirecutters) && disarmed)
+	if(I.tool_behaviour == TOOL_WIRECUTTER && disarmed)
 		if(!in_range(user, src))
 			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
 			return

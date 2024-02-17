@@ -72,3 +72,8 @@
 		return TRUE
 
 	return ..()
+
+
+/datum/species/skeleton/get_vision_organ(mob/living/carbon/human/user)
+	return NO_VISION_ORGAN
+

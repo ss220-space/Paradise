@@ -202,7 +202,7 @@
 		return
 
 	//disassembling the terminal
-	if(istype(I, /obj/item/wirecutters) && terminal && panel_open)
+	if(I.tool_behaviour == TOOL_WIRECUTTER && terminal && panel_open)
 		var/turf/T = get_turf(terminal)
 		if(T.intact) //is the floor plating removed ?
 			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")

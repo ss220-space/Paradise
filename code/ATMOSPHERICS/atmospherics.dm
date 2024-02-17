@@ -182,7 +182,7 @@ Pipelines + Other Objects -> Pipe network
 //(De)construction
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
-	if(can_unwrench && istype(W, /obj/item/wrench))
+	if(can_unwrench && W.tool_behaviour == TOOL_WRENCH)
 		if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
 			to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 			return

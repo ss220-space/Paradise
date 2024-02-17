@@ -10,7 +10,7 @@
 	yield = 4
 	potency = 15
 	icon_dead = "wheat-dead"
-	mutatelist = list(/obj/item/seeds/wheat/oat, /obj/item/seeds/wheat/meat)
+	mutatelist = list(/obj/item/seeds/wheat/oat)
 	reagents_add = list("plantmatter" = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/wheat

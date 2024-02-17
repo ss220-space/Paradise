@@ -204,14 +204,14 @@
 /obj/item/solar_assembly/attackby(var/obj/item/W, var/mob/user, params)
 
 	if(!anchored && isturf(loc))
-		if(istype(W, /obj/item/wrench))
+		if(W.tool_behaviour == TOOL_WRENCH)
 			add_fingerprint(user)
 			anchored = 1
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1
 	else
-		if(istype(W, /obj/item/wrench))
+		if(W.tool_behaviour == TOOL_WRENCH)
 			add_fingerprint(user)
 			anchored = 0
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
@@ -242,7 +242,7 @@
 			qdel(W)
 			user.visible_message("[user] inserts the electronics into the solar assembly.", "<span class='notice'>You insert the electronics into the solar assembly.</span>")
 			return 1
-	else if(istype(W, /obj/item/crowbar))
+	else if(W.tool_behaviour == TOOL_CROWBAR)
 		add_fingerprint(user)
 		var/obj/item/tracker_electronics/electronics = new(src.loc)
 		electronics.add_fingerprint(user)
@@ -428,7 +428,7 @@
 			set_panels(cdir)
 
 /obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		playsound(src.loc, I.usesound, 50, 1)
 		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
 			if(src.stat & BROKEN)

@@ -56,8 +56,6 @@
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/machine
 
-	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
-
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/ipc),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/ipc),
