@@ -43,6 +43,8 @@
 #define PROF_CALL call
 #endif
 
+GLOBAL_VAR_INIT(profiler_enabled, FALSE)
+
 /client/proc/profiler_start()
 	set name = "Tracy Profiler Start"
 	set category = "Debug"
@@ -73,10 +75,15 @@
 /proc/prof_init()
 	var/init = PROF_CALL(PROF, "init")()
 	if("0" != init) CRASH("[PROF] init error: [init]")
+	GLOB.profiler_enabled = TRUE
 
 /**
  * Stops Tracy
  */
 /proc/prof_stop()
+	if(!GLOB.profiler_enabled)
+		return
+
 	var/destroy = PROF_CALL(PROF, "destroy")()
 	if("0" != destroy) CRASH("[PROF] destroy error: [destroy]")
+	GLOB.profiler_enabled = FALSE
