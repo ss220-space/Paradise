@@ -117,14 +117,14 @@
 		visible_message("[user] inserts a cell into [src].",
 						span_notice("You insert the new cell into [src]."))
 		update_controls()
-	else if(istype(I, /obj/item/crowbar) && open && cell)
+	else if(I.tool_behaviour == TOOL_CROWBAR && open && cell)
 		cell.add_fingerprint(usr)
 		cell.forceMove(loc)
 		cell = null
 		visible_message("[user] crowbars out the power cell from [src].",
 						span_notice("You pry the powercell out of [src]."))
 		update_controls()
-	else if(istype(I, /obj/item/wrench))
+	else if(I.tool_behaviour == TOOL_WRENCH)
 		if(health < maxHealth)
 			adjustBruteLoss(-25)
 			updatehealth()
@@ -132,7 +132,7 @@
 								span_notice("You repair [src]!"))
 		else
 			to_chat(user, span_notice("[src] does not need a repair!"))
-	else if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
+	else if((I.tool_behaviour == TOOL_MULTITOOL || I.tool_behaviour == TOOL_WIRECUTTER) && open)
 		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
