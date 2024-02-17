@@ -117,7 +117,7 @@ REAGENT SCANNER
 			if(in_turf_object.level != 1)
 				continue
 
-			if(in_turf_object.invisibility != INVISIBILITY_MAXIMUM || in_turf_object.invisibility != INVISIBILITY_ANOMALY)
+			if(in_turf_object.invisibility != INVISIBILITY_MAXIMUM && in_turf_object.invisibility != INVISIBILITY_ANOMALY)
 				continue
 
 		if(isliving(in_turf_atom))
