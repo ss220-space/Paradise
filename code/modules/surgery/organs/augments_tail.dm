@@ -16,7 +16,8 @@
 	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
 	var/activated = FALSE
 	implant_color = "#585857"
-	var/implant_type = 1 // 0 - unathi lash, 1 - blade, 2 - lazer blade, 3 - syndi lazer blade
+	var/implant_type = 1 // 0 - Unathi lash, 1 - Syndi blade, 2 - Lazer blade, 3 - Syndi lazer blade
+	var/implant_type_buffer // UNATHI SPECIAL, YE YE
 	var/datum/action/innate/tail_cut/implant_ability
 
 
@@ -24,15 +25,27 @@
 	. = ..()
 	implant_ability = new(src)
 
-	switch(implant_type)
+	update_implant(implant_type)
+
+/obj/item/organ/internal/cyberimp/tail/blade/proc/update_implant(implant_type)
+
+	switch(implant_type) // Change implant stats here
+
+		if(0) // Unathi lash
+			implant_ability.slash_strength = 1                       // Slash damage modifier, 5*slash_strength damage
+			implant_ability.stamina_damage = 0                       // Stamina damage to others
+			implant_ability.self_stamina_damage = 15                 // Stamina damage to self
+			implant_ability.damage_type = BRUTE                      // BRUTE or BURN
+			implant_ability.slash_sound = 'sound/weapons/slash.ogg'  // Sound of attack
 
 		if(1) // Syndi blade
 			implant_ability.slash_strength = 6
 			implant_ability.stamina_damage = 0
 			implant_ability.self_stamina_damage = 15
+			implant_ability.damage_type = BRUTE
 			implant_ability.slash_sound = 'sound/weapons/bladeslice.ogg'
 
-		if(2) // NT laser blade
+		if(2) // NT lazer blade
 			implant_ability.slash_strength = 3
 			implant_ability.stamina_damage = 10
 			implant_ability.self_stamina_damage = 10
@@ -53,14 +66,38 @@
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/tail/blade/ui_action_click(mob/user, actiontype, leftclick)
-	var/obj/item/organ/internal/cyberimp/tail/blade/implant = owner.get_organ_slot(INTERNAL_ORGAN_TAIL)
+	user = owner
+	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL)
 	activated = !activated
+
 	if(activated)
-		implant.implant_ability.Grant(owner)
-		to_chat(owner, span_notice("You pulled the blades out of your tail."))
+
+		if(isunathi(user))
+
+			/// I have to do it all because of the unathi disabilities.dm...
+			implant_type_buffer = implant_type
+			implant_type = 0
+			update_implant(implant_type)
+			var/datum/species/unathi/U = user.dna.species
+			implant_ability.slash_strength = U.tail_strength
+			to_chat(user, span_notice("Вы выдвинули лезвия, делая свой хвост ещё опаснее."))
+			return
+
+		implant.implant_ability.Grant(user)
+		to_chat(user, span_notice("Вы выдвинули лезвия из хвоста."))
+
 	else
-		implant.implant_ability.Remove(owner)
-		to_chat(owner, span_notice("You retract your tail blades"))
+
+		if(isunathi(user))
+
+			/// And back...
+			implant_type = implant_type_buffer
+			update_implant(implant_type)
+			to_chat(user, span_notice("Вы убрали лезвия."))
+			return
+
+		implant.implant_ability.Remove(user)
+		to_chat(user, span_notice("Вы убрали лезвия."))
 
 
 /obj/item/organ/internal/cyberimp/tail/blade/standart
@@ -74,7 +111,7 @@
 	implant_type = 2
 
 /obj/item/organ/internal/cyberimp/tail/blade/lazer/syndi
-	name = "Sindi lazer blade implant"
+	name = "Syndi lazer blade implant"
 	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
 	implant_type = 3
 
@@ -84,10 +121,11 @@
 	button_icon_state = "tail"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
-	var/slash_strength = 1       // Slash damage modifier
-	var/stamina_damage = 0       // Stamina damage to others
-	var/self_stamina_damage = 15 // Stamina damage to self
-	var/damage_type = BRUTE      // BRUTE or BURN
+	var/haslash = 0
+	var/slash_strength = 1
+	var/stamina_damage = 0
+	var/self_stamina_damage = 15
+	var/damage_type = BRUTE
 	var/slash_sound = 'sound/weapons/slash.ogg'
 
 /datum/action/innate/tail_cut/Trigger(left_click = TRUE)
@@ -113,7 +151,8 @@
 			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] режет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
 			user.adjustStaminaLoss(self_stamina_damage)
 			C.apply_damage(5 * slash_strength, damage_type, E)
-			user.spin(20,1)
+			C.adjustStaminaLoss(stamina_damage)
+			user.spin(10,1)
 			playsound(user.loc, slash_sound, 50, 0)
 			add_attack_logs(user, C, "tail whipped")
 
