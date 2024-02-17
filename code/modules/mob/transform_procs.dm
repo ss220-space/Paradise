@@ -190,10 +190,10 @@
 	for(var/obj/item/W in src)
 		do_unEquip(W)
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
+	canmove = FALSE
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/obj/item/paicard/card
 
 	if(bespai)
