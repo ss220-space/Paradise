@@ -407,7 +407,7 @@
 	icon_state = null
 	upgraded = TRUE
 	gpstag = "pAI0"
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 	tracking = FALSE
 
 /datum/pai_software/gps/ui_act(action, list/params)
