@@ -161,6 +161,8 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_static_data(mob/user)
 	var/list/data = list()
 	data["subclasses"] = list()
+	data["hemomancer"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "hemomancer"))
+	data["umbrae"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "umbrae"))
 	for(var/path in subtypesof(/datum/vampire_subclass))
 		if(path == /datum/vampire_subclass/ancient)
 			continue

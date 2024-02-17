@@ -22,7 +22,7 @@ export const VampireSpecMenu = (props, context) => {
   };
 
   return (
-    <Window resizable theme="nologo">
+    <Window resizable theme="ntos_spooky">
       <Window.Content>
         <Box fillPositionedParent>
           <Tabs>
@@ -66,9 +66,18 @@ export const VampireSpecMenu = (props, context) => {
 
 export const HemoMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { subclasses } = data;
+  const { hemomancer } = data;
   return (
       <Section title="Hemomancer">
+        <Box textAlign="center">
+          <img
+            height="256px"
+            width="256px"
+            src={`data:image/jpeg;base64,${hemomancer}`}
+            style={{
+              "-ms-interpolation-mode": "nearest-neighbor",
+            }} />
+        </Box>
         <h3>
           Focuses on blood magic and the manipulation of blood around you.
         </h3>
@@ -113,9 +122,18 @@ export const HemoMenu = (props, context) => {
 
 export const UmbrMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { subclasses } = data;
+  const { umbrae } = data;
   return (
       <Section title="Umbrae">
+        <Box textAlign="center">
+          <img
+            height="256px"
+            width="256px"
+            src={`data:image/jpeg;base64,${umbrae}`}
+            style={{
+              "-ms-interpolation-mode": "nearest-neighbor",
+            }} />
+        </Box>
         <h3>Focuses on darkness, stealth ambushing and mobility.</h3>
         <p>
           <b>Cloak of darkness</b>: Unlocked at 150 blood, when toggled, allows
