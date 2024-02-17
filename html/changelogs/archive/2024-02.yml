@@ -121,16 +121,75 @@
 '2024-02-12':
   ArtemDerp:
   - bugfix: added missed sprites for sec bundles (#4268)
+  - bugfix: fixed overlap of wall objects (#4398)
+  - add: security drip update (#4371)
+  - add: Updated Wizard Clothing (#4252)
+  - add: laser gun reskin (#4278)
+  - add: new species meat (#4259)
+  BeebBeebBoob:
+  - refactor: Define bitflags (#4181)
+  Daeberdir:
+  - bugfix: correct view range calculating and examine corrections. (#4400)
+  - add: Zaza drink. (#4318)
+  Darkest08:
+  - imageadd: added sst hardsuit skins (#4120)
   Den109G:
   - add: Added adds a popup window with suggested version (#4386)
   Etrnlmelancholy:
   - tweak: ipc and pai wire sprite update (#4391)
+  Renascitur:
+  - add: Hierophant Talisman from hardmode Hierophant (#4314)
   Rerik007:
   - bugfix: fix null.len runtime (#4388)
+  - bugfix: mecha cargomodule for lockermech broken (#4396)
+  - bugfix: fix runtime to_chat called with invalid message (#4387)
+  SAAD:
+  - tweak: Remove extra atmos different turfes and useless dirs and tags (#4394)
   Vladisvell:
   - bugfix: Removed incorrect winsets for dark and light themes (#4392)
   Zwei:
   - refactor: Icon Updates Rework Part2 (#4170)
+  - bugfix: Paper Fix (#4407)
+  - add: Added Adidas Uniform (#4381)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4399)
   xTrogwaRx:
   - bugfix: show panel virology fridge after screw act (#4321)
   - qol: keybinds for tail and wings (#4320)
+'2024-02-13':
+  ArtemDerp:
+  - bugfix: correct naming for tasers locker (#4415)
+  - bugfix: fixed missed cheks for sec scarf and googles (#4409)
+  BeebBeebBoob:
+  - bugfix: inflatable barrier box could fit anything (#4408)
+  Daeberdir:
+  - bugfix: outfit inhand items disappearing. (#4401)
+  Valtor:
+  - qol: Borer QoL update (#4343)
+  Zwei:
+  - bugfix: Laser Weapons In Hands Fix (#4410)
+  - bugfix: ChemDispenser Overlays Fix (#4418)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4412)
+'2024-02-14':
+  ArtemDerp:
+  - bugfix: security gas mask removed extra cover flags (#4426)
+  - add: new meat steak recipes (#4425)
+  - add: removed meatwheat mutation and syntiflesh reaction (#4417)
+  - add: new meat pie recipes (#4416)
+  BeebBeebBoob:
+  - refactor: Update CONTRIBUTING.md (#4402)
+  Daeberdir:
+  - tweak: progressbar for examining and possibility to examine items in storages.
+      (#4427)
+  ROdenFL:
+  - bugfix: pain hunter late game fix (#4424)
+  Rerik007:
+  - bugfix: glands names was the same (#4421)
+  - qol: bindable action buttons (#4420)
+  Zwei:
+  - bugfix: Inflatable Door Vision Fix (#4429)
+  - bugfix: Falsewall Opacity Fix (#4431)
+  - bugfix: Multicolored Pen Overlay Fix (#4430)
+  - bugfix: Taperecorder Fix (#4419)
+  - tweak: Vision And Emotes Fixes (#4233)

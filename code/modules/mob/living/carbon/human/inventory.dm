@@ -56,7 +56,7 @@
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
-	if(mask.flags & BLOCKHAIR || mask.flags & BLOCKHEADHAIR)
+	if(mask.flags & BLOCKHAIR || mask.flags & BLOCKHEADHAIR || mask.flags & BLOCKFACIALHAIR)
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -82,7 +82,7 @@
 	if(!check_item)
 		return
 
-	if(forced || (check_item.flags & BLOCKHAIR) || (check_item.flags & BLOCKHEADHAIR))
+	if(forced || (check_item.flags & BLOCKHAIR) || (check_item.flags & BLOCKHEADHAIR) || (check_item.flags & BLOCKFACIALHAIR))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -412,7 +412,7 @@
 		if(slot_wear_mask)
 			return head && (head.flags_inv & HIDEMASK)
 		if(slot_glasses)
-			return head && (head.flags_inv & HIDEGLASSES)
+			return head && (head.flags_inv & HIDEGLASSES) || wear_mask && (wear_mask.flags_inv & HIDEGLASSES)
 		if(slot_l_ear, slot_r_ear)
 			return head && (head.flags_inv & HIDEHEADSETS)
 		else
