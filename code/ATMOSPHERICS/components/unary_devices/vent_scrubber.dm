@@ -370,7 +370,7 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, span_danger("You cannot unwrench this [src], turn it off first."))
 			return 1

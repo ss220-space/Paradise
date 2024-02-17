@@ -27,13 +27,14 @@
 #define DROPDEL					(1<<14)	// When dropped, it calls qdel on itself
 
 #define BLOCKHEADHAIR 			(1<<15)	// temporarily removes the user's hair overlay. Leaves facial hair.
-#define BLOCKHAIR				(1<<16)	// temporarily removes the user's hair, facial and otherwise.
+#define BLOCKFACIALHAIR			(1<<16)	// temporarily removes the user's facial hair overlay. Leaves head hair.
+#define BLOCKHAIR				(1<<17)	// temporarily removes the user's hair, facial and otherwise.
 
-#define NO_PIXEL_RANDOM_DROP	(1<<17)	// If dropped, it wont have a randomized pixel_x/pixel_y
+#define NO_PIXEL_RANDOM_DROP	(1<<18)	// If dropped, it wont have a randomized pixel_x/pixel_y
 
-#define BLOCK_CAPSAICIN			(1<<18)	// Prevents from passing capsaicin onto human
+#define BLOCK_CAPSAICIN			(1<<19)	// Prevents from passing capsaicin onto human
 
-#define NOSHARPENING			524288 	// Prevents from sharpening item with whetstone
+#define NOSHARPENING			1048576 // Prevents from sharpening item with whetstone
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name

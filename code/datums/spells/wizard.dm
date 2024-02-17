@@ -238,6 +238,7 @@
 	clothes_req = TRUE
 	invocation = "TARCOL GRANDI ZHERI"
 	invocation_type = "shout"
+	action_icon_state = "shield_greater"
 	large = TRUE
 
 

@@ -8,7 +8,7 @@
 	flash_protect = 2
 	tint = 2
 	HUDType = 0
-	var/list/examine_extensions = null
+	var/examine_extensions = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
 	resistance_flags = FIRE_PROOF
 	var/brightness_on = 4 //luminosity when the light is on
@@ -128,7 +128,7 @@
 	item_state = "security_envirohelm"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/dec
 	name = "detective plasma envirosuit helmet"
@@ -137,7 +137,7 @@
 	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	scan_reagents = 1
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's plasma envirosuit helmet"
@@ -157,7 +157,7 @@
 	icon_state = "doctor_envirohelm"
 	item_state = "doctor_envirohelm"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/clothing/head/helmet/space/plasmaman/cmo
 	name = "chief medical officer's plasma envirosuit helmet"
@@ -167,7 +167,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = EXAMINE_HUD_MEDICAL
 	scan_reagents = 1
 
 /obj/item/clothing/head/helmet/space/plasmaman/genetics
@@ -305,7 +305,7 @@
 	icon_state = "white_envirohelm"
 	item_state = "white_envirohelm"
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ
 
 /obj/item/clothing/head/helmet/space/plasmaman/nt_rep
 	name = "nanotrasen representative envirosuit helmet"
@@ -313,7 +313,7 @@
 	icon_state = "ntrep_envirohelm"
 	item_state = "ntrep_envirohelm"
 	HUDType = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/chef
 	name = "chef plasma envirosuit helmet"
@@ -336,7 +336,7 @@
 	item_state = "botany_envirohelm"
 	flags = THICKMATERIAL
 	HUDType = DATA_HUD_HYDROPONIC
-	examine_extensions = list(DATA_HUD_HYDROPONIC)
+	examine_extensions = EXAMINE_HUD_BOTANY
 
 /obj/item/clothing/head/helmet/space/plasmaman/janitor
 	name = "janitor's plasma envirosuit helmet"
@@ -365,7 +365,7 @@
 	item_state = "hop_envirohelm"
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	HUDType = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/captain
 	name = "captain envirosuit helmet"
@@ -374,7 +374,7 @@
 	item_state = "cap_envirohelm"
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	HUDType = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/blueshield
 	name = "blueshield envirosuit helmet"
@@ -383,7 +383,7 @@
 	item_state = "bs_envirohelm"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/clothing/head/helmet/space/plasmaman/wizard
 	name = "wizard plasma envirosuit helmet"
@@ -411,4 +411,4 @@
 	icon_state = "centcomm_envirohelm"
 	item_state = "centcomm_envirohelm"
 	HUDType = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	examine_extensions = EXAMINE_HUD_SKILLS
