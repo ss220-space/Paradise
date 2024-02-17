@@ -31,7 +31,7 @@
 		I.forceMove(src)
 		storedorgan = I
 		to_chat(user, "<span class='notice'>You insert the [I] into [src].</span>")
-	else if(istype(I, /obj/item/screwdriver))
+	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!storedorgan)
 			to_chat(user, "<span class='notice'>There's no implant in [src] for you to remove.</span>")
 		else
@@ -51,7 +51,7 @@
 	qdel(src)
 
 /obj/item/autoimplanter/oneuse/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		storedorgan.forceMove(get_turf(user))
 		storedorgan = null
 		to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")

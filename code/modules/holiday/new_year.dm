@@ -25,7 +25,7 @@
 	to_chat(user, span_notice("You [anchored ? "un" : ""]wrenched [src]"))
 
 /obj/structure/garland/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/wirecutters) || istype(P, /obj/item/wrench))
+	if(P.tool_behaviour == TOOL_WIRECUTTER || P.tool_behaviour == TOOL_WRENCH)
 		return
 	return ..()
 

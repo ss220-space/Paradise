@@ -157,7 +157,7 @@
 			update_icon(UPDATE_ICON_STATE)
 			return
 		to_chat(user, span_notice("There is not enough cables to make a wick."))
-	if(istype(W, /obj/item/wirecutters))
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(!anchored)
 			return
 		pixel_w = 0

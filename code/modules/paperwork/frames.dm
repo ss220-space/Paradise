@@ -60,7 +60,7 @@
 		qdel(D)
 
 /obj/item/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(displayed)
 			playsound(src, I.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class='warning'>You unfasten \the [displayed] out of \the [src].</span>")
@@ -75,7 +75,7 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>There is nothing to remove from \the [src].</span>")
-	else if(istype(I, /obj/item/crowbar))
+	else if(I.tool_behaviour == TOOL_CROWBAR)
 		playsound(src, I.usesound, 100, 1)
 		user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
 		for(var/A in contents)
@@ -220,7 +220,7 @@
 
 
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		playsound(src, I.usesound, 100, 1)
 		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
 		if(do_after(user, 100 * I.toolspeed * gettoolspeedmod(user), target = src))

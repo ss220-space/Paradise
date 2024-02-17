@@ -51,7 +51,7 @@
 
 
 /obj/structure/chair/e_chair/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		var/obj/structure/chair/chair = new (loc)
 		transfer_fingerprints_to(chair)
 		playsound(loc, W.usesound, 50, TRUE)

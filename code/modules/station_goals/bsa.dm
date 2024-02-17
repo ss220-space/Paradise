@@ -44,7 +44,7 @@
 		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
@@ -62,7 +62,7 @@
 		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
@@ -89,7 +89,7 @@
 				front = M.buffer
 				M.buffer = null
 				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
