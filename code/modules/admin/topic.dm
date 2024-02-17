@@ -1836,7 +1836,7 @@
 		if(!check_rights(R_SPAWN))
 			return
 		var/bespai = FALSE
-		var/mob/living/carbon/human/H = locate(href_list["makePAI"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makePAI"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
