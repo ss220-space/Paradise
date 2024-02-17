@@ -188,7 +188,7 @@
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
-		do_unEquip(W)
+		drop_item_ground(W)
 	regenerate_icons()
 	notransform = TRUE
 	canmove = FALSE
