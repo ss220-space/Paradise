@@ -7,7 +7,7 @@
 	is_security = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
-	selection_color = "#ffdddd"
+	selection_color = "#c25656"
 	req_admin_notify = 1
 	access = list(ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
 			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
@@ -65,7 +65,7 @@
 	is_security = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
+	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	alt_titles = list("Brig Sergeant")
@@ -115,7 +115,7 @@
 	is_security = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
+	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	alt_titles = list("Forensic Technician")
@@ -176,7 +176,7 @@
 	is_security = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
+	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	alt_titles = list("Security Trainer","Patrol Officer")
@@ -241,7 +241,7 @@
 	is_security = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
+	selection_color = "#edcdcd"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Security Medic")
@@ -278,7 +278,7 @@
 	is_security = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
+	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_player_age = 7
