@@ -1476,7 +1476,7 @@ About the new airlock wires panel:
 			else
 				ae = new/obj/item/airlock_electronics(loc)
 			check_access()
-			ae.selected_accesses = req_access
+			ae.selected_accesses = length(req_access) ? req_access  : list()
 			ae.one_access = check_one_access
 		else
 			ae = electronics
