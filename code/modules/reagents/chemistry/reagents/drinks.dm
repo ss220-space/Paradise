@@ -536,7 +536,7 @@
 
 /datum/reagent/consumable/drink/non_alcoholic_beer
 	name = "Non-alcoholic beer"
-	id = "alcohol_free_beer"
+	id = "noalco_beer"
 	description = "The most meaningless thing."
 	drink_icon = "alcohol_free_beer"
 	drink_name = "Non-alcoholic beer"
