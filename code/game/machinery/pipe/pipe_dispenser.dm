@@ -102,7 +102,7 @@
 		user.drop_transfer_item_to_loc(W, src)
 		qdel(W)
 		return
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(unwrenched==0)
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, span_notice("You begin to unfasten \the [src] from the floor..."))

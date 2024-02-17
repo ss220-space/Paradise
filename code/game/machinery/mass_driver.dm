@@ -96,7 +96,7 @@
 /obj/machinery/mass_driver_frame/attackby(var/obj/item/W as obj, var/mob/user as mob)
 	switch(build)
 		if(0) // Loose frame
-			if(istype(W, /obj/item/wrench))
+			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "You begin to anchor \the [src] on the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 0))
@@ -107,7 +107,7 @@
 				return 1
 			return
 		if(1) // Fixed to the floor
-			if(istype(W, /obj/item/wrench))
+			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 1))
@@ -128,7 +128,7 @@
 					build++
 			return
 		if(3) // Wired
-			if(istype(W, /obj/item/wirecutters))
+			if(W.tool_behaviour == TOOL_WIRECUTTER)
 				to_chat(user, "You begin to remove the wiring from \the [src].")
 				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 3))
 					add_fingerprint(user)
@@ -149,7 +149,7 @@
 				return 1
 			return
 		if(4) // Grille in place
-			if(istype(W, /obj/item/crowbar))
+			if(W.tool_behaviour == TOOL_CROWBAR)
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 30 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 4))
@@ -157,7 +157,7 @@
 					new /obj/item/stack/rods(loc,2)
 					build--
 				return 1
-			if(istype(W, /obj/item/screwdriver))
+			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				add_fingerprint(user)
 				to_chat(user, "You finalize the Mass Driver...")
 				playsound(get_turf(src), W.usesound, 50, 1)

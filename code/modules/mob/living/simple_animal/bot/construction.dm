@@ -560,7 +560,7 @@
 			created_name = t
 			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
 
-	else if(istype(I, /obj/item/screwdriver))
+	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!build_step)
 			new /obj/item/assembly/signaler(get_turf(src))
 			new /obj/item/clothing/head/helmet(get_turf(src))
@@ -579,7 +579,7 @@
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
 			build_step--
 
-	else if((istype(I, /obj/item/wrench)) && (build_step == 3))
+	else if((I.tool_behaviour == TOOL_WRENCH) && (build_step == 3))
 		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(drop_location())
 		user.put_in_hands(A, ignore_anim = FALSE)
 		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
@@ -638,7 +638,7 @@
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/screwdriver))
+	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if((build_step == 1) || (build_step == 2) || (build_step == 3) || (build_step == 4))
 			new /obj/item/melee/energy/sword(get_turf(src))
 			to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")

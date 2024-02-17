@@ -36,7 +36,7 @@
 		if(t)
 			update_icon(UPDATE_OVERLAYS)
 		return
-	if(istype(I, /obj/item/wirecutters))
+	if(I.tool_behaviour == TOOL_WIRECUTTER)
 		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
 		name = initial(name)
 		update_icon(UPDATE_OVERLAYS)

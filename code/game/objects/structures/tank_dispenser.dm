@@ -102,7 +102,7 @@
 		try_insert_tank(user, stored_plasma_tanks, I)
 		return
 
-	if(istype(I, /obj/item/wrench))
+	if(I.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
