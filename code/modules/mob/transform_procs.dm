@@ -211,9 +211,7 @@
 
 	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
 	pai.update_pipe_vision()
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
-	return
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src)
 
 /mob/proc/safe_respawn(var/MP)
 	if(!MP)
