@@ -207,7 +207,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	local = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/item/gps/internal/mining
 	icon_state = "gps-m"

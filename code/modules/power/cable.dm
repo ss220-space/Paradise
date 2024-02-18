@@ -99,7 +99,7 @@ By design, d1 is the smallest direction and d2 is the highest
 //If underfloor, hide the cable
 /obj/structure/cable/hide(i)
 	if(level == 1 && isturf(loc))
-		invisibility = i ? INVISIBILITY_ABSTRACT : 0
+		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon(UPDATE_ICON_STATE)
 
 
