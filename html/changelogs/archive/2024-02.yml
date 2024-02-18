@@ -193,3 +193,62 @@
   - bugfix: Multicolored Pen Overlay Fix (#4430)
   - bugfix: Taperecorder Fix (#4419)
   - tweak: Vision And Emotes Fixes (#4233)
+'2024-02-15':
+  ArtemDerp:
+  - add: Resprited Stoks (#4322)
+'2024-02-16':
+  Den109G:
+  - bugfix: Construction bag from cloth craft (#4433)
+  Etrnlmelancholy:
+  - tweak: seccie webbing to sectech (#4437)
+'2024-02-17':
+  ARZUMATA:
+  - bugfix: airlock electronics null fix (#4397)
+  ArtemDerp:
+  - bugfix: humans have human meat (#4457)
+  Aziz Chynaliev:
+  - server: auto review requests for maps
+  Mindfri:
+  - add: NT Mecha PaintKit (#4438)
+  NightDawnFox:
+  - refactor: moving almost all tool checks to "tool_behaviour" (#4434)
+  - add: frosty breath effect in low-temperature rooms (#3385)
+  Pavel Lysenko:
+  - spellcheck: Исправлены опечатки и мелкие ошибки в описаниях ролей Тайпана (#2310)
+  ROdenFL:
+  - experiment: dark theme, colors, font-awesome, blob update (#4354)
+  WolfLox:
+  - tweak: lots of small, varied and not too noticeable changes ERT loadout (#4154)
+  Zwei:
+  - bugfix: Welding Mask Overlays (#4448)
+  mrWhiteFox365:
+  - unknown: Kerberos R&D Cafeteria (#4285)
+  xTrogwaRx:
+  - qol: Recolor "Set Occupation Preferences" menu (#4428)
+'2024-02-18':
+  ArtemDerp:
+  - bugfix: fixed glasses over mask layer position (#4449)
+  Daeberdir:
+  - bugfix: alphabet sorting for chem dispensers on spawn. (#4453)
+  - bugfix: silicon PDA UI working properly. (#4445)
+  - bugfix: '`update_equipped_item()` correct updating clothing sprites. (#4456)'
+  Den109G:
+  - bugfix: adds area to AI's cams (#4452)
+  LiquidPotroh:
+  - tweak: Amomaly extract cooldown & cost (#4447)
+  - bugfix: invincibility machinepersons to neurotoxin spit (#4225)
+  ROdenFL:
+  - bugfix: darkmode runtime (#4455)
+  - balance: pulse demon only shitspawn and mage pet (#4440)
+  - unknown: NULL crate (#4422)
+  Rerik007:
+  - add: alt-click on the damage zone will be equivalent to clicking on itself (#4384)
+  - bugfix: flashbangs can permanently break your hearing (#4439)
+  SAAD:
+  - refactor: Transit tubes (#4443)
+  Zwei:
+  - bugfix: Matchbox Icons Fix (#4441)
+  - bugfix: Barrel Icon State Fix (#4451)
+  - tweak: Tables Flip Hotkey Change (#4423)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4458)
