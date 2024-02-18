@@ -85,3 +85,10 @@ Special thanks to piotrthetchaikowsky, pilygun & the_worm
 	icon_state = "woodencrate"
 	icon_opened = "woodencrateopen"
 	icon_closed = "woodencrate"
+
+/obj/structure/closet/crate/oven
+	name = "wooden crate"
+	desc = "A rectangular wooden crate"
+	icon_state = "oven_basis"
+	icon_opened = "oven_basis"
+	icon_closed = "oven_basis"
