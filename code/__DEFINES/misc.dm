@@ -193,13 +193,13 @@
 #define HEAD_ACCESSORY_LAYER	23
 #define FHAIR_LAYER				22
 #define GLASSES_LAYER			21
-#define FACEMASK_LAYER			20
-#define HAIR_LAYER				19	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		18	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		17	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		16	//Select-layer rendering.
-#define WING_LAYER				15
-#define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
+#define HAIR_LAYER				20	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		19	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		18	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		17	//Select-layer rendering.
+#define WING_LAYER				16
+#define TAIL_LAYER				15	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			14
 #define OVER_MASK_LAYER			13	//Select-layer rendering.
 #define HEAD_LAYER				12
 #define OVER_HEAD_LAYER			11
