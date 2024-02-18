@@ -82,7 +82,7 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "You're not quite sure how a signal can be bloody."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()

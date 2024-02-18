@@ -16,9 +16,9 @@
 	..()
 	initialize_directions = dir
 
-/obj/machinery/atmospherics/pipe/cap/hide(var/i)
+/obj/machinery/atmospherics/pipe/cap/hide(i)
 	if(level == 1 && istype(loc, /turf/simulated))
-		invisibility = i ? INVISIBILITY_ABSTRACT : 0
+		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/cap/pipeline_expansion()

@@ -338,7 +338,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	use_power = ACTIVE_POWER_USE
 	power_channel = EQUIP
 	var/mob/living/silicon/ai/powered_ai = null
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/ai_powersupply/New(mob/living/silicon/ai/ai=null)
 	powered_ai = ai
