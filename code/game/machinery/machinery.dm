@@ -199,6 +199,7 @@ Class Procs:
 
 /obj/machinery/Destroy()
 	if(myArea)
+		LAZYREMOVE(myArea.machinery_cache, src)
 		myArea = null
 		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
 	GLOB.machines.Remove(src)
