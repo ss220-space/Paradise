@@ -311,6 +311,7 @@
 	prefs = GLOB.preferences_datums[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
+		set_macros()
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
@@ -1008,6 +1009,10 @@
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
 	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
+	//Macros
+	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_DARK_INPUT_ENABLED]\\\"\"")
+	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_DARK_INPUT_DISABLED]\\\"\"")
+
 	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 
@@ -1044,6 +1049,10 @@
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=none;text-color=#000000")
 	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
+	//Macros
+	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"")
+	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"")
+
 	///// NOTIFY USER /////
 	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
 
