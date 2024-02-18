@@ -169,12 +169,11 @@ Class Procs:
 	SIGNAL_HANDLER
 	if(myArea == get_area(src))
 		return
-
 	LAZYREMOVE(myArea.machinery_cache, src)
-	UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
 	//message_admins("[src] exited [myArea]") Uncomment for debugging
 	myArea = get_area(src)
-	RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))
+	if(!myArea)
+		return
 	LAZYADDOR(myArea.machinery_cache, src)
 	//message_admins("[src] entered [myArea]")
 	power_change()
@@ -201,6 +200,7 @@ Class Procs:
 /obj/machinery/Destroy()
 	if(myArea)
 		myArea = null
+		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
 	GLOB.machines.Remove(src)
 	if(!speed_process)
 		STOP_PROCESSING(SSmachines, src)
