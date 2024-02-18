@@ -8,7 +8,7 @@
 	origin_tech = "magnets=1;biotech=1"
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/chemtraces = list()
-	var/mob/living/carbon/human/target = null
+	var/target_UID = null
 	var/target_name = null	// target.name can change after scanning, so better save it here.
 	var/timeofdeath = null
 
@@ -157,9 +157,9 @@
 	if(!can_operate(M))
 		return
 
-	if(target != M)
-		to_chat(user, span_notice("A new patient has been registered.[target ? " Purging data for previous patient." : ""]"))
-		target = M
+	if(target_UID != M.UID())
+		to_chat(user, span_notice("A new patient has been registered.[target_UID ? " Purging data for previous patient." : ""]"))
+		target_UID = M.UID()
 		target_name = M.name
 		wdata.Cut()
 		chemtraces.Cut()
