@@ -780,7 +780,6 @@
 	var/overloaded = FALSE
 	var/warned = FALSE
 	var/charging = FALSE
-	var/charge_failure = FALSE
 	var/mob/living/carbon/holder = null
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
@@ -815,11 +814,22 @@
 		return
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
-	charge_failure = FALSE
-	addtimer(CALLBACK(src, PROC_REF(overload)), 2 SECONDS)
+	if(do_mob(user, user, 2 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_reload_check), user))))
+		overload()
+	else
+		charging = FALSE
+		atom_say("Overloading failure.")
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
+
+/obj/item/gun/energy/plasma_pistol/proc/can_reload_check(mob/living/user) //copyed from bola code. The only way for it to wo
+	if(QDELETED(user))
+		return TRUE
+	if(user.get_active_hand() != src)
+		return TRUE
+	return FALSE
 
 /obj/item/gun/energy/plasma_pistol/proc/overload()
-	if(ishuman(loc) && !charge_failure)
+	if(ishuman(loc))
 		var/mob/living/carbon/C = loc
 		select_fire(C)
 		overloaded = TRUE
@@ -835,7 +845,6 @@
 		atom_say("Overloading failure.")
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
 	charging = FALSE
-	charge_failure = FALSE
 
 /obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
 	select_fire()
@@ -859,19 +868,16 @@
 
 /obj/item/gun/energy/plasma_pistol/emp_act(severity)
 	..()
-	charge_failure = TRUE
 	if(prob(100 / severity) && overloaded)
 		discharge()
 
 /obj/item/gun/energy/plasma_pistol/dropped(mob/user)
 	. = ..()
-	charge_failure = TRUE
 	if(overloaded)
 		discharge()
 
 /obj/item/gun/energy/plasma_pistol/equipped(mob/user, slot, initial)
 	. = ..()
-	charge_failure = TRUE
 	if(overloaded)
 		discharge()
 
@@ -880,7 +886,7 @@
 	reset_overloaded()
 	do_sparks(2, 1, src)
 	update_icon()
-	if(prob(25))
+	if(prob(40))
 		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
