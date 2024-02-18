@@ -77,3 +77,17 @@
 		icon_state = icon_closed
 	else
 		icon_state = icon_opened
+
+/obj/item/bodybag/biohazard
+	name = "biohazard bodybag"
+	desc = "A folded bag designed for the storage and transportation of infected cadavers."
+	icon_state = "bodybag_biohazard_folded"
+
+/obj/structure/closet/body_bag/biohazard
+	name = "biohazard body bag"
+	desc = "A plastic bag designed for the storage and transportation of infected cadavers."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "bodybag_biohazard_closed"
+	icon_closed = "bodybag_biohazard_closed"
+	icon_opened = "bodybag_biohazard_open"
+	item_path = /obj/item/bodybag/biohazard
