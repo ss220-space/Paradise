@@ -33,6 +33,13 @@
 	)
 	requires_organic_bodypart = FALSE
 
+/datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(!length(affected.embedded_objects))
+		return FALSE
 
 /datum/surgery_step/remove_object
 	name = "Remove Embedded Objects"

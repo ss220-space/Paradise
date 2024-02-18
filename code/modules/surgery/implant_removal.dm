@@ -14,7 +14,21 @@
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_organic_bodypart = TRUE
-	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn)
+	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn, /datum/species/plasmaman)
+
+/datum/surgery/implant_removal/plasmamans
+	name = "Implant Removal"
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_organ/plasma,
+		/datum/surgery_step/extract_implant,
+		/datum/surgery_step/generic/cauterize
+	)
+	target_speciestypes = list(/datum/species/plasmaman)
+	restricted_speciestypes = null
+
 
 /datum/surgery/implant_removal/insect
 	name = "Insectoid Implant Removal"

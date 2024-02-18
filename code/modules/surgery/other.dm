@@ -32,6 +32,45 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
+	restricted_speciestypes = list(/datum/species/plasmaman)
+
+/datum/surgery/bleeding/special
+	name = "Internal Bleeding"
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_organ,
+		/datum/surgery_step/generic/cauterize
+	)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+	)
+	restricted_speciestypes = list(/datum/species/wryn, /datum/species/kidan, /datum/species/plasmaman)
+
+/datum/surgery/bleeding/plasmaman
+	name = "Plasmaman Internal Bleeding"
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_organ/plasma,
+		/datum/surgery_step/generic/cauterize
+	)
+	possible_locs = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
 		BODY_ZONE_L_ARM,
@@ -46,6 +85,31 @@
 		BODY_ZONE_TAIL,
 		BODY_ZONE_WING,
 	)
+	target_speciestypes = list(/datum/species/plasmaman)
+	restricted_speciestypes = null
+
+/datum/surgery/bleeding/insect
+	name = "Insectoid Internal Bleeding"
+	steps = list(
+		/datum/surgery_step/open_encased/saw,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/ib,
+		/datum/surgery_step/glue_bone,
+		/datum/surgery_step/set_bone,
+		/datum/surgery_step/finish_bone,
+		/datum/surgery_step/generic/cauterize
+	)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+	)
+	target_speciestypes = list(/datum/species/wryn, /datum/species/kidan)
+	restricted_speciestypes = null
 
 /datum/surgery/debridement
 	name = "Debridement"

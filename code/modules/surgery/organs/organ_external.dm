@@ -689,6 +689,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(organ_spilled && !silent)
 		organ_owner.visible_message(span_danger("[organ_owner]'s internal organs spill out onto the floor!"))
 
+	open = ORGAN_ORGANIC_OPEN
 	return TRUE
 
 

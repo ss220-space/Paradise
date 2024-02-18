@@ -69,11 +69,13 @@
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_organ/plasma,
 		/datum/surgery_step/open_encased/saw,
 		/datum/surgery_step/open_encased/retract,
 		/datum/surgery_step/proxy/manipulate_organs,
 		/datum/surgery_step/internal/manipulate_organs/finish,
 		/datum/surgery_step/glue_bone/plasma,
+		/datum/surgery_step/proxy/open_organ/plasma,
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(

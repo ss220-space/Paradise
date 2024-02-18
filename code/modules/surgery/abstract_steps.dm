@@ -252,7 +252,21 @@
 	name = "Internal Bleeding (abstract)"
 	desc = "An intermediate surgery to fix internal bleeding while a patient is undergoing another procedure."
 	steps = list(/datum/surgery_step/fix_vein)
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
 
 /datum/surgery/intermediate/bleeding/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -262,18 +276,36 @@
 	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 	if(affected.has_internal_bleeding())
 		return TRUE
-	else
-		// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
-		// It's alright for intermediate surgeries, though, since they never get called like that.
-		to_chat(user, "<span class='warning'>The veins in [target]'s [parse_zone(affected)] seem to be in perfect condition, they don't need mending.</span>")
-
+	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
+	// It's alright for intermediate surgeries, though, since they never get called like that.
+	to_chat(user, "<span class='warning'>The veins in [target]'s [parse_zone(affected)] seem to be in perfect condition, they don't need mending.</span>")
 	return FALSE
 
 /datum/surgery/intermediate/mendbone
 	name = "Mend Bone (abstract)"
 	desc = "An intermediate surgery to mend bones while a patient is undergoing another procedure."
 	steps = list(/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone, /datum/surgery_step/finish_bone)
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL,
+		BODY_ZONE_WING,
+	)
+
+/datum/surgery/intermediate/mendbone/plasma
+	name = "Plasma Mend Bone (abstract)"
+	desc = "An intermediate surgery to mend bones while a patient is undergoing another procedure."
+	steps = list(/datum/surgery_step/glue_bone/plasma)
+
 
 /datum/surgery/intermediate/mendbone/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -298,6 +330,13 @@
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
 		/datum/surgery/intermediate/mendbone
+	)
+
+/datum/surgery_step/proxy/open_organ/plasma
+	name = "mend internal bleeding or mend plasma bone (proxy)"
+	branches = list(
+		/datum/surgery/intermediate/bleeding,
+		/datum/surgery/intermediate/mendbone/plasma
 	)
 
 /// Mend IB without healing bones
