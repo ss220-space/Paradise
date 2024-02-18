@@ -17,11 +17,11 @@
 	weight = 5
 
 /datum/martial_art/cqc/under_siege/teach(mob/living/carbon/human/H, make_temporary)
-	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(kitchen_check))
+	RegisterSignal(H, COMSIG_ATOM_ENTERED_AREA, PROC_REF(kitchen_check))
 	return ..()
 
 /datum/martial_art/cqc/under_siege/remove(mob/living/carbon/human/H)
-	UnregisterSignal(H, COMSIG_AREA_ENTERED)
+	UnregisterSignal(H, COMSIG_ATOM_ENTERED_AREA)
 	return ..()
 
 /datum/martial_art/cqc/under_siege/proc/kitchen_check(mob/living/carbon/human/H, area/entered_area)
