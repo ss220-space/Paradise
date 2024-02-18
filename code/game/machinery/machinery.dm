@@ -174,7 +174,7 @@ Class Procs:
 	myArea = get_area(src)
 	if(!myArea)
 		return
-	LAZYADDOR(myArea.machinery_cache, src)
+	LAZYADD(myArea.machinery_cache, src)
 	//message_admins("[src] entered [myArea]")
 	power_change()
 
