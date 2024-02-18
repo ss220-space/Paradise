@@ -90,6 +90,7 @@
 	disliked_food = FRIED
 	liked_food = MEAT | RAW | EGG | GROSS | FRUIT | VEGETABLES
 
+/*
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
 	icon_icon = 'icons/effects/effects.dmi'
@@ -141,7 +142,7 @@
 			to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
 		return FALSE
 	return .
-
+*/
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
@@ -270,7 +271,7 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip_l
 	H.verbs |= /mob/living/carbon/human/proc/emote_rumble
-	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(!lash)
 		lash = new
 		lash.Grant(H)
@@ -286,7 +287,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_whip_l
 	H.verbs -= /mob/living/carbon/human/proc/emote_rumble
 
-	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(lash)
 		lash.Remove(H)
 
