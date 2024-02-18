@@ -648,5 +648,6 @@ CREATE TABLE `budget`
 	`date_end` DATETIME DEFAULT (now() + INTERVAL 1 MONTH),
 	`is_valid` BOOLEAN DEFAULT true NOT NULL,
 	PRIMARY KEY (`id`)
+	INDEX `idx_budget_search` (`ckey`, `is_valid`, `date_start`, `date_end`, `amount`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
