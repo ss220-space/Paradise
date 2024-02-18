@@ -52,13 +52,8 @@
 	. = ..()
 	. += "<span class='warning'>You can <b>Alt-Shift-Click</b> [src] to activate it.</span>"
 
-<<<<<<< HEAD
 /obj/structure/chair/e_chair/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
-=======
-/obj/structure/chair/e_chair/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
->>>>>>> eae269574d7 (Part 1)
 		var/obj/structure/chair/chair = new (loc)
 		transfer_fingerprints_to(chair)
 		playsound(loc, W.usesound, 50, TRUE)
