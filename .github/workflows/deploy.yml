@@ -102,6 +102,14 @@ jobs:
       matrix: ${{fromJson(needs.set-matrix.outputs.matrix)}}
     environment: ${{ matrix.environment }}
     needs: [update-isp-lists, CI, set-matrix]
+    outputs:
+      git_prev_rev_main: ${{ steps.deploy-main.outputs.git_prev_rev }}
+      git_prev_rev_secondary: ${{ steps.deploy-secondary.outputs.git_prev_rev }}
+      git_prev_rev_vega: ${{ steps.deploy-vega.outputs.git_prev_rev }}
+      git_prev_rev_cleo: ${{ steps.deploy-cleo.outputs.git_prev_rev }}
+      git_prev_rev_prime: ${{ steps.deploy-prime.outputs.git_prev_rev }}
+      git_prev_rev_wl: ${{ steps.deploy-wl.outputs.git_prev_rev }}
+      git_prev_rev_tutorial: ${{ steps.deploy-tutorial.outputs.git_prev_rev }}
     if: always() && !cancelled() && !failure()
 
     steps:
@@ -118,6 +126,7 @@ jobs:
           initial-status: "in_progress"
 
       - name: Update and Build Paradise Main
+        id: deploy-main
         if: matrix.environment == 'Main' && inputs.perform_deploy_main
         uses: appleboy/ssh-action@master
         with:
@@ -128,10 +137,17 @@ jobs:
           script: |
             TIME=$(date +'%Y-%m-%d%T')
             sudo systemctl --wait start deploy-main
-            journalctl --since $TIME -u deploy-main --no-pager --all
+
+            LOG=$(journalctl --since $TIME -u deploy-main --no-pager)
+            echo "$LOG"
+
+            GIT_PREV_REV=$(echo "$LOG" | grep 'Current revision:' | sed -r -n -e 's/.+Current revision: (.+?) \(.+/\1/p')
+            echo "git_prev_rev=$GIT_PREV_REV" >> "$GITHUB_OUTPUT"
+
             systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
       - name: Update and Build Paradise Secondary
+        id: deploy-secondary
         if: matrix.environment == 'Secondary' && inputs.perform_deploy_main
         uses: appleboy/ssh-action@master
         with:
@@ -143,6 +159,7 @@ jobs:
             systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
       - name: Update and Build Paradise Vega
+        id: deploy-vega
         if: matrix.environment == 'Vega' && inputs.perform_deploy_vega
         uses: appleboy/ssh-action@master
         with:
@@ -153,10 +170,17 @@ jobs:
           script: |
             TIME=$(date +'%Y-%m-%d%T')
             sudo systemctl --wait start deploy-vega
-            journalctl --since $TIME -u deploy-vega --no-pager --all
+
+            LOG=$(journalctl --since $TIME -u deploy-vega --no-pager --all)
+            echo "$LOG"
+
+            GIT_PREV_REV=$(echo "$LOG" | grep 'Current revision:' | sed -r -n -e 's/.+Current revision: (.+?) \(.+/\1/p')
+            echo "git_prev_rev=$GIT_PREV_REV" >> "$GITHUB_OUTPUT"
+
             systemctl is-failed deploy-vega | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
       - name: Update and Build Paradise Cleo
+        id: deploy-cleo
         if: matrix.environment == 'Cleo' && inputs.perform_deploy_cleo
         uses: appleboy/ssh-action@master
         with:
@@ -167,10 +191,17 @@ jobs:
           script: |
             TIME=$(date +'%Y-%m-%d%T')
             sudo systemctl --wait start deploy-cleo
-            journalctl --since $TIME -u deploy-cleo --no-pager --all
+
+            LOG=$(journalctl --since $TIME -u deploy-cleo --no-pager --all)
+            echo "$LOG"
+
+            GIT_PREV_REV=$(echo "$LOG" | grep 'Current revision:' | sed -r -n -e 's/.+Current revision: (.+?) \(.+/\1/p')
+            echo "git_prev_rev=$GIT_PREV_REV" >> "$GITHUB_OUTPUT"
+
             systemctl is-failed deploy-cleo | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
       - name: Update and Build Paradise Prime
+        id: deploy-prime
         if: matrix.environment == 'Prime' && inputs.perform_deploy_prime
         uses: appleboy/ssh-action@master
         with:
@@ -181,10 +212,17 @@ jobs:
           script: |
             TIME=$(date +'%Y-%m-%d%T')
             sudo systemctl --wait start deploy-prime
-            journalctl --since $TIME -u deploy-prime --no-pager --all
+
+            LOG=$(journalctl --since $TIME -u deploy-prime --no-pager --all)
+            echo "$LOG"
+
+            GIT_PREV_REV=$(echo "$LOG" | grep 'Current revision:' | sed -r -n -e 's/.+Current revision: (.+?) \(.+/\1/p')
+            echo "git_prev_rev=$GIT_PREV_REV" >> "$GITHUB_OUTPUT"
+
             systemctl is-failed deploy-prime | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
       - name: Update and Build Paradise WL
+        id: deploy-wl
         if: matrix.environment == 'WL' && inputs.perform_deploy_wl
         uses: appleboy/ssh-action@master
         with:
@@ -195,10 +233,17 @@ jobs:
           script: |
             TIME=$(date +'%Y-%m-%d%T')
             sudo systemctl --wait start deploy-wl
-            journalctl --since $TIME -u deploy-wl --no-pager --all
+
+            LOG=$(journalctl --since $TIME -u deploy-wl --no-pager --all)
+            echo "$LOG"
+
+            GIT_PREV_REV=$(echo "$LOG" | grep 'Current revision:' | sed -r -n -e 's/.+Current revision: (.+?) \(.+/\1/p')
+            echo "git_prev_rev=$GIT_PREV_REV" >> "$GITHUB_OUTPUT"
+
             systemctl is-failed deploy-wl | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
       - name: Update and Build Paradise Tutorial
+        id: deploy-tutorial
         if: matrix.environment == 'Tutorial' && inputs.perform_deploy_tutorial
         uses: appleboy/ssh-action@master
         with:
@@ -209,7 +254,13 @@ jobs:
           script: |
             TIME=$(date +'%Y-%m-%d%T')
             sudo systemctl --wait start deploy-tutorial
-            journalctl --since $TIME -u deploy-tutorial --no-pager --all
+
+            LOG=$(journalctl --since $TIME -u deploy-tutorial --no-pager --all)
+            echo "$LOG"
+
+            GIT_PREV_REV=$(echo "$LOG" | grep 'Current revision:' | sed -r -n -e 's/.+Current revision: (.+?) \(.+/\1/p')
+            echo "git_prev_rev=$GIT_PREV_REV" >> "$GITHUB_OUTPUT"
+
             systemctl is-failed deploy-tutorial | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
       - name: Update deployment status (success)
