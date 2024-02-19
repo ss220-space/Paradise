@@ -111,11 +111,6 @@
 	var/dismember_head = FALSE
 
 
-/obj/item/projectile/New()
-	permutated = list()
-	return ..()
-
-
 /obj/item/projectile/proc/Range()
 	range--
 	if(damage && tile_dropoff)
@@ -286,7 +281,7 @@
 			forcedodge -= 1
 		loc = target_turf
 		if(A)
-			permutated.Add(A)
+			LAZYADD(permutated, A)
 		return FALSE
 	else
 		if(A && A.density && !ismob(A) && !(A.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.

@@ -38,7 +38,7 @@
 
 /obj/item/weaponcrafting/ishotgunconstruction/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new(drop_location())
 		user.temporarily_remove_item_from_inventory(src)
 		user.put_in_hands(C, ignore_anim = FALSE)

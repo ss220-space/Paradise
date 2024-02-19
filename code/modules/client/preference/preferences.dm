@@ -196,6 +196,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
+	var/exploit_record = ""
 	var/disabilities = 0
 
 	var/nanotrasen_relation = "Neutral"
@@ -245,6 +246,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/keybindings_overrides = null
 	/// View range preference for this client
 	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
+	/// How dark things are if client is a ghost, 0-255
+	var/ghost_darkness_level = LIGHTING_PLANE_ALPHA_VISIBLE
 
 	/// Minigames notification about their end, start and etc.
 	var/minigames_notifications = TRUE
@@ -253,7 +256,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/New(client/C)
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
-	parent?.set_macros()
 	max_gear_slots = CONFIG_GET(number/max_loadout_points)
 	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
@@ -313,7 +315,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Name: </b>"
 			dat += "<a href='?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a>"
 			dat += "<a href='?_src_=prefs;preference=name;task=random'>(Randomize)</a>"
-			dat += "<a href='?_src_=prefs;preference=name'><span class='[be_random_name ? "good" : "bad"]'>(Always Randomize)</span></a><br>"
+			dat += "<a href='?_src_=prefs;preference=name'><span class='[be_random_name ? "good" : "bad"]'>(Always&nbsp;Randomize)</span></a><br>"
 			dat += "</td><td width='405px' height='25px' valign='left'>"
 			dat += "<center>"
 			dat += "Slot <b>[default_slot][saved ? "" : " (empty)"]</b><br>"
@@ -748,13 +750,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/html = list()
 	html += "<body>"
 	if(!length(SSjobs.occupations))
-		html += "The Jobs subsystem is not yet finished creating jobs, please try again later"
-		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
+		html += "Подсистема вакансий ещё не успела создать вакансии, пожалуйста, повторите попытку позже"
+		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Принять</a></center><br>" // Easier to press up here.
 	else
 		html += "<tt><center>"
-		html += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
-		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
-		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
+		html += "<b>Выберите предпочитаемые должности</b><br>Определите приоритет на получение желаемой работы.<br><br>"
+		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Сохранить</a></center><br>" // Easier to press up here.
+		html += "<div align='center'>Левый клик - для повышения предпочтения профессии, правый - для понижения.<br></div>"
 		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
@@ -788,95 +790,96 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				html += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
 				index = 0
 
+			var/color
+			color = "dark"
+			if(job.admin_only)
+				color = "light"
 			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
 			var/rank
 			if(job.alt_titles)
 				rank = "<a href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
+			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+				rank = "<font class='text-muted'>[GetPlayerAltTitle(job)]</font>"
 			lastJob = job
 			if(!is_job_whitelisted(user, job.title))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[КАРМА]</b></td></tr>"
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[КАРМА]</b></span></td></tr>"
 				continue
 			if(jobban_isbanned(user, job.title))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[ЗАБАНЕНО]</b></td></tr>"
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЗАБАНЕНО]</b></span></td></tr>"
 				continue
 			var/available_in_playtime = job.available_in_playtime(user.client)
 			if(available_in_playtime)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[" + get_exp_format(available_in_playtime) + " за " + job.get_exp_req_type()  + "\]</b></td></tr>"
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[" + get_exp_format(available_in_playtime) + " за " + job.get_exp_req_type()  + "\]</b></span></td></tr>"
 				continue
 			if(job.barred_by_disability(user.client))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[ИНВАЛИДНОСТЬ\]</b></td></tr>"
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ИНВАЛИДНОСТЬ\]</b></span></td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[ЧЕРЕЗ [(available_in_days)] ДНЕЙ]</b></td></tr>"
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЧЕРЕЗ [(available_in_days)] ДНЕЙ]</b></span></td></tr>"
 				continue
 			if(!job.character_old_enough(user.client))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[ВОЗРАСТ ОТ [(job.min_age_allowed)]]</b></td></tr>"
-				continue
-			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
-				html += "<font color=orange>[rank]</font></td><td></td></tr>"
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ВОЗРАСТ ОТ [(job.min_age_allowed)]]</b></span></td></tr>"
 				continue
 			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
-				html += "<b><span class='dark'>[rank]</span></b>"
+				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
-				html += "<span class='dark'>[rank]</span>"
+				html += "<span class='[color]'>[rank]</span>"
+			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+				html += "</td><td></td></tr>"
+				continue
 
 			html += "</td><td width='40%'>"
 
-			var/prefLevelLabel = "ERROR"
-			var/prefLevelColor = "pink"
+			var/prefLevelLabel = "ОШИБКА"
+			var/prefLevelColor = "bg-danger"
 			var/prefUpperLevel = -1 // level to assign on left click
 			var/prefLowerLevel = -1 // level to assign on right click
 
 			if(GetJobDepartment(job, 1) & job.flag)
-				prefLevelLabel = "High"
-				prefLevelColor = "slateblue"
+				prefLevelLabel = "Высокий"
+				prefLevelColor = "btn-primary text-light"
 				prefUpperLevel = 4
 				prefLowerLevel = 2
 			else if(GetJobDepartment(job, 2) & job.flag)
-				prefLevelLabel = "Medium"
-				prefLevelColor = "green"
+				prefLevelLabel = "Средний"
+				prefLevelColor = "btn-success text-light"
 				prefUpperLevel = 1
 				prefLowerLevel = 3
 			else if(GetJobDepartment(job, 3) & job.flag)
-				prefLevelLabel = "Low"
-				prefLevelColor = "orange"
+				prefLevelLabel = "Низкий"
+				prefLevelColor = "btn-warning text-dark"
 				prefUpperLevel = 2
 				prefLowerLevel = 4
 			else
-				prefLevelLabel = "NEVER"
-				prefLevelColor = "red"
+				prefLevelLabel = "НИКОГДА"
+				prefLevelColor = "btn-outline-secondary"
 				prefUpperLevel = 3
 				prefLowerLevel = 1
 
 
-			html += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
-
-	//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
+			html += "<a class='nobg' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
 			if(job.title == "Civilian")//Civilian is special
 				if(job_support_low & JOB_CIVILIAN)
-					html += " <font color=green>Yes</font></a>"
+					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>Да</span></a>"
 				else
-					html += " <font color=red>No</font></a>"
+					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">Нет</span></a>"
 				html += "</td></tr>"
+				index += 1
+				html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 				continue
-	/*
-			if(GetJobDepartment(job, 1) & job.flag)
-				HTML += " <font color=blue>\[High]</font>"
-			else if(GetJobDepartment(job, 2) & job.flag)
-				HTML += " <font color=green>\[Medium]</font>"
-			else if(GetJobDepartment(job, 3) & job.flag)
-				HTML += " <font color=orange>\[Low]</font>"
+
+			if(prefLowerLevel>1)
+				html += "<span class='btn btn-sm [prefLevelColor] border border-secondary' style='padding: 0px 4px;'>[prefLevelLabel]</span></a>"
 			else
-				HTML += " <font color=red>\[NEVER]</font>"
-				*/
-			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
+				html += "<span class='btn btn-sm [prefLevelColor]' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">[prefLevelLabel]</span></a>"
 
 			html += "</td></tr>"
 
+		index += 1
 		for(var/i in 1 to limit - index) // Finish the column so it is even
 			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 
@@ -885,22 +888,23 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 		switch(alternate_option)
 			if(GET_RANDOM_JOB)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'>Получить случайную работу, если предпочитаемая работа недоступна</a></u></center><br>"
 			if(BE_ASSISTANT)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'>Стать гражданским, если предпочитаемая работа недоступна</a></u></center><br>"
 			if(RETURN_TO_LOBBY)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'>Вернуться в лобби, если предпочитаемая работа недоступна</a></u></center><br>"
 
-		html += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
-		html += "<center><br><a href='?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
+		html += "<center><a href='?_src_=prefs;preference=job;task=reset'>Сброс</a></center>"
+		html += "<center><br><a href='?_src_=prefs;preference=job;task=learnaboutselection'>Узнать о \"Выборе должности\"</a></center>"
 		html += "</tt>"
 
 	user << browse(null, "window=preferences")
 //		user << browse(HTML, "window=mob_occupation;size=[width]x[height]")
-	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>Occupation Preferences</div>", width, height)
+	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>Предпочитаемые должности</div>", width, height)
 	popup.set_window_options("can_close=0")
 	var/html_string = html.Join()
 	popup.set_content(html_string)
+	popup.add_stylesheet("bootstrap.min.css", 'html/browser/bootstrap.min.css')
 	popup.open(0)
 	return
 
@@ -920,6 +924,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	parent?.update_active_keybindings()
 	return keybindings
+
+/datum/preferences/proc/null_longtextfix(raw)
+	var/text
+	if(raw)
+		try
+			text = raw
+		catch
+			text = ""
+	return text
 
 /datum/preferences/proc/capture_keybinding(mob/user, datum/keybinding/KB, old)
 	var/HTML = {"
@@ -1104,11 +1117,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
 
 	if(length(sec_record) <= 40)
-		HTML += "[sec_record]<br>"
+		HTML += "[sec_record]"
 	else
-		HTML += "[copytext_char(sec_record, 1, 37)]...<br>"
+		HTML += "[copytext_char(sec_record, 1, 37)]..."
 
-	HTML += "<a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
+	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=exploit_record\">Exploitable Records</a><br>"
+
+	if(length(exploit_record) <= 40)
+		HTML += "[exploit_record]"
+	else
+		HTML += "[copytext_char(exploit_record, 1, 37)]..."
+
+	HTML += "<br><br><a href=\"byond://?_src_=prefs;preference=records;records=-1\">\[Done\]</a>"
 	HTML += "</center></tt>"
 
 	var/datum/browser/popup = new(user, "records", "<div align='center'>Character Records</div>", 350, 300)
@@ -1364,6 +1384,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				genmsg = html_encode(genmsg)
 
 				gen_record = genmsg
+				SetRecords(user)
+		if(href_list["task"] == "exploit_record")
+			var/expmsg = input(usr,"Set your exploitable notes here. This info is available to traitors only.","Exploitable Records",html_decode(exploit_record)) as message
+
+			if(expmsg != null)
+				expmsg = copytext(expmsg, 1, MAX_PAPER_MESSAGE_LEN)
+				expmsg = html_encode(expmsg)
+
+				exploit_record = expmsg
 				SetRecords(user)
 
 	if(href_list["preference"] == "gear")
@@ -2200,14 +2229,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("clientfps")
 					var/version_message
-					if(user.client && user.client.byond_version < 511)
-						version_message = "\nYou need to be using byond version 511 or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
-					if(world.byond_version < 511)
+					if(user.client && user.client.byond_version < MINIMUM_FPS_VERSION)
+						version_message = "\nYou need to be using byond version [MINIMUM_FPS_VERSION] or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
+					if(world.byond_version < MINIMUM_FPS_VERSION)
 						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
 					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n30 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
-						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
+						if(world.byond_version >= MINIMUM_FPS_VERSION && user.client && user.client.byond_version >= MINIMUM_FPS_VERSION)
 							if(clientfps)
 								parent.fps = clientfps
 							else
@@ -2596,6 +2625,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.med_record = med_record
 	character.sec_record = sec_record
 	character.gen_record = gen_record
+	character.exploit_record = exploit_record
 
 	character.change_gender(gender)
 	character.age = age

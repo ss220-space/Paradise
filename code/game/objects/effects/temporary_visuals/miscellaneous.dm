@@ -292,6 +292,14 @@
 	duration = 12
 	shrink = FALSE
 
+
+/obj/effect/temp_visual/gib
+	name = "gib"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "gibbed-h"
+	duration = 1.5 SECONDS
+
+
 /obj/effect/temp_visual/small_smoke
 	icon_state = "smoke"
 	duration = 50

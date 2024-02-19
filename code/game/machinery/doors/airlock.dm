@@ -1067,6 +1067,23 @@ About the new airlock wires panel:
 		return
 	interact_with_panel(user)
 
+/obj/machinery/door/airlock/wrench_act(mob/user, obj/item/I)
+	if(!headbutt_shock_check(user))
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!panel_open||!locked||emagged)
+		to_chat(user, span_notice("You can't reach bolt reducer."))
+		return
+	if(isAllPowerLoss())
+		to_chat(user, span_notice("You start wrenching bolt reducer."))
+		if(I.use_tool(src, user, 300, volume = I.tool_volume))
+			user.visible_message(span_notice("[user] raise \the [src]'s bolt manually."),
+								span_notice("You raise \the [src]'s bolt manually."))
+			unlock(TRUE)
+		return
+
 /obj/machinery/door/airlock/welder_act(mob/user, obj/item/I) //This is god awful but I don't care
 	if(!headbutt_shock_check(user))
 		return
@@ -1459,7 +1476,7 @@ About the new airlock wires panel:
 			else
 				ae = new/obj/item/airlock_electronics(loc)
 			check_access()
-			ae.selected_accesses = req_access
+			ae.selected_accesses = length(req_access) ? req_access  : list()
 			ae.one_access = check_one_access
 		else
 			ae = electronics

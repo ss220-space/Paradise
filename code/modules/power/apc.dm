@@ -464,13 +464,14 @@
 	if(!second_pass) //The first time, we just cut overlays
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/power/apc, flicker), TRUE), 1)
 		cut_overlays()
-		// APC power distruptions have a chance to propogate to other machines on its network
-		for(var/obj/machinery/M in area)
-			// Please don't cascade, thanks
-			if(M == src)
-				continue
-			if(prob(10))
-				M.flicker()
+
+		for(var/obj/machinery/machine as anything in area.machinery_cache)
+
+			if(machine != src && prob(10))
+				INVOKE_ASYNC(machine, TYPE_PROC_REF(/obj/machinery, flicker))
+
+			CHECK_TICK
+
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), TRUE), 10)
@@ -1002,35 +1003,32 @@
 
 /obj/machinery/power/apc/proc/turn_emergency_power_off()
 	emergency_power = FALSE
-	for(var/obj/machinery/light/L in area)
-		INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+	for(var/L in area.lights_cache)
+		var/obj/machinery/light = L
+		INVOKE_ASYNC(light, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
-/obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
+/obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(stat & BROKEN)
 		return FALSE
 	if(user.can_admin_interact())
 		return TRUE
 
 	autoflag = 5
-	if(istype(user, /mob/living/silicon))
+	if(ispAI(user))
+		var/mob/living/silicon/pai/pAI = user
+		if(!pAI.syndipai || !pAI.ai_capability || pAI.capa_is_cooldown)
+			return FALSE
+	else if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
-		if(                                                             \
-			aidisabled ||                                            \
-			malfhack && istype(malfai) &&                                \
-			(                                                            \
-				(istype(AI) && (malfai!=AI && malfai != AI.parent)) ||   \
-				(istype(robot) && (robot in malfai.connected_robots))    \
-			)                                                            \
-		)
+		if(aidisabled || malfhack && istype(malfai) && ((istype(AI) && (malfai!=AI && malfai != AI.parent)) || (istype(robot) && !(robot in malfai.connected_robots))))
 			if(!loud)
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
 				user << browse(null, "window=apc")
 				user.unset_machine()
 			return FALSE
-	else
-		if((!in_range(src, user) || !istype(loc, /turf)))
-			return FALSE
+	else if(!in_range(src, user) || !isturf(loc))
+		return FALSE
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
@@ -1114,8 +1112,9 @@
 				malfvacate()
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
-			for(var/obj/machinery/light/L in area)
-				INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+			for(var/L in area.lights_cache)
+				var/obj/machinery/light = L
+				INVOKE_ASYNC(light, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 				CHECK_TICK
 
 
@@ -1404,15 +1403,9 @@
 
 	// lights don't have their own processing loop, so APCs will be the father they never had. 3x as likely to cause a light flicker in a particular area, pick a light to flicker at random
 	if(prob(MACHINE_FLICKER_CHANCE) * 3)
-		var/list/lights = list()
-		for(var/obj/machinery/light/L in area)
-			lights += L
-
-		if(lights.len > 0)
-			var/obj/machinery/light/picked_light = pick(lights)
-			ASSERT(istype(picked_light))
+		var/obj/machinery/light/picked_light = length(area.lights_cache) ? pick(area.lights_cache) : null
+		if(picked_light)
 			picked_light.flicker()
-
 
 /obj/machinery/power/apc/proc/autoset(var/val, var/on)
 	if(on==0)
@@ -1475,15 +1468,17 @@
 		return
 	if(cell && cell.charge >= 20)
 		cell.use(20)
-		for(var/obj/machinery/light/L in area)
+		for(var/L in area.lights_cache)
+			var/obj/machinery/light/light = L
 			if(prob(chance))
-				L.break_light_tube(0, 1)
-				stoplag()
+				light.break_light_tube(0, 1)
+				CHECK_TICK
 
 /obj/machinery/power/apc/proc/null_charge()
-	for(var/obj/machinery/light/L in area)
-		L.break_light_tube(0, 1)
-		stoplag()
+	for(var/L in area.lights_cache)
+		var/obj/machinery/light/light = L
+		light.break_light_tube(0, 1)
+		CHECK_TICK
 
 /obj/machinery/power/apc/proc/setsubsystem(val)
 	if(cell && cell.charge > 0)
@@ -1496,10 +1491,11 @@
 /obj/machinery/power/apc/proc/set_nightshift(on)
 	set waitfor = FALSE
 	nightshift_lights = on
-	for(var/obj/machinery/light/L in area)
-		if(L.nightshift_allowed)
-			L.nightshift_enabled = nightshift_lights
-			L.update(FALSE)
+	for(var/L in area.lights_cache)
+		var/obj/machinery/light/light = L
+		if(light.nightshift_allowed)
+			light.nightshift_enabled = nightshift_lights
+			light.update(FALSE)
 		CHECK_TICK
 
 /obj/machinery/power/apc/proc/relock_callback()

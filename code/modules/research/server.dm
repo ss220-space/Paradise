@@ -152,7 +152,7 @@
 		add_fingerprint(user)
 		shock(user,50)
 
-	if(istype(O, /obj/item/screwdriver))
+	if(O.tool_behaviour == TOOL_SCREWDRIVER)
 		add_fingerprint(user)
 		default_deconstruction_screwdriver(user, icon_open, icon_closed, O)
 		return 1
@@ -161,7 +161,7 @@
 		return 1
 
 	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
+		if(O.tool_behaviour == TOOL_CROWBAR)
 			griefProtection()
 			default_deconstruction_crowbar(user, O)
 			return 1

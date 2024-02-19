@@ -14,9 +14,10 @@
 	depotarea = get_area(src)
 	if(istype(depotarea))
 		depotarea.reactor = src
-		for(var/obj/machinery/porta_turret/syndicate/T in range(50, loc))
-			if(!istype(T.depotarea))
-				T.depotarea = depotarea
+		for(var/obj/machinery/porta_turret/syndicate/T in GLOB.machines)
+			if(z == T.z && get_dist(T, loc) <= 50)
+				if(!istype(T.depotarea))
+					T.depotarea = depotarea
 	else
 		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 

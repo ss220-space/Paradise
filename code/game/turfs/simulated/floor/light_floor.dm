@@ -15,7 +15,6 @@
 	light_range = 5
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light
-	broken_states = list("light_broken")
 	var/on = TRUE
 	var/state = LIGHTFLOOR_ON
 	var/can_modify_colour = TRUE
@@ -24,46 +23,52 @@
 	. = ..()
 	update_icon()
 
-/turf/simulated/floor/light/update_icon()
-	..()
-	if(on)
-		switch(state)
-			if(LIGHTFLOOR_ON)
-				icon_state = "light_on"
-				set_light(5, null,LIGHT_COLOR_LIGHTBLUE)
-			if(LIGHTFLOOR_WHITE)
-				icon_state = "light_on-w"
-				set_light(5, null,LIGHT_COLOR_WHITE)
-			if(LIGHTFLOOR_RED)
-				icon_state = "light_on-r"
-				set_light(5, null,LIGHT_COLOR_RED)
-			if(LIGHTFLOOR_GREEN)
-				icon_state = "light_on-g"
-				set_light(5, null,LIGHT_COLOR_PURE_GREEN)
-			if(LIGHTFLOOR_YELLOW)
-				icon_state = "light_on-y"
-				set_light(5, null,"#FFFF00")
-			if(LIGHTFLOOR_BLUE)
-				icon_state = "light_on-b"
-				set_light(5, null,LIGHT_COLOR_DARKBLUE)
-			if(LIGHTFLOOR_PURPLE)
-				icon_state = "light_on-p"
-				set_light(5, null,LIGHT_COLOR_PURPLE)
-			if(LIGHTFLOOR_GENERICCYCLE)
-				icon_state = "light_on-cycle_all"
-				set_light(5, null,LIGHT_COLOR_WHITE)
-			if(LIGHTFLOOR_CYCLEA)
-				icon_state = "light_on-dancefloor_A"
-				set_light(5,null,LIGHT_COLOR_RED)
-			if(LIGHTFLOOR_CYCLEB)
-				icon_state = "light_on-dancefloor_B"
-				set_light(5, null,LIGHT_COLOR_DARKBLUE)
-			else
-				icon_state = "light_off"
-				set_light(0)
-	else
+
+/turf/simulated/floor/light/broken_states()
+	return list("light_broken")
+
+
+/turf/simulated/floor/light/update_icon_state()
+	if(!on)
 		set_light(0)
 		icon_state = "light_off"
+		return
+
+	switch(state)
+		if(LIGHTFLOOR_ON)
+			icon_state = "light_on"
+			set_light(5, null,LIGHT_COLOR_LIGHTBLUE)
+		if(LIGHTFLOOR_WHITE)
+			icon_state = "light_on-w"
+			set_light(5, null,LIGHT_COLOR_WHITE)
+		if(LIGHTFLOOR_RED)
+			icon_state = "light_on-r"
+			set_light(5, null,LIGHT_COLOR_RED)
+		if(LIGHTFLOOR_GREEN)
+			icon_state = "light_on-g"
+			set_light(5, null,LIGHT_COLOR_PURE_GREEN)
+		if(LIGHTFLOOR_YELLOW)
+			icon_state = "light_on-y"
+			set_light(5, null,"#FFFF00")
+		if(LIGHTFLOOR_BLUE)
+			icon_state = "light_on-b"
+			set_light(5, null,LIGHT_COLOR_DARKBLUE)
+		if(LIGHTFLOOR_PURPLE)
+			icon_state = "light_on-p"
+			set_light(5, null,LIGHT_COLOR_PURPLE)
+		if(LIGHTFLOOR_GENERICCYCLE)
+			icon_state = "light_on-cycle_all"
+			set_light(5, null,LIGHT_COLOR_WHITE)
+		if(LIGHTFLOOR_CYCLEA)
+			icon_state = "light_on-dancefloor_A"
+			set_light(5,null,LIGHT_COLOR_RED)
+		if(LIGHTFLOOR_CYCLEB)
+			icon_state = "light_on-dancefloor_B"
+			set_light(5, null,LIGHT_COLOR_DARKBLUE)
+		else
+			icon_state = "light_off"
+			set_light(0)
+
 
 /turf/simulated/floor/light/BeforeChange()
 	set_light(0)

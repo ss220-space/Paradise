@@ -89,7 +89,7 @@
 		handle_output()
 
 	if(light_connect)
-		for(var/obj/machinery/light_switch/L in area)
+		for(var/obj/machinery/light_switch/L in area.machinery_cache)
 			L.on = on
 			L.updateicon()
 

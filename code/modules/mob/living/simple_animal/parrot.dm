@@ -35,6 +35,7 @@
 	icon_resting = "parrot_sit"
 	pass_flags = PASSTABLE
 	can_collar = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	tts_seed = "Sniper"
 	faction = list("neutral", "jungle")
 

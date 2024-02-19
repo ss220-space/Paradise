@@ -888,8 +888,8 @@
 
 // hide called by levelupdate if turf intact status changes
 // change visibility status and force update of icon
-/obj/structure/disposalpipe/hide(var/intact)
-	invisibility = intact ? INVISIBILITY_ABSTRACT: 0	// hide if floor is intact
+/obj/structure/disposalpipe/hide(intact)
+	invisibility = intact ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
 	update_icon()
 
 // update actual icon_state depending on visibility
@@ -932,6 +932,7 @@
 			for(var/atom/movable/AM in H)
 				AM.forceMove(T)
 				AM.pipe_eject(direction)
+				SEND_SIGNAL(AM, COMSIG_MOVABLE_EXIT_DISPOSALS)
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 100, 1)
@@ -947,6 +948,7 @@
 
 				AM.forceMove(T)
 				AM.pipe_eject(0)
+				SEND_SIGNAL(AM, COMSIG_MOVABLE_EXIT_DISPOSALS)
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 5, 1)

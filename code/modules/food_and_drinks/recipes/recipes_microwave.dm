@@ -51,7 +51,7 @@
 
 /datum/recipe/microwave/human/burger
 	items = list(
-		/obj/item/reagent_containers/food/snacks/meat/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 		/obj/item/reagent_containers/food/snacks/bun
 	)
 	result = /obj/item/reagent_containers/food/snacks/human_burger
@@ -176,8 +176,8 @@
 /datum/recipe/microwave/soylentgreen
 	reagents = list("flour" = 10)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/meat/human,
-		/obj/item/reagent_containers/food/snacks/meat/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 	)
 	result = /obj/item/reagent_containers/food/snacks/soylentgreen
 

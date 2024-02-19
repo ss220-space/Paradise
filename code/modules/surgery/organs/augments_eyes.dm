@@ -78,27 +78,28 @@
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
 	aug_message = "You see prey everywhere you look..."
 
+/obj/item/organ/internal/cyberimp/eyes/thermals/empproof/emp_act(severity)
+	return
+
 // HUD implants
 /obj/item/organ/internal/cyberimp/eyes/hud
 	name = "HUD implant"
 	desc = "These cybernetic eyes will display a HUD over everything you see. Maybe."
 	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
-	var/HUD_type = 0
+	var/HUDType = 0
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
-	var/list/examine_extensions = null
+	var/examine_extensions = 0
 
 /obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(HUD_type)
-		var/datum/atom_hud/H = GLOB.huds[HUD_type]
+	if(HUDType)
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(M)
-		M.permanent_huds |= H
 
 /obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(HUD_type)
-		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		M.permanent_huds ^= H
+	if(HUDType)
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.remove_hud_from(M)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/medical
@@ -108,8 +109,8 @@
 	implant_color = "#00FFFF"
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
-	HUD_type = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	HUDType = DATA_HUD_MEDICAL_ADVANCED
+	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	name = "Diagnostic HUD implant"
@@ -118,7 +119,7 @@
 	implant_color = "#ff9000"
 	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You see the diagnostic information of the synthetics around you..."
-	HUD_type = DATA_HUD_DIAGNOSTIC
+	HUDType = DATA_HUD_DIAGNOSTIC
 
 /obj/item/organ/internal/cyberimp/eyes/hud/security
 	name = "Security HUD implant"
@@ -127,8 +128,8 @@
 	implant_color = "#CC0000"
 	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
-	HUD_type = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	HUDType = DATA_HUD_SECURITY_ADVANCED
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 // Welding shield implant
 /obj/item/organ/internal/cyberimp/eyes/shield

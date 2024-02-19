@@ -91,8 +91,11 @@
 /obj/effect/decal/cleanable/blood/gibs/clock/can_bloodcrawl_in()
 	return FALSE
 
-/obj/effect/decal/cleanable/blood/gibs/clock/update_icon()
+
+/obj/effect/decal/cleanable/blood/gibs/clock/update_icon(updates = ALL)
 	color = "#FFFFFF"
+	. = ..(NONE)
+
 
 /obj/effect/decal/cleanable/blood/gibs/clock/dry()
 	return

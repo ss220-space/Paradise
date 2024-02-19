@@ -178,7 +178,7 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
 
@@ -1294,4 +1294,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(caller && (caller.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density
+
+
+/atom/proc/get_examine_time()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return 0 SECONDS
+
+
+/atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return gender
 

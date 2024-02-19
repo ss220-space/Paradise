@@ -68,7 +68,7 @@
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor
 	name = "necropolis door"
-	desc = "Древние двери которые откроются только только избранным"
+	desc = "Древние двери которые откроются только избранным."
 	icon = 'icons/obj/lavaland/necrdoor.dmi'
 	icon_state = "necr"
 

@@ -312,7 +312,7 @@
 		var/obj/effect/landmark/L = thing
 		if(L.name == "Marauder Exit")
 			var/obj/effect/portal/P = new(L.loc, pick(spawn_marauder))
-			P.invisibility = INVISIBILITY_ABSTRACT//So it is not seen by anyone.
+			P.invisibility = INVISIBILITY_ABSTRACT //So it is not seen by anyone.
 			P.failchance = 0//So it has no fail chance when teleporting.
 			P.can_mecha_pass = TRUE
 			spawn_marauder.Remove(P.target)

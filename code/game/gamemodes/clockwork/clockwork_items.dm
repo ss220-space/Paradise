@@ -10,11 +10,27 @@
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "blue fox plushie" = "bluefox",
 								"orange fox plushie" = "orangefox", "corgi plushie" = "corgi", "black cat plushie" = "blackcat",
 								"deer plushie" = "deer", "octopus plushie" = "loveable", "facehugger plushie" = "huggable")
-	var/plushy = FALSE
+	var/plushy
+
 
 /obj/item/clockwork/clockslab/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.clockslab_spells
+
+
+/obj/item/clockwork/clockslab/update_name(updates = ALL)
+	. = ..()
+	name = plushy ? plushy : initial(name)
+
+
+/obj/item/clockwork/clockslab/update_desc(updates = ALL)
+	. = ..()
+	desc = plushy ? "An adorable, soft, and cuddly plushie." : initial(desc)
+
+
+/obj/item/clockwork/clockslab/update_icon_state()
+	icon = plushy ? 'icons/obj/toy.dmi' : 'icons/obj/clockwork.dmi'
+	icon_state = plushy ? plush_colors[plushy] : initial(icon_state)
 
 
 /obj/item/clockwork/clockslab/update_overlays()
@@ -37,13 +53,11 @@
 			return
 		if(alert(user, "Do you want to reveal clockwork slab?","Revealing!","Yes","No") != "Yes")
 			return
-		name = "clockwork slab"
-		desc = "A strange metal tablet. A clock in the center turns around and around."
-		icon = 'icons/obj/clockwork.dmi'
-		icon_state = "clock_slab"
 		attack_verb = null
 		deplete_spell()
-		plushy = FALSE
+		plushy = null
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+
 	if(!isclocker(user))
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		if(iscarbon(user))
@@ -51,17 +65,15 @@
 			carbon.Weaken(10 SECONDS)
 			carbon.Stuttering(20 SECONDS)
 		return
+
 	if(enchant_type == HIDE_SPELL)
 		to_chat(user, "<span class='notice'>You disguise your tool as some little toy.</span>")
 		playsound(user, 'sound/magic/cult_spell.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		var/chosen_plush = pick(plush_colors)
-		name = chosen_plush
-		desc = "An adorable, soft, and cuddly plushie."
-		icon = 'icons/obj/toy.dmi'
-		icon_state = plush_colors[chosen_plush]
+		plushy = pick(plush_colors)
 		attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
 		enchant_type = CASTING_SPELL
-		plushy = TRUE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+
 	if(enchant_type == TELEPORT_SPELL)
 		var/list/possible_altars = list()
 		var/list/altars = list()
@@ -225,8 +237,7 @@
 	enchants = GLOB.spear_spells
 
 /obj/item/twohanded/ratvarian_spear/update_icon_state()
-	icon_state = "ratvarian_spear[wielded]"
-
+	icon_state = "ratvarian_spear[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/ratvarian_spear/update_overlays()
 	. = ..()
@@ -313,7 +324,6 @@
 	. = ..()
 	enchants = GLOB.spear_spells
 
-
 /obj/item/clock_borg_spear/update_overlays()
 	. = ..()
 	if(enchant_type)
@@ -370,13 +380,12 @@
 	enchants = GLOB.hammer_spells
 
 /obj/item/twohanded/clock_hammer/update_icon_state()
-	icon_state = "clock_hammer[wielded]"
-
+	icon_state = "clock_hammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/clock_hammer/update_overlays()
 	. = ..()
 	if(enchant_type)
-		. +="clock_hammer0_overlay_[enchant_type]"
+		. += "clock_hammer0_overlay_[enchant_type]"
 
 /obj/item/twohanded/clock_hammer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -576,14 +585,10 @@
 	. = ..()
 	enchants = GLOB.shield_spells
 
-/obj/item/shield/clock_buckler/update_icon()
-	update_overlays()
-	return ..()
-
 /obj/item/shield/clock_buckler/update_overlays()
-	cut_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "brass_buckler_overlay_[enchant_type]"
+		. += "brass_buckler_overlay_[enchant_type]"
 
 /obj/item/shield/clock_buckler/attack_self(mob/user)
 	. = ..()
@@ -1294,7 +1299,7 @@
 /obj/item/clockwork/shard/update_overlays()
 	. = ..()
 	if(enchant_type)
-		. +="shard_overlay_[enchant_type]"
+		. += "shard_overlay_[enchant_type]"
 
 /obj/item/clockwork/shard/attack_self(mob/user)
 	if(!isclocker(user) && isliving(user))

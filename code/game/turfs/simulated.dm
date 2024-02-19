@@ -3,6 +3,7 @@
 	name = "station"
 	var/wet = 0
 	var/image/wet_overlay = null
+	var/mutable_appearance/melting_olay
 
 	var/thermite = 0
 	oxygen = MOLES_O2STANDARD

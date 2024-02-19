@@ -69,9 +69,14 @@
 
 // hide called by levelupdate if turf intact status changes
 // change visibility status and force update of icon
-/obj/structure/disposalconstruct/hide(var/intact)
-	invisibility = (intact && level==1) ? INVISIBILITY_ABSTRACT: 0	// hide if floor is intact
+/obj/structure/disposalconstruct/hide(intact)
+	invisibility = (intact && level == 1) ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
 	update()
+
+
+/obj/structure/disposalconstruct/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
 
 
 // flip and rotate verbs

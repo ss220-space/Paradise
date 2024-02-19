@@ -19,11 +19,12 @@
 
 	if(isitem(loc))
 		parent = loc
-		parent.actions |= actions
+		if(actions)
+			LAZYADDOR(parent.actions, actions)
 
 /obj/item/voice_changer/Destroy()
 	if(isitem(parent))
-		parent.actions -= actions
+		LAZYREMOVE(parent.actions, actions)
 
 	return ..()
 
@@ -65,7 +66,7 @@
 /obj/item/voice_changer/ninja
 	name = "ninja voice changer"
 	desc = "A voice scrambling module."
-	actions_types = list()
+	actions_types = null
 	inform_about_toggle = FALSE
 
 /obj/item/voice_changer/ninja/set_voice(mob/user, chosen_voice)

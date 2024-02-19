@@ -207,7 +207,7 @@
 	icon_state = "hardsuit0-ert_paranormal"
 	item_color = "ert_paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	actions_types = list()
+	actions_types = null
 	resistance_flags = FIRE_PROOF
 	has_camera = FALSE
 	sprite_sheets = list(
@@ -238,11 +238,11 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
 	hide_tail_by_species = list("Unathi, Ash Walker, Ash Walker Shaman, Draconid, Tajaran, Vox, Vulpkanin")
 
-/obj/item/clothing/suit/space/hardsuit/ert/paranormal/New()
-	..()
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
+	. = ..()
 	new /obj/item/nullrod(src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
@@ -314,6 +314,11 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
 
+
+/obj/item/clothing/head/helmet/space/hardsuit/deathsquad/update_icon_state()
+	return
+
+
 /obj/item/clothing/suit/space/hardsuit/deathsquad
 	name = "deathsquad suit"
 	desc = "A heavily armored, advanced space suit that protects against most forms of damage."
@@ -338,6 +343,12 @@
 		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
+
+
+/obj/item/clothing/suit/space/hardsuit/deathsquad/update_icon_state()
+	return
+
+
 /obj/item/clothing/suit/space/ert_eva_amber
 	name = "ERT Amber Spacesuit"
 	icon_state = "ert_eva_amber"

@@ -9,7 +9,7 @@
 
 /obj/item/mounted/frame/attackby(obj/item/W, mob/user)
 	..()
-	if(istype(W, /obj/item/wrench) && sheets_refunded)
+	if(W.tool_behaviour == TOOL_WRENCH && sheets_refunded)
 		new /obj/item/stack/sheet/metal(get_turf(src), sheets_refunded)
 		qdel(src)
 

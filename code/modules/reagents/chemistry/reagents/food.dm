@@ -55,6 +55,16 @@
 	counterlist_normalise(taste_amounts)
 	data = taste_amounts
 
+
+/datum/reagent/consumable/nutriment/taste_amplification(mob/living/user)
+	. = list()
+	var/list/nutriment_taste_data = data
+	for(var/nutriment_taste in nutriment_taste_data)
+		var/ratio = nutriment_taste_data[nutriment_taste]
+		var/amount = ratio * taste_mult * volume
+		.[nutriment_taste] = amount
+
+
 /datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Protein"
 	id = "protein"

@@ -79,26 +79,25 @@
 		return
 
 	if(type)
-		if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))	// Vision related
-			if(!(alt))
+		if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))	//Vision related
+			if(!alt)
 				return
-			else
-				msg = alt
-				type = alt_type
-		if((type & EMOTE_AUDIBLE) && !can_hear())	// Hearing related
-			if(!(alt))
+			msg = alt
+			type = alt_type
+
+		if(type & EMOTE_AUDIBLE && !can_hear())	//Hearing related
+			if(!alt)
 				return
-			else
-				msg = alt
-				type = alt_type
-				if((type & EMOTE_VISIBLE) && !has_vision(information_only=TRUE))
-					return
+			msg = alt
+			type = alt_type
+			if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))
+				return
+
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
 		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
 	else
 		to_chat(src, msg)
-	return
 
 
 // Show a message to all mobs in sight of this one
@@ -299,18 +298,13 @@
 	popup.open()
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
-/mob/verb/examinate(atom/A as mob|obj|turf in view(client.maxview()))
+/mob/verb/examinate(atom/A as mob|obj|turf in view(client.maxview(), client.eye))
 	set name = "Examine"
 	set category = "IC"
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
-	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, chat_box_regular("Здесь что-то есть, но вы не видите — что именно."))
-		return TRUE
-
-	face_atom(A)
 	var/list/result = A.examine(src)
 	to_chat(src, chat_box_examine(result.Join("\n")))
 

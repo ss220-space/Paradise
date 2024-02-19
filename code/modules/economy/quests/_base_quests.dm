@@ -36,6 +36,8 @@
 	var/order_time
 	/// List of quest modificators
 	var/list/modificators
+	/// How many times we add time for order
+	var/time_add_count = -1
 
 /datum/cargo_quests_storage/proc/generate(easy_mode)
 	if(!quest_difficulty)
@@ -86,12 +88,17 @@
 /datum/cargo_quests_storage/proc/after_activated()
 	if(!fast_check_timer)
 		return
-	var/timeleft = time_start + quest_time - world.time
-	deltimer(quest_check_timer)
-	quest_check_timer = addtimer(CALLBACK(SScargo_quests, TYPE_PROC_REF(/datum/controller/subsystem/cargo_quests, remove_quest), UID()), timeleft + 3 MINUTES, TIMER_STOPPABLE)
+	add_time()
 	if(world.time - time_start - 0.4 * quest_time + 120 SECONDS >= 0)
 		deltimer(fast_check_timer)
 		fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 120 SECONDS, TIMER_STOPPABLE)
+
+/datum/cargo_quests_storage/proc/add_time(time = 3 MINUTES)
+	var/timeleft = time_start + quest_time - world.time
+	deltimer(quest_check_timer)
+	quest_time += time
+	quest_check_timer = addtimer(CALLBACK(SScargo_quests, TYPE_PROC_REF(/datum/controller/subsystem/cargo_quests, remove_quest), UID()), timeleft + time, TIMER_STOPPABLE)
+	time_add_count++
 
 /datum/cargo_quests_storage/proc/check_quest_completion(obj/structure/bigDelivery/closet, failed_quest_length, mismatch_content, quest_len)
 	var/new_reward = reward
@@ -115,6 +122,9 @@
 		modificators["quick_shipment"] = TRUE
 		if(closet.cc_tag == customer.departament_name)
 			customer.set_sale()
+
+	if(time_add_count)
+		new_reward -= time_add_count * reward * 0.1
 
 	if(new_reward <= 0)
 		new_reward = 1
@@ -159,6 +169,9 @@
 	return
 
 /datum/cargo_quest/proc/after_check()
+	return TRUE
+
+/datum/cargo_quest/proc/completed_quest()
 	return TRUE
 
 #undef MIN_PLAYERS_FOR_MIX
