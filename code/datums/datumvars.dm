@@ -1108,11 +1108,12 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		var/list/new_languages = list()
-		for(var/language_key in GLOB.all_languages)
-			var/datum/language/language = GLOB.all_languages[language_key]
-			if(!(language.flags & NONGLOBAL))
-				new_languages |= language
+		var/static/list/new_languages = list()
+		if(!new_languages.len)
+			for(var/language_key in GLOB.all_languages)
+				var/datum/language/language = GLOB.all_languages[language_key]
+				if(!(language.flags & NONGLOBAL))
+					new_languages |= language
 
 		var/datum/language/new_language = tgui_input_list(usr, "Please choose a language to add.","Language", new_languages)
 
