@@ -65,6 +65,8 @@
 		return
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
+	if(user.a_intent == INTENT_HARM && force)
+		return ..()
 	if(!opened)
 		to_chat(user, "<span class='notice'>You need to open the [src]!</span>")
 		return

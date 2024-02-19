@@ -204,7 +204,6 @@
 	sharp = TRUE
 	force = 20
 	block_chance = 40
-	is_edible = FALSE
 
 /obj/item/reagent_containers/food/snacks/twobread
 	name = "two bread"
