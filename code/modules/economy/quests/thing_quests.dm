@@ -149,6 +149,7 @@
 		/obj/item/reagent_containers/food/snacks/amanitajelly = 50,
 		/obj/item/reagent_containers/food/snacks/donut/chaos = 50,
 		/obj/item/reagent_containers/food/snacks/sliceable/noel = 50,
+		/obj/item/reagent_containers/food/snacks/candy/jellybean/purple = 50,
 		/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat = 50,
 		/obj/item/reagent_containers/food/snacks/sashimi = 60,
 		/obj/item/reagent_containers/food/snacks/fishburger = 60,
@@ -161,10 +162,14 @@
 		/obj/item/reagent_containers/food/snacks/monkeysdelight = 60,
 		/obj/item/reagent_containers/food/snacks/aesirsalad = 60,
 		/obj/item/reagent_containers/food/snacks/rofflewaffles = 60,
+		/obj/item/reagent_containers/food/snacks/muffin = 60,
+		/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake = 60,
 	)
 
 	normal_items = list(
 		/obj/item/reagent_containers/food/snacks/candy/jawbreaker = 70,
+		/obj/item/reagent_containers/food/snacks/telebacon = 70,
+		/obj/item/reagent_containers/food/snacks/plov = 70,
 		/obj/item/reagent_containers/food/snacks/weirdoliviersalad = 70,
 		/obj/item/reagent_containers/food/snacks/doner_mushroom = 70,
 		/obj/item/reagent_containers/food/snacks/doner_vegan = 70,

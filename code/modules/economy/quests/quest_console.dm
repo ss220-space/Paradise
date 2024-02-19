@@ -9,7 +9,7 @@
 	desc = "Essential for supply requests. Your bread and butter."
 	icon_keyboard = "cargo_quest_key"
 	icon_screen = "cargo_quest"
-	req_access = list(ACCESS_QM)
+	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplyquest
 	/// If TRUE you can see only active quests
 	var/for_active_quests = FALSE
@@ -236,7 +236,6 @@
 	for_active_quests = TRUE
 	circuit = /obj/item/circuitboard/questcons
 	density = FALSE
-	req_access = list(ACCESS_CARGO)
 
 
 /obj/machinery/computer/supplyquest/workers/Initialize(mapload)
