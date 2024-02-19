@@ -1,6 +1,7 @@
-#define DIFFICULTY_EASY		1
-#define DIFFICULTY_NORMAL	2
-#define DIFFICULTY_HARD		3
+#define WORKING_CLASS	1
+#define MEDICAL_CLASS	2
+#define COMBAT_CLASS	3
+#define RANDOM_CLASS	4
 
 //robotics quests console datums
 
@@ -13,6 +14,8 @@
 	var/list/questinfo = list()
 	/// Reward for our current quest
 	var/reward = list("working" = 2, "medical" = 1, "security" = 3, "robo" = 4)
+	/// 75-125% of initial mecha cash reward
+	var/maximum_cash
 	/// Difficulty type
 	var/difficulty
 	/// Is our quest was claimed
@@ -33,15 +36,17 @@
 
 /datum/roboquest/proc/generate_mecha(difficulty)
 	var/mech
-	var/static/easy_mechas = list(/datum/quest_mech/ripley, /datum/quest_mech/firefighter, /datum/quest_mech/odysseus)
-	var/static/hard_mechas = list(/datum/quest_mech/gygax, /datum/quest_mech/clarke, /datum/quest_mech/durand)
+	var/static/working_mechas = list(/datum/quest_mech/ripley, /datum/quest_mech/firefighter, /datum/quest_mech/clarke)
+	var/static/combat_mechas = list(/datum/quest_mech/gygax, /datum/quest_mech/durand)
 	switch(difficulty) //вероятно нихуя не работает, Роден, поправь потом...
-		if(DIFFICULTY_EASY)
-			mech = pick(subtypesof(/datum/quest_mech) - hard_mechas)
-		if(DIFFICULTY_NORMAL)
+		if(WORKING_CLASS)
+			mech = pick(working_mechas)
+		if(MEDICAL_CLASS)
+			mech = pick(subtypesof(/datum/quest_mech) - working_mechas - combat_mechas) //вообще у нас сугубо один медикал мех, но может потом...
+		if(COMBAT_CLASS)
+			mech = pick(combat_mechas)
+		if(RANDOM_CLASS)
 			mech = pick(subtypesof(/datum/quest_mech))
-		if(DIFFICULTY_HARD)
-			mech = pick(subtypesof(/datum/quest_mech) - easy_mechas)
 	var/datum/quest_mech/selected = new mech
 	mech_class = selected.mech_class //наверное можно перенести данные из одного датума как-то умнее, но и так в целом норм.
 	name = selected.name
@@ -51,6 +56,7 @@
 	questinfo["icon"] = icon2base64(selected.mech_icon)
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
 	questinfo["modules"] = list()
+	maximum_cash = rand(round(0.75 * selected.cash_reward), round(1.25 * selected.cash_reward))
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
 		for(var/i in 1 to rand(1, selected.max_modules))
@@ -66,6 +72,7 @@
 			questinfo["modules"] += list(newmodule)
 			qdel(module)
 
+
 /datum/roboquest/proc/generate_flavour()
 	var/list/working = list("Поступил заказ от правительства колонии [pick("Гаусс", "Кита Эпсилон", "Тартессос")] на приобретение стандартного экзокостюма типа [name]. Запрошенные спецификации вы можете увидеть на консоли.",
 		"Небольшая добывающая колония на периферии изученного космического пространства оставила срочный заказ на приобретение экзокостюма класса [name].",
@@ -77,11 +84,11 @@
 		"На связи ваши коллеги из Einstein Engines. У нас образовалась нехватка экзачей после того, как наше транспортное судно пропало недалеко от вашей станции, так что нам нужна срочная замена. Необходим [name]. Сделаете?",
 		"Отдел по связям с общественностью Shellguard Amunitions отправляет контактному лицу стандартный корпоративный заказ на экзокостюм типа [name]. Детали контракта засекречены согласно регламенту У-[rand(100, 999)]-67 .",
 		"РАСШИФРОВКА ПЕРЕДАЧИ... Приветствуем, агент. Данный заказ был отправлен вам по зашифрованной передаче. Для выполнения задачи нам необходим [name]. Оплата заказа будет осуществлена через подставные счета, так что вам ничего не угрожает.",
-		"ОФИЦИАЛЬНЫЙ ЗАКАЗ РЕСПУБЛИКИ ЭЛИЗИУМ. ТРЕБОВАНИЯ ДЛЯ УДОВЛЕТВОРЕНИЯ УСЛОВИЙ КОНТРАКТА - ДОСТАВКА ЭКЗОКОСТЮМА ТИПА [name]. ПО ЗАВЕРШЕНИЮ ЗАКАЗА И ВЫПОЛНЕНИЯ ДОПОЛНИТЕЛЬНЫХ ТРЕБОВАНИЙ ВАС БУДЕТ ОЖИДАТЬ [reward].",
+		"Официальный заказ Республики Элизиум. требования для удовлетворения условий контракта - доставка экзокостюма типа [name]. По завершении заказа и выполнения дополнительных требований вас будет ожидать до [maximum_cash] кредитов.",
 		"Эээ.. Привет? Эта штука работает? Эээ.. в общем, если оно работает, это сообщество свободных шахтеров. В общем.. нам нужен [name]. Мы готовы хорошо заплатить! П-пожалуйста, нам очень нужен этот мех, или мы обречены...",
 	)
 	var/list/medical = list("Корпорация Vey-med производит ревизию своих лицензированных экзокостюмов. Согласно договору об аренде экзокостюмов типа [name] вы обязаны отослать один из образцов для сверки с контрольной группой. Оплату расходов берет на себя ваша корпорация.",
-		"Поступил срочный заказ от [new_station_name()]. В ходе проведения эксперимента по ОТРЕДАКТИРОВАНО произошёл инцидент, приведший к различным травмам более чем у [rand(2-50)] человек. Для облечения работы медицинских отрядов был оставлен срочный заказ на [name].",
+		"Поступил срочный заказ от [new_station_name()]. В ходе проведения эксперимента по ОТРЕДАКТИРОВАНО произошёл инцидент, приведший к различным травмам более чем у [rand(2, 10)] человек. Для облечения работы медицинских отрядов был оставлен срочный заказ на [name].",
 		"В связи с аварией, произошедшей на борту [new_station_name()] на ближайшую к ней станцию был отправлен заказ на создание экзокостюма типа [name].",
 		"ВНИМАНИЕ. ПРОИЗОШЛА ВСПЫШКА БИОЛОГИЧЕСКОЙ УГРОЗЫ УРОВНЯ 7 НА БОРТУ [new_station_name()]. ДЛЯ ПОДДЕРЖАНИЯ КАРАНТИНА БЫЛ ОСТАВЛЕН ЗАПРОС НА ДОСТАВКУ ЭКЗОКОСТЮМА ТИПА [name].",
 		"Отдел корпоративных поставок на борту АКН Трурль столкнулся с нехваткой медицинских экзокостюмов типа [name]. Заказ на пополение соответствующих экзокостюмов был отправлен всем действующим станциям.",
@@ -90,7 +97,7 @@
 	)
 	var/list/combat = list("Поступил заказ от правительства колонии [pick("Гаусс", "Кита Эпсилон", "Тартессос")] на приобретение стандартного экзокостюма типа [name]. Запрошенные спецификации вы можете увидеть на консоли.",
 		"РАСШИФРОВКА ПЕРЕДАЧИ... Приветствуем, агент. Данный заказ был отправлен вам по зашифрованной передаче. Для выполнения задачи нам необходим [name]. Оплата заказа будет осуществлена через подставные счета, так что вам ничего не угрожает.",
-		"ОФИЦИАЛЬНЫЙ ЗАКАЗ РЕСПУБЛИКИ ЭЛИЗИУМ. ТРЕБОВАНИЯ ДЛЯ УДОВЛЕТВОРЕНИЯ УСЛОВИЙ КОНТРАКТА - ДОСТАВКА ЭКЗОКОСТЮМА ТИПА [name]. ПО ЗАВЕРШЕНИЮ ЗАКАЗА И ВЫПОЛНЕНИЯ ДОПОЛНИТЕЛЬНЫХ ТРЕБОВАНИЙ ВАС БУДЕТ ОЖИДАТЬ [reward].",
+		"Официальный заказ Республики Элизиум. требования для удовлетворения условий контракта - доставка экзокостюма типа [name]. По завершении заказа и выполнения дополнительных требований вас будет ожидать до [maximum_cash] кредитов.",
 		"Отделом исследований и разработок на [new_station_name()] был запрошен стандартный экзокостюм класса [name]. Выполение заказа в краткие сроки будет способствовать развитию науки!",
 		"Отдел защиты активов корпорации NanoTrasen объявил конкурс на приобретение партии боевых экзокостюмов типа [name]. Доставьте требуемый образец в кратчайшие сроки для выплаты вознаграждения.",
 		"Корпус земного экспидиционного корпуса Транс-Солнечной Федерации оставил контракт на приобретение экзокостюма типа [name]. Выполнение данного контракта обеспечит исполнителю беспрепятственный доступ к посещению Солнечной системы. Слава ТСФ!",
@@ -194,8 +201,7 @@
 	path = /obj/item/assembly/signaler/anomaly/bluespace
 	cost = list("working" = 1, "medical" = 1, "security" = 1, "robo" = 0)
 
-
-
-#undef DIFFICULTY_EASY
-#undef DIFFICULTY_NORMAL
-#undef DIFFICULTY_HARD
+#undef WORKING_CLASS
+#undef MEDICAL_CLASS
+#undef COMBAT_CLASS
+#undef RANDOM_CLASS

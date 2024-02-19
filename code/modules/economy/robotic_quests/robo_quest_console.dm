@@ -2,9 +2,10 @@
 #define CORRECT_MECHA 1
 #define SOME_CORRECT_MODULES 2
 #define ALL_CORRECT_MODULES 3
-#define DIFFICULTY_EASY		1
-#define DIFFICULTY_NORMAL	2
-#define DIFFICULTY_HARD		3
+#define WORKING_CLASS	1
+#define MEDICAL_CLASS	2
+#define COMBAT_CLASS	3
+#define RANDOM_CLASS	4
 #define CATS_BY_STAGE list("number" = list("first", "second", "third"), "first" = list("working", "medical", "security"), "second" = list("working_medical", "medical_security"), "third" = list("working_medical_security"))
 
 /obj/machinery/computer/roboquest
@@ -171,7 +172,7 @@
 			currentID = null
 			SStgui.update_uis(src)
 		if("GetTask")
-			var/list/difficulties = list("Easy" = DIFFICULTY_EASY, "Medium" = DIFFICULTY_NORMAL, "Hard" = DIFFICULTY_HARD)
+			var/list/difficulties = list("Working Mech" = WORKING_CLASS, "Medical Mech" = MEDICAL_CLASS, "Combat Mech" = COMBAT_CLASS, "Random Mech" = RANDOM_CLASS)
 			difficulty = tgui_input_list(usr, "Select event type.", "Select", difficulties)
 			if(!difficulty)
 				return
@@ -267,7 +268,7 @@
 	paper.info += "<h3>Requested modules:</h3>"
 	for(var/i in quest.questinfo["modules"])
 		paper.info += "<li> [i["name"]]</li><br>"
-	paper.info += "<br><b> Initial reward:</b> [quest.reward] point(s)"
+	paper.info += "<br><b> Initial reward:</b> [quest.maximum_cash] credits"
 	paper.info += "<p><b>Mecha request accepted by:</b> [currentID.registered_name] - [currentID.rank] at [station_time_timestamp()].</p></ul>"
 	paper.info += "<hr><center><small><i>The request has been approved and certified by NAS Trurl.</i></small></center>"
 	var/obj/item/stamp/centcom/stamp = new()
@@ -368,7 +369,8 @@
 #undef CORRECT_MECHA
 #undef SOME_CORRECT_MODULES
 #undef ALL_CORRECT_MODULES
-#undef DIFFICULTY_EASY
-#undef DIFFICULTY_NORMAL
-#undef DIFFICULTY_HARD
+#undef WORKING_CLASS
+#undef MEDICAL_CLASS
+#undef COMBAT_CLASS
+#undef RANDOM_CLASS
 #undef CATS_BY_STAGE
