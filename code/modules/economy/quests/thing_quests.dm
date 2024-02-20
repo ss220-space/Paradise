@@ -161,9 +161,22 @@
 		/obj/item/reagent_containers/food/snacks/rofflewaffles = 60,
 		/obj/item/reagent_containers/food/snacks/muffin = 60,
 		/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/human = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/slime = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/skrell = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/tajaran = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/unathi = 60,
 	)
 
 	normal_items = list(
+		/obj/item/reagent_containers/food/snacks/meatsteak/vox = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/wryn = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/kidan = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/diona = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/nian = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/drask = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/grey = 70,
 		/obj/item/reagent_containers/food/snacks/candy/jawbreaker = 70,
 		/obj/item/reagent_containers/food/snacks/telebacon = 70,
 		/obj/item/reagent_containers/food/snacks/plov = 70,
