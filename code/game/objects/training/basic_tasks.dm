@@ -660,7 +660,7 @@
 /datum/training_task/basic_13_1/instruction_end()
 	sleep(3 SECONDS)
 	master.controlled_user.client << browse({"
-            <a id='link' href='[config.overflow_server_url]'>
+            <a id='link' href='[CONFIG_GET(string/overflow_server_url)]'>
                 LINK
             </a>
             <script type='text/javascript'>
