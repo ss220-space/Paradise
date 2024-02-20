@@ -33,7 +33,7 @@
 	var/fields = 0		//Amount of user created fields
 	var/language = "Galactic Common" //The language of paper. For now using only in case of Thetta
 	var/list/stamped
-	var/list/stamp_overlays = list()
+	var/list/stamp_overlays
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
 	var/offset_y[0] //usage by the photocopier
@@ -63,11 +63,17 @@
 		update_icon()
 		updateinfolinks()
 
+
 /obj/item/paper/update_icon_state()
 	if(info)
 		icon_state = "paper_words"
 		return
 	icon_state = "paper"
+
+
+/obj/item/paper/update_overlays()
+	return LAZYLEN(stamp_overlays) ? stamp_overlays : list()
+
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
@@ -286,7 +292,7 @@
 	info = null
 	stamps = null
 	stamped = list()
-	stamp_overlays = list()
+	stamp_overlays = null
 	updateinfolinks()
 	update_icon()
 
@@ -565,10 +571,6 @@
 	stamped += S.type
 	stamp_overlays += stampoverlay
 	update_icon(UPDATE_OVERLAYS)
-
-
-/obj/item/paper/update_overlays()
-	return stamp_overlays
 
 
 /*

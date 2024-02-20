@@ -39,7 +39,7 @@
 	else
 		return FALSE
 
-/obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
+/obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
 		return
 	if(!check_table()) //If the Operating Table is occupied, you cannot put someone else on it
@@ -50,6 +50,7 @@
 		return
 	add_fingerprint(user)
 	take_patient(O, user)
+	return TRUE
 
 /**
   * Updates the `patient` var to be the mob occupying the table
@@ -61,10 +62,12 @@
 	else
 		patient = null
 	if(!no_icon_updates)
-		if(patient && patient.pulse)
-			icon_state = "table2-active"
-		else
-			icon_state = "table2-idle"
+		update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/optable/update_icon_state()
+	icon_state = "table2-[(patient && patient.pulse) ? "active" : "idle"]"
+
 
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()

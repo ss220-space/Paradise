@@ -273,9 +273,15 @@
   LiquidPotroh:
   - bugfix: holster examine (#4467)
   - bugfix: Vampire position after bestia transform resets normally (#4468)
+  Rerik007:
+  - tweak: cargo few orders and change access for cargo quest console (#4472)
+  - refactor: move defib code to component (#4406)
   Valtor:
   - bugfix: autoimplanter missing limb (#4466)
   Vladisvell:
   - bugfix: Fixed Chef's and Machinery errors (#4462)
+  - add: Added book flag tracking and view flagged books does not crash server (#4191)
+  Zwei:
+  - refactor: Icon Updates Rework Part3 (#4221)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4469)

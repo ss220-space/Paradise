@@ -312,8 +312,8 @@
 	desc = "A shield generator."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "shieldgen"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
 	var/active = 0
 	var/power = 0
