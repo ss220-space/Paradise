@@ -849,20 +849,31 @@
 		return FALSE
 	if(!istype(new_language))
 		new_language = GLOB.all_languages[convert_lang_key_to_name(language_name)]
-		return FALSE
+		if(!istype(new_language))
+			return FALSE
 
 	languages |= new_language
 	return TRUE
 
 
 /mob/proc/remove_language(language_name)
-	var/datum/language/L = GLOB.all_languages[language_name]
+	var/datum/language/rem_language = GLOB.all_languages[language_name]
+	if(!istype(rem_language))
+		rem_language = GLOB.all_languages[convert_lang_key_to_name(language_name)]
+		if(!istype(rem_language))
+			return FALSE
+
 	. = (L in languages)
 	languages.Remove(L)
 
 
 /mob/living/remove_language(language_name)
-	var/datum/language/L = GLOB.all_languages[language_name]
+	var/datum/language/rem_language = GLOB.all_languages[language_name]
+	if(!istype(rem_language))
+		rem_language = GLOB.all_languages[convert_lang_key_to_name(language_name)]
+		if(!istype(rem_language))
+			return FALSE
+
 	if(default_language == L)
 		default_language = null
 	return ..()
