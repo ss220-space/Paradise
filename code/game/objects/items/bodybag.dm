@@ -6,12 +6,44 @@
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
 	w_class = WEIGHT_CLASS_SMALL
+	///Stored path we use for spawning a new body bag entity when unfolded.
 	var/unfoldedbag_path = /obj/structure/closet/body_bag
 
 /obj/item/bodybag/attack_self(mob/user)
-	var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
-	R.add_fingerprint(user)
-	qdel(src)
+	if(loc == user)
+		deploy_bodybag(user, get_turf(user))
+	else
+		deploy_bodybag(user, get_turf(src))
+
+/obj/item/bodybag/pickup(mob/user)
+	// can't pick ourselves up if we are inside of the bodybag, else very weird things may happen
+	if(contains(user))
+		return FALSE
+	return ..()
+
+/**
+ * Creates a new body bag item when unfolded, at the provided location, replacing the body bag item.
+ * * mob/user: User opening the body bag.
+ * * atom/location: the place/entity/mob where the body bag is being deployed from.
+ */
+/obj/item/bodybag/proc/deploy_bodybag(mob/user, atom/location)
+	var/obj/structure/closet/body_bag/item_bag = new unfoldedbag_path(location)
+	item_bag.open(user)
+	item_bag.add_fingerprint(user)
+	item_bag.foldedbag_instance = src
+	user.drop_item_ground(src)
+	forceMove(null)
+	return item_bag
+
+/obj/item/bodybag/suicide_act(mob/living/user)
+	if(isfloorturf(user.loc))
+		user.visible_message(span_suicide("[user] is crawling into [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+		var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
+		R.add_fingerprint(user)
+		qdel(src)
+		user.forceMove(R)
+		playsound(src, 'sound/items/zip.ogg', 15, TRUE, -3)
+		return OXYLOSS
 
 /obj/structure/closet/body_bag
 	name = "body bag"
@@ -27,6 +59,7 @@
 	density = FALSE
 	integrity_failure = FALSE
 	var/foldedbag_path = /obj/item/bodybag
+	var/obj/item/bodybag/foldedbag_instance = null
 
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
@@ -101,7 +134,55 @@
 
 /obj/item/bodybag/bluespace
 	name = "bluespace body bag"
+	desc = "A folded bluespace body bag designed for the storage and transportation of cadavers."
 	unfoldedbag_path = /obj/structure/closet/body_bag/bluespace
+	w_class = WEIGHT_CLASS_SMALL
+	flags_2 = NO_MAT_REDEMPTION_2
+
+/obj/item/bodybag/bluespace/examine(mob/user)
+	. = ..()
+	if(contents.len)
+		var/s = contents.len == 1 ? "" : "s"
+		. += span_notice("You can make out the shape[s] of [contents.len] object[s] through the fabric.")
+
+/obj/item/bodybag/bluespace/Destroy()
+	for(var/atom/movable/A in contents)
+		A.forceMove(get_turf(src))
+		if(isliving(A))
+			to_chat(A, span_notice("You suddenly feel the space around you torn apart! You're free!"))
+	return ..()
+
+/obj/item/bodybag/bluespace/deploy_bodybag(mob/user, atom/location)
+	var/obj/structure/closet/body_bag/item_bag = new unfoldedbag_path(location)
+	for(var/atom/movable/inside in contents)
+		inside.forceMove(item_bag)
+		if(isliving(inside))
+			to_chat(inside, span_notice("You suddenly feel air around you! You're free!"))
+	item_bag.open(user)
+	item_bag.add_fingerprint(user)
+	item_bag.foldedbag_instance = src
+	user.drop_item_ground(src)
+	forceMove(null)
+	return item_bag
+
+/obj/item/bodybag/bluespace/container_resist(mob/living/user)
+	var/breakout_time = 10 SECONDS
+	if(user.incapacitated())
+		to_chat(user, span_warning("You can't get out while you're restrained like this!"))
+		return
+	user.changeNext_move(breakout_time)
+	user.last_special = world.time + (breakout_time)
+	to_chat(user, span_notice("You claw at the fabric of [src], trying to tear it open..."))
+	to_chat(loc, span_warning("Someone starts trying to break free of [src]!"))
+	if(!do_after(user, 12 SECONDS, src, use_default_checks = FALSE))
+		return
+	// you are still in the bag? time to go unless you KO'd, honey!
+	// if they escape during this time and you rebag them the timer is still clocking down and does NOT reset so they can very easily get out.
+	if(user.incapacitated())
+		to_chat(loc, span_warning("The pressure subsides. It seems that they've stopped resisting..."))
+		return
+	loc.visible_message(span_warning("[user] suddenly appears in front of [loc]!"), span_userdanger("[user] breaks free of [src]!"))
+	qdel(src)
 
 /obj/structure/closet/body_bag/bluespace
 	name = "bluespace body bag"
