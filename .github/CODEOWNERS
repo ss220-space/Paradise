@@ -4,7 +4,23 @@
 # In the event that people are to be informed of changes
 # to the same file or dir, add them to the end of under Multiple Owners
 
+
 # MAINTAINERS
+
+### azizonkg
+# CI + Tooling
+/.github/workflows/ @Bizzonium
+/code/modules/unit_tests/ @Bizzonium
+/tools/ci/ @Bizzonium
+_build_dependencies.sh @Bizzonium
+
+# Server Stuff
+/SQL/ @Bizzonium
+/config/ @Bizzonium
+
+# Executables that need to be security-cleared
+dreamchecker.exe @Bizzonium
+rust_g.dll @Bizzonium
 
 # MULTIPLE OWNERS
 /_maps/ @ss220-space/map-reviewers
