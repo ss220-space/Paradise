@@ -1007,14 +1007,18 @@
 		var/obj/machinery/light = L
 		INVOKE_ASYNC(light, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
-/obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
+/obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(stat & BROKEN)
 		return FALSE
 	if(user.can_admin_interact())
 		return TRUE
 
 	autoflag = 5
-	if(istype(user, /mob/living/silicon))
+	if(ispAI(user))
+		var/mob/living/silicon/pai/pAI = user
+		if(!pAI.syndipai || !pAI.ai_capability || pAI.capa_is_cooldown)
+			return FALSE
+	else if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
 		if(aidisabled || malfhack && istype(malfai) && ((istype(AI) && (malfai!=AI && malfai != AI.parent)) || (istype(robot) && !(robot in malfai.connected_robots))))
@@ -1023,9 +1027,8 @@
 				user << browse(null, "window=apc")
 				user.unset_machine()
 			return FALSE
-	else
-		if((!in_range(src, user) || !istype(loc, /turf)))
-			return FALSE
+	else if(!in_range(src, user) || !isturf(loc))
+		return FALSE
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H))

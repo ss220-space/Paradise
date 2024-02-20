@@ -69,7 +69,7 @@
 			return
 		if(exchange_parts(user, O))
 			return
-	if(!broken && istype(O, /obj/item/wrench))
+	if(!broken && O.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		playsound(src, O.usesound, 50, 1)
 		if(anchored)
@@ -85,13 +85,13 @@
 		return
 
 	if(broken > 0)
-		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver
+		if(broken == 2 && O.tool_behaviour == TOOL_SCREWDRIVER) // If it's broken and they're using a screwdriver
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
 			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
 				broken = 1 // Fix it a bit
-		else if(broken == 1 && istype(O, /obj/item/wrench)) // If it's broken and they're doing the wrench
+		else if(broken == 1 && O.tool_behaviour == TOOL_WRENCH) // If it's broken and they're doing the wrench
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
 			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 				add_fingerprint(user)

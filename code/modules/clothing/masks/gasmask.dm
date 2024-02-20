@@ -440,7 +440,7 @@
 
 
 /obj/item/clothing/mask/gas/sechailer/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/screwdriver))
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		switch(aggressiveness)
 			if(1)
 				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")
@@ -460,7 +460,7 @@
 				phrase = 1
 			if(5)
 				to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
-	else if(istype(W, /obj/item/wirecutters))
+	else if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(aggressiveness != 5)
 			to_chat(user, "<span class='warning'>You broke it!</span>")
 			aggressiveness = 5

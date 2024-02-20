@@ -1,3 +1,5 @@
+#define COOLDOWN_TO_SLIMEPERSON (10 SECONDS)
+#define COOLDOWN_TO_SLIME_MOB (40 SECONDS)
 /obj/item/anomaly_extract
 	name = "Strange syringe"
 	desc = "Syringe with a blunt needle."
@@ -41,7 +43,7 @@
 	sound = 'sound/effects/mob_effects/slime_squish.ogg'
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = 1 MINUTES
+	base_cooldown = COOLDOWN_TO_SLIMEPERSON
 	var/is_transformed = FALSE
 	var/mob/living/carbon/human/original_body
 
@@ -84,9 +86,9 @@
 /obj/effect/proc_holder/spell/slime_degradation/before_cast(list/targets, mob/user)
 	. = ..()
 	if(is_transformed)
-		cooldown_handler.recharge_duration = 10 MINUTES
+		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
 	else
-		cooldown_handler.recharge_duration = 1 MINUTES
+		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIMEPERSON
 
 
 /obj/effect/proc_holder/spell/slime_degradation/cast(list/targets, mob/living/carbon/human/user = usr)
@@ -142,7 +144,7 @@
 	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
 	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_notice("You hear something squishing..."))
 	if(death_provoked)
-		cooldown_handler.recharge_duration = 10 MINUTES
+		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
 		cooldown_handler.start_recharge()
 		playsound(get_turf(usr), sound, 50, TRUE)
 	user.density = FALSE
@@ -237,3 +239,6 @@
 	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_degradation)
 	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_selfheat)
 	. = ..()
+
+#undef COOLDOWN_TO_SLIMEPERSON
+#undef COOLDOWN_TO_SLIME_MOB

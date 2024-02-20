@@ -433,6 +433,7 @@
 
 	data["canapprove"] = (SSshuttle.supply.getDockedId() == "supply_away") && !(SSshuttle.supply.mode != SHUTTLE_IDLE) && !is_public
 	data["points"] = round(SSshuttle.points)
+	data["credits"] = SSshuttle.cargo_money_account.money
 
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
@@ -449,7 +450,7 @@
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
 		var/has_sale = pack.cost < initial(pack.cost)
 		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
-			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
+			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "creditsCost" = pack.credits_cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
 
 	data["supply_packs"] = packs_list
 
@@ -569,6 +570,8 @@
 					if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
+						if(P.credits_cost)
+							SSshuttle.cargo_money_account.money -= P.credits_cost
 						SSshuttle.shoppinglist += O
 //						P.times_ordered += 1	// Unused for now (Crate limit #3056).
 						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", INVESTIGATE_CARGO)

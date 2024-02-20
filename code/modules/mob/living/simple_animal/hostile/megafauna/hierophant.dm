@@ -804,4 +804,4 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "Heed its words."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT

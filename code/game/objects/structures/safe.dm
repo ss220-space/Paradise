@@ -431,7 +431,7 @@ GLOBAL_LIST_EMPTY(safes)
 		hide(T.intact)
 
 /obj/structure/safe/floor/hide(intact)
-	invisibility = intact ? INVISIBILITY_ABSTRACT : 0
+	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
 
 /**
   * # Safe Internals
