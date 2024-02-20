@@ -478,6 +478,7 @@
 /area/Entered(atom/movable/arrived)
 
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src)
 
 	var/area/newarea
 	var/area/oldarea
@@ -521,6 +522,7 @@
 
 /area/Exited(atom/movable/departed)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
+	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
 
 /area/proc/gravitychange(gravitystate = 0, area/our_area)
 	our_area.has_gravity = gravitystate

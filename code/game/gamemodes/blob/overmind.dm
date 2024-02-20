@@ -89,8 +89,7 @@
 	if(!message)
 		return
 
-	var/verb = "states,"
-	var/rendered = "<font color=\"#008000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
+	var/rendered = "<i><span class='blob[blob_reagent_datum.id]'>Blob Telepathy,</span> <span class='name'>[name](<span class='blob[blob_reagent_datum.id]'>[blob_reagent_datum.name]</span>)</span> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
 
 	for(var/mob/M in GLOB.mob_list)
 		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))

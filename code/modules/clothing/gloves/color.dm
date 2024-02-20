@@ -103,7 +103,7 @@
 	pickpocket = 1
 
 /obj/item/clothing/gloves/color/black/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters))
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
 			var/confirm = alert("Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.","Cut tips?","Yes","No")
 			if(get_dist(user, src) > 1)

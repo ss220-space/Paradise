@@ -145,7 +145,7 @@
 
 
 /datum/species/slime/can_hear(mob/living/carbon/human/user)
-	return !(DEAF in user.mutations) && !HAS_TRAIT(user, TRAIT_DEAF)
+	return !HAS_TRAIT(user, TRAIT_DEAF)
 
 
 /datum/species/slime/get_vision_organ(mob/living/carbon/human/user)

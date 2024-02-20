@@ -469,7 +469,7 @@
 
 	// attempt to stick weapon into light socket
 	if(status == LIGHT_EMPTY)
-		if(istype(W, /obj/item/screwdriver)) //If it's a screwdriver open it.
+		if(W.tool_behaviour == TOOL_SCREWDRIVER) //If it's a screwdriver open it.
 			playsound(loc, W.usesound, W.tool_volume, 1)
 			user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
 				"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")

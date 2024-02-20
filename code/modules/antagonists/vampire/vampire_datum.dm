@@ -180,9 +180,11 @@
 
 
 #define BLOOD_GAINED_MODIFIER 0.5
+
 #define CLOSING_IN_TIME_MOD 0.2
 #define GRABBING_TIME_MOD 0.3
 #define BITE_TIME_MOD 0.15
+
 #define STATE_CLOSING_IN 1
 #define STATE_GRABBING 2
 #define STATE_BITE 3
@@ -291,7 +293,7 @@
 		else
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + (blood / 2)))
 
-	stop_sucking(target)
+	stop_sucking()
 
 
 /datum/antagonist/vampire/proc/getting_closer_animation(mob/living/carbon/human/target, stage, vampire_dir)
@@ -338,12 +340,13 @@
 	owner.current.do_item_attack_animation(target, ATTACK_EFFECT_BITE)
 
 
-/datum/antagonist/vampire/proc/stop_sucking(mob/living/carbon/human/target)
-	draining = null
-	to_chat(owner.current, span_notice("You stop draining [target.name] of blood."))
-	owner.current.pixel_x = 0
-	owner.current.pixel_y = 0
-	owner.current.layer = initial(owner.current.layer)
+/datum/antagonist/vampire/proc/stop_sucking()
+	if(draining)
+		to_chat(owner.current, span_notice("You stop draining [draining.name] of blood."))
+		draining = null
+		owner.current.pixel_x = 0
+		owner.current.pixel_y = 0
+		owner.current.layer = initial(owner.current.layer)
 
 #undef BLOOD_GAINED_MODIFIER
 #undef CLOSING_IN_TIME_MOD

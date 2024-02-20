@@ -81,7 +81,7 @@
 			else
 				to_chat(user, span_warning("You fail to collect anything!"))
 	else
-		if(istype(I, /obj/item/screwdriver))
+		if(I.tool_behaviour == TOOL_SCREWDRIVER)
 			if(BB)
 				if(initial(BB.name) == "bullet")
 					var/tmp_label = ""

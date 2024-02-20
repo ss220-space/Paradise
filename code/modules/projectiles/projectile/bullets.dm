@@ -356,13 +356,13 @@
 	damage_type = TOX
 	weaken = 1 SECONDS
 
-/obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = 0)
+/obj/item/projectile/bullet/neurotoxin/prehit(atom/target)
 	if(isalien(target))
 		weaken = 0
 		nodamage = TRUE
 	if(isobj(target) || issilicon(target) || ismachineperson(target))
 		damage_type = BURN
-	. = ..() // Execute the rest of the code.
+	. = ..()
 
 /obj/item/projectile/bullet/cap
 	name = "cap"

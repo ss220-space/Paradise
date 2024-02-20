@@ -269,7 +269,7 @@
 		new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/minertracker
 	name = "boxed tracking implant kit"
@@ -281,7 +281,7 @@
 		new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/chemimp
 	name = "chemical implant kit"
@@ -647,6 +647,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "matchbox"
+	base_icon_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
@@ -666,15 +667,14 @@
 
 
 /obj/item/storage/box/matches/update_icon_state()
-	. = ..()
 	switch(length(contents))
-		if(10)
+		if(10 to INFINITY)
 			icon_state = base_icon_state
 		if(5 to 9)
 			icon_state = "[base_icon_state]_almostfull"
 		if(1 to 4)
 			icon_state = "[base_icon_state]_almostempty"
-		if(0)
+		else
 			icon_state = "[base_icon_state]_e"
 
 
@@ -861,8 +861,7 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"

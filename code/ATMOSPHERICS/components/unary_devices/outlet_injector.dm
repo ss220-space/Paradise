@@ -162,7 +162,7 @@
 		return*/
 
 /obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, span_danger("You cannot unwrench this [src], turn if off first."))
 			return 1

@@ -454,6 +454,12 @@
 	new /obj/item/grenade/plastic/x4/thermite(src)
 	new /obj/item/storage/pill_bottle/sovietstimulants(src)
 
+/obj/item/storage/belt/military/assault/gammaert/full/populate_contents()
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/melee/classic_baton/telescopic(src)
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."

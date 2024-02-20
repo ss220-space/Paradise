@@ -7,7 +7,7 @@
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the admins"
-	selection_color = "#ffdddd"
+	selection_color = "#6865B3"
 	access = list()
 	minimal_access = list()
 	admin_only = 1
@@ -70,7 +70,7 @@
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the admins"
-	selection_color = "#ffdddd"
+	selection_color = "#6865B3"
 	access = list()
 	minimal_access = list()
 	admin_only = 1

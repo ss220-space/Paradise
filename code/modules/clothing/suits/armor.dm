@@ -542,7 +542,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	hide_tail_by_species = list("Vox", "Vulpkanin")
-	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
 	sprite_sheets = list(
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
