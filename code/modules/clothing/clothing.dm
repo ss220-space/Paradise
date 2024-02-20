@@ -27,7 +27,8 @@
 
 	var/visor_flags = NONE			//flags that are added/removed when an item is adjusted up/down
 	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
-	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
+	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW | VISOR_FULL_HUD
+										//what to toggle when toggled with weldingvisortoggle()
 
 	var/can_toggle = FALSE
 	var/toggle_on_message
@@ -56,7 +57,7 @@
 	if(!can_use(user))
 		return FALSE
 
-	visor_toggling()
+	visor_toggling(user)
 	to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
 	update_equipped_item()
 	return TRUE
@@ -165,6 +166,7 @@
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = FALSE
 	var/prescription_upgradable = FALSE
+	var/over_hat = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
@@ -243,7 +245,7 @@ BLIND     // can't see anything
 	return 0 // return 1 to cancel attack_hand()
 
 /obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters))
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(!clipped)
 			playsound(src.loc, W.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
@@ -432,6 +434,8 @@ BLIND     // can't see anything
 	var/mob/living/carbon/human/H = usr //Used to check if the mask is on the head, to check if the hands are full, and to turn off internals if they were on when the mask was pushed out of the way.
 	if(!can_toggle || user.incapacitated()) //This check allows you to adjust your masks while you're buckled into chairs or beds.
 		return FALSE
+	if(is_obscured_for_unEquip(H))
+		return FALSE
 
 	. = TRUE
 
@@ -441,7 +445,7 @@ BLIND     // can't see anything
 	if(!up)
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
 		permeability_coefficient = initial(permeability_coefficient)
-		to_chat(user, "<span class='notice'>You push \the [src] back into place.</span>")
+		to_chat(user, span_notice("You push \the [src] back into place."))
 		slot_flags = initial(slot_flags)
 		if(flags_inv != initial(flags_inv))
 			if(initial(flags_inv) & HIDENAME) //If the mask is one that hides the face and can be adjusted yet lost that trait when it was adjusted, make it hide the face again.
@@ -452,14 +456,9 @@ BLIND     // can't see anything
 		if(flags_cover != initial(flags_cover))
 			if(initial(flags_cover) & MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
 				flags_cover |= MASKCOVERSMOUTH
-		if(H.head == src && flags_inv == HIDENAME) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
-			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-				user.drop_item_ground(src)
-			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.drop_item_ground(src)
-				user.put_in_hands(src)
+
 	else
-		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
+		to_chat(user, span_notice("You push \the [src] out of the way."))
 		gas_transfer_coefficient = null
 		permeability_coefficient = null
 		if(adjusted_flags)
@@ -475,12 +474,6 @@ BLIND     // can't see anything
 			flags_cover &= ~MASKCOVERSMOUTH
 		if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 			flags &= ~AIRTIGHT
-		if(user.wear_mask == src && initial(flags_inv) == HIDENAME) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
-			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-				user.drop_item_ground(src)
-			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.drop_item_ground(src)
-				user.put_in_hands(src)
 
 	if(H?.wear_mask == src)
 		H.wear_mask_update(src, toggle_off = up)
@@ -488,7 +481,6 @@ BLIND     // can't see anything
 			action.UpdateButtonIcon()
 	else
 		update_equipped_item()
-
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
@@ -540,7 +532,7 @@ BLIND     // can't see anything
 			M.dropped()
 		return
 
-	if(istype(I, /obj/item/wirecutters))
+	if(I.tool_behaviour == TOOL_WIRECUTTER)
 		if(can_cut_open)
 			if(!cut_open)
 				playsound(src.loc, I.usesound, 100, 1)
@@ -602,8 +594,8 @@ BLIND     // can't see anything
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi'
-		//"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Proc that opens and closes jackets.
@@ -811,8 +803,8 @@ BLIND     // can't see anything
 		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		//"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi' - стоки слишком жирные для маленькой одежды
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode

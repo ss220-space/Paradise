@@ -30,10 +30,21 @@
 /obj/item/clothing/mask/balaclava/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/balaclava/adjustmask(user)
+/obj/item/clothing/mask/balaclava/adjustmask(mob/user)
 	. = ..()
-	if(.)
-		flags = up ? NONE : initial(flags)
+	if(!.)
+		return
+	var/mob/living/carbon/human/H = usr
+	if(H.l_hand && H.r_hand)
+		user.drop_item_ground(src)
+	else
+		user.drop_item_ground(src)
+		user.put_in_hands(src)
+
+	if(!up)
+		flags |= BLOCKHAIR
+	else
+		flags &= ~BLOCKHAIR
 
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"

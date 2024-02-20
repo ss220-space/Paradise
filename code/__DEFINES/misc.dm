@@ -1,16 +1,6 @@
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
-//Directions (already defined on BYOND natively, purely here for reference)
-//#define NORTH		1
-//#define SOUTH		2
-//#define EAST		4
-//#define WEST		8
-//#define NORTHEAST	5
-//#define SOUTHEAST 6
-//#define NORTHWEST 9
-//#define SOUTHWEST 10
-
 //Security levels
 #define SEC_LEVEL_GREEN	0
 #define SEC_LEVEL_BLUE	1
@@ -179,39 +169,40 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				43
-#define MUTANTRACE_LAYER		42
-#define WING_UNDERLIMBS_LAYER	41
-#define TAIL_UNDERLIMBS_LAYER	40	//Tail split-rendering.
-#define LIMBS_LAYER				39
-#define INTORGAN_LAYER			38
-#define MARKINGS_LAYER			37
-#define UNDERWEAR_LAYER			36
-#define MUTATIONS_LAYER			35
-#define H_DAMAGE_LAYER			34
-#define UNIFORM_LAYER			33
-#define SHOES_LAYER				32
-#define OVER_SHOES_LAYER		31
-#define ID_LAYER				30
-#define GLOVES_LAYER			29
-#define EARS_LAYER				28
-#define SUIT_LAYER				27
-#define BELT_LAYER				26	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				25
-#define SUIT_STORE_LAYER		24
-#define BACK_LAYER				23
-#define HEAD_ACCESSORY_LAYER	22
-#define FHAIR_LAYER				21
-#define GLASSES_LAYER			20
-#define HAIR_LAYER				19	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		18	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		17	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		16	//Select-layer rendering.
-#define WING_LAYER				15
-#define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			13
-#define OVER_MASK_LAYER			12	//Select-layer rendering.
-#define HEAD_LAYER				11
+#define BODY_LAYER				44
+#define MUTANTRACE_LAYER		43
+#define WING_UNDERLIMBS_LAYER	42
+#define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.
+#define LIMBS_LAYER				40
+#define INTORGAN_LAYER			39
+#define MARKINGS_LAYER			38
+#define UNDERWEAR_LAYER			37
+#define MUTATIONS_LAYER			36
+#define H_DAMAGE_LAYER			35
+#define UNIFORM_LAYER			34
+#define SHOES_LAYER				33
+#define OVER_SHOES_LAYER		32
+#define ID_LAYER				31
+#define GLOVES_LAYER			30
+#define EARS_LAYER				29
+#define SUIT_LAYER				28
+#define BELT_LAYER				27	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				26
+#define SUIT_STORE_LAYER		25
+#define BACK_LAYER				24
+#define HEAD_ACCESSORY_LAYER	23
+#define FHAIR_LAYER				22
+#define GLASSES_LAYER			21
+#define HAIR_LAYER				20	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		19	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		18	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		17	//Select-layer rendering.
+#define WING_LAYER				16
+#define TAIL_LAYER				15	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			14
+#define OVER_MASK_LAYER			13	//Select-layer rendering.
+#define HEAD_LAYER				12
+#define OVER_HEAD_LAYER			11
 #define COLLAR_LAYER			10
 #define HANDCUFF_LAYER			9
 #define LEGCUFF_LAYER			8
@@ -222,7 +213,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS 			43
+#define TOTAL_LAYERS 			44
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -385,7 +376,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 31
+#define SQL_VERSION 33
 
 // Vending machine stuff
 #define CAT_NORMAL 1

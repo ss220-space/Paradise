@@ -1,3 +1,7 @@
+#define UPDATE_TYPE_HACK 1
+#define UPDATE_TYPE_COMPONENTS 2
+
+
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
 	density = TRUE
@@ -15,8 +19,9 @@
 	var/recharge_amount = 100
 	var/recharge_counter = 0
 	var/hackedcheck = FALSE
+	var/componentscheck = FALSE
 	var/obj/item/reagent_containers/beaker = null
-	var/image/icon_beaker = null //cached overlay
+	var/mutable_appearance/icon_beaker //cached overlay
 	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
 	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
 	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
@@ -39,8 +44,8 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
-	RefreshParts()
 	dispensable_reagents = sortAssoc(dispensable_reagents)
+	RefreshParts()
 
 /obj/machinery/chem_dispenser/upgraded/New()
 	..()
@@ -110,8 +115,8 @@
 		recharge_amount *= C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
-			dispensable_reagents |= upgrade_reagents
-			dispensable_reagents = sortAssoc(dispensable_reagents)
+			componentscheck = TRUE
+			update_reagents(UPDATE_TYPE_COMPONENTS)
 	powerefficiency = round(newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/Destroy()
@@ -149,6 +154,7 @@
 	..()
 	if(A == beaker)
 		beaker = null
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -214,6 +220,7 @@
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
 			R.add_reagent(params["reagent"], actual)
+			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			var/amount = text2num(params["amount"])
 			if(!beaker || !amount)
@@ -259,13 +266,10 @@
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
 		add_fingerprint(user)
-		beaker =  I
+		beaker = I
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
-		if(!icon_beaker)
-			icon_beaker = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker") //randomize beaker overlay position.
-		icon_beaker.pixel_x = rand(-10, 5)
-		overlays += icon_beaker
+		update_icon(UPDATE_OVERLAYS)
 		return
 	return ..()
 
@@ -285,19 +289,29 @@
 	return ..()
 
 
+/obj/machinery/chem_dispenser/proc/update_reagents(update_type)
+	switch(update_type)
+		if(UPDATE_TYPE_HACK)
+			if(hackedcheck)
+				dispensable_reagents += hacked_reagents
+			else
+				dispensable_reagents -= hacked_reagents
+		if(UPDATE_TYPE_COMPONENTS)
+			dispensable_reagents |= upgrade_reagents
+
+	dispensable_reagents = sortAssoc(dispensable_reagents)
+
+
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!hackedcheck)
-		to_chat(user, hack_message)
-		dispensable_reagents += hacked_reagents
-		hackedcheck = TRUE
-	else
-		to_chat(user, unhack_message)
-		dispensable_reagents -= hacked_reagents
-		hackedcheck = FALSE
+
+	hackedcheck = !hackedcheck
+	to_chat(user, hackedcheck ? hack_message : unhack_message)
+	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
+
 
 /obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
@@ -332,6 +346,22 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
+
+/obj/machinery/chem_dispenser/update_overlays()
+	. = ..()
+
+	if(!beaker)
+		return
+
+	if(!icon_beaker)
+		icon_beaker = mutable_appearance(icon, "disp_beaker")
+	else
+		cut_overlay(icon_beaker)	// trash overlays system. will be fixed as soon as TG style overlays are implemented
+
+	icon_beaker.pixel_x = rand(-10, 5)	// randomize beaker overlay position
+	. += icon_beaker
+
+
 /obj/machinery/chem_dispenser/soda
 	icon_state = "soda_dispenser"
 	name = "soda fountain"
@@ -342,6 +372,7 @@
 	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
 	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
 	hacked_reagents = list("thirteenloko")
+	var/list/hackedupgrade_reagents = list("zaza")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
 	is_drink = TRUE
@@ -370,6 +401,19 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
+
+/obj/machinery/chem_dispenser/soda/update_reagents(update_type)
+	if(update_type == UPDATE_TYPE_HACK && componentscheck)
+		if(hackedcheck)
+			dispensable_reagents += hackedupgrade_reagents
+		else
+			dispensable_reagents -= hackedupgrade_reagents
+
+	else if(update_type == UPDATE_TYPE_COMPONENTS && hackedcheck)
+		dispensable_reagents += hackedupgrade_reagents
+	..()
+
+
 /obj/machinery/chem_dispenser/beer
 	icon_state = "booze_dispenser"
 	name = "booze dispenser"
@@ -377,7 +421,7 @@
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan")
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
-	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "alcohol_free_beer")
+	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
@@ -625,7 +669,7 @@
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
 	"vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan", "iced_beer",
 	"irishcream", "manhattan", "antihol", "synthignon", "bravebull", "goldschlager", "patron", "absinthe", "ethanol", "nothing",
-	"sake", "bitter", "champagne", "aperol", "alcohol_free_beer")
+	"sake", "bitter", "champagne", "aperol", "noalco_beer")
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"
@@ -652,3 +696,6 @@
 		"ammonia",
 		"ash",
 		"diethylamine")
+
+#undef UPDATE_TYPE_HACK
+#undef UPDATE_TYPE_COMPONENTS

@@ -212,7 +212,7 @@
 			qdel(W)
 			qdel(src)
 			user.put_in_hands(newSaber, ignore_anim = FALSE)
-	else if(istype(W, /obj/item/multitool))
+	else if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(hacked)
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
 			return

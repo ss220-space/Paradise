@@ -252,26 +252,13 @@
 	},
 /area/security/securearmory)
 "acD" = (
-/obj/structure/window/reinforced/polarized{
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos_room"
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "hos_room"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "acE" = (
@@ -434,36 +421,20 @@
 	},
 /area/security/securearmory)
 "adb" = (
-/obj/structure/window/reinforced/polarized{
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos_room"
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	id_tag = "HoSPriv"
 	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "hos_room"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "adg" = (
-/obj/structure/window/reinforced/polarized{
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "hos_room"
-	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -474,33 +445,26 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	id_tag = "HoSPriv"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "hos_room"
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "adh" = (
-/obj/structure/window/reinforced/polarized{
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos_room"
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	id_tag = "HoSPriv"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "hos_room"
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
@@ -512,15 +476,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "hos"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/security/hos)
 "adj" = (
@@ -1021,12 +979,6 @@
 	},
 /area/security/medbay)
 "aey" = (
-/obj/machinery/requests_console{
-	department = "Warden";
-	departmentType = 7;
-	name = "Warden's Requests Console";
-	pixel_x = -30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -1088,11 +1040,6 @@
 	},
 /area/security/hos)
 "aeE" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west fire alarm";
-	pixel_x = -24
-	},
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/rack,
 /obj/item/tank/internals/oxygen,
@@ -1211,12 +1158,8 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light_switch{
 	name = "west light switch";
-	pixel_x = -24
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west fire alarm";
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1652,25 +1595,15 @@
 	},
 /area/security/customs)
 "agt" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos_room"
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "HoSPriv"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "hos_room"
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
@@ -2506,14 +2439,6 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "ajj" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos_room"
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -2524,9 +2449,11 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "HoSPriv"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "hos_room"
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
@@ -2627,9 +2554,9 @@
 /obj/item/stock_parts/cell/high/plus,
 /obj/effect/decal/warning_stripes/east,
 /obj/item/clothing/glasses/welding,
-/obj/item/radio/intercom/department/security{
-	name = "west station intercom (Security)";
-	pixel_x = -28
+/obj/machinery/firealarm{
+	name = "north fire alarm";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/security/podbay)
@@ -2998,21 +2925,12 @@
 	},
 /area/security/brig)
 "akt" = (
-/obj/structure/window/reinforced/polarized{
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos_room"
-	},
 /obj/structure/cable,
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "HoSPriv"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "hos_room"
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
@@ -3067,6 +2985,10 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/effect/decal/warning_stripes/east,
+/obj/item/radio/intercom/department/security{
+	name = "west station intercom (Security)";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel,
 /area/security/podbay)
 "akz" = (
@@ -3144,19 +3066,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "hos"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "hos"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/security/hos)
 "akK" = (
@@ -3187,26 +3099,13 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "akN" = (
-/obj/structure/window/reinforced/polarized{
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos_room"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos_room"
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "hos_room"
+	},
 /turf/simulated/floor/plating,
 /area/security/hos)
 "akO" = (
@@ -3560,18 +3459,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "hos"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/security/hos)
 "alD" = (
@@ -4616,19 +4506,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "hos"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "hos"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/security/hos)
 "aog" = (
@@ -5027,15 +4907,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "hos"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/security/hos)
 "aoR" = (
@@ -5172,7 +5046,8 @@
 /obj/item/pen,
 /obj/item/radio/intercom{
 	name = "west station intercom (General)";
-	pixel_x = -28
+	pixel_x = -28;
+	pixel_y = 5
 	},
 /obj/item/radio/intercom/department/security{
 	name = "custom station intercom (Security)";
@@ -5306,10 +5181,6 @@
 "apA" = (
 /obj/machinery/vending/coffee,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
 	},
@@ -5341,6 +5212,10 @@
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
+	},
+/obj/machinery/light_switch{
+	name = "east light switch";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -5407,18 +5282,9 @@
 /area/security/prisonershuttle)
 "apQ" = (
 /obj/structure/cable,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "hos"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "hos"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "hos"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/security/hos)
 "apR" = (
@@ -12242,22 +12108,6 @@
 "aFJ" = (
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/dorms)
-"aFK" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "holodeck"
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "aFL" = (
 /turf/simulated/wall/r_wall,
 /area/security/evidence)
@@ -13079,6 +12929,10 @@
 /area/security/detectives_office)
 "aIe" = (
 /obj/item/flag/clown,
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28
+	},
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "aIf" = (
@@ -13173,10 +13027,6 @@
 /obj/effect/landmark/start/civilian,
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
@@ -14045,6 +13895,10 @@
 "aKI" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -24
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
@@ -15190,17 +15044,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
-"aOh" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "aOj" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -17223,6 +17066,10 @@
 /area/medical/reception)
 "aTT" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/wallmed{
+	name = "West Emergency NanoMed";
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -20261,6 +20108,10 @@
 /area/medical/morgue)
 "bbB" = (
 /obj/item/flag/mime,
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -21023,10 +20874,6 @@
 /area/hallway/secondary/entry)
 "bdo" = (
 /obj/structure/closet/secure_closet/clown,
-/obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = -28
-	},
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "bdq" = (
@@ -21052,10 +20899,6 @@
 /area/clownoffice)
 "bds" = (
 /obj/structure/closet/secure_closet/mime,
-/obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = -28
-	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -26516,12 +26359,6 @@
 /obj/machinery/vending/chinese,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
-"bpR" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/carpet,
-/area/crew_quarters/mrchangs)
 "bpS" = (
 /obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
@@ -26793,6 +26630,10 @@
 "bqD" = (
 /obj/structure/table/wood,
 /obj/machinery/fishtank/bowl,
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28
+	},
 /turf/simulated/floor/wood,
 /area/civilian/pet_store)
 "bqE" = (
@@ -27547,10 +27388,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bsQ" = (
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -27878,14 +27715,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/library)
-"btX" = (
-/obj/structure/extinguisher_cabinet{
-	name = "south extinguisher cabinet";
-	pixel_y = -30
-	},
-/obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/starboard/west)
 "btY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -28216,7 +28045,7 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
@@ -31477,10 +31306,6 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/machinery/vending/wallmed{
-	name = "West Emergency NanoMed";
-	pixel_x = -25
-	},
 /obj/item/roller,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -33145,6 +32970,11 @@
 /area/medical/morgue)
 "bHG" = (
 /obj/structure/filingcabinet/chestdrawer/autopsy,
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south fire alarm";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33168,15 +32998,13 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bHJ" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south fire alarm";
-	pixel_y = -24
+/obj/machinery/suit_storage_unit/atmos,
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/morgue)
+/turf/simulated/floor/plasteel,
+/area/atmos)
 "bHK" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start/coroner,
@@ -34842,6 +34670,10 @@
 "bMb" = (
 /obj/machinery/light,
 /obj/effect/decal/warning_stripes/south,
+/obj/item/radio/intercom{
+	name = "south station intercom (General)";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bMg" = (
@@ -38114,7 +37946,6 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
 "bTC" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
 	icon_state = "shock";
@@ -38125,7 +37956,6 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 8;
@@ -38134,6 +37964,12 @@
 	name = "Privacy Shutters";
 	opacity = 0
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads)
 "bTE" = (
@@ -39877,10 +39713,6 @@
 	},
 /area/medical/sleeper)
 "bXF" = (
-/obj/machinery/light_switch{
-	name = "west light switch";
-	pixel_x = -24
-	},
 /obj/machinery/sleeper{
 	dir = 4
 	},
@@ -42580,6 +42412,10 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
+/obj/machinery/firealarm{
+	name = "north fire alarm";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server)
 "ccW" = (
@@ -43477,9 +43313,6 @@
 /area/hallway/primary/central/se)
 "cfC" = (
 /obj/structure/table/glass,
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -43576,6 +43409,10 @@
 "cfL" = (
 /obj/structure/table/glass,
 /obj/item/storage/toolbox/surgery,
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -43750,13 +43587,6 @@
 	icon_state = "dark"
 	},
 /area/medical/cmo)
-"cfY" = (
-/obj/item/radio/intercom/department/security{
-	name = "north station intercom (Security)";
-	pixel_y = 25
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "cfZ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -44414,20 +44244,12 @@
 	},
 /area/medical/medbreak)
 "chE" = (
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
 /area/medical/cmo)
 "chF" = (
-/obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = -28
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box/gloves{
 	pixel_x = 3;
@@ -45319,11 +45141,6 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "cjJ" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south fire alarm";
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
@@ -46203,9 +46020,9 @@
 "cmh" = (
 /obj/structure/closet/secure_closet/ntrep,
 /obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
+	dir = 1;
+	name = "south fire alarm";
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -46579,10 +46396,6 @@
 "cnB" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/item/radio/intercom{
-	name = "north station intercom (General)";
-	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -49094,13 +48907,13 @@
 	},
 /area/medical/virology/lab)
 "cur" = (
-/obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = -28
-	},
 /obj/structure/closet/l3closet,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/warning_stripes/southwest,
+/obj/item/radio/intercom{
+	name = "south station intercom (General)";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -49113,6 +48926,10 @@
 	on = 1
 	},
 /obj/effect/decal/warning_stripes/southeast,
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -52265,10 +52082,6 @@
 	},
 /area/toxins/misc_lab)
 "cCp" = (
-/obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = -28
-	},
 /obj/structure/dispenser,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -53576,19 +53389,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "ceoffice"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "ceoffice"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "ceoffice"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cFD" = (
@@ -54329,15 +54132,9 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "ceoffice"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "ceoffice"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cHb" = (
@@ -54374,7 +54171,7 @@
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat/corgi,
 /obj/item/reagent_containers/food/snacks/meat/corgi,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/item/kitchen/knife,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
@@ -54414,19 +54211,9 @@
 /area/hallway/primary/aft)
 "cHk" = (
 /obj/structure/cable/yellow,
-/obj/structure/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "ceoffice"
 	},
-/obj/structure/window/reinforced/polarized,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "ceoffice"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "ceoffice"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cHl" = (
@@ -54760,6 +54547,10 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cHW" = (
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -54980,18 +54771,9 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow,
-/obj/structure/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "ceoffice"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "ceoffice"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "ceoffice"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cIx" = (
@@ -55028,18 +54810,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "ceoffice"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "ceoffice"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "ceoffice"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cIz" = (
@@ -59147,15 +58920,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "ceoffice"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "ceoffice"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cRK" = (
@@ -59751,12 +59518,14 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cSX" = (
-/obj/structure/chair/wood,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/extinguisher_cabinet{
+	name = "east extinguisher cabinet";
+	pixel_x = 27
 	},
-/turf/simulated/floor/carpet,
-/area/crew_quarters/mrchangs)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/gateway)
 "cSZ" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -61288,22 +61057,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "ceoffice"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "ceoffice"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "ceoffice"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "ceoffice"
-	},
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cVV" = (
@@ -64233,10 +63989,10 @@
 /turf/space,
 /area/solar/starboard)
 "ddC" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
+/obj/structure/transit_tube/junction{
+	dir = 4
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space)
 "ddD" = (
@@ -65020,9 +64776,9 @@
 	name = "north fire alarm";
 	pixel_y = 24
 	},
-/obj/structure/transit_tube{
-	dir = 4;
-	icon_state = "Block"
+/obj/structure/transit_tube/station,
+/obj/structure/transit_tube_pod{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -65041,6 +64797,9 @@
 	name = "north station intercom (General)";
 	pixel_y = 28
 	},
+/obj/structure/transit_tube/cap{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -65048,7 +64807,7 @@
 /area/maintenance/atmospherics)
 "dfD" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "dfE" = (
@@ -65056,10 +64815,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/transit_tube/station,
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65364,11 +65120,6 @@
 	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mug,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/structure/cable,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -65543,6 +65294,12 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 26
+	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "dhr" = (
@@ -66617,10 +66374,6 @@
 /obj/machinery/camera{
 	c_tag = "Central Hallway North-West"
 	},
-/obj/structure/extinguisher_cabinet{
-	name = "north extinguisher cabinet";
-	pixel_y = 30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bluecorner"
@@ -66629,6 +66382,10 @@
 "djZ" = (
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north extinguisher cabinet";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -66679,10 +66436,6 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
@@ -66919,10 +66672,6 @@
 	dir = 8
 	},
 /obj/effect/landmark/join_late_cyborg,
-/obj/item/radio/intercom{
-	name = "west station intercom (General)";
-	pixel_x = -28
-	},
 /obj/machinery/computer/cryopod/robot{
 	pixel_x = -30;
 	pixel_y = 30
@@ -67794,12 +67543,13 @@
 	},
 /area/aisat)
 "dmW" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
+/obj/structure/lattice,
 /turf/space,
 /area/space)
 "dmX" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
+/obj/structure/transit_tube/junction{
+	dir = 8
 	},
 /obj/structure/lattice,
 /turf/space,
@@ -67821,12 +67571,12 @@
 	},
 /area/turret_protected/ai)
 "dmZ" = (
-/obj/structure/transit_tube,
 /obj/effect/spawner/window/reinforced,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dna" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dnb" = (
@@ -67923,9 +67673,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dno" = (
-/obj/structure/transit_tube{
-	dir = 8;
-	icon_state = "Block"
+/obj/structure/transit_tube/cap{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
@@ -68682,6 +68431,9 @@
 	pixel_x = -24
 	},
 /obj/machinery/portable_atmospherics/canister/air,
+/obj/item/radio/intercom{
+	pixel_y = 23
+	},
 /turf/simulated/floor/plating,
 /area/aisat/atmospherics)
 "dpD" = (
@@ -68739,6 +68491,9 @@
 	},
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/clothing/head/welding,
+/obj/item/radio/intercom{
+	pixel_y = 23
+	},
 /turf/simulated/floor/plating,
 /area/aisat/maintenance)
 "dpM" = (
@@ -69013,15 +68768,16 @@
 	pixel_y = 7
 	},
 /obj/item/pen/multi,
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
 	},
 /area/turret_protected/ai)
 "drq" = (
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
 /obj/structure/chair{
 	dir = 8
 	},
@@ -69959,17 +69715,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/security/range)
-"dVs" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "dVu" = (
 /obj/structure/table,
 /obj/machinery/alarm{
@@ -70996,36 +70741,16 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "eZr" = (
-/obj/structure/window/reinforced/polarized{
-	id = "holodeck"
+/obj/structure/chair{
+	dir = 8
 	},
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
+/obj/effect/landmark/start/security_officer,
+/obj/item/radio/intercom/department/security{
+	name = "north station intercom (Security)";
+	pixel_y = 25
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
-"eZu" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "eZH" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -71034,21 +70759,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/launch)
-"eZP" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "fba" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -71900,20 +71610,15 @@
 	},
 /area/security/brig)
 "fVD" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
+/obj/machinery/light/small{
+	dir = 4
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	id = "holodeck"
+/obj/item/radio/intercom{
+	name = "east station intercom (General)";
+	pixel_x = 28
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
+/area/maintenance/genetics)
 "fWY" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -73785,17 +73490,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/cafeteria)
 "ibg" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
+/obj/machinery/light_switch{
+	name = "south light switch";
+	pixel_y = -24
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
 	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
+/area/medical/sleeper)
 "ibv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -74460,22 +74162,6 @@
 	},
 /turf/simulated/floor/carpet/purple,
 /area/maintenance/server)
-"iOx" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "iPr" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -74566,22 +74252,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"iZs" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "iZN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -75010,6 +74680,13 @@
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"jvb" = (
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "jvC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -75651,21 +75328,6 @@
 	icon_state = "dark"
 	},
 /area/security/warden)
-"kjf" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "kjl" = (
 /obj/machinery/door_control{
 	id = "maint_house";
@@ -75712,6 +75374,10 @@
 	pixel_y = -30
 	},
 /obj/machinery/papershredder,
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -76135,7 +75801,7 @@
 /area/medical/cloning)
 "kIR" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/space,
 /area/space)
 "kJr" = (
@@ -76546,6 +76212,13 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"lll" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "llO" = (
 /obj/item/radio/intercom{
 	name = "north station intercom (General)";
@@ -79110,18 +78783,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/launch)
-"nYU" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "nZS" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -79307,18 +78968,6 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
-"ooN" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "ooS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79579,10 +79228,6 @@
 	},
 /area/hydroponics)
 "oHW" = (
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
-	},
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12;
@@ -80416,7 +80061,8 @@
 /obj/machinery/computer/crew,
 /obj/item/radio/intercom{
 	name = "east station intercom (General)";
-	pixel_x = 28
+	pixel_x = 28;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -81896,6 +81542,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"qYV" = (
+/obj/structure/transit_tube/crossing/horizontal,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space)
 "qZx" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
@@ -82137,21 +81788,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/storage/secure)
-"rmc" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "holodeck"
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "rmn" = (
 /obj/structure/closet/secure_closet/cargotech,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -82384,6 +82020,16 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/requests_console{
+	department = "Warden";
+	departmentType = 7;
+	name = "Warden's Requests Console";
+	pixel_x = -30
+	},
+/obj/machinery/firealarm{
+	name = "north fire alarm";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -82470,22 +82116,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
-"rFJ" = (
-/obj/structure/cable/yellow,
-/obj/structure/window/reinforced/polarized{
-	id = "ceoffice"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "ceoffice"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "ceoffice"
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/engine/chiefs_office)
 "rGg" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -82517,7 +82147,8 @@
 "rIF" = (
 /obj/item/radio/intercom{
 	name = "east station intercom (General)";
-	pixel_x = 28
+	pixel_x = 28;
+	pixel_y = 5
 	},
 /obj/machinery/flasher{
 	id = "brigmedflash";
@@ -83033,6 +82664,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
+"spb" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 8
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "sqy" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -84354,6 +83992,13 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/engine,
 /area/engine/mechanic_workshop)
+"tGW" = (
+/obj/structure/transit_tube/curved{
+	dir = 8
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "tHc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -85104,22 +84749,6 @@
 /obj/item/toy/figure/assistant,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
-"uND" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "holodeck"
-	},
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "holodeck"
-	},
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
 "uOI" = (
 /obj/structure/door_assembly/door_assembly_research{
 	anchored = 1
@@ -86189,6 +85818,10 @@
 /obj/machinery/vending/snack,
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "escape"
@@ -86864,16 +86497,6 @@
 "wtL" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/xenozoo)
-"wuv" = (
-/obj/machinery/light_switch{
-	name = "east light switch";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "escape"
-	},
-/area/security/customs2)
 "wvx" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/laser/practice,
@@ -87446,10 +87069,6 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/south,
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "xcT" = (
@@ -87564,6 +87183,9 @@
 "xfY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
@@ -88462,16 +88084,7 @@
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "yjM" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "holodeck"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
+/obj/effect/spawner/window/reinforced/polarized{
 	id = "holodeck"
 	},
 /turf/simulated/floor/plating,
@@ -113573,7 +113186,7 @@ aUF
 bfe
 bhP
 bmk
-aUF
+cSX
 cZa
 aSA
 djW
@@ -118008,7 +117621,7 @@ cRR
 cTg
 cFC
 cHa
-rFJ
+cHk
 cRR
 cRR
 cZP
@@ -118969,8 +118582,8 @@ aRx
 bdN
 bgT
 biR
-bpR
-cSX
+boU
+cUi
 dgH
 aDN
 bhq
@@ -119187,7 +118800,7 @@ acy
 aiv
 xzR
 asn
-wuv
+amJ
 amJ
 aoD
 apE
@@ -120830,7 +120443,7 @@ cJE
 cLJ
 cGK
 cTh
-cTh
+bHJ
 cSb
 cTh
 cCp
@@ -122328,7 +121941,7 @@ bxx
 djh
 bAh
 bHy
-bAk
+bCZ
 bEp
 aTT
 bCW
@@ -122525,7 +122138,7 @@ vZX
 nCT
 qFz
 wxU
-cfY
+aoJ
 adY
 amm
 amN
@@ -122782,7 +122395,7 @@ ags
 lio
 qOo
 wxU
-alF
+eZr
 alF
 alF
 amQ
@@ -122914,9 +122527,9 @@ dkT
 cQZ
 doE
 lTl
-lTl
+uTI
 dmX
-lTl
+uTI
 lTl
 uTI
 uTI
@@ -123099,7 +122712,7 @@ bJQ
 eWm
 bAk
 bHy
-btX
+buW
 bEp
 aTU
 bDf
@@ -123171,9 +122784,9 @@ cQZ
 cQZ
 doE
 lTl
-uTI
-dmW
-uTI
+lll
+lTl
+jvb
 lTl
 uTI
 uTI
@@ -123427,11 +123040,11 @@ dkV
 dkV
 cQZ
 doE
-lTl
-uTI
-dmW
-uTI
-lTl
+doE
+qYV
+doE
+qYV
+doE
 uTI
 uTI
 uTI
@@ -123631,7 +123244,7 @@ caA
 caA
 bXJ
 bZk
-ccu
+ibg
 caA
 cfA
 chl
@@ -123685,10 +123298,10 @@ dlx
 cQZ
 doE
 lTl
-uTI
-dmW
-uTI
+tGW
 lTl
+spb
+doE
 uTI
 uTI
 iUc
@@ -123941,10 +123554,10 @@ dkV
 dkV
 cQZ
 doE
-doE
-doE
+uTI
+uTI
 ddC
-doE
+uTI
 ddM
 ddO
 kIR
@@ -126400,17 +126013,17 @@ awH
 ayg
 awF
 awl
-eZu
-ooN
-eZP
+yjM
+yjM
+yjM
 xyo
-eZu
-eZr
+yjM
+yjM
 xyo
-iOx
-ibg
-ibg
-dVs
+yjM
+yjM
+yjM
+yjM
 aPk
 aVw
 aVP
@@ -126667,7 +126280,7 @@ sHt
 sHt
 sHt
 sHt
-aOh
+yjM
 xVt
 aPm
 aSM
@@ -126924,7 +126537,7 @@ sHt
 sHt
 sHt
 sHt
-aOh
+yjM
 xVt
 pWb
 aNQ
@@ -127181,7 +126794,7 @@ pwU
 sHt
 sHt
 sHt
-kjf
+yjM
 aBm
 aPm
 aSM
@@ -127472,7 +127085,7 @@ bAk
 bEu
 aYo
 bLj
-bHJ
+aZT
 bEu
 bMY
 bOV
@@ -127942,12 +127555,12 @@ ylx
 ylx
 ylx
 atG
-iZs
+yjM
 yjM
 aOI
 xyo
-uND
-fVD
+yjM
+yjM
 xyo
 aOI
 aOI
@@ -128716,9 +128329,9 @@ uTI
 uTI
 uTI
 aOI
-aFK
-nYU
-rmc
+yjM
+yjM
+yjM
 aOI
 aOI
 aIF
@@ -130315,7 +129928,7 @@ bXQ
 caY
 bWg
 ceq
-cfZ
+fVD
 chG
 ciZ
 cga

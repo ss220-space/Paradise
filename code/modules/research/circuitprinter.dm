@@ -95,7 +95,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return
 
 	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
+		if(O.tool_behaviour == TOOL_CROWBAR)
 			for(var/obj/I in component_parts)
 				if(istype(I, /obj/item/reagent_containers/glass/beaker))
 					reagents.trans_to(I, reagents.total_volume)

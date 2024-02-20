@@ -229,7 +229,7 @@
 		add_fingerprint(user)
 		return
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
+		if(I.tool_behaviour == TOOL_CROWBAR)
 			remove_id() //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			default_deconstruction_crowbar(user, I)
 		return TRUE

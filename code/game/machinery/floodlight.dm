@@ -95,7 +95,7 @@
 		updateicon()
 
 /obj/machinery/floodlight/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		if(!anchored && !isinspace())
 			playsound(loc, W.usesound, 50, 1)
@@ -113,7 +113,7 @@
 			anchored = FALSE
 		updateicon()
 		return
-	if(istype(W, /obj/item/screwdriver))
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		add_fingerprint(user)
 		if(!open)
 			if(unlocked)
@@ -124,7 +124,7 @@
 				to_chat(user, "You unscrew the battery panel.")
 		updateicon()
 		return
-	if(istype(W, /obj/item/crowbar))
+	if(W.tool_behaviour == TOOL_CROWBAR)
 		add_fingerprint(user)
 		if(unlocked)
 			if(open)

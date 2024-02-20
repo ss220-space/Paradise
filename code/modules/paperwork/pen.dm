@@ -82,7 +82,7 @@
 
 /obj/item/pen/multi/update_overlays()
 	. = ..()
-	var/icon/color_overlay = new(icon, pen_color_shift)
+	var/icon/color_overlay = new(icon, pen_color_iconstate)
 	var/list/colors = colour_choices[colour]
 	color_overlay.SetIntensity(colors[1], colors[2], colors[3])
 	if(pen_color_shift)

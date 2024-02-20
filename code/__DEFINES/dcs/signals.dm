@@ -226,6 +226,10 @@
 #define COMSIG_AREA_ENTERED "area_entered"
 ///from base of area/Exited(): (atom/movable/M)
 #define COMSIG_AREA_EXITED "area_exited"
+///from base of area/Entered(): (atom/movable/M)
+#define COMSIG_ATOM_ENTERED_AREA "atom_entered_area"
+///from base of area/Exited(): (atom/movable/M)
+#define COMSIG_ATOM_EXITED_AREA "atom_exited_area"
 
 // /turf signals
 

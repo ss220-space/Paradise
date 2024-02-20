@@ -189,7 +189,7 @@
 /turf/simulated/floor/engine/attackby(obj/item/C, mob/user, params)
 	if(!C || !user)
 		return
-	if(istype(C, /obj/item/wrench))
+	if(C.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You begin removing rods..."))
 		playsound(src, C.usesound, 80, 1)
 		if(do_after(user, 30 * C.toolspeed * gettoolspeedmod(user), target = src))

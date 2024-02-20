@@ -93,7 +93,7 @@
 	if(T.intact)
 		return		// prevent intraction when T-scanner revealed
 
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		add_fingerprint(user)
 		open = !open
 
@@ -220,8 +220,8 @@ Transponder Codes:<UL>"}
 
 
 /obj/machinery/navbeacon/invisible
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/navbeacon/invisible/hide(intact)
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 	updateicon()

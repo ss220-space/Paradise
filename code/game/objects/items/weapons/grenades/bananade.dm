@@ -45,7 +45,7 @@
 			qdel(I)
 		else
 			to_chat(usr, "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>")
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(fillamt)
 			var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade(drop_location())
 			if(!remove_item_from_storage(user))

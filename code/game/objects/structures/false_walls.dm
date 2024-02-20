@@ -94,7 +94,7 @@
 		do_the_flick()
 		density = TRUE
 		sleep(0.4 SECONDS)
-		set_opacity(FALSE)
+		set_opacity(TRUE)
 	air_update_turf(TRUE)
 	opening = FALSE
 	update_icon(UPDATE_ICON_STATE)
@@ -135,7 +135,7 @@
 		if(T.density)
 			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
 			return
-		if(istype(W, /obj/item/screwdriver))
+		if(W.tool_behaviour == TOOL_SCREWDRIVER)
 			if(!istype(T, /turf/simulated/floor))
 				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
 				return
