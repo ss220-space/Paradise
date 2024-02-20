@@ -69,6 +69,8 @@
 /obj/effect/proc_holder/spell/summon_sword/cast(targets, mob/user = usr)
 	var/obj/item/sword
 	for(var/obj/item/I in view(user))
+		if(istype(I, /obj/item/twohanded/dualsaber/toy))
+			continue
 		if(is_type_in_list(I, list(/obj/item/melee/energy/sword, /obj/item/twohanded/dualsaber)))
 			sword = I
 			break

@@ -282,7 +282,10 @@
 		set_light(0)
 
 
-/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user, def_zone, delimb_chance)
+/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user, def_zone, delimb_chance, skip = FALSE)
+	if(skip) //if we come from /obj/item/twohanded/dualsaber/toy
+		return ..()
+
 	force = active ? force_wielded : initial(force)
 
 	var/datum/martial_art/theforce/MA = user?.mind?.martial_art
@@ -312,7 +315,10 @@
 	return FALSE
 
 
-/obj/item/twohanded/dualsaber/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/twohanded/dualsaber/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, speed, skip = FALSE)
+	if(skip) //if we come from /obj/item/twohanded/dualsaber/toy
+		return ..()
+
 	var/datum/martial_art/theforce/MA = throwingdatum?.thrower?.mind?.martial_art
 	if(istype(MA) && active)
 		throwingdatum.delimb_chance = MA.throw_sword_delimb_chance
