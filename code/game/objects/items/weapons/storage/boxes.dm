@@ -1062,6 +1062,19 @@
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
 
+/obj/item/storage/box/random_syndi
+	icon_state = "box_of_doom"
+
+/obj/item/storage/box/random_syndi/New()
+	var/list/items = GLOB.uplink_items.Copy()
+	while(contents.len < 3)
+		var/datum/uplink_item/item = pick_n_take(items)
+		if(istype(item, /datum/uplink_item/racial) || item.hijack_only || item.cost > 20)
+			continue
+		var/obj/item_to_box = new item.item
+		item_to_box.forceMove(src)
+	. = ..()
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI
