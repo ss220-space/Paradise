@@ -863,8 +863,8 @@
 		if(!istype(rem_language))
 			return FALSE
 
-	. = (L in languages)
-	languages.Remove(L)
+	. = (rem_language in languages)
+	languages.Remove(rem_language)
 
 
 /mob/living/remove_language(language_name)
@@ -874,7 +874,7 @@
 		if(!istype(rem_language))
 			return FALSE
 
-	if(default_language == L)
+	if(default_language == rem_language)
 		default_language = null
 	return ..()
 
