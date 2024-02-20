@@ -40,11 +40,11 @@
 
 	init_datum_subtypes(/datum/job, GLOB.joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
-	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "key")
+	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
 
 	// Setup languages
-	for(var/language_key in GLOB.all_languages)
-		var/datum/language/language = GLOB.all_languages[language_key]
+	for(var/language_name in GLOB.all_languages)
+		var/datum/language/language = GLOB.all_languages[language_name]
 		if(!(language.flags & NONGLOBAL))
 			GLOB.language_keys[":[lowertext(language.key)]"] = language
 			GLOB.language_keys[".[lowertext(language.key)]"] = language

@@ -341,7 +341,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(species == "Grey")
 				dat += "<b>Wingdings:</b> Set in disabilities<br>"
 				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
-			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[(language in GLOB.all_languages) ? GLOB.all_languages[language] : "None"]</a><br>"
+			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			if(S.autohiss_basic_map)
 				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == AUTOHISS_FULL ? "Full" : (autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
 			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
@@ -1628,7 +1628,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					speciesprefs = !speciesprefs //Starts 0, so if someone clicks the button up top there, this won't be 0 anymore. If they click it again, it'll go back to 0.
 				if("language")
 //						var/languages_available
-					var/list/new_languages = list("None" = "None")
+					var/list/new_languages = list("None")
 /*
 					if(CONFIG_GET(flag/usealienwhitelist))
 						for(var/L in GLOB.all_languages)
@@ -1641,18 +1641,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							alert(user, "There are not currently any available secondary languages.")
 					else
 */
-					for(var/language_key in GLOB.all_languages)
-						var/datum/language/lang = GLOB.all_languages[language_key]
+					for(var/language_name in GLOB.all_languages)
+						var/datum/language/lang = GLOB.all_languages[language_name]
 						if(lang.flags & UNIQUE)
-							if(language_key in S.secondary_langs)
-								new_languages[lang] += language_key
+							if(language_name in S.secondary_langs)
+								new_languages += language_name
 						else if(!(lang.flags & RESTRICTED))
-							new_languages[lang] += language_key
+							new_languages += language_name
 
 					var/new_language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortTim(new_languages, cmp = /proc/cmp_text_asc))
 					if(!new_language)
 						return
-					language = new_languages[new_language]
+					language = new_language
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
@@ -2617,6 +2617,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			real_name += " [character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
 		else if(firstspace == name_length)
 			real_name += "[character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+
 
 	character.add_language(language)
 

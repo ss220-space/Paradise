@@ -546,7 +546,7 @@
 	syllables = list("sss","sSs","SSS")
 
 /datum/language/xenos
-	name = "Hivemind"
+	name = "Xenomorph Hivemind"
 	desc = "Xenomorphs have the strange ability to commune over a psychic hivemind."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
@@ -569,7 +569,7 @@
 
 
 /datum/language/ling
-	name = "Changeling"
+	name = "Changeling Hivemind"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
 	speech_verb = "says"
 	colour = "changeling"
@@ -586,7 +586,7 @@
 		..(speaker,message)
 
 /datum/language/eventling
-	name = "Infiltrated changeling"
+	name = "Infiltrated Changeling Hivemind"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
 	speech_verb = "says"
 	colour = "changeling"
@@ -760,75 +760,6 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
-// Language handling.
-/mob/proc/add_language(language_key)
-	var/datum/language/new_language = GLOB.all_languages[language_key]
-
-	if(!istype(new_language) || (new_language in languages))
-		return FALSE
-
-	languages |= new_language
-	return TRUE
-
-/mob/proc/remove_language(language_key)
-	var/datum/language/L = GLOB.all_languages[language_key]
-	. = (L in languages)
-	languages.Remove(L)
-
-/mob/living/remove_language(language_key)
-	var/datum/language/L = GLOB.all_languages[language_key]
-	if(default_language == L)
-		default_language = null
-	return ..()
-
-// Can we speak this language, as opposed to just understanding it?
-/mob/proc/can_speak_language(datum/language/speaking)
-	return universal_speak || (speaking && speaking.flags & INNATE) || (speaking in languages)
-
-//TBD
-/mob/proc/check_lang_data()
-	. = ""
-
-	for(var/datum/language/L in languages)
-		if(!(L.flags & NONGLOBAL))
-			. += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br><br>"
-
-/mob/living/check_lang_data()
-	. = ""
-
-	if(default_language)
-		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
-
-	for(var/datum/language/L in languages)
-		if(!(L.flags & NONGLOBAL))
-			if(L == default_language)
-				. += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br>[L.desc]<br><br>"
-			else
-				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L.key]\">set default</a><br>[L.desc]<br><br>"
-
-/mob/verb/check_languages()
-	set name = "Check Known Languages"
-	set category = "IC"
-	set src = usr
-
-	var/datum/browser/popup = new(src, "checklanguage", "Known Languages", 420, 470)
-	popup.set_content(check_lang_data())
-	popup.open()
-
-/mob/living/Topic(href, href_list)
-	. = ..()
-	if(.)
-		return TRUE
-	if(href_list["default_lang"])
-		if(href_list["default_lang"] == "reset")
-			set_default_language(null)
-		else
-			var/datum/language/L = GLOB.all_languages[href_list["default_lang"]]
-			if(L)
-				set_default_language(L)
-		check_languages()
-		return TRUE
-
 /datum/language/human/monkey
 	name = "Chimpanzee"
 	desc = "Ook ook ook."
@@ -857,6 +788,86 @@
 	desc = "Bark bark bark."
 	key = "wo"
 
+
+// Can we speak this language, as opposed to just understanding it?
+/mob/proc/can_speak_language(datum/language/speaking)
+	return universal_speak || (speaking && speaking.flags & INNATE) || (speaking in languages)
+
+
+//TBD
+/mob/proc/check_lang_data()
+	. = ""
+
+	for(var/datum/language/L in languages)
+		if(!(L.flags & NONGLOBAL))
+			. += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br><br>"
+
+
+/mob/living/check_lang_data()
+	. = ""
+
+	if(default_language)
+		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
+
+	for(var/datum/language/L in languages)
+		if(!(L.flags & NONGLOBAL))
+			if(L == default_language)
+				. += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br>[L.desc]<br><br>"
+			else
+				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L.key]\">set default</a><br>[L.desc]<br><br>"
+
+
+/mob/verb/check_languages()
+	set name = "Check Known Languages"
+	set category = "IC"
+	set src = usr
+
+	var/datum/browser/popup = new(src, "checklanguage", "Known Languages", 420, 470)
+	popup.set_content(check_lang_data())
+	popup.open()
+
+
+/mob/living/Topic(href, href_list)
+	. = ..()
+	if(.)
+		return TRUE
+	if(href_list["default_lang"])
+		if(href_list["default_lang"] == "reset")
+			set_default_language(null)
+		else
+			var/datum/language/L = GLOB.all_languages[href_list["default_lang"]]
+			if(L)
+				set_default_language(L)
+		check_languages()
+		return TRUE
+
+
+// Language handling.
+/mob/proc/add_language(language_name)
+	var/datum/language/new_language = GLOB.all_languages[language_name]
+	if(new_language in languages)
+		return FALSE
+	if(!istype(new_language))
+		new_language = GLOB.all_languages[convert_lang_key_to_name(language_name)]
+		return FALSE
+
+	languages |= new_language
+	return TRUE
+
+
+/mob/proc/remove_language(language_name)
+	var/datum/language/L = GLOB.all_languages[language_name]
+	. = (L in languages)
+	languages.Remove(L)
+
+
+/mob/living/remove_language(language_name)
+	var/datum/language/L = GLOB.all_languages[language_name]
+	if(default_language == L)
+		default_language = null
+	return ..()
+
+
 /mob/proc/grant_all_babel_languages()
 	for(var/la in GLOB.all_languages)
 		var/datum/language/new_language = GLOB.all_languages[la]
@@ -864,8 +875,19 @@
 			continue
 		languages |= new_language
 
+
 /mob/proc/grant_all_languages()
 	for(var/la in GLOB.all_languages)
 		add_language(la)
+
+
+/proc/convert_lang_key_to_name(language_key)
+	var/static/list/language_keys_and_names = list()
+	if(!language_keys_and_names.len)
+		for(var/language_name in GLOB.all_languages)
+			var/datum/language/language = GLOB.all_languages[language_name]
+			language_keys_and_names[language.key] = language_name
+	return language_keys_and_names[language_key]
+
 
 #undef SCRAMBLE_CACHE_LEN

@@ -44,7 +44,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	title = "Оповещение о безопасности"
 	announcement_type = "Оповещение о безопасности"
 
-/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language_key)
+/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language)
 	if(!message)
 		return
 
@@ -59,7 +59,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	if(announcer)
 		message_announcer = html_encode(announcer)
 
-	var/datum/language/message_language = GLOB.all_languages[msg_language_key ? msg_language_key : language]
+	var/datum/language/message_language = GLOB.all_languages[msg_language ? msg_language : language]
 
 	var/list/combined_receivers = Get_Receivers(message_language)
 	var/list/receivers = combined_receivers[1]

@@ -189,7 +189,7 @@
 		qdel(L)
 
 	for(var/datum/language/L in languages)
-		adult.add_language(L.key)
+		adult.add_language(L.name)
 	adult.regenerate_icons()
 
 	if(random_name)

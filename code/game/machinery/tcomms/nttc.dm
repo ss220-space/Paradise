@@ -151,9 +151,9 @@
 	job_indicator_type = initial(job_indicator_type)
 
 /datum/nttc_configuration/proc/update_languages()
-	for(var/language_key in GLOB.all_languages)
-		var/datum/language/language = GLOB.all_languages[language_key]
-		if((language.flags & HIVEMIND) || (language.flags & NONGLOBAL))
+	for(var/language_name in GLOB.all_languages)
+		var/datum/language/language = GLOB.all_languages[language_name]
+		if(language.flags & (HIVEMIND|NONGLOBAL))
 			continue
 		valid_languages[language] = TRUE
 

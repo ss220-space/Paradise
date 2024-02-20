@@ -4,8 +4,8 @@
 	a = "an"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
 	deform = 'icons/mob/human_races/r_abductor.dmi'
-	language = LANGUAGE_ABDUCTOR
-	default_language = LANGUAGE_ABDUCTOR
+	language = LANGUAGE_HIVE_ABDUCTOR
+	default_language = LANGUAGE_HIVE_ABDUCTOR
 	eyes = "blank_eyes"
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
@@ -42,7 +42,7 @@
 	..()
 	H.gender = NEUTER
 	H.languages.Cut() //Under no condition should you be able to speak any language
-	H.add_language(LANGUAGE_ABDUCTOR) //other than over the abductor's own mindlink
+	H.add_language(LANGUAGE_HIVE_ABDUCTOR) //other than over the abductor's own mindlink
 	H.add_language(LANGUAGE_GREY) // still grey enouhg to speak in psi link
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	abductor_hud.add_hud_to(H)

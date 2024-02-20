@@ -285,17 +285,17 @@
 /mob/living/silicon/can_speak_language(datum/language/speaking)
 	return universal_speak || (speaking in speech_synthesizer_langs)	//need speech synthesizer support to vocalize a language
 
-/mob/living/silicon/add_language(language_key, can_speak = TRUE)
-	if(..(language_key) && can_speak)
-		speech_synthesizer_langs.Add(GLOB.all_languages[language_key])
+/mob/living/silicon/add_language(language, can_speak = TRUE)
+	if(..(language) && can_speak)
+		speech_synthesizer_langs.Add(GLOB.all_languages[language])
 		return TRUE
 
-/mob/living/silicon/remove_language(language_key)
-	..(language_key)
+/mob/living/silicon/remove_language(language_name)
+	..(language_name)
 
-	for(var/datum/language/L in speech_synthesizer_langs)
-		if(L.key == language_key)
-			speech_synthesizer_langs -= L
+	for(var/datum/language/language in speech_synthesizer_langs)
+		if(language.name == language_name)
+			speech_synthesizer_langs -= language
 
 /mob/living/silicon/check_lang_data()
 	. = ""
@@ -303,16 +303,16 @@
 	if(default_language)
 		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
 
-	for(var/datum/language/L in languages)
-		if(!(L.flags & NONGLOBAL))
+	for(var/datum/language/language in languages)
+		if(!(language.flags & NONGLOBAL))
 			var/default_str
-			if(L == default_language)
+			if(language == default_language)
 				default_str = " - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a>"
 			else
-				default_str = " - <a href=\"byond://?src=[UID()];default_lang=[L.key]\">set default</a>"
+				default_str = " - <a href=\"byond://?src=[UID()];default_lang=[language]\">set default</a>"
 
-			var/synth = (L in speech_synthesizer_langs)
-			. += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[L.desc]<br><br>"
+			var/synth = (language in speech_synthesizer_langs)
+			. += "<b>[language.name] (:[language.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[language.desc]<br><br>"
 
 
 // this function displays the stations manifest in a separate window
