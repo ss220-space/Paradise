@@ -273,6 +273,9 @@
   LiquidPotroh:
   - bugfix: holster examine (#4467)
   - bugfix: Vampire position after bestia transform resets normally (#4468)
+  Rerik007:
+  - tweak: cargo few orders and change access for cargo quest console (#4472)
+  - refactor: move defib code to component (#4406)
   Valtor:
   - bugfix: autoimplanter missing limb (#4466)
   Vladisvell:
