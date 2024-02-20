@@ -8,14 +8,14 @@
 	var/mech_type
 	/// List of all compatible modules with this kind of mecha
 	var/list/wanted_modules
-	/// List of all problematic modules with this kind of mecha
-	var/list/hard_modules
 	/// Icon - used in tgui
 	var/icon/mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open", SOUTH, 1)
 	/// Type of mech (combat | medical | working)
 	var/mech_class
 	/// Amount of maximum mech modules
 	var/max_modules
+	/// Base money amount. Used in calculating cash reward
+	var/cash_reward
 
 /datum/quest_mech/ripley
 	name = "APLU MK-II \"Ripley\""
@@ -23,6 +23,7 @@
 	mech_class = WORKING_MECH
 	mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open", SOUTH, 1)
 	max_modules = 6
+	cash_reward = 500
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -32,14 +33,13 @@
 		/obj/item/mecha_parts/mecha_equipment/cable_layer,
 		/obj/item/mecha_parts/mecha_equipment/extinguisher,
 		/obj/item/mecha_parts/mecha_equipment/holowall,
-	)
-	hard_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/cargo_upgrade,
 		/obj/item/mecha_parts/mecha_equipment/teleporter,
 		/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator,
 		/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system,
 		/obj/item/mecha_parts/mecha_equipment/eng_toolset,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma,
+		/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun,
 	)
 
 /datum/quest_mech/firefighter
@@ -48,6 +48,7 @@
 	mech_class = WORKING_MECH
 	mech_icon = icon('icons/obj/mecha/mecha.dmi', "firefighter-open", SOUTH, 1)
 	max_modules = 6
+	cash_reward = 700
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -57,14 +58,13 @@
 		/obj/item/mecha_parts/mecha_equipment/cable_layer,
 		/obj/item/mecha_parts/mecha_equipment/extinguisher,
 		/obj/item/mecha_parts/mecha_equipment/holowall,
-	)
-	hard_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/cargo_upgrade,
 		/obj/item/mecha_parts/mecha_equipment/teleporter,
 		/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator,
 		/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system,
 		/obj/item/mecha_parts/mecha_equipment/eng_toolset,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma,
+		/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun,
 	)
 /datum/quest_mech/clarke
 	name =  "APLU \"Clarke\""
@@ -72,6 +72,7 @@
 	mech_class = WORKING_MECH
 	mech_icon = icon('icons/obj/mecha/mecha.dmi', "clarke", SOUTH, 1, 0)
 	max_modules = 4
+	cash_reward = 1000
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
@@ -81,14 +82,13 @@
 		/obj/item/mecha_parts/mecha_equipment/cable_layer,
 		/obj/item/mecha_parts/mecha_equipment/extinguisher,
 		/obj/item/mecha_parts/mecha_equipment/holowall,
-	)
-	hard_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/cargo_upgrade,
 		/obj/item/mecha_parts/mecha_equipment/teleporter,
 		/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator,
 		/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system,
 		/obj/item/mecha_parts/mecha_equipment/eng_toolset,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma,
+		/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun,
 	)
 
 /datum/quest_mech/odysseus
@@ -97,12 +97,11 @@
 	mech_class = MEDICAL_MECH
 	mech_icon = icon('icons/obj/mecha/mecha.dmi', "odysseus", SOUTH, 1)
 	max_modules = 4
+	cash_reward = 750
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
 		/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun,
 		/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw,
-	)
-	hard_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade, //You can't put this without syringe gun
 		/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator,
 		/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system,
@@ -114,12 +113,11 @@
 	mech_class = COMBAT_MECH
 	mech_icon = icon('icons/obj/mecha/mecha.dmi', "gygax", SOUTH, 1)
 	max_modules = 3
+	cash_reward = 1250
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola,
-	)
-	hard_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion,
@@ -140,12 +138,10 @@
 	mech_class = COMBAT_MECH
 	mech_icon = icon('icons/obj/mecha/mecha.dmi', "durand", SOUTH, 1)
 	max_modules = 3
+	cash_reward = 1750
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser,
-		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola,
-	)
-	hard_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion,
