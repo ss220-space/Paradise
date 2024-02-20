@@ -109,6 +109,7 @@
 	var/eye_initialized = 0
 	var/visible_icon = 0
 	var/image/user_image = null
+	ai_detector_visible = FALSE // Abductors dont trigger the Ai Detector
 
 /mob/camera/aiEye/remote/Destroy()
 	eye_user = null
