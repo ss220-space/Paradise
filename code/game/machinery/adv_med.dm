@@ -16,15 +16,35 @@
 	go_out()
 	return ..()
 
-/obj/machinery/bodyscanner/power_change()
-	..()
+/obj/machinery/bodyscanner/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
 		set_light(0)
 
+
+/obj/machinery/bodyscanner/examine(mob/user)
+	. = ..()
+	if(occupant)
+		if(occupant.is_dead())
+			. += span_warning("You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!>")
+		else
+			. += span_notice("You see [occupant.name] inside.")
+	if(Adjacent(user))
+		. += span_info("You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the scanner to place them inside.")
+
+
+/obj/machinery/bodyscanner/update_icon_state()
+	if(occupant)
+		icon_state = "bodyscanner"
+	else
+		icon_state = "bodyscanner-open"
+
+
 /obj/machinery/bodyscanner/process()
-	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+	for(var/mob/M in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
 		if(M == occupant)
 			continue
 		else
@@ -63,7 +83,7 @@
 			return
 		M.forceMove(src)
 		occupant = M
-		icon_state = "bodyscanner"
+		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
 		SStgui.update_uis(src)
@@ -79,6 +99,7 @@
 	if(default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I))
 		return TRUE
 
+
 /obj/machinery/bodyscanner/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -89,12 +110,11 @@
 	if(panel_open)
 		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
-	if(dir == EAST)
-		setDir(WEST)
-	else
-		setDir(EAST)
 
-/obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user)
+	setDir(turn(dir, -90))
+
+
+/obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user, params)
 	if(!istype(H))
 		return FALSE //not human
 	if(user.incapacitated())
@@ -107,18 +127,18 @@
 		return FALSE //not a borg or human
 	if(panel_open)
 		to_chat(user, span_notice("Close the maintenance panel first."))
-		return FALSE //panel open
+		return TRUE //panel open
 	if(occupant)
 		to_chat(user, span_notice("[src] is already occupied."))
-		return FALSE //occupied
+		return TRUE //occupied
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
 		to_chat(user, span_notice("Subject cannot have abiotic items on."))
-		return FALSE
+		return TRUE
 	if(H.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head."))
-		return
+		return TRUE
 
 	if(H == user)
 		visible_message("[user] climbs into [src].")
@@ -128,9 +148,10 @@
 	add_fingerprint(user)
 	H.forceMove(src)
 	occupant = H
-	icon_state = "bodyscanner"
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 	SStgui.update_uis(src)
+	return TRUE
 
 /obj/machinery/bodyscanner/attack_ai(user)
 	return attack_hand(user)
@@ -175,7 +196,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	icon_state = "bodyscanner-open"
+	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)
@@ -194,7 +215,7 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/bodyscanner/narsie_act()
 	go_out()

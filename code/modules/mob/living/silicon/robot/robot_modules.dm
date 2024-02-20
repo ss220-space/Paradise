@@ -276,6 +276,18 @@
 	fix_modules()
 	handle_storages()
 
+// Disable safeties on the borg's defib.
+/obj/item/robot_module/medical/emag_act(mob/user)
+	. = ..()
+	for(var/obj/item/twohanded/shockpaddles/borg/defib in modules)
+		defib.emag_act()
+
+// Enable safeties on the borg's defib.
+/obj/item/robot_module/medical/unemag()
+	for(var/obj/item/twohanded/shockpaddles/borg/defib in modules)
+		defib.emag_act()
+	return ..()
+
 /obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/spray/PS = emag
@@ -527,6 +539,26 @@
 	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
+
+// Replace their normal drill with a diamond drill.
+/obj/item/robot_module/miner/emag_act()
+	. = ..()
+	for(var/obj/item/pickaxe/drill/cyborg/D in modules)
+		// Make sure we don't remove the diamond drill If they already have a diamond drill from the borg upgrade.
+		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
+			qdel(D)
+			modules -= D // Remove it from this list so it doesn't get added in the rebuild.
+	modules += new /obj/item/pickaxe/drill/cyborg/diamond(src)
+	rebuild()
+
+// Readd the normal drill
+/obj/item/robot_module/miner/unemag()
+	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in modules) 
+		qdel(drill)
+		modules -= drill
+	modules += new /obj/item/pickaxe/drill/cyborg(src)
+	rebuild()
+	return ..()
 
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
     if(component_id == "KA modkits")

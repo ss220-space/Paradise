@@ -36,25 +36,36 @@
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
-/area/syndicate_depot/core/updateicon()
+
+/area/syndicate_depot/core/proc/update_state()
 	if(destroyed)
-		icon_state = null
 		invisibility = INVISIBILITY_MAXIMUM
 	else if(on_peaceful)
-		icon_state = "green"
 		invisibility = INVISIBILITY_LIGHTING
 	else if(used_self_destruct)
-		icon_state = "radiation"
 		invisibility = INVISIBILITY_LIGHTING
 	else if(called_backup)
-		icon_state = "red"
 		invisibility = INVISIBILITY_LIGHTING
 	else if(local_alarm)
-		icon_state = "bluenew"
 		invisibility = INVISIBILITY_LIGHTING
 	else
-		icon_state = null
 		invisibility = INVISIBILITY_MAXIMUM
+	update_icon(UPDATE_ICON_STATE)
+
+
+/area/syndicate_depot/core/update_icon_state()
+	if(invisibility == INVISIBILITY_MAXIMUM)
+		icon_state = null
+		return
+	else if(on_peaceful)
+		icon_state = "green"
+	else if(used_self_destruct)
+		icon_state = "radiation"
+	else if(called_backup)
+		icon_state = "red"
+	else if(local_alarm)
+		icon_state = "bluenew"
+
 
 /area/syndicate_depot/core/proc/reset_alert()
 
@@ -84,7 +95,7 @@
 	detected_pod = FALSE
 	detected_double_agent = FALSE
 	mine_trigger_count = 0
-	updateicon()
+	update_state()
 
 	if(!istype(reactor))
 		for(var/obj/structure/fusionreactor/R in src)
@@ -116,7 +127,7 @@
 	if(!used_self_destruct)
 		add_game_logs("Depot code: DELTA: [reason]" + list_show(hostile_list, TRUE), triggered)
 		activate_self_destruct(reason, FALSE, null)
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
 /area/syndicate_depot/core/proc/locker_looted()
 	if(!something_looted)
@@ -208,7 +219,7 @@
 				message_admins("- SYNDI DEPOT VISITOR: [ADMIN_FULLMONTY(M)]")
 				list_add(M, hostile_list)
 		peaceful_list = list()
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
 /area/syndicate_depot/core/proc/local_alarm(reason, silent)
 	if(local_alarm)
@@ -229,7 +240,7 @@
 			var/mob/living/simple_animal/bot/ed209/syndicate/B = new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
 			list_add(B, guard_list)
 			B.depotarea = src
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
 /area/syndicate_depot/core/proc/call_backup(reason, silent)
 	if(called_backup || used_self_destruct)
@@ -261,7 +272,7 @@
 						list_add(S, guard_list)
 	else if(!silent)
 		announce_here("Depot Communications Offline", "Comms computer is damaged, destroyed or depowered. Unable to call in backup from Syndicate HQ.")
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
 /area/syndicate_depot/core/proc/activate_self_destruct(reason, containment_failure, mob/user)
 	if(used_self_destruct)
@@ -273,7 +284,7 @@
 	called_backup = TRUE
 	activate_lockdown(TRUE)
 	lockout_computers()
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 	despawn_guards()
 	if(containment_failure)
 		announce_here("Depot Code DELTA", reason)
@@ -295,7 +306,7 @@
 	else
 		log_debug("Depot: [src] called activate_self_destruct with no reactor.")
 		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually via admin bomb(25, 35, 45, 55).</span>")
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
 /area/syndicate_depot/core/proc/activate_lockdown()
 	if(used_lockdown)
@@ -323,9 +334,8 @@
 		A.update_icon()
 
 /area/syndicate_depot/core/proc/toggle_falsewalls()
-	for(var/obj/structure/falsewall/plastitanium/F in src)
-		spawn(0)
-			F.toggle()
+	for(var/obj/structure/falsewall/plastitanium/wall in src)
+		INVOKE_ASYNC(wall, TYPE_PROC_REF(/obj/structure/falsewall, toggle))
 
 /area/syndicate_depot/core/proc/toggle_teleport_beacon()
 	for(var/obj/machinery/bluespace_beacon/syndicate/B in machinery_cache)

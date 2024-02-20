@@ -9,7 +9,7 @@
 	desc = "Essential for supply requests. Your bread and butter."
 	icon_keyboard = "cargo_quest_key"
 	icon_screen = "cargo_quest"
-	req_access = list(ACCESS_QM)
+	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplyquest
 	/// If TRUE you can see only active quests
 	var/for_active_quests = FALSE
@@ -71,17 +71,16 @@
 /obj/machinery/computer/supplyquest/ui_data(mob/user)
 	var/list/data = list()
 	var/list/quest_storages = list()
-	for(var/datum/cargo_quests_storage/quest_storage in SScargo_quests.quest_storages)
+	for(var/datum/cargo_quests_storage/quest_storage as anything in SScargo_quests.quest_storages)
 		if(for_active_quests && !quest_storage.active)
 			continue
 		var/timeleft_sec = round((quest_storage.time_start + quest_storage.quest_time - world.time) / 10)
 		var/list/quests_items = list()
 		for(var/datum/cargo_quest/cargo_quest as anything in quest_storage.current_quests)
-			var/image_index = rand(1, length(cargo_quest.interface_icons))
 			quests_items.Add(list(list(
 				"quest_type_name" = cargo_quest.quest_type_name,
 				"desc" = cargo_quest.desc.Join(""),
-				"image" = "[icon2base64(icon(cargo_quest.interface_icons[image_index], cargo_quest.interface_icon_states[image_index], SOUTH, 1))]",
+				"image" = "[cargo_quest.interface_images[rand(1, length(cargo_quest.interface_images))]]",
 				)))
 
 		quest_storages.Add(list(list(
@@ -236,7 +235,6 @@
 	for_active_quests = TRUE
 	circuit = /obj/item/circuitboard/questcons
 	density = FALSE
-	req_access = list(ACCESS_CARGO)
 
 
 /obj/machinery/computer/supplyquest/workers/Initialize(mapload)
@@ -306,10 +304,10 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	print_animation()
 
+
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
-	add_overlay(image(icon, icon_state = "print_quest_overlay", layer = overlay_layer))
-	spawn(4 SECONDS) // Should change this after merging update_overlays for computers
-		update_icon()
+	flick_overlay_view(image(icon, src, "print_quest_overlay", layer + 0.1), 4 SECONDS)
+
 
 /obj/item/qm_quest_tablet
 	name = "Quartermaster Tablet"

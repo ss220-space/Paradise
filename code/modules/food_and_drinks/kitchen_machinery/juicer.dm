@@ -35,9 +35,8 @@
 	. = ..()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
 
-/obj/machinery/juicer/update_icon()
+/obj/machinery/juicer/update_icon_state()
 	icon_state = "juicer"+num2text(!isnull(beaker))
-	return
 
 
 /obj/machinery/juicer/attackby(obj/item/O, mob/user, params)
@@ -52,7 +51,7 @@
 			add_fingerprint(user)
 			beaker = O
 			verbs += /obj/machinery/juicer/verb/detach
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			updateUsrDialog()
 			return 0
 	if(!is_type_in_list(O, allowed_items))
@@ -142,7 +141,7 @@
 	verbs -= /obj/machinery/juicer/verb/detach
 	beaker.forceMove(loc)
 	beaker = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/juicer/proc/get_juice_id(obj/item/reagent_containers/food/snacks/grown/O)
 	for (var/i in allowed_items)
