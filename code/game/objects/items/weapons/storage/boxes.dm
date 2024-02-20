@@ -1065,14 +1065,14 @@
 /obj/item/storage/box/random_syndi
 	icon_state = "box_of_doom"
 
-/obj/item/storage/box/random_syndi/New()
+
+/obj/item/storage/box/random_syndi/populate_contents()
 	var/list/items = GLOB.uplink_items.Copy()
 	while(contents.len < 3)
 		var/datum/uplink_item/item = pick_n_take(items)
 		if(istype(item, /datum/uplink_item/racial) || item.hijack_only || item.cost > 20)
 			continue
-		var/obj/item_to_box = new item.item
-		item_to_box.forceMove(src)
+		new item.item(src)
 	. = ..()
 
 #undef NODESIGN
