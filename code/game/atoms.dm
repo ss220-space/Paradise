@@ -302,7 +302,7 @@
 	return
 
 /atom/proc/emp_act(severity)
-	return
+	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
 
 //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
@@ -541,6 +541,9 @@
 	return
 
 /atom/proc/emag_act(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+
+/atom/proc/unemag()
 	return
 
 /atom/proc/cmag_act(mob/user)
