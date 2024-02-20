@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	// blend the individual damage states with our icons
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		bodypart.update_icon()
+		bodypart.update_state()
 		if(bodypart.damage_state == "00")
 			continue
 
@@ -165,7 +165,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //BASE MOB SPRITE
 /mob/living/carbon/human/proc/update_body(rebuild_base = FALSE)
-	remove_overlay(BODY_LAYER)
 	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
 	remove_overlay(UNDERWEAR_LAYER)
 
@@ -283,8 +282,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
 
-	overlays_standing[BODY_LAYER] = standing
-	apply_overlay(BODY_LAYER)
 	//wings
 	update_wing_layer()
 	//tail

@@ -306,10 +306,10 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	print_animation()
 
+
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
-	add_overlay(image(icon, icon_state = "print_quest_overlay", layer = overlay_layer))
-	spawn(4 SECONDS) // Should change this after merging update_overlays for computers
-		update_icon()
+	flick_overlay_view(image(icon, src, "print_quest_overlay", layer + 0.1), 4 SECONDS)
+
 
 /obj/item/qm_quest_tablet
 	name = "Quartermaster Tablet"

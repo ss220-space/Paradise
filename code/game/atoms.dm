@@ -9,6 +9,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
+	appearance_flags = TILE_BOUND
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
@@ -434,7 +435,7 @@
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates = ALL)
 	SHOULD_NOT_SLEEP(TRUE)
-	//SHOULD_CALL_PARENT(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 
 	if(updates == NONE)
 		return // NONE is being sent on purpose, and thus no signal should be sent.

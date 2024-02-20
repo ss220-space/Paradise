@@ -124,6 +124,7 @@
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 
+
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
 	name = "security auto rifle"

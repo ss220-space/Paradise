@@ -4,6 +4,7 @@
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
+	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)

@@ -119,14 +119,15 @@
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
-/obj/machinery/mineral/equipment_vendor/power_change()
-	..()
-	update_icon()
+/obj/machinery/mineral/equipment_vendor/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
 		remove_id()
 
-/obj/machinery/mineral/equipment_vendor/update_icon()
+/obj/machinery/mineral/equipment_vendor/update_icon_state()
 	if(powered())
 		icon_state = initial(icon_state)
 	else
@@ -369,7 +370,7 @@
 		EQUIPMENT("Plushie", 						/obj/random/plushie, 												750),
 		EQUIPMENT("Dnd set", 						/obj/item/storage/box/characters, 									500),
 		EQUIPMENT("Dice set", 						/obj/item/storage/box/dice, 										250),
-		EQUIPMENT("Cards", 							/obj/item/deck/cards, 											150),
+		EQUIPMENT("Cards", 							/obj/item/deck/cards, 												150),
 		EQUIPMENT("Guitar", 						/obj/item/instrument/guitar, 										750),
 		EQUIPMENT("Synthesizer", 					/obj/item/instrument/piano_synth, 									1500),
 		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000)

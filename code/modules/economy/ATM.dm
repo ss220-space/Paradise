@@ -42,6 +42,7 @@ log transactions
 /obj/machinery/atm/Initialize()
 	..()
 	reconnect_database()
+	update_icon()
 
 /obj/machinery/atm/process()
 	if(stat & NOPOWER)
@@ -79,6 +80,35 @@ log transactions
 		if(DB.z == z && !(DB.stat & NOPOWER) && DB.activated)
 			linked_db = DB
 			break
+
+
+/obj/machinery/atm/update_icon_state()
+	. = ..()
+	if(stat & NOPOWER)
+		icon_state = "atm_off"
+	else
+		icon_state = "atm"
+
+
+/obj/machinery/atm/power_change(forced = FALSE)
+	if(!..())
+		return
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon()
+
+
+/obj/machinery/atm/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	underlays += emissive_appearance(icon, "atm_lightmask")
+
 
 /obj/machinery/atm/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card))
@@ -280,7 +310,7 @@ log transactions
 				if(!R.stamped)
 					R.stamped = new()
 				R.stamped += /obj/item/stamp
-				R.overlays += stampoverlay
+				LAZYADD(R.stamp_overlays, stampoverlay)
 				R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
 
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
