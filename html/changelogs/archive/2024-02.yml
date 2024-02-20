@@ -228,6 +228,13 @@
 '2024-02-18':
   ArtemDerp:
   - bugfix: fixed glasses over mask layer position (#4449)
+  Aziz Chynaliev:
+  - server: ensure security via CODEOWNERS file
+  - server: check user permission on deploy action
+  - server: fix action permission checks
+  BeebBeebBoob:
+  - tweak: Change locator on GPS-sec in implant-tracking boxes. (#4454)
+  - bugfix: runtime machinery.ui_act null.tool_behaviour (#4461)
   Daeberdir:
   - bugfix: alphabet sorting for chem dispensers on spawn. (#4453)
   - bugfix: silicon PDA UI working properly. (#4445)
@@ -241,14 +248,34 @@
   - bugfix: darkmode runtime (#4455)
   - balance: pulse demon only shitspawn and mage pet (#4440)
   - unknown: NULL crate (#4422)
+  - add: exploit records for uplink and pick darkness for ghosts (#3909)
   Rerik007:
   - add: alt-click on the damage zone will be equivalent to clicking on itself (#4384)
   - bugfix: flashbangs can permanently break your hearing (#4439)
+  - bugfix: t-ray scanner can make you invisible (#4414)
+  - bugfix: base pai can toggle apc (#4459)
   SAAD:
   - refactor: Transit tubes (#4443)
+  Vladisvell:
+  - bugfix: bootstrap.min.css CRLF -> LF (#4463)
+  - add: New Thunderdome items (#4460)
   Zwei:
   - bugfix: Matchbox Icons Fix (#4441)
   - bugfix: Barrel Icon State Fix (#4451)
   - tweak: Tables Flip Hotkey Change (#4423)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4458)
+'2024-02-20':
+  Daeberdir:
+  - bugfix: Autopsy scanner can scan different "Unknown" bodies. (#4442)
+  Den109G:
+  - bugfix: Standardization and action desc fix (#4470)
+  LiquidPotroh:
+  - bugfix: holster examine (#4467)
+  - bugfix: Vampire position after bestia transform resets normally (#4468)
+  Valtor:
+  - bugfix: autoimplanter missing limb (#4466)
+  Vladisvell:
+  - bugfix: Fixed Chef's and Machinery errors (#4462)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4469)
