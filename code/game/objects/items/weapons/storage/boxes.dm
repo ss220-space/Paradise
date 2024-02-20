@@ -1070,10 +1070,11 @@
 	var/list/items = GLOB.uplink_items.Copy()
 	while(contents.len < 3)
 		var/datum/uplink_item/item = pick_n_take(items)
+		if(!item)
+			return
 		if(istype(item, /datum/uplink_item/racial) || item.hijack_only || item.cost > 20)
 			continue
 		new item.item(src)
-	. = ..()
 
 #undef NODESIGN
 #undef NANOTRASEN
