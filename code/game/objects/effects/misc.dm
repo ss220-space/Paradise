@@ -121,3 +121,19 @@
 	. = ..()
 	if(!ismob(loc))
 		return INITIALIZE_HINT_QDEL
+
+/obj/effect/frosty_breath //used only for unathi firebreath, so... yeah..
+	icon = 'icons/effects/effects.dmi'
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
+
+/obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
+	. = ..()
+	dir = C.dir
+	if(C.buckled)
+		pixel_y = (C.buckled.buckle_offset + 10)
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+	flick("breath_[C.lying_prev]", src)
+	QDEL_IN(src, 2 SECONDS)

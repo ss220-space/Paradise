@@ -202,7 +202,7 @@
 	pixel_y = -32
 
 /obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
@@ -295,7 +295,7 @@
 	qdel(src)
 
 /obj/structure/fans/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
@@ -338,7 +338,7 @@
 	density = 0
 
 /obj/structure/tubes/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")

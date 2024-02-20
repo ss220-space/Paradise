@@ -35,7 +35,7 @@
 
 /obj/machinery/power/terminal/hide(i)
 	if(i)
-		invisibility = INVISIBILITY_ABSTRACT
+		invisibility = INVISIBILITY_MAXIMUM
 		icon_state = "term-f"
 	else
 		invisibility = 0
@@ -78,7 +78,7 @@
 
 
 /obj/machinery/power/terminal/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/wirecutters))
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		dismantle(user, W)
 	else
 		return ..()

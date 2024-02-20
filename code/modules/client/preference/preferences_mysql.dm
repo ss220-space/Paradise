@@ -20,7 +20,8 @@
 					discord_id,
 					discord_name,
 					keybindings,
-					viewrange
+					viewrange,
+					ghost_darkness_level
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -53,6 +54,7 @@
 		discord_name = query.item[18]
 		keybindings = init_keybindings(raw = query.item[19])
 		viewrange = query.item[20]
+		ghost_darkness_level = query.item[21]
 
 	qdel(query)
 
@@ -105,7 +107,8 @@
 					clientfps=:clientfps,
 					parallax=:parallax,
 					keybindings=:keybindings,
-					viewrange=:viewrange
+					viewrange=:viewrange,
+					ghost_darkness_level=:ghost_darkness_level
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -125,7 +128,8 @@
 						"parallax" = parallax,
 						"keybindings" = json_encode(keybindings_overrides),
 						"viewrange" = viewrange,
-						"ckey" = C.ckey
+						"ghost_darkness_level" = ghost_darkness_level,
+						"ckey" = C.ckey,
 					)
 					)
 
@@ -202,6 +206,7 @@
 					med_record,
 					sec_record,
 					gen_record,
+					exploit_record,
 					disabilities,
 					player_alt_titles,
 					organ_data,
@@ -279,6 +284,7 @@
 		med_record = query.item[42]
 		sec_record = query.item[43]
 		gen_record = query.item[44]
+		exploit_record = null_longtextfix(query.item[45])
 		// Apparently, the preceding vars weren't always encoded properly...
 		if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 			flavor_text = html_encode(flavor_text)
@@ -288,31 +294,33 @@
 			sec_record = html_encode(sec_record)
 		if(findtext(gen_record, "<"))
 			gen_record = html_encode(gen_record)
-		disabilities = text2num(query.item[45])
-		player_alt_titles = params2list(query.item[46])
-		organ_data = params2list(query.item[47])
-		rlimb_data = params2list(query.item[48])
-		nanotrasen_relation = query.item[49]
-		speciesprefs = text2num(query.item[50])
+		if(findtext(exploit_record, "<"))
+			exploit_record = html_encode(exploit_record)
+		disabilities = text2num(query.item[46])
+		player_alt_titles = params2list(query.item[47])
+		organ_data = params2list(query.item[48])
+		rlimb_data = params2list(query.item[49])
+		nanotrasen_relation = query.item[50]
+		speciesprefs = text2num(query.item[51])
 
 		//socks
-		socks = query.item[51]
-		body_accessory = query.item[52]
-		loadout_gear = params2list(query.item[53])
-		autohiss_mode = text2num(query.item[54])
-		uplink_pref = query.item[55]
+		socks = query.item[52]
+		body_accessory = query.item[53]
+		loadout_gear = params2list(query.item[54])
+		autohiss_mode = text2num(query.item[55])
+		uplink_pref = query.item[56]
 
 		// TTS
-		tts_seed = query.item[56]
+		tts_seed = query.item[57]
 
 		//Emotes
-		custom_emotes_tmp = query.item[57]
+		custom_emotes_tmp = query.item[58]
 
 		// Gradient
-		h_grad_style = query.item[58]
-		h_grad_offset_x = query.item[59] // parsed down below
-		h_grad_colour = query.item[60]
-		h_grad_alpha = query.item[61]
+		h_grad_style = query.item[59]
+		h_grad_offset_x = query.item[60] // parsed down below
+		h_grad_colour = query.item[61]
+		h_grad_alpha = query.item[62]
 
 		saved = TRUE
 
@@ -472,6 +480,7 @@
 												med_record=:med_record,
 												sec_record=:sec_record,
 												gen_record=:gen_record,
+												exploit_record=:exploit_record,
 												player_alt_titles=:playertitlelist,
 												disabilities=:disabilities,
 												organ_data=:organlist,
@@ -536,6 +545,7 @@
 													"med_record" = med_record,
 													"sec_record" = sec_record,
 													"gen_record" = gen_record,
+													"exploit_record" = exploit_record,
 													"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
 													"disabilities" = disabilities,
 													"organlist" = (organlist ? organlist : ""),
@@ -592,6 +602,7 @@
 											med_record,
 											sec_record,
 											gen_record,
+											exploit_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
 											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes)
@@ -620,6 +631,7 @@
 											:med_record,
 											:sec_record,
 											:gen_record,
+											:exploit_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
 											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes)
@@ -672,6 +684,7 @@
 		"med_record" = med_record,
 		"sec_record" = sec_record,
 		"gen_record" = gen_record,
+		"exploit_record" = exploit_record,
 		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
 		"disabilities" = disabilities,
 		"organlist" = (organlist ? organlist : ""),

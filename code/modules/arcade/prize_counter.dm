@@ -40,16 +40,16 @@
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
 		return
-	if(istype(O, /obj/item/screwdriver) && anchored)
+	if(O.tool_behaviour == TOOL_SCREWDRIVER && anchored)
 		playsound(src.loc, O.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		update_icon()
 		return
 	if(panel_open)
-		if(istype(O, /obj/item/wrench))
+		if(O.tool_behaviour == TOOL_WRENCH)
 			default_unfasten_wrench(user, O)
-		if(component_parts && istype(O, /obj/item/crowbar))
+		if(component_parts && O.tool_behaviour == TOOL_CROWBAR)
 			if(tickets)		//save the tickets!
 				print_tickets()
 			default_deconstruction_crowbar(user, O)

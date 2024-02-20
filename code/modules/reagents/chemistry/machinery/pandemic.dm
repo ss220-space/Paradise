@@ -339,7 +339,7 @@
 		updateUsrDialog()
 		icon_state = "mixer1"
 
-	else if(istype(I, /obj/item/screwdriver))
+	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(beaker)
 			add_fingerprint(user)
 			beaker.forceMove(get_turf(src))

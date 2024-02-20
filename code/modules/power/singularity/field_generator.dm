@@ -83,7 +83,7 @@ field_generator power level display
 		add_fingerprint(user)
 		to_chat(user, "<span class='warning'>[src] needs to be off!</span>")
 		return
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		switch(state)
 			if(FG_UNSECURED)
 				if(isinspace())

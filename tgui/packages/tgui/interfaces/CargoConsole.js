@@ -67,6 +67,7 @@ const StatusPane = (_properties, context) => {
   const {
     is_public,
     points,
+    credits,
     timeleft,
     moving,
     at_station,
@@ -97,6 +98,9 @@ const StatusPane = (_properties, context) => {
       <LabeledList>
         <LabeledList.Item label="Points Available">
           {points}
+        </LabeledList.Item>
+        <LabeledList.Item label="Credits Available">
+          {credits}
         </LabeledList.Item>
         <LabeledList.Item label="Shuttle Status">
           {statusText}
@@ -181,7 +185,7 @@ const CataloguePane = (_properties, context) => {
           {cratesToShow.map(c => (
             <Table.Row key={c.name}>
               <Table.Cell bold>
-                <Box color={c.has_sale ? 'good' : 'default'}>{c.name} ({c.cost} Points)</Box>
+                <Box color={c.has_sale ? 'good' : 'default'}>{c.name} {c.cost ? c.cost+" Points" : ""} {c.creditsCost ? c.creditsCost+" Credits" : ""}</Box>
               </Table.Cell>
               <Table.Cell textAlign="right" pr={1}>
                 <Button

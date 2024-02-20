@@ -287,7 +287,7 @@
 		SStgui.update_uis(src)
 		return
 	else if(!active)
-		if(istype(O, /obj/item/wrench))
+		if(O.tool_behaviour == TOOL_WRENCH)
 
 			if(!anchored)
 				connect_to_network()
@@ -299,7 +299,7 @@
 			playsound(src.loc, O.usesound, 50, 1)
 			anchored = !anchored
 
-		else if(istype(O, /obj/item/screwdriver))
+		else if(O.tool_behaviour == TOOL_SCREWDRIVER)
 			panel_open = !panel_open
 			playsound(src.loc, O.usesound, 50, 1)
 			if(panel_open)
@@ -309,7 +309,7 @@
 		else if(istype(O, /obj/item/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
 			return
-		else if(istype(O, /obj/item/crowbar) && panel_open)
+		else if(O.tool_behaviour == TOOL_CROWBAR && panel_open)
 			default_deconstruction_crowbar(user, O)
 		add_fingerprint(user)
 	else

@@ -126,7 +126,7 @@
 	if(exchange_parts(user, O))
 		return
 
-	if(panel_open && istype(O, /obj/item/crowbar))
+	if(panel_open && O.tool_behaviour == TOOL_CROWBAR)
 		default_deconstruction_crowbar(user, O)
 		return
 

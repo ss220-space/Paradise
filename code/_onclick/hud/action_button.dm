@@ -1,5 +1,4 @@
 /obj/screen/movable/action_button
-	desc = "CTRL-Shift click on this button to bind it to a hotkey."
 	var/datum/action/linked_action
 	var/actiontooltipstyle = ""
 	screen_loc = null
@@ -100,7 +99,9 @@
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle
 	name = "Hide Buttons"
-	desc = "Shift-click any button to reset its position, and Control-click it to lock/unlock its position. Alt-click this button to reset all buttons to their default positions."
+	desc = "Shift-click any button to reset its position, and Control-click it to lock/unlock its position. \
+	<br> Alt-click this button to reset all buttons to their default positions. \
+	<br> Control-Shift-click on any button to bind it to a hotkey."
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "bg_default"
 	var/hidden = FALSE

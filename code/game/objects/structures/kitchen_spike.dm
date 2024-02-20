@@ -11,7 +11,7 @@
 	max_integrity = 200
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/wrench))
+	if(I.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
@@ -53,7 +53,7 @@
 		..()
 
 /obj/structure/kitchenspike/attackby(obj/item/grab/G, mob/user)
-	if(istype(G, /obj/item/crowbar))
+	if(G.tool_behaviour == TOOL_CROWBAR)
 		if(!has_buckled_mobs())
 			playsound(loc, G.usesound, 100, 1)
 			if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))

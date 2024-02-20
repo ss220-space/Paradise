@@ -8,6 +8,7 @@
 	var/slowdown = 0 //negative for faster, positive for slower
 	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
+	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
 	var/real_layer = TURF_LAYER
 	layer = MAP_EDITOR_TURF_LAYER
 
@@ -461,7 +462,7 @@
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
 			if(O.level != 1)
 				continue
-			if(O.invisibility == INVISIBILITY_MAXIMUM)
+			if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return 2

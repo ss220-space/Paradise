@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
+	if(W.tool_behaviour == TOOL_MULTITOOL)
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
 		return 1
@@ -69,12 +69,12 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		user.drop_transfer_item_to_loc(W, src)
 		src.P = W
 		update_icon()
-	else if(istype(W, /obj/item/crowbar))
+	else if(W.tool_behaviour == TOOL_CROWBAR)
 		if(P && !src.locked)
 			add_fingerprint(user)
 			eject()
 			return 1
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(P)
 			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
 			return 1

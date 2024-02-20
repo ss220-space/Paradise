@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(default_deconstruction_crowbar(user, O))
 		return
 
-	if(istype(O, /obj/item/multitool))
+	if(O.tool_behaviour == TOOL_MULTITOOL)
 		add_fingerprint(user)
 		if(!panel_open)
 			cycle_through++
