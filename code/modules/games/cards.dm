@@ -103,6 +103,7 @@
 /datum/action/item_action/draw_card/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
+		owner.changeNext_click(CLICK_CD_RAPID)
 		return D.draw_card(owner)
 	return ..()
 
