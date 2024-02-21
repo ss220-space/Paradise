@@ -229,7 +229,7 @@ SUBSYSTEM_DEF(timer)
   * Generates a string with details about the timed event for debugging purposes
   */
 /datum/controller/subsystem/timer/proc/get_timer_debug_string(datum/timedevent/TE)
-	. = "Timer: [TE]"
+	. = "Timer: [TE.getTimerInfo()]"
 	. += "Prev: [TE.prev ? TE.prev : "NULL"], Next: [TE.next ? TE.next : "NULL"]"
 	if(TE.spent)
 		. += ", SPENT([TE.spent])"
@@ -516,14 +516,6 @@ SUBSYSTEM_DEF(timer)
   * If the timed event is tracking client time, it will be added to a special bucket.
   */
 /datum/timedevent/proc/bucketJoin()
-	// Generate debug-friendly name for timer
-
-	/*	Uncomment for explicit debugging, debug info is now handled in /datum/timedevent/proc/getTimerInfo()
-	name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
-		callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
-		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
-	*/
-
 	if (bucket_joined)
 		stack_trace("Bucket already joined! [getTimerInfo()]")
 
@@ -566,11 +558,20 @@ SUBSYSTEM_DEF(timer)
 	prev = null
 	bucket_list[bucket_pos] = src
 
+/**
+ * Returns debug information about timer
+ */
 /datum/timedevent/proc/getTimerInfo()
 	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
-	return "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
-		callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
-		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
+	if(!name)
+		name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
+			callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
+			callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
+	return name
+
+/datum/timedevent/can_vv_get(var_name)
+	getTimerInfo()
+	return ..()
 
 /**
   * Returns a string of the type of the callback for this timer

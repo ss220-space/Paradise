@@ -112,13 +112,15 @@
 	. = ..()
 	. += "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>"
 
-/obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
-	..()
-	if(istype(over_object, /obj/vehicle/ambulance))
-		var/obj/vehicle/ambulance/amb = over_object
-		if(amb.bed)
-			amb.bed = null
-			to_chat(usr, "You unhook the bed to the ambulance.")
-		else
-			amb.bed = src
-			to_chat(usr, "You hook the bed to the ambulance.")
+/obj/structure/bed/amb_trolley/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	if(!. || !istype(over_object, /obj/vehicle/ambulance))
+		return FALSE
+
+	var/obj/vehicle/ambulance/amb = over_object
+	if(amb.bed)
+		amb.bed = null
+		to_chat(usr, "You unhook the bed to the ambulance.")
+	else
+		amb.bed = src
+		to_chat(usr, "You hook the bed to the ambulance.")

@@ -514,19 +514,19 @@
 	qdel(src)
 
 
-/obj/item/slimepotion/speed/MouseDrop(atom/over)
+/obj/item/slimepotion/speed/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE, drop = TRUE)
+	afterattack(over_object, user, TRUE, drop = TRUE)
 	return TRUE
 
 
@@ -581,20 +581,19 @@
 		qdel(src)
 
 
-/obj/item/slimepotion/clothing/MouseDrop(atom/over)
+/obj/item/slimepotion/clothing/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE)
-	return TRUE
+	afterattack(over_object, user, TRUE)
 
 
 /obj/item/slimepotion/clothing/fireproof
@@ -751,7 +750,7 @@
 	return C.armor.melee < 100 || C.armor.bullet < 100
 
 /obj/effect/timestop
-	anchored = 1
+	anchored = TRUE
 	name = "chronofield"
 	desc = "ZA WARUDO"
 	icon = 'icons/effects/160x160.dmi'
@@ -783,7 +782,7 @@
 				if(M in immune)
 					continue
 				M.notransform = 1
-				M.anchored = 1
+				M.anchored = TRUE
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
@@ -811,7 +810,7 @@
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
 	M.notransform = 0
-	M.anchored = 0
+	M.anchored = FALSE
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)

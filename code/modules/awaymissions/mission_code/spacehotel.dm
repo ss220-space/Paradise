@@ -144,8 +144,7 @@
 			return 1
 	return 0
 
-/obj/machinery/door/unpowered/hotel_door/update_icon()
-	overlays.Cut()
+/obj/machinery/door/unpowered/hotel_door/update_icon_state()
 	if(density)
 		icon_state = "door_closed"
 	else
@@ -193,7 +192,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	opacity = 0
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door

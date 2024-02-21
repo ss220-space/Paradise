@@ -1,7 +1,3 @@
-#define CHARS_PER_LINE 5
-#define FONT_SIZE "5pt"
-#define FONT_COLOR "#09f"
-#define FONT_STYLE "Small Fonts"
 #define CELL_NONE "None"
 #define PERMABRIG_TIME 60 //MINUTES
 
@@ -19,7 +15,7 @@
 	icon_state = "frame"
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
-	anchored = 1    		// can't pick it up
+	anchored = TRUE    		// can't pick it up
 	density = 0       		// can walk through it.
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
@@ -43,13 +39,54 @@
 	var/prisoner_hasrecord = FALSE
 	var/prisoner_time_add
 
-/obj/machinery/door_timer/New()
- 	GLOB.celltimers_list += src
- 	return ..()
+
+/obj/machinery/door_timer/Initialize(mapload)
+	. = ..()
+	GLOB.celltimers_list += src
+
+	Radio = new /obj/item/radio(src)
+	Radio.listening = 0
+	Radio.config(list("Security" = 0))
+	Radio.follow_target = src
+
+	set_pixel_offsets_from_dir(32, -32, 32, -32)
+
+	addtimer(CALLBACK(src, PROC_REF(delayed_update)), 2 SECONDS, TIMER_DELETE_ME)
+
 
 /obj/machinery/door_timer/Destroy()
- 	GLOB.celltimers_list -= src
- 	return ..()
+	GLOB.celltimers_list -= src
+	QDEL_NULL(Radio)
+	targets.Cut()
+	prisoner = null
+	return ..()
+
+
+/obj/machinery/door_timer/proc/delayed_update()
+	for(var/obj/machinery/door/window/brigdoor/brigdoor in GLOB.airlocks)
+		if(brigdoor.id == id)
+			targets += brigdoor
+			INVOKE_ASYNC(brigdoor, TYPE_PROC_REF(/obj/machinery/door, open))
+
+	for(var/obj/machinery/machine in GLOB.machines)
+		if(istype(machine, /obj/machinery/flasher))
+			var/obj/machinery/flasher/flasher = machine
+			if(flasher.id == id)
+				targets += flasher
+
+		if(istype(machine, /obj/machinery/treadmill_monitor))
+			var/obj/machinery/treadmill_monitor/monitor = machine
+			if(monitor.id == id)
+				targets += monitor
+
+	for(var/obj/structure/closet/secure_closet/brig/brig_closet in GLOB.closets)
+		if(brig_closet.id == id)
+			targets += brig_closet
+
+	if(!length(targets))
+		stat |= BROKEN
+		update_icon(UPDATE_OVERLAYS)
+
 
 /obj/machinery/door_timer/proc/print_report()
 	if(occupant == CELL_NONE || crimes == CELL_NONE)
@@ -119,65 +156,57 @@
 			return
 	atom_say("[src] beeps, \"[occupant]: [notifytext]\"")
 
-/obj/machinery/door_timer/Initialize()
-	..()
-
-	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
-	Radio.config(list("Security" = 0))
-	Radio.follow_target = src
-
-	set_pixel_offsets_from_dir(32, -32, 32, -32)
-
-	spawn(20)
-		for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
-			if(M.id == id)
-				targets += M
-
-		for(var/obj/machinery/flasher/F in GLOB.machines)
-			if(F.id == id)
-				targets += F
-
-		for(var/obj/structure/closet/secure_closet/brig/C in world)
-			if(C.id == id)
-				targets += C
-
-		for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
-			if(T.id == id)
-				targets += T
-
-		if(targets.len==0)
-			stat |= BROKEN
-		update_icon()
-
-/obj/machinery/door_timer/Destroy()
-	QDEL_NULL(Radio)
-	targets.Cut()
-	prisoner = null
-	return ..()
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
 // update the door_timer window and the icon
 /obj/machinery/door_timer/process()
-	if(stat & (NOPOWER|BROKEN))
-		return
+	if((stat & (NOPOWER|BROKEN)))
+		update_display()
+		return PROCESS_KILL
 	if(timing)
+		if(emagged)
+			timer_end()
+			return PROCESS_KILL
 		if(timeleft() <= 0)
 			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security", list(z))
 			occupant = CELL_NONE
 			timer_end() // open doors, reset timer, clear status screen
-			timing = 0
-			. = PROCESS_KILL
-		update_icon()
+			return PROCESS_KILL
+		update_display()
 	else
 		timer_end()
 		return PROCESS_KILL
 
+
+//Checks to see if there's 1 line or 2, adds text-icons-numbers/letters over display
+// Stolen from status_display
+/obj/machinery/door_timer/proc/update_display()
+	update_icon(UPDATE_OVERLAYS)
+
+	if(stat & (NOPOWER|BROKEN))
+		if(maptext)
+			maptext = ""
+		return
+
+	if(timing)
+		var/disp1 = id
+		var/timeleft = timeleft()
+		var/disp2 = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
+		if(length(disp2) > DISPLAY_CHARS_PER_LINE)
+			disp2 = "Error"
+		var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_SIZE]';text-align:center;" valign="top">[uppertext(disp1)]<br>[uppertext(disp2)]</div>"}
+		if(maptext != new_text)
+			maptext = new_text
+	else if(maptext)
+		maptext = ""
+
+
 // has the door power situation changed, if so update icon.
-/obj/machinery/door_timer/power_change()
-	..()
-	update_icon()
+/obj/machinery/door_timer/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_display()
 
 
 // open/closedoor checks if door_timer has power, if so it checks if the
@@ -185,14 +214,16 @@
 
 // Closes and locks doors, power check
 /obj/machinery/door_timer/proc/timer_start()
+	timing = TRUE
+	update_display()
 
 	if(stat & (NOPOWER|BROKEN))
-		return 0
+		timing = FALSE
+		return FALSE
 
-	if(!printed)
-		if(!print_report())
-			timing = FALSE
-			return FALSE
+	if(!printed && !print_report())
+		timing = FALSE
+		return FALSE
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
@@ -201,28 +232,30 @@
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(door.density)
 			continue
-		spawn(0)
-			door.close()
+		INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door, close))
 
-	for(var/obj/structure/closet/secure_closet/brig/C in targets)
-		if(C.broken)
+	for(var/obj/structure/closet/secure_closet/brig/closet in targets)
+		if(closet.broken)
 			continue
-		if(C.opened && !C.close())
+		if(closet.opened && !closet.close())
 			continue
-		C.locked = 1
-		C.update_icon()
+		closet.locked = TRUE
+		closet.update_icon()
 
-	for(var/obj/machinery/treadmill_monitor/T in targets)
-		T.total_joules = 0
-		T.on = 1
+	for(var/obj/machinery/treadmill_monitor/monitor in targets)
+		monitor.total_joules = 0
+		monitor.on = TRUE
 
-	return 1
+	return TRUE
 
 
 // Opens and unlocks doors, power check
 /obj/machinery/door_timer/proc/timer_end()
+	timing = FALSE
+	update_display()
+
 	if(stat & (NOPOWER|BROKEN))
-		return 0
+		return FALSE
 
 	// Reset vars
 	occupant = CELL_NONE
@@ -231,7 +264,7 @@
 	timetoset = 0
 	officer = CELL_NONE
 	releasetime = 0
-	printed = 0
+	printed = FALSE
 	if(prisoner)
 		prisoner.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
 		update_all_mob_security_hud()
@@ -242,20 +275,20 @@
 			continue
 		INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/window/brigdoor, open))
 
-	for(var/obj/structure/closet/secure_closet/brig/C in targets)
-		if(C.broken)
+	for(var/obj/structure/closet/secure_closet/brig/closet in targets)
+		if(closet.broken)
 			continue
-		if(C.opened)
+		if(closet.opened)
 			continue
-		C.locked = 0
-		C.update_icon()
+		closet.locked = FALSE
+		closet.update_icon()
 
-	for(var/obj/machinery/treadmill_monitor/T in targets)
-		if(!T.stat)
-			T.redeem()
-		T.on = 0
+	for(var/obj/machinery/treadmill_monitor/monitor in targets)
+		if(!monitor.stat)
+			monitor.redeem()
+		monitor.on = FALSE
 
-	return 1
+	return TRUE
 
 
 // Check for releasetime timeleft
@@ -281,6 +314,22 @@
 
 /obj/machinery/door_timer/attack_ghost(mob/user)
 	ui_interact(user)
+
+
+/obj/machinery/door_timer/emp_act(severity)
+	if((stat & (BROKEN|NOPOWER)) || emagged)
+		..(severity)
+		return
+	if(timing && prob(100 / severity))
+		emagged = TRUE
+	..(severity)
+
+
+/obj/machinery/door_timer/emag_act()
+	if((stat & (BROKEN|NOPOWER)) || emagged || !timing)
+		return
+	emagged = TRUE
+
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -360,9 +409,7 @@
 			prisoner_name = null
 			prisoner_charge = null
 			prisoner_time = null
-			timing = TRUE
 			timer_start()
-			update_icon()
 		if("add_timer")
 			if(timing)
 				var/add_reason = sanitize(copytext(input(usr, "Reason:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
@@ -412,74 +459,19 @@
 			else
 				. = FALSE
 		if("flash")
-			for(var/obj/machinery/flasher/F in targets)
-				if(F.last_flash && (F.last_flash + 150) > world.time)
-					to_chat(usr, span_warning("Flash still charging."))
+			for(var/obj/machinery/flasher/flasher in targets)
+				if(flasher.last_flash && (flasher.last_flash + 15 SECONDS) > world.time)
+					to_chat(usr, span_warning("Flash is still recharging."))
 				else
-					F.flash()
+					flasher.flash()
 		else
 			. = FALSE
 
 
-//icon update function
-// if NOPOWER, display blank
-// if BROKEN, display blue screen of death icon AI uses
-// if timing=true, run update display function
-/obj/machinery/door_timer/update_icon()
-	if(stat & (NOPOWER))
-		icon_state = "frame"
-		return
-	if(stat & (BROKEN))
-		set_picture("ai_bsod")
-		return
-	if(timing)
-		var/disp1 = id
-		var/timeleft = timeleft()
-		var/disp2 = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-		if(length(disp2) > CHARS_PER_LINE)
-			disp2 = "Error"
-		update_display(disp1, disp2)
-	else
-		if(maptext)	maptext = ""
-
-
-// Adds an icon in case the screen is broken/off, stolen from status_display.dm
-/obj/machinery/door_timer/proc/set_picture(state)
-	picture_state = state
-	overlays.Cut()
-	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
-
-/obj/machinery/door_timer/proc/return_time_input()
-	var/mins = input(usr, "Minutes", "Enter number of minutes", 0) as num
-	var/seconds = input(usr, "Seconds", "Enter number of seconds", 0) as num
-	var/totaltime = (seconds + (mins * 60))
-	return totaltime
-
-//Checks to see if there's 1 line or 2, adds text-icons-numbers/letters over display
-// Stolen from status_display
-/obj/machinery/door_timer/proc/update_display(line1, line2)
-	line1 = uppertext(line1)
-	line2 = uppertext(line2)
-	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
-	if(maptext != new_text)
-		maptext = new_text
-
-
-//Actual string input to icon display for loop, with 5 pixel x offsets for each letter.
-//Stolen from status_display
-/obj/machinery/door_timer/proc/texticon(tn, px = 0, py = 0)
-	var/image/I = image('icons/obj/status_display.dmi', "blank")
-	var/len = length(tn)
-
-	for(var/d = 1 to len)
-		var/char = copytext(tn, len-d+1, len-d+2)
-		if(char == " ")
-			continue
-		var/image/ID = image('icons/obj/status_display.dmi', icon_state=char)
-		ID.pixel_x = -(d-1)*5 + px
-		ID.pixel_y = py
-		I.overlays += ID
-	return I
+/obj/machinery/door_timer/update_overlays()
+	. = ..()
+	if(!(stat & NOPOWER) && ((stat & BROKEN) || emagged))
+		. += "ai_bsod"
 
 
 /obj/machinery/door_timer/cell_1
@@ -531,8 +523,3 @@
 	name = "Cell 8"
 	id = "Cell 8"
 
-#undef FONT_SIZE
-#undef FONT_COLOR
-#undef FONT_STYLE
-#undef CHARS_PER_LINE
-#undef CELL_NONE

@@ -28,6 +28,7 @@
 #define DIAG_PATH_HUD 		"23"//Bot path indicators
 #define GLAND_HUD 			"24"//Gland indicators for abductors
 #define THOUGHT_HUD			"25"//Telepathy bubbles
+#define KIDAN_PHEROMONES_HUD	"26"//Kidan pheromones hud
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -61,6 +62,8 @@
 #define TAIPAN_HUD 23
 #define ANTAG_HUD_THIEF 24
 #define THOUGHTS_HUD 25
+//species hud
+#define DATA_HUD_KIDAN_PHEROMONES 26
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
@@ -70,10 +73,11 @@
 
 // The kind of things granted by HUD items in game, that do not manifest as
 // on-screen icons, but rather go to examine text.
-#define EXAMINE_HUD_SECURITY_READ "security_read"
-#define EXAMINE_HUD_SECURITY_WRITE "security_write"
-#define EXAMINE_HUD_MEDICAL "medical"
-#define EXAMINE_HUD_SKILLS "skills"
+#define EXAMINE_HUD_SECURITY_READ			(1<<0)	//"security_read"
+#define EXAMINE_HUD_SECURITY_WRITE			(1<<1)	//"security_write"
+#define EXAMINE_HUD_MEDICAL					(1<<2)	//"medical"
+#define EXAMINE_HUD_SKILLS					(1<<3)	//"skills"
+#define EXAMINE_HUD_BOTANY					(1<<4)	//"botany"
 
 
 // Consider these images/atoms as part of the UI/HUD (apart of the appearance_flags)

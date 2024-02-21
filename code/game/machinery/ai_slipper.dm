@@ -4,83 +4,95 @@
 	icon_state = "liquid_dispenser"
 	layer = 3
 	plane = FLOOR_PLANE
-	anchored = 1.0
+	anchored = TRUE
 	max_integrity = 200
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
 	var/uses = 20
 	var/disabled = TRUE
-	var/lethal = 0
 	var/locked = TRUE
-	var/cooldown_time = 0
-	var/cooldown_timeleft = 0
+	var/cooldown_time = 10 SECONDS
 	var/cooldown_on = FALSE
 	req_access = list(ACCESS_AI_UPLOAD)
 
-/obj/machinery/ai_slipper/power_change()
-	if(stat & BROKEN)
-		update_icon()
-	else
-		if( powered() )
-			stat &= ~NOPOWER
-		else
-			stat |= NOPOWER
-			disabled = TRUE
-		update_icon()
 
-/obj/machinery/ai_slipper/proc/setState(var/enabled, var/uses)
-	disabled = disabled
-	uses = uses
-	power_change()
+/obj/machinery/ai_slipper/examine(mob/user)
+	. = ..()
+	. += span_notice("A small counter shows it has: [uses] use\s remaining.")
+
+
+/obj/machinery/ai_slipper/power_change()
+	..() //we don't check return here because we also care about the BROKEN flag
+	if(stat & NOPOWER)
+		disabled = TRUE
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/machinery/ai_slipper/attackby(obj/item/W, mob/user, params)
+	add_fingerprint(user)
 	if(stat & (NOPOWER|BROKEN))
-		add_fingerprint(user)
 		return
-	if(istype(user, /mob/living/silicon))
+	if(issilicon(user))
 		return attack_hand(user)
-	if(allowed(usr)) // trying to unlock the interface
-		add_fingerprint(user)
-		locked = !locked
-		to_chat(user, "You [locked ? "lock" : "unlock"] the device.")
-		if(locked)
-			if(user.machine == src)
-				user.unset_machine()
-				user << browse(null, "window=ai_slipper")
-		else
-			if(user.machine == src)
-				attack_hand(usr)
-		return
-	return ..()
+	if(!allowed(user)) // trying to unlock the interface
+		to_chat(user, span_warning("Access denied."))
+		return ..()
+
+	locked = !locked
+	to_chat(user, span_notice("You [locked ? "lock" : "unlock"] the device."))
+	if(locked)
+		if(user.machine == src)
+			user.unset_machine()
+			user << browse(null, "window=ai_slipper")
+	else
+		if(user.machine == src)
+			attack_hand(user)
+
 
 /obj/machinery/ai_slipper/proc/ToggleOn()
 	if(stat & (NOPOWER|BROKEN))
 		return
 	disabled = !disabled
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/ai_slipper/proc/Activate()
+
+/obj/machinery/ai_slipper/proc/Activate(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(cooldown_on || disabled)
+	if(!uses)
+		to_chat(user, span_warning("[src] is empty!"))
 		return
-	else
-		new /obj/effect/particle_effect/foam(loc)
-		uses--
-		cooldown_on = TRUE
-		cooldown_time = world.timeofday + 100
-		slip_process()
+	if(cooldown_on)
+		to_chat(user, span_warning("[src] is still recharging!"))
+		return
 
-/obj/machinery/ai_slipper/update_icon()
-	if(stat & (NOPOWER|BROKEN) || disabled)
+	new /obj/effect/particle_effect/foam(loc)
+	uses--
+	cooldown_on = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown_time)
+
+
+/obj/machinery/ai_slipper/proc/recharge()
+	if(!uses)
+		return
+	cooldown_on = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/ai_slipper/update_icon_state()
+	if((stat & (NOPOWER|BROKEN)) || disabled || cooldown_on || !uses)
 		icon_state = "liquid_dispenser"
 	else
 		icon_state = "liquid_dispenser_on"
 
+
 /obj/machinery/ai_slipper/attack_ai(mob/user)
 	return attack_hand(user)
 
+
 /obj/machinery/ai_slipper/attack_ghost(mob/user)
 	return attack_hand(user)
+
 
 /obj/machinery/ai_slipper/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
@@ -106,6 +118,7 @@
 	user << browse(t, "window=computer;size=575x450")
 	onclose(user, "computer")
 
+
 /obj/machinery/ai_slipper/Topic(href, href_list)
 	if(..())
 		return 1
@@ -118,22 +131,7 @@
 		ToggleOn()
 
 	if(href_list["toggleUse"])
-		Activate()
+		Activate(usr)
 
 	attack_hand(usr)
 
-/obj/machinery/ai_slipper/proc/slip_process()
-	while(cooldown_time - world.timeofday > 0)
-		var/ticksleft = cooldown_time - world.timeofday
-
-		if(ticksleft > 1e5)
-			cooldown_time = world.timeofday + 10	// midnight rollover
-
-
-		cooldown_timeleft = (ticksleft / 10)
-		sleep(5)
-	if(uses <= 0)
-		return
-	if(uses >= 0)
-		cooldown_on = FALSE
-	power_change()

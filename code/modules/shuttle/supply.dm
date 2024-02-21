@@ -16,6 +16,41 @@
 	height = 7
 	roundstart_move = "supply_away"
 
+/obj/docking_port/mobile/supply/proc/forbidden_atoms_check(atom/A)
+	var/static/list/cargo_blacklist = list(
+		/obj/structure/blob,
+		/obj/structure/spider/spiderling,
+		/obj/item/disk/nuclear,
+		/obj/machinery/nuclearbomb,
+		/obj/item/radio/beacon,
+		/obj/machinery/the_singularitygen,
+		/obj/singularity,
+		/obj/machinery/teleport/station,
+		/obj/machinery/teleport/hub,
+		/obj/machinery/telepad,
+		/obj/machinery/telepad_cargo,
+		/obj/machinery/clonepod,
+		/obj/effect/hierophant,
+		/obj/item/warp_cube,
+		/obj/machinery/quantumpad,
+		/obj/structure/extraction_point,
+		/obj/item/paicard
+	)
+	if(A)
+		if(isliving(A))
+			if(!istype(A.loc, /obj/item/mobcapsule))
+				return TRUE
+			var/mob/living/living = A
+			if(living.client) //You cannot get out of the capsule and you will be destroyed. Saving clients
+				return TRUE
+		if(is_type_in_list(A, cargo_blacklist))
+			return TRUE
+		for(var/thing in A)
+			if(.(thing))
+				return TRUE
+
+	return FALSE
+
 /obj/docking_port/mobile/supply/register()
 	if(!..())
 		return 0
@@ -32,7 +67,7 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock()
+/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/S1, force, transit)
 	. = ..()
 	if(.)	return .
 
@@ -180,7 +215,7 @@
 								objective.unit_completed(cost)
 						msg += "[tech.name] - new data.<br>"
 
-		qdel(MA)
+		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
 
 
@@ -199,35 +234,6 @@
 		SSshuttle.points += pointsEarned
 
 	SSshuttle.centcom_message += "[msg]<hr>"
-
-/proc/forbidden_atoms_check(atom/A)
-	var/list/blacklist = list(
-		/mob/living,
-		/obj/structure/blob,
-		/obj/structure/spider/spiderling,
-		/obj/item/disk/nuclear,
-		/obj/machinery/nuclearbomb,
-		/obj/item/radio/beacon,
-		/obj/machinery/the_singularitygen,
-		/obj/singularity,
-		/obj/machinery/teleport/station,
-		/obj/machinery/teleport/hub,
-		/obj/machinery/telepad,
-		/obj/machinery/telepad_cargo,
-		/obj/machinery/clonepod,
-		/obj/effect/hierophant,
-		/obj/item/warp_cube,
-		/obj/machinery/quantumpad,
-		/obj/structure/extraction_point
-	)
-	if(A)
-		if(is_type_in_list(A, blacklist))
-			return 1
-		for(var/thing in A)
-			if(.(thing))
-				return 1
-
-	return 0
 
 /********************
     SUPPLY ORDER
@@ -335,12 +341,12 @@
 	if(istype(Crate, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/CR = Crate
 		CR.manifest = slip
-		CR.update_icon()
+		CR.update_icon(UPDATE_OVERLAYS)
 		CR.announce_beacons = object.announce_beacons.Copy()
 	if(istype(Crate, /obj/structure/largecrate))
 		var/obj/structure/largecrate/LC = Crate
 		LC.manifest = slip
-		LC.update_icon()
+		LC.update_icon(UPDATE_OVERLAYS)
 
 	return Crate
 
@@ -382,7 +388,6 @@
 		return TRUE
 
 	add_fingerprint(user)
-	post_signal("supply")
 	ui_interact(user)
 	return
 
@@ -409,10 +414,11 @@
 		if(SO)
 			if(!SO.comment)
 				SO.comment = "No comment."
-			var/pack_techs
-			for(var/tech_id in SO.object.required_tech)
-				pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]];  "
-			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum), "pack_techs" = pack_techs)))
+			var/list/pack_techs = list()
+			if(length(SO.object.required_tech))
+				for(var/tech_id in SO.object.required_tech)
+					pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]];  "
+			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum), "pack_techs" = pack_techs.Join(""))))
 	data["requests"] = requests_list
 
 	var/list/orders_list = list()
@@ -426,6 +432,7 @@
 
 	data["canapprove"] = (SSshuttle.supply.getDockedId() == "supply_away") && !(SSshuttle.supply.mode != SHUTTLE_IDLE) && !is_public
 	data["points"] = round(SSshuttle.points)
+	data["credits"] = SSshuttle.cargo_money_account.money
 
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
@@ -442,7 +449,7 @@
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
 		var/has_sale = pack.cost < initial(pack.cost)
 		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
-			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
+			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "creditsCost" = pack.credits_cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
 
 	data["supply_packs"] = packs_list
 
@@ -488,7 +495,6 @@
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 				investigate_log("[key_name_log(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", INVESTIGATE_CARGO)
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
-				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
 					var/datum/supply_order/O = new /datum/supply_order()
 					O.ordernum = SSshuttle.ordernum
@@ -561,6 +567,8 @@
 					else if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
+						if(P.credits_cost)
+							SSshuttle.cargo_money_account.money -= P.credits_cost
 						SSshuttle.shoppinglist += O
 						P.times_ordered += 1
 						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", INVESTIGATE_CARGO)
@@ -590,17 +598,4 @@
 			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Central Command Cargo Message Log", 800, 600)
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
-
-/obj/machinery/computer/supplycomp/proc/post_signal(command)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-
-	if(!frequency) return
-
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	frequency.post_signal(src, status_signal)
-
 

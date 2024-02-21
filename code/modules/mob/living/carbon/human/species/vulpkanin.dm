@@ -3,7 +3,7 @@
 	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
-	language = "Canilunzt"
+	language = LANGUAGE_VULPKANIN
 	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
 	skinned_type = /obj/item/stack/sheet/fur
@@ -38,6 +38,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/vulpkanin,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/vulpkanin
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),

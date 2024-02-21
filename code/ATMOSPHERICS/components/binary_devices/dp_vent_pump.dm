@@ -14,8 +14,8 @@
 
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
 
-	var/on = 0
-	var/releasing = 1 //0 = siphoning, 1 = releasing
+	on = FALSE
+	var/releasing = TRUE // FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = ONE_ATMOSPHERE
 	var/input_pressure_min = 0
@@ -61,22 +61,12 @@
 	air1.volume = 1000
 	air2.volume = 1000
 
-/obj/machinery/atmospherics/binary/volume_pump/update_underlays()
-	if(..())
-		underlays.Cut()
-		var/turf/T = get_turf(src)
-		if(!istype(T))
-			return
-		add_underlay(T, node1, turn(dir, -180))
-		add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/update_icon(var/safety = 0)
-	..()
+/obj/machinery/atmospherics/binary/dp_vent_pump/update_overlays()
+	. = ..()
 
 	if(!check_icon_cache())
 		return
-
-	overlays.Cut()
 
 	var/vent_icon = "vent"
 
@@ -92,7 +82,9 @@
 	else
 		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
+	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
+	update_pipe_image()
+
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_underlays()
 	if(..())
@@ -198,11 +190,11 @@
 
 	if(signal.data["purge"])
 		pressure_checks &= ~1
-		releasing = 0
+		releasing = FALSE
 
 	if(signal.data["stabilize"])//the fact that this was "stabalize" shows how many fucks people give about these wonders, none
 		pressure_checks |= 1
-		releasing = 1
+		releasing = TRUE
 
 	if(signal.data["set_input_pressure"] != null)
 		input_pressure_min = between(

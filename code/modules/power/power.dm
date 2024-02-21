@@ -239,7 +239,7 @@
 	var/index = 1
 	var/obj/P = null
 
-	worklist+=O //start propagating from the passed object
+	worklist[O] = TRUE //start propagating from the passed object
 
 	while(index<=worklist.len) //until we've exhausted all power objects
 		P = worklist[index] //get the next power object found
@@ -249,17 +249,19 @@
 			var/obj/structure/cable/C = P
 			if(C.powernet != PN) //add it to the powernet, if it isn't already there
 				PN.add_cable(C)
-			worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
+			//worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
+			for(var/i in C.get_connections())
+				worklist[i] = TRUE
 
 		else if(P.anchored && istype(P, /obj/machinery/power))
 			var/obj/machinery/power/M = P
-			found_machines |= M //we wait until the powernet is fully propagates to connect the machines
+			found_machines[P] = M //we wait until the powernet is fully propagates to connect the machines
 
 		else
 			continue
 
 	//now that the powernet is set, connect found machines to it
-	for(var/obj/machinery/power/PM in found_machines)
+	for(var/obj/machinery/power/PM as anything in found_machines)
 		if(!PM.connect_to_network()) //couldn't find a node on its turf...
 			PM.disconnect_from_network() //... so disconnect if already on a powernet
 

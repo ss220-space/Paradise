@@ -9,7 +9,7 @@ Pipes -> Pipelines
 Pipelines + Other Objects -> Pipe network
 */
 /obj/machinery/atmospherics
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	plane = GAME_PLANE
@@ -17,21 +17,32 @@ Pipelines + Other Objects -> Pipe network
 	active_power_usage = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
-	var/can_unwrench = 0
+	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
+	/// Generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things.
+	var/layer_offset = 0.0
+	/// Can this be unwrenched?
+	var/can_unwrench = FALSE
 	/// Can this be put under a tile?
 	var/can_be_undertile = FALSE
+	/// If the machine is currently operating or not.
+	var/on = FALSE
 
-	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
-	var/connected_to = 1 //same as above, currently not used for anything
-	var/icon_connect_type = "" //"-supply" or "-scrubbers"
+	// Vars below this point are all pipe related
+	// I know not all subtypes are pipes, but this helps
 
+	/// Type of pipes this machine can connect to
+	var/list/connect_types = list(CONNECT_TYPE_NORMAL)
+	/// What this machine is connected to
+	var/connected_to = CONNECT_TYPE_NORMAL
+	/// Icon suffix for connection, can be "-supply" or "-scrubbers"
+	var/icon_connect_type = ""
+	/// Directions to initialize in to grab pipes
 	var/initialize_directions = 0
-
+	/// Pipe colour, not used for all subtypes
 	var/pipe_color
-	var/obj/item/pipe/stored
+	/// Pipe image, not used for all subtypes
 	var/image/pipe_image
-	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
-	var/layer_offset = 0.0 // generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things
+
 
 /obj/machinery/atmospherics/New()
 	if (!armor)
@@ -50,13 +61,10 @@ Pipelines + Other Objects -> Pipe network
 	SSair.atmos_machinery += src
 
 /obj/machinery/atmospherics/proc/atmos_init()
-	if(can_unwrench)
-		stored = new(src, make_from = src)
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
 /obj/machinery/atmospherics/Destroy()
-	QDEL_NULL(stored)
 	SSair.atmos_machinery -= src
 	SSair.deferred_pipenet_rebuilds -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
@@ -72,7 +80,7 @@ Pipelines + Other Objects -> Pipe network
 		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 // Icons/overlays/underlays
-/obj/machinery/atmospherics/update_icon()
+/obj/machinery/atmospherics/update_icon_state()
 	switch(level)
 		if(1)
 			plane = FLOOR_PLANE
@@ -86,9 +94,8 @@ Pipelines + Other Objects -> Pipe network
 	pipe_image.plane = HUD_PLANE
 
 /obj/machinery/atmospherics/proc/check_icon_cache()
-	if(!istype(SSair.icon_manager))
+	if(!SSair.icon_manager)
 		return FALSE
-
 	return TRUE
 
 /obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
@@ -98,47 +105,37 @@ Pipelines + Other Objects -> Pipe network
 
 	return node.pipe_color
 
-/obj/machinery/atmospherics/proc/add_underlay(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type)
+/obj/machinery/atmospherics/proc/add_underlay(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type)
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_down", direction, color_cache_name(node))
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_intact", direction, color_cache_name(node))
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
 		if(T.transparent_floor) //we want to keep pipes under transparent floors connected normally
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 		else
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_exposed", direction, pipe_color)
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
-	if(check_icon_cache())
-		return 1
-	else
-		return 0
+	return check_icon_cache()
 
 // Connect types
 /obj/machinery/atmospherics/proc/check_connect_types(obj/machinery/atmospherics/atmos1, obj/machinery/atmospherics/atmos2)
-	var/i
-	var/list1[] = atmos1.connect_types
-	var/list2[] = atmos2.connect_types
-	for(i=1,i<=list1.len,i++)
-		var/j
-		for(j=1,j<=list2.len,j++)
+	var/list/list1 = atmos1.connect_types
+	var/list/list2 = atmos2.connect_types
+	for(var/i in 1 to length(list1))
+		for(var/j in 1 to length(list2))
 			if(list1[i] == list2[j])
 				var/n = list1[i]
 				return n
 	return 0
 
 /obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/atmospherics/atmos1, obj/item/pipe/pipe2)
-	var/i
-	var/list1[] = atmos1.connect_types
-	var/list2[] = pipe2.connect_types
-	for(i=1,i<=list1.len,i++)
-		var/j
-		for(j=1,j<=list2.len,j++)
+	var/list/list1 = atmos1.connect_types
+	var/list/list2 = pipe2.connect_types
+	for(var/i in 1 to length(list1))
+		for(var/j in 1 to length(list2))
 			if(list1[i] == list2[j])
 				var/n = list1[i]
 				return n
@@ -182,7 +179,7 @@ Pipelines + Other Objects -> Pipe network
 //(De)construction
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
-	if(can_unwrench && istype(W, /obj/item/wrench))
+	if(can_unwrench && W.tool_behaviour == TOOL_WRENCH)
 		if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
 			to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 			return
@@ -247,14 +244,11 @@ Pipelines + Other Objects -> Pipe network
 	user.throw_at(general_direction, pressures/10, pressures/50)
 
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		if(can_unwrench)
-			if(stored)
-				stored.forceMove(get_turf(src))
-				if(!disassembled)
-					stored.obj_integrity = stored.max_integrity * 0.5
-				transfer_fingerprints_to(stored)
-				stored = null
+	if(can_unwrench && !(flags & NODECONSTRUCT))
+		var/obj/item/pipe/stored = new(loc, null, null, src)
+		if(!disassembled)
+			stored.obj_integrity = stored.max_integrity * 0.5
+		transfer_fingerprints_to(stored)
 	..()
 
 /obj/machinery/atmospherics/on_construction(D, P, C)
@@ -267,7 +261,8 @@ Pipelines + Other Objects -> Pipe network
 		level = (T.intact || !can_be_undertile) ? 2 : 1
 	else
 		level = 2
-	update_icon()
+
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(usr)
 	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
 		SSair.machinery_to_construct.Add(src)
@@ -283,7 +278,7 @@ Pipelines + Other Objects -> Pipe network
 	build_network()
 
 // Find a connecting /obj/machinery/atmospherics in specified direction.
-/obj/machinery/atmospherics/proc/findConnecting(var/direction)
+/obj/machinery/atmospherics/proc/findConnecting(direction)
 	for(var/obj/machinery/atmospherics/target in get_step(src,direction))
 		var/can_connect = check_connect_types(target, src)
 		if(can_connect && (target.initialize_directions & get_dir(target,src)))
@@ -319,9 +314,9 @@ Pipelines + Other Objects -> Pipe network
 			user.remove_ventcrawl()
 			user.forceMove(src.loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
-	user.canmove = 0
+	user.canmove = FALSE
 	spawn(1)
-		user.canmove = 1
+		user.canmove = TRUE
 
 /obj/machinery/atmospherics/AltClick(mob/living/user)
 	user.handle_ventcrawl(src)
@@ -329,7 +324,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return 1
 
-/obj/machinery/atmospherics/proc/change_color(var/new_color)
+/obj/machinery/atmospherics/proc/change_color(new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
 	if(!pipe_color_check(new_color))
 		return
@@ -338,9 +333,10 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 
 // Additional icon procs
-/obj/machinery/atmospherics/proc/universal_underlays(var/obj/machinery/atmospherics/node, var/direction)
+/obj/machinery/atmospherics/proc/universal_underlays(obj/machinery/atmospherics/node, direction)
 	var/turf/T = get_turf(src)
-	if(!istype(T)) return
+	if(!istype(T))
+		return
 	if(node)
 		var/node_dir = get_dir(src,node)
 		if(node.icon_connect_type == "-supply")
@@ -360,7 +356,7 @@ Pipelines + Other Objects -> Pipe network
 		add_underlay_adapter(T, , direction, "-scrubbers")
 		add_underlay_adapter(T, , direction, "")
 
-/obj/machinery/atmospherics/proc/add_underlay_adapter(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type) //modified from add_underlay, does not make exposed underlays
+/obj/machinery/atmospherics/proc/add_underlay_adapter(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
@@ -384,3 +380,21 @@ Pipelines + Other Objects -> Pipe network
 //Used for certain children of obj/machinery/atmospherics to not show pipe vision when mob is inside it.
 /obj/machinery/atmospherics/proc/can_see_pipes()
 	return TRUE
+
+
+/**
+ * Turns the machine either on, or off. If this is done by a user, display a message to them.
+ *
+ * NOTE: Only applies to atmospherics machines which can be toggled on or off, such as pumps, or other devices.
+ *
+ * Arguments:
+ * * user - the mob who is toggling the machine.
+ */
+/obj/machinery/atmospherics/proc/toggle(mob/living/user)
+	if(!powered())
+		return
+	on = !on
+	update_icon()
+	if(user)
+		to_chat(user, span_notice("You toggle [src] [on ? "on" : "off"]."))
+

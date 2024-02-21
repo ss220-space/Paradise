@@ -44,22 +44,22 @@
 				if(auto_eject)
 					eject_beaker()
 
+
+/obj/machinery/chem_heater/update_icon_state()
+	icon_state = "mixer[beaker ? "1" : "0"]b"
+
+
+
 /obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
 		beaker.forceMove(get_turf(src))
 		if(user && Adjacent(user) && !issilicon(user))
 			user.put_in_hands(beaker, ignore_anim = FALSE)
 		beaker = null
-		icon_state = "mixer0b"
 		on = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 
-/obj/machinery/chem_heater/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
 	if(isrobot(user))
@@ -74,7 +74,7 @@
 			add_fingerprint(user)
 			beaker = I
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
-			icon_state = "mixer1b"
+			update_icon(UPDATE_ICON_STATE)
 			SStgui.update_uis(src)
 			return
 

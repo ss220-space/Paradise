@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/can_dominate_mechs = 0
 	var/shunted = 0 //1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
 
-	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
+	var/control_disabled = FALSE // Set to TRUE to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
 	var/malf_cooldown = 0 //Cooldown var for malf modules, stores a worldtime + cooldown
 
@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/datum/trackable/track = new()
 
 	var/last_paper_seen = null
-	var/can_shunt = 1
+	var/can_shunt = TRUE
 	var/last_announcement = ""
 	var/datum/announcement/priority/announcement
 	var/mob/living/simple_animal/bot/Bot
@@ -139,8 +139,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
-	anchored = 1
-	canmove = 0
+	anchored = TRUE
+	canmove = FALSE
 	density = 1
 	loc = loc
 
@@ -148,10 +148,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	proc_holder_list = new()
 
-	if(B?.clock || isclocker(B?.brainmob))
-		laws = new /datum/ai_laws/ratvar
-		overlays += "clockwork_frame"
-	if(L)
+	if(B?.clock)
+		ratvar_act()
+	else if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
 	else
@@ -172,24 +171,24 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		add_ai_verbs(src)
 
 	//Languages
-	add_language("Robot Talk", 1)
-	add_language("Galactic Common", 1)
-	add_language("Sol Common", 1)
-	add_language("Tradeband", 1)
-	add_language("Neo-Russkiya", 1)
-	add_language("Gutter", 1)
-	add_language("Sinta'unathi", 1)
-	add_language("Siik'tajr", 1)
-	add_language("Canilunzt", 1)
-	add_language("Skrellian", 1)
-	add_language("Vox-pidgin", 1)
-	add_language("Orluum", 1)
-	add_language("Rootspeak", 1)
-	add_language("Trinary", 1)
-	add_language("Chittin", 1)
-	add_language("Bubblish", 1)
-	add_language("Clownish", 1)
-	add_language("Tkachi", 1)
+	add_language(LANGUAGE_BINARY, 1)
+	add_language(LANGUAGE_GALACTIC_COMMON, 1)
+	add_language(LANGUAGE_SOL_COMMON, 1)
+	add_language(LANGUAGE_TRADER, 1)
+	add_language(LANGUAGE_NEO_RUSSIAN, 1)
+	add_language(LANGUAGE_GUTTER, 1)
+	add_language(LANGUAGE_UNATHI, 1)
+	add_language(LANGUAGE_TAJARAN, 1)
+	add_language(LANGUAGE_VULPKANIN, 1)
+	add_language(LANGUAGE_SKRELL, 1)
+	add_language(LANGUAGE_VOX, 1)
+	add_language(LANGUAGE_DRASK, 1)
+	add_language(LANGUAGE_DIONA, 1)
+	add_language(LANGUAGE_TRINARY, 1)
+	add_language(LANGUAGE_KIDAN, 1)
+	add_language(LANGUAGE_SLIME, 1)
+	add_language(LANGUAGE_CLOWN, 1)
+	add_language(LANGUAGE_MOTH, 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -339,7 +338,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	use_power = ACTIVE_POWER_USE
 	power_channel = EQUIP
 	var/mob/living/silicon/ai/powered_ai = null
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/ai_powersupply/New(mob/living/silicon/ai/ai=null)
 	powered_ai = ai
@@ -994,19 +993,25 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable())
 		return
 
-	for(var/obj/machinery/M in GLOB.machines) //change status
-		if(istype(M, /obj/machinery/ai_status_display))
-			var/obj/machinery/ai_status_display/AISD = M
-			AISD.emotion = emote
-		//if Friend Computer, change ALL displays
-		else if(istype(M, /obj/machinery/status_display))
+	for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
+		display.emotion = emote
+		display.update_icon()
 
-			var/obj/machinery/status_display/SD = M
+	for(var/obj/machinery/machine in GLOB.machines) //change status
+		if(istype(machine, /obj/machinery/ai_status_display))
+			var/obj/machinery/ai_status_display/display = machine
+			display.emotion = emote
+			display.update_icon()
+
+		//if Friend Computer, change ALL displays
+		else if(istype(machine, /obj/machinery/status_display))
+
+			var/obj/machinery/status_display/display = machine
 			if(emote=="Friend Computer")
-				SD.friendc = 1
+				display.friendc = TRUE
 			else
-				SD.friendc = 0
-	return
+				display.friendc = FALSE
+
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
@@ -1239,7 +1244,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 
 /mob/living/silicon/ai/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(anchored)
 			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
 			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
@@ -1307,8 +1312,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		update_blind_effects()
-		control_disabled = 1//Can't control things remotely if you're stuck in a card!
-		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
+		control_disabled = TRUE//Can't control things remotely if you're stuck in a card!
+		aiRadio.disabledAi = TRUE 	//No talking on the built-in radio for you either!
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")

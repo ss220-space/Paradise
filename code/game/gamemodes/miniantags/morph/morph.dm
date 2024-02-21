@@ -393,6 +393,19 @@
 
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
+
+/mob/living/simple_animal/hostile/morph/get_examine_time()
+	return morphed ? mimic_spell.selected_form.examine_time : ..()
+
+
+/mob/living/simple_animal/hostile/morph/get_visible_gender()
+	return morphed ? mimic_spell.selected_form.examine_gender : ..()
+
+
+/mob/living/simple_animal/hostile/morph/get_visible_species()
+	return morphed ? mimic_spell.selected_form.examine_species : ..()
+
+
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST
 #undef MORPHS_ANNOUNCE_THRESHOLD

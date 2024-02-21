@@ -26,6 +26,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/forbidden=0
 	var/path = /obj/item/book // Type path of the book to generate
 	var/flagged = 0
+	var/flaggedby
 
 /datum/cachedbook/proc/LoadFromRow(var/list/row)
 	id = row["id"]
@@ -34,6 +35,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	category = row["category"]
 	ckey = row["ckey"]
 	flagged = row["flagged"]
+	flaggedby = row["flaggedby"]
 	if("content" in row)
 		content = row["content"]
 	programmatic=0
@@ -78,8 +80,11 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	books_flagged_this_round["[id]"] = 1
 	message_admins("[key_name_admin(user)] has flagged book #[id] as inappropriate.")
 
-	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=:id", list(
-		"id" = text2num(id)
+	log_game("[user] (ckey: [user.key]) has flagged book #[id] as inappropriate.")
+
+	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1, flaggedby=:flaggedby WHERE id=:id", list(
+		"id" = text2num(id),
+		"flaggedby" = user.key
 	))
 	if(!query.warn_execute())
 		qdel(query)
@@ -105,7 +110,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if("[id]" in cached_books)
 		return cached_books["[id]"]
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=:id", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, category, content, ckey, flagged, flaggedby FROM [format_table_name("library")] WHERE id=:id", list(
 		"id" = text2num(id)
 	))
 	if(!query.warn_execute())
@@ -122,7 +127,8 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 			"category"=query.item[4],
 			"content" =query.item[5],
 			"ckey"    =query.item[6],
-			"flagged" =query.item[7]
+			"flagged" =query.item[7],
+			"flaggedby"=query.item[8]
 		))
 		results += CB
 		cached_books["[id]"]=CB
@@ -136,7 +142,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	name = "scanner"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	var/obj/item/book/cache		// Last scanned book
 
@@ -203,7 +209,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	name = "Book Binder"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "binder"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 /obj/machinery/bookbinder/attackby(obj/item/I, mob/user)

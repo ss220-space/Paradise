@@ -191,8 +191,7 @@
 /obj/item/stack/sheet/mineral/gold{
 	amount = 50
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
-	amount = 20;
+/obj/item/stack/telecrystal/hundred{
 	desc = null
 	},
 /obj/machinery/door/poddoor{

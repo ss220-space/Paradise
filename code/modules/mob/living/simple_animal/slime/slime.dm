@@ -99,7 +99,7 @@
 	set_colour(new_colour)
 	. = ..()
 	set_nutrition(new_set_nutrition)
-	add_language("Bubblish")
+	add_language(LANGUAGE_SLIME)
 
 /mob/living/simple_animal/slime/Destroy()
 	for(var/A in actions)
@@ -372,6 +372,7 @@
 			++Friends[user]
 		else
 			Friends[user] = 1
+			RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_friend))
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
@@ -392,6 +393,10 @@
 		if(prob(10 + force_effect))
 			discipline_slime(user)
 	..()
+
+/mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
+	UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
+	Friends -= friend
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()

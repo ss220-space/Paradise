@@ -532,7 +532,7 @@
 	name = "Speed Loader (.38 Hollow-Point)"
 	id = "c38hp"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list("hacked", "Security")
 
@@ -801,6 +801,14 @@
 	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
+/datum/design/cylinder
+	name = "Revolver Cylinder"
+	id = "icylinder"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 6000)
+	build_path = /obj/item/ammo_box/magazine/internal/cylinder/improvised
+	category = list("hacked", "Security")
+
 /datum/design/shotgun_slug
 	name = "Shotgun Slug"
 	id = "shotgun_slug"
@@ -901,7 +909,7 @@
 	name = "Ammo Box (.357)"
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 75000)
+	materials = list(MAT_METAL = 75500)
 	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
 

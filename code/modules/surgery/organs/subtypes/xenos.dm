@@ -184,19 +184,19 @@
 /obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	M.faction |= "alien"
-	M.add_language("Hivemind")
-	M.add_language("Xenomorph")
+	M.add_language(LANGUAGE_XENOS)
+	M.add_language(LANGUAGE_HIVE_XENOS)
 
 
 /obj/item/organ/internal/xenos/hivenode/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	M.faction -= "alien"
-	M.remove_language("Hivemind")
-	M.remove_language("Xenomorph")
+	M.remove_language(LANGUAGE_XENOS)
+	M.remove_language(LANGUAGE_HIVE_XENOS)
 	. = ..()
 
 
 /obj/item/organ/internal/xenos/neurotoxin
-	name = "xeno neurotoxin gland"
+	name = "large xeno neurotoxin gland"
 	icon_state = "neurotox"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_NEUROTOXIN_GLAND
@@ -204,6 +204,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
 
 /obj/item/organ/internal/xenos/neurotoxin/sentinel
+	name = "medium xeno neurotoxin gland"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin/sentinel)
 
 /obj/item/organ/internal/xenos/resinspinner

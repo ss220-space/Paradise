@@ -15,6 +15,10 @@
 	if(!storedorgan)
 		to_chat(user, "<span class='notice'>[src] currently has no implant stored.</span>")
 		return FALSE
+	var/mob/living/carbon/human/patient = user
+	if(!patient.bodyparts_by_name[storedorgan.parent_organ_zone])
+		to_chat(user, span_warning("Missing limb!"))
+		return FALSE
 	storedorgan.insert(user)//insert stored organ into the user
 	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
 	playsound(get_turf(user), usesound, 50, 1)
@@ -31,7 +35,7 @@
 		I.forceMove(src)
 		storedorgan = I
 		to_chat(user, "<span class='notice'>You insert the [I] into [src].</span>")
-	else if(istype(I, /obj/item/screwdriver))
+	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!storedorgan)
 			to_chat(user, "<span class='notice'>There's no implant in [src] for you to remove.</span>")
 		else
@@ -51,7 +55,7 @@
 	qdel(src)
 
 /obj/item/autoimplanter/oneuse/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		storedorgan.forceMove(get_turf(user))
 		storedorgan = null
 		to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")

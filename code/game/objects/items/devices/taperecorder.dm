@@ -36,7 +36,7 @@
 	..()
 	if(starts_with_tape)
 		mytape = new /obj/item/tape/random(src)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	soundloop = new(list(src))
 
 
@@ -60,7 +60,7 @@
 				. += span_notice("[mytape] has [mytape.remaining_capacity] seconds remaining.") // to avoid having 0 minutes
 			else
 				. += span_notice("[mytape] has [seconds_to_time(mytape.remaining_capacity)] remaining.")
-		. += span_notice("<b>Alt-Click</b> to access the tape.")
+		. += span_info("<b>Alt-Click</b> to access the tape.")
 
 
 /obj/item/taperecorder/proc/update_sound()
@@ -70,7 +70,7 @@
 		soundloop.start()
 
 
-/obj/item/taperecorder/update_icon()
+/obj/item/taperecorder/update_icon_state()
 	if(!mytape)
 		icon_state = "taperecorder_empty"
 	else if(recording)
@@ -82,7 +82,7 @@
 
 
 /obj/item/taperecorder/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	mytape.ruin() //Fires destroy the tape
+	mytape?.ruin() //Fires destroy the tape
 	return ..()
 
 
@@ -91,7 +91,7 @@
 		mytape = I
 		to_chat(user, span_notice("You insert [I] into [src]."))
 		playsound(src, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/taperecorder/attack_hand(mob/user)
@@ -150,7 +150,7 @@
 		mytape.forceMove_turf()
 		user.put_in_hands(mytape, ignore_anim = FALSE)
 		mytape = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/taperecorder/proc/record()
@@ -167,7 +167,7 @@
 		recording = TRUE
 		recorder_say("Запись началась.")
 		update_sound()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		mytape.timestamp += mytape.used_capacity
 		var/datum/tape_piece/piece = new()
 		piece.time = mytape.used_capacity
@@ -209,7 +209,7 @@
 		if(!playback_override)
 			recorder_say("Проигрывание остановлено.")
 		playing = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_sound()
 
 
@@ -229,7 +229,7 @@
 		return
 
 	playing = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_sound()
 	recorder_say("Проигрывание началось.")
 	playsound(src, 'sound/items/taperecorder/taperecorder_play.ogg', 50, FALSE)
@@ -317,18 +317,18 @@
 
 	var/obj/item/paper/transcript = new /obj/item/paper(drop_location())
 
-	var/t1 = "<B>Transcript:</B><BR><BR>"
+	var/list/paper_info = list("<B>Transcript:</B><BR><BR>")
 	for(var/i = 1, length(mytape.storedinfo) >= i, i++)
 		var/datum/tape_piece/piece = mytape.storedinfo[i]
-		t1 += "\[[time2text(piece.time * 10,"mm:ss")]\] "
+		paper_info += "\[[time2text(piece.time * 10,"mm:ss")]\] "
 		if(piece.speaker_name)
-			t1 += "[piece.speaker_name] "
+			paper_info += "[piece.speaker_name] "
 		if(piece.message_verb)
-			t1 += "[piece.message_verb], \"[piece.message]\"<BR>"
+			paper_info += "[piece.message_verb], \"[replace_characters(piece.message, list("+"))]\"<BR>"
 		else
-			t1 += "[piece.message]<BR>"
+			paper_info += "[replace_characters(piece.message, list("+"))]<BR>"
 
-	transcript.info = t1
+	transcript.info = paper_info.Join("")
 	transcript.name = "paper- 'Transcript'"
 	cooldown = world.time + 3 SECONDS
 
@@ -377,6 +377,12 @@
 				. += span_notice("It has [seconds_to_time(remaining_capacity)] remaining.")
 
 
+/obj/item/tape/update_overlays()
+	. = ..()
+	if(ruined)
+		. += "ribbonoverlay"
+
+
 /obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	ruin()
@@ -414,14 +420,14 @@
 		to_chat(user, span_notice("You pull the tape out of [src]."))
 
 	if(!ruined)
-		overlays += "ribbonoverlay"
 		ruined = TRUE
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/tape/proc/fix()
 	if(ruined)
-		overlays -= "ribbonoverlay"
 		ruined = FALSE
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/tape/verb/wipe()

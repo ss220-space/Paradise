@@ -737,13 +737,8 @@
 /mob/living/proc/AdjustDeaf(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetDeaf(directional_bounded_sum(AmountDeaf(), amount, bound_lower, bound_upper))
 
-/mob/living/proc/BecomeDeaf()
-	mutations |= DEAF
-
 /mob/living/proc/CureDeaf()
-	mutations -= DEAF
 	CureIfHasDisability(GLOB.deafblock)
-
 
 //
 //		DISABILITIES

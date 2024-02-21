@@ -1,16 +1,18 @@
+#define NO_DIRT 0
+#define MAX_DIRT 100
 
 /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
 	layer = 2.9
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	container_type = OPENCONTAINER
-	var/operating = 0 // Is it on?
-	var/dirty = 0 // = {0..100} Does it need cleaning?
+	var/operating = FALSE // Is it on?
+	var/dirty = NO_DIRT // = {0..100} Does it need cleaning?
 	var/broken = 0 // ={0,1,2} How broken is it???
 	var/efficiency = 0
 	var/list/cook_verbs = list("Cooking")
@@ -63,21 +65,21 @@
 	if(operating)
 		add_fingerprint(user)
 		return
-	if(!broken && dirty < 100)
+	if(!broken && dirty < MAX_DIRT)
 		if(default_deconstruction_screwdriver(user, open_icon, off_icon, O))
 			add_fingerprint(user)
 			return
 		if(exchange_parts(user, O))
 			return
-	if(!broken && istype(O, /obj/item/wrench))
+	if(!broken && O.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		playsound(src, O.usesound, 50, 1)
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
 			return
 		else if(!anchored)
-			anchored = 1
+			anchored = TRUE
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
 			return
 
@@ -85,33 +87,33 @@
 		return
 
 	if(broken > 0)
-		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver
+		if(broken == 2 && O.tool_behaviour == TOOL_SCREWDRIVER) // If it's broken and they're using a screwdriver
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
 			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
 				broken = 1 // Fix it a bit
-		else if(broken == 1 && istype(O, /obj/item/wrench)) // If it's broken and they're doing the wrench
+		else if(broken == 1 && O.tool_behaviour == TOOL_WRENCH) // If it's broken and they're doing the wrench
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
 			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
-				icon_state = off_icon
 				broken = 0 // Fix it!
-				dirty = 0 // just to be sure
+				dirty = NO_DIRT // just to be sure
+				update_icon(UPDATE_ICON_STATE)
 				container_type = OPENCONTAINER
 		else
 			to_chat(user, "<span class='alert'>It's broken!</span>")
 			return 1
-	else if(dirty==100) // The machine is all dirty so can't be used!
+	else if(dirty == MAX_DIRT) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
 			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
-				dirty = 0 // It's clean!
+				dirty = NO_DIRT // It's clean!
 				broken = 0 // just to be sure
-				icon_state = off_icon
+				update_icon(UPDATE_ICON_STATE)
 				container_type = OPENCONTAINER
 		else //Otherwise bad luck!!
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
@@ -367,19 +369,19 @@
 
 /obj/machinery/kitchen_machine/proc/start()
 	visible_message("<span class='notice'>\The [src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
-	operating = 1
-	icon_state = on_icon
+	operating = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/abort()
-	operating = 0 // Turn it off again aferwards
-	icon_state = off_icon
+	operating = FALSE // Turn it off again aferwards
+	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/stop()
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	operating = 0 // Turn it off again aferwards
-	icon_state = off_icon
+	operating = FALSE // Turn it off again aferwards
+	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/dispose()
@@ -393,24 +395,23 @@
 
 /obj/machinery/kitchen_machine/proc/muck_start()
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1) // Play a splat sound
-	icon_state = dirty_icon // Make it look dirty!!
 
 /obj/machinery/kitchen_machine/proc/muck_finish()
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 	visible_message("<span class='alert'>\The [src] gets covered in muck!</span>")
-	dirty = 100 // Make it dirty so it can't be used util cleaned
+	dirty = MAX_DIRT // Make it dirty so it can't be used util cleaned
 	flags = null //So you can't add condiments
-	icon_state = dirty_icon // Make it look dirty too
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
+	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
 	do_sparks(2, 1, src)
-	icon_state = broken_icon // Make it look all busted up and shit
 	visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
 	broken = 2 // Make it broken so it can't be used util fixed
 	flags = null //So you can't add condiments
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
+	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/fail()
@@ -452,3 +453,18 @@
 		if("dispose")
 			dispose()
 	return
+
+
+/obj/machinery/kitchen_machine/update_icon_state()
+	if(broken)
+		icon_state = broken_icon
+		return
+	if(dirty == MAX_DIRT)
+		icon_state = dirty_icon
+		return
+	icon_state = operating ? on_icon : off_icon
+
+
+#undef NO_DIRT
+#undef MAX_DIRT
+

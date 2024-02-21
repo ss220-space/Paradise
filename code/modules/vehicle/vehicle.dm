@@ -5,7 +5,7 @@
 	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "scooter"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300
@@ -111,10 +111,6 @@
 			buckled_mob.setDir(dir)
 			buckled_mob.pixel_x = generic_pixel_x
 			buckled_mob.pixel_y = generic_pixel_y
-
-
-/obj/vehicle/update_icon()
-	return
 
 
 /obj/item/key

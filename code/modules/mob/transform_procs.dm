@@ -24,7 +24,7 @@
 	for(var/obj/item/W in src)
 		drop_item_ground(W)
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	return ..()
@@ -71,7 +71,7 @@
 		drop_item_ground(W)
 
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -128,7 +128,7 @@
 		drop_item_ground(W)
 	regenerate_icons()
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	for(var/t in bodyparts)	//this really should not be necessary
@@ -153,7 +153,7 @@
 
 	regenerate_icons()
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
