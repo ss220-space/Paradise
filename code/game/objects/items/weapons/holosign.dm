@@ -63,7 +63,7 @@
 	desc = "A handy-dandy holographic projector that displays a janitorial sign."
 	belt_icon = "sign_projector"
 	holosign_type = /obj/structure/holosign/wetsign
-	var/wet_enabled = FALSE
+	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
