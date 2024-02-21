@@ -89,6 +89,7 @@
 	holosign_type = /obj/structure/holosign/wetsign/mine
 	creation_time = 5
 	max_signs = 5
+	wet_enabled = FALSE
 
 /obj/item/holosign_creator/security
 	name = "security holobarrier projector"
