@@ -11,6 +11,8 @@ export const AutoDoc = (props, context) => {
     TguiIcons,
     occupant,
     isHealing,
+    fixtimer,
+    healtimer,
   } = data;
   const [ChoosenPart, ChoosePart] = useLocalState(context, "ChoosePart", "chest");
   return (
@@ -55,6 +57,7 @@ export const AutoDoc = (props, context) => {
                       "margin-left": "30px"
                     }}
                     content={HasTray ? "Eject Tray" : "Reject Tray"}
+                    locked={isHealing}
                     onClick = {() => act('ChangeTrayState')}/>
                 </Fragment>
               }>
@@ -133,6 +136,8 @@ export const AutoDoc = (props, context) => {
                   content = "Start Healing"
                   onClick = {() => act('HealBruteBurn')}/>
                 </Fragment>}
+              {!!fixtimer && <b>Fixing organ: {fixtimer}</b>}
+              {!!healtimer && <b>Healing external damage: {healtimer}</b>}
               </Box>
             </Section>
           </FlexItem>

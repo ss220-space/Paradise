@@ -25,6 +25,7 @@
 	var/list/organs_to_heal
 	var/ishealing = FALSE
 	var/healing
+	var/fixtimer = 0
 
 /obj/machinery/autodoc/Initialize(mapload)
 	. = ..()
@@ -111,6 +112,7 @@
 			var/list/extOrgans = organ_by_name["extOrgan"]
 			organs_to_heal = extOrgans.Copy()
 		if("FixOrgan")
+			fixtimer = world.time + FIXING_TIME
 			healing = addtimer(CALLBACK(src, PROC_REF(fixorgan), params["organ"], params["type"], ), FIXING_TIME, (TIMER_STOPPABLE|TIMER_UNIQUE))
 		if("EmptyOrganStorage")
 			for(var/obj/item/organ/internal/new_organ in contents)
@@ -131,7 +133,7 @@
 			extOrgan.mend_fracture()
 		if("bleeding")
 			extOrgan.stop_internal_bleeding()
-		if("	")
+		if("damage")
 			intOrgan.damage = 0
 		if("replace")
 			for(var/obj/item/organ/internal/new_organ in contents)
@@ -141,6 +143,7 @@
 		if("remove")
 			intOrgan.remove(occupant)
 			intOrgan.forceMove(src)
+	fixtimer = 0
 	healing = null
 
 /obj/machinery/autodoc/process()
@@ -169,6 +172,7 @@
 	var/list/data = list()
 	data["HasTray"] = istype(connected)
 	data["isHealing"] = !(isnull(healing) && isnull(organs_to_heal))
+	data["fixtimer"] = fixtimer? time2text((fixtimer - world.time), "mm:ss") : FALSE
 	var/occupantData[0]
 	occupantData["TotalBruteBurn"] = 0
 
@@ -199,6 +203,7 @@
 				occupantData[BODY_ZONE_BY_GROUPS[organ.parent_organ_zone]]["intOrgan"] = list()
 			occupantData[BODY_ZONE_BY_GROUPS[organ.parent_organ_zone]]["intOrgan"] += list(organData)
 
+	data["healtimer"] = organs_to_heal? time2text(((occupantData["TotalBruteBurn"]*2/5) SECONDS), "mm:ss") : FALSE
 	data["occupant"] = occupantData
 	return data
 
