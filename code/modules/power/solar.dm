@@ -46,7 +46,7 @@
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
-		S.anchored = 1
+		S.anchored = TRUE
 	S.loc = src
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
@@ -184,7 +184,7 @@
 	icon_state = "sp_base"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	anchored = 0
+	anchored = FALSE
 	var/tracker = 0
 	var/glass_type = null
 
@@ -435,7 +435,6 @@
 			if(connected_tracker && track == TRACKER_AUTO)
 				connected_tracker.modify_angle(SSsun.angle)
 			set_panels(cdir)
-
 
 /obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

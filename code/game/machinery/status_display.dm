@@ -286,7 +286,6 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	/// Current emotion, used to calculate an icon state
 	var/emotion = "Neutral"
 
-
 /obj/machinery/ai_status_display/Initialize(mapload)
 	. = ..()
 	GLOB.ai_displays |= src

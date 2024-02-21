@@ -9,7 +9,7 @@ Pipes -> Pipelines
 Pipelines + Other Objects -> Pipe network
 */
 /obj/machinery/atmospherics
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	plane = GAME_PLANE
@@ -314,9 +314,9 @@ Pipelines + Other Objects -> Pipe network
 			user.remove_ventcrawl()
 			user.forceMove(src.loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
-	user.canmove = 0
+	user.canmove = FALSE
 	spawn(1)
-		user.canmove = 1
+		user.canmove = TRUE
 
 /obj/machinery/atmospherics/AltClick(mob/living/user)
 	user.handle_ventcrawl(src)

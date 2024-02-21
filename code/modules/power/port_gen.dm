@@ -7,7 +7,7 @@
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "portgen0_0"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	use_power = NO_POWER_USE
 
 	var/active = 0

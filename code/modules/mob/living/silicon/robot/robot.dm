@@ -1398,7 +1398,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	disconnect_from_ai()
 	lawupdate = 0
 	lockcharge = 0
-	canmove = 1
+	canmove = TRUE
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
 	QDEL_NULL(src.camera)

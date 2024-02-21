@@ -223,7 +223,6 @@
 	C.density = TRUE
 	qdel(src)
 
-
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user, params)

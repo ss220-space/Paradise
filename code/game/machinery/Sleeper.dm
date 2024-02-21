@@ -10,7 +10,7 @@
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	dir = WEST
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")

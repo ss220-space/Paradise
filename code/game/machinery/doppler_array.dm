@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	icon_state = "tdoppler"
 	base_icon_state = "tdoppler"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	atom_say_verb = "states coldly"
 	var/list/logged_explosions = list()
 	var/explosion_target

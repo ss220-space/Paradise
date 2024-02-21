@@ -89,4 +89,3 @@
 	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<A HREF='?src=[UID()];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=[user.UID()];mach_close=honkputer'>Close</A> \]"
 	user << browse(dat, "window=honkputer;size=400x500")
 	onclose(user, "honkputer")
-

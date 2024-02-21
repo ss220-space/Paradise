@@ -9,7 +9,7 @@
 
 	density = 0
 	stat = 2
-	canmove = 0
+	canmove = FALSE
 
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

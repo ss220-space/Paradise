@@ -87,7 +87,7 @@
 	var/disable = FALSE
 	var/last_spark = FALSE
 	var/base_state = "migniter"
-	anchored = 1
+	anchored = TRUE
 
 
 /obj/machinery/sparker/update_icon_state()

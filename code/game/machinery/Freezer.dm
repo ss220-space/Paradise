@@ -4,7 +4,7 @@
 	icon_state = "freezer"
 	density = 1
 	var/min_temperature = 0
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	active_power_usage = 5000	//cooling down massive amounts of air's not cheap. This is still very low considering everything
 	power_channel = EQUIP
@@ -174,7 +174,7 @@
 	icon_state = "heater"
 	density = 1
 	var/max_temperature = 0
-	anchored = 1.0
+	anchored = TRUE
 	layer = 3
 	current_heat_capacity = 1000
 	active_power_usage = 5000

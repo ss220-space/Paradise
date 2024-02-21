@@ -4,7 +4,7 @@
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	/// TRUE if the factory can transform dead mobs.
 	var/transform_dead = TRUE

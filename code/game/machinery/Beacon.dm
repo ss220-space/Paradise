@@ -7,7 +7,7 @@
 	layer = WIRE_LAYER
 	plane = FLOOR_PLANE
 	layer = 2.5
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 0
 	var/syndicate = 0

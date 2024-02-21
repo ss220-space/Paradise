@@ -7,7 +7,7 @@
 	desc = "Высокотехнологичный микроскоп, способный увеличивать изображение до 3000 раз."
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "microscope"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 	var/obj/item/sample = null

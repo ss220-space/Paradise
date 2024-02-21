@@ -6,7 +6,7 @@
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
 	layer = 2.9
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
@@ -75,11 +75,11 @@
 		add_fingerprint(user)
 		playsound(src, O.usesound, 50, 1)
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
 			return
 		else if(!anchored)
-			anchored = 1
+			anchored = TRUE
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
 			return
 
