@@ -21,7 +21,7 @@
 	var/hackedcheck = FALSE
 	var/componentscheck = FALSE
 	var/obj/item/reagent_containers/beaker = null
-	var/image/icon_beaker = null //cached overlay
+	var/mutable_appearance/icon_beaker //cached overlay
 	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
 	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
 	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
@@ -44,6 +44,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
+	dispensable_reagents = sortAssoc(dispensable_reagents)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/upgraded/New()
@@ -153,6 +154,7 @@
 	..()
 	if(A == beaker)
 		beaker = null
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -218,6 +220,7 @@
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
 			R.add_reagent(params["reagent"], actual)
+			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			var/amount = text2num(params["amount"])
 			if(!beaker || !amount)
@@ -263,13 +266,10 @@
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
 		add_fingerprint(user)
-		beaker =  I
+		beaker = I
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
-		if(!icon_beaker)
-			icon_beaker = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker") //randomize beaker overlay position.
-		icon_beaker.pixel_x = rand(-10, 5)
-		overlays += icon_beaker
+		update_icon(UPDATE_OVERLAYS)
 		return
 	return ..()
 
@@ -346,6 +346,22 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
+
+/obj/machinery/chem_dispenser/update_overlays()
+	. = ..()
+
+	if(!beaker)
+		return
+
+	if(!icon_beaker)
+		icon_beaker = mutable_appearance(icon, "disp_beaker")
+	else
+		cut_overlay(icon_beaker)	// trash overlays system. will be fixed as soon as TG style overlays are implemented
+
+	icon_beaker.pixel_x = rand(-10, 5)	// randomize beaker overlay position
+	. += icon_beaker
+
+
 /obj/machinery/chem_dispenser/soda
 	icon_state = "soda_dispenser"
 	name = "soda fountain"
@@ -405,7 +421,7 @@
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan")
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
-	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "alcohol_free_beer")
+	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
@@ -653,7 +669,7 @@
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
 	"vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan", "iced_beer",
 	"irishcream", "manhattan", "antihol", "synthignon", "bravebull", "goldschlager", "patron", "absinthe", "ethanol", "nothing",
-	"sake", "bitter", "champagne", "aperol", "alcohol_free_beer")
+	"sake", "bitter", "champagne", "aperol", "noalco_beer")
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"

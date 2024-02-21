@@ -57,10 +57,10 @@
 /mob/living/silicon/robot/drone/New()
 	..()
 
-	remove_language("Robot Talk")
-	remove_language("Galactic Common")
-	add_language("Drone Talk", 1)
-	add_language("Drone", 1)
+	remove_language(LANGUAGE_BINARY)
+	remove_language(LANGUAGE_GALACTIC_COMMON)
+	add_language(LANGUAGE_DRONE_BINARY, 1)
+	add_language(LANGUAGE_DRONE, 1)
 
 	// Disable the microphone wire on Drones
 	if(radio)
@@ -156,7 +156,7 @@
 		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
 		return
 
-	else if(istype(W, /obj/item/crowbar))
+	else if(W.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
 		return
 

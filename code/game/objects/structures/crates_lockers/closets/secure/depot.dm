@@ -3,7 +3,7 @@
 	name = "depot supply closet"
 	desc = ""
 	locked = 0
-	anchored = 1
+	anchored = TRUE
 	req_access = list()
 	max_integrity = 250
 	icon_state = "secure"

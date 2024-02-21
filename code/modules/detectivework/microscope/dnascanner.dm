@@ -5,7 +5,7 @@
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "dnaopen"
 	layer = BELOW_OBJ_LAYER
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 	var/obj/item/forensics/swab = null
@@ -55,7 +55,7 @@
 	to_chat(user, "<span class='notice'>Печать отчета...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	report.stamp_overlays += "paper_stamped"
+	LAZYADD(report.stamp_overlays, "paper_stamped")
 	report_num++
 
 	if(swab)

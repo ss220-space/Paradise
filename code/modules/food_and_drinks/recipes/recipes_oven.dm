@@ -105,6 +105,151 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatpie
 
+/datum/recipe/oven/meatpie_human
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+		/obj/item/organ/internal/liver,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/human
+
+/datum/recipe/oven/meatpie_vulpkanin
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/vulpkanin,
+		/obj/item/organ/internal/liver/vulpkanin,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/vulpkanin
+
+/datum/recipe/oven/meatpie_tajaran
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/tajaran,
+		/obj/item/organ/internal/liver/tajaran,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/tajaran
+
+/datum/recipe/oven/meatpie_unathi
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/unathi,
+		/obj/item/organ/internal/liver/unathi,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/unathi
+
+/datum/recipe/oven/meatpie_drask
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/drask,
+		/obj/item/organ/internal/liver/drask,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/drask
+
+/datum/recipe/oven/meatpie_grey
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/grey,
+		/obj/item/organ/internal/liver/grey,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/grey
+
+/datum/recipe/oven/meatpie_skrell
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/skrell,
+		/obj/item/organ/internal/liver/skrell,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/skrell
+
+/datum/recipe/oven/meatpie_vox
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/vox,
+		/obj/item/organ/internal/liver/vox,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/vox
+
+/datum/recipe/oven/meatpie_slime
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/slime,
+		/obj/item/organ/internal/heart/slime,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/slime
+
+/datum/recipe/oven/meatpie_wryn
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/wryn,
+		/obj/item/organ/internal/wryn/glands,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/wryn
+
+/datum/recipe/oven/meatpie_kidan
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/kidan,
+		/obj/item/organ/internal/liver/kidan,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/kidan
+
+/datum/recipe/oven/meatpie_nian
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/nian,
+		/obj/item/organ/internal/liver/nian,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/nian
+
+/datum/recipe/oven/meatpie_diona
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/diona,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/diona,
+		/obj/item/organ/internal/liver/diona,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/diona
+
+/datum/recipe/oven/meatpie_monkey
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+		/obj/item/organ/internal/heart,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/monkey
+
+/datum/recipe/oven/meatpie_farwa
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/farwa,
+		/obj/item/organ/internal/heart/tajaran,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/farwa
+
+/datum/recipe/oven/meatpie_wolpin
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin,
+		/obj/item/organ/internal/heart/vulpkanin,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/wolpin
+
+/datum/recipe/oven/meatpie_neara
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/neara,
+		/obj/item/organ/internal/heart/skrell,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/neara
+
+/datum/recipe/oven/meatpie_stok
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/stok,
+		/obj/item/organ/internal/heart/unathi,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatpie/stok
+
 /datum/recipe/oven/tofupie
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,

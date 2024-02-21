@@ -110,9 +110,8 @@
 		return TRUE
 
 	//Language check.
-	for(var/datum/language/L in languages)
-		if(speaking.name == L.name)
-			return TRUE
+	if(speaking in languages)
+		return TRUE
 
 	return FALSE
 
@@ -122,7 +121,7 @@
 	var/ending = copytext(message, length(message))
 
 	if(speaking)
-		verb = speaking.get_spoken_verb(ending)
+		verb = genderize_decode(src, speaking.get_spoken_verb(ending))
 	else
 		if(ending == "!")
 			verb = pick("exclaims", "shouts", "yells")
@@ -208,7 +207,7 @@
 
 	// Noise language is a snowflake
 	if(copytext(message, 1, 2) == "!" && length(message) > 1)
-		return list(new /datum/multilingual_say_piece(GLOB.all_languages["Noise"], trim(strip_prefixes(copytext(message, 2)))))
+		return list(new /datum/multilingual_say_piece(GLOB.all_languages[LANGUAGE_NOISE], trim(strip_prefixes(copytext(message, 2)))))
 
 	// Scan the message for prefixes
 	var/list/prefix_locations = find_valid_prefixes(message)
@@ -221,8 +220,7 @@
 		// There are a few things that will make us want to ignore all other languages in - namely, HIVEMIND languages.
 		var/datum/language/L = current[1]
 		if(L && L.flags & HIVEMIND)
-			. = new /datum/multilingual_say_piece(L, trim(strip_prefixes(message)))
-			break
+			return list(new /datum/multilingual_say_piece(L, trim(strip_prefixes(message))))
 
 		if(i + 1 > length(prefix_locations)) // We are out of lookaheads, that means the rest of the message is in cur lang
 			var/spoke_message = handle_autohiss(trim(copytext_char(message, current[3])), L)

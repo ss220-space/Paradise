@@ -37,23 +37,24 @@ Difficulty: Medium
 	retreat_distance = 5
 	minimum_distance = 5
 	pixel_x = -32
+	pixel_y = -16
+	maptext_height = 96
+	maptext_width = 96
 	ranged_cooldown_time = 20
 	var/charging = FALSE
 	var/firing_laser = FALSE
 	internal_type = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
-	pixel_y = -90
-	pixel_x = -75
 	loot = list(/obj/item/storm_staff)
 	crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
 	elimination = 1
-	appearance_flags = 0
+	appearance_flags = PIXEL_SCALE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
-	appearance_flags = 512
+
 
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
 	. = ..()
@@ -231,4 +232,4 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "The message repeats."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT

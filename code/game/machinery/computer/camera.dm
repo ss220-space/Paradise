@@ -194,6 +194,19 @@
 	cam_background.icon_state = "scanline2"
 	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
 
+
+
+// Other computer monitors.
+/obj/machinery/computer/security/telescreen
+	name = "telescreen"
+	desc = "Used for watching camera networks."
+	icon_state = "telescreen_console"
+	icon_screen = "telescreen"
+	icon_keyboard = null
+	density = FALSE
+	circuit = /obj/item/circuitboard/camera/telescreen
+
+
 /obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -213,28 +226,27 @@
 		if("West")
 			pixel_x = -32
 
-// Other computer monitors.
-/obj/machinery/computer/security/telescreen
-	name = "telescreen"
-	desc = "Used for watching camera networks."
-	icon_state = "telescreen_console"
-	icon_screen = "telescreen"
-	icon_keyboard = null
-	light_range_on = 0
-	density = 0
-	circuit = /obj/item/circuitboard/camera/telescreen
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
 	desc = "Damn, they better have Paradise TV on these things."
 	icon_state = "entertainment_console"
-	icon_screen = "entertainment"
+	icon_screen = "entertainment_off"
 	light_color = "#FFEEDB"
-	light_range_on = 0
+	light_power_on = LIGHTING_MINIMUM_POWER
 	network = list("news")
-	luminosity = 0
 	layer = 4 //becouse of plasma glass with layer = 3
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+	/// Icon utilised when feeds_on is true
+	var/icon_screen_on = "entertainment"
+	/// Used to detect how many video cameras are active
+	var/feeds_on = 0
+
+
+/obj/machinery/computer/security/telescreen/entertainment/update_overlays()
+	icon_screen = feeds_on ? icon_screen_on : initial(icon_screen)
+	return ..()
+
 
 /obj/machinery/computer/security/telescreen/singularity
 	name = "Singularity Engine Telescreen"

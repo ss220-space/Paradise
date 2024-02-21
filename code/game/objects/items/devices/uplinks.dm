@@ -246,7 +246,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			"age" = html_encode(L.fields["age"]),
 			"species" = html_encode(L.fields["species"]),
 			"rank" = html_encode(L.fields["rank"]),
-			"fingerprint" = html_encode(L.fields["fingerprint"])
+			"fingerprint" = html_encode(L.fields["fingerprint"]),
+			"exploit_record" = html_encode(L.fields["exploit_record"]),
 		))
 
 	data["exploitable"] = exploitable

@@ -9,6 +9,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
+	appearance_flags = TILE_BOUND
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
@@ -178,7 +179,7 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
 
@@ -301,7 +302,7 @@
 	return
 
 /atom/proc/emp_act(severity)
-	return
+	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
 
 //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
@@ -434,7 +435,7 @@
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates = ALL)
 	SHOULD_NOT_SLEEP(TRUE)
-	//SHOULD_CALL_PARENT(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 
 	if(updates == NONE)
 		return // NONE is being sent on purpose, and thus no signal should be sent.
@@ -540,6 +541,9 @@
 	return
 
 /atom/proc/emag_act(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+
+/atom/proc/unemag()
 	return
 
 /atom/proc/cmag_act(mob/user)

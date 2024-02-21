@@ -35,7 +35,7 @@
 	rt_assignment = "Emergency Response Team Leader"
 	rt_job = "Emergency Response Team Leader"
 	rt_mob_job = "ERT Commander"
-	special_message = "За обычных условий вы подчиняетесь <span class='red'>старшим по рангу офицерам Защиты Активов</span>. \n Впрочем, на время проведения операции вы подчиняетесь <span class='red'>Офицеру Специальных Операций</span>. \n Исключениями являются случаи, когда его приказания прямо противоречат интересам Отдела Защиты Активов или приказаниям членов ОЗА в более высоком звании, чем вы. \n Вы имеете абсолютную власть в рамках вашего отряда, и практически абсолютную в рамках зоны проведения операции. Пресекайте прямое неподчинение, но не забывайте прислушиваться к мнению специалистов."
+	special_message = "В обычных условий вы подчиняетесь <span class='red'>старшим по рангу офицерам Защиты Активов</span>. \n Впрочем, на время проведения операции вы подчиняетесь <span class='red'>Офицеру Специальных Операций</span>. \n Исключениями являются случаи, когда его приказания прямо противоречат интересам Отдела Защиты Активов или приказаниям членов ОЗА в более высоком звании, чем вы. \n Вы имеете абсолютную власть в рамках вашего отряда, и практически абсолютную в рамках зоны проведения операции. Пресекайте прямое неподчинение, но не забывайте прислушиваться к мнению специалистов."
 	exp_type = EXP_TYPE_COMMAND
 
 	uniform = /obj/item/clothing/under/rank/centcom_officer/sensor
@@ -66,7 +66,7 @@
 				"Max" = "Мастер-сержант")
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/storage/lockbox/mindshield = 1,
+		/obj/item/storage/lockbox/mindshield/ert = 1,
 		/obj/item/flashlight/seclite = 1
 	)
 
@@ -90,7 +90,7 @@
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/storage/lockbox/mindshield = 1
+		/obj/item/storage/lockbox/mindshield/ert = 1
 	)
 
 	cybernetic_implants = list(
@@ -121,12 +121,13 @@
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/sp8 = 4,
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/storage/lockbox/mindshield = 1,
+		/obj/item/storage/lockbox/mindshield/ert = 1,
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
 		)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/thermals/empproof,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
@@ -146,7 +147,7 @@
 	rt_mob_job = "ERT Security"
 	uniform = /obj/item/clothing/under/rank/security/sensor
 	back = /obj/item/storage/backpack/ert/security
-	belt = /obj/item/storage/belt/security/response_team
+	belt = /obj/item/storage/belt/security/sec
 	pda = /obj/item/pda/heads/ert/security
 	id = /obj/item/card/id/ert/security
 	exp_type = EXP_TYPE_SECURITY
@@ -209,7 +210,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/security
-	belt = /obj/item/storage/belt/security/response_team_gamma
+	belt = /obj/item/storage/belt/military/assault/gammaert/full
 	suit_store = /obj/item/gun/energy/immolator/multi/sibyl
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -232,6 +233,7 @@
 	)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/thermals/empproof,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
@@ -495,14 +497,15 @@
 	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	belt = /obj/item/storage/belt/security/response_team
+	belt = /obj/item/storage/belt/security/sec
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
 	special_message = "Вы подчиняетесь непосредственно <span class='red'>назначенному корпорацией командиру</span>. \n Хоть вы и можете возражать ему, прямое подчинение крайне нежелательно. Исключениями являются случаи, когда ваш командир открыто действует против интересов НТ, или случаи, когда это требуется согласно приказаниям членов вашего Ордена с высшим саном. \n В случае его отсутствия или недееспособности, вам стоит прислушиваться к мнению члена отряда с самым высоким званием."
 
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1
 		)
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -540,6 +543,7 @@
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1
 	)
 
 
@@ -571,6 +575,7 @@
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1
 	)
 
 	cybernetic_implants = list(

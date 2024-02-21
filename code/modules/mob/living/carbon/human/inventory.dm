@@ -56,7 +56,7 @@
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
-	if(mask.flags & BLOCKHAIR || mask.flags & BLOCKHEADHAIR || mask.flags & BLOCKFACIALHAIR)
+	if((mask.flags & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)) || (initial(mask.flags) & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -65,9 +65,9 @@
 		internal = null
 		update_action_buttons_icon()
 
-	if(mask.flags_inv & HIDEGLASSES)
+	if((mask.flags_inv & HIDEGLASSES) || (initial(mask.flags_inv) & HIDEGLASSES))
 		update_inv_glasses()
-	if(mask.flags_inv & HIDEHEADSETS)
+	if((mask.flags_inv & HIDEHEADSETS) || (initial(mask.flags_inv) & HIDEHEADSETS))
 		update_inv_ears()
 
 	sec_hud_set_ID()
@@ -82,7 +82,7 @@
 	if(!check_item)
 		return
 
-	if(forced || (check_item.flags & BLOCKHAIR) || (check_item.flags & BLOCKHEADHAIR) || (check_item.flags & BLOCKFACIALHAIR))
+	if(forced || (check_item.flags & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)) || (initial(check_item.flags) & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -96,11 +96,11 @@
 		if(forced || hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 			update_sight()
 
-	if(forced || (check_item.flags_inv & HIDEHEADSETS))
+	if(forced || (check_item.flags_inv & HIDEHEADSETS) || (initial(check_item.flags_inv) & HIDEHEADSETS))
 		update_inv_ears()
-	if(forced || (check_item.flags_inv & HIDEMASK))
+	if(forced || (check_item.flags_inv & HIDEMASK) || (initial(check_item.flags_inv) & HIDEMASK))
 		update_inv_wear_mask()
-	if(forced || (check_item.flags_inv & HIDEGLASSES))
+	if(forced || (check_item.flags_inv & HIDEGLASSES) || (initial(check_item.flags_inv) & HIDEGLASSES))
 		update_inv_glasses()
 
 	sec_hud_set_ID()
@@ -111,11 +111,11 @@
  * Handles stuff to update when a mob equips/unequips a suit.
  */
 /mob/living/carbon/human/wear_suit_update(obj/item/clothing/suit)
-	if(suit.flags_inv & HIDEJUMPSUIT)
+	if((suit.flags_inv & HIDEJUMPSUIT) || (initial(suit.flags_inv) & HIDEJUMPSUIT))
 		update_inv_w_uniform()
-	if(suit.flags_inv & HIDESHOES)
+	if((suit.flags_inv & HIDESHOES) || (initial(suit.flags_inv) & HIDESHOES))
 		update_inv_shoes()
-	if(suit.flags_inv & HIDEGLOVES)
+	if((suit.flags_inv & HIDEGLOVES) || (initial(suit.flags_inv) & HIDEGLOVES))
 		update_inv_gloves()
 
 	update_inv_wear_suit()

@@ -226,6 +226,10 @@
 #define COMSIG_AREA_ENTERED "area_entered"
 ///from base of area/Exited(): (atom/movable/M)
 #define COMSIG_AREA_EXITED "area_exited"
+///from base of area/Entered(): (atom/movable/M)
+#define COMSIG_ATOM_ENTERED_AREA "atom_entered_area"
+///from base of area/Exited(): (atom/movable/M)
+#define COMSIG_ATOM_EXITED_AREA "atom_exited_area"
 
 // /turf signals
 
@@ -566,6 +570,19 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+
+/// Defib-specific signals
+
+/// Called when a defibrillator is first applied to someone. (mob/living/user, mob/living/target, harmful)
+#define COMSIG_DEFIB_PADDLES_APPLIED "defib_paddles_applied"
+	/// Defib is out of power.
+	#define COMPONENT_BLOCK_DEFIB_DEAD (1<<0)
+	/// Something else: we won't have a custom message for this and should let the defib handle it.
+	#define COMPONENT_BLOCK_DEFIB_MISC (1<<1)
+/// Called when a defib has been successfully used, and a shock has been applied. (mob/living/user, mob/living/target, harmful, successful)
+#define COMSIG_DEFIB_SHOCK_APPLIED "defib_zap"
+/// Called when a defib's cooldown has run its course and it is once again ready. ()
+#define COMSIG_DEFIB_READY "defib_ready"
 
 // /obj/item signals for economy
 ///called when an item is sold by the exports subsystem

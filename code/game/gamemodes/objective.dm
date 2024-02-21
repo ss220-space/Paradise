@@ -484,6 +484,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			damage_explain = "токсинов"
 	return damage_explain
 
+/datum/objective/pain_hunter/check_completion()
+	if(start_of_completing && target && ishuman(target.current) && target.current.stat != DEAD)
+		return TRUE
+	else
+		return completed
 
 /datum/objective/protect //The opposite of killing a dude.
 	name = "Protect"

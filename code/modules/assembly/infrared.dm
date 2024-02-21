@@ -281,13 +281,10 @@
 		return
 	if(left > 0)
 		left--
-	if(left < 1)
-		if(!(visible))
-			invisibility = INVISIBILITY_ABSTRACT
-		else
-			invisibility = FALSE
+	if(left < 1 && !visible)
+		invisibility = INVISIBILITY_ABSTRACT
 	else
-		invisibility = FALSE
+		invisibility = 0
 
 	if(!next && (limit > 0))
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(loc)

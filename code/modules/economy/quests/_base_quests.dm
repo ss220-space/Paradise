@@ -64,7 +64,7 @@
 	if(!quest_type)
 		var/list/possible_types = list()
 		if((length(GLOB.clients) < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
-			for(var/datum/cargo_quest/quest in current_quests)
+			for(var/datum/cargo_quest/quest as anything in current_quests)
 				possible_types += quest.type
 		else
 			for(var/path in subtypesof(/datum/cargo_quest) - /datum/cargo_quest/thing)
@@ -75,10 +75,10 @@
 			possible_types.Remove(customer.cant_order)
 		quest_type = pick(possible_types)
 
-	for(var/datum/cargo_quest/quest in current_quests)
+	for(var/datum/cargo_quest/quest as anything in current_quests)
 		if(quest.type != quest_type)
 			continue
-		quest.generate_goal(difficultly = quest_difficulty.diff_flag)
+		quest.add_goal(difficultly = quest_difficulty.diff_flag)
 		quest.update_interface_icon()
 		return
 
@@ -140,10 +140,12 @@
 	var/datum/cargo_quests_storage/q_storage
 	/// Quest desc, using in interface.
 	var/list/desc = list()
-	/// Quest interface icons, using in interface.
-	var/list/interface_icons = list()
-	/// Quest interface icon states, using in interface.
-	var/list/interface_icon_states = list()
+	/// Quest base icon, using in interface.
+	var/interface_icon
+	/// Quest base icon state, using in interface.
+	var/interface_icon_state
+	/// Quest interface images, using in interface.
+	var/list/interface_images = list()
 	/// Requested order's item types, unless otherwise specified.
 	var/list/req_items = list()
 	///possible difficultly
@@ -152,18 +154,21 @@
 
 /datum/cargo_quest/New(storage)
 	q_storage = storage
-	generate_goal(difficultly = q_storage.quest_difficulty.diff_flag)
+	add_goal(difficultly = q_storage.quest_difficulty.diff_flag)
 	update_interface_icon()
 
-/datum/cargo_quest/proc/generate_goal(difficultly)
+/datum/cargo_quest/proc/generate_goal_list(difficultly)
+	return
+
+/datum/cargo_quest/proc/add_goal(difficultly)
 	return
 
 /datum/cargo_quest/proc/length_quest()
 	return
 
 /datum/cargo_quest/proc/update_interface_icon()
-	return
-
+	if(interface_icon && interface_icon_state)
+		interface_images += icon2base64(icon(interface_icon, interface_icon_state, SOUTH, 1))
 
 /datum/cargo_quest/proc/check_required_item(atom/movable/check_item)
 	return

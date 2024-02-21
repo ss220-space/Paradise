@@ -179,6 +179,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
 	tracking = FALSE
 
+/obj/item/gps/security
+	icon_state = "gps-r"
+	gpstag = "SEC0"
+	desc = "A positioning system helpful for monitoring prisoners that are implanted with a tracking implant."
+	local = TRUE
+
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
 	gpstag = "BORG0"
@@ -201,7 +207,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	local = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/item/gps/internal/mining
 	icon_state = "gps-m"

@@ -129,7 +129,7 @@
 /obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	owner.faction |= "slime"
-	owner.add_language("Bubblish")
+	owner.add_language(LANGUAGE_SLIME)
 
 /obj/item/organ/internal/heart/gland/slime/activate()
 	to_chat(owner, "<span class='warning'>You feel nauseous!</span>")

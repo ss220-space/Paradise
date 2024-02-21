@@ -21,13 +21,18 @@
 //   |      |        V - Suction vent (Like the ones in atmos
 //
 
+#define OVERDRIVE 4
+#define VERY_FAST 3
+#define FAST 2
+#define SLOW 1
+
 
 /obj/machinery/power/compressor
 	name = "compressor"
 	desc = "The compressor stage of a gas turbine generator."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "compressor"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/power/turbine/turbine
@@ -39,6 +44,7 @@
 	var/capacity = 1e6
 	var/comp_id = 0
 	var/efficiency
+	var/rpm_threshold = NONE
 
 
 /obj/machinery/power/turbine
@@ -46,7 +52,7 @@
 	desc = "A gas turbine used for backup power generation."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "turbine"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	resistance_flags = FIRE_PROOF
 	var/opened = 0
@@ -54,6 +60,8 @@
 	var/turf/simulated/outturf
 	var/lastgen
 	var/productivity = 1
+	/// If the turbine is outputing enough to visibly affect its sprite
+	var/generator_threshold = FALSE
 
 /obj/machinery/computer/turbine_computer
 	name = "gas turbine control computer"
@@ -147,7 +155,6 @@
 		return
 	if(!starter)
 		return
-	overlays.Cut()
 
 	rpm = 0.9* rpm + 0.1 * rpmtarget
 	var/datum/gas_mixture/environment = inturf.return_air()
@@ -173,15 +180,30 @@
 			rpmtarget = 0
 
 
-	if(rpm>50000)
-		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o4", FLY_LAYER)
-	else if(rpm>10000)
-		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o3", FLY_LAYER)
-	else if(rpm>2000)
-		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o2", FLY_LAYER)
-	else if(rpm>500)
-		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o1", FLY_LAYER)
-	 //TODO: DEFERRED
+	var/new_rpm_threshold
+	switch(rpm)
+		if(50001 to INFINITY)
+			new_rpm_threshold = OVERDRIVE
+		if(10001 to 50000)
+			new_rpm_threshold = VERY_FAST
+		if(2001 to 10000)
+			new_rpm_threshold = FAST
+		if(501 to 2000)
+			new_rpm_threshold = SLOW
+		else
+			new_rpm_threshold = NONE
+
+	if(rpm_threshold != new_rpm_threshold)
+		rpm_threshold = new_rpm_threshold
+		update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/power/compressor/update_overlays()
+	. = ..()
+	if(!rpm_threshold)
+		return
+	. += image(icon, icon_state = "comp-o[rpm_threshold]", layer = FLY_LAYER)
+
 
 // These are crucial to working of a turbine - the stats modify the power output. TurbGenQ modifies how much raw energy can you get from
 // rpms, TurbGenG modifies the shape of the curve - the lower the value the less straight the curve is.
@@ -234,7 +256,6 @@
 		return
 	if(!compressor.starter)
 		return
-	overlays.Cut()
 
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBGENQ and TURBGENG values
@@ -257,12 +278,19 @@
 		var/datum/gas_mixture/removed = compressor.gas_contained.remove(oamount)
 		outturf.assume_air(removed)
 
-// If it works, put an overlay that it works!
-
-	if(lastgen > 100)
-		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "turb-o", FLY_LAYER)
+	if((lastgen > 100) != generator_threshold)
+		generator_threshold = !generator_threshold
+		update_icon(UPDATE_OVERLAYS)
 
 	updateDialog()
+
+
+/obj/machinery/power/turbine/update_overlays()
+	. = ..()
+	if(!generator_threshold)
+		return
+	. += image(icon, icon_state = "turb-o", layer = FLY_LAYER)
+
 
 /obj/machinery/power/turbine/attack_hand(mob/user)
 
@@ -406,3 +434,9 @@
 /obj/machinery/computer/turbine_computer/process()
 	src.updateDialog()
 	return
+
+#undef OVERDRIVE
+#undef VERY_FAST
+#undef FAST
+#undef SLOW
+

@@ -22,7 +22,7 @@
 			S.remove_from_storage(O, src) //This will move the item to this item's contents
 			CHECK_TICK
 		to_chat(user, "<span class='notice'>You empty the satchel into the box.</span>")
-	else if(istype(W, /obj/item/crowbar))
+	else if(W.tool_behaviour == TOOL_CROWBAR)
 		playsound(src, W.usesound, 50, 1)
 		var/obj/item/crowbar/C = W
 		if(do_after(user, 50 * C.toolspeed * gettoolspeedmod(user), target = src))

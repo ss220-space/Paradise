@@ -13,14 +13,13 @@
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/mob/owner
 
-/datum/action/New(var/Target)
+/datum/action/New(Target)
 	target = Target
 	button = new
 	button.linked_action = src
 	button.name = name
 	button.actiontooltipstyle = buttontooltipstyle
-	if(desc)
-		button.desc = desc
+	button.desc = desc
 
 /datum/action/Destroy()
 	if(owner)
@@ -54,6 +53,7 @@
 
 	if(user.client)
 		user.client.screen -= button
+		button.clean_up_keybinds(user)
 
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
