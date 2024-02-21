@@ -3,7 +3,7 @@
 	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
-	language = "Sinta'unathi"
+	language = LANGUAGE_UNATHI
 	tail = "sogtail"
 	speech_sounds = list('sound/voice/unathitalk.mp3', 'sound/voice/unathitalk2.mp3', 'sound/voice/unathitalk4.mp3')
 	speech_chance = 33
@@ -152,8 +152,8 @@
 	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
 	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
 
-	language = "Sinta'unathi"
-	default_language = "Sinta'unathi"
+	language = LANGUAGE_UNATHI
+	default_language = LANGUAGE_UNATHI
 
 	speed_mod = -0.80
 	species_traits = list(NOGUNS, LIPS, PIERCEIMMUNE)

@@ -99,7 +99,7 @@
 	set_colour(new_colour)
 	. = ..()
 	set_nutrition(new_set_nutrition)
-	add_language("Bubblish")
+	add_language(LANGUAGE_SLIME)
 
 /mob/living/simple_animal/slime/Destroy()
 	for(var/A in actions)

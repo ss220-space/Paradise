@@ -140,7 +140,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/e_colour = "#000000"			//Eye color
 	var/alt_head = "None"				//Alt head style.
 	var/species = "Human"
-	var/language = "None"				//Secondary language
+	var/language = "None"		//Secondary language for choise.
 	var/autohiss_mode = AUTOHISS_FULL	//Species autohiss level. OFF, BASIC, FULL.
 
 	var/tts_seed = null
@@ -309,7 +309,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				species = initial(species)
 				S = GLOB.all_species[species]
 				random_character()
-
 			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
@@ -1547,6 +1546,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					species = tgui_input_list(user, "Please select a species", "Character Generation", sortTim(new_species, cmp = /proc/cmp_text_asc))
 					if(!species)
+						species = prev_species
 						return
 					var/datum/species/NS = GLOB.all_species[species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
@@ -1614,7 +1614,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 						alt_head = "None" //No alt heads on species that don't have them.
 						speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-
+						language = LANGUAGE_NONE
 						body_accessory = null //no vulptail on humans damnit
 						body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
 
@@ -1641,14 +1641,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							alert(user, "There are not currently any available secondary languages.")
 					else
 */
-					for(var/L in GLOB.all_languages)
-						var/datum/language/lang = GLOB.all_languages[L]
-						if(!(lang.flags & RESTRICTED))
-							new_languages += lang.name
+					for(var/language_name in GLOB.all_languages)
+						var/datum/language/lang = GLOB.all_languages[language_name]
+						if(lang.flags & UNIQUE)
+							if(language_name in S.secondary_langs)
+								new_languages += language_name
+						else if(!(lang.flags & RESTRICTED))
+							new_languages += language_name
 
-					language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortTim(new_languages, cmp = /proc/cmp_text_asc))
-					if(!language)
+					var/new_language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortTim(new_languages, cmp = /proc/cmp_text_asc))
+					if(!new_language)
 						return
+					language = new_language
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
@@ -2613,6 +2617,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			real_name += " [character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
 		else if(firstspace == name_length)
 			real_name += "[character.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]"
+
 
 	character.add_language(language)
 

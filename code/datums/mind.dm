@@ -2732,7 +2732,7 @@
 		SSticker.mode.shadows -= src
 		special_role = null
 		current.spellremove(current)
-		current.remove_language("Shadowling Hivemind")
+		current.remove_language(LANGUAGE_HIVE_SHADOWLING)
 	else if(src in SSticker.mode.shadowling_thralls)
 		SSticker.mode.remove_thrall(src,0)
 
