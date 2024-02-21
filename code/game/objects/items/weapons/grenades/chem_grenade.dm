@@ -170,12 +170,12 @@
 		to_chat(user, "<span class='notice'>You rig [src].</span>")
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(stage == READY && istype(I, /obj/item/wirecutters))
+	else if(stage == READY && I.tool_behaviour == TOOL_WIRECUTTER)
 		to_chat(user, "<span class='notice'>You unlock the assembly.</span>")
 		stage = WIRED
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(stage == WIRED && istype(I, /obj/item/wrench))
+	else if(stage == WIRED && I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
 		stage = EMPTY
 		payload_name = null

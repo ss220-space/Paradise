@@ -4,7 +4,7 @@
 	//robots don't die when gibbed. instead they drop their MMI'd brain
 	var/atom/movable/overlay/animation = null
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -33,7 +33,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	if(mmi)

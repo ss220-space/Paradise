@@ -102,7 +102,7 @@
 		user.drop_transfer_item_to_loc(W, src)
 		qdel(W)
 		return
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(unwrenched==0)
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, span_notice("You begin to unfasten \the [src] from the floor..."))
@@ -111,7 +111,7 @@
 					"[user] unfastens \the [src].", \
 					span_notice("You have unfastened \the [src]. Now it can be pulled somewhere else."), \
 					"You hear ratchet.")
-				anchored = 0
+				anchored = FALSE
 				stat |= MAINT
 				unwrenched = 1
 				if(usr.machine==src)
@@ -124,7 +124,7 @@
 					"[user] fastens \the [src].", \
 					span_notice("You have fastened \the [src]. Now it can dispense pipes."), \
 					"You hear ratchet.")
-				anchored = 1
+				anchored = TRUE
 				stat &= ~MAINT
 				unwrenched = 0
 				power_change()
@@ -138,17 +138,18 @@
 	icon_state = "pipe_d"
 
 //Allow you to drag-drop disposal pipes into it
-/obj/machinery/pipedispenser/disposal/MouseDrop_T(var/obj/structure/disposalconstruct/pipe, mob/usr)
-	if(usr.incapacitated())
+/obj/machinery/pipedispenser/disposal/MouseDrop_T(obj/structure/disposalconstruct/pipe, mob/user, params)
+	if(user.incapacitated())
 		return
 
-	if(!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src, pipe) > 1 )
+	if(!istype(pipe) || get_dist(user, src) > 1 || get_dist(src, pipe) > 1 )
 		return
 
 	if(pipe.anchored)
 		return
 
 	qdel(pipe)
+	return TRUE
 
 /obj/machinery/pipedispenser/disposal/attack_hand(mob/user)
 	if(..())

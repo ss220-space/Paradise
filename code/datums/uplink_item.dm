@@ -587,7 +587,7 @@
 	name = "Anomaly extract"
 	desc = "The result of the work of scientists on mixing an experimental stable mutagen with the core of a pyroclastic anomaly. Gives the user the opportunity to become a slime and heat himself up."
 	item = /obj/item/anomaly_extract
-	cost = 50
+	cost = 40
 	race = list("Slime People")
 
 //Plasmaman

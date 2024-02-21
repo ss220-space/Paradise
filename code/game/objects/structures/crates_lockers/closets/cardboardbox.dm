@@ -70,7 +70,7 @@
 
 /obj/structure/closet/cardboard/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(src.opened)
-		if(istype(W, /obj/item/wirecutters))
+		if(W.tool_behaviour == TOOL_WIRECUTTER)
 			var/obj/item/wirecutters/WC = W
 			new /obj/item/stack/sheet/cardboard(src.loc, amt)
 			for(var/mob/M in viewers(src))

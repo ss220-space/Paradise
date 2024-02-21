@@ -801,6 +801,14 @@
 	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
+/datum/design/cylinder
+	name = "Revolver Cylinder"
+	id = "icylinder"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 6000)
+	build_path = /obj/item/ammo_box/magazine/internal/cylinder/improvised
+	category = list("hacked", "Security")
+
 /datum/design/shotgun_slug
 	name = "Shotgun Slug"
 	id = "shotgun_slug"

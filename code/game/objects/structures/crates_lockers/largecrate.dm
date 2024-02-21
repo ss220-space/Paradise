@@ -29,7 +29,7 @@
 
 
 /obj/structure/largecrate/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/crowbar))
+	if(W.tool_behaviour == TOOL_CROWBAR)
 		if(manifest)
 			manifest.forceMove(loc)
 			manifest = null
@@ -54,7 +54,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/lisa/attackby(obj/item/W, mob/user)	//ugly but oh well
-	if(istype(W, /obj/item/crowbar))
+	if(W.tool_behaviour == TOOL_CROWBAR)
 		new /mob/living/simple_animal/pet/dog/corgi/Lisa(loc)
 	return ..()
 
@@ -63,7 +63,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/cow/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/crowbar))
+	if(W.tool_behaviour == TOOL_CROWBAR)
 		new /mob/living/simple_animal/cow(loc)
 	return ..()
 
@@ -72,7 +72,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/goat/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/crowbar))
+	if(W.tool_behaviour == TOOL_CROWBAR)
 		new /mob/living/simple_animal/hostile/retaliate/goat(loc)
 	return ..()
 
@@ -81,7 +81,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/chick/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/crowbar))
+	if(W.tool_behaviour == TOOL_CROWBAR)
 		var/num = rand(4, 6)
 		for(var/i = 0, i < num, i++)
 			new /mob/living/simple_animal/chick(loc)
@@ -92,6 +92,6 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/cat/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/crowbar))
+	if(W.tool_behaviour == TOOL_CROWBAR)
 		new /mob/living/simple_animal/pet/cat(loc)
 	return ..()

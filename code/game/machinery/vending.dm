@@ -1,3 +1,12 @@
+// Vendor flick sequence bitflags
+/// Machine is not using vending/denying overlays
+#define FLICK_NONE 0
+/// Machine is currently vending wares, and will not update its icon, unless its stat change.
+#define FLICK_VEND 1
+/// Machine is currently denying wares, and will not update its icon, unless its stat change.
+#define FLICK_DENY 2
+
+
 /**
  *  Datum used to hold information about a product in a vending machine
  */
@@ -15,17 +24,41 @@
 	name = "\improper Vendomat"
 	desc = "A generic vending machine."
 	icon = 'icons/obj/machines/vending.dmi'
-	icon_state = "generic"
-	layer = 2.9
-	anchored = 1
-	density = 1
+	icon_state = "generic_off"
+	layer = BELOW_OBJ_LAYER
+	anchored = TRUE
+	density = TRUE
 	max_integrity = 300
 	integrity_failure = 100
 	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
-	/// Icon_state when vending
-	var/icon_vend
-	/// Icon_state when denying access
-	var/icon_deny
+
+	// All the overlay controlling variables
+	/// Overlay of vendor maintenance panel.
+	var/panel_overlay = ""
+	/// Overlay of a vendor screen, will not apply of stat is NOPOWER.
+	var/screen_overlay = ""
+	/// Lightmask used when vendor is working properly.
+	var/lightmask_overlay = ""
+	/// Damage overlay applied if vendor is damaged enough.
+	var/broken_overlay = ""
+	/// Special lightmask for broken overlay. If vendor is BROKEN, but not dePOWERED we will see this, instead of `lightmask_overlay`.
+	var/broken_lightmask_overlay = ""
+	/// Overlay applied when machine is vending goods.
+	var/vend_overlay = ""
+	/// Special lightmask that will override default `lightmask_overlay`, while machine is vending goods.
+	var/vend_lightmask = ""
+	/// Amount of time until vending sequence is reseted.
+	var/vend_overlay_time = 5 SECONDS
+	/// Overlay applied when machine is denying its wares.
+	var/deny_overlay = ""
+	/// Special lightmask that will override default `lightmask_overlay`, while machine is denying its wares.
+	var/deny_lightmask = ""
+	/// Amount of time until denying sequence is reseted.
+	var/deny_overlay_time = 1.5 SECONDS
+	/// Flags used to correctly manipulate with vend/deny sequences.
+	var/flick_sequence = FLICK_NONE
+	/// If `TRUE` machine will only react to BROKEN/NOPOWER stat, when updating overlays.
+	var/skip_non_primary_icon_updates = FALSE
 
 	// Power
 	use_power = IDLE_POWER_USE
@@ -34,11 +67,11 @@
 
 	// Vending-related
 	/// No sales pitches if off
-	var/active = 1
+	var/active = TRUE
 	/// If off, vendor is busy and unusable until current action finishes
 	var/vend_ready = TRUE
 	/// How long vendor takes to vend one item.
-	var/vend_delay = 10
+	var/vend_delay = 1 SECONDS
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
@@ -100,6 +133,9 @@
 	/// do I look unpowered, even when powered?
 	var/force_no_power_icon_state = FALSE
 
+	var/light_range_on = 1
+	var/light_power_on = 0.5
+
 /obj/machinery/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -128,7 +164,8 @@
 		// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is created.
 		last_slogan = world.time + rand(0, slogan_delay)
 
-	power_change()
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/machinery/vending/Destroy()
 	SStgui.close_uis(wires)
@@ -151,26 +188,86 @@
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
-/obj/machinery/vending/update_icon()
-	cut_overlays()
-	if(panel_open)
-		add_overlay(image(icon, "[initial(icon_state)]-panel"))
+
+/obj/machinery/vending/update_icon(updates = ALL)
+	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)))
+		return ..(NONE)
+	return ..()
+
+
+/obj/machinery/vending/update_overlays()
+	. = ..()
+
+	underlays.Cut()
+
+	if(panel_overlay && panel_open)
+		. += panel_overlay
+
+	if((stat & NOPOWER) || force_no_power_icon_state)
+		if(broken_overlay && (stat & BROKEN))
+			. += broken_overlay
+		return
 
 	if(stat & BROKEN)
-		set_light(0)
-		icon_state = "[initial(icon_state)]-broken"
-	else if (stat & NOPOWER || force_no_power_icon_state)
-		set_light(0)
-		icon_state = "[initial(icon_state)]-off"
+		if(broken_overlay)
+			. += broken_overlay
+		if(broken_lightmask_overlay)
+			underlays += emissive_appearance(icon, broken_lightmask_overlay)
 	else
-		set_light(1, 1, COLOR_WHITE)
-		icon_state = initial(icon_state)
+		if(screen_overlay)
+			. += screen_overlay
+
+		var/lightmask_used = FALSE
+		if(vend_overlay && (flick_sequence & FLICK_VEND))
+			. += vend_overlay
+			if(vend_lightmask)
+				lightmask_used = TRUE
+				. += vend_lightmask
+
+		else if(deny_overlay && (flick_sequence & FLICK_DENY))
+			. +=  deny_overlay
+			if(deny_lightmask)
+				lightmask_used = TRUE
+				. += deny_lightmask
+
+		if(!lightmask_used && lightmask_overlay)
+			underlays += emissive_appearance(icon, lightmask_overlay)
+
+
+/obj/machinery/vending/power_change(forced = FALSE)
+	. = ..()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(light_range_on, light_power_on)
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/vending/extinguish_light(force = FALSE)
-	if(light_range)
+	if(light)
 		set_light(0)
 		underlays.Cut()
+
+
+/obj/machinery/vending/proc/flick_vendor_overlay(flick_flag = FLICK_NONE)
+	if(flick_sequence & (FLICK_VEND|FLICK_DENY))
+		return
+	if((flick_flag & FLICK_VEND) && !vend_overlay)
+		return
+	if((flick_flag & FLICK_DENY) && !deny_overlay)
+		return
+	flick_sequence = flick_flag
+	update_icon(UPDATE_OVERLAYS)
+	skip_non_primary_icon_updates = TRUE
+	var/flick_time = (flick_flag & FLICK_VEND) ? vend_overlay_time : (flick_flag & FLICK_DENY) ? deny_overlay_time : 0
+	addtimer(CALLBACK(src, PROC_REF(flick_reset)), flick_time)
+
+
+/obj/machinery/vending/proc/flick_reset()
+	skip_non_primary_icon_updates = FALSE
+	flick_sequence = FLICK_NONE
+	update_icon(UPDATE_OVERLAYS)
 
 
 /*
@@ -196,13 +293,13 @@
 
 	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 3))
 
 		force_no_power_icon_state = FALSE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 10))
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	flickering = FALSE
 
 /**
@@ -335,7 +432,6 @@
 		insert_item(user, I)
 		return
 	return ..()
-
 
 
 /obj/machinery/vending/crowbar_act(mob/user, obj/item/I)
@@ -627,7 +723,7 @@
 				return
 			if (R.amount <= 0)
 				to_chat(usr, "Sold out of [R.name].")
-				flick(icon_deny, src)
+				flick_vendor_overlay(FLICK_VEND)
 				return
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
@@ -644,7 +740,7 @@
 			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
 			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
 				to_chat(usr, "Vendor account offline. Unable to process transaction.")
-				flick(icon_deny, src)
+				flick_vendor_overlay(FLICK_DENY)
 				vend_ready = TRUE
 				return
 
@@ -665,7 +761,7 @@
 			else
 				to_chat(usr, span_warning("Payment failure: you have no ID or other method of payment."))
 				vend_ready = TRUE
-				flick(icon_deny, src)
+				flick_vendor_overlay(FLICK_DENY)
 				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
 				return
 			if(paid)
@@ -683,7 +779,7 @@
 /obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, span_warning("Access denied."))//Unless emagged of course
-		flick(icon_deny, src)
+		flick_vendor_overlay(FLICK_DENY)
 		vend_ready = TRUE
 		return
 
@@ -715,17 +811,21 @@
 		last_reply = world.time
 
 	use_power(vend_power_usage)	//actuators and stuff
-	if(icon_vend) //Show the vending animation if needed
-		flick(icon_vend, src)
+	flick_vendor_overlay(FLICK_VEND)	//Show the vending animation if needed
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user), vend_delay)
+
 
 /obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
 	do_vend(R, user)
 	vend_ready = TRUE
 	currently_vending = null
 
-//override this proc to add handling for what to do with the vended product when you have a inserted item and remember to include a parent call for this generic handling
+
+/**
+ * Override this proc to add handling for what to do with the vended product
+ * when you have a inserted item and remember to include a parent call for this generic handling
+ */
 /obj/machinery/vending/proc/do_vend(datum/data/vending_product/R, mob/user)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
@@ -769,6 +869,7 @@
 	if(shoot_inventory && prob(shoot_chance))
 		throw_item()
 
+
 /obj/machinery/vending/proc/speak(message)
 	if(stat & NOPOWER)
 		return
@@ -777,42 +878,37 @@
 
 	atom_say(message)
 
-/obj/machinery/vending/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-		update_icon()
-	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
-	if(!(stat & BROKEN))
-		stat |= BROKEN
-		update_icon()
+	if(stat & BROKEN)
+		return
 
-		var/dump_amount = 0
-		var/found_anything = TRUE
-		while (found_anything)
-			found_anything = FALSE
-			for(var/record in shuffle(product_records))
-				var/datum/data/vending_product/R = record
-				if(R.amount <= 0) //Try to use a record that actually has something to dump.
-					continue
-				var/dump_path = R.product_path
-				if(!dump_path)
-					continue
-				R.amount--
-				// busting open a vendor will destroy some of the contents
-				if(found_anything && prob(80))
-					continue
+	stat |= BROKEN
+	update_icon(UPDATE_OVERLAYS)
 
-				var/obj/O = new dump_path(loc)
-				step(O, pick(GLOB.alldirs))
-				found_anything = TRUE
-				dump_amount++
-				if(dump_amount >= 16)
-					return
+	var/dump_amount = 0
+	var/found_anything = TRUE
+	while (found_anything)
+		found_anything = FALSE
+		for(var/record in shuffle(product_records))
+			var/datum/data/vending_product/R = record
+			if(R.amount <= 0) //Try to use a record that actually has something to dump.
+				continue
+			var/dump_path = R.product_path
+			if(!dump_path)
+				continue
+			R.amount--
+			// busting open a vendor will destroy some of the contents
+			if(found_anything && prob(80))
+				continue
+
+			var/obj/O = new dump_path(loc)
+			step(O, pick(GLOB.alldirs))
+			found_anything = TRUE
+			dump_amount++
+			if(dump_amount >= 16)
+				return
+
 
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/vending/proc/throw_item()
@@ -856,7 +952,16 @@
 
 */
 
+
 /obj/machinery/vending/assist
+
+	icon_state = "generic_off"
+	panel_overlay = "generic_panel"
+	screen_overlay = "generic"
+	lightmask_overlay = "generic_lightmask"
+	broken_overlay = "generic_broken"
+	broken_lightmask_overlay = "generic_broken_lightmask"
+
 	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
 						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
 	contraband = list(/obj/item/flashlight = 5,/obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
@@ -866,8 +971,15 @@
 /obj/machinery/vending/boozeomat
 	name = "\improper Booze-O-Mat"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	icon_state = "boozeomat"        //////////////18 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
-	icon_deny = "boozeomat-deny"
+
+	icon_state = "boozeomat_off"        //////////////18 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
+	panel_overlay = "boozeomat_panel"
+	screen_overlay = "boozeomat"
+	lightmask_overlay = "boozeomat_lightmask"
+	broken_overlay = "boozeomat_broken"
+	broken_lightmask_overlay = "boozeomat_broken_lightmask"
+	deny_overlay = "boozeomat_deny"
+
 	products = list(/obj/item/reagent_containers/food/drinks/bottle/gin = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/whiskey = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/tequila = 5,
@@ -914,8 +1026,16 @@
 	name = "\improper Solar's Best Hot Drinks"
 	desc = "A vending machine which dispenses hot drinks."
 	ads_list = list("Выпейте!","Выпьем!","На здоровье!","Не хотите горячего супчику?","Я бы убил за чашечку кофе!","Лучшие зёрна в галактике","Для Вас — только лучшие напитки","М-м-м-м… Ничто не сравнится с кофе","Я люблю кофе, а Вы?","Кофе помогает работать!","Возьмите немного чайку","Надеемся, Вы предпочитаете лучшее!","Отведайте наш новый шоколад!","Admin conspiracies")
-	icon_state = "coffee"
-	icon_vend = "coffee-vend"
+
+	icon_state = "coffee_off"
+	panel_overlay = "coffee_panel"
+	screen_overlay = "coffee"
+	lightmask_overlay = "coffee_lightmask"
+	broken_overlay = "coffee_broken"
+	broken_lightmask_overlay = "coffee_broken_lightmask"
+	vend_overlay = "coffee_vend"
+	vend_lightmask = "coffee_vend_lightmask"
+
 	item_slot = TRUE
 	vend_delay = 34
 	products = list(/obj/item/reagent_containers/food/drinks/coffee = 25,/obj/item/reagent_containers/food/drinks/tea = 25,/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
@@ -975,7 +1095,14 @@
 	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars."
 	slogan_list = list("Попробуйте наш новый батончик с нугой!","Вдвое больше калорий за полцены!")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
-	icon_state = "snack"
+
+	icon_state = "snack_off"
+	panel_overlay = "snack_panel"
+	screen_overlay = "snack"
+	lightmask_overlay = "snack_lightmask"
+	broken_overlay = "snack_broken"
+	broken_lightmask_overlay = "snack_broken_lightmask"
+
 	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/reagent_containers/food/snacks/doshik = 6,/obj/item/reagent_containers/food/snacks/doshik_spicy = 6,/obj/item/reagent_containers/food/snacks/chips =6,
 					/obj/item/reagent_containers/food/snacks/sosjerky = 6,/obj/item/reagent_containers/food/snacks/no_raisin = 6,/obj/item/reagent_containers/food/snacks/pistachios =6,
 					/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,/obj/item/reagent_containers/food/snacks/tastybread = 6)
@@ -992,7 +1119,14 @@
 	name = "\improper Mr. Chang"
 	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
 	slogan_list = list("Попробуйте 5000 лет культуры!","Мистер Чанг, одобрен для безопасного потребления в более чем 10 секторах!","Китайская кухня отлично подходит для вечернего свидания или одинокого вечера!","Вы не ошибетесь, если попробуете настоящую китайскую кухню от мистера Чанга.!")
-	icon_state = "chang"
+
+	icon_state = "chang_off"
+	panel_overlay = "chang_panel"
+	screen_overlay = "chang"
+	lightmask_overlay = "chang_lightmask"
+	broken_overlay = "chang_broken"
+	broken_lightmask_overlay = "chang_broken_lightmask"
+
 	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
 					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
 	prices = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50, /obj/item/reagent_containers/food/snacks/chinese/newdles = 50,
@@ -1005,7 +1139,14 @@
 /obj/machinery/vending/cola
 	name = "\improper Robust Softdrinks"
 	desc = "A soft drink vendor provided by Robust Industries, LLC."
-	icon_state = "Cola_Machine"
+
+	icon_state = "cola-machine_off"
+	panel_overlay = "cola-machine_panel"
+	screen_overlay = "cola-machine"
+	lightmask_overlay = "cola-machine_lightmask"
+	broken_overlay = "cola-machine_broken"
+	broken_lightmask_overlay = "cola-machine_broken_lightmask"
+
 	slogan_list = list("Роб+аст с+офтдринкс: крепче, чем тулбоксом по голове!")
 	ads_list = list("Освежает!","Надеюсь, вас одолела жажда!","Продано больше миллиона бутылок!","Хотите пить? Почему бы не взять колы?","Пожалуйста, купите напиток","Выпьем!","Лучшие напитки во всём космосе")
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
@@ -1025,8 +1166,15 @@
 	name = "\improper PTech"
 	desc = "Cartridges for PDA's."
 	slogan_list = list("Карточки в дорогу!")
-	icon_state = "cart"
-	icon_deny = "cart-deny"
+
+	icon_state = "cart_off"
+	panel_overlay = "cart_panel"
+	screen_overlay = "cart"
+	lightmask_overlay = "cart_lightmask"
+	broken_overlay = "cart_broken"
+	broken_lightmask_overlay = "cart_broken_lightmask"
+	deny_overlay = "cart_deny"
+
 	products = list(/obj/item/pda =10,/obj/item/eftpos = 6,/obj/item/cartridge/mob_hunt_game = 25,/obj/item/cartridge/medical = 10,/obj/item/cartridge/chemistry = 10,
 					/obj/item/cartridge/engineering = 10,/obj/item/cartridge/atmos = 10,/obj/item/cartridge/janitor = 10,
 					/obj/item/cartridge/signal/toxins = 10,/obj/item/cartridge/signal = 10)
@@ -1042,7 +1190,14 @@
 /obj/machinery/vending/liberationstation
 	name = "\improper Liberation Station"
 	desc = "An overwhelming amount of <b>ancient patriotism</b> washes over you just by looking at the machine."
-	icon_state = "liberationstation"
+
+	icon_state = "liberationstation_off"
+	panel_overlay = "liberationstation_panel"
+	screen_overlay = "liberationstation"
+	lightmask_overlay = "liberationstation_lightmask"
+	broken_overlay = "liberationstation_broken"
+	broken_lightmask_overlay = "liberationstation_broken_lightmask"
+
 	req_access = list(ACCESS_SECURITY)
 	slogan_list = list("Liberation Station: Your one-stop shop for all things second amendment!","Be a patriot today, pick up a gun!","Quality weapons for cheap prices!","Better dead than red!")
 	ads_list = list("Float like an astronaut, sting like a bullet!","Express your second amendment today!","Guns don't kill people, but you can!","Who needs responsibilities when you have guns?")
@@ -1060,7 +1215,14 @@
 /obj/machinery/vending/toyliberationstation
 	name = "\improper Syndicate Donksoft Toy Vendor"
 	desc = "An ages 8 and up approved vendor that dispenses toys. If you were to find the right wires, you can unlock the adult mode setting!"
-	icon_state = "syndi"
+
+	icon_state = "syndi_off"
+	panel_overlay = "syndi_panel"
+	screen_overlay = "syndi"
+	lightmask_overlay = "syndi_lightmask"
+	broken_overlay = "syndi_broken"
+	broken_lightmask_overlay = "syndi_broken_lightmask"
+
 	slogan_list = list("Get your cool toys today!","Trigger a valid hunter today!","Quality toy weapons for cheap prices!","Give them to HoPs for all access!","Give them to HoS to get permabrigged!")
 	ads_list = list("Feel robust with your toys!","Express your inner child today!","Toy weapons don't kill people, but valid hunters do!","Who needs responsibilities when you have toy weapons?","Make your next murder FUN!")
 	vend_reply = "Come back for more!"
@@ -1091,7 +1253,14 @@
 	slogan_list = list("Космосигареты весьма хороши на вкус, какими они и должны быть","I'd rather toolbox than switch.","Затянитесь!","Не верьте исследованиям — курите!")
 	ads_list = list("Наверняка не очень-то и вредно для Вас!","Не верьте учёным!","На здоровье!","Не бросайте курить, купите ещё!","Затянитесь!","Никотиновый рай","Лучшие сигареты с 2150 года","Сигареты с множеством наград")
 	vend_delay = 34
-	icon_state = "cigs"
+
+	icon_state = "cigs_off"
+	panel_overlay = "cigs_panel"
+	screen_overlay = "cigs"
+	lightmask_overlay = "cigs_lightmask"
+	broken_overlay = "cigs_broken"
+	broken_lightmask_overlay = "cigs_broken_lightmask"
+
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 6, /obj/item/storage/fancy/cigarettes/cigpack_random = 6, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
 	contraband = list(/obj/item/lighter/zippo = 4, /obj/item/clothing/mask/cigarette/pipe/oldpipe = 3)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
@@ -1136,8 +1305,15 @@
 /obj/machinery/vending/medical
 	name = "\improper NanoMed Plus"
 	desc = "Medical drug dispenser."
-	icon_state = "med"
-	icon_deny = "med-deny"
+
+	icon_state = "med_off"
+	panel_overlay = "med_panel"
+	screen_overlay = "med"
+	lightmask_overlay = "med_lightmask"
+	broken_overlay = "med_broken"
+	broken_lightmask_overlay = "med_broken_lightmask"
+	deny_overlay = "med_deny"
+
 	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для вашего медотдела","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
 	req_access = list(ACCESS_MEDICAL)
 	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4, /obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
@@ -1156,8 +1332,15 @@
 
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"
-	icon_state = "syndi-big-med"
-	icon_deny = "syndi-big-med-deny"
+
+	icon_state = "syndi-big-med_off"
+	panel_overlay = "syndi-big-med_panel"
+	screen_overlay = "syndi-big-med"
+	lightmask_overlay = "med_lightmask"
+	broken_overlay = "med_broken"
+	broken_lightmask_overlay = "med_broken_lightmask"
+	deny_overlay = "syndi-big-med_deny"
+
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/medical/syndicate_access/beamgun
@@ -1166,6 +1349,14 @@
 /obj/machinery/vending/plasmaresearch
 	name = "\improper Toximate 3000"
 	desc = "All the fine parts you need in one vending machine!"
+
+	icon_state = "generic_off"
+	panel_overlay = "generic_panel"
+	screen_overlay = "generic"
+	lightmask_overlay = "generic_lightmask"
+	broken_overlay = "generic_broken"
+	broken_lightmask_overlay = "generic_broken_lightmask"
+
 	products = list(/obj/item/assembly/prox_sensor = 8, /obj/item/assembly/igniter = 8, /obj/item/assembly/signaler = 8,
 					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8)
 	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/voice = 3, /obj/item/assembly/health = 3, /obj/item/assembly/infra = 3)
@@ -1175,8 +1366,15 @@
 	name = "\improper NanoMed"
 	desc = "Wall-mounted Medical Equipment dispenser."
 	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для вашего медотдела","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
-	icon_state = "wallmed"
-	icon_deny = "wallmed-deny"
+
+	icon_state = "wallmed_off"
+	panel_overlay = "wallmed_panel"
+	screen_overlay = "wallmed"
+	lightmask_overlay = "wallmed_lightmask"
+	broken_overlay = "wallmed_broken"
+	broken_lightmask_overlay = "wallmed_broken_lightmask"
+	deny_overlay = "wallmed_deny"
+
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
@@ -1187,8 +1385,16 @@
 /obj/machinery/vending/wallmed/syndicate
 	name = "\improper SyndiWallMed"
 	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
-	icon_state = "syndimed"
-	icon_deny = "syndimed-deny"
+
+	icon_state = "syndimed_off"
+	panel_overlay = "wallmed_panel"
+	screen_overlay = "syndimed"
+	lightmask_overlay = "wallmed_lightmask"
+	broken_overlay = "wallmed_broken"
+	broken_lightmask_overlay = "wallmed_broken_lightmask"
+	deny_overlay = "syndimed_deny"
+
+	broken_lightmask_overlay = "wallmed_broken_lightmask"
 	ads_list = list("Иди и оборви несколько жизней!","Лучшее снаряжение для вашего корабля","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
 	req_access = list(ACCESS_SYNDICATE)
 	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/reagent_containers/hypospray/autoinjector = 4,/obj/item/healthanalyzer = 1)
@@ -1199,8 +1405,15 @@
 	name = "\improper SecTech"
 	desc = "A security equipment vendor."
 	ads_list = list("Круши черепа капиталистов!","Отбей несколько голов!","Не забывай, вредительство - полезно!","Твое оружие здесь.","Наручники!","Стоять, подонок!","Не бей меня, брат!","Убей их, брат.","Почему бы не съесть пончик?")
-	icon_state = "sec"
-	icon_deny = "sec-deny"
+
+	icon_state = "sec_off"
+	panel_overlay = "sec_panel"
+	screen_overlay = "sec"
+	lightmask_overlay = "sec_lightmask"
+	broken_overlay = "sec_broken"
+	broken_lightmask_overlay = "sec_broken_lightmask"
+	deny_overlay = "sec_deny"
+
 	req_access = list(ACCESS_SECURITY)
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
@@ -1214,8 +1427,15 @@
 	name = "\improper SecTech Training"
 	desc = "A security training equipment vendor."
 	ads_list = list("Соблюдай чистоту на стрельбище!","Даже я стреляю лучше тебя!","Почему так косо, бухой что ли?!","Техника безопасности нам не писана, да?","1 из 10 попаданий... А ты хорош!","Инструктор это твой папочка!","Эй, ты куда целишься?!")
-	icon_state = "sectraining"
-	icon_deny = "sectraining-deny"
+
+	icon_state = "sectraining_off"
+	panel_overlay = "sec_panel"
+	screen_overlay = "sec"
+	lightmask_overlay = "sec_lightmask"
+	broken_overlay = "sec_broken"
+	broken_lightmask_overlay = "sectraining_broken_lightmask"
+	deny_overlay = "sec_deny"
+
 	req_access = list(ACCESS_SECURITY)
 	products = list(/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
 				    /obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2)
@@ -1256,8 +1476,15 @@
 	desc = "A plant nutrients vendor"
 	slogan_list = list("Вам не надо удобрять почву естественным путём — разве это не чудесно?","Теперь на 50% меньше вони!","Растения тоже люди!")
 	ads_list = list("Мы любим растения!","Может сами примете?","Самые зелёные кнопки на свете.","Мы любим большие растения.","Мягкая почва…")
-	icon_state = "nutri"
-	icon_deny = "nutri-deny"
+
+	icon_state = "nutri_off"
+	panel_overlay = "nutri_panel"
+	screen_overlay = "nutri"
+	lightmask_overlay = "nutri_lightmask"
+	broken_overlay = "nutri_broken"
+	broken_lightmask_overlay = "nutri_broken_lightmask"
+	deny_overlay = "nutri_deny"
+
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20,/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13,/obj/item/reagent_containers/glass/bottle/nutrient/rh = 6,/obj/item/reagent_containers/spray/pestspray = 20,
 					/obj/item/reagent_containers/syringe = 5,/obj/item/storage/bag/plants = 5,/obj/item/cultivator = 3,/obj/item/shovel/spade = 3,/obj/item/plant_analyzer = 4)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
@@ -1268,7 +1495,14 @@
 	desc = "When you need seeds fast!"
 	slogan_list = list("THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!","Hands down the best seed selection on the station!","Also certain mushroom varieties available, more for experts! Get certified today!")
 	ads_list = list("Мы любим растения!","Вырасти урожай!","Расти, малыш, расти-и-и-и!","Ды-а, сына!")
-	icon_state = "seeds"
+
+	icon_state = "seeds_off"
+	panel_overlay = "seeds_panel"
+	screen_overlay = "seeds"
+	lightmask_overlay = "seeds_lightmask"
+	broken_overlay = "seeds_broken"
+	broken_lightmask_overlay = "seeds_broken_lightmask"
+
 	products = list(/obj/item/seeds/aloe =3,
 					/obj/item/seeds/ambrosia = 3,
 					/obj/item/seeds/apple = 3,
@@ -1332,7 +1566,14 @@
 /obj/machinery/vending/magivend
 	name = "\improper MagiVend"
 	desc = "A magic vending machine."
-	icon_state = "MagiVend"
+
+	icon_state = "magivend_off"
+	panel_overlay = "magivend_panel"
+	screen_overlay = "magivend"
+	lightmask_overlay = "magivend_lightmask"
+	broken_overlay = "magivend_broken"
+	broken_lightmask_overlay = "magivend_broken_lightmask"
+
 	slogan_list = list("Sling spells the proper way with MagiVend!","Be your own Houdini! Use MagiVend!")
 	vend_delay = 15
 	vend_reply = "Have an enchanted evening!"
@@ -1370,8 +1611,15 @@
 /obj/machinery/vending/autodrobe
 	name = "\improper AutoDrobe"
 	desc = "A vending machine for costumes."
-	icon_state = "theater"
-	icon_deny = "theater-deny"
+
+	icon_state = "theater_off"
+	panel_overlay = "theater_panel"
+	screen_overlay = "theater"
+	lightmask_overlay = "theater_lightmask"
+	broken_overlay = "theater_broken"
+	broken_lightmask_overlay = "theater_broken_lightmask"
+	deny_overlay = "theater_deny"
+
 	slogan_list = list("Dress for success!","Suited and booted!","It's show time!","Why leave style up to fate? Use AutoDrobe!")
 	vend_delay = 15
 	vend_reply = "Thank you for using AutoDrobe!"
@@ -1520,7 +1768,14 @@
 	name = "\improper Plasteel Chef's Dinnerware Vendor"
 	desc = "A kitchen and restaurant equipment vendor."
 	ads_list = list("Mm, food stuffs!","Food and food accessories.","Get your plates!","You like forks?","I like forks.","Woo, utensils.","You don't really need these...")
-	icon_state = "dinnerware"
+
+	icon_state = "dinnerware_off"
+	panel_overlay = "dinnerware_panel"
+	screen_overlay = "dinnerware"
+	lightmask_overlay = "dinnerware_lightmask"
+	broken_overlay = "dinnerware_broken"
+	broken_lightmask_overlay = "dinnerware_broken_lightmask"
+
 	products = list(/obj/item/storage/bag/tray = 8,/obj/item/kitchen/utensil/fork = 6,
 					/obj/item/kitchen/knife = 3,/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,
@@ -1557,7 +1812,14 @@
 /obj/machinery/vending/sovietsoda
 	name = "\improper BODA"
 	desc = "Old sweet water vending machine."
-	icon_state = "sovietsoda"
+
+	icon_state = "sovietsoda_off"
+	panel_overlay = "sovietsoda_panel"
+	screen_overlay = "sovietsoda"
+	lightmask_overlay = "sovietsoda_lightmask"
+	broken_overlay = "sovietsoda_broken"
+	broken_lightmask_overlay = "sovietsoda_broken_lightmask"
+
 	ads_list = list("For Tsar and Country.","Have you fulfilled your nutrition quota today?","Very nice!","We are simple people, for this is all we eat.","If there is a person, there is a problem. If there is no person, then there is no problem.")
 	products = list(/obj/item/reagent_containers/food/drinks/drinkingglass/soda = 30)
 	contraband = list(/obj/item/reagent_containers/food/drinks/drinkingglass/cola = 20)
@@ -1567,8 +1829,15 @@
 /obj/machinery/vending/tool
 	name = "\improper YouTool"
 	desc = "Tools for tools."
-	icon_state = "tool"
-	icon_deny = "tool-deny"
+
+	icon_state = "tool_off"
+	panel_overlay = "tool_panel"
+	screen_overlay = "tool"
+	lightmask_overlay = "tool_lightmask"
+	broken_overlay = "tool_broken"
+	broken_lightmask_overlay = "tool_broken_lightmask"
+	deny_overlay = "tool_deny"
+
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/crowbar = 5,/obj/item/weldingtool = 3,/obj/item/wirecutters = 5,
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
@@ -1581,8 +1850,15 @@
 /obj/machinery/vending/engivend
 	name = "\improper Engi-Vend"
 	desc = "Spare tool vending. What? Did you expect some witty description?"
-	icon_state = "engivend"
-	icon_deny = "engivend-deny"
+
+	icon_state = "engivend_off"
+	panel_overlay = "engivend_panel"
+	screen_overlay = "engivend"
+	lightmask_overlay = "engivend_lightmask"
+	broken_overlay = "engivend_broken"
+	broken_lightmask_overlay = "engivend_broken_lightmask"
+	deny_overlay = "engivend_deny"
+
 	req_access = list(11,24) // Engineers and atmos techs can use this
 	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
@@ -1592,8 +1868,16 @@
 /obj/machinery/vending/engineering
 	name = "\improper Robco Tool Maker"
 	desc = "Everything you need for do-it-yourself station repair."
-	icon_state = "engi"
-	icon_deny = "engi-deny"
+
+	icon_state = "engi_off"
+	panel_overlay = "engi_panel"
+	screen_overlay = "engi"
+	lightmask_overlay = "engi_lightmask"
+	broken_overlay = "engi_broken"
+	broken_lightmask_overlay = "engi_broken_lightmask"
+	deny_overlay = "engi_deny"
+	deny_lightmask = "engi_deny_lightmask"
+
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	products = list(/obj/item/clothing/under/rank/chief_engineer = 4,/obj/item/clothing/under/rank/engineer = 4,/obj/item/clothing/shoes/workboots = 4,/obj/item/clothing/head/hardhat = 4,
 					/obj/item/storage/belt/utility = 4,/obj/item/clothing/glasses/meson = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
@@ -1606,8 +1890,16 @@
 /obj/machinery/vending/robotics
 	name = "\improper Robotech Deluxe"
 	desc = "All the tools you need to create your own robot army."
-	icon_state = "robotics"
-	icon_deny = "robotics-deny"
+
+	icon_state = "robotics_off"
+	panel_overlay = "robotics_panel"
+	screen_overlay = "robotics"
+	lightmask_overlay = "robotics_lightmask"
+	broken_overlay = "robotics_broken"
+	broken_lightmask_overlay = "robotics_broken_lightmask"
+	deny_overlay = "robotics_deny"
+	deny_lightmask = "robotics_deny_lightmask"
+
 	req_access = list(ACCESS_ROBOTICS)
 	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 4,
 					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
@@ -1620,7 +1912,15 @@
 	desc = "A vending machine which vends food, as required by section 47-C of the NT's Prisoner Ethical Treatment Agreement."
 	slogan_list = list("Enjoy your meal.","Enough calories to support strenuous labor.")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
-	icon_state = "sustenance"
+
+	icon_state = "sustenance_off"
+	panel_overlay = "snack_panel"
+	screen_overlay = "snack"
+	lightmask_overlay = "snack_lightmask"
+	broken_overlay = "snack_broken"
+	broken_lightmask_overlay = "snack_broken_lightmask"
+
+	broken_lightmask_overlay = "snack_broken_lightmask"
 	products = list(/obj/item/reagent_containers/food/snacks/tofu = 24,
 					/obj/item/reagent_containers/food/drinks/ice = 12,
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
@@ -1640,7 +1940,14 @@
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"
 	desc = "It doesn't seem the slightest bit unusual. This frustrates you immensely."
-	icon_state = "hats"
+
+	icon_state = "hats_off"
+	panel_overlay = "hats_panel"
+	screen_overlay = "hats"
+	lightmask_overlay = "hats_lightmask"
+	broken_overlay = "hats_broken"
+	broken_lightmask_overlay = "hats_broken_lightmask"
+
 	ads_list = list("Warning, not all hats are dog/monkey compatible. Apply forcefully with care.","Apply directly to the forehead.","Who doesn't love spending cash on hats?!","From the people that brought you collectable hat crates, Hatlord!")
 	products = list(/obj/item/clothing/head/bowlerhat = 10,
 					/obj/item/clothing/head/beaverhat = 10,
@@ -1655,7 +1962,14 @@
 /obj/machinery/vending/suitdispenser
 	name = "\improper Suitlord 9000"
 	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
-	icon_state = "suits"
+
+	icon_state = "suits_off"
+	panel_overlay = "suits_panel"
+	screen_overlay = "suits"
+	lightmask_overlay = "suits_lightmask"
+	broken_overlay = "suits_broken"
+	broken_lightmask_overlay = "suits_broken_lightmask"
+
 	ads_list = list("Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*","Blood of your enemies washes right out!","Who are YOU wearing?","Look dapper! Look like an idiot!","Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*")
 	products = list(
 		/obj/item/clothing/under/color/black = 10,
@@ -1686,7 +2000,15 @@
 /obj/machinery/vending/shoedispenser
 	name = "\improper Shoelord 9000"
 	desc = "Wow, hatlord looked fancy, suitlord looked streamlined, and this is just normal. The guy who designed these must be an idiot."
-	icon_state = "shoes"
+
+	icon_state = "shoes_off"
+	icon_state = "shoes_off"
+	panel_overlay = "shoes_panel"
+	screen_overlay = "shoes"
+	lightmask_overlay = "shoes_lightmask"
+	broken_overlay = "shoes_broken"
+	broken_lightmask_overlay = "shoes_broken_lightmask"
+
 	ads_list = list("Put your foot down!","One size fits all!","IM WALKING ON SUNSHINE!","No hobbits allowed.","NO PLEASE WILLY, DONT HURT ME- *BZZT*")
 	products = list(/obj/item/clothing/shoes/black = 10,/obj/item/clothing/shoes/brown = 10,/obj/item/clothing/shoes/blue = 10,/obj/item/clothing/shoes/green = 10,/obj/item/clothing/shoes/yellow = 10,/obj/item/clothing/shoes/purple = 10,/obj/item/clothing/shoes/red = 10,/obj/item/clothing/shoes/white = 10,/obj/item/clothing/shoes/sandal=10)
 	contraband = list(/obj/item/clothing/shoes/orange = 5)
@@ -1699,7 +2021,14 @@
 	slogan_list = list("Космосигареты на вкус хороши, какими они и должны быть.","I'd rather toolbox than switch.","Затянитесь!","Не верьте исследованиям — курите сегодня!")
 	ads_list = list("Наверняка не очень-то и вредно для Вас!","Не верьте учёным!","На здоровье!","Не бросайте курить, купите ещё!","Затянитесь!","Никотиновый рай.","Лучшие сигареты с 2150 года.","Сигареты с множеством наград.")
 	vend_delay = 34
-	icon_state = "cigs"
+
+	icon_state = "cigs_off"
+	panel_overlay = "cigs_panel"
+	screen_overlay = "cigs"
+	lightmask_overlay = "cigs_lightmask"
+	broken_overlay = "cigs_broken"
+	broken_lightmask_overlay = "cigs_broken_lightmask"
+
 	products = list(/obj/item/storage/fancy/cigarettes/syndicate = 10,/obj/item/lighter/random = 5)
 
 
@@ -1708,7 +2037,14 @@
 	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
 	slogan_list = list("Try our new nougat bar!","Twice the calories for half the price!")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
-	icon_state = "snack"
+
+	icon_state = "snack_off"
+	panel_overlay = "snack_panel"
+	screen_overlay = "snack"
+	lightmask_overlay = "snack_lightmask"
+	broken_overlay = "snack_broken"
+	broken_lightmask_overlay = "snack_broken_lightmask"
+
 	products = list(/obj/item/reagent_containers/food/snacks/chips =6,/obj/item/reagent_containers/food/snacks/sosjerky = 6,
 					/obj/item/reagent_containers/food/snacks/syndicake = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6)
 
@@ -1716,8 +2052,16 @@
 	name = "Синди Робо-ДеЛюкс!"
 	desc = "Всё что нужно, чтобы сделать личного железного друга из ваших врагов!"
 	ads_list = list("Make them beep-boop like a robot should!","Robotisation is NOT a crime!","Nyoom!")
-	icon_state = "robotics"
-	icon_deny = "robotics-deny"
+
+	icon_state = "robotics_off"
+	panel_overlay = "robotics_panel"
+	screen_overlay = "robotics"
+	lightmask_overlay = "robotics_lightmask"
+	broken_overlay = "robotics_broken"
+	broken_lightmask_overlay = "robotics_broken_lightmask"
+	deny_overlay = "robotics_deny"
+	deny_lightmask = "robotics_deny_lightmask"
+
 	req_access = list(ACCESS_SYNDICATE)
 	products = list(/obj/item/robot_parts/robot_suit = 2,
 					/obj/item/robot_parts/chest = 2,
@@ -1737,7 +2081,14 @@
 /obj/machinery/vending/clothing
 	name = "\improper  ClothesMate" //renamed to make the slogan rhyme
 	desc = "A vending machine for clothing."
-	icon_state = "clothes"
+
+	icon_state = "clothes_off"
+	panel_overlay = "clothes_panel"
+	screen_overlay = "clothes"
+	lightmask_overlay = "clothes_lightmask"
+	broken_overlay = "clothes_broken"
+	broken_lightmask_overlay = "clothes_broken_lightmask"
+
 	slogan_list = list("Dress for success!","Prepare to look swagalicious!","Look at all this free swag!","Why leave style up to fate? Use the ClothesMate!")
 	vend_delay = 15
 	vend_reply = "Thank you for using the ClothesMate!"
@@ -1837,7 +2188,14 @@
 	slogan_list = list("Stop by for all your artistic needs!","Color the floors with crayons, not blood!","Don't be a starving artist, use ArtVend. ","Don't fart, do art!")
 	ads_list = list("Just like Kindergarten!","Now with 1000% more vibrant colors!","Screwing with the janitor was never so easy!","Creativity is at the heart of every spessman.")
 	vend_delay = 15
-	icon_state = "artvend"
+
+	icon_state = "artvend_off"
+	panel_overlay = "artvend_panel"
+	screen_overlay = "artvend"
+	lightmask_overlay = "artvend_lightmask"
+	broken_overlay = "artvend_broken"
+	broken_lightmask_overlay = "artvend_broken_lightmask"
+
 	products = list(/obj/item/toy/crayon/spraycan = 2,/obj/item/stack/cable_coil/random = 10,/obj/item/camera = 4,/obj/item/camera_film = 6,
 	/obj/item/storage/photo_album = 2,/obj/item/stack/wrapping_paper = 4,/obj/item/stack/tape_roll = 5,/obj/item/stack/packageWrap = 4,
 	/obj/item/storage/fancy/crayons = 4,/obj/item/hand_labeler = 4,/obj/item/paper = 10,
@@ -1853,7 +2211,14 @@
 	slogan_list = list("Stop by for all your animal's needs!","Cuddly pets deserve a stylish collar!","Pets in space, what could be more adorable?","Freshest fish eggs in the system!","Rocks are the perfect pet, buy one today!")
 	ads_list = list("House-training costs extra!","Now with 1000% more cat hair!","Allergies are a sign of weakness!","Dogs are man's best friend. Remember that Vulpkanin!"," Heat lamps for Unathi!"," Vox-y want a cracker?")
 	vend_delay = 15
-	icon_state = "crittercare"
+
+	icon_state = "crittercare_off"
+	panel_overlay = "crittercare_panel"
+	screen_overlay = "crittercare"
+	lightmask_overlay = "crittercare_lightmask"
+	broken_overlay = "crittercare_broken"
+	broken_lightmask_overlay = "crittercare_broken_lightmask"
+
 	products = list(/obj/item/clothing/accessory/petcollar = 5, /obj/item/storage/firstaid/aquatic_kit/full =5, /obj/item/fish_eggs/goldfish = 5,
 					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/fish_eggs/feederfish = 10,
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
@@ -1876,7 +2241,6 @@
 /obj/machinery/vending/clothing/departament
 	name = "\improper Broken Departament ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды отдела."
-	icon_state = "clothes"
 	slogan_list = list(
 		"Одежда успешного работника!", "Похвала на глаза!", "Ну наконец-то нормально оделся!",
 		"Одевай одежду, надевай еще и шляпку!", "Вот это гордость такое надевать!", "Выглядишь отпадно!",
@@ -1899,8 +2263,14 @@
 /obj/machinery/vending/clothing/departament/security
 	name = "\improper Departament Security ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Отдела Службы Безопасности."
-	icon_state = "clothes-dep-sec"
-	//slogan_list += list()
+
+	icon_state = "clothes-dep-sec_off"
+	panel_overlay = "clothes_panel"
+	screen_overlay = "clothes-dep-sec"
+	lightmask_overlay = "clothes_lightmask"
+	broken_overlay = "clothes-dep-sec_broken"
+	broken_lightmask_overlay = "clothes_broken_lightmask"
+
 	req_access = list(ACCESS_SEC_DOORS)
 	products = list(
 		/obj/item/clothing/head/soft/sec		= 10,
@@ -1969,8 +2339,14 @@
 /obj/machinery/vending/clothing/departament/medical
 	name = "\improper Departament Medical ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Медицинского Отдела."
-	icon_state = "clothes-dep-med"
-	//slogan_list += list()
+
+	icon_state = "clothes-dep-med_off"
+	panel_overlay = "clothes_panel"
+	screen_overlay = "clothes-dep-med"
+	lightmask_overlay = "clothes_lightmask"
+	broken_overlay = "clothes-dep-med_broken"
+	broken_lightmask_overlay = "clothes_broken_lightmask"
+
 	req_access = list(ACCESS_MEDICAL)
 	products = list(
 		/obj/item/clothing/head/beret/med  			= 10,
@@ -2060,9 +2436,15 @@
 /obj/machinery/vending/clothing/departament/engineering
 	name = "\improper Departament Engineering ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Инженерного Отдела."
-	icon_state = "clothes-dep-eng"
+
+	icon_state = "clothes-dep-eng_off"
+	panel_overlay = "clothes_panel"
+	screen_overlay = "clothes-dep-eng"
+	lightmask_overlay = "clothes_lightmask"
+	broken_overlay = "clothes-dep-eng_broken"
+	broken_lightmask_overlay = "clothes_broken_lightmask"
+
 	req_access = list(ACCESS_ENGINE_EQUIP)
-	//slogan_list += list()
 	products = list(
 		/obj/item/clothing/head/hardhat = 10,
 		/obj/item/clothing/head/hardhat/orange = 10,
@@ -2113,8 +2495,14 @@
 /obj/machinery/vending/clothing/departament/science
 	name = "\improper Departament Science ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Научного Отдела."
-	icon_state = "clothes-dep-sci"
-	//slogan_list += list()
+
+	icon_state = "clothes-dep-sci_off"
+	panel_overlay = "clothes_panel"
+	screen_overlay = "clothes-dep-sci"
+	lightmask_overlay = "clothes_lightmask"
+	broken_overlay = "clothes-dep-sci_broken"
+	broken_lightmask_overlay = "clothes_broken_lightmask"
+
 	req_access = list(ACCESS_RESEARCH)
 	products = list(
 		/obj/item/clothing/head/beret/purple_normal = 10,
@@ -2162,8 +2550,14 @@
 /obj/machinery/vending/clothing/departament/cargo
 	name = "\improper Departament Cargo ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Отдела Поставок."
-	icon_state = "clothes-dep-car"
-	//slogan_list += list()
+
+	icon_state = "clothes-dep-car_off"
+	panel_overlay = "clothes_panel"
+	screen_overlay = "clothes-dep-car"
+	lightmask_overlay = "clothes_lightmask"
+	broken_overlay = "clothes-dep-car_broken"
+	broken_lightmask_overlay = "clothes_broken_lightmask"
+
 	req_access = list(ACCESS_MINING)
 	products = list(
 		/obj/item/clothing/head/soft = 10,
@@ -2214,9 +2608,15 @@
 /obj/machinery/vending/clothing/departament/law
 	name = "\improper Departament Law ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Юридического Отдела."
-	icon_state = "clothes-dep-sec"
-	//slogan_list += list()
-	req_access = list(38)
+
+	icon_state = "clothes-dep-sec_off"
+	panel_overlay = "clothes_panel"
+	screen_overlay = "clothes-dep-sec"
+	lightmask_overlay = "clothes_lightmask"
+	broken_overlay = "clothes-dep-sec_broken"
+	broken_lightmask_overlay = "clothes_broken_lightmask"
+
+	req_access = list(ACCESS_LAWYER)
 	products = list(
 		/obj/item/clothing/under/rank/internalaffairs = 10,
 		/obj/item/clothing/under/lawyer/female = 10,
@@ -2266,8 +2666,6 @@
 /obj/machinery/vending/clothing/departament/service
 	name = "\improper Departament Service ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
-	icon_state = "clothes"
-	//slogan_list += list()
 	req_access = list()
 	products = list()
 	refill_canister = /obj/item/vending_refill/
@@ -2275,8 +2673,14 @@
 /obj/machinery/vending/clothing/departament/service/chaplain
 	name = "\improper Departament Service ClothesMate Chaplain"
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела церкви."
-	icon_state = "clothes-dep-car"
-	//slogan_list += list()
+
+	icon_state = "clothes-dep-car_off"
+	panel_overlay = "clothes_panel"
+	screen_overlay = "clothes-dep-car"
+	lightmask_overlay = "clothes_lightmask"
+	broken_overlay = "clothes-dep-car_broken"
+	broken_lightmask_overlay = "clothes_broken_lightmask"
+
 	req_access = list(ACCESS_CHAPEL_OFFICE)
 	products = list(
 		/obj/item/clothing/under/rank/chaplain = 5,
@@ -2306,8 +2710,6 @@
 /obj/machinery/vending/clothing/departament/service/botanical
 	name = "\improper Departament Service ClothesMate Botanical"
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела ботаники."
-	icon_state = "clothes"
-	//slogan_list += list()
 	req_access = list(ACCESS_HYDROPONICS)
 	products = list(
 		/obj/item/clothing/under/rank/hydroponics = 5,
@@ -2336,9 +2738,17 @@
 	name = "NT Ammunition"
 	desc = "A special equipment vendor."
 	ads_list = list("Возьми патрон!","Не забывай, снаряжаться - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
-	icon_state = "nta"
-	icon_deny = "nta_deny"
-	icon_vend = "nta_vend"
+
+	icon_state = "nta_base"
+	panel_overlay = "nta_panel"
+	screen_overlay = "nta"
+	lightmask_overlay = "nta_lightmask"
+	broken_overlay = "nta_broken"
+	broken_lightmask_overlay = "nta_lightmask"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta_deny"
+	vend_overlay_time = 3 SECONDS
+
 	req_access = list(ACCESS_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
@@ -2374,12 +2784,43 @@
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/grenade/clusterbuster/apocalypsefake = 1)
 	refill_canister = /obj/item/vending_refill/nta
 
+
+/obj/machinery/vending/nta/ertarmory/update_overlays()
+	. = list()
+
+	underlays.Cut()
+
+	. += base_icon_state
+
+	if(panel_open)
+		. += "nta_panel"
+
+	if((stat & NOPOWER) || force_no_power_icon_state)
+		. += "nta_off"
+		return
+
+	if(stat & BROKEN)
+		. += "nta_broken"
+	else
+		if(flick_sequence & FLICK_VEND)
+			. += vend_overlay
+
+		else if(flick_sequence & FLICK_DENY)
+			. += deny_overlay
+
+	underlays += emissive_appearance(icon, "nta_lightmask")
+
+
 /obj/machinery/vending/nta/ertarmory/blue
 	name = "NT ERT Medium Gear & Ammunition"
 	desc = "A ERT Medium equipment vendor."
 	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
-	icon_state = "nta_blue"
-	icon_deny = "nta_blue_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-blue"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-blue_deny"
+
 	req_access = list(ACCESS_CENT_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
@@ -2403,8 +2844,12 @@
 	name = "NT ERT Heavy Gear & Ammunition"
 	desc = "A ERT Heavy equipment vendor."
 	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
-	icon_state = "nta_red"
-	icon_deny = "nta_red_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-red"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-red_deny"
+
 	req_access = list(ACCESS_CENT_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
@@ -2428,8 +2873,12 @@
 	name = "NT ERT Light Gear & Ammunition"
 	desc = "A ERT Light equipment vendor."
 	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
-	icon_state = "nta_green"
-	icon_deny = "nta_green_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-green"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-green_deny"
+
 	req_access = list(ACCESS_CENT_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
@@ -2447,7 +2896,8 @@
 		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
-		/obj/item/gun/energy/dominator/sibyl = 2
+		/obj/item/gun/energy/dominator/sibyl = 2,
+		/obj/item/melee/classic_baton/telescopic = 4
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta
@@ -2456,8 +2906,12 @@
 	name = "NT ERT Death Wish Gear & Ammunition"
 	desc = "A ERT Death Wish equipment vendor."
 	ads_list = list("Круши черепа ВСЕХ!","Не забывай, УБИВАТЬ - полезно!","УБИВАТЬ УБИВАТЬ УБИВАТЬ УБИВАТЬ!.","УБИВАТЬ, Удержать, УБИВАТЬ!","Стоять, снярядись на УБИВАТЬ!")
-	icon_state = "nta_yellow"
-	icon_deny = "nta_yellow_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-yellow"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-yellow_deny"
+
 	req_access = list(ACCESS_CENT_SECURITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
@@ -2480,8 +2934,12 @@
 	name = "NT ERT Medical Gear"
 	desc = "A ERT medical equipment vendor."
 	ads_list = list("Лечи раненых от рук синдиката!","Не забывай, лечить - полезно!","Бжж-Бзз-з!.","Перевязать, Оперировать, Выписать!","Стоять, снярядись медикаментами на задание!")
-	icon_state = "nta_medical"
-	icon_deny = "nta_medical_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-medical"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-medical_deny"
+
 	req_access = list(ACCESS_CENT_MEDICAL)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
@@ -2514,8 +2972,12 @@
 	name = "NT ERT Engineer Gear"
 	desc = "A ERT engineering equipment vendor."
 	ads_list = list("Чини станцию от рук синдиката!","Не забывай, чинить - полезно!","Бжж-Бзз-з!.","Починить, Заварить, Трубить!","Стоять, снярядись на починку труб!")
-	icon_state = "nta_engi"
-	icon_deny = "nta_engi_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-engi"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-engi_deny"
+
 	req_access = list(ACCESS_CENT_GENERAL)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
@@ -2541,8 +3003,12 @@
 	name = "NT ERT Janitor Gear"
 	desc = "A ERT ccleaning equipment vendor."
 	ads_list = list("Чисть станцию от рук синдиката!","Не забывай, чистить - полезно!","Вилкой чисти!.","Помыть, Постирать, Оттереть!","Стоять, снярядись клинерами!")
-	icon_state = "nta_janitor"
-	icon_deny = "nta_janitor_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-janitor"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-janitor_deny"
+
 	req_access = list(ACCESS_CENT_GENERAL)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	products = list(
@@ -2566,7 +3032,14 @@
 /obj/machinery/vending/pai
 	name = "\improper RoboFriends"
 	desc = "Wonderful vendor of PAI friends"
-	icon_state = "paivend"
+
+	icon_state = "paivend_off"
+	panel_overlay = "paivend_panel"
+	screen_overlay = "paivend"
+	lightmask_overlay = "paivend_lightmask"
+	broken_overlay = "paivend_broken"
+	broken_lightmask_overlay = "paivend_broken_lightmask"
+
 	ads_list = list("А вы любите нас?","Мы твои друзья!","Эта покупка войдет в историю","Я ПАИ простой, купишь меня, а я тебе друга!","Спасибо за покупку.")
 	resistance_flags = FIRE_PROOF
 	products = list(
@@ -2594,3 +3067,9 @@
 		/obj/item/pai_cartridge/memory = 350
 	)
 	refill_canister = /obj/item/vending_refill/pai
+
+
+#undef FLICK_NONE
+#undef FLICK_VEND
+#undef FLICK_DENY
+

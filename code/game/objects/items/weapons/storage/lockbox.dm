@@ -93,6 +93,9 @@
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implanter/mindshield(src)
 
+/obj/item/storage/lockbox/mindshield/ert
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/storage/lockbox/sibyl_system_mod
 	name = "lockbox (Sibyl System Mods)"
 	desc = "Contains proprietary Sibyl System mods for energy guns."
@@ -136,6 +139,7 @@
 	name = "lockbox (T4)"
 	desc = "Contains three T4 breaching charges."
 	req_access = list(ACCESS_CENT_SPECOPS)
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/lockbox/t4/populate_contents()
 	for(var/I in 1 to 3)

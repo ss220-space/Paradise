@@ -124,6 +124,7 @@
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 
+
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
 	name = "security auto rifle"
@@ -414,7 +415,7 @@
 /obj/item/gun/projectile/automatic/cats/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		if(user.say_understands(null, GLOB.all_languages["Sol Common"]))
+		if(user.say_understands(null, GLOB.all_languages[LANGUAGE_SOL_COMMON]))
 			. += "Вы видите гравировку на прикладе, написанную на Общесолнечном: 'Свобода через тотальное превосходство'"
 		else
 			. += "Вы видите символы на прикладе, но не понимаете что они значат."

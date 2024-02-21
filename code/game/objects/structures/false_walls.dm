@@ -135,7 +135,7 @@
 		if(T.density)
 			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
 			return
-		if(istype(W, /obj/item/screwdriver))
+		if(W.tool_behaviour == TOOL_SCREWDRIVER)
 			if(!istype(T, /turf/simulated/floor))
 				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
 				return

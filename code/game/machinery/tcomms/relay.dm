@@ -32,7 +32,7 @@
 		active = TRUE
 	else
 		visible_message(span_warning("Error: Another relay is already active in this sector. Power-up cancelled due to radio interference."))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(mapload && autolink_id)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -90,7 +90,7 @@
 		if(R.active)
 			if(R.stat & NOPOWER)	// If another relay has no power but is supposed to be on, we shut it down so we can continue.
 				R.active = FALSE	// Since only one active relay is allowed per z level, give priority to the one that's actually working.
-				R.update_icon()
+				R.update_icon(UPDATE_ICON_STATE)
 			else
 				return FALSE
 	// If we got here there isnt an active relay on this Z-level. So return TRUE
@@ -127,8 +127,9 @@
   *
   * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
   */
-/obj/machinery/tcomms/relay/power_change()
-	..()
+/obj/machinery/tcomms/relay/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(linked_core)
 		linked_core.refresh_zlevels()
 
@@ -176,7 +177,7 @@
 		if("toggle_active")
 			if(check_power_on())
 				active = !active
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				if(linked_core)
 					linked_core.refresh_zlevels()
 			else

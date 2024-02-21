@@ -4,7 +4,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	var/max_paper = 15
 	var/paperamount = 0
 	var/list/shred_amounts = list(
@@ -43,7 +43,7 @@
 					SP.loc = get_turf(src)
 					SP.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), 1, 1)
 				paperamount = max_paper
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			add_fingerprint(user)
 			return
 	..()
@@ -99,7 +99,7 @@
 
 	else
 		to_chat(user, "<span class='notice'>You empty \the [src].</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/papershredder/proc/get_shredded_paper()
 	if(!paperamount)
@@ -107,7 +107,7 @@
 	paperamount--
 	return new /obj/item/shredded_paper(get_turf(src))
 
-/obj/machinery/papershredder/update_icon()
+/obj/machinery/papershredder/update_icon_state()
 	icon_state = "papershredder[clamp(round(paperamount/3), 0, 5)]"
 
 /obj/item/shredded_paper/attackby(obj/item/W as obj, mob/user)

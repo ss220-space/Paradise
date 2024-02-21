@@ -85,7 +85,7 @@
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
-	add_language("Rootspeak")
+	add_language(LANGUAGE_DIONA)
 	merge_action.Grant(src)
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)

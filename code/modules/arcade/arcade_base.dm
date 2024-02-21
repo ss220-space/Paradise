@@ -5,7 +5,7 @@
 	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "clawmachine_on"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/tokens = 0
@@ -35,7 +35,7 @@
 		else
 			. += "<span class='notice'>\The [src.name] has [tokens] play credits!</span>"
 
-/obj/machinery/arcade/attack_hand(mob/user as mob)
+/obj/machinery/arcade/attack_hand(mob/user)
 	if(..())
 		if(in_use && src == user.machine)	//this one checks if they fell down/died and closes the game
 			src.close_game()
@@ -44,7 +44,7 @@
 		return
 	interact(user)
 
-/obj/machinery/arcade/interact(mob/user as mob)
+/obj/machinery/arcade/interact(mob/user)
 	if(stat & BROKEN || panel_open)
 		return
 	if(!tokens && !freeplay)
@@ -60,12 +60,6 @@
 		return
 
 /obj/machinery/arcade/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver) && anchored)
-		playsound(src.loc, I.usesound, 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		update_icon()
-		return
 	if(!freeplay)
 		if(I.GetID())
 			if(pay_with_card(user, token_price, name))
@@ -76,15 +70,25 @@
 			if(pay_with_cash(cash, user, token_price, name))
 				tokens += 1
 		return
-	if(panel_open && component_parts && istype(I, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, I)
-		return
 	return ..()
 
-/obj/machinery/arcade/update_icon()
-	return
 
-/obj/machinery/arcade/proc/start_play(mob/user as mob)
+/obj/machinery/arcade/screwdriver_act(mob/living/user, obj/item/I)
+	if(!anchored)
+		return FALSE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+
+/obj/machinery/arcade/crowbar_act(mob/living/user, obj/item/I)
+	if(!component_parts || !panel_open)
+		return FALSE
+	default_deconstruction_crowbar(user, I)
+	return TRUE
+
+
+/obj/machinery/arcade/proc/start_play(mob/user)
 	user.set_machine(src)
 	if(!freeplay)
 		tokens -= 1

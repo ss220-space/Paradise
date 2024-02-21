@@ -1,16 +1,6 @@
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
-//Directions (already defined on BYOND natively, purely here for reference)
-//#define NORTH		1
-//#define SOUTH		2
-//#define EAST		4
-//#define WEST		8
-//#define NORTHEAST	5
-//#define SOUTHEAST 6
-//#define NORTHWEST 9
-//#define SOUTHWEST 10
-
 //Security levels
 #define SEC_LEVEL_GREEN	0
 #define SEC_LEVEL_BLUE	1
@@ -179,7 +169,6 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				44
 #define MUTANTRACE_LAYER		43
 #define WING_UNDERLIMBS_LAYER	42
 #define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.
@@ -203,13 +192,13 @@
 #define HEAD_ACCESSORY_LAYER	23
 #define FHAIR_LAYER				22
 #define GLASSES_LAYER			21
-#define FACEMASK_LAYER			20
-#define HAIR_LAYER				19	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		18	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		17	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		16	//Select-layer rendering.
-#define WING_LAYER				15
-#define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
+#define HAIR_LAYER				20	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		19	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		18	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		17	//Select-layer rendering.
+#define WING_LAYER				16
+#define TAIL_LAYER				15	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			14
 #define OVER_MASK_LAYER			13	//Select-layer rendering.
 #define HEAD_LAYER				12
 #define OVER_HEAD_LAYER			11
@@ -386,7 +375,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 31
+#define SQL_VERSION 33
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -413,9 +402,9 @@
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
-#define DEFIB_TIME_LIMIT 300 SECONDS
+#define DEFIB_TIME_LIMIT (300 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
-#define DEFIB_TIME_LOSS 60 SECONDS
+#define DEFIB_TIME_LOSS (60 SECONDS)
 
 //different types of atom colorations
 #define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color

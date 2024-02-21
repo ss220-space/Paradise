@@ -7,7 +7,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nboard"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 150
 	var/notices = 0
 

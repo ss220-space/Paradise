@@ -6116,7 +6116,6 @@
 	height = 11;
 	id = "specops_away";
 	name = "centcom bay 3";
-	no_spin = 1;
 	top_left_corner = 8;
 	top_right_corner = 1;
 	width = 5

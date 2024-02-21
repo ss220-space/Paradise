@@ -18,7 +18,7 @@
 	density = 1 //Dense. To raise the heat.
 	opacity = 0
 
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = ACID_PROOF
 
 	layer = 3.9
@@ -1075,19 +1075,19 @@
 		switch(direction)
 			if(NORTH)
 				if(inertia_dir == SOUTH)
-					inertia_dir = 0
+					inertia_dir = NONE
 					moveship = 0
 			if(SOUTH)
 				if(inertia_dir == NORTH)
-					inertia_dir = 0
+					inertia_dir = NONE
 					moveship = 0
 			if(EAST)
 				if(inertia_dir == WEST)
-					inertia_dir = 0
+					inertia_dir = NONE
 					moveship = 0
 			if(WEST)
 				if(inertia_dir == EAST)
-					inertia_dir = 0
+					inertia_dir = NONE
 					moveship = 0
 		if(moveship)
 			Move(get_step(src, direction), direction)
