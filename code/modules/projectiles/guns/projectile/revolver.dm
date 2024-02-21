@@ -11,19 +11,21 @@
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
-/obj/item/gun/projectile/revolver/chamber_round(var/spin = 1)
+/obj/item/gun/projectile/revolver/chamber_round(spin = TRUE)
+	if(!magazine)
+		return
 	if(spin)
-		chambered = magazine.get_round(1)
+		chambered = magazine.get_round(TRUE)
 	else
 		chambered = magazine.stored_ammo[1]
 	return
 
-/obj/item/gun/projectile/revolver/shoot_with_empty_chamber(mob/living/user as mob|obj)
+/obj/item/gun/projectile/revolver/shoot_with_empty_chamber(mob/living/user)
 	..()
-	chamber_round(1)
+	chamber_round(TRUE)
 
 /obj/item/gun/projectile/revolver/process_chamber()
-	return ..(0, 1)
+	return ..(FALSE, TRUE)
 
 /obj/item/gun/projectile/revolver/attackby(obj/item/A, mob/user, params)
 	. = ..()
@@ -35,14 +37,14 @@
 			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]."))
 			A.update_icon()
 			update_icon()
-			chamber_round(0)
+			chamber_round(FALSE)
 
 /obj/item/gun/projectile/revolver/attack_self(mob/living/user)
 	var/num_unloaded = 0
 	chambered = null
 	while(get_ammo(FALSE) > 0)
 		var/obj/item/ammo_casing/CB
-		CB = magazine.get_round(0)
+		CB = magazine.get_round(FALSE)
 		if(CB)
 			CB.loc = get_turf(loc)
 			CB.SpinAnimation(10, 1)
@@ -61,13 +63,13 @@
 
 	var/mob/M = usr
 
-	if(M.stat || !in_range(M,src))
+	if(M.stat || !in_range(M, src))
 		return
 
 	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
 		C.spin()
-		chamber_round(0)
+		chamber_round(FALSE)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, 1)
 		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
 	else
@@ -83,8 +85,8 @@
 	. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
 
 /obj/item/gun/projectile/revolver/detective
-	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
 	name = ".38 Mars Special"
+	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
@@ -139,22 +141,23 @@
 	return ..()
 
 
-/obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(/*mob/living/user as mob|obj*/)
-	to_chat(usr, span_notice("You are out of ammo! You holster your fingers."))
+/obj/item/gun/projectile/revolver/fingergun/shoot_with_empty_chamber(mob/living/user)
+	to_chat(user, span_notice("You are out of ammo! You holster your fingers."))
 	qdel(src)
 	return
 
 /obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
-	if(!user.mind.miming)
-		to_chat(usr, span_notice("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
+	if(!user.mind?.miming)
+		to_chat(user, span_notice("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
 		return
 	..()
 
 /obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/A, mob/user, params)
 	return
 
-/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user = usr)
-	to_chat(user, span_notice("You holster your fingers. Another time."))
+/obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
+	if(istype(user))
+		to_chat(user, span_notice("You holster your fingers. Another time."))
 	qdel(src)
 	return
 
@@ -174,7 +177,7 @@
 	fire_delay = 5
 
 /obj/item/gun/projectile/revolver/golden
-	name = "\improper Golden revolver"
+	name = "golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
 	icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
@@ -199,7 +202,7 @@
 // You can spin the chamber to randomize the position of the bullet.
 
 /obj/item/gun/projectile/revolver/russian
-	name = "\improper Russian Revolver"
+	name = "\improper Russian revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/rus357
@@ -249,7 +252,7 @@
 		else
 			to_chat(user, span_notice("[src] is empty."))
 
-/obj/item/gun/projectile/revolver/russian/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)
+/obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
 		if(!(target in user.contents) && ismob(target))
 			if(user.a_intent == INTENT_HARM) // Flogging action
@@ -306,19 +309,107 @@
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
-/obj/item/gun/projectile/revolver/improvisedrevolver
-	desc = "Weapon for crazy fun with friends"
-	name = "Improvised revolver"
-	icon_state = "makeshift_revik"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/improvisedrevolver
-	fire_sound = 'sound/weapons/gunshots/improvrev_shot.ogg'
+/obj/item/gun/projectile/revolver/improvised
+	name = "improvised revolver"
+	desc = "Weapon for crazy fun with friends."
+	icon_state = "irevolver"
+	item_state = "revolver"
+	mag_type = null
+	fire_sound = 'sound/weapons/gunshots/1rev257.ogg'
+	var/unscrewed = TRUE
+	var/obj/item/weaponcrafting/revolverbarrel/barrel
 
-/obj/item/gun/projectile/revolver/improvisedrevolver/afterattack(atom/target, mob/living/user, flag, params)
-	if(prob(10))
-		chamber_round(1)
-		user.visible_message(span_danger("*CRACK*"))
-		return
+/obj/item/gun/projectile/revolver/improvised/New()
 	..()
+	barrel = new	// I just want it to spawn with barrel.
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/gun/projectile/revolver/improvised/update_overlays()
+	. = ..()
+	if(magazine)
+		. +=  icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
+	if(barrel)
+		var/icon/barrel_icon = icon('icons/obj/weapons/projectile.dmi', barrel.icon_state)
+		if(unscrewed)
+			barrel_icon.Turn(-90)
+			barrel_icon.Shift(WEST, 5)
+		. +=  barrel_icon
+
+/obj/item/gun/projectile/revolver/improvised/afterattack(atom/target, mob/living/user, flag, params)
+	if(unscrewed)
+		shoot_with_empty_chamber()
+	else if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
+		..()
+	else
+		chamber_round(TRUE)
+		user.visible_message(span_dangerbigger("*CRACK*"))
+		playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
+
+/obj/item/gun/projectile/revolver/improvised/proc/radial_menu(mob/user)
+	var/list/choices = list()
+
+	if(barrel)
+		choices["Barrel"] = image(icon = barrel.icon, icon_state = barrel.icon_state)
+	if(magazine)
+		choices["Magazine"] = image(icon = magazine.icon, icon_state = magazine.icon_state)
+	var/choice = choices.len == 1 ? pick(choices) : show_radial_menu(user, src, choices, require_near = TRUE)
+
+	if(!choice || loc != user)
+		return
+
+	switch(choice)
+		if("Barrel")
+			if(!do_mob(user, src, 8 SECONDS))
+				return
+			to_chat(user, span_notice("You unscrew [barrel] from [src]."))
+			user.put_in_hands(barrel)
+			barrel = null
+		if("Magazine")
+			to_chat(user, span_notice("You unscrew [magazine] from [src]."))
+			user.put_in_hands(magazine)
+			magazine = null
+			verbs -= /obj/item/gun/projectile/revolver/verb/spin
+	playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/gun/projectile/revolver/improvised/attack_hand(mob/user)
+	if(loc == user && unscrewed)
+		radial_menu(user)
+	else ..()
+
+/obj/item/gun/projectile/revolver/improvised/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
+		return
+	if(!magazine || !barrel)
+		to_chat(user, span_notice("You can't do it without cylinder and barrel, attached to revolver."))
+	else
+		to_chat(user, span_notice("You [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine] from [src]"]."))
+		unscrewed = !unscrewed
+		update_icon(UPDATE_OVERLAYS)
+
+/obj/item/gun/projectile/revolver/improvised/attackby(obj/item/A, mob/user, params)
+	if(unscrewed)
+		if(istype(A, /obj/item/ammo_box/magazine/internal/cylinder/improvised))
+			if(magazine)
+				to_chat(user, span_notice("[src] already have [magazine]."))
+			else if(user.drop_transfer_item_to_loc(A, src))
+				magazine = A
+				verbs += /obj/item/gun/projectile/revolver/verb/spin
+				update_icon(UPDATE_OVERLAYS)
+				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
+		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
+			if(barrel)
+				to_chat(user, span_notice("[src] already have [barrel]."))
+			else if(do_mob(user, src, 8 SECONDS))
+				if(user.drop_transfer_item_to_loc(A, src))
+					var/obj/item/weaponcrafting/revolverbarrel/new_barrel = A
+					barrel = A
+					fire_sound = new_barrel.new_fire_sound
+					update_icon(UPDATE_OVERLAYS)
+					playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
+	else
+		return ..()
 
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //

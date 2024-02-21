@@ -41,8 +41,8 @@
 	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
 	var/spread = 0
-	var/randomspread = 1
 	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
+	var/randomspread = TRUE
 
 	/// Allows renaming with a pen
 	var/unique_rename = TRUE
@@ -150,8 +150,8 @@
 /obj/item/gun/proc/can_shoot()
 	return 1
 
-/obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='danger'>*click*</span>")
+/obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
+	to_chat(user, span_danger("*click*"))
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
