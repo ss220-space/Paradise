@@ -168,13 +168,6 @@
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
-"M" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
 "N" = (
 /obj/machinery/door/window/survival_pod{
 	dir = 1;
@@ -324,9 +317,9 @@
 
 (1,1,1) = {"
 a
-M
+a
 L
-M
+a
 a
 "}
 (2,1,1) = {"

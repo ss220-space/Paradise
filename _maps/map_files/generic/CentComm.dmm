@@ -63,14 +63,10 @@
 /area/syndicate_mothership)
 "aag" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_vkd";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 1";
-	opacity = 0
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -2095,7 +2091,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
-	id = "CC_supply_internal2";
+	id = "CC_supply_internal";
 	name = "Central Command Supply Internal Shutter";
 	pixel_y = 24;
 	req_access = list(114)
@@ -2682,12 +2678,11 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
 	id_tag = "ERT_armory_lvl3";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 3"
+	name = "Armory level 3";
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -7144,12 +7139,11 @@
 /area/centcom/zone1)
 "dqf" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
 	id_tag = "ERT_armory_lvl3";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 3"
+	name = "Armory level 3";
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -11009,12 +11003,11 @@
 	dir = 1;
 	do_not_delete_me = 1
 	},
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl4";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 4"
+	name = "Armory level 4";
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -16921,14 +16914,10 @@
 /area/centcom/evac)
 "hYY" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	dir = s;
 	id_tag = "ERT_armory_lvl1";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 1";
-	opacity = 0
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -23037,14 +23026,10 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	dir = s;
 	id_tag = "ERT_armory_lvl1";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 1";
-	opacity = 0
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -25479,12 +25464,11 @@
 /area/syndicate_mothership/outside)
 "lWt" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl2";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 2"
+	name = "Armory level 2";
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -32458,12 +32442,11 @@
 /area/syndicate_mothership/elite_squad)
 "oKa" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl4";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 4"
+	name = "Armory level 4";
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -33037,12 +33020,11 @@
 /area/syndicate_mothership/outside)
 "oTI" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
 	id_tag = "ERT_armory_lvl3";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 3"
+	name = "Armory level 3";
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -35379,12 +35361,11 @@
 	dir = 1;
 	do_not_delete_me = 1
 	},
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl2";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 2"
+	name = "Armory level 2";
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -37251,14 +37232,10 @@
 /area/centcom/specops)
 "qTo" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	dir = s;
 	id_tag = "ERT_armory_lvl1";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 1";
-	opacity = 0
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -42377,12 +42354,11 @@
 /area/syndicate_mothership/cargo)
 "tbo" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl2";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 2"
+	name = "Armory level 2";
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -42619,14 +42595,10 @@
 "tig" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_vkd";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 1";
-	opacity = 0
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -47951,14 +47923,10 @@
 /area/shuttle/escape)
 "vsw" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_vkd";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 1";
-	opacity = 0
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -52735,12 +52703,11 @@
 /area/syndicate_mothership)
 "xAy" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/machinery/door/poddoor/shutters{
+/obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl4";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 4"
+	name = "Armory level 4";
+	layer = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -53729,14 +53696,10 @@
 	dir = 1;
 	do_not_delete_me = 1
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_vkd";
-	layer = 5;
-	locked = 1;
-	name = "Armory level 1";
-	opacity = 0
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -54246,6 +54209,7 @@ pNM
 pNM
 pNM
 pNM
+pNM
 ymc
 ymc
 ymc
@@ -54265,7 +54229,6 @@ ymc
 ymc
 ymc
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -54502,6 +54465,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -54522,7 +54486,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -54759,6 +54722,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -54779,7 +54743,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -55016,6 +54979,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -55036,7 +55000,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -55273,6 +55236,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -55293,7 +55257,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -55517,6 +55480,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 wIS
 oQV
 dDb
@@ -55550,7 +55514,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -55774,6 +55737,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 oQV
 nuC
 qDA
@@ -55807,7 +55771,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -56031,6 +55994,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 dDb
 eeO
 lPy
@@ -56064,7 +56028,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -56288,6 +56251,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 oQV
 ejG
 qDA
@@ -56321,7 +56285,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -56545,6 +56508,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 dOM
 oQV
 dDb
@@ -56578,7 +56542,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -56815,6 +56778,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -56835,7 +56799,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -57072,6 +57035,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -57092,7 +57056,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -57329,6 +57292,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -57349,7 +57313,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -57586,6 +57549,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -57606,7 +57570,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -57844,6 +57807,7 @@ pNM
 pNM
 pNM
 pNM
+pNM
 ymc
 ymc
 ymc
@@ -57863,7 +57827,6 @@ ymc
 ymc
 ymc
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -58101,6 +58064,7 @@ pNM
 pNM
 pNM
 pNM
+pNM
 ymc
 ymc
 ymc
@@ -58120,7 +58084,6 @@ ymc
 ymc
 ymc
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -58357,6 +58320,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -58377,7 +58341,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -58614,6 +58577,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -58634,7 +58598,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -58871,6 +58834,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -58891,7 +58855,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -59128,6 +59091,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -59148,7 +59112,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -59372,6 +59335,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 aiy
 jvI
 jvI
@@ -59405,7 +59369,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -59629,6 +59592,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 cHC
 jfv
 egK
@@ -59662,7 +59626,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -59886,6 +59849,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 cHC
 dvT
 blt
@@ -59919,7 +59883,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -60143,6 +60106,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 cHC
 aTE
 jwD
@@ -60176,7 +60140,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -60400,6 +60363,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 akv
 giC
 aWY
@@ -60433,7 +60397,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -60670,6 +60633,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -60690,7 +60654,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -60927,6 +60890,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -60947,7 +60911,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -61184,6 +61147,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -61204,7 +61168,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -61441,6 +61404,7 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
 ymc
 ubE
@@ -61461,7 +61425,6 @@ ubE
 ubE
 ubE
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -61699,6 +61662,7 @@ pNM
 pNM
 pNM
 pNM
+pNM
 ymc
 ymc
 ymc
@@ -61718,7 +61682,6 @@ ymc
 ymc
 ymc
 ymc
-mVX
 mVX
 mVX
 mVX
@@ -61956,7 +61919,7 @@ pNM
 pNM
 pNM
 pNM
-mVX
+pNM
 mVX
 mVX
 mVX
@@ -62212,8 +62175,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -62469,8 +62432,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -62726,8 +62689,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -62970,6 +62933,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 bXg
 gRr
 fWE
@@ -62984,7 +62948,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -63227,6 +63190,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 cnn
 dHE
 gal
@@ -63241,7 +63205,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -63484,6 +63447,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 cnn
 bjM
 gal
@@ -63498,7 +63462,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -63741,6 +63704,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 aXz
 gRr
 mzT
@@ -63755,7 +63719,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -64011,8 +63974,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -64268,8 +64231,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -64525,8 +64488,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -64783,7 +64746,7 @@ pNM
 pNM
 pNM
 pNM
-mVX
+pNM
 mVX
 mVX
 mVX
@@ -65040,7 +65003,7 @@ pNM
 pNM
 pNM
 pNM
-mVX
+pNM
 mVX
 mVX
 mVX
@@ -65296,8 +65259,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -65553,8 +65516,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -65796,6 +65759,7 @@ pwa
 pNM
 pwa
 pwa
+pwa
 mVX
 pwa
 pwa
@@ -65811,7 +65775,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -66067,8 +66030,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -66311,6 +66274,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 nRt
 sKg
 lDH
@@ -66325,7 +66289,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -66568,6 +66531,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 sXM
 lBl
 lOB
@@ -66582,7 +66546,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -66825,6 +66788,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 sXM
 nVS
 maj
@@ -66839,7 +66803,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -67082,6 +67045,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 sXM
 ogO
 oiv
@@ -67096,7 +67060,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -67339,6 +67302,7 @@ pNM
 pwa
 pwa
 pwa
+pwa
 nSu
 sKg
 okx
@@ -67353,7 +67317,6 @@ pwa
 pwa
 pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -67609,8 +67572,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -67866,8 +67829,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -68123,8 +68086,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX
@@ -68380,8 +68343,8 @@ pwa
 pwa
 pwa
 pwa
+pwa
 pNM
-mVX
 mVX
 mVX
 mVX

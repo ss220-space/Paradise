@@ -40,11 +40,6 @@
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
-"g" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "m" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/chair/comfy/shuttle,
@@ -71,20 +66,8 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
-"o" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
-"q" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "r" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "s" = (
 /obj/effect/decal/warning_stripes/north,
@@ -95,11 +78,6 @@
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
-	},
-/area/shuttle/transport)
-"t" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
 	},
 /area/shuttle/transport)
 "v" = (
@@ -142,7 +120,6 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/noslip{
@@ -171,13 +148,11 @@
 /area/shuttle/transport)
 "I" = (
 /turf/simulated/wall/shuttle{
-	dir = 3;
-	icon_state = "shuttle"
+	dir = 3
 	},
 /area/shuttle/transport)
 "J" = (
 /turf/simulated/wall/shuttle{
-	icon_state = "shuttle";
 	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
@@ -220,19 +195,11 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
-"Q" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
 "R" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/chair/comfy/shuttle,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/noslip{
@@ -288,59 +255,59 @@
 
 (1,1,1) = {"
 a
-Q
+a
 O
-Q
+a
 a
 "}
 (2,1,1) = {"
-g
+r
 d
 G
 e
-g
+r
 "}
 (3,1,1) = {"
-g
+r
 F
 G
 x
-g
+r
 "}
 (4,1,1) = {"
-g
+r
 D
 G
 N
-g
+r
 "}
 (5,1,1) = {"
-g
+r
 H
 G
 M
-g
+r
 "}
 (6,1,1) = {"
-g
+r
 v
 G
 Z
-g
+r
 "}
 (7,1,1) = {"
 r
 I
 G
 J
-o
+r
 "}
 (8,1,1) = {"
-g
+r
 m
 G
 b
-g
+r
 "}
 (9,1,1) = {"
 z
@@ -357,16 +324,16 @@ b
 z
 "}
 (11,1,1) = {"
-g
+r
 R
 G
 s
-g
+r
 "}
 (12,1,1) = {"
-t
+r
 z
 n
 z
-q
+r
 "}

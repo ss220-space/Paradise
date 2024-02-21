@@ -51,6 +51,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/transport)
+"t" = (
+/obj/machinery/light,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
 "u" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -107,11 +113,13 @@
 	},
 /area/shuttle/transport)
 "K" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
-/turf/space,
+/obj/machinery/light,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
 /area/shuttle/transport)
 "P" = (
 /turf/simulated/floor/shuttle{
@@ -167,9 +175,9 @@
 
 (1,1,1) = {"
 a
-K
+a
 G
-K
+a
 a
 "}
 (2,1,1) = {"
@@ -183,7 +191,7 @@ e
 e
 z
 P
-P
+t
 e
 "}
 (4,1,1) = {"
@@ -232,7 +240,7 @@ e
 e
 u
 P
-u
+K
 e
 "}
 (11,1,1) = {"

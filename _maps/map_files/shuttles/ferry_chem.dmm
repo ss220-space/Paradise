@@ -6,16 +6,6 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
-"c" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
-"d" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "e" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -30,16 +20,6 @@
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
 /turf/simulated/floor/shuttle/plating,
-/area/shuttle/transport)
-"k" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
-"l" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
 /area/shuttle/transport)
 "n" = (
 /obj/machinery/chem_heater,
@@ -79,9 +59,7 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
 "s" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "t" = (
 /obj/structure/closet/secure_closet/reagents,
@@ -149,6 +127,7 @@
 	pixel_y = 4
 	},
 /obj/item/storage/box/syringes,
+/obj/machinery/light/spot,
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
 "C" = (
@@ -182,13 +161,6 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
-"O" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
 "Q" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_y = 30
@@ -200,7 +172,6 @@
 /area/shuttle/transport)
 "T" = (
 /turf/simulated/wall/shuttle{
-	icon_state = "shuttle";
 	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
@@ -227,59 +198,59 @@
 
 (1,1,1) = {"
 a
-O
-O
-O
+a
+a
+a
 a
 "}
 (2,1,1) = {"
-c
+s
 q
 N
 W
-c
+s
 "}
 (3,1,1) = {"
-c
+s
 F
 C
 t
-c
+s
 "}
 (4,1,1) = {"
-c
+s
 X
 J
 y
-c
+s
 "}
 (5,1,1) = {"
-c
+s
 Q
 J
 X
-c
+s
 "}
 (6,1,1) = {"
-c
+s
 D
 Z
 F
-c
+s
 "}
 (7,1,1) = {"
-c
+s
 J
 J
 n
-c
+s
 "}
 (8,1,1) = {"
 s
 p
 L
 T
-l
+s
 "}
 (9,1,1) = {"
 h
@@ -289,23 +260,23 @@ J
 h
 "}
 (10,1,1) = {"
-c
+s
 r
 e
 L
-c
+s
 "}
 (11,1,1) = {"
-c
+s
 u
 J
 J
-c
+s
 "}
 (12,1,1) = {"
-d
+s
 h
 v
 h
-k
+s
 "}

@@ -29,7 +29,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/turf/simulated/floor/shuttle/syndicate,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
 "f" = (
 /obj/structure/table/reinforced,
@@ -46,11 +46,6 @@
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
-"g" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "h" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -62,14 +57,14 @@
 /area/shuttle/transport)
 "i" = (
 /obj/structure/bed,
-/turf/simulated/floor/shuttle/syndicate,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
 "j" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
 	req_access = list(104,106,63,19)
 	},
-/turf/simulated/floor/shuttle/syndicate,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
 "k" = (
 /obj/machinery/computer/shuttle/ferry/request,
@@ -85,11 +80,6 @@
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
-"o" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "p" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
@@ -102,15 +92,9 @@
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
-"s" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "t" = (
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/table/reinforced,
@@ -146,7 +130,7 @@
 /obj/structure/mirror{
 	pixel_y = -32
 	},
-/turf/simulated/floor/shuttle/syndicate,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
 "B" = (
 /turf/simulated/floor/noslip{
@@ -164,100 +148,84 @@
 	dir = 8;
 	layer = 2.9
 	},
-/turf/simulated/floor/shuttle/syndicate,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
 "G" = (
 /turf/simulated/wall/shuttle{
-	icon_state = "shuttle";
 	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
 "H" = (
-/turf/simulated/floor/shuttle/syndicate,
-/area/shuttle/transport)
-"J" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
 "O" = (
 /obj/structure/toilet,
-/turf/simulated/floor/shuttle/syndicate,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
 "U" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "W" = (
 /turf/simulated/wall/shuttle{
-	dir = 3;
-	icon_state = "shuttle"
+	dir = 3
 	},
-/area/shuttle/transport)
-"X" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
 /area/shuttle/transport)
 
 (1,1,1) = {"
 a
-X
-X
-X
+a
+a
+a
 a
 "}
 (2,1,1) = {"
-s
+U
 E
 e
 e
-s
+U
 "}
 (3,1,1) = {"
-s
+U
 H
 H
 i
-s
+U
 "}
 (4,1,1) = {"
-s
+U
 O
 H
 H
-s
+U
 "}
 (5,1,1) = {"
-s
+U
 H
 H
 z
-s
+U
 "}
 (6,1,1) = {"
-g
+U
 W
 j
 G
-J
+U
 "}
 (7,1,1) = {"
-s
+U
 f
 B
 y
-s
+U
 "}
 (8,1,1) = {"
-s
+U
 q
 B
 h
-s
+U
 "}
 (9,1,1) = {"
 p
@@ -267,21 +235,21 @@ n
 p
 "}
 (10,1,1) = {"
-s
+U
 q
 B
 h
-s
+U
 "}
 (11,1,1) = {"
-s
+U
 t
 B
 u
-s
+U
 "}
 (12,1,1) = {"
-o
+U
 p
 b
 p

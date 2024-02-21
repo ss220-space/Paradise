@@ -107,13 +107,6 @@
 	icon_state = "brown"
 	},
 /area/shuttle/transport)
-"x" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
 "z" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
@@ -234,9 +227,9 @@
 
 (1,1,1) = {"
 a
-x
+a
 I
-x
+a
 a
 "}
 (2,1,1) = {"

@@ -28,7 +28,7 @@
 	color = "#FF0000";
 	dir = 4
 	},
-/turf/space,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "j" = (
 /obj/structure/chair/comfy/shuttle{

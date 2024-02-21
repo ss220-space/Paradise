@@ -29,11 +29,6 @@
 	tag = "icon-whitehall (WEST)"
 	},
 /area/shuttle/transport)
-"f" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "i" = (
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/structure/closet/crate,
@@ -81,8 +76,7 @@
 /area/shuttle/transport)
 "o" = (
 /turf/simulated/wall/shuttle{
-	dir = 3;
-	icon_state = "shuttle"
+	dir = 3
 	},
 /area/shuttle/transport)
 "p" = (
@@ -134,9 +128,7 @@
 	},
 /area/shuttle/transport)
 "z" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "B" = (
 /obj/effect/decal/warning_stripes/white/hollow,
@@ -171,16 +163,6 @@
 	icon_state = "darkbrown"
 	},
 /area/shuttle/transport)
-"I" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
-"J" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "K" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -192,18 +174,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
-	},
-/area/shuttle/transport)
-"M" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
-"N" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
 	},
 /area/shuttle/transport)
 "P" = (
@@ -274,9 +244,9 @@
 
 (1,1,1) = {"
 a
-M
+a
 T
-M
+a
 a
 "}
 (2,1,1) = {"
@@ -322,11 +292,11 @@ e
 S
 "}
 (8,1,1) = {"
-J
+z
 o
 Q
 D
-f
+z
 "}
 (9,1,1) = {"
 S
@@ -350,9 +320,9 @@ u
 z
 "}
 (12,1,1) = {"
-I
+z
 S
 m
 S
-N
+z
 "}

@@ -21,8 +21,8 @@
 	pixel_x = 6;
 	pixel_y = -2
 	},
+/obj/machinery/light/spot,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue"
 	},
 /area/shuttle/transport)
@@ -57,13 +57,7 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue"
-	},
-/area/shuttle/transport)
-"i" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
 	},
 /area/shuttle/transport)
 "j" = (
@@ -90,11 +84,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
-	},
-/area/shuttle/transport)
-"p" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
 	},
 /area/shuttle/transport)
 "q" = (
@@ -127,11 +116,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
-	},
-/area/shuttle/transport)
-"u" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
 	},
 /area/shuttle/transport)
 "w" = (
@@ -169,8 +153,7 @@
 /area/shuttle/transport)
 "B" = (
 /turf/simulated/wall/shuttle{
-	dir = 3;
-	icon_state = "shuttle"
+	dir = 3
 	},
 /area/shuttle/transport)
 "D" = (
@@ -222,9 +205,7 @@
 	},
 /area/shuttle/transport)
 "J" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "L" = (
 /obj/machinery/defibrillator_mount/loaded{
@@ -263,16 +244,8 @@
 	icon_state = "whitebluecorner"
 	},
 /area/shuttle/transport)
-"S" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
 "T" = (
 /turf/simulated/wall/shuttle{
-	icon_state = "shuttle";
 	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
@@ -285,15 +258,11 @@
 	icon_state = "whitebluecorner"
 	},
 /area/shuttle/transport)
-"X" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "Y" = (
 /obj/machinery/sleeper/upgraded{
 	dir = 1
 	},
+/obj/machinery/light/spot,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
@@ -339,83 +308,83 @@
 
 (1,1,1) = {"
 a
-S
+a
 O
-S
+a
 a
 "}
 (2,1,1) = {"
-i
+J
 Z
 j
 I
-i
+J
 "}
 (3,1,1) = {"
-i
+J
 x
 D
 b
-i
+J
 "}
 (4,1,1) = {"
-i
+J
 e
 L
 h
-i
+J
 "}
 (5,1,1) = {"
-i
+J
 r
 D
 E
-i
+J
 "}
 (6,1,1) = {"
-p
+J
 B
 G
 T
-X
+J
 "}
 (7,1,1) = {"
-i
+J
 y
 q
 z
-i
+J
 "}
 (8,1,1) = {"
 P
 t
 w
 Y
-i
+J
 "}
 (9,1,1) = {"
-i
+J
 d
 w
 s
-i
+J
 "}
 (10,1,1) = {"
-i
+J
 V
 w
 R
 P
 "}
 (11,1,1) = {"
-i
+J
 N
 q
 g
-i
+J
 "}
 (12,1,1) = {"
-u
+J
 P
 o
 P

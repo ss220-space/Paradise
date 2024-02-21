@@ -30,14 +30,7 @@
 	},
 /area/shuttle/transport)
 "h" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
-"i" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "j" = (
 /obj/structure/window/plasmareinforced{
@@ -53,7 +46,6 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light/spot{
 	dir = 1;
-	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/table/reinforced,
@@ -65,8 +57,7 @@
 /area/shuttle/transport)
 "l" = (
 /turf/simulated/wall/shuttle{
-	dir = 3;
-	icon_state = "shuttle"
+	dir = 3
 	},
 /area/shuttle/transport)
 "m" = (
@@ -78,7 +69,6 @@
 /area/shuttle/transport)
 "o" = (
 /turf/simulated/wall/shuttle{
-	icon_state = "shuttle";
 	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
@@ -159,11 +149,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
-"G" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "I" = (
 /obj/docking_port/mobile{
 	dir = 8;
@@ -226,29 +211,12 @@
 "Q" = (
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/transport)
-"S" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
 "U" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/computer/shuttle/ferry/request,
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
-	},
-/area/shuttle/transport)
-"W" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
-"X" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
 	},
 /area/shuttle/transport)
 "Y" = (
@@ -264,59 +232,59 @@
 
 (1,1,1) = {"
 a
-S
-S
-S
+a
+a
+a
 a
 "}
 (2,1,1) = {"
-i
+h
 N
 j
 L
-i
+h
 "}
 (3,1,1) = {"
-i
+h
 f
 Q
 q
 D
 "}
 (4,1,1) = {"
-i
+h
 m
 Q
 A
 D
 "}
 (5,1,1) = {"
-i
+h
 d
 Q
 M
-i
+h
 "}
 (6,1,1) = {"
 h
 l
 u
 o
-G
+h
 "}
 (7,1,1) = {"
-i
+h
 B
 v
 y
-i
+h
 "}
 (8,1,1) = {"
-i
+h
 g
 v
 O
-i
+h
 "}
 (9,1,1) = {"
 D
@@ -326,23 +294,23 @@ t
 D
 "}
 (10,1,1) = {"
-i
+h
 w
 v
 Y
-i
+h
 "}
 (11,1,1) = {"
-i
+h
 k
 v
 x
-i
+h
 "}
 (12,1,1) = {"
-X
+h
 D
 I
 D
-W
+h
 "}

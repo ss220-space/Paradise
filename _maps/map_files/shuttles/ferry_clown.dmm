@@ -18,9 +18,9 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/transport)
 "m" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/obj/machinery/vending/autodrobe,
+/obj/machinery/light/spot,
+/turf/simulated/floor/noslip,
 /area/shuttle/transport)
 "t" = (
 /obj/item/toy/snappop,
@@ -83,9 +83,7 @@
 /turf/space,
 /area/shuttle/transport)
 "J" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "L" = (
 /obj/structure/bed,
@@ -116,11 +114,6 @@
 /obj/machinery/vending/autodrobe,
 /turf/simulated/floor/noslip,
 /area/shuttle/transport)
-"W" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "Z" = (
 /obj/item/grenade/bananade,
 /turf/simulated/floor/mineral/bananium,
@@ -134,21 +127,21 @@ a
 a
 "}
 (2,1,1) = {"
-m
+J
 C
 C
 C
-m
+J
 "}
 (3,1,1) = {"
 e
 L
 Q
 h
-m
+J
 "}
 (4,1,1) = {"
-m
+J
 t
 Z
 L
@@ -158,11 +151,11 @@ e
 e
 L
 Q
-T
 m
+J
 "}
 (6,1,1) = {"
-m
+J
 T
 Q
 L
@@ -173,10 +166,10 @@ e
 L
 Z
 w
-m
+J
 "}
 (8,1,1) = {"
-m
+J
 T
 x
 L
@@ -186,11 +179,11 @@ e
 e
 L
 Q
-T
 m
+J
 "}
 (10,1,1) = {"
-m
+J
 t
 Z
 L
@@ -201,10 +194,10 @@ e
 L
 Q
 z
-m
+J
 "}
 (12,1,1) = {"
-W
+J
 e
 M
 e

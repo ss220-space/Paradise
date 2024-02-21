@@ -100,13 +100,6 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
-"w" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
 "y" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
@@ -248,9 +241,9 @@
 
 (1,1,1) = {"
 a
-w
+a
 y
-w
+a
 a
 "}
 (2,1,1) = {"

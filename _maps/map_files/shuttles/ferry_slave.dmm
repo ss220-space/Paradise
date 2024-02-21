@@ -141,13 +141,6 @@
 	},
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
-"O" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
 "R" = (
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
@@ -185,9 +178,9 @@
 
 (1,1,1) = {"
 a
-O
+a
 q
-O
+a
 a
 "}
 (2,1,1) = {"

@@ -108,25 +108,23 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "F" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "N" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
-"T" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
 "U" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "W" = (
 /obj/machinery/computer/shuttle/ferry/request{
@@ -167,7 +165,7 @@ F
 F
 u
 z
-d
+U
 F
 "}
 (6,1,1) = {"
@@ -213,9 +211,9 @@ g
 F
 "}
 (12,1,1) = {"
-T
+F
 i
 p
 i
-U
+F
 "}

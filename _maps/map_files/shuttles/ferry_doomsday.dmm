@@ -8,13 +8,7 @@
 /area/shuttle/transport)
 "b" = (
 /turf/simulated/wall/shuttle{
-	dir = 3;
-	icon_state = "shuttle"
-	},
-/area/shuttle/transport)
-"c" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
+	dir = 3
 	},
 /area/shuttle/transport)
 "h" = (
@@ -22,7 +16,9 @@
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock"
 	},
-/turf/simulated/floor/shuttle,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
 /area/shuttle/transport)
 "i" = (
 /obj/effect/decal/cleanable/confetti,
@@ -42,16 +38,8 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/transport)
-"p" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/area/shuttle/transport)
 "q" = (
 /turf/simulated/wall/shuttle{
-	icon_state = "shuttle";
 	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
@@ -88,12 +76,12 @@
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock"
 	},
-/turf/simulated/floor/shuttle,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
 /area/shuttle/transport)
 "E" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "H" = (
 /obj/structure/toilet{
@@ -115,11 +103,6 @@
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
-	},
-/area/shuttle/transport)
-"M" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "shuttle"
 	},
 /area/shuttle/transport)
 "N" = (
@@ -171,85 +154,85 @@
 
 (1,1,1) = {"
 a
-p
+a
 h
-p
+a
 a
 "}
 (2,1,1) = {"
-c
+E
 z
 P
 Z
-c
+E
 "}
 (3,1,1) = {"
-c
+E
 i
 t
 i
-c
+E
 "}
 (4,1,1) = {"
-c
+E
 n
 P
 P
-c
+E
 "}
 (5,1,1) = {"
-c
+E
 i
 j
 n
-c
+E
 "}
 (6,1,1) = {"
-c
+E
 t
 H
 N
-c
+E
 "}
 (7,1,1) = {"
-c
+E
 Q
 P
 T
-c
+E
 "}
 (8,1,1) = {"
-c
+E
 P
 L
 t
-c
+E
 "}
 (9,1,1) = {"
-c
+E
 i
 P
 n
-c
+E
 "}
 (10,1,1) = {"
-c
+E
 n
 P
 j
-c
+E
 "}
 (11,1,1) = {"
-c
+E
 t
 P
 t
-c
+E
 "}
 (12,1,1) = {"
 E
 b
 C
 q
-M
+E
 "}

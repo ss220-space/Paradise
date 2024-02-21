@@ -15,10 +15,6 @@
 /area/shuttle/transport)
 "e" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -54,6 +50,16 @@
 	dir = 9;
 	icon_state = "yellow"
 	},
+/area/shuttle/transport)
+"i" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "j" = (
 /obj/structure/cable/yellow{
@@ -166,16 +172,13 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 7;
 	icon_state = "yellow"
 	},
 /area/shuttle/transport)
 "x" = (
-/obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
-	},
 /obj/machinery/power/supermatter_shard{
 	anchored = 1
 	},
@@ -194,13 +197,6 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/shuttle/transport)
-"A" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
 /area/shuttle/transport)
 "B" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
@@ -250,6 +246,11 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/transport)
 "J" = (
@@ -267,21 +268,23 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 7;
 	icon_state = "yellow"
 	},
 /area/shuttle/transport)
 "M" = (
-/obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/structure/window/plasmareinforced,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/engine,
+/area/shuttle/transport)
+"N" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "O" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -317,7 +320,8 @@
 	layer = 2.9
 	},
 /obj/machinery/power/grounding_rod{
-	pixel_x = -44
+	pixel_x = -44;
+	anchored = 1
 	},
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -330,7 +334,8 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/power/emitter{
-	dir = 8
+	dir = 8;
+	anchored = 1
 	},
 /obj/structure/cable/yellow{
 	d2 = 4;
@@ -400,9 +405,9 @@
 
 (1,1,1) = {"
 W
-A
-A
-A
+i
+i
+i
 W
 "}
 (2,1,1) = {"
@@ -410,7 +415,7 @@ a
 e
 x
 M
-a
+N
 "}
 (3,1,1) = {"
 a
