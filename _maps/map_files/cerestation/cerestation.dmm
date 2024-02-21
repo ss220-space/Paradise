@@ -3533,6 +3533,9 @@
 	pixel_y = 25;
 	req_access = list(17,75)
 	},
+/obj/machinery/computer/cryopod/robot{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4637,6 +4640,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "MiningWarehouse"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "aHv" = (
@@ -5117,10 +5121,6 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
 "aLx" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -6447,6 +6447,12 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"aUn" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/security/reception)
 "aUo" = (
 /turf/simulated/floor/carpet,
 /area/lawoffice)
@@ -11919,6 +11925,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "CargoWarehouse"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "bxf" = (
@@ -13975,6 +13982,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "bFS" = (
@@ -15318,8 +15326,8 @@
 	dir = 4
 	},
 /obj/item/lighter/zippo/qm{
-	pixel_y = 0;
-	pixel_x = -12
+	pixel_x = -12;
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
@@ -19824,9 +19832,6 @@
 /area/turret_protected/ai_upload)
 "cfC" = (
 /obj/machinery/disposal,
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
@@ -20877,12 +20882,12 @@
 /area/toxins/storage)
 "cmK" = (
 /obj/docking_port/stationary{
-	name = "Station Church dock";
 	dir = 8;
-	id = "graveyard_church";
 	dwidth = 2;
-	width = 10;
-	height = 7
+	height = 7;
+	id = "graveyard_church";
+	name = "Station Church dock";
+	width = 10
 	},
 /turf/space{
 	icon_state = "black"
@@ -37153,7 +37158,7 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/security/brig)
+/area/security/reception)
 "fJd" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -37985,9 +37990,6 @@
 	dir = 1
 	},
 /obj/machinery/cryopod/robot,
-/obj/machinery/computer/cryopod/robot{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38846,6 +38848,7 @@
 	id_tag = "Secure Armory";
 	name = "Secure Armory Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53092,7 +53095,7 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/security/brig)
+/area/security/reception)
 "kjB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall,
@@ -54460,6 +54463,10 @@
 "kCI" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21"
+	},
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
@@ -56163,7 +56170,7 @@
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/security/brig)
+/area/security/reception)
 "lcq" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -56708,6 +56715,10 @@
 "lky" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
@@ -57420,16 +57431,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southeast)
 "luc" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24
+/obj/machinery/light{
+	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "red"
+	icon_state = "darkred"
 	},
-/area/security/lobby)
+/area/security/reception)
 "luh" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -58983,10 +58992,6 @@
 /area/hallway/primary/central)
 "lUl" = (
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -69271,6 +69276,10 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/personal/mining,
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "oVZ" = (
@@ -75617,7 +75626,7 @@
 	dir = 8;
 	icon_state = "darkred"
 	},
-/area/security/brig)
+/area/security/reception)
 "qMi" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -79614,7 +79623,7 @@
 /area/engine/engine_smes)
 "rZG" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "process"
+	id = "brigpsych"
 	},
 /turf/simulated/floor/plating,
 /area/security/medbay)
@@ -82519,6 +82528,7 @@
 	name = "Expedition Lockdown";
 	opacity = 0
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83692,6 +83702,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -85146,6 +85157,7 @@
 	name = "Mining Warehouse Shutters";
 	pixel_y = 24
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "tGL" = (
@@ -94334,6 +94346,7 @@
 	name = "Expedition Lockdown";
 	opacity = 0
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -97510,7 +97523,7 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/security/brig)
+/area/security/reception)
 "xqm" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel,
@@ -98046,6 +98059,7 @@
 	id_tag = "hangar";
 	name = "Hangar Gate"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/hangar)
 "xzJ" = (
@@ -98508,8 +98522,8 @@
 /obj/machinery/button/windowtint{
 	dir = 4;
 	id = "surg_theatre";
-	pixel_y = -24;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = -24
 	},
 /obj/machinery/holosign_switch{
 	dir = 4;
@@ -98534,8 +98548,8 @@
 /obj/machinery/button/windowtint{
 	dir = 4;
 	id = "surg2";
-	pixel_y = -24;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = -24
 	},
 /turf/simulated/floor/noslip,
 /area/medical/surgery/south)
@@ -99064,6 +99078,7 @@
 	dir = 8;
 	id_tag = "kitchen1"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -116393,8 +116408,8 @@ vrg
 tMZ
 tMZ
 lcg
-hkn
-tMZ
+luc
+aUn
 qLL
 sxs
 rvY
@@ -116657,7 +116672,7 @@ ylp
 gAh
 gTu
 oNY
-luc
+oNY
 oNY
 gdT
 oNY
