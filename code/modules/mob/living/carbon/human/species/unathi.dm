@@ -3,7 +3,7 @@
 	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
-	language = "Sinta'unathi"
+	language = LANGUAGE_UNATHI
 	tail = "sogtail"
 	speech_sounds = list('sound/voice/unathitalk.mp3', 'sound/voice/unathitalk2.mp3', 'sound/voice/unathitalk4.mp3')
 	speech_chance = 33
@@ -152,8 +152,8 @@
 	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
 	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
 
-	language = "Sinta'unathi"
-	default_language = "Sinta'unathi"
+	language = LANGUAGE_UNATHI
+	default_language = LANGUAGE_UNATHI
 
 	speed_mod = -0.80
 	species_traits = list(NOGUNS, LIPS, PIERCEIMMUNE)
@@ -230,7 +230,7 @@
 	if(fire)
 		fire.Remove(C)
 
-//basic touch ability that heals brute and burn, only accessed by the ashwalker shaman
+//basic touch ability that heals basic damage types accessed by the ashwalker shaman
 /obj/effect/proc_holder/spell/touch/healtouch
 	name = "healing touch"
 	desc = "This spell charges your hand with the vile energy of the Necropolis, permitting you to undo some external injuries from a target."
@@ -241,7 +241,7 @@
 	base_cooldown = 20 SECONDS
 	clothes_req = FALSE
 
-	action_icon_state = "spell_default"
+	action_icon_state = "healtouch"
 
 /obj/item/melee/touch_attack/healtouch
 	name = "\improper healing touch"
@@ -250,14 +250,20 @@
 	on_use_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "disintegrate" //ironic huh
 	item_state = "disintegrate"
-	var/healamount = 20 //total of 40 assuming they're hurt by both brute and burn
+	//total of 40 assuming they're hurt by both brute and burn
+	var/brute = 20
+	var/burn = 20
+	var/tox = 10
+	var/oxy = 50
 
 /obj/item/melee/touch_attack/healtouch/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //no healing yourself
 		return
 	var/mob/living/M = target
 	new /obj/effect/temp_visual/heal(get_turf(M), "#899d39")
-	M.heal_overall_damage(healamount, healamount, 0) //notice it doesn't heal toxins, still need to learn chems for that
+	M.heal_overall_damage(brute, burn, 0)
+	M.adjustToxLoss(-tox)
+	M.adjustOxyLoss(-oxy)
 	return ..()
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)

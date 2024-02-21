@@ -4,7 +4,7 @@
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "control_box"
 	reference = "control_box"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	use_power = NO_POWER_USE
 	idle_power_usage = 500
@@ -23,7 +23,7 @@
 	. = ..()
 	wires = new(src)
 	connected_parts = list()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	use_log = list()
 
 /obj/machinery/particle_accelerator/control_box/Destroy()
@@ -59,7 +59,7 @@
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
 			part.powered = 0
-			part.update_icon()
+			part.update_icon(UPDATE_ICON_STATE)
 		connected_parts = list()
 		return
 	if(!part_scan())
@@ -67,9 +67,8 @@
 		active = 0
 		connected_parts = list()
 
-	return
 
-/obj/machinery/particle_accelerator/control_box/update_icon()
+/obj/machinery/particle_accelerator/control_box/update_icon_state()
 	if(active)
 		icon_state = "[reference]p[strength]"
 	else
@@ -88,7 +87,7 @@
 					icon_state = "[reference]w"
 				else
 					icon_state = "[reference]c"
-	return
+
 
 /obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
 	if(..(href, href_list))
@@ -118,14 +117,14 @@
 			remove_strength()
 
 	updateDialog()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return
 
 
 /obj/machinery/particle_accelerator/control_box/proc/strength_change()
 	for(var/obj/structure/particle_accelerator/part in connected_parts)
 		part.strength = strength
-		part.update_icon()
+		part.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/particle_accelerator/control_box/proc/add_strength(var/s)
 	if(assembled)
@@ -154,21 +153,20 @@
 
 		strength_change()
 
-/obj/machinery/particle_accelerator/control_box/power_change()
+/obj/machinery/particle_accelerator/control_box/power_change(forced = FALSE)
 	..()
 	if(stat & NOPOWER)
 		active = 0
 		use_power = NO_POWER_USE
 	else if(!stat && construction_state <= 3)
 		use_power = IDLE_POWER_USE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	if((stat & NOPOWER) || (!stat && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
 			part.powered = 0
-			part.update_icon()
-	return
+			part.update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/particle_accelerator/control_box/process()
@@ -182,7 +180,6 @@
 		for(var/obj/structure/particle_accelerator/particle_emitter/PE in connected_parts)
 			if(PE)
 				PE.emit_particle(strength)
-	return
 
 
 /obj/machinery/particle_accelerator/control_box/proc/part_scan()
@@ -246,13 +243,13 @@
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = strength
 			part.powered = 1
-			part.update_icon()
+			part.update_icon(UPDATE_ICON_STATE)
 	else
 		use_power = IDLE_POWER_USE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
 			part.powered = 0
-			part.update_icon()
+			part.update_icon(UPDATE_ICON_STATE)
 	return 1
 
 

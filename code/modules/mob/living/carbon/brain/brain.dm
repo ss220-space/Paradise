@@ -9,7 +9,7 @@
 
 /mob/living/carbon/brain/New()
 	..()
-	add_language("Galactic Common")
+	add_language(LANGUAGE_GALACTIC_COMMON)
 
 
 /mob/living/carbon/brain/Destroy()

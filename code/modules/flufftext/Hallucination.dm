@@ -593,7 +593,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	name = ""
 	desc = ""
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	opacity = 0
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null

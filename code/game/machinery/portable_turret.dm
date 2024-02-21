@@ -153,8 +153,10 @@
 			eprojectile = /obj/item/projectile/beam/pulse
 			eshot_sound = 'sound/weapons/pulse.ogg'
 
+
 GLOBAL_LIST_EMPTY(turret_icons)
-/obj/machinery/porta_turret/update_icon()
+
+/obj/machinery/porta_turret/update_icon_state()
 	if(!GLOB.turret_icons)
 		GLOB.turret_icons = list()
 		GLOB.turret_icons["open"] = image(icon, "openTurretCover")
@@ -303,19 +305,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				req_access = list()
 				check_one_access = !check_one_access
 
-/obj/machinery/porta_turret/power_change()
-	if(powered() || !use_power)
-		stat &= ~NOPOWER
-		update_icon()
-	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
+
+/obj/machinery/porta_turret/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
 	if((stat & BROKEN) && !syndicate)
-		if(istype(I, /obj/item/crowbar))
+		if(I.tool_behaviour == TOOL_CROWBAR)
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			to_chat(user, span_notice("You begin prying the metal coverings off."))
@@ -334,7 +333,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, span_notice("You remove the turret but did not manage to salvage anything."))
 				qdel(src) // qdel
 
-	else if((istype(I, /obj/item/wrench)))
+	else if(I.tool_behaviour == TOOL_WRENCH)
 		if(enabled || raised)
 			to_chat(user, span_warning("You cannot unsecure an active turret!"))
 			return
@@ -352,18 +351,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		wrenching = TRUE
 		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
-			add_fingerprint(user)
 			//This code handles moving the turret around. After all, it's a portable turret!
-			if(!anchored)
-				playsound(loc, I.usesound, 100, 1)
-				anchored = TRUE
-				update_icon()
-				to_chat(user, span_notice("You secure the exterior bolts on the turret."))
-			else if(anchored)
-				playsound(loc, I.usesound, 100, 1)
-				anchored = FALSE
-				to_chat(user, span_notice("You unsecure the exterior bolts on the turret."))
-				update_icon()
+			add_fingerprint(user)
+			playsound(loc, I.usesound, 100, TRUE)
+			anchored = !anchored
+			update_icon(UPDATE_ICON_STATE)
+			to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
 		wrenching = FALSE
 
 	else if(I.GetID() || ispda(I))
@@ -490,7 +483,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	stat |= BROKEN	//enables the BROKEN bit
 	if(spark_system)
 		spark_system.start()	//creates some sparks because they look cool
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/process()
 	//the main machinery process
@@ -640,7 +633,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	set_raised_raising(raised, TRUE)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
 	flick_holder.layer = layer + 0.1
@@ -649,7 +642,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	qdel(flick_holder)
 
 	set_raised_raising(TRUE, FALSE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/proc/popDown()	//pops the turret down
 	last_target = null
@@ -661,7 +654,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	set_raised_raising(raised, TRUE)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
 	flick_holder.layer = layer + 0.1
@@ -670,7 +663,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	qdel(flick_holder)
 
 	set_raised_raising(FALSE, FALSE)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
 	if((check_access || attacked) && !allowed(perp))
@@ -709,7 +702,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!istype(T) || !istype(U))
 		return
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	var/obj/item/projectile/A
 	if(emagged || lethal)
 		if(eprojectile)
@@ -807,7 +800,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	//this is a bit unwieldy but self-explanatory
 	switch(build_step)
 		if(0)	//first step
-			if(istype(I, /obj/item/wrench) && !anchored)
+			if(I.tool_behaviour == TOOL_WRENCH && !anchored)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, span_notice("You secure the external bolts."))
@@ -815,7 +808,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				build_step = 1
 				return
 
-			else if(istype(I, /obj/item/crowbar) && !anchored)
+			else if(I.tool_behaviour == TOOL_CROWBAR && !anchored)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, span_notice("You dismantle the turret construction."))
 				new /obj/item/stack/sheet/metal( loc, 5)
@@ -834,7 +827,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, span_warning("You need two sheets of metal to continue construction."))
 				return
 
-			else if(istype(I, /obj/item/wrench))
+			else if(I.tool_behaviour == TOOL_WRENCH)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, span_notice("You unfasten the external bolts."))
@@ -844,7 +837,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 
 		if(2)
-			if(istype(I, /obj/item/wrench))
+			if(I.tool_behaviour == TOOL_WRENCH)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, span_notice("You bolt the metal armor into place."))
@@ -876,7 +869,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				qdel(I) //delete the gun :( qdel
 				return
 
-			else if(istype(I, /obj/item/wrench))
+			else if(I.tool_behaviour == TOOL_WRENCH)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, span_notice("You remove the turret's metal armor bolts."))
@@ -897,7 +890,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//attack_hand() removes the gun
 
 		if(5)
-			if(istype(I, /obj/item/screwdriver))
+			if(I.tool_behaviour == TOOL_SCREWDRIVER)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				build_step = 6
@@ -917,13 +910,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, span_warning("You need two sheets of metal to continue construction."))
 				return
 
-			else if(istype(I, /obj/item/screwdriver))
+			else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				build_step = 5
 				to_chat(user, span_notice("You open the internal access hatch."))
 				return
-			else if(istype(I, /obj/item/crowbar))
+			else if(I.tool_behaviour == TOOL_CROWBAR)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, span_notice("You pry off the turret's exterior armor."))
@@ -1055,7 +1048,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		depotarea.declare_started()
 	return ..(target)
 
-/obj/machinery/porta_turret/syndicate/update_icon()
+/obj/machinery/porta_turret/syndicate/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = icon_state_destroyed
 	else if(enabled)

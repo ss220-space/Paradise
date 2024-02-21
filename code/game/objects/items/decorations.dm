@@ -226,7 +226,7 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	max_integrity = 100
 
 /obj/structure/decorative_structures/fireplace
@@ -234,7 +234,7 @@
 	desc = "Looks warm and comfy."
 	icon = 'icons/obj/fireplace.dmi'
 	icon_state = "fireplace"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	pixel_x = -16
 
@@ -246,7 +246,7 @@
 
 /obj/structure/decorative_structures/garland
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 100
 	icon_state = "xmaslights"
 
@@ -419,7 +419,7 @@
 	name = "Bloody crystal"
 	icon_state = "cult_crystal"
 	max_integrity = 120
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/decorative_structures/cult_crystal/Initialize(mapload)
 	. = ..()

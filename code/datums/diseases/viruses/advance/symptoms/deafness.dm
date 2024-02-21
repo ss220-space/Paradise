@@ -34,11 +34,5 @@ Bonus
 			if(3, 4)
 				to_chat(M, span_warning(pick("You hear a ringing in your ear.", "Your ears pop.")))
 			if(5)
-				if(!(DEAF in M.mutations))
-					to_chat(M, span_userdanger("Your ears pop and begin ringing loudly!"))
-					M.BecomeDeaf()
-					spawn(200)
-						if(M)
-							to_chat(M, span_warning("The ringing in your ears fades..."))
-							M.CureDeaf()
-	return
+				to_chat(M, span_userdanger("Your ears pop and begin ringing loudly!"))
+				M.Deaf(40 SECONDS)

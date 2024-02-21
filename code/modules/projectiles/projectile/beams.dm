@@ -32,7 +32,7 @@
 	name = "practice laser"
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
-	nodamage = 1
+	nodamage = TRUE
 	log_override = TRUE
 
 /obj/item/projectile/beam/scatter
@@ -96,7 +96,7 @@
 	name = "laser tag beam"
 	icon_state = "omnilaser"
 	hitsound = 'sound/weapons/tap.ogg'
-	nodamage = 1
+	nodamage = TRUE
 	damage = 0
 	damage_type = STAMINA
 	flag = "laser"

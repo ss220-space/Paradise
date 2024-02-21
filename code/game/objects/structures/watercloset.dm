@@ -7,7 +7,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "toilet00"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	var/open = 0			//if the lid is up
 	var/cistern = 0			//if the cistern bit is open
 	var/w_items = 0			//the combined w_class of all the items in the cistern
@@ -157,14 +157,14 @@
 				if(!loc || !anchored)
 					return
 				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-				anchored = 0
+				anchored = FALSE
 		if("Connect")
 			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-				anchored = 1
+				anchored = TRUE
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 			var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
@@ -237,7 +237,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "urinal"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 
 
 /obj/structure/urinal/attackby(obj/item/I, mob/user, params)
@@ -269,7 +269,7 @@
 			if(!loc || !anchored)
 				return
 			user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-			anchored = 0
+			anchored = FALSE
 			pixel_x = 0
 			pixel_y = 0
 	else
@@ -278,7 +278,7 @@
 			if(!loc || anchored)
 				return
 			user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-			anchored = 1
+			anchored = TRUE
 			pixel_x = 0
 			pixel_y = 32
 
@@ -525,7 +525,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "sink"
 	desc = "A sink used for washing one's hands and face."
-	anchored = 1
+	anchored = TRUE
 	var/busy = 0 	//Something's being washed at the moment
 	var/can_move = 1	//if the sink can be disconnected and moved
 	var/can_rotate = 1	//if the sink can be rotated to face alternate directions
@@ -763,7 +763,7 @@
 	if(do_after(user, 30, target = user))
 		user.visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
 		var/obj/structure/S = new result(T)
-		S.anchored = 0
+		S.anchored = FALSE
 		S.dir = user.dir
 		S.update_icon(UPDATE_ICON_STATE)
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)

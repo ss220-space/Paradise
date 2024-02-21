@@ -31,7 +31,9 @@
 	adjustmask(user)
 
 /obj/item/clothing/mask/balaclava/adjustmask(mob/user)
-	..()
+	. = ..()
+	if(!.)
+		return
 	var/mob/living/carbon/human/H = usr
 	if(H.l_hand && H.r_hand)
 		user.drop_item_ground(src)

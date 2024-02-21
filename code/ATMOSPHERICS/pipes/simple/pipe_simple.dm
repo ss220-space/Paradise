@@ -129,7 +129,7 @@
 /obj/machinery/atmospherics/pipe/simple/pipeline_expansion()
 	return list(node1, node2)
 
-/obj/machinery/atmospherics/pipe/simple/change_color(var/new_color)
+/obj/machinery/atmospherics/pipe/simple/change_color(new_color)
 	..()
 	//for updating connected atmos device pipes (i.e. vents, manifolds, etc)
 	if(node1)
@@ -137,20 +137,24 @@
 	if(node2)
 		node2.update_underlays()
 
-/obj/machinery/atmospherics/pipe/simple/update_icon(var/safety = 0)
-	..()
+
+/obj/machinery/atmospherics/pipe/simple/update_overlays()
+	. = ..()
 
 	if(!check_icon_cache())
-		return
+		return .
 
 	alpha = 255
 
-	overlays.Cut()
-
 	if(node1 && node2)
-		overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "intact" + icon_connect_type)
+		. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "intact" + icon_connect_type)
 	else
-		overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
+		. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
+
+
+/obj/machinery/atmospherics/pipe/simple/update_underlays()
+	return
+
 
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/simple/check_nodes_exist()
@@ -160,9 +164,7 @@
 	// 1: 1-2 nodes exist, we continue existing
 	return 1
 
-/obj/machinery/atmospherics/pipe/simple/update_underlays()
-	return
 
-/obj/machinery/atmospherics/pipe/simple/hide(var/i)
+/obj/machinery/atmospherics/pipe/simple/hide(i)
 	if(level == 1 && istype(loc, /turf/simulated))
-		invisibility = i ? INVISIBILITY_ABSTRACT : 0
+		invisibility = i ? INVISIBILITY_MAXIMUM : 0

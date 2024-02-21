@@ -7,7 +7,7 @@
 	is_medical = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
-	selection_color = "#ffddf0"
+	selection_color = "#66c6ff"
 	req_admin_notify = 1
 	access = list(ACCESS_EVA, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
@@ -53,7 +53,7 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
 	alt_titles = list("Surgeon","Nurse")
@@ -87,7 +87,7 @@
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list("Chief Medical Officer", "Medical Doctor")
-	selection_color = "#ffeef0"
+	selection_color = "#d1eeff"
 	alt_titles = list("Student Medical Doctor", "Medical Assistant")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -134,7 +134,7 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE)
 	minimal_player_age = 3
@@ -197,7 +197,7 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Pharmacist","Pharmacologist")
@@ -233,7 +233,7 @@
 	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
 	department_head = list("Chief Medical Officer", "Research Director")
-	selection_color = "#ffeef0"
+	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH)
 	minimal_player_age = 3
@@ -268,7 +268,7 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Pathologist","Microbiologist")
@@ -305,7 +305,7 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST)
 	alt_titles = list("Psychologist","Therapist")
@@ -345,7 +345,7 @@
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#d1eeff"
 	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	minimal_player_age = 3

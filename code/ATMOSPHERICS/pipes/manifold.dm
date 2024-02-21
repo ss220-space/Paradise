@@ -60,9 +60,9 @@
 	hide(T.intact)
 	update_icon()
 
-/obj/machinery/atmospherics/pipe/manifold/hide(var/i)
+/obj/machinery/atmospherics/pipe/manifold/hide(i)
 	if(level == 1 && istype(loc, /turf/simulated))
-		invisibility = i ? INVISIBILITY_ABSTRACT : 0
+		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()
 	return list(node1, node2, node3)
@@ -106,7 +106,7 @@
 	update_icon()
 	..()
 
-/obj/machinery/atmospherics/pipe/manifold/change_color(var/new_color)
+/obj/machinery/atmospherics/pipe/manifold/change_color(new_color)
 	..()
 	//for updating connected atmos device pipes (i.e. vents, manifolds, etc)
 	if(node1)
@@ -116,21 +116,30 @@
 	if(node3)
 		node3.update_underlays()
 
-/obj/machinery/atmospherics/pipe/manifold/update_icon(var/safety = 0)
-	..()
+
+/obj/machinery/atmospherics/pipe/manifold/update_overlays()
+	. = ..()
 
 	if(!check_icon_cache())
 		return
 
 	alpha = 255
 
-	overlays.Cut()
-	overlays += SSair.icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
-	overlays += SSair.icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
+	. += SSair.icon_manager.get_atmos_icon("manifold", color = pipe_color, state = "core" + icon_connect_type)
+	. += SSair.icon_manager.get_atmos_icon("manifold", state = "clamps" + icon_connect_type)
+	update_underlays()
+
+
+/obj/machinery/atmospherics/pipe/manifold/update_underlays()
+	if(!..())
+		return
+
 	underlays.Cut()
 
-	var/turf/T = get_turf(src)
-	if(!istype(T)) return
+	var/turf/source_turf = get_turf(src)
+	if(!istype(source_turf))
+		return
+
 	var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 	var/node1_direction = get_dir(src, node1)
 	var/node2_direction = get_dir(src, node2)
@@ -138,16 +147,13 @@
 
 	directions -= dir
 
-	directions -= add_underlay(T,node1,node1_direction,icon_connect_type)
-	directions -= add_underlay(T,node2,node2_direction,icon_connect_type)
-	directions -= add_underlay(T,node3,node3_direction,icon_connect_type)
+	directions -= add_underlay(source_turf, node1, node1_direction, icon_connect_type)
+	directions -= add_underlay(source_turf, node2, node2_direction, icon_connect_type)
+	directions -= add_underlay(source_turf, node3, node3_direction, icon_connect_type)
 
-	for(var/D in directions)
-		add_underlay(T,,D,icon_connect_type)
+	for(var/check_dir in directions)
+		add_underlay(source_turf, direction = check_dir, icon_connect_type = src.icon_connect_type)
 
-/obj/machinery/atmospherics/pipe/manifold/update_underlays()
-	..()
-	update_icon()
 
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/manifold/check_nodes_exist()

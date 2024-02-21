@@ -37,6 +37,11 @@
 		underlays += can_underlay
 
 
+/obj/item/grenade/iedcasing/update_overlays()
+	. = ..()
+
+
+
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
 		if(clown_check(user))
@@ -157,7 +162,7 @@
 			update_icon(UPDATE_ICON_STATE)
 			return
 		to_chat(user, span_notice("There is not enough cables to make a wick."))
-	if(istype(W, /obj/item/wirecutters))
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(!anchored)
 			return
 		pixel_w = 0
