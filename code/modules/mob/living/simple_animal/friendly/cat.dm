@@ -75,7 +75,7 @@
 		children += baby
 		return baby
 
-/mob/living/simple_animal/pet/cat/Runtime/death()
+/mob/living/simple_animal/pet/cat/Runtime/death(gibbed)
 	if(can_die())
 		write_memory(TRUE)
 		SSpersistent_data.registered_atoms -= src // We just saved. Dont save at round end
@@ -220,7 +220,7 @@
 
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
 	. = ..()
-	add_language("Galactic Common")
+	add_language(LANGUAGE_GALACTIC_COMMON)
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"

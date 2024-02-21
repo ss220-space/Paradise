@@ -32,7 +32,9 @@
 
 /obj/item/clothing/accessory/holster/attack_self(mob/user = usr)
 	var/holsteritem = user.get_active_hand()
-	if(holsteritem)
+	if(istype(holsteritem, /obj/item/clothing/accessory/holster))
+		unholster(user)
+	else if(holsteritem)
 		holster(holsteritem, user)
 	else
 		unholster(user)
@@ -156,11 +158,20 @@
 	item_color = "holster_low"
 
 /obj/item/clothing/accessory/holster/knives
-	name = "Knife holster"
+	name = "knife holster"
 	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
 	icon_state = "holsterknife"
 	item_color = "holsterknife"
-	holster_allow = /obj/item/kitchen/knife/combat
+	holster_allow = list(
+		/obj/item/kitchen/knife,
+		/obj/item/kitchen/knife/combat,
+		/obj/item/kitchen/knife/combat/survival,
+		/obj/item/kitchen/knife/combat/survival/bone,
+		/obj/item/kitchen/knife/combat/throwing,
+		/obj/item/kitchen/knife/carrotshiv,
+		/obj/item/kitchen/knife/glassshiv,
+		/obj/item/kitchen/knife/glassshiv/plasma
+	)
 	max_content = 7
 	sound_holster = 'sound/weapons/knife_holster/knife_holster.ogg'
 	sound_unholster = 'sound/weapons/knife_holster/knife_unholster.ogg'
@@ -173,3 +184,9 @@
 	else
 		user.visible_message(span_notice("[user] takes the [I] out."),
 			span_notice("You takes the [I] out, [holstered.len] knives left"))
+
+/obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
+	return is_type_in_list(I, holster_allow, FALSE)
+
+/obj/item/clothing/accessory/holster/knives/attached_examine(mob/user)
+	return span_notice("\A [src] with [holstered.len] knives attached to it.")

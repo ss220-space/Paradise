@@ -293,3 +293,16 @@
   Vladisvell:
   - bugfix: APC no longer can be unlocked by binds from distance (#4147)
   - add: Added nice presents positioning around Christmas trees (#4146)
+'2023-12-30':
+  BeebBeebBoob:
+  - bugfix: Vortex talisman spamming admins with logs (#4156)
+  NightDawnFox:
+  - bugfix: missed mining harsuit textures (#4153)
+  Vladisvell:
+  - add: Added Ded Moroz and his magic artifacts (#4148)
+  aeternaclose:
+  - add: areas update (#4132)
+  - unknown: Delta & Cerestation & Cyberiad New Year update (#4119)
+'2023-12-31':
+  ArtemDerp:
+  - add: gate evil santa reborn 2.0 (#4130)

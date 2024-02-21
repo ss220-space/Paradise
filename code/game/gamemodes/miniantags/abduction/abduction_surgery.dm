@@ -38,9 +38,9 @@
 	var/mob/living/carbon/human/AB = target
 	if(IC)
 		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
-		IC.forceMove_turf()
-		user.put_in_hands(IC, ignore_anim = FALSE)
 		IC.remove(target, ORGAN_MANIPULATION_NOEFFECT)
+		IC.forceMove(get_turf(target))
+		user.put_in_hands(IC, ignore_anim = FALSE)
 		return TRUE
 	if(NO_INTORGANS in AB.dna.species.species_traits)
 		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")

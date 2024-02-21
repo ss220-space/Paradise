@@ -120,23 +120,23 @@
 
 /obj/item/robot_module/proc/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
-	R.add_language("Galactic Common", 1)
-	R.add_language("Sol Common", 1)
-	R.add_language("Tradeband", 1)
-	R.add_language("Gutter", 0)
-	R.add_language("Neo-Russkiya", 0)
-	R.add_language("Sinta'unathi", 0)
-	R.add_language("Siik'tajr", 0)
-	R.add_language("Canilunzt", 0)
-	R.add_language("Skrellian", 0)
-	R.add_language("Vox-pidgin", 0)
-	R.add_language("Rootspeak", 0)
-	R.add_language("Trinary", 1)
-	R.add_language("Chittin", 0)
-	R.add_language("Bubblish", 0)
-	R.add_language("Orluum", 0)
-	R.add_language("Clownish",0)
-	R.add_language("Tkachi", 0)
+	R.add_language(LANGUAGE_GALACTIC_COMMON, 1)
+	R.add_language(LANGUAGE_SOL_COMMON, 1)
+	R.add_language(LANGUAGE_TRADER, 1)
+	R.add_language(LANGUAGE_GUTTER, 0)
+	R.add_language(LANGUAGE_NEO_RUSSIAN, 0)
+	R.add_language(LANGUAGE_UNATHI, 0)
+	R.add_language(LANGUAGE_TAJARAN, 0)
+	R.add_language(LANGUAGE_VULPKANIN, 0)
+	R.add_language(LANGUAGE_SKRELL, 0)
+	R.add_language(LANGUAGE_VOX, 0)
+	R.add_language(LANGUAGE_DIONA, 0)
+	R.add_language(LANGUAGE_TRINARY, 1)
+	R.add_language(LANGUAGE_KIDAN, 0)
+	R.add_language(LANGUAGE_SLIME, 0)
+	R.add_language(LANGUAGE_DRASK, 0)
+	R.add_language(LANGUAGE_CLOWN,0)
+	R.add_language(LANGUAGE_MOTH, 0)
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs |= subsystems
@@ -276,6 +276,18 @@
 	fix_modules()
 	handle_storages()
 
+// Disable safeties on the borg's defib.
+/obj/item/robot_module/medical/emag_act(mob/user)
+	. = ..()
+	for(var/obj/item/twohanded/shockpaddles/borg/defib in modules)
+		defib.emag_act()
+
+// Enable safeties on the borg's defib.
+/obj/item/robot_module/medical/unemag()
+	for(var/obj/item/twohanded/shockpaddles/borg/defib in modules)
+		defib.emag_act()
+	return ..()
+
 /obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/spray/PS = emag
@@ -369,6 +381,10 @@
 
 	fix_modules()
 
+/obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
+	var/obj/item/melee/baton/baton = locate() in modules
+	baton?.link_new_cell(unlink_cell)
+
 /obj/item/robot_module/janitor
 	name = "Janitor"
 	module_type = "Janitor"
@@ -392,6 +408,7 @@
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/holosign_creator/janitor(src)
 	modules += new /obj/item/extinguisher/mini(src)
+	modules += new /obj/item/reagent_containers/spray/pestspray(src) //kill all kidans!
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/reagent_containers/spray(src)
@@ -460,22 +477,23 @@
 
 /obj/item/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
 	//full set of languages
-	R.add_language("Galactic Common", 1)
-	R.add_language("Sol Common", 1)
-	R.add_language("Tradeband", 1)
-	R.add_language("Gutter", 1)
-	R.add_language("Sinta'unathi", 1)
-	R.add_language("Siik'tajr", 1)
-	R.add_language("Canilunzt", 1)
-	R.add_language("Skrellian", 1)
-	R.add_language("Vox-pidgin", 1)
-	R.add_language("Rootspeak", 1)
-	R.add_language("Trinary", 1)
-	R.add_language("Chittin", 1)
-	R.add_language("Bubblish", 1)
-	R.add_language("Clownish",1)
-	R.add_language("Neo-Russkiya", 1)
-	R.add_language("Tkachi", 1)
+	R.add_language(LANGUAGE_GALACTIC_COMMON, 1)
+	R.add_language(LANGUAGE_SOL_COMMON, 1)
+	R.add_language(LANGUAGE_TRADER, 1)
+	R.add_language(LANGUAGE_GUTTER, 1)
+	R.add_language(LANGUAGE_NEO_RUSSIAN, 1)
+	R.add_language(LANGUAGE_UNATHI, 1)
+	R.add_language(LANGUAGE_TAJARAN, 1)
+	R.add_language(LANGUAGE_VULPKANIN, 1)
+	R.add_language(LANGUAGE_SKRELL, 1)
+	R.add_language(LANGUAGE_VOX, 1)
+	R.add_language(LANGUAGE_DIONA, 1)
+	R.add_language(LANGUAGE_TRINARY, 1)
+	R.add_language(LANGUAGE_KIDAN, 1)
+	R.add_language(LANGUAGE_SLIME, 1)
+	R.add_language(LANGUAGE_DRASK, 1)
+	R.add_language(LANGUAGE_CLOWN,1)
+	R.add_language(LANGUAGE_MOTH, 1)
 
 /obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
@@ -522,6 +540,26 @@
 	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
+
+// Replace their normal drill with a diamond drill.
+/obj/item/robot_module/miner/emag_act()
+	. = ..()
+	for(var/obj/item/pickaxe/drill/cyborg/D in modules)
+		// Make sure we don't remove the diamond drill If they already have a diamond drill from the borg upgrade.
+		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
+			qdel(D)
+			modules -= D // Remove it from this list so it doesn't get added in the rebuild.
+	modules += new /obj/item/pickaxe/drill/cyborg/diamond(src)
+	rebuild()
+
+// Readd the normal drill
+/obj/item/robot_module/miner/unemag()
+	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in modules) 
+		qdel(drill)
+		modules -= drill
+	modules += new /obj/item/pickaxe/drill/cyborg(src)
+	rebuild()
+	return ..()
 
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
     if(component_id == "KA modkits")
@@ -741,7 +779,7 @@
 
 /obj/item/robot_module/hunter/add_languages(var/mob/living/silicon/robot/R)
 	..()
-	R.add_language("xenocommon", 1)
+	R.add_language(LANGUAGE_XENOS, 1)
 
 /obj/item/robot_module/drone
 	name = "Drone"
@@ -991,3 +1029,15 @@
 	max_energy = 160
 	recharge_rate = 2
 	name = "Wood Storage"
+
+
+/**
+ * Called when the robot owner of this module has their power cell replaced.
+ *
+ * Changes the linked power cell for module items to the newly inserted cell, or to `null`.
+ * Arguments:
+ * * unlink_cell - If TRUE, set the item's power cell variable to `null` rather than linking it to a new one.
+ */
+/obj/item/robot_module/proc/update_cells(unlink_cell = FALSE)
+	return
+

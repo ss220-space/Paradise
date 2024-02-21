@@ -64,6 +64,7 @@ Difficulty: Hard
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
+	enraged_unique_loot = /obj/item/clothing/accessory/necklace/hierophant_talisman
 	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
 							   /datum/action/innate/megafauna_attack/chaser_swarm,
 							   /datum/action/innate/megafauna_attack/cross_blasts,
@@ -446,7 +447,7 @@ Difficulty: Hard
 			else
 				visible_message("<span class='hierophant'>\"Vitemvw gsqtpixi. Stivexmsrep ijjmgmirgc gsqtvsqmwih.\"</span>")
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/death()
+/mob/living/simple_animal/hostile/megafauna/hierophant/death(gibbed)
 	if(health > 0 || stat == DEAD)
 		return
 	else
@@ -765,6 +766,12 @@ Difficulty: Hard
 	light_range = 2
 	layer = LOW_OBJ_LAYER
 	anchored = TRUE
+	var/teleporting = FALSE
+
+
+/obj/effect/hierophant/update_icon_state()
+	icon_state = "hierophant_tele_[teleporting ? "on" : "off"]"
+
 
 /obj/effect/hierophant/ex_act()
 	return
@@ -797,4 +804,4 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "Heed its words."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT

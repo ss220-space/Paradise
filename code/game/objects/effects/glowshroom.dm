@@ -54,7 +54,7 @@
 
 /obj/structure/glowshroom/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("This is a [generation]\th generation [name]!")
+	. += span_notice("This is a [generation]\th generation [name]!")
 
 /**
   *	Creates a new glowshroom structure.
@@ -236,7 +236,7 @@
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
 	. = 1
-	visible_message(SPAN_DANGER("[src] melts away!"))
+	visible_message(span_danger("[src] melts away!"))
 	var/obj/effect/decal/cleanable/molten_object/object = new (get_turf(src))
 	object.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)

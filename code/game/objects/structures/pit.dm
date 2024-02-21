@@ -45,8 +45,10 @@
 		return
 	..()
 
-/obj/structure/pit/update_icon()
+
+/obj/structure/pit/update_icon_state()
 	icon_state = "pit[open][icon_floor_type]"
+
 
 /obj/structure/pit/Initialize(mapload)
 	. = ..()
@@ -64,12 +66,13 @@
 		icon_floor_type = "sand"
 	if(istype(loc, /turf/simulated/floor/grass))
 		icon_floor_type = "mud"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/pit/proc/take_contents()
 	var/itemcount = 0
 	for(var/atom/movable/A  in loc)
-		if(A.density || A.anchored || A == src || open) continue
+		if(A.density || A.anchored || A == src || open)
+			continue
 		A.forceMove(src)
 		itemcount += 1
 		if(itemcount >= storage_capacity)
@@ -87,7 +90,7 @@
 		if(istype(A, /obj/structure/closet))
 			for(var/mob/living/carbon/M in A.contents)
 				M.update_tint()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/pit/proc/close(var/user)
 	name = "mound"
@@ -108,7 +111,7 @@
 			if(istype(A, /obj/structure/closet))
 				for(var/mob/living/carbon/M in A.contents)
 					M.overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/pit/remove_air(amount)
 	return 0

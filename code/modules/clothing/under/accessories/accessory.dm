@@ -14,8 +14,8 @@
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
 	var/allow_duplicates = TRUE // Allow accessories of the same type.
 
-/obj/item/clothing/accessory/New()
-	..()
+/obj/item/clothing/accessory/Initialize(mapload)
+	. = ..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
 /obj/item/clothing/accessory/Destroy()
@@ -31,7 +31,8 @@
 	has_suit = S
 	loc = has_suit
 	has_suit.overlays += inv_overlay
-	has_suit.actions += actions
+	if(actions)
+		LAZYADD(has_suit.actions, actions)
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -55,7 +56,7 @@
 	if(!has_suit)
 		return
 	has_suit.overlays -= inv_overlay
-	has_suit.actions -= actions
+	LAZYREMOVE(has_suit.actions, actions)
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -102,6 +103,9 @@
 
 /obj/item/clothing/accessory/proc/attached_equip(mob/user) // If we need to do something special when clothing is removed from the user
 	return
+
+/obj/item/clothing/accessory/proc/attached_examine(mob/user) // additional info when examine accessory on the suit
+	return span_notice("\A [src] is attached to it.")
 
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
@@ -633,6 +637,28 @@
 			held = O
 	else
 		return ..()
+
+/obj/item/clothing/accessory/ntrjacket
+	name = "black light jacket"
+	desc = "For the formidable guardians of work procedures. Looks like it can clip on to a uniform."
+	icon_state = "jacket_ntrf"
+	item_state = "jacket_ntrf"
+	item_color = "jacket_ntrf"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
 
 //Cowboy Shirts
 /obj/item/clothing/accessory/cowboyshirt

@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(target.client)
 			target.client.images |= current_image
 
-/obj/effect/hallucination/simple/update_icon(new_state, new_icon, new_px = 0, new_py = 0)
+/obj/effect/hallucination/simple/proc/update_state(new_state, new_icon, new_px = 0, new_py = 0)
 	image_state = new_state
 	if(new_icon)
 		image_icon = new_icon
@@ -163,7 +163,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	name = "alien hunter ([rand(1, 1000)])"
 
 /obj/effect/hallucination/simple/xeno/throw_impact(atom/A, datum/thrownthing/throwingdatum)
-	update_icon("alienh_pounce")
+	update_state("alienh_pounce")
 	if(A == target)
 		target.Weaken(10 SECONDS)
 		target.visible_message("<span class='danger'>[target] flails around wildly.</span>","<span class ='userdanger'>[name] pounces on you!</span>")
@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(!xeno)
 		return
 	for(var/i in 0 to 2)
-		xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
+		xeno.update_state("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
 		xeno.throw_at(target,7,1, spin = 0, diagonals_first = 1)
 		sleep(10)
 		if(!xeno)
@@ -593,7 +593,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	name = ""
 	desc = ""
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	opacity = 0
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null

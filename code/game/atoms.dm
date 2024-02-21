@@ -9,6 +9,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
+	appearance_flags = TILE_BOUND
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
@@ -56,6 +57,8 @@
 	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
 	var/list/remove_overlays // a very temporary list of overlays to remove
 	var/list/add_overlays // a very temporary list of overlays to add
+	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
+	var/list/managed_overlays
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
@@ -71,6 +74,8 @@
 	var/list/ru_names
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
 
 	var/tts_seed = "Arthas"
 
@@ -174,7 +179,7 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
 
@@ -297,7 +302,11 @@
 	return
 
 /atom/proc/emp_act(severity)
-	return
+	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
+
+//amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
+/atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
+	return TRUE
 
 /atom/proc/bullet_act(obj/item/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
@@ -388,6 +397,80 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
+
+/**
+ * Updates the appearence of the icon
+ *
+ * Mostly delegates to update_name, update_desc, and update_icon
+ *
+ * Arguments:
+ * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
+ */
+/atom/proc/update_appearance(updates = ALL)
+	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	/// Signal sent should the appearance be updated. This is more broad if listening to a more specific signal doesn't cut it
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_APPEARANCE, updates)
+	if(updates & UPDATE_NAME)
+		update_name(updates)
+	if(updates & UPDATE_DESC)
+		update_desc(updates)
+	if(updates & UPDATE_ICON)
+		update_icon(updates)
+
+
+/// Updates the name of the atom
+/atom/proc/update_name(updates = ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
+
+
+/// Updates the description of the atom
+/atom/proc/update_desc(updates = ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
+
+
+/// Updates the icon of the atom
+/atom/proc/update_icon(updates = ALL)
+	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(updates == NONE)
+		return // NONE is being sent on purpose, and thus no signal should be sent.
+
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
+	if(updates & UPDATE_ICON_STATE)
+		update_icon_state()
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+
+	if(updates & UPDATE_OVERLAYS)
+		var/list/new_overlays = update_overlays(updates)
+		if(managed_overlays)
+			cut_overlay(managed_overlays)
+			managed_overlays = null
+		if(length(new_overlays))
+			if(length(new_overlays) == 1)
+				managed_overlays = new_overlays[1]
+			else
+				managed_overlays = new_overlays
+			add_overlay(new_overlays)
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS)
+
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
+
+
+/// Updates the icon state of the atom
+/atom/proc/update_icon_state()
+	return
+
+
+/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/atom/proc/update_overlays()
+	return list()
+
+
 /atom/Topic(href, href_list)
 	. = ..()
 	if(.)
@@ -458,6 +541,9 @@
 	return
 
 /atom/proc/emag_act(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+
+/atom/proc/unemag()
 	return
 
 /atom/proc/cmag_act(mob/user)
@@ -660,9 +746,6 @@
 
 GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
-/atom/proc/blood_splatter_index()
-	return "\ref[initial(icon)]-[initial(icon_state)]"
-
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
 	if(get_blood_id() != "blood")
@@ -670,7 +753,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return list("ANIMAL DNA" = "Y-")
 
 /mob/living/carbon/get_blood_dna_list()
-	if(get_blood_id() != "blood")
+	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
+	var/check_blood = get_blood_id()
+	if(!check_blood || !(check_blood in acceptable_blood))
 		return
 	var/list/blood_dna = list()
 	if(dna)
@@ -737,11 +822,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, color)
-	var/blood_count = !blood_DNA ? 0 : blood_DNA.len
+	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
 		return FALSE
+	blood_color = color // update the blood color
 	if(!blood_count)//apply the blood-splatter overlay if it isn't already in there
-		add_blood_overlay(color)
+		add_blood_overlay()
 	return TRUE //we applied blood to the item
 
 /obj/item/clothing/gloves/add_blood(list/blood_dna, color)
@@ -787,21 +873,15 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return TRUE
 
-/obj/item/proc/add_blood_overlay(color)
-	if(initial(icon) && initial(icon_state))
-		//try to find a pre-processed blood-splatter. otherwise, make a new one
-		var/index = blood_splatter_index()
-		var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-		if(!blood_splatter_icon)
-			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
-			blood_splatter_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
-			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-			GLOB.blood_splatter_icons[index] = blood_splatter_icon
 
-		blood_overlay = image(blood_splatter_icon)
-		blood_overlay.color = color
-		overlays += blood_overlay
+/obj/item/proc/add_blood_overlay()
+	if(initial(icon) && initial(icon_state))
+		var/list/params = GLOB.blood_splatter_icons["[blood_color]"]
+		if(!params)
+			params = layering_filter(icon = icon('icons/effects/blood.dmi', "itemblood"), color = blood_color, blend_mode = BLEND_INSET_OVERLAY)
+			GLOB.blood_splatter_icons["[blood_color]"] = params
+		add_filter("blood_splatter", 1, params)
+
 
 /atom/proc/clean_blood()
 	germ_level = 0
@@ -812,11 +892,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /obj/effect/decal/cleanable/blood/clean_blood()
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
 
+
 /obj/item/clean_blood()
 	. = ..()
 	if(.)
-		if(blood_overlay)
-			overlays -= blood_overlay
+		if(initial(icon) && initial(icon_state))
+			remove_filter("blood_splatter")
 
 /obj/item/clothing/gloves/clean_blood()
 	. = ..()
@@ -1101,7 +1182,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /** Call this when you want to present a renaming prompt to the user.
 
-    It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
+	It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
 	or being able to rename stuff remotely.
 
 	Arguments:
@@ -1158,12 +1239,20 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 
 	t = sanitize(copytext_char(t, 1, MAX_NAME_LEN))
+
+	// Logging
+	var/logged_name = initial(name)
+	if(t)
+		logged_name = "[use_prefix ? "[prefix][t]" : t]"
+	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) renamed \"[src]\" ([ADMIN_VV(src, "VV")]) as \"[logged_name]\".", INVESTIGATE_RENAME)
+
 	if(actually_rename)
 		if(t == "")
 			name = "[initial(name)]"
 		else
 			name = "[prefix][t]"
 	return t
+
 
 /*
 	Setter for the `density` variable.
@@ -1209,4 +1298,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(caller && (caller.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density
+
+
+/atom/proc/get_examine_time()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return 0 SECONDS
+
+
+/atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return gender
 

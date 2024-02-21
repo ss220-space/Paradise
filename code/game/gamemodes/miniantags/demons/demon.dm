@@ -96,7 +96,7 @@
 	origin_tech = "combat=5;biotech=7"
 
 
-/obj/item/organ/internal/heart/demon/update_icon()
+/obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually
 
 

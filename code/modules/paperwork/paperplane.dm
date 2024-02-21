@@ -10,9 +10,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
-	no_spin = TRUE
+	no_spin_thrown = TRUE
 
 	var/obj/item/paper/internal_paper
+
 
 /obj/item/paperplane/New(loc, obj/item/paper/new_paper)
 	..()
@@ -25,11 +26,13 @@
 		new_paper.forceMove(src)
 	else
 		internal_paper = new /obj/item/paper(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/paperplane/Destroy()
 	QDEL_NULL(internal_paper)
 	return ..()
+
 
 /obj/item/paperplane/suicide_act(mob/living/user)
 	user.Stun(20 SECONDS)
@@ -41,16 +44,17 @@
 	sleep(10)
 	return BRUTELOSS
 
-/obj/item/paperplane/update_icon()
-	overlays.Cut()
+
+/obj/item/paperplane/update_overlays()
+	. = ..()
 	var/list/stamped = internal_paper.stamped
 	if(!stamped)
 		stamped = new
 	else if(stamped)
 		for(var/S in stamped)
 			var/obj/item/stamp = S
-			var/image/stampoverlay = image('icons/obj/bureaucracy.dmi', "paperplane_[initial(stamp.icon_state)]")
-			overlays += stampoverlay
+			. += "paperplane_[initial(stamp.icon_state)]"
+
 
 /obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
 	to_chat(user, "<span class='notice'>You unfold [src].</span>")
@@ -60,16 +64,17 @@
 		internal_paper = null
 		qdel(src)
 
+
 /obj/item/paperplane/attackby(obj/item/P, mob/living/carbon/human/user, params)
 	..()
 
-	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
+	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
 		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
 		return
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
 		internal_paper.attackby(P, user) //spoofed attack to update internal paper.
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 	else if(is_hot(P))
 		if((CLUMSY in user.mutations) && prob(10))
@@ -87,6 +92,7 @@
 		fire_act()
 
 	add_fingerprint(user)
+
 
 /obj/item/paperplane/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(..())
@@ -109,20 +115,15 @@
 			E.take_damage(8, 1)
 		H.emote("scream")
 
-/obj/item/paper/AltClick(mob/user, obj/item/I)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		I = H.is_type_in_hands(/obj/item/paper)
-		if(I)
-			ProcFoldPlane(H, I)
 
-/obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/I)
-	if(istype(user))
-		if((!in_range(src, user)) || user.stat || user.restrained())
+/obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/paper)
+	if(ishuman(user))
+		if(!Adjacent(user) || user.incapacitated())
 			return
 		to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
 		user.drop_item_ground(src)
-		I = new /obj/item/paperplane(user, src)
-		user.put_in_hands(I)
+		paper = new /obj/item/paperplane(user, src)
+		user.put_in_hands(paper, ignore_anim = FALSE)
 	else
 		to_chat(user, "<span class='notice'>You lack the dexterity to fold [src].</span>")
+

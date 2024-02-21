@@ -6,14 +6,12 @@
 	name = "wall locker"
 	icon = 'icons/obj/walllocker.dmi'
 	icon_state = "wall-locker"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
+	ignore_density_closed = TRUE
+	no_overlays = TRUE
 	icon_closed = "wall-locker"
 	icon_opened = "wall-lockeropen"
-
-/obj/structure/closet/walllocker/close()
-	..()
-	density = 0 //It's a locker in a wall, you aren't going to be walking into it.
 
 /obj/structure/closet/walllocker/emerglocker
 	name = "emergency locker"
@@ -21,6 +19,7 @@
 	icon_state = "emerg"
 	icon_closed = "emerg"
 	icon_opened = "emergopen"
+
 
 /obj/structure/closet/walllocker/emerglocker/populate_contents()
 	new /obj/item/tank/internals/emergency_oxygen(src)

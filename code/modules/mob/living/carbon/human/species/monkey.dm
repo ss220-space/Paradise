@@ -8,8 +8,8 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	language = "Galactic Common"
-	default_language = "Chimpanzee"
+	language = LANGUAGE_GALACTIC_COMMON
+	default_language = LANGUAGE_MONKEY_HUMAN
 	species_traits = list(NO_EXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
@@ -39,6 +39,8 @@
 	total_health = 75
 	brute_mod = 1.5
 	burn_mod = 1.5
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -70,7 +72,7 @@
 	..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
-	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/monkey = 5)
+	H.meatleft = 5
 
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
@@ -86,11 +88,12 @@
 	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 
 	greater_form = /datum/species/tajaran
-	default_language = "Farwa"
+	default_language = LANGUAGE_MONKEY_TAJARAN
 	blood_species = "Tajaran"
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
 	tail = "farwatail"
+	skinned_type = /obj/item/stack/sheet/animalhide/farwa
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
@@ -103,6 +106,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/tajaran/farwa, //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/farwa
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -128,11 +133,12 @@
 	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 
 	greater_form = /datum/species/vulpkanin
-	default_language = "Wolpin"
+	default_language = LANGUAGE_MONKEY_VULPKANIN
 	blood_species = "Vulpkanin"
 	flesh_color = "#966464"
 	base_color = "#000000"
 	tail = "wolpintail"
+	skinned_type = /obj/item/stack/sheet/animalhide/wolpin
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
@@ -145,6 +151,8 @@
 		INTERNAL_ORGAN_EYES =  /obj/item/organ/internal/eyes/vulpkanin/wolpin, // Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -169,10 +177,11 @@
 	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
 
 	greater_form = /datum/species/skrell
-	default_language = "Neara"
+	default_language = LANGUAGE_MONKEY_SKRELL
 	blood_species = "Skrell"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
+	skinned_type = /obj/item/stack/sheet/animalhide/neara
 	reagent_tag = PROCESS_ORG
 	tail = null
 
@@ -186,6 +195,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/skrell,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/neara
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -219,10 +230,11 @@
 
 	tail = "stoktail"
 	greater_form = /datum/species/unathi
-	default_language = "Stok"
+	default_language = LANGUAGE_MONKEY_UNATHI
 	blood_species = "Unathi"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
+	skinned_type = /obj/item/stack/sheet/animalhide/stok
 	reagent_tag = PROCESS_ORG
 
 	bodyflags = HAS_TAIL
@@ -237,6 +249,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/stok
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),

@@ -8,7 +8,8 @@
 	origin_tech = "magnets=1;biotech=1"
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/chemtraces = list()
-	var/target_name = null
+	var/target_UID = null
+	var/target_name = null	// target.name can change after scanning, so better save it here.
 	var/timeofdeath = null
 
 /obj/item/autopsy_scanner/Destroy()
@@ -86,7 +87,7 @@
 	if(timeofdeath)
 		scan_data += "<b>Time of death:</b> [station_time_timestamp("hh:mm:ss", timeofdeath)]<br><br>"
 	else
-		scan_data += "<b>Time of death:</b> Unknown / Still alive<br><br>"
+		scan_data += "<b>Time of death:</b> No data<br><br>"
 
 	if(wdata.len)
 		var/n = 1
@@ -136,7 +137,7 @@
 		for(var/chemID in chemtraces)
 			scan_data += chemID
 			scan_data += "<br>"
-	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+	user.visible_message(span_notice("[src] rattles and prints out a sheet of paper."))
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	flick("autopsy_scanner_anim", src)
@@ -145,7 +146,7 @@
 	var/obj/item/paper/P = new(drop_location())
 	P.name = "Autopsy Data ([target_name])"
 	P.info = "<tt>[scan_data]</tt>"
-	P.overlays += "paper_words"
+	P.update_icon()
 
 	user.put_in_hands(P, ignore_anim = FALSE)
 
@@ -156,20 +157,21 @@
 	if(!can_operate(M))
 		return
 
-	if(target_name != M.name)
+	if(target_UID != M.UID())
+		to_chat(user, span_notice("A new patient has been registered.[target_UID ? " Purging data for previous patient." : ""]"))
+		target_UID = M.UID()
 		target_name = M.name
 		wdata.Cut()
 		chemtraces.Cut()
 		timeofdeath = null
-		to_chat(user, "<span class='warning'>A new patient has been registered. Purging data for previous patient.</span>")
 
 	timeofdeath = M.timeofdeath
 
 	var/obj/item/organ/external/S = M.get_organ(user.zone_selected)
 	if(!S)
-		to_chat(user, "<span class='warning'>You can't scan this body part.</span>")
+		to_chat(user, span_warning("You can't scan this body part!"))
 		return
-	M.visible_message("<span class='warning'>[user] scans the wounds on [M]'s [S] with [src]</span>")
+	M.visible_message(span_notice("[user] scans the wounds on [M]'s [S] with [src]."))
 
 	add_data(S)
-	return 1
+	return TRUE

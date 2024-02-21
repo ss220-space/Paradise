@@ -7,20 +7,19 @@
 	name = "heat reservoir"
 	desc = "Heats gas when connected to pipe network"
 
-	var/on = 0
+	on = FALSE
 
 	var/current_temperature = T20C
 	var/current_heat_capacity = 50000 //totally random
 
-/obj/machinery/atmospherics/unary/heat_reservoir/update_icon()
+/obj/machinery/atmospherics/unary/heat_reservoir/update_icon_state()
 	..()
 
 	if(node)
 		icon_state = "intact_[on?("on"):("off")]"
 	else
 		icon_state = "exposed"
-
-		on = 0
+		on = FALSE
 
 /obj/machinery/atmospherics/unary/heat_reservoir/process_atmos()
 	..()

@@ -141,26 +141,28 @@
 
 	if(data && mix_data)
 		if(data["diseases"] || mix_data["diseases"])
-
-			var/list/mix1 = data["diseases"]
-			var/list/mix2 = mix_data["diseases"]
-
-			var/list/to_mix = list()
-
-			for(var/datum/disease/virus/advance/AD in mix1)
-				to_mix += AD
-			for(var/datum/disease/virus/advance/AD in mix2)
-				to_mix += AD
-
-			var/datum/disease/virus/advance/AD = Advance_Mix(to_mix)
 			var/list/preserve = list()
+			var/list/all_diseases = data["diseases"] + mix_data["diseases"]
 
-			if(istype(AD))
-				preserve += AD
+			var/list/advances_to_mix = list()
+			for(var/datum/disease/virus/advance/A in all_diseases)
+				advances_to_mix += A
+				all_diseases -= A
 
-			for(var/datum/disease/D in data["diseases"] + mix_data["diseases"])
-				if(!istype(D, /datum/disease/virus/advance))
-					preserve += D.Copy()
+			var/datum/disease/virus/advance/A = Advance_Mix(advances_to_mix)
+			if(istype(A))
+				preserve += A
+
+			// It's almost always 1-3 items in this list, so there shouldn't be any problems with nested loops.
+			for(var/datum/disease/D1 in all_diseases)
+				var/unique = TRUE
+				for(var/datum/disease/D2 in preserve)
+					if(D1.GetDiseaseID() == D2.GetDiseaseID())
+						unique = FALSE
+						break
+				if(unique)
+					preserve += D1.Copy()
+
 			data["diseases"] = preserve
 
 	return
@@ -290,3 +292,10 @@
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")
+
+
+/datum/reagent/proc/taste_amplification(mob/living/user)
+	. = list()
+	var/taste_desc = taste_description
+	var/taste_amount = volume * taste_mult
+	.[taste_desc] = taste_amount

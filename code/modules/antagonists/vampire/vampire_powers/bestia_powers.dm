@@ -66,7 +66,7 @@
 		if(INTERNAL_ORGAN_KIDNEYS)
 			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
 		if(INTERNAL_ORGAN_EYES)
-			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
+			return bestia.trophies[INTERNAL_ORGAN_EYES]
 		if(INTERNAL_ORGAN_EARS)
 			return bestia.trophies[INTERNAL_ORGAN_EARS]
 		else
@@ -839,18 +839,6 @@
 		to_chat(user, span_notice("You pinch arteries on fly and absorb <b>[blood_gained]</b> amount of blood!"))
 
 
-/obj/effect/proc_holder/spell/vampire/proc/is_path_exist(atom/source, atom/target)
-	var/obj/dummy = new(source.loc)
-	dummy.pass_flags |= (PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
-	for(var/turf/turf in getline(source, target))
-		for(var/atom/movable/AM in turf)
-			if(!AM.CanPass(dummy, turf, 1))
-				qdel(dummy)
-				return FALSE
-	qdel(dummy)
-	return TRUE
-
-
 /obj/effect/proc_holder/spell/vampire/lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LUNGS || force)
 		var/lungs_amount = vampire.get_trophies(INTERNAL_ORGAN_LUNGS)
@@ -1015,6 +1003,7 @@
 						span_notice("You start to transform into the [vampire_animal]."), \
 						span_italics("You hear an eerie rustle of many wings..."))
 
+	vampire.stop_sucking()
 	original_body = user
 	vampire_animal.status_flags |= GODMODE
 	user.notransform = TRUE
@@ -1081,7 +1070,7 @@
 
 	original_body.notransform = FALSE
 	original_body.status_flags &= ~GODMODE
-	original_body.canmove = TRUE
+	original_body.update_canmove()
 	is_transformed = FALSE
 	var/list/all_spells = original_body.mind.spell_list | original_body.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)

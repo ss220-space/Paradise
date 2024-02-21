@@ -140,7 +140,7 @@
 		adjustFireLoss(-health_regen)
 	..()
 
-/mob/living/simple_animal/hulk/death()
+/mob/living/simple_animal/hulk/death(gibbed)
 	unmutate()
 
 /mob/living/simple_animal/hulk/proc/unmutate()

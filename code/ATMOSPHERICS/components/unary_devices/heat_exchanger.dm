@@ -11,7 +11,7 @@
 	var/obj/machinery/atmospherics/unary/heat_exchanger/partner = null
 	var/update_cycle
 
-/obj/machinery/atmospherics/unary/heat_exchanger/update_icon()
+/obj/machinery/atmospherics/unary/heat_exchanger/update_icon_state()
 	..()
 
 	if(node)

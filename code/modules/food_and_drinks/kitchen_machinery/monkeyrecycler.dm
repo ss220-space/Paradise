@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	icon_state = "grinder"
 	layer = 2.9
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
@@ -18,14 +18,15 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	var/obj/item/reagent_containers/food/snacks/monkeycube/cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 	var/list/connected = list()
 
-/obj/machinery/monkey_recycler/New()
-	..()
+/obj/machinery/monkey_recycler/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/monkey_recycler(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	GLOB.monkey_recyclers += src
 	RefreshParts()
+	locate_camera_console()
 
 /obj/machinery/monkey_recycler/Destroy()
 	GLOB.monkey_recyclers -= src
@@ -34,6 +35,15 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		console.connected_recycler = null
 	connected.Cut()
 	return ..()
+
+/obj/machinery/monkey_recycler/proc/locate_camera_console()
+	if(length(connected))
+		return // we're already connected!
+	for(var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera in GLOB.machines)
+		if(get_area(xeno_camera) == get_area(loc))
+			xeno_camera.connected_recycler = src
+			connected |= xeno_camera
+			break
 
 /obj/machinery/monkey_recycler/RefreshParts()
 	var/req_grind = 5
@@ -61,7 +71,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(default_deconstruction_crowbar(user, O))
 		return
 
-	if(istype(O, /obj/item/multitool))
+	if(O.tool_behaviour == TOOL_MULTITOOL)
 		add_fingerprint(user)
 		if(!panel_open)
 			cycle_through++
@@ -97,6 +107,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 					add_fingerprint(user)
 					user.drop_from_active_hand()
 					qdel(target)
+					target = null //we sleep in this proc, clear reference NOW
 					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
 					playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 					var/offset = prob(50) ? -2 : 2

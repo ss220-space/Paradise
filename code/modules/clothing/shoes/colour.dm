@@ -99,18 +99,24 @@
 	QDEL_NULL(shackles)
 	return ..()
 
+
 /obj/item/clothing/shoes/orange/attack_self(mob/user)
 	if(shackles)
 		user.put_in_hands(shackles)
 		shackles = null
 		slowdown = SHOES_SLOWDOWN
-		icon_state = "orange"
+		update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/clothing/shoes/orange/update_icon_state()
+	icon_state = "orange[shackles ? "1" : ""]"
+
 
 /obj/item/clothing/shoes/orange/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/restraints/handcuffs) && !shackles)
-		if(user.drop_transfer_item_to_loc(I, src))
-			shackles = I
-			slowdown = 15
-			icon_state = "orange1"
-			return
+	if(istype(I, /obj/item/restraints/handcuffs) && !shackles && user.drop_transfer_item_to_loc(I, src))
+		shackles = I
+		slowdown = 15
+		update_icon(UPDATE_ICON_STATE)
+		return
 	return ..()
+

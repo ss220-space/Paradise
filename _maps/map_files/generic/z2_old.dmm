@@ -6116,7 +6116,6 @@
 	height = 11;
 	id = "specops_away";
 	name = "centcom bay 3";
-	no_spin = 1;
 	top_left_corner = 8;
 	top_right_corner = 1;
 	width = 5
@@ -13202,11 +13201,11 @@
 	desc = "Баксоны максона. Возможно кто-то приобретет пропуск.";
 	name = "100.000 �������� �������"
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	amount = 115;
 	desc = null
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	amount = 115;
 	desc = null
 	},
@@ -15791,7 +15790,7 @@
 /obj/item/radio/headset/headset_cargo/mining,
 /obj/item/radio/headset/headset_com,
 /obj/item/radio/headset/headset_eng,
-/obj/item/radio/headset/headset_iaa,
+/obj/item/radio/headset/headset_iaa/alt,
 /obj/item/radio/headset/headset_med,
 /obj/item/radio/headset/headset_medsci,
 /obj/item/radio/headset/headset_rob,
@@ -17479,9 +17478,9 @@
 /obj/item/stamp/rd,
 /obj/item/stamp/rep,
 /obj/item/stamp/warden,
-/obj/item/radio/headset/headset_iaa,
-/obj/item/radio/headset/headset_iaa,
-/obj/item/radio/headset/headset_iaa,
+/obj/item/radio/headset/headset_iaa/alt,
+/obj/item/radio/headset/headset_iaa/alt,
+/obj/item/radio/headset/headset_iaa/alt,
 /obj/item/radio/headset/heads/magistrate/alt,
 /obj/item/radio/headset/heads/ntrep,
 /turf/simulated/floor/indestructible{
@@ -18253,7 +18252,7 @@
 	},
 /area/ussp_ship)
 "npR" = (
-/obj/structure/crematorium,
+/obj/machinery/crematorium,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},

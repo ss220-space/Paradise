@@ -84,7 +84,7 @@
 	H.forceMove(src)
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
-/mob/living/simple_animal/hostile/headcrab/death()
+/mob/living/simple_animal/hostile/headcrab/death(gibbed)
 	..()
 	if(is_zombie)
 		qdel(src)

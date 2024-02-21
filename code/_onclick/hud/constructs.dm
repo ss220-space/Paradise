@@ -57,6 +57,7 @@
 /datum/hud/construct/New(mob/owner)
 	..()
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = 'icons/mob/screen_construct.dmi'
 	mymob.pullin.icon_state = "pull0"
 	mymob.pullin.name = "pull"

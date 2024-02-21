@@ -69,8 +69,8 @@
 //Syndicate sub-machine guns.
 /obj/item/gun/projectile/automatic/c20r/sc_c20r
 
-/obj/item/gun/projectile/automatic/c20r/sc_c20r/New()
-	..()
+/obj/item/gun/projectile/automatic/c20r/sc_c20r/Initialize(mapload)
+	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
 			magazine.stored_ammo -= ammo
@@ -78,8 +78,8 @@
 //Barman's shotgun
 /obj/item/gun/projectile/shotgun/sc_pump
 
-/obj/item/gun/projectile/shotgun/sc_pump/New()
-	..()
+/obj/item/gun/projectile/shotgun/sc_pump/Initialize(mapload)
+	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
 			magazine.stored_ammo -= ammo
@@ -178,7 +178,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 	if(prob(25))
 		mezzer()
 
-/obj/singularity/narsie/sc_Narsie/consume(var/atom/A)
+/obj/singularity/narsie/sc_Narsie/consume(atom/A)
 	if(!A.simulated)
 		return FALSE
 	if(is_type_in_list(A, uneatable))
@@ -196,7 +196,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 			for(var/obj/O in T.contents)
 				if(O.level != 1)
 					continue
-				if(O.invisibility == INVISIBILITY_ABSTRACT)
+				if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
 					src.consume(O)
 		T.ChangeTurf(T.baseturf)
 	return

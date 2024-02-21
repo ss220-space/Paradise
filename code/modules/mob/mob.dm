@@ -79,26 +79,25 @@
 		return
 
 	if(type)
-		if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))	// Vision related
-			if(!(alt))
+		if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))	//Vision related
+			if(!alt)
 				return
-			else
-				msg = alt
-				type = alt_type
-		if((type & EMOTE_AUDIBLE) && !can_hear())	// Hearing related
-			if(!(alt))
+			msg = alt
+			type = alt_type
+
+		if(type & EMOTE_AUDIBLE && !can_hear())	//Hearing related
+			if(!alt)
 				return
-			else
-				msg = alt
-				type = alt_type
-				if((type & EMOTE_VISIBLE) && !has_vision(information_only=TRUE))
-					return
+			msg = alt
+			type = alt_type
+			if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))
+				return
+
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
 		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
 	else
 		to_chat(src, msg)
-	return
 
 
 // Show a message to all mobs in sight of this one
@@ -299,18 +298,13 @@
 	popup.open()
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
-/mob/verb/examinate(atom/A as mob|obj|turf in view(client.maxview()))
+/mob/verb/examinate(atom/A as mob|obj|turf in view(client.maxview(), client.eye))
 	set name = "Examine"
 	set category = "IC"
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
-	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, chat_box_regular("Здесь что-то есть, но вы не видите — что именно."))
-		return TRUE
-
-	face_atom(A)
 	var/list/result = A.examine(src)
 	to_chat(src, chat_box_examine(result.Join("\n")))
 
@@ -638,25 +632,20 @@
 /mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
-/mob/MouseDrop(mob/M as mob)
-	..()
-	if(M != usr) return
-	if(isliving(M))
-		var/mob/living/L = M
-		if(L.mob_size <= MOB_SIZE_SMALL)
-			return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
-	if(!M.can_strip)
-		return
-	if(usr == src)
-		return
-	if(!Adjacent(usr))
-		return
-	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
-		return
-	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
-		return
-	show_inv(usr)
+
+/mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	if(!. || usr != user || usr == src || !user.can_strip)
+		return FALSE
+	if(isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
+		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
+	if(IsFrozen(src) && !is_admin(user))
+		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
+		return FALSE
+	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
+		return FALSE
+	show_inv(user)
+
 
 /mob/proc/can_use_hands()
 	return
@@ -1180,7 +1169,7 @@
 		spintime -= speed
 
 /mob/proc/is_literate()
-	return FALSE
+	return universal_speak
 
 /mob/proc/faction_check_mob(mob/target, exact_match)
 	if(exact_match) //if we need an exact match, we need to do some bullfuckery.

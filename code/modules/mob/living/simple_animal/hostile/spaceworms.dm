@@ -36,7 +36,7 @@
 
 	AIStatus = AI_OFF
 
-	anchored = 1 //otherwise people can literally fucking pull spaceworms apart
+	anchored = TRUE //otherwise people can literally fucking pull spaceworms apart
 
 	faction = list("spaceworms")
 
@@ -100,11 +100,12 @@
 		currentWormSeg = newSegment
 
 	for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
-		SW.update_icon()
+		SW.update_icon(UPDATE_ICON_STATE)
 
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/update_icon()
+
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/update_icon_state()
 	if(stat == CONSCIOUS || stat == UNCONSCIOUS)
-		icon_state = "spacewormhead[previousWorm ? 1 : 0]"
+		icon_state = "spacewormhead[previousWorm ? "1" : "0"]"
 		if(previousWorm)
 			dir = get_dir(previousWorm,src)
 	else
@@ -113,7 +114,7 @@
 	for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
 		if(SW == src)//incase src ends up in here we don't want an infinite loop
 			continue
-		SW.update_icon()
+		SW.update_icon(UPDATE_ICON_STATE)
 
 
 //Try to move onto target's turf and eat them
@@ -207,7 +208,7 @@
 	if(prob(stomachProcessProbability))
 		ProcessStomach()
 
-	update_icon()//While most mobs don't call this on Life(), the worm would probably look stupid without it
+	update_icon(UPDATE_ICON_STATE)//While most mobs don't call this on Life(), the worm would probably look stupid without it
 	//Plus the worm's update_icon() isn't as beefy.
 
 	..() //Really high fuckin priority that this is at the bottom.
@@ -227,11 +228,11 @@
 	if(.)
 		if(previousWorm)
 			previousWorm.Move(segmentNextPos)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 //Update the appearence of this big weird chain-worm-thingy
-/mob/living/simple_animal/hostile/spaceWorm/proc/update_icon()
+/mob/living/simple_animal/hostile/spaceWorm/update_icon_state()
 	if(stat != DEAD)
 		if(previousWorm)
 			icon_state = "spaceworm[get_dir(src,previousWorm) | get_dir(src,nextWorm)]"

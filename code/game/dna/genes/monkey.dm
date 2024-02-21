@@ -58,7 +58,7 @@
 		H.drop_item_ground(W)
 	H.regenerate_icons()
 	H.SetStunned(2 SECONDS)
-	H.canmove = 0
+	H.canmove = FALSE
 	H.icon = null
 	H.invisibility = INVISIBILITY_ABSTRACT
 	var/has_greater_form = H.dna.species.greater_form //cache this

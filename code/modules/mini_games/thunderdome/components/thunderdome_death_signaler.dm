@@ -3,12 +3,12 @@
 *	Component designed for handling death of Thunderdome participants. Used for tracking.
 */
 /datum/component/thunderdome_death_signaler
-	var/datum/thunderdome_battle/thunderdome
+	var/datum/mini_game/thunderdome_battle/thunderdome
 
 /**
  * Death signaler initializing can also be done with custom thunderdome, but for now uses global datum instead.
  */
-/datum/component/thunderdome_death_signaler/Initialize(datum/thunderdome_battle/thunderdome)
+/datum/component/thunderdome_death_signaler/Initialize(datum/mini_game/thunderdome_battle/thunderdome)
 	src.thunderdome = thunderdome
 	RegisterSignal(parent, list(COMSIG_MOB_DEATH), PROC_REF(signal_death))
 

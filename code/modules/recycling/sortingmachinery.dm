@@ -10,6 +10,7 @@
 	var/init_welded = 0
 	var/giftwrapped = 0
 	var/sortTag = 0
+	var/cc_tag
 
 /obj/structure/bigDelivery/Destroy()
 	var/turf/T = get_turf(src)
@@ -22,6 +23,13 @@
 		AM.ex_act()
 		CHECK_TICK
 	..()
+
+/obj/structure/bigDelivery/examine(mob/user)
+	. = ..()
+	if(sortTag)
+		. += span_notice("The package will be addressed to the [GLOB.TAGGERLOCATIONS[sortTag]] on [station_name()].")
+	if(cc_tag)
+		. += span_notice("The package will be addressed to the [cc_tag] on Centomm.")
 
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
@@ -38,21 +46,28 @@
 
 	qdel(src)
 
-/obj/structure/bigDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/destTagger))
-		var/obj/item/destTagger/O = W
+/obj/structure/bigDelivery/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/destTagger))
+		var/obj/item/destTagger/tagger = item
 
-		if(sortTag != O.currTag)
+		if(sortTag != tagger.currTag || cc_tag != tagger.currcc_tag)
 			add_fingerprint(user)
-			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
-			to_chat(user, "<span class='notice'>*[tag]*</span>")
-			sortTag = O.currTag
+
+			if(tagger.currcc_tag)
+				var/cctag = uppertext(tagger.currcc_tag)
+				to_chat(user, span_notice("*[cctag]*"))
+				cc_tag = tagger.currcc_tag
+			else
+				var/tag = uppertext(GLOB.TAGGERLOCATIONS[tagger.currTag])
+				to_chat(user, span_notice("*[tag]*"))
+				sortTag = tagger.currTag
+
 			if(iconLabeled)
 				icon_state = iconLabeled
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
-	else if(istype(W, /obj/item/shippingPackage))
-		var/obj/item/shippingPackage/sp = W
+	else if(istype(item, /obj/item/shippingPackage))
+		var/obj/item/shippingPackage/sp = item
 		if(sp.sealed)
 			return
 		else
@@ -64,12 +79,12 @@
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
-	else if(istype(W, /obj/item/pen))
+	else if(istype(item, /obj/item/pen))
 		add_fingerprint(user)
-		rename_interactive(user, W)
+		rename_interactive(user, item)
 
-	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
-		var/obj/item/stack/wrapping_paper/WP = W
+	else if(istype(item, /obj/item/stack/wrapping_paper) && !giftwrapped)
+		var/obj/item/stack/wrapping_paper/WP = item
 		if(WP.use(3))
 			add_fingerprint(user)
 			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
@@ -288,9 +303,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	var/currTag = 1
 	//The whole system for the sorttype var is determined based on the order of this list,
 	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
+	var/currTag = 1
+
+	var/currcc_tag
 
 /obj/item/destTagger/attack_self(mob/user)
 	ui_interact(user)
@@ -304,6 +321,7 @@
 /obj/item/destTagger/ui_data(mob/user)
 	var/list/data = list()
 	data["selected_destination_id"] = clamp(currTag, 1, length(GLOB.TAGGERLOCATIONS))
+	data["selected_centcom_id"] = currcc_tag
 	return data
 
 /obj/item/destTagger/ui_static_data(mob/user)
@@ -315,18 +333,41 @@
 			"id"   = destination_index,
 		)
 		static_data["destinations"] += list(destination_data)
+	for(var/dep in SScargo_quests.centcomm_departaments)
+		var/datum/quest_customer/customer = dep
+		static_data["centcom_destinations"] += list(list(
+			"name" = customer.departament_name,
+		))
+	for(var/dep in SScargo_quests.plasma_departaments) /// Plasma deps is a CC deps too
+		var/datum/quest_customer/customer = dep
+		static_data["centcom_destinations"] += list(list(
+			"name" = customer.departament_name,
+		))
+
+	for(var/corp in SScargo_quests.corporations)
+		var/datum/quest_customer/customer = corp
+		static_data["corporation_destinations"] += list(list(
+			"name" = customer.departament_name,
+		))
 	return static_data
 
 /obj/item/destTagger/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
+	switch(action)
+		if("select_destination")
+			var/destination_id = clamp(text2num(params["destination"]), 1, length(GLOB.TAGGERLOCATIONS))
+			if(currTag != destination_id)
+				currTag = destination_id
+				playsound(src, "terminal_type", 25, TRUE)
+			currcc_tag = null
 
-	if(action == "select_destination")
-		var/destination_id = clamp(text2num(params["destination"]), 1, length(GLOB.TAGGERLOCATIONS))
-		if(currTag != destination_id)
-			currTag = destination_id
-			playsound(src, "terminal_type", 25, TRUE)
-			add_fingerprint(usr)
+		if("select_cc_destination")
+			if(currcc_tag != params["destination"])
+				currcc_tag = params["destination"]
+				playsound(src, "terminal_type", 25, TRUE)
+
+	add_fingerprint(usr)
 
 /obj/item/shippingPackage
 	name = "Shipping package"
@@ -381,7 +422,7 @@
 				to_chat(user, "<span class='notice'>You seal [src], preparing it for delivery.</span>")
 				icon_state = "shippack_sealed"
 				sealed = 1
-				update_desc()
+				update_appearance(UPDATE_DESC)
 	else
 		if(alert("Do you want to tear up the package?",, "Yes", "No") == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")
@@ -389,7 +430,8 @@
 			user.temporarily_remove_item_from_inventory(src)
 			qdel(src)
 
-/obj/item/shippingPackage/proc/update_desc()
+/obj/item/shippingPackage/update_desc(updates = ALL)
+	. = ..()
 	desc = "A pre-labeled package for shipping an item to coworkers."
 	if(sortTag)
 		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sortTag]]\"."

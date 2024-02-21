@@ -32,7 +32,10 @@
 /datum/light_source/New(atom/owner, atom/top)
 	source_atom = owner // Set our new owner.
 	LAZYADD(source_atom.light_sources, src)
-	top_atom = top
+	if(top.flags_2 & BLOCKS_LIGHT_2) // If the top atom blocks light, then our owner becomes the topmost instead. This still allows atoms that block light to be a light of their own.
+		top_atom = source_atom
+	else
+		top_atom = top
 	if(top_atom != source_atom)
 		LAZYADD(top_atom.light_sources, src)
 
@@ -77,7 +80,10 @@
 		if(top_atom != source_atom && top_atom.light_sources) // Remove ourselves from the light sources of that top atom.
 			LAZYREMOVE(top_atom.light_sources, src)
 
-		top_atom = new_top_atom
+		if(new_top_atom.flags_2 & BLOCKS_LIGHT_2)
+			top_atom = source_atom
+		else
+			top_atom = new_top_atom
 
 		if(top_atom != source_atom)
 			LAZYADD(top_atom.light_sources, src) // Add ourselves to the light sources of our new top atom.
@@ -104,7 +110,6 @@
 	. *= light_power;                        \
 	var/OLD = effect_str[C];                 \
 	effect_str[C] = .;                       \
-                                             \
 	C.update_lumcount                        \
 	(                                        \
 		(. * lum_r) - (OLD * applied_lum_r), \
@@ -126,14 +131,14 @@
 /datum/light_source/proc/remove_lum()
 	applied = FALSE
 	var/thing
-	for (thing in affecting_turfs)
+	for(thing in affecting_turfs)
 		var/turf/T = thing
 		LAZYREMOVE(T.affecting_lights, src)
 
 	affecting_turfs = null
 
 	var/datum/lighting_corner/C
-	for (thing in effect_str)
+	for(thing in effect_str)
 		C = thing
 		REMOVE_CORNER(C)
 
@@ -234,19 +239,19 @@
 	LAZYINITLIST(affecting_turfs)
 	var/list/L = turfs - affecting_turfs // New turfs, add us to the affecting lights of them.
 	affecting_turfs += L
-	for (thing in L)
+	for(thing in L)
 		T = thing
 		LAZYADD(T.affecting_lights, src)
 
 	L = affecting_turfs - turfs // Now-gone turfs, remove us from the affecting lights.
 	affecting_turfs -= L
-	for (thing in L)
+	for(thing in L)
 		T = thing
 		LAZYREMOVE(T.affecting_lights, src)
 
 	LAZYINITLIST(effect_str)
 	if(needs_update == LIGHTING_VIS_UPDATE)
-		for (thing in  corners - effect_str) // New corners
+		for(thing in  corners - effect_str) // New corners
 			C = thing
 			LAZYADD(C.affecting, src)
 			if(!C.active)
@@ -255,7 +260,7 @@
 			APPLY_CORNER(C)
 	else
 		L = corners - effect_str
-		for (thing in L) // New corners
+		for(thing in L) // New corners
 			C = thing
 			LAZYADD(C.affecting, src)
 			if(!C.active)
@@ -263,7 +268,7 @@
 				continue
 			APPLY_CORNER(C)
 
-		for (thing in corners - L) // Existing corners
+		for(thing in corners - L) // Existing corners
 			C = thing
 			if(!C.active)
 				effect_str[C] = 0
@@ -271,7 +276,7 @@
 			APPLY_CORNER(C)
 
 	L = effect_str - corners
-	for (thing in L) // Old, now gone, corners.
+	for(thing in L) // Old, now gone, corners.
 		C = thing
 		REMOVE_CORNER(C)
 		LAZYREMOVE(C.affecting, src)

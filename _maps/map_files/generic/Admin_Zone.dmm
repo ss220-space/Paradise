@@ -3825,9 +3825,9 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "Uw" = (
-/obj/thunderdome_poller,
-/obj/thunderdome_poller/mixed,
-/obj/thunderdome_poller/ranged,
+/obj/minigame_anchor/thunderdome_poller/melee,
+/obj/minigame_anchor/thunderdome_poller/mixed,
+/obj/minigame_anchor/thunderdome_poller/ranged,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -3906,6 +3906,7 @@
 /obj/item/radio/headset/headset_com,
 /obj/item/radio/headset/headset_eng,
 /obj/item/radio/headset/headset_iaa,
+/obj/item/radio/headset/headset_iaa/alt,
 /obj/item/radio/headset/headset_med,
 /obj/item/radio/headset/headset_medsci,
 /obj/item/radio/headset/headset_rob,

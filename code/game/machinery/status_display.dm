@@ -1,8 +1,4 @@
-#define FONT_SIZE "5pt"
-#define FONT_COLOR "#09f"
-#define WARNING_FONT_COLOR "#f90"
-#define FONT_STYLE "Small Fonts"
-#define SCROLL_SPEED 2
+GLOBAL_LIST_EMPTY(status_displays)
 
 GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	"" = COLOR_GRAY,
@@ -47,62 +43,75 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	name = "дисплей статуса"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
-	var/mode = 1	// 0 = Blank
-					// 1 = Shuttle timer
-					// 2 = Arbitrary message(s)
-					// 3 = alert picture
-					// 4 = Station time
-
-	var/picture_state	// icon_state of alert picture
-	var/message1 = ""	// message line 1
-	var/message2 = ""	// message line 2
-	var/index1			// display index for scrolling messages or 0 if non-scrolling
-	var/index2
-
-	frequency = DISPLAY_FREQ		// radio frequency
-
-	var/friendc = 0      // track if Friend Computer mode
-	var/ignore_friendc = 0
-
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
+	/// Status display mode
+	VAR_PRIVATE/mode = STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME
+	/// Icon_state of alert picture
+	var/picture_state
+	/// Are we spooked?
+	var/spookymode = FALSE
+	/// Line 1 of a custom message, if any
+	var/message1
+	/// Line 2 of a custom message, if any
+	var/message2
+	/// Is this a supply display?
+	var/is_supply = FALSE
+	/// Track if Friend Computer mode
+	var/friendc = FALSE
+	/// Display indexes for scrolling messages, or 0 if non-scrolling
+	var/index1
+	var/index2
 
-	#define CHARS_PER_LINE 5
-	#define STATUS_DISPLAY_BLANK 0
-	#define STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME 1
-	#define STATUS_DISPLAY_MESSAGE 2
-	#define STATUS_DISPLAY_ALERT 3
-	#define STATUS_DISPLAY_TIME 4
-	#define STATUS_DISPLAY_CUSTOM 99
+
+/obj/machinery/status_display/Initialize()
+	. = ..()
+	GLOB.status_displays |= src
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/machinery/status_display/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src,frequency)
+	GLOB.status_displays -= src
 	return ..()
 
-// register for radio system
-/obj/machinery/status_display/Initialize()
-	..()
-	if(SSradio)
-		SSradio.add_object(src, frequency)
 
-// timed process
-/obj/machinery/status_display/process()
-	if(stat & (BROKEN|NOPOWER))
+/obj/machinery/status_display/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
 		return
+
+	if(picture_state)
+		. += picture_state
+
+	underlays += emissive_appearance(icon, "lightmask")
+
+
+/obj/machinery/status_display/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_display_light()
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/status_display/process()
+	if(stat & NOPOWER)
+		remove_display()
+		return
+
+	if(spookymode)
+		spookymode = FALSE
+		remove_display()
+		return
+
 	update()
 
-/obj/machinery/status_display/power_change()
-	..()
-	if(stat & (BROKEN|NOPOWER))
-		remove_display()
-	else if(picture_state)
-		set_picture(picture_state)
 
 /obj/machinery/status_display/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -111,70 +120,82 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	set_picture("ai_bsod")
 	..(severity)
 
+
 /obj/machinery/status_display/flicker()
 	if(stat & (NOPOWER | BROKEN))
 		return FALSE
 
-	mode = STATUS_DISPLAY_ALERT
-	remove_display()
-	set_picture("ai_tribunal_malf")
+	spookymode = TRUE
 	return TRUE
+
 
 // set what is displayed
 /obj/machinery/status_display/proc/update()
-	if(friendc && !ignore_friendc)
+	if(friendc)
 		if(picture_state != "ai_friend")
 			mode = STATUS_DISPLAY_ALERT
 			set_picture("ai_friend")
-		return TRUE
+		return
 
 	switch(mode)
-		if(STATUS_DISPLAY_BLANK)	//blank
+		// Blank
+		if(STATUS_DISPLAY_BLANK)
 			remove_display()
-			return TRUE
-		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
-			var/use_warn = 0
+			return
+
+		// Emergency shuttle timer
+		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
+			var/use_warn = FALSE
+
 			if(SSshuttle.emergency && SSshuttle.emergency.timer)
-				use_warn = 1
+				use_warn = TRUE
 				message1 = "-[SSshuttle.emergency.getModeStr()]-"
 				message2 = SSshuttle.emergency.getTimerStr()
 
-				if(length(message2) > CHARS_PER_LINE)
+				if(length(message2) > DISPLAY_CHARS_PER_LINE)
 					message2 = "Error!"
+
 			else
 				message1 = "ВРЕМЯ"
 				message2 = station_time_timestamp("hh:mm")
 			update_display(message1, message2, use_warn)
-			return TRUE
-		if(STATUS_DISPLAY_MESSAGE)	//custom messages
+
+		// Custom messages
+		if(STATUS_DISPLAY_MESSAGE)
 			var/line1
 			var/line2
 
 			if(!index1)
 				line1 = message1
 			else
-				line1 = copytext_char(message1+"|"+message1, index1, index1+CHARS_PER_LINE)
+				line1 = copytext_char(message1+"|"+message1, index1, index1+DISPLAY_CHARS_PER_LINE)
 				var/message1_len = length_char(message1)
-				index1 += SCROLL_SPEED
+
+				index1 += DISPLAY_SCROLL_SPEED
+
 				if(index1 > message1_len)
 					index1 -= message1_len
 
 			if(!index2)
 				line2 = message2
+
 			else
-				line2 = copytext_char(message2+"|"+message2, index2, index2+CHARS_PER_LINE)
+				line2 = copytext_char(message2+"|"+message2, index2, index2+DISPLAY_CHARS_PER_LINE)
 				var/message2_len = length_char(message2)
-				index2 += SCROLL_SPEED
+
+				index2 += DISPLAY_SCROLL_SPEED
+
 				if(index2 > message2_len)
 					index2 -= message2_len
+
 			update_display(line1, line2)
-			return TRUE
+
+		// Just time
 		if(STATUS_DISPLAY_TIME)
 			message1 = "ВРЕМЯ"
 			message2 = station_time_timestamp("hh:mm")
 			update_display(message1, message2)
-			return TRUE
-	return FALSE
+
 
 /obj/machinery/status_display/examine(mob/user)
 	. = ..()
@@ -185,206 +206,195 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	if(mode == STATUS_DISPLAY_ALERT)
 		. += span_notice("Текущий уровень угрозы: [get_security_level_ru()]. ")
 
+
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)
-		index1 = (length_char(m1) > CHARS_PER_LINE)
+		index1 = (length_char(m1) > DISPLAY_CHARS_PER_LINE)
 		message1 = m1
 	else
 		message1 = ""
 		index1 = 0
 
 	if(m2)
-		index2 = (length_char(m2) > CHARS_PER_LINE)
+		index2 = (length_char(m2) > DISPLAY_CHARS_PER_LINE)
 		message2 = m2
 	else
 		message2 = ""
 		index2 = 0
 
-/obj/machinery/status_display/proc/set_picture(state)
-	picture_state = state
-	remove_display()
-	if(state == "outline")
-		mode = STATUS_DISPLAY_TIME
-	else
-		overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
-		set_light(1.5, 2, GLOB.statdisp_picture_colors[picture_state])
 
-/obj/machinery/status_display/proc/update_display(line1, line2, warning = 0)
-	line1 = uppertext(line1)
-	line2 = uppertext(line2)
-	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[warning ? WARNING_FONT_COLOR : FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
-	if(maptext != new_text)
-		maptext = new_text
-		var/lum = 0.5
-		if(line1)
-			lum += 0.5
-		if(line2)
-			lum += 0.5
-		set_light(1.5, lum, warning ? COLOR_SUN : COLOR_LIGHT_CYAN)
+// Always call update() after using this
+/obj/machinery/status_display/proc/set_mode(newmode)
+	mode = newmode
+	if(mode == STATUS_DISPLAY_ALERT)
+		// Its an alert image, clear all text
+		set_message(null, null)
+	else
+		// Not an alert image, clear any leftover image
+		set_picture(null)
+
+
+/obj/machinery/status_display/proc/set_picture(state)
+	maptext = null
+	picture_state = state
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/machinery/status_display/proc/remove_display()
-	if(overlays.len)
-		overlays.Cut()
-	if(maptext)
-		maptext = ""
-	if(mode != STATUS_DISPLAY_ALERT && picture_state)
-		picture_state = ""
+	picture_state = null
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/status_display/proc/update_display(line1, line2, warning = FALSE)
+	line1 = uppertext(line1)
+	line2 = uppertext(line2)
+	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[warning ? DISPLAY_WARNING_FONT_COLOR : DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
+	if(maptext != new_text)
+		maptext = new_text
+		update_display_light()
+
+
+/obj/machinery/status_display/proc/update_display_light()
 	if(light)
 		set_light(0)
-
-/obj/machinery/status_display/receive_signal(datum/signal/signal)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (NOPOWER|BROKEN))
 		return
-	switch(signal.data["command"])
-		if("blank")
-			mode = STATUS_DISPLAY_BLANK
 
-		if("shuttle")
-			remove_display()
-			mode = STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME
+	if(mode == STATUS_DISPLAY_ALERT)
+		set_light(1, 1, GLOB.statdisp_picture_colors[picture_state])
+	else
+		var/lum = 0.4
+		if(index1)
+			lum += 0.4
+		if(index2)
+			lum += 0.4
+		set_light(1, lum, (SSshuttle.emergency && SSshuttle.emergency.timer) ? COLOR_SUN : COLOR_LIGHT_CYAN)
 
-		if("message")
-			remove_display()
-			mode = STATUS_DISPLAY_MESSAGE
-			set_message(signal.data["msg1"], signal.data["msg2"])
 
-		if("alert")
-			mode = STATUS_DISPLAY_ALERT
-			set_picture(signal.data["picture_state"])
-
-		if("time")
-			remove_display()
-			mode = STATUS_DISPLAY_TIME
+GLOBAL_LIST_EMPTY(ai_displays)
 
 /obj/machinery/ai_status_display
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	name = "AI display"
-	anchored = 1
-	density = 0
-
-	var/mode = 0	// 0 = Blank
-					// 1 = AI emoticon
-					// 2 = Blue screen of death
-
-	var/picture_state	// icon_state of ai picture
-
+	anchored = TRUE
+	density = FALSE
+	/// Current mode
+	var/mode = AI_DISPLAY_MODE_BLANK
+	/// Target icon state
+	var/picture_state
+	/// Current emotion, used to calculate an icon state
 	var/emotion = "Neutral"
+
+/obj/machinery/ai_status_display/Initialize(mapload)
+	. = ..()
+	GLOB.ai_displays |= src
+
+
+/obj/machinery/ai_status_display/Destroy()
+	GLOB.ai_displays -= src
+	return ..()
+
 
 /obj/machinery/ai_status_display/attack_ai(mob/living/silicon/ai/user)
 	if(isAI(user))
 		user.ai_statuschange()
 
-/obj/machinery/ai_status_display/process()
-	if(stat & (BROKEN|NOPOWER))
-		return
-	update()
-
-/obj/machinery/ai_status_display/proc/remove_display()
-	if(light)
-		set_light(0)
-	if(!mode && picture_state)
-		picture_state = ""
-	if(overlays.len)
-		overlays.Cut()
-
-/obj/machinery/ai_status_display/power_change()
-	..()
-	if(stat & (BROKEN|NOPOWER))
-		remove_display()
-	else if(picture_state)
-		set_picture(picture_state)
 
 /obj/machinery/ai_status_display/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
-	set_picture("ai_bsod")
+	mode = AI_DISPLAY_MODE_BSOD
+	update_icon()
 	..(severity)
 
+
+/obj/machinery/ai_status_display/power_change(forced = FALSE)
+	if(!..())
+		return
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER, GLOB.statdisp_picture_colors[picture_state])
+
+
 /obj/machinery/ai_status_display/flicker()
-	if(stat & (NOPOWER | BROKEN))
+	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 
-	remove_display()
-	set_picture("ai_tribunal_malf")
+	emotion = "Tribunal Malf"
+	update_icon()
 	return TRUE
 
-/obj/machinery/ai_status_display/proc/update()
-	if(mode==0) //Blank
-		remove_display()
+
+/obj/machinery/ai_status_display/update_overlays()
+	. = ..()
+
+	var/new_display
+
+	underlays.Cut()
+
+	if(stat & NOPOWER)
 		return
 
-	if(mode==1)	// AI emoticon
-		switch(emotion)
-			if("Very Happy")
-				set_picture("ai_veryhappy")
-			if("Happy")
-				set_picture("ai_happy")
-			if("Neutral")
-				set_picture("ai_neutral")
-			if("Unsure")
-				set_picture("ai_unsure")
-			if("Confused")
-				set_picture("ai_confused")
-			if("Sad")
-				set_picture("ai_sad")
-			if("Surprised")
-				set_picture("ai_surprised")
-			if("Upset")
-				set_picture("ai_upset")
-			if("Angry")
-				set_picture("ai_angry")
-			if("BSOD")
-				set_picture("ai_bsod")
-			if("Blank")
-				set_picture("ai_off")
-			if("Problems?")
-				set_picture("ai_trollface")
-			if("Awesome")
-				set_picture("ai_awesome")
-			if("Dorfy")
-				set_picture("ai_urist")
-			if("Facepalm")
-				set_picture("ai_facepalm")
-			if("Friend Computer")
-				set_picture("ai_friend")
-			if("Beer")
-				set_picture("ai_beer")
-			if("Dwarf")
-				set_picture("ai_dwarf")
-			if("Fish Tank")
-				set_picture("ai_fishtank")
-			if("Plump")
-				set_picture("ai_plump")
-			if("Tribunal")
-				set_picture("ai_tribunal")
-			if("Tribunal Malf")
-				set_picture("ai_tribunal_malf")
-		return
+	switch(mode)
+		// Blank
+		if(AI_DISPLAY_MODE_BLANK)
+			new_display = "ai_off"
 
-	if(mode==2)	// BSOD
-		set_picture("ai_bsod")
-		return
+		// AI emoticon
+		if(AI_DISPLAY_MODE_EMOTE)
+			switch(emotion)
+				if("Very Happy")
+					new_display = "ai_veryhappy"
+				if("Happy")
+					new_display = "ai_happy"
+				if("Neutral")
+					new_display = "ai_neutral"
+				if("Unsure")
+					new_display = "ai_unsure"
+				if("Confused")
+					new_display = "ai_confused"
+				if("Sad")
+					new_display = "ai_sad"
+				if("Surprised")
+					new_display = "ai_surprised"
+				if("Upset")
+					new_display = "ai_upset"
+				if("Angry")
+					new_display = "ai_angry"
+				if("BSOD")
+					new_display = "ai_bsod"
+				if("Blank")
+					new_display = "ai_off"
+				if("Problems?")
+					new_display = "ai_trollface"
+				if("Awesome")
+					new_display = "ai_awesome"
+				if("Dorfy")
+					new_display = "ai_urist"
+				if("Facepalm")
+					new_display = "ai_facepalm"
+				if("Friend Computer")
+					new_display = "ai_friend"
+				if("Beer")
+					new_display = "ai_beer"
+				if("Dwarf")
+					new_display = "ai_dwarf"
+				if("Fish Tank")
+					new_display = "ai_fishtank"
+				if("Plump")
+					new_display = "ai_plump"
+				if("Tribunal")
+					new_display = "ai_tribunal"
+				if("Tribunal Malf")
+					new_display = "ai_tribunal_malf"
 
+		// BSOD
+		if(AI_DISPLAY_MODE_BSOD)
+			new_display = "ai_bsod"
 
-/obj/machinery/ai_status_display/proc/set_picture(state)
-	if(picture_state == state)
-		return
-	picture_state = state
-	if(overlays.len)
-		overlays.Cut()
-	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
-	set_light(1.5, 2, GLOB.statdisp_picture_colors[picture_state])
+	. += new_display
+	underlays += emissive_appearance(icon, "lightmask")
 
-#undef FONT_SIZE
-#undef FONT_COLOR
-#undef WARNING_FONT_COLOR
-#undef FONT_STYLE
-#undef SCROLL_SPEED
-
-#undef STATUS_DISPLAY_BLANK
-#undef STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME
-#undef STATUS_DISPLAY_MESSAGE
-#undef STATUS_DISPLAY_ALERT
-#undef STATUS_DISPLAY_TIME

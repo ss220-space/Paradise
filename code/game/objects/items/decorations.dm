@@ -226,8 +226,33 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	max_integrity = 100
+
+/obj/structure/decorative_structures/fireplace
+	name = "Old fireplace"
+	desc = "Looks warm and comfy."
+	icon = 'icons/obj/fireplace.dmi'
+	icon_state = "fireplace"
+	anchored = TRUE
+	density = 0
+	pixel_x = -16
+
+/obj/structure/decorative_structures/fireplace/Initialize(mapload)
+	. = ..()
+	overlays += icon('icons/obj/fireplace.dmi', "fireplace_fire3")
+	overlays += icon('icons/obj/fireplace.dmi', "fireplace_glow")
+	set_light(6, ,"#ffb366")
+
+/obj/structure/decorative_structures/garland
+	density = 0
+	anchored = TRUE
+	max_integrity = 100
+	icon_state = "xmaslights"
+
+/obj/structure/decorative_structures/garland/Initialize(mapload)
+	. = ..()
+	set_light(2, ,"#ffffffbb")
 
 /obj/structure/decorative_structures/metal
 	flags = CONDUCT
@@ -394,7 +419,7 @@
 	name = "Bloody crystal"
 	icon_state = "cult_crystal"
 	max_integrity = 120
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/decorative_structures/cult_crystal/Initialize(mapload)
 	. = ..()
@@ -427,3 +452,13 @@
 	new /obj/effect/decal/cleanable/blood/gibs(T)
 	new /obj/effect/decal/cleanable/blood(T)
 	..()
+
+/obj/structure/decorative_structures/snowcloud
+	name = "snow cloud"
+	desc = "Let it snow, let it snow, let it snow!"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "snowcloud"
+	layer = FLY_LAYER
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	density = 0

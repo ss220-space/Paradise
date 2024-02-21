@@ -67,6 +67,7 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
+	blocks_emissive = FALSE
 
 	var/last_throw = 0
 	var/atom/movable/focus = null
@@ -159,7 +160,7 @@
 		qdel(src)
 		return
 	focus = target
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	apply_focus_overlay()
 	// Make it behave like other equipment
 	if(istype(target, /obj/item))
@@ -175,7 +176,7 @@
 		// Delete the key/value pair of item to TK grab
 		host.tkgrabbed_objects -= focus
 	focus = null
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/tk_grab/proc/apply_focus_overlay()
 	if(!focus)
@@ -188,7 +189,8 @@
 	focus_object(target, user)
 
 
-/obj/item/tk_grab/update_icon()
-	overlays.Cut()
+/obj/item/tk_grab/update_overlays()
+	. = ..()
 	if(focus && focus.icon && focus.icon_state)
-		overlays += icon(focus.icon,focus.icon_state)
+		. += icon(focus.icon, focus.icon_state)
+

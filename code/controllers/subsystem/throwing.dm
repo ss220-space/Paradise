@@ -135,8 +135,7 @@ SUBSYSTEM_DEF(throwing)
 	if(thrownthing && isturf(thrownthing.loc))
 		thrownthing.newtonian_move(GetOppositeDir(init_dir))
 
-	if(callback)
-		callback.Invoke()
+	callback?.Invoke()
 
 	thrownthing?.end_throw()
 

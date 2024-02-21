@@ -46,7 +46,7 @@
 	else
 		speed = 0
 
-/mob/living/simple_animal/imp/death()
+/mob/living/simple_animal/imp/death(gibbed)
 	..(1)
 	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] screams in agony as it sublimates into a sulfurous smoke.</span>")

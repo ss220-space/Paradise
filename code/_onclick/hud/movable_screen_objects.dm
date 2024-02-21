@@ -21,7 +21,7 @@
 /obj/screen/movable/snap
 	snap2grid = TRUE
 
-/obj/screen/movable/MouseDrop(over_object, src_location, over_location, src_control, over_control, params)
+/obj/screen/movable/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(locked) //no! I am locked! begone!
 		return
 

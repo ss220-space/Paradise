@@ -25,11 +25,11 @@
 	var/msg
 	switch(amount)
 		if(1 to 10)
-			msg = "<b>Your [partname] hurts.</b>"
+			msg = span_userdanger("<b>Your [partname] hurts.</b>")
 		if(11 to 90)
-			msg = "<b><font size=2>Your [partname] hurts badly.</font></b>"
+			msg = span_userdanger("<b><font size=2>Your [partname] hurts badly.</font></b>")
 		if(91 to INFINITY)
-			msg = "<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>"
+			msg = span_userdanger("<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>")
 	if(msg && (msg != last_pain_message || prob(10)))
 		last_pain_message = msg
 		to_chat(src, msg)

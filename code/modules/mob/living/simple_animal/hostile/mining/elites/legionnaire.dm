@@ -269,7 +269,7 @@
 	ranged = FALSE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/body = null
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/death()
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/death(gibbed)
 	. = ..()
 	if(body)
 		body.onHeadDeath()

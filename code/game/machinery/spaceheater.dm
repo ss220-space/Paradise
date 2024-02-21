@@ -1,5 +1,5 @@
 /obj/machinery/space_heater
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "sheater0"
@@ -26,12 +26,16 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/machinery/space_heater/update_icon()
-	overlays.Cut()
+
+/obj/machinery/space_heater/update_icon_state()
 	icon_state = "sheater[on]"
+
+
+/obj/machinery/space_heater/update_overlays()
+	. = ..()
 	if(open)
-		overlays  += "sheater-open"
-	return
+		. += "sheater-open"
+
 
 /obj/machinery/space_heater/examine(mob/user)
 	. = ..()

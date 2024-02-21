@@ -88,6 +88,12 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	animated_icon_state = "winglertail_a"
 	allowed_species = list("Tajaran")
 
+/datum/body_accessory/tail/leopard_tail
+	name = "Leopard Tail"
+	icon_state = "leopard"
+	animated_icon_state = "leopard_a"
+	allowed_species = list("Tajaran")
+
 /datum/body_accessory/tail/tiny //Pretty ambiguous as to what species it belongs to, tail could've been injured or docked.
 	name = "Tiny Tail"
 	icon_state = "tiny"

@@ -22,7 +22,7 @@
 	if(anchored)
 		connect_to_network()
 
-/obj/machinery/power/treadmill/update_icon()
+/obj/machinery/power/treadmill/update_icon_state()
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
 /obj/machinery/power/treadmill/Crossed(mob/living/M, oldloc)
@@ -47,7 +47,7 @@
 /obj/machinery/power/treadmill/process()
 	if(!anchored)
 		speed = 0
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 
 	speed = clamp(speed - friction, 0, MAX_SPEED)
@@ -83,7 +83,7 @@
 	var/output = get_power_output()
 	if(output)
 		add_avail(output)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/power/treadmill/proc/get_power_output()
 	if(speed && !stat && anchored && powernet)
@@ -105,24 +105,19 @@
 		else
 			disconnect_from_network()
 		speed = 0
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	return ..()
 
 #undef BASE_MOVE_DELAY
 #undef MAX_SPEED
 
-#define CHARS_PER_LINE 5
-#define FONT_SIZE "5pt"
-#define FONT_COLOR "#09f"
-#define FONT_STYLE "Small Fonts"
-
 /obj/machinery/treadmill_monitor
 	name = "Treadmill Monitor"
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	maptext_height = 26
 	maptext_width = 32
@@ -161,24 +156,25 @@
 		if(redeem_immediately && total_joules > J_per_ticket)
 			redeem()
 			total_joules = 1
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	frame = !frame
 
-/obj/machinery/treadmill_monitor/power_change()
-	..()
-	update_icon()
+/obj/machinery/treadmill_monitor/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/treadmill_monitor/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The display reads:<div style='text-align: center'>[line1]<br>[line2]</div></span>"
 
-/obj/machinery/treadmill_monitor/update_icon()
-	overlays.Cut()
+/obj/machinery/treadmill_monitor/update_overlays()
+	. = ..()
 	if(stat & NOPOWER || !total_joules || !on)
 		line1 = ""
 		line2 = ""
 	else if(stat & BROKEN)
-		overlays += image('icons/obj/status_display.dmi', icon_state = "ai_bsod")
+		. += image('icons/obj/status_display.dmi', icon_state = "ai_bsod")
 		line1 = "A@#$A"
 		line2 = "729%!"
 	else
@@ -190,11 +186,11 @@
 				line1 = "???"
 			else
 				line1 = "[add_zero(num2text(round(treadmill.get_power_output())), 4)]"
-			if(length(line1) > CHARS_PER_LINE)
+			if(length(line1) > DISPLAY_CHARS_PER_LINE)
 				line1 = "Error"
 			if(J_per_ticket)
 				line2 = "[round(total_joules / J_per_ticket)]"
-			if(length(line2) > CHARS_PER_LINE)
+			if(length(line2) > DISPLAY_CHARS_PER_LINE)
 				line2 = "Error"
 	update_display(line1, line2)
 
@@ -203,7 +199,7 @@
 /obj/machinery/treadmill_monitor/proc/update_display(var/line1, var/line2)
 	line1 = uppertext(line1)
 	line2 = uppertext(line2)
-	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
+	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_SIZE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text
 
@@ -214,16 +210,16 @@
 		new /obj/item/stack/tickets(get_turf(src), round(total_joules / J_per_ticket))
 		total_joules = 0
 
+
 /obj/machinery/treadmill_monitor/emp_act(severity)
 	..()
 	if(!(stat & BROKEN))
 		stat |= BROKEN
-		update_icon()
-		spawn(100)
-			stat &= ~BROKEN
-			update_icon()
+		update_icon(UPDATE_OVERLAYS)
+		addtimer(CALLBACK(src, PROC_REF(delayed_turnon)), 10 SECONDS, TIMER_DELETE_ME)
 
-#undef FONT_SIZE
-#undef FONT_COLOR
-#undef FONT_STYLE
-#undef CHARS_PER_LINE
+
+/obj/machinery/treadmill_monitor/proc/delayed_turnon()
+	stat &= ~BROKEN
+	update_icon(UPDATE_OVERLAYS)
+

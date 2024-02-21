@@ -243,6 +243,14 @@
 	icon_on = "zippo_rd_on"
 	icon_off = "zippo_rd"
 
+/obj/item/lighter/zippo/qm
+	name = "Quartermaster Lighter"
+	desc = "It costs 400.000 credits to fire this lighter for 12 seconds."
+	icon_state = "zippo_qm"
+	item_state = "qmzippo"
+	icon_on = "zippo_qm_on"
+	icon_off = "zippo_qm"
+
 //Ninja-Zippo//
 /obj/item/lighter/zippo/ninja
 	name = "\"Shinobi on a rice field\" zippo"
@@ -272,6 +280,7 @@
 	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
 
+
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
 	smoketime--
@@ -279,49 +288,64 @@
 		matchburnout()
 	if(location)
 		location.hotspot_expose(700, 5)
-		return
+
 
 /obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	matchignite()
+
 
 /obj/item/match/extinguish_light(force = FALSE)
 	if(!force)
 		return
 	matchburnout()
 
+
+/obj/item/match/update_icon_state()
+	icon_state = lit ? "match_lit" : "match_burnt"
+	item_state = lit ? "cigon" : "cigoff"
+
+
+/obj/item/match/update_name(updates = ALL)
+	. = ..()
+	var/init_name = initial(name)
+	name = lit ? "lit [init_name]" : burnt ? "burnt [init_name]" : initial(name)
+
+
+/obj/item/match/update_desc(updates = ALL)
+	. = ..()
+	var/init_name = initial(name)
+	desc = lit ? "A [init_name]. This one is lit." : burnt ? "A [init_name]. This one has seen better days." : initial(desc)
+
+
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
 		lit = TRUE
-		icon_state = "match_lit"
-		damtype = "fire"
+		damtype = FIRE
 		force = 3
 		hitsound = 'sound/weapons/tap.ogg'
-		item_state = "cigon"
-		name = "lit match"
-		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
 		START_PROCESSING(SSobj, src)
-		update_icon()
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return TRUE
+
 
 /obj/item/match/proc/matchburnout()
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
-		damtype = "brute"
+		damtype = BRUTE
 		force = initial(force)
-		icon_state = "match_burnt"
-		item_state = "cigoff"
-		name = "burnt match"
-		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
 		STOP_PROCESSING(SSobj, src)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return TRUE
+
 
 /obj/item/match/dropped(mob/user, silent = FALSE)
 	matchburnout()
 	. = ..()
+
 
 /obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!isliving(M))
@@ -351,6 +375,7 @@
 	else
 		..()
 
+
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(burnt)
 		C.stored_comms["wood"] += 1
@@ -358,19 +383,23 @@
 		return TRUE
 	return ..()
 
+
 /obj/item/proc/help_light_cig(mob/living/M)
 	var/mask_item = M.get_item_by_slot(slot_wear_mask)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
+
 
 /obj/item/match/firebrand
 	name = "firebrand"
 	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
 	smoketime = 20 //40 seconds
 
-/obj/item/match/firebrand/New()
-	..()
+
+/obj/item/match/firebrand/Initialize(mapload)
+	. = ..()
 	matchignite()
+
 
 /obj/item/match/unathi
 	name = "small blaze"
@@ -383,9 +412,15 @@
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
 
+
 /obj/item/match/unathi/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+
+
+/obj/item/match/unathi/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	return	// we are already burning
+
 
 /obj/item/match/unathi/matchburnout()
 	if(!lit)
@@ -393,6 +428,8 @@
 	lit = FALSE //to avoid a qdel loop
 	qdel(src)
 
+
 /obj/item/match/unathi/Destroy()
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
+

@@ -151,7 +151,12 @@
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Magistrate")
+
+/datum/gear/read_only_sechud
+	display_name = "a classic security HUD (read-only)"
+	path = /obj/item/clothing/glasses/hud/security/read_only
+	allowed_roles = list("Internal Affairs Agent")
 
 /datum/gear/cryaonbox
 	display_name = "a box of crayons"

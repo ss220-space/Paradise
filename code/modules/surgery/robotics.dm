@@ -464,8 +464,8 @@
 			return
 		for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
 			if(organ.damage && organ.is_robotic())
-				user.visible_message("<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>", \
-					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>" )
+				user.visible_message("<span class='notice'> [user] repairs [target]'s [organ.name] with [tool].</span>", \
+					"<span class='notice'> You repair [target]'s [organ.name] with [tool].</span>" )
 				organ.damage = 0
 				organ.surgeryize()
 	else if(current_type == "insert")

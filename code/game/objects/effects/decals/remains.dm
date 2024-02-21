@@ -61,5 +61,3 @@
 	anchored = FALSE
 	move_resist = MOVE_FORCE_EXTREMELY_WEAK
 
-/obj/effect/decal/remains/mouse/water_act(volume, temperature, source, method)
-	. = ..()

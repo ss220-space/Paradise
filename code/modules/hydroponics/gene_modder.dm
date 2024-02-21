@@ -5,7 +5,7 @@
 	pass_flags = PASSTABLE
 	icon_state = "dnamod"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 
 	var/obj/item/seeds/seed
 	var/obj/item/disk/plantgene/disk
@@ -82,22 +82,26 @@
 			min_wchance = 0
 			min_wrate = 0
 
-/obj/machinery/plantgenes/update_icon()
-	..()
-	overlays.Cut()
+
+/obj/machinery/plantgenes/update_icon_state()
 	if((stat & (BROKEN|NOPOWER)))
 		icon_state = "dnamod-off"
 	else
 		icon_state = "dnamod"
+
+
+/obj/machinery/plantgenes/update_overlays()
+	. = ..()
 	if(seed)
-		overlays += "dnamod-dna"
+		. += "dnamod-dna"
 	if(panel_open)
-		overlays += "dnamod-open"
+		. += "dnamod-open"
+
 
 /obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
 		add_fingerprint(user)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	if(exchange_parts(user, I))
 		return
@@ -303,7 +307,7 @@
 			seed.verb_pickup()
 			seed = null
 			update_genes()
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/seeds))
@@ -311,7 +315,6 @@
 					return
 				insert_seed(I)
 				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
-		update_icon()
 	else if(href_list["eject_disk"] && !operation)
 		if(disk)
 			disk.forceMove(loc)
@@ -378,7 +381,7 @@
 						if(!HAS_TRAIT(disk, TRAIT_CMAGGED))
 							disk.update_name()
 						QDEL_NULL(seed)
-						update_icon()
+						update_icon(UPDATE_OVERLAYS)
 				if("replace")
 					if(disk && disk.gene && istype(disk.gene, G.type) && istype(G, /datum/plant_gene/core))
 						seed.genes -= G
@@ -420,7 +423,7 @@
 	S.forceMove(src)
 	seed = S
 	update_genes()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/plantgenes/proc/update_genes()
 	core_genes = list()
@@ -467,7 +470,7 @@
 
 /obj/item/disk/plantgene/New()
 	..()
-	overlays += "datadisk_gene"
+	update_icon(UPDATE_OVERLAYS)
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -493,42 +496,50 @@
 		if(do_after(user, 50, target = src))
 			user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
 			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
-			update_name()
-			update_desc()
-			update_icon_state()
+			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 	..()
 	if(istype(W, /obj/item/pen) && !HAS_TRAIT(src, TRAIT_CMAGGED))
 		rename_interactive(user, W)
 
-/obj/item/disk/plantgene/proc/update_desc()
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		desc = "Better keep this safe."
-	else
-		desc = initial(desc)
 
-/obj/item/disk/plantgene/proc/update_name()
+/obj/item/disk/plantgene/update_name(updates = ALL)
+	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		name = "nuclear authentication disk"
+		return
+	if(gene)
+		name = "[gene.get_name()] (Plant Data Disk)"
 	else
-		if(gene)
-			name = "[gene.get_name()] (Plant Data Disk)"
-		else
-			name = initial(name)
+		name = initial(name)
 
-/obj/item/disk/plantgene/proc/update_icon_state()
+
+/obj/item/disk/plantgene/update_desc(updates = ALL)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		desc = "Better keep this safe."
+		return
+	desc = initial(desc)
+
+
+/obj/item/disk/plantgene/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		icon_state = "nucleardisk"
-		overlays -= "datadisk_gene"
-	else
-		icon_state = initial(icon_state)
-		overlays += "datadisk_gene"
+		return
+	icon_state = initial(icon_state)
+
+
+/obj/item/disk/plantgene/update_overlays()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	. += "datadisk_gene"
+
 
 /obj/item/disk/plantgene/cmag_act()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
-	update_name()
-	update_desc()
-	update_icon_state()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+
 
 /obj/item/disk/plantgene/attack_self(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))

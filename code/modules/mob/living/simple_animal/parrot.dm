@@ -35,6 +35,7 @@
 	icon_resting = "parrot_sit"
 	pass_flags = PASSTABLE
 	can_collar = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	tts_seed = "Sniper"
 	faction = list("neutral", "jungle")
 
@@ -43,7 +44,6 @@
 	emote_see = list("flutters its wings")
 
 	speak_chance = 1	//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
-	blood_nutrients = 30
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/cracker = 3)
 

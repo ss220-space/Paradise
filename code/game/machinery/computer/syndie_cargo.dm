@@ -109,11 +109,11 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	if(istype(crate, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/CR = crate
 		CR.manifest = slip
-		CR.update_icon()
+		CR.update_icon(UPDATE_OVERLAYS)
 	if(istype(crate, /obj/structure/largecrate))
 		var/obj/structure/largecrate/LC = crate
 		LC.manifest = slip
-		LC.update_icon()
+		LC.update_icon(UPDATE_OVERLAYS)
 
 
 /***************************
@@ -261,8 +261,6 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	circuit = /obj/item/circuitboard/syndicatesupplycomp
 	/// Is this a public console
 	var/is_public = FALSE
-	/// Time of last request
-	var/reqtime = 0
 	var/datum/syndie_data_storage/data_storage = null
 
 /obj/machinery/computer/syndie_supplycomp/Initialize(mapload)
@@ -271,6 +269,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/syndie_supplycomp/LateInitialize()
+	. = ..()
 	compSync()
 
 /obj/machinery/computer/syndie_supplycomp/Destroy()

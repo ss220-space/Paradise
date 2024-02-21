@@ -93,6 +93,7 @@
 		H.mind.assigned_role = "Event Character"
 		H.mind.special_role = "Event Character"
 		H.mind.offstation_role = TRUE
+		H.change_voice()
 
 		H.key = thisplayer.key
 		if(dresscode != "Naked")
@@ -110,6 +111,6 @@
 
 
 	log_and_message_admins("used Spawn Gimmick Team.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Gimmick Team") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Gimmick Team") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------

@@ -410,7 +410,7 @@
 	. = ..()
 	SSpersistent_data.register(src)
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/death()
+/mob/living/simple_animal/pet/dog/corgi/Ian/death(gibbed)
 	write_memory(TRUE)
 	SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 	..()
