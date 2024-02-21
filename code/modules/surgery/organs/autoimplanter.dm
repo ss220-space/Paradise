@@ -70,6 +70,14 @@
 	name = "autoimplanter(mantis blade left)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
 
+/obj/item/autoimplanter/oneuse/tailblade
+	name = "autoimplanter(blade)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/standard
+
+/obj/item/autoimplanter/oneuse/tailblade/lazer
+	name = "autoimplanter(lazer blade)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/lazer/syndi
+
 /obj/item/autoimplanter/traitor
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. This model is capable of implanting up to three implants before destroing."
 	var/uses = 3

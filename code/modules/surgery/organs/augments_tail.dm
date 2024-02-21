@@ -43,8 +43,6 @@
 	if(activated)
 
 		if(hascut) // Prevents from double action icons for unathies
-			implant.implant_ability.button_icon_state = "cult_dagger"
-			implant.implant_ability.UpdateButtonIcon()
 			to_chat(user, span_notice("Вы выдвинули лезвия, делая свой хвост ещё опаснее."))
 			return
 		implant.implant_ability.Grant(user)
@@ -53,11 +51,6 @@
 	else
 
 		to_chat(user, span_notice("Вы убрали лезвия."))
-
-		if(hascut)
-			implant.implant_ability.button_icon_state = "tail"
-			implant.implant_ability.UpdateButtonIcon()
-
 		implant.implant_ability.Remove(user)
 
 
@@ -70,7 +63,7 @@
 	stamina_damage = 0
 	self_stamina_damage = 15
 	damage_type = BRUTE
-	slash_sound = 'sound/weapons/slash.ogg'
+	slash_sound = 'sound/weapons/bladeslice.ogg'
 
 
 /obj/item/organ/internal/cyberimp/tail/blade/lazer
@@ -122,6 +115,10 @@
 	if(implant && implant.activated) // Prevents excepcion if you dont have the implant, but unathi
 		active_implant = TRUE
 
+	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi) && !active_implant)
+		to_chat(user, span_warning("У вас слабый хвост!"))
+		return
+
 		/// If the user has an implant, we take its values, if not, we take the values from the old unathi's tail_lash (unathi special)
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN))
@@ -154,19 +151,12 @@
 /datum/action/innate/tail_cut/IsAvailable(show_message = FALSE)
 	. = ..()
 	var/mob/living/carbon/human/user = owner
-	user.changeNext_move(CLICK_CD_MELEE)
-	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL)
-	var/active_implant = FALSE
 
-	if(implant && implant.activated)
-		active_implant = TRUE
+	if(!.)
+		return
 
 	if(!user.bodyparts_by_name[BODY_ZONE_TAIL])
 		if(show_message)
 			to_chat(user, span_warning("У вас НЕТ ХВОСТА!"))
 		return FALSE
 
-	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi) && !active_implant)
-		if(show_message)
-			to_chat(user, span_warning("У вас слабый хвост!"))
-		return FALSE
