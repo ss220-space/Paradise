@@ -313,7 +313,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "shieldgen"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
 	var/active = 0
 	var/power = 0

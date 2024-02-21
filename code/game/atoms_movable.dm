@@ -1,6 +1,6 @@
 /atom/movable
 	layer = OBJ_LAYER
-	appearance_flags = TILE_BOUND
+	appearance_flags = TILE_BOUND|PIXEL_SCALE
 	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
 	var/anchored = FALSE
@@ -61,6 +61,7 @@
 
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
+	QDEL_NULL(em_block)
 
 	. = ..()
 	if(loc)

@@ -106444,6 +106444,7 @@
 /obj/item/clothing/suit/jacket/leather/overcoat,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/clothing/head/fedora,
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel,
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "sWX" = (

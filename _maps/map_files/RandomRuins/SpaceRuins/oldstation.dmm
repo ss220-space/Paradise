@@ -1847,6 +1847,14 @@
 /obj/structure/sign/mining,
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/betamincorridor)
+"ok" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ancientstation/kitchen)
 "ol" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ancient"
@@ -1864,9 +1872,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "oo" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2678,6 +2685,8 @@
 /area/ruin/space/ancientstation/atmos)
 "wq" = (
 /obj/structure/table,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/mask/breath,
 /obj/item/tank/internals/oxygen,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
@@ -3723,7 +3732,6 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betacargo)
 "EJ" = (
-/obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -4089,6 +4097,13 @@
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/proto)
+"HY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/kitchen_machine/grill,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ancientstation/kitchen)
 "HZ" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil{
@@ -4476,6 +4491,10 @@
 	icon_state = "whitepurple"
 	},
 /area/ruin/space/ancientstation/rnd)
+"Ku" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/rust,
+/area/ruin/space/ancientstation/hydroponics)
 "Kv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5343,6 +5362,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/head/helmet/space/nasavoid/old,
+/obj/item/clothing/head/helmet/space/nasavoid/ntblue,
+/obj/item/clothing/shoes/magboots,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -5367,6 +5388,9 @@
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/suit/space/nasavoid/ntblue{
+	slowdown = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -5588,8 +5612,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "TB" = (
-/obj/machinery/processor,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5832,8 +5856,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "Ve" = (
-/obj/structure/table,
+/obj/effect/decal/cleanable/flour,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5966,15 +5991,15 @@
 	},
 /area/ruin/space/ancientstation/kitchen)
 "VH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/item/seeds/grape,
+/obj/item/seeds/potato,
+/obj/item/seeds/poppy,
+/obj/item/seeds/ambrosia,
 /obj/item/seeds/harebell,
 /obj/item/seeds/carrot,
-/obj/item/seeds/potato,
-/obj/item/seeds/ambrosia,
-/obj/item/seeds/poppy,
-/obj/item/seeds/grape,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/hydroponics)
 "VJ" = (
@@ -6148,6 +6173,8 @@
 "WO" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/melee/classic_baton,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -9688,8 +9715,8 @@ WM
 Mr
 Ow
 XV
-VF
-XV
+Ve
+oo
 Xo
 OI
 BJ
@@ -9736,8 +9763,8 @@ WM
 Bc
 Ow
 Tk
-Ve
 XV
+oo
 XV
 zN
 BJ
@@ -9785,7 +9812,7 @@ Nc
 Re
 lk
 EJ
-XV
+oo
 XV
 Ne
 BJ
@@ -9832,7 +9859,7 @@ WM
 PS
 Ow
 vG
-Ve
+XV
 VF
 XV
 OI
@@ -9879,9 +9906,9 @@ KU
 WM
 Ni
 Ow
-XV
-XV
-XV
+ok
+TB
+HY
 XV
 zN
 BJ
@@ -9927,7 +9954,7 @@ KU
 WM
 PS
 Ow
-TB
+XV
 XV
 XV
 XV
@@ -9975,7 +10002,7 @@ He
 WM
 PS
 Ow
-oo
+XV
 XV
 XV
 XV
@@ -10019,7 +10046,7 @@ Ty
 Fe
 zU
 Fe
-WM
+Ku
 WM
 Nk
 Ow

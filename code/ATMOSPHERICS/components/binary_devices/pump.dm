@@ -21,7 +21,7 @@ Thus, the two variables affect pump operation are set in New():
 
 	can_unwrench = 1
 
-	var/on = 0
+	on = FALSE
 	var/target_pressure = ONE_ATMOSPHERE
 
 	var/id = null
@@ -54,10 +54,6 @@ Thus, the two variables affect pump operation are set in New():
 	set_max()
 	return ..()
 
-/obj/machinery/atmospherics/binary/pump/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
 
 /obj/machinery/atmospherics/binary/pump/proc/set_max()
 	if(powered())
@@ -74,7 +70,7 @@ Thus, the two variables affect pump operation are set in New():
 	icon_state = "map_on"
 	on = 1
 
-/obj/machinery/atmospherics/binary/pump/update_icon()
+/obj/machinery/atmospherics/binary/pump/update_icon_state()
 	..()
 
 	if(!powered())
@@ -226,11 +222,10 @@ Thus, the two variables affect pump operation are set in New():
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/binary/pump/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+/obj/machinery/atmospherics/binary/pump/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))

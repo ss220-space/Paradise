@@ -23,8 +23,8 @@
 	if(program)
 		program.process()
 
-	update_icon()
-	src.updateDialog()
+	update_icon(UPDATE_ICON_STATE)
+	updateDialog()
 
 /obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
 	ui_interact(user)
@@ -61,7 +61,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/embedded_controller/radio/update_icon()
+/obj/machinery/embedded_controller/radio/update_icon_state()
 	if(on && program)
 		if(program.memory["processing"])
 			icon_state = "airlock_control_process"

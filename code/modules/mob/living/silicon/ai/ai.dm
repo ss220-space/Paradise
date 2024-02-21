@@ -993,19 +993,25 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable())
 		return
 
-	for(var/obj/machinery/M in GLOB.machines) //change status
-		if(istype(M, /obj/machinery/ai_status_display))
-			var/obj/machinery/ai_status_display/AISD = M
-			AISD.emotion = emote
-		//if Friend Computer, change ALL displays
-		else if(istype(M, /obj/machinery/status_display))
+	for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
+		display.emotion = emote
+		display.update_icon()
 
-			var/obj/machinery/status_display/SD = M
+	for(var/obj/machinery/machine in GLOB.machines) //change status
+		if(istype(machine, /obj/machinery/ai_status_display))
+			var/obj/machinery/ai_status_display/display = machine
+			display.emotion = emote
+			display.update_icon()
+
+		//if Friend Computer, change ALL displays
+		else if(istype(machine, /obj/machinery/status_display))
+
+			var/obj/machinery/status_display/display = machine
 			if(emote=="Friend Computer")
-				SD.friendc = 1
+				display.friendc = TRUE
 			else
-				SD.friendc = 0
-	return
+				display.friendc = FALSE
+
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
