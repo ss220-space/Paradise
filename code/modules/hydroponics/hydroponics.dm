@@ -563,10 +563,9 @@
 		if(S.has_blood_species("Diona"))
 			yieldmod = 1.5
 			mutmod = 1.5
-			adjustNutri(round(S.get_reagent_amount("blood") * 1))
 		else
-			adjustNutri(round(S.get_reagent_amount("blood") * 1))
 			adjustPests(rand(2,4))
+		adjustNutri(round(S.get_reagent_amount("blood") * 1))
 
 	//Fish Water is both an excellent fertilizer and waters
 	if(S.has_reagent("fishwater", 1))
