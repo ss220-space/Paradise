@@ -53,6 +53,7 @@
 /datum/component/proximity_monitor/RegisterWithParent()
 	if(ismovable(hasprox_receiver))
 		RegisterSignal(hasprox_receiver, COMSIG_MOVABLE_MOVED, PROC_REF(on_receiver_move))
+		RegisterSignal(hasprox_receiver, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_receiver_move))
 		RegisterSignal(hasprox_receiver, COMSIG_MOVABLE_DISPOSING, PROC_REF(on_disposal_enter))
 		RegisterSignal(hasprox_receiver, COMSIG_MOVABLE_EXIT_DISPOSALS, PROC_REF(on_disposal_exit))
 	map_nested_locs()
@@ -149,6 +150,7 @@
 			continue
 		nested_receiver_locs += loc_to_check
 		RegisterSignal(loc_to_check, COMSIG_MOVABLE_MOVED, PROC_REF(on_nested_loc_move))
+		RegisterSignal(loc_to_check, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(recenter_prox_checkers))
 		RegisterSignal(loc_to_check, COMSIG_MOVABLE_DISPOSING, PROC_REF(on_disposal_enter))
 		RegisterSignal(loc_to_check, COMSIG_MOVABLE_EXIT_DISPOSALS, PROC_REF(on_disposal_exit))
 		loc_to_check = loc_to_check.loc
