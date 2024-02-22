@@ -289,9 +289,18 @@
   Daeberdir:
   - bugfix: examine through the camera console. (#4476)
   - add: makeshift MOD-revolver. (#4131)
+  - bugfix: multipulling. (#4205)
+  - refactor: two-character keys for languages. (#4215)
   LiquidPotroh:
   - add: Lavaland Apprentice (#4413)
   Rafnik02:
   - tweak: Oldstation update (#4346)
   Rerik007:
   - bugfix: xenobioconsole can make monkeys out of the limit. (#4473)
+'2024-02-22':
+  BeebBeebBoob:
+  - bugfix: fax discord (#4483)
+  Daeberdir:
+  - bugfix: arrival shuttle zone. (#4484)
+  Valtor:
+  - bugfix: autoimplanter v2 (#4485)
