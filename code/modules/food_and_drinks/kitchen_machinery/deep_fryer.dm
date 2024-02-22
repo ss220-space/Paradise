@@ -36,8 +36,8 @@
 	var/E = 0
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		E += L.rating
-	E -= 2		//Standard parts is 0 (1+1-2), Tier 4 parts is 6 (4+4-2)
-	cooktime = (200 - (E * 20))		//Effectively each laser improves cooktime by 20 per rating beyond the first (200 base, 80 max upgrade)
+	E -= 2		//Standard parts is 0 (1+1-2), Tier 5 parts is 8 (5+5-2)
+	cooktime = (200 - (E * 20))		//Effectively each laser improves cooktime by 20 per rating beyond the first (200 base, 40 max upgrade)
 
 /obj/machinery/cooker/deepfryer/gettype()
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))

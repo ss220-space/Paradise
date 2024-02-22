@@ -36,8 +36,8 @@ GLOBAL_VAR(claw_game_html)
 /obj/machinery/arcade/claw/RefreshParts()
 	var/bin_upgrades = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		bin_upgrades = B.rating
-	bonus_prize_chance = bin_upgrades * 5	//equals +5% chance per matter bin rating level (+20% with rating 4)
+		bin_upgrades += B.rating
+	bonus_prize_chance = bin_upgrades * 5	//equals +5% chance per matter bin rating level (+25% with rating 5)
 
 /obj/machinery/arcade/claw/update_icon_state()
 	if(stat & BROKEN)

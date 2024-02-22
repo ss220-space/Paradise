@@ -67,7 +67,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/T = 0
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T += M.rating
-	T = clamp(T, 1, 4)
+	T = clamp(T, 1, 5)
 	efficiency_coeff = 1 / (2 ** (T - 1))
 
 /obj/machinery/r_n_d/circuit_imprinter/check_mat(datum/design/being_built, M)

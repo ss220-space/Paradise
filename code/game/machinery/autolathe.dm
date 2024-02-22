@@ -357,7 +357,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = tot_rating * 3
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		prod_coeff += 1 + (M.rating - 1) / 3
+		prod_coeff += 1 + (M.rating == 5 ? 2 : (M.rating - 1) / 3)
 	recipiecache = list()
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 
