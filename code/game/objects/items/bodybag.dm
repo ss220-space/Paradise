@@ -135,6 +135,7 @@
 /obj/item/bodybag/bluespace
 	name = "bluespace body bag"
 	desc = "A folded bluespace body bag designed for the storage and transportation of cadavers."
+	icon_state = "bluebag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/bluespace
 	w_class = WEIGHT_CLASS_SMALL
 	flags_2 = NO_MAT_REDEMPTION_2
@@ -187,6 +188,9 @@
 /obj/structure/closet/body_bag/bluespace
 	name = "bluespace body bag"
 	desc = "A bluespace body bag designed for the storage and transportation of cadavers."
+	icon_state = "bluebag_closed"
+	icon_closed = "bluebag_closed"
+	icon_opened = "bluebag_open"
 	foldedbag_path = /obj/item/bodybag/bluespace
 	var/max_weight_of_contents
 
