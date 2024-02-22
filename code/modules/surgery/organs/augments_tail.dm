@@ -17,11 +17,11 @@
 	implant_color = "#585857"
 	var/datum/action/innate/tail_cut/implant_ability
 
-	var/slash_strength
-	var/stamina_damage
-	var/self_stamina_damage
-	var/damage_type
-	var/slash_sound
+	var/slash_strength // Damage mobifier, slash_strength * 5
+	var/stamina_damage // Stamina damage to others
+	var/self_stamina_damage // Stamina damage to self
+	var/damage_type // BRUTE or BURN
+	var/slash_sound // A sound plays when you hit someone with tail_cut
 
 /obj/item/organ/internal/cyberimp/tail/blade/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
@@ -119,6 +119,8 @@
 		to_chat(user, span_warning("У вас слабый хвост!"))
 		return
 
+	user.changeNext_click(CLICK_CD_MELEE)
+
 		/// If the user has an implant, we take its values, if not, we take the values from the old unathi's tail_lash (unathi special)
 	for(var/mob/living/carbon/human/C in orange(1))
 		var/obj/item/organ/external/E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN))
@@ -132,8 +134,8 @@
 
 			else if(!isunathi(user) && !implant) // Not unathi, no implant, where did you get tail cut?
 				return
-
-			C.apply_damage(active_implant ? implant.slash_strength * 5 : U.tail_strength * 5, active_implant ? implant.damage_type : BRUTE, E)
+			var/target_armor = C.run_armor_check(E, MELEE)
+			C.apply_damage(active_implant ? implant.slash_strength * 5 : U.tail_strength * 5, active_implant ? implant.damage_type : BRUTE, E, target_armor, 1)
 			C.adjustStaminaLoss(active_implant ? implant.stamina_damage : 0)
 			user.spin(10,1)
 			playsound(user.loc, active_implant ? implant.slash_sound : 'sound/weapons/slash.ogg', 50, 0)
@@ -151,7 +153,6 @@
 /datum/action/innate/tail_cut/IsAvailable(show_message = FALSE)
 	. = ..()
 	var/mob/living/carbon/human/user = owner
-
 	if(!.)
 		return
 
