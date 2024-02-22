@@ -153,12 +153,6 @@
 	path = /obj/item/assembly/signaler/anomaly/bluespace
 	cost = list("working" = 0, "medical" = 2, "security" = 0, "robo" = 0)
 
-/datum/roboshop_item/yet_another_medical_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 0, "medical" = 3, "security" = 0, "robo" = 0)
-
 /datum/roboshop_item/working_core
 	name = "\improper bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
@@ -177,17 +171,17 @@
 	path = /obj/item/assembly/signaler/anomaly/bluespace
 	cost = list("working" = 0, "medical" = 0, "security" = 1, "robo" = 0)
 
+/datum/roboshop_item/another_security_core
+	name = "\improper bluespace anomaly core"
+	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	path = /obj/item/assembly/signaler/anomaly/bluespace
+	cost = list("working" = 0, "medical" = 0, "security" = 1, "robo" = 0)
+
 /datum/roboshop_item/working_medical_core
 	name = "\improper bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
 	path = /obj/item/assembly/signaler/anomaly/bluespace
 	cost = list("working" = 1, "medical" = 1, "security" = 0, "robo" = 0)
-
-/datum/roboshop_item/another_working_medical_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 2, "medical" = 2, "security" = 0, "robo" = 0)
 
 /datum/roboshop_item/medical_security_core
 	name = "\improper bluespace anomaly core"

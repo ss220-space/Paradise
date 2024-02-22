@@ -28,15 +28,11 @@ export const RoboQuest = (props, context) => {
           <FlexItem basis={40}>
             {!shopState && <Section title="Mecha"
               buttons={(
-                  <Fragment>
-                    <Button
+                  <Button
                       content="Check Mech"
+                      icon="search"
                       disabled={!hasID || !hasTask || !canCheck || cooldown}
                       onClick={() => act('Check')} />
-                    <Button
-                      icon="cog"
-                      onClick={() => act('ChangeStyle')} />
-                  </Fragment>
               )}>
                 <Flex>
                   <FlexItem basis={60} textAlign="center" align="center">
@@ -96,7 +92,15 @@ export const RoboQuest = (props, context) => {
                     <b>{cooldown}</b>
                   </Fragment>}
             </Section>}
-            {!!shopState && <Section title="Благодарности)">
+            {!!shopState && <Section title=
+            {<Box>
+              Corps bounties
+              <Box>
+                Points: <b style={{color: 'brown'}}>{points.working}</b>|
+                <b style={{color: 'lightblue'}}>{points.medical}</b>|
+                <b style={{color: 'red'}}>{points.security}</b>
+              </Box>
+            </Box>}>
               {/* <Box overflowY="auto" overflowX="hiddem"> */}
                 <Flex
                   direction="column"
@@ -129,8 +133,9 @@ export const RoboQuest = (props, context) => {
                                   }} />
                                 <Tooltip
                                   title={i.name}
-                                  content = {i.desc}
-                                  position="bottom-right"/>
+                                  content = {`${i.desc}\n ${i.cost.working+"|"+i.cost.medical+"|"+i.cost.security}`}
+                                  position="right"
+                                  />
                               </Button>
                             </FlexItem>))}
                         </Flex>
@@ -146,26 +151,26 @@ export const RoboQuest = (props, context) => {
             buttons={
               <Fragment>
                 <Button
-                  content="Print"
-                  onClick={() => act("printOrder")}
-                  disabled = {!hasTask}/>
-                <Button
                   content="Shop"
+                  icon="shopping-cart"
                   onClick={() => changeShopState(!shopState)}/>
+                <Button
+                  icon="cog"
+                  onClick={() => act('ChangeStyle')} />
               </Fragment>
             }>
-            Здраствуйте,
-            <br />
-            <b>{name}</b>
-            <br />
-            Текущий баланс:
-            <br />
-            <b>{points.robo}</b> очков робототехники
+            {!!name &&
+              <Fragment>
+                Здраствуйте,
+                <br />
+                <b>{name}</b>
+                <br />
+              </Fragment>}
             </Section>
           </FlexItem>
           <FlexItem basis={38}>
             {!shopState &&
-              <Section title="Task's info"
+              <Section title="Info"
                 buttons={(
                   <Fragment>
                     <Button
@@ -180,11 +185,18 @@ export const RoboQuest = (props, context) => {
                       disabled={!hasID || cooldown}
                       onClick={() => act('GetTask')} />}
                     {!!hasTask &&
-                      <Button
-                        icon="arrow-down"
-                        content="Remove Task"
-                        disabled={!hasID || cooldown}
-                        onClick={() => act('RemoveTask')} />}
+                      <Fragment>
+                        <Button
+                          content="Print"
+                          icon="print"
+                          onClick={() => act("printOrder")}
+                          disabled = {!hasTask}/>
+                        <Button
+                          icon="trash"
+                          content="Remove Task"
+                          disabled={!hasID || cooldown}
+                          onClick={() => act('RemoveTask')} />
+                      </Fragment>}
                   </Fragment>
                 )}>
                   <Box mx="0.5rem" mb="1rem">
@@ -213,7 +225,9 @@ export const RoboQuest = (props, context) => {
               </Box>
             </Section>}
             {!!shopState &&
-              <Section title = "Shop">
+              <Section title = {<Fragment>RoboQuest Shop
+                <Box>Points: {points.robo}</Box>
+                </Fragment>}>
                 <Box maxHeight={30} overflowY="auto" overflowX="hidden">
                   {shopItems.robo.map(i => (
                     (!i.emagOnly || style==="syndicate") && <Section
