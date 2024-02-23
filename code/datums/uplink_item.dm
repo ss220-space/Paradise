@@ -1932,10 +1932,10 @@
 	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
 
-/datum/uplink_item/cyber_implants/tailblade/lazer_syndi
-	name = "Tail lazer blade"
+/datum/uplink_item/cyber_implants/tailblade/laser_syndi
+	name = "Tail laser blade"
 	desc = "Insert text"
-	item = /obj/item/autoimplanter/oneuse/tailblade/lazer
+	item = /obj/item/autoimplanter/oneuse/tailblade/laser
 	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
 

@@ -41,56 +41,58 @@
 	activated = !activated
 
 	if(activated)
-
+		implant.icon_state = "[initial(icon_state)]_active"
+		playsound(user.loc, sound_on, 30, 1)
 		if(hascut) // Prevents from double action icons for unathies
 			to_chat(user, span_notice("Вы выдвинули лезвия, делая свой хвост ещё опаснее."))
 			return
+
 		implant.implant_ability.Grant(user)
 		to_chat(user, span_notice("Вы выдвинули лезвия из хвоста."))
 
 	else
-
+		implant.icon_state = "[initial(icon_state)]"
+		playsound(user.loc, sound_off, 30, 1)
 		to_chat(user, span_notice("Вы убрали лезвия."))
 		implant.implant_ability.Remove(user)
 
-
-
 /obj/item/organ/internal/cyberimp/tail/blade/standard
-	name = "Tail blade implant"
-	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
+	name = "Tail razorblade implant"
+	desc = "Razor sharp blade designed to be hidden inside the tail. Traditional design of House Eshie'Ssharahss, sold at every corner of the Empire."
 
 	slash_strength = 6
 	stamina_damage = 0
 	self_stamina_damage = 15
 	damage_type = BRUTE
 	slash_sound = 'sound/weapons/bladeslice.ogg'
+	icon_state = "tailimplant_blade"
 
-
-/obj/item/organ/internal/cyberimp/tail/blade/lazer
-	name = "Tail lazer blade implant"
-	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
+/obj/item/organ/internal/cyberimp/tail/blade/laser
+	name = "Tail laserblade implant"
+	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
 
 	slash_strength = 3
 	stamina_damage = 10
 	self_stamina_damage = 10
 	damage_type = BURN
 	slash_sound = 'sound/weapons/blade1.ogg'
+	icon_state = "tailimplant_laserblue"
 
-
-/obj/item/organ/internal/cyberimp/tail/blade/lazer/syndi
-	name = "Syndi lazer blade implant"
-	desc = "A technologically advanced version of the tail implant, compatible with any tail. If you have one."
+/obj/item/organ/internal/cyberimp/tail/blade/laser/syndi
+	name = "Overcharged lazerblade implant"
+	desc = "A laser blade designed to be hidden inside the tail. Design, stolen from House Eshie'Ssharahss and overcharged to be more powerful by the brightest minds of the Gorlex Marauders."
 
 	slash_strength = 4
 	stamina_damage = 20
 	self_stamina_damage = 5
 	damage_type = BURN
 	slash_sound = 'sound/weapons/blade1.ogg'
+	icon_state = "tailimplant_laserred"
 
 /datum/action/innate/tail_cut
 	name = "Разрез хвостом"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "tail"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "tail_cut"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
 /datum/action/innate/tail_cut/Trigger(left_click = TRUE)

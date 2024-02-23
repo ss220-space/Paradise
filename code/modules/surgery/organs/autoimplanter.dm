@@ -78,9 +78,9 @@
 	name = "autoimplanter(blade)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/standard
 
-/obj/item/autoimplanter/oneuse/tailblade/lazer
-	name = "autoimplanter(lazer blade)"
-	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/lazer/syndi
+/obj/item/autoimplanter/oneuse/tailblade/laser
+	name = "autoimplanter(laser blade)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/laser/syndi
 
 /obj/item/autoimplanter/traitor
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. This model is capable of implanting up to three implants before destroing."
