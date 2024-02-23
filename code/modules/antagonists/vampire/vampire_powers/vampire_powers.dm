@@ -153,26 +153,18 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "VampireSpecMenu", "Выбор подкласса", 1500, 820, master_ui, state)//660 880
+		ui = new(user, src, ui_key, "VampireSpecMenu", "Specialisation Menu", 650, 850, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_static_data(mob/user)
 	var/list/data = list()
-	data["subclasses"] = list()
 	data["hemomancer"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "hemomancer"))
 	data["umbrae"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "umbrae"))
 	data["gargantua"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "gargantua"))
-	data["gargantua1"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "gargantua1"))
 	data["dantalion"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "dantalion"))
 	data["bestia"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "bestia"))
-	for(var/path in subtypesof(/datum/vampire_subclass))
-		if(path == /datum/vampire_subclass/ancient)
-			continue
-		// var/list/subclass_info = list()
-		// var/datum/vampire_subclass/new_subclass = new path
-		// subclass_info["name"] = new_subclass.name
 
 	return data
 
