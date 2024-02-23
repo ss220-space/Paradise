@@ -9,6 +9,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	var/sound_on = 'sound/mecha/mechmove03.ogg'
 	var/sound_off = 'sound/mecha/mechmove03.ogg'
+	var/implant_emp_downtime
 
 /obj/item/organ/internal/cyberimp/tail/blade
 	name = "Tail blade implant"
@@ -22,6 +23,11 @@
 	var/self_stamina_damage // Stamina damage to self
 	var/damage_type // BRUTE or BURN
 	var/slash_sound // A sound plays when you hit someone with tail_cut
+
+/obj/item/organ/internal/cyberimp/tail/emp_act(severity)
+	if(emp_proof)
+		return
+	implant_emp_downtime = world.time
 
 /obj/item/organ/internal/cyberimp/tail/blade/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
@@ -90,7 +96,7 @@
 	icon_state = "tailimplant_laserred"
 
 /datum/action/innate/tail_cut
-	name = "Разрез хвостом"
+	name = "Удар хвостом"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "tail_cut"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
@@ -114,7 +120,10 @@
 		to_chat(user, span_warning("Вы слишком устали!"))
 		return
 
-	if(implant && implant.activated) // Prevents excepcion if you dont have the implant, but unathi
+	if(implant && implant.activated) // Prevents exception if you dont have the implant, but unathi
+		if(implant.implant_emp_downtime && world.time - implant.implant_emp_downtime <= 100 SECONDS) // 100 sec cooldown after EMP
+			to_chat(user, span_warning("Ваш имплант всё ещё перегружен после EMP!"))
+			return
 		active_implant = TRUE
 
 	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi) && !active_implant)
@@ -128,7 +137,7 @@
 		var/obj/item/organ/external/E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN))
 
 		if(E)
-			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] режет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
+			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] ударяет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
 			user.adjustStaminaLoss(active_implant ? implant.self_stamina_damage : 15)
 
 			if(isunathi(user))
