@@ -135,6 +135,12 @@ export const AutoDoc = (props, context) => {
                   }}
                   content = "Start Healing"
                   onClick = {() => act('HealBruteBurn')}/>
+                <Button
+                  style={{
+                    "margin-left": "30px"
+                  }}
+                  content = "Reattach externals"
+                  onClick = {() => act('CompleteExternal')}/>
                 </Fragment>}
               {!!fixtimer && <b>Fixing organ: {fixtimer}</b>}
               {!!healtimer && <b>Healing external damage: {healtimer}</b>}

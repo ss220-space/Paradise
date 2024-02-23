@@ -69,7 +69,7 @@
 		rename_interactive(user, I)
 		add_fingerprint(user)
 		return
-	if(istype(I, /obj/item/organ/internal))
+	if(istype(I, /obj/item/organ))
 		user.drop_item_ground(I)
 		I.forceMove(src)
 	return ..()
@@ -108,10 +108,19 @@
 			tray_toggle(ui.user)
 		if("ScanOccupant")
 			scan_occupant()
+		if("CompleteExternal")
+			if(!occupant)
+				return
+			fixtimer = world.time + FIXING_TIME
+			healing = addtimer(CALLBACK(src, PROC_REF(complete_external)), FIXING_TIME, (TIMER_STOPPABLE|TIMER_UNIQUE))
 		if("HealBruteBurn")
+			if(!occupant)
+				return
 			var/list/extOrgans = organ_by_name["extOrgan"]
 			organs_to_heal = extOrgans.Copy()
 		if("FixOrgan")
+			if(!occupant)
+				return
 			fixtimer = world.time + FIXING_TIME
 			healing = addtimer(CALLBACK(src, PROC_REF(fixorgan), params["organ"], params["type"], ), FIXING_TIME, (TIMER_STOPPABLE|TIMER_UNIQUE))
 		if("EmptyOrganStorage")
@@ -145,6 +154,15 @@
 			intOrgan.forceMove(src)
 	fixtimer = 0
 	healing = null
+
+/obj/machinery/autodoc/proc/complete_external()
+	for(var/obj/item/organ/external/organ in contents)
+		if(occupant.bodyparts_by_name[organ.limb_zone])
+			continue
+		if(!occupant.bodyparts_by_name[organ.parent.limb_zone])
+			continue
+		organ.replaced(occupant)
+	occupant.UpdateDamageIcon()
 
 /obj/machinery/autodoc/process()
 	if(!organs_to_heal)
