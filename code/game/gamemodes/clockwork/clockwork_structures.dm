@@ -11,7 +11,7 @@
 
 /obj/structure/clockwork/altar
 	name = "credence"
-	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
+	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 	icon_state = "altar"
 	density = 0
 
@@ -245,7 +245,7 @@
 
 // For fake brass
 /obj/structure/clockwork/functional/fake_altar
-	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
+	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 
 /obj/structure/clockwork/functional/altar/Initialize(mapload)
 	. = ..()

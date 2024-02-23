@@ -2,7 +2,7 @@
 	name = "Prepare Clockwork Magic"
 	button_icon_state = "carve"
 	desc = "Prepare clockwork magic powering yourself from Ratvar's pool of power. The magic you will cast depends on what's in your hand."
-	var/datum/action/innate/clockwork/hand_spell/construction/midas_spell = null
+	var/datum/action/innate/clockwork/midas_spell/midas_spell = null
 	var/channeling = FALSE
 
 /datum/action/innate/clockwork/clock_magic/Remove()
@@ -26,7 +26,12 @@
 
 // The list clockwork_items you can find in defines/clockwork
 
-/// Main proc on enchanting items/ making spell on hands
+/* Main proc on enchanting items/ making spell on hands
+ *
+ * It will try to enchant an item in active hand(active gripper).
+ * If not, ask to enchant adjacent item(armor, backpack) or it's own hand.
+ * If not, enchant spell hand.
+ */
 /datum/action/innate/clockwork/clock_magic/Activate()
 	. = ..()
 	var/obj/item/item = owner.get_active_hand()
@@ -153,60 +158,52 @@
 			return
 
 		if(do_after(owner, 50, target = owner))
-			midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
+			midas_spell = new /datum/action/innate/clockwork/midas_spell(owner)
 			midas_spell.Grant(owner, src)
 			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
 		channeling = FALSE
 
-/datum/action/innate/clockwork/hand_spell //The next generation of talismans, handles storage/creation of blood magic
-	name = "Clockwork Magic"
-	button_icon_state = "telerune"
-	desc = "Let the Gears Power."
-	var/magic_path = null
-	var/obj/item/melee/clock_magic/hand_magic
+/// Midas spell. Activating give you a Midas Touch in your hand(if mob has them)
+/datum/action/innate/clockwork/midas_spell
+	name = "Midas Touch"
+	desc = "Empowers your hand to cover metalic objects into brass.<br><u>Converts:</u><br>Plasteel and metal into brass metal<br>Brass metal into integration cog or clockwork slab<br>Cyborgs or AI into Ratvar's servants after a short delay"
+	button_icon_state = "midas_touch"
+	var/obj/item/melee/midas_touch/midas
 	var/datum/action/innate/clockwork/clock_magic/source_magic
 	var/used = FALSE
 
-/datum/action/innate/clockwork/hand_spell/Grant(mob/living/owner, datum/action/innate/clockwork/hand_spell/SM)
+/datum/action/innate/clockwork/midas_spell/Grant(mob/living/owner, datum/action/innate/clockwork/midas_spell/SM)
 	source_magic = SM
 	return ..()
 
-/datum/action/innate/clockwork/hand_spell/Remove()
+/datum/action/innate/clockwork/midas_spell/Remove()
 	if(source_magic)
 		source_magic.midas_spell = null
-	if(hand_magic)
-		qdel(hand_magic)
-		hand_magic = null
+	if(midas)
+		QDEL_NULL(midas)
 	return ..()
 
-/datum/action/innate/clockwork/hand_spell/IsAvailable()
+/datum/action/innate/clockwork/midas_spell/IsAvailable()
 	if(!isclocker(owner) || owner.incapacitated())
 		return FALSE
 	return ..()
 
-/datum/action/innate/clockwork/hand_spell/Activate()
-	if(!magic_path) // If this spell flows from the hand
-		return
-	if(!hand_magic) // If you don't already have the spell active
-		hand_magic = new magic_path(owner, src)
-		if(!owner.put_in_hands(hand_magic))
-			QDEL_NULL(hand_magic)
-			to_chat(owner, "<span class='warning'>You have no empty hand for invoking clockwork magic!</span>")
+/datum/action/innate/clockwork/midas_spell/Activate()
+	if(!midas) // If you don't already have the spell active
+		midas = new /obj/item/melee/midas_touch(owner, src)
+		if(!owner.put_in_hands(midas))
+			QDEL_NULL(midas)
+			to_chat(owner, span_warning("You have no empty hand for invoking clockwork magic!"))
 			return
-		to_chat(owner, "<span class='cultitalic'>Your wounds glow as you invoke the [name].</span>")
+		to_chat(owner, span_clockitalic("Your wounds glow as you invoke the [name]."))
 	else // If the spell is active, and you clicked on the button for it
 		QDEL_NULL(hand_magic)
 
-/datum/action/innate/clockwork/hand_spell/construction
-	name = "Midas Touch"
-	desc = "Empowers your hand to cover metalic objects into brass.<br><u>Converts:</u><br>Plasteel and metal into brass metal<br>Brass metal into integration cog or clockwork slab<br>Cyborgs or AI into Ratvar's servants after a short delay"
-	button_icon_state = "midas_touch"
-	magic_path = /obj/item/melee/clock_magic/construction
-
 // The "magic hand" items
-/obj/item/melee/clock_magic
-	name = "\improper magical aura"
-	desc = "A sinister looking aura that distorts the flow of reality around it."
+/obj/item/melee/midas_touch
+	name = "Midas Aura"
+	desc = "A dripping brass from hand charged to twist metal."
+	color = "#FFDF00"
 	icon = 'icons/obj/clockwork.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -219,68 +216,64 @@
 	throw_range = 0
 	throw_speed = 0
 
-	var/datum/action/innate/clockwork/hand_spell/source
+	var/datum/action/innate/clockwork/midas_spell/source
+	var/channeling = FALSE
 
-/obj/item/melee/clock_magic/New(loc, spell)
+/obj/item/melee/midas_touch/New(loc, spell)
 	source = spell
 	..()
 
-/obj/item/melee/clock_magic/Destroy()
+/obj/item/melee/midas_touch/Destroy()
 	if(!QDELETED(source))
 		source.hand_magic = null
 		if(source.used)
-			qdel(source)
-			source = null
+			QDEL_NULL(source)
 		else
 	return ..()
 
-/obj/item/melee/clock_magic/construction
-	name = "Midas Aura"
-	desc = "A dripping brass from hand charged to twist metal."
-	color = "#FFDF00"
-	var/channeling = FALSE
 
-/obj/item/melee/clock_magic/construction/examine(mob/user)
+/obj/item/melee/midas_touch/examine(mob/user)
 	. = ..()
-	. += {"<u>A sinister spell used to convert:</u>\n
-	Plasteel into brass metal\n
-	[CLOCK_METAL_TO_BRASS] metal into a brass\n
-	Robots into cult"}
+	. += "<u>A sinister spell used to convert:</u>"
+	. += "1 Plasteel into brass"
+	. += "[CLOCK_METAL_TO_BRASS] metal into brass"
+	. += "Robots into cult"
 
-/obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/midas_touch/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
 		return
 	if(channeling)
-		to_chat(user, "<span class='clockitalic'>You are already invoking midas touch!</span>")
+		to_chat(user, span_clockitalic("You are already working on something!"))
 		return
 	var/turf/turf_target = get_turf(target)
 
-	//Metal to brass metal
+	// Metal
 	if(istype(target, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/candidate = target
 		if(candidate.amount < CLOCK_METAL_TO_BRASS)
-			to_chat(user, "<span class='warning'>You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!</span>")
+			to_chat(user, span_warning("You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!"))
 			return
 		var/quantity = (candidate.amount - (candidate.amount % CLOCK_METAL_TO_BRASS)) / CLOCK_METAL_TO_BRASS
 		if(candidate.use(quantity * CLOCK_METAL_TO_BRASS))
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
-			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the metal, transforming it into brass!</span>")
+			to_chat(user, span_warning("Your hand starts to shine very bright onto the metal, transforming it into brass!"))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 		else
-			to_chat(user, "<span class='warning'>You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!</span>")
+			to_chat(user, span_warning("You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!"))
 			return
 
-	//Plasteel to brass metal
+	// Plasteel
 	else if(istype(target, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/candidate = target
 		var/quantity = candidate.amount
 		if(candidate.use(quantity))
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
-			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
+			to_chat(user, span_warning("Your hand starts to shine very bright onto the plasteel, transforming it into brass!"))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
+	// Brass
 	else if(istype(target, /obj/item/stack/sheet/brass))
 		var/obj/item/stack/sheet/brass/candidate = target
 		var/list/choosable_items = list("Clock Slab" = /obj/item/clockwork/clockslab, "Integration Cog" = /obj/item/clockwork/integration_cog)
@@ -292,45 +285,45 @@
 		if(!user.put_in_hands(O))
 			O.forceMove(get_turf(src))
 		candidate.use(1)
-		to_chat(user, "<span class='warning'>With you magic hand you re-materialize brass into [O.name]!</span>")
+		to_chat(user, span_warning("With you magic hand you re-materialize brass into [O.name]!"))
 		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
+	// Cyborgs
 	else if(istype(target, /mob/living/silicon/robot))
-		var/mob/living/silicon/robot/candidate = target
-		if(candidate.stat != DEAD || !isclocker(candidate))
+		var/mob/living/silicon/robot/borg = target
+		if(!isclocker(borg))
+			if(borg.stat == DEAD)
+				to_chat(user, span_warning("[borg] is useless in his current state! Try restoring it in order to convert."))
+				return
 			channeling = TRUE
-			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] and rapidly turns all his metal into cogs and brass gears!</span>")
+			user.visible_message(span_warning("A [user]'s hand touches [borg] and rapidly turns all his metal into cogs and brass gears!"))
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
-			if(do_after(user, 90, target = candidate))
-				candidate.emp_act(EMP_HEAVY)
-				candidate.ratvar_act(weak = TRUE)
-				SSticker?.score?.save_silicon_laws(candidate, user, "Ratvar act", log_all_laws = TRUE)
-				channeling = FALSE
-			else
-				channeling = FALSE
-				return
+			if(do_after(user, 9 SECONDS, target = borg))
+				borg.emp_act(EMP_HEAVY)
+				borg.ratvar_act(weak = TRUE)
+				SSticker?.score?.save_silicon_laws(borg, user, "Ratvar act", log_all_laws = TRUE)
+			channeling = FALSE
+			return
+
+	// AI
 	else if(istype(target, /mob/living/silicon/ai))
-		var/mob/living/silicon/ai/candidate = target
-		if(candidate.stat != DEAD || !isclocker(candidate))
+		var/mob/living/silicon/ai/ai = target
+		if(!isclocker(ai))
+			if(ai.stat == DEAD)
+				to_chat(user, span_warning("[ai] is useless in his current state! Try restoring it in order to convert."))
+				return
 			channeling = TRUE
-			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] as he starts to manipulate every piece of technology inside!</span>")
+			user.visible_message(span_warning("A [user]'s hand touches [ai] as he starts to manipulate every piece of technology inside!"))
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
-			if(do_after(user, 90, target = candidate))
-				candidate.ratvar_act()
-				SSticker?.score?.save_silicon_laws(candidate, user, "Ratvar act", log_all_laws = TRUE)
-				channeling = FALSE
-			else
-				channeling = FALSE
-				return
-		else
-			to_chat(user, "<span class='warning'>Your hand finalizes [candidate] - twisting it into a marauder!</span>")
-			new /obj/item/clockwork/marauder(get_turf(src))
-			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
-			qdel(candidate)
+			if(do_after(user, 9 SECONDS, target = ai))
+				ai.ratvar_act()
+				SSticker?.score?.save_silicon_laws(ai, user, "Ratvar act", log_all_laws = TRUE)
+			channeling = FALSE
+			return
 	else
-		to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
+		to_chat(user, span_warning("The spell will not work on [target]!"))
 		return
 	user.whisper("Rqu-en qy'qby!")
 	source.used = TRUE
