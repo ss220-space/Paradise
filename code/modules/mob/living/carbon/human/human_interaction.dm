@@ -214,7 +214,7 @@
 				var/obj/item/organ/internal/cyberimp/tail/blade/implant = P.get_organ_slot(INTERNAL_ORGAN_TAIL)
 				if(istype(implant) && implant.activated)
 					H.custom_emote(message = span_danger("пыта[pluralize_ru(H.gender,"ет","ют")]ся дёрнуть [P] за хвост, но неожиданно одёргива[pluralize_ru(H.gender,"ет","ют")] руки!"))
-					H.emote_scream
+					H.emote("scream")
 					var/activehand = H.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND))
 					H.apply_damage(10, implant.damage_type, activehand)
 					return
