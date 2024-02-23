@@ -9,11 +9,11 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
-	appearance_flags = TILE_BOUND
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
 	var/list/fingerprints
+	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
 	var/list/blood_DNA
@@ -179,7 +179,7 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
-	invisibility = INVISIBILITY_ABSTRACT
+	invisibility = INVISIBILITY_MAXIMUM
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
 
@@ -302,7 +302,7 @@
 	return
 
 /atom/proc/emp_act(severity)
-	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
+	return
 
 //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
@@ -435,7 +435,7 @@
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates = ALL)
 	SHOULD_NOT_SLEEP(TRUE)
-	SHOULD_CALL_PARENT(TRUE)
+	//SHOULD_CALL_PARENT(TRUE)
 
 	if(updates == NONE)
 		return // NONE is being sent on purpose, and thus no signal should be sent.
@@ -541,9 +541,6 @@
 	return
 
 /atom/proc/emag_act(mob/user)
-	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
-
-/atom/proc/unemag()
 	return
 
 /atom/proc/cmag_act(mob/user)
@@ -704,11 +701,17 @@
 		if(!fingerprints)
 			fingerprints = list()
 
+		if(!fingerprints_time)
+			fingerprints_time = list()
+
 		//Hash this shit.
 		var/full_print = H.get_full_print()
 
 		// Add the fingerprints
 		fingerprints[full_print] = full_print
+		fingerprints_time += "[station_time_timestamp()] — [full_print]"
+		if(fingerprints_time.len > 20)
+			fingerprints_time -= fingerprints_time[1]
 
 		return TRUE
 	else
@@ -725,15 +728,21 @@
 		A.fingerprints = list()
 	if(!islist(A.fingerprintshidden))
 		A.fingerprintshidden = list()
+	if(!islist(A.fingerprints_time))
+		A.fingerprints_time = list()
 
 	if(!islist(fingerprints))
 		fingerprints = list()
 	if(!islist(fingerprintshidden))
 		fingerprintshidden = list()
+	if(!islist(fingerprints_time))
+		fingerprints_time = list()
 
 	// Transfer
 	if(fingerprints)
 		A.fingerprints |= fingerprints.Copy()            //detective
+	if(fingerprints_time)
+		A.fingerprints_time |= fingerprints_time.Copy()
 	if(fingerprintshidden)
 		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
 	A.fingerprintslast = fingerprintslast
