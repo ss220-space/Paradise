@@ -78,6 +78,9 @@
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
 	aug_message = "You see prey everywhere you look..."
 
+/obj/item/organ/internal/cyberimp/eyes/thermals/empproof/emp_act(severity)
+	return
+
 // HUD implants
 /obj/item/organ/internal/cyberimp/eyes/hud
 	name = "HUD implant"

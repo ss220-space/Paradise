@@ -281,8 +281,6 @@
 		activate_darkmode()
 	else
 		deactivate_darkmode()
-	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[(prefs.toggles & PREFTOGGLE_UI_DARKMODE) ? COLOR_DARK_INPUT_ENABLED : COLOR_INPUT_ENABLED]\\\"\"")
-	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[(prefs.toggles & PREFTOGGLE_UI_DARKMODE) ? COLOR_DARK_INPUT_DISABLED : COLOR_INPUT_DISABLED]\\\"\"")
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Darkmode") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/verb/toggle_karma()

@@ -1015,6 +1015,7 @@
 						span_notice("You start to transform into the [vampire_animal]."), \
 						span_italics("You hear an eerie rustle of many wings..."))
 
+	vampire.stop_sucking()
 	original_body = user
 	vampire_animal.status_flags |= GODMODE
 	user.notransform = TRUE

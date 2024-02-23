@@ -35,7 +35,7 @@
 
 /obj/machinery/power/terminal/hide(i)
 	if(i)
-		invisibility = INVISIBILITY_ABSTRACT
+		invisibility = INVISIBILITY_MAXIMUM
 		icon_state = "term-f"
 	else
 		invisibility = 0

@@ -17,5 +17,7 @@
 	interests, rampant cyber and bio-augmentation and secretive factions make life on most human \
 	worlds tumultous at best."
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/human
+
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
