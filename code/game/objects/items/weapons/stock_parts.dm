@@ -269,41 +269,41 @@
 //Rating 5
 
 /obj/item/stock_parts/capacitor/purple
-	name = "quadratic capacitor"
+	name = "experimental capacitor"
 	desc = "An capacity capacitor used in the construction of a variety of devices."
-	icon_state = "quadratic_capacitor"
+	icon_state = "ps_capacitor"
 	origin_tech = "powerstorage=5;materials=4;engineering=4"
 	rating = 5
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
 /obj/item/stock_parts/scanning_module/purple
-	name = "triphasic scanning module"
+	name = "experimental scanning module"
 	desc = "A compact, ultra resolution triphasic scanning module used in the construction of certain devices."
-	icon_state = "triphasic_scan_module"
+	icon_state = "ps_scan_module"
 	origin_tech = "magnets=5;materials=4;engineering=4"
 	rating = 5
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 
 /obj/item/stock_parts/manipulator/purple
-	name = "femto-manipulator"
+	name = "experimental manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
-	icon_state = "femto_mani"
+	icon_state = "ps_mani"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 5
 	materials = list(MAT_METAL=30)
 
 /obj/item/stock_parts/micro_laser/purple
-	name = "quad-ultra micro-laser"
-	icon_state = "quadultra_micro_laser"
+	name = "experimental micro-laser"
+	icon_state = "ps_micro_laser"
 	desc = "A tiny laser used in certain devices."
 	origin_tech = "magnets=5;materials=4;engineering=4"
 	rating = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
 /obj/item/stock_parts/matter_bin/purple
-	name = "bluespace matter bin"
+	name = "experimental matter bin"
 	desc = "A container for hold compressed matter awaiting re-construction."
-	icon_state = "bluespace_matter_bin"
+	icon_state = "ps_matter_bin"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 5
 	materials = list(MAT_METAL=80)
