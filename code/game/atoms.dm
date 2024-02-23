@@ -303,6 +303,7 @@
 	return
 
 /atom/proc/emp_act(severity)
+	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
 	return
 
 //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
