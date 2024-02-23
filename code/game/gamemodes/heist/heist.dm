@@ -101,9 +101,9 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	vox.s_tone = rand(1, 6)
 	vox.languages = list() // Removing language from chargen.
 	vox.flavor_text = ""
-	vox.add_language("Vox-pidgin")
-	vox.add_language("Galactic Common")
-	vox.add_language("Tradeband")
+	vox.add_language(LANGUAGE_VOX)
+	vox.add_language(LANGUAGE_GALACTIC_COMMON)
+	vox.add_language(LANGUAGE_TRADER)
 	head_organ.h_style = "Short Vox Quills"
 	head_organ.f_style = "Shaved"
 	vox.change_hair_color(97, 79, 25) //Same as the species default colour.

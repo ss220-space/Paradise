@@ -265,7 +265,7 @@
 			if(!new_language)
 				return
 			if(new_language == "--DISABLE--")
-				nttc.setting_language = null
+				nttc.setting_language = LANGUAGE_NONE
 				to_chat(usr, span_notice("Language conversion disabled."))
 			else
 				nttc.setting_language = new_language

@@ -57,10 +57,10 @@
 /mob/living/silicon/robot/drone/New()
 	..()
 
-	remove_language("Robot Talk")
-	remove_language("Galactic Common")
-	add_language("Drone Talk", 1)
-	add_language("Drone", 1)
+	remove_language(LANGUAGE_BINARY)
+	remove_language(LANGUAGE_GALACTIC_COMMON)
+	add_language(LANGUAGE_DRONE_BINARY, 1)
+	add_language(LANGUAGE_DRONE, 1)
 
 	// Disable the microphone wire on Drones
 	if(radio)

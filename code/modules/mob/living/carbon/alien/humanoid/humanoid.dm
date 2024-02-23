@@ -20,8 +20,8 @@
 	if(name == "alien")
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
-	add_language("Xenomorph")
-	add_language("Hivemind")
+	add_language(LANGUAGE_XENOS)
+	add_language(LANGUAGE_HIVE_XENOS)
 	..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)

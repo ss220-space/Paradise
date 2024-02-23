@@ -107,7 +107,7 @@
 	var/toggle_command_bold = FALSE
 
 	/* Strings */
-	var/setting_language = null
+	var/setting_language = LANGUAGE_NONE
 	var/job_indicator_type = null
 
 	// This tells the datum what is safe to serialize and what's not. It also applies to deserialization.
@@ -151,9 +151,9 @@
 	job_indicator_type = initial(job_indicator_type)
 
 /datum/nttc_configuration/proc/update_languages()
-	for(var/language in GLOB.all_languages)
-		var/datum/language/L = GLOB.all_languages[language]
-		if(L.flags & HIVEMIND)
+	for(var/language_name in GLOB.all_languages)
+		var/datum/language/language = GLOB.all_languages[language_name]
+		if(language.flags & (HIVEMIND|NONGLOBAL))
 			continue
 		valid_languages[language] = TRUE
 
@@ -260,18 +260,18 @@
 				var/datum/multilingual_say_piece/S = message_pieces[I]
 				if(!S.message)
 					continue
-				if(I == 1 && !istype(S.speaking, /datum/language/noise)) // Capitalise the first section only, unless it's an emote.
+				if(I == 1 && S.speaking != GLOB.all_languages[LANGUAGE_NOISE]) // Capitalise the first section only, unless it's an emote.
 					S.message = "[capitalize(S.message)]"
 				S.message = "<b>[S.message]</b>" // Make everything bolded
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])
 		if(setting_language == "--DISABLE--")
-			setting_language = null
+			setting_language = LANGUAGE_NONE
 		else
 			for(var/datum/multilingual_say_piece/S in message_pieces)
-				if(S.speaking != GLOB.all_languages["Noise"]) // check if they are emoting, these do not need to be translated
-					S.speaking = GLOB.all_languages[setting_language]
+				if(S.speaking != GLOB.all_languages[LANGUAGE_NOISE]) // check if they are emoting, these do not need to be translated
+					S.speaking = setting_language
 
 	return tcm
 
