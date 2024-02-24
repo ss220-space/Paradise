@@ -752,7 +752,7 @@
 
 /obj/machinery/power/apc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
-	if(!can_use(usr, TRUE) || (is_locked(usr)))
+	if(!can_use(usr) || (is_locked(usr)))
 		return
 	toggle_breaker(user)
 
@@ -1107,7 +1107,7 @@
 		INVOKE_ASYNC(light, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 
-/obj/machinery/power/apc/proc/can_use(mob/user, loud = FALSE) //used by attack_hand() and Topic()
+/obj/machinery/power/apc/proc/can_use(mob/user) //used by attack_hand() and Topic()
 	if(stat & BROKEN)
 		return FALSE
 	if(user.can_admin_interact())
@@ -1121,10 +1121,6 @@
 			if(!pAI.syndipai || !pAI.ai_capability || pAI.capa_is_cooldown)
 				return FALSE
 		if(aidisabled)
-			if(!loud)
-				to_chat(user, span_danger("[src] has AI control disabled!"))
-				user << browse(null, "window=apc")
-				user.unset_machine()
 			return FALSE
 		if(malfhack && istype(malfai))					// Malfhacked APC can be used...
 			if(isAI(user))
@@ -1164,7 +1160,7 @@
 		return locked
 
 /obj/machinery/power/apc/ui_act(action, params)
-	if(..() || !can_use(usr, TRUE) || (is_locked(usr) && (action != "toggle_nightshift")))
+	if(..() || !can_use(usr) || (is_locked(usr) && (action != "toggle_nightshift")))
 		return
 	. = TRUE
 	switch(action)
