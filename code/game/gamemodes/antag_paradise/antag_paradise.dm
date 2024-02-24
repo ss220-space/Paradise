@@ -202,7 +202,7 @@
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
 
-	roll_antagonists(antag_possibilities, TRUE)
+	return roll_antagonists(antag_possibilities, TRUE)
 
 /datum/game_mode/antag_paradise/proc/calculate_antags(players)
 	var/list/special_antags_list
