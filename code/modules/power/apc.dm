@@ -1114,19 +1114,26 @@
 		return TRUE
 
 	autoflag = 5
+
 	if(issilicon(user))
-		var/mob/living/silicon/ai/AI = user
-		var/mob/living/silicon/robot/robot = user
-		if(aidisabled || malfhack && istype(malfai) && ((istype(AI) && malfai != AI && malfai != AI.parent) || (istype(robot) && !(robot in malfai.connected_robots))))
+		if(ispAI(user))
+			var/mob/living/silicon/pai/pAI = user
+			if(!pAI.syndipai || !pAI.ai_capability || pAI.capa_is_cooldown)
+				return FALSE
+		if(aidisabled)
 			if(!loud)
 				to_chat(user, span_danger("[src] has AI control disabled!"))
 				user << browse(null, "window=apc")
 				user.unset_machine()
 			return FALSE
-		if(ispAI(user))
-			var/mob/living/silicon/pai/pAI = user
-			if(!pAI.syndipai || !pAI.ai_capability || pAI.capa_is_cooldown)
+		if(malfhack && istype(malfai))					// Malfhacked APC can be used...
+			if(isAI(user))
+				var/mob/living/silicon/ai/AI = user		// only by its hacker...
+				if(istype(AI) && malfai != AI && malfai != AI.parent)
+					return FALSE
+			else if(!(user in malfai.connected_robots))	// Or by Malf's borg. No exception for other silicons.
 				return FALSE
+
 	else if(!in_range(src, user) || !isturf(loc))
 		return FALSE
 
