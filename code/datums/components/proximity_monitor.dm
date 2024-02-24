@@ -60,7 +60,7 @@
 
 /datum/component/proximity_monitor/UnregisterFromParent()
 	if(ismovable(hasprox_receiver))
-		UnregisterSignal(hasprox_receiver, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_DISPOSING, COMSIG_MOVABLE_EXIT_DISPOSALS))
+		UnregisterSignal(hasprox_receiver, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_DISPOSING, COMSIG_MOVABLE_EXIT_DISPOSALS, COMSIG_MOVABLE_Z_CHANGED))
 	clear_nested_locs()
 
 /**
@@ -160,7 +160,7 @@
  */
 /datum/component/proximity_monitor/proc/clear_nested_locs()
 	for(var/nested_loc in nested_receiver_locs)
-		UnregisterSignal(nested_loc, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_DISPOSING, COMSIG_MOVABLE_EXIT_DISPOSALS))
+		UnregisterSignal(nested_loc, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_DISPOSING, COMSIG_MOVABLE_EXIT_DISPOSALS, COMSIG_MOVABLE_Z_CHANGED))
 	nested_receiver_locs = list()
 
 /**
