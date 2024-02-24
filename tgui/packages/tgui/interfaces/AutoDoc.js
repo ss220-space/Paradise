@@ -91,6 +91,15 @@ export const AutoDoc = (props, context) => {
                         onClick={() => act('FixOrgan', {organ: organ.name, type: "bleeding"})}/>
                       <br />
                     </Fragment>}
+                  Internals:
+                  <Button
+                      content="Complete"
+                      style={{
+                        "margin-left": "10px"
+                      }}
+                      locked={isHealing}
+                      onClick={() => act('FixOrgan', {organ: organ.name, type: "completeInternal"})}/>
+                    <br />
                   {organ.dead ? "dead": ""}
                   {!!organ.dead  && <br />}
                   {organ.germ_level ? "Germ level is " + (organ.germ_level) : ""}
@@ -142,6 +151,7 @@ export const AutoDoc = (props, context) => {
                   content = "Reattach externals"
                   onClick = {() => act('CompleteExternal')}/>
                 </Fragment>}
+              <br/>
               {!!fixtimer && <b>Fixing organ: {fixtimer}</b>}
               {!!healtimer && <b>Healing external damage: {healtimer}</b>}
               </Box>

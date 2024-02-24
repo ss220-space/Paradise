@@ -72,6 +72,7 @@
 	if(istype(I, /obj/item/organ))
 		user.drop_item_ground(I)
 		I.forceMove(src)
+		return
 	return ..()
 
 
@@ -106,6 +107,8 @@
 	switch(action)
 		if("ChangeTrayState")
 			tray_toggle(ui.user)
+		if("RemoveOrgans")
+			remove_organs()
 		if("ScanOccupant")
 			scan_occupant()
 		if("CompleteExternal")
@@ -142,6 +145,11 @@
 			extOrgan.mend_fracture()
 		if("bleeding")
 			extOrgan.stop_internal_bleeding()
+		if("completeInternal")
+			for(var/obj/item/organ/internal/organ in contents)
+				if(occupant.get_organ_slot(organ.slot) || (extOrgan.limb_zone != organ.parent_organ_zone))
+					continue
+				organ.insert(occupant)
 		if("damage")
 			intOrgan.damage = 0
 		if("replace")
@@ -159,10 +167,12 @@
 	for(var/obj/item/organ/external/organ in contents)
 		if(occupant.bodyparts_by_name[organ.limb_zone])
 			continue
-		if(!occupant.bodyparts_by_name[organ.parent.limb_zone])
+		if(!occupant.get_organ(organ.parent_organ_zone))
 			continue
 		organ.replaced(occupant)
 	occupant.UpdateDamageIcon()
+	fixtimer = 0
+	healing = null
 
 /obj/machinery/autodoc/process()
 	if(!organs_to_heal)
@@ -275,7 +285,7 @@
 		connected.doc = src
 		update_icon(UPDATE_OVERLAYS)
 
-		for(var/atom/movable/check in src)
+		for(var/mob/check in src)
 			check.forceMove(connected.loc)
 		occupant = null
 		organ_by_name = list("extOrgan" = list(), "intOrgan" = list())
@@ -283,6 +293,11 @@
 		return
 
 	QDEL_NULL(connected)
+
+/obj/machinery/autodoc/proc/remove_organs()
+	var/turf/target_turf = get_step(src, dir)
+	for(var/obj/items/check in src)
+			check.forceMove(target_turf)
 
 /obj/machinery/autodoc/relaymove(mob/user)
 	if(user.incapacitated())
