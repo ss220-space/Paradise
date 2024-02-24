@@ -27,7 +27,7 @@
 
 
 /obj/item/gun/projectile/shotgun/process_chamber()
-	return ..(0, 0)
+	return ..(FALSE, FALSE)
 
 /obj/item/gun/projectile/shotgun/chamber_round()
 	return
@@ -115,7 +115,7 @@
 			user.visible_message("The [src] goes click!", "<span class='notice'>The [src] you are holding goes click.</span>")
 	if(magazine.ammo_count())	//Spill the mag onto the floor
 		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
-		while(get_ammo(0) > 0)
+		while(get_ammo(FALSE) > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
 			if(CB)
@@ -183,8 +183,7 @@
 	magazine.max_ammo = 6
 	update_icon()
 
-/obj/item/gun/projectile/shotgun/riot/update_icon() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
-	..()
+/obj/item/gun/projectile/shotgun/riot/update_icon_state() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
 	if(current_skin)
 		icon_state = "[current_skin]"
 	else
@@ -193,8 +192,8 @@
 /obj/item/gun/projectile/shotgun/riot/short
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
 
-/obj/item/gun/projectile/shotgun/riot/short/New()
-	..()
+/obj/item/gun/projectile/shotgun/riot/short/Initialize(mapload)
+	. = ..()
 	post_sawoff()
 
 /obj/item/gun/projectile/shotgun/riot/buckshot	//comes pre-loaded with buckshot rather than rubber
@@ -225,9 +224,13 @@
 	else
 		pump_unload(M)
 	bolt_open = !bolt_open
-	icon_state = "moistnugget_open"
-	update_icon()	//I.E. fix the desc
+	update_icon(UPDATE_ICON_STATE)
 	return 1
+
+
+/obj/item/gun/projectile/shotgun/boltaction/update_icon_state()
+	icon_state = "[initial(icon_state)][bolt_open ? "-open" : ""]"
+
 
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
 	. = 0
@@ -252,8 +255,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	can_bayonet = FALSE
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/New()
-	..()
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/Initialize(mapload)
+	. = ..()
 	bolt_open = 1
 	pump()
 
@@ -328,8 +331,8 @@
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/New()
-	..()
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/Initialize(mapload)
+	. = ..()
 	if(!alternate_magazine)
 		alternate_magazine = new mag_type(src)
 

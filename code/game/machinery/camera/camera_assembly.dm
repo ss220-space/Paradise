@@ -119,12 +119,12 @@
 		WRENCH_ANCHOR_TO_WALL_MESSAGE
 		anchored = TRUE
 		state = ASSEMBLY_WRENCHED
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		auto_turn()
 	else if(state == ASSEMBLY_WRENCHED)
 		WRENCH_UNANCHOR_WALL_MESSAGE
 		anchored = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		state = ASSEMBLY_UNBUILT
 	else
 		to_chat(user, span_warning("[src] can't fit here!"))
@@ -147,7 +147,7 @@
 		to_chat(user, span_notice("You unweld [src] from its place."))
 		state = ASSEMBLY_WRENCHED
 
-/obj/item/camera_assembly/update_icon()
+/obj/item/camera_assembly/update_icon_state()
 	if(anchored)
 		icon_state = "camera1"
 	else

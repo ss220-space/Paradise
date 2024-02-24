@@ -91,7 +91,7 @@
 	fireball_type = /obj/item/projectile/terrorspider/widow/venom
 
 
-/obj/effect/proc_holder/spell/fireball/venom_spit/update_icon()
+/obj/effect/proc_holder/spell/fireball/venom_spit/update_icon_state()
 	return
 
 
@@ -132,7 +132,7 @@
 	fireball_type = /obj/item/projectile/terrorspider/widow/smoke
 
 
-/obj/effect/proc_holder/spell/fireball/smoke_spit/update_icon()
+/obj/effect/proc_holder/spell/fireball/smoke_spit/update_icon_state()
 	return
 
 

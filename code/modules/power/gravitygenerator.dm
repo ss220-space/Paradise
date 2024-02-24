@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	name = "gravitational generator"
 	desc = "A device which produces a gravaton field when set up."
 	icon = 'icons/obj/machines/gravity_generator.dmi'
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
@@ -41,8 +41,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(explosive)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
-/obj/machinery/gravity_generator/update_icon()
-	..()
+/obj/machinery/gravity_generator/update_icon_state()
 	icon_state = "[get_status()]_[sprite_number]"
 
 /obj/machinery/gravity_generator/proc/get_status()
@@ -92,7 +91,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/station/Initialize(mapload)
 	. = ..()
 	setup_parts()
-	middle.overlays += "activated"
+	middle.add_overlay("activated")
 	update_list()
 
 //
@@ -149,7 +148,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		part.sprite_number = count
 		part.main_part = src
 		parts += part
-		part.update_icon()
+		part.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gravity_generator/main/proc/connected_parts()
 	return parts.len == 8
@@ -159,7 +158,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	for(var/obj/machinery/gravity_generator/M in parts)
 		if(!(M.stat & BROKEN))
 			M.set_broken()
-	middle.overlays.Cut()
+	middle.cut_overlays()
 	charge_count = 0
 	breaker = 0
 	set_power()
@@ -172,7 +171,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		if(M.stat & BROKEN)
 			M.set_fix()
 	broken_state = 0
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	set_power()
 
 // Interaction
@@ -181,12 +180,12 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/attackby(obj/item/I as obj, mob/user as mob, params)
 	switch(broken_state)
 		if(GRAV_NEEDS_SCREWDRIVER)
-			if(istype(I, /obj/item/screwdriver))
+			if(I.tool_behaviour == TOOL_SCREWDRIVER)
 				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>You secure the screws of the framework.</span>")
 				playsound(src.loc, I.usesound, 50, 1)
 				broken_state++
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 			return
 		if(GRAV_NEEDS_PLASTEEL)
 			if(istype(I, /obj/item/stack/sheet/plasteel))
@@ -197,12 +196,12 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 					to_chat(user, "<span class='notice'>You add the plating to the framework.</span>")
 					playsound(src.loc, PS.usesound, 75, 1)
 					broken_state++
-					update_icon()
+					update_icon(UPDATE_ICON_STATE)
 				else
 					to_chat(user, "<span class='notice'>You need 10 sheets of plasteel.</span>")
 			return
 		if(GRAV_NEEDS_WRENCH)
-			if(istype(I, /obj/item/wrench))
+			if(I.tool_behaviour == TOOL_WRENCH)
 				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
 				playsound(src.loc, I.usesound, 75, 1)
@@ -218,7 +217,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		return
 	to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
 	broken_state++
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gravity_generator/main/attack_hand(mob/user as mob)
 	if(!..())
@@ -267,8 +266,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 // Power and Icon States
 
-/obj/machinery/gravity_generator/main/power_change()
-	..()
+/obj/machinery/gravity_generator/main/power_change(forced = FALSE)
+	if(!..())
+		return
 	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", INVESTIGATE_GRAVITY)
 	set_power()
 
@@ -277,10 +277,10 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		return "fix[min(broken_state, 3)]"
 	return on || charging_state != GRAV_POWER_IDLE ? "on" : "off"
 
-/obj/machinery/gravity_generator/main/update_icon()
-	..()
-	for(var/obj/O in parts)
-		O.update_icon()
+/obj/machinery/gravity_generator/main/update_icon_state()
+	for(var/obj/part in parts)
+		part.update_icon(UPDATE_ICON_STATE)
+
 
 // Set the charging state based on power/breaker.
 /obj/machinery/gravity_generator/main/proc/set_power()
@@ -292,7 +292,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 	charging_state = new_state ? GRAV_POWER_UP : GRAV_POWER_DOWN // Startup sequence animation.
 	investigate_log("is now [charging_state == GRAV_POWER_UP ? "charging" : "discharging"].", INVESTIGATE_GRAVITY)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 // Set the state of the gravity.
 /obj/machinery/gravity_generator/main/proc/set_state(var/new_state)
@@ -318,7 +318,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				if(!is_station_level(A.z)) continue
 				A.gravitychange(0,A)
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_list()
 	src.updateUsrDialog()
 	if(alert)
@@ -360,12 +360,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				if(81 to 100)
 					overlay_state = "activated"
 
-			if(overlay_state != current_overlay)
-				if(middle)
-					middle.overlays.Cut()
-					if(overlay_state)
-						middle.overlays += overlay_state
-					current_overlay = overlay_state
+			if(middle && overlay_state != current_overlay)
+				middle.cut_overlays()
+				if(overlay_state)
+					middle.add_overlay(overlay_state)
+				current_overlay = overlay_state
 
 
 /obj/machinery/gravity_generator/main/proc/pulse_radiation()

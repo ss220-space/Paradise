@@ -95,11 +95,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	//starts ghosts off with all HUDs.
 	show_me_the_hud(THOUGHTS_HUD)
 	toggle_all_huds_on(body)
+	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	..()
 
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
+	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -113,6 +115,14 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	. = ..()
 	if(!invisibility)
 		. += "<span class='notice'>It seems extremely obvious.</span>"
+
+/mob/dead/observer/proc/set_ghost_darkness_level()
+	if(!client)
+		return
+	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
+	lighting_alpha = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
+	update_sight()
+
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -605,19 +615,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 	to_chat(usr, "You [(ghostvision?"now":"no longer")] have ghost vision.")
 
-/mob/dead/observer/verb/toggle_darkness()
-	set name = "Toggle Darkness"
+/mob/dead/observer/verb/pick_darkness()
+	set name = "Pick Darkness"
+	set desc = "Choose how much darkness you want to see."
 	set category = "Ghost"
-	switch(lighting_alpha)
-		if (LIGHTING_PLANE_ALPHA_VISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
-			lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-		else
-			lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-
+	var/list/ghost_darkness_levels = list("Strong Darkness" = LIGHTING_PLANE_ALPHA_VISIBLE,
+											"Darkness" = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE,
+											"Light Darkness" = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE,
+											"No Darkness" = LIGHTING_PLANE_ALPHA_INVISIBLE)
+	var/desired_dark = tgui_input_list(usr, "Choose how much darkness you want to see", "Pick darkness", ghost_darkness_levels)
+	if(isnull(desired_dark))
+		return
+	if(!client)
+		return
+	client.prefs.ghost_darkness_level = ghost_darkness_levels[desired_dark]
+	client.prefs.save_preferences(src)
+	lighting_alpha = client.prefs.ghost_darkness_level
 	update_sight()
 
 /mob/dead/observer/update_sight()

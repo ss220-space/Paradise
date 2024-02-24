@@ -190,12 +190,28 @@
 /obj/item/watertank/atmos/make_noz()
 	return new /obj/item/extinguisher/mini/nozzle(src)
 
+
+/obj/item/watertank/atmos/update_icon_state()
+	var/obj/item/extinguisher/mini/nozzle/our_noz = noz
+	switch(our_noz.nozzle_mode)
+		if(EXTINGUISHER)
+			icon_state = "waterbackpackatmos_0"
+		if(NANOFROST)
+			icon_state = "waterbackpackatmos_1"
+		if(METAL_FOAM)
+			icon_state = "waterbackpackatmos_2"
+		else
+			icon_state = "waterbackpackatmos"
+
+
 /obj/item/watertank/atmos/dropped(mob/user, silent = FALSE)
-	..()
-	icon_state = "waterbackpackatmos"
-	if(istype(noz, /obj/item/extinguisher/mini/nozzle))
-		var/obj/item/extinguisher/mini/nozzle/N = noz
-		N.nozzle_mode = 0
+	. = ..()
+	if(!noz)
+		return
+	var/obj/item/extinguisher/mini/nozzle/our_noz = noz
+	our_noz.nozzle_mode = NONE
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/extinguisher/mini/nozzle
 	name = "extinguisher nozzle"
@@ -210,10 +226,11 @@
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
-	var/obj/item/watertank/tank
-	var/nozzle_mode = 0
+	var/obj/item/watertank/atmos/tank
+	var/nozzle_mode = NONE
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
+
 
 /obj/item/extinguisher/mini/nozzle/New(parent_tank)
 	. = ..()
@@ -222,32 +239,30 @@
 		reagents = tank.reagents
 		max_water = tank.volume
 		loc = tank
-	return
+
 
 /obj/item/extinguisher/mini/nozzle/Move()
 	. = ..()
 	if(tank && loc != tank.loc)
 		loc = tank
-	return
 
-/obj/item/extinguisher/mini/nozzle/attack_self(mob/user as mob)
+
+/obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
-			tank.icon_state = "waterbackpackatmos_1"
 			to_chat(user, "Swapped to nanofrost launcher")
-			return
+
 		if(NANOFROST)
 			nozzle_mode = METAL_FOAM
-			tank.icon_state = "waterbackpackatmos_2"
 			to_chat(user, "Swapped to metal foam synthesizer")
-			return
+
 		if(METAL_FOAM)
 			nozzle_mode = EXTINGUISHER
-			tank.icon_state = "waterbackpackatmos_0"
 			to_chat(user, "Swapped to water extinguisher")
-			return
-	return
+
+	tank.update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/extinguisher/mini/nozzle/dropped(mob/user, silent = FALSE)
 	..()

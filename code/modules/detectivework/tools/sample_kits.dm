@@ -157,19 +157,19 @@
 		. = ..()
 
 
-/obj/item/forensics/sample_kit/MouseDrop(atom/over)
+/obj/item/forensics/sample_kit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
 	if(loc != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE)
+	afterattack(over_object, user, TRUE)
 	return TRUE
 
 

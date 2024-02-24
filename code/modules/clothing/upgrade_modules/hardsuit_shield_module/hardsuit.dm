@@ -1,7 +1,7 @@
 /obj/item/clothing/suit/space/hardsuit
 	var/obj/item/hardsuit_shield/shield = null
 
-/obj/item/clothing/suit/space/hardsuit/New()
+/obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	. = ..()
 	if(shield && ispath(shield))
 		shield = new shield(src)
@@ -21,7 +21,7 @@
 			shield = new_shield
 			shield.hardsuit = src
 			to_chat(user, "<span class='notice'>You successfully install the shield upgrade into [src].</span>")
-			return
+
 
 /obj/item/clothing/suit/space/hardsuit/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(shield)

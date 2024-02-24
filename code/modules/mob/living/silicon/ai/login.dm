@@ -7,7 +7,8 @@
 	regenerate_icons()
 
 	if(stat != DEAD)
-		for(var/obj/machinery/ai_status_display/O in GLOB.machines) //change status
-			O.mode = 1
-			O.emotion = "Neutral"
+		for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
+			display.mode = AI_DISPLAY_MODE_EMOTE
+			display.emotion = "Neutral"
+
 	view_core()

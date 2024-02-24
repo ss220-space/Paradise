@@ -7,6 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = SLOT_BELT
+	flags_2 = BLOCKS_LIGHT_2
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
 	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
@@ -14,13 +15,16 @@
 	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
 
-/obj/item/storage/belt/update_icon()
-	if(use_item_overlays)
-		overlays.Cut()
-		for(var/obj/item/I in contents)
-			if(I.belt_icon)
-				overlays += "[I.belt_icon]"
-	..()
+
+/obj/item/storage/belt/update_overlays()
+	. = ..()
+	if(!use_item_overlays)
+		return
+	for(var/obj/item/item in contents)
+		if(!item.belt_icon)
+			continue
+		. += mutable_appearance(icon, item.belt_icon, color = item.color)
+
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
@@ -450,6 +454,12 @@
 	new /obj/item/grenade/plastic/x4/thermite(src)
 	new /obj/item/storage/pill_bottle/sovietstimulants(src)
 
+/obj/item/storage/belt/military/assault/gammaert/full/populate_contents()
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/melee/classic_baton/telescopic(src)
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
@@ -501,21 +511,16 @@
 
 /obj/item/storage/belt/lazarus/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/storage/belt/lazarus/update_icon()
-	..()
+/obj/item/storage/belt/lazarus/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
 /obj/item/storage/belt/lazarus/attackby(obj/item/W, mob/user)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
-		update_icon()
-
-/obj/item/storage/belt/lazarus/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-	update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
@@ -544,19 +549,14 @@
 		new /obj/item/ammo_casing/shotgun/beanbag/fake(src)
 	update_icon()
 
-/obj/item/storage/belt/bandolier/update_icon()
-	..()
+/obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/W, mob/user)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
-		update_icon()
-
-/obj/item/storage/belt/bandolier/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-	update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
@@ -695,16 +695,14 @@
 		return
 	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
 
-/obj/item/storage/belt/rapier/update_icon()
-	. = ..()
+/obj/item/storage/belt/rapier/update_icon_state()
 	icon_state = initial(icon_state)
 	item_state = initial(item_state)
 	if(length(contents))
 		icon_state = "[icon_state]-rapier"
 		item_state = "[item_state]-rapier"
-	if(isliving(loc))
-		var/mob/living/L = loc
-		L.update_inv_belt()
+	update_equipped_item()
+
 
 // -------------------------------------
 //     Bluespace Belt
@@ -977,22 +975,19 @@
 	sheath_sound = 'sound/weapons/blade_dark_sheath.ogg'
 	unsheath_sound = 'sound/weapons/blade_dark_unsheath.ogg'
 
-/obj/item/storage/belt/claymore/update_icon()
-	. = ..()
+/obj/item/storage/belt/claymore/update_icon_state()
 	if(length(contents))
 		icon_state = "[initial(icon_state)]_blade"
 		item_state = "[initial(icon_state)]_blade"
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
-	if(isliving(loc))
-		var/mob/living/L = loc
-		L.update_inv_belt()
-		L.update_inv_s_store()
+	update_equipped_item()
+
 
 /obj/item/storage/belt/claymore/populate_contents()
 	new claymore_path(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/claymore/attack_hand(mob/user)
 	if(loc != user)
@@ -1008,7 +1003,7 @@
 		var/obj/item/I = contents[1]
 		H.visible_message(span_notice("[H] takes [I] out of [src]."), span_notice("You take [I] out of [src]."))
 		H.put_in_hands(I, ignore_anim = FALSE)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		to_chat(user, span_warning("[src] is empty!"))
 

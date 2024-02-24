@@ -39,6 +39,25 @@
 		path.Cut(1, 2)
 	return path
 
+
+/proc/is_path_exist(atom/source, atom/target, pass_flags = PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
+	var/obj/dummy = new(source.loc)
+	dummy.pass_flags |= pass_flags
+	dummy.density = TRUE
+	for(var/turf/turf in getline(source, target))
+		if(!turf.CanPass(dummy, turf, 1))
+			qdel(dummy)
+			return FALSE
+		for(var/atom/movable/AM in turf)
+			if(AM == source || AM == dummy)
+				continue
+			if(!AM.CanPass(dummy, turf, 1))
+				qdel(dummy)
+				return FALSE
+	qdel(dummy)
+	return TRUE
+
+
 /**
  * A helper macro to see if it's possible to step from the first turf into the second one, minding things like door access and directional windows.
  * Note that this can only be used inside the [datum/pathfind][pathfind datum] since it uses variables from said datum.

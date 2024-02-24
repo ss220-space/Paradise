@@ -6,7 +6,7 @@
 	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
-	language = "Chittin"
+	language = LANGUAGE_KIDAN
 	unarmed_type = /datum/unarmed_attack/claws
 
 	brute_mod = 0.8
@@ -36,6 +36,8 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 		INTERNAL_ORGAN_LANTERN = /obj/item/organ/internal/lantern,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/kidan
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/kidan),

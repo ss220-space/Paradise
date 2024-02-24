@@ -143,6 +143,7 @@ Class Procs:
 /obj/machinery/proc/flicker()
 	return FALSE
 
+
 /obj/machinery/Initialize(mapload)
 	if(!armor)
 		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
@@ -151,7 +152,7 @@ Class Procs:
 
 	myArea = get_area(src)
 	if(myArea)
-		RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
+		RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))
 		LAZYADD(myArea.machinery_cache, src)
 
 	if(!speed_process)
@@ -163,16 +164,17 @@ Class Procs:
 
 	init_multitool_menu()
 
+
 /obj/machinery/proc/onAreaExited()
+	SIGNAL_HANDLER
 	if(myArea == get_area(src))
 		return
-
 	LAZYREMOVE(myArea.machinery_cache, src)
-	UnregisterSignal(myArea, COMSIG_AREA_EXITED)
 	//message_admins("[src] exited [myArea]") Uncomment for debugging
 	myArea = get_area(src)
-	RegisterSignal(myArea, COMSIG_AREA_EXITED, PROC_REF(onAreaExited))
-	LAZYADDOR(myArea.machinery_cache, src)
+	if(!myArea)
+		return
+	LAZYADD(myArea.machinery_cache, src)
 	//message_admins("[src] entered [myArea]")
 	power_change()
 
@@ -199,6 +201,7 @@ Class Procs:
 	if(myArea)
 		LAZYREMOVE(myArea.machinery_cache, src)
 		myArea = null
+		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
 	GLOB.machines.Remove(src)
 	if(!speed_process)
 		STOP_PROCESSING(SSmachines, src)
@@ -289,7 +292,7 @@ Class Procs:
 	else
 		return attack_hand(user)
 
-/obj/machinery/attack_hand(mob/user as mob)
+/obj/machinery/attack_hand(mob/user)
 	if(istype(user, /mob/dead/observer))
 		return FALSE
 
@@ -351,8 +354,8 @@ Class Procs:
 	if(!disassembled)
 		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(M)
-	M.state = 2
-	M.icon_state = "box_1"
+	M.state = 2	// STATE_WIRED
+	M.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/obj_break(damage_flag)
 	if(!(flags & NODECONSTRUCT))
@@ -376,14 +379,18 @@ Class Procs:
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return FALSE
 	if(!(flags & NODECONSTRUCT))
+		var/prev_icon_state = icon_state
 		if(!panel_open)
-			panel_open = 1
+			panel_open = TRUE
 			icon_state = icon_state_open
 			to_chat(user, span_notice("You open the maintenance hatch of [src]."))
 		else
-			panel_open = 0
+			panel_open = FALSE
 			icon_state = icon_state_closed
 			to_chat(user, span_notice("You close the maintenance hatch of [src]."))
+		if(prev_icon_state != icon_state)
+			SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+			SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, UPDATE_ICON_STATE)
 		I.play_tool_sound(user, I.tool_volume)
 		return 1
 	return 0

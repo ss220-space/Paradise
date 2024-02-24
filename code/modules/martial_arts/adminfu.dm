@@ -38,9 +38,24 @@
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
-	var/used = 0
+	var/used = FALSE
 
-/obj/item/adminfu_scroll/attack_self(mob/user as mob)
+
+/obj/item/adminfu_scroll/update_icon_state()
+	icon_state = used ? "blankscroll" : initial(icon_state)
+
+
+/obj/item/adminfu_scroll/update_name(updates = ALL)
+	. = ..()
+	name = used ? "empty scroll" : initial(name)
+
+
+/obj/item/adminfu_scroll/update_desc(updates = ALL)
+	. = ..()
+	desc = used ? "It's completely blank." : initial(desc)
+
+
+/obj/item/adminfu_scroll/attack_self(mob/user)
 	if(!ishuman(user))
 		return
 	if(!used)
@@ -48,7 +63,6 @@
 		var/datum/martial_art/adminfu/F = new/datum/martial_art/adminfu(null)
 		F.teach(H)
 		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of the Admins.</span>")
-		used = 1
-		desc = "It's completely blank."
-		name = "empty scroll"
-		icon_state = "blankscroll"
+		used = TRUE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+

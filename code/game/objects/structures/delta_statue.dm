@@ -4,7 +4,7 @@
 	icon = 'icons/obj/delta_statue.dmi'
 	icon_state = ""
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 500
 
 /obj/structure/delta_statue/nw

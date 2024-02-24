@@ -54,14 +54,18 @@
 		A.UpdateButtonIcon()
 
 
+/obj/item/tank/jetpack/update_icon_state()
+	icon_state = "[initial(icon_state)][on ? "-on" : ""]"
+
+
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
 	on = TRUE
-	icon_state = "[initial(icon_state)]-on"
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
 	on = FALSE
 	stabilizers = FALSE
-	icon_state = initial(icon_state)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, should_leave_trail)
 	if(!on)

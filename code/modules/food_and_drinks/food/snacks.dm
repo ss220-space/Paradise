@@ -31,7 +31,7 @@
 	else
 		..()
 
-/obj/item/reagent_containers/food/snacks/update_icon()
+/obj/item/reagent_containers/food/snacks/update_icon_state()
 	if(!opened)
 		icon_state = "[initial(icon_state)]-closed"
 	else
@@ -59,7 +59,7 @@
 	if(!opened)
 		opened = TRUE
 		to_chat(user, "<span class='notice'>You open the [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return ..()
 	else
 		return

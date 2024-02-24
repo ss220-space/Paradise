@@ -28,7 +28,7 @@ GLOBAL_DATUM_INIT(apc_repository, /datum/repository/apc, new())
 				"Environment" = Status[A.environment_channel + 1],
 				"CellPct" = A.cell ? round(A.cell.percent(), 1) : 0,
 				"CellStatus" = A.cell ? chg[A.charging + 1] : "M",
-				"Load" = round(A.lastused_total, 1)
+				"Load" = round(A.last_used_total, 1)
 			)
 
 	cache_entry.timestamp = world.time + 5 SECONDS

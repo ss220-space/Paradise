@@ -65,7 +65,7 @@
 				to_chat(user, span_notice("You strapped [src], so now you can wear it on your back"))
 				isBelted = TRUE
 				slot_flags |= SLOT_BACK
-				update_icons()
+				update_icon(UPDATE_OVERLAYS)
 				return
 		else
 			to_chat(user, span_warning("[src] is already strapped!"))
@@ -166,7 +166,7 @@
 			return
 		to_chat(user, span_notice("You hook [thetank] up to [src]."))
 		tank = thetank
-	update_icons()
+	update_icon(UPDATE_OVERLAYS)
 
 /datum/crafting_recipe/pneumatic_rifle
 	name = "Pneumatic Rifle"
@@ -181,10 +181,11 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/obj/item/gun/pneumatic_rifle/proc/update_icons()
-	overlays.Cut()
+
+/obj/item/gun/pneumatic_rifle/update_overlays()
+	. = ..()
 	if(tank)
-		overlays += image('icons/obj/weapons/pneumaticRifle.dmi', "[tank.icon_state]")
+		. +=  "[tank.icon_state]"
 	if(isBelted)
-		overlays += image('icons/obj/weapons/pneumaticRifle.dmi', "belt")
-	update_icon()
+		. +=  "belt"
+
