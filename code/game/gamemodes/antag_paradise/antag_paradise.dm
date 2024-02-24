@@ -58,9 +58,10 @@
 	var/special_antag_amount
 
 	antags_amount = 1 + round(players / scale)
-	special_antag_amount = 1 + round(players / 50)
+	//Special antag spawning not on roundstart is currently disabled for testing purposes.
+	special_antag_amount = roundstart ? 1 + round(players / 50) : 0
 
-	antags_amount = round(antags_amount - length(GLOB.antagonists))
+	antags_amount = antags_amount - length(GLOB.antagonists)
 	if(antags_amount <= 0)
 		return
 
