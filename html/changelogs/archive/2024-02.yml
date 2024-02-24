@@ -304,3 +304,7 @@
   - bugfix: arrival shuttle zone. (#4484)
   Valtor:
   - bugfix: autoimplanter v2 (#4485)
+'2024-02-24':
+  Vladisvell:
+  - balance: added scalable antags from alive players count for paradise_antag game
+      mode (#4450)
