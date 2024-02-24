@@ -28,9 +28,8 @@
 
 /* Main proc on enchanting items/ making spell on hands
  *
- * It will try to enchant an item in active hand(active gripper).
- * If not, ask to enchant adjacent item(armor, backpack) or it's own hand.
- * If not, enchant spell hand.
+ * First it gets an item. Else spell midas.
+ * Then check for spell_enchant component to enchant. Else spell midas.
  */
 /datum/action/innate/clockwork/clock_magic/Activate()
 	. = ..()
@@ -48,22 +47,23 @@
 			if(istype(I, /obj/item/gripper)) // cogs gripper
 				var/obj/item/gripper/G = I
 				I = G.gripped_item
-			if(!I.enchants)
+			var/datum/component/spell_enchant/SE = I.GetComponent(/datum/component/spell_enchant)
+			if(!SE)
 				continue
 			if(I.name in items) // in case there are doubles clockslabs
 				duplicates[I.name]++
 				possible_items["[I.name] ([duplicates[I.name]])"] = I
 				var/image/item_image = image(icon = I.icon, icon_state = I.icon_state)
-				if(I.enchant_type > NO_SPELL) //cause casting spell is -1
-					item_image.add_overlay("[initial(I.icon_state)]_overlay_[I.enchant_type]")
+				if(SE.current_enchant > NO_SPELL) //cause casting spell is -1
+					item_image.add_overlay("[initial(I.icon_state)]_overlay_[SE.current_enchant]")
 				possible_icons += list("[I.name] ([duplicates[I.name]])" = item_image)
 			else
 				items.Add(I.name)
 				duplicates[I.name] = 1
 				possible_items[I.name] = I
 				var/image/item_image = image(icon = I.icon, icon_state = I.icon_state)
-				if(I.enchant_type > NO_SPELL) //cause casting spell is -1
-					item_image.add_overlay("[initial(I.icon_state)]_overlay_[I.enchant_type]")
+				if(SE.current_enchant > NO_SPELL) //cause casting spell is -1
+					item_image.add_overlay("[initial(I.icon_state)]_overlay_[SE.current_enchant]")
 				possible_icons += list(I.name = item_image)
 		if(ishuman(owner))
 			possible_items += "Spell hand"
@@ -89,79 +89,31 @@
 					return
 		if(QDELETED(src) || owner.incapacitated())
 			return
-	if(item?.enchants?.len) // it just works
-		if(item.enchant_type == CASTING_SPELL)
-			to_chat(owner, "<span class='warning'> You can't enchant [item] right now while spell is working!</span>")
-			return
-		if(item.enchant_type)
-			to_chat(owner, "<span class='clockitalic'>There is already prepared spell in [item]! If you choose another spell it will overwrite old one!</span>")
-		var/entered_spell_name
-		var/list/possible_enchants = list()
-		var/list/possible_enchant_icons = list()
-		for(var/datum/spell_enchant/S in item.enchants)
-			if(S.enchantment == item.enchant_type)
-				continue
-			possible_enchants[S.name] = S
-			var/image/I = image(icon = item.icon, icon_state = initial(item.icon_state))
-			I.add_overlay("[initial(item.icon_state)]_overlay_[S.enchantment]")
-			possible_enchant_icons += list(S.name = I)
-		entered_spell_name = show_radial_menu(owner, owner, possible_enchant_icons, require_near = TRUE)
-		var/datum/spell_enchant/spell_enchant = possible_enchants[entered_spell_name]
-		if(QDELETED(src) || owner.incapacitated() || !spell_enchant)
-			return
-		if(!(item in owner.contents))
-			var/obj/item/gripper/G = locate() in owner
-			if(item != G?.gripped_item)
-				return
-			return
-
-		if(!channeling)
-			channeling = TRUE
-			to_chat(owner, "<span class='clockitalic'>You start to concentrate on your power to seal the magic in [item].</span>")
-		else
-			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
-			return
-
-		var/clock_structure_in_range = locate(/obj/structure/clockwork/functional) in range(1, usr)
-		var/time_cast = spell_enchant.time SECONDS
-		if(clock_structure_in_range)
-			time_cast /= 2
-
-		if(do_after(owner, time_cast, target = owner))
-			item.deplete_spell() // to clear up actions if have
-			item.enchant_type = spell_enchant.enchantment
-			if(spell_enchant.spell_action)
-				var/datum/action/item_action/activate/enchant/E = new (item)
-				E.owner = owner
-				owner.actions += E
-				owner.update_action_buttons(TRUE)
-			item.update_icon()
-			to_chat(owner, "<span class='clock'>You sealed the power in [item], you have prepared a [spell_enchant.name] invocation!</span>")
-
-		channeling = FALSE
+	var/datum/component/spell_enchant/enchanting = item?.GetComponent(/datum/component/spell_enchant)
+	if(enchanting)
+		enchanting.enchant(owner)
+		return
 	// If it's empty or not an item we can enchant. Making a spell on hand.
-	else
-		if(!iscarbon(owner)) //This is to throw away non carbon who doesn't have hands, but silicon modules.
-			to_chat(owner, "<span class='clockitalic'>You need an item that you can enchant!</span>")
-			return
-		if(midas_spell)
-			to_chat(owner, "<span class='clockitalic'>You already prepared midas touch!</b></span>")
-			return
-		if(QDELETED(src) || owner.incapacitated())
-			return
+	if(!iscarbon(owner)) //This is to throw away non carbon who doesn't have hands, but silicon modules.
+		to_chat(owner, span_clockitalic("You need an item that you can enchant!"))
+		return
+	if(midas_spell)
+		to_chat(owner, span_warning("You already prepared midas touch!"))
+		return
+	if(QDELETED(src) || owner.incapacitated())
+		return
 
-		if(!channeling)
-			channeling = TRUE
-			to_chat(owner, "<span class='clockitalic'>You start to concentrate on your power to seal the magic in your hand.</span>")
-		else
-			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
-			return
+	if(channeling)
+		to_chat(owner, span_warning("You are already invoking clock magic!"))
+		return
+	channeling = TRUE
+	to_chat(owner, span_clockitalic("You start to concentrate on your power to seal the magic in your hand."))
 
-		if(do_after(owner, 50, target = owner))
-			midas_spell = new /datum/action/innate/clockwork/midas_spell(owner)
-			midas_spell.Grant(owner, src)
-			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
-		channeling = FALSE
+	if(do_after(owner, 50, target = owner))
+		midas_spell = new /datum/action/innate/clockwork/midas_spell(owner)
+		midas_spell.Grant(owner, src)
+		to_chat(owner, span_clock("You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!"))
+	channeling = FALSE
 
 /// Midas spell. Activating give you a Midas Touch in your hand(if mob has them)
 /datum/action/innate/clockwork/midas_spell
@@ -197,7 +149,7 @@
 			return
 		to_chat(owner, span_clockitalic("Your wounds glow as you invoke the [name]."))
 	else // If the spell is active, and you clicked on the button for it
-		QDEL_NULL(hand_magic)
+		QDEL_NULL(midas)
 
 // The "magic hand" items
 /obj/item/melee/midas_touch
@@ -225,7 +177,7 @@
 
 /obj/item/melee/midas_touch/Destroy()
 	if(!QDELETED(source))
-		source.hand_magic = null
+		source.midas = null
 		if(source.used)
 			QDEL_NULL(source)
 		else

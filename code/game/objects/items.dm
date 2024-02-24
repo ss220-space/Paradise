@@ -150,10 +150,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
-	//Clockwork enchantment
-	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
-	var/list/enchants = null // List(datum)
-
 	//eat_items.dm
 	var/material_type = MATERIAL_CLASS_NONE
 	var/max_bites = 1 			//The maximum amount of bites before item is depleted
@@ -275,14 +271,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
 		. += msg
-
-	if(isclocker(user) && enchant_type)
-		if(enchant_type == CASTING_SPELL)
-			. += "<span class='notice'>The last spell hasn't expired yet!</span><BR>"
-		for(var/datum/spell_enchant/S in enchants)
-			if(S.enchantment == enchant_type)
-				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"
-				break
 
 
 /obj/item/burn()
@@ -1147,14 +1135,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		materials_coeff = 1 / new_coeff
 	for(var/material in materials)
 		materials[material] *= materials_coeff
-
-
-/obj/item/proc/deplete_spell()
-	enchant_type = NO_SPELL
-	var/enchant_action = locate(/datum/action/item_action/activate/enchant) in actions
-	if(enchant_action)
-		qdel(enchant_action)
-	update_icon()
 
 
 /obj/item/update_atom_colour()

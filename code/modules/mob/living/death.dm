@@ -52,6 +52,7 @@
 		return FALSE
 
 	stat = DEAD
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, stat)
 	..()
 
 	timeofdeath = world.time

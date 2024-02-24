@@ -376,10 +376,17 @@
 	button.name = name
 
 /datum/action/item_action/activate/enchant
+	attack_self = FALSE
 
 /datum/action/item_action/activate/enchant/New(Target)
 	..()
 	UpdateButtonIcon()
+
+/datum/action/item_action/activate/enchant/Trigger(left_click)
+	if(..())
+		var/datum/component/spell_enchant/spell_enchant = target.GetComponent(/datum/component/spell_enchant)
+		spell_enchant.attackself(owner)
+
 /datum/action/item_action/halt
 	name = "HALT!"
 

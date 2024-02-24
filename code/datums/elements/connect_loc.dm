@@ -1,5 +1,5 @@
 /// This element hooks a signal onto the loc the current object is on.
-/// When the object moves, it will unhook the signal and rehook it to the new object.
+/// When the object moves, it will unhook the signal(s) and rehook it(them) to the new loc.
 /datum/element/connect_loc
 	element_flags = ELEMENT_BESPOKE
 	id_arg_index = 2

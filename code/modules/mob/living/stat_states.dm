@@ -8,6 +8,7 @@
 		return 0
 	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
 	stat = UNCONSCIOUS
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, stat)
 	if(updating)
 		update_sight()
 		update_blind_effects()
@@ -23,6 +24,7 @@
 		return 0
 	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
 	stat = CONSCIOUS
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, stat)
 	if(updating)
 		update_sight()
 		update_blind_effects()
@@ -45,6 +47,7 @@
 		return FALSE
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
 	stat = CONSCIOUS
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, stat)
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list += src
 	if(mind)

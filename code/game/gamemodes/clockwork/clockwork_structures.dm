@@ -75,7 +75,7 @@
 /obj/structure/clockwork/functional/update_icon_state()
 	if(!hidden)
 		icon = initial(icon)
-		icon_state = anchored ? "[initial(icon_state)]-off" : initial(icon_state)
+		icon_state = anchored ?  initial(icon_state) : "[initial(icon_state)]-off"
 		return
 	switch(hidden_type)
 		if("rack")
@@ -100,17 +100,6 @@
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
-		if(I.enchant_type == HIDE_SPELL && canbehidden)
-			var/choice
-			if(!hidden)
-				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
-				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
-					return TRUE
-			toggle_hide(choice)
-			to_chat(user, "<span class='notice'>You [hidden ? null : "un"]disguise [src].</span>")
-			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
-			I.deplete_spell()
-			return TRUE
 		if(hidden)
 			toggle_hide(null)
 			return TRUE
@@ -233,15 +222,19 @@
 		"stool" = /obj/structure/chair/stool,
 		"broken grille" = /obj/structure/grille/broken
 		)
+	/// Used by TELEPORT_SPELL
 	var/locname = null
 	var/obj/effect/temp_visual/ratvar/altar_convert/glow
 
-	var/mob/living/carbon/human/converting = null // Who is getting converted
-	var/mob/living/has_clocker = null // A clocker who checks the converting
+	/// Who is getting converted
+	var/mob/living/carbon/human/converting = null
+	/// A clocker who checks the converting
+	var/mob/living/clocker = null
 
-	var/first_stage = FALSE // Did convert started?
-	var/second_stage = FALSE // Did we started to gib someone?
-	var/convert_timer = 0
+	/// Converting timer
+	var/convert_timer
+	/// Ending conversion timer.
+	var/kill_timer
 
 // For fake brass
 /obj/structure/clockwork/functional/fake_altar
@@ -252,15 +245,18 @@
 	var/area/A = get_area(src)
 	locname = initial(A.name)
 	GLOB.clockwork_altars += src
-	START_PROCESSING(SSprocessing, src)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/clockwork/functional/altar/Destroy()
 	GLOB.clockwork_altars -= src
 	if(converting)
 		stop_convert()
-	STOP_PROCESSING(SSprocessing, src)
 	return ..()
-
 
 /obj/structure/clockwork/functional/altar/update_name(updates = ALL)
 	. = ..()
@@ -300,7 +296,7 @@
 		if(!anchored)
 			icon_state = "[initial(icon_state)]-off"
 			return
-		icon_state = first_stage ? "[initial(icon_state)]-fast" : initial(icon_state)
+		icon_state = convert_timer ? "[initial(icon_state)]-fast" : initial(icon_state)
 		return
 	switch(hidden_type)
 		if("potted plant")
@@ -319,105 +315,98 @@
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
-		if(hidden)
-			toggle_hide(null)
-			if(anchored)
-				START_PROCESSING(SSprocessing, src)
-			to_chat(user, "<span class='notice'>You undisguise [src].</span>")
-			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			return TRUE
-		else if(I.enchant_type == HIDE_SPELL && canbehidden)
-			var/choice
-			if(!hidden)
-				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
-				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
-					return FALSE
-			toggle_hide(choice)//cuz we sure its unhidden
-			if(isprocessing)
-				STOP_PROCESSING(SSprocessing, src)
-				if(glow)
-					QDEL_NULL(glow)
-				first_stage = FALSE
-				second_stage = FALSE
-				convert_timer = 0
-				converting = null
-			to_chat(user, "<span class='notice'>You disguise [src].</span>")
-			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			I.deplete_spell()
-			return TRUE
-		if(!anchored && !isfloorturf(loc))
-			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
-			return TRUE
-		if(!anchored && locate(/obj/structure/clockwork) in (loc.contents-src))
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return FALSE
-		if(locate(/obj/structure/falsewall) in loc)
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return TRUE
 		anchored = !anchored
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
+		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
 		if(!anchored)
 			stop_convert(TRUE)
-			STOP_PROCESSING(SSprocessing, src)
 		else
-			START_PROCESSING(SSprocessing, src)
+			try_convert()
 		return TRUE
 	return ..()
 
+/obj/structure/clockwork/functional/altar/toggle_hide(chosen_type)
+	. = ..()
+	if(. && converting)
+		stop_convert(TRUE)
+	else
+		if(anchored)
+			try_convert()
 
-/obj/structure/clockwork/functional/altar/process()
-	for(var/mob/living/M in range(1, src))
-		if(isclocker(M) && M.stat == CONSCIOUS)
-			has_clocker = M
-			break
-	if(!converting && has_clocker)
-		for(var/mob/living/carbon/human/H in range(0, src))
-			if(isclocker(H))
-				continue
-			if(!H.mind)
-				continue
-			if(H)
-				converting = H
+/obj/structure/clockwork/functional/altar/proc/on_entered(datum/source, atom/movable/entered_atom)
+	SIGNAL_HANDLER
+	if(!istype(entered_atom, /mob/living/carbon/human))
+		return
+	var/mob/living/carbon/human/victim = entered_atom
+	convert(victim)
+
+/// Used after finishing converting, anchoring, unhiddening, that's not covered by on_entered()
+/obj/structure/clockwork/functional/altar/proc/try_convert()
+	var/mob/living/carbon/human/victim
+	for(var/mob/living/carbon/human/H in range(0, src))
+		if(isclocker(H) || !H.mind)
+			continue
+		victim = H
+		break
+	if(victim)
+		convert(victim)
+
+/// If ready, has victim(should on us) and has clocker around, starts actual conversion
+/obj/structure/clockwork/functional/altar/proc/convert(mob/living/carbon/human/victim)
+	if(converting || !anchored || hidden) // already converting or cannot convert
+		return
+	if(isclocker(victim) || !victim.mind)
+		return
+
+	if(!clocker) // don't have. find one for us
+		for(var/mob/living/M in range(1, src))
+			if(isclocker(M) && !M.stat)
+				clocker = M
+				RegisterSignal(clocker, list(COMSIG_MOB_STATCHANGE, COMSIG_MOVABLE_MOVED), PROC_REF(check_clocker))
 				break
-	if(converting && (converting in range(0, src)) && (has_clocker || second_stage))
-		if(!anchored || hidden)
-			stop_convert()
+		if(!clocker) // no one
 			return
-		convert_timer++
-		has_clocker = null
-		switch(convert_timer)
-			if(0 to 8)
-				if(!first_stage)
-					first_stage_check(converting)
-			if(9 to 16)
-				if(!second_stage)
-					second_stage_check(converting)
-				else
-					converting.adjustBruteLoss(5)
-					converting.adjustFireLoss(5)
-			if(17)
-				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
-				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
-				cube.try_to_transfer(converting)
-	else if(first_stage)
+
+	converting = victim // we have everything. Begin converting
+	begin_conversion(converting)
+	convert_timer = addtimer(CALLBACK(src, PROC_REF(end_conversion), converting), 8 SECONDS, TIMER_STOPPABLE)
+	kill_timer = addtimer(CALLBACK(src, PROC_REF(kill_converting), converting), 16 SECONDS, TIMER_STOPPABLE)
+
+/// Handles if converting left the altar
+/obj/structure/clockwork/functional/altar/proc/on_exited(datum/source, atom/movable/exited_atom)
+	SIGNAL_HANDLER
+	if(converting == exited_atom)
 		stop_convert()
 
-/obj/structure/clockwork/functional/altar/proc/first_stage_check(var/mob/living/carbon/human/target)
-	first_stage = TRUE
-	target.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
+/obj/structure/clockwork/functional/altar/proc/check_clocker()
+	SIGNAL_HANDLER
+	if(!converting)
+		return
+	if(clocker.stat || !Adjacent(clocker))
+		UnregisterSignal(clocker, list(COMSIG_MOB_STATCHANGE, COMSIG_MOVABLE_MOVED))
+		clocker = null
+		for(var/mob/living/M in range(1, src))
+			if(isclocker(M) && !M.stat)
+				clocker = M
+				RegisterSignal(M, list(COMSIG_MOB_STATCHANGE, COMSIG_MOVABLE_MOVED), PROC_REF(check_clocker))
+				break
+	if(!clocker)
+		stop_convert()
+
+/obj/structure/clockwork/functional/altar/proc/begin_conversion(mob/living/carbon/human/target)
+	target.visible_message(span_warning("[src] begins to glow a piercing amber!"), span_clock("You feel something starts to invade your mind..."))
 	glow = new (get_turf(src))
 	animate(glow, alpha = 255, time = 8 SECONDS)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/clockwork/functional/altar/proc/second_stage_check(var/mob/living/carbon/human/target)
-	second_stage = TRUE
-	if(!is_convertable_to_clocker(target.mind) || target.stat == DEAD) // mindshield or holy or mindless monkey. or dead guy
-		target.visible_message("<span class='warning'>[src] in glowing manner starts corrupting [target]!</span>", \
-		"<span class='danger'>You feel as your body starts to corrupt by [src] underneath!</span>")
+/obj/structure/clockwork/functional/altar/proc/end_conversion(mob/living/carbon/human/target)
+	if(!is_convertable_to_clocker(target.mind) || target.stat == DEAD) // mindshield or holy or dead guy (with mind datum)
+		target.visible_message(span_warning("[src] in glowing manner starts corrupting [target]!"), \
+		span_danger("You feel as your body starts to corrupt by [src] underneath!"))
 		target.Weaken(20 SECONDS)
+		target.take_overall_damage(20, 20)
 	else // just a living non-clocker civil
-		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
+		to_chat(target, span_clocklarge("<b>\"You belong to me now.\"</b>"))
 		target.heal_overall_damage(50, 50, TRUE)
 		if(isgolem(target))
 			target.mind.wipe_memory()
@@ -427,15 +416,27 @@
 		target.EyeBlind(10 SECONDS)
 		stop_convert(TRUE)
 
-/obj/structure/clockwork/functional/altar/proc/stop_convert(var/silent = FALSE)
+/obj/structure/clockwork/functional/altar/proc/kill_converting(mob/living/carbon/human/target)
+	stop_convert(TRUE)
+	adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
+	var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
+	cube.try_to_transfer(target)
+
+/obj/structure/clockwork/functional/altar/proc/stop_convert(silent = FALSE)
 	QDEL_NULL(glow)
-	first_stage = FALSE
-	second_stage = FALSE
-	convert_timer = 0
+	deltimer(convert_timer)
+	convert_timer = null
+	deltimer(kill_timer)
+	kill_timer = null
+
 	converting = null
+	if(clocker)
+		UnregisterSignal(clocker, list(COMSIG_MOB_STATCHANGE, COMSIG_MOVABLE_MOVED))
+		clocker = null
 	update_icon(UPDATE_ICON_STATE)
 	if(!silent)
-		visible_message("<span class='warning'>[src] slowly stops glowing!</span>")
+		visible_message(span_warning("[src] slowly stops glowing!"))
+
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -531,8 +532,7 @@
 		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
-	. = ..()
-	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
+	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && !hidden)
 		if(!anchored && !isfloorturf(loc))
 			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
 			return TRUE
@@ -554,6 +554,7 @@
 			if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
 				timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 		return TRUE
+	return ..()
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/toggle_hide(chosen_type)
 	. = ..()

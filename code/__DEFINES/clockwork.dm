@@ -1,47 +1,50 @@
 // Clockwork Raret (Power)
-/// REMINDER: The clockwork_power(var) and clockwork_beacons(list) have been moved at _glovalvars/game_modes
+// REMINDER: The clockwork_power(var) and clockwork_beacons(list) have been moved at _glovalvars/game_modes
 
 //Clockwork Magic
-// state for spell
+/// state for spell
 #define NO_SPELL 0
 #define CASTING_SPELL -1
+#define CASTING_FASTSWORD_SPELL -2
+#define CASTING_FASTPUNCH_SPELL -3
+#define CASTING_FIRE_SPELL -4
 
-// Clockslab enchant type
+/// Clockslab enchant type
 #define STUN_SPELL 1
 #define KNOCK_SPELL 2
 #define REFORM_SPELL 3
 #define TELEPORT_SPELL 4
 #define HEAL_SPELL 5
 #define HIDE_SPELL 6
-// Ratvarian spear enchant type (borgs too)
+/// Ratvarian spear enchant
 #define CONFUSE_SPELL 1
 #define DISABLE_SPELL 2
-// Clock hammer
+/// Clock hammer enchant
 #define CRUSH_SPELL 1
 #define KNOCKOFF_SPELL 2
-// Sword
+/// Sword enchant
 #define BLOODSHED_SPELL 1
 #define FASTSWORD_SPELL 2
-// Buckler
+/// Buckler enchant
 #define PUSHOFF_SPELL 1
 #define FLASH_SPELL 2
-// Clockwork robe
+/// Clockwork robe enchant
 #define INVIS_SPELL 1
 #define SPEED_SPELL 2
-// armour
+/// armour enchant
 #define REFLECT_SPELL 1
 #define ABSORB_SPELL 2
 #define ARMOR_SPELL 3
-// Clockwork gloves
+/// Clockwork gloves enchant
 #define FASTPUNCH_SPELL 1
 #define STUNHAND_SPELL 2
 #define FIRE_SPELL 3
-//Shard
+/// Shard enchant
 #define EMP_SPELL 1
 #define TIME_SPELL 2
 #define RECONSTRUCT_SPELL 3
 
-// spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
+/// list of spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), spell_action(def FALSE))
 GLOBAL_LIST_INIT(clockslab_spells, list(
 	new /datum/spell_enchant("Stun", STUN_SPELL, 125, 8),
 	new /datum/spell_enchant("Force Passage", KNOCK_SPELL, 100),
@@ -94,15 +97,17 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define CLOCK_POWER_GENERATOR 10
 #define CLOCK_POWER_COG 1
 #define COG_MAX_SIPHON_THRESHOLD 0.25 //The cog will not siphon power if the APC's cell is at this % of power
-// amount of metal per brass
+/// amount of metal per brass
 #define CLOCK_METAL_TO_BRASS 5
-//Cogscarab: a wind up timer of how long can droney live without beacon
+/// Armor if used ARMOR_SPELL
+#define CLOCK_HARDEN_ARMOR list("melee" = 80, "bullet" = 70, "laser" = 80, "energy" = 60, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+/// Cogscarab: a wind up timer of how long can droney live without beacon
 #define CLOCK_MAX_WIND_UP_TIMER 150
-//Cogscarab: Maximum amount of cogscarab on one fabricator.
+/// Cogscarab: Maximum amount of cogscarab on one fabricator.
 #define MAX_COGSCRAB_PER_FABRICATOR 2
-// Cogscarab: Maximum amount of fabricators for cult.
+/// Cogscarab: Maximum amount of fabricators for cult.
 #define MAX_COG_FABRICATORS 2
-//Cogscarab: Amount of time to wait until a new cogscrab is ready.
+/// Cogscarab: Amount of time to wait until a new cogscrab is ready.
 #define TIME_NEW_COGSCRAB 120
 
 // Clockwork Status

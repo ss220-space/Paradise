@@ -221,7 +221,6 @@
 /datum/ai_laws/ratvar
 	name = "Слуга Юстициарии"
 	law_header = "Почитатель Ратвара и его покровитель."
-	selectable = TRUE
 
 /datum/ai_laws/ratvar/New()
 	set_zeroth_law("Почитайте Ратвара, Юстициара заводных механизмов, и служите ему.")

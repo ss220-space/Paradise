@@ -110,7 +110,7 @@
 	var/obj/structure/clockwork/functional/celestial_gateway/G = attached_to
 	if(!istype(G))
 		return
-	else if(G.obj_integrity && !G.purpose_fulfilled)
+	else if(G.obj_integrity && G.current_act != FINALE)
 		return "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'>[GATEWAY_RATVAR_ARRIVAL - G.seconds_until_activation]</div>"
 
 /obj/effect/countdown/hourglass
