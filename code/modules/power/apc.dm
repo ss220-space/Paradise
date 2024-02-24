@@ -1129,7 +1129,7 @@
 		if(malfhack && istype(malfai))					// Malfhacked APC can be used...
 			if(isAI(user))
 				var/mob/living/silicon/ai/AI = user		// Only by its hacker...
-				if(istype(AI) && malfai != AI && malfai != AI.parent)
+				if(malfai != AI && malfai != AI.parent)
 					return FALSE
 			else if(!(user in malfai.connected_robots))	// Or by Malf's borg. No exception for other silicons.
 				return FALSE
