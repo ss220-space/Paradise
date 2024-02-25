@@ -298,6 +298,7 @@
 			if(ROLE_CHANGELING)
 				antag.add_antag_datum(/datum/antagonist/changeling)
 
+
 /proc/config_to_roles(list/check_list)
 	var/list/new_list = list()
 	for(var/index in check_list)

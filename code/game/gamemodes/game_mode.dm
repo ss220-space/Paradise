@@ -321,10 +321,13 @@
 
 	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/living/player in GLOB.alive_mob_list)
-		if(!player.client || !player.has_valid_preferences() \
+		if(!player.client \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
 			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
 			|| !(role in player.client.prefs.be_special))
+			continue
+
+		if(player.mind.has_antag_datum(/datum/antagonist) || player.mind.offstation_role || player.mind.special_role)
 			continue
 
 		players += player
@@ -337,8 +340,6 @@
 		if(length(protected_species) && (player.client.prefs.species in protected_species))
 			continue
 		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
-			continue
-		if(player.mind.has_antag_datum(/datum/antagonist) || player.mind.offstation_role || player.mind.special_role)
 			continue
 
 		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
