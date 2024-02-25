@@ -188,7 +188,7 @@
 /area/ruin/USSP_SpaceBanya)
 "iE" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/syndicate,
+/obj/item/deck/cards/syndicate,
 /obj/item/dice,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
