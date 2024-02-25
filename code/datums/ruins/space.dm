@@ -394,3 +394,4 @@
 	description = "Its old space USSP Banya.... She looks very abandoned."
 	cost = 2
 	allow_duplicates = FALSE
+	
