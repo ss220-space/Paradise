@@ -327,6 +327,9 @@
 			|| !(role in player.client.prefs.be_special))
 			continue
 
+		if(player.mind.has_antag_datum(/datum/antagonist) || player.mind.offstation_role || player.mind.special_role)
+			continue
+
 		players += player
 
 	// Shuffle the players list so that it becomes ping-independent.
@@ -337,8 +340,6 @@
 		if(length(protected_species) && (player.client.prefs.species in protected_species))
 			continue
 		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
-			continue
-		if(player.mind.has_antag_datum(/datum/antagonist) || player.mind.offstation_role || player.mind.special_role)
 			continue
 
 		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
