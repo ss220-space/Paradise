@@ -321,7 +321,7 @@
 
 	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/living/player in GLOB.alive_mob_list)
-		if(!player.client || !player.has_valid_preferences() \
+		if(!player.client \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
 			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
 			|| !(role in player.client.prefs.be_special))
