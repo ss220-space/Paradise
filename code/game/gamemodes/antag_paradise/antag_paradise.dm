@@ -291,8 +291,6 @@
 			if(ROLE_THIEF)
 				antag.add_antag_datum(/datum/antagonist/thief)
 
-		message_admins("[antag.current.real_name] (ckey: [antag.current.ckey]) is the new [pre_antags[antag]].")
-
 	for(var/datum/mind/antag as anything in pre_double_antags)
 		switch(pre_antags[antag])
 			if(ROLE_VAMPIRE)
@@ -300,7 +298,6 @@
 			if(ROLE_CHANGELING)
 				antag.add_antag_datum(/datum/antagonist/changeling)
 
-		message_admins("[antag.current.real_name] (ckey: [antag.current.ckey]) is also [pre_antags[antag]].")
 
 /proc/config_to_roles(list/check_list)
 	var/list/new_list = list()
