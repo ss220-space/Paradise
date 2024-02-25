@@ -113,7 +113,7 @@
 		return
 
 
-/obj/machinery/torch_holder/update_icon()
+/obj/machinery/torch_holder/update_icon(UPDATE_OVERLAYS)
 	if(ancient)
 		return
 	overlays.Cut()

@@ -38,7 +38,7 @@ Special thanks to piotrthetchaikowsky, pilygun & the_worm
 	drying_timer = 8
 	primitive = TRUE
 
-/obj/machinery/smartfridge/drying_rack/ash/update_icon()
+/obj/machinery/smartfridge/drying_rack/ash/update_icon(UPDATE_OVERLAYS)
 	overlays.Cut()
 	if(length(contents))
 		overlays += "drying_stick_filled"
