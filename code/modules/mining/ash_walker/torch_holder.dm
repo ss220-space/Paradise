@@ -55,7 +55,7 @@
 	. = ..()
 	fakel = new(src)
 	fuel = fakel.fuel
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	update_light_state()
 	START_PROCESSING(SSobj, src)
 
@@ -108,12 +108,13 @@
 	if(!fuel) //double check
 		status = TORCH_BURNED
 		update_light_state()
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else
 		return
 
 
-/obj/machinery/torch_holder/update_icon(UPDATE_OVERLAYS)
+/obj/machinery/torch_holder/update_overlays()
+	. = ..()
 	if(ancient)
 		return
 	overlays.Cut()
@@ -135,7 +136,7 @@
 			if(status == TORCH_OFF && T.on)
 				to_chat(user, span_notice("You ignite [src] with [T]!"))
 				status = TORCH_OK
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 
 				brightness_range = T.light_range
 				brightness_power = T.light_power
@@ -166,7 +167,7 @@
 		fuel = T.fuel
 		fuel_lower = T.fuel_lower
 		fuel_upp = T.fuel_upp
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		update_light_state()
 
 		user.drop_transfer_item_to_loc(T, src)	//drop the item to update overlays and such
@@ -232,7 +233,7 @@
 		user.put_in_active_hand(L, ignore_anim = FALSE)
 
 	status = TORCH_EMPTY
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	update_light_state()
 	return L
 
