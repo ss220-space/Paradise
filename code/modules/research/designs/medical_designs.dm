@@ -343,6 +343,18 @@
 	build_path = /obj/item/storage/lockbox/research/mantis
 	category = list("Medical")
 
+/datum/design/tailblade
+	name = "Tail laserblade implant"
+	desc = "insert text"
+	id = "ci-laserblade"
+	req_tech = list("powerstorage" = 20) // unreacheable
+	locked = TRUE
+	access_requirement = list(ACCESS_ARMORY)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 15000, MAT_URANIUM = 10000, MAT_TITANIUM = 6000, MAT_DIAMOND = 6000)
+	build_path = /obj/item/organ/internal/cyberimp/tail/blade/laser
+	category = list ("Medical")
+
 /datum/design/cyberimp_atmostoolset
 	name = "Atmos Arm Implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools for atmos-techs."

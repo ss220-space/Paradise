@@ -1718,6 +1718,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list("materials" = 4, "biotech" = 4, "engineering" = 5, "plasmatech" = 4)
 
+	//Nanotrasen tailblade
+/datum/supply_packs/science/tailblade
+	name = "Tail laserblade implant design"
+	cost = 50
+	contains = list(/obj/item/disk/design_disk/tailblade/blade_nt)
+	containername = "Tail laserblade design crate"
+	containertype = /obj/structure/closet/crate/secure/scisec
+	access = ACCESS_RESEARCH
+	required_tech = list("materials" = 6, "combat" = 6, "biotech" = 6, "powerstorage" = 5)
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////

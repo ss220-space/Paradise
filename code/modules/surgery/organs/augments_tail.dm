@@ -62,7 +62,7 @@
 		to_chat(user, span_notice("Вы убрали лезвия."))
 		implant.implant_ability.Remove(user)
 
-/obj/item/organ/internal/cyberimp/tail/blade/standard
+/obj/item/organ/internal/cyberimp/tail/blade/standard //syndi tail blade
 	name = "Tail razorblade implant"
 	desc = "Razor sharp blade designed to be hidden inside the tail. Traditional design of House Eshie'Ssharahss, sold at every corner of the Empire."
 
@@ -72,8 +72,9 @@
 	damage_type = BRUTE
 	slash_sound = 'sound/weapons/bladeslice.ogg'
 	icon_state = "tailimplant_blade"
+	origin_tech = "materials=6;combat=5;biotech=5;programming=3;syndicate=3;"
 
-/obj/item/organ/internal/cyberimp/tail/blade/laser
+/obj/item/organ/internal/cyberimp/tail/blade/laser //nt tail laserblade
 	name = "Tail laserblade implant"
 	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
 
@@ -83,8 +84,9 @@
 	damage_type = BURN
 	slash_sound = 'sound/weapons/blade1.ogg'
 	icon_state = "tailimplant_laserblue"
+	origin_tech = "materials=5; combat=5; biotech=5; powerstorage=4"
 
-/obj/item/organ/internal/cyberimp/tail/blade/laser/syndi
+/obj/item/organ/internal/cyberimp/tail/blade/laser/syndi //syndi tail laserblade
 	name = "Overcharged lazerblade implant"
 	desc = "A laser blade designed to be hidden inside the tail. Design, stolen from House Eshie'Ssharahss and overcharged to be more powerful by the brightest minds of the Gorlex Marauders."
 
@@ -94,6 +96,7 @@
 	damage_type = BURN
 	slash_sound = 'sound/weapons/blade1.ogg'
 	icon_state = "tailimplant_laserred"
+	origin_tech = "materials=6;combat=5;biotech=5;powerstorage=3;syndicate=2;"
 
 /datum/action/innate/tail_cut
 	name = "Удар хвостом"
@@ -122,7 +125,7 @@
 
 	if(implant && implant.activated) // Prevents exception if you dont have the implant, but unathi
 		if(implant.implant_emp_downtime && world.time - implant.implant_emp_downtime <= 100 SECONDS) // 100 sec cooldown after EMP
-			to_chat(user, span_warning("Ваш имплант всё ещё перегружен после EMP!"))
+			to_chat(user, span_warning("Ваш имплант всё ещё перегружен после ЭМИ!"))
 			return
 		active_implant = TRUE
 
