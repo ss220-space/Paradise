@@ -388,7 +388,7 @@
 
 
 /datum/map_template/ruin/space/Space_abandoned_banya
-    id = "Space_abandoned_banya"
+	id = "Space_abandoned_banya"
 	suffix = "Space_abandoned_banya.dmm"
 	name = "USSP Space Banya"
 	description = "Its old space USSP Banya.... She looks very abandoned."
