@@ -11,16 +11,16 @@
 
 	var/obj/machinery/portable_atmospherics/connected_device
 
-	var/on = 0
+	on = FALSE
 
 /obj/machinery/atmospherics/unary/portables_connector/Destroy()
 	if(connected_device)
 		connected_device.disconnect()
 	return ..()
 
-/obj/machinery/atmospherics/unary/portables_connector/update_icon()
-	..()
+/obj/machinery/atmospherics/unary/portables_connector/update_icon_state()
 	icon_state = "connector"
+
 
 /obj/machinery/atmospherics/unary/portables_connector/update_underlays()
 	if(..())
@@ -38,7 +38,7 @@
 		parent.update = 1
 
 /obj/machinery/atmospherics/unary/portables_connector/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(connected_device)
 			to_chat(user, span_danger("You cannot unwrench this [src], detach [connected_device] first."))
 			return 1

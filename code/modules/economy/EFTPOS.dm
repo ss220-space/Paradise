@@ -39,7 +39,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_eftpos"
 
-/obj/item/paper/check/update_icon()
+/obj/item/paper/check/update_icon_state()
 	return
 
 /obj/item/paper/check/AltClick(mob/user, obj/item/I)

@@ -93,6 +93,7 @@
 		H.mind.assigned_role = "Event Character"
 		H.mind.special_role = "Event Character"
 		H.mind.offstation_role = TRUE
+		H.change_voice()
 
 		H.key = thisplayer.key
 		if(dresscode != "Naked")

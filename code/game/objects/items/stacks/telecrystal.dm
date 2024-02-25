@@ -40,8 +40,8 @@
 /obj/item/stack/telecrystal/twenty_five
 	amount = 25
 
-/obj/item/stack/telecrystal/hundread
+/obj/item/stack/telecrystal/hundred
 	amount = 100
 
-/obj/item/stack/telecrystal/twohundread_fifty
+/obj/item/stack/telecrystal/twohundred_fifty
 	amount = 250

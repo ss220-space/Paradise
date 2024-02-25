@@ -10,7 +10,7 @@
 	armor = list(melee = 40, bullet = 35, laser = 15, energy = 10, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
 	max_temperature = 30000
 	infra_luminosity = 8
-	maint_access = 1
+	maint_access = TRUE
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
 
@@ -41,7 +41,7 @@
 	armor = list(melee = 50, bullet = 35, laser = 15, energy = 15, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
 	max_temperature = 30000
 	infra_luminosity = 8
-	maint_access = 0
+	maint_access = FALSE
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/old
 
@@ -58,7 +58,7 @@
 	max_temperature = 30000
 	infra_luminosity = 8
 	max_equip = 4
-	maint_access = 0
+	maint_access = FALSE
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/rover
 	internal_damage_threshold = 35

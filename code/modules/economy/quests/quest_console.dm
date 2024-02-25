@@ -9,7 +9,7 @@
 	desc = "Essential for supply requests. Your bread and butter."
 	icon_keyboard = "cargo_quest_key"
 	icon_screen = "cargo_quest"
-	req_access = list(ACCESS_QM)
+	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplyquest
 	/// If TRUE you can see only active quests
 	var/for_active_quests = FALSE
@@ -71,19 +71,16 @@
 /obj/machinery/computer/supplyquest/ui_data(mob/user)
 	var/list/data = list()
 	var/list/quest_storages = list()
-	for(var/datum/cargo_quests_storage/quest_storage in SScargo_quests.quest_storages)
+	for(var/datum/cargo_quests_storage/quest_storage as anything in SScargo_quests.quest_storages)
 		if(for_active_quests && !quest_storage.active)
 			continue
 		var/timeleft_sec = round((quest_storage.time_start + quest_storage.quest_time - world.time) / 10)
-		if(quest_storage.active)
-			timeleft_sec += 180
 		var/list/quests_items = list()
 		for(var/datum/cargo_quest/cargo_quest as anything in quest_storage.current_quests)
-			var/image_index = rand(1, length(cargo_quest.interface_icons))
 			quests_items.Add(list(list(
 				"quest_type_name" = cargo_quest.quest_type_name,
 				"desc" = cargo_quest.desc.Join(""),
-				"image" = "[icon2base64(icon(cargo_quest.interface_icons[image_index], cargo_quest.interface_icon_states[image_index], SOUTH, 1))]",
+				"image" = "[cargo_quest.interface_images[rand(1, length(cargo_quest.interface_images))]]",
 				)))
 
 		quest_storages.Add(list(list(
@@ -156,6 +153,21 @@
 			print_order(quest)
 			addtimer(VARSET_CALLBACK(src, print_delayed, FALSE), PRINT_COOLDOWN)
 
+		if("add_time")
+			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
+			if(!istype(quest))
+				return FALSE
+			var/obj/item/card/id/I = user.get_id_card()
+			if(!has_access(list(ACCESS_QM), TRUE, I ? I.GetAccess() : list()) && !user.can_admin_interact())
+				to_chat(user, span_warning("Access Denied."))
+				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				return FALSE
+			if(quest.time_add_count > 4)
+				to_chat(user, span_warning("You've done that too many times already."))
+				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				return FALSE
+			quest.add_time()
+
 		if("buy_tech")
 			if(hightech_recovery)
 				to_chat(user, span_warning("The Centcom institutes are not ready to provide you with this technology yet."))
@@ -223,7 +235,6 @@
 	for_active_quests = TRUE
 	circuit = /obj/item/circuitboard/questcons
 	density = FALSE
-	req_access = list(ACCESS_CARGO)
 
 
 /obj/machinery/computer/supplyquest/workers/Initialize(mapload)
@@ -266,6 +277,9 @@
 	if(!complete)
 		paper.info += "time expired (-100%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "not_complete_phrases")
+	else if(quest.time_add_count > 0)
+		paper.info += "shipment delay (-[10 * quest.time_add_count]%)<br>"
+
 	else if(!length(modificators))
 		paper.info += "- none <br>"
 	paper.info += "</i><br>Bonus:<br><i>"
@@ -274,9 +288,13 @@
 		phrases += pick_list(QUEST_NOTES_STRINGS, "fast_complete_phrases")
 	else
 		paper.info += "- none <br>"
-		if(complete)
+		if(complete && !length(phrases))
 			phrases += pick_list(QUEST_NOTES_STRINGS, "good_complete_phrases")
 	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? new_reward : "0"]</span><br>"
+	if(modificators["quick_shipment"] && !modificators["departure_mismatch"])
+		paper.info += "<hr><br>"
+		for(var/sale_category in quest.customer.cargo_sale)
+			paper.info += "<span class=\"small-text\">You have received a <b>[100 - quest.customer.cargo_sale[sale_category]*100]%</b> discount on <b>[sale_category]</b> category in orders. </span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
 	var/obj/item/stamp/navcom/stamp = new()
@@ -286,10 +304,10 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	print_animation()
 
+
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
-	add_overlay(image(icon, icon_state = "print_quest_overlay", layer = overlay_layer))
-	spawn(4 SECONDS) // Should change this after merging update_overlays for computers
-		update_icon()
+	flick_overlay_view(image(icon, src, "print_quest_overlay", layer + 0.1), 4 SECONDS)
+
 
 /obj/item/qm_quest_tablet
 	name = "Quartermaster Tablet"

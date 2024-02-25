@@ -5,7 +5,7 @@
 	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "prize_counter-on"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/tickets = 0
@@ -20,7 +20,8 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/prize_counter/update_icon()
+
+/obj/machinery/prize_counter/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "prize_counter-broken"
 	else if(panel_open)
@@ -29,9 +30,9 @@
 		icon_state = "prize_counter-off"
 	else
 		icon_state = "prize_counter-on"
-	return
 
-/obj/machinery/prize_counter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+
+/obj/machinery/prize_counter/attackby(obj/item/O, var/mob/user, params)
 	if(istype(O, /obj/item/stack/tickets))
 		var/obj/item/stack/tickets/T = O
 		if(user.temporarily_remove_item_from_inventory(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
@@ -40,29 +41,37 @@
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
 		return
-	if(istype(O, /obj/item/screwdriver) && anchored)
-		playsound(src.loc, O.usesound, 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		update_icon()
-		return
 	if(panel_open)
-		if(istype(O, /obj/item/wrench))
-			default_unfasten_wrench(user, O)
-		if(component_parts && istype(O, /obj/item/crowbar))
+		if(component_parts && O.tool_behaviour == TOOL_CROWBAR)
 			if(tickets)		//save the tickets!
 				print_tickets()
 			default_deconstruction_crowbar(user, O)
 		return
 	return ..()
 
-/obj/machinery/prize_counter/attack_hand(mob/user as mob)
+
+/obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/I)
+	if(!anchored)
+		return FALSE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+
+/obj/machinery/snow_machine/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!panel_open)
+		return .
+	default_unfasten_wrench(user, I)
+
+
+/obj/machinery/prize_counter/attack_hand(mob/user)
 	if(..())
 		return
 	add_fingerprint(user)
 	interact(user)
 
-/obj/machinery/prize_counter/interact(mob/user as mob)
+/obj/machinery/prize_counter/interact(mob/user)
 	user.set_machine(src)
 
 	if(stat & (BROKEN|NOPOWER))

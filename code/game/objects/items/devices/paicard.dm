@@ -523,7 +523,7 @@
 
 /obj/item/paper/pai_upgrade
 	name = "Инструкция по применению"
-	icon_state = "paper"
+	icon_state = "paper_words"
 	info = {"<center> <b>Инструкция по применению СпИИ</b> </center><br>
 
  <b>В набор СпИИ входит:</b><br>
@@ -548,7 +548,7 @@
  5.Термальное зрение для пИИ<br>
 "}
 
-/obj/item/paper/pai_upgrade/update_icon()
+/obj/item/paper/pai_upgrade/update_icon_state()
 	return
 
 /obj/item/storage/box/syndie_kit/pai

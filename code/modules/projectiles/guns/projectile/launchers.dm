@@ -40,16 +40,16 @@
 	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	actions_types = null
 
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
-/obj/item/gun/projectile/automatic/gyropistol/update_icon()
-	..()
+
+/obj/item/gun/projectile/automatic/gyropistol/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "loaded" : ""]"
-	return
+
 
 /obj/item/gun/projectile/automatic/speargun
 	name = "kinetic speargun"
@@ -65,9 +65,9 @@
 	burst_size = 1
 	fire_delay = 0
 	select = 0
-	actions_types = list()
+	actions_types = null
 
-/obj/item/gun/projectile/automatic/speargun/update_icon()
+/obj/item/gun/projectile/automatic/speargun/update_icon_state()
 	return
 
 /obj/item/gun/projectile/automatic/speargun/attack_self()
@@ -136,10 +136,16 @@
 	update_icon()
 	return
 
-/obj/item/gun/projectile/revolver/rocketlauncher/update_icon()
-	cut_overlays()
+
+/obj/item/gun/projectile/revolver/rocketlauncher/update_icon_state()
+	return
+
+
+/obj/item/gun/projectile/revolver/rocketlauncher/update_overlays()
+	. = ..()
 	if(!chambered)
-		add_overlay("[icon_state]_empty")
+		. += "[icon_state]_empty"
+
 
 /obj/item/gun/projectile/revolver/rocketlauncher/suicide_act(mob/user)
 	user.visible_message("<span class='warning'>[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!<span>")

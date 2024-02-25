@@ -196,18 +196,29 @@
 
 
 /datum/mimic_form
+	/// What the visible species of the form is (Only for human forms)?
+	var/examine_species = "Unknown"
+	/// What the visible gender of the form is (Only for human forms)?
+	var/examine_gender
+	/// What is the examine text paired with this form?
+	var/examine_text
+	/// What is the examine time paired with this form?
+	var/examine_time
 	/// How does the form look like?
 	var/appearance
-	/// What is the examine text paired with this form
-	var/examine_text
-	/// What the name of the form is
+	/// What the name of the form is?
 	var/name
 
 
 /datum/mimic_form/New(atom/movable/form, mob/user)
-	appearance = form.appearance
+	examine_gender = form.get_visible_gender()
 	examine_text = form.examine(user)
+	examine_time = form.get_examine_time()
+	appearance = form.appearance
 	name = form.name
+	if(isliving(form))
+		var/mob/living/form_living = form
+		examine_species = form_living.get_visible_species()
 
 
 /obj/effect/proc_holder/spell/mimic/morph

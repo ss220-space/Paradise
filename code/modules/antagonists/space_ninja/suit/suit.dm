@@ -23,6 +23,9 @@
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
+	actions = list()
+	action_icon = list()
+	action_icon_state = list()
 	/// Абилки костюма
 	actions_types = list(
 		/datum/action/item_action/advanced/ninja/SpiderOS,

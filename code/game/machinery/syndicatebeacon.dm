@@ -10,7 +10,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 	var/temptext = ""
@@ -108,7 +108,7 @@
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "beacon"
 
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
 	stat = 0

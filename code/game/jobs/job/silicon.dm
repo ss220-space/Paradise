@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = -1 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
 	spawn_positions = 1
-	selection_color = "#ccffcc"
+	selection_color = "#4c82bf"
 	supervisors = "your laws"
 	department_head = list("Captain")
 	req_admin_notify = 1
@@ -28,7 +28,7 @@
 	spawn_positions = 2
 	supervisors = "your laws and the AI"	//Nodrak
 	department_head = list("AI")
-	selection_color = "#ddffdd"
+	selection_color = "#cadaec"
 	minimal_player_age = 21
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW

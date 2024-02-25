@@ -165,6 +165,10 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			G.fields["notes"] = H.gen_record
 		else
 			G.fields["notes"] = "No notes found."
+		if(H.exploit_record && !jobban_isbanned(H, "Records"))
+			G.fields["exploit_record"] = H.exploit_record
+		else
+			G.fields["exploit_record"] = "No notes found."
 		general += G
 
 		//Medical Record

@@ -12,7 +12,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/channel_name = "Station Announcements"
 	var/announcement_type = "Оповещение"
 	var/admin_announcement = 0 // Admin announcements are received regardless of being in range of a radio, unless you're in the lobby to prevent metagaming
-	var/language = "Galactic Common"
+	var/language = LANGUAGE_GALACTIC_COMMON
 
 /datum/announcement/New(var/do_log = 0, var/new_sound = null, var/do_newscast = 0)
 	sound = new_sound
@@ -44,7 +44,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	title = "Оповещение о безопасности"
 	announcement_type = "Оповещение о безопасности"
 
-/datum/announcement/proc/Announce(var/message as text, var/new_title = "", var/new_sound = null, var/do_newscast = newscast, var/msg_sanitized = 0, var/from, var/msg_language)
+/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language)
 	if(!message)
 		return
 
@@ -81,22 +81,23 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/list/garbled_receivers = list()
 
 	if(admin_announcement)
-		for(var/mob/M in GLOB.player_list)
+		for(var/mob/M as anything in GLOB.player_list)
 			if(!isnewplayer(M) && M.client)
-				receivers |= M
+				receivers[M] = TRUE
 	else
-		for(var/obj/item/radio/R in GLOB.global_radios)
-			receivers |= R.send_announcement()
+		for(var/obj/item/radio/R as anything in GLOB.global_radios)
+			for(var/mob/M as anything in R.send_announcement())
+				receivers[M] = TRUE
 		for(var/mob/M in receivers)
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())
 				receivers -= M
 				continue
 			if(!M.say_understands(null, message_language))
 				receivers -= M
-				garbled_receivers |= M
-		for(var/mob/M in GLOB.dead_mob_list)
+				garbled_receivers[M] = TRUE
+		for(var/mob/M as anything in GLOB.dead_mob_list)
 			if(M.client && M.stat == DEAD && !isnewplayer(M))
-				receivers |= M
+				receivers[M] = TRUE
 
 	return list(receivers, garbled_receivers)
 

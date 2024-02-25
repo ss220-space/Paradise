@@ -71,7 +71,11 @@
 
 	//Then look for a free one in the area
 	if(!scannerf)
-		for(var/obj/machinery/dna_scannernew/S in get_area(src))
+		var/area/search_area = get_area(src)
+		if(!search_area)
+			return
+
+		for(var/obj/machinery/dna_scannernew/S in search_area.machinery_cache)
 			return S
 
 	return 0

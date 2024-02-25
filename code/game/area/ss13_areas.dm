@@ -70,11 +70,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	parallax_movedir = NORTH
 	sound_environment = SOUND_ENVIRONMENT_ROOM
-/*
-/area/shuttle/arrival //dont have this, but at once...
-	name = "\improper Arrival Shuttle"
 
-/area/shuttle/arrival/pre_game
+/area/shuttle/arrival
+	name = "\improper Arrival Shuttle"
+/*
+/area/shuttle/arrival/pre_game //dont have this, but at once...
 	icon_state = "shuttle2"
 */
 /area/shuttle/arrival/station
@@ -1855,7 +1855,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
 		temp_closet.update_icon()
-	for(var/obj/machinery/door_timer/temp_timer in src)
+	for(var/obj/machinery/door_timer/temp_timer in machinery_cache)
 		temp_timer.releasetime = 1
 	..()
 
@@ -1874,7 +1874,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
 		temp_closet.update_icon()
-	for(var/obj/machinery/door_timer/temp_timer in src)
+	for(var/obj/machinery/door_timer/temp_timer in machinery_cache)
 		temp_timer.releasetime = 1
 	..()
 

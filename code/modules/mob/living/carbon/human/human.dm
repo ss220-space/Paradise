@@ -1,12 +1,3 @@
-/mob/living/carbon/human
-	name = "unknown"
-	real_name = "unknown"
-	voice_name = "unknown"
-	icon = 'icons/mob/human.dmi'
-	icon_state = "body_m_s"
-	deathgasp_on_death = TRUE
-
-
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	. = ..()
@@ -987,24 +978,6 @@
 		return HEARING_PROTECTION_MINOR
 
 
-///tintcheck()
-///Checks eye covering items for visually impairing tinting, such as welding masks
-///Checked in life.dm. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = You can see jack, but you can't see shit.
-/mob/living/carbon/human/tintcheck()
-	var/tinted = 0
-	if(istype(src.head, /obj/item/clothing/head))
-		var/obj/item/clothing/head/HT = src.head
-		tinted += HT.tint
-	if(istype(src.glasses, /obj/item/clothing/glasses))
-		var/obj/item/clothing/glasses/GT = src.glasses
-		tinted += GT.tint
-	if(istype(src.wear_mask, /obj/item/clothing/mask))
-		var/obj/item/clothing/mask/MT = src.wear_mask
-		tinted += MT.tint
-
-	return tinted
-
-
 /mob/living/carbon/human/abiotic(var/full_body = 0)
 	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
 		return 1
@@ -1094,12 +1067,20 @@
 		return 0
 	return 1
 
-/mob/living/carbon/human/proc/get_visible_gender()
+/mob/living/carbon/human/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
 	if((slot_w_uniform in obscured) && skipface)
 		return PLURAL
 	return gender
+
+/mob/living/carbon/human/get_visible_species()
+	var/displayed_species = dna.species.name
+	for(var/obj/item/clothing/C in src)			//Disguise checks
+		if(C == head || C == wear_suit || C == wear_mask || C == w_uniform || C == belt || C == back)
+			if(C.species_disguise)
+				displayed_species = C.species_disguise
+	return displayed_species
 
 /mob/living/carbon/human/proc/increase_germ_level(n)
 	if(gloves)
@@ -1726,10 +1707,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!H.check_has_mouth())
 		to_chat(src, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
 		return
-	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.up))
 		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
 		return
-	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
+	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.up))
 		to_chat(src, "<span class='warning'>Remove [H.p_their()] mask first!</span>")
 		return
 	if(H.receiving_cpr) // To prevent spam stacking
@@ -2124,3 +2105,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set category = "IC"
 
 	update_flavor_text()
+
+/mob/living/carbon/human/harvest(mob/living/user)
+	if(QDELETED(src))
+		return
+
+	if(issmall(src))
+		while(meatleft > 0)
+			new dna.species.meat_type(loc)
+			meatleft--
+		visible_message(span_notice("[user] butchers [src]."))
+		gib()

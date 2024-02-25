@@ -342,7 +342,7 @@
 /////////////////// Paper notes
 
 /obj/item/paper/gorky17
-	language = "Neo-Russkiya"
+	language = LANGUAGE_NEO_RUSSIAN
 /obj/item/paper/gorky17/talisman
 	name = "Проклятый талисман"
 	info = "<p><strong>НЕ ТРОГАЙ ЭТУ ХРЕНЬ ИЗ ЯЩИКА!</strong><br /> \
@@ -599,5 +599,6 @@
 		add_game_logs("[key_name(bourgeois)] entered [src], without authorization. Self-destruction mechanism activated")
 		bomb.payload?.adminlog = "[bomb] detonated in [src]. Self-destruction activated by [key_name(bourgeois)]!"
 		bomb.activate()
-		for(var/obj/machinery/power/apc/propaganda in range(50, get_turf(bomb)))
-			playsound(propaganda, 'sound/effects/self_destruct_17sec.ogg', 100)
+		for(var/obj/machinery/power/apc/propaganda in GLOB.apcs)
+			if(propaganda.z == bomb.z && get_dist(get_turf(bomb), propaganda) < 50)
+				playsound(propaganda, 'sound/effects/self_destruct_17sec.ogg', 100)

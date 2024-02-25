@@ -8,8 +8,9 @@
 	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
-	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished structure has been lit up
+	/// Amount of timer ticks that an extinguished structure has been lit up
 	var/light_process = 0
+	var/extinguish_timer_id
 
 /obj/structure/New()
 	..()
@@ -78,11 +79,11 @@
 
 	do_climb(usr)
 
-/obj/structure/MouseDrop_T(var/atom/movable/C, mob/user as mob)
-	if(..())
-		return
-	if(C == user)
+/obj/structure/MouseDrop_T(atom/movable/dropping, mob/user, params)
+	. = ..()
+	if(!. && dropping == user)
 		do_climb(user)
+		return TRUE
 
 /obj/structure/proc/density_check()
 	for(var/obj/O in orange(0, src))
@@ -211,18 +212,18 @@
 
 /obj/structure/proc/can_touch(mob/living/user)
 	if(!istype(user))
-		return 0
+		return FALSE
 	if(!Adjacent(user))
-		return 0
+		return FALSE
 	if(user.restrained() || user.buckled)
-		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
-		return 0
-	if(user.stat || user.IsParalyzed() || user.IsSleeping() || user.lying || user.IsWeakened())
-		return 0
+		to_chat(user, span_notice("You need your hands and legs free for this."))
+		return FALSE
+	if(user.incapacitated())
+		return FALSE
 	if(issilicon(user))
-		to_chat(user, "<span class='notice'>You need hands for this.</span>")
-		return 0
-	return 1
+		to_chat(user, span_notice("You need hands for this."))
+		return FALSE
+	return TRUE
 
 /obj/structure/examine(mob/user)
 	. = ..()
@@ -234,17 +235,19 @@
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status
+	if(climbable)
+		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the table after a short delay.</span>"
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(50 to 99)
-			return  "It looks slightly damaged."
+			. += "It looks slightly damaged."
 		if(25 to 50)
-			return  "It appears heavily damaged."
+			. += "It appears heavily damaged."
 		if(0 to 25)
 			if(!broken)
-				return  "<span class='warning'>It's falling apart!</span>"
+				. += "<span class='warning'>It's falling apart!</span>"
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
@@ -257,11 +260,13 @@
 		update_light()
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the object. Perhaps shining a light will force it to clear?"
-		START_PROCESSING(SSobj, src)
+		extinguish_timer_id = addtimer(CALLBACK(src, PROC_REF(extinguish_light_check)), 2 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_LOOP|TIMER_DELETE_ME|TIMER_STOPPABLE)
 
 
-/obj/structure/process()
+/obj/structure/proc/extinguish_light_check()
 	var/turf/source_turf = get_turf(src)
+	if(!source_turf)
+		return
 	if(source_turf.get_lumcount() > 0.2)
 		light_process++
 		if(light_process > 3)
@@ -277,4 +282,5 @@
 	update_light()
 	name = initial(name)
 	desc = initial(desc)
-	STOP_PROCESSING(SSobj, src)
+	deltimer(extinguish_timer_id)
+

@@ -26,7 +26,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable
 	level = 1
-	anchored = 1
+	anchored = TRUE
 	on_blueprints = TRUE
 	var/datum/powernet/powernet
 	name = "power cable"
@@ -99,7 +99,7 @@ By design, d1 is the smallest direction and d2 is the highest
 //If underfloor, hide the cable
 /obj/structure/cable/hide(i)
 	if(level == 1 && isturf(loc))
-		invisibility = i ? INVISIBILITY_ABSTRACT : 0
+		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -602,8 +602,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			current_organ = pick_n_take(childlist)
 			if(!current_organ.burn_dam || !current_organ.is_robotic())
 				continue
-		else if(current_organ.parent && !parenthealed)
-			current_organ = current_organ.parent
+		else if(target_organ.parent && !parenthealed)
+			current_organ = target_organ.parent
 			parenthealed = TRUE
 			if(!current_organ.burn_dam || !current_organ.is_robotic())
 				break

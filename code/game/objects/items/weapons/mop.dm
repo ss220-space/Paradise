@@ -24,16 +24,20 @@
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-/obj/item/mop/proc/wet_mop(obj/o, mob/user)
-	if(o.reagents.total_volume < 1)
-		to_chat(user, "[o] is out of water!</span>")
-		if(!istype(o, /obj/item/reagent_containers/glass/bucket))
-			janicart_insert(user, o)
+
+/obj/item/mop/proc/wet_mop(obj/target, mob/user)
+	if(target.reagents.total_volume < 1)
+		to_chat(user, "[target] is out of water!</span>")
+		if(istype(target, /obj/structure/mopbucket))
+			mopbucket_insert(user, target)
+		if(!istype(target, /obj/item/reagent_containers/glass/bucket))
+			janicart_insert(user, target)
 		return
 
-	o.reagents.trans_to(src, 5)
-	to_chat(user, "<span class='notice'>You wet [src] in [o].</span>")
-	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+	target.reagents.trans_to(src, 5)
+	to_chat(user, "<span class='notice'>You wet [src] in [target].</span>")
+	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
+
 
 /obj/item/mop/proc/clean(turf/simulated/A)
 	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
@@ -69,10 +73,16 @@
 	else
 		return ..()
 
-/obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.put_in_cart(src, user)
-	J.mymop=src
-	J.update_icon()
+
+/obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
+	cart.mymop = src
+	cart.put_in_cart(src, user)
+
+
+/obj/item/mop/proc/mopbucket_insert(mob/user, obj/structure/mopbucket/bucket)
+	bucket.mymop = src
+	bucket.put_in_cart(src, user)
+
 
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)

@@ -57,6 +57,169 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatsteak
 
+/datum/recipe/grill/meatsteak_human
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "herbsmix" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+		/obj/item/reagent_containers/food/snacks/grown/eggplant
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/human
+
+/datum/recipe/grill/meatsteak_vulpkanin
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "lemonjuice" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/vulpkanin,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin
+
+/datum/recipe/grill/meatsteak_tajaran
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "sodawater" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/tajaran,
+		/obj/item/grown/nettle/basic
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/tajaran
+
+/datum/recipe/grill/meatsteak_unathi
+	reagents = list("sodiumchloride" = 5, "blackpepper" = 5, "herbsmix" = 5, "tomatojuice" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/unathi,
+		/obj/item/reagent_containers/food/snacks/grown/harebell
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/unathi
+
+/datum/recipe/grill/meatsteak_drask
+	reagents = list("sodiumchloride" = 5, "blackpepper" = 5, "capsaicin" = 10, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/drask,
+		/obj/item/reagent_containers/food/snacks/grown/garlic,
+		/obj/item/reagent_containers/food/snacks/grown/chili,
+		/obj/item/reagent_containers/food/snacks/grown/berries,
+		/obj/item/reagent_containers/food/snacks/grown/berries,
+		/obj/item/reagent_containers/food/snacks/grown/berries
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/drask
+
+/datum/recipe/grill/meatsteak_grey
+	reagents = list("sodiumchloride" = 5, "blackpepper" = 1, "tomatojuice" = 10, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/grey,
+		/obj/item/reagent_containers/food/snacks/grown/garlic,
+		/obj/item/reagent_containers/food/snacks/grown/cabbage
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/grey
+
+/datum/recipe/grill/meatsteak_skrell
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 5, "tomatojuice" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/skrell,
+		/obj/item/reagent_containers/food/snacks/grown/banana
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/skrell
+
+/datum/recipe/grill/meatsteak_vox
+	reagents = list("sodiumchloride" = 5, "blackpepper" = 5, "herbsmix" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/vox,
+		/obj/item/reagent_containers/food/snacks/grown/garlic,
+		/obj/item/reagent_containers/food/snacks/grown/potato/sweet,
+		/obj/item/reagent_containers/food/snacks/grown/potato/sweet
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/vox
+
+/datum/recipe/grill/meatsteak_slime
+	reagents = list("sodiumchloride" = 10, "sugar" = 5, "herbsmix" = 5, "lemonjuice" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/slime,
+		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/slime
+
+/datum/recipe/grill/meatsteak_wryn
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "orangejuice" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/wryn,
+		/obj/item/reagent_containers/food/snacks/grown/potato,
+		/obj/item/reagent_containers/food/snacks/grown/potato
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/wryn
+
+/datum/recipe/grill/meatsteak_kidan
+	reagents = list("sodiumchloride" = 5, "blackpepper" = 5, "herbsmix" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/kidan,
+		/obj/item/reagent_containers/food/snacks/grown/garlic,
+		/obj/item/reagent_containers/food/snacks/grown/olive,
+		/obj/item/reagent_containers/food/snacks/grown/olive,
+		/obj/item/reagent_containers/food/snacks/grown/olive
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/kidan
+
+/datum/recipe/grill/meatsteak_nian
+	reagents = list("sodiumchloride" = 5, "sugar" = 5, "herbsmix" = 5, "lemonjuice" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/nian,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/orange
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/nian
+
+/datum/recipe/grill/meatsteak_diona
+	reagents = list("sodiumchloride" = 5, "blackpepper" = 1, "herbsmix" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/diona,
+		/obj/item/reagent_containers/food/snacks/grown/garlic,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/diona
+
+/datum/recipe/grill/meatsteak_monkey
+	reagents = list("sodiumchloride" = 5, "blackpepper" = 1, "herbsmix" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+		/obj/item/reagent_containers/food/snacks/grown/chili,
+		/obj/item/reagent_containers/food/snacks/grown/chili,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/monkey
+
+/datum/recipe/grill/meatsteak_farwa
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "grapejuice" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/farwa,
+		/obj/item/reagent_containers/food/snacks/grown/poppy,
+		/obj/item/reagent_containers/food/snacks/grown/poppy
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/farwa
+
+/datum/recipe/grill/meatsteak_wolpin
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "potato" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin,
+		/obj/item/reagent_containers/food/snacks/onion_slice/red,
+		/obj/item/reagent_containers/food/snacks/onion_slice/red
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/wolpin
+
+/datum/recipe/grill/meatsteak_neara
+	reagents = list("sodiumchloride" = 2, "blackpepper" = 2, "lemonjuice" = 5, "herbsmix" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/neara,
+		/obj/item/reagent_containers/food/snacks/grown/soybeans,
+		/obj/item/reagent_containers/food/snacks/grown/soybeans
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/neara
+
+/datum/recipe/grill/meatsteak_stok
+	reagents = list("sodiumchloride" = 2, "blackpepper" = 2, "orangejuice" = 5, "herbsmix" = 5, "oliveoil" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/stok,
+		/obj/item/reagent_containers/food/snacks/cucumberslice,
+		/obj/item/reagent_containers/food/snacks/cucumberslice
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak/stok
+
 /datum/recipe/grill/waffles
 	reagents = list("sugar" = 10)
 	items = list(
@@ -126,16 +289,16 @@
 /datum/recipe/grill/human/kabob
 	items = list(
 		/obj/item/stack/rods,
-		/obj/item/reagent_containers/food/snacks/meat/human,
-		/obj/item/reagent_containers/food/snacks/meat/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 	)
 	result = /obj/item/reagent_containers/food/snacks/kabob
 
 /datum/recipe/grill/monkeykabob
 	items = list(
 		/obj/item/stack/rods,
-		/obj/item/reagent_containers/food/snacks/meat/monkey,
-		/obj/item/reagent_containers/food/snacks/meat/monkey,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 	)
 	result = /obj/item/reagent_containers/food/snacks/monkeykabob
 

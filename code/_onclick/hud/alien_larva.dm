@@ -35,7 +35,5 @@
 	using.screen_loc = ui_alienlarva_language_menu
 	static_inventory += using
 
-	zone_select = new /obj/screen/zone_sel/alien()
-	zone_select.hud = src
-	zone_select.update_icon(UPDATE_OVERLAYS)
+	zone_select = new /obj/screen/zone_sel/alien(null, src)
 	static_inventory += zone_select

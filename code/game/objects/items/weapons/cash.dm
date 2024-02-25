@@ -22,8 +22,7 @@
 	max_amount = CASHMAX
 	merge_type = /obj/item/stack/spacecash
 
-/obj/item/stack/spacecash/update_icon()
-	..()
+/obj/item/stack/spacecash/update_icon_state()
 	name = "[amount == CASHMAX ? "[CASHMAX]" : amount] Credit[amount > 1 ? "s" : ""]"
 	switch(amount)
 		if(CASH1 to CASH2 - 1)
@@ -114,8 +113,7 @@
 	..()
 	update_icon()
 
-/obj/item/stack/spacecash/ussp/update_icon()
-	..()
+/obj/item/stack/spacecash/ussp/update_icon_state()
 	name = "[amount == CASHMAX ? "[CASHMAX]" : amount] Ruble[amount > 1 ? "s" : ""]"
 	switch(amount)
 		if(CASH1 to CASH2 - 1)

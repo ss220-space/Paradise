@@ -2443,11 +2443,11 @@
 	desc = "Баксоны максона. Возможно кто-то приобретет пропуск.";
 	name = "100.000 �������� �������"
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	amount = 115;
 	desc = null
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	amount = 115;
 	desc = null
 	},
@@ -6456,7 +6456,6 @@
 	height = 11;
 	id = "specops_away";
 	name = "centcom bay 3";
-	no_spin = 1;
 	top_left_corner = 8;
 	top_right_corner = 1;
 	turf_type = /turf/simulated/floor;
@@ -11492,18 +11491,18 @@
 /area/centcom/zone1)
 "fQg" = (
 /obj/structure/table/wood,
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	pixel_x = 3
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	pixel_x = -3;
 	pixel_y = 4
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	pixel_x = -4;
 	pixel_y = -2
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	pixel_x = 3;
 	pixel_y = 9
 	},

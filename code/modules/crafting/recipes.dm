@@ -200,6 +200,29 @@
 	subcategory = CAT_WEAPON
 	alert_admins_on_craft = TRUE
 
+/datum/crafting_recipe/revolver_ibullet
+	name = "Improvised Revolver Shell"
+	result = /obj/item/ammo_casing/revolver/improvised
+	reqs = list(/obj/item/stack/sheet/metal = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 5,)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 2
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/revolver_pbullet
+	name = "Phosphorous Revolver Bullet"
+	result = /obj/item/ammo_casing/revolver/improvised/phosphorus
+	reqs = list(/obj/item/stack/sheet/metal = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/phosphorus = 5,
+				/datum/reagent/fuel = 5,)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 2
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
 /datum/crafting_recipe/pulseslug
 	name = "Pulse Slug Shell"
 	result = /obj/item/ammo_casing/shotgun/pulseslug
@@ -255,18 +278,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/improvisedbullet
-	name = "Improvised Revolver Shell"
-	result = /obj/item/ammo_casing/revolver/improvised
-	reqs = list(/obj/item/stack/sheet/metal = 1,
-				/obj/item/stack/cable_coil = 1,
-				/datum/reagent/fuel = 5)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 2
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-
 /datum/crafting_recipe/improvisedslugoverload
 	name = "Overload Improvised Shell"
 	result = /obj/item/ammo_casing/shotgun/improvised/overload
@@ -302,8 +313,8 @@
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/irevolver
-	name = "Improvised revolver"
-	result = /obj/item/gun/projectile/revolver/improvisedrevolver
+	name = "Improvised Revolver"
+	result = /obj/item/gun/projectile/revolver/improvised
 	reqs = list(/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/stack/sheet/wood = 2,
 				/obj/item/stack/sheet/metal = 3,
@@ -1339,6 +1350,14 @@
 				/obj/item/toy/crayon/spraycan = 1)
 	category = CAT_MISC
 
+/datum/crafting_recipe/ntlockerpaint
+	name = "NT Special Mech Paintkit"
+	result = /obj/item/paintkit/lockermech_nt
+	time = 35
+	reqs = list(/obj/item/stack/sheet/cardboard = 5,
+				/obj/item/toy/crayon/spraycan = 1)
+	category = CAT_MISC
+
 /datum/crafting_recipe/stacklifter
 	name = "The weight stacklifter"
 	result = /obj/structure/weightmachine/stacklifter
@@ -1390,7 +1409,7 @@
 
 /datum/crafting_recipe/makeshift_speedloader
 	name = "Makeshift Speedloader"
-	result = /obj/item/ammo_box/speedloader/improvisedrevolver
+	result = /obj/item/ammo_box/speedloader/improvised
 	time = 5 SECONDS
 	reqs = list(/obj/item/c_tube = 4,
 				/obj/item/stack/packageWrap = 10,

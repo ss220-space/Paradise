@@ -1,11 +1,31 @@
 /obj/structure/sign
 	icon = 'icons/obj/decals.dmi'
-	anchored = 1
+	anchored = TRUE
 	opacity = 0
 	density = 0
 	layer = 3.5
 	max_integrity = 100
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	var/does_emissive = FALSE
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+
+
+/obj/structure/sign/Initialize(mapload)
+	. = ..()
+	if(does_emissive)
+		update_icon(UPDATE_OVERLAYS)
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
+
+/obj/structure/sign/update_overlays()
+	. = ..()
+
+	underlays.Cut()
+	if(!does_emissive)
+		return
+
+	underlays += emissive_appearance(icon,"[icon_state]_lightmask")
+
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -16,6 +36,7 @@
 				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
+
 
 /obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
 	if(istype(src, /obj/structure/sign/double))
@@ -42,33 +63,36 @@
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
-/obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
-	if(istype(tool, /obj/item/screwdriver) && isturf(user.loc))
-		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-		if(direction == "Cancel")
-			return
-		if(QDELETED(src))
-			return
-		var/obj/structure/sign/S = new(user.loc)
-		switch(direction)
-			if("North")
-				S.pixel_y = 32
-			if("East")
-				S.pixel_x = 32
-			if("South")
-				S.pixel_y = -32
-			if("West")
-				S.pixel_x = -32
-			else
-				return
-		S.name = name
-		S.desc = desc
-		S.icon_state = sign_state
-		src.transfer_fingerprints_to(S)
-		to_chat(user, "You fasten \the [S] with your [tool].")
-		qdel(src)
-	else
-		return ..()
+
+/obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
+	if(!isturf(loc))
+		return
+
+	var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
+	if(direction == "Cancel")
+		return TRUE // These gotta be true or we stab the sign
+	if(QDELETED(src))
+		return TRUE // Unsure about this, but stabbing something that doesnt exist seems like a bad idea
+
+	var/obj/structure/sign/sign = new(loc)
+	switch(direction)
+		if("North")
+			sign.pixel_y = 32
+		if("East")
+			sign.pixel_x = 32
+		if("South")
+			sign.pixel_y = -32
+		if("West")
+			sign.pixel_x = -32
+		else
+			return TRUE // We dont want to stab it or place it, so we return
+	sign.name = name
+	sign.desc = desc
+	sign.icon_state = sign_state
+	to_chat(user, span_notice("You fasten [sign] with your [I]."))
+	qdel(src)
+	return TRUE
+
 
 /obj/structure/sign/double/map
 	name = "station map"
@@ -212,11 +236,15 @@
 	name = "\improper barber shop sign"
 	desc = "A spinning sign indicating a barbershop is near."
 	icon_state = "barber"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
 
 /obj/structure/sign/chinese
 	name = "\improper chinese restaurant sign"
 	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
 
 /obj/structure/sign/science
 	name = "\improper SCIENCE!"

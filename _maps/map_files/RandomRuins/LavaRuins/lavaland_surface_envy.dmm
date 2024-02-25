@@ -24,7 +24,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "h" = (
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/item/candle,
 /obj/item/storage/box/matches,
 /obj/effect/decal/cleanable/cobweb2,
@@ -49,7 +49,7 @@
 /obj/effect/decal/cleanable/blood{
 	layer = 2.5
 	},
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"

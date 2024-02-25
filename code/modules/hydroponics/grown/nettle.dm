@@ -106,9 +106,9 @@
 	return ..()
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
-	..()
-	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
+	. = ..()
+	if(. && isliving(M))
+		to_chat(M, span_danger("You are stunned by the powerful acid of the Deathnettle!"))
 		add_attack_logs(user, M, "Hit with [src]")
 
 		M.AdjustEyeBlurry((force / 7) STATUS_EFFECT_CONSTANT)
