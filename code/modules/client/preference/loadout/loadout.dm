@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 /datum/gear
 	var/display_name       //Name/index. Must be unique.
 	var/description        //Description of this gear. If left blank will default to the description of the pathed item.
-	var/path               //Path to item.
+	var/atom/path          //Path to item.
 	var/icon_state		   //Icon state of item
 	var/icon			   //File of icon
 	var/base64icon         //It will be generated automaticly
@@ -30,12 +30,10 @@ GLOBAL_LIST_EMPTY(gear_datums)
 /datum/gear/New()
 	..()
 	if(!description)
-		var/obj/O = path
-		description = initial(O.desc)
+		description = initial(path.desc)
 	if(!icon || !icon_state)
-		var/obj/item/item = new path
-		icon_state = item.icon_state
-		icon = item.icon
+		icon_state = initial(path.icon_state)
+		icon = initial(path.icon)
 	base64icon = icon2base64(icon(icon, icon_state, SOUTH, 1, FALSE))
 
 
