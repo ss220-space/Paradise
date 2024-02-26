@@ -151,10 +151,9 @@
 		return TRUE
 	if(mover.throwing)
 		return TRUE
-	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
-		var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
-		if(!other_table.flipped)
-			return TRUE
+	var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
+	if(!other_table.flipped)
+		return TRUE
 	if(flipped)
 		if(get_dir(loc, target) == dir)
 			return !density
