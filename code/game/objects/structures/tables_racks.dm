@@ -147,12 +147,12 @@
 		var/mob/living/M = mover
 		if(M.flying)
 			return TRUE
+		var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
+		if(!other_table.flipped)
+			return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
 	if(mover.throwing)
-		return TRUE
-	var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
-	if(!other_table.flipped)
 		return TRUE
 	if(flipped)
 		if(get_dir(loc, target) == dir)
