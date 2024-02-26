@@ -354,7 +354,7 @@
 
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL)
 	if(istype(implant) && implant.activated)
-		msg += "You can see a metallic shine on the tail.\n"
+		msg += "You can see a strange glint on [p_their()] tail.\n"
 
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"

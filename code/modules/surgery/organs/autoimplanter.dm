@@ -75,11 +75,11 @@
 	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
 
 /obj/item/autoimplanter/oneuse/tailblade
-	name = "autoimplanter(blade)"
+	name = "autoimplanter(RazorBlade)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/standard
 
 /obj/item/autoimplanter/oneuse/tailblade/laser
-	name = "autoimplanter(laser blade)"
+	name = "autoimplanter(LaserBlade)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/laser/syndi
 
 /obj/item/autoimplanter/traitor

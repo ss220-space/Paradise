@@ -18,7 +18,7 @@
 	implant_color = "#585857"
 	var/datum/action/innate/tail_cut/implant_ability
 
-	var/slash_strength // Damage mobifier, slash_strength * 5
+	var/slash_strength // Damage modifier, slash_strength * 5
 	var/stamina_damage // Stamina damage to others
 	var/self_stamina_damage // Stamina damage to self
 	var/damage_type // BRUTE or BURN
@@ -36,6 +36,9 @@
 
 /obj/item/organ/internal/cyberimp/tail/blade/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(implant_ability)
+		if(activated)
+			owner.apply_damage(slash_strength*5,damage_type,BODY_ZONE_TAIL, 0, 1)
+			playsound(owner.loc, slash_sound, 30, 1)
 		implant_ability.Remove(owner)
 		implant_ability = null
 	. = ..()
@@ -49,6 +52,7 @@
 	if(activated)
 		implant.icon_state = "[initial(icon_state)]_active"
 		playsound(user.loc, sound_on, 30, 1)
+
 		if(hascut) // Prevents from double action icons for unathies
 			to_chat(user, span_notice("Вы выдвинули лезвия, делая свой хвост ещё опаснее."))
 			return
@@ -60,9 +64,10 @@
 		implant.icon_state = "[initial(icon_state)]"
 		playsound(user.loc, sound_off, 30, 1)
 		to_chat(user, span_notice("Вы убрали лезвия."))
-		implant.implant_ability.Remove(user)
+		if(!hascut)
+			implant.implant_ability.Remove(user)
 
-/obj/item/organ/internal/cyberimp/tail/blade/standard //syndi tail blade
+/obj/item/organ/internal/cyberimp/tail/blade/standard //syndi tail razorblade
 	name = "Tail razorblade implant"
 	desc = "Razor sharp blade designed to be hidden inside the tail. Traditional design of House Eshie'Ssharahss, sold at every corner of the Empire."
 
@@ -71,7 +76,7 @@
 	self_stamina_damage = 15
 	damage_type = BRUTE
 	slash_sound = 'sound/weapons/bladeslice.ogg'
-	icon_state = "tailimplant_blade"
+	icon_state = "tailimplant_blade" //all tailblades sprites by @baldek
 	origin_tech = "materials=6;combat=5;biotech=5;programming=3;syndicate=3;"
 
 /obj/item/organ/internal/cyberimp/tail/blade/laser //nt tail laserblade
@@ -84,10 +89,10 @@
 	damage_type = BURN
 	slash_sound = 'sound/weapons/blade1.ogg'
 	icon_state = "tailimplant_laserblue"
-	origin_tech = "materials=5; combat=5; biotech=5; powerstorage=4"
+	origin_tech = "materials=5;combat=5;biotech=5;powerstorage=4;"
 
 /obj/item/organ/internal/cyberimp/tail/blade/laser/syndi //syndi tail laserblade
-	name = "Overcharged lazerblade implant"
+	name = "Overcharged laserblade implant"
 	desc = "A laser blade designed to be hidden inside the tail. Design, stolen from House Eshie'Ssharahss and overcharged to be more powerful by the brightest minds of the Gorlex Marauders."
 
 	slash_strength = 4
@@ -134,6 +139,7 @@
 		return
 
 	user.changeNext_click(CLICK_CD_MELEE)
+	user.spin(10,1)
 
 		/// If the user has an implant, we take its values, if not, we take the values from the old unathi's tail_lash (unathi special)
 	for(var/mob/living/carbon/human/C in orange(1))
@@ -148,10 +154,10 @@
 
 			else if(!isunathi(user) && !implant) // Not unathi, no implant, where did you get tail cut?
 				return
+
 			var/target_armor = C.run_armor_check(E, MELEE)
 			C.apply_damage(active_implant ? implant.slash_strength * 5 : U.tail_strength * 5, active_implant ? implant.damage_type : BRUTE, E, target_armor, 1)
 			C.adjustStaminaLoss(active_implant ? implant.stamina_damage : 0)
-			user.spin(10,1)
 			playsound(user.loc, active_implant ? implant.slash_sound : 'sound/weapons/slash.ogg', 50, 0)
 			add_attack_logs(user, C, "tail whipped")
 
