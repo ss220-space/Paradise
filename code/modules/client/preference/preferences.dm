@@ -628,7 +628,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(G.donator_tier > user.client.donator_level)
 					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B></td>"
 				else
-					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
+					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img height=64px width=64px src=data:image/jpeg;base64,[G.base64icon] class='loadoutPreview'></td>"
 				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
 				if(G.allowed_roles)
 					dat += "<font size=2>Restrictions: "
