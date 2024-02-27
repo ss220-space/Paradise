@@ -515,8 +515,7 @@
 			return FALSE
 
 	if(isliving(user))
-		var/mob/living/sender = user
-		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE) && intentional)
+		if(HAS_TRAIT(user, TRAIT_EMOTE_MUTE) && intentional)
 			return FALSE
 	else
 		// deadchat handling
