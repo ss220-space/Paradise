@@ -989,23 +989,3 @@
 	used = FALSE
 	flags &= ~NODROP
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
-
-/obj/item/twohanded/fishingrod
-	name = "ol' reliable"
-	desc = "Hey! I caught a miner!"
-	icon_state = "fishing_rod0"
-	item_state = ""
-	w_class = WEIGHT_CLASS_SMALL
-	var/w_class_on = WEIGHT_CLASS_BULKY
-
-/obj/item/twohanded/fishingrod/wield()
-	w_class = w_class_on
-	item_state = "fishing_rod"
-
-/obj/item/twohanded/fishingrod/unwield()
-	w_class = initial(w_class)
-	item_state = ""
-
-/obj/item/twohanded/fishingrod/update_icon_state()
-	icon_state = "fishing_rod[HAS_TRAIT(src, TRAIT_WIELDED)]"
-

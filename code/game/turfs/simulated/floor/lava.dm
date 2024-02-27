@@ -173,6 +173,11 @@
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
+
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_fishing)
+
 /turf/simulated/floor/plating/lava/smooth/airless
 	temperature = TCMB
 
