@@ -662,7 +662,6 @@
 /area/ruin/USSP_SpaceBanya)
 "zd" = (
 /obj/structure/railing,
-/obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
