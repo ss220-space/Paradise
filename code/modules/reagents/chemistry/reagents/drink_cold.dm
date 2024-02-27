@@ -55,6 +55,37 @@
 	drink_desc = "A glass of refreshing Space Cola"
 	taste_description = "cola"
 
+/datum/reagent/consumable/drink/cold/energy
+	name = "Energy Drink"
+	id = "energetik"
+	description = "A refreshing beverage."
+	reagent_state = LIQUID
+	color = "#a9c725"
+	adj_drowsy = -6 SECONDS // 12
+	adj_sleepy = -4 SECONDS // 8
+	adj_dizzy = -10 SECONDS // 20
+	heart_rate_increase = 1
+	drink_icon = "lemonglass"
+	drink_name = "Glass of Classic Energy Drink"
+	drink_desc = "A glass of of invigorating energy drink"
+	taste_description = "tutti frutti"
+
+/datum/reagent/consumable/drink/cold/energy/trop
+	name = "Tropickal Energy Drink"
+	id = "trop_eng"
+	taste_description = "mango and coconut"
+
+/datum/reagent/consumable/drink/cold/energy/milk
+	name = "Milk Energy Drink"
+	id = "milk_eng"
+	taste_description = "milk and taurin"
+
+/datum/reagent/consumable/drink/cold/energy/grey
+	name = "GreyPower Energy Drink"
+	id = "grey_eng"
+	color = "#9dc2d1"
+	taste_description = "coffee and taurin"
+
 /datum/reagent/consumable/drink/cold/nuka_cola
 	name = "Nuka Cola"
 	id = "nuka_cola"
