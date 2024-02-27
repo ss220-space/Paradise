@@ -260,7 +260,7 @@
 	var/burnloss = 0
 
 	if(status_flags & GODMODE)
-		return 0
+		return FALSE
 
 	var/armor = getarmor(null, "bomb")	//Average bomb protection
 	var/limb_loss_reduction = FLOOR(armor / 25, 1) //It's guaranteed that every 25th armor point will protect from one delimb
@@ -270,7 +270,7 @@
 		if(1)
 			if(prob(ex_armor_reduction(100, armor)) && armor < 100)
 				gib()
-				return 0
+				return FALSE
 			else
 				bruteloss += 500
 				limbs_affected = pick(2,3,4)
@@ -295,8 +295,8 @@
 
 	limbs_affected = max(limbs_affected - limb_loss_reduction, 0)
 	if(epicenter)
-		var/throw_distance = round(3 - severity + ex_armor_reduction(4, armor))
-		var/throw_speed = 14 - severity * 4 + ex_armor_reduction(4, armor)
+		var/throw_distance = round(4 - severity + ex_armor_reduction(4 - severity, armor))
+		var/throw_speed = 14 - severity * 4 + ex_armor_reduction(4 - severity, armor)
 		var/dir_if_centered = epicenter == get_turf(src) ? rand(0, 10) : null
 		var/turf/turf_to_land
 		if(!dir_if_centered)
