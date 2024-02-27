@@ -31795,7 +31795,10 @@
 	},
 /area/hallway/spacebridge/dockmed)
 "dVo" = (
-/obj/structure/bonfire,
+/obj/structure/fireplace{
+	dir = 4;
+	pixel_x = -7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
