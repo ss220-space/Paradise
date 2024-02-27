@@ -1388,7 +1388,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/run_examinate(atom/target)
 	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
-	face_atom(target)
 
 	if(user_staring_effect || hindered_inspection(target))
 		return
@@ -1397,6 +1396,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(examine_time && target != src)
 		var/visible_gender = target.get_visible_gender()
 		var/visible_species = "Unknown"
+
+		// If we did not see the target with our own eyes when starting the examine, then there is no need to check whether it is close.
+		var/near_target = examine_distance_check(target)
 
 		if(isliving(target))
 			var/mob/living/target_living = target
@@ -1408,19 +1410,23 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					target_staring_effect.catch_look(src)
 
 		user_staring_effect = apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
-		if(do_mob(src, src, examine_time, TRUE, list(CALLBACK(src, PROC_REF(hindered_inspection), target)), TRUE))
+		if(do_mob(src, src, examine_time, TRUE, only_use_extra_checks = TRUE))
+			if(hindered_inspection(target) || (near_target && !examine_distance_check(target)))
+				return
 			..()
 	else
 		..()
 
 
+/mob/living/proc/examine_distance_check(atom/target)
+	if(target in view(client.maxview(), client.eye))
+		return TRUE
+
+
 /mob/living/proc/hindered_inspection(atom/target)
 	if(QDELETED(src) || QDELETED(target))
 		return TRUE
-	if(!(target in view(client.maxview(), client.eye)))
-		for(var/obj/screen/storage/box in client.screen)
-			if(!box.is_item_accessible(target, src))
-				return TRUE
+	face_atom(target)
 	if(!has_vision(information_only = TRUE))
 		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
 		return TRUE

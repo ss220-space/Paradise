@@ -12,7 +12,7 @@
 	var/list/queue = list()
 	var/queue_max_len = 12
 	var/turf/BuildTurf
-	anchored = 1.0
+	anchored = TRUE
 	var/list/L = list()
 	var/list/LL = list()
 	var/hacked = 0
@@ -376,8 +376,7 @@
 	if(can_build(D, multiplier))
 		being_built = list(D, multiplier)
 		use_power(power)
-		icon_state = "autolathe"
-		flick("autolathe_n",src)
+		flick("autolathe_n", src)
 		if(is_stack)
 			var/list/materials_used = list(MAT_METAL=metal_cost*multiplier, MAT_GLASS=glass_cost*multiplier)
 			materials.use_amount(materials_used)

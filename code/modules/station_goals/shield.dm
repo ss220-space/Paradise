@@ -132,14 +132,14 @@
 	active = !active
 	if(active)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
-		anchored = 1
+		anchored = TRUE
 	else
 		animate(src, pixel_y = 0, time = 10)
-		anchored = 0
-	update_icon()
+		anchored = FALSE
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/machinery/satellite/update_icon()
+/obj/machinery/satellite/update_icon_state()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
 /obj/machinery/satellite/attackby(obj/item/I, mob/user, params)

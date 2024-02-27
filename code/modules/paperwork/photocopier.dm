@@ -8,7 +8,7 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 	var/insert_anim = "bigscanner1"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
@@ -289,7 +289,7 @@
 		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
 	return paper
 
-/obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
+/obj/machinery/photocopier/proc/copy(obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
 	c.header = copy.header
 	c.info = copy.info
@@ -302,21 +302,21 @@
 	c.language = copy.language
 	c.offset_x = copy.offset_x
 	c.offset_y = copy.offset_y
-	var/list/temp_overlays = copy.stamp_overlays       //Iterates through stamps
-	var/image/img                                //and puts a matching
-	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
-		if(copy.ico.len)
-			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
-			else if(findtext(copy.ico[j], "deny"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
-			else if(findtext(copy.ico[j], "ok"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
-			else
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
-			img.pixel_x = copy.offset_x[j]
-			img.pixel_y = copy.offset_y[j]
-			c.stamp_overlays += img
+	if(LAZYLEN(copy.stamp_overlays))
+		for(var/j = 1, j <= LAZYLEN(copy.stamp_overlays), j++) //gray overlay onto the copy
+			if(length(copy.ico))
+				var/image/img
+				if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
+				else if(findtext(copy.ico[j], "deny"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
+				else if(findtext(copy.ico[j], "ok"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
+				else
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
+				img.pixel_x = copy.offset_x[j]
+				img.pixel_y = copy.offset_y[j]
+				LAZYADD(c.stamp_overlays, img)
 	c.updateinfolinks()
 	toner--
 	if(toner == 0)

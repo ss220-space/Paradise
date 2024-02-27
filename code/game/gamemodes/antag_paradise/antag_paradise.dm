@@ -15,6 +15,9 @@
 	var/list/datum/mind/pre_antags = list()
 	var/list/datum/mind/pre_double_antags = list()
 
+	var/antag_making_cooldown = 5 MINUTES
+	var/next_antag_making_time = 0
+
 	var/list/antag_required_players = list(
 		ROLE_TRAITOR = 10,
 		ROLE_THIEF = 10,
@@ -34,27 +37,48 @@
 	to_chat(world, "<b>The current game mode is - Antag Paradise</b>")
 	to_chat(world, "<b>Traitors, thieves, vampires and changelings, oh my! Stay safe as these forces work to bring down the station.</b>")
 
+/datum/game_mode/antag_paradise/process()
+	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+		return PROCESS_KILL
 
-/datum/game_mode/antag_paradise/pre_setup()
-	var/players = num_players()
+	if(world.time < next_antag_making_time)
+		return FALSE
+
+	next_antag_making_time = world.time + antag_making_cooldown
+	var/list/antag_possibilities = list()
+	antag_possibilities[ROLE_VAMPIRE] = get_alive_players_for_role(ROLE_VAMPIRE)
+	antag_possibilities[ROLE_CHANGELING] = get_alive_players_for_role(ROLE_CHANGELING)
+	antag_possibilities[ROLE_TRAITOR] =	get_alive_players_for_role(ROLE_TRAITOR)
+	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list("Vox" = 4))
+	roll_antagonists(antag_possibilities)
+	initiate_antags()
+
+
+/datum/game_mode/antag_paradise/proc/roll_antagonists(list/antag_possibilities, roundstart = FALSE)
+	pre_antags = list()
+	pre_double_antags = list()
+
+	var/players = roundstart ? num_players() : num_station_players()
 	calculate_antags(players)
-
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		restricted_jobs += protected_jobs
-
 	var/scale = CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) : 10
-	var/antags_amount = 1 + round(players / scale)
-	var/special_antag_amount = 1 + round(players / 50)
+	var/antags_amount
+	var/special_antag_amount
 
-	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
-	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
-	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_TRAITOR)
-	var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
+	antags_amount = 1 + round(players / scale)
+	//Special antag spawning not on roundstart is currently disabled for testing purposes.
+	special_antag_amount = roundstart ? 1 + round(players / 50) : 0
+
+	antags_amount = antags_amount - length(GLOB.antagonists)
+	if(antags_amount <= 0)
+		return
+
+	if(special_antag_type == ROLE_NINJA && !roundstart)
+		special_antag_type = pick(ROLE_HIJACKER, ROLE_THIEF, ROLE_MALF_AI)
 
 	switch(special_antag_type)
 		if(ROLE_HIJACKER)
 			for(var/i in 1 to special_antag_amount)
-				var/datum/mind/special_antag = pick_n_take(possible_traitors)
+				var/datum/mind/special_antag = pick_n_take(antag_possibilities[ROLE_TRAITOR])
 				if(special_antag)
 					special_antag.restricted_roles = restricted_jobs
 					special_antag.special_role = SPECIAL_ROLE_TRAITOR
@@ -63,23 +87,24 @@
 
 		if(ROLE_THIEF)
 			for(var/i in 1 to special_antag_amount)
-				var/datum/mind/special_antag = pick_n_take(possible_thieves)
+				var/datum/mind/special_antag = pick_n_take(antag_possibilities[ROLE_THIEF])
 				if(special_antag)
-					listclearduplicates(special_antag, possible_thieves)
+					listclearduplicates(special_antag, antag_possibilities[ROLE_THIEF])
 					special_antag.special_role = SPECIAL_ROLE_THIEF
 					special_antag.restricted_roles = restricted_jobs
 					pre_antags[special_antag] = ROLE_THIEF
 					antags_amount--
 
 		if(ROLE_MALF_AI)
-			var/datum/mind/special_antag = safepick(get_players_for_role(ROLE_MALF_AI))
-			if(special_antag)
-				special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
-				special_antag.restricted_roles -= "AI"
-				special_antag.special_role = SPECIAL_ROLE_TRAITOR
-				SSjobs.new_malf = special_antag.current
-				pre_antags[special_antag] = ROLE_MALF_AI
-				antags_amount--
+			if(special_antag_amount)
+				var/datum/mind/special_antag = roundstart ? safepick(get_players_for_role(ROLE_MALF_AI)) : safepick(get_alive_players_for_role(ROLE_MALF_AI))
+				if(special_antag)
+					special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
+					special_antag.restricted_roles -= "AI"
+					special_antag.special_role = SPECIAL_ROLE_TRAITOR
+					SSjobs.new_malf = special_antag.current
+					pre_antags[special_antag] = ROLE_MALF_AI
+					antags_amount--
 
 		if(ROLE_NINJA)
 			if(length(GLOB.ninjastart))
@@ -99,7 +124,7 @@
 			var/antag_type = pick_weight_classic(antags_weights)
 			switch(antag_type)
 				if(ROLE_VAMPIRE)
-					var/datum/mind/vampire = pick_n_take(possible_vampires)
+					var/datum/mind/vampire = pick_n_take(antag_possibilities[ROLE_VAMPIRE])
 					if(!vampire)
 						continue
 					if(vampire.current.client.prefs.species in secondary_protected_species)
@@ -110,7 +135,7 @@
 					vampire.restricted_roles = (restricted_jobs|vampire_restricted_jobs)
 					pre_antags[vampire] = ROLE_VAMPIRE
 				if(ROLE_CHANGELING)
-					var/datum/mind/changeling = pick_n_take(possible_changelings)
+					var/datum/mind/changeling = pick_n_take(antag_possibilities[ROLE_CHANGELING])
 					if(!changeling)
 						continue
 					if(changeling.current.client.prefs.species in secondary_protected_species)
@@ -121,7 +146,7 @@
 					changeling.restricted_roles = restricted_jobs
 					pre_antags[changeling] = ROLE_CHANGELING
 				if(ROLE_TRAITOR)
-					var/datum/mind/traitor = pick_n_take(possible_traitors)
+					var/datum/mind/traitor = pick_n_take(antag_possibilities[ROLE_TRAITOR])
 					if(!traitor)
 						continue
 					if(traitor.special_role)
@@ -130,10 +155,10 @@
 					traitor.restricted_roles = restricted_jobs
 					pre_antags[traitor] = ROLE_TRAITOR
 				if(ROLE_THIEF)
-					var/datum/mind/thief = pick_n_take(possible_thieves)
+					var/datum/mind/thief = pick_n_take(antag_possibilities[ROLE_THIEF])
 					if(!thief)
 						continue
-					listclearduplicates(thief, possible_thieves)
+					listclearduplicates(thief, antag_possibilities[ROLE_THIEF])
 					if(thief.special_role)
 						continue
 					thief.special_role = SPECIAL_ROLE_THIEF
@@ -174,6 +199,17 @@
 				pre_double_antags[antag] = ROLE_CHANGELING
 				break
 
+/datum/game_mode/antag_paradise/pre_setup()
+	if(CONFIG_GET(flag/protect_roles_from_antagonist))
+		restricted_jobs += protected_jobs
+
+	var/list/antag_possibilities = list()
+	antag_possibilities[ROLE_VAMPIRE] = get_players_for_role(ROLE_VAMPIRE)
+	antag_possibilities[ROLE_CHANGELING] = get_players_for_role(ROLE_CHANGELING)
+	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
+	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
+
+	return roll_antagonists(antag_possibilities, TRUE)
 
 /datum/game_mode/antag_paradise/proc/calculate_antags(players)
 	var/list/special_antags_list
@@ -228,6 +264,7 @@
 			antag.add_antag_datum(ninja_datum)
 
 	addtimer(CALLBACK(src, PROC_REF(initiate_antags)), rand(1 SECONDS, 10 SECONDS))
+	next_antag_making_time = world.time + antag_making_cooldown
 	..()
 
 
@@ -260,6 +297,7 @@
 				antag.add_antag_datum(/datum/antagonist/vampire)
 			if(ROLE_CHANGELING)
 				antag.add_antag_datum(/datum/antagonist/changeling)
+
 
 /proc/config_to_roles(list/check_list)
 	var/list/new_list = list()

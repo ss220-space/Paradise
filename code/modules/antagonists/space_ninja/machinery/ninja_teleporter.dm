@@ -4,7 +4,7 @@
 	desc = "A console used to send a Spider Clan operative long distances rapidly."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "teleconsole"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 
 /obj/structure/ninjatele/attack_hand(mob/user as mob)

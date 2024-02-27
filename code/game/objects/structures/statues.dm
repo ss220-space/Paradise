@@ -4,7 +4,7 @@
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
@@ -376,7 +376,7 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "frank"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	layer = EDGED_TURF_LAYER
 
 /obj/structure/statue/dude
@@ -385,7 +385,7 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "dude"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	layer = EDGED_TURF_LAYER
 
 /obj/structure/statue/death
@@ -394,7 +394,7 @@
 	icon = 'icons/obj/statuebig.dmi'
 	icon_state = "death"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	bound_width = 64
 	layer = EDGED_TURF_LAYER
 
@@ -404,7 +404,7 @@
 	icon = 'icons/obj/statuebig.dmi'
 	icon_state = "unknown"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	bound_width = 64
 	var/lit = 0
 	layer = EDGED_TURF_LAYER

@@ -6,7 +6,7 @@
 	desc = "A huge pipe segment used for constructing disposal systems."
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	icon_state = "conpipe-s"
-	anchored = 0
+	anchored = FALSE
 	density = 0
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	level = 2
@@ -188,7 +188,7 @@
 	if(!pipe_check(user))
 		return
 	if(anchored)
-		anchored = 0
+		anchored = FALSE
 		if(ispipe)
 			level = 2
 			density = 0
@@ -196,7 +196,7 @@
 			density = 1
 		to_chat(user, "You detach the [nicetype] from the underfloor.")
 	else
-		anchored = 1
+		anchored = TRUE
 		if(ispipe)
 			level = 1 // We don't want disposal bins to disappear under the floors
 			density = 0

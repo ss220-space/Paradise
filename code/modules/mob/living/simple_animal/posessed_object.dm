@@ -15,7 +15,7 @@
 	tts_seed = "Sylvanas"
 
 	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
-	no_spin_thrown = 1
+	no_spin_thrown = TRUE
 	del_on_death = TRUE
 
 	/// The probability % of us escaping if stuffed into a bag/toolbox/etc

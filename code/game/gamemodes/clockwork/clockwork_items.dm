@@ -1172,7 +1172,7 @@
 	name = "integration cog"
 	desc = "You shouldn't see that! Call dev on that!"
 	icon = null
-	anchored = 1
+	anchored = TRUE
 	active_power_usage = 100 // In summary it costs 500 power. Most areas costs around 800, with top being medbay at around 8000. Fair number.
 	var/obj/machinery/power/apc/apc
 	var/next_whoosh = 120

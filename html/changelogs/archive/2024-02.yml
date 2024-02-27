@@ -273,9 +273,38 @@
   LiquidPotroh:
   - bugfix: holster examine (#4467)
   - bugfix: Vampire position after bestia transform resets normally (#4468)
+  Rerik007:
+  - tweak: cargo few orders and change access for cargo quest console (#4472)
+  - refactor: move defib code to component (#4406)
   Valtor:
   - bugfix: autoimplanter missing limb (#4466)
   Vladisvell:
   - bugfix: Fixed Chef's and Machinery errors (#4462)
+  - add: Added book flag tracking and view flagged books does not crash server (#4191)
+  Zwei:
+  - refactor: Icon Updates Rework Part3 (#4221)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4469)
+'2024-02-21':
+  Daeberdir:
+  - bugfix: examine through the camera console. (#4476)
+  - add: makeshift MOD-revolver. (#4131)
+  - bugfix: multipulling. (#4205)
+  - refactor: two-character keys for languages. (#4215)
+  LiquidPotroh:
+  - add: Lavaland Apprentice (#4413)
+  Rafnik02:
+  - tweak: Oldstation update (#4346)
+  Rerik007:
+  - bugfix: xenobioconsole can make monkeys out of the limit. (#4473)
+'2024-02-22':
+  BeebBeebBoob:
+  - bugfix: fax discord (#4483)
+  Daeberdir:
+  - bugfix: arrival shuttle zone. (#4484)
+  Valtor:
+  - bugfix: autoimplanter v2 (#4485)
+'2024-02-24':
+  Vladisvell:
+  - balance: added scalable antags from alive players count for paradise_antag game
+      mode (#4450)

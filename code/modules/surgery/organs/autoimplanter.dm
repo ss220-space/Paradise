@@ -16,7 +16,7 @@
 		to_chat(user, "<span class='notice'>[src] currently has no implant stored.</span>")
 		return FALSE
 	var/mob/living/carbon/human/patient = user
-	if(!patient.bodyparts_by_name[storedorgan.parent_organ_zone])
+	if(!patient.bodyparts_by_name[check_zone(storedorgan.parent_organ_zone)])
 		to_chat(user, span_warning("Missing limb!"))
 		return FALSE
 	storedorgan.insert(user)//insert stored organ into the user

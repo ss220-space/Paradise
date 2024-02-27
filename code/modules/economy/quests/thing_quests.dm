@@ -8,11 +8,7 @@
 	var/unique_things = TRUE
 	var/list/current_list
 
-/datum/cargo_quest/thing/generate_goal(difficultly, request_obj, target_reward)
-	if(request_obj)
-		req_items += request_obj
-		q_storage.reward += target_reward
-		return
+/datum/cargo_quest/thing/generate_goal_list(difficultly)
 
 	var/list/difficult_list
 	switch(difficultly)
@@ -28,10 +24,16 @@
 		if(QUEST_DIFFICULTY_VERY_HARD)
 			difficult_list = very_hard_items
 
+	return difficult_list
+
+/datum/cargo_quest/thing/add_goal(difficultly)
+	var/list/difficult_list = generate_goal_list(difficultly)
 	var/obj/generated_item = pick(difficult_list)
+
 	q_storage.reward += difficult_list[generated_item]
 	if(unique_things)
 		difficult_list.Remove(generated_item)
+
 	req_items += generated_item
 	current_list = req_items.Copy()
 
@@ -39,20 +41,15 @@
 
 
 /datum/cargo_quest/thing/update_interface_icon()
-	var/list/new_interface_icons = list()
-	var/list/new_interface_icon_states = list()
-
+	if(interface_icon && interface_icon_state)
+		interface_images += icon2base64(icon(interface_icon, interface_icon_state, SOUTH, 1))
+		return
 	for(var/our_item in req_items)
 		var/obj/obj = our_item
 		if(initial(obj.icon) && initial(obj.icon_state))
-			new_interface_icons += initial(obj.icon)
-			new_interface_icon_states += initial(obj.icon_state)
+			interface_images += icon2base64(icon(initial(obj.icon), initial(obj.icon_state), SOUTH, 1))
 		else
-			new_interface_icons += 'icons/obj/storage.dmi'
-			new_interface_icon_states += "box"
-
-	interface_icons = new_interface_icons
-	interface_icon_states = new_interface_icon_states
+			interface_images += icon2base64(icon('icons/obj/storage.dmi', "box", SOUTH, 1))
 
 /datum/cargo_quest/thing/length_quest()
 	return length(req_items)
@@ -149,6 +146,7 @@
 		/obj/item/reagent_containers/food/snacks/amanitajelly = 50,
 		/obj/item/reagent_containers/food/snacks/donut/chaos = 50,
 		/obj/item/reagent_containers/food/snacks/sliceable/noel = 50,
+		/obj/item/reagent_containers/food/snacks/candy/jellybean/purple = 50,
 		/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat = 50,
 		/obj/item/reagent_containers/food/snacks/sashimi = 60,
 		/obj/item/reagent_containers/food/snacks/fishburger = 60,
@@ -161,10 +159,27 @@
 		/obj/item/reagent_containers/food/snacks/monkeysdelight = 60,
 		/obj/item/reagent_containers/food/snacks/aesirsalad = 60,
 		/obj/item/reagent_containers/food/snacks/rofflewaffles = 60,
+		/obj/item/reagent_containers/food/snacks/muffin = 60,
+		/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/human = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/slime = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/skrell = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/tajaran = 60,
+		/obj/item/reagent_containers/food/snacks/meatsteak/unathi = 60,
 	)
 
 	normal_items = list(
+		/obj/item/reagent_containers/food/snacks/meatsteak/vox = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/wryn = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/kidan = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/diona = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/nian = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/drask = 70,
+		/obj/item/reagent_containers/food/snacks/meatsteak/grey = 70,
 		/obj/item/reagent_containers/food/snacks/candy/jawbreaker = 70,
+		/obj/item/reagent_containers/food/snacks/telebacon = 70,
+		/obj/item/reagent_containers/food/snacks/plov = 70,
 		/obj/item/reagent_containers/food/snacks/weirdoliviersalad = 70,
 		/obj/item/reagent_containers/food/snacks/doner_mushroom = 70,
 		/obj/item/reagent_containers/food/snacks/doner_vegan = 70,
@@ -250,19 +265,10 @@
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 
-/datum/cargo_quest/thing/minerals/generate_goal(difficultly, request_obj, target_reward)
-	var/list/difficult_list
-	switch(difficultly)
-		if(QUEST_DIFFICULTY_EASY)
-			difficult_list = easy_items
-
-		if(QUEST_DIFFICULTY_NORMAL)
-			difficult_list = normal_items
-
-		if(QUEST_DIFFICULTY_HARD)
-			difficult_list = hard_items
-
+/datum/cargo_quest/thing/minerals/add_goal(difficultly)
+	var/list/difficult_list = generate_goal_list(difficultly)
 	var/obj/item/generated_mineral = pick(difficult_list)
+
 	q_storage.reward += difficult_list[generated_mineral]["reward"]
 	if(!required_minerals[generated_mineral])
 		required_minerals += generated_mineral
@@ -299,16 +305,10 @@
 	current_list = required_minerals.Copy()
 
 /datum/cargo_quest/thing/minerals/update_interface_icon()
-	var/list/new_interface_icons = list()
-	var/list/new_interface_icon_states = list()
 
 	for(var/mineral in required_minerals)
 		var/obj/obj = mineral
-		new_interface_icons += initial(obj.icon)
-		new_interface_icon_states += initial(obj.icon_state)
-
-	interface_icons = new_interface_icons
-	interface_icon_states = new_interface_icon_states
+		interface_images += icon2base64(icon(initial(obj.icon), initial(obj.icon_state), SOUTH, 1))
 
 /datum/cargo_quest/thing/minerals/length_quest()
 	var/stack_length
@@ -397,8 +397,8 @@
 
 /datum/cargo_quest/thing/botanygenes
 	quest_type_name = "Botany Genes on Disks"
-	interface_icons = list('icons/obj/module.dmi')
-	interface_icon_states = list("datadisk_hydro")
+	interface_icon = 'icons/obj/module.dmi'
+	interface_icon_state = "datadisk_hydro"
 	req_items = list(/obj/item/disk/plantgene)
 	var/list/required_genes = list()
 	easy_items = list(
@@ -427,17 +427,9 @@
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
-/datum/cargo_quest/thing/botanygenes/generate_goal(difficultly, request_obj, target_reward)
+/datum/cargo_quest/thing/botanygenes/add_goal(difficultly)
 
-	var/list/difficult_list
-	switch(difficultly)
-		if(QUEST_DIFFICULTY_EASY)
-			difficult_list = easy_items
-		if(QUEST_DIFFICULTY_NORMAL)
-			difficult_list = normal_items
-		if(QUEST_DIFFICULTY_HARD)
-			difficult_list = hard_items
-
+	var/list/difficult_list = generate_goal_list(difficultly)
 	var/datum/plant_gene/generated_gene = pick(difficult_list)
 
 	q_storage.reward += difficult_list[generated_gene]
@@ -448,9 +440,6 @@
 	current_list = required_genes.Copy()
 
 	desc += "[capitalize(format_text(initial(generated_gene.name)))] <br>"
-
-/datum/cargo_quest/thing/botanygenes/update_interface_icon()
-	return
 
 /datum/cargo_quest/thing/botanygenes/length_quest()
 	return length(required_genes)
@@ -474,8 +463,8 @@
 
 /datum/cargo_quest/thing/genes
 	quest_type_name = "DNA Genes"
-	interface_icons = list('icons/obj/hypo.dmi')
-	interface_icon_states = list("dnainjector")
+	interface_icon = 'icons/obj/hypo.dmi'
+	interface_icon_state = "dnainjector"
 
 	req_items = list(/obj/item/dnainjector)
 	var/list/required_blocks = list()
@@ -529,22 +518,12 @@
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
-/datum/cargo_quest/thing/genes/update_interface_icon()
-	return
-
 /datum/cargo_quest/thing/genes/length_quest()
 	return length(required_blocks)
 
-/datum/cargo_quest/thing/genes/generate_goal(difficultly, request_obj, target_reward)
+/datum/cargo_quest/thing/genes/add_goal(difficultly)
 
-	var/list/difficult_list
-	switch(difficultly)
-		if(QUEST_DIFFICULTY_EASY)
-			difficult_list = easy_items
-		if(QUEST_DIFFICULTY_NORMAL)
-			difficult_list = normal_items
-		if(QUEST_DIFFICULTY_HARD)
-			difficult_list = hard_items
+	var/list/difficult_list = generate_goal_list(difficultly)
 
 	var/generated_gene = pick(difficult_list)
 	q_storage.reward += difficult_list[generated_gene]
@@ -586,8 +565,8 @@
 #define REQUIRED_BLOOD_AMOUNT 10
 /datum/cargo_quest/thing/virus
 	quest_type_name = "Viruses symptoms in vials (10u minimum)"
-	interface_icons = list('icons/obj/chemical.dmi')
-	interface_icon_states = list("vial")
+	interface_icon = 'icons/obj/chemical.dmi'
+	interface_icon_state = "vial"
 	req_items = list(/obj/item/reagent_containers/glass/beaker/vial)
 
 	var/list/required_symptoms = list()
@@ -639,26 +618,11 @@
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
-/datum/cargo_quest/thing/virus/update_interface_icon()
-	return
-
 /datum/cargo_quest/thing/virus/length_quest()
 	return length(required_symptoms)
 
-/datum/cargo_quest/thing/virus/generate_goal(difficultly, request_obj, target_reward)
-	var/list/difficult_list
-	switch(difficultly)
-		if(QUEST_DIFFICULTY_EASY)
-			difficult_list = easy_items
-
-		if(QUEST_DIFFICULTY_NORMAL)
-			difficult_list = normal_items
-
-		if(QUEST_DIFFICULTY_HARD)
-			difficult_list = hard_items
-
-		if(QUEST_DIFFICULTY_VERY_HARD)
-			difficult_list = very_hard_items
+/datum/cargo_quest/thing/virus/add_goal(difficultly)
+	var/list/difficult_list = generate_goal_list(difficultly)
 
 	var/datum/symptom/generated_symptom = pick(difficult_list)
 	q_storage.reward += difficult_list[generated_symptom]
@@ -706,8 +670,8 @@
 
 /datum/cargo_quest/thing/capsule
 	quest_type_name = "Mob in lazarus capsule"
-	interface_icons = list('icons/obj/mobcap.dmi')
-	interface_icon_states = list("mobcap3")
+	interface_icon = 'icons/obj/mobcap.dmi'
+	interface_icon_state = "mobcap3"
 	req_items = list(/obj/item/mobcapsule)
 
 	var/list/required_mobs = list()
@@ -727,27 +691,11 @@
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
-/datum/cargo_quest/thing/capsule/update_interface_icon()
-	return
-
 /datum/cargo_quest/thing/capsule/length_quest()
 	return length(required_mobs)
 
-/datum/cargo_quest/thing/capsule/generate_goal(difficultly, request_obj, target_reward)
-	var/list/difficult_list
-	switch(difficultly)
-		if(QUEST_DIFFICULTY_EASY)
-			difficult_list = easy_items
-
-		if(QUEST_DIFFICULTY_NORMAL)
-			difficult_list = normal_items
-
-		if(QUEST_DIFFICULTY_HARD)
-			difficult_list = hard_items
-
-		if(QUEST_DIFFICULTY_VERY_HARD)
-			difficult_list = very_hard_items
-
+/datum/cargo_quest/thing/capsule/add_goal(difficultly)
+	var/list/difficult_list = generate_goal_list(difficultly)
 	var/mob/generated_mob = pick(difficult_list)
 	q_storage.reward += difficult_list[generated_mob]
 	if(unique_things)

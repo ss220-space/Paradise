@@ -1079,6 +1079,7 @@
 	id_tag = "CargoBay Shutters South";
 	name = "CargoBay Shutters South"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -59573,8 +59574,8 @@
 "icl" = (
 /obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "darkred";
-	dir = 9
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/space)
 "icp" = (
@@ -61630,6 +61631,7 @@
 	id_tag = "CargoBay Shutters South";
 	name = "CargoBay Shutters South"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -81144,6 +81146,7 @@
 	id_tag = "CargoBay Shutters South";
 	name = "CargoBay Shutters South"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
 "nlk" = (
@@ -99295,6 +99298,7 @@
 	id_tag = "CargoBay Shutters North";
 	name = "CargoBay Shutters North"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "rmW" = (
@@ -106444,6 +106448,7 @@
 /obj/item/clothing/suit/jacket/leather/overcoat,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/clothing/head/fedora,
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel,
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "sWX" = (
@@ -112971,8 +112976,8 @@
 /obj/machinery/door_control{
 	id = "Genetics";
 	name = "Genetic Privacy Shutters Control";
-	pixel_y = 26;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 26
 	},
 /obj/item/storage/box/beakers{
 	pixel_x = 4;
@@ -117081,6 +117086,7 @@
 	id_tag = "CargoBay Shutters North";
 	name = "CargoBay Shutters North"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "vsM" = (
@@ -181788,7 +181794,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+coE
 aaq
 aaq
 aaq
@@ -182044,8 +182050,8 @@ aaq
 aaq
 aaq
 aaq
-aaq
-aaq
+bCI
+coE
 aaq
 aaq
 aaq
@@ -182302,7 +182308,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+coE
 aaq
 aaq
 aaq
