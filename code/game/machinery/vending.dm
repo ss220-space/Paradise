@@ -3102,8 +3102,13 @@
 /obj/machinery/vending/nta/ertarmory/consumables
 	name = "NT ERT Consumables Gear"
 	desc = "A consumable equipment for different situations."
-	icon_state = "sec"
-	icon_deny = "sec-deny"
+	icon_state = "sec_off"
+	panel_overlay = "sec_panel"
+	screen_overlay = "sec"
+	lightmask_overlay = "sec_lightmask"
+	broken_overlay = "sec_broken"
+	broken_lightmask_overlay = "sec_broken_lightmask"
+	deny_overlay = "sec_deny"
 	density = FALSE
 	products = list(
 		/obj/item/restraints/handcuffs = 10,
@@ -3151,8 +3156,12 @@
 /obj/machinery/vending/ntc/medical
 	name = "NT Cargo Medical Gear"
 	desc = "A some medical equipment vendor for cargo."
-	icon_state = "nta_medical"
-	icon_deny = "nta_medical_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-medical"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-medical_deny"
+
 	products = list(
 		/obj/item/storage/box/hardsuit/medical/responseteam = 10,
 		/obj/item/storage/box/hardsuit/medical = 10,
@@ -3168,8 +3177,12 @@
 /obj/machinery/vending/ntc/engineering
 	name = "NT Cargo Engineering Gear"
 	desc = "A some engineering equipment vendor for cargo."
-	icon_state = "nta_engi"
-	icon_deny = "nta_engi_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-engi"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-engi_deny"
+
 	products = list(
 		/obj/item/storage/box/hardsuit/engineering/response_team = 10,
 		/obj/item/storage/box/hardsuit/engineering = 10,
@@ -3184,8 +3197,12 @@
 /obj/machinery/vending/ntc/janitor
 	name = "NT Cargo Janitor Gear"
 	desc = "A some janitor equipment vendor for cargo."
-	icon_state = "nta_janitor"
-	icon_deny = "nta_janitor_deny"
+
+	icon_state = "nta_base"
+	base_icon_state = "nta-janitor"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta-janitor_deny"
+
 	products = list(
 		/obj/item/storage/box/hardsuit/janitor/response_team = 10,
 		/obj/item/storage/belt/janitor/ert = 10,
@@ -3221,9 +3238,17 @@
 /obj/machinery/vending/ntc/ert
 	name = "NT Response Team Base Gear"
 	desc = "A ERT Base equipment vendor"
-	icon_state = "nta"
-	icon_deny = "nta_deny"
-	icon_vend = "nta_vend"
+
+	icon_state = "nta_base"
+	panel_overlay = "nta_panel"
+	screen_overlay = "nta"
+	lightmask_overlay = "nta_lightmask"
+	broken_overlay = "nta_broken"
+	broken_lightmask_overlay = "nta_lightmask"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta_deny"
+	vend_overlay_time = 3 SECONDS
+
 	products = list(
 		/obj/item/storage/box/responseteam/amber/commander = 100,
 		/obj/item/storage/box/responseteam/amber/security = 100,
@@ -3239,8 +3264,16 @@
 /obj/machinery/vending/ntc/resources
 	name = "NT Matter Сompression Vendor"
 	desc = "Its vendor use advanced technology of matter compression and can have a many volume of resources."
-	icon_state = "engi"
-	icon_deny = "engi_deny"
+
+	icon_state = "engi_off"
+	panel_overlay = "engi_panel"
+	screen_overlay = "engi"
+	lightmask_overlay = "engi_lightmask"
+	broken_overlay = "engi_broken"
+	broken_lightmask_overlay = "engi_broken_lightmask"
+	deny_overlay = "engi_deny"
+	deny_lightmask = "engi_deny_lightmask"
+
 	products = list(/obj/item/stack/sheet/mineral/diamond/fifty = 50,
 		/obj/item/stack/sheet/mineral/gold/fifty = 50,
 		/obj/item/stack/sheet/glass/fifty = 50,
@@ -3262,8 +3295,6 @@
 	desc = "Fabricator with advanced technology of bluespace transporting of resources."
 	icon = 'icons/obj/machines/robotics.dmi'
 	icon_state = "fab-idle"
-	icon_vend = "fab-o"
-	icon_deny = "fab-idle"
 	products = list(
 		/obj/mecha/combat/durand = 10,
 		/obj/mecha/combat/gygax = 10,
@@ -3276,8 +3307,15 @@
 /obj/machinery/vending/ntc/mech/equipment
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Fabricator with advanced technology of bluespace transporting of resources."
-	icon_state = "engivend"
-	icon_deny = "engivend-deny"
+
+	icon_state = "engivend_off"
+	panel_overlay = "engivend_panel"
+	screen_overlay = "engivend"
+	lightmask_overlay = "engivend_lightmask"
+	broken_overlay = "engivend_broken"
+	broken_lightmask_overlay = "engivend_broken_lightmask"
+	deny_overlay = "engivend_deny"
+
 	products = list(
 		/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 10,
 		/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster = 10,
@@ -3307,8 +3345,15 @@
 /obj/machinery/vending/ntc/mech/tools
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Fabricator with advanced technology of bluespace transporting of resources."
-	icon_state = "tool"
-	icon_deny = "tool_deny"
+
+	icon_state = "tool_off"
+	panel_overlay = "tool_panel"
+	screen_overlay = "tool"
+	lightmask_overlay = "tool_lightmask"
+	broken_overlay = "tool_broken"
+	broken_lightmask_overlay = "tool_broken_lightmask"
+	deny_overlay = "tool_deny"
+
 	products = list(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp = 10,
 		/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 10,
 		/obj/item/mecha_parts/mecha_equipment/mining_scanner = 10,

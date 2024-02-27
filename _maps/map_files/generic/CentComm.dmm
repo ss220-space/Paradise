@@ -16915,9 +16915,9 @@
 "hYY" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
-	dir = s;
 	id_tag = "ERT_armory_lvl1";
-	name = "Armory level 1"
+	name = "Armory level 1";
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -23027,9 +23027,9 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
-	dir = s;
 	id_tag = "ERT_armory_lvl1";
-	name = "Armory level 1"
+	name = "Armory level 1";
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -37233,9 +37233,9 @@
 "qTo" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
-	dir = s;
 	id_tag = "ERT_armory_lvl1";
-	name = "Armory level 1"
+	name = "Armory level 1";
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
