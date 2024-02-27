@@ -6,7 +6,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	pixel_y = 8
 	var/waterlevel = 100	//The amount of water in the tray (max 100)
 	var/maxwater = 100		//The maximum amount of water in the tray
@@ -27,7 +27,7 @@
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
 	var/wrenchable = 1
-	var/lid_state = 0
+	var/lid_closed = FALSE
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
 	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
 	var/self_sufficiency_req = 20 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
@@ -128,9 +128,9 @@
 	if(!user || user.stat || user.restrained())
 		return
 
-	lid_state = !lid_state
-	to_chat(user, "<span class='notice'>You [lid_state ? "close" : "open"] the tray's lid.</span>")
-	update_icon()
+	lid_closed = !lid_closed
+	to_chat(user, "<span class='notice'>You [lid_closed ? "close" : "open"] the tray's lid.</span>")
+	update_state()
 
 
 /obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
@@ -257,9 +257,9 @@
 			else
 				weedinvasion() // Weed invasion into empty tray
 			needs_update = 1
-		if (needs_update)
-			update_icon()
-	return
+		if(needs_update)
+			update_state()
+
 
 /obj/machinery/hydroponics/proc/nutrimentMutation()
 	if (mutmod == 0)
@@ -277,39 +277,38 @@
 			hardmutate()
 		else if(prob(50))	//12.5%
 			mutatespecie()
-		return
-	return
 
-/obj/machinery/hydroponics/update_icon()
+
+/obj/machinery/hydroponics/proc/update_state()
 	//Refreshes the icon and sets the luminosity
-	overlays.Cut()
-
 	if(self_sustaining)
 		if(istype(src, /obj/machinery/hydroponics/soil))
 			color = rgb(255, 175, 0)
-		else
-			overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "gaia_blessing")
 		set_light(3)
-
-	update_icon_hoses()
-
-	if(myseed)
-		update_icon_plant()
-		update_icon_lights()
-
-	if(!self_sustaining)
+	else
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
 			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
 			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
 
-	if(lid_state)
-		overlays += image(icon='icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover", layer = LID_LAYER)
+	update_icon()
 
-	return
 
-/obj/machinery/hydroponics/proc/update_icon_hoses()
+/obj/machinery/hydroponics/update_overlays()
+	. = ..()
+	if(self_sustaining && !istype(src, /obj/machinery/hydroponics/soil))
+		. += "gaia_blessing"
+
+	if(myseed)
+		. += update_icon_plant()
+		. += update_icon_lights()
+
+	if(lid_closed)
+		. += image(icon='icons/obj/hydroponics/equipment.dmi', icon_state = "hydrocover", layer = LID_LAYER)
+
+
+/obj/machinery/hydroponics/update_icon_state()
 	var/n = 0
 	for(var/Dir in GLOB.cardinal)
 		var/obj/machinery/hydroponics/t = locate() in get_step(src,Dir)
@@ -317,6 +316,7 @@
 			n += Dir
 
 	icon_state = "hoses-[n]"
+
 
 /obj/machinery/hydroponics/proc/update_icon_plant()
 	var/image/I
@@ -331,19 +331,21 @@
 		var/t_growthstate = clamp(round((age / myseed.maturation) * myseed.growthstages), 1, myseed.growthstages)
 		I = image(icon = myseed.growing_icon, icon_state = "[myseed.icon_grow][t_growthstate]")
 	I.layer = PLANT_LAYER
-	overlays += I
+	return I
+
 
 /obj/machinery/hydroponics/proc/update_icon_lights()
+	. = list()
 	if(waterlevel <= 10)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_lowwater3")
+		. += "over_lowwater3"
 	if(nutrilevel <= 2)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_lownutri3")
+		. += "over_lownutri3"
 	if(plant_health <= (myseed.endurance / 2))
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_lowhealth3")
+		. += "over_lowhealth3"
 	if(weedlevel >= 5 || pestlevel >= 5 || toxic >= 40)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_alert3")
+		. += "over_alert3"
 	if(harvest)
-		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_harvest3")
+		. += "over_harvest3"
 
 
 /obj/machinery/hydroponics/examine(mob/user)
@@ -414,7 +416,7 @@
 	harvest = 0
 	adjustWeeds(-10) // Reset
 	adjustPests(-10) // Reset
-	update_icon()
+	update_state()
 	plant_hud_set_health()
 	plant_hud_set_status()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
@@ -452,7 +454,7 @@
 	adjustWeeds(-10) // Reset
 
 	sleep(5) // Wait a while
-	update_icon()
+	update_state()
 	visible_message("<span class='warning'>[oldPlantName] suddenly mutates into [myseed.plantname]!</span>")
 
 
@@ -472,7 +474,7 @@
 		adjustWeeds(-10) // Reset
 
 		sleep(5) // Wait a while
-		update_icon()
+		update_state()
 		visible_message("<span class='warning'>The mutated weeds in [src] spawn some [myseed.plantname]!</span>")
 	else
 		to_chat(usr, "<span class='warning'>The few weeds in [src] seem to react, but only for a moment...</span>")
@@ -483,8 +485,8 @@
 	harvest = 0
 	adjustPests(-10) // Pests die
 	if(!dead)
-		update_icon()
-		dead = 1
+		dead = TRUE
+		update_state()
 	plant_hud_set_health()
 	plant_hud_set_status()
 
@@ -816,7 +818,7 @@
 
 			S.clear_reagents()
 			qdel(S)
-			H.update_icon()
+			H.update_state()
 		if(reagent_source) // If the source wasn't composted and destroyed
 			reagent_source.update_icon()
 		return 1
@@ -835,7 +837,7 @@
 			plant_hud_set_health()
 			plant_hud_set_status()
 			lastcycle = world.time
-			update_icon()
+			update_state()
 		else
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
@@ -861,7 +863,7 @@
 			add_fingerprint(user)
 			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
 			adjustWeeds(-10)
-			update_icon()
+			update_state()
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
@@ -894,7 +896,7 @@
 			plant_hud_set_health()
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
-		update_icon()
+		update_state()
 	else if(is_pen(O) && myseed)
 		add_fingerprint(user)
 		myseed.variant_prompt(user, src)
@@ -910,7 +912,7 @@
 		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
 		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
 		for(var/obj/machinery/hydroponics/h in range(1,src))
-			h.update_icon()
+			h.update_state()
 
 /obj/machinery/hydroponics/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -942,7 +944,7 @@
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?
 		return
-	if(lid_state)
+	if(lid_closed)
 		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
 		return
 	if(harvest)
@@ -953,7 +955,7 @@
 		dead = 0
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
 		QDEL_NULL(myseed)
-		update_icon()
+		update_state()
 		plant_hud_set_status()
 		plant_hud_set_health()
 	else
@@ -973,7 +975,7 @@
 		dead = 0
 	plant_hud_set_status()
 	plant_hud_set_health()
-	update_icon()
+	update_state()
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.///
 /obj/machinery/hydroponics/proc/adjustNutri(adjustamt)
@@ -1012,7 +1014,7 @@
 /obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
 	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
 	self_sustaining = TRUE
-	update_icon()
+	update_state()
 
 ///Diona Nymph Related Procs///
 /obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
@@ -1029,12 +1031,12 @@
 		if(weedlevel > 0)
 			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)
-			update_icon()
+			update_state()
 			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
 		else if(nutrilevel < 10)
 			user.adjust_nutrition(-((10 - nutrilevel) * 5))
 			adjustNutri(10)
-			update_icon()
+			update_state()
 			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")
 	else
 		return ..()
@@ -1048,7 +1050,7 @@
 	use_power = NO_POWER_USE
 	wrenchable = 0
 
-/obj/machinery/hydroponics/soil/update_icon_hoses()
+/obj/machinery/hydroponics/soil/update_icon_state()
 	return // Has no hoses
 
 /obj/machinery/hydroponics/soil/update_icon_lights()

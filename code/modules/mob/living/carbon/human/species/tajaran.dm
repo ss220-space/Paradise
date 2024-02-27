@@ -3,7 +3,7 @@
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
-	language = "Siik'tajr"
+	language = LANGUAGE_TAJARAN
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws

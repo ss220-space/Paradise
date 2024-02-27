@@ -147,7 +147,7 @@ Made by Xhuis
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_hatch(null))
 	spawn(0)
-		shadow_mind.current.add_language("Shadowling Hivemind")
+		shadow_mind.current.add_language(LANGUAGE_HIVE_SHADOWLING)
 		update_shadow_icons_added(shadow_mind)
 		if(shadow_mind.assigned_role == "Clown")
 			to_chat(S, "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>")
@@ -161,7 +161,7 @@ Made by Xhuis
 		new_thrall_mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 		update_shadow_icons_added(new_thrall_mind)
 		add_conversion_logs(new_thrall_mind.current, "Became a Shadow thrall")
-		new_thrall_mind.current.add_language("Shadowling Hivemind")
+		new_thrall_mind.current.add_language(LANGUAGE_HIVE_SHADOWLING)
 		//If you add spells to thrall, be sure to remove them on dethrallize
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_guise(null))
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision/thrall(null))
@@ -191,7 +191,7 @@ Made by Xhuis
 	//If you add spells to thrall, be sure to remove them on dethrallize
 	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_guise)
 	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_vision/thrall)
-	thrall_mind.current.remove_language("Shadowling Hivemind")
+	thrall_mind.current.remove_language(LANGUAGE_HIVE_SHADOWLING)
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
 		var/mob/living/carbon/human/H = thrall_mind.current
 		H.visible_message("<span class='warning'>[H] jerks violently and falls still.</span>", \

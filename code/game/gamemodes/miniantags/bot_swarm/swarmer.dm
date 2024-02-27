@@ -116,7 +116,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
-	add_language("Swarmer", 1)
+	add_language(LANGUAGE_HIVE_SWARMER, 1)
 	verbs -= /mob/living/verb/pulled
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)

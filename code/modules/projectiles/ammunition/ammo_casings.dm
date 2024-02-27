@@ -59,7 +59,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c38/hp
-	desc = "A .38 Hollow-Point bullet casing"
+	desc = "A .38 Hollow-Point bullet casing."
 	icon_state = "rhp-casing"
 	materials = list(MAT_METAL = 5000)
 	projectile_type = /obj/item/projectile/bullet/hp38
@@ -171,12 +171,17 @@
 /obj/item/ammo_casing/revolver/improvised
 	name = "improvised shell"
 	desc = "Full metal shell leaking oil. This is clearly an unreliable bullet."
-	icon_state = "improvisedrevolverbullet"
+	icon_state = "rev-improv-casing"
 	materials = list(MAT_METAL = 100)
 	caliber = ".257"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/c257
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/revolver/improvised/phosphorus
+	desc = "Full metal shell leaking oil and phosphorous. This is clearly an unreliable bullet."
+	icon_state = "rev-phosphor-casing"
+	projectile_type = /obj/item/projectile/bullet/weakbullet3/c257/phosphorus
 
 /obj/item/ammo_casing/n762
 	desc = "A 7.62x38mm bullet casing."
@@ -503,7 +508,7 @@
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if(istype(A, /obj/item/screwdriver) && !modified)
+	if(A.tool_behaviour == TOOL_SCREWDRIVER && !modified)
 		modified = TRUE
 		FD.damage_type = BRUTE
 		update_icon()

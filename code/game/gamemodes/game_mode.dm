@@ -112,8 +112,8 @@
 /**
  * Called by the gameticker.
  */
-/datum/game_mode/process()
-	return FALSE
+/datum/game_mode/process(wait)
+	return PROCESS_KILL
 
 
 /**
@@ -312,6 +312,45 @@
 
 	return candidates
 
+/**
+ * Works like get_players_for_role, but for alive mobs.
+ */
+/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species)
+	var/list/players = list()
+	var/list/candidates = list()
+
+	// Assemble a list of active players without jobbans and role enabled
+	for(var/mob/living/player in GLOB.alive_mob_list)
+		if(!player.client \
+			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
+			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
+			|| !(role in player.client.prefs.be_special))
+			continue
+
+		if(player.mind.has_antag_datum(/datum/antagonist) || player.mind.offstation_role || player.mind.special_role)
+			continue
+
+		players += player
+
+	// Shuffle the players list so that it becomes ping-independent.
+	players = shuffle(players)
+
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
+	for(var/mob/living/player in players)
+		if(length(protected_species) && (player.client.prefs.species in protected_species))
+			continue
+		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+			continue
+
+		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
+		candidates += player.mind
+		if(length(preferred_species))
+			var/prefered_species_mod = preferred_species[player.client.prefs.species]
+			if(isnum(prefered_species_mod))
+				for (var/i in 1 to prefered_species_mod)	//prefered mod
+					candidates += player.mind
+
+	return candidates
 
 /datum/game_mode/proc/latespawn(mob/player)
 
@@ -322,6 +361,15 @@
 	for(var/mob/new_player/player in GLOB.player_list)
 
 		if(player.client && player.ready)
+			.++
+
+/datum/game_mode/proc/num_station_players()
+	. = 0
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(!player)
+			continue
+
+		if(player.client && player.mind && !player.mind.offstation_role && !player.mind.special_role)
 			.++
 
 

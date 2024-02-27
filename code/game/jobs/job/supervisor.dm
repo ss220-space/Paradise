@@ -7,7 +7,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials"
 	department_head = list("Nanotrasen Navy Officer")
-	selection_color = "#ccccff"
+	selection_color = "#6691ff"
 	req_admin_notify = 1
 	is_command = 1
 	access = list() 			//See get_access()
@@ -66,7 +66,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	spawn_positions = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
-	selection_color = "#ddddff"
+	selection_color = "#d1deff"
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
@@ -117,7 +117,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	spawn_positions = 1
 	supervisors = "the command staff"
 	department_head = list("Captain")
-	selection_color = "#ddddff"
+	selection_color = "#d1deff"
 	req_admin_notify = 1
 	is_command = 1
 	transfer_allowed = FALSE
@@ -167,7 +167,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	spawn_positions = 1
 	supervisors = "the Nanotrasen representative"
 	department_head = list("Captain")
-	selection_color = "#ddddff"
+	selection_color = "#d1deff"
 	req_admin_notify = 1
 	is_command = 1
 	transfer_allowed = FALSE
@@ -221,7 +221,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	spawn_positions = 1
 	supervisors = "the Nanotrasen Supreme Court"
 	department_head = list("Captain")
-	selection_color = "#ddddff"
+	selection_color = "#edccd7"
 	req_admin_notify = 1
 	is_legal = 1
 	transfer_allowed = FALSE
@@ -274,7 +274,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	is_legal = 1
 	supervisors = "the magistrate"
 	department_head = list("Captain")
-	selection_color = "#ddddff"
+	selection_color = "#edccd7"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	alt_titles = list("Human Resources Agent","Lawyer","Attorney")

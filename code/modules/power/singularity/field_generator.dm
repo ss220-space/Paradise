@@ -24,7 +24,7 @@ field_generator power level display
 	desc = "A large thermal battery that projects a high amount of energy when powered."
 	icon = 'icons/obj/machines/field_generator.dmi'
 	icon_state = "Field_Gen"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	use_power = NO_POWER_USE
 	max_integrity = 500
@@ -40,14 +40,15 @@ field_generator power level display
 	var/list/obj/machinery/field/generator/connected_gens
 	var/clean_up = 0
 
-/obj/machinery/field/generator/update_icon()
-	overlays.Cut()
+
+/obj/machinery/field/generator/update_overlays()
+	. = ..()
 	if(warming_up)
-		overlays += "+a[warming_up]"
-	if(fields.len)
-		overlays += "+on"
+		. += "+a[warming_up]"
+	if(length(fields))
+		. += "+on"
 	if(power_level)
-		overlays += "+p[power_level]"
+		. += "+p[power_level]"
 
 
 /obj/machinery/field/generator/Initialize(mapload)
@@ -83,7 +84,7 @@ field_generator power level display
 		add_fingerprint(user)
 		to_chat(user, "<span class='warning'>[src] needs to be off!</span>")
 		return
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		switch(state)
 			if(FG_UNSECURED)
 				if(isinspace())
@@ -94,7 +95,7 @@ field_generator power level display
 				user.visible_message("[user.name] secures [name] to the floor.", \
 					"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = 1
+				anchored = TRUE
 			if(FG_SECURED)
 				add_fingerprint(user)
 				state = FG_UNSECURED
@@ -102,7 +103,7 @@ field_generator power level display
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 					"<span class='notice'>You undo the external reinforcing bolts.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = 0
+				anchored = FALSE
 			if(FG_WELDED)
 				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
 	else
@@ -163,7 +164,7 @@ field_generator power level display
 	var/new_level = round(num_power_levels * power / field_generator_max_power)
 	if(new_level != power_level)
 		power_level = new_level
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
@@ -172,7 +173,7 @@ field_generator power level display
 		while(warming_up > 0 && !active)
 			sleep(50)
 			warming_up--
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/field/generator/proc/turn_on()
 	active = FG_CHARGING
@@ -180,7 +181,7 @@ field_generator power level display
 		while(warming_up < 3 && active)
 			sleep(50)
 			warming_up++
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 			if(warming_up >= 3)
 				start_fields()
 
@@ -294,7 +295,7 @@ field_generator power level display
 
 	connected_gens |= G
 	G.connected_gens |= src
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/field/generator/proc/cleanup()
@@ -309,7 +310,7 @@ field_generator power level display
 			FG.cleanup()
 		connected_gens -= FG
 	clean_up = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 	//This is here to help fight the "hurr durr, release singulo cos nobody will notice before the
 	//singulo eats the evidence". It's not fool-proof but better than nothing.

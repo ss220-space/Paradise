@@ -87,7 +87,7 @@
 
 
 /obj/structure/fermenting_barrel/update_icon_state()
-	icon_state = "barrel[open ? "open" : ""]"
+	icon_state = "barrel[open ? "_open" : ""]"
 
 
 /datum/crafting_recipe/fermenting_barrel

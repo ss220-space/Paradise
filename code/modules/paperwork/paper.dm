@@ -31,9 +31,9 @@
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
 	var/fields = 0		//Amount of user created fields
-	var/language = "Galactic Common" //The language of paper. For now using only in case of Thetta
+	var/language = LANGUAGE_GALACTIC_COMMON //The language of paper. For now using only in case of Thetta
 	var/list/stamped
-	var/list/stamp_overlays = list()
+	var/list/stamp_overlays
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
 	var/offset_y[0] //usage by the photocopier
@@ -63,11 +63,17 @@
 		update_icon()
 		updateinfolinks()
 
+
 /obj/item/paper/update_icon_state()
 	if(info)
 		icon_state = "paper_words"
 		return
 	icon_state = "paper"
+
+
+/obj/item/paper/update_overlays()
+	return LAZYLEN(stamp_overlays) ? stamp_overlays : list()
+
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
@@ -286,7 +292,7 @@
 	info = null
 	stamps = null
 	stamped = list()
-	stamp_overlays = list()
+	stamp_overlays = null
 	updateinfolinks()
 	update_icon()
 
@@ -567,10 +573,6 @@
 	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/paper/update_overlays()
-	return stamp_overlays
-
-
 /*
  * Premade paper
  */
@@ -597,7 +599,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -673,7 +675,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -742,7 +744,7 @@
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ussplogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
-	language = "Neo-Russkiya"
+	language = LANGUAGE_NEO_RUSSIAN
 
 /obj/item/paper/solgov
 	name = "paper"

@@ -8,7 +8,7 @@
 /datum/species/moth
 	name = "Nian"
 	name_plural = "Nianae"
-	language = "Tkachi"
+	language = LANGUAGE_MOTH
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	deform = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("moth")

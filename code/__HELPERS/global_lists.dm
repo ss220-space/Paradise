@@ -44,14 +44,14 @@
 
 	// Setup languages
 	for(var/language_name in GLOB.all_languages)
-		var/datum/language/L = GLOB.all_languages[language_name]
-		if(!(L.flags & NONGLOBAL))
-			GLOB.language_keys[":[lowertext(L.key)]"] = L
-			GLOB.language_keys[".[lowertext(L.key)]"] = L
-			GLOB.language_keys["#[lowertext(L.key)]"] = L
-			GLOB.language_keys[":[sanitize_english_string_to_russian(L.key)]"] = L
-			GLOB.language_keys[".[sanitize_english_string_to_russian(L.key)]"] = L
-			GLOB.language_keys["#[sanitize_english_string_to_russian(L.key)]"] = L
+		var/datum/language/language = GLOB.all_languages[language_name]
+		if(!(language.flags & NONGLOBAL))
+			GLOB.language_keys[":[lowertext(language.key)]"] = language
+			GLOB.language_keys[".[lowertext(language.key)]"] = language
+			GLOB.language_keys["#[lowertext(language.key)]"] = language
+			GLOB.language_keys[":[sanitize_english_string_to_russian(language.key)]"] = language
+			GLOB.language_keys[".[sanitize_english_string_to_russian(language.key)]"] = language
+			GLOB.language_keys["#[sanitize_english_string_to_russian(language.key)]"] = language
 
 	var/rkey = 0
 	for(var/spath in subtypesof(/datum/species))

@@ -542,7 +542,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	hide_tail_by_species = list("Vox", "Vulpkanin")
-	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
 	sprite_sheets = list(
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
@@ -631,6 +631,30 @@
 	armor = list("melee" = 35, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/suit/hooded/goliath/wizard
+	armor = list("melee" = 60, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 60)
+	hoodtype = /obj/item/clothing/head/hooded/goliath/wizard
+	magical = TRUE
+
+/obj/item/clothing/head/hooded/goliath/wizard
+	name = "shaman skull"
+	icon_state = "shamskull"
+	item_state = "shamskull"
+	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
+	armor = list("melee" = 60, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 60)
+	magical = TRUE
+
+//mob_size using for crusher mark
+/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial)
+	. = ..()
+	if(istype(user))
+		user.mob_size = MOB_SIZE_LARGE
+
+/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, silent)
+	. = ..()
+	if(istype(user))
+		user.mob_size = MOB_SIZE_HUMAN
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"

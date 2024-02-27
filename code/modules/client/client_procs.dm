@@ -311,6 +311,7 @@
 	prefs = GLOB.preferences_datums[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
+		set_macros()
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
@@ -978,33 +979,40 @@
 /client/proc/activate_darkmode()
 	///// BUTTONS /////
 	/* Rpane */
-	winset(src, "rpane.fullscreenb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.wikib", "background-color=#40628a;text-color=#FFFFFF")
-	//winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.fullscreenb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
 	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
-	/* Mainwindow */
-	//winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
-	//winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
+	/* Outputwindow */
+	winset(src, "outputwindow.saybutton", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "outputwindow.mebutton", "background-color=#494949;text-color=#a4bad6")
+
 	///// UI ELEMENTS /////
 	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#272727")
-	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
-	winset(src, "mainwindow.tooltip", "background-color=#272727")
+	winset(src, "mainwindow", "background-color=#171717")
+	winset(src, "mainwindow.mainvsplit", "background-color=#202020")
+	winset(src, "mainwindow.tooltip", "background-color=#171717")
 	/* Outputwindow */
-	winset(src, "outputwindow.browseroutput", "background-color=#272727")
+	winset(src, "outputwindow", "background-color=#202020")
+	winset(src, "outputwindow.input", "text-color=#a4bad6;background-color=#202020")
+	winset(src, "outputwindow.browseroutput", "background-color=#202020")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#272727")
-	winset(src, "rpane.rpanewindow", "background-color=#272727")
+	winset(src, "rpane", "background-color=#202020")
+	winset(src, "rpane.rpanewindow", "background-color=#202020")
 	/* Browserwindow */
+
 	//winset(src, "browserwindow", "background-color=#272727")
 	//winset(src, "browserwindow.browser", "background-color=#272727")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
-	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
+	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
+	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
+	//Macros
+	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_DARK_INPUT_ENABLED]\\\"\"")
+	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_DARK_INPUT_DISABLED]\\\"\"")
+
 	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 
@@ -1018,16 +1026,19 @@
 	//winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
-	/* Mainwindow */
-	//winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
-	//winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
+	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
+	/* Outputwindow */
+	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
+	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
+
 	///// UI ELEMENTS /////
 	/* Mainwindow */
 	winset(src, "mainwindow", "background-color=none")
 	winset(src, "mainwindow.mainvsplit", "background-color=none")
 	winset(src, "mainwindow.tooltip", "background-color=none")
 	/* Outputwindow */
+	winset(src, "outputwindow", "background-color=none")
+	winset(src, "outputwindow.input", "text-color=none; background-color=#F0F0F0")
 	winset(src, "outputwindow.browseroutput", "background-color=none")
 	/* Rpane */
 	winset(src, "rpane", "background-color=none")
@@ -1038,6 +1049,10 @@
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=none;text-color=#000000")
 	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
+	//Macros
+	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"")
+	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"")
+
 	///// NOTIFY USER /////
 	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
 

@@ -44,6 +44,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
+	dispensable_reagents = sortAssoc(dispensable_reagents)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/upgraded/New()
@@ -420,7 +421,7 @@
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan")
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
-	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "alcohol_free_beer")
+	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
@@ -668,7 +669,7 @@
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
 	"vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan", "iced_beer",
 	"irishcream", "manhattan", "antihol", "synthignon", "bravebull", "goldschlager", "patron", "absinthe", "ethanol", "nothing",
-	"sake", "bitter", "champagne", "aperol", "alcohol_free_beer")
+	"sake", "bitter", "champagne", "aperol", "noalco_beer")
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"

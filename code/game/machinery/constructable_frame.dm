@@ -441,7 +441,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/thermomachine/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
 			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
 			board_name = "Heater"

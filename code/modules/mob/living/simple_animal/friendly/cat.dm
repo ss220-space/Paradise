@@ -220,7 +220,7 @@
 
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
 	. = ..()
-	add_language("Galactic Common")
+	add_language(LANGUAGE_GALACTIC_COMMON)
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"

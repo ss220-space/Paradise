@@ -25,21 +25,18 @@
 
 	..(severity)
 
-/obj/machinery/portable_atmospherics/scrubber/update_icon()
-	overlays = 0
 
-	if(on)
-		icon_state = "pscrubber:1"
-	else
-		icon_state = "pscrubber:0"
+/obj/machinery/portable_atmospherics/scrubber/update_icon_state()
+	icon_state = "pscrubber:[on]"
 
+
+/obj/machinery/portable_atmospherics/scrubber/update_overlays()
+	. = ..()
 	if(holding)
-		overlays += "scrubber-open"
-
+		. += "scrubber-open"
 	if(connected_port)
-		overlays += "scrubber-connector"
+		. += "scrubber-connector"
 
-	return
 
 /obj/machinery/portable_atmospherics/scrubber/process_atmos()
 	..()
@@ -164,7 +161,7 @@
 /obj/machinery/portable_atmospherics/scrubber/huge
 	name = "Huge Air Scrubber"
 	icon_state = "scrubber:0"
-	anchored = 1
+	anchored = TRUE
 	volume = 50000
 	volume_rate = 5000
 	widenet = 1
@@ -183,13 +180,14 @@
 /obj/machinery/portable_atmospherics/scrubber/huge/attack_hand(mob/user)
 	to_chat(usr, span_warning("You can't directly interact with this machine. Use the area atmos computer."))
 
-/obj/machinery/portable_atmospherics/scrubber/huge/update_icon()
-	overlays = 0
 
-	if(on)
-		icon_state = "scrubber:1"
-	else
-		icon_state = "scrubber:0"
+/obj/machinery/portable_atmospherics/scrubber/huge/update_icon_state()
+	icon_state = "scrubber:[on]"
+
+
+/obj/machinery/portable_atmospherics/scrubber/huge/update_overlays()
+	. = list()
+
 
 /obj/machinery/portable_atmospherics/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE

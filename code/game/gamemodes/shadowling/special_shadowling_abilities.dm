@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	undershirt = "None"
 	socks = "None"
 	faction |= "faithless"
-	add_language("Shadowling Hivemind")
+	add_language(LANGUAGE_HIVE_SHADOWLING)
 
 	set_species(/datum/species/shadow/ling)
 	equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(src), slot_w_uniform)

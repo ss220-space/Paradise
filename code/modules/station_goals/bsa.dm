@@ -31,7 +31,7 @@
 /obj/machinery/bsa
 	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi'
 	density = 1
-	anchored = 1
+	anchored = TRUE
 
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
@@ -44,7 +44,7 @@
 		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
@@ -62,7 +62,7 @@
 		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
@@ -89,7 +89,7 @@
 				front = M.buffer
 				M.buffer = null
 				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
@@ -295,9 +295,9 @@
 
 /obj/machinery/computer/bsa_control/process()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/computer/bsa_control/update_icon()
+/obj/machinery/computer/bsa_control/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = icon_state_broken
 	else if(stat & NOPOWER)
