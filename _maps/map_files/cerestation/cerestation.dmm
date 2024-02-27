@@ -14538,9 +14538,6 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/library)
 "bIb" = (
-/obj/structure/chair/comfy/black{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
