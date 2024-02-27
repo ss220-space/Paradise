@@ -71,20 +71,20 @@
 	taste_description = "tutti frutti"
 
 /datum/reagent/consumable/drink/cold/energy/trop
-	name = "Tropickal Energy Drink"
+	name = "Tropickal Energy"
 	id = "trop_eng"
 	taste_description = "mango and coconut"
 
 /datum/reagent/consumable/drink/cold/energy/milk
-	name = "Milk Energy Drink"
+	name = "Milk Energy"
 	id = "milk_eng"
 	taste_description = "milk and taurin"
 
 /datum/reagent/consumable/drink/cold/energy/grey
-	name = "GreyPower Energy Drink"
+	name = "GreyPower Energy"
 	id = "grey_eng"
 	color = "#9dc2d1"
-	taste_description = "coffee and taurin"
+	taste_description = "robust"
 
 /datum/reagent/consumable/drink/cold/nuka_cola
 	name = "Nuka Cola"
