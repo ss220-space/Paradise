@@ -2111,6 +2111,7 @@
 #include "code\modules\mining\ores_coins.dm"
 #include "code\modules\mining\satchel_ore_boxdm.dm"
 #include "code\modules\mining\shelters.dm"
+#include "code\modules\mining\ash_walker\fishing.dm"
 #include "code\modules\mining\ash_walker\structures.dm"
 #include "code\modules\mining\ash_walker\torch_holder.dm"
 #include "code\modules\mining\equipment\explorer_gear.dm"

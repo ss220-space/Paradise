@@ -29,8 +29,26 @@
 		START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/plating/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(burn_stuff(AM))
-		START_PROCESSING(SSprocessing, src)
+	if(istype(AM, /obj/item/reagent_containers/food/snacks/charred_krill))
+		var/obj/item/reagent_containers/food/snacks/charred_krill/krill = AM //yourself
+		var/datum/component/simple_fishing/fc = GetComponent(/datum/component/simple_fishing)
+		krill.in_lava = TRUE
+		krill.anchored = TRUE	//no closet kidnaping
+		visible_message(span_warning("[krill] is slowly sinking in the lava!"))
+		sleep(5 SECONDS)
+		qdel(krill)
+		if(!fc)
+			visible_message(span_warning("But nobody came."))
+			return
+		visible_message("юху, рыба всплыла!")
+		if(fc.deep_water)
+			visible_message("лава глубоководная.")
+
+		else
+			visible_message("лава неглубокая.")
+	else
+		if(burn_stuff(AM))
+			START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/plating/lava/process()
 	if(!burn_stuff())
@@ -115,6 +133,20 @@
 
 
 /turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
+	if(istype(C, /obj/item/reagent_containers/food/snacks/charred_krill))
+		to_chat(user, span_notice("You carefully place the shrimp on the surface of the lava..."))
+		if(do_after(user, 5 SECONDS, target = src))
+			var/datum/component/simple_fishing/fc = GetComponent(/datum/component/simple_fishing)
+			if(!fc)
+				to_chat(user, span_warning("But nobody came."))
+				return
+			to_chat(user, "юху, рыба всплыла!")
+			if(fc.deep_water)
+				to_chat(user, "лава глубоководная.")
+
+			else
+				to_chat(user, "лава неглубокая.")
+
 	if(istype(C, /obj/item/stack/fireproof_rods))
 		var/obj/item/stack/fireproof_rods/R = C
 		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice, src)
