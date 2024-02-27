@@ -15,6 +15,9 @@
 	var/list/datum/mind/pre_antags = list()
 	var/list/datum/mind/pre_double_antags = list()
 
+	var/antag_making_cooldown = 5 MINUTES
+	var/next_antag_making_time = 0
+
 	var/list/antag_required_players = list(
 		ROLE_TRAITOR = 10,
 		ROLE_THIEF = 10,
@@ -38,6 +41,10 @@
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return PROCESS_KILL
 
+	if(world.time < next_antag_making_time)
+		return FALSE
+
+	next_antag_making_time = world.time + antag_making_cooldown
 	var/list/antag_possibilities = list()
 	antag_possibilities[ROLE_VAMPIRE] = get_alive_players_for_role(ROLE_VAMPIRE)
 	antag_possibilities[ROLE_CHANGELING] = get_alive_players_for_role(ROLE_CHANGELING)
@@ -257,7 +264,7 @@
 			antag.add_antag_datum(ninja_datum)
 
 	addtimer(CALLBACK(src, PROC_REF(initiate_antags)), rand(1 SECONDS, 10 SECONDS))
-	SSgame_events.add_to_process(src)
+	next_antag_making_time = world.time + antag_making_cooldown
 	..()
 
 
@@ -290,6 +297,7 @@
 				antag.add_antag_datum(/datum/antagonist/vampire)
 			if(ROLE_CHANGELING)
 				antag.add_antag_datum(/datum/antagonist/changeling)
+
 
 /proc/config_to_roles(list/check_list)
 	var/list/new_list = list()
