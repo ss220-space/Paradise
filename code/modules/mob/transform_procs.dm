@@ -184,6 +184,49 @@
 
 	qdel(src)
 
+
+/mob/proc/gorillize(gorilla_type = "Normal", message = TRUE)
+	if(notransform)
+		return
+
+	if(stat == DEAD)
+		return
+
+	for(var/obj/item/check in get_all_slots())
+		drop_item_ground(check, force = TRUE)
+
+	notransform = TRUE
+	icon = null
+	invisibility = INVISIBILITY_MAXIMUM
+
+	if(message)
+		visible_message(
+			span_warning("[src] transforms into a gorilla!"),
+			span_warning("You transform into a gorilla! Ooga ooga!"),
+			span_italics("You hear a loud roar!"),
+		)
+
+	switch(gorilla_type)
+		if("Normal")
+			gorilla_type = /mob/living/simple_animal/hostile/gorilla
+		if("Enraged")
+			gorilla_type = /mob/living/simple_animal/hostile/gorilla/rampaging
+		if("Cargorilla")
+			gorilla_type = /mob/living/simple_animal/hostile/gorilla/cargo_domestic
+		else
+			return
+
+	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new gorilla_type(get_turf(src))
+	playsound(new_gorilla, 'sound/creatures/gorilla.ogg', 50)
+
+	if(mind)
+		mind.transfer_to(new_gorilla)
+	else
+		new_gorilla.key = key
+
+	qdel(src)
+
+
 /mob/proc/safe_respawn(var/MP)
 	if(!MP)
 		return 0

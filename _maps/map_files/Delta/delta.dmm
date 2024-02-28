@@ -3524,7 +3524,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/bot/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -10495,6 +10494,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
+"bsX" = (
+/obj/structure/table,
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/item/stack/packageWrap,
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "bta" = (
 /obj/machinery/conveyor/northwest{
 	id = "QMLoad2"
@@ -11650,7 +11661,6 @@
 /area/civilian/vacantoffice)
 "bxD" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/bot/left,
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
@@ -17710,9 +17720,20 @@
 	},
 /area/crew_quarters/chief)
 "bZh" = (
-/obj/effect/decal/warning_stripes/northeast,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/obj/structure/table/wood/fancy/royalblue,
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = 4;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = -1;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "bZl" = (
 /obj/structure/grille,
@@ -22032,20 +22053,15 @@
 	},
 /area/quartermaster/storage)
 "cux" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/lights/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
+/obj/item/flag/cargo,
+/turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "cuz" = (
-/obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/obj/structure/chair/sofa/right,
+/obj/structure/sign/poster/contraband/commando{
+	pixel_y = 32
 	},
+/turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "cuB" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
@@ -22070,12 +22086,9 @@
 	},
 /area/crew_quarters/fitness)
 "cuO" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/double,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars,
+/obj/structure/chair/sofa/left,
+/turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "cuQ" = (
 /obj/item/reagent_containers/glass/bucket,
@@ -22092,12 +22105,12 @@
 	},
 /area/hydroponics)
 "cuS" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "brown"
+/obj/machinery/photocopier,
+/obj/structure/sign/poster/contraband/red_rum{
+	pixel_y = 32
 	},
+/turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "cuV" = (
 /obj/machinery/vending/cigarette,
@@ -26158,6 +26171,12 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
+"cLF" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "cLI" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/plasteel,
@@ -54221,8 +54240,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "gNy" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "gNz" = (
@@ -59056,12 +59074,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"hVC" = (
-/obj/effect/turf_decal/bot/left,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/quartermaster/storage)
 "hVD" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -63761,6 +63773,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"jdo" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/carpet/black,
+/area/quartermaster/storage)
 "jdp" = (
 /obj/machinery/computer/med_data{
 	dir = 4
@@ -63859,6 +63875,22 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"jen" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/north)
+"jev" = (
+/obj/structure/chair/comfy/red{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/quartermaster/storage)
 "jeA" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -65228,8 +65260,7 @@
 	},
 /area/quartermaster/delivery)
 "jvq" = (
-/obj/effect/turf_decal/bot/left,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -80923,6 +80954,13 @@
 	icon_state = "redcorner"
 	},
 /area/security/processing)
+"njf" = (
+/obj/structure/table/wood/fancy/royalblue,
+/obj/item/flashlight/lamp/green{
+	pixel_y = 5
+	},
+/turf/simulated/floor/carpet/black,
+/area/quartermaster/storage)
 "nji" = (
 /obj/structure/closet/crate{
 	icon_state = "crateopen";
@@ -98981,6 +99019,7 @@
 "ric" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "riA" = (
@@ -107444,7 +107483,6 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/effect/turf_decal/bot/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -125720,6 +125758,17 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
+"xta" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "xtb" = (
 /obj/structure/chair{
 	dir = 4
@@ -173064,10 +173113,10 @@ djQ
 dmq
 cuw
 bYJ
-hVC
+djV
 wjh
 nKJ
-aJg
+xta
 vKa
 wmA
 vKa
@@ -173577,8 +173626,8 @@ cfy
 bNJ
 dmq
 cuz
-gNy
-hVC
+njf
+cLF
 uAf
 nKJ
 oZo
@@ -173835,7 +173884,7 @@ fyp
 dmq
 cuO
 bZh
-mHQ
+gNy
 cdQ
 cLd
 mHQ
@@ -174091,8 +174140,8 @@ cgm
 dnP
 dmq
 cuS
-cSf
-cSf
+jev
+jdo
 cdR
 aKF
 bta

@@ -663,11 +663,12 @@
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
 		toggle_ai(initial(AIStatus))
 
+
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
-		return
+		return FALSE
 	if(user && !user.drop_transfer_item_to_loc(P, src))
-		return
+		return FALSE
 	pcollar = P
 	regenerate_icons()
 	if(user)
@@ -676,6 +677,8 @@
 		name = P.tagname
 		real_name = P.tagname
 	P.equipped(src)
+	return TRUE
+
 
 /mob/living/simple_animal/regenerate_icons()
 	cut_overlays()
