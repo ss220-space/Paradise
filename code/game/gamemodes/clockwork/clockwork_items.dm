@@ -218,7 +218,7 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "ratvarian_spear0"
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 10
 	force_unwielded = 10
 	force_wielded = 20
@@ -365,7 +365,7 @@
 	desc = "A heavy hammer of an elder god. Used to shine like in past times."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_hammer0"
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	force_unwielded = 5
 	force_wielded = 20

@@ -279,7 +279,7 @@
 
 /obj/item/clothing/head/kitty/equipped(mob/user, slot, initial)
 	. = ..()
-	if(. && slot == slot_head)
+	if(. && slot == SLOT_HUD_HEAD)
 		update_look(user)
 
 
@@ -317,7 +317,7 @@
 
 /obj/item/clothing/head/cardborg/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-	if(ishuman(user) && slot == slot_head && istype(user.wear_suit, /obj/item/clothing/suit/cardborg))
+	if(ishuman(user) && slot == SLOT_HUD_HEAD && istype(user.wear_suit, /obj/item/clothing/suit/cardborg))
 		var/obj/item/clothing/suit/cardborg/user_suit = user.wear_suit
 		user_suit.disguise(user, src)
 

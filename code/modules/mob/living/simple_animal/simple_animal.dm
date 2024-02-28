@@ -513,7 +513,7 @@
 		return
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
+	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_COLLAR]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
 	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -522,14 +522,14 @@
 
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_collar)
+		if(SLOT_HUD_COLLAR)
 			return pcollar
 	. = ..()
 
 /mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
-		if(slot_collar)
+		if(SLOT_HUD_COLLAR)
 			if(pcollar)
 				return FALSE
 			if(!can_collar)
@@ -555,7 +555,7 @@
 	I.forceMove(src)
 
 	switch(slot)
-		if(slot_collar)
+		if(SLOT_HUD_COLLAR)
 			add_collar(I)
 
 

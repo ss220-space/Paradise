@@ -84,7 +84,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == slot_shoes && enabled_waddle)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/user, silent = FALSE)
@@ -495,7 +495,7 @@
 
 /obj/item/clothing/shoes/bhop/clown/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == slot_shoes && enabled_waddle)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/bhop/clown/dropped(mob/user, silent = FALSE)

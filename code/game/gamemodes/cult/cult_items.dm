@@ -243,7 +243,7 @@
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
-	else if(slot == slot_wear_suit)
+	else if(slot == SLOT_HUD_OUTER_SUIT)
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 

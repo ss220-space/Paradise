@@ -763,14 +763,14 @@
 
 	switch(slot)
 		// HANDS
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			if(user.l_hand)
 				return FALSE
 			if(user.incapacitated())
 				return FALSE
 			return TRUE
 
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			if(user.r_hand)
 				return FALSE
 			if(user.incapacitated())
@@ -778,58 +778,58 @@
 			return TRUE
 
 		// MASK SLOT
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			if(user.wear_mask)
 				return FALSE
-			if(!(I.slot_flags & SLOT_MASK))
+			if(!(I.slot_flags & SLOT_FLAG_MASK))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// BACK SLOT
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			if(user.back)
 				return FALSE
-			if(!(I.slot_flags & SLOT_BACK))
+			if(!(I.slot_flags & SLOT_FLAG_BACK))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// SUIT SLOT
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			if(user.wear_suit)
 				return FALSE
-			if(!(I.slot_flags & SLOT_OCLOTHING))
+			if(!(I.slot_flags & SLOT_FLAG_OCLOTHING	))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// GLOVES SLOT
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			if(user.gloves)
 				return FALSE
-			if(!(I.slot_flags & SLOT_GLOVES))
+			if(!(I.slot_flags & SLOT_FLAG_GLOVES))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// SHOES SLOT
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			if(user.shoes)
 				return FALSE
-			if(!(I.slot_flags & SLOT_FEET))
+			if(!(I.slot_flags & SLOT_FLAG_FEET))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// NECK SLOT
-		if(slot_neck)
+		if(SLOT_HUD_NECK)
 			if(user.neck)
 				return FALSE
-			if(!(I.slot_flags & SLOT_NECK))
+			if(!(I.slot_flags & SLOT_FLAG_NECK))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// BELT SLOT
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			if(user.belt)
 				return FALSE
-			if(!(I.slot_flags & SLOT_BELT))
+			if(!(I.slot_flags & SLOT_FLAG_BELT))
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
@@ -841,53 +841,53 @@
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// GLASSES SLOT
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			if(user.glasses)
 				return FALSE
-			if(!(I.slot_flags & SLOT_EYES))
+			if(!(I.slot_flags & SLOT_FLAG_EYES))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// HEAD SLOT
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			if(user.head)
 				return FALSE
-			if(!(I.slot_flags & SLOT_HEAD))
+			if(!(I.slot_flags & SLOT_FLAG_HEAD))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// EARS SLOTS
-		if(slot_l_ear)
+		if(SLOT_HUD_LEFT_EAR)
 			if(user.l_ear)
 				return FALSE
-			if(!(I.slot_flags & SLOT_EARS))
+			if(!(I.slot_flags & SLOT_FLAG_EARS))
 				return FALSE
-			if((I.slot_flags & SLOT_TWOEARS) && user.r_ear)
+			if((I.slot_flags & SLOT_FLAG_TWOEARS) && user.r_ear)
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
-		if(slot_r_ear)
+		if(SLOT_HUD_RIGHT_EAR)
 			if(user.r_ear)
 				return FALSE
-			if(!(I.slot_flags & SLOT_EARS))
+			if(!(I.slot_flags & SLOT_FLAG_EARS))
 				return FALSE
-			if((I.slot_flags & SLOT_TWOEARS) && user.l_ear)
+			if((I.slot_flags & SLOT_FLAG_TWOEARS) && user.l_ear)
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// UNIFORM SLOT
-		if(slot_w_uniform)
+		if(SLOT_HUD_JUMPSUIT)
 			if(user.w_uniform)
 				return FALSE
-			if(!(I.slot_flags & SLOT_ICLOTHING))
+			if(!(I.slot_flags & SLOT_FLAG_ICLOTHING	))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// ID CARD SLOT
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			if(user.wear_id)
 				return FALSE
-			if(!(I.slot_flags & SLOT_ID))
+			if(!(I.slot_flags & SLOT_FLAG_ID))
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
@@ -899,10 +899,10 @@
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// PDA SLOT
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			if(user.wear_pda)
 				return FALSE
-			if(!(I.slot_flags & SLOT_PDA))
+			if(!(I.slot_flags & SLOT_FLAG_PDA))
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
@@ -914,12 +914,12 @@
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// POCKETS
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
 				return FALSE
 			if(user.l_store)
 				return FALSE
-			if(I.slot_flags & SLOT_DENYPOCKET)
+			if(I.slot_flags & SLOT_FLAG_DENYPOCKET)
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_L_LEG)
@@ -928,14 +928,14 @@
 					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
-			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET)
+			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET)
 
-		if(slot_r_store)
+		if(SLOT_HUD_RIGHT_STORE)
 			if(I.flags & NODROP)
 				return FALSE
 			if(user.r_store)
 				return FALSE
-			if(I.slot_flags & SLOT_DENYPOCKET)
+			if(I.slot_flags & SLOT_FLAG_DENYPOCKET)
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_R_LEG)
@@ -944,10 +944,10 @@
 					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
-			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET)
+			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET)
 
 		// SUIT STORE SLOT
-		if(slot_s_store)
+		if(SLOT_HUD_SUIT_STORE)
 			if(user.s_store)
 				return FALSE
 			if(!user.wear_suit)
@@ -971,14 +971,14 @@
 			return FALSE
 
 		// HANDCUFFS SLOT
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return !user.handcuffed && istype(I, /obj/item/restraints/handcuffs)
 
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return !user.legcuffed && istype(I, /obj/item/restraints/legcuffs)
 
 		// PLACING ITEM IN BACKPACK
-		if(slot_in_backpack)
+		if(SLOT_HUD_IN_BACKPACK)
 			if(user.back && istype(user.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/backpack = user.back
 				if(backpack.contents.len < backpack.storage_slots && I.w_class <= backpack.max_w_class)
@@ -986,8 +986,8 @@
 			return FALSE
 
 		// UNIFORM ACCESORIES
-		if(slot_tie)
-			if(!(I.slot_flags & SLOT_TIE))
+		if(SLOT_HUD_TIE)
+			if(!(I.slot_flags & SLOT_FLAG_TIE))
 				return FALSE
 			if(!user.w_uniform)
 				if(!disable_warning)

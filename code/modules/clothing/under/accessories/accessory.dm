@@ -5,7 +5,7 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	item_color = "bluetie"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	w_class = WEIGHT_CLASS_SMALL
 	pickup_sound = 'sound/items/handling/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/accessory_drop.ogg'
@@ -358,7 +358,7 @@
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
 	item_color = "holobadge"
-	slot_flags = SLOT_BELT | SLOT_TIE
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_TIE
 	actions_types = list(/datum/action/item_action/accessory/holobadge)
 
 	var/emagged = FALSE //Emagging removes Sec check.
@@ -537,7 +537,7 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/necklace/dope
 	name = "gold necklace"
@@ -570,7 +570,7 @@
 	icon_state = "locket"
 	item_state = "locket"
 	item_color = "locket"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.

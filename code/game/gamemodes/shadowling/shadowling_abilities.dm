@@ -371,13 +371,13 @@
 					 "<span class='shadowling'>You regenerate your protective armor and cleanse your form of defects.</span>")
 	user.set_species(/datum/species/shadow/ling)
 	user.adjustCloneLoss(-(user.getCloneLoss()))
-	user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), slot_w_uniform)
-	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), slot_shoes)
-	user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), slot_wear_suit)
-	user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), slot_head)
-	user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), slot_gloves)
-	user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), slot_wear_mask)
-	user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), slot_glasses)
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), SLOT_HUD_JUMPSUIT)
+	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), SLOT_HUD_SHOES)
+	user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), SLOT_HUD_OUTER_SUIT)
+	user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), SLOT_HUD_HEAD)
+	user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), SLOT_HUD_GLOVES)
+	user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), SLOT_HUD_WEAR_MASK)
+	user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), SLOT_HUD_GLASSES)
 
 
 /**

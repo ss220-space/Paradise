@@ -122,8 +122,8 @@
 	user.drop_item_ground(user.head)
 	user.drop_item_ground(user.wear_suit)
 
-	user.equip_to_slot_or_del(new suit_type(user), slot_wear_suit)
-	user.equip_to_slot_or_del(new helmet_type(user), slot_head)
+	user.equip_to_slot_or_del(new suit_type(user), SLOT_HUD_OUTER_SUIT)
+	user.equip_to_slot_or_del(new helmet_type(user), SLOT_HUD_HEAD)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE

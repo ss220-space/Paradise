@@ -6,7 +6,7 @@
 	icon = 'icons/obj/clothing/jewelry.dmi'
 	icon_state = "gem_necklace"
 	item_state = "gem_necklace"
-	slot_flags = SLOT_NECK | SLOT_TIE //trust me, I am 100% triplechecked this
+	slot_flags = SLOT_FLAG_NECK | SLOT_FLAG_TIE //trust me, I am 100% triplechecked this
 	allow_duplicates = FALSE
 	var/gem = null
 	icon_override = 'icons/mob/clothing/jewelry.dmi'
@@ -127,14 +127,14 @@
 
 /obj/item/clothing/accessory/necklace/gem/equipped(mob/user, slot, initial)
 	. = ..()
-	if(isliving(user) && dragon_power && slot == slot_neck)
+	if(isliving(user) && dragon_power && slot == SLOT_HUD_NECK)
 		var/mob/living/M = user
 		M.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
 /obj/item/clothing/accessory/necklace/gem/dropped(mob/user)
 	. = ..()
 	var/mob/living/M = user
-	if(isliving(user) && dragon_power && M.get_item_by_slot(slot_neck) == src)
+	if(isliving(user) && dragon_power && M.get_item_by_slot(SLOT_HUD_NECK) == src)
 		M.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
 //bracers

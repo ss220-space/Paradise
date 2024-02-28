@@ -57,9 +57,9 @@ Uncontrollable Aggression
 			return
 		aggressor.visible_message(span_danger("[aggressor] thrashes around violently!"))
 
-		var/obj/item/attacking_item = aggressor.get_item_by_slot(slot_r_hand)
+		var/obj/item/attacking_item = aggressor.get_item_by_slot(SLOT_HUD_RIGHT_HAND)
 		if(!attacking_item)
-			attacking_item = aggressor.get_item_by_slot(slot_l_hand)
+			attacking_item = aggressor.get_item_by_slot(SLOT_HUD_LEFT_HAND)
 		if(!attacking_item)
 			UnarmedAttack(aggressor)
 		else
@@ -143,9 +143,9 @@ Uncontrollable Actions
 			possesed.visible_message(span_danger("[possesed] twitches!"))
 			return
 
-		var/obj/item/item = possesed.get_item_by_slot(slot_r_hand)
+		var/obj/item/item = possesed.get_item_by_slot(SLOT_HUD_RIGHT_HAND)
 		if(!item)
-			item = possesed.get_item_by_slot(slot_l_hand)
+			item = possesed.get_item_by_slot(SLOT_HUD_LEFT_HAND)
 		if(!item)
 			item = TakeItem(possesed)
 		if(!item)
