@@ -153,7 +153,7 @@
 /obj/machinery/keycard_auth/proc/confirm_and_trigger()
 	if(event_confirmed_by)
 		trigger_event(event)
-		add_game_logs("[key_name_log(event_triggered_by)] triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
+		add_game_logs("triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
 		message_admins("[key_name_admin(event_triggered_by)] triggered and [key_name_admin(event_confirmed_by)] confirmed event [event]", 1)
 	reset()
 
