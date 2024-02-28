@@ -33,8 +33,8 @@
 	icon_state = "[item_color][suit_adjusted ? "_hood" : ""]"
 
 
-/obj/item/clothing/suit/hooded/ui_action_click()
-	ToggleHood()
+/obj/item/clothing/suit/hooded/ui_action_click(mob/user)
+	ToggleHood(user)
 
 
 /obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
@@ -44,40 +44,33 @@
 
 /obj/item/clothing/suit/hooded/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(suit_adjusted)
-		RemoveHood()
+	RemoveHood(user)
 
 
 /obj/item/clothing/suit/hooded/dropped(mob/user, silent = FALSE)
 	. = ..()
-	if(suit_adjusted)
-		RemoveHood()
+	RemoveHood(user)
 
 
 /obj/item/clothing/suit/hooded/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(suit_adjusted)
-		RemoveHood()
-	return ..()
+	RemoveHood(usr)
+	. = ..()
 
 
-/obj/item/clothing/suit/hooded/proc/ToggleHood()
-	var/mob/living/carbon/human/user = loc
+/obj/item/clothing/suit/hooded/proc/ToggleHood(mob/living/carbon/human/user)
 	if(!ishuman(user) || !hood)
 		return
 	if(suit_adjusted)
-		RemoveHood()
+		RemoveHood(user)
 		return
 	if(user.wear_suit != src)
 		to_chat(user, span_warning("You must be wearing [src] to put up the hood!"))
 		return
-	EngageHood()
+	EngageHood(user)
 
 
-/obj/item/clothing/suit/hooded/proc/EngageHood()
-	if(!hood)
-		return FALSE
-	var/mob/living/carbon/human/user = loc
-	if(!ishuman(user))
+/obj/item/clothing/suit/hooded/proc/EngageHood(mob/living/carbon/human/user)
+	if(!hood || suit_adjusted)
 		return FALSE
 	if(user.head)
 		to_chat(user, span_warning("You're already wearing something on your head!"))
@@ -92,13 +85,16 @@
 	user.update_inv_wear_suit()
 
 
-/obj/item/clothing/suit/hooded/proc/RemoveHood()
+/obj/item/clothing/suit/hooded/proc/RemoveHood(mob/living/carbon/human/user)
 	if(!hood)
+		return FALSE
+	if(!suit_adjusted)
+		if(hood.loc != src)	// in case hood was dropped on equip and suit is already adjusted
+			hood.forceMove(src)
 		return FALSE
 	. = TRUE
 	suit_adjusted = FALSE
 	update_icon(UPDATE_ICON_STATE)
-	var/mob/living/carbon/human/user = loc
 	if(ishuman(user))
 		user.temporarily_remove_item_from_inventory(hood, force = TRUE)
 		user.update_inv_wear_suit()
@@ -117,26 +113,27 @@
 	return ..()
 
 
-/obj/item/clothing/head/hooded/equipped(mob/user, slot, initial = FALSE)
+/obj/item/clothing/head/hooded/equipped(mob/living/carbon/user, slot, initial = FALSE)
 	. = ..()
-	if(slot != slot_head)
-		if(suit)
-			suit.RemoveHood()
-		else
-			qdel(src)
+	if(!suit)
+		qdel(src)
+		return FALSE
+	if(slot != slot_head || user.wear_suit != suit)
+		user.drop_item_ground(src, force = TRUE, silent = TRUE)
+		return FALSE
 
 
 /obj/item/clothing/head/hooded/dropped(mob/user, silent = FALSE)
 	. = ..()
-	if(suit && loc != suit)
-		forceMove(suit)
+	if(suit)
+		suit.RemoveHood(user)
 	else
 		qdel(src)
 
 
 /obj/item/clothing/head/hooded/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	if(suit)
-		suit.RemoveHood()
+		suit.RemoveHood(usr)
 	else
 		qdel(src)
 

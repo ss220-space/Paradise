@@ -368,8 +368,9 @@
  * * 'qdel_on_fail' qdels item if failed to pick in both hands.
  * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
  * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
+ * * 'silent' set to `TRUE` to stop pick up sounds.
  */
-/mob/living/carbon/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
+/mob/living/carbon/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
 
 	// Its always TRUE if there is no item, since we are using this proc in 'if()' statements
 	if(!I)
@@ -384,7 +385,7 @@
 		I.pixel_y = initial(I.pixel_y)
 		I.layer = initial(I.layer)
 		I.plane = initial(I.plane)
-		I.dropped(src)
+		I.dropped(src, silent)
 		return TRUE
 
 	// If the item is a stack and we're already holding a stack then merge
@@ -411,9 +412,9 @@
 						to_chat(src, span_notice("Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s."))
 						return TRUE
 
-	if(put_in_active_hand(I, force, ignore_anim))
+	if(put_in_active_hand(I, force, ignore_anim, silent))
 		return TRUE
-	if(put_in_inactive_hand(I, force, ignore_anim))
+	if(put_in_inactive_hand(I, force, ignore_anim, silent))
 		return TRUE
 
 	if(qdel_on_fail)
@@ -423,7 +424,7 @@
 	I.forceMove(drop_location())
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
-	I.dropped(src)
+	I.dropped(src, silent)
 
 	return FALSE
 

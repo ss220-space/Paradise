@@ -717,7 +717,7 @@
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 	else
-		ToggleHood()
+		ToggleHood(user)
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
 	animate(user, alpha = 255, time = 1 SECONDS)
