@@ -15,6 +15,10 @@
 	var/datum/component/simple_fishing/fishing_component
 	var/mob/fisher
 
+/obj/item/twohanded/fishingrod/Destroy()
+	. = ..()
+	QDEL_NULL(bait)
+
 /obj/item/twohanded/fishingrod/examine(mob/user)
 	. = ..()
 	if(bait)
@@ -77,7 +81,7 @@
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return
 	bait = worm
-	to_chat(user, span_notice("You've baited the hook with [src]."))
+	to_chat(user, span_notice("You've baited the hook with [worm]."))
 	update_icon(UPDATE_OVERLAYS)
 
 
