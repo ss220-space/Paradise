@@ -227,10 +227,9 @@
 	cooldown = 5 SECONDS
 	unintentional_audio_cooldown = 3.5 SECONDS
 	volume = 80
-	species_type_blacklist_typecache = list(/datum/species/machine)	// has silicon scream
-	mob_type_blacklist_typecache = list(
-		/mob/living/carbon/human/lesser, // screech instead
-		/mob/living/silicon // Robot sounds
+	species_type_blacklist_typecache = list(
+		/datum/species/machine,	// has silicon scream
+		/datum/species/monkey,	// screech instead
 	)
 
 
@@ -702,9 +701,8 @@
 	key = "screech"
 	key_third_person = "screeches"
 	message = "визж%(ит,ат)%!"
-	mob_type_blacklist_typecache = null
-	mob_type_allowed_typecache = list(/mob/living/carbon/human/lesser)
 	species_type_whitelist_typecache = list(/datum/species/monkey)
+	species_type_blacklist_typecache = null
 
 
 /datum/emote/living/carbon/human/scream/screech/roar
