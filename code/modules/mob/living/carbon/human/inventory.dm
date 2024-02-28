@@ -414,7 +414,7 @@
 		if(slot_glasses)
 			return head && (head.flags_inv & HIDEGLASSES) || wear_mask && (wear_mask.flags_inv & HIDEGLASSES)
 		if(slot_l_ear, slot_r_ear)
-			return head && (head.flags_inv & HIDEHEADSETS)
+			return head && (head.flags_inv & HIDEHEADSETS) || wear_mask && (wear_mask.flags_inv & HIDEHEADSETS)
 		else
 			return FALSE
 
