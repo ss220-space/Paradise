@@ -26,7 +26,7 @@
 	if(!length(vents))
 		return
 
-	var/num_blobs = round((length(GLOB.clients) / for_players)) + 1
+	var/num_blobs = round((num_station_players() / for_players)) + 1
 	for(var/i in 1 to num_blobs)
 		if (length(candidates))
 			var/obj/vent = pick(vents)

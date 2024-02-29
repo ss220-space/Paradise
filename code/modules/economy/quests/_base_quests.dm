@@ -63,7 +63,7 @@
 
 	if(!quest_type)
 		var/list/possible_types = list()
-		if((length(GLOB.clients) < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
+		if((num_station_players() < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
 			for(var/datum/cargo_quest/quest as anything in current_quests)
 				possible_types += quest.type
 		else

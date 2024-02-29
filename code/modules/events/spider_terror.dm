@@ -1,4 +1,4 @@
-#define TS_HIGHPOP_TRIGGER 80
+#define TS_HIGHPOP_TRIGGER 60
 #define TS_MIDPOP_TRIGGER 50
 #define TS_MINPLAYERS_TRIGGER 35
 
@@ -25,13 +25,14 @@
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
 	var/infestation_type
-	if((length(GLOB.clients)) <= TS_MINPLAYERS_TRIGGER)
+	var/player_count = num_station_players()
+	if(player_count <= TS_MINPLAYERS_TRIGGER)
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + (60 * 10)
 		return	//we don't spawn spiders on lowpop. Instead, we reroll!
-	else if((length(GLOB.clients)) >= TS_HIGHPOP_TRIGGER)
+	else if(player_count >= TS_HIGHPOP_TRIGGER)
 		infestation_type = pick(5, 6)
-	else if((length(GLOB.clients)) >= TS_MIDPOP_TRIGGER)
+	else if(player_count >= TS_MIDPOP_TRIGGER)
 		infestation_type = pick(3, 4)
 	else
 		infestation_type = pick(1, 2)

@@ -1,4 +1,4 @@
-#define ALIEN_HIGHPOP_TRIGGER 80
+#define ALIEN_HIGHPOP_TRIGGER 60
 #define ALIEN_MIDPOP_TRIGGER 40
 
 /datum/event/alien_infestation
@@ -23,7 +23,7 @@
 
 /datum/event/alien_infestation/proc/wrappedstart()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
-	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
+	playercount = num_station_players() //grab playercount when event starts not when game starts
 	if(playercount <= ALIEN_MIDPOP_TRIGGER)
 		spawn_vectors(vents, playercount)
 		return
