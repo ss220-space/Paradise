@@ -981,7 +981,8 @@
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.drop_item_ground(what, silent = silent)
+			if(!who.drop_item_ground(what, silent = silent))
+				return
 			if(silent)
 				put_in_hands(what, silent = TRUE)
 			add_attack_logs(src, who, "Stripped of [what]")
