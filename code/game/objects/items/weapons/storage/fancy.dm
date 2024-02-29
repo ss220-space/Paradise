@@ -77,6 +77,7 @@
 	icon = 'icons/obj/chemglow_box.dmi'
 	icon_type = "glowstick"
 	icon_state = "chemglow_box_closed"
+	item_state = "glowstick_box"
 	storage_slots = 6
 	can_hold = list(/obj/item/flashlight/flare/glowstick)
 	icon_type = "chemglow"
