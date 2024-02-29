@@ -6,13 +6,8 @@
 		return FALSE
 
 	hand = !hand
-
-	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
-		var/obj/screen/inventory/hand/H
-		H = hud_used.inv_slots[slot_l_hand]
-		H.update_icon()
-		H = hud_used.inv_slots[slot_r_hand]
-		H.update_icon()
+	update_hands_HUD()
+	SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS)
 
 
 /mob/living/carbon/activate_hand(selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
