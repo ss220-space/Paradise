@@ -175,7 +175,7 @@
 					custom_objective.owner = fucking_target.mind
 					fucking_target.mind.objectives += custom_objective
 					fucking_target.mind.lost_memory = TRUE
-					var/list/messages = list(fucking_target.mind.prepare_announce_objectives())
+					var/list/messages = fucking_target.mind.prepare_announce_objectives()
 					to_chat(fucking_target, chat_box_red(chat_box_red(messages.Join("<br>"))))
 				last_used = world.time
 				if(fucking_target.weakeyes)

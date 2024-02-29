@@ -150,7 +150,7 @@
 		var/datum/objective/abductee/O = new objtype()
 		SSticker.mode.abductees += H.mind
 		H.mind.objectives += O
-		var/list/messages = list(H.mind.prepare_announce_objectives())
+		var/list/messages = H.mind.prepare_announce_objectives()
 		to_chat(H, chat_box_red(messages.Join("<br>"))) // let the player know they have a new objective
 		SSticker.mode.update_abductor_icons_added(H.mind)
 

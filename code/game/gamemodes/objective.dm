@@ -1539,7 +1539,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		update_killers()
 
 	for(var/datum/mind/user in owners)
-		var/list/messages = list(user.prepare_announce_objectives())
+		var/list/messages = user.prepare_announce_objectives()
 		to_chat(user.current, chat_box_red(messages.Join("<br>")))
 
 

@@ -553,7 +553,7 @@
 		maroon_objective.target = protect_objective.target	// swapping target
 		maroon_objective.update_explanation()
 		maroon_objective.alarm_changes()
-		var/list/messages = list(maroon_objective.owner.prepare_announce_objectives())
+		var/list/messages = maroon_objective.owner.prepare_announce_objectives()
 		to_chat(maroon_objective.owner.current, chat_box_red(messages.Join("<br>")))
 
 
