@@ -89,7 +89,6 @@
 	foldable_amt = 2
 
 /obj/item/storage/fancy/glowsticks_box/update_icon_state()
-	. = ..()
 	if(length(contents) == 6)
 		icon_state = "chemglow_box_closed"
 	else
