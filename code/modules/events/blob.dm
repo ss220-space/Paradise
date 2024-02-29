@@ -2,7 +2,7 @@
 	announceWhen	= 180
 	endWhen			= 240
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
-	var/for_players = 40 		//Количество людей для спавна доп. мыши
+	var/for_players = 30 		//Количество людей для спавна доп. мыши
 
 /datum/event/blob/announce()
 	if(successSpawn)
