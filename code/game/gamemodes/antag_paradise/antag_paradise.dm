@@ -8,6 +8,7 @@
 	restricted_jobs = list("Cyborg", "AI")
 	required_players = 10
 	required_enemies = 1
+	forbidden_antag_jobs = list(ROLE_VAMPIRE = list("Chaplain"))
 	var/list/protected_jobs_AI = list("Civilian","Chief Engineer","Station Engineer","Trainee Engineer","Life Support Specialist","Mechanic","Chief Medical Officer","Medical Doctor","Intern","Coroner","Chemist","Geneticist","Virologist","Psychiatrist","Paramedic","Research Director","Scientist","Student Scientist","Roboticist","Head of Personnel","Chaplain","Bartender","Chef","Botanist","Quartermaster","Cargo Technician","Shaft Miner","Clown","Mime","Janitor","Librarian","Barber","Explorer")	// Basically all jobs, except AI.
 	var/secondary_protected_species = list("Machine")
 	var/vampire_restricted_jobs = list("Chaplain")

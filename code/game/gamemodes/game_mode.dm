@@ -30,6 +30,8 @@
 	var/list/protected_jobs = list()
 	/// Species that can't be antags.
 	var/list/protected_species = list()
+	/// Specified associative list of "antag - job" restrictions
+	var/list/forbidden_antag_jobs = list()
 	/// How many players should press ready for mode to activate.
 	var/required_players = 0
 	/// How many antagonists are required for mode start.
@@ -340,6 +342,8 @@
 		if(length(protected_species) && (player.client.prefs.species in protected_species))
 			continue
 		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+			continue
+		if(length(forbidden_antag_jobs) && (player.mind.assigned_role in forbidden_antag_jobs[role]))
 			continue
 
 		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
