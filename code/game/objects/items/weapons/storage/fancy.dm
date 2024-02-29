@@ -72,6 +72,10 @@
 	update_icon(UPDATE_OVERLAYS)
 	return
 
+/*
+ * Glowsticks Box
+ */
+
 /obj/item/storage/fancy/glowsticks_box
 	name = "glowstick box"
 	icon = 'icons/obj/chemglow_box.dmi'
