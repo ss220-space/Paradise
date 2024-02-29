@@ -48,7 +48,7 @@
 	var/obj/item/slimepotion/slime/current_potion
 	var/obj/machinery/monkey_recycler/connected_recycler
 
-/obj/machinery/computer/camera_advanced/xenobio/Initialize()
+/obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
 	. = ..()
 	if(!connected_recycler)
 		locate_recycler()
@@ -216,6 +216,7 @@
 		connected_recycler.connected += src
 		to_chat(user, "<span class='notice'>You link [src] to the recycler stored in the [M]'s buffer.</span>")
 
+// === SLIME ACTION DATUMS ====
 /datum/action/innate/slime_place
 	name = "Place Slimes"
 	button_icon_state = "slime_down"
@@ -227,11 +228,12 @@
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
+	if(iswallturf(remote_eye.loc))
+		to_chat(owner, "You can't place slime here.")
+		return
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
-			S.forceMove(remote_eye.loc)
-			S.visible_message("[S] warps in!")
-			X.stored_slimes -= S
+			X.release_slime(S, remote_eye.loc)
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
 
@@ -272,11 +274,17 @@
 		if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))
 			to_chat(owner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
 			return
-		else if(X.monkeys >= 1)
+		if(iswallturf(remote_eye.loc))
+			to_chat(owner, "You can't place monkey here.")
+			return
+		if(!X.monkeys)
+			to_chat(owner, "[X] doesn't have monkeys.")
+			return
+		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(remote_eye.loc)
 			SSmobs.cubemonkeys += food
 			food.LAssailant = C
-			X.monkeys --
+			X.monkeys--
 			to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
@@ -334,7 +342,7 @@
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 
-	if(!X.current_potion)
+	if(QDELETED(X.current_potion))
 		to_chat(owner, "<span class='warning'>No potion loaded.</span>")
 		return
 
@@ -352,11 +360,13 @@
 /datum/action/innate/hotkey_help/Activate()
 	if(!target || !isliving(owner))
 		return
+	var/obj/machinery/computer/camera_advanced/xenobio/X = owner.machine
 	to_chat(owner, "<b>Click shortcuts:</b>")
 	to_chat(owner, "Shift-click a slime to pick it up, or the floor to drop all held slimes.")
 	to_chat(owner, "Ctrl-click a slime to scan it.")
 	to_chat(owner, "Alt-click a slime to feed it a potion.")
 	to_chat(owner, "Ctrl-click or a dead monkey to recycle it, or the floor to place a new monkey.")
+	to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
 
 //
 // Alternate clicks for slime, monkey and open turf if using a xenobio console
@@ -446,11 +456,12 @@
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/turfarea = get_area(T)
+	if(iswallturf(T))
+		to_chat(user, "You can't place slime here.")
+		return
 	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
-			S.forceMove(T)
-			S.visible_message("<span class='notice'>[S] warps in!</span>")
-			X.stored_slimes -= S
+			X.release_slime(S, T)
 
 //Place monkey
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickCtrl(mob/living/user, turf/T)
@@ -460,11 +471,16 @@
 	if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))
 		to_chat(user, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
 		return
+	if(iswallturf(T))
+		to_chat(user, "You can't place monkey here.")
+		return
 	var/mob/living/C = user
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/turfarea = get_area(T)
-
+	if(!X.monkeys)
+		to_chat(user, "[X] doesn't have monkeys.")
+		return
 	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(T)
