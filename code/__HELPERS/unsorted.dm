@@ -737,7 +737,7 @@ Returns 1 if the chain up to the area contains the given typepath
 						var/obj/corner = new()
 						corner.loc = X
 						corner.density = 1
-						corner.anchored = 1
+						corner.anchored = TRUE
 						corner.icon = X.icon
 						corner.icon_state = replacetext(X.icon_state, "_s", "_f")
 						corner.tag = "delete me"

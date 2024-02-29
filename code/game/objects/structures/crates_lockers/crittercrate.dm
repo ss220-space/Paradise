@@ -186,3 +186,12 @@
 /obj/structure/closet/critter/slime
 	name = "slime crate"
 	content_mob = /mob/living/simple_animal/slime
+
+/obj/structure/closet/critter/gorilla
+	name = "gorilla crate"
+	content_mob = /mob/living/simple_animal/hostile/gorilla
+
+/obj/structure/closet/critter/cargorilla
+	name = "cargorilla crate"
+	content_mob = /mob/living/simple_animal/hostile/gorilla/cargo_domestic
+

@@ -231,11 +231,11 @@
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner
 	icon = 'icons/obj/spacebattle.dmi'
 	icon_state = "spawner_mine"
-	canmove = 0
+	canmove = FALSE
 	var/id = null
-	var/triggered = 0
+	var/triggered = FALSE
 	var/faction = null
-	var/safety_z_check = 1
+	var/safety_z_check = TRUE
 
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn
 	name = "spawner"
@@ -260,7 +260,7 @@
 			continue
 		if(S.id == id)
 			new S.syndi_mob(get_turf(S))
-			triggered = 1
+			triggered = TRUE
 	qdel(src)
 
 /mob/living/proc/spawn_alert(atom/A) // Вызывает появление восклицательного знака над головой при наступании на маркер

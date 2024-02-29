@@ -879,17 +879,19 @@
 		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
 		if(!picked)
 			return
-		switch(picked)
-			if("Mouse")
-				GLOB.respawnable_list -= usr
-				become_mouse()
+		if(picked == "Mouse")
+			GLOB.respawnable_list -= usr
+			become_mouse()
 //				spawn(5)
 //					GLOB.respawnable_list += usr
-			else
-				var/mob/living/NPC = picked
-				if(istype(NPC) && !NPC.key)
-					GLOB.respawnable_list -= usr
-					NPC.key = key
+		else if(istype(picked, /mob/living/simple_animal/borer))
+			var/mob/living/simple_animal/borer/B = picked
+			B.transfer_personality(usr.client)
+		else
+			var/mob/living/NPC = picked
+			if(istype(NPC) && !NPC.key)
+				GLOB.respawnable_list -= usr
+				NPC.key = key
 //					spawn(5)
 //						GLOB.respawnable_list += usr
 	else

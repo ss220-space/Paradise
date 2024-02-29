@@ -2,7 +2,7 @@
 	var/datum/computer/file/embedded_program/program	//the currently executing program
 
 	name = "Embedded Controller"
-	anchored = 1
+	anchored = TRUE
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -23,8 +23,8 @@
 	if(program)
 		program.process()
 
-	update_icon()
-	src.updateDialog()
+	update_icon(UPDATE_ICON_STATE)
+	updateDialog()
 
 /obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
 	ui_interact(user)
@@ -61,7 +61,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/embedded_controller/radio/update_icon()
+/obj/machinery/embedded_controller/radio/update_icon_state()
 	if(on && program)
 		if(program.memory["processing"])
 			icon_state = "airlock_control_process"

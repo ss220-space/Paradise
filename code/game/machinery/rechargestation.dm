@@ -3,7 +3,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
@@ -26,7 +26,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/cell/high(null)
 	RefreshParts()
-	build_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharge_station/ert/New()
 	..()
@@ -86,7 +86,7 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharge_station/narsie_act()
 	go_out()
@@ -124,14 +124,16 @@
 		go_out()
 	..(severity)
 
-/obj/machinery/recharge_station/proc/build_icon()
-	if(NOPOWER|BROKEN)
-		if(src.occupant)
-			icon_state = "borgcharger1"
+
+/obj/machinery/recharge_station/update_icon_state()
+	if(occupant)
+		if(stat & (NOPOWER|BROKEN))
+			icon_state = "borgcharger2"
 		else
-			icon_state = "borgcharger0"
+			icon_state = "borgcharger1"
 	else
 		icon_state = "borgcharger0"
+
 
 /obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -167,14 +169,16 @@
 			if(repairs)
 				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
-/obj/machinery/recharge_station/proc/go_out()
+/obj/machinery/recharge_station/proc/go_out(mob/user = usr)
 	if(!occupant)
+		return
+	if(user?.incapacitated() || user?.restrained())
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	build_icon()
+	update_icon(UPDATE_ICON_STATE)
 	use_power = IDLE_POWER_USE
-	return
+
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(src.occupant)
@@ -242,13 +246,16 @@
 /obj/machinery/recharge_station/verb/move_eject()
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0)
-		return
-	src.go_out()
-	add_fingerprint(usr)
-	return
+	go_out(usr)
 
-/obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
+
+/obj/machinery/recharge_station/verb/move_inside_verb()
+	set category = "Object"
+	set src in oview(1)
+	move_inside(usr)
+
+
+/obj/machinery/recharge_station/proc/move_inside(mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
 	if(!user || !usr)
@@ -302,6 +309,6 @@
 	occupant = user
 
 	add_fingerprint(user)
-	build_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_use_power(1)
-	return
+

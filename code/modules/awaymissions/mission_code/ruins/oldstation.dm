@@ -104,7 +104,7 @@
 // Papers
 /obj/item/paper/fluff/ruins/oldstation
 	name = "Cryo Awakening Alert"
-	language = "Sol Common"
+	language = LANGUAGE_SOL_COMMON
 	info = "<B>**WARNING**</B><BR><BR>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<BR><BR>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
 
 /obj/item/paper/fluff/ruins/oldstation/damagereport
@@ -152,7 +152,7 @@
 	*eep th* *e**l of **m..<br><br> The last words completly faded." // yep, the temperature overheat, some players set power to 5 and make the gen to blow up, rip oldstation.
 
 /obj/item/paper/ruins/oldstation
-	language = "Sol Common"
+	language = LANGUAGE_SOL_COMMON
 
 /obj/item/paper/ruins/oldstation/protoinventory
 	name = "Theta RnD Prototype Inventory Secure Storage"

@@ -1832,6 +1832,17 @@
 
 		usr.client.cmd_admin_animalize(M)
 
+	else if(href_list["makegorilla"])
+		if(!check_rights(R_SPAWN))
+			return
+
+		var/mob/M = locateUID(href_list["makegorilla"])
+		if(isnewplayer(M))
+			to_chat(usr, span_warning("This cannot be used on instances of type /mob/new_player"))
+			return
+
+		usr.client.cmd_admin_gorillize(M)
+
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN))
 			return
@@ -2313,7 +2324,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.stamp_overlays += stampoverlay
+		LAZYADD(P.stamp_overlays, stampoverlay)
 		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		P.faxmachineid = fax.UID()
@@ -2408,7 +2419,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.stamp_overlays += stampoverlay
+		LAZYADD(P.stamp_overlays, stampoverlay)
 		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		fax.receivefax(P)
@@ -2620,15 +2631,14 @@
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp/centcom
-				P.stamp_overlays += stampoverlay
 				P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 
 			else if(stamptype == "text")
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp
-				P.stamp_overlays += stampoverlay
 				P.stamps += "<hr><i>[stampvalue]</i>"
+			LAZYADD(P.stamp_overlays, stampoverlay)
 
 		if(destination != "All Departments")
 			if(!fax.receivefax(P))

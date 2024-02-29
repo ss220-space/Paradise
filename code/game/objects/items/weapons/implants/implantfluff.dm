@@ -151,6 +151,13 @@
 	function = "Plays a sad trombone noise upon death of the implantee, allows clowns to entertain the crew even post-mortem."
 
 
+/datum/implant_fluff/gorilla_rampage
+	name = "Magillitis Serum Bio-chip"
+	life = "Unknown, no collected sample has been active long enough to determine lifespan."
+	notes = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
+	function = "Allows the user to transform into an angry fast and robust gorilla. Very deadly in close quarters."
+
+
 /datum/implant_fluff/stealth
 	name = "Syndicate S3 \"Stealth\" Bio-chip"
 	life = "Unknown. No collected sample has been active long enough to determine lifespan."

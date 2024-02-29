@@ -43,31 +43,33 @@
 	connect_types = list(1,2,3)
 	icon_state = "map_universal"
 
-/obj/machinery/atmospherics/pipe/simple/visible/universal/update_icon(var/safety = 0)
-	..()
 
+/obj/machinery/atmospherics/pipe/simple/visible/universal/update_overlays()
+	. = list()
 	if(!check_icon_cache())
-		return
+		return .
 
 	alpha = 255
 
-	overlays.Cut()
-	overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
-	underlays.Cut()
+	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
+	update_underlays()
 
+
+/obj/machinery/atmospherics/pipe/simple/visible/universal/update_underlays()
+	if(!check_icon_cache())
+		return
+
+	underlays.Cut()
 	if(node1)
 		universal_underlays(node1)
 		if(node2)
 			universal_underlays(node2)
 		else
 			var/node1_dir = get_dir(node1,src)
-			universal_underlays(,node1_dir)
+			universal_underlays(direction = node1_dir)
 	else if(node2)
 		universal_underlays(node2)
 	else
-		universal_underlays(,dir)
-		universal_underlays(,turn(dir, -180))
+		universal_underlays(direction = dir)
+		universal_underlays(direction = turn(dir, -180))
 
-/obj/machinery/atmospherics/pipe/simple/visible/universal/update_underlays()
-	..()
-	update_icon()

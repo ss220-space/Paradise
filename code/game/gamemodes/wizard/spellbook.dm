@@ -158,6 +158,30 @@
 	spell_type = /obj/effect/proc_holder/spell/infinite_guns
 	category = "Offensive"
 
+/datum/spellbook_entry/goliath_tentacles
+	name = "Summon Tentacles"
+	spell_type = /obj/effect/proc_holder/spell/goliath_tentacles
+	category = "Offensive"
+	cost = 1
+
+/datum/spellbook_entry/legion_skulls
+	name = "Summon Skulls"
+	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/legion_skulls
+	category = "Offensive"
+	cost = 1
+
+/datum/spellbook_entry/goliath_dash
+	name = "Goliath Dash"
+	spell_type = /obj/effect/proc_holder/spell/goliath_dash
+	category = "Offensive"
+	cost = 1
+
+/datum/spellbook_entry/watchers_look
+	name = "Watcher's Look"
+	spell_type = /obj/effect/proc_holder/spell/watchers_look
+	category = "Offensive"
+	cost = 1
+
 //Defensive
 /datum/spellbook_entry/disabletech
 	name = "Disable Tech"
@@ -292,6 +316,12 @@
 	name = "Remove Clothes Requirement"
 	spell_type = /obj/effect/proc_holder/spell/noclothes
 	category = "Assistance"
+
+/datum/spellbook_entry/healtouch
+	name = "Healing Touch"
+	spell_type = /obj/effect/proc_holder/spell/touch/healtouch
+	category = "Assistance"
+	cost = 1
 
 //Rituals
 /datum/spellbook_entry/summon

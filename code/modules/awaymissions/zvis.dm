@@ -155,7 +155,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = 1
+	anchored = TRUE
 
 	var/id = null				// id of other portal turf we connect to
 

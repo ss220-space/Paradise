@@ -29,9 +29,9 @@
 /area/survivalpod)
 "f" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (EAST)";
+	dir = 4;
 	icon_state = "survival";
-	dir = 4
+	tag = "icon-survival (EAST)"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -41,9 +41,9 @@
 /area/survivalpod)
 "g" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (EAST)";
+	dir = 4;
 	icon_state = "survival";
-	dir = 4
+	tag = "icon-survival (EAST)"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -68,8 +68,8 @@
 "l" = (
 /obj/structure/table/reinforced,
 /obj/item/lighter/zippo{
-	pixel_y = 7;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 7
 	},
 /obj/item/lighter/zippo{
 	pixel_x = 8;
@@ -109,9 +109,8 @@
 /area/survivalpod)
 "s" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (NORTH)";
+	dir = 1;
 	icon_state = "survival";
-	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -139,9 +138,9 @@
 /area/survivalpod)
 "y" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (EAST)";
+	dir = 4;
 	icon_state = "survival";
-	dir = 4
+	tag = "icon-survival (EAST)"
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 4
@@ -232,11 +231,15 @@
 /area/survivalpod)
 "W" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (EAST)";
+	dir = 4;
 	icon_state = "survival";
-	dir = 4
+	tag = "icon-survival (EAST)"
 	},
 /turf/simulated/wall/mineral/titanium/survival,
+/area/survivalpod)
+"X" = (
+/obj/effect/baseturf_helper/plating,
+/turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "Z" = (
 /obj/structure/urinal{
@@ -318,7 +321,7 @@ o
 t
 L
 L
-L
+X
 L
 L
 c

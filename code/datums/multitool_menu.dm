@@ -282,7 +282,7 @@
 	var/list/tags = list()
 	if(!frequency)
 		return tags
-	for(var/obj/machinery/atmospherics/air_sensor/sensor in GLOB.machines)
+	for(var/obj/machinery/atmospherics/air_sensor/sensor as anything in GLOB.gas_sensors)
 		if(!(sensor.id_tag && sensor.frequency == frequency))
 			continue
 		tags |= sensor.id_tag

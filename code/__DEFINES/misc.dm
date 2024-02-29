@@ -169,7 +169,6 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				44
 #define MUTANTRACE_LAYER		43
 #define WING_UNDERLIMBS_LAYER	42
 #define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.
@@ -376,7 +375,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 32
+#define SQL_VERSION 33
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -403,9 +402,9 @@
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
-#define DEFIB_TIME_LIMIT 300 SECONDS
+#define DEFIB_TIME_LIMIT (300 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
-#define DEFIB_TIME_LOSS 60 SECONDS
+#define DEFIB_TIME_LOSS (60 SECONDS)
 
 //different types of atom colorations
 #define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color

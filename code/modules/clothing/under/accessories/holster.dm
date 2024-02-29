@@ -188,5 +188,5 @@
 /obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
 	return is_type_in_list(I, holster_allow, FALSE)
 
-/obj/item/clothing/accessory/holster/attached_examine(mob/user)
+/obj/item/clothing/accessory/holster/knives/attached_examine(mob/user)
 	return span_notice("\A [src] with [holstered.len] knives attached to it.")

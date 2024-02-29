@@ -441,6 +441,37 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	return p
 
+
+///hauntings, like hallucinations but more spooky
+/obj/item/camera/proc/handle_haunt(mob/user)
+	var/static/list/creepyasssounds = list(
+		'sound/effects/ghost.ogg',
+		'sound/effects/ghost2.ogg',
+		'sound/effects/heartbeat.ogg',
+		'sound/effects/screech.ogg',
+		'sound/hallucinations/behind_you1.ogg',
+		'sound/hallucinations/behind_you2.ogg',
+		'sound/hallucinations/far_noise.ogg',
+		'sound/hallucinations/growl1.ogg',
+		'sound/hallucinations/growl2.ogg',
+		'sound/hallucinations/growl3.ogg',
+		'sound/hallucinations/im_here1.ogg',
+		'sound/hallucinations/im_here2.ogg',
+		'sound/hallucinations/i_see_you1.ogg',
+		'sound/hallucinations/i_see_you2.ogg',
+		'sound/hallucinations/look_up1.ogg',
+		'sound/hallucinations/look_up2.ogg',
+		'sound/hallucinations/over_here1.ogg',
+		'sound/hallucinations/over_here2.ogg',
+		'sound/hallucinations/over_here3.ogg',
+		'sound/hallucinations/turn_around1.ogg',
+		'sound/hallucinations/turn_around2.ogg',
+		'sound/hallucinations/veryfar_noise.ogg',
+		'sound/hallucinations/wail.ogg',
+	)
+	SEND_SOUND(user, pick(creepyasssounds))
+
+
 /*****************
 * digital camera *
 ******************/
@@ -523,6 +554,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /**************
 *video camera *
 ***************/
+#define CAMERA_STATE_COOLDOWN 2 SECONDS
 
 /obj/item/videocam
 	name = "video camera"
@@ -533,38 +565,66 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	var/on = 0
+	var/on = FALSE
+	var/video_cooldown = 0
 	var/obj/machinery/camera/camera
-	var/icon_on = "videocam_on"
-	var/icon_off = "videocam"
 	var/canhear_range = 7
 
-/obj/item/videocam/attack_self(mob/user)
-	on = !on
-	if(camera)
-		if(on==0)
-			src.icon_state = icon_off
-			camera.c_tag = null
-			camera.network = list()
-		else
-			src.icon_state = icon_on
-			camera.network = list("news")
-			camera.c_tag = user.name
-	else
 
-		src.icon_state = icon_on
+/obj/item/videocam/Destroy()
+	if(on)
+		update_feeds()
+	return ..()
+
+
+/obj/item/videocam/update_icon_state()
+	icon_state = "videocam[on ? "_on" : ""]"
+
+
+/obj/item/videocam/proc/update_feeds()
+	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+		if(on)
+			TV.feeds_on++
+		else
+			TV.feeds_on--
+		TV.update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/videocam/proc/camera_state(mob/living/carbon/user)
+	if(on)
+		camera.c_tag = null
+		QDEL_NULL(camera)
+	else
 		camera = new /obj/machinery/camera(src)
 		camera.network = list("news")
-		GLOB.cameranet.removeCamera(camera)
 		camera.c_tag = user.name
-	to_chat(user, "You switch the camera [on ? "on" : "off"].")
+	on = !on
+	update_icon(UPDATE_ICON_STATE)
+	visible_message(span_notice("The video camera has been turned [on ? "on" : "off"]."))
+	update_feeds()
+
+
+/obj/item/videocam/attack_self(mob/user)
+	if(world.time < video_cooldown)
+		to_chat(user, span_warning("[src] is overheating, give it some time."))
+		return
+	camera_state(user)
+
+
+/obj/item/videocam/dropped(mob/user, silent = FALSE)
+	. = ..()
+	if(!on)
+		return
+	camera_state()
+
 
 /obj/item/videocam/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active.</span>"
+		. += span_notice("This video camera can send live feeds to the entertainment network. It's [on ? "" : "in"]active.")
 
-/obj/item/videocam/hear_talk(mob/M as mob, list/message_pieces)
+
+/obj/item/videocam/hear_talk(mob/M, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)
 	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
@@ -573,19 +633,16 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
 
-/obj/item/videocam/hear_message(mob/M as mob, msg)
+
+/obj/item/videocam/hear_message(mob/M, msg)
 	if(camera && on)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
 
 
-///hauntings, like hallucinations but more spooky
+/obj/item/videocam/advanced
+	name = "advanced video camera"
+	desc = "This video camera allows you to send live feeds even when attached to a belt."
+	slot_flags = SLOT_BELT
 
-/obj/item/camera/proc/handle_haunt(mob/user as mob)
-			var/list/creepyasssounds = list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/heartbeat.ogg', 'sound/effects/screech.ogg',\
-						'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
-						'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
-						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
-						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
-			user << pick(creepyasssounds)

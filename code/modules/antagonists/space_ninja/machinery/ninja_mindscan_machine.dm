@@ -26,7 +26,7 @@
 
 /obj/machinery/ninja_mindscan_machine/Initialize()
 	. = ..()
-	update_state_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/ninja_mindscan_machine/Destroy()
 	if(occupant)
@@ -54,7 +54,7 @@
 	ui_interact(user)
 
 /// Сюда вписать код ответственный за пихание оккупанта
-/obj/machinery/ninja_mindscan_machine/MouseDrop_T(atom/movable/dropped as mob|obj, mob/user as mob)
+/obj/machinery/ninja_mindscan_machine/MouseDrop_T(atom/movable/dropped, mob/user, params)
 // Только ниндзя умеет работать с этой машиной, но я всё равно оставлю проверки ниже во избежание других проблем.
 	if(!isninja(user))
 		to_chat(user, span_boldwarning("ERROR!!! UNAUTORISED USER!!!"))
@@ -106,6 +106,7 @@
 	if(!Adjacent(dropped_mob) && !Adjacent(user))
 		to_chat(user, span_boldnotice("You're not close enough to [src]."))
 		return
+	. = TRUE
 	if(dropped_mob != user)
 		visible_message("[user] starts putting [dropped_mob] into the [src].")
 	if(do_after(user, 20, target = dropped_mob))
@@ -156,7 +157,7 @@
 	to_chat(possible_occupant, span_notice("[on_enter_occupant_message]"))
 	occupant = possible_occupant
 	occupant.SetSleeping(120 SECONDS)
-	update_state_icon()
+	update_icon(UPDATE_ICON_STATE)
 	desc = "[initial(desc)] ([occupant.name])"
 	if(findtext("[possible_occupant.key]","@",1,2))
 		var/found_text = replacetext(possible_occupant.key, "@", "")
@@ -172,7 +173,7 @@
 		return
 	occupant.forceMove(get_turf(src))
 	occupant = null
-	update_state_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/ninja_mindscan_machine/force_eject_occupant(mob/target)
 	go_out()
@@ -190,9 +191,9 @@
 	new /obj/effect/temp_visual/dir_setting/ninja/phase(teleport_loc, effect_dir)
 	new /obj/item/radio/headset(teleport_loc)	//Если парня запрёт в техах, без средства связи... будет не круто, не так ли?
 	to_chat(ninja, "[span_boldnotice("VOID-Shift")] occupant translocation successful")
-	update_state_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/ninja_mindscan_machine/proc/update_state_icon()
+/obj/machinery/ninja_mindscan_machine/update_icon_state()
 	icon_state = occupant ? initial(icon_state) : "[initial(icon_state)]_open"
 
 /obj/machinery/ninja_mindscan_machine/proc/get_occupant_icon()

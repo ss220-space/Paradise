@@ -15,7 +15,7 @@
 
 	var/obj/machinery/power/generator/generator
 
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 	can_unwrench = 1
@@ -107,14 +107,20 @@
 	else
 		side_inverted = FALSE
 	to_chat(user, span_notice("You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side."))
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
+
+
+/obj/machinery/atmospherics/binary/circulator/update_desc(updates = ALL)
+	. = ..()
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 
-/obj/machinery/atmospherics/binary/circulator/update_icon()
-	..()
 
+/obj/machinery/atmospherics/binary/circulator/update_icon_state() //this gets called everytime atmos is updated in the circulator (alot)
+	..()
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
-	else if(last_pressure_delta > 0)
+		return
+	if(last_pressure_delta > 0)
 		if(last_pressure_delta > ONE_ATMOSPHERE)
 			icon_state = "circ[side]-run"
 		else
@@ -122,4 +128,4 @@
 	else
 		icon_state = "circ[side]-off"
 
-	return 1
+

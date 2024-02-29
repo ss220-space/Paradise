@@ -935,7 +935,7 @@
 	to_chat(target, "<span class='userdanger'><font size=3>An agonizing spike of pain drives into your mind, and--</font></span>")
 	SSticker.mode.add_thrall(target.mind)
 	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
-	target.add_language("Shadowling Hivemind")
+	target.add_language(LANGUAGE_HIVE_SHADOWLING)
 
 
 

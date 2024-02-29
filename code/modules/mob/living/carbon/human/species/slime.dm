@@ -11,7 +11,7 @@
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
-	language = "Bubblish"
+	language = LANGUAGE_SLIME
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime

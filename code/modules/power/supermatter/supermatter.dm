@@ -512,10 +512,22 @@
 
 /obj/machinery/power/supermatter_shard/proc/emergency_lighting(active)
     if(active)
-        post_status("alert", "radiation")
+        post_status(STATUS_DISPLAY_ALERT, "radiation")
     else
-        post_status("shuttle")
+        post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 10, max(1000,power * damage / explosion_point))
+
+// SM shard that can't be moved for ruins and gates
+/obj/machinery/power/supermatter_shard/anchored
+	name = "Well anchored supermatter shard"
+	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. Apparently the structure is attached to the surface with industrial equipment, it cannot be unanchored with simple equipment. <span class='danger'>You get headaches just from looking at it.</span>"
+	anchored = TRUE
+
+/obj/machinery/power/supermatter_shard/anchored/attackby(obj/item/W as obj, mob/living/user as mob, params)
+	if(istype(W,/obj/item/wrench))
+		user.visible_message("<span class='danger'>As [user] tries to loose bolts of \the [src] with \a [W] but the tool disappears</span>")
+	consume_wrench(W)
+	user.apply_effect(150, IRRADIATE)
