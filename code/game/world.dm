@@ -25,6 +25,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
+		//If you decided to use your own custom debug_server for higher versions than VSCode extension supports, go ahead and drop debug_server.dll into project root folder.
+		if(fexists("debug_server.dll"))
+			debug_server = "debug_server.dll"
 		CALL_EXT(debug_server, "auxtools_init")()
 		enable_debugging()
 
