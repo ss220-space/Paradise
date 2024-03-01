@@ -57,7 +57,7 @@
 		start_action_cooldown()
 		eat_banana(I)
 		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [genderize_ru(src, "он", "она", "оно", "они")] не мо[pluralize_ru(src, "жет", "гут")] устоять перед искушением!"))
-		to_chat(src, span_notice("[user] покорм[genderize_ru(user, "ил", "ила", "ило", "или")] Вас, возможно стоит[genderize_ru(user, "его", "её", "его", "их")] отблагодарить..."))
+		to_chat(src, span_notice("[user] покорм[genderize_ru(user, "ил", "ила", "ило", "или")] Вас, возможно стоит [genderize_ru(user, "его", "её", "его", "их")] отблагодарить..."))
 		return
 
 	if(is_on_cooldown())
