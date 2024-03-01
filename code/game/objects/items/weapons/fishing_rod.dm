@@ -1,3 +1,5 @@
+#define BAIT_AFFECT 80
+
 //Fishing rode and related stuff
 /obj/item/twohanded/fishingrod
 	name = "ol' reliable"
@@ -42,6 +44,7 @@
 		if(!HAS_TRAIT(src, TRAIT_WIELDED))
 			to_chat(user, span_warning("You need to wield the rod in both hands before you can cast it!"))
 			return
+		fishing = TRUE
 		start_fishing(fc,user)
 	else
 		if(fc != fishing_component)
@@ -55,14 +58,17 @@
 	fisher = user
 	if(!bait)
 		to_chat(user, span_warning("It's a foolish decision to fish without bait."))
+		fishing = FALSE
 		return
 	to_chat(user, span_notice("You started fishing."))
-	if(do_after(fisher, 10 SECONDS, target = fishing_turf))
+	if(do_after(fisher, 1 SECONDS, target = fishing_turf)) //нормально - 10
 		catch_fish()
+		fishing = FALSE
 		fishing_turf.cut_overlay(bobber)
 	else
 		to_chat(user, span_warning("You need to stand still in order to fishing something!"))
 		fishing_turf.cut_overlay(bobber)
+		fishing = FALSE
 		return
 
 
@@ -76,17 +82,17 @@
 
 	calculate_fishing_chance()
 
-	new reward_fish(loc)
-	to_chat(fisher, span_notice("You caught [reward_fish]!"))
+	var/fish =  new reward_fish(loc)
+	to_chat(fisher, span_notice("You caught [fish]!"))
 
 	attack_self(fisher) //Unwield fishing rod
 
-	fisher.put_in_hands(reward_fish)
+	fisher.put_in_hands(fish)
 	bait = null
 	update_icon(UPDATE_OVERLAYS)
 
 
-/* /obj/item/twohanded/fishingrod/proc/calculate_fishing_chance() // I fucking hate it
+/obj/item/twohanded/fishingrod/proc/calculate_fishing_chance() // I fucking hate it
 
 	var/list/fishable_list = fishing_component.catchable_fish
 	var/list/bait_list = list()
@@ -98,36 +104,11 @@
 	if(!bait_list.len) //if something went wrong and list is empty
 		reward_fish = pick(fishable_list)
 		return
+
+	if(prob(BAIT_AFFECT))
+		reward_fish = pick(bait_list)
 	else
-		var/probe_chance = 100 * bait_list.len
-		var/bait_chance = 0
-		for(var/i in bait_list) //after this stage, we will got a number more than 0, but less than probe_chance
-			var/obj/item/lavaland_fish/fishy = i
-			bait_chance += fishy.bait_chance
-		switch(rand(0, probe_chance))									//	So, what the hell is this?
-			if(0 to bait_chance) //one of the bait fish					//	This algorithm is taking bait_chance - all numbers
-				for(var/other_fish in bait_list)						//	from fishing.dm and compares it, and increase chance
-					var/obj/item/lavaland_fish/fishy = other_fish
-					var/number =  fishy.bait_chance						//	for any fish that remains in bait_list
-					var/rounded_number = round(number / bait_list.len)	//
-					switch(rand(0, bait_chance))						//
-						if(0 to rounded_number)							//	Example: we got 4 fishes with 50% chances each, bait_chance - 200,
-							reward_fish = other_fish					//	probe chance - 400. each fish has 50/4 - 12.5% to get caught. If you
-							return										//	unlucky, it decreases bait chances, and try algorithm again
-						else											//  Last fish in list always have 100% chance to get caught
-							bait_chance = bait_chance - number
-
-
-			else //unlucky, normal fish
-				reward_fish = pick(fishable_list)
-
-*/
-
-
-
-
-
-
+		reward_fish = pick(fishable_list)
 
 /obj/item/twohanded/fishingrod/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/reagent_containers/food/snacks/bait))
@@ -158,3 +139,5 @@
 	if(bait)
 		add_overlay(bait.rod_overlay)
 
+
+#undef BAIT_AFFECT
