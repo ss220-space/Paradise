@@ -298,7 +298,7 @@
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
-	if((active) && prob(50))
+	if(HAS_TRAIT(src, TRAIT_WIELDED) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
