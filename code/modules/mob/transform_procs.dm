@@ -237,8 +237,8 @@
 		/mob/living/simple_animal/pet/cat/Syndi,
 		/mob/living/simple_animal/pet/dog/fox/Syndifox,
 	))
-	if(!GAMEMODE_IS_NUCLEAR && is_type_in_typecache(passed_path, safe_respawn_typecache_nuclear))
-		return .
+	if(is_type_in_typecache(passed_path, safe_respawn_typecache_nuclear))
+		return GAMEMODE_IS_NUCLEAR
 
 
 	if(ispath(passed_path, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, ROLE_SYNDICATE))
