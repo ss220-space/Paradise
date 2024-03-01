@@ -140,7 +140,7 @@
 
 /obj/structure/necropolis_gate/ashwalker/attack_hand(mob/user)
 	if(locked)
-		if(user.faction == "ashwalker")
+		if("ashwalker" in user.faction)
 			locked = FALSE
 	return ..()
 

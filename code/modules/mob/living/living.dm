@@ -981,9 +981,10 @@
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.drop_item_ground(what)
+			if(!who.drop_item_ground(what, silent = silent))
+				return
 			if(silent)
-				put_in_hands(what)
+				put_in_hands(what, silent = TRUE)
 			add_attack_logs(src, who, "Stripped of [what]")
 
 // The src mob is trying to place an item on someone
@@ -1001,8 +1002,8 @@
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
-				drop_item_ground(what)
-				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE)
+				drop_item_ground(what, silent = silent)
+				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE, initial = silent)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()

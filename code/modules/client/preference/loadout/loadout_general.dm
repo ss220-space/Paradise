@@ -189,30 +189,38 @@
 /datum/gear/wallet
 	display_name = "a wallet(leather)"
 	path = /obj/item/storage/wallet
+	icon = 'icons/obj/wallets.dmi'
+	icon_state = "brown_wallet"
 
-/datum/gear/walletbb
+/datum/gear/wallet/blue
 	display_name = "a wallet(blue)"
 	path = /obj/item/storage/wallet/color/blue
+	icon_state = "blue_wallet"
 
-/datum/gear/walletr
+/datum/gear/wallet/red
 	display_name = "a wallet(red)"
 	path = /obj/item/storage/wallet/color/red
+	icon_state = "red_wallet"
 
-/datum/gear/wallety
+/datum/gear/wallet/yellow
 	display_name = "a wallet(yellow)"
 	path = /obj/item/storage/wallet/color/yellow
+	icon_state = "yellow_wallet"
 
-/datum/gear/walletg
+/datum/gear/wallet/green
 	display_name = "a wallet(green)"
 	path = /obj/item/storage/wallet/color/green
+	icon_state = "green_wallet"
 
-/datum/gear/walletp
+/datum/gear/wallet/pink
 	display_name = "a wallet(pink)"
 	path = /obj/item/storage/wallet/color/pink
+	icon_state = "pink_wallet"
 
-/datum/gear/walletb
+/datum/gear/wallet/black
 	display_name = "a wallet(black)"
 	path = /obj/item/storage/wallet/color/black
+	icon_state = "black_wallet"
 
 /datum/gear/blackbandana
 	display_name = "bandana, black"

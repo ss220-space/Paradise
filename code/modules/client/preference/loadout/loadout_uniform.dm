@@ -330,17 +330,17 @@
 	subtype_path = /datum/gear/uniform/cargo
 
 /datum/gear/uniform/cargo/qm
-	display_name = "quartermaster's dress"
+	display_name = "quartermaster dress"
 	path = /obj/item/clothing/under/rank/cargo/alt
 	allowed_roles = list("Quartermaster")
 
 /datum/gear/uniform/cargo/tech
-	display_name = "cargo technician's dress"
+	display_name = "cargo technician dress"
 	path = /obj/item/clothing/under/rank/cargotech/alt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
 /datum/gear/uniform/cargo/miner
-	display_name = "shaft miner's sweater"
+	display_name = "shaft miner sweater"
 	path = /obj/item/clothing/under/rank/miner/alt
 	allowed_roles = list("Quartermaster", "Shaft Miner")
 
