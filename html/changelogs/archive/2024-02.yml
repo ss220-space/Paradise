@@ -305,6 +305,51 @@
   Valtor:
   - bugfix: autoimplanter v2 (#4485)
 '2024-02-24':
+  ArtemDerp:
+  - bugfix: safe spot for criminal garbage (#4490)
+  - bugfix: added missed pipe connector in lavaland camp (#4491)
   Vladisvell:
   - balance: added scalable antags from alive players count for paradise_antag game
       mode (#4450)
+  - bugfix: Antag Paradise hotfix (#4500)
+  - bugfix: Fixed turrets breaking on cross Z-level move (#4487)
+  Zwei:
+  - bugfix: Scrubber Icons Fix (#4497)
+  aeternaclose:
+  - bugfix: Cyberiad minor fixes (#4480)
+  - bugfix: Delta missing firelock & Sprite (#4482)
+'2024-02-25':
+  Vladisvell:
+  - bugfix: Antag Paradise hotfix 2 (#4502)
+  - bugfix: Antag Paradise hotfix 3 (#4503)
+'2024-02-28':
+  Daeberdir:
+  - bugfix: APC usability again. (#4486)
+  LiquidPotroh:
+  - bugfix: Eye of god isn't deleting when improving (#4517)
+  ROdenFL:
+  - add: loadout icons (#4507)
+  Rerik007:
+  - bugfix: fix ashwalker & ashwalker runtime (#4518)
+  - bugfix: broken loadout of cargo items (#4509)
+  - bugfix: Keycard Authentication Devices are broken (#4516)
+  - bugfix: 3 -> 4 for CALTROP_BYPASS_ROBOTIC_LEGS (#4505)
+  Valtor:
+  - bugfix: borer respawn from "Respawn as NPC" (#4494)
+  Vladisvell:
+  - bugfix: Toggling thunderdome enrolling state no longer causes runtimes (#4514)
+  Zwei:
+  - bugfix: Library Computer Icons Fix (#4512)
+  - bugfix: Canister Overlays Fix (#4510)
+  - bugfix: Hardsuit Fixes (#4496)
+  - bugfix: Monkey Emotes Fix (#4511)
+  - add: Gorillas! OOGA! OOGA! OOGA! (#3969)
+  aeternaclose:
+  - bugfix: ShelterCapsuleFix (#4121)
+'2024-02-29':
+  SAAD:
+  - bugfix: Spacehotel shard steal (#4506)
+  aeternaclose:
+  - add: CereImprovement-pt9 (#4178)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4501)

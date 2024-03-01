@@ -154,14 +154,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	if(icon_state != canister_color["prim"])
 		icon_state = canister_color["prim"]
 
+	check_change()
+
 
 /obj/machinery/portable_atmospherics/canister/update_overlays()
 	. = ..()
 
 	if(stat & BROKEN)
-		return
-
-	if(!check_change()) //Returns FALSE if no change needed to icons.
 		return
 
 	for(var/C in canister_color)

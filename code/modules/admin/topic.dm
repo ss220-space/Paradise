@@ -1832,6 +1832,17 @@
 
 		usr.client.cmd_admin_animalize(M)
 
+	else if(href_list["makegorilla"])
+		if(!check_rights(R_SPAWN))
+			return
+
+		var/mob/M = locateUID(href_list["makegorilla"])
+		if(isnewplayer(M))
+			to_chat(usr, span_warning("This cannot be used on instances of type /mob/new_player"))
+			return
+
+		usr.client.cmd_admin_gorillize(M)
+
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN))
 			return

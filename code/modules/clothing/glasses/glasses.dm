@@ -616,15 +616,14 @@
 
 
 /obj/item/clothing/glasses/hud/godeye/attackby(obj/item/W, mob/user, params)
-	if(istype(W, type) && W != src && W.loc == user && !double_eye)
+	if(istype(W, type) && W != src && W.loc == user)
 		if(double_eye)
 			to_chat(user, span_notice("The eye winks at you and vanishes into the abyss, you feel really unlucky."))
-			qdel(src)
-			return
-
-		double_eye = TRUE
-		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-		user.wear_glasses_update(src)
+		else
+			double_eye = TRUE
+			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+			user.wear_glasses_update(src)
+		qdel(W)
 		return
 	..()
 

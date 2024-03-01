@@ -849,3 +849,26 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
 
+
+/mob/proc/can_pass_adjacent(atom/adjacent, list/types_to_exclude)
+	if(!isturf(loc))
+		return FALSE
+	if(!adjacent)
+		return FALSE
+	if(!isturf(adjacent))
+		adjacent = get_turf(adjacent)
+		if(!adjacent)
+			return FALSE
+	if(adjacent.density)
+		return FALSE
+	if(!in_range(loc, adjacent))
+		return FALSE
+	for(var/atom/check_atom in adjacent)
+		if(islist(types_to_exclude) && is_type_in_list(check_atom, types_to_exclude))
+			continue
+		if(check_atom.density)
+			return FALSE
+		if(!check_atom.CanPass(src, loc))
+			return FALSE
+	return TRUE
+
