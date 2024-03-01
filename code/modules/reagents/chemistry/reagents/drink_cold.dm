@@ -70,6 +70,44 @@
 	drink_desc = "A glass of of invigorating energy drink"
 	taste_description = "tutti frutti"
 
+/datum/reagent/consumable/drink/cold/energy/New()
+	addict_supertype = /datum/reagent/consumable/drink/cold/energy
+
+/datum/reagent/consumable/drink/cold/energy/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-1, FALSE)
+	if(M.reagents.get_reagent_amount("coffee") > 0)
+		if(prob(100))
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				if(!H.undergoing_cardiac_arrest())
+					H.set_heartattack(TRUE)
+	var/summ = 0
+	for(var/datum/reagent/consumable/drink/cold/energy/energy in M.reagents.reagent_list)
+		if(istype(energy, /datum/reagent/consumable/drink/cold/energy))
+			summ = summ + 1
+	if(summ > 1)
+		if(prob(100))
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				if(!H.undergoing_cardiac_arrest())
+					H.set_heartattack(TRUE)
+	//if(ishuman(M))
+	//	var/mob/living/carbon/human/H = M
+	//	if(!H.undergoing_cardiac_arrest())
+	//		H.set_heartattack(TRUE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/drink/cold/energy/overdose_process(mob/living/M, severity)
+	if(volume > 45)
+		M.Jitter(10 SECONDS)
+	return list(0, STATUS_UPDATE_NONE)
+
+/datum/reagent/consumable/drink/cold/energy/heart
+	name = "Heart Energy"
+	id = "energetik"
+	taste_description = "tutti frutti"
+
 /datum/reagent/consumable/drink/cold/energy/trop
 	name = "Tropickal Energy"
 	id = "trop_eng"
