@@ -5,9 +5,9 @@
  * Send an emote.
  *
  * * emote_key - Key of the emote being triggered
- * * m_type - Type of the emote, like EMOTE_AUDIBLE. If this is not null, the default type of the emote will be overridden.
+ * * type_override - Type of the emote, like EMOTE_AUDIBLE. If this is not null, the default type of the emote will be overridden.
  * * message - Custom parameter for the emote. This should be used if you want to pass something like a target programmatically.
- * * intentional - Whether or not the emote was deliberately triggered by the mob. If `TRUE`, it's forced, which skips some checks when calling the emote.
+ * * intentional - Whether or not the emote was deliberately triggered by the mob. If `FALSE`, it's forced, which skips some checks when calling the emote.
  * * force_silence - If `TRUE`, unusable/nonexistent emotes will not notify the user.
  * * ignore_cooldowns - If `TRUE` all cooldowns will be skipped.
  */
@@ -29,15 +29,15 @@
 		return FALSE
 
 	var/silenced = FALSE
-	for(var/datum/emote/P in key_emotes)
+	for(var/datum/emote/emote as anything in key_emotes)
 		// can this mob run the emote at all?
-		if(!P.can_run_emote(src, intentional = intentional))
+		if(!emote.can_run_emote(src, intentional = intentional))
 			continue
-		if(!P.check_cooldown(src, intentional, ignore_cooldowns))
+		if(!emote.check_cooldown(src, intentional, ignore_cooldowns))
 			// if an emote's on cooldown, don't spam them with messages of not being able to use it
 			silenced = TRUE
 			continue
-		if(P.try_run_emote(src, param, type_override, intentional))
+		if(emote.try_run_emote(src, param, type_override, intentional))
 			return TRUE
 	if(intentional && !silenced && !force_silence)
 		to_chat(src, span_notice("Unusable emote '[emote_key]'. Say *help for a list."))
@@ -51,7 +51,7 @@
  * * message: Content of the message. If none is provided, the user will be prompted to choose the input.
  * * intentional: Whether or not the user intendeded to perform the emote.
  */
-/mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = FALSE)
+/mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = FALSE, ignore_cooldowns = FALSE)
 	var/input = ""
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
@@ -60,7 +60,7 @@
 	else
 		input = message
 
-	emote("me", m_type, input, intentional)
+	emote("me", m_type, input, intentional, ignore_cooldowns = ignore_cooldowns)
 
 
 /**

@@ -684,10 +684,10 @@
 			if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
 				if(pocket_item)
 					if(pocket_item == (pocket_id == slot_r_store ? r_store : l_store)) //item still in the pocket we search
-						drop_item_ground(pocket_item)
-						if(thief_mode)
-							usr.put_in_hands(pocket_item)
-						add_attack_logs(usr, src, "Stripped of [pocket_item]")
+						if(drop_item_ground(pocket_item))
+							if(thief_mode)
+								usr.put_in_hands(pocket_item)
+							add_attack_logs(usr, src, "Stripped of [pocket_item]")
 				else
 					if(place_item)
 						usr.drop_item_ground(place_item)
@@ -1052,6 +1052,13 @@
 		if(head.flags_inv & HIDEGLASSES)
 			obscured |= slot_glasses
 		if(head.flags_inv & HIDEHEADSETS)
+			obscured |= slot_r_ear
+			obscured |= slot_l_ear
+
+	if(wear_mask)
+		if(wear_mask.flags_inv & HIDEGLASSES)
+			obscured |= slot_glasses
+		if(wear_mask.flags_inv & HIDEHEADSETS)
 			obscured |= slot_r_ear
 			obscured |= slot_l_ear
 

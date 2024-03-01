@@ -2046,6 +2046,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list("biotech" = 6)
 
+/datum/supply_packs/organic/gorilla
+	name = "Gorilla Crate"
+	cost = 100
+	containertype = /obj/structure/closet/critter/gorilla
+	containername = "gorilla crate (DANGER!)"
+
+/datum/supply_packs/organic/cargororilla
+	name = "Cargorilla Crate"
+	cost = 150
+	containertype = /obj/structure/closet/critter/cargorilla
+	containername = "cargorilla crate"
+
 ////// hippy gear
 
 /datum/supply_packs/organic/hydroponics // -- Skie
