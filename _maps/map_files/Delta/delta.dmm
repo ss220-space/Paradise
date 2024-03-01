@@ -700,8 +700,16 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "afy" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -751,10 +759,7 @@
 	dir = 8;
 	network = list("SS13","Security")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellow"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "afY" = (
 /obj/structure/disposalpipe/segment,
@@ -1263,10 +1268,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellow"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "alW" = (
 /obj/structure/chair/comfy/brown,
@@ -1761,6 +1763,7 @@
 	name = "north bump";
 	pixel_y = 25
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -2176,12 +2179,7 @@
 /area/engine/mechanic_workshop/hangar)
 "asg" = (
 /obj/machinery/light,
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/stock_parts/cell/high,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2535,9 +2533,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "avk" = (
 /obj/machinery/recharge_station,
@@ -3067,9 +3063,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "azi" = (
 /obj/structure/reagent_dispensers/watertank/high,
@@ -3104,6 +3098,7 @@
 /area/engine/mechanic_workshop/hangar)
 "azr" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3551,9 +3546,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "aCe" = (
 /obj/machinery/door/airlock/multi_tile/glass{
@@ -3972,6 +3965,7 @@
 	dir = 8;
 	pixel_x = -25
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
@@ -4027,10 +4021,7 @@
 	name = "north bump";
 	pixel_y = 26
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellow"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "aEY" = (
 /turf/simulated/floor/plasteel{
@@ -4863,6 +4854,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/reagent_containers/food/snacks/bait/ash_eater,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
@@ -4923,9 +4915,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "aKS" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -4935,9 +4925,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "aKT" = (
 /obj/structure/cable{
@@ -4995,6 +4983,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_y = 32
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5090,19 +5079,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "aLI" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellow"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "aLM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -7771,11 +7754,7 @@
 	},
 /area/crew_quarters/serviceyard)
 "bck" = (
-/obj/effect/decal/warning_stripes/red,
-/obj/structure/closet/firecloset,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "bcn" = (
 /obj/machinery/door/firedoor,
@@ -7862,9 +7841,10 @@
 	},
 /area/maintenance/asmaint4)
 "bcL" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "vault"
 	},
 /area/engine/mechanic_workshop/hangar)
 "bda" = (
@@ -7918,10 +7898,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellow"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "bdu" = (
 /turf/simulated/floor/plating,
@@ -8168,6 +8145,7 @@
 	pixel_x = 28;
 	pixel_y = -2
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -8666,11 +8644,16 @@
 	},
 /area/quartermaster/miningdock)
 "bib" = (
-/obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "bie" = (
 /obj/machinery/mineral/equipment_vendor,
@@ -33981,10 +33964,7 @@
 	name = "Expedition Lockdown";
 	opacity = 0
 	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Space Expedition Storage";
-	req_access = list(18,48,70)
-	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
 "dsO" = (
@@ -42199,9 +42179,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "dZM" = (
 /obj/effect/decal/warning_stripes/north,
@@ -45823,6 +45801,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -56725,10 +56704,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellow"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "hrX" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
@@ -57635,6 +57611,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/bar)
+"hDc" = (
+/mob/living/carbon/human/unathi,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/engine/mechanic_workshop/hangar)
 "hDg" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/eastright{
@@ -59626,6 +59609,12 @@
 	icon_state = "arrival"
 	},
 /area/crew_quarters/locker)
+"idj" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/engine/mechanic_workshop/hangar)
 "idl" = (
 /obj/structure/delta_statue/w,
 /turf/simulated/floor/plasteel{
@@ -67822,6 +67811,13 @@
 "kaX" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/assembly/chargebay)
+"kbg" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/engine/mechanic_workshop/hangar)
 "kbT" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized{
@@ -72268,6 +72264,10 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
+"lkp" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/engine/mechanic_workshop/hangar)
 "lkA" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -84549,8 +84549,7 @@
 	},
 /area/bridge)
 "oag" = (
-/obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92619,11 +92618,12 @@
 	},
 /area/medical/morgue)
 "pNr" = (
-/obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/maintenance/double,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "pNE" = (
 /obj/structure/disposalpipe/segment,
@@ -113517,10 +113517,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/sm_test_chamber)
 "uBz" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
-	},
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/engine/mechanic_workshop/hangar)
 "uBD" = (
 /obj/machinery/door/airlock/command{
@@ -127435,6 +127432,13 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/rust,
 /area/maintenance/engineering)
+"xJU" = (
+/obj/item/twohanded/fishingrod,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/engine/mechanic_workshop/hangar)
 "xJW" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
@@ -170461,8 +170465,8 @@ apN
 amJ
 irJ
 asF
-aQg
-aQg
+hDc
+xJU
 aKx
 aQg
 aQg
@@ -171232,12 +171236,12 @@ amt
 amR
 irJ
 apy
-uGF
-wBq
-aBn
-rqF
-rqF
-azl
+kbg
+bcL
+afy
+oag
+oag
+idj
 asg
 bgw
 tpv
@@ -171488,13 +171492,13 @@ avE
 axh
 spK
 asE
-asH
-rqF
-rqF
+bck
+bck
+bck
 aKO
-wBq
-uGF
-azl
+bck
+bck
+bck
 bck
 beC
 aNf
@@ -171749,10 +171753,10 @@ alT
 azf
 azf
 avj
-uGF
-wBq
-azl
-bcL
+uBz
+uBz
+uBz
+bck
 beC
 beC
 avi
@@ -172003,13 +172007,13 @@ aqq
 aBj
 irJ
 hrW
-wBq
-uGF
-aBn
-rqF
-rqF
-aBe
-aQg
+uBz
+uBz
+bib
+uBz
+uBz
+uBz
+bck
 aEw
 bkM
 brG
@@ -172260,13 +172264,13 @@ irJ
 irJ
 irJ
 aES
-uGF
-wBq
-aBn
-wBq
-uGF
-rqF
-rqF
+uBz
+uBz
+bib
+uBz
+uBz
+uBz
+bck
 azr
 bla
 brN
@@ -172515,16 +172519,16 @@ coE
 aaq
 atF
 vsN
-bib
-asH
-rqF
-azr
+oag
+bck
+uBz
+lkp
 aKS
-uGF
-wBq
-rqF
-rqF
-rqF
+uBz
+uBz
+uBz
+bck
+oag
 rqF
 brR
 rqF
@@ -172773,13 +172777,13 @@ coE
 coE
 lFf
 oag
-asH
-wBq
-uGF
+bck
+uBz
+uBz
 dZL
 aBZ
-aTS
-aTS
+pNr
+pNr
 aLH
 ePe
 aTS
@@ -173029,16 +173033,16 @@ aaq
 aaq
 aaq
 lFf
-pNr
-asH
-uGF
-wBq
-rqF
-wBq
-uGF
-rqF
-uGF
-wBq
+oag
+bck
+uBz
+uBz
+uBz
+uBz
+uBz
+uBz
+bck
+bcL
 rqF
 bsd
 rqF
@@ -173286,14 +173290,14 @@ aaq
 aaq
 coE
 vsN
-afy
-uBz
+oag
+bck
 afQ
 aLI
-rqF
-uGF
-wBq
-rqF
+bck
+bck
+bck
+bck
 bds
 bfZ
 aIh
@@ -173548,9 +173552,9 @@ vsN
 vsN
 vsN
 aLe
-rqF
-rqF
-rqF
+oag
+oag
+oag
 vsN
 vsN
 lFf

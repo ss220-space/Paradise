@@ -204,11 +204,14 @@
 	nitrogen = 23
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
+	/// Check for plasma river, subtype of lava, prevents simple fishing
+	var/is_lava = TRUE
 
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_fishing)
+	if(is_lava)
+		AddComponent(/datum/component/simple_fishing)
 
 /turf/simulated/floor/plating/lava/smooth/airless
 	temperature = TCMB
@@ -224,6 +227,7 @@
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
+	is_lava = FALSE // ~ Sin City's cold and empty, No one`s around to judge me ~
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/examine(mob/user)
 	. = ..()

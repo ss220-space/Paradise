@@ -72,6 +72,8 @@ Fishing bites, fish, fishing related stuff
 	qdel(user)
 	return OBLITERATION
 
+// actual fish
+
 /obj/item/lavaland_fish
 	name = "generic lavaland fish"
 	desc = "Wow, this fish is so unremarkable!"
@@ -79,13 +81,18 @@ Fishing bites, fish, fishing related stuff
 	icon_state = "ash_crab"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 1
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
 	hitsound = 'sound/effects/snap.ogg'
+
 	/// If this fish should do the flopping animation
 	var/do_flop_animation = TRUE
 	var/flopping = FALSE
+
+	/// Favourite bait. Using this will add more chance to catch this fish
+	var/obj/favorite_bait = null
+	/// Chance of catching fish with bait. Needs to be less than 100
+	var/bait_chance = 0
 
 /obj/item/lavaland_fish/Initialize(mapload)
 	. = ..()
@@ -97,53 +104,76 @@ Fishing bites, fish, fishing related stuff
 	. = ..()
 	start_flopping()
 
+/obj/item/lavaland_fish/shoreline
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/lavaland_fish/deep_water
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/lavaland_fish/ash_crab
+/obj/item/lavaland_fish/shoreline/ash_crab
 	name = "ash crab"
 	desc = "ворм потом накатает"
 	icon_state = "ash_crab"
+	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/ash_eater
+	bait_chance = 90
 
-/obj/item/lavaland_fish/dead_horseman
+/obj/item/lavaland_fish/shoreline/dead_horseman
 	name = "dead horseman"
 	desc = "ворм потом накатает"
 	icon_state = "dead_horseman"
+	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/bloody_leach
+	bait_chance = 85
 
-/obj/item/lavaland_fish/shellfish
+/obj/item/lavaland_fish/shoreline/shellfish
 	name = "shellfish"
 	desc = "ворм потом накатает"
 	icon_state = "shellfish"
+	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/goldgrub_larva
+	bait_chance = 85
 
 /obj/item/lavaland_fish/deep_water/bottom_eel
 	name = "bottom eel"
 	desc = "ворм потом накатает"
 	icon_state = "bottom_eel"
+	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/ash_eater
+	bait_chance = 80
 
 /obj/item/lavaland_fish/deep_water/red_devouver
 	name = "red devouver"
 	desc = "ворм потом накатает"
 	icon_state = "red_devouver"
+	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/bloody_leach
+	bait_chance = 75
 
 /obj/item/lavaland_fish/deep_water/magma_hammerhead
 	name = "magma hammerhead"
 	desc = "ворм потом накатает"
 	icon_state = "magma_hammerhead"
+	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/goldgrub_larva
+	bait_chance = 70
 
 /obj/item/lavaland_fish/deep_water/blind_ripper
 	name = "blind ripper"
 	desc = "ворм потом накатает"
 	icon_state = "blind_ripper"
+	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/ash_eater
+	bait_chance = 80
 
 /obj/item/lavaland_fish/deep_water/herald_of_carnage
 	name = "herald of carnage"
 	desc = "ворм потом накатает"
 	icon_state = "herald_of_carnage"
+	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/bloody_leach
+	bait_chance = 75
 
 /obj/item/lavaland_fish/deep_water/sulfuric_tramp
 	name = "sulfuric tramp"
 	desc = "ворм потом накатает"
 	icon_state = "sulfuric_tramp"
+	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/goldgrub_larva
+	bait_chance = 50
+
+// Fish flopping
 
 #define PAUSE_BETWEEN_PHASES 15
 #define PAUSE_BETWEEN_FLOPS 2
