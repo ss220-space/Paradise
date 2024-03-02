@@ -876,7 +876,7 @@
 
 	var/list/allowed_creatures = list("Mouse")
 	for(var/mob/living/alive_mob as anything in GLOB.alive_mob_list)
-		if(!alive_mob.key && alive_mob.stat != DEAD && safe_respawn(alive_mob.type))
+		if(!alive_mob.key && alive_mob.stat != DEAD && safe_respawn(alive_mob))
 			allowed_creatures += alive_mob
 
 	var/mob/living/picked_mob = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", allowed_creatures)

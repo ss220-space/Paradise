@@ -227,24 +227,21 @@
 	qdel(src)
 
 
-/mob/proc/safe_respawn(passed_path)
+/mob/proc/safe_respawn(mob/living/passed_mob)
 	. = FALSE
-
-	if(!ispath(passed_path))
-		return .
 
 	var/static/list/safe_respawn_typecache_nuclear = typecacheof(list(
 		/mob/living/simple_animal/pet/cat/Syndi,
 		/mob/living/simple_animal/pet/dog/fox/Syndifox,
 	))
-	if(is_type_in_typecache(passed_path, safe_respawn_typecache_nuclear))
+	if(is_type_in_typecache(passed_mob, safe_respawn_typecache_nuclear))
 		return GAMEMODE_IS_NUCLEAR
 
 
-	if(ispath(passed_path, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, ROLE_SYNDICATE))
+	if(istype(passed_mob, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, ROLE_SYNDICATE))
 		return TRUE
 
-	if(ispath(passed_path, /mob/living/simple_animal/diona) && !jobban_isbanned(src, ROLE_NYMPH))
+	if(isnymph(passed_mob) && !jobban_isbanned(src, ROLE_NYMPH))
 		return TRUE
 
 	// Whitelist typecache. Alphabetical order please!
@@ -280,6 +277,6 @@
 		/mob/living/simple_animal/pet/dog/fox/alisa,
 	))
 
-	if(is_type_in_typecache(passed_path, safe_respawn_typecache_whitelist) && !is_type_in_typecache(passed_path, safe_respawn_typecache_blacklist))
+	if(is_type_in_typecache(passed_mob, safe_respawn_typecache_whitelist) && !is_type_in_typecache(passed_mob, safe_respawn_typecache_blacklist))
 		return TRUE
 
