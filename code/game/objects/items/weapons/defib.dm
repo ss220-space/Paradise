@@ -214,7 +214,7 @@
 		paddles_on_defib = TRUE
 		to_chat(user, span_warning("You need a free hand to hold the paddles!"))
 		return
-fib
+
 	paddles.update_icon(UPDATE_ICON_STATE)
 	update_icon(UPDATE_OVERLAYS)
 
