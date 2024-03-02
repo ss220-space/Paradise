@@ -101,7 +101,7 @@ export const HemoMenu = (props, context) => {
           splatters. You can move through anything but walls and space when
           doing this. */}
           <b>Sanguine pool</b>: Открывается от 400 <i><font color='red'>крови</font></i>, позволяет с большой скоростью преодолеть
-          короткое расстояние, игнорируя все препятствия кроме стен и космоса, а также оставляя за собой кровавый след.
+          игнорируя все препятствия, кроме стен и космоса, а также оставляя за собой кровавый след.
         </p>
         <p>
           {/* <b>Predator senses</b>: Unlocked at 600 blood, allows you to sniff out
