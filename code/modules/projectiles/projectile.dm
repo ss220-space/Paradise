@@ -163,7 +163,7 @@
 	var/mob/living/carbon/human/H
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
-		if(damage && L.blood_volume && damage_type == BRUTE)
+		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
