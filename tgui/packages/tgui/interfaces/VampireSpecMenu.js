@@ -313,7 +313,7 @@ export const DantMenu = (props, context) => {
           max of 4 thralls. */}
           <b>Thrall cap</b>: Вы можете поработить максимум одного раба за раз.
           Количество рабов будет расти при достижении 400 <i><font color='red'>крови</font></i>,
-          600 <i><font color='red'>крови</font></i> и полной силы с максимум в 4 раба.
+          600 <i><font color='red'>крови</font></i> и полной силы с максимумом в 4 раба.
         </p>
         <p>
           {/* <b>Thrall commune</b>: Unlocked at 150 blood, Allows you to talk to
