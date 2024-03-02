@@ -408,7 +408,7 @@ export const BestMenu = (props, context) => {
           {/* <b>Infected Trophy</b>: Unlocked at 150 blood, allows you to stun enemies
           from the safe distance and infect them with the deadly Grave Fever. */}
           <b>Infected Trophy</b>: Открывается от 150 <i><font color='red'>крови</font></i>, позволяет
-          вам оглушать противников с безопасной дистанции, заражая их при этом болезнью вампиров.
+          вам оглушать противников с безопасной дистанции, заражая их могильной лихорадкой.
         </p>
         <p>
           {/* <b>Lunge</b>: Unlocked at 250 blood, allows you to rapidly close distance
