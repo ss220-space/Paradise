@@ -338,7 +338,7 @@ export const DantMenu = (props, context) => {
           {/* <b>Decoy</b>: Unlocked at 400 blood, briefly turn invisible and send
           out an illusion to fool everyone nearby. */}
           <b>Decoy</b>: Открывается от 400 <i><font color='red'>крови</font></i>,
-          делает вас невидимым на некоторое время, создав на месте примения вашу копию.
+         ненадолго делает вас невидимым и создает вашу копию обманку.
         </p>
         <p>
           {/* <b>Rally thralls</b>: Unlocked at 600 blood, removes all incapacitating effects from nearby thralls. */}
