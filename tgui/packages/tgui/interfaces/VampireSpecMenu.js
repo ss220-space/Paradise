@@ -383,7 +383,7 @@ export const BestMenu = (props, context) => {
             }} />
         </Box>
         {/* <h3>Focuses on transformations and trophies harvesting.</h3> */}
-        <h3>Спецализируется на трансформации и добыче трофеев.</h3>
+        <h3>Специализируется на превращении и добыче трофеев.</h3>
         <p>
           {/* <b>Check Trophies</b>: Unlocked at 150 blood, allows you to check
           current trophies amount and all the passive effects they provide. */}
