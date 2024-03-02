@@ -75,7 +75,7 @@ export const HemoMenu = (props, context) => {
         </Box>
         <h3>
           {/* Focuses on blood magic and the manipulation of blood around you. */}
-          Спецализируется на кровавой магии и манипуляциях с окружающей кровью.
+          Специализируется на магии крови и управлении ею.
         </h3>
         <p>
           {/* <b>Vampiric claws</b>: Unlocked at 150 blood, allows you to summon a
