@@ -100,7 +100,7 @@ export const HemoMenu = (props, context) => {
           high speeds for a short duration. Doing this leaves behind blood
           splatters. You can move through anything but walls and space when
           doing this. */}
-          <b>Sanguine pool</b>: Открывается от 400 <i><font color='red'>крови</font></i>, позволяет с большой скоростью преодолеть
+          <b>Sanguine pool</b>: Открывается от 400 <i><font color='red'>крови</font></i>, позволяет непродолжительное время передвигаться с большой скоростью,
           игнорируя все препятствия, кроме стен и космоса, а также оставляя за собой кровавый след.
         </p>
         <p>
