@@ -125,10 +125,10 @@
 		new_reward -= time_add_count * reward * 0.1
 
 	if(!modificators["departure_mismatch"] && !failed_quest_length && !mismatch_content)
-		if(!fast_failed)
-			customer.set_sale(modificator = 2)
-		else
+		if(fast_failed)
 			customer.set_sale(modificator = 1)
+		else
+			customer.set_sale(modificator = 2)
 
 	if(new_reward <= 0)
 		new_reward = 1
