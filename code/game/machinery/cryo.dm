@@ -104,6 +104,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/Destroy()
 	QDEL_NULL(beaker)
+	QDEL_NULL(occupant_overlay)
 	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)

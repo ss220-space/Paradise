@@ -17,8 +17,9 @@
  * * exclude: If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
  * * skip_first: Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break movement for some creatures.
  * * diagonal_safety: ensures diagonal moves won't use invalid midstep turfs by splitting them into two orthogonal moves if necessary
+ * * no_id: if true, doors with public access will count as impassible
  */
-/proc/get_path_to(caller, end, max_distance = 30, mintargetdist, id = null, simulated_only = TRUE, turf/exclude, skip_first = TRUE, diagonal_safety = TRUE)
+/proc/get_path_to(caller, end, max_distance = 30, mintargetdist, id = null, simulated_only = TRUE, turf/exclude, skip_first = TRUE, diagonal_safety = TRUE, no_id = FALSE)
 	if(!caller || !get_turf(end))
 		return
 
@@ -28,7 +29,7 @@
 		l = SSpathfinder.mobs.getfree(caller)
 
 	var/list/path
-	var/datum/pathfind/pathfind_datum = new(caller, end, id, max_distance, mintargetdist, simulated_only, exclude, diagonal_safety)
+	var/datum/pathfind/pathfind_datum = new(caller, end, id, max_distance, mintargetdist, simulated_only, exclude, diagonal_safety, no_id)
 	path = pathfind_datum.search()
 	qdel(pathfind_datum)
 
@@ -64,7 +65,7 @@
  * If you really want to optimize things, optimize this, cuz this gets called a lot.
  * We do early next.density check despite it being already checked in LinkBlockedWithAccess for short-circuit performance
  */
-#define CAN_STEP(cur_turf, next) (next && !next.density && !(simulated_only && SSpathfinder.space_type_cache[next.type]) && !cur_turf.LinkBlockedWithAccess(next,caller, id) && (next != avoid))
+#define CAN_STEP(cur_turf, next) (next && !next.density && !(simulated_only && SSpathfinder.space_type_cache[next.type]) && !cur_turf.LinkBlockedWithAccess(next,caller,id,no_id) && (next != avoid))
 /// Another helper macro for JPS, for telling when a node has forced neighbors that need expanding
 #define STEP_NOT_HERE_BUT_THERE(cur_turf, dirA, dirB) ((!CAN_STEP(cur_turf, get_step(cur_turf, dirA)) && CAN_STEP(cur_turf, get_step(cur_turf, dirB))))
 
@@ -132,6 +133,8 @@
 	// general pathfinding vars/args
 	/// An ID card representing what access we have and what doors we can open. Its location relative to the pathing atom is irrelevant
 	var/obj/item/card/id/id
+	/// When true, doors with public access will count as impassible
+	var/no_id = FALSE
 	/// How far away we have to get to the end target before we can call it quits
 	var/mintargetdist = 0
 	/// I don't know what this does vs , but they limit how far we can search before giving up on a path
@@ -143,7 +146,7 @@
 	/// Ensures diagonal moves won't use invalid midstep turfs by splitting them into two orthogonal moves if necessary
 	var/diagonal_safety = TRUE
 
-/datum/pathfind/New(atom/movable/caller, atom/goal, id, max_distance, mintargetdist, simulated_only, avoid, diagonal_safety)
+/datum/pathfind/New(atom/movable/caller, atom/goal, id, max_distance, mintargetdist, simulated_only, avoid, diagonal_safety, no_id)
 	src.caller = caller
 	end = get_turf(goal)
 	open = new /datum/heap(GLOBAL_PROC_REF(HeapPathWeightCompare))
@@ -154,6 +157,7 @@
 	src.simulated_only = simulated_only
 	src.avoid = avoid
 	src.diagonal_safety = diagonal_safety
+	src.no_id = no_id
 
 /**
  * search() is the proc you call to kick off and handle the actual pathfinding, and kills the pathfind datum instance when it's done.
