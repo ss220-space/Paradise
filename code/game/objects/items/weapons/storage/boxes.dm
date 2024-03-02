@@ -632,7 +632,7 @@
 /obj/item/storage/box/bodybags/biohazard
 	name = "biohazard body bags"
 	desc = "This box contains biohazard body bags."
-	icon_state = "biohazard bodybags"
+	icon_state = "biohazard_bodybags"
 
 /obj/item/storage/box/bodybags/biohazard/populate_contents()
 	for(var/I in 1 to 7)
