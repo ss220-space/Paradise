@@ -77,7 +77,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustStaminaLoss(-1, FALSE)
 	if(M.reagents.get_reagent_amount("coffee") > 0)
-		if(prob(100))
+		if(prob(0.5))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(!H.undergoing_cardiac_arrest())
@@ -87,26 +87,17 @@
 		if(istype(energy, /datum/reagent/consumable/drink/cold/energy))
 			summ = summ + 1
 	if(summ > 1)
-		if(prob(100))
+		if(prob(0.5))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(!H.undergoing_cardiac_arrest())
 					H.set_heartattack(TRUE)
-	//if(ishuman(M))
-	//	var/mob/living/carbon/human/H = M
-	//	if(!H.undergoing_cardiac_arrest())
-	//		H.set_heartattack(TRUE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/cold/energy/overdose_process(mob/living/M, severity)
 	if(volume > 45)
 		M.Jitter(10 SECONDS)
 	return list(0, STATUS_UPDATE_NONE)
-
-/datum/reagent/consumable/drink/cold/energy/heart
-	name = "Heart Energy"
-	id = "energetik"
-	taste_description = "tutti frutti"
 
 /datum/reagent/consumable/drink/cold/energy/trop
 	name = "Tropickal Energy"
