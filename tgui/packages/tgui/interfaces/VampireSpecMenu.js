@@ -93,7 +93,7 @@ export const HemoMenu = (props, context) => {
           {/* <b>Blood tendrils</b>: Unlocked at 250 blood, allows you to slow
           everyone in a targeted 3x3 area after a short delay. */}
           <b>Blood tendrils</b>: Открывается от 250 <i><font color='red'>крови</font></i>, после небольшой задержки позволяет
-          вам замедлить всех внутри выбранной территории 3x3.
+          вам замедлить всех внутри выбранной области 3x3.
         </p>
         <p>
           {/* <b>Sanguine pool</b>: Unlocked at 400 blood, allows you to travel at
