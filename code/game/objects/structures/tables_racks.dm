@@ -137,6 +137,10 @@
 		var/mob/living/user = AM
 		clumse_stuff(user)
 
+/obj/structure/table/climb_check(var/mob/living/user)
+	. = ..()
+	if(user.checkpass(PASSTABLE))
+		return FALSE
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
@@ -147,12 +151,13 @@
 		var/mob/living/M = mover
 		if(M.flying)
 			return TRUE
+		var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
+		var/obj/structure/other_object = locate(/obj/structure) in get_turf(mover)
+		if(other_object?.climbable && !other_table?.flipped)
+			return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
 	if(mover.throwing)
-		return TRUE
-	var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
-	if(other_table && !other_table.flipped)
 		return TRUE
 	if(flipped)
 		if(get_dir(loc, target) == dir)
@@ -486,6 +491,7 @@
 		debris -= AM
 		if(istype(AM, /obj/item/shard))
 			AM.throw_impact(L)
+	L.pixel_z = initial(L.pixel_z)
 	L.Weaken(10 SECONDS)
 	qdel(src)
 
@@ -790,12 +796,24 @@
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
+/obj/structure/rack/climb_check(var/mob/living/user)
+	. = ..()
+	if(user.checkpass(PASSTABLE))
+		return FALSE
 
 /obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
 		return TRUE
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return TRUE
+	if(ismob(mover))
+		var/mob/living/M = mover
+		if(M.flying)
+			return TRUE
+		var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
+		var/obj/structure/other_object = locate(/obj/structure) in get_turf(mover)
+		if(other_object?.climbable && !other_table?.flipped)
+			return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
 	if(mover.throwing)
@@ -864,12 +882,19 @@
 	desc = "Made with the skulls of the fallen."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "minibar"
+	climbable = TRUE
 
 /obj/structure/rack/skeletal_bar/left
 	icon_state = "minibar_left"
 
 /obj/structure/rack/skeletal_bar/right
 	icon_state = "minibar_right"
+
+/obj/structure/rack/skeletal_bar/MouseDrop_T(atom/movable/dropping, mob/user, params)
+	. = ..()
+	if(!. && dropping == user)
+		do_climb(user)
+		return TRUE
 
 /obj/structure/rack/gunrack
 	name = "gun rack"
