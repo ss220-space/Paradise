@@ -90,7 +90,7 @@ Fishing bites, fish, fishing related stuff
 	var/flopping = FALSE
 
 	/// Favourite bait. Using this will add more chance to catch this fish
-	var/obj/favorite_bait = null
+	var/favorite_bait = null
 
 /obj/item/lavaland_fish/Initialize(mapload)
 	. = ..()

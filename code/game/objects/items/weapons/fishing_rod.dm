@@ -61,7 +61,7 @@
 		fishing = FALSE
 		return
 	to_chat(user, span_notice("You started fishing."))
-	if(do_after(fisher, 1 SECONDS, target = fishing_turf)) //нормально - 10
+	if(do_after(fisher, 10 SECONDS, target = fishing_turf))
 		catch_fish()
 		fishing = FALSE
 		fishing_turf.cut_overlay(bobber)
@@ -93,15 +93,14 @@
 
 
 /obj/item/twohanded/fishingrod/proc/calculate_fishing_chance() // I fucking hate it
-
-	var/list/fishable_list = fishing_component.catchable_fish
+	var/list/fishable_list = fishing_component.catchable_fish.Copy()
 	var/list/bait_list = list()
 	for(var/fish in fishable_list) //After this stage, bait_list will have 1-2 fish in bait_list
 		var/obj/item/lavaland_fish/cooler_fish = fish
-		if(bait == cooler_fish.favorite_bait)
+		if(bait.type == cooler_fish.favorite_bait)
 			fishable_list -= cooler_fish
 			bait_list += cooler_fish
-	if(!bait_list.len) //if something went wrong and list is empty
+	if(isemptylist(bait_list)) //if something went wrong and list is empty
 		reward_fish = pick(fishable_list)
 		return
 
