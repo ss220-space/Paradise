@@ -79,6 +79,32 @@
 
 	do_climb(usr)
 
+/obj/structure/proc/animate_jumping_off(mob/living/user)
+	if(!usr.flying && usr.mob_has_gravity())
+		var/delay = usr.movement_delay()/4
+		sleep(delay)
+		animate(usr, pixel_z = initial(usr.pixel_z), time = 3, easing = BACK_EASING|EASE_IN)
+
+/obj/structure/proc/animate_climb(mob/living/user)
+	if(!istype(user))
+		return
+	if(!user.checkpass(PASSTABLE) && !user.flying && user.mob_size > MOB_SIZE_SMALL)
+		var/delay = user.movement_delay()/2
+		sleep(delay)
+		animate(user, pixel_z = 16, time = 1, easing = LINEAR_EASING)
+		if(user.floating)
+			user.float(TRUE)
+
+/obj/structure/Uncrossed(atom/movable/mover)
+	. = ..()
+	if(!istype(mover, /mob/living))
+		return
+	if(climbable)
+		var/turf/T = get_turf(mover)
+		var/obj/structure/other_structure = locate(/obj/structure) in T
+		if(!other_structure?.climbable)
+			animate_jumping_off(mover)
+
 /obj/structure/MouseDrop_T(atom/movable/dropping, mob/user, params)
 	. = ..()
 	if(!. && dropping == user)
@@ -94,16 +120,26 @@
 		return T
 	return null
 
-/obj/structure/proc/do_climb(var/mob/living/user)
+/obj/structure/proc/climb_check(var/mob/living/user)
+	if(user.mob_size == MOB_SIZE_SMALL)
+		return FALSE
+	if(user.flying)
+		return FALSE
 	if(!can_touch(user) || !climbable)
 		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
 		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
 		return FALSE
-
 	var/turf/T = src.loc
-	if(!T || !istype(T)) return FALSE
+	if(!T || !istype(T))
+		return FALSE
+
+	return TRUE
+
+/obj/structure/proc/do_climb(var/mob/living/user)
+	if(!climb_check(user))
+		return FALSE
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
@@ -116,11 +152,12 @@
 		return FALSE
 
 	usr.loc = get_turf(src)
+	animate_climb(user)
+
 	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	clumse_stuff(climber)
-
 	climber = null
 
 	return TRUE
@@ -236,7 +273,7 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the table after a short delay.</span>"
+		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the structure after a short delay.</span>"
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
