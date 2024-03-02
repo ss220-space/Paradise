@@ -81,7 +81,7 @@ export const HemoMenu = (props, context) => {
           {/* <b>Vampiric claws</b>: Unlocked at 150 blood, allows you to summon a
           robust pair of claws that attack rapidly, drain a targets blood, and heal you. */}
           <b>Vampiric claws</b>: Открывается от 150 <i><font color='red'>крови</font></i>, позволяет призвать пару острых когтей,
-          позволяющих быстро атаковать цель, поглощая ее кровь и регенерируя.
+          позволяющих быстро атаковать цель, поглощая ее кровь и регенерируя свое здоровье.
         </p>
         <p>
           {/* <b>Blood Barrier</b>: Unlocked at 250 blood, allows you to select two
