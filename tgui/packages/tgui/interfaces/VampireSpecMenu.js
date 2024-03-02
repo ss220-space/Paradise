@@ -343,7 +343,7 @@ export const DantMenu = (props, context) => {
         <p>
           {/* <b>Rally thralls</b>: Unlocked at 600 blood, removes all incapacitating effects from nearby thralls. */}
           <b>Rally thralls</b>: Открывается от 600 <i><font color='red'>крови</font></i>,
-          снимает с ваших рабов любые оглушающие эффекты.
+          снимает с близстоящих рабов любые оглушающие эффекты.
         </p>
         <p>
           {/* <b>Blood bond</b>: Unlocked at 800 blood, when cast, all nearby thralls
