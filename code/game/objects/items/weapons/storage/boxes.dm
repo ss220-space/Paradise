@@ -629,6 +629,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/bodybag(src)
 
+/obj/item/storage/box/bodybags/biohazard
+	name = "biohazard body bags"
+	desc = "This box contains biohazard body bags."
+	icon_state = "biohazard_bodybags"
+
+/obj/item/storage/box/bodybags/biohazard/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/bodybag/biohazard(src)
+
 /obj/item/storage/box/snappops
 	name = "snap pop box"
 	desc = "Eight wrappers of fun! Ages 8 and up. Not suitable for children."
