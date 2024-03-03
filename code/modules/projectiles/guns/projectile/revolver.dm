@@ -80,6 +80,10 @@
 	return get_ammo(FALSE, FALSE)
 
 
+/obj/item/gun/projectile/revolver/get_ammo(countchambered = FALSE, countempties = TRUE)
+	. = ..()
+
+
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
 	. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
