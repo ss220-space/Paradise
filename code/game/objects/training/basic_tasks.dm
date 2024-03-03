@@ -97,7 +97,7 @@
 		"Возьмите :tr ПДА :9 в вашу руку нажатием на него :tr ЛКМ")
 
 /datum/training_task/basic_3_2/init_task()
-	user.equip_to_slot_if_possible(new /obj/item/pda, slot_wear_pda)
+	user.equip_to_slot_if_possible(new /obj/item/pda, slot_wear_pda, drop_on_fail = TRUE)
 	..()
 
 /datum/training_task/basic_3_2/check_func()
@@ -134,7 +134,7 @@
 		"Возьмите ID карту в руку так, чтобы в активной руке лежала ваша ID карта, а в неактивной - ПДА")
 
 /datum/training_task/basic_3_4/init_task()
-	user.equip_to_slot_if_possible(new /obj/item/card/id/captains_spare, slot_wear_id)
+	user.equip_to_slot_if_possible(new /obj/item/card/id/captains_spare, slot_wear_id, drop_on_fail = TRUE)
 	..()
 
 /datum/training_task/basic_3_4/check_func()
@@ -190,7 +190,7 @@
 	oxygen = new()
 	backpack = new()
 	backpack.block_unequip = TRUE
-	user.equip_to_slot_if_possible(backpack, slot_back)
+	user.equip_to_slot_if_possible(backpack, slot_back, drop_on_fail = TRUE)
 	backpack.contents.Add(mask)
 	backpack.contents.Add(oxygen)
 	. = ..()
@@ -513,8 +513,8 @@
 	oxygen = new(vulpkanin.loc)
 
 	vulpkanin.delete_equipment()
-	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/shoes/orange, slot_shoes)
-	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform)
+	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/shoes/orange, slot_shoes, drop_on_fail = TRUE)
+	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, slot_w_uniform, drop_on_fail = TRUE)
 
 	vulpkanin.equip_to_appropriate_slot(eva_helmet)
 	vulpkanin.equip_to_appropriate_slot(eva_suit)
