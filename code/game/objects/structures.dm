@@ -102,7 +102,7 @@
 	if(climbable)
 		var/turf/T = get_turf(mover)
 		var/obj/structure/other_structure = locate(/obj/structure) in T
-		if(!other_structure?.climbable)
+		if(other_structure && !other_structure.climbable)
 			animate_jumping_off(mover)
 
 /obj/structure/MouseDrop_T(atom/movable/dropping, mob/user, params)
