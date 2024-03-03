@@ -32,6 +32,8 @@
 	return ..()
 
 /obj/structure/Destroy()
+	if(climbable)
+		structure_gone(src)
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 	if(smooth)
@@ -49,13 +51,15 @@
 	if(!..())
 		return FALSE
 
+	if(climbable)
+		structure_gone(old)
+
 	if(creates_cover)
 		if(isturf(old))
 			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 		if(isturf(loc))
 			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return TRUE
-
 
 /obj/structure/has_prints()
 	return TRUE
@@ -202,6 +206,50 @@
 		AM.force /= force_mult
 		AM.throwforce /= force_mult
 
+/obj/structure/proc/get_fall_damage(mob/living/L)
+	if(prob(25))
+
+		var/damage = rand(15,30)
+		var/mob/living/carbon/human/H = L
+		if(!istype(H))
+			to_chat(H, "<span class='warning'>You land heavily!</span>")
+			L.adjustBruteLoss(damage)
+			return
+
+		var/obj/item/organ/external/affecting
+
+		switch(pick(list("ankle","wrist","head","knee","elbow")))
+			if("ankle")
+				affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+			if("knee")
+				affecting = H.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+			if("wrist")
+				affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+			if("elbow")
+				affecting = H.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+			if("head")
+				affecting = H.get_organ(BODY_ZONE_HEAD)
+
+		if(affecting)
+			to_chat(L, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
+			affecting.receive_damage(damage, 0)
+			if(affecting.parent)
+				affecting.parent.add_autopsy_data("Misadventure", damage)
+		else
+			to_chat(H, "<span class='warning'>You land heavily!</span>")
+			H.adjustBruteLoss(damage)
+
+		H.UpdateDamageIcon()
+
+/obj/structure/proc/structure_gone(atom/location)
+	for(var/mob/living/L in get_turf(location))
+		L.pixel_z = initial(L.pixel_z)
+		L.Weaken(10 SECONDS)
+		to_chat(L, "You stop feeling \the [src] beneath your feet.</span>")
+
+		get_fall_damage(L)
+
+	return
 
 /obj/structure/proc/structure_shaken()
 
@@ -212,39 +260,8 @@
 		M.Weaken(10 SECONDS)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
 
-		if(prob(25))
+		get_fall_damage(M)
 
-			var/damage = rand(15,30)
-			var/mob/living/carbon/human/H = M
-			if(!istype(H))
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
-				M.adjustBruteLoss(damage)
-				return
-
-			var/obj/item/organ/external/affecting
-
-			switch(pick(list("ankle","wrist","head","knee","elbow")))
-				if("ankle")
-					affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
-				if("knee")
-					affecting = H.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-				if("wrist")
-					affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
-				if("elbow")
-					affecting = H.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-				if("head")
-					affecting = H.get_organ(BODY_ZONE_HEAD)
-
-			if(affecting)
-				to_chat(M, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
-				affecting.receive_damage(damage, 0)
-				if(affecting.parent)
-					affecting.parent.add_autopsy_data("Misadventure", damage)
-			else
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
-				H.adjustBruteLoss(damage)
-
-			H.UpdateDamageIcon()
 	return
 
 /obj/structure/proc/can_touch(mob/living/user)
