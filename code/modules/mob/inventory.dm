@@ -83,7 +83,7 @@
 		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			drop_item_ground(I)
 		else
-			forceMove(drop_location())
+			I.forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
@@ -121,7 +121,7 @@
 		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			drop_item_ground(I)
 		else
-			forceMove(drop_location())
+			I.forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
@@ -180,7 +180,7 @@
 			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 				drop_item_ground(I)
 			else
-				forceMove(drop_location())
+				I.forceMove(drop_location())
 			return FALSE
 
 		if(qdel_on_fail)
