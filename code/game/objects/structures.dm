@@ -120,7 +120,7 @@
 		return T
 	return null
 
-/obj/structure/proc/climb_check(var/mob/living/user)
+/obj/structure/proc/climb_check(mob/living/user)
 	if(user.mob_size == MOB_SIZE_SMALL)
 		return FALSE
 	if(user.flying)
@@ -137,7 +137,7 @@
 
 	return TRUE
 
-/obj/structure/proc/do_climb(var/mob/living/user)
+/obj/structure/proc/do_climb(mob/living/user)
 	if(!climb_check(user))
 		return FALSE
 
