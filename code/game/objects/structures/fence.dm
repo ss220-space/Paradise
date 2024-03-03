@@ -67,7 +67,7 @@
 		return TRUE
 	return FALSE
 
-/obj/structure/fence/do_climb(var/mob/living/user)
+/obj/structure/fence/do_climb(mob/living/user)
 	if(!climb_check(user))
 		return FALSE
 
