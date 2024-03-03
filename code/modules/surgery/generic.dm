@@ -153,7 +153,8 @@
 	/obj/item/clothing/mask/cigarette = 90,	\
 	/obj/item/lighter = 60,			\
 	/obj/item/weldingtool = 30,     \
-	/obj/item/flashlight/flare/torch = 30
+	/obj/item/flashlight/flare/torch = 30, \
+	/obj/item/candle/torch = 30
 	)
 
 	time = 24

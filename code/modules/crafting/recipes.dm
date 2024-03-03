@@ -1424,3 +1424,20 @@
 	reqs = list(/obj/item/stack/sheet/glass = 3)
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
 	category = CAT_MISC
+
+/datum/crafting_recipe/torch_glowstick
+	name = "Self ignite torch"
+	result = /obj/item/flashlight/flare/torch
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 1,
+				/obj/item/stack/sheet/cloth = 1,
+				/datum/reagent/fuel = 5)
+	category = CAT_MISC
+
+/datum/crafting_recipe/torch_candle
+	name = "Torch"
+	result = /obj/item/candle/torch
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 1,
+				/obj/item/stack/sheet/cloth = 1)
+	category = CAT_PRIMAL
