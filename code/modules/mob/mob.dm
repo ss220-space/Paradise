@@ -874,18 +874,23 @@
 		to_chat(usr, span_warning("You are not dead or you have given up your right to be respawned!"))
 		return
 
-	var/list/allowed_creatures = list("Mouse")
+	var/list/allowed_creatures = list()
 	for(var/mob/living/alive_mob as anything in GLOB.alive_mob_list)
-		if(!alive_mob.key && alive_mob.stat != DEAD && safe_respawn(alive_mob.type))
-			allowed_creatures += alive_mob
+		if(!alive_mob.key && alive_mob.stat != DEAD && safe_respawn(alive_mob, TRUE))
+			allowed_creatures[++allowed_creatures.len] = "[alive_mob.name]" + " ([get_area_name(alive_mob, TRUE)])"
+			allowed_creatures["[alive_mob.name]" + " ([get_area_name(alive_mob, TRUE)])"] = alive_mob
 
-	var/mob/living/picked_mob = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", allowed_creatures)
-	if(!picked_mob)
+	allowed_creatures.Insert(1, "Mouse")
+
+	var/mob/living/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", allowed_creatures)
+	if(!picked)
 		return
 
-	if(picked_mob == "Mouse")
+	if(picked == "Mouse")
 		become_mouse()
 		return
+
+	var/mob/living/picked_mob = allowed_creatures[picked]
 
 	if(QDELETED(picked_mob) || picked_mob.key || picked_mob.stat == DEAD)
 		to_chat(usr, span_warning("[capitalize(picked_mob)] is no longer available to respawn!"))
@@ -908,7 +913,7 @@
 		return
 
 	//find a viable mouse candidate
-	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0, station_levels_only = FALSE, z_level = z)
+	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0)
 	if(length(found_vents))
 		GLOB.respawnable_list -= src
 		client.time_joined_as_mouse = world.time
@@ -916,8 +921,6 @@
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
 		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
 		host.ckey = src.ckey
-		if(istype(get_area(vent_found), /area/syndicate/unpowered/syndicate_space_base))
-			host.faction += "syndicate"
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
