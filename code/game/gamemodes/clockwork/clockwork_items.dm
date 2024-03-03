@@ -899,6 +899,9 @@
 			user.IgniteMob()
 		user.drop_item_ground(src)
 
+/obj/item/clothing/suit/armor/clockwork/update_icon_state()
+	return
+
 // Gloves
 /obj/item/clothing/gloves/clockwork
 	name = "clockwork gauntlets"
