@@ -153,7 +153,7 @@
 			return TRUE
 		var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
 		var/obj/structure/other_object = locate(/obj/structure) in get_turf(mover)
-		if(other_object?.climbable && other_table && !other_table.flipped)
+		if(other_object?.climbable && !other_table?.flipped)
 			return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
@@ -812,7 +812,7 @@
 			return TRUE
 		var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
 		var/obj/structure/other_object = locate(/obj/structure) in get_turf(mover)
-		if(other_object?.climbable && other_table && !other_table.flipped)
+		if(other_object?.climbable && !other_table?.flipped)
 			return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
