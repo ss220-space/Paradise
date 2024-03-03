@@ -150,7 +150,7 @@
 	if(user.floating)
 		user.float(TRUE)
 
-/obj/structure/railing/do_climb(var/mob/living/user)
+/obj/structure/railing/do_climb(mob/living/user)
 	if(!climb_check(user))
 		return FALSE
 	
