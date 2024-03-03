@@ -137,7 +137,7 @@
 		var/mob/living/user = AM
 		clumse_stuff(user)
 
-/obj/structure/table/climb_check(var/mob/living/user)
+/obj/structure/table/climb_check(mob/living/user)
 	. = ..()
 	if(user.checkpass(PASSTABLE))
 		return FALSE
@@ -796,7 +796,7 @@
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
-/obj/structure/rack/climb_check(var/mob/living/user)
+/obj/structure/rack/climb_check(mob/living/user)
 	. = ..()
 	if(user.checkpass(PASSTABLE))
 		return FALSE
