@@ -913,7 +913,7 @@
 		return
 
 	//find a viable mouse candidate
-	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0, station_levels_only = FALSE, z_level = z)
+	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0)
 	if(length(found_vents))
 		GLOB.respawnable_list -= src
 		client.time_joined_as_mouse = world.time
@@ -921,8 +921,6 @@
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
 		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
 		host.ckey = src.ckey
-		if(istype(get_area(vent_found), /area/syndicate/unpowered/syndicate_space_base))
-			host.faction += "syndicate"
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
