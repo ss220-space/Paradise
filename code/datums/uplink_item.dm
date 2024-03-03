@@ -1929,14 +1929,16 @@
 	name = "Tail Razorblade"
 	desc = "Tail Razorblade Implant comes with self-destructing auto-implanter. Show the enemy how deadly your tail can be."
 	item = /obj/item/autoimplanter/oneuse/tailblade
-	cost = 47
+	cost = 42
+	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
 
 /datum/uplink_item/cyber_implants/tailblade/laser_syndi
 	name = "Overcharged Tail Laserblade"
 	desc = "Tail Laserblade Implant comes with self-destructing auto-implanter. Show the enemy how deadly your tail can be."
 	item = /obj/item/autoimplanter/oneuse/tailblade/laser
-	cost = 43
+	cost = 38
+	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
 
 // POINTLESS BADASSERY

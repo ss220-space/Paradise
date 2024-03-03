@@ -18,6 +18,7 @@
 	implant_color = "#585857"
 	var/datum/action/innate/tail_cut/implant_ability
 
+	action_icon_state = "bg_default_on"
 	var/slash_strength // Damage modifier, slash_strength * 5
 	var/stamina_damage // Stamina damage to others
 	var/self_stamina_damage // Stamina damage to self
@@ -39,6 +40,7 @@
 		if(activated)
 			owner.apply_damage(slash_strength*5,damage_type,BODY_ZONE_TAIL, 0, 1)
 			playsound(owner.loc, slash_sound, 30, 1)
+			playsound(owner.loc, 'sound/effects/bone_break_5.ogg', 30, 1)
 		implant_ability.Remove(owner)
 		implant_ability = null
 	. = ..()
@@ -71,9 +73,9 @@
 	name = "Tail razorblade implant"
 	desc = "Razor sharp blade designed to be hidden inside the tail. Traditional design of House Eshie'Ssharahss, sold at every corner of the Empire."
 
-	slash_strength = 6
+	slash_strength = 7
 	stamina_damage = 0
-	self_stamina_damage = 15
+	self_stamina_damage = 5
 	damage_type = BRUTE
 	slash_sound = 'sound/weapons/bladeslice.ogg'
 	icon_state = "tailimplant_blade" //all tailblades sprites by @baldek
@@ -83,7 +85,7 @@
 	name = "Tail laserblade implant"
 	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
 
-	slash_strength = 3
+	slash_strength = 4
 	stamina_damage = 10
 	self_stamina_damage = 10
 	damage_type = BURN
@@ -95,7 +97,7 @@
 	name = "Overcharged laserblade implant"
 	desc = "A laser blade designed to be hidden inside the tail. Design, stolen from House Eshie'Ssharahss and overcharged to be more powerful by the brightest minds of the Gorlex Marauders."
 
-	slash_strength = 4
+	slash_strength = 5
 	stamina_damage = 20
 	self_stamina_damage = 5
 	damage_type = BURN
