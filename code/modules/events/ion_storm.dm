@@ -9,20 +9,20 @@
 	var/ionAnnounceChance = 33
 	announceWhen	= 1
 
-/datum/event/ion_storm/New(datum/event_meta/EM, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
+/datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
 	src.botEmagChance = botEmagChance
 	src.announceEvent = announceEvent
 	src.ionMessage = ionMessage
 	src.ionAnnounceChance = ionAnnounceChance
 	..()
 
-/datum/event/ion_storm/announce()
-	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
+/datum/event/ion_storm/announce(false_alarm)
+	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)) || false_alarm)
 		GLOB.event_announcement.Announce("Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", 'sound/AI/ionstorm.ogg')
 
 /datum/event/ion_storm/start()
 	//AI laws
-	for(var/mob/living/silicon/ai/M in GLOB.alive_mob_list)
+	for(var/mob/living/silicon/ai/M as anything in GLOB.ai_list)
 		if(M.stat != DEAD && M.see_in_dark != FALSE)
 			var/message = generate_ion_law(ionMessage)
 			if(message)
@@ -32,7 +32,7 @@
 				to_chat(M, "<span class='danger'>[message] ...ЗАКОНЫ ОБНОВЛЕНЫ.</span>")
 
 	if(botEmagChance)
-		for(var/mob/living/simple_animal/bot/bot in GLOB.machines)
+		for(var/mob/living/simple_animal/bot/bot as anything in GLOB.bots_list)
 			if(prob(botEmagChance))
 				bot.emag_act()
 

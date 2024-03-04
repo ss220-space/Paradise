@@ -13,6 +13,8 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/lavaland_theme/lavaland_theme
 	///What primary cave theme we have picked for cave generation today.
 	var/cave_theme
+	///List of areas that exist on the station this shift
+	var/list/existing_station_areas
 
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
@@ -87,25 +89,48 @@ SUBSYSTEM_DEF(mapping)
 
 	// Now we make a list of areas for teleport locs
 	// TOOD: Make these locs into lists on the SS itself, not globs
-	for(var/area/AR in world)
+
+	var/list/all_areas = list()
+	for(var/area/areas in world)
+		all_areas += areas
+
+	for(var/area/AR as anything in all_areas)
 		if(AR.no_teleportlocs)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue
-		var/turf/picked = safepick(get_area_turfs(AR.type))
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+			break
+		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			GLOB.teleportlocs[AR.name] = AR
 
 	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
 
-	for(var/area/AR in world)
+	for(var/area/AR as anything in all_areas)
 		if(GLOB.ghostteleportlocs[AR.name])
 			continue
-		var/list/turfs = get_area_turfs(AR.type)
-		if(turfs.len)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+			break
+		if(length(pickable_turfs))
 			GLOB.ghostteleportlocs[AR.name] = AR
 
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
+
+	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
+	existing_station_areas = list()
+	for(var/area/AR as anything in all_areas)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+			break
+		var/turf/picked = safepick(pickable_turfs)
+		if(picked && is_station_level(picked.z))
+			existing_station_areas += AR
 
 	// World name
 	if(config && CONFIG_GET(string/servername))

@@ -11,10 +11,11 @@
 	announceWhen = rand(announceWhen, announceWhen + 30)
 	spawncount = 1
 
-/datum/event/spider_terror/announce()
-	if(successSpawn)
+/datum/event/spider_terror/announce(false_alarm)
+	if(successSpawn || false_alarm)
 		GLOB.command_announcement.Announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
-		cancel_call_proc(usr)
+		if(!false_alarm)
+			SSshuttle.emergency.cancel()
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 

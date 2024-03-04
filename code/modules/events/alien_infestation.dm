@@ -10,10 +10,11 @@
 /datum/event/alien_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
 
-/datum/event/alien_infestation/announce()
-	if(successSpawn)
+/datum/event/alien_infestation/announce(false_alarm)
+	if(successSpawn || false_alarm)
 		GLOB.event_announcement.Announce("Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
-		cancel_call_proc(usr)
+		if(!false_alarm)
+			SSshuttle.emergency.cancel()
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
 

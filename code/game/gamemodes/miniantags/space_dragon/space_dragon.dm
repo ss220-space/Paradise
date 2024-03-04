@@ -6,8 +6,8 @@
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
 
-/datum/event/space_dragon/announce()
-	if(successSpawn)
+/datum/event/space_dragon/announce(false_alarm)
+	if(successSpawn || false_alarm)
 		GLOB.command_announcement.Announce("Зафиксирован большой поток органической энергии вблизи станции [station_name()]. Пожалуйста, ожидайте.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.")
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Space Dragon")
