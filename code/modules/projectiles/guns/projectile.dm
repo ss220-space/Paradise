@@ -38,7 +38,7 @@
 
 /obj/item/gun/projectile/update_icon_state()
 	if(current_skin)
-		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "_sawn" : ""]"
+		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 
@@ -231,6 +231,7 @@
 		slot_flags |= SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF
 		update_appearance()
+		update_equipped_item()
 		return TRUE
 
 // Sawing guns related proc

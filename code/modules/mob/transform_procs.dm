@@ -227,69 +227,58 @@
 	qdel(src)
 
 
-/mob/proc/safe_respawn(var/MP)
-	if(!MP)
-		return 0
+/mob/proc/safe_respawn(mob/living/passed_mob, check_station_level = TRUE)
+	. = FALSE
 
-	if(!GAMEMODE_IS_NUCLEAR)
-		if(ispath(MP, /mob/living/simple_animal/pet/cat/Syndi))
-			return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/cat))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/security))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/crab))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/chicken))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/cow))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/parrot))
-		return 1
-	if(!GAMEMODE_IS_NUCLEAR)
-		if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/Syndifox))
-			return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/alisa))
-		return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/fox))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/chick))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/pug))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/butterfly))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/penguin))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/sloth))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pig))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/cock))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/goose))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/turkey))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/mouse/hamster))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/mouse/rat))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/possum))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/slugcat))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/frog))
-		return 1
+	var/static/list/safe_respawn_typecache_nuclear = typecacheof(list(
+		/mob/living/simple_animal/pet/cat/Syndi,
+		/mob/living/simple_animal/pet/dog/fox/Syndifox,
+	))
+	if(is_type_in_typecache(passed_mob, safe_respawn_typecache_nuclear))
+		return GAMEMODE_IS_NUCLEAR
 
-	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, "Syndicate"))
-		return 1
+	if(check_station_level && !is_admin(src) && !is_station_level(passed_mob.z))
+		return FALSE
 
-	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, ROLE_NYMPH))
-		return 1
+	if(istype(passed_mob, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, ROLE_SYNDICATE))
+		return TRUE
 
-	return 0
+	if(isnymph(passed_mob) && !jobban_isbanned(src, ROLE_NYMPH))
+		return TRUE
+
+	// Whitelist typecache. Alphabetical order please!
+	var/static/list/safe_respawn_typecache_whitelist = typecacheof(list(
+		/mob/living/simple_animal/butterfly,
+		/mob/living/simple_animal/chick,
+		/mob/living/simple_animal/chicken,
+		/mob/living/simple_animal/cock,
+		/mob/living/simple_animal/cow,
+		/mob/living/simple_animal/crab,
+		/mob/living/simple_animal/frog,
+		/mob/living/simple_animal/goose,
+		/mob/living/simple_animal/hostile/gorilla/cargo_domestic,
+		/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge,
+		/mob/living/simple_animal/mouse/hamster,
+		/mob/living/simple_animal/mouse/rat,
+		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/pet/cat,
+		/mob/living/simple_animal/pet/dog/corgi,
+		/mob/living/simple_animal/pet/dog/fox,
+		/mob/living/simple_animal/pet/dog/pug,
+		/mob/living/simple_animal/pet/dog/security,
+		/mob/living/simple_animal/pet/penguin,
+		/mob/living/simple_animal/pet/sloth,
+		/mob/living/simple_animal/pet/slugcat,
+		/mob/living/simple_animal/pig,
+		/mob/living/simple_animal/possum,
+		/mob/living/simple_animal/turkey,
+	))
+
+	// Blacklist typecache.
+	var/static/list/safe_respawn_typecache_blacklist = typecacheof(list(
+		/mob/living/simple_animal/pet/dog/fox/alisa,
+	))
+
+	if(is_type_in_typecache(passed_mob, safe_respawn_typecache_whitelist) && !is_type_in_typecache(passed_mob, safe_respawn_typecache_blacklist))
+		return TRUE
+

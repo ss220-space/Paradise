@@ -347,6 +347,12 @@
   aeternaclose:
   - bugfix: ShelterCapsuleFix (#4121)
 '2024-02-29':
+  Ksaikok46:
+  - bugfix: ichorium now correctly costs 10 TC  (#4531)
+  Rerik007:
+  - bugfix: now hideheadseat for mask really hide headseats (#4519)
+  - bugfix: fix some give runtimes (#4528)
+  - bugfix: fix runtime in spacebattle (#4522)
   SAAD:
   - bugfix: Spacehotel shard steal (#4506)
   aeternaclose:

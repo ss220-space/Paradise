@@ -157,11 +157,6 @@
 			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
 			if(!istype(quest))
 				return FALSE
-			var/obj/item/card/id/I = user.get_id_card()
-			if(!has_access(list(ACCESS_QM), TRUE, I ? I.GetAccess() : list()) && !user.can_admin_interact())
-				to_chat(user, span_warning("Access Denied."))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
-				return FALSE
 			if(quest.time_add_count > 4)
 				to_chat(user, span_warning("You've done that too many times already."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)

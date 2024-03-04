@@ -1,0 +1,42 @@
+'2024-03-01':
+  Rerik007:
+  - bugfix: fix signal overriden runtime in xeno consoles (#4527)
+  Zwei:
+  - bugfix: Respawnable Gorillas (#4534)
+'2024-03-02':
+  BeebBeebBoob:
+  - qol: Sets W.E.T. on janitor's holosigns to on default (#4477)
+  Zwei:
+  - bugfix: Correct Syndicate Animals Spawn (#4539)
+  - bugfix: Cryocell Overlay Fix (#4545)
+'2024-03-03':
+  Ksaikok46:
+  - tweak: adrenaline for changelings (#4488)
+  ROdenFL:
+  - bugfix: Cargo Console credits cost (#4550)
+  - bugfix: chat_box fixes (#4526)
+  Rerik007:
+  - bugfix: fix nondamage projectile blood animation (#4549)
+  - bugfix: fixes access in quest console (#4554)
+  - bugfix: fixes respawn as npc verb (#4543)
+  - bugfix: fix drop_on_fail logic in inventory (#4524)
+  VasilevAY:
+  - add: Biohazard bodybags (#4465)
+  Vladisvell:
+  - bugfix: Clockwork armor is no longer rainbow error after enchanting (#4546)
+  - bugfix: Antag Paradise hotfix 4 (#4533)
+  - refactor: antag checking optimization (#4521)
+  - refactor: Optimized organ handling (#4523)
+  - bugfix: Localhost-configured admin access is now working (#4542)
+  WolfLox:
+  - add: glowsticks box in artvend (#4532)
+  Zwei:
+  - bugfix: Sawn Off Guns Icons Fix (#4544)
+  - bugfix: Revolver Ammo Count Fix (#4553)
+  - bugfix: Wisp Lantern Icons Fix (#4548)
+  aeternaclose:
+  - add: CereImprovement-pt10 (#4555)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4536)
+  xTrogwaRx:
+  - bugfix: normalize guitar volume (#4552)

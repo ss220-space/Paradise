@@ -12881,11 +12881,12 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/storage/box/bodybags,
 /obj/item/storage/box/bodybags,
-/obj/item/storage/box/bodybags,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
 /obj/effect/landmark/start/coroner,
+/obj/item/storage/box/bodybags/biohazard,
+/obj/item/storage/box/bodybags/biohazard,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -38130,6 +38131,7 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
+/obj/item/storage/box/bodybags/biohazard,
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
 "dKz" = (
@@ -70678,6 +70680,7 @@
 /obj/structure/closet/secure_closet/medical3,
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/suit/apron/surgical,
+/obj/item/storage/box/bodybags/biohazard,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -73143,6 +73146,7 @@
 	dir = 4;
 	pixel_x = 27
 	},
+/obj/item/storage/box/bodybags/biohazard,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitered"
@@ -74647,6 +74651,7 @@
 /obj/item/paper/Cloning{
 	pixel_x = 6
 	},
+/obj/item/storage/box/bodybags/biohazard,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -86998,6 +87003,7 @@
 /obj/structure/closet/secure_closet/medical3,
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/suit/apron/surgical,
+/obj/item/storage/box/bodybags/biohazard,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -91041,7 +91047,7 @@
 /area/engine/engineering)
 "pzh" = (
 /obj/machinery/vending/medical{
-	req_access = list(3, 5, 19)
+	req_access = list(3,5,19)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
