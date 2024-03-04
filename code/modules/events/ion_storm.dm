@@ -22,14 +22,17 @@
 
 /datum/event/ion_storm/start()
 	//AI laws
-	for(var/mob/living/silicon/ai/M as anything in GLOB.ai_list)
-		if(M.stat != DEAD && M.see_in_dark != FALSE)
+	for(var/mob/living/silicon/ai/ai_player as anything in GLOB.ai_list)
+		if(ai_player.stat != DEAD && ai_player.see_in_dark != FALSE)
 			var/message = generate_ion_law(ionMessage)
 			if(message)
-				M.add_ion_law(message)
-				SSticker?.score?.save_silicon_laws(M, additional_info = "ion storm event, new ion law was added '[message]'")
-				to_chat(M, "<br>")
-				to_chat(M, "<span class='danger'>[message] ...ЗАКОНЫ ОБНОВЛЕНЫ.</span>")
+				ai_player.add_ion_law(message)
+				SSticker?.score?.save_silicon_laws(ai_player, additional_info = "ion storm event, new ion law was added '[message]'")
+				to_chat(ai_player, "<br>")
+				to_chat(ai_player, span_danger("[message] ...ЗАКОНЫ ОБНОВЛЕНЫ."))
+				to_chat(ai_player, "<br>")
+				for(var/ghost in GLOB.dead_mob_list)
+					to_chat(ghost, span_deadsay("<b>[ai_player] ([ghost_follow_link(ai_player, ghost)])</b> has received an ion law:\n<b>'[message]'</b>"))
 
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot as anything in GLOB.bots_list)
