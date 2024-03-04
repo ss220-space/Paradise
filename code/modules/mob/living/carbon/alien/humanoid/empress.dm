@@ -19,7 +19,7 @@
 	pixel_x = -32
 
 /mob/living/carbon/alien/humanoid/empress/large/update_icons()
-	overlays.Cut()
+	cut_overlays()
 
 	if(stat == DEAD)
 		icon_state = "empress_dead"
@@ -29,7 +29,10 @@
 		icon_state = "empress_s"
 
 	for(var/image/I in overlays_standing)
-		overlays += I
+		add_overlay(I)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /mob/living/carbon/alien/humanoid/empress/New()
 	//there should only be one queen

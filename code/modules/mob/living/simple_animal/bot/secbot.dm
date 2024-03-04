@@ -493,7 +493,7 @@
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
+	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/melee/baton(Tsec)

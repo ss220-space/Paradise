@@ -129,14 +129,21 @@
 /mob/living/silicon/robot/drone/get_default_name()
 	return "maintenance drone ([rand(100,999)])"
 
-/mob/living/silicon/robot/drone/update_icons()
-	overlays.Cut()
-	if(stat == CONSCIOUS)
-		overlays += "eyes-[icon_state]"
-	else
-		overlays -= "eyes"
 
-	hat_icons()
+/mob/living/silicon/robot/drone/update_icons()
+	cut_overlays()
+
+	if(stat == CONSCIOUS)
+		add_overlay("eyes-[icon_state]")
+
+	if(inventory_head)
+		var/hat = get_hat_overlay()
+		if(hat)
+			add_overlay(hat)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
+
 
 /mob/living/silicon/robot/drone/choose_icon()
 	return

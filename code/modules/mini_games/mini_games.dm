@@ -51,10 +51,10 @@
 					var/old_plane = source.plane
 					source.layer = FLOAT_LAYER
 					source.plane = FLOAT_PLANE
-					A.overlays += source
+					A.add_overlay(source)
 					source.layer = old_layer
 					source.plane = old_plane
 				else
 					alert_overlay.layer = FLOAT_LAYER
 					alert_overlay.plane = FLOAT_PLANE
-					A.overlays += alert_overlay
+					A.add_overlay(alert_overlay)

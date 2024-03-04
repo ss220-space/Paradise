@@ -54,9 +54,6 @@
 
 	var/initialized = FALSE
 
-	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
-	var/list/remove_overlays // a very temporary list of overlays to remove
-	var/list/add_overlays // a very temporary list of overlays to add
 	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
 	var/list/managed_overlays
 
@@ -181,7 +178,6 @@
 	QDEL_NULL(reagents)
 	invisibility = INVISIBILITY_ABSTRACT
 	LAZYCLEARLIST(overlays)
-	LAZYCLEARLIST(priority_overlays)
 
 	QDEL_NULL(light)
 
@@ -437,28 +433,76 @@
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(updates == NONE)
-		return // NONE is being sent on purpose, and thus no signal should be sent.
+	. = NONE
+	if(updates == NONE)	// NONE is being sent on purpose, and thus no signal should be sent.
+		return .
 
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
+
 	if(updates & UPDATE_ICON_STATE)
 		update_icon_state()
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
-		var/list/new_overlays = update_overlays(updates)
-		if(managed_overlays)
-			cut_overlay(managed_overlays)
-			managed_overlays = null
-		if(length(new_overlays))
-			if(length(new_overlays) == 1)
-				managed_overlays = new_overlays[1]
-			else
-				managed_overlays = new_overlays
-			add_overlay(new_overlays)
-		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS)
+		var/list/new_overlays = update_overlays()
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
 
-	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
+		// Ok, so its rather this or required inheritance in every [update_overlays()]
+		var/emissive_block = get_emissive_block()
+		if(emissive_block)
+			// Emissive block should always go at the beginning of the list
+			new_overlays.Insert(1, emissive_block)
+
+		var/nulls = 0
+		for(var/i in 1 to length(new_overlays))
+			var/atom/maybe_not_an_atom = new_overlays[i]
+			if(isnull(maybe_not_an_atom))
+				nulls++
+				continue
+			if(istext(maybe_not_an_atom) || isicon(maybe_not_an_atom))
+				continue
+			new_overlays[i] = maybe_not_an_atom.appearance
+		if(nulls)
+			for(var/i in 1 to nulls)
+				new_overlays -= null
+
+		var/identical = FALSE
+		var/new_length = length(new_overlays)
+		if(!managed_overlays && !new_length)
+			identical = TRUE
+		else if(!islist(managed_overlays))
+			if(new_length == 1 && managed_overlays == new_overlays[1])
+				identical = TRUE
+		else if(length(managed_overlays) == new_length)
+			identical = TRUE
+			for(var/i in 1 to length(managed_overlays))
+				if(managed_overlays[i] != new_overlays[i])
+					identical = FALSE
+					break
+
+		if(!identical)
+			var/full_control = FALSE
+			if(managed_overlays)
+				full_control = length(overlays) == (islist(managed_overlays) ? length(managed_overlays) : 1)
+				if(full_control)
+					overlays = null
+				else
+					cut_overlay(managed_overlays)
+
+			switch(length(new_overlays))
+				if(0)
+					managed_overlays = null
+				if(1)
+					add_overlay(new_overlays)
+					managed_overlays = new_overlays[1]
+				else
+					add_overlay(new_overlays)
+					managed_overlays = new_overlays
+
+		. |= UPDATE_OVERLAYS
+
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
 
 
 /// Updates the icon state of the atom
@@ -468,7 +512,13 @@
 
 /// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /atom/proc/update_overlays()
-	return list()
+	RETURN_TYPE(/list)
+	. = list()
+
+
+/// Updates atom's emissive block if present.
+/atom/proc/get_emissive_block()
+	return
 
 
 /atom/Topic(href, href_list)
