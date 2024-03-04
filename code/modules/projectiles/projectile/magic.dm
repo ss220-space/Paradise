@@ -5,7 +5,7 @@
 	hitsound = 'sound/weapons/magic.ogg'
 	hitsound_wall = 'sound/weapons/magic.ogg'
 	damage_type = OXY
-	nodamage = 1
+	nodamage = TRUE
 	armour_penetration = 100
 	flag = "magic"
 
@@ -18,7 +18,7 @@
 	icon_state = "fireball"
 	damage = 10
 	damage_type = BRUTE
-	nodamage = 0
+	nodamage = FALSE
 
 	//explosion values
 	var/exp_devastate = -1
@@ -379,7 +379,7 @@
 	flag = "magic"
 	dismemberment = 50
 	dismember_head = TRUE
-	nodamage = 0
+	nodamage = FALSE
 
 /obj/item/projectile/magic/slipping
 	name = "magical banana"

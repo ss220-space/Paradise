@@ -388,7 +388,6 @@
 		return TRUE
 
 	add_fingerprint(user)
-	post_signal("supply")
 	ui_interact(user)
 	return
 
@@ -433,6 +432,7 @@
 
 	data["canapprove"] = (SSshuttle.supply.getDockedId() == "supply_away") && !(SSshuttle.supply.mode != SHUTTLE_IDLE) && !is_public
 	data["points"] = round(SSshuttle.points)
+	data["credits"] = SSshuttle.cargo_money_account.money
 
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
@@ -449,7 +449,7 @@
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
 		var/has_sale = pack.cost < initial(pack.cost)
 		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
-			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
+			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "creditsCost" = pack.credits_cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
 
 	data["supply_packs"] = packs_list
 
@@ -495,7 +495,6 @@
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 				investigate_log("[key_name_log(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", INVESTIGATE_CARGO)
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
-				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
 					var/datum/supply_order/O = new /datum/supply_order()
 					O.ordernum = SSshuttle.ordernum
@@ -568,6 +567,8 @@
 					else if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
+						if(P.credits_cost)
+							SSshuttle.cargo_money_account.money -= P.credits_cost
 						SSshuttle.shoppinglist += O
 						P.times_ordered += 1
 						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", INVESTIGATE_CARGO)
@@ -597,17 +598,4 @@
 			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Central Command Cargo Message Log", 800, 600)
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
-
-/obj/machinery/computer/supplycomp/proc/post_signal(command)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-
-	if(!frequency) return
-
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	frequency.post_signal(src, status_signal)
-
 

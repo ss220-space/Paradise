@@ -1,132 +1,3 @@
-//Food
-/datum/job/bartender
-	title = "Bartender"
-	flag = JOB_BARTENDER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
-	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Barman","Barkeeper","Drink Artist")
-	money_factor = 2
-	outfit = /datum/outfit/job/bartender
-
-/datum/outfit/job/bartender
-	name = "Bartender"
-	jobtype = /datum/job/bartender
-
-	uniform = /obj/item/clothing/under/rank/bartender
-	suit = /obj/item/clothing/suit/armor/vest
-	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/radio/headset/headset_service
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
-	pda = /obj/item/pda/bar
-	backpack_contents = list(
-		/obj/item/toy/russian_revolver = 1
-	)
-
-/datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	H.dna.SetSEState(GLOB.soberblock,1)
-	genemutcheck(H, GLOB.soberblock, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.soberblock)
-	H.check_mutations = 1
-
-
-
-/datum/job/chef
-	title = "Chef"
-	flag = JOB_CHEF
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
-	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
-	minimal_access = list(ACCESS_KITCHEN)
-	alt_titles = list("Cook","Culinary Artist","Butcher")
-	money_factor = 2
-	outfit = /datum/outfit/job/chef
-
-/datum/outfit/job/chef
-	name = "Chef"
-	jobtype = /datum/job/chef
-
-	uniform = /obj/item/clothing/under/rank/chef
-	suit = /obj/item/clothing/suit/chef
-	belt = /obj/item/storage/belt/chef
-	shoes = /obj/item/clothing/shoes/black
-	head = /obj/item/clothing/head/chefhat
-	l_ear = /obj/item/radio/headset/headset_service
-	pda = /obj/item/pda/chef
-	backpack_contents = list(
-		/obj/item/paper/chef=1,\
-		/obj/item/book/manual/chef_recipes=1)
-
-/datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	var/datum/martial_art/cqc/under_siege/justacook = new
-	justacook.teach(H)
-
-/datum/outfit/job/chef/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if("Culinary Artist")
-				uniform = /obj/item/clothing/under/artist
-				belt = /obj/item/storage/belt/chef/artistred
-				head = /obj/item/clothing/head/chefcap
-				suit = /obj/item/clothing/suit/storage/chefbluza
-
-
-/datum/job/hydro
-	title = "Botanist"
-	flag = JOB_BOTANIST
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 2
-	spawn_positions = 2
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
-	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
-	money_factor = 2
-	outfit = /datum/outfit/job/hydro
-
-/datum/outfit/job/hydro
-	name = "Botanist"
-	jobtype = /datum/job/hydro
-
-	uniform = /obj/item/clothing/under/rank/hydroponics
-	suit = /obj/item/clothing/suit/apron
-	gloves = /obj/item/clothing/gloves/botanic_leather
-	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/radio/headset/headset_service
-	suit_store = /obj/item/plant_analyzer
-	pda = /obj/item/pda/botanist
-
-	backpack = /obj/item/storage/backpack/botany
-	satchel = /obj/item/storage/backpack/satchel_hyd
-	dufflebag = /obj/item/storage/backpack/duffel/hydro
-
-
-
 //Cargo
 /datum/job/qm
 	title = "Quartermaster"
@@ -137,7 +8,7 @@
 	is_supply = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	selection_color = "#9f8545"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	min_age_allowed = 30
@@ -174,7 +45,7 @@
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 	money_factor = 2
@@ -201,7 +72,7 @@
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Spelunker")
@@ -254,6 +125,133 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	mask = /obj/item/clothing/mask/breath
 
+//Food
+/datum/job/bartender
+	title = "Bartender"
+	flag = JOB_BARTENDER
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 1
+	spawn_positions = 1
+	is_service = 1
+	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
+	selection_color = "#d1e8d3"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list("Barman","Barkeeper","Drink Artist")
+	money_factor = 2
+	outfit = /datum/outfit/job/bartender
+
+/datum/outfit/job/bartender
+	name = "Bartender"
+	jobtype = /datum/job/bartender
+
+	uniform = /obj/item/clothing/under/rank/bartender
+	suit = /obj/item/clothing/suit/armor/vest
+	belt = /obj/item/storage/belt/bandolier/full
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/radio/headset/headset_service
+	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	pda = /obj/item/pda/bar
+	backpack_contents = list(
+		/obj/item/toy/russian_revolver = 1
+	)
+
+/datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	H.dna.SetSEState(GLOB.soberblock,1)
+	genemutcheck(H, GLOB.soberblock, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.soberblock)
+	H.check_mutations = 1
+
+
+
+/datum/job/chef
+	title = "Chef"
+	flag = JOB_CHEF
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 1
+	spawn_positions = 1
+	is_service = 1
+	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
+	selection_color = "#d1e8d3"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+	minimal_access = list(ACCESS_KITCHEN)
+	alt_titles = list("Cook","Culinary Artist","Butcher")
+	money_factor = 2
+	outfit = /datum/outfit/job/chef
+
+/datum/outfit/job/chef
+	name = "Chef"
+	jobtype = /datum/job/chef
+
+	uniform = /obj/item/clothing/under/rank/chef
+	suit = /obj/item/clothing/suit/chef
+	belt = /obj/item/storage/belt/chef
+	shoes = /obj/item/clothing/shoes/black
+	head = /obj/item/clothing/head/chefhat
+	l_ear = /obj/item/radio/headset/headset_service
+	pda = /obj/item/pda/chef
+	backpack_contents = list(
+		/obj/item/paper/chef=1,\
+		/obj/item/book/manual/chef_recipes=1)
+
+/datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	var/datum/martial_art/cqc/under_siege/justacook = new
+	justacook.teach(H)
+
+/datum/outfit/job/chef/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Culinary Artist")
+				uniform = /obj/item/clothing/under/artist
+				belt = /obj/item/storage/belt/chef/artistred
+				head = /obj/item/clothing/head/chefcap
+				suit = /obj/item/clothing/suit/storage/chefbluza
+
+
+/datum/job/hydro
+	title = "Botanist"
+	flag = JOB_BOTANIST
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 2
+	spawn_positions = 2
+	is_service = 1
+	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
+	selection_color = "#d1e8d3"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE)
+	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
+	money_factor = 2
+	outfit = /datum/outfit/job/hydro
+
+/datum/outfit/job/hydro
+	name = "Botanist"
+	jobtype = /datum/job/hydro
+
+	uniform = /obj/item/clothing/under/rank/hydroponics
+	suit = /obj/item/clothing/suit/apron
+	gloves = /obj/item/clothing/gloves/botanic_leather
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/radio/headset/headset_service
+	suit_store = /obj/item/plant_analyzer
+	pda = /obj/item/pda/botanist
+
+	backpack = /obj/item/storage/backpack/botany
+	satchel = /obj/item/storage/backpack/satchel_hyd
+	dufflebag = /obj/item/storage/backpack/duffel/hydro
+
 //Griff //BS12 EDIT
 
 /datum/job/clown
@@ -265,7 +263,7 @@
 	is_service = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	selection_color = "#d1e8d3"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE)
 	alt_titles = list("Performance Artist","Comedian","Jester")
@@ -324,7 +322,7 @@
 		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
 		H.dna.default_blocks.Add(GLOB.comicblock)
 	H.check_mutations = TRUE
-	H.add_language("Clownish")
+	H.add_language(LANGUAGE_CLOWN)
 
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
@@ -356,7 +354,7 @@
 	is_service = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	selection_color = "#d1e8d3"
 	access = list(ACCESS_MIME, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE)
 	alt_titles = list("Panthomimist")
@@ -411,7 +409,7 @@
 	is_service = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	selection_color = "#d1e8d3"
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Custodial Technician","Sanitation Technician")
@@ -438,7 +436,7 @@
 	is_service = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	selection_color = "#d1e8d3"
 	access = list(ACCESS_LIBRARY)
 	minimal_access = list(ACCESS_LIBRARY)
 	alt_titles = list("Journalist")
@@ -468,7 +466,7 @@
 	is_service = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	selection_color = "#d1e8d3"
 	alt_titles = list("Hair Stylist","Beautician")
 	access = list()
 	minimal_access = list()
@@ -495,7 +493,7 @@
 	spawn_positions = 0
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	selection_color = "#d1e8d3"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	outfit = /datum/outfit/job/explorer

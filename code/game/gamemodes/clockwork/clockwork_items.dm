@@ -717,7 +717,7 @@
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 	else
-		ToggleHood()
+		ToggleHood(user)
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
 	animate(user, alpha = 255, time = 1 SECONDS)
@@ -898,6 +898,9 @@
 			user.adjust_fire_stacks(2)
 			user.IgniteMob()
 		user.drop_item_ground(src)
+
+/obj/item/clothing/suit/armor/clockwork/update_icon_state()
+	return
 
 // Gloves
 /obj/item/clothing/gloves/clockwork
@@ -1172,7 +1175,7 @@
 	name = "integration cog"
 	desc = "You shouldn't see that! Call dev on that!"
 	icon = null
-	anchored = 1
+	anchored = TRUE
 	active_power_usage = 100 // In summary it costs 500 power. Most areas costs around 800, with top being medbay at around 8000. Fair number.
 	var/obj/machinery/power/apc/apc
 	var/next_whoosh = 120

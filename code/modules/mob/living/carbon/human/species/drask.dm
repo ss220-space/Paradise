@@ -3,7 +3,7 @@
 	name_plural = "Drask"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
-	language = "Orluum"
+	language = LANGUAGE_DRASK
 	eyes = "drask_eyes_s"
 
 	speech_sounds = list('sound/voice/drasktalk.ogg')

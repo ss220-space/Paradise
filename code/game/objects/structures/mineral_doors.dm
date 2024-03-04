@@ -2,7 +2,7 @@
 /obj/structure/mineral_door
 	name = "metal door"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	opacity = 1
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
@@ -98,7 +98,7 @@
 	opacity = 0
 	state = 1
 	air_update_turf(1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
 	if(close_delay != -1)
@@ -119,14 +119,16 @@
 	opacity = 1
 	state = 0
 	air_update_turf(1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
-/obj/structure/mineral_door/update_icon()
+
+/obj/structure/mineral_door/update_icon_state()
 	if(state)
 		icon_state = "[initial_state]open"
 	else
 		icon_state = initial_state
+
 
 /obj/structure/mineral_door/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pickaxe))

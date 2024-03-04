@@ -90,7 +90,7 @@
 
 /obj/machinery/shield/cult/barrier/Initialize()
 	. = ..()
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/shield/cult/barrier/Destroy()
 	if(parent_rune && !QDELETED(parent_rune))
@@ -121,7 +121,7 @@
 		visible = TRUE
 	else // Currently visible
 		density = FALSE // Turn invisible
-		invisibility = INVISIBILITY_MAXIMUM
+		invisibility = INVISIBILITY_ABSTRACT
 		visible = FALSE
 
 	air_update_turf(1)
@@ -134,7 +134,7 @@
 	icon_state = "shieldoff"
 	density = 1
 	opacity = FALSE
-	anchored = 0
+	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
 	var/const/max_health = 100
@@ -312,8 +312,8 @@
 	desc = "A shield generator."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "shieldgen"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
 	var/active = 0
 	var/power = 0
@@ -479,7 +479,7 @@
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			anchored = 1
+			anchored = TRUE
 			return
 
 		else if(state == 1)
@@ -487,7 +487,7 @@
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
-			anchored = 0
+			anchored = FALSE
 			return
 
 	if(I.GetID() || ispda(I))
@@ -539,7 +539,7 @@
 	desc = "An energy shield."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shieldwall"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 3

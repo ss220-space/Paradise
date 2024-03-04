@@ -15,6 +15,10 @@
 	if(!storedorgan)
 		to_chat(user, "<span class='notice'>[src] currently has no implant stored.</span>")
 		return FALSE
+	var/mob/living/carbon/human/patient = user
+	if(!patient.bodyparts_by_name[check_zone(storedorgan.parent_organ_zone)])
+		to_chat(user, span_warning("Missing limb!"))
+		return FALSE
 	storedorgan.insert(user)//insert stored organ into the user
 	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
 	playsound(get_turf(user), usesound, 50, 1)

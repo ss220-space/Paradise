@@ -6,7 +6,7 @@
 	item_state = "rcdammo"
 	opacity = 0
 	density = 0
-	anchored = 0.0
+	anchored = FALSE
 	origin_tech = "materials=2"
 	var/darts = 5
 
@@ -294,7 +294,7 @@
 	desc = ""
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "null"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 
 /obj/effect/syringe_gun_dummy/Initialize(mapload)

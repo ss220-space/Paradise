@@ -1272,7 +1272,7 @@
 		to_chat(user, span_warning("You stop entering the exosuit!"))
 
 
-/obj/mecha/proc/moved_inside(var/mob/living/carbon/human/H)
+/obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
 	if(H && H.client && (H in range(1)))
 		occupant = H
 		H.stop_pulling()

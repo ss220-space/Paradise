@@ -23,13 +23,13 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "strangepresent"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 
 /obj/effect/mark
 		var/mark = ""
 		icon = 'icons/misc/mark.dmi'
 		icon_state = "blank"
-		anchored = 1
+		anchored = TRUE
 		layer = 99
 		plane = HUD_PLANE
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -50,12 +50,12 @@
 	name = "begin"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "begin"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/effect/projection
 	name = "Projection"
 	desc = "This looks like a projection of something."
-	anchored = 1.0
+	anchored = TRUE
 
 
 /obj/effect/shut_controller
@@ -69,7 +69,7 @@
 	icon_state = "showcase_1"
 	desc = "A stand with the empty body of a cyborg bolted to it."
 	density = 1
-	anchored = 1
+	anchored = TRUE
 
 /obj/effect/spawner
 	name = "object spawner"
@@ -121,3 +121,19 @@
 	. = ..()
 	if(!ismob(loc))
 		return INITIALIZE_HINT_QDEL
+
+/obj/effect/frosty_breath //used only for unathi firebreath, so... yeah..
+	icon = 'icons/effects/effects.dmi'
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
+
+/obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
+	. = ..()
+	dir = C.dir
+	if(C.buckled)
+		pixel_y = (C.buckled.buckle_offset + 10)
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+	flick("breath_[C.lying_prev]", src)
+	QDEL_IN(src, 2 SECONDS)

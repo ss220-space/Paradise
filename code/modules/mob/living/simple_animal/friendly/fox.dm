@@ -58,7 +58,7 @@
 
 /mob/living/simple_animal/pet/dog/fox/Syndifox/Initialize(mapload)
 	. = ..()
-	add_language("Galactic Common")
+	add_language(LANGUAGE_GALACTIC_COMMON)
 
 //Central Command Fox
 /mob/living/simple_animal/pet/dog/fox/alisa

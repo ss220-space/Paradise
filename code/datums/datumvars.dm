@@ -1144,7 +1144,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.remove_language(rem_language.name))
+		if(H.remove_language(rem_language))
 			to_chat(usr, "Removed [rem_language] from [H].")
 			log_and_message_admins("has removed language [rem_language] from [key_name(H)]")
 		else

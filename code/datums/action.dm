@@ -19,10 +19,7 @@
 	button.linked_action = src
 	button.name = name
 	button.actiontooltipstyle = buttontooltipstyle
-	var/list/our_description = list()
-	our_description += desc
-	our_description += button.desc
-	button.desc = our_description.Join(" ")
+	button.desc = desc
 
 /datum/action/Destroy()
 	if(owner)
@@ -138,10 +135,7 @@
 				button.icon = button_icon
 			button.icon_state = background_icon_state
 		button.name = name
-		var/list/our_description = list()
-		our_description += desc
-		our_description += initial(button.desc)
-		button.desc = our_description.Join(" ")
+		button.desc = desc
 
 		ApplyIcon(button)
 
@@ -633,10 +627,7 @@
 	var/obj/effect/proc_holder/spell/spell = target
 	spell.action = src
 	name = spell.name
-	var/list/our_description = list()
-	our_description += spell.desc
-	our_description += button.desc
-	button.desc = our_description.Join(" ")
+	desc = spell.desc
 	button_icon = spell.action_icon
 	background_icon = spell.action_background_icon
 	button_icon_state = spell.action_icon_state

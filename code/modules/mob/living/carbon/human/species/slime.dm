@@ -11,7 +11,7 @@
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
-	language = "Bubblish"
+	language = LANGUAGE_SLIME
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
@@ -145,7 +145,7 @@
 
 
 /datum/species/slime/can_hear(mob/living/carbon/human/user)
-	return !(DEAF in user.mutations) && !HAS_TRAIT(user, TRAIT_DEAF)
+	return !HAS_TRAIT(user, TRAIT_DEAF)
 
 
 /datum/species/slime/get_vision_organ(mob/living/carbon/human/user)

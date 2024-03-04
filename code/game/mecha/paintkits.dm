@@ -309,3 +309,39 @@
 	new_name = "Pirate Mauler"
 	new_icon = "piratmauler"
 	allowed_types = list("mauler")
+
+/obj/item/paintkit/lockermech_nt
+	name = "NT Special Locker Mech customisation kit"
+	icon_state = "paintkit_nt1"
+	desc = "A kit containing all the needed tools and parts to show that Locker Mech it is the property of NT."
+
+	new_name = "NT Special Locker Mech"
+	new_icon = "ntlockermech"
+	allowed_types = list("lockermech")
+
+/obj/item/paintkit/durand_nt
+	name = "NT Special Durand customisation kit"
+	icon_state = "paintkit_nt"
+	desc = "A kit containing all the needed tools and parts to show that Durand it is the property of NT"
+
+	new_name = "NT Special Durand"
+	new_icon = "ntdurand"
+	allowed_types = list("durand")
+
+/obj/item/paintkit/ripley_nt
+	name = "NT Special APLU customisation kit"
+	icon_state = "paintkit_nt"
+	desc = "A kit containing all the needed tools and parts to show that APLU it is the property of NT"
+
+	new_name = "NT Special APLU"
+	new_icon = "ntripley"
+	allowed_types = list("ripley", "firefighter")
+
+/obj/item/paintkit/phazon_nt
+	name = "NT Special Phazon customisation kit"
+	icon_state = "paintkit_nt"
+	desc = "A kit containing all the needed tools and parts to show that Phazon it is the property of NT"
+
+	new_name = "NT Special Phazon"
+	new_icon = "ntphazon"
+	allowed_types = list("phazon")
