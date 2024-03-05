@@ -2292,6 +2292,7 @@
 		/obj/item/clothing/head/officer		 	= 10,
 		/obj/item/clothing/head/beret/brigphys  = 5,
 		/obj/item/clothing/head/soft/brigphys   = 5,
+		/obj/item/clothing/head/helmet/lightweighthelmet = 10,
 
 		/obj/item/clothing/under/rank/security			= 10,
 		/obj/item/clothing/under/rank/security/skirt 	= 10,
@@ -2319,6 +2320,8 @@
 		/obj/item/clothing/shoes/jackboots/cross 		= 10,
 
 		/obj/item/radio/headset/headset_sec		= 10, //No EARBANGPROTECT. Hehe...
+
+		/obj/item/clothing/glasses/hud/security/sunglasses/tacticool = 5,
 
 		/obj/item/clothing/accessory/scarf/black 	= 10,
 		/obj/item/clothing/accessory/scarf/red 		= 10,
