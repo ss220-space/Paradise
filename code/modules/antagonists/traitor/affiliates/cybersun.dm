@@ -32,9 +32,11 @@
 	if(isrobot(target))
 		if(do_after_once(user, 10 SECONDS, target = target))
 			var/mob/prev_robot = target
-			var/mob/living/silicon/robot/syndicate/saboteur/robot = new(get_turf(target))
+			var/mob/living/silicon/robot/syndicate/robot = new(get_turf(target))
 			prev_robot.mind?.transfer_to(robot)
+			robot.reset_module()
 			QDEL_NULL(prev_robot)
+			qdel(src)
 		return
 	. = ..()
 
