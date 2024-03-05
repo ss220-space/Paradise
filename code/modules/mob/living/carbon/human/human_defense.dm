@@ -414,7 +414,7 @@ emp_act
 
 
 //Returns TRUE if the attack hit, FALSE if it missed.
-/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone, delimb_chance)
+/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(!I || !user)
 		return FALSE
 

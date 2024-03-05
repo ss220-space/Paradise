@@ -282,7 +282,7 @@
 		set_light(0)
 
 
-/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user, def_zone, delimb_chance, skip = FALSE)
+/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user, def_zone, skip = FALSE)
 	if(skip) //if we come from /obj/item/twohanded/dualsaber/toy
 		return ..()
 
@@ -290,7 +290,7 @@
 
 	var/datum/martial_art/theforce/MA = user?.mind?.martial_art
 	if(istype(MA))
-		delimb_chance = MA.attack_double_sword_delimb_chance
+		AddComponent(/datum/component/delimb, MA.attack_double_sword_delimb_chance)
 
 	. = ..()
 
@@ -321,8 +321,7 @@
 
 	var/datum/martial_art/theforce/MA = throwingdatum?.thrower?.mind?.martial_art
 	if(istype(MA) && active)
-		throwingdatum.delimb_chance = MA.throw_sword_delimb_chance
-		throwingdatum.hit_chance = 0
+		AddComponent(/datum/component/delimb, MA.throw_sword_delimb_chance)
 
 	var/mob/living/carbon/human/hit_human = hit_atom
 	if(istype(hit_human))

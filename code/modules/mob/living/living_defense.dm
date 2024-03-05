@@ -96,7 +96,7 @@
 		return ..()
 
 	var/obj/item/thrown_item = AM
-	var/zone = ran_zone(BODY_ZONE_CHEST, throwingdatum.hit_chance)//Hits a random part of the body, geared towards the chest
+	var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 	var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 	if(nosell_hit)
 		skipcatch = TRUE
@@ -120,15 +120,6 @@
 	var/armor = run_armor_check(zone, MELEE, "Броня защитила [parse_zone(zone)].", "[pluralize_ru(src.gender,"Твоя","Ваша")] броня смягчила удар по [parse_zone(zone)].", thrown_item.armour_penetration) // TODO: перевод зон
 	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, is_sharp(thrown_item), thrown_item)
 
-	if(zone == BODY_ZONE_HEAD)
-		throwingdatum.delimb_chance /= 2
-	if(zone == BODY_ZONE_CHEST)
-		throwingdatum.delimb_chance = 0
-
-	if(prob(throwingdatum.delimb_chance))
-		var/obj/item/organ/external/affecting = get_organ(check_zone(zone))
-		if(affecting && !affecting.cannot_amputate)
-			affecting.droplimb(FALSE, DROPLIMB_SHARP)
 
 	if(QDELETED(src)) //Damage can delete the mob.
 		return

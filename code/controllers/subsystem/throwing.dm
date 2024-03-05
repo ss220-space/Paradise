@@ -51,8 +51,6 @@ SUBSYSTEM_DEF(throwing)
 	var/init_dir
 	var/maxrange
 	var/speed
-	var/delimb_chance = 0	//chance to delimb target limb
-	var/hit_chance = 65		//chance to hit chest
 	var/mob/thrower
 	var/diagonals_first
 	var/dist_travelled = 0
