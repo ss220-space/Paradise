@@ -178,8 +178,10 @@
 	for(var/atom/movable/obstacle in large_dense)
 		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
 			current_layer = obstacle.layer
-			if(obstacle.bump_priority < BUMP_PRIORITY_NORMAL && reverse_movement_dir == obstacle.dir)
-				current_layer += obstacle.bump_priority
+			if(isliving(obstacle))
+				var/mob/living/L = obstacle
+				if(L.bump_priority < BUMP_PRIORITY_NORMAL && reverse_movement_dir == obstacle.dir)
+					current_layer += L.bump_priority
 			if(current_layer > top_layer)
 				tompost_bump = obstacle
 				top_layer = current_layer
