@@ -26,23 +26,12 @@
 	QDEL_NULL(env)
 
 /obj/structure/closet/critter/return_air()
-	for(var/mob/living/carbon/A in contents)
-		if(!(BREATHLESS in A.mutations))
-			return env
-	updateEnv()
 	return env
 
 /obj/structure/closet/critter/assume_air(datum/gas_mixture/giver)
-	for(var/mob/living/carbon/A in contents)
-		if(!(BREATHLESS in A.mutations))
-			return
-	updateEnv()
+	return null
 
 /obj/structure/closet/critter/remove_air(amount)
-	for(var/mob/living/carbon/A in contents)
-		if(!(BREATHLESS in A.mutations))
-			return env
-	updateEnv()
 	return env
 
 /obj/structure/closet/critter/return_analyzable_air()
@@ -71,6 +60,7 @@
 	. = ..()
 
 /obj/structure/closet/critter/close()
+	updateEnv()
 	..()
 	return 1
 
