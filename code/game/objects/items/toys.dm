@@ -1294,6 +1294,23 @@
 	desc = "Faces into the floor!"
 	icon_state = "hampter_ert"
 
+/obj/item/toy/beaver
+	name = "Beaver plushie"
+	desc = "BOBER KURWA!"
+	icon_state = "beaver_toy"
+	item_state = "beaver_toy"
+	gender = MALE
+	w_class = WEIGHT_CLASS_SMALL
+	var/cooldown = FALSE
+
+/obj/item/toy/beaver/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound('sound/items/beaver_toy.ogg', 50, 1)
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
 /*
  * Foam Armblade
  */
