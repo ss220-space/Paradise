@@ -3,7 +3,6 @@
 	form = "Заболевание"
 	agent = "Cadaveric microbes"
 	desc = "A terrible disease caused by rotting corpses"
-	curable = TRUE
 	cures = list("calomel")
 	cure_prob = 4
 	stage_prob = 1.5
