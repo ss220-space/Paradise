@@ -420,6 +420,7 @@
 #include "code\datums\diseases\_MobProcs.dm"
 #include "code\datums\diseases\appendicitis.dm"
 #include "code\datums\diseases\berserker.dm"
+#include "code\datums\diseases\viruses\cadaver.dm"
 #include "code\datums\diseases\critical.dm"
 #include "code\datums\diseases\food_poisoning.dm"
 #include "code\datums\diseases\kuru.dm"
