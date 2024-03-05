@@ -21,8 +21,6 @@
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_IMPACT_ZONE, COMSIG_ITEM_ATTACK))
 
 /datum/component/delimb/proc/on_item_throw_impact(obj/item/item, mob/target, zone, datum/thrownthing/throwingdatum)
-	SIGNAL_HANDLER
-
 	if(zone == BODY_ZONE_HEAD)
 		delimb_chance /= 2
 	if(zone == BODY_ZONE_CHEST)
@@ -31,8 +29,6 @@
 	RemoveComponent()
 
 /datum/component/delimb/proc/on_item_attack(obj/item/item, mob/living/target, mob/living/user)
-	SIGNAL_HANDLER
-
 	delimb_zone(target, user.zone_selected)
 	RemoveComponent()
 
