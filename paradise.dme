@@ -1112,6 +1112,7 @@
 #include "code\game\objects\items\devices\radio\radio.dm"
 #include "code\game\objects\items\devices\scanners\gas_analyzer.dm"
 #include "code\game\objects\items\granters\_granters.dm"
+#include "code\game\objects\items\granters\crafting_granters.dm"
 #include "code\game\objects\items\mountable_frames\air_alarm.dm"
 #include "code\game\objects\items\mountable_frames\apc_frame.dm"
 #include "code\game\objects\items\mountable_frames\buttons_switches.dm"
