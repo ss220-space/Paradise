@@ -337,4 +337,25 @@
 		to_chat(owner.current, span_warning("Unfortunately, the Syndicate wasn't able to get you a radio."))
 
 
+/**
+ * Takes any datum `source` and checks it for traitor datum.
+ */
+/proc/istraitor(datum/source)
+	if(!source)
+		return FALSE
+
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/traitor)
+
+	if(!ismob(source))
+		return FALSE
+
+	var/mob/mind_holder = source
+	if(!mind_holder.mind)
+		return FALSE
+
+	return mind_holder.mind.has_antag_datum(/datum/antagonist/traitor)
+
+
 #undef EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED
