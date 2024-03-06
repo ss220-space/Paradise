@@ -24,7 +24,7 @@
 	var/slash_sound = 'sound/weapons/bladeslice.ogg'	// A sound plays when you hit someone with tail_cut
 	sound_on = 'sound/weapons/blade_dark_unsheath.ogg'	// Activation sound
 	sound_off = 'sound/weapons/blade_dark_sheath.ogg'	// Deactivation sound
-	icon_state = "tailimplant_blade" 					//all tailblades sprites by @baldek
+	icon_state = "tailimplant_blade" 					// All tailblades sprites by @baldek
 	origin_tech = "materials=6;combat=5;biotech=5;programming=3;syndicate=3;"
 
 /obj/item/organ/internal/cyberimp/tail/blade/laser //nt tail laserblade
@@ -129,7 +129,7 @@
 	var/datum/species/unathi/U // For unathi disabilities
 	var/active_implant = FALSE
 	var/type_of_damage = BRUTE // I did it only because I need attacklogs without exception
-	var/damage_deal = 5 // Same
+	var/damage_deal = 5		   // Same
 
 	if(implant && implant.activated) // Prevents exception if you dont have the implant, but unathi
 		active_implant = TRUE
@@ -148,30 +148,37 @@
 	user.spin(10,1)
 
 		/// If the user has an implant, we take its values, if not, we take the values from the old unathi's tail_lash (unathi special)
-	for(var/mob/living/carbon/human/C in orange(1))
-		var/obj/item/organ/external/E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_TAIL))
+	for(var/mob/living/C in orange(1))
+		var/obj/item/organ/external/E
 
-		if(E)
-			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] ударяет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
-			user.adjustStaminaLoss(active_implant ? implant.self_stamina_damage : 15)
-			var/target_armor = C.run_armor_check(E, MELEE)
-			C.apply_damage(damage_deal, type_of_damage, E, target_armor, 1)
-			C.adjustStaminaLoss(active_implant ? implant.stamina_damage : 0)
-			playsound(user.loc, active_implant ? implant.slash_sound : 'sound/weapons/slash.ogg', 50, 0)
-			add_attack_logs(user, C, "whips tail, dealing [damage_deal] [type_of_damage] damage!")
+		if(istype(C, /mob/living/carbon/human))
 
-			if(user.restrained() && prob(50))
-				user.Weaken(4 SECONDS)
-				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), span_danger("[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!"))
-				return
+			E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_TAIL))
+			if(E)
+				var/target_armor = C.run_armor_check(E, MELEE)
+				C.apply_damage(damage_deal, type_of_damage, E, target_armor, 1)
+				C.adjustStaminaLoss(active_implant ? implant.stamina_damage : 0)
+				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] ударяет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
 
-			if(user.getStaminaLoss() >= 60)
-				to_chat(user, span_warning("Вы выбились из сил!"))
-				return
+		else
+			C.apply_damage_type(damage_deal, type_of_damage)
+
+		user.adjustStaminaLoss(active_implant ? implant.self_stamina_damage : 15)
+		playsound(user.loc, active_implant ? implant.slash_sound : 'sound/weapons/slash.ogg', 50, 0)
+		add_attack_logs(user, C, "whips tail, dealing [damage_deal] [type_of_damage] damage!")
+
+		if(user.restrained() && prob(50))
+			user.Weaken(4 SECONDS)
+			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), span_danger("[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!"))
+			return
+
+		if(user.getStaminaLoss() >= 60)
+			to_chat(user, span_warning("Вы выбились из сил!"))
+			return
 
 /datum/action/innate/tail_cut/IsAvailable(show_message = FALSE)
-	. = ..()
-	if(!.)
+
+	if(!..())
 		return FALSE
 
 	var/mob/living/carbon/human/user = owner
