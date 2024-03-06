@@ -344,8 +344,8 @@
 	category = list("Medical")
 
 /datum/design/tailblade
-	name = "Tail laserblade implant"
-	desc = "insert text"
+	name = "Tail Laserblade Implant"
+	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
 	id = "ci-laserblade"
 	req_tech = list("powerstorage" = 20) // unreacheable
 	locked = TRUE

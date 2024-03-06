@@ -1873,7 +1873,7 @@
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/cyber_implants/stealthbox
+/datum/uplink_item/implants/stealthbox
     name = "Stealth Implant"
     desc = "An implant injected into the body, and later activated manually to deploy a box, fully hiding you in the surroundings. Can be used indefinitely"
     item = /obj/item/implanter/stealth
@@ -1918,28 +1918,28 @@
 	cost = 40
 
 /datum/uplink_item/cyber_implants/mantisblade
-	name = "Mantis blades"
+	name = "Mantis Blades"
 	desc = "A box containing a set of two Gorlex Hidden Blade Implants comes with self-destructing auto-implanters. After the EMP, they return to service to show that it's too early to write you off."
 	item = /obj/item/storage/box/syndie_kit/mantisblade
 	cost = 60
 	surplus = 90
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
+	uplinktypes = list()
 
-/datum/uplink_item/cyber_implants/tailblade/standard
+/datum/uplink_item/cyber_implants/razorblade
 	name = "Tail Razorblade"
 	desc = "Tail Razorblade Implant comes with self-destructing auto-implanter. Show the enemy how deadly your tail can be."
-	item = /obj/item/autoimplanter/oneuse/tailblade
+	item = /obj/item/autoimplanter/oneuse/razorblade
 	cost = 42
 	surplus = 0
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
+	uplinktypes = list()
 
-/datum/uplink_item/cyber_implants/tailblade/laser_syndi
+/datum/uplink_item/cyber_implants/laserblade
 	name = "Overcharged Tail Laserblade"
 	desc = "Tail Laserblade Implant comes with self-destructing auto-implanter. Show the enemy how deadly your tail can be."
-	item = /obj/item/autoimplanter/oneuse/tailblade/laser
+	item = /obj/item/autoimplanter/oneuse/laserblade
 	cost = 38
 	surplus = 0
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
+	uplinktypes = list()
 
 // POINTLESS BADASSERY
 
