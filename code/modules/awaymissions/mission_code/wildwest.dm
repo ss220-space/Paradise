@@ -211,7 +211,7 @@
 	if(istraitor(user))
 		response_choices |= option_syndicate
 
-	var/selected_choice = input(user, "How do you respond on the comms device?", "Response to Syndicate") as null|anything in response_choices
+	var/selected_choice = tgui_input_list(user, "How do you respond on the comms device?", "Response to Syndicate", response_choices)
 
 	if(!selected_choice || used)
 		return
