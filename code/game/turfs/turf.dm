@@ -111,7 +111,7 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	user.Move_Pulled(src)
 
-/turf/attack_ai(mob/user)
+/turf/attack_robot(mob/user)
 	if(Adjacent(user))
 		user.Move_Pulled(src)
 
