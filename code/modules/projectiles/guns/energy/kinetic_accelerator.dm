@@ -1,3 +1,9 @@
+#define COMPATIBILITY_STANDART	(1<<0)
+#define COMPATIBILITY_CYBORG	(1<<1)
+#define COMPATIBILITY_MINEBOT	(1<<2)
+#define COMPATIBILITY_UNIVERSAL	(~0)
+
+
 /obj/item/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure. Capable of holding up to six slots worth of mod kits."
@@ -5,54 +11,53 @@
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 	cell_type = /obj/item/stock_parts/cell/emproof
-	needs_permit = 0
-	unique_rename = 1
+	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	weapon_weight = WEAPON_LIGHT
-	can_flashlight = 1
+	can_flashlight = TRUE
 	flight_x_offset = 15
 	flight_y_offset = 9
-	var/overheat_time = 16
-	var/holds_charge = FALSE
-	var/unique_frequency = FALSE // modified by KA modkits
-	var/overheat = FALSE
 	can_bayonet = TRUE
 	knife_x_offset = 20
 	knife_y_offset = 12
-
+	var/overheat_time = 1.6 SECONDS
+	var/compatibility = COMPATIBILITY_STANDART
+	var/holds_charge = FALSE
+	var/unique_frequency = FALSE // modified by KA modkits
+	var/overheat = FALSE
 	var/max_mod_capacity = 100
+	var/empty_state = "kineticgun_empty"
+	var/recharge_timerid
 	var/list/modkits = list()
 
-	var/recharge_timerid
-
-	var/empty_state = "kineticgun_empty"
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		if(max_mod_capacity)
-			. += "<span class='notice'><b>[get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
+			. += span_notice("<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining.")
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
-				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
+				. += span_notice("There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.")
+
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit))
 		var/obj/item/borg/upgrade/modkit/MK = I
-		if(!MK.only_borg)
+		if(MK.compatibility & compatibility)
 			MK.install(src, user)
 			return
-		to_chat(user, "<span class = 'warning'>Похоже, что этот модуль не подходит для таких ускорителей!</span>")
+		to_chat(user, span_warning("Похоже, что этот модуль не подходит для таких ускорителей!"))
 	return ..()
+
 
 /obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!modkits.len)
-		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
+		to_chat(user, span_notice("There are no modifications currently installed."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
+	to_chat(user, span_notice("You pry the modifications out."))
 	for(var/obj/item/borg/upgrade/modkit/M in modkits)
 		M.uninstall(src)
 
@@ -74,16 +79,21 @@
 		var/obj/item/borg/upgrade/modkit/M = A
 		M.modify_projectile(K)
 
+
 /obj/item/gun/energy/kinetic_accelerator/cyborg
+	compatibility = COMPATIBILITY_CYBORG
 	holds_charge = TRUE
 	unique_frequency = TRUE
 	max_mod_capacity = 200
 
+
 /obj/item/gun/energy/kinetic_accelerator/minebot
+	compatibility = COMPATIBILITY_MINEBOT
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
-	overheat_time = 20
+	overheat_time = 2 SECONDS
 	holds_charge = TRUE
 	unique_frequency = TRUE
+
 
 /obj/item/gun/energy/kinetic_accelerator/Initialize(mapload)
 	. = ..()
@@ -96,7 +106,6 @@
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)
 	. = ..()
-
 	if(!can_shoot())
 		attempt_reload()
 
@@ -105,7 +114,7 @@
 	if(!QDELING(src) && !holds_charge)
 		// Put it on a delay because moving item from slot to hand
 		// calls dropped().
-		addtimer(CALLBACK(src, PROC_REF(empty_if_not_held)), 2)
+		addtimer(CALLBACK(src, PROC_REF(empty_if_not_held)), 0.2 SECONDS)
 
 /obj/item/gun/energy/kinetic_accelerator/proc/empty_if_not_held()
 	if(!ismob(loc))
@@ -145,9 +154,9 @@
 	cell.give(500)
 	on_recharge()
 	if(!suppressed)
-		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
 	else if(isliving(loc))
-		to_chat(loc, "<span class='warning'>[src] silently charges up.</span>")
+		to_chat(loc, span_warning("[src] silently charges up."))
 	update_icon()
 	overheat = FALSE
 
@@ -255,10 +264,10 @@
 			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
 		if(isancientturf(target_turf))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
 		else
 			var/turf/simulated/mineral/M = target_turf
-			M.attempt_drill(firer, 0, power)
+			M.attempt_drill(firer, FALSE, power)
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
@@ -281,21 +290,26 @@
 	var/minebot_upgrade = TRUE
 	var/minebot_exclusive = FALSE
 	var/only_borg = FALSE //Is it only for robots
+	var/compatibility = COMPATIBILITY_UNIVERSAL
+
 
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
-	if(only_borg)
-		. += "<span class = 'warning'>Не похоже что этот модуль подходит для обычного КА.</span>"
+		. += span_notice("Occupies <b>[cost]%</b> of mod capacity.")
+	if(!(compability & COMPATIBILITY_STANDART))
+		. += span_warning("Не похоже что этот модуль подходит для обычного КА.")
+
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator))
-		if(!only_borg)
+		var/obj/item/gun/energy/kinetic_accelerator/KA = A
+		if(compatibility & KA.compatibility)
 			install(A, user)
 			return
-		to_chat(user, "<span class = 'warning'>Похоже, что этот модуль не подходит для таких ускорителей!</span>")
+		to_chat(user, span_warning("Похоже, что этот модуль не подходит для таких ускорителей!"))
 	return ..()
+
 
 /obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
 	if(..())
@@ -309,13 +323,6 @@
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE
-	if(minebot_upgrade)
-		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
-			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
-			return FALSE
-	else if(istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
-		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
-		return FALSE
 	if(denied_type)
 		var/number_of_denied = 0
 		for(var/A in KA.get_modkits())
@@ -327,14 +334,14 @@
 				break
 	if(KA.get_remaining_mod_capacity() >= cost)
 		if(.)
-			to_chat(user, "<span class='notice'>You install the modkit.</span>")
-			playsound(loc, usesound, 100, 1)
+			to_chat(user, span_notice("You install the modkit."))
+			playsound(loc, usesound, 100, TRUE)
 			user.drop_transfer_item_to_loc(src, KA)
 			KA.modkits += src
 		else
-			to_chat(user, "<span class='notice'>The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits.</span>")
+			to_chat(user, span_notice("The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits."))
 	else
-		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits.</span>")
+		to_chat(user, span_notice("You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits."))
 		. = FALSE
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
