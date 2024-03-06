@@ -20,10 +20,9 @@
 	var/overcharged = FALSE   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
 	var/can_overcharge = TRUE //set this to FALSE if you don't want your flash to be overcharge capable
 	var/use_sound = 'sound/weapons/flash.ogg'
-	///This tracks the world.time until the flash can be used again
-	var/cooldown
-	///This is the duration of the cooldown
+	/// This is the duration of the cooldown
 	var/cooldown_duration = 1 SECONDS
+	COOLDOWN_DECLARE(flash_cooldown)
 
 
 /obj/item/flash/update_icon_state()
@@ -88,10 +87,10 @@
 
 	if(broken)
 		return FALSE
-	if(cooldown >= world.time)
+	if(!COOLDOWN_FINISHED(src, flash_cooldown))
 		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
 		return FALSE
-	cooldown = world.time + cooldown_duration
+	COOLDOWN_START(src, flash_cooldown, cooldown_duration)
 	flash_recharge(user)
 
 	playsound(loc, use_sound, 100, 1)
