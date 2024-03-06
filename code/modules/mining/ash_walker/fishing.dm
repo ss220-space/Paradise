@@ -92,11 +92,30 @@ Fishing bites, fish, fishing related stuff
 	/// Favourite bait. Using this will add more chance to catch this fish
 	var/favorite_bait = null
 
+	/// List of items you get after butchering it
+	var/list/butcher_loot = list()
+
 /obj/item/lavaland_fish/Initialize(mapload)
 	. = ..()
 	if(do_flop_animation)
 		RegisterSignal(src, COMSIG_ATOM_TEMPORARY_ANIMATION_START, PROC_REF(on_temp_animation))
 	START_PROCESSING(SSobj, src)
+
+/obj/item/lavaland_fish/attackby(obj/item/I, mob/living/user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
+	var/sharpness = is_sharp(I)
+	if(sharpness && user.a_intent == INTENT_HARM)
+		to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
+		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+		if(do_mob(user, src, 80 / sharpness) && Adjacent(I))
+			harvest(user)
+	return ..()
+
+/obj/item/lavaland_fish/proc/harvest(mob/user)
+	if(QDELETED(src))
+		return
+	to_chat(user, "увы.")
+	qdel(src)
 
 /obj/item/lavaland_fish/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
@@ -224,3 +243,126 @@ Fishing bites, fish, fishing related stuff
 /obj/item/lavaland_fish/proc/refresh_flopping()
 	if(flopping)
 		flop_animation(src)
+
+/*
+Fish loot!
+meat, whetstone, street wear, armor components, other strange shit
+*/
+
+//meat
+/obj/item/reagent_containers/food/snacks/monstermeat/fish_meat
+	name = "soft meat cut"
+	desc = "мягкое мяско из низших рыбок."
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "soft_meat"
+	list_reagents = list("protein" = 3, "vitamin" = 1)
+	tastes = list("soft meat" = 1)
+	foodtype = MEAT | RAW
+
+//whetstone
+/obj/item/whetstone/crab_shell
+	name = "sturdy crab shell"
+	desc = "маленький панцирь, достаточно крепкий, чтобы выдержать несколько сессий заточки оружия."
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = crab_shell
+	increment = 2
+	infinity_use = TRUE
+
+//generic lavaland item
+/obj/item/abstract_lavaland_item
+	name = "abstract item from lavaland"
+	desc = "if you see it, contact to a coder."
+	var/list/whitelist_for_spawn = list(
+		/obj/item/stack/fireproof_rods,
+		/obj/item/mining_scanner,
+		/obj/item/radio/weather_monitor,
+		/obj/item/stack/sheet/animalhide/goliath_hide
+	)
+
+/obj/item/abstract_lavaland_item/Initialize(mapload)
+	. = ..()
+	var/new_item = pick(whitelist_for_spawn)
+	new new_item(loc)
+	qdel(src)
+
+//helmet
+/obj/item/clothing/head/helmet/scorched_skull
+	name = "scorched skull"
+	desc = "Череп рыбы. Не совсем удобный, и мешает нормально видеть окрестности."
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_cover = HEADCOVERSEYES
+	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	icon_state = "scorched_skull"
+	item_state = "scorched_skull"
+	tint = 2
+
+
+//crafting hide
+/obj/item/stack/sheet/animalhide/cartilage_plate
+	name = "thick cartilage plate"
+	desc = "Кусок панциря рыбы, достаточно крепкий, чтобы из него можно было делать неплохую броню."
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "cartilage_plate"
+
+//robust harvest +
+/obj/item/reagent_containers/food/snacks/fish_sack
+	name = "conductive organ"
+	desc = "Мешочек с рыбьими потрохами или типа того. Сильнодействующий на растения реагент, ужасающе токсичный."
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "fish_sack"
+	list_reagents = list("lavalandtnutriment" = 5) //mmmm tasty
+	tastes = list("poison" = 5, "hopelessness" = 1)
+	bitesize = 1
+
+//crafting materials
+
+/obj/item/eel_tail
+	name = "eel sharpened tail"
+	desc = "Хвост угря. Используется в рецептах. Такие дела."
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "eel_tail"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/sharp_teeth
+	name = "razor sharp teeth"
+	desc = "Зубы рыбы. Используется в рецептах. Такие дела."
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "teeth"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/saw_blade
+	name = "circular saw blade"
+	desc = "Гигантская пила. Используется в рецептах. Такие дела."
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "saw_blade"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/hivelordstabilizer/fish
+	name = "gooey molten mass"
+	desc = "Рескин стабилизатора ядер. Эти описания - временные, если что. Если вы их видите, зюзя дебил."
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "molten mass"
+	luminosity = 1
+	light_power = 1
+	light_range = 1.6
+
+//ore scanner
+/obj/item/t_scanner/adv_mining_scanner/fish
+	name = "bleary eye"
+	desc = "глаз. Видит руду. Видит быстро в малом радиусе. Прикольно."
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "bleary_eye1"
+	range = 4
+	cooldown = 0.5 SECONDS
+	speaker = FALSE
+	origin_tech = null
+
+/obj/item/t_scanner/adv_mining_scanner/fish/Initialize(mapload)
+	. = ..()
+	on = TRUE
+	START_PROCESSING(SSobj, src)
+
+/obj/item/t_scanner/adv_mining_scanner/fish/toggle_mode()
+	return
+
+//

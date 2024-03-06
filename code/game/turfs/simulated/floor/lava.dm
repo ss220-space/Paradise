@@ -40,12 +40,11 @@
 		if(!fc)
 			visible_message(span_warning("But nobody came."))
 			return
-		visible_message("юху, рыба всплыла!")
-		if(fc.deep_water)
-			visible_message("лава глубоководная.")
-
-		else
-			visible_message("лава неглубокая.")
+		visible_message(span_warning("Suddenly, two fish float out of the lava and tear [krill] apart!"))
+		var/list/fishable_list = fc.catchable_fish.Copy()
+		for(var/i in 1 to 2)
+			var/fish = pick(fishable_list)
+			new fish(src)
 	else
 		if(burn_stuff(AM))
 			START_PROCESSING(SSprocessing, src)
@@ -136,16 +135,19 @@
 	if(istype(C, /obj/item/reagent_containers/food/snacks/charred_krill))
 		to_chat(user, span_notice("You carefully place the shrimp on the surface of the lava..."))
 		if(do_after(user, 5 SECONDS, target = src))
+			if(QDELETED(C))
+				return
 			var/datum/component/simple_fishing/fc = GetComponent(/datum/component/simple_fishing)
 			if(!fc)
-				to_chat(user, span_warning("But nobody came."))
+				to_chat(user, span_warning("...But nobody came."))
 				return
-			to_chat(user, "юху, рыба всплыла!")
-			if(fc.deep_water)
-				to_chat(user, "лава глубоководная.")
+			to_chat(user, span_notice("Suddenly, two fish float out of the lava and tear [C] apart!"))
+			var/list/fishable_list = fc.catchable_fish.Copy()
+			for(var/i in 1 to 2)
+				var/fish = pick(fishable_list)
+				new fish(src)
+			qdel(C)
 
-			else
-				to_chat(user, "лава неглубокая.")
 
 	if(istype(C, /obj/item/stack/fireproof_rods))
 		var/obj/item/stack/fireproof_rods/R = C

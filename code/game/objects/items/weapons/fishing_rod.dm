@@ -26,7 +26,7 @@
 /obj/item/twohanded/fishingrod/examine(mob/user)
 	. = ..()
 	if(bait)
-		. += span_notice("there is a [bait] on the hook")
+		. += span_notice("There is a [bait] on the hook")
 		. += span_notice("You can remove it with \"Alt+click\"")
 
 
