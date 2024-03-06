@@ -40,6 +40,10 @@
 /obj/item/projectile/energy/electrode/dominator
 	color = LIGHT_COLOR_LIGHT_CYAN
 
+/obj/item/projectile/energy/electrode/old
+	stun = 10 SECONDS
+	weaken =  10 SECONDS
+
 /obj/item/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"
