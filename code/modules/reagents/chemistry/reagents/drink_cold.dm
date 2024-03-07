@@ -61,10 +61,14 @@
 	description = "A refreshing beverage."
 	reagent_state = LIQUID
 	color = "#a9c725"
-	adj_drowsy = -6 SECONDS // 12
-	adj_sleepy = -4 SECONDS // 8
-	adj_dizzy = -10 SECONDS // 20
+	adj_drowsy = -6 SECONDS
+	adj_sleepy = -4 SECONDS
+	adj_dizzy = -10 SECONDS
 	heart_rate_increase = 1
+	minor_addiction = TRUE
+	overdose_threshold = 45
+	addiction_chance = 1
+	addiction_threshold = 200
 	drink_icon = "lemonglass"
 	drink_name = "Glass of Classic Energy Drink"
 	drink_desc = "A glass of of invigorating energy drink"
