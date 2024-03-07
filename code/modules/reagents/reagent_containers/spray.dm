@@ -99,6 +99,14 @@
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	list_reagents = list("cleaner" = 250)
 
+/obj/item/reagent_containers/spray/blue_cleaner
+    name = "bluespace cleaner"
+    desc = "A spray with an increased storage of reagents, or it's not that simple...."
+    icon = 'icons/obj/items.dmi'
+    icon_state = "cleaner_bluespace"
+    spray_maxrange = 4
+    spray_currentrange = 4
+    volume = 450
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
 
