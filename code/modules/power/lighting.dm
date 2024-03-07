@@ -276,7 +276,7 @@
 
 	switch(fitting)
 		if("tube")
-			brightness_range = 6.5
+			brightness_range = 7
 			if(prob(2))
 				break_light_tube(TRUE)
 		if("bulb")
