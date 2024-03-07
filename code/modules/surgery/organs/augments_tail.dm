@@ -149,18 +149,17 @@
 
 		/// If the user has an implant, we take its values, if not, we take the values from the old unathi's tail_lash (unathi special)
 	for(var/mob/living/C in orange(1))
-		var/obj/item/organ/external/E
 
-		if(istype(C, /mob/living/carbon/human))
+		if(ishuman(C)) // Dealing damage to humans
+			var/obj/item/organ/external/E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN))
 
-			E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_TAIL))
 			if(E)
 				var/target_armor = C.run_armor_check(E, MELEE)
 				C.apply_damage(damage_deal, type_of_damage, E, target_armor, 1)
 				C.adjustStaminaLoss(active_implant ? implant.stamina_damage : 0)
 				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] ударяет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
 
-		else
+		else  // Dealing damage to simplemobs, silicons
 			C.apply_damage_type(damage_deal, type_of_damage)
 
 		user.adjustStaminaLoss(active_implant ? implant.self_stamina_damage : 15)
