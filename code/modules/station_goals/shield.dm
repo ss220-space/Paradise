@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 	desc = ""
 	icon = 'icons/obj/machines/satellite.dmi'
 	icon_state = "sat_inactive"
-	density = FALSE
+	density = TRUE
 	use_power = FALSE
 	var/mode = "NTPROBEV0.8"
 	var/active = FALSE
