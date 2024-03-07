@@ -1,4 +1,4 @@
-just#define BASE_MOVE_DELAY	8
+#define BASE_MOVE_DELAY	8
 #define MAX_SPEED		2
 
 /obj/machinery/power/treadmill
