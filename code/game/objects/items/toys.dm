@@ -1301,17 +1301,17 @@
 	icon_state = "beaver_plushie"
 	item_state = "beaver_plushie"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = FALSE
 	gender = MALE
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/beaver/attack_self(mob/user)
-	if(cooldown)
-		return ..()
+
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return
 
 	playsound(loc, 'sound/items/beaver_plushie.ogg', 50, FALSE)
 	visible_message(span_boldnotice("BOBR KURWA!"))
-	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /*
  * Foam Armblade
