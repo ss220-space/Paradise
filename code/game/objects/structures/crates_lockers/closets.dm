@@ -322,7 +322,7 @@ GLOBAL_LIST_EMPTY(closets)
 	if(usr.incapacitated())
 		return
 
-	if(ishuman(usr) || isrobot(usr))
+	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
 		add_fingerprint(usr)
 		toggle(usr)
 	else
@@ -445,6 +445,15 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/force_eject_occupant(mob/target)
 	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
 	return
+
+
+/obj/structure/closet/AltClick(mob/living/simple_animal/hostile/gorilla/gorilla)
+	if(istype(gorilla) && in_range(gorilla, src))
+		gorilla.face_atom(src)
+		toggle()
+		gorilla.oogaooga()
+	return ..()
+
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"

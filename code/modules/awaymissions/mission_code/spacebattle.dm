@@ -597,6 +597,9 @@
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer
 	name = "Dead Engineer"
 	mob_name = "Engineer"
+	outfit = /datum/outfit/ancient_eng
+
+/datum/outfit/ancient_eng
 	id = /obj/item/card/id/away/old/eng
 	uniform = /obj/item/clothing/under/retro/engineering
 	belt = /obj/item/storage/belt/utility/full
@@ -608,9 +611,9 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
 	back = /obj/item/storage/backpack/duffel/engineering
-	backpack_contents = /obj/item/storage/box/engineer
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/engineer/Initialize()
+/datum/outfit/ancient_eng/pre_equip()
+	. = ..()
 	var/engstaff = rand(1,3)
 	switch(engstaff)
 		if(1)
@@ -634,11 +637,13 @@
 			/obj/item/grenade/gas/oxygen = 1,
 			/obj/item/analyzer = 1
 			)
-	return ..()
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer/space
+	outfit = /datum/outfit/ancient_eng/suit
+
+/datum/outfit/ancient_eng/suit
 	suit = /obj/item/clothing/suit/space/hardsuit/ancient
-	head = /obj/item/clothing/head/helmet/space/hardsuit/ancient
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/medic

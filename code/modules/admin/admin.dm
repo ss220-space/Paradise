@@ -206,6 +206,12 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			else
 				body += "<A href='?_src_=holder;monkeyone=[M.UID()]'>Monkeyize</A> | "
 
+			// Gorillas! OOGAS!
+			if(istype(M, /mob/living/simple_animal/hostile/gorilla))
+				body += "<A href='?_src_=holder;makegorilla=[M.UID()]'>Re-Gorillize</A> | "
+			else
+				body += "<A href='?_src_=holder;makegorilla=[M.UID()]'>Gorillize</A> | "
+
 			//AI / Cyborg
 			if(isAI(M))
 				body += "<B>Is an AI</B> "

@@ -26,6 +26,7 @@
 	if(wear_mask)
 		skipface |= wear_mask.flags_inv & HIDENAME
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
+		skipears |= wear_mask.flags_inv & HIDEHEADSETS
 
 	var/msg = "This is "
 

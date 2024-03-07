@@ -100,6 +100,71 @@
 	. = ..()
 	STOP_PROCESSING(SSprocessing, src)
 
+
+/datum/status_effect/banana_power
+	id = "banana_power"
+	duration = -1
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 1 SECONDS
+	alert_type = /obj/screen/alert/status_effect/banana_power
+	/// Basic heal per tick.
+	var/basic_heal_amt = 10
+	/// This diminishes the healing from eating bananas the higher it is.
+	var/tolerance = 1
+	/// Number of heal ticks.
+	var/instance_duration = 10
+	/// A list of integers, one for each remaining banana effect.
+	var/list/active_instances = list()
+
+
+/datum/status_effect/banana_power/on_apply()
+	to_chat(owner, span_boldnotice("Banana juices surge through your veins, you feel invincible!"))
+	apply_banana_power()
+	return TRUE
+
+
+/datum/status_effect/banana_power/refresh()
+	apply_banana_power()
+	..()
+
+
+/datum/status_effect/banana_power/proc/apply_banana_power()
+	tolerance++
+	active_instances += instance_duration
+	owner.remove_CC()
+	if(tolerance > 2)
+		to_chat(owner, span_warning("Eating so many bananas will not enhance healing, only prolong it and make weaker!"))
+
+
+/datum/status_effect/banana_power/tick()
+	var/active_instances_length = length(active_instances)
+	if(active_instances_length >= 1)
+		var/heal_amount = (active_instances_length / tolerance) * basic_heal_amt
+		if(isanimal(owner))
+			var/mob/living/simple_animal/s_owner = owner
+			s_owner.adjustHealth(-heal_amount, updating_health = FALSE)
+		else
+			owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+			owner.adjustOxyLoss(-heal_amount, updating_health = FALSE)
+		owner.updatehealth()
+		var/list/expired_instances = list()
+		for(var/i in 1 to active_instances_length)
+			active_instances[i]--
+			if(active_instances[i] <= 0)
+				expired_instances += active_instances[i]
+		active_instances -= expired_instances
+	tolerance = max(tolerance - 0.05, 1)
+	if(tolerance <= 1 && !length(active_instances))
+		qdel(src)
+
+
+/obj/screen/alert/status_effect/banana_power
+	name = "Banana power"
+	desc = "Your body has been infused with banana juices, you will heal damage over time!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "banana_power"
+
+
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
 /datum/status_effect/hippocraticOath
 	id = "Hippocratic Oath"

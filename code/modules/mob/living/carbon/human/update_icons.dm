@@ -725,7 +725,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		var/obj/item/clothing/glasses/G = glasses
-		if(head && !(head.flags_inv & MASKCOVERSEYES || head.flags_cover & HEADCOVERSEYES) && G.over_hat && istype(G))
+		if(head && !(head.flags_cover & HEADCOVERSEYES) && G.over_hat && istype(G))
 			new_glasses.layer = -OVER_HEAD_LAYER
 			overlays_standing[OVER_HEAD_LAYER] = new_glasses
 			apply_overlay(OVER_HEAD_LAYER)

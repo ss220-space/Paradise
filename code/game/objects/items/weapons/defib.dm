@@ -207,13 +207,14 @@
 		to_chat(user, span_warning("You can't use your hands to take out the paddles!"))
 		return
 
+	paddles_on_defib = FALSE
 	paddles.loc = get_turf(src)	// we need this to play animation properly
 	if(!user.put_in_hands(paddles, ignore_anim = FALSE))
 		paddles.loc = src
+		paddles_on_defib = TRUE
 		to_chat(user, span_warning("You need a free hand to hold the paddles!"))
 		return
 
-	paddles_on_defib = FALSE
 	paddles.update_icon(UPDATE_ICON_STATE)
 	update_icon(UPDATE_OVERLAYS)
 

@@ -82,7 +82,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	AddComponent(/datum/component/proximity_monitor, scan_range)
+	AddComponent(/datum/component/proximity_monitor, scan_range, TRUE)
 	setup()
 
 /obj/machinery/porta_turret/HasProximity(atom/movable/AM)

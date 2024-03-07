@@ -27,7 +27,7 @@
 
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon_state()
-	icon_state = "pscrubbe:[on]"
+	icon_state = "pscrubber:[on]"
 
 
 /obj/machinery/portable_atmospherics/scrubber/update_overlays()
@@ -182,10 +182,10 @@
 
 
 /obj/machinery/portable_atmospherics/scrubber/huge/update_icon_state()
-	icon_state = "pscrubbe:[on]"
+	icon_state = "scrubber:[on]"
 
 
-/obj/machinery/portable_atmospherics/scrubber/update_overlays()
+/obj/machinery/portable_atmospherics/scrubber/huge/update_overlays()
 	. = list()
 
 
