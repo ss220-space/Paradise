@@ -1,4 +1,4 @@
-#define BASE_MOVE_DELAY	8
+just#define BASE_MOVE_DELAY	8
 #define MAX_SPEED		2
 
 /obj/machinery/power/treadmill
@@ -98,7 +98,7 @@
 			stat &= ~BROKEN
 
 /obj/machinery/power/treadmill/attackby(obj/item/W, mob/user)
-	if(default_unfasten_wrench(user, W, 60))
+	if(default_unfasten_wrench(user, W, 6 SECONDS))
 		add_fingerprint(user)
 		if(anchored)
 			connect_to_network()
