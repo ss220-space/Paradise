@@ -284,6 +284,7 @@
 			brightness_color = "#FFA757"
 			if(prob(5))
 				break_light_tube(TRUE)
+	update(FALSE, mapload ? FALSE : TRUE)
 
 
 /obj/machinery/light/Destroy()
