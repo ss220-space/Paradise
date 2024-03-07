@@ -194,8 +194,8 @@
 /area/ruin/USSP_SpaceBanya)
 "iE" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/syndicate,
 /obj/item/dice,
+/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "jm" = (
