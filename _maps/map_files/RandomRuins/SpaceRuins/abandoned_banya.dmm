@@ -28,23 +28,18 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "aQ" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -25
-	},
 /obj/structure/closet/gmcloset,
 /obj/item/wrench,
 /obj/item/stack/sheet/glass{
 	amount = 50
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -23
-	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "bc" = (
 /obj/item/chair,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "bq" = (
@@ -106,11 +101,10 @@
 	},
 /area/ruin/USSP_SpaceBanya)
 "dX" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable{
-	icon_state = "0-2"
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
-/turf/simulated/floor,
 /area/ruin/USSP_SpaceBanya)
 "ef" = (
 /obj/effect/decal/cleanable/dust,
@@ -156,13 +150,25 @@
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "fc" = (
-/obj/item/reagent_containers/food/snacks/xenoburger,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood/oak,
+/area/ruin/USSP_SpaceBanya)
 "fG" = (
 /obj/item/ammo_casing/revolver,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/turf/simulated/floor/wood,
+/area/ruin/USSP_SpaceBanya)
+"fS" = (
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 30
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -171,7 +177,7 @@
 /obj/item/fan,
 /obj/item/paper/ussp{
 	name = "Прайс Лист";
-	info = "Прайс Лист с текущими расценками услуг: Парилка и купание - 450 рублей.  Обед - 150. Баня, сауна, обед и выпивка - 999 рублей. "
+	info = "Прайс Лист с текущимвввви расценками услуг: Парилка и купание - 450 кредитов.  Обед - 150. Баня, сауна, обед и выпивка - 999 кредитов. "
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -188,7 +194,7 @@
 /area/ruin/USSP_SpaceBanya)
 "iE" = (
 /obj/structure/table/wood/poker,
-/obj/item/deck/cards/syndicate,
+/obj/item/toy/cards/deck/syndicate,
 /obj/item/dice,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -385,7 +391,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "qQ" = (
@@ -408,16 +413,13 @@
 /area/ruin/USSP_SpaceBanya)
 "rn" = (
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
 /area/ruin/USSP_SpaceBanya)
 "ro" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood/oak,
@@ -529,13 +531,6 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "uN" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 27
-	},
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/wardrobe,
 /obj/item/clothing/under/color/lightbrown,
@@ -560,13 +555,13 @@
 /obj/structure/table/glass,
 /obj/item/book/manual/atmospipes,
 /obj/item/flashlight/seclite,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "vI" = (
 /mob/living/simple_animal/mouse/brown,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
@@ -591,9 +586,6 @@
 	pixel_y = 3
 	},
 /obj/item/crowbar/red,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "wn" = (
@@ -621,11 +613,11 @@
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "xr" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/machinery/power/terminal{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -662,6 +654,7 @@
 /area/ruin/USSP_SpaceBanya)
 "zd" = (
 /obj/structure/railing,
+/obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
@@ -717,9 +710,6 @@
 "AU" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -882,9 +872,6 @@
 /area/ruin/USSP_SpaceBanya)
 "JI" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/wood{
 	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
@@ -943,10 +930,6 @@
 	icon_state = "plant-dead";
 	tag = "plant-dead"
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
-	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "NX" = (
@@ -1004,24 +987,17 @@
 	},
 /obj/item/reagent_containers/food/snacks/candy/confectionery,
 /obj/item/stack/spacecash/ussp/c1000{
-	pixel_x = 31;
-	pixel_y = 6
+	pixel_x = 35;
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "Re" = (
+/obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "0-8"
 	},
-/obj/structure/closet/crate{
-	icon_state = "crateopen";
-	opened = 1
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 30
-	},
-/obj/item/stack/cable_coil/random,
-/turf/simulated/floor/wood,
+/turf/simulated/floor,
 /area/ruin/USSP_SpaceBanya)
 "RV" = (
 /obj/effect/decal/cleanable/flour,
@@ -1065,7 +1041,8 @@
 /area/ruin/USSP_SpaceBanya)
 "Uf" = (
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "1-8";
+	dir = 9
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -1179,10 +1156,9 @@
 /area/ruin/USSP_SpaceBanya)
 "Xm" = (
 /obj/effect/decal/cleanable/dust,
-/obj/effect/decal/cleanable/dust,
 /obj/item/coin/gold{
-	pixel_y = 30;
-	pixel_x = -23
+	pixel_y = 7;
+	pixel_x = -12
 	},
 /obj/item/gun/magic/wand,
 /turf/simulated/floor/wood/oak,
@@ -1562,8 +1538,8 @@ ud
 DE
 DE
 bq
+fc
 Dd
-nD
 dr
 Nd
 Nd
@@ -1712,7 +1688,7 @@ Dd
 Dd
 Dd
 NX
-sP
+Ep
 JI
 Dd
 dr
@@ -1738,7 +1714,7 @@ FV
 Dd
 Lj
 bc
-Ep
+fS
 Dd
 nD
 Nd
@@ -2137,7 +2113,7 @@ nD
 nD
 dr
 dr
-fc
+dr
 Nd
 dr
 Nd
