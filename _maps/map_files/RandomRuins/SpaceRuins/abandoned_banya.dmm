@@ -522,14 +522,6 @@
 	icon_state = "carpet4-0"
 	},
 /area/ruin/USSP_SpaceBanya)
-"ur" = (
-/obj/effect/decal/cleanable/dust,
-/obj/item/coin/gold{
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/USSP_SpaceBanya)
 "uN" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/wardrobe,
@@ -1633,7 +1625,7 @@ Dd
 Dd
 uN
 mL
-ur
+DE
 DE
 zo
 Dd
