@@ -1308,7 +1308,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src.loc, 'sound/items/beaver_plushie.ogg', 50, 0)
+	playsound(loc, 'sound/items/beaver_plushie.ogg', 50, FALSE)
 	visible_message(span_boldnotice("BOBR KURWA!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
