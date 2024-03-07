@@ -84,7 +84,7 @@
 		var/turf/T = get_ranged_target_turf(thrown_by, dir, 2)
 		addtimer(CALLBACK(true_parent, TYPE_PROC_REF(/atom/movable, throw_at), T, boomerang_throw_range, throwing_datum.speed, null, TRUE), 1)
 		last_boomerang_throw = world.time + BOOMERANG_REBOUND_INTERVAL
-	true_parent.visible_message(span_danger("[true_parent] is flying back at [throwing_datum.thrower]!"), \
+	thrown_by.visible_message(span_danger("[true_parent] is flying back at [throwing_datum.thrower]!"), \
 						span_danger("You see [true_parent] fly back at you!"), \
 						span_hear("You hear an aerodynamic woosh!"))
 
