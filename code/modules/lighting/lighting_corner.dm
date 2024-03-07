@@ -27,6 +27,12 @@
 	///whether we are to be added to SSlighting's corners_queue list for an update
 	var/needs_update = FALSE
 
+	//additive light values
+	var/add_r = 0
+	var/add_g = 0
+	var/add_b = 0
+	var/applying_additive = FALSE
+
 // Takes as an argument the coords to use as the bottom left (south west) of our corner
 /datum/lighting_corner/New(x, y, z)
 	. = ..()
@@ -91,6 +97,17 @@
 	lum_r += delta_r
 	lum_g += delta_g
 	lum_b += delta_b
+
+	add_r = clamp((lum_r - 1.3) * 0.25, 0, 0.22)
+	add_g = clamp((lum_g - 1.3) * 0.25, 0, 0.22)
+	add_b = clamp((lum_b - 1.3) * 0.25, 0, 0.22)
+
+	// Client-shredding, does not cull any additive overlays.
+	//applying_additive = add_r || add_g || add_b
+	// Cull additive overlays that would be below 0.03 alpha in any color.
+	applying_additive = max(add_r, add_g, add_b) > 0.03
+	// Cull additive overlays whose color alpha sum is lower than 0.03
+	//applying_additive = (add_r + add_g + add_b) > 0.03
 
 	if(!needs_update)
 		needs_update = TRUE

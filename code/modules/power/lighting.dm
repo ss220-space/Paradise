@@ -188,11 +188,11 @@
 	/// How much power does it use?
 	var/static_power_used = 0
 	/// Light range (Also used in power calculation)
-	var/brightness_range = 8
+	var/brightness_range = 7
 	/// Light intensity
-	var/brightness_power = 1
+	var/brightness_power = 0.65
 	/// Light colour when on
-	var/brightness_color = "#FFFFFF"
+	var/brightness_color = "#FFD6B5"
 	/// Light fixture status (LIGHT_OK | LIGHT_EMPTY | LIGHT_BURNED | LIGHT_BROKEN)
 	var/status = LIGHT_OK
 	/// Is the light currently flickering?
@@ -220,7 +220,7 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#FFDDCC"
+	var/nightshift_light_color = "#FFCA9F"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
@@ -242,7 +242,7 @@
 	base_icon_state = "bulb"
 	fitting = "bulb"
 	brightness_range = 4
-	brightness_color = "#a0a080"
+	brightness_color = "#FFA757"
 	nightshift_light_range = 4
 	desc = "A small lighting fixture."
 	light_type = /obj/item/light/bulb
@@ -276,15 +276,14 @@
 
 	switch(fitting)
 		if("tube")
-			brightness_range = 8
+			brightness_range = 6.5
 			if(prob(2))
 				break_light_tube(TRUE)
 		if("bulb")
 			brightness_range = 4
-			brightness_color = "#a0a080"
+			brightness_color = "#FFA757"
 			if(prob(5))
 				break_light_tube(TRUE)
-	update(FALSE, mapload ? FALSE : TRUE)
 
 
 /obj/machinery/light/Destroy()

@@ -5,6 +5,7 @@
 	///whether we are already in the SSlighting.objects_queue list
 	var/needs_update = FALSE
 
+	var/mutable_appearance/additive_underlay
 	///the turf that our light is applied to
 	var/turf/affected_turf
 
@@ -34,6 +35,9 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		for(var/turf/space/space_tile in RANGE_TURFS(1, affected_turf))
 			space_tile.update_starlight()
 
+	additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER, LIGHTING_PLANE_ADDITIVE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
+	additive_underlay.blend_mode = BLEND_ADD
+
 	needs_update = TRUE
 	SSlighting.objects_queue += src
 
@@ -45,6 +49,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		affected_turf.lighting_object = null
 		affected_turf.luminosity = 1
 		affected_turf.underlays -= current_underlay
+		myturf.underlays -= additive_underlay
 	affected_turf = null
 	return ..()
 
@@ -105,4 +110,36 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	// Of note. Most of the cost in this proc is here, I think because color matrix'd underlays DO NOT cache well, which is what adding to underlays does
 	// We use underlays because objects on each tile would fuck with maptick. if that ever changes, use an object for this instead
 	affected_turf.underlays += current_underlay
+
+	if(cr.applying_additive || cg.applying_additive || cb.applying_additive || ca.applying_additive)
+		affected_turf.underlays -= additive_underlay
+		additive_underlay.icon_state = "light"
+		var/arr = cr.add_r
+		var/arb = cr.add_b
+		var/arg = cr.add_g
+
+		var/agr = cg.add_r
+		var/agb = cg.add_b
+		var/agg = cg.add_g
+
+		var/abr = cb.add_r
+		var/abb = cb.add_b
+		var/abg = cb.add_g
+
+		var/aarr = ca.add_r
+		var/aarb = ca.add_b
+		var/aarg = ca.add_g
+
+		additive_underlay.color = list(
+			arr, arg, arb, 00,
+			agr, agg, agb, 00,
+			abr, abg, abb, 00,
+			aarr, aarg, aarb, 00,
+			00, 00, 00, 01
+		)
+		affected_turf.underlays += additive_underlay
+	else
+		affected_turf.underlays -= additive_underlay
+
 	affected_turf.luminosity = set_luminosity
+

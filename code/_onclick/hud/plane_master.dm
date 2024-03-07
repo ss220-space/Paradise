@@ -151,3 +151,10 @@
 	render_target = O_LIGHTING_VISUAL_RENDER_TARGET
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blend_mode = BLEND_MULTIPLY
+
+/obj/screen/plane_master/additive_lighting
+	name = "additive lighting plane master"
+	plane = LIGHTING_PLANE_ADDITIVE
+	blend_mode = BLEND_ADD
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = PLANE_MASTER
