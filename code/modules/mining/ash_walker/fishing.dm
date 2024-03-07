@@ -264,7 +264,7 @@ meat, whetstone, street wear, armor components, other strange shit
 	name = "sturdy crab shell"
 	desc = "маленький панцирь, достаточно крепкий, чтобы выдержать несколько сессий заточки оружия."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
-	icon_state = crab_shell
+	icon_state = "crab_shell"
 	increment = 2
 	infinity_use = TRUE
 
@@ -365,4 +365,27 @@ meat, whetstone, street wear, armor components, other strange shit
 /obj/item/t_scanner/adv_mining_scanner/fish/toggle_mode()
 	return
 
-//
+//acid bag
+/obj/item/acid_bladder
+	name = "acid bladder"
+	desc = "Мешочек с кислотой. Бросаешь в людей и им будет больно. Бросаешь в стены и они гниют. Забавно!"
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "acid_bladder"
+	w_class = WEIGHT_CLASS_TINY
+	reagents = list("facid" = 20)
+
+/obj/item/acid_bladder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	..()
+	var/turf/T = get_turf(hit_atom)
+	if(istype(T, /turf/simulated/wall))
+		var/turf/simulated/wall/W = T
+		W.rotting = 1
+		new /obj/effect/overlay/wall_rot(W)
+		qdel(src)
+	else
+		reagents.reaction(T)
+		for(var/A in T)
+			if(reagents)
+				reagents.reaction(A)
+		qdel(src)
+		new /obj/effect/decal/cleanable/plant_smudge(T)
