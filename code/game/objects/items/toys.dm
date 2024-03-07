@@ -1296,20 +1296,20 @@
 
 /obj/item/toy/beaver
 	name = "Beaver plushie"
-	desc = "BOBER KURWA!"
+	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "beaver_plushie"
 	item_state = "beaver_plushie"
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = FALSE
-	//gender = NEUTER
+	gender = MALE
 
 /obj/item/toy/beaver/attack_self(mob/user)
 	if(cooldown)
 		return ..()
 
-	playsound(src.loc, 'sound/items/beaver_plushie.ogg', 50, 1)
-	visible_message(span_boldnotice("BOBR!"))
+	playsound(src.loc, 'sound/items/beaver_plushie.ogg', 50, 0)
+	visible_message(span_boldnotice("BOBR KURWA!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
