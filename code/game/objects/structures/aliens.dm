@@ -333,13 +333,9 @@
 	var/static/list/forbidden_turf_types
 	creates_cover = TRUE
 
-
-/obj/structure/alien/weeds/New(pos, node)
-	..()
-	linked_node = node
-
-/obj/structure/alien/weeds/Initialize(mapload)
+/obj/structure/alien/weeds/Initialize(mapload, node)
 	. = ..()
+	linked_node = node
 	if(!forbidden_turf_types)
 		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava))
 
