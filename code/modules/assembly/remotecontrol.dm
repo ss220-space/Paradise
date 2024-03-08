@@ -39,7 +39,7 @@
 	if(!..())
 		return
 	for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
-		if(safety_z_check && poddoor.z != z || !(poddoor.id_tag in id))
+		if(safety_z_check && poddoor.z != loc.z || !(poddoor.id_tag in ids))
 			continue
 		if(poddoor.density)
 			INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, open))
@@ -58,7 +58,7 @@
 	if(!..())
 		return
 	for(var/obj/machinery/door/airlock/airlock in GLOB.airlocks)
-		if(safety_z_check && airlock.z != z || !(airlock.id_tag in id))
+		if(safety_z_check && airlock.z != loc.z || !(airlock.id_tag in ids))
 			continue
 		if(specialfunctions & OPEN)
 			if(airlock.density)

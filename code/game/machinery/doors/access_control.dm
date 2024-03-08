@@ -1,3 +1,6 @@
+/// Maximum brain damage a mob can have until it can't use the electronics
+#define MAX_BRAIN_DAMAGE 60
+
 /obj/item/access_control
 	name = "access control electronics"
 	icon = 'icons/obj/module.dmi'
@@ -17,10 +20,11 @@
 	var/static/list/door_accesses_list = list()
 	var/list/current_door_accesses_list = list()
 
-	/// Maximum brain damage a mob can have until it can't use the electronics
-	var/const/max_brain_damage = 60
+
 	/// Which direction has unrestricted access to the airlock (e.g. medbay doors from the inside)
 	var/unres_access_from = null
+
+	var/emagged
 
 	var/region_min = REGION_GENERAL
 	var/region_max = REGION_COMMAND
@@ -34,14 +38,17 @@
 				"id" = access))
 	current_door_accesses_list = door_accesses_list
 
+/obj/item/access_control/update_icon_state()
+	icon_state = "access-control[emagged ? "-smoked" : ""]"
+
 /obj/item/access_control/attack_self(mob/user)
-	if(!ishuman(user) && !isrobot(user))
+	if(!ishuman(user) && !isrobot(user) || emagged)
 		return ..()
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.getBrainLoss() >= max_brain_damage)
-			to_chat(user, "<span class='warning'>You forget how to use [src].</span>")
+		if(H.getBrainLoss() >= MAX_BRAIN_DAMAGE)
+			to_chat(user, span_warning("You forget how to use [src]."))
 			return
 	ui_interact(user)
 
@@ -69,6 +76,8 @@
 		return
 
 	. = TRUE
+	if(emagged)
+		return
 	// Mostly taken from the RCD code
 	switch(action)
 		if("unrestricted_access")
@@ -124,3 +133,5 @@
 				"name" = get_access_desc(access),
 				"id" = access))
 	current_door_accesses_list = syndie_door_accesses_list
+
+#undef MAX_BRAIN_DAMAGE

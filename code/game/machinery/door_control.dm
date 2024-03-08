@@ -40,9 +40,15 @@
 	var/specialfunctions = OPEN
 
 
-/obj/machinery/door_control/Initialize(mapload)
+/obj/machinery/door_control/Initialize(mapload, direction = null, building = FALSE)
 	. = ..()
 	power_change(forced = TRUE)
+	if(building)
+		open = TRUE
+		constructed = TRUE
+		setDir(direction)
+		set_pixel_offsets_from_dir(26, -26, 26, -26)
+		update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 
 /obj/machinery/door_control/attack_ai(mob/user)
@@ -79,11 +85,12 @@
 			device.toggle_secure()
 
 		add_fingerprint(user)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 	if(istype(W, /obj/item/access_control))
-		if(W.icon_state == "access-control-smoked")
+		var/obj/item/access_control/access_control = W
+		if(access_control.emagged)
 			return
 		if(access_electronics)
 			return
@@ -95,7 +102,7 @@
 		add_fingerprint(user)
 		if(emagged)
 			emagged = FALSE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 	return ..()
@@ -105,7 +112,7 @@
 	if(!(open || allowed(user)))
 		to_chat(user, span_warning("Access Denied. The cover plate will not open."))
 		return
-	if(!I.use_tool(src, user, delay = 30, volume = I.tool_volume))
+	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
 		return
 
 	// Close the panel
@@ -113,7 +120,7 @@
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		open = FALSE
 		update_access()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 		return
 
 	// Open the panel
@@ -125,7 +132,7 @@
 	SCREWDRIVER_OPEN_PANEL_MESSAGE
 	open = TRUE
 	constructed = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/door_control/wrench_act(mob/living/user, obj/item/I)
 	if(!open)
@@ -136,7 +143,7 @@
 		to_chat(user, "You must take out the electronics first.")
 		return
 
-	if(!I.use_tool(src, user, delay = 30, volume = I.tool_volume))
+	if(!I.use_tool(src, user, delay = 3 SECONDS, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new /obj/item/mounted/frame/door_control(get_turf(user))
@@ -153,15 +160,6 @@
 		return
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
-
-/obj/machinery/door_control/Initialize(mapload, direction = null, building = FALSE)
-	. = ..()
-	if(building)
-		open = TRUE
-		constructed = TRUE
-		setDir(direction)
-		set_pixel_offsets_from_dir(26, -26, 26, -26)
-		update_icon()
 
 /obj/machinery/door_control/Destroy()
 	QDEL_NULL(device)
@@ -203,9 +201,7 @@
 		return id
 
 /obj/machinery/door_control/attack_hand(mob/user)
-
 	if(open)
-
 		if(!(device || access_electronics))
 			return
 
@@ -219,13 +215,14 @@
 			user.put_in_hands(access_electronics, ignore_anim = FALSE)
 			access_electronics.add_fingerprint(user)
 			if(emagged)
-				access_electronics.icon_state = "access-control-smoked"
+				access_electronics.emagged = TRUE
+				access_electronics.update_icon(UPDATE_ICON_STATE)
 			access_electronics = null
 
 		user.visible_message("[user] takes out the electronics from the button frame.", "You take out the electronics from the button frame.")
 
 		add_fingerprint(user)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 	add_fingerprint(user)
@@ -271,10 +268,13 @@
 		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 
 /obj/machinery/door_control/update_icon_state()
+	if(open)
+		icon_state = "doorctrl-panel"
+		return
 	if(stat & NOPOWER)
 		icon_state = "[base_icon_state]-p"
 		return
@@ -284,15 +284,16 @@
 /obj/machinery/door_control/update_overlays()
 	. = ..()
 	underlays.Cut()
-	// access_board overlay
-	if(access_electronics)
-		. += "doorctrl-overlay-board"
+	if(open)
+		// access_board overlay
+		if(access_electronics)
+			. += "doorctrl-overlay-board"
 
-	// device overlay
-	if(issignaler(device))
-		. += "doorctrl-overlay-signaler"
-	else if(device)
-		. += "doorctrl-overlay-device"
+		// device overlay
+		if(issignaler(device))
+			. += "doorctrl-overlay-signaler"
+		else if(device)
+			. += "doorctrl-overlay-device"
 
 	if(stat & NOPOWER)
 		return
