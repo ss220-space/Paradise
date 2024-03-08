@@ -208,7 +208,7 @@
 	var/const/option_syndicate = "(SYNDI) \"Agent reporting in...\""
 	var/list/response_choices = list(option_explorer, option_bluff, option_threat)
 
-	if(istraitor(user))
+	if(user.mind?.has_antag_datum(/datum/antagonist/traitor))
 		response_choices |= option_syndicate
 
 	var/selected_choice = tgui_input_list(user, "How do you respond on the comms device?", "Response to Syndicate", response_choices)
