@@ -157,4 +157,4 @@
 	plane = LIGHTING_PLANE_ADDITIVE
 	blend_mode = BLEND_ADD
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	appearance_flags = PLANE_MASTER
+	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
