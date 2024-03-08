@@ -175,11 +175,10 @@
 
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
-		name = "[initial(name)] - [blood_type] - [blood_species]"
+		name = "[initial(name)] - [blood_species] ([blood_type])"
 		reagents.add_reagent("blood", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon(UPDATE_OVERLAYS)
 	. = ..()
-
 
 /obj/item/reagent_containers/iv_bag/blood/random/Initialize(mapload)
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
@@ -245,22 +244,21 @@
 	amount_per_transfer_from_this = 5
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis
-	name = "\improper IV Bag - Oxygenis"
 	var/blood_species = "Oxygen - synthetic"
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
+		name = "[initial(name)] - Oxygenis"
 		reagents.add_reagent("sbloodoxy", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon(UPDATE_OVERLAYS)
 
 	. = ..()
-
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis
-	name = "\improper IV Bag - Nitrogenis"
 	var/blood_species = "Vox - synthetic"
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
+		name = "[initial(name)] - Nitrogenis"
 		reagents.add_reagent("sbloodvox", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon(UPDATE_OVERLAYS)
 	. = ..()
