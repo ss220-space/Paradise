@@ -2298,6 +2298,8 @@
 		/obj/item/toy/pet_rock = 5,
 		/obj/item/pet_carrier/normal = 3,
 		/obj/item/pet_carrier = 5,
+		/obj/item/reagent_containers/food/condiment/animalfeed = 5,
+		/obj/item/reagent_containers/glass/pet_bowl = 3,
 	)
 
 	prices = list(
@@ -2316,6 +2318,8 @@
 		/obj/item/toy/pet_rock = 100,
 		/obj/item/pet_carrier/normal = 250,
 		/obj/item/pet_carrier = 100,
+		/obj/item/reagent_containers/food/condiment/animalfeed = 100,
+		/obj/item/reagent_containers/glass/pet_bowl = 50,
 	)
 
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
