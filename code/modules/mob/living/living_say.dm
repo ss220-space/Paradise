@@ -244,6 +244,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		else
 			first_piece.message = copytext_char(first_piece.message, 3)
 
+	//And only after everything is done, we hissin'
+	for(var/datum/multilingual_say_piece/piece as anything in message_pieces)
+		piece.message = handle_autohiss(piece.message, piece.speaking)
+
 	first_piece.message = trim_left(first_piece.message)
 	verb = say_quote(message, first_piece.speaking)
 
