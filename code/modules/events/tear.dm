@@ -12,6 +12,7 @@
 		else
 			log_debug("Tried to announce a tear without a valid area!")
 			kill()
+			return
 	GLOB.event_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
 
 /datum/event/tear/start()
