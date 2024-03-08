@@ -340,7 +340,7 @@
 		if(stat == CONSCIOUS)
 			if(getBrainLoss() >= 60)
 				msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
-			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat != DEAD)
+			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
 				msg += span_warning("[p_they(TRUE)] [p_are()] barely conscious.\n")
 
 
