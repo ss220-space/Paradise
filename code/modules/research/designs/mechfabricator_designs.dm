@@ -1416,6 +1416,7 @@
 	materials = list(MAT_METAL=15000, MAT_BLUESPACE=2000, MAT_SILVER=6000)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
+
 /datum/design/service_bs_beaker
 	name = "Cyborg Service Upgrade (Bluespace Beaker)"
 	id = "service_bs_beaker"
