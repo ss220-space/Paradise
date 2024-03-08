@@ -62,7 +62,5 @@
 			L.adjustStaminaLoss(35)
 	else
 		. = ..()
-		if(.)
-			L.adjustStaminaLoss(35) //3 hits for stam crit
 
 
