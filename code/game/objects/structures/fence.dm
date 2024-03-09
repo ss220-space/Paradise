@@ -71,7 +71,7 @@
 	if(!climb_check(user))
 		return FALSE
 
-	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+	user.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
 	if(!do_after(user, CLIMB_TIME, target = src))
 		climber = null
@@ -81,10 +81,10 @@
 		climber = null
 		return FALSE
 
-	usr.loc = get_turf(src)
+	user.loc = get_turf(src)
 
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		user.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	clumse_stuff(climber)
 
