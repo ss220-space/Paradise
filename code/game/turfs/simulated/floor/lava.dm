@@ -29,8 +29,25 @@
 		START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/plating/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(burn_stuff(AM))
-		START_PROCESSING(SSprocessing, src)
+	if(istype(AM, /obj/item/reagent_containers/food/snacks/charred_krill))
+		var/obj/item/reagent_containers/food/snacks/charred_krill/krill = AM //yourself
+		var/datum/component/simple_fishing/fc = GetComponent(/datum/component/simple_fishing)
+		krill.in_lava = TRUE
+		krill.anchored = TRUE	//no closet kidnaping
+		visible_message(span_warning("[krill] is slowly sinking in the lava!"))
+		sleep(5 SECONDS)
+		qdel(krill)
+		if(!fc)
+			visible_message(span_warning("But nobody came."))
+			return
+		visible_message(span_warning("Suddenly, two fish float out of the lava and tear [krill] apart!"))
+		var/list/fishable_list = fc.catchable_fish.Copy()
+		for(var/i in 1 to 2)
+			var/fish = pick(fishable_list)
+			new fish(src)
+	else
+		if(burn_stuff(AM))
+			START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/plating/lava/process()
 	if(!burn_stuff())
@@ -115,6 +132,23 @@
 
 
 /turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
+	if(istype(C, /obj/item/reagent_containers/food/snacks/charred_krill))
+		to_chat(user, span_notice("You carefully place the shrimp on the surface of the lava..."))
+		if(do_after(user, 5 SECONDS, target = src))
+			if(QDELETED(C))
+				return
+			var/datum/component/simple_fishing/fc = GetComponent(/datum/component/simple_fishing)
+			if(!fc)
+				to_chat(user, span_warning("...But nobody came."))
+				return
+			to_chat(user, span_notice("Suddenly, two fish float out of the lava and tear [C] apart!"))
+			var/list/fishable_list = fc.catchable_fish.Copy()
+			for(var/i in 1 to 2)
+				var/fish = pick(fishable_list)
+				new fish(src)
+			qdel(C)
+
+
 	if(istype(C, /obj/item/stack/fireproof_rods))
 		var/obj/item/stack/fireproof_rods/R = C
 		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice, src)
@@ -172,6 +206,14 @@
 	nitrogen = 23
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
+	/// Check for plasma river, subtype of lava, prevents simple fishing
+	var/is_lava = TRUE
+
+
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface/Initialize(mapload)
+	. = ..()
+	if(is_lava)
+		AddComponent(/datum/component/simple_fishing)
 
 /turf/simulated/floor/plating/lava/smooth/airless
 	temperature = TCMB
@@ -187,6 +229,7 @@
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
+	is_lava = FALSE // ~ Sin City's cold and empty, No one`s around to judge me ~
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/examine(mob/user)
 	. = ..()

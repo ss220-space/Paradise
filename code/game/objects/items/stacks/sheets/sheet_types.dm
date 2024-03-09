@@ -192,6 +192,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Сoat rack", /obj/structure/coatrack, 10, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Display case chassis", /obj/structure/displaycase_chassis, 5, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Dog bed", /obj/structure/bed/dogbed, 10, time = 10, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wooden bed", /obj/structure/bed/wooden, 15, time = 15, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Dresser", /obj/structure/dresser, 30, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Drying rack", /obj/machinery/smartfridge/drying_rack, 10, time = 15, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 50),
@@ -231,6 +232,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Wood table frame", /obj/structure/table_frame/wood, 2, time = 10),
 	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wooden stool", /obj/structure/chair/stool/wooden, 2, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Notice Board", /obj/item/noticeboard, 5, time = 10),
 ))

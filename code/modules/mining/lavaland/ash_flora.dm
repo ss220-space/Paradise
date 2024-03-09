@@ -2,7 +2,8 @@
 	gender = PLURAL
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER //sporangiums up don't shoot
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
-	icon_state = "l_mushroom"
+	icon_state = "l_mushroom1"
+	base_icon_state = "l_mushroom"
 	name = "large mushrooms"
 	desc = "A number of large mushrooms, covered in a faint layer of ash and what can only be spores."
 	anchored = TRUE
@@ -24,7 +25,7 @@
 
 /obj/structure/flora/ash/Initialize(mapload)
 	. = ..()
-	base_icon = "[icon_state][rand(1, 4)]"
+	base_icon = "[base_icon_state][rand(1, 4)]"
 	icon_state = base_icon
 
 /obj/structure/flora/ash/proc/harvest(user)
@@ -81,7 +82,8 @@
 	regrowth_time_low = 4200
 
 /obj/structure/flora/ash/leaf_shroom
-	icon_state = "s_mushroom"
+	icon_state = "s_mushroom1"
+	base_icon_state = "s_mushroom"
 	name = "leafy mushrooms"
 	desc = "A number of mushrooms, each of which surrounds a greenish sporangium with a number of leaf-like structures."
 	harvested_name = "leafless mushrooms"
@@ -97,7 +99,8 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cap_shroom
-	icon_state = "r_mushroom"
+	icon_state = "r_mushroom1"
+	base_icon_state = "r_mushroom"
 	name = "tall mushrooms"
 	desc = "Several mushrooms, the larger of which have a ring of conks at the midpoint of their stems."
 	harvested_name = "small mushrooms"
@@ -112,7 +115,8 @@
 	regrowth_time_high = 5400
 
 /obj/structure/flora/ash/stem_shroom
-	icon_state = "t_mushroom"
+	icon_state = "t_mushroom1"
+	base_icon_state = "t_mushroom"
 	name = "numerous mushrooms"
 	desc = "A large number of mushrooms, some of which have long, fleshy stems. They're radiating light!"
 	light_range = 1.5
@@ -129,7 +133,8 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cacti
-	icon_state = "cactus"
+	icon_state = "cactus1"
+	base_icon_state = "cactus"
 	name = "fruiting cacti"
 	desc = "Several prickly cacti, brimming with ripe fruit and covered in a thin layer of ash."
 	harvested_name = "cacti"
@@ -151,6 +156,7 @@
 
 /obj/structure/flora/ash/fireblossom
 	icon_state = "fireblossom"
+	base_icon_state = "fireblossom"
 	name = "fire blossom"
 	desc = "An odd flower that grows commonly near bodies of lava."
 	harvested_name = "fire blossom stems"
@@ -300,7 +306,9 @@
 	desc = "These seeds grow into fire blossoms."
 	icon_state = "seed-fireblossom"
 	species = "fireblossom"
+	potency = 60
 	plantname = "Fire Blossom"
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
 	genes = list(/datum/plant_gene/trait/fire_resistance, /datum/plant_gene/trait/glow/yellow)
 	reagents_add = list("tinlux" = 0.04, "nutriment" = 0.03, "carbon" = 0.05)

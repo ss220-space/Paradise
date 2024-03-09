@@ -11,6 +11,7 @@
 	var/prefix = "sharpened"
 	var/requires_sharpness = 1
 	var/claw_damage_increase = 2
+	var/infinity_use = FALSE
 
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
@@ -44,9 +45,10 @@
 		span_warning("You sharpen [I], making it much more deadly than before."))
 	I.name = "[prefix] [I.name]"
 	playsound(get_turf(src), usesound, 50, 1)
-	name = "worn out [name]"
-	desc = "[desc] At least, it used to."
-	used = TRUE
+	if(!infinity_use)
+		name = "worn out [name]"
+		desc = "[desc] At least, it used to."
+		used = TRUE
 	update_icon()
 
 
@@ -64,9 +66,10 @@
 				attack.damage += claw_damage_increase
 				H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on [src]!</span>", "<span class='notice'>You sharpen your claws on [src].</span>")
 				playsound(get_turf(H), usesound, 50, 1)
-				name = "worn out [name]"
-				desc = "[desc] At least, it used to."
-				used = TRUE
+				if(!infinity_use)
+					name = "worn out [name]"
+					desc = "[desc] At least, it used to."
+					used = TRUE
 				update_icon()
 			else
 				to_chat(user, "<span class='warning'>You can not sharpen your claws any further!</span>")

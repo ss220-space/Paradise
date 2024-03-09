@@ -337,6 +337,12 @@
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
 
+/obj/item/flashlight/flare/torch/test_lavender //если вы видите этот комментарий в открытом ПРе, значит зюзя еблан.
+	light_color = LIGHT_COLOR_LAVENDER
+
+/obj/item/flashlight/flare/torch/test_darkred
+	light_color = LIGHT_COLOR_DARKRED
+
 /obj/item/flashlight/slime
 	gender = PLURAL
 	name = "glowing slime extract"

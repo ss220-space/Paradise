@@ -15,7 +15,8 @@
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
-	var/dug
+	var/dug = FALSE
+	var/worm_chance = 40
 
 /turf/simulated/floor/plating/asteroid/Initialize(mapload)
 	var/proper_name = name
@@ -35,6 +36,15 @@
 		return TRUE
 	if(user)
 		to_chat(user, span_notice("Looks like someone has dug here already."))
+
+///Refills the previously dug tile
+/turf/simulated/floor/plating/asteroid/proc/refill_dug()
+	dug = FALSE
+	icon_plating = initial(icon_plating)
+	icon_state =  initial(icon_state)
+	if(prob(floor_variance))
+		icon_state = "[base_icon_state][rand(0,12)]"
+	update_appearance()
 
 /turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -110,6 +120,9 @@
 /turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/I)
 	return
 
+/// Used by ashstorms to replenish basalt tiles that have been dug up without going through all of them.
+GLOBAL_LIST_EMPTY(dug_up_basalt)
+
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
@@ -142,6 +155,30 @@
 
 /turf/simulated/floor/plating/asteroid/basalt/getDug()
 	set_light(0)
+	if(prob(worm_chance))
+		spawn_random_worm()
+	GLOB.dug_up_basalt |= src
+	return ..()
+
+/turf/simulated/floor/plating/asteroid/basalt/proc/spawn_random_worm()
+	switch(rand(0, 100))
+		if(0 to 41)
+			new /obj/item/reagent_containers/food/snacks/bait/ash_eater(src)
+		if(42 to 74)
+			new /obj/item/reagent_containers/food/snacks/bait/bloody_leach(src)
+		if(75 to 98)
+			new /obj/item/reagent_containers/food/snacks/bait/goldgrub_larva(src)
+		if(99 to 100)
+			new /obj/item/reagent_containers/food/snacks/charred_krill(src)
+
+
+/turf/simulated/floor/plating/asteroid/basalt/refill_dug()
+	. = ..()
+	GLOB.dug_up_basalt -= src
+	set_basalt_light(src)
+
+/turf/simulated/floor/plating/asteroid/basalt/Destroy()
+	GLOB.dug_up_basalt -= src
 	return ..()
 
 /proc/set_basalt_light(turf/simulated/floor/B)

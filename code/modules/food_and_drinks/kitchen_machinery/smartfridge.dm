@@ -773,6 +773,8 @@
 	active_power_usage = 200
 	can_dry = TRUE
 	visible_contents = FALSE
+	var/primitive = FALSE //used for energy consuming stuff
+	var/drying_timer = 1
 	icon_lightmask = null
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
@@ -794,6 +796,8 @@
 	return
 
 /obj/machinery/smartfridge/drying_rack/power_change(forced = FALSE)
+	if(primitive)
+		return
 	if(powered() && anchored)
 		stat &= ~NOPOWER
 	else
@@ -823,9 +827,9 @@
 	switch(action)
 		if("drying")
 			drying = !drying
-			use_power = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			if(!primitive)
+				use_power = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
 			update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/smartfridge/drying_rack/update_overlays()
 	. = list()
@@ -836,9 +840,14 @@
 
 
 /obj/machinery/smartfridge/drying_rack/process()
-	if(drying && rack_dry())//no need to update unless something got dried
-		update_icon(UPDATE_OVERLAYS)
-
+	..()
+	if(drying)//no need to update unless something got dried
+		if(drying_timer && length(contents))
+			drying_timer--
+		else
+			rack_dry()
+			drying_timer = initial(drying_timer)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
 	. = ..()

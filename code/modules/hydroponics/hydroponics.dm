@@ -558,6 +558,9 @@
 		mutmod = 0
 		adjustNutri(round(S.get_reagent_amount("robustharvestnutriment") *1 ))
 
+	if(S.has_reagent("lavalandtnutriment", 1))
+		yieldmod = 1.5
+		adjustNutri(round(S.get_reagent_amount("lavalandtnutriment") *3 ))
 
 	//Fish Water is both an excellent fertilizer and waters
 	if(S.has_reagent("fishwater", 1))

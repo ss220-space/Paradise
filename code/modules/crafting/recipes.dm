@@ -1424,3 +1424,11 @@
 	reqs = list(/obj/item/stack/sheet/glass = 3)
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
 	category = CAT_MISC
+
+/datum/crafting_recipe/ashrack
+	name = "drying stick"
+	result = /obj/machinery/smartfridge/drying_rack/ash
+	time = 15 SECONDS
+	reqs = list(/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL

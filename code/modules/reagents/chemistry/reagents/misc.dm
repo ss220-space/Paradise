@@ -618,6 +618,15 @@
 	tox_prob = 15
 	taste_description = "bountifulness"
 
+/datum/reagent/plantnutriment/lavalandtnutriment
+	name = "Lavaland Conductive Nutriment"
+	id = "lavalandtnutriment"
+	description = "Very potent nutriment that increase harvest amount."
+	color = "#b97900"
+	tox_prob = 45
+	taste_description = "poisonous"
+	can_synth = FALSE
+
 ///Alchemical Reagents
 
 /datum/reagent/eyenewt
