@@ -569,7 +569,7 @@
 	if(!stamped)
 		stamped = new
 	stamped += S.type
-	stamp_overlays += stampoverlay
+	LAZYADD(stamp_overlays, stampoverlay)
 	update_icon(UPDATE_OVERLAYS)
 
 

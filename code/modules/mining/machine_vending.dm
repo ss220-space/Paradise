@@ -40,7 +40,7 @@
 		EQUIPMENT("Jetpack Upgrade",				/obj/item/tank/jetpack/suit, 										2500),
 		EQUIPMENT("Jump Boots",						/obj/item/clothing/shoes/bhop, 										3000),
 		EQUIPMENT("Jump Boots Implants",			/obj/item/storage/box/jumpbootimplant, 								7000),
-		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												1000),
+		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												300),
 		EQUIPMENT("Lazarus Capsule belt",			/obj/item/storage/belt/lazarus, 									400),
 		EQUIPMENT("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining, 						2500),
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								800),
@@ -61,7 +61,7 @@
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1500),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										900),
 		EQUIPMENT("Chasm Jaunter Recovery Grenade",	/obj/item/grenade/jaunter_grenade,									3000), //fishing rod supremacy
-		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										1000),
+		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										600),
 		EQUIPMENT("Point Transfer Card (500)", 		/obj/item/card/mining_point_card, 									500),
 		EQUIPMENT("Point Transfer Card (1000)", 	/obj/item/card/mining_point_card/thousand, 							1000),
 		EQUIPMENT("Point Transfer Card (5000)", 	/obj/item/card/mining_point_card/fivethousand, 						5000),

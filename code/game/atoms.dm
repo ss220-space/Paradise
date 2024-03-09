@@ -34,6 +34,11 @@
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
 
+	///Default pixel x shifting for the atom's icon.
+	var/base_pixel_x = 0
+	///Default pixel y shifting for the atom's icon.
+	var/base_pixel_y = 0
+
 	//This atom's HUD (med/sec, etc) images. Associative list.
 	var/list/image/hud_list
 	//HUD images that this atom can provide.

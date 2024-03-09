@@ -127,7 +127,7 @@
 	if(state != STATE_WIRED)
 		return .
 
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || state != STATE_WIRED)
 		return .
 
 	state = STATE_EMPTY
@@ -142,7 +142,7 @@
 	if(state != STATE_COMPONENTS)
 		return .
 
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || state != STATE_COMPONENTS)
 		return .
 
 	state = STATE_WIRED
