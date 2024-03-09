@@ -546,6 +546,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
 	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
-	for(var/i in 1 to 2)
-		new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
 	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
