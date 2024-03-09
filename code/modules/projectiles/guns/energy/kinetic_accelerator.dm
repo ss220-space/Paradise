@@ -43,11 +43,9 @@
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit))
 		var/obj/item/borg/upgrade/modkit/MK = I
-		if(MK.compatibility & compatibility)
-			MK.install(src, user)
-			return
-		to_chat(user, span_warning("Похоже, что этот модуль не подходит для таких ускорителей!"))
-	return ..()
+		MK.install(src, user)
+	else
+		..()
 
 
 /obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
@@ -58,8 +56,17 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, span_notice("You pry the modifications out."))
+	deattach_modkits()
+
+
+/obj/item/gun/energy/kinetic_accelerator/proc/attach_modkits(obj/item/borg/upgrade/modkit/MK, mob/user)
+	return MK.install(src, user)
+
+
+/obj/item/gun/energy/kinetic_accelerator/proc/deattach_modkits()
 	for(var/obj/item/borg/upgrade/modkit/M in modkits)
 		M.uninstall(src)
+
 
 /obj/item/gun/energy/kinetic_accelerator/proc/get_remaining_mod_capacity()
 	var/current_capacity_used = 0
@@ -85,6 +92,22 @@
 	holds_charge = TRUE
 	unique_frequency = TRUE
 	max_mod_capacity = 200
+
+
+/obj/item/gun/energy/kinetic_accelerator/cyborg/attach_modkits(obj/item/borg/upgrade/modkit/MK, mob/user)
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/loc_robot = loc
+		loc_robot.install_upgrade(MK)
+	MK.install(src)
+
+
+/obj/item/gun/energy/kinetic_accelerator/cyborg/deattach_modkits()
+	for(var/obj/item/borg/upgrade/modkit/MK in modkits)
+		if(isrobot(loc))
+			var/mob/living/silicon/robot/loc_robot = loc
+			loc_robot.upgrades -= MK
+			loc_robot.UnregisterSignal(MK, COMSIG_PARENT_QDELETING)
+		MK.uninstall(src)
 
 
 /obj/item/gun/energy/kinetic_accelerator/minebot
@@ -287,9 +310,6 @@
 	var/maximum_of_type = 1
 	var/cost = 30
 	var/modifier = 1 //For use in any mod kit that has numerical modifiers
-	var/minebot_upgrade = TRUE
-	var/minebot_exclusive = FALSE
-	var/only_borg = FALSE //Is it only for robots
 	var/compatibility = COMPATIBILITY_UNIVERSAL
 
 
@@ -297,37 +317,36 @@
 	. = ..()
 	if(in_range(user, src))
 		. += span_notice("Occupies <b>[cost]%</b> of mod capacity.")
-	if(!(compability & COMPATIBILITY_STANDART))
-		. += span_warning("Не похоже что этот модуль подходит для обычного КА.")
 
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator))
-		var/obj/item/gun/energy/kinetic_accelerator/KA = A
-		if(compatibility & KA.compatibility)
-			install(A, user)
-			return
-		to_chat(user, span_warning("Похоже, что этот модуль не подходит для таких ускорителей!"))
-	return ..()
+		install(A, user)
+	else
+		..()
 
 
 /obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
 	if(..())
-		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
-			return install(H, usr)
+		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/KA in R.module.modules)
+			return KA.attach_modkit(src, usr)
+
 
 /obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/robot/R, user = usr)
 	if(..())
-		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
-			return uninstall(H, usr)
+		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/KA in R.module.modules)
+			return uninstall(KA, usr)
+
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
+	if(!(compatibility & KA.compatibility))
+		to_chat(user, span_warning("Похоже, что этот модуль не подходит для таких ускорителей!"))
+		return FALSE
 	. = TRUE
 	if(denied_type)
 		var/number_of_denied = 0
 		for(var/A in KA.get_modkits())
-			var/obj/item/borg/upgrade/modkit/M = A
-			if(istype(M, denied_type))
+			if(istype(A, denied_type))
 				number_of_denied++
 			if(number_of_denied >= maximum_of_type)
 				. = FALSE
@@ -350,12 +369,13 @@
 
 /obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/item/projectile/kinetic/K)
 
-//use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure
+/// Use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure.
 /obj/item/borg/upgrade/modkit/proc/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
-//use this one for effects you want to trigger before mods that do damage
+/// Use this one for effects you want to trigger before mods that do damage.
 /obj/item/borg/upgrade/modkit/proc/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
-//and this one for things that don't need to trigger before other damage-dealing mods
+/// Use this one for things that don't need to trigger before other damage-dealing mods.
 /obj/item/borg/upgrade/modkit/proc/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+
 
 //Range
 /obj/item/borg/upgrade/modkit/range
@@ -364,11 +384,14 @@
 	modifier = 1
 	cost = 24 //so you can fit four plus a tracer cosmetic
 
+
 /obj/item/borg/upgrade/modkit/range/modify_projectile(obj/item/projectile/kinetic/K)
 	K.range += modifier
 
+
 /obj/item/borg/upgrade/modkit/range/borg
-	only_borg = TRUE
+	compatibility = COMPATIBILITY_CYBORG
+
 
 //Damage
 /obj/item/borg/upgrade/modkit/damage
@@ -380,42 +403,71 @@
 	K.damage += modifier
 
 /obj/item/borg/upgrade/modkit/damage/borg
-	only_borg = TRUE
+	compatibility = COMPATIBILITY_CYBORG
 
 //Cooldown
 /obj/item/borg/upgrade/modkit/cooldown
-	name = "cooldown decrease"
-	desc = "Decreases the cooldown of a kinetic accelerator. Not rated for minebot use."
-	denied_type = /obj/item/borg/upgrade/modkit/cooldown
 	maximum_of_type = 2
-	modifier = 3.2
-	minebot_upgrade = FALSE
+	compatibility = COMPATIBILITY_STANDART|COMPATIBILITY_CYBORG
+
 
 /obj/item/borg/upgrade/modkit/cooldown/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
 	if(.)
 		KA.overheat_time -= modifier
 
+
 /obj/item/borg/upgrade/modkit/cooldown/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	KA.overheat_time += modifier
 	..()
 
-/obj/item/borg/upgrade/modkit/cooldown/borg
-	only_borg = TRUE
 
-/obj/item/borg/upgrade/modkit/cooldown/minebot
+/obj/item/borg/upgrade/modkit/cooldown/haste
+	name = "cooldown decrease"
+	desc = "Decreases the cooldown of a kinetic accelerator. Not rated for minebot use."
+	denied_type = /obj/item/borg/upgrade/modkit/cooldown/haste
+	modifier = 3.2
+
+
+/obj/item/borg/upgrade/modkit/cooldown/haste/borg
+	compatibility = COMPATIBILITY_CYBORG
+
+
+/obj/item/borg/upgrade/modkit/cooldown/haste/minebot
 	name = "minebot cooldown decrease"
 	desc = "Decreases the cooldown of a kinetic accelerator. Only rated for minebot use."
 	icon_state = "door_electronics"
 	icon = 'icons/obj/module.dmi'
-	denied_type = /obj/item/borg/upgrade/modkit/cooldown/minebot
 	modifier = 10
 	cost = 0
-	minebot_upgrade = TRUE
-	minebot_exclusive = TRUE
+	compatibility = COMPATIBILITY_MINEBOT
+
+
+/obj/item/borg/upgrade/modkit/cooldown/repeater
+	name = "rapid repeater"
+	desc = "Quarters the kinetic accelerator's cooldown on striking a living target, but greatly increases the base cooldown. Not rated for minebot use."
+	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
+	modifier = -14 //Makes the cooldown 3 seconds(with no cooldown mods) if you miss. Don't miss.
+	cost = 50
+
+
+/obj/item/borg/upgrade/modkit/cooldown/repeater/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	var/valid_repeat = FALSE
+	if(isliving(target))
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			valid_repeat = TRUE
+	if(ismineralturf(target_turf))
+		valid_repeat = TRUE
+	if(valid_repeat)
+		KA.overheat = FALSE
+		KA.attempt_reload(KA.overheat_time * 0.25) //If you hit, the cooldown drops to 0.75 seconds.
+
 
 //AoE blasts
 /obj/item/borg/upgrade/modkit/aoe
+	denied_type = /obj/item/borg/upgrade/modkit/aoe
+	maximum_of_type = 3
 	modifier = 0
 	var/turf_aoe = FALSE
 	var/stats_stolen = FALSE
@@ -452,30 +504,32 @@
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)
 			L.apply_damage(K.damage * modifier, K.damage_type, K.def_zone, armor)
-			to_chat(L, "<span class='userdanger'>You're struck by a [K.name]!</span>")
+			to_chat(L, span_userdanger("You're struck by a [K.name]!"))
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
 	name = "mining explosion"
 	desc = "Causes the kinetic accelerator to destroy rock in an AoE."
-	denied_type = /obj/item/borg/upgrade/modkit/aoe/turfs
 	turf_aoe = TRUE
+
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	name = "offensive mining explosion"
 	desc = "Causes the kinetic accelerator to destroy rock and damage mobs in an AoE."
-	maximum_of_type = 3
 	modifier = 0.25
+
 
 /obj/item/borg/upgrade/modkit/aoe/mobs
 	name = "offensive explosion"
 	desc = "Causes the kinetic accelerator to damage mobs in an AoE."
 	modifier = 0.2
 
+
 //Minebot passthrough
 /obj/item/borg/upgrade/modkit/minebot_passthrough
 	name = "minebot passthrough"
 	desc = "Causes kinetic accelerator shots to pass through minebots."
 	cost = 0
+
 
 //Hardness
 /obj/item/borg/upgrade/modkit/hardness
@@ -484,51 +538,23 @@
 	denied_type = /obj/item/borg/upgrade/modkit/hardness
 	cost = 30
 
+
 /obj/item/borg/upgrade/modkit/hardness/modify_projectile(obj/item/projectile/kinetic/K)
 	K.power += modifier
 
-//Tendril-unique modules
-/obj/item/borg/upgrade/modkit/cooldown/repeater
-	name = "rapid repeater"
-	desc = "Quarters the kinetic accelerator's cooldown on striking a living target, but greatly increases the base cooldown."
-	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
-	modifier = -14 //Makes the cooldown 3 seconds(with no cooldown mods) if you miss. Don't miss.
-	cost = 50
 
-/obj/item/borg/upgrade/modkit/cooldown/repeater/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
-	var/valid_repeat = FALSE
-	if(isliving(target))
-		var/mob/living/L = target
-		if(L.stat != DEAD)
-			valid_repeat = TRUE
-	if(ismineralturf(target_turf))
-		valid_repeat = TRUE
-	if(valid_repeat)
-		KA.overheat = FALSE
-		KA.attempt_reload(KA.overheat_time * 0.25) //If you hit, the cooldown drops to 0.75 seconds.
+/obj/item/borg/upgrade/modkit/hardness/borg
+	compatibility = COMPATIBILITY_CYBORG
 
-/obj/item/borg/upgrade/modkit/lifesteal
-	name = "lifesteal crystal"
-	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target."
-	icon_state = "modkit_crystal"
-	modifier = 2.5 //Not a very effective method of healing.
-	cost = 20
-	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
-/obj/item/borg/upgrade/modkit/lifesteal/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
-	if(isliving(target) && isliving(K.firer))
-		var/mob/living/L = target
-		if(L.stat == DEAD)
-			return
-		L = K.firer
-		L.heal_ordered_damage(modifier, damage_heal_order)
-
+//Resonator Blasts
 /obj/item/borg/upgrade/modkit/resonator_blasts
 	name = "resonator blast"
 	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
 	cost = 30
 	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
+
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(target_turf && !ismineralturf(target_turf)) //Don't make fields on mineral turfs.
@@ -538,6 +564,27 @@
 			R.burst()
 			return
 		new /obj/effect/temp_visual/resonance(target_turf, K.firer, null, 30)
+
+
+//Tendril-unique modules
+/obj/item/borg/upgrade/modkit/lifesteal
+	name = "lifesteal crystal"
+	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target."
+	icon_state = "modkit_crystal"
+	modifier = 2.5 //Not a very effective method of healing.
+	cost = 20
+	compatibility = COMPATIBILITY_STANDART
+	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
+
+
+/obj/item/borg/upgrade/modkit/lifesteal/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	if(isliving(target) && isliving(K.firer))
+		var/mob/living/L = target
+		if(L.stat == DEAD)
+			return
+		L = K.firer
+		L.heal_ordered_damage(modifier, damage_heal_order)
+
 
 /obj/item/borg/upgrade/modkit/bounty
 	name = "death syphon"
