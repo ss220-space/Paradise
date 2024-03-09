@@ -59,7 +59,7 @@
 	deattach_modkits()
 
 
-/obj/item/gun/energy/kinetic_accelerator/proc/attach_modkits(obj/item/borg/upgrade/modkit/MK, mob/user)
+/obj/item/gun/energy/kinetic_accelerator/proc/attach_modkit(obj/item/borg/upgrade/modkit/MK, mob/user)
 	return MK.install(src, user)
 
 
@@ -94,7 +94,7 @@
 	max_mod_capacity = 200
 
 
-/obj/item/gun/energy/kinetic_accelerator/cyborg/attach_modkits(obj/item/borg/upgrade/modkit/MK, mob/user)
+/obj/item/gun/energy/kinetic_accelerator/cyborg/attach_modkit(obj/item/borg/upgrade/modkit/MK, mob/user)
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/loc_robot = loc
 		loc_robot.install_upgrade(MK)
@@ -403,6 +403,7 @@
 	K.damage += modifier
 
 /obj/item/borg/upgrade/modkit/damage/borg
+	desc = "Increases the damage of kinetic accelerator when installed. Only rated for cyborg use."
 	compatibility = COMPATIBILITY_CYBORG
 
 //Cooldown
@@ -430,6 +431,7 @@
 
 
 /obj/item/borg/upgrade/modkit/cooldown/haste/borg
+	desc = "Decreases the cooldown of a kinetic accelerator. Only rated for cyborg use."
 	compatibility = COMPATIBILITY_CYBORG
 
 
@@ -569,7 +571,7 @@
 //Tendril-unique modules
 /obj/item/borg/upgrade/modkit/lifesteal
 	name = "lifesteal crystal"
-	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target."
+	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target. Only rated for humanoid use."
 	icon_state = "modkit_crystal"
 	modifier = 2.5 //Not a very effective method of healing.
 	cost = 20
@@ -641,14 +643,17 @@
 //Trigger Guard
 /obj/item/borg/upgrade/modkit/trigger_guard
 	name = "modified trigger guard"
-	desc = "Allows creatures normally incapable of firing guns to operate the weapon when installed."
+	desc = "Allows creatures normally incapable of firing guns to operate the weapon when installed. Only rated for humanoid use."
 	cost = 20
 	denied_type = /obj/item/borg/upgrade/modkit/trigger_guard
+	compatibility = COMPATIBILITY_STANDART
+
 
 /obj/item/borg/upgrade/modkit/trigger_guard/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
-	if(.)
+	if(. && KA.trigger_guard != TRIGGER_GUARD_ALLOW_ALL)
 		KA.trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+
 
 /obj/item/borg/upgrade/modkit/trigger_guard/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	KA.trigger_guard = TRIGGER_GUARD_NORMAL
