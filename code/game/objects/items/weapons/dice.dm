@@ -1,5 +1,5 @@
 /obj/item/storage/pill_bottle/dice
-	name = "bag of dice"
+	name = "Мешок игральных костей"
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
@@ -28,7 +28,7 @@
 
 
 /obj/item/storage/box/dice
-	name = "Box of dice"
+	name = "Коробка игральных костей"
 	desc = "ANOTHER ONE!? FUCK!"
 	icon_state = "box"
 
@@ -48,7 +48,7 @@
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
-	name = "die"
+	name = "Игральная кость"
 	desc = "A die with six sides. Basic and servicable."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
@@ -104,7 +104,7 @@
 	name = "d6"
 
 /obj/item/dice/fudge
-	name = "fudge die"
+	name = "Fudge-кость"
 	desc = "A die with six sides but only three results. Is this a plus or a minus? Your mind is drawing a blank..."
 	sides = 3
 	icon_state = "fudge"
