@@ -331,23 +331,23 @@
 /obj/item/gun/projectile/revolver/improvised/update_overlays()
 	. = ..()
 	if(magazine)
-		. +=  icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
+		. += icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
 	if(barrel)
 		var/icon/barrel_icon = icon('icons/obj/weapons/projectile.dmi', barrel.icon_state)
 		if(unscrewed)
 			barrel_icon.Turn(-90)
 			barrel_icon.Shift(WEST, 5)
-		. +=  barrel_icon
+		. += barrel_icon
 
 /obj/item/gun/projectile/revolver/improvised/afterattack(atom/target, mob/living/user, flag, params)
 	if(unscrewed)
-		shoot_with_empty_chamber()
-	else if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
-		..()
-	else
-		chamber_round(TRUE)
-		user.visible_message(span_dangerbigger("*CRACK*"))
-		playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
+		shoot_with_empty_chamber(user)
+		return
+	if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
+		return ..()
+	chamber_round(TRUE)
+	user.visible_message(span_dangerbigger("*CRACK*"))
+	playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
 
 /obj/item/gun/projectile/revolver/improvised/proc/radial_menu(mob/user)
 	var/list/choices = list()

@@ -1417,6 +1417,16 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/service_bs_beaker
+	name = "Cyborg Service Upgrade (Bluespace Beaker)"
+	id = "service_bs_beaker"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/bs_beaker
+	req_tech = list("bluespace" = 6, "materials" = 5, "plasmatech" = 4)
+	materials = list(MAT_GLASS = 3000, MAT_PLASMA = 3000, MAT_DIAMOND = 250, MAT_BLUESPACE = 250)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_abductor_engi
 	name = "Engineer Cyborg Upgrade (Abductor Engineering Equipment)"
 	id = "borg_upgade_abductor_engi"

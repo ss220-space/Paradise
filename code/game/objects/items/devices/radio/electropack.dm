@@ -89,7 +89,7 @@
 	return data
 
 /obj/item/radio/electropack/ui_act(action, params)
-	if(..())
+	if(isnull(..()))	// We still can use item if parent returns FALSE.
 		return
 	. = TRUE
 	switch(action)

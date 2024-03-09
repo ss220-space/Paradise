@@ -7,6 +7,35 @@
 	var/already_opened = 0
 	var/content_mob = null
 	var/amount = 1
+	var/datum/gas_mixture/env
+
+/obj/structure/closet/critter/proc/updateEnv()
+	if(!env)
+		env = new/datum/gas_mixture()
+	env.oxygen = MOLES_O2STANDARD
+	env.nitrogen = MOLES_N2STANDARD
+	env.carbon_dioxide = 0
+	env.temperature = T20C
+
+/obj/structure/closet/critter/Initialize(mapload)
+    . = ..()
+    updateEnv()
+
+/obj/structure/closet/critter/Destroy()
+	. = ..()
+	QDEL_NULL(env)
+
+/obj/structure/closet/critter/return_air()
+	return env
+
+/obj/structure/closet/critter/assume_air(datum/gas_mixture/giver)
+	return null
+
+/obj/structure/closet/critter/remove_air(amount)
+	return env
+
+/obj/structure/closet/critter/return_analyzable_air()
+	return env
 
 /obj/structure/closet/critter/can_open()
 	if(welded)
@@ -31,6 +60,7 @@
 	. = ..()
 
 /obj/structure/closet/critter/close()
+	updateEnv()
 	..()
 	return 1
 

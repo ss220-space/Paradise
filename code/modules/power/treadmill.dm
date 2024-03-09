@@ -40,7 +40,7 @@
 
 /obj/machinery/power/treadmill/proc/throw_off(atom/movable/A)
 	// if 2fast, throw the person, otherwise they just slide off, if there's reasonable speed at all
-	if(speed)
+	if(speed && !isobserver(A))
 		var/dist = max(throw_dist * speed / MAX_SPEED, 1)
 		A.throw_at(get_distant_turf(get_turf(src), reverse_direction(dir), dist), A.throw_range, A.throw_speed, src, 1)
 
@@ -55,7 +55,7 @@
 		var/atom/movable/AM = A
 		if(AM.anchored)
 			continue
-		if(istype(A, /mob/living))
+		if(isliving(A))
 			var/mob/living/M = A
 			var/last_move
 			// get/update old step count
@@ -88,7 +88,7 @@
 /obj/machinery/power/treadmill/proc/get_power_output()
 	if(speed && !stat && anchored && powernet)
 		return power_gen * speed / MAX_SPEED
-	return 0
+	return FALSE
 
 /obj/machinery/power/treadmill/emp_act(severity)
 	..()
@@ -98,7 +98,7 @@
 			stat &= ~BROKEN
 
 /obj/machinery/power/treadmill/attackby(obj/item/W, mob/user)
-	if(default_unfasten_wrench(user, W, time = 60))
+	if(default_unfasten_wrench(user, W, 6 SECONDS))
 		add_fingerprint(user)
 		if(anchored)
 			connect_to_network()

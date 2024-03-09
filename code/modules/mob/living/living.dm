@@ -1074,38 +1074,31 @@
 
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	var/loc_temp = T0C
+	if(istype(loc, /obj/structure/closet/critter))
+		return environment.temperature
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
-
-	else if(isvampirecoffin(loc))
+		return  M.return_temperature()
+	if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
-		loc_temp = coffin.return_temperature()
-
-	else if(istype(loc, /obj/spacepod))
+		return coffin.return_temperature()
+	if(istype(loc, /obj/spacepod))
 		var/obj/spacepod/S = loc
-		loc_temp = S.return_temperature()
-
-	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
-
-	else if(istype(get_turf(src), /turf/space))
+		return S.return_temperature()
+	if(istype(loc, /obj/structure/transit_tube_pod))
+		return environment.temperature
+	if(istype(get_turf(src), /turf/space))
 		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
-
-	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		return heat_turf.temperature
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-
 		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
+			return environment.temperature
 		else
-			loc_temp = C.air_contents.temperature
-
-	else
-		loc_temp = environment.temperature
-
-	return loc_temp
+			return C.air_contents.temperature
+	if(environment)
+		return environment.temperature
+	return T0C
 
 /mob/living/proc/get_standard_pixel_x_offset(lying = 0)
 	return initial(pixel_x)
