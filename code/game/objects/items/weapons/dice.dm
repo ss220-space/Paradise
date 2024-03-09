@@ -1,6 +1,6 @@
 /obj/item/storage/pill_bottle/dice
-	name = "Мешок игральных костей"
-	desc = "Содержит всю удачу, которая вам могла бы пригодиться."
+	name = "bag of dice"
+	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
@@ -28,8 +28,8 @@
 
 
 /obj/item/storage/box/dice
-	name = "Коробка игральных костей"
-	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
+	name = "Box of dice"
+	desc = "ANOTHER ONE!? FUCK!"
 	icon_state = "box"
 
 
@@ -44,12 +44,12 @@
 
 
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] Игра[pluralize_ru(user.gender,"ет","ют")] со смертью! Похоже, он[genderize_ru(user.gender,"","а","о","и")] пыта[pluralize_ru(user.gender,"ется","ются")] покончить жизнь самоубийством!</span>")
+	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
-	name = "Игральная кость"
-	desc = "Кость с шестью гранями. Непримечательна и проста в обращении."
+	name = "die"
+	desc = "A die with six sides. Basic and servicable."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY
@@ -75,24 +75,24 @@
 
 
 /obj/item/dice/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] играет со смертью! Похоже [user.p_theyre()] пытается покончить жизнь самоубийством!</span>")
+	user.visible_message(span_suicide("[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return (OXYLOSS)
 
 /obj/item/dice/d1
 	name = "d1"
-	desc = "Кость с одной гранью. Очень детерминировано!"
+	desc = "A die with one side. Deterministic!"
 	icon_state = "d1"
 	sides = 1
 
 /obj/item/dice/d2
 	name = "d2"
-	desc = "Кость с двумя гранями. Если монеты вас не достойны."
+	desc = "A die with two sides. Coins are undignified!"
 	icon_state = "d2"
 	sides = 2
 
 /obj/item/dice/d4
 	name = "d4"
-	desc = "Кость с четырьмя гранями. По задротски - «чеснок»."
+	desc = "A die with four sides. The nerd's caltrop."
 	icon_state = "d4"
 	sides = 4
 
@@ -104,45 +104,45 @@
 	name = "d6"
 
 /obj/item/dice/fudge
-	name = "Fudge-кость"
-	desc = "Кость с шестью гранями, но только с тремя результатами. Это плюс или минус? Ваш разум опустел..."
+	name = "fudge die"
+	desc = "A die with six sides but only three results. Is this a plus or a minus? Your mind is drawing a blank..."
 	sides = 3
 	icon_state = "fudge"
 	special_faces = list("minus","blank","plus")
 
 /obj/item/dice/d8
 	name = "d8"
-	desc = "Кость с восемью гранями. Кажется… везучей."
+	desc = "A die with eight sides. It feels... lucky."
 	icon_state = "d8"
 	sides = 8
 
 /obj/item/dice/d10
 	name = "d10"
-	desc = "Кость с десятью гранями. Полезно для процентов."
+	desc = "A die with ten sides. Useful for percentages."
 	icon_state = "d10"
 	sides = 10
 
 /obj/item/dice/d00
 	name = "d00"
-	desc = "Кость с десятью гранями. Подходит для бросков d100 лучше мяча для гольфа."
+	desc = "A die with ten sides. Works better for d100 rolls than a golfball."
 	icon_state = "d00"
 	sides = 10
 
 /obj/item/dice/d12
 	name = "d12"
-	desc = "Кость с двенадцатью гранями. Похоже им никогда не пользовались..."
+	desc = "A die with twelve sides. There's an air of neglect about it."
 	icon_state = "d12"
 	sides = 12
 
 /obj/item/dice/d20
 	name = "d20"
-	desc = "Кость с двадцатью гранями. Именно такой чаще всего бросают в игровых мастеров."
+	desc = "A die with twenty sides. The prefered die to throw at the GM."
 	icon_state = "d20"
 	sides = 20
 
 /obj/item/dice/d100
 	name = "d100"
-	desc = "Игральная кость с сотней граней! Вряд ли развесовка выверена…"
+	desc = "A die with one hundred sides! Probably not fairly weighted..."
 	icon_state = "d100"
 	sides = 100
 
@@ -174,20 +174,20 @@
 	var/fake_result = roll(sides)//Daredevil isn't as good as he used to be
 	var/comment = ""
 	if(sides == 20 && result == 20)
-		comment = "ДВАДЦАТКА!"
+		comment = "NAT 20!"
 	else if(sides == 20 && result == 1)
-		comment = "М-да, невезуха."
+		comment = "Ouch, bad luck."
 	update_icon(UPDATE_OVERLAYS)
 	if(initial(icon_state) == "d00")
 		result = (result - 1) * 10
 	if(length(special_faces) == sides)
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
-		user.visible_message("[user] броса[pluralize_ru(user.gender,"ет","ют")] [src.name]. На [src.name] выпадает [result]. [comment]",
-							 "<span class='notice'>Вы бросили [src.name] и выпало [result]. [comment]</span>",
-							 "<span class='italics'>Вы слышите как катится [src.name], звучит как [fake_result].</span>")
+		user.visible_message("[user] has thrown [src]. It lands on [result]. [comment]",
+			span_notice("You throw [src]. It lands on [result]. [comment]"),
+			span_italics("You hear [src] rolling, it sounds like a [fake_result]."))
 	else if(!throwing) //Dice was thrown and is coming to rest
-		visible_message("<span class='notice'>[src.name] прекращает катиться, остановившись на [result]. [comment]</span>")
+		visible_message(span_notice("[src] rolls to a stop, landing on [result]. [comment]"))
 
 /obj/item/dice/d20/e20/diceroll(mob/user, thrown)
 	if(triggered)
@@ -196,12 +196,12 @@
 	. = ..()
 
 	if(result == 1)
-		to_chat(user, "<span class='danger'>На вас упали камни и вы умерли.</span>")
+		to_chat(user, span_danger("Rocks fall, you die."))
 		user.gib()
 		add_attack_logs(src, user, "detonated with a roll of [result], gibbing them!", ATKLOG_FEW)
 	else
 		triggered = TRUE
-		visible_message("<span class='notice'>Вы слышите тихий щелчок.</span>")
+		visible_message(span_notice("You hear a quiet click."))
 		addtimer(CALLBACK(src, PROC_REF(boom), user, result), 4 SECONDS)
 
 /obj/item/dice/d20/e20/proc/boom(mob/user, result)
