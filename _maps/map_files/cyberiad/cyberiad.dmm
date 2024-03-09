@@ -65049,7 +65049,11 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/wall,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "dgy" = (
 /obj/effect/landmark/event/blobstart,
@@ -82728,10 +82732,6 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
-	},
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
@@ -134741,7 +134741,7 @@ kJs
 wPp
 sJg
 aLf
-dgw
+cTc
 cLi
 kKR
 lQV
