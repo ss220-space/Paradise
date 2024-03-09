@@ -737,6 +737,9 @@
 		if(OldLoc != held.loc)
 			held_items -= held_uid
 			continue
+		if(istype(held, /mob/living))
+			held.pixel_z = 16
+		held.glide_size = glide_size
 		held.forceMove(NewLoc)
 
 
