@@ -98,7 +98,7 @@
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/loc_robot = loc
 		loc_robot.install_upgrade(MK)
-	MK.install(src)
+	return MK.install(src)
 
 
 /obj/item/gun/energy/kinetic_accelerator/cyborg/deattach_modkits()
