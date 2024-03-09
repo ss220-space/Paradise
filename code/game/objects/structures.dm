@@ -84,10 +84,10 @@
 	do_climb(usr)
 
 /obj/structure/proc/animate_jumping_off(mob/living/user)
-	if(!usr.flying && usr.mob_has_gravity())
-		var/delay = usr.movement_delay()/4
+	if(!user.flying && user.mob_has_gravity())
+		var/delay = user.movement_delay()/4
 		sleep(delay)
-		animate(usr, pixel_z = initial(usr.pixel_z), time = 3, easing = BACK_EASING|EASE_IN)
+		animate(user, pixel_z = initial(user.pixel_z), time = 3, easing = BACK_EASING|EASE_IN)
 
 /obj/structure/proc/animate_climb(mob/living/user)
 	if(!istype(user))
@@ -246,10 +246,10 @@
 		L.pixel_z = initial(L.pixel_z)
 		L.Weaken(10 SECONDS)
 		to_chat(L, "You stop feeling \the [src] beneath your feet.</span>")
-
-		get_fall_damage(L)
-
-	return
+		if(L.lying)
+			return
+		if(L.m_intent != MOVE_INTENT_WALK)
+			get_fall_damage(L)
 
 /obj/structure/proc/structure_shaken()
 
