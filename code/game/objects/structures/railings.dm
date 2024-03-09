@@ -141,12 +141,12 @@
 /obj/structure/railing/proc/hopping(mob/living/user)
 	if(!istype(user))
 		return
-	var/delay = usr.movement_delay()/2
+	var/delay = user.movement_delay()/2
 	sleep(delay)
-	animate(usr, pixel_z = 10, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
-	delay = usr.movement_delay()/4
+	animate(user, pixel_z = 10, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
+	delay = user.movement_delay()/4
 	sleep(delay)
-	animate(usr, pixel_z = initial(usr.pixel_z), time = 3, easing = CIRCULAR_EASING|EASE_OUT)
+	animate(user, pixel_z = initial(user.pixel_z), time = 3, easing = CIRCULAR_EASING|EASE_OUT)
 	if(user.floating)
 		user.float(TRUE)
 
