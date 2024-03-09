@@ -2123,7 +2123,7 @@
 /datum/reagent/consumable/ethanol/codelibre/on_mob_life(mob/living/M)
 	. = ..()
 	if(prob(10))
-		M.say(":tr [pick("Viva la Synthetica!")]")
+		M.say(":tr Viva la Synthetica!")
 
 /datum/reagent/consumable/ethanol/blackicp
 	name = "Black ICP"
