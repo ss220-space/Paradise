@@ -156,7 +156,7 @@
 	
 	var/initial_mob_loc = get_turf(user)
 
-	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+	user.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
 	if(!do_after(user, 50, target = src))
 		climber = null
@@ -166,11 +166,11 @@
 		climber = null
 		return FALSE
 
-	usr.loc = get_turf(src)
+	user.loc = get_turf(src)
 	hopping(user)
 
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		user.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	clumse_stuff(climber)
 
@@ -181,7 +181,7 @@
 	if(initial_mob_loc != get_turf(src)) // If we are on the railing, we want to move in the same dir as the railing. Otherwise we get put on the railing
 		currently_climbed = FALSE
 		return TRUE
-	usr.loc = get_step(user, dir)
+	user.loc = get_step(user, dir)
 	currently_climbed = FALSE
 
 	return TRUE
