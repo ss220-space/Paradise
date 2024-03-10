@@ -86,11 +86,7 @@
 				var/mob/living/carbon/human/H = M
 				if(!H.undergoing_cardiac_arrest())
 					H.set_heartattack(TRUE)
-	var/summ = 0
-	for(var/datum/reagent/consumable/drink/cold/energy/energy in M.reagents.reagent_list)
-		if(istype(energy, /datum/reagent/consumable/drink/cold/energy))
-			summ = summ + 1
-	if(summ > 1)
+	if(locate(/datum/reagent/consumable/drink/cold/energy) in (M.reagents.reagent_list - src))
 		if(prob(0.5))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
