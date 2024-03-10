@@ -367,7 +367,7 @@ AI MODULES
 /obj/item/aiModule/freeformcore // Slightly more dynamic freeform module -- TLE
 	name = "\improper 'Свободнаяформа' основной модуль ИИ"
 	var/newFreeFormLaw = ""
-	desc = item/aiModule/freeformcore::name + ": '<freeform>'"
+	desc = /obj/item/aiModule/freeformcore::name + ": '<freeform>'"
 	origin_tech = "programming=5;materials=4"
 
 /obj/item/aiModule/freeformcore/attack_self(var/mob/user as mob)
@@ -375,7 +375,7 @@ AI MODULES
 	var/newlaw = ""
 	var/targName = stripped_input(usr, "Please enter a new core law for the AI.", "Freeform Law Entry", newlaw)
 	newFreeFormLaw = targName
-	desc = "[item/aiModule/freeformcore::name]: '[newFreeFormLaw]'"
+	desc = "[/obj/item/aiModule/freeformcore::name]: '[newFreeFormLaw]'"
 
 /obj/item/aiModule/freeformcore/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
