@@ -56669,11 +56669,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/fsmaint4)
-"mzv" = (
-/obj/structure/girder,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/hallway/spacebridge/medcargo)
 "mzA" = (
 /obj/machinery/computer/area_atmos/area{
 	dir = 1
@@ -147420,10 +147415,10 @@ rWb
 rWb
 gRY
 mKP
-mzv
+mxH
 mKP
-mzv
-mzv
+mKP
+mxH
 mKP
 aZq
 aZq
