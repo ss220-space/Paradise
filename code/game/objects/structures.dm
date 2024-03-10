@@ -145,7 +145,7 @@
 	if(!climb_check(user))
 		return FALSE
 
-	user.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
 	if(!do_after(user, 50, target = src))
 		climber = null
@@ -155,11 +155,11 @@
 		climber = null
 		return FALSE
 
-	user.loc = get_turf(src)
+	usr.loc = get_turf(src)
 	animate_climb(user)
 
 	if(get_turf(user) == get_turf(src))
-		user.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	clumse_stuff(climber)
 	climber = null
@@ -242,14 +242,18 @@
 		H.UpdateDamageIcon()
 
 /obj/structure/proc/structure_gone(atom/location)
-	for(var/mob/living/L in get_turf(location))
-		L.pixel_z = initial(L.pixel_z)
-		L.Weaken(10 SECONDS)
-		to_chat(L, "You stop feeling \the [src] beneath your feet.</span>")
-		if(L.lying)
+	for(var/mob/living/carbon/human/H in get_turf(location))
+		H.pixel_z = initial(H.pixel_z)
+		if(H.lying)
 			return
-		if(L.m_intent != MOVE_INTENT_WALK)
-			get_fall_damage(L)
+		if(H.mob_size == MOB_SIZE_SMALL)
+			return
+		to_chat(H, "You stop feeling \the [src] beneath your feet.</span>")
+		if(H.m_intent == MOVE_INTENT_WALK)
+			H.Weaken(3 SECONDS)
+		if(H.m_intent == MOVE_INTENT_RUN)
+			H.Weaken(10 SECONDS)
+			get_fall_damage(H)
 
 /obj/structure/proc/structure_shaken()
 
