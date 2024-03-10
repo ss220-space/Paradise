@@ -99,11 +99,48 @@
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	list_reagents = list("cleaner" = 250)
 
+/obj/item/reagent_containers/spray/cleaner/brig
+    name = "brig cleaner"
+    desc = "Blood spray to remove the blood of a handcuffed clown"
+    icon = 'icons/obj/items.dmi'
+    icon_state = "cleaner_brig"
+    item_state = "cleaner_brig"
+
+/obj/item/reagent_containers/spray/cleaner/brig/empty
+    list_reagents = list()
+/obj/item/reagent_containers/spray/cleaner/chemical
+    name = "chemical cleaner"
+    desc = "There is nothing safer than cleaning up spilled potassium with water"
+    icon = 'icons/obj/items.dmi'
+    icon_state = "cleaner_chemical"
+    item_state = "cleaner_medchem"
+
+/obj/item/reagent_containers/spray/cleaner/chemical/empty
+    list_reagents = list()
+/obj/item/reagent_containers/spray/cleaner/janitor
+    name = "janitoral deluxe cleaner"
+    desc = "A stylish spray for the most productive station worker!"
+    icon = 'icons/obj/items.dmi'
+    icon_state = "cleaner_janitor"
+    item_state = "cleaner_jan"
+
+/obj/item/reagent_containers/spray/cleaner/janitor/empty
+    list_reagents = list()
+/obj/item/reagent_containers/spray/cleaner/medical
+    name = "medical cleaner"
+    desc = "Disinfectant for hands, floor, and sole CMO"
+    icon = 'icons/obj/items.dmi'
+    icon_state = "cleaner_medical"
+    item_state = "cleaner_med"
+
+/obj/item/reagent_containers/spray/cleaner/medical/empty
+    list_reagents = list()
 /obj/item/reagent_containers/spray/blue_cleaner
     name = "bluespace cleaner"
     desc = "A spray with an increased storage of reagents, or it's not that simple...."
     icon = 'icons/obj/items.dmi'
     icon_state = "cleaner_bluespace"
+    item_state = "cleaner_bs"
     spray_maxrange = 4
     spray_currentrange = 4
     volume = 450
