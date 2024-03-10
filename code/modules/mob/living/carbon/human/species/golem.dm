@@ -15,9 +15,6 @@
 	brain_mod = 0.45
 	stamina_mod = 0.45
 	siemens_coeff = 0
-	punchdamagelow = 5
-	punchdamagehigh = 14
-	punchstunthreshold = 11 //about 40% chance to stun
 	no_equip = list(slot_wear_mask, slot_wear_suit, slot_gloves, slot_shoes, slot_w_uniform, slot_s_store)
 	nojumpsuit = TRUE
 
@@ -87,6 +84,11 @@
 	var/human_surname_chance = 5
 	var/special_name_chance = 10
 	var/owner //dobby is a free golem
+
+/datum/species/golem/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/golem)
+	. = ..()
 
 /datum/species/golem/get_random_name()
 	//определяем случайный пол для ИМЕНИ голема. Если же все шансы провалились, то берется дефолтное значение пола
@@ -323,7 +325,6 @@
 /datum/species/golem/silver
 	name = "Серебрянный Голем"
 	golem_colour = rgb(221, 221, 221)
-	punchstunthreshold = 9 //60% chance, from 40%
 	skinned_type = /obj/item/stack/ore/silver
 	info_text = "Будучи <span class='danger'>серебряным големом</span>, вы с большей вероятностью можете оглушить противников атаками."
 	prefix = "Серебрян" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
@@ -337,15 +338,17 @@
 	chance_name_neuter = 10
 	special_name_chance = 40
 
+/datum/species/golem/silver/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/golem/silver)
+	. = ..()
+
 //Harder to stun, deals more damage, but it's even slower
 /datum/species/golem/plasteel
 	name = "Пласталиевый Голем"
 	golem_colour = rgb(187, 187, 187)
 	stun_mod = 0.5
 	stamina_mod = 0.5
-	punchdamagelow = 12
-	punchdamagehigh = 21
-	punchstunthreshold = 18 //still 40% stun chance
 	speed_mod = 4 //pretty fucking slow
 	skinned_type = /obj/item/stack/ore/iron
 	info_text = "Будучи <span class='danger'>пласталиевым големом</span>, вы медлительны, но вас сложнее оглушить, а ваши кулаки причиняют серьёзные повреждения."
@@ -355,11 +358,11 @@
 		FEMALE = list("Дева"),
 		NEUTER = null
 		)
-	unarmed_type = /datum/unarmed_attack/golem/plasteel
 
-/datum/unarmed_attack/golem/plasteel
-	attack_verb = list("smash")
-	attack_sound = 'sound/effects/meteorimpact.ogg'
+/datum/species/golem/plasteel/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/golem/plasteel)
+	. = ..()
 
 //More resistant to burn damage and immune to ashstorm
 /datum/species/golem/titanium
@@ -560,7 +563,6 @@
 	brain_mod = 1
 	stamina_mod = 1
 	info_text = "Будучи <span class='danger'>песчаным големом</span>, вы невосприимчивы к физическим боеприпасам и получаете очень мало грубого урона. Однако вы чрезвычайно уязвимы к лучам лазерного и энергетического оружия, а также к ожогам. К тому же, вы превратитесь в песок после смерти, что предотвратит любую форму восстановления."
-	unarmed_type = /datum/unarmed_attack/golem/sand
 	prefix = "Песчан" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = list("Замок", "Берег", "Домик", "Вихрь", "Мужик", "Ураган", "Смерч", "Волчок", "Бархан", "Червь", "Шторм", "Пупс"),
@@ -568,6 +570,11 @@
 		NEUTER = null
 		)
 	special_name_chance = 30
+
+/datum/species/golem/sand/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/golem/sand)
+	. = ..()
 
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] рассыпал[genderize_ru(H.gender,"ся","ась","ось","ись")] в кучу песка!</span>")
@@ -586,9 +593,6 @@
 			return FALSE
 	return TRUE
 
-/datum/unarmed_attack/golem/sand
-	attack_sound = 'sound/effects/shovel_dig.ogg'
-
 //Reflects lasers and resistant to burn damage, but very vulnerable to brute damage. Shatters on death.
 /datum/species/golem/glass
 	name = "Стеклянный Голем"
@@ -601,7 +605,6 @@
 	brain_mod = 1
 	stamina_mod = 1
 	info_text = "Будучи <span class='danger'>стеклянным големом</span>, вы отражаете лучи лазерного и энергетического оружия, а также крайне устойчивы к ожогам. Однако вы чрезвычайно уязвимы к грубому урону и баллистическому оружию. К тому же, после смерти вы разобьётесь без всякой надежды на восстановление."
-	unarmed_type = /datum/unarmed_attack/golem/glass
 	prefix = "Стеклянн" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = list("Изолятор", "Изолятор Тока", "Преломлятор", "Пупс"),
@@ -612,6 +615,11 @@
 	chance_name_female = 50
 	chance_name_neuter = 30
 	special_name_chance = 50
+
+/datum/species/golem/glass/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/golem/glass)
+	. = ..()
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
@@ -633,9 +641,6 @@
 			return FALSE
 	return TRUE
 
-/datum/unarmed_attack/golem/glass
-	attack_sound = 'sound/effects/glassbr2.ogg'
-
 //Teleports when hit or when it wants to
 /datum/species/golem/bluespace
 	name = "Блюспейс-Голем"
@@ -649,7 +654,6 @@
 		FEMALE = null,
 		NEUTER = null
 		)
-	unarmed_type = /datum/unarmed_attack/golem/bluespace
 	special_name_chance = 50
 	chance_name_male = 90
 	chance_name_female = 20
@@ -658,6 +662,11 @@
 	var/teleport_cooldown = 100
 	var/last_teleport = 0
 	var/tele_range = 6
+
+/datum/species/golem/bluespace/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/golem/bluespace)
+	. = ..()
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
 	H.visible_message("<span class='warning'>[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы дестабилизируетесь и телепортируетесь!</span>")
@@ -767,17 +776,10 @@
 	sleep(cooldown + 5)
 	UpdateButtonIcon() //action icon looks available again
 
-/datum/unarmed_attack/golem/bluespace
-	attack_verb = "bluespace punch"
-	attack_sound = 'sound/effects/phasein.ogg'
-
 //honk
 /datum/species/golem/bananium
 	name = "Бананиевый Голем"
 	golem_colour = rgb(255, 255, 0)
-	punchdamagelow = 0
-	punchdamagehigh = 1
-	punchstunthreshold = 2 //Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
 	info_text = "Будучи <span class='danger'>бананиевым големом</span>, вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Если вас ранить, вы будете бананоточить."
 	prefix = "Бананиев" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
@@ -786,13 +788,17 @@
 		FEMALE = null,
 		NEUTER = null
 		)
-	unarmed_type = /datum/unarmed_attack/golem/bananium
 
 	var/last_honk = 0
 	var/honkooldown = 0
 	var/last_banana = 0
 	var/banana_cooldown = 100
 	var/active = null
+
+/datum/species/golem/bananium/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/golem/bananium)
+	. = ..()
 
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -854,12 +860,6 @@
 /datum/species/golem/bananium/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
 
-/datum/unarmed_attack/golem/bananium
-	attack_verb = list("HONK")
-	attack_sound = 'sound/items/airhorn2.ogg'
-	animation_type = ATTACK_EFFECT_DISARM
-	harmless = TRUE
-
 //...
 /datum/species/golem/tranquillite
 	name = "Транквилитовый Голем"
@@ -872,7 +872,11 @@
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/tranquillite
 	info_text = "Будучи <span class='danger'>транквилитовым големом</span>, вы можете создавать невидимые стены и регенерировать, выпивая бутылки с ничем."
-	unarmed_type = /datum/unarmed_attack/golem/tranquillite
+
+/datum/species/golem/tranquillite/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/golem/tranquillite)
+	. = ..()
 
 /datum/species/golem/tranquillite/get_random_name()
 	var/mime_name = pick(GLOB.mime_names)
@@ -888,9 +892,6 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = TRUE
-
-/datum/unarmed_attack/golem/tranquillite
-	attack_sound = null
 
 
 //FOR RATVAR!!!!!

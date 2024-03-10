@@ -33,8 +33,7 @@
 	bodyflags = HAS_TAIL
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
-
-	unarmed_type = /datum/unarmed_attack/bite
+	available_attacks = list(/datum/unarmed_attack/bite)
 
 	total_health = 75
 	brute_mod = 1.5
@@ -56,6 +55,14 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey),
 	)
+
+/datum/species/monkey/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"jaws" = new /datum/unarmed_attack/bite,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)

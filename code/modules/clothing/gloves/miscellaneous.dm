@@ -314,7 +314,7 @@
 	if(!(user.a_intent == INTENT_HARM) || !proximity || isturf(A))
 		return FALSE
 
-	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow,user.dna.species.punchdamagehigh)
+	var/damage = knuckle_damage + rand(user.dna.species.choosen_attack.damage_min, user.dna.species.choosen_attack.damage_max)
 	var/staminadamage = rand(knock_damage_low, knock_damage_high)
 	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage
 	if(ishuman(A))

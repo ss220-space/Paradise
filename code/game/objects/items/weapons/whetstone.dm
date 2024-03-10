@@ -56,20 +56,30 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/datum/unarmed_attack/attack = H.dna.species.unarmed
-		if(istype(attack, /datum/unarmed_attack/claws))
-			var/datum/unarmed_attack/claws/C = attack
-			if(!C.has_been_sharpened)
-				C.has_been_sharpened = TRUE
-				attack.damage += claw_damage_increase
-				H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on [src]!</span>", "<span class='notice'>You sharpen your claws on [src].</span>")
-				playsound(get_turf(H), usesound, 50, 1)
-				name = "worn out [name]"
-				desc = "[desc] At least, it used to."
-				used = TRUE
-				update_icon()
-			else
-				to_chat(user, "<span class='warning'>You can not sharpen your claws any further!</span>")
+		var/datum/unarmed_attack/attack = H.dna.species.choosen_attack
+		attack.AddComponent(/datum/component/sharpening)
+
+		var/signal_out = SEND_SIGNAL(attack, COMSIG_ITEM_SHARPEN_ACT, increment, max) //Stores the bitflags returned by SEND_SIGNAL
+		if((signal_out & COMPONENT_BLOCK_SHARPEN_MAXED)) //If the item's components enforce more limits on maximum power from sharpening,  we fail
+			to_chat(user, span_warning("Your [attack] is much too powerful to sharpen further!"))
+			return
+
+		if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY)) //No sharpening stuff twice
+			to_chat(user, span_warning("Your [attack] has already been refined before. It cannot be sharpened further!"))
+			return
+
+		if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
+			to_chat(user, span_warning("Your [attack] is not able to be sharpened right now!"))
+			return
+		if(attack.can_sharpen)
+			H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] [attack] on [src]!</span>", "<span class='notice'>You sharpen your [attack] on [src].</span>")
+			playsound(get_turf(H), usesound, 50, 1)
+			name = "worn out [name]"
+			desc = "[desc] At least, it used to."
+			used = TRUE
+			update_icon()
+		else
+			to_chat(user, "<span class='warning'>You can not sharpen your [attack] any further!</span>")
 
 /obj/item/whetstone/super
 	name = "super whetstone block"

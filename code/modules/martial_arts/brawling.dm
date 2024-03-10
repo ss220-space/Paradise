@@ -17,7 +17,7 @@
 
 	var/atk_verb = pick("left hook","right hook","straight punch")
 
-	var/damage = rand(5, 8) + A.dna.species.punchdamagelow
+	var/damage = rand(5, 8) + A.dna.species.choosen_attack.damage_min
 	if(!damage)
 		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to hit [D] with a [atk_verb]!</span>")

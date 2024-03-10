@@ -7,8 +7,6 @@
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
 	language = LANGUAGE_KIDAN
-	unarmed_type = /datum/unarmed_attack/claws
-
 	brute_mod = 0.8
 	tox_mod = 1.7
 
@@ -92,6 +90,14 @@
 
 	disliked_food = FRIED | DAIRY
 	liked_food = SUGAR | ALCOHOL | GROSS | FRUIT
+
+/datum/species/kidan/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)

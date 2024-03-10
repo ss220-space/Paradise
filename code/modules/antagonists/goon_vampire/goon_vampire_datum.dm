@@ -254,6 +254,16 @@
 		qdel(ability)
 		owner.current.update_sight()
 
+/datum/antagonist/goon_vampire/proc/try_bloodsucking(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	if(!draining && target != user)
+		if((NO_BLOOD in target.dna.species.species_traits) || (SKELETON in target.mutations) || target.dna.species.exotic_blood || !target.blood_volume)
+			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
+			return
+		if(target.mind?.has_antag_datum(/datum/antagonist/goon_vampire))
+			to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
+			return
+		handle_bloodsucking(target)
+		add_attack_logs(user, target, "vampirebit")
 
 /datum/antagonist/goon_vampire/proc/handle_bloodsucking(mob/living/carbon/human/H)
 	draining = H

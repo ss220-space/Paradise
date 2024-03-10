@@ -583,9 +583,9 @@
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
-		H.dna.species.punchdamagelow += 14
-		H.dna.species.punchdamagehigh += 14
-		H.dna.species.punchstunthreshold += 10 //higher chance to stun but not 100%
+		H.dna.species.choosen_attack.damage_min += 14
+		H.dna.species.choosen_attack.damage_max += 14
+		H.dna.species.choosen_attack.stun_threshold += 10 //higher chance to stun but not 100%
 
 
 /datum/status_effect/bloodswell/on_remove()
@@ -601,9 +601,9 @@
 
 	if(bonus_damage_applied)
 		bonus_damage_applied = FALSE
-		H.dna.species.punchdamagelow -= 14
-		H.dna.species.punchdamagehigh -= 14
-		H.dna.species.punchstunthreshold -= 10
+		H.dna.species.choosen_attack.damage_min -= 14
+		H.dna.species.choosen_attack.damage_max -= 14
+		H.dna.species.choosen_attack.stun_threshold -= 10 //higher chance to stun but not 100%
 
 
 /datum/status_effect/blood_rush

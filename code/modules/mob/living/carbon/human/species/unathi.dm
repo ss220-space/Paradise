@@ -8,7 +8,6 @@
 	speech_sounds = list('sound/voice/unathitalk.mp3', 'sound/voice/unathitalk2.mp3', 'sound/voice/unathitalk4.mp3')
 	speech_chance = 33
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
-	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
 	brute_mod = 0.9
@@ -89,6 +88,14 @@
 	toxic_food = SUGAR | GRAIN | JUNKFOOD
 	disliked_food = FRIED
 	liked_food = MEAT | RAW | EGG | GROSS | FRUIT | VEGETABLES
+
+/datum/species/unathi/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 /datum/action/innate/tail_lash
 	name = "Взмах хвостом"
@@ -198,11 +205,16 @@
 	brute_mod = 1.15
 	burn_mod = 1.15
 	speed_mod = -0.60 //less fast as ash walkers
-	punchdamagelow = 4
-	punchdamagehigh = 7
-	punchstunthreshold = 7 //still can stun people pretty often
 	toolspeedmod = 0.9 //they're smart and efficient unlike other lizards
 	var/obj/effect/proc_holder/spell/touch/healtouch/goodtouch
+
+/datum/species/unathi/ashwalker/shaman/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws/shaman,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 //gives the heal spell
 /datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -330,9 +342,6 @@ They're basically just lizards with all-around marginally better stats and fire 
 	brute_mod = 0.8 //something something dragon scales
 	burn_mod = 0.9
 	clothing_flags = null //no clothing.
-	punchdamagelow = 9
-	punchdamagehigh = 18
-	punchstunthreshold = 18	//+8 claws of powergaming
 	species_traits = list(LIPS, PIERCEIMMUNE, RESISTHOT) //Dragons like fire
 	no_equip = list(slot_shoes) //everyone have to pay for
 	speed_mod = -0.25			//beeing slightly faster
@@ -346,6 +355,14 @@ They're basically just lizards with all-around marginally better stats and fire 
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	) //no need to b-r-e-a-t-h
+
+/datum/species/unathi/draconid/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws/draconid,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 /datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	. = ..()

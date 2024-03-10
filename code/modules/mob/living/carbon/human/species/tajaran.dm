@@ -6,7 +6,6 @@
 	language = LANGUAGE_TAJARAN
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur
-	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "The Tajaran race is a species of feline-like bipeds hailing from the planet of Ahdomai in the \
 	S'randarr system. They have been brought up into the space age by the Humans and Skrell, and have been \
@@ -74,6 +73,14 @@
 
 	disliked_food = VEGETABLES | FRUIT | GRAIN | GROSS
 	liked_food = MEAT | RAW | DAIRY | EGG
+
+/datum/species/tajaran/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
