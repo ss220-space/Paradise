@@ -1373,8 +1373,8 @@
  * AI core prizes
  */
 /obj/item/toy/AI
-	name = "toy AI"
-	desc = "A little toy model AI core with real law announcing action!"
+	name = /obj/item/aiModule/toyAI::name
+	desc = "Маленькая игрушечная модель ядра ИИ с возможностью называть законы!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "AI"
 	w_class = WEIGHT_CLASS_SMALL
