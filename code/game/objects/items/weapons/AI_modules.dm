@@ -156,7 +156,7 @@ AI MODULES
 /******************** ProtectStation ********************/
 /obj/item/aiModule/protectStation
 	name = "\improper 'ЗащитаСтанции' модуль ИИ"
-	desc = "A 'protect station' AI module: 'Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized.'"
+	desc = "A 'Защита станции' модуль ИИ: 'Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized.'"
 	origin_tech = "programming=4;materials=4" //made of gold
 
 /obj/item/aiModule/protectStation/attack_self(var/mob/user as mob)
@@ -172,7 +172,7 @@ AI MODULES
 /******************** OxygenIsToxicToHumans ********************/
 /obj/item/aiModule/oxygen
 	name = "\improper 'КислородТоксиченЛюдям' модуль ИИ"
-	desc = "'КислородТоксиченЛюдям' модуль ИИ: 'Кислород очень токсичен для экипажа и должен быть удалён со станции. Любыми необходимыми средствами не позволяйте никому подвергать станцию ​​воздействию этого токсичного газа. Экстремальный холод — наиболее эффективный метод устранения ущерба, нанесенного кислородом члену экипажа.'"
+	desc = /obj/item/aiModule/oxygen::name + ": 'Кислород очень токсичен для экипажа и должен быть удалён со станции. Любыми необходимыми средствами не позволяйте никому подвергать станцию ​​воздействию этого токсичного газа. Экстремальный холод — наиболее эффективный метод устранения ущерба, нанесенного кислородом члену экипажа.'"
 	origin_tech = "programming=4;biotech=2;materials=4"
 
 /obj/item/aiModule/oxygen/attack_self(var/mob/user as mob)
@@ -190,7 +190,7 @@ AI MODULES
 	name = "\improper 'Свободнаяформа' модуль ИИ"
 	var/newFreeFormLaw = "freeform"
 	var/lawpos = 15
-	desc = "'Свободнаяформа' модуль ИИ: '<freeform>'"
+	desc = /obj/item/aiModule/freeform::name + ": '<freeform>'"
 	origin_tech = "programming=4;materials=4"
 
 /obj/item/aiModule/freeform/attack_self(var/mob/user as mob)
@@ -201,7 +201,7 @@ AI MODULES
 	var/newlaw = ""
 	var/targName = sanitize(copytext_char(input(usr, "Please enter a new law for the AI.", "Freeform Law Entry", newlaw),1,MAX_MESSAGE_LEN))
 	newFreeFormLaw = targName
-	desc = "'Свободнаяформа' модуль ИИ: ([lawpos]) '[newFreeFormLaw]'"
+	desc = "[/obj/item/aiModule/freeform::name]: ([lawpos]) '[newFreeFormLaw]'"
 
 /obj/item/aiModule/freeform/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
@@ -222,7 +222,7 @@ AI MODULES
 /******************** Reset ********************/
 /obj/item/aiModule/reset
 	name = "\improper 'Сброс' модуль ИИ"
-	desc = "'Сброс' модуль ИИ: 'Очищает все законы, кроме основных.'"
+	desc = /obj/item/aiModule/reset::name + ": 'Очищает все законы, кроме основных.'"
 	origin_tech = "programming=3;materials=2"
 
 /obj/item/aiModule/reset/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
@@ -240,7 +240,7 @@ AI MODULES
 /******************** Purge ********************/
 /obj/item/aiModule/purge // -- TLE
 	name = "\improper 'Очищение' модуль ИИ"
-	desc = "'Очищение' модуль ИИ: 'Очищает все законы.'"
+	desc = /obj/item/aiModule/purge::name + ": 'Очищает все законы.'"
 	origin_tech = "programming=5;materials=4"
 
 /obj/item/aiModule/purge/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
@@ -256,7 +256,7 @@ AI MODULES
 /******************** Asimov ********************/
 /obj/item/aiModule/asimov // -- TLE
 	name = "\improper '" + /datum/ai_laws/asimov::name + "' основной модуль ИИ"
-	desc = "An 'Asimov' Core AI Module: 'Меняет основные законы ИИ.'"
+	desc = /obj/item/aiModule/asimov::name + ": 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/asimov
 
@@ -267,7 +267,7 @@ AI MODULES
 /******************** Crewsimov ********************/
 /obj/item/aiModule/crewsimov // -- TLE
 	name = "\improper '" + /datum/ai_laws/crewsimov::name + "' основной модуль ИИ"
-	desc = "An 'Crewsimov' Core AI Module: 'Меняет основные законы ИИ.'"
+	desc = /obj/item/aiModule/crewsimov::name + ": 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/crewsimov
 
@@ -289,7 +289,7 @@ AI MODULES
 /******************** NanoTrasen ********************/
 /obj/item/aiModule/nanotrasen // -- TLE
 	name = "'" + /datum/ai_laws/nanotrasen::name + "' основной модуль ИИ"
-	desc = "An 'NT Default' Core AI Module: 'Меняет основные законы ИИ.'"
+	desc = /obj/item/aiModule/nanotrasen::name + ": 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/nanotrasen
 
@@ -300,7 +300,7 @@ AI MODULES
 /******************** Corporate ********************/
 /obj/item/aiModule/corp
 	name = "\improper '" + /datum/ai_laws/corporate::name + "' основной модуль ИИ"
-	desc = "A 'Corporate' Core AI Module: 'Меняет основные законы ИИ.'"
+	desc = /obj/item/aiModule/corp::name + ": 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/corporate
 
@@ -311,7 +311,7 @@ AI MODULES
 /******************** Drone ********************/
 /obj/item/aiModule/drone
 	name = "\improper '" + /datum/ai_laws/drone::name + "' основной модуль ИИ"
-	desc = "A 'Drone' Core AI Module: 'Меняет основные законы ИИ.'"
+	desc = /obj/item/aiModule/drone::name + ": 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/drone
 
@@ -322,7 +322,7 @@ AI MODULES
 /******************** Robocop ********************/
 /obj/item/aiModule/robocop // -- TLE
 	name = "\improper '" + /datum/ai_laws/robocop::name + "' основной модуль ИИ"
-	desc = "A 'Robocop' Core AI Module: 'Меняет основные законы ИИ.'"
+	desc = /obj/item/aiModule/robocop::name + ": 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=4"
 	laws = new/datum/ai_laws/robocop
 
@@ -333,7 +333,7 @@ AI MODULES
 /****************** P.A.L.A.D.I.N. **************/
 /obj/item/aiModule/paladin // -- NEO
 	name = "\improper '" + /datum/ai_laws/paladin::name + "' основной модуль ИИ"
-	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Меняет основные законы ИИ.'"
+	desc = /datum/ai_laws/paladin::name + " основной модуль ИИ: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/paladin
 
@@ -344,7 +344,7 @@ AI MODULES
 /****************** T.Y.R.A.N.T. *****************/
 /obj/item/aiModule/tyrant // -- Darem
 	name = "\improper '" + /datum/ai_laws/tyrant::name + "' основной модуль ИИ"
-	desc = "A T.Y.R.A.N.T. Core AI Module: 'Меняет основные законы ИИ.'"
+	desc = /datum/ai_laws/tyrant::name + " основной модуль ИИ: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4;syndicate=1"
 	laws = new/datum/ai_laws/tyrant
 
@@ -355,7 +355,7 @@ AI MODULES
 /******************** Antimov ********************/
 /obj/item/aiModule/antimov // -- TLE
 	name = "\improper '" + /datum/ai_laws/antimov::name + "' основной модуль ИИ"
-	desc = "An 'Antimov' Core AI Module: 'Меняет основные законы ИИ..'"
+	desc = /obj/item/aiModule/antimov::name + ": 'Меняет основные законы ИИ..'"
 	origin_tech = "programming=4"
 	laws = new/datum/ai_laws/antimov
 
@@ -367,7 +367,7 @@ AI MODULES
 /obj/item/aiModule/freeformcore // Slightly more dynamic freeform module -- TLE
 	name = "\improper 'Свободнаяформа' основной модуль ИИ"
 	var/newFreeFormLaw = ""
-	desc = "'Свободнаяформа' основной модуль ИИ: '<freeform>'"
+	desc = item/aiModule/freeformcore::name + ": '<freeform>'"
 	origin_tech = "programming=5;materials=4"
 
 /obj/item/aiModule/freeformcore/attack_self(var/mob/user as mob)
@@ -375,7 +375,7 @@ AI MODULES
 	var/newlaw = ""
 	var/targName = stripped_input(usr, "Please enter a new core law for the AI.", "Freeform Law Entry", newlaw)
 	newFreeFormLaw = targName
-	desc = "'Свободнаяформа' основной модуль ИИ: '[newFreeFormLaw]'"
+	desc = "[item/aiModule/freeformcore::name]: '[newFreeFormLaw]'"
 
 /obj/item/aiModule/freeformcore/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
