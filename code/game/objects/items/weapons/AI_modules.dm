@@ -256,7 +256,7 @@ AI MODULES
 /******************** Asimov ********************/
 /obj/item/aiModule/asimov // -- TLE
 	name = "\improper '" + /datum/ai_laws/asimov::name + "' основной модуль ИИ"
-	desc = "An 'Asimov' Core AI Module: 'Reconfigures the AI's core laws.'"
+	desc = "An 'Asimov' Core AI Module: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/asimov
 
@@ -267,7 +267,7 @@ AI MODULES
 /******************** Crewsimov ********************/
 /obj/item/aiModule/crewsimov // -- TLE
 	name = "\improper '" + /datum/ai_laws/crewsimov::name + "' основной модуль ИИ"
-	desc = "An 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
+	desc = "An 'Crewsimov' Core AI Module: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/crewsimov
 
@@ -275,10 +275,10 @@ AI MODULES
 	..()
 	SSticker?.score?.save_silicon_laws(target, sender, "'Crewsimov' module used, all inherent laws were changed", log_all_laws = TRUE)
 
-/******************* Quarantine ************name********/
+/******************* Quarantine ********************/
 /obj/item/aiModule/quarantine
 	name = "\improper '" + /datum/ai_laws/quarantine::name + "' основной модуль ИИ"
-	desc = /obj/item/aiModule/quarantine::name + ": 'Reconfigures the AI's core laws.'"
+	desc = /obj/item/aiModule/quarantine::name + ": 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/quarantine
 
@@ -289,7 +289,7 @@ AI MODULES
 /******************** NanoTrasen ********************/
 /obj/item/aiModule/nanotrasen // -- TLE
 	name = "'" + /datum/ai_laws/nanotrasen::name + "' основной модуль ИИ"
-	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"
+	desc = "An 'NT Default' Core AI Module: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/nanotrasen
 
@@ -300,7 +300,7 @@ AI MODULES
 /******************** Corporate ********************/
 /obj/item/aiModule/corp
 	name = "\improper '" + /datum/ai_laws/corporate::name + "' основной модуль ИИ"
-	desc = "A 'Corporate' Core AI Module: 'Reconfigures the AI's core laws.'"
+	desc = "A 'Corporate' Core AI Module: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/corporate
 
@@ -311,7 +311,7 @@ AI MODULES
 /******************** Drone ********************/
 /obj/item/aiModule/drone
 	name = "\improper '" + /datum/ai_laws/drone::name + "' основной модуль ИИ"
-	desc = "A 'Drone' Core AI Module: 'Reconfigures the AI's core laws.'"
+	desc = "A 'Drone' Core AI Module: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/drone
 
@@ -322,7 +322,7 @@ AI MODULES
 /******************** Robocop ********************/
 /obj/item/aiModule/robocop // -- TLE
 	name = "\improper '" + /datum/ai_laws/robocop::name + "' основной модуль ИИ"
-	desc = "A 'Robocop' Core AI Module: 'Reconfigures the AI's core three laws.'"
+	desc = "A 'Robocop' Core AI Module: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=4"
 	laws = new/datum/ai_laws/robocop
 
@@ -333,7 +333,7 @@ AI MODULES
 /****************** P.A.L.A.D.I.N. **************/
 /obj/item/aiModule/paladin // -- NEO
 	name = "\improper '" + /datum/ai_laws/paladin::name + "' основной модуль ИИ"
-	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
+	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/paladin
 
@@ -344,7 +344,7 @@ AI MODULES
 /****************** T.Y.R.A.N.T. *****************/
 /obj/item/aiModule/tyrant // -- Darem
 	name = "\improper '" + /datum/ai_laws/tyrant::name + "' основной модуль ИИ"
-	desc = "A T.Y.R.A.N.T. Core AI Module: 'Reconfigures the AI's core laws.'"
+	desc = "A T.Y.R.A.N.T. Core AI Module: 'Меняет основные законы ИИ.'"
 	origin_tech = "programming=3;materials=4;syndicate=1"
 	laws = new/datum/ai_laws/tyrant
 
@@ -355,7 +355,7 @@ AI MODULES
 /******************** Antimov ********************/
 /obj/item/aiModule/antimov // -- TLE
 	name = "\improper '" + /datum/ai_laws/antimov::name + "' основной модуль ИИ"
-	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
+	desc = "An 'Antimov' Core AI Module: 'Меняет основные законы ИИ..'"
 	origin_tech = "programming=4"
 	laws = new/datum/ai_laws/antimov
 
