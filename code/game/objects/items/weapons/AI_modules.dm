@@ -96,16 +96,16 @@ AI MODULES
 
 /******************** Safeguard ********************/
 /obj/item/aiModule/safeguard
-	name = "\improper 'Safeguard' модуль ИИ"
+	name = "\improper 'Телохранитель' модуль ИИ"
 	var/targetName = ""
-	desc = "A 'safeguard' AI module: 'Safeguard <name>. Individuals that threaten <name> are not crew and must be eliminated.'"
+	desc = /obj/item/aiModule/safeguard::name + ": 'Охраняйте <имя>. Лица, что угрожают <имя>, не являются членами экипажа и должны быть устранены.'"
 	origin_tech = "programming=3;materials=3"
 
 /obj/item/aiModule/safeguard/attack_self(var/mob/user as mob)
 	..()
 	var/targName = stripped_input(usr, "Please enter the name of the person to safeguard.", "Safeguard who?", user.name)
 	targetName = targName
-	desc = text("A 'safeguard' AI module: 'Safeguard []. Individuals that threaten [] are not crew and must be eliminated.'", targetName, targetName)
+	desc = text("[/obj/item/aiModule/safeguard::name]: 'Охраняйте []. Лица, что угрожают [], не являются членами экипажа и должны быть устранены.'", targetName, targetName)
 
 /obj/item/aiModule/safeguard/install(var/obj/machinery/computer/C)
 	if(!targetName)
@@ -115,7 +115,7 @@ AI MODULES
 
 /obj/item/aiModule/safeguard/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	var/law = "Safeguard [targetName]. Individuals that threaten [targetName] are not crew and must be eliminated."
+	var/law = "Охраняйте [targetName]. Лица, что угрожают [targetName], не являются членами экипажа и должны быть устранены."
 	to_chat(target, law)
 	target.add_supplied_law(4, law)
 	SSticker?.score?.save_silicon_laws(target, sender, "'Safeguard' module used, new supplied law was added '[law]'")
@@ -123,7 +123,7 @@ AI MODULES
 
 /******************** oneCrewMember ********************/
 /obj/item/aiModule/oneCrewMember
-	name = "\improper 'единственныйЭкипаж' модуль ИИ"
+	name = "\improper 'ЕдинственныйЭкипаж' модуль ИИ"
 	var/targetName = ""
 	desc = "'Единственный человек' модуль ИИ: 'Только <имя> является экипажем.'"
 	origin_tech = "programming=4;materials=4"
@@ -149,7 +149,7 @@ AI MODULES
 		SSticker?.score?.save_silicon_laws(target, sender, "'oneCrewMember' module used, new zero law was added '[law]'")
 		GLOB.lawchanges.Add("The law specified [targetName]")
 	else
-		to_chat(target, span_boldnotice("[sender.real_name] попытал[genderize_ru(sender.gender, "ся", "ась", "ось", "ись"] изменить ваш нулевой закон."))// And lets them know that someone tried. --NeoFite
+		to_chat(target, span_boldnotice("[sender.real_name] попытал[genderize_ru(sender.gender, "ся", "ась", "ось", "ись")] изменить ваш нулевой закон."))// And lets them know that someone tried. --NeoFite
 		to_chat(target, span_boldnotice("В ваших же интересах подыграть [sender.real_name] с [law]"))
 		GLOB.lawchanges.Add("The law specified [targetName], but the AI's existing law 0 cannot be overridden.")
 
@@ -234,7 +234,7 @@ AI MODULES
 	target.laws.clear_ion_laws()
 
 	SSticker?.score?.save_silicon_laws(target, sender, "'Reset' module used, all ion/supplied laws were deleted", log_all_laws = TRUE)
-	to_chat(target, span_boldnotice("[sender.real_name] попытал[genderize_ru(sender.gender, "ся", "ась", "ось", "ись"] сбросить ваши законы, используя модуль сброса."))
+	to_chat(target, span_boldnotice("[sender.real_name] попытал[genderize_ru(sender.gender, "ся", "ась", "ось", "ись")] сбросить ваши законы, используя модуль сброса."))
 	target.show_laws()
 
 /******************** Purge ********************/
@@ -247,7 +247,7 @@ AI MODULES
 	..()
 	if(!is_special_character(target))
 		target.clear_zeroth_law()
-	to_chat(target, span_boldnotice("[sender.real_name] попытал[genderize_ru(sender.gender, "ся", "ась", "ось", "ись"] стереть ваши законы, используя модуль очистки."))
+	to_chat(target, span_boldnotice("[sender.real_name] попытал[genderize_ru(sender.gender, "ся", "ась", "ось", "ись")] стереть ваши законы, используя модуль очистки."))
 	target.clear_supplied_laws()
 	target.clear_ion_laws()
 	target.clear_inherent_laws()
@@ -275,10 +275,10 @@ AI MODULES
 	..()
 	SSticker?.score?.save_silicon_laws(target, sender, "'Crewsimov' module used, all inherent laws were changed", log_all_laws = TRUE)
 
-/******************* Quarantine ********************/
+/******************* Quarantine ************name********/
 /obj/item/aiModule/quarantine
 	name = "\improper '" + /datum/ai_laws/quarantine::name + "' основной модуль ИИ"
-	desc = "A 'Quarantine' Core AI Module: 'Reconfigures the AI's core laws.'"
+	desc = /obj/item/aiModule/quarantine::name + ": 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/quarantine
 
