@@ -76,7 +76,7 @@
 		if(!user.drop_transfer_item_to_loc(W, src))
 			return
 
-		playsound(loc, W.usesound, 100, 1)
+		playsound(loc, W.usesound, 100, TRUE)
 		user.visible_message("[user] installs [W] into the button frame.", "You install [W] into the button frame.")
 		device = W
 
@@ -96,7 +96,7 @@
 			return
 		if(!user.drop_transfer_item_to_loc(W, src))
 			return
-		playsound(loc, W.usesound, 100, 1)
+		playsound(loc, W.usesound, 100, TRUE)
 		user.visible_message("[user] installs [W] into the button frame.", "You install [W] into the button frame.")
 		access_electronics = W
 		add_fingerprint(user)
