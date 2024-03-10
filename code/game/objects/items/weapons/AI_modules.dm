@@ -11,7 +11,7 @@ AI MODULES
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
 	item_state = "electronic"
-	desc = "Модуль ИИ для передачи шифрованных инструкций ИИ	."
+	desc = "Модуль ИИ для передачи шифрованных инструкций ИИ."
 	flags = CONDUCT
 	force = 5.0
 	w_class = WEIGHT_CLASS_SMALL
