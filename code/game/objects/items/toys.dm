@@ -1378,12 +1378,13 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "AI"
 	w_class = WEIGHT_CLASS_SMALL
+	ru_names = /obj/item/aiModule/toyAI::ru_names
 	var/cooldown = 0
 
 /obj/item/toy/AI/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = generate_ion_law()
-		to_chat(user, "<span class='notice'>You press the button on [src].</span>")
+		to_chat(user, span_notice("Вы нажимаете на кнопку [declent_ru(GENITIVE)]."))
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
 		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 		cooldown = 1

@@ -26,19 +26,19 @@ AI MODULES
 	if(istype(C, /obj/machinery/computer/aiupload))
 		var/obj/machinery/computer/aiupload/comp = C
 		if(comp.stat & NOPOWER)
-			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
+			to_chat(usr, span_warning("The upload computer has no power!"))
 			return
 		if(comp.stat & BROKEN)
-			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
+			to_chat(usr, span_warning("The upload computer is broken!"))
 			return
 		if(!comp.current)
-			to_chat(usr, "<span class='warning'>You haven't selected an AI to transmit laws to!</span>")
+			to_chat(usr, span_warning("You haven't selected an AI to transmit laws to!"))
 			return
 
 		if(comp.current.stat == DEAD || comp.current.control_disabled)
-			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the AI.</span>")
+			to_chat(usr, span_warning("Upload failed. No signal is being detected from the AI."))
 		else if(comp.current.see_in_dark == 0)
-			to_chat(usr, "<span class='warning'>Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.</span>")
+			to_chat(usr, span_warning("Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power."))
 		else
 			src.transmitInstructions(comp.current, usr)
 			to_chat(comp.current, "These are your laws now:")
@@ -47,29 +47,29 @@ AI MODULES
 				if(R.lawupdate && (R.connected_ai == comp.current))
 					to_chat(R, "These are your laws now:")
 					R.show_laws()
-			to_chat(usr, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
+			to_chat(usr, span_notice("Upload complete. The AI's laws have been modified."))
 
 	else if(istype(C, /obj/machinery/computer/borgupload))
 		var/obj/machinery/computer/borgupload/comp = C
 		if(comp.stat & NOPOWER)
-			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
+			to_chat(usr, span_warning("The upload computer has no power!"))
 			return
 		if(comp.stat & BROKEN)
-			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
+			to_chat(usr, span_warning("The upload computer is broken!"))
 			return
 		if(!comp.current)
-			to_chat(usr, "<span class='warning'>You haven't selected a robot to transmit laws to!</span>")
+			to_chat(usr, span_warning("You haven't selected a robot to transmit laws to!"))
 			return
 
 		if(comp.current.stat == DEAD || comp.current.emagged)
-			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the robot.</span>")
+			to_chat(usr, span_warning("Upload failed. No signal is being detected from the robot."))
 		else if(comp.current.connected_ai)
-			to_chat(usr, "<span class='warning'>Upload failed. The robot is slaved to an AI.</span>")
+			to_chat(usr, span_warning("Upload failed. The robot is slaved to an AI."))
 		else
 			src.transmitInstructions(comp.current, usr)
 			to_chat(comp.current, "These are your laws now:")
 			comp.current.show_laws()
-			to_chat(usr, "<span class='notice'>Upload complete. The robot's laws have been modified.</span>")
+			to_chat(usr, span_notice("Upload complete. The robot's laws have been modified."))
 
 /obj/item/aiModule/cmag_act()
 	. = ..()
@@ -149,8 +149,8 @@ AI MODULES
 		SSticker?.score?.save_silicon_laws(target, sender, "'oneCrewMember' module used, new zero law was added '[law]'")
 		GLOB.lawchanges.Add("The law specified [targetName]")
 	else
-		to_chat(target, "<span class='boldnotice'>[sender.real_name] пытается изменить ваш нулевой закон.</span>")// And lets them know that someone tried. --NeoFite
-		to_chat(target, "<span class='boldnotice'>It would be in your best interest to play along with [sender.real_name] that [law]</span>")
+		to_chat(target, span_boldnotice("[sender.real_name] попытал[genderize_ru(sender.gender, "ся", "ась", "ось", "ись"] изменить ваш нулевой закон."))// And lets them know that someone tried. --NeoFite
+		to_chat(target, span_boldnotice("В ваших же интересах подыграть [sender.real_name] с [law]"))
 		GLOB.lawchanges.Add("The law specified [targetName], but the AI's existing law 0 cannot be overridden.")
 
 /******************** ProtectStation ********************/
@@ -172,7 +172,7 @@ AI MODULES
 /******************** OxygenIsToxicToHumans ********************/
 /obj/item/aiModule/oxygen
 	name = "\improper 'КислородТоксиченЛюдям' модуль ИИ"
-	desc = "'КислородТоксиченЛюдям' модуль ИИ: 'Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member.'"
+	desc = "'КислородТоксиченЛюдям' модуль ИИ: 'Кислород очень токсичен для экипажа и должен быть удалён со станции. Любыми необходимыми средствами не позволяйте никому подвергать станцию ​​воздействию этого токсичного газа. Экстремальный холод — наиболее эффективный метод устранения ущерба, нанесенного кислородом члену экипажа.'"
 	origin_tech = "programming=4;biotech=2;materials=4"
 
 /obj/item/aiModule/oxygen/attack_self(var/mob/user as mob)
@@ -180,7 +180,7 @@ AI MODULES
 
 /obj/item/aiModule/oxygen/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	var/law = "Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member."
+	var/law = "Кислород очень токсичен для экипажа и должен быть удалён со станции. Любыми необходимыми средствами не позволяйте никому подвергать станцию ​​воздействию этого токсичного газа. Экстремальный холод — наиболее эффективный метод устранения ущерба, нанесенного кислородом члену экипажа."
 	to_chat(target, law)
 	target.add_supplied_law(9, law)
 	SSticker?.score?.save_silicon_laws(target, sender, "'OxygenIsToxicToHumans' module used, new supplied law was added '[law]'")
@@ -234,7 +234,7 @@ AI MODULES
 	target.laws.clear_ion_laws()
 
 	SSticker?.score?.save_silicon_laws(target, sender, "'Reset' module used, all ion/supplied laws were deleted", log_all_laws = TRUE)
-	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to reset your laws using a reset module.</span>")
+	to_chat(target, span_boldnotice("[sender.real_name] попытал[genderize_ru(sender.gender, "ся", "ась", "ось", "ись"] сбросить ваши законы, используя модуль сброса."))
 	target.show_laws()
 
 /******************** Purge ********************/
@@ -247,7 +247,7 @@ AI MODULES
 	..()
 	if(!is_special_character(target))
 		target.clear_zeroth_law()
-	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to wipe your laws using a purge module.</span>")
+	to_chat(target, span_boldnotice("[sender.real_name] попытал[genderize_ru(sender.gender, "ся", "ась", "ось", "ись"] стереть ваши законы, используя модуль очистки."))
 	target.clear_supplied_laws()
 	target.clear_ion_laws()
 	target.clear_inherent_laws()
@@ -409,7 +409,7 @@ AI MODULES
 	log_law_changes(target, sender)
 
 	GLOB.lawchanges.Add("The law is '[newFreeFormLaw]'")
-	to_chat(target, "<span class='warning'>BZZZZT</span>")
+	to_chat(target, span_warning("BZZZZT"))
 	var/law = "[newFreeFormLaw]"
 	target.add_ion_law(law)
 	target.show_laws()
@@ -433,13 +433,13 @@ AI MODULES
 
 /obj/item/aiModule/toyAI/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	//..()
-	to_chat(target, "<span class='warning'>KRZZZT</span>")
+	to_chat(target, span_warning("KRZZZT"))
 	target.add_ion_law(laws[1])
 	SSticker?.score?.save_silicon_laws(target, sender, "'toy AI' module used, new ion law was added '[laws[1]]'")
 	return laws[1]
 
 /obj/item/aiModule/toyAI/attack_self(mob/user)
 	laws[1] = generate_ion_law()
-	to_chat(user, "<span class='notice'>Вы нажимаете на кнопку [declent_ru(GENITIVE)].</span>")
+	to_chat(user, span_notice("Вы нажимаете на кнопку [declent_ru(GENITIVE)]."))
 	playsound(user, 'sound/machines/click.ogg', 20, 1)
-	loc.visible_message("<span class='warning'>[bicon(src)] [laws[1]]</span>")
+	loc.visible_message(span_warning("[bicon(src)] [laws[1]]"))
