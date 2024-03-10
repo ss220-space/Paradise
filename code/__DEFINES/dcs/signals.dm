@@ -388,6 +388,9 @@
 #define COMSIG_MOB_EMOTE_AT "mob_emote_at"
 	#define COMPONENT_BLOCK_EMOTE_ACTION (1<<2)
 
+///from base of /mob/verb/pointed: (atom/A)
+#define COMSIG_MOB_POINTED "mob_pointed"
+
 ///from base of mob/swap_hand(): (obj/item/currently_held_item)
 #define COMSIG_MOB_SWAPPING_HANDS "mob_swapping_hands"
 	#define COMPONENT_BLOCK_SWAP (1<<0)

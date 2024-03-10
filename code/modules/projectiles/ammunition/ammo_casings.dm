@@ -128,7 +128,7 @@
 
 /obj/item/ammo_casing/c9mmte
 	desc = "A 9mm TE bullet casing."
-	materials = list(MAT_METAL = 550)
+	materials = list(MAT_METAL = 500)
 	caliber = "9mm TE"
 	projectile_type = /obj/item/projectile/bullet/weakbullet4/c9mmte
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK

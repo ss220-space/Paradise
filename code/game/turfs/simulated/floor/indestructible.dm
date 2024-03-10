@@ -42,6 +42,9 @@
 /turf/simulated/floor/indestructible/welder_act(mob/living/user, obj/item/I)
 	return
 
+/turf/simulated/floor/indestructible/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	return
+
 /turf/simulated/floor/indestructible/plating
 	name = "plating"
 	icon_state = "plating"

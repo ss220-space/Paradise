@@ -2196,11 +2196,23 @@
 	broken_overlay = "artvend_broken"
 	broken_lightmask_overlay = "artvend_broken_lightmask"
 
-	products = list(/obj/item/toy/crayon/spraycan = 2,/obj/item/stack/cable_coil/random = 10,/obj/item/camera = 4,/obj/item/camera_film = 6,
-	/obj/item/storage/photo_album = 2,/obj/item/stack/wrapping_paper = 4,/obj/item/stack/tape_roll = 5,/obj/item/stack/packageWrap = 4,
-	/obj/item/storage/fancy/crayons = 4,/obj/item/hand_labeler = 4,/obj/item/paper = 10,
-	/obj/item/c_tube = 10,/obj/item/pen = 5,/obj/item/pen/blue = 5,
-	/obj/item/pen/red = 5)
+	products = list(
+		/obj/item/toy/crayon/spraycan = 2,
+		/obj/item/stack/cable_coil/random = 10,
+		/obj/item/camera = 4,
+		/obj/item/camera_film = 6,
+		/obj/item/storage/photo_album = 2,
+		/obj/item/stack/wrapping_paper = 4,
+		/obj/item/stack/tape_roll = 5,
+		/obj/item/stack/packageWrap = 4,
+		/obj/item/storage/fancy/crayons = 4,
+		/obj/item/storage/fancy/glowsticks_box = 3,
+		/obj/item/hand_labeler = 4,
+		/obj/item/paper = 10,
+		/obj/item/c_tube = 10,
+		/obj/item/pen = 5,
+		/obj/item/pen/blue = 5,
+		/obj/item/pen/red = 5)
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
 	premium = list(/obj/item/poster/random_contraband = 5)
 
@@ -2280,6 +2292,7 @@
 		/obj/item/clothing/head/officer		 	= 10,
 		/obj/item/clothing/head/beret/brigphys  = 5,
 		/obj/item/clothing/head/soft/brigphys   = 5,
+		/obj/item/clothing/head/helmet/lightweighthelmet = 10,
 
 		/obj/item/clothing/under/rank/security			= 10,
 		/obj/item/clothing/under/rank/security/skirt 	= 10,
@@ -2307,6 +2320,8 @@
 		/obj/item/clothing/shoes/jackboots/cross 		= 10,
 
 		/obj/item/radio/headset/headset_sec		= 10, //No EARBANGPROTECT. Hehe...
+
+		/obj/item/clothing/glasses/hud/security/sunglasses/tacticool = 5,
 
 		/obj/item/clothing/accessory/scarf/black 	= 10,
 		/obj/item/clothing/accessory/scarf/red 		= 10,

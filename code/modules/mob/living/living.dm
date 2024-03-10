@@ -981,9 +981,10 @@
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.drop_item_ground(what)
+			if(!who.drop_item_ground(what, silent = silent))
+				return
 			if(silent)
-				put_in_hands(what)
+				put_in_hands(what, silent = TRUE)
 			add_attack_logs(src, who, "Stripped of [what]")
 
 // The src mob is trying to place an item on someone
@@ -1001,8 +1002,8 @@
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
-				drop_item_ground(what)
-				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE)
+				drop_item_ground(what, silent = silent)
+				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE, initial = silent)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
@@ -1073,38 +1074,31 @@
 
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	var/loc_temp = T0C
+	if(istype(loc, /obj/structure/closet/critter))
+		return environment.temperature
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
-
-	else if(isvampirecoffin(loc))
+		return  M.return_temperature()
+	if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
-		loc_temp = coffin.return_temperature()
-
-	else if(istype(loc, /obj/spacepod))
+		return coffin.return_temperature()
+	if(istype(loc, /obj/spacepod))
 		var/obj/spacepod/S = loc
-		loc_temp = S.return_temperature()
-
-	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
-
-	else if(istype(get_turf(src), /turf/space))
+		return S.return_temperature()
+	if(istype(loc, /obj/structure/transit_tube_pod))
+		return environment.temperature
+	if(istype(get_turf(src), /turf/space))
 		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
-
-	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		return heat_turf.temperature
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-
 		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
+			return environment.temperature
 		else
-			loc_temp = C.air_contents.temperature
-
-	else
-		loc_temp = environment.temperature
-
-	return loc_temp
+			return C.air_contents.temperature
+	if(environment)
+		return environment.temperature
+	return T0C
 
 /mob/living/proc/get_standard_pixel_x_offset(lying = 0)
 	return initial(pixel_x)

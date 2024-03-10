@@ -37,7 +37,7 @@
 /obj/item/clothing/suit/space/hardsuit/contractor/ui_action_click(user, action)
 	switch(action)
 		if(/datum/action/item_action/toggle_helmet)
-			ToggleHelmet()
+			ToggleHelmet(user)
 			return TRUE
 		if(/datum/action/item_action/advanced/hook_upgrade)
 			toggle_hook()

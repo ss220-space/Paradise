@@ -3,7 +3,7 @@
 	desc = "A face-covering mask that can be connected to an air supply."
 	icon_state = "gas_alt"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
-	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_inv = HIDEGLASSES|HIDENAME
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
@@ -42,7 +42,7 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_inv = HIDEGLASSES|HIDENAME
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF

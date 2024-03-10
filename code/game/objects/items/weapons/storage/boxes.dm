@@ -629,6 +629,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/bodybag(src)
 
+/obj/item/storage/box/bodybags/biohazard
+	name = "biohazard body bags"
+	desc = "This box contains biohazard body bags."
+	icon_state = "biohazard_bodybags"
+
+/obj/item/storage/box/bodybags/biohazard/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/bodybag/biohazard(src)
+
 /obj/item/storage/box/snappops
 	name = "snap pop box"
 	desc = "Eight wrappers of fun! Ages 8 and up. Not suitable for children."
@@ -1061,6 +1070,25 @@
 		new /obj/item/grenade/megafauna_hardmode(src)
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
+
+/obj/item/storage/box/random_syndi
+	icon_state = "box_of_doom"
+	var/static/list/allowed_uplink_items
+
+
+/obj/item/storage/box/random_syndi/populate_contents()
+	if(!allowed_uplink_items)
+		allowed_uplink_items = list()
+		for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
+			if(istype(uplink_item, /datum/uplink_item/racial) || uplink_item.hijack_only || uplink_item.cost > 20)
+				continue
+			allowed_uplink_items += uplink_item.item
+
+	if(!length(allowed_uplink_items))
+		return
+
+	for(var/item_path in pick_multiple_unique(allowed_uplink_items, 3))
+		new item_path(src)
 
 #undef NODESIGN
 #undef NANOTRASEN
