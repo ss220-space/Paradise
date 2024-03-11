@@ -329,22 +329,22 @@ GLOBAL_LIST_EMPTY(safes)
 	update_icon()
 
 /obj/structure/safe/proc/security_check()
-	if(get_dist(src, locateUID(driller_UID)) >= 9)
+	var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
+	if(!istype(driller_human) || get_dist(src, driller_human) >= 9)
 		return //You need to be near the drill if you want to get the buff.
-	for(var/mob/living/carbon/human/H in view(9, locateUID(driller_UID)))
+	for(var/mob/living/carbon/human/H in view(9, driller_human))
 		if((H.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Captain", "Clown")) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
 			drill.spotted = TRUE
-			security_assualt_in_progress()
+			security_assualt_in_progress(driller_human)
 			return
 	for(var/mob/living/carbon/human/H in view(9, src))
 		if((H.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Captain", "Clown")) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
 			drill.spotted = TRUE
-			security_assualt_in_progress()
+			security_assualt_in_progress(driller_human)
 			return
 
-/obj/structure/safe/proc/security_assualt_in_progress()
-	var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
-	driller_human?.apply_status_effect(STATUS_EFFECT_DRILL_PAYBACK, src)
+/obj/structure/safe/proc/security_assualt_in_progress(mob/living/carbon/human/driller_human)
+	driller_human.apply_status_effect(STATUS_EFFECT_DRILL_PAYBACK, src)
 	drill.song.start_playing(driller_human)
 	drill.atom_say("Security spotted. Nanites deployed. Give them <b>hell.</b>")
 	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link = "<a href=?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
