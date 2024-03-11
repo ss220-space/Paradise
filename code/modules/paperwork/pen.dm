@@ -76,7 +76,7 @@
 	. = tgui_input_list(user, "Which colour would you like to use?", name, colour_choices, colour)
 	if(.)
 		colour = .
-		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
+		playsound(loc, 'sound/effects/pop.ogg', 50, TRUE)
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pen/multi/attack_self(mob/living/user)
@@ -114,7 +114,7 @@
 
 /obj/item/pen/fancy/bomb/examine(mob/user)
 	. = ..()
-	if(istraitor_or_contractor(user))
+	if(istraitor(user))
 		. += span_specialnotice("They always said the pen is mightier than the sword.")
 
 /obj/item/pen/fancy/bomb/attack_self(mob/user)

@@ -331,12 +331,12 @@ GLOBAL_LIST_EMPTY(safes)
 	if(get_dist(src, driller) >= 9)
 		return //You need to be near the drill if you want to get the buff.
 	for(var/mob/living/carbon/human/H in view(9, driller))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Captain", "Clown")) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
 			drill.spotted = TRUE
 			security_assualt_in_progress()
 			return
 	for(var/mob/living/carbon/human/H in view(9, src))
-		if(H.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Clown") && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Captain", "Clown")) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
 			drill.spotted = TRUE
 			security_assualt_in_progress()
 			return
@@ -397,7 +397,7 @@ GLOBAL_LIST_EMPTY(safes)
 	drill_timer = null
 	drill.soundloop.stop()
 	update_icon()
-	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	cut_overlay(progress_bar)
 	update_icon()
 	if(drill.payback)

@@ -283,7 +283,7 @@
 /obj/item/radio/beacon/syndicate/bundle/attack_self(mob/user)
 	if(!user)
 		return
-	var/bundle_name  = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
+	var/bundle_name = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
 	used = TRUE
 	if(!bundle_name)
 		return
