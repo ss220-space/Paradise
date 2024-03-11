@@ -439,7 +439,7 @@
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
 	if(isnucleation(moving_atom))
-		nucle_touch(moving_atom)
+		nuclear_touch(moving_atom)
 		return
 	else if(istype(moving_atom, /mob/living))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
