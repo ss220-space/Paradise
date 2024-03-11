@@ -227,11 +227,11 @@
 			return list(new /datum/multilingual_say_piece(L, trim(strip_prefixes(message))))
 
 		if(i + 1 > length(prefix_locations)) // We are out of lookaheads, that means the rest of the message is in cur lang
-			var/spoke_message = handle_autohiss(trim(copytext_char(message, current[3])), L)
+			var/spoke_message = trim(copytext_char(message, current[3]))
 			. += new /datum/multilingual_say_piece(current[1], spoke_message)
 		else
 			var/next = prefix_locations[i + 1] // We look ahead at the next message to see where we need to stop.
-			var/spoke_message = handle_autohiss(trim(copytext_char(message, current[3], next[2])), L)
+			var/spoke_message = trim(copytext_char(message, current[3], next[2]))
 			. += new /datum/multilingual_say_piece(current[1], spoke_message)
 
 

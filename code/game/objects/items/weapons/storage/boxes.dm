@@ -1071,6 +1071,25 @@
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
 
+/obj/item/storage/box/random_syndi
+	icon_state = "box_of_doom"
+	var/static/list/allowed_uplink_items
+
+
+/obj/item/storage/box/random_syndi/populate_contents()
+	if(!allowed_uplink_items)
+		allowed_uplink_items = list()
+		for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
+			if(istype(uplink_item, /datum/uplink_item/racial) || uplink_item.hijack_only || uplink_item.cost > 20)
+				continue
+			allowed_uplink_items += uplink_item.item
+
+	if(!length(allowed_uplink_items))
+		return
+
+	for(var/item_path in pick_multiple_unique(allowed_uplink_items, 3))
+		new item_path(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

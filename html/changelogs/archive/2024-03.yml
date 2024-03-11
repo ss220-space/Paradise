@@ -40,3 +40,14 @@
   - server: Automatic NanoMap Update (#4536)
   xTrogwaRx:
   - bugfix: normalize guitar volume (#4552)
+'2024-03-05':
+  ROdenFL:
+  - bugfix: rcd kill beach defib recursion (#4547)
+  Rerik007:
+  - bugfix: fixes "Cannot execute null.getRankAndAssignment()." runtime (#4565)
+  VasilevAY:
+  - bugfix: Fix typo in hazard bodybags icons (#4562)
+  aeternaclose:
+  - bugfix: Cerestation Disposal Fix (#4566)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4557)

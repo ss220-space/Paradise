@@ -1344,7 +1344,7 @@ About the new airlock wires panel:
 	if(!locked)
 		return FALSE
 
-	if(!forced && operating || !arePowerSystemsOn() || wires.is_cut(WIRE_DOOR_BOLTS))
+	if(!forced && (operating || !arePowerSystemsOn() || wires.is_cut(WIRE_DOOR_BOLTS)))
 		return FALSE
 
 	locked = FALSE

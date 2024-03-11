@@ -556,8 +556,17 @@
 	if(S.has_reagent("robustharvestnutriment", 1))
 		yieldmod = 1.3
 		mutmod = 0
-		adjustNutri(round(S.get_reagent_amount("robustharvestnutriment") *1 ))
+		adjustNutri(round(S.get_reagent_amount("robustharvestnutriment") * 1))
 
+	// FEED ME
+	if(S.has_reagent("blood", 1))
+		if(S.has_blood_species("Diona"))
+			yieldmod = 1.5
+			mutmod = 1.5
+			adjustNutri(round(S.get_reagent_amount("blood") * 1.5))
+		else
+			adjustPests(rand(2,4))
+			adjustNutri(round(S.get_reagent_amount("blood") * 1))
 
 	//Fish Water is both an excellent fertilizer and waters
 	if(S.has_reagent("fishwater", 1))
@@ -717,11 +726,6 @@
 	if(S.has_reagent("virusfood", 1))
 		adjustNutri(round(S.get_reagent_amount("virusfood") * 0.5))
 		adjustHealth(-round(S.get_reagent_amount("virusfood") * 0.5))
-
-	// FEED ME
-	if(S.has_reagent("blood", 1))
-		adjustNutri(round(S.get_reagent_amount("blood") * 1))
-		adjustPests(rand(2,4))
 
 	// FEED ME SEYMOUR
 	if(S.has_reagent("strange_reagent", 1))
