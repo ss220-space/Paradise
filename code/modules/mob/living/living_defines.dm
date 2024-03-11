@@ -81,3 +81,4 @@
 	var/health_doll_icon
 	///If mob can attack by choosing direction
 	var/dirslash_enabled = FALSE
+	var/bump_priority = BUMP_PRIORITY_NORMAL
