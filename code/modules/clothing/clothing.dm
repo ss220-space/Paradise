@@ -434,8 +434,6 @@ BLIND     // can't see anything
 	var/mob/living/carbon/human/H = usr //Used to check if the mask is on the head, to check if the hands are full, and to turn off internals if they were on when the mask was pushed out of the way.
 	if(!can_toggle || user.incapacitated()) //This check allows you to adjust your masks while you're buckled into chairs or beds.
 		return FALSE
-	if(is_obscured_for_unEquip(H))
-		return FALSE
 
 	. = TRUE
 
