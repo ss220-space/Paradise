@@ -325,7 +325,7 @@
 	if(isAI(user))
 		return
 	if(isnucleation(user))
-		nucle_touch(user)
+		nuclear_touch(user)
 		new /obj/effect/temp_visual/heart(loc)
 		var/touch_sm = pick(list("poke", "pet", "hug", "cuddle"))
 		user.visible_message(span_notice("[user] [touch_sm]s the supermatter!"), \
