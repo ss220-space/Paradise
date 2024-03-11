@@ -62,8 +62,8 @@ GLOBAL_LIST_EMPTY(safes)
 	var/drill_y_offset = -3
 	/// Used by [/obj/item/paper/safe_code] to tell the codes through a paper spawned on map load.
 	var/known_by = list()
-	/// Who placed the drill on the safe. Used to trigger the status effect
-	var/mob/living/carbon/human/driller
+	/// UID of that who placed the drill on the safe. Used to trigger the status effect.
+	var/driller_UID
 
 /obj/structure/safe/Initialize(mapload)
 	. = ..()
@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(safes)
 		drill.soundloop.stop()
 		drill.forceMove(loc)
 		drill = null
-	driller = null
+	driller_UID = null
 	QDEL_NULL(progress_bar)
 	QDEL_NULL(drill_overlay)
 	clear_payback() // Lets not leave the overlay if an admin deletes the safe during the event.
@@ -157,17 +157,18 @@ GLOBAL_LIST_EMPTY(safes)
 					drill_start_time = world.time
 					drill.soundloop.start()
 					update_icon()
-					driller = user
+					driller_UID = user.UID()
 					START_PROCESSING(SSobj, src)
 			if("Turn Off")
 				if(do_after(user, 10 SECONDS, target = src)) //Can't be too easy to turn off
+					var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
 					cut_overlay(progress_bar)
 					update_icon()
-					driller.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
-					driller = null
+					driller_human?.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+					driller_UID = null
 					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")
 				if(drill_timer)
@@ -328,9 +329,9 @@ GLOBAL_LIST_EMPTY(safes)
 	update_icon()
 
 /obj/structure/safe/proc/security_check()
-	if(get_dist(src, driller) >= 9)
+	if(get_dist(src, locateUID(driller_UID)) >= 9)
 		return //You need to be near the drill if you want to get the buff.
-	for(var/mob/living/carbon/human/H in view(9, driller))
+	for(var/mob/living/carbon/human/H in view(9, locateUID(driller_UID)))
 		if((H.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Captain", "Clown")) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
 			drill.spotted = TRUE
 			security_assualt_in_progress()
@@ -342,9 +343,10 @@ GLOBAL_LIST_EMPTY(safes)
 			return
 
 /obj/structure/safe/proc/security_assualt_in_progress()
+	var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
+	driller_human?.apply_status_effect(STATUS_EFFECT_DRILL_PAYBACK, src)
+	drill.song.start_playing(driller_human)
 	drill.atom_say("Security spotted. Nanites deployed. Give them <b>hell.</b>")
-	driller.apply_status_effect(STATUS_EFFECT_DRILL_PAYBACK, src)
-	drill.song.start_playing(driller)
 	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link = "<a href=?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		O.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
@@ -401,10 +403,11 @@ GLOBAL_LIST_EMPTY(safes)
 	cut_overlay(progress_bar)
 	update_icon()
 	if(drill.payback)
-		var/datum/status_effect/drill_payback/D = driller.has_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+		var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
+		var/datum/status_effect/drill_payback/D = driller_human?.has_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
 		if(D)
 			D.drilled_successfully = TRUE
-			addtimer(CALLBACK(driller, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_DRILL_PAYBACK), 30 SECONDS) //Give them time to escape
+			addtimer(CALLBACK(driller_human, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_DRILL_PAYBACK), 30 SECONDS) //Give them time to escape
 			drill.payback = FALSE //Can't be used again / no more adding timers
 			drill.song.stop_playing()
 	STOP_PROCESSING(SSobj, src)
