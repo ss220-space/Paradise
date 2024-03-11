@@ -86,7 +86,7 @@
 	connected_ai = null
 
 	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
-	additional_law_channels["Drone"] = ":d "
+	additional_law_channels["Drone"] = ":dt "
 
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 
