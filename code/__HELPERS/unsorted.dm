@@ -593,17 +593,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	else return get_step(ref, base_dir)
 
 
-/**
- * Takes: Anything that could possibly have variables and a varname to check.
- * Returns: `TRUE` if found, `FALSE` if not.
- */
-/proc/has_variable(datum/check, varname)
-	if(check.vars.Find(lowertext(varname)))
-		return TRUE
-
-	return FALSE
-
-
 //Returns: all the areas in the world
 /proc/return_areas()
 	var/list/area/areas = list()
@@ -737,7 +726,7 @@ Returns 1 if the chain up to the area contains the given typepath
 						var/obj/corner = new()
 						corner.loc = X
 						corner.density = 1
-						corner.anchored = 1
+						corner.anchored = TRUE
 						corner.icon = X.icon
 						corner.icon_state = replacetext(X.icon_state, "_s", "_f")
 						corner.tag = "delete me"

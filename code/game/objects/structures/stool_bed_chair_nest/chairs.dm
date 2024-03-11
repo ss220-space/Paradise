@@ -144,7 +144,7 @@
 		if(isobserver(user))
 			if(!CONFIG_GET(flag/ghost_interaction))
 				return FALSE
-		else if(!isliving(user) || user.incapacitated() || user.restrained() || !Adjacent(user))
+		else if(!isliving(user) || user.incapacitated() || !Adjacent(user))
 			return FALSE
 
 	setDir(turn(dir, 90))

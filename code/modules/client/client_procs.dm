@@ -439,8 +439,8 @@
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
 
 /client/proc/is_connecting_from_localhost()
-	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && (address in localhost_addresses))
+	var/localhost_addresses = list("127.0.0.1", "::1", "0.0.0.0") // Adresses
+	if(!isnull(address) && (address in localhost_addresses) || !address)
 		return TRUE
 	return FALSE
 

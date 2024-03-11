@@ -176,7 +176,7 @@
 // APC
 
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
-	if(!can_use(user, TRUE))
+	if(!can_use(user))
 		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
 		return
 	toggle_breaker(user)

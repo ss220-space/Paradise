@@ -3,7 +3,7 @@
 		return FALSE
 	var/atom/movable/overlay/animation = null
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	if(!ismachineperson(src))
@@ -51,7 +51,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
@@ -76,7 +76,7 @@
 		return FALSE
 	var/atom/movable/overlay/animation = null
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 

@@ -716,5 +716,5 @@
 
 /datum/reagent/monkeylanguage/on_mob_life(mob/living/M)
 	if(volume > 4)
-		M.add_language("Chimpanzee")
+		M.add_language(LANGUAGE_MONKEY_HUMAN)
 	return ..()

@@ -16,12 +16,14 @@
 
 	if((pointed_atom in src) || (pointed_atom.loc in src))
 		create_point_bubble_from_atom(pointed_atom)
+		SEND_SIGNAL(src, COMSIG_MOB_POINTED, pointed_atom)
 		return
 
 	var/turf/pointed_turf = get_turf(pointed_atom)
 	if(!pointed_turf)
 		return
 
+	SEND_SIGNAL(src, COMSIG_MOB_POINTED, pointed_atom)
 	var/obj/visual = new /obj/effect/temp_visual/point(source_turf, invisibility)
 	animate(visual, pixel_x = (pointed_turf.x - source_turf.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (pointed_turf.y - source_turf.y) * world.icon_size + pointed_atom.pixel_y, time = 0.5 SECONDS, easing = QUAD_EASING)
 

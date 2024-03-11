@@ -12,5 +12,5 @@
 /mob/living/silicon/robot/drone/get_default_language()
 	if(default_language)
 		return default_language
-	return GLOB.all_languages["Drone"]
+	return GLOB.all_languages[LANGUAGE_DRONE]
 

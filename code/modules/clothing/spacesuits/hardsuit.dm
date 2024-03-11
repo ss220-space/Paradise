@@ -47,26 +47,27 @@
 	icon_state = "[basestate][light_on]-[item_color]"
 
 
-/obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot, initial = FALSE)
-	. = ..()
-	if(slot != slot_head)
-		if(suit)
-			suit.RemoveHelmet()
-		else
-			qdel(src)
+/obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/living/carbon/user, slot, initial = FALSE)
+	. = ..(user, slot, TRUE)
+	if(!suit)
+		qdel(src)
+		return FALSE
+	if(slot != slot_head || user.wear_suit != suit)
+		user.drop_item_ground(src, force = TRUE, silent = TRUE)
+		return FALSE
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user, silent = FALSE)
-	. = ..()
-	if(suit && loc != suit)
-		forceMove(suit)
+	. = ..(user, TRUE)
+	if(suit)
+		suit.RemoveHelmet(user)
 	else
 		qdel(src)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(suit)
-		suit.RemoveHelmet()
+		suit.RemoveHelmet(usr)
 	else
 		qdel(src)
 
@@ -80,11 +81,7 @@
 	light_on = enable
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_buttons)
-
-	if(light_on)
-		set_light(brightness_on)
-	else
-		set_light(0)
+	set_light(light_on ? brightness_on : 0)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
@@ -150,8 +147,7 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/Destroy()
-	if(helmet)
-		QDEL_NULL(helmet)
+	QDEL_NULL(helmet)
 	QDEL_NULL(jetpack)
 	return ..()
 
@@ -168,24 +164,21 @@
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot, initial)
 	. = ..()
-	if(suit_adjusted)
-		RemoveHelmet()
+	RemoveHelmet(user)
 
 
 /obj/item/clothing/suit/space/hardsuit/dropped(mob/user, silent = FALSE)
 	. = ..()
-	if(suit_adjusted)
-		RemoveHelmet()
+	RemoveHelmet(user)
 
 
 /obj/item/clothing/suit/space/hardsuit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(suit_adjusted)
-		RemoveHelmet()
-	return ..()
+	RemoveHelmet(usr)
+	. = ..()
 
 
 /obj/item/clothing/suit/space/hardsuit/ui_action_click(mob/user)
-	ToggleHelmet()
+	ToggleHelmet(user)
 
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
@@ -198,33 +191,29 @@
 	..()
 
 
-/obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet()
-	var/mob/living/carbon/human/user = loc
-	if(!ishuman(user) || !helmet)
+/obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet(mob/living/carbon/human/user)
+	if(!helmet || !ishuman(user))
 		return
-	if(taser_proof && taser_proof.ert_mindshield_locked)
+	if(taser_proof?.ert_mindshield_locked)
 		if(isertmindshielded(user))
 			to_chat(user, span_notice("Access granted, identity verified..."))
 		else
 			to_chat(user, span_warning("Access denied. The user is not identified!"))
 			return
 	if(suit_adjusted)
-		RemoveHelmet()
+		RemoveHelmet(user)
 		return
 	if(user.wear_suit != src)
 		to_chat(user, span_warning("You must be wearing [src] to engage the helmet!"))
 		return
-	EngageHelmet()
+	EngageHelmet(user)
 
 
-/obj/item/clothing/suit/space/hardsuit/proc/EngageHelmet()
-	if(!helmet)
-		return FALSE
-	var/mob/living/carbon/human/user = loc
-	if(!ishuman(user))
+/obj/item/clothing/suit/space/hardsuit/proc/EngageHelmet(mob/living/carbon/human/user)
+	if(!helmet || suit_adjusted)
 		return FALSE
 	if(user.head)
-		to_chat(usr, span_warning("You're already wearing something on your head!"))
+		to_chat(user, span_warning("You're already wearing something on your head!"))
 		return FALSE
 	if(!user.equip_to_slot(helmet, slot_head))
 		return FALSE
@@ -236,14 +225,17 @@
 	playsound(user, 'sound/items/rig_deploy.ogg', 110, TRUE)
 
 
-/obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet()
+/obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet(mob/living/carbon/human/user)
 	if(!helmet)
+		return FALSE
+	if(!suit_adjusted)
+		if(helmet.loc != src)	// in case helmet was dropped on equip and hardsuit is already adjusted
+			helmet.forceMove(src)
 		return FALSE
 	. = TRUE
 	suit_adjusted = FALSE
-	var/mob/living/carbon/human/user = loc
 	if(helmet.light_on)
-		helmet.toggle_light(enable = FALSE)
+		helmet.toggle_light(enable = FALSE, update_buttons = FALSE)
 	if(ishuman(user))
 		user.temporarily_remove_item_from_inventory(helmet, force = TRUE)
 		user.update_inv_wear_suit()
@@ -474,7 +466,7 @@
 	desc = "[initial(desc)][on ? "" : alt_desc]"
 
 
-/obj/item/clothing/suit/space/hardsuit/syndi/EngageHelmet()
+/obj/item/clothing/suit/space/hardsuit/syndi/EngageHelmet(mob/living/carbon/human/user)
 	. = ..()
 	if(. && on)
 		helmet?.toggle_light(enable = TRUE, update_buttons = FALSE)

@@ -74,7 +74,7 @@
 
 /obj/structure/energy_caltrops/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, 5, 10, 100, CALTROP_BYPASS_SHOES|CALTROP_BYPASS_ROBOTIC_LEGS|CALTROP_BYPASS_WALKERS)
+	AddComponent(/datum/component/caltrop, 5, 10, 100, CALTROP_BYPASS_SHOES|CALTROP_BYPASS_ROBOTIC_FOOTS|CALTROP_BYPASS_WALKERS)
 	for(var/obj/structure/energy_caltrops/other_caltrop in src.loc.contents)
 		if(other_caltrop!=src)
 			qdel(other_caltrop)	//Не больше одной кучки калтропов на тайле!

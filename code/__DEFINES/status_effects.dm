@@ -27,6 +27,9 @@
 
 #define STATUS_EFFECT_THRALL_NET /datum/status_effect/thrall_net
 
+/// Healing effect upplied on gorillas from eating bananas.
+#define STATUS_EFFECT_BANANA_POWER /datum/status_effect/banana_power
+
 //#define STATUS_EFFECT_VANGUARD /datum/status_effect/vanguard_shield //Grants temporary stun absorption, but will stun the user based on how many stuns they absorbed.
 //#define STATUS_EFFECT_INATHNEQS_ENDOWMENT /datum/status_effect/inathneqs_endowment //A 15-second invulnerability and stun absorption, granted by Inath-neq.
 //#define STATUS_EFFECT_WRAITHSPECS /datum/status_effect/wraith_spectacles

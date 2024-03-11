@@ -4,9 +4,8 @@
 /area/survivalpod)
 "b" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (NORTH)";
+	dir = 1;
 	icon_state = "survival";
-	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -45,9 +44,9 @@
 /area/survivalpod)
 "j" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (EAST)";
+	dir = 4;
 	icon_state = "survival";
-	dir = 4
+	tag = "icon-survival (EAST)"
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -75,6 +74,10 @@
 /obj/structure/sign/mining,
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
+"H" = (
+/obj/effect/baseturf_helper/plating,
+/turf/simulated/floor/pod,
+/area/survivalpod)
 
 (1,1,1) = {"
 a
@@ -93,7 +96,7 @@ m
 (3,1,1) = {"
 b
 d
-h
+H
 h
 n
 "}

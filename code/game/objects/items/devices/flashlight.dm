@@ -249,6 +249,7 @@
 	fuel_lower = 1600
 	fuel_upp = 2000
 	blocks_emissive = FALSE
+	var/chemglow_sprite_type = "green"
 
 
 /obj/item/flashlight/flare/glowstick/Initialize()
@@ -272,22 +273,30 @@
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"
 	color = LIGHT_COLOR_RED
+	chemglow_sprite_type = "red"
+
+/obj/item/flashlight/flare/glowstick/green
+	name = "green glowstick"
 
 /obj/item/flashlight/flare/glowstick/blue
 	name = "blue glowstick"
 	color = LIGHT_COLOR_BLUE
+	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/orange
 	name = "orange glowstick"
 	color = LIGHT_COLOR_ORANGE
+	chemglow_sprite_type = "orange"
 
 /obj/item/flashlight/flare/glowstick/yellow
 	name = "yellow glowstick"
 	color = LIGHT_COLOR_YELLOW
+	chemglow_sprite_type = "yellow"
 
 /obj/item/flashlight/flare/glowstick/pink
 	name = "pink glowstick"
 	color = LIGHT_COLOR_PINK
+	chemglow_sprite_type = "pink"
 
 /obj/item/flashlight/flare/glowstick/emergency
 	name = "emergency glowstick"
@@ -295,6 +304,7 @@
 	color = LIGHT_COLOR_BLUE
 	fuel_lower = 30
 	fuel_upp = 90
+	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/random
 	name = "random colored glowstick"
