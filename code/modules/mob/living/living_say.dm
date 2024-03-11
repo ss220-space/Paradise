@@ -1,26 +1,24 @@
 GLOBAL_LIST_INIT(department_radio_keys, list(
 /*
 	Busy letters by languages:
-	a b d f g j k o q v x y
-	aa as bo db fa fm fn fs vu
+	un ta vu sk vo di tr ki sl gr dr ni
+	xm db wr xh ts ch hs sh ab gl bo bi dt
+	sw gc sc tb gt cl nr mo ne st fa wo
 
-	Busy symbols by languages:
-	0 1 2 3 4 5 6 7 8 9
-	% ? ^ '
 
 	Busy letters by radio(eng):
 	c e h i l m n p r s t u w x
 
 
 	Busy letters by radio(rus):
-	б г д е ё з к р с т у ц ч ш ы ь я Э
+	б г д е ё з к р с т у ц ч ш ы ь я э
 
 
 	Busy symbols by radio:
 	~ , $ _ - + * 1 2 3
 
-	CAUTION! The key must not repeat the key of the languages (language.dm)
-	and must not contain prohibited characters
+	CAUTION!	The key must not repeat the key of the languages (language.dm)
+				and must not contain prohibited characters!
 */
 	// English text lowercase
 	  ":r" = "right ear",		"#r" = "right ear",		"№r" = "right ear",		".r" = "right ear",
@@ -213,19 +211,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return say_dead(message)
 		return FALSE
 
-	var/message_mode = parse_message_mode(message, "headset")
-
 	if(copytext(message, 1, 2) == "*")
 		return emote(copytext(message, 2), intentional = TRUE)
-
-	//parse the radio code and consume it
-	if(message_mode)
-		if(message_mode == "headset")
-			message = copytext_char(message, 2)	//it would be really nice if the parse procs could do this for us.
-		else
-			message = copytext_char(message, 3)
-
-	message = trim_left(message)
 
 	var/ending = copytext(message, length(message))
 	if(!(ending in list("!", "?", ",", ".")) && length(message) != 0)
@@ -238,14 +225,31 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	else
 		message_pieces = parse_languages(message)
 
-	if(istype(message_pieces, /datum/multilingual_say_piece)) // Little quirk to just easily deal with HIVEMIND languages
-		var/datum/multilingual_say_piece/S = message_pieces // Yay BYOND's hilarious typecasting
-		S.speaking.broadcast(src, S.message)
-		return TRUE
-
 	if(!LAZYLEN(message_pieces))
 		. = FALSE
 		CRASH("Message failed to generate pieces. [message] - [json_encode(message_pieces)]")
+
+	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
+
+	if(first_piece.speaking?.flags & HIVEMIND)
+		first_piece.speaking.broadcast(src, first_piece.message)
+		return TRUE
+
+	var/message_mode = parse_message_mode(first_piece.message, "headset")
+
+	//parse the radio code and consume it
+	if(message_mode)
+		if(message_mode == "headset")
+			first_piece.message = copytext_char(first_piece.message, 2)	//it would be really nice if the parse procs could do this for us.
+		else
+			first_piece.message = copytext_char(first_piece.message, 3)
+
+	//And only after everything is done, we hissin'
+	for(var/datum/multilingual_say_piece/piece as anything in message_pieces)
+		piece.message = handle_autohiss(piece.message, piece.speaking)
+
+	first_piece.message = trim_left(first_piece.message)
+	verb = say_quote(message, first_piece.speaking)
 
 	if(message_mode == "cords")
 		if(iscarbon(src))
@@ -255,9 +259,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				C.say(V.handle_speech(message), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 				V.speak_with(message) //words come before actions
 		return TRUE
-
-	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
-	verb = say_quote(message, first_piece.speaking)
 
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask

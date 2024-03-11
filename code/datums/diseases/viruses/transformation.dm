@@ -55,7 +55,7 @@
 			return
 
 		affected_mob.notransform = 1
-		affected_mob.canmove = 0
+		affected_mob.canmove = FALSE
 		affected_mob.icon = null
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = INVISIBILITY_ABSTRACT

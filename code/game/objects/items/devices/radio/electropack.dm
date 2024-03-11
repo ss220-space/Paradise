@@ -9,16 +9,17 @@
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
 	var/code = 2
+	var/intensivity = TRUE
 
-/obj/item/radio/electropack/attack_hand(mob/user as mob)
+/obj/item/radio/electropack/attack_hand(mob/user)
 	if(src == user.back)
-		to_chat(user, "<span class='notice'>You need help taking this off!</span>")
-		return 0
+		to_chat(user, span_notice("You need help taking this off!"))
+		return FALSE
 	. = ..()
 
 /obj/item/radio/electropack/Destroy()
-	if(istype(src.loc, /obj/item/assembly/shock_kit))
-		var/obj/item/assembly/shock_kit/S = src.loc
+	if(istype(loc, /obj/item/assembly/shock_kit))
+		var/obj/item/assembly/shock_kit/S = loc
 		if(S.part1 == src)
 			S.part1 = null
 		else if(S.part2 == src)
@@ -26,17 +27,17 @@
 		master = null
 	return ..()
 
-/obj/item/radio/electropack/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/radio/electropack/attackby(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/clothing/head/helmet))
 		if(!b_stat)
-			to_chat(user, "<span class='notice'>[src] is not ready to be attached!</span>")
+			to_chat(user, span_notice("[src] is not ready to be attached!"))
 			return
 		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(drop_location())
 		A.icon = 'icons/obj/assemblies.dmi'
 
 		if(!user.drop_transfer_item_to_loc(W, A))
-			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot attach it to \the [src]!</span>")
+			to_chat(user, span_notice("\the [W] is stuck to your hand, you cannot attach it to \the [src]!"))
 			return
 		W.master = A
 		A.part1 = W
@@ -47,9 +48,8 @@
 
 		user.put_in_hands(A, ignore_anim = FALSE)
 		A.add_fingerprint(user)
-		if(src.flags & NODROP)
+		if(flags & NODROP)
 			A.flags |= NODROP
-
 
 /obj/item/radio/electropack/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption != code)
@@ -57,16 +57,12 @@
 
 	if(isliving(loc) && on)
 		var/mob/living/M = loc
-		var/turf/T = M.loc
-		if(istype(T, /turf))
-			if(!M.moved_recently && M.last_move)
-				M.moved_recently = 1
-				step(M, M.last_move)
-				sleep(50)
-				if(M)
-					M.moved_recently = 0
-		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
-		do_sparks(3, 1, M)
+		if(isturf(M.loc) && M.last_move && intensivity)
+			step(M, M.last_move)
+			intensivity = FALSE
+			addtimer(CALLBACK(src, PROC_REF(intensify)), 5 SECONDS)
+		to_chat(M, span_userdanger("You feel a sharp shock!"))
+		do_sparks(3, TRUE, M)
 
 		M.Weaken(10 SECONDS)
 
@@ -74,6 +70,8 @@
 		master.receive_signal()
 	return
 
+/obj/item/radio/electropack/proc/intensify()
+	intensivity = TRUE
 
 /obj/item/radio/electropack/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -91,7 +89,7 @@
 	return data
 
 /obj/item/radio/electropack/ui_act(action, params)
-	if(..())
+	if(isnull(..()))	// We still can use item if parent returns FALSE.
 		return
 	. = TRUE
 	switch(action)

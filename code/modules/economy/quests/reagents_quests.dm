@@ -1,8 +1,8 @@
 /datum/cargo_quest/reagents
 	quest_type_name = "Chemical"
 	req_items = list(/obj/item/reagent_containers)
-	interface_icons = list('icons/obj/chemical.dmi')
-	interface_icon_states = list("beakerlarge")
+	interface_icon = 'icons/obj/chemical.dmi'
+	interface_icon_state = "beakerlarge"
 
 	difficultly_flags = (QUEST_DIFFICULTY_EASY)
 
@@ -34,7 +34,7 @@
 			"growthserum" = list("volume" = 15, "reward" = 55)
 			)
 
-/datum/cargo_quest/reagents/generate_goal(difficultly)
+/datum/cargo_quest/reagents/add_goal(difficultly)
 	var/list/possible_reagents_list = repeated_reagents.Copy() + unique_reagents.Copy()
 	var/our_reagent = pick(possible_reagents_list)
 	required_reagents[our_reagent] += possible_reagents_list[our_reagent]
@@ -65,9 +65,6 @@
 
 /datum/cargo_quest/reagents/drinks
 	quest_type_name = "Drink"
-	interface_icons = list()
-	interface_icon_states = list()
-
 	repeated_reagents = list(
 		"b52" = list("volume" = 30,"reward" = 60),
 		"bacchus_blessing" = list("volume" = 30,"reward" = 100),
@@ -107,17 +104,9 @@
 
 
 /datum/cargo_quest/reagents/drinks/update_interface_icon()
-	var/list/new_interface_icons = list()
-	var/list/new_interface_icon_states = list()
-
 	for(var/reagent_id in required_reagents)
 		var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
 		if(reagent.drink_icon)
-			new_interface_icons += 'icons/obj/drinks.dmi'
-			new_interface_icon_states += reagent.drink_icon
+			interface_images += icon2base64(icon('icons/obj/drinks.dmi', reagent.drink_icon, SOUTH, 1))
 		else
-			new_interface_icons += 'icons/obj/chemical.dmi'
-			new_interface_icon_states += "beakerlarge"
-
-	interface_icons = new_interface_icons
-	interface_icon_states = new_interface_icon_states
+			interface_images += icon2base64(icon('icons/obj/chemical.dmi', "beakerlarge", SOUTH, 1))

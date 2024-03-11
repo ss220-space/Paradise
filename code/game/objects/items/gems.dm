@@ -309,7 +309,7 @@
 	light_color = "#ac0606"
 	var/used = FALSE
 	var/blood = 50
-	var/charges = 2
+	var/charges = 10
 
 /obj/item/gem/bloodstone/examine(mob/user)
 	. = ..()

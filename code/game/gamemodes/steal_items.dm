@@ -555,7 +555,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_paperwork"
 	typepath = /mob/living/simple_animal/pet/sloth/paperwork
 	name = "ленивца по кличке Paperwork"
-	protected_jobs = list("Quartermaster", "Head of Personnel")
+	protected_jobs = list("Quartermaster", "Head of Personnel", "Cargo Technician")
 
 /datum/theft_objective/animal/slugcat
 	id = "animal_slugcat"
@@ -585,6 +585,13 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /mob/living/simple_animal/possum/Poppy
 	name = "опоссума по кличке Ключик"
 	protected_jobs = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
+
+
+/datum/theft_objective/animal/mars
+	id = "animal_mars"
+	typepath = /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars
+	name = "гориллу по кличке Марс"
+	protected_jobs = list("Quartermaster", "Head of Personnel", "Cargo Technician")
 
 
 //==========================

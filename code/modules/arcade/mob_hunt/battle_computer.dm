@@ -6,7 +6,7 @@
 	icon_screen = null
 	icon_keyboard = null
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	var/obj/item/nanomob_card/card
 	var/datum/mob_hunt/mob_info
 	var/obj/effect/landmark/battle_mob_point/avatar_point
@@ -32,12 +32,14 @@
 	..()
 	check_connection()
 
-/obj/machinery/computer/mob_battle_terminal/update_icon()
-	if(card)
-		icon_state = "mob_battle_loaded"
-	else
-		icon_state = "mob_battle_empty"
-	..()
+
+/obj/machinery/computer/mob_battle_terminal/update_icon_state()
+	icon_state = "mob_battle_[card ? "loaded" : "empty"]"
+
+
+/obj/machinery/computer/mob_battle_terminal/update_overlays()
+	. = list()
+
 
 /obj/machinery/computer/mob_battle_terminal/Destroy()
 	eject_card(1)
@@ -286,7 +288,7 @@
 	icon_screen = null
 	icon_keyboard = null
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	dir = EAST
 
 /obj/machinery/computer/mob_healer_terminal/attackby(obj/item/O, mob/user)

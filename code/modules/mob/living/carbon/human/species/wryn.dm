@@ -4,7 +4,7 @@
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE
-	language = "Wryn Hivemind"
+	language = LANGUAGE_WRYN
 	tail = "wryntail"
 	punchdamagelow = 0
 	punchdamagehigh = 1
@@ -180,7 +180,7 @@
 				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
 				to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<B></span>")
 				if(do_mob(user, target, 250))
-					target.remove_language("Wryn Hivemind")
+					target.remove_language(LANGUAGE_WRYN)
 					node.remove(target)
 					node.forceMove(get_turf(target))
 					to_chat(user, "<span class='notice'>Вы слышите громкий хруст, когда безжалостно отрываете усики [target].</span>")

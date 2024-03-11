@@ -132,12 +132,12 @@
 		"задерживает дыхание!")
 
 	// Language/culture vars.
-	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
-	var/language = "Galactic Common"         // Default racial language, if any.
-	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
-	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
-	var/list/speech_chance                   // The likelihood of a speech sound playing.
-	var/scream_verb = "крич%(ит,ат)%"	// Special symbols used to apply correct gender. See [/proc/genderize_decode] for more info.
+	var/default_language = LANGUAGE_GALACTIC_COMMON	// Default language is used when 'say' is used without modifiers.
+	var/language = LANGUAGE_GALACTIC_COMMON			// Default racial language, if any.
+	var/secondary_langs = list()					// The keys of secondary languages that are available to this species.
+	var/list/speech_sounds							// A list of sounds to potentially play when speaking.
+	var/list/speech_chance							// The likelihood of a speech sound playing.
+	var/scream_verb = "крич%(ит,ат)%"				// Special symbols used to apply correct gender. See [/proc/genderize_decode] for more info.
 	var/female_giggle_sound = list('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg')
 	var/male_giggle_sound = list('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg')
 	var/male_scream_sound = list('sound/goonstation/voice/male_scream.ogg')

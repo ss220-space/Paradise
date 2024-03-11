@@ -14642,10 +14642,6 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"aMZ" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "aNa" = (
 /obj/machinery/ai_status_display{
 	pixel_x = -32
@@ -20247,14 +20243,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
-"bbS" = (
-/obj/structure/closet/emcloset{
-	icon_state = "emergencyopen";
-	initialized = 1;
-	opened = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bbT" = (
@@ -63404,10 +63392,6 @@
 	icon_state = "dark"
 	},
 /area/atmos)
-"dbM" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "dbN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /obj/machinery/atmospherics/meter,
@@ -76135,8 +76119,8 @@
 /area/medical/patients_rooms)
 "lhW" = (
 /obj/structure/closet{
-	desc = "It's a storage unit for foodservice garments.";
 	custom_door_overlay = "black";
+	desc = "It's a storage unit for foodservice garments.";
 	name = "chef's closet"
 	},
 /obj/item/storage/belt/chef,
@@ -78440,12 +78424,12 @@
 /area/maintenance/cafeteria)
 "nCd" = (
 /obj/docking_port/stationary{
-	name = "Station Church dock";
 	dir = 4;
-	id = "graveyard_church";
 	dwidth = 2;
-	width = 10;
-	height = 7
+	height = 7;
+	id = "graveyard_church";
+	name = "Station Church dock";
+	width = 10
 	},
 /turf/space{
 	icon_state = "black"
@@ -81449,11 +81433,7 @@
 "qTd" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/firecloset{
-	icon_state = "fireclosetopen";
-	initialized = 1;
-	opened = 1
-	},
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel,
 /area/maintenance/xenozoo)
 "qTn" = (
@@ -111117,7 +111097,7 @@ aJX
 aPi
 aKc
 aLJ
-aMZ
+aQg
 aMQ
 aPi
 aGi
@@ -111631,7 +111611,7 @@ aHu
 aJX
 aKf
 aLL
-aMZ
+aQg
 aMQ
 aQe
 aGi
@@ -112145,7 +112125,7 @@ aHv
 aGb
 aKi
 aPi
-aMZ
+aQg
 aMQ
 aMQ
 aPi
@@ -112402,7 +112382,7 @@ aAm
 aAm
 aKh
 aQe
-aMZ
+aQg
 aOt
 aPw
 aPw
@@ -115751,7 +115731,7 @@ aPi
 aVD
 aQl
 aMA
-bbS
+aKb
 aKb
 aRw
 biM
@@ -126623,8 +126603,8 @@ csL
 csL
 cBN
 chf
-dbM
-dbM
+cBQ
+cBQ
 chf
 eGj
 csL

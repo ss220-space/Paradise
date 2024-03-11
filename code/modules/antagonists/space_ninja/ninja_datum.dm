@@ -553,7 +553,7 @@
 		maroon_objective.target = protect_objective.target	// swapping target
 		maroon_objective.update_explanation()
 		maroon_objective.alarm_changes()
-		var/list/messages = list(maroon_objective.owner.prepare_announce_objectives())
+		var/list/messages = maroon_objective.owner.prepare_announce_objectives()
 		to_chat(maroon_objective.owner.current, chat_box_red(messages.Join("<br>")))
 
 
@@ -649,12 +649,9 @@
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/ninja)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/ninja)
 
 	if(!ismob(source))
 		return FALSE

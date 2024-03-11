@@ -32,9 +32,7 @@
 
 	user.drop_transfer_item_to_loc(tool, target)
 
-	var/datum/action/item_action/hands_free/activate_pill/P = new
-	P.button_icon_state = tool.icon_state
-	P.target = tool
+	var/datum/action/item_action/hands_free/activate_pill/P = new(tool, tool.icon, tool.icon_state)
 	P.name = "Activate Pill ([tool.name])"
 	P.Grant(target)
 

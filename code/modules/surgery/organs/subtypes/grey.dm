@@ -15,10 +15,10 @@
 
 /obj/item/organ/internal/brain/grey/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	M.add_language("Psionic Communication")
+	M.add_language(LANGUAGE_GREY)
 
 /obj/item/organ/internal/brain/grey/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	M.remove_language("Psionic Communication")
+	M.remove_language(LANGUAGE_GREY)
 	. = ..()
 
 /obj/item/organ/internal/eyes/grey

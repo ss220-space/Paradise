@@ -195,6 +195,7 @@
 		new /datum/magick_school.singulo,
 		new /datum/magick_school.blood,
 		new /datum/magick_school.necromantic,
+		new /datum/magick_school/lavaland,
 	)
 
 
@@ -489,4 +490,21 @@
 	//Стандартный костюм мага-воителя, который есть в башне волшебника и так.
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusred(owner), slot_wear_suit)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magus(owner), slot_head)
+
+/datum/magick_school/lavaland
+	name = "Школа Лаваленда"
+	id = "lavaland"
+	desc = "Школа, использующая традиции магии пеплоходцев."
+
+/datum/magick_school/lavaland/kit()
+	owner.faction += "mining"
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/legion_skulls)
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/goliath_tentacles)
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/goliath_dash)
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/watchers_look)
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/healtouch)
+
+	owner.equip_or_collect(new /obj/item/clothing/under/ash_walker(owner), slot_w_uniform)
+	owner.equip_or_collect(new /obj/item/clothing/gloves/color/black/goliath(owner), slot_gloves)
+	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/goliath/wizard(owner), slot_wear_suit)
 

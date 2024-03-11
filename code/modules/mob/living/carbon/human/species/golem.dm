@@ -412,8 +412,8 @@
 	name = "Голем из инопланетных сплавов"
 	golem_colour = rgb(51, 51, 51)
 	skinned_type = /obj/item/stack/sheet/mineral/abductor
-	language = "Golem Mindlink"
-	default_language = "Golem Mindlink"
+	language = LANGUAGE_HIVE_GOLEM
+	default_language = LANGUAGE_HIVE_GOLEM
 	speed_mod = 1 //faster
 	info_text = "Будучи <span class='danger'>големом из инопланетных сплавов</span>, вы быстрее двигаетесь и со временем регенерируете. Однако, вы можете разговаривать только с големами из того же материала, что и вы."
 	prefix = "Инопланетн" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
@@ -441,8 +441,8 @@
 /datum/species/golem/alloy/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.languages.Cut()
-	H.add_language("Golem Mindlink")
-	H.add_language("Psionic Communication") // still grey enouhg to speak in psi link
+	H.add_language(LANGUAGE_HIVE_GOLEM)
+	H.add_language(LANGUAGE_GREY) // still grey enouhg to speak in psi link
 
 //Regenerates like dionas, less resistant
 /datum/species/golem/wood

@@ -9,6 +9,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
+	appearance_flags = TILE_BOUND
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
@@ -32,6 +33,11 @@
 	///Chemistry.
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
+
+	///Default pixel x shifting for the atom's icon.
+	var/base_pixel_x = 0
+	///Default pixel y shifting for the atom's icon.
+	var/base_pixel_y = 0
 
 	//This atom's HUD (med/sec, etc) images. Associative list.
 	var/list/image/hud_list
@@ -301,7 +307,7 @@
 	return
 
 /atom/proc/emp_act(severity)
-	return
+	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
 
 //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
@@ -434,7 +440,7 @@
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates = ALL)
 	SHOULD_NOT_SLEEP(TRUE)
-	//SHOULD_CALL_PARENT(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 
 	if(updates == NONE)
 		return // NONE is being sent on purpose, and thus no signal should be sent.
@@ -540,6 +546,9 @@
 	return
 
 /atom/proc/emag_act(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+
+/atom/proc/unemag()
 	return
 
 /atom/proc/cmag_act(mob/user)

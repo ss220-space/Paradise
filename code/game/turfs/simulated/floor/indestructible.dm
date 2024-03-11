@@ -42,6 +42,9 @@
 /turf/simulated/floor/indestructible/welder_act(mob/living/user, obj/item/I)
 	return
 
+/turf/simulated/floor/indestructible/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	return
+
 /turf/simulated/floor/indestructible/plating
 	name = "plating"
 	icon_state = "plating"
@@ -274,7 +277,7 @@
 	icon = 'icons/turf/floors/seadrop-o.dmi'
 	layer = MOB_LAYER + 0.1
 	smooth = SMOOTH_TRUE
-	anchored = 1
+	anchored = TRUE
 	canSmoothWith = list(
 		/turf/simulated/floor/indestructible/beach/water/drop, /turf/simulated/floor/indestructible/beach/water/drop/dense,
 		/turf/simulated/floor/indestructible/beach/water, /turf/simulated/floor/indestructible/beach/water/dense,

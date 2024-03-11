@@ -114,6 +114,9 @@
 	delay = 15
 	harmful = FALSE
 
+/obj/item/ammo_casing/energy/electrode/old
+	projectile_type = /obj/item/projectile/energy/electrode/old
+
 /obj/item/ammo_casing/energy/electrode/gun
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	e_cost = 100

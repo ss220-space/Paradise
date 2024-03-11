@@ -40,7 +40,7 @@
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
-	assembly.anchored = 1
+	assembly.anchored = TRUE
 	assembly.update_icon(UPDATE_ICON_STATE)
 
 	GLOB.cameranet.cameras += src
@@ -83,10 +83,9 @@
 		return
 	if(!isEmpProof())
 		if(prob(150/severity))
-			update_icon(UPDATE_ICON_STATE)
 			stat |= EMPED
 			set_light(0)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 			GLOB.cameranet.removeCamera(src)
 
@@ -426,7 +425,7 @@
 /obj/machinery/camera/portable/Initialize(mapload)
 	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
-	assembly.anchored = 0
+	assembly.anchored = FALSE
 	assembly.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.

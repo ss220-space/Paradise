@@ -236,7 +236,7 @@
 	if(!wisp)
 		icon_state = "lantern"
 		return
-	icon_state = "lantern[wisp.loc == src ? "" : "-blue"]"
+	icon_state = "lantern[wisp.loc == src ? "-blue" : ""]"
 
 
 /obj/item/wisp_lantern/attack_self(mob/user)
@@ -249,8 +249,9 @@
 		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+		wisp.forceMove(user)
 		update_icon(UPDATE_ICON_STATE)
-		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
+		INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
 		set_light(0)
 
 		user.update_sight()
@@ -274,6 +275,7 @@
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
 	wisp = new(src)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)

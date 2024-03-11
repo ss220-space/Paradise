@@ -586,12 +586,9 @@
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/vampire) || our_mind.has_antag_datum(/datum/antagonist/goon_vampire)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/vampire) || our_mind.has_antag_datum(/datum/antagonist/goon_vampire)
 
 	if(!ismob(source))
 		return FALSE
@@ -610,12 +607,9 @@
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/mindslave/thrall) || our_mind.has_antag_datum(/datum/antagonist/mindslave/goon_thrall)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/mindslave/thrall) || our_mind.has_antag_datum(/datum/antagonist/mindslave/goon_thrall)
 
 	if(!isliving(source))
 		return FALSE

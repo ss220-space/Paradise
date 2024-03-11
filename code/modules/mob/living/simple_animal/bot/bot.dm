@@ -198,12 +198,12 @@
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
 	Radio.follow_target = src
-	add_language("Galactic Common", TRUE)
-	add_language("Sol Common", TRUE)
-	add_language("Tradeband", TRUE)
-	add_language("Gutter", TRUE)
-	add_language("Trinary", TRUE)
-	default_language = GLOB.all_languages["Galactic Common"]
+	add_language(LANGUAGE_GALACTIC_COMMON, TRUE)
+	add_language(LANGUAGE_SOL_COMMON, TRUE)
+	add_language(LANGUAGE_TRADER, TRUE)
+	add_language(LANGUAGE_GUTTER, TRUE)
+	add_language(LANGUAGE_TRINARY, TRUE)
+	default_language = GLOB.all_languages[LANGUAGE_GALACTIC_COMMON]
 
 	bot_core = new bot_core_type(src)
 	addtimer(CALLBACK(src, PROC_REF(add_bot_filter)), 3 SECONDS)

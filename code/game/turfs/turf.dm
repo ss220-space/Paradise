@@ -111,6 +111,10 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	user.Move_Pulled(src)
 
+/turf/attack_robot(mob/user)
+	if(Adjacent(user))
+		user.Move_Pulled(src)
+
 /turf/ex_act(severity)
 	return FALSE
 
@@ -173,11 +177,18 @@
 	//Finally, check objects/mobs to block entry that are not on the border
 	var/atom/movable/tompost_bump
 	var/top_layer = 0
+	var/current_layer = 0
+	var/reverse_movement_dir = get_dir(src, oldloc)
 	for(var/atom/movable/obstacle in large_dense)
 		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
-			if(obstacle.layer > top_layer)
+			current_layer = obstacle.layer
+			if(isliving(obstacle))
+				var/mob/living/L = obstacle
+				if(L.bump_priority < BUMP_PRIORITY_NORMAL && reverse_movement_dir == obstacle.dir)
+					current_layer += L.bump_priority
+			if(current_layer > top_layer)
 				tompost_bump = obstacle
-				top_layer = obstacle.layer	//Probably separate variable is a better solution, but its good for now.
+				top_layer = current_layer
 	if(tompost_bump)
 		mover.Bump(tompost_bump, TRUE)
 		return FALSE

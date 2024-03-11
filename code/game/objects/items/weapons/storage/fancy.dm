@@ -73,6 +73,45 @@
 	return
 
 /*
+ * Glowsticks Box
+ */
+
+/obj/item/storage/fancy/glowsticks_box
+	name = "glowstick box"
+	icon = 'icons/obj/chemglow_box.dmi'
+	icon_type = "glowstick"
+	icon_state = "chemglow_box_opened"
+	item_state = "glowstick_box"
+	storage_slots = 6
+	can_hold = list(/obj/item/flashlight/flare/glowstick)
+	icon_type = "chemglow"
+	foldable = /obj/item/stack/sheet/cardboard
+	foldable_amt = 2
+
+/obj/item/storage/fancy/glowsticks_box/update_icon_state()
+	if(length(contents) == 6)
+		icon_state = "chemglow_box_closed"
+	else
+		icon_state = "chemglow_box_opened"
+
+/obj/item/storage/fancy/glowsticks_box/update_overlays()
+	. = ..()
+	for(var/I = 1 to length(contents))
+		var/obj/item/flashlight/flare/glowstick/chemglow = contents[I]
+		var/icon/new_chemglow_icon = icon(icon, "chemglow_[chemglow.chemglow_sprite_type]")
+		new_chemglow_icon.Shift(EAST, 2 * (I - 1))
+		. += new_chemglow_icon
+
+/obj/item/storage/fancy/glowsticks_box/populate_contents()
+	for(var/i = 1 to storage_slots)
+		new /obj/item/flashlight/flare/glowstick/random(src)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/storage/fancy/glowsticks_box/empty/populate_contents()
+	update_icon(UPDATE_OVERLAYS)
+	return
+/*
  * Egg Box
  */
 
