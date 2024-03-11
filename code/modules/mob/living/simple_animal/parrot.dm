@@ -242,6 +242,10 @@
 									available_channels.Add(":m")
 								if("Supply")
 									available_channels.Add(":u")
+								if("Service")
+									available_channels.Add(":z")
+								if("Procedure")
+									available_channels.Add(":x")
 
 						if(headset_to_add.translate_binary)
 							available_channels.Add(":+")
