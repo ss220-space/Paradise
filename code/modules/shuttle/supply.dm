@@ -508,8 +508,9 @@
 		if("order")
 
 			var/datum/supply_packs/P = locateUID(params["crate"])
-/*			if(!istype(P))
+			if(!istype(P))
 				return
+/*
 
 			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
 				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	// Unused for now (Crate limit #3056).
