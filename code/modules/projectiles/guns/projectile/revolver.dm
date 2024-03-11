@@ -461,6 +461,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
     . = ..()
     weapon_weight = WEAPON_MEDIUM
+	can_holster = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
