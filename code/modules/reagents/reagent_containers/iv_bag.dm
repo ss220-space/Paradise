@@ -125,6 +125,8 @@
 		begin_processing(L, def_zone)
 
 /obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
 	if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty.</span>")
