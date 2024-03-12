@@ -200,7 +200,7 @@
 	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on"
 	item = /obj/item/grenade/clown_grenade
 	cost = 10
-	job = list(/datum/job/clown::title)
+	job = list(TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/cmag
 	name = "Jestographic Sequencer"
@@ -208,28 +208,28 @@
 	item = /obj/item/card/cmag
 	cost = 20
 	surplus = 50
-	job = list(/datum/job/clown::title)
+	job = list(TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/clownmagboots
 	name = "Clown Magboots"
 	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
 	item = /obj/item/clothing/shoes/magboots/clown
 	cost = 15
-	job = list(/datum/job/clown::title)
+	job = list(TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/acrobatic_shoes
 	name = "Acrobatic Shoes"
 	desc = "A pair of modified clown shoes are power-up with a special jumping mechanism that works on the honk-space, allowing you to do excellent acrobatic tricks!"
 	item = /obj/item/clothing/shoes/bhop/clown
 	cost = 15
-	job = list(/datum/job/clown::title)
+	job = list(TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"
 	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 5
-	job = list(/datum/job/clown::title)
+	job = list(TITLE_CLOWN)
 
 //Mime
 /datum/uplink_item/jobspecific/caneshotgun
@@ -237,21 +237,21 @@
 	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
 	cost = 25
-	job = list(/datum/job/mime::title)
+	job = list(TITLE_MIME)
 
 /datum/uplink_item/jobspecific/mimery
 	name = "Guide to Advanced Mimery Series"
 	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
 	item = /obj/item/storage/box/syndie_kit/mimery
 	cost = 30
-	job = list(/datum/job/mime::title)
+	job = list(TITLE_MIME)
 
 /datum/uplink_item/jobspecific/mimejutsu
 	name = "Mimejutsu manual"
 	desc =	"An old manual of the martial art of mimes."
 	item = /obj/item/mimejutsu_scroll
 	cost = 40
-	job = list(/datum/job/mime::title)
+	job = list(TITLE_MIME)
 
 //Miner
 /datum/uplink_item/jobspecific/pressure_mod
@@ -259,7 +259,7 @@
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 20 //you need two for full damage, so total of 8 for maximum damage
-	job = list(/datum/job/mining::title, /datum/job/qm::title)
+	job = list(TITLE_MINER, TITLE_QUARTERMASTER)
 
 /datum/uplink_item/jobspecific/mining_charge_hacker
 	name = "Mining Charge Hacker"
@@ -267,7 +267,7 @@
 	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
 	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
 	cost = 20
-	job = list(/datum/job/mining::title, /datum/job/qm::title)
+	job = list(TITLE_MINER, TITLE_QUARTERMASTER)
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -275,28 +275,28 @@
 	desc = "A custom sauce made from the highly poisonous fly amanita mushrooms. Anyone who ingests it will take variable toxin damage depending on how long it has been in their system, with a higher dosage taking longer to metabolize."
 	item = /obj/item/reagent_containers/food/condiment/syndisauce
 	cost = 5
-	job = list(/datum/job/chef::title)
+	job = list(TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/meatcleaver
 	name = "Meat Cleaver"
 	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died."
 	item = /obj/item/kitchen/knife/butcher/meatcleaver
 	cost = 20
-	job = list(/datum/job/chef::title)
+	job = list(TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/syndidonk
 	name = "Syndicate Donk Pockets"
 	desc = "A box of highly specialized Donk pockets with a number of regenerative and stimulating chemicals inside of them; the box comes equipped with a self-heating mechanism."
 	item = /obj/item/storage/box/syndidonkpockets
 	cost = 10
-	job = list(/datum/job/chef::title)
+	job = list(TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/CQC_upgrade
 	name = "CQC Upgrade implant"
 	desc = "Contain special implant for chefs, which destroy safety check their innate CQC implant, allow them to use martial art outside the kitchen. Use in hand."
 	item = /obj/item/CQC_manual/chef
 	cost = 30
-	job = list(/datum/job/chef::title)
+	job = list(TITLE_CHEF)
 	surplus = 0 //because it's useless for all non-chefs
 
 /datum/uplink_item/jobspecific/dangertray
@@ -304,7 +304,7 @@
 	desc = "Contains a set of three sharp metal trays capable of cutting off limbs. "
 	item = /obj/item/storage/box/syndie_kit/dangertray
 	cost = 15
-	job = list(/datum/job/chef::title)
+	job = list(TITLE_CHEF)
 
 //Chaplain
 /datum/uplink_item/jobspecific/voodoo
@@ -312,21 +312,21 @@
 	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
 	item = /obj/item/voodoo
 	cost = 20
-	job = list(/datum/job/chaplain::title)
+	job = list(TITLE_CHAPLAIN)
 
 /datum/uplink_item/jobspecific/missionary_kit
 	name = "Missionary Starter Kit"
 	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."
 	item = /obj/item/storage/box/syndie_kit/missionary_set
 	cost = 75
-	job = list(/datum/job/chaplain::title)
+	job = list(TITLE_CHAPLAIN)
 
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "Artistic Toolbox"
 	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
 	item = /obj/item/storage/toolbox/green/memetic
 	cost = 100
-	job = list(/datum/job/chaplain::title, /datum/job/civilian::title)
+	job = list(TITLE_CHAPLAIN, TITLE_CIVILIAN)
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
@@ -335,7 +335,7 @@
 	desc = "An ancient tome written in countless tongues. Despite this fact, you can read this book effortlessly, to learn all the existing languages. Don't ask questions."
 	item = /obj/item/book_of_babel
 	cost = 5
-	job = list(/datum/job/chaplain::title, /datum/job/librarian::title)
+	job = list(TITLE_CHAPLAIN, TITLE_LIBRARIAN)
 	surplus = 0
 	can_discount = FALSE
 
@@ -345,7 +345,7 @@
 	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
 	item = /obj/item/caution/proximity_sign
 	cost = 15
-	job = list(/datum/job/janitor::title)
+	job = list(TITLE_JANITOR)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/holomine
@@ -353,7 +353,7 @@
 	desc = "Projector that can set up to 5 stun mines with additional EMP effect."
 	item = /obj/item/holosign_creator/janitor/syndie
 	cost = 40
-	job = list(/datum/job/janitor::title)
+	job = list(TITLE_JANITOR)
 	surplus = 0
 
 //Medical
@@ -362,22 +362,22 @@
 	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
 	item = /obj/item/rad_laser
 	cost = 25
-	job = list(/datum/job/cmo::title, /datum/job/doctor::title, /datum/job/doctor/intern::title, /datum/job/geneticist::title, /datum/job/psychiatrist::title, \
-			/datum/job/chemist::title, /datum/job/paramedic::title, /datum/job/coroner::title, /datum/job/virologist::title)
+	job = list(TITLE_CMO, TITLE_DOCTOR, TITLE_INTERN, TITLE_GENETICIST, TITLE_PSYCHIATRIST, \
+			TITLE_CHEMIST, TITLE_PARAMEDIC, TITLE_CORONER, TITLE_VIROLOGIST)
 
 /datum/uplink_item/jobspecific/batterer
 	name = "Mind Batterer"
 	desc = "A device that has a chance of knocking down people around you for a long amount of time or slowing them down. The user is unaffected. Each charge takes 2 minutes to recharge."
 	item = /obj/item/batterer
 	cost = 50
-	job = list(/datum/job/cmo::title, /datum/job/psychiatrist::title)
+	job = list(TITLE_CMO, TITLE_PSYCHIATRIST)
 
 /datum/uplink_item/jobspecific/dna_upgrader
 	name = "Genetic Superiority Injector"
 	desc = "Experemental DNA injector whick will give you one advanced gene modification and increase your gene stability."
 	item = /obj/item/dna_upgrader
 	cost = 75
-	job = list(/datum/job/cmo::title, /datum/job/geneticist::title)
+	job = list(TITLE_CMO, TITLE_GENETICIST)
 	surplus = 0
 
 //Virology
@@ -386,21 +386,21 @@
 	desc = "A modified hypospray disguised as a functional pipette. The pipette can infect victims with viruses upon injection."
 	item = /obj/item/reagent_containers/dropper/precision/viral_injector
 	cost = 15
-	job = list(/datum/job/virologist::title)
+	job = list(TITLE_VIROLOGIST)
 
 /datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"
 	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	cost = 10
-	job = list(/datum/job/psychiatrist::title)//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
+	job = list(TITLE_PSYCHIATRIST)//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 /datum/uplink_item/jobspecific/gbs
 	name = "GBS virus bottle"
 	desc = "A bottle containing Gravitokinetic Bipotential SADS culture. Also known as GBS, extremely deadly virus."
 	item = /obj/item/reagent_containers/glass/bottle/gbs
 	cost = 60
-	job = list(/datum/job/virologist::title)
+	job = list(TITLE_VIROLOGIST)
 	surplus = 0
 	hijack_only = TRUE
 
@@ -409,7 +409,7 @@
 	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
 	item = /obj/mecha/combat/lockersyndie/loaded
 	cost = 30
-	job = list(/datum/job/civilian::title, /datum/job/roboticist::title)
+	job = list(TITLE_CIVILIAN, TITLE_ROBOTICIST)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/stungloves
@@ -417,7 +417,7 @@
 	desc = "A pair of sturdy shock gloves with insulated layer. Protects user from electric shock and allows to shock enemies."
 	item = /obj/item/storage/box/syndie_kit/stungloves
 	cost = 10
-	job = list(/datum/job/civilian::title, /datum/job/mechanic::title, /datum/job/engineer::title, /datum/job/engineer/trainee::title, /datum/job/chief_engineer::title)
+	job = list(TITLE_CIVILIAN, TITLE_MECHANIC, TITLE_ENGINEER, TITLE_ENGINEER_TRAINEE, TITLE_CHIEF)
 
 //Bartender
 /datum/uplink_item/jobspecific/drunkbullets
@@ -425,7 +425,7 @@
 	desc = "A box containing 6 shotgun shells that simulate the effects of extreme drunkenness on the target, more effective for each type of alcohol in the target's system."
 	item = /obj/item/storage/belt/bandolier/booze
 	cost = 15
-	job = list(/datum/job/bartender::title)
+	job = list(TITLE_BARTENDER)
 
 //Barber
 /datum/uplink_item/jobspecific/safety_scissors //Hue
@@ -433,7 +433,7 @@
 	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
 	item = /obj/item/scissors/safety
 	cost = 10
-	job = list(/datum/job/barber::title)
+	job = list(TITLE_BARBER)
 
 //Botanist
 /datum/uplink_item/jobspecific/bee_briefcase
@@ -441,7 +441,7 @@
 	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
 	item = /obj/item/bee_briefcase
 	cost = 30
-	job = list(/datum/job/hydro::title)
+	job = list(TITLE_BOTANIST)
 
 //Engineer
 /datum/uplink_item/jobspecific/powergloves
@@ -449,7 +449,7 @@
 	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 40
-	job = list(/datum/job/engineer::title, /datum/job/engineer/trainee::title, /datum/job/chief_engineer::title)
+	job = list(TITLE_ENGINEER, TITLE_ENGINEER_TRAINEE, TITLE_CHIEF)
 
 /datum/uplink_item/jobspecific/supertoolbox
 	name = "Superior Suspicious Toolbox"
@@ -457,8 +457,8 @@
 	item = /obj/item/storage/toolbox/syndisuper
 	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	job = list(/datum/job/engineer::title, /datum/job/engineer/trainee::title, /datum/job/chief_engineer::title, \
-			/datum/job/mechanic::title, /datum/job/roboticist::title, /datum/job/paramedic::title)
+	job = list(TITLE_ENGINEER, TITLE_ENGINEER_TRAINEE, TITLE_CHIEF, \
+			TITLE_MECHANIC, TITLE_ROBOTICIST, TITLE_PARAMEDIC)
 
 //RD
 /datum/uplink_item/jobspecific/telegun
@@ -466,7 +466,7 @@
 	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets. Select the target beacon on the telegun itself; projectiles will send targets to the beacon locked onto."
 	item = /obj/item/gun/energy/telegun
 	cost = 60
-	job = list(/datum/job/rd::title)
+	job = list(TITLE_RD)
 
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
@@ -474,7 +474,7 @@
 	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
 	item = /obj/item/mmi/syndie
 	cost = 10
-	job = list(/datum/job/roboticist::title)
+	job = list(TITLE_ROBOTICIST)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/missilemedium
@@ -482,7 +482,7 @@
 	desc = "Those missile launcher are known to be used on high-end mechs like mauler and marauder. Way more powerful, than missile modules you can print on standard mech fabs. It comes without lockbox - plug and play!"
 	item = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
 	cost = 50
-	job = list(/datum/job/roboticist::title)
+	job = list(TITLE_ROBOTICIST)
 	surplus = 0
 	can_discount = FALSE
 	hijack_only = TRUE
@@ -493,7 +493,7 @@
 	desc = "A seemingly innocent die, those who are not afraid to roll for attack will find it's effects quite explosive. Has a four second timer."
 	item = /obj/item/dice/d20/e20
 	cost = 15
-	job = list(/datum/job/librarian::title)
+	job = list(TITLE_LIBRARIAN)
 	surplus = 0
 	hijack_only = TRUE
 
@@ -502,7 +502,7 @@
 	desc = "Everything or nothing; that is my motto."
 	item = /obj/item/dice/d20/fate/one_use
 	cost = 100
-	job = list(/datum/job/librarian::title)
+	job = list(TITLE_LIBRARIAN)
 	surplus = 0
 	can_discount = FALSE
 
@@ -512,7 +512,7 @@
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	item = /obj/item/seeds/ambrosia/cruciatus
 	cost = 5
-	job = list(/datum/job/hydro::title)
+	job = list(TITLE_BOTANIST)
 
 //Atmos Tech
 /datum/uplink_item/jobspecific/contortionist
@@ -520,14 +520,14 @@
 	desc = "A highly flexible jumpsuit that will help you navigate the ventilation loops of the station internally. Comes with pockets and ID slot, but can't be used without stripping off most gear, including backpack, belt, helmet, and exosuit. Free hands are also necessary to crawl around inside."
 	item = /obj/item/clothing/under/contortionist
 	cost = 50
-	job = list(/datum/job/atmos::title, /datum/job/chief_engineer::title)
+	job = list(TITLE_ATMOSTECH, TITLE_CHIEF)
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
 	desc = "A fire axe with a massive energy charge built into it. Upon striking someone while charged it will throw them backwards while stunning them briefly, but will take some time to charge up again. It is also much sharper than a regular axe and can pierce light armor."
 	item = /obj/item/twohanded/fireaxe/energized
 	cost = 20
-	job = list(/datum/job/atmos::title, /datum/job/chief_engineer::title)
+	job = list(TITLE_ATMOSTECH, TITLE_CHIEF)
 
 //CE
 /datum/uplink_item/jobspecific/combat_rcd
@@ -535,7 +535,7 @@
 	desc = "Special RCD capable to destroy reinforced walls and have 500 matter units instead of 100."
 	item = /obj/item/rcd/combat
 	cost = 25
-	job = list(/datum/job/engineer::title, /datum/job/engineer/trainee::title, /datum/job/mechanic::title, /datum/job/atmos::title, /datum/job/chief_engineer::title)
+	job = list(TITLE_ENGINEER, TITLE_ENGINEER_TRAINEE, TITLE_MECHANIC, TITLE_ATMOSTECH, TITLE_CHIEF)
 	surplus = 0
 
 //Tator Poison Bottles
@@ -545,8 +545,8 @@
 	desc = "The Syndicate will ship a bottle containing 40 units of a randomly selected poison. The poison can range from highly irritating to incredibly lethal."
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 10
-	job = list(/datum/job/rd::title, /datum/job/cmo::title, /datum/job/doctor::title, /datum/job/doctor/intern::title, /datum/job/psychiatrist::title, \
-			/datum/job/chemist::title, /datum/job/paramedic::title, /datum/job/virologist::title, /datum/job/bartender::title, /datum/job/chef::title)
+	job = list(TITLE_RD, TITLE_CMO, TITLE_DOCTOR, TITLE_INTERN, TITLE_PSYCHIATRIST, \
+			TITLE_CHEMIST, TITLE_PARAMEDIC, TITLE_VIROLOGIST, TITLE_BARTENDER, TITLE_CHEF)
 
 // Paper contact poison pen
 
@@ -556,7 +556,7 @@
 	item = /obj/item/pen/poison
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	job = list(/datum/job/hop::title, /datum/job/qm::title, /datum/job/cargo_tech::title, /datum/job/librarian::title)
+	job = list(TITLE_HOP, TITLE_QUARTERMASTER, TITLE_CARGOTECH, TITLE_LIBRARIAN)
 
 
 // Racial
