@@ -4,10 +4,11 @@
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 	var/for_players = 40 		//Количество людей для спавна доп. мыши
 
-/datum/event/blob/announce()
-	if(successSpawn)
+/datum/event/blob/announce(false_alarm)
+	if(successSpawn || false_alarm)
 		GLOB.event_announcement.Announce("Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
-		cancel_call_proc(usr)
+		if(!false_alarm)
+			SSshuttle.emergency.cancel()
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 
