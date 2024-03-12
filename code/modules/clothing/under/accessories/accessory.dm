@@ -90,7 +90,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/clothing/accessory/proc/uniform_check(mob/living/carbon/human/H, mob/living/user, obj/item/clothing/under/U)
+/obj/item/clothing/accessory/proc/uniform_check(mob/living/carbon/human/owner, mob/living/user, obj/item/clothing/under/uniform)
 	return TRUE
 
 //default attackby behaviour
@@ -945,8 +945,8 @@
 /obj/item/clothing/accessory/head_strip/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user] shows [user.p_their()] [name].</span>", "<span class='notice'>You show your [name].</span>")
 
-/obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/H, mob/living/user, obj/item/clothing/under/U)
-	for(var/obj/item/clothing/accessory/head_strip/strip in U)
+/obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/owner, mob/living/user, obj/item/clothing/under/uniform)
+	for(var/obj/item/clothing/accessory/head_strip/strip in uniform)
 		to_chat(user, "You can have only on strip attached to this uniform")
 		return FALSE
 	return TRUE
