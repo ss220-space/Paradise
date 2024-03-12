@@ -3,7 +3,7 @@
 	name = "Tail-mounted implant"
 	desc = "You shoudn't see this! Immediately report to a coder."
 	parent_organ_zone = BODY_ZONE_TAIL
-	slot = INTERNAL_ORGAN_TAIL
+	slot = INTERNAL_ORGAN_TAIL_DEVICE
 	icon_state = "implant-toolkit"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
@@ -127,7 +127,7 @@
 
 /datum/action/innate/tail_cut/Activate()
 	var/mob/living/carbon/human/user = owner
-	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL)
+	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	var/datum/species/unathi/U // For unathi disabilities
 	var/active_implant = FALSE
 	var/type_of_damage = BRUTE // I did it only because I need attacklogs without exception
@@ -187,7 +187,7 @@
 		return FALSE
 
 	var/mob/living/carbon/human/user = owner
-	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL)
+	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(!user.bodyparts_by_name[BODY_ZONE_TAIL])
 		if(show_message)
 			to_chat(user, span_warning("У вас НЕТ ХВОСТА!"))

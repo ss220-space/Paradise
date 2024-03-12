@@ -211,7 +211,7 @@
 						P.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за хвост КОТОРОГО НЕТ!!!")
 					return
 
-				var/obj/item/organ/internal/cyberimp/tail/blade/implant = P.get_organ_slot(INTERNAL_ORGAN_TAIL)
+				var/obj/item/organ/internal/cyberimp/tail/blade/implant = P.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 				if(istype(implant) && implant.activated)  // KEEP YOUR HANDS AWAY FROM ME!
 					H.custom_emote(message = span_danger("пыта[pluralize_ru(H.gender,"ет","ют")]ся дёрнуть [P] за хвост, но неожиданно одёргива[pluralize_ru(H.gender,"ет","ют")] руки!"))
 					H.emote("scream")
