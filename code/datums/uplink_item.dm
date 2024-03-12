@@ -601,7 +601,7 @@
 			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp. Only for Plasmamen."
 	item = /obj/item/storage/box/syndie_kit/plasma_chameleon
 	cost = 20
-	race = list(PSPECIES_PLASMAMAN)
+	race = list(SPECIES_PLASMAMAN)
 
 //Nucleation
 
