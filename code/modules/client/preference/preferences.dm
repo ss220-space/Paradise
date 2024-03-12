@@ -271,6 +271,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				for(var/gear in loadout_gear)
 					var/datum/geartype = GLOB.gear_datums[gear]
 					if(!istype(geartype))
+						loadout_gear -= gear // Delete wrong/outdated data
 						continue
 					var/datum/gear/new_gear = new geartype.type
 					for(var/tweak in loadout_gear[gear])
