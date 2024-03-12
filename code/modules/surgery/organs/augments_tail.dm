@@ -104,15 +104,23 @@
 	activated = !activated
 
 	if(activated)
-		icon_state = "[initial(icon_state)]_active"
 		playsound(owner.loc, sound_on, 50, TRUE)
 		to_chat(owner, span_notice("Вы выдвинули лезвия из хвоста."))
 
 	else
-		icon_state = "[initial(icon_state)]"
 		playsound(owner.loc, sound_off, 50, TRUE)
 		to_chat(owner, span_notice("Вы убрали лезвия."))
+
+	update_icon(UPDATE_ICON_STATE)
 	owner.update_action_buttons()
+
+/obj/item/organ/internal/cyberimp/tail/blade/update_icon_state()
+	..()
+	if(activated)
+		icon_state = "[initial(icon_state)]_active"
+	else
+		icon_state = "[initial(icon_state)]"
+
 
 /datum/action/innate/tail_cut
 	name = "Взмах хвостом"
