@@ -270,6 +270,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(load_character(C))
 				for(var/gear in loadout_gear)
 					var/datum/geartype = GLOB.gear_datums[gear]
+					if(!istype(geartype))
+						continue
 					var/datum/gear/new_gear = new geartype.type
 					for(var/tweak in loadout_gear[gear])
 						for(var/datum/gear_tweak/gear_tweak in new_gear.gear_tweaks)
