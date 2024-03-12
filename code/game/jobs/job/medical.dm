@@ -1,5 +1,5 @@
 /datum/job/cmo
-	title = "Chief Medical Officer"
+	title = TITLE_CMO
 	flag = JOB_CMO
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
@@ -23,7 +23,7 @@
 	outfit = /datum/outfit/job/cmo
 
 /datum/outfit/job/cmo
-	name = "Chief Medical Officer"
+	name = TITLE_CMO
 	jobtype = /datum/job/cmo
 
 	uniform = /obj/item/clothing/under/rank/chief_medical_officer
@@ -45,7 +45,7 @@
 
 
 /datum/job/doctor
-	title = "Medical Doctor"
+	title = TITLE_DOCTOR
 	flag = JOB_DOCTOR
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 5
@@ -64,7 +64,7 @@
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
-	name = "Medical Doctor"
+	name = TITLE_DOCTOR
 	jobtype = /datum/job/doctor
 
 	uniform = /obj/item/clothing/under/rank/medical
@@ -82,7 +82,7 @@
 
 
 /datum/job/doctor/intern
-	title = "Intern"
+	title = TITLE_INTERN
 	flag = JOB_INTERN
 	total_positions = 5
 	spawn_positions = 3
@@ -98,7 +98,7 @@
 	outfit = /datum/outfit/job/doctor/intern
 
 /datum/outfit/job/doctor/intern
-	name = "Intern"
+	name = TITLE_INTERN
 	jobtype = /datum/job/doctor/intern
 
 	uniform = /obj/item/clothing/under/rank/medical/intern
@@ -126,7 +126,7 @@
 
 
 /datum/job/coroner
-	title = "Coroner"
+	title = TITLE_CORONER
 	flag = JOB_CORONER
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
@@ -189,7 +189,7 @@
 
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
 /datum/job/chemist
-	title = "Chemist"
+	title = TITLE_CHEMIST
 	flag = JOB_CHEMIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
@@ -225,7 +225,7 @@
 
 
 /datum/job/geneticist
-	title = "Geneticist"
+	title = TITLE_GENETICIST
 	flag = JOB_GENETICIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
@@ -260,7 +260,7 @@
 
 
 /datum/job/virologist
-	title = "Virologist"
+	title = TITLE_VIROLOGIST
 	flag = JOB_VIROLOGIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
@@ -297,7 +297,7 @@
 
 
 /datum/job/psychiatrist
-	title = "Psychiatrist"
+	title = TITLE_PSYCHIATRIST
 	flag = JOB_PSYCHIATRIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
@@ -337,7 +337,7 @@
 
 
 /datum/job/paramedic
-	title = "Paramedic"
+	title = TITLE_PARAMEDIC
 	flag = JOB_PARAMEDIC
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1

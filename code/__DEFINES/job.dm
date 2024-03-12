@@ -66,69 +66,69 @@
 #define JOB_JUDGE				(1<<6)
 #define JOB_PILOT				(1<<7)
 
-///Defines below used as jobs' titles (kinda like /tg/), credit to JohnFulpWillard
-#define TITLE_CIVILIAN /datum/job/civilian::title
+///Defines below used as jobs' titles (from /tg/), credit to JohnFulpWillard
+#define TITLE_CIVILIAN "Civilian"
 
-#define TITLE_CHIEF /datum/job/chief_engineer::title
-#define TITLE_ENGINEER /datum/job/engineer::title
-#define TITLE_ENGINEER_TRAINEE /datum/job/engineer/trainee::title
-#define TITLE_ATMOSTECH /datum/job/atmos::title
-#define TITLE_MECHANIC /datum/job/mechanic::title
+#define TITLE_CHIEF "Chief Engineer"
+#define TITLE_ENGINEER "Station Engineer"
+#define TITLE_ENGINEER_TRAINEE "Trainee Engineer"
+#define TITLE_ATMOSTECH "Life Support Specialist"
+#define TITLE_MECHANIC "Mechanic"
 
-#define TITLE_CMO /datum/job/cmo::title
-#define TITLE_DOCTOR /datum/job/doctor::title
-#define TITLE_INTERN /datum/job/doctor/intern::title
-#define TITLE_CORONER /datum/job/coroner::title
-#define TITLE_CHEMIST /datum/job/chemist::title
-#define TITLE_GENETICIST /datum/job/geneticist::title
-#define TITLE_VIROLOGIST /datum/job/virologist::title
-#define TITLE_PSYCHIATRIST /datum/job/psychiatrist::title
-#define TITLE_PARAMEDIC /datum/job/paramedic::title
+#define TITLE_CMO "Chief Medical Officer"
+#define TITLE_DOCTOR "Medical Doctor"
+#define TITLE_INTERN "Intern"
+#define TITLE_CORONER "Coroner"
+#define TITLE_CHEMIST "Chemist"
+#define TITLE_GENETICIST "Geneticist"
+#define TITLE_VIROLOGIST "Virologist"
+#define TITLE_PSYCHIATRIST "Psychiatrist"
+#define TITLE_PARAMEDIC "Paramedic"
 
-#define TITLE_RD /datum/job/rd::title
-#define TITLE_SCIENTIST /datum/job/scientist::title
-#define TITLE_ROBOTICIST /datum/job/roboticist::title
-#define TITLE_SCIENTIST_STUDENT /datum/outfit/job/scientist/student::title
+#define TITLE_RD "Research Director"
+#define TITLE_SCIENTIST "Scientist"
+#define TITLE_SCIENTIST_STUDENT "Student Scientist"
+#define TITLE_ROBOTICIST "Roboticist"
 
-#define TITLE_HOS /datum/job/hos::title
-#define TITLE_WARDEN /datum/job/warden::title
-#define TITLE_DETECTIVE /datum/job/detective::title
-#define TITLE_OFFICER /datum/job/officer::title
-#define TITLE_BRIGDOC /datum/job/brigdoc::title
-#define TITLE_PILOT /datum/job/pilot::title
+#define TITLE_HOS "Head of Security"
+#define TITLE_WARDEN "Warden"
+#define TITLE_DETECTIVE "Detective"
+#define TITLE_OFFICER "Security Officer"
+#define TITLE_BRIGDOC "Brig Physician"
+#define TITLE_PILOT "Security Pod Pilot"
 
-#define TITLE_AI /datum/job/ai::title
-#define TITLE_CYBORG /datum/job/cyborg::title
+#define TITLE_AI "AI"
+#define TITLE_CYBORG "Cyborg"
 
-#define TITLE_CAPTAIN /datum/job/captain::title
-#define TITLE_HOP /datum/job/hop::title
-#define TITLE_NANO /datum/job/nanotrasenrep::title
-#define TITLE_BLUESHIELD /datum/job/blueshield::title
-#define TITLE_JUDGE /datum/job/judge::title
-#define TITLE_LAWYER /datum/job/lawyer::title
+#define TITLE_CAPTAIN "Captain"
+#define TITLE_HOP "Head of Personnel"
+#define TITLE_NANO "Nanotrasen Representative"
+#define TITLE_BLUESHIELD "Blueshield"
+#define TITLE_JUDGE "Magistrate"
+#define TITLE_LAWYER "Internal Affairs Agent"
 
-#define TITLE_CHAPLAIN /datum/job/chaplain::title
+#define TITLE_CHAPLAIN "Chaplain"
 
-#define TITLE_QUARTERMASTER /datum/job/qm::title
-#define TITLE_CARGOTECH /datum/job/cargo_tech::title
-#define TITLE_MINER /datum/job/mining::title
+#define TITLE_QUARTERMASTER "Quartermaster"
+#define TITLE_CARGOTECH "Cargo Technician"
+#define TITLE_MINER "Shaft Miner"
 
-#define TITLE_BARTENDER /datum/job/bartender::title
-#define TITLE_CHEF /datum/job/chef::title
-#define TITLE_BOTANIST /datum/job/hydro::title
-#define TITLE_CLOWN /datum/job/clown::title
-#define TITLE_MIME /datum/job/mime::title
-#define TITLE_JANITOR /datum/job/janitor::title
-#define TITLE_LIBRARIAN /datum/job/librarian::title
-#define TITLE_BARBER /datum/job/barber::title
-#define TITLE_EXPLORER /datum/job/explorer::title
+#define TITLE_BARTENDER "Bartender"
+#define TITLE_CHEF "Chef"
+#define TITLE_BOTANIST "Botanist"
+#define TITLE_CLOWN "Clown"
+#define TITLE_MIME "Mime"
+#define TITLE_JANITOR "Janitor"
+#define TITLE_LIBRARIAN "Librarian"
+#define TITLE_BARBER "Barber"
+#define TITLE_EXPLORER "Explorer"
 
-#define TITLE_SYNDICATE /datum/job/syndicateofficer::title
-#define TITLE_CCOFFICER /datum/job/ntnavyofficer::title
-#define TITLE_CCFIELD /datum/job/ntnavyofficer/field::title
-#define TITLE_CCSPECOPS /datum/job/ntspecops::title
-#define TITLE_CCSUPREME /datum/job/ntspecops/supreme::title
-#define TITLE_CCSOLGOV /datum/job/ntspecops/solgovspecops::title
+#define TITLE_SYNDICATE "Syndicate Officer"
+#define TITLE_CCOFFICER "Nanotrasen Navy Officer"
+#define TITLE_CCFIELD "Nanotrasen Navy Field Officer"
+#define TITLE_CCSPECOPS "Special Operations Officer"
+#define TITLE_CCSUPREME "Supreme Commander"
+#define TITLE_CCSOLGOV "Solar Federation General"
 
 ///Taipan (ghost role) related stuff
 

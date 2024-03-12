@@ -1,6 +1,6 @@
 //Due to how large this one is it gets its own file
 /datum/job/chaplain
-	title = "Chaplain"
+	title = TITLE_CHAPLAIN
 	flag = JOB_CHAPLAIN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1

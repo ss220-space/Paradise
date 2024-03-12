@@ -1,5 +1,5 @@
 /datum/job/ai
-	title = "AI"
+	title = TITLE_AI
 	flag = JOB_AI
 	department_flag = JOBCAT_ENGSEC
 	total_positions = -1 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
@@ -21,7 +21,7 @@
 
 
 /datum/job/cyborg
-	title = "Cyborg"
+	title = TITLE_CYBORG
 	flag = JOB_CYBORG
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 2

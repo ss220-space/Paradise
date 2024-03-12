@@ -1,5 +1,5 @@
 /datum/job/rd
-	title = "Research Director"
+	title = TITLE_RD
 	flag = JOB_RD
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
@@ -51,7 +51,7 @@
 
 
 /datum/job/scientist
-	title = "Scientist"
+	title = TITLE_SCIENTIST
 	flag = JOB_SCIENTIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 6
@@ -91,7 +91,7 @@
 
 
 /datum/job/scientist/student
-	title = "Student Scientist"
+	title = TITLE_SCIENTIST_STUDENT
 	flag = JOB_SCIENTIST_STUDENT
 	total_positions = 5
 	spawn_positions = 3
@@ -131,7 +131,7 @@
 					uniform = /obj/item/clothing/under/rank/roboticist/skirt/student
 
 /datum/job/roboticist
-	title = "Roboticist"
+	title = TITLE_ROBOTICIST
 	flag = JOB_ROBOTICIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2

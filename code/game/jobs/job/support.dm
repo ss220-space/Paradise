@@ -1,6 +1,6 @@
 //Cargo
 /datum/job/qm
-	title = "Quartermaster"
+	title = TITLE_QUARTERMASTER
 	flag = JOB_QUARTERMASTER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -37,7 +37,7 @@
 
 
 /datum/job/cargo_tech
-	title = "Cargo Technician"
+	title = TITLE_CARGOTECH
 	flag = JOB_CARGOTECH
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
@@ -64,7 +64,7 @@
 
 
 /datum/job/mining
-	title = "Shaft Miner"
+	title = TITLE_MINER
 	flag = JOB_MINER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 6
@@ -127,7 +127,7 @@
 
 //Food
 /datum/job/bartender
-	title = "Bartender"
+	title = TITLE_BARTENDER
 	flag = JOB_BARTENDER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -170,7 +170,7 @@
 
 
 /datum/job/chef
-	title = "Chef"
+	title = TITLE_CHEF
 	flag = JOB_CHEF
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -219,7 +219,7 @@
 
 
 /datum/job/hydro
-	title = "Botanist"
+	title = TITLE_BOTANIST
 	flag = JOB_BOTANIST
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
@@ -255,7 +255,7 @@
 //Griff //BS12 EDIT
 
 /datum/job/clown
-	title = "Clown"
+	title = TITLE_CLOWN
 	flag = JOB_CLOWN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -346,7 +346,7 @@
 	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
 /datum/job/mime
-	title = "Mime"
+	title = TITLE_MIME
 	flag = JOB_MIME
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -401,7 +401,7 @@
 
 
 /datum/job/janitor
-	title = "Janitor"
+	title = TITLE_JANITOR
 	flag = JOB_JANITOR
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -428,7 +428,7 @@
 
 //More or less assistants
 /datum/job/librarian
-	title = "Librarian"
+	title = TITLE_LIBRARIAN
 	flag = JOB_LIBRARIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -458,7 +458,7 @@
 		/obj/item/videocam = 1)
 
 /datum/job/barber
-	title = "Barber"
+	title = TITLE_BARBER
 	flag = JOB_BARBER
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
@@ -486,7 +486,7 @@
 	)
 
 /datum/job/explorer
-	title = "Explorer"
+	title = TITLE_EXPLORER
 	flag = JOB_EXPLORER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 0

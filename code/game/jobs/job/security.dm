@@ -1,5 +1,5 @@
 /datum/job/hos
-	title = "Head of Security"
+	title = TITLE_HOS
 	flag = JOB_HOS
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
@@ -57,7 +57,7 @@
 
 
 /datum/job/warden
-	title = "Warden"
+	title = TITLE_WARDEN
 	flag = JOB_WARDEN
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
@@ -107,7 +107,7 @@
 
 
 /datum/job/detective
-	title = "Detective"
+	title = TITLE_DETECTIVE
 	flag = JOB_DETECTIVE
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
@@ -168,7 +168,7 @@
 	H.check_mutations = 1
 
 /datum/job/officer
-	title = "Security Officer"
+	title = TITLE_OFFICER
 	flag = JOB_OFFICER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 7
@@ -233,7 +233,7 @@
 				head = /obj/item/clothing/head/beret/sec
 
 /datum/job/brigdoc
-	title = "Brig Physician"
+	title = TITLE_BRIGDOC
 	flag = JOB_BRIGDOC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
@@ -270,7 +270,7 @@
 
 
 /datum/job/pilot
-	title = "Security Pod Pilot"
+	title = TITLE_PILOT
 	flag = JOB_PILOT
 	department_flag = JOBCAT_KARMA
 	total_positions = 1

@@ -1,6 +1,6 @@
 GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newscast = 0)) // Why the hell are captain announcements minor
 /datum/job/captain
-	title = "Captain"
+	title = TITLE_CAPTAIN
 	flag = JOB_CAPTAIN
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
@@ -59,7 +59,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 
 /datum/job/hop
-	title = "Head of Personnel"
+	title = TITLE_HOP
 	flag = JOB_HOP
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -110,7 +110,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 
 /datum/job/nanotrasenrep
-	title = "Nanotrasen Representative"
+	title = TITLE_NANO
 	flag = JOB_NANO
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
@@ -160,7 +160,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 
 /datum/job/blueshield
-	title = "Blueshield"
+	title = TITLE_BLUESHIELD
 	flag = JOB_BLUESHIELD
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
@@ -214,7 +214,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	CQC.teach(H)
 
 /datum/job/judge
-	title = "Magistrate"
+	title = TITLE_JUDGE
 	flag = JOB_JUDGE
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
@@ -266,7 +266,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 //GLOBAL_VAR_INIT(lawyer, 0) //Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds. | This was deprecated back in 2014, and its now 2020
 /datum/job/lawyer
-	title = "Internal Affairs Agent"
+	title = TITLE_LAWYER
 	flag = JOB_LAWYER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
