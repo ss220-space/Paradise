@@ -636,20 +636,20 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				var/datum/gear/G = LC.gear[gear_name]
 				var/datum/gear/ticked = choosen_gears[G.display_name]
 				if(G.donator_tier > user.client.donator_level)
-					dat += "<tr align='center' style='vertical-align:top;'><td width=20% align='center'><B>[G.display_name]</B><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
+					dat += "<tr align='center' style='vertical-align:top;'><td width=20% align='center' style='vertical-align:middle'><B>[G.display_name]</B><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
 				else
-					dat += "<tr align='center' style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
+					dat += "<tr align='center' style='vertical-align:top;'><td width=15%><a style='white-space:normal;vertical-align:middle' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
 				if(ticked)
 					for(var/datum/gear_tweak/tweak in ticked.gear_tweaks)
 						dat += "<br/><a href='?_src_=prefs;preference=gear;gear=[ticked.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(ticked, tweak))]</a>"
-				dat += "</td><td width = 5% align='center' style='vertical-align:middle'><b>[G.cost]</b></td><td>"
+				dat += "</td><td width = 5% align='center' style='vertical-align:middle'><b>[G.cost]</b></td><td style='vertical-align:middle'>"
 				if(G.allowed_roles)
 					dat += "<font size=2>Restrictions: "
 					for(var/role in G.allowed_roles)
 						dat += role + " "
 					dat += "</font>"
 				var/donor_info = G.donator_tier > 0 ? "\[Tier [G.donator_tier]\] " : ""
-				dat += "</td><td><font size=2>[donor_info]<i>[G.description] <br/></i></font></td></tr>"
+				dat += "</td><td style='vertical-align:middle'><font size=2>[donor_info]<i>[G.description] <br/></i></font></td></tr>"
 			dat += "</table>"
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
