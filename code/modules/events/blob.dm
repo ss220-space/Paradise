@@ -2,7 +2,7 @@
 	announceWhen	= 180
 	endWhen			= 240
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
-	var/for_players = 40 		//Количество людей для спавна доп. мыши
+	var/for_players = 30 		//Количество людей для спавна доп. мыши
 
 /datum/event/blob/announce(false_alarm)
 	if(successSpawn || false_alarm)
@@ -27,7 +27,7 @@
 	if(!length(vents))
 		return
 
-	var/num_blobs = round((length(GLOB.clients) / for_players)) + 1
+	var/num_blobs = round((num_station_players() / for_players)) + 1
 	for(var/i in 1 to num_blobs)
 		if (length(candidates))
 			var/obj/vent = pick(vents)

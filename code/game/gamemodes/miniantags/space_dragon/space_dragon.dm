@@ -19,8 +19,9 @@
 
 
 /datum/event/space_dragon/proc/wrapped_start()
-	if(length(GLOB.clients) < SPACE_DRAGON_SPAWN_THRESHOLD)
-		log_and_message_admins("Random event attempted to spawn a space dragon, but there were only [length(GLOB.clients)]/[SPACE_DRAGON_SPAWN_THRESHOLD] players.")
+	var/player_count = num_station_players()
+	if(player_count < SPACE_DRAGON_SPAWN_THRESHOLD)
+		log_and_message_admins("Random event attempted to spawn a space dragon, but there were only [player_count]/[SPACE_DRAGON_SPAWN_THRESHOLD] players.")
 		return
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Космического Дракона?", ROLE_SPACE_DRAGON, TRUE, source = /mob/living/simple_animal/hostile/space_dragon)
 	if(!length(candidates))

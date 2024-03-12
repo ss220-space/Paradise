@@ -43,7 +43,7 @@
 			log_game("[new_slug.key] has become Changeling Headslug.")
 
 /datum/event/headslug_infestation/proc/eventcheck()
-	if(((length(GLOB.clients)) <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
+	if((num_station_players() <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
 		return TRUE
 
 
