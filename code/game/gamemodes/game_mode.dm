@@ -367,7 +367,7 @@
 		if(player.client && player.ready)
 			.++
 
-/datum/game_mode/proc/num_station_players()
+/proc/num_station_players()
 	. = 0
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!player)
