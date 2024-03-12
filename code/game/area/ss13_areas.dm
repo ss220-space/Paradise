@@ -70,11 +70,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	parallax_movedir = NORTH
 	sound_environment = SOUND_ENVIRONMENT_ROOM
-/*
-/area/shuttle/arrival //dont have this, but at once...
-	name = "\improper Arrival Shuttle"
 
-/area/shuttle/arrival/pre_game
+/area/shuttle/arrival
+	name = "\improper Arrival Shuttle"
+/*
+/area/shuttle/arrival/pre_game //dont have this, but at once...
 	icon_state = "shuttle2"
 */
 /area/shuttle/arrival/station
@@ -2877,56 +2877,6 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	/area/shuttle/transport1,
 	/area/shuttle/administration/centcom,
 	/area/shuttle/specops/centcom,
-))
-
-//SPACE STATION 13
-GLOBAL_LIST_INIT(the_station_areas, list(
-	/area/shuttle/arrival,
-	/area/shuttle/escape,
-	/area/shuttle/escape_pod1/station,
-	/area/shuttle/escape_pod2/station,
-	/area/shuttle/escape_pod3/station,
-	/area/shuttle/escape_pod5/station,
-	/area/shuttle/prison/station,
-	/area/shuttle/administration/station,
-	/area/shuttle/specops/station,
-	/area/atmos,
-	/area/maintenance,
-	/area/hallway,
-	/area/hallway/primary/fore,
-	/area/hallway/primary/starboard,
-	/area/hallway/primary/aft,
-	/area/hallway/primary/port,
-	/area/hallway/primary/central,
-	/area/bridge,
-	/area/crew_quarters,
-	/area/civilian,
-	/area/holodeck,
-	/area/library,
-	/area/chapel,
-	/area/escapepodbay,
-	/area/lawoffice,
-	/area/magistrateoffice,
-	/area/clownoffice,
-	/area/mimeoffice,
-	/area/engine,
-	/area/solar,
-	/area/assembly,
-	/area/teleporter,
-	/area/medical,
-	/area/security,
-	/area/quartermaster,
-	/area/janitor,
-	/area/hydroponics,
-	/area/toxins,
-	/area/storage,
-	/area/construction,
-	/area/ai_monitored/storage/eva, //do not try to simplify to "/area/ai_monitored" --rastaf0
-	/area/ai_monitored/storage/secure,
-	/area/ai_monitored/storage/emergency,
-	/area/turret_protected/ai_upload, //do not try to simplify to "/area/turret_protected" --rastaf0
-	/area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai,
 ))
 
 

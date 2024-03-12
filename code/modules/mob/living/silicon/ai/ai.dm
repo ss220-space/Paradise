@@ -139,8 +139,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
-	anchored = 1
-	canmove = 0
+	anchored = TRUE
+	canmove = FALSE
 	density = 1
 	loc = loc
 
@@ -148,10 +148,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	proc_holder_list = new()
 
-	if(B?.clock || isclocker(B?.brainmob))
-		laws = new /datum/ai_laws/ratvar
-		overlays += "clockwork_frame"
-	if(L)
+	if(B?.clock)
+		ratvar_act()
+	else if(L)
 		if(istype(L, /datum/ai_laws))
 			laws = L
 	else
@@ -163,7 +162,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	aiRadio = new(src)
 	common_radio = aiRadio
 	aiRadio.myAi = src
-	additional_law_channels["Binary"] = ":b "
+	additional_law_channels["Binary"] = ":bi "
 	additional_law_channels["Holopad"] = ":h"
 
 	aiCamera = new/obj/item/camera/siliconcam/ai_camera(src)
@@ -172,24 +171,24 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		add_ai_verbs(src)
 
 	//Languages
-	add_language("Robot Talk", 1)
-	add_language("Galactic Common", 1)
-	add_language("Sol Common", 1)
-	add_language("Tradeband", 1)
-	add_language("Neo-Russkiya", 1)
-	add_language("Gutter", 1)
-	add_language("Sinta'unathi", 1)
-	add_language("Siik'tajr", 1)
-	add_language("Canilunzt", 1)
-	add_language("Skrellian", 1)
-	add_language("Vox-pidgin", 1)
-	add_language("Orluum", 1)
-	add_language("Rootspeak", 1)
-	add_language("Trinary", 1)
-	add_language("Chittin", 1)
-	add_language("Bubblish", 1)
-	add_language("Clownish", 1)
-	add_language("Tkachi", 1)
+	add_language(LANGUAGE_BINARY, 1)
+	add_language(LANGUAGE_GALACTIC_COMMON, 1)
+	add_language(LANGUAGE_SOL_COMMON, 1)
+	add_language(LANGUAGE_TRADER, 1)
+	add_language(LANGUAGE_NEO_RUSSIAN, 1)
+	add_language(LANGUAGE_GUTTER, 1)
+	add_language(LANGUAGE_UNATHI, 1)
+	add_language(LANGUAGE_TAJARAN, 1)
+	add_language(LANGUAGE_VULPKANIN, 1)
+	add_language(LANGUAGE_SKRELL, 1)
+	add_language(LANGUAGE_VOX, 1)
+	add_language(LANGUAGE_DRASK, 1)
+	add_language(LANGUAGE_DIONA, 1)
+	add_language(LANGUAGE_TRINARY, 1)
+	add_language(LANGUAGE_KIDAN, 1)
+	add_language(LANGUAGE_SLIME, 1)
+	add_language(LANGUAGE_CLOWN, 1)
+	add_language(LANGUAGE_MOTH, 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -220,7 +219,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
 	to_chat(src, "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>")
 	to_chat(src, "To use something, simply click on it.")
-	to_chat(src, "Use say :b to speak to your cyborgs through binary. Use say :h to speak from an active holopad.")
+	to_chat(src, "Use say :bi to speak to your cyborgs through binary. Use say :h to speak from an active holopad.")
 	to_chat(src, "For department channels, use the following say commands:")
 
 	var/radio_text = ""
@@ -339,7 +338,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	use_power = ACTIVE_POWER_USE
 	power_channel = EQUIP
 	var/mob/living/silicon/ai/powered_ai = null
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/ai_powersupply/New(mob/living/silicon/ai/ai=null)
 	powered_ai = ai
@@ -994,19 +993,25 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable())
 		return
 
-	for(var/obj/machinery/M in GLOB.machines) //change status
-		if(istype(M, /obj/machinery/ai_status_display))
-			var/obj/machinery/ai_status_display/AISD = M
-			AISD.emotion = emote
-		//if Friend Computer, change ALL displays
-		else if(istype(M, /obj/machinery/status_display))
+	for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
+		display.emotion = emote
+		display.update_icon()
 
-			var/obj/machinery/status_display/SD = M
+	for(var/obj/machinery/machine in GLOB.machines) //change status
+		if(istype(machine, /obj/machinery/ai_status_display))
+			var/obj/machinery/ai_status_display/display = machine
+			display.emotion = emote
+			display.update_icon()
+
+		//if Friend Computer, change ALL displays
+		else if(istype(machine, /obj/machinery/status_display))
+
+			var/obj/machinery/status_display/display = machine
 			if(emote=="Friend Computer")
-				SD.friendc = 1
+				display.friendc = TRUE
 			else
-				SD.friendc = 0
-	return
+				display.friendc = FALSE
+
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
@@ -1239,7 +1244,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 
 /mob/living/silicon/ai/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(anchored)
 			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
 			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))

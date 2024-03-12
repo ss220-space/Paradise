@@ -110,7 +110,8 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
 
-/obj/item/storage/backpack/santabag/update_icon()
+
+/obj/item/storage/backpack/santabag/update_icon_state()
 	var/items_count = length(contents)
 	switch(items_count)
 		if(1 to 10)
@@ -120,10 +121,8 @@
 		if(21 to INFINITY)
 			icon_state = "giftbag2"
 
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+	update_equipped_item()
+
 
 /obj/item/storage/backpack/cultpack
 	name = "trophy rack"
@@ -413,14 +412,14 @@
 	level = 1
 	cant_hold = list(/obj/item/storage/backpack/satchel_flat) //muh recursive backpacks
 
-/obj/item/storage/backpack/satchel_flat/hide(var/intact)
+/obj/item/storage/backpack/satchel_flat/hide(intact)
 	if(intact)
-		invisibility = INVISIBILITY_ABSTRACT
-		anchored = 1 //otherwise you can start pulling, cover it, and drag around an invisible backpack.
+		invisibility = INVISIBILITY_MAXIMUM
+		anchored = TRUE //otherwise you can start pulling, cover it, and drag around an invisible backpack.
 		icon_state = "[initial(icon_state)]2"
 	else
 		invisibility = initial(invisibility)
-		anchored = 0
+		anchored = FALSE
 		icon_state = initial(icon_state)
 
 /obj/item/storage/backpack/satchel_flat/populate_contents()

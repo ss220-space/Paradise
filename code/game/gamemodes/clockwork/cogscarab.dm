@@ -55,8 +55,8 @@
 
 /mob/living/silicon/robot/cogscarab/Initialize(mapload)
 	. = ..()
-	remove_language("Robot Talk")
-	add_language("Drone Talk", 1)
+	remove_language(LANGUAGE_BINARY)
+	add_language(LANGUAGE_DRONE_BINARY, 1)
 	if(radio)
 		radio.wires.cut(WIRE_RADIO_TRANSMIT)
 
@@ -86,9 +86,9 @@
 	connected_ai = null
 
 	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
-	additional_law_channels["Drone"] = ":d "
+	additional_law_channels["Drone"] = ":dt "
 
-	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+	playsound(loc, 'sound/machines/twobeep.ogg', 50, FALSE)
 
 /mob/living/silicon/robot/cogscarab/create_mob_hud()
 	..()

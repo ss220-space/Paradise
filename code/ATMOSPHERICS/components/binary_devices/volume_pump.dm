@@ -21,7 +21,7 @@ Thus, the two variables affect pump operation are set in New():
 
 	can_unwrench = 1
 
-	var/on = 0
+	on = FALSE
 	var/transfer_rate = 200
 
 	var/id = null
@@ -54,10 +54,6 @@ Thus, the two variables affect pump operation are set in New():
 	set_max()
 	return ..()
 
-/obj/machinery/atmospherics/binary/volume_pump/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/proc/set_max()
 	if(powered())
@@ -78,7 +74,7 @@ Thus, the two variables affect pump operation are set in New():
 	..()
 	set_frequency(frequency)
 
-/obj/machinery/atmospherics/binary/volume_pump/update_icon()
+/obj/machinery/atmospherics/binary/volume_pump/update_icon_state()
 	..()
 
 	if(!powered())
@@ -223,17 +219,16 @@ Thus, the two variables affect pump operation are set in New():
 	if(.)
 		investigate_log("was set to [transfer_rate] L/s by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/binary/volume_pump/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+/obj/machinery/atmospherics/binary/volume_pump/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
 		rename_interactive(user, W)
 		return
-	else if(!istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour != TOOL_WRENCH)
 		return ..()
 	if(!(stat & NOPOWER) && on)
 		to_chat(user, span_alert("You cannot unwrench this [src], turn it off first."))

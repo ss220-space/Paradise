@@ -18,23 +18,38 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(go_inert)), 50 SECONDS) //you know...
 
+
+/obj/item/magmite_parts/update_icon_state()
+	icon_state = "upgrade_parts[inert ? "_inert" : ""]"
+
+
+/obj/item/magmite_parts/update_name(updates = ALL)
+	. = ..()
+	name = initial(name)
+	if(inert)
+		name = "inert [name]"
+
+
+/obj/item/magmite_parts/update_desc(updates = ALL)
+	. = ..()
+	desc = inert ? "It appears to have lost its magma-like glow." : initial(desc)
+
+
 /obj/item/magmite_parts/proc/go_inert()
 	if(inert)
 		return
 	visible_message(span_warning("The [src] loses it's glow!"))
 	inert = TRUE
-	name = "inert plasma magmite upgrade parts"
-	icon_state = "upgrade_parts_inert"
-	desc += "It appears to have lost its magma-like glow."
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+
 
 /obj/item/magmite_parts/proc/restore()
 	if(!inert)
 		return
 	inert = FALSE
-	name = initial(name)
-	icon_state = initial(icon_state)
-	desc = initial(desc)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	addtimer(CALLBACK(src, PROC_REF(go_inert)), 50 SECONDS)
+
 
 /obj/item/magmite_parts/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)

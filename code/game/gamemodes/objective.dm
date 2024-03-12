@@ -530,6 +530,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			damage_explain = "токсинов"
 	return damage_explain
 
+/datum/objective/pain_hunter/check_completion()
+	if(start_of_completing && target && ishuman(target.current) && target.current.stat != DEAD)
+		return TRUE
+	else
+		return completed
 
 /datum/objective/protect //The opposite of killing a dude.
 	name = "Protect"
@@ -1584,7 +1589,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		update_killers()
 
 	for(var/datum/mind/user in owners)
-		var/list/messages = list(user.prepare_announce_objectives())
+		var/list/messages = user.prepare_announce_objectives()
 		to_chat(user.current, chat_box_red(messages.Join("<br>")))
 
 

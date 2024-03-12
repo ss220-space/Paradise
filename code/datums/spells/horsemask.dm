@@ -5,6 +5,7 @@
 	base_cooldown = 15 SECONDS
 	cooldown_min = 3 SECONDS //30 deciseconds reduction per rank
 	clothes_req = FALSE
+	human_req = FALSE
 	stat_allowed = CONSCIOUS
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
 	invocation_type = "shout"

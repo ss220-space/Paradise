@@ -5,7 +5,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
 	flags_2 = CHECK_RICOCHET_2

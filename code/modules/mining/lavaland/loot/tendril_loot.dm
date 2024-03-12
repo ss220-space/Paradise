@@ -21,62 +21,50 @@
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
 
-/obj/item/shared_storage/red/New()
-	..()
+/obj/item/shared_storage/red/Initialize(mapload)
+	. = ..()
 	if(!bag)
-		var/obj/item/storage/backpack/shared/S = new(src)
+		var/obj/item/storage/backpack/shared/shared_storage = new(src)
 		var/obj/item/shared_storage/blue = new(loc)
+		bag = shared_storage
+		blue.bag = shared_storage
 
-		bag = S
-		blue.bag = S
 
 /obj/item/shared_storage/attackby(obj/item/W, mob/user, params)
 	if(bag)
 		bag.loc = user
 		bag.attackby(W, user, params)
+		add_fingerprint(user)
+
+
+/obj/item/shared_storage/proc/open_bag(mob/user)
+	if(bag)
+		bag.loc = user
+		bag.attack_hand(user)
+		add_fingerprint(user)
+
 
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
-	if(!iscarbon(user))
-		return
-	if(src == user.l_hand || src == user.r_hand)
-		if(bag)
-			bag.loc = user
-			bag.attack_hand(user)
-	else
-		..()
+	if(!bag || !iscarbon(user) || !user.is_in_hands(src))
+		return ..()
+
+	open_bag(user)
+
+
+/obj/item/shared_storage/AltClick(mob/user)
+	if(!bag || !iscarbon(user) || !Adjacent(user))
+		return ..()
+
+	open_bag(user)
+
+
 
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)
-	if(!iscarbon(user))
-		return
-	if(loc == user && user.back && user.back == src)
-		if(bag)
-			bag.loc = user
-			bag.attack_hand(user)
-	else
-		..()
+	if(!iscarbon(user) || !bag || loc != user || !user.back || user.back != src)
+		return ..()
 
-/obj/item/shared_storage/MouseDrop(atom/over_object)
-	if(iscarbon(usr))
-		var/mob/M = usr
+	open_bag(user)
 
-		if(!over_object)
-			return
-
-		if(istype(M.loc, /obj/mecha))
-			return
-
-		if(!M.restrained() && !M.stat)
-			playsound(loc, "rustle", 50, 1, -5)
-
-			if(istype(over_object, /obj/screen/inventory/hand))
-				if(!M.drop_item_ground(src))
-					return
-				M.put_in_active_hand(src)
-			else if(bag)
-				bag.loc = usr
-				bag.attack_hand(usr)
-
-			add_fingerprint(M)
 
 //Book of Babel
 
@@ -104,7 +92,7 @@
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list("flightpotion" = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon()
+/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else
@@ -243,18 +231,27 @@
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
+
+/obj/item/wisp_lantern/update_icon_state()
+	if(!wisp)
+		icon_state = "lantern"
+		return
+	icon_state = "lantern[wisp.loc == src ? "-blue" : ""]"
+
+
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
 		to_chat(user, "<span class='warning'>The wisp has gone missing!</span>")
-		icon_state = "lantern"
+		update_icon(UPDATE_ICON_STATE)
 		return
 
 	if(wisp.loc == src)
 		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
-		icon_state = "lantern"
-		spawn() wisp.orbit(user, 20) // spawn prevents endless loop in .orbit from blocking code execution here
+		wisp.forceMove(user)
+		update_icon(UPDATE_ICON_STATE)
+		INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
 		set_light(0)
 
 		user.update_sight()
@@ -272,12 +269,13 @@
 		user.update_sight()
 		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
 
-		icon_state = "lantern-blue"
+		update_icon(UPDATE_ICON_STATE)
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
 	wisp = new(src)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)

@@ -27,24 +27,205 @@
 	name = "synthetic meat"
 	desc = "A synthetic slab of flesh."
 
-/obj/item/reagent_containers/food/snacks/meat/human
-	name = "-meat"
+/obj/item/reagent_containers/food/snacks/meat/humanoid
+	name = "humanoid meat"
 	var/subjectname = ""
 	var/subjectjob = null
 	tastes = list("salty meat" = 1)
 
+/obj/item/reagent_containers/food/snacks/meat/humanoid/Initialize(mapload, mob/living/carbon/human/victim)
+	. = ..()
+	if(victim)
+		subjectname = victim.real_name
+		subjectjob = victim.job
+		victim.reagents.trans_to(src, (victim.reagents.total_volume) / victim.meatleft)
+		transfer_mob_blood_dna(victim)
+
+		if(!isplasmaman(victim) && !ismachineperson(victim))
+			reagents.add_reagent("nutriment", (victim.nutrition / 15) / initial(victim.meatleft))
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human
+	name = "human meat"
+	tastes = list("salty meat" = 1)
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/vulpkanin
+	name = "vulpkanin meat"
+	tastes = list("salty meat" = 1)
+	list_reagents = list("protein" = 5)
+	icon_state = "meat_vulp"
+	filling_color = "#850808"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/tajaran
+	name = "tajaran meat"
+	tastes = list("salty meat" = 1)
+	list_reagents = list("protein" = 3)
+	icon_state = "meat_tajara"
+	filling_color = "#df1919"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/unathi
+	name = "unathi meat"
+	tastes = list("chiken meat" = 1)
+	list_reagents = list("protein" = 3, "zessulblood" = 2)
+	icon_state = "meat_unathi"
+	filling_color = "#850808"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/drask
+	name = "drask meat"
+	tastes = list("icy meat" = 1)
+	list_reagents = list("protein" = 3, "ice" = 10)
+	icon_state = "meat_drask"
+	filling_color = "#329983"
+	bitesize = 5
+	var/type1 = "meat_drask"
+	var/type2 = "meat_drask2"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/drask/New()
+	..()
+	icon_state = pick(type1, type2)
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/grey
+	name = "grey meat"
+	tastes = list("salty meat" = 1)
+	list_reagents = list("protein" = 2, "mannitol" = 2)
+	icon_state = "meat_grey"
+	filling_color = "#8d17a5"
+	var/type1 = "meat_grey"
+	var/type2 = "meat_grey2"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/grey/New()
+	..()
+	icon_state = pick(type1, type2)
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/skrell
+	name = "skrell meat"
+	tastes = list("watery meat" = 1)
+	list_reagents = list("protein" = 3, "water" = 20)
+	icon_state = "meat_skrell"
+	filling_color = "#4d17a5"
+	bitesize = 10
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/vox
+	name = "vox meat"
+	tastes = list("chiken meat" = 1)
+	list_reagents = list("protein" = 3, "toxin" = 1)
+	icon_state = "meat_vox"
+	filling_color = "#0c5ac0"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/slime
+	name = "slime jelly"
+	tastes = list("sweet jelly" = 1)
+	list_reagents = list("sugar" = 5, "slimejelly" = 10)
+	icon_state = "meat_slime"
+	filling_color = "#11a0cc"
+	bitesize = 5
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/wryn
+	name = "wryn meat"
+	tastes = list("sweet meat" = 1)
+	list_reagents = list("protein" = 1, "sugar" = 5)
+	icon_state = "meat_wryn"
+	filling_color = "#d1be0d"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/kidan
+	name = "kidan meat"
+	tastes = list("bug meat" = 1)
+	list_reagents = list("protein" = 2, "blood" = 1)
+	icon_state = "meat_kidan"
+	filling_color = "#db9808"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/nian
+	name = "nian meat"
+	tastes = list("bug meat" = 1)
+	list_reagents = list("protein" = 2, "phosphorus" = 5)
+	icon_state = "meat_nian"
+	filling_color = "#866929"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/diona
+	name = "diona branch"
+	tastes = list("crunchy green" = 1)
+	list_reagents = list("plantmatter" = 5)
+	icon_state = "branch_diona"
+	filling_color = "#2d6102"
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/nucleation
+	name = "nucleation remains"
+	tastes = list("radioactive dust" = 1)
+	list_reagents = list("radium" = 30)
+	icon_state = "dust_nucleation"
+	filling_color = "#edf5ac"
+	bitesize = 10
+	foodtype = TOXIC
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
+	name = "plasmaman remains"
+	tastes = list("radioactive dust" = 1)
+	list_reagents = list("radium" = 10, "plasma" = 10)
+	icon_state = "dust_plasmaman"
+	filling_color = "#a502c5"
+	bitesize = 10
+	foodtype = TOXIC
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/machine
+	name = "machine remains"
+	tastes = list("radioactive dust" = 1)
+	list_reagents = list("iron" = 3, "aluminum" = 2, "lithium" = 1, "mercury" = 2, "metalicdust" = 1)
+	icon_state = "dust_machine"
+	filling_color = "#403e41"
+	bitesize = 9
+	foodtype = TOXIC
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey
+	name = "monkey meat"
+	tastes = list("salty meat" = 1)
+	list_reagents = list("protein" = 2)
+	filling_color = "#FF1C1C"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/farwa
+	name = "farwa meat"
+	list_reagents = list("protein" = 1)
+	tastes = list("salty meat" = 1)
+	icon_state = "meat_tajara"
+	filling_color = "#df1919"
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin
+	name = "wolpin meat"
+	list_reagents = list("protein" = 3)
+	tastes = list("salty meat" = 1)
+	icon_state = "meat_vulp"
+	filling_color = "#850808"
+	bitesize = 2
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/neara
+	name = "neara meat"
+	list_reagents = list("protein" = 2, "water" = 5)
+	tastes = list("watery meat" = 1)
+	icon_state = "meat_skrell"
+	filling_color = "#4d17a5"
+	bitesize = 4
+
+/obj/item/reagent_containers/food/snacks/meat/humanoid/stok
+	name = "stok meat"
+	list_reagents = list("protein" = 2, "zessulblood" = 1)
+	tastes = list("chiken meat" = 1)
+	icon_state = "meat_unathi"
+	filling_color = "#850808"
+	bitesize = 2
+
 /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
+
+/obj/item/reagent_containers/food/snacks/meat/slab/gorilla
+	name = "gorilla meat"
+	desc = "Much meatier than monkey meat."
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/bird
 	name = "bird meat"
 	desc = "Light and tasty meat"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "birdmeat"
-
-/obj/item/reagent_containers/food/snacks/meat/monkey
-	name = "lesser meat"
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "corgi meat"
@@ -230,6 +411,119 @@
 	list_reagents = list("nutriment" = 5)
 	tastes = list("meat" = 1)
 	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/meatsteak/human
+	name = "human meat steak"
+	icon_state = "meatstake_human"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("human meat odor" = 1, "eggplant" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin
+	name = "vulpkanin meat steak"
+	icon_state = "meatstake_vulp"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("vulpkanin meat odor" = 1, "chanterelle" = 1, "lemon" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/tajaran
+	name = "tajaran meat steak"
+	icon_state = "meatstake_tajara"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("tajaran meat odor" = 1, "nettle" = 1, "soda water" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/unathi
+	name = "unathi meat steak"
+	icon_state = "meatstake_unathi"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("unathi meat odor" = 1, "tomato" = 2, "harebell" = 1, "black pepper" = 2, "salt" = 2, "chiken" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/drask
+	name = "drask meat steak"
+	desc = "A piece of cold spicy meat."
+	icon_state = "meatstake_drask"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("drask meat odor" = 1, "garlic" = 1, "chili" = 2, "berries" = 2, "black pepper" = 2)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/grey
+	name = "grey meat steak"
+	icon_state = "meatstake_grey"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("grey meat odor" = 1, "garlic" = 1, "cabbage" = 1, "tomato" = 2, "salt" = 2)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/skrell
+	name = "skrell meat steak"
+	icon_state = "meatstake_skrell"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("skrell meat odor" = 1, "banana" = 1, "tomato" = 1, "black pepper" = 2)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/vox
+	name = "vox meat steak"
+	icon_state = "meatstake_vox"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("vox meat odor" = 1, "garlic" = 1, "herbs" = 1, "chiken" = 1, "sweet potato" = 2)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/slime
+	name = "grilled jelly"
+	desc = "A piece of hot spicy jelly."
+	icon_state = "meatstake_slime"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("slime meat odor" = 1, "garlic" = 1, "sugar" = 1, "herbs" = 1, "lemon" = 1, "ambrosia" = 1, "salt" = 2)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/wryn
+	name = "wryn meat steak"
+	icon_state = "meatstake_wryn"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("wryn meat odor" = 1, "sweetness" = 1, "potato" = 2, "orange" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/kidan
+	name = "kidan meat steak"
+	icon_state = "meatstake_kidan"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("kidan meat odor" = 1, "bug odor" = 1, "herbs" = 2, "olives" = 2, "salt" = 2)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/nian
+	name = "nian meat steak"
+	icon_state = "meatstake_nian"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("nian meat odor" = 1, "bug odor" = 1, "sweetness" = 1, "orange" = 1, "lemon" = 1, "herbs" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/diona
+	name = "grilled vagetables"
+	desc = "Hot spicy asparagus."
+	filling_color = "#548100"
+	icon_state = "meatstake_diona"
+	list_reagents = list("plantmatter" = 4, "vitamins" = 5)
+	tastes = list("diona odor" = 1, "salt" = 2, "herbs" = 1, "garlic" = 1, "lemon" = 1)
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/meatsteak/monkey
+	name = "monkey meat steak"
+	icon_state = "meatstake_monkey"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("monkey meat odor" = 1, "salt" = 2, "herbs" = 1, "lemon" = 1, "chili" = 2)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/farwa
+	name = "farwa meat steak"
+	icon_state = "meatstake_farwa"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("farwa meat odor" = 1, "poppy" = 2, "grape" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/wolpin
+	name = "wolpin meat steak"
+	icon_state = "meatstake_wolpin"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("wolpin meat odor" = 1, "potato" = 1, "onion" = 2)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/neara
+	name = "neara meat steak"
+	icon_state = "meatstake_neara"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("neara meat odor" = 1, "lemon" = 1, "soy" = 2, "herbs" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatsteak/stok
+	name = "stok meat steak"
+	icon_state = "meatstake_stok"
+	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	tastes = list("stok meat odor" = 1, "chiken" = 1, "cucumber" = 2, "herbs" = 1, "orange" = 1)
 
 /obj/item/reagent_containers/food/snacks/birdsteak
 	name = "Chicken steak"

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/machines/washing_machine.dmi'
 	icon_state = "wm_10"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	var/state = 1
 	//1 = empty, open door
 	//2 = empty, closed door
@@ -162,10 +162,6 @@
 				for(var/obj/item/clothing/shoes/S in contents)
 					if(!S.dyeable)
 						continue
-					if(S.chained == 1)
-						S.chained = 0
-						S.slowdown = SHOES_SLOWDOWN
-						new /obj/item/restraints/handcuffs( src )
 					S.icon_state = new_shoe_icon_state
 					S.item_color = wash_color
 					S.name = new_shoe_name
@@ -221,7 +217,7 @@
 		usr.loc = src.loc
 
 
-/obj/machinery/washing_machine/update_icon()
+/obj/machinery/washing_machine/update_icon_state()
 	icon_state = "wm_[state][panel]"
 
 /obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)

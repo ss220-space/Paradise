@@ -34,70 +34,36 @@
  * If you are using these you will probably want to override attackby() as well.
  * See /obj/item/clothing/suit/storage for an example.
  * Items that use internal storage have the option of calling this to emulate default storage MouseDrop behaviour.
- * Returns `TRUE` if the master item's parent's MouseDrop() should be called, `FALSE` otherwise. It's strange, but no other way of
+ * Returns `FALSE` if the master item's parent's MouseDrop() should be called, `TRUE` otherwise. It's strange, but no other way of
  * doing it without the ability to call another proc's parent, really.
  */
-/obj/item/storage/internal/proc/handle_mousedrop(mob/user, obj/over_object)
-	if(ishuman(user)) //so monkeys can take off their backpacks -- Urist
-
-		if(istype(user.loc,/obj/mecha)) // stops inventory actions in a mech
-			return FALSE
-
-		if(over_object == user && Adjacent(user)) // this must come before the screen objects only block
-			src.open(user)
-			return FALSE
-
-		if(!(istype(over_object, /obj/screen)))
-			return TRUE
-
-		//makes sure master_item is equipped before putting it in hand, so that we can't drag it into our hand from miles away.
-		//there's got to be a better way of doing this...
-		if(!(master_item.loc == user) || (master_item.loc && master_item.loc.loc == user))
-			return FALSE
-
-		if(!(user.restrained() ) && !(user.stat))
-			switch(over_object.name)
-				if("r_hand")
-					if(!master_item.remove_item_from_storage(drop_location()))
-						user.drop_item_ground(master_item)
-					user.put_in_r_hand(master_item)
-				if("l_hand")
-					if(!master_item.remove_item_from_storage(drop_location()))
-						user.drop_item_ground(master_item)
-					user.put_in_l_hand(master_item)
-			master_item.add_fingerprint(user)
-			return FALSE
-	return FALSE
+/obj/item/storage/internal/proc/handle_mousedrop(mob/living/carbon/human/user, obj/over_object)
+	. = FALSE
+	if(over_object == user && ishuman(user) && !user.incapacitated() && !ismecha(user.loc) && !is_ventcrawling(user) && user.Adjacent(master_item))
+		open(user)
+		master_item.add_fingerprint(user)
+		return TRUE
 
 
 /**
  * Items that use internal storage have the option of calling this to emulate default storage attack_hand behaviour.
- * Returns `TRUE` if the master item's parent's attack_hand() should be called, 0 otherwise.
+ * Returns `FALSE` if the master item's parent's attack_hand() should be called, `TRUE` otherwise.
  * It's strange, but no other way of doing it without the ability to call another proc's parent, really.
  */
-/obj/item/storage/internal/proc/handle_attack_hand(mob/user)
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.l_store == master_item && !H.get_active_hand())	//Prevents opening if it's in a pocket.
-			H.put_in_hands(master_item)
-			H.l_store = null
-			return FALSE
-		if(H.r_store == master_item && !H.get_active_hand())
-			H.put_in_hands(master_item)
-			H.r_store = null
-			return FALSE
-
-	src.add_fingerprint(user)
-	if(master_item.loc == user)
-		src.open(user)
+/obj/item/storage/internal/proc/handle_attack_hand(mob/living/carbon/human/user)
+	. = TRUE
+	if(master_item.loc != user || !ishuman(user) || user.incapacitated() || ismecha(user.loc) || is_ventcrawling(user))
 		return FALSE
 
-	for(var/mob/M in range(1, master_item.loc))
-		if(M.s_active == src)
-			src.close(M)
-	return TRUE
+	//Prevents opening if it's in a pocket.
+	if(!user.get_active_hand() && (master_item == user.l_store || master_item == user.r_store))
+		user.temporarily_remove_item_from_inventory(master_item)
+		user.put_in_hands(master_item)
+		return .
+
+	open(user)
+	master_item.add_fingerprint(user)
 
 
-/obj/item/storage/internal/Adjacent(var/atom/neighbor)
+/obj/item/storage/internal/Adjacent(atom/neighbor)
 	return master_item.Adjacent(neighbor)

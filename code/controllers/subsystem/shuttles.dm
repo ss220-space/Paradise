@@ -32,6 +32,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/points_per_crate = 5			//points gained per crate returned
 	var/points_per_intel = 250			//points gained per intel returned
 	var/centcom_message = null			//Remarks from Centcom on how well you checked the last order.
+	var/datum/money_account/cargo_money_account
 	var/list/techLevels = list()
 	var/list/shoppinglist = list()
 	var/list/requestlist = list()
@@ -44,6 +45,8 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/Initialize()
 	ordernum = rand(1,9000)
+
+	cargo_money_account = GLOB.department_accounts["Cargo"]
 
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")

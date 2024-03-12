@@ -1253,7 +1253,7 @@
 		if(GLOB.antag_paradise_weights)
 			antags_list = GLOB.antag_paradise_weights
 		else
-			antags_list = CONFIG_GET(str_list/antag_paradise_main_antags)
+			antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
 			antags_list = antags_list.Copy()
 			for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
 				antags_list[key] = !!(key in antags_list)
@@ -1299,7 +1299,7 @@
 
 		else if(findtext(command, "weights_normal_"))
 			if(!GLOB.antag_paradise_weights)
-				var/list/antags_list = CONFIG_GET(str_list/antag_paradise_main_antags)
+				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
 				antags_list = antags_list.Copy()
 				for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
 					antags_list[key] = !!(key in antags_list)
@@ -1832,6 +1832,17 @@
 
 		usr.client.cmd_admin_animalize(M)
 
+	else if(href_list["makegorilla"])
+		if(!check_rights(R_SPAWN))
+			return
+
+		var/mob/M = locateUID(href_list["makegorilla"])
+		if(isnewplayer(M))
+			to_chat(usr, span_warning("This cannot be used on instances of type /mob/new_player"))
+			return
+
+		usr.client.cmd_admin_gorillize(M)
+
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN))
 			return
@@ -2313,7 +2324,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.overlays += stampoverlay
+		LAZYADD(P.stamp_overlays, stampoverlay)
 		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		P.faxmachineid = fax.UID()
@@ -2408,7 +2419,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.overlays += stampoverlay
+		LAZYADD(P.stamp_overlays, stampoverlay)
 		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		fax.receivefax(P)
@@ -2620,15 +2631,14 @@
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp/centcom
-				P.overlays += stampoverlay
 				P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 
 			else if(stamptype == "text")
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp
-				P.overlays += stampoverlay
 				P.stamps += "<hr><i>[stampvalue]</i>"
+			LAZYADD(P.stamp_overlays, stampoverlay)
 
 		if(destination != "All Departments")
 			if(!fax.receivefax(P))
@@ -3647,10 +3657,8 @@
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
-	N.mode = 3 //MODE_ADV, not defined here
 	N.setting = 2 //SETTING_OBJECT, not defined here
-	N.target = H
-	N.pinpoint_at(N.target)
+	N.pinpoint_at(H)
 	N.modelocked = TRUE
 	if(!locate(/obj/item/implant/dust, hunter_mob))
 		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)

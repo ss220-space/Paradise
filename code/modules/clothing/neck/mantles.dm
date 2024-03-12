@@ -82,8 +82,7 @@
 	desc = "A tweed mantle, worn by the Research Director. Smells like science."
 	icon_state = "rdmantle"
 
-/obj/item/clothing/neck/mantle/New()
-	..()
+/obj/item/clothing/neck/mantle/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-	update_icon()
+

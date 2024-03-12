@@ -56,22 +56,28 @@ actual development.
 
  * While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality *before* you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes.
 
-#### Using Changelog
- * Tags used in changelog include add/rscadd, del/rscdel, fix/fixes, typo/spellcheck.
- * Without specifying a name it will default to using your GitHub name.
- Some examples
+#### Использование Changelog
+Перед вашим заголовком PR, требуется поставить корректный тэг, чтобы в игре Changelog его правильно отображал.
+
+Пример:
 ```
-:cl:
-add: The ability to change the color of wires
-del: Deleted depreciated wire merging now handled in parent
-fix: Moving wires now follows the user input instead of moving the stack
-/:cl:
+bugfix: clothing removes itself trying to adjust it.
+add: new lavaland elite mob
 ```
-```
-:cl: N3X15
-typo: Fixes some misspelled words under Using Changelog
-/:cl:
-```
+Список тегов для PRa:
+* **add:** если Вы добавили новую фичу
+* **admin:** если меняете что-то важно связанное с администрацией.(Кнопки, управления, панели, щитспавн)
+* **balance:** если производите балансировку в игре.(Изменение цифры урона, баффы или нерфы предмета/моба)
+* **bugfix:** если Вы исправили некий баг
+* **code_imp:** если имплементируете новое для билда, не меняя при этом ничего в самой игре.
+* **config:** если меняете перестановку конфигов или меняете работу SQL. (По этому поводу обращаться стоит с хосту)
+* **imageadd:** если просто поменяли спрайты, без затрагивания кода
+* **soundadd:** если просто добавили новые звуки, без затрагивания кода
+* **spellcheck:** если исправляете грамматику в коде.
+* **tweak:** если Вы сделали незначительную правку (например изменили одно число на другое)
+* **refactor:** если Вы полностью переписали старый код, улучшив его, НО не изменив функционал
+* **qol:** если Ваше изменение не влияет на баланс, а только улучшает взаимодействие между игрой и игроком
+* **wip:** если Ваш PR в драфте и планируется длительная разработка (можно не ставить)
 
 
 ## Specifications
@@ -377,12 +383,14 @@ This prevents nesting levels from getting deeper then they need to be.
     #define MACRO_ONE (1<<0)
     #define MACRO_TWO (1<<1)
     #define MACRO_THREE (1<<2)
+	#define MACRO_ALL (~0)
     ```
     Is preferable to
     ```
     #define MACRO_ONE 1
     #define MACRO_TWO 2
     #define MACRO_THREE 4
+	#defin MACRO_ALL 7 // or 16777215 as more accurate
     ```
     This make the code more readable and less prone to error
 

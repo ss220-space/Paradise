@@ -505,11 +505,13 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
 
+
 /obj/item/clothing/suit/suspenders/Initialize(mapload)
 	. = ..()
 	if(!color && paintable)
 		color = "#a30e22"
-	update_icon()
+		update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/clothing/suit/suspenders/attackby(obj/D, mob/user, params)
 	. = ..()
@@ -519,6 +521,7 @@
 			color = can.colour
 			update_icon(UPDATE_OVERLAYS)
 
+
 /obj/item/clothing/suit/suspenders/update_overlays()
 	. = ..()
 	if(color)
@@ -527,7 +530,6 @@
 		var/mutable_appearance/suspenders_clips = mutable_appearance(icon='icons/obj/clothing/belts.dmi', icon_state = "suspenders_clips", appearance_flags = RESET_COLOR)
 		. += suspenders_clips
 
-		
 
 /obj/item/clothing/suit/suspenders/nodrop
 	flags = NODROP

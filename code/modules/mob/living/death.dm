@@ -5,7 +5,7 @@
 		return FALSE
 	// hide and freeze for the GC
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -23,7 +23,7 @@
 	new /obj/effect/decal/cleanable/ash(loc)
 	// hide and freeze them while they get GC'd
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)
@@ -34,7 +34,7 @@
 		return FALSE
 	// hide and freeze them while they get GC'd
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)

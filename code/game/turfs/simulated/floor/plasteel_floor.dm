@@ -8,9 +8,7 @@
 /turf/simulated/floor/plasteel/burnt_states()
 	return list("floorscorched1", "floorscorched2")
 
-/turf/simulated/floor/plasteel/update_icon()
-	if(!..())
-		return 0
+/turf/simulated/floor/plasteel/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
 		dir = floor_regular_dir

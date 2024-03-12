@@ -342,7 +342,7 @@
 /////////////////// Paper notes
 
 /obj/item/paper/gorky17
-	language = "Neo-Russkiya"
+	language = LANGUAGE_NEO_RUSSIAN
 /obj/item/paper/gorky17/talisman
 	name = "Проклятый талисман"
 	info = "<p><strong>НЕ ТРОГАЙ ЭТУ ХРЕНЬ ИЗ ЯЩИКА!</strong><br /> \

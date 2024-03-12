@@ -26,9 +26,12 @@
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
+	gun_light_overlay = "mini-light"
+	flight_x_offset = 0
+	flight_y_offset = 0
 	ammo_x_offset = 2
 	charge_sections = 3
-	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
+	can_flashlight = FALSE
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
@@ -37,10 +40,6 @@
 	cell.maxcharge = 600
 	cell.charge = 600
 
-/obj/item/gun/energy/gun/mini/update_icon()
-	..()
-	if(gun_light && gun_light.on)
-		overlays += "mini-light"
 
 /obj/item/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
@@ -64,8 +63,8 @@
 
 /obj/item/gun/energy/gun/blueshield/can_shoot()
     . = ..()
-    if (. && !isertmindshielded(usr))
-        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+    if(. && !isertmindshielded(usr))
+        to_chat(usr, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
         return FALSE
     return .
 
@@ -83,8 +82,8 @@
 
 /obj/item/gun/energy/gun/pdw9/ert/can_shoot()
     . = ..()
-    if (. && !isertmindshielded(usr))
-        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+    if(. && !isertmindshielded(usr))
+        to_chat(usr, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
         return FALSE
     return .
 

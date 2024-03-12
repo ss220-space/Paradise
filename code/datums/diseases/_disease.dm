@@ -69,6 +69,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/can_progress_in_dead = FALSE
 	/// If TRUE, disease can contract dead mobs
 	var/can_contract_dead = FALSE
+	/// Disease can contract others, if carrier is dead with this chance. Set to 0, if can't. Must be in [0, 100].
+	var/spread_from_dead_prob = 0
 	/// If TRUE, host not affected by virus, but can spread it (mostly for viruses)
 	var/carrier = FALSE
 	/// Infectable mob types, that can only be carriers
@@ -156,9 +158,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 			to_chat(affected_mob, span_notice(cured_message))
 	qdel(src)
 
-
-/datum/disease/proc/spread()
-	return
 
 /**
  * Basic checks of the possibility of infecting a mob

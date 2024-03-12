@@ -15,16 +15,19 @@
 	var/list/cargo_sale = list()
 	var/list/can_order = list()
 	var/list/cant_order = list(/datum/cargo_quest/thing/minerals/plasma)
+	var/modificator = 0
 
-/datum/quest_customer/proc/set_sale()
+/datum/quest_customer/proc/set_sale(modificator)
 	if(!length(cargo_sale))
 		return
+
+	src.modificator = modificator
 	for(var/category in cargo_sale)
 		for(var/set_name in SSshuttle.supply_packs)
 			var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
 			if(get_supply_group_name(pack.group) != category)
 				continue
-			pack.cost = round(pack.cost * cargo_sale[category])
+			pack.cost = round(pack.cost * (1 - cargo_sale[category] * modificator))
 
 	if(!cargo_sale[GROUP_SCIENCE])
 		return
@@ -48,72 +51,72 @@
 
 /datum/quest_customer/centcomm/xenoarcheology
 	departament_name = "Xenoarcheology dept."
-	cargo_sale = list(GROUP_SCIENCE = 0.95, GROUP_MATERIALS = 0.95)
+	cargo_sale = list(GROUP_SCIENCE = 0.05, GROUP_MATERIALS = 0.05)
 
 
 /datum/quest_customer/centcomm/xenobiology
 	departament_name = "Xenobiology dept."
-	cargo_sale = list(GROUP_SCIENCE = 0.95, GROUP_ORGANIC = 0.95)
+	cargo_sale = list(GROUP_SCIENCE = 0.05, GROUP_ORGANIC = 0.05)
 
 /datum/quest_customer/centcomm/alloy_and_composite
 	departament_name = "Alloy and Composite div."
-	cargo_sale = list(GROUP_SCIENCE = 0.95, GROUP_MATERIALS = 0.90)
+	cargo_sale = list(GROUP_SCIENCE = 0.05, GROUP_MATERIALS = 0.10)
 
 /datum/quest_customer/centcomm/valuetech
 	departament_name = "ValueTech sec."
-	cargo_sale = list(GROUP_SCIENCE = 0.90)
+	cargo_sale = list(GROUP_SCIENCE = 0.10)
 
 /datum/quest_customer/centcomm/anomaly_research
 	departament_name = "Anomaly Research fac."
-	cargo_sale = list(GROUP_SCIENCE = 0.90)
+	cargo_sale = list(GROUP_SCIENCE = 0.10)
 
 /datum/quest_customer/centcomm/cryogenic_physics
 	departament_name = "Cryogenic physics dept."
-	cargo_sale = list(GROUP_SCIENCE = 0.95, GROUP_ENGINEER = 0.95, GROUP_MEDICAL = 0.95)
+	cargo_sale = list(GROUP_SCIENCE = 0.05, GROUP_ENGINEER = 0.05, GROUP_MEDICAL = 0.05)
 
 /datum/quest_customer/centcomm/applied_physics
 	departament_name = "Applied Physics fac."
-	cargo_sale = list(GROUP_SCIENCE = 0.95, GROUP_ENGINEER = 0.95, GROUP_SECURITY = 0.95)
+	cargo_sale = list(GROUP_SCIENCE = 0.05, GROUP_ENGINEER = 0.05, GROUP_SECURITY = 0.05)
 
 /datum/quest_customer/centcomm/biological_warfare
 	departament_name = "Biological Warfare div."
-	cargo_sale = list(GROUP_SECURITY = 0.95, GROUP_MEDICAL = 0.95)
+	cargo_sale = list(GROUP_SECURITY = 0.05, GROUP_MEDICAL = 0.05)
 
 /datum/quest_customer/centcomm/gene_mutation
 	departament_name = "Gene Mutation unit"
-	cargo_sale = list(GROUP_MEDICAL = 0.90)
+	cargo_sale = list(GROUP_MEDICAL = 0.10)
 
 /datum/quest_customer/centcomm/xenoanatomy
 	departament_name = "Xenoanatomy dept."
-	cargo_sale = list(GROUP_MEDICAL = 0.90)
+	cargo_sale = list(GROUP_MEDICAL = 0.10)
 
 /datum/quest_customer/centcomm/exp_pharmacology
 	departament_name = "Exp. Pharmacology sec."
-	cargo_sale = list(GROUP_SCIENCE = 0.95, GROUP_MEDICAL = 0.95)
+	cargo_sale = list(GROUP_SCIENCE = 0.05, GROUP_MEDICAL = 0.05)
 
 /datum/quest_customer/centcomm/chimera
 	departament_name = "\"Chimera-731\" unit"
-	cargo_sale = list(GROUP_MEDICAL = 0.95, GROUP_ORGANIC = 0.95)
+	cargo_sale = list(GROUP_MEDICAL = 0.05, GROUP_ORGANIC = 0.05)
 
 /datum/quest_customer/centcomm/organic_farm
 	departament_name = "NT Null-G Organic Farm"
-	cargo_sale = list(GROUP_ENGINEER = 0.95, GROUP_ORGANIC = 0.90)
+	cargo_sale = list(GROUP_ENGINEER = 0.05, GROUP_ORGANIC = 0.10)
 
 /datum/quest_customer/centcomm/fleet_vessel
 	departament_name = "NT Fleet Vessel Spaceyard"
-	cargo_sale = list(GROUP_SECURITY = 0.90, GROUP_MATERIALS = 0.95)
+	cargo_sale = list(GROUP_SECURITY = 0.10, GROUP_MATERIALS = 0.05)
 
 /datum/quest_customer/centcomm/advanced_expeditionary
 	departament_name = "NT Advanced Expeditionary Corps"
-	cargo_sale = list(GROUP_SECURITY = 0.95, GROUP_MATERIALS = 0.95, GROUP_ENGINEER = 0.95)
+	cargo_sale = list(GROUP_SECURITY = 0.05, GROUP_MATERIALS = 0.05, GROUP_ENGINEER = 0.05)
 
 /datum/quest_customer/centcomm/space_mining
 	departament_name = "NT Open Space Mining Facility"
-	cargo_sale = list(GROUP_SCIENCE = 0.95, GROUP_MATERIALS = 0.95, GROUP_ENGINEER = 0.95)
+	cargo_sale = list(GROUP_SCIENCE = 0.05, GROUP_MATERIALS = 0.05, GROUP_ENGINEER = 0.05)
 
 /datum/quest_customer/centcomm/pioneer_outpost
 	departament_name = "NT Pioneer Outpost"
-	cargo_sale = list(GROUP_MEDICAL = 0.95, GROUP_ENGINEER = 0.95, GROUP_SECURITY = 0.95)
+	cargo_sale = list(GROUP_MEDICAL = 0.05, GROUP_ENGINEER = 0.05, GROUP_SECURITY = 0.05)
 
 /datum/quest_customer/plasma
 	group_name = "plasma"
@@ -128,35 +131,35 @@
 
 /datum/quest_customer/plasma/enrichment
 	departament_name = "Plasma Enrichment fac."
-	cargo_sale = list(GROUP_EMERGENCY = 0.97)
+	cargo_sale = list(GROUP_EMERGENCY = 0.03)
 
 /datum/quest_customer/plasma/refinery
 	departament_name = "Plasma Refinery cx."
-	cargo_sale = list(GROUP_EMERGENCY = 0.97)
+	cargo_sale = list(GROUP_EMERGENCY = 0.03)
 
 /datum/quest_customer/plasma/applications
 	departament_name = "Plasma Applications dept."
-	cargo_sale = list(GROUP_EMERGENCY = 0.97)
+	cargo_sale = list(GROUP_EMERGENCY = 0.03)
 
 /datum/quest_customer/plasma/study
 	departament_name = "Plasmatic biology study dept."
-	cargo_sale = list(GROUP_EMERGENCY = 0.97)
+	cargo_sale = list(GROUP_EMERGENCY = 0.03)
 
 /datum/quest_customer/centcomm/wares_shipping
 	departament_name = "Wares Shipping dept."
-	cargo_sale = list(GROUP_VEND = 0.95, GROUP_ORGANIC = 0.95)
+	cargo_sale = list(GROUP_VEND = 0.05, GROUP_ORGANIC = 0.05)
 
 /datum/quest_customer/centcomm/commercial
 	departament_name = "Commercial dept."
-	cargo_sale = list(GROUP_VEND = 0.95, GROUP_ORGANIC = 0.95)
+	cargo_sale = list(GROUP_VEND = 0.05, GROUP_ORGANIC = 0.05)
 
 /datum/quest_customer/centcomm/business_stategy
 	departament_name = "Business Stategy dept."
-	cargo_sale = list(GROUP_EMERGENCY = 0.95, GROUP_VEND = 0.95)
+	cargo_sale = list(GROUP_EMERGENCY = 0.05, GROUP_VEND = 0.05)
 
 /datum/quest_customer/centcomm/headquarters
 	departament_name = "Headquarters"
-	cargo_sale = list(GROUP_EMERGENCY = 0.95, GROUP_VEND = 0.95)
+	cargo_sale = list(GROUP_EMERGENCY = 0.05, GROUP_VEND = 0.05)
 
 /datum/quest_customer/corp
 	group_name = "corporation"

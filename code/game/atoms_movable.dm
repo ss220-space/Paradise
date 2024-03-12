@@ -1,34 +1,31 @@
 /atom/movable
-	layer = 3
-	appearance_flags = TILE_BOUND
+	layer = OBJ_LAYER
+	appearance_flags = TILE_BOUND|PIXEL_SCALE
 	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
-	var/anchored = 0
+	var/anchored = FALSE
 	var/move_resist = MOVE_RESIST_DEFAULT
 	var/move_force = MOVE_FORCE_DEFAULT
 	var/pull_force = PULL_FORCE_DEFAULT
-	// var/elevation = 2    - not used anywhere
 	var/move_speed = 10
 	var/l_move_time = 1
 	var/datum/thrownthing/throwing = null
 	var/throw_speed = 2 //How many tiles to move per ds when being thrown. Float values are fully supported
 	var/throw_range = 7
-	var/no_spin = 0
-	var/no_spin_thrown = 0
-	var/moved_recently = 0
+	var/no_spin_thrown = FALSE
 	var/mob/pulledby = null
 	var/atom/movable/pulling
 	var/throwforce = 0
-	var/canmove = 1
+	var/canmove = TRUE
 	var/pull_push_speed_modifier = 1
 
-	var/inertia_dir = 0
+	var/inertia_dir = NONE
 	var/atom/inertia_last_loc
-	var/inertia_moving = 0
+	var/inertia_moving = FALSE
 	var/inertia_next_move = 0
 	var/inertia_move_delay = 5
-
-	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
+	/// NONE:0 not doing a diagonal move. FIRST_DIAG_STEP:1 and SECOND_DIAG_STEP:2 doing the first/second step of the diagonal move.
+	var/moving_diagonally = NONE
 	var/list/client_mobs_in_contents
 
 	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
@@ -64,6 +61,7 @@
 
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
+	QDEL_NULL(em_block)
 
 	. = ..()
 	if(loc)
@@ -104,8 +102,10 @@
 	if(!(AM.can_be_pulled(src, force, show_message)))
 		return FALSE
 
-	if(pulling && AM == pulling && src == AM.pulledby)	// are we trying to pull something we are already pulling?
-		return FALSE
+	if(pulling)
+		if(AM == pulling && src == AM.pulledby)	// are we trying to pull something we are already pulling?
+			return FALSE
+		stop_pulling() // Clear yourself from targets `pulledby`.
 
 	var/atom/movable/previous_puller = null
 	if(AM.pulledby)
@@ -135,7 +135,6 @@
 		pulling.pulledby = null
 		var/mob/living/ex_pulled = pulling
 		pulling = null
-		pulledby = null
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
 			L.update_canmove()// mob gets up if it was lyng down in a chokehold
@@ -317,7 +316,7 @@
 	var/area/old_area = get_area(src)
 	var/area/new_area = get_area(destination)
 	loc = destination
-	moving_diagonally = 0
+	moving_diagonally = NONE
 
 	if(old_loc)
 		old_loc.Exited(src, destination)
@@ -346,7 +345,7 @@
 
 	Moved(old_loc, NONE, TRUE)
 
-	return 1
+	return TRUE
 
 
 /atom/movable/proc/move_to_null_space()
@@ -391,36 +390,36 @@
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
-//Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
-//Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
+//Return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
+//Mobs should return TRUE if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
-/atom/movable/proc/Process_Spacemove(var/movement_dir = 0)
+/atom/movable/proc/Process_Spacemove(movement_dir = 0)
 	if(has_gravity(src))
-		return 1
+		return TRUE
 
 	if(pulledby && !pulledby.pulling)
-		return 1
+		return TRUE
 
 	if(throwing)
-		return 1
+		return TRUE
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 /atom/movable/proc/newtonian_move(direction) //Only moves the object if it's under no gravity
 	if(!loc || Process_Spacemove(0))
-		inertia_dir = 0
-		return 0
+		inertia_dir = NONE
+		return FALSE
 
 	inertia_dir = direction
 	if(!direction)
-		return 1
+		return TRUE
 
 	inertia_last_loc = loc
 	SSspacedrift.processing[src] = src
-	return 1
+	return TRUE
 
 
 //called when src is thrown into hit_atom
@@ -510,7 +509,7 @@
 		pulledby.stop_pulling()
 
 	throwing = TT
-	if(spin && !no_spin && !no_spin_thrown)
+	if(spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
@@ -548,8 +547,8 @@
 			last_move = buckled_mob.last_move
 			inertia_dir = last_move
 			buckled_mob.inertia_dir = last_move
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -557,12 +556,12 @@
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='warning'>[src] сильно толка[pluralize_ru(src.gender,"ет","ют")] [AM]!</span>", "<span class='warning'>Вы сильно толкаете [AM]!</span>")
+		visible_message(span_warning("[src] сильно толка[pluralize_ru(gender,"ет","ют")] [AM]!"), span_warning("Вы сильно толкаете [AM]!"))
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='danger'>[src] сокруша[pluralize_ru(src.gender,"ет","ют")] [AM]!</span>", "<span class='danger'>Вы сокрушили [AM]!</span>")
+		visible_message(span_danger("[src] сокруша[pluralize_ru(gender,"ет","ют")] [AM]!"), span_danger("Вы сокрушили [AM]!"))
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -571,7 +570,7 @@
 	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
 		return TRUE
 	if(mover in buckled_mobs)
-		return 1
+		return TRUE
 	return ..()
 
 /atom/movable/proc/get_spacemove_backup()
@@ -679,5 +678,5 @@
 /atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
 	return FALSE
 
-/atom/movable/proc/get_pull_push_speed_modifier(var/current_delay)
+/atom/movable/proc/get_pull_push_speed_modifier(current_delay)
 	return pull_push_speed_modifier
