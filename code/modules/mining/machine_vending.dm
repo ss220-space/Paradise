@@ -98,7 +98,7 @@
 		EQUIPMENT("Nanotrasen Minebot", 			/obj/item/mining_drone_cube, 										800),
 		EQUIPMENT("Minebot AI Upgrade", 			/obj/item/slimepotion/sentience/mining, 							1000),
 		EQUIPMENT("Minebot Armor Upgrade", 			/obj/item/mine_bot_upgrade/health, 									400),
-		EQUIPMENT("Minebot Cooldown Upgrade", 		/obj/item/borg/upgrade/modkit/cooldown/haste/minebot,				 		600),
+		EQUIPMENT("Minebot Cooldown Upgrade", 		/obj/item/borg/upgrade/modkit/cooldown/haste/minebot,				600),
 		EQUIPMENT("Minebot Melee Upgrade", 			/obj/item/mine_bot_upgrade, 										400),
 	)
 	prize_list["Miscellaneous"] = list(
