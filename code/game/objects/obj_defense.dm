@@ -159,7 +159,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 		if(!acid_level)
 			SSacid.processing[src] = src
-			add_overlay(GLOB.acid_overlay, TRUE)
+			add_overlay(GLOB.acid_overlay)
 		var/acid_cap = acidpwr * 300 //so we cannot use huge amounts of weak acids to do as well as strong acids.
 		if(acid_level < acid_cap)
 			acid_level = min(acid_level + acidpwr * acid_volume, acid_cap)

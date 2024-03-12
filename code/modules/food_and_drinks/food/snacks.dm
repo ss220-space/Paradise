@@ -127,10 +127,13 @@
 		)
 
 		bitecount++
-		U.overlays.Cut()
+		U.cut_overlays()
 		var/image/I = new(U.icon, "loadedfood")
 		I.color = filling_color
-		U.overlays += I
+		U.add_overlay(I)
+
+		if(U.blocks_emissive)
+			U.add_overlay(U.get_emissive_block())
 
 		var/obj/item/reagent_containers/food/snacks/collected = new type
 		collected.name = name

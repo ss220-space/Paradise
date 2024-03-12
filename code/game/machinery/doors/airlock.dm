@@ -490,16 +490,18 @@ About the new airlock wires panel:
 
 	cut_overlays()
 
-	overlays += frame_overlay
-	overlays += filling_overlay
-	overlays += lights_overlay
-	overlays += panel_overlay
-	overlays += weld_overlay
-	overlays += sparks_overlay
-	overlays += damag_overlay
-	overlays += note_overlay
+	add_overlay(list(
+		frame_overlay,
+		filling_overlay,
+		lights_overlay,
+		panel_overlay,
+		weld_overlay,
+		sparks_overlay,
+		damag_overlay,
+		note_overlay,
+	))
 
-	overlays += check_unres()
+	add_overlay(check_unres())
 
 	//EMISSIVE ICONS
 	if(buttons_underlay != old_buttons_underlay)
@@ -760,6 +762,19 @@ About the new airlock wires panel:
 	. = ..()
 	if(isElectrified())
 		shock(user, 100)
+		return .
+
+	if(!istype(user, /mob/living/simple_animal/hostile/gorilla) || !density || operating || locked || welded || arePowerSystemsOn())
+		return .
+
+
+	open(TRUE)
+	user.visible_message(
+		span_warning("[user] grabs the door with both hands and opens it with ease!"),
+		span_notice("You easily open depowered door."),
+		span_hear("You hear groaning metal..."),
+	)
+
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
 	. = ..()

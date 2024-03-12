@@ -24,8 +24,4 @@
 
 /datum/component/ninja_chameleon_helper/proc/restart_chameleon()
 	if(my_suit.disguise_active)
-		// Has to cut overlays this way because of a possible bug, that turns ninja invisible, or mess his model up
-		// Probably cause cut_overlays operates on a queue. And i here need a strict order of doing those operations or
-		// else it messes all up.
-		my_suit.affecting.overlays.Cut()
 		my_suit.toggle_chameleon(FALSE)

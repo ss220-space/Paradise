@@ -18,8 +18,8 @@
 
 /obj/item/grenade/iedcasing/New()
 	..()
-	overlays += "improvised_grenade_filled"
-	overlays += "improvised_grenade_wired"
+	add_overlay("improvised_grenade_filled")
+	add_overlay("improvised_grenade_wired")
 	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[rand(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[rand(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
 	det_time = text2num(pickweight(times))
 	if(det_time < 0) //checking for 'duds'
@@ -47,7 +47,7 @@
 		if(clown_check(user))
 			to_chat(user, span_warning("You light the [name]!"))
 			active = TRUE
-			overlays -= "improvised_grenade_filled"
+			cut_overlay("improvised_grenade_filled")
 			icon_state = initial(icon_state) + "_active"
 			update_icon()
 			add_fingerprint(user)

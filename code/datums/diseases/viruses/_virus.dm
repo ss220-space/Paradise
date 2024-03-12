@@ -1,8 +1,10 @@
 /datum/disease/virus
 	form = "Вирус"
 	carrier_mobtypes = list(/mob/living/simple_animal/mouse)
-	var/spread_flags = NON_CONTAGIOUS
+	spread_from_dead_prob = 25
 
+	///method of infection of the virus
+	var/spread_flags = NON_CONTAGIOUS
 	///affects how often the virus will try to spread. The more the better. In range [0-100]
 	var/infectivity = 65
 	///affects how well the virus will pass through the protection. The more the better. In range (0-2]
@@ -23,7 +25,7 @@
 	if(!affected_mob)
 		return FALSE
 
-	if(prob(infectivity))
+	if(can_spread())
 		spread()
 
 	. = ..()
@@ -44,7 +46,16 @@
 			discovered = TRUE
 			affected_mob.med_hud_set_status()
 
-/datum/disease/virus/spread(force_spread = 0)
+
+/datum/disease/virus/proc/can_spread()
+	if(istype(affected_mob.loc, /obj/structure/closet/body_bag/biohazard))
+		return FALSE
+	if(prob(infectivity) && (affected_mob.stat != DEAD || prob(spread_from_dead_prob)))
+		return TRUE
+	return FALSE
+
+
+/datum/disease/virus/proc/spread(force_spread = 0)
 	if(!affected_mob)
 		return
 
@@ -59,9 +70,9 @@
 	if(spread_flags & AIRBORNE)
 		spread_range++
 
-	var/turf/T = affected_mob.loc
+	var/turf/T = get_turf(affected_mob)
 	if(istype(T))
-		for(var/mob/living/C in oview(spread_range, affected_mob))
+		for(var/mob/living/C in view(spread_range, T))
 			var/turf/V = get_turf(C)
 			if(V)
 				while(TRUE)

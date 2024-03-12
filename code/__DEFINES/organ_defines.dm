@@ -23,6 +23,7 @@
 #define INTERNAL_ORGAN_RESIN_SPINNER "resin_spinner"
 #define INTERNAL_ORGAN_EGGSAC "eggsac"
 
+#define INTERNAL_ORGAN_TAIL_DEVICE "tail_device"
 #define INTERNAL_ORGAN_L_ARM_DEVICE "l_arm_device"
 #define INTERNAL_ORGAN_R_ARM_DEVICE "r_arm_device"
 #define INTERNAL_ORGAN_L_LEG_DEVICE "l_leg_device"

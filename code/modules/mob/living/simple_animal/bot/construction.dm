@@ -568,13 +568,11 @@
 			qdel(src)
 
 		else if(build_step == 2)
-			overlays -= "hs_eye"
 			new /obj/item/assembly/prox_sensor(get_turf(src))
 			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
 			build_step--
 
 		else if(build_step == 3)
-			overlays -= "hs_arm"
 			new /obj/item/robot_parts/l_arm(get_turf(src))
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
 			build_step--

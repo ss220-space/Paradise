@@ -115,7 +115,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 				S.layer = FLOAT_LAYER
 				S.plane = FLOAT_PLANE
-				A.overlays += S
+				A.add_overlay(S)
 				S.layer = old_layer
 				S.plane = old_plane
 			else
@@ -127,7 +127,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(I)
 			I.layer = FLOAT_LAYER
 			I.plane = FLOAT_PLANE
-			A.overlays += I
+			A.add_overlay(I)
 
 		// Chat message
 		var/act_jump = ""

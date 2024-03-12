@@ -385,3 +385,11 @@
 	What secrets does the “Church of Salvation” keep and who is buried in its graveyard?"
 	cost = 4
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/abandoned_banya
+	id = "abandoned_banya"
+	suffix = "abandoned_banya.dmm"
+	name = "USSP Space Banya"
+	description = "Its old space USSP Banya.... She looks very abandoned."
+	cost = 2
+	allow_duplicates = FALSE

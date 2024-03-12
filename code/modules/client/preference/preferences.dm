@@ -799,7 +799,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				rank = "<a href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
-			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
 				rank = "<font class='text-muted'>[GetPlayerAltTitle(job)]</font>"
 			lastJob = job
 			if(!is_job_whitelisted(user, job.title))
@@ -826,7 +826,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
 				html += "<span class='[color]'>[rank]</span>"
-			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
 				html += "</td><td></td></tr>"
 				continue
 
@@ -862,7 +862,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			html += "<a class='nobg' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
 			if(job.title == "Civilian")//Civilian is special
-				if(job_support_low & JOB_CIVILIAN)
+				if(job_support_low & JOB_FLAG_CIVILIAN)
 					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>Да</span></a>"
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">Нет</span></a>"

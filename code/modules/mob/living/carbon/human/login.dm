@@ -1,6 +1,6 @@
 /mob/living/carbon/human/Login()
 	if(player_logged)
-		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
+		cut_overlay(image('icons/effects/effects.dmi', icon_state = "zzz_glow"))
 	..()
 
 	if(ventcrawler)

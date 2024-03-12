@@ -15,4 +15,4 @@
 
 /obj/effect/proc_holder/spell/goliath_tentacles/cast(list/targets, mob/user = usr)
 	var/turf/target_turf = get_turf(targets[1])
-	new /obj/effect/temp_visual/goliath_tentacle/original(target_turf, user)
+	new /obj/effect/temp_visual/goliath_tentacle/full_cross(target_turf, user)

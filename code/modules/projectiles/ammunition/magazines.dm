@@ -578,9 +578,9 @@
 	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-rd")
+		. += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-bd")
+		. += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-bd")
 
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart

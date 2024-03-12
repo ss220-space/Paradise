@@ -1,6 +1,6 @@
 /datum/job/civilian
-	title = "Civilian"
-	flag = JOB_CIVILIAN
+	title = JOB_TITLE_CIVILIAN
+	flag = JOB_FLAG_CIVILIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = -1
 	spawn_positions = -1

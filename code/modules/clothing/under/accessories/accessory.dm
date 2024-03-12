@@ -30,7 +30,7 @@
 		return
 	has_suit = S
 	loc = has_suit
-	has_suit.overlays += inv_overlay
+	has_suit.add_overlay(inv_overlay)
 	if(actions)
 		LAZYADD(has_suit.actions, actions)
 
@@ -55,7 +55,7 @@
 /obj/item/clothing/accessory/proc/on_removed(mob/user)
 	if(!has_suit)
 		return
-	has_suit.overlays -= inv_overlay
+	has_suit.cut_overlay(inv_overlay)
 	LAZYREMOVE(has_suit.actions, actions)
 
 	for(var/X in actions)

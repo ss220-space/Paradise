@@ -383,3 +383,92 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("grilled eel" = 1, "seaweed" = 1)
 	foodtype = MEAT
+
+
+/obj/item/reagent_containers/food/snacks/crayfish_raw_small
+	name = "small raw crayfish"
+	desc = "A raw crayfish of a small size."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state  = "crayfish_raw_small"
+	item_state = "crayfish_raw"
+	filling_color = "#2e2b2eff"
+	bitesize = 0.2	// its pretty hard to peel a crayfish, requires a lot of finess!
+	list_reagents = list("protein" = 1.5, "vitamin" = 1)
+	tastes = list("raw crayfish" = 1)
+	foodtype = MEAT|RAW
+
+
+/obj/item/reagent_containers/food/snacks/crayfish_raw
+	name = "raw crayfish"
+	desc = "A standard sized raw crayfish. Its eyes look ominous as it clicks its pincers."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "crayfish_raw"
+	item_state = "crayfish_raw"
+	filling_color = "#2e2b2eff"
+	bitesize = 0.3
+	list_reagents = list("protein" = 3, "vitamin" = 2)
+	tastes = list("raw crayfish" = 1)
+	foodtype = MEAT|RAW
+	///Cooldown timestamp for pinching.
+	COOLDOWN_DECLARE(pinch_cooldown)
+
+
+/obj/item/reagent_containers/food/snacks/crayfish_raw/attack(mob/living/target, mob/user, def_zone)
+	if(!COOLDOWN_FINISHED(src, pinch_cooldown))
+		return ..()
+
+	. = FALSE
+	COOLDOWN_START(src, pinch_cooldown, 5 SECONDS)
+
+	target.visible_message(
+		span_warning("Crayfish furiously claws at [target], while [target.p_they()] tried to eat it!"),
+		span_warning("Crayfish furiously claws at you, preventing the bite!"),
+	)
+
+	playsound(target, 'sound/items/wirecutter.ogg', 100, TRUE)
+
+	if(target.has_pain())
+		target.emote("scream")
+
+	target.apply_damage(5, BRUTE, def_zone)
+
+
+/obj/item/reagent_containers/food/snacks/crayfish_cooked_small
+	name = "cooked small crayfish"
+	desc = "Boiled crayfish, aromatic and well seasoned... But wheres the beer?"
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "crayfish_cooked_small"
+	item_state = "crayfish_cooked"
+	filling_color = "#751717"
+	bitesize = 0.4	// but cooked one is easier!
+	list_reagents = list("nutriment" = 2, "vitamin" = 1)
+	tastes = list("crayfish" = 1)
+	foodtype = MEAT
+
+
+/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang
+	name = "spicy small lobster"
+	desc = "Wait, thats not a lobster! But still tasty dish with a special Mr.Chang's ingredient."
+	list_reagents = list("nutriment" = 1, "msg" = 2, "sugar" = 1)
+	foodtype = MEAT|FRIED
+
+
+/obj/item/reagent_containers/food/snacks/crayfish_cooked
+	name = "cooked crayfish"
+	desc = "Boiled crayfish, aromatic and well seasoned... But wheres the beer?"
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "crayfish_cooked"
+	item_state = "crayfish_cooked"
+	filling_color = "#751717"
+	bitesize = 0.5
+	list_reagents = list("nutriment" = 4, "vitamin" = 2)
+	tastes = list("crayfish" = 1)
+	foodtype = MEAT
+
+
+/obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang
+	name = "spicy lobster"
+	desc = "Wait, thats not a lobster! But still tasty dish with a special Mr.Chang's ingredient."
+	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
+	foodtype = MEAT|FRIED
+

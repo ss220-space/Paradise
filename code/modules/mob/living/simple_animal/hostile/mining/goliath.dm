@@ -270,6 +270,11 @@
 		if(T)
 			new /obj/effect/temp_visual/goliath_tentacle(T, spawner)
 
+/obj/effect/temp_visual/goliath_tentacle/full_cross/Initialize(mapload, new_spawner)
+	. = ..()
+	for(var/dir in GLOB.cardinal)
+		new /obj/effect/temp_visual/goliath_tentacle(get_step(src, dir), spawner)
+
 /obj/effect/temp_visual/goliath_tentacle/proc/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"
 	deltimer(timerid)

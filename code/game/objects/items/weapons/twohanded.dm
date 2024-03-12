@@ -433,8 +433,8 @@
 			var/matrix/M = matrix()
 			I.transform = M
 			var/image/IM = image(I.icon, I.icon_state)
-			IM.overlays = I.overlays.Copy()
-			HS.overlays += IM
+			IM.copy_overlays(I)
+			HS.add_overlay(IM)
 			I.forceMove(HS)
 			HS.mounted_head = I
 			forceMove(HS)

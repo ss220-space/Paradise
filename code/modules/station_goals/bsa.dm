@@ -208,7 +208,7 @@
 			top_layer = image("icons/obj/lavaland/orbital_cannon.dmi", "top_east")
 			top_layer.layer = 4.1
 			icon_state = "cannon_east"
-	overlays += top_layer
+	add_overlay(top_layer)
 	reload()
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)

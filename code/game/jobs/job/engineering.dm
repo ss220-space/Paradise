@@ -1,6 +1,6 @@
 /datum/job/chief_engineer
-	title = "Chief Engineer"
-	flag = JOB_CHIEF
+	title = JOB_TITLE_CHIEF
+	flag = JOB_FLAG_CHIEF
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
@@ -49,8 +49,8 @@
 
 
 /datum/job/engineer
-	title = "Station Engineer"
-	flag = JOB_ENGINEER
+	title = JOB_TITLE_ENGINEER
+	flag = JOB_FLAG_ENGINEER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 5
 	spawn_positions = 5
@@ -88,8 +88,8 @@
 
 
 /datum/job/engineer/trainee
-	title = "Trainee Engineer"
-	flag = JOB_ENGINEER_TRAINEE
+	title = JOB_TITLE_ENGINEER_TRAINEE
+	flag = JOB_FLAG_ENGINEER_TRAINEE
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list("Chief Engineer", "Station Engineer")
@@ -134,8 +134,8 @@
 
 
 /datum/job/atmos
-	title = "Life Support Specialist"
-	flag = JOB_ATMOSTECH
+	title = JOB_TITLE_ATMOSTECH
+	flag = JOB_FLAG_ATMOSTECH
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 3
 	spawn_positions = 2
@@ -170,8 +170,8 @@
 
 
 /datum/job/mechanic
-	title = "Mechanic"
-	flag = JOB_MECHANIC
+	title = JOB_TITLE_MECHANIC
+	flag = JOB_FLAG_MECHANIC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1

@@ -4,8 +4,16 @@
 	var/last_pain_message = ""
 	var/next_pain_time = 0
 
-/mob/living/carbon/human/proc/has_pain()
+
+/mob/proc/has_pain()
 	if(stat)
+		return FALSE
+	return TRUE
+
+
+/mob/living/carbon/human/has_pain()
+	. = ..()
+	if(!.)
 		return FALSE
 	if(NO_PAIN in dna.species.species_traits)
 		return FALSE

@@ -502,9 +502,10 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/goliath_tentacles)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/goliath_dash)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/watchers_look)
-	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/healtouch)
+	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/healtouch/advanced)
 
 	owner.equip_or_collect(new /obj/item/clothing/under/ash_walker(owner), slot_w_uniform)
 	owner.equip_or_collect(new /obj/item/clothing/gloves/color/black/goliath(owner), slot_gloves)
 	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/goliath/wizard(owner), slot_wear_suit)
+	owner.equip_or_collect(new /obj/item/twohanded/spear/bonespear, slot_r_hand)
 

@@ -357,6 +357,10 @@
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
 
+	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
+	if(istype(implant) && implant.activated)
+		msg += "You can see a strange glint on [p_their()] tail.\n"
+
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
 	if(decaylevel == 2)

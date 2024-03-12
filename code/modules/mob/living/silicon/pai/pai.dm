@@ -83,6 +83,7 @@
 
 	var/obj/machinery/computer/security/camera_bug/integrated_console //Syndicate's pai camera bug
 	var/obj/machinery/computer/secure_data/integrated_records
+	var/obj/item/gps/internal/pai_gps/pai_internal_gps
 
 	var/translator_on = 0 // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
@@ -151,6 +152,9 @@
 	integrated_records = new(src)
 	integrated_records.parent = src
 	integrated_records.req_access = list()
+
+	pai_internal_gps = new(src)
+	pai_internal_gps.parent = src
 
 	reset_software()
 

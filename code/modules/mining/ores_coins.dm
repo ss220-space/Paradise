@@ -271,7 +271,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		wires = new(src)
 		attacher = key_name(user)
 		qdel(I)
-		overlays += "Gibtonite_igniter"
+		add_overlay("Gibtonite_igniter")
 		return
 
 	if(wires && !primed)
@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			return
 
 		if(CC.use(1))
-			overlays += image('icons/obj/economy.dmi',"coin_string_overlay")
+			add_overlay(image('icons/obj/economy.dmi',"coin_string_overlay"))
 			string_attached = 1
 			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
 		else

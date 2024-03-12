@@ -65,7 +65,7 @@
 				return
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)
-				overlays.Cut()
+				cut_overlays()
 				return
 
 
