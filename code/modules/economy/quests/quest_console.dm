@@ -286,10 +286,10 @@
 		if(complete && !length(phrases))
 			phrases += pick_list(QUEST_NOTES_STRINGS, "good_complete_phrases")
 	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? new_reward : "0"]</span><br>"
-	if(modificators["quick_shipment"] && !modificators["departure_mismatch"])
+	if(!modificators["content_missing"] && !modificators["departure_mismatch"] && !modificators["content_mismatch"])
 		paper.info += "<hr><br>"
 		for(var/sale_category in quest.customer.cargo_sale)
-			paper.info += "<span class=\"small-text\">You have received a <b>[100 - quest.customer.cargo_sale[sale_category]*100]%</b> discount on <b>[sale_category]</b> category in orders. </span><br>"
+			paper.info += "<span class=\"small-text\">You have received a <b>[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%</b> discount on <b>[sale_category]</b> category in orders. </span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
 	var/obj/item/stamp/navcom/stamp = new()

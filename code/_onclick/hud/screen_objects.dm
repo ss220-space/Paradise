@@ -232,6 +232,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
+		I.pickup(user) //Do not actually put in hands, but rather make some funny effects out of it
 		S.attackby(I, user)
 	return TRUE
 
@@ -566,6 +567,8 @@
 	if((slot_id == slot_l_hand && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
 		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))
 		return FALSE
+
+	I.pickup(user)
 
 
 /obj/screen/inventory/hand

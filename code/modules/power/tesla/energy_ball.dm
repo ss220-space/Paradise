@@ -17,6 +17,7 @@
 	dissipate = 1
 	dissipate_delay = 5
 	dissipate_strength = 1
+	warps_projectiles = FALSE
 	var/list/orbiting_balls = list()
 	var/produced_power
 	var/energy_to_raise = 32

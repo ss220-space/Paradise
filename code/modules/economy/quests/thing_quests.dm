@@ -178,7 +178,6 @@
 		/obj/item/reagent_containers/food/snacks/meatsteak/drask = 70,
 		/obj/item/reagent_containers/food/snacks/meatsteak/grey = 70,
 		/obj/item/reagent_containers/food/snacks/candy/jawbreaker = 70,
-		/obj/item/reagent_containers/food/snacks/telebacon = 70,
 		/obj/item/reagent_containers/food/snacks/plov = 70,
 		/obj/item/reagent_containers/food/snacks/weirdoliviersalad = 70,
 		/obj/item/reagent_containers/food/snacks/doner_mushroom = 70,
@@ -329,7 +328,6 @@
 		/obj/item/seeds/harebell = 0, //Why? - Becouse we can
 		/obj/item/seeds/starthistle = 0,
 		/obj/item/seeds/glowshroom/glowcap = 10,
-		/obj/item/seeds/wheat/meat = 10,
 		/obj/item/seeds/nettle/death = 10,
 		/obj/item/seeds/ambrosia/gaia = 10,
 		/obj/item/seeds/ambrosia/deus = 10,
@@ -391,6 +389,7 @@
 		/obj/item/seeds/kudzu = 230,
 		/obj/item/seeds/cherry/bomb = 370,
 		/obj/item/seeds/apple/poisoned = 370,
+		/obj/item/seeds/wheat/meat = 370,
 		/obj/item/seeds/gatfruit = 430
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_HARD)

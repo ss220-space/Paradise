@@ -51,3 +51,71 @@
   - bugfix: Cerestation Disposal Fix (#4566)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4557)
+'2024-03-08':
+  ARZUMATA:
+  - bugfix: IV Bloodsynthetic Bags now can be renamed (#4590)
+  ArtemDerp:
+  - bugfix: 9mm TE cost corrections (#4561)
+  Daeberdir:
+  - bugfix: Removed some ghost-to-object interactions. (#4581)
+  - bugfix: You can no longer summon infinite wild west reinforcements. (#4580)
+  Den109G:
+  - bugfix: Restore door's boolean logic (#4572)
+  Mindfri:
+  - tweak: Buff CMO hypospray (#4569)
+  - tweak: SecDrip in Vendor (#4570)
+  NightDawnFox:
+  - balance: deathsquad pulse rifles are now have old 10 seconds stun (#4577)
+  - balance: prince of terror no longer stuns on normal attacks (#4574)
+  - tweak: People in softcrit are now examined as "barely conscious" (#4579)
+  - balance: flash now have a 1 second cooldown before each use (#4575)
+  - add: security cadets! kinda.. (#4578)
+  Rerik007:
+  - bugfix: fixes that languages cannot be set by default (#4584)
+  - tweak: more cargo tweaks (#4530)
+  - bugfix: fixes to_chat with null target runtime and two others (#4564)
+  - bugfix: duping cables if you cut machine frame (#4573)
+  - bugfix: trying remove some lags by meteor sat console (#4582)
+  WolfLox:
+  - bugfix: Jackcross can't be cut now (#4586)
+  Zwei:
+  - tweak: Progress Bar And Chatmessage Update (#4160)
+  xTrogwaRx:
+  - bugfix: electric guitar sound (#4551)
+'2024-03-09':
+  ArtemDerp:
+  - bugfix: codelibre lang key correction (#4598)
+  Den109G:
+  - bugfix: added Fire alarm frame sprite (#4593)
+  LiquidPotroh:
+  - bugfix: Makes grabbed target a priority for projectiles within a single tile (#4373)
+  - tweak: IV bags can inject opened limbs of PIERCEIMMUNE races (#4411)
+  Pavel Poltaves:
+  - bugfix: critter crates allow animals to live inside safely (#4287)
+  ROdenFL:
+  - bugfix: cargo can_approve and null crate (#4475)
+  RuinaRuiner:
+  - refactor: Service unit really service (#4361)
+  Valtor:
+  - add: Diona's blood is now fertilizer (#4538)
+  - add: BOBR [NT Redacted] (#4583)
+  Vladisvell:
+  - bugfix: Accent (hissing) no longer corrupts radio keys (#4591)
+  - qol: Borgs can now move pulled objects and creatures. (#4556)
+  - bugfix: Mousedropping into inventory screen elements now considered to be pickup.
+      Energy Katana no longer can be equipped without damaging wrists (#4108)
+'2024-03-10':
+  Vladisvell:
+  - bugfix: Fixed flipping issues (#4602)
+'2024-03-11':
+  Den109G:
+  - bugfix: Remove telebacon from cargo (#4610)
+  LiquidPotroh:
+  - bugfix: IV bags can't transfer reagents (#4607)
+  Vladisvell:
+  - bugfix: Toggling masks is now allowed through helmets (#4604)
+'2024-03-12':
+  Den109G:
+  - unknown: Upgrades SpacemanDMM + Dreamchecker CI (#4618)
+  Dimach:
+  - balance: antag paradise mode tweaks (#4620)

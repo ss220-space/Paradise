@@ -141,6 +141,7 @@
 	desc = "Nanotrasen-issue Security combat cross for combat scenarios. They're jackcross, however that works."
 	icon_state = "jackboots_cross"
 	item_color = "jackboots_cross"
+	can_cut_open = FALSE
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"

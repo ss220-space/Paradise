@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	aiRadio = new(src)
 	common_radio = aiRadio
 	aiRadio.myAi = src
-	additional_law_channels["Binary"] = ":b "
+	additional_law_channels["Binary"] = ":bi "
 	additional_law_channels["Holopad"] = ":h"
 
 	aiCamera = new/obj/item/camera/siliconcam/ai_camera(src)
@@ -219,7 +219,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
 	to_chat(src, "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>")
 	to_chat(src, "To use something, simply click on it.")
-	to_chat(src, "Use say :b to speak to your cyborgs through binary. Use say :h to speak from an active holopad.")
+	to_chat(src, "Use say :bi to speak to your cyborgs through binary. Use say :h to speak from an active holopad.")
 	to_chat(src, "For department channels, use the following say commands:")
 
 	var/radio_text = ""

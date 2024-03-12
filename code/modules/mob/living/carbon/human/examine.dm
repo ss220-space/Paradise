@@ -337,8 +337,12 @@
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
-		else if(getBrainLoss() >= 60)
-			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
+		if(stat == CONSCIOUS)
+			if(getBrainLoss() >= 60)
+				msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
+			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
+				msg += span_warning("[p_they(TRUE)] [p_are()] barely conscious.\n")
+
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(dna.species.show_ssd)
