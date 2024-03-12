@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
-	additional_law_channels["Binary"] = ":b "
+	additional_law_channels["Binary"] = ":bi "
 	if(!connect_to_AI)
 		return
 	var/found_ai = ai_to_sync_to
@@ -1649,7 +1649,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
-	additional_law_channels["Binary"] = ":b "
+	additional_law_channels["Binary"] = ":bi "
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/destroyer(src)
 	module.add_languages(src)
