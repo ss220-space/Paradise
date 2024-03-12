@@ -1710,7 +1710,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list("materials" = 4, "biotech" = 4, "engineering" = 5, "plasmatech" = 4)
 
-	//Nanotrasen tailblade
+//Nanotrasen tailblade
 /datum/supply_packs/science/tailblade
 	name = "Tail Laserblade Implant Design"
 	cost = 50

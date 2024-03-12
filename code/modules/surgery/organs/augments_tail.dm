@@ -11,7 +11,8 @@
 	var/sound_off = 'sound/mecha/mechmove03.ogg'
 	var/implant_emp_downtime
 
-/obj/item/organ/internal/cyberimp/tail/blade //syndi tail razorblade
+// Syndi tail razorblade
+/obj/item/organ/internal/cyberimp/tail/blade
 	name = "tail razorblade implant"
 	desc = "Razor sharp blade designed to be hidden inside the tail. Traditional design of House Eshie'Ssharahss, sold at every corner of the Empire."
 	var/datum/action/innate/tail_cut/implant_ability = new
@@ -27,7 +28,8 @@
 	icon_state = "tailimplant_blade" 					// All tailblades sprites by @baldek
 	origin_tech = "materials=6;combat=5;biotech=5;programming=3;syndicate=3;"
 
-/obj/item/organ/internal/cyberimp/tail/blade/laser //nt tail laserblade
+// NT tail laserblade
+/obj/item/organ/internal/cyberimp/tail/blade/laser
 	name = "tail laserblade implant"
 	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
 
@@ -41,7 +43,8 @@
 	icon_state = "tailimplant_laserblue"
 	origin_tech = "materials=5;combat=5;biotech=5;powerstorage=4;"
 
-/obj/item/organ/internal/cyberimp/tail/blade/laser/syndi //syndi tail laserblade
+// Syndi tail laserblade
+/obj/item/organ/internal/cyberimp/tail/blade/laser/syndi
 	name = "overcharged laserblade implant"
 	desc = "A laser blade designed to be hidden inside the tail. Design, stolen from House Eshie'Ssharahss and overcharged to be more powerful by the brightest minds of the Gorlex Marauders."
 
@@ -61,7 +64,7 @@
 
 	if(activated)
 		activated = FALSE
-		playsound(owner.loc, sound_off, 50, 1)
+		playsound(owner.loc, sound_off, 50, TRUE)
 		icon_state = "[initial(icon_state)]"
 
 	if(owner)
@@ -86,30 +89,29 @@
 
 /obj/item/organ/internal/cyberimp/tail/blade/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(activated)
-		owner.apply_damage(slash_strength,damage_type,BODY_ZONE_TAIL, 0, 1)
-		playsound(owner.loc, slash_sound, 40, 1)
-		playsound(owner.loc, 'sound/effects/bone_break_5.ogg', 40, 1)
+		owner.apply_damage(slash_strength, damage_type, BODY_ZONE_TAIL, FALSE, TRUE)
+		playsound(owner.loc, slash_sound, 40, TRUE)
+		playsound(owner.loc, 'sound/effects/bone_break_5.ogg', 40, TRUE)
 	implant_ability.Remove(owner)
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/tail/blade/ui_action_click(mob/user, actiontype, leftclick)
-	user = owner
 
 	if(implant_emp_downtime) // 100 sec cooldown after EMP
-		to_chat(user, span_warning("Ваш имплант всё ещё перегружен после ЭМИ!"))
+		to_chat(owner, span_warning("Ваш имплант всё ещё перегружен после ЭМИ!"))
 		return
 
 	activated = !activated
 
 	if(activated)
 		icon_state = "[initial(icon_state)]_active"
-		playsound(user.loc, sound_on, 50, 1)
-		to_chat(user, span_notice("Вы выдвинули лезвия из хвоста."))
+		playsound(owner.loc, sound_on, 50, TRUE)
+		to_chat(owner, span_notice("Вы выдвинули лезвия из хвоста."))
 
 	else
 		icon_state = "[initial(icon_state)]"
-		playsound(user.loc, sound_off, 50, 1)
-		to_chat(user, span_notice("Вы убрали лезвия."))
+		playsound(owner.loc, sound_off, 50, TRUE)
+		to_chat(owner, span_notice("Вы убрали лезвия."))
 	owner.update_action_buttons()
 
 /datum/action/innate/tail_cut
@@ -144,10 +146,14 @@
 	else   // Not unathi, no implant, where did you get tail cut?
 		return
 
+	if(user.getStaminaLoss() >= 50) // I want to move this to IsAvailable(), but haven't figured out how to synchronise stamina regen with update_action_buttons yet
+		to_chat(user, span_warning("Вы слишком устали!"))
+		return
+
 	user.changeNext_click(CLICK_CD_MELEE)
 	user.spin(10,1)
 
-		/// If the user has an implant, we take its values, if not, we take the values from the old unathi's tail_lash (unathi special)
+	// If the user has an implant, we take its values, if not, we take the values from the old unathi's tail_lash (unathi special)
 	for(var/mob/living/C in orange(1))
 
 		if(ishuman(C)) // Dealing damage to humans
@@ -155,7 +161,7 @@
 
 			if(E)
 				var/target_armor = C.run_armor_check(E, MELEE)
-				C.apply_damage(damage_deal, type_of_damage, E, target_armor, 1)
+				C.apply_damage(damage_deal, type_of_damage, E, target_armor, TRUE)
 				C.adjustStaminaLoss(active_implant ? implant.stamina_damage : 0)
 				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] ударяет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
 
@@ -163,7 +169,7 @@
 			C.apply_damage_type(damage_deal, type_of_damage)
 
 		user.adjustStaminaLoss(active_implant ? implant.self_stamina_damage : 15)
-		playsound(user.loc, active_implant ? implant.slash_sound : 'sound/weapons/slash.ogg', 50, 0)
+		playsound(user.loc, active_implant ? implant.slash_sound : 'sound/weapons/slash.ogg', 50, FALSE)
 		add_attack_logs(user, C, "whips tail, dealing [damage_deal] [type_of_damage] damage!")
 
 		if(user.restrained() && prob(50))
@@ -190,11 +196,6 @@
 	var/active_implant = FALSE
 	if(implant && implant.activated)
 		active_implant = TRUE
-
-	if(user.getStaminaLoss() >= 50)
-		if(show_message)
-			to_chat(user, span_warning("Вы слишком устали!"))
-		return FALSE
 
 	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi) && !active_implant)
 		if(show_message)

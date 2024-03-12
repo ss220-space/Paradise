@@ -350,7 +350,7 @@
 	req_tech = list("powerstorage" = 20) // unreacheable
 	locked = TRUE
 	access_requirement = list(ACCESS_ARMORY)
-	build_type = PROTOLATHE
+	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 15000, MAT_URANIUM = 10000, MAT_TITANIUM = 6000, MAT_DIAMOND = 6000)
 	build_path = /obj/item/organ/internal/cyberimp/tail/blade/laser
 	category = list ("Medical")
