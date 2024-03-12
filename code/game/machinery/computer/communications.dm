@@ -469,7 +469,7 @@
 	return
 
 
-/proc/cancel_call_proc(var/mob/user)
+/proc/cancel_call_proc(mob/user)
 	if(SSticker.mode.name == "meteor")
 		return
 

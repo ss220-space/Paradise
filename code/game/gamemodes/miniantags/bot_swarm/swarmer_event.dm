@@ -2,8 +2,8 @@
 	startWhen = 3 //30 minutes
 	announceWhen = 10
 
-/datum/event/spawn_swarmer/announce()
-	if(prob(25)) //25% chance to announce it to the crew
+/datum/event/spawn_swarmer/announce(false_alarm)
+	if(false_alarm || prob(25)) //25% chance to announce it to the crew
 		var/swarmer_report = "<font size=3><b>[command_name()] High-Priority Update</b></span>"
 		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come \
 		through."

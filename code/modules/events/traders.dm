@@ -13,6 +13,16 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(GLOB.unused_trade_stations.len)
 		station = pick_n_take(GLOB.unused_trade_stations)
 
+/datum/event/traders/fake_announce()
+	. = TRUE
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев отклонен.")
+		return
+	var/map_trader_port = 5
+	if(station_name() == "NSS Cyberiad")
+		map_trader_port = 4
+	GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев принят.")
+
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
