@@ -324,6 +324,15 @@
 /obj/machinery/power/supermatter_shard/attack_hand(mob/user as mob)
 	if(isAI(user))
 		return
+	if(isnucleation(user))
+		nuclear_touch(user)
+		new /obj/effect/temp_visual/heart(loc)
+		var/touch_sm = pick(list("poke", "pet", "hug", "cuddle"))
+		user.visible_message(span_notice("[user] [touch_sm]s the supermatter!"), \
+								span_notice("You [touch_sm] the supermatter!"))
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		return
+
 	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... [user.p_their(TRUE)] body starts to glow and bursts into flames before flashing into ash.</span>",\
 		"<span class=\"danger\">You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>",\
 		"<span class=\"warning\">You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.</span>")
@@ -429,7 +438,10 @@
 		user.apply_effect(150, IRRADIATE)
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
-	if(istype(moving_atom, /mob/living))
+	if(isnucleation(moving_atom))
+		nuclear_touch(moving_atom)
+		return
+	if(isliving(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
@@ -531,3 +543,10 @@
 		user.visible_message("<span class='danger'>As [user] tries to loose bolts of \the [src] with \a [W] but the tool disappears</span>")
 	consume_wrench(W)
 	user.apply_effect(150, IRRADIATE)
+
+/obj/machinery/power/supermatter_shard/proc/nuclear_touch(var/mob/living/user)
+	var/datum/species/nucleation/nuclear = user.dna.species
+	if(nuclear.touched_supermatter == FALSE)
+		user.revive()
+		nuclear.touched_supermatter = TRUE
+		to_chat(user, span_userdanger("The wave of warm energy is overwhelming you. You feel calm."))
