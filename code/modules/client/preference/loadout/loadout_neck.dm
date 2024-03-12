@@ -5,8 +5,12 @@
 
 //Mantles
 /datum/gear/neck/mantle
-	display_name = "mantle"
+	display_name = "mantle, color"
 	path = /obj/item/clothing/neck/mantle
+
+/datum/gear/neck/mantle/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)
 
 /datum/gear/neck/old_scarf
 	display_name = "old scarf"
@@ -56,69 +60,73 @@
 
 //Cloaks
 /datum/gear/neck/cloak
-	display_name = "cloak, grey"
+	display_name = "cloak, color"
 	path = /obj/item/clothing/neck/cloak/grey
 
-/datum/gear/neck/cloak/job
-	subtype_path = /datum/gear/neck/cloak/job
+/datum/gear/neck/cloak/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/neck/cloakjob
+	subtype_path = /datum/gear/neck/cloakjob
 	subtype_cost_overlap = FALSE
 
-/datum/gear/neck/cloak/job/healer
+/datum/gear/neck/cloakjob/healer
 	display_name = "cloak, healer"
 	path = /obj/item/clothing/neck/cloak/healer
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Paramedic", "Brig Physician")
 
-/datum/gear/neck/cloak/job/captain
+/datum/gear/neck/cloakjob/captain
 	display_name = "cloak, captain"
 	path = /obj/item/clothing/neck/cloak/captain
 	allowed_roles = list("Captain")
 
-/datum/gear/neck/cloak/job/nanotrasen_representative
+/datum/gear/neck/cloakjob/nanotrasen_representative
 	display_name = "cloak, nanotrasen representative"
 	path = /obj/item/clothing/neck/cloak/nanotrasen_representative
 	allowed_roles = list("Nanotrasen Representative")
 
-/datum/gear/neck/cloak/job/blueshield
+/datum/gear/neck/cloakjob/blueshield
 	display_name = "cloak, blueshield"
 	path = /obj/item/clothing/neck/cloak/blueshield
 	allowed_roles = list("Blueshield")
 
-/datum/gear/neck/cloak/job/chief_engineer
+/datum/gear/neck/cloakjob/chief_engineer
 	display_name = "cloak, chief engineer"
 	path = /obj/item/clothing/neck/cloak/chief_engineer
 	allowed_roles = list("Chief Engineer")
 
-/datum/gear/neck/cloak/job/chief_engineer/white
+/datum/gear/neck/cloakjob/chief_engineer/white
 	display_name = "cloak, chief engineer, white"
 	path = /obj/item/clothing/neck/cloak/chief_engineer/white
 	allowed_roles = list("Chief Engineer")
 
-/datum/gear/neck/cloak/job/chief_medical_officer
+/datum/gear/neck/cloakjob/chief_medical_officer
 	display_name = "cloak, chief medical officer"
 	path = /obj/item/clothing/neck/cloak/chief_medical_officer
 	allowed_roles = list("Chief Medical Officer")
 
-/datum/gear/neck/cloak/job/head_of_security
+/datum/gear/neck/cloakjob/head_of_security
 	display_name = "cloak, head of security"
 	path = /obj/item/clothing/neck/cloak/head_of_security
 	allowed_roles = list("Head of Security")
 
-/datum/gear/neck/cloak/security
+/datum/gear/neck/cloaksecurity
 	display_name = "cloak, security officer"
 	path = /obj/item/clothing/neck/cloak/security
 	allowed_roles = list("Head of Security", "Security Officer", "Warden", "Security Pod Pilot")
 
-/datum/gear/neck/cloak/job/head_of_personnel
+/datum/gear/neck/cloakjob/head_of_personnel
 	display_name = "cloak, head of personnel"
 	path = /obj/item/clothing/neck/cloak/head_of_personnel
 	allowed_roles = list("Head of Personnel")
 
-/datum/gear/neck/cloak/job/research_director
+/datum/gear/neck/cloakjob/research_director
 	display_name = "cloak, research director"
 	path = /obj/item/clothing/neck/cloak/research_director
 	allowed_roles = list("Research Director")
 
-/datum/gear/neck/cloak/job/quartermaster
+/datum/gear/neck/cloakjob/quartermaster
 	display_name = "cloak, quartermaster"
 	path = /obj/item/clothing/neck/cloak/quartermaster
 	allowed_roles = list("Quartermaster")

@@ -145,19 +145,25 @@
 
 
 /obj/item/storage/wallet/color/blue
+	icon_state = "blue_wallet"
 	item_color = "blue"
 
 /obj/item/storage/wallet/color/red
+	icon_state = "red_wallet"
 	item_color = "red"
 
 /obj/item/storage/wallet/color/yellow
+	icon_state = "yellow_wallet"
 	item_color = "yellow"
 
 /obj/item/storage/wallet/color/green
+	icon_state = "green_wallet"
 	item_color = "green"
 
 /obj/item/storage/wallet/color/pink
+	icon_state = "pink_wallet"
 	item_color = "pink"
 
 /obj/item/storage/wallet/color/black
+	icon_state = "black_wallet"
 	item_color = "black"
