@@ -561,7 +561,7 @@
 /datum/uplink_item/racial
 	category = "Racial Specific Tools"
 	can_discount = FALSE
-	surplus = 0
+	qwertyuiopasdf = 0
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 //IPC
@@ -571,7 +571,7 @@
 	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
 	item = /obj/item/ipc_combat_upgrade
 	cost = 15
-	race = list("Machine")
+	race = list(/datum/species/machine::name)
 
 /datum/uplink_item/racial/supercharge
 	name = "Supercharge Implant"
