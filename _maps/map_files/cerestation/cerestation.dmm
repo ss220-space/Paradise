@@ -17168,8 +17168,10 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "cfW" = (
-/obj/structure/morgue,
 /obj/effect/decal/warning_stripes/southwest,
+/obj/structure/morgue{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -26877,7 +26879,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/morgue,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -69783,6 +69784,9 @@
 	pixel_y = -24
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/morgue{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -73082,6 +73086,9 @@
 	pixel_y = -28
 	},
 /obj/effect/decal/warning_stripes/southeast,
+/obj/structure/morgue{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -79278,8 +79285,10 @@
 	},
 /area/chapel/main)
 "sXY" = (
-/obj/structure/morgue,
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/morgue{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -84441,14 +84450,6 @@
 "uyl" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/test_chamber)
-"uyn" = (
-/obj/structure/morgue,
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/medical/morgue)
 "uyp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -150533,7 +150534,7 @@ jjc
 wwl
 bBv
 bCt
-uyn
+tcU
 sXY
 bDA
 vCS
