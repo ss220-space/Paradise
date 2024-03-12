@@ -561,7 +561,7 @@
 /datum/uplink_item/racial
 	category = "Racial Specific Tools"
 	can_discount = FALSE
-	qwertyuiopasdf = 0
+	surplus = 0
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 //IPC
