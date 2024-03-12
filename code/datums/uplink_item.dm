@@ -574,14 +574,14 @@
 	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
 	item = /obj/item/ipc_combat_upgrade
 	cost = 15
-	race = list(MACNINEPERSON_NAME)
+	race = list(SPECIES_MACNINEPERSON)
 
 /datum/uplink_item/racial/supercharge
 	name = "Supercharge Implant"
 	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	item = /obj/item/implanter/supercharge
 	cost = 40
-	race = list(MACNINEPERSON_NAME)
+	race = list(SPECIES_MACNINEPERSON)
 
 
 //Slime People
@@ -591,7 +591,7 @@
 	desc = "The result of the work of scientists on mixing an experimental stable mutagen with the core of a pyroclastic anomaly. Gives the user the opportunity to become a slime and heat himself up."
 	item = /obj/item/anomaly_extract
 	cost = 40
-	race = list(SLIMEPERSON_NAME)
+	race = list(SPECIES_SLIMEPERSON)
 
 //Plasmaman
 
@@ -601,7 +601,7 @@
 			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp. Only for Plasmamen."
 	item = /obj/item/storage/box/syndie_kit/plasma_chameleon
 	cost = 20
-	race = list(PLASMAMAN_NAME)
+	race = list(PSPECIES_PLASMAMAN)
 
 //Nucleation
 
@@ -610,7 +610,7 @@
 	desc = "An implant injected into the body, and later activated at the user's will. It will simulate the death of the operator and transport him to an exact safe place."
 	item = /obj/item/implanter/second_chance
 	cost = 40
-	race = list(NUCLEATION_NAME)
+	race = list(SPECIES_NUCLEATION)
 
 // DANGEROUS WEAPONS
 
