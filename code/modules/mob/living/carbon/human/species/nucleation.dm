@@ -1,5 +1,5 @@
 /datum/species/nucleation
-	name = NUCLEATION_NAME
+	name = SPECIES_NUCLEATION
 	name_plural = "Nucleations"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
 	blacklisted = TRUE
