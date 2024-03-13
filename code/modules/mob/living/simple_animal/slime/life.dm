@@ -692,7 +692,7 @@
 /mob/living/simple_animal/slime/proc/get_target_from_command(text)
 	var/target
 	var/list/words = splittext(text, regex(" |\\.|\\,|\\!|\\?"))
-	for(var/i = 1, i < words.len - 1, i++)
+	for(var/i in 1 to length(words) - 1)
 		if(words[i] in attack_commands + eat_commands + defend_commands)
 			target = words[i+1]
 			break
