@@ -4,7 +4,7 @@
 	icon_state = "cargosoft"
 	item_state = "helmet"
 	item_color = "cargo"
-	var/flipped = 0
+	var/flipped = FALSE
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
 	sprite_sheets = list(
@@ -17,27 +17,30 @@
 		)
 	dyeable = TRUE
 
+
+/obj/item/clothing/head/soft/update_icon_state()
+	icon_state = flipped ? "[item_color]soft_flipped" : "[item_color]soft"
+	update_equipped_item()
+
+
 /obj/item/clothing/head/soft/dropped(mob/user, silent = FALSE)
-	icon_state = "[item_color]soft"
-	flipped = 0
-	..()
+	. = ..()
+	if(flipped)
+		flipped = FALSE
+		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/clothing/head/soft/attack_self(mob/user)
 	flip(user)
 
+
 /obj/item/clothing/head/soft/proc/flip(mob/user)
 	flipped = !flipped
+	update_icon(UPDATE_ICON_STATE)
 	if(flipped)
-		icon_state = "[item_color]soft_flipped"
-		to_chat(usr, "You flip the hat backwards.")
+		to_chat(user, span_notice("You flip the hat backwards."))
 	else
-		icon_state = "[item_color]soft"
-		to_chat(user, "You flip the hat back in normal position.")
-	user.update_inv_head()	//so our mob-overlays update
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		to_chat(user, span_notice("You flip the hat back in normal position."))
 
 /obj/item/clothing/head/soft/red
 	name = "red cap"

@@ -50,7 +50,7 @@
 	setDir(ini_dir)
 	move_update_air(T)
 
-/obj/structure/windoor_assembly/update_icon()
+/obj/structure/windoor_assembly/update_icon_state()
 	var/temp_state = state
 	if(temp_state == "03")
 		temp_state = "02"
@@ -162,7 +162,7 @@
 
 	add_fingerprint(user)
 	//Update to reflect changes(if applicable)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/I)	//Crowbar to complete the assembly, Step 7 complete.
 	if(state != "03")
@@ -228,7 +228,7 @@
 	state = "02"
 	electronics.forceMove(loc)
 	electronics = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != "02")
@@ -243,7 +243,7 @@
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = "01"
 	name = "[(src.secure) ? "secure" : ""] anchored windoor assembly"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != "01")
@@ -274,7 +274,7 @@
 		to_chat(user, "<span class='notice'>You loosen bolts on [src].</span>")
 		anchored = FALSE
 		name = "[(src.secure) ? "secure" : ""] windoor assembly"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/welder_act(mob/user, obj/item/I)
 	if(state != "01")
@@ -312,7 +312,7 @@
 	setDir(target_dir)
 
 	ini_dir = dir
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/structure/windoor_assembly/AltClick(mob/user)
@@ -339,5 +339,5 @@
 		facing = "l"
 		to_chat(usr, "The windoor will now slide to the left.")
 
-	update_icon()
-	return
+	update_icon(UPDATE_ICON_STATE)
+

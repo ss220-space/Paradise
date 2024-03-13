@@ -7,7 +7,6 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
 	var/dam_force = 20
-	var/obj/mecha/working/cargo_holder
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/M)
@@ -16,29 +15,23 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/attach_act(obj/mecha/M)
-	cargo_holder = M
-
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/detach_act()
-	cargo_holder = null
-
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/action(atom/target)
 	if(!action_checks(target))
 		return FALSE
-	if(!cargo_holder)
+	if(!chassis)
 		return FALSE
-	if(istype(target,/obj))
+	if(isobj(target))
 		var/obj/O = target
 		if(!O.anchored)
-			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
+			if(length(chassis.cargo) < chassis.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
 				O.anchored = TRUE
 				if(do_after_cooldown(target))
-					cargo_holder.cargo += O
+					LAZYADD(chassis.cargo, O)
 					O.loc = chassis
 					O.anchored = FALSE
 					occupant_message(span_notice("[target] successfully loaded."))
-					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+					log_message("Loaded [O]. Cargo compartment capacity: [chassis.cargo_capacity - length(chassis.cargo)]")
 					return TRUE
 				else
 					O.anchored = initial(O.anchored)
@@ -47,7 +40,7 @@
 		else
 			occupant_message(span_warning("[target] is firmly secured!"))
 		return FALSE
-	else if(istype(target,/mob/living))
+	if(isliving(target))
 		var/mob/living/M = target
 		if(chassis.occupant.a_intent == INTENT_HARM)
 			M.take_overall_damage(dam_force)
@@ -64,15 +57,15 @@
 				occupant_message(span_warning("БЕГИ, ИДИОТ, НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
 				return FALSE
 			if(!M.anchored)
-				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
+				if(length(chassis.cargo) < chassis.cargo_capacity)
 					chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
 					M.anchored = TRUE
 					if(do_after_cooldown(target))
-						cargo_holder.cargo += M
+						LAZYADD(chassis.cargo, M)
 						M.loc = chassis
 						M.anchored = FALSE
 						occupant_message(span_notice("[target] successfully loaded."))
-						log_message("Loaded [M]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
+						log_message("Loaded [M]. Cargo compartment capacity: [chassis.cargo_capacity - length(chassis.cargo)]")
 						return TRUE
 					else
 						M.anchored = initial(M.anchored)
@@ -99,47 +92,27 @@
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill/action(atom/target)
 	if(!action_checks(target))
 		return FALSE
-	if(!cargo_holder)
+	if(!chassis)
 		return FALSE
-	if(istype(target,/obj))
-		var/obj/O = target
-		if(!O.anchored)
-			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
-				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-				O.anchored = TRUE
-				if(do_after_cooldown(target))
-					cargo_holder.cargo += O
-					O.loc = chassis
-					O.anchored = FALSE
-					occupant_message(span_notice("[target] successfully loaded."))
-					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
-					return TRUE
-				else
-					O.anchored = initial(O.anchored)
-					return FALSE
-			else
-				occupant_message(span_warning("Not enough room in cargo compartment!"))
-				return FALSE
-		else
-			occupant_message(span_warning("[target] is firmly secured!"))
-			return FALSE
 
-	else if(istype(target,/mob/living))
-		var/mob/living/M = target
-		if(M.stat == DEAD)
-			return FALSE
-		if(chassis.occupant.a_intent == INTENT_HARM)
-			target.visible_message(span_danger("[chassis] destroys [target] in an unholy fury."),
-								span_userdanger("[chassis] destroys [target] in an unholy fury."))
-			M.gib()
-		/*if(chassis.occupant.a_intent == INTENT_DISARM)
-			target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>",
-								"<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")*/
-		else
-			step_away(M,chassis)
-			target.visible_message("[chassis] tosses [target] like a piece of paper.")
-		start_cooldown()
-		return TRUE
+	if(!isliving(target))
+		return ..()
+
+	var/mob/living/M = target
+	if(M.stat == DEAD)
+		return FALSE
+	if(chassis.occupant.a_intent == INTENT_HARM)
+		target.visible_message(span_danger("[chassis] destroys [target] in an unholy fury."),
+							span_userdanger("[chassis] destroys [target] in an unholy fury."))
+		M.gib()
+	/*if(chassis.occupant.a_intent == INTENT_DISARM)
+		target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>",
+							"<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")*/
+	else
+		step_away(M,chassis)
+		target.visible_message("[chassis] tosses [target] like a piece of paper.")
+	start_cooldown()
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
 	name = "Cargo expansion upgrade"
@@ -150,21 +123,17 @@
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade/can_attach(obj/mecha/M)
 	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
+		if(istype(M, /obj/mecha/working))
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/attach_act()
-	if(istype(loc, /obj/mecha/working))
-		var/obj/mecha/working/W = loc
-		W.cargo_expanded = TRUE
-		W.cargo_capacity = 40
+/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/attach_act(obj/mecha/M)
+	chassis.cargo_expanded = TRUE
+	chassis.cargo_capacity = 40
 
-/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/detach_act()
-	if(istype(loc, /obj/mecha/working))
-		var/obj/mecha/working/R = loc
-		R.cargo_expanded = FALSE
-		R.cargo_capacity = initial(R.cargo_capacity)
+/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/detach_act(obj/mecha/M)
+	chassis.cargo_expanded = FALSE
+	chassis.cargo_capacity = initial(chassis.cargo_capacity)
 
 /obj/item/mecha_parts/mecha_equipment/rcd
 	name = "Mounted RCD"

@@ -7,7 +7,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nboard"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 150
 	var/notices = 0
 
@@ -24,6 +24,7 @@
 		if(I > MAX_ICON_STATES_FOR_NOTICES)
 			break
 		. += image(src.icon, icon_state = "[src.icon_state][I]")
+
 
 //attaching papers!!
 /obj/structure/noticeboard/attackby(obj/item/item, mob/user, params)

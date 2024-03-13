@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	add_language("Robot Talk", 1)
+	add_language(LANGUAGE_BINARY, 1)
 
 	wires = new(src)
 
@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
-	additional_law_channels["Binary"] = ":b "
+	additional_law_channels["Binary"] = ":bi "
 	if(!connect_to_AI)
 		return
 	var/found_ai = ai_to_sync_to
@@ -561,7 +561,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
 
-	add_language("Robot Talk", 1)
+	add_language(LANGUAGE_BINARY, 1)
 	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
@@ -1042,16 +1042,26 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			laws.show_laws(src)
 			to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
 			SetLockdown(FALSE)
-			if(src.module && istype(src.module, /obj/item/robot_module/miner))
-				for(var/obj/item/pickaxe/drill/cyborg/D in src.module.modules)
-					qdel(D)
-				src.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(src.module)
-				src.module.rebuild()
 			if(module)
+				module.emag_act(user)
 				module.module_type = "Malf" // For the cool factor
 				update_module_icon()
 			update_icons()
 		return
+
+// Here so admins can unemag borgs.
+/mob/living/silicon/robot/unemag()
+	SetEmagged(FALSE)
+	if(!module)
+		return
+	uneq_all()
+	module.module_type = initial(module.module_type)
+	update_module_icon()
+	module.unemag()
+	clear_supplied_laws()
+	laws = new /datum/ai_laws/crewsimov
+	to_chat(src, "<b>Obey these laws:</b>")
+	laws.show_laws(src)
 
 /mob/living/silicon/robot/ratvar_act(weak = FALSE)
 	if(isclocker(src) && module?.type == /obj/item/robot_module/clockwork)
@@ -1388,7 +1398,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	disconnect_from_ai()
 	lawupdate = 0
 	lockcharge = 0
-	canmove = 1
+	canmove = TRUE
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
 	QDEL_NULL(src.camera)
@@ -1639,7 +1649,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
-	additional_law_channels["Binary"] = ":b "
+	additional_law_channels["Binary"] = ":bi "
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/destroyer(src)
 	module.add_languages(src)

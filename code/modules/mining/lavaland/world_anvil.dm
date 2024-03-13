@@ -29,12 +29,17 @@
 	GLOB.anvils -= src
 	. = ..()
 
-/obj/structure/world_anvil/update_icon()
+/obj/structure/world_anvil/update_icon_state()
 	icon_state = forge_charges > 0 ? "anvil_a" : "anvil"
+
+
+/obj/structure/world_anvil/proc/update_state()
+	update_icon(UPDATE_ICON_STATE)
 	if(forge_charges > 0)
 		set_light(4,1,LIGHT_COLOR_ORANGE)
 	else
 		set_light(0)
+
 
 /obj/structure/world_anvil/examine(mob/user)
 	. = ..()
@@ -46,14 +51,14 @@
 		forge_charges = forge_charges + placed_ore.quality
 		to_chat(user,"You place down the gibtonite on the World Anvil, and watch as the gibtonite melts into it. The World Anvil is now heated enough for [forge_charges] forge[forge_charges > 1 ? "s" : ""].")
 		qdel(placed_ore)
-		update_icon()
+		update_state()
 		return
 	if(istype(I, /obj/item/gem/amber))
 		var/obj/item/gem/amber/gem = I
 		forge_charges += 3
 		to_chat(user,"You place down the draconic amber on the World Anvil, and watch as amber melts into it. The World Anvil is now heated enough for [forge_charges] forge[forge_charges > 1 ? "s" : ""].")
 		qdel(gem)
-		update_icon()
+		update_state()
 		return
 	if(forge_charges <= 0)
 		to_chat(user,"The World Anvil is not hot enough to be usable!")
@@ -83,5 +88,5 @@
 	forge_charges--
 	if(forge_charges <= 0)
 		visible_message("The World Anvil cools down.")
-		update_icon()
+		update_state()
 

@@ -490,6 +490,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						assignment = input("Select a title", "Job title selection") as null|anything in AT
 						if(!assignment)
 							assignment = standart_Assignment
+						if(!modify)
+							return
 
 					access = jobdatum.get_access()
 

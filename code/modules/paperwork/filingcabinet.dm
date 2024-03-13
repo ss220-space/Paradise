@@ -14,8 +14,9 @@
 	desc = "A large cabinet with drawers."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "filingcabinet"
-	density = 1
+	density = TRUE
 	anchored = TRUE
+	var/opened = FALSE
 
 
 /obj/structure/filingcabinet/chestdrawer
@@ -37,14 +38,20 @@
 			I.loc = src
 
 
+/obj/structure/filingcabinet/update_icon_state()
+	icon_state = "[initial(icon_state)][opened ? "-open" : ""]"
+
+
 /obj/structure/filingcabinet/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/paper_bundle) || istype(P, /obj/item/documents))
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
 		user.drop_transfer_item_to_loc(P, src)
-		icon_state = "[initial(icon_state)]-open"
+		opened = TRUE
+		update_icon(UPDATE_ICON_STATE)
 		sleep(5)
-		icon_state = initial(icon_state)
+		opened = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
 	else if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
@@ -106,9 +113,11 @@
 			P.forceMove_turf()
 			usr.put_in_hands(P, ignore_anim = FALSE)
 			updateUsrDialog()
-			icon_state = "[initial(icon_state)]-open"
+			opened = TRUE
+			update_icon(UPDATE_ICON_STATE)
 			sleep(5)
-			icon_state = initial(icon_state)
+			opened = FALSE
+			update_icon(UPDATE_ICON_STATE)
 
 
 /*

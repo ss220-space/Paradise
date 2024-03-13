@@ -192,10 +192,14 @@
 
 /obj/item/organ/proc/is_preserved()
 	var/static/list/preserved_holders = list(
+		/obj/machinery/smartfridge/secure/medbay/organ,
 		/obj/structure/closet/crate/freezer,
 		/obj/machinery/clonepod,
-		/obj/machinery/smartfridge/secure/medbay/organ,
 	)
+
+	if(owner)
+		return TRUE
+
 	for(var/typepath in preserved_holders)
 		if(is_found_within(typepath))
 			return TRUE

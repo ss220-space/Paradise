@@ -70,9 +70,7 @@
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
 		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.", "Отдел Центрального Командования по биологическим угрозам.", 'sound/AI/commandreport.ogg')
 		GLOB.morphs_announced = TRUE
-		cancel_call_proc(usr)
-	else
-		return
+		SSshuttle.emergency.cancel()
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()

@@ -1,4 +1,4 @@
-/datum/event/communications_blackout/announce()
+/datum/event/communications_blackout/announce(false_alarm)
 	var/alert = pick(	"Обнаружены ионосферные аномалии. Неизбежен временный сбой связи. Пожалуйста, свяжитесь с вашим*%fj 00)`5 vc-БЗЗЗ", \
 						"Обнаружены ионосферные аномалии. Неизбежен временный сбо*3mga;b4;'1v?-БЗЗЗЗ", \
 						"Обнаружены ионосферные аномалии. Неизбежен време#MCi46:5.;@63-БЗЗЗЗЗ", \
@@ -11,7 +11,7 @@
 		to_chat(A, "<span class='ВНИМАНИЕ'><b>[alert]</b></span>")
 		to_chat(A, "<br>")
 
-	if(prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
+	if(false_alarm || prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
 		GLOB.event_announcement.Announce(alert)
 
 /datum/event/communications_blackout/start()

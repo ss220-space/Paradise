@@ -10,6 +10,7 @@
 									//I would just like the code ready should it ever need to be used.
 #define SUGGESTED_CLIENT_VERSION	514		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
 #define SUGGESTED_CLIENT_BUILD	1568		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define MINIMUM_FPS_VERSION 511 // used as check, if you can update fps or not
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -310,6 +311,7 @@
 	prefs = GLOB.preferences_datums[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
+		set_macros()
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
@@ -321,10 +323,10 @@
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
-	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
+	if(world.byond_version >= MINIMUM_FPS_VERSION && byond_version >= MINIMUM_FPS_VERSION && prefs.clientfps)
 		fps = prefs.clientfps
 
-	if(world.byond_version >= 511 && byond_version >= 511 && !prefs.clientfps)
+	if(world.byond_version >= MINIMUM_FPS_VERSION && byond_version >= MINIMUM_FPS_VERSION && !prefs.clientfps)
 		fps = CONFIG_GET(number/clientfps)
 
 	// Check if the client has or has not accepted TOS
@@ -437,8 +439,8 @@
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
 
 /client/proc/is_connecting_from_localhost()
-	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && (address in localhost_addresses))
+	var/localhost_addresses = list("127.0.0.1", "::1", "0.0.0.0") // Adresses
+	if(!isnull(address) && (address in localhost_addresses) || !address)
 		return TRUE
 	return FALSE
 
@@ -977,33 +979,40 @@
 /client/proc/activate_darkmode()
 	///// BUTTONS /////
 	/* Rpane */
-	winset(src, "rpane.fullscreenb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.wikib", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.fullscreenb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
 	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
-	/* Mainwindow */
-	winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
+	/* Outputwindow */
+	winset(src, "outputwindow.saybutton", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "outputwindow.mebutton", "background-color=#494949;text-color=#a4bad6")
+
 	///// UI ELEMENTS /////
 	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#272727")
-	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
-	winset(src, "mainwindow.tooltip", "background-color=#272727")
+	winset(src, "mainwindow", "background-color=#171717")
+	winset(src, "mainwindow.mainvsplit", "background-color=#202020")
+	winset(src, "mainwindow.tooltip", "background-color=#171717")
 	/* Outputwindow */
-	winset(src, "outputwindow.browseroutput", "background-color=#272727")
+	winset(src, "outputwindow", "background-color=#202020")
+	winset(src, "outputwindow.input", "text-color=#a4bad6;background-color=#202020")
+	winset(src, "outputwindow.browseroutput", "background-color=#202020")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#272727")
-	winset(src, "rpane.rpanewindow", "background-color=#272727")
+	winset(src, "rpane", "background-color=#202020")
+	winset(src, "rpane.rpanewindow", "background-color=#202020")
 	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=#272727")
-	winset(src, "browserwindow.browser", "background-color=#272727")
+
+	//winset(src, "browserwindow", "background-color=#272727")
+	//winset(src, "browserwindow.browser", "background-color=#272727")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
-	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
+	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
+	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
+	//Macros
+	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_DARK_INPUT_ENABLED]\\\"\"")
+	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_DARK_INPUT_DISABLED]\\\"\"")
+
 	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 
@@ -1014,29 +1023,36 @@
 	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
 	winset(src, "rpane.wikib", "background-color=none;text-color=#000000")
-	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
+	//winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
-	/* Mainwindow */
-	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
-	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
+	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
+	/* Outputwindow */
+	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
+	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
+
 	///// UI ELEMENTS /////
 	/* Mainwindow */
 	winset(src, "mainwindow", "background-color=none")
 	winset(src, "mainwindow.mainvsplit", "background-color=none")
 	winset(src, "mainwindow.tooltip", "background-color=none")
 	/* Outputwindow */
+	winset(src, "outputwindow", "background-color=none")
+	winset(src, "outputwindow.input", "text-color=none; background-color=#F0F0F0")
 	winset(src, "outputwindow.browseroutput", "background-color=none")
 	/* Rpane */
 	winset(src, "rpane", "background-color=none")
 	winset(src, "rpane.rpanewindow", "background-color=none")
 	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=none")
-	winset(src, "browserwindow.browser", "background-color=none")
+	//winset(src, "browserwindow", "background-color=none")
+	//winset(src, "browserwindow.browser", "background-color=none")
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=none;text-color=#000000")
 	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
+	//Macros
+	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"")
+	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"")
+
 	///// NOTIFY USER /////
 	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
 
@@ -1347,7 +1363,14 @@
 		log_adminwarn("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
-	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
+	var/list/msg = list({"<meta charset="UTF-8">"})
+	msg += "<b>Ваша версия BYOND устарела:</b><br>"
+	msg += "Это может привести к проблемам, таким как к неправильному отображением вещей или лагам.<br><br>"
+	msg += "Ваша версия: [byond_version].[byond_build]<br>"
+	msg += "Требуемая версия, чтобы убрать это окно: [SUGGESTED_CLIENT_VERSION].[SUGGESTED_CLIENT_BUILD] или выше<br>"
+	msg += "Посетите <a href=\"https://secure.byond.com/download\">сайт BYOND</a>, чтобы скачать последнюю версию.<br>"
+	src << browse(msg.Join(""), "window=warning_popup")
+	to_chat(src, span_userdanger("Ваш клиент BYOND (версия: [byond_version].[byond_build]) устарел. Это может вызвать лаги. Мы крайне рекомендуем скачать последнюю версию с <a href='https://www.byond.com/download/'>byond.com</a> Прежде чем играть. Также можете обновиться через приложение BYOND."))
 
 
 /client/proc/update_ambience_pref()
@@ -1401,7 +1424,7 @@
 /// Returns the biggest number from client.view so we can do easier maths
 /client/proc/maxview()
 	var/list/screensize = getviewsize(view)
-	return max(screensize[1], screensize[2])
+	return round(max(screensize[1], screensize[2]) / 2)
 
 
 #undef LIMITER_SIZE

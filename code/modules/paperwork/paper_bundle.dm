@@ -14,7 +14,8 @@
 	attack_verb = list("bapped")
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
-	var/amount = 0 //Amount of items clipped to the paper. Note: If you have 2 paper, this should be 1
+	var/amount = 0 //Amount of total items clipped to the paper. Note: If you have 2 paper, this should be 1
+	var/photos = 0 //Amount of photos clipped to the paper.
 	var/page = 1
 	var/screen = 0
 
@@ -50,6 +51,7 @@
 			H.update_inv_r_hand()
 	else if(istype(W, /obj/item/photo))
 		amount++
+		photos++
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
@@ -91,7 +93,7 @@
 		P.attackby(W, user, params)
 
 
-	update_icon()
+	update_appearance(UPDATE_ICON|UPDATE_DESC)
 	if(winget(usr, "PaperBundle[UID()]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
 		attack_self(usr) //Update the browsed page.
 	add_fingerprint(usr)
@@ -171,11 +173,11 @@
 		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]"\
 		+ "</body></html>", "window=PaperBundle[UID()]")
 
-/obj/item/paper_bundle/attack_self(mob/user as mob)
-	src.show_content(user)
+/obj/item/paper_bundle/attack_self(mob/user)
+	show_content(user)
 	add_fingerprint(user)
-	update_icon()
-	return
+	update_appearance(UPDATE_ICON|UPDATE_DESC)
+
 
 /obj/item/paper_bundle/Topic(href, href_list)
 	..()
@@ -216,7 +218,7 @@
 				page--
 
 			amount--
-			update_icon()
+			update_appearance(UPDATE_ICON|UPDATE_DESC)
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
 	if(istype(src.loc, /mob))
@@ -253,35 +255,53 @@
 	return
 
 
-/obj/item/paper_bundle/update_icon()
-	..()
-	if(contents.len)
-		var/obj/item/paper/P = src[1]
-		icon_state = P.icon_state
-		overlays = P.overlays
-	underlays = 0
-	var/i = 0
-	var/photo
-	for(var/obj/O in src)
-		var/image/img = image('icons/obj/bureaucracy.dmi')
-		if(istype(O, /obj/item/paper))
-			img.icon_state = O.icon_state
-			img.pixel_x -= min(1*i, 2)
-			img.pixel_y -= min(1*i, 2)
-			pixel_x = min(0.5*i, 1)
-			pixel_y = min(  1*i, 2)
-			underlays += img
-			i++
-		else if(istype(O, /obj/item/photo))
-			var/obj/item/photo/Ph = O
-			img = Ph.tiny
-			photo = 1
-			overlays += img
-	if(i>1)
-		desc =  "[i] papers clipped to each other."
+/obj/item/paper_bundle/update_desc(updates = ALL)
+	. = ..()
+	if(amount == (photos - 1))
+		desc = "[photos] photos clipped together." // In case you clip 2 photos together and remove the paper
+		return
+
+	else if(((amount + 1) - photos) >= 2) // extra papers + original paper - photos
+		desc = "[(amount + 1) - photos] papers clipped to each other."
+
 	else
 		desc = "A single sheet of paper."
-	if(photo)
-		desc += "\nThere is a photo attached to it."
-	overlays += image('icons/obj/bureaucracy.dmi', "clip")
-	return
+	if(photos)
+		desc += "\nThere [photos == 1 ? "is a photo" : "are [photos] photos"] attached to it."
+
+
+/obj/item/paper_bundle/update_icon_state()
+	if(length(contents))
+		var/obj/item/paper/P = contents[1]
+		icon_state = P.icon_state // must have an icon_state to show up on clipboards
+
+
+/obj/item/paper_bundle/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(length(contents))
+		var/obj/item/paper/P = contents[1]
+		. += P.overlays
+
+	var/counter = 0
+	for(var/obj/O in src)
+		var/image/sheet = image('icons/obj/bureaucracy.dmi')
+		if(istype(O, /obj/item/paper))
+			if(length(underlays) == 3)
+				continue
+
+			sheet.icon_state = O.icon_state
+			sheet.pixel_x -= min(1 * counter, 2)
+			sheet.pixel_y -= min(1 * counter, 2)
+			pixel_x = min(0.5 * counter, 1)
+			pixel_y = min(1 * counter, 2)
+			underlays += sheet
+			counter++
+
+		else if(istype(O, /obj/item/photo))
+			var/obj/item/photo/picture = O
+			sheet = picture.tiny
+			. += sheet
+
+	. += "clip"
+

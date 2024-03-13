@@ -40,7 +40,7 @@
 		EQUIPMENT("Jetpack Upgrade",				/obj/item/tank/jetpack/suit, 										2500),
 		EQUIPMENT("Jump Boots",						/obj/item/clothing/shoes/bhop, 										3000),
 		EQUIPMENT("Jump Boots Implants",			/obj/item/storage/box/jumpbootimplant, 								7000),
-		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												1000),
+		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												300),
 		EQUIPMENT("Lazarus Capsule belt",			/obj/item/storage/belt/lazarus, 									400),
 		EQUIPMENT("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining, 						2500),
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								800),
@@ -61,7 +61,7 @@
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1500),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										900),
 		EQUIPMENT("Chasm Jaunter Recovery Grenade",	/obj/item/grenade/jaunter_grenade,									3000), //fishing rod supremacy
-		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										1000),
+		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										600),
 		EQUIPMENT("Point Transfer Card (500)", 		/obj/item/card/mining_point_card, 									500),
 		EQUIPMENT("Point Transfer Card (1000)", 	/obj/item/card/mining_point_card/thousand, 							1000),
 		EQUIPMENT("Point Transfer Card (5000)", 	/obj/item/card/mining_point_card/fivethousand, 						5000),
@@ -119,14 +119,15 @@
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
-/obj/machinery/mineral/equipment_vendor/power_change()
-	..()
-	update_icon()
+/obj/machinery/mineral/equipment_vendor/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
 		remove_id()
 
-/obj/machinery/mineral/equipment_vendor/update_icon()
+/obj/machinery/mineral/equipment_vendor/update_icon_state()
 	if(powered())
 		icon_state = initial(icon_state)
 	else
@@ -229,7 +230,7 @@
 		add_fingerprint(user)
 		return
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
+		if(I.tool_behaviour == TOOL_CROWBAR)
 			remove_id() //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			default_deconstruction_crowbar(user, I)
 		return TRUE
@@ -369,7 +370,7 @@
 		EQUIPMENT("Plushie", 						/obj/random/plushie, 												750),
 		EQUIPMENT("Dnd set", 						/obj/item/storage/box/characters, 									500),
 		EQUIPMENT("Dice set", 						/obj/item/storage/box/dice, 										250),
-		EQUIPMENT("Cards", 							/obj/item/deck/cards, 											150),
+		EQUIPMENT("Cards", 							/obj/item/deck/cards, 												150),
 		EQUIPMENT("Guitar", 						/obj/item/instrument/guitar, 										750),
 		EQUIPMENT("Synthesizer", 					/obj/item/instrument/piano_synth, 									1500),
 		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000)

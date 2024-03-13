@@ -299,7 +299,7 @@
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
 	M.mind.objectives += KillDaCrew
-	var/list/messages = list(M.mind.prepare_announce_objectives())
+	var/list/messages = M.mind.prepare_announce_objectives()
 	to_chat(M, chat_box_red(messages.Join("<br>")))
 	M << 'sound/magic/mutate.ogg'
 

@@ -99,16 +99,12 @@
 
 /mob/living/carbon/human/handle_disabilities()
 	//Vision //god knows why this is here
-	var/obj/item/organ/vision
-	if(dna.species.vision_organ)
-		vision = get_int_organ(dna.species.vision_organ)
-
-	if(!dna.species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
+	var/obj/item/organ/vision = dna?.species?.get_vision_organ(src)
+	if(vision == NO_VISION_ORGAN)
 		SetEyeBlind(0)
 		SetEyeBlurry(0)
-
-	else if(!vision || vision.is_traumatized())   // Vision organs cut out or broken? Permablind.
-		EyeBlind(4 SECONDS)
+	else if(!vision || vision.is_traumatized())	// Vision organs cut out or broken? Permablind.
+		SetEyeBlind(4 SECONDS)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
@@ -974,7 +970,10 @@
 	if(!isturf(loc))
 		return
 
-	for(var/mob/living/carbon/human/H in range(decaylevel, src))
+	for(var/mob/living/carbon/human/H in view(decaylevel, src) - src)
+		if(prob(0.5 * decaylevel))
+			var/datum/disease/virus/cadaver/D = new()
+			D.Contract(H, CONTACT|AIRBORNE, need_protection_check = TRUE)
 		if(prob(2))
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))

@@ -8,6 +8,7 @@
 	var/slowdown = 0 //negative for faster, positive for slower
 	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
+	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
 	var/real_layer = TURF_LAYER
 	layer = MAP_EDITOR_TURF_LAYER
 
@@ -110,6 +111,10 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	user.Move_Pulled(src)
 
+/turf/attack_robot(mob/user)
+	if(Adjacent(user))
+		user.Move_Pulled(src)
+
 /turf/ex_act(severity)
 	return FALSE
 
@@ -172,11 +177,18 @@
 	//Finally, check objects/mobs to block entry that are not on the border
 	var/atom/movable/tompost_bump
 	var/top_layer = 0
+	var/current_layer = 0
+	var/reverse_movement_dir = get_dir(src, oldloc)
 	for(var/atom/movable/obstacle in large_dense)
 		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
-			if(obstacle.layer > top_layer)
+			current_layer = obstacle.layer
+			if(isliving(obstacle))
+				var/mob/living/L = obstacle
+				if(L.bump_priority < BUMP_PRIORITY_NORMAL && reverse_movement_dir == obstacle.dir)
+					current_layer += L.bump_priority
+			if(current_layer > top_layer)
 				tompost_bump = obstacle
-				top_layer = obstacle.layer	//Probably separate variable is a better solution, but its good for now.
+				top_layer = current_layer
 	if(tompost_bump)
 		mover.Bump(tompost_bump, TRUE)
 		return FALSE
@@ -375,18 +387,23 @@
 				L.Add(T)
 	return L
 
-//Idem, but don't check for ID and goes through open doors
-/turf/proc/AdjacentTurfs(list/closed)
-	var/list/L = new()
-	var/turf/simulated/T
-	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+
+/// Returns the adjacent turfs. Can check for density or cardinal directions only instead of all 8, or just dense turfs entirely. dense_only takes precedence over open_only.
+/turf/proc/AdjacentTurfs(open_only = FALSE, cardinal_only = FALSE, dense_only = FALSE)
+	var/list/L = list()
+	var/turf/T
+	var/list/directions = cardinal_only ? GLOB.cardinal : GLOB.alldirs
+	for(var/dir in directions)
 		T = get_step(src, dir)
-		if(T in closed) //turf already proceeded by A*
+		if(!istype(T))
 			continue
-		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T))
-				L.Add(T)
+		if(dense_only && !T.density)
+			continue
+		if((open_only && T.density) && !dense_only)
+			continue
+		L.Add(T)
 	return L
+
 
 // check for all turfs, including space ones
 /turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
@@ -456,7 +473,7 @@
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
 			if(O.level != 1)
 				continue
-			if(O.invisibility == INVISIBILITY_MAXIMUM)
+			if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return 2

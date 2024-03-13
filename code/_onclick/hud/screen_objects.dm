@@ -232,6 +232,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
+		I.pickup(user) //Do not actually put in hands, but rather make some funny effects out of it
 		S.attackby(I, user)
 	return TRUE
 
@@ -279,7 +280,26 @@
 	if(!choice)
 		return TRUE
 
+	if(PL["alt"])
+		AltClick(usr, choice)
+		return
+
 	return set_selected_zone(choice)
+
+/obj/screen/zone_sel/AltClick(mob/user, choice)
+
+	if(user.next_click > world.time || user.next_move > world.time)
+		return FALSE
+	user.changeNext_click(1)
+
+	var/obj/item/holding_item = user.get_active_hand()
+	var/old_selecting = selecting
+	if(!istype(holding_item))
+		return FALSE
+	if(!set_selected_zone(choice, FALSE))
+		return FALSE
+	holding_item.melee_attack_chain(user, user)
+	set_selected_zone(old_selecting, FALSE)
 
 
 /obj/screen/zone_sel/MouseEntered(location, control, params)
@@ -378,7 +398,7 @@
 					return BODY_ZONE_WING
 
 
-/obj/screen/zone_sel/proc/set_selected_zone(choice)
+/obj/screen/zone_sel/proc/set_selected_zone(choice, update_overlay = TRUE)
 	if(!hud || !hud.mymob)
 		return FALSE
 
@@ -388,7 +408,8 @@
 	if(choice != selecting)
 		selecting = choice
 		hud.mymob.zone_selected = choice
-		update_icon(UPDATE_OVERLAYS)
+		if(update_overlay)
+			update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
 
@@ -546,6 +567,8 @@
 	if((slot_id == slot_l_hand && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
 		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))
 		return FALSE
+
+	I.pickup(user)
 
 
 /obj/screen/inventory/hand

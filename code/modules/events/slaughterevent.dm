@@ -56,7 +56,7 @@
 
 
 /datum/event/spawn_slaughter/start()
-	if((length(GLOB.clients)) <= minplayers)
+	if(num_station_players() <= minplayers)
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + (60 * 10)
 		return	//we don't spawn demons on lowpop. Instead, we reroll!

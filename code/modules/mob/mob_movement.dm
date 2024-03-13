@@ -380,6 +380,7 @@
 /client/verb/body_r_arm()
 	set name = "body-r-arm"
 	set hidden = 1
+
 	if(!check_has_body_select())
 		return
 
@@ -398,11 +399,13 @@
 
 	if(!check_has_body_select())
 		return
+
 	var/next_in_line
 	if(mob.zone_selected == BODY_ZONE_CHEST)
 		next_in_line = BODY_ZONE_WING
 	else
 		next_in_line = BODY_ZONE_CHEST
+
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
@@ -444,9 +447,15 @@
 
 	if(!check_has_body_select())
 		return
+	
+	var/next_in_line
+	if(mob.zone_selected == BODY_ZONE_PRECISE_GROIN)
+		next_in_line = BODY_ZONE_TAIL
+	else
+		next_in_line = BODY_ZONE_PRECISE_GROIN
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(BODY_ZONE_PRECISE_GROIN)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_tail()
 	set name = "body-tail"

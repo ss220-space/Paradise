@@ -1417,6 +1417,16 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/service_bs_beaker
+	name = "Cyborg Service Upgrade (Bluespace Beaker)"
+	id = "service_bs_beaker"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/bs_beaker
+	req_tech = list("bluespace" = 6, "materials" = 5, "plasmatech" = 4)
+	materials = list(MAT_GLASS = 3000, MAT_PLASMA = 3000, MAT_DIAMOND = 250, MAT_BLUESPACE = 250)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_abductor_engi
 	name = "Engineer Cyborg Upgrade (Abductor Engineering Equipment)"
 	id = "borg_upgade_abductor_engi"
@@ -1868,6 +1878,16 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")
 
+/datum/design/paint_ripley_nt
+	name = "Ripley, Firefighter \"NT Special\""
+	id = "p_ripleynt"
+	build_type = MECHFAB
+	req_tech = list("combat" = 5, "engineering" = 5, "materials" = 5, "programming" = 5)
+	build_path = /obj/item/paintkit/ripley_nt
+	materials = list(MAT_METAL=20000, MAT_PLASMA=2000, MAT_GLASS= 2000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Paintkits")
+
 /datum/design/paint_clarke_orangey
 	name = "Clarke \"Orangey\""
 	id = "p_orangey"
@@ -1998,6 +2018,16 @@
 	construction_time = 30 SECONDS
 	category = list("Exosuit Paintkits")
 
+/datum/design/paint_durand_nt
+	name = "Durand \"NT Special\""
+	id = "p_durandnt"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "engineering" = 6, "materials" = 6, "programming" = 6)
+	build_path = /obj/item/paintkit/durand_nt
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=4000, MAT_URANIUM= 4000)
+	construction_time = 30 SECONDS
+	category = list("Exosuit Paintkits")
+
 /datum/design/paint_durand_soviet
 	name = "Durand \"Dollhouse\""
 	id = "p_soviet"
@@ -2054,6 +2084,16 @@
 	build_type = MECHFAB
 	req_tech = list("bluespace" = 7, "engineering" = 7, "materials" = 7, "toxins" = 6)
 	build_path = /obj/item/paintkit/phazon_blanco
+	materials = list(MAT_METAL=50000, MAT_DIAMOND=4000, MAT_BLUESPACE=4000)
+	construction_time = 40 SECONDS
+	category = list("Exosuit Paintkits")
+
+/datum/design/paint_phazon_nt
+	name = "Phazon \"NT Special\""
+	id = "p_phazonnt"
+	build_type = MECHFAB
+	req_tech = list("bluespace" = 7, "engineering" = 7, "materials" = 7, "toxins" = 6)
+	build_path = /obj/item/paintkit/phazon_nt
 	materials = list(MAT_METAL=50000, MAT_DIAMOND=4000, MAT_BLUESPACE=4000)
 	construction_time = 40 SECONDS
 	category = list("Exosuit Paintkits")

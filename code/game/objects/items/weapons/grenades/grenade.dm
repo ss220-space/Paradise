@@ -12,9 +12,16 @@
 	slot_flags = SLOT_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
-	var/active = 0
-	var/det_time = 50
-	var/display_timer = 1
+	var/active = FALSE
+	var/det_time = 5 SECONDS
+	var/display_timer = TRUE
+
+
+/obj/item/grenade/Destroy()
+	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
+	walk_to(src, 0)
+	return ..()
+
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
@@ -22,65 +29,56 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-/obj/item/grenade/proc/clown_check(var/mob/living/user)
+
+/obj/item/grenade/proc/clown_check(mob/living/user)
 	if((CLUMSY in user.mutations) && prob(50))
-		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
-		active = 1
-		icon_state = initial(icon_state) + "_active"
-		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-		spawn(5)
-			if(user)
-				user.drop_from_active_hand()
-			prime()
-		return 0
-	return 1
+		to_chat(user, span_warning("Huh? How does this thing work?"))
+		active = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
+		addtimer(CALLBACK(src, PROC_REF(delayed_boom)), 0.5 SECONDS)
+		return FALSE
+	return TRUE
 
 
-/*/obj/item/grenade/afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
-	if(istype(target, /obj/item/storage)) return ..() // Trying to put it in a full container
-	if(istype(target, /obj/item/gun/grenadelauncher)) return ..()
-	if((user.is_in_active_hand(src)) && (!active) && (clown_check(user)) && target.loc != src.loc)
-		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
-		active = 1
-		icon_state = initial(icon_state) + "_active"
-		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-		spawn(det_time)
-			prime()
-			return
-		user.dir = get_dir(user, target)
-		user.drop_from_active_hand()
-		var/t = (isturf(target) ? target : target.loc)
-		walk_towards(src, t, 3)
-	return*/
+/obj/item/grenade/proc/delayed_boom(mob/living/user)
+	if(!QDELETED(user))
+		user.drop_item_ground(src)
+	prime()
+
+
+/obj/item/grenade/update_icon_state()
+	icon_state = "[initial(icon_state)][active ? "_active" : ""]"
 
 
 /obj/item/grenade/examine(mob/user)
 	. = ..()
 	if(display_timer)
 		if(det_time > 1)
-			. += "<span class='notice'>The timer is set to [det_time/10] second\s.</span>"
+			. += span_notice("The timer is set to [det_time/10] second\s.")
 		else
-			. += "<span class='warning'>\The [src] is set for instant detonation.</span>"
+			. += span_warning("[src] is set for instant detonation.")
 
-/obj/item/grenade/attack_self(mob/user as mob)
-	if(!active)
-		if(clown_check(user))
-			to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
-			active = 1
-			icon_state = initial(icon_state) + "_active"
-			add_fingerprint(user)
-			var/turf/bombturf = get_turf(src)
-			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)]")
-			investigate_log("[key_name_log(usr)] has primed a [name] for detonation", INVESTIGATE_BOMB)
-			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
-			if(iscarbon(user))
-				var/mob/living/carbon/C = user
-				C.throw_mode_on()
-			spawn(det_time)
-				prime()
+
+/obj/item/grenade/attack_self(mob/user)
+	if(!active && clown_check(user))
+		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
+		active = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		add_fingerprint(user)
+		var/turf/bombturf = get_turf(src)
+		message_admins("[key_name_admin(usr)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)]")
+		investigate_log("[key_name_log(usr)] has primed a [name] for detonation", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
+		if(iscarbon(user))
+			var/mob/living/carbon/c_user = user
+			c_user.throw_mode_on()
+		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 
 /obj/item/grenade/proc/prime(mob/user)
+	return
+
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
@@ -88,24 +86,25 @@
 		M.drop_item_ground(src)
 
 
-/obj/item/grenade/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/screwdriver))
-		switch(det_time)
-			if("1")
-				det_time = 10
-				to_chat(user, "<span class='notice'>You set the [name] for 1 second detonation time.</span>")
-			if("10")
-				det_time = 30
-				to_chat(user, "<span class='notice'>You set the [name] for 3 second detonation time.</span>")
-			if("30")
-				det_time = 50
-				to_chat(user, "<span class='notice'>You set the [name] for 5 second detonation time.</span>")
-			if("50")
-				det_time = 1
-				to_chat(user, "<span class='notice'>You set the [name] for instant detonation.</span>")
-		add_fingerprint(user)
-	..()
+/obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
+	switch(det_time)
+		if(0.1 SECONDS)
+			det_time = 1 SECONDS
+			to_chat(user, span_notice("You set [src] for 1 second detonation time."))
+		if(1 SECONDS)
+			det_time = 3 SECONDS
+			to_chat(user, span_notice("You set [src] for 3 second detonation time."))
+		if(3 SECONDS)
+			det_time = 5 SECONDS
+			to_chat(user, span_notice("You set [src] for 5 second detonation time."))
+		if(5 SECONDS)
+			det_time = 0.1 SECONDS
+			to_chat(user, span_notice("You set [src] for instant detonation."))
+	add_fingerprint(user)
+	return TRUE
+
 
 /obj/item/grenade/attack_hand()
 	walk(src, null, null)
 	..()
+

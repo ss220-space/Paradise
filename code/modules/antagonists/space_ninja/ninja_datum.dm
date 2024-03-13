@@ -222,7 +222,7 @@
 		var/warning = cell.charge >= check_percentage ? "" : "_warning"
 		hud.ninja_energy_display.icon_state = "ninja_energy_display_[my_suit.color_choice][warning]"
 		hud.ninja_energy_display.maptext = "<div align='center' valign='middle' style='position:relative;'><font color='#FFFFFF' size='1'>[round(cell.charge)]</font></div>"
-		hud.ninja_energy_display.invisibility = my_suit.show_charge_UI ? 0 : 100
+		hud.ninja_energy_display.invisibility = my_suit.show_charge_UI ? 0 : INVISIBILITY_ABSTRACT
 
 	// concentration level
 	if(!hud.ninja_focus_display && owner.martial_art && istype(owner.martial_art, /datum/martial_art/ninja_martial_art))
@@ -237,7 +237,7 @@
 	// martial art update
 	if(creeping_widow && my_suit)
 		hud.ninja_focus_display.icon_state = creeping_widow.has_focus ? "focus_active_[my_suit.color_choice]" : "focus"
-		hud.ninja_focus_display.invisibility = my_suit.show_concentration_UI ? 0 : 100
+		hud.ninja_focus_display.invisibility = my_suit.show_concentration_UI ? 0 : INVISIBILITY_ABSTRACT
 
 
 /**
@@ -553,7 +553,7 @@
 		maroon_objective.target = protect_objective.target	// swapping target
 		maroon_objective.update_explanation()
 		maroon_objective.alarm_changes()
-		var/list/messages = list(maroon_objective.owner.prepare_announce_objectives())
+		var/list/messages = maroon_objective.owner.prepare_announce_objectives()
 		to_chat(maroon_objective.owner.current, chat_box_red(messages.Join("<br>")))
 
 
@@ -649,12 +649,9 @@
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/ninja)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/ninja)
 
 	if(!ismob(source))
 		return FALSE

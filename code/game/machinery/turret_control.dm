@@ -88,8 +88,10 @@
 		else
 			control_area = null
 
-	power_change() //Checks power and initial settings
-	return
+	updateTurrets()
+	update_icon(UPDATE_ICON_STATE)
+	update_turret_light()
+
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(isrobot(user) && !iscogscarab(user) || isAI(user))
@@ -219,28 +221,46 @@
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	update_turret_light()
 
-/obj/machinery/turretid/power_change()
-	..()
+
+/obj/machinery/turretid/power_change(forced = FALSE)
+	if(!..())
+		return
 	updateTurrets()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	update_turret_light()
 
-/obj/machinery/turretid/update_icon()
-	..()
+
+/obj/machinery/turretid/proc/update_turret_light()
 	if(stat & NOPOWER)
-		icon_state = "control_off"
 		set_light(0)
-	else if(enabled)
+		return
+
+	if(enabled)
 		if(lethal)
-			icon_state = "control_kill"
 			set_light(1.5, 1,"#990000")
 		else
-			icon_state = "control_stun"
 			set_light(1.5, 1,"#FF9900")
-	else
-		icon_state = "control_standby"
-		set_light(1.5, 1,"#003300")
+		return
+
+	set_light(1.5, 1,"#003300")
+
+
+/obj/machinery/turretid/update_icon_state()
+	if(stat & NOPOWER)
+		icon_state = "control_off"
+		return
+	if(enabled)
+		if(lethal)
+			icon_state = "control_kill"
+		else
+			icon_state = "control_stun"
+		return
+
+	icon_state = "control_standby"
+
 
 /obj/machinery/turretid/emp_act(severity)
 	if(enabled)

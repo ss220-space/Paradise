@@ -330,17 +330,17 @@
 	subtype_path = /datum/gear/uniform/cargo
 
 /datum/gear/uniform/cargo/qm
-	display_name = "quartermaster's dress"
+	display_name = "quartermaster dress"
 	path = /obj/item/clothing/under/rank/cargo/alt
 	allowed_roles = list("Quartermaster")
 
 /datum/gear/uniform/cargo/tech
-	display_name = "cargo technician's dress"
+	display_name = "cargo technician dress"
 	path = /obj/item/clothing/under/rank/cargotech/alt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
 /datum/gear/uniform/cargo/miner
-	display_name = "shaft miner's sweater"
+	display_name = "shaft miner sweater"
 	path = /obj/item/clothing/under/rank/miner/alt
 	allowed_roles = list("Quartermaster", "Shaft Miner")
 
@@ -442,3 +442,13 @@
 	display_name = "hawaiian shirt (orange)"
 	description = "Come one step closer and I will knock his teeth out!"
 	path = /obj/item/clothing/under/orangehawaiianshirt
+
+/datum/gear/uniform/ussptracksuit_red
+	display_name = "track suit (red)"
+	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	path = /obj/item/clothing/under/ussptracksuit_red
+
+/datum/gear/uniform/ussptracksuit_blue
+	display_name = "track suit (blue)"
+	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	path = /obj/item/clothing/under/ussptracksuit_blue

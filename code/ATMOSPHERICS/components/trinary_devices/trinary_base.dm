@@ -3,7 +3,7 @@
 	initialize_directions = SOUTH|NORTH|WEST
 	use_power = IDLE_POWER_USE
 
-	var/on = 0
+	on = FALSE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
 	layer_offset = GAS_FILTER_OFFSET
 

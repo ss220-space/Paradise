@@ -2123,7 +2123,7 @@
 /datum/reagent/consumable/ethanol/codelibre/on_mob_life(mob/living/M)
 	. = ..()
 	if(prob(10))
-		M.say(":5 [pick("Viva la Synthetica!")]")
+		M.say(":tr Viva la Synthetica!")
 
 /datum/reagent/consumable/ethanol/blackicp
 	name = "Black ICP"
@@ -2230,7 +2230,7 @@
 
 /datum/reagent/consumable/ethanol/trans_siberian_express/on_mob_life(mob/living/M)
 	. = ..()
-	var/datum/language/rus_lang = GLOB.all_languages["Neo-Russkiya"]
+	var/datum/language/rus_lang = GLOB.all_languages[LANGUAGE_NEO_RUSSIAN]
 	if((rus_lang in M.languages) && !(rus_lang in M.temporary_languages))
 		if(M.default_language != rus_lang)
 			M.default_language = rus_lang

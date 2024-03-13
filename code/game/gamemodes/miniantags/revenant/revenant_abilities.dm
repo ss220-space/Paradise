@@ -74,7 +74,6 @@
 				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")
 				if(target.stat != DEAD)
 					to_chat(target, "<span class='warning'>You feel a horribly unpleasant draining sensation as your grip on life weakens...</span>")
-				icon_state = "revenant_draining"
 				reveal(27)
 				stun(27)
 				target.visible_message("<span class='warning'>[target] suddenly rises slightly into the air, [target.p_their()] skin turning an ashy gray.</span>")
@@ -252,7 +251,7 @@
 	sleep(2 SECONDS)
 	if(!L.on) //wait, wait, don't shock me
 		return
-	flick("[L.base_state]2", L)
+	flick("[L.base_icon_state]2", L)
 	for(var/mob/living/M in view(shock_range, L))
 		if(M == user)
 			continue

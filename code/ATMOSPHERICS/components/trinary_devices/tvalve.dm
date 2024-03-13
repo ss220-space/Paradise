@@ -11,6 +11,7 @@
 	can_unwrench = 1
 
 	var/state = TVALVE_STATE_STRAIGHT
+	var/animation = FALSE
 
 /obj/machinery/atmospherics/trinary/tvalve/bypass
 	icon_state = "map_tvalve1"
@@ -25,7 +26,8 @@
 	flipped = 1
 	state = TVALVE_STATE_SIDE
 
-/obj/machinery/atmospherics/trinary/tvalve/update_icon(animation)
+/obj/machinery/atmospherics/trinary/tvalve/update_icon_state()
+	..()
 	var/flipstate = ""
 	if(flipped)
 		flipstate = "m"
@@ -95,8 +97,10 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/attack_hand(mob/usermob)
 	add_fingerprint(usr)
-	update_icon(1)
+	animation = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	sleep(10)
+	animation = FALSE
 	switch_side()
 
 /obj/machinery/atmospherics/trinary/tvalve/digital		// can be controlled by AI
@@ -125,15 +129,13 @@
 	flipped = 1
 	state = TVALVE_STATE_SIDE
 
-/obj/machinery/atmospherics/trinary/tvalve/digital/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+/obj/machinery/atmospherics/trinary/tvalve/digital/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/atmospherics/trinary/tvalve/digital/update_icon()
+/obj/machinery/atmospherics/trinary/tvalve/digital/update_icon_state()
 	..()
-
 	if(!powered())
 		icon_state = "tvalvenopower"
 

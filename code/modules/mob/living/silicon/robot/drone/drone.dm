@@ -57,10 +57,10 @@
 /mob/living/silicon/robot/drone/New()
 	..()
 
-	remove_language("Robot Talk")
-	remove_language("Galactic Common")
-	add_language("Drone Talk", 1)
-	add_language("Drone", 1)
+	remove_language(LANGUAGE_BINARY)
+	remove_language(LANGUAGE_GALACTIC_COMMON)
+	add_language(LANGUAGE_DRONE_BINARY, 1)
+	add_language(LANGUAGE_DRONE, 1)
 
 	// Disable the microphone wire on Drones
 	if(radio)
@@ -117,7 +117,7 @@
 	connected_ai = null
 
 	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
-	additional_law_channels["Drone"] = ";"
+	additional_law_channels["Drone"] = ":dt "
 
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 
@@ -156,7 +156,7 @@
 		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
 		return
 
-	else if(istype(W, /obj/item/crowbar))
+	else if(W.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
 		return
 
@@ -340,22 +340,10 @@
 	full_law_reset()
 	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
 	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
-	to_chat(src, "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
+	to_chat(src, "Use <b>:dt</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
 	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
 	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
-
-/*
-	sprite["Default"] = "repairbot"
-	sprite["Mk2 Mousedrone"] = "mk2"
-	sprite["Mk3 Monkeydrone"] = "mk3"
-	var/icontype
-	icontype = input(player,"Pick an icon") in sprite
-	icon_state = sprite[icontype]
-	updateicon()
-
-	choose_icon(6,sprite)
-*/
 
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)

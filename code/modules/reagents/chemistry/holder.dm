@@ -682,6 +682,14 @@
 			return FALSE
 	return TRUE
 
+/datum/reagents/proc/has_blood_species(reagent)
+	for(var/datum/reagent/R in reagent_list)
+		if(R.data["blood_species"] == reagent)
+			return R.volume
+		else
+			return FALSE
+	return FALSE
+
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
 	for(var/datum/reagent/R in reagent_list)
 		if(R.id == reagent)
@@ -813,34 +821,19 @@
 		trans_data["diseases"] = temp
 	return trans_data
 
-/datum/reagents/proc/generate_taste_message(minimum_percent = TASTE_SENSITIVITY_NORMAL)
+/datum/reagents/proc/generate_taste_message(minimum_percent = TASTE_SENSITIVITY_NORMAL, mob/living/user)
 	var/list/out = list()
 	var/list/reagent_tastes = list() //in the form reagent_tastes["descriptor"] = strength
 	//mobs should get this message when either they cannot taste, the tastes are all too weak for them to detect, or the tastes somehow don't have any strength
 	var/no_taste_text = "something indescribable"
 	if(minimum_percent > 100)
 		return no_taste_text
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
+	for(var/datum/reagent/R in reagent_list)
 		if(!R.taste_mult)
 			continue
-		//nutriment carries a list of tastes that originates from the snack food that the nutriment came from
-		if(istype(R, /datum/reagent/consumable/nutriment))
-			var/list/nutriment_taste_data = R.data
-			for(var/nutriment_taste in nutriment_taste_data)
-				var/ratio = nutriment_taste_data[nutriment_taste]
-				var/amount = ratio * R.taste_mult * R.volume
-				if(nutriment_taste in reagent_tastes)
-					reagent_tastes[nutriment_taste] += amount
-				else
-					reagent_tastes[nutriment_taste] = amount
-		else
-			var/taste_desc = R.taste_description
-			var/taste_amount = R.volume * R.taste_mult
-			if(taste_desc in reagent_tastes)
-				reagent_tastes[taste_desc] += taste_amount
-			else
-				reagent_tastes[taste_desc] = taste_amount
+		var/list/taste_amount = R.taste_amplification(user)
+		for(var/taste_desc in taste_amount)
+			reagent_tastes[taste_desc] += taste_amount[taste_desc]
 	//deal with percentages
 	//TODO: may want to sort these from strong to weak
 	var/total_taste = counterlist_sum(reagent_tastes)

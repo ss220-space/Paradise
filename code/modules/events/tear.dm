@@ -4,8 +4,16 @@
 	endWhen = 50
 	var/obj/effect/tear/TE
 
-/datum/event/tear/announce()
-	GLOB.event_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
+/datum/event/tear/announce(false_alarm)
+	var/area/target_area = impact_area
+	if(!target_area)
+		if(false_alarm)
+			target_area = findEventArea()
+		else
+			log_debug("Tried to announce a tear without a valid area!")
+			kill()
+			return
+	GLOB.event_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
 
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
@@ -25,7 +33,7 @@
 	icon='icons/effects/tear.dmi'
 	icon_state="tear"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	light_range = 3
 
 /obj/effect/tear/Initialize(mapload)

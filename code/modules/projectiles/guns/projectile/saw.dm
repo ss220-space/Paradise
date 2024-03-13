@@ -22,9 +22,11 @@
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/l6_saw/update_icon()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
+
+/obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
+
 
 /obj/item/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
@@ -131,8 +133,7 @@
 	origin_tech = "combat=4"
 	ammo_type = /obj/item/ammo_casing/mm556x45/incen
 
-/obj/item/ammo_box/magazine/mm556x45/update_icon()
-	..()
+/obj/item/ammo_box/magazine/mm556x45/update_icon_state()
 	icon_state = "a762-[round(ammo_count(),10)]"
 
 //casings//

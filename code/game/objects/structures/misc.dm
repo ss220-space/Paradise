@@ -8,7 +8,7 @@
 /obj/structure/signpost
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 /obj/structure/signpost/attack_hand(mob/user as mob)
@@ -20,7 +20,7 @@
 	desc = "What?"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost2"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 
 /obj/structure/respawner
@@ -45,7 +45,7 @@
 	desc = "A structure that draws ethereal attention when active. Use an empty hand to activate."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	var/active = FALSE
 	var/ghost_alert_delay = 30 SECONDS
