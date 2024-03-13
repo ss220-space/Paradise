@@ -28,6 +28,9 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "syndicate_cyborg_upgrade"
 
+/obj/item/CIndy_patcher/attack(mob/living/target, mob/living/user, def_zone)
+	return
+
 /obj/item/CIndy_patcher/afterattack(atom/target, mob/user, proximity, params)
 	if(isrobot(target))
 		if(do_after_once(user, 10 SECONDS, target = target))
@@ -38,7 +41,22 @@
 			QDEL_NULL(prev_robot)
 			qdel(src)
 		return
-	. = ..()
 
+/obj/item/broken_bacon
+	name = "Broken tracking beacon"
+	desc = "Looks like it can't transmit data anymore."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "motion2"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/broken_bacon/attack(mob/living/target, mob/living/user, def_zone)
+	return
+
+/obj/item/broken_bacon/afterattack(atom/target, mob/user, proximity, params)
+	if(ismecha(target))
+		var/obj/mecha/mecha = target
+		mecha.hacked = TRUE
+		do_sparks(5, 1, mecha)
+		qdel(src)
 
 #undef CYBERSUN_DISCOUNT
