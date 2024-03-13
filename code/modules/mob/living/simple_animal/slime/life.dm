@@ -361,7 +361,7 @@
 
 	var/min_dist = 9999
 	var/cur_dist
-	for(var/mob/living/L in targets)
+	for(var/mob/living/L as anything in targets)
 		if(Adjacent(L))
 			return L
 		cur_dist = get_dist(loc, L.loc)
