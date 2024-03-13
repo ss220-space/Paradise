@@ -947,7 +947,7 @@
 
 /obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/owner, mob/living/user, obj/item/clothing/under/uniform)
 	for(var/obj/item/clothing/accessory/head_strip/strip in uniform)
-		to_chat(user, "You can have only on strip attached to this uniform")
+		to_chat(user, span_warning("You can have only one strip attached to this uniform!"))
 		return FALSE
 	return TRUE
 
