@@ -355,7 +355,7 @@
 
 		targets += L
 
-	if(!targets || !targets.len)
+	if(!length(targets))
 		return FALSE
 
 	. = targets[1]
