@@ -45,8 +45,8 @@
 			if(prob(10))
 				to_chat(H, span_userdanger("You feel terrible unbearable pain. AAAHHH!"))
 				H.emote("scream")
-				H.do_jitter_animation(500, 20)
-				H.Weaken(5)
+				H.Weaken(5 SECONDS)
+				H.do_jitter_animation(500, 30)
 			if(prob(1))
 				var/destiny = rand(1,3) // What is your destiny?
 
@@ -63,6 +63,7 @@
 						organ?.receive_damage(120)
 
 		if(4)
+			H.do_jitter_animation(500, 30)
 			if(stage_message == 4)
 				to_chat(H, span_boldnotice("The pain has gone away.."))
 				var/datum/species/mob = H.dna.species
@@ -74,20 +75,19 @@
 				switch(destiny)
 					if(1)
 						var/obj/item/organ/external/limb = check_available_limbs(H, FALSE)
-						limb?.receive_damage(50)
+						limb?.receive_damage(50, silent = TRUE)
 					if(2)
 						var/obj/item/organ/external/limb = check_available_limbs(H)
 						playsound(H, "bonebreak", 150, TRUE)
 						limb?.fracture(TRUE)
 					if(3)
 						var/obj/item/organ/internal/organ = check_available_organs(H)
-						organ?.receive_damage(120)
+						organ?.receive_damage(120, TRUE)
 
 		if(5)
 			H.visible_message(span_danger("[H] become a nucleation!"), span_userdanger("YOU TURN INTO A NUCLEATION AGAIN!"))
 			var/mob/living/carbon/human/nucleat = H
 			nucleat?.set_species(/datum/species/nucleation, retain_damage = TRUE, keep_missing_bodyparts = TRUE, transfer_special_internals = TRUE)
-			cure()
 
 /datum/disease/virus/nuclefication/proc/check_available_limbs(mob/living/carbon/human/target, check_fracture = TRUE)
 	var/list/obj/item/organ/external/O = target.bodyparts.Copy()

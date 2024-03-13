@@ -41,6 +41,8 @@
 	..(target, special)
 	var/datum/disease/virus/nuclefication/D = new()
 	target.diseases += D
+	var/datum/species/mob = target.dna.species
+	mob.species_traits |= NO_SCAN
 	D.affected_mob = target
 	D.affected_mob.med_hud_set_status()
 
