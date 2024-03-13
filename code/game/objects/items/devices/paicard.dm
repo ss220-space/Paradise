@@ -308,6 +308,7 @@
 	overlays += "pai-happy"
 	if(upgrade)
 		extra_memory = upgrade.extra_memory
+		pai.syndipai = TRUE
 	pai.reset_software(extra_memory)
 
 /obj/item/paicard/proc/removePersonality()
