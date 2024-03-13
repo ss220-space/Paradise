@@ -10494,18 +10494,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
-"bsX" = (
-/obj/structure/table,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
-/obj/item/stack/packageWrap,
-/obj/item/storage/box/lights/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/storage)
 "bta" = (
 /obj/machinery/conveyor/northwest{
 	id = "QMLoad2"
@@ -31068,8 +31056,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "dgb" = (
-/obj/structure/bed/dogbed/pet,
 /mob/living/simple_animal/goose/Scientist,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -63877,16 +63865,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"jen" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central/north)
 "jev" = (
 /obj/structure/chair/comfy/red{
 	dir = 8
