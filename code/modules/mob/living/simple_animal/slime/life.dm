@@ -647,7 +647,7 @@
 			set_mood(SLIME_MOOD_3)
 			phrases += pick("Ням...", "Вкусно...")
 
-	if(!stat && phrases.len)
+	if(!stat && length(phrases)
 		Random_phrase_CD = 10
 		say(pick(phrases))
 
