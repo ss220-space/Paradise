@@ -65,7 +65,7 @@
 	if(activated)
 		activated = FALSE
 		playsound(owner.loc, sound_off, 50, TRUE)
-		icon_state = "[initial(icon_state)]"
+		update_icon(UPDATE_ICON_STATE)
 
 	if(owner)
 		to_chat(owner, span_warning("Имплант лезвия отключился от воздействия ЭМИ!"))
@@ -115,7 +115,6 @@
 	owner.update_action_buttons()
 
 /obj/item/organ/internal/cyberimp/tail/blade/update_icon_state()
-	..()
 	if(activated)
 		icon_state = "[initial(icon_state)]_active"
 	else
