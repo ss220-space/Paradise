@@ -208,9 +208,8 @@
 
 
 /mob/living/simple_animal/slime/proc/handle_reagents()
-	for(var/datum/reagent/current_reagent in reagents.reagent_list)
+	for(var/datum/reagent/current_reagent as anything in reagents.reagent_list)
 		reagents.remove_reagent(current_reagent.id, current_reagent.metabolization_rate)
-	reagents.update_total()
 
 
 /mob/living/simple_animal/slime/proc/get_hunger_level()
