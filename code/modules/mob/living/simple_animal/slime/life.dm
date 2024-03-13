@@ -643,7 +643,7 @@
 
 	if(buckled)
 		var/mob/living/food = buckled
-		if(food?.client && prob(10) || !food?.client && prob(1))
+		if(food.client && prob(10) || !food.client && prob(1))
 			set_mood(SLIME_MOOD_3)
 			phrases += pick("Ням...", "Вкусно...")
 
