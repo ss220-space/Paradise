@@ -45,7 +45,7 @@
 		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/slime,
 	)
 
-	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/skrell
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/slime
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/unbreakable),
