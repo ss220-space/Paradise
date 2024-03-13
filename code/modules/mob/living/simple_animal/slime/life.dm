@@ -177,7 +177,7 @@
 
 	// if a slime is starving, it starts losing its friends
 	if(nutrition < age_state.starve_nutrition && !client)
-		if(Friends.len && prob(SLIME_LOOSE_FRIEND_CHANCE))
+		if(length(Friends) && prob(SLIME_LOOSE_FRIEND_CHANCE))
 			var/mob/nofriend = pick(Friends)
 			Friends[nofriend] = max(0, Friends[nofriend] - 1)
 			if(!Friends[nofriend])
