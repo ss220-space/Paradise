@@ -133,7 +133,7 @@
 		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
-		to_chat(user, span_warning("You cannot climb [src], as it is blocked by \a [blocking_object]!")
+		to_chat(user, span_warning("You cannot climb [src], as it is blocked by \a [blocking_object]!"))
 		return FALSE
 	var/turf/T = src.loc
 	if(!T || !istype(T))
