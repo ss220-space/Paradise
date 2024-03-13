@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/closeOtherId
 	var/lockdownbyai = FALSE
 	var/justzap = FALSE
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/airlock_electronics/airlock_electronics
 	var/obj/item/access_control/access_electronics
 	var/has_access_electronics = TRUE
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
@@ -164,7 +164,7 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/Destroy()
 	SStgui.close_uis(wires)
-	QDEL_NULL(electronics)
+	QDEL_NULL(airlock_electronics)
 	QDEL_NULL(access_electronics)
 	QDEL_NULL(wires)
 	QDEL_NULL(note)
@@ -1529,21 +1529,21 @@ About the new airlock wires panel:
 		if(user)
 			to_chat(user, span_notice("You remove the airlock electronics."))
 
-		if(!electronics)
-			electronics = new /obj/item/airlock_electronics(loc)
-			electronics.id = id_tag
+		if(!airlock_electronics)
+			airlock_electronics = new /obj/item/airlock_electronics(loc)
+			airlock_electronics.id = id_tag
 		else
-			electronics.forceMove(loc)
+			airlock_electronics.forceMove(loc)
 		if(emagged)
-			electronics.icon_state = "door_electronics_smoked"
-		electronics = null
+			airlock_electronics.icon_state = "door_electronics_smoked"
+		airlock_electronics = null
 
 		if(has_access_electronics)
 			if(!access_electronics)
 				build_access_electronics()
 			access_electronics.forceMove(loc)
 			if(emagged)
-				access_electronics.icon_state = "access-control-smoked"
+				access_electronics.emag_act()
 			access_electronics = null
 
 	qdel(src)

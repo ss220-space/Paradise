@@ -9,7 +9,7 @@
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral
 	var/base_name = "airlock"
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/airlock_electronics/airlock_electronics
 	var/obj/item/access_control/access_electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
 	var/glass_type = /obj/machinery/door/airlock/glass
@@ -26,7 +26,7 @@
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/Destroy()
-	QDEL_NULL(electronics)
+	QDEL_NULL(airlock_electronics)
 	QDEL_NULL(access_electronics)
 	return ..()
 
@@ -91,10 +91,10 @@
 			to_chat(user, "<span class='notice'>You wire the airlock assembly.</span>")
 
 	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && W.icon_state != "door_electronics_smoked")
-		playsound(loc, W.usesound, 100, 1)
-		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
+		playsound(loc, W.usesound, 100, TRUE)
+		user.visible_message("[user] starts to install the airlock electronics into the airlock assembly.", "You start to install airlock electronics into the airlock assembly...")
 
-		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), target = src))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 				return
 			add_fingerprint(user)
@@ -102,16 +102,17 @@
 			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"
-			electronics = W
+			airlock_electronics = W
 
 	else if(istype(W, /obj/item/access_control) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-		if(W.icon_state == "access-control-smoked")
+		var/obj/item/access_control/control = W
+		if(control.emagged)
 			return
 		if(access_electronics)
 			return
-		playsound(loc, W.usesound, 100, 1)
+		playsound(loc, W.usesound, 100, TRUE)
 		user.visible_message("[user] installs the access control electronics into the airlock assembly.", "You start to install access control electronics into the airlock assembly...")
-		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), target = src))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 				return
 			if(access_electronics)
@@ -173,17 +174,17 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is removing the electronics from the airlock assembly...", "You start to remove electronics from the airlock assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 	state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 	name = "wired airlock assembly"
 
-	if(!electronics)
-		electronics = new /obj/item/airlock_electronics(loc)
+	if(!airlock_electronics)
+		airlock_electronics = new /obj/item/airlock_electronics(loc)
 	else
-		electronics.forceMove(loc)
-		electronics = null
+		airlock_electronics.forceMove(loc)
+		airlock_electronics = null
 
 	if(access_electronics)
 		access_electronics.forceMove(loc)
@@ -200,7 +201,7 @@
 	user.visible_message("[user] is finishing the airlock...", \
 							"<span class='notice'>You start finishing the airlock...</span>")
 	. = TRUE
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	to_chat(user, "<span class='notice'>You finish the airlock.</span>")
 	var/obj/machinery/door/airlock/door
@@ -217,10 +218,10 @@
 		door.name = base_name
 	door.previous_airlock = previous_assembly
 
-	door.electronics = electronics
-	door.id_tag = electronics.id
-	electronics.forceMove(door)
-	electronics = null
+	door.airlock_electronics = airlock_electronics
+	door.id_tag = airlock_electronics.id
+	airlock_electronics.forceMove(door)
+	airlock_electronics = null
 
 	if(access_electronics)
 		door.has_access_electronics = TRUE
@@ -333,9 +334,9 @@
 	target.anchored = source.anchored
 	if(previous)
 		target.previous_assembly = source.type
-	if(electronics)
-		target.electronics = source.electronics
-		source.electronics.forceMove(target)
+	if(airlock_electronics)
+		target.airlock_electronics = source.airlock_electronics
+		source.airlock_electronics.forceMove(target)
 	if(access_electronics)
 		target.access_electronics = source.access_electronics
 		source.access_electronics.forceMove(target)

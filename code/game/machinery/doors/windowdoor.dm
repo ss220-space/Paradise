@@ -225,7 +225,7 @@
 		else
 			electronics.forceMove(loc)
 		if(emagged)
-			electronics.icon_state = "access-control-smoked"
+			electronics.emag_act()
 		electronics = null
 
 	qdel(src)
@@ -345,7 +345,7 @@
 				else
 					electronics.forceMove(loc)
 				if(emagged)
-					electronics.icon_state = "access-control-smoked"
+					electronics.emag_act()
 				electronics = null
 
 				qdel(src)

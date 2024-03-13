@@ -134,7 +134,8 @@
 		if("02")
 			//Adding airlock electronics for access. Step 6 complete.
 			if(istype(W, /obj/item/access_control))
-				if(W.icon_state == "access-control-smoked")
+				var/obj/item/access_control/control = W
+				if(control.emagged)
 					return
 				if(electronics)
 					to_chat(user, "<span class='notice'>There's already [electronics] inside!")

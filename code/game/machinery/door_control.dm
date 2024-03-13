@@ -215,8 +215,7 @@
 			user.put_in_hands(access_electronics, ignore_anim = FALSE)
 			access_electronics.add_fingerprint(user)
 			if(emagged)
-				access_electronics.emagged = TRUE
-				access_electronics.update_icon(UPDATE_ICON_STATE)
+				access_electronics.emag_act()
 			access_electronics = null
 
 		user.visible_message("[user] takes out the electronics from the button frame.", "You take out the electronics from the button frame.")
@@ -268,7 +267,7 @@
 		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	update_icon()
 
 
 /obj/machinery/door_control/update_icon_state()

@@ -185,11 +185,12 @@
 	if(istype(I, /obj/item/access_control))
 		if(electronics)
 			return
-		if(I.icon_state == "access-control-smoked")
+		var/obj/item/access_control/control = I
+		if(control.emagged)
 			return
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
-		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 30, target = src))
+		playsound(src.loc, I.usesound, 50, TRUE)
+		if(do_after(user, 3 SECONDS, target = src))
 			if(electronics)
 				return
 			if(user.drop_transfer_item_to_loc(I, src))

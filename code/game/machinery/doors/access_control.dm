@@ -38,6 +38,10 @@
 				"id" = access))
 	current_door_accesses_list = door_accesses_list
 
+/obj/item/access_control/emag_act(mob/user)
+	emagged = TRUE
+	update_icon(UPDATE_ICON_STATE)
+
 /obj/item/access_control/update_icon_state()
 	icon_state = "access-control[emagged ? "-smoked" : ""]"
 
