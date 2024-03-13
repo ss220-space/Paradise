@@ -244,10 +244,8 @@
 /obj/structure/proc/structure_gone(atom/location)
 	for(var/mob/living/carbon/human/H in get_turf(location))
 		H.pixel_z = initial(H.pixel_z)
-		if(H.lying)
-			return
-		if(H.mob_size == MOB_SIZE_SMALL)
-			return
+		if(H.lying || H.mob_size <= MOB_SIZE_SMALL)
+			continue
 		to_chat(H, "You stop feeling \the [src] beneath your feet.</span>")
 		if(H.m_intent == MOVE_INTENT_WALK)
 			H.Weaken(3 SECONDS)
