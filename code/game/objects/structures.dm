@@ -133,7 +133,7 @@
 		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
-		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
+		to_chat(user, span_warning("You cannot climb [src], as it is blocked by \a [blocking_object]!")
 		return FALSE
 	var/turf/T = src.loc
 	if(!T || !istype(T))
@@ -145,7 +145,7 @@
 	if(!climb_check(user))
 		return FALSE
 
-	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+	usr.visible_message(span_warning("[user] starts climbing onto \the [src]!"))
 	climber = user
 	if(!do_after(user, 50, target = src))
 		climber = null
@@ -159,7 +159,7 @@
 	animate_climb(user)
 
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		usr.visible_message(span_warning("[user] climbs onto \the [src]!"))
 
 	clumse_stuff(climber)
 	climber = null
@@ -212,7 +212,7 @@
 		var/damage = rand(15,30)
 		var/mob/living/carbon/human/H = L
 		if(!istype(H))
-			to_chat(H, "<span class='warning'>You land heavily!</span>")
+			to_chat(H, span_warning("You land heavily!"))
 			L.adjustBruteLoss(damage)
 			return
 
@@ -231,12 +231,12 @@
 				affecting = H.get_organ(BODY_ZONE_HEAD)
 
 		if(affecting)
-			to_chat(L, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
+			to_chat(L, span_warning("You land heavily on your [affecting.name]!"))
 			affecting.receive_damage(damage, 0)
 			if(affecting.parent)
 				affecting.parent.add_autopsy_data("Misadventure", damage)
 		else
-			to_chat(H, "<span class='warning'>You land heavily!</span>")
+			to_chat(H, span_warning("You land heavily!"))
 			H.adjustBruteLoss(damage)
 
 		H.UpdateDamageIcon()
@@ -246,7 +246,7 @@
 		H.pixel_z = initial(H.pixel_z)
 		if(H.lying || H.mob_size <= MOB_SIZE_SMALL)
 			continue
-		to_chat(H, "You stop feeling \the [src] beneath your feet.</span>")
+		to_chat(H, span_warning("You stop feeling \the [src] beneath your feet."))
 		if(H.m_intent == MOVE_INTENT_WALK)
 			H.Weaken(3 SECONDS)
 		if(H.m_intent == MOVE_INTENT_RUN)
@@ -257,10 +257,10 @@
 
 	for(var/mob/living/M in get_turf(src))
 
-		if(M.lying) return //No spamming this on people.
+		if(M.lying) continue //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
-		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
+		to_chat(M, span_warning("You topple as \the [src] moves under you!"))
 
 		get_fall_damage(M)
 
@@ -285,14 +285,14 @@
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += "<span class='warning'>It's on fire!</span>"
+			. += span_warning("It's on fire!")
 		if(broken)
-			. += "<span class='notice'>It appears to be broken.</span>"
+			. += span_notice("It appears to be broken.")
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the structure after a short delay.</span>"
+		. += span_info("You can <b>Click-Drag</b> someone to [src] to put them on the structure after a short delay.")
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -303,7 +303,7 @@
 			. += "It appears heavily damaged."
 		if(0 to 25)
 			if(!broken)
-				. += "<span class='warning'>It's falling apart!</span>"
+				. += span_warning("It's falling apart!")
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
