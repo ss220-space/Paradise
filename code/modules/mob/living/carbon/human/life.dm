@@ -32,6 +32,8 @@
 
 	if(stat == DEAD)
 		handle_decay()
+		if(isnucleation(src))
+			dna.species.handle_death(FALSE, src)
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()

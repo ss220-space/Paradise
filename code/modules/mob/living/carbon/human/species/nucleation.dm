@@ -54,6 +54,11 @@
 	return ..()
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
+	if(H.health <= HEALTH_THRESHOLD_DEAD)
+		death(H)
+	H.adjustBruteLoss(15)
+	H.do_jitter_animation(1000, 6) // wiggle wiggle boom!
+/datum/species/nucleation/proc/death(mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>Тело [H] взрывается, оставляя после себя множество микроскопических кристаллов!</span>")
 	explosion(T, 0, 0, 3, 6, cause = H) // Create a small explosion burst upon death

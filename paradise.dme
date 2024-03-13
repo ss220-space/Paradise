@@ -437,6 +437,7 @@
 #include "code\datums\diseases\viruses\loyalty_syndrome.dm"
 #include "code\datums\diseases\viruses\lycancoughy.dm"
 #include "code\datums\diseases\viruses\magnitis.dm"
+#include "code\datums\diseases\viruses\nuclefication.dm"
 #include "code\datums\diseases\viruses\pierrot_throat.dm"
 #include "code\datums\diseases\viruses\retrovirus.dm"
 #include "code\datums\diseases\viruses\rhumba_beat.dm"

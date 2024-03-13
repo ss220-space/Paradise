@@ -37,3 +37,12 @@
 	name = "crystallized brain"
 	icon_state = "crystal-brain"
 
+/obj/item/organ/internal/brain/crystal/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
+	..(target, special)
+	var/datum/disease/virus/nuclefication/D = new()
+	target.diseases += D
+	D.affected_mob = target
+	D.affected_mob.med_hud_set_status()
+
+
+
