@@ -903,9 +903,8 @@
 
 /proc/get_language_prefix(language_name)
 	var/datum/language/language = GLOB.all_languages[language_name]
-	. = ":"
 	if(language)
-		. += language.key + " "
+		. = ":[language.key] "
 	else
 		. = "Non-existent key"
 		CRASH("[language_name] language does not exist.")
