@@ -32,6 +32,8 @@
 	return ..()
 
 /obj/structure/Destroy()
+	if(climbable)
+		structure_gone(src)
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 	if(smooth)
@@ -49,13 +51,15 @@
 	if(!..())
 		return FALSE
 
+	if(climbable)
+		structure_gone(old)
+
 	if(creates_cover)
 		if(isturf(old))
 			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 		if(isturf(loc))
 			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return TRUE
-
 
 /obj/structure/has_prints()
 	return TRUE
@@ -79,6 +83,32 @@
 
 	do_climb(usr)
 
+/obj/structure/proc/animate_jumping_off(mob/living/user)
+	if(!user.flying && user.mob_has_gravity())
+		var/delay = user.movement_delay()/4
+		sleep(delay)
+		animate(user, pixel_z = initial(user.pixel_z), time = 3, easing = BACK_EASING|EASE_IN)
+
+/obj/structure/proc/animate_climb(mob/living/user)
+	if(!istype(user))
+		return
+	if(!user.checkpass(PASSTABLE) && !user.flying && user.mob_size > MOB_SIZE_SMALL)
+		var/delay = user.movement_delay()/2
+		sleep(delay)
+		animate(user, pixel_z = 16, time = 1, easing = LINEAR_EASING)
+		if(user.floating)
+			user.float(TRUE)
+
+/obj/structure/Uncrossed(atom/movable/mover)
+	. = ..()
+	if(!istype(mover, /mob/living))
+		return
+	if(climbable)
+		var/turf/T = get_turf(mover)
+		var/obj/structure/other_structure = locate(/obj/structure) in T
+		if(!other_structure?.climbable)
+			animate_jumping_off(mover)
+
 /obj/structure/MouseDrop_T(atom/movable/dropping, mob/user, params)
 	. = ..()
 	if(!. && dropping == user)
@@ -94,18 +124,28 @@
 		return T
 	return null
 
-/obj/structure/proc/do_climb(var/mob/living/user)
+/obj/structure/proc/climb_check(mob/living/user)
+	if(user.mob_size == MOB_SIZE_SMALL)
+		return FALSE
+	if(user.flying)
+		return FALSE
 	if(!can_touch(user) || !climbable)
 		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
-		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
+		to_chat(user, span_warning("You cannot climb [src], as it is blocked by \a [blocking_object]!"))
+		return FALSE
+	var/turf/T = src.loc
+	if(!T || !istype(T))
 		return FALSE
 
-	var/turf/T = src.loc
-	if(!T || !istype(T)) return FALSE
+	return TRUE
 
-	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+/obj/structure/proc/do_climb(mob/living/user)
+	if(!climb_check(user))
+		return FALSE
+
+	user.visible_message(span_warning("[user] starts climbing onto \the [src]!"))
 	climber = user
 	if(!do_after(user, 50, target = src))
 		climber = null
@@ -115,12 +155,13 @@
 		climber = null
 		return FALSE
 
-	usr.loc = get_turf(src)
+	user.loc = get_turf(src)
+	animate_climb(user)
+
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		user.visible_message(span_warning("[user] climbs onto \the [src]!"))
 
 	clumse_stuff(climber)
-
 	climber = null
 
 	return TRUE
@@ -165,49 +206,65 @@
 		AM.force /= force_mult
 		AM.throwforce /= force_mult
 
+/obj/structure/proc/get_fall_damage(mob/living/L)
+	if(prob(25))
+
+		var/damage = rand(15,30)
+		var/mob/living/carbon/human/H = L
+		if(!istype(H))
+			to_chat(H, span_warning("You land heavily!"))
+			L.adjustBruteLoss(damage)
+			return
+
+		var/obj/item/organ/external/affecting
+
+		switch(pick(list("ankle","wrist","head","knee","elbow")))
+			if("ankle")
+				affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+			if("knee")
+				affecting = H.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+			if("wrist")
+				affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+			if("elbow")
+				affecting = H.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+			if("head")
+				affecting = H.get_organ(BODY_ZONE_HEAD)
+
+		if(affecting)
+			to_chat(L, span_warning("You land heavily on your [affecting.name]!"))
+			affecting.receive_damage(damage, 0)
+			if(affecting.parent)
+				affecting.parent.add_autopsy_data("Misadventure", damage)
+		else
+			to_chat(H, span_warning("You land heavily!"))
+			H.adjustBruteLoss(damage)
+
+		H.UpdateDamageIcon()
+
+/obj/structure/proc/structure_gone(atom/location)
+	for(var/mob/living/carbon/human/H in get_turf(location))
+		H.pixel_z = initial(H.pixel_z)
+		if(H.lying || H.mob_size <= MOB_SIZE_SMALL)
+			continue
+		to_chat(H, span_warning("You stop feeling \the [src] beneath your feet."))
+		if(H.m_intent == MOVE_INTENT_WALK)
+			H.Weaken(3 SECONDS)
+		if(H.m_intent == MOVE_INTENT_RUN)
+			H.Weaken(10 SECONDS)
+			get_fall_damage(H)
 
 /obj/structure/proc/structure_shaken()
 
 	for(var/mob/living/M in get_turf(src))
 
-		if(M.lying) return //No spamming this on people.
+		if(M.lying)
+			continue //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
-		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
+		to_chat(M, span_warning("You topple as \the [src] moves under you!"))
 
-		if(prob(25))
+		get_fall_damage(M)
 
-			var/damage = rand(15,30)
-			var/mob/living/carbon/human/H = M
-			if(!istype(H))
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
-				M.adjustBruteLoss(damage)
-				return
-
-			var/obj/item/organ/external/affecting
-
-			switch(pick(list("ankle","wrist","head","knee","elbow")))
-				if("ankle")
-					affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
-				if("knee")
-					affecting = H.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-				if("wrist")
-					affecting = H.get_organ(pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
-				if("elbow")
-					affecting = H.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-				if("head")
-					affecting = H.get_organ(BODY_ZONE_HEAD)
-
-			if(affecting)
-				to_chat(M, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
-				affecting.receive_damage(damage, 0)
-				if(affecting.parent)
-					affecting.parent.add_autopsy_data("Misadventure", damage)
-			else
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
-				H.adjustBruteLoss(damage)
-
-			H.UpdateDamageIcon()
 	return
 
 /obj/structure/proc/can_touch(mob/living/user)
@@ -229,14 +286,14 @@
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += "<span class='warning'>It's on fire!</span>"
+			. += span_warning("It's on fire!")
 		if(broken)
-			. += "<span class='notice'>It appears to be broken.</span>"
+			. += span_notice("It appears to be broken.")
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the table after a short delay.</span>"
+		. += span_info("You can <b>Click-Drag</b> someone to [src] to put them on the structure after a short delay.")
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -247,7 +304,7 @@
 			. += "It appears heavily damaged."
 		if(0 to 25)
 			if(!broken)
-				. += "<span class='warning'>It's falling apart!</span>"
+				. += span_warning("It's falling apart!")
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE

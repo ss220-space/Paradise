@@ -67,6 +67,31 @@
 		return TRUE
 	return FALSE
 
+/obj/structure/fence/do_climb(mob/living/user)
+	if(!climb_check(user))
+		return FALSE
+
+	user.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+	climber = user
+	if(!do_after(user, CLIMB_TIME, target = src))
+		climber = null
+		return FALSE
+
+	if(!can_touch(user) || !climbable)
+		climber = null
+		return FALSE
+
+	user.loc = get_turf(src)
+
+	if(get_turf(user) == get_turf(src))
+		user.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+
+	clumse_stuff(climber)
+
+	climber = null
+
+	return TRUE
+
 /*
 	Shock user with probability prb (if all connections & power are working)
 	Returns TRUE if shocked, FALSE otherwise
