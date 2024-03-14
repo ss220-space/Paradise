@@ -78660,7 +78660,7 @@
 	id = "courtroom";
 	id_tag = "courtroombolts";
 	name = "Courtroom";
-	req_access = list(63,42)
+	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -93315,7 +93315,7 @@
 	id = "courtroom";
 	id_tag = "courtroombolts";
 	name = "Courtroom";
-	req_access = list(63,42)
+	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
