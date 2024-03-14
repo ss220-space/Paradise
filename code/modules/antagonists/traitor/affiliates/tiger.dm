@@ -1,3 +1,6 @@
+#define FREE_INJECT_TIME 10 SECONDS
+#define TARGET_INJECT_TIME 3 SECONDS
+
 /datum/affiliate/tiger
 	name = "Tiger Cooperative"
 	desc = "Вы - послушник культа генокрадопоклонников и член организации Tiger Cooperative. \n\
@@ -21,6 +24,7 @@
 	var/mob/living/carbon/human/target
 	var/free_inject = FALSE
 	var/used = FALSE
+	var/used_state
 
 /obj/item/cling_extract/attack(mob/living/target, mob/living/user, def_zone)
 	return
@@ -37,7 +41,7 @@
 	if(H.stat != DEAD && !free_inject)
 		to_chat(user, span_warning("You can't use [src] to [target]!"))
 		return
-	if(do_after_once(user, 3 SECONDS, target = user))
+	if(do_after_once(user, free_inject ? FREE_INJECT_TIME : TARGET_INJECT_TIME, target = user))
 		inject(user, H)
 
 /obj/item/cling_extract/proc/inject(mob/living/user, mob/living/carbon/human/target)
@@ -59,16 +63,28 @@
 			target.mind.add_antag_datum(cling)
 			to_chat(user, span_notice("You inject [target] with [src]"))
 			used = TRUE
+			update_icon(UPDATE_ICON_STATE)
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 		return
 	else
 		if(target.mind)
-			target.mind.add_antag_datum(/datum/antagonist/changeling)
-			to_chat(user, span_notice("You inject [target] with [src]"))
+			var/datum/antagonist/changeling/cling = new()
+			cling.give_objectives = FALSE
+			target.mind.add_antag_datum(cling)
+			to_chat(user, span_notice("You inject [target == user ? "yourself" : target] with [src]"))
 			used = TRUE
+			update_icon(UPDATE_ICON_STATE)
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 
+/obj/item/cling_extract/self
+	name = "Cling AutoInjector"
+	desc = "Looks like something moving inside it"
+	free_inject = TRUE
 
+/obj/item/cling_extract/update_icon_state()
+	icon_state = used ? used_state : initial(icon_state)
 
+#undef FREE_INJECT_TIME
+#undef TARGET_INJECT_TIME

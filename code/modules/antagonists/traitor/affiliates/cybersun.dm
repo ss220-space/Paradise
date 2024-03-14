@@ -25,6 +25,7 @@
 		uplink.uplink_items.Add(new_item)
 
 /obj/item/CIndy_patcher
+	name = "CIndy patcher"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "syndicate_cyborg_upgrade"
 
@@ -46,7 +47,7 @@
 	name = "Broken tracking beacon"
 	desc = "Looks like it can't transmit data anymore."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "motion2"
+	icon_state = "broken_bacon"
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/broken_bacon/attack(mob/living/target, mob/living/user, def_zone)
