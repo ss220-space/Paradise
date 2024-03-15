@@ -43,6 +43,37 @@
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
+/obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/holder/mouse))
+		if(on)
+			to_chat(user, span_warning("There are no place for [I]!"))
+			return
+		var/obj/item/holder/mouse/mouse_holder = I
+		user.drop_item_ground(mouse_holder)
+		mouse_holder.forceMove(src)
+		for(var/mob/living/simple_animal/mouse/mouse in mouse_holder)
+			fry_mouse(mouse)
+		qdel(mouse_holder)
+	. = ..()
+
+/obj/machinery/cooker/deepfryer/MouseDrop_T(mob/living/dropping, mob/living/user, params)
+	if(istype(dropping, /mob/living/simple_animal/mouse) && dropping == user)
+		if(on)
+			to_chat(user, span_warning("There are no place for [I]!"))
+			return
+		dropping.forceMove(get_turf(src))
+		fry_mouse(dropping)
+
+/obj/machinery/cooker/deepfryer/proc/fry_mouse(mob/living/simple_animal/mouse/mouse)
+	icon_state = onicon
+	on = TRUE
+	mouse.del_on_death = TRUE
+	mouse.death()
+	sleep(3 SECONDS)
+	icon_state = officon
+	on = FALSE
+	new /obj/item/reagent_containers/food/snacks/fry_mouse(get_turf(src))
+
 /obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
 	if(ishuman(G.affecting))
 		if(G.state < GRAB_AGGRESSIVE)
