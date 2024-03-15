@@ -1027,3 +1027,10 @@
 	tastes = list("dog meat" = 2, "apple" = 1)
 	foodtype = MEAT
 
+/obj/item/reagent_containers/food/snacks/fry_mouse
+	name = "fried mouse"
+	desc = "The moment when you can not be afraid for the quality of meat."
+	icon_state = "mouse_fried"
+	list_reagents = list("protein" = 4)
+	tastes = list("ratge" = 1)
+	foodtype = MEAT
