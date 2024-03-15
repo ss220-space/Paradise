@@ -19,8 +19,7 @@
 	Waddle(target)
 
 /datum/element/waddling/proc/Waddle(atom/movable/target)
-	var/current_pixel_z = target.pixel_z
-	animate(target, pixel_z = target.pixel_z + 4, time = 0)
+	animate(target, pixel_z = 4, time = 0)
 	var/prev_trans = matrix(target.transform)
-	animate(pixel_z = target.pixel_z - 4, transform = turn(target.transform, pick(-12, 0, 12)), time = 2)
-	animate(pixel_z = current_pixel_z, transform = prev_trans, time = 0)
+	animate(pixel_z = 0, transform = turn(target.transform, pick(-12, 0, 12)), time = 2)
+	animate(pixel_z = 0, transform = prev_trans, time = 0)
