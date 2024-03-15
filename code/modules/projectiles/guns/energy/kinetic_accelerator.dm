@@ -704,3 +704,9 @@
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
 	bolt_color = input(user,"","Choose Color",bolt_color) as color|null
+
+
+#undef COMPATIBILITY_STANDART
+#undef COMPATIBILITY_CYBORG
+#undef COMPATIBILITY_MINEBOT
+#undef COMPATIBILITY_UNIVERSAL
