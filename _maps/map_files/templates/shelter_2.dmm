@@ -28,7 +28,7 @@
 "g" = (
 /obj/structure/sign/mining/survival{
 	dir = 1;
-	icon_state = "survival";
+	icon_state = "survival"
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -103,6 +103,10 @@
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "r" = (
+/obj/structure/closet/walllocker{
+	pixel_y = -32
+	},
+/obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "s" = (

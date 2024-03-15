@@ -110,7 +110,7 @@
 "s" = (
 /obj/structure/sign/mining/survival{
 	dir = 1;
-	icon_state = "survival";
+	icon_state = "survival"
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -162,6 +162,13 @@
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
+/turf/simulated/floor/carpet/black,
+/area/survivalpod)
+"D" = (
+/obj/structure/closet/walllocker{
+	pixel_y = -33
+	},
+/obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "F" = (
@@ -332,7 +339,7 @@ b
 H
 o
 t
-L
+D
 a
 a
 a

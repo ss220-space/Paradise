@@ -5,7 +5,7 @@
 "b" = (
 /obj/structure/sign/mining/survival{
 	dir = 1;
-	icon_state = "survival";
+	icon_state = "survival"
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -52,6 +52,10 @@
 /area/survivalpod)
 "k" = (
 /obj/structure/table/survival_pod,
+/obj/structure/closet/walllocker{
+	pixel_x = -32
+	},
+/obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "l" = (
