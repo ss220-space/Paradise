@@ -1028,7 +1028,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/fry_mouse
-	name = "fried mouse"
+	name = "fried rodent"
 	desc = "The moment when you can not be afraid for the quality of meat."
 	icon_state = "mouse_fried"
 	list_reagents = list("protein" = 4)

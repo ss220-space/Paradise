@@ -59,7 +59,7 @@
 /obj/machinery/cooker/deepfryer/MouseDrop_T(mob/living/dropping, mob/living/user, params)
 	if(istype(dropping, /mob/living/simple_animal/mouse) && dropping == user)
 		if(on)
-			to_chat(user, span_warning("There are no place for [I]!"))
+			to_chat(user, span_warning("There are no place for [dropping]!"))
 			return
 		dropping.forceMove(get_turf(src))
 		fry_mouse(dropping)
