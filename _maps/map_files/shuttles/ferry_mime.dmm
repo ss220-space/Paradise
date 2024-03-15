@@ -76,7 +76,7 @@
 	dir = 4
 	},
 /obj/item/stack/sheet/mineral/tranquillite,
-/turf/space,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "y" = (
 /obj/machinery/vending/autodrobe,

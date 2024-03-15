@@ -80,7 +80,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
-/turf/space,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "J" = (
 /turf/simulated/wall/shuttle,

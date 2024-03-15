@@ -3102,6 +3102,8 @@
 /obj/machinery/vending/nta/ertarmory/consumables
 	name = "NT ERT Consumables Gear"
 	desc = "A consumable equipment for different situations."
+
+	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "sec_off"
 	panel_overlay = "sec_panel"
 	screen_overlay = "sec"
@@ -3109,6 +3111,7 @@
 	broken_overlay = "sec_broken"
 	broken_lightmask_overlay = "sec_broken_lightmask"
 	deny_overlay = "sec_deny"
+
 	density = FALSE
 	products = list(
 		/obj/item/restraints/handcuffs = 10,
@@ -3132,6 +3135,16 @@
 	req_access = list(ACCESS_CENT_GENERAL)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
+
+	icon_state = "nta_base"
+	panel_overlay = "nta_panel"
+	screen_overlay = "nta"
+	lightmask_overlay = "nta_lightmask"
+	broken_overlay = "nta_broken"
+	broken_lightmask_overlay = "nta_lightmask"
+	vend_overlay = "nta_vend"
+	deny_overlay = "nta_deny"
+	vend_overlay_time = 3 SECONDS
 
 /obj/machinery/vending/ntc/medal
 	name = "NT Cargo Encouragement"
@@ -3222,7 +3235,15 @@
 /obj/machinery/vending/ntc/crates
 	name = "NT Cargo Preset Gear"
 	desc = "A already preset of equipments vendor for cargo."
-	icon_state = "MagiVend"
+
+	icon = 'icons/obj/machines/vending.dmi'
+	icon_state = "magivend_off"
+	panel_overlay = "magivend_panel"
+	screen_overlay = "magivend"
+	lightmask_overlay = "magivend_lightmask"
+	broken_overlay = "magivend_broken"
+	broken_lightmask_overlay = "magivend_broken_lightmask"
+
 	products = list(
 		/obj/structure/closet/crate/trashcart/NTdelivery = 100,
 		/obj/structure/closet/crate/secure/gear = 100,
@@ -3327,7 +3348,15 @@
 /obj/machinery/vending/ntc/mech/weapon
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Fabricator with advanced technology of bluespace transporting of resources."
-	icon_state = "liberationstation"
+
+	icon = 'icons/obj/machines/vending.dmi'
+	icon_state = "liberationstation_off"
+	panel_overlay = "liberationstation_panel"
+	screen_overlay = "liberationstation"
+	lightmask_overlay = "liberationstation_lightmask"
+	broken_overlay = "liberationstation_broken"
+	broken_lightmask_overlay = "liberationstation_broken_lightmask"
+
 	products = list(
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion = 10,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse = 10,

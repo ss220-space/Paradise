@@ -68,6 +68,10 @@
 	id_tag = "ERT_armory_vkd";
 	name = "Armory level 1"
 	},
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "ERT_Quarantine";
+	name = "ERT Quarantine"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -1067,6 +1071,10 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
 	id_tag = "CC_Armory_DEDI"
+	},
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "ERT_Quarantine";
+	name = "ERT Quarantine"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3502,12 +3510,6 @@
 	},
 /area/ninja/holding)
 "bAl" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 5;
-	pixel_x = 1;
-	pixel_y = 1;
-	density = 0
-	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2;
@@ -4821,16 +4823,16 @@
 	},
 /area/ninja/holding)
 "ciK" = (
+/obj/machinery/door/firedoor,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "ERT_Quarantine";
+	name = "ERT Quarantine"
+	},
 /obj/machinery/door/airlock/centcom{
 	name = "Medical Block";
 	opacity = 1;
 	req_access = list(109)
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "ERT_Quarantine";
-	name = "ERT_Quarantine"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5713,6 +5715,10 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
 	id_tag = "CC_Armory_DEDI"
+	},
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "ERT_Quarantine";
+	name = "ERT Quarantine"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8484,7 +8490,8 @@
 	teleport_z = 1
 	},
 /obj/structure/railing{
-	layer = 4.3
+	layer = 4.3;
+	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -11996,9 +12003,9 @@
 	tag = "icon-shower (WEST)"
 	},
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/preopen{
+/obj/machinery/door/poddoor/impassable/preopen{
 	id_tag = "ERT_Quarantine";
-	name = "ERT_Quarantine"
+	name = "ERT Quarantine"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -14183,6 +14190,10 @@
 	dir = 2;
 	id_tag = "CC_Armory_DEDI"
 	},
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "ERT_Quarantine";
+	name = "ERT Quarantine"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "navybluealt"
@@ -14907,7 +14918,8 @@
 /area/syndicate_mothership/elite_squad)
 "hat" = (
 /obj/structure/railing{
-	pixel_y = 32
+	pixel_y = 32;
+	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -15372,6 +15384,12 @@
 /obj/item/fish/goldfish{
 	pixel_y = 10;
 	pixel_x = 16
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 5;
+	pixel_x = -32;
+	pixel_y = -32;
+	density = 0
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/zone2)
@@ -17095,7 +17113,8 @@
 /area/centcom/bridge)
 "ifB" = (
 /obj/structure/railing{
-	layer = 4.3
+	layer = 4.3;
+	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -22106,7 +22125,8 @@
 /area/shuttle/trade/sol)
 "kww" = (
 /obj/structure/railing{
-	layer = 4.3
+	layer = 4.3;
+	density = 0
 	},
 /obj/effect/turf_decal/tile/neutral{
 	color = "black";
@@ -26116,12 +26136,13 @@
 	},
 /area/centcom/zone1)
 "mjE" = (
-/obj/structure/railing{
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/tile/neutral{
 	color = "black";
 	icon_state = "tile_full"
+	},
+/obj/structure/railing{
+	pixel_y = 32;
+	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -26522,17 +26543,12 @@
 	},
 /area/centcom/zone2)
 "msJ" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 5;
-	pixel_x = 1;
-	pixel_y = 1;
-	density = 0
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "ERT_Quarantine";
+	name = "ERT Quarantine"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkbluecornersalt"
-	},
-/area/centcom/zone2)
+/turf/simulated/wall/indestructible/fakeglass,
+/area/centcom/specops)
 "msN" = (
 /obj/structure/table,
 /obj/item/storage/box/syndidonkpockets,
@@ -30179,7 +30195,8 @@
 	teleport_z = 1
 	},
 /obj/structure/railing{
-	layer = 4.3
+	layer = 4.3;
+	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -33719,6 +33736,12 @@
 	layer = 9.1
 	},
 /obj/structure/flora/rock/pile,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 6;
+	pixel_y = -7;
+	pixel_x = 1;
+	density = 0
+	},
 /turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/specops)
 "poo" = (
@@ -40255,7 +40278,7 @@
 "shp" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/poddoor/preopen{
+/obj/machinery/door/poddoor/impassable/preopen{
 	id_tag = "ERT_Quarantine";
 	name = "ERT Quarantine"
 	},
@@ -42600,6 +42623,10 @@
 	id_tag = "ERT_armory_vkd";
 	name = "Armory level 1"
 	},
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "ERT_Quarantine";
+	name = "ERT Quarantine"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -42839,7 +42866,8 @@
 	teleport_z = 1
 	},
 /obj/structure/railing{
-	pixel_y = 32
+	pixel_y = 32;
+	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -43792,9 +43820,9 @@
 	pixel_y = 20
 	},
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/preopen{
+/obj/machinery/door/poddoor/impassable/preopen{
 	id_tag = "ERT_Quarantine";
-	name = "ERT_Quarantine"
+	name = "ERT Quarantine"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -44824,7 +44852,9 @@
 	},
 /area/syndicate_mothership/cargo)
 "udl" = (
-/obj/machinery/door/poddoor/shutters/invincible,
+/obj/machinery/door/poddoor/shutters/invincible{
+	id_tag = "ShitRainSupply"
+	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
 "udt" = (
@@ -47928,6 +47958,10 @@
 	id_tag = "ERT_armory_vkd";
 	name = "Armory level 1"
 	},
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "ERT_Quarantine";
+	name = "ERT Quarantine"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -48263,7 +48297,8 @@
 	teleport_z = 1
 	},
 /obj/structure/railing{
-	pixel_y = 32
+	pixel_y = 32;
+	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -48615,12 +48650,12 @@
 	},
 /area/shuttle/escape)
 "vJu" = (
-/obj/effect/decal/warning_stripes/west,
 /obj/structure/window/reinforced{
 	dir = 8;
 	layer = 2.9
 	},
 /obj/structure/window/reinforced,
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "vJx" = (
@@ -53108,7 +53143,7 @@
 "xJZ" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/poddoor/preopen{
+/obj/machinery/door/poddoor/impassable/preopen{
 	id_tag = "ERT_Quarantine";
 	name = "ERT Quarantine"
 	},
@@ -53190,14 +53225,14 @@
 /obj/machinery/door_control/secure{
 	id = "CC_Armory_Combat_shotgun";
 	name = "Combat Shotguns";
-	pixel_x = 8;
+	pixel_x = -8;
 	pixel_y = -24;
 	req_access = list(114)
 	},
 /obj/machinery/door_control/secure{
 	id = "CC_Armory_IK60";
 	name = "IK-60";
-	pixel_x = -8;
+	pixel_x = 8;
 	pixel_y = -24;
 	req_access = list(114)
 	},
@@ -53629,14 +53664,18 @@
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "xXq" = (
-/obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "ERT_Quarantine";
-	name = "ERT_Quarantine"
+/obj/effect/turf_decal/tile/neutral{
+	color = "black";
+	icon_state = "tile_full"
+	},
+/obj/structure/railing{
+	layer = 4.3;
+	density = 0
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
 	},
 /area/centcom/specops)
 "xXv" = (
@@ -53700,6 +53739,10 @@
 	dir = 1;
 	id_tag = "ERT_armory_vkd";
 	name = "Armory level 1"
+	},
+/obj/machinery/door/poddoor/impassable/preopen{
+	id_tag = "ERT_Quarantine";
+	name = "ERT Quarantine"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -93679,7 +93722,7 @@ iwS
 bge
 lfH
 iHO
-msJ
+fCa
 pUa
 pUa
 oNa
@@ -101658,7 +101701,7 @@ fMQ
 mjE
 tWj
 tWj
-kww
+xXq
 fMQ
 fXf
 vpW
@@ -106313,8 +106356,8 @@ nAN
 nAN
 nAN
 shp
-xXq
-xXq
+shp
+shp
 nAN
 nAN
 nAN
@@ -110167,10 +110210,10 @@ nAN
 nAN
 nAN
 nAN
-shl
+msJ
 tGe
 fCK
-shl
+msJ
 nAN
 nAN
 nAN
