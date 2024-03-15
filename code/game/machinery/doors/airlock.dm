@@ -760,6 +760,19 @@ About the new airlock wires panel:
 	. = ..()
 	if(isElectrified())
 		shock(user, 100)
+		return .
+
+	if(!istype(user, /mob/living/simple_animal/hostile/gorilla) || !density || operating || locked || welded || arePowerSystemsOn())
+		return .
+
+
+	open(TRUE)
+	user.visible_message(
+		span_warning("[user] grabs the door with both hands and opens it with ease!"),
+		span_notice("You easily open depowered door."),
+		span_hear("You hear groaning metal..."),
+	)
+
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
 	. = ..()

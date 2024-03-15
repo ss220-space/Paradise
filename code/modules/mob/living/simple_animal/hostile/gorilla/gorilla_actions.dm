@@ -4,7 +4,7 @@
 #define GORILLA_EXCITEMENT_TIME (8 SECONDS)
 /// Befriend time per eaten banana. Maximum time is always equal or lower to TIME_PER_BANANA * BANANAS_TO_BEFRIEND.
 #define TIME_PER_BANANA (1 MINUTES)
-/// Bananas required to befrined non-rampage gorilla.
+/// Bananas required to befriend non-rampage gorilla.
 #define BANANAS_TO_BEFRIEND 5
 /// Bananas required for gorilla to eat, in order to make everyone understand them.
 #define BANANAS_TO_ENLIGHTEN 50
@@ -28,6 +28,8 @@
 	var/list/initial_faction
 	/// Associative list with key = user.UID(), value = bananas fed to gorilla. Used in befriending.
 	var/list/friend2bananas
+	/// Notify player about new powers.
+	var/enlighten_message_done = FALSE
 	/// Cooldown stamp used for various gorilla actions.
 	COOLDOWN_DECLARE(gorilla_actions_cooldown)
 
@@ -293,7 +295,8 @@
 		custom_emote(EMOTE_VISIBLE, "начина%(ет,ют)% усердно кивать головой и радостно ухать.", intentional = TRUE)
 		return
 
-	var/pointed_at_crate = istype(pointed_at, /obj/structure/closet)
+	var/obj/structure/bigDelivery/delivery = pointed_at
+	var/pointed_at_crate = istype(pointed_at, /obj/structure/closet) || (istype(delivery) && istype(delivery.wrapped, /obj/structure/closet/crate))
 
 	if(pointed_at_crate && LAZYLEN(crates_in_hand) >= crate_limit)
 		oogaooga(100, 100)
@@ -322,7 +325,7 @@
 		qdel(dummy)
 
 	if(pointed_at_check_type && is_in_range)
-		is_in_range = can_pass_adjacent(pointed_turf, types_to_exclude = list(/mob, /obj/structure/closet, /obj/structure/table))
+		is_in_range = can_pass_adjacent(pointed_turf, types_to_exclude = list(/mob, /obj/structure/closet, /obj/structure/bigDelivery, /obj/structure/table))
 
 	var/path_length = is_in_range ? 1 : length(get_path_to(src, pointed_turf, max_distance = 30, simulated_only = FALSE, no_id = TRUE))
 
@@ -351,8 +354,8 @@
  */
 /mob/living/simple_animal/hostile/gorilla/proc/delayed_manipulation(atom/pointed_at)
 	start_action_cooldown()
-	if(!QDELETED(pointed_at) && can_pass_adjacent(pointed_at, types_to_exclude = list(/mob, /obj/structure/closet, /obj/structure/table)))
-		if(istype(pointed_at, /obj/structure/closet))
+	if(!QDELETED(pointed_at) && can_pass_adjacent(pointed_at, types_to_exclude = list(/mob, /obj/structure/closet, /obj/structure/bigDelivery, /obj/structure/table)))
+		if(istype(pointed_at, /obj/structure/closet) || istype(pointed_at, /obj/structure/bigDelivery))
 			manipulate_crate(pointed_at)
 		else
 			eat_banana(pointed_at, from_master_hand = (pointed_at.loc == master))
@@ -404,6 +407,11 @@
 	qdel(banana)
 
 	if(client)
+		if(check_enlighten() && !enlighten_message_done)
+			enlighten_message_done = TRUE
+			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+			update_sight()
+			to_chat(src, span_boldnotice("Похоже поедание бананов не прошло даром, теперь все вокруг могут понимать Вашу речь!"))
 		if(throw_impact)
 			emote("flip")
 			custom_emote(EMOTE_VISIBLE, "перехватыва%(ет,ют)% банан на лету и моментально проглатыва%(ет,ют)%.", intentional = TRUE)
@@ -502,7 +510,10 @@
 		befriend_timer = null
 		return
 	is_waiting = FALSE
+	enlighten_message_done = FALSE
 	bananas_eaten = 0
+	lighting_alpha = initial(lighting_alpha)
+	update_sight()
 	LAZYCLEARLIST(friend2bananas)
 	if(master)
 		UnregisterSignal(master, list(COMSIG_MOB_POINTED, COMSIG_MOB_DEATH))

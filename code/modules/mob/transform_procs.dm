@@ -184,6 +184,34 @@
 
 	qdel(src)
 
+/mob/living/carbon/human/proc/paize(name, bespai)
+	if(notransform)
+		return
+	for(var/obj/item/W in src)
+		drop_item_ground(W)
+	regenerate_icons()
+	notransform = TRUE
+	canmove = FALSE
+	icon = null
+	invisibility = INVISIBILITY_ABSTRACT
+	var/obj/item/paicard/card
+
+	if(bespai)
+		card = new /obj/item/paicard/syndicate(loc)
+
+	else
+		card = new /obj/item/paicard(loc)
+
+	var/mob/living/silicon/pai/pai = new(card)
+	pai.key = key
+	card.setPersonality(pai)
+	pai.name = name
+	pai.real_name = name
+	card.name = name
+
+	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
+	pai.update_pipe_vision()
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src)
 
 /mob/proc/gorillize(gorilla_type = "Normal", message = TRUE)
 	if(notransform)
@@ -281,4 +309,3 @@
 
 	if(is_type_in_typecache(passed_mob, safe_respawn_typecache_whitelist) && !is_type_in_typecache(passed_mob, safe_respawn_typecache_blacklist))
 		return TRUE
-

@@ -138,16 +138,53 @@
 				return TRUE
 	return FALSE
 
+/obj/structure/railing/proc/hopping(mob/living/user)
+	if(!istype(user))
+		return
+	var/delay = user.movement_delay()/2
+	sleep(delay)
+	animate(user, pixel_z = 10, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
+	delay = user.movement_delay()/4
+	sleep(delay)
+	animate(user, pixel_z = initial(user.pixel_z), time = 3, easing = CIRCULAR_EASING|EASE_OUT)
+	if(user.floating)
+		user.float(TRUE)
+
 /obj/structure/railing/do_climb(mob/living/user)
+	if(!climb_check(user))
+		return FALSE
+	
 	var/initial_mob_loc = get_turf(user)
-	. = ..()
-	if(.)
-		currently_climbed = TRUE
-		if(initial_mob_loc != get_turf(src)) // If we are on the railing, we want to move in the same dir as the railing. Otherwise we get put on the railing
-			currently_climbed = FALSE
-			return
-		user.Move(get_step(user, dir), TRUE)
+
+	user.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+	climber = user
+	if(!do_after(user, 50, target = src))
+		climber = null
+		return FALSE
+
+	if(!can_touch(user) || !climbable)
+		climber = null
+		return FALSE
+
+	user.loc = get_turf(src)
+	hopping(user)
+
+	if(get_turf(user) == get_turf(src))
+		user.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+
+	clumse_stuff(climber)
+
+	climber = null
+
+	currently_climbed = TRUE
+
+	if(initial_mob_loc != get_turf(src)) // If we are on the railing, we want to move in the same dir as the railing. Otherwise we get put on the railing
 		currently_climbed = FALSE
+		return TRUE
+	user.loc = get_step(user, dir)
+	currently_climbed = FALSE
+
+	return TRUE
 
 /obj/structure/railing/proc/can_be_rotated(mob/user)
 	if(anchored)
