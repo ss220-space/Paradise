@@ -44,9 +44,9 @@
 
 /obj/item/signmaker/update_icon_state()
 	if(pointer_busy)
-		icon_state = "signmaker_clown_off"
+		icon_state = "signmaker_clown_on"
 		return
-	icon_state = "signmaker_clown_[sign ? "on" : "off"]]"
+	icon_state = "signmaker_clown_[sign ? "on" : "off"]"
 
 
 /obj/item/signmaker/emag_act(mob/user)
@@ -185,7 +185,8 @@
 	projector = new_projector
 
 /obj/structure/holosoap/Destroy()
-	projector.sign = null
+	projector?.sign = null
+	projector?.update_icon(UPDATE_ICON_STATE)
 	return ..()
 
 /obj/structure/holosoap/has_prints()
