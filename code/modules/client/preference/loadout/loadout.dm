@@ -37,8 +37,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 /datum/gear/proc/update_gear_icon(color)
 	if(initial(icon) && initial(icon_state))
 		return
-	icon_state = path.icon_state
-	icon = path.icon
+	icon_state = initial(path.icon_state)
+	icon = initial(path.icon)
 	if(!initial(description))
 		description = initial(path.desc)
 	if(!icon || !icon_state)
