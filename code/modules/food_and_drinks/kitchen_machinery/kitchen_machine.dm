@@ -366,7 +366,7 @@
 	else
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 
-/obj/machinery/kitchen_machine/proc/abort	soundloop_type = /datum/looping_sound/kitchen/grill()
+/obj/machinery/kitchen_machine/proc/abort()
 	operating = FALSE // Turn it off again aferwards
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
