@@ -6,7 +6,7 @@
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
-	var/on = 0
+	var/on = FALSE
 	var/onicon = null
 	var/officon = null
 	var/openicon = null
@@ -15,8 +15,17 @@
 	var/firechance = 0
 	var/cooktime = 0
 	var/foodcolor = null
-	var/has_specials = 0		//Set to 1 if the machine has specials to check, otherwise leave it at 0
-	var/upgradeable = 0			//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
+	var/has_specials = FALSE		//Set to 1 if the machine has specials to check, otherwise leave it at 0
+	var/upgradeable = FALSE		//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
+	var/datum/looping_sound/kitchen/deep_fryer/soundloop
+
+/obj/machinery/cooker/Initialize(mapload)
+	. = ..()
+	soundloop = new(list(src), FALSE) // cereal machine, screw off
+
+/obj/machinery/cooker/Destroy()
+	QDEL_NULL(soundloop)
+	return ..()
 
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/reagent_containers/food/snacks/D)
@@ -38,15 +47,15 @@
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
-		return 0
+		return FALSE
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
-		return 1
+		return TRUE
 	if(istype(check, /obj/item/grab))
 		return special_attack(check, user)
 	if(has_specials && checkSpecials(check))
 		return TRUE
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
-	return 0
+	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
 	copyto.color = foodcolor
@@ -55,9 +64,10 @@
 	copyto.copy_overlays(copyme)
 
 /obj/machinery/cooker/proc/turnoff(obj/item/olditem)
-	icon_state = officon
+	soundloop.stop()
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	on = 0
+	on = FALSE
+	update_icon(UPDATE_ICON_STATE)
 	qdel(olditem)
 	return
 
@@ -67,6 +77,7 @@
 /obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
+	soundloop.stop()
 	to_chat(user, "<span class='warning'>You smell burning coming from the [src]!</span>")
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
 	smoke.set_up(5, 0, src)
@@ -85,9 +96,10 @@
 	setme.desc = "[name.desc]. It has been [thiscooktype]"
 
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
-	icon_state = onicon
 	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
-	on = 1
+	soundloop.start()
+	on = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	chef.drop_transfer_item_to_loc(tocook, src)
 
 // Override this with the correct snack type
@@ -168,3 +180,8 @@
 
 /obj/machinery/cooker/proc/cookSpecial(var/special)
 	return
+
+/obj/machinery/cooker/update_icon_state()
+	icon_state = on ? officon : onicon
+
+

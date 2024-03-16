@@ -11,6 +11,8 @@
 	bitesize = 3
 	list_reagents = list("protein" = 3)
 	tastes = list("meat" = 1)
+	ingredient_name = "slab of meat"
+	ingredient_name_plural = "slabs of meat"
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)

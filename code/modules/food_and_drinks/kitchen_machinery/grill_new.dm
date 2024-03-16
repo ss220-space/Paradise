@@ -11,6 +11,7 @@
 	broken_icon = "grill_broke"
 	dirty_icon = "grill_dirty"
 	open_icon = "grill_open"
+	soundloop_type = /datum/looping_sound/kitchen/grill
 
 // see code/modules/food/recipes_grill.dm for recipes
 

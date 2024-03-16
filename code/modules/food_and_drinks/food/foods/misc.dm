@@ -175,6 +175,7 @@
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
+	ingredient_name = "turnover"
 	foodtype = JUNKFOOD | MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket

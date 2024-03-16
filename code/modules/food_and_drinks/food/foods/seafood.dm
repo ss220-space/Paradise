@@ -8,6 +8,8 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "carpotoxin" = 2, "vitamin" = 2)
 	tastes = list("white fish" = 1)
+	ingredient_name = "fillet of meat"
+	ingredient_name_plural = "fillets of meat"
 	foodtype = MEAT | TOXIC
 	log_eating = TRUE
 

@@ -25,6 +25,9 @@
 	var/last_ant_time = 0
 	var/foodtype = NONE
 	var/last_check_time
+	///Name of the food to show up in kitchen machines (microwaves, ovens, etc)
+	var/ingredient_name
+	var/ingredient_name_plural
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 	var/log_eating = FALSE // do we log if someone eats us?
