@@ -12,6 +12,7 @@
 	dirty_icon = "mwbloody"
 	open_icon = "mw-o"
 	pass_flags = PASSTABLE
+	soundloop_type = /datum/looping_sound/kitchen/microwave
 
 // see code/modules/food/recipes_microwave.dm for recipes
 

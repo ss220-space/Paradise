@@ -65,13 +65,13 @@
 		fry_mouse(dropping)
 
 /obj/machinery/cooker/deepfryer/proc/fry_mouse(mob/living/simple_animal/mouse/mouse)
-	icon_state = onicon
 	on = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	mouse.del_on_death = TRUE
 	mouse.death()
 	sleep(3 SECONDS)
-	icon_state = officon
 	on = FALSE
+	update_icon(UPDATE_ICON_STATE)
 	new /obj/item/reagent_containers/food/snacks/fry_mouse(get_turf(src))
 
 /obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
