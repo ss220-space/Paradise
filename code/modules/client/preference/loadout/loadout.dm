@@ -30,17 +30,17 @@ GLOBAL_LIST_EMPTY(gear_datums)
 /datum/gear/New()
 	..()
 	if(!description)
-		description = initial(path.desc)
+		description = path::desc
 	update_gear_icon()
 
 
 /datum/gear/proc/update_gear_icon(color)
 	if(initial(icon) && initial(icon_state))
 		return
-	icon_state = initial(path.icon_state)
-	icon = initial(path.icon)
+	icon_state = path::icon_state
+	icon = path::icon
 	if(!initial(description))
-		description = initial(path.desc)
+		description = path::desc
 	if(!icon || !icon_state)
 		return
 	var/icon/new_icon = icon(icon, icon_state, SOUTH, 1, FALSE)
