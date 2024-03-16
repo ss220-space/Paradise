@@ -147,6 +147,7 @@
 	modkit_design = /datum/design/unique_modkit/bounty
 
 /datum/design/unique_modkit
+	req_tech = null	// Unreachable by tech researching.
 	build_type = PROTOLATHE | MECHFAB
 
 /datum/design/unique_modkit/offensive_turf_aoe
