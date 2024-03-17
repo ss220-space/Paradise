@@ -637,8 +637,8 @@
 	var/list/possible = list()
 
 	for(var/T in subtypesof(/datum/station_goal))
-		var/datum/station_goal/goal = T
-		if(config_tag in initial(goal.gamemode_blacklist))
+		var/datum/station_goal/goal = new T
+		if(config_tag in goal.gamemode_blacklist)
 			continue
 
 		possible += goal
@@ -646,8 +646,8 @@
 	var/goal_weights = 0
 	while(length(possible) && goal_weights < STATION_GOAL_BUDGET)
 		var/datum/station_goal/picked_goal = pick_n_take(possible)
-		goal_weights += initial(picked_goal.weight)
-		station_goals += new picked_goal
+		goal_weights += picked_goal.weight
+		station_goals += picked_goal
 
 	if(length(station_goals))
 		send_station_goals_message()
