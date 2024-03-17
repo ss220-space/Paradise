@@ -382,7 +382,7 @@
 			if(cam == src)
 				return
 	if(on)
-		set_light(AI_CAMERA_LUMINOSITY)
+		set_light(AI_CAMERA_LUMINOSITY, l_on = TRUE)
 	else
 		set_light_on(FALSE)
 

@@ -439,7 +439,7 @@
 		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
-		set_light(CANDLE_LUM)
+		set_light(CANDLE_LUM, l_on = TRUE)
 		update_icon(UPDATE_ICON_STATE)
 
 

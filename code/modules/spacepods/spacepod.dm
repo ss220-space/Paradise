@@ -987,7 +987,7 @@
 /obj/spacepod/proc/lightsToggle()
 	lights = !lights
 	if(lights)
-		set_light(lights_power)
+		set_light(lights_power, l_on = TRUE)
 	else
 		set_light_on(FALSE)
 	to_chat(usr, "Lights toggled [lights ? "on" : "off"].")

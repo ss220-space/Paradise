@@ -447,7 +447,7 @@
 /obj/machinery/bfl_lens/proc/activate_lens()
 	state = TRUE
 	update_icon()
-	set_light(8)
+	set_light(8, l_on = TRUE)
 	working_sound()
 
 

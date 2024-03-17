@@ -62,7 +62,7 @@
 /obj/machinery/sleeper/power_change(forced = FALSE)
 	..() //we don't check parent return here because we also care about BROKEN
 	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
+		set_light(2, l_on = TRUE)
 	else
 		set_light_on(FALSE)
 

@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	. = ..()
 	underlays.Cut()
 	if(cremating)
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 		underlays += emissive_appearance(icon, "crema_active_lightmask")
 	else
 		set_light_on(FALSE)

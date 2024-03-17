@@ -63,7 +63,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		set_light_on(FALSE)
 		return
-	set_light(1, LIGHTING_MINIMUM_POWER, on ? COLOR_APC_GREEN : COLOR_APC_RED)
+	set_light(1, LIGHTING_MINIMUM_POWER, on ? COLOR_APC_GREEN : COLOR_APC_RED, TRUE)
 
 
 /obj/machinery/light_switch/update_icon_state()

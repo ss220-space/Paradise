@@ -375,7 +375,7 @@
 
 			else
 				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO)
+				set_light(BR, PO, CO, l_on = TRUE)
 
 	else if(!turned_off())
 		set_emergency_lights()
@@ -601,17 +601,17 @@
 		emergency_lights_off(current_area, current_apc)
 		return
 	if(fire_mode)
-		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
+		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour, l_on = TRUE)
 		update_icon()
 		return
 	emergency_mode = TRUE
-	set_light(3, 1.7, bulb_emergency_colour)
+	set_light(3, 1.7, bulb_emergency_colour, l_on = TRUE)
 	update_icon()
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
-	set_light(0, 0, 0) //you, sir, are off!
+	set_light_on(FALSE) //you, sir, are off!
 	if(current_apc)
 		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 

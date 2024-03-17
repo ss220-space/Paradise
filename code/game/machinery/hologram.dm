@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			outgoing_call.ConnectionFailure(src)
 		set_light_on(FALSE)
 	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
 
@@ -437,7 +437,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users)
-		set_light(2)
+		set_light(2, l_on = TRUE)
 	else
 		set_light_on(FALSE)
 	update_icon()

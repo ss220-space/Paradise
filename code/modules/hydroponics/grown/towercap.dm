@@ -210,7 +210,7 @@
 	if(!burning && CheckOxygen())
 		burning = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		set_light(6, l_color = "#ED9200")
+		set_light(6, l_color = "#ED9200", l_on = TRUE)
 		Burn()
 		START_PROCESSING(SSobj, src)
 

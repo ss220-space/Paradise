@@ -40,7 +40,7 @@
 	update_icon()
 
 	if(on)
-		set_light(1, 1, "#ff821c")
+		set_light(1, 1, "#ff821c", TRUE)
 	else
 		set_light_on(FALSE)
 

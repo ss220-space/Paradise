@@ -97,7 +97,7 @@
 			item.fire_act(null, temperature, volume)
 
 	color = heat2color(temperature)
-	set_light(l_color = color)
+	set_light(l_color = color,)
 	return FALSE
 
 

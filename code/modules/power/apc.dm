@@ -396,7 +396,7 @@
 		if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2|UPSTATE_BROKE))
 			set_light_on(FALSE)
 		else if(update_state & UPSTATE_BLUESCREEN)
-			set_light(2, 1, COLOR_CYAN_BLUE)
+			set_light(2, 1, COLOR_CYAN_BLUE, l_on = TRUE)
 		else if(!(stat & (UPSTATE_MAINT|UPSTATE_BROKE)) && (update_state & UPSTATE_ALLGOOD))
 			var/color
 			switch(charging)
@@ -406,7 +406,7 @@
 					color = COLOR_APC_BLUE
 				if(APC_FULLY_CHARGED)
 					color = COLOR_APC_GREEN
-			set_light(2, 0.5, color)
+			set_light(2, 0.5, color, l_on = TRUE)
 		else
 			set_light_on(FALSE)
 

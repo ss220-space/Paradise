@@ -107,7 +107,7 @@
 	if((stat & (BROKEN|NOPOWER)))
 		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on)
+		set_light(light_range_on, light_power_on, l_on = TRUE)
 	if(.)
 		update_icon()
 

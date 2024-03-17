@@ -176,9 +176,9 @@
 		set_light_on(FALSE)
 		return
 	if(emagged)
-		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT)
+		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT, l_on = TRUE)
 		return
-	set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT)
+	set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT, l_on = TRUE)
 
 
 /obj/machinery/brs_server/power_change(forced = FALSE)

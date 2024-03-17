@@ -64,7 +64,7 @@
 			if(isspaceturf(t))
 				//let's NOT update this that much pls
 				continue
-			set_light(2)
+			set_light(2, l_on = TRUE)
 			return
 		set_light_on(FALSE)
 
