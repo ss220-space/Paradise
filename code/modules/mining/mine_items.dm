@@ -76,6 +76,7 @@
 	belt_icon = "lantern"
 	desc = "A mining lantern."
 	light_range = 6			// luminosity when on
+	light_color = LIGHT_COLOR_YELLOW
 
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
