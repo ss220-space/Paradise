@@ -1,5 +1,5 @@
 /datum/job/civilian
-	title = TITLE_CIVILIAN
+	title = JOB_TITLE_CIVILIAN
 	flag = JOB_CIVILIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = -1

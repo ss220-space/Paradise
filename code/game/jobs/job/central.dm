@@ -1,7 +1,7 @@
 
 // General-purpose CC official. Can hear out grievances, investigate cases, issue demotions, etc.
 /datum/job/ntnavyofficer
-	title = TITLE_CCOFFICER
+	title = JOB_TITLE_CCOFFICER
 	flag = JOB_CENTCOM
 	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
@@ -52,7 +52,7 @@
 
 // НТ Оффицер для недовольных выходов с ЦК.
 /datum/job/ntnavyofficer/field
-	title = TITLE_CCFIELD
+	title = JOB_TITLE_CCFIELD
 	outfit = /datum/outfit/job/ntnavyofficer/field
 
 /datum/outfit/job/ntnavyofficer/field
@@ -64,7 +64,7 @@
 
 // CC Officials who lead ERTs, Death Squads, etc.
 /datum/job/ntspecops
-	title = TITLE_CCSPECOPS
+	title = JOB_TITLE_CCSPECOPS
 	flag = JOB_CENTCOM
 	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
@@ -122,7 +122,7 @@
 
 // Верховное командование для самых больших проблем
 /datum/job/ntspecops/supreme
-	title = TITLE_CCSUPREME
+	title = JOB_TITLE_CCSUPREME
 	outfit = /datum/outfit/job/ntspecops/supreme
 
 /datum/outfit/job/ntspecops/supreme
@@ -140,7 +140,7 @@
 
 //Tran-Solar Federation General
 /datum/job/ntspecops/solgovspecops
-	title = TITLE_CCSOLGOV
+	title = JOB_TITLE_CCSOLGOV
 	outfit = /datum/outfit/job/ntspecops/solgovspecops
 
 /datum/outfit/job/ntspecops/solgovspecops

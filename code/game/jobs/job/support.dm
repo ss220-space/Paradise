@@ -1,6 +1,6 @@
 //Cargo
 /datum/job/qm
-	title = TITLE_QUARTERMASTER
+	title = JOB_TITLE_QUARTERMASTER
 	flag = JOB_QUARTERMASTER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -37,7 +37,7 @@
 
 
 /datum/job/cargo_tech
-	title = TITLE_CARGOTECH
+	title = JOB_TITLE_CARGOTECH
 	flag = JOB_CARGOTECH
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
@@ -64,7 +64,7 @@
 
 
 /datum/job/mining
-	title = TITLE_MINER
+	title = JOB_TITLE_MINER
 	flag = JOB_MINER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 6
@@ -127,7 +127,7 @@
 
 //Food
 /datum/job/bartender
-	title = TITLE_BARTENDER
+	title = JOB_TITLE_BARTENDER
 	flag = JOB_BARTENDER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -170,7 +170,7 @@
 
 
 /datum/job/chef
-	title = TITLE_CHEF
+	title = JOB_TITLE_CHEF
 	flag = JOB_CHEF
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -219,7 +219,7 @@
 
 
 /datum/job/hydro
-	title = TITLE_BOTANIST
+	title = JOB_TITLE_BOTANIST
 	flag = JOB_BOTANIST
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
@@ -255,7 +255,7 @@
 //Griff //BS12 EDIT
 
 /datum/job/clown
-	title = TITLE_CLOWN
+	title = JOB_TITLE_CLOWN
 	flag = JOB_CLOWN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -346,7 +346,7 @@
 	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
 /datum/job/mime
-	title = TITLE_MIME
+	title = JOB_TITLE_MIME
 	flag = JOB_MIME
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -401,7 +401,7 @@
 
 
 /datum/job/janitor
-	title = TITLE_JANITOR
+	title = JOB_TITLE_JANITOR
 	flag = JOB_JANITOR
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -428,7 +428,7 @@
 
 //More or less assistants
 /datum/job/librarian
-	title = TITLE_LIBRARIAN
+	title = JOB_TITLE_LIBRARIAN
 	flag = JOB_LIBRARIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
@@ -458,7 +458,7 @@
 		/obj/item/videocam = 1)
 
 /datum/job/barber
-	title = TITLE_BARBER
+	title = JOB_TITLE_BARBER
 	flag = JOB_BARBER
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
@@ -486,7 +486,7 @@
 	)
 
 /datum/job/explorer
-	title = TITLE_EXPLORER
+	title = JOB_TITLE_EXPLORER
 	flag = JOB_EXPLORER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 0

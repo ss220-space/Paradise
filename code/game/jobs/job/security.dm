@@ -1,6 +1,6 @@
 /datum/job/hos
-	title = TITLE_HOS
-	flag = JOB_HOS
+	title = JOB_TITLE_HOS
+	flag = JOB_FLAG_HOS
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
@@ -57,8 +57,8 @@
 
 
 /datum/job/warden
-	title = TITLE_WARDEN
-	flag = JOB_WARDEN
+	title = JOB_TITLE_WARDEN
+	flag = JOB_FLAG_WARDEN
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
@@ -107,8 +107,8 @@
 
 
 /datum/job/detective
-	title = TITLE_DETECTIVE
-	flag = JOB_DETECTIVE
+	title = JOB_TITLE_DETECTIVE
+	flag = JOB_FLAG_DETECTIVE
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
@@ -168,7 +168,7 @@
 	H.check_mutations = 1
 
 /datum/job/officer
-	title = TITLE_OFFICER
+	title = JOB_TITLE_OFFICER
 	flag = JOB_OFFICER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 7
@@ -233,7 +233,7 @@
 				head = /obj/item/clothing/head/beret/sec
 
 /datum/job/brigdoc
-	title = TITLE_BRIGDOC
+	title = JOB_TITLE_BRIGDOC
 	flag = JOB_BRIGDOC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
@@ -270,7 +270,7 @@
 
 
 /datum/job/pilot
-	title = TITLE_PILOT
+	title = JOB_TITLE_PILOT
 	flag = JOB_PILOT
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
