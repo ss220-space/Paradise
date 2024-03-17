@@ -188,15 +188,13 @@
 		update_icon()
 
 
-/obj/item/gun/energy/can_trigger_gun(mob/living/user)
-	. = ..()
-	if(. && sibyl_mod && !sibyl_mod.check_auth(user))
-		. = FALSE
-
-
 /obj/item/gun/energy/can_shoot(mob/living/user)
+	if(!sibyl_mod?.check_auth(user))
+		return FALSE
+
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	. = cell.charge >= shot.e_cost
+
 	if(!. && sibyl_mod?.voice_is_enabled)
 		sibyl_mod.play_sound(user)
 
