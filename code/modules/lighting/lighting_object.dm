@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		affected_turf.lighting_object = null
 		affected_turf.luminosity = 1
 		affected_turf.underlays -= current_underlay
-		myturf.underlays -= additive_underlay
+		affected_turf.underlays -= additive_underlay
 	affected_turf = null
 	return ..()
 
@@ -111,24 +111,24 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	// We use underlays because objects on each tile would fuck with maptick. if that ever changes, use an object for this instead
 	affected_turf.underlays += current_underlay
 
-	if(cr.applying_additive || cg.applying_additive || cb.applying_additive || ca.applying_additive)
+	if(red_corner.applying_additive || green_corner.applying_additive || blue_corner.applying_additive || alpha_corner.applying_additive)
 		affected_turf.underlays -= additive_underlay
 		additive_underlay.icon_state = "light"
-		var/arr = cr.add_r
-		var/arb = cr.add_b
-		var/arg = cr.add_g
+		var/arr = red_corner.add_r
+		var/arb = red_corner.add_b
+		var/arg = red_corner.add_g
 
-		var/agr = cg.add_r
-		var/agb = cg.add_b
-		var/agg = cg.add_g
+		var/agr = green_corner.add_r
+		var/agb = green_corner.add_b
+		var/agg = green_corner.add_g
 
-		var/abr = cb.add_r
-		var/abb = cb.add_b
-		var/abg = cb.add_g
+		var/abr = blue_corner.add_r
+		var/abb = blue_corner.add_b
+		var/abg = blue_corner.add_g
 
-		var/aarr = ca.add_r
-		var/aarb = ca.add_b
-		var/aarg = ca.add_g
+		var/aarr = alpha_corner.add_r
+		var/aarb = alpha_corner.add_b
+		var/aarg = alpha_corner.add_g
 
 		additive_underlay.color = list(
 			arr, arg, arb, 00,
