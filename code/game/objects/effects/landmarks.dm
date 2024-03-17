@@ -103,8 +103,7 @@
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	return ..()
 
 /obj/effect/landmark/singularity_act()
 	return

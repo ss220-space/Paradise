@@ -19,8 +19,8 @@
 	var/mob/camera/blob/overmind
 	creates_cover = TRUE
 
-/obj/structure/blob/New(loc)
-	..()
+/obj/structure/blob/Initialize(mapload)
+	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))
 	check_integrity()
