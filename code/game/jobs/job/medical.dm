@@ -1,6 +1,6 @@
 /datum/job/cmo
 	title = JOB_TITLE_CMO
-	flag = JOB_CMO
+	flag = JOB_FLAG_CMO
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
@@ -46,7 +46,7 @@
 
 /datum/job/doctor
 	title = JOB_TITLE_DOCTOR
-	flag = JOB_DOCTOR
+	flag = JOB_FLAG_DOCTOR
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 5
 	spawn_positions = 3
@@ -83,7 +83,7 @@
 
 /datum/job/doctor/intern
 	title = JOB_TITLE_INTERN
-	flag = JOB_INTERN
+	flag = JOB_FLAG_INTERN
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list("Chief Medical Officer", "Medical Doctor")
@@ -127,7 +127,7 @@
 
 /datum/job/coroner
 	title = JOB_TITLE_CORONER
-	flag = JOB_CORONER
+	flag = JOB_FLAG_CORONER
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
@@ -190,7 +190,7 @@
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
 /datum/job/chemist
 	title = JOB_TITLE_CHEMIST
-	flag = JOB_CHEMIST
+	flag = JOB_FLAG_CHEMIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
@@ -226,7 +226,7 @@
 
 /datum/job/geneticist
 	title = JOB_TITLE_GENETICIST
-	flag = JOB_GENETICIST
+	flag = JOB_FLAG_GENETICIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
@@ -261,7 +261,7 @@
 
 /datum/job/virologist
 	title = JOB_TITLE_VIROLOGIST
-	flag = JOB_VIROLOGIST
+	flag = JOB_FLAG_VIROLOGIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
@@ -298,7 +298,7 @@
 
 /datum/job/psychiatrist
 	title = JOB_TITLE_PSYCHIATRIST
-	flag = JOB_PSYCHIATRIST
+	flag = JOB_FLAG_PSYCHIATRIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
@@ -338,7 +338,7 @@
 
 /datum/job/paramedic
 	title = JOB_TITLE_PARAMEDIC
-	flag = JOB_PARAMEDIC
+	flag = JOB_FLAG_PARAMEDIC
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1

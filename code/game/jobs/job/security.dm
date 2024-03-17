@@ -169,7 +169,7 @@
 
 /datum/job/officer
 	title = JOB_TITLE_OFFICER
-	flag = JOB_OFFICER
+	flag = JOB_FLAG_OFFICER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 7
 	spawn_positions = 7
@@ -234,7 +234,7 @@
 
 /datum/job/brigdoc
 	title = JOB_TITLE_BRIGDOC
-	flag = JOB_BRIGDOC
+	flag = JOB_FLAG_BRIGDOC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
@@ -271,7 +271,7 @@
 
 /datum/job/pilot
 	title = JOB_TITLE_PILOT
-	flag = JOB_PILOT
+	flag = JOB_FLAG_PILOT
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1

@@ -1,6 +1,6 @@
 /datum/job/rd
 	title = JOB_TITLE_RD
-	flag = JOB_RD
+	flag = JOB_FLAG_RD
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
@@ -52,7 +52,7 @@
 
 /datum/job/scientist
 	title = JOB_TITLE_SCIENTIST
-	flag = JOB_SCIENTIST
+	flag = JOB_FLAG_SCIENTIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 6
 	spawn_positions = 6
@@ -92,7 +92,7 @@
 
 /datum/job/scientist/student
 	title = JOB_TITLE_SCIENTIST_STUDENT
-	flag = JOB_SCIENTIST_STUDENT
+	flag = JOB_FLAG_SCIENTIST_STUDENT
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list("Research Director", "Scientist")
@@ -132,7 +132,7 @@
 
 /datum/job/roboticist
 	title = JOB_TITLE_ROBOTICIST
-	flag = JOB_ROBOTICIST
+	flag = JOB_FLAG_ROBOTICIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2

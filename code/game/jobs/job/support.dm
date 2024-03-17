@@ -1,7 +1,7 @@
 //Cargo
 /datum/job/qm
 	title = JOB_TITLE_QUARTERMASTER
-	flag = JOB_QUARTERMASTER
+	flag = JOB_FLAG_QUARTERMASTER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
@@ -38,7 +38,7 @@
 
 /datum/job/cargo_tech
 	title = JOB_TITLE_CARGOTECH
-	flag = JOB_CARGOTECH
+	flag = JOB_FLAG_CARGOTECH
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
@@ -65,7 +65,7 @@
 
 /datum/job/mining
 	title = JOB_TITLE_MINER
-	flag = JOB_MINER
+	flag = JOB_FLAG_MINER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 6
 	spawn_positions = 8
@@ -128,7 +128,7 @@
 //Food
 /datum/job/bartender
 	title = JOB_TITLE_BARTENDER
-	flag = JOB_BARTENDER
+	flag = JOB_FLAG_BARTENDER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
@@ -171,7 +171,7 @@
 
 /datum/job/chef
 	title = JOB_TITLE_CHEF
-	flag = JOB_CHEF
+	flag = JOB_FLAG_CHEF
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
@@ -220,7 +220,7 @@
 
 /datum/job/hydro
 	title = JOB_TITLE_BOTANIST
-	flag = JOB_BOTANIST
+	flag = JOB_FLAG_BOTANIST
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
@@ -256,7 +256,7 @@
 
 /datum/job/clown
 	title = JOB_TITLE_CLOWN
-	flag = JOB_CLOWN
+	flag = JOB_FLAG_CLOWN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
@@ -347,7 +347,7 @@
 
 /datum/job/mime
 	title = JOB_TITLE_MIME
-	flag = JOB_MIME
+	flag = JOB_FLAG_MIME
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
@@ -402,7 +402,7 @@
 
 /datum/job/janitor
 	title = JOB_TITLE_JANITOR
-	flag = JOB_JANITOR
+	flag = JOB_FLAG_JANITOR
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
@@ -429,7 +429,7 @@
 //More or less assistants
 /datum/job/librarian
 	title = JOB_TITLE_LIBRARIAN
-	flag = JOB_LIBRARIAN
+	flag = JOB_FLAG_LIBRARIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
@@ -459,7 +459,7 @@
 
 /datum/job/barber
 	title = JOB_TITLE_BARBER
-	flag = JOB_BARBER
+	flag = JOB_FLAG_BARBER
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
@@ -487,7 +487,7 @@
 
 /datum/job/explorer
 	title = JOB_TITLE_EXPLORER
-	flag = JOB_EXPLORER
+	flag = JOB_FLAG_EXPLORER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 0
 	spawn_positions = 0

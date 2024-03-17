@@ -60,7 +60,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/hop
 	title = JOB_TITLE_HOP
-	flag = JOB_HOP
+	flag = JOB_FLAG_HOP
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
@@ -111,7 +111,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/nanotrasenrep
 	title = JOB_TITLE_NANO
-	flag = JOB_NANO
+	flag = JOB_FLAG_NANO
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
@@ -161,7 +161,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/blueshield
 	title = JOB_TITLE_BLUESHIELD
-	flag = JOB_BLUESHIELD
+	flag = JOB_FLAG_BLUESHIELD
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
@@ -215,7 +215,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/judge
 	title = JOB_TITLE_JUDGE
-	flag = JOB_JUDGE
+	flag = JOB_FLAG_JUDGE
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
@@ -267,7 +267,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 //GLOBAL_VAR_INIT(lawyer, 0) //Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds. | This was deprecated back in 2014, and its now 2020
 /datum/job/lawyer
 	title = JOB_TITLE_LAWYER
-	flag = JOB_LAWYER
+	flag = JOB_FLAG_LAWYER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
