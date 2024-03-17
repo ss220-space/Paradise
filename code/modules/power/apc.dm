@@ -1334,12 +1334,12 @@
 	if(!area.requires_power)
 		return
 
-	last_used_lighting = area.usage(STATIC_LIGHT)
+	last_used_lighting = area.usage(CHANNEL_STATIC_LIGHT)
 	last_used_lighting += area.usage(LIGHT)
 	last_used_equipment = area.usage(EQUIP)
-	last_used_equipment += area.usage(STATIC_EQUIP)
+	last_used_equipment += area.usage(CHANNEL_STATIC_EQUIP)
 	last_used_environment = area.usage(ENVIRON)
-	last_used_environment += area.usage(STATIC_ENVIRON)
+	last_used_environment += area.usage(CHANNEL_STATIC_ENVIRON)
 	area.clear_usage()
 
 	last_used_total = last_used_lighting + last_used_equipment + last_used_environment

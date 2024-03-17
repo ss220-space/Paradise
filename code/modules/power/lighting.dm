@@ -390,14 +390,14 @@
 		light_state = on
 		if(on)
 			static_power_used = active_power_usage * 2 //20W per unit luminosity
-			addStaticPower(static_power_used, STATIC_LIGHT)
+			addStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 		else
-			removeStaticPower(static_power_used, STATIC_LIGHT)
+			removeStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 	else
 		if(on && (static_power_used != active_power_usage * 2))
-			removeStaticPower(static_power_used, STATIC_LIGHT)
+			removeStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 			static_power_used = active_power_usage * 2
-			addStaticPower(static_power_used, STATIC_LIGHT)
+			addStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 
 	if(play_sound)
 		playsound(src, 'sound/machines/light_on.ogg', 60, TRUE)
