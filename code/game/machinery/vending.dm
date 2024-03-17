@@ -1131,10 +1131,26 @@
 	broken_overlay = "chang_broken"
 	broken_lightmask_overlay = "chang_broken_lightmask"
 
-	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
-					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
-	prices = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50, /obj/item/reagent_containers/food/snacks/chinese/newdles = 50,
-					/obj/item/reagent_containers/food/snacks/chinese/rice = 50, /obj/item/reagent_containers/food/snacks/fortunecookie = 50)
+	products = list(
+		/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6,
+		/obj/item/reagent_containers/food/snacks/chinese/tao = 6,
+		/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6,
+		/obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
+		/obj/item/reagent_containers/food/snacks/chinese/rice = 6,
+		/obj/item/reagent_containers/food/snacks/fortunecookie = 6,
+		/obj/item/storage/box/crayfish_bucket = 5,
+	)
+
+	prices = list(
+		/obj/item/reagent_containers/food/snacks/chinese/chowmein = 50,
+		/obj/item/reagent_containers/food/snacks/chinese/tao = 50,
+		/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50,
+		/obj/item/reagent_containers/food/snacks/chinese/newdles = 50,
+		/obj/item/reagent_containers/food/snacks/chinese/rice = 50,
+		/obj/item/reagent_containers/food/snacks/fortunecookie = 50,
+		/obj/item/storage/box/crayfish_bucket = 250,
+	)
+
 	refill_canister = /obj/item/vending_refill/chinese
 
 /obj/machinery/vending/chinese/free
