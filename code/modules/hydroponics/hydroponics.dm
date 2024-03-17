@@ -291,7 +291,7 @@
 			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
 			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
-			set_light(0)
+			set_light_on(FALSE)
 
 	update_icon()
 

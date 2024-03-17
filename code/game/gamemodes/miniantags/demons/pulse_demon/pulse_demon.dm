@@ -39,7 +39,7 @@
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
 	del_on_death = TRUE
-
+	light_system = MOVABLE_LIGHT
 	attacktext = "electrocutes"
 	attack_sound = "sparks"
 	a_intent = INTENT_HARM

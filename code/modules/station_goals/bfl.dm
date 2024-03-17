@@ -454,7 +454,7 @@
 /obj/machinery/bfl_lens/proc/deactivate_lens()
 	state = FALSE
 	update_icon()
-	set_light(0)
+	set_light_on(FALSE)
 
 
 /obj/machinery/bfl_lens/proc/working_sound()

@@ -989,7 +989,7 @@
 	if(lights)
 		set_light(lights_power)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 	to_chat(usr, "Lights toggled [lights ? "on" : "off"].")
 	for(var/mob/M in passengers)
 		to_chat(M, "Lights toggled [lights ? "on" : "off"].")

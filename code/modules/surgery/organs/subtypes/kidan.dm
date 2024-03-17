@@ -82,7 +82,7 @@
 
 	else
 		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ_zone))
-		lbody.set_light(0)
+		lbody.set_light_on(FALSE)
 		glowing = 0
 		return 1
 

@@ -101,7 +101,6 @@
 
 /datum/hud/robot/New(mob/user)
 	..()
-
 	user.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	var/obj/screen/using
 	var/mob/living/silicon/robot/mymobR = mymob

@@ -533,7 +533,7 @@
 		return	// do default setting/reset of stat NOPOWER bit
 	update()	// update icon
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 

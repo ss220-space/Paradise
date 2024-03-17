@@ -11,7 +11,9 @@
 	var/examine_extensions = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
 	resistance_flags = FIRE_PROOF
-	var/brightness_on = 4 //luminosity when the light is on
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
 	var/on = FALSE
 	var/smile = FALSE
 	var/smile_color = "#FF0000"
@@ -92,11 +94,11 @@
 		if(!up)
 			if(user)
 				to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
-			set_light(0)
+			set_light_on(FALSE)
 		else
-			set_light(brightness_on)
+			set_light_on(TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 	update_equipped_item()
 

@@ -237,7 +237,7 @@
 /obj/machinery/vending/power_change(forced = FALSE)
 	. = ..()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(light_range_on, light_power_on)
 	if(.)
@@ -246,7 +246,7 @@
 
 /obj/machinery/vending/extinguish_light(force = FALSE)
 	if(light)
-		set_light(0)
+		set_light_on(FALSE)
 		underlays.Cut()
 
 

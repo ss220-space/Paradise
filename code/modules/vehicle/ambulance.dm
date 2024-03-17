@@ -41,7 +41,7 @@
 		A.set_light(4,3,"#F70027")
 	else
 		A.soundloop.stop()
-		A.set_light(0)
+		A.set_light_on(FALSE)
 
 
 /datum/looping_sound/ambulance_alarm

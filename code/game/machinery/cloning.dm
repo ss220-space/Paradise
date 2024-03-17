@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/clonepod/biomass

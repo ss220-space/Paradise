@@ -35,7 +35,7 @@
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
-	gun_light = new /obj/item/flashlight/seclite(src)
+	set_gun_light(new /obj/item/flashlight/seclite(src))
 	. = ..()
 	cell.maxcharge = 600
 	cell.charge = 600

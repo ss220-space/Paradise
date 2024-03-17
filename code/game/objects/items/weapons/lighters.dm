@@ -69,7 +69,7 @@
 	attack_verb = null //human_defense.dm takes care of it
 
 	show_off_message(user)
-	set_light(0)
+	set_light_on(FALSE)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/lighter/extinguish_light(force = FALSE)

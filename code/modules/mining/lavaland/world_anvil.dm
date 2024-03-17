@@ -38,7 +38,7 @@
 	if(forge_charges > 0)
 		set_light(4,1,LIGHT_COLOR_ORANGE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/structure/world_anvil/examine(mob/user)

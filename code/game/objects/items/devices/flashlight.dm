@@ -9,13 +9,24 @@
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
 	var/on = FALSE
-	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
 
+/obj/item/flashlight/dummy
+	name = "Testing flashlight"
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
 
 /obj/item/flashlight/Initialize()
 	. = ..()
+	if(icon_state == "[initial(icon_state)]-on")
+		on = TRUE
 	update_brightness()
 
 
@@ -27,10 +38,9 @@
 
 
 /obj/item/flashlight/proc/update_brightness()
-	if(on)
-		set_light(brightness_on)
-	else
-		set_light(0)
+	if(light_system == STATIC_LIGHT)
+		update_light()
+	set_light_on(on)
 	update_icon()
 
 
@@ -77,7 +87,7 @@
 				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 				if(M.stat == DEAD || !eyes || (BLINDNESS in M.mutations))	//mob is dead or fully blind
 					to_chat(user, "<span class='notice'>[M]'s pupils are unresponsive to the light!</span>")
-				else if((XRAY in M.mutations) || eyes.see_in_dark >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
+				else if((XRAY in M.mutations) || H.nightvision >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
 					to_chat(user, "<span class='notice'>[M]'s pupils glow eerily!</span>")
 				else //they're okay!
 					if(M.flash_eyes(visual = 1))
@@ -100,7 +110,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
-	brightness_on = 2
+	light_range = 2
 
 /obj/item/flashlight/seclite
 	name = "seclite"
@@ -109,7 +119,7 @@
 	item_state = "seclite"
 	belt_icon = "seclite"
 	force = 9 // Not as good as a stun baton.
-	brightness_on = 5 // A little better than the standard flashlight.
+	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
 
 /obj/item/flashlight/drone
@@ -118,7 +128,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	flags = CONDUCT
-	brightness_on = 2
+	light_range = 2
 	w_class = WEIGHT_CLASS_TINY
 
 // the desk lamps are a bit special
@@ -127,7 +137,7 @@
 	desc = "A desk lamp with an adjustable mount."
 	icon_state = "lamp"
 	item_state = "lamp"
-	brightness_on = 5
+	light_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list()
@@ -163,7 +173,8 @@
 /obj/item/flashlight/flare
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
-	brightness_on = 8
+	light_range = 8
+	light_system = MOVABLE_LIGHT
 	light_color = "#ff0000"
 	icon_state = "flare"
 	item_state = "flare"
@@ -239,7 +250,7 @@
 /obj/item/flashlight/flare/glowstick
 	name = "green glowstick"
 	desc = "A military-grade glowstick."
-	brightness_on = 4
+	light_range = 4
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
 	item_state = "glowstick"
@@ -329,7 +340,7 @@
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
 	w_class = WEIGHT_CLASS_BULKY
-	brightness_on = 7
+	light_range = 7
 	icon_state = "torch"
 	item_state = "torch"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -345,7 +356,8 @@
 	icon_state = "floor1" //not a slime extract sprite but... something close enough!
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
-	brightness_on = 6
+	light_range = 6
+	light_system = MOVABLE_LIGHT
 	light_color = "#FFBF00"
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
@@ -415,7 +427,6 @@
 	desc = "Groovy..."
 	icon_state = null
 	light_color = null
-	brightness_on = 0
 	light_range = 0
 	light_power = 10
 	alpha = 0

@@ -61,7 +61,7 @@
 
 /obj/machinery/light_switch/proc/light_switch_light()
 	if(stat & (NOPOWER|BROKEN))
-		set_light(0)
+		set_light_on(FALSE)
 		return
 	set_light(1, LIGHTING_MINIMUM_POWER, on ? COLOR_APC_GREEN : COLOR_APC_RED)
 

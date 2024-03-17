@@ -108,7 +108,7 @@
 
 
 /obj/machinery/smartfridge/extinguish_light(force = FALSE)
-	set_light(0)
+	set_light_on(FALSE)
 	underlays.Cut()
 
 
@@ -120,7 +120,7 @@
 /obj/machinery/smartfridge/power_change()
 	. = ..()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(light_range_on, light_power_on)
 	if(.)

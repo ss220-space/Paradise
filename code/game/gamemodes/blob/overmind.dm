@@ -3,8 +3,7 @@
 	real_name = "Blob Overmind"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "marker"
-
-	see_in_dark = 8
+	nightvision = 8
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	invisibility = INVISIBILITY_OBSERVER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

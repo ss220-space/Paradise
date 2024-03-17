@@ -256,7 +256,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 
 /obj/machinery/status_display/proc/update_display_light()
 	if(light)
-		set_light(0)
+		set_light_on(FALSE)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	if(!..())
 		return
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER, GLOB.statdisp_picture_colors[picture_state])
 

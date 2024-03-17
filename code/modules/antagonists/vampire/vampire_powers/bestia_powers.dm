@@ -1418,6 +1418,7 @@
 	name = "Flying vampire..."
 	invisibility = 0
 	layer = LOW_LANDMARK_LAYER
+	light_system = MOVABLE_LIGHT
 
 
 /**
@@ -1902,7 +1903,7 @@
 	universal_understand = TRUE	// yeah, we can understand anything now
 	universal_speak = TRUE	// and speak to anyone too
 	mob_size = MOB_SIZE_LARGE
-	see_in_dark = 8		// full night vision
+	nightvision = 8	// full night vision
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// we need oxygen only
 	minbodytemp = 0
 	maxbodytemp = 600	// better than human vampire but still dangerous
@@ -1980,9 +1981,9 @@
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
+	nightvision = initial(nightvision)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)

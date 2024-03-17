@@ -18,7 +18,7 @@
 	tts_seed = "Mannoroth"
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"

@@ -348,7 +348,7 @@
 
 		var/extra_darkview = 0
 		if(E.see_in_dark)
-			extra_darkview = max(E.see_in_dark - 2, 0)
+			extra_darkview = max((E.see_in_dark & 8) - 2, 0)
 			extra_damage = extra_darkview
 
 		var/light_amount = 10 // assume full brightness
@@ -837,14 +837,14 @@ so that different stomachs can handle things in different ways VB*/
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
+	nightvision = initial(nightvision)
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
 		sight |= cyber_eyes.vision_flags
 		if(cyber_eyes.see_in_dark)
-			see_in_dark = max(see_in_dark, cyber_eyes.see_in_dark)
+			nightvision = max(nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
 			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
 		if(!isnull(cyber_eyes.lighting_alpha))
@@ -857,7 +857,6 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(XRAY in mutations)
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)

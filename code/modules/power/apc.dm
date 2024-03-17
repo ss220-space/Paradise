@@ -394,7 +394,7 @@
 
 	if(force_update || (update & 3))
 		if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2|UPSTATE_BROKE))
-			set_light(0)
+			set_light_on(FALSE)
 		else if(update_state & UPSTATE_BLUESCREEN)
 			set_light(2, 1, COLOR_CYAN_BLUE)
 		else if(!(stat & (UPSTATE_MAINT|UPSTATE_BROKE)) && (update_state & UPSTATE_ALLGOOD))
@@ -408,7 +408,7 @@
 					color = COLOR_APC_GREEN
 			set_light(2, 0.5, color)
 		else
-			set_light(0)
+			set_light_on(FALSE)
 
 	if(force_update || (update & 1)) // Updating the icon state
 		..(UPDATE_ICON_STATE)

@@ -135,7 +135,7 @@
 	event_triggered_by = null
 	event_confirmed_by = null
 	busy = FALSE
-	set_light(0)
+	set_light_on(FALSE)
 	update_icon()
 
 

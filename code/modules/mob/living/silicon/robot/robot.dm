@@ -1,3 +1,5 @@
+#define BORG_LAMP_CD_RESET 10 SECONDS
+
 GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/mob/living/silicon/robot/proc/sensor_mode,
 ))
@@ -13,6 +15,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	universal_understand = 1
 	deathgasp_on_death = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -99,6 +103,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
 	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
+	var/lamp_cooldown = 0
 	var/default_lamp_color = "#FFFFFF" //White color of the default lamp light
 	var/fire_light_modificator = 3 //Determines how bright fire emits light when on cyborg.
 
@@ -1284,30 +1289,29 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.interact(src)
 
 /mob/living/silicon/robot/proc/control_headlamp()
-	if(stat || lamp_recharging || low_power_mode)
+	if(stat || lamp_cooldown > world.time || low_power_mode)
 		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
 		return
 
-//Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
-	lamp_intensity = (lamp_intensity+2) % (lamp_max+2)
-	to_chat(src, "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled."]")
+	if(lamp_intensity == 0) //We'll skip intensity of 2, since every mob already has such a see-darkness range, so no much need for it.
+		lamp_intensity = 4
+	else //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
+		lamp_intensity = (lamp_intensity + 2) % (lamp_max + 2)
+	to_chat(src, "<span class='notice'>[lamp_intensity > 2 ? "Headlamp power set to Level [lamp_intensity * 0.5]" : "Headlamp disabled"].</span>")
 	update_headlamp()
 
-/mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)
-	set_light(0)
-
-	if(lamp_intensity && (turn_off || stat || low_power_mode))
-		to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
-		lamp_intensity = 0
-		lamp_recharging = 1
-		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
-			lamp_recharging = 0
-
-	else
-		if(!on_fire)
-			set_light(light_range + lamp_intensity)
+/mob/living/silicon/robot/proc/update_headlamp(turn_off = FALSE, cooldown = 10 SECONDS)
+	if(lamp_intensity > 2)
+		if(turn_off || stat || low_power_mode)
+			to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
+			lamp_intensity = 0
+			lamp_cooldown = cooldown == BORG_LAMP_CD_RESET ? 0 : max(world.time + cooldown, lamp_cooldown)
+			set_light_on(FALSE)
 		else
-			set_light(light_range + lamp_intensity + fire_light_modificator)
+			set_light_range((lamp_intensity + (on_fire ? fire_light_modificator : 0)) * 0.5)
+			set_light_on(TRUE)
+	else
+		set_light_on(FALSE)
 
 	if(lamp_button)
 		lamp_button.icon_state = "lamp[lamp_intensity]"
@@ -1316,7 +1320,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ExtinguishMob()
 	..()
-	set_light(l_color = default_lamp_color)
+	set_light_color(default_lamp_color)
 
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
@@ -1737,7 +1741,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
+	nightvision = initial(nightvision)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
@@ -1753,7 +1757,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(sight_mode & SILICONXRAY)
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_invisible = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		see_in_dark = 8
+		nightvision = 8
 
 	if(sight_mode & SILICONTHERM)
 		sight |= SEE_MOBS
@@ -1813,3 +1817,4 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		to_chat(src, span_warning("You can only use this emote when you're out of charge."))
 
+#undef BORG_LAMP_CD_RESET

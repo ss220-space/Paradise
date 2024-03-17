@@ -83,7 +83,7 @@
 
 /obj/machinery/door/firedoor/proc/adjust_light()
 	if(stat & (NOPOWER|BROKEN))
-		set_light(0)
+		set_light_on(FALSE)
 		return
 	if(active_alarm)
 		set_light(1, 0.5, COLOR_RED_LIGHT)
@@ -91,7 +91,7 @@
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/door/firedoor/extinguish_light(force = FALSE)
-	set_light(0)
+	set_light_on(FALSE)
 	update_icon(UPDATE_OVERLAYS)
 
 

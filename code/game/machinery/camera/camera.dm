@@ -84,7 +84,7 @@
 	if(!isEmpProof())
 		if(prob(150/severity))
 			stat |= EMPED
-			set_light(0)
+			set_light_on(FALSE)
 			update_icon(UPDATE_ICON_STATE)
 
 			GLOB.cameranet.removeCamera(src)
@@ -282,7 +282,7 @@
 		else
 			myArea = null
 	else
-		set_light(0)
+		set_light_on(FALSE)
 		GLOB.cameranet.removeCamera(src)
 		if(isarea(myArea))
 			LAZYREMOVE(myArea.cameras, UID())
@@ -384,7 +384,7 @@
 	if(on)
 		set_light(AI_CAMERA_LUMINOSITY)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 /obj/machinery/camera/proc/nano_structure()
 	var/cam[0]
@@ -409,11 +409,11 @@
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	if(isXRay() && isAI(user))
 		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		user.see_in_dark = max(user.see_in_dark, 8)
+		user.nightvision = max(user.nightvision, 8)
 		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
 		user.sight = initial(user.sight)
-		user.see_in_dark = initial(user.see_in_dark)
+		user.nightvision = initial(user.nightvision)
 		user.lighting_alpha = initial(user.lighting_alpha)
 
 	..()

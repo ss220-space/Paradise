@@ -7,12 +7,14 @@
 	max_integrity = 100
 	integrity_failure = 80
 	light_power = 20
+	light_range = 14
+	light_system = STATIC_LIGHT
+	light_on = FALSE
 	var/on = FALSE
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/use = 5
 	var/unlocked = FALSE
 	var/open = FALSE
-	var/brightness_on = 14
 
 /obj/machinery/floodlight/get_cell()
 	return cell
@@ -33,7 +35,7 @@
 			return
 		if(cell.charge <= 0)
 			return
-		set_light(brightness_on)
+		set_light_on(TRUE)
 		update_icon(UPDATE_ICON_STATE)
 
 
@@ -59,7 +61,7 @@
 	if(cell && !cell.use(use))
 		on = FALSE
 		update_icon(UPDATE_ICON_STATE)
-		set_light(0)
+		set_light_on(FALSE)
 		visible_message(span_warning("[src] shuts down due to lack of power!"))
 
 
@@ -81,14 +83,14 @@
 		if(on)
 			on = FALSE
 			visible_message(span_warning("[src] shuts down due to lack of power!"))
-			set_light(0)
+			set_light_on(FALSE)
 		update_icon(UPDATE_ICON_STATE)
 		return
 
 	if(on)
 		on = FALSE
 		to_chat(user, span_notice("You turn off the light."))
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		if(!cell)
 			to_chat(user, span_warning("You try to turn on [src] but nothing happens! Seems like it <b>lacks a power cell</b>."))
@@ -101,7 +103,7 @@
 			return
 		on = TRUE
 		to_chat(user, span_notice("You turn on the light."))
-		set_light(brightness_on)
+		set_light_on(TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -171,6 +173,6 @@
 /obj/machinery/floodlight/extinguish_light(force = FALSE)
 	if(on)
 		on = FALSE
-		set_light(0)
+		set_light_on(FALSE)
 		update_icon(UPDATE_ICON_STATE)
 

@@ -381,7 +381,7 @@
 		set_emergency_lights()
 	else
 		use_power = IDLE_POWER_USE
-		set_light(0)
+		set_light_on(FALSE)
 
 	update_icon()
 
@@ -410,7 +410,7 @@
 	do_sparks(2, 1, src)
 
 	on = FALSE
-	set_light(0)
+	set_light_on(FALSE)
 	update_icon()
 
 // attempt to set the light's on/off status

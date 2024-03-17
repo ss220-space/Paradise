@@ -50,7 +50,7 @@
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.remove_from_transit(src)
 	if(light_sources) // Turn off starlight, if present
-		set_light(0)
+		set_light_on(FALSE)
 
 /turf/space/AfterChange(ignore_air, keep_cabling = FALSE)
 	..()
@@ -66,7 +66,7 @@
 				continue
 			set_light(2)
 			return
-		set_light(0)
+		set_light_on(FALSE)
 
 /turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
 	..()

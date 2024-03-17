@@ -401,7 +401,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		set_light(1, LIGHTING_MINIMUM_POWER)
 		underlays += emissive_appearance(icon, "crema_active_lightmask")
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 	if(connected)
 		return

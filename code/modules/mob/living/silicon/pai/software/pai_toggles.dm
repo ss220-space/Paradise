@@ -91,8 +91,8 @@
 		actual_location.set_light(5)
 		user.card.set_light(5)
 	else
-		actual_location.set_light(0)
-		user.card.set_light(0)
+		actual_location.set_light_on(FALSE)
+		user.card.set_light_on(FALSE)
 
 	user.flashlight_on = !user.flashlight_on
 

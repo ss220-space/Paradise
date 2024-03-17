@@ -30,7 +30,7 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(3, 3)
 

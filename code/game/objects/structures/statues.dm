@@ -448,7 +448,7 @@
 		user.visible_message(span_notice("[user] snuffs out [src]."))
 		lit = FALSE
 		update_icon(UPDATE_ICON_STATE)
-		set_light(0)
+		set_light_on(FALSE)
 
 ////////////////////////////////
 

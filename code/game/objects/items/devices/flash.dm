@@ -23,6 +23,8 @@
 	/// This is the duration of the cooldown
 	var/cooldown_duration = 1 SECONDS
 	COOLDOWN_DECLARE(flash_cooldown)
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_on = FALSE
 
 
 /obj/item/flash/update_icon_state()

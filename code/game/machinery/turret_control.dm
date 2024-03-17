@@ -235,7 +235,7 @@
 
 /obj/machinery/turretid/proc/update_turret_light()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 		return
 
 	if(enabled)

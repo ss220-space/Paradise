@@ -61,7 +61,7 @@
 
 	mode = value
 	update_icon(UPDATE_ICON_STATE)
-	set_light(0)
+	set_light_on(FALSE)
 
 /obj/item/powersink/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

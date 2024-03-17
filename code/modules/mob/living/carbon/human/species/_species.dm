@@ -1040,11 +1040,11 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		H.sight |= eyes.vision_flags
-		H.see_in_dark = eyes.see_in_dark
+		H.nightvision = eyes.see_in_dark
 		H.see_invisible = eyes.see_invisible
 		H.lighting_alpha = eyes.lighting_alpha
 	else
-		H.see_in_dark = initial(H.see_in_dark)
+		H.nightvision = initial(H.nightvision)
 		H.see_invisible = initial(H.see_invisible)
 		H.lighting_alpha = initial(H.lighting_alpha)
 
@@ -1057,22 +1057,22 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(vamp)
 		if(vamp.get_ability(/datum/vampire_passive/xray))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-			H.see_in_dark += 8
+			H.nightvision += 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/full))
 			H.sight |= SEE_MOBS
-			H.see_in_dark += 8
+			H.nightvision += 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/vision))
 			H.sight |= SEE_MOBS
-			H.see_in_dark += 1 // base of 2, 2+1 is 3
+			H.nightvision += 1 // base of 2, 2+1 is 3
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
 	if(g_vamp)
 		if(g_vamp.get_ability(/datum/goon_vampire_passive/full))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-			H.see_in_dark = 8
+			H.nightvision = 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(g_vamp.get_ability(/datum/goon_vampire_passive/vision))
 			H.sight |= SEE_MOBS
@@ -1081,7 +1081,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in H.internal_organs)
 		H.sight |= cyber_eyes.vision_flags
 		if(cyber_eyes.see_in_dark)
-			H.see_in_dark = max(H.see_in_dark, cyber_eyes.see_in_dark)
+			H.nightvision = max(H.nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
 			H.see_invisible = min(H.see_invisible, cyber_eyes.see_invisible)
 		if(cyber_eyes.lighting_alpha)
@@ -1091,7 +1091,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(H.glasses)
 		var/obj/item/clothing/glasses/G = H.glasses
 		H.sight |= G.vision_flags
-		H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
+		H.nightvision = max(G.see_in_dark, H.nightvision)
 
 		if(G.invis_override)
 			H.see_invisible = G.invis_override
@@ -1106,14 +1106,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(istype(H.head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/hat = H.head
 			H.sight |= hat.vision_flags
-			H.see_in_dark = max(hat.see_in_dark, H.see_in_dark)
+			H.nightvision = max(hat.see_in_dark, H.nightvision)
 
 			if(!isnull(hat.lighting_alpha))
 				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
 
 	if(H.vision_type)
 		H.sight |= H.vision_type.sight_flags
-		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark)
+		H.nightvision = max(H.nightvision, H.vision_type.see_in_dark)
 
 		if(!isnull(H.vision_type.lighting_alpha))
 			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)

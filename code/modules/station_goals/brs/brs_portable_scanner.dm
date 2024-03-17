@@ -165,7 +165,7 @@
 	if(scanning_status == SCAN_CRITICAL)
 		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT)
 		return
-	set_light(0)
+	set_light_on(FALSE)
 
 
 /obj/machinery/brs_portable_scanner/power_change(forced = FALSE)

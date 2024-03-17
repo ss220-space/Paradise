@@ -107,7 +107,7 @@
 		force = initial(force)
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
-		set_light(0)
+		set_light_on(FALSE)
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc

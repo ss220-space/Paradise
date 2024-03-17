@@ -731,7 +731,7 @@
 	if(!light_range)
 		set_light(3)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 /mob/living/simple_animal/hostile/swarmer/proc/ContactSwarmers()
 	var/message = input(src, "Announce to other swarmers", "Swarmer contact")

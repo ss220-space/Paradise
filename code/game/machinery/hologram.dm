@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(stat & NOPOWER)
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_OVERLAYS)
@@ -439,7 +439,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(total_users)
 		set_light(2)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 	update_icon()
 
 

@@ -42,6 +42,8 @@ GLOBAL_VAR(bomb_set)
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
 
+	light_system = MOVABLE_LIGHT
+
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
 
@@ -119,7 +121,7 @@ GLOBAL_VAR(bomb_set)
 		set_light(1, LIGHTING_MINIMUM_POWER)
 		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
 	else if(light)
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/nuclearbomb/process()

@@ -64,7 +64,7 @@
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/sleeper/update_icon_state()

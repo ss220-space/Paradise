@@ -436,7 +436,7 @@
 	if(power_station && power_station.engaged && !panel_open)
 		set_light(2, 1, "#f1f1bd")
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/teleport/perma
@@ -532,7 +532,7 @@
 	if(target && !recalibrating && !panel_open && !(stat & (BROKEN|NOPOWER)))
 		set_light(2, 1, "#f1f1bd")
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
@@ -687,7 +687,7 @@
 		return
 
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 

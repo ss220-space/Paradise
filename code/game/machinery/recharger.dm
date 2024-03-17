@@ -163,7 +163,7 @@
 	if(!..())
 		return
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()

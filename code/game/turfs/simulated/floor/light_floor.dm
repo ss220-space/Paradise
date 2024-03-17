@@ -30,7 +30,7 @@
 
 /turf/simulated/floor/light/update_icon_state()
 	if(!on)
-		set_light(0)
+		set_light_on(FALSE)
 		icon_state = "light_off"
 		return
 
@@ -67,11 +67,11 @@
 			set_light(5, null,LIGHT_COLOR_DARKBLUE)
 		else
 			icon_state = "light_off"
-			set_light(0)
+			set_light_on(FALSE)
 
 
 /turf/simulated/floor/light/BeforeChange()
-	set_light(0)
+	set_light_on(FALSE)
 	..()
 
 /turf/simulated/floor/light/attack_hand(mob/user)
