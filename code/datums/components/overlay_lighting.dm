@@ -174,10 +174,7 @@
 	if(!current_holder)
 		return
 	. = list()
-	var/list/turfs = range(lumcount_range, get_turf(current_holder))
-	if(istype(current_holder, /mob/living/silicon/robot))
-		world << "Currently processing light for borgo, [length(turfs)] turfs"
-	for(var/turf/lit_turf in turfs)
+	for(var/turf/lit_turf in view(lumcount_range, get_turf(current_holder)))
 		lit_turf.dynamic_lumcount += lum_power
 		. += lit_turf
 	if(length(.))
