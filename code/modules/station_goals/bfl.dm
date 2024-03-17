@@ -2,6 +2,7 @@
 
 /datum/station_goal/bfl
 	name = "BFL Mining laser"
+	gamemode_blacklist = list("extended")
 
 /datum/station_goal/bfl/get_report()
 	return {"<b>Mining laser construcion</b><br>
