@@ -348,7 +348,7 @@
 
 		var/extra_darkview = 0
 		if(E.see_in_dark)
-			extra_darkview = max((E.see_in_dark & 8) - 2, 0)
+			extra_darkview = max(E.see_in_dark - 2, 0)
 			extra_damage = extra_darkview
 
 		var/light_amount = 10 // assume full brightness
