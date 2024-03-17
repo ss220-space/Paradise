@@ -235,9 +235,12 @@
 			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
 				continue
 			else if(G.can_trigger_gun(user))
-				bonus_spread += 24 * G.weapon_weight
-				loop_counter++
-				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
+				if(!G.can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
+					G.shoot_with_empty_chamber(user)
+				else
+					bonus_spread += 24 * G.weapon_weight
+					loop_counter++
+					addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
