@@ -195,8 +195,8 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	. = cell.charge >= shot.e_cost
 
-	if(!. && sibyl_mod?.voice_is_enabled)
-		sibyl_mod.play_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
+	if(!.)
+		sibyl_mod?.sibyl_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
 
 
 /obj/item/gun/energy/newshot()

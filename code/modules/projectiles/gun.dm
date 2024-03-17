@@ -240,9 +240,11 @@
 	if(istype(user))
 		if(!user.can_use_guns(src))
 			return FALSE
+
 		if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
 			to_chat(user, span_danger("[src] is incompatible with your biology!"))
 			return FALSE
+
 	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
 		shoot_with_empty_chamber(user)
 		return FALSE

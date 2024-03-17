@@ -53,8 +53,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod/proc/register(mob/user)
 	GLOB.sybsis_registry += list(src)
 
-	if(!auth_id && voice_is_enabled)
-		play_sound(user, 'sound/voice/dominator/link.ogg', 10 SECONDS)
+	if(!auth_id)
+		sibyl_sound(user, 'sound/voice/dominator/link.ogg', 10 SECONDS)
 
 	return TRUE
 
@@ -114,8 +114,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(!auth_id)
 		unlock(user, ID)
 		to_chat(user, span_notice("Вы авторизировали [weapon] в системе Sibyl System под именем [auth_id.registered_name]."))
-		if(voice_is_enabled)
-			play_sound(user, 'sound/voice/dominator/user.ogg', 10 SECONDS)
+		sibyl_sound(user, 'sound/voice/dominator/user.ogg', 10 SECONDS)
 	else if(auth_id == ID)
 		lock(user)
 		to_chat(user, span_notice("Вы деавторизировали [weapon] в системе Sibyl System."))
@@ -207,8 +206,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	return names.Join(", ")
 
 
-/obj/item/sibyl_system_mod/proc/play_sound(mob/living/user, sound, time)
-	if(!voice_cd && user)
+/obj/item/sibyl_system_mod/proc/sibyl_sound(mob/living/user, sound, time)
+	if(user && voice_is_enabled && !voice_cd)
 		user.playsound_local(get_turf(user), sound, 50, FALSE)
 		voice_cd = addtimer(VARSET_CALLBACK(src, voice_cd, null), time)
 
