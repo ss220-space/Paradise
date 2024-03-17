@@ -52,9 +52,12 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 /obj/item/sibyl_system_mod/proc/register(mob/user)
 	GLOB.sybsis_registry += list(src)
-	if(!auth_id && user && voice_is_enabled && !voice_cd)
-		voice_cd = addtimer(CALLBACK(src, PROC_REF(play_sound), user, 'sound/voice/dominator/link.ogg'), 4 SECONDS)
+
+	if(!auth_id && voice_is_enabled)
+		play_sound(user, 'sound/voice/dominator/link.ogg', 10 SECONDS)
+
 	return TRUE
+
 
 /obj/item/sibyl_system_mod/proc/uninstall(obj/item/gun/energy/W)
 	GLOB.sybsis_registry -= list(src)
@@ -104,8 +107,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(!auth_id)
 		unlock(user, ID)
 		to_chat(user, span_notice("Вы авторизировали [weapon] в системе Sibyl System под именем [auth_id.registered_name]."))
-		if(user && voice_is_enabled && !voice_cd)
-			voice_cd = addtimer(CALLBACK(src, PROC_REF(play_sound), user, 'sound/voice/dominator/user.ogg'), 2 SECONDS)
+		if(voice_is_enabled)
+			play_sound(user, 'sound/voice/dominator/user.ogg', 10 SECONDS)
 	else if(auth_id == ID)
 		lock(user)
 		to_chat(user, span_notice("Вы деавторизировали [weapon] в системе Sibyl System."))
@@ -197,11 +200,10 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	return names.Join(", ")
 
 
-/obj/item/sibyl_system_mod/proc/play_sound(mob/living/user)
+/obj/item/sibyl_system_mod/proc/play_sound(mob/living/user, sound, time)
 	if(!voice_cd && user)
-		voice_cd = TRUE
-		user.playsound_local(get_turf(user), 'sound/voice/dominator/battery.ogg', 50, FALSE)
-		addtimer(VARSET_CALLBACK(src, voice_cd, FALSE), 10 SECONDS)
+		user.playsound_local(get_turf(user), sound, 50, FALSE)
+		voice_cd = addtimer(VARSET_CALLBACK(src, voice_cd, null), time)
 
 
 /obj/item/sibyl_system_mod/Destroy()
