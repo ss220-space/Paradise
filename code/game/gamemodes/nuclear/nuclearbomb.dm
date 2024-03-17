@@ -43,6 +43,8 @@ GLOBAL_VAR(bomb_set)
 	var/sheets_to_fix = 5
 
 	light_system = MOVABLE_LIGHT
+	light_power = LIGHTING_MINIMUM_POWER
+	light_range = 1
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
@@ -118,7 +120,7 @@ GLOBAL_VAR(bomb_set)
 		. += mutable_appearance(icon, "npanel_open")
 
 	if(!lighthack)
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light_on(TRUE)
 		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
 	else if(light)
 		set_light_on(FALSE)
