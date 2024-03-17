@@ -1418,7 +1418,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
  *
 **/
 /mob/proc/has_nightvision()
-	return nightvision >= 2
+	return nightvision >= 4
 
 /mob/living/run_examinate(atom/target)
 	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
