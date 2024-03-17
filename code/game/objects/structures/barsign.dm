@@ -363,7 +363,7 @@
 	desc = "Open since 2125, Not much has changed since then; the engineers still release the singulo and the damn miners still are more likely to cave your face in that deliver ores."
 
 /datum/barsign/shitcur
-	name = "SS13 Shitcur"
+	name = "SS1984 Shitcur"
 	icon = "shitcur"
 	desc = "Innocence proves nothing."
 
