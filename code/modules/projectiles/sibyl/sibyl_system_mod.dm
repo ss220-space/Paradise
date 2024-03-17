@@ -16,7 +16,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/limit = SIBYL_NONLETHAL
 	var/emagged = FALSE
 
-	var/voice_is_enabled = FALSE
+	var/voice_is_enabled = TRUE
 	var/voice_cd = null
 
 	var/list/available = list()
@@ -72,10 +72,17 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	W.update_icon()
 	return state
 
+
+/obj/item/sibyl_system_mod/attack_self(mob/user)
+	..()
+	toggle_voice(user)
+
+
 /obj/item/sibyl_system_mod/proc/toggle_voice(mob/user)
 	voice_is_enabled = !voice_is_enabled
 	if(user)
-		to_chat(user,span_notice("Голосовая подсистема [voice_is_enabled ? "включена" : "отключена"]."))
+		to_chat(user, span_notice("Голосовая подсистема [voice_is_enabled ? "включена" : "отключена"]."))
+
 
 /obj/item/sibyl_system_mod/proc/lock(mob/user, silent = FALSE)
 	if(emagged)
