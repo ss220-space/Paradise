@@ -1,6 +1,7 @@
 //Station goal stuff goes here
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
+	gamemode_blacklist = list("extended")
 	var/goal = 45000
 
 /datum/station_goal/bluespace_tap/get_report()
