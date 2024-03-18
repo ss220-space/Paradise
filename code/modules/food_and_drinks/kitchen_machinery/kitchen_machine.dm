@@ -355,7 +355,7 @@
 	if(soundloop)
 		soundloop.start()
 	else
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 	operating = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
