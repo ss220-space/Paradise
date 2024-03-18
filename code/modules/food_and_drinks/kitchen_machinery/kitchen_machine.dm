@@ -11,9 +11,12 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	container_type = OPENCONTAINER
-	var/operating = FALSE // Is it on?
-	var/dirty = NO_DIRT // = {0..100} Does it need cleaning?
-	var/broken = 0 // ={0,1,2} How broken is it???
+	/// Is it on?
+	var/operating = FALSE
+	/// = {0..100} Does it need cleaning?
+	var/dirty = NO_DIRT
+	/// ={0,1,2} How broken is it???
+	var/broken = 0
 	var/efficiency = 0
 	var/list/cook_verbs = list("Cooking")
 	//Recipe & Item vars
