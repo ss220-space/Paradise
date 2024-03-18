@@ -157,12 +157,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "aB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet3";
+	dir = 1
 	},
-/area/ruin/space/USSP_gorky17/collapsed/gate)
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "aC" = (
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -1236,7 +1236,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "ec" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2384,7 +2386,11 @@
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "hp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet3";
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -2816,7 +2822,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "iu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -3987,7 +3995,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_half";
+	dir = 1
+	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
@@ -5664,6 +5675,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "rp" = (
@@ -5952,7 +5964,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "rZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_half"
+	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "sa" = (
@@ -6903,7 +6918,10 @@
 "uK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_up"
+	},
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "uL" = (
@@ -7126,7 +7144,10 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet2";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "vt" = (
@@ -7259,7 +7280,6 @@
 	pixel_x = -6;
 	pixel_y = 8
 	},
-/obj/structure/decorative_structures/corpse,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -8676,6 +8696,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_up2"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "zS" = (
@@ -10507,7 +10530,9 @@
 	pixel_x = -7;
 	pixel_y = -10
 	},
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_down"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -10593,7 +10618,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Fd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet2"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "Fe" = (
@@ -11606,9 +11633,11 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/tank/internals/anesthetic,
-/obj/item/clothing/mask/breath/medical,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_up";
+	dir = 4;
+	pixel_y = -4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -16148,6 +16177,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_half2"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "VN" = (
@@ -16294,6 +16326,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/item/tank/internals/anesthetic,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Wo" = (
@@ -16987,7 +17020,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "Yo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_half1"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -39412,7 +39447,7 @@ vF
 vV
 iU
 jM
-aB
+Mc
 zR
 Wj
 hS
@@ -43063,7 +43098,7 @@ vJ
 dH
 EX
 fO
-eP
+aB
 no
 Mo
 At
