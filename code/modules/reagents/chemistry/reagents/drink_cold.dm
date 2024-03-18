@@ -55,6 +55,66 @@
 	drink_desc = "A glass of refreshing Space Cola"
 	taste_description = "cola"
 
+/datum/reagent/consumable/drink/cold/energy
+	name = "Energy Drink"
+	id = "energetik"
+	description = "A refreshing beverage."
+	reagent_state = LIQUID
+	color = "#a9c725"
+	adj_drowsy = -6 SECONDS
+	adj_sleepy = -4 SECONDS
+	adj_dizzy = -10 SECONDS
+	heart_rate_increase = 1
+	minor_addiction = TRUE
+	overdose_threshold = 45
+	addiction_chance = 1
+	addiction_threshold = 200
+	drink_icon = "lemonglass"
+	drink_name = "Glass of Classic Energy Drink"
+	drink_desc = "A glass of of invigorating energy drink"
+	taste_description = "tutti frutti"
+
+/datum/reagent/consumable/drink/cold/energy/New()
+	addict_supertype = /datum/reagent/consumable/drink/cold/energy
+
+/datum/reagent/consumable/drink/cold/energy/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-1, FALSE)
+	if(M.reagents.get_reagent_amount("coffee") > 0)
+		if(prob(0.5))
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				if(!H.undergoing_cardiac_arrest())
+					H.set_heartattack(TRUE)
+	if(locate(/datum/reagent/consumable/drink/cold/energy) in (M.reagents.reagent_list - src))
+		if(prob(0.5))
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				if(!H.undergoing_cardiac_arrest())
+					H.set_heartattack(TRUE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/drink/cold/energy/overdose_process(mob/living/M, severity)
+	if(volume > 45)
+		M.Jitter(10 SECONDS)
+	return list(0, STATUS_UPDATE_NONE)
+
+/datum/reagent/consumable/drink/cold/energy/trop
+	name = "Tropickal Energy"
+	id = "trop_eng"
+	taste_description = "mango and coconut"
+
+/datum/reagent/consumable/drink/cold/energy/milk
+	name = "Milk Energy"
+	id = "milk_eng"
+	taste_description = "milk and taurin"
+
+/datum/reagent/consumable/drink/cold/energy/grey
+	name = "GreyPower Energy"
+	id = "grey_eng"
+	color = "#9dc2d1"
+	taste_description = "robust"
+
 /datum/reagent/consumable/drink/cold/nuka_cola
 	name = "Nuka Cola"
 	id = "nuka_cola"

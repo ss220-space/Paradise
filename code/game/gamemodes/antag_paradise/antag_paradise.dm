@@ -60,7 +60,6 @@
 	pre_double_antags = list()
 
 	var/players = roundstart ? num_players() : num_station_players()
-	calculate_antags(players)
 	var/scale = CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) : 10
 	var/antags_amount
 	var/special_antag_amount
@@ -94,7 +93,7 @@
 					special_antag.special_role = SPECIAL_ROLE_THIEF
 					special_antag.restricted_roles = restricted_jobs
 					pre_antags[special_antag] = ROLE_THIEF
-					antags_amount--
+					//antags_amount--
 
 		if(ROLE_MALF_AI)
 			if(special_antag_amount)
@@ -210,9 +209,12 @@
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
 
+	calculate_antags()
+
 	return roll_antagonists(antag_possibilities, TRUE)
 
-/datum/game_mode/antag_paradise/proc/calculate_antags(players)
+/datum/game_mode/antag_paradise/proc/calculate_antags()
+	var/players = num_players()
 	var/list/special_antags_list
 	if(GLOB.antag_paradise_special_weights)
 		special_antags_list = GLOB.antag_paradise_special_weights
@@ -231,7 +233,7 @@
 
 	antags_weights = list()
 
-	var/list/antag_weight_config = CONFIG_GET(str_list/antag_paradise_main_antags)
+	var/list/antag_weight_config = CONFIG_GET(keyed_list/antag_paradise_main_antags)
 	antag_weight_config = antag_weight_config.Copy()
 
 	for(var/antag in antag_weight_config)
@@ -248,13 +250,13 @@
 		return
 
 	var/list/subtype_weights = CONFIG_GET(keyed_list/antag_paradise_subtype_weights)
-	antags_weights[pick_n_take(antag_weight_config)] = subtype_weights[ANTAG_SINGLE]
+	antags_weights[pick_weight_n_take(antag_weight_config)] = subtype_weights[ANTAG_SINGLE]
 	if(!length(antag_weight_config) || mode_type == ANTAG_SINGLE)
 		return
-	antags_weights[pick_n_take(antag_weight_config)] = subtype_weights[ANTAG_DOUBLE]
+	antags_weights[pick_weight_n_take(antag_weight_config)] = subtype_weights[ANTAG_DOUBLE]
 	if(!length(antag_weight_config) || mode_type == ANTAG_DOUBLE)
 		return
-	antags_weights[pick_n_take(antag_weight_config)] = subtype_weights[ANTAG_TRIPPLE]
+	antags_weights[pick_weight_n_take(antag_weight_config)] = subtype_weights[ANTAG_TRIPPLE]
 
 
 /datum/game_mode/antag_paradise/post_setup()

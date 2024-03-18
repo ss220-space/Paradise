@@ -183,7 +183,7 @@
 
 
 /obj/item/gun/energy/attack_self(mob/living/user)
-	if(length(ammo_type))
+	if(length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
 

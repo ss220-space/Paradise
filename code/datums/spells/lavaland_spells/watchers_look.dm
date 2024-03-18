@@ -3,7 +3,7 @@
 	desc = "Shoot one of the watcher's beams. To change the mode, use alt-click on the icon."
 	invocation = "ONI DRAKT'CEHOR!"
 	invocation_type = "shout"
-	base_cooldown = 8 SECONDS
+	base_cooldown = 3 SECONDS
 	action_icon_state = "watcher_normal"
 	action_background_icon_state = ""
 	need_active_overlay = TRUE

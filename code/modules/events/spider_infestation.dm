@@ -10,8 +10,8 @@ GLOBAL_VAR_INIT(sent_spiders_to_station, 0)
 	spawncount = round(num_players() * 0.8)
 	GLOB.sent_spiders_to_station = 1
 
-/datum/event/spider_infestation/announce()
-	if(successSpawn)
+/datum/event/spider_infestation/announce(false_alarm)
+	if(successSpawn || false_alarm)
 		GLOB.event_announcement.Announce("Обнаружены неопознанные формы жизни на борту станции [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.", new_sound = 'sound/AI/aliens.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Spider Infestation")

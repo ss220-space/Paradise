@@ -304,6 +304,13 @@
 		return picked
 	return null
 
+//Pick a random element by weight from the list and remove it from the list.
+/proc/pick_weight_n_take(list/listfrom)
+	if(listfrom.len > 0)
+		var/picked = pick_weight_classic(listfrom)
+		listfrom -= picked
+		return picked
+	return null
 
 /**
  * Picks multiple unique elements from the suplied list.
