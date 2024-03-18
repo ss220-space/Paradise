@@ -7,6 +7,7 @@
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop
+	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 	light_range = 4
 	light_power = 3
