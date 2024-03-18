@@ -188,7 +188,7 @@
 	if(box && H.dna.species.speciesbox)
 		box = H.dna.species.speciesbox
 
-	if(allow_loadout && H.client && (H.client.prefs.choosen_gears && H.client.prefs.choosen_gears.len))
+	if(allow_loadout && H.client)
 		for(var/gear in H.client.prefs.choosen_gears)
 			var/datum/gear/G = H.client.prefs.choosen_gears[gear]
 			if(!istype(G))
