@@ -148,7 +148,7 @@
 
 /datum/design/unique_modkit
 	build_type = PROTOLATHE
-	req_tech = list("materials" = 20) // Obtainable only from disks.
+	req_tech = null
 
 /datum/design/unique_modkit/offensive_turf_aoe
 	name = "Kinetic Accelerator Offensive Mining Explosion Mod"

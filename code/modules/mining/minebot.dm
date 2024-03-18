@@ -126,8 +126,7 @@
 /mob/living/simple_animal/hostile/mining_drone/death(gibbed)
 	DropOre(0)
 	if(stored_gun)
-		for(var/obj/item/borg/upgrade/modkit/M in stored_gun.modkits)
-			M.uninstall(stored_gun)
+		stored_gun.deattach_modkits()
 	deathmessage = "blows apart!"
 	. = ..()
 
@@ -146,10 +145,8 @@
 	if(istype(O, /obj/item/projectile/kinetic))
 		var/obj/item/projectile/kinetic/K = O
 		if(K.kinetic_gun)
-			for(var/A in K.kinetic_gun.get_modkits())
-				var/obj/item/borg/upgrade/modkit/M = A
-				if(istype(M, /obj/item/borg/upgrade/modkit/minebot_passthrough))
-					return TRUE
+			for(var/obj/item/borg/upgrade/modkit/minebot_passthrough/MK in K.kinetic_gun.get_modkits())
+				return TRUE
 	if(istype(O, /obj/item/projectile/destabilizer))
 		return TRUE
 	return ..()
