@@ -181,51 +181,6 @@
 /obj/machinery/kitchen_machine/on_deconstruction()
 	dropContents()
 
-/********************
-*   Machine Menu	*
-********************/
-
-/obj/machinery/kitchen_machine/proc/format_content_descs()
-	. = ""
-	var/list/items_counts = list()
-	var/list/name_overrides = list()
-	for(var/obj/O in contents)
-		var/display_name = O.name
-		if(istype(O, /obj/item/reagent_containers/food))
-			var/obj/item/reagent_containers/food/food = O
-			if(!items_counts[display_name])
-				if(food.ingredient_name)
-					name_overrides[display_name] = food.ingredient_name
-				else
-					name_overrides[display_name] = display_name
-			else
-				if(food.ingredient_name_plural)
-					name_overrides[display_name] = food.ingredient_name_plural
-				else if(items_counts[display_name] == 1) // Must only add "s" once or you get stuff like "eggsssss"
-					name_overrides[display_name] = "[name_overrides[display_name]]s" //name_overrides[display_name] Will be set on the first time as the singular form
-
-		items_counts[display_name]++
-
-	for(var/O in items_counts)
-		var/N = items_counts[O]
-		if(!(O in name_overrides))
-			. += {"<b>[capitalize(O)]:</b> [N] [lowertext(O)]\s<br>"}
-		else
-			if(N==1)
-				. += {"<b>[capitalize(O)]:</b> [N] [name_overrides[O]]<br>"}
-			else
-				. += {"<b>[capitalize(O)]:</b> [N] [name_overrides[O]]<br>"}
-
-	for(var/datum/reagent/R in reagents.reagent_list)
-		var/display_name = R.name
-		if(R.id == "capsaicin")
-			display_name = "Hotsauce"
-		if(R.id == "frostoil")
-			display_name = "Coldsauce"
-		. += {"<b>[display_name]:</b> [R.volume] unit\s<br>"}
-
-
-
 
 /************************************
 *   Machine Menu Handling/Cooking	*
