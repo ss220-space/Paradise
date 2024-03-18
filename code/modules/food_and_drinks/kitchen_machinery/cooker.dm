@@ -182,6 +182,6 @@
 	return
 
 /obj/machinery/cooker/update_icon_state()
-	icon_state = on ? officon : onicon
+	icon_state = on ? onicon : officon
 
 
