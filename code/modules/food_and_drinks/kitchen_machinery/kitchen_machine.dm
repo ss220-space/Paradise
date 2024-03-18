@@ -364,7 +364,7 @@
 	if(soundloop)
 		soundloop.stop()
 	else
-		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 
 /obj/machinery/kitchen_machine/proc/abort()
 	operating = FALSE // Turn it off again aferwards
