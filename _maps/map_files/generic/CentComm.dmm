@@ -24640,8 +24640,8 @@
 /area/shuttle/trade/sol)
 "mBV" = (
 /obj/item/gun/projectile/automatic/sniper_rifle{
+	desc = "Оружие с потёртой надписью 'Коатс' и нечитаемыми каракулями возле неё.";
 	name = "Потрёпанная Снайперская Винтовка"
-	desc = "Оружие с потёртой надписью 'Коатс' и нечитаемыми каракулями возле неё."
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
