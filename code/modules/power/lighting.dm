@@ -375,13 +375,13 @@
 
 			else
 				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO, l_on = TRUE)
+				set_light(BR, PO, CO, l_on = on)
 
 	else if(!turned_off())
 		set_emergency_lights()
 	else
 		use_power = IDLE_POWER_USE
-		set_light_on(FALSE)
+		set_light(0)
 
 	update_icon()
 
@@ -410,7 +410,7 @@
 	do_sparks(2, 1, src)
 
 	on = FALSE
-	set_light_on(FALSE)
+	set_light(0)
 	update_icon()
 
 // attempt to set the light's on/off status
@@ -611,7 +611,7 @@
 
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
-	set_light_on(FALSE) //you, sir, are off!
+	set_light(0, 0, 0) //you, sir, are off!
 	if(current_apc)
 		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
