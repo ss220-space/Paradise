@@ -64,6 +64,14 @@
 		dropping.forceMove(get_turf(src))
 		fry_mouse(dropping)
 
+/obj/machinery/cooker/deepfryer/AltClick(mob/user)
+	if(istype(user, /mob/living/simple_animal/mouse))
+		if(on)
+			to_chat(user, span_warning("There are no place for [user]!"))
+			return
+		user.forceMove(get_turf(src))
+		fry_mouse(user)
+
 /obj/machinery/cooker/deepfryer/proc/fry_mouse(mob/living/simple_animal/mouse/mouse)
 	on = TRUE
 	update_icon(UPDATE_ICON_STATE)
