@@ -310,7 +310,7 @@
 	if(soundloop)
 		soundloop.start()
 	else
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 	operating = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
@@ -319,7 +319,7 @@
 	if(soundloop)
 		soundloop.stop()
 	else
-		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 
 /obj/machinery/kitchen_machine/proc/abort()
 	operating = FALSE // Turn it off again aferwards

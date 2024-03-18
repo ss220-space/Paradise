@@ -65,7 +65,7 @@
 
 /obj/machinery/cooker/proc/turnoff(obj/item/olditem)
 	soundloop.stop()
-	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	on = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	qdel(olditem)
@@ -182,6 +182,6 @@
 	return
 
 /obj/machinery/cooker/update_icon_state()
-	icon_state = on ? officon : onicon
+	icon_state = on ? onicon : officon
 
 
