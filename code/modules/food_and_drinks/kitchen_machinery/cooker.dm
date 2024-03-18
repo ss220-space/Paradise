@@ -15,8 +15,10 @@
 	var/firechance = 0
 	var/cooktime = 0
 	var/foodcolor = null
-	var/has_specials = FALSE		//Set to 1 if the machine has specials to check, otherwise leave it at 0
-	var/upgradeable = FALSE		//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
+	///Set to TRUE if the machine has specials to check, otherwise leave it at FALSE
+	var/has_specials = FALSE
+	///Set to TRUE if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
+	var/upgradeable = FALSE
 	var/datum/looping_sound/kitchen/deep_fryer/soundloop
 
 /obj/machinery/cooker/Initialize(mapload)
