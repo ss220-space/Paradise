@@ -40,7 +40,7 @@
 	/// Overlay used to visualize contents for default smartfringe.
 	var/contents_overlay = "smartfridge"
 	/// Overlay used to visualize broken status.
-	var/broken_overlay = "smartfridge-broken"
+	var/broken_overlay = "smartfridge_broken"
 	/// Additional overlay on top, like hazard symbol for smartfringe in virology.
 	var/icon_addon
 	/// Used to calculate smartfridge fullness while updating overlays.
@@ -160,6 +160,13 @@
 		if(76 to INFINITY)
 			fill_level = 3
 
+//// broken smartfridge for decorations
+/obj/machinery/smartfridge/broken
+
+/obj/machinery/smartfridge/broken/Initialize(mapload)
+	. = ..()
+	stat = BROKEN
+	update_icon(UPDATE_OVERLAYS)
 
 // Interactions
 /obj/machinery/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
