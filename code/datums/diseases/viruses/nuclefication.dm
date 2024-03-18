@@ -60,16 +60,17 @@
 						limb?.fracture()
 					if(3)
 						var/obj/item/organ/internal/organ = check_available_organs(H)
-						organ?.receive_damage(120)
+						organ?.necrotize()
+						to_chat(H, span_notice("It's a test message, your organ must be dead now."))
 
 		if(4)
-			H.do_jitter_animation(500, 30)
+			H.AdjustJitter(5 SECONDS)
 			if(stage_message == 4)
 				to_chat(H, span_boldnotice("The pain has gone away.."))
 				var/datum/species/mob = H.dna.species
 				mob.species_traits |= NO_PAIN_FEEL
 				stage_message++
-			if(prob(1))
+			if(prob(1.5))
 				var/destiny = rand(1,3) // What is your destiny now?
 
 				switch(destiny)
@@ -78,12 +79,11 @@
 						limb?.receive_damage(50, silent = TRUE)
 					if(2)
 						var/obj/item/organ/external/limb = check_available_limbs(H)
-						playsound(H, "bonebreak", 150, TRUE)
-						limb?.fracture(TRUE)
+						limb?.fracture()
 					if(3)
 						var/obj/item/organ/internal/organ = check_available_organs(H)
-						organ?.receive_damage(120, TRUE)
-
+						organ?.necrotize()
+						to_chat(H, span_notice("It's a test message, your organ must be dead now."))
 		if(5)
 			H.visible_message(span_danger("[H] become a nucleation!"), span_userdanger("YOU TURN INTO A NUCLEATION AGAIN!"))
 			var/mob/living/carbon/human/nucleat = H

@@ -39,6 +39,8 @@
 
 /obj/item/organ/internal/brain/crystal/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
 	..(target, special)
+	if(isnucleation(target))
+		return //no need to apply disease to nucleation
 	var/datum/disease/virus/nuclefication/D = new()
 	target.diseases += D
 	var/datum/species/mob = target.dna.species
