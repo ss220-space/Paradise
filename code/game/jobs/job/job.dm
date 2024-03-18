@@ -192,7 +192,7 @@
 		for(var/gear in H.client.prefs.choosen_gears)
 			var/datum/gear/G = H.client.prefs.choosen_gears[gear]
 			if(!istype(G))
-				return
+				continue
 			var/permitted = FALSE
 
 			if(G.allowed_roles)
