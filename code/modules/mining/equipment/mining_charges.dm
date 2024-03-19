@@ -48,7 +48,7 @@
 					message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)]")
 					add_game_logs("planted [name] on [target.name] at [COORD(target)]", user)
 				installed = TRUE
-				target.overlays += image_overlay
+				target.add_overlay(image_overlay)
 			return
 		..()
 
@@ -106,7 +106,7 @@
 				location = get_turf(target)
 			else
 				location = get_atom_on_turf(target)
-			target.overlays -= image_overlay
+			target.cut_overlay(image_overlay)
 	else
 		location = get_atom_on_turf(src)
 	if(location)

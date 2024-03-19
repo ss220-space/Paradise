@@ -61,8 +61,8 @@
 	img.plane = FLOAT_PLANE
 	I.pixel_x = xx		//and then return it
 	I.pixel_y = yy
-	overlays += img
-	overlays += "evidence"	//should look nicer for transparent stuff. not really that important, but hey.
+	add_overlay(img)
+	add_overlay("evidence")	//should look nicer for transparent stuff. not really that important, but hey.
 
 	desc = "An evidence bag containing [I]. [I.desc]"
 	I.loc = src
@@ -74,11 +74,11 @@
 		var/obj/item/I = contents[1]
 		user.visible_message("<span class='notice'>[user] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>",\
 		"<span class='notice'>You hear someone rustle around in a plastic bag, and remove something.</span>")
-		overlays.Cut()	//remove the overlays
-		user.put_in_hands(I)
+		cut_overlays()	//remove the overlays
 		w_class = WEIGHT_CLASS_TINY
 		icon_state = "evidenceobj"
 		desc = "An empty evidence bag."
+		user.put_in_hands(I)
 
 	else
 		to_chat(user, "[src] is empty.")

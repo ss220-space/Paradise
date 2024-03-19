@@ -250,7 +250,7 @@
 	new /obj/item/assembly/prox_sensor(Tsec)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
+	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	if(prob(50))
 		new /obj/item/robot_parts/r_arm(Tsec)

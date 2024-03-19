@@ -1491,7 +1491,7 @@
 	if(!delay_icon_update)
 		UpdateAppearance()
 
-	overlays.Cut()
+	cut_overlays()
 	update_mutantrace()
 	regenerate_icons()
 

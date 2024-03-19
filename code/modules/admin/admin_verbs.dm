@@ -184,6 +184,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
 	/client/proc/reregister_docks,
+	/client/proc/cmd_display_overlay_log,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

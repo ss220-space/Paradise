@@ -175,12 +175,11 @@
 		return
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
 		return
-	update_icon(UPDATE_ICON_STATE)
 	on = TRUE
 	b_stat = FALSE
 	buildstage = 3
 	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
 	update_operating_status()
 	for(var/i, i<= 5, i++)
 		wires.on_cut(i, 1)
@@ -228,8 +227,10 @@
 	if(!current_area)
 		return
 	if(on)
+		set_light(1, LIGHTING_MINIMUM_POWER)
 		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
 	else
+		set_light(0)
 		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 
 /**

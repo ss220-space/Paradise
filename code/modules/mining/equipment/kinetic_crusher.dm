@@ -165,6 +165,12 @@
 		set_light(0)
 
 
+/obj/item/twohanded/kinetic_crusher/update_icon(updates = ALL)
+	. = ..()
+	for(var/datum/action/action as anything in actions)
+		action.UpdateButtonIcon()
+
+
 /obj/item/twohanded/kinetic_crusher/update_icon_state()
 	if(upgraded)
 		item_state = "magmite_crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -178,12 +184,6 @@
 		. += "[icon_state]_uncharged"
 	if(light_on)
 		. += "[icon_state]_lit"
-	addtimer(CALLBACK(src, PROC_REF(buttons_update)), 0.1 SECONDS)
-
-
-/obj/item/twohanded/kinetic_crusher/proc/buttons_update()
-	for(var/datum/action/action as anything in actions)
-		action.UpdateButtonIcon()
 
 
 //destablizing force

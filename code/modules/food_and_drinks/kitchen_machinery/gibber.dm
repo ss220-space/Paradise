@@ -199,7 +199,7 @@
 	var/image/gibberoverlay = new //used to simulate 3D effects
 	gibberoverlay.icon = icon
 	gibberoverlay.icon_state = "grinderoverlay"
-	gibberoverlay.overlays += image('icons/obj/kitchen.dmi', "gridle")
+	gibberoverlay.add_overlay(image('icons/obj/kitchen.dmi', "gridle"))
 
 	var/image/feedee = new
 	occupant.dir = SOUTH
@@ -207,7 +207,7 @@
 
 	var/atom/movable/holder = new //holder for occupant image
 	holder.name = null //make unclickable
-	holder.overlays += feedee //add occupant to holder overlays
+	holder.add_overlay(feedee)	//add occupant to holder overlays
 	holder.pixel_y = 25 //above the gibber
 	holder.pixel_x = 2
 	holder.loc = get_turf(src)
@@ -216,7 +216,7 @@
 
 	var/atom/movable/holder2 = new //holder for gibber overlay, used to simulate 3D effect
 	holder2.name = null
-	holder2.overlays += gibberoverlay
+	holder2.add_overlay(gibberoverlay)
 	holder2.loc = get_turf(src)
 	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
 	holder2.anchored = TRUE
@@ -225,9 +225,9 @@
 
 	sleep(animation_delay)
 
-	holder.overlays -= feedee //reset static icon
+	holder.cut_overlay(feedee)	//reset static icon
 	feedee.icon += icon('icons/obj/kitchen.dmi', "footicon") //this is some byond magic; += to the icon var with a black and white image will mask it
-	holder.overlays += feedee
+	holder.add_overlay(feedee)
 	animate(holder, pixel_y = -3, time = animation_delay) //animate going down further
 
 	sleep(animation_delay) //time everything right, animate doesn't prevent proc from continuing

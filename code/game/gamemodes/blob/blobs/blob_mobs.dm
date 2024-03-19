@@ -56,7 +56,7 @@
 	flying = TRUE
 	speak_emote = list("pulses")
 	var/obj/structure/blob/factory/factory = null
-	var/list/human_overlays = list()
+	var/list/human_overlays
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 
@@ -148,11 +148,15 @@
 	color = a_color
 
 	if(is_zombie)
-		overlays.Cut()
-		overlays = human_overlays
+		cut_overlays()
+		add_overlay(human_overlays)
 		var/image/I = image('icons/mob/blob.dmi', icon_state = "blob_head")
 		I.color = color
-		overlays += I
+		add_overlay(I)
+
+		if(blocks_emissive)
+			add_overlay(get_emissive_block())
+
 
 /////////////////
 // BLOBBERNAUT //

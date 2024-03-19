@@ -3,11 +3,9 @@
 	var/stored_blocker
 
 
-/datum/component/emissive_blocker/Initialize(stored_blocker)
-	var/atom/movable/movable = parent
-	src.stored_blocker = stored_blocker
-	RegisterSignal(movable, COMSIG_ATOM_UPDATE_ICON_STATE, PROC_REF(update_generic_block))
-	movable.add_overlay(src.stored_blocker)
+/datum/component/emissive_blocker/Initialize()
+	update_generic_block()
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON_STATE, PROC_REF(update_generic_block))
 
 
 /datum/component/emissive_blocker/Destroy()
@@ -26,7 +24,7 @@
 		return
 	var/mutable_appearance/gen_emissive_blocker = emissive_blocker(movable.icon, movable.icon_state, alpha = movable.alpha, appearance_flags = movable.appearance_flags)
 	gen_emissive_blocker.dir = movable.dir
-	if(gen_emissive_blocker != stored_blocker || !movable.overlays)
+	if(gen_emissive_blocker != stored_blocker)
 		movable.cut_overlay(stored_blocker)
 		stored_blocker = gen_emissive_blocker
 		movable.add_overlay(stored_blocker)

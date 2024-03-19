@@ -382,7 +382,7 @@
 
 /obj/structure/alien/weeds/proc/updateWeedOverlays()
 
-	overlays.Cut()
+	cut_overlays()
 
 	if(!weedImageCache || !weedImageCache.len)
 		weedImageCache = list()
@@ -398,16 +398,16 @@
 	var/turf/W = get_step(src, WEST)
 	if(!locate(/obj/structure/alien) in N.contents)
 		if(istype(N, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_SOUTH_EDGING]
+			add_overlay(weedImageCache[WEED_SOUTH_EDGING])
 	if(!locate(/obj/structure/alien) in S.contents)
 		if(istype(S, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_NORTH_EDGING]
+			add_overlay(weedImageCache[WEED_NORTH_EDGING])
 	if(!locate(/obj/structure/alien) in E.contents)
 		if(istype(E, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_WEST_EDGING]
+			add_overlay(weedImageCache[WEED_WEST_EDGING])
 	if(!locate(/obj/structure/alien) in W.contents)
 		if(istype(W, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_EAST_EDGING]
+			add_overlay(weedImageCache[WEED_EAST_EDGING])
 
 
 /obj/structure/alien/weeds/proc/fullUpdateWeedOverlays()

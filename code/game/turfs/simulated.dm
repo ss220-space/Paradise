@@ -42,7 +42,7 @@
 	wet = wet_setting
 	if(wet_setting != TURF_DRY)
 		if(wet_overlay)
-			overlays -= wet_overlay
+			cut_overlay(wet_overlay)
 			wet_overlay = null
 		var/turf/simulated/floor/F = src
 		if(istype(F))
@@ -56,7 +56,7 @@
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
 		wet_overlay.plane = FLOOR_OVERLAY_PLANE
-		overlays += wet_overlay
+		add_overlay(wet_overlay)
 	if(time == INFINITY)
 		return
 	if(!time)
@@ -68,7 +68,7 @@
 		return
 	wet = TURF_DRY
 	if(wet_overlay)
-		overlays -= wet_overlay
+		cut_overlay(wet_overlay)
 
 /turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
 	..()

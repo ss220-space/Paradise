@@ -12,9 +12,10 @@
 	var/list/overlays_standing[X_TOTAL_LAYERS]
 
 /mob/living/carbon/alien/humanoid/update_icons()
-	overlays.Cut()
+	cut_overlays()
+
 	for(var/image/I in overlays_standing)
-		overlays += I
+		add_overlay(I)
 
 	if(stat == DEAD)
 		//If we mostly took damage from fire
@@ -54,6 +55,10 @@
 		pixel_x = get_standard_pixel_x_offset(lying)
 		pixel_y = get_standard_pixel_y_offset(lying)
 
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
+
+
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()
 	if(notransform)
@@ -75,10 +80,10 @@
 	update_icons()
 
 /mob/living/carbon/alien/humanoid/update_fire()
-	overlays -= overlays_standing[X_FIRE_LAYER]
+	cut_overlay(overlays_standing[X_FIRE_LAYER])
 	if(on_fire)
 		overlays_standing[X_FIRE_LAYER] = image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning", "layer"= -X_FIRE_LAYER)
-		overlays += overlays_standing[X_FIRE_LAYER]
+		add_overlay(overlays_standing[X_FIRE_LAYER])
 		return
 	else
 		overlays_standing[X_FIRE_LAYER] = null

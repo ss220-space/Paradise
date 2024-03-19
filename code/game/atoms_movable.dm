@@ -48,15 +48,37 @@
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, plane = EMISSIVE_PLANE, alpha = src.alpha)
-			gen_emissive_blocker.color = EM_BLOCK_COLOR
-			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.appearance_flags |= appearance_flags
-			AddComponent(/datum/component/emissive_blocker, gen_emissive_blocker)
+			var/static/mutable_appearance/emissive_blocker/blocker = new
+			blocker.icon = icon
+			blocker.icon_state = icon_state
+			blocker.dir = dir
+			blocker.alpha = alpha
+			blocker.appearance_flags |= appearance_flags
+			// Ok so this is really cursed, but I want to set with this blocker cheaply while
+			// still allowing it to be removed from the overlays list later.
+			// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly.
+			// I'm sorry!
+			var/mutable_appearance/flat = blocker.appearance
+			overlays += flat
+			if(managed_overlays)
+				if(islist(managed_overlays))
+					managed_overlays += flat
+				else
+					managed_overlays = list(managed_overlays, flat)
+			else
+				managed_overlays = flat
+
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
-			em_block = new(src, render_target)
-			add_overlay(list(em_block))
+			em_block = new(null, src)
+			overlays += em_block
+			if(managed_overlays)
+				if(islist(managed_overlays))
+					managed_overlays += em_block
+				else
+					managed_overlays = list(managed_overlays, em_block)
+			else
+				managed_overlays = em_block
 
 
 /atom/movable/Destroy()
@@ -76,11 +98,15 @@
 		stop_orbit()
 
 
-/atom/movable/proc/update_emissive_block()
-	if(!em_block && !QDELETED(src))
-		render_target = ref(src)
-		em_block = new(src, render_target)
-	add_overlay(list(em_block))
+/atom/movable/get_emissive_block()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			return fast_emissive_blocker(src)
+		if(EMISSIVE_BLOCK_UNIQUE)
+			if(!em_block && !QDELETED(src))
+				render_target = ref(src)
+				em_block = new(null, src)
+			return em_block
 
 
 //Returns an atom's power cell, if it has one. Overload for individual items.

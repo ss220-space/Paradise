@@ -130,7 +130,7 @@
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume)) //If we got this far, something needs fixing
 		to_chat(user, span_notice("You fix some dents on the broken plating."))
-		overlays -= current_overlay
+		cut_overlay(current_overlay)
 		current_overlay = null
 		burnt = FALSE
 		broken = FALSE

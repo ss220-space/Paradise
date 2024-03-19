@@ -322,10 +322,12 @@
 
 /obj/item/storage/pill_bottle/proc/apply_wrap()
 	if(wrapper_color)
-		overlays.Cut()
+		cut_overlays()
 		var/image/I = image(icon, wrapper_state)
 		I.color = wrapper_color
-		overlays += I
+		add_overlay(I)
+		if(blocks_emissive)
+			add_overlay(get_emissive_block())
 
 /obj/item/storage/pill_bottle/attack(mob/M, mob/user)
 	if(iscarbon(M) && contents.len)

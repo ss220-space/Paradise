@@ -135,11 +135,13 @@
 	return "cogscarab [pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
 
 /mob/living/silicon/robot/cogscarab/update_icons()
-	overlays.Cut()
+	cut_overlays()
+
 	if(stat == CONSCIOUS)
-		overlays += "eyes-[icon_state]"
-	else
-		overlays -= "eyes"
+		add_overlay("eyes-[icon_state]")
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /mob/living/silicon/robot/cogscarab/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/borg/upgrade))
