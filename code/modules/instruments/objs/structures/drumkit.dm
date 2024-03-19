@@ -49,7 +49,7 @@
 	else
 		layer = OBJ_LAYER
 
-/obj/structure/musician/drumkit/handle_offsets()
+/obj/structure/musician/drumkit/proc/handle_offsets()
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
