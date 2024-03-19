@@ -505,3 +505,10 @@ datum/tech/robotics
 	name = "Bluespace rift stationary scanner design"
 	desc = "Экспериментальный проект стационарного сканера блюспейс разлома."
 	design_type = /datum/design/brs_stationary_scanner
+
+/** Nanotrasen tail blade implant */
+/obj/item/disk/design_disk/tailblade/blade_nt
+	name = "Tail laserblade implant design"
+	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
+	blueprint = new /datum/design/tailblade
+

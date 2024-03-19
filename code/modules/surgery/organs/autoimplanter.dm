@@ -67,12 +67,20 @@
 	. = ..()
 
 /obj/item/autoimplanter/oneuse/mantisblade
-	name = "autoimplanter(mantis blade right)"
+	name = "autoimplanter (mantis blade right)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex
 
 /obj/item/autoimplanter/oneuse/mantisblade/l
-	name = "autoimplanter(mantis blade left)"
+	name = "autoimplanter (mantis blade left)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex/l
+
+/obj/item/autoimplanter/oneuse/razorblade
+	name = "autoimplanter (razorblade)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade
+
+/obj/item/autoimplanter/oneuse/laserblade
+	name = "autoimplanter (laserblade)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/laser/syndi
 
 /obj/item/autoimplanter/traitor
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. This model is capable of implanting up to three implants before destroing."

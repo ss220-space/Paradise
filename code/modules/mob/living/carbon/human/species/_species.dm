@@ -27,6 +27,7 @@
 
 	/// Name of tail image in species effects icon file.
 	var/tail
+
 	/// like tail but wings
 	var/wing
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack

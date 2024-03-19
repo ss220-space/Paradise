@@ -14,6 +14,7 @@
 	var/flags = NONE
 	var/flags_2 = NONE
 	var/list/fingerprints
+	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
 	var/list/blood_DNA
@@ -550,7 +551,7 @@
 
 /atom/proc/unemag()
 	return
-
+	
 /atom/proc/cmag_act(mob/user)
 	return
 
@@ -709,11 +710,17 @@
 		if(!fingerprints)
 			fingerprints = list()
 
+		if(!fingerprints_time)
+			fingerprints_time = list()
+
 		//Hash this shit.
 		var/full_print = H.get_full_print()
 
 		// Add the fingerprints
 		fingerprints[full_print] = full_print
+		fingerprints_time += "[station_time_timestamp()] — [full_print]"
+		if(fingerprints_time.len > 20)
+			fingerprints_time -= fingerprints_time[1]
 
 		return TRUE
 	else
@@ -730,15 +737,21 @@
 		A.fingerprints = list()
 	if(!islist(A.fingerprintshidden))
 		A.fingerprintshidden = list()
+	if(!islist(A.fingerprints_time))
+		A.fingerprints_time = list()
 
 	if(!islist(fingerprints))
 		fingerprints = list()
 	if(!islist(fingerprintshidden))
 		fingerprintshidden = list()
+	if(!islist(fingerprints_time))
+		fingerprints_time = list()
 
 	// Transfer
 	if(fingerprints)
 		A.fingerprints |= fingerprints.Copy()            //detective
+	if(fingerprints_time)
+		A.fingerprints_time |= fingerprints_time.Copy()
 	if(fingerprintshidden)
 		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
 	A.fingerprintslast = fingerprintslast
