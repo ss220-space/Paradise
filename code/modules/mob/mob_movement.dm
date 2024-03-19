@@ -37,8 +37,6 @@
 			mob.control_object.forceMove(get_step(mob.control_object, direct))
 	return
 
-#define MOVEMENT_DELAY_BUFFER 0.75
-#define MOVEMENT_DELAY_BUFFER_DELTA 1.25
 #define CONFUSION_LIGHT_COEFFICIENT		0.15
 #define CONFUSION_HEAVY_COEFFICIENT		0.075
 #define CONFUSION_MAX					80 SECONDS
@@ -47,9 +45,10 @@
 /client/Move(n, direct)
 	if(world.time < move_delay)
 		return
-	else
-		input_data.desired_move_dir_add = NONE
-		input_data.desired_move_dir_sub = NONE
+
+	input_data.desired_move_dir_add = NONE
+	input_data.desired_move_dir_sub = NONE
+
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 	if(!mob || !mob.loc)
@@ -122,8 +121,6 @@
 					M.stop_pulling()
 
 
-	//We are now going to move
-	moving = 1
 	current_move_delay = mob.movement_delay()
 
 	if(!istype(get_turf(mob), /turf/space) && mob.pulling)
@@ -132,7 +129,7 @@
 		if(!(STRONG in M.mutations) && !istype(M, /mob/living/simple_animal/hostile/construct) && !istype(M, /mob/living/simple_animal/hostile/clockwork) && !istype(M, /mob/living/simple_animal/hostile/guardian) && !(istype(R) && (/obj/item/borg/upgrade/vtec in R.upgrades))) //No slowdown for STRONG gene //Blood cult constructs //Clockwork constructs //Borgs with VTEC //Holopigs
 			current_move_delay *= min(1.4, mob.pulling.get_pull_push_speed_modifier(current_move_delay))
 
-	if(old_move_delay + (current_move_delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
+	if(old_move_delay + world.tick_lag > world.time)
 		move_delay = old_move_delay
 	else
 		move_delay = world.time
@@ -166,7 +163,6 @@
 	if(mob.pulledby)
 		mob.pulledby.stop_pulling()
 
-	moving = 0
 	if(mob && .)
 		if(mob.throwing)
 			mob.throwing.finalize()
@@ -447,7 +443,7 @@
 
 	if(!check_has_body_select())
 		return
-	
+
 	var/next_in_line
 	if(mob.zone_selected == BODY_ZONE_PRECISE_GROIN)
 		next_in_line = BODY_ZONE_TAIL
