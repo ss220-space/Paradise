@@ -136,7 +136,7 @@ SUBSYSTEM_DEF(throwing)
 		thrownthing.newtonian_move(GetOppositeDir(init_dir))
 
 	callback?.Invoke()
-
+	SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
 	thrownthing?.end_throw()
 
 

@@ -253,6 +253,14 @@
 	cost = 40
 	job = list(JOB_TITLE_MIME)
 
+/datum/uplink_item/jobspecific/combat_baking
+	name = "Combat Bakery Kit"
+	desc = "A kit of clandestine baked weapons. Contains a baguette which a skilled mime could use as a sword, \
+		a pair of throwing croissants, and the recipe to make more on demand. Once the job is done, eat the evidence."
+	item = /obj/item/storage/box/syndie_kit/combat_baking
+	cost = 25
+	job = list("Mime", "Chef")
+
 //Miner
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
