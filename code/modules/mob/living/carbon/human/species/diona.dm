@@ -6,7 +6,6 @@
 	language = LANGUAGE_DIONA
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	speech_chance = 20
-	unarmed_type = /datum/unarmed_attack/diona
 	remains_type = /obj/effect/decal/cleanable/ash
 
 	burn_mod = 1.25
@@ -69,6 +68,11 @@
 
 	disliked_food = MEAT | RAW | EGG
 	liked_food = VEGETABLES | FRUIT
+
+/datum/species/diona/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/diona)
+	. = ..()
 
 /datum/species/diona/can_understand(mob/other)
 	if(istype(other, /mob/living/simple_animal/diona))

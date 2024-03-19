@@ -178,6 +178,17 @@
 		if(power.action)
 			power.action.UpdateButtonIcon()
 
+/datum/antagonist/vampire/proc/try_bloodsucking(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	if(!draining && target != user)
+		if((NO_BLOOD in target.dna.species.species_traits) || (SKELETON in target.mutations) || target.dna.species.exotic_blood || !target.blood_volume)
+			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			return
+		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
+			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
+			return
+		//we're good to suck the blood, blaah
+		handle_bloodsucking(target)
+		add_attack_logs(user, target, "vampirebit")
 
 #define BLOOD_GAINED_MODIFIER 0.5
 

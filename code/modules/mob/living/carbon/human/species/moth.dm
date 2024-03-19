@@ -18,7 +18,6 @@
 	tox_mod = 1.5
 	blood_species = "Nian"
 	blood_color = "#b9ae9c"
-	unarmed_type = /datum/unarmed_attack/claws
 	scream_verb = "жужж%(ит,ат)%"
 	female_giggle_sound = list('sound/voice/mothchitter.ogg')
 	male_giggle_sound = list('sound/voice/mothchitter.ogg')
@@ -78,6 +77,14 @@
 	toxic_food = MEAT | JUNKFOOD
 	disliked_food = FRIED | RAW | EGG
 	liked_food = SUGAR | GROSS | FRUIT | VEGETABLES
+
+/datum/species/moth/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()

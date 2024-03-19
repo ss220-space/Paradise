@@ -293,18 +293,18 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(isvulpkanin(H) || isdrask(H) || isunathi(H))
-			H.dna.species.punchdamagelow -= (3 * modifier)
-			H.dna.species.punchdamagehigh -= (4 * modifier)
+			H.dna.species.choosen_attack.damage_min -= (3 * modifier)
+			H.dna.species.choosen_attack.damage_max -= (4 * modifier)
 			H.dna.species.strength_modifier -= (0.25 * modifier)
 			if(isunathi(H))
 				var/datum/species/unathi/U = H.dna.species
 				U.tail_strength -= (0.25 * modifier)
 			return
 		if(ishumanbasic(H))
-			H.dna.species.punchdamagelow -= (1 * modifier)
-			H.dna.species.punchdamagehigh -= (2 * modifier)
+			H.dna.species.choosen_attack.damage_min -= (1 * modifier)
+			H.dna.species.choosen_attack.damage_max -= (2 * modifier)
 			H.dna.species.strength_modifier -= (0.1 * modifier)
 		else
-			H.dna.species.punchdamagelow -= (2 * modifier)
-			H.dna.species.punchdamagehigh -= (3 * modifier)
+			H.dna.species.choosen_attack.damage_min -= (2 * modifier)
+			H.dna.species.choosen_attack.damage_max -= (3 * modifier)
 			H.dna.species.strength_modifier -= (0.15 * modifier)

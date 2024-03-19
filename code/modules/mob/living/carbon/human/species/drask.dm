@@ -20,10 +20,6 @@
 	exotic_blood = "cryoxadone"
 	body_temperature = 273
 	toolspeedmod = 1.2 //20% slower
-	punchdamagelow = 5
-	punchdamagehigh = 12
-	punchstunthreshold = 12
-	obj_damage = 10
 
 	blurb = "Hailing from Hoorlm, planet outside what is usually considered a habitable \
 	orbit, the Drask evolved to live in extreme cold. Their strange bodies seem \
@@ -73,6 +69,11 @@
 
 	disliked_food = SUGAR | GROSS
 	liked_food = DAIRY
+
+/datum/species/drask/New()
+	if(!available_attacks)
+		available_attacks = list("fists" = new /datum/unarmed_attack/punch/drask)
+	. = ..()
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)

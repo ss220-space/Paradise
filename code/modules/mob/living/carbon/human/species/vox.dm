@@ -8,7 +8,6 @@
 	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
-	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
 
 	blurb = "The Vox are the broken remnants of a once-proud race, now reduced to little more than \
 	scavenging vermin who prey on isolated stations, ships or planets to keep their own ancient arkships \
@@ -97,6 +96,14 @@
 	disliked_food = NONE //According to lore voxes does not care about food. Food is food.
 	liked_food = NONE
 
+/datum/species/vox/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
+
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
@@ -181,7 +188,6 @@
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'
-	unarmed_type = /datum/unarmed_attack/claws/armalis
 	blacklisted = TRUE
 
 	warning_low_pressure = 50
@@ -229,6 +235,14 @@
 		"сворачивает себе шею!",
 		"задерживает дыхание!",
 		"пыхтит кислородом!")
+
+/datum/species/vox/armalis/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws/armalis,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return TRUE

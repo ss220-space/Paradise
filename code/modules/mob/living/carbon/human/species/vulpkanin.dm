@@ -7,7 +7,6 @@
 	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
 	skinned_type = /obj/item/stack/sheet/fur
-	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "Vulpkanin are a species of sharp-witted canine-pideds residing on the planet Altam just barely within the \
 	dual-star Vazzend system. Their politically de-centralized society and independent natures have led them to become a species and \
@@ -67,6 +66,14 @@
 
 	disliked_food = VEGETABLES | FRUIT | GRAIN
 	liked_food = MEAT | RAW | DAIRY | GROSS | EGG
+
+/datum/species/vulpkanin/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

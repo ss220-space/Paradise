@@ -126,8 +126,8 @@
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.do_attack_animation(src, user.dna.species.unarmed.animation_type)
-			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
+			user.do_attack_animation(src, user.dna.species.choosen_attack.animation_type)
+			playsound(src.loc, user.dna.species.choosen_attack.attack_sound, 25, 1, -1)
 			attack_generic(user, max_integrity/3)
 
 /obj/structure/spider/spiderling/Bump(atom/user)

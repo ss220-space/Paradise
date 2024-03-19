@@ -7,8 +7,6 @@
 	dangerous_existence = TRUE
 	inherent_factions = list("faithless")
 
-	unarmed_type = /datum/unarmed_attack/claws
-
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 
@@ -31,6 +29,14 @@
 	var/grant_vision_toggle = TRUE
 
 	disliked_food = NONE
+
+/datum/species/shadow/New()
+	if(!available_attacks)
+		available_attacks = list(
+			"claws" = new /datum/unarmed_attack/claws,
+			"fists" = new /datum/unarmed_attack/punch,
+		)
+	. = ..()
 
 /datum/action/innate/shadow/darkvision //Darkvision toggle so shadowpeople can actually see where darkness is
 	name = "Toggle Darkvision"
