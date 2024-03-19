@@ -10,9 +10,10 @@
 	invocation_type = "shout"
 	action_icon_state = "sumon_skulls"
 
-	summon_type = list(/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion)
+	summon_type = list(/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/magic)
 	summon_amt = 3
 	aoe_range = 1
+	can_use_stunned = TRUE
 
 	cast_sound = 'sound/magic/forcewall.ogg'
 

@@ -4,9 +4,10 @@
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
 	desc = "Some blob creature thingy"
-	density = 0
-	opacity = 1
+	density = FALSE
+	opacity = TRUE
 	anchored = TRUE
+	pass_flags_self = PASSBLOB
 	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
@@ -19,8 +20,8 @@
 	var/mob/camera/blob/overmind
 	creates_cover = TRUE
 
-/obj/structure/blob/New(loc)
-	..()
+/obj/structure/blob/Initialize(mapload)
+	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))
 	check_integrity()
@@ -49,12 +50,9 @@
 /obj/structure/blob/proc/update_state()
 	return
 
-/obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
-	if(istype(mover) && mover.checkpass(PASSBLOB))
-		return 1
-	return 0
+/obj/structure/blob/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	return checkpass(mover, PASSBLOB)
 
 /obj/structure/blob/CanAtmosPass(turf/T)
 	return !atmosblock
@@ -62,9 +60,8 @@
 
 /obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	. = FALSE
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSBLOB)
+	if(checkpass(caller, PASSBLOB))
+		. = TRUE
 
 
 /obj/structure/blob/process()

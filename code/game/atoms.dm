@@ -14,12 +14,12 @@
 	var/flags = NONE
 	var/flags_2 = NONE
 	var/list/fingerprints
+	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
-	var/pass_flags = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
@@ -29,6 +29,8 @@
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
+	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
+	var/pass_flags = NONE
 
 	///Chemistry.
 	var/container_type = NONE
@@ -59,9 +61,6 @@
 
 	var/initialized = FALSE
 
-	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
-	var/list/remove_overlays // a very temporary list of overlays to remove
-	var/list/add_overlays // a very temporary list of overlays to add
 	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
 	var/list/managed_overlays
 
@@ -186,7 +185,6 @@
 	QDEL_NULL(reagents)
 	invisibility = INVISIBILITY_ABSTRACT
 	LAZYCLEARLIST(overlays)
-	LAZYCLEARLIST(priority_overlays)
 
 	QDEL_NULL(light)
 
@@ -299,9 +297,6 @@
 /// Is this atom drainable of reagents
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
-
-/atom/proc/CheckExit()
-	return TRUE
 
 /atom/proc/HasProximity(atom/movable/AM)
 	return
@@ -442,28 +437,76 @@
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(updates == NONE)
-		return // NONE is being sent on purpose, and thus no signal should be sent.
+	. = NONE
+	if(updates == NONE)	// NONE is being sent on purpose, and thus no signal should be sent.
+		return .
 
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
+
 	if(updates & UPDATE_ICON_STATE)
 		update_icon_state()
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
-		var/list/new_overlays = update_overlays(updates)
-		if(managed_overlays)
-			cut_overlay(managed_overlays)
-			managed_overlays = null
-		if(length(new_overlays))
-			if(length(new_overlays) == 1)
-				managed_overlays = new_overlays[1]
-			else
-				managed_overlays = new_overlays
-			add_overlay(new_overlays)
-		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS)
+		var/list/new_overlays = update_overlays()
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
 
-	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
+		// Ok, so its rather this or required inheritance in every [update_overlays()]
+		var/emissive_block = get_emissive_block()
+		if(emissive_block)
+			// Emissive block should always go at the beginning of the list
+			new_overlays.Insert(1, emissive_block)
+
+		var/nulls = 0
+		for(var/i in 1 to length(new_overlays))
+			var/atom/maybe_not_an_atom = new_overlays[i]
+			if(isnull(maybe_not_an_atom))
+				nulls++
+				continue
+			if(istext(maybe_not_an_atom) || isicon(maybe_not_an_atom))
+				continue
+			new_overlays[i] = maybe_not_an_atom.appearance
+		if(nulls)
+			for(var/i in 1 to nulls)
+				new_overlays -= null
+
+		var/identical = FALSE
+		var/new_length = length(new_overlays)
+		if(!managed_overlays && !new_length)
+			identical = TRUE
+		else if(!islist(managed_overlays))
+			if(new_length == 1 && managed_overlays == new_overlays[1])
+				identical = TRUE
+		else if(length(managed_overlays) == new_length)
+			identical = TRUE
+			for(var/i in 1 to length(managed_overlays))
+				if(managed_overlays[i] != new_overlays[i])
+					identical = FALSE
+					break
+
+		if(!identical)
+			var/full_control = FALSE
+			if(managed_overlays)
+				full_control = length(overlays) == (islist(managed_overlays) ? length(managed_overlays) : 1)
+				if(full_control)
+					overlays = null
+				else
+					cut_overlay(managed_overlays)
+
+			switch(length(new_overlays))
+				if(0)
+					managed_overlays = null
+				if(1)
+					add_overlay(new_overlays)
+					managed_overlays = new_overlays[1]
+				else
+					add_overlay(new_overlays)
+					managed_overlays = new_overlays
+
+		. |= UPDATE_OVERLAYS
+
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
 
 
 /// Updates the icon state of the atom
@@ -473,7 +516,13 @@
 
 /// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /atom/proc/update_overlays()
-	return list()
+	RETURN_TYPE(/list)
+	. = list()
+
+
+/// Updates atom's emissive block if present.
+/atom/proc/get_emissive_block()
+	return
 
 
 /atom/Topic(href, href_list)
@@ -550,7 +599,7 @@
 
 /atom/proc/unemag()
 	return
-
+	
 /atom/proc/cmag_act(mob/user)
 	return
 
@@ -709,11 +758,17 @@
 		if(!fingerprints)
 			fingerprints = list()
 
+		if(!fingerprints_time)
+			fingerprints_time = list()
+
 		//Hash this shit.
 		var/full_print = H.get_full_print()
 
 		// Add the fingerprints
 		fingerprints[full_print] = full_print
+		fingerprints_time += "[station_time_timestamp()] — [full_print]"
+		if(fingerprints_time.len > 20)
+			fingerprints_time -= fingerprints_time[1]
 
 		return TRUE
 	else
@@ -730,15 +785,21 @@
 		A.fingerprints = list()
 	if(!islist(A.fingerprintshidden))
 		A.fingerprintshidden = list()
+	if(!islist(A.fingerprints_time))
+		A.fingerprints_time = list()
 
 	if(!islist(fingerprints))
 		fingerprints = list()
 	if(!islist(fingerprintshidden))
 		fingerprintshidden = list()
+	if(!islist(fingerprints_time))
+		fingerprints_time = list()
 
 	// Transfer
 	if(fingerprints)
 		A.fingerprints |= fingerprints.Copy()            //detective
+	if(fingerprints_time)
+		A.fingerprints_time |= fingerprints_time.Copy()
 	if(fingerprintshidden)
 		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
 	A.fingerprintslast = fingerprintslast
@@ -996,9 +1057,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/update_remote_sight(mob/living/user)
 	user.sync_lighting_plane_alpha()
 	return
-
-/atom/proc/checkpass(passflag)
-	return pass_flags & passflag
 
 /atom/proc/isinspace()
 	if(isspaceturf(get_turf(src)))
@@ -1311,4 +1369,37 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
+
+
+/// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
+/atom/proc/CanPass(atom/movable/mover, border_dir)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_TRIED_PASS, mover, border_dir) & COMSIG_COMPONENT_PERMIT_PASSAGE)
+		return TRUE
+	//if(mover.movement_type & PHASING)
+	//	return TRUE
+	. = CanAllowThrough(mover, border_dir)
+	// This is cheaper than calling the proc every time since most things dont override CanPassThrough
+	if(!mover.generic_canpass)
+		return mover.CanPassThrough(src, REVERSE_DIR(border_dir), .)
+
+
+/// Returns true or false to allow the mover to move through src
+/atom/proc/CanAllowThrough(atom/movable/mover, border_dir)
+	SHOULD_CALL_PARENT(TRUE)
+	if(mover.pass_flags == PASSEVERYTHING)
+		return TRUE
+	if(mover.pass_flags & pass_flags_self)
+		return TRUE
+	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
+		return TRUE
+	return !density
+
+
+/// Returns true or false to allow the mover to exit turf with src
+/atom/proc/CanExit(atom/movable/mover, moving_direction)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	return TRUE
 

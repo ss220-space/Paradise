@@ -156,6 +156,7 @@
 	density = FALSE
 	anchored = TRUE
 	buckle_lying = FALSE
+	pass_flags_self = PASSTABLE|LETPASSTHROW
 	var/burning = FALSE
 	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5

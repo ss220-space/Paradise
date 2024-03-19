@@ -345,5 +345,9 @@
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
 
-/turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
-	return 1
+
+/// Lets people walk into chasms.
+/turf/simulated/floor/chasm/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	return TRUE
+

@@ -16,6 +16,7 @@
 	desc = "A chain link fence. Not as effective as a wall, but generally it keeps people out."
 	density = TRUE
 	anchored = TRUE
+	pass_flags_self = PASSFENCE|LETPASSTHROW
 
 	icon = 'icons/obj/fence.dmi'
 	icon_state = "straight"
@@ -58,14 +59,12 @@
 	icon_state = "straight_cut3"
 	hole_size = LARGE_HOLE
 
-/obj/structure/fence/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSFENCE))
+
+/obj/structure/fence/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(isprojectile(mover))
 		return TRUE
-	if(istype(mover, /obj/item/projectile))
-		return TRUE
-	if(!density)
-		return TRUE
-	return FALSE
+
 
 /*
 	Shock user with probability prb (if all connections & power are working)

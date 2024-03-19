@@ -148,7 +148,7 @@
 
 /datum/design/unique_modkit
 	build_type = PROTOLATHE
-	req_tech = null
+	req_tech = null	// Unreachable by tech researching.
 
 /datum/design/unique_modkit/offensive_turf_aoe
 	name = "Kinetic Accelerator Offensive Mining Explosion Mod"

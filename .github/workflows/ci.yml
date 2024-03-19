@@ -35,12 +35,9 @@ jobs:
           tools/ci/check_grep.sh
           python3 tools/ci/check_line_endings.py
           python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
-          ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
-      - name: Annotate Lints
-        uses: yogstation13/DreamAnnotate@v2
-        if: always()
-        with:
-          outputFile: output-annotations.txt
+      - name: Run DreamChecker
+        shell: bash
+        run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
 
   compile_all_maps:
     name: Compile All Maps

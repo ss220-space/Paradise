@@ -291,10 +291,10 @@
 
 		else if(task == "rank")
 			var/new_rank
-			if(GLOB.admin_ranks.len)
+			if(length(GLOB.admin_ranks))
 				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*")
 			else
-				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in list("Старший Админ", "Админ", "Триал Админ", "Модератор", "Ментор", "*Новый Ранг*")
+				CRASH("GLOB.admin_ranks is empty, inform coders")
 
 			var/rights = 0
 			if(D)
@@ -303,21 +303,15 @@
 				if(null,"") return
 				if("*Новый Ранг*")
 					new_rank = input("Введите название нового ранга", "Новый Ранг", null, null) as null|text
-					if(CONFIG_GET(flag/admin_legacy_system))
-						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>")
 						return
-					if(CONFIG_GET(flag/admin_legacy_system))
-						if(GLOB.admin_ranks.len)
-							if(new_rank in GLOB.admin_ranks)
-								rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
-							else
-								GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
+					if(new_rank in GLOB.admin_ranks)
+						rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
+					else
+						GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
 				else
-					if(CONFIG_GET(flag/admin_legacy_system))
-						new_rank = ckeyEx(new_rank)
-						rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
+					rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
 
 			if(D)
 				D.disassociate()								//remove adminverbs and unlink from client
@@ -332,7 +326,7 @@
 			updateranktodb(adm_ckey, new_rank)
 			message_admins("[key_name_admin(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
 			log_admin("[key_name(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
-			log_admin_rank_modification(adm_ckey, new_rank)
+			log_admin_rank_modification(adm_ckey, new_rank, rights)
 
 		else if(task == "permissions")
 			if(!D)	return
@@ -342,6 +336,7 @@
 					permissionlist[rights2text(i)] = i
 				var/new_permission = input("Выберите флаг для включения/отключения", "Флаги " + adm_ckey, null, null) as null|anything in permissionlist
 				if(!new_permission)
+					edit_admin_permissions()
 					return
 				var/oldrights = D.rights
 				var/toggleresult = "ВКЛ"
@@ -1253,7 +1248,7 @@
 		if(GLOB.antag_paradise_weights)
 			antags_list = GLOB.antag_paradise_weights
 		else
-			antags_list = CONFIG_GET(str_list/antag_paradise_main_antags)
+			antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
 			antags_list = antags_list.Copy()
 			for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
 				antags_list[key] = !!(key in antags_list)
@@ -1299,7 +1294,7 @@
 
 		else if(findtext(command, "weights_normal_"))
 			if(!GLOB.antag_paradise_weights)
-				var/list/antags_list = CONFIG_GET(str_list/antag_paradise_main_antags)
+				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
 				antags_list = antags_list.Copy()
 				for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
 					antags_list[key] = !!(key in antags_list)
@@ -1831,6 +1826,34 @@
 			return
 
 		usr.client.cmd_admin_animalize(M)
+
+	else if(href_list["makePAI"])
+		if(!check_rights(R_SPAWN))
+			return
+		var/bespai = FALSE
+		var/mob/living/carbon/human/H = locateUID(href_list["makePAI"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+
+		if(alert(usr, "Confirm make pAI?",,"Yes","No") == "No")
+			return
+
+		if(alert(usr, "pAI or SpAI?",,"pAI","SpAI") == "SpAI")
+			bespai = TRUE
+
+		var/painame = "Default"
+		var/name = ""
+		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
+			name = sanitize(copytext(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+		else
+			name = sanitize(copytext(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+
+		if(!name)
+			name = painame
+
+		log_and_message_admins("pAIzed [key_name(H)]")
+		H.paize(name, bespai)
 
 	else if(href_list["makegorilla"])
 		if(!check_rights(R_SPAWN))

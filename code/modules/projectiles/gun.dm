@@ -197,13 +197,7 @@
 		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
 			return
 
-	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
-		var/mob/living/L = user
-		if(!can_trigger_gun(L))
-			return
-
-	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
-		shoot_with_empty_chamber(user)
+	if(!can_trigger_gun(user))
 		return
 
 	if(flag)
@@ -241,20 +235,28 @@
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
+
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
-	if(!user.can_use_guns(src))
-		return 0
-	if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
-		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
-		return 0
-	return 1
+	if(istype(user))
+		if(!user.can_use_guns(src))
+			return FALSE
+
+		if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+			to_chat(user, span_danger("[src] is incompatible with your biology!"))
+			return FALSE
+
+	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
+		shoot_with_empty_chamber(user)
+		return FALSE
+	return TRUE
+
 
 /obj/item/gun/proc/newshot()
 	return
 
-/obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	var/is_tk_grab = !isnull(user.tkgrabbed_objects[src])
-	if (is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
+	if(is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
 		add_fingerprint(user)
 
 	if(chambered)

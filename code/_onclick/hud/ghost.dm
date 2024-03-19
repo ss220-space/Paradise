@@ -63,10 +63,10 @@
 	var/matrix/M = matrix(transform)
 	M.Turn(-90)
 
-	overlays.Cut()
+	cut_overlays()
 	var/image/img = image('icons/mob/actions/actions.dmi', src, (hud && hud.inventory_shown) ? "hide" : "show")
 	img.transform = M
-	overlays += img
+	add_overlay(img)
 
 /obj/screen/ghost/respawn_mob
 	name = "Mob spawners"

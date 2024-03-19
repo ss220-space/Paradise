@@ -240,8 +240,8 @@
 
 /obj/structure/decorative_structures/fireplace/Initialize(mapload)
 	. = ..()
-	overlays += icon('icons/obj/fireplace.dmi', "fireplace_fire3")
-	overlays += icon('icons/obj/fireplace.dmi', "fireplace_glow")
+	add_overlay(icon('icons/obj/fireplace.dmi', "fireplace_fire3"))
+	add_overlay(icon('icons/obj/fireplace.dmi', "fireplace_glow"))
 	set_light(6, ,"#ffb366")
 
 /obj/structure/decorative_structures/garland

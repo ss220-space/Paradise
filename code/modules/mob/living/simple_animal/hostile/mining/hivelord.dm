@@ -90,10 +90,11 @@
 	density = FALSE
 	del_on_death = 1
 	needs_gliding = FALSE
+	var/life_time = 10 SECONDS
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(death)), 100)
+	addtimer(CALLBACK(src, PROC_REF(death)), life_time)
 	AddComponent(/datum/component/swarming)
 
 
@@ -307,6 +308,8 @@
 	melee_damage_upper = 6
 	can_infest = FALSE
 
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/magic
+	life_time = 30 SECONDS
 
 //Legion that spawns Legions
 /mob/living/simple_animal/hostile/big_legion

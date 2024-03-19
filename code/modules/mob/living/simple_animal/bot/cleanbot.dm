@@ -16,7 +16,7 @@
 	bot_core_type = /obj/machinery/bot_core/cleanbot
 	window_id = "autoclean"
 	window_name = "Automatic Station Cleaner v1.1"
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 	path_image_color = "#993299"
 
 	///Mask color defines what color cleanbot's chassis will be. Format: "#RRGGBB"

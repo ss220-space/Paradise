@@ -105,3 +105,20 @@
 		"y" = icon_height > world.icon_size && pixel_y != 0 ? (icon_height - world.icon_size) * 0.5 : 0,
 	)
 
+
+/**
+ * Checks if mover is movable atom and has passed pass_flags.
+ *
+ * Arguments:
+ * * mover - target to check.
+ * * passflag - flag to check for.
+ */
+/proc/checkpass(atom/movable/mover, passflag)
+	if(!ismovable(mover))
+		return FALSE
+	if(mover.pass_flags == PASSEVERYTHING)
+		return TRUE
+	if(!passflag)
+		return FALSE
+	return (mover.pass_flags & passflag)
+

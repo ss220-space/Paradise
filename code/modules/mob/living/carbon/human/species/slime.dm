@@ -9,7 +9,7 @@
 #define SLIMEPERSON_HAIRGROWTHCOST 10
 
 /datum/species/slime
-	name = "Slime People"
+	name = SPECIES_SLIMEPERSON
 	name_plural = "Slime People"
 	language = LANGUAGE_SLIME
 	icobase = 'icons/mob/human_races/r_slime.dmi'
@@ -45,7 +45,7 @@
 		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/slime,
 	)
 
-	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/skrell
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/slime
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/unbreakable),

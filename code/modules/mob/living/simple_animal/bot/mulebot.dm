@@ -466,7 +466,7 @@
 		if(dirn)
 			var/turf/T = loc
 			var/turf/newT = get_step(T,dirn)
-			if(load.CanPass(load,newT)) //Can't get off onto anything that wouldn't let you pass normally
+			if(load.CanPass(load, get_dir(newT, src))) //Can't get off onto anything that wouldn't let you pass normally
 				step(load, dirn)
 		load = null
 

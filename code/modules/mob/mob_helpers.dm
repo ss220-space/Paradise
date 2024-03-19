@@ -523,13 +523,14 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 						var/old_plane = source.plane
 						source.layer = FLOAT_LAYER
 						source.plane = FLOAT_PLANE
-						A.overlays += source
+						A.add_overlay(source)
 						source.layer = old_layer
 						source.plane = old_plane
 					else
 						alert_overlay.layer = FLOAT_LAYER
 						alert_overlay.plane = FLOAT_PLANE
-						A.overlays += alert_overlay
+						A.add_overlay(alert_overlay)
+
 
 /**
   * Checks if a mob's ghost can reenter their body or not. Used to check for DNR or AntagHUD.

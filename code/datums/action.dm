@@ -508,7 +508,7 @@
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"
@@ -757,7 +757,7 @@
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 //Preset for action that call specific procs (consider innate)
 /datum/action/generic

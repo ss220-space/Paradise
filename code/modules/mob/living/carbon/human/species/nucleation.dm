@@ -1,5 +1,5 @@
 /datum/species/nucleation
-	name = "Nucleation"
+	name = SPECIES_NUCLEATION
 	name_plural = "Nucleations"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
 	blacklisted = TRUE
@@ -15,6 +15,7 @@
 	brute_mod = 2 // damn, double wham, double dam
 	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_PAIN_FEEL, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
 	dies_at_threshold = TRUE
+	var/touched_supermatter = FALSE
 
 	//Default styles for created mobs.
 	default_hair = "Nucleation Crystals"

@@ -141,15 +141,20 @@
 		return
 	..()
 
-/mob/living/simple_animal/hostile/mining_drone/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/kinetic))
-		var/obj/item/projectile/kinetic/K = O
-		if(K.kinetic_gun)
-			for(var/obj/item/borg/upgrade/modkit/minebot_passthrough/MK in K.kinetic_gun.get_modkits())
+
+/mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+
+	if(istype(mover, /obj/item/projectile/kinetic))
+		var/obj/item/projectile/kinetic/projectile = mover
+		if(projectile.kinetic_gun)
+			for(var/obj/item/borg/upgrade/modkit/minebot_passthrough/MK in projectile.kinetic_gun.get_modkits())
 				return TRUE
-	if(istype(O, /obj/item/projectile/destabilizer))
+
+	if(istype(mover, /obj/item/projectile/destabilizer))
 		return TRUE
-	return ..()
+
+
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
 	mode = MINEDRONE_COLLECT

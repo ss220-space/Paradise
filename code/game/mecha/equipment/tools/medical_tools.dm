@@ -312,11 +312,11 @@
 	if(istype(target, /obj/item/reagent_containers/syringe) || istype(target, /obj/item/storage))
 		if(get_dist(src, target) < 2)
 			for(var/obj/structure/D in target.loc)//Basic level check for structures in the way (Like grilles and windows)
-				if(!(D.CanPass(target, loc)))
+				if(!(D.CanPass(target, get_dir(D, loc))))
 					occupant_message("Unable to load syringe.")
 					return FALSE
 			for(var/obj/machinery/door/D in target.loc)//Checks for doors
-				if(!(D.CanPass(target, loc)))
+				if(!(D.CanPass(target, get_dir(D, loc))))
 					occupant_message("Unable to load syringe.")
 					return FALSE
 			return start_syringe_loading(target)

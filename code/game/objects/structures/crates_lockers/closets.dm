@@ -10,6 +10,7 @@ GLOBAL_LIST_EMPTY(closets)
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
+	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
 
 	/// Special marker for the closet to use default icon_closed/icon_opened states, skipping everything else.
 	var/no_overlays = FALSE
@@ -80,12 +81,12 @@ GLOBAL_LIST_EMPTY(closets)
 	dump_contents()
 	return ..()
 
-/obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+
+/obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(wall_mounted)
 		return TRUE
-	if(height==0 || wall_mounted)
-		return TRUE
-	return (!density)
+
 
 /obj/structure/closet/proc/can_open()
 	if(welded)
@@ -464,9 +465,6 @@ GLOBAL_LIST_EMPTY(closets)
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	var/transparent = FALSE
 
-/obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
-	UpdateTransparency(AM, loc)
-	return TRUE
 
 /obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
 	var/transparency = FALSE
@@ -499,9 +497,16 @@ GLOBAL_LIST_EMPTY(closets)
 
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
+	. = ..()
 	if(AM.density)
 		transparent = TRUE
 		update_icon()
+
+
+/obj/structure/closet/bluespace/Uncrossed(atom/movable/mover)
+	. = ..()
+	UpdateTransparency(mover, loc)
+
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)

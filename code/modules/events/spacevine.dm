@@ -702,11 +702,12 @@
 	if(!override)
 		wither()
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target, height=0)
+
+/obj/structure/spacevine/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(isvineimmune(mover))
-		. = TRUE
-	else
-		. = ..()
+		return TRUE
+
 
 /proc/isvineimmune(atom/A)
 	. = FALSE

@@ -165,12 +165,13 @@
 		for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
 			ninja_action.action_ready = TRUE
 			ninja_action.use_action()
+		ninja.cut_overlays()
 
 	//Disguise
 	ninja.name_override = disguise.name
 	ninja.icon = disguise.icon
 	ninja.icon_state = disguise.icon_state
-	ninja.overlays = disguise.overlays
+	ninja.add_overlay(disguise.overlays)
 	//Disguise flag
 	disguise_active = TRUE
 

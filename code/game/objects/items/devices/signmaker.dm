@@ -44,9 +44,9 @@
 
 /obj/item/signmaker/update_icon_state()
 	if(pointer_busy)
-		icon_state = "signmaker_clown_off"
+		icon_state = "signmaker_clown_on"
 		return
-	icon_state = "signmaker_clown_[sign ? "on" : "off"]]"
+	icon_state = "signmaker_clown_[sign ? "on" : "off"]"
 
 
 /obj/item/signmaker/emag_act(mob/user)
@@ -159,7 +159,7 @@
 			to_chat(user, "<span class='notice'>You use [src] to deactivate [sign].</span>")
 			clear_holosign()
 		return
-	if(is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 		return
 	clear_holosign()
 	playsound(src, 'sound/machines/click.ogg', 20, 1)
@@ -185,7 +185,8 @@
 	projector = new_projector
 
 /obj/structure/holosoap/Destroy()
-	projector.sign = null
+	projector?.sign = null
+	projector?.update_icon(UPDATE_ICON_STATE)
 	return ..()
 
 /obj/structure/holosoap/has_prints()
