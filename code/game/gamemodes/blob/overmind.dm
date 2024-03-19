@@ -51,6 +51,7 @@
 	sync_mind()
 	blob_help()
 	update_health_hud()
+	sync_lighting_plane_alpha()
 
 /mob/camera/blob/update_health_hud()
 	if(blob_core && hud_used)
