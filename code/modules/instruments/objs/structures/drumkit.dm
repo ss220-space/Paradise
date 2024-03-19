@@ -10,20 +10,20 @@
 	buckle_lying = FALSE
 	allowed_instrument_ids = "drumkit"
 
-/obj/structure/drumkit/unanchored
+/obj/structure/musician/drumkit/unanchored
 	anchored = FALSE
 
-/obj/structure/drumkit/Initialize(mapload)
+/obj/structure/musician/drumkit/Initialize(mapload)
 	. = ..()
 	handle_layer()
 	handle_offsets()
 
-/obj/structure/drumkit/Move(NewLoc, Dir = 0, movetime)
+/obj/structure/musician/drumkit/Move(NewLoc, Dir = 0, movetime)
 	. = ..()
 	handle_layer()
 	handle_offsets()
 
-/obj/structure/drumkit/attack_hand(mob/user)
+/obj/structure/musician/drumkit/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(!anchored)
 		to_chat(user, span_warning("The musical instrument needs to be anchored to the floor!"))
@@ -37,19 +37,19 @@
 			return
 	ui_interact(user)
 
-/obj/structure/drumkit/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/musician/drumkit/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, 40)
 	unbuckle_all_mobs()
 
 //APPEARANCE
-/obj/structure/drumkit/proc/handle_layer()
+/obj/structure/musician/drumkit/proc/handle_layer()
 	if(dir != NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
 
-/obj/structure/drumkit/proc/handle_offsets()
+/obj/structure/musician/drumkit/handle_offsets()
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
@@ -69,7 +69,7 @@
 					buckled_mob.pixel_y = 0
 
 //BUCKLE HOOKS
-/obj/structure/drumkit/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
+/obj/structure/musician/drumkit/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
 	song.stop_playing()
 	SStgui.close_uis(src)
 	if(istype(buckled_mob))
@@ -77,7 +77,7 @@
 		buckled_mob.pixel_y = 0
 	. = ..()
 
-/obj/structure/drumkit/user_buckle_mob(mob/living/M, mob/user)
+/obj/structure/musician/drumkit/user_buckle_mob(mob/living/M, mob/user)
 	if(!anchored)
 		to_chat(user, span_warning("The musical instrument needs to be anchored to the floor!"))
 		return
@@ -91,15 +91,15 @@
 	..()
 	handle_offsets()
 	
-/obj/structure/drumkit/examine(mob/user)
+/obj/structure/musician/drumkit/examine(mob/user)
 	. = ..()
 	if(!anchored)
 		. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
 
-/obj/structure/drumkit/AltClick(mob/living/user)
+/obj/structure/musician/drumkit/AltClick(mob/living/user)
 	rotate(user)
 	
-/obj/structure/drumkit/proc/rotate(mob/living/user)
+/obj/structure/musician/drumkit/proc/rotate(mob/living/user)
 	if(anchored)
 		to_chat(user, span_warning("The musical instrument is anchored to the floor!"))
 		return FALSE
