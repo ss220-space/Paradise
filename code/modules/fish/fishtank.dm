@@ -397,9 +397,14 @@
 	// Move the fish in
 	var/fish_item = fish_to_scoop.fish_item
 	if(fish_item)
-		var/obj/item/I = new fish_item(get_turf(user))
-		if(fish_bag?.can_be_inserted(I))
-			fish_bag.handle_item_insertion(I)
+		var/fish_type = fish_item
+		if(islist(fish_item))
+			if(!length(fish_item))
+				stack_trace("Empty list is not allowed as a fish_item variable value.")
+			fish_type = pickweight(fish_item)
+		var/obj/item/actual_item = new fish_type(get_turf(user))
+		if(fish_bag?.can_be_inserted(actual_item))
+			fish_bag.handle_item_insertion(actual_item)
 	user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 	kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 
