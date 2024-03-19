@@ -36929,7 +36929,7 @@
 	},
 /area/maintenance/starboard)
 "dFA" = (
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
