@@ -106,7 +106,7 @@ export const HemoMenu = (props, context) => {
         <p>
           {/* <b>Predator senses</b>: Unlocked at 600 blood, allows you to sniff out
           anyone within the same sector as you. */}
-          <b>Predator senses</b>: Открывается от 600 <i><font color='red'>крови</font></i>, позволяет вам почуствовать кого-угодно
+          <b>Predator senses</b>: Открывается от 600 <i><font color='red'>крови</font></i>, позволяет вам почувствовать кого-угодно
           в пределах вашего сектора.
         </p>
         <p>
@@ -147,7 +147,7 @@ export const UmbrMenu = (props, context) => {
             }} />
         </Box>
         {/* <h3>Focuses on darkness, stealth ambushing and mobility.</h3> */}
-        <h3>Спецализируется на темноте, засадах и скрытном перемещении.</h3>
+        <h3>Специализируется на темноте, засадах и скрытном перемещении.</h3>
         <p>
           {/* <b>Cloak of darkness</b>: Unlocked at 150 blood, when toggled, allows
           you to become nearly invisible and move rapidly when in dark regions.
@@ -163,7 +163,7 @@ export const UmbrMenu = (props, context) => {
           If you do not cast again within 2 minutes, you are forced back to the anchor.
           It will not teleport you between Z levels. */}
           <b>Shadow anchor</b>: Открывается от 250 <i><font color='red'>крови</font></i>, активация создает на месте
-          применения маяк после небольшой задерки.
+          применения маяк после небольшой задержки.
           Повторное использование телепортирует вас обратно к маяку.
           Если спустя две минуты после первого использования способность не была активирована снова, то вы
           будете автоматически возвращены к маяку.
@@ -224,7 +224,7 @@ export const GarMenu = (props, context) => {
             }} />
         </Box>
         {/* <h3>Focuses on tenacity and melee damage.</h3> */}
-        <h3>Спецализируется на стойкости и ближнем бое.</h3>
+        <h3>Специализируется на стойкости и ближнем бое.</h3>
         <p>
           {/* <b>Rejuvenate</b>: Will heal you at an increased rate based on how
           much damage you have taken. */}
@@ -241,7 +241,7 @@ export const GarMenu = (props, context) => {
           {/* <b>Seismic stomp</b>: Unlocked at 250 blood, allows you to stomp the ground
           to send out a shockwave, knocking people back. */}
           <b>Seismic stomp</b>: Открывается от 250 <i><font color='red'>крови</font></i>, позволяет вам
-          сотрясать землю под ногами, чтобы огушить и оттолкнуть окружающих врагов.
+          сотрясать землю под ногами, чтобы оглушить и оттолкнуть окружающих врагов.
         </p>
         <p>
           {/* <b>Blood rush</b>: Unlocked at 250 blood, gives you a short speed
@@ -260,7 +260,7 @@ export const GarMenu = (props, context) => {
           bump into a door that you dont have access to, it will force it open.
           In addition, you cannot be pushed or pulled while it is active. */}
           <b>Overwhelming force</b>: Открывается от 600 <i><font color='red'>крови</font></i>,
-          будучи включенным, позволяет открывать двери при столкновени, даже не имея доступа.
+          будучи включенным, позволяет открывать двери при столкновении, даже не имея доступа.
           Вас также не могут толкнуть или тащить, пока способность активна.
         </p>
         <p>
@@ -268,7 +268,7 @@ export const GarMenu = (props, context) => {
           demonic hand to snare someone. If you are on disarm/grab intent you will
           push/pull the target, respectively. */}
           <b>Demonic grasp</b>: Открывается от 800 <i><font color='red'>крови</font></i>,
-          позволяет вам отправить к цели демоническую руку. Взависимости от интента, disarm/grab, вы оттолкнете/притяните
+          позволяет вам отправить к цели демоническую руку. В зависимости от интента, disarm/grab, вы оттолкнете/притянете
           цель.
         </p>
         <p>
@@ -276,7 +276,7 @@ export const GarMenu = (props, context) => {
           <Divider />
           {/* <b>Charge</b>: You gain the ability to charge at a target. Destroying
           and knocking back pretty much anything you collide with. */}
-          <b>Charge</b>: Вы получаете способность делать в рывок в вашу цель, разрушая и отталкивая все, во что врежетесь.
+          <b>Charge</b>: Вы получаете способность делать рывок в вашу цель, разрушая и отталкивая все, во что врежетесь.
         </p>
         <Button content="Gargantua" onClick={() => act('gargantua')} />
       </Section>
@@ -298,7 +298,7 @@ export const DantMenu = (props, context) => {
             }} />
         </Box>
         {/* <h3>Focuses on thralling and illusions.</h3> */}
-        <h3>Спецализируется на порабощении и иллюзиях.</h3>
+        <h3>Специализируется на порабощении и иллюзиях.</h3>
         <p>
           {/* <b>Enthrall</b>: Unlocked at 150 blood, Thralls your target to your
           will, requires you to stand still. Does not work on mindshielded or

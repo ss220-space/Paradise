@@ -341,7 +341,7 @@ const Passives = (props, context) => {
               color="transparent"
             />
             <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
-              {suck_rate}s.
+              {suck_rate}с.
               {kidneys < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
@@ -465,7 +465,7 @@ const InfectedTrophy = (props, context) => {
               color="transparent"
             />
             <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
-              {roundTenths(hearts / 2)}s.
+              {roundTenths(hearts / 2)}с.
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
@@ -534,12 +534,12 @@ const Lunge = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Время, которое каждый живой моб в области поражения будет ослаблен. Увеличивается при извлечении сердец."
-              content="Время ослабления:"
+              tooltip="Время, которое каждый живой моб в области поражения будет оглушен. Увеличивается при извлечении сердец."
+              content="Время оглушения:"
               color="transparent"
             />
             <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
-              {roundTenths(1 + hearts / 2)}s.
+              {roundTenths(1 + hearts / 2)}с.
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
@@ -553,7 +553,7 @@ const Lunge = (props, context) => {
               color="transparent"
             />
             <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
-              {roundTenths(kidneys * 2)}s.
+              {roundTenths(kidneys * 2)}с.
               {kidneys < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
@@ -627,7 +627,7 @@ const MarkPrey = (props, context) => {
               color="transparent"
             />
             <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
-              {roundTenths(5 + kidneys)}s.
+              {roundTenths(5 + kidneys)}с.
               {kidneys < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
@@ -836,12 +836,12 @@ const ResonantShriek = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Время, которое каждый живой моб в области поражения будет ослаблен. Увеличивается при извлечении сердец."
-              content="Время ослабления:"
+              tooltip="Время, которое каждый живой моб в области поражения будет оглушен. Увеличивается при извлечении сердец."
+              content="Время оглушения:"
               color="transparent"
             />
             <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
-              {roundTenths(hearts / 3)}s.
+              {roundTenths(hearts / 3)}с.
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
@@ -853,7 +853,7 @@ const ResonantShriek = (props, context) => {
               color="transparent"
             />
             <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
-              {roundTenths(kidneys)}s.
+              {roundTenths(kidneys)}с.
               {kidneys < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
@@ -1297,7 +1297,7 @@ const MetamorphosisHound = (props, context) => {
               color="transparent"
             />
             <Box display="inline-block" textColor={livers < trophies_max_gen ? "average" : "good"}>
-              {15 - livers} blood / 6s.
+              {15 - livers} крови / 6с.
               {livers < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
@@ -1356,12 +1356,12 @@ const LungeFinale = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Время, которое каждый живой моб в области поражения будет ослаблен. Увеличивается при извлечении сердец."
-              content="Время ослабления:"
+              tooltip="Время, которое каждый живой моб в области поражения будет оглушен. Увеличивается при извлечении сердец."
+              content="Время оглушения:"
               color="transparent"
             />
             <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
-              {roundTenths(1 + hearts / 2)}s.
+              {roundTenths(1 + hearts / 2)}c.
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
@@ -1375,7 +1375,7 @@ const LungeFinale = (props, context) => {
               color="transparent"
             />
             <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
-              {roundTenths(kidneys * 2)}s.
+              {roundTenths(kidneys * 2)}c.
               {kidneys < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
