@@ -188,11 +188,14 @@
 '2024-03-19':
   Den109G:
   - refactor: Uplink (and jobs) now uses defines for titles (#4606)
+  Dimach:
+  - server: bump github actions versions (#4652)
   NightDawnFox:
   - add: Combat Bakery Kit (#4576)
   Rerik007:
   - server: now using admin list from config instead of the static one in permissions
       panel (#4651)
+  - bugfix: fixes ghosts not being able to deactivate antaghud (#4650)
   Roman:
   - add: Detective Work Update (#4489)
   TomYoungers:
@@ -201,12 +204,17 @@
   - add: tail blades implants (#4623)
   Vladisvell:
   - tweak: Reduced the move delay buffer to 1 tick (#4628)
+  - bugfix: Fixed Red Carpet Issue (#4653)
   Zwei:
   - refactor: Overlays Rework (#4558)
   - add: Crayfish Update (#4643)
+  - refactor: Can Pass Refactor (#4188)
   aeternaclose:
   - bugfix: Cyberiad minor bugfix (#4594)
   - bugfix: DeltaViroFridgeFix (#4597)
   - add: CereImprovement-pt11 (#4596)
+  - tweak: Streamer mention remove (#4630)
+  mrWhiteFox365:
+  - bugfix: Cafeteria_RnD_Delta scrubber (#4589)
   xTrogwaRx:
   - add: Drum Kit (#4632)
