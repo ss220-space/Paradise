@@ -514,9 +514,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "cu" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "cv" = (
 /obj/effect/bump_teleporter{
@@ -1065,9 +1063,7 @@
 	id_tag = "Acad_Door5";
 	opacity = 0
 	},
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "es" = (
 /obj/structure/window/reinforced{
@@ -2856,9 +2852,7 @@
 	pixel_x = 2;
 	pixel_y = 8
 	},
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "lF" = (
 /obj/structure/table/wood,
@@ -3633,9 +3627,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "ta" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/academygate)
 "tm" = (
 /obj/structure/stone_tile/block/cracked{
@@ -3782,9 +3774,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "uB" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/classrooms)
 "uF" = (
 /obj/effect/bump_teleporter{
@@ -4360,9 +4350,7 @@
 /turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
 "zI" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "zJ" = (
 /obj/effect/bump_teleporter{
@@ -4555,9 +4543,7 @@
 	density = 0;
 	id = "troll"
 	},
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "Ci" = (
 /obj/structure/table/wood/fancy/black,

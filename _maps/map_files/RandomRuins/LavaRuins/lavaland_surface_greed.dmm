@@ -18,15 +18,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/greed)
 "f" = (
 /obj/structure/cursed_slot_machine,
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/greed)
 "g" = (
 /obj/structure/table/wood/poker,
@@ -34,28 +30,20 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/greed)
 "h" = (
 /obj/structure/table/wood/poker,
 /obj/item/coin/diamond,
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/greed)
 "i" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/greed)
 "j" = (
 /obj/structure/table/wood/poker,
 /obj/item/coin/adamantine,
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/greed)
 "k" = (
 /obj/machinery/computer/arcade/battle{

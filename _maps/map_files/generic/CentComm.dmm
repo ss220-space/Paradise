@@ -10892,9 +10892,7 @@
 "fBk" = (
 /obj/structure/table/wood,
 /obj/item/storage/bible,
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/centcom/evac)
 "fBA" = (
 /obj/machinery/vending/cola/free,
