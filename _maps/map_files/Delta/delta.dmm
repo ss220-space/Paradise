@@ -31028,8 +31028,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "dgb" = (
-/obj/structure/bed/dogbed/pet,
 /mob/living/simple_animal/goose/Scientist,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},

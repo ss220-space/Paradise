@@ -91517,8 +91517,8 @@
 	},
 /area/security/main)
 "wGA" = (
-/obj/structure/bed/dogbed/pet,
 /mob/living/simple_animal/goose/Scientist,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
