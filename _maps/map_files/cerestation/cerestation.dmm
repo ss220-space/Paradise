@@ -883,7 +883,7 @@
 /area/security/permabrig)
 "aiJ" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /obj/machinery/camera{
@@ -1330,7 +1330,7 @@
 /area/turret_protected/ai)
 "akx" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -1765,7 +1765,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -4785,7 +4785,7 @@
 	icon_state = "plant-22"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -6286,7 +6286,7 @@
 "bag" = (
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/grass,
@@ -6394,7 +6394,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -6774,7 +6774,7 @@
 "bcO" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/carpet,
@@ -7063,7 +7063,7 @@
 "beN" = (
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -7605,7 +7605,7 @@
 /area/crew_quarters/locker)
 "bhs" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /obj/machinery/vending/artvend,
@@ -7628,7 +7628,7 @@
 	},
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -8955,7 +8955,7 @@
 /area/medical/medbay)
 "bpH" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -9810,7 +9810,7 @@
 /area/turret_protected/aisat_interior/secondary)
 "buw" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -11522,7 +11522,7 @@
 	pixel_x = 24
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -12037,7 +12037,7 @@
 	},
 /obj/structure/chair/office/dark,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/carpet,
@@ -12263,7 +12263,7 @@
 	},
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -12505,7 +12505,7 @@
 	},
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /obj/item/lighter/zippo{
@@ -12775,7 +12775,7 @@
 /area/security/seceqstorage)
 "bKf" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -13041,7 +13041,7 @@
 	req_access = list(24)
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -13863,7 +13863,7 @@
 	},
 /obj/effect/landmark/start/engineer,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -13882,7 +13882,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -15323,7 +15323,7 @@
 /area/atmos/distribution)
 "bVC" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -15833,7 +15833,7 @@
 /area/maintenance/engineering)
 "bXF" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
@@ -16989,7 +16989,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -17151,7 +17151,7 @@
 /area/security/processing)
 "cfO" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /obj/machinery/camera{
@@ -17484,7 +17484,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/wood,
@@ -18380,7 +18380,7 @@
 /area/toxins/hallway)
 "cpz" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -19107,7 +19107,7 @@
 /area/security/brig)
 "cuQ" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /obj/machinery/light{
@@ -19426,7 +19426,7 @@
 /obj/machinery/chem_master,
 /obj/structure/window/reinforced,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/engine,
@@ -20062,7 +20062,7 @@
 /area/storage/tech)
 "cCj" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -20863,7 +20863,7 @@
 	},
 /obj/structure/flora/rock/jungle,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/grass,
@@ -21184,7 +21184,7 @@
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
 /obj/structure/bed/dogbed,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
@@ -23437,7 +23437,7 @@
 "cXa" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -24015,7 +24015,7 @@
 /area/medical/surgery/south)
 "ddu" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /obj/machinery/suit_storage_unit/atmos,
@@ -25597,7 +25597,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
@@ -28187,7 +28187,7 @@
 "dTL" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -29287,7 +29287,7 @@
 	throw_range = 6
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -29380,7 +29380,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -30041,7 +30041,7 @@
 	dir = 2
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/bluegrid,
@@ -32192,7 +32192,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -32231,7 +32231,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -35050,7 +35050,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -35758,7 +35758,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -36124,7 +36124,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -36766,7 +36766,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -37676,7 +37676,7 @@
 /area/maintenance/asmaint5)
 "gZs" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -37777,7 +37777,7 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -37970,7 +37970,7 @@
 /area/hallway/primary/starboard/south)
 "hdm" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -38481,7 +38481,7 @@
 /area/security/reception)
 "hmj" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -39057,7 +39057,7 @@
 /area/chapel/main)
 "htk" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -40938,7 +40938,7 @@
 /area/hallway/primary/starboard/south)
 "hVB" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -41196,7 +41196,7 @@
 /area/security/armory)
 "hYg" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/carpet/black,
@@ -41493,7 +41493,7 @@
 "idU" = (
 /obj/machinery/chem_master,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/engine,
@@ -41620,7 +41620,7 @@
 /area/toxins/xenobiology)
 "igf" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -41678,7 +41678,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -41890,7 +41890,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -43173,7 +43173,7 @@
 /area/crew_quarters/kitchen)
 "iFv" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /obj/structure/closet/secure_closet/medical1,
@@ -43941,7 +43941,7 @@
 /area/security/seceqstorage)
 "iQu" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/shuttle,
@@ -44572,7 +44572,7 @@
 	pixel_y = -24
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/noslip,
@@ -45157,7 +45157,7 @@
 /area/medical/medbay)
 "jiO" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -46823,7 +46823,7 @@
 	dir = 6
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -46900,7 +46900,7 @@
 "jFG" = (
 /obj/structure/closet/secure_closet/blueshield,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -47286,7 +47286,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -48637,7 +48637,7 @@
 /area/security/processing)
 "khh" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /obj/machinery/disposal,
@@ -48801,7 +48801,7 @@
 "kkp" = (
 /obj/machinery/disposal,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /obj/structure/disposalpipe/trunk{
@@ -49082,7 +49082,7 @@
 /area/hallway/secondary/entry/south)
 "koz" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
@@ -49528,7 +49528,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -49897,7 +49897,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -50643,7 +50643,7 @@
 /area/hallway/primary/fore)
 "kKX" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -50848,7 +50848,7 @@
 /area/hallway/primary/fore)
 "kOi" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -51989,7 +51989,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -52762,7 +52762,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -54466,7 +54466,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -56026,7 +56026,7 @@
 /area/hallway/spacebridge/medcargo)
 "moD" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -56147,7 +56147,7 @@
 /area/crew_quarters/kitchen)
 "mqz" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -57753,7 +57753,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /obj/structure/disposalpipe/segment{
@@ -58789,7 +58789,7 @@
 /area/civilian/vacantoffice)
 "ndY" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -61312,7 +61312,7 @@
 	color = "#009dff"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/noslip,
@@ -61607,7 +61607,7 @@
 "nQM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
@@ -61761,7 +61761,7 @@
 	name = "first-aid kit (empty)"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -62535,7 +62535,7 @@
 "oeu" = (
 /obj/item/flag/nt,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -62966,7 +62966,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -63943,7 +63943,7 @@
 /area/hallway/primary/starboard/south)
 "oBl" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -65863,7 +65863,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -66042,7 +66042,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -66411,7 +66411,7 @@
 /area/maintenance/fore)
 "pma" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /obj/effect/decal/warning_stripes/arrow{
@@ -67618,7 +67618,7 @@
 "pCi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/carpet/orange,
@@ -69100,7 +69100,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -69398,7 +69398,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -71138,7 +71138,7 @@
 /area/hallway/primary/starboard/south)
 "qCj" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -71732,7 +71732,7 @@
 	network = list("SS13","CMO")
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -73205,7 +73205,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -73680,7 +73680,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -74491,7 +74491,7 @@
 /area/crew_quarters/sleep)
 "rBV" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -75278,7 +75278,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -75378,7 +75378,7 @@
 /area/hallway/primary/starboard/south)
 "rQw" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/carpet/black,
@@ -77159,7 +77159,7 @@
 	pixel_x = -28
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
@@ -77656,7 +77656,7 @@
 /area/maintenance/starboard)
 "swY" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -77989,7 +77989,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -78513,7 +78513,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -27
 	},
 /turf/simulated/floor/plasteel{
@@ -79158,7 +79158,7 @@
 	icon_state = "plant-22"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -81125,7 +81125,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /obj/structure/cable{
@@ -81265,7 +81265,7 @@
 /area/security/range)
 "tAL" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -81471,7 +81471,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -83190,7 +83190,7 @@
 	dir = 5
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/engine,
@@ -83332,7 +83332,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -84950,7 +84950,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /obj/structure/disposalpipe/segment{
@@ -85207,7 +85207,7 @@
 /area/engine/engineering)
 "uKb" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /obj/structure/table/glass,
@@ -85338,7 +85338,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /turf/simulated/floor/engine,
@@ -85413,7 +85413,7 @@
 /area/civilian/barber)
 "uNx" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
@@ -87843,7 +87843,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -88868,7 +88868,7 @@
 /area/maintenance/port)
 "vRH" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -89859,7 +89859,7 @@
 	},
 /obj/item/storage/box/iv_bags,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -91862,7 +91862,7 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment{
@@ -92264,7 +92264,7 @@
 /area/hydroponics)
 "wQO" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
@@ -93227,7 +93227,7 @@
 /area/hallway/primary/fore)
 "xfq" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -94026,7 +94026,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -94765,7 +94765,7 @@
 /area/maintenance/asmaint5)
 "xCP" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
@@ -95107,7 +95107,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = 28
 	},
 /turf/simulated/floor/wood,
@@ -95532,7 +95532,7 @@
 /area/library/game_zone)
 "xNt" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -95763,7 +95763,7 @@
 "xSs" = (
 /obj/structure/closet/secure_closet/clown,
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -96718,7 +96718,7 @@
 /area/crew_quarters/bar)
 "yiP" = (
 /obj/structure/extinguisher_cabinet{
-	name = "custom placement";
+	name = "extinguisher cabinet";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
