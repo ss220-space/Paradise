@@ -377,6 +377,8 @@
 /mob/living/proc/Paralyse(amount, ignore_canparalyse = FALSE)
 	if(IS_PARALYZE_IMMUNE(src, ignore_canparalyse))
 		return
+	if(absorb_status_effect(amount, ignore_canparalyse, PARALYZE))
+		return
 	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
 	if(P)
 		P.duration = max(world.time + amount, P.duration)
@@ -386,6 +388,8 @@
 
 /mob/living/proc/SetParalysis(amount, ignore_canparalyse = FALSE)
 	if(IS_PARALYZE_IMMUNE(src, ignore_canparalyse))
+		return
+	if(absorb_status_effect(amount, ignore_canparalyse, PARALYZE))
 		return
 	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
 	if(P)

@@ -1467,13 +1467,13 @@
 /datum/reagent/medicine/adrenaline/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.setStaminaLoss(0, FALSE)
-	var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-	M.status_flags &= ~status
-
+	M.add_status_effect_absorption("adrenaline_weaken", INFINITY, 4, status_effect = WEAKEN)
+	M.add_status_effect_absorption("adrenaline_stun", INFINITY, 4, status_effect = STUN)
+	M.add_status_effect_absorption("adrenaline_paralyse", INFINITY, 4, status_effect = PARALYZE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/adrenaline/on_mob_delete(mob/living/M)
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	M.status_effect_absorption -= list("adrenaline_weaken", "adrenaline_stun", "adrenaline_paralyse")
 	..()
 
 /datum/reagent/medicine/adrenaline/overdose_process(mob/living/M, severity)
