@@ -102,7 +102,7 @@
 
 
 /obj/item/gun/energy/kinetic_accelerator/proc/modify_projectile(obj/item/projectile/kinetic/K)
-	K.kinetic_gun = src //do something special on-hit, easy!
+	K.kinetic_gun = src // Do something special on-hit, easy!
 	for(var/obj/item/borg/upgrade/modkit/MK in get_modkits())
 		MK.modify_projectile(K)
 
@@ -231,13 +231,15 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 
-// Casing
+/**
+ * CASING
+ */
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/item/projectile/kinetic
 	muzzle_flash_color = null
 	select_name = "kinetic"
 	e_cost = 500
-	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
+	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
@@ -270,7 +272,7 @@
 
 /obj/item/projectile/kinetic/mech
 	range = 5
-	power = 3 // more power for the god of power!
+	power = 3 // More power for the god of power!
 
 
 /obj/item/projectile/kinetic/pod
@@ -313,7 +315,7 @@
 	var/turf/target_turf = get_turf(target)
 	if(!target_turf)
 		target_turf = get_turf(src)
-	if(kinetic_gun) //hopefully whoever shot this was not very, very unfortunate.
+	if(kinetic_gun) // Hopefully whoever shot this was not very, very unfortunate.
 		var/list/obj/item/borg/upgrade/modkit/mods = kinetic_gun.get_modkits()
 		for(var/obj/item/borg/upgrade/modkit/M in mods)
 			M.projectile_strike_predamage(src, target_turf, target, kinetic_gun)
@@ -426,7 +428,7 @@
 	name = "range increase"
 	desc = "Increases the range of a kinetic accelerator when installed."
 	modifier = 1
-	cost = 24 //so you can fit four plus a tracer cosmetic
+	cost = 24 // So you can fit four plus a tracer cosmetic.
 
 
 /obj/item/borg/upgrade/modkit/range/modify_projectile(obj/item/projectile/kinetic/K)
@@ -496,7 +498,7 @@
 	name = "rapid repeater"
 	desc = "Quarters the kinetic accelerator's cooldown on striking a living target, but greatly increases the base cooldown. Not rated for minebot use."
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
-	modifier = -14 //Makes the cooldown 3 seconds(with no cooldown mods) if you miss. Don't miss.
+	modifier = -14 // Makes the cooldown 3 seconds (with no cooldown mods) if you miss. Don't miss.
 	cost = 50
 
 
@@ -510,7 +512,7 @@
 		valid_repeat = TRUE
 	if(valid_repeat)
 		KA.overheat = FALSE
-		KA.attempt_reload(KA.overheat_time * 0.25) //If you hit, the cooldown drops to 0.75 seconds.
+		KA.attempt_reload(KA.overheat_time * 0.25) // If you hit, the cooldown drops to 0.75 seconds.
 
 
 // AoE blasts
@@ -528,10 +530,10 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	for(var/obj/item/borg/upgrade/modkit/aoe/AOE in KA.get_modkits()) //make sure only one of the aoe modules has values if somebody has multiple
+	for(var/obj/item/borg/upgrade/modkit/aoe/AOE in KA.get_modkits()) // Make sure only one of the aoe modules has values if somebody has multiple.
 		if(AOE.stats_stolen || AOE == src)
 			continue
-		modifier += AOE.modifier //take its modifiers
+		modifier += AOE.modifier // Take its modifiers.
 		AOE.modifier = 0
 		turf_aoe += AOE.turf_aoe
 		AOE.turf_aoe = FALSE
@@ -540,7 +542,7 @@
 
 /obj/item/borg/upgrade/modkit/aoe/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	..()
-	modifier = initial(modifier) //get our modifiers back
+	modifier = initial(modifier) // Get our modifiers back.
 	turf_aoe = initial(turf_aoe)
 	stats_stolen = FALSE
 
@@ -608,11 +610,11 @@
 	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
 	cost = 30
-	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
+	modifier = 0.25 // A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
-	if(target_turf && !ismineralturf(target_turf)) //Don't make fields on mineral turfs.
+	if(target_turf && !ismineralturf(target_turf)) // Don't make fields on mineral turfs.
 		var/obj/effect/temp_visual/resonance/R = locate(/obj/effect/temp_visual/resonance) in target_turf
 		if(R)
 			R.damage_multiplier = modifier
@@ -629,7 +631,7 @@
 	modifier = 2.5 //Not a very effective method of healing.
 	cost = 20
 	compatibility = COMPATIBILITY_STANDART
-	/// Total healing amount can't be more than modkit `modifier`, but healing occurs in the order indicated here.
+	/// Healing occurs in the order indicated here, but total healing amount can't be more than modkit `modifier`.
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 
@@ -650,8 +652,8 @@
 	cost = 30
 	/// Max number of "bonus damage" stacks for one type of mob.
 	var/maximum_bounty = 25
-	/// Associative list of "bonus damage" stacks.
-	var/list/bounties_reaped = list()
+	/// Associative lazylist of "bonus damage" stacks.
+	var/list/bounties_reaped
 
 
 /obj/item/borg/upgrade/modkit/bounty/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
@@ -660,7 +662,7 @@
 		var/list/existing_marks = L.has_status_effect_list(STATUS_EFFECT_SYPHONMARK)
 		for(var/i in existing_marks)
 			var/datum/status_effect/syphon_mark/SM = i
-			if(SM.reward_target == src) //we want to allow multiple people with bounty modkits to use them, but we need to replace our own marks so we don't multi-reward
+			if(SM.reward_target == src) // We want to allow multiple people with bounty modkits to use them, but we need to replace our own marks so we don't multi-reward.
 				SM.reward_target = null
 				qdel(SM)
 		L.apply_status_effect(STATUS_EFFECT_SYPHONMARK, src)
@@ -669,22 +671,24 @@
 /obj/item/borg/upgrade/modkit/bounty/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(isliving(target))
 		var/mob/living/L = target
-		if(bounties_reaped[L.type])
+		var/target_bounty = LAZYACCESS(bounties_reaped, L.type)
+		if(target_bounty)
 			var/kill_modifier = 1
 			if(K.pressure_decrease_active)
 				kill_modifier *= K.pressure_decrease
 			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)
-			L.apply_damage(bounties_reaped[L.type]*kill_modifier, K.damage_type, K.def_zone, armor)
+			L.apply_damage(target_bounty * kill_modifier, K.damage_type, K.def_zone, armor)
 
 
 /obj/item/borg/upgrade/modkit/bounty/proc/get_kill(mob/living/L)
 	var/bonus_mod = 1
-	if(ismegafauna(L)) //megafauna reward
+	if(ismegafauna(L)) // Megafauna reward.
 		bonus_mod = 4
-	if(!bounties_reaped[L.type])
-		bounties_reaped[L.type] = min(modifier * bonus_mod, maximum_bounty)
+	var/target_bounty = LAZYACCESS(bounties_reaped, L.type)
+	if(!target_bounty)
+		LAZYADDASSOC(bounties_reaped, L.type, min(modifier * bonus_mod, maximum_bounty))
 	else
-		bounties_reaped[L.type] = min(bounties_reaped[L.type] + (modifier * bonus_mod), maximum_bounty)
+		LAZYADDASSOC(bounties_reaped, L.type, min(target_bounty + (modifier * bonus_mod), maximum_bounty))
 
 
 // Indoors
@@ -727,7 +731,9 @@
 	desc = "Makes your KA yellow. All the fun of having a more powerful KA without actually having a more powerful KA."
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/chassis_mod
+	/// This text replaces KA's `icon_state` after installation.
 	var/chassis_icon = "kineticgun_u"
+	/// This text replaces KA's `name` after installation.
 	var/chassis_name = "super-kinetic accelerator"
 
 
@@ -756,6 +762,7 @@
 	desc = "Causes kinetic accelerator bolts to have a white tracer trail and explosion."
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/tracer
+	/// This color colors the projectiles after installation.
 	var/bolt_color = "#FFFFFF"
 
 
