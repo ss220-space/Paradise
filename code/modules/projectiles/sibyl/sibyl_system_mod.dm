@@ -16,7 +16,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/limit = SIBYL_NONLETHAL
 	var/emagged = FALSE
 
-	var/voice_is_enabled = FALSE
+	var/voice_is_enabled = TRUE
 	var/voice_cd = null
 
 	var/list/available = list()
@@ -52,9 +52,12 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 /obj/item/sibyl_system_mod/proc/register(mob/user)
 	GLOB.sybsis_registry += list(src)
-	if(!auth_id && user && voice_is_enabled && !voice_cd)
-		voice_cd = addtimer(CALLBACK(src, PROC_REF(play_sound), user, 'sound/voice/dominator/link.ogg'), 4 SECONDS)
+
+	if(!auth_id)
+		sibyl_sound(user, 'sound/voice/dominator/link.ogg', 10 SECONDS)
+
 	return TRUE
+
 
 /obj/item/sibyl_system_mod/proc/uninstall(obj/item/gun/energy/W)
 	GLOB.sybsis_registry -= list(src)
@@ -69,10 +72,17 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	W.update_icon()
 	return state
 
+
+/obj/item/sibyl_system_mod/attack_self(mob/user)
+	..()
+	toggle_voice(user)
+
+
 /obj/item/sibyl_system_mod/proc/toggle_voice(mob/user)
 	voice_is_enabled = !voice_is_enabled
 	if(user)
-		to_chat(user,span_notice("Голосовая подсистема [voice_is_enabled ? "включена" : "отключена"]."))
+		to_chat(user, span_notice("Голосовая подсистема [voice_is_enabled ? "включена" : "отключена"]."))
+
 
 /obj/item/sibyl_system_mod/proc/lock(mob/user, silent = FALSE)
 	if(emagged)
@@ -104,8 +114,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(!auth_id)
 		unlock(user, ID)
 		to_chat(user, span_notice("Вы авторизировали [weapon] в системе Sibyl System под именем [auth_id.registered_name]."))
-		if(user && voice_is_enabled && !voice_cd)
-			voice_cd = addtimer(CALLBACK(src, PROC_REF(play_sound), user, 'sound/voice/dominator/user.ogg'), 2 SECONDS)
+		sibyl_sound(user, 'sound/voice/dominator/user.ogg', 10 SECONDS)
 	else if(auth_id == ID)
 		lock(user)
 		to_chat(user, span_notice("Вы деавторизировали [weapon] в системе Sibyl System."))
@@ -124,7 +133,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		check_unknown_names()
 	return FALSE
 
-/obj/item/sibyl_system_mod/proc/check_auth(check_charge, mob/living/user)
+/obj/item/sibyl_system_mod/proc/check_auth(mob/living/user)
 	if(!weapon)
 		return FALSE
 	if(!emagged)
@@ -134,11 +143,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		if(!find_and_compare_id_cards(user, auth_id))
 			to_chat(user, span_warning("Ваша ID-карта не совпадает с авторизованной."))
 			return FALSE
-	if(!check_charge)
-		if(user && voice_is_enabled && !voice_cd)
-			voice_cd = addtimer(CALLBACK(src, PROC_REF(play_sound), user, 'sound/voice/dominator/battery.ogg'), 10 SECONDS)
-		return FALSE
 	return TRUE
+
 
 /obj/item/sibyl_system_mod/proc/find_and_compare_id_cards(mob/user, obj/item/card/id/registered_id)
 	for(var/obj/item/card/id/found_id in user.get_all_id_cards())
@@ -199,9 +205,12 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 			names += list(ammo.select_name)
 	return names.Join(", ")
 
-/obj/item/sibyl_system_mod/proc/play_sound(mob/living/user, sound)
-	user.playsound_local(get_turf(user), sound, 50, FALSE)
-	voice_cd = null
+
+/obj/item/sibyl_system_mod/proc/sibyl_sound(mob/living/user, sound, time)
+	if(user && voice_is_enabled && !voice_cd)
+		user.playsound_local(get_turf(user), sound, 50, FALSE)
+		voice_cd = addtimer(VARSET_CALLBACK(src, voice_cd, null), time)
+
 
 /obj/item/sibyl_system_mod/Destroy()
 	GLOB.sybsis_registry -= list(src)

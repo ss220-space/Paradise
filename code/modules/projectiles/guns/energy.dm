@@ -189,11 +189,15 @@
 
 
 /obj/item/gun/energy/can_shoot(mob/living/user)
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/check_charge = cell.charge >= shot.e_cost
-	if(sibyl_mod && !sibyl_mod.check_auth(check_charge, user))
+	if(sibyl_mod && !sibyl_mod.check_auth(user))
 		return FALSE
-	return check_charge
+
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	. = cell.charge >= shot.e_cost
+
+	if(!.)
+		sibyl_mod?.sibyl_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
+
 
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
@@ -290,13 +294,14 @@
 /obj/item/gun/energy/ui_action_click()
 	toggle_gunlight()
 
+
 /obj/item/gun/energy/suicide_act(mob/user)
-	if(can_shoot())
+	if(can_trigger_gun(user))
 		user.visible_message(span_suicide("[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide."))
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			user.visible_message(span_suicide("[user] melts [user.p_their()] face off with the [name]!"))
-			playsound(loc, fire_sound, 50, 1, -1)
+			playsound(loc, fire_sound, 50, TRUE, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
 			update_icon()
@@ -306,8 +311,9 @@
 			return OXYLOSS
 	else
 		user.visible_message(span_suicide("[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!"))
-		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
+
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
 	switch(var_name)

@@ -565,8 +565,6 @@
 	if(isspaceturf(get_turf(user))) // Can't fall onto nothing.
 		return
 
-	user.pixel_z = initial(user.pixel_z)
-
 	if(user.m_intent == MOVE_INTENT_RUN)
 		user.Weaken(10 SECONDS)
 	else
