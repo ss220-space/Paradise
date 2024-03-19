@@ -1003,3 +1003,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=pingstat_report;size=1500x600")
+
+
+/client/proc/cmd_display_overlay_log()
+	set category = "Debug"
+	set name = "Display Overlay Log"
+	set desc = "Display SSoverlays log of everything that's passed through it."
+
+	render_stats(SSoverlays.stats, src)
+

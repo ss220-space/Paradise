@@ -11,6 +11,7 @@
 	speed = 0
 	maxHealth = 250
 	health = 250
+	pass_flags = PASSFLAPS
 
 	harm_intent_damage = 5
 	melee_damage_lower = 8
@@ -134,18 +135,18 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	return . - creator
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(var/mob/owner)
+/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(mob/owner)
 	if(owner != creator)
 		LoseTarget()
 		creator = owner
 		faction |= "\ref[owner]"
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(var/obj/O)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(obj/O)
 	if((istype(O, /obj/item) || istype(O, /obj/structure)) && !is_type_in_list(O, GLOB.protected_objects))
 		return 1
 	return 0
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(var/obj/O, var/mob/living/user, var/destroy_original = 0)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = FALSE)
 	if(destroy_original || CheckObject(O))
 		O.loc = src
 		name = O.name
@@ -153,9 +154,9 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		icon = O.icon
 		icon_state = O.icon_state
 		icon_living = icon_state
-		overlays = O.overlays
+		copy_overlays(O)
 		googly_eyes = image('icons/mob/mob.dmi',"googly_eyes")
-		overlays += googly_eyes
+		add_overlay(googly_eyes)
 		if(istype(O, /obj/structure) || istype(O, /obj/machinery))
 			health = (anchored * 50) + 50
 			destroy_objects = 1

@@ -90,58 +90,6 @@
 	disliked_food = FRIED
 	liked_food = MEAT | RAW | EGG | GROSS | FRUIT | VEGETABLES
 
-/datum/action/innate/tail_lash
-	name = "Взмах хвостом"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "tail"
-	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
-
-/datum/action/innate/tail_lash/Trigger(left_click = TRUE)
-	if(IsAvailable(show_message = TRUE))
-		..()
-
-/datum/action/innate/tail_lash/Activate()
-	var/mob/living/carbon/human/user = owner
-	if((user.restrained() && user.pulledby) || user.buckled)
-		to_chat(user, "<span class='warning'>Вам нужно больше свободы движений для взмаха хвостом!</span>")
-		return
-	if(user.getStaminaLoss() >= 50)
-		to_chat(user, "<span class='warning'>Передохните перед повторным взмахом хвоста!</span>")
-		return
-	for(var/mob/living/carbon/human/C in orange(1))
-		var/obj/item/organ/external/E = C.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN))
-
-		if(E)
-			user.changeNext_move(CLICK_CD_MELEE) //User бьет С в Е. Сука... С - это цель. Е - это орган.
-			user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] хлещет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]! </span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!</span>")
-			user.adjustStaminaLoss(15)
-			var/datum/species/unathi/U = user.dna.species
-			C.apply_damage(5 * U.tail_strength, BRUTE, E)
-			user.spin(20, 1)
-			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
-			add_attack_logs(user, C, "tail whipped")
-			if(user.restrained())
-				if(prob(50))
-					user.Weaken(4 SECONDS)
-					user.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!</span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!</span>")
-					return
-			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
-				to_chat(user, "<span class='warning'>Вы выбились из сил!</span>")
-				return
-
-/datum/action/innate/tail_lash/IsAvailable(show_message = FALSE)
-	. = ..()
-	var/mob/living/carbon/human/user = owner
-	if(!user.bodyparts_by_name[BODY_ZONE_TAIL])
-		if(show_message)
-			to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
-		return FALSE
-	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi))
-		if(show_message)
-			to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
-		return FALSE
-	return .
-
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
@@ -240,7 +188,7 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip_l
 	H.verbs |= /mob/living/carbon/human/proc/emote_rumble
-	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(!lash)
 		lash = new
 		lash.Grant(H)
@@ -256,7 +204,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_whip_l
 	H.verbs -= /mob/living/carbon/human/proc/emote_rumble
 
-	var/datum/action/innate/tail_lash/lash = locate() in H.actions
+	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(lash)
 		lash.Remove(H)
 

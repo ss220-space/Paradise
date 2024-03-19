@@ -184,6 +184,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
 	/client/proc/reregister_docks,
+	/client/proc/cmd_display_overlay_log,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -286,6 +287,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += /client/proc/view_runtimes
 			verbs += /client/proc/ss_breakdown
 			verbs += /client/proc/toggle_mctabs
+			verbs += /client/proc/debug_variables
+			verbs += /client/proc/toggledebuglogs
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
@@ -987,7 +990,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(length(splitline) != 2) // Always 'ckey - rank'
 				continue
 			if(lowertext(splitline[1]) == ckey)
-				rank = ckeyEx(splitline[2])
+				rank = splitline[2]
 				break
 			continue
 
@@ -1006,7 +1009,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return FALSE
 
 		while(rank_read.NextRow())
-			rank = ckeyEx(rank_read.item[1])
+			rank = rank_read.item[1]
 
 		qdel(rank_read)
 	if(!D)
@@ -1289,7 +1292,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set name = "Toggle Debug Log Messages"
 	set category = "Preferences"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
 	prefs.toggles ^= PREFTOGGLE_CHAT_DEBUGLOGS

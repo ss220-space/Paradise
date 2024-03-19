@@ -3,6 +3,7 @@
 	name = "grille"
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
+	pass_flags_self = PASSGRILLE
 	density = TRUE
 	anchored = TRUE
 	flags = CONDUCT
@@ -130,21 +131,18 @@
 		take_damage(user.obj_damage, BRUTE, MELEE, 1, armour_penetration = user.armour_penetration)
 
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
+/obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-	if(istype(mover) && mover.checkpass(PASSGRILLE))
-		return TRUE
-	if(istype(mover, /obj/item/projectile))
-		return (prob(30) || !density)
-	return !density
+	if(!. && isprojectile(mover))
+		return prob(30)
 
 
 /obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(checkpass(caller, PASSGRILLE))
+		. = TRUE
 
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)

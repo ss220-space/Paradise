@@ -422,10 +422,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(istype(L))
 		reset_perspective(L)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/terrorspider))
+
+/mob/living/simple_animal/hostile/poison/terror_spider/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile/terrorspider))
 		return TRUE
-	return ..()
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
 	return magpulse

@@ -65049,7 +65049,11 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/wall,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "dgy" = (
 /obj/effect/landmark/event/blobstart,
@@ -67663,9 +67667,13 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dnp" = (
-/obj/structure/lattice,
-/turf/space,
-/area/maintenance/asmaint2)
+/obj/machinery/computer/mech_bay_power_console,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/bluegrid,
+/area/maintenance/engineering)
 "dnq" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -69153,9 +69161,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"dsW" = (
-/turf/simulated/wall/r_wall,
-/area/space)
 "dsX" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -70743,14 +70748,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/launch)
-"fba" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/mech_bay_recharge_port,
-/turf/simulated/floor/plating,
-/area/maintenance/engineering)
 "fbm" = (
 /obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating,
@@ -75966,8 +75963,19 @@
 	},
 /area/toxins/mixing)
 "kYf" = (
-/obj/structure/extinguisher_cabinet,
-/turf/simulated/wall,
+/obj/structure/extinguisher_cabinet{
+	name = "east extinguisher cabinet";
+	pixel_x = 27
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
 /area/maintenance/engineering)
 "kYF" = (
 /obj/structure/target_stake,
@@ -77470,12 +77478,7 @@
 /area/maintenance/server)
 "mxJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -78305,11 +78308,8 @@
 /area/medical/patients_rooms)
 "ntw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -78372,8 +78372,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "nwV" = (
-/obj/item/radio/intercom,
-/turf/simulated/wall,
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical,
+/obj/item/clothing/gloves/color/yellow/fake,
+/obj/item/multitool,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
 /area/maintenance/engineering)
 "nxj" = (
 /obj/structure/chair/comfy/black{
@@ -78858,12 +78864,7 @@
 	},
 /area/maintenance/xenozoo)
 "oiR" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/computer/mech_bay_power_console,
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/mech_bay_recharge_floor,
 /area/maintenance/engineering)
 "ojy" = (
 /obj/machinery/firealarm{
@@ -79588,7 +79589,12 @@
 /turf/simulated/wall,
 /area/maintenance/fsmaint2)
 "pdr" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
+/obj/machinery/mech_bay_recharge_port,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "pdw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -80437,10 +80443,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"qbk" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/space)
 "qbw" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -82731,10 +82733,6 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "sxQ" = (
@@ -83216,6 +83214,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -87755,13 +87758,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/security/customs)
-"xNK" = (
-/obj/item/storage/toolbox/electrical,
-/obj/item/clothing/gloves/color/yellow/fake,
-/obj/structure/table,
-/obj/item/multitool,
-/turf/simulated/floor/plating,
-/area/maintenance/engineering)
 "xNP" = (
 /obj/machinery/door_control{
 	id = "qm_warehouse";
@@ -133301,9 +133297,9 @@ bGG
 bGG
 dbg
 bGH
-dsW
-dsW
-qbk
+bGH
+bGH
+bZZ
 uTI
 uTI
 uTI
@@ -134586,8 +134582,8 @@ dlP
 bGG
 cAU
 bZZ
-dnp
-dnp
+lTl
+lTl
 lTl
 uTI
 uTI
@@ -134745,7 +134741,7 @@ kJs
 wPp
 sJg
 aLf
-dgw
+cTc
 cLi
 kKR
 lQV
@@ -135253,7 +135249,7 @@ eyX
 rKk
 kKR
 cLi
-fba
+cNB
 mxJ
 wDm
 ooS
@@ -135769,7 +135765,7 @@ aGY
 cLi
 oiR
 ntw
-xNK
+cNB
 mDw
 tRF
 dRN
@@ -136024,7 +136020,7 @@ aGX
 aGY
 aHO
 cLi
-cLi
+dnp
 kYf
 nwV
 cLi
@@ -136280,11 +136276,11 @@ lWp
 aGX
 vnb
 aGX
-aGX
-aGX
-aGX
-aGX
-aGX
+cLi
+cLi
+cLi
+cLi
+cLi
 aJN
 aKZ
 aMz

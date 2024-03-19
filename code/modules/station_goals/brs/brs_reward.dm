@@ -23,7 +23,7 @@
 /obj/structure/toilet/bluespace/update_overlays()
 	. = ..()
 	if(open)
-		overlays += image(icon, "bluespace_toilet_singularity")
+		. += image(icon, "bluespace_toilet_singularity")
 
 
 /obj/structure/toilet/bluespace/attack_hand(mob/living/user)

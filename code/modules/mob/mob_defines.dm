@@ -6,6 +6,7 @@
 	pressure_resistance = 8
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
+	pass_flags_self = PASSMOB
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 

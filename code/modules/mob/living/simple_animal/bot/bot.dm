@@ -15,6 +15,7 @@
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = NONE //no default canpush
 	can_strip = FALSE
+	pass_flags = PASSFLAPS
 
 	speak_emote = list("states")
 	tts_seed = null

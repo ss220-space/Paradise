@@ -129,14 +129,14 @@
 
 	var/list/open_exit_turfs = list()
 	for (var/turf/potential_exit as anything in (RANGE_TURFS(1, target_turf) - target_turf))
-		if(is_blocked_turf(potential_exit, exclude_mobs = TRUE))
+		if(potential_exit.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 		open_exit_turfs += potential_exit
 
 	if(!length(open_exit_turfs))
 		to_chat(owner, span_warning("Нет выхода!"))
 		return FALSE
-	if(!is_blocked_turf(target_turf, exclude_mobs = TRUE))
+	if(!target_turf.is_blocked_turf(exclude_mobs = TRUE))
 		open_exit_turfs += target_turf
 
 	new /obj/effect/temp_visual/lesser_carp_rift/exit(target_turf)

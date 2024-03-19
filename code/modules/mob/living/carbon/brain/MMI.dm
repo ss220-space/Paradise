@@ -214,14 +214,14 @@
 
 /datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
 	// A copy/paste of the item action icon code
-	current_button.overlays.Cut()
+	current_button.cut_overlays()
 	if(target)
 		var/obj/item/I = mmi
 		var/old_layer = I.layer
 		var/old_plane = I.plane
 		I.layer = 21
 		I.plane = HUD_PLANE
-		current_button.overlays += I
+		current_button.add_overlay(I)
 		I.layer = old_layer
 		I.plane = old_plane
 

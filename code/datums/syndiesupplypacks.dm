@@ -1868,7 +1868,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
 					/obj/item/instrument/xylophone,
-					/obj/structure/piano)
+					/obj/structure/piano/unanchored,
+					/obj/structure/musician/drumkit)
 	cost = 500
 	containername = "Big band musical instruments collection"
 

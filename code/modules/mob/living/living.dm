@@ -277,6 +277,25 @@
 	return TRUE
 
 
+/mob/living/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+	if(isprojectile(mover))
+		return !density || lying
+	if(mover.throwing)
+		return !density || lying || (mover.throwing.thrower == src && !ismob(mover))
+	if(buckled == mover)
+		return TRUE
+	if(ismob(mover))
+		var/mob/moving_mob = mover
+		if(currently_grab_pulled && moving_mob.currently_grab_pulled)
+			return FALSE
+		if(mover in buckled_mobs)
+			return TRUE
+	return !mover.density || lying
+
+
 /mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
@@ -665,6 +684,14 @@
 		if(pulling.anchored)
 			stop_pulling()
 			return
+		if(isobj(pulling))
+			var/obj/object = pulling
+			if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+				var/obj/structure/window/window = object
+				var/fulltile = istype(window) ? window.fulltile : FALSE
+				if(!valid_build_direction(dest, object.dir, is_fulltile = fulltile))
+					stop_pulling()
+					return
 
 		var/pull_dir = get_dir(src, pulling)
 		pulling.glide_size = glide_size

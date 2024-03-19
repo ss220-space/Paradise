@@ -89,7 +89,8 @@
 	if(stat & BROKEN)
 		. += "[icon_state]_broken"
 	else
-		. += "[icon_screen]"
+		if(icon_screen)
+			. += "[icon_screen]"
 		if(light)
 			underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 

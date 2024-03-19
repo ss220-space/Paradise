@@ -97,7 +97,7 @@
 				Weaken(4 SECONDS, TRUE)
 
 			toggle_leap(0)
-		else if(A.density && !A.CanPass(src))
+		else if(A.density && !A.CanPass(src, get_dir(A, src)))
 			visible_message(span_danger("[src] smashes into [A]!"), span_alertalien("[src] smashes into [A]!"))
 			Weaken(0.5 SECONDS, TRUE)
 

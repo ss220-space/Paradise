@@ -527,6 +527,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/knives_kit/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/kitchen/knife/combat/throwing(src)
+
 /obj/item/storage/box/syndie_kit/blackops_kit
 	name = "Black ops kit"
 
@@ -539,3 +540,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/accessory/storage/webbing(src)
 	new /obj/item/storage/belt/military/assault(src)
 	new /obj/item/clothing/mask/balaclava(src)
+
+/obj/item/storage/box/syndie_kit/combat_baking
+	name = "Combat Bakery Kit"
+
+/obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
+	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
+	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+	new /obj/item/book/granter/crafting_recipe/combat_baking(src)

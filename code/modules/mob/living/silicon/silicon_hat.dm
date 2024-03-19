@@ -127,9 +127,6 @@
 		return
 	. = ..()
 
-/mob/living/silicon/proc/hat_icons()
-	if(inventory_head)
-		overlays += get_hat_overlay()
 
 /mob/living/silicon/Topic(href, href_list)
 	if(..())
@@ -160,23 +157,6 @@
 	if(usr != src)
 		return 1
 
-/mob/living/silicon/regenerate_icons()
-	overlays.Cut()
-	..()
-
-	if(inventory_head)
-		var/image/head_icon
-
-		if(!hat_icon_state)
-			hat_icon_state = inventory_head.icon_state
-		if(!hat_alpha)
-			hat_alpha = inventory_head.alpha
-		if(!hat_color)
-			hat_color = inventory_head.color
-
-		head_icon = get_hat_overlay()
-
-		add_overlay(head_icon)
 
 /mob/living/silicon/proc/get_hat_overlay()
 	if(hat_icon_file && hat_icon_state)

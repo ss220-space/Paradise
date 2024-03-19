@@ -164,9 +164,11 @@
 		if(manipulate_crate(target))
 			return FALSE
 
-		if(isturf(target) && !is_blocked_turf(target) && LAZYLEN(crates_in_hand))
-			drop_random_crate(target)
-			return FALSE
+		if(isturf(target) && LAZYLEN(crates_in_hand))
+			var/turf/target_turf = target
+			if(!target_turf.is_blocked_turf())
+				drop_random_crate(target)
+				return FALSE
 
 	. = ..()
 	if(!.)
@@ -292,7 +294,7 @@
 		if(a_intent == INTENT_HARM)
 			var/push_dir = get_dir(src, check_crate)
 			var/turf/push_turf = get_step(check_crate, push_dir)
-			if(is_blocked_turf(push_turf))
+			if(push_turf.is_blocked_turf())
 				if(master)
 					oogaooga(100, 100)
 					custom_emote(EMOTE_VISIBLE, "указыва%(ет,ют)% лапой на заполненное пространство за ящиком.", intentional = TRUE)

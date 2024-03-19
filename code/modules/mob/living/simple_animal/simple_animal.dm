@@ -452,9 +452,11 @@
 /mob/living/simple_animal/update_fire()
 	if(!can_be_on_fire)
 		return
-	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+	var/static/simple_mob_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "Generic_mob_burning")
+	cut_overlay(simple_mob_fire_olay)
 	if(on_fire)
-		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+		add_overlay(simple_mob_fire_olay)
+
 
 /mob/living/simple_animal/revive()
 	..()
@@ -685,6 +687,9 @@
 	if(pcollar && collar_type)
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /mob/living/simple_animal/Login()
 	..()

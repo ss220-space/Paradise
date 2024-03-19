@@ -226,6 +226,12 @@
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
+//Human sub-species names, used only in uplink (todo: fill the rest)
+#define SPECIES_MACNINEPERSON "Machine"
+#define SPECIES_SLIMEPERSON "Slime People"
+#define SPECIES_PLASMAMAN "Plasmaman"
+#define SPECIES_NUCLEATION "Nucleation"
+
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))

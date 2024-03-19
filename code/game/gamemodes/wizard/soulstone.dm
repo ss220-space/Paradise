@@ -148,7 +148,7 @@
 		var/old_plane = plane
 		layer = FLOAT_LAYER
 		plane = FLOAT_PLANE
-		A.overlays += src
+		A.add_overlay(src)
 		layer = old_layer
 		plane = old_plane
 
