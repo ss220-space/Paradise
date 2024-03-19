@@ -2023,6 +2023,7 @@
 #include "code\modules\instruments\objs\items\instruments.dm"
 #include "code\modules\instruments\objs\structures\_musician.dm"
 #include "code\modules\instruments\objs\structures\piano.dm"
+#include "code\modules\instruments\objs\structures\drumkit.dm"
 #include "code\modules\instruments\songs\_song.dm"
 #include "code\modules\instruments\songs\_song_ui.dm"
 #include "code\modules\instruments\songs\play_legacy.dm"
