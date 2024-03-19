@@ -145,6 +145,7 @@
 		return
 	to_chat(H, span_notice("You are pressing [src] to your breast and a strong heat passes through your body!"))
 	H.custom_emote(1, "прижимает кристалл к груди.") //HRP style
+	H.adjust_bodytemperature(60)
 	set_light_on(FALSE)
 	hot = FALSE
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 15 SECONDS)
