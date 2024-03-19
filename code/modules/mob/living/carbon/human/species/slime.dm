@@ -9,7 +9,7 @@
 #define SLIMEPERSON_HAIRGROWTHCOST 10
 
 /datum/species/slime
-	name = "Slime People"
+	name = SPECIES_SLIMEPERSON
 	name_plural = "Slime People"
 	language = LANGUAGE_SLIME
 	icobase = 'icons/mob/human_races/r_slime.dmi'
