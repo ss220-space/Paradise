@@ -1,5 +1,4 @@
-/obj/structure/drumkit
-	parent_type = /obj/structure/musician // TODO: Can't edit maps right now due to a freeze, remove and update path when it's done
+/obj/structure/musician/drumkit
 	name = "space drum kit"
 	desc = "This is a space drum kit. It's a sound that can rock anyone."
 	
