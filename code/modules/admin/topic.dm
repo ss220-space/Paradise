@@ -291,10 +291,10 @@
 
 		else if(task == "rank")
 			var/new_rank
-			if(GLOB.admin_ranks.len)
+			if(length(GLOB.admin_ranks))
 				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*")
 			else
-				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in list("Старший Админ", "Админ", "Триал Админ", "Модератор", "Ментор", "*Новый Ранг*")
+				CRASH("GLOB.admin_ranks is empty, inform coders")
 
 			var/rights = 0
 			if(D)
@@ -303,21 +303,15 @@
 				if(null,"") return
 				if("*Новый Ранг*")
 					new_rank = input("Введите название нового ранга", "Новый Ранг", null, null) as null|text
-					if(CONFIG_GET(flag/admin_legacy_system))
-						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>")
 						return
-					if(CONFIG_GET(flag/admin_legacy_system))
-						if(GLOB.admin_ranks.len)
-							if(new_rank in GLOB.admin_ranks)
-								rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
-							else
-								GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
+					if(new_rank in GLOB.admin_ranks)
+						rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
+					else
+						GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
 				else
-					if(CONFIG_GET(flag/admin_legacy_system))
-						new_rank = ckeyEx(new_rank)
-						rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
+					rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
 
 			if(D)
 				D.disassociate()								//remove adminverbs and unlink from client
@@ -332,7 +326,7 @@
 			updateranktodb(adm_ckey, new_rank)
 			message_admins("[key_name_admin(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
 			log_admin("[key_name(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
-			log_admin_rank_modification(adm_ckey, new_rank)
+			log_admin_rank_modification(adm_ckey, new_rank, rights)
 
 		else if(task == "permissions")
 			if(!D)	return
@@ -342,6 +336,7 @@
 					permissionlist[rights2text(i)] = i
 				var/new_permission = input("Выберите флаг для включения/отключения", "Флаги " + adm_ckey, null, null) as null|anything in permissionlist
 				if(!new_permission)
+					edit_admin_permissions()
 					return
 				var/oldrights = D.rights
 				var/toggleresult = "ВКЛ"

@@ -987,7 +987,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(length(splitline) != 2) // Always 'ckey - rank'
 				continue
 			if(lowertext(splitline[1]) == ckey)
-				rank = ckeyEx(splitline[2])
+				rank = splitline[2]
 				break
 			continue
 
@@ -1006,7 +1006,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return FALSE
 
 		while(rank_read.NextRow())
-			rank = ckeyEx(rank_read.item[1])
+			rank = rank_read.item[1]
 
 		qdel(rank_read)
 	if(!D)

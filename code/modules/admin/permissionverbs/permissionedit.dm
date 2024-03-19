@@ -52,7 +52,7 @@
 
 	usr << browse(output,"window=editrights;size=600x500")
 
-/datum/admins/proc/log_admin_rank_modification(var/adm_ckey, var/new_rank)
+/datum/admins/proc/log_admin_rank_modification(adm_ckey, new_rank, new_rigths = 0)
 	if(CONFIG_GET(flag/admin_legacy_system))	return
 
 	if(!usr.client)
@@ -91,9 +91,10 @@
 	qdel(select_query)
 	flag_account_for_forum_sync(adm_ckey)
 	if(new_admin)
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("admin")] (`id`, `ckey`, `rank`, `level`, `flags`) VALUES (null, :adm_ckey, :new_rank, -1, 0)", list(
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("admin")] (`id`, `ckey`, `rank`, `level`, `flags`) VALUES (null, :adm_ckey, :new_rank, -1, :new_flags)", list(
 			"adm_ckey" = adm_ckey,
-			"new_rank" = new_rank
+			"new_rank" = new_rank,
+			"new_flags" = new_rigths
 		))
 		if(!insert_query.warn_execute())
 			qdel(insert_query)
@@ -114,8 +115,9 @@
 		to_chat(usr, "<span class='notice'>New admin added.</span>")
 	else
 		if(!isnull(admin_id) && isnum(admin_id))
-			var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE [format_table_name("admin")] SET rank=:new_rank WHERE id=:admin_id", list(
+			var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE [format_table_name("admin")] SET rank=:new_rank, flags=:new_flags WHERE id=:admin_id", list(
 				"new_rank" = new_rank,
+				"new_flags" = new_rigths,
 				"admin_id" = admin_id,
 			))
 			if(!insert_query.warn_execute())
