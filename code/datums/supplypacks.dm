@@ -2566,7 +2566,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/instrument/harmonica,
 					/obj/item/instrument/xylophone,
 					/obj/structure/piano/unanchored,
-					/obj/structure/musician/drumkit/unanchored)
+					/obj/structure/musician/drumkit)
 	cost = 50
 	containername = "Big band musical instruments collection"
 
