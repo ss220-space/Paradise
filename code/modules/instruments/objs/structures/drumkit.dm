@@ -4,14 +4,11 @@
 	
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "drumkit"
-	anchored = TRUE
+	anchored = FALSE
 	density = TRUE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	allowed_instrument_ids = "drumkit"
-
-/obj/structure/musician/drumkit/unanchored
-	anchored = FALSE
 
 /obj/structure/musician/drumkit/Initialize(mapload)
 	. = ..()
