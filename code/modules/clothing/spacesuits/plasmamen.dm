@@ -14,6 +14,7 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	var/on = FALSE
 	var/smile = FALSE
 	var/smile_color = "#FF0000"
@@ -49,7 +50,6 @@
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint = up ? tint_up : initial(tint)
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
