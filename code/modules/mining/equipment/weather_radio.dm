@@ -22,6 +22,7 @@
 	var/state_warning = "urgentwarning"
 	/// Overlay added when you are in danger
 	var/state_danger = "direwarning"
+	light_system = MOVABLE_LIGHT
 
 /obj/item/radio/weather_monitor/Initialize(mapload)
 	. = ..()
@@ -62,7 +63,7 @@
 			light_color = LIGHT_COLOR_YELLOW
 		if(WEATHER_ALERT_IMMINENT_OR_ACTIVE)
 			light_color = LIGHT_COLOR_PURE_RED
-	update_light()
+	set_light_color(light_color)
 
 /obj/item/radio/weather_monitor/proc/get_warning_message() //damn tts
 	if(!is_weather_dangerous)

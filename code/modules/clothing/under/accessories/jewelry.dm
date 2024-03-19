@@ -12,6 +12,8 @@
 	icon_override = 'icons/mob/clothing/jewelry.dmi'
 	var/dragon_power = FALSE //user get additional bonuses for using draconic amber
 	var/necklace_light = FALSE //some lighting stuff
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
 
 
 /obj/item/clothing/accessory/necklace/gem/examine(mob/user)
@@ -95,7 +97,9 @@
 			dragon_power = TRUE
 		gem = I
 		to_chat(user, span_notice("You carefully insert [I] into necklace."))
-		update_light()
+		if(light_range)
+			set_light_on(TRUE)
+			set_light_range_power_color(light_range, light_power, light_color)
 
 /obj/item/clothing/accessory/necklace/gem/on_attached(obj/item/clothing/under/S, mob/user)
 	. = ..()
