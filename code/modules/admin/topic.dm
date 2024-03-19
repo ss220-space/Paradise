@@ -1253,7 +1253,7 @@
 		if(GLOB.antag_paradise_weights)
 			antags_list = GLOB.antag_paradise_weights
 		else
-			antags_list = CONFIG_GET(str_list/antag_paradise_main_antags)
+			antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
 			antags_list = antags_list.Copy()
 			for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
 				antags_list[key] = !!(key in antags_list)
@@ -1299,7 +1299,7 @@
 
 		else if(findtext(command, "weights_normal_"))
 			if(!GLOB.antag_paradise_weights)
-				var/list/antags_list = CONFIG_GET(str_list/antag_paradise_main_antags)
+				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
 				antags_list = antags_list.Copy()
 				for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
 					antags_list[key] = !!(key in antags_list)
@@ -1831,6 +1831,34 @@
 			return
 
 		usr.client.cmd_admin_animalize(M)
+
+	else if(href_list["makePAI"])
+		if(!check_rights(R_SPAWN))
+			return
+		var/bespai = FALSE
+		var/mob/living/carbon/human/H = locateUID(href_list["makePAI"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+
+		if(alert(usr, "Confirm make pAI?",,"Yes","No") == "No")
+			return
+
+		if(alert(usr, "pAI or SpAI?",,"pAI","SpAI") == "SpAI")
+			bespai = TRUE
+
+		var/painame = "Default"
+		var/name = ""
+		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
+			name = sanitize(copytext(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+		else
+			name = sanitize(copytext(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+
+		if(!name)
+			name = painame
+
+		log_and_message_admins("pAIzed [key_name(H)]")
+		H.paize(name, bespai)
 
 	else if(href_list["makegorilla"])
 		if(!check_rights(R_SPAWN))

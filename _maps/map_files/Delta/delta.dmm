@@ -10494,18 +10494,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
-"bsX" = (
-/obj/structure/table,
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
-/obj/item/stack/packageWrap,
-/obj/item/storage/box/lights/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/storage)
 "bta" = (
 /obj/machinery/conveyor/northwest{
 	id = "QMLoad2"
@@ -63877,16 +63865,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"jen" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central/north)
 "jev" = (
 /obj/structure/chair/comfy/red{
 	dir = 8
@@ -74591,7 +74569,6 @@
 	},
 /area/security/lobby)
 "lMu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood/fancy/royalblack,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -98761,7 +98738,6 @@
 	layer = 3.1
 	},
 /obj/item/pen,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood/fancy/royalblack,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -99788,9 +99764,6 @@
 /area/medical/cmo)
 "rsd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/chair/comfy/brown{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -99799,7 +99772,10 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "2-4"
+	},
+/obj/structure/chair/comfy/brown{
+	dir = 8
 	},
 /obj/effect/landmark/start/magistrate,
 /turf/simulated/floor/carpet{

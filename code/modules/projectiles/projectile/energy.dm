@@ -40,7 +40,7 @@
 /obj/item/projectile/energy/electrode/dominator
 	color = LIGHT_COLOR_LIGHT_CYAN
 
-/obj/item/projectile/energy/electrode/old
+/obj/item/projectile/energy/electrode/advanced
 	stun = 10 SECONDS
 	weaken =  10 SECONDS
 

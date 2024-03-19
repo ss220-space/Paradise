@@ -1,6 +1,6 @@
 /datum/job/cmo
-	title = "Chief Medical Officer"
-	flag = JOB_CMO
+	title = JOB_TITLE_CMO
+	flag = JOB_FLAG_CMO
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
@@ -23,7 +23,7 @@
 	outfit = /datum/outfit/job/cmo
 
 /datum/outfit/job/cmo
-	name = "Chief Medical Officer"
+	name = JOB_TITLE_CMO
 	jobtype = /datum/job/cmo
 
 	uniform = /obj/item/clothing/under/rank/chief_medical_officer
@@ -45,8 +45,8 @@
 
 
 /datum/job/doctor
-	title = "Medical Doctor"
-	flag = JOB_DOCTOR
+	title = JOB_TITLE_DOCTOR
+	flag = JOB_FLAG_DOCTOR
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 5
 	spawn_positions = 3
@@ -64,7 +64,7 @@
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
-	name = "Medical Doctor"
+	name = JOB_TITLE_DOCTOR
 	jobtype = /datum/job/doctor
 
 	uniform = /obj/item/clothing/under/rank/medical
@@ -82,8 +82,8 @@
 
 
 /datum/job/doctor/intern
-	title = "Intern"
-	flag = JOB_INTERN
+	title = JOB_TITLE_INTERN
+	flag = JOB_FLAG_INTERN
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list("Chief Medical Officer", "Medical Doctor")
@@ -98,7 +98,7 @@
 	outfit = /datum/outfit/job/doctor/intern
 
 /datum/outfit/job/doctor/intern
-	name = "Intern"
+	name = JOB_TITLE_INTERN
 	jobtype = /datum/job/doctor/intern
 
 	uniform = /obj/item/clothing/under/rank/medical/intern
@@ -126,8 +126,8 @@
 
 
 /datum/job/coroner
-	title = "Coroner"
-	flag = JOB_CORONER
+	title = JOB_TITLE_CORONER
+	flag = JOB_FLAG_CORONER
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
@@ -189,8 +189,8 @@
 
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
 /datum/job/chemist
-	title = "Chemist"
-	flag = JOB_CHEMIST
+	title = JOB_TITLE_CHEMIST
+	flag = JOB_FLAG_CHEMIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
@@ -225,8 +225,8 @@
 
 
 /datum/job/geneticist
-	title = "Geneticist"
-	flag = JOB_GENETICIST
+	title = JOB_TITLE_GENETICIST
+	flag = JOB_FLAG_GENETICIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
@@ -260,8 +260,8 @@
 
 
 /datum/job/virologist
-	title = "Virologist"
-	flag = JOB_VIROLOGIST
+	title = JOB_TITLE_VIROLOGIST
+	flag = JOB_FLAG_VIROLOGIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
@@ -297,8 +297,8 @@
 
 
 /datum/job/psychiatrist
-	title = "Psychiatrist"
-	flag = JOB_PSYCHIATRIST
+	title = JOB_TITLE_PSYCHIATRIST
+	flag = JOB_FLAG_PSYCHIATRIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
@@ -337,8 +337,8 @@
 
 
 /datum/job/paramedic
-	title = "Paramedic"
-	flag = JOB_PARAMEDIC
+	title = JOB_TITLE_PARAMEDIC
+	flag = JOB_FLAG_PARAMEDIC
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1

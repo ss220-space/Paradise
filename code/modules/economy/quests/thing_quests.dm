@@ -178,7 +178,6 @@
 		/obj/item/reagent_containers/food/snacks/meatsteak/drask = 70,
 		/obj/item/reagent_containers/food/snacks/meatsteak/grey = 70,
 		/obj/item/reagent_containers/food/snacks/candy/jawbreaker = 70,
-		/obj/item/reagent_containers/food/snacks/telebacon = 70,
 		/obj/item/reagent_containers/food/snacks/plov = 70,
 		/obj/item/reagent_containers/food/snacks/weirdoliviersalad = 70,
 		/obj/item/reagent_containers/food/snacks/doner_mushroom = 70,
