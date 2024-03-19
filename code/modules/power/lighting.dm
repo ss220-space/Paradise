@@ -301,7 +301,7 @@
 			if(emergency_mode || fire_mode)
 				icon_state = "[base_icon_state]_emergency"
 			else
-				icon_state = "[base_icon_state][on]"
+				icon_state = "[base_icon_state][light_range == 0 ? FALSE : on]"
 		if(LIGHT_EMPTY)
 			icon_state = "[base_icon_state]-empty"
 			on = FALSE
