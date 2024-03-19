@@ -252,7 +252,7 @@
 		return
 
 	var/wall_count
-	for(var/turf/T in getline(target_turf, start_turf))
+	for(var/turf/T as anything in get_line(target_turf, start_turf))
 		if(max_walls <= wall_count)
 			break
 		new /obj/structure/blood_barrier(T)
@@ -296,7 +296,11 @@
 	return ..()
 
 
-/obj/structure/blood_barrier/CanPass(atom/movable/mover, turf/target, height)
+/obj/structure/blood_barrier/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
+
 	if(!isliving(mover))
 		return FALSE
 

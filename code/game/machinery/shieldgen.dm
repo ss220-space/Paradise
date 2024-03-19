@@ -31,10 +31,6 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height)
-	if(!height)
-		return FALSE
-	return ..()
 
 /obj/machinery/shield/CanAtmosPass(turf/T)
 	return !density
@@ -619,17 +615,14 @@
 	return
 
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
+/obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+	if(checkpass(mover, PASSGLASS))
 		return prob(20)
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(10)
-		else
-			return !density
+	if(isprojectile(mover))
+		return prob(10)
 
 
 /obj/machinery/shieldwall/syndicate
@@ -637,14 +630,17 @@
 	desc = "A strange energy shield."
 	icon_state = "shield-red"
 
-/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target, height=0)
+
+/obj/machinery/shieldwall/syndicate/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(isliving(mover))
-		var/mob/living/M = mover
-		if("syndicate" in M.faction)
-			return 1
-	if(istype(mover, /obj/item/projectile))
-		return 0
-	return ..(mover, target, height)
+		var/mob/living/living_mover = mover
+		if("syndicate" in living_mover.faction)
+			return TRUE
+	else if(isprojectile(mover))
+		return FALSE
 
 
 /obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)

@@ -399,25 +399,19 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
-/obj/structure/girder/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+
+/obj/structure/girder/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-	if(height==0)
-		return 1
-	if(istype(mover) && mover.checkpass(PASSGRILLE))
+	if(checkpass(mover, PASSGRILLE) || isprojectile(mover))
 		return prob(girderpasschance)
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(girderpasschance)
-		else
-			return 0
 
 
 /obj/structure/girder/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(checkpass(caller, PASSGRILLE))
+		. = TRUE
 
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)

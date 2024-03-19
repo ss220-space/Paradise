@@ -756,8 +756,10 @@
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
+/mob/living/simple_animal/demon/pulse_demon/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE
 

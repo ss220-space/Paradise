@@ -100,10 +100,14 @@
 	fullUpdateWeedOverlays()
 	return ..()
 
-/obj/structure/wryn/wax/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+
+/obj/structure/wryn/wax/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
+	if(checkpass(mover, PASSGLASS))
 		return !opacity
-	return !density
+
 
 /obj/structure/wryn/floor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()

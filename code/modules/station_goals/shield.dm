@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 			. += span_warning("But something seems off about it...?")
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
-	for(var/turf/T as anything in getline(src, meteor))
+	for(var/turf/T as anything in get_line(src, meteor))
 		if(!isspaceturf(T))
 			return FALSE
 	return TRUE

@@ -97,8 +97,10 @@
 	icon_state = "at_shield2"
 	lifetime = 15 SECONDS
 
-/obj/effect/forcefield/wizard/guardian/CanPass(atom/movable/mover, turf/target)
-	var/mob/living/simple_animal/hostile/guardian/P = wizard
-	if(mover == wizard || istype(P) && mover == P.summoner)
+
+/obj/effect/forcefield/wizard/guardian/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	var/mob/living/simple_animal/hostile/guardian/guardian = wizard
+	if(istype(guardian) && mover == guardian.summoner)
 		return TRUE
-	return FALSE
+

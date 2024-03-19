@@ -195,6 +195,10 @@
 ///called on /living when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_LIVING_START_PULL "living_start_pull"
 
+/// called on /atom when something attempts to pass through it (atom/movable/source, atom/movable/passing, dir)
+#define COMSIG_ATOM_TRIED_PASS "atom_tried_pass"
+	#define COMSIG_COMPONENT_PERMIT_PASSAGE (1 << 0)
+
 /////////////////
 
 ///from base of area/Entered(): (/area)

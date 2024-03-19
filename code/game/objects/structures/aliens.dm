@@ -99,12 +99,9 @@
 	opacity = 0
 	max_integrity = 160
 	resintype = "membrane"
+	pass_flags_self = PASSGLASS
 	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
-/obj/structure/alien/resin/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return !opacity
-	return !density
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
 	if(A.a_intent == INTENT_HARM)
@@ -133,6 +130,7 @@
 	resintype = "door"
 	canSmoothWith = null
 	smooth = SMOOTH_FALSE
+	pass_flags_self = PASSDOOR
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE
 	var/autoclose = TRUE
@@ -195,16 +193,6 @@
 		living.last_bumped = world.time
 
 	try_switch_state(moving_atom)
-
-
-/obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target, height = 0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-
-	if(istype(mover) && mover.checkpass(PASSDOOR))
-		return TRUE
-
-	return !density
 
 
 /obj/structure/alien/resin/door/proc/try_switch_state(atom/movable/user)

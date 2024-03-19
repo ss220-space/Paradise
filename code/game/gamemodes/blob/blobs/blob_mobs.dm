@@ -60,10 +60,12 @@
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 
-/mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
+
+/mob/living/simple_animal/hostile/blob/blobspore/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(istype(mover, /obj/structure/blob))
-		return 1
-	return ..()
+		return TRUE
+
 
 /mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))

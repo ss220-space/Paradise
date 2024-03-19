@@ -304,22 +304,20 @@
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
+	pass_flags_self = PASSGLASS
 
-/obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return !density
-	else
-		return 1
 
-/obj/machinery/door/firedoor/border_only/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+/obj/machinery/door/firedoor/border_only/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(dir != border_dir)
+		return TRUE
+
+
+/obj/machinery/door/firedoor/border_only/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
+
 
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
