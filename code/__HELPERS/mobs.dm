@@ -205,7 +205,7 @@
 			if("albino")		. = 34
 			else				. = rand(-185, 34)
 		return min(max(. + rand(-25, 25), -185), 34)
-	else if(species == "Vox")
+	else if(species == SPECIES_VOX)
 		. = rand(1, 6)
 		return .
 
@@ -221,7 +221,7 @@
 			if(-65 to -45)			return "brown"
 			if(-INFINITY to -65)	return "black"
 			else					return "unknown"
-	else if(species == "Vox")
+	else if(species == SPECIES_VOX)
 		switch(tone)
 			if(2)					return "dark green"
 			if(3)					return "brown"
