@@ -86,25 +86,25 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	name = "Striped Tail"
 	icon_state = "winglertail"
 	animated_icon_state = "winglertail_a"
-	allowed_species = list("Tajaran")
+	allowed_species = list(SPECIES_TAJARAN)
 
 /datum/body_accessory/tail/leopard_tail
 	name = "Leopard Tail"
 	icon_state = "leopard"
 	animated_icon_state = "leopard_a"
-	allowed_species = list("Tajaran")
+	allowed_species = list(SPECIES_TAJARAN)
 
 /datum/body_accessory/tail/tiny //Pretty ambiguous as to what species it belongs to, tail could've been injured or docked.
 	name = "Tiny Tail"
 	icon_state = "tiny"
 	animated_icon_state = "tiny_a"
-	allowed_species = list("Vulpkanin", "Tajaran")
+	allowed_species = list("Vulpkanin", SPECIES_TAJARAN)
 
 /datum/body_accessory/tail/short //Same as above.
 	name = "Short Tail"
 	icon_state = "short"
 	animated_icon_state = "short_a"
-	allowed_species = list("Vulpkanin", "Tajaran")
+	allowed_species = list("Vulpkanin", SPECIES_TAJARAN)
 
 //Vulpkanin
 /datum/body_accessory/tail/bushy

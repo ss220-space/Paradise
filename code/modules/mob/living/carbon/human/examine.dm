@@ -38,7 +38,7 @@
 	var/examine_color = dna.species.flesh_color
 	if(skipjumpsuit && skipface || (NO_EXAMINE in dna.species.species_traits)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
-	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
+	else if(displayed_species == SPECIES_SLIMEPERSON) //snowflakey because Slime People are defined as a plural
 		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"
 	else if(displayed_species == "Unathi") //DAMN YOU, VOWELS
 		msg += ", a<b><font color='[examine_color]'> unathi</font></b>!\n"

@@ -432,7 +432,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Alternate Head:</b> "
 				dat += "<a href='?_src_=prefs;preference=alt_head;task=input'>[alt_head]</a><br>"
 			dat += "<b>Limbs and Parts:</b> <a href='?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
-			if(species != "Slime People" && species != SPECIES_MACNINEPERSON)
+			if(species != SPECIES_SLIMEPERSON && species != SPECIES_MACNINEPERSON)
 				dat += "<b>Internal Organs:</b> <a href='?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
 
 			//display limbs below
@@ -1449,18 +1449,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
-					if(species in list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", SPECIES_MACNINEPERSON, "Wryn", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, "Unathi", SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, "Wryn", "Vulpkanin", "Vox"))
 						h_colour = rand_hex_color()
 				if("secondary_hair")
-					if(species in list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", SPECIES_MACNINEPERSON, "Wryn", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, "Unathi", SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, "Wryn", "Vulpkanin", "Vox"))
 						h_sec_colour = rand_hex_color()
 				if("h_style")
 					h_style = random_hair_style(gender, species, robohead)
 				if("facial")
-					if(species in list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", SPECIES_MACNINEPERSON, "Wryn", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, "Unathi", SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, "Wryn", "Vulpkanin", "Vox"))
 						f_colour = rand_hex_color()
 				if("secondary_facial")
-					if(species in list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", SPECIES_MACNINEPERSON, "Wryn", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, "Unathi", SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, "Wryn", "Vulpkanin", "Vox"))
 						f_sec_colour = rand_hex_color()
 				if("f_style")
 					f_style = random_facial_hair_style(gender, species, robohead)
@@ -1530,7 +1530,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list(SPECIES_HUMAN, "Tajaran", "Skrell", "Unathi", SPECIES_DIONA, "Vulpkanin", SPECIES_MOTH)
+					var/list/new_species = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, "Unathi", SPECIES_DIONA, "Vulpkanin", SPECIES_MOTH)
 					var/prev_species = species
 //						var/whitelisted = 0
 
@@ -1673,14 +1673,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						b_type = new_b_type
 
 				if("hair")
-					if(species in list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", SPECIES_MACNINEPERSON, "Vulpkanin", "Vox")) //Species that have hair. (No HAS_HAIR flag)
+					if(species in list(SPECIES_HUMAN, "Unathi", SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, "Vulpkanin", "Vox")) //Species that have hair. (No HAS_HAIR flag)
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", h_colour) as color|null
 						if(new_hair)
 							h_colour = new_hair
 
 				if("secondary_hair")
-					if(species in list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", SPECIES_MACNINEPERSON, "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, "Unathi", SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, "Vulpkanin", "Vox"))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", h_sec_colour) as color|null
@@ -1902,13 +1902,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 
 				if("facial")
-					if(species in list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", SPECIES_MACNINEPERSON, "Vulpkanin", "Vox")) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
+					if(species in list(SPECIES_HUMAN, "Unathi", SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, "Vulpkanin", "Vox")) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", f_colour) as color|null
 						if(new_facial)
 							f_colour = new_facial
 
 				if("secondary_facial")
-					if(species in list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", SPECIES_MACNINEPERSON, "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, "Unathi", SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, "Vulpkanin", "Vox"))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", f_sec_colour) as color|null

@@ -1,6 +1,6 @@
 /datum/sprite_accessory/hair/skrell
 	icon = 'icons/mob/sprite_accessories/skrell/skrell_hair.dmi'
-	species_allowed = list("Skrell")
+	species_allowed = list(SPECIES_SKRELL)
 
 /datum/sprite_accessory/hair/skrell/skr_tentacle_m
 	name = "Skrell Male Tentacles"
@@ -214,4 +214,4 @@
 	icon = 'icons/mob/sprite_accessories/skrell/skrell_hair.dmi'
 	name = "Zekes Tentacles"
 	icon_state = "zeke_fluff_hair"
-	species_allowed = list("Skrell")
+	species_allowed = list(SPECIES_SKRELL)

@@ -11,7 +11,7 @@
     name = "Shaved"
     icon_state = "bald"
     gender = NEUTER
-    species_allowed = list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", "Vox", SPECIES_DIONA, SPECIES_KIDAN, "Greys", "Vulpkanin", "Slime People")
+    species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_TAJARAN, SPECIES_SKRELL, "Vox", SPECIES_DIONA, SPECIES_KIDAN, "Greys", "Vulpkanin", SPECIES_SLIMEPERSON)
 
 /datum/sprite_accessory/facial_hair/watson
 	name = "Watson Mustache"
@@ -52,7 +52,7 @@
 /datum/sprite_accessory/facial_hair/elvis
 	name = "Elvis Sideburns"
 	icon_state = "elvis"
-	species_allowed = list(SPECIES_HUMAN, "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, "Unathi")
 
 /datum/sprite_accessory/facial_hair/abe
 	name = "Abraham Lincoln Beard"
