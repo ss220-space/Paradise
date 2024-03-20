@@ -19,7 +19,6 @@
 	desc = "A humming cryo pod. You can barely recognise a security uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "a security officer"
 	outfit = /datum/outfit/oldstation/officer
-	mob_species = /datum/species/human
 	important_info = ""
 	flavour_text = "You are a security officer working for Nanotrasen, stationed onboard a state of the art research station. You vaguely recall rushing into a \
 	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
