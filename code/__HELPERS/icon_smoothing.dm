@@ -256,7 +256,9 @@
 		New += se
 
 	if(New.len)
-		A.add_overlay(New)
+		//add_overlay for smoothing is broken as hell
+		//A.add_overlay(New)
+		A.overlays.Add(New)
 
 
 /proc/find_type_in_direction(atom/source, direction)
