@@ -5765,7 +5765,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange/ussp{
-	department = "Ussp-1"
+	department = "Gorky 17"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
