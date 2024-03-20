@@ -71,7 +71,7 @@
 	icon = 'icons/mob/human_face.dmi' // Keep bald hair here, as for some reason, putting it elsewhere lead to it being colourable - Also it make sense as it is shared by everyone.
 	name = "Bald"
 	icon_state = "bald"
-	species_allowed = list(SPECIES_HUMAN, "Unathi", "Vox", SPECIES_DIONA, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_SKELETON, "Vulpkanin", SPECIES_TAJARAN, SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, "Vox", SPECIES_DIONA, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_SKELETON, "Vulpkanin", SPECIES_TAJARAN, SPECIES_MOTH)
 	glasses_over = 1
 
 /datum/sprite_accessory/facial_hair
@@ -86,20 +86,20 @@
 
 /datum/sprite_accessory/head_accessory
 	icon = 'icons/mob/clothing/body_accessory.dmi'
-	species_allowed = list("Unathi", "Vulpkanin", SPECIES_TAJARAN, SPECIES_MACNINEPERSON)
+	species_allowed = list(SPECIES_UNATHI, "Vulpkanin", SPECIES_TAJARAN, SPECIES_MACNINEPERSON)
 	icon_state = "accessory_none"
 	var/over_hair
 
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
-	species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_DIONA, SPECIES_GREY, SPECIES_KIDAN, SPECIES_MACNINEPERSON, SPECIES_TAJARAN, "Vulpkanin", SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, "Vox")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_GREY, SPECIES_KIDAN, SPECIES_MACNINEPERSON, SPECIES_TAJARAN, "Vulpkanin", SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, "Vox")
 	icon_state = "accessory_none"
 
 /* BODY MARKINGS */
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/sprite_accessories/human/human_body_markings.dmi'
-	species_allowed = list("Unathi", SPECIES_TAJARAN, "Vulpkanin", SPECIES_MACNINEPERSON, "Vox", SPECIES_KIDAN, SPECIES_MOTH)
+	species_allowed = list(SPECIES_UNATHI, SPECIES_TAJARAN, "Vulpkanin", SPECIES_MACNINEPERSON, "Vox", SPECIES_KIDAN, SPECIES_MOTH)
 	icon_state = "accessory_none"
 	marking_location = "body"
 
@@ -156,7 +156,7 @@
 	name = "Default Unathi skin"
 	icon_state = "default"
 	icon = 'icons/mob/human_races/r_lizard.dmi'
-	species_allowed = list("Unathi")
+	species_allowed = list(SPECIES_UNATHI)
 
 /datum/sprite_accessory/skin/skrell
 	name = "Default skrell skin"
@@ -169,11 +169,11 @@
 ///////////////////////////
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/clothing/underwear.dmi'
-	species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	)
 	gender = NEUTER
 	var/allow_change_color = FALSE
@@ -181,7 +181,7 @@
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
 
 /datum/sprite_accessory/underwear/male
 	gender = MALE
@@ -199,7 +199,7 @@
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
 
@@ -252,7 +252,7 @@
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
 
@@ -261,7 +261,7 @@
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
 
@@ -298,11 +298,11 @@
 ////////////////////////////
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/clothing/underwear.dmi'
-	species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	)
 	gender = NEUTER
 	var/allow_change_color = FALSE
@@ -310,7 +310,7 @@
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
 
 //plain color shirts
 /datum/sprite_accessory/undershirt/shirt_colorized
@@ -320,7 +320,7 @@
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
 
@@ -412,7 +412,7 @@
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
 //end short sleeved
@@ -473,7 +473,7 @@
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
-	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
 
@@ -500,19 +500,19 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/clothing/underwear.dmi'
-	species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
-	"Unathi" = 'icons/mob/clothing/species/unathi/underwear.dmi',
-	"Ash Walker" = 'icons/mob/clothing/species/unathi/underwear.dmi',
-	"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/underwear.dmi',
-	"Draconid" = 'icons/mob/clothing/species/unathi/underwear.dmi')
+	SPECIES_UNATHI" = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, "Vulpkanin", SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, "Vox", SPECIES_MOTH)
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal White"

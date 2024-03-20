@@ -40,7 +40,7 @@
 		msg += "!\n"    //omit the species when examining
 	else if(displayed_species == SPECIES_SLIMEPERSON) //snowflakey because Slime People are defined as a plural
 		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"
-	else if(displayed_species == "Unathi") //DAMN YOU, VOWELS
+	else if(displayed_species == SPECIES_UNATHI) //DAMN YOU, VOWELS
 		msg += ", a<b><font color='[examine_color]'> unathi</font></b>!\n"
 	else
 		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"

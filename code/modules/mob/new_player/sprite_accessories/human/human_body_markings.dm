@@ -1,15 +1,15 @@
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_DIONA, "Grey", SPECIES_MACNINEPERSON, SPECIES_TAJARAN, "Vulpkanin", SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, "Vox", SPECIES_KIDAN)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, "Grey", SPECIES_MACNINEPERSON, SPECIES_TAJARAN, "Vulpkanin", SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, "Vox", SPECIES_KIDAN)
 	icon_state = "none"
 
 /datum/sprite_accessory/body_markings/tiger
 	name = "Tiger Body"
-	species_allowed = list("Unathi", SPECIES_TAJARAN, "Vulpkanin")
+	species_allowed = list(SPECIES_UNATHI, SPECIES_TAJARAN, "Vulpkanin")
 	icon_state = "tiger"
 
 /datum/sprite_accessory/body_markings/tattoo // Tattoos applied post-round startup with tattoo guns in item_defines.dm
-	species_allowed = list(SPECIES_HUMAN, "Unathi", "Vulpkanin", SPECIES_TAJARAN, SPECIES_SKRELL)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, "Vulpkanin", SPECIES_TAJARAN, SPECIES_SKRELL)
 	icon_state = "none"
 
 /datum/sprite_accessory/body_markings/tattoo/elliot
@@ -19,7 +19,7 @@
 
 /datum/sprite_accessory/body_markings/tattoo/tiger_body // Yep, this is repeated. To be fixed later
 	name = "Tiger-stripe Tattoo"
-	species_allowed = list(SPECIES_HUMAN, "Unathi", "Vulpkanin", SPECIES_TAJARAN, SPECIES_SKRELL)
+	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, "Vulpkanin", SPECIES_TAJARAN, SPECIES_SKRELL)
 	icon_state = "tiger"
 
 /datum/sprite_accessory/body_markings/tattoo/heart

@@ -235,7 +235,7 @@ These guys only come from the dragon's blood bottle from lavaland.
 They're basically just lizards with all-around marginally better stats and fire resistance.
 */
 /datum/species/unathi/draconid
-	name = "Draconid"
+	name = SPECIES_DRACONOID
 	name_plural = "Draconids"
 	flesh_color = "#A02720"
 	base_color = "#110101"
