@@ -341,16 +341,16 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana_organ"
 	status = 0
-	flags = (parent_type::flags|NO_PIXEL_RANDOM_DROP)
+	flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
 	. = ..()
-	to_chat(user,span_warning("The mass goes up your arm and inside it!"))
+	to_chat(user, span_warning("The mass goes up your arm and inside it!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(user_death))
 
-	user.drop_item_ground(src, silent = TRUE, ignore_pixel_shift = TRUE)
+	user.drop_item_ground(src, force = TRUE, silent = TRUE, ignore_pixel_shift = TRUE)
 	insert(user)
 
 /obj/item/organ/internal/cyberimp/arm/katana/emp_act() //Organic, no emp stuff
@@ -372,7 +372,7 @@
 /obj/item/organ/internal/cyberimp/arm/katana/Extend()
 	for(var/obj/item/cursed_katana/katana in contents)
 		if(katana.shattered)
-			to_chat(owner,  span_warning("Your cursed katana has not reformed yet!</span>"))
+			to_chat(owner,  span_warning("Your cursed katana has not reformed yet!"))
 			return FALSE
 	return ..()
 
@@ -451,12 +451,13 @@
 	. = ..()
 	reset_inputs(user, TRUE)
 
-/obj/item/cursed_katana/attack(mob/living/target, mob/user, click_parameters)
+/obj/item/cursed_katana/attack(mob/living/target, mob/user, def_zone)
 	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm [target]!"))
 		return TRUE
+	var/add_melee_cooldown = TRUE
 	drew_blood = TRUE
 	if(user.a_intent == INTENT_DISARM)
 		input_list += RIGHT_SLASH
@@ -464,6 +465,7 @@
 		input_list += LEFT_SLASH
 	if(ishostile(target))
 		user.changeNext_move(CLICK_CD_RAPID)
+		add_melee_cooldown = FALSE
 	if(length(input_list) > 4)
 		reset_inputs(user, TRUE)
 	if(check_input(target, user))
@@ -471,7 +473,7 @@
 		return TRUE
 	else
 		timerid = addtimer(CALLBACK(src, PROC_REF(reset_inputs), user, FALSE), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
-		return ..()
+		return ..(target, user, def_zone, add_melee_cooldown)
 
 /obj/item/cursed_katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -513,7 +515,7 @@
 	source.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
 	if(ishostile(source))
 		var/mob/living/simple_animal/hostile/target = source
-		target.ranged_cooldown += 2 SECONDS
+		target.ranged_cooldown = world.time + 5 SECONDS
 	else if(iscarbon(source))
 		var/mob/living/carbon/target = source
 		target.AdjustConfused(8 SECONDS)
@@ -566,13 +568,12 @@
 	to_chat(target, span_userdanger("[user] dashes through you!"))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
-	for(var/distance in 0 to 8)
+	for(var/distance in 1 to 9)
 		var/turf/current_dash_target = dash_target
 		current_dash_target = get_step(current_dash_target, user.dir)
-		if(!is_blocked_turf(current_dash_target, TRUE))
-			dash_target = current_dash_target
-		else
+		if(current_dash_target.is_blocked_turf(TRUE))
 			break
+		dash_target = current_dash_target
 		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
 			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 			to_chat(additional_target, span_userdanger("You've been sliced by [user]!"))
