@@ -64,6 +64,7 @@
 
 		if(!test.succeeded)
 			failed_any_test = TRUE
+			log_world("WE GOT FUCKED UP IN: [test.fail_reasons]")
 			test_logs[I] += test.fail_reasons
 
 		qdel(test)
