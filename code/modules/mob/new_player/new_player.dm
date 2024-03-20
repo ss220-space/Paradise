@@ -335,7 +335,7 @@
 		return 0
 
 /mob/new_player/proc/is_used_species_available(species)
-	var/list/available_species = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, "Vulpkanin", SPECIES_MOTH)
+	var/list/available_species = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_MOTH)
 	available_species += GLOB.whitelisted_species
 	if(species in available_species)
 		return TRUE

@@ -98,38 +98,38 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	name = "Tiny Tail"
 	icon_state = "tiny"
 	animated_icon_state = "tiny_a"
-	allowed_species = list("Vulpkanin", SPECIES_TAJARAN)
+	allowed_species = list(SPECIES_VULPKANIN, SPECIES_TAJARAN)
 
 /datum/body_accessory/tail/short //Same as above.
 	name = "Short Tail"
 	icon_state = "short"
 	animated_icon_state = "short_a"
-	allowed_species = list("Vulpkanin", SPECIES_TAJARAN)
+	allowed_species = list(SPECIES_VULPKANIN, SPECIES_TAJARAN)
 
 //Vulpkanin
 /datum/body_accessory/tail/bushy
 	name = "Bushy Tail"
 	icon_state = "bushy"
 	animated_icon_state = "bushy_a"
-	allowed_species = list("Vulpkanin")
+	allowed_species = list(SPECIES_VULPKANIN)
 
 /datum/body_accessory/tail/straight
 	name = "Straight Tail"
 	icon_state = "straight"
 	animated_icon_state = "straight_a"
-	allowed_species = list("Vulpkanin")
+	allowed_species = list(SPECIES_VULPKANIN)
 
 /datum/body_accessory/tail/straight_bushy
 	name = "Straight Bushy Tail"
 	icon_state = "straightbushy"
 	animated_icon_state = "straightbushy_a"
-	allowed_species = list("Vulpkanin")
+	allowed_species = list(SPECIES_VULPKANIN)
 
 //Wryn
 /datum/body_accessory/tail/wryn
 	name = "Bee Tail"
 	icon_state = "wryntail"
-	allowed_species = list("Wryn")
+	allowed_species = list(SPECIES_WRYN)
 
 //Nian
 /datum/body_accessory/wing

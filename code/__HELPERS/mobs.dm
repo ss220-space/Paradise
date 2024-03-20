@@ -172,7 +172,7 @@
   * * species - The name of the species to filter valid body accessories.
   * * is_optional - Whether *no* body accessory (null) is an option.
  */
-/proc/random_body_accessory(species = "Vulpkanin", is_optional = FALSE)
+/proc/random_body_accessory(species = SPECIES_VULPKANIN, is_optional = FALSE)
 	var/list/valid_body_accessories = list()
 	if(is_optional)
 		valid_body_accessories += null

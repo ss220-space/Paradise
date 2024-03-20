@@ -23,7 +23,7 @@
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
-	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, "Wryn", "Vulpkanin", SPECIES_VOX))
+	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
 	if(S.bodyflags & HAS_HEAD_ACCESSORY)
