@@ -235,7 +235,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	show_laws()
 	to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
 
-	job = "AI"
+	job = JOB_TITLE_AI
 
 /mob/living/silicon/ai/Stat()
 	..()
@@ -312,7 +312,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 		// Set ai pda name
 		if(aiPDA)
-			aiPDA.set_name_and_job(newname, "AI")
+			aiPDA.set_name_and_job(newname, JOB_TITLE_AI)
 
 	return TRUE
 

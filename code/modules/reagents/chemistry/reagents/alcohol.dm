@@ -136,7 +136,7 @@
 	taste_description = "pure resignation"
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
-	if(M.mind && M.mind.assigned_role == "Civilian")
+	if(M.mind && M.mind.assigned_role == JOB_TITLE_CIVILIAN)
 		var/update_flags = STATUS_UPDATE_NONE
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)

@@ -22,7 +22,7 @@
 /obj/item/caution/proximity_sign/attack_self(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind.assigned_role != "Janitor")
+		if(H.mind.assigned_role != JOB_TITLE_JANITOR)
 			return
 		if(armed)
 			armed = 0

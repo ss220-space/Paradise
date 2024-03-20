@@ -768,7 +768,7 @@
 											var/mob/living/silicon/robot/U = usr
 											rank = "[U.modtype] [U.braintype]"
 										else if(isAI(usr))
-											rank = "AI"
+											rank = JOB_TITLE_AI
 										set_criminal_status(usr, R, setcriminal, t1, rank)
 								break // Git out of the securiy records loop!
 						if(found_record)
@@ -1678,11 +1678,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
+		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF) )
 			. = 100
-		if(mind.assigned_role == "Trainee Engineer")	//Чем глупее, тем вкуснее
+		if(mind.assigned_role == JOB_TITLE_ENGINEER_TRAINEE)	//Чем глупее, тем вкуснее
 			. = 300
-		if(mind.assigned_role == "Clown")
+		if(mind.assigned_role == JOB_TITLE_CLOWN)
 			. = rand(-1000, 1000)
 	..() //Called afterwards because getting the mind after getting gibbed is sketchy
 

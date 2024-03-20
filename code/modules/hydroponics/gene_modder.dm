@@ -550,7 +550,7 @@
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		if(isobserver(user) || ((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && user.Adjacent(src)))
+		if(isobserver(user) || ((user.mind.assigned_role == JOB_TITLE_CAPTAIN || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && user.Adjacent(src)))
 			. += span_warning("Это не похоже на настоящий диск! Кроме того, коды аутенфикации запачканы бананиумом.")
 	else
 		. += "<span class='notice'>The write-protect tab is set to [read_only ? "protected" : "unprotected"].</span>"
