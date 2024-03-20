@@ -137,7 +137,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	animated_icon = null
 	name = "Plain Wings"
 	icon_state = "plain"
-	allowed_species = list("Nian")
+	allowed_species = list(SPECIES_MOTH)
 	has_behind = TRUE
 
 /datum/body_accessory/wing/plain

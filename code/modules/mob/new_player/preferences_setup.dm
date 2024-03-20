@@ -317,7 +317,7 @@
 
 		if(icon)
 			var/icon/temp = new(icon, icon_state)
-			if((current_species.name != "Nian") && current_species.bodyflags & HAS_SKIN_COLOR)
+			if((current_species.name != SPECIES_MOTH) && current_species.bodyflags & HAS_SKIN_COLOR)
 				temp.Blend(s_colour, blend_mode)
 			if(current_species.bodyflags & HAS_TAIL_MARKINGS)
 				var/tail_marking = m_styles["tail"]

@@ -11,7 +11,7 @@
     name = "Shaved"
     icon_state = "bald"
     gender = NEUTER
-    species_allowed = list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", "Vox", SPECIES_DIONA, "Kidan", "Greys", "Vulpkanin", "Slime People")
+    species_allowed = list(SPECIES_HUMAN, "Unathi", "Tajaran", "Skrell", "Vox", SPECIES_DIONA, SPECIES_KIDAN, "Greys", "Vulpkanin", "Slime People")
 
 /datum/sprite_accessory/facial_hair/watson
 	name = "Watson Mustache"
