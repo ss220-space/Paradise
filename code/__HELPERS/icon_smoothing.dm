@@ -330,8 +330,10 @@
 	O += sw
 	bottom_right_corner = se
 	O += se
-	add_overlay(O)
 
+	overlays.Add(O)
+	//add_overlay is cursed rn for smoothing sadly
+	//add_overlay(O)
 
 /proc/reverse_ndir(ndir)
 	switch(ndir)
