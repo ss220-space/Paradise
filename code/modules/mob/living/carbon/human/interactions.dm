@@ -69,7 +69,7 @@
 		dat +=  {"• <A href='?src=[UID()];interaction=fuckyou'><font color=darkred>Показать средний палец.</font></A><BR>"}
 		dat +=  {"• <A href='?src=[UID()];interaction=threaten'><font color=darkred>Погрозить кулаком.</font></A><BR>"}
 
-	if (mouthfree && H.dna.species.name != "Diona")
+	if (mouthfree && H.dna.species.name != SPECIES_DIONA)
 		dat += {"<font size=3><B>Лицо:</B></font><BR>"}
 		dat += {"• <A href='?src=[UID()];interaction=kiss'>Поцеловать.</A><BR>"}
 		if (Adjacent(P))

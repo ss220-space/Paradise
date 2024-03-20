@@ -1,5 +1,5 @@
 /datum/species/drask
-	name = "Drask"
+	name = SPECIES_DRASK
 	name_plural = "Drask"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'

@@ -1,6 +1,6 @@
 /datum/sprite_accessory/hair/ipc
 	icon = 'icons/mob/sprite_accessories/ipc/ipc_face.dmi'
-	species_allowed = list("Machine")
+	species_allowed = list(SPECIES_MACNINEPERSON)
 	glasses_over = 1
 	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.", "Shellguard Munitions Monitor Series")
 

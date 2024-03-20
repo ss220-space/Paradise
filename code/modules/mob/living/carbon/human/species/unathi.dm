@@ -1,5 +1,5 @@
 /datum/species/unathi
-	name = "Unathi"
+	name = SPECIES_UNATHI
 	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
@@ -94,7 +94,7 @@
 	H.stop_tail_wagging()
 
 /datum/species/unathi/ashwalker
-	name = "Ash Walker"
+	name = SPECIES_ASHWALKER_BASIC
 	name_plural = "Ash Walkers"
 
 	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
@@ -142,7 +142,7 @@
 
 //Ash walker shaman, worse defensive stats, but better at surgery and have a healing touch ability
 /datum/species/unathi/ashwalker/shaman
-	name = "Ash Walker Shaman"
+	name = SPECIES_ASHWALKER_SHAMAN
 	brute_mod = 1.15
 	burn_mod = 1.15
 	speed_mod = -0.60 //less fast as ash walkers

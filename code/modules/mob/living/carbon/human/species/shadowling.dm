@@ -1,6 +1,6 @@
 /datum/species/shadow/ling
 	//Normal shadowpeople but with enhanced effects
-	name = "Shadowling"
+	name = SPECIES_SHADOWLING
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
@@ -65,7 +65,7 @@
 	handle_light(H)
 
 /datum/species/shadow/ling/lesser //Empowered thralls. Obvious, but powerful
-	name = "Lesser Shadowling"
+	name = SPECIES_LESSER_SHADOWLING
 
 	icobase = 'icons/mob/human_races/r_lshadowling.dmi'
 	deform = 'icons/mob/human_races/r_lshadowling.dmi'

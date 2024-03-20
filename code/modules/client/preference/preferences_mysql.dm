@@ -329,7 +329,7 @@
 	var/datum/species/SP = GLOB.all_species[species]
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name, 1)
-	if(isnull(species)) species = "Human"
+	if(isnull(species)) species = SPECIES_HUMAN
 	if(isnull(language)) language = "None"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)

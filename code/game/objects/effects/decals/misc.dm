@@ -73,7 +73,7 @@
 
 /obj/effect/decal/ants/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/caltrop, 5, 5, 100, CALTROP_BYPASS_WALKERS, list("Kidan", "Wryn"))
+	AddComponent(/datum/component/caltrop, 5, 5, 100, CALTROP_BYPASS_WALKERS, list(SPECIES_KIDAN, "Wryn"))
 
 /obj/effect/decal/fakelattice
 	name = "lattice"

@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox", "Kidan")
+	species_allowed = list(SPECIES_HUMAN, "Unathi", SPECIES_DIONA, "Grey", SPECIES_MACNINEPERSON, "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox", SPECIES_KIDAN)
 	icon_state = "none"
 
 /datum/sprite_accessory/body_markings/tiger
@@ -9,7 +9,7 @@
 	icon_state = "tiger"
 
 /datum/sprite_accessory/body_markings/tattoo // Tattoos applied post-round startup with tattoo guns in item_defines.dm
-	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
+	species_allowed = list(SPECIES_HUMAN, "Unathi", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "none"
 
 /datum/sprite_accessory/body_markings/tattoo/elliot
@@ -19,7 +19,7 @@
 
 /datum/sprite_accessory/body_markings/tattoo/tiger_body // Yep, this is repeated. To be fixed later
 	name = "Tiger-stripe Tattoo"
-	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
+	species_allowed = list(SPECIES_HUMAN, "Unathi", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "tiger"
 
 /datum/sprite_accessory/body_markings/tattoo/heart
@@ -36,15 +36,15 @@
 
 /datum/sprite_accessory/body_markings/heterochromia
 	name = "Heterochromia"
-	species_allowed = list("Human")
+	species_allowed = list(SPECIES_HUMAN)
 	icon_state = "heterochromia"
 
 /datum/sprite_accessory/body_markings/eyebrows
 	name = "Eyebrows"
-	species_allowed = list("Human")
+	species_allowed = list(SPECIES_HUMAN)
 	icon_state = "eyebrows"
 
 /datum/sprite_accessory/body_markings/mono_eyebrows
 	name = "Monobrows"
-	species_allowed = list("Human")
+	species_allowed = list(SPECIES_HUMAN)
 	icon_state = "mono_eyebrows"

@@ -40,7 +40,7 @@
 
 		else if (href_list["interaction"] == "scratch")
 			if(((!istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && H.Adjacent(P))
-				if(H.zone_selected == BODY_ZONE_HEAD && !((P.dna.species.name == "Machine") || (P.dna.species.name == "Grey") || (P.dna.species.name == "Unathi")))
+				if(H.zone_selected == BODY_ZONE_HEAD && !((P.dna.species.name == SPECIES_MACNINEPERSON) || (P.dna.species.name == SPECIES_GREY) || (P.dna.species.name == SPECIES_UNATHI)))
 					H.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ут")] голову")] [P].")
 					if (istype(P.loc, /obj/structure/closet))
 						P.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ут")] голову")] [P].")
