@@ -253,6 +253,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	/// Minigames notification about their end, start and etc.
 	var/minigames_notifications = TRUE
 
+	///TRUE when a player declines to be included for the selection process of game mode antagonists.
+	var/skip_antag = FALSE
+
 
 /datum/preferences/New(client/C)
 	parent = C
