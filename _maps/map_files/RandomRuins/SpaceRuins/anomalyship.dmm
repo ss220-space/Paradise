@@ -637,7 +637,7 @@
 	pixel_x = 8;
 	pixel_y = 13
 	},
-/obj/item/borg/upgrade/modkit/cooldown{
+/obj/item/borg/upgrade/modkit/cooldown/haste{
 	pixel_x = -5;
 	pixel_y = 1
 	},

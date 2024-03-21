@@ -546,6 +546,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = "robot"
 	custom_panel = null
 	module.remove_subsystems_and_actions(src)
+
+	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
+		qdel(upgrade)
+
 	QDEL_NULL(module)
 
 	camera?.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
@@ -557,9 +561,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_headlamp()
 	robot_module_hat_offset(icon_state)
 	drop_hat()
-
-	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
-		qdel(upgrade)
 
 	add_language(LANGUAGE_BINARY, 1)
 	status_flags |= CANPUSH
@@ -834,19 +835,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
 
-	else if(istype(W, /obj/item/borg/upgrade/))
+	else if(istype(W, /obj/item/borg/upgrade))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
-			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
-		else if(!src.module && U.require_module)
-			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
-		else if(U.locked)
-			to_chat(user, "<span class='warning'>The upgrade is locked and cannot be used yet!</span>")
+			to_chat(user, span_warning("You must access the borg's internals!"))
+		else if(!module && U.require_module)
+			to_chat(user, span_warning("The borg must choose a module before it can be upgraded!"))
 		else
 			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 			if(U.action(src, user))
-				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
+				user.visible_message(span_notice("[user] applied [U] to [src]."), span_notice("You apply [U] to [src]."))
 				install_upgrade(U)
 				module?.fix_modules()	//Set up newly added items with NODROP flag.
 			else
@@ -867,11 +866,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
+
 	else if(istype(W, /obj/item/clockwork/clockslab) && isclocker(src) && isclocker(user) && src != user)
 		locked = !locked
 		to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
 		to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
 		update_icons()
+
 	else
 		return ..()
 
