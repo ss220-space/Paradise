@@ -77,6 +77,7 @@
 	desc = "A mining lantern."
 	light_range = 6			// luminosity when on
 	light_color = LIGHT_COLOR_YELLOW
+	light_system = MOVABLE_LIGHT
 
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
