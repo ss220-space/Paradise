@@ -26,7 +26,7 @@
 	display_name = "striped scarf, select"
 	path = /obj/item/clothing/accessory/stripedredscarf
 
-/datum/gear/accessory/scarfstripedred/New()
+/datum/gear/accessory/scarfstriped/New()
 	..()
 	var/list/scarfs = list(/obj/item/clothing/accessory/stripedredscarf,
 						   /obj/item/clothing/accessory/stripedgreenscarf,
