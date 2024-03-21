@@ -289,7 +289,7 @@
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
+			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 
@@ -325,7 +325,7 @@
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
 		if(!player.client \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
+			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 

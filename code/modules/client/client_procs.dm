@@ -316,7 +316,6 @@
 	else
 		prefs.parent = src
 
-
 	// Setup widescreen
 	view = prefs.viewrange
 

@@ -51,7 +51,7 @@
 			if(player.mind.assigned_role == job)
 				continue
 
-		if(!ishuman(player) || !(ROLE_TRAITOR in player.client.prefs.be_special) || player.client.skip_antag \
+		if(!ishuman(player) || !(ROLE_TRAITOR in player.client.prefs.be_special) || player.client.prefs?.skip_antag \
 			|| jobban_isbanned(player, ROLE_TRAITOR) || jobban_isbanned(player, "Syndicate") \
 			|| !player_old_enough_antag(player.client, ROLE_TRAITOR))
 			continue
