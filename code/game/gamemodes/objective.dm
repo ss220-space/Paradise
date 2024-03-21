@@ -995,7 +995,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(SSticker.current_state == GAME_STATE_SETTING_UP)
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(player.client && player.ready && !(player.mind in get_owners()))
-					if(player.client.prefs && (player.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
+					if(player.client.prefs && (player.client.prefs.species == SPECIES_MACNINEPERSON)) // Special check for species that can't be absorbed. No better solution.
 						continue
 					n_p++
 

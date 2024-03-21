@@ -226,11 +226,63 @@
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
-//Human sub-species names, used only in uplink (todo: fill the rest)
+//Human sub-species names
+#define SPECIES_ABDUCTOR "Abductor"
+#define SPECIES_DIONA "Diona"
+#define SPECIES_DRASK "Drask"
+
+#define SPECIES_GOLEM_BASIC "Голем" //basic-golem used in gamemodes, but not subtypes? whoever find this comment - take a closer look at this
+#define SPECIES_GOLEM_RANDOM "Случайный Голем"
+#define SPECIES_GOLEM_ADAMANTINE "Адамантиновый Голем"
+#define SPECIES_GOLEM_PLASMA "Плазменный Голем"
+#define SPECIES_GOLEM_DIAMOND "Алмазный Голем"
+#define SPECIES_GOLEM_GOLD "Золотой Голем"
+#define SPECIES_GOLEM_SILVER "Серебрянный Голем"
+#define SPECIES_GOLEM_PLASTEEL "Пласталиевый Голем"
+#define SPECIES_GOLEM_TITANIUM "Титановый Голем"
+#define SPECIES_GOLEM_PLASTITANIUM "Пластитановый Голем"
+#define SPECIES_GOLEM_ALLOY "Голем из инопланетных сплавов"
+#define SPECIES_GOLEM_WOOD "Деревянный Голем"
+#define SPECIES_GOLEM_URANIUM "Урановый Голем"
+#define SPECIES_GOLEM_PLASTIC "Пластиковый Голем"
+#define SPECIES_GOLEM_SAND "Песчаный Голем"
+#define SPECIES_GOLEM_GLASS "Стеклянный Голем"
+#define SPECIES_GOLEM_BLUESPACE "Блюспейс-Голем"
+#define SPECIES_GOLEM_BANANIUM "Бананиевый Голем"
+#define SPECIES_GOLEM_TRANQUILLITITE "Транквилитовый Голем"
+#define SPECIES_GOLEM_CLOCKWORK "Латунный Голем"
+
+#define SPECIES_GREY "Grey"
+#define SPECIES_HUMAN "Human"
+#define SPECIES_KIDAN "Kidan"
 #define SPECIES_MACNINEPERSON "Machine"
-#define SPECIES_SLIMEPERSON "Slime People"
-#define SPECIES_PLASMAMAN "Plasmaman"
+#define SPECIES_MONKEY "Monkey"
+#define SPECIES_FARWA "Farwa"
+#define SPECIES_WOLPIN "Wolpin"
+#define SPECIES_NEARA "Neara"
+#define SPECIES_STOK "Stok"
+#define SPECIES_MOTH "Nian"
 #define SPECIES_NUCLEATION "Nucleation"
+#define SPECIES_PLASMAMAN "Plasmaman"
+
+#define SPECIES_SHADOW_BASIC "Shadow"
+#define SPECIES_SHADOWLING "Shadowling"
+#define SPECIES_LESSER_SHADOWLING "Lesser Shadowling"
+
+#define SPECIES_SKELETON "Skeleton"
+#define SPECIES_SKRELL "Skrell"
+#define SPECIES_SLIMEPERSON "Slime People"
+#define SPECIES_TAJARAN "Tajaran"
+
+#define SPECIES_UNATHI "Unathi"
+#define SPECIES_ASHWALKER_BASIC "Ash Walker"
+#define SPECIES_ASHWALKER_SHAMAN "Ash Walker Shaman"
+#define SPECIES_DRACONOID "Draconid"
+
+#define SPECIES_VOX "Vox"
+#define SPECIES_VOX_ARMALIS "Vox Armalis"
+#define SPECIES_VULPKANIN "Vulpkanin"
+#define SPECIES_WRYN "Wryn"
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))

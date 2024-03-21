@@ -6,7 +6,7 @@
 #define FLYSWATTER_DAMAGE_MULTIPLIER 9
 
 /datum/species/moth
-	name = "Nian"
+	name = SPECIES_MOTH
 	name_plural = "Nianae"
 	language = LANGUAGE_MOTH
 	icobase = 'icons/mob/human_races/r_moth.dmi'

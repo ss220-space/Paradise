@@ -10,7 +10,7 @@
 	required_enemies = 1
 	forbidden_antag_jobs = list(ROLE_VAMPIRE = list("Chaplain"))
 	var/list/protected_jobs_AI = list("Civilian","Chief Engineer","Station Engineer","Trainee Engineer","Life Support Specialist","Mechanic","Chief Medical Officer","Medical Doctor","Intern","Coroner","Chemist","Geneticist","Virologist","Psychiatrist","Paramedic","Research Director","Scientist","Student Scientist","Roboticist","Head of Personnel","Chaplain","Bartender","Chef","Botanist","Quartermaster","Cargo Technician","Shaft Miner","Clown","Mime","Janitor","Librarian","Barber","Explorer")	// Basically all jobs, except AI.
-	var/secondary_protected_species = list("Machine")
+	var/secondary_protected_species = list(SPECIES_MACNINEPERSON)
 	var/vampire_restricted_jobs = list("Chaplain")
 	/// Chosen antags if any. Key - mind, value - antag type
 	var/list/datum/mind/pre_antags = list()
@@ -50,7 +50,7 @@
 	antag_possibilities[ROLE_VAMPIRE] = get_alive_players_for_role(ROLE_VAMPIRE)
 	antag_possibilities[ROLE_CHANGELING] = get_alive_players_for_role(ROLE_CHANGELING)
 	antag_possibilities[ROLE_TRAITOR] =	get_alive_players_for_role(ROLE_TRAITOR)
-	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list("Vox" = 4))
+	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
@@ -207,7 +207,7 @@
 	antag_possibilities[ROLE_VAMPIRE] = get_players_for_role(ROLE_VAMPIRE)
 	antag_possibilities[ROLE_CHANGELING] = get_players_for_role(ROLE_CHANGELING)
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
-	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
+	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 
 	calculate_antags()
 
