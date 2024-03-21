@@ -24,12 +24,12 @@
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
 		// Civilian
-		"Civilian" = "radio",
+		JOB_TITLE_CIVILIAN = "radio",
 		// Command (Solo command, not department heads)
 		JOB_TITLE_BLUESHIELD = "comradio",
 		JOB_TITLE_CAPTAIN = "comradio",
 		JOB_TITLE_HOP = "comradio",
-		JOB_TITLE_NANO = "comradio",
+		JOB_TITLE_REPRESENTATIVE = "comradio",
 		// Engineeering
 		JOB_TITLE_CHIEF = "engradio",
 		JOB_TITLE_ATMOSTECH = "engradio",
@@ -69,7 +69,6 @@
 		JOB_TITLE_LAWYER = "secradio",
 		JOB_TITLE_JUDGE = "secradio",
 		JOB_TITLE_OFFICER = "secradio",
-		"Security Cadet" = "secradio",
 		JOB_TITLE_PILOT = "secradio",
 		JOB_TITLE_WARDEN = "secradio",
 		// Supply
@@ -88,7 +87,7 @@
 		JOB_TITLE_MIME = "srvradio",
 	)
 	/// List of Command jobs
-	var/list/heads = list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_NANO, JOB_TITLE_BLUESHIELD, JOB_TITLE_CHIEF, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_AI, "Syndicate Research Director", "Syndicate Comms Officer")
+	var/list/heads = list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_CHIEF, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_AI, "Syndicate Research Director", "Syndicate Comms Officer")
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs

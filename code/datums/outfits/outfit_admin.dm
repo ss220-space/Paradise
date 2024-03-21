@@ -416,7 +416,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando", "deathsquad")
-		I.photo = get_id_photo(H, custom_job = JOB_TITLE_NANO) // They should go die with a good photo instead of assistants grey shorts xD
+		I.photo = get_id_photo(H, custom_job = JOB_TITLE_REPRESENTATIVE) // They should go die with a good photo instead of assistants grey shorts xD
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/death_commando/officer

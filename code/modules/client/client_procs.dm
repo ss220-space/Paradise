@@ -145,7 +145,7 @@
 						if("2")
 							karma_purchase(karma,5,"job", JOB_TITLE_BRIGDOC)
 						if("3")
-							karma_purchase(karma,30,"job", JOB_TITLE_NANO)
+							karma_purchase(karma,30,"job", JOB_TITLE_REPRESENTATIVE)
 						if("5")
 							karma_purchase(karma,30,"job", JOB_TITLE_BLUESHIELD)
 						if("6")

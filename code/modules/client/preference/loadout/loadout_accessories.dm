@@ -68,7 +68,7 @@
 /datum/gear/accessory/ntrjacket
 	display_name = "jacket, nt rep"
 	path = /obj/item/clothing/accessory/ntrjacket
-	allowed_roles = list(JOB_TITLE_NANO)
+	allowed_roles = list(JOB_TITLE_REPRESENTATIVE)
 
 /datum/gear/accessory/cowboyshirt
 	display_name = "cowboy shirt, select"

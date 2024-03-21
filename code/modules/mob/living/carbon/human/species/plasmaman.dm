@@ -97,13 +97,13 @@
 		if(JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)
 			O = new /datum/outfit/plasmaman/nt
 
-		if(JOB_TITLE_NANO)
+		if(JOB_TITLE_REPRESENTATIVE)
 			O = new /datum/outfit/plasmaman/nt_rep
 
 		if(JOB_TITLE_CHEF)
 			O = new /datum/outfit/plasmaman/chef
 
-		if(JOB_TITLE_OFFICER, "Security Cadet")
+		if(JOB_TITLE_OFFICER)
 			O = new /datum/outfit/plasmaman/security
 
 		if(JOB_TITLE_CCSPECOPS, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD)

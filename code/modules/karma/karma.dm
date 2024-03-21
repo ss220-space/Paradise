@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>"
 			else
 				dat += "Brig Physician - <font color='green'>Unlocked</font><br>"
-			if(!(JOB_TITLE_NANO in joblist))
+			if(!(JOB_TITLE_REPRESENTATIVE in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>"
 			else
 				dat += "Nanotrasen Representative - <font color='green'>Unlocked</font><br>"

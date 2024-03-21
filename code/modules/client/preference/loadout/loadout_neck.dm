@@ -84,7 +84,7 @@
 /datum/gear/neck/cloak/job/nanotrasen_representative
 	display_name = "cloak, nanotrasen representative"
 	path = /obj/item/clothing/neck/cloak/nanotrasen_representative
-	allowed_roles = list(JOB_TITLE_NANO)
+	allowed_roles = list(JOB_TITLE_REPRESENTATIVE)
 
 /datum/gear/neck/cloak/job/blueshield
 	display_name = "cloak, blueshield"

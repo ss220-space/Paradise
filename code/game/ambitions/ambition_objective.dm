@@ -39,8 +39,8 @@
 				return pick_list_weight("ambition_objectives_command.json", "Common")
 			return pick_list_weight("ambition_objectives_law.json", job)
 
-		if(JOB_TITLE_NANO, JOB_TITLE_BLUESHIELD)
-			if(owner.assigned_role == JOB_TITLE_NANO && (prob(chance_other_departament_ambition))) //шанс что НТР возьмёт общую амбицию закона.
+		if(JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD)
+			if(owner.assigned_role == JOB_TITLE_REPRESENTATIVE && (prob(chance_other_departament_ambition))) //шанс что НТР возьмёт общую амбицию закона.
 				return pick_list_weight("ambition_objectives_law.json", "Common")
 			return pick_list_weight("ambition_objectives_representative.json", job)
 
@@ -82,7 +82,7 @@
 			result = pick_list_weight("ambition_objectives_command.json", job)
 		return result
 
-	var/list/non_support_roles = list(JOB_TITLE_JUDGE, JOB_TITLE_LAWYER, JOB_TITLE_BLUESHIELD, JOB_TITLE_NANO)
+	var/list/non_support_roles = list(JOB_TITLE_JUDGE, JOB_TITLE_LAWYER, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE)
 	if(owner.assigned_role in (GLOB.support_positions - GLOB.supply_positions - non_support_roles))
 		return pick_list_weight("ambition_objectives_support.json", job)
 

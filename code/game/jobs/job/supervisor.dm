@@ -110,8 +110,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 
 /datum/job/nanotrasenrep
-	title = JOB_TITLE_NANO
-	flag = JOB_FLAG_NANO
+	title = JOB_TITLE_REPRESENTATIVE
+	flag = JOB_FLAG_REPRESENTATIVE
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
