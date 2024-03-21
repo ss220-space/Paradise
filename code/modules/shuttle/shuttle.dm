@@ -935,6 +935,10 @@
 	shuttleId = "ruins_transport_shuttle"
 	possible_destinations = "ussp_dock;dj_post;sindiecake_dock;ussp_gorky17"
 
+/obj/machinery/computer/shuttle/ruins_transport_shuttle/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame"
+	icon_keyboard = "kb6"
 
 /obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.
 	name = "Regular Civilian Shuttle Console"

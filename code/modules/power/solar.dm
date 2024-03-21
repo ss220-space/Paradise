@@ -293,6 +293,12 @@
 	var/obj/machinery/power/tracker/connected_tracker = null
 	var/list/connected_panels = list()
 
+/obj/machinery/power/solar_control/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "solar_oldframe"
+	icon_state = "frame-eng"
+	icon_keyboard = "kb14"
+
 // Used for mapping in solar array which automatically starts itself (telecomms, for example)
 /obj/machinery/power/solar_control/autostart
 	track = TRACKER_AUTO
