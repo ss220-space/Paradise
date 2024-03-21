@@ -67,6 +67,8 @@
 		/obj/item/fish,
 		/obj/item/fish_eggs,
 		/obj/item/reagent_containers/food/snacks/shrimp,
+		/obj/item/reagent_containers/food/snacks/crayfish_raw,
+		/obj/item/reagent_containers/food/snacks/crayfish_raw_small,
 	)
 	resistance_flags = FLAMMABLE
 
