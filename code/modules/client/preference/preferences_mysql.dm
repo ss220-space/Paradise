@@ -306,7 +306,9 @@
 		//socks
 		socks = query.item[52]
 		body_accessory = query.item[53]
-		loadout_gear = params2list(query.item[54])
+		var/list/unformated_loadout_gear = params2list(query.item[54])
+		for(var/gear in unformated_loadout_gear)
+			loadout_gear[gear] = params2list(unformated_loadout_gear[gear])
 		autohiss_mode = text2num(query.item[55])
 		uplink_pref = query.item[56]
 
@@ -424,7 +426,10 @@
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(loadout_gear))
-		gearlist = list2params(loadout_gear)
+		var/list/savelist = list()
+		for(var/gear in loadout_gear)
+			savelist[gear] = list2params(loadout_gear[gear])
+		gearlist = list2params(savelist)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey

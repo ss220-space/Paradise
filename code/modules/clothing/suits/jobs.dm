@@ -510,7 +510,7 @@
 	. = ..()
 	if(!color && paintable)
 		color = "#a30e22"
-		update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/clothing/suit/suspenders/attackby(obj/D, mob/user, params)

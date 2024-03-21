@@ -233,6 +233,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	//Gear stuff
 	var/list/loadout_gear = list()
+	var/list/choosen_gears = list()
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
@@ -267,6 +268,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
 			if(load_character(C))
+				for(var/gear in loadout_gear)
+					var/datum/geartype = GLOB.gear_datums[gear]
+					if(!istype(geartype))
+						loadout_gear -= gear // Delete wrong/outdated data
+						continue
+					var/datum/gear/new_gear = new geartype.type
+					for(var/tweak in loadout_gear[gear])
+						for(var/datum/gear_tweak/gear_tweak in new_gear.gear_tweaks)
+							if(istype(gear_tweak, text2path(tweak)))
+								set_tweak_metadata(new_gear, gear_tweak, loadout_gear[gear][tweak])
+					choosen_gears[gear] = new_gear
 				C.prefs?.init_custom_emotes(C.prefs.custom_emotes)
 				return
 	//we couldn't load character data so just randomize the character appearance + name
@@ -602,7 +614,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/fcolor =  "#3366CC"
 			if(total_cost < max_gear_slots)
 				fcolor = "#E67300"
-			dat += "<table align='center' width='100%'>"
+			dat += "<table align='center' width='100%' border='4px solid' >"
 			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> loadout points spent.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
 
@@ -619,29 +631,25 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</b></center></td></tr>"
 
 			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
-			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
-			dat += "<tr><td colspan=4><hr></td></tr>"
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
-				var/ticked = (G.display_name in loadout_gear)
+				var/datum/gear/ticked = choosen_gears[G.display_name]
 				if(G.donator_tier > user.client.donator_level)
-					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B><br/><img src=data:image/jpeg;base64,[G.base64icon] class='loadoutPreview'></td>"
+					dat += "<tr align='center' style='vertical-align:top;'><td width=20% align='center' style='vertical-align:middle'><B>[G.display_name]</B><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
 				else
-					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[G.base64icon] class='loadoutPreview'></td>"
-				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
+					dat += "<tr align='center' style='vertical-align:top;'><td width=15%><a style='white-space:normal;vertical-align:middle' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
+				if(ticked)
+					for(var/datum/gear_tweak/tweak in ticked.gear_tweaks)
+						dat += "<br/><a href='?_src_=prefs;preference=gear;gear=[ticked.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(ticked, tweak))]</a>"
+				dat += "</td><td width = 5% align='center' style='vertical-align:middle'><b>[G.cost]</b></td><td style='vertical-align:middle'>"
 				if(G.allowed_roles)
 					dat += "<font size=2>Restrictions: "
 					for(var/role in G.allowed_roles)
 						dat += role + " "
 					dat += "</font>"
 				var/donor_info = G.donator_tier > 0 ? "\[Tier [G.donator_tier]\] " : ""
-				dat += "</td><td><font size=2>[donor_info]<i>[G.description]</i></font></td></tr>"
-				if(ticked)
-					. += "<tr><td colspan=4>"
-					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
-						. += " <a href='?_src_=prefs;preference=gear;gear=[G.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(G, tweak))]</a>"
-					. += "</td></tr>"
+				dat += "</td><td style='vertical-align:middle'><font size=2>[donor_info]<i>[ticked ? ticked.description : G.description] <br/></i></font></td></tr>"
 			dat += "</table>"
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
@@ -733,6 +741,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
 	var/list/metadata = get_gear_metadata(G)
 	metadata["[tweak]"] = new_metadata
+	tweak.update_gear_intro(new_metadata)
 
 
 /datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Research Director", "Magistrate"), widthPerColumn = 400, height = 700)
@@ -1399,6 +1408,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/datum/gear/TG = GLOB.gear_datums[href_list["toggle_gear"]]
 			if(TG.display_name in loadout_gear)
 				loadout_gear -= TG.display_name
+				choosen_gears -= TG.display_name
 			else
 				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
 					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
@@ -1416,9 +1426,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if((total_cost + TG.cost) <= max_gear_slots)
 					loadout_gear += TG.display_name
-
+					choosen_gears[TG.display_name] += new TG.type
 		else if(href_list["gear"] && href_list["tweak"])
-			var/datum/gear/gear = GLOB.gear_datums[href_list["gear"]]
+			var/datum/gear/gear = choosen_gears[href_list["gear"]]
 			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
 			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
 				return
@@ -1430,6 +1440,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])
 			loadout_gear.Cut()
+			choosen_gears.Cut()
 
 		ShowChoices(user)
 		return
