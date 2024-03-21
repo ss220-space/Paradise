@@ -310,13 +310,17 @@
 					queue_smooth(A)
 
 /atom/proc/clear_smooth_overlays()
-	cut_overlay(top_left_corner)
+	//cut_overlay(top_left_corner)
+	overlays -= top_left_corner
 	top_left_corner = null
-	cut_overlay(top_right_corner)
+	//cut_overlay(top_right_corner)
+	overlays -= top_right_corner
 	top_right_corner = null
-	cut_overlay(bottom_right_corner)
+	//cut_overlay(bottom_right_corner)
+	overlays -= bottom_right_corner
 	bottom_right_corner = null
-	cut_overlay(bottom_left_corner)
+	//cut_overlay(bottom_left_corner)
+	overlays -= bottom_left_corner
 	bottom_left_corner = null
 
 /atom/proc/replace_smooth_overlays(nw, ne, sw, se)
