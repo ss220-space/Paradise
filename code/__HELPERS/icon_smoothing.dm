@@ -236,33 +236,27 @@
 	var/list/New = list()
 
 	if(A.top_left_corner != nw)
-		//A.cut_overlay(A.top_left_corner)
-		A.overlays -= A.top_left_corner
+		A.cut_overlay(A.top_left_corner)
 		A.top_left_corner = nw
 		New += nw
 
 	if(A.top_right_corner != ne)
-		//A.cut_overlay(A.top_right_corner)
-		A.overlays -= A.top_right_corner
+		A.cut_overlay(A.top_right_corner)
 		A.top_right_corner = ne
 		New += ne
 
 	if(A.bottom_right_corner != sw)
-		//A.cut_overlay(A.bottom_right_corner)
-		A.overlays -= A.bottom_right_corner
+		A.cut_overlay(A.bottom_right_corner)
 		A.bottom_right_corner = sw
 		New += sw
 
 	if(A.bottom_left_corner != se)
-		//A.cut_overlay(A.bottom_left_corner)
-		A.overlays -= A.bottom_left_corner
+		A.cut_overlay(A.bottom_left_corner)
 		A.bottom_left_corner = se
 		New += se
 
 	if(New.len)
-		//add_overlay for smoothing is broken as hell
-		//A.add_overlay(New)
-		A.overlays.Add(New)
+		A.add_overlay(New)
 
 
 /proc/find_type_in_direction(atom/source, direction)
@@ -314,17 +308,13 @@
 					queue_smooth(A)
 
 /atom/proc/clear_smooth_overlays()
-	//cut_overlay(top_left_corner)
-	overlays -= top_left_corner
+	cut_overlay(top_left_corner)
 	top_left_corner = null
-	//cut_overlay(top_right_corner)
-	overlays -= top_right_corner
+	cut_overlay(top_right_corner)
 	top_right_corner = null
-	//cut_overlay(bottom_right_corner)
-	overlays -= bottom_right_corner
+	cut_overlay(bottom_right_corner)
 	bottom_right_corner = null
-	//cut_overlay(bottom_left_corner)
-	overlays -= bottom_left_corner
+	cut_overlay(bottom_left_corner)
 	bottom_left_corner = null
 
 /atom/proc/replace_smooth_overlays(nw, ne, sw, se)
@@ -339,9 +329,7 @@
 	bottom_right_corner = se
 	O += se
 
-	overlays.Add(O)
-	//add_overlay is cursed rn for smoothing sadly
-	//add_overlay(O)
+	add_overlay(O)
 
 /proc/reverse_ndir(ndir)
 	switch(ndir)
