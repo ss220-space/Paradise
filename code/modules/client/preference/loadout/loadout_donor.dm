@@ -116,3 +116,52 @@
 	path = /obj/item/lighter/zippo
 	donator_tier = 1
 	cost = 1
+
+/datum/gear/donor/capstrip
+	display_name = "strip, Captain"
+	path = /obj/item/clothing/accessory/head_strip
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Captain")
+
+/datum/gear/donor/rdstrip
+	display_name = "strip, Research Director"
+	path = /obj/item/clothing/accessory/head_strip/rd
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Research Director")
+
+/datum/gear/donor/cestrip
+	display_name = "strip, Chief Engineer"
+	path = /obj/item/clothing/accessory/head_strip/ce
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Chief Engineer")
+
+/datum/gear/donor/cmostrip
+	display_name = "strip, Chief Medical Officer"
+	path = /obj/item/clothing/accessory/head_strip/cmo
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Chief Medical Officer")
+
+/datum/gear/donor/hopstrip
+	display_name = "strip, Head of Personal"
+	path = /obj/item/clothing/accessory/head_strip/hop
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Head of Personal")
+
+/datum/gear/donor/hosstrip
+	display_name = "strip, Head of Security"
+	path = /obj/item/clothing/accessory/head_strip/hos
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Head of Security")
+
+/datum/gear/donor/qmstrip
+	display_name = "strip, Quatermaster"
+	path = /obj/item/clothing/accessory/head_strip/qm
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Quatermaster")
