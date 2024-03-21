@@ -236,22 +236,26 @@
 	var/list/New = list()
 
 	if(A.top_left_corner != nw)
-		A.cut_overlay(A.top_left_corner)
+		//A.cut_overlay(A.top_left_corner)
+		A.overlays -= A.top_left_corner
 		A.top_left_corner = nw
 		New += nw
 
 	if(A.top_right_corner != ne)
-		A.cut_overlay(A.top_right_corner)
+		//A.cut_overlay(A.top_right_corner)
+		A.overlays -= A.top_right_corner
 		A.top_right_corner = ne
 		New += ne
 
 	if(A.bottom_right_corner != sw)
-		A.cut_overlay(A.bottom_right_corner)
+		//A.cut_overlay(A.bottom_right_corner)
+		A.overlays -= A.bottom_right_corner
 		A.bottom_right_corner = sw
 		New += sw
 
 	if(A.bottom_left_corner != se)
-		A.cut_overlay(A.bottom_left_corner)
+		//A.cut_overlay(A.bottom_left_corner)
+		A.overlays -= A.bottom_left_corner
 		A.bottom_left_corner = se
 		New += se
 
