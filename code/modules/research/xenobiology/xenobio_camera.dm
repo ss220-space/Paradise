@@ -184,7 +184,7 @@
 			qdel(O)
 		return
 	if(istype(O, /obj/item/slimepotion/slime))
-		if(!user.drop_transfer_item_to_loc(O, src))
+		if(!user.drop_item_ground(O))
 			return
 		add_fingerprint(user)
 		to_chat(user, span_notice("You load [O] in the console's potion slot[current_potion ? ", replacing the one that was there before" : ""]."))
@@ -492,16 +492,18 @@
 
 //Pick up monkey
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/human/M)
-	if(!GLOB.cameranet.checkTurfVis(M.loc))
+	var/turf/monkey_turf = get_turf(M)
+	if(!istype(monkey_turf))
+		return
+	if(!GLOB.cameranet.checkTurfVis(monkey_turf))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
-	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
+	var/mob/camera/aiEye/remote/xenobio/E = user.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/area/mobarea = get_area(M.loc)
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 	if(!recycler)
-		to_chat(C, "<span class='notice'>There is no connected monkey recycler. Use a multitool to link one.</span>")
+		to_chat(user, "<span class='notice'>There is no connected monkey recycler. Use a multitool to link one.</span>")
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(issmall(M) && M.stat)

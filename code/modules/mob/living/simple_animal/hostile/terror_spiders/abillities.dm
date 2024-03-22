@@ -218,13 +218,12 @@
 	light_color = LIGHT_COLOR_PURPLE
 
 
-/obj/effect/forcefield/terror/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+/obj/effect/forcefield/terror/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-	var/mob/living/M = get_mob_in_atom_without_warning(mover)
-	if("terrorspiders" in M.faction)
-		return TRUE
-	return FALSE
+	var/mob/living/mob_check = get_mob_in_atom_without_warning(mover)
+	return ("terrorspiders" in mob_check.faction)
 
 
 //DEFILER//

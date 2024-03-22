@@ -178,7 +178,7 @@
 	if(water_overlay_image)
 		var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = water_overlay_image, layer = ABOVE_MOB_LAYER)
 		overlay_image.plane = GAME_PLANE
-		overlays += overlay_image
+		add_overlay(overlay_image)
 
 /turf/simulated/floor/indestructible/beach/sand
 	name = "Sand"

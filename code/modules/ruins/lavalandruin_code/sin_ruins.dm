@@ -88,18 +88,23 @@
 	icon = 'icons/mob/blob.dmi'
 	color = rgb(145, 150, 0)
 
-/obj/effect/gluttony/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
+
+/obj/effect/gluttony/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(ishuman(mover))
-		var/mob/living/carbon/human/H = mover
-		if(H.nutrition >= NUTRITION_LEVEL_FAT || (FAT in H.mutations))
-			H.visible_message("<span class='warning'>[H] pushes through [src]!</span>", "<span class='notice'>You've seen and eaten worse than this.</span>")
+		var/mob/living/carbon/human/human_mover = mover
+		if(human_mover.nutrition >= NUTRITION_LEVEL_FAT || (FAT in human_mover.mutations))
+			human_mover.visible_message(
+				span_warning("[human_mover] pushes through [src]!"),
+				span_notice("You've seen and eaten worse than this."),
+			)
 			return TRUE
 		else
-			to_chat(H, "<span class='warning'>You're repulsed by even looking at [src]. Only a pig could force themselves to go through it.</span>")
+			to_chat(human_mover, span_warning("You're repulsed by even looking at [src]. Only a pig could force themselves to go through it."))
+
 	if(istype(mover, /mob/living/simple_animal/hostile/morph))
 		return TRUE
-	else
-		return FALSE
+
 
 // Pride
 /obj/structure/mirror/magic/pride //Pride's mirror: Used in the Pride ruin.

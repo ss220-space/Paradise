@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
-	additional_law_channels["Binary"] = ":bi "
+	additional_law_channels["Binary"] = get_language_prefix(LANGUAGE_BINARY)
 	if(!connect_to_AI)
 		return
 	var/found_ai = ai_to_sync_to
@@ -546,6 +546,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = "robot"
 	custom_panel = null
 	module.remove_subsystems_and_actions(src)
+
+	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
+		qdel(upgrade)
+
 	QDEL_NULL(module)
 
 	camera?.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
@@ -557,9 +561,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_headlamp()
 	robot_module_hat_offset(icon_state)
 	drop_hat()
-
-	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
-		qdel(upgrade)
 
 	add_language(LANGUAGE_BINARY, 1)
 	status_flags |= CANPUSH
@@ -834,19 +835,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
 
-	else if(istype(W, /obj/item/borg/upgrade/))
+	else if(istype(W, /obj/item/borg/upgrade))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
-			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
-		else if(!src.module && U.require_module)
-			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
-		else if(U.locked)
-			to_chat(user, "<span class='warning'>The upgrade is locked and cannot be used yet!</span>")
+			to_chat(user, span_warning("You must access the borg's internals!"))
+		else if(!module && U.require_module)
+			to_chat(user, span_warning("The borg must choose a module before it can be upgraded!"))
 		else
 			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 			if(U.action(src, user))
-				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
+				user.visible_message(span_notice("[user] applied [U] to [src]."), span_notice("You apply [U] to [src]."))
 				install_upgrade(U)
 				module?.fix_modules()	//Set up newly added items with NODROP flag.
 			else
@@ -867,11 +866,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
+
 	else if(istype(W, /obj/item/clockwork/clockslab) && isclocker(src) && isclocker(user) && src != user)
 		locked = !locked
 		to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
 		to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
 		update_icons()
+
 	else
 		return ..()
 
@@ -1112,21 +1113,29 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	qdel(dummy)
 	return 0
 
+
+/mob/living/silicon/robot/regenerate_icons()
+	return update_icons()
+
+
 /mob/living/silicon/robot/update_icons()
-	overlays.Cut()
+	cut_overlays()
+
 	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
+		var/eyes_olay
 		if(custom_panel in custom_eye_names)
 			if(isclocker(src) && SSticker.mode.power_reveal)
-				overlays += "eyes-[custom_panel]-clocked"
+				eyes_olay = "eyes-[custom_panel]-clocked"
 			else
-				overlays += "eyes-[custom_panel]"
+				eyes_olay = "eyes-[custom_panel]"
 		else
 			if(isclocker(src) && SSticker.mode.power_reveal)
-				overlays += "eyes-[icon_state]-clocked"
+				eyes_olay = "eyes-[icon_state]-clocked"
 			else
-				overlays += "eyes-[icon_state]"
-	else
-		overlays -= "eyes"
+				eyes_olay = "eyes-[icon_state]"
+		if(eyes_olay)
+			add_overlay(eyes_olay)
+
 	if(opened)
 		var/panelprefix = "ov"
 		if(custom_sprite) //Custom borgs also have custom panels, heh
@@ -1134,15 +1143,31 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(custom_panel in custom_panel_names) //For default borgs with different panels
 			panelprefix = custom_panel
 		if(wiresexposed)
-			overlays += "[panelprefix]-openpanel +w"
+			add_overlay("[panelprefix]-openpanel +w")
 		else if(cell)
-			overlays += "[panelprefix]-openpanel +c"
+			add_overlay("[panelprefix]-openpanel +c")
 		else
-			overlays += "[panelprefix]-openpanel -c"
+			add_overlay("[panelprefix]-openpanel -c")
 
-	hat_icons()
+	if(inventory_head)
+		var/image/head_icon
+		if(!hat_icon_state)
+			hat_icon_state = inventory_head.icon_state
+		if(!hat_alpha)
+			hat_alpha = inventory_head.alpha
+		if(!hat_color)
+			hat_color = inventory_head.color
+
+		head_icon = get_hat_overlay()
+		if(head_icon)
+			add_overlay(head_icon)
+
 	borg_icons()
 	update_fire()
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
+
 
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
 	return
@@ -1460,7 +1485,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			choices[skin] = skin_image
 		choice = show_radial_menu(src, src, choices, require_near = TRUE)
 
-	overlays.Cut()
+	cut_overlays()
 	if(choice)
 		icon_state = module.borg_skins[choice]
 		transform_animation(module.borg_skins[choice])
@@ -1649,7 +1674,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
-	additional_law_channels["Binary"] = ":bi "
+	additional_law_channels["Binary"] = get_language_prefix(LANGUAGE_BINARY)
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/destroyer(src)
 	module.add_languages(src)
@@ -1668,7 +1693,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		icon_state = "[base_icon]-roll"
 	else
 		icon_state = base_icon
-		overlays += "[base_icon]-shield"
+		add_overlay("[base_icon]-shield")
 
 
 /mob/living/silicon/robot/extinguish_light(force = FALSE)

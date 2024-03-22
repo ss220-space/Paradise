@@ -55,11 +55,6 @@
 		icon_state = initial(icon_state)
 
 
-/obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSBLOB))
-		return TRUE
-	return FALSE
-
 /obj/structure/blob/shield/reflective
 	name = "reflective blob"
 	desc = "A solid wall of slightly twitching tendrils with a reflective glow."

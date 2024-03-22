@@ -1,5 +1,5 @@
 /datum/species/shadow
-	name = "Shadow"
+	name = SPECIES_SHADOW_BASIC
 	name_plural = "Shadows"
 
 	icobase = 'icons/mob/human_races/r_shadow.dmi'

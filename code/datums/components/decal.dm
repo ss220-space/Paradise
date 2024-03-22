@@ -50,13 +50,13 @@
 
 /datum/component/decal/proc/apply(atom/thing)
 	var/atom/master = thing || parent
-	master.add_overlay(pic, TRUE)
+	master.add_overlay(pic)
 	if(isitem(master))
 		addtimer(CALLBACK(master, TYPE_PROC_REF(/obj/item, update_equipped_item)), 0, TIMER_UNIQUE)
 
 /datum/component/decal/proc/remove(atom/thing)
 	var/atom/master = thing || parent
-	master.cut_overlay(pic, TRUE)
+	master.cut_overlay(pic)
 	if(isitem(master))
 		addtimer(CALLBACK(master, TYPE_PROC_REF(/obj/item, update_equipped_item)), 0, TIMER_UNIQUE)
 

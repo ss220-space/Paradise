@@ -499,7 +499,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Vox Armalis", "syndie")
+		apply_to_card(I, H, get_all_accesses(), SPECIES_VOX_ARMALIS, "syndie")
 
 /datum/outfit/admin/tunnel_clown
 	name = "Tunnel Clown"

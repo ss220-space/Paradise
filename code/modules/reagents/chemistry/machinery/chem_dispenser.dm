@@ -355,8 +355,6 @@
 
 	if(!icon_beaker)
 		icon_beaker = mutable_appearance(icon, "disp_beaker")
-	else
-		cut_overlay(icon_beaker)	// trash overlays system. will be fixed as soon as TG style overlays are implemented
 
 	icon_beaker.pixel_x = rand(-10, 5)	// randomize beaker overlay position
 	. += icon_beaker

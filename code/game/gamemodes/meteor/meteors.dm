@@ -138,8 +138,12 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
 
-/obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0)
-	return istype(mover, /obj/effect/meteor) ? 1 : ..()
+
+/obj/effect/meteor/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/effect/meteor))
+		return TRUE
+
 
 /obj/effect/meteor/proc/ram_turf(var/turf/T)
 	//first bust whatever is in the turf

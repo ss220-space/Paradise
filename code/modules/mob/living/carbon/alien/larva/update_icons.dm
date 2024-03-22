@@ -1,7 +1,6 @@
 
 /mob/living/carbon/alien/larva/regenerate_icons()
-	overlays = list()
-	update_icons()
+	return update_icons()
 
 /mob/living/carbon/alien/larva/update_icons()
 	var/state = 0

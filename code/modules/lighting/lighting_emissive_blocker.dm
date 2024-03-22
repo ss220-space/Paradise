@@ -9,16 +9,27 @@
 	name = "emissive blocker"
 	plane = EMISSIVE_PLANE
 	layer = FLOAT_LAYER
+	color = EM_BLOCK_COLOR
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = EMISSIVE_APPEARANCE_FLAGS
 
 
-/atom/movable/emissive_blocker/Initialize(mapload, source)
+/atom/movable/emissive_blocker/Initialize(mapload, atom/source)
 	. = ..()
 	verbs.Cut() //Cargo culting from lighting object, this maybe affects memory usage?
 
-	render_source = source
-	color = EM_BLOCK_COLOR
+	if(!source)
+		return
+
+	render_source = source.render_target
+	RegisterSignal(source, COMSIG_PARENT_QDELETING, PROC_REF(on_source_deleting))
+
+
+/atom/movable/emissive_blocker/proc/on_source_deleting(atom/source)
+	SIGNAL_HANDLER
+
+	if(!QDELING(src))
+		qdel(src)
 
 
 /atom/movable/emissive_blocker/ex_act(severity)

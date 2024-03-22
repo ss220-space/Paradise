@@ -286,10 +286,7 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = -34
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet8-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/USSP_SpaceBanya)
 "mL" = (
 /obj/effect/decal/cleanable/dust,
@@ -517,10 +514,7 @@
 /area/ruin/USSP_SpaceBanya)
 "ue" = (
 /obj/effect/decal/cleanable/blood/gibs/xeno/body,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet4-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/USSP_SpaceBanya)
 "uN" = (
 /obj/effect/decal/cleanable/cobweb2,
@@ -684,10 +678,7 @@
 "Aq" = (
 /obj/effect/decal/cleanable/blood/gibs/xeno/limb,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet8-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/USSP_SpaceBanya)
 "AC" = (
 /turf/simulated/floor/indestructible/beach/water,
@@ -1137,10 +1128,7 @@
 /area/ruin/USSP_SpaceBanya)
 "WZ" = (
 /obj/item/cigbutt,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet4-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/USSP_SpaceBanya)
 "Xb" = (
 /obj/structure/chair/sofa/pew,

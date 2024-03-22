@@ -1,6 +1,6 @@
 /datum/sprite_accessory/hair/tajara
 	icon = 'icons/mob/sprite_accessories/tajaran/tajaran_hair.dmi'
-	species_allowed = list("Tajaran")
+	species_allowed = list(SPECIES_TAJARAN)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/tajara/taj_hair_clean

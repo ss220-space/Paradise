@@ -505,10 +505,7 @@
 	dir = 8
 	},
 /obj/machinery/disposal,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet6-2"
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "aaX" = (
 /obj/machinery/door/window/brigdoor{
@@ -5579,10 +5576,7 @@
 	anchored = 1;
 	dir = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet8-0"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "aOP" = (
 /obj/effect/decal/warning_stripes/west{
@@ -7094,9 +7088,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "aYj" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -8391,10 +8383,7 @@
 	pixel_x = 3;
 	pixel_y = -4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "bgM" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -8403,10 +8392,7 @@
 	},
 /area/engine/controlroom)
 "bgN" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "bgO" = (
 /obj/machinery/hologram/holopad,
@@ -13294,10 +13280,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "bEc" = (
 /obj/machinery/camera{
@@ -17317,9 +17300,7 @@
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Magistrate's Office"
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "bWX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -18094,17 +18075,12 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "cay" = (
 /obj/machinery/computer/secure_data/laptop,
 /obj/structure/table/wood,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "caA" = (
 /obj/machinery/power/rad_collector,
@@ -30065,9 +30041,7 @@
 	dir = 10
 	},
 /obj/machinery/computer/med_data/laptop,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/medical/psych)
 "dca" = (
 /obj/structure/disposalpipe/segment,
@@ -30925,9 +30899,7 @@
 /obj/item/pen/multi/gold,
 /obj/item/stamp/magistrate,
 /obj/effect/spawner/lootdrop/officetoys,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "dfI" = (
 /obj/structure/chair/stool/bar,
@@ -31056,8 +31028,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "dgb" = (
-/obj/structure/bed/dogbed/pet,
 /mob/living/simple_animal/goose/Scientist,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -33421,9 +33393,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/psychiatrist,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/medical/psych)
 "dpC" = (
 /obj/structure/closet/emcloset,
@@ -36051,12 +36021,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology)
-"dBV" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
-	},
-/area/magistrateoffice)
 "dBZ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -36543,10 +36507,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet6-2"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "dDO" = (
 /obj/effect/decal/warning_stripes/west,
@@ -36950,12 +36911,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/courtroom)
-"dFD" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet5-1"
-	},
-/area/magistrateoffice)
 "dFG" = (
 /turf/simulated/wall/rust,
 /area/maintenance/asmaint)
@@ -38423,9 +38378,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/magistrate,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "dLK" = (
 /obj/structure/closet/secure_closet/magistrate,
@@ -38444,9 +38397,7 @@
 	pixel_y = 5
 	},
 /obj/machinery/light,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/medical/psych)
 "dLM" = (
 /obj/effect/decal/warning_stripes/west{
@@ -38563,9 +38514,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -28
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/medical/psych)
 "dMc" = (
 /obj/structure/cable{
@@ -39465,10 +39414,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "dQa" = (
 /obj/machinery/light{
@@ -43654,9 +43600,7 @@
 	},
 /area/security/podbay)
 "epH" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "epM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -48448,7 +48392,7 @@
 	},
 /area/chapel/main)
 "fvB" = (
-/obj/machinery/atmospherics/unary/vent_scrubber,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -48634,9 +48578,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "fyp" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -52476,9 +52418,7 @@
 	pixel_x = -2;
 	pixel_y = 7
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "guX" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -52970,11 +52910,6 @@
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
-"gBu" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
-/area/magistrateoffice)
 "gBA" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -57339,10 +57274,7 @@
 	},
 /obj/structure/bed/dogbed,
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "hzS" = (
 /obj/structure/cable{
@@ -57856,9 +57788,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/medical/psych)
 "hGI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -61448,10 +61378,7 @@
 /obj/machinery/computer/secure_data/laptop{
 	pixel_y = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet6-2"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "izC" = (
 /obj/structure/rack{
@@ -62364,9 +62291,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/medical/psych)
 "iKD" = (
 /obj/machinery/light/small{
@@ -64933,15 +64858,6 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"jrG" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet12-0"
-	},
-/area/crew_quarters/courtroom)
 "jrJ" = (
 /obj/structure/closet/secure_closet/reagents,
 /obj/machinery/light{
@@ -74574,9 +74490,7 @@
 	icon_state = "1-2"
 	},
 /obj/item/folder/yellow,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "lMI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -82066,10 +81980,7 @@
 	req_access = list(74);
 	specialfunctions = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet5-1"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "nuG" = (
 /obj/structure/table/glass,
@@ -86823,10 +86734,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "oAs" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -88597,10 +88505,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet4-0"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "oVT" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -92041,9 +91946,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "pIb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -92157,10 +92060,7 @@
 	},
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "pIP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -95289,9 +95189,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/medical/psych)
 "qrA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -98742,10 +98640,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet5-1"
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "rfs" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -99778,9 +99673,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/magistrate,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "rsh" = (
 /obj/structure/table/wood,
@@ -107519,9 +107412,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "tiU" = (
 /obj/structure/chair/office/dark{
@@ -107710,9 +107601,7 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "tlZ" = (
 /obj/structure/chair/office/dark{
@@ -116492,9 +116381,7 @@
 	},
 /area/hallway/secondary/entry)
 "vlN" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi'
-	},
+/turf/simulated/floor/carpet,
 /area/medical/psych)
 "vlU" = (
 /obj/machinery/requests_console{
@@ -119826,10 +119713,7 @@
 	req_access = list(74)
 	},
 /obj/machinery/papershredder,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "vYk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -121557,10 +121441,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "wti" = (
 /obj/machinery/vending/shoedispenser,
@@ -173407,7 +173288,7 @@ sps
 fLk
 dtr
 sum
-jrG
+oVN
 msV
 ndu
 fLk
@@ -173664,7 +173545,7 @@ sps
 fLk
 fLk
 fLk
-jrG
+oVN
 fLk
 fLk
 fLk
@@ -175716,10 +175597,10 @@ wnD
 pOC
 xBx
 aaS
-dBV
-dBV
+bgN
+bgN
 caw
-dFD
+bgN
 dHl
 rwM
 bYM
@@ -175973,7 +175854,7 @@ qze
 wPK
 glJ
 bEa
-gBu
+bgN
 aYe
 dfE
 bgL

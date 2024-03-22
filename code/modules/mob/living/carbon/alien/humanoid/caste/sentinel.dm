@@ -84,7 +84,8 @@
 
 
 /mob/living/carbon/alien/humanoid/praetorian/update_icons()
-	overlays.Cut()
+	cut_overlays()
+
 	if(stat == DEAD)
 		icon_state = "prat_dead"
 	else if(stat == UNCONSCIOUS || lying || resting)
@@ -93,5 +94,8 @@
 		icon_state = "prat_s"
 
 	for(var/image/I in overlays_standing)
-		overlays += I
+		add_overlay(I)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 

@@ -23,7 +23,7 @@
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
-	if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
 	if(S.bodyflags & HAS_HEAD_ACCESSORY)
@@ -317,7 +317,7 @@
 
 		if(icon)
 			var/icon/temp = new(icon, icon_state)
-			if((current_species.name != "Nian") && current_species.bodyflags & HAS_SKIN_COLOR)
+			if((current_species.name != SPECIES_MOTH) && current_species.bodyflags & HAS_SKIN_COLOR)
 				temp.Blend(s_colour, blend_mode)
 			if(current_species.bodyflags & HAS_TAIL_MARKINGS)
 				var/tail_marking = m_styles["tail"]
@@ -363,7 +363,7 @@
 	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-		if(current_species.name == "Slime People") // whee I am part of the problem
+		if(current_species.name == SPECIES_SLIMEPERSON) // whee I am part of the problem
 			hair_s.Blend("[s_colour]A0", ICON_ADD)
 		else if(hair_style.do_colouration)
 			hair_s.Blend(h_colour, ICON_ADD)
@@ -399,7 +399,7 @@
 	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 	if(facial_hair_style && facial_hair_style.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-		if(current_species.name == "Slime People") // whee I am part of the problem
+		if(current_species.name == SPECIES_SLIMEPERSON) // whee I am part of the problem
 			facial_s.Blend("[s_colour]A0", ICON_ADD)
 		else if(facial_hair_style.do_colouration)
 			facial_s.Blend(f_colour, ICON_ADD)

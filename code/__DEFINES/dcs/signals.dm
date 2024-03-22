@@ -195,6 +195,10 @@
 ///called on /living when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_LIVING_START_PULL "living_start_pull"
 
+/// called on /atom when something attempts to pass through it (atom/movable/source, atom/movable/passing, dir)
+#define COMSIG_ATOM_TRIED_PASS "atom_tried_pass"
+	#define COMSIG_COMPONENT_PERMIT_PASSAGE (1 << 0)
+
 /////////////////
 
 ///from base of area/Entered(): (/area)
@@ -275,6 +279,8 @@
 	#define COMPONENT_CANCEL_THROW (1<<0)
 ///from base of atom/movable/throw_at(): (datum/thrownthing, spin)
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"
+///from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
+#define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"
 ///from base of atom/movable/onTransitZ(): (old_z, new_z)
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit"
 ///called when the movable is placed in an unaccessible area, used for stationloving: ()

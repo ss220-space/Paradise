@@ -1,6 +1,6 @@
 /datum/sprite_accessory/facial_hair/tajara
 	icon = 'icons/mob/sprite_accessories/tajaran/tajaran_facial_hair.dmi'
-	species_allowed = list("Tajaran")
+	species_allowed = list(SPECIES_TAJARAN)
 
 /datum/sprite_accessory/facial_hair/tajara/taj_sideburns
 	name = "Tajara Sideburns"

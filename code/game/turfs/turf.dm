@@ -154,23 +154,30 @@
 	// First, make sure it can leave its square
 	if(isturf(mover.loc))
 		// Nothing but border objects stop you from leaving a tile, only one loop is needed
+		var/movement_dir = get_dir(mover, src)
 		for(var/obj/obstacle in mover.loc)
-			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != oldloc)
+			if(obstacle == mover || obstacle == oldloc)
+				continue
+			if(!obstacle.CanExit(mover, movement_dir))
 				mover.Bump(obstacle, TRUE)
 				return FALSE
+
+	var/border_dir = get_dir(src, mover)
 
 	var/list/large_dense = list()
 	//Next, check objects to block entry that are on the border
 	for(var/atom/movable/border_obstacle in src)
+		if(border_obstacle == oldloc)
+			continue
 		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, mover.loc, 1) && border_obstacle != oldloc)
+			if(!border_obstacle.CanPass(mover, border_dir))
 				mover.Bump(border_obstacle, TRUE)
 				return FALSE
 		else
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
-	if(!CanPass(mover, src))
+	if(!CanPass(mover, border_dir))
 		mover.Bump(src, TRUE)
 		return FALSE
 
@@ -178,14 +185,13 @@
 	var/atom/movable/tompost_bump
 	var/top_layer = 0
 	var/current_layer = 0
-	var/reverse_movement_dir = get_dir(src, oldloc)
-	for(var/atom/movable/obstacle in large_dense)
-		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
+	for(var/atom/movable/obstacle as anything in large_dense)
+		if(!obstacle.CanPass(mover, border_dir))
 			current_layer = obstacle.layer
 			if(isliving(obstacle))
-				var/mob/living/L = obstacle
-				if(L.bump_priority < BUMP_PRIORITY_NORMAL && reverse_movement_dir == obstacle.dir)
-					current_layer += L.bump_priority
+				var/mob/living/living_obstacle = obstacle
+				if(living_obstacle.bump_priority < BUMP_PRIORITY_NORMAL && border_dir == obstacle.dir)
+					current_layer += living_obstacle.bump_priority
 			if(current_layer > top_layer)
 				tompost_bump = obstacle
 				top_layer = current_layer
@@ -606,4 +612,78 @@
 					span_userdanger("You slam into [src]!"))
 	C.take_organ_damage(damage)
 	C.Weaken(3 SECONDS)
+
+
+/turf/proc/CanEnter(atom/mover, exclude_mobs = FALSE, list/ignore_atoms, type_list = FALSE)
+	var/border_dir = get_dir(src, mover)
+
+	if(!CanPass(mover, border_dir))
+		return FALSE
+
+	if(isturf(mover.loc))
+		var/movement_dir = get_dir(mover, src)
+		for(var/obj/obstacle in mover.loc)
+			if(obstacle == mover)
+				continue
+			if(!obstacle.CanExit(mover, movement_dir))
+				return FALSE
+
+	var/list/large_dense = contents.Copy()
+	if(length(ignore_atoms))
+		for(var/thing in large_dense)
+			if(!type_list && (thing in large_dense))
+				large_dense -= thing
+			else if(type_list && is_type_in_list(thing, ignore_atoms))
+				large_dense -= thing
+
+	for(var/atom/movable/obstacle in large_dense)
+		if(ismob(obstacle) && exclude_mobs)
+			continue
+		if(!obstacle.CanPass(mover, border_dir))
+			return FALSE
+
+	return TRUE
+
+
+/**
+ * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
+ *
+ * Returns `TRUE` if the turf is blocked because the turf itself is dense.
+ * Returns `TRUE` if one of the turf's contents is dense and would block a source atom's movement.
+ * Returns `FALSE` if the turf is not blocked.
+ *
+ * Arguments:
+ * * exclude_mobs - If `TRUE`, ignores dense mobs on the turf.
+ * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
+ * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
+ * * type_list - are we checking for types of atoms to ignore and not physical atoms
+ */
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms, type_list = FALSE)
+	if(density)
+		return TRUE
+
+	if(locate(/mob/living/silicon/ai) in src) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+		return TRUE
+
+	if(source_atom && !CanEnter(source_atom, exclude_mobs, ignore_atoms, type_list))
+		return TRUE
+
+	for(var/atom/movable/movable_content as anything in src)
+		// We don't want to block ourselves
+		if((movable_content == source_atom))
+			continue
+		// dont consider ignored atoms or their types
+		if(length(ignore_atoms))
+			if(!type_list && (movable_content in ignore_atoms))
+				continue
+			else if(type_list && is_type_in_list(movable_content, ignore_atoms))
+				continue
+
+		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
+		// it cannot pass through the thing on the turf, we consider the turf blocked.
+		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
+			//if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
+			//	continue
+			return TRUE
+	return FALSE
 

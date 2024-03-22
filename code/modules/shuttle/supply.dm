@@ -499,7 +499,7 @@
 					var/datum/supply_order/O = new /datum/supply_order()
 					O.ordernum = SSshuttle.ordernum
 					O.object = SSshuttle.supply_packs[pick(SSshuttle.supply_packs)]
-					O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
+					O.orderedby = random_name(pick(MALE,FEMALE), species = SPECIES_HUMAN)
 					SSshuttle.shoppinglist += O
 					investigate_log("Random [O.object] crate added to supply shuttle", INVESTIGATE_CARGO)
 

@@ -19,6 +19,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
+	pass_flags = PASSEVERYTHING
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -154,10 +155,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	. = MA
 
 
-/mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
-	return 1
-
-
 /*
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
 Works together with spawning an observer, noted above.
@@ -173,7 +170,7 @@ Works together with spawning an observer, noted above.
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
 	if(key)
 		if(player_logged) //if they have disconnected we want to remove their SSD overlay
-			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
+			cut_overlay(image('icons/effects/effects.dmi', icon_state = "zzz_glow"))
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
@@ -316,7 +313,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				var/old_plane = source.plane
 				source.layer = FLOAT_LAYER
 				source.plane = FLOAT_PLANE
-				A.overlays += source
+				A.add_overlay(source)
 				source.layer = old_layer
 				source.plane = old_plane
 	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
