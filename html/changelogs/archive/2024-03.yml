@@ -241,5 +241,17 @@
   - bugfix: Antag skipping no longer resets after certain circumstances. (#4666)
   Zwei:
   - bugfix: Crayfish Fit Inside Fishbag (#4665)
+  - bugfix: Smoothing Skips Overlays Subsystem (#4670)
+  - bugfix: Custom mapped turfs no longer get default overlay placed when there are
+      no appropriate smoothing states (#4671)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4654)
+'2024-03-22':
+  Aziz Chynaliev:
+  - tweak: set 40 client fps by default
+  ROdenFL:
+  - bugfix: slot loadout equip (#4673)
+  - bugfix: loadout day 0 update (#4675)
+  - bugfix: strip update (#4676)
+  Vladisvell:
+  - bugfix: Jumping to alerts for AI now works correctly (#4677)
