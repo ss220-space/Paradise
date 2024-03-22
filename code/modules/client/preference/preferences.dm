@@ -611,7 +611,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<tr><td colspan=4><center><b>"
 
 			var/firstcat = 1
-			for(var/category in GLOB.loadout_categories)
+			var/list/own_categories = GLOB.loadout_categories.Copy()
+			var/datum/loadout_category/choosen = new("Selected")
+			choosen.gear = choosen_gears
+			own_categories[choosen.category] = choosen
+			for(var/category in own_categories)
 				if(firstcat)
 					firstcat = 0
 				else
@@ -619,10 +623,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(category == gear_tab)
 					dat += " <span class='linkOff'>[category]</span> "
 				else
-					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
+					dat += " <a style=[category == choosen.category ? "'background: steelblue'" : "''"] href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
 			dat += "</b></center></td></tr>"
 
-			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
+			var/datum/loadout_category/LC = own_categories[gear_tab]
 			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
