@@ -271,17 +271,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
 			if(load_character(C))
-				for(var/gear in loadout_gear)
-					var/datum/geartype = GLOB.gear_datums[gear]
-					if(!istype(geartype))
-						loadout_gear -= gear // Delete wrong/outdated data
-						continue
-					var/datum/gear/new_gear = new geartype.type
-					for(var/tweak in loadout_gear[gear])
-						for(var/datum/gear_tweak/gear_tweak in new_gear.gear_tweaks)
-							if(istype(gear_tweak, text2path(tweak)))
-								set_tweak_metadata(new_gear, gear_tweak, loadout_gear[gear][tweak])
-					choosen_gears[gear] = new_gear
 				C.prefs?.init_custom_emotes(C.prefs.custom_emotes)
 				return
 	//we couldn't load character data so just randomize the character appearance + name
