@@ -284,12 +284,12 @@
 
 /datum/gear/uniform/shorts/New()
 	..()
-	var/list/shorts = list(/obj/item/clothing/under/shorts/red,
-						   /obj/item/clothing/under/shorts/green,
-						   /obj/item/clothing/under/shorts/blue,
-						   /obj/item/clothing/under/shorts/black,
-						   /obj/item/clothing/under/shorts/grey,)
-	gear_tweaks += new /datum/gear_tweak/path(shorts, src, TRUE)
+	var/list/shorts = list("red" = /obj/item/clothing/under/shorts/red,
+						   "green" = /obj/item/clothing/under/shorts/green,
+						   "blue" = /obj/item/clothing/under/shorts/blue,
+						   "black" = /obj/item/clothing/under/shorts/black,
+						   "grey" = /obj/item/clothing/under/shorts/grey,)
+	gear_tweaks += new /datum/gear_tweak/path(shorts, src)
 
 /datum/gear/uniform/pants
 	subtype_path = /datum/gear/uniform/pants
