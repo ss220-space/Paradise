@@ -218,7 +218,7 @@
 				continue
 
 			if(G.slot)
-				if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+				if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.loadout_gear[G.display_name]), G.slot))
 					to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 				else
 					gear_leftovers += G
