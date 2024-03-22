@@ -2251,7 +2251,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						version_message = "\nYou need to be using byond version [MINIMUM_FPS_VERSION] or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
 					if(world.byond_version < MINIMUM_FPS_VERSION)
 						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
-					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n30 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
+					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
 						if(world.byond_version >= MINIMUM_FPS_VERSION && user.client && user.client.byond_version >= MINIMUM_FPS_VERSION)
