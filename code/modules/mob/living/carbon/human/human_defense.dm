@@ -549,7 +549,7 @@ emp_act
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
 
-	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
+	SEND_SIGNAL(src, COMSIG_CARBON_HITBY, AM, throwingdatum)
 
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK, armour_penetration, shields_penetration))
 		hitpush = FALSE
@@ -694,21 +694,7 @@ emp_act
 		if(check_shields(M, damage, "the [M.name]"))
 			return FALSE
 
-		var/dam_zone = pick(
-			BODY_ZONE_CHEST,
-			BODY_ZONE_PRECISE_GROIN,
-			BODY_ZONE_HEAD,
-			BODY_ZONE_L_ARM,
-			BODY_ZONE_R_ARM,
-			BODY_ZONE_L_LEG,
-			BODY_ZONE_R_LEG,
-			BODY_ZONE_PRECISE_L_HAND,
-			BODY_ZONE_PRECISE_R_HAND,
-			BODY_ZONE_PRECISE_L_FOOT,
-			BODY_ZONE_PRECISE_R_FOOT,
-		)
-
-		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		var/obj/item/organ/external/affecting = pick(bodyparts)
 		if(!affecting)
 			affecting = get_organ(BODY_ZONE_CHEST)
 		var/armor_block = run_armor_check(affecting, MELEE)

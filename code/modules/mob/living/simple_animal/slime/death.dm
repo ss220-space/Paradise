@@ -3,11 +3,11 @@
 		return
 
 	if(buckled)
-		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
+		Feedstop(stop_message = FALSE) //releases ourselves from the mob we fed on.
 
 	if(!gibbed)
 		if(age_state.age != SLIME_BABY)
-			if (nutrition >= get_hunger_nutrition())
+			if (nutrition >= age_state.hunger_nutrition)
 				force_split(FALSE)
 				return
 

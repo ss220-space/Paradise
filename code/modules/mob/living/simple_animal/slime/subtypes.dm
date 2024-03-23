@@ -17,6 +17,7 @@
 	var/baby_counts			//Количество возможных детей. Распределение: 1 = BABY, 2 = ADULT, 3 = OLD
 	var/cores				//Число ядер
 	var/feed				//дополнительные максимум значения для кормежки, урон и доп. нутриенты
+	var/patience			//time during which slime hunting the target
 
 /datum/slime_age/baby
 	age = SLIME_BABY
@@ -32,11 +33,12 @@
 	hunger_nutrition = 500
 	starve_nutrition = 200
 	nutrition_steal = 0
-	nutrition_handle = 0
+	nutrition_handle = 2
 	matrix_size = matrix(1, 0, 0, 0, 1, 0)
 	baby_counts	= 0
 	cores = 1
 	feed = 2
+	patience = 6
 
 /datum/slime_age/adult
 	age = SLIME_ADULT
@@ -52,11 +54,12 @@
 	hunger_nutrition = 600
 	starve_nutrition = 300
 	nutrition_steal = 40
-	nutrition_handle = 1
+	nutrition_handle = 2
 	matrix_size = matrix(1, 0, 0, 0, 1, 0)
 	baby_counts	= 4
 	cores = 1
 	feed = 4
+	patience = 7
 
 /datum/slime_age/old
 	age = SLIME_OLD
@@ -72,11 +75,12 @@
 	hunger_nutrition = 800
 	starve_nutrition = 500
 	nutrition_steal = 70
-	nutrition_handle = 2
+	nutrition_handle = 3
 	matrix_size = matrix(1.25, 0, 0, 0, 1.25, 2)
 	baby_counts	= 9
 	cores = 4
 	feed = 8
+	patience = 9
 
 /datum/slime_age/elder
 	age = SLIME_ELDER
@@ -92,11 +96,12 @@
 	hunger_nutrition = 1200
 	starve_nutrition = 800
 	nutrition_steal = 100
-	nutrition_handle = 3
+	nutrition_handle = 4
 	matrix_size = matrix(1.75, 0, 0, 0, 1.75, 4)
 	baby_counts	= 18
 	cores = 8
 	feed = 10
+	patience = 12
 
 /datum/slime_age/slimeman
 	age = SLIME_SLIMEMAN

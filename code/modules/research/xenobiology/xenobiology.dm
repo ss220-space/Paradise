@@ -142,24 +142,24 @@
 
 /obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
-		to_chat(user, "<span class='warning'>The potion only works on slimes!</span>")
+		to_chat(user, span_warning("The potion only works on slimes!"))
 		return
 	if(M.stat)
-		to_chat(user, "<span class='warning'>The slime is dead!</span>")
+		to_chat(user, span_warning("The slime is dead!"))
 		return
 	if(being_used)
-		to_chat(user, "<span class='warning'>You're already using this on another slime!</span>")
+		to_chat(user, span_warning("You're already using this on another slime!"))
 		return
 	if(M.rabid) //Stops being rabid, but doesn't become truly docile.
-		to_chat(M, "<span class='warning'>You absorb the potion, and your rabid hunger finally settles to a normal desire to feed.</span>")
-		to_chat(user, "<span class='notice'>You feed the slime the potion, calming its rabid rage.</span>")
+		to_chat(M, span_warning("You absorb the potion, and your rabid hunger finally settles to a normal desire to feed."))
+		to_chat(user, span_notice("You feed the slime the potion, calming its rabid rage."))
 		M.rabid = FALSE
+		M.Target = null
 		qdel(src)
 		return
-	M.docile = TRUE
-	M.set_nutrition(700)
-	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
-	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
+	M.Friends[user] = 10
+	to_chat(M, span_warning("You absorb the potion and feel your intense desire to feed melt away."))
+	to_chat(user, span_notice("You feed the slime the potion, calming it."))
 	being_used = TRUE
 	var/newname = sanitize(copytext_char(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 

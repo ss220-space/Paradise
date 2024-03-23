@@ -254,7 +254,7 @@
 				break
 			if(!S.ckey)
 				if(S.buckled)
-					S.Feedstop(silent = TRUE)
+					S.Feedstop(stop_message = FALSE)
 				X.capture_slime(S)
 	else
 		to_chat(owner, "<span class='notice'>Target is not near a camera. Cannot proceed.</span>")
@@ -444,7 +444,7 @@
 			to_chat(C, "<span class='warning'>The slime wiggled free!</span>")
 			return
 		if(S.buckled)
-			S.Feedstop(silent = TRUE)
+			S.Feedstop(stop_message = FALSE)
 		X.capture_slime(S)
 
 //Place slimes

@@ -1,7 +1,3 @@
-#define SIZE_DOESNT_MATTER 	-1
-#define BABIES_ONLY			0
-#define ADULTS_ONLY			1
-
 #define NO_GROWTH_NEEDED	0
 #define GROWTH_NEEDED		1
 
@@ -58,10 +54,6 @@
 	if(!Adjacent(M))
 		return FALSE
 
-	if(buckled)
-		Feedstop()
-		return FALSE
-
 	if(issilicon(M))
 		return FALSE
 
@@ -80,18 +72,6 @@
 		if(silent)
 			return FALSE
 		to_chat(src, "<span class='warning'><i>I can't latch onto another slime...</i></span>")
-		return FALSE
-
-	if(docile)
-		if(silent)
-			return FALSE
-		to_chat(src, "<span class='notice'><i>I'm not hungry anymore...</i></span>")
-		return FALSE
-
-	if(stat)
-		if(silent)
-			return FALSE
-		to_chat(src, "<span class='warning'><i>I must be conscious to do this...</i></span>")
 		return FALSE
 
 	if(M.stat == DEAD)
@@ -116,18 +96,18 @@
 	else
 		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
 
-/mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE, living = 1)
+/mob/living/simple_animal/slime/proc/Feedstop(stop_message = TRUE, incompatible = FALSE)
 	if(buckled)
-		if(!living)
-			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \
+		if(incompatible)
+			to_chat(src, span_warning("[pick("This subject is incompatible", \
 			"This subject does not have life energy", "This subject is empty", \
 			"I am not satisified", "I can not feed from this subject", \
-			"I do not feel nourished", "This subject is not food")]!</span>")
-		if(!silent)
-			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
-							"<span class='notice'><i>I stopped feeding.</i></span>")
+			"I do not feel nourished", "This subject is not food")]!"))
+		if(stop_message)
+			visible_message(span_warning("[src] has let go of [buckled]!"), \
+							span_notice("<i>I stopped feeding.</i>"))
 		layer = initial(layer)
-		buckled.unbuckle_mob(src,force=TRUE)
+		buckled.unbuckle_mob(src, force = TRUE)
 
 /mob/living/simple_animal/slime/verb/Evolve()
 	set category = "Slime"
@@ -210,13 +190,13 @@
 
 	//Определяем модификатор количества детей от количества накопленных нутриентов
 	var/baby_mod = 0.1
-	if(nutrition >= get_max_nutrition())
+	if(nutrition >= age_state.max_nutrition)
 		baby_mod = 1.25
-	else if(nutrition >= get_grow_nutrition())
+	else if(nutrition >= age_state.grow_nutrition)
 		baby_mod = 1
-	else if(nutrition >= get_hunger_nutrition())
+	else if(nutrition >= age_state.hunger_nutrition)
 		baby_mod = 0.5
-	else if(nutrition >= get_starve_nutrition())
+	else if(nutrition >= age_state.starve_nutrition)
 		baby_mod = 0.25
 
 	//Определяем какие дети родятся

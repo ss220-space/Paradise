@@ -587,7 +587,7 @@
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
-		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
+		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY, user)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку обезоруживания [user.declent_ru(GENITIVE)]!</span>"
