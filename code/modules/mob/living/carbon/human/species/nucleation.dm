@@ -35,7 +35,7 @@
 
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.light_color = "#1C1C00"
+	H.light_color = "#afaf21"
 	H.set_light_range(2)
 
 /datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
