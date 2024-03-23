@@ -10,8 +10,10 @@
 	max_integrity = 300
 	var/basestate = "hardsuit"
 	allowed = list(/obj/item/flashlight)
-	var/brightness_on = 4 //luminosity when on
-	var/light_on = FALSE
+	light_power = 1
+	light_range = 4
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
@@ -73,7 +75,7 @@
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
-	light_on = !light_on
+	set_light_on(!light_on)
 	toggle_light(light_on)
 
 
@@ -81,7 +83,7 @@
 	light_on = enable
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_buttons)
-	set_light(light_on ? brightness_on : 0)
+	set_light_on(enable)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
@@ -118,7 +120,7 @@
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
-
+	light_on = FALSE
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid", "Tajaran")
 	species_restricted = list("exclude", "Wryn", "lesser form")
 	sprite_sheets = list(
@@ -322,7 +324,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
-	brightness_on = 7
+	light_range = 7
 
 /obj/item/clothing/suit/space/hardsuit/mining
 	name = "mining hardsuit"

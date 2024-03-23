@@ -285,13 +285,13 @@
 	if(self_sustaining)
 		if(istype(src, /obj/machinery/hydroponics/soil))
 			color = rgb(255, 175, 0)
-		set_light(3)
+		set_light(3, l_on = TRUE)
 	else
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
 			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
+			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color, l_on = TRUE)
 		else
-			set_light(0)
+			set_light_on(FALSE)
 
 	update_icon()
 

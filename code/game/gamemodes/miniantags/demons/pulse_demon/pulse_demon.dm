@@ -39,7 +39,7 @@
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
 	del_on_death = TRUE
-
+	light_system = MOVABLE_LIGHT
 	attacktext = "electrocutes"
 	attack_sound = "sparks"
 	a_intent = INTENT_HARM
@@ -453,7 +453,7 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/update_glow()
 	var/range = 2 + (log(2, charge + 1) - log(2, 50000)) / 2
 	range = max(range, 1.5)
-	set_light(range, 2, glow_color)
+	set_light_range_power_color(range, 2, glow_color)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/drain_APC(obj/machinery/power/apc/A, multiplier = 1)
 	if(A.being_hijacked)
@@ -811,7 +811,7 @@
 
 /obj/item/organ/internal/heart/demon/pulse/Initialize(mapload)
 	. = ..()
-	set_light(13, 2, "#bbbb00")
+	set_light_range_power_color(13, 2, "#bbbb00")
 
 /obj/item/organ/internal/heart/demon/pulse/attack_self(mob/living/user)
 	. = ..()
@@ -822,7 +822,7 @@
 	. = ..()
 	M.AddComponent(/datum/component/cross_shock, 30, 500, 2 SECONDS)
 	ADD_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
-	M.set_light(3, 2, "#bbbb00")
+	M.set_light_range_power_color(3, 2, "#bbbb00")
 
 /obj/item/organ/internal/heart/demon/pulse/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	REMOVE_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))

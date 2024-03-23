@@ -45,7 +45,7 @@
 
 	creation_mob_ckey = creation_mob?.ckey
 
-	set_light(1, LIGHTING_MINIMUM_POWER)
+	set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
 	for(var/obj/effect/portal/other_portal in loc)

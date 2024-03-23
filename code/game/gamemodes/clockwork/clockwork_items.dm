@@ -597,7 +597,7 @@
 			to_chat(user, "<span class='notice'>You should wear [src]!</span>")
 			return
 		playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
-		set_light(2, 1, COLOR_WHITE)
+		set_light_range_power_color(2, 1, COLOR_WHITE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.2 SECONDS)
 		user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
 		for(var/mob/living/carbon/M in oviewers(3, user))
@@ -870,12 +870,12 @@
 		flags |= NODROP
 		enchant_type = CASTING_SPELL
 		add_attack_logs(carbon, carbon, "Hardened [src]", ATKLOG_ALL)
-		set_light(1.5, 0.8, COLOR_RED)
+		set_light_range_power_color(1.5, 0.8, COLOR_RED)
 		addtimer(CALLBACK(src, PROC_REF(reset_armor), carbon), 12 SECONDS)
 
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor(mob/user)
 	to_chat(user, "<span class='notice'>The [src] stops shifting...</span>")
-	set_light(0)
+	set_light_on(FALSE)
 	armor = normal_armor
 	flags &= ~NODROP
 	deplete_spell()

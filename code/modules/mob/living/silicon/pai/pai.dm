@@ -440,7 +440,7 @@
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
+	nightvision = initial(nightvision)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
@@ -458,7 +458,7 @@
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(sight_mode & SILICONNIGHTVISION)
-		see_in_dark = 8
+		nightvision = 8
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
@@ -639,8 +639,8 @@
 
 /mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
-	set_light(0)
-	card.set_light(0)
+	set_light_on(FALSE)
+	card.set_light_on(FALSE)
 
 /datum/action/innate/pai_soft
 	name = "Pai Sowtware"

@@ -141,7 +141,8 @@
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
 	var/on = 0
-	var/brightness_on = 2
+	light_range = 2
+	light_power = 1
 	light_color = LIGHT_COLOR_RED
 	armour_penetration = 20
 	var/backstab_sound = 'sound/items/unsheath.ogg'
@@ -185,7 +186,7 @@
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 3, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		on = 1
 		force = 18
@@ -198,7 +199,7 @@
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 3, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
-		set_light(brightness_on, 1)
+		set_light_on(TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 

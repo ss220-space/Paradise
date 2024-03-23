@@ -45,7 +45,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
-	see_in_dark = 8
 	can_strip = 0
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
@@ -1177,7 +1176,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "Camera lights deactivated.")
 
 		for(var/obj/machinery/camera/C in lit_cameras)
-			C.set_light(0)
+			C.set_light_on(FALSE)
 			lit_cameras = list()
 
 		return
@@ -1491,7 +1490,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
+	nightvision = initial(nightvision)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
@@ -1499,7 +1498,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		sight = sight &~ SEE_TURFS
 		sight = sight &~ SEE_MOBS
 		sight = sight &~ SEE_OBJS
-		see_in_dark = 0
+		nightvision = 0
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()

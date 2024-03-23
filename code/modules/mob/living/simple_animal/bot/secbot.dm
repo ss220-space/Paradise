@@ -332,10 +332,10 @@
 				light_color = LIGHT_COLOR_PURE_RED
 			else
 				light_color = LIGHT_COLOR_PURE_RED
-		update_light()
+		set_light_color(light_color)
 	else if(prev_flashing_lights)
 		light_color = LIGHT_COLOR_WHITE
-		update_light()
+		set_light_color(light_color)
 
 	prev_flashing_lights = flashing_lights
 

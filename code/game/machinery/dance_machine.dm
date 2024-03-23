@@ -491,7 +491,7 @@
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
-		set_light(0)
+		set_light_on(FALSE)
 		stop = world.time + 100
 
 

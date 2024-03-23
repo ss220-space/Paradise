@@ -101,7 +101,7 @@
 
 /obj/structure/fireplace/proc/adjust_light()
 	if(!lit)
-		set_light(0)
+		set_light_on(FALSE)
 		return
 
 	switch(burn_time_remaining())

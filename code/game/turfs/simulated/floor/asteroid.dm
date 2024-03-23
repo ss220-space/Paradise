@@ -141,7 +141,7 @@
 	set_basalt_light(src)
 
 /turf/simulated/floor/plating/asteroid/basalt/getDug()
-	set_light(0)
+	set_light_on(FALSE)
 	return ..()
 
 /proc/set_basalt_light(turf/simulated/floor/B)

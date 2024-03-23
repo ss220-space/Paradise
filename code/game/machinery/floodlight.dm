@@ -7,12 +7,14 @@
 	max_integrity = 100
 	integrity_failure = 80
 	light_power = 20
+	light_range = 14
+	light_system = STATIC_LIGHT
+	light_on = FALSE
 	var/on = FALSE
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/use = 5
 	var/unlocked = FALSE
 	var/open = FALSE
-	var/brightness_on = 14
 
 /obj/machinery/floodlight/get_cell()
 	return cell
@@ -33,7 +35,7 @@
 			return
 		if(cell.charge <= 0)
 			return
-		set_light(brightness_on)
+		set_light(light_range, light_power, light_color, TRUE)
 		update_icon(UPDATE_ICON_STATE)
 
 
@@ -101,7 +103,7 @@
 			return
 		on = TRUE
 		to_chat(user, span_notice("You turn on the light."))
-		set_light(brightness_on)
+		set_light(light_range, light_power, light_color, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 

@@ -14,7 +14,7 @@
 	speak_chance = 0
 	maxHealth = 15
 	health = 15
-	see_in_dark = 100
+	nightvision = 100
 	friendly = "nudges"
 	density = 0
 	flying = TRUE
@@ -42,7 +42,7 @@
 	faction = list("neutral")
 	maxHealth = 15
 	health = 15
-	see_in_dark = 30
+	nightvision = 30
 	turns_per_move = 10
 	emote_see = list("flutters")
 	response_help = "shoos"

@@ -3,9 +3,9 @@
 #define LIGHT           2
 #define ENVIRON         3
 #define TOTAL           4	//for total power used only
-#define STATIC_EQUIP    5
-#define STATIC_LIGHT    6
-#define STATIC_ENVIRON  7
+#define CHANNEL_STATIC_EQUIP    5
+#define CHANNEL_STATIC_LIGHT    6
+#define CHANNEL_STATIC_ENVIRON  7
 
 //Power use
 #define NO_POWER_USE 0

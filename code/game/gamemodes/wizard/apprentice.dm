@@ -428,7 +428,7 @@
 	if(!(XRAY in owner.mutations))
 		owner.mutations.Add(XRAY)
 		owner.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
-		owner.see_in_dark = 8
+		owner.nightvision = 8
 		owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		to_chat(owner, "<span class='notice'>The walls suddenly disappear.</span>")
 

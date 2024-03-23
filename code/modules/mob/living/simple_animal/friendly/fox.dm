@@ -14,7 +14,7 @@
 	yelp_sound = 'sound/creatures/fox_yelp.ogg' //Used on death.
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
@@ -84,5 +84,5 @@
 	icon_living = "fennec"
 	icon_dead = "fennec_dead"
 	icon_resting = "fennec_rest"	//fennec_sit ?
-	see_in_dark = 10
+	nightvision = 10
 	holder_type = /obj/item/holder/fennec

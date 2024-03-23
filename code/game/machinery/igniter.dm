@@ -40,9 +40,9 @@
 	update_icon()
 
 	if(on)
-		set_light(1, 1, "#ff821c")
+		set_light(1, 1, "#ff821c", TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/igniter/update_icon_state()

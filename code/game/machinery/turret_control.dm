@@ -235,17 +235,17 @@
 
 /obj/machinery/turretid/proc/update_turret_light()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 		return
 
 	if(enabled)
 		if(lethal)
-			set_light(1.5, 1,"#990000")
+			set_light(1.5, 1,"#990000", l_on = TRUE)
 		else
-			set_light(1.5, 1,"#FF9900")
+			set_light(1.5, 1,"#FF9900", l_on = TRUE)
 		return
 
-	set_light(1.5, 1,"#003300")
+	set_light(1.5, 1,"#003300", l_on = TRUE)
 
 
 /obj/machinery/turretid/update_icon_state()
