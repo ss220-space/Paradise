@@ -970,9 +970,9 @@
 		return
 
 	for(var/mob/living/carbon/human/H in view(decaylevel, src) - src)
-		if(prob(0.5 * decaylevel))
+		if(prob(0.3 * decaylevel))
 			var/datum/disease/virus/cadaver/D = new()
-			D.Contract(H, CONTACT|AIRBORNE, need_protection_check = TRUE)
+			D.Contract(H, CONTACT, need_protection_check = TRUE)
 		if(prob(2))
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))

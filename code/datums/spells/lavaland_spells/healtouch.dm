@@ -33,6 +33,9 @@
 	M.heal_overall_damage(brute, burn)
 	M.adjustToxLoss(-tox)
 	M.adjustOxyLoss(-oxy)
+	for(var/datum/disease/D in M.diseases)
+		if(D.curable)
+			D.cure(need_immunity = FALSE)
 	return ..()
 
 /obj/effect/proc_holder/spell/touch/healtouch/advanced

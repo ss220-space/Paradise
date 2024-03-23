@@ -4,8 +4,8 @@
 	agent = "Cadaveric microbes"
 	desc = "A terrible disease caused by rotting corpses"
 	cures = list("calomel")
-	cure_prob = 4
-	stage_prob = 1.5
+	cure_prob = 6
+	stage_prob = 0.8
 	max_stages = 5
 	spread_flags = BLOOD
 	severity = DANGEROUS
