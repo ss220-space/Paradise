@@ -24,7 +24,7 @@
 	species_type = /datum/species/nucleation
 	name = "luminescent eyes"
 	icon_state = "crystal-eyes"
-	light_color = "#1C1C00"
+	light_color = "#c9c918"
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_power = 1
 	light_range = 2

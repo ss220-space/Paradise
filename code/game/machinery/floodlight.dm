@@ -35,7 +35,7 @@
 			return
 		if(cell.charge <= 0)
 			return
-		set_light(light_range, light_power, light_color, TRUE)
+		set_light(l_on = TRUE)
 		update_icon(UPDATE_ICON_STATE)
 
 
@@ -61,7 +61,7 @@
 	if(cell && !cell.use(use))
 		on = FALSE
 		update_icon(UPDATE_ICON_STATE)
-		set_light(0)
+		set_light(l_on = FALSE)
 		visible_message(span_warning("[src] shuts down due to lack of power!"))
 
 
@@ -83,14 +83,14 @@
 		if(on)
 			on = FALSE
 			visible_message(span_warning("[src] shuts down due to lack of power!"))
-			set_light(0)
+			set_light(l_on = FALSE)
 		update_icon(UPDATE_ICON_STATE)
 		return
 
 	if(on)
 		on = FALSE
 		to_chat(user, span_notice("You turn off the light."))
-		set_light(0)
+		set_light(l_on = FALSE)
 	else
 		if(!cell)
 			to_chat(user, span_warning("You try to turn on [src] but nothing happens! Seems like it <b>lacks a power cell</b>."))
@@ -103,7 +103,7 @@
 			return
 		on = TRUE
 		to_chat(user, span_notice("You turn on the light."))
-		set_light(light_range, light_power, light_color, TRUE)
+		set_light(l_on = TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -173,6 +173,6 @@
 /obj/machinery/floodlight/extinguish_light(force = FALSE)
 	if(on)
 		on = FALSE
-		set_light(0)
+		set_light(l_on = FALSE)
 		update_icon(UPDATE_ICON_STATE)
 
