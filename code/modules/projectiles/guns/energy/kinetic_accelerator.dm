@@ -176,14 +176,16 @@
 		recharge_time = overheat_time
 	overheat = TRUE
 
-	var/carried = 1
 	if(!unique_frequency)
+		var/carried = 1	// The firing KA is already counted.
+
 		for(var/obj/item/gun/energy/kinetic_accelerator/K in loc.GetAllContents() - src)
 			if(!K.unique_frequency)
 				carried++
+		recharge_time = recharge_time * carried
 
 	deltimer(recharge_timerid)
-	recharge_timerid = addtimer(CALLBACK(src, PROC_REF(reload)), recharge_time * carried, TIMER_STOPPABLE)
+	recharge_timerid = addtimer(CALLBACK(src, PROC_REF(reload)), recharge_time, TIMER_STOPPABLE)
 
 
 /obj/item/gun/energy/kinetic_accelerator/emp_act(severity)
