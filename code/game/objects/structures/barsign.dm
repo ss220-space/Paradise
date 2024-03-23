@@ -362,28 +362,8 @@
 	icon = "spaceasshole"
 	desc = "Open since 2125, Not much has changed since then; the engineers still release the singulo and the damn miners still are more likely to cave your face in that deliver ores."
 
-/datum/barsign/evahumanspace
-	name = "SS220 EVA Human in Space"
-	icon = "evahumanspace"
-	desc = "Safety is a privilege."
-
-/datum/barsign/warpsurf
-	name = "SS220 Warp Surf"
-	icon = "warpsurf"
-	desc = "Welcome to the club, buddy!"
-
-/datum/barsign/papacafe
-	name = "SS220 Space Daddy's Cafe"
-	icon = "papacafe"
-	desc = "Respect your Space Daddy!"
-
-/datum/barsign/wycctide
-	name = "SS220 Wycctide"
-	icon = "wycctide"
-	desc = "Oh no, it's coming!"
-
 /datum/barsign/shitcur
-	name = "SS220 Shitcur"
+	name = "SS1984 Shitcur"
 	icon = "shitcur"
 	desc = "Innocence proves nothing."
 

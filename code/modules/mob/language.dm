@@ -901,4 +901,13 @@
 	return language_keys_and_names[language_key]
 
 
+/proc/get_language_prefix(language_name)
+	var/datum/language/language = GLOB.all_languages[language_name]
+	if(language)
+		. = ":[language.key] "
+	else
+		. = "Non-existent key"
+		CRASH("[language_name] language does not exist.")
+
+
 #undef SCRAMBLE_CACHE_LEN

@@ -301,7 +301,7 @@
 			if(emergency_mode || fire_mode)
 				icon_state = "[base_icon_state]_emergency"
 			else
-				icon_state = "[base_icon_state][on]"
+				icon_state = "[base_icon_state][light_range == 0 ? FALSE : on]"
 		if(LIGHT_EMPTY)
 			icon_state = "[base_icon_state]-empty"
 			on = FALSE
@@ -375,7 +375,7 @@
 
 			else
 				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO)
+				set_light(BR, PO, CO, l_on = on)
 
 	else if(!turned_off())
 		set_emergency_lights()
@@ -390,14 +390,14 @@
 		light_state = on
 		if(on)
 			static_power_used = active_power_usage * 2 //20W per unit luminosity
-			addStaticPower(static_power_used, STATIC_LIGHT)
+			addStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 		else
-			removeStaticPower(static_power_used, STATIC_LIGHT)
+			removeStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 	else
 		if(on && (static_power_used != active_power_usage * 2))
-			removeStaticPower(static_power_used, STATIC_LIGHT)
+			removeStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 			static_power_used = active_power_usage * 2
-			addStaticPower(static_power_used, STATIC_LIGHT)
+			addStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 
 	if(play_sound)
 		playsound(src, 'sound/machines/light_on.ogg', 60, TRUE)
@@ -601,11 +601,11 @@
 		emergency_lights_off(current_area, current_apc)
 		return
 	if(fire_mode)
-		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
+		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour, l_on = TRUE)
 		update_icon()
 		return
 	emergency_mode = TRUE
-	set_light(3, 1.7, bulb_emergency_colour)
+	set_light(3, 1.7, bulb_emergency_colour, l_on = TRUE)
 	update_icon()
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 

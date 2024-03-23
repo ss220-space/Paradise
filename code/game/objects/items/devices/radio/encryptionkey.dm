@@ -201,19 +201,19 @@
 
 /obj/item/encryptionkey/event_1
 	name = "Encryption key"
-	desc = "An encryption key for a radio headset. To access special radio channel, use :q."
+	desc = "An encryption key for a radio headset. To access special radio channel, use :1."
 	icon_state = "sov_cypherkey"
 	channels = list("Alpha wave" = 1)
 
 /obj/item/encryptionkey/event_2
 	name = "Encryption key"
-	desc = "An encryption key for a radio headset. To access special radio channel, use :vi."
+	desc = "An encryption key for a radio headset. To access special radio channel, use :2."
 	icon_state = "sov_cypherkey"
 	channels = list("Beta wave" = 1)
 
 /obj/item/encryptionkey/event_3
 	name = "Encryption key"
-	desc = "An encryption key for a radio headset. To access special radio channel, use :y."
+	desc = "An encryption key for a radio headset. To access special radio channel, use :3."
 	icon_state = "sov_cypherkey"
 	channels = list("Gamma wave" = 1)
 

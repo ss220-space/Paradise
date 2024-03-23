@@ -273,6 +273,7 @@
 			hud_used.show_hud(hud_used.hud_version)
 
 /mob/setDir(new_dir)
+	var/old_dir = dir
 	if(forced_look)
 		if(isnum(forced_look))
 			dir = forced_look
@@ -280,6 +281,7 @@
 			var/atom/A = locateUID(forced_look)
 			if(istype(A))
 				dir = get_cardinal_dir(src, A)
+		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
 		return
 	. = ..()
 
@@ -1214,8 +1216,11 @@
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
 		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
+		var/obj/screen/plane_master/o_light_visual/vis = hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"]
 		if(L)
 			L.alpha = lighting_alpha
+		if(vis)
+			vis.alpha = lighting_alpha
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 
@@ -1223,9 +1228,10 @@
 	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
 	if(S)
 		var/suffix = ""
-		switch(see_in_dark)
+		var/nighvision_coeff = nightvision
+		switch(nighvision_coeff)
 			if(3 to 8)
-				suffix = "_[see_in_dark]"
+				suffix = "_[nighvision_coeff]"
 			if(8 to INFINITY)
 				suffix = "_8"
 

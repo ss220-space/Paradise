@@ -143,7 +143,6 @@
 	sight |= SEE_MOBS
 	sight |= SEE_OBJS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_OBSERVER
 	sync_lighting_plane_alpha()
 

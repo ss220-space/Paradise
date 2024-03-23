@@ -2440,8 +2440,7 @@
 "biD" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/stack/spacecash/c1000000{
-	desc = "Баксоны максона. Возможно кто-то приобретет пропуск.";
-	name = "100.000 �������� �������"
+	name = "1000000 Credit"
 	},
 /obj/item/stack/telecrystal/twohundred_fifty{
 	amount = 115;
@@ -10892,9 +10891,7 @@
 "fBk" = (
 /obj/structure/table/wood,
 /obj/item/storage/bible,
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/centcom/evac)
 "fBA" = (
 /obj/machinery/vending/cola/free,
@@ -15157,17 +15154,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"hWS" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/statue/artchair{
-	layer = 10;
-	pixel_y = 10
-	},
-/obj/effect/turf_decal/plaque{
-	layer = 3
-	},
-/turf/simulated/floor/grass,
-/area/centcom/evac)
 "hXg" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo16"
@@ -23271,12 +23257,12 @@
 /area/ninja/outpost)
 "maJ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/statue/elwycco{
-	layer = 10;
-	pixel_y = 10
-	},
 /obj/effect/turf_decal/plaque{
 	layer = 3
+	},
+/obj/structure/statue/artchair{
+	layer = 10;
+	pixel_y = 10
 	},
 /turf/simulated/floor/grass,
 /area/centcom/evac)
@@ -24652,8 +24638,8 @@
 /area/shuttle/trade/sol)
 "mBV" = (
 /obj/item/gun/projectile/automatic/sniper_rifle{
-	desc = "На прикладе этой винтовки нацарапано 'гей'";
-	name = "Потрёпанная снайперская винтовка"
+	desc = "Оружие с потёртой надписью 'Коатс' и нечитаемыми каракулями возле неё.";
+	name = "Потрёпанная Снайперская Винтовка"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -26596,13 +26582,13 @@
 /area/syndicate_mothership/infteam)
 "nli" = (
 /obj/docking_port/stationary/transit{
+	dheight = 10;
 	dir = 8;
 	height = 30;
 	id = "freegolem_transit";
 	name = "free golem in transit";
 	pixel_x = 32;
-	width = 20;
-	dheight = 10
+	width = 20
 	},
 /turf/space/transit/west{
 	icon_state = "black"
@@ -32598,12 +32584,6 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "pXf" = (
-/obj/item/cardboard_cutout{
-	anchored = 1;
-	desc = "Обычная статуя офицера, что она здесь делает? На табличке красуется надпись - Pizdyach Rodnenkiy";
-	icon_state = "cutout_ntsec";
-	name = "Officer"
-	},
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 4
@@ -34063,13 +34043,6 @@
 /obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
-"qIk" = (
-/obj/effect/turf_decal/plaque{
-	layer = 3
-	},
-/obj/structure/statue/mooniverse,
-/turf/simulated/floor/redgrid,
-/area/syndicate_mothership)
 "qIt" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -49946,22 +49919,22 @@
 /obj/machinery/door/airlock/external,
 /obj/docking_port/mobile{
 	dir = 8;
-	name = "Funeral shuttle";
-	id = "funeral";
-	height = 7;
-	width = 10;
 	dwidth = 2;
-	roundstart_move = "graveyard_dock"
+	height = 7;
+	id = "funeral";
+	name = "Funeral shuttle";
+	roundstart_move = "graveyard_dock";
+	width = 10
 	},
 /obj/docking_port/stationary/transit{
-	name = "Funeral In transit";
 	dir = 8;
-	pixel_x = 32;
-	id = "funeral_transit";
-	turf_type = /turf/space/transit/north;
+	dwidth = 2;
 	height = 7;
-	width = 10;
-	dwidth = 2
+	id = "funeral_transit";
+	name = "Funeral In transit";
+	pixel_x = 32;
+	turf_type = /turf/space/transit/north;
+	width = 10
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/funeral)
@@ -60524,7 +60497,7 @@ nYK
 nYK
 nYK
 mZE
-qIk
+wBD
 jjR
 xNs
 xGb
@@ -102888,7 +102861,7 @@ vgN
 upv
 gdL
 gdL
-hWS
+xKz
 qwy
 gpF
 gdL

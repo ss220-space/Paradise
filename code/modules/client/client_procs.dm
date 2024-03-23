@@ -161,21 +161,21 @@
 						return
 					switch(href_list["KarmaBuy2"])
 						if("1")
-							karma_purchase(karma,15,"species","Machine People","Machine")
+							karma_purchase(karma,15,"species","Machine People",SPECIES_MACNINEPERSON)
 						if("2")
-							karma_purchase(karma,30,"species","Kidan")
+							karma_purchase(karma,30,"species",SPECIES_KIDAN)
 						if("3")
-							karma_purchase(karma,30,"species","Grey")
+							karma_purchase(karma,30,"species",SPECIES_GREY)
 						if("4")
-							karma_purchase(karma,45,"species","Vox")
+							karma_purchase(karma,45,"species",SPECIES_VOX)
 						if("5")
-							karma_purchase(karma,45,"species","Slime People")
+							karma_purchase(karma,45,"species",SPECIES_SLIMEPERSON)
 						if("6")
-							karma_purchase(karma,45,"species","Plasmaman")
+							karma_purchase(karma,45,"species",SPECIES_PLASMAMAN)
 						if("7")
-							karma_purchase(karma,30,"species","Drask")
+							karma_purchase(karma,30,"species",SPECIES_DRASK)
 						if("8")
-							karma_purchase(karma,30,"species","Nian")
+							karma_purchase(karma,30,"species",SPECIES_MOTH)
 					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
@@ -315,7 +315,6 @@
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
-
 
 	// Setup widescreen
 	view = prefs.viewrange
@@ -668,7 +667,7 @@
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
-			"ip" = address,
+			"ip" = "[address ? address : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 			"cid" = computer_id,
 			"rank" = admin_rank
 		))

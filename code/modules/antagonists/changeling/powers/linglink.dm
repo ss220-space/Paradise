@@ -73,7 +73,7 @@
 
 	user.visible_message(span_danger("[user] stabs [target] with the proboscis!"), \
 						span_notice("You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!"))
-	to_chat(target, "<font color=#800040><span class='boldannounce'>You can now communicate in the changeling hivemind, say \":g message\" to communicate!</span>")
+	to_chat(target, "<font color=#800040>[span_boldannounce("You can now communicate in the changeling hivemind, say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate!")]")
 
 	for(var/mob/ling in GLOB.mob_list)
 		if(GLOB.all_languages[LANGUAGE_HIVE_CHANGELING] in ling.languages)
@@ -81,7 +81,7 @@
 
 	cling?.is_linking = FALSE
 	target.add_language(LANGUAGE_HIVE_CHANGELING)
-	target.say(":g AAAAARRRRGGGGGHHHHH!!")
+	target.say("'[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]'AAAAARRRRGGGGGHHHHH!!")
 	target.reagents.add_reagent("salbutamol", 40) // So they don't choke to death while you interrogate them
 
 	addtimer(CALLBACK(src, PROC_REF(remove_language), target, user), 3 MINUTES, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)

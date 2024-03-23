@@ -341,7 +341,7 @@
 	weather_immunities = list("lava","ash")
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	tts_seed = "Mannoroth"
 
@@ -390,7 +390,7 @@
 			if(prob(30))
 				r_pocket = pickweight(list(/obj/item/stack/marker_beacon = 20, /obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/damage = 1 ))
 			if(prob(10))
-				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown = 1 ))
+				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown/haste = 1 ))
 		if("Ashwalker")
 			mob_species = /datum/species/unathi/ashwalker
 			uniform = /obj/item/clothing/under/ash_walker

@@ -235,7 +235,7 @@
 	force_wielded = 0
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
-	brightness_on = 0
+	light_range = 0
 	sharp_when_wielded = FALSE // It's a toy
 	needs_permit = FALSE
 

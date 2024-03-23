@@ -1,5 +1,5 @@
 /datum/species/vox
-	name = "Vox"
+	name = SPECIES_VOX
 	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
@@ -177,7 +177,7 @@
 	return ..()
 
 /datum/species/vox/armalis
-	name = "Vox Armalis"
+	name = SPECIES_VOX_ARMALIS
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'

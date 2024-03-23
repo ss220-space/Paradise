@@ -434,9 +434,9 @@
 
 /obj/machinery/teleport/hub/proc/update_lighting()
 	if(power_station && power_station.engaged && !panel_open)
-		set_light(2, 1, "#f1f1bd")
+		set_light(2, 1, "#f1f1bd", l_on = TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/teleport/perma
@@ -530,9 +530,9 @@
 
 /obj/machinery/teleport/perma/proc/update_lighting()
 	if(target && !recalibrating && !panel_open && !(stat & (BROKEN|NOPOWER)))
-		set_light(2, 1, "#f1f1bd")
+		set_light(2, 1, "#f1f1bd", l_on = TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
@@ -687,9 +687,9 @@
 		return
 
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 
 	update_icon()
 

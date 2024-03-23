@@ -76,17 +76,22 @@
 	if(istype(H))
 		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
 			to_chat(user, "[H]'s body is covered, and you cannot attach \the [src].")
-			return 1
+			return TRUE
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(istype(U))
 			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
+			if(!uniform_check(H, user, U))
+				return TRUE
 			if(do_after(user, 40, target=H) && H.w_uniform == U)
 				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
 				U.attackby(src, user)
 		else
 			to_chat(user, "[H] is not wearing anything to attach \the [src] to.")
-		return 1
+		return TRUE
 	return ..()
+
+/obj/item/clothing/accessory/proc/uniform_check(mob/living/carbon/human/owner, mob/living/user, obj/item/clothing/under/uniform)
+	return TRUE
 
 //default attackby behaviour
 /obj/item/clothing/accessory/attackby(obj/item/I, mob/user, params)
@@ -439,35 +444,6 @@
 	if(isliving(usr))
 		usr.visible_message("<span class='warning'>[usr] displays [usr.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security.</span>",
 		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security.</span>")
-//////////////
-//OBJECTION!//
-//////////////
-
-/obj/item/clothing/accessory/lawyers_badge
-	name = "attorney's badge"
-	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
-	icon_state = "lawyerbadge"
-	item_state = "lawyerbadge"
-	item_color = "lawyerbadge"
-	var/cached_bubble_icon = null
-
-/obj/item/clothing/accessory/lawyers_badge/attack_self(mob/user)
-	if(prob(1))
-		user.say("The testimony contradicts the evidence!")
-	user.visible_message("<span class='notice'>[user] shows [user.p_their()] attorney's badge.</span>", "<span class='notice'>You show your attorney's badge.</span>")
-
-/obj/item/clothing/accessory/lawyers_badge/on_attached(obj/item/clothing/under/S, mob/user)
-	..()
-	if(has_suit && ismob(has_suit.loc))
-		var/mob/M = has_suit.loc
-		cached_bubble_icon = M.bubble_icon
-		M.bubble_icon = "lawyer"
-
-/obj/item/clothing/accessory/lawyers_badge/on_removed(mob/user)
-	if(has_suit && ismob(has_suit.loc))
-		var/mob/M = has_suit.loc
-		M.bubble_icon = cached_bubble_icon
-	..()
 
 ///////////
 //SCARVES//
@@ -956,3 +932,95 @@
 			index++
 
 		return "[output]and \a [A[index]]"
+
+/obj/item/clothing/accessory/head_strip
+	name = "captain's strip"
+	desc = "Плотно сшитая круглая нашивка из синего бархата с позолотой, по центру красуется логотип корпорации Nanotrasen прошитый золотыми металлическими нитями. Награда выданная центральным командованием за выдающиеся управление станцией."
+	icon_state = "capstrip"
+	item_state = "capstrip"
+	item_color = "capstrip"
+	var/strip_bubble_icon = "CAP"
+	var/cached_bubble_icon = null
+
+/obj/item/clothing/accessory/head_strip/attack_self(mob/user)
+	user.visible_message("<span class='notice'>[user] shows [user.p_their()] [name].</span>", "<span class='notice'>You show your [name].</span>")
+
+/obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/owner, mob/living/user, obj/item/clothing/under/uniform)
+	for(var/obj/item/clothing/accessory/head_strip/strip in uniform)
+		to_chat(user, span_warning("You can have only one strip attached to this uniform!"))
+		return FALSE
+	return TRUE
+
+/obj/item/clothing/accessory/head_strip/on_attached(obj/item/clothing/under/S, mob/user)
+	..()
+	if(has_suit && ismob(has_suit.loc))
+		var/mob/M = has_suit.loc
+		cached_bubble_icon = M.bubble_icon
+		M.bubble_icon = strip_bubble_icon
+
+/obj/item/clothing/accessory/head_strip/on_removed(mob/user)
+	if(has_suit && ismob(has_suit.loc))
+		var/mob/M = has_suit.loc
+		M.bubble_icon = cached_bubble_icon
+	..()
+
+/obj/item/clothing/accessory/head_strip/rd
+	name = "Research Director's strip"
+	desc = "Плотно сшитая круглая нашивка из фиолетового бархата, по центру красуется логотип корпорации Nanotrasen прошитый розоватыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи в области исследований."
+	icon_state = "rdstrip"
+	item_state = "rdstrip"
+	item_color = "rdstrip"
+	strip_bubble_icon = "RD"
+
+/obj/item/clothing/accessory/head_strip/ce
+	name = "Chief Engineer's strip"
+	desc = "Плотно сшитая круглая нашивка из серо-желтого бархата, по центру красуется логотип корпорации Nanotrasen прошитый голубыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи в области инженерии."
+	icon_state = "cestrip"
+	item_state = "cestrip"
+	item_color = "cestrip"
+	strip_bubble_icon = "CE"
+
+/obj/item/clothing/accessory/head_strip/cmo
+	name = "Chief Medical Officer's strip"
+	desc = "Плотно сшитая круглая нашивка из голубого бархата, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи в области медицины."
+	icon_state = "cmostrip"
+	item_state = "cmostrip"
+	item_color = "cmostrip"
+	strip_bubble_icon = "CMO"
+
+/obj/item/clothing/accessory/head_strip/hop
+	name = "Head of Personal's strip"
+	desc = "Плотно сшитая круглая нашивка из синего бархата с красной окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся управление персоналом."
+	icon_state = "hopstrip"
+	item_state = "hopstrip"
+	item_color = "hopstrip"
+	strip_bubble_icon = "HOP"
+
+/obj/item/clothing/accessory/head_strip/hos
+	name = "Head of Security's strip"
+	desc = "Плотно сшитая круглая нашивка из черно-красного бархата, по центру красуется логотип корпорации Nanotrasen прошитый бело-красными металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи при службе на корпорацию. "
+	icon_state = "hosstrip"
+	item_state = "hosstrip"
+	item_color = "hosstrip"
+	strip_bubble_icon = "HOS"
+
+/obj/item/clothing/accessory/head_strip/qm
+	name = "Quatermaster's strip"
+	desc = "Плотно сшитая круглая нашивка из коричневого бархата, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи в области логистики и погрузки."
+	icon_state = "qmstrip"
+	item_state = "qmstrip"
+	item_color = "qmstrip"
+	strip_bubble_icon = "QM"
+
+/obj/item/clothing/accessory/head_strip/lawyers_badge
+	name = "attorney's badge"
+	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
+	icon_state = "lawyerbadge"
+	item_state = "lawyerbadge"
+	item_color = "lawyerbadge"
+	strip_bubble_icon = "lawyer"
+
+/obj/item/clothing/accessory/head_strip/lawyers_badge/attack_self(mob/user)
+	..()
+	if(prob(1))
+		user.say("The testimony contradicts the evidence!")

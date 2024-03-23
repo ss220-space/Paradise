@@ -328,8 +328,8 @@
 	O += sw
 	bottom_right_corner = se
 	O += se
-	add_overlay(O)
 
+	add_overlay(O)
 
 /proc/reverse_ndir(ndir)
 	switch(ndir)

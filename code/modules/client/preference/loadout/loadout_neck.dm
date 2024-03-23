@@ -5,18 +5,22 @@
 
 //Mantles
 /datum/gear/neck/mantle
-	display_name = "mantle"
+	display_name = "mantle, color"
 	path = /obj/item/clothing/neck/mantle
 
-/datum/gear/neck/old_scarf
+/datum/gear/neck/mantle/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/neck/mantle/old_scarf
 	display_name = "old scarf"
 	path = /obj/item/clothing/neck/mantle/old
 
-/datum/gear/neck/regal_shawl
+/datum/gear/neck/mantle/regal_shawl
 	display_name = "regal shawl"
 	path = /obj/item/clothing/neck/mantle/regal
 
-/datum/gear/neck/cowboy_mantle
+/datum/gear/neck/mantle/cowboy_mantle
 	display_name = "old wrappings"
 	path = /obj/item/clothing/neck/mantle/cowboy
 
@@ -56,8 +60,12 @@
 
 //Cloaks
 /datum/gear/neck/cloak
-	display_name = "cloak, grey"
+	display_name = "cloak, color"
 	path = /obj/item/clothing/neck/cloak/grey
+
+/datum/gear/neck/cloak/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)
 
 /datum/gear/neck/cloak/job
 	subtype_path = /datum/gear/neck/cloak/job
@@ -103,7 +111,7 @@
 	path = /obj/item/clothing/neck/cloak/head_of_security
 	allowed_roles = list("Head of Security")
 
-/datum/gear/neck/cloak/security
+/datum/gear/neck/cloaksecurity
 	display_name = "cloak, security officer"
 	path = /obj/item/clothing/neck/cloak/security
 	allowed_roles = list("Head of Security", "Security Officer", "Warden", "Security Pod Pilot")

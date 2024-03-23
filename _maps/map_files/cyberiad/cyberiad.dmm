@@ -19053,9 +19053,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/chapel/main)
 "aYL" = (
 /obj/machinery/light{
@@ -29423,11 +29421,6 @@
 	icon_state = "bluecorner"
 	},
 /area/bridge)
-"bya" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
-/area/chapel/main)
 "byb" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -29940,12 +29933,7 @@
 "bzd" = (
 /obj/structure/flora/tree/jungle/small,
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Memorial Plaque"
-	},
+/turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "bze" = (
 /obj/effect/turf_decal/siding/wood{
@@ -75801,11 +75789,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "kLu" = (
-/mob/living/simple_animal/goose/Scientist,
 /obj/structure/chair/sofa/corp,
 /obj/machinery/light{
 	dir = 1
 	},
+/mob/living/simple_animal/goose/Scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -136048,7 +136036,7 @@ uuV
 buB
 khg
 khg
-bya
+khg
 aYQ
 bwv
 bHR

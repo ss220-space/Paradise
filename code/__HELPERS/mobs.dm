@@ -10,7 +10,7 @@
 		if(SOUTHEAST) return NORTHWEST
 	return 0
 
-/proc/random_underwear(gender, species = "Human")
+/proc/random_underwear(gender, species = SPECIES_HUMAN)
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.underwear_m
@@ -18,7 +18,7 @@
 		else		pick_list = GLOB.underwear_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-/proc/random_undershirt(gender, species = "Human")
+/proc/random_undershirt(gender, species = SPECIES_HUMAN)
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.undershirt_m
@@ -26,7 +26,7 @@
 		else		pick_list = GLOB.undershirt_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-/proc/random_socks(gender, species = "Human")
+/proc/random_socks(gender, species = SPECIES_HUMAN)
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.socks_m
@@ -46,7 +46,7 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_hair_style(var/gender, species = SPECIES_HUMAN, var/datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
@@ -57,13 +57,13 @@
 			continue
 		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
-		if(species == "Machine") //If the user is a species who can have a robotic head...
+		if(species == SPECIES_MACNINEPERSON) //If the user is a species who can have a robotic head...
 			if(!robohead)
 				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 			else
-				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+				if(!robohead.is_monitor && (SPECIES_HUMAN in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
 					valid_hairstyles += hairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
@@ -75,7 +75,7 @@
 
 	return h_style
 
-/proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_facial_hair_style(var/gender, species = SPECIES_HUMAN, var/datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
@@ -86,13 +86,13 @@
 			continue
 		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))
 			continue
-		if(species == "Machine") //If the user is a species who can have a robotic head...
+		if(species == SPECIES_MACNINEPERSON) //If the user is a species who can have a robotic head...
 			if(!robohead)
 				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 			else
-				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+				if(!robohead.is_monitor && (SPECIES_HUMAN in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
 					valid_facial_hairstyles += facialhairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
@@ -104,7 +104,7 @@
 
 	return f_style
 
-/proc/random_head_accessory(species = "Human")
+/proc/random_head_accessory(species = SPECIES_HUMAN)
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
@@ -119,7 +119,7 @@
 
 	return ha_style
 
-/proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
+/proc/random_marking_style(var/location = "body", species = SPECIES_HUMAN, var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
@@ -147,7 +147,7 @@
 					continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
-			if(species == "Machine")//If the user is a species that can have a robotic head...
+			if(species == SPECIES_MACNINEPERSON)//If the user is a species that can have a robotic head...
 				if(!robohead)
 					robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
@@ -172,7 +172,7 @@
   * * species - The name of the species to filter valid body accessories.
   * * is_optional - Whether *no* body accessory (null) is an option.
  */
-/proc/random_body_accessory(species = "Vulpkanin", is_optional = FALSE)
+/proc/random_body_accessory(species = SPECIES_VULPKANIN, is_optional = FALSE)
 	var/list/valid_body_accessories = list()
 	if(is_optional)
 		valid_body_accessories += null
@@ -181,13 +181,13 @@
 			valid_body_accessories.Add(name)
 	return length(valid_body_accessories) ? pick(valid_body_accessories) : null
 
-/proc/random_name(gender, species = "Human")
+/proc/random_name(gender, species = SPECIES_HUMAN)
 
 	var/datum/species/current_species
 	if(species)
 		current_species = GLOB.all_species[species]
 
-	if(!current_species || current_species.name == "Human")
+	if(!current_species || current_species.name == SPECIES_HUMAN)
 		if(gender==FEMALE)
 			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names_female))
 		else
@@ -195,8 +195,8 @@
 	else
 		return current_species.get_random_name(gender)
 
-/proc/random_skin_tone(species = "Human")
-	if(species == "Human" || species == "Drask")
+/proc/random_skin_tone(species = SPECIES_HUMAN)
+	if(species == SPECIES_HUMAN || species == SPECIES_DRASK)
 		switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
 			if("caucasian")		. = -10
 			if("afroamerican")	. = -115
@@ -205,12 +205,12 @@
 			if("albino")		. = 34
 			else				. = rand(-185, 34)
 		return min(max(. + rand(-25, 25), -185), 34)
-	else if(species == "Vox")
+	else if(species == SPECIES_VOX)
 		. = rand(1, 6)
 		return .
 
-/proc/skintone2racedescription(tone, species = "Human")
-	if(species == "Human")
+/proc/skintone2racedescription(tone, species = SPECIES_HUMAN)
+	if(species == SPECIES_HUMAN)
 		switch(tone)
 			if(30 to INFINITY)		return "albino"
 			if(20 to 30)			return "pale"
@@ -221,7 +221,7 @@
 			if(-65 to -45)			return "brown"
 			if(-INFINITY to -65)	return "black"
 			else					return "unknown"
-	else if(species == "Vox")
+	else if(species == SPECIES_VOX)
 		switch(tone)
 			if(2)					return "dark green"
 			if(3)					return "brown"

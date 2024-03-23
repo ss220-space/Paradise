@@ -32920,10 +32920,7 @@
 	pixel_x = 31;
 	pixel_y = 1
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "fBY" = (
 /obj/structure/closet/secure_closet/brig{
@@ -33200,10 +33197,7 @@
 	dir = 1;
 	pixel_x = 32
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "fFf" = (
 /obj/effect/landmark/start/civilian,
@@ -46732,10 +46726,7 @@
 /obj/item/reagent_containers/food/drinks/flask/detflask,
 /obj/item/toy/figure/detective,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "jEe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -62430,10 +62421,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "odW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -77917,10 +77905,7 @@
 	},
 /obj/item/storage/fancy/cigarettes/dromedaryco,
 /obj/item/clothing/glasses/sunglasses,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet6-2"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "sDE" = (
 /obj/machinery/conveyor{
@@ -87372,10 +87357,7 @@
 	name = "Detective Requests Console";
 	pixel_y = -30
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "vyG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -89685,10 +89667,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/photocopier,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet5-1"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "wfX" = (
 /mob/living/simple_animal/mouse,
@@ -91538,8 +91517,8 @@
 	},
 /area/security/main)
 "wGA" = (
-/obj/structure/bed/dogbed/pet,
 /mob/living/simple_animal/goose/Scientist,
+/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"

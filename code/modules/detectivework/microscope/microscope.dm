@@ -46,7 +46,7 @@
 	add_fingerprint(user)
 	to_chat(user, "<span class='notice'>Микроскоп жужжит, пока вы анализируете \the [sample].</span>")
 
-	if(!do_after(user, 25, src) || !sample)
+	if(!do_after(user, 2.5 SECONDS, target = src) || !sample)
 		to_chat(user, "<span class='notice'>Вы перестаёте анализировать \the [sample].</span>")
 		return
 

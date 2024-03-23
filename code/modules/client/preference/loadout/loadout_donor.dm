@@ -116,3 +116,56 @@
 	path = /obj/item/lighter/zippo
 	donator_tier = 1
 	cost = 1
+
+/datum/gear/donor/strip
+	subtype_path = /datum/gear/donor/strip
+	subtype_cost_overlap = FALSE
+
+/datum/gear/donor/strip/cap
+	display_name = "strip, Captain"
+	path = /obj/item/clothing/accessory/head_strip
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Captain")
+
+/datum/gear/donor/strip/rd
+	display_name = "strip, Research Director"
+	path = /obj/item/clothing/accessory/head_strip/rd
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Research Director")
+
+/datum/gear/donor/strip/ce
+	display_name = "strip, Chief Engineer"
+	path = /obj/item/clothing/accessory/head_strip/ce
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Chief Engineer")
+
+/datum/gear/donor/strip/cmo
+	display_name = "strip, Chief Medical Officer"
+	path = /obj/item/clothing/accessory/head_strip/cmo
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Chief Medical Officer")
+
+/datum/gear/donor/strip/hop
+	display_name = "strip, Head of Personal"
+	path = /obj/item/clothing/accessory/head_strip/hop
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Head of Personnel")
+
+/datum/gear/donor/strip/hos
+	display_name = "strip, Head of Security"
+	path = /obj/item/clothing/accessory/head_strip/hos
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Head of Security")
+
+/datum/gear/donor/strip/qm
+	display_name = "strip, Quartermaster"
+	path = /obj/item/clothing/accessory/head_strip/qm
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list("Quartermaster")

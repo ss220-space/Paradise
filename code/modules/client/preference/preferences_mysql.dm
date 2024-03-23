@@ -306,7 +306,11 @@
 		//socks
 		socks = query.item[52]
 		body_accessory = query.item[53]
-		loadout_gear = params2list(query.item[54])
+		loadout_gear.Cut()
+		var/list/unformated_loadout_gear = params2list(query.item[54])
+		for(var/gear in unformated_loadout_gear)
+			loadout_gear[gear] = params2list(unformated_loadout_gear[gear])
+		form_choosen_gears()
 		autohiss_mode = text2num(query.item[55])
 		uplink_pref = query.item[56]
 
@@ -329,7 +333,7 @@
 	var/datum/species/SP = GLOB.all_species[species]
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name, 1)
-	if(isnull(species)) species = "Human"
+	if(isnull(species)) species = SPECIES_HUMAN
 	if(isnull(language)) language = "None"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
@@ -402,6 +406,20 @@
 
 	return 1
 
+/datum/preferences/proc/form_choosen_gears()
+	choosen_gears.Cut()
+	for(var/gear in loadout_gear)
+		var/datum/geartype = GLOB.gear_datums[gear]
+		if(!istype(geartype))
+			loadout_gear -= gear // Delete wrong/outdated data
+			continue
+		var/datum/gear/new_gear = new geartype.type
+		for(var/tweak in loadout_gear[gear])
+			for(var/datum/gear_tweak/gear_tweak in new_gear.gear_tweaks)
+				if(istype(gear_tweak, text2path(tweak)))
+					set_tweak_metadata(new_gear, gear_tweak, loadout_gear[gear][tweak])
+		choosen_gears[gear] = new_gear
+
 /datum/preferences/proc/save_character(client/C)
 
 	for(var/title in player_alt_titles)
@@ -424,7 +442,10 @@
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(loadout_gear))
-		gearlist = list2params(loadout_gear)
+		var/list/savelist = list()
+		for(var/gear in loadout_gear)
+			savelist[gear] = list2params(loadout_gear[gear])
+		gearlist = list2params(savelist)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey

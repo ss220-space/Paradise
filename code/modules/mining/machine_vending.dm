@@ -73,13 +73,16 @@
 		EQUIPMENT("Kinetic Accelerator", 			/obj/item/gun/energy/kinetic_accelerator, 							1000),
 		EQUIPMENT("KA Adjustable Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer/adjustable, 					200),
 		EQUIPMENT("KA AoE Damage", 					/obj/item/borg/upgrade/modkit/aoe/mobs, 							2500),
-		EQUIPMENT("KA Cooldown Decrease", 			/obj/item/borg/upgrade/modkit/cooldown, 							1500),
+		EQUIPMENT("KA Cooldown Decrease", 			/obj/item/borg/upgrade/modkit/cooldown/haste, 						1500),
 		EQUIPMENT("KA Damage Increase", 			/obj/item/borg/upgrade/modkit/damage, 								1500),
-		EQUIPMENT("KA Hyper Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod/orange, 					500),
-		EQUIPMENT("KA Minebot Passthrough", 		/obj/item/borg/upgrade/modkit/minebot_passthrough, 					300),
 		EQUIPMENT("KA Range Increase", 				/obj/item/borg/upgrade/modkit/range, 								1500),
-		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							300),
 		EQUIPMENT("KA Hardness Increase",			/obj/item/borg/upgrade/modkit/hardness,								2500),
+		EQUIPMENT("KA Offensive Mining Explosion",	/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs,					3000),
+		EQUIPMENT("KA Rapid Repeater",				/obj/item/borg/upgrade/modkit/cooldown/repeater,					2000),
+		EQUIPMENT("KA Resonator Blast",				/obj/item/borg/upgrade/modkit/resonator_blasts,						2000),
+		EQUIPMENT("KA Minebot Passthrough", 		/obj/item/borg/upgrade/modkit/minebot_passthrough, 					300),
+		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							300),
+		EQUIPMENT("KA Hyper Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod/orange, 					500),
 		EQUIPMENT("KA White Tracer Rounds", 		/obj/item/borg/upgrade/modkit/tracer, 								250),
 	)
 	prize_list["Digging Tools"] = list(
@@ -95,7 +98,7 @@
 		EQUIPMENT("Nanotrasen Minebot", 			/obj/item/mining_drone_cube, 										800),
 		EQUIPMENT("Minebot AI Upgrade", 			/obj/item/slimepotion/sentience/mining, 							1000),
 		EQUIPMENT("Minebot Armor Upgrade", 			/obj/item/mine_bot_upgrade/health, 									400),
-		EQUIPMENT("Minebot Cooldown Upgrade", 		/obj/item/borg/upgrade/modkit/cooldown/minebot,				 		600),
+		EQUIPMENT("Minebot Cooldown Upgrade", 		/obj/item/borg/upgrade/modkit/cooldown/haste/minebot,				600),
 		EQUIPMENT("Minebot Melee Upgrade", 			/obj/item/mine_bot_upgrade, 										400),
 	)
 	prize_list["Miscellaneous"] = list(

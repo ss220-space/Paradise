@@ -119,7 +119,7 @@
 /mob/camera/aiEye/remote/update_remote_sight(mob/living/user)
 	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
 	user.sight = SEE_TURFS | SEE_BLACKNESS
-	user.see_in_dark = 2
+	user.nightvision = 2
 	return 1
 
 /mob/camera/aiEye/remote/RemoveImages()

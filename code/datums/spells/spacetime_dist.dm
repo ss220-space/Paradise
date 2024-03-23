@@ -64,7 +64,7 @@
 		effect_a.add_overlay(swap_b.photograph())
 		effect_b.linked_dist = effect_a
 		effect_b.add_overlay(swap_a.photograph())
-		effect_b.set_light(4, 30, "#c9fff5")
+		effect_b.set_light_range_power_color(4, 30, "#c9fff5")
 		effects += effect_a
 		effects += effect_b
 

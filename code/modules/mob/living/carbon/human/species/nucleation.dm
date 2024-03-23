@@ -36,12 +36,12 @@
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.light_color = "#1C1C00"
-	H.set_light(2)
+	H.set_light_range(2)
 
 /datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.light_color = null
-	H.set_light(0)
+	H.set_light_on(FALSE)
 
 /datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "radium")
