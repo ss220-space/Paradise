@@ -198,6 +198,7 @@
 			to_chat(user, "<span class='notice'>You collect [I].</span>")
 			I.forceMove(src)
 			gripped_item = I
+			RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(handle_item_moving))
 		else
 			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
 			return FALSE
@@ -219,6 +220,11 @@
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
 	return TRUE
+
+/obj/item/gripper/proc/handle_item_moving()
+	SIGNAL_HANDLER
+	gripped_item.UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+	gripped_item = null
 
 //TODO: Matter decompiler.
 /obj/item/matter_decompiler
