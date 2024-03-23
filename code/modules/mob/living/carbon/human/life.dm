@@ -878,7 +878,7 @@
 		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
-				vomit(20, 0, 1, 0, 1)
+				vomit(20, 0, 8 SECONDS, 0, 1)
 				adjustToxLoss(-3)
 				lastpuke = 0
 
