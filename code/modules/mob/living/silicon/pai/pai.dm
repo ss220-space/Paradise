@@ -83,6 +83,7 @@
 
 	var/obj/machinery/computer/security/camera_bug/integrated_console //Syndicate's pai camera bug
 	var/obj/machinery/computer/secure_data/integrated_records
+	var/obj/item/gps/internal/pai_gps/pai_internal_gps
 
 	var/translator_on = 0 // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
@@ -122,11 +123,11 @@
 	radio_name = name
 
 	//Default languages without universal translator software
-	add_language("Galactic Common", 1)
-	add_language("Sol Common", 1)
-	add_language("Tradeband", 1)
-	add_language("Gutter", 1)
-	add_language("Trinary", 1)
+	add_language(LANGUAGE_GALACTIC_COMMON, 1)
+	add_language(LANGUAGE_SOL_COMMON, 1)
+	add_language(LANGUAGE_TRADER, 1)
+	add_language(LANGUAGE_GUTTER, 1)
+	add_language(LANGUAGE_TRINARY, 1)
 
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
@@ -152,10 +153,13 @@
 	integrated_records.parent = src
 	integrated_records.req_access = list()
 
+	pai_internal_gps = new(src)
+	pai_internal_gps.parent = src
+
 	reset_software()
 
 /mob/living/silicon/pai/proc/reset_software(var/extra_memory = 0)
-	QDEL_LIST(installed_software)
+	QDEL_LIST_ASSOC_VAL(installed_software)
 
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))
@@ -214,7 +218,7 @@
 		return 0
 	..()
 
-/mob/living/silicon/pai/MouseDrop(atom/over_object)
+/mob/living/silicon/pai/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	return
 
 /mob/living/silicon/pai/emp_act(severity)
@@ -416,6 +420,17 @@
 	update_icons()
 	update_canmove()
 
+/mob/living/silicon/pai/verb/pAI_suicide()
+	set category = "pAI Commands"
+	set name = "pAI Suicide"
+	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
+
+	if(alert("REALLY kill yourself? This action can't be undone.", "Suicide", "No", "Suicide") == "Suicide")
+		do_suicide()
+
+	else
+		to_chat(src, "Aborting suicide attempt.")
+
 /mob/living/silicon/pai/update_sight()
 	if(!client)
 		return
@@ -597,21 +612,21 @@
 
 	return H
 
-/mob/living/silicon/pai/MouseDrop(atom/over_object)
-	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
-	if(!istype(H) || !Adjacent(H))  return ..()
+/mob/living/silicon/pai/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+	if(!ishuman(user) || !Adjacent(user))
+		return ..()
 	if(usr == src)
-		switch(alert(H, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+		switch(alert(user, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
 			if("Yes")
-				if(Adjacent(H))
-					get_scooped(H)
+				if(Adjacent(user))
+					get_scooped(user)
 				else
-					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+					to_chat(src, span_warning("You need to stay in reaching distance to be picked up."))
 			if("No")
-				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+				to_chat(src, span_warning("[user] decided not to pick you up."))
 	else
-		if(Adjacent(H))
-			get_scooped(H)
+		if(Adjacent(user))
+			get_scooped(user)
 		else
 			return ..()
 

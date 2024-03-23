@@ -131,7 +131,7 @@
 			to_chat(M, "<span class='warning'>You can't breathe!</span>")
 			update_flags |= M.adjustOxyLoss(15, FALSE)
 			update_flags |= M.adjustToxLoss(3, FALSE)
-			M.Stun(2 SECONDS, FALSE)
+			M.Stun(2 SECONDS)
 		else if(effect <= 4)
 			to_chat(M, "<span class='warning'>You feel terrible!</span>")
 			M.emote("drool")
@@ -179,7 +179,7 @@
 		if(36 to 70)
 			M.Drowsy(20 SECONDS)
 		if(71 to INFINITY)
-			M.Paralyse(20 SECONDS, FALSE)
+			M.Paralyse(20 SECONDS)
 			M.Drowsy(20 SECONDS)
 	return ..() | update_flags
 
@@ -270,7 +270,7 @@
 			M.bodytemperature += rand(5,30)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			update_flags |= M.adjustToxLoss(1, FALSE)
-			M.Stun(4 SECONDS, FALSE)
+			M.Stun(4 SECONDS)
 		else if(effect <= 7)
 			M.Jitter(60 SECONDS)
 			M.emote("grumble")
@@ -279,7 +279,7 @@
 			M.visible_message("<span class='warning'>[M] is sweating like a pig!</span>")
 			M.bodytemperature += rand(20,100)
 			update_flags |= M.adjustToxLoss(5, FALSE)
-			M.Stun(6 SECONDS, FALSE)
+			M.Stun(6 SECONDS)
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] starts tweaking the hell out!</span>")
 			M.Jitter(200 SECONDS)
@@ -323,7 +323,7 @@
 	if(prob(5))
 		to_chat(M, "<span class='notice'>You feel too chill!</span>")
 		M.emote(pick("yawn", "drool"))
-		M.Stun(2 SECONDS, FALSE)
+		M.Stun(2 SECONDS)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 		M.bodytemperature -= 20
@@ -708,6 +708,7 @@
 			M.emote("laugh")
 	return list(effect, update_flags)
 
+
 /datum/reagent/rotatium //Rotatium. Fucks up your rotation and is hilarious
 	name = "Rotatium"
 	id = "rotatium"
@@ -717,22 +718,25 @@
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
 	taste_description = "spinning"
 
+
 /datum/reagent/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
 		if(current_cycle >= 20 && current_cycle % 20 == 0)
-			var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
+			var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 			var/rotation = min(round(current_cycle / 20), 89) // By this point the player is probably puking and quitting anyway
-			for(var/whole_screen in screens)
-				animate(whole_screen, transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
+			for(var/key in pm_controller.controlled_planes)
+				animate(pm_controller.controlled_planes[key], transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
 				animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING)
 	return ..()
 
+
 /datum/reagent/rotatium/on_mob_delete(mob/living/M)
-	if(M && M.hud_used)
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/whole_screen in screens)
-			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
+	if(M?.hud_used)
+		var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+		for(var/key in pm_controller.controlled_planes)
+			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
+
 
 //////////////////////////////
 //		   laughter         //
@@ -794,8 +798,8 @@
 				if(40 to 49)
 					M.say(pick(list("УАААААХАХАХ!", "КХХХААААААААА!", "АХАХАХАХ ААААА АХАХАХАХА!")))
 				if(50 to 55)
-					update_flags |= M.Weaken(4 SECONDS)
-					update_flags |= M.Jitter(10 SECONDS)
+					M.Weaken(4 SECONDS)
+					M.Jitter(10 SECONDS)
 					M.emote(pick("laugh"))
 				if(60 to 69)
 					M.bodytemperature += rand(1, 5)
@@ -840,10 +844,10 @@
 			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
 		if(51 to 100)
 			M.emote(pick("whimper", "glare", "cry", "sniff"))
-			update_flags |= M.Jitter(10 SECONDS)
+			M.Jitter(10 SECONDS)
 		if(101 to 150)
 			to_chat(M, "<span class='warning'>Your life has lost all colours</span>")
-			update_flags |= M.EyeBlind(16 SECONDS)
+			M.EyeBlind(16 SECONDS)
 			update_flags |= M.adjustBrainLoss(rand(1, 7))
 		if(151 to 200)
 			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
@@ -1137,7 +1141,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(50))
 		update_flags |= M.adjustHeartLoss(1, FALSE)
-	update_flags |= M.AdjustConfused(2 SECONDS)
+	M.AdjustConfused(2 SECONDS)
 	if(prob(25))
 		M.emote("sneeze")
 	if(prob(10))

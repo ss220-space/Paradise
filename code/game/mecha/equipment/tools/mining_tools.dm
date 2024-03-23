@@ -99,7 +99,7 @@
 	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")
-		if(LAZYLEN(target.butcher_results))
+		if(LAZYLEN(target.butcher_results) || issmall(target))
 			target.harvest(chassis) // Butcher the mob with our drill.
 		else
 			target.gib()
@@ -131,8 +131,15 @@
 	equip_cooldown = 1 SECONDS
 	drill_delay = 4
 	drill_level = DRILL_HARDENED
-	force = 15
 
+/obj/item/mecha_parts/mecha_equipment/drill/giga
+	name = "Old giant steel drill"
+	desc = "Time-tested giant diamond-coated steel drill. This giant will drill anything!"
+	icon_state = "mech_gigadrill"
+	equip_cooldown = 0.5 SECONDS
+	drill_delay = 2
+	drill_level = DRILL_HARDENED
+	integrated = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	name = "exosuit mining scanner"
@@ -140,23 +147,19 @@
 	icon_state = "mecha_analyzer"
 	equip_cooldown = 1.5 SECONDS
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSfastprocess, src)
-
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/M)
-	START_PROCESSING(SSfastprocess, src)
+	START_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act()
-	STOP_PROCESSING(SSfastprocess, src)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act(obj/mecha/M)
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()
 	if(!chassis)
-		STOP_PROCESSING(SSfastprocess, src)
+		STOP_PROCESSING(SSobj, src)
 		return TRUE
 	if(!action_checks(src))
 		return FALSE

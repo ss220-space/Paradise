@@ -35,7 +35,7 @@
 		return
 	for(var/thing in targets)
 		var/obj/machinery/atmospherics/unary/unary = thing
-		unary.add_overlay(GLOB.acid_overlay, TRUE)
+		unary.add_overlay(GLOB.acid_overlay)
 		addtimer(CALLBACK(src, PROC_REF(unweld_vent), unary), 2 SECONDS)
 		playsound(unary, 'sound/items/welder.ogg', 100, TRUE)
 
@@ -48,5 +48,5 @@
 		var/obj/machinery/atmospherics/unary/vent_scrubber/vent = unary
 		vent.welded = FALSE
 	unary.update_icon()
-	unary.cut_overlay(GLOB.acid_overlay, TRUE)
+	unary.cut_overlay(GLOB.acid_overlay)
 

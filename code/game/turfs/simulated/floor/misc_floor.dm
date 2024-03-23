@@ -54,6 +54,37 @@
 	name = "sand"
 	icon_state = "sand"
 	baseturf = /turf/simulated/floor/beach/sand
+	var/dug = FALSE
+
+/turf/simulated/floor/beach/sand/proc/can_dig(mob/user) //just copied from asteroid with corrections
+	if(!dug)
+		return TRUE
+	if(user)
+		to_chat(user, span_notice("Looks like someone has dug here already."))
+
+/turf/simulated/floor/beach/sand/attackby(obj/item/I, mob/user, params)
+	//note that this proc does not call ..()
+	if(!I|| !user)
+		return FALSE
+
+	if((istype(I, /obj/item/shovel) || istype(I, /obj/item/pickaxe)))
+		if(!can_dig(user))
+			return TRUE
+
+		var/turf/T = get_turf(user)
+		if(!istype(T))
+			return
+
+		to_chat(user, span_notice("You start digging..."))
+
+		playsound(src, I.usesound, 50, TRUE)
+		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
+			if(!can_dig(user))
+				return TRUE
+			to_chat(user, span_notice("You dig a hole."))
+			new /obj/structure/pit(src)
+			dug = TRUE
+
 
 
 /turf/simulated/floor/beach/coastline
@@ -99,7 +130,8 @@
 	. = ..()
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
-	overlays += overlay_image
+	add_overlay(overlay_image)
+
 
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
@@ -128,9 +160,13 @@
 	name = "high-traction floor"
 	icon_state = "noslip"
 	floor_tile = /obj/item/stack/tile/noslip
-	broken_states = list("noslip-damaged1","noslip-damaged2","noslip-damaged3")
-	burnt_states = list("noslip-scorched1","noslip-scorched2")
 	slowdown = -0.3
+
+/turf/simulated/floor/noslip/broken_states()
+	return list("noslip-damaged1","noslip-damaged2","noslip-damaged3")
+
+/turf/simulated/floor/noslip/burnt_states()
+	return list("noslip-scorched1","noslip-scorched2")
 
 /turf/simulated/floor/noslip/MakeSlippery()
 	return

@@ -28,25 +28,12 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
 
-/obj/item/clothing/head/helmet/attack_self(mob/user)
-	if(can_toggle && !user.incapacitated())
-		if(world.time > cooldown + toggle_cooldown)
-			cooldown = world.time
-			up = !up
-			flags ^= visor_flags
-			flags_inv ^= visor_flags_inv
-			icon_state = "[initial(icon_state)][up ? "up" : ""]"
-			to_chat(user, "[up ? alt_toggle_message : toggle_message] \the [src]")
 
-			user.update_inv_head()
-
-			if(active_sound)
-				while(up)
-					playsound(src.loc, "[active_sound]", 100, 0, 4)
-					sleep(15)
-			if(toggle_sound)
-				playsound(src.loc, "[toggle_sound]", 100, 0, 4)
-
+/obj/item/clothing/head/helmet/adjust_headgear(mob/user)
+	. = ..()
+	if(.)
+		flags ^= visor_flags
+		flags_inv ^= visor_flags_inv
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
@@ -122,10 +109,10 @@
 	name = "helmet of justice"
 	desc = "WEEEEOOO. WEEEEEOOO. WEEEEOOOO."
 	icon_state = "justice"
-	toggle_message = "You turn off the lights on"
-	alt_toggle_message = "You turn on the lights on"
+	toggle_on_message = "You turn off the lights on"
+	toggle_off_message = "You turn on the lights on"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	can_toggle = 1
+	can_toggle = TRUE
 	toggle_cooldown = 20
 	active_sound = 'sound/items/weeoo1.ogg'
 	dog_fashion = null
@@ -134,8 +121,8 @@
 	name = "alarm helmet"
 	desc = "WEEEEOOO. WEEEEEOOO. STOP THAT MONKEY. WEEEOOOO."
 	icon_state = "justice2"
-	toggle_message = "You turn off the light on"
-	alt_toggle_message = "You turn on the light on"
+	toggle_on_message = "You turn off the light on"
+	toggle_off_message = "You turn on the light on"
 
 
 /obj/item/clothing/head/helmet/swat
@@ -214,10 +201,10 @@
 	flags = BLOCKHAIR
 	item_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
-	toggle_message = "You attach the face shield to the"
-	alt_toggle_message = "You remove the face shield from the"
+	toggle_on_message = "You attach the face shield to the"
+	toggle_off_message = "You remove the face shield from the"
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
-	can_toggle = 1
+	can_toggle = TRUE
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/zippoclose.ogg'
 	dog_fashion = null
@@ -406,6 +393,36 @@
 		"Nian" = 'icons/mob/clothing/species/nian/helmet.dmi',
 		"Machine" = 'icons/mob/clothing/species/machine/helmet.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+	)
+
+//Dredd
+/obj/item/clothing/head/helmet/street_judge
+	name = "Judge's helmet"
+	desc = "Commonly used security headgear for the more theatrically inclined. Wear this in hostage situations to make everything worse."
+	icon_state = "streetjudge_helmet"
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")
+
+/obj/item/clothing/head/helmet/lightweighthelmet
+	name = "lightweight helmet"
+	desc = "Standard Security gear. Protects the head from impacts."
+	icon_state = "lightweighthelmet"
+	item_state = "lightweighthelmet"
+	flags_inv = HIDEHEADSETS
+	strip_delay = 60
+	flags = BLOCKHEADHAIR
+	flags_cover = null
+	dog_fashion = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',

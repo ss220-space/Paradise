@@ -287,10 +287,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "fx" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet6-2"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "gh" = (
 /obj/machinery/light/small{
@@ -339,20 +336,14 @@
 /area/ruin/powered/snow_biodome)
 "qI" = (
 /obj/machinery/light,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet5-1"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "rT" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
 "sf" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet8-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "sE" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -385,10 +376,7 @@
 "vf" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "xU" = (
 /obj/item/storage/toolbox/mechanical,
@@ -417,18 +405,12 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Bz" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet4-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "Cz" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "CD" = (
 /obj/structure/fans/tiny,
@@ -658,7 +640,7 @@
 /area/ruin/powered/snow_cabin)
 "Ye" = (
 /obj/structure/table/wood,
-/obj/item/deck/doublecards,
+/obj/item/deck/cards/doublecards,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "Zo" = (

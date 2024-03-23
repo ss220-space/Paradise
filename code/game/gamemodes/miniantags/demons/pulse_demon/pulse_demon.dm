@@ -247,7 +247,6 @@
 	greeting.Add(span_clock("<b>A being made of pure electrical energy, you travel through the station's wires and infest machinery.</b>"))
 	greeting.Add(span_clock("<b>Navigate the station's power cables to find power sources to steal from, and hijack APCs to interact with their connected machines.</b>"))
 	greeting.Add(span_clock("<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise immune to damage.</b>"))
-	to_chat(src, span_notice(greeting.Join("<br>")))
 	var/datum/objective/pulse_demon/infest/infestapc = new
 	var/datum/objective/pulse_demon/drain/drainpower = new
 	var/datum/objective/pulse_demon/tamper/tampermach = new
@@ -257,7 +256,9 @@
 	infestapc.owner = mind
 	drainpower.owner = mind
 	tampermach.owner = mind
-	mind.announce_objectives()
+	greeting.Add(mind.prepare_announce_objectives(FALSE))
+	greeting.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Pulse_Demon\">Электродемон</a></span>")
+	to_chat(src, chat_box_yellow(greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
 	return
 
@@ -289,7 +290,7 @@
 /mob/living/simple_animal/demon/pulse_demon/gib()
 	return death()
 
-/mob/living/simple_animal/demon/pulse_demon/death()
+/mob/living/simple_animal/demon/pulse_demon/death(gibbed)
 	var/turf/T = get_turf(src)
 	do_sparks(rand(2, 4), FALSE, src)
 	. = ..()
@@ -755,8 +756,10 @@
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
+/mob/living/simple_animal/demon/pulse_demon/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE
 

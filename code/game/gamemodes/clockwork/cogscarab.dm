@@ -51,14 +51,14 @@
 	var/wind_up_timer = CLOCK_MAX_WIND_UP_TIMER
 	var/wind_up_icon_segment = CLOCK_MAX_WIND_UP_TIMER / 5
 	var/warn_wind_up = WINDUP_STATE_NONE
+	var/obj/structure/clockwork/functional/cogscarab_fabricator/fabr
 
-/mob/living/silicon/robot/cogscarab/Initialize()
+/mob/living/silicon/robot/cogscarab/Initialize(mapload)
 	. = ..()
-	remove_language("Robot Talk")
-	add_language("Drone Talk", 1)
+	remove_language(LANGUAGE_BINARY)
+	add_language(LANGUAGE_DRONE_BINARY, 1)
 	if(radio)
 		radio.wires.cut(WIRE_RADIO_TRANSMIT)
-
 
 	//Shhhh it's a secret. No one needs to know about infinite power for clockwork drone
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
@@ -78,7 +78,6 @@
 /mob/living/silicon/robot/drone/Destroy()
 	for(var/datum/action/innate/hide/drone/cogscarab/hide in actions)
 		hide.Remove(src)
-
 	. = ..()
 
 
@@ -87,9 +86,9 @@
 	connected_ai = null
 
 	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
-	additional_law_channels["Drone"] = ":d "
+	additional_law_channels["Drone"] = get_language_prefix(LANGUAGE_DRONE_BINARY)
 
-	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+	playsound(loc, 'sound/machines/twobeep.ogg', 50, FALSE)
 
 /mob/living/silicon/robot/cogscarab/create_mob_hud()
 	..()
@@ -136,11 +135,13 @@
 	return "cogscarab [pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
 
 /mob/living/silicon/robot/cogscarab/update_icons()
-	overlays.Cut()
+	cut_overlays()
+
 	if(stat == CONSCIOUS)
-		overlays += "eyes-[icon_state]"
-	else
-		overlays -= "eyes"
+		add_overlay("eyes-[icon_state]")
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /mob/living/silicon/robot/cogscarab/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/borg/upgrade))
@@ -157,6 +158,20 @@
 		get_scooped(M)
 		return TRUE
 	return ..()
+
+/mob/living/silicon/robot/cogscarab/get_scooped(mob/living/carbon/grabber)
+	var/obj/item/holder/cogscarab/H = new(loc)
+	src.forceMove(H)
+	H.name = name
+	H.icon = icon
+	H.w_class = WEIGHT_CLASS_TINY
+	H.attack_hand(grabber)
+
+	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
+	to_chat(src, "<span class='notice'>[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас.</span>")
+	grabber.status_flags |= PASSEMOTES
+
+	return H
 
 /mob/living/silicon/robot/cogscarab/choose_icon()
 	return
@@ -197,6 +212,7 @@
 
 /mob/living/silicon/robot/cogscarab/death(gibbed)
 	. = ..(gibbed)
+	fabr?.close_slot(src)
 	SSticker.mode.remove_clocker(mind, FALSE)
 	adjustBruteLoss(health)
 

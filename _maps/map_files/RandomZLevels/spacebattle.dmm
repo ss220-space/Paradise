@@ -1659,9 +1659,9 @@
 /area/awaymission/spacebattle/syndicate1)
 "fc" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/freezing)
@@ -1709,9 +1709,7 @@
 /area/awaymission/spacebattle/engine)
 "fj" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /turf/space,
 /area/space)
 "fk" = (
@@ -4012,9 +4010,7 @@
 /area/space)
 "lp" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor,
 /area/awaymission/spacebattle/cruiser)
@@ -7411,9 +7407,7 @@
 /area/awaymission/spacebattle/freezing)
 "uV" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor,
 /area/awaymission/spacebattle/hallway11)
@@ -7882,8 +7876,7 @@
 	master_tag = "left";
 	name = "interior access button";
 	pixel_x = -25;
-	pixel_y = 25;
-	req_access = null
+	pixel_y = 25
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -7904,9 +7897,7 @@
 /area/awaymission/spacebattle/hallway12)
 "wn" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /obj/machinery/constructable_frame{
 	icon = 'icons/obj/engines_and_power/singularity.dmi';
 	icon_state = "TheSingGen";
@@ -9064,10 +9055,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "zg" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/soft/yellow{
-	blood_color = "#A10808";
-	blood_overlay = "#A10808"
-	},
+/obj/item/clothing/head/soft/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -11062,7 +11050,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "EG" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck/syndicate,
+/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -11232,9 +11220,7 @@
 /area/awaymission/spacebattle/syndicate1)
 "Ff" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /obj/machinery/constructable_frame{
 	icon = 'icons/obj/engines_and_power/singularity.dmi';
 	icon_state = "TheSingGen";
@@ -12396,8 +12382,7 @@
 	master_tag = "right";
 	name = "exterior access button";
 	pixel_x = -25;
-	pixel_y = -25;
-	req_access = null
+	pixel_y = -25
 	},
 /turf/space,
 /area/awaymission/spacebattle/syndicate1)
@@ -17767,8 +17752,7 @@
 	master_tag = "right";
 	name = "interior access button";
 	pixel_x = 25;
-	pixel_y = 25;
-	req_access = null
+	pixel_y = 25
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -18427,8 +18411,7 @@
 	master_tag = "left";
 	name = "exterior access button";
 	pixel_x = 25;
-	pixel_y = -25;
-	req_access = null
+	pixel_y = -25
 	},
 /turf/space,
 /area/awaymission/spacebattle/syndicate1)

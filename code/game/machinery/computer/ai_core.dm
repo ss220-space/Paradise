@@ -1,6 +1,6 @@
 /obj/structure/AIcore
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	name = "AI core"
 	icon = 'icons/mob/ai.dmi'
 	icon_state = "0"
@@ -25,7 +25,7 @@
 				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, span_notice("You place the circuit board inside the frame."))
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				state = CIRCUIT_CORE
 				circuit = P
 				return
@@ -39,7 +39,7 @@
 						add_fingerprint(user)
 						to_chat(user, span_notice("You add cables to the frame."))
 						state = CABLED_CORE
-						update_icon()
+						update_icon(UPDATE_ICON_STATE)
 				else
 					to_chat(user, span_warning("You need five lengths of cable to wire the AI core!"))
 				return
@@ -53,7 +53,7 @@
 						add_fingerprint(user)
 						to_chat(user, span_notice("You put in the glass panel."))
 						state = GLASS_CORE
-						update_icon()
+						update_icon(UPDATE_ICON_STATE)
 				else
 					to_chat(user, span_warning("You need two sheets of reinforced glass to insert them into the AI core!"))
 				return
@@ -96,6 +96,11 @@
 					to_chat(user, span_warning("This [P] does not seem to fit."))
 					return
 
+				var/datum/job/job_ai = SSjobs.name_occupations["AI"]
+				if(job_ai.available_in_playtime(M.brainmob.client))
+					to_chat(user, span_warning("This [P] does not seem to fit."))
+					return
+
 				if(!M.brainmob.mind)
 					to_chat(user, span_warning("This [M.name] is mindless!"))
 					return
@@ -110,7 +115,7 @@
 				add_fingerprint(user)
 				brain = M
 				to_chat(user, span_notice("You add [M.name] to the frame."))
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				return
 
 	return ..()
@@ -138,7 +143,7 @@
 				to_chat(user, span_notice("You remove the brain."))
 				brain.forceMove(loc)
 				brain = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/AIcore/screwdriver_act(mob/living/user, obj/item/I)
 	if(!(state in list(SCREWED_CORE, CIRCUIT_CORE, GLASS_CORE, AI_READY_CORE)))
@@ -165,6 +170,7 @@
 			else
 				if(brain.brainmob.mind)
 					SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
+					SSticker.mode.remove_clocker(brain.brainmob.mind, 1)
 					SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
 
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
@@ -176,7 +182,7 @@
 		if(AI_READY_CORE)
 			to_chat(user, span_notice("You disconnect the monitor."))
 			state = GLASS_CORE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/structure/AIcore/wirecutter_act(mob/living/user, obj/item/I)
@@ -199,7 +205,7 @@
 		return
 	default_unfasten_wrench(user, I, 20)
 
-/obj/structure/AIcore/update_icon()
+/obj/structure/AIcore/update_icon_state()
 	switch(state)
 		if(EMPTY_CORE)
 			icon_state = "0"
@@ -301,8 +307,8 @@ That prevents a few funky behaviors.
 		return
  //Transferring a carded AI to a core.
 	if(interaction == AI_TRANS_FROM_CARD)
-		AI.control_disabled = 0
-		AI.aiRadio.disabledAi = 0
+		AI.control_disabled = FALSE
+		AI.aiRadio.disabledAi = FALSE
 		AI.forceMove(loc)//To replace the terminal.
 		AI.on_the_card = FALSE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")

@@ -5,7 +5,7 @@
 	var/useFull = 0
 	var/useGrille = 1
 	var/windowtospawn = /obj/structure/window/basic
-	anchored = 1 // No sliding out while you prime
+	anchored = TRUE // No sliding out while you prime
 
 /obj/effect/spawner/window/Initialize()
 	. = ..()
@@ -46,6 +46,11 @@
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"
 	windowtospawn = /obj/structure/window/reinforced
+
+/obj/effect/spawner/window/reinforced/Initialize(mapload)
+	. = ..()
+	if(GLOB.new_year_celebration && is_station_level(z))
+		new /obj/structure/garland(loc)
 
 /obj/effect/spawner/window/reinforced/polarized
 	name = "polarized reinforced window spawner"

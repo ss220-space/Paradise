@@ -19,11 +19,12 @@
 	GLOB.beacons -= src
 	return ..()
 
-/obj/item/radio/beacon/emag_act(user as mob)
+/obj/item/radio/beacon/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
 		syndicate = 1
-		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
 
 /obj/item/radio/beacon/hear_talk()
 	return
@@ -102,7 +103,7 @@
 
 /obj/item/radio/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
-	anchored = 1		//Let's not move these around. Some folk might get the idea to use these for assassinations
+	anchored = TRUE		//Let's not move these around. Some folk might get the idea to use these for assassinations
 	var/list/enginetype = list()
 
 /obj/item/radio/beacon/engine/Initialize(mapload)

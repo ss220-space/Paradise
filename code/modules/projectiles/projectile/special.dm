@@ -3,7 +3,7 @@
 	icon_state = "ion"
 	damage = 0
 	damage_type = BURN
-	nodamage = 1
+	nodamage = TRUE
 	var/emp_range = 1
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
@@ -49,7 +49,7 @@
 	icon_state = "temp_4"
 	damage = 0
 	damage_type = BURN
-	nodamage = 1
+	nodamage = TRUE
 	reflectability = REFLECTABILITY_ENERGY
 	flag = "energy"
 	var/temperature = 300
@@ -93,7 +93,7 @@
 			icon_state = "temp_4"
 
 
-/obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
+/obj/item/projectile/temp/on_hit(atom/target, blocked = 0)//These two could likely check temp protection on the mob
 	if(!..())
 		return FALSE
 
@@ -112,7 +112,7 @@
 	icon_state = "small"
 	damage = 0
 	damage_type = BRUTE
-	nodamage = 1
+	nodamage = TRUE
 	flag = "bullet"
 
 /obj/item/projectile/meteor/Bump(atom/A, yes)
@@ -133,7 +133,7 @@
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
-	nodamage = 1
+	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
@@ -167,7 +167,7 @@
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
-	nodamage = 1
+	nodamage = TRUE
 	flag = "energy"
 
 /obj/item/projectile/energy/florayield/on_hit(var/atom/target, var/blocked = 0)
@@ -211,18 +211,14 @@
 	icon_state = "spark"
 	hitsound = "sparks"
 	damage = 0
-	var/obj/item/gun/energy/wormhole_projector/gun
 	color = "#33CCFF"
 	nodamage = TRUE
+	var/is_orange = FALSE
 
 /obj/item/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"
 	color = "#FF6600"
-
-/obj/item/projectile/beam/wormhole/New(var/obj/item/ammo_casing/energy/wormhole/casing)
-	. = ..()
-	if(casing)
-		gun = casing.gun
+	is_orange = TRUE
 
 /obj/item/projectile/beam/wormhole/on_hit(atom/target)
 	if(ismob(target))
@@ -230,8 +226,9 @@
 			var/turf/portal_destination = pick(orange(6, src))
 			do_teleport(target, portal_destination)
 		return ..()
-	if(!gun)
+	if(!firer_source_atom)
 		qdel(src)
+	var/obj/item/gun/energy/wormhole_projector/gun = firer_source_atom
 	if(!(locate(/obj/effect/portal) in get_turf(target)))
 		gun.create_portal(src)
 
@@ -302,7 +299,7 @@
 	name = "teleportation burst"
 	icon_state = "bluespace"
 	damage = 0
-	nodamage = 1
+	nodamage = TRUE
 	var/teleport_target = null
 
 /obj/item/projectile/energy/teleport/New(loc, tele_target)
@@ -345,18 +342,18 @@
 
 /obj/item/projectile/ornament/on_hit(atom/target)	//knockback
 	..()
-	if(istype(target, /turf))
+	if(!istype(target, /mob))
 		return 0
 	var/obj/T = target
 	var/throwdir = get_dir(firer,target)
-	T.throw_at(get_edge_target_turf(target, throwdir),10,10)
+	T.throw_at(get_edge_target_turf(target, throwdir),5,5) // 10,10 tooooo much
 	return 1
 
 /obj/item/projectile/mimic
 	name = "googly-eyed gun"
 	hitsound = 'sound/weapons/genhit1.ogg'
 	damage = 0
-	nodamage = 1
+	nodamage = TRUE
 	damage_type = BURN
 	flag = "melee"
 	var/obj/item/gun/stored_gun

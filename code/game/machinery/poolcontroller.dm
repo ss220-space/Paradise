@@ -9,7 +9,7 @@
 	desc = "A controller for the nearby pool."
 	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
-	anchored = 1 //this is what I get for assuming /obj/machinery has anchored set to 1 by default
+	anchored = TRUE //this is what I get for assuming /obj/machinery has anchored set to 1 by default
 	var/list/linkedturfs = list() //List contains all of the linked pool turfs to this controller, assignment happens on New()
 	var/mobinpool = list() //List contains all of the mob in the pool, to prevent looping through the entire area to find mobs inside..
 	var/decalinpool = list() // List containing all of the cleanable decals in pool
@@ -20,7 +20,7 @@
 	var/deep_water = FALSE		//set to 1 to drown even standing people
 
 /obj/machinery/poolcontroller/invisible
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 	name = "Water Controller"
 	desc = "An invisible water controller. Players shouldn't see this."
 
@@ -52,7 +52,8 @@
 
 /obj/machinery/poolcontroller/emag_act(user as mob) //Emag_act, this is called when it is hit with a cryptographic sequencer.
 	if(!emagged) //If it is not already emagged, emag it.
-		to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
+		if(user)
+			to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
 
 		emagged = 1 //Set the emag var to true.
 

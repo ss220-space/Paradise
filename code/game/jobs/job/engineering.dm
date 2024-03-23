@@ -1,13 +1,13 @@
 /datum/job/chief_engineer
-	title = "Chief Engineer"
-	flag = JOB_CHIEF
+	title = JOB_TITLE_CHIEF
+	flag = JOB_FLAG_CHIEF
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	is_engineering = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
-	selection_color = "#ffeeaa"
+	selection_color = "#ffba4c"
 	req_admin_notify = 1
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
 			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
@@ -49,15 +49,15 @@
 
 
 /datum/job/engineer
-	title = "Station Engineer"
-	flag = JOB_ENGINEER
+	title = JOB_TITLE_ENGINEER
+	flag = JOB_FLAG_ENGINEER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 5
 	spawn_positions = 5
 	is_engineering = 1
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
-	selection_color = "#fff5cc"
+	selection_color = "#ffeaca"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
@@ -88,12 +88,12 @@
 
 
 /datum/job/engineer/trainee
-	title = "Trainee Engineer"
-	flag = JOB_ENGINEER_TRAINEE
+	title = JOB_TITLE_ENGINEER_TRAINEE
+	flag = JOB_FLAG_ENGINEER_TRAINEE
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list("Chief Engineer", "Station Engineer")
-	selection_color = "#fff5cc"
+	selection_color = "#ffeaca"
 	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -134,15 +134,15 @@
 
 
 /datum/job/atmos
-	title = "Life Support Specialist"
-	flag = JOB_ATMOSTECH
+	title = JOB_TITLE_ATMOSTECH
+	flag = JOB_FLAG_ATMOSTECH
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 3
 	spawn_positions = 2
 	is_engineering = 1
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
-	selection_color = "#fff5cc"
+	selection_color = "#ffeaca"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
 	alt_titles = list("Atmospheric Technician")
@@ -170,15 +170,15 @@
 
 
 /datum/job/mechanic
-	title = "Mechanic"
-	flag = JOB_MECHANIC
+	title = JOB_TITLE_MECHANIC
+	flag = JOB_FLAG_MECHANIC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	is_engineering = 1
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
-	selection_color = "#fff5cc"
+	selection_color = "#ffeaca"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	exp_requirements = 900

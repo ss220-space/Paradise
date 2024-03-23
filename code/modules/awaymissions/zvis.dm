@@ -155,7 +155,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = 1
+	anchored = TRUE
 
 	var/id = null				// id of other portal turf we connect to
 
@@ -327,7 +327,7 @@
 /obj/effect/view_portal/visual/proc/trigger(near, turf/T)
 	var/obj/effect/view_portal_dummy/D = tiles[T]
 	if(D)
-		D.overlays.Cut()
+		D.cut_overlays()
 	else
 		D = new(src, near, T)
 		tiles[T] = D
@@ -342,7 +342,7 @@
 			var/image/I = image(A, layer = D.layer + A.layer * 0.01, dir = A.dir)
 			I.pixel_x = A.pixel_x
 			I.pixel_y = A.pixel_y
-			D.overlays += I
+			D.add_overlay(I)
 
 // tile of rendered other side for narnia portal
 /obj/effect/view_portal_dummy

@@ -43,11 +43,11 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit, /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf)
 	tame_chance = 0
 	bonus_tame_chance = 10
-	needs_gliding= FALSE
+	needs_gliding = FALSE
 
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/item/projectile/P)
-	if(prob(reflect_chance))
+	if(prob(reflect_chance) && !istype(P, /obj/item/projectile/destabilizer))
 		visible_message("<span class='danger'>The [P.name] gets reflected by [src]'s rocky hide!</span>", \
 							"<span class='userdanger'>The [P.name] gets reflected by [src]'s rocky hide!</span>")
 		P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
@@ -228,7 +228,7 @@
 			LAZYCLEARLIST(cached_tentacle_turfs)
 			last_location = loc
 			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)
-			for(var/turf/simulated/floor/T in orange(4, loc))
+			for(var/turf/T as anything in RECT_TURFS(4, 4, loc))
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isfloorturf(t))
@@ -269,6 +269,11 @@
 		var/turf/T = get_step(src, spawndir)
 		if(T)
 			new /obj/effect/temp_visual/goliath_tentacle(T, spawner)
+
+/obj/effect/temp_visual/goliath_tentacle/full_cross/Initialize(mapload, new_spawner)
+	. = ..()
+	for(var/dir in GLOB.cardinal)
+		new /obj/effect/temp_visual/goliath_tentacle(get_step(src, dir), spawner)
 
 /obj/effect/temp_visual/goliath_tentacle/proc/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"

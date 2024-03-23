@@ -125,6 +125,9 @@
 				/obj/item/wirecutters = 10,
 				/obj/item/wrench = 40,
 				/obj/item/relic = 35,
+				/obj/item/weaponcrafting/revolverbarrel = 3,
+				/obj/item/weaponcrafting/revolverbarrel/steel = 2,
+				/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel = 2,
 				/obj/item/weaponcrafting/receiver = 2,
 				/obj/item/clothing/gloves/knuckles = 1,
 				/obj/item/clothing/shoes/brown = 30,
@@ -140,6 +143,7 @@
 				/obj/item/gun/projectile/automatic/pistol = 1,
 				/obj/item/ammo_box/magazine/m10mm = 4,
 				/obj/item/soap/syndie = 7,
+				/obj/item/stack/tape_roll/thick = 7,
 				/obj/item/gun/syringe/syndicate = 2,
 				/obj/item/suppressor = 4,
 				/obj/item/clothing/under/chameleon = 2,
@@ -155,13 +159,13 @@
 				/obj/item/multitool/ai_detect = 2,
 				/obj/item/implanter/storage = 1,
 				/obj/item/storage/box/syndie_kit/dangertray = 2,
-				/obj/item/toy/cards/deck/syndicate = 2,
+				/obj/item/deck/cards/syndicate = 2,
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
 				/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
 				/obj/item/clothing/glasses/chameleon/meson = 7,
-				"" = 68
+				"" = 61
 				)
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
@@ -472,5 +476,15 @@
 	lootdoubles = 0
 	lootcount = 1
 	loot = list(/mob/living/simple_animal/hostile/asteroid/marrowweaver = 40,
-			/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 20,
-			"" = 40)
+	/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 20,
+	"" = 40)
+
+/obj/effect/spawner/lootdrop/bouquet_spawner
+	name = "50% bouquet spawner"
+	icon_state = "bouquet"
+	lootdoubles = 0
+
+	loot = list(
+				/obj/item/decorations/bouquets/random = 50,
+				"" = 50,
+				)

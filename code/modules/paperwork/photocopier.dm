@@ -8,7 +8,7 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 	var/insert_anim = "bigscanner1"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
@@ -289,7 +289,7 @@
 		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
 	return paper
 
-/obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
+/obj/machinery/photocopier/proc/copy(obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
 	c.header = copy.header
 	c.info = copy.info
@@ -302,21 +302,21 @@
 	c.language = copy.language
 	c.offset_x = copy.offset_x
 	c.offset_y = copy.offset_y
-	var/list/temp_overlays = copy.overlays       //Iterates through stamps
-	var/image/img                                //and puts a matching
-	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
-		if(copy.ico.len)
-			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
-			else if(findtext(copy.ico[j], "deny"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
-			else if(findtext(copy.ico[j], "ok"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
-			else
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
-			img.pixel_x = copy.offset_x[j]
-			img.pixel_y = copy.offset_y[j]
-			c.overlays += img
+	if(LAZYLEN(copy.stamp_overlays))
+		for(var/j = 1, j <= LAZYLEN(copy.stamp_overlays), j++) //gray overlay onto the copy
+			if(length(copy.ico))
+				var/image/img
+				if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
+				else if(findtext(copy.ico[j], "deny"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
+				else if(findtext(copy.ico[j], "ok"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
+				else
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
+				img.pixel_x = copy.offset_x[j]
+				img.pixel_y = copy.offset_y[j]
+				LAZYADD(c.stamp_overlays, img)
 	c.updateinfolinks()
 	toner--
 	if(toner == 0)
@@ -393,7 +393,7 @@
 	return p
 
 //If need_toner is 0, the copies will still be lightened when low on toner, however it will not be prevented from printing. TODO: Implement print queues for fax machines and get rid of need_toner
-/obj/machinery/photocopier/proc/bundlecopy(var/obj/item/paper_bundle/bundle, var/need_toner=1)
+/obj/machinery/photocopier/proc/bundlecopy(obj/item/paper_bundle/bundle, need_toner = TRUE)
 	var/obj/item/paper_bundle/P = new /obj/item/paper_bundle (src, default_papers = FALSE)
 	for(var/obj/item/W in bundle)
 		if(toner <= 0 && need_toner)
@@ -412,8 +412,7 @@
 		return null
 	P.amount--
 	P.forceMove(get_turf(src))
-	P.update_icon()
-	P.icon_state = "paper_words"
+	P.update_appearance(UPDATE_ICON|UPDATE_DESC)
 	P.name = bundle.name
 	P.pixel_y = rand(-8, 8)
 	P.pixel_x = rand(-9, 9)
@@ -425,7 +424,7 @@
 			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0
 
-/obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
+/obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user, params)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
 	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
 		return
@@ -442,6 +441,7 @@
 		copyitem.forceMove(get_turf(src))
 		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [ass]!</span>")
 		copyitem = null
+	return TRUE
 
 /obj/machinery/photocopier/proc/check_ass() //I'm not sure wether I made this proc because it's good form or because of the name.
 	if(!ass)
@@ -454,11 +454,12 @@
 		atom_say("Внимание: обнаружена задница на печатном полотне!")
 		return 1
 
-/obj/machinery/photocopier/emag_act(user as mob)
+/obj/machinery/photocopier/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
-	else
+		if(user)
+			to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
+	else if(user)
 		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 
 /obj/item/toner

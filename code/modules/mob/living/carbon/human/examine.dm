@@ -26,6 +26,7 @@
 	if(wear_mask)
 		skipface |= wear_mask.flags_inv & HIDENAME
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
+		skipears |= wear_mask.flags_inv & HIDEHEADSETS
 
 	var/msg = "This is "
 
@@ -33,17 +34,13 @@
 		msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
 	msg += "<EM>[name]</EM>"
 
-	var/displayed_species = dna.species.name
+	var/displayed_species = get_visible_species()
 	var/examine_color = dna.species.flesh_color
-	for(var/obj/item/clothing/C in src)			//Disguise checks
-		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
-			if(C.species_disguise)
-				displayed_species = C.species_disguise
 	if(skipjumpsuit && skipface || (NO_EXAMINE in dna.species.species_traits)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
-	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
+	else if(displayed_species == SPECIES_SLIMEPERSON) //snowflakey because Slime People are defined as a plural
 		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"
-	else if(displayed_species == "Unathi") //DAMN YOU, VOWELS
+	else if(displayed_species == SPECIES_UNATHI) //DAMN YOU, VOWELS
 		msg += ", a<b><font color='[examine_color]'> unathi</font></b>!\n"
 	else
 		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
@@ -323,6 +320,10 @@
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
+	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(istype(vampire_datum) && vampire_datum.draining)
+		msg += "<B>[p_they(TRUE)] bit into [vampire_datum.draining]'s neck with his fangs.\n</B>"
+
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
@@ -336,8 +337,12 @@
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
-		else if(getBrainLoss() >= 60)
-			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
+		if(stat == CONSCIOUS)
+			if(getBrainLoss() >= 60)
+				msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
+			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
+				msg += span_warning("[p_they(TRUE)] [p_are()] barely conscious.\n")
+
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(dna.species.show_ssd)
@@ -351,6 +356,10 @@
 
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
+
+	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
+	if(istype(implant) && implant.activated)
+		msg += "You can see a strange glint on [p_their()] tail.\n"
 
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
@@ -424,40 +433,45 @@
 	. = list(msg)
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
+
+/mob/living/carbon/human/get_examine_time()
+	return 1 SECONDS
+
+
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
-/proc/hasHUD(mob/M, hudtype)
+/proc/hasHUD(mob/M, hud_exam)
 	if(istype(M, /mob/living/carbon/human))
-		var/have_hudtypes = list()
+		var/have_hud_exam = 0
 		var/mob/living/carbon/human/H = M
 
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
 			var/obj/item/clothing/glasses/hud/hudglasses = H.glasses
 			if(hudglasses?.examine_extensions)
-				have_hudtypes += hudglasses.examine_extensions
+				have_hud_exam |= hudglasses.examine_extensions
 
 		if(istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman))
 			var/obj/item/clothing/head/helmet/space/plasmaman/helmet = H.head
 			if(helmet?.examine_extensions)
-				have_hudtypes += helmet.examine_extensions
+				have_hud_exam |= helmet.examine_extensions
 
 		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
 		if(CIH?.examine_extensions)
-			have_hudtypes += CIH.examine_extensions
+			have_hud_exam |= CIH.examine_extensions
 
-		return (hudtype in have_hudtypes)
+		return (have_hud_exam & hud_exam)
 
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
-		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL))
+		return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE || hud_exam & EXAMINE_HUD_MEDICAL
 
 	else if(ispAI(M))
 		var/mob/living/silicon/pai/P = M
 		if(P.adv_secHUD)
-			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE))
+			return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
 		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
-			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SKILLS))
+			return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SKILLS
 
 	return FALSE
 

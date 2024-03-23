@@ -12,9 +12,8 @@
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 30, "bio" = 0, "rad" = 50, "fire" = 100, "acid" = 100)
 	max_temperature = 25000
 	infra_luminosity = 3
-	maint_access = 1
+	maint_access = TRUE
 	wreckage = /obj/structure/mecha_wreckage/phazon
-	add_req_access = 1
 	//operation_req_access = list()
 	internal_damage_threshold = 25
 	force = 15

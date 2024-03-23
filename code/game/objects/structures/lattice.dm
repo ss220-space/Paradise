@@ -197,3 +197,19 @@
 	to_chat(user, "<span class='notice'>Вы срезали усиленный мостик!</span>")
 	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
 	deconstruct()
+
+/obj/structure/lattice/catwalk/mapping
+	name = "reinforced catwalk"
+	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
+	resistance_flags = INDESTRUCTIBLE
+	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
+	icon_state = "catwalk"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/floor,
+						/turf/simulated/wall,
+						/obj/structure/falsewall,
+						/obj/structure/lattice/fireproof,
+						/obj/structure/lattice/catwalk/fireproof)
+
+/obj/structure/lattice/catwalk/mining/deconstruction_hints(mob/user)
+	return

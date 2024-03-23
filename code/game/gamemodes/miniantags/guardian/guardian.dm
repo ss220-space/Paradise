@@ -271,7 +271,7 @@
 			picked_random_type = pick(possible_guardians)
 		guardian_type = picked_random_type
 	else
-		guardian_type = input(user, "Выберите тип [mob_name]", "Создание [mob_name] ") as null|anything in possible_guardians
+		guardian_type = tgui_input_list(user, "Выберите тип [mob_name]", "Создание [mob_name] ", possible_guardians)
 		if(!guardian_type)
 			to_chat(user, span_warning("Вы решили не использовать [name]."))
 			used = FALSE
@@ -430,7 +430,7 @@
 
 /obj/item/paper/guardian
 	name = "Справочник по голопаразитам"
-	icon_state = "paper"
+	icon_state = "paper_words"
 	info = {"<b>Cписок видов голопаразитов</b><br>
 
  <br>
@@ -453,7 +453,7 @@
  <b>Защитник</b>: При нарушении дальности связи хозяин призывается к нему, а не наоборот. Имеет два режима: низкая атака с высокой защитой, и режим ультра-защиты, практически полностью нивелирующий входящий и исходящий урон. В режиме ультра-защиты способен пережить даже взрыв бомбы, лишь слегка ранив хозяина. Может ставить силовые барьеры, через которые могут пройти только вы и ваш подопечный.<br>
 "}
 
-/obj/item/paper/guardian/update_icon()
+/obj/item/paper/guardian/update_icon_state()
 	return
 
 

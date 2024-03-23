@@ -75,6 +75,7 @@
 	if(.)
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
+	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /mob/living/proc/OpenCraftingMenu()
 	return
@@ -276,6 +277,25 @@
 	return TRUE
 
 
+/mob/living/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+	if(isprojectile(mover))
+		return !density || lying
+	if(mover.throwing)
+		return !density || lying || (mover.throwing.thrower == src && !ismob(mover))
+	if(buckled == mover)
+		return TRUE
+	if(ismob(mover))
+		var/mob/moving_mob = mover
+		if(currently_grab_pulled && moving_mob.currently_grab_pulled)
+			return FALSE
+		if(mover in buckled_mobs)
+			return TRUE
+	return !mover.density || lying
+
+
 /mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
@@ -294,7 +314,7 @@
 /mob/living/stop_pulling()
 	..()
 	if(pullin)
-		pullin.update_icon(src)
+		pullin.update_icon(UPDATE_ICON_STATE)
 
 /mob/living/verb/stop_pulling1()
 	set name = "Stop Pulling"
@@ -327,16 +347,17 @@
 			return TRUE
 
 		target.visible_message(
-			span_danger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
+			span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
+			span_userdanger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
 		)
-		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
+		SEND_SOUND(target, 'sound/weapons/targeton.ogg')
+		SEND_SOUND(src, 'sound/weapons/targeton.ogg')
 		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
 		return TRUE
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
 		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руке!"))
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руках!"))
 		trick.shoot_gun(src)
 		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 		return TRUE
@@ -374,7 +395,7 @@
 	return 1
 
 /mob/living/welder_act(mob/user, obj/item/I)
-	if(!I.tool_use_check(null, 0)) //Don't need the message, just if it succeeded
+	if(!I.tool_use_check(user, 0, silent = TRUE)) //Don't need the message, just if it succeeded
 		return
 	if(IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
@@ -649,7 +670,8 @@
 	if(.)
 		step_count++
 		pull_pulled(old_loc, pullee, movetime)
-		pull_grabbed(old_loc, direct, movetime)
+		if(!currently_grab_pulled)
+			pull_grabbed(old_loc, direct, movetime)
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
@@ -662,6 +684,14 @@
 		if(pulling.anchored)
 			stop_pulling()
 			return
+		if(isobj(pulling))
+			var/obj/object = pulling
+			if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+				var/obj/structure/window/window = object
+				var/fulltile = istype(window) ? window.fulltile : FALSE
+				if(!valid_build_direction(dest, object.dir, is_fulltile = fulltile))
+					stop_pulling()
+					return
 
 		var/pull_dir = get_dir(src, pulling)
 		pulling.glide_size = glide_size
@@ -979,9 +1009,10 @@
 	what.add_fingerprint(src)
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.drop_item_ground(what)
+			if(!who.drop_item_ground(what, silent = silent))
+				return
 			if(silent)
-				put_in_hands(what)
+				put_in_hands(what, silent = TRUE)
 			add_attack_logs(src, who, "Stripped of [what]")
 
 // The src mob is trying to place an item on someone
@@ -999,8 +1030,8 @@
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
-				drop_item_ground(what)
-				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE)
+				drop_item_ground(what, silent = silent)
+				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE, initial = silent)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
@@ -1071,38 +1102,31 @@
 
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	var/loc_temp = T0C
+	if(istype(loc, /obj/structure/closet/critter))
+		return environment.temperature
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
-
-	else if(isvampirecoffin(loc))
+		return  M.return_temperature()
+	if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
-		loc_temp = coffin.return_temperature()
-
-	else if(istype(loc, /obj/spacepod))
+		return coffin.return_temperature()
+	if(istype(loc, /obj/spacepod))
 		var/obj/spacepod/S = loc
-		loc_temp = S.return_temperature()
-
-	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
-
-	else if(istype(get_turf(src), /turf/space))
+		return S.return_temperature()
+	if(istype(loc, /obj/structure/transit_tube_pod))
+		return environment.temperature
+	if(istype(get_turf(src), /turf/space))
 		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
-
-	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		return heat_turf.temperature
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-
 		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
+			return environment.temperature
 		else
-			loc_temp = C.air_contents.temperature
-
-	else
-		loc_temp = environment.temperature
-
-	return loc_temp
+			return C.air_contents.temperature
+	if(environment)
+		return environment.temperature
+	return T0C
 
 /mob/living/proc/get_standard_pixel_x_offset(lying = 0)
 	return initial(pixel_x)
@@ -1118,7 +1142,7 @@
 	return 0
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results) //can we butcher it?
+	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || issmall(src))) //can we butcher it?
 		var/sharpness = is_sharp(I)
 		if(sharpness)
 			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
@@ -1174,7 +1198,7 @@
 	. = ..()
 
 	if(pullin)
-		pullin.update_icon(src)
+		pullin.update_icon(UPDATE_ICON_STATE)
 
 
 /mob/living/proc/check_pull()
@@ -1240,7 +1264,7 @@
 /mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
 		if(A.light_range > 0)
-			A.extinguish_light()
+			A.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1378,3 +1402,54 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(target_move)
 				remove_ventcrawl()
 			add_ventcrawl(loc, target_move)
+
+
+/mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return "Unknown"
+
+
+/mob/living/run_examinate(atom/target)
+	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
+
+	if(user_staring_effect || hindered_inspection(target))
+		return
+
+	var/examine_time = target.get_examine_time()
+	if(examine_time && target != src)
+		var/visible_gender = target.get_visible_gender()
+		var/visible_species = "Unknown"
+
+		// If we did not see the target with our own eyes when starting the examine, then there is no need to check whether it is close.
+		var/near_target = examine_distance_check(target)
+
+		if(isliving(target))
+			var/mob/living/target_living = target
+			visible_species = target_living.get_visible_species()
+
+			if(ishuman(target))	// Yep. Only humans affected by catched looks.
+				var/datum/status_effect/staring/target_staring_effect = target_living.has_status_effect(STATUS_EFFECT_STARING)
+				if(target_staring_effect)
+					target_staring_effect.catch_look(src)
+
+		user_staring_effect = apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
+		if(do_mob(src, src, examine_time, TRUE, only_use_extra_checks = TRUE))
+			if(hindered_inspection(target) || (near_target && !examine_distance_check(target)))
+				return
+			..()
+	else
+		..()
+
+
+/mob/living/proc/examine_distance_check(atom/target)
+	if(target in view(client.maxview(), client.eye))
+		return TRUE
+
+
+/mob/living/proc/hindered_inspection(atom/target)
+	if(QDELETED(src) || QDELETED(target))
+		return TRUE
+	face_atom(target)
+	if(!has_vision(information_only = TRUE))
+		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
+		return TRUE
+	return FALSE

@@ -220,13 +220,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	SStgui.update_uis(src)
 	return
 
-/obj/machinery/computer/rdconsole/emag_act(user as mob)
+/obj/machinery/computer/rdconsole/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -328,8 +329,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return
 
 	linked_destroy.busy = TRUE
+	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-	flick("[linked_destroy.icon_closed]_process", linked_destroy)
 	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
@@ -375,12 +376,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_destroy.loaded_item = S
 			else
 				qdel(S)
-				linked_destroy.icon_state = linked_destroy.icon_closed
 		else if(!(I in linked_destroy.component_parts))
 			qdel(I)
-			linked_destroy.icon_state = linked_destroy.icon_closed
 
+	linked_destroy.loaded_item = null
 	linked_destroy.busy = FALSE
+	linked_destroy.update_icon(UPDATE_ICON_STATE)
 	use_power(DECONSTRUCT_POWER)
 	menu = MENU_MAIN
 	submenu = SUBMENU_MAIN
@@ -435,10 +436,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(is_lathe)
 		add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
-		flick("[machine.icon_state]_n", machine)
+		flick("[machine.base_icon_state]_n", machine)
 	else
 		add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
-		flick("[machine.icon_state]_ani", machine)
+		flick("[machine.base_icon_state]_ani", machine)
 
 	machine.busy = TRUE
 	use_power(power)
@@ -610,7 +611,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
 					linked_destroy.loaded_item = null
-					linked_destroy.icon_state = "[linked_destroy.icon_closed]"
+					linked_destroy.update_icon(UPDATE_ICON_STATE)
 					menu = MENU_DESTROY
 
 		if("maxresearch")
@@ -964,6 +965,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	desc = "A console used to interface with R&D tools."
 	id = 1
 
+/obj/machinery/computer/rdconsole/core/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "rnd_oldframe"
+	icon_state = "frame-rnd"
+	icon_keyboard = "kb9"
+
 /obj/machinery/computer/rdconsole/robotics
 	name = "robotics R&D console"
 	desc = "A console used to interface with R&D tools."
@@ -983,6 +990,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	id = 4
 	req_access = list(ACCESS_MECHANIC)
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
+
+/obj/machinery/computer/rdconsole/mechanics/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame-eng"
+	icon_keyboard = "kb12"
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"

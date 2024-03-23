@@ -210,7 +210,7 @@
 				threatlevel = 0
 			else if(!("syndicate" in C.faction))
 				threatlevel = 20
-			if(is_taipan(z) && C.mind.assigned_role != "Space Base Syndicate Comms Officer" && (check_for_mug(C.get_active_hand()) || check_for_mug(C.get_inactive_hand())))
+			if(is_taipan(z) && C.mind?.assigned_role != "Space Base Syndicate Comms Officer" && (check_for_mug(C.get_active_hand()) || check_for_mug(C.get_inactive_hand())))
 				speak("[C.name] наглый вор! Положи кружку!", radio_channel)
 				threatlevel += 4
 		else
@@ -250,7 +250,7 @@
 	new /obj/item/assembly/prox_sensor(Tsec)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
+	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	if(prob(50))
 		new /obj/item/robot_parts/r_arm(Tsec)

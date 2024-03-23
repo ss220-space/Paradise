@@ -60,15 +60,3 @@
 	desc = "A small dead parasitic creature that would like to connect with your brain stem."
 	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "headcrab_dead"
-
-// SM shard that can't be moved
-/obj/machinery/power/supermatter_shard/anchored
-	name = "Well anchored supermatter shard"
-	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. Apparently the structure is attached to the surface with industrial equipment, it cannot be unanchored with simple equipment. <span class='danger'>You get headaches just from looking at it.</span>"
-	anchored = TRUE
-
-/obj/machinery/power/supermatter_shard/anchored/attackby(obj/item/W as obj, mob/living/user as mob, params)
-	if(istype(W,/obj/item/wrench))
-		user.visible_message("<span class='danger'>As [user] tries to loose bolts of \the [src] with \a [W] but the tool disappears</span>")
-	consume_wrench(W)
-	user.apply_effect(150, IRRADIATE)

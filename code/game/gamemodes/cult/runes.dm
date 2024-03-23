@@ -455,7 +455,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
-	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
+	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(!src || !Adjacent(user) || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
 		fail_invoke()
@@ -513,7 +513,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			desc += "<u><span class='warning'>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], in the direction of space sector [origin.z]!</span></u>"
 
 	else
-		inner_portal.icon_state = "lava"
+		inner_portal.update_icon(UPDATE_ICON_STATE)
 		light_color = LIGHT_COLOR_FIRE
 		desc += "<br><span class='boldwarning'>A tear in reality reveals a coursing river of lava... something recently teleported here from the Lavaland Mines!</span>"
 
@@ -575,7 +575,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 	if(length(potential_revive_mobs) > 1)
-		mob_to_revive = input(user, "Choose a cultist to revive.", "Cultist to Revive") as null|anything in potential_revive_mobs
+		mob_to_revive = tgui_input_list(user, "Choose a cultist to revive", "Cultist to Revive", potential_revive_mobs)
 	else // If there's only one, no need for a menu
 		mob_to_revive = potential_revive_mobs[1]
 	if(!validness_checks(mob_to_revive, user))
@@ -686,7 +686,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/datum/mind/M in SSticker.mode.cult)
 		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists[M.current.real_name] = M.current
-	var/input = input(user, "Who do you wish to call to [src]?", "Acolytes") as null|anything in cultists
+	var/input = tgui_input_list(user, "Who do you wish to call to [src]?", "Acolytes", cultists)
 	var/mob/living/cultist_to_summon = cultists[input]
 	if(!src || QDELETED(src) || !Adjacent(user) || user.incapacitated())
 		return
@@ -967,6 +967,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
 	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]."
 
+
+/obj/effect/rune/narsie/update_icon_state()
+	icon_state = used ? "rune_large_distorted" : initial(icon_state)
+
+
 /obj/effect/rune/narsie/check_icon()
 	return
 
@@ -993,7 +998,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	..()
 	SEND_SOUND(world, 'sound/effects/narsie_summon.ogg')
 	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
-	icon_state = "rune_large_distorted"
+	update_icon(UPDATE_ICON_STATE)
 	var/turf/T = get_turf(src)
 	sleep(40)
 	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed

@@ -5,7 +5,7 @@
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "dnaopen"
 	layer = BELOW_OBJ_LAYER
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 	var/obj/item/forensics/swab = null
@@ -31,7 +31,7 @@
 		to_chat(user, "<span class='notice'>Вы вставляете \the [W] в ДНК анализатор.</span>")
 		user.drop_transfer_item_to_loc(W, src)
 		swab = W
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 	..()
 
@@ -41,21 +41,21 @@
 		to_chat(user, "<span class='warning'>Сканер пуст!</span>")
 		return
 	add_fingerprint(user)
-	scanning = 1
-	update_icon()
+	scanning = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>Сканер начинает с жужением анализировать содержимое пробирки \the [swab].</span>")
 
 	if(!do_after(user, 25, src) || !swab)
 		to_chat(user, "<span class='notice'>Вы перестали анализировать \the [swab].</span>")
-		scanning = 0
-		update_icon()
+		scanning = FALSE
+		update_icon(UPDATE_ICON_STATE)
 
 		return
 
 	to_chat(user, "<span class='notice'>Печать отчета...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	report.overlays = list("paper_stamped")
+	LAZYADD(report.stamp_overlays, "paper_stamped")
 	report_num++
 
 	if(swab)
@@ -73,8 +73,8 @@
 		report.info += "<b>\nАнализируемый объект:</b><br>[bloodswab.name]<br>[bloodswab.desc]<br><br>" + data
 		report.forceMove(src.loc)
 		report.update_icon()
-		scanning = 0
-		update_icon()
+		scanning = FALSE
+		update_icon(UPDATE_ICON_STATE)
 	return
 
 /obj/machinery/dnaforensics/proc/remove_sample(mob/living/remover)
@@ -87,18 +87,18 @@
 	swab.forceMove_turf()
 	remover.put_in_hands(swab, ignore_anim = FALSE)
 	swab = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/dnaforensics/AltClick()
 	remove_sample(usr)
 
-/obj/machinery/dnaforensics/MouseDrop(atom/other)
-	if(usr == other)
+/obj/machinery/dnaforensics/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(usr == over_object)
 		remove_sample(usr)
-	else
-		return ..()
+		return FALSE
+	return ..()
 
-/obj/machinery/dnaforensics/update_icon()
+/obj/machinery/dnaforensics/update_icon_state()
 	icon_state = "dnaopen"
 	if(swab)
 		icon_state = "dnaclosed"

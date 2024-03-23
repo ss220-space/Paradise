@@ -2523,10 +2523,10 @@
 	name = "meat fridge";
 	req_access = list(201)
 	},
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -7093,7 +7093,7 @@
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
 "pb" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "UO45_air_sensor";
 	output = 7
@@ -7366,7 +7366,7 @@
 	internal_pressure_bound = 2000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
@@ -7606,7 +7606,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Server Base";
@@ -8888,7 +8888,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -9272,7 +9272,7 @@
 	},
 /area/awaymission/UO45/engineering)
 "tg" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_waste_sensor";
 	output = 63
 	},
@@ -10255,7 +10255,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
@@ -10276,7 +10276,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO45/engineering)
@@ -10494,7 +10494,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "vE" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_n2_sensor"
 	},
 /obj/machinery/light/small,
@@ -10505,7 +10505,7 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
 "vG" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_o2_sensor"
 	},
 /obj/machinery/light/small,

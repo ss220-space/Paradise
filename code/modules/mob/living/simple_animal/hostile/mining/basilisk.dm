@@ -83,16 +83,6 @@
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
-	var/jewelry_loot = null
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/death(gibbed)
-	if(!fromtendril && jewelry_loot)
-		if(prob(30))
-			var/obj/gem = new jewelry_loot(loc)
-			deathmessage = "spits out a [gem.name] as it dies!"
-		jewelry_loot = null
-	. = ..()
-	deathmessage = initial(deathmessage)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"
@@ -156,7 +146,7 @@
 	. = ..()
 	if(.)
 		var/mob/living/L = target
-		if(istype(L))
+		if(istype(L) && !isrobot(L))
 			L.AdjustWeakened(1 SECONDS)
 			L.Slowed(3 SECONDS)
 			L.Confused(3 SECONDS)

@@ -41,7 +41,7 @@
 		return
 	return ..()
 
-/obj/machinery/computer/message_monitor/emag_act(user as mob)
+/obj/machinery/computer/message_monitor/emag_act(mob/user)
 	// Will create sparks and print out the console's password. You will then have to wait a while for the console to be back online.
 	// It'll take more time if there's more characters in the password..
 	if(!emag)
@@ -60,16 +60,17 @@
 				UnmagConsole()
 				update_icon()
 			message = rebootmsg
-		else
+		else if(user)
 			to_chat(user, span_notice("A no server error appears on the screen."))
 
-/obj/machinery/computer/message_monitor/update_icon()
+
+/obj/machinery/computer/message_monitor/update_icon_state()
 	if(emag || hacking)
 		icon_screen = hack_icon
 	else
 		icon_screen = normal_icon
-
 	..()
+
 
 /obj/machinery/computer/message_monitor/Initialize()
 	..()
@@ -488,22 +489,21 @@
 
 
 /obj/item/paper/monitorkey
-	//..()
 	name = "Monitor Decryption Key"
-	var/obj/machinery/message_server/server = null
 
-/obj/item/paper/monitorkey/New()
+
+/obj/item/paper/monitorkey/Initialize(mapload)
 	..()
-	spawn(10)
-		if(GLOB.message_servers)
-			for(var/obj/machinery/message_server/server in GLOB.message_servers)
-				if(!isnull(server))
-					if(!isnull(server.decryptkey))
-						info = "<center><h2>Daily Key Reset</h2></center>\n\t<br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
-						info_links = info
-						overlays += "paper_words"
-						break
+	return INITIALIZE_HINT_LATELOAD
 
+
+/obj/item/paper/monitorkey/LateInitialize()
+	for(var/obj/machinery/message_server/server as anything in GLOB.message_servers)
+		if(!isnull(server.decryptkey))
+			info = "<center><h2>Daily Key Reset</h2></center>\n\t<br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
+			info_links = info
+			update_icon()
+			break
 
 /obj/item/paper/rnd_logs_key
 	name = "RnD logs Decryption Key"
@@ -519,4 +519,5 @@
 	var/decryption_key = located_server.logs_decryption_key
 	info = "<center><h2>RnD logs Access key</h2></center>\n\t<br>The new RnD logs access key is \"[decryption_key]\"."
 	info_links = info
-	overlays += "paper_words"
+	update_icon()
+

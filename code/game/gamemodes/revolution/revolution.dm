@@ -140,17 +140,16 @@
 	rev_obj.explanation_text = "Вы или ваши сподвижники должны занять командные должности, отправив в отставку занимающий их экипаж"
 	rev_mind.objectives += rev_obj
 
-/datum/game_mode/proc/greet_revolutionary(datum/mind/rev_mind, you_are=1)
-	var/obj_count = 1
+/datum/game_mode/proc/greet_revolutionary(datum/mind/rev_mind, you_are=TRUE)
 	update_rev_icons_added(rev_mind)
 	rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 	var/datum/action/innate/revolution_recruitment/C = new()
 	C.Grant(rev_mind.current)
+	var/list/messages = list()
 	if(you_are)
-		to_chat(rev_mind.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership!</span>")
-	for(var/datum/objective/objective in rev_mind.objectives)
-		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+		messages.Add("<span class='userdanger'>You are a member of the revolutionaries' leadership!</span>")
+	messages.Add(rev_mind.prepare_announce_objectives())
+	to_chat(rev_mind.current, chat_box_red(messages.Join("<br>")))
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//

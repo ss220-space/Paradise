@@ -16,7 +16,7 @@
 	bot_core_type = /obj/machinery/bot_core/cleanbot
 	window_id = "autoclean"
 	window_name = "Automatic Station Cleaner v1.1"
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 	path_image_color = "#993299"
 
 	///Mask color defines what color cleanbot's chassis will be. Format: "#RRGGBB"
@@ -41,10 +41,16 @@
 	var/datum/job/janitor/J = new/datum/job/janitor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/mob/living/simple_animal/bot/cleanbot/update_icon()
-	overlays.Cut()
+
+/mob/living/simple_animal/bot/cleanbot/update_icon_state()
+	return
+
+
+/mob/living/simple_animal/bot/cleanbot/update_overlays()
+	. = ..()
+
 	var/overlay_state
 	switch(mode)
 		if(BOT_CLEANING)
@@ -52,15 +58,10 @@
 		if(BOT_IDLE)
 			overlay_state = "[on]"
 
-	var/mutable_appearance/state_appearance = mutable_appearance(icon, "[icon_state][overlay_state]")
-	state_appearance.appearance_flags |= RESET_COLOR
-	overlays += state_appearance
+	. += mutable_appearance(icon, "[icon_state][overlay_state]", appearance_flags = RESET_COLOR)
 
 	if(mask_color)
-		var/mutable_appearance/casing_mask = mutable_appearance(icon, "cleanbot_mask")
-		casing_mask.appearance_flags |= RESET_COLOR
-		casing_mask.color = mask_color
-		overlays += casing_mask
+		. += mutable_appearance(icon, "cleanbot_mask", appearance_flags = RESET_COLOR, color = mask_color)
 
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()

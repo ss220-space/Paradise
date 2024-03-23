@@ -13,6 +13,16 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(GLOB.unused_trade_stations.len)
 		station = pick_n_take(GLOB.unused_trade_stations)
 
+/datum/event/traders/fake_announce()
+	. = TRUE
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев отклонен.")
+		return
+	var/map_trader_port = 5
+	if(station_name() == "NSS Cyberiad")
+		map_trader_port = 4
+	GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев принят.")
+
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
@@ -64,11 +74,13 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
 /datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
-	to_chat(M, "<span class='boldnotice'>Вы - торговец!</span>")
-	to_chat(M, "<span class='notice'>В данный момент вы находитесь на [get_area(M)].</span>")
-	to_chat(M, "<span class='notice'>Вам предстоит торговать со станцией [station_name()].</span>")
-	spawn(25)
-		show_objectives(M.mind)
+	var/list/messages = list()
+	messages.Add(span_boldnotice("Вы - торговец!"))
+	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))
+	messages.Add(span_notice("Вам предстоит торговать со станцией [station_name()]."))
+	messages.Add(M.mind.prepare_announce_objectives())
+	to_chat(M, chat_box_green(messages.Join("<br>")))
+	log_game("[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()

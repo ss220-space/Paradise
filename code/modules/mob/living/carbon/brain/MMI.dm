@@ -6,9 +6,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3"
 	origin_tech = "biotech=2;programming=3;engineering=2"
-
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
-	var/alien = 0
+	var/alien = FALSE
 	var/clock = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
 	var/syndicate = 0 //Used to replace standart modules with the syndicate modules in module pick proc
@@ -29,7 +28,28 @@
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
 
-/obj/item/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+
+/obj/item/mmi/update_icon_state()
+	if(held_brain)
+		icon = held_brain.mmi_icon
+		icon_state = held_brain.mmi_icon_state
+	else
+		icon = initial(icon)
+		icon_state = initial(icon_state)
+
+
+/obj/item/mmi/update_name(updates = ALL)
+	. = ..()
+	if(brainmob)
+		if(alien)
+			name = "Man-Machine Interface: Alien - [brainmob.real_name]"
+		else
+			name = "Man-Machine Interface: [brainmob.real_name]"
+	else
+		name = initial(name)
+
+
+/obj/item/mmi/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
 		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
 		return
@@ -57,19 +77,9 @@
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
 			brainmob.update_sight()
-
 			held_brain = B
-			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
-				name = "Man-Machine Interface: Alien - [brainmob.real_name]"
-				icon = 'icons/mob/alien.dmi'
-				become_occupied("AlienMMI")
-				alien = 1
-			else
-				name = "Man-Machine Interface: [brainmob.real_name]"
-				icon = B.mmi_icon
-				become_occupied("[B.mmi_icon_state]")
-				alien = 0
-
+			alien = istype(O, /obj/item/organ/internal/brain/xeno)
+			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 			if(radio_action)
 				radio_action.UpdateButtonIcon()
 			SSblackbox.record_feedback("amount", "mmis_filled", 1)
@@ -121,17 +131,15 @@
 						 "<span class='notice'>You uninstall the radio from [src].</span>")
 
 
-/obj/item/mmi/attack_self(mob/user as mob)
+/obj/item/mmi/attack_self(mob/user)
 	if(!brainmob)
 		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
 	else
 		to_chat(user, "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>")
 		dropbrain(get_turf(user))
-		icon = 'icons/obj/assemblies.dmi'
-		icon_state = "mmi_empty"
-		name = "Man-Machine Interface"
 
-/obj/item/mmi/proc/transfer_identity(var/mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
+
+/obj/item/mmi/proc/transfer_identity(mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
 	brainmob = new(src)
 	brainmob.name = H.real_name
 	brainmob.real_name = H.real_name
@@ -147,10 +155,9 @@
 		held_brain = new brain_path(src) // Slime people will keep their slimy brains this way
 	held_brain.dna = brainmob.dna.Clone()
 	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
-
-	name = "Man-Machine Interface: [brainmob.real_name]"
-	become_occupied("mmi_full")
 	brainmob.update_sight()
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
@@ -171,11 +178,8 @@
 	brainmob = null//Set mmi brainmob var to null
 	held_brain.forceMove(dropspot)
 	held_brain = null
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
-/obj/item/mmi/proc/become_occupied(var/new_icon)
-	icon_state = new_icon
-	if(radio)
-		radio_action.ApplyIcon()
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
@@ -200,7 +204,7 @@
 	procname = "ui_interact"
 	var/obj/item/mmi = null
 
-/datum/action/generic/configure_mmi_radio/New(var/Target, var/obj/item/mmi/M)
+/datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)
 	. = ..()
 	mmi = M
 
@@ -210,14 +214,14 @@
 
 /datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
 	// A copy/paste of the item action icon code
-	current_button.overlays.Cut()
+	current_button.cut_overlays()
 	if(target)
 		var/obj/item/I = mmi
 		var/old_layer = I.layer
 		var/old_plane = I.plane
 		I.layer = 21
 		I.plane = HUD_PLANE
-		current_button.overlays += I
+		current_button.add_overlay(I)
 		I.layer = old_layer
 		I.plane = old_plane
 

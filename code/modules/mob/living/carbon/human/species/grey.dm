@@ -1,9 +1,9 @@
 /datum/species/grey
-	name = "Grey"
+	name = SPECIES_GREY
 	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
-	language = "Psionic Communication"
+	language = LANGUAGE_GREY
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
 
@@ -17,6 +17,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/grey, //5 darksight.
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/grey
 
 	total_health = 90
 	oxy_mod = 1.2  //greys are fragile

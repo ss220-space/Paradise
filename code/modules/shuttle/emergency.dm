@@ -334,13 +334,20 @@
 	icon_state = "dorm_available"
 	density = 0
 
-/obj/machinery/computer/shuttle/pod/update_icon()
-	return
 
-/obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)
-	to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
-	admin_controlled = 0
-	icon_state = "dorm_emag"
+/obj/machinery/computer/shuttle/pod/update_icon_state()
+	icon_state = "dorm_[emagged ? "emag" : "available"]"
+
+
+/obj/machinery/computer/shuttle/pod/update_overlays()
+	. = list()
+
+
+/obj/machinery/computer/shuttle/pod/emag_act(mob/user)
+	if(user)
+		to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
+	admin_controlled = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/docking_port/stationary/random
 	name = "escape pod"

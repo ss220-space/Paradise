@@ -35,55 +35,69 @@
 	var/obj/item/card/id/front_id = null
 	var/image/front_id_overlay = null
 
-/obj/item/storage/wallet/proc/id_check()
-	front_id = (locate(/obj/item/card/id) in contents)
-	if(!front_id)
-		name = "[item_color] leather wallet"
-		return FALSE
-	name = "[item_color] leather wallet with [front_id] on the front"
-	return TRUE
 
 
-/obj/item/storage/wallet/remove_from_storage(obj/item/W, atom/new_location)
-	. = ..(W, new_location)
-	if(.)
-		id_check()
-		update_icon()
+/obj/item/storage/wallet/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	if(. && istype(I, /obj/item/card/id))
+		refresh_ID()
 
-/obj/item/storage/wallet/handle_item_insertion(obj/item/W, prevent_warning = 0)
-	. = ..(W, prevent_warning)
-	if(.)
-		id_check()
-		update_icon()
+
+/obj/item/storage/wallet/handle_item_insertion(obj/item/I, prevent_warning = FALSE)
+	. = ..()
+	if(. && istype(I, /obj/item/card/id))
+		refresh_ID()
+
 
 /obj/item/storage/wallet/swap_items(obj/item/item_1, obj/item/item_2, mob/user)
-	. = ..(item_1, item_2, user)
+	. = ..()
 	if(.)
-		id_check()
-		update_icon()
+		refresh_ID()
 
-/obj/item/storage/wallet/update_icon()
+/obj/item/storage/wallet/orient2hud(mob/user)
+	. = ..()
+	refresh_ID()
+
+
+/obj/item/storage/wallet/proc/refresh_ID()
+	// Locate the first ID in the wallet
+	front_id = (locate(/obj/item/card/id) in contents)
+
 	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		if(H.wear_id == src)
-			H.sec_hud_set_ID()
-	overlays -= front_id_overlay
+		var/mob/living/carbon/human/wearing_human = loc
+		if(wearing_human.wear_id == src)
+			wearing_human.sec_hud_set_ID()
+
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+
+
+/obj/item/storage/wallet/update_overlays()
+	. = ..()
 	if(!front_id)
-		front_id_overlay = null
 		return
 	var/front_id_icon_state_holder = front_id.icon_state
-	if (copytext(front_id_icon_state_holder,1,4) == "ERT")
+	if(copytext(front_id_icon_state_holder,1,4) == "ERT")
 		front_id_icon_state_holder = "ERT"
 	else if(!(front_id_icon_state_holder in icon_states(src.icon)))
 		front_id_icon_state_holder = "id"
-	front_id_overlay = image('icons/obj/wallets.dmi', front_id_icon_state_holder)
-	overlays += front_id_overlay
+	. += mutable_appearance('icons/obj/wallets.dmi', front_id_icon_state_holder)
+
+
+/obj/item/storage/wallet/update_name(updates = ALL)
+	. = ..()
+	if(front_id)
+		name = "[item_color] leather wallet with [front_id] on the front"
+	else
+		name = "[item_color] leather wallet"
+
 
 /obj/item/storage/wallet/GetID()
 	return front_id ? front_id : ..()
 
+
 /obj/item/storage/wallet/GetAccess()
 	return front_id ? front_id.GetAccess() : ..()
+
 
 /obj/item/storage/wallet/random/populate_contents()
 	var/cash = pick(/obj/item/stack/spacecash,
@@ -110,6 +124,7 @@
 	icon = 'icons/obj/wallets.dmi'
 	item_state = "wallet"
 
+
 /obj/item/storage/wallet/color/Initialize(mapload)
 	. = ..()
 	if(!item_color)
@@ -117,46 +132,38 @@
 		new color_wallet(src.loc)
 		qdel(src)
 		return
-	UpdateDesc()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 
-/obj/item/storage/wallet/color/proc/UpdateDesc()
-	name = "[item_color] wallet"
-	desc = "[item_color] wallet made from... leather?"
+
+/obj/item/storage/wallet/color/update_icon_state()
 	icon_state = "[item_color]_wallet"
 
 
-/obj/item/storage/wallet/color/remove_from_storage(obj/item/W, atom/new_location)
-	. = ..(W, new_location)
-	if(.)
-		id_check()
-		update_icon()
+/obj/item/storage/wallet/color/update_desc(updates = ALL)
+	. = ..()
+	desc = "[item_color] wallet made from... leather?"
 
-/obj/item/storage/wallet/color/handle_item_insertion(obj/item/W, prevent_warning = 0)
-	. = ..(W, prevent_warning)
-	if(.)
-		id_check()
-		update_icon()
-
-/obj/item/storage/wallet/color/swap_items(obj/item/item_1, obj/item/item_2, mob/user)
-	. = ..(item_1, item_2, user)
-	if(.)
-		id_check()
-		update_icon()
 
 /obj/item/storage/wallet/color/blue
+	icon_state = "blue_wallet"
 	item_color = "blue"
 
 /obj/item/storage/wallet/color/red
+	icon_state = "red_wallet"
 	item_color = "red"
 
 /obj/item/storage/wallet/color/yellow
+	icon_state = "yellow_wallet"
 	item_color = "yellow"
 
 /obj/item/storage/wallet/color/green
+	icon_state = "green_wallet"
 	item_color = "green"
 
 /obj/item/storage/wallet/color/pink
+	icon_state = "pink_wallet"
 	item_color = "pink"
 
 /obj/item/storage/wallet/color/black
+	icon_state = "black_wallet"
 	item_color = "black"

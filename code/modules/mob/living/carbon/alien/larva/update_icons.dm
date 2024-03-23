@@ -1,13 +1,12 @@
 
 /mob/living/carbon/alien/larva/regenerate_icons()
-	overlays = list()
-	update_icons()
+	return update_icons()
 
 /mob/living/carbon/alien/larva/update_icons()
 	var/state = 0
-	if(amount_grown > 150)
+	if(evolution_points > 150)
 		state = 2
-	else if(amount_grown > 50)
+	else if(evolution_points > 50)
 		state = 1
 
 	if(stat == DEAD)

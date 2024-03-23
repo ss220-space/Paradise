@@ -54,6 +54,10 @@
 	active_camera = null
 	return ..()
 
+/obj/machinery/computer/security/process()
+	. = ..()
+	update_camera_view()
+
 /obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -135,7 +139,7 @@
 		return TRUE
 
 /obj/machinery/computer/security/proc/update_camera_view()
-	if(!active_camera)
+	if(!active_camera || !active_camera.can_use())
 		return
 	var/list/visible_turfs = list()
 	for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))
@@ -190,11 +194,24 @@
 	cam_background.icon_state = "scanline2"
 	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
 
+
+
+// Other computer monitors.
+/obj/machinery/computer/security/telescreen
+	name = "telescreen"
+	desc = "Used for watching camera networks."
+	icon_state = "telescreen_console"
+	icon_screen = "telescreen"
+	icon_keyboard = null
+	density = FALSE
+	circuit = /obj/item/circuitboard/camera/telescreen
+
+
 /obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+	var/direction = tgui_input_list(user, "Which direction?", "Select direction!", list("North", "East", "South", "West", "Centre"))
 	if(!direction || !Adjacent(user))
 		return
 	pixel_x = 0
@@ -209,28 +226,27 @@
 		if("West")
 			pixel_x = -32
 
-// Other computer monitors.
-/obj/machinery/computer/security/telescreen
-	name = "telescreen"
-	desc = "Used for watching camera networks."
-	icon_state = "telescreen_console"
-	icon_screen = "telescreen"
-	icon_keyboard = null
-	light_range_on = 0
-	density = 0
-	circuit = /obj/item/circuitboard/camera/telescreen
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
 	desc = "Damn, they better have Paradise TV on these things."
 	icon_state = "entertainment_console"
-	icon_screen = "entertainment"
+	icon_screen = "entertainment_off"
 	light_color = "#FFEEDB"
-	light_range_on = 0
+	light_power_on = LIGHTING_MINIMUM_POWER
 	network = list("news")
-	luminosity = 0
 	layer = 4 //becouse of plasma glass with layer = 3
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+	/// Icon utilised when feeds_on is true
+	var/icon_screen_on = "entertainment"
+	/// Used to detect how many video cameras are active
+	var/feeds_on = 0
+
+
+/obj/machinery/computer/security/telescreen/entertainment/update_overlays()
+	icon_screen = feeds_on ? icon_screen_on : initial(icon_screen)
+	return ..()
+
 
 /obj/machinery/computer/security/telescreen/singularity
 	name = "Singularity Engine Telescreen"
@@ -286,3 +302,15 @@
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
 	circuit = /obj/item/circuitboard/camera/engineering
+
+/obj/machinery/computer/security/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldframe"
+	icon_state = "frame-sec"
+	icon_keyboard = "kb15"
+
+/obj/machinery/computer/security/old_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldcomp"
+	icon_state = "oldcomp"
+	icon_keyboard = null

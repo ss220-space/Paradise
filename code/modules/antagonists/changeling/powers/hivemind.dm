@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 /datum/action/changeling/hivemind_pick
 	name = "Hivemind Access"
-	desc = "Allows us to upload or absorb DNA in the airwaves. Does not count towards absorb objectives. Allows us to speak over the Changeling Hivemind using :g. Costs 10 chemicals."
+	desc = "Allows us to upload or absorb DNA in the airwaves. Does not count towards absorb objectives. Allows us to speak over the Changeling Hivemind. Costs 10 chemicals."
 	helptext = "Tunes our chemical receptors for hivemind communication, which passively grants us access to the Changeling Hivemind."
 	button_icon_state = "hive_absorb"
 	power_type = CHANGELING_INNATE_POWER
@@ -17,11 +17,11 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		return FALSE
 
 	//to_chat(user, span_notice("We feel our consciousness become capable of communion with the hivemind."))
-	//to_chat(user, span_changeling("Use say \":g message\" to communicate with the other changelings. You can use linglink to interrogate properly grabbed victims."))
-	if(cling.evented)
-		to_chat(user, span_changeling("Use say \":gi message\" to communicate with the other changelings."))
-	else
-		to_chat(user, span_changeling("Use say \":g message\" to communicate with the other changelings."))
+	//to_chat(user, span_changeling("Use say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate with the other changelings. You can use linglink to interrogate properly grabbed victims."))
+
+	var/language_key = cling.evented ? get_language_prefix(LANGUAGE_HIVE_EVENTLING) : get_language_prefix(LANGUAGE_HIVE_CHANGELING)
+	desc = "Allows us to upload or absorb DNA in the airwaves. Does not count towards absorb objectives. Allows us to speak over the Changeling Hivemind using '[language_key]'. Costs 10 chemicals."
+	to_chat(user, span_changeling("Use say '[language_key]' to communicate with the other changelings."))
 
 	return TRUE
 
@@ -35,11 +35,11 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		linglink.cling = cling
 		linglink.Grant(user)*/
 
-	if(!((GLOB.all_languages["Changeling"] in user.languages)||(GLOB.all_languages["Infiltrated changeling"] in user.languages)))
+	if(!((GLOB.all_languages[LANGUAGE_HIVE_CHANGELING] in user.languages)||(GLOB.all_languages[LANGUAGE_HIVE_EVENTLING] in user.languages)))
 		if(!cling.evented)
-			user.add_language("Changeling")
+			user.add_language(LANGUAGE_HIVE_CHANGELING)
 		else
-			user.add_language("Infiltrated changeling")
+			user.add_language(LANGUAGE_HIVE_EVENTLING)
 
 
 /datum/action/changeling/hivemind_pick/Remove(mob/user)
@@ -52,10 +52,10 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		linglink.Remove(user)
 		QDEL_NULL(linglink)*/
 
-	if(GLOB.all_languages["Changeling"] in user.languages)
-		user.remove_language("Changeling")
-	if(GLOB.all_languages["Infiltrated changeling"] in user.languages)
-		user.remove_language("Infiltrated changeling")
+	if(GLOB.all_languages[LANGUAGE_HIVE_CHANGELING] in user.languages)
+		user.remove_language(LANGUAGE_HIVE_CHANGELING)
+	if(GLOB.all_languages[LANGUAGE_HIVE_EVENTLING] in user.languages)
+		user.remove_language(LANGUAGE_HIVE_EVENTLING)
 
 	..()
 
@@ -67,10 +67,10 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 		QDEL_NULL(linglink)*/
 
-	if(owner && (GLOB.all_languages["Changeling"] in owner.languages))
-		owner.remove_language("Changeling")
-	if(owner && (GLOB.all_languages["Infiltrated changeling"] in owner.languages))
-		owner.remove_language("Infiltrated changeling")
+	if(owner && (GLOB.all_languages[LANGUAGE_HIVE_CHANGELING] in owner.languages))
+		owner.remove_language(LANGUAGE_HIVE_CHANGELING)
+	if(owner && (GLOB.all_languages[LANGUAGE_HIVE_EVENTLING] in owner.languages))
+		owner.remove_language(LANGUAGE_HIVE_EVENTLING)
 
 	return ..()
 
@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		to_chat(user, span_notice("There's no new DNA to absorb from the air."))
 		return FALSE
 
-	var/choice = input("Select a DNA absorb from the air: ", "Absorb DNA", null) as null|anything in names
+	var/choice = tgui_input_list(user, "Select a DNA absorb from the air: ", "Absorb DNA", names)
 	if(!choice)
 		return FALSE
 

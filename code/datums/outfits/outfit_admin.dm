@@ -223,7 +223,7 @@
 	id = /obj/item/card/id/centcom
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8ar = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
@@ -379,7 +379,7 @@
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/gun/projectile/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	l_pocket = /obj/item/shield/energy
@@ -499,7 +499,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Vox Armalis", "syndie")
+		apply_to_card(I, H, get_all_accesses(), SPECIES_VOX_ARMALIS, "syndie")
 
 /datum/outfit/admin/tunnel_clown
 	name = "Tunnel Clown"
@@ -716,8 +716,8 @@
 
 	H.rename_character(null, "[rank_list.len ? pick(rank_list) : "[H.gender==FEMALE ? pick(GLOB.first_names_female) : pick(GLOB.first_names_male)]"] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
 
-	H.add_language("Neo-Russkiya")
-	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+	H.add_language(LANGUAGE_NEO_RUSSIAN)
+	H.set_default_language(GLOB.all_languages[LANGUAGE_NEO_RUSSIAN])
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))

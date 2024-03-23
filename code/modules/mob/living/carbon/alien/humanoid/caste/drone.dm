@@ -6,6 +6,7 @@
 	obj_damage = 60
 	icon_state = "aliend_s"
 	time_to_open_doors = 0.2 SECONDS
+	can_evolve = TRUE
 	var/sterile = FALSE
 
 

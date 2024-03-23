@@ -18,7 +18,7 @@
 	density = 1 //Dense. To raise the heat.
 	opacity = 0
 
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = ACID_PROOF
 
 	layer = 3.9
@@ -179,38 +179,41 @@
 		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
 		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
 		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
-	overlays.Cut()
+	cut_overlays()
 
 	if(has_paint)
 		var/image/to_add
 		if(!isnull(pod_paint_effect[POD_LIGHT]))
 			to_add = pod_paint_effect[POD_LIGHT]
 			to_add.color = colors[POD_LIGHT]
-			overlays += to_add
+			add_overlay(to_add)
 		if(!isnull(pod_paint_effect[WINDOW]))
 			to_add = pod_paint_effect[WINDOW]
 			to_add.color = colors[WINDOW]
-			overlays += to_add
+			add_overlay(to_add)
 		if(!isnull(pod_paint_effect[RIM]))
 			to_add = pod_paint_effect[RIM]
 			to_add.color = colors[RIM]
-			overlays += to_add
+			add_overlay(to_add)
 		if(!isnull(pod_paint_effect[PAINT]))
 			to_add = pod_paint_effect[PAINT]
 			to_add.color = colors[PAINT]
-			overlays += to_add
+			add_overlay(to_add)
 	if(health <= round(initial(health)/2))
-		overlays += pod_overlays[DAMAGE]
+		add_overlay(pod_overlays[DAMAGE])
 		if(health <= round(initial(health)/4))
-			overlays += pod_overlays[FIRE_OLAY]
+			add_overlay(pod_overlays[FIRE_OLAY])
 
 
 	light_color = icon_light_color[src.icon_state]
 
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
+
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
+	. = P.on_hit(src)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
-	P.on_hit(src)
 
 /obj/spacepod/AllowDrop()
 	return TRUE
@@ -245,13 +248,15 @@
 		return TRUE
 
 /obj/spacepod/attack_alien(mob/living/carbon/alien/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	deal_damage(user.attack_damage)
-	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
-	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
+	if(user.a_intent == INTENT_HARM)
+		user.do_attack_animation(src)
+		user.changeNext_move(CLICK_CD_MELEE)
+		deal_damage(user.obj_damage)
+		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
+		to_chat(user, "<span class='warning'>You slash at [src]!</span>")
+		visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 
-/obj/spacepod/proc/deal_damage(var/damage)
+/obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
@@ -500,7 +505,7 @@
 		possible.Add("Secondary Cargo System")
 	if(equipment_system.lock_system)
 		possible.Add("Lock System")
-	switch(input(user, "Remove which equipment?", null, null) as null|anything in possible)
+	switch(tgui_input_list(user, "Remove which equipment?", "Equipment",possible))
 		if("Energy Cell")
 			if(user.get_active_hand() && user.get_inactive_hand())
 				to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
@@ -724,7 +729,7 @@
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		return 1
 
-/obj/spacepod/MouseDrop_T(atom/A, mob/user)
+/obj/spacepod/MouseDrop_T(atom/A, mob/user, params)
 	if(user == pilot || (user in passengers))
 		return
 
@@ -1073,19 +1078,19 @@
 		switch(direction)
 			if(NORTH)
 				if(inertia_dir == SOUTH)
-					inertia_dir = 0
+					inertia_dir = NONE
 					moveship = 0
 			if(SOUTH)
 				if(inertia_dir == NORTH)
-					inertia_dir = 0
+					inertia_dir = NONE
 					moveship = 0
 			if(EAST)
 				if(inertia_dir == WEST)
-					inertia_dir = 0
+					inertia_dir = NONE
 					moveship = 0
 			if(WEST)
 				if(inertia_dir == EAST)
-					inertia_dir = 0
+					inertia_dir = NONE
 					moveship = 0
 		if(moveship)
 			Move(get_step(src, direction), direction)

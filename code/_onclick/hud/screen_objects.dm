@@ -125,14 +125,11 @@
 /obj/screen/pull/Click()
 	usr.stop_pulling()
 
-/obj/screen/pull/update_icon(mob/mymob)
-	if(!mymob)
-		return
-	if(mymob.pulling)
+/obj/screen/pull/update_icon_state()
+	if(hud?.mymob?.pulling)
 		icon_state = "pull"
 	else
 		icon_state = "pull0"
-
 
 /obj/screen/resist
 	name = "resist"
@@ -197,7 +194,7 @@
 	return FALSE
 
 
-/obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
+/obj/screen/storage/MouseDrop_T(obj/item/I, mob/user, params)
 	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || ismecha(user.loc) || !master)
 		return FALSE
 
@@ -235,18 +232,44 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
+		I.pickup(user) //Do not actually put in hands, but rather make some funny effects out of it
 		S.attackby(I, user)
+	return TRUE
 
 
 /obj/screen/zone_sel
 	name = "damage zone"
 	icon_state = "zone_sel"
 	screen_loc = ui_zonesel
+	var/overlay_file = 'icons/mob/zone_sel.dmi'
 	var/selecting = BODY_ZONE_CHEST
-	var/static/list/hover_overlays_cache = list()
+	var/list/hover_overlays_cache
+	var/list/selecting_overlays_cache
 	var/hovering
 
-/obj/screen/zone_sel/Click(location, control,params)
+
+/obj/screen/zone_sel/Initialize(mapload, hud, icon, alpha, color)
+	. = ..()
+	src.hud = hud	// Don't forget to always put here the created HUD '/datum/hud/'.
+	hover_overlays_cache = list()
+	selecting_overlays_cache = list()
+	if(icon)
+		src.icon = icon
+	if(alpha)
+		src.alpha = alpha
+	if(color)
+		src.color = color
+	src.hud.mymob.zone_selected = selecting
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/screen/zone_sel/Destroy()
+	QDEL_LIST_ASSOC_VAL(hover_overlays_cache)
+	QDEL_LIST_ASSOC_VAL(selecting_overlays_cache)
+	return ..()
+
+
+/obj/screen/zone_sel/Click(location, control, params)
 	if(isobserver(usr))
 		return FALSE
 
@@ -257,45 +280,63 @@
 	if(!choice)
 		return TRUE
 
-	return set_selected_zone(choice, usr)
+	if(PL["alt"])
+		AltClick(usr, choice)
+		return
+
+	return set_selected_zone(choice)
+
+/obj/screen/zone_sel/AltClick(mob/user, choice)
+
+	if(user.next_click > world.time || user.next_move > world.time)
+		return FALSE
+	user.changeNext_click(1)
+
+	var/obj/item/holding_item = user.get_active_hand()
+	var/old_selecting = selecting
+	if(!istype(holding_item))
+		return FALSE
+	if(!set_selected_zone(choice, FALSE))
+		return FALSE
+	holding_item.melee_attack_chain(user, user)
+	set_selected_zone(old_selecting, FALSE)
+
 
 /obj/screen/zone_sel/MouseEntered(location, control, params)
 	MouseMove(location, control, params)
+
 
 /obj/screen/zone_sel/MouseMove(location, control, params)
 	if(isobserver(usr))
 		return
 
 	var/list/PL = params2list(params)
-	var/icon_x = text2num(PL["icon-x"])
-	var/icon_y = text2num(PL["icon-y"])
-	var/choice = get_zone_at(icon_x, icon_y)
+	var/choice = get_zone_at(text2num(PL["icon-x"]), text2num(PL["icon-y"]))
 
-	if(hovering == choice)
+	if(!choice)
+		cut_overlay(hover_overlays_cache[hovering])
+		hovering = null
 		return
+
+	if(choice == hovering)
+		return
+
 	cut_overlay(hover_overlays_cache[hovering])
 	hovering = choice
 
-	var/obj/effect/overlay/zone_sel/overlay_object = hover_overlays_cache[choice]
-	if(!overlay_object)
-		overlay_object = new
-		overlay_object.icon_state = "[choice]"
-		hover_overlays_cache[choice] = overlay_object
-	add_overlay(overlay_object)
+	var/mutable_appearance/hovering_olay = hover_overlays_cache[hovering]
+	if(!hovering_olay)
+		hovering_olay = mutable_appearance(overlay_file, "[hovering]", alpha = 128, appearance_flags = RESET_COLOR)
+		hover_overlays_cache[hovering] = hovering_olay
 
+	add_overlay(hovering_olay)
 
-/obj/effect/overlay/zone_sel
-	icon = 'icons/mob/zone_sel.dmi'
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	alpha = 128
-	anchored = TRUE
-	layer = ABOVE_HUD_LAYER
-	plane = ABOVE_HUD_PLANE
 
 /obj/screen/zone_sel/MouseExited(location, control, params)
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
 		hovering = null
+
 
 /obj/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
 	switch(icon_y)
@@ -311,7 +352,7 @@
 					return BODY_ZONE_R_LEG
 				if(17 to 22)
 					return BODY_ZONE_L_LEG
-				if(24 to 29)
+				if(23 to 29)
 					return BODY_ZONE_TAIL
 		if(10 to 13) //Hands,groin and wings
 			switch(icon_x)
@@ -327,7 +368,7 @@
 					return BODY_ZONE_WING
 		if(14 to 22) //Chest and arms to shoulders and wings
 			switch(icon_x)
-				if (3 to 7)
+				if(3 to 7)
 					return BODY_ZONE_WING
 				if(8 to 11)
 					return BODY_ZONE_R_ARM
@@ -335,51 +376,60 @@
 					return BODY_ZONE_CHEST
 				if(21 to 24)
 					return BODY_ZONE_L_ARM
-				if(24 to 28)
+				if(25 to 28)
 					return BODY_ZONE_WING
-		if(23 to 30) //Head, but we need to check for eye or mouth
-			if(icon_x in 12 to 20)
-				switch(icon_y)
-					if(23 to 24)
-						if(icon_x in 15 to 17)
-							return BODY_ZONE_PRECISE_MOUTH
-					if(26) //Eyeline, eyes are on 15 and 17
-						if(icon_x in 14 to 18)
-							return BODY_ZONE_PRECISE_EYES
-					if(25 to 27)
-						if(icon_x in 15 to 17)
-							return BODY_ZONE_PRECISE_EYES
-				return BODY_ZONE_HEAD
+		if(23 to 30)
+			switch(icon_x)
+				if(4 to 10)
+					return BODY_ZONE_WING
+				if(12 to 20)	//Head, but we need to check for eye or mouth
+					switch(icon_y)
+						if(23 to 24)
+							if(icon_x in 15 to 17)
+								return BODY_ZONE_PRECISE_MOUTH
+						if(26) //Eyeline, eyes are on 15 and 17
+							if(icon_x in 14 to 18)
+								return BODY_ZONE_PRECISE_EYES
+						if(25 to 27)
+							if(icon_x in 15 to 17)
+								return BODY_ZONE_PRECISE_EYES
+					return BODY_ZONE_HEAD
+				if(22 to 28)
+					return BODY_ZONE_WING
 
-/obj/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
-	if(isobserver(user))
+
+/obj/screen/zone_sel/proc/set_selected_zone(choice, update_overlay = TRUE)
+	if(!hud || !hud.mymob)
+		return FALSE
+
+	if(isobserver(hud.mymob))
 		return FALSE
 
 	if(choice != selecting)
 		selecting = choice
-		update_icon(user)
+		hud.mymob.zone_selected = choice
+		if(update_overlay)
+			update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-/obj/screen/zone_sel/update_icon(mob/user)
-	overlays.Cut()
-	var/image/human = image('icons/mob/zone_sel.dmi', "human")
-	human.appearance_flags = RESET_COLOR
-	overlays += human
-	var/image/sel = image('icons/mob/zone_sel.dmi', "[selecting]")
-	sel.appearance_flags = RESET_COLOR
-	overlays += sel
-	user.zone_selected = selecting
+
+/obj/screen/zone_sel/update_overlays()
+	. = ..()
+	var/mutable_appearance/selecting_olay = selecting_overlays_cache[selecting]
+	if(!selecting_olay)
+		selecting_olay = mutable_appearance(overlay_file, "[selecting]", appearance_flags = RESET_COLOR)
+		selecting_overlays_cache[selecting] = selecting_olay
+	. += selecting_olay
+
 
 /obj/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'
+	overlay_file = 'icons/mob/screen_alien.dmi'
 
-/obj/screen/zone_sel/alien/update_icon(mob/user)
-	overlays.Cut()
-	overlays += image('icons/mob/screen_alien.dmi', "[selecting]")
-	user.zone_selected = selecting
 
 /obj/screen/zone_sel/robot
 	icon = 'icons/mob/screen_robot.dmi'
+
 
 /obj/screen/craft
 	name = "crafting menu"
@@ -419,7 +469,7 @@
 /obj/screen/inventory/proc/add_overlays()
 	var/mob/user = hud?.mymob
 
-	if(!user || !slot_id)
+	if(!user || !slot_id || slot_id == slot_l_hand || slot_id == slot_r_hand)
 		return
 
 	var/obj/item/holding = user.get_active_hand()
@@ -436,6 +486,7 @@
 		item_overlay.color = "#00ff00"
 
 	cut_overlay(object_overlay)
+	QDEL_NULL(object_overlay)
 	object_overlay = item_overlay
 	add_overlay(object_overlay)
 
@@ -466,7 +517,17 @@
 	return TRUE
 
 
-/obj/screen/inventory/MouseDrop_T(obj/item/I, mob/user)
+/obj/screen/inventory/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	cut_overlay(object_overlay)
+	QDEL_NULL(object_overlay)
+	if(could_be_click_lag())
+		Click(src_location, src_control, params)
+		drag_start = 0
+		return
+	return ..()
+
+
+/obj/screen/inventory/MouseDrop_T(obj/item/I, mob/user, params)
 
 	if(!user || !istype(I) || user.incapacitated() || ismecha(user.loc) || is_ventcrawling(user))
 		return FALSE
@@ -507,34 +568,42 @@
 		(slot_id == slot_r_hand && !user.put_in_r_hand(I, ignore_anim = FALSE)))
 		return FALSE
 
+	I.pickup(user)
+
 
 /obj/screen/inventory/hand
 	var/image/active_overlay
 	var/image/handcuff_overlay
+	var/static/mutable_appearance/blocked_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "blocked")
 
 
-/obj/screen/inventory/hand/update_icon()
-	..()
-	if(!active_overlay)
-		active_overlay = image("icon"=icon, "icon_state"="hand_active")
-	if(!handcuff_overlay)
-		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
-		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
+/obj/screen/inventory/hand/update_overlays()
+	. = ..()
 
-	if(!hud?.mymob)
+	if(!hud || !hud.mymob)
 		return
 
-	overlays.Cut()
+	if(!active_overlay)
+		active_overlay = image("icon" = icon, "icon_state" = "hand_active")
+
+	if(!handcuff_overlay)
+		var/state = (slot_id == slot_l_hand) ? "gabrielle" : "markus"
+		handcuff_overlay = image("icon" = 'icons/mob/screen_gen.dmi', "icon_state" = state)
+
 	if(iscarbon(hud.mymob))
 		var/mob/living/carbon/user = hud.mymob
 		if(user.handcuffed)
-			overlays += handcuff_overlay
+			. += handcuff_overlay
+
+		var/obj/item/organ/external/limb = user.get_organ((slot_id == slot_l_hand) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		if(!isalien(user) && (!limb || !limb.is_usable()))
+			. += blocked_overlay
 
 	if(slot_id == slot_l_hand && hud.mymob.hand)
-		overlays += active_overlay
+		. += active_overlay
 
 	else if(slot_id == slot_r_hand && !hud.mymob.hand)
-		overlays += active_overlay
+		. += active_overlay
 
 
 /obj/screen/inventory/hand/Click()

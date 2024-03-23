@@ -269,7 +269,7 @@
 		new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/minertracker
 	name = "boxed tracking implant kit"
@@ -281,7 +281,7 @@
 		new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/chemimp
 	name = "chemical implant kit"
@@ -629,6 +629,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/bodybag(src)
 
+/obj/item/storage/box/bodybags/biohazard
+	name = "biohazard body bags"
+	desc = "This box contains biohazard body bags."
+	icon_state = "biohazard_bodybags"
+
+/obj/item/storage/box/bodybags/biohazard/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/bodybag/biohazard(src)
+
 /obj/item/storage/box/snappops
 	name = "snap pop box"
 	desc = "Eight wrappers of fun! Ages 8 and up. Not suitable for children."
@@ -647,6 +656,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "matchbox"
+	base_icon_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
@@ -663,7 +673,19 @@
 	if(istype(W, /obj/item/match) && !W.lit)
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-	return
+
+
+/obj/item/storage/box/matches/update_icon_state()
+	switch(length(contents))
+		if(10 to INFINITY)
+			icon_state = base_icon_state
+		if(5 to 9)
+			icon_state = "[base_icon_state]_almostfull"
+		if(1 to 4)
+			icon_state = "[base_icon_state]_almostempty"
+		else
+			icon_state = "[base_icon_state]_e"
+
 
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
@@ -762,19 +784,35 @@
 	foldable = null
 	var/design = NODESIGN
 
-/obj/item/storage/box/papersack/update_icon()
-	if(!contents.len)
-		icon_state = "[item_state]"
-	else icon_state = "[item_state]_closed"
+
+/obj/item/storage/box/papersack/update_desc(updates = ALL)
+	. = ..()
+	switch(design)
+		if(NODESIGN)
+			desc = "A sack neatly crafted out of paper."
+		if(NANOTRASEN)
+			desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+		if(SYNDI)
+			desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+		if(HEART)
+			desc = "A paper sack with a heart etched onto the side."
+		if(SMILE)
+			desc = "A paper sack with a crude smile etched onto the side."
+
+
+/obj/item/storage/box/papersack/update_icon_state()
+	item_state = "paperbag_[design]"
+	icon_state = length(contents) ? "[item_state]_closed" : "[item_state]"
+
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
 			return
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
-		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) as null|anything in designs
+		var/switchDesign = tgui_input_list(user, "Select a Design:", "Paper Sack Design", designs)
 		if(!switchDesign)
 			return
 		if(get_dist(usr, src) > 1 && !usr.incapacitated())
@@ -784,19 +822,7 @@
 			return
 		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
 		design = switchDesign
-		icon_state = "paperbag_[design]"
-		item_state = "paperbag_[design]"
-		switch(design)
-			if(NODESIGN)
-				desc = "A sack neatly crafted out of paper."
-			if(NANOTRASEN)
-				desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
-			if(SYNDI)
-				desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
-			if(HEART)
-				desc = "A paper sack with a heart etched onto the side."
-			if(SMILE)
-				desc = "A paper sack with a crude smile etched onto the side."
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
 	else if(is_sharp(W))
 		if(!contents.len)
@@ -844,8 +870,7 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/firstaid/crew(src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"
@@ -1018,6 +1043,24 @@
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
 
+/obj/item/storage/box/dominator_kit
+	name = "Dominator kit"
+	icon_state = "box_dominator"
+
+/obj/item/storage/box/dominator_kit/populate_contents()
+	new /obj/item/gun/energy/dominator/sibyl(src)
+	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/enforcer_kit
+	name = "Enforcer kit"
+	icon_state = "box_enforcer"
+
+/obj/item/storage/box/enforcer_kit/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src)
+	new /obj/item/ammo_box/magazine/enforcer(src)
+	new /obj/item/ammo_box/magazine/enforcer(src)
+	new /obj/item/clothing/accessory/holster(src)
+
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
 	desc = "Contains everything needed to get yourself killed for a medal."
@@ -1027,6 +1070,51 @@
 		new /obj/item/grenade/megafauna_hardmode(src)
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
+
+/obj/item/storage/box/random_syndi
+	icon_state = "box_of_doom"
+	var/static/list/allowed_uplink_items
+
+
+/obj/item/storage/box/random_syndi/populate_contents()
+	if(!allowed_uplink_items)
+		allowed_uplink_items = list()
+		for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
+			if(istype(uplink_item, /datum/uplink_item/racial) || uplink_item.hijack_only || uplink_item.cost > 20)
+				continue
+			allowed_uplink_items += uplink_item.item
+
+	if(!length(allowed_uplink_items))
+		return
+
+	for(var/item_path in pick_multiple_unique(allowed_uplink_items, 3))
+		new item_path(src)
+
+
+/obj/item/storage/box/crayfish_bucket
+	name = "Mr. Chang's Spicy Lobsters"
+	desc = "Supply of lobsters from Mr. Chang. Crayfish instead of lobsters, super discount, great rating!"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "crayfish_bucket"
+	item_state = "chinese2"
+	storage_slots = 3
+	display_contents_with_number = TRUE
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang,
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+	)
+
+
+/obj/item/storage/box/crayfish_bucket/populate_contents()
+	var/big_ones = rand(2, 4)
+	var/small_ones = 5 - big_ones
+	for(var/i in 1 to big_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang(src)
+	for(var/i in 1 to small_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
+	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+
 
 #undef NODESIGN
 #undef NANOTRASEN

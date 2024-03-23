@@ -7,6 +7,8 @@
 	icon_state = "smooth"
 	canSmoothWith = list(/turf/simulated/floor/chasm)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
+	layer = 1.7
+	intact = 0
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
@@ -22,7 +24,11 @@
 		/obj/effect/collapse,
 		/obj/effect/particle_effect/ion_trails,
 		/obj/effect/abstract,
-		/obj/effect/ebeam
+		/obj/effect/ebeam,
+		/obj/effect/spawner,
+		/obj/structure/railing,
+		/obj/machinery/atmospherics/pipe/simple,
+		/mob/living/simple_animal/hostile/megafauna //failsafe
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -37,6 +43,12 @@
 	..()
 	START_PROCESSING(SSprocessing, src)
 	drop_stuff(AM)
+
+/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	if(!isliving(caller))
+		return TRUE
+	var/mob/living/L = caller
+	return (L.flying || ismegafauna(caller))
 
 /turf/simulated/floor/chasm/process()
 	if(!drop_stuff())
@@ -207,9 +219,9 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	light_range = 1.9 //slightly less range than lava
-	light_power = 0.65 //less bright, too
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
+	light_range = 2
+	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
@@ -333,5 +345,9 @@
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
 
-/turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
-	return 1
+
+/// Lets people walk into chasms.
+/turf/simulated/floor/chasm/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	return TRUE
+

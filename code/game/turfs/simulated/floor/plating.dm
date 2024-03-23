@@ -4,8 +4,6 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null
-	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	burnt_states = list("floorscorched1", "floorscorched2")
 
 	var/unfastened = FALSE
 
@@ -20,6 +18,12 @@
 	icon_plating = icon_state
 	update_icon()
 
+/turf/simulated/floor/plating/broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+
+/turf/simulated/floor/plating/burnt_states()
+	return list("floorscorched1", "floorscorched2")
+
 /turf/simulated/floor/plating/damaged/Initialize(mapload)
 	. = ..()
 	break_tile()
@@ -28,9 +32,7 @@
 	. = ..()
 	burn_tile()
 
-/turf/simulated/floor/plating/update_icon()
-	if(!..())
-		return
+/turf/simulated/floor/plating/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
@@ -128,7 +130,7 @@
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume)) //If we got this far, something needs fixing
 		to_chat(user, span_notice("You fix some dents on the broken plating."))
-		overlays -= current_overlay
+		cut_overlay(current_overlay)
 		current_overlay = null
 		burnt = FALSE
 		broken = FALSE
@@ -169,12 +171,12 @@
 /turf/simulated/floor/engine/burn_tile()
 	return //unburnable
 
-/turf/simulated/floor/engine/make_plating(force = 0)
+/turf/simulated/floor/engine/make_plating(make_floor_tile = FALSE, mob/user, force = FALSE)
 	if(force)
-		..()
+		..(make_floor_tile, user)
 	return //unplateable
 
-/turf/simulated/floor/engine/attack_hand(mob/user as mob)
+/turf/simulated/floor/engine/attack_hand(mob/user)
 	user.Move_Pulled(src)
 
 /turf/simulated/floor/engine/pry_tile(obj/item/C, mob/user, silent = FALSE)
@@ -184,17 +186,17 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-/turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
+/turf/simulated/floor/engine/attackby(obj/item/C, mob/user, params)
 	if(!C || !user)
 		return
-	if(istype(C, /obj/item/wrench))
+	if(C.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You begin removing rods..."))
 		playsound(src, C.usesound, 80, 1)
 		if(do_after(user, 30 * C.toolspeed * gettoolspeedmod(user), target = src))
 			if(!istype(src, /turf/simulated/floor/engine))
 				return
 			new /obj/item/stack/rods(src, 2)
-			ChangeTurf(/turf/simulated/floor/plating)
+			make_plating(make_floor_tile = FALSE, force = TRUE)
 			return
 
 	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
@@ -223,12 +225,20 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+	var/holy = FALSE
+
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
-	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
-		if(!icon_state == "holy")
-			icon_state = SSticker.cultdat.cult_floor_icon_state
+	update_icon(UPDATE_ICON_STATE)
+
+
+/turf/simulated/floor/engine/cult/update_icon_state()
+	if(SSticker?.cultdat && !holy)
+		icon_state = SSticker.cultdat.cult_floor_icon_state
+		return
+	icon_state = initial(icon_state)
+
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
@@ -242,6 +252,7 @@
 
 /turf/simulated/floor/engine/cult/holy
 	icon_state = "holy"
+	holy = TRUE
 
 //air filled floors; used in atmos pressure chambers
 
@@ -280,12 +291,10 @@
 
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
-	..()
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
 			if(prob(30))
-				new floor_tile(src)
-				make_plating()
+				make_plating(make_floor_tile = TRUE, force = TRUE)
 		else if(prob(30))
 			ReplaceWithLattice()
 
@@ -359,7 +368,7 @@
 	icon_state = "ironfoam"
 	metal = MFOAM_IRON
 
-/turf/simulated/floor/plating/metalfoam/update_icon()
+/turf/simulated/floor/plating/metalfoam/update_icon_state()
 	switch(metal)
 		if(MFOAM_ALUMINUM)
 			icon_state = "metalfoam"
@@ -415,14 +424,6 @@
 
 /turf/simulated/floor/plating/metalfoam/proc/smash()
 	ChangeTurf(baseturf)
-
-/turf/simulated/floor/plating/abductor
-	name = "alien floor"
-	icon_state = "alienpod1"
-
-/turf/simulated/floor/plating/abductor/Initialize(mapload)
-	. = ..()
-	icon_state = "alienpod[rand(1,9)]"
 
 /turf/simulated/floor/plating/ice
 	name = "ice sheet"

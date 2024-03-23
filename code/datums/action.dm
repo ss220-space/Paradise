@@ -13,14 +13,13 @@
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/mob/owner
 
-/datum/action/New(var/Target)
+/datum/action/New(Target)
 	target = Target
 	button = new
 	button.linked_action = src
 	button.name = name
 	button.actiontooltipstyle = buttontooltipstyle
-	if(desc)
-		button.desc = desc
+	button.desc = desc
 
 /datum/action/Destroy()
 	if(owner)
@@ -54,6 +53,7 @@
 
 	if(user.client)
 		user.client.screen -= button
+		button.clean_up_keybinds(user)
 
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
@@ -180,7 +180,7 @@
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
 	var/obj/item/I = target
-	I.actions += src
+	LAZYADD(I.actions, src)
 	if(custom_icon && custom_icon_state)
 		use_itemicon = FALSE
 		icon_icon = custom_icon
@@ -188,7 +188,7 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	LAZYREMOVE(I.actions, src)
 	return ..()
 
 /datum/action/item_action/Trigger(left_click = TRUE)
@@ -508,7 +508,7 @@
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"
@@ -757,7 +757,7 @@
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 //Preset for action that call specific procs (consider innate)
 /datum/action/generic

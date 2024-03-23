@@ -26,8 +26,11 @@
 	if(cooldown > world.time)
 		return 0
 	cooldown = world.time + 10
+	var/static/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
+
+
 	if(toggle)
-		overlays.Cut()
+		cut_overlay(shield_overlay)
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
 		obj_damage = initial(obj_damage)
@@ -36,9 +39,9 @@
 		to_chat(src, "<span class='danger'>Вы переключились в боевой режим.</span>")
 		toggle = FALSE
 	else
-		var/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
+
 		shield_overlay *= name_color
-		overlays.Add(shield_overlay)
+		add_overlay(shield_overlay)
 		melee_damage_lower = 2
 		melee_damage_upper = 2
 		damage_transfer = 0.05 //damage? what's damage?
@@ -94,8 +97,10 @@
 	icon_state = "at_shield2"
 	lifetime = 15 SECONDS
 
-/obj/effect/forcefield/wizard/guardian/CanPass(atom/movable/mover, turf/target)
-	var/mob/living/simple_animal/hostile/guardian/P = wizard
-	if(mover == wizard || istype(P) && mover == P.summoner)
+
+/obj/effect/forcefield/wizard/guardian/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	var/mob/living/simple_animal/hostile/guardian/guardian = wizard
+	if(istype(guardian) && mover == guardian.summoner)
 		return TRUE
-	return FALSE
+

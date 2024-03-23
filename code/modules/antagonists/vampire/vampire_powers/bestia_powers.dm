@@ -66,7 +66,7 @@
 		if(INTERNAL_ORGAN_KIDNEYS)
 			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
 		if(INTERNAL_ORGAN_EYES)
-			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
+			return bestia.trophies[INTERNAL_ORGAN_EYES]
 		if(INTERNAL_ORGAN_EARS)
 			return bestia.trophies[INTERNAL_ORGAN_EARS]
 		else
@@ -181,11 +181,11 @@
 		return FALSE
 	if(only_human && !ishuman(victim))
 		return FALSE
-	if(ismachineperson(victim) && !include_IPC)
+	if(!include_IPC && ismachineperson(victim))
 		return FALSE
-	if(victim.stat == DEAD && !include_dead)
+	if(!include_dead && victim.stat == DEAD)
 		return FALSE
-	if((ishuman(victim) && (NO_BLOOD in victim.dna?.species?.species_traits)) && blood_required)
+	if(blood_required && ishuman(victim) && ((NO_BLOOD in victim.dna?.species?.species_traits) || victim.dna?.species?.exotic_blood))
 		return FALSE
 	if(issilicon(victim) || isbot(victim) || isswarmer(victim) || isguardian(victim))
 		return FALSE
@@ -727,9 +727,7 @@
 	user.stop_pulling()
 	user.unbuckle_all_mobs(TRUE)
 	user.buckled?.unbuckle_mob(user, TRUE)
-	for(var/mob/living/puller in range(user, 1))
-		if(puller.pulling == user)
-			puller.stop_pulling()
+	user.pulledby?.stop_pulling()
 
 	user.visible_message(span_danger("[user] starts moving with unnatural speed!"), \
 						span_notice("You lunge into the air..."))
@@ -755,7 +753,7 @@
 		var/turf/next_step = get_step(user, direction)
 		user.face_atom(target)
 
-		if(!is_path_exist(user, next_step))
+		if(next_step.is_blocked_turf(source_atom = user))
 			break
 
 		user.forceMove(next_step)
@@ -780,7 +778,7 @@
 		animate(user, time = 0.05 SECONDS, pixel_x = from_x, pixel_y = from_y, transform = animation_matrix, easing = CUBIC_EASING)
 		animate(time = 0.05 SECONDS, pixel_x = old_x, pixel_y = old_y, transform = old_transform)
 
-		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
+		playsound(next_step, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 		sleep(0.1 SECONDS)
 
 	if(QDELETED(user))
@@ -823,31 +821,20 @@
 
 		if(t_kidneys > 0 && ishuman(victim))
 			var/mob/living/carbon/human/h_victim = victim
-			if(NO_BLOOD in h_victim.dna?.species?.species_traits)
+			if((NO_BLOOD in h_victim.dna?.species?.species_traits))
 				continue
 
 			h_victim.bleed(actual_blood_loss)
 			h_victim.Confused(confusion_amt)
 			h_victim.emote("moan")
-			if(h_victim.mind && h_victim.ckey)
+			to_chat(h_victim, span_userdanger("You sense a sharp pain inside your body and suddenly feel very weak!"))
+
+			if(h_victim.mind && h_victim.ckey && !h_victim.dna.species.exotic_blood)
 				blood_gained += blood_vamp_get
 				vampire.adjust_blood(h_victim, blood_vamp_get)
-				to_chat(h_victim, span_userdanger("You sense a sharp pain inside your body and suddenly feel very weak!"))
 
 	if(blood_gained)
 		to_chat(user, span_notice("You pinch arteries on fly and absorb <b>[blood_gained]</b> amount of blood!"))
-
-
-/obj/effect/proc_holder/spell/vampire/proc/is_path_exist(atom/source, atom/target)
-	var/obj/dummy = new(source.loc)
-	dummy.pass_flags |= (PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
-	for(var/turf/turf in getline(source, target))
-		for(var/atom/movable/AM in turf)
-			if(!AM.CanPass(dummy, turf, 1))
-				qdel(dummy)
-				return FALSE
-	qdel(dummy)
-	return TRUE
 
 
 /obj/effect/proc_holder/spell/vampire/lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
@@ -1014,6 +1001,7 @@
 						span_notice("You start to transform into the [vampire_animal]."), \
 						span_italics("You hear an eerie rustle of many wings..."))
 
+	vampire.stop_sucking()
 	original_body = user
 	vampire_animal.status_flags |= GODMODE
 	user.notransform = TRUE
@@ -1080,7 +1068,7 @@
 
 	original_body.notransform = FALSE
 	original_body.status_flags &= ~GODMODE
-	original_body.canmove = TRUE
+	original_body.update_canmove()
 	is_transformed = FALSE
 	var/list/all_spells = original_body.mind.spell_list | original_body.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
@@ -1276,7 +1264,7 @@
 		if(!is_vampire_compatible(victim, include_IPC = TRUE))
 			continue
 
-		if(is_path_exist(user, victim))
+		if(is_path_exist(user, victim, PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB))
 			targets += victim
 
 	if(length(targets))
@@ -1800,9 +1788,10 @@
 
 		if(!(NO_BLOOD in user.dna?.species?.species_traits))
 			user.bleed(100)
-			vampire.bloodusable += 50	// only usable blood, will not affect abilities
-			human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 50))
 			to_chat(human_vampire, span_notice("<i>... [span_userdanger("You feel strange feel of joy and power")] ...</i>"))
+			if(!user.dna.species.exotic_blood)
+				vampire.bloodusable += 50	// only usable blood, will not affect abilities
+				human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 50))
 
 	return FALSE
 

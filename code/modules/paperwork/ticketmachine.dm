@@ -35,7 +35,8 @@
 	if(emagged)
 		return
 	add_attack_logs(user, src, "emagged")
-	to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
+	if(user)
+		to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
 	emagged = TRUE
@@ -43,11 +44,13 @@
 		ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
 		qdel(ticket)
 	tickets.Cut()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	handle_maptext()
 
 /obj/machinery/ticket_machine/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	handle_maptext()
 
 /obj/machinery/ticket_machine/proc/increment()
 	if(current_number > ticket_number)
@@ -63,7 +66,8 @@
 		if(!(emagged) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
 			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
-		update_icon() //Update our icon here rather than when they take a ticket to show the current ticket number being served
+		update_icon(UPDATE_ICON_STATE) //Update our icon here rather than when they take a ticket to show the current ticket number being served
+		handle_maptext()
 
 /obj/machinery/door_control/ticket_machine_button
 	name = "increment ticket counter"
@@ -81,7 +85,8 @@
 		M.increment()
 		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
 
-/obj/machinery/ticket_machine/update_icon()
+
+/obj/machinery/ticket_machine/update_icon_state()
 	switch(ticket_number) //Gives you an idea of how many tickets are left
 		if(0 to 49)
 			icon_state = "ticketmachine_100"
@@ -89,7 +94,7 @@
 			icon_state = "ticketmachine_50"
 		if(100)
 			icon_state = "ticketmachine_0"
-	handle_maptext()
+
 
 /obj/machinery/ticket_machine/proc/handle_maptext()
 	if(!dispense_enabled)
@@ -123,7 +128,8 @@
 				qdel(ticket)
 			tickets.Cut()
 			max_number = initial(max_number)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
+			handle_maptext()
 			return
 	else if(I.GetID())
 		var/obj/item/card/id/heldID = I.GetID()

@@ -2,17 +2,12 @@
 	var/obj/item/item_in_hand = get_active_hand()
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, item_in_hand) & COMPONENT_BLOCK_SWAP)
-		to_chat(src, SPAN_WARNING("Ваши руки заняты удержанием [item_in_hand]."))
+		to_chat(src, span_warning("Ваши руки заняты удержанием [item_in_hand]."))
 		return FALSE
 
 	hand = !hand
-
-	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
-		var/obj/screen/inventory/hand/H
-		H = hud_used.inv_slots[slot_l_hand]
-		H.update_icon()
-		H = hud_used.inv_slots[slot_r_hand]
-		H.update_icon()
+	update_hands_HUD()
+	SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS)
 
 
 /mob/living/carbon/activate_hand(selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
@@ -75,13 +70,16 @@
 
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
+	update_hands_HUD()
 
+
+/mob/living/carbon/proc/update_hands_HUD()
 	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
 		var/obj/screen/inventory/hand/hand
 		hand = hud_used.inv_slots[slot_l_hand]
-		hand.update_icon()
+		hand.update_icon(UPDATE_OVERLAYS)
 		hand = hud_used.inv_slots[slot_r_hand]
-		hand.update_icon()
+		hand.update_icon(UPDATE_OVERLAYS)
 
 
 /**
@@ -365,8 +363,9 @@
  * * 'qdel_on_fail' qdels item if failed to pick in both hands.
  * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
  * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
+ * * 'silent' set to `TRUE` to stop pick up sounds.
  */
-/mob/living/carbon/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
+/mob/living/carbon/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
 
 	// Its always TRUE if there is no item, since we are using this proc in 'if()' statements
 	if(!I)
@@ -381,7 +380,7 @@
 		I.pixel_y = initial(I.pixel_y)
 		I.layer = initial(I.layer)
 		I.plane = initial(I.plane)
-		I.dropped(src)
+		I.dropped(src, silent)
 		return TRUE
 
 	// If the item is a stack and we're already holding a stack then merge
@@ -397,7 +396,7 @@
 				if(!ignore_anim)
 					I.do_pickup_animation(src)
 				if(item_stack.merge(active_stack))
-					to_chat(src, SPAN_NOTICE("Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s."))
+					to_chat(src, span_notice("Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s."))
 					return TRUE
 			else
 				var/obj/item/stack/inactive_stack = get_inactive_hand()
@@ -405,12 +404,12 @@
 					if(!ignore_anim)
 						I.do_pickup_animation(src)
 					if(item_stack.merge(inactive_stack))
-						to_chat(src, SPAN_NOTICE("Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s."))
+						to_chat(src, span_notice("Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s."))
 						return TRUE
 
-	if(put_in_active_hand(I, force, ignore_anim))
+	if(put_in_active_hand(I, force, ignore_anim, silent))
 		return TRUE
-	if(put_in_inactive_hand(I, force, ignore_anim))
+	if(put_in_inactive_hand(I, force, ignore_anim, silent))
 		return TRUE
 
 	if(qdel_on_fail)
@@ -420,7 +419,7 @@
 	I.forceMove(drop_location())
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
-	I.dropped(src)
+	I.dropped(src, silent)
 
 	return FALSE
 

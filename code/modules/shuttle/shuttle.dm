@@ -10,7 +10,7 @@
 	icon_state = "pinonfar"
 
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = 1
+	anchored = TRUE
 
 	var/id
 	dir = NORTH		//this should point -away- from the dockingport door, ie towards the ship
@@ -171,7 +171,7 @@
 		throw EXCEPTION("docking port [src] could not initialize.")
 		return 0
 
-	SSshuttle.stationary += src
+	SSshuttle.stationary |= src
 	if(!id)
 		id = "[SSshuttle.stationary.len]"
 	if(name == "dock")
@@ -364,16 +364,16 @@
 	mode = SHUTTLE_RECALL
 
 /obj/docking_port/mobile/proc/enterTransit()
+	. = FALSE
 	previous = null
-//		if(!destination)
-//			return
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/obj/docking_port/stationary/S1 = findTransitDock()
 	if(S1)
-		if(dock(S1, , TRUE))
+		if(dock(S1, transit = TRUE))
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
+			return TRUE
 	else
 		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
 
@@ -441,7 +441,7 @@
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
-/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE, transit=FALSE)
+/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force = FALSE, transit = FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(S1.get_docked() == src)
 		remove_ripples()
@@ -665,10 +665,10 @@
 					setTimer(20)	//can't dock for some reason, try again in 2 seconds
 					return
 			if(SHUTTLE_IGNITING)
-				mode = SHUTTLE_CALL
-				setTimer(callTime)
-				enterTransit()
-				return
+				if(enterTransit())
+					mode = SHUTTLE_CALL
+					setTimer(callTime)
+					return
 		mode = SHUTTLE_IDLE
 		timer = 0
 		destination = null
@@ -893,7 +893,8 @@
 		add_attack_logs(user, src, "emagged")
 		src.req_access = list()
 		emagged = 1
-		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
 //for restricting when the computer can be used, needed for some console subtypes.
 /obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)
@@ -934,13 +935,17 @@
 	shuttleId = "ruins_transport_shuttle"
 	possible_destinations = "ussp_dock;dj_post;sindiecake_dock;ussp_gorky17"
 
+/obj/machinery/computer/shuttle/ruins_transport_shuttle/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame"
+	icon_keyboard = "kb6"
 
 /obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.
 	name = "Regular Civilian Shuttle Console"
 	desc = "Used to control the Regular Civilian Shuttle."
 	circuit = /obj/item/circuitboard/ruins_civil_shuttle
 	shuttleId = "ruins_civil_shuttle"
-	possible_destinations = "spacebar;spacehotelv1"
+	possible_destinations = "spacebar;spacehotelv1;ntstation"
 
 
 /obj/machinery/computer/shuttle/white_ship
@@ -958,6 +963,7 @@
 // Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
 /obj/machinery/computer/shuttle/white_ship/LateInitialize()
 	Initialize()
+	. = ..()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"

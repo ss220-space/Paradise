@@ -154,7 +154,7 @@
 						if(O.air)
 							var/datum/gas_mixture/G = O.air
 							G.copy_from(O.air)
-						if(prob(florachance) && NewFlora.len && !is_blocked_turf(O))
+						if(prob(florachance) && length(NewFlora) && !O.is_blocked_turf())
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
@@ -352,7 +352,7 @@
 	desc = "You can hardly comprehend this thing... which is why you can't see it."
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
 

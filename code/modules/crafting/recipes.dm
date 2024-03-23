@@ -29,7 +29,7 @@
 	name = "IED Satchel"
 	result = /obj/item/grenade/iedsatchel
 	reqs = list(/obj/item/grenade/iedcasing = 3,
-				/obj/item/storage/box/large = 1, 
+				/obj/item/storage/box/large = 1,
 				/obj/item/stack/tape_roll = 20,
 				/obj/item/stack/cable_coil  = 10)
 	time = 60
@@ -200,6 +200,29 @@
 	subcategory = CAT_WEAPON
 	alert_admins_on_craft = TRUE
 
+/datum/crafting_recipe/revolver_ibullet
+	name = "Improvised Revolver Shell"
+	result = /obj/item/ammo_casing/revolver/improvised
+	reqs = list(/obj/item/stack/sheet/metal = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 5,)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 2
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/revolver_pbullet
+	name = "Phosphorous Revolver Bullet"
+	result = /obj/item/ammo_casing/revolver/improvised/phosphorus
+	reqs = list(/obj/item/stack/sheet/metal = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/phosphorus = 5,
+				/datum/reagent/fuel = 5,)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 2
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
 /datum/crafting_recipe/pulseslug
 	name = "Pulse Slug Shell"
 	result = /obj/item/ammo_casing/shotgun/pulseslug
@@ -255,18 +278,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/improvisedbullet
-	name = "Improvised Revolver Shell"
-	result = /obj/item/ammo_casing/revolver/improvised
-	reqs = list(/obj/item/stack/sheet/metal = 1,
-				/obj/item/stack/cable_coil = 1,
-				/datum/reagent/fuel = 5)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 2
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-
 /datum/crafting_recipe/improvisedslugoverload
 	name = "Overload Improvised Shell"
 	result = /obj/item/ammo_casing/shotgun/improvised/overload
@@ -302,8 +313,8 @@
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/irevolver
-	name = "Improvised revolver"
-	result = /obj/item/gun/projectile/revolver/improvisedrevolver
+	name = "Improvised Revolver"
+	result = /obj/item/gun/projectile/revolver/improvised
 	reqs = list(/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/stack/sheet/wood = 2,
 				/obj/item/stack/sheet/metal = 3,
@@ -366,6 +377,13 @@
 	time = 50
 	reqs = list(/obj/item/stack/tape_roll = 1,
 				/datum/reagent/liquidgibs = 10)
+	category = CAT_MISC
+
+/datum/crafting_recipe/rollingpin
+	name = "Rolling Pin"
+	result = /obj/item/kitchen/rollingpin
+	time = 5
+	reqs = list(/obj/item/stack/sheet/wood = 2)
 	category = CAT_MISC
 
 /datum/crafting_recipe/garrote
@@ -1316,9 +1334,25 @@
 	time = 50
 	category = CAT_ROBOT
 
-/datum/crafting_recipe/lockerpaint
-	name = "Locker Mech Paintkit"
+/datum/crafting_recipe/syndielockerpaint
+	name = "Syndie Locker Mech Paintkit"
 	result = /obj/item/paintkit/lockermech_syndie
+	time = 35
+	reqs = list(/obj/item/stack/sheet/cardboard = 5,
+				/obj/item/toy/crayon/spraycan = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/piratelockerpaint
+	name = "Pirate Locker Mech Paintkit"
+	result = /obj/item/paintkit/lockermech_pirate
+	time = 35
+	reqs = list(/obj/item/stack/sheet/cardboard = 5,
+				/obj/item/toy/crayon/spraycan = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/ntlockerpaint
+	name = "NT Special Mech Paintkit"
+	result = /obj/item/paintkit/lockermech_nt
 	time = 35
 	reqs = list(/obj/item/stack/sheet/cardboard = 5,
 				/obj/item/toy/crayon/spraycan = 1)
@@ -1375,7 +1409,7 @@
 
 /datum/crafting_recipe/makeshift_speedloader
 	name = "Makeshift Speedloader"
-	result = /obj/item/ammo_box/speedloader/improvisedrevolver
+	result = /obj/item/ammo_box/speedloader/improvised
 	time = 5 SECONDS
 	reqs = list(/obj/item/c_tube = 4,
 				/obj/item/stack/packageWrap = 10,
@@ -1390,3 +1424,14 @@
 	reqs = list(/obj/item/stack/sheet/glass = 3)
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
 	category = CAT_MISC
+
+/datum/crafting_recipe/throwing_croissant
+	name = "Throwing croissant"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/croissant = 1,
+		/obj/item/stack/rods = 1
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/croissant/throwing)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_availible = FALSE

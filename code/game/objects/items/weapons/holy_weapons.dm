@@ -604,7 +604,7 @@
 		//would like to make the holder mime if they have it in on thier person in general
 		if(src == holder.l_hand || src == holder.r_hand)
 			for(var/mob/living/carbon/human/H in range(5, loc))
-				if(H.mind.assigned_role == "Clown")
+				if(H.mind?.assigned_role == "Clown")
 					H.Silence(20 SECONDS)
 					animate_fade_grayscale(H,20)
 					if(prob(10))

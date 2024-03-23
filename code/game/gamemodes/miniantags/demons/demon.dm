@@ -68,7 +68,7 @@
 		to_chat(usr, span_warning("There are no valid targets!"))
 		return
 
-	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
 
@@ -96,7 +96,7 @@
 	origin_tech = "combat=5;biotech=7"
 
 
-/obj/item/organ/internal/heart/demon/update_icon()
+/obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually
 
 

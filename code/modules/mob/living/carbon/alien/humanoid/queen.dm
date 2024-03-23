@@ -5,12 +5,13 @@
 	health = 640
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
-	heal_rate = 5
-	large = 1
+	large = TRUE
+	move_resist = MOVE_FORCE_STRONG
+	caste_movement_delay = 3
 	ventcrawler = 0
-	attack_damage = 30
-	disarm_stamina_damage = 34
-	armour_penetration = 30
+	attack_damage = 40
+	disarm_stamina_damage = 50
+	armour_penetration = 50
 	obj_damage = 80
 	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
@@ -43,9 +44,6 @@
 		/obj/item/organ/internal/xenos/neurotoxin
 	)
 
-/mob/living/carbon/alien/humanoid/queen/movement_delay()
-	. = ..()
-	. += 3
 
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	return FALSE
@@ -57,7 +55,6 @@
 	icon = 'icons/mob/alienlarge.dmi'
 	icon_state = "queen_s"
 	pixel_x = -16
-	large = 1
 	var/datum/action/innate/small_sprite_alien/action_sprite
 
 
@@ -75,7 +72,7 @@
 
 
 /mob/living/carbon/alien/humanoid/queen/large/update_icons()
-	overlays.Cut()
+	cut_overlays()
 
 	if(stat == DEAD)
 		icon_state = "queen_dead"
@@ -85,4 +82,7 @@
 		icon_state = "queen_s"
 
 	for(var/image/I in overlays_standing)
-		overlays += I
+		add_overlay(I)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())

@@ -246,7 +246,7 @@ LINEN BINS
 	desc = "A linen bin. It looks rather cosy."
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "linenbin-full"
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	var/amount = 20
@@ -263,7 +263,7 @@ LINEN BINS
 	else
 		. += "<span class='notice'>There are [amount] bed sheets in the bin.</span>"
 
-/obj/structure/bedsheetbin/update_icon()
+/obj/structure/bedsheetbin/update_icon_state()
 	switch(amount)
 		if(0)
 			icon_state = "linenbin-empty"
@@ -276,13 +276,13 @@ LINEN BINS
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
 		amount = 0
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	..()
 
 /obj/structure/bedsheetbin/burn()
 	amount = 0
 	extinguish()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bedsheetbin/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/bedsheet))
@@ -338,7 +338,7 @@ LINEN BINS
 
 		B.loc = loc
 		to_chat(user, "<span class='notice'>You telekinetically remove [B] from [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 		if(hidden)
 			hidden.loc = loc

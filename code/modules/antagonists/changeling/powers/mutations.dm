@@ -250,7 +250,7 @@
 	force = 25
 	block_chance = 0
 	armour_penetration = 35
-	hitsound = 'sound/weapons/genhit.ogg'
+	hitsound = "swing_hit"
 	gender = MALE
 	ru_names = list(NOMINATIVE = "молот из плоти", GENITIVE = "молота из плоти", DATIVE = "молоту из плоти", ACCUSATIVE = "молот из плоти", INSTRUMENTAL = "молотом из плоти", PREPOSITIONAL = "молоте из плоти")
 

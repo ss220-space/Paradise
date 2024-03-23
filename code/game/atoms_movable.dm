@@ -1,36 +1,40 @@
 /atom/movable
-	layer = 3
-	appearance_flags = TILE_BOUND
+	layer = OBJ_LAYER
+	appearance_flags = TILE_BOUND|PIXEL_SCALE
 	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
-	var/anchored = 0
+	var/anchored = FALSE
 	var/move_resist = MOVE_RESIST_DEFAULT
 	var/move_force = MOVE_FORCE_DEFAULT
 	var/pull_force = PULL_FORCE_DEFAULT
-	// var/elevation = 2    - not used anywhere
 	var/move_speed = 10
 	var/l_move_time = 1
 	var/datum/thrownthing/throwing = null
 	var/throw_speed = 2 //How many tiles to move per ds when being thrown. Float values are fully supported
 	var/throw_range = 7
-	var/no_spin = 0
-	var/no_spin_thrown = 0
-	var/moved_recently = 0
+	var/no_spin_thrown = FALSE
 	var/mob/pulledby = null
 	var/atom/movable/pulling
 	var/throwforce = 0
-	var/canmove = 1
+	var/canmove = TRUE
 	var/pull_push_speed_modifier = 1
 
-	var/inertia_dir = 0
+	/// If false makes [CanPass][/atom/proc/CanPass] call [CanPassThrough][/atom/movable/proc/CanPassThrough] on this type instead of using default behaviour
+	var/generic_canpass = TRUE
+
+	var/inertia_dir = NONE
 	var/atom/inertia_last_loc
-	var/inertia_moving = 0
+	var/inertia_moving = FALSE
 	var/inertia_next_move = 0
 	var/inertia_move_delay = 5
-
-	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
+	/// NONE:0 not doing a diagonal move. FIRST_DIAG_STEP:1 and SECOND_DIAG_STEP:2 doing the first/second step of the diagonal move.
+	var/moving_diagonally = NONE
 	var/list/client_mobs_in_contents
 
+	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = FALSE
+	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
+	var/atom/movable/emissive_blocker/em_block
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
 
@@ -42,8 +46,47 @@
 		return
 	. = ..()
 
+
+/atom/movable/Initialize(mapload)
+	. = ..()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			var/static/mutable_appearance/emissive_blocker/blocker = new
+			blocker.icon = icon
+			blocker.icon_state = icon_state
+			blocker.dir = dir
+			blocker.alpha = alpha
+			blocker.appearance_flags |= appearance_flags
+			// Ok so this is really cursed, but I want to set with this blocker cheaply while
+			// still allowing it to be removed from the overlays list later.
+			// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly.
+			// I'm sorry!
+			var/mutable_appearance/flat = blocker.appearance
+			overlays += flat
+			if(managed_overlays)
+				if(islist(managed_overlays))
+					managed_overlays += flat
+				else
+					managed_overlays = list(managed_overlays, flat)
+			else
+				managed_overlays = flat
+
+		if(EMISSIVE_BLOCK_UNIQUE)
+			render_target = ref(src)
+			em_block = new(null, src)
+			overlays += em_block
+			if(managed_overlays)
+				if(islist(managed_overlays))
+					managed_overlays += em_block
+				else
+					managed_overlays = list(managed_overlays, em_block)
+			else
+				managed_overlays = em_block
+
+
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
+	QDEL_NULL(em_block)
 
 	. = ..()
 	if(loc)
@@ -56,6 +99,18 @@
 		pulledby.stop_pulling()
 	if(orbiting)
 		stop_orbit()
+
+
+/atom/movable/get_emissive_block()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			return fast_emissive_blocker(src)
+		if(EMISSIVE_BLOCK_UNIQUE)
+			if(!em_block && !QDELETED(src))
+				render_target = ref(src)
+				em_block = new(null, src)
+			return em_block
+
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
@@ -76,8 +131,10 @@
 	if(!(AM.can_be_pulled(src, force, show_message)))
 		return FALSE
 
-	if(pulling && AM == pulling && src == AM.pulledby)	// are we trying to pull something we are already pulling?
-		return FALSE
+	if(pulling)
+		if(AM == pulling && src == AM.pulledby)	// are we trying to pull something we are already pulling?
+			return FALSE
+		stop_pulling() // Clear yourself from targets `pulledby`.
 
 	var/atom/movable/previous_puller = null
 	if(AM.pulledby)
@@ -107,7 +164,6 @@
 		pulling.pulledby = null
 		var/mob/living/ex_pulled = pulling
 		pulling = null
-		pulledby = null
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
 			L.update_canmove()// mob gets up if it was lyng down in a chokehold
@@ -152,7 +208,7 @@
 	loc = T
 
 
-/atom/movable/Move(atom/newloc, direct = 0, movetime)
+/atom/movable/Move(atom/newloc, direct = NONE, movetime)
 	if(!loc || !newloc)
 		return FALSE
 
@@ -286,13 +342,18 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	var/turf/old_loc = loc
+	var/area/old_area = get_area(src)
+	var/area/new_area = get_area(destination)
 	loc = destination
-	moving_diagonally = 0
+	moving_diagonally = NONE
 
 	if(old_loc)
 		old_loc.Exited(src, destination)
 		for(var/atom/movable/AM in old_loc)
 			AM.Uncrossed(src)
+
+	if(old_area && (new_area != old_area))
+		old_area.Exited(src)
 
 	if(destination)
 		destination.Entered(src)
@@ -300,6 +361,10 @@
 			if(AM == src)
 				continue
 			AM.Crossed(src, old_loc)
+
+		if(new_area && (old_area != new_area))
+			new_area.Entered(src)
+
 		var/turf/oldturf = get_turf(old_loc)
 		var/turf/destturf = get_turf(destination)
 		var/old_z = (oldturf ? oldturf.z : null)
@@ -309,7 +374,7 @@
 
 	Moved(old_loc, NONE, TRUE)
 
-	return 1
+	return TRUE
 
 
 /atom/movable/proc/move_to_null_space()
@@ -354,36 +419,36 @@
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
-//Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
-//Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
+//Return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
+//Mobs should return TRUE if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
-/atom/movable/proc/Process_Spacemove(var/movement_dir = 0)
+/atom/movable/proc/Process_Spacemove(movement_dir = 0)
 	if(has_gravity(src))
-		return 1
+		return TRUE
 
 	if(pulledby && !pulledby.pulling)
-		return 1
+		return TRUE
 
 	if(throwing)
-		return 1
+		return TRUE
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 /atom/movable/proc/newtonian_move(direction) //Only moves the object if it's under no gravity
 	if(!loc || Process_Spacemove(0))
-		inertia_dir = 0
-		return 0
+		inertia_dir = NONE
+		return FALSE
 
 	inertia_dir = direction
 	if(!direction)
-		return 1
+		return TRUE
 
 	inertia_last_loc = loc
 	SSspacedrift.processing[src] = src
-	return 1
+	return TRUE
 
 
 //called when src is thrown into hit_atom
@@ -435,17 +500,7 @@
 			if(speed <= 0)
 				return //no throw speed, the user was moving too fast.
 
-	var/datum/thrownthing/TT = new()
-	TT.thrownthing = src
-	TT.target = target
-	TT.target_turf = get_turf(target)
-	TT.init_dir = get_dir(src, target)
-	TT.maxrange = range
-	TT.speed = speed
-	TT.thrower = thrower
-	TT.diagonals_first = diagonals_first
-	TT.callback = callback
-	TT.dodgeable = dodgeable
+	var/datum/thrownthing/thrown_thing = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, thrower?.zone_selected, dodgeable)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -453,7 +508,7 @@
 	var/dy = (target.y > src.y) ? NORTH : SOUTH
 
 	if(dist_x == dist_y)
-		TT.pure_diagonal = 1
+		thrown_thing.pure_diagonal = TRUE
 
 	else if(dist_x <= dist_y)
 		var/olddist_x = dist_x
@@ -462,23 +517,23 @@
 		dist_y = olddist_x
 		dx = dy
 		dy = olddx
-	TT.dist_x = dist_x
-	TT.dist_y = dist_y
-	TT.dx = dx
-	TT.dy = dy
-	TT.diagonal_error = dist_x / 2 - dist_y
-	TT.start_time = world.time
+	thrown_thing.dist_x = dist_x
+	thrown_thing.dist_y = dist_y
+	thrown_thing.dx = dx
+	thrown_thing.dy = dy
+	thrown_thing.diagonal_error = dist_x/2 - dist_y
+	thrown_thing.start_time = world.time
 
 	if(pulledby)
 		pulledby.stop_pulling()
 
-	throwing = TT
-	if(spin && !no_spin && !no_spin_thrown)
+	throwing = thrown_thing
+	if(spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
-	SSthrowing.processing[src] = TT
-	TT.tick()
+	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, thrown_thing, spin)
+	SSthrowing.processing[src] = thrown_thing
+	thrown_thing.tick()
 
 	return TRUE
 
@@ -502,9 +557,6 @@
 	if(master)
 		return master.attack_hand(a, b, c)
 
-/atom/movable/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
-	return TRUE
-
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct,movetime)
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
@@ -514,8 +566,8 @@
 			last_move = buckled_mob.last_move
 			inertia_dir = last_move
 			buckled_mob.inertia_dir = last_move
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -523,41 +575,38 @@
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='warning'>[src] сильно толка[pluralize_ru(src.gender,"ет","ют")] [AM]!</span>", "<span class='warning'>Вы сильно толкаете [AM]!</span>")
+		visible_message(span_warning("[src] сильно толка[pluralize_ru(gender,"ет","ют")] [AM]!"), span_warning("Вы сильно толкаете [AM]!"))
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='danger'>[src] сокруша[pluralize_ru(src.gender,"ет","ют")] [AM]!</span>", "<span class='danger'>Вы сокрушили [AM]!</span>")
+		visible_message(span_danger("[src] сокруша[pluralize_ru(gender,"ет","ют")] [AM]!"), span_danger("Вы сокрушили [AM]!"))
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	if(mover in buckled_mobs)
-		return 1
-	return ..()
 
-/atom/movable/proc/get_spacemove_backup()
-	var/atom/movable/dense_object_backup
-	for(var/A in orange(1, get_turf(src)))
-		if(isarea(A))
+/atom/movable/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(mover in buckled_mobs)
+		return TRUE
+
+
+/atom/movable/proc/get_spacemove_backup(moving_direction)
+	for(var/checked_range in orange(1, get_turf(src)))
+		if(isarea(checked_range))
 			continue
-		else if(isturf(A))
-			var/turf/turf = A
+		if(isturf(checked_range))
+			var/turf/turf = checked_range
 			if(!turf.density)
 				continue
 			return turf
-		else
-			var/atom/movable/AM = A
-			if(!AM.CanPass(src) || AM.density)
-				if(AM.anchored)
-					return AM
-				dense_object_backup = AM
-				break
-	. = dense_object_backup
+		var/atom/movable/checked_atom = checked_range
+		if(checked_atom.density || !checked_atom.CanPass(src, get_dir(src, checked_atom)))
+			//if(checked_atom.last_pushoff == world.time)
+			//	continue
+			return checked_atom
+
 
 /atom/movable/proc/transfer_prints_to(atom/movable/target = null, overwrite = FALSE)
 	if(!target)
@@ -645,5 +694,13 @@
 /atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
 	return FALSE
 
-/atom/movable/proc/get_pull_push_speed_modifier(var/current_delay)
+/atom/movable/proc/get_pull_push_speed_modifier(current_delay)
 	return pull_push_speed_modifier
+
+
+/// Returns true or false to allow src to move through the blocker, mover has final say
+/atom/movable/proc/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	return blocker_opinion
+

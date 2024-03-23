@@ -1,9 +1,9 @@
 /datum/species/diona
-	name = "Diona"
+	name = SPECIES_DIONA
 	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
-	language = "Rootspeak"
+	language = LANGUAGE_DIONA
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
@@ -45,6 +45,8 @@
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix/diona,
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/diona,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/diona
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/diona),

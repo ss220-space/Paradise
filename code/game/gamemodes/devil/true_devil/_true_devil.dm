@@ -49,9 +49,11 @@
 
 /mob/living/carbon/true_devil/Login()
 	..()
+	var/list/messages = list()
 	if(mind.devilinfo)
-		mind.devilinfo.announce_laws(src)
-	mind.announce_objectives()
+		messages.Add(mind.devilinfo.announce_laws(src))
+	messages.Add(mind.prepare_announce_objectives())
+	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
 
 
 /mob/living/carbon/true_devil/death(gibbed)

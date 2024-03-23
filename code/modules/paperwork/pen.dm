@@ -67,26 +67,28 @@
 
 /obj/item/pen/multi/Initialize(mapload)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pen/multi/proc/select_colour(mob/user as mob)
-	var/newcolour = input(user, "Which colour would you like to use?", name, colour) as null|anything in colour_choices
+/obj/item/pen/multi/proc/select_colour(mob/user)
+	var/newcolour = tgui_input_list(user, "Which colour would you like to use?", name, colour_choices, colour)
 	if(newcolour)
 		colour = newcolour
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pen/multi/attack_self(mob/living/user as mob)
+/obj/item/pen/multi/attack_self(mob/living/user)
 	select_colour(user)
 
-/obj/item/pen/multi/update_icon()
-	overlays.Cut()
-	var/icon/o = new(icon, pen_color_iconstate)
-	var/list/c = colour_choices[colour]
-	o.SetIntensity(c[1], c[2], c[3])
+
+/obj/item/pen/multi/update_overlays()
+	. = ..()
+	var/icon/color_overlay = new(icon, pen_color_iconstate)
+	var/list/colors = colour_choices[colour]
+	color_overlay.SetIntensity(colors[1], colors[2], colors[3])
 	if(pen_color_shift)
-		o.Shift(SOUTH, pen_color_shift)
-	overlays += o
+		color_overlay.Shift(SOUTH, pen_color_shift)
+	. += color_overlay
+
 
 /obj/item/pen/fancy
 	name = "fancy pen"
@@ -197,28 +199,24 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 3, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/pen/edagger/update_icon()
-	if(on)
-		icon_state = "edagger"
-		item_state = "edagger"
-	else
-		icon_state = initial(icon_state) //looks like a normal pen when off.
-		item_state = initial(item_state)
+
+/obj/item/pen/edagger/update_icon_state()
+	icon_state = on ? "edagger" : initial(icon_state) //looks like a normal pen when off.
+	item_state = on ? "edagger" : initial(item_state)
+
 
 /obj/item/pen/edagger/comms
 	icon_state = "ofcommpen"
 	item_state = "ofcommpen"
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/item/pen/edagger/comms/update_icon()
-	if(on)
-		icon_state = "ofcommpen_active"
-		item_state = "ofcommpen_active"
-	else
-		icon_state = initial(icon_state) //looks like a normal pen when off.
-		item_state = initial(item_state)
+
+/obj/item/pen/edagger/comms/update_icon_state()
+	icon_state = on ? "ofcommpen_active" : initial(icon_state)
+	item_state = on ? "ofcommpen_active" : initial(item_state)
+
 
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return

@@ -59,37 +59,46 @@
 	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
+
+/obj/item/clothing/suit/armor/vest/security/update_icon_state()
+	icon_state = "armor[attached_badge ? "sec" : ""]"
+
+
+/obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
+	. = ..()
+	if(attached_badge)
+		desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
+	else
+		desc = initial(desc)
+
+
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge)
-		if(user.drop_transfer_item_to_loc(I, src))
-			add_fingerprint(user)
-			attached_badge = I
-			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
-			A.Grant(user)
-			icon_state = "armorsec"
-			user.update_inv_wear_suit()
-			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
-			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
+	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge && user.drop_transfer_item_to_loc(I, src))
+		add_fingerprint(user)
+		attached_badge = I
+		var/datum/action/item_action/remove_badge/holoaction = new(src)
+		holoaction.Grant(user)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		update_equipped_item()
+		to_chat(user, span_notice("You attach [attached_badge] to [src]."))
 		return
 	..()
+
 
 /obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
 	if(attached_badge)
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
-
 		for(var/datum/action/item_action/remove_badge/action in actions)
-			src.actions.Remove(action)
+			LAZYREMOVE(actions, action)
 			action.Remove(user)
-
-		icon_state = "armor"
-		user.update_inv_wear_suit()
-		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
-		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
 		attached_badge = null
-
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		update_equipped_item()
+		to_chat(user, span_notice("You remove [attached_badge] from [src]."))
 		return
 	..()
+
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
@@ -165,6 +174,12 @@
 	name = "warden's jacket"
 	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
 	icon_state = "warden_jacket_alt"
+
+/obj/item/clothing/suit/armor/vest/sec_rps
+	name = "security belt-shoulder system"
+	desc = "A belt-shoulder system for officers that are more inclined towards style than safety."
+	icon_state = "sec_rps"
+	armor=  list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
@@ -315,38 +330,45 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
 
+
+/obj/item/clothing/suit/armor/reactive/update_icon_state()
+	icon_state =  "reactive[active ? "" : "off"]"
+	item_state =  "reactive[active ? "" : "off"]"
+
+
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
-	active = !(active)
 	if(emp_d)
-		to_chat(user, "<span class='warning'>[src] is disabled from an electromagnetic pulse!</span>")
+		to_chat(user, span_warning("[src] is disabled from an electromagnetic pulse!"))
 		return
+	active = !active
+	update_icon(UPDATE_ICON_STATE)
+	add_fingerprint(user)
 	if(active)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
-		icon_state = "reactive"
-		item_state = "reactive"
+		to_chat(user, span_notice("[src] is now active."))
 	else
-		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
-		icon_state = "reactiveoff"
-		item_state = "reactiveoff"
-		add_fingerprint(user)
-	user.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		to_chat(user, span_notice("[src] is now inactive."))
+	update_equipped_item()
+
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = FALSE
 	emp_d = TRUE
-	icon_state = "reactiveoff"
-	item_state = "reactiveoff"
-	if(istype(loc, /mob/living/carbon/human))
-		var/mob/living/carbon/human/C = loc
-		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
+	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/user = loc
+		to_chat(user, span_warning("[src] starts malfunctioning!"))
+		update_equipped_item()
 	..()
+
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
 	emp_d = FALSE
+	if(ishuman(loc))
+		var/mob/living/carbon/human/user = loc
+		update_equipped_item()
+		to_chat(user, span_notice("Looks like [src] returns its functionality."))
+
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
@@ -520,7 +542,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	hide_tail_by_species = list("Vox", "Vulpkanin")
-	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
 	sprite_sheets = list(
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
@@ -610,6 +632,30 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 
+/obj/item/clothing/suit/hooded/goliath/wizard
+	armor = list("melee" = 60, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 60)
+	hoodtype = /obj/item/clothing/head/hooded/goliath/wizard
+	magical = TRUE
+
+/obj/item/clothing/head/hooded/goliath/wizard
+	name = "shaman skull"
+	icon_state = "shamskull"
+	item_state = "shamskull"
+	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
+	armor = list("melee" = 60, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 60)
+	magical = TRUE
+
+//mob_size using for crusher mark
+/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial)
+	. = ..()
+	if(istype(user))
+		user.mob_size = MOB_SIZE_LARGE
+
+/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, silent)
+	. = ..()
+	if(istype(user))
+		user.mob_size = MOB_SIZE_HUMAN
+
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
 	desc = "A tribal armor plate, crafted from animal bone."
@@ -636,3 +682,11 @@
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
 	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+//Dredd
+
+/obj/item/clothing/suit/armor/vest/street_judge
+	name = "judge's security armor"
+	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
+	icon_state = "streetjudgearmor"
+	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")

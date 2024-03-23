@@ -131,7 +131,7 @@
 				if(stun)
 					adjustToxLoss(-3)
 			T = get_step(T, dir)
-			if(is_blocked_turf(T))
+			if(T.is_blocked_turf())
 				break
 	return TRUE
 
@@ -397,11 +397,6 @@
 			to_chat(src, "<span class='notice'>Что-то яркое вспыхнуло на периферии вашего зрения!</span>")
 			if(mind && has_bane(BANE_LIGHT))
 				mind.disrupt_spells(0)
-
-
-
-/mob/living/carbon/proc/tintcheck()
-	return 0
 
 
 /mob/living/carbon/proc/create_dna()
@@ -688,7 +683,7 @@
 	to_chat(src, "<span class='notice'>Вы [slipVerb] на [description]!</span>")
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
-	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
+	moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
 	Weaken(weaken)
 	return TRUE
 
@@ -807,8 +802,13 @@ so that different stomachs can handle things in different ways VB*/
 		clear_fullscreen("tint", 0)
 
 
-/mob/living/carbon/proc/get_total_tint()
+/// Checks eye covering items for visually impairing tinting, such as welding masks. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = casual blindness.
+/mob/living/proc/get_total_tint()
 	. = 0
+
+
+/mob/living/carbon/get_total_tint()
+	. = ..()
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/HT = head
 		. += HT.tint

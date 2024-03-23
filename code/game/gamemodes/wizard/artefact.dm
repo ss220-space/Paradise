@@ -31,7 +31,7 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
@@ -170,26 +170,28 @@ GLOBAL_LIST_EMPTY(multiverse)
 			user.faction = list("[user.real_name]")
 			to_chat(user, "You bind the sword to yourself. You can now use it to summon help.")
 			if(!usr.mind.special_role)
+				var/list/messages = list()
 				if(prob(probability_evil))
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
+					messages.Add("<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
+					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 					hijack_objective.owner = usr.mind
 					usr.mind.objectives += hijack_objective
-					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
-					to_chat(usr, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
+					messages.Add(user.mind.prepare_announce_objectives(FALSE))
 					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
+					messages.Add("<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
-					new_objective.owner = usr.mind
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
-					to_chat(usr, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+					new_objective.owner = usr.mind
 					usr.mind.objectives += new_objective
+					messages.Add(user.mind.prepare_announce_objectives(FALSE))
 					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = FALSE
+				to_chat(user, chat_box_red(messages.Join("<br>")))
 		else
 			cooldown = world.time + cooldown_between_uses
 			for(var/obj/item/multisword/M in GLOB.multiverse)
@@ -239,19 +241,20 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	if(evil)
 		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
-		hijack_objective.owner = M.mind
-		M.mind.objectives += hijack_objective
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
-		to_chat(M, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
+		hijack_objective.owner = usr.mind
+		usr.mind.objectives += hijack_objective
+		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
+		to_chat(M, chat_box_red(messages.Join("<br>")))
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.", M)
 	else
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
-		new_objective.owner = M.mind
-		new_objective.target = usr.mind
 		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help [usr.p_them()] defend the innocent from the mobs of multiverse clones."
+		new_objective.owner = M.mind
 		M.mind.objectives += new_objective
-		to_chat(M, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
+		to_chat(M, chat_box_red(messages.Join("<br>")))
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
 
@@ -705,7 +708,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/voodoo/attack_self(mob/user as mob)
 	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
+		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible)
 		return
 
 	if(user.zone_selected == BODY_ZONE_CHEST)

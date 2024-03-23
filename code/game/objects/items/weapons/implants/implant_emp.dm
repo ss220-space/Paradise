@@ -1,7 +1,7 @@
 /obj/item/implant/emp
 	name = "emp bio-chip"
 	desc = "Triggers an EMP."
-	icon_state = "emp"
+	icon_state = "emp_old"
 	origin_tech = "biotech=3;magnets=4;syndicate=1"
 	activated = BIOCHIP_ACTIVATED_ACTIVE
 	uses = 2

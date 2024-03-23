@@ -39,7 +39,7 @@
 		prev_access = access_card.access
 
 
-/mob/living/simple_animal/bot/ed209/syndicate/update_icon()
+/mob/living/simple_animal/bot/ed209/syndicate/update_icon_state()
 	icon_state = initial(icon_state)
 
 
@@ -78,7 +78,8 @@
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
-	to_chat(user, span_warning("[src] has no card reader slot!"))
+	if(user)
+		to_chat(user, span_warning("[src] has no card reader slot!"))
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/ed209_ai()

@@ -1,23 +1,3 @@
-/mob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
-	if(istype(mover, /obj/item/projectile))
-		return (!density || lying)
-	if(mover.throwing)
-		return (!density || lying || (mover.throwing.thrower == src))
-	if(mover.checkpass(PASSMOB))
-		return 1
-	if(buckled == mover)
-		return TRUE
-	if(ismob(mover))
-		var/mob/moving_mob = mover
-		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
-			return FALSE
-		if(mover in buckled_mobs)
-			return TRUE
-	return (!mover.density || !density || lying)
-
-
 /client/verb/toggle_throw_mode()
 	set hidden = 1
 	if(iscarbon(mob))
@@ -37,8 +17,6 @@
 			mob.control_object.forceMove(get_step(mob.control_object, direct))
 	return
 
-#define MOVEMENT_DELAY_BUFFER 0.75
-#define MOVEMENT_DELAY_BUFFER_DELTA 1.25
 #define CONFUSION_LIGHT_COEFFICIENT		0.15
 #define CONFUSION_HEAVY_COEFFICIENT		0.075
 #define CONFUSION_MAX					80 SECONDS
@@ -47,9 +25,10 @@
 /client/Move(n, direct)
 	if(world.time < move_delay)
 		return
-	else
-		input_data.desired_move_dir_add = NONE
-		input_data.desired_move_dir_sub = NONE
+
+	input_data.desired_move_dir_add = NONE
+	input_data.desired_move_dir_sub = NONE
+
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 	if(!mob || !mob.loc)
@@ -122,8 +101,6 @@
 					M.stop_pulling()
 
 
-	//We are now going to move
-	moving = 1
 	current_move_delay = mob.movement_delay()
 
 	if(!istype(get_turf(mob), /turf/space) && mob.pulling)
@@ -132,7 +109,7 @@
 		if(!(STRONG in M.mutations) && !istype(M, /mob/living/simple_animal/hostile/construct) && !istype(M, /mob/living/simple_animal/hostile/clockwork) && !istype(M, /mob/living/simple_animal/hostile/guardian) && !(istype(R) && (/obj/item/borg/upgrade/vtec in R.upgrades))) //No slowdown for STRONG gene //Blood cult constructs //Clockwork constructs //Borgs with VTEC //Holopigs
 			current_move_delay *= min(1.4, mob.pulling.get_pull_push_speed_modifier(current_move_delay))
 
-	if(old_move_delay + (current_move_delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
+	if(old_move_delay + world.tick_lag > world.time)
 		move_delay = old_move_delay
 	else
 		move_delay = world.time
@@ -166,7 +143,6 @@
 	if(mob.pulledby)
 		mob.pulledby.stop_pulling()
 
-	moving = 0
 	if(mob && .)
 		if(mob.throwing)
 			mob.throwing.finalize()
@@ -266,7 +242,7 @@
 				L.forceMove(locate(locx,locy,mobloc.z))
 				spawn(0)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T in getline(mobloc, L.loc))
+					for(var/turf/T as anything in get_line(mobloc, L.loc))
 						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
 						limit--
 						if(limit<=0)
@@ -295,7 +271,7 @@
 /mob/Process_Spacemove(movement_dir = 0)
 	if(..())
 		return 1
-	var/atom/movable/backup = get_spacemove_backup()
+	var/atom/movable/backup = get_spacemove_backup(movement_dir)
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			var/opposite_dir = turn(movement_dir, 180)
@@ -304,27 +280,51 @@
 		return 1
 	return 0
 
-/mob/get_spacemove_backup()
-	for(var/A in orange(1, get_turf(src)))
-		if(isarea(A))
+
+/mob/get_spacemove_backup(moving_direction)
+	for(var/atom/pushover as anything in range(1, get_turf(src)))
+		if(pushover == src)
 			continue
-		else if(isturf(A))
-			var/turf/turf = A
-			if(istype(turf, /turf/space))
+		if(isarea(pushover))
+			continue
+		if(isturf(pushover))
+			var/turf/turf = pushover
+			if(isspaceturf(turf))
 				continue
 			if(!turf.density && !mob_negates_gravity())
 				continue
-			return A
-		else
-			var/atom/movable/AM = A
-			if(AM == buckled) //Kind of unnecessary but let's just be sure
+			return turf
+
+		var/atom/movable/rebound = pushover
+		if(rebound == buckled)
+			continue
+
+		if(ismob(rebound))
+			var/mob/lover = rebound
+			if(lover.buckled)
 				continue
-			if(!AM.CanPass(src) || AM.density)
-				if(AM.anchored)
-					return AM
-				if(pulling == AM)
-					continue
-				. = AM
+
+		var/pass_allowed = rebound.CanPass(src, get_dir(rebound, src))
+		if(!rebound.density || pass_allowed)
+			continue
+		/*
+		//Sometime this tick, this pushed off something. Doesn't count as a valid pushoff target
+		if(rebound.last_pushoff == world.time)
+			continue
+		if(continuous_move && !pass_allowed)
+			var/datum/move_loop/move/rebound_engine = SSmove_manager.processing_on(rebound, SSspacedrift)
+			// If you're moving toward it and you're both going the same direction, stop
+			if(moving_direction == get_dir(src, pushover) && rebound_engine && moving_direction == rebound_engine.direction)
+				continue
+		else if(!pass_allowed)
+			if(moving_direction == get_dir(src, pushover)) // Can't push "off" of something that you're walking into
+				continue
+		*/
+		if(rebound.anchored)
+			return rebound
+		if(pulling == rebound)
+			continue
+		return rebound
 
 
 /mob/proc/mob_has_gravity(turf/T)
@@ -347,9 +347,17 @@
 			return
 	if(target == loc && pulling.density)
 		return
-	if(!Process_Spacemove(get_dir(pulling.loc, target)))
+	var/pull_dir = get_dir(pulling.loc, target)
+	if(!Process_Spacemove(pull_dir))
 		return
-	step(pulling, get_dir(pulling.loc, target))
+	if(isobj(pulling))
+		var/obj/object = pulling
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(get_step(object, pull_dir), object.dir, is_fulltile = fulltile))
+				return
+	pulling.Move(get_step(pulling.loc, pull_dir), pull_dir, glide_size)
 
 
 /mob/proc/update_gravity(has_gravity)
@@ -375,11 +383,12 @@
 			next_in_line = BODY_ZONE_HEAD
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_r_arm()
 	set name = "body-r-arm"
 	set hidden = 1
+
 	if(!check_has_body_select())
 		return
 
@@ -390,7 +399,7 @@
 		next_in_line = BODY_ZONE_R_ARM
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_chest()
 	set name = "body-chest"
@@ -398,13 +407,15 @@
 
 	if(!check_has_body_select())
 		return
+
 	var/next_in_line
 	if(mob.zone_selected == BODY_ZONE_CHEST)
 		next_in_line = BODY_ZONE_WING
 	else
 		next_in_line = BODY_ZONE_CHEST
+
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_l_arm()
 	set name = "body-l-arm"
@@ -420,7 +431,7 @@
 		next_in_line = BODY_ZONE_L_ARM
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_r_leg()
 	set name = "body-r-leg"
@@ -436,7 +447,7 @@
 		next_in_line = BODY_ZONE_R_LEG
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_groin()
 	set name = "body-groin"
@@ -445,8 +456,14 @@
 	if(!check_has_body_select())
 		return
 
+	var/next_in_line
+	if(mob.zone_selected == BODY_ZONE_PRECISE_GROIN)
+		next_in_line = BODY_ZONE_TAIL
+	else
+		next_in_line = BODY_ZONE_PRECISE_GROIN
+
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(BODY_ZONE_PRECISE_GROIN, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/body_tail()
 	set name = "body-tail"
@@ -456,7 +473,7 @@
 		return
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(BODY_ZONE_TAIL, mob)
+	selector.set_selected_zone(BODY_ZONE_TAIL)
 
 /client/verb/body_l_leg()
 	set name = "body-l-leg"
@@ -472,7 +489,7 @@
 		next_in_line = BODY_ZONE_L_LEG
 
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(next_in_line, mob)
+	selector.set_selected_zone(next_in_line)
 
 /client/verb/toggle_walk_run()
 	set name = "toggle-walk-run"
@@ -485,7 +502,7 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		if(C.legcuffed)
-			to_chat(C, "<span class='notice'>Ваши ноги скованы! Вы не можете бежать, пока не снимете [C.legcuffed]!</span>")
+			to_chat(C, span_notice("Ваши ноги скованы! Вы не можете бежать, пока не снимете [C.legcuffed]!"))
 			C.m_intent = MOVE_INTENT_WALK	//Just incase
 			C.hud_used?.move_intent.icon_state = "walking"
 			return
@@ -501,4 +518,4 @@
 	if(hud_used && hud_used.move_intent && hud_used.static_inventory)
 		hud_used.move_intent.icon_state = icon_toggle
 		for(var/obj/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon(src)
+			selector.update_icon()

@@ -11,7 +11,7 @@
 			newMsg += DISCORD_EMOJI_IMAGE(emoji, 32, 32)
 		else
 			newMsg += word
-	return jointext(newMsg, " ")
+	return copytext_char(jointext(newMsg, " "), 2)
 
 /proc/generateDiscordEmojiTable()
 	var/const/itemsInRow = 7

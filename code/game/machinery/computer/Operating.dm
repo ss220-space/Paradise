@@ -3,7 +3,7 @@
 /obj/machinery/computer/operating
 	name = "operating computer"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating
@@ -213,3 +213,9 @@
 		if(table.patient.stat != patientStatusHolder)
 			atom_say("Пациент [patientStatus]")
 			patientStatusHolder = table.patient.stat
+
+/obj/machinery/computer/operating/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "med_oldframe"
+	icon_state = "frame-med"
+	icon_keyboard = "kb5"

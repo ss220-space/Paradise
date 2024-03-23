@@ -53,6 +53,13 @@
 	item_state = "b_suit"
 	item_color = "mailman"
 
+/obj/item/clothing/under/rank/mailman/skirt
+	name = "mailman's jumpskirt"
+	desc = "<i>'Special delivery!'</i>"
+	icon_state = "mail_skirt"
+	item_state = "b_suit"
+	item_color = "mail_skirt"
+
 /obj/item/clothing/under/rank/vice
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
@@ -120,6 +127,24 @@
 	item_color = "navy_gold"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
+
+/obj/item/clothing/under/rank/centcom/officer/skirt
+	desc = "Gold trim on space-black cloth, this skirt displays the rank of \"Lieutenant-Commander\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Officer Skirt"
+	icon_state = "navy_goldf"
+	item_state = "navy_goldf"
+	item_color = "navy_goldf"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
 
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.V. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
@@ -292,6 +317,18 @@
 	item_state = "r_suit"
 	item_color = "red_suit"
 
+/obj/item/clothing/under/suit_jacket/red/skirt
+	name = "red jumpskirt"
+	desc = "A red jumpskirt and blue tie. Somewhat formal."
+	icon_state = "red_suitf"
+	item_state = "r_suit"
+	item_color = "red_suitf"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+		)
+
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
 	desc = "A navy suit and red tie, intended for the station's finest."
@@ -462,6 +499,7 @@
 	desc = "A fancy orange gown for those who like to show leg."
 	icon_state = "dress_orange"
 	item_color = "dress_orange"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/dress/dress_pink
 	name = "pink dress"
@@ -536,30 +574,35 @@
 	desc = "A big and puffy orange dress."
 	icon_state = "bride_orange"
 	item_color = "bride_orange"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_purple
 	name = "purple wedding dress"
 	desc = "A big and puffy purple dress."
 	icon_state = "bride_purple"
 	item_color = "bride_purple"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_blue
 	name = "blue wedding dress"
 	desc = "A big and puffy blue dress."
 	icon_state = "bride_blue"
 	item_color = "bride_blue"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_red
 	name = "red wedding dress"
 	desc = "A big and puffy red dress."
 	icon_state = "bride_red"
 	item_color = "bride_red"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_white
 	name = "white wedding dress"
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	item_color = "bride_white"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/sundress
 	name = "sundress"
@@ -624,6 +667,7 @@
 	icon_state = "ysing"
 	item_state = "ysing"
 	item_color = "ysing"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/singerb
 	name = "blue performer's outfit"
@@ -759,6 +803,7 @@
 	icon_state = "black_tango"
 	item_state = "wcoat"
 	item_color = "black_tango"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/stripeddress
 	name = "striped dress"
@@ -780,6 +825,7 @@
 	icon_state = "red_evening_gown"
 	item_state = "redeveninggown"
 	item_color = "red_evening_gown"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/suit_jacket/checkered
 	name = "checkered suit"
@@ -864,12 +910,14 @@
 	item_state = "victorianblackdress"
 	item_color = "victorianblackdress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	over_shoes = TRUE
 
 /obj/item/clothing/under/victdress/red
 	name = "red victorian dress"
 	icon_state = "victorianreddress"
 	item_state = "victorianreddress"
 	item_color = "victorianreddress"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/victsuit
 	name = "victorian suit"
@@ -962,6 +1010,7 @@
 	icon_state = "red_chaps"
 	icon_state = "red_chaps"
 	item_color = "red_chaps"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/white_chaps
 	name = "white chaps"
@@ -969,6 +1018,7 @@
 	icon_state = "white_chaps"
 	icon_state = "white_chaps"
 	item_color = "white_chaps"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/tan_chaps
 	name = "tan chaps"
@@ -976,6 +1026,7 @@
 	icon_state = "tan_chaps"
 	icon_state = "tan_chaps"
 	item_color = "tan_chaps"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/brown_chaps
 	name = "brown chaps"
@@ -983,3 +1034,79 @@
 	icon_state = "brown_chaps"
 	icon_state = "brown_chaps"
 	item_color = "brown_chaps"
+	over_shoes = TRUE
+
+/obj/item/clothing/under/colour/skirt
+	name = "dyeable skirt"
+	desc = "A skirt that can be dyed any color you want!"
+	icon_state = "colorize_skirt"
+	item_state = "colorize_skirt"
+	item_color = "colorize_skirt"
+	var/colour = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
+
+/obj/item/clothing/under/colour/skirt/Initialize(mapload)
+	. = ..()
+	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
+	update_icon()
+
+/obj/item/clothing/under/colour/skirt/attack_self(mob/user)
+	if(icon_state == initial(icon_state))
+		icon_state = icon_state + "_t"
+		item_state = icon_state + "_t"
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+	user.update_inv_wear_suit()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/clothing/under/colour/skirt/New()
+	..()
+	AddComponent(/datum/component/spraycan_paintable)
+	START_PROCESSING(SSobj, src)
+	update_icon()
+
+
+/obj/item/clothing/under/ussptracksuit_red
+	name = "red track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_red"
+	item_state = "ussptracksuit_red"
+	item_color = "ussptracksuit_red"
+
+
+/obj/item/clothing/under/ussptracksuit_blue
+	name = "blue track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_blue"
+	item_state = "ussptracksuit_blue"
+	item_color = "ussptracksuit_blue"
+
+
+/obj/item/clothing/under/ussptracksuit_black
+	name = "black track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_black"
+	item_state = "ussptracksuit_black"
+	item_color = "ussptracksuit_black"
+
+
+/obj/item/clothing/under/ussptracksuit_white
+	name = "white track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_white"
+	item_state = "ussptracksuit_white"
+	item_color = "ussptracksuit_white"
+

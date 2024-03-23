@@ -1,12 +1,6 @@
 /mob/living/carbon/alien/larva/Life(seconds, times_fired)
 	set invisibility = 0
-	if(notransform)
-		return
-	if(..()) //not dead and not in stasis
-		// GROW!
-		if(amount_grown < max_grown)
-			amount_grown++
-			update_icons()
+	. = ..()
 
 /mob/living/carbon/alien/larva/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)

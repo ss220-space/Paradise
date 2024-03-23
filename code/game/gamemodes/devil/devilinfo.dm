@@ -506,17 +506,18 @@ GLOBAL_LIST_INIT(lawlorify, list (
 
 // SECTION: Messages and explanations
 
-/datum/devilinfo/proc/announce_laws(mob/living/owner)
-	to_chat(owner, "<span class='boldwarning'>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</span>")
-	to_chat(owner, "<span class='boldwarning'>However, your infernal form is not without weaknesses.</span>")
-	to_chat(owner, "You may not use violence to coerce someone into selling their soul.")
-	to_chat(owner, "You may not directly and knowingly physically harm a devil, other than yourself.")
-	to_chat(owner,GLOB.lawlorify[LAW][bane])
-	to_chat(owner,GLOB.lawlorify[LAW][ban])
-	to_chat(owner,GLOB.lawlorify[LAW][obligation])
-	to_chat(owner,GLOB.lawlorify[LAW][banish])
-	to_chat(owner, "<br/><br/><span class='warning'>Remember, the crew can research your weaknesses if they find out your devil name.</span><br>")
-
+/datum/devilinfo/proc/announce_laws()
+	var/list/messages = list()
+	messages.Add("<span class='boldwarning'>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</span>")
+	messages.Add("<span class='boldwarning'>However, your infernal form is not without weaknesses.</span>")
+	messages.Add("You may not use violence to coerce someone into selling their soul.")
+	messages.Add("You may not directly and knowingly physically harm a devil, other than yourself.")
+	messages.Add(GLOB.lawlorify[LAW][bane])
+	messages.Add(GLOB.lawlorify[LAW][ban])
+	messages.Add(GLOB.lawlorify[LAW][obligation])
+	messages.Add(GLOB.lawlorify[LAW][banish])
+	messages.Add("<br/><br/><span class='warning'>Remember, the crew can research your weaknesses if they find out your devil name.</span><br>")
+	return messages
 
 #undef BLOOD_THRESHOLD
 #undef TRUE_THRESHOLD

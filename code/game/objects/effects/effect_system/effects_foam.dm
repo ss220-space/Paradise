@@ -6,7 +6,7 @@
 	name = "foam"
 	icon_state = "foam"
 	opacity = 0
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	layer = OBJ_LAYER + 0.9
 	animate_movement = 0
@@ -37,7 +37,7 @@
 
 			var/obj/structure/foamedmetal/M = new(src.loc)
 			M.metal = metal
-			M.updateicon()
+			M.update_state()
 
 		flick("[icon_state]-disolve", src)
 		sleep(5)
@@ -194,15 +194,20 @@
 /obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(src.loc, 'sound/weapons/tap.ogg', 100, TRUE)
 
-/obj/structure/foamedmetal/proc/updateicon()
+
+/obj/structure/foamedmetal/proc/update_state()
 	if(metal == MFOAM_ALUMINUM)
-		icon_state = "metalfoam"
 		max_integrity = 20
 		obj_integrity = max_integrity
 	else
-		icon_state = "ironfoam"
 		max_integrity = 50
 		obj_integrity = max_integrity
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/structure/foamedmetal/update_icon_state()
+	icon_state = (metal == MFOAM_ALUMINUM) ? "metalfoam" : "ironfoam"
+
 
 /obj/structure/foamedmetal/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -215,11 +220,6 @@
 		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
-/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	else
-		return !density
 
 /obj/structure/foamedmetal/CanAtmosPass()
 	return !density

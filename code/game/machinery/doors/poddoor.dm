@@ -33,6 +33,11 @@
 	else
 		return 0
 
+/obj/machinery/door/poddoor/impassable/preopen
+	icon_state = "open"
+	density = FALSE
+	opacity = 0
+
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity)
 	if(severity == 3)
@@ -48,11 +53,9 @@
 			flick("closing", src)
 			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
 
-/obj/machinery/door/poddoor/update_icon()
-	if(density)
-		icon_state = "closed"
-	else
-		icon_state = "open"
+/obj/machinery/door/poddoor/update_icon_state()
+	icon_state = density ? "closed" : "open"
+
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
  	return

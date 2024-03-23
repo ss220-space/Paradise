@@ -14,8 +14,8 @@
 
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
 
-	var/on = 0
-	var/pump_direction = 1 //0 = siphoning, 1 = releasing
+	on = FALSE
+	var/releasing = TRUE // FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = ONE_ATMOSPHERE
 	var/input_pressure_min = 0
@@ -61,22 +61,12 @@
 	air1.volume = 1000
 	air2.volume = 1000
 
-/obj/machinery/atmospherics/binary/volume_pump/update_underlays()
-	if(..())
-		underlays.Cut()
-		var/turf/T = get_turf(src)
-		if(!istype(T))
-			return
-		add_underlay(T, node1, turn(dir, -180))
-		add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/update_icon(var/safety = 0)
-	..()
+/obj/machinery/atmospherics/binary/dp_vent_pump/update_overlays()
+	. = ..()
 
 	if(!check_icon_cache())
 		return
-
-	overlays.Cut()
 
 	var/vent_icon = "vent"
 
@@ -90,9 +80,11 @@
 	if(!powered())
 		vent_icon += "off"
 	else
-		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
+		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
+	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
+	update_pipe_image()
+
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_underlays()
 	if(..())
@@ -120,7 +112,7 @@
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
 
-	if(pump_direction) //input -> external
+	if(releasing) //input -> external
 		var/pressure_delta = 10000
 
 		if(pressure_checks&1)
@@ -170,7 +162,7 @@
 		"tag" = id_tag,
 		"device" = "ADVP",
 		"power" = on,
-		"direction" = pump_direction?("release"):("siphon"),
+		"direction" = releasing?("release"):("siphon"),
 		"checks" = pressure_checks,
 		"input" = input_pressure_min,
 		"output" = output_pressure_max,
@@ -191,18 +183,18 @@
 		on = !on
 
 	if(signal.data["direction"] != null)
-		pump_direction = text2num(signal.data["direction"])
+		releasing = text2num(signal.data["direction"])
 
 	if(signal.data["checks"] != null)
 		pressure_checks = text2num(signal.data["checks"])
 
 	if(signal.data["purge"])
 		pressure_checks &= ~1
-		pump_direction = 0
+		releasing = FALSE
 
 	if(signal.data["stabilize"])//the fact that this was "stabalize" shows how many fucks people give about these wonders, none
 		pressure_checks |= 1
-		pump_direction = 1
+		releasing = TRUE
 
 	if(signal.data["set_input_pressure"] != null)
 		input_pressure_min = between(

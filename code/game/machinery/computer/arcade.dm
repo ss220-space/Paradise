@@ -242,7 +242,7 @@
 	return
 
 
-/obj/machinery/computer/arcade/battle/emag_act(user as mob)
+/obj/machinery/computer/arcade/battle/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		temp = "If you die in the game, you die for real!"
@@ -963,7 +963,8 @@
 /obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		to_chat(user, span_notice("You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode."))
+		if(user)
+			to_chat(user, span_notice("You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode."))
 		name = "The Orion Trail: Realism Edition"
 		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
 		newgame()
@@ -1015,6 +1016,27 @@
 	explosion(src.loc, 1,2,4, flame_range = 3, cause = user)
 	qdel(src)
 
+/obj/machinery/computer/arcade/orion_trail/pc_frame
+	name = "special purpose computer"
+	desc = "It will be difficult to perform calculations on this computer..."
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_state = "aimainframe"
+
+/obj/machinery/computer/arcade/orion_trail/pc_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "stock_computer"
+
+/obj/machinery/computer/arcade/battle/pc_frame
+	name = "special purpose computer"
+	desc = "It will be difficult to perform calculations on this computer..."
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_state = "aimainframe"
+
+/obj/machinery/computer/arcade/battle/pc_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "stock_computer"
 
 #undef ORION_TRAIL_WINTURN
 #undef ORION_TRAIL_RAIDERS

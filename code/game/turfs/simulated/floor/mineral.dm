@@ -14,16 +14,14 @@
 	icon_state = ""
 	var/list/icons = list()
 
-/turf/simulated/floor/mineral/Initialize(mapload)
-	. = ..()
-	broken_states = list("[initial(icon_state)]_dam")
+/turf/simulated/floor/mineral/broken_states()
+	return list("[initial(icon_state)]_dam")
 
-/turf/simulated/floor/mineral/update_icon()
-	if(!..())
-		return 0
-	if(!broken && !burnt)
-		if(!(icon_state in icons))
-			icon_state = initial(icon_state)
+
+/turf/simulated/floor/mineral/update_icon_state()
+	if(!broken && !burnt && !(icon_state in icons))
+		icon_state = initial(icon_state)
+
 
 //PLASMA
 /turf/simulated/floor/mineral/plasma
@@ -55,7 +53,7 @@
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 
 /turf/simulated/floor/mineral/plasma/proc/PlasmaBurn()
-	make_plating()
+	make_plating(FALSE)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 20)
 
 /turf/simulated/floor/mineral/plasma/proc/ignite(exposed_temperature)
@@ -92,7 +90,9 @@
 	name = "shuttle floor"
 	icon_state = "titanium"
 	floor_tile = /obj/item/stack/tile/mineral/titanium
-	broken_states = list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
+
+/turf/simulated/floor/mineral/titanium/broken_states()
+	return list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
 
 /turf/simulated/floor/mineral/titanium/airless
 	oxygen = 0
@@ -129,7 +129,9 @@
 	name = "shuttle floor"
 	icon_state = "plastitanium"
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
-	broken_states = list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
+
+/turf/simulated/floor/mineral/plastitanium/broken_states()
+	return list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
 
 /turf/simulated/floor/mineral/plastitanium/red
 	icon_state = "plastitanium_red"
@@ -244,7 +246,13 @@
 /turf/simulated/floor/mineral/abductor/burn_tile()
 	return //unburnable
 
-/turf/simulated/floor/mineral/abductor/make_plating()
+/turf/simulated/floor/mineral/abductor/make_plating(make_floor_tile, mob/user)
+	if(make_floor_tile && floor_tile && !broken && !burnt)
+		var/obj/item/stack/stack_dropped = new floor_tile(src)
+		if(istype(user))
+			var/obj/item/stack/stack_offhand = user.get_inactive_hand()
+			if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
+				user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return ChangeTurf(/turf/simulated/floor/plating/abductor2)
 
 /turf/simulated/floor/plating/abductor2

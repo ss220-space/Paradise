@@ -34,6 +34,7 @@
 	var/melee_damage_upper_angery1 = 20
 	var/anger_move_to_delay = 8
 	var/anger_speed = 4
+	needs_gliding = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(amount, updating_health = TRUE)
 	if(buttmad == 0)
@@ -46,6 +47,7 @@
 			speed = anger_speed
 			poison_type = "venom"
 			poison_per_bite = 6
+			needs_gliding = TRUE
 	else if(buttmad == 1)
 		if(health > maxHealth/2)
 			buttmad = 0
@@ -55,6 +57,7 @@
 			poison_type = initial(poison_type)
 			speed = initial(speed)
 			poison_per_bite = initial(poison_per_bite)
+			needs_gliding = FALSE
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/AttackingTarget()
@@ -104,7 +107,7 @@
 	icon_state = "chitin"
 	singular_name = "chitin chunk"
 
-//better and dangerous subtype for regular lavaland. Has X-ray and slightly faster
+//better and dangerous subtype for regular lavaland. Slightly faster and NO MORE XRAY.
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous
 	health = 320
@@ -112,8 +115,6 @@
 	vision_range = 8
 	see_in_dark = 8
 	speed = 5
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	move_to_delay = 14
 	anger_move_to_delay = 6
 	anger_speed = 6

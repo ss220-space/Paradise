@@ -14,7 +14,7 @@
 		message_admins("[key_name_admin(src)] toggled debugging on.")
 		log_admin("[key_name(src)] toggled debugging on.")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Game") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Game") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
 /* 21st Sept 2010
@@ -103,7 +103,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
 		to_chat(usr, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Advanced Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Advanced Proc-Call") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 // All these vars are related to proc call protection
 // If you add more of these, for the love of fuck, protect them
@@ -210,7 +210,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
 		to_chat(src, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/get_callproc_args()
 	var/argnum = input("Number of arguments","Number:",0) as num|null
@@ -295,7 +295,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	t+= "CO2: [env.carbon_dioxide]\n"
 
 	usr.show_message(t, 1)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
 	set category = "Event"
@@ -341,6 +341,36 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	spawn(10)
 		M.Animalize()
 
+/client/proc/cmd_admin_gorillize(mob/M in GLOB.mob_list)
+	set category = "Event"
+	set name = "Make Gorilla"
+
+	if(!check_rights(R_SPAWN))
+		return
+
+	if(!SSticker)
+		alert("Wait until the game starts")
+		return
+
+	if(!M)
+		alert("That mob doesn't seem to exist, close the panel and try again.")
+		return
+
+	if(isnewplayer(M))
+		alert("The mob must not be a new_player.")
+		return
+
+	if(alert(usr, "Confirm make gorilla?",, "Yes", "No") != "Yes")
+		return
+
+	var/gorilla_type = alert(usr, "What kind of gorilla?", , "Normal", "Enraged", "Cargorilla")
+	if(!gorilla_type)
+		return
+
+	log_admin("[key_name(src)] has gorillized [M.key].")
+	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
+
+
 /client/proc/cmd_admin_super(var/mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Superhero"
@@ -378,7 +408,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			continue
 		qdel(S)
 	log_and_message_admins("has deleted all Singularities and Tesla orbs.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Del Singulo/Tesla") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Del Singulo/Tesla") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
@@ -389,7 +419,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	SSmachines.makepowernets()
 	log_and_message_admins("has remade the powernets. makepowernets() called.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
@@ -420,7 +450,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	log_and_message_admins("<span class='notice'>has granted [M.key] full access.</span>")
 
 /client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
@@ -442,7 +472,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	M.ckey = src.ckey
 	if( isobserver(adminmob) )
 		qdel(adminmob)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
 /client/proc/cmd_admin_areatest()
@@ -594,7 +624,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else	// We have regenerate_icons() proc in the end of equipOutfit(), so don't need to call it two times.
 		H.regenerate_icons()
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	log_and_message_admins("<span class='notice'>changed the equipment of [key_name_admin(M)] to [dresscode].</span>")
 
 /client/proc/robust_dress_shop()
@@ -610,7 +640,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(initial(O.can_be_admin_equipped))
 			outfits[initial(O.name)] = path
 
-	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
+	var/dresscode = tgui_input_list(usr, "Select outfit", "Robust quick dress shop", outfits)
 	if(isnull(dresscode))
 		return
 
@@ -625,7 +655,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
 
-		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in job_outfits
+		dresscode = tgui_input_list(usr, "Select job equipment", "Robust quick dress shop", job_outfits)
 		dresscode = job_outfits[dresscode]
 		if(isnull(dresscode))
 			return
@@ -634,7 +664,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/list/custom_names = list()
 		for(var/datum/outfit/D in GLOB.custom_outfits)
 			custom_names[D.name] = D
-		var/selected_name = input("Select outfit", "Robust quick dress shop") as null|anything in custom_names
+		var/selected_name = tgui_input_list(usr, "Select outfit", "Robust quick dress shop", custom_names)
 		dresscode = custom_names[selected_name]
 		if(isnull(dresscode))
 			return
@@ -661,7 +691,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			F.active = 1
 			F.state = 2
 			F.power = 250
-			F.anchored = 1
+			F.anchored = TRUE
 			F.warming_up = 3
 			F.start_fields()
 			F.update_icon()
@@ -828,7 +858,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 		names[name] = ruin_landmark
 
-	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in names
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Jump to Ruin", names)
 
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
 
@@ -846,7 +876,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!isobserver(usr))
 			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]")
 
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Ruin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Ruin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
@@ -973,3 +1003,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=pingstat_report;size=1500x600")
+
+
+/client/proc/cmd_display_overlay_log()
+	set category = "Debug"
+	set name = "Display Overlay Log"
+	set desc = "Display SSoverlays log of everything that's passed through it."
+
+	render_stats(SSoverlays.stats, src)
+

@@ -59,7 +59,7 @@
 /obj/item/projectile/bullet/weakbullet2/invisible/fake
 	weaken = 0
 	stamina = 0
-	nodamage = 1
+	nodamage = TRUE
 	log_override = TRUE
 
 /obj/item/projectile/bullet/weakbullet3
@@ -88,13 +88,18 @@
 	stamina = 30
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/weakbullet4/c9mmte
+	name = "9mm TE"
+	damage = 7
+	stamina = 15
+
 /obj/item/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX
 
 /obj/item/projectile/bullet/incendiary
 
-/obj/item/projectile/bullet/incendiary/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/incendiary/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -155,7 +160,7 @@
 	..()
 
 /obj/item/projectile/bullet/pellet/weak/on_range()
- 	do_sparks(1, 1, src)
+ 	do_sparks(1, TRUE, src)
  	..()
 
 /obj/item/projectile/bullet/pellet/overload
@@ -218,7 +223,7 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
-/obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
+/obj/item/projectile/bullet/stunshot	//taser slugs for shotguns, nothing special
 	name = "stunshot"
 	damage = 5
 	weaken = 2 SECONDS
@@ -259,7 +264,7 @@
 	weaken = 4 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
-/obj/item/projectile/bullet/meteorshot/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
 	..()
 	if(istype(target, /atom/movable))
 		var/atom/movable/M = target
@@ -283,7 +288,7 @@
 	slur = 40 SECONDS
 	stutter = 40 SECONDS
 
-/obj/item/projectile/bullet/mime/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/mime/on_hit(atom/target, blocked = 0)
 	..(target, blocked)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -293,7 +298,7 @@
 		chassis.occupant_message("A mimetech anti-honk bullet has hit \the [chassis]!")
 		chassis.use_power(chassis.get_charge() / 2)
 		for(var/obj/item/mecha_parts/mecha_equipment/weapon/honker in chassis.equipment)
-			honker.set_ready_state(0)
+			honker.set_ready_state(FALSE)
 
 /obj/item/projectile/bullet/dart
 	name = "dart"
@@ -306,7 +311,7 @@
 	create_reagents(50)
 	reagents.set_reacting(FALSE)
 
-/obj/item/projectile/bullet/dart/on_hit(var/atom/target, var/blocked = 0, var/hit_zone)
+/obj/item/projectile/bullet/dart/on_hit(atom/target, blocked = 0, hit_zone)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100)
@@ -314,15 +319,15 @@
 				..()
 				reagents.reaction(M, REAGENT_INGEST)
 				reagents.trans_to(M, reagents.total_volume)
-				return 1
+				return TRUE
 			else
 				blocked = 100
-				target.visible_message("<span class='danger'>The [name] was deflected!</span>", \
-									"<span class='userdanger'>You were protected against the [name]!</span>")
+				target.visible_message(span_danger("The [name] was deflected!"), \
+									span_userdanger("You were protected against the [name]!"))
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
-	return 1
+	return TRUE
 
 /obj/item/projectile/bullet/dart/metalfoam
 
@@ -351,18 +356,18 @@
 	damage_type = TOX
 	weaken = 1 SECONDS
 
-/obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/neurotoxin/prehit(atom/target)
 	if(isalien(target))
 		weaken = 0
-		nodamage = 1
-	if(ismecha(target) || issilicon(target))
+		nodamage = TRUE
+	if(isobj(target) || issilicon(target) || ismachineperson(target))
 		damage_type = BURN
-	. = ..() // Execute the rest of the code.
+	. = ..()
 
 /obj/item/projectile/bullet/cap
 	name = "cap"
 	damage = 0
-	nodamage = 1
+	nodamage = TRUE
 
 /obj/item/projectile/bullet/cap/fire()
 	loc = null
@@ -381,3 +386,11 @@
 
 /obj/item/projectile/bullet/weakbullet3/c257
 	damage = 20
+
+/obj/item/projectile/bullet/weakbullet3/c257/phosphorus
+
+/obj/item/projectile/bullet/weakbullet3/c257/phosphorus/on_hit(atom/target, blocked, hit_zone)
+	do_sparks(rand(1, 3), FALSE, target)
+	if(..(target, blocked))
+		var/mob/living/target_living = target
+		target_living.flash_eyes()

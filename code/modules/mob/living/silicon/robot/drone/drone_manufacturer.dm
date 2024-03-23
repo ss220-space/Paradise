@@ -1,44 +1,51 @@
 /obj/machinery/drone_fabricator
 	name = "drone fabricator"
 	desc = "A large automated factory for producing maintenance drones."
-
+	icon = 'icons/obj/machines/drone_fab.dmi'
+	icon_state = "drone_fab_idle"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
-
 	var/drone_progress = 0
-	var/produce_drones = 1
+	var/produce_drones = TRUE
 	var/time_last_drone = 500
 
-	icon = 'icons/obj/machines/drone_fab.dmi'
-	icon_state = "drone_fab_idle"
 
-/obj/machinery/drone_fabricator/New()
-	..()
-
-/obj/machinery/drone_fabricator/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
+/obj/machinery/drone_fabricator/update_icon_state()
+	if(stat & NOPOWER)
 		icon_state = "drone_fab_nopower"
-		stat |= NOPOWER
+		return
+
+	if(!produce_drones || (!drone_progress || drone_progress >= 100))
+		icon_state = "drone_fab_idle"
+		return
+
+	icon_state = "drone_fab_active"
+
+
+/obj/machinery/drone_fabricator/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/machinery/drone_fabricator/process()
 
 	if(SSticker.current_state < GAME_STATE_PLAYING)
 		return
 
-	if(stat & NOPOWER || !produce_drones)
-		if(icon_state != "drone_fab_nopower") icon_state = "drone_fab_nopower"
+	if((stat & NOPOWER) || !produce_drones)
 		return
 
 	if(drone_progress >= 100)
-		icon_state = "drone_fab_idle"
+		if(icon_state != "drone_fab_idle")
+			update_icon(UPDATE_ICON_STATE)
 		return
 
-	icon_state = "drone_fab_active"
+	if(icon_state != "drone_fab_active")
+		update_icon(UPDATE_ICON_STATE)
 	var/elapsed = world.time - time_last_drone
 	drone_progress = round((elapsed/CONFIG_GET(number/drone_build_time))*100)
 
@@ -77,15 +84,18 @@
 
 	drone_progress = 0
 
-
+/obj/machinery/drone_fabricator/attack_ghost(mob/dead/observer/user)
+	user.become_drone()
 
 /mob/dead/verb/join_as_drone()
 	set category = "Ghost"
 	set name = "Join As Drone"
 	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
+	become_drone(src)
 
+/mob/dead/proc/become_drone(mob/user)
 	if(!(CONFIG_GET(flag/allow_drone_spawn)))
-		to_chat(src, "<span class='warning'>That verb is not currently permitted.</span>")
+		to_chat(src, "<span class='warning'>That action is not currently permitted.</span>")
 		return
 
 	if(!src.stat)

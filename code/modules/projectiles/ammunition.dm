@@ -16,7 +16,7 @@
 	var/pellets = 1								//Pellets for spreadshot
 	var/variance = 0							//Variance for inaccuracy fundamental to the casing
 	var/delay = 0								//Delay for energy weapons
-	var/randomspread = 0						//Randomspread for automatics
+	var/randomspread = FALSE						//Randomspread for automatics
 	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
 	var/harmful = TRUE							//pacifism check for boolet, set to FALSE if bullet is non-lethal
 	var/leaves_residue      		    		//Остается ли порох на руках и одежде?
@@ -30,19 +30,25 @@
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 
+
 /obj/item/ammo_casing/New()
 	..()
 	if(projectile_type)
 		BB = new projectile_type(src)
-	pixel_x = rand(-10.0, 10)
-	pixel_y = rand(-10.0, 10)
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
 	dir = pick(GLOB.alldirs)
-	update_icon()
+	update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-/obj/item/ammo_casing/update_icon()
-	..()
+
+/obj/item/ammo_casing/update_icon_state()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
+
+
+/obj/item/ammo_casing/update_desc(updates = ALL)
+	. = ..()
 	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
+
 
 /obj/item/ammo_casing/proc/newshot(params) //For energy weapons, shotgun shells and wands (!).
 	if(!BB)
@@ -69,13 +75,13 @@
 				else
 					continue
 			if(boolets > 0)
-				box.update_icon()
+				box.update_appearance(UPDATE_ICON|UPDATE_DESC)
 				to_chat(user, span_notice("You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s."))
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
 				to_chat(user, span_warning("You fail to collect anything!"))
 	else
-		if(istype(I, /obj/item/screwdriver))
+		if(I.tool_behaviour == TOOL_SCREWDRIVER)
 			if(BB)
 				if(initial(BB.name) == "bullet")
 					var/tmp_label = ""
@@ -127,8 +133,7 @@
 	var/multiple_sprites = 0
 	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
-	var/multiload = 1
-	var/accept_subtypes = TRUE //Can you load rounds with the same caliber, but not same type
+	var/multiload = TRUE
 	var/list/initial_mats
 	var/replacing_sound = 'sound/weapons/gun_interactions/shotguninsert.ogg'
 	var/remove_sound = 'sound/weapons/gun_interactions/remove_bullet.ogg'
@@ -140,7 +145,7 @@
 	if(ammo_type)
 		for(var/i in 1 to max_ammo)
 			stored_ammo += new ammo_type(src)
-	update_icon()
+	update_appearance(UPDATE_ICON|UPDATE_DESC)
 	initial_mats = materials.Copy()
 	update_mat_value()
 
@@ -149,7 +154,7 @@
 	stored_ammo = null
 	return ..()
 
-/obj/item/ammo_box/proc/get_round(keep = 0)
+/obj/item/ammo_box/proc/get_round(keep = FALSE)
 	if(!stored_ammo.len)
 		return null
 	else
@@ -162,10 +167,7 @@
 		return b
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = FALSE)
-	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
-	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
-		return FALSE
-	if(!accept_subtypes && R != src.ammo_type)
+	if(!ammo_suitability(R))
 		return FALSE
 
 	if(stored_ammo.len < max_ammo)
@@ -188,6 +190,12 @@
 				return TRUE
 
 	return FALSE
+
+/obj/item/ammo_box/proc/ammo_suitability(obj/item/ammo_casing/bullet)
+	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
+	if(!bullet || (caliber && bullet.caliber != caliber) || (!caliber && bullet.type != ammo_type))
+		return FALSE
+	return TRUE
 
 /obj/item/ammo_box/proc/can_load(mob/user)
 	return TRUE
@@ -215,8 +223,8 @@
 		if(!silent)
 			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]!"))
 		playsound(src, load_sound, 50, 1)
-		A.update_icon()
-		update_icon()
+		A.update_appearance(UPDATE_ICON|UPDATE_DESC)
+		update_appearance(UPDATE_ICON|UPDATE_DESC)
 
 	return num_loaded
 
@@ -226,16 +234,22 @@
 		user.put_in_hands(A)
 		playsound(src, remove_sound, 50, 1)
 		to_chat(user, span_notice("You remove a round from \the [src]!"))
-		update_icon()
+		update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-/obj/item/ammo_box/update_icon()
+
+/obj/item/ammo_box/update_desc(updates = ALL)
+	. = ..()
+	desc = "[initial(desc)] There are [length(stored_ammo)] shell\s left!"
+
+
+/obj/item/ammo_box/update_icon_state()
 	var/icon_base = initial(icon_prefix) ? initial(icon_prefix) : initial(icon_state)
 	switch(multiple_sprites)
 		if(1)
-			icon_state = "[icon_base]-[stored_ammo.len]"
+			icon_state = "[icon_base]-[length(stored_ammo)]"
 		if(2)
-			icon_state = "[icon_base]-[stored_ammo.len ? "[max_ammo]" : "0"]"
-	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
+			icon_state = "[icon_base]-[length(stored_ammo) ? "[max_ammo]" : "0"]"
+
 
 /obj/item/ammo_box/update_materials_coeff(new_coeff)
 	. = ..()
@@ -256,7 +270,7 @@
 			materials[material] += ammo.materials[material]
 
 //Behavior for magazines
-/obj/item/ammo_box/magazine/proc/ammo_count()
+/obj/item/ammo_box/magazine/proc/ammo_count(countempties = TRUE)
 	return length(stored_ammo)
 
 /obj/item/ammo_box/magazine/proc/empty_magazine()

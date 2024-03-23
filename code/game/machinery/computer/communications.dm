@@ -157,7 +157,7 @@
 				return
 			call_shuttle_proc(usr, input)
 			if(SSshuttle.emergency.timer)
-				post_status("shuttle")
+				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("cancelshuttle")
@@ -168,7 +168,7 @@
 			if(response == "Yes")
 				cancel_call_proc(usr)
 				if(SSshuttle.emergency.timer)
-					post_status("shuttle")
+					post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("messagelist")
@@ -204,13 +204,13 @@
 			switch(display_type)
 				if("message")
 					display_icon = null
-					post_status("message", stat_msg1, stat_msg2, usr)
+					post_status(STATUS_DISPLAY_MESSAGE, stat_msg1, stat_msg2)
 				if("alert")
 					display_icon = params["alert"]
-					post_status("alert", params["alert"], user = usr)
+					post_status(STATUS_DISPLAY_ALERT, params["alert"])
 				else
 					display_icon = null
-					post_status(params["statdisp"], user = usr)
+					post_status(display_type)
 			setMenuState(usr, COMM_SCREEN_STAT)
 
 		if("setmsg1")
@@ -298,7 +298,8 @@
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		src.emagged = 1
-		to_chat(user, span_notice("You scramble the communication routing circuits!"))
+		if(user)
+			to_chat(user, span_notice("You scramble the communication routing circuits!"))
 		SStgui.update_uis(src)
 
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
@@ -468,7 +469,7 @@
 	return
 
 
-/proc/cancel_call_proc(var/mob/user)
+/proc/cancel_call_proc(mob/user)
 	if(SSticker.mode.name == "meteor")
 		return
 
@@ -480,27 +481,23 @@
 		add_game_logs("has tried and failed to recall the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has tried and failed to recall the shuttle.")
 
-/proc/post_status(command, data1, data2, mob/user = null)
 
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
+/proc/post_status(mode, data1, data2)
+	if(usr && mode == STATUS_DISPLAY_MESSAGE)
+		log_and_message_admins("set status screen message: [data1] [data2]")
 
-	if(!frequency) return
+	for(var/obj/machinery/status_display/display as anything in GLOB.status_displays)
+		if(display.is_supply)
+			continue
 
-	var/datum/signal/status_signal = new
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
+		display.set_mode(mode)
+		switch(mode)
+			if(STATUS_DISPLAY_MESSAGE)
+				display.set_message(data1, data2)
+			if(STATUS_DISPLAY_ALERT)
+				display.set_picture(data1)
 
-	switch(command)
-		if("message")
-			status_signal.data["msg1"] = data1
-			status_signal.data["msg2"] = data2
-			add_misc_logs(user, "STATUS: [key_name_log(user)] set status screen message: [data1] [data2]")
-			//message_admins("STATUS: [user] set status screen with [PDA]. Message: [data1] [data2]")
-		if("alert")
-			status_signal.data["picture_state"] = data1
-
-	spawn(0)
-		frequency.post_signal(null, status_signal)
+		display.update()
 
 
 /obj/machinery/computer/communications/Destroy()

@@ -258,7 +258,7 @@
 		magboots = new magboots_type(src)
 	if(storage_type)
 		storage = new storage_type(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 	//move this into machinery eventually...
 	if(occupant_typecache)
@@ -273,31 +273,33 @@
 	. = ..()
 	. += " There's a warning label dangling from the control pad that reads:<br>[span_danger("\"BIOLOGICAL SUBJECTS ARE STRICTLY PROHIBITED IN THE CONFINES OF THE UNIT.\"")]"
 
-/obj/machinery/suit_storage_unit/update_icon()
-	cut_overlays()
+
+/obj/machinery/suit_storage_unit/update_overlays()
+	. = ..()
 
 	if(uv)
 		if(uv_super)
-			add_overlay("[icon_state]_super")
+			. += "[icon_state]_super"
 		else if(occupant)
-			add_overlay("[icon_state]_uvhuman")
+			. += "[icon_state]_uvhuman"
 		else
-			add_overlay("[icon_state]_uv")
+			. += "[icon_state]_uv"
 	else if(state_open)
 		if(stat & BROKEN)
-			add_overlay("[icon_state]_broken")
+			. += "[icon_state]_broken"
 		else
-			add_overlay("[icon_state]_open")
+			. += "[icon_state]_open"
 			if(suit)
-				add_overlay("[icon_state]_suit")
+				. += "[icon_state]_suit"
 			if(helmet)
-				add_overlay("[icon_state]_helm")
+				. += "[icon_state]_helm"
 			if(storage)
-				add_overlay("[icon_state]_storage")
+				. += "[icon_state]_storage"
 	else if(occupant)
-		add_overlay("[icon_state]_human")
+		. += "[icon_state]_human"
 	if(!locked)
-		add_overlay("[icon_state]_unlocked")
+		. += "[icon_state]_unlocked"
+
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
@@ -318,7 +320,7 @@
 	if(state_open)
 		add_fingerprint(user)
 		if(store_item(I, user))
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 			SStgui.update_uis(src)
 			to_chat(user, span_notice("You load the [I] into the storage compartment."))
 		else
@@ -356,12 +358,12 @@
 		user.drop_transfer_item_to_loc(I, src)
 
 
-/obj/machinery/suit_storage_unit/power_change()
-	..()
+/obj/machinery/suit_storage_unit/power_change(forced = FALSE)
+	..() //we don't check parent return here because `is_operational` cares about other flags in stat
 	if(!is_operational() && state_open)
 		open_machine()
 		dump_contents()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/suit_storage_unit/proc/dump_contents()
@@ -380,9 +382,10 @@
 		new /obj/item/stack/sheet/metal (loc, 2)
 	qdel(src)
 
-/obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user)
+/obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user, params)
 	if(user.stat || user.lying || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
+	. = TRUE
 	var/mob/living/target = A
 	if(!state_open)
 		to_chat(user, span_warning("The [src]'s doors are shut!"))
@@ -399,15 +402,19 @@
 	else
 		target.visible_message(span_warning("[user] starts shoving [target] into [src]!"), span_userdanger("[user] starts shoving you into [src]!"))
 
-	if(do_mob(user, target, 30))
-		if(occupant || helmet || suit || storage)
-			return
-		if(target == user)
-			user.visible_message(span_warning("[user] slips into [src] and closes the door behind [user.p_them()]!"), span_notice("You slip into [src]'s cramped space and shut its door."))
-		else
-			target.visible_message(span_warning("[user] pushes [target] into [src] and shuts its door!"), span_userdanger("[user] shoves you into [src] and shuts the door!"))
-		close_machine(target)
-		add_fingerprint(user)
+	if(!do_mob(user, target, 3 SECONDS))
+		return
+
+	if(occupant || helmet || suit || storage)
+		return
+
+	if(target == user)
+		user.visible_message(span_warning("[user] slips into [src] and closes the door behind [user.p_them()]!"), span_notice("You slip into [src]'s cramped space and shut its door."))
+	else
+		target.visible_message(span_warning("[user] pushes [target] into [src] and shuts its door!"), span_userdanger("[user] shoves you into [src] and shuts the door!"))
+	close_machine(target)
+	add_fingerprint(user)
+
 
 /obj/machinery/suit_storage_unit/proc/cook()
 	if(uv_cycles)
@@ -447,7 +454,7 @@
 			playsound(src, 'sound/machines/airlock_close.ogg', 25, 1)
 		if(occupant)
 			dump_contents()
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		SStgui.update_uis(src)
 
 /obj/machinery/suit_storage_unit/relaymove(mob/user)
@@ -496,7 +503,7 @@
 	state_open = TRUE
 	if(drop)
 		dropContents()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
 /obj/machinery/suit_storage_unit/dropContents()
@@ -528,7 +535,7 @@
 		occupant = target
 		target.forceMove(src)
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/suit_storage_unit/attack_hand(mob/user)
 	if(..() || (stat & NOPOWER))
@@ -591,7 +598,7 @@
 			cook()
 		if("eject_occupant")
 			eject_occupant(usr)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/suit_storage_unit/proc/dispense_helmet()
 	if(!helmet)
@@ -677,7 +684,7 @@
 	occupant = null
 	if(!state_open)
 		state_open = TRUE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
@@ -693,7 +700,7 @@
 	eject_occupant(usr)
 	add_fingerprint(usr)
 	SStgui.update_uis(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
@@ -720,7 +727,7 @@
 		usr.forceMove(src)
 		occupant = usr
 		state_open = FALSE //Close the thing after the guy gets inside
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 		add_fingerprint(usr)
 		SStgui.update_uis(src)
@@ -742,9 +749,10 @@
 	add_attack_logs(user, src, "emagged")
 	locked = FALSE
 	emagged = TRUE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
-	to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
+	if(user)
+		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
 	do_sparks(5, 0, loc)
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 

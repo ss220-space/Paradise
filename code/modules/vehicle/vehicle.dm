@@ -4,8 +4,9 @@
 	desc = "A basic vehicle, vroom"
 	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "scooter"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
+	pass_flags_self = PASSVEHICLE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300
@@ -32,12 +33,6 @@
 	QDEL_NULL(inserted_key)
 	return ..()
 
-// So that beepsky can't push the janicart
-/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
-	if(istype(mover) && mover.checkpass(PASSMOB))
-		return TRUE
-	else
-		return ..()
 
 /obj/vehicle/examine(mob/user)
 	. = ..()
@@ -96,7 +91,7 @@
 //APPEARANCE
 /obj/vehicle/proc/handle_vehicle_layer()
 	if(dir != NORTH)
-		layer = MOB_LAYER+0.1
+		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
 
@@ -111,10 +106,6 @@
 			buckled_mob.setDir(dir)
 			buckled_mob.pixel_x = generic_pixel_x
 			buckled_mob.pixel_y = generic_pixel_y
-
-
-/obj/vehicle/update_icon()
-	return
 
 
 /obj/item/key

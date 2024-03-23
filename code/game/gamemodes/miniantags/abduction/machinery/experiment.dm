@@ -17,7 +17,13 @@
 	eject_abductee()
 	return ..()
 
-/obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user)
+
+/obj/machinery/abductor/experiment/update_icon_state()
+	icon_state = "experiment[occupant ? "" : "-open"]"
+
+
+
+/obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user, params)
 	if(stat)
 		return
 	if(user.stat || user.lying || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
@@ -26,18 +32,19 @@
 		return
 	if(occupant)
 		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
-		return //occupied
+		return TRUE //occupied
 	if(target.buckled)
 		return
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head.</span>")
-		return
+		return TRUE
 	visible_message("[user] puts [target] into the [src].")
 
 	target.forceMove(src)
 	occupant = target
-	icon_state = "experiment"
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
+	return TRUE
 
 /obj/machinery/abductor/experiment/attack_hand(mob/user)
 	if(..())
@@ -143,11 +150,8 @@
 		var/datum/objective/abductee/O = new objtype()
 		SSticker.mode.abductees += H.mind
 		H.mind.objectives += O
-		var/obj_count = 1
-		to_chat(H, "<span class='notice'>Your current objectives:</span>")
-		for(var/datum/objective/objective in H.mind.objectives)
-			to_chat(H, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-			obj_count++
+		var/list/messages = H.mind.prepare_announce_objectives()
+		to_chat(H, chat_box_red(messages.Join("<br>"))) // let the player know they have a new objective
 		SSticker.mode.update_abductor_icons_added(H.mind)
 
 		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)
@@ -198,7 +202,7 @@
 		var/mob/living/carbon/human/H = grabbed.affecting
 		H.forceMove(src)
 		occupant = H
-		icon_state = "experiment"
+		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(G)
 		return
@@ -221,4 +225,4 @@
 		return
 	occupant.forceMove(get_turf(src))
 	occupant = null
-	icon_state = "experiment-open"
+	update_icon(UPDATE_ICON_STATE)

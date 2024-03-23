@@ -15,6 +15,7 @@
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = NONE //no default canpush
 	can_strip = FALSE
+	pass_flags = PASSFLAPS
 
 	speak_emote = list("states")
 	tts_seed = null
@@ -198,12 +199,12 @@
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
 	Radio.follow_target = src
-	add_language("Galactic Common", TRUE)
-	add_language("Sol Common", TRUE)
-	add_language("Tradeband", TRUE)
-	add_language("Gutter", TRUE)
-	add_language("Trinary", TRUE)
-	default_language = GLOB.all_languages["Galactic Common"]
+	add_language(LANGUAGE_GALACTIC_COMMON, TRUE)
+	add_language(LANGUAGE_SOL_COMMON, TRUE)
+	add_language(LANGUAGE_TRADER, TRUE)
+	add_language(LANGUAGE_GUTTER, TRUE)
+	add_language(LANGUAGE_TRINARY, TRUE)
+	default_language = GLOB.all_languages[LANGUAGE_GALACTIC_COMMON]
 
 	bot_core = new bot_core_type(src)
 	addtimer(CALLBACK(src, PROC_REF(add_bot_filter)), 3 SECONDS)
@@ -212,7 +213,6 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 		diag_hud.add_hud_to(src)
-		permanent_huds |= diag_hud
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
@@ -287,11 +287,13 @@
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
 		locked = FALSE
 		emagged = 1
-		to_chat(user, span_notice("You bypass [src]'s controls."))
+		if(user)
+			to_chat(user, span_notice("You bypass [src]'s controls."))
 		return
 
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
-		add_attack_logs(user, src, "emagged")
+		if(user)
+			add_attack_logs(user, src, "emagged")
 		emagged = 2
 		remote_disabled = TRUE //Manually emagging the bot locks out the AI built in panel.
 		locked = TRUE //Access denied forever!
@@ -301,7 +303,7 @@
 		show_laws()
 		return
 
-	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
+	if(user) //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, span_warning("You need to open maintenance panel first!"))
 
 
@@ -1088,7 +1090,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		add_attack_logs(user, src, "Dehacked")
 
 
-/mob/living/simple_animal/bot/proc/update_icon()
+/mob/living/simple_animal/bot/update_icon_state()
 	icon_state = "[initial(icon_state)][on]"
 
 

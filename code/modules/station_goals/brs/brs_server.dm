@@ -85,7 +85,8 @@
 	probe_cooldown_end_time = world.time + probe_cooldown_time
 
 	new_component_parts()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	create_light()
 
 /obj/machinery/brs_server/Destroy()
 	GLOB.bluespace_rifts_server_list.Remove(src)
@@ -144,31 +145,48 @@
 	// Return index of the last element
 	return length(data)
 
-/obj/machinery/brs_server/update_icon()
-	var/prefix = initial(icon_state)
 
-	overlays.Cut()
-	if(panel_open)
-		overlays += image(icon, "[initial(icon_state)]-panel")
+/obj/machinery/brs_server/update_icon_state()
+	var/prefix = initial(icon_state)
 
 	if(stat & (BROKEN))
 		icon_state = "[prefix]-broken"
-		set_light(0)
 		return
 	if(stat & (NOPOWER))
 		icon_state = prefix
-		set_light(0)
 		return
 	if(emagged)
 		icon_state = "[prefix]-on-emagged"
+		return
+
+	icon_state = "[prefix]-on"
+
+
+/obj/machinery/brs_server/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += image(icon, "[initial(icon_state)]-panel")
+
+
+/obj/machinery/brs_server/proc/create_light()
+	if(stat & (BROKEN))
+		set_light(0)
+		return
+	if(stat & (NOPOWER))
+		set_light(0)
+		return
+	if(emagged)
 		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT)
 		return
-	icon_state = "[prefix]-on"
 	set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT)
 
-/obj/machinery/brs_server/power_change()
-	..()
-	update_icon()
+
+/obj/machinery/brs_server/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
+	create_light()
+
 
 /obj/machinery/brs_server/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -177,7 +195,7 @@
 /obj/machinery/brs_server/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/brs_server/crowbar_act(mob/living/user, obj/item/I)
 	if((!panel_open) || (flags & NODECONSTRUCT))
@@ -219,8 +237,10 @@
 	points_per_probe = points_per_probe_emagged
 	probe_success_chance = probe_success_chance_emagged
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
-	update_icon()
-	to_chat(user, span_warning("@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@"))
+	update_icon(UPDATE_ICON_STATE)
+	create_light()
+	if(user)
+		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@"))
 
 /obj/machinery/brs_server/emp_act(severity)
 	if(!(stat & (BROKEN|NOPOWER)))

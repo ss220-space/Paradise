@@ -149,17 +149,20 @@
 	greet_scientist(scientist,team_number)
 	update_abductor_icons_added(scientist)
 
-/datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor,team_number)
+/datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor, team_number)
 	var/datum/objective/stay_hidden/O = new
 	abductor.objectives += O
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
-	to_chat(abductor.current, "<span class='notice'>You are an agent of [team_name]!</span>")
-	to_chat(abductor.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
-	to_chat(abductor.current, "<span class='notice'>Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve.</span>")
-
-	abductor.announce_objectives()
+	var/list/messages = list()
+	messages.Add("<span class='notice'>You are an agent of [team_name]!</span>")
+	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
+	messages.Add("<span class='notice'>Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve.</span>")
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Abductor\">Абдуктор</a></span>")
+	messages.Add(abductor.prepare_announce_objectives())
+	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
+	log_game("[abductor] has become an abductor agent.")
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
 	var/datum/objective/stay_hidden/O = new
@@ -167,11 +170,15 @@
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
-	to_chat(abductor.current, "<span class='notice'>You are a scientist of [team_name]!</span>")
-	to_chat(abductor.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
-	to_chat(abductor.current, "<span class='notice'>Use your tool and ship consoles to support the agent and retrieve human specimens.</span>")
-
-	abductor.announce_objectives()
+	var/list/messages = list()
+	messages.Add("<span class='notice'>You are a scientist of [team_name]!</span>")
+	messages.Add("<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
+	messages.Add("<span class='notice'>Use your tool and ship consoles to support the agent and retrieve human specimens.</span>")
+	messages.Add("<span class='motd'>For more information, check the wiki page: <a href=\"https://wiki.ss220.space/index.php/Abductor\">Абдуктор</a></span>")
+	messages.Add(abductor.prepare_announce_objectives())
+	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
+	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
+	log_game("[abductor] has become an abductor scientist.")
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
 	for(var/obj/machinery/abductor/console/C in GLOB.machines)

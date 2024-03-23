@@ -413,11 +413,13 @@
 			return -1
 		else
 			for(var/obj/item/organ/internal/O as anything in organs)
+				if(O.unremovable)
+					continue
 				O.on_find(user)
 				organs -= O
 				organs[O.name] = O
 
-			I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
+			I = tgui_input_list(user, "Remove which organ?", "Surgery", organs)
 			if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 				I = organs[I]
 				if(!I) return -1
@@ -462,8 +464,8 @@
 			return
 		for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
 			if(organ.damage && organ.is_robotic())
-				user.visible_message("<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>", \
-					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>" )
+				user.visible_message("<span class='notice'> [user] repairs [target]'s [organ.name] with [tool].</span>", \
+					"<span class='notice'> You repair [target]'s [organ.name] with [tool].</span>" )
 				organ.damage = 0
 				organ.surgeryize()
 	else if(current_type == "insert")
@@ -631,7 +633,7 @@
 	..()
 
 /datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/chosen_appearance = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
+	var/chosen_appearance = tgui_input_list(user, "Select the company appearance for this limb.", "Limb Company Selection", GLOB.selectable_robolimbs)
 	if(!chosen_appearance)
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

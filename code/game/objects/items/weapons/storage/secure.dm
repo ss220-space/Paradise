@@ -27,10 +27,20 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 14
 
+
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		. += "<span class='notice'>The service panel is [open ? "open" : "closed"].</span>"
+
+
+/obj/item/storage/secure/update_overlays()
+	. = ..()
+	if(emagged)
+		. += icon_locking
+	else if(!locked)
+		. += icon_opened
+
 
 /obj/item/storage/secure/populate_contents()
 	new /obj/item/paper(src)
@@ -41,13 +51,13 @@
 		if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
 			emag_act(user, W)
 
-		if(istype(W, /obj/item/screwdriver))
+		if(W.tool_behaviour == TOOL_SCREWDRIVER)
 			if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
 				open = !open
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
 
-		if((istype(W, /obj/item/multitool)) && (open) && (!l_hacking))
+		if((W.tool_behaviour = TOOL_MULTITOOL) && (open) && (!l_hacking))
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = TRUE
 			if(do_after(user, 100 * W.toolspeed * gettoolspeedmod(user), target = src))
@@ -70,30 +80,34 @@
 
 	return ..()
 
+
 /obj/item/storage/secure/emag_act(mob/user, obj/weapon)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		overlays += image('icons/obj/storage.dmi', icon_sparking)
-		sleep(6)
-		overlays.Cut()
-		overlays += image('icons/obj/storage.dmi', icon_locking)
-		locked = FALSE
-		if(istype(weapon, /obj/item/melee/energy/blade))
-			do_sparks(5, 0, loc)
-			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
-			playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			to_chat(user, "You slice through the lock on [src].")
-		else
-			to_chat(user, "You short out the lock on [src].")
+	if(emagged)
 		return
+
+	add_attack_logs(user, src, "emagged")
+	emagged = TRUE
+	locked = FALSE
+	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	flick_overlay_view(image(icon, src, icon_sparking), 1 SECONDS)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
+
+	if(istype(weapon, /obj/item/melee/energy/blade))
+		do_sparks(5, 0, loc)
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
+		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		if(user)
+			to_chat(user, "You slice through the lock on [src].")
+	else if(user)
+		to_chat(user, "You short out the lock on [src].")
+
 
 /obj/item/storage/secure/AltClick(mob/living/user)
 	if(istype(user) && !try_to_open())
 		return FALSE
 	return ..()
 
-/obj/item/storage/secure/MouseDrop(over_object, src_location, over_location)
+/obj/item/storage/secure/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!try_to_open())
 		return FALSE
 	return ..()
@@ -138,8 +152,8 @@
 	switch(action)
 		if("close")
 			locked = TRUE
-			overlays.Cut()
 			code = null
+			update_icon(UPDATE_OVERLAYS)
 			close(usr)
 		if("setnumber")
 			switch(params["buttonValue"])
@@ -150,9 +164,8 @@
 						to_chat(usr, "<span class = 'notice'>The code was set successfully.</span>")
 					else if((code == l_code) && l_set)
 						locked = FALSE
-						overlays.Cut()
-						overlays += image('icons/obj/storage.dmi', icon_opened)
 						code = null
+						update_icon(UPDATE_OVERLAYS)
 					else
 						code = "ERROR"
 				if("R")
@@ -232,7 +245,7 @@
 	force = 8
 	w_class = WEIGHT_CLASS_HUGE
 	max_w_class = 8
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	cant_hold = list(/obj/item/storage/secure/briefcase)
 

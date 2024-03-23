@@ -8,7 +8,7 @@
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
 
-/obj/item/organ/internal/heart/update_icon()
+/obj/item/organ/internal/heart/update_icon_state()
 	if(beating)
 		icon_state = "[icon_base]-on"
 	else
@@ -218,11 +218,13 @@
 /obj/item/organ/internal/heart/cybernetic/upgraded/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		to_chat(user, "<span class='warning'>You disable the safeties on [src]</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You disable the safeties on [src]</span>")
 		emagged = TRUE
 	else
 		add_attack_logs(user, src, "un-emagged")
-		to_chat(user, "<span class='warning'>You re-enable the safeties on [src]</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You re-enable the safeties on [src]</span>")
 		emagged = FALSE
 
 

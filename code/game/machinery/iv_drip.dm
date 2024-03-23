@@ -11,40 +11,41 @@
 
 /obj/machinery/iv_drip/process()
 	if(istype(bag) && bag.injection_target)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	return PROCESS_KILL
 
-/obj/machinery/iv_drip/update_icon()
-	cut_overlays()
 
+/obj/machinery/iv_drip/update_overlays()
+	. = ..()
 	if(bag)
-		add_overlay("hangingbag")
+		. += "hangingbag"
 		if(bag.reagents.total_volume)
 			var/image/filling = image('icons/goonstation/objects/iv.dmi', src, "hangingbag-fluid")
 			filling.icon += mix_color_from_reagents(bag.reagents.reagent_list)
-			add_overlay(filling)
+			. += filling
 
-/obj/machinery/iv_drip/MouseDrop(mob/living/target)
-	if(usr.incapacitated())
-		return
 
-	if(!ishuman(usr) || !iscarbon(target))
-		return
+/obj/machinery/iv_drip/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(usr.incapacitated() || !ishuman(usr) || !ishuman(over_object) || !Adjacent(over_object) || !usr.Adjacent(over_object))
+		return FALSE
 
-	if(Adjacent(target) && usr.Adjacent(target))
-		add_fingerprint(usr)
-		bag.afterattack(target, usr, TRUE)
-		START_PROCESSING(SSmachines, src)
+	add_fingerprint(usr)
+	if(!bag)
+		to_chat(usr, span_warning("There's no IV bag connected to [src]!"))
+		return FALSE
+	bag.afterattack(over_object, usr, TRUE)
+	START_PROCESSING(SSmachines, src)
+
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(bag)
 		add_fingerprint(user)
 		bag.forceMove_turf()
 		user.put_in_hands(bag, ignore_anim = FALSE)
-		bag.update_icon()
+		bag.update_icon(UPDATE_OVERLAYS)
 		bag = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/iv_bag))
@@ -57,13 +58,13 @@
 		add_fingerprint(user)
 		bag = I
 		to_chat(user, span_notice("You attach [I] to [src]."))
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
 	else if (bag && istype(I, /obj/item/reagent_containers))
 		add_fingerprint(user)
 		bag.attackby(I)
 		I.afterattack(bag, usr, TRUE)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 

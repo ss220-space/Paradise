@@ -1,7 +1,7 @@
 /datum/sprite_accessory/body_markings/head/optics
     icon = 'icons/mob/sprite_accessories/ipc/ipc_optics.dmi'
     name = "Humanoid Optics"
-    species_allowed = list("Machine")
+    species_allowed = list(SPECIES_MACNINEPERSON)
     icon_state = "optics"
     models_allowed = list("Bishop Cybernetics", "Hesphiastos Industries", "Ward-Takahashi", "Xion Manufacturing Group", "Zeng-Hu Pharmaceuticals") //Should be the same as the manufacturing company of the limb in robolimbs.dm
 

@@ -92,6 +92,10 @@
 		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
 		return FALSE
 
+	if(GLOB.pacifism_after_gt || HAS_TRAIT(M, TRAIT_PACIFISM))
+		to_chat(M, span_notice("Немного подумав, Вы решаете не трогать [src]."))
+		return FALSE
+
 	var/play_soundeffect = !M.environment_smash
 	var/turf/source_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
 	if(M.obj_damage)
@@ -155,7 +159,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 		if(!acid_level)
 			SSacid.processing[src] = src
-			add_overlay(GLOB.acid_overlay, TRUE)
+			add_overlay(GLOB.acid_overlay)
 		var/acid_cap = acidpwr * 300 //so we cannot use huge amounts of weak acids to do as well as strong acids.
 		if(acid_level < acid_cap)
 			acid_level = min(acid_level + acidpwr * acid_volume, acid_cap)
@@ -193,8 +197,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfires.processing[src] = src
-		add_overlay(GLOB.fire_overlay, TRUE)
-		return 1
+		add_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay)
+		return TRUE
 
 ///called when the obj is destroyed by fire
 /obj/proc/burn()
@@ -206,7 +210,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/extinguish()
 	if(resistance_flags & ON_FIRE)
 		resistance_flags &= ~ON_FIRE
-		cut_overlay(GLOB.fire_overlay, TRUE)
+		cut_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay, TRUE)
 		SSfires.processing -= src
 
 ///Called when the obj is hit by a tesla bolt.

@@ -4,7 +4,7 @@
 	origin_tech = "bluespace=9;magnets=8"
 	icon_state = "docs_part"
 
-/obj/item/paper/researchnotes_brs/update_icon()
+/obj/item/paper/researchnotes_brs/update_icon_state()
 	return
 
 /obj/structure/toilet/bluespace
@@ -14,12 +14,17 @@
 	var/teleport_sound = 'sound/magic/lightning_chargeup.ogg'
 	var/teleport_sound_cooldown = FALSE
 
-/obj/structure/toilet/bluespace/update_icon()
+
+/obj/structure/toilet/bluespace/update_icon_state()
 	. = ..()
 	icon_state = "bluespace_toilet[open][cistern]"
-	overlays.Cut()
+
+
+/obj/structure/toilet/bluespace/update_overlays()
+	. = ..()
 	if(open)
-		overlays += image(icon, "bluespace_toilet_singularity")
+		. += image(icon, "bluespace_toilet_singularity")
+
 
 /obj/structure/toilet/bluespace/attack_hand(mob/living/user)
 	. = ..()
@@ -47,8 +52,8 @@
 /obj/structure/toilet/bluespace/nt
 	icon_state = "bluespace_toilet00-NT"
 
-/obj/structure/toilet/bluespace/nt/update_icon()
-	. = ..()
+/obj/structure/toilet/bluespace/nt/update_icon_state()
+	..()
 	icon_state = "bluespace_toilet[open][cistern]-NT"
 
 /obj/effect/spawner/lootdrop/bluespace_rift

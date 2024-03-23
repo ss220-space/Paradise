@@ -23,10 +23,11 @@
 		bodypart.process()
 
 		if(!lying && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
-			if(bodypart.is_traumatized() && LAZYLEN(bodypart.internal_organs) && prob(15))
-				var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
+			if(bodypart.is_traumatized() && prob(15))
+				if(LAZYLEN(bodypart.internal_organs))
+					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
+					organ.receive_damage(rand(3,5))
 				custom_pain("Вы чувствуете как в вашей [bodypart.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
-				organ.receive_damage(rand(3,5))
 
 	handle_grasp()
 	handle_stance()
@@ -151,7 +152,7 @@
 	var/ue_to_compare = (old_ue) ? old_ue : dna.unique_enzymes
 	var/list/all_bits = internal_organs|bodyparts
 	for(var/obj/item/organ/organ as anything in all_bits)
-		if(assimilate || organ.dna.unique_enzymes == ue_to_compare)
+		if(assimilate || organ.dna?.unique_enzymes == ue_to_compare)
 			organ.update_DNA(dna)
 
 

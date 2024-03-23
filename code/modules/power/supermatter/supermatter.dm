@@ -41,7 +41,7 @@
 
 	var/gasefficency = 0.125
 
-	var/base_icon_state = "darkmatter_shard"
+	base_icon_state = "darkmatter_shard"
 
 	var/damage = 0
 	var/damage_archived = 0
@@ -324,6 +324,15 @@
 /obj/machinery/power/supermatter_shard/attack_hand(mob/user as mob)
 	if(isAI(user))
 		return
+	if(isnucleation(user))
+		nuclear_touch(user)
+		new /obj/effect/temp_visual/heart(loc)
+		var/touch_sm = pick(list("poke", "pet", "hug", "cuddle"))
+		user.visible_message(span_notice("[user] [touch_sm]s the supermatter!"), \
+								span_notice("You [touch_sm] the supermatter!"))
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		return
+
 	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... [user.p_their(TRUE)] body starts to glow and bursts into flames before flashing into ash.</span>",\
 		"<span class=\"danger\">You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>",\
 		"<span class=\"warning\">You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.</span>")
@@ -429,7 +438,10 @@
 		user.apply_effect(150, IRRADIATE)
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
-	if(istype(moving_atom, /mob/living))
+	if(isnucleation(moving_atom))
+		nuclear_touch(moving_atom)
+		return
+	if(isliving(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
@@ -512,10 +524,29 @@
 
 /obj/machinery/power/supermatter_shard/proc/emergency_lighting(active)
     if(active)
-        post_status("alert", "radiation")
+        post_status(STATUS_DISPLAY_ALERT, "radiation")
     else
-        post_status("shuttle")
+        post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 10, max(1000,power * damage / explosion_point))
+
+// SM shard that can't be moved for ruins and gates
+/obj/machinery/power/supermatter_shard/anchored
+	name = "Well anchored supermatter shard"
+	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. Apparently the structure is attached to the surface with industrial equipment, it cannot be unanchored with simple equipment. <span class='danger'>You get headaches just from looking at it.</span>"
+	anchored = TRUE
+
+/obj/machinery/power/supermatter_shard/anchored/attackby(obj/item/W as obj, mob/living/user as mob, params)
+	if(istype(W,/obj/item/wrench))
+		user.visible_message("<span class='danger'>As [user] tries to loose bolts of \the [src] with \a [W] but the tool disappears</span>")
+	consume_wrench(W)
+	user.apply_effect(150, IRRADIATE)
+
+/obj/machinery/power/supermatter_shard/proc/nuclear_touch(var/mob/living/user)
+	var/datum/species/nucleation/nuclear = user.dna.species
+	if(nuclear.touched_supermatter == FALSE)
+		user.revive()
+		nuclear.touched_supermatter = TRUE
+		to_chat(user, span_userdanger("The wave of warm energy is overwhelming you. You feel calm."))

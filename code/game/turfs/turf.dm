@@ -8,6 +8,7 @@
 	var/slowdown = 0 //negative for faster, positive for slower
 	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
+	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
 	var/real_layer = TURF_LAYER
 	layer = MAP_EDITOR_TURF_LAYER
 
@@ -110,6 +111,10 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	user.Move_Pulled(src)
 
+/turf/attack_robot(mob/user)
+	if(Adjacent(user))
+		user.Move_Pulled(src)
+
 /turf/ex_act(severity)
 	return FALSE
 
@@ -149,34 +154,47 @@
 	// First, make sure it can leave its square
 	if(isturf(mover.loc))
 		// Nothing but border objects stop you from leaving a tile, only one loop is needed
+		var/movement_dir = get_dir(mover, src)
 		for(var/obj/obstacle in mover.loc)
-			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != oldloc)
+			if(obstacle == mover || obstacle == oldloc)
+				continue
+			if(!obstacle.CanExit(mover, movement_dir))
 				mover.Bump(obstacle, TRUE)
 				return FALSE
+
+	var/border_dir = get_dir(src, mover)
 
 	var/list/large_dense = list()
 	//Next, check objects to block entry that are on the border
 	for(var/atom/movable/border_obstacle in src)
+		if(border_obstacle == oldloc)
+			continue
 		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, mover.loc, 1) && border_obstacle != oldloc)
+			if(!border_obstacle.CanPass(mover, border_dir))
 				mover.Bump(border_obstacle, TRUE)
 				return FALSE
 		else
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
-	if(!CanPass(mover, src))
+	if(!CanPass(mover, border_dir))
 		mover.Bump(src, TRUE)
 		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
 	var/atom/movable/tompost_bump
 	var/top_layer = 0
-	for(var/atom/movable/obstacle in large_dense)
-		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
-			if(obstacle.layer > top_layer)
+	var/current_layer = 0
+	for(var/atom/movable/obstacle as anything in large_dense)
+		if(!obstacle.CanPass(mover, border_dir))
+			current_layer = obstacle.layer
+			if(isliving(obstacle))
+				var/mob/living/living_obstacle = obstacle
+				if(living_obstacle.bump_priority < BUMP_PRIORITY_NORMAL && border_dir == obstacle.dir)
+					current_layer += living_obstacle.bump_priority
+			if(current_layer > top_layer)
 				tompost_bump = obstacle
-				top_layer = obstacle.layer	//Probably separate variable is a better solution, but its good for now.
+				top_layer = current_layer
 	if(tompost_bump)
 		mover.Bump(tompost_bump, TRUE)
 		return FALSE
@@ -375,18 +393,23 @@
 				L.Add(T)
 	return L
 
-//Idem, but don't check for ID and goes through open doors
-/turf/proc/AdjacentTurfs(list/closed)
-	var/list/L = new()
-	var/turf/simulated/T
-	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+
+/// Returns the adjacent turfs. Can check for density or cardinal directions only instead of all 8, or just dense turfs entirely. dense_only takes precedence over open_only.
+/turf/proc/AdjacentTurfs(open_only = FALSE, cardinal_only = FALSE, dense_only = FALSE)
+	var/list/L = list()
+	var/turf/T
+	var/list/directions = cardinal_only ? GLOB.cardinal : GLOB.alldirs
+	for(var/dir in directions)
 		T = get_step(src, dir)
-		if(T in closed) //turf already proceeded by A*
+		if(!istype(T))
 			continue
-		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T))
-				L.Add(T)
+		if(dense_only && !T.density)
+			continue
+		if((open_only && T.density) && !dense_only)
+			continue
+		L.Add(T)
 	return L
+
 
 // check for all turfs, including space ones
 /turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
@@ -456,7 +479,7 @@
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
 			if(O.level != 1)
 				continue
-			if(O.invisibility == INVISIBILITY_MAXIMUM)
+			if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
@@ -540,9 +563,6 @@
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/water_act(volume, temperature, source)
- 	return FALSE
-
 
 /**
  * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
@@ -592,4 +612,78 @@
 					span_userdanger("You slam into [src]!"))
 	C.take_organ_damage(damage)
 	C.Weaken(3 SECONDS)
+
+
+/turf/proc/CanEnter(atom/mover, exclude_mobs = FALSE, list/ignore_atoms, type_list = FALSE)
+	var/border_dir = get_dir(src, mover)
+
+	if(!CanPass(mover, border_dir))
+		return FALSE
+
+	if(isturf(mover.loc))
+		var/movement_dir = get_dir(mover, src)
+		for(var/obj/obstacle in mover.loc)
+			if(obstacle == mover)
+				continue
+			if(!obstacle.CanExit(mover, movement_dir))
+				return FALSE
+
+	var/list/large_dense = contents.Copy()
+	if(length(ignore_atoms))
+		for(var/thing in large_dense)
+			if(!type_list && (thing in large_dense))
+				large_dense -= thing
+			else if(type_list && is_type_in_list(thing, ignore_atoms))
+				large_dense -= thing
+
+	for(var/atom/movable/obstacle in large_dense)
+		if(ismob(obstacle) && exclude_mobs)
+			continue
+		if(!obstacle.CanPass(mover, border_dir))
+			return FALSE
+
+	return TRUE
+
+
+/**
+ * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
+ *
+ * Returns `TRUE` if the turf is blocked because the turf itself is dense.
+ * Returns `TRUE` if one of the turf's contents is dense and would block a source atom's movement.
+ * Returns `FALSE` if the turf is not blocked.
+ *
+ * Arguments:
+ * * exclude_mobs - If `TRUE`, ignores dense mobs on the turf.
+ * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
+ * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
+ * * type_list - are we checking for types of atoms to ignore and not physical atoms
+ */
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms, type_list = FALSE)
+	if(density)
+		return TRUE
+
+	if(locate(/mob/living/silicon/ai) in src) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+		return TRUE
+
+	if(source_atom && !CanEnter(source_atom, exclude_mobs, ignore_atoms, type_list))
+		return TRUE
+
+	for(var/atom/movable/movable_content as anything in src)
+		// We don't want to block ourselves
+		if((movable_content == source_atom))
+			continue
+		// dont consider ignored atoms or their types
+		if(length(ignore_atoms))
+			if(!type_list && (movable_content in ignore_atoms))
+				continue
+			else if(type_list && is_type_in_list(movable_content, ignore_atoms))
+				continue
+
+		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
+		// it cannot pass through the thing on the turf, we consider the turf blocked.
+		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
+			//if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
+			//	continue
+			return TRUE
+	return FALSE
 

@@ -20,9 +20,10 @@
 		icon_state = "fingerprint1"
 
 /obj/item/sample/proc/copy_evidence(atom/supplied)
-	if(supplied.suit_fibers && supplied.suit_fibers.len)
-		evidence = supplied.suit_fibers.Copy()
+	if(supplied.time_of_touch && supplied.time_of_touch.len)
+		evidence = supplied.time_of_touch.Copy()
 		supplied.suit_fibers.Cut()
+		supplied.time_of_touch.Cut()
 
 /obj/item/sample/proc/merge_evidence(obj/item/sample/supplied, mob/user)
 	if(!supplied.evidence || !supplied.evidence.len)
@@ -124,10 +125,10 @@
 	return 0
 
 /obj/item/sample/print/copy_evidence(atom/supplied)
-	if(supplied.fingerprints && supplied.fingerprints.len)
-		for(var/print in supplied.fingerprints)
-			evidence[print] = supplied.fingerprints[print]
+	if(supplied.fingerprints_time && supplied.fingerprints_time.len)
+		evidence = supplied.fingerprints_time.Copy()
 		supplied.fingerprints.Cut()
+		supplied.fingerprints_time.Cut()
 
 /obj/item/forensics
 
@@ -157,19 +158,19 @@
 		. = ..()
 
 
-/obj/item/forensics/sample_kit/MouseDrop(atom/over)
+/obj/item/forensics/sample_kit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
 	if(loc != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE)
+	afterattack(over_object, user, TRUE)
 	return TRUE
 
 

@@ -3,6 +3,7 @@
 	desc = "A remote control-switch for a door."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl"
+	base_icon_state = "doorctrl"
 	power_channel = ENVIRON
 	var/id = null
 	var/safety_z_check = TRUE
@@ -20,10 +21,17 @@
 
 	var/exposedwires = FALSE
 	var/ai_control = TRUE
+	var/is_animating = FALSE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
+
+
+/obj/machinery/door_control/Initialize(mapload)
+	. = ..()
+	power_change(forced = TRUE)
+
 
 /obj/machinery/door_control/attack_ai(mob/user)
 	if(ai_control)
@@ -36,7 +44,7 @@
 		return
 	return ..()
 
-/obj/machinery/door_control/emag_act(user as mob)
+/obj/machinery/door_control/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		req_access = list()
@@ -48,50 +56,46 @@
 
 /obj/machinery/door_control/Initialize(mapload)
     . = ..()
-    if(!istype(id, /list))
+    if(!islist(id))
         id = list(id)
 
 /obj/machinery/door_control/proc/do_main_action(mob/user)
 	if(normaldoorcontrol)
-		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
-			if(safety_z_check && D.z != z || !(D.id_tag in id))
+		for(var/obj/machinery/door/airlock/airlock in GLOB.airlocks)
+			if(safety_z_check && airlock.z != z || !(airlock.id_tag in id))
 				continue
 			if(specialfunctions & OPEN)
-				if(D.density)
-					spawn(0)
-						D.open()
+				if(airlock.density)
+					INVOKE_ASYNC(airlock, TYPE_PROC_REF(/obj/machinery/door, open))
 				else
-					spawn(0)
-						D.close()
+					INVOKE_ASYNC(airlock, TYPE_PROC_REF(/obj/machinery/door, close))
 			if(desiredstate)
 				if(specialfunctions & IDSCAN)
-					D.aiDisabledIdScanner = TRUE
+					airlock.aiDisabledIdScanner = TRUE
 				if(specialfunctions & BOLTS)
-					D.lock()
+					airlock.lock()
 				if(specialfunctions & SHOCK)
-					D.electrify(-1)
+					airlock.electrify(-1)
 				if(specialfunctions & SAFE)
-					D.safe = FALSE
+					airlock.safe = FALSE
 			else
 				if(specialfunctions & IDSCAN)
-					D.aiDisabledIdScanner = FALSE
+					airlock.aiDisabledIdScanner = FALSE
 				if(specialfunctions & BOLTS)
-					D.unlock()
+					airlock.unlock()
 				if(specialfunctions & SHOCK)
-					D.electrify(0)
+					airlock.electrify(0)
 				if(specialfunctions & SAFE)
-					D.safe = TRUE
+					airlock.safe = TRUE
 
 	else
-		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
-			if(safety_z_check && M.z != z || !(M.id_tag in id))
+		for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
+			if(safety_z_check && poddoor.z != z || !(poddoor.id_tag in id))
 				continue
-			if(M.density)
-				spawn(0)
-					M.open()
+			if(poddoor.density)
+				INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, open))
 			else
-				spawn(0)
-					M.close()
+				INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, close))
 
 	desiredstate = !desiredstate
 
@@ -102,31 +106,86 @@
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, span_warning("Access Denied."))
-		flick("[initial(icon_state)]-denied",src)
+		flick("[base_icon_state]-denied",src)
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 	use_power(5)
-	icon_state = "[initial(icon_state)]-inuse"
-
+	animate_activation()
 	do_main_action(user)
 
-	addtimer(CALLBACK(src, PROC_REF(update_icon)), 15)
 
-/obj/machinery/door_control/power_change()
-	..()
+/obj/machinery/door_control/proc/animate_activation()
+	if(is_animating)
+		return
+	is_animating = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(finish_animation)), 1.5 SECONDS)
+
+
+/obj/machinery/door_control/proc/finish_animation()
+	is_animating = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/door_control/power_change(forced = FALSE)
+	if(!..())
+		return
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
-/obj/machinery/door_control/update_icon()
+
+/obj/machinery/door_control/update_icon_state()
 	if(stat & NOPOWER)
-		icon_state = "[initial(icon_state)]-p"
-	else
-		icon_state = initial(icon_state)
+		icon_state = "[base_icon_state]-p"
+		return
+	icon_state = is_animating ? "[base_icon_state]-inuse" : base_icon_state
+
+
+/obj/machinery/door_control/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+
 
 /obj/machinery/door_control/secure //Use icon_state = "altdoorctrl" if you just want cool icon for your button on map. This button is created for Admin-zones.
 	icon_state = "altdoorctrl"
+	base_icon_state = "altdoorctrl"
 	ai_control = FALSE
 
 /obj/machinery/door_control/secure/emag_act(user)
-	to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
+	if(user)
+		to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
+
+
+// hidden mimic button
+/obj/machinery/door_control/mimic
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "lantern"
+
+
+/obj/machinery/door_control/mimic/animate_activation()
+	audible_message("Something clicked.", hearing_distance = 1)
+
+
+/obj/machinery/door_control/mimic/update_icon_state()
 	return
+
+
+/obj/machinery/door_control/mimic/update_overlays()
+	. = list()
+
+
+/obj/machinery/door_control/mimic/power_change(forced = FALSE)
+	if(powered(power_channel))
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
+

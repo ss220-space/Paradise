@@ -66,6 +66,29 @@
 		A.death()
 	return ..()
 
+
+/obj/item/soulstone/update_name(updates = ALL)
+	. = ..()
+	var/mob/living/simple_animal/shade/shade = locate() in src
+	if(shade)
+		name = "soulstone: [shade.name]"
+	else
+		name = initial(name)
+
+
+/obj/item/soulstone/update_icon_state()
+	if(purified)
+		icon_state = "purified_soulstone"
+		icon_state_full = "purified_soulstone2"
+	else
+		icon_state = initial(icon_state)
+		icon_state_full = initial(icon_state_full)
+
+	var/mob/living/simple_animal/shade/shade = locate() in src
+	if(shade)
+		icon_state = icon_state_full
+
+
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(M == user)
@@ -125,7 +148,7 @@
 		var/old_plane = plane
 		layer = FLOAT_LAYER
 		plane = FLOAT_PLANE
-		A.overlays += src
+		A.add_overlay(src)
 		layer = old_layer
 		plane = old_plane
 
@@ -161,11 +184,9 @@
 			usability = TRUE
 			purified = TRUE
 			optional = TRUE
-			icon_state = "purified_soulstone"
-			icon_state_full = "purified_soulstone2"
-			for(var/mob/M in contents)
+			update_icon(UPDATE_ICON_STATE)
+			for(var/mob/M in src)
 				if(M.mind)
-					icon_state = "purified_soulstone2"
 					if(iscultist(M))
 						SSticker.mode.remove_cultist(M.mind, FALSE)
 						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] \
@@ -173,10 +194,10 @@
 						to_chat(M, "<span class='danger'>Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
 					else
 						to_chat(M, "<span class='danger'>Your soulstone has been exorcised, and you are now bound to obey [user]. </span>")
-
-			for(var/mob/living/simple_animal/shade/EX in src)
-				EX.holy = TRUE
-				EX.icon_state = "shade_angelic"
+				if(istype(M, /mob/living/simple_animal/shade))
+					var/mob/living/simple_animal/shade/shade = M
+					shade.holy = TRUE
+					shade.update_icon(UPDATE_ICON_STATE)
 			user.visible_message("<span class='notice'>[user] purifies [src]!</span>", "<span class='notice'>You purify [src]!</span>")
 
 	else if(istype(O, /obj/item/melee/cultblade/dagger) && iscultist(user))
@@ -187,16 +208,15 @@
 			usability = FALSE
 			purified = FALSE
 			optional = FALSE
-			icon_state = "soulstone"
-			icon_state_full = "soulstone2"
-			for(var/mob/M in contents)
+			update_icon(UPDATE_ICON_STATE)
+			for(var/mob/M in src)
 				if(M.mind)
-					icon_state = "soulstone2"
 					SSticker.mode.add_cultist(M.mind)
 					to_chat(M, "<span class='cult'>Your shard has been cleansed of holy magic, and you are now bound to the cult's will. Obey them and assist in their goals.</span>")
-			for(var/mob/living/simple_animal/shade/EX in src)
-				EX.holy = FALSE
-				EX.icon_state = SSticker.cultdat?.shade_icon_state
+				if(istype(M, /mob/living/simple_animal/shade))
+					var/mob/living/simple_animal/shade/shade = M
+					shade.holy = FALSE
+					shade.update_icon(UPDATE_ICON_STATE)
 			to_chat(user, "<span class='notice'>You have cleansed [src] of holy magic.</span>")
 	else
 		..()
@@ -218,11 +238,7 @@
 	for(var/mob/living/simple_animal/shade/A in src)
 		A.forceMove(get_turf(user))
 		A.cancel_camera()
-		if(purified)
-			icon_state = "purified_soulstone"
-		else
-			icon_state = "soulstone"
-		name = initial(name)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 		if(iscultist(A))
 			to_chat(A, "<span class='userdanger'>You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs.</span>")
 		else
@@ -264,14 +280,30 @@
 	desc = "A holy machine used by those who are pure in soul and mind. It is inactive."
 	var/defiled = FALSE
 
+
+/obj/structure/constructshell/holy/update_icon_state()
+	icon_state = defiled ? "construct-cult" : initial(icon_state)
+
+
+/obj/structure/constructshell/holy/update_name(updates = ALL)
+	. = ..()
+	name = defiled ? "empty shell" : initial(name)
+
+
+/obj/structure/constructshell/holy/update_desc(updates = ALL)
+	. = ..()
+	if(!defiled)
+		desc = initial(desc)
+		return
+	desc = "A wicked machine used by those skilled in magical arts. It is inactive."
+
+
 /obj/structure/constructshell/holy/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
 		if(!defiled)
 			return
-		name = initial(name)
-		icon_state = initial(icon_state)
-		desc = initial(desc)
 		defiled = FALSE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	if(defiled)
 		return ..()
 	if(istype(I, /obj/item/soulstone))
@@ -285,10 +317,7 @@
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		if(do_after(user, 4 SECONDS, target = src))
 			user.visible_message("<span class='warning'>[user] defile [src] with dark magic!!</span>", "<span class='cult'>You sanctified [src]. Yes-yes. I need more acolytes!</span>")
-			name = "empty shell"
-			icon_state = "construct-cult"
-			desc = "A wicked machine used by those skilled in magical arts. It is inactive."
-			defiled = TRUE
+			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return
 	return ..()
 
@@ -337,10 +366,9 @@
 					to_chat(user, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 				else
 					T.forceMove(src) // Put the shade into the stone.
-					T.canmove = 0
+					T.canmove = FALSE
 					T.health = T.maxHealth
-					icon_state = icon_state_full
-					name = "soulstone : [T.name]"
+					update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 					to_chat(T, "<span class='notice'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form</span>")
 					to_chat(user, "<span class='notice'>Capture successful!</span> [T.name]'s has been recaptured and stored within the soul stone.")
 
@@ -437,8 +465,7 @@
 	S.real_name = "Shade of [M.real_name]"
 	S.key = M.key
 	S.cancel_camera()
-	name = "soulstone: [S.name]"
-	icon_state = icon_state_full
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	log_game("[S.key] has become [S.name] with [purified ? "holy" : "corrupted"] essence.")
 	if(user)
 		S.faction |= "\ref[user]" //Add the master as a faction, allowing inter-mob cooperation

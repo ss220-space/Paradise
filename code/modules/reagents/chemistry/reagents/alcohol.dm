@@ -1180,7 +1180,7 @@
 	if(prob(50))
 		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
 		M.emote(pick("scream","cry","choke","gasp"))
-		M.Stun(2 SECONDS, FALSE)
+		M.Stun(2 SECONDS)
 	if(prob(8))
 		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
 	if(prob(8))
@@ -2123,7 +2123,7 @@
 /datum/reagent/consumable/ethanol/codelibre/on_mob_life(mob/living/M)
 	. = ..()
 	if(prob(10))
-		M.say(":5 [pick("Viva la Synthetica!")]")
+		M.say("[get_language_prefix(LANGUAGE_TRINARY)] Viva la Synthetica!")
 
 /datum/reagent/consumable/ethanol/blackicp
 	name = "Black ICP"
@@ -2192,9 +2192,8 @@
 	taste_description = "faith in fairies"
 
 /datum/reagent/consumable/ethanol/green_fairy/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.SetDruggy(min(max(0, M.AmountDruggy() + 10 SECONDS), 15 SECONDS))
-	return ..() | update_flags
+	M.SetDruggy(min(max(0, M.AmountDruggy() + 10 SECONDS), 15 SECONDS))
+	return ..()
 
 /datum/reagent/consumable/ethanol/home_lebovsky
 	name = "Home Lebowski"
@@ -2231,7 +2230,7 @@
 
 /datum/reagent/consumable/ethanol/trans_siberian_express/on_mob_life(mob/living/M)
 	. = ..()
-	var/datum/language/rus_lang = GLOB.all_languages["Neo-Russkiya"]
+	var/datum/language/rus_lang = GLOB.all_languages[LANGUAGE_NEO_RUSSIAN]
 	if((rus_lang in M.languages) && !(rus_lang in M.temporary_languages))
 		if(M.default_language != rus_lang)
 			M.default_language = rus_lang
@@ -2305,8 +2304,7 @@
 	taste_description = "the blue set-up"
 
 /datum/reagent/consumable/ethanol/blue_moondrin/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Druggy(30 SECONDS, FALSE)
+	M.Druggy(30 SECONDS, FALSE)
 	switch(current_cycle)
 		if(1 to 15)
 			M.Dizzy(10 SECONDS)
@@ -2327,7 +2325,7 @@
 				M.Jitter(20 SECONDS)
 				M.AdjustHallucinate(30 SECONDS)
 				M.emote("moan")
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/consumable/ethanol/red_moondrin
 	name = "Redwater Moon'drin"
@@ -2343,7 +2341,7 @@
 
 /datum/reagent/consumable/ethanol/red_moondrin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Druggy(30, FALSE)
+	M.Druggy(30 SECONDS)
 	switch(current_cycle)
 		if(1 to 20)
 			M.Dizzy(20 SECONDS)
@@ -2394,7 +2392,7 @@
 				to_chat(M, "<span class='warning'>You can't breathe! But it feels GOOD!</span>")
 				update_flags |= M.adjustOxyLoss(15, FALSE)
 				update_flags |= M.adjustToxLoss(2, FALSE)
-				M.Stun(2 SECONDS, FALSE)
+				M.Stun(2 SECONDS)
 			if(prob(3))
 				M.playsound_local(src, 'sound/effects/heartbeat.ogg', 2)
 				to_chat(M, "<span class='warning'>You feel like you're being watched!</span>")
@@ -2402,7 +2400,7 @@
 				M.emote(pick("drool","scream"))
 				M.Jitter(20 SECONDS)
 				update_flags |= M.adjustToxLoss(3, FALSE)
-				M.Weaken(2 SECONDS, FALSE)
+				M.Weaken(2 SECONDS)
 				M.AdjustConfused(66 SECONDS)
 	return ..() | update_flags
 

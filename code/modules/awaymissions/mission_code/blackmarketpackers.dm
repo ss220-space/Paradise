@@ -188,7 +188,7 @@
 	icon_state = "destroyed_target_prism"
 
 /obj/machinery/broken/porta_turret/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/crowbar))
+	if(I.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
 	if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
 		if(prob(70))
@@ -206,8 +206,7 @@
 /obj/machinery/firealarm/triggered_nosignals
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
-	triggered = TRUE
-	icon_state = "fire1"
+
 
 //Spieder spawner
 

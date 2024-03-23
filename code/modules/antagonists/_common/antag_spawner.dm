@@ -215,8 +215,8 @@
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
 	demon.mind.objectives += KillDaCrew
-	demon.mind.announce_objectives()
-
+	var/list/messages = demon.mind.prepare_announce_objectives()
+	to_chat(demon, chat_box_red(messages.Join("<br>")))
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -299,8 +299,8 @@
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
 	M.mind.objectives += KillDaCrew
-	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
-	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	var/list/messages = M.mind.prepare_announce_objectives()
+	to_chat(M, chat_box_red(messages.Join("<br>")))
 	M << 'sound/magic/mutate.ogg'
 
 
@@ -356,7 +356,6 @@
 	player_mind.transfer_to(demon)
 	player_mind.assigned_role = SPECIAL_ROLE_DEMON
 	player_mind.special_role = SPECIAL_ROLE_DEMON
-	var/i = demon.give_objectives()
 
 	var/datum/objective/assassinate/kill_wiz = new /datum/objective/assassinate
 	kill_wiz.owner = demon.mind
@@ -370,5 +369,5 @@
 	kill_crew.completed = TRUE
 	demon.mind.objectives += kill_crew
 
-	to_chat(demon, "<b>Objective #[i++]</b>: [kill_wiz.explanation_text]")
-	to_chat(demon, "<b>Objective #[i++]</b>: [kill_crew.explanation_text]")
+	var/list/messages = demon.mind.prepare_announce_objectives()
+	to_chat(demon, chat_box_red(messages.Join("<br>")))

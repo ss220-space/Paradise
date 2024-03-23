@@ -1,13 +1,19 @@
+GLOBAL_LIST_EMPTY(closets)
+
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
-	density = 1
+	density = TRUE
 	layer = LOW_ITEM_LAYER	//Prevents items from dropping on turf visually
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
+	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
+
+	/// Special marker for the closet to use default icon_closed/icon_opened states, skipping everything else.
+	var/no_overlays = FALSE
 	var/icon_closed = "closed" //stays here for compatibility issues
 	var/icon_opened = "open"
 
@@ -19,12 +25,13 @@
 	var/custom_door_overlay = null //handles overlay of door looking into screen
 	var/custom_open_overlay = null //handles overlay of opened door (its inner side)
 
+	var/ignore_density_closed = FALSE
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
 	var/large = TRUE
 	var/can_be_emaged = FALSE
-	var/wall_mounted = 0 //never solid (You can always pass over it)
+	var/wall_mounted = FALSE //never solid (You can always pass over it)
 	var/lastbang
 	var/open_sound = 'sound/machines/closet_open.ogg'
 	var/close_sound = 'sound/machines/closet_close.ogg'
@@ -42,6 +49,7 @@
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
 	. = ..()
+	GLOB.closets += src
 	if(mapload && !opened)
 		// Youre probably asking, why is this a 0 seconds timer AA?
 		// Well, I will tell you. One day, all /obj/effect/spawner will use Initialize
@@ -60,7 +68,8 @@
 /obj/structure/closet/proc/take_contents()
 	var/itemcount = 0
 	for(var/obj/item/I in loc)
-		if(I.density || I.anchored || I == src) continue
+		if(I.density || I.anchored || I == src)
+			continue
 		I.forceMove(src)
 		// Ensure the storage cap is respected
 		if(++itemcount >= storage_capacity)
@@ -68,15 +77,16 @@
 
 // Fix for #383 - C4 deleting fridges with corpses
 /obj/structure/closet/Destroy()
+	GLOB.closets -= src
 	dump_contents()
 	return ..()
 
-/obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+
+/obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(wall_mounted)
 		return TRUE
-	if(height==0 || wall_mounted)
-		return TRUE
-	return (!density)
+
 
 /obj/structure/closet/proc/can_open()
 	if(welded)
@@ -162,12 +172,14 @@
 		playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', close_sound_volume, TRUE, -3)
-	density = TRUE
+	density = ignore_density_closed ? FALSE : TRUE
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
+	. = TRUE
 	if(!(opened ? close() : open()))
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
+		. = FALSE
+		to_chat(user, span_notice("It won't budge!"))
 
 /obj/structure/closet/proc/bust_open()
 	welded = FALSE //applies to all lockers
@@ -247,10 +259,10 @@
 			user.visible_message("<span class='notice'>[user] welds [src] [adjective]!</span>", "<span class='notice'>You weld [src] [adjective]!</span>")
 			welded = !welded
 			update_icon()
-			return
 
-/obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
-	..()
+
+/obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user, params)
+	. = ..()
 	if(istype(O, /obj/screen))	//fix for HUD elements making their way into the world	-Pete
 		return
 	if(O.loc == user)
@@ -271,6 +283,7 @@
 	if(user != O)
 		user.visible_message("<span class='danger'>[user] stuffs [O] into [src]!</span>", "<span class='danger'>You stuff [O] into [src]!</span>")
 	add_fingerprint(user)
+	return TRUE
 
 /obj/structure/closet/attack_ai(mob/user)
 	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
@@ -300,8 +313,7 @@
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user)
 	add_fingerprint(user)
-	if(!toggle())
-		to_chat(usr, "<span class='notice'>It won't budge!</span>")
+	toggle()
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
@@ -311,26 +323,49 @@
 	if(usr.incapacitated())
 		return
 
-	if(ishuman(usr))
+	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
 		add_fingerprint(usr)
 		toggle(usr)
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
-/obj/structure/closet/update_icon() //Putting the welded stuff in updateicon() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
-	overlays.Cut()
-	if(!opened)
-		if(custom_door_overlay)
-			overlays += "[custom_door_overlay]_door"
-		else
-			overlays += "[icon_state]_door"	//No initials because of custom map-made closets.
-		if(welded)
-			overlays += "welded"
-	else
+
+/obj/structure/closet/update_icon(updates = ALL)
+	if(no_overlays)
+		return ..(UPDATE_ICON_STATE)
+	return ..()
+
+
+/obj/structure/closet/update_icon_state()
+	if(no_overlays)
+		icon_state = opened ? icon_opened : icon_closed
+
+
+/obj/structure/closet/update_overlays()
+	. = ..()
+	if(opened)
 		if(custom_open_overlay)
-			overlays += "[custom_open_overlay]_open"
+			. += "[custom_open_overlay]_open"
 		else
-			overlays += "[icon_state]_open"
+			. += "[icon_state]_open"
+	else
+		for(var/olay in apply_contents_overlays())
+			. += olay
+		if(custom_door_overlay)
+			. += "[custom_door_overlay]_door"
+		else
+			. += "[icon_state]_door"	//No initials because of custom map-made closets.
+		if(welded)
+			. += "welded"
+
+
+/**
+ * Additional overlays for contents inside the closet. Usefull when the door is transparent.
+ */
+/obj/structure/closet/proc/apply_contents_overlays()
+	RETURN_TYPE(/list)
+	. = list()
+
 
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
@@ -348,6 +383,10 @@
 			L.forceMove(get_turf(src)) // Let's just be safe here
 		return //Door's open... wait, why are you in it's contents then?
 	if(!welded)
+		if(isobj(loc))
+			var/obj/loc_as_obj = loc
+			loc_as_obj.container_resist(L)
+			return
 		open() //for cardboard boxes
 		return //closed but not welded...
 	//	else Meh, lets just keep it at 2 minutes for now
@@ -377,6 +416,9 @@
 			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
+			if(isobj(loc))
+				var/obj/loc_as_obj = loc
+				loc_as_obj.container_resist(L)
 			open()
 
 /obj/structure/closet/tesla_act(var/power)
@@ -405,6 +447,15 @@
 	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
 	return
 
+
+/obj/structure/closet/AltClick(mob/living/simple_animal/hostile/gorilla/gorilla)
+	if(istype(gorilla) && in_range(gorilla, src))
+		gorilla.face_atom(src)
+		toggle()
+		gorilla.oogaooga()
+	return ..()
+
+
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
@@ -414,9 +465,6 @@
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	var/transparent = FALSE
 
-/obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
-	UpdateTransparency(AM, loc)
-	return TRUE
 
 /obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
 	var/transparency = FALSE
@@ -427,28 +475,38 @@
 	transparent = transparency
 	update_icon()
 
-/obj/structure/closet/bluespace/update_icon()
-	overlays.Cut()
-	icon_state = initial(icon_state)
+
+/obj/structure/closet/bluespace/update_icon_state()
+	icon_state = "[initial(icon_state)][transparent ? "_trans" : ""]"
+
+
+/obj/structure/closet/bluespace/update_overlays()
+	. = list()
 	if(!opened)
-		if(welded)
-			overlays += "welded"
 		if(transparent)
-			icon_state += "_trans"
-			overlays += "[initial(icon_state)]_door_trans"
+			. += "[initial(icon_state)]_door_trans"
 		else
-			overlays += "[initial(icon_state)]_door"
+			. += "[initial(icon_state)]_door"
+		if(welded)
+			. += "welded"
 	else
 		if(transparent)
-			icon_state += "_trans"
-			overlays += "[initial(icon_state)]_open_trans"
+			. += "[initial(icon_state)]_open_trans"
 		else
-			overlays += "[initial(icon_state)]_open"
+			. += "[initial(icon_state)]_open"
+
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
+	. = ..()
 	if(AM.density)
 		transparent = TRUE
 		update_icon()
+
+
+/obj/structure/closet/bluespace/Uncrossed(atom/movable/mover)
+	. = ..()
+	UpdateTransparency(mover, loc)
+
 
 /obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(NewLoc)

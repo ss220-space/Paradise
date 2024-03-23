@@ -24,7 +24,8 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		ignore_flags = TRUE
-		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 
 /obj/item/reagent_containers/applicator/set_APTFT()
 	set hidden = TRUE
@@ -43,16 +44,15 @@
 				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
 	update_icon()
 
-/obj/item/reagent_containers/applicator/update_icon()
-	if(applying)
-		icon_state = "mender-active"
-	else
-		icon_state = "mender"
-	cut_overlays()
+
+/obj/item/reagent_containers/applicator/update_icon_state()
+	icon_state = "mender[applying ? "-active" : ""]"
+
+
+/obj/item/reagent_containers/applicator/update_overlays()
+	. = ..()
 	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/goonstation/objects/objects.dmi', "mender-fluid")
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling)
+		. += mutable_appearance('icons/goonstation/objects/objects.dmi', "mender-fluid", color = mix_color_from_reagents(reagents.reagent_list))
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
 	var/mutable_appearance/applicator_bar = mutable_appearance('icons/goonstation/objects/objects.dmi', "app_e")
 	switch(reag_pct)
@@ -62,7 +62,8 @@
 			applicator_bar.icon_state = "app_he"
 		if(0)
 			applicator_bar.icon_state = "app_e"
-	add_overlay(applicator_bar)
+	. += applicator_bar
+
 
 /obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)

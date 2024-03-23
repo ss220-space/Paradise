@@ -3,7 +3,7 @@
 	desc = "Shoots things into space."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver"
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 50
@@ -27,7 +27,7 @@
 	if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
 		var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
 		F.dir = dir
-		F.anchored = 1
+		F.anchored = TRUE
 		F.build = 4
 		F.update_icon()
 		qdel(src)
@@ -61,7 +61,8 @@
 /obj/machinery/mass_driver/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
+		if(user)
+			to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
 		return 1
 	return -1
 
@@ -89,30 +90,30 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver_frame"
 	density = 0
-	anchored = 0
+	anchored = FALSE
 	var/build = 0
 
 /obj/machinery/mass_driver_frame/attackby(var/obj/item/W as obj, var/mob/user as mob)
 	switch(build)
 		if(0) // Loose frame
-			if(istype(W, /obj/item/wrench))
+			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "You begin to anchor \the [src] on the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 0))
 					add_fingerprint(user)
 					to_chat(user, span_notice("You anchor \the [src]!"))
-					anchored = 1
+					anchored = TRUE
 					build++
 				return 1
 			return
 		if(1) // Fixed to the floor
-			if(istype(W, /obj/item/wrench))
+			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 1))
 					add_fingerprint(user)
 					build--
-					anchored = 0
+					anchored = FALSE
 					to_chat(user, span_notice("You de-anchored \the [src]!"))
 				return 1
 		if(2) // Welded to the floor
@@ -127,7 +128,7 @@
 					build++
 			return
 		if(3) // Wired
-			if(istype(W, /obj/item/wirecutters))
+			if(W.tool_behaviour == TOOL_WIRECUTTER)
 				to_chat(user, "You begin to remove the wiring from \the [src].")
 				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 3))
 					add_fingerprint(user)
@@ -148,7 +149,7 @@
 				return 1
 			return
 		if(4) // Grille in place
-			if(istype(W, /obj/item/crowbar))
+			if(W.tool_behaviour == TOOL_CROWBAR)
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 30 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 4))
@@ -156,7 +157,7 @@
 					new /obj/item/stack/rods(loc,2)
 					build--
 				return 1
-			if(istype(W, /obj/item/screwdriver))
+			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				add_fingerprint(user)
 				to_chat(user, "You finalize the Mass Driver...")
 				playsound(get_turf(src), W.usesound, 50, 1)

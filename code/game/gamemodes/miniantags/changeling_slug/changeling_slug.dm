@@ -10,9 +10,10 @@
 /mob/living/simple_animal/hostile/headslug/evented/proc/make_slug_antag(give_default_objectives = TRUE)
 	mind.assigned_role = SPECIAL_ROLE_HEADSLUG
 	mind.special_role = SPECIAL_ROLE_HEADSLUG
-	to_chat(src, "<b><font size=3 color='red'>We are a headslug.</font><br></b>")
-	to_chat(src, span_changeling("Our eggs can be laid in any dead humanoid, but not in small ones. Use <B>Alt-Click</B> on the valid mob and keep calm for 5 seconds."))
-	to_chat(src, span_notice("Though this form shall perish after laying the egg, our true self shall be reborn in time."))
+	var/list/messages = list()
+	messages.Add("<b><font size=3 color='red'>We are a headslug.</font><br></b>")
+	messages.Add(span_changeling("Our eggs can be laid in any dead humanoid, but not in small ones. Use <B>Alt-Click</B> on the valid mob and keep calm for 5 seconds."))
+	messages.Add(span_notice("Though this form shall perish after laying the egg, our true self shall be reborn in time."))
 
 	SEND_SOUND(src, sound('sound/vox_fem/changeling.ogg'))
 	if(give_default_objectives)
@@ -22,7 +23,8 @@
 		findhost.completed = TRUE
 		findhost.needs_target = FALSE
 		mind.objectives += findhost
-		mind.announce_objectives()
+		messages.Add(mind.prepare_announce_objectives())
+	to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /datum/antagonist/changeling/evented // make buffed changeling
 	evented = TRUE

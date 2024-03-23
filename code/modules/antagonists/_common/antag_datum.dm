@@ -37,6 +37,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_gain_text = "You are no longer clumsy."
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
+	/// If antagonist has his own wiki page
+	var/wiki_page_name
+	/// Russian name of wiki page
+	var/russian_wiki_name
 
 
 /datum/antagonist/New()
@@ -118,16 +122,21 @@ GLOBAL_LIST_EMPTY(antagonists)
 	add_owner_to_gamemode()
 	if(give_objectives)
 		give_objectives()
+	var/list/messages = list()
 	if(!silent)
-		greet()
-		announce_objectives()
+		messages.Add(greet())
+		messages.Add(owner.prepare_announce_objectives())
 	apply_innate_effects()
-	finalize_antag()
+	messages.Add(finalize_antag())
+	if(wiki_page_name)
+		messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/[wiki_page_name]\">[russian_wiki_name]</span>")
+	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
 	return TRUE
+
 
 
 /**
@@ -150,8 +159,10 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Called in `on_gain()` if silent it set to FALSE.
  */
 /datum/antagonist/proc/greet()
+	var/list/messages = list()
+	. = messages
 	if(owner?.current && !silent)
-		to_chat(owner.current, span_userdanger("You are a [special_role]!"))
+		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
 
 
 /**

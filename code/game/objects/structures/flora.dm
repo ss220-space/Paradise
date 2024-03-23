@@ -5,7 +5,7 @@
 //trees
 /obj/structure/flora/tree
 	name = "tree"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	pixel_x = -16
 	layer = 9
@@ -14,15 +14,18 @@
 	name = "pine tree"
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_1"
+	var/randomize_tree = TRUE
 
 /obj/structure/flora/tree/pine/Initialize(mapload)
 	. = ..()
-	icon_state = "pine_[rand(1, 3)]"
+	if(randomize_tree)
+		icon_state = "pine_[rand(1, 3)]"
 
 /obj/structure/flora/tree/pine/xmas
 	name = "xmas tree"
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_c"
+	randomize_tree = FALSE
 
 /obj/structure/flora/tree/dead
 	icon = 'icons/obj/flora/deadtrees.dmi'
@@ -62,7 +65,7 @@
 /obj/structure/flora/grass
 	name = "grass"
 	icon = 'icons/obj/flora/snowflora.dmi'
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 15
 
 /obj/structure/flora/grass/brown
@@ -93,7 +96,7 @@
 	name = "bush"
 	icon = 'icons/obj/flora/snowflora.dmi'
 	icon_state = "snowbush1"
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 15
 
 /obj/structure/flora/bush/Initialize(mapload)
@@ -106,7 +109,7 @@
 	name = "bush"
 	icon = 'icons/obj/flora/ausflora.dmi'
 	icon_state = "firstbush_1"
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 15
 
 /obj/structure/flora/ausbushes/Initialize(mapload)
@@ -224,7 +227,7 @@
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
 	flags = NO_PIXEL_RANDOM_DROP
-	anchored = 0
+	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
@@ -318,7 +321,7 @@
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
 	resistance_flags = FIRE_PROOF
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/flora/rock/Initialize(mapload)
 	. = ..()
@@ -367,7 +370,7 @@
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "cornstalk1"
-	anchored = 0
+	anchored = FALSE
 	layer = 5
 
 /obj/structure/flora/corn_stalk/alt_1
@@ -395,7 +398,7 @@
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "bush1"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	layer = 3.2
 	var/indestructable = 0
 	var/stump = 0

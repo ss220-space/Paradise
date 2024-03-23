@@ -521,13 +521,13 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!is_shadow_or_thrall(M))
 		to_chat(M, "<span class='warning'><b>You breathe in the black smoke, and your eyes burn horribly!</b></span>")
-		update_flags |= M.EyeBlind(5, FALSE)
+		M.EyeBlind(10 SECONDS)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at [M.p_their()] eyes!")
 			M.Stun(4 SECONDS)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
-		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
+		M.heal_organ_damage(10, 10, updating_health = FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-10, FALSE)
 	return ..() | update_flags
@@ -644,7 +644,7 @@
 		to_chat(user, "<span class='shadowling'>You sent the APC's power to the void while overloading all it's lights!</span>")
 		target_apc.cell?.charge = 0	//Sent to the shadow realm
 		target_apc.chargemode = FALSE //Won't recharge either until an someone hits the button
-		target_apc.charging = FALSE
+		target_apc.charging = APC_NOT_CHARGING
 		target_apc.null_charge()
 		target_apc.update_icon()
 
@@ -935,7 +935,7 @@
 	to_chat(target, "<span class='userdanger'><font size=3>An agonizing spike of pain drives into your mind, and--</font></span>")
 	SSticker.mode.add_thrall(target.mind)
 	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
-	target.add_language("Shadowling Hivemind")
+	target.add_language(LANGUAGE_HIVE_SHADOWLING)
 
 
 

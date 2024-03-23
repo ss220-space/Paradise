@@ -555,7 +555,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_paperwork"
 	typepath = /mob/living/simple_animal/pet/sloth/paperwork
 	name = "ленивца по кличке Paperwork"
-	protected_jobs = list("Quartermaster", "Head of Personnel")
+	protected_jobs = list("Quartermaster", "Head of Personnel", "Cargo Technician")
 
 /datum/theft_objective/animal/slugcat
 	id = "animal_slugcat"
@@ -585,6 +585,13 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /mob/living/simple_animal/possum/Poppy
 	name = "опоссума по кличке Ключик"
 	protected_jobs = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
+
+
+/datum/theft_objective/animal/mars
+	id = "animal_mars"
+	typepath = /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars
+	name = "гориллу по кличке Марс"
+	protected_jobs = list("Quartermaster", "Head of Personnel", "Cargo Technician")
 
 
 //==========================
@@ -708,6 +715,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/lighter/zippo/ce,
 		/obj/item/lighter/zippo/cmo,
 		/obj/item/lighter/zippo/rd,
+		/obj/item/lighter/zippo/qm,
 	)
 
 /datum/theft_objective/collect/hats
@@ -745,6 +753,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/clothing/under/rank/captain,
 		/obj/item/clothing/suit/hop_jacket,
 		/obj/item/clothing/under/rank/ntrep,
+		/obj/item/clothing/under/rank/ntrep/skirt,
 		/obj/item/clothing/suit/storage/ntrep,
 		/obj/item/clothing/under/rank/blueshield,
 		/obj/item/clothing/suit/armor/vest/blueshield,
@@ -807,13 +816,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	min=3
 	max=8
 
-/datum/theft_objective/collect/number/dominator
-	id = "collect_num_dominator"
-	typepath = /obj/item/gun/energy/dominator
-	name = "пистолеты Доминатор"
-	min=3
-	max=8
-
 /datum/theft_objective/collect/number/wt550
 	id = "collect_num_wt550"
 	typepath = /obj/item/gun/projectile/automatic/wt550
@@ -856,8 +858,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	min=3
 	max=6
 
-/datum/theft_objective/collect/number/sybil
-	id = "collect_num_sybil"
+/datum/theft_objective/collect/number/sibyl
+	id = "collect_num_sibyl"
 	typepath = /obj/item/sibyl_system_mod
 	name = "системы Сибил"
 	min=4

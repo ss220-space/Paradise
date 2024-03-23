@@ -9,7 +9,7 @@
 		/turf/simulated/wall/shuttle, /obj/machinery/door/airlock/shuttle,
 		/obj/structure/window/full/shuttle, /obj/machinery/door/airlock,
 		/obj/structure/shuttle/engine, /obj/structure/filler,
-		/obj/structure/lattice/catwalk)
+		/obj/structure/lattice/catwalk, /obj/structure/falsewall/titanium)
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 
@@ -61,7 +61,7 @@
 /turf/simulated/wall/shuttle/try_decon(obj/item/I, mob/user, params)
 	return
 
-/turf/simulated/wall/shuttle/thermitemelt(mob/user as mob, speed)
+/turf/simulated/wall/shuttle/thermitemelt(mob/user, time)
 	return
 
 /turf/simulated/wall/shuttle/nodiagonal

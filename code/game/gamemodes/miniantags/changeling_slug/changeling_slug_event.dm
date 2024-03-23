@@ -11,8 +11,8 @@
 	announceWhen = rand(announceWhen, announceWhen + 50) //announce just like borers
 	spawncount = round(length(GLOB.data_core.general)/30)
 
-/datum/event/borer_infestation/announce()
-	if(successSpawn)
+/datum/event/headslug_infestation/announce(false_alarm)
+	if(successSpawn || false_alarm)
 		GLOB.command_announcement.Announce("Обнаружены неопознанные формы жизни на борту [station_name()]. Обезопасьте все наружные входы и выходы, включая вентиляцию и вытяжки.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.", new_sound = 'sound/AI/aliens.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Headslug Infestation")
@@ -43,7 +43,7 @@
 			log_game("[new_slug.key] has become Changeling Headslug.")
 
 /datum/event/headslug_infestation/proc/eventcheck()
-	if(((length(GLOB.clients)) <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
+	if((num_station_players() <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
 		return TRUE
 
 

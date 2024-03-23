@@ -218,8 +218,8 @@ emp_act
 
 //End Here
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
-	var/block_chance_modifier = round(damage / -3)
+/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, shields_penetration = 0)
+	var/block_chance_modifier = round(damage / -3) - shields_penetration
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
 		var/final_block_chance = l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
@@ -393,7 +393,7 @@ emp_act
 		I.acid_act(acidpwr, acid_volume)
 	return 1
 
-/mob/living/carbon/human/emag_act(user as mob, var/obj/item/organ/external/affecting)
+/mob/living/carbon/human/emag_act(mob/user, obj/item/organ/external/affecting)
 	if(!istype(affecting))
 		return
 	if(!affecting.is_robotic())
@@ -412,37 +412,33 @@ emp_act
 		w_uniform.add_fingerprint(user)
 	return ..()
 
-//Returns 1 if the attack hit, 0 if it missed.
+
+//Returns TRUE if the attack hit, FALSE if it missed.
 /mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(!I || !user)
-		return 0
+		return FALSE
 
 	if((istype(I, /obj/item/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
-		newmeat.name = real_name + newmeat.name
-		newmeat.subjectname = real_name
-		newmeat.subjectjob = job
-		newmeat.reagents.add_reagent("nutriment", (nutrition / 15) / 3)
-		reagents.trans_to(newmeat, round((reagents.total_volume) / 3, 1))
+		new dna.species.meat_type(get_turf(loc), src)
 		add_mob_blood(src)
 		--meatleft
-		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
+		to_chat(user, span_warning("You hack off a chunk of meat from [name]."))
 		if(!meatleft)
 			add_attack_logs(user, src, "Chopped up into meat")
 			qdel(src)
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 	if(!affecting)
-		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
-		return 1
+		to_chat(user, span_danger("They are missing that limb!"))
+		return TRUE
 	var/hit_area = parse_zone(affecting.limb_zone)
 
 	if(user != src)
 		user.do_attack_animation(src)
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
-			return 0
+			return FALSE
 
-	if(check_martial_art_defense(src, user, I, "<span class='warning'>[src] blocks [I]!</span>"))
+	if(check_martial_art_defense(src, user, I, span_warning("[src] blocks [I]!")))
 		return FALSE
 
 	if(istype(I,/obj/item/card/emag))
@@ -453,14 +449,14 @@ emp_act
 	var/weakness = check_weakness(I,user)
 
 	if(!I.force)
-		return 0 //item force is zero
+		return FALSE //item force is zero
 
-	var/armor = run_armor_check(affecting, "melee", "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
+	var/armor = run_armor_check(affecting, "melee", span_warning("Your armour has protected your [hit_area]."), span_warning("Your armour has softened hit to your [hit_area]."), armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
 	if(weapon_sharp && prob(getarmor(user.zone_selected, "melee")))
-		weapon_sharp = 0
+		weapon_sharp = FALSE
 	if(armor >= 100)
-		return 0
+		return FALSE
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
@@ -471,11 +467,11 @@ emp_act
 			if(mind == objective.target)
 				objective.take_damage(I.force * weakness, I.damtype)
 
-	var/bloody = 0
+	var/bloody = FALSE
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
 		I.add_mob_blood(src)	//Make the weapon bloody, not the person.
 		if(prob(I.force * 2)) //blood spatter!
-			bloody = 1
+			bloody = TRUE
 			var/turf/location = loc
 			if(istype(location, /turf/simulated))
 				add_splatter_floor(location)
@@ -489,8 +485,8 @@ emp_act
 				if(BODY_ZONE_HEAD)//Harder to score a stun but if you do it lasts a bit longer
 					if(stat == CONSCIOUS && armor < 50)
 						if(prob(I.force))
-							visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
-											"<span class='combat userdanger'>[src] has been knocked down!</span>")
+							visible_message(span_combatdanger("[src] has been knocked down!"), \
+											span_combatuserdanger("[src] has been knocked down!"))
 							apply_effect(4 SECONDS, WEAKEN, armor)
 							AdjustConfused(30 SECONDS)
 						if(mind && mind.special_role == SPECIAL_ROLE_REV && prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
@@ -510,8 +506,8 @@ emp_act
 
 				if(BODY_ZONE_CHEST)//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
-						visible_message("<span class='combat danger'>[src] has been knocked down!</span>", \
-										"<span class='combat userdanger'>[src] has been knocked down!</span>")
+						visible_message(span_combatdanger("[src] has been knocked down!"), \
+										span_combatuserdanger("[src] has been knocked down!"))
 						apply_effect(4 SECONDS, WEAKEN, armor)
 
 					if(bloody)
@@ -529,7 +525,6 @@ emp_act
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 
-
 /**
  * This proc handles being hit by a thrown atom.
  */
@@ -544,15 +539,19 @@ emp_act
 
 	var/obj/item/I
 	var/throwpower = 30
+	var/armour_penetration = 0
+	var/shields_penetration = 0
 	if(isitem(AM))
 		I = AM
 		throwpower = I.throwforce
+		armour_penetration = I.armour_penetration
+		shields_penetration = I.shields_penetration
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
 
 	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
 
-	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
+	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK, armour_penetration, shields_penetration))
 		hitpush = FALSE
 		skipcatch = TRUE
 		blocked = TRUE
@@ -593,12 +592,11 @@ emp_act
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
-		var/damage = rand(1, 3)
 		if(stat != DEAD)
-			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			L.evolution_points = min(L.evolution_points + L.attack_damage, L.max_evolution_points)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
 			var/armor_block = run_armor_check(affecting, "melee")
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			apply_damage(L.attack_damage, BRUTE, affecting, armor_block)
 			updatehealth("larva attack")
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
@@ -622,7 +620,7 @@ emp_act
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
  				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			apply_damage(damage, BRUTE, affecting, armor_block, TRUE)
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 			var/all_objectives = M?.mind?.get_all_objectives()

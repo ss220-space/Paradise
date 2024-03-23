@@ -1,7 +1,7 @@
 /obj/item/implant/supercharge
 	name = "supercharge bio-chip"
 	desc = "Removes all stuns and knockdowns."
-	icon_state = "adrenal"
+	icon_state = "adrenal_old"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=3;combat=5;syndicate=2"
 	activated = BIOCHIP_ACTIVATED_ACTIVE

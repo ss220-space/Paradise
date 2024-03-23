@@ -291,10 +291,10 @@
 
 		else if(task == "rank")
 			var/new_rank
-			if(GLOB.admin_ranks.len)
+			if(length(GLOB.admin_ranks))
 				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*")
 			else
-				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in list("Старший Админ", "Админ", "Триал Админ", "Модератор", "Ментор", "*Новый Ранг*")
+				CRASH("GLOB.admin_ranks is empty, inform coders")
 
 			var/rights = 0
 			if(D)
@@ -303,21 +303,15 @@
 				if(null,"") return
 				if("*Новый Ранг*")
 					new_rank = input("Введите название нового ранга", "Новый Ранг", null, null) as null|text
-					if(CONFIG_GET(flag/admin_legacy_system))
-						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>")
 						return
-					if(CONFIG_GET(flag/admin_legacy_system))
-						if(GLOB.admin_ranks.len)
-							if(new_rank in GLOB.admin_ranks)
-								rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
-							else
-								GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
+					if(new_rank in GLOB.admin_ranks)
+						rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
+					else
+						GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
 				else
-					if(CONFIG_GET(flag/admin_legacy_system))
-						new_rank = ckeyEx(new_rank)
-						rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
+					rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
 
 			if(D)
 				D.disassociate()								//remove adminverbs and unlink from client
@@ -332,7 +326,7 @@
 			updateranktodb(adm_ckey, new_rank)
 			message_admins("[key_name_admin(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
 			log_admin("[key_name(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
-			log_admin_rank_modification(adm_ckey, new_rank)
+			log_admin_rank_modification(adm_ckey, new_rank, rights)
 
 		else if(task == "permissions")
 			if(!D)	return
@@ -342,6 +336,7 @@
 					permissionlist[rights2text(i)] = i
 				var/new_permission = input("Выберите флаг для включения/отключения", "Флаги " + adm_ckey, null, null) as null|anything in permissionlist
 				if(!new_permission)
+					edit_admin_permissions()
 					return
 				var/oldrights = D.rights
 				var/toggleresult = "ВКЛ"
@@ -388,8 +383,8 @@
 		if(!check_rights(R_SERVER))	return
 
 		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft() ) as num
+		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
-		SSshuttle.emergency.setTimer(timer*10)
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination,"минуту","минуты","минут")].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds</span>")
@@ -1247,15 +1242,23 @@
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
 			return alert(usr, "The game mode has to be Antag Paradise!", null, null, null, null)
 
-		var/dat = {"<meta charset="UTF-8"><b>Edit the antag weights for minor antagonists. Higher the weight higher the chance for antag to roll. Leave everything at zero (reset) if you want default behavior.</b><hr>"}
+		var/dat = {"<meta charset="UTF-8"><b>Edit the antag weights for minor antagonists. Higher the weight higher the chance for antag to roll. Press reset if you want default behavior.</b><hr>"}
 		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
-		var/list/antags_list = GLOB.antag_paradise_weights ? GLOB.antag_paradise_weights : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_weights))
+		var/list/antags_list
+		if(GLOB.antag_paradise_weights)
+			antags_list = GLOB.antag_paradise_weights
+		else
+			antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
+			antags_list = antags_list.Copy()
+			for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
+				antags_list[key] = !!(key in antags_list)
+
 		for(var/antag in antags_list)
 			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</A></td></tr>"}
 
 		dat += {"</table><br><b>Edit the antag weights for special antag. Only one antag from below will be chosen for the mode. Rolling NOTHING means no special antag at all.</b><hr>"}
 		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
-		var/list/special_antags_list = GLOB.antag_paradise_special_weights ? GLOB.antag_paradise_special_weights : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_weights))
+		var/list/special_antags_list = GLOB.antag_paradise_special_weights ? GLOB.antag_paradise_special_weights : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_antags_weights))
 		for(var/antag in special_antags_list)
 			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_special_[antag]'>\[[special_antags_list[antag]]\]</A></td></tr>"}
 
@@ -1291,7 +1294,11 @@
 
 		else if(findtext(command, "weights_normal_"))
 			if(!GLOB.antag_paradise_weights)
-				GLOB.antag_paradise_weights = config_to_roles(CONFIG_GET(keyed_list/antag_paradise_weights))
+				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
+				antags_list = antags_list.Copy()
+				for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
+					antags_list[key] = !!(key in antags_list)
+				GLOB.antag_paradise_weights = antags_list
 			var/antag = replacetext(command, "weights_normal_", "")
 			var/choice = input(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0) as null|num
 			if(isnull(choice))
@@ -1302,7 +1309,7 @@
 
 		else if(findtext(command, "weights_special_"))
 			if(!GLOB.antag_paradise_special_weights)
-				GLOB.antag_paradise_special_weights = config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_weights))
+				GLOB.antag_paradise_special_weights = config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_antags_weights))
 			var/antag = replacetext(command, "weights_special_", "")
 			var/choice = input(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0) as null|num
 			if(isnull(choice))
@@ -1820,6 +1827,45 @@
 
 		usr.client.cmd_admin_animalize(M)
 
+	else if(href_list["makePAI"])
+		if(!check_rights(R_SPAWN))
+			return
+		var/bespai = FALSE
+		var/mob/living/carbon/human/H = locateUID(href_list["makePAI"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+
+		if(alert(usr, "Confirm make pAI?",,"Yes","No") == "No")
+			return
+
+		if(alert(usr, "pAI or SpAI?",,"pAI","SpAI") == "SpAI")
+			bespai = TRUE
+
+		var/painame = "Default"
+		var/name = ""
+		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
+			name = sanitize(copytext(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+		else
+			name = sanitize(copytext(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
+
+		if(!name)
+			name = painame
+
+		log_and_message_admins("pAIzed [key_name(H)]")
+		H.paize(name, bespai)
+
+	else if(href_list["makegorilla"])
+		if(!check_rights(R_SPAWN))
+			return
+
+		var/mob/M = locateUID(href_list["makegorilla"])
+		if(isnewplayer(M))
+			to_chat(usr, span_warning("This cannot be used on instances of type /mob/new_player"))
+			return
+
+		usr.client.cmd_admin_gorillize(M)
+
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN))
 			return
@@ -2301,7 +2347,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.overlays += stampoverlay
+		LAZYADD(P.stamp_overlays, stampoverlay)
 		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		P.faxmachineid = fax.UID()
@@ -2396,7 +2442,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.overlays += stampoverlay
+		LAZYADD(P.stamp_overlays, stampoverlay)
 		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		fax.receivefax(P)
@@ -2516,7 +2562,7 @@
 				P = new /obj/item/paper(null)
 		if(!fax)
 			var/list/departmentoptions = GLOB.alldepartments + GLOB.hidden_departments + "All Departments"
-			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
+			destination = tgui_input_list(usr, "To which department?", "Choose a department", departmentoptions)
 			if(!destination)
 				qdel(P)
 				return
@@ -2608,15 +2654,14 @@
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp/centcom
-				P.overlays += stampoverlay
 				P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
 
 			else if(stamptype == "text")
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp
-				P.overlays += stampoverlay
 				P.stamps += "<hr><i>[stampvalue]</i>"
+			LAZYADD(P.stamp_overlays, stampoverlay)
 
 		if(destination != "All Departments")
 			if(!fax.receivefax(P))
@@ -2980,6 +3025,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins("<span class='notice'>made all SMESs powered</span>")
 				power_restore_quick()
+
 			if("prisonwarp")
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
@@ -3486,7 +3532,7 @@
 			if(!description)
 				return
 			G.report_message = description
-		message_admins("[key_name_admin(usr)] created \"[G.name]\" station goal.")
+		log_and_message_admins("created \"[G.name]\" station goal.")
 		SSticker.mode.station_goals += G
 		modify_goals()
 
@@ -3634,10 +3680,8 @@
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
-	N.mode = 3 //MODE_ADV, not defined here
 	N.setting = 2 //SETTING_OBJECT, not defined here
-	N.target = H
-	N.pinpoint_at(N.target)
+	N.pinpoint_at(H)
 	N.modelocked = TRUE
 	if(!locate(/obj/item/implant/dust, hunter_mob))
 		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)

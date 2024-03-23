@@ -17,10 +17,10 @@
 
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
-	var/move_delay_add = FALSE // movement delay to add
+	var/move_delay_add = 0 // movement delay to add
+	var/caste_movement_delay = 0
 
 	status_flags = CANPARALYSE|CANPUSH
-	var/heal_rate = 5
 
 	var/attack_damage = 20
 	var/armour_penetration = 20
@@ -35,11 +35,19 @@
 	var/leaping = FALSE
 	dirslash_enabled = TRUE
 	ventcrawler = 1
+
+	var/can_evolve = FALSE
+	var/evolution_points = 0
+	var/max_evolution_points = 200
+
 	/// See [/proc/genderize_decode] for more info.
 	var/death_message = "изда%(ет,ют)% тихий гортанный звук, зелёная кровь пузырится из %(его,её,его,их)% пасти..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
 	var/datum/action/innate/alien_nightvision_toggle/night_vision_action
+	var/static/praetorian_count = 0
+	var/static/queen_count = 0
+	var/static/queen_maximum = 0
 
 
 /mob/living/carbon/alien/New()
@@ -72,11 +80,16 @@
 		/obj/item/organ/internal/ears
 	)
 
+/mob/living/carbon/alien/Stat()
+	..()
+	if(can_evolve)
+		stat(null, "Evolution progress: [evolution_points]/[max_evolution_points]")
+
 
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
 		return default_language
-	return GLOB.all_languages["Xenomorph"]
+	return GLOB.all_languages[LANGUAGE_XENOS]
 
 /mob/living/carbon/alien/say_quote(var/message, var/datum/language/speaking = null)
 	var/verb = "hisses"
@@ -169,15 +182,21 @@
 	stat(null, "Move Mode: [m_intent]")
 	show_stat_emergency_shuttle_eta()
 
+/mob/living/carbon/alien/Weaken(amount, ignore_canweaken)
+	..()
+	if(!(status_flags & CANWEAKEN) && amount && !large)
+		// add some movement delay
+		move_delay_add = min(move_delay_add + round(amount / 5), 10)
+
 /mob/living/carbon/alien/SetWeakened(amount, ignore_canweaken)
 	..()
-	if(!(status_flags & CANWEAKEN) && amount)
+	if(!(status_flags & CANWEAKEN) && amount && !large)
 		// add some movement delay
-		move_delay_add = min(move_delay_add + round(amount / 2), 10) // a maximum delay of 10
+		move_delay_add = min(move_delay_add + round(amount / 5), 10)
 
 /mob/living/carbon/alien/movement_delay()
 	. = ..()
-	. += move_delay_add + CONFIG_GET(number/alien_delay) //move_delay_add is used to slow aliens with stuns
+	. += move_delay_add + caste_movement_delay + CONFIG_GET(number/alien_delay) //move_delay_add is used to slow aliens with stuns
 
 /mob/living/carbon/alien/getDNA()
 	return null

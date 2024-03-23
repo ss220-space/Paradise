@@ -117,21 +117,18 @@
 	display_name = "bomber jacket"
 	path = /obj/item/clothing/suit/jacket
 
-/datum/gear/suit/ol_miljacket
-	display_name = "military jacket, olive"
+/datum/gear/suit/miljacket
+	display_name = "military jacket, select"
 	path = /obj/item/clothing/suit/jacket/miljacket
 
-/datum/gear/suit/nv_miljacket
-	display_name = "military jacket, navy"
-	path = /obj/item/clothing/suit/jacket/miljacket/navy
-
-/datum/gear/suit/ds_miljacket
-	display_name = "military jacket, desert"
-	path = /obj/item/clothing/suit/jacket/miljacket/desert
-
-/datum/gear/suit/wh_miljacket
-	display_name = "military jacket, white"
-	path = /obj/item/clothing/suit/jacket/miljacket/white
+/datum/gear/suit/miljacket/New()
+	..()
+	var/list/jackets = list("olive" = /obj/item/clothing/suit/jacket/miljacket,
+							"navy" = /obj/item/clothing/suit/jacket/miljacket/navy,
+							"desert" = /obj/item/clothing/suit/jacket/miljacket/desert,
+							"white" = /obj/item/clothing/suit/jacket/miljacket/white,
+							)
+	gear_tweaks += new /datum/gear_tweak/path(jackets, src)
 
 /datum/gear/suit/secjacket
 	display_name = "security jacket"
@@ -145,6 +142,11 @@
 /datum/gear/suit/secbomber
 	display_name = "security bomber"
 	path = /obj/item/clothing/suit/jacket/pilot
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+
+/datum/gear/suit/sec_rps
+	display_name = "security belt-shoulder system"
+	path = /obj/item/clothing/suit/armor/vest/sec_rps
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 //SURAGI JACKET
@@ -238,47 +240,34 @@
 	display_name = "Ian Shirt"
 	path = /obj/item/clothing/suit/ianshirt
 
-/datum/gear/suit/tphoodie
-	display_name = "hoodie, Tharsis Polytech"
-	path = /obj/item/clothing/suit/hooded/hoodie/tp
-
-/datum/gear/suit/nthoodie
-	display_name = "hoodie, Nanotrasen"
-	path = /obj/item/clothing/suit/hooded/hoodie/nt
-
-/datum/gear/suit/lamhoodie
-	display_name = "hoodie, Lunar Academy of Medicine"
-	path = /obj/item/clothing/suit/hooded/hoodie/lam
-
-/datum/gear/suit/cuthoodie
-	display_name = "hoodie, Canaan University of Technology"
-	path = /obj/item/clothing/suit/hooded/hoodie/cut
-
-/datum/gear/suit/mithoodie
-	display_name = "hoodie, Martian Institute of Technology"
-	path = /obj/item/clothing/suit/hooded/hoodie/mit
-
-/datum/gear/suit/bluehoodie
-	display_name = "hoodie, blue"
-	path = /obj/item/clothing/suit/hooded/hoodie/blue
-
-/datum/gear/suit/blackhoodie
-	display_name = "hoodie, black"
+/datum/gear/suit/hoodie
+	display_name = "hoodie, select"
 	path = /obj/item/clothing/suit/hooded/hoodie
+
+/datum/gear/suit/hoodie/New()
+	..()
+	var/list/hoods = list(/obj/item/clothing/suit/hooded/hoodie,
+						  /obj/item/clothing/suit/hooded/hoodie/tp,
+						  /obj/item/clothing/suit/hooded/hoodie/nt,
+						  /obj/item/clothing/suit/hooded/hoodie/lam,
+						  /obj/item/clothing/suit/hooded/hoodie/cut,
+						  /obj/item/clothing/suit/hooded/hoodie/mit,
+						  /obj/item/clothing/suit/hooded/hoodie/blue,
+						  )
+	gear_tweaks += new /datum/gear_tweak/path(hoods, src, TRUE)
 
 //SUITS!
 
 /datum/gear/suit/blacksuit
-	display_name = "suit jacket, black"
+	display_name = "suit jacket, select"
 	path = /obj/item/clothing/suit/storage/lawyer/blackjacket
 
-/datum/gear/suit/bluesuit
-	display_name = "suit jacket, blue"
-	path = /obj/item/clothing/suit/storage/lawyer/bluejacket
-
-/datum/gear/suit/purplesuit
-	display_name = "suit jacket, purple"
-	path = /obj/item/clothing/suit/storage/lawyer/purpjacket
+/datum/gear/suit/blacksuit/New()
+	..()
+	var/list/suits = list("black" = /obj/item/clothing/suit/storage/lawyer/blackjacket,
+						  "blue" = /obj/item/clothing/suit/storage/lawyer/bluejacket,
+						  "purple" = /obj/item/clothing/suit/storage/lawyer/purpjacket,)
+	gear_tweaks += new /datum/gear_tweak/path(suits, src, TRUE)
 
 //Robes!
 
@@ -287,3 +276,12 @@
 	path = /obj/item/clothing/suit/wizrobe/marisa/fake
 
 
+//Suspenders
+
+/datum/gear/suit/suspenders
+	display_name = "suspenders, color"
+	path = /obj/item/clothing/suit/suspenders
+
+/datum/gear/suit/suspenders/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)

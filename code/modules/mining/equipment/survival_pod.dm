@@ -17,13 +17,14 @@
 	var/used = FALSE
 	var/emagged = FALSE
 
-/obj/item/survivalcapsule/emag_act()
+/obj/item/survivalcapsule/emag_act(mob/user)
 	if(!emagged)
-		to_chat(usr, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
 		emagged = TRUE
 		return
-
-	to_chat(usr, "<span class='warning'>The safeties are already shorted out!</span>")
+	if(user)
+		to_chat(user, "<span class='warning'>The safeties are already shorted out!</span>")
 
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
@@ -196,12 +197,12 @@
 	name = "pod computer"
 	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	pixel_y = -32
 
 /obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
@@ -249,7 +250,7 @@
 		var/obj/item/instrument/guitar/G = new(src)
 		load(G)
 
-/obj/machinery/smartfridge/survival_pod/update_icon()
+/obj/machinery/smartfridge/survival_pod/update_overlays()
 	return
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
@@ -269,7 +270,7 @@
 	icon_state = "fans"
 	name = "environmental regulation system"
 	desc = "A large machine releasing a constant gust of air."
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	var/arbitraryatmosblockingvar = 1
 	var/buildstacktype = /obj/item/stack/sheet/metal
@@ -294,7 +295,7 @@
 	qdel(src)
 
 /obj/structure/fans/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
@@ -332,12 +333,12 @@
 	icon_state = "tubes"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	name = "tubes"
-	anchored = 1
+	anchored = TRUE
 	layer = MOB_LAYER - 0.2
 	density = 0
 
 /obj/structure/tubes/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
@@ -364,7 +365,7 @@
 						/obj/item/gun/magic/staff/spellblade,
 						/obj/item/gun/magic/wand/death,
 						/obj/item/gun/magic/wand/fireball,
-						/obj/item/stack/telecrystal/hundread,
+						/obj/item/stack/telecrystal/hundred,
 						/obj/item/banhammer)
 
 /obj/item/fakeartefact/New()

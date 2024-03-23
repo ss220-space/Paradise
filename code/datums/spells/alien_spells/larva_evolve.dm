@@ -17,7 +17,7 @@
 		to_chat(user, "<span class='warning'>You cannot evolve when you are cuffed.</span>")
 		return
 
-	if(user.amount_grown < user.max_grown)
+	if(user.evolution_points < user.max_evolution_points)
 		to_chat(user, "<span class='warning'>You are not fully grown.</span>")
 		return
 	//green is impossible to read, so i made these blue and changed the formatting slightly

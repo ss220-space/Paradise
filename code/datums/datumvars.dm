@@ -80,7 +80,7 @@
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
-	if(!is_admin(usr))
+	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
 		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
 		return
 
@@ -522,8 +522,8 @@
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
-	if(!check_rights(R_ADMIN|R_MOD))
-		return
+	if(!check_rights(R_ADMIN|R_MOD, FALSE) && !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)))
+		return // clients with R_VIEWRUNTIMES can still refresh the window/view references/view lists. they cannot edit anything else however.
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
 		return
@@ -645,7 +645,7 @@
 			var/datum/martial_art/M = i
 			artnames[initial(M.name)] = M
 
-		var/result = input(usr, "Choose the martial art to teach", "JUDO CHOP") as null|anything in artnames
+		var/result = tgui_input_list(usr, "Choose the martial art to teach", "JUDO CHOP", artnames)
 		if(!usr)
 			return
 		if(QDELETED(C))
@@ -677,7 +677,7 @@
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob/living")
 			return
-		var/selected_job = input("Select a job", "Hud Job Selection") as null|anything in GLOB.all_taipan_jobs
+		var/selected_job = tgui_input_list(usr, "Select a job", "Hud Job Selection", GLOB.all_taipan_jobs)
 
 		if(!selected_job)
 			to_chat(usr, "No job selected!")
@@ -916,7 +916,7 @@
 						if(!valid_id)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
 				if("Choose ID")
-					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in reagent_options
+					chosen_id = tgui_input_list(usr, "Choose a reagent to add.", "Choose a reagent.", reagent_options)
 			if(chosen_id)
 				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
 				if(amount)
@@ -1083,7 +1083,10 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
 
-		var/new_species = input("Please choose a new species.","Species",null) as null|anything in GLOB.all_species
+		var/new_species = tgui_input_list(usr, "Please choose a new species.","Species", GLOB.all_species)
+
+		if(!new_species)
+			return
 
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore")
@@ -1105,7 +1108,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		var/new_language = input("Please choose a language to add.","Language",null) as null|anything in GLOB.all_languages
+		var/new_language = tgui_input_list(usr, "Please choose a language to add.","Language", GLOB.all_languages)
 
 		if(!new_language)
 			return
@@ -1132,7 +1135,7 @@
 			to_chat(usr, "This mob knows no languages.")
 			return
 
-		var/datum/language/rem_language = input("Please choose a language to remove.","Language",null) as null|anything in H.languages
+		var/datum/language/rem_language = tgui_input_list(usr, "Please choose a language to remove.","Language", H.languages)
 
 		if(!rem_language)
 			return
@@ -1141,7 +1144,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.remove_language(rem_language.name))
+		if(H.remove_language(rem_language))
 			to_chat(usr, "Removed [rem_language] from [H].")
 			log_and_message_admins("has removed language [rem_language] from [key_name(H)]")
 		else
@@ -1218,7 +1221,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
-		var/verb = input("Please choose a verb to remove.","Verbs",null) as null|anything in H.verbs
+		var/verb = tgui_input_list(usr, "Please choose a verb to remove.","Verbs", H.verbs)
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
@@ -1236,7 +1239,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/new_organ = input("Please choose an organ to add.","Organ",null) as null|anything in subtypesof(/obj/item/organ)-/obj/item/organ
+		var/new_organ = tgui_input_list(usr, "Please choose an organ to add.","Organ", subtypesof(/obj/item/organ)-/obj/item/organ)
 		if(!new_organ) return
 
 		if(!M)
@@ -1258,7 +1261,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
 			return
 
-		var/obj/item/organ/internal/rem_organ = input("Please choose an organ to remove.","Organ",null) as null|anything in M.internal_organs
+		var/obj/item/organ/internal/rem_organ = tgui_input_list(usr, "Please choose an organ to remove.", "Organ", M.internal_organs)
 
 		if(!M)
 			to_chat(usr, "Mob doesn't exist anymore")

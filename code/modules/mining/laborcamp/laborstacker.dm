@@ -6,7 +6,7 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
-	anchored = 1
+	anchored = TRUE
 	var/obj/machinery/mineral/stacking_machine/laborstacker/stacking_machine = null
 	var/machinedir = SOUTH
 	var/obj/item/card/id/prisoner/inserted_id
@@ -137,7 +137,8 @@
 /obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
 	if(!(emagged))
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 
 
 /**********************Prisoner Collection Unit**************************/
@@ -164,7 +165,7 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
-	anchored = 1
+	anchored = TRUE
 
 /obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
 	. = ..()

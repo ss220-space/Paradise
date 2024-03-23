@@ -64,7 +64,7 @@
 	if((NEARSIGHTED in owner.mutations) || (BLINDNESS in owner.mutations))
 		update_flags |= owner.CureNearsighted()
 		update_flags |= owner.CureBlind()
-		update_flags |= owner.SetEyeBlind(0)
+		owner.SetEyeBlind(0)
 
 	return ..() | update_flags
 

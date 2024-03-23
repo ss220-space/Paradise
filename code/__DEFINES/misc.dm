@@ -1,16 +1,6 @@
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
-//Directions (already defined on BYOND natively, purely here for reference)
-//#define NORTH		1
-//#define SOUTH		2
-//#define EAST		4
-//#define WEST		8
-//#define NORTHEAST	5
-//#define SOUTHEAST 6
-//#define NORTHWEST 9
-//#define SOUTHWEST 10
-
 //Security levels
 #define SEC_LEVEL_GREEN	0
 #define SEC_LEVEL_BLUE	1
@@ -179,38 +169,39 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				42
-#define MUTANTRACE_LAYER		41
-#define WING_UNDERLIMBS_LAYER	40
-#define TAIL_UNDERLIMBS_LAYER	39	//Tail split-rendering.
-#define LIMBS_LAYER				38
-#define INTORGAN_LAYER			37
-#define MARKINGS_LAYER			36
-#define UNDERWEAR_LAYER			35
-#define MUTATIONS_LAYER			34
-#define H_DAMAGE_LAYER			33
-#define UNIFORM_LAYER			32
+#define MUTANTRACE_LAYER		43
+#define WING_UNDERLIMBS_LAYER	42
+#define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.
+#define LIMBS_LAYER				40
+#define INTORGAN_LAYER			39
+#define MARKINGS_LAYER			38
+#define UNDERWEAR_LAYER			37
+#define MUTATIONS_LAYER			36
+#define H_DAMAGE_LAYER			35
+#define UNIFORM_LAYER			34
+#define SHOES_LAYER				33
+#define OVER_SHOES_LAYER		32
 #define ID_LAYER				31
-#define SHOES_LAYER				30
-#define GLOVES_LAYER			29
-#define EARS_LAYER				28
-#define SUIT_LAYER				27
-#define BELT_LAYER				26	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				25
-#define SUIT_STORE_LAYER		24
-#define BACK_LAYER				23
-#define HEAD_ACCESSORY_LAYER	22
-#define FHAIR_LAYER				21
-#define GLASSES_LAYER			20
-#define HAIR_LAYER				19	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		18	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		17	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		16	//Select-layer rendering.
-#define WING_LAYER				15
-#define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			13
-#define OVER_MASK_LAYER			12	//Select-layer rendering.
-#define HEAD_LAYER				11
+#define GLOVES_LAYER			30
+#define EARS_LAYER				29
+#define SUIT_LAYER				28
+#define BELT_LAYER				27	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				26
+#define SUIT_STORE_LAYER		25
+#define BACK_LAYER				24
+#define HEAD_ACCESSORY_LAYER	23
+#define FHAIR_LAYER				22
+#define GLASSES_LAYER			21
+#define HAIR_LAYER				20	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		19	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		18	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		17	//Select-layer rendering.
+#define WING_LAYER				16
+#define TAIL_LAYER				15	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			14
+#define OVER_MASK_LAYER			13	//Select-layer rendering.
+#define HEAD_LAYER				12
+#define OVER_HEAD_LAYER			11
 #define COLLAR_LAYER			10
 #define HANDCUFF_LAYER			9
 #define LEGCUFF_LAYER			8
@@ -221,7 +212,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS 			42
+#define TOTAL_LAYERS 			44
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -384,7 +375,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 31
+#define SQL_VERSION 33
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -411,9 +402,9 @@
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
-#define DEFIB_TIME_LIMIT 300 SECONDS
+#define DEFIB_TIME_LIMIT (300 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
-#define DEFIB_TIME_LOSS 60 SECONDS
+#define DEFIB_TIME_LOSS (60 SECONDS)
 
 //different types of atom colorations
 #define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
@@ -452,13 +443,6 @@
 //Explosive wall groups
 #define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
 
-// Filters
-#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
-#define FILTER_EYE_BLUR filter(type="blur", size=0)
-
-#define AMBIENT_OCCLUSION_FILTER_KEY "ambient occlusion"
-#define EYE_BLUR_FILTER_KEY "eye blur"
-
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
 #define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
@@ -495,15 +479,15 @@
 #define SYMPTOM_ACTIVATION_PROB 3
 
 // Atmos stuff that fucking terrifies me
-#define LINDA_SPAWN_HEAT 1
-#define LINDA_SPAWN_20C 2
-#define LINDA_SPAWN_TOXINS 4
-#define LINDA_SPAWN_OXYGEN 8
-#define LINDA_SPAWN_CO2 16
-#define LINDA_SPAWN_NITROGEN 32
-#define LINDA_SPAWN_N2O 64
-#define LINDA_SPAWN_AGENT_B 128
-#define LINDA_SPAWN_AIR 256
+#define LINDA_SPAWN_HEAT		(1<<0)
+#define LINDA_SPAWN_20C			(1<<1)
+#define LINDA_SPAWN_TOXINS		(1<<2)
+#define LINDA_SPAWN_OXYGEN		(1<<3)
+#define LINDA_SPAWN_CO2			(1<<4)
+#define LINDA_SPAWN_NITROGEN	(1<<5)
+#define LINDA_SPAWN_N2O			(1<<6)
+#define LINDA_SPAWN_AGENT_B		(1<<7)
+#define LINDA_SPAWN_AIR			(1<<8)
 
 /// Send to the primary Discord webhook
 #define DISCORD_WEBHOOK_PRIMARY "PRIMARY"
@@ -526,3 +510,9 @@
 
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
+
+// Lavaland cave design defines
+
+#define BLOCKED_BURROWS "Blocked Burrows"
+#define CLASSIC_CAVES "Classic Caves"
+#define DEADLY_DEEPROCK "Deadly Deeprock"

@@ -18,6 +18,8 @@
 	density = FALSE
 	dir = NORTH
 	max_integrity = 300
+	pass_flags_self = PASSGLASS
+	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	var/ini_dir
 	var/obj/item/airlock_electronics/electronics
 	var/created_name
@@ -50,28 +52,26 @@
 	setDir(ini_dir)
 	move_update_air(T)
 
-/obj/structure/windoor_assembly/update_icon()
+/obj/structure/windoor_assembly/update_icon_state()
 	var/temp_state = state
 	if(temp_state == "03")
 		temp_state = "02"
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[temp_state]"
 
-/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return !density
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
-		return FALSE
-	return 1
+
+/obj/structure/windoor_assembly/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(border_dir == dir)
+		return .
+
+	if(isobj(mover))
+		var/obj/object = mover
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
+				return FALSE
+
 
 /obj/structure/windoor_assembly/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
@@ -79,13 +79,12 @@
 	else
 		return 1
 
-/obj/structure/windoor_assembly/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+
+/obj/structure/windoor_assembly/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
+
 
 /obj/structure/windoor_assembly/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
@@ -162,7 +161,7 @@
 
 	add_fingerprint(user)
 	//Update to reflect changes(if applicable)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/I)	//Crowbar to complete the assembly, Step 7 complete.
 	if(state != "03")
@@ -228,7 +227,7 @@
 	state = "02"
 	electronics.forceMove(loc)
 	electronics = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != "02")
@@ -243,7 +242,7 @@
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = "01"
 	name = "[(src.secure) ? "secure" : ""] anchored windoor assembly"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != "01")
@@ -274,7 +273,7 @@
 		to_chat(user, "<span class='notice'>You loosen bolts on [src].</span>")
 		anchored = FALSE
 		name = "[(src.secure) ? "secure" : ""] windoor assembly"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/welder_act(mob/user, obj/item/I)
 	if(state != "01")
@@ -305,14 +304,14 @@
 		return FALSE
 	var/target_dir = turn(dir, 270)
 
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir))
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 
 	setDir(target_dir)
 
 	ini_dir = dir
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/structure/windoor_assembly/AltClick(mob/user)
@@ -339,5 +338,5 @@
 		facing = "l"
 		to_chat(usr, "The windoor will now slide to the left.")
 
-	update_icon()
-	return
+	update_icon(UPDATE_ICON_STATE)
+

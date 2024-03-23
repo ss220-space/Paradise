@@ -3,11 +3,11 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 /obj/item/organ/external/proc/compile_icon()
 	// I do this so the head's overlays don't get obliterated
 	for(var/child_i in child_icons)
-		overlays -= child_i
+		cut_overlay(child_i)
 	LAZYREINITLIST(child_icons)
 	 // This is a kludge, only one icon has more than one generation of children though.
 	for(var/obj/item/organ/external/childpart as anything in children)
-		overlays += childpart.mob_icon
+		add_overlay(childpart.mob_icon)
 		child_icons += childpart.mob_icon
 
 
@@ -131,14 +131,15 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 				add_overlay(head_accessory_s)
 
 		if(f_style)
-			var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
-			if(facial_hair_style && ((facial_hair_style.species_allowed && (dna.species.name in facial_hair_style.species_allowed)) || (dna.species.bodyflags & ALL_RPARTS)))
-				var/icon/facial_s = new /icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-				if(istype(dna.species, /datum/species/slime)) // I am el worstos
-					facial_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
-				else if(facial_hair_style.do_colouration)
-					facial_s.Blend(facial_colour, ICON_ADD)
-				add_overlay(facial_s)
+			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags & BLOCKFACIALHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKFACIALHAIR)))))
+				var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
+				if(facial_hair_style && ((facial_hair_style.species_allowed && (dna.species.name in facial_hair_style.species_allowed)) || (dna.species.bodyflags & ALL_RPARTS)))
+					var/icon/facial_s = new /icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
+					if(istype(dna.species, /datum/species/slime)) // I am el worstos
+						facial_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
+					else if(facial_hair_style.do_colouration)
+						facial_s.Blend(facial_colour, ICON_ADD)
+					add_overlay(facial_s)
 
 		if(h_style)
 			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags & BLOCKHEADHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKHEADHAIR)))))
@@ -189,10 +190,9 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 // new damage icon system
 // adjusted to set damage_state to brute/burn code only (without r_name0 as before)
-/obj/item/organ/external/update_icon()
+/obj/item/organ/external/proc/update_state()
 	var/n_is = damage_state_text()
 	if(n_is != damage_state)
 		damage_state = n_is
-		owner?.UpdateDamageIcon()
 		return TRUE
 	return FALSE

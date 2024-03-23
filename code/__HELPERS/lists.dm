@@ -128,13 +128,17 @@
 	return 0
 
 //Checks for specific types in a list
-/proc/is_type_in_list(atom/A, list/L)
+/proc/is_type_in_list(atom/A, list/L, include_children = TRUE)
 	if(!L || !L.len || !A)
-		return 0
+		return FALSE
 	for(var/type in L)
-		if(istype(A, type))
-			return 1
-	return 0
+		if(include_children)
+			if(istype(A, type))
+				return TRUE
+		else
+			if(A.type == type)
+				return TRUE
+	return FALSE
 
 //Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
 /proc/is_type_in_typecache(atom/A, list/L)
@@ -300,6 +304,13 @@
 		return picked
 	return null
 
+//Pick a random element by weight from the list and remove it from the list.
+/proc/pick_weight_n_take(list/listfrom)
+	if(listfrom.len > 0)
+		var/picked = pick_weight_classic(listfrom)
+		listfrom -= picked
+		return picked
+	return null
 
 /**
  * Picks multiple unique elements from the suplied list.
@@ -802,8 +813,14 @@ proc/dd_sortedObjectList(list/incoming)
 // Lazying Episode 3
 #define LAZYSET(L, K, V) LAZYINITLIST(L); L[K] = V;
 
-#define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += list(V);
+///Adds to the item K the value V, if the list is null it will initialize it
+#define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += V;
+///This is used to add onto lazy assoc list when the value you're adding is a /list/. This one has extra safety over lazyaddassoc because the value could be null (and thus cant be used to += objects)
+#define LAZYADDASSOCLIST(L, K, V) if(!L) { L = list(); } L[K] += list(V);
+///Removes the value V from the item K, if the item K is empty will remove it from the list, if the list is empty will set the list to null
 #define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
+///Accesses an associative list, returns null if nothing is found
+#define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
 
 /// Returns whether a numerical index is within a given list's bounds. Faster than isnull(LAZYACCESS(L, I)).
 #define ISINDEXSAFE(L, I) (I >= 1 && I <= length(L))

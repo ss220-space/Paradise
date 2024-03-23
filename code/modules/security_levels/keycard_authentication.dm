@@ -8,7 +8,6 @@
 	var/event
 	var/swiping = FALSE // on swiping screen?
 	var/list/ert_chosen = list()
-	var/confirmed = FALSE // This variable is set by the device that confirms the request.
 	var/confirm_delay = 5 SECONDS // time allowed for a second person to confirm a swipe.
 	var/busy = FALSE // Busy when waiting for authentication or an event request has been sent from this device.
 	var/obj/machinery/keycard_auth/event_source
@@ -16,7 +15,7 @@
 	var/mob/event_confirmed_by
 	var/ert_reason
 
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -29,7 +28,7 @@
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
 	return
 
-/obj/machinery/keycard_auth/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/keycard_auth/attackby(obj/item/W, mob/user, params)
 	if(stat & (NOPOWER|BROKEN))
 		to_chat(user, "This device is not powered.")
 		return
@@ -39,15 +38,14 @@
 			if(active)
 				//This is not the device that made the initial request. It is the device confirming the request.
 				if(event_source)
-					event_source.confirmed = TRUE
-					event_source.event_confirmed_by = usr
+					event_source.event_confirmed_by = user
 					SStgui.update_uis(event_source)
 					SStgui.update_uis(src)
 			else if(swiping)
 				if(event == "Emergency Response Team" && !ert_reason)
 					to_chat(user, "<span class='warning'>Supply a reason for calling the ERT first!</span>")
 					return
-				event_triggered_by = usr
+				event_triggered_by = user
 				SStgui.update_uis(src)
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 		else
@@ -56,12 +54,26 @@
 		return
 	return ..()
 
-/obj/machinery/keycard_auth/power_change()
-	if(powered(ENVIRON))
-		stat &= ~NOPOWER
-		icon_state = "auth_off"
+
+/obj/machinery/keycard_auth/update_icon_state()
+	if(event_triggered_by || event_source)
+		icon_state = "auth_on"
 	else
-		stat |= NOPOWER
+		icon_state = "auth_off"
+
+
+/obj/machinery/keycard_auth/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(event_triggered_by || event_source)
+		underlays += emissive_appearance(icon, "auth_lightmask")
+
+
+/obj/machinery/keycard_auth/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/keycard_auth/attack_ghost(mob/user)
 	ui_interact(user)
@@ -119,43 +131,47 @@
 	active = FALSE
 	event = null
 	swiping = FALSE
-	confirmed = FALSE
 	event_source = null
-	icon_state = "auth_off"
 	event_triggered_by = null
 	event_confirmed_by = null
+	busy = FALSE
+	set_light(0)
+	update_icon()
+
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
-	icon_state = "auth_on"
+	update_icon()
+	set_light(1, LIGHTING_MINIMUM_POWER)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
-		if(KA == src) continue
-		KA.reset()
-		spawn()
-			KA.receive_request(src)
+		if(KA == src)
+			continue
+		KA.receive_request(src)
 
-	sleep(confirm_delay)
-	if(confirmed)
-		confirmed = FALSE
+	addtimer(CALLBACK(src, PROC_REF(confirm_and_trigger)), confirm_delay)
+
+
+/obj/machinery/keycard_auth/proc/confirm_and_trigger()
+	if(event_confirmed_by)
 		trigger_event(event)
-		add_game_logs("[key_name_log(event_triggered_by)] triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
+		add_game_logs("triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
 		message_admins("[key_name_admin(event_triggered_by)] triggered and [key_name_admin(event_confirmed_by)] confirmed event [event]", 1)
 	reset()
 
-/obj/machinery/keycard_auth/proc/receive_request(var/obj/machinery/keycard_auth/source)
+
+/obj/machinery/keycard_auth/proc/receive_request(obj/machinery/keycard_auth/source)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	reset()
+
+	set_light(1, LIGHTING_MINIMUM_POWER)
 	event_source = source
 	busy = TRUE
 	active = TRUE
 	SStgui.update_uis(src)
-	icon_state = "auth_on"
+	update_icon()
 
-	sleep(confirm_delay)
+	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
 
-	event_source = null
-	icon_state = "auth_off"
-	active = FALSE
-	busy = FALSE
 
 /obj/machinery/keycard_auth/proc/trigger_event()
 	switch(event)
@@ -182,13 +198,11 @@
 				if(check_rights(R_EVENT, 0, C.mob))
 					fullmin_count++
 			if(fullmin_count)
+				addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, event_triggered_by), 5 MINUTES)
 				GLOB.ert_request_answered = TRUE
 				ERT_Announce(ert_reason , event_triggered_by, 0)
 				ert_reason = null
 				SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
-				spawn(3000)
-					if(!GLOB.ert_request_answered)
-						ERT_Announce(ert_reason , event_triggered_by, 1)
 			else
 				var/list/excludemodes = list(/datum/game_mode/nuclear, /datum/game_mode/blob)
 				if(SSticker.mode.type in excludemodes)
@@ -199,6 +213,14 @@
 						return
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
 
+
+/obj/machinery/keycard_auth/proc/remind_admins(old_reason, event_triggered_by)
+	if(GLOB.ert_request_answered)
+		GLOB.ert_request_answered = FALSE // For ERT requests that may come later
+		return
+	ERT_Announce(old_reason, event_triggered_by, repeat_warning = TRUE)
+
+
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled
 
@@ -207,19 +229,19 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 
 // Why are these global procs?
 /proc/make_maint_all_access()
-	for(var/area/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
-		for(var/obj/machinery/door/airlock/D in A)
+	for(var/area/maintenance/A in GLOB.all_areas) // Why are these global lists? AAAAAAAAAAAAAA
+		for(var/obj/machinery/door/airlock/D in A.machinery_cache)
 			D.emergency = 1
-			D.update_icon(0)
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были сняты.")
 	GLOB.maint_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
-	for(var/area/maintenance/A in world)
-		for(var/obj/machinery/door/airlock/D in A)
+	for(var/area/maintenance/A in GLOB.all_areas)
+		for(var/obj/machinery/door/airlock/D in A.machinery_cache)
 			D.emergency = 0
-			D.update_icon(0)
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были возобновлены.")
 	GLOB.maint_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
@@ -228,7 +250,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 		if(is_station_level(D.z))
 			D.emergency = 1
-			D.update_icon(0)
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном.")
 	GLOB.station_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
@@ -237,7 +259,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 		if(is_station_level(D.z))
 			D.emergency = 0
-			D.update_icon(0)
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам.")
 	GLOB.station_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))

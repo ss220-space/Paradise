@@ -166,7 +166,7 @@ Uncontrollable Actions
 /datum/symptom/obsession/proc/TakeItem(mob/living/carbon/human/H)
 	var/list/targets = orange(1, H)
 	var/obj/item/target = locate(/obj/item) in shuffle(targets)
-	if(istype(target) && !target.anchored)
+	if(istype(target) && target.Adjacent(H) && !target.anchored)
 		target.forceMove(get_turf(H))
 		H.put_in_hands(target)
 		return target

@@ -29,3 +29,14 @@
 	alpha = 255
 	transform = null
 
+
+/mutable_appearance/emissive_blocker
+
+
+/mutable_appearance/emissive_blocker/New()
+	. = ..()
+	// Need to do this here because it's overriden by the parent call
+	color = EM_BLOCK_COLOR
+	appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+	plane = EMISSIVE_PLANE
+

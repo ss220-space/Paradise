@@ -1,5 +1,5 @@
 /datum/species/nucleation
-	name = "Nucleation"
+	name = SPECIES_NUCLEATION
 	name_plural = "Nucleations"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
 	blacklisted = TRUE
@@ -10,11 +10,12 @@
 	obselete. Ionizing radiation seems to cause resonance in some of their crystals, which seems to encourage regeneration \
 	and produces a calming effect on the individual. Nucleations are highly stigmatized, and are treated much in the same \
 	way as lepers were back on Earth."
-	language = "Sol Common"
+	language = LANGUAGE_SOL_COMMON
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
 	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_PAIN_FEEL, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
 	dies_at_threshold = TRUE
+	var/touched_supermatter = FALSE
 
 	//Default styles for created mobs.
 	default_hair = "Nucleation Crystals"
@@ -28,7 +29,9 @@
 		INTERNAL_ORGAN_STRANGE_CRYSTAL = /obj/item/organ/internal/nucleation/strange_crystal,
 		INTERNAL_ORGAN_RESONANT_CRYSTAL = /obj/item/organ/internal/nucleation/resonant_crystal,
 	)
-	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
+
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/nucleation
 
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	..()

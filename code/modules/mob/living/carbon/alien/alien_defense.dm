@@ -6,15 +6,8 @@
 	..(AM, skip_catch, FALSE, blocked, throwingdatum)
 
 
-/*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
-As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
-In all, this is a lot like the monkey code. /N
-*/
+/// Alien attack another alien
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			AdjustSleeping(-10 SECONDS)
@@ -22,24 +15,33 @@ In all, this is a lot like the monkey code. /N
 			AdjustParalysis(-6 SECONDS)
 			AdjustStunned(-6 SECONDS)
 			AdjustWeakened(-6 SECONDS)
-			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
+			if(on_fire)
+				M.visible_message(span_warning("[M] trying to extinguish [src.name]!"), span_warning("You trying to extinguish [src.name]!"))
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				adjust_fire_stacks(-0.5)
+			else
+				M.visible_message(span_notice("[M.name] nuzzles [src] trying to wake it up!"))
 
 		if(INTENT_GRAB)
 			grabbedby(M)
 
-		else
-			if(health > 0)
-				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
-				adjustBruteLoss(1)
-				add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
-			else
-				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
+		if(INTENT_DISARM)
+			..()
+			if(drop_from_active_hand())
+				M.visible_message(span_danger("[M.name] disarms [src.name]!"))
+			playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+
+		if(INTENT_HARM)
+			..()
+			visible_message(span_danger("[M] has slashed at [src]!"), span_userdanger("[M] has slashed at [src]!"))
+			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			adjustBruteLoss(M.attack_damage)
+			add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
+
 
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
-	return attack_alien(L)
+	if(..() && L.a_intent == INTENT_HARM)
+		adjustBruteLoss(L.attack_damage)
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.

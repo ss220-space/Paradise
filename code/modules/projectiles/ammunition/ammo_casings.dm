@@ -1,6 +1,6 @@
 /obj/item/ammo_casing/a357
 	desc = "A .357 bullet casing."
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 3750)
 	caliber = ".357"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -59,9 +59,9 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c38/hp
-	desc = "A .38 Hollow-Point bullet casing"
+	desc = "A .38 Hollow-Point bullet casing."
 	icon_state = "rhp-casing"
-	materials = list(MAT_METAL = 4000)
+	materials = list(MAT_METAL = 5000)
 	projectile_type = /obj/item/projectile/bullet/hp38
 
 /obj/item/ammo_casing/c38/invisible
@@ -120,11 +120,19 @@
 
 /obj/item/ammo_casing/c46x30mm
 	desc = "A 4.6x30mm bullet casing."
-	materials = list(MAT_METAL = 1000)
+	materials = list(MAT_METAL = 500)
 	caliber = "4.6x30mm"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/foursix
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/c9mmte
+	desc = "A 9mm TE bullet casing."
+	materials = list(MAT_METAL = 500)
+	caliber = "9mm TE"
+	projectile_type = /obj/item/projectile/bullet/weakbullet4/c9mmte
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 
 /obj/item/ammo_casing/c46x30mm/ap
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150)
@@ -163,12 +171,17 @@
 /obj/item/ammo_casing/revolver/improvised
 	name = "improvised shell"
 	desc = "Full metal shell leaking oil. This is clearly an unreliable bullet."
-	icon_state = "improvisedrevolverbullet"
+	icon_state = "rev-improv-casing"
 	materials = list(MAT_METAL = 100)
 	caliber = ".257"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3/c257
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/revolver/improvised/phosphorus
+	desc = "Full metal shell leaking oil and phosphorous. This is clearly an unreliable bullet."
+	icon_state = "rev-phosphor-casing"
+	projectile_type = /obj/item/projectile/bullet/weakbullet3/c257/phosphorus
 
 /obj/item/ammo_casing/n762
 	desc = "A 7.62x38mm bullet casing."
@@ -475,11 +488,10 @@
 	var/modified = FALSE
 	harmful = FALSE
 
-/obj/item/ammo_casing/caseless/foam_dart/update_icon()
-	..()
+
+/obj/item/ammo_casing/caseless/foam_dart/update_icon_state()
 	if(modified)
 		icon_state = "foamdart_empty"
-		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdart_empty"
 	else
@@ -487,10 +499,16 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
+
+/obj/item/ammo_casing/caseless/foam_dart/update_desc(updates)
+	. = ..()
+	desc = modified ? "Its nerf or nothing! ... Although, this one doesn't look too safe." : initial(desc)
+
+
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if(istype(A, /obj/item/screwdriver) && !modified)
+	if(A.tool_behaviour == TOOL_SCREWDRIVER && !modified)
 		modified = TRUE
 		FD.damage_type = BRUTE
 		update_icon()
@@ -529,17 +547,22 @@
 	caliber = "foam_force_sniper"
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper
 
-/obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon()
-	..()
+
+/obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon_state()
 	if(modified)
 		icon_state = "foamdartsniper_empty"
-		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
 		if(BB)
 			BB.icon_state = "foamdartsniper_empty"
 	else
 		icon_state = initial(icon_state)
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
+
+
+/obj/item/ammo_casing/caseless/foam_dart/sniper/update_desc(updates)
+	. = ..()
+	desc = modified ? "Its nerf or nothing! ... Although, this one doesn't look too safe." : initial(desc)
+
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	name = "riot foam sniper dart"

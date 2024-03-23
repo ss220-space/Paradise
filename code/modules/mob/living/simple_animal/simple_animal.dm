@@ -452,9 +452,11 @@
 /mob/living/simple_animal/update_fire()
 	if(!can_be_on_fire)
 		return
-	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+	var/static/simple_mob_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "Generic_mob_burning")
+	cut_overlay(simple_mob_fire_olay)
 	if(on_fire)
-		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+		add_overlay(simple_mob_fire_olay)
+
 
 /mob/living/simple_animal/revive()
 	..()
@@ -577,11 +579,11 @@
 	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
-		canmove = 0
+		canmove = FALSE
 	else if(buckled)
-		canmove = 0
+		canmove = FALSE
 	else
-		canmove = 1
+		canmove = TRUE
 	if(!canmove)
 		walk(src, 0) //stop mid walk
 
@@ -632,6 +634,7 @@
 			return
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	sync_lighting_plane_alpha()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
@@ -662,11 +665,12 @@
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
 		toggle_ai(initial(AIStatus))
 
+
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
-		return
+		return FALSE
 	if(user && !user.drop_transfer_item_to_loc(P, src))
-		return
+		return FALSE
 	pcollar = P
 	regenerate_icons()
 	if(user)
@@ -675,12 +679,17 @@
 		name = P.tagname
 		real_name = P.tagname
 	P.equipped(src)
+	return TRUE
+
 
 /mob/living/simple_animal/regenerate_icons()
 	cut_overlays()
 	if(pcollar && collar_type)
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /mob/living/simple_animal/Login()
 	..()

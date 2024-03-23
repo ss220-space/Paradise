@@ -1,5 +1,6 @@
 /datum/martial_art/cqc
 	name = "CQC"
+	weight = 7
 	block_chance = 75
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
@@ -13,11 +14,33 @@
 
 /datum/martial_art/cqc/under_siege
 	name = "Close Quarters Cooking"
+	weight = 5
+
+/datum/martial_art/cqc/under_siege/teach(mob/living/carbon/human/H, make_temporary)
+	RegisterSignal(H, COMSIG_ATOM_ENTERED_AREA, PROC_REF(kitchen_check))
+	return ..()
+
+/datum/martial_art/cqc/under_siege/remove(mob/living/carbon/human/H)
+	UnregisterSignal(H, COMSIG_ATOM_ENTERED_AREA)
+	return ..()
+
+/datum/martial_art/cqc/under_siege/proc/kitchen_check(mob/living/carbon/human/H, area/entered_area)
+	SIGNAL_HANDLER //COMSIG_ATOM_ENTERED_AREA
+	if(!is_type_in_typecache(entered_area, areas_under_siege))
+		weight = 0
+	else
+		weight = initial(weight)
 
 /datum/martial_art/cqc/under_siege/can_use(mob/living/carbon/human/H)
 	var/area/A = get_area(H)
 	if(!(is_type_in_typecache(A, areas_under_siege)))
 		return FALSE
+	return ..()
+
+/datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
+	if(H.mind)
+		for(var/datum/martial_art/cqc/under_siege/chef_art in H.mind.known_martial_arts)
+			chef_art.remove(H)
 	return ..()
 
 /datum/martial_art/cqc/proc/drop_restraining()

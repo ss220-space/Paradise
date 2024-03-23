@@ -14,6 +14,7 @@
 	response_harm = "strikes"
 	status_flags = 0
 	a_intent = INTENT_HARM
+	var/jewelry_loot
 	var/crusher_loot
 	var/throw_message = "bounces off of"
 	var/fromtendril = FALSE
@@ -57,7 +58,16 @@
 	var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	if(C && crusher_loot && prob((C.total_damage/maxHealth) * crusher_drop_mod)) //on average, you'll need to kill 4 creatures before getting the item
 		spawn_crusher_loot()
-	..(gibbed)
+	if(!fromtendril && jewelry_loot)
+		if(prob(melee_damage_lower | melee_damage_upper ? 30 : 40)) // Poaching logic - a better reward gained from hunting harmless animals.
+			var/obj/gem = new jewelry_loot(loc)
+			if(!deathmessage)
+				deathmessage = "spits out a [gem.name] as it dies!"
+		jewelry_loot = null
+		. = ..(gibbed)
+		deathmessage = initial(deathmessage)
+	else
+		..(gibbed)
 
 /mob/living/simple_animal/hostile/asteroid/proc/spawn_crusher_loot()
 	butcher_results[crusher_loot] = 1

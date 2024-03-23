@@ -242,7 +242,7 @@
 /area/awaymission/research)
 "aX" = (
 /obj/machinery/portable_atmospherics/canister/toxins{
-	destroyed = 1
+	stat = 1
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
@@ -895,7 +895,7 @@
 /area/awaymission/northblock)
 "cR" = (
 /obj/machinery/portable_atmospherics/canister/toxins{
-	destroyed = 1
+	stat = 1
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
@@ -1795,7 +1795,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"

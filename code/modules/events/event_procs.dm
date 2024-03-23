@@ -15,51 +15,38 @@
 	set category = "Event"
 	if(SSevents)
 		SSevents.Interact(usr)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
+
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
-	var/area/candidate = null
+	var/static/list/possible_areas
+	if(!length(possible_areas))
+		var/list/safe_areas = typecacheof(list(
+			/area/turret_protected/ai,
+			/area/turret_protected/ai_upload,
+			/area/engine,
+			/area/holodeck,
+			/area/shuttle,
+			/area/maintenance,
+			/area/toxins/test_area,
+			/area/space,
+			/area/solar,
+			/area/crew_quarters/sleep))
 
-	var/list/safe_areas = list(
-	/area/turret_protected/ai,
-	/area/turret_protected/ai_upload,
-	/area/engine,
-	/area/solar,
-	/area/holodeck,
-	/area/shuttle/arrival,
-	/area/shuttle/escape,
-	/area/shuttle/escape_pod1/station,
-	/area/shuttle/escape_pod2/station,
-	/area/shuttle/escape_pod3/station,
-	/area/shuttle/escape_pod5/station,
-	/area/shuttle/specops/station,
-	/area/shuttle/prison/station,
-	/area/shuttle/administration/station
-	)
+		//These are needed because /area/station/engineering has to be removed from the list, but we still want these areas to get fucked up.
+		var/list/allowed_areas = list(
+			/area/engine/break_room,
+			/area/engine/equipmentstorage,
+			/area/engine/chiefs_office,
+			/area/engine/controlroom,
+			/area/engine/mechanic_workshop
+		)
 
-	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
-	var/list/danger_areas = list(
-	/area/engine/break_room,
-	/area/engine/chiefs_office)
+		var/list/remove_these_areas = safe_areas - allowed_areas
+		possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, remove_these_areas)
 
-	var/list/event_areas = list()
-
-	for(var/areapath in GLOB.the_station_areas)
-		event_areas += typesof(areapath)
-	for(var/areapath in safe_areas)
-		event_areas -= typesof(areapath)
-	for(var/areapath in danger_areas)
-		event_areas += typesof(areapath)
-
-	while(event_areas.len > 0)
-		var/list/event_turfs = null
-		candidate = locate(pick_n_take(event_areas))
-		event_turfs = get_area_turfs(candidate)
-		if(event_turfs.len > 0)
-			break
-
-	return candidate
+	return pick(possible_areas)
 
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.

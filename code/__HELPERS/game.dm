@@ -95,8 +95,7 @@
 	var/BT = get_turf(B)
 	if(AT == BT)
 		return 1
-	var/list/line = getline(A, B)
-	for(var/turf/T in line)
+	for(var/turf/T as anything in get_line(A, B))
 		if(T == AT || T == BT)
 			break
 		if(T.density)

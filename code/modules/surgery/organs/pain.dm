@@ -4,8 +4,16 @@
 	var/last_pain_message = ""
 	var/next_pain_time = 0
 
-/mob/living/carbon/human/proc/has_pain()
+
+/mob/proc/has_pain()
 	if(stat)
+		return FALSE
+	return TRUE
+
+
+/mob/living/carbon/human/has_pain()
+	. = ..()
+	if(!.)
 		return FALSE
 	if(NO_PAIN in dna.species.species_traits)
 		return FALSE
@@ -25,11 +33,11 @@
 	var/msg
 	switch(amount)
 		if(1 to 10)
-			msg = "<b>Your [partname] hurts.</b>"
+			msg = span_userdanger("<b>Your [partname] hurts.</b>")
 		if(11 to 90)
-			msg = "<b><font size=2>Your [partname] hurts badly.</font></b>"
+			msg = span_userdanger("<b><font size=2>Your [partname] hurts badly.</font></b>")
 		if(91 to INFINITY)
-			msg = "<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>"
+			msg = span_userdanger("<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>")
 	if(msg && (msg != last_pain_message || prob(10)))
 		last_pain_message = msg
 		to_chat(src, msg)

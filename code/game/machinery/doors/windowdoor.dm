@@ -8,6 +8,8 @@
 	resistance_flags = ACID_PROOF
 	visible = 0
 	flags = ON_BORDER
+	obj_flags = BLOCKS_CONSTRUCTION_DIR
+	pass_flags_self = PASSGLASS
 	opacity = 0
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
@@ -46,11 +48,6 @@
 	QDEL_NULL(electronics)
 	return ..()
 
-/obj/machinery/door/window/update_icon()
-	if(density)
-		icon_state = base_state
-	else
-		icon_state = "[base_state]open"
 
 /obj/machinery/door/window/examine(mob/user)
 	. = ..()
@@ -111,23 +108,25 @@
 			return
 		do_animate("deny")
 
-/obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return !density
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
+
+/obj/machinery/door/window/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+
+	if(border_dir == dir)
 		return FALSE
-	else
-		return 1
+
+	if(isobj(mover))
+		var/obj/object = mover
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
+				return FALSE
+
+	return TRUE
+
 
 /obj/machinery/door/window/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
@@ -140,62 +139,68 @@
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
 
 
-/obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+/obj/machinery/door/window/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
+
+
+
+/obj/machinery/door/window/update_icon_state()
+	switch(operating)
+		if(DOOR_OPENING)
+			icon_state = "[base_state]open"
+		if(DOOR_CLOSING)
+			icon_state = base_state
+		else
+			icon_state = base_state
+
 
 /obj/machinery/door/window/open(forced=0)
 	if(operating) //doors can still open when emag-disabled
-		return 0
-	if(!forced)
-		if(!hasPower())
-			return 0
-	if(forced < 2)
-		if(emagged)
-			return 0
+		return FALSE
+	if(!forced && !hasPower())
+		return FALSE
+	if(forced < 2 && emagged)
+		return FALSE
 	if(!operating) //in case of emag
-		operating = TRUE
+		operating = DOOR_OPENING
 	do_animate("opening")
+	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
-	icon_state ="[base_state]open"
-	sleep(10)
+	update_icon()
+	sleep(1 SECONDS)
 
 	density = FALSE
-//	sd_set_opacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+
+	air_update_turf(TRUE)
 	update_freelook_sight()
 
 	if(operating) //emag again
-		operating = FALSE
-	return 1
+		operating = NONE
+	return TRUE
 
-/obj/machinery/door/window/close(forced=0)
+
+/obj/machinery/door/window/close(forced = 0)
 	if(operating)
-		return 0
-	if(!forced)
-		if(!hasPower())
-			return 0
-	if(forced < 2)
-		if(emagged)
-			return 0
-	operating = TRUE
+		return FALSE
+	if(!forced && !hasPower())
+		return FALSE
+	if(forced < 2 && emagged)
+		return FALSE
+	operating = DOOR_CLOSING
 	do_animate("closing")
-	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
-	icon_state = base_state
+	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
 
-	density = 1
-//	if(visible)
-//		set_opacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+	density = TRUE
+	update_icon()
+	air_update_turf(TRUE)
 	update_freelook_sight()
-	sleep(10)
+	sleep(1 SECONDS)
 
-	operating = 0
-	return 1
+	operating = NONE
+	return TRUE
+
 
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -206,10 +211,22 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && !disassembled)
+		var/obj/item/airlock_electronics/ae
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
 			debris -= fragment
+		if(!electronics)
+			ae = new/obj/item/airlock_electronics(loc)
+			if(!req_access)
+				check_access()
+			ae.selected_accesses = req_access
+			ae.one_access = check_one_access
+		else
+			ae = electronics
+			electronics = null
+			ae.forceMove(loc)
+
 	qdel(src)
 
 /obj/machinery/door/window/narsie_act()
@@ -240,7 +257,7 @@
 		return
 	return try_to_activate_door(user)
 
-/obj/machinery/door/window/emag_act(mob/user, obj/weapon)
+/obj/machinery/door/window/emag_act(mob/user)
 	if(!operating && density && !emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
@@ -252,7 +269,7 @@
 		open(2)
 		return 1
 
-/obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
+/obj/machinery/door/window/cmag_act(mob/user)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || emagged)
 		return
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)

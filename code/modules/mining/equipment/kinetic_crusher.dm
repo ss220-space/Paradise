@@ -62,7 +62,7 @@
 		to_chat(user, "<span class='warning'>There are no trophies on [src].</span>")
 
 /obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/carbon/user)
-	if(!wielded)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, "<span class='warning'>[src] is too heavy to use with one hand. You fumble and drop everything.")
 		user.drop_r_hand()
 		user.drop_l_hand()
@@ -90,7 +90,7 @@
 
 /obj/item/twohanded/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
 	. = ..()
-	if(!wielded)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
 		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
@@ -164,21 +164,27 @@
 	else
 		set_light(0)
 
-/obj/item/twohanded/kinetic_crusher/update_icon()
-	..()
-	cut_overlays()
-	if(!charged)
-		add_overlay("[icon_state]_uncharged")
-	if(light_on)
-		add_overlay("[icon_state]_lit")
-	spawn(1)
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtonIcon()
-	if(!upgraded)
-		item_state = "crusher[wielded]"
+
+/obj/item/twohanded/kinetic_crusher/update_icon(updates = ALL)
+	. = ..()
+	for(var/datum/action/action as anything in actions)
+		action.UpdateButtonIcon()
+
+
+/obj/item/twohanded/kinetic_crusher/update_icon_state()
+	if(upgraded)
+		item_state = "magmite_crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
 	else
-		item_state = "magmite_crusher[wielded]"
+		item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
+
+/obj/item/twohanded/kinetic_crusher/update_overlays()
+	. = ..()
+	if(!charged)
+		. += "[icon_state]_uncharged"
+	if(light_on)
+		. += "[icon_state]_lit"
+
 
 //destablizing force
 /obj/item/projectile/destabilizer
@@ -402,7 +408,8 @@
 	if(.)
 		H.force += bonus_value * 0.2
 		H.force_unwielded += bonus_value * 0.2
-		H.force_wielded += bonus_value * 0.2
+		// don't update force since KCs have 0 force by default
+		H.AddComponent(/datum/component/two_handed, force_wielded = H.force_wielded, force_unwielded = H.force)
 		H.detonation_damage += bonus_value * 0.8
 
 /obj/item/crusher_trophy/demon_claws/remove_from(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
@@ -410,7 +417,7 @@
 	if(.)
 		H.force -= bonus_value * 0.2
 		H.force_unwielded -= bonus_value * 0.2
-		H.force_wielded -= bonus_value * 0.2
+		H.AddComponent(/datum/component/two_handed, force_wielded = H.force_wielded, force_unwielded = H.force)
 		H.detonation_damage -= bonus_value * 0.8
 
 /obj/item/crusher_trophy/demon_claws/on_melee_hit(mob/living/target, mob/living/user)
@@ -463,7 +470,7 @@
 		var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, 3, TRUE)
 		C.damage = 10 // Weaker because there is no cooldown
 		C.monster_damage_boost = FALSE
-		add_attack_logs(user, target, "fired a chaser at", src)
+		add_attack_logs(user, target, "fired a chaser at")
 
 //vetus
 /obj/item/crusher_trophy/adaptive_intelligence_core

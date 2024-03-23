@@ -1,7 +1,7 @@
 /obj/item/implant/freedom
 	name = "freedom bio-chip"
 	desc = "Use this to escape from those evil Red Shirts."
-	icon_state = "freedom"
+	icon_state = "freedom_old"
 	implant_state = "implant-syndicate"
 	item_color = "r"
 	origin_tech = "combat=5;magnets=3;biotech=4;syndicate=2"

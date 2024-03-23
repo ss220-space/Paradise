@@ -143,6 +143,12 @@
 /datum/reagent/medicine/cryoxadone/on_merge(list/mix_data)
 	merge_diseases_data(mix_data)
 
+/datum/reagent/medicine/cryoxadone/reaction_turf(turf/T, volume, color)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/drask) in T)
+		var/obj/effect/decal/cleanable/blood/drask/new_blood = new(T)
+		new_blood.basecolor = color
+		new_blood.update_icon()
+
 /datum/reagent/medicine/rezadone
 	name = "Rezadone"
 	id = "rezadone"
@@ -662,22 +668,21 @@
 	taste_description = "clarity"
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(80))
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/obj/item/organ/internal/eyes/eyes = C.get_int_organ(/obj/item/organ/internal/eyes)
 			if(eyes && !eyes.is_dead())
 				eyes.heal_internal_damage(1)
-				update_flags |= M.AdjustEyeBlurry(-2 SECONDS)
+				M.AdjustEyeBlurry(-2 SECONDS)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(ears && !ears.is_dead())
 				ears.heal_internal_damage(1)
 				if(ears.damage < 25 && prob(30))
 					C.SetDeaf(0)
 		else
-			update_flags |= M.AdjustEyeBlurry(-2 SECONDS)
-	return ..() | update_flags
+			M.AdjustEyeBlurry(-2 SECONDS)
+	return ..()
 
 /datum/reagent/medicine/atropine
 	name = "Atropine"
@@ -854,10 +859,9 @@
 	taste_description = "sanity"
 
 /datum/reagent/medicine/fomepizole/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.AdjustDizzy(-120 SECONDS, FALSE)
-	update_flags |= M.AdjustJitter(-20 SECONDS, FALSE)
-	return ..() | update_flags
+	M.AdjustDizzy(-120 SECONDS)
+	M.AdjustJitter(-20 SECONDS)
+	return ..()
 
 /datum/reagent/medicine/mutadone
 	name = "Mutadone"

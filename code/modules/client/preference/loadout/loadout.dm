@@ -12,7 +12,10 @@ GLOBAL_LIST_EMPTY(gear_datums)
 /datum/gear
 	var/display_name       //Name/index. Must be unique.
 	var/description        //Description of this gear. If left blank will default to the description of the pathed item.
-	var/path               //Path to item.
+	var/atom/path          //Path to item.
+	var/icon_state		   //Icon state of item
+	var/icon			   //File of icon
+	var/base64icon         //It will be generated automaticly
 	var/cost = 1           //Number of points used. Items in general cost 1 point, storage/armor/gloves/special use costs 2 points.
 	var/slot               //Slot to equip to.
 	var/list/allowed_roles //Roles that can spawn with this item.
@@ -27,8 +30,23 @@ GLOBAL_LIST_EMPTY(gear_datums)
 /datum/gear/New()
 	..()
 	if(!description)
-		var/obj/O = path
-		description = initial(O.desc)
+		description = path::desc
+	update_gear_icon()
+
+
+/datum/gear/proc/update_gear_icon(color)
+	if(initial(icon) && initial(icon_state))
+		return
+	icon_state = path::icon_state
+	icon = path::icon
+	if(!initial(description))
+		description = path::desc
+	if(!icon || !icon_state)
+		return
+	var/icon/new_icon = icon(icon, icon_state, SOUTH, 1, FALSE)
+	if(color)
+		new_icon.Blend(color, ICON_MULTIPLY)
+	base64icon = icon2base64(new_icon)
 
 /datum/gear_data
 	var/path

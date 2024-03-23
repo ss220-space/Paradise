@@ -31,7 +31,7 @@
 	else
 		..()
 
-/obj/item/reagent_containers/food/snacks/update_icon()
+/obj/item/reagent_containers/food/snacks/update_icon_state()
 	if(!opened)
 		icon_state = "[initial(icon_state)]-closed"
 	else
@@ -59,12 +59,14 @@
 	if(!opened)
 		opened = TRUE
 		to_chat(user, "<span class='notice'>You open the [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return ..()
 	else
 		return
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
+	if(user.a_intent == INTENT_HARM && force)
+		return ..()
 	if(!opened)
 		to_chat(user, "<span class='notice'>You need to open the [src]!</span>")
 		return
@@ -125,10 +127,13 @@
 		)
 
 		bitecount++
-		U.overlays.Cut()
+		U.cut_overlays()
 		var/image/I = new(U.icon, "loadedfood")
 		I.color = filling_color
-		U.overlays += I
+		U.add_overlay(I)
+
+		if(U.blocks_emissive)
+			U.add_overlay(U.get_emissive_block())
 
 		var/obj/item/reagent_containers/food/snacks/collected = new type
 		collected.name = name

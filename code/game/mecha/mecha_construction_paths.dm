@@ -58,7 +58,7 @@
 
 /datum/construction/mecha/ripley_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -72,7 +72,6 @@
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "ripley0"
 	const_holder.density = 1
-	const_holder.overlays.len = 0
 	qdel(src)
 	return
 
@@ -260,7 +259,7 @@
 
 /datum/construction/mecha/gygax_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -533,7 +532,7 @@
 
 /datum/construction/mecha/firefighter_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -751,7 +750,7 @@
 
 /datum/construction/mecha/honker_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -823,7 +822,7 @@
 
 /datum/construction/mecha/reticence_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state + "+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -894,7 +893,7 @@
 
 /datum/construction/mecha/durand_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -1170,7 +1169,7 @@
 
 /datum/construction/mecha/phazon_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -1487,7 +1486,7 @@
 
 /datum/construction/mecha/odysseus_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -1692,7 +1691,7 @@
 
 /datum/construction/mecha/clarke_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -1895,7 +1894,7 @@
 
 /datum/construction/mecha/rover_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 
@@ -2169,7 +2168,7 @@
 
 /datum/construction/mecha/darkgygax_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.add_overlay("[used_atom.icon_state]+o")
 	qdel(used_atom)
 	return 1
 

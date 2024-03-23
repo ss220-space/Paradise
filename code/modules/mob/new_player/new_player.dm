@@ -9,7 +9,7 @@
 
 	density = 0
 	stat = 2
-	canmove = 0
+	canmove = FALSE
 
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -57,9 +57,9 @@
 
 	var/list/antags = client.prefs.be_special
 	if(antags && antags.len)
-		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+		if(!client.prefs?.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
 		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+		output += "<br /><small>You are <b><font color=[client.prefs?.skip_antag ? "#dd311b" : "#63eb6a"]>[client.prefs?.skip_antag ? "ineligible" : "eligible"]</font></b> for all antag roles.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Observe (Please wait...)</p>"
@@ -171,7 +171,7 @@
 		new_player_panel_proc()
 
 	if(href_list["skip_antag"])
-		client.skip_antag = !client.skip_antag
+		client.prefs?.skip_antag = !client.prefs?.skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -335,7 +335,7 @@
 		return 0
 
 /mob/new_player/proc/is_used_species_available(species)
-	var/list/available_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+	var/list/available_species = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_MOTH)
 	available_species += GLOB.whitelisted_species
 	if(species in available_species)
 		return TRUE
@@ -665,14 +665,14 @@
 	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
 		log_runtime(EXCEPTION("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human."), src)
-		client.prefs.species = "Human"
+		client.prefs.species = SPECIES_HUMAN
 
 	var/datum/language/chosen_language
 	if(client.prefs.language)
 		chosen_language = GLOB.all_languages[client.prefs.language]
-	if((chosen_language == null && client.prefs.language != "None") || (chosen_language && chosen_language.flags & RESTRICTED))
+	if((!chosen_language && client.prefs.language != LANGUAGE_NONE) || (chosen_language && chosen_language.flags & RESTRICTED))
 		log_runtime(EXCEPTION("[src] had language [client.prefs.language], though they weren't supposed to. Setting to None."), src)
-		client.prefs.language = "None"
+		client.prefs.language = LANGUAGE_NONE
 
 /mob/new_player/proc/ViewManifest()
 	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
@@ -705,4 +705,4 @@
 
 // No hearing announcements
 /mob/new_player/can_hear()
-	return 0
+	return FALSE

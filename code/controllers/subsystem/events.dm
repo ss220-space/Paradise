@@ -251,7 +251,7 @@ SUBSYSTEM_DEF(events)
 			var/datum/event_meta/EM = locate(href_list["set_name"])
 			EM.name = name
 	else if(href_list["set_type"])
-		var/type = input("Select event type.", "Select") as null|anything in allEvents
+		var/type = tgui_input_list(usr, "Select event type.", "Select", allEvents)
 		if(type)
 			var/datum/event_meta/EM = locate(href_list["set_type"])
 			EM.event_type = type

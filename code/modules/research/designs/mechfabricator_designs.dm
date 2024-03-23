@@ -1417,6 +1417,16 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/service_bs_beaker
+	name = "Cyborg Service Upgrade (Bluespace Beaker)"
+	id = "service_bs_beaker"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/bs_beaker
+	req_tech = list("bluespace" = 6, "materials" = 5, "plasmatech" = 4)
+	materials = list(MAT_GLASS = 3000, MAT_PLASMA = 3000, MAT_DIAMOND = 250, MAT_BLUESPACE = 250)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_abductor_engi
 	name = "Engineer Cyborg Upgrade (Abductor Engineering Equipment)"
 	id = "borg_upgade_abductor_engi"
@@ -1467,42 +1477,6 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_hyperaccelerator
-	name = "Mining Cyborg Upgrade (KA Mining AoE Mod)"
-	id = "borg_hypermod"
-	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 5, "magnets" = 5, "combat" = 4)
-	build_type = MECHFAB
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
-	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_offensive_turf_aoe
-	name = "Mining Cyborg Upgrade (KA Offensive Mining Explosion Mod)"
-	id = "borg_hyperaoemod"
-	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 2, "magnets" = 2, "combat" = 2)
-	build_type = MECHFAB
-	materials = list(MAT_METAL = 7000, MAT_GLASS = 3000, MAT_SILVER= 3000, MAT_GOLD = 3000, MAT_DIAMOND = 4000)
-	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_rapid_repeater
-	name = "Mining Cyborg Upgrade (KA Rapid Repeater Mod)"
-	id = "borg_repeatermod"
-	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 2, "magnets" = 2, "combat" = 2)
-	build_type = MECHFAB
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_URANIUM = 8000, MAT_BLUESPACE = 2000)
-	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_resonator_blast
-	name = "Mining Cyborg Upgrade (KA Blast Mod)"
-	id = "borg_resonatormod"
-	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 2, "magnets" = 2, "combat" = 2)
-	build_type = MECHFAB
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
-	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
-	category = list("Cyborg Upgrade Modules")
-
 /datum/design/borg_damage_mod
 	name = "Mining Cyborg Upgrade (KA Damage Mod)"
 	id = "borg_damagemod"
@@ -1518,7 +1492,7 @@
 	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/cooldown/borg
+	build_path = /obj/item/borg/upgrade/modkit/cooldown/haste/borg
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_range_mod
@@ -1528,6 +1502,15 @@
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
 	build_path = /obj/item/borg/upgrade/modkit/range/borg
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_range_mod
+	name = "Mining Cyborg Upgrade (KA Hardness Mod)"
+	id = "borg_hardnessmod"
+	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 2800, MAT_GLASS = 2100, MAT_GOLD = 2100, MAT_URANIUM = 1400)
+	build_path = /obj/item/borg/upgrade/modkit/hardness/borg
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_diamonddrill
@@ -1868,6 +1851,16 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")
 
+/datum/design/paint_ripley_nt
+	name = "Ripley, Firefighter \"NT Special\""
+	id = "p_ripleynt"
+	build_type = MECHFAB
+	req_tech = list("combat" = 5, "engineering" = 5, "materials" = 5, "programming" = 5)
+	build_path = /obj/item/paintkit/ripley_nt
+	materials = list(MAT_METAL=20000, MAT_PLASMA=2000, MAT_GLASS= 2000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Paintkits")
+
 /datum/design/paint_clarke_orangey
 	name = "Clarke \"Orangey\""
 	id = "p_orangey"
@@ -1958,6 +1951,16 @@
 	construction_time = 20 SECONDS
 	category = list("Exosuit Paintkits")
 
+/datum/design/paint_gygax_pirate
+	name = "Gygax \"Pirate\""
+	id = "p_pirategygax"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "engineering" = 6, "materials" = 6, "programming" = 6)
+	build_path = /obj/item/paintkit/gygax_pirate
+	materials = list(MAT_METAL=30000, MAT_DIAMOND=3000, MAT_URANIUM= 3000)
+	construction_time = 30 SECONDS
+	category = list("Exosuit Paintkits")
+
 /datum/design/paint_durand_unathi
 	name = "Durand \"Kharn MK. IV\""
 	id = "p_unathi"
@@ -1974,6 +1977,26 @@
 	build_type = MECHFAB
 	req_tech = list("combat" = 6, "engineering" = 6, "materials" = 6, "programming" = 6)
 	build_path = /obj/item/paintkit/durand_shire
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=4000, MAT_URANIUM= 4000)
+	construction_time = 30 SECONDS
+	category = list("Exosuit Paintkits")
+
+/datum/design/paint_durand_pirate
+	name = "Durand \"Pirate\""
+	id = "p_durandpirate"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "engineering" = 6, "materials" = 6, "programming" = 6)
+	build_path = /obj/item/paintkit/durand_pirate
+	materials = list(MAT_METAL=40000, MAT_DIAMOND=4000, MAT_URANIUM= 4000)
+	construction_time = 30 SECONDS
+	category = list("Exosuit Paintkits")
+
+/datum/design/paint_durand_nt
+	name = "Durand \"NT Special\""
+	id = "p_durandnt"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "engineering" = 6, "materials" = 6, "programming" = 6)
+	build_path = /obj/item/paintkit/durand_nt
 	materials = list(MAT_METAL=40000, MAT_DIAMOND=4000, MAT_URANIUM= 4000)
 	construction_time = 30 SECONDS
 	category = list("Exosuit Paintkits")
@@ -2034,6 +2057,16 @@
 	build_type = MECHFAB
 	req_tech = list("bluespace" = 7, "engineering" = 7, "materials" = 7, "toxins" = 6)
 	build_path = /obj/item/paintkit/phazon_blanco
+	materials = list(MAT_METAL=50000, MAT_DIAMOND=4000, MAT_BLUESPACE=4000)
+	construction_time = 40 SECONDS
+	category = list("Exosuit Paintkits")
+
+/datum/design/paint_phazon_nt
+	name = "Phazon \"NT Special\""
+	id = "p_phazonnt"
+	build_type = MECHFAB
+	req_tech = list("bluespace" = 7, "engineering" = 7, "materials" = 7, "toxins" = 6)
+	build_path = /obj/item/paintkit/phazon_nt
 	materials = list(MAT_METAL=50000, MAT_DIAMOND=4000, MAT_BLUESPACE=4000)
 	construction_time = 40 SECONDS
 	category = list("Exosuit Paintkits")

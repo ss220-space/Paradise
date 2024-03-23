@@ -56,14 +56,16 @@
 	flying = TRUE
 	speak_emote = list("pulses")
 	var/obj/structure/blob/factory/factory = null
-	var/list/human_overlays = list()
+	var/list/human_overlays
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 
-/mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
+
+/mob/living/simple_animal/hostile/blob/blobspore/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(istype(mover, /obj/structure/blob))
-		return 1
-	return ..()
+		return TRUE
+
 
 /mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
@@ -148,11 +150,15 @@
 	color = a_color
 
 	if(is_zombie)
-		overlays.Cut()
-		overlays = human_overlays
+		cut_overlays()
+		add_overlay(human_overlays)
 		var/image/I = image('icons/mob/blob.dmi', icon_state = "blob_head")
 		I.color = color
-		overlays += I
+		add_overlay(I)
+
+		if(blocks_emissive)
+			add_overlay(get_emissive_block())
+
 
 /////////////////
 // BLOBBERNAUT //
@@ -228,7 +234,7 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
 	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span> <span class='message'>states, \"[message]\"</span></span></i></font>"
+	var/rendered = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[name]([overmind])</span> states, <span class='blob'>\"[message]\"</span></i>"
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))

@@ -100,7 +100,7 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "Here there be dragons."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
 	if(swooping)
@@ -270,7 +270,7 @@ Difficulty: Medium
 		if(!check)
 			break
 		T = check
-	return (getline(src, T) - get_turf(src))
+	return (get_line(src, T) - get_turf(src))
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(var/list/turfs)
 	SLEEP_CHECK_DEATH(0)

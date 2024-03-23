@@ -47,8 +47,10 @@
 	var/stored_plasma = 0
 	/// Maximum vessel capacity.
 	var/max_plasma = 500
-	/// Gained heal amount per Life() cycle.
+	/// Gained heal amount per Life() cycle, while on weeds.
 	var/heal_rate = 7.5
+	/// Gained passive heal amount per Life() cycle.
+	var/passive_heal_rate = 1
 	/// Gained plasma amount per Life() cycle.
 	var/plasma_rate = 10
 
@@ -57,27 +59,41 @@
 	name = "bloated xeno plasma vessel"
 	icon_state = "plasma_large"
 	origin_tech = "biotech=6;plasmatech=4"
-	stored_plasma = 200
-	plasma_rate = 25
+	max_plasma = 750
+	stored_plasma = 300
+	plasma_rate = 30
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/queen, /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma)
+
+
+/obj/item/organ/internal/xenos/plasmavessel/praetorian
+	name = "huge xeno plasma vessel"
+	icon_state = "plasma_large"
+	max_plasma = 750
+	stored_plasma = 100
+	plasma_rate = 15
 
 
 /obj/item/organ/internal/xenos/plasmavessel/drone
 	name = "large xeno plasma vessel"
 	icon_state = "plasma_large"
+	max_plasma = 300
 	stored_plasma = 200
+	plasma_rate = 25
 
 
 /obj/item/organ/internal/xenos/plasmavessel/sentinel
+	name = "medium xeno plasma vessel"
+	max_plasma = 200
 	stored_plasma = 100
+	plasma_rate = 25
 
 
 /obj/item/organ/internal/xenos/plasmavessel/hunter
 	name = "small xeno plasma vessel"
 	icon_state = "plasma_tiny"
-	stored_plasma = 100
 	max_plasma = 150
-	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds)
+	stored_plasma = 100
+	plasma_rate = 10
 
 
 /obj/item/organ/internal/xenos/plasmavessel/larva
@@ -85,6 +101,7 @@
 	icon_state = "plasma_tiny"
 	max_plasma = 100
 	alien_powers = list()
+
 
 
 /obj/item/organ/internal/xenos/plasmavessel/prepare_eat()
@@ -96,22 +113,27 @@
 /obj/item/organ/internal/xenos/plasmavessel/on_life()
 	if(!owner)
 		return
+	if(owner.on_fire)
+		return
 
 	update_hud()
 
-	//If there are alien weeds on the ground then heal if needed or give some plasma
-	if(!(locate(/obj/structure/alien/weeds) in owner.loc))
-		return
+	var/heal_amt = passive_heal_rate
+	var/plasma_amt = 0
+	if(locate(/obj/structure/alien/weeds) in owner.loc)
+		if(owner.health >= owner.maxHealth)
+			plasma_amt = plasma_rate
+		else
+			heal_amt += heal_rate
+			plasma_amt = plasma_rate/2
+	else
+		if(stored_plasma < 50)
+			plasma_amt = plasma_rate/10
 
-	if(owner.health >= owner.maxHealth)
-		owner.adjust_alien_plasma(plasma_rate)
-		update_hud()
-		return
-
-	var/heal_amt = heal_rate
 	if(!isalien(owner))
 		heal_amt *= 0.2
-	owner.adjust_alien_plasma((plasma_rate * 0.5))
+
+	owner.adjust_alien_plasma(plasma_amt)
 	owner.adjustBruteLoss(-heal_amt)
 	owner.adjustFireLoss(-heal_amt)
 	owner.adjustOxyLoss(-heal_amt)
@@ -162,25 +184,28 @@
 /obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	M.faction |= "alien"
-	M.add_language("Hivemind")
-	M.add_language("Xenomorph")
+	M.add_language(LANGUAGE_XENOS)
+	M.add_language(LANGUAGE_HIVE_XENOS)
 
 
 /obj/item/organ/internal/xenos/hivenode/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	M.faction -= "alien"
-	M.remove_language("Hivemind")
-	M.remove_language("Xenomorph")
+	M.remove_language(LANGUAGE_XENOS)
+	M.remove_language(LANGUAGE_HIVE_XENOS)
 	. = ..()
 
 
 /obj/item/organ/internal/xenos/neurotoxin
-	name = "xeno neurotoxin gland"
+	name = "large xeno neurotoxin gland"
 	icon_state = "neurotox"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_NEUROTOXIN_GLAND
 	origin_tech = "biotech=5;combat=5"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
 
+/obj/item/organ/internal/xenos/neurotoxin/sentinel
+	name = "medium xeno neurotoxin gland"
+	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin/sentinel)
 
 /obj/item/organ/internal/xenos/resinspinner
 	name = "xeno resin organ"//...there tiger....

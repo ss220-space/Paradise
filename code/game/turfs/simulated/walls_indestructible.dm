@@ -59,7 +59,7 @@
 /turf/simulated/wall/indestructible/rcd_deconstruct_act()
 	return RCD_NO_ACT
 
-/turf/simulated/wall/indestructible/thermitemelt(mob/user as mob, speed)
+/turf/simulated/wall/indestructible/thermitemelt(mob/user, time)
 	return
 
 /turf/simulated/wall/indestructible/fakeglass
@@ -151,3 +151,17 @@
 	pixel_y = -224
 	/// Currently used screen. Defined in SStitle.
 	var/obj/effect/abstract/current_screen
+
+/turf/simulated/wall/indestructible/snow
+	name = "snow wall"
+	icon = 'icons/turf/walls/snow_wall.dmi'
+	icon_state = "snow"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/wall/indestructible/snow)
+
+/turf/simulated/wall/indestructible/gingerbread
+	name = "gingerbread wall"
+	icon = 'icons/turf/walls/gingerbread_wall.dmi'
+	icon_state = "gingerbread"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/wall/indestructible/gingerbread, /obj/structure/falsewall/gingerbread, /turf/simulated/wall/mineral/gingerbread)

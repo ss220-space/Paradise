@@ -20,18 +20,99 @@
 	var/cooldowntime = 0
 	var/death_message = "<span class='danger'>The structure falls apart.</span>"
 	var/death_sound = 'sound/effects/forge_destroy.ogg'
+	var/canbehidden = FALSE
 	var/hidden = FALSE
+	var/hidden_type
+	var/list/choosable_items = list(
+		"rack" = /obj/structure/rack,
+		"table" = /obj/structure/table,
+		"wooden table" = /obj/structure/table/wood,
+		"personal closet" = /obj/structure/closet/secure_closet/personal,
+		"girder" = /obj/structure/girder,
+		"bookcase" = /obj/structure/bookcase
+		)
+
+/obj/structure/clockwork/functional/update_name(updates = ALL)
+	. = ..()
+	if(!hidden)
+		name = initial(name)
+		return
+	switch(hidden_type)
+		if("rack")
+			name = "rack"
+		if("table")
+			name = "table"
+		if("wooden table")
+			name = "wooden table"
+		if("personal closet")
+			name = "personal closet"
+		if("girder")
+			name = "girder"
+		if("bookcase")
+			name = "bookcase"
+
+
+/obj/structure/clockwork/functional/update_desc(updates = ALL)
+	. = ..()
+	if(!hidden)
+		desc = initial(desc)
+		return
+	switch(hidden_type)
+		if("rack")
+			desc = "Different from the Middle Ages version. <BR><span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+		if("table")
+			desc = "A square piece of metal standing on four metal legs. It can not move. <BR><span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
+		if("wooden table")
+			desc = "Do not apply fire to this. Rumour says it burns easily. <BR><span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
+		if("personal closet")
+			desc = "It's a secure locker for personnel. The first card swiped gains control."
+		if("girder")
+			desc = "<span class='notice'>The bolts are <b>lodged</b> in place.</span>"
+		if("bookcase")
+			desc = null
+
+
+/obj/structure/clockwork/functional/update_icon_state()
+	if(!hidden)
+		icon = initial(icon)
+		icon_state = anchored ? "[initial(icon_state)]-off" : initial(icon_state)
+		return
+	switch(hidden_type)
+		if("rack")
+			icon = 'icons/obj/objects.dmi'
+			icon_state = "rack"
+		if("table")
+			icon = 'icons/obj/smooth_structures/table.dmi'
+			icon_state = "table"
+		if("wooden table")
+			icon = 'icons/obj/smooth_structures/wood_table.dmi'
+			icon_state = "wood_table"
+		if("personal closet")
+			icon = 'icons/obj/closet.dmi'
+			icon_state = "secureoff"
+		if("girder")
+			icon = 'icons/obj/structures.dmi'
+			icon_state = "girder"
+		if("bookcase")
+			icon = 'icons/obj/library.dmi'
+			icon_state = "book-0"
+
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
-		if(I.enchant_type == HIDE_SPELL)
-			toggle_hide()
+		if(I.enchant_type == HIDE_SPELL && canbehidden)
+			var/choice
+			if(!hidden)
+				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
+				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
+					return TRUE
+			toggle_hide(choice)
 			to_chat(user, "<span class='notice'>You [hidden ? null : "un"]disguise [src].</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			I.deplete_spell()
 			return TRUE
 		if(hidden)
-			to_chat(user, "<span class='warning'>You have to clear the view of this structure in order to manipulate with it!</span>")
+			toggle_hide(null)
 			return TRUE
 		if(!anchored && !isfloorturf(loc))
 			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
@@ -45,11 +126,7 @@
 		add_fingerprint(user)
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
-		if(!anchored)
-			icon_state = "[initial(icon_state)]-off"
-		else
-			icon_state = "[initial(icon_state)]"
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 	return ..()
 
@@ -64,43 +141,15 @@
 		. += "<span class='notice'>It's a disguised [initial(name)]!</span>"
 
 // returns TRUE if hidden, if unhidden FALSE
-/obj/structure/clockwork/functional/proc/toggle_hide()
+/obj/structure/clockwork/functional/proc/toggle_hide(chosen_type)
 	hidden = !hidden
 	if(!hidden)
-		name = initial(name)
-		desc = initial(desc)
-		icon = initial(icon)
-		if(!anchored)
-			icon_state = "[initial(icon_state)]-off"
-		else
-			icon_state = "[initial(icon_state)]"
+		hidden_type = null
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return FALSE
-	switch(rand(1,5))
-		if(1)
-			name = "rack"
-			desc = "Different from the Middle Ages version. <BR><span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
-			icon = 'icons/obj/objects.dmi'
-			icon_state = "rack"
-		if(2)
-			name = "wooden table"
-			desc = "Do not apply fire to this. Rumour says it burns easily. <BR><span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
-			icon = 'icons/obj/smooth_structures/wood_table.dmi'
-			icon_state = "wood_table"
-		if(3)
-			name = "personal closet"
-			desc = "It's a secure locker for personnel. The first card swiped gains control."
-			icon = 'icons/obj/closet.dmi'
-			icon_state = "secureoff"
-		if(4)
-			name = "girder"
-			desc = "<span class='notice'>The bolts are <b>lodged</b> in place.</span>"
-			icon = 'icons/obj/structures.dmi'
-			icon_state = "girder"
-		if(5)
-			name = "bookcase"
-			desc = null
-			icon = 'icons/obj/library.dmi'
-			icon_state = "book-4"
+
+	hidden_type = chosen_type
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	return TRUE
 
 /obj/structure/clockwork/functional/beacon
@@ -140,7 +189,7 @@
 				L.reagents.del_reagent("holywater")
 			if(iscogscarab(L))
 				var/mob/living/silicon/robot/cogscarab/C = L
-				C.wind_up_timer = min(C.wind_up_timer + 25, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 25 seconds. roughly, every second 5 to timer.
+				C.wind_up_timer = min(C.wind_up_timer + 60, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 60 seconds. roughly, every second 10 to timer.
 			if(!(L.health < L.maxHealth))
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
@@ -176,7 +225,14 @@
 	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
 	icon_state = "altar"
 	density = 0
-	death_message = "<span class='danger'>The alter breaks in pieces as it dusts into nothing!</span>"
+	death_message = "<span class='danger'>The credence breaks in pieces as it dusts into nothing!</span>"
+	canbehidden = TRUE
+	choosable_items = list(
+		"potted plant" = /obj/item/twohanded/required/kirbyplants,
+		"chair" = /obj/structure/chair,
+		"stool" = /obj/structure/chair/stool,
+		"broken grille" = /obj/structure/grille/broken
+		)
 	var/locname = null
 	var/obj/effect/temp_visual/ratvar/altar_convert/glow
 
@@ -187,6 +243,7 @@
 	var/second_stage = FALSE // Did we started to gib someone?
 	var/convert_timer = 0
 
+// For fake brass
 /obj/structure/clockwork/functional/fake_altar
 	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 
@@ -204,17 +261,78 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
+
+/obj/structure/clockwork/functional/altar/update_name(updates = ALL)
+	. = ..()
+	if(!hidden)
+		name = initial(name)
+		return
+	switch(hidden_type)
+		if("potted plant")
+			name = "potted plant"
+		if("chair")
+			name = "chair"
+		if("stool")
+			name = "stool"
+		if("broken grille")
+			name = "grille"
+
+
+/obj/structure/clockwork/functional/altar/update_desc(updates = ALL)
+	. = ..()
+	if(!hidden)
+		desc = initial(desc)
+		return
+	switch(hidden_type)
+		if("potted plant")
+			desc = null
+		if("chair")
+			desc = "You sit in this. Either by will or force."
+		if("stool")
+			desc = "Apply butt."
+		if("broken grille")
+			desc = "A flimsy framework of metal rods."
+
+
+/obj/structure/clockwork/functional/altar/update_icon_state()
+	if(!hidden)
+		icon = initial(icon)
+		if(!anchored)
+			icon_state = "[initial(icon_state)]-off"
+			return
+		icon_state = first_stage ? "[initial(icon_state)]-fast" : initial(icon_state)
+		return
+	switch(hidden_type)
+		if("potted plant")
+			icon = 'icons/obj/flora/plants.dmi'
+			icon_state = "plant-[rand(1,36)]"
+		if("chair")
+			icon = 'icons/obj/chairs.dmi'
+			icon_state = "chair"
+		if("stool")
+			icon = 'icons/obj/chairs.dmi'
+			icon_state = "stool"
+		if("broken grille")
+			icon = 'icons/obj/structures.dmi'
+			icon_state = "brokengrille"
+
+
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		if(hidden)
-			toggle_hide()
+			toggle_hide(null)
 			if(anchored)
 				START_PROCESSING(SSprocessing, src)
 			to_chat(user, "<span class='notice'>You undisguise [src].</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			return TRUE
-		else if(I.enchant_type == HIDE_SPELL)
-			toggle_hide()//cuz we sure its unhidden
+		else if(I.enchant_type == HIDE_SPELL && canbehidden)
+			var/choice
+			if(!hidden)
+				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
+				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
+					return FALSE
+			toggle_hide(choice)//cuz we sure its unhidden
 			if(isprocessing)
 				STOP_PROCESSING(SSprocessing, src)
 				if(glow)
@@ -237,45 +355,16 @@
 			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 			return TRUE
 		anchored = !anchored
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
 			stop_convert(TRUE)
 			STOP_PROCESSING(SSprocessing, src)
 		else
-			icon_state = "[initial(icon_state)]"
 			START_PROCESSING(SSprocessing, src)
-		update_icon()
 		return TRUE
 	return ..()
 
-/obj/structure/clockwork/functional/altar/toggle_hide()
-	hidden = !hidden
-	if(!hidden)
-		name = initial(name)
-		desc = initial(desc)
-		icon = initial(icon)
-		if(!anchored)
-			icon_state = "[initial(icon_state)]-off"
-		else
-			icon_state = "[initial(icon_state)]"
-		return FALSE
-	switch(rand(1,5))
-		if(1, 2, 3)
-			name = "potted plant"
-			desc = null
-			icon = 'icons/obj/flora/plants.dmi'
-			icon_state = "plant-[rand(1,36)]"
-		if(4)
-			name = "chair"
-			desc = "You sit in this. Either by will or force."
-			icon = 'icons/obj/chairs.dmi'
-			icon_state = "chair"
-		if(5)
-			name = "stool"
-			desc = "Apply butt."
-			icon = 'icons/obj/chairs.dmi'
-			icon_state = "stool"
-	return hidden
 
 /obj/structure/clockwork/functional/altar/process()
 	for(var/mob/living/M in range(1, src))
@@ -319,7 +408,7 @@
 	target.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
 	glow = new (get_turf(src))
 	animate(glow, alpha = 255, time = 8 SECONDS)
-	icon_state = "[initial(icon_state)]-fast"
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/clockwork/functional/altar/proc/second_stage_check(var/mob/living/carbon/human/target)
 	second_stage = TRUE
@@ -344,10 +433,7 @@
 	second_stage = FALSE
 	convert_timer = 0
 	converting = null
-	if(anchored)
-		icon_state = "[initial(icon_state)]"
-	else
-		icon_state = "[initial(icon_state)]-off"
+	update_icon(UPDATE_ICON_STATE)
 	if(!silent)
 		visible_message("<span class='warning'>[src] slowly stops glowing!</span>")
 
@@ -400,10 +486,103 @@
 	qdel(src)
 	return
 
-/// for area.get_beacon() returns BEACON if it exists
-/area/proc/get_beacon()
-	for(var/thing in GLOB.clockwork_beacons)
-		var/obj/structure/clockwork/functional/beacon/BEACON = thing
-		if(BEACON.areabeacon == get_area(src))
-			return BEACON
+/obj/structure/clockwork/functional/cogscarab_fabricator
+	name = "cogscarab fabricator"
+	desc = "House for a tons of little cogscarabs, self-producing and maintaining itself."
+	icon_state = "fabricator"
+	death_message = "<span class='danger'>Fabricator crumbles and dusts, leaving nothing behind!</span>"
+	var/list/cogscarab_list = list()
+	canbehidden = TRUE
+	var/cog_slots = 0
+	var/timer_fabrictor = null
 
+/obj/structure/clockwork/functional/cogscarab_fabricator/examine(mob/user)
+	. = ..()
+	if(!hidden && (isclocker(user) || isobserver(user)))
+		. += "<span class='notice'>There's [cog_slots - cogscarab_list.len] cogscarab ready. [timer_fabrictor ? "And it's creating another one now" : "It stopped creating."]."
+
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/update_icon_state()
+	icon_state = anchored ? "[initial(icon_state)]-off" : initial(icon_state)
+
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/Initialize(mapload)
+	. = ..()
+	GLOB.clockwork_fabricators += src
+	timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+	notify_ghosts("[src] is created at [get_area(src)].", title = "New cogscarab fabricator!", source = src, flashwindow = FALSE, action = NOTIFY_JUMP)
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/obj_destruction()
+	. = ..()
+	GLOB.clockwork_fabricators -= src
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/proc/open_slot()
+	cog_slots += 1
+	notify_ghosts("[src] made a new shell at [get_area(src)]!", title = "Cogscarab ready!", source = src, action = NOTIFY_ATTACK)
+	if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
+		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+	else
+		timer_fabrictor = null
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/proc/close_slot(cogscarab)
+	cogscarab_list -= cogscarab
+	cog_slots -= 1
+	if(!timer_fabrictor)
+		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
+		if(!anchored && !isfloorturf(loc))
+			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
+			return TRUE
+		if(locate(/obj/structure/clockwork) in (loc.contents-src))
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return TRUE
+		if(locate(/obj/structure/falsewall) in loc)
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return TRUE
+		add_fingerprint(user)
+		anchored = !anchored
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
+		if(!anchored)
+			if(timer_fabrictor)
+				deltimer(timer_fabrictor)
+				timer_fabrictor = null
+		else
+			if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
+				timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+		return TRUE
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/toggle_hide(chosen_type)
+	. = ..()
+	if(. && timer_fabrictor) // hidden
+		deltimer(timer_fabrictor)
+		timer_fabrictor = null
+	else
+		if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
+			timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/attack_ghost(mob/dead/observer/user)
+	if(hidden)
+		to_chat(user, "<span class='warning'>It's hidden and cannot produce you at this state!</span>")
+		return FALSE
+	if(!anchored)
+		to_chat(user, "<span class='warning'>It seems to be non-functional to produce a new shell!</span>")
+		return FALSE
+	if(cogscarab_list.len >= cog_slots)
+		to_chat(user, "<span class='notice'>There's no empty shells to take!</span>")
+		return FALSE
+	if(alert(user, "Do you wish to become cogscarab?",,"Yes","No") == "Yes")
+		if(cogscarab_list.len >= cog_slots) //Double check. No duplications
+			to_chat(user, "<span class='notice'>There's no empty shells to take!</span>")
+			return FALSE
+		var/mob/living/silicon/robot/cogscarab/cog = new(loc)
+		cog.key = user.key
+		if(SSticker.mode.add_clocker(cog.mind))
+			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone")
+		cog.fabr = src
+		cogscarab_list += cog
+		return TRUE
+	return FALSE

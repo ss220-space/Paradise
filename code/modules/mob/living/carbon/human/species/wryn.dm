@@ -1,10 +1,10 @@
 /datum/species/wryn
-	name = "Wryn"
+	name = SPECIES_WRYN
 	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE
-	language = "Wryn Hivemind"
+	language = LANGUAGE_WRYN
 	tail = "wryntail"
 	punchdamagelow = 0
 	punchdamagehigh = 1
@@ -36,6 +36,8 @@
 		INTERNAL_ORGAN_HIVENODE = /obj/item/organ/internal/wryn/hivenode,
 		INTERNAL_ORGAN_WAX_GLANDS = /obj/item/organ/internal/wryn/glands,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/wryn
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/wryn),
@@ -178,7 +180,7 @@
 				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
 				to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<B></span>")
 				if(do_mob(user, target, 250))
-					target.remove_language("Wryn Hivemind")
+					target.remove_language(LANGUAGE_WRYN)
 					node.remove(target)
 					node.forceMove(get_turf(target))
 					to_chat(user, "<span class='notice'>Вы слышите громкий хруст, когда безжалостно отрываете усики [target].</span>")

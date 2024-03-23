@@ -49,8 +49,9 @@
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
 	return TOXLOSS
 
-/obj/item/storage/bag/trash/update_icon()
-	switch(contents.len)
+
+/obj/item/storage/bag/trash/update_icon_state()
+	switch(length(contents))
 		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
 		if(11 to 20)
@@ -59,11 +60,8 @@
 			icon_state = "[initial(icon_state)]1"
 		else
 			icon_state = "[initial(icon_state)]"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	..()
+	update_equipped_item()
+
 
 /obj/item/storage/bag/trash/cyborg
 
@@ -405,8 +403,8 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(
-	 /obj/item/assembly, /obj/item/circuitboard,
-	 /obj/item/airlock_electronics, /obj/item/firelock_electronics,
+	 /obj/item/assembly, /obj/item/circuitboard, /obj/item/intercom_electronics,
+	 /obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/tracker_electronics,
 	 /obj/item/firealarm_electronics, /obj/item/airalarm_electronics, /obj/item/apc_electronics,
 	 /obj/item/stock_parts/cell, /obj/item/stock_parts, /obj/item/camera_assembly)
 	resistance_flags = FLAMMABLE
@@ -451,18 +449,12 @@
 		if(prob(10))
 			M.Weaken(4 SECONDS)
 
-/obj/item/storage/bag/tray/proc/rebuild_overlays()
-	overlays.Cut()
-	for(var/obj/item/I in contents)
-		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
 
-/obj/item/storage/bag/tray/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-	rebuild_overlays()
+/obj/item/storage/bag/tray/update_overlays()
+	. = ..()
+	for(var/obj/item/item in contents)
+		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_x = rand(-4,4), pixel_y = rand(-4,4))
 
-/obj/item/storage/bag/tray/handle_item_insertion(obj/item/I, prevent_warning = 0)
-	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
-	..()
 
 /obj/item/storage/bag/tray/cyborg
 
@@ -482,8 +474,6 @@
 		else					// they clicked on a table
 			dropspot = target.loc
 
-		overlays = null
-
 		var/droppedSomething = 0
 
 		for(var/obj/item/I in contents)
@@ -502,18 +492,19 @@
 				user.visible_message("<span class='notice'>[user] unloads [user.p_their()] service tray.</span>")
 			else
 				user.visible_message("<span class='notice'>[user] drops all the items on [user.p_their()] tray.</span>")
-
+		update_icon(UPDATE_OVERLAYS)
 	return ..()
 
 
 /obj/item/storage/bag/tray/cookies_tray
 	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
 
+
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() /// By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
 		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
-	rebuild_overlays()
+
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
@@ -560,18 +551,11 @@
 			M.Weaken(4 SECONDS)
 
 
-/obj/item/storage/bag/dangertray/proc/rebuild_overlays()
-	overlays.Cut()
-	for(var/obj/item/I in contents)
-		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+/obj/item/storage/bag/dangertray/update_overlays()
+	. = ..()
+	for(var/obj/item/item in contents)
+		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_x = rand(-4,4), pixel_y = rand(-4,4))
 
-/obj/item/storage/bag/dangertray/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-	rebuild_overlays()
-
-/obj/item/storage/bag/dangertray/handle_item_insertion(obj/item/I, prevent_warning = 0)
-	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
-	..()
 
 /*
  *	Chemistry bag

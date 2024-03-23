@@ -130,21 +130,15 @@
 			cause = "[src] was working too long within critical range of a rift."
 		)
 
-/obj/machinery/brs_portable_scanner/update_icon()
-	overlays.Cut()
-	set_light(0)
+
+/obj/machinery/brs_portable_scanner/update_icon_state()
 	var/prefix = initial(icon_state)
 	if(stat & BROKEN)
 		icon_state = "[prefix]-broken"
 		return
-
-	if(panel_open)
-		overlays += image(icon, "[prefix]-panel")
-
 	if(!anchored)
 		icon_state = prefix
 		return
-
 	if((scanning_status == SCAN_OFF) || (stat & NOPOWER))
 		icon_state ="[prefix]-anchored"
 		return
@@ -153,14 +147,28 @@
 		return
 	if(scanning_status == SCAN_NORMAL)
 		icon_state = "[prefix]-act"
-		set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT)
 		return
 	if(scanning_status == SCAN_CRITICAL)
 		icon_state = "[prefix]-act-critical"
+
+
+/obj/machinery/brs_portable_scanner/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += image(icon, "[initial(icon_state)]-panel")
+
+
+/obj/machinery/brs_portable_scanner/proc/brs_light_update()
+	if(scanning_status == SCAN_NORMAL)
+		set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT)
+		return
+	if(scanning_status == SCAN_CRITICAL)
 		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT)
 		return
+	set_light(0)
 
-/obj/machinery/brs_portable_scanner/power_change()
+
+/obj/machinery/brs_portable_scanner/power_change(forced = FALSE)
 	..()
 	if(stat & NOPOWER)
 		SStgui.close_uis(src)
@@ -169,12 +177,14 @@
 	else
 		if(scanning_status != SCAN_OFF)
 			playsound(loc, activation_sound, 100)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	brs_light_update()
 
 /obj/machinery/brs_portable_scanner/obj_break()
 	..()
 	SStgui.close_uis(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	brs_light_update()
 
 /obj/machinery/brs_portable_scanner/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -189,7 +199,8 @@
 		return
 
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+	brs_light_update()
 
 	if(panel_open)
 		SStgui.close_uis(src)
@@ -216,7 +227,8 @@
 
 	scanning_status = SCAN_OFF
 	default_unfasten_wrench(user, I, 4 SECONDS)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	brs_light_update()
 
 	if(!anchored)
 		SStgui.close_uis(src)
@@ -228,7 +240,7 @@
 				continue
 			if(scanner.anchored)
 				anchored = FALSE
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				return
 
 	// Update density
@@ -244,11 +256,12 @@
 		// Reset status if the scanner was turned on before the failure.
 		turn_on()
 	else
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/brs_portable_scanner/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
+		if(user)
+			to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
 		emagged = TRUE
 
 /obj/machinery/brs_portable_scanner/emp_act(severity)
@@ -341,7 +354,8 @@
 		// Set timer to kaboom
 		failure_time = world.time + time_for_failure
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	brs_light_update()
 
 /obj/machinery/brs_portable_scanner/proc/toggle()
 	switching = TRUE

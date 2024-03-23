@@ -25,12 +25,8 @@
 			qdel(A)
 	return ..()
 
-/obj/item/picture_frame/update_icon()
-	overlays.Cut()
 
-	if(displayed)
-		overlays |= getFlatIcon(displayed)
-
+/obj/item/picture_frame/update_icon_state()
 	if(istype(displayed, /obj/item/photo))
 		icon_state = "[icon_base]-photo"
 	else if(istype(displayed, /obj/structure/sign/poster))
@@ -38,7 +34,15 @@
 	else
 		icon_state = "[icon_base]-paper"
 
-	overlays |= icon_state
+
+/obj/item/picture_frame/update_overlays()
+	. = ..()
+
+	if(displayed)
+		. += getFlatIcon(displayed)
+
+	. += icon_state
+
 
 /obj/item/picture_frame/proc/insert(obj/D)
 	if(istype(D, /obj/item/poster))
@@ -56,7 +60,7 @@
 		qdel(D)
 
 /obj/item/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(displayed)
 			playsound(src, I.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class='warning'>You unfasten \the [displayed] out of \the [src].</span>")
@@ -71,7 +75,7 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>There is nothing to remove from \the [src].</span>")
-	else if(istype(I, /obj/item/crowbar))
+	else if(I.tool_behaviour == TOOL_CROWBAR)
 		playsound(src, I.usesound, 100, 1)
 		user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
 		for(var/A in contents)
@@ -199,18 +203,24 @@
 	QDEL_NULL(frame)
 	return ..()
 
-/obj/structure/sign/picture_frame/update_icon()
-	overlays.Cut()
+
+/obj/structure/sign/picture_frame/update_icon_state()
 	if(frame)
 		icon = null
 		icon_state = null
-		overlays |= getFlatIcon(frame)
 	else
 		icon = initial(icon)
 		icon_state = initial(icon_state)
 
+
+/obj/structure/sign/picture_frame/update_overlays()
+	. = ..()
+	if(frame)
+		. += getFlatIcon(frame)
+
+
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		playsound(src, I.usesound, 100, 1)
 		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
 		if(do_after(user, 100 * I.toolspeed * gettoolspeedmod(user), target = src))

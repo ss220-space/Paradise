@@ -9,10 +9,9 @@
 	amount = 25
 	max_amount = 25
 
-/obj/item/stack/tape_roll/New(var/loc, var/amount=null)
+/obj/item/stack/tape_roll/New(loc, amount=null)
 	..()
-
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?
@@ -29,7 +28,7 @@
 	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
 	"<span class='notice'>You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!</span>",
 	"<span class='warning'>You hear tape ripping.</span>")
-	if(!do_after(user, 50, target = M))
+	if(!do_after(user, 5 SECONDS, target = M))
 		return
 	if(!use(2))
 		to_chat(user, "<span class='notice'>You don't have enough tape!</span>")
@@ -43,16 +42,52 @@
 	M.equip_to_slot_if_possible(G, slot_wear_mask)
 	G.add_fingerprint(user)
 
-/obj/item/stack/tape_roll/update_icon()
+
+/obj/item/stack/tape_roll/update_icon_state()
 	var/amount = get_amount()
 	if((amount <= 2) && (amount > 0))
-		icon_state = "taperoll"
+		icon_state = "[initial(icon_state)]"
 	if((amount <= 4) && (amount > 2))
-		icon_state = "taperoll-2"
+		icon_state = "[initial(icon_state)]2"
 	if((amount <= 6) && (amount > 4))
-		icon_state = "taperoll-3"
+		icon_state = "[initial(icon_state)]3"
 	if((amount > 6))
-		icon_state = "taperoll-4"
+		icon_state = "[initial(icon_state)]4"
 	else
-		icon_state = "taperoll-4"
-	..()
+		icon_state = "[initial(icon_state)]4"
+
+
+/obj/item/stack/tape_roll/thick
+	name = "incredibly thick tape roll"
+	desc = "Incredibly thick duct tape, suspiciously black in appearance. It is quite uncomfortable to hold it as it sticks to your hands."
+	icon_state = "thick_taperoll"
+	singular_name = "incridibly dence tape roll"
+	amount = 40
+	max_amount = 40
+
+/obj/item/stack/tape_roll/thick/attack(mob/living/carbon/human/M, mob/living/user)
+	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?
+		return
+	if(amount < 2)
+		to_chat(user, "You'll need more tape for this!")
+		return
+	if(!M.check_has_mouth())
+		to_chat(user, "[M.p_they(TRUE)] [M.p_have()] no mouth to tape over!")
+		return
+	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
+	"<span class='notice'>You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!</span>",
+	"<span class='warning'>You hear tape ripping.</span>")
+	if(!do_after(user, 1 SECONDS, target = M))
+		return
+	if(!use(2))
+		to_chat(user, "<span class='notice'>You don't have enough tape!</span>")
+		return
+	if(M.wear_mask)
+		var/obj/item/clothing/mask = M.wear_mask
+		M.drop_item_ground(mask)
+	user.visible_message("<span class='warning'>[user] tapes [M]'s mouth shut!</span>",
+	"<span class='notice'>You cover [M == user ? "your own" : "[M]'s"] mouth with a piece of duct tape.[M == user ? null : " That will shut them up."]</span>")
+	var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag/thick
+	M.equip_to_slot_if_possible(G, slot_wear_mask)
+	G.add_fingerprint(user)
+

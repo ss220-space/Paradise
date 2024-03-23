@@ -162,13 +162,14 @@
 /obj/machinery/computer/HolodeckControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
 	return
 
-/obj/machinery/computer/HolodeckControl/emag_act(user as mob)
+/obj/machinery/computer/HolodeckControl/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
-		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
+		if(user)
+			to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
+			to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		src.updateUsrDialog()
 
 /obj/machinery/computer/HolodeckControl/New()
@@ -331,13 +332,11 @@
 	icon_state = "grass1"
 	floor_tile = /obj/item/stack/tile/grass
 
-/turf/simulated/floor/holofloor/grass/New()
-	..()
-	spawn(1)
-		update_icon()
+/turf/simulated/floor/holofloor/grass/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), 0.1 SECONDS)
 
-/turf/simulated/floor/holofloor/grass/update_icon()
-	..()
+/turf/simulated/floor/holofloor/grass/update_icon_state()
 	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
 		icon_state = "grass[pick("1","2","3","4")]"
 
@@ -399,7 +398,7 @@
 	density = 1
 	layer = 3.2//Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
-	anchored = 1.0
+	anchored = TRUE
 	flags = ON_BORDER
 
 /obj/structure/rack/holorack/has_prints()
@@ -462,18 +461,22 @@
 	..()
 	item_color = pick("red","blue","green","purple")
 
+
+/obj/item/holo/esword/update_icon_state()
+	icon_state = active ? "sword[item_color]" : "sword0"
+
+
 /obj/item/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
+	update_icon(UPDATE_ICON_STATE)
 	if(active)
 		force = 30
-		icon_state = "sword[item_color]"
 		hitsound = "sound/weapons/blade1.ogg"
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
-		icon_state = "sword0"
 		hitsound = "swing_hit"
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
@@ -505,7 +508,7 @@
 	desc = "Boom, Shakalaka!"
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "hoop"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	pass_flags = LETPASSTHROW
 
@@ -528,19 +531,17 @@
 /obj/structure/holohoop/has_prints()
 	return FALSE
 
-/obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover,/obj/item) && mover.throwing)
-		var/obj/item/I = mover
-		if(istype(I, /obj/item/projectile))
-			return
+
+/obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
 		if(prob(50))
-			I.loc = src.loc
-			visible_message(span_notice("Swish! \the [I] lands in \the [src]."))
+			mover.forceMove(loc)
+			visible_message(span_notice("Swish! [mover] lands in [src]."))
 		else
-			visible_message(span_alert("\The [I] bounces off of \the [src]'s rim!"))
-		return 0
-	else
-		return ..(mover, target, height)
+			visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
+		return FALSE
+
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isitem(AM) && !istype(AM,/obj/item/projectile))
@@ -563,7 +564,7 @@
 	var/area/currentarea = null
 	var/eventstarted = 0
 
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -593,11 +594,11 @@
 	add_fingerprint(user)
 	ready = !ready
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/numbuttons = 0
 	var/numready = 0
-	for(var/obj/machinery/readybutton/button in currentarea)
+	for(var/obj/machinery/readybutton/button in currentarea.machinery_cache)
 		numbuttons++
 		if(button.ready)
 			numready++
@@ -605,11 +606,9 @@
 	if(numbuttons == numready)
 		begin_event()
 
-/obj/machinery/readybutton/update_icon()
-	if(ready)
-		icon_state = "auth_on"
-	else
-		icon_state = "auth_off"
+/obj/machinery/readybutton/update_icon_state()
+	icon_state = ready ? "auth_on" : "auth_off"
+
 
 /obj/machinery/readybutton/proc/begin_event()
 	eventstarted = 1

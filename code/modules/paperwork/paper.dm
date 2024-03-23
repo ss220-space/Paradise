@@ -19,6 +19,7 @@
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	blocks_emissive = FALSE
 	attack_verb = list("bapped")
 	permeability_coefficient = 0.01
 	dog_fashion = /datum/dog_fashion/head
@@ -29,9 +30,10 @@
 	var/footer 	//The bottom stuff before the stamp but after the body
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
-	var/fields		//Amount of user created fields
-	var/language = "Galactic Common" //The language of paper. For now using only in case of Thetta
+	var/fields = 0		//Amount of user created fields
+	var/language = LANGUAGE_GALACTIC_COMMON //The language of paper. For now using only in case of Thetta
 	var/list/stamped
+	var/list/stamp_overlays
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
 	var/offset_y[0] //usage by the photocopier
@@ -61,15 +63,21 @@
 		update_icon()
 		updateinfolinks()
 
-/obj/item/paper/update_icon()
-	..()
+
+/obj/item/paper/update_icon_state()
 	if(info)
 		icon_state = "paper_words"
 		return
 	icon_state = "paper"
 
+
+/obj/item/paper/update_overlays()
+	return LAZYLEN(stamp_overlays) ? stamp_overlays : list()
+
+
 /obj/item/paper/examine(mob/user)
 	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> the [initial(name)] with a pen in hand to rename it.</span>"
 	if(user.is_literate())
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)
@@ -78,12 +86,13 @@
 	else
 		. += "<span class='notice'>You don't know how to read.</span>"
 
-/obj/item/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
+
+/obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
 
 	var/data
-	var/stars = (!user?.say_understands(null, GLOB.all_languages[language]) && !forceshow) || forcestars
+	var/stars = (!user.say_understands(null, GLOB.all_languages[language]) && !forceshow) || forcestars
 	if(stars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "[header][stars(info)][footer][stamps]"
 	else
@@ -105,84 +114,132 @@
 		popup.open()
 	return data
 
-/obj/item/paper/verb/rename()
-	set name = "Rename paper"
-	set category = "Object"
-	set src in usr
 
-	if((CLUMSY in usr.mutations) && prob(50))
-		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
+/obj/item/paper/AltClick(mob/living/carbon/human/user)
+	if(!ishuman(user) || user.incapacitated() || !Adjacent(user))
 		return
-	if(!usr.is_literate())
-		to_chat(usr, "<span class='notice'>You don't know how to read.</span>")
+	if(is_pen(user.get_active_hand()))
+		rename(user)
 		return
-	var/n_name = rename_interactive(usr)
+	if(user.is_in_hands(src))
+		ProcFoldPlane(user, src)
+		return
+	return ..()
+
+
+/obj/item/paper/proc/rename(mob/user)
+	if((CLUMSY in user.mutations) && prob(50))
+		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
+		return
+	if(!user.is_literate())
+		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
+		return
+	var/n_name = rename_interactive(user)
 	if(isnull(n_name))
 		return
 	if(n_name != "")
 		desc = "This is a paper titled '" + name + "'."
 	else
 		desc = initial(desc)
-	add_fingerprint(usr)
-	return
+	add_fingerprint(user)
+
 
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
-	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
-		if(spam_flag == 0)
-			spam_flag = 1
-			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
-			spawn(20)
-				spam_flag = 0
-	return
+	if(rigged && !spam_flag && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
+		spam_flag = TRUE
+		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 3 SECONDS)
+		playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
 
-/obj/item/paper/attack_ai(var/mob/living/silicon/ai/user as mob)
+
+/obj/item/paper/attack_ai(mob/living/silicon/ai/user)
 	var/dist
-	if(istype(user) && user.current) //is AI
+	if(isAI(user) && user.current) //is AI
 		dist = get_dist(src, user.current)
 	else //cyborg or AI not seeing through a camera
 		dist = get_dist(src, user)
 	if(dist < 2)
-		show_content(user, forceshow = 1)
+		show_content(user, forceshow = TRUE)
 	else
-		show_content(user, forcestars = 1)
-	return
+		show_content(user, forcestars = TRUE)
 
-/obj/item/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+
+/obj/item/paper/attack(mob/living/carbon/human/target, mob/living/user, def_zone)
+	if(!ishuman(target))
+		return ..()
+
 	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 		user.visible_message("<span class='warning'>[user] is trying to show the paper to you. </span>", \
-			"<span class='notice'>You hold up a paper and try to show it to [M]. </span>")
+			"<span class='notice'>You hold up a paper and try to show it to [target]. </span>")
 
-		if(do_mob(user, M, 0.7 SECONDS))
+		if(do_mob(user, target, 0.7 SECONDS))
 			user.visible_message("<span class='notice'>[user] shows the paper to you. </span>", \
-				"<span class='notice'>You hold up a paper and show it to [M]. </span>")
-			M.examinate(src)
+				"<span class='notice'>You hold up a paper and show it to [target]. </span>")
+			target.examinate(src)
 		else
-			to_chat(user, span_warning("You fail to show the paper to [M]."))
+			to_chat(user, span_warning("You fail to show the paper to [target]."))
 
 	else if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
-		if(!istype(M, /mob))	return
+		if(target == user)
+			to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
+		else
+			user.visible_message("<span class='warning'>[user] begins to wipe [target]'s face clean with \the [src].</span>",
+								"<span class='notice'>You begin to wipe off [target]'s face.</span>")
+			if(!do_after(user, 1 SECONDS, target = target) || !do_after(target, 1 SECONDS, FALSE)) // user needs to keep their active hand, target does not.
+				return
+			user.visible_message("<span class='notice'>[user] wipes [target]'s face clean with \the [src].</span>",
+				"<span class='notice'>You wipe off [target]'s face.</span>")
 
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H == user)
-				to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
-				H.lip_style = null
-				H.lip_color = initial(H.lip_color)
-				H.update_body()
-			else
-				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>", \
-								 	 "<span class='notice'>You begin to wipe off [H]'s face.</span>")
-				if(do_after(user, 10, target = H) && do_after(H, 10, 0))	//user needs to keep their active hand, H does not.
-					user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>", \
-										 "<span class='notice'>You wipe off [H]'s face.</span>")
-					H.lip_style = null
-					H.lip_color = initial(H.lip_color)
-					H.update_body()
+		target.lip_style = null
+		target.lip_color = null
+		target.update_body()
 	else
-		..()
+		return ..()
 
-/obj/item/paper/proc/addtofield(var/id, var/text, var/links = 0)
+
+/obj/item/paper/attack_animal(mob/living/simple_animal/pet/dog/doggo)
+	if(!isdog(doggo)) // Only dogs can eat homework.
+		return
+	doggo.changeNext_move(CLICK_CD_MELEE)
+	if(world.time < doggo.last_eaten + 30 SECONDS)
+		to_chat(doggo, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		return
+
+	doggo.visible_message("<span class='warning'>[doggo] starts chewing the corner of [src]!</span>",
+		"<span class='notice'>You start chewing the corner of [src].</span>",
+		"<span class='warning'>You hear a quiet gnawing, and the sound of paper rustling.</span>")
+	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
+	if(!do_after(doggo, 10 SECONDS, FALSE, src))
+		return
+
+	if(world.time < doggo.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
+		to_chat(doggo, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		return
+	doggo.last_eaten = world.time
+
+	// 90% chance of a crumpled paper with illegible text.
+	if(prob(90))
+		var/message_ending = "."
+		var/obj/item/paper/crumpled/crumped = new(loc)
+		crumped.name = name
+		if(info) // Something written on the paper.
+			crumped.info = "<i>Whatever was once written here has been made completely illegible by a combination of chew marks and saliva.</i>"
+			message_ending = ", the drool making it an unreadable mess!"
+		crumped.update_icon()
+		qdel(src)
+
+		doggo.visible_message("<span class='warning'>[doggo] finishes eating [src][message_ending]</span>",
+			"<span class='notice'>You finish eating [src][message_ending]</span>")
+		doggo.emote("bark")
+
+	// 10% chance of the paper just being eaten entirely.
+	else
+		doggo.visible_message("<span class='warning'>[doggo] swallows [src] whole!</span>", "<span class='notice'>You swallow [src] whole. Tasty!</span>")
+		playsound(doggo, 'sound/items/eatfood.ogg', 50, TRUE)
+		qdel(src)
+
+
+/obj/item/paper/proc/addtofield(id, text, links = 0)
 	if(id > MAX_PAPER_FIELDS)
 		return
 
@@ -192,11 +249,11 @@
 	while(locid <= MAX_PAPER_FIELDS)
 		var/istart = 0
 		if(links)
-			istart = findtext(info_links, "<span class=\"paper_field\">", laststart)
+			istart = findtext_char(info_links, "<span class=\"paper_field\">", laststart)
 		else
-			istart = findtext(info, "<span class=\"paper_field\">", laststart)
+			istart = findtext_char(info, "<span class=\"paper_field\">", laststart)
 
-		if(istart==0)
+		if(!istart)
 			return // No field found with matching id
 
 		laststart = istart+1
@@ -204,59 +261,58 @@
 		if(locid == id)
 			var/iend = 1
 			if(links)
-				iend = findtext(info_links, "</span>", istart)
+				iend = findtext_char(info_links, "</span>", istart)
 			else
-				iend = findtext(info, "</span>", istart)
+				iend = findtext_char(info, "</span>", istart)
 
-			//textindex = istart+26
 			textindex = iend
 			break
 
 	if(links)
-		var/before = copytext(info_links, 1, textindex)
-		var/after = copytext(info_links, textindex)
+		var/before = copytext_char(info_links, 1, textindex)
+		var/after = copytext_char(info_links, textindex)
 		info_links = before + text + after
 	else
-		var/before = copytext(info, 1, textindex)
-		var/after = copytext(info, textindex)
+		var/before = copytext_char(info, 1, textindex)
+		var/after = copytext_char(info, textindex)
 		info = before + text + after
 		updateinfolinks()
 
+
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
-	var/i = 0
-	for(i=1,i<=fields,i++)
-		var/write_1 = "<font face=\"[deffont]\"><A href='?src=[UID()];write=[i]'>write</A></font>"
-		var/write_2 = "<font face=\"[deffont]\"><A href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></A></font>"
+	for(var/i in 1 to fields)
+		var/write_1 = "<font face=\"[deffont]\"><a href='?src=[UID()];write=[i]'>write</a></font>"
+		var/write_2 = "<font face=\"[deffont]\"><a href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[a\]</span></a></font>"
 		addtofield(i, "[write_1][write_2]", 1)
-	info_links = info_links + "<font face=\"[deffont]\"><A href='?src=[UID()];write=end'>write</A></font>"
+	info_links = info_links + "<font face=\"[deffont]\"><a href='?src=[UID()];write=end'>write</a></font>" + "<font face=\"[deffont]\"><a href='?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></a></font>"
 
 
 /obj/item/paper/proc/clearpaper()
 	info = null
 	stamps = null
 	stamped = list()
-	overlays.Cut()
+	stamp_overlays = null
 	updateinfolinks()
 	update_icon()
 
 
-/obj/item/paper/proc/parsepencode(var/t, var/obj/item/pen/P, mob/user as mob)
+/obj/item/paper/proc/parsepencode(t, obj/item/pen/P, mob/user as mob)
 	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
 	return t
 
 /obj/item/paper/proc/populatefields()
-		//Count the fields
+	//Count the fields
 	var/laststart = 1
 	while(fields < MAX_PAPER_FIELDS)
-		var/i = findtext(info, "<span class=\"paper_field\">", laststart)
-		if(i==0)
+		var/i = findtext_char(info, "<span class=\"paper_field\">", laststart)
+		if(!i)
 			break
 		laststart = i+1
 		fields++
 
 
-/obj/item/paper/proc/openhelp(mob/user as mob)
+/obj/item/paper/proc/openhelp(mob/user)
 	user << browse({"<HTML><meta charset="UTF-8"><HEAD><TITLE>Pen Help</TITLE></HEAD>
 	<BODY>
 		<b><center>Crayon&Pen commands</center></b><br>
@@ -281,32 +337,28 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
-/obj/item/paper/proc/topic_href_write(var/id, var/input_element)
+
+/obj/item/paper/proc/topic_href_write(id, input_element)
 	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
-	if(!istype(item_write, /obj/item/pen))
-		if(!istype(item_write, /obj/item/toy/crayon))
-			return
-
-	// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
-	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
+	if(!is_pen(item_write) && !istype(item_write, /obj/item/toy/crayon))
 		return
+	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && (loc.loc == usr || loc.Adjacent(usr))))
+		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
 
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 
-	if(id!="end")
+	if(id != "end")
 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
 	else
 		info += input_element // Oh, he wants to edit to the end of the file, let him.
 
 	populatefields()
 	updateinfolinks()
-
-	item_write.on_write(src,usr)
-
-	show_content(usr, forceshow = 1, infolinks = 1)
-
+	item_write.on_write(src, usr)
+	show_content(usr, forceshow = TRUE, infolinks = TRUE)
 	update_icon()
+
 
 /obj/item/paper/Topic(href, href_list)
 	..()
@@ -317,50 +369,65 @@
 		var/id = href_list["auto_write"]
 
 		var/const/sign_text = "\[Поставить подпись\]"
+		var/const/account_text = "\[Написать номер аккаунта\]"
+		var/const/pin_text = "\[Написать пин-код\]"
 		var/const/time_text = "\[Написать текущее время\]"
 		var/const/date_text = "\[Написать текущую дату\]"
-		var/const/num_text = "\[Написать номер аккаунта\]"
-		var/const/pin_text = "\[Написать пин-код\]"
 		var/const/station_text = "\[Написать название станции\]"
+		var/const/gender_text = "\[Указать пол\]"
+		var/const/species_text = "\[Указать расу\]"
 
-		//пункты текста в меню
-		var/list/menu_list = list()
-		menu_list.Add(usr.real_name) //настоящее имя персонажа, даже если оно спрятано
+		var/list/menu_list = list()	// text items in the menu
 
-		//если игрок маскируется или имя отличается, добавляется новый вариант ответа
-		if (usr.real_name != usr.name || usr.name != "unknown")
-			menu_list.Add("[usr.name]")
+		menu_list.Add(usr.real_name)	// the real name of the character, even if it is hidden
 
-		menu_list.Add(usr.job,		//текущая работа
-			num_text,		//номер аккаунта
-			pin_text,		//номер пин-кода
-			sign_text,  	//подпись
-			time_text,  	//время
-			date_text,  	//дата
-			station_text, 	//название станции
-			usr.gender,		//пол
-			usr.dna.species	//раса
+		if(usr.real_name != usr.name && lowertext(usr.name) != "unknown")	// if the player is masked or the name is different a new answer option is added
+			menu_list.Add(usr.name)
+
+		if(usr.job)
+			menu_list.Add(usr.job)	// job
+
+		menu_list.Add(sign_text)	//signature
+
+		if(usr.mind?.initial_account?.account_number)
+			menu_list.Add(account_text)	// account number
+
+		if(usr.mind?.initial_account?.remote_access_pin)
+			menu_list.Add(pin_text)	// account pin-code
+
+		menu_list.Add(
+			time_text,		// time
+			date_text,		// date
+			station_text,	// station name
+			gender_text,	// gender
 		)
 
-		var/input_element = input("Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in menu_list
+		if(usr.dna?.species)
+			menu_list.Add(species_text)	//current
 
-		//форматируем выбранные пункты меню в pencode и внутренние данные
-		switch(input_element)
-			if (sign_text)
+		var/input_element = input("Выберите текст который хотите добавить:", "Выбор пункта") as null|anything in menu_list
+		if(!input_element)
+			return
+
+		switch(input_element)	//format selected menu items in pencode and internal data
+			if(sign_text)
 				input_element = "\[sign\]"
-			if (time_text)
+			if(time_text)
 				input_element = "\[time\]"
-			if (date_text)
+			if(date_text)
 				input_element = "\[date\]"
-			if (station_text)
+			if(station_text)
 				input_element = "\[station\]"
-			if (num_text)
+			if(account_text)
 				input_element = usr.mind.initial_account.account_number
-			if (pin_text)
+			if(pin_text)
 				input_element = usr.mind.initial_account.remote_access_pin
+			if(gender_text)
+				input_element = usr.gender
+			if(species_text)
+				input_element = usr.dna.species
 
 		topic_href_write(id, input_element)
-
 
 	if(href_list["write"] )
 		var/id = href_list["write"]
@@ -370,14 +437,12 @@
 
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
-	..()
+	. = ..()
 
 	if(resistance_flags & ON_FIRE)
 		return
 
-	var/clown = 0
-	if(user.mind && (user.mind.assigned_role == "Clown"))
-		clown = 1
+	var/clown = user.mind && (user.mind.assigned_role == "Clown")
 
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))
@@ -426,9 +491,9 @@
 		src.loc = B
 		P.loc = B
 		B.amount++
-		B.update_icon()
+		B.update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-	else if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
+	else if(is_pen(P) || istype(P, /obj/item/toy/crayon))
 		if(user.is_literate())
 			var/obj/item/pen/multi/robopen/RP = P
 			if(istype(P, /obj/item/pen/multi/robopen) && RP.mode == 2)
@@ -452,6 +517,7 @@
 		stamp(P)
 
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 
 	if(is_hot(P))
 		if((CLUMSY in user.mutations) && prob(10))
@@ -471,12 +537,14 @@
 
 	add_fingerprint(user)
 
+
 /obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
-/obj/item/paper/proc/stamp(var/obj/item/stamp/S)
+
+/obj/item/paper/proc/stamp(obj/item/stamp/S)
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
 
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
@@ -501,9 +569,9 @@
 	if(!stamped)
 		stamped = new
 	stamped += S.type
-	overlays += stampoverlay
+	LAZYADD(stamp_overlays, stampoverlay)
+	update_icon(UPDATE_OVERLAYS)
 
-	playsound(S, pick(S.stamp_sounds), 35, 1, -1)
 
 /*
  * Premade paper
@@ -531,7 +599,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -550,8 +618,10 @@
 	name = "paper scrap"
 	icon_state = "scrap"
 
-/obj/item/paper/crumpled/update_icon()
-	return
+
+/obj/item/paper/crumpled/update_icon_state()
+	if(info)
+		icon_state = "scrap_words"
 
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
@@ -567,9 +637,10 @@
 	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
 	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
 
-/obj/item/paper/fortune/update_icon()
-	..()
+
+/obj/item/paper/fortune/update_icon_state()
 	icon_state = initial(icon_state)
+
 /*
  * Premade paper
  */
@@ -604,7 +675,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -659,10 +730,6 @@
 	name = "paper- 'Note'"
 	info = "The call has gone out! Our ancestral home has been rediscovered! Not a small patch of land, but a true clown nation, a true Clown Planet! We're on our way home at last!"
 
-/obj/item/paper/crumpled
-	name = "paper scrap"
-	icon_state = "scrap"
-
 /obj/item/paper/syndicate
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
@@ -677,7 +744,7 @@
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ussplogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
-	language = "Neo-Russkiya"
+	language = LANGUAGE_NEO_RUSSIAN
 
 /obj/item/paper/solgov
 	name = "paper"
@@ -749,25 +816,21 @@
 	info = "<font face=\"Verdana\" color=black>ᅠᅠАгенство внутренних дел по надзору за домашними животными находящимися на станции сообщает, приставленный к вам питомец \"Гав Гавыч\" почил. Он верно служил ремеслу дознавателей, сыщиков и детективов. Мы будем помнить о его вкладе и сохраним о нём память в анналах истории о домашних питомцах Нанотрейзен.<BR><HR>"
 	footer = "<center><font size=\"4\"><B>Штампы и данные:</B></font></center><BR>Время принятия отчета: <span class=\"paper_field\"></span><BR><HR><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче агенту.<BR>*Данный документ может содержать личную информацию. </font></font>"
 
-/obj/item/paper/crumpled/update_icon()
-	return
-
-/obj/item/paper/crumpled/bloody
-	icon_state = "scrap_bloodied"
 
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
 	info = ""
 	var/mytarget = null
 	var/myeffect = null
-	var/used = 0
+	var/used = FALSE
 	var/countdown = 60
-	var/activate_on_timeout = 0
+	var/activate_on_timeout = FALSE
 	var/faxmachineid = null
 
-/obj/item/paper/evilfax/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
+
+/obj/item/paper/evilfax/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE)
 	if(user == mytarget)
-		if(istype(user, /mob/living/carbon))
+		if(iscarbon(user))
 			var/mob/living/carbon/C = user
 			evilpaper_specialaction(C)
 			..()
@@ -799,80 +862,84 @@
 	if(!countdown)
 		if(mytarget)
 			if(activate_on_timeout)
-				evilpaper_specialaction(mytarget)
+				addtimer(CALLBACK(src, PROC_REF(evilpaper_specialaction), mytarget), 3 SECONDS, TIMER_DELETE_ME)
 			else
 				message_admins("[mytarget] ignored an evil fax until it timed out.")
 		else
 			message_admins("Evil paper '[src]' timed out, after not being assigned a target.")
-		used = 1
+		used = TRUE
 		evilpaper_selfdestruct()
 	else
 		countdown--
 
-/obj/item/paper/evilfax/proc/evilpaper_specialaction(var/mob/living/carbon/target)
-	spawn(30)
-		if(istype(target, /mob/living/carbon))
-			var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
-			if(myeffect == "Borgification")
-				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
-				var/datum/disease/virus/transformation/robot/D = new
-				D.Contract(target)
-			else if(myeffect == "Corgification")
-				to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
-				var/datum/disease/virus/transformation/corgi/D = new
-				D.Contract(target)
-			else if(myeffect == "Death By Fire")
-				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
-				var/turf/simulated/T = get_turf(target)
-				new /obj/effect/hotspot(T)
-				target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
-			else if(myeffect == "Total Brain Death")
-				to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
-				target.mutations.Add(NOCLONE)
-				target.adjustBrainLoss(125)
-			else if(myeffect == "Honk Tumor")
-				if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
-					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
-					to_chat(target,"<span class='userdanger'>Life seems funnier, somehow.</span>")
-					organ.insert(target)
-			else if(myeffect == "Cluwne")
-				if(istype(target, /mob/living/carbon/human))
-					var/mob/living/carbon/human/H = target
-					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
-					H.makeCluwne()
-			else if(myeffect == "Demote")
-				GLOB.event_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.","ВНИМАНИЕ: Приказ ЦК о понижении в должности.")
-				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
-					if(R.fields["name"] == target.real_name)
-						R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
-						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
-				update_all_mob_security_hud()
-			else if(myeffect == "Demote with Bot")
-				GLOB.event_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.","ВНИМАНИЕ: Приказ ЦК о понижении в должности.")
-				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
-					if(R.fields["name"] == target.real_name)
-						R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
-						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
-				update_all_mob_security_hud()
-				if(fax)
-					var/turf/T = get_turf(fax)
-					new /obj/effect/portal(T)
-					new /mob/living/simple_animal/bot/secbot(T)
-			else if(myeffect == "Revoke Fax Access")
-				GLOB.fax_blacklist += target.real_name
-				if(fax)
-					fax.authenticated = 0
-			else if(myeffect == "Angry Fax Machine")
-				if(fax)
-					fax.become_mimic()
-			else
-				message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
-		used = 1
-		evilpaper_selfdestruct()
+
+/obj/item/paper/evilfax/proc/evilpaper_specialaction(mob/living/carbon/target)
+	if(!iscarbon(target))
+		return
+
+	var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
+	if(myeffect == "Borgification")
+		to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
+		var/datum/disease/virus/transformation/robot/D = new
+		D.Contract(target)
+	else if(myeffect == "Corgification")
+		to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
+		var/datum/disease/virus/transformation/corgi/D = new
+		D.Contract(target)
+	else if(myeffect == "Death By Fire")
+		to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+		var/turf/simulated/T = get_turf(target)
+		new /obj/effect/hotspot(T)
+		target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
+	else if(myeffect == "Total Brain Death")
+		to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
+		target.mutations.Add(NOCLONE)
+		target.adjustBrainLoss(125)
+	else if(myeffect == "Honk Tumor")
+		if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
+			new /obj/item/organ/internal/honktumor(target)
+			to_chat(target,"<span class='userdanger'>Life seems funnier, somehow.</span>")
+	else if(myeffect == "Cluwne")
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
+			H.makeCluwne()
+	else if(myeffect == "Demote")
+		GLOB.event_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.","ВНИМАНИЕ: Приказ ЦК о понижении в должности.")
+		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
+			if(R.fields["name"] == target.real_name)
+				R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
+				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
+		update_all_mob_security_hud()
+	else if(myeffect == "Demote with Bot")
+		GLOB.event_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.","ВНИМАНИЕ: Приказ ЦК о понижении в должности.")
+		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
+			if(R.fields["name"] == target.real_name)
+				R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
+				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
+		update_all_mob_security_hud()
+		if(fax)
+			var/turf/T = get_turf(fax)
+			new /obj/effect/portal(T)
+			new /mob/living/simple_animal/bot/secbot(T)
+	else if(myeffect == "Revoke Fax Access")
+		GLOB.fax_blacklist += target.real_name
+		if(fax)
+			fax.authenticated = FALSE
+	else if(myeffect == "Angry Fax Machine")
+		if(fax)
+			fax.become_mimic()
+	else
+		message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
+
+	used = TRUE
+	evilpaper_selfdestruct()
+
 
 /obj/item/paper/evilfax/proc/evilpaper_selfdestruct()
 	visible_message("<span class='danger'>[src] spontaneously catches fire, and burns up!</span>")
 	qdel(src)
+
 
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
@@ -921,6 +988,12 @@
 	return ..()
 
 //главы станции
+/obj/item/paper/form/NT_COM_ORDER
+	name = "Форма NT-COM-ORDER"
+	id = "NT-COM-ORDER"
+	altername = "Приказ"
+	category = "Главы станции"
+	info = "<font face=\"Verdana\" color=black>Я, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, приказываю:<BR><BR><span class=\"paper_field\"></span><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><BR>Подпись инициатора: <span class=\"paper_field\"></span><BR>Время подписания приказа: <span class=\"paper_field\"></span><BR>Дата подписания приказа: <span class=\"paper_field\"></span><BR><HR><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве должностного лица.</font></font>"
 /obj/item/paper/form/NT_COM_ST
 	name = "Форма NT-COM-ST"
 	id = "NT-COM-ST"
@@ -1312,6 +1385,14 @@
 	info = "<font face=\"Verdana\" color=black><BR><center><I><font size=\"4\"><B>Заявление</B></font></I></center><BR><BR><BR><B>Заявитель: </B><span class=\"paper_field\"></span><BR><font size = \"1\">Укажите своё полное имя, должность и номер акаунта.</font><BR><B>Предмет жалобы:</B><span class=\"paper_field\"></span><BR><font size = \"1\">Укажите на что/кого вы жалуетесь.</font><BR><B>Обстоятельства: </B><span class=\"paper_field\"></span><BR><font size = \"1\">Укажите подробные обстоятельства произошедшего.</font><BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><B>Подпись: </B><span class=\"paper_field\"></span><BR><font size = \"1\">Ваша подпись.</font><BR><B>Жалоба рассмотрена: </B><span class=\"paper_field\"></span><BR><font size = \"1\">Имя и фамилия рассмотревшего.</font><BR><BR><HR><BR><font size = \"1\"><I>*Обязательно провести копирование документа для агента внутренних дел, оригинал документа должен быть приложен к отчету о расследовании. Копия документа должна быть сохранена в картотеке офиса агента внутренних дел.</font><BR><BR><font size = \"1\"><I>*Обязательно донести жалобу до главы отдела, который отвечает за данного сотрудника, если таковой имеется. Если главы отдела нет на смене или он отсуствует по какой то причине, жалобу следует донести до вышестоящего сотрудника станции.</font><BR><BR><font size = \"1\"><I>*Если жалоба была написана на главу отдела, следует донести жалобу до вышестоящего сотрудника станции.</font><BR><BR><font size = \"1\"><I>*Глава отдела, которому была донесена жалоба, обязан провести беседу с указаным в жалобе сотрудником станции. В зависимости от тяжести проступка, глава отдела имеет право подать приказ об увольнении.</font></font>"
 	footer = footer_confidential
 
+/obj/item/paper/form/NT_LD_DENY
+	name = "Форма NT-LD-DENY"
+	id = "NT-LD-DENY"
+	altername = "Запрет на реанимацию"
+	category = "Юридический отдел"
+	info = "<font face=\"Verdana\" color=black>Я, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, сообщаю о постановлении запрета на реанимацию в отношении: <span class=\"paper_field\"></span><BR><font size=\"1\">Указать имя члена экипажа.</font><BR><BR>Исходя из того, что вышеупомянутый член экипажа попал под действие особых случаев применения летальной силы, а именно: <span class=\"paper_field\"></span><BR><font size=\"1\">Описать особый случай применения летальной силы указанный в СРП СБ.</font><BR><BR>Тело члена экипажа должно быть помещено в морг, ксерокопия данного документа должна находиться в картотеке патологоанатома, либо приложена к мешку с трупом подсудимого. Служебное оборудование данного члена экипажа должно быть передано вышестоящему главе отдела. Личные вещи не нарушающий Космический Закон должны оставаться вместе с членом экипажа, либо в ячейке морга.<BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Дата и время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><font size =\"1\">Данный документ является недействительным при отсутствии подписи и печати уполномоченного лица.<BR>Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и хранения одного экземпляра в картотеке патологоанатома, либо в мешке для трупов с вышеуказанным членом экипажа.</font></font>"
+	footer = null
+
 //Центральное командование
 /obj/item/paper/form/NT_COM_01
 	name = "Форма NT-COM-01"
@@ -1585,20 +1666,20 @@
 			могут быть использованы для строительства новых отсеков.\
 			<BR><HR><BR><center><H2>Особенности станции</H2></center>\
 			<BR>В отличие от большинства других научно-исследовательских станций Nanotrasen, \
-			таких как &#34;Кибериада&#34;, <B>НСС &#34;Керборос&#34;</B> имеет менее \
+			таких как &#34;Кибериада&#34;, <B>НСС &#34;Керберос&#34;</B> имеет менее \
 			жёсткую систему контроля за личными вещами экипажа. В частности, в отсеках \
 			были построены <B>дополнительные автолаты</B>, в том числе <B>публичные</B> \
 			(в карго и РНД). Также, благодаря более высокому бюджету, были возведены \
 			<B>новые отсеки</B>, такие как <B>ангар</B> или <B>склад</B> в отсеке РнД.\
-			Был расширен отдел <B>вирусологии</B> и возведены <B>новые техничесские туннели</B> для \
+			Был расширен отдел <B>вирусологии</B> и возведены <B>новые технические туннели</B> для \
 			новых проектов.</font>"
 	icon_state = "pamphlet"
 
-/obj/item/paper/deltainfo/update_icon()
+/obj/item/paper/deltainfo/update_icon_state()
 	return
 
 /obj/item/paper/pamphletdeathsquad
 	icon_state = "pamphlet-ds"
 
-/obj/item/paper/pamphletdeathsquad/update_icon()
+/obj/item/paper/pamphletdeathsquad/update_icon_state()
 	return

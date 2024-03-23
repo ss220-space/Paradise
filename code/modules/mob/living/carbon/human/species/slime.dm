@@ -9,9 +9,9 @@
 #define SLIMEPERSON_HAIRGROWTHCOST 10
 
 /datum/species/slime
-	name = "Slime People"
+	name = SPECIES_SLIMEPERSON
 	name_plural = "Slime People"
-	language = "Bubblish"
+	language = LANGUAGE_SLIME
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
@@ -44,6 +44,8 @@
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/slime,
 		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/slime,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/slime
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/unbreakable),
@@ -142,10 +144,13 @@
 	..()
 
 
-/datum/species/slime/can_hear(mob/living/carbon/human/H) // fucking snowflakes
-	. = FALSE
-	if(!HAS_TRAIT(H, TRAIT_DEAF))
-		. = TRUE
+/datum/species/slime/can_hear(mob/living/carbon/human/user)
+	return !HAS_TRAIT(user, TRAIT_DEAF)
+
+
+/datum/species/slime/get_vision_organ(mob/living/carbon/human/user)
+	return NO_VISION_ORGAN
+
 
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"
@@ -191,7 +196,7 @@
 		to_chat(H, "<span class='warning'>Ваши конечности на месте!</span>")
 		return
 
-	var/limb_select = input(H, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
+	var/limb_select = tgui_input_list(H, "Choose a limb to regrow", "Limb Regrowth", missing_limbs)
 	if(!limb_select) // If the user hit cancel on the popup, return
 		return
 	var/chosen_limb = missing_limbs[limb_select]

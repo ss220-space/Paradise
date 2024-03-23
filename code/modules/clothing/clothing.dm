@@ -22,19 +22,22 @@
 	var/alt_desc = null
 	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = 0				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
-	var/up = 0					//but seperated to allow items to protect but not impair vision, like space helmets
+	var/tint_up = 0	// tint when its up
+	var/up = FALSE					//but seperated to allow items to protect but not impair vision, like space helmets
 
-	var/visor_flags = 0			//flags that are added/removed when an item is adjusted up/down
-	var/visor_flags_inv = 0		//same as visor_flags, but for flags_inv
-	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
+	var/visor_flags = NONE			//flags that are added/removed when an item is adjusted up/down
+	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
+	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW | VISOR_FULL_HUD
+										//what to toggle when toggled with weldingvisortoggle()
 
-	var/toggle_message = null
-	var/alt_toggle_message = null
-	var/active_sound = null
-	var/toggle_sound = null
-	var/toggle_cooldown = null
+	var/can_toggle = FALSE
+	var/toggle_on_message
+	var/toggle_off_message
+	var/active_sound
+	var/toggle_sound
+	var/toggle_cooldown = 0
 	var/cooldown = 0
-	var/species_disguise = null
+	var/species_disguise
 	var/magical = FALSE
 	var/dyeable = FALSE
 	var/heal_bodypart = null	//If a bodypart or an organ is specified here, it will slowly regenerate while the clothes are worn. Currently only implemented for eyes, though.
@@ -42,44 +45,49 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 
+/obj/item/clothing/update_icon_state()
+	if(!can_toggle)
+		return FALSE
+	// Done as such to not break chameleon gear since you can't rely on initial states
+	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
+	return TRUE
+
+
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
 		return FALSE
 
-	visor_toggling()
-
-	to_chat(user, "<span class='notice'>You adjust \the [src] [up ? "up" : "down"].</span>")
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_head(src, forced = TRUE)
-		if(H.wear_mask == src)
-			H.wear_mask_update(src, FALSE)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	visor_toggling(user)
+	to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
+	update_equipped_item()
 	return TRUE
 
+
 /obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
+	if(!can_toggle)
+		return FALSE
+
+	. = TRUE
 	up = !up
 	flags ^= visor_flags
 	flags_inv ^= visor_flags_inv
 	flags_cover ^= initial(flags_cover)
-	icon_state = "[initial(icon_state)][up ? "up" : ""]"
 	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
-		tint ^= initial(tint)
+		tint = up ? tint_up : initial(tint)
+	update_icon(UPDATE_ICON_STATE)
+
 
 // Aurora forensics port.
 /obj/item/clothing/clean_blood()
 	. = ..()
 	gunshot_residue = null
 
+
 /obj/item/clothing/proc/can_use(mob/user)
-	if(user && ismob(user))
-		if(!user.incapacitated())
-			return TRUE
+	if(isliving(user) && !user.incapacitated())
+		return TRUE
 	return FALSE
 
 
@@ -91,11 +99,11 @@
 	// For clothing that are faction restricted
 	if(faction_restricted && !M.is_general_slot(slot) && faction_check(faction_restricted, M.faction))
 		if(!disable_warning)
-			to_chat(M, SPAN_WARNING("[src] не могут использовать такие как Вы."))
+			to_chat(M, span_warning("[src] не могут использовать такие как Вы."))
 		return FALSE
 
 
-/obj/item/clothing/proc/refit_for_species(var/target_species)
+/obj/item/clothing/proc/refit_for_species(target_species)
 	//Set species_restricted list
 	switch(target_species)
 		if("Human", "Skrell")	//humanoid bodytypes
@@ -154,10 +162,11 @@
 	var/invis_override = 0
 	var/lighting_alpha
 
-	var/emagged = 0
+	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
-	var/prescription = 0
-	var/prescription_upgradable = 0
+	var/prescription = FALSE
+	var/prescription_upgradable = FALSE
+	var/over_hat = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
@@ -179,6 +188,12 @@ SEE_PIXELS// if an object is located on an unlit area, but some of its pixels ar
           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
 BLIND     // can't see anything
 */
+
+
+/obj/item/clothing/glasses/update_icon_state()
+	if(..())
+		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
+
 
 /obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
 	set name = "Adjust Eyewear"
@@ -230,19 +245,28 @@ BLIND     // can't see anything
 	return 0 // return 1 to cancel attack_hand()
 
 /obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters))
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(!clipped)
 			playsound(src.loc, W.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
-			clipped = 1
-			name = "mangled [name]"
-			desc = "[desc] They have had the fingertips cut off of them."
-			update_icon()
+			clipped = TRUE
+			update_appearance()
 		else
 			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
 		return
 	else
 		return ..()
+
+
+/obj/item/clothing/gloves/update_name(updates = ALL)
+	. = ..()
+	name = clipped ? "mangled [initial(name)]" : initial(name)
+
+
+/obj/item/clothing/gloves/update_desc(updates = ALL)
+	. = ..()
+	desc = clipped ? "[initial(desc)] They have had the fingertips cut off of them." : initial(desc)
+
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
 	if(user.stat || user.restrained())
@@ -260,7 +284,9 @@ BLIND     // can't see anything
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
+	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode+1])
+	if(!switchMode)
+		return
 	if(get_dist(user, src) > 1)
 		to_chat(user, "You have moved too far away.")
 		return
@@ -331,8 +357,6 @@ BLIND     // can't see anything
 	var/see_in_dark = 0
 	var/lighting_alpha
 
-	var/can_toggle = null
-
 	sprite_sheets = list(
 		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -341,10 +365,51 @@ BLIND     // can't see anything
 		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
 
-///obj/item/clothing/head/equipped(var/mob/living/carbon/human/lesser/monkey/user, var/slot) //Смещаем шапки у обезьян
-//	..()
-//	if(!issmall(user))
-//		return
+
+/obj/item/clothing/head/update_icon_state()
+	if(..())
+		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
+
+
+/obj/item/clothing/head/attack_self(mob/user)
+	adjust_headgear(user)
+
+
+/obj/item/clothing/head/proc/adjust_headgear(mob/living/carbon/human/user)
+	if(!can_toggle || user.incapacitated() || world.time < cooldown + toggle_cooldown)
+		return FALSE
+
+	. = TRUE
+
+	cooldown = world.time
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+	if(user.head == src)
+		user.update_head(src, forced = TRUE)
+		for(var/datum/action/action as anything in actions)
+			action.UpdateButtonIcon()
+	else
+		update_equipped_item()
+
+	if(up && toggle_on_message)
+		to_chat(user, span_notice("[toggle_on_message] [src]"))
+	else if(!up && toggle_off_message)
+		to_chat(user, span_notice("[toggle_off_message] [src]"))
+
+	if(active_sound)
+		INVOKE_ASYNC(src, PROC_REF(headgear_loop_sound))
+
+	if(toggle_sound)
+		playsound(loc, toggle_sound, 100, FALSE, 4)
+
+
+/obj/item/clothing/head/proc/headgear_loop_sound()
+	set waitfor = FALSE
+
+	while(up)
+		playsound(loc, active_sound, 100, FALSE, 4)
+		sleep(1.5 SECONDS)
+
 
 //Mask
 /obj/item/clothing/mask
@@ -352,7 +417,6 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_MASK
-	var/mask_adjusted = 0
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
@@ -366,16 +430,20 @@ BLIND     // can't see anything
 		)
 
 //Proc that moves gas/breath masks out of the way
-/obj/item/clothing/mask/proc/adjustmask(var/mob/user)
+/obj/item/clothing/mask/proc/adjustmask(mob/user)
 	var/mob/living/carbon/human/H = usr //Used to check if the mask is on the head, to check if the hands are full, and to turn off internals if they were on when the mask was pushed out of the way.
-	if(user.incapacitated()) //This check allows you to adjust your masks while you're buckled into chairs or beds.
-		return
-	if(mask_adjusted)
-		icon_state = initial(icon_state)
+	if(!can_toggle || user.incapacitated()) //This check allows you to adjust your masks while you're buckled into chairs or beds.
+		return FALSE
+
+	. = TRUE
+
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+
+	if(!up)
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
 		permeability_coefficient = initial(permeability_coefficient)
-		to_chat(user, "<span class='notice'>You push \the [src] back into place.</span>")
-		mask_adjusted = 0
+		to_chat(user, span_notice("You push \the [src] back into place."))
 		slot_flags = initial(slot_flags)
 		if(flags_inv != initial(flags_inv))
 			if(initial(flags_inv) & HIDENAME) //If the mask is one that hides the face and can be adjusted yet lost that trait when it was adjusted, make it hide the face again.
@@ -386,18 +454,11 @@ BLIND     // can't see anything
 		if(flags_cover != initial(flags_cover))
 			if(initial(flags_cover) & MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
 				flags_cover |= MASKCOVERSMOUTH
-		if(H.head == src && flags_inv == HIDENAME) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
-			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-				user.drop_item_ground(src)
-			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.drop_item_ground(src)
-				user.put_in_hands(src)
+
 	else
-		icon_state += "_up"
-		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
+		to_chat(user, span_notice("You push \the [src] out of the way."))
 		gas_transfer_coefficient = null
 		permeability_coefficient = null
-		mask_adjusted = 1
 		if(adjusted_flags)
 			slot_flags = adjusted_flags
 		if(ishuman(user) && H.internal && !H.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE) && user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
@@ -411,18 +472,13 @@ BLIND     // can't see anything
 			flags_cover &= ~MASKCOVERSMOUTH
 		if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 			flags &= ~AIRTIGHT
-		if(user.wear_mask == src && initial(flags_inv) == HIDENAME) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
-			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
-				user.drop_item_ground(src)
-			else //Otherwise, put it in an available hand, the active one preferentially.
-				user.drop_item_ground(src)
-				user.put_in_hands(src)
-	H.wear_mask_update(src, toggle_off = mask_adjusted)
-	usr.update_inv_wear_mask()
-	usr.update_inv_head()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+
+	if(H?.wear_mask == src)
+		H.wear_mask_update(src, toggle_off = up)
+		for(var/datum/action/action as anything in actions)
+			action.UpdateButtonIcon()
+	else
+		update_equipped_item()
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
@@ -434,9 +490,9 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."
 	gender = PLURAL //Carn: for grammatically correct text-parsing
-	var/chained = 0
-	var/can_cut_open = 0
-	var/cut_open = 0
+	//var/chained = 0
+	var/can_cut_open = FALSE
+	var/cut_open = FALSE
 	body_parts_covered = FEET
 	slot_flags = SLOT_FEET
 	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
@@ -474,29 +530,44 @@ BLIND     // can't see anything
 			M.dropped()
 		return
 
-	if(istype(I, /obj/item/wirecutters))
+	if(I.tool_behaviour == TOOL_WIRECUTTER)
 		if(can_cut_open)
 			if(!cut_open)
 				playsound(src.loc, I.usesound, 100, 1)
 				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
-				cut_open = 1
-				icon_state = "[icon_state]_opentoe"
-				item_state = "[item_state]_opentoe"
-				name = "mangled [name]"
-				desc = "[desc] They have had their toes opened up."
-				update_icon()
-				if(ishuman(user))
-					var/mob/living/carbon/human/H = user
-					if(H.shoes == src)
-						user.update_inv_shoes()
+				cut_open = TRUE
+				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 			else
 				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
 		return
 	else
 		return ..()
 
+
+/obj/item/clothing/shoes/update_name()
+	. = ..()
+	if(!cut_open)
+		return
+	name = "mangled [initial(name)]"
+
+
+/obj/item/clothing/shoes/update_desc()
+	. = ..()
+	if(!cut_open)
+		return
+	desc = "[initial(desc)] They have had their toes opened up."
+
+
+/obj/item/clothing/shoes/update_icon_state()
+	if(!cut_open)
+		return
+	icon_state = "[icon_state]_opentoe"
+	item_state = "[item_state]_opentoe"
+	update_equipped_item()
+
+
 /obj/item/proc/negates_gravity()
-	return 0
+	return
 
 //Suit
 /obj/item/clothing/suit
@@ -509,9 +580,8 @@ BLIND     // can't see anything
 	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
-	var/suittoggled = FALSE
-	var/suit_adjusted = 0
-	var/ignore_suitadjust = 1
+	var/suit_adjusted = FALSE
+	var/ignore_suitadjust = TRUE
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
 	max_integrity = 400
@@ -522,58 +592,59 @@ BLIND     // can't see anything
 		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi'
-		//"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
 //Proc that opens and closes jackets.
-/obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
-	if(!ignore_suitadjust)
-		if(!user.incapacitated())
-			if(!(HULK in user.mutations))
-				if(suit_adjusted)
-					var/flavour = "close"
-					icon_state = copytext(icon_state, 1, findtext(icon_state, "_open")) /*Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will
-																							end up with a suffix of _open_open if adjusted twice, since their initial state is _open. */
-					item_state = copytext(item_state, 1, findtext(item_state, "_open"))
-					if(adjust_flavour)
-						flavour = "[copytext(adjust_flavour, 3, length(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
-					to_chat(user, "You [flavour] \the [src].")
-					suit_adjusted = 0 //Suit is no longer adjusted.
-					for(var/X in actions)
-						var/datum/action/A = X
-						A.UpdateButtonIcon()
-				else
-					var/flavour = "open"
-					icon_state += "_open"
-					item_state += "_open"
-					if(adjust_flavour)
-						flavour = "[adjust_flavour]"
-					to_chat(user, "You [flavour] \the [src].")
-					suit_adjusted = 1 //Suit's adjusted.
-					for(var/X in actions)
-						var/datum/action/A = X
-						A.UpdateButtonIcon()
-			else
-				if(user.can_unEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
-					if(contents) //If the suit's got any storage capability...
-						for(var/obj/item/O in contents) //AVOIDING ITEM LOSS. Check through everything that's stored in the jacket and see if one of the items is a pocket.
-							if(istype(O, /obj/item/storage/internal)) //If it's a pocket...
-								if(O.contents) //Check to see if the pocket's got anything in it.
-									for(var/obj/item/I in O.contents) //Dump the pocket out onto the floor below the user.
-										user.drop_item_ground(I, force = TRUE)
+/obj/item/clothing/suit/proc/adjustsuit(mob/user)
+	if(ignore_suitadjust)
+		to_chat(user, span_notice("You attempt to button up the velcro on [src], before promptly realising how foolish you are."))
+		return
+	if(user.incapacitated())
+		return
 
-					user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
-					user.temporarily_remove_item_from_inventory(src)
-					qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
-					user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
-				else
-					to_chat(user, "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>")//Yep, that's all they get. Avoids having to snowflake in a cooldown.
+	if((HULK in user.mutations))
+		if(user.can_unEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
+			for(var/obj/item/thing in src) //AVOIDING ITEM LOSS. Check through everything that's stored in the jacket and see if one of the items is a pocket.
+				if(istype(thing, /obj/item/storage/internal)) //If it's a pocket...
+					for(var/obj/item/pocket_thing in thing) //Dump the pocket out onto the floor below the user.
+						user.drop_item_ground(pocket_thing, force = TRUE)
 
-					return
-			user.update_inv_wear_suit()
+			user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
+			user.temporarily_remove_item_from_inventory(src)
+			qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
+			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
+		else
+			to_chat(user, "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>")//Yep, that's all they get. Avoids having to snowflake in a cooldown.
+		return
+
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item()
+
+	if(suit_adjusted)
+		var/flavour = "close"
+		if(adjust_flavour)
+			flavour = "[copytext(adjust_flavour, 3, length(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
+		to_chat(user, "You [flavour] [src].")
 	else
-		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
+		var/flavour = "open"
+		if(adjust_flavour)
+			flavour = "[adjust_flavour]"
+		to_chat(user, "You [flavour] [src].")
+
+	suit_adjusted = !suit_adjusted
+
+
+/obj/item/clothing/suit/update_icon_state()
+	// Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will
+	// end up with a suffix of _open_open if adjusted twice, since their initial state is _open
+	var/base_icon_state = copytext(icon_state, 1, findtext(icon_state, "_open"))
+	var/base_item_state = copytext(item_state, 1, findtext(item_state, "_open"))
+
+	icon_state = suit_adjusted ? base_icon_state : "[base_icon_state]_open"
+	item_state = suit_adjusted ? base_item_state : "[base_item_state]_open"
+
 
 // Proc used to check if suit storage is limited by item weight
 // Allows any suit to have their own weight limit for items that can be equipped into suit storage
@@ -587,9 +658,11 @@ BLIND     // can't see anything
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
+				user.update_tail_layer()
 		else
 			if(!(initial(flags_inv) & HIDETAIL) && (flags_inv & HIDETAIL)) //Otherwise, remove the HIDETAIL flag if it wasn't already in the flags_inv to start with.
 				flags_inv &= ~HIDETAIL
+				user.update_tail_layer()
 
 /obj/item/clothing/suit/ui_action_click(mob/user) //This is what happens when you click the HUD action button to adjust your suit.
 	if(!ignore_suitadjust)
@@ -653,10 +726,10 @@ BLIND     // can't see anything
 	var/obj/item/tank/jetpack/suit/jetpack = null
 
 
-/obj/item/clothing/suit/space/New()
+/obj/item/clothing/suit/space/Initialize(mapload)
+	. = ..()
 	if(jetpack && ispath(jetpack))
 		jetpack = new jetpack(src)
-	..()
 
 
 /obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/I)
@@ -675,22 +748,18 @@ BLIND     // can't see anything
 	to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
 
 
-/obj/item/clothing/suit/space/equipped(mob/user, slot, initial)
+/obj/item/clothing/suit/space/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-
-	if(jetpack)
-		if(slot == slot_wear_suit)
-			for(var/X in jetpack.actions)
-				var/datum/action/A = X
-				A.Grant(user)
+	if(jetpack && slot == slot_wear_suit)
+		for(var/datum/action/action as anything in jetpack.actions)
+			action.Grant(user)
 
 
 /obj/item/clothing/suit/space/dropped(mob/user, silent = FALSE)
-	..()
+	. = ..()
 	if(jetpack)
-		for(var/X in jetpack.actions)
-			var/datum/action/A = X
-			A.Remove(user)
+		for(var/datum/action/action as anything in jetpack.actions)
+			action.Remove(user)
 
 
 /obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
@@ -732,27 +801,31 @@ BLIND     // can't see anything
 		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		//"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi' - стоки слишком жирные для маленькой одежды
+		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
 	var/sensor_mode = SENSOR_OFF
-	var/random_sensor = TRUE
 		/*
-		1 = Report living/dead
-		2 = Report detailed damages
-		3 = Report location
+		SENSOR_OFF		= Report nothing
+		SENSOR_LIVING	= Report living/dead
+		SENSOR_VITALS	= Report detailed damages
+		SENSOR_COORDS	= Report location
 		*/
+	var/random_sensor = TRUE
+	var/displays_id = TRUE
+	var/over_shoes = FALSE
+	var/rolled_down = FALSE
 	var/list/accessories = list()
-	var/displays_id = 1
-	var/rolled_down = 0
 	var/basecolor
 
-/obj/item/clothing/under/rank/New()
+
+/obj/item/clothing/under/rank/Initialize(mapload)
+	. = ..()
 	if(random_sensor)
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
-	..()
+
 
 /obj/item/clothing/under/Destroy()
 	QDEL_LIST(accessories)
@@ -797,8 +870,8 @@ BLIND     // can't see anything
 				return FALSE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory))
-		attach_accessory(I, user, TRUE)
+	if(istype(I, /obj/item/clothing/accessory) && attach_accessory(I, user, TRUE))
+		return TRUE
 
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
@@ -839,7 +912,7 @@ BLIND     // can't see anything
 				. += "<span class='notice'>Its vital tracker and tracking beacon appear to be enabled.</span>"
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			. += "<span class='notice'>\A [A] is attached to it.</span>"
+			. += A.attached_examine()
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Roll Down Jumpsuit"

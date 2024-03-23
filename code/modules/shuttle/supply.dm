@@ -16,6 +16,41 @@
 	height = 7
 	roundstart_move = "supply_away"
 
+/obj/docking_port/mobile/supply/proc/forbidden_atoms_check(atom/A)
+	var/static/list/cargo_blacklist = list(
+		/obj/structure/blob,
+		/obj/structure/spider/spiderling,
+		/obj/item/disk/nuclear,
+		/obj/machinery/nuclearbomb,
+		/obj/item/radio/beacon,
+		/obj/machinery/the_singularitygen,
+		/obj/singularity,
+		/obj/machinery/teleport/station,
+		/obj/machinery/teleport/hub,
+		/obj/machinery/telepad,
+		/obj/machinery/telepad_cargo,
+		/obj/machinery/clonepod,
+		/obj/effect/hierophant,
+		/obj/item/warp_cube,
+		/obj/machinery/quantumpad,
+		/obj/structure/extraction_point,
+		/obj/item/paicard
+	)
+	if(A)
+		if(isliving(A))
+			if(!istype(A.loc, /obj/item/mobcapsule))
+				return TRUE
+			var/mob/living/living = A
+			if(living.client) //You cannot get out of the capsule and you will be destroyed. Saving clients
+				return TRUE
+		if(is_type_in_list(A, cargo_blacklist))
+			return TRUE
+		for(var/thing in A)
+			if(.(thing))
+				return TRUE
+
+	return FALSE
+
 /obj/docking_port/mobile/supply/register()
 	if(!..())
 		return 0
@@ -32,7 +67,7 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock()
+/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/S1, force, transit)
 	. = ..()
 	if(.)	return .
 
@@ -90,11 +125,11 @@
 
 /obj/docking_port/mobile/supply/proc/sell()
 	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
-		return 1
+		return TRUE
 
-	var/plasma_count = 0
 	var/intel_count = 0
 	var/crate_count = 0
+	var/quest_reward
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 	var/pointsEarned
@@ -106,26 +141,29 @@
 			continue
 		SSshuttle.sold_atoms += " [MA.name]"
 
+		if(istype(MA, /obj/structure/bigDelivery))
+			quest_reward += SScargo_quests.check_delivery(MA)
+
 		// Must be in a crate (or a critter crate)!
 		if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
 			SSshuttle.sold_atoms += ":"
-			if(!MA.contents.len)
+			if(!length(MA.contents))
 				SSshuttle.sold_atoms += " (empty)"
 			++crate_count
 
-			var/find_slip = 1
-			for(var/thing in MA)
+			var/find_slip = TRUE
+			for(var/obj/item/thing in MA)
 				// Sell manifests
-				SSshuttle.sold_atoms += " [thing:name]"
+				SSshuttle.sold_atoms += " [thing.name]"
 				if(find_slip && istype(thing,/obj/item/paper/manifest))
 					var/obj/item/paper/manifest/slip = thing
 					// TODO: Check for a signature, too.
-					if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
+					if(length(slip.stamped)) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 						// Did they mark it as erroneous?
-						var/denied = 0
-						for(var/i=1,i<=slip.stamped.len,i++)
+						var/denied = FALSE
+						for(var/i in 1 to length(slip.stamped))
 							if(slip.stamped[i] == /obj/item/stamp/denied)
-								denied = 1
+								denied = TRUE
 						if(slip.erroneous && denied) // Caught a mistake by Centcom (IDEA: maybe Centcom rarely gets offended by this)
 							pointsEarned = slip.points - SSshuttle.points_per_crate
 							SSshuttle.points += pointsEarned // For now, give a full refund for paying attention (minus the crate cost)
@@ -154,19 +192,14 @@
 								pointsEarned = round(SSshuttle.points_per_crate - slip.points)
 								SSshuttle.points += pointsEarned
 								msg += "<span class='bad'>[pointsEarned]</span>: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
-						find_slip = 0
+						find_slip = FALSE
 					continue
-
-				// Sell plasma
-				if(istype(thing, /obj/item/stack/sheet/mineral/plasma))
-					var/obj/item/stack/sheet/mineral/plasma/P = thing
-					plasma_count += P.amount
 
 				// Sell syndicate intel
 				if(istype(thing, /obj/item/documents/syndicate))
 					++intel_count
 
-				// Sell tech levels
+				// Send tech levels
 				if(istype(thing, /obj/item/disk/tech_disk))
 					var/obj/item/disk/tech_disk/disk = thing
 					if(!disk.stored) continue
@@ -175,61 +208,25 @@
 					var/cost = tech.getCost(SSshuttle.techLevels[tech.id])
 					if(cost)
 						SSshuttle.techLevels[tech.id] = tech.level
-						SSshuttle.points += cost
-						for(var/mob/M in GLOB.player_list)
-							if(M.mind)
-								for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
-									objective.unit_completed(cost)
-						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
+						for(var/mob/mob in GLOB.player_list)
+							if(!mob.mind)
+								continue
+							for(var/datum/job_objective/further_research/objective in mob.mind.job_objectives)
+								objective.unit_completed(cost)
+						msg += "[tech.name] - new data.<br>"
 
-				// Sell designs
-				if(istype(thing, /obj/item/disk/design_disk))
-					var/obj/item/disk/design_disk/disk = thing
-					if(!disk.blueprint)
-						continue
-					var/datum/design/design = disk.blueprint
-					if(design.id in SSshuttle.researchDesigns)
-						continue
-					SSshuttle.points += SSshuttle.points_per_design
-					SSshuttle.researchDesigns += design.id
-					msg += "<span class='good'>+[SSshuttle.points_per_design]</span>: [design.name] design.<br>"
-
-				// Sell exotic plants
-				if(istype(thing, /obj/item/seeds))
-					var/obj/item/seeds/S = thing
-					if(S.rarity == 0) // Mundane species
-						msg += "<span class='bad'>+0</span>: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
-					else if(SSshuttle.discoveredPlants[S.type]) // This species has already been sent to CentComm
-						var/potDiff = S.potency - SSshuttle.discoveredPlants[S.type] // Compare it to the previous best
-						if(potDiff > 0) // This sample is better
-							SSshuttle.discoveredPlants[S.type] = S.potency
-							msg += "<span class='good'>+[potDiff]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
-							SSshuttle.points += potDiff
-						else // This sample is worthless
-							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([SSshuttle.discoveredPlants[S.type]] potency).<br>"
-					else // This is a new discovery!
-						SSshuttle.discoveredPlants[S.type] = S.potency
-						msg += "<span class='good'>[S.rarity + S.potency]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
-						SSshuttle.points += S.rarity + S.potency
-				// Sell gems
-				if(istype(thing, /obj/item/gem))
-					var/obj/item/gem/G = thing
-					pointsEarned = round(G.sell_multiplier * SSshuttle.points_per_gem)
-					msg += "<span class='good'>+[pointsEarned]</span>: Received [G]. Excellent work.<br>"
-					SSshuttle.points += pointsEarned
-
-		qdel(MA)
+		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
 
-	if(plasma_count > 0)
-		pointsEarned = round(plasma_count * SSshuttle.points_per_plasma)
-		msg += "<span class='good'>+[pointsEarned]</span>: Received [plasma_count] unit(s) of exotic material.<br>"
-		SSshuttle.points += pointsEarned
 
 	if(intel_count > 0)
 		pointsEarned = round(intel_count * SSshuttle.points_per_intel)
 		msg += "<span class='good'>+[pointsEarned]</span>: Received [intel_count] article(s) of enemy intelligence.<br>"
 		SSshuttle.points += pointsEarned
+
+	if(quest_reward > 0)
+		msg += "<span class='good'>+[quest_reward]</span>: Received reward points for quests.<br>"
+		SSshuttle.points += quest_reward
 
 	if(crate_count > 0)
 		pointsEarned = round(crate_count * SSshuttle.points_per_crate)
@@ -237,35 +234,6 @@
 		SSshuttle.points += pointsEarned
 
 	SSshuttle.centcom_message += "[msg]<hr>"
-
-/proc/forbidden_atoms_check(atom/A)
-	var/list/blacklist = list(
-		/mob/living,
-		/obj/structure/blob,
-		/obj/structure/spider/spiderling,
-		/obj/item/disk/nuclear,
-		/obj/machinery/nuclearbomb,
-		/obj/item/radio/beacon,
-		/obj/machinery/the_singularitygen,
-		/obj/singularity,
-		/obj/machinery/teleport/station,
-		/obj/machinery/teleport/hub,
-		/obj/machinery/telepad,
-		/obj/machinery/telepad_cargo,
-		/obj/machinery/clonepod,
-		/obj/effect/hierophant,
-		/obj/item/warp_cube,
-		/obj/machinery/quantumpad,
-		/obj/structure/extraction_point
-	)
-	if(A)
-		if(is_type_in_list(A, blacklist))
-			return 1
-		for(var/thing in A)
-			if(.(thing))
-				return 1
-
-	return 0
 
 /********************
     SUPPLY ORDER
@@ -305,7 +273,6 @@
 /datum/supply_order/proc/createObject(atom/_loc, errors=0)
 	if(!object)
 		return
-
 	//create the crate
 	var/atom/Crate = new object.containertype(_loc)
 	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
@@ -374,12 +341,12 @@
 	if(istype(Crate, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/CR = Crate
 		CR.manifest = slip
-		CR.update_icon()
+		CR.update_icon(UPDATE_OVERLAYS)
 		CR.announce_beacons = object.announce_beacons.Copy()
 	if(istype(Crate, /obj/structure/largecrate))
 		var/obj/structure/largecrate/LC = Crate
 		LC.manifest = slip
-		LC.update_icon()
+		LC.update_icon(UPDATE_OVERLAYS)
 
 	return Crate
 
@@ -394,8 +361,6 @@
 	circuit = /obj/item/circuitboard/supplycomp
 	/// Is this a public console (Confirm + Shuttle controls are not visible)
 	var/is_public = FALSE
-	/// Time of last request
-	var/reqtime = 0
 	/// Can we order special supplies
 	var/hacked = FALSE
 	/// Can we order contraband
@@ -423,14 +388,14 @@
 		return TRUE
 
 	add_fingerprint(user)
-	post_signal("supply")
 	ui_interact(user)
 	return
 
-/obj/machinery/computer/supplycomp/emag_act(user as mob)
+/obj/machinery/computer/supplycomp/emag_act(mob/user)
 	if(!hacked)
 		add_attack_logs(user, src, "emagged")
-		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
 		return
 
@@ -449,7 +414,11 @@
 		if(SO)
 			if(!SO.comment)
 				SO.comment = "No comment."
-			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum))))
+			var/list/pack_techs = list()
+			if(length(SO.object.required_tech))
+				for(var/tech_id in SO.object.required_tech)
+					pack_techs += "[CallTechName(tech_id)]: [SO.object.required_tech[tech_id]];  "
+			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum), "pack_techs" = pack_techs.Join(""))))
 	data["requests"] = requests_list
 
 	var/list/orders_list = list()
@@ -463,6 +432,7 @@
 
 	data["canapprove"] = (SSshuttle.supply.getDockedId() == "supply_away") && !(SSshuttle.supply.mode != SHUTTLE_IDLE) && !is_public
 	data["points"] = round(SSshuttle.points)
+	data["credits"] = SSshuttle.cargo_money_account.money
 
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
@@ -477,8 +447,9 @@
 
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
+		var/has_sale = pack.cost < initial(pack.cost)
 		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
-			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group)))
+			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "creditsCost" = pack.credits_cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
 
 	data["supply_packs"] = packs_list
 
@@ -524,19 +495,15 @@
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 				investigate_log("[key_name_log(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", INVESTIGATE_CARGO)
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
-				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
 					var/datum/supply_order/O = new /datum/supply_order()
 					O.ordernum = SSshuttle.ordernum
 					O.object = SSshuttle.supply_packs[pick(SSshuttle.supply_packs)]
-					O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
+					O.orderedby = random_name(pick(MALE,FEMALE), species = SPECIES_HUMAN)
 					SSshuttle.shoppinglist += O
 					investigate_log("Random [O.object] crate added to supply shuttle", INVESTIGATE_CARGO)
 
 		if("order")
-			if(world.time < reqtime)
-				visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-				return
 
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
@@ -559,7 +526,7 @@
 			if(world.time > timeout || !reason || (!is_public && !is_authorized(usr)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
-			reason = sanitize(copytext_char(reason, 1, MAX_MESSAGE_LEN))
+			reason = sanitize(copytext_char(reason, 1, 100)) //Preventing tgui overflow
 
 			var/idname = "*None Provided*"
 			var/idrank = "*None Provided*"
@@ -597,14 +564,14 @@
 					P = O.object
 					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
 						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
-					else if(SSshuttle.points >= P.cost)
+					else if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
+						if(P.credits_cost)
+							SSshuttle.cargo_money_account.money -= P.credits_cost
 						SSshuttle.shoppinglist += O
 						P.times_ordered += 1
 						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", INVESTIGATE_CARGO)
-					else
-						to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
 					break
 
 		if("deny")
@@ -632,14 +599,3 @@
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
 
-/obj/machinery/computer/supplycomp/proc/post_signal(var/command)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-
-	if(!frequency) return
-
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	frequency.post_signal(src, status_signal)

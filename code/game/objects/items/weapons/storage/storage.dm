@@ -9,6 +9,7 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_2 = BLOCKS_LIGHT_2
 	///No message on putting items in
 	var/silent = FALSE
 	///List of objects which this item can store (if set, it can't store anything else)
@@ -98,40 +99,44 @@
 				continue
 			hide_from(player)
 
-/obj/item/storage/MouseDrop(obj/over_object)
-	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
-		var/mob/M = usr
 
-		if(istype(M.loc,/obj/mecha) || M.incapacitated(FALSE, TRUE, TRUE)) // Stops inventory actions in a mech as well as while being incapacitated
-			return
+/obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(!ishuman(usr))
+		return FALSE
 
-		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
-			if(M.s_active)
-				M.s_active.close(M)
-			open(M)
-			return
+	var/mob/living/carbon/human/user = usr
 
-		if((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
-			&& contents.len && loc == usr && !usr.stat && !usr.restrained() && usr.canmove && over_object.Adjacent(usr) \
-			&& !istype(src, /obj/item/storage/lockbox))
-			var/turf/T = get_turf(over_object)
-			if(istype(over_object, /turf/simulated/floor))
-				if(get_turf(usr) != T)
-					return // Can only empty containers onto the floor under you
-				if("Yes" != alert(usr,"Empty \the [src] onto \the [T]?","Confirm","Yes","No"))
-					return
-				if(!(usr && over_object && contents.len && loc == usr && !usr.stat && !usr.restrained() && usr.canmove && get_turf(usr) == T))
-					return // Something happened while the player was thinking
-			hide_from(usr)
-			usr.face_atom(over_object)
-			usr.visible_message("<span class='notice'>[usr] empties \the [src] onto \the [over_object].</span>",
-				"<span class='notice'>You empty \the [src] onto \the [over_object].</span>")
-			for(var/obj/item/I in contents)
-				remove_from_storage(I, T)
-			update_icon() // For content-sensitive icons
-			return
+	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
+	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated(FALSE, TRUE, TRUE))
+		return FALSE
 
-		return ..()
+	if(over_object == user && user.Adjacent(src)) // this must come before the screen objects only block
+		open(user)
+		return FALSE
+
+	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
+		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
+
+		if(alert(user, "Empty [src] onto [over_object]?", "Confirm", "Yes", "No") != "Yes")
+			return FALSE
+
+		if(!user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
+			return FALSE
+
+		close(user)
+		user.face_atom(over_object)
+		user.visible_message(
+			span_notice("[user] empties [src] onto [over_object]."),
+			span_notice("You empty [src] onto [over_object]."),
+		)
+		var/turf/object_turf = get_turf(over_object)
+		for(var/obj/item/item in src)
+			remove_from_storage(item, object_turf)
+
+		update_icon() // For content-sensitive icons
+		return FALSE
+
+	return ..()
 
 
 /obj/item/storage/AltClick(mob/user)
@@ -158,6 +163,8 @@
 /obj/item/storage/proc/show_to(mob/user)
 	if(!user.client)
 		return
+	if(QDELETED(src))
+		return
 	if(user.s_active != src && !isobserver(user))
 		for(var/obj/item/I in src) // For bombs with mousetraps, facehuggers etc
 			if(I.on_found(user))
@@ -183,6 +190,14 @@
 	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
+
+
+/obj/item/storage/proc/hide_from_all_viewers()
+	if(!LAZYLEN(mobs_viewing))
+		return
+	for(var/mob/viewer as anything in mobs_viewing)
+		hide_from(viewer)
+
 
 /obj/item/storage/proc/update_viewers()
 	for(var/_M in mobs_viewing)
@@ -436,7 +451,7 @@
 
 	if(istype(src, /obj/item/storage/fancy))
 		var/obj/item/storage/fancy/F = src
-		F.update_icon(TRUE)
+		F.update_icon()
 
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
@@ -466,7 +481,7 @@
 
 	if(usr)
 		orient2hud(usr)
-		if(usr.s_active)
+		if(usr.s_active && !QDELETED(src))
 			usr.s_active.show_to(usr)
 	if(W.maptext)
 		W.maptext = ""

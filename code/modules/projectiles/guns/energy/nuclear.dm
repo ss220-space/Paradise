@@ -5,8 +5,8 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
-	modifystate = 2
-	can_flashlight = 1
+	modifystate = TRUE
+	can_flashlight = TRUE
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
@@ -26,9 +26,12 @@
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
+	gun_light_overlay = "mini-light"
+	flight_x_offset = 0
+	flight_y_offset = 0
 	ammo_x_offset = 2
 	charge_sections = 3
-	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
+	can_flashlight = FALSE
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
@@ -37,10 +40,6 @@
 	cell.maxcharge = 600
 	cell.charge = 600
 
-/obj/item/gun/energy/gun/mini/update_icon()
-	..()
-	if(gun_light && gun_light.on)
-		overlays += "mini-light"
 
 /obj/item/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
@@ -60,12 +59,12 @@
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/gun/blueshield/can_shoot()
     . = ..()
-    if (. && !isertmindshielded(usr))
-        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+    if(. && !isertmindshielded(usr))
+        to_chat(usr, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
         return FALSE
     return .
 
@@ -77,14 +76,14 @@
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/gun/pdw9/ert
 
 /obj/item/gun/energy/gun/pdw9/ert/can_shoot()
     . = ..()
-    if (. && !isertmindshielded(usr))
-        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
+    if(. && !isertmindshielded(usr))
+        to_chat(usr, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
         return FALSE
     return .
 
@@ -107,9 +106,8 @@
 	icon_state = "nucgun"
 	item_state = "nucgun"
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
-	var/fail_tick = 0
 	charge_delay = 5
-	can_charge = 0
+	can_charge = FALSE
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
-	selfcharge = 1
+	selfcharge = TRUE

@@ -74,7 +74,7 @@
 		unstun_time = 0
 		notransform = 0
 		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
-	update_spooky_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/revenant/ex_act(severity)
 	return 1 //Immune to the effects of explosions.
@@ -168,23 +168,23 @@
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
 			mind.wipe_memory()
 			SEND_SOUND(src, 'sound/effects/ghost.ogg')
-			to_chat(src, "<br>")
-			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
-			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
-			to_chat(src, "<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")
-			to_chat(src, "<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
-			to_chat(src, "<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
-			to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
-			to_chat(src, "<b>Be sure to read the wiki page at https://wiki.ss220.space/index.php/Ревенант to learn more.</b>")
+			var/list/messages = list()
+			messages.Add("<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
+			messages.Add("<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
+			messages.Add("<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")
+			messages.Add("<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
+			messages.Add("<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
+			messages.Add("<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
+			messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Revenant\">Ревенант</a></span>")
 			var/datum/objective/revenant/objective = new
 			objective.owner = mind
 			mind.objectives += objective
-			to_chat(src, "<b>Objective #1</b>: [objective.explanation_text]")
 			var/datum/objective/revenantFluff/objective2 = new
 			objective2.owner = mind
 			mind.objectives += objective2
-			to_chat(src, "<b>Objective #2</b>: [objective2.explanation_text]")
 			SSticker.mode.traitors |= mind //Necessary for announcing
+			messages.Add(mind.prepare_announce_objectives(FALSE))
+			to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
@@ -203,7 +203,7 @@
 /mob/living/simple_animal/revenant/gib()
 	. = death()
 
-/mob/living/simple_animal/revenant/death()
+/mob/living/simple_animal/revenant/death(gibbed)
 	if(!revealed)
 		return FALSE
 	// Only execute the below if we successfully died
@@ -217,7 +217,7 @@
 	invisibility = 0
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
 	visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
-	icon_state = "revenant_draining"
+	update_icon(UPDATE_ICON_STATE)
 	for(var/i = alpha, i > 0, i -= 10)
 		sleep(0.1)
 		alpha = i
@@ -285,7 +285,7 @@
 	else
 		to_chat(src, "<span class='revenwarning'>You have been revealed!</span>")
 		unreveal_time = unreveal_time + time
-	update_spooky_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/revenant/proc/stun(time)
 	if(!src)
@@ -299,9 +299,9 @@
 	else
 		to_chat(src, "<span class='revenwarning'>You cannot move!</span>")
 		unstun_time = unstun_time + time
-	update_spooky_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/mob/living/simple_animal/revenant/proc/update_spooky_icon()
+/mob/living/simple_animal/revenant/update_icon_state()
 	if(revealed)
 		if(notransform)
 			if(draining)

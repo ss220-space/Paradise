@@ -80,24 +80,25 @@
 	name = "holo barrier"
 	desc = "A short holographic barrier which can only be passed by walking."
 	icon_state = "holosign_sec"
-	pass_flags = LETPASSTHROW
+	pass_flags_self = PASSTABLE|PASSGRILLE|PASSGLASS|LETPASSTHROW
 	density = TRUE
 	max_integrity = 20
 	var/allow_walk = TRUE //can we pass through it on walk intent
 
-/obj/structure/holosign/barrier/CanPass(atom/movable/mover, turf/target)
-	if(!density)
-		return TRUE
-	if(mover.pass_flags & (PASSGLASS|PASSTABLE|PASSGRILLE))
+
+/obj/structure/holosign/barrier/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
 		return TRUE
 	if(iscarbon(mover))
-		var/mob/living/carbon/C = mover
-		if(allow_walk && (C.m_intent == MOVE_INTENT_WALK || (C.pulledby && C.pulledby.m_intent == MOVE_INTENT_WALK)))
+		var/mob/living/carbon/carbon_mover = mover
+		if(allow_walk && (carbon_mover.m_intent == MOVE_INTENT_WALK || carbon_mover.pulledby?.m_intent == MOVE_INTENT_WALK))
 			return TRUE
 	else if(issilicon(mover))
-		var/mob/living/silicon/S = mover
-		if(allow_walk && (S.m_intent == MOVE_INTENT_WALK || (S.pulledby && S.pulledby.m_intent == MOVE_INTENT_WALK)))
+		var/mob/living/silicon/silicon_mover = mover
+		if(allow_walk && (silicon_mover.m_intent == MOVE_INTENT_WALK || silicon_mover.pulledby?.m_intent == MOVE_INTENT_WALK))
 			return TRUE
+
 
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"

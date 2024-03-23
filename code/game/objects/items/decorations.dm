@@ -226,8 +226,33 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	max_integrity = 100
+
+/obj/structure/decorative_structures/fireplace
+	name = "Old fireplace"
+	desc = "Looks warm and comfy."
+	icon = 'icons/obj/fireplace.dmi'
+	icon_state = "fireplace"
+	anchored = TRUE
+	density = 0
+	pixel_x = -16
+
+/obj/structure/decorative_structures/fireplace/Initialize(mapload)
+	. = ..()
+	add_overlay(icon('icons/obj/fireplace.dmi', "fireplace_fire3"))
+	add_overlay(icon('icons/obj/fireplace.dmi', "fireplace_glow"))
+	set_light(6, ,"#ffb366")
+
+/obj/structure/decorative_structures/garland
+	density = 0
+	anchored = TRUE
+	max_integrity = 100
+	icon_state = "xmaslights"
+
+/obj/structure/decorative_structures/garland/Initialize(mapload)
+	. = ..()
+	set_light(2, ,"#ffffffbb")
 
 /obj/structure/decorative_structures/metal
 	flags = CONDUCT
@@ -361,3 +386,79 @@
 		return 1
 /datum/effect_system/smoke_spread/vomiting
 	effect_type = /obj/effect/particle_effect/smoke/vomiting
+
+////// Bouquets
+
+/obj/item/decorations/bouquets
+	name = "Flower bouquet"
+	desc = "A bouquet of beautiful flowers, looks a little withered."
+	icon = 'icons/obj/weapons/bouquet.dmi'
+	icon_state = "mixedbouquet"
+	attack_verb = list("attacked", "slashed", "torn", "ripped", "cut", "smashed")
+	max_integrity = 20
+	force = 2
+	throwforce = 1
+	throw_range = 3
+
+	resistance_flags = FLAMMABLE
+
+/obj/item/decorations/bouquets/Initialize(mapload)
+	. = ..()
+	hitsound = pick('sound/effects/footstep/grass1.ogg', 'sound/effects/footstep/grass2.ogg', 'sound/effects/footstep/grass3.ogg')
+
+/obj/item/decorations/bouquets/random
+
+/obj/item/decorations/bouquets/random/Initialize(mapload)
+	. = ..()
+	var/pick_flower = pick("mixedbouquet", "poppybouquet", "rosebouquet", "sunbouquet")
+	icon_state = "[pick_flower]"
+
+////// Cultist's crystal
+
+/obj/structure/decorative_structures/cult_crystal
+	name = "Bloody crystal"
+	icon_state = "cult_crystal"
+	max_integrity = 120
+	anchored = TRUE
+
+/obj/structure/decorative_structures/cult_crystal/Initialize(mapload)
+	. = ..()
+	set_light(2, 1, COLOR_RED)
+
+/obj/structure/decorative_structures/cult_crystal/attackby(obj/item/I, mob/user, params)
+	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+	to_chat(user, span_warning("When you touch it, you feel some dark energy."))
+	..()
+
+/obj/structure/decorative_structures/cult_crystal/attack_hand(mob/living/user)
+	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+	to_chat(user, span_warning("When you touch it, you feel some dark energy."))
+	..()
+
+/obj/structure/decorative_structures/cult_crystal/Destroy()
+	playsound(src, 'sound/effects/glassbr3.ogg', 30, 0)
+	var/turf/T = get_turf(src)
+	var/mob/living/simple_animal/crystal_soul = new /mob/living/simple_animal/hostile/construct/armoured/hostile(T)
+	crystal_soul.loot = list(pick(
+		/obj/item/gun/magic/wand/resurrection,
+		/obj/item/gun/magic/wand/fireball,
+		/obj/item/gun/magic/wand/slipping,
+		/obj/item/spellbook/oneuse/sacredflame,
+		/obj/item/spellbook/oneuse/smoke,
+		/obj/item/spellbook/oneuse/forcewall,
+		/obj/item/soulstone/anybody,
+	))
+	new /obj/effect/particle_effect/smoke/vomiting(T)
+	new /obj/effect/decal/cleanable/blood/gibs(T)
+	new /obj/effect/decal/cleanable/blood(T)
+	..()
+
+/obj/structure/decorative_structures/snowcloud
+	name = "snow cloud"
+	desc = "Let it snow, let it snow, let it snow!"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "snowcloud"
+	layer = FLY_LAYER
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	density = 0

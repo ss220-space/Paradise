@@ -265,7 +265,7 @@
 	name = "doomsday device"
 	icon_state = "nuclearbomb_base"
 	desc = "A weapon which disintegrates all organic life in a large area."
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	atom_say_verb = "blares"
 	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
@@ -421,10 +421,10 @@
 	uses = 1
 
 /datum/action/innate/ai/break_fire_alarms/Activate()
-	for(var/obj/machinery/firealarm/F in GLOB.machines)
-		if(!is_station_level(F.z))
+	for(var/obj/machinery/firealarm/alarm as anything in GLOB.firealarms)
+		if(!is_station_level(alarm.z))
 			continue
-		F.emagged = TRUE
+		alarm.emagged = TRUE
 	to_chat(owner, "<span class='notice'>All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized.</span>")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 

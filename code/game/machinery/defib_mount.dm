@@ -34,10 +34,10 @@
 	if(building)
 		set_pixel_offsets_from_dir(30, -30, 30, -30)
 
-/obj/machinery/defibrillator_mount/loaded/New() //loaded subtype for mapping use
-	..()
+/obj/machinery/defibrillator_mount/loaded/Initialize(mapload)	//loaded subtype for mapping use
+	. = ..()
 	defib = new/obj/item/defibrillator/loaded(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/defibrillator_mount/Destroy()
 	QDEL_NULL(defib)
@@ -46,7 +46,7 @@
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	. = ..()
 	if(defib)
-		. += span_notice("There is a defib unit hooked up. Alt-click to remove it.")
+		. += span_info("There is a defib unit hooked up. <b>Alt-Click</b> to remove it.")
 		if(GLOB.security_level >= SEC_LEVEL_RED)
 			. += span_notice("Due to a security situation, its locking clamps can be toggled by swiping any ID.")
 		else
@@ -58,47 +58,36 @@
 	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
 		use_power(200)
 		defib.cell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/defibrillator_mount/update_icon()
-	cut_overlays()
+
+/obj/machinery/defibrillator_mount/update_overlays()
+	. = ..()
 	if(defib)
-		add_overlay("defib")
+		. += "defib"
 		if(defib.powered)
-			add_overlay(defib.safety ? "online" : "emagged")
+			. += "[defib.safety ? "online" : "emagged"]"
 			var/ratio = defib.cell.charge / defib.cell.maxcharge
 			ratio = CEILING(ratio * 4, 1) * 25
-			add_overlay("charge[ratio]")
+			. += "charge[ratio]"
 		if(clamps_locked)
-			add_overlay("clamps")
+			. += "clamps"
+
 
 //defib interaction
-/obj/machinery/defibrillator_mount/attack_hand(mob/living/carbon/)
-	var/mob/living/carbon/human/user = usr
+/obj/machinery/defibrillator_mount/attack_hand(mob/living/carbon/human/user = usr)
 
 	if(!defib)
 		to_chat(user, span_warning("There's no defibrillator unit loaded!"))
 		return
 
-	var/obj/item/organ/external/temp2 = user.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
-	var/obj/item/organ/external/temp = user.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
-
-	if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
-		to_chat(user, span_warning("You can't use your hand to take out the paddles!"))
+	if(!defib.paddles_on_defib)
+		to_chat(user, span_warning("[user.is_in_hands(defib.paddles) ? "You are already" : "Someone else is"] holding [defib]'s paddles!"))
 		return
 
-	if(defib.paddles.loc != defib)
-		to_chat(user, span_warning("[defib.paddles.loc == user ? "You are already" : "Someone else is"] holding [defib]'s paddles!"))
-		return
-
-	defib.paddles.forceMove_turf()
-	if(!user.put_in_hands(defib.paddles, ignore_anim = FALSE))
-		defib.paddles.forceMove(defib)
-		to_chat(user, SPAN_WARNING("You need a free hand to hold the paddles!"))
-		return
-
+	defib.dispence_paddles(user)
 	add_fingerprint(user)
-	defib.paddles_on_defib = FALSE
+
 
 /obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/defibrillator))
@@ -109,16 +98,20 @@
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		add_fingerprint(user)
-		user.visible_message(span_notice("[user] hooks up [I] to [src]!"), \
-		span_notice("You press [I] into the mount, and it clicks into place."))
+		user.visible_message(
+			span_notice("[user] hooks up [I] to [src]!"),
+			span_notice("You press [I] into the mount, and it clicks into place."),
+		)
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
-	else if(defib && I == defib.paddles)
+
+	if(defib && I == defib.paddles)
 		add_fingerprint(user)
-		user.drop_from_active_hand()
+		user.drop_item_ground(I)
 		return
+
 	var/obj/item/card/id = I.GetID()
 	if(id)
 		if(check_access(id) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
@@ -128,11 +121,13 @@
 			add_fingerprint(user)
 			clamps_locked = !clamps_locked
 			to_chat(user, span_notice("Clamps [clamps_locked ? "" : "dis"]engaged."))
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, span_warning("Insufficient access."))
 		return
+
 	return ..()
+
 
 /obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -145,18 +140,19 @@
 	new /obj/item/mounted/frame/defib_mount(get_turf(user))
 	qdel(src)
 
+
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/human/user)
+	if(!Adjacent(user))
+		return
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	var/obj/item/organ/external/temp2 = user.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
-	var/obj/item/organ/external/temp = user.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
-	if(!Adjacent(user))
 		return
 	if(!defib)
 		to_chat(user, span_warning("It'd be hard to remove a defib unit from a mount that has none."))
 		return
-	if(!temp || !temp.is_usable() && !temp2 || !temp2.is_usable())
+	var/obj/item/organ/external/hand_right = user.get_organ(BODY_ZONE_PRECISE_R_HAND)
+	var/obj/item/organ/external/hand_left = user.get_organ(BODY_ZONE_PRECISE_L_HAND)
+	if((!hand_right || !hand_right.is_usable()) && (!hand_left || !hand_left.is_usable()))
 		to_chat(user, span_warning("You can't use your hand to take out the defibrillator!"))
 		return
 	if(clamps_locked)
@@ -168,7 +164,8 @@
 	span_notice("You slide out [defib] from [src] and unhook the charging cables."))
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	defib = null
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
 
 //wallframe, for attaching the mounts easily
 /obj/item/mounted/frame/defib_mount

@@ -232,6 +232,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Notice Board", /obj/item/noticeboard, 5, time = 10),
 ))
 
 /obj/item/stack/sheet/wood
@@ -274,6 +275,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 		new /datum/stack_recipe("Bio bag", /obj/item/storage/bag/bio, 4),
 		new /datum/stack_recipe("Book bag", /obj/item/storage/bag/books, 4),
 		new /datum/stack_recipe("Chemistry bag", /obj/item/storage/bag/chemistry, 4),
+		new /datum/stack_recipe("Construction bag", /obj/item/storage/bag/construction, 4),
 		new /datum/stack_recipe("Fish bag", /obj/item/storage/bag/fish, 4),
 		new /datum/stack_recipe("Mining satchel", /obj/item/storage/bag/ore, 4),
 		new /datum/stack_recipe("Plant bag", /obj/item/storage/bag/plants, 4),
@@ -381,6 +383,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
 	new /datum/stack_recipe("donut box", /obj/item/storage/fancy/donut_box/empty),
 	new /datum/stack_recipe("pizza box", /obj/item/pizzabox),
+	new /datum/stack_recipe("glowstick box", /obj/item/storage/fancy/glowsticks_box/empty, 2),
 ))
 
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
@@ -507,6 +510,7 @@ GLOBAL_LIST_INIT(brass_recipes, list(
 	new /datum/stack_recipe("Altar of credence", /obj/structure/clockwork/functional/altar, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe("Eternal workshop", /obj/structure/clockwork/functional/workshop, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe("Herald's beacon", /obj/structure/clockwork/functional/beacon, 6, time = 80, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe("Cogscarab fabricator", /obj/structure/clockwork/functional/cogscarab_fabricator, 5, time = 100, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe("Wall gear", /obj/structure/clockwork/wall_gear, time = 10, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	null,
 	new /datum/stack_recipe_list("Windows and furniture", list(
@@ -515,9 +519,9 @@ GLOBAL_LIST_INIT(brass_recipes, list(
 		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
 		null,
 		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
-		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, window_checks = TRUE),
-		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockwork, on_floor = TRUE, window_checks = TRUE),
-		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, on_floor = TRUE, window_checks = TRUE),
+		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, check_direction = TRUE),
+		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockwork, on_floor = TRUE, check_direction = TRUE),
+		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, on_floor = TRUE, is_fulltile = TRUE),
 	)),
 ))
 
@@ -533,9 +537,9 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
 		null,
 		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
-		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork_fake, 2, time = 30, on_floor = TRUE, window_checks = TRUE),
-		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockworkfake, on_floor = TRUE, window_checks = TRUE),
-		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockworkfake/fulltile, 2, on_floor = TRUE, window_checks = TRUE),
+		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork_fake, 2, time = 30, on_floor = TRUE, check_direction = TRUE),
+		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockworkfake, on_floor = TRUE, check_direction = TRUE),
+		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockworkfake/fulltile, 2, on_floor = TRUE, is_fulltile = TRUE),
 	)),
 ))
 
@@ -797,3 +801,33 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 
 /obj/item/stack/sheet/cheese/fifteen
 	amount = 15
+
+/*
+ * Gingerbread
+ */
+
+GLOBAL_LIST_INIT(gingerbread_recipes, list(
+	new /datum/stack_recipe("Gingerbread door", /obj/structure/mineral_door/ginger, 10, time = 20, one_per_turf = TRUE, on_floor = TRUE),
+))
+
+/obj/item/stack/sheet/gingerbread
+	name = "gingerbread"
+	desc = "A brick of gingerbread that seems sturdier than regular one."
+	icon_state = "sheet-gingerbread"
+	item_state = "sheet-gingerbread"
+	singular_name = "gingerbread block"
+	icon = 'icons/obj/items.dmi'
+	sheettype = "gingerbread"
+	force = 1
+	throwforce = 2
+	merge_type = /obj/item/stack/sheet/gingerbread
+
+/obj/item/stack/sheet/gingerbread/fifty
+	amount = 50
+
+/obj/item/stack/sheet/gingerbread/five
+	amount = 5
+
+/obj/item/stack/sheet/gingerbread/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.gingerbread_recipes

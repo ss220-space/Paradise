@@ -2,8 +2,8 @@
 	name = "computer"
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "computer"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
@@ -11,24 +11,19 @@
 	integrity_failure = 100
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
-	var/processing = 0
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
-	var/light_range_on = 2
-	var/light_power_on = 1
-	var/overlay_layer
+	var/light_range_on = 1
+	var/light_power_on = 0.7
 	var/abductor = FALSE
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
 	var/force_no_power_icon_state = FALSE
 
-/obj/machinery/computer/New()
-	overlay_layer = layer
-	..()
 
-/obj/machinery/computer/Initialize()
-	..()
+/obj/machinery/computer/Initialize(mapload)
+	. = ..()
 	power_change()
 	update_icon()
 
@@ -75,33 +70,47 @@
 	update_icon()
 	flickering = FALSE
 
-/obj/machinery/computer/update_icon()
-	overlays.Cut()
+
+/obj/machinery/computer/update_icon_state()
+	icon_state = abductor ? "aliencomputer" : initial(icon_state)
+
+
+/obj/machinery/computer/update_overlays()
+	. = ..()
+	underlays.Cut()
+
 	if((stat & NOPOWER) || force_no_power_icon_state)
 		if(icon_keyboard && abductor)
-			overlays += image(icon,"alien_key_off",overlay_layer)
+			. += "alien_key_off"
 		else if(icon_keyboard)
-			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
+			. += "[icon_keyboard]_off"
 		return
 
 	if(stat & BROKEN)
-		overlays += image(icon,"[icon_state]_broken",overlay_layer)
+		. += "[icon_state]_broken"
 	else
-		overlays += image(icon,icon_screen,overlay_layer)
+		if(icon_screen)
+			. += "[icon_screen]"
+		if(light)
+			underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 	if(icon_keyboard && abductor)
-		overlays += image(icon, "alien_key" ,overlay_layer)
+		. += "alien_key"
+		underlays += emissive_appearance(icon, "alien_key_lightmask")
 	else if(icon_keyboard)
-		overlays += image(icon, icon_keyboard ,overlay_layer)
+		. += "[icon_keyboard]"
+		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask")
 
 
-/obj/machinery/computer/power_change()
-	..()
-	update_icon()
+/obj/machinery/computer/power_change(forced = FALSE)
+	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
 	if((stat & (BROKEN|NOPOWER)))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
+	if(.)
+		update_icon()
+
 
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -196,3 +205,51 @@
 		self_hurt = TRUE
 	return ..()
 
+///////// Decorative frames
+
+/obj/machinery/computer/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "common_computerframe"
+
+/obj/machinery/computer/old_frame/engineering
+	icon_screen = "common2_oldframe"
+	icon_state = "frame-eng"
+	icon_keyboard = "kb14"
+
+/obj/machinery/computer/old_frame/medical
+	icon_screen = "common2_oldframe"
+	icon_state = "frame-med"
+	icon_keyboard = "kb4"
+
+/obj/machinery/computer/old_frame/big
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_state = "left"
+	icon_keyboard = null
+
+/obj/machinery/computer/old_frame/big/alert
+	icon_state = "leftb"
+
+/obj/machinery/computer/old_frame/big/right
+	icon_state = "right-closed"
+
+/obj/machinery/computer/old_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "stock_computer"
+	icon_state = "oldcomp"
+
+/obj/machinery/computer/old_frame/server
+	icon_screen = "command"
+	icon_state = "serverframe"
+
+/obj/machinery/computer/old_frame/server/rackframe
+	name = "rackframe"
+	icon_state = "rackframe"
+	icon_screen = null
+	icon_keyboard = null
+
+/obj/machinery/computer/old_frame/locator
+	icon = 'icons/obj/machines/research.dmi'
+	icon_state = "tdoppler"
+
+/obj/machinery/computer/old_frame/thick
+	icon_state = "thick"

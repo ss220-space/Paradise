@@ -19,6 +19,7 @@
 	safe = FALSE
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
@@ -79,13 +80,30 @@
 		return ..()
 	return 0
 
-/obj/machinery/door/firedoor/power_change()
-	if(powered(power_channel))
-		stat &= ~NOPOWER
-		latetoggle()
+
+/obj/machinery/door/firedoor/proc/adjust_light()
+	if(stat & (NOPOWER|BROKEN))
+		set_light(0)
+		return
+	if(active_alarm)
+		set_light(1, 0.5, COLOR_RED_LIGHT)
 	else
-		stat |= NOPOWER
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
+/obj/machinery/door/firedoor/extinguish_light(force = FALSE)
+	set_light(0)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/door/firedoor/power_change(forced = FALSE)
+	. = ..()
+	if(!(stat & NOPOWER))
+		latetoggle()
+	if(!.)
+		return
+	adjust_light()
 	update_icon()
+
 
 /obj/machinery/door/firedoor/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
@@ -166,7 +184,7 @@
 		return
 	WELDER_WELD_SUCCESS_MESSAGE
 	welded = !welded
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
@@ -186,8 +204,7 @@
 /obj/machinery/door/firedoor/attack_alien(mob/user)
 	add_fingerprint(user)
 	if(welded)
-		to_chat(user, span_warning("[src] refuses to budge!"))
-		return
+		return ..()
 	open()
 
 /obj/machinery/door/firedoor/attack_animal(mob/user)
@@ -205,25 +222,31 @@
 			flick("door_closing", src)
 			playsound(src, 'sound/machines/firedoor.ogg', 60, 1)
 
-/obj/machinery/door/firedoor/update_icon()
-	overlays.Cut()
+
+/obj/machinery/door/firedoor/update_icon_state()
+	icon_state = "door_[density ? "closed" : "open"]"
+
+
+/obj/machinery/door/firedoor/update_overlays()
+	. = ..()
+	if(welded)
+		. += "welded[density ? "" : "_open"]"
 	if(active_alarm && hasPower())
-		overlays += image('icons/obj/doors/doorfire.dmi', "alarmlights")
-	if(density)
-		icon_state = "door_closed"
-		if(welded)
-			overlays += "welded"
-	else
-		icon_state = "door_open"
-		if(welded)
-			overlays += "welded_open"
+		if(light)
+			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask")
+		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
+
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
+	adjust_light()
 	update_icon()
 
 /obj/machinery/door/firedoor/proc/deactivate_alarm()
 	active_alarm = FALSE
+	if(!density)
+		layer = initial(layer)
+	adjust_light()
 	update_icon()
 
 /obj/machinery/door/firedoor/open(auto_close = TRUE)
@@ -231,7 +254,8 @@
 		return
 	. = ..()
 	latetoggle(auto_close)
-
+	if(active_alarm)
+		layer = closingLayer // Active firedoors take precedence and remain visible over closed airlocks.
 	if(auto_close)
 		autoclose = TRUE
 
@@ -246,13 +270,11 @@
 /obj/machinery/door/firedoor/proc/latetoggle(auto_close = TRUE)
 	if(operating || !hasPower() || !nextstate)
 		return
-	switch(nextstate)
-		if(FD_OPEN)
-			nextstate = null
-			open(auto_close)
-		if(FD_CLOSED)
-			nextstate = null
-			close()
+	if(nextstate == FD_OPEN)
+		INVOKE_ASYNC(src, PROC_REF(open), auto_close)
+	if(nextstate == FD_CLOSED)
+		INVOKE_ASYNC(src, PROC_REF(close))
+	nextstate = null
 
 /obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
 	if(!magic && (operating || !hasPower()))
@@ -270,7 +292,7 @@
 		else
 			F.constructionStep = CONSTRUCTION_WIRES_EXPOSED
 			F.obj_integrity = F.max_integrity * 0.5
-		F.update_icon()
+		F.update_icon(UPDATE_ICON_STATE)
 	qdel(src)
 
 /obj/machinery/door/firedoor/border_only
@@ -282,22 +304,20 @@
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
+	pass_flags_self = PASSGLASS
 
-/obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return !density
-	else
-		return 1
 
-/obj/machinery/door/firedoor/border_only/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+/obj/machinery/door/firedoor/border_only/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(dir != border_dir)
+		return TRUE
+
+
+/obj/machinery/door/firedoor/border_only/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
+
 
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
@@ -367,8 +387,7 @@
 		if(CONSTRUCTION_NOCIRCUIT)
 			. += span_notice("There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.")
 
-/obj/structure/firelock_frame/update_icon()
-	..()
+/obj/structure/firelock_frame/update_icon_state()
 	icon_state = "frame[constructionStep]"
 
 /obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
@@ -413,7 +432,7 @@
 					playsound(get_turf(src), B.usesound, 50, 1)
 					B.use(5)
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
-					update_icon()
+					update_icon(UPDATE_ICON_STATE)
 				return
 		if(CONSTRUCTION_NOCIRCUIT)
 			if(istype(C, /obj/item/firelock_electronics))
@@ -431,7 +450,7 @@
 									 span_notice("You insert and secure [C]."))
 				playsound(get_turf(src), C.usesound, 50, 1)
 				constructionStep = CONSTRUCTION_GUTTED
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				return
 	return ..()
 
@@ -472,7 +491,7 @@
 							 span_notice("You remove the circuit board from [src]."))
 		new /obj/item/firelock_electronics(get_turf(src))
 		constructionStep = CONSTRUCTION_NOCIRCUIT
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/firelock_frame/wirecutter_act(mob/user, obj/item/I)
 	if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
@@ -491,7 +510,7 @@
 						 span_notice("You remove the wiring from [src], exposing the circuit board."))
 	new /obj/item/stack/cable_coil(drop_location(), 5)
 	constructionStep = CONSTRUCTION_GUTTED
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/firelock_frame/wrench_act(mob/user, obj/item/I)
 	if(constructionStep != CONSTRUCTION_PANEL_OPEN)
@@ -515,9 +534,6 @@
 	else
 		new /obj/machinery/door/firedoor(get_turf(src))
 	qdel(src)
-
-
-
 
 
 /obj/structure/firelock_frame/welder_act(mob/user, obj/item/I)

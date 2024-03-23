@@ -200,7 +200,6 @@ a.popt {text-decoration: none;}
 /* ADMIN FILTER MESSAGES MENU */
 .filterMessages {padding: 5px;}
 .filterMessages div {padding: 2px 0;}
-.filterMessages input {}
 .filterMessages label {color: #000;}
 
 .icon-stack {height: 1em; line-height: 1em; width: 1em; vertical-align: middle; margin-top: -2px;}
@@ -225,18 +224,26 @@ a.popt {text-decoration: none;}
 
 /* BADGE */
 .repeatBadge {
-    display: inline-block;
-    min-width: 0.5em;
-    font-size: 0.7em;
-    padding: 0.2em 0.3em;
-    line-height: 1;
-    color: white;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    background-color: crimson;
-    border-radius: 10px;
+	display: inline-block;
+	min-width: 0.5em;
+	font-size: 0.7em;
+	padding: 0.2em 0.3em;
+	line-height: 1;
+	color: white;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-color: crimson;
+	border-radius: 10px;
 }
+
+.repeatBadge.boxed_repeat {
+	position: relative;
+	float: right;
+	top: -40px;
+	right: 0;
+}
+
 
 /* OUTPUT COLORS */
 .highlight {background: yellow;}
@@ -261,7 +268,6 @@ em						{font-style: normal;	font-weight: bold;}
 .playerreply			{color: #8800bb;	font-weight: bold;}
 .pmsend					{color: #0000ff;}
 .name					{					font-weight: bold;}
-.say					{}
 .yell					{					font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #5c00e6;}
@@ -328,7 +334,16 @@ h1.alert, h2.alert			{color: #000000;}
 
 
 .sinister				{color: #800080;	font-weight: bold;	font-style: italic;} /* /vg/ */
-.blob					{color: #006221;	font-weight: bold;	font-style: italic;}
+.blob						{color: #006221;font-weight: bold;font-style: italic;}
+.blobteslium_paste			{color: #412968;font-weight: bold;font-style: italic;}
+.blobradioactive_gel		{color: #2476f0;font-weight: bold;font-style: italic;}
+.blobb_sorium				{color: #808000;font-weight: bold;font-style: italic;}
+.blobcryogenic_liquid		{color: #8BA6E9;font-weight: bold;font-style: italic;}
+.blobkinetic				{color: #FFA500;font-weight: bold;font-style: italic;}
+.bloblexorin_jelly			{color: #00FFC5;font-weight: bold;font-style: italic;}
+.blobenvenomed_filaments	{color: #9ACD32;font-weight: bold;font-style: italic;}
+.blobboiling_oil			{color: #B68D00;font-weight: bold;font-style: italic;}
+.blobripping_tendrils		{color: #7F0000;font-weight: bold;font-style: italic;}
 .confirm				{color: #00af3b;}
 .rose					{color: #ff5050;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
@@ -443,3 +458,42 @@ span.body .coderesponses {color: #FF0000;}
 
 /* Examine styles */
 .examine {border: 1px solid #000000; padding: 5px; margin: 2px 10px; background: #D3D3D3;}
+
+/* Chat boxes */
+.boxed_message {
+	text-align: center;
+	border-style: solid;
+	border-width: medium;
+	border-color: black;
+	border-radius: 5px;
+	margin: 25px;
+	padding: 15px;
+}
+
+.boxed_message.left_align_text {
+	text-align: left
+}
+
+.boxed_message.red_border {
+	border-color: #aa0000;
+}
+
+.boxed_message.puple_border {
+	border-color: #5e00aa;
+}
+
+.boxed_message.yellow_border {
+	border-color: #e0991e;
+}
+
+.boxed_message.green_border {
+	border-color: #00FF00;
+}
+
+.boxed_message.notice_border {
+	border-color: #000099;
+}
+
+.boxed_message.thick_border {
+	border-width: thick;
+}

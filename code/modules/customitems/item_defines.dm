@@ -76,21 +76,20 @@
 
 		playsound(src.loc, usesound, 20, 1)
 		used = 1
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
-/obj/item/fluff/tattoo_gun/update_icon()
-	..()
 
-	overlays.Cut()
 
+/obj/item/fluff/tattoo_gun/update_overlays()
+	. = ..()
 	if(!used)
 		var/image/ink = image(src.icon, src, "ink_overlay")
 		ink.icon += rgb(tattoo_r, tattoo_g, tattoo_b, 190)
-		overlays += ink
+		. += ink
 
 /obj/item/fluff/tattoo_gun/New()
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat
 	desc = "A cheap plastic tattoo application pen.<br>This one seems heavily used."
@@ -314,17 +313,18 @@
 	var/obj/item/clothing/suit/armor/jacket = target
 	jacket.icon_state = "desolate_coat_open"
 	jacket.icon = 'icons/obj/custom_items.dmi'
-	jacket.ignore_suitadjust = 0
-	jacket.suit_adjusted = 1
+	jacket.ignore_suitadjust = FALSE
+	jacket.suit_adjusted = TRUE
+	jacket.update_icon(UPDATE_ICON_STATE)
+	jacket.update_equipped_item(update_buttons = FALSE)
 	var/has_action = FALSE
-	for(var/datum/action/A in jacket.actions)
-		if(istype(A, /datum/action/item_action/openclose))
-			has_action = TRUE
+	for(var/datum/action/item_action/openclose/action in jacket.actions)
+		action.UpdateButtonIcon()
+		has_action = TRUE
 	if(!has_action)
 		new /datum/action/item_action/openclose(jacket)//this actually works
 	jacket.adjust_flavour = "unbutton"
 	jacket.sprite_sheets = null
-	user.update_inv_wear_suit()
 	qdel(src)
 
 /obj/item/fluff/fei_gasmask_kit //Fei Hazelwood: Tariq Yon-Dale
@@ -712,7 +712,7 @@
 			"mask_flags"	= HIDEMASK|HIDENAME
 			)
 
-		var/choice = input(user, "How would you like to adjust the helmet?", "Adjust Helmet") as null|anything in options
+		var/choice = tgui_input_list(user, "How would you like to adjust the helmet?", "Adjust Helmet", options)
 
 		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
 			var/list/new_state = options[choice]
@@ -732,7 +732,7 @@
 //////////// Suits ////////////
 /obj/item/clothing/suit/fluff
 	icon = 'icons/obj/custom_items.dmi'
-	actions_types = list()
+	actions_types = null
 	ignore_suitadjust = 1
 	adjust_flavour = null
 	sprite_sheets = null
@@ -744,7 +744,7 @@
 	icon_state = "pulsecoat"
 	item_state = "pulsecoat"
 	ignore_suitadjust = 1
-	actions_types = list()
+	actions_types = null
 
 /obj/item/clothing/suit/jacket/miljacket/patch // sniper_fairy : P.A.T.C.H.
 	name = "custom purple military jacket"
@@ -779,7 +779,7 @@
 	options["lime"] ="shazjacket_lime"
 	options["army green"] ="shazjacket_army"
 
-	var/choice = input(user, "What color do you wish your jacket to be?", "Change color") as null|anything in options
+	var/choice = tgui_input_list(user, "What color do you wish your jacket to be?", "Change color", options)
 
 	if(choice && !user.stat && in_range(user, src))
 		if(suit_adjusted)
@@ -833,7 +833,7 @@
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 	ignore_suitadjust = 1
-	actions_types = list()
+	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -843,7 +843,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jacksvest"
 	ignore_suitadjust = TRUE
-	actions_types = list()
+	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -953,29 +953,27 @@
 		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
-	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
-	suit_adjusted = 0
+	suit_adjusted = FALSE
 
-/obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(var/mob/user)
-	if(!user.incapacitated())
-		var/flavour
-		if(suit_adjusted)
-			flavour = "off"
-			icon_state = copytext(icon_state, 1, findtext(icon_state, "_on"))
-			item_state = copytext(item_state, 1, findtext(item_state, "_on"))
-			suit_adjusted = 0 //Lights Off
-		else
-			flavour = "on"
-			icon_state += "_on"
-			item_state += "_on"
-			suit_adjusted = 1 //Lights On
 
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtonIcon()
-		to_chat(user, "You turn the [src]'s lighting system [flavour].")
-		user.update_inv_wear_suit()
+/obj/item/clothing/suit/storage/fluff/k3_webbing/update_icon_state()
+	var/base_icon_state = copytext(icon_state, 1, findtext(icon_state, "_on"))
+	var/base_item_state = copytext(item_state, 1, findtext(item_state, "_on"))
+
+	icon_state = suit_adjusted ? base_icon_state : "[base_icon_state]_on"
+	item_state = suit_adjusted ? base_item_state : "[base_item_state]_on"
+
+
+/obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
+	if(user.incapacitated())
+		return
+
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item()
+	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "off" : "on"].")
+	suit_adjusted = !suit_adjusted
+
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
 	name = "stripped winter coat"
@@ -1092,6 +1090,7 @@
 	icon_state = "fallout_dress"
 	item_state = "fallout_dress"
 	item_color = "fallout_dress"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
     icon = 'icons/obj/custom_items.dmi'
@@ -1256,15 +1255,15 @@
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
 								 "coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
 
-/obj/item/toy/plushie/fluff/fox/proc/change_color()
+/obj/item/toy/plushie/fluff/fox/proc/change_color(mob/user)
 	if(prompting_change)
 		return
 	prompting_change = TRUE
-	var/plushie_color = input("Select a color", "[src]") as null|anything in plush_colors
+	var/plushie_color = tgui_input_list(user, "Select a color", "[src]", plush_colors)
 	prompting_change = FALSE
 	if(!plushie_color)
 		return
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 	name = plushie_color
 	icon_state = plush_colors[plushie_color]
@@ -1273,7 +1272,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/toy/plushie/fluff/fox/ui_action_click()
+/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
 	change_color()
 
 
@@ -1325,26 +1324,24 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
-	var/adjusted = 0
+	var/adjusted = FALSE
+
 
 /obj/item/clothing/head/fluff/chronx/ui_action_click()
 	adjust()
 
+
+/obj/item/clothing/head/fluff/chronx/update_icon_state()
+	icon_state = adjusted ? initial(icon_state) : "[initial(icon_state)][adjusted ? "" : "_open"]"
+	item_state = adjusted ? initial(item_state) : "[initial(item_state)][adjusted ? "" : "_open"]"
+
+
 /obj/item/clothing/head/fluff/chronx/proc/adjust()
-	if(adjusted)
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-		to_chat(usr, "You untransform \the [src].")
-		adjusted = 0
-	else
-		icon_state += "_open"
-		item_state += "_open"
-		to_chat(usr, "You transform \the [src].")
-		adjusted = 1
-	usr.update_inv_head()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item()
+	to_chat(usr, "You untransform [src].")
+	adjusted = !adjusted
+
 
 /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Robes"
@@ -1419,6 +1416,12 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "classic_witch"
 	item_state = "classic_witch"
+	var/current_state
+
+
+/obj/item/clothing/head/wizard/fluff/dreamy/update_icon_state()
+	icon_state = current_state ? current_state : initial(icon_state)
+
 
 /obj/item/clothing/head/wizard/fluff/dreamy/attack_self(mob/user)
 	var/list/options = list()
@@ -1435,10 +1438,11 @@
 	options["Syndicate"] = "syndie_witch"
 	options["Nanotrasen"] ="nt_witch"
 
-	var/choice = input(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat") as null|anything in options
+	var/choice = tgui_input_list(user, "To what form do you wish to Shapeshift this hat?", "Shapeshift Hat", options)
 
 	if(choice && !user.stat && in_range(user, src))
-		icon_state = options[choice]
+		current_state = options[choice]
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "Your strange witch hat has now shapeshifted into it's [choice] form!")
 		return 1
 	..()
@@ -1646,19 +1650,17 @@
 	species_restricted = list("Vox")
 
 
-
 /obj/item/clothing/gloves/ring/fluff
 	name = "fluff ring"
 	desc = "Someone forgot to set this fluff item's description, notify a coder!"
 	icon = 'icons/obj/custom_items.dmi'
 	fluff_material = TRUE
 
-/obj/item/clothing/gloves/ring/fluff/update_icon()
+/obj/item/clothing/gloves/ring/fluff/update_icon_state()
 	return
 
-/obj/item/clothing/gloves/ring/fluff/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/clothing/gloves/ring/fluff/attackby(obj/item/I, mob/user, params)
 	return
-
 
 
 /obj/item/clothing/gloves/ring/fluff/benjaminfallout	//Benjaminfallout: Pretzel Brassheart

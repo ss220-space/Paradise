@@ -30,6 +30,8 @@
 	var/list/protected_jobs = list()
 	/// Species that can't be antags.
 	var/list/protected_species = list()
+	/// Specified associative list of "antag - job" restrictions
+	var/list/forbidden_antag_jobs = list()
 	/// How many players should press ready for mode to activate.
 	var/required_players = 0
 	/// How many antagonists are required for mode start.
@@ -91,6 +93,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query, dont bother slowing roundstart
 
+	SScargo_quests.roll_start_quests()
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
@@ -111,8 +114,8 @@
 /**
  * Called by the gameticker.
  */
-/datum/game_mode/process()
-	return FALSE
+/datum/game_mode/process(wait)
+	return PROCESS_KILL
 
 
 /**
@@ -286,7 +289,7 @@
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
+			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 
@@ -311,6 +314,47 @@
 
 	return candidates
 
+/**
+ * Works like get_players_for_role, but for alive mobs.
+ */
+/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species)
+	var/list/players = list()
+	var/list/candidates = list()
+
+	// Assemble a list of active players without jobbans and role enabled
+	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
+		if(!player.client \
+			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
+			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
+			|| !(role in player.client.prefs.be_special))
+			continue
+
+		if(player.mind.has_antag_datum(/datum/antagonist) || player.mind.offstation_role || player.mind.special_role)
+			continue
+
+		players += player
+
+	// Shuffle the players list so that it becomes ping-independent.
+	players = shuffle(players)
+
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
+	for(var/mob/living/carbon/human/player in players)
+		if(length(protected_species) && (player.client.prefs.species in protected_species))
+			continue
+		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+			continue
+		if(length(forbidden_antag_jobs) && (player.mind.assigned_role in forbidden_antag_jobs[role]))
+			continue
+
+		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
+		candidates += player.mind
+		if(length(preferred_species))
+			var/prefered_species_mod = preferred_species[player.client.prefs.species]
+			if(isnum(prefered_species_mod))
+				for (var/i in 1 to prefered_species_mod)	//prefered mod
+					candidates += player.mind
+
+	return candidates
 
 /datum/game_mode/proc/latespawn(mob/player)
 
@@ -321,6 +365,15 @@
 	for(var/mob/new_player/player in GLOB.player_list)
 
 		if(player.client && player.ready)
+			.++
+
+/proc/num_station_players()
+	. = 0
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(!player)
+			continue
+
+		if(player.client && player.mind && !player.mind.offstation_role && !player.mind.special_role)
 			.++
 
 
@@ -584,8 +637,8 @@
 	var/list/possible = list()
 
 	for(var/T in subtypesof(/datum/station_goal))
-		var/datum/station_goal/goal = T
-		if(config_tag in initial(goal.gamemode_blacklist))
+		var/datum/station_goal/goal = new T
+		if(config_tag in goal.gamemode_blacklist)
 			continue
 
 		possible += goal
@@ -593,8 +646,8 @@
 	var/goal_weights = 0
 	while(length(possible) && goal_weights < STATION_GOAL_BUDGET)
 		var/datum/station_goal/picked_goal = pick_n_take(possible)
-		goal_weights += initial(picked_goal.weight)
-		station_goals += new picked_goal
+		goal_weights += picked_goal.weight
+		station_goals += picked_goal
 
 	if(length(station_goals))
 		send_station_goals_message()
@@ -602,6 +655,7 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 
+	var/list/goals = list()
 	for(var/datum/station_goal/goal in station_goals)
 
 		var/message_text = "<div style='text-align:center;'><img src = ntlogo.png>"
@@ -610,6 +664,9 @@
 		goal.on_report()
 		message_text += goal.get_report()
 		print_command_report(message_text, "Приказания [command_name()]", FALSE, goal)
+		goals += goal.name
+
+	log_game("Station goals at round start were: [english_list(goals)].")
 
 
 /datum/game_mode/proc/declare_station_goal_completion()

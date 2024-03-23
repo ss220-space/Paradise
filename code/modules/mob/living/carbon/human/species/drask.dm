@@ -1,9 +1,9 @@
 /datum/species/drask
-	name = "Drask"
+	name = SPECIES_DRASK
 	name_plural = "Drask"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
-	language = "Orluum"
+	language = LANGUAGE_DRASK
 	eyes = "drask_eyes_s"
 
 	speech_sounds = list('sound/voice/drasktalk.ogg')
@@ -38,7 +38,7 @@
 		"втягивает теплый воздух!",
 		"задерживает дыхание!")
 
-	species_traits = list(LIPS, IS_WHITELISTED)
+	species_traits = list(LIPS, IS_WHITELISTED, EXOTIC_COLOR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -68,6 +68,8 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/drask,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/drask
 
 	disliked_food = SUGAR | GROSS
 	liked_food = DAIRY

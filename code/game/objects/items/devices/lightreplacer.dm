@@ -115,7 +115,7 @@
 			qdel(L)
 		return
 
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		var/found_lightbulbs = FALSE
 		var/replaced_something = TRUE
@@ -152,18 +152,31 @@
 		return
 	return ..()
 
-/obj/item/lightreplacer/emag_act(user as mob)
+/obj/item/lightreplacer/emag_act(mob/user)
 	if(!emagged)
+		emagged = TRUE
 		add_attack_logs(user, src, "emagged")
-		Emag()
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+
+
+/obj/item/lightreplacer/update_name(updates = ALL)
+	. = ..()
+	if(emagged)
+		name = "shortcircuited [initial(name)]"
+	else
+		name = initial(name)
+
+
+/obj/item/lightreplacer/update_icon_state()
+	icon_state = "lightreplacer[emagged]"
+
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
 		ReplaceLight(target, user)
 	to_chat(user, status_string())
 
-/obj/item/lightreplacer/update_icon()
-	icon_state = "lightreplacer[emagged]"
 
 /obj/item/lightreplacer/proc/status_string()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."
@@ -229,14 +242,6 @@
 		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
 		return
 
-/obj/item/lightreplacer/proc/Emag()
-	emagged = !emagged
-	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	if(emagged)
-		name = "shortcircuited [initial(name)]"
-	else
-		name = initial(name)
-	update_icon()
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)

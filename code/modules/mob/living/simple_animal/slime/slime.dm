@@ -99,7 +99,7 @@
 	set_colour(new_colour)
 	. = ..()
 	set_nutrition(new_set_nutrition)
-	add_language("Bubblish")
+	add_language(LANGUAGE_SLIME)
 
 /mob/living/simple_animal/slime/Destroy()
 	for(var/A in actions)
@@ -113,7 +113,7 @@
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
-	update_name()
+	update_appearance(UPDATE_NAME)
 	slime_mutation = mutation_table(colour)
 	var/sanitizedcolour = replacetext(colour, " ", "")
 	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
@@ -128,7 +128,8 @@
 	else
 		cores = age_state.cores
 
-/mob/living/simple_animal/slime/proc/update_name()
+/mob/living/simple_animal/slime/update_name(updates = ALL)
+	. = ..()
 	if(is_renamed)
 		return
 
@@ -273,11 +274,10 @@
 	..()
 	powerlevel = 0 // oh no, the power!
 
-/mob/living/simple_animal/slime/MouseDrop(atom/movable/A)
-	if(isliving(A) && A != src && usr == src)
-		var/mob/living/Food = A
-		if(CanFeedon(Food))
-			Feedon(Food)
+/mob/living/simple_animal/slime/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(isliving(over_object) && over_object != src && usr == src && CanFeedon(over_object))
+		Feedon(over_object)
+		return FALSE
 	return ..()
 
 
@@ -372,6 +372,7 @@
 			++Friends[user]
 		else
 			Friends[user] = 1
+			RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_friend))
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
@@ -392,6 +393,10 @@
 		if(prob(10 + force_effect))
 			discipline_slime(user)
 	..()
+
+/mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
+	UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
+	Friends -= friend
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()

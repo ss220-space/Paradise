@@ -523,13 +523,14 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 						var/old_plane = source.plane
 						source.layer = FLOAT_LAYER
 						source.plane = FLOAT_PLANE
-						A.overlays += source
+						A.add_overlay(source)
 						source.layer = old_layer
 						source.plane = old_plane
 					else
 						alert_overlay.layer = FLOAT_LAYER
 						alert_overlay.plane = FLOAT_PLANE
-						A.overlays += alert_overlay
+						A.add_overlay(alert_overlay)
+
 
 /**
   * Checks if a mob's ghost can reenter their body or not. Used to check for DNR or AntagHUD.
@@ -847,5 +848,28 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
+	return TRUE
+
+
+/mob/proc/can_pass_adjacent(atom/adjacent, list/types_to_exclude)
+	if(!isturf(loc))
+		return FALSE
+	if(!adjacent)
+		return FALSE
+	if(!isturf(adjacent))
+		adjacent = get_turf(adjacent)
+		if(!adjacent)
+			return FALSE
+	if(adjacent.density)
+		return FALSE
+	if(!in_range(loc, adjacent))
+		return FALSE
+	for(var/atom/check_atom in adjacent)
+		if(islist(types_to_exclude) && is_type_in_list(check_atom, types_to_exclude))
+			continue
+		if(check_atom.density)
+			return FALSE
+		if(!check_atom.CanPass(src, loc))
+			return FALSE
 	return TRUE
 

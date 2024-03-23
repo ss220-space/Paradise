@@ -196,7 +196,7 @@
 		say("Intruder!")
 		depotarea.increase_alert(reason)
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death(gibbed)
 	if(!istype(depotarea))
 		return ..()
 	if(alert_on_death)
@@ -211,12 +211,13 @@
 	new /obj/effect/gibspawner/human(get_turf(src))
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
 	if(isliving(mover))
-		var/mob/living/blocker = mover
-		if(faction_check_mob(blocker))
-			return 1
-	return ..(mover, target, height)
+		return faction_check_mob(mover)
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer

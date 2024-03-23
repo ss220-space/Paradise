@@ -7,35 +7,40 @@
 
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
 	var/obj/item/tank/holding
-
 	var/volume = 0
-	var/destroyed = 0
-
 	var/maximum_pressure = 90*ONE_ATMOSPHERE
 
-/obj/machinery/portable_atmospherics/New()
-	..()
+
+/obj/machinery/portable_atmospherics/Initialize(mapload)
+	. = ..()
 	SSair.atmos_machinery += src
 
 	air_contents.volume = volume
 	air_contents.temperature = T20C
 
-	return 1
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/portable_atmospherics/Initialize()
-	. = ..()
-	spawn()
-		var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
-		if(port)
-			connect(port)
-			update_icon()
+	check_for_port()
+
+
+// Late init this otherwise it shares with the port and it tries to div temperature by 0
+/obj/machinery/portable_atmospherics/LateInitialize()
+	check_for_port()
+
+
+/obj/machinery/portable_atmospherics/proc/check_for_port()
+	var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
+	if(port)
+		connect(port)
+
 
 /obj/machinery/portable_atmospherics/process_atmos()
 	if(!connected_port) //only react when pipe_network will ont it do it for you
 		//Allow for reactions
 		air_contents.react()
-	else
-		update_icon()
+		return
+	update_icon()
 
 /obj/machinery/portable_atmospherics/Destroy()
 	SSair.atmos_machinery -= src
@@ -44,17 +49,20 @@
 	QDEL_NULL(holding)
 	return ..()
 
-/obj/machinery/portable_atmospherics/update_icon()
-	return null
+/obj/machinery/portable_atmospherics/update_icon_state()
+	return
+
+/obj/machinery/portable_atmospherics/update_overlays()
+	. = list()
 
 /obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
-		return 0
+		return FALSE
 
 	//Make sure are close enough for a valid connection
 	if(new_port.loc != loc)
-		return 0
+		return FALSE
 
 	//Perform the connection
 	connected_port = new_port
@@ -65,20 +73,20 @@
 		connected_port.build_network()
 	connected_port.parent.reconcile_air()
 
-	anchored = 1 //Prevent movement
+	anchored = TRUE //Prevent movement
 
-	return 1
+	return TRUE
 
 /obj/machinery/portable_atmospherics/proc/disconnect()
 	if(!connected_port)
-		return 0
+		return FALSE
 
-	anchored = 0
+	anchored = FALSE
 
 	connected_port.connected_device = null
 	connected_port = null
 
-	return 1
+	return TRUE
 
 /obj/machinery/portable_atmospherics/portableConnectorReturnAir()
 	return air_contents
@@ -122,10 +130,10 @@
 			if(!user.drop_transfer_item_to_loc(T, src))
 				return
 			add_fingerprint(user)
-			if(src.holding)
+			if(holding)
 				to_chat(user, span_notice("[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"]."))
 				replace_tank(user, FALSE)
-			src.holding = T
+			holding = T
 			update_icon()
 		return
 	return ..()

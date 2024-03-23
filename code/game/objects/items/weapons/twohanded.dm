@@ -115,15 +115,14 @@
 	resistance_flags = FIRE_PROOF
 
 
-/obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "fireaxe[wielded]"
-	..()
+/obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+	icon_state = "fireaxe[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
-	if(wielded) //destroys windows and grilles in one hit
+	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
 		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
@@ -136,8 +135,8 @@
 	needs_permit = TRUE
 
 
-/obj/item/twohanded/fireaxe/boneaxe/update_icon()
-	icon_state = "bone_axe[wielded]"
+/obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
+	icon_state = "bone_axe[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
 /obj/item/twohanded/fireaxe/energized
@@ -148,8 +147,8 @@
 	var/max_charge = 30
 
 
-/obj/item/twohanded/fireaxe/energized/update_icon()
-	if(wielded)
+/obj/item/twohanded/fireaxe/energized/update_icon_state()
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		icon_state = "fireaxe2"
 	else
 		icon_state = "fireaxe0"
@@ -171,7 +170,7 @@
 
 /obj/item/twohanded/fireaxe/energized/attack(mob/M, mob/user)
 	. = ..()
-	if(wielded && charge == max_charge)
+	if(HAS_TRAIT(src, TRAIT_WIELDED) && charge == max_charge)
 		if(isliving(M))
 			var/mob/living/target = M
 			charge = 0
@@ -225,7 +224,7 @@
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(HULK in user.mutations)
-		to_chat(user, SPAN_WARNING("You lack the grace to wield this!"))
+		to_chat(user, span_warning("You lack the grace to wield this!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 
 
@@ -241,27 +240,26 @@
 
 
 /obj/item/twohanded/dualsaber/IsReflect()
-	if(wielded)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return TRUE
 
 
-/obj/item/twohanded/dualsaber/update_icon()
-	if(wielded)
-		icon_state = "dualsaber[blade_color][wielded]"
-		set_light(brightness_on, l_color=colormap[blade_color])
+/obj/item/twohanded/dualsaber/update_icon_state()
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
+		icon_state = "dualsaber[blade_color]1"
+		set_light(brightness_on, l_color = colormap[blade_color])
 	else
 		icon_state = "dualsaber0"
 		set_light(0)
-	..()
 
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
 	..()
-	if((CLUMSY in user.mutations) && (wielded) && prob(40))
+	if((CLUMSY in user.mutations) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40))
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
-	if((wielded) && prob(50))
+	if(HAS_TRAIT(src, TRAIT_WIELDED) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 
@@ -274,7 +272,7 @@
 
 
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
 	return FALSE
 
@@ -344,8 +342,8 @@
 	var/icon_prefix = "spearglass"
 
 
-/obj/item/twohanded/spear/update_icon()
-	icon_state = "[icon_prefix][wielded]"
+/obj/item/twohanded/spear/update_icon_state()
+	icon_state = "[icon_prefix][HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
 /obj/item/twohanded/spear/CheckParts(list/parts_list)
@@ -365,7 +363,7 @@
 		return
 	if(isturf(AM)) //So you can actually melee with it
 		return
-	if(explosive && wielded)
+	if(explosive && HAS_TRAIT(src, TRAIT_WIELDED))
 		explosive.forceMove(AM)
 		explosive.prime()
 		qdel(src)
@@ -435,8 +433,8 @@
 			var/matrix/M = matrix()
 			I.transform = M
 			var/image/IM = image(I.icon, I.icon_state)
-			IM.overlays = I.overlays.Copy()
-			HS.overlays += IM
+			IM.copy_overlays(I)
+			HS.add_overlay(IM)
 			I.forceMove(HS)
 			HS.mounted_head = I
 			forceMove(HS)
@@ -580,15 +578,12 @@
 	flags &= ~NODROP
 
 
-/obj/item/twohanded/chainsaw/update_icon()
-	if(wielded)
-		icon_state = "chainsaw[wielded]"
-	else
-		icon_state = "chainsaw0"
-	..()
+/obj/item/twohanded/chainsaw/update_icon_state()
+	icon_state = "chainsaw[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
 
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
-	if(wielded)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
 		if(isrobot(target))
 			..()
@@ -638,9 +633,9 @@
 	if(charged < 5)
 		charged++
 
-/obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
-	..()
+/obj/item/twohanded/singularityhammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/X in orange(5, pull))
@@ -664,7 +659,7 @@
 /obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
-	if(wielded)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		if(charged == 5)
 			charged = 0
 			if(isliving(A))
@@ -699,9 +694,7 @@
 
 /obj/item/twohanded/mjollnir/attack(mob/living/M, mob/user)
 	..()
-	if(wielded)
-		//if(charged == 5)
-		//charged = 0
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(isliving(M))
 			M.Stun(4 SECONDS)
@@ -714,9 +707,9 @@
 		L.Stun(4 SECONDS)
 		shock(L)
 
-/obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
-	..()
+/obj/item/twohanded/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
 
 /obj/item/twohanded/knighthammer
 	name = "singuloth knight's hammer"
@@ -745,9 +738,9 @@
 	if(charged < 5)
 		charged++
 
-/obj/item/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "knighthammer[wielded]"
-	..()
+/obj/item/twohanded/knighthammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+	icon_state = "knighthammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
 
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -763,13 +756,13 @@
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(wielded && Z.health < 1)
+			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
 				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [name]!</span>", \
 					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>", \
 					"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-		if(wielded)
+		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			if(istype(A, /turf/simulated/wall))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
@@ -816,8 +809,8 @@
 	force_unwielded = 100
 	force_wielded = 500000 // Kills you DEAD.
 
-/obj/item/twohanded/pitchfork/update_icon()
-	icon_state = "pitchfork[wielded]"
+/obj/item/twohanded/pitchfork/update_icon_state()
+	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] impales \himself in \his abdomen with [src]! It looks like \he's trying to commit suicide...</span>")
@@ -844,7 +837,7 @@
 
 // It's no fun being the lord of all hell if you can't get out of a simple room
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !wielded)
+	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 	if(istype(target, /turf/simulated/wall))
 		var/turf/simulated/wall/W = target
@@ -872,8 +865,8 @@
 	embed_chance = 50
 	embedded_ignore_throwspeed_threshold = TRUE
 
-/obj/item/twohanded/bamboospear/update_icon()
-	icon_state = "bamboo_spear[wielded]"
+/obj/item/twohanded/bamboospear/update_icon_state()
+	icon_state = "bamboo_spear[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 //pyro claws
 /obj/item/twohanded/required/pyro_claws
@@ -1013,9 +1006,6 @@
 	w_class = initial(w_class)
 	item_state = ""
 
-/obj/item/twohanded/fishingrod/update_icon()
-	if(wielded)
-		icon_state = "fishing_rod[wielded]"
-	else
-		icon_state = "fishing_rod0"
-	..()
+/obj/item/twohanded/fishingrod/update_icon_state()
+	icon_state = "fishing_rod[HAS_TRAIT(src, TRAIT_WIELDED)]"
+

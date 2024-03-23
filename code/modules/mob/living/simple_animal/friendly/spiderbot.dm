@@ -83,8 +83,6 @@
 		user.drop_transfer_item_to_loc(B, src)
 		mmi = B
 		transfer_personality(B)
-
-		update_icon()
 		return 1
 
 	else if(O.GetID())
@@ -128,7 +126,7 @@
 	if(emagged)
 		to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
 		return 0
-	else
+	else if(istype(user))
 		emagged = 1
 		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
@@ -140,15 +138,25 @@
 		melee_damage_upper = 15
 		attack_sound = 'sound/machines/defib_zap.ogg'
 
+
 /mob/living/simple_animal/spiderbot/proc/transfer_personality(obj/item/mmi/M)
 	mind = M.brainmob.mind
 	mind.key = M.brainmob.key
 	ckey = M.brainmob.ckey
-	name = "Spider-bot ([M.brainmob.name])"
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	if(emagged)
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!</span>")
 
-/mob/living/simple_animal/spiderbot/proc/update_icon()
+
+/mob/living/simple_animal/spiderbot/update_name(updates = ALL)
+	. = ..()
+	if(mmi)
+		name = "Spider-bot ([mmi.brainmob.name])"
+	else
+		name = "Spider-bot"
+
+
+/mob/living/simple_animal/spiderbot/update_icon_state()
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi))
 			icon_state = "spiderbot-chassis-mmi"
@@ -161,6 +169,7 @@
 		icon_state = "spiderbot-chassis"
 		icon_living = "spiderbot-chassis"
 
+
 /mob/living/simple_animal/spiderbot/proc/eject_brain()
 	if(mmi)
 		var/turf/T = get_turf(src)
@@ -168,5 +177,4 @@
 		if(mind)
 			mind.transfer_to(mmi.brainmob)
 		mmi = null
-		name = "Spider-bot"
-		update_icon()
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)

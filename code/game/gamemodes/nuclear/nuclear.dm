@@ -45,6 +45,8 @@
 		syndicates += new_syndicate
 		agent_number--
 
+	return TRUE
+
 /datum/game_mode/nuclear/pre_setup()
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
@@ -229,12 +231,12 @@
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
 	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
+	var/list/messages = list()
 	if(you_are)
-		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
-	var/obj_count = 1
-	for(var/datum/objective/objective in syndicate.objectives)
-		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+		messages.Add("<span class='notice'>You are a [syndicate_name()] agent!</span>")
+	messages.Add(syndicate.prepare_announce_objectives(FALSE))
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Nuclear_Agent\">Ядерный Оперативник</a></span>")
+	to_chat(syndicate.current, chat_box_red(messages.Join("<br>")))
 	return
 
 
@@ -274,13 +276,13 @@
 		var/race = synd_mob.dna.species.name
 
 		switch(race)
-			if("Vox", "Vox Armalis")
+			if(SPECIES_VOX, SPECIES_VOX_ARMALIS)
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
 				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 
-			if("Plasmaman")
+			if(SPECIES_PLASMAMAN)
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
 				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), slot_s_store)
 				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)

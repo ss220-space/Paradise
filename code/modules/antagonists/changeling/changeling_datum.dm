@@ -21,6 +21,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	special_role = SPECIAL_ROLE_CHANGELING
 	antag_hud_name = "hudchangeling"
 	antag_hud_type = ANTAG_HUD_CHANGELING
+	wiki_page_name = "Changeling"
+	russian_wiki_name = "Генокрад"
 	clown_gain_text = "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "As your changeling nature fades, you return to your own clumsy, clownish self."
 	/// List of [/datum/dna] which have been absorbed through the DNA sting or absorb power.
@@ -341,7 +343,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	for(var/datum/language/language in new_languages)
 		if(is_type_in_UID_list(language, absorbed_languages))
 			continue
-		owner.current.add_language("[language.name]")
+		owner.current.add_language(language.name)
 		absorbed_languages += language.UID()
 
 
@@ -350,8 +352,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  */
 /datum/antagonist/changeling/proc/update_languages()
 	for(var/lang_UID in absorbed_languages)
-		var/datum/language/lang = locateUID(lang_UID)
-		owner.current.add_language("[lang.name]")
+		var/datum/language/language = locateUID(lang_UID)
+		owner.current.add_language(language.name)
 
 
 /**
@@ -376,10 +378,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		ignored_languages += human_user.dna.species.secondary_langs
 
 	for(var/lang_UID in absorbed_languages)
-		var/datum/language/lang = locateUID(lang_UID)
-		if(lang.name in ignored_languages)
+		var/datum/language/language = locateUID(lang_UID)
+		if(language.name in ignored_languages)
 			continue
-		user.remove_language("[lang.name]")
+		user.remove_language(language.name)
 
 
 /**
@@ -426,7 +428,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			continue
 		names[DNA.real_name] = DNA
 
-	var/chosen_name = input(message, title, null) as null|anything in names
+	var/chosen_name = tgui_input_list(owner.current, message, title, names)
 	if(!chosen_name)
 		return
 
@@ -598,12 +600,9 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/changeling)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/changeling)
 
 	if(!ismob(source))
 		return FALSE

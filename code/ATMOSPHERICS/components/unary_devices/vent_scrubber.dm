@@ -19,7 +19,7 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
-	var/on = 0
+	on = FALSE
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
 	var/scrub_O2 = 0
 	var/scrub_N2 = 0
@@ -96,15 +96,11 @@
 	use_power(amount, power_channel)
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/update_icon(var/safety = 0)
-	..()
-
-	plane = GAME_PLANE
-
+/obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
+	. = ..()
+	plane = FLOOR_PLANE
 	if(!check_icon_cache())
 		return
-
-	overlays.Cut()
 
 	var/scrubber_icon = "scrubber"
 
@@ -116,11 +112,13 @@
 		scrubber_icon += "off"
 	else
 		scrubber_icon += "[on ? "[scrubbing ? "on" : "in"]" : "off"]"
+
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	. += SSair.icon_manager.get_atmos_icon("device", state = scrubber_icon)
 	update_pipe_image()
+
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
 	if(..())
@@ -134,7 +132,7 @@
 			if(node)
 				add_underlay(T, node, dir, node.icon_connect_type)
 			else
-				add_underlay(T,, dir)
+				add_underlay(T, direction = dir)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -343,11 +341,10 @@
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/unary/vent_scrubber/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+/obj/machinery/atmospherics/unary/vent_scrubber/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/set_tag(new_tag)
 	if(frequency == ATMOS_VENTSCRUB)
@@ -370,7 +367,7 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, span_danger("You cannot unwrench this [src], turn it off first."))
 			return 1

@@ -2,7 +2,7 @@
 "aa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "ab" = (
 /obj/structure/cable{
@@ -16,7 +16,7 @@
 	dir = 1
 	},
 /obj/item/shard,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "ad" = (
 /obj/effect/decal/cleanable/dirt,
@@ -26,15 +26,12 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "ae" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/ninjaobjects.dmi';
-	icon_state = "right-closed"
-	},
 /obj/machinery/camera/autoname{
 	dir = 8;
 	name = "Gorky17 security camera";
 	network = list("USSP_gorky17")
 	},
+/obj/machinery/computer/old_frame/big/right,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -144,7 +141,7 @@
 /obj/item/clothing/under/soviet,
 /obj/item/clothing/head/sovietsidecap,
 /obj/item/clothing/shoes/jackboots,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "az" = (
 /obj/structure/cable{
@@ -160,12 +157,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "aB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet3";
+	dir = 1
 	},
-/area/ruin/space/USSP_gorky17/collapsed/gate)
+/turf/simulated/floor/plating,
+/area/ruin/space/USSP_gorky17/collapsed/common)
 "aC" = (
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -297,7 +294,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -312,10 +309,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "bi" = (
 /obj/structure/table,
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/research.dmi';
-	icon_state = "tdoppler"
-	},
+/obj/machinery/computer/old_frame/locator,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -397,10 +391,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldframe";
-	icon_state = "frame-sec";
+/obj/machinery/computer/security/old_frame{
 	name = "Gorky17 security camera console";
 	network = list("USSP_gorky17")
 	},
@@ -424,16 +415,13 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "bC" = (
 /obj/structure/table,
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "stock_computer";
-	icon_state = "oldcomp";
-	layer = 3.1;
-	pixel_y = 8
-	},
 /obj/structure/cable{
 	icon_state = "1-2";
 	tag = ""
+	},
+/obj/machinery/computer/old_frame/macintosh{
+	pixel_y = 8;
+	layer = 3.15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -479,7 +467,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "bM" = (
 /obj/item/shard{
@@ -540,9 +528,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "bR" = (
 /obj/machinery/light/small{
@@ -679,11 +665,8 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "cg" = (
-/obj/structure/curtain/medical,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "ch" = (
 /obj/effect/decal/cleanable/blood,
@@ -786,16 +769,12 @@
 "cw" = (
 /obj/machinery/optable,
 /obj/item/paper/gorky17/autopsy,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "cy" = (
-/obj/machinery/computer/operating{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "med_oldframe";
-	icon_state = "frame-med"
-	},
+/obj/machinery/computer/operating/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitered"
@@ -990,7 +969,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "dh" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1053,6 +1032,8 @@
 /obj/item/stack/rods{
 	amount = 4
 	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "dt" = (
@@ -1066,7 +1047,7 @@
 	pixel_y = -6
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -1229,7 +1210,8 @@
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
-/turf/simulated/floor/wood,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "dV" = (
 /obj/structure/cable,
@@ -1254,7 +1236,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "ec" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1267,10 +1251,7 @@
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "ef" = (
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldframe";
-	icon_state = "frame-sec";
+/obj/machinery/computer/security/old_frame{
 	name = "Gorky17 security camera console";
 	network = list("USSP_gorky17")
 	},
@@ -1288,7 +1269,7 @@
 	icon_state = "fleshling1";
 	melee_damage_lower = 10
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "eh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1601,30 +1582,22 @@
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "eW" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/ninjaobjects.dmi';
-	icon_state = "left"
-	},
 /obj/machinery/camera/autoname{
 	dir = 4;
 	name = "Gorky17 security camera";
 	network = list("USSP_gorky17")
 	},
+/obj/machinery/computer/old_frame/big,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "eX" = (
-/obj/machinery/computer/crew{
-	dir = 4;
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "med_oldframe";
-	icon_state = "frame-med"
-	},
 /obj/structure/cable{
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/machinery/computer/crew/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -1648,9 +1621,8 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "fb" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken4"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "fe" = (
@@ -1819,7 +1791,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "fx" = (
 /obj/structure/bed,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "fz" = (
 /obj/item/solar_assembly,
@@ -2025,7 +1997,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "gg" = (
 /obj/structure/rack,
@@ -2061,7 +2033,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "gn" = (
 /obj/structure/table,
-/obj/machinery/ninja_bloodscan_machine,
+/obj/machinery/ninja_bloodscan_machine{
+	desc = "A very complex machine designed to scan blood samples on the smallest level."
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -2412,7 +2386,11 @@
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "hp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet3";
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -2603,9 +2581,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "hL" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "hM" = (
 /obj/item/clothing/suit/space/hardsuit/soviet,
@@ -2647,10 +2623,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "hS" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/ninjaobjects.dmi';
-	icon_state = "right-closed"
-	},
+/obj/machinery/computer/old_frame/big/right,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2672,7 +2645,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor/plating/damaged,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "hW" = (
 /obj/machinery/flasher{
@@ -2849,7 +2822,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "iu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -2858,7 +2833,7 @@
 "iv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -2950,10 +2925,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "iT" = (
-/obj/machinery/blackbox_recorder{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "rackframe"
-	},
+/obj/machinery/computer/old_frame/server/rackframe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -3042,9 +3014,8 @@
 	pixel_y = -24;
 	req_access = list(122)
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken7"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "jo" = (
@@ -3054,6 +3025,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "jp" = (
 /obj/effect/decal/cleanable/ash,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "jq" = (
@@ -3150,7 +3122,7 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "jF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3250,9 +3222,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "jU" = (
 /obj/structure/cable{
@@ -3487,10 +3457,7 @@
 	pixel_x = 7
 	},
 /obj/structure/chair,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "ku" = (
 /obj/structure/table,
@@ -3531,7 +3498,7 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -3569,10 +3536,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "kL" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "kM" = (
 /obj/structure/cable,
@@ -3582,7 +3546,7 @@
 	req_access = list(122,123,124,125,126);
 	start_charge = 0
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "kO" = (
 /obj/item/clothing/head/bomb_hood/security{
@@ -3624,11 +3588,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "kS" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "command";
-	icon_state = "serverframe"
-	},
+/obj/machinery/computer/old_frame/server,
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
 "kT" = (
@@ -3711,6 +3671,13 @@
 	icon_state = "red"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"lh" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/medbay)
 "lj" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -3758,7 +3725,7 @@
 	icon_state = "fleshling1";
 	melee_damage_lower = 10
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "lt" = (
 /obj/structure/table/glass,
@@ -3828,7 +3795,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -3988,7 +3955,7 @@
 	dir = 8
 	},
 /obj/machinery/light_construct/small,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "ma" = (
 /obj/structure/cable{
@@ -4028,7 +3995,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_half";
+	dir = 1
+	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 200;
 	icon = 'icons/mob/simple_human.dmi';
@@ -4042,6 +4012,12 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/medbay)
+"mk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkfull"
+	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "ml" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4080,7 +4056,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -4100,7 +4076,7 @@
 	dir = 8;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -4181,10 +4157,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "mH" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "common_computerframe"
-	},
+/obj/machinery/computer/old_frame/server,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -4238,7 +4211,7 @@
 	start_charge = 0
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -4313,6 +4286,18 @@
 	},
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
+"na" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "nd" = (
 /obj/structure/chair/stool/bar/dark,
 /turf/simulated/floor/plating/airless,
@@ -4437,6 +4422,12 @@
 /obj/item/shard,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"ns" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "nu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4613,7 +4604,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "nX" = (
 /obj/structure/table_frame,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "oa" = (
 /turf/simulated/wall/r_wall,
@@ -4849,7 +4840,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "oF" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/carp,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
@@ -4858,7 +4848,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -4987,9 +4977,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	environ = 0;
-	equipment = 0;
-	lighting = 2;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 2;
 	locked = 0;
 	pixel_y = 24;
 	req_access = list();
@@ -5062,6 +5052,7 @@
 /obj/item/stack/cable_coil{
 	amount = 3
 	},
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "ps" = (
@@ -5130,7 +5121,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "pC" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -5294,11 +5285,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "qj" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "common_oldframe";
-	icon_state = "frame-eng"
-	},
+/obj/machinery/computer/old_frame/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5380,10 +5367,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "qy" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "thick"
-	},
+/obj/machinery/computer/old_frame/thick,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -5442,7 +5426,7 @@
 /obj/item/stack/rods{
 	amount = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "qH" = (
 /turf/simulated/wall/r_wall/rust,
@@ -5553,6 +5537,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "qW" = (
 /obj/structure/table/reinforced,
+/obj/machinery/door/window{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5688,6 +5675,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "rp" = (
@@ -5709,7 +5697,7 @@
 /obj/machinery/light_construct{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "rt" = (
 /obj/structure/table/reinforced,
@@ -5717,6 +5705,9 @@
 	icon_state = "medium";
 	pixel_x = 9;
 	pixel_y = -9
+	},
+/obj/machinery/door/window{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5791,7 +5782,6 @@
 	pixel_x = -5;
 	pixel_y = -1
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
@@ -5974,7 +5964,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "rZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_half"
+	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "sa" = (
@@ -6007,6 +6000,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"sf" = (
+/obj/effect/decal/cleanable/glass,
+/turf/space,
+/area/template_noop)
 "sh" = (
 /obj/item/stack/ore/glass/basalt,
 /turf/space,
@@ -6197,7 +6194,9 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
 "sM" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken2"
+	},
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "sN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6266,7 +6265,7 @@
 "sU" = (
 /obj/machinery/door/poddoor,
 /obj/structure/grille/broken,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "sV" = (
 /obj/item/shard{
@@ -6415,6 +6414,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "to" = (
@@ -6470,6 +6470,9 @@
 "tv" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/boiledbuckwheat,
+/obj/machinery/door/window{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -6488,7 +6491,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "tz" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "tA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6517,7 +6520,7 @@
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "tD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6584,10 +6587,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "tJ" = (
-/obj/machinery/computer/rdconsole/core{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "rnd_oldframe";
-	icon_state = "frame-rnd";
+/obj/machinery/computer/rdconsole/core/old_frame{
 	req_access = list(122)
 	},
 /turf/simulated/floor/plasteel{
@@ -6618,11 +6618,7 @@
 /obj/machinery/light/small{
 	flickering = 1
 	},
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "common_oldframe";
-	icon_state = "serverframe"
-	},
+/obj/machinery/computer/old_frame/server,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -6922,7 +6918,10 @@
 "uK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_up"
+	},
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "uL" = (
@@ -6994,7 +6993,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "uT" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck/black,
+/obj/item/deck/cards/black,
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light/small{
 	dir = 1;
@@ -7145,7 +7144,10 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet2";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "vt" = (
@@ -7211,14 +7213,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "vF" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "stock_computer";
-	icon_state = "oldcomp";
-	layer = 3.1;
-	pixel_y = 8
-	},
 /obj/structure/table,
+/obj/machinery/computer/old_frame/macintosh{
+	pixel_y = 8;
+	layer = 3.15
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -7281,7 +7280,6 @@
 	pixel_x = -6;
 	pixel_y = 8
 	},
-/obj/structure/decorative_structures/corpse,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -7336,13 +7334,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "vX" = (
 /obj/structure/table,
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "stock_computer";
-	icon_state = "oldcomp";
-	layer = 3.1;
-	pixel_y = 8
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -7354,6 +7345,10 @@
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on";
 	initialized = 1
+	},
+/obj/machinery/computer/old_frame/macintosh{
+	pixel_y = 8;
+	layer = 3.15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -7894,6 +7889,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"xE" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	on = 0
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "xI" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -8173,12 +8175,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "yt" = (
 /obj/structure/cable,
-/obj/machinery/computer/monitor{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "power_oldframe";
-	icon_state = "frame-eng";
-	name = "Grid Power Monitoring Computer"
-	},
+/obj/machinery/computer/monitor/secret/old_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -8238,8 +8235,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkredfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -8490,11 +8486,7 @@
 /turf/space,
 /area/template_noop)
 "zm" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "common_oldframe";
-	icon_state = "frame-med"
-	},
+/obj/machinery/computer/old_frame/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8704,6 +8696,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_up2"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "zS" = (
@@ -8740,7 +8735,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "zU" = (
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "zV" = (
 /turf/simulated/floor/plasteel{
@@ -9194,7 +9189,7 @@
 	},
 /obj/machinery/disposal,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Ba" = (
 /obj/effect/decal/cleanable/dust,
@@ -9343,8 +9338,8 @@
 	pixel_x = 24;
 	pixel_y = -6
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken7"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Bu" = (
@@ -9368,9 +9363,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Bx" = (
 /obj/structure/chair/sofa{
@@ -9395,6 +9388,10 @@
 /obj/machinery/atmospherics/unary/tank/air/ninja,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"BB" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dinning)
 "BC" = (
 /obj/machinery/door/airlock/multi_tile{
 	dir = 1;
@@ -9476,6 +9473,12 @@
 	icon_state = "red"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"BW" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken7"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "BX" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
@@ -9593,9 +9596,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken4"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Ct" = (
@@ -9629,8 +9631,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkredfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -9741,7 +9742,7 @@
 	melee_damage_lower = 10;
 	melee_damage_upper = 15
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "CW" = (
 /obj/machinery/light/small{
@@ -9803,7 +9804,7 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "De" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -9933,12 +9934,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Dq" = (
-/obj/machinery/computer/crew{
-	dir = 4;
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "med_oldframe";
-	icon_state = "frame-med"
-	},
+/obj/machinery/computer/crew/old_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -10219,16 +10215,6 @@
 	},
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
-"Ea" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "common2_oldframe";
-	icon_state = "frame-med"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/USSP_gorky17/collapsed/gate)
 "Eb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -10375,7 +10361,7 @@
 "Et" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/bodybags,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -10407,7 +10393,7 @@
 /obj/item/clothing/head/sovietsidecap,
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/head/soviethelmet,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "EB" = (
 /obj/structure/cable{
@@ -10432,7 +10418,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "EE" = (
 /obj/structure/lattice/catwalk,
@@ -10544,7 +10530,9 @@
 	pixel_x = -7;
 	pixel_y = -10
 	},
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_down"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -10626,14 +10614,13 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "Fc" = (
 /obj/structure/chair,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Fd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet2"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "Fe" = (
@@ -10649,11 +10636,8 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/solar_control{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "solar_oldframe";
-	icon_state = "frame-eng";
-	id = "usspnorth"
+/obj/machinery/power/solar_control/old_frame{
+	id = "usspsouth"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
@@ -10694,10 +10678,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "Fl" = (
-/obj/machinery/computer/arcade/orion_trail{
-	icon = 'icons/obj/ninjaobjects.dmi';
-	icon_state = "aimainframe"
-	},
+/obj/machinery/computer/arcade/orion_trail/pc_frame,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Fm" = (
@@ -10752,7 +10733,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -10808,12 +10789,7 @@
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/computer/monitor{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "power_oldframe";
-	icon_state = "frame-eng";
-	name = "Grid Power Monitoring Computer"
-	},
+/obj/machinery/computer/monitor/secret/old_frame,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "Fz" = (
@@ -11049,12 +11025,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "Gh" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "common2_oldframe";
-	icon_state = "frame-eng"
-	},
 /obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/computer/old_frame/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11070,9 +11042,8 @@
 	pixel_y = -32
 	},
 /obj/item/trash/plate,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken3"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Gm" = (
@@ -11587,7 +11558,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "HX" = (
 /obj/structure/chair/office/dark{
@@ -11610,9 +11581,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken3"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Ib" = (
@@ -11628,7 +11598,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -11663,9 +11633,11 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/tank/internals/anesthetic,
-/obj/item/clothing/mask/breath/medical,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_up";
+	dir = 4;
+	pixel_y = -4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -11850,6 +11822,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "IF" = (
@@ -11874,12 +11847,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/computer/monitor{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "power_oldframe";
-	icon_state = "frame-eng";
-	name = "Grid Power Monitoring Computer"
-	},
+/obj/machinery/computer/monitor/secret/old_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -12100,7 +12068,7 @@
 	dir = 8;
 	on = 1
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -12171,6 +12139,11 @@
 	dir = 1
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
+"Jz" = (
+/obj/item/tank/internals/oxygen/empty,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/angar)
 "JA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -12197,9 +12170,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	environ = 0;
-	equipment = 0;
-	lighting = 2;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 2;
 	name = "Gorky17 area power controller";
 	pixel_y = 28;
 	req_access = list(122,123,124,125,126);
@@ -12431,10 +12404,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "Kl" = (
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Kn" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -12579,7 +12549,8 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "KQ" = (
-/turf/simulated/floor/plating/damaged,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "KS" = (
 /obj/structure/table/reinforced,
@@ -12881,11 +12852,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "LT" = (
-/obj/structure/table_frame,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/ruin/space/USSP_gorky17/collapsed/dorms)
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/angar)
 "LU" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
@@ -12949,7 +12918,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -13106,13 +13075,8 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/computer/monitor{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "power_oldframe";
-	icon_state = "frame-eng";
-	name = "Grid Power Monitoring Computer"
-	},
 /obj/structure/cable,
+/obj/machinery/computer/monitor/secret/old_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -13158,6 +13122,12 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"MI" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken3"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "MJ" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -13351,7 +13321,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -13362,7 +13332,7 @@
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Nk" = (
 /obj/structure/cable{
@@ -13379,7 +13349,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "Nl" = (
 /obj/effect/spawner/window/reinforced,
@@ -13513,7 +13483,7 @@
 "NF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "NG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13590,7 +13560,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plating/damaged,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "NS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13679,13 +13649,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Of" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/computer/monitor{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "power_oldframe";
-	icon_state = "frame-eng";
-	name = "Grid Power Monitoring Computer"
-	},
 /obj/structure/cable,
+/obj/machinery/computer/monitor/secret/old_frame,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "Og" = (
@@ -13707,10 +13672,7 @@
 	amount = 2
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Ol" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
@@ -14016,7 +13978,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "OZ" = (
 /obj/effect/decal/warning_stripes/east,
@@ -14044,7 +14006,7 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -14102,7 +14064,7 @@
 	dir = 8
 	},
 /obj/machinery/disposal,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -14260,7 +14222,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "PI" = (
 /obj/machinery/bodyscanner,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "darkfull"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -14348,6 +14310,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
+"PX" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "darkfull"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/medbay)
 "PY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -14383,10 +14350,7 @@
 "Qd" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/cable,
-/obj/machinery/power/solar_control{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "solar_oldframe";
-	icon_state = "frame-eng";
+/obj/machinery/power/solar_control/old_frame{
 	id = "usspnorth"
 	},
 /turf/simulated/floor/plating,
@@ -14449,10 +14413,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Qq" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/ninjaobjects.dmi';
-	icon_state = "leftb"
-	},
+/obj/machinery/computer/old_frame/big/alert,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Qr" = (
@@ -14484,7 +14445,7 @@
 	icon_state = "fleshling1";
 	melee_damage_lower = 10
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Qv" = (
 /obj/structure/lattice/catwalk,
@@ -14500,6 +14461,10 @@
 	},
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
+"Qw" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Qx" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave{
@@ -14533,8 +14498,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "QB" = (
-/obj/machinery/computer/podtracker{
-	icon = 'icons/obj/machines/computer3.dmi';
+/obj/machinery/computer/podtracker/old_frame{
 	req_access = list(124)
 	},
 /turf/simulated/floor/plasteel{
@@ -15069,7 +15033,7 @@
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Sk" = (
 /obj/structure/cable{
@@ -15125,9 +15089,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "St" = (
 /obj/effect/decal/cleanable/dirt,
@@ -15242,14 +15204,11 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "SP" = (
 /obj/structure/table,
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldcomp";
-	icon_state = "oldcomp";
+/obj/machinery/computer/security/old_frame/macintosh{
 	layer = 3.1;
-	name = "Gorky17 security camera console";
+	pixel_y = 8;
 	network = list("USSP_gorky17");
-	pixel_y = 8
+	name = "Gorky17 security camera console"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -15363,9 +15322,7 @@
 	melee_damage_lower = 10;
 	melee_damage_upper = 20
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Tf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -15513,6 +15470,11 @@
 	icon_state = "white"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
+"TB" = (
+/obj/effect/decal/cleanable/ash,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dinning)
 "TC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -15623,9 +15585,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "TR" = (
 /obj/structure/door_assembly,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken5"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "TT" = (
@@ -15787,9 +15748,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "Uv" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Uz" = (
 /obj/effect/spawner/window/reinforced,
@@ -15902,7 +15861,6 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "UW" = (
-/obj/structure/curtain/medical,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -15910,6 +15868,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -16024,11 +15983,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Vq" = (
-/obj/machinery/computer{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "common2_thickframe";
-	icon_state = "serverframe"
-	},
+/obj/machinery/computer/old_frame/server/rackframe,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -16091,7 +16046,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "VC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -16144,9 +16099,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "VH" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken2"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "VI" = (
@@ -16204,14 +16158,11 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "VL" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldcomp";
-	icon_state = "oldcomp";
+/obj/machinery/computer/security/old_frame/macintosh{
 	layer = 3.1;
-	name = "Gorky17 security camera console";
+	pixel_y = 8;
 	network = list("USSP_gorky17");
-	pixel_y = 8
+	name = "Gorky17 security camera console"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16226,6 +16177,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_half2"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "VN" = (
@@ -16267,7 +16221,7 @@
 /obj/structure/table,
 /obj/item/trash/plate,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "VU" = (
 /obj/effect/spawner/window/reinforced,
@@ -16334,12 +16288,10 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Wf" = (
-/obj/machinery/computer/rdconsole/mechanics{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "frame-eng";
+/obj/machinery/computer/rdconsole/mechanics/old_frame{
 	req_access = list(124)
 	},
 /turf/simulated/floor/plasteel{
@@ -16374,6 +16326,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/item/tank/internals/anesthetic,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "Wo" = (
@@ -16608,6 +16561,11 @@
 	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/space/USSP_gorky17/collapsed/check2)
+"WR" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/USSP_gorky17/collapsed/angar)
 "WT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating/damaged,
@@ -16675,9 +16633,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Xc" = (
 /obj/structure/door_assembly,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+/turf/simulated/floor/wood/airless{
+	icon_state = "wood-broken4"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Xd" = (
@@ -16747,7 +16704,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Xl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -16873,7 +16830,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "XE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -16921,10 +16878,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "XK" = (
 /obj/structure/lattice/catwalk,
@@ -16957,7 +16911,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/angar)
@@ -17066,7 +17020,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "Yo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/decorative_structures/corpse,
+/obj/structure/decorative_structures/corpse{
+	icon_state = "corpse_soviet_lying_half1"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17145,14 +17101,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "YC" = (
-/obj/machinery/blackbox_recorder{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "rackframe"
-	},
 /obj/machinery/light/small{
 	dir = 1;
 	flickering = 1
 	},
+/obj/machinery/computer/old_frame/server/rackframe,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -17218,7 +17171,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "YP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -17246,10 +17199,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldframe";
-	icon_state = "frame-sec";
+/obj/machinery/computer/security/old_frame{
 	name = "Gorky17 security camera console";
 	network = list("USSP_gorky17")
 	},
@@ -17271,15 +17221,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Za" = (
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldframe";
-	icon_state = "frame-sec";
-	name = "Gorky17 security camera console";
-	network = list("USSP_gorky17")
-	},
 /obj/machinery/light_construct{
 	dir = 4
+	},
+/obj/machinery/computer/security/old_frame{
+	name = "Gorky17 security camera console";
+	network = list("USSP_gorky17")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -17325,6 +17272,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/utility)
+"Zl" = (
+/obj/structure/table/wood,
+/obj/item/folder,
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Zm" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -17425,6 +17380,12 @@
 /obj/item/clothing/suit/hooded/fluff/bone,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/mining)
+"Zz" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/USSP_gorky17/collapsed/angar)
 "ZA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -17503,10 +17464,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
 "ZG" = (
-/obj/machinery/computer/arcade/battle{
-	icon = 'icons/obj/ninjaobjects.dmi';
-	icon_state = "aimainframe"
-	},
+/obj/machinery/computer/arcade/battle/pc_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17524,7 +17482,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "ZJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "ZK" = (
 /obj/structure/largecrate/schrodinger,
@@ -17556,12 +17514,16 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "ZR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
+"ZS" = (
+/obj/structure/dresser,
+/turf/simulated/floor/wood/airless,
+/area/ruin/space/USSP_gorky17/collapsed/dorms)
 "ZT" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -17573,7 +17535,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/blood,
 /obj/item/clothing/shoes/fluff/arachno_boots,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "ZZ" = (
 /obj/structure/cable,
@@ -31421,7 +31383,7 @@ BU
 BU
 gK
 jE
-aQ
+MI
 bL
 lZ
 gK
@@ -31622,13 +31584,13 @@ Bi
 PZ
 aQ
 gK
-aQ
+BW
 tz
 YO
 hL
 ph
 QF
-QF
+KQ
 Zv
 sv
 sv
@@ -31824,7 +31786,7 @@ Vy
 aQ
 aQ
 tT
-LT
+nX
 zU
 VB
 TR
@@ -32031,10 +31993,10 @@ Kl
 YO
 QF
 lw
-QF
+KQ
 QF
 AO
-QF
+KQ
 ph
 wZ
 yI
@@ -32234,7 +32196,7 @@ Cs
 OO
 QF
 QF
-QF
+KQ
 Bb
 Bb
 Fu
@@ -32425,9 +32387,9 @@ ID
 ol
 cC
 gK
-fN
+xE
 XD
-PZ
+kL
 QF
 ph
 QF
@@ -32437,7 +32399,7 @@ KQ
 QF
 YN
 GL
-QF
+KQ
 nS
 gK
 wZ
@@ -32628,7 +32590,7 @@ cJ
 Qd
 BU
 Dd
-Vy
+ns
 gB
 QF
 VH
@@ -32636,7 +32598,7 @@ gx
 GL
 gP
 QF
-KQ
+QF
 fX
 Yl
 QF
@@ -32832,7 +32794,7 @@ BU
 EA
 eg
 fx
-Qn
+ZS
 BU
 YQ
 QF
@@ -32840,7 +32802,7 @@ Sf
 QF
 QF
 QF
-QF
+KQ
 QF
 BG
 BU
@@ -33233,12 +33195,12 @@ Kd
 sW
 LY
 BU
-fN
-Bi
+xE
+Zl
 ZX
 lw
 ph
-KQ
+QF
 AO
 Sf
 fY
@@ -33435,15 +33397,15 @@ Mk
 Gi
 EH
 gK
-av
-Vy
+na
+ns
 QF
 AO
 Xc
 kL
 zU
 in
-KQ
+QF
 gh
 QF
 Yl
@@ -33640,7 +33602,7 @@ gK
 EA
 Jb
 rP
-Qn
+ZS
 gK
 jT
 ZQ
@@ -35236,15 +35198,15 @@ fB
 fB
 fB
 ok
-Rn
+lh
 hO
 lS
 Zf
 Pi
 iv
 mt
-ii
-iW
+PX
+cg
 ii
 cQ
 wV
@@ -35444,7 +35406,7 @@ mE
 Zf
 Ku
 kC
-wV
+mk
 Et
 Ku
 Ku
@@ -38885,7 +38847,7 @@ BC
 BX
 qj
 YU
-Ea
+zm
 BX
 RD
 Pb
@@ -39485,7 +39447,7 @@ vF
 vV
 iU
 jM
-aB
+Mc
 zR
 Wj
 hS
@@ -41336,9 +41298,9 @@ Fc
 Lb
 Lb
 Ay
-Lb
+Qw
 fR
-fB
+sf
 rq
 fB
 aR
@@ -41538,7 +41500,7 @@ Gb
 Lb
 rC
 Cq
-Lb
+BB
 eL
 fB
 fB
@@ -41743,7 +41705,7 @@ Cq
 VO
 eL
 fB
-fB
+sf
 fB
 aR
 wZ
@@ -42144,8 +42106,8 @@ vx
 Lb
 qf
 oF
-Lb
-Lb
+Qw
+BB
 fB
 fB
 fB
@@ -42344,10 +42306,10 @@ Iy
 Cq
 Lb
 Tn
-Cq
+Qw
 ag
 mY
-Gb
+TB
 fB
 fB
 fB
@@ -42516,7 +42478,7 @@ Ds
 rV
 Pk
 hJ
-AD
+LT
 rV
 ST
 uJ
@@ -42546,11 +42508,11 @@ qF
 FM
 qh
 Cq
-Lb
+Qw
 mB
-Lb
+BB
 qg
-fB
+sf
 fB
 fB
 Db
@@ -42715,7 +42677,7 @@ fB
 fB
 fB
 dn
-fF
+Jz
 Lr
 Zu
 AD
@@ -42915,10 +42877,10 @@ fB
 fB
 fB
 pD
-fB
+sf
 ws
 dq
-AD
+WR
 Th
 Al
 wk
@@ -43122,7 +43084,7 @@ ws
 js
 jR
 Lr
-AD
+LT
 SL
 ST
 Oo
@@ -43136,7 +43098,7 @@ vJ
 dH
 EX
 fO
-eP
+aB
 no
 Mo
 At
@@ -43321,17 +43283,17 @@ Df
 uB
 fB
 ws
-AD
+WR
 Lr
 DM
 fF
 tV
 mO
-zf
-zf
+Zz
+Zz
 mq
-zf
-zf
+Zz
+Zz
 xu
 GX
 rR
@@ -43521,7 +43483,7 @@ fB
 fB
 fB
 fB
-fB
+sf
 sU
 DP
 Lr
@@ -43733,7 +43695,7 @@ XM
 Pa
 Jp
 pC
-zf
+Zz
 mq
 dw
 xu

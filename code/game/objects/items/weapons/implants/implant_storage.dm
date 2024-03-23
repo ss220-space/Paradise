@@ -1,7 +1,7 @@
 /obj/item/implant/storage
 	name = "storage bio-chip"
 	desc = "Stores up to two big items in a bluespace pocket."
-	icon_state = "storage"
+	icon_state = "storage_old"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=4"
 	item_color = "r"

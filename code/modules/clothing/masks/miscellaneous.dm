@@ -9,6 +9,7 @@
 	put_on_delay = 20
 	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
 	var/mute = MUZZLE_MUTE_ALL
+	var/radio_mute = FALSE
 	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 
@@ -22,7 +23,7 @@
 	)
 
 // Clumsy folks can't take the mask off themselves.
-/obj/item/clothing/mask/muzzle/attack_hand(mob/user as mob)
+/obj/item/clothing/mask/muzzle/attack_hand(mob/user)
 	if(user.wear_mask == src && !user.IsAdvancedToolUser())
 		return 0
 	else if(security_lock && locked)
@@ -94,6 +95,7 @@
 	resist_time = 150
 	mute = MUZZLE_MUTE_MUFFLE
 	flags = DROPDEL
+	var/trashtype = /obj/item/trash/tapetrash
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -112,13 +114,22 @@
 		)
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user, silent = FALSE)
-	var/obj/item/trash/tapetrash/TT = new
+	var/obj/item/trash/tapetrash/TT = new trashtype
 	transfer_fingerprints_to(TT)
 	user.transfer_fingerprints_to(TT)
 	user.put_in_active_hand(TT)
 	playsound(src, 'sound/items/poster_ripped.ogg', 40, 1)
 	user.emote("scream")
 	..()
+
+/obj/item/clothing/mask/muzzle/tapegag/thick
+	name = "thick tape gag"
+	desc = "MHPMHHH!"
+	icon_state = "thicktapegag"
+	resist_time = 15 SECONDS
+	mute = MUZZLE_MUTE_MUFFLE
+	radio_mute = TRUE
+	trashtype = /obj/item/trash/tapetrash/thick
 
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
@@ -196,7 +207,7 @@
 		return loc
 	return FALSE
 
-/obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(var/obj/D, var/normal = 1, var/special = 1)
+/obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(obj/D, normal = 1, special = 1)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	var/mob/living/L = can_shock(loc)
 	if(!L)
@@ -213,11 +224,11 @@
 		trigger.HasProximity(AM)
 
 
-/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, list/message_pieces)
+/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M, list/message_pieces)
 	if(trigger)
 		trigger.hear_talk(M, message_pieces)
 
-/obj/item/clothing/mask/muzzle/safety/shock/hear_message(mob/living/M as mob, msg)
+/obj/item/clothing/mask/muzzle/safety/shock/hear_message(mob/living/M, msg)
 	if(trigger)
 		trigger.hear_message(M, msg)
 
@@ -232,6 +243,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
+	can_toggle = TRUE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 25, "rad" = 0, "fire" = 0, "acid" = 0)
 	actions_types = list(/datum/action/item_action/adjust)
 
@@ -253,7 +265,7 @@
 		)
 
 
-/obj/item/clothing/mask/surgical/attack_self(var/mob/user)
+/obj/item/clothing/mask/surgical/attack_self(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/fakemoustache
@@ -320,19 +332,6 @@
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
-
-/* --------------------------------
- * Хрен знает зачем у нас тут шарф у которого даже спрайта нет. И который ещё и маска...
- * Я пожалуй оставлю, но закоменчу этот код.
-/obj/item/clothing/mask/ninjascarf
-	name = "ninja scarf"
-	desc = "A stealthy, dark scarf."
-	icon_state = "ninja_scarf"
-	item_state = "ninja_scarf"
-	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.90
-*/
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -520,7 +519,7 @@
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
 	dyeable = TRUE
-
+	can_toggle = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -539,8 +538,17 @@
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 
-/obj/item/clothing/mask/bandana/attack_self(var/mob/user)
+/obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
+
+/obj/item/clothing/mask/bandana/adjustmask(mob/user)
+	..()
+	var/mob/living/carbon/human/H = usr
+	if(H.l_hand && H.r_hand)
+		user.drop_item_ground(src)
+	else
+		user.drop_item_ground(src)
+		user.put_in_hands(src)
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
@@ -649,3 +657,39 @@
 /obj/item/clothing/mask/gas/voice_modulator/change_speech_verb()
 	if(voice_modulator.active)
 		return pick("modulates", "drones", "hums", "buzzes")
+
+//sec scarf
+
+/obj/item/clothing/mask/secscarf
+	name = "security scarf"
+	desc = "Bleck security snood. Excellent replacement for a balaclava."
+	icon_state = "secscarf"
+	item_state = "secscarf"
+	icon = 'icons/obj/clothing/masks.dmi'
+	flags_inv = HIDENAME
+	flags = BLOCKFACIALHAIR
+	flags_cover = MASKCOVERSMOUTH
+	can_toggle = TRUE
+	strip_delay = 20
+	put_on_delay = 20
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	gas_transfer_coefficient = 0.90
+	permeability_coefficient = 0.90
+	actions_types = list(/datum/action/item_action/adjust)
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
+	)
+
+/obj/item/clothing/mask/secscarf/attack_self(mob/user)
+	adjustmask(user)

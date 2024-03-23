@@ -47,7 +47,7 @@
 
 	var/A
 
-	A = input(user, "Area to jump to", "BOOYEA", A) as null|anything in GLOB.teleportlocs
+	A = tgui_input_list(user, "Area to jump to", "BOOYEA", GLOB.teleportlocs)
 
 	if(!A)
 		return

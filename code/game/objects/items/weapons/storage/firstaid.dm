@@ -322,10 +322,12 @@
 
 /obj/item/storage/pill_bottle/proc/apply_wrap()
 	if(wrapper_color)
-		overlays.Cut()
+		cut_overlays()
 		var/image/I = image(icon, wrapper_state)
 		I.color = wrapper_color
-		overlays += I
+		add_overlay(I)
+		if(blocks_emissive)
+			add_overlay(get_emissive_block())
 
 /obj/item/storage/pill_bottle/attack(mob/M, mob/user)
 	if(iscarbon(M) && contents.len)
@@ -353,21 +355,24 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 
-/obj/item/storage/pill_bottle/MouseDrop(obj/over_object as obj) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(over_object))
-		var/mob/living/carbon/C = over_object
-		if(loc == C && src == C.get_active_hand())
-			if(!contents.len)
-				to_chat(C, "<span class='notice'>There is nothing in [src]!</span>")
-				return
-			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
-			if(do_mob(C, C, 100)) // 10 seconds
-				for(var/obj/item/reagent_containers/food/pill/P in contents)
-					P.attack(C, C)
-				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
-			return
+
+/obj/item/storage/pill_bottle/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
+	if(iscarbon(user) && src == user.get_active_hand())
+		if(!length(contents))
+			to_chat(user, span_notice("There is nothing in [src]!"))
+			return FALSE
+
+		user.visible_message(span_danger("[user] [rapid_intake_message]"))
+		if(!do_mob(user, user, 10 SECONDS) || src != user.get_active_hand())
+			return FALSE
+
+		for(var/obj/item/reagent_containers/food/pill/pill in src)
+			pill.attack(user, user)
+		user.visible_message(span_danger("[user] [rapid_post_instake_message]"))
+		return FALSE
 
 	return ..()
+
 
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))

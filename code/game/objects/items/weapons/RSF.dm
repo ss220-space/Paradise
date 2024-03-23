@@ -11,7 +11,7 @@ RSF
 	icon_state = "rsf"
 	opacity = 0
 	density = 0
-	anchored = 0.0
+	anchored = FALSE
 	var/matter = 0
 	var/mode = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -31,7 +31,7 @@ RSF
 			list("Deck of cards", 50, /obj/item/deck/cards),
 			list("Prize ticket", 250, /obj/item/stack/tickets/five)
 		)
-		update_desc()
+		update_appearance(UPDATE_DESC)
 
 /obj/item/rsf/rff
 	name = "\improper Rapid-Food-Fabricator"
@@ -50,7 +50,7 @@ RSF
 		list("Chimichanga", 3000, /obj/item/reagent_containers/food/snacks/chimichanga),
 		list("Ikura sushi", 3000, /obj/item/reagent_containers/food/snacks/sushi_Ikura)
 	)
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/item/rsf/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
@@ -72,9 +72,10 @@ RSF
 	else
 		mode++
 	to_chat(user, "Changed dispensing mode to '" + configured_items[mode][1] + "'")
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
-/obj/item/rsf/proc/update_desc()
+/obj/item/rsf/update_desc(updates = ALL)
+	. = ..()
 	desc = initial(desc) + " Currently set to dispense '[configured_items[mode][1]]'."
 
 /obj/item/rsf/afterattack(atom/A, mob/user as mob, proximity)

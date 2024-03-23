@@ -444,30 +444,32 @@ SUBSYSTEM_DEF(jobs)
 		alt_title = H.mind.role_alt_title
 
 		CreateMoneyAccount(H, rank, job)
-
-	to_chat(H, "<B>Вы <span class='red'>[alt_title ? alt_title : rank]</span>.</B>")
-	to_chat(H, "<b>На этой должности вы отвечаете непосредственно перед <span class='red'>[replacetext(job.supervisors,"the ","")]</span>. Особые обстоятельства могут это изменить.</b>")
-	to_chat(H, "<b>Для получения дополнительной информации о работе на станции, см. <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
+	var/list/L = list()
+	L.Add("<B>Вы <span class='red'>[alt_title ? alt_title : rank]</span>.</B>")
+	L.Add("<b>На этой должности вы отвечаете непосредственно перед <span class='red'>[replacetext(job.supervisors,"the ","")]</span>. Особые обстоятельства могут это изменить.</b>")
+	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
 	if(job.is_service)
-		to_chat(H, "<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
 	if(job.is_supply)
-		to_chat(H, "<b>Будучи работником отдела Снабжения, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником отдела Снабжения, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">СРП своего отдела</a></b>")
 	if(job.is_command)
-		to_chat(H, "<b>Будучи важным членом Командования, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи важным членом Командования, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">СРП своего отдела</a></b>")
 	if(job.is_legal)
-		to_chat(H, "<b>Ваша должность требует полного знания <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a> и <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых Стандартных Рабочих Процедур</a></b>")
+		L.Add("<b>Ваша должность требует полного знания <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a> и <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых Стандартных Рабочих Процедур</a></b>")
 	if(job.is_engineering)
-		to_chat(H, "<b>Будучи работником Инженерного отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Инженерного отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">СРП своего отдела</a></b>")
 	if(job.is_medical)
-		to_chat(H, "<b>Будучи работником Медицинского отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Медицинского отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">СРП своего отдела</a></b>")
 	if(job.is_science)
-		to_chat(H, "<b>Будучи работником Научного отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Научного отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">СРП своего отдела</a></b>")
 	if(job.is_security)
-		to_chat(H, "<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
 	if(job.req_admin_notify)
-		to_chat(H, "<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
+		L.Add("<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
 	if(job.is_novice)
-		to_chat(H, "<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства. Не забудьте ознакомиться с СРП вашей должности. По истечению срока прохождения стажировки, данная должность более не будет вам доступна. Используйте её для обучения, не стесняйтесь задавать вопросы вашим старшим коллегам!</b>")
+		L.Add("<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства. Не забудьте ознакомиться с СРП вашей должности. По истечению срока прохождения стажировки, данная должность более не будет вам доступна. Используйте её для обучения, не стесняйтесь задавать вопросы вашим старшим коллегам!</b>")
+
+	to_chat(H, chat_box_green(L.Join("<br>")))
 
 	return H
 
@@ -492,7 +494,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!S)
 			S = locate("start*[rank]") // use old stype
 		if(!S) // still no spawn, fall back to the arrivals shuttle
-			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival))
+			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
 				if(!TS.density)
 					var/clear = 1
 					for(var/obj/O in TS)
@@ -529,8 +531,7 @@ SUBSYSTEM_DEF(jobs)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
-					G.prescription = TRUE
-					G.name = "prescription [G.name]"
+					G.upgrade_prescription()
 					H.update_nearsighted_effects()
 	return H
 

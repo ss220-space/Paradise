@@ -7,7 +7,7 @@
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "portgen0_0"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	use_power = NO_POWER_USE
 
 	var/active = 0
@@ -32,7 +32,7 @@
 /obj/machinery/power/port_gen/proc/handleInactive()
 	return
 
-/obj/machinery/power/port_gen/update_icon()
+/obj/machinery/power/port_gen/update_icon_state()
 	icon_state = "[base_icon]_[active]"
 
 /obj/machinery/power/port_gen/process()
@@ -42,10 +42,10 @@
 	else
 		active = 0
 		handleInactive()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/power/powered()
-	return 1 //doesn't require an external power source
+	return TRUE //doesn't require an external power source
 
 /obj/machinery/power/port_gen/attack_hand(mob/user as mob)
 	if(..())
@@ -264,7 +264,7 @@
 	sheet_left = 0
 	..()
 
-/obj/machinery/power/port_gen/pacman/emag_act(var/remaining_charges, var/mob/user)
+/obj/machinery/power/port_gen/pacman/emag_act(mob/user)
 	if(active && prob(25))
 		explode() //if they're foolish enough to emag while it's running
 
@@ -273,7 +273,7 @@
 		emagged = 1
 		return 1
 
-/obj/machinery/power/port_gen/pacman/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attackby(obj/item/O, mob/user)
 	if(istype(O, sheet_path))
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
@@ -287,7 +287,7 @@
 		SStgui.update_uis(src)
 		return
 	else if(!active)
-		if(istype(O, /obj/item/wrench))
+		if(O.tool_behaviour == TOOL_WRENCH)
 
 			if(!anchored)
 				connect_to_network()
@@ -299,7 +299,7 @@
 			playsound(src.loc, O.usesound, 50, 1)
 			anchored = !anchored
 
-		else if(istype(O, /obj/item/screwdriver))
+		else if(O.tool_behaviour == TOOL_SCREWDRIVER)
 			panel_open = !panel_open
 			playsound(src.loc, O.usesound, 50, 1)
 			if(panel_open)
@@ -309,7 +309,7 @@
 		else if(istype(O, /obj/item/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
 			return
-		else if(istype(O, /obj/item/crowbar) && panel_open)
+		else if(O.tool_behaviour == TOOL_CROWBAR && panel_open)
 			default_deconstruction_crowbar(user, O)
 		add_fingerprint(user)
 	else
@@ -373,7 +373,7 @@
 			if(!powernet) //only a warning, process will disable
 				atom_say("Не подключен к электросет+и.")
 			active = !active
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		if("eject_fuel")
 			DropFuel()
 		if("change_power")

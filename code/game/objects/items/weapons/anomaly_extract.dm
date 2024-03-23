@@ -1,3 +1,5 @@
+#define COOLDOWN_TO_SLIMEPERSON (10 SECONDS)
+#define COOLDOWN_TO_SLIME_MOB (40 SECONDS)
 /obj/item/anomaly_extract
 	name = "Strange syringe"
 	desc = "Syringe with a blunt needle."
@@ -8,23 +10,29 @@
 	var/used = FALSE
 
 /obj/item/anomaly_extract/attack_self(mob/user)
-	if(!used)
-		if(user.dna.species.name == "Slime People")
-			var/obj/item/organ/internal/heart/slime/anomaly/H = new
-			H.replaced(user)
-			to_chat(user, span_warning("Something changes inside you. It feel SOO warm!"))
-			used = TRUE
-			icon_state = "slime_extract0"
-		else
-			to_chat(user, span_notice("Looks like your skin is too hard for this syringe."))
-	else
+	if(used)
 		to_chat(user, span_notice("Looks like somebody already used it."))
-	. = ..()
+		return FALSE
 
-/obj/item/anomaly_extract/afterattack(atom/target, mob/user, proximity, params)
+	if(!isslimeperson(user))
+		to_chat(user, span_notice("Looks like your skin is too hard for this syringe."))
+		return FALSE
+
+	var/mob/living/carbon/human/attacker = user
+	if(attacker.get_int_organ(/obj/item/organ/internal/heart/slime/anomaly))
+		to_chat(user, span_notice("You already have the abilities that this extract can provide."))
+		return FALSE
+
+	var/obj/item/organ/internal/heart/slime/anomaly/H = new
+	H.replaced(user)
+	to_chat(user, span_warning("Something changes inside you. It feel SOO warm!"))
+	used = TRUE
+	icon_state = "slime_extract0"
+	return TRUE
+
+/obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, def_zone)
 	if(target == user)
-		attack_self(user)
-	. = ..()
+		return attack_self(user)
 
 
 /obj/effect/proc_holder/spell/slime_degradation
@@ -35,7 +43,7 @@
 	sound = 'sound/effects/mob_effects/slime_squish.ogg'
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = 1 MINUTES
+	base_cooldown = COOLDOWN_TO_SLIMEPERSON
 	var/is_transformed = FALSE
 	var/mob/living/carbon/human/original_body
 
@@ -78,9 +86,9 @@
 /obj/effect/proc_holder/spell/slime_degradation/before_cast(list/targets, mob/user)
 	. = ..()
 	if(is_transformed)
-		cooldown_handler.recharge_duration = 10 MINUTES
+		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
 	else
-		cooldown_handler.recharge_duration = 1 MINUTES
+		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIMEPERSON
 
 
 /obj/effect/proc_holder/spell/slime_degradation/cast(list/targets, mob/living/carbon/human/user = usr)
@@ -95,6 +103,11 @@
 	for(var/obj/item/I in user)
 		if(!istype(I, /obj/item/implant))
 			user.drop_item_ground(I, force = TRUE)
+
+	user.underwear = "Nude"
+	user.undershirt = "Nude"
+	user.socks = "Nude"
+	user.regenerate_icons()
 
 	var/mob/living/simple_animal/slime/invalid/slimeme = new /mob/living/simple_animal/slime/invalid(user.loc, "red", new /datum/slime_age/adult, 1200,  user, src)
 
@@ -131,7 +144,7 @@
 	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
 	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_notice("You hear something squishing..."))
 	if(death_provoked)
-		cooldown_handler.recharge_duration = 10 MINUTES
+		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
 		cooldown_handler.start_recharge()
 		playsound(get_turf(usr), sound, 50, TRUE)
 	user.density = FALSE
@@ -226,3 +239,6 @@
 	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_degradation)
 	M.mind.RemoveSpell(/obj/effect/proc_holder/spell/slime_selfheat)
 	. = ..()
+
+#undef COOLDOWN_TO_SLIMEPERSON
+#undef COOLDOWN_TO_SLIME_MOB

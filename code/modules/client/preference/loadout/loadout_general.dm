@@ -41,67 +41,19 @@
 	description = "For setting the mood or for occult rituals."
 	path = /obj/item/storage/fancy/candle_box/full
 
-/datum/gear/rock
-	display_name = "a pet rock"
-	path = /obj/item/toy/pet_rock
-
 /datum/gear/camera
 	display_name = "a camera"
 	path = /obj/item/camera
 
-/datum/gear/redfoxplushie
-	display_name = "a red fox plushie"
-	path = /obj/item/toy/plushie/red_fox
-
-/datum/gear/blackcatplushie
-	display_name = "a black cat plushie"
-	path = /obj/item/toy/plushie/black_cat
-
-/datum/gear/voxplushie
-	display_name = "a vox plushie"
-	path = /obj/item/toy/plushie/voxplushie
-
-/datum/gear/lizardplushie
-	display_name = "a lizard plushie"
-	path = /obj/item/toy/plushie/lizardplushie
-
-/datum/gear/deerplushie
-	display_name = "a deer plushie"
-	path = /obj/item/toy/plushie/deer
-
-/datum/gear/carpplushie
-	display_name = "a carp plushie"
-	path = /obj/item/toy/carpplushie
-
-/datum/gear/nianplushie
-	display_name = "Nian plushie"
-	path = /obj/item/toy/plushie/nianplushie
-
-/datum/gear/bubblegumplushie
-	display_name = "Bubblegum plushie"
-	path = /obj/item/toy/plushie/bubblegumplushie
-
-/datum/gear/greyplushie
-	display_name = "Grey Plushie"
-	path = /obj/item/toy/plushie/greyplushie
-
-/datum/gear/plasmamanplushie
-	display_name = "Plasmaman Plushie"
-	path = /obj/item/toy/plushie/plasmamanplushie
-
-/datum/gear/shardplushie
-	display_name = "Shard Plushie"
-	path = /obj/item/toy/plushie/shardplushie
-
-/datum/gear/akulaplushie
-	display_name = "Akula Plushie"
-	path = /obj/item/toy/plushie/blahaj/twohanded
-	cost = 2
-
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Magistrate")
+
+/datum/gear/read_only_sechud
+	display_name = "a classic security HUD (read-only)"
+	path = /obj/item/clothing/glasses/hud/security/read_only
+	allowed_roles = list("Internal Affairs Agent")
 
 /datum/gear/cryaonbox
 	display_name = "a box of crayons"
@@ -117,7 +69,7 @@
 
 /datum/gear/doublecards
 	display_name = "a double deck of standard cards"
-	path = /obj/item/deck/doublecards
+	path = /obj/item/deck/cards/doublecards
 
 /datum/gear/tarot
 	display_name = "a deck of tarot cards"
@@ -135,61 +87,37 @@
 	display_name = "a wallet(leather)"
 	path = /obj/item/storage/wallet
 
-/datum/gear/walletbb
-	display_name = "a wallet(blue)"
+/datum/gear/wallet/color
+	display_name = "a wallet, select"
 	path = /obj/item/storage/wallet/color/blue
 
-/datum/gear/walletr
-	display_name = "a wallet(red)"
-	path = /obj/item/storage/wallet/color/red
+/datum/gear/wallet/color/New()
+	..()
+	var/list/wallets = list("blue" = /obj/item/storage/wallet/color/blue,
+							"red" = /obj/item/storage/wallet/color/red,
+							"yellow" = /obj/item/storage/wallet/color/yellow,
+							"green" = /obj/item/storage/wallet/color/green,
+							"pink" = /obj/item/storage/wallet/color/pink,
+							"black" = /obj/item/storage/wallet/color/black,
+							)
+	gear_tweaks += new /datum/gear_tweak/path(wallets, src)
 
-/datum/gear/wallety
-	display_name = "a wallet(yellow)"
-	path = /obj/item/storage/wallet/color/yellow
-
-/datum/gear/walletg
-	display_name = "a wallet(green)"
-	path = /obj/item/storage/wallet/color/green
-
-/datum/gear/walletp
-	display_name = "a wallet(pink)"
-	path = /obj/item/storage/wallet/color/pink
-
-/datum/gear/walletb
-	display_name = "a wallet(black)"
-	path = /obj/item/storage/wallet/color/black
-
-/datum/gear/blackbandana
-	display_name = "bandana, black"
+/datum/gear/bandana
+	display_name = "bandana, select"
 	path = /obj/item/clothing/mask/bandana/black
 
-/datum/gear/purplebandana
-	display_name = "bandana, purple"
-	path = /obj/item/clothing/mask/bandana/purple
-
-/datum/gear/orangebandana
-	display_name = "bandana, orange"
-	path = /obj/item/clothing/mask/bandana/orange
-
-/datum/gear/greenbandana
-	display_name = "bandana, green"
-	path = /obj/item/clothing/mask/bandana/green
-
-/datum/gear/bluebandana
-	display_name = "bandana, blue"
-	path = /obj/item/clothing/mask/bandana/blue
-
-/datum/gear/redbandana
-	display_name = "bandana, red"
-	path = /obj/item/clothing/mask/bandana/red
-
-/datum/gear/goldbandana
-	display_name = "bandana, gold"
-	path = /obj/item/clothing/mask/bandana/gold
-
-/datum/gear/skullbandana
-	display_name = "bandana, skull"
-	path = /obj/item/clothing/mask/bandana/skull
+/datum/gear/bandana/New()
+	..()
+	var/list/bands = list("black" = /obj/item/clothing/mask/bandana/black,
+							"red" = /obj/item/clothing/mask/bandana/red,
+							"gold" = /obj/item/clothing/mask/bandana/gold,
+							"green" = /obj/item/clothing/mask/bandana/green,
+							"skull" = /obj/item/clothing/mask/bandana/skull,
+							"purple" = /obj/item/clothing/mask/bandana/purple,
+							"orange" = /obj/item/clothing/mask/bandana/orange,
+							"blue" = /obj/item/clothing/mask/bandana/blue,
+							)
+	gear_tweaks += new /datum/gear_tweak/path(bands, src)
 
 /datum/gear/mob_hunt_game
 	display_name = "Nano-Mob Hunter GO! Cartridge"
@@ -209,6 +137,21 @@
 	display_name ="Blindfold"
 	path = /obj/item/clothing/glasses/sunglasses/blindfold
 
+/datum/gear/lipstick
+	display_name = "lipstick, select"
+	path = /obj/item/lipstick
+
+/datum/gear/lipstick/New()
+	..()
+	var/list/lips = list(/obj/item/lipstick,
+						 /obj/item/lipstick/black,
+						 /obj/item/lipstick/jade,
+						 /obj/item/lipstick/purple,
+						 /obj/item/lipstick/blue,
+						 /obj/item/lipstick/lime,)
+	gear_tweaks += new /datum/gear_tweak/path(lips, src, TRUE)
+
+
 //////////////////////
 //		Mugs		//
 //////////////////////
@@ -217,14 +160,12 @@
 	display_name = "random coffee mug"
 	description = "A randomly colored coffee mug. You'll need to supply your own beverage though."
 	path = /obj/item/reagent_containers/food/drinks/mug
-	sort_category = "Mugs"
 
 /datum/gear/novelty_mug
 	display_name = "novelty coffee mug"
 	description = "A random novelty coffee mug. You'll need to supply your own beverage though."
 	path = /obj/item/reagent_containers/food/drinks/mug/novelty
 	cost = 2
-	sort_category = "Mugs"
 
 /datum/gear/mug/flask
 	display_name = "flask"
@@ -233,7 +174,6 @@
 
 /datum/gear/mug/department
 	subtype_path = /datum/gear/mug/department
-	sort_category = "Mugs"
 	subtype_cost_overlap = FALSE
 
 /datum/gear/mug/department/eng

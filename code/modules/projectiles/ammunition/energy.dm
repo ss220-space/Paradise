@@ -114,6 +114,9 @@
 	delay = 15
 	harmful = FALSE
 
+/obj/item/ammo_casing/energy/electrode/advanced //admin-bus only, k? dont give this thing to 100 year old Charlie crew or other ghost role
+	projectile_type = /obj/item/projectile/energy/electrode/advanced
+
 /obj/item/ammo_casing/energy/electrode/gun
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	e_cost = 100
@@ -223,13 +226,8 @@
 	delay = 10
 	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	var/obj/item/gun/energy/wormhole_projector/gun = null
 	select_name = "blue"
 	harmful = FALSE
-
-/obj/item/ammo_casing/energy/wormhole/New(var/obj/item/gun/energy/wormhole_projector/wh)
-	. = ..()
-	gun = wh
 
 /obj/item/ammo_casing/energy/wormhole/orange
 	projectile_type = /obj/item/projectile/beam/wormhole/orange

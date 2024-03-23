@@ -25,7 +25,8 @@
 	spawn(20)
 		spamcheck = 0
 
-/obj/item/hailer/emag_act(user as mob)
+/obj/item/hailer/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
 		emagged = 1

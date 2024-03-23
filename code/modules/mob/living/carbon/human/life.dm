@@ -99,16 +99,12 @@
 
 /mob/living/carbon/human/handle_disabilities()
 	//Vision //god knows why this is here
-	var/obj/item/organ/vision
-	if(dna.species.vision_organ)
-		vision = get_int_organ(dna.species.vision_organ)
-
-	if(!dna.species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
+	var/obj/item/organ/vision = dna?.species?.get_vision_organ(src)
+	if(vision == NO_VISION_ORGAN)
 		SetEyeBlind(0)
 		SetEyeBlurry(0)
-
-	else if(!vision || vision.is_traumatized())   // Vision organs cut out or broken? Permablind.
-		EyeBlind(4 SECONDS)
+	else if(!vision || vision.is_traumatized())	// Vision organs cut out or broken? Permablind.
+		SetEyeBlind(4 SECONDS)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
@@ -812,11 +808,10 @@
 		if(healthdoll)
 			if(stat == DEAD)
 				healthdoll.icon_state = "healthdoll_DEAD"
-				if(healthdoll.overlays.len)
-					healthdoll.overlays.Cut()
+				healthdoll.cut_overlays()
 				var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
 				if(bodypart_tail?.dna?.species?.tail)
-					healthdoll.overlays += "[bodypart_tail.dna.species.tail]_DEAD"
+					healthdoll.add_overlay("[bodypart_tail.dna.species.tail]_DEAD")
 			else
 				var/list/new_overlays = list()
 				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
@@ -843,8 +838,8 @@
 						new_overlays += "[bodypart.dna.species.wing][icon_num]"
 					else
 						new_overlays += "[bodypart.limb_zone][icon_num]"
-				healthdoll.overlays += (new_overlays - cached_overlays)
-				healthdoll.overlays -= (cached_overlays - new_overlays)
+				healthdoll.add_overlay(new_overlays - cached_overlays)
+				healthdoll.cut_overlay(cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
 #undef BODYPART_PAIN_REDUCTION
@@ -974,7 +969,10 @@
 	if(!isturf(loc))
 		return
 
-	for(var/mob/living/carbon/human/H in range(decaylevel, src))
+	for(var/mob/living/carbon/human/H in view(decaylevel, src) - src)
+		if(prob(0.5 * decaylevel))
+			var/datum/disease/virus/cadaver/D = new()
+			D.Contract(H, CONTACT|AIRBORNE, need_protection_check = TRUE)
 		if(prob(2))
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))

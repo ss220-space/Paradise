@@ -163,7 +163,10 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		qdel(src)
 
 	for(var/datum/mind/user in owners)
-		user.announce_objectives()
+		var/list/messages = list()
+		messages.Add(user.prepare_announce_objectives(FALSE))
+		to_chat(user.current, chat_box_red(messages.Join("<br>")))
+
 
 
 /**
@@ -366,7 +369,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/saved_target_name = "Безымянный"
 	var/saved_target_role = "без роли"
 	var/saved_own_text = "лично"
-
+	/// Time when 10 minutes timet started. To moment of its end, target have to exist and live.
+	var/start_of_completing = 0
+	/// Loop timer for checking targer and objective completetion.
+	var/checking_timer = null
+	/// Color of numbers, red - fail, green - success, white - in process
+	var/obj_process_color = ""
 
 /datum/objective/pain_hunter/proc/take_damage(take_damage, take_damage_type)
 	if(damage_type != take_damage_type)
@@ -380,49 +388,77 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/pain_hunter/New(text)
 	. = ..()
 	update_explain_text()
-
-
-/datum/objective/pain_hunter/Destroy()
-	var/check_other_hunter = FALSE
-	for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
-		if (target == objective.target)
-			check_other_hunter = TRUE
-			break
-	if(!check_other_hunter)
-		SSticker.mode.victims.Remove(target)
-	. = ..()
+	checking_timer = addtimer(CALLBACK(src, PROC_REF(target_check)), 30 SECONDS, TIMER_UNIQUE | TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 
 /datum/objective/pain_hunter/find_target(list/target_blacklist)
 	..()
-	if(target && target.current)
+	if(target && ishuman(target.current))
 		update_find_objective()
-		if (!(target in SSticker.mode.victims))
-			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
+		completed = TRUE
+		deltimer(checking_timer)
+		checking_timer = null
 	return target
 
 
 /datum/objective/pain_hunter/proc/update_find_objective()
 	saved_target_name = target.current.real_name
 	saved_target_role = target.assigned_role
+	damage_target = 0
 	random_type()
 	update_explain_text()
 
 
 /datum/objective/pain_hunter/proc/update_explain_text()
-	explanation_text = "Преподать урок и [saved_own_text] нанести [saved_target_name], [saved_target_role], не менее [damage_need] единиц [damage_explain()]. Цель должна выжить. \nПрогресс: [damage_target]/[damage_need]"
+	explanation_text = "Преподать урок и [saved_own_text] нанести [saved_target_name], [saved_target_role], не менее [damage_need] единиц [damage_explain()]. Цель должна выжить. \nПрогресс: <span class = '[obj_process_color]'>[damage_target]/[damage_need]</span>"
+
+/datum/objective/pain_hunter/on_target_cryo()
+	if(completed)
+		return
+	if(start_of_completing && !isnull(checking_timer))
+		completed = TRUE
+		target = null
+		deltimer(checking_timer)
+		obj_process_color = "green"
+		checking_timer = null
+		update_explain_text()
+		for(var/datum/mind/user in get_owners())
+			var/list/messages = list()
+			messages.Add(user.prepare_announce_objectives(FALSE))
+			to_chat(user.current, chat_box_red(messages.Join("<br>")))
+	else
+		..()
 
 
-/datum/objective/pain_hunter/check_completion()
-	if(target && target.current)
-		if(target.current.stat == DEAD)
-			return FALSE
+/datum/objective/pain_hunter/proc/target_check()
+	if(!start_of_completing)
+		if(damage_target >= damage_need)
+			start_of_completing = world.time
+			return
 		if(!ishuman(target.current))
-			return FALSE
-		return damage_target >= damage_need
-	return FALSE
+			target = null
+			find_target(existing_targets_blacklist())
+			alarm_changes()
+			for(var/datum/mind/user in get_owners())
+				var/list/messages = list()
+				messages.Add(user.prepare_announce_objectives(FALSE))
+				to_chat(user.current, chat_box_red(messages.Join("<br>")))
+	else
+		if((world.time - start_of_completing) >= 10	MINUTES)
+			if(target && ishuman(target.current) && target.current.stat != DEAD)
+				completed = TRUE
+				obj_process_color = "green"
+			else
+				obj_process_color = "red"
+			update_explain_text()
+			for(var/datum/mind/user in get_owners())
+				var/list/messages = list()
+				messages.Add(user.prepare_announce_objectives(FALSE))
+				to_chat(user.current, chat_box_red(messages.Join("<br>")))
+			deltimer(checking_timer)
+			checking_timer = null
 
 
 /datum/objective/pain_hunter/proc/random_type()
@@ -448,6 +484,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			damage_explain = "токсинов"
 	return damage_explain
 
+/datum/objective/pain_hunter/check_completion()
+	if(start_of_completing && target && ishuman(target.current) && target.current.stat != DEAD)
+		return TRUE
+	else
+		return completed
 
 /datum/objective/protect //The opposite of killing a dude.
 	name = "Protect"
@@ -954,7 +995,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(SSticker.current_state == GAME_STATE_SETTING_UP)
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(player.client && player.ready && !(player.mind in get_owners()))
-					if(player.client.prefs && (player.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
+					if(player.client.prefs && (player.client.prefs.species == SPECIES_MACNINEPERSON)) // Special check for species that can't be absorbed. No better solution.
 						continue
 					n_p++
 
@@ -1395,6 +1436,22 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		explanation_text = "Взорвите выданную вам бомбу в [detonation_location]. Учтите, что бомбу нельзя активировать на не предназначенной для подрыва территории!"
 
 
+/datum/objective/plant_explosive/proc/give_bomb(delayed = null)
+	if(isnull(delayed))
+		actual_give_bomb()
+	else if(isnum(delayed))
+		addtimer(CALLBACK(src, PROC_REF(actual_give_bomb)), delayed)
+
+
+/datum/objective/plant_explosive/proc/actual_give_bomb()
+	if(!owner || !owner.current || !detonation_location || completed)
+		return
+	var/mob/ninja = owner.current
+	var/obj/item/grenade/plastic/c4/ninja/bomb_item = new(ninja)
+	bomb_item.detonation_objective = src
+	ninja.equip_or_collect(bomb_item, slot_l_store)
+
+
 /datum/objective/get_money
 	name = "Steal Money"
 	needs_target = FALSE
@@ -1482,7 +1539,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		update_killers()
 
 	for(var/datum/mind/user in owners)
-		user.announce_objectives()
+		var/list/messages = user.prepare_announce_objectives()
+		to_chat(user.current, chat_box_red(messages.Join("<br>")))
 
 
 /datum/objective/protect/ninja/proc/update_killers()
@@ -1497,7 +1555,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			killer_objective.explanation_text = "Prevent from escaping alive or free [killer_objective.target.current.real_name], the [killer_objective.target.assigned_role]."
 
 		for(var/datum/mind/killer in killer_objective.get_owners())
-			killer.announce_objectives()
+			killer.prepare_announce_objectives()
 
 
 /**

@@ -116,7 +116,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
-	add_language("Swarmer", 1)
+	add_language(LANGUAGE_HIVE_SWARMER, 1)
 	verbs -= /mob/living/verb/pulled
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
@@ -157,12 +157,12 @@
 	else
 		death()
 
-/mob/living/simple_animal/hostile/swarmer/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
-		return 1
-	if(isswarmer(O))
-		return 1
-	..()
+
+/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile/beam/disabler) || isswarmer(mover))//Allows for swarmers to fight as a group without wasting their shots hitting each other
+		return TRUE
+
 
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
 /mob/living/simple_animal/hostile/swarmer/AttackingTarget()
@@ -646,7 +646,7 @@
 	max_integrity = 10
 	density = FALSE
 
-/obj/structure/swarmer/trap/Crossed(var/atom/movable/AM, oldloc)
+/obj/structure/swarmer/trap/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
@@ -688,11 +688,12 @@
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	max_integrity = 50
 
-/obj/structure/swarmer/blockade/CanPass(atom/movable/O)
-	if(isswarmer(O))
-		return 1
-	if(istype(O, /obj/item/projectile/beam/disabler))
-		return 1
+
+/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile/beam/disabler) || isswarmer(mover))
+		return TRUE
+
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Replicate"

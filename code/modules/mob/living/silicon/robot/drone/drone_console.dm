@@ -10,6 +10,8 @@
 	var/drone_call_area = "Engineering"
 	//Used to enable or disable drone fabrication.
 	var/obj/machinery/drone_fabricator/dronefab
+	var/request_cooldown = 30 SECONDS
+	var/last_drone_request_time = 0
 
 /obj/machinery/computer/drone_control/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
@@ -41,6 +43,8 @@
 		dat += "<BR>Currently located in: [get_area(D)]."
 		dat += "<BR><A href='?src=[UID()];resync=\ref[D]'>Resync</A> | <A href='?src=[UID()];shutdown=\ref[D]'>Shutdown</A></font>"
 
+	dat += "<BR><B><A href='?src=[UID()];request_help=1'>Request a new drone</A></B>"
+
 	dat += "<BR><BR><B>Request drone presence in area:</B> <A href='?src=[UID()];setarea=1'>[drone_call_area]</A> (<A href='?src=[UID()];ping=1'>Send ping</A>)"
 
 	dat += "<BR><BR><B>Drone fabricator</B>: "
@@ -49,6 +53,12 @@
 	onclose(user, "computer")
 	return
 
+/obj/machinery/computer/drone_control/proc/request_help()
+	if((last_drone_request_time + request_cooldown) > world.time)
+		return
+	notify_ghosts(message = "A Maintenance Drone is requested to repair and serve.", ghost_sound = null,
+		title="Drone Fabricator", source = dronefab, action = NOTIFY_ATTACK)
+	last_drone_request_time = world.time
 
 /obj/machinery/computer/drone_control/Topic(href, href_list)
 	if(..())
@@ -72,6 +82,16 @@
 
 		drone_call_area = t_area
 		to_chat(usr, "<span class='notice'>You set the area selector to [drone_call_area].</span>")
+
+	else if(href_list["request_help"])
+		if(!dronefab || !dronefab.produce_drones)
+			to_chat(usr, span_warning("You can't request a drone if there is no functional fabricator"))
+		else
+			if((last_drone_request_time + request_cooldown) > world.time)
+				to_chat(usr, span_notice("You can't send a producing request too often."))
+				return
+			to_chat(usr, span_notice("You have sent a producing request to fabricator."))
+			request_help()
 
 	else if(href_list["ping"])
 
@@ -123,6 +143,7 @@
 			return
 
 		dronefab.produce_drones = !dronefab.produce_drones
+		dronefab.update_icon(UPDATE_ICON_STATE)
 		to_chat(usr, "<span class='notice'>You [dronefab.produce_drones ? "enable" : "disable"] drone production in the nearby fabricator.</span>")
 
 	src.updateUsrDialog()

@@ -211,7 +211,7 @@
 ////////////////////////////////
 /datum/multitool_menu/idtag/mass_driver
 	holder_type = /obj/machinery/mass_driver
-	
+
 /datum/multitool_menu/idtag/mass_driver/get_tag()
 	var/obj/machinery/mass_driver/my_holder = holder
 	return my_holder.id_tag
@@ -282,7 +282,7 @@
 	var/list/tags = list()
 	if(!frequency)
 		return tags
-	for(var/obj/machinery/air_sensor/sensor in GLOB.machines)
+	for(var/obj/machinery/atmospherics/air_sensor/sensor as anything in GLOB.gas_sensors)
 		if(!(sensor.id_tag && sensor.frequency == frequency))
 			continue
 		tags |= sensor.id_tag
@@ -293,7 +293,7 @@
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/vent_pump
 	holder_type = /obj/machinery/atmospherics/unary/vent_pump
-	
+
 /datum/multitool_menu/idtag/freq/vent_pump/get_tag()
 	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
 	return my_holder.id_tag
@@ -326,7 +326,7 @@
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/vent_scrubber
 	holder_type = /obj/machinery/atmospherics/unary/vent_scrubber
-	
+
 /datum/multitool_menu/idtag/freq/vent_scrubber/get_tag()
 	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
 	return my_holder.id_tag
@@ -359,7 +359,7 @@
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/outlet_injector
 	holder_type = /obj/machinery/atmospherics/unary/outlet_injector
-	
+
 /datum/multitool_menu/idtag/freq/outlet_injector/get_tag()
 	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
 	return my_holder.id_tag
@@ -389,7 +389,7 @@
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/dp_vent_pump
 	holder_type = /obj/machinery/atmospherics/binary/dp_vent_pump
-	
+
 /datum/multitool_menu/idtag/freq/dp_vent_pump/get_tag()
 	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
 	return my_holder.id_tag
@@ -418,7 +418,7 @@
 //	air_sensor
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/air_sensor
-	holder_type = /obj/machinery/air_sensor
+	holder_type = /obj/machinery/atmospherics/air_sensor
 	menu_id = "air_sensor"
 
 /datum/multitool_menu/idtag/freq/air_sensor/_ui_data()
@@ -426,7 +426,7 @@
 	. = ..()
 	if(.)
 		data.Add(.)
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	data["bolts"] = my_holder.bolts
 	data["pressureCheck"] = my_holder.output & 1
 	data["temperatureCheck"] = my_holder.output & 2
@@ -448,11 +448,11 @@
 			return ..()
 
 /datum/multitool_menu/idtag/freq/air_sensor/get_tag()
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	return my_holder.id_tag
 
 /datum/multitool_menu/idtag/freq/air_sensor/set_tag(new_tag)
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	if(my_holder.id_tag == new_tag)
 		return
 	if(!is_unique_tag(new_tag, my_holder.frequency))
@@ -461,15 +461,15 @@
 	my_holder.id_tag = new_tag
 
 /datum/multitool_menu/idtag/freq/air_sensor/get_frequency()
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	return my_holder.frequency
 
 /datum/multitool_menu/idtag/freq/air_sensor/get_default_frequency()
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	return initial(my_holder.frequency)
 
 /datum/multitool_menu/idtag/freq/air_sensor/set_frequency(new_frequency)
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	if(my_holder.frequency == new_frequency)
 		return
 	if(!is_unique_tag(my_holder.id_tag, new_frequency))
@@ -478,11 +478,11 @@
 	my_holder.set_frequency(new_frequency)
 
 /datum/multitool_menu/idtag/freq/air_sensor/proc/toggle_out_flag(bitflag_value)
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	my_holder.toggle_out_flag(bitflag_value)
 
 /datum/multitool_menu/idtag/freq/air_sensor/proc/toggle_bolts()
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	my_holder.toggle_bolts()
 
 /datum/multitool_menu/idtag/freq/air_sensor/proc/is_unique_tag(tag, frequency)
@@ -628,7 +628,7 @@
 			my_holder.unlink_output()
 		else
 			return ..()
-		
+
 /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control/proc/is_null_idtag()
 	var/buffer_tag = multitool?.buffer?.multitool_menu?.get_tag()
 	if(!buffer_tag)

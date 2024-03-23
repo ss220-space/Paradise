@@ -53,12 +53,14 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	light_color = LIGHT_COLOR_PURE_GREEN
 
-/obj/machinery/clonepod/power_change()
-	..()
+
+/obj/machinery/clonepod/power_change(forced = FALSE)
+	..() //we don't check return here because we also care about the BROKEN flag
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
 		set_light(0)
+
 
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS
@@ -460,7 +462,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	. = TRUE
 	// These icon states don't really matter since we need to call update_icon() to handle panel open/closed overlays anyway.
 	default_deconstruction_screwdriver(user, null, null, I)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/clonepod/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -478,7 +480,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		WRENCH_ANCHOR_MESSAGE
 		anchored = TRUE
 
-/obj/machinery/clonepod/emag_act(user)
+/obj/machinery/clonepod/emag_act(mob/user)
 	if(isnull(occupant))
 		return
 	go_out()
@@ -596,19 +598,21 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	mess = TRUE
 	update_icon()
 
-/obj/machinery/clonepod/update_icon()
-	..()
-	cut_overlays()
 
-	if(panel_open)
-		add_overlay("panel_open")
-
+/obj/machinery/clonepod/update_icon_state()
 	if(occupant && !(stat & NOPOWER))
 		icon_state = "pod_cloning"
 	else if(mess)
 		icon_state = "pod_mess"
 	else
 		icon_state = "pod_idle"
+
+
+/obj/machinery/clonepod/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += "panel_open"
+
 
 /obj/machinery/clonepod/relaymove(mob/user)
 	if(user.stat == CONSCIOUS)

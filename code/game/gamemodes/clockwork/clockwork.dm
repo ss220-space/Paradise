@@ -84,7 +84,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	for(var/datum/mind/clockwork_mind in clockwork_cult)
 		SEND_SOUND(clockwork_mind.current, 'sound/ambience/antag/clockcult.ogg')
-		to_chat(clockwork_mind.current, CLOCK_GREETING)
+		var/list/messages = list(CLOCK_GREETING)
+		to_chat(clockwork_mind.current, chat_box_yellow(messages.Join("<br>")))
 		equip_clocker(clockwork_mind.current)
 		clockwork_mind.current.faction |= "clockwork_cult"
 		var/datum/objective/serveclock/obj = new
@@ -232,8 +233,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(crew_reveal)
 		return
 	var/clocker_players = get_clockers()
-	if((clocker_players >= crew_reveal_number) && !crew_reveal)
-		crew_reveal = TRUE
+	if((clocker_players >= clocker_objs.clocker_goal) && !clocker_objs.obj_demand.clockers_get)
 		clocker_objs.obj_demand.clockers_get = TRUE
 		for(var/datum/mind/M in clockwork_cult)
 			if(!M.current)
@@ -243,6 +243,11 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				to_chat(M.current, "<span class='clock'>But there's still more tasks to do.</span>")
 			else
 				clocker_objs.ratvar_is_ready()
+	if((clocker_players >= crew_reveal_number) && !crew_reveal)
+		crew_reveal = TRUE
+		for(var/datum/mind/M in clockwork_cult)
+			if(!M.current)
+				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			if(!ishuman(M.current))
 				continue

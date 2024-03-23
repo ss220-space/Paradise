@@ -13,7 +13,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "e" = (
-/turf/simulated/floor/plating/lava/smooth,
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/ruin/powered/gluttony)
 "f" = (
 /obj/item/reagent_containers/syringe/gluttony,

@@ -2,8 +2,7 @@
 	name = "R&D Server"
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "server"
-	icon_open = "server_o"
-	icon_closed = "server"
+	base_icon_state = "server"
 	var/datum/research/files
 	var/health = 100
 	var/list/id_with_upload = list()		//List of R&D consoles with upload to server access.
@@ -29,8 +28,7 @@
 		syndicate = 1
 		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 		icon_state = "syndie_server"
-		icon_open = "syndie_server_o"
-		icon_closed = "syndie_server"
+		base_icon_state = "syndie_server"
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -152,16 +150,16 @@
 		add_fingerprint(user)
 		shock(user,50)
 
-	if(istype(O, /obj/item/screwdriver))
+	if(O.tool_behaviour == TOOL_SCREWDRIVER)
 		add_fingerprint(user)
-		default_deconstruction_screwdriver(user, icon_open, icon_closed, O)
+		default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, O)
 		return 1
 
 	if(exchange_parts(user, O))
 		return 1
 
 	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
+		if(O.tool_behaviour == TOOL_CROWBAR)
 			griefProtection()
 			default_deconstruction_crowbar(user, O)
 			return 1
@@ -437,12 +435,13 @@
 	onclose(user, "server_control")
 	return
 
-/obj/machinery/computer/rdservercontrol/emag_act(user as mob)
+/obj/machinery/computer/rdservercontrol/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
 	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core

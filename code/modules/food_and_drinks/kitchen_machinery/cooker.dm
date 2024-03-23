@@ -3,7 +3,7 @@
 	desc = "You shouldn't be seeing this!"
 	layer = 2.9
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	var/on = 0
@@ -52,7 +52,7 @@
 	copyto.color = foodcolor
 	copyto.icon = copyme.icon
 	copyto.icon_state = copyme.icon_state
-	copyto.overlays += copyme.overlays
+	copyto.copy_overlays(copyme)
 
 /obj/machinery/cooker/proc/turnoff(obj/item/olditem)
 	icon_state = officon

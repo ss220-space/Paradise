@@ -237,13 +237,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
 	GLOB.ts_spiderlist += src
-	add_language("Spider Hivemind")
+	add_language(LANGUAGE_HIVE_TERRORSPIDER)
 	for(var/spell in special_abillity)
 		src.AddSpell(new spell)
 
 	if(spider_tier >= TS_TIER_2)
-		add_language("Galactic Common")
-	default_language = GLOB.all_languages["Spider Hivemind"]
+		add_language(LANGUAGE_GALACTIC_COMMON)
+	default_language = GLOB.all_languages[LANGUAGE_HIVE_TERRORSPIDER]
 
 	if(web_type)
 		web_action = new()
@@ -422,10 +422,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(istype(L))
 		reset_perspective(L)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/terrorspider))
+
+/mob/living/simple_animal/hostile/poison/terror_spider/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile/terrorspider))
 		return TRUE
-	return ..()
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
 	return magpulse

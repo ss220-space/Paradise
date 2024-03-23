@@ -16,12 +16,14 @@
 
 	if((pointed_atom in src) || (pointed_atom.loc in src))
 		create_point_bubble_from_atom(pointed_atom)
+		SEND_SIGNAL(src, COMSIG_MOB_POINTED, pointed_atom)
 		return
 
 	var/turf/pointed_turf = get_turf(pointed_atom)
 	if(!pointed_turf)
 		return
 
+	SEND_SIGNAL(src, COMSIG_MOB_POINTED, pointed_atom)
 	var/obj/visual = new /obj/effect/temp_visual/point(source_turf, invisibility)
 	animate(visual, pixel_x = (pointed_turf.x - source_turf.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (pointed_turf.y - source_turf.y) * world.icon_size + pointed_atom.pixel_y, time = 0.5 SECONDS, easing = QUAD_EASING)
 
@@ -141,13 +143,16 @@
  *
  * visible_message will handle invisibility properly
  *
- * overridden here and in /mob/dead/observer for different point span classes and sanity checks
+ * Be noted, that this verb also serves as placeholder for "Object" tab.
+ *
+ * Removing it causes interface update lags with appearing/disappearing "Object"
+ * tab when walking nearby "Object"-verbed things
  */
 /mob/verb/pointed(atom/target as mob|obj|turf in view(client.view, src))
 	set name = "Point To"
-	set category = null
+	set category = "Object"
 
-	if(next_move >= world.time)
+	if(next_move >= world.time || !Master.current_runlevel) //No usage until subsystems initialized properly.
 		return
 
 	if(istype(target, /obj/effect/temp_visual/point))
