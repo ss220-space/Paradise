@@ -1,4 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space)
 "b" = (
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -16,9 +20,16 @@
 /obj/structure/girder,
 /turf/space,
 /area/template_noop)
+"i" = (
+/obj/structure/grille/broken,
+/turf/template_noop,
+/area/space)
 "j" = (
 /obj/structure/grille/broken,
 /turf/space,
+/area/space)
+"k" = (
+/turf/template_noop,
 /area/space)
 "l" = (
 /obj/structure/girder,
@@ -42,6 +53,9 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
+"r" = (
+/turf/template_noop,
+/area/template_noop)
 "s" = (
 /obj/item/stack/rods,
 /turf/space,
@@ -63,7 +77,7 @@
 /area/space)
 "z" = (
 /obj/item/stack/rods,
-/turf/space,
+/turf/template_noop,
 /area/space)
 "A" = (
 /obj/structure/closet/crate,
@@ -167,7 +181,7 @@
 /area/space)
 
 (1,1,1) = {"
-I
+r
 I
 I
 I
@@ -189,14 +203,14 @@ I
 I
 "}
 (2,1,1) = {"
-I
+r
 d
 d
 d
 d
 d
 Y
-X
+k
 S
 I
 I
@@ -211,7 +225,7 @@ I
 I
 "}
 (3,1,1) = {"
-I
+r
 d
 G
 A
@@ -233,7 +247,7 @@ I
 I
 "}
 (4,1,1) = {"
-I
+r
 Y
 c
 U
@@ -241,7 +255,7 @@ c
 U
 d
 X
-q
+a
 b
 c
 U
@@ -255,7 +269,7 @@ I
 I
 "}
 (5,1,1) = {"
-I
+r
 Y
 b
 D
@@ -263,7 +277,7 @@ D
 q
 d
 z
-j
+i
 D
 b
 D
@@ -277,7 +291,7 @@ I
 I
 "}
 (6,1,1) = {"
-I
+r
 d
 d
 y
@@ -285,11 +299,11 @@ d
 d
 Y
 X
-q
+a
 X
 n
 X
-q
+a
 T
 I
 I
@@ -299,7 +313,7 @@ I
 I
 "}
 (7,1,1) = {"
-I
+r
 X
 X
 X
@@ -311,7 +325,7 @@ X
 T
 T
 T
-X
+k
 T
 I
 I
@@ -321,7 +335,7 @@ I
 I
 "}
 (8,1,1) = {"
-I
+r
 X
 X
 X
@@ -331,11 +345,11 @@ X
 X
 R
 X
-q
+a
 X
 b
-X
-X
+k
+k
 I
 I
 I
@@ -343,20 +357,20 @@ I
 I
 "}
 (9,1,1) = {"
-I
+r
 p
 s
 T
-j
-q
+i
+a
 T
 R
 X
 B
 X
-q
+a
 X
-X
+k
 z
 I
 s
@@ -365,7 +379,7 @@ I
 I
 "}
 (10,1,1) = {"
-I
+r
 s
 I
 T
@@ -378,8 +392,8 @@ X
 X
 X
 X
-X
-X
+k
+k
 I
 I
 I
@@ -387,7 +401,7 @@ I
 I
 "}
 (11,1,1) = {"
-I
+r
 I
 I
 T
@@ -409,7 +423,7 @@ t
 I
 "}
 (12,1,1) = {"
-I
+r
 C
 I
 T
@@ -431,7 +445,7 @@ I
 I
 "}
 (13,1,1) = {"
-I
+r
 I
 I
 l
@@ -453,7 +467,7 @@ I
 I
 "}
 (14,1,1) = {"
-I
+r
 I
 s
 p
@@ -475,7 +489,7 @@ I
 I
 "}
 (15,1,1) = {"
-I
+r
 V
 I
 I
@@ -497,7 +511,7 @@ I
 I
 "}
 (16,1,1) = {"
-I
+r
 I
 I
 E
@@ -519,7 +533,7 @@ I
 I
 "}
 (17,1,1) = {"
-I
+r
 I
 I
 C
@@ -541,7 +555,7 @@ I
 I
 "}
 (18,1,1) = {"
-I
+r
 I
 I
 I
@@ -563,7 +577,7 @@ I
 I
 "}
 (19,1,1) = {"
-I
+r
 I
 I
 I
@@ -585,24 +599,24 @@ I
 I
 "}
 (20,1,1) = {"
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
+r
 "}
