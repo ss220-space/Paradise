@@ -260,5 +260,18 @@
   - refactor: lighting optimization (#4326)
   Vladisvell:
   - add: Overlay and directional lighting (#4685)
+  - bugfix: Nucleation and Floodlight light fixes (#4688)
   Zwei:
   - bugfix: Temporary Overlays Limit Increase (#4683)
+'2024-03-24':
+  ArtemDerp:
+  - bugfix: random arcade subtybe and ptech vendor (#4674)
+  Aziz Chynaliev:
+  - bugfix: set disco light as static (#4691)
+  Daeberdir:
+  - bugfix: KA reload time calculation. (#4681)
+  ROdenFL:
+  - bugfix: lawyer badge (#4689)
+  - bugfix: shots subtypes stealed (#4679)
+  Rerik007:
+  - bugfix: fixes few runtimes (#4690)
