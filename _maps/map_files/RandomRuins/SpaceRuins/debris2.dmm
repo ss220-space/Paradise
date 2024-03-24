@@ -1,8 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space)
 "b" = (
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -16,20 +12,17 @@
 /obj/item/stack/cable_coil/cut,
 /turf/space,
 /area/template_noop)
+"g" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space)
 "h" = (
 /obj/structure/girder,
 /turf/space,
 /area/template_noop)
-"i" = (
-/obj/structure/grille/broken,
-/turf/template_noop,
-/area/space)
 "j" = (
 /obj/structure/grille/broken,
 /turf/space,
-/area/space)
-"k" = (
-/turf/template_noop,
 /area/space)
 "l" = (
 /obj/structure/girder,
@@ -37,7 +30,7 @@
 /area/space)
 "n" = (
 /obj/item/stack/cable_coil/cut,
-/turf/space,
+/turf/template_noop,
 /area/space)
 "o" = (
 /obj/machinery/door/airlock/command{
@@ -53,9 +46,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
-"r" = (
-/turf/template_noop,
-/area/template_noop)
 "s" = (
 /obj/item/stack/rods,
 /turf/space,
@@ -67,6 +57,13 @@
 "u" = (
 /obj/item/clothing/head/bio_hood/virology,
 /turf/space,
+/area/space)
+"v" = (
+/turf/template_noop,
+/area/space)
+"x" = (
+/obj/structure/grille/broken,
+/turf/template_noop,
 /area/space)
 "y" = (
 /obj/structure/lattice,
@@ -131,6 +128,9 @@
 /obj/item/shard,
 /turf/space,
 /area/space)
+"M" = (
+/turf/template_noop,
+/area/template_noop)
 "N" = (
 /obj/item/clothing/suit/bio_suit/virology,
 /turf/space,
@@ -147,7 +147,7 @@
 /area/space)
 "R" = (
 /obj/item/stack/sheet/metal,
-/turf/space,
+/turf/template_noop,
 /area/space)
 "S" = (
 /obj/item/reagent_containers/spray/cleaner,
@@ -181,7 +181,7 @@
 /area/space)
 
 (1,1,1) = {"
-r
+M
 I
 I
 I
@@ -203,14 +203,14 @@ I
 I
 "}
 (2,1,1) = {"
-r
+M
 d
 d
 d
 d
 d
 Y
-k
+v
 S
 I
 I
@@ -225,7 +225,7 @@ I
 I
 "}
 (3,1,1) = {"
-r
+M
 d
 G
 A
@@ -247,7 +247,7 @@ I
 I
 "}
 (4,1,1) = {"
-r
+M
 Y
 c
 U
@@ -255,7 +255,7 @@ c
 U
 d
 X
-a
+g
 b
 c
 U
@@ -269,7 +269,7 @@ I
 I
 "}
 (5,1,1) = {"
-r
+M
 Y
 b
 D
@@ -277,7 +277,7 @@ D
 q
 d
 z
-i
+x
 D
 b
 D
@@ -291,7 +291,7 @@ I
 I
 "}
 (6,1,1) = {"
-r
+M
 d
 d
 y
@@ -299,11 +299,11 @@ d
 d
 Y
 X
-a
+g
 X
 n
 X
-a
+g
 T
 I
 I
@@ -313,7 +313,7 @@ I
 I
 "}
 (7,1,1) = {"
-r
+M
 X
 X
 X
@@ -325,7 +325,7 @@ X
 T
 T
 T
-k
+v
 T
 I
 I
@@ -335,7 +335,7 @@ I
 I
 "}
 (8,1,1) = {"
-r
+M
 X
 X
 X
@@ -345,11 +345,11 @@ X
 X
 R
 X
-a
+g
 X
 b
-k
-k
+v
+v
 I
 I
 I
@@ -357,20 +357,20 @@ I
 I
 "}
 (9,1,1) = {"
-r
+M
 p
 s
 T
-i
-a
+x
+g
 T
 R
 X
 B
 X
-a
+g
 X
-k
+v
 z
 I
 s
@@ -379,7 +379,7 @@ I
 I
 "}
 (10,1,1) = {"
-r
+M
 s
 I
 T
@@ -392,8 +392,8 @@ X
 X
 X
 X
-k
-k
+v
+v
 I
 I
 I
@@ -401,7 +401,7 @@ I
 I
 "}
 (11,1,1) = {"
-r
+M
 I
 I
 T
@@ -423,7 +423,7 @@ t
 I
 "}
 (12,1,1) = {"
-r
+M
 C
 I
 T
@@ -445,7 +445,7 @@ I
 I
 "}
 (13,1,1) = {"
-r
+M
 I
 I
 l
@@ -467,7 +467,7 @@ I
 I
 "}
 (14,1,1) = {"
-r
+M
 I
 s
 p
@@ -489,7 +489,7 @@ I
 I
 "}
 (15,1,1) = {"
-r
+M
 V
 I
 I
@@ -511,7 +511,7 @@ I
 I
 "}
 (16,1,1) = {"
-r
+M
 I
 I
 E
@@ -533,7 +533,7 @@ I
 I
 "}
 (17,1,1) = {"
-r
+M
 I
 I
 C
@@ -555,7 +555,7 @@ I
 I
 "}
 (18,1,1) = {"
-r
+M
 I
 I
 I
@@ -577,7 +577,7 @@ I
 I
 "}
 (19,1,1) = {"
-r
+M
 I
 I
 I
@@ -599,24 +599,24 @@ I
 I
 "}
 (20,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
 "}
