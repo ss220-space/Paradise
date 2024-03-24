@@ -518,6 +518,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/regenerate_icons()
 	if(notransform)
 		return
+	cut_overlays()
 	update_mutations()
 	update_body(TRUE) //Update the body and force limb icon regeneration.
 	update_hair()
@@ -547,9 +548,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	force_update_limbs()
 	update_tail_layer()
 	update_wing_layer()
-	update_halo_layer()
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
+	update_halo_layer()
 	update_fire()
 	update_hands_HUD()
 
