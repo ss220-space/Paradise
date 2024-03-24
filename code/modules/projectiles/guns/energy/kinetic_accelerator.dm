@@ -118,7 +118,7 @@
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/loc_robot = loc
 		loc_robot.install_upgrade(MK)
-	return MK.install(src)
+	return MK.install(src, user)
 
 
 /obj/item/gun/energy/kinetic_accelerator/cyborg/modkit_predeattach(obj/item/borg/upgrade/modkit/MK, mob/living/silicon/robot/owner)
