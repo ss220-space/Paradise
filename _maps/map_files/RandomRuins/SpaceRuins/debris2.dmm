@@ -1,7 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/template_noop,
-/area/template_noop)
 "b" = (
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -25,21 +22,17 @@
 /area/space)
 "l" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/space)
-"m" = (
-/obj/structure/grille/broken,
-/turf/template_noop,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "n" = (
 /obj/item/stack/cable_coil/cut,
-/turf/template_noop,
+/turf/space,
 /area/space)
 "o" = (
 /obj/machinery/door/airlock/command{
 	max_integrity = 40
 	},
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "p" = (
 /mob/living/simple_animal/hostile/carp,
@@ -61,13 +54,6 @@
 /obj/item/clothing/head/bio_hood/virology,
 /turf/space,
 /area/space)
-"w" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space)
-"x" = (
-/turf/template_noop,
-/area/space)
 "y" = (
 /obj/structure/lattice,
 /obj/structure/door_assembly/door_assembly_vault{
@@ -77,7 +63,7 @@
 /area/space)
 "z" = (
 /obj/item/stack/rods,
-/turf/template_noop,
+/turf/space,
 /area/space)
 "A" = (
 /obj/structure/closet/crate,
@@ -102,10 +88,6 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /turf/space,
 /area/template_noop)
-"F" = (
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor,
-/area/space)
 "G" = (
 /obj/structure/safe,
 /obj/item/stack/sheet/mineral/bananium{
@@ -135,9 +117,6 @@
 /obj/item/shard,
 /turf/space,
 /area/space)
-"M" = (
-/turf/simulated/floor,
-/area/space)
 "N" = (
 /obj/item/clothing/suit/bio_suit/virology,
 /turf/space,
@@ -154,7 +133,7 @@
 /area/space)
 "R" = (
 /obj/item/stack/sheet/metal,
-/turf/template_noop,
+/turf/space,
 /area/space)
 "S" = (
 /obj/item/reagent_containers/spray/cleaner,
@@ -180,46 +159,44 @@
 /area/space)
 "Y" = (
 /obj/structure/girder/reinforced,
-/turf/simulated/floor/plating/damaged,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "Z" = (
-/obj/machinery/computer/pandemic{
-	circuit = /obj/effect/decal/cleanable/shreds
-	},
+/obj/machinery/computer/pandemic,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
 "}
 (2,1,1) = {"
-a
+I
 d
 d
 d
 d
 d
 Y
-x
+X
 S
 I
 I
@@ -231,15 +208,15 @@ C
 I
 I
 I
-a
+I
 "}
 (3,1,1) = {"
-a
+I
 d
 G
 A
 U
-F
+D
 d
 z
 T
@@ -253,10 +230,10 @@ p
 O
 I
 I
-a
+I
 "}
 (4,1,1) = {"
-a
+I
 Y
 c
 U
@@ -264,43 +241,43 @@ c
 U
 d
 X
-w
-M
+q
+b
 c
 U
-M
+b
 T
 V
 I
 I
 I
 I
-a
+I
 "}
 (5,1,1) = {"
-a
+I
 Y
-M
-F
-F
+b
+D
+D
 q
 d
 z
-m
-F
-M
-F
-M
+j
+D
+b
+D
+b
 T
 I
 I
 I
 I
 I
-a
+I
 "}
 (6,1,1) = {"
-a
+I
 d
 d
 y
@@ -308,21 +285,21 @@ d
 d
 Y
 X
-w
+q
 X
 n
 X
-w
+q
 T
 I
 I
 I
 C
 I
-a
+I
 "}
 (7,1,1) = {"
-a
+I
 X
 X
 X
@@ -334,17 +311,17 @@ X
 T
 T
 T
-x
+X
 T
 I
 I
 V
 I
 I
-a
+I
 "}
 (8,1,1) = {"
-a
+I
 X
 X
 X
@@ -354,46 +331,46 @@ X
 X
 R
 X
-w
+q
 X
 b
-x
-x
+X
+X
 I
 I
 I
 I
-a
+I
 "}
 (9,1,1) = {"
-a
+I
 p
 s
 T
-m
-w
+j
+q
 T
 R
 X
 B
 X
-w
+q
 X
-x
+X
 z
 I
 s
 I
 I
-a
+I
 "}
 (10,1,1) = {"
-a
+I
 s
 I
 T
-M
-F
+b
+D
 T
 X
 X
@@ -401,26 +378,26 @@ X
 X
 X
 X
-x
-x
+X
+X
 I
 I
 I
 I
-a
+I
 "}
 (11,1,1) = {"
-a
+I
 I
 I
 T
 c
-F
+D
 T
 X
 X
 c
-F
+D
 b
 j
 D
@@ -429,15 +406,15 @@ I
 I
 I
 t
-a
+I
 "}
 (12,1,1) = {"
-a
+I
 C
 I
 T
 X
-M
+b
 N
 s
 I
@@ -451,10 +428,10 @@ I
 s
 I
 I
-a
+I
 "}
 (13,1,1) = {"
-a
+I
 I
 I
 l
@@ -473,10 +450,10 @@ I
 I
 I
 I
-a
+I
 "}
 (14,1,1) = {"
-a
+I
 I
 s
 p
@@ -495,10 +472,10 @@ I
 I
 I
 I
-a
+I
 "}
 (15,1,1) = {"
-a
+I
 V
 I
 I
@@ -517,10 +494,10 @@ I
 I
 I
 I
-a
+I
 "}
 (16,1,1) = {"
-a
+I
 I
 I
 E
@@ -539,10 +516,10 @@ I
 C
 I
 I
-a
+I
 "}
 (17,1,1) = {"
-a
+I
 I
 I
 C
@@ -561,10 +538,10 @@ I
 I
 I
 I
-a
+I
 "}
 (18,1,1) = {"
-a
+I
 I
 I
 I
@@ -583,10 +560,10 @@ I
 I
 I
 I
-a
+I
 "}
 (19,1,1) = {"
-a
+I
 I
 I
 I
@@ -605,27 +582,27 @@ I
 I
 I
 I
-a
+I
 "}
 (20,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
 "}
