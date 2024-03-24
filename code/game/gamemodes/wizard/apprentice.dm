@@ -233,32 +233,33 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/area_teleport/teleport(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/turf_teleport/blink(null))
 
-	//Нацепляем фиолетовый защитный балахон
-	var/obj/item/clothing/suit/space/suit = new
-	suit.magical = TRUE
-	suit.slowdown = 0
-	suit.icon_state = "psyamp"
-	suit.name = "Роба межпространства"
-	suit.desc = "Магическая роба прислужника школы пространства, оберегающий владельца от перемещений в агрессивных средах."
-	suit.gas_transfer_coefficient = 0.01
-	suit.permeability_coefficient = 0.01
-	suit.armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
-	suit.strip_delay = 50
-	suit.put_on_delay = 50
-	suit.resistance_flags = FIRE_PROOF | ACID_PROOF
-	owner.equip_or_collect(suit, slot_wear_suit)
-	var/obj/item/clothing/head/helmet/space/head = new
-	head.magical = TRUE
-	head.icon_state = "amp"
-	head.name = "Капюшон Межпространства"
-	head.desc = "Магический головной убор робы прислужника школы пространства, оберегающий от перемещений в агрессивных средах."
-	head.gas_transfer_coefficient = 0.01
-	head.permeability_coefficient = 0.01
-	head.armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
-	head.resistance_flags = FIRE_PROOF | ACID_PROOF
-	head.strip_delay = 50
-	head.put_on_delay = 50
-	owner.equip_or_collect(head, slot_head)
+	owner.equip_or_collect(new /obj/item/clothing/suit/space/suit/psyamp, slot_wear_suit)
+	owner.equip_or_collect(new /obj/item/clothing/head/helmet/space/head/psyamp, slot_head)
+
+/obj/item/clothing/suit/space/suit/psyamp
+	magical = TRUE
+	slowdown = 0
+	icon_state = "psyamp"
+	name = "Роба межпространства"
+	desc = "Магическая роба прислужника школы пространства, оберегающий владельца от перемещений в агрессивных средах."
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	strip_delay = 5 SECONDS
+	put_on_delay = 5 SECONDS
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/head/helmet/space/head/psyamp
+	magical = TRUE
+	icon_state = "amp"
+	name = "Капюшон Межпространства"
+	desc = "Магический головной убор робы прислужника школы пространства, оберегающий от перемещений в агрессивных средах."
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	strip_delay = 5 SECONDS
+	put_on_delay = 5 SECONDS
 
 
 /datum/magick_school/sabotage
@@ -271,30 +272,31 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), slot_r_hand)
+	owner.equip_or_collect(new /obj/item/clothing/suit/blacktrenchcoat/suit/saboteur, slot_wear_suit)
+	owner.equip_or_collect(new /obj/item/clothing/head/fedora/head/saboteur, slot_head)
 
-	var/obj/item/clothing/suit/blacktrenchcoat/suit = new
-	suit.magical = TRUE
-	suit.name = "Роба саботёра"
-	suit.desc = "Магическая роба-саботёра. Стильная и приталенная!"
-	suit.gas_transfer_coefficient = 0.01
-	suit.permeability_coefficient = 0.01
-	suit.armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
-	suit.strip_delay = 50
-	suit.put_on_delay = 50
-	suit.resistance_flags = FIRE_PROOF | ACID_PROOF
-	owner.equip_or_collect(suit, slot_wear_suit)
+/obj/item/clothing/suit/blacktrenchcoat/suit/saboteur
+	magical = TRUE
+	name = "Роба саботёра"
+	desc = "Магическая роба-саботёра. Стильная и приталенная!"
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	strip_delay = 5 SECONDS
+	put_on_delay = 5 SECONDS
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-	var/obj/item/clothing/head/fedora/head = new
-	suit.magical = TRUE
-	suit.name = "Федора саботёра"
-	suit.desc = "Магическая федора-саботёра. Стильная и уважаемая!"
-	head.gas_transfer_coefficient = 0.01
-	head.permeability_coefficient = 0.01
-	head.armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
-	head.resistance_flags = FIRE_PROOF | ACID_PROOF
-	head.strip_delay = 50
-	head.put_on_delay = 50
-	owner.equip_or_collect(head, slot_head)
+
+/obj/item/clothing/head/fedora/head/saboteur
+	magical = TRUE
+	name = "Федора саботёра"
+	desc = "Магическая федора-саботёра. Стильная и уважаемая!"
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	strip_delay = 5 SECONDS
+	put_on_delay = 5 SECONDS
 
 
 /datum/magick_school/defense
@@ -323,20 +325,18 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
 	ADD_TRAIT(owner, RESISTHOT, MAGIC_TRAIT)
+	owner.equip_or_collect(new /obj/item/clothing/suit/victcoat/red/suit/fire_robe, slot_wear_suit)
 
-	//Надеваем красный балахон
-	var/obj/item/clothing/suit/victcoat/red/suit = new
-	suit.name = "Роба огня"
-	suit.desc = "Магическая роба последователей школы огня."
-	suit.gas_transfer_coefficient = 0.01
-	suit.permeability_coefficient = 0.01
-	suit.armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
-	suit.strip_delay = 50
-	suit.put_on_delay = 50
-	suit.resistance_flags = FIRE_PROOF | ACID_PROOF
-	suit.magical = TRUE
-	owner.equip_or_collect(suit, slot_wear_suit)
-
+/obj/item/clothing/suit/victcoat/red/suit/fire_robe
+	name = "Роба огня"
+	desc = "Магическая роба последователей школы огня."
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	strip_delay = 5 SECONDS
+	put_on_delay = 5 SECONDS
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	magical = TRUE
 
 /datum/magick_school/sculpt
 	name = "Школа Ваяния"
@@ -388,19 +388,18 @@
 	chain.desc = "Цепь последователя школы крови для нанесения увечий и пускания крови."
 	chain.force = 15
 	owner.equip_or_collect(chain, slot_r_hand)
+	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/cultrobes/suit/sacrificial_robe, slot_wear_suit)
 
-	var/obj/item/clothing/suit/hooded/cultrobes/suit = new
-	suit.name = "Жертвенная роба"
-	suit.desc = "Магическая роба последователей школы крови."
-	suit.gas_transfer_coefficient = 0.01
-	suit.permeability_coefficient = 0.01
-	suit.armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
-	suit.strip_delay = 50
-	suit.put_on_delay = 50
-	suit.magical = TRUE
-	suit.resistance_flags = FIRE_PROOF | ACID_PROOF
-	owner.equip_or_collect(suit, slot_wear_suit)
-
+/obj/item/clothing/suit/hooded/cultrobes/suit/sacrificial_robe
+	name = "Жертвенная роба"
+	desc = "Магическая роба последователей школы крови."
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	strip_delay = 5 SECONDS
+	put_on_delay = 5 SECONDS
+	magical = TRUE
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /datum/magick_school/necromantic
 	name = "Школа Некромантии"
