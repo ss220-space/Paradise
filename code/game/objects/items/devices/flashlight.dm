@@ -426,6 +426,7 @@
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null
+	light_system = STATIC_LIGHT
 	light_color = null
 	light_range = 0
 	light_power = 10
