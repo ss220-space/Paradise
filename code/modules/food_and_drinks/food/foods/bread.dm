@@ -192,11 +192,18 @@
 	name = "baguette"
 	desc = "Bon appetit!"
 	icon_state = "baguette"
+	item_state = "baguette"
 	filling_color = "#E3D796"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bread" = 2)
 	foodtype = GRAIN
+	slot_flags = SLOT_BELT
+
+/obj/item/reagent_containers/food/snacks/baguette/combat
+	sharp = TRUE
+	force = 20
+	block_chance = 40
 
 /obj/item/reagent_containers/food/snacks/twobread
 	name = "two bread"

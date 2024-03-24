@@ -1,6 +1,10 @@
 #define ALL ~0 //For convenience.
 #define NONE 0
 
+/* Directions */
+///All the cardinal direction bitflags.
+#define ALL_CARDINALS (NORTH|SOUTH|EAST|WEST)
+
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE 		(1<<0)		// This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					(1<<1)		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
@@ -121,22 +125,32 @@
 
 
 //bitflags for door switches.
-#define OPEN	(1<<0)
-#define IDSCAN	(1<<1)
-#define BOLTS	(1<<2)
-#define SHOCK	(1<<3)
-#define SAFE	(1<<4)
+#define OPEN (1<<0)
+#define IDSCAN (1<<1)
+#define BOLTS (1<<2)
+#define SHOCK (1<<3)
+#define SAFE (1<<4)
 
-#define PASSTABLE		(1<<0)
-#define PASSGLASS		(1<<1)
-#define PASSGRILLE		(1<<2)
-#define PASSBLOB		(1<<3)
-#define PASSMOB			(1<<4)
-#define LETPASSTHROW	(1<<5)
-#define PASSFENCE 		(1<<6)
-#define PASSDOOR		(1<<7)
-#define PASS_OTHER_THINGS (1<<8)
-#define PASS_EVERYTHING (PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSFENCE|PASSDOOR|PASS_OTHER_THINGS)
+//flags for passing things
+#define PASSTABLE (1<<0)
+#define PASSGLASS (1<<1)
+#define PASSGRILLE (1<<2)
+#define PASSBLOB (1<<3)
+#define PASSMOB (1<<4)
+/// Let thrown things past us. **ONLY MEANINGFUL ON pass_flags_self!**
+#define LETPASSTHROW (1<<5)
+#define PASSMACHINE (1<<6)
+#define PASSSTRUCTURE (1<<7)
+#define PASSFLAPS (1<<8)
+#define PASSFENCE (1<<9)
+#define PASSDOOR (1<<10)
+#define PASSVEHICLE (1<<11)
+#define PASSITEM (1<<12)
+/// Do not intercept click attempts during Adjacent() checks. See [turf/proc/ClickCross]. **ONLY MEANINGFUL ON pass_flags_self!**
+#define LETPASSCLICKS (1<<13)
+
+#define PASSEVERYTHING (PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSFENCE|PASSDOOR|PASSVEHICLE|PASSITEM|LETPASSCLICKS)
+
 
 // for /datum/var/datum_flags
 #define DF_USE_TAG (1<<0)

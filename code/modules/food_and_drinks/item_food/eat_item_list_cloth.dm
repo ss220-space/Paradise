@@ -51,7 +51,7 @@
 
 /obj/item/clothing/accessory/holobadge
 	material_type = MATERIAL_CLASS_NONE
-/obj/item/clothing/accessory/lawyers_badge
+/obj/item/clothing/accessory/head_strip/lawyers_badge
 	material_type = MATERIAL_CLASS_NONE
 /obj/item/clothing/accessory/necklace
 	material_type = MATERIAL_CLASS_NONE

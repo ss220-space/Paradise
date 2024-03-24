@@ -7,7 +7,7 @@
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
-	var/protected_species_vampire = list("Machine", "Голем")
+	var/protected_species_vampire = list(SPECIES_MACNINEPERSON, SPECIES_GOLEM_BASIC)
 	var/list/datum/mind/pre_vampires = list()
 
 

@@ -1071,6 +1071,51 @@
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
 
+/obj/item/storage/box/random_syndi
+	icon_state = "box_of_doom"
+	var/static/list/allowed_uplink_items
+
+
+/obj/item/storage/box/random_syndi/populate_contents()
+	if(!allowed_uplink_items)
+		allowed_uplink_items = list()
+		for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
+			if(istype(uplink_item, /datum/uplink_item/racial) || uplink_item.hijack_only || uplink_item.cost > 20)
+				continue
+			allowed_uplink_items += uplink_item.item
+
+	if(!length(allowed_uplink_items))
+		return
+
+	for(var/item_path in pick_multiple_unique(allowed_uplink_items, 3))
+		new item_path(src)
+
+
+/obj/item/storage/box/crayfish_bucket
+	name = "Mr. Chang's Spicy Lobsters"
+	desc = "Supply of lobsters from Mr. Chang. Crayfish instead of lobsters, super discount, great rating!"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "crayfish_bucket"
+	item_state = "chinese2"
+	storage_slots = 3
+	display_contents_with_number = TRUE
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang,
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+	)
+
+
+/obj/item/storage/box/crayfish_bucket/populate_contents()
+	var/big_ones = rand(2, 4)
+	var/small_ones = 5 - big_ones
+	for(var/i in 1 to big_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang(src)
+	for(var/i in 1 to small_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
+	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

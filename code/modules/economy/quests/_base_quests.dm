@@ -63,7 +63,7 @@
 
 	if(!quest_type)
 		var/list/possible_types = list()
-		if((length(GLOB.clients) < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
+		if((num_station_players() < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
 			for(var/datum/cargo_quest/quest as anything in current_quests)
 				possible_types += quest.type
 		else
@@ -120,11 +120,15 @@
 	if(!failed_quest_length && !fast_failed)
 		new_reward += reward * 0.4
 		modificators["quick_shipment"] = TRUE
-		if(closet.cc_tag == customer.departament_name)
-			customer.set_sale()
 
 	if(time_add_count)
 		new_reward -= time_add_count * reward * 0.1
+
+	if(!modificators["departure_mismatch"] && !failed_quest_length && !mismatch_content)
+		if(fast_failed)
+			customer.set_sale(modificator = 1)
+		else
+			customer.set_sale(modificator = 2)
 
 	if(new_reward <= 0)
 		new_reward = 1

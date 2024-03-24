@@ -45,6 +45,13 @@
 	var/clawfootstep = null
 	var/heavyfootstep = null
 
+	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
+	var/dynamic_lumcount = 0
+	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
+	var/directional_opacity = NONE
+	///Lazylist of movable atoms providing opacity sources.
+	var/list/atom/movable/opacity_sources
+
 	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
 	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
@@ -111,6 +118,10 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	user.Move_Pulled(src)
 
+/turf/attack_robot(mob/user)
+	if(Adjacent(user))
+		user.Move_Pulled(src)
+
 /turf/ex_act(severity)
 	return FALSE
 
@@ -150,34 +161,47 @@
 	// First, make sure it can leave its square
 	if(isturf(mover.loc))
 		// Nothing but border objects stop you from leaving a tile, only one loop is needed
+		var/movement_dir = get_dir(mover, src)
 		for(var/obj/obstacle in mover.loc)
-			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != oldloc)
+			if(obstacle == mover || obstacle == oldloc)
+				continue
+			if(!obstacle.CanExit(mover, movement_dir))
 				mover.Bump(obstacle, TRUE)
 				return FALSE
+
+	var/border_dir = get_dir(src, mover)
 
 	var/list/large_dense = list()
 	//Next, check objects to block entry that are on the border
 	for(var/atom/movable/border_obstacle in src)
+		if(border_obstacle == oldloc)
+			continue
 		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, mover.loc, 1) && border_obstacle != oldloc)
+			if(!border_obstacle.CanPass(mover, border_dir))
 				mover.Bump(border_obstacle, TRUE)
 				return FALSE
 		else
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
-	if(!CanPass(mover, src))
+	if(!CanPass(mover, border_dir))
 		mover.Bump(src, TRUE)
 		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
 	var/atom/movable/tompost_bump
 	var/top_layer = 0
-	for(var/atom/movable/obstacle in large_dense)
-		if(!obstacle.CanPass(mover, mover.loc, 1) && obstacle != oldloc)
-			if(obstacle.layer > top_layer)
+	var/current_layer = 0
+	for(var/atom/movable/obstacle as anything in large_dense)
+		if(!obstacle.CanPass(mover, border_dir))
+			current_layer = obstacle.layer
+			if(isliving(obstacle))
+				var/mob/living/living_obstacle = obstacle
+				if(living_obstacle.bump_priority < BUMP_PRIORITY_NORMAL && border_dir == obstacle.dir)
+					current_layer += living_obstacle.bump_priority
+			if(current_layer > top_layer)
 				tompost_bump = obstacle
-				top_layer = obstacle.layer	//Probably separate variable is a better solution, but its good for now.
+				top_layer = current_layer
 	if(tompost_bump)
 		mover.Bump(tompost_bump, TRUE)
 		return FALSE
@@ -227,14 +251,18 @@
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
-	set_light(0)
+	set_light_on(FALSE)
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
-	var/old_affecting_lights = affecting_lights
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
+	var/old_directional_opacity = directional_opacity
+	var/old_dynamic_lumcount = dynamic_lumcount
 	var/old_obscured = obscured
-	var/old_corners = corners
+	var/old_lighting_corner_NE = lighting_corner_NE
+	var/old_lighting_corner_SE = lighting_corner_SE
+	var/old_lighting_corner_SW = lighting_corner_SW
+	var/old_lighting_corner_NW = lighting_corner_NW
 
 	BeforeChange()
 
@@ -251,11 +279,16 @@
 
 	recalc_atom_opacity()
 
+	lighting_corner_NE = old_lighting_corner_NE
+	lighting_corner_SE = old_lighting_corner_SE
+	lighting_corner_SW = old_lighting_corner_SW
+	lighting_corner_NW = old_lighting_corner_NW
+
+	dynamic_lumcount = old_dynamic_lumcount
+
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
 		lighting_object = old_lighting_object
-		affecting_lights = old_affecting_lights
-		corners = old_corners
 		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
 			reconsider_lights()
 
@@ -264,6 +297,12 @@
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
+
+		directional_opacity = old_directional_opacity
+		recalculate_directional_opacity()
+
+		if(lighting_object && !lighting_object.needs_update)
+			lighting_object.update()
 
 		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
@@ -595,4 +634,78 @@
 					span_userdanger("You slam into [src]!"))
 	C.take_organ_damage(damage)
 	C.Weaken(3 SECONDS)
+
+
+/turf/proc/CanEnter(atom/mover, exclude_mobs = FALSE, list/ignore_atoms, type_list = FALSE)
+	var/border_dir = get_dir(src, mover)
+
+	if(!CanPass(mover, border_dir))
+		return FALSE
+
+	if(isturf(mover.loc))
+		var/movement_dir = get_dir(mover, src)
+		for(var/obj/obstacle in mover.loc)
+			if(obstacle == mover)
+				continue
+			if(!obstacle.CanExit(mover, movement_dir))
+				return FALSE
+
+	var/list/large_dense = contents.Copy()
+	if(length(ignore_atoms))
+		for(var/thing in large_dense)
+			if(!type_list && (thing in large_dense))
+				large_dense -= thing
+			else if(type_list && is_type_in_list(thing, ignore_atoms))
+				large_dense -= thing
+
+	for(var/atom/movable/obstacle in large_dense)
+		if(ismob(obstacle) && exclude_mobs)
+			continue
+		if(!obstacle.CanPass(mover, border_dir))
+			return FALSE
+
+	return TRUE
+
+
+/**
+ * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
+ *
+ * Returns `TRUE` if the turf is blocked because the turf itself is dense.
+ * Returns `TRUE` if one of the turf's contents is dense and would block a source atom's movement.
+ * Returns `FALSE` if the turf is not blocked.
+ *
+ * Arguments:
+ * * exclude_mobs - If `TRUE`, ignores dense mobs on the turf.
+ * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
+ * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
+ * * type_list - are we checking for types of atoms to ignore and not physical atoms
+ */
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms, type_list = FALSE)
+	if(density)
+		return TRUE
+
+	if(locate(/mob/living/silicon/ai) in src) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+		return TRUE
+
+	if(source_atom && !CanEnter(source_atom, exclude_mobs, ignore_atoms, type_list))
+		return TRUE
+
+	for(var/atom/movable/movable_content as anything in src)
+		// We don't want to block ourselves
+		if((movable_content == source_atom))
+			continue
+		// dont consider ignored atoms or their types
+		if(length(ignore_atoms))
+			if(!type_list && (movable_content in ignore_atoms))
+				continue
+			else if(type_list && is_type_in_list(movable_content, ignore_atoms))
+				continue
+
+		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
+		// it cannot pass through the thing on the turf, we consider the turf blocked.
+		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
+			//if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
+			//	continue
+			return TRUE
+	return FALSE
 

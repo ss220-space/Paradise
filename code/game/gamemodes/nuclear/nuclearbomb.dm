@@ -42,6 +42,10 @@ GLOBAL_VAR(bomb_set)
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
 
+	light_system = MOVABLE_LIGHT
+	light_power = LIGHTING_MINIMUM_POWER
+	light_range = 1
+
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
 
@@ -112,11 +116,14 @@ GLOBAL_VAR(bomb_set)
 	. = ..()
 	underlays.Cut()
 
+	if(panel_open)
+		. += mutable_appearance(icon, "npanel_open")
+
 	if(!lighthack)
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light_on(TRUE)
 		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
 	else if(light)
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/nuclearbomb/process()
@@ -246,13 +253,13 @@ GLOBAL_VAR(bomb_set)
 	if(auth || (istype(I, /obj/item/screwdriver/nuke)))
 		if(!panel_open)
 			panel_open = TRUE
-			overlays += image(icon, "npanel_open")
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(user, "You unscrew the control panel of [src].")
 			anchor_stage = removal_stage
 			removal_stage = core_stage
 		else
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
@@ -261,7 +268,7 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
 		if(panel_open == TRUE)
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage

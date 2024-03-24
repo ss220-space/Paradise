@@ -107,6 +107,11 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	var/on_fire = FALSE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+	light_range = 1.5
+	light_power = 1
+	light_color = LIGHT_COLOR_YELLOW
 
 
 /obj/item/clothing/head/cakehat/process()
@@ -133,12 +138,12 @@
 		span_notice("You [on_fire ? "lighted up" : "extinguished"] [src]."),
 	)
 	if(on_fire)
-		set_light(1.5, 1, LIGHT_COLOR_YELLOW)
+		set_light_on(TRUE)
 		force = 3
 		damtype = BURN
 		START_PROCESSING(SSobj, src)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 		force = 0
 		damtype = BRUTE
 		STOP_PROCESSING(SSobj, src)
@@ -231,7 +236,7 @@
 	)
 
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	brightness_on = 2 //luminosity when on
+	light_range = 2 //luminosity when on
 
 
 /obj/item/clothing/head/hardhat/reindeer
@@ -242,7 +247,7 @@
 	item_color = "reindeer"
 	flags_inv = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	brightness_on = 1 //luminosity when on
+	light_range = 1 //luminosity when on
 	dog_fashion = /datum/dog_fashion/head/reindeer
 
 

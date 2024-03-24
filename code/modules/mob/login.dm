@@ -84,3 +84,5 @@
 	update_morgue()
 
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
+

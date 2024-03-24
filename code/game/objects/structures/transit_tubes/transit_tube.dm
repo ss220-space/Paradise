@@ -11,6 +11,7 @@
 	density = TRUE
 	layer = 3.1
 	anchored = TRUE
+	pass_flags_self = PASSGLASS
 	var/list/tube_dirs = null
 	var/exit_delay = 1
 	var/enter_delay = 0
@@ -31,11 +32,6 @@
 	for(var/obj/structure/transit_tube_pod/P in loc)
 		P.empty_pod()
 	return ..()
-
-/obj/structure/transit_tube/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return TRUE
-	return !density
 
 // When destroyed by explosions, properly handle contents.
 /obj/structure/transit_tube/ex_act(severity)
@@ -129,7 +125,7 @@
 /obj/structure/transit_tube/update_overlays()
 	. = ..()
 	for(var/direction in directions())
-		if(!IS_DIR_DIAGONAL(direction))
+		if(ISCARDINALDIR(direction))
 			. += create_tube_overlay(direction)
 			continue
 		if(!(direction & NORTH))

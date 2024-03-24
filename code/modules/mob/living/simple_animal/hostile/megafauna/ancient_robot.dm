@@ -779,7 +779,7 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot/Initialize(mapload, target)
 	. = ..()
 	new /obj/effect/temp_visual/beam_target(get_turf(src), target) // Yup, we have to make *another* effect since beam doesn't work right with 64x64
-	set_light(4, l_color = "#ee2e27")
+	set_light(4, l_color = "#ee2e27", l_on = TRUE)
 
 /obj/effect/temp_visual/beam_target
 	duration = 1.6 SECONDS

@@ -20,7 +20,7 @@
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
-	pass_flags = LETPASSTHROW
+	pass_flags_self = PASSTABLE|LETPASSTHROW
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
@@ -138,17 +138,13 @@
 		clumse_stuff(user)
 
 
-/obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
+
+/obj/structure/table/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
 		return TRUE
-	if(istype(mover,/obj/item/projectile))
-		return check_cover(mover,target)
-	if(ismob(mover))
-		var/mob/living/M = mover
-		if(M.flying)
-			return TRUE
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return TRUE
+	if(isprojectile(mover))
+		return check_cover(mover)
 	if(mover.throwing)
 		return TRUE
 	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
@@ -156,17 +152,13 @@
 		if(!other_table.flipped)
 			return TRUE
 	if(flipped)
-		if(get_dir(loc, target) == dir)
-			return !density
-		return TRUE
-	return FALSE
+		return dir != border_dir
 
 
 /obj/structure/table/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSTABLE)
+	if(checkpass(caller, PASSTABLE))
+		. = TRUE
 
 
 /**
@@ -175,9 +167,8 @@
  *
  * Arguments:
  * * P - The projectile trying to cross.
- * * from - Where the projectile is located.
  */
-/obj/structure/table/proc/check_cover(obj/item/projectile/P, turf/from)
+/obj/structure/table/proc/check_cover(obj/item/projectile/P)
 	. = TRUE
 
 	if(!flipped)
@@ -186,7 +177,7 @@
 	if(in_range(P.starting, loc)) // Tables won't help you if people are THIS close
 		return .
 
-	var/proj_dir = get_dir(from, loc)
+	var/proj_dir = get_dir(P, loc)
 	var/block_dir = get_dir(get_step(loc, dir), loc)
 	var/full_protection = (proj_dir & block_dir)
 	var/half_protection = ((proj_dir == get_clockwise_dir(block_dir)) || (proj_dir == get_anticlockwise_dir(block_dir)))
@@ -198,12 +189,12 @@
 		return FALSE // Blocked
 
 
-/obj/structure/table/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSTABLE))
+/obj/structure/table/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(checkpass(mover, PASSTABLE))
 		return TRUE
-	if(flipped && get_dir(loc, target) == dir)
-		return !density
-	return TRUE
+	if(flipped)
+		return dir != moving_direction
 
 
 /obj/structure/table/MouseDrop_T(obj/dropping, mob/user, params)
@@ -234,7 +225,7 @@
 			return FALSE
 		if(!G.confirm())
 			return FALSE
-		var/blocking_object = density_check()
+		var/blocking_object = density_check(user)
 		if(blocking_object)
 			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
 			return FALSE
@@ -784,7 +775,7 @@
 	layer = TABLE_LAYER
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW //You can throw objects over this, despite it's density.
 	max_integrity = 20
 
 /obj/structure/rack/examine(mob/user)
@@ -792,23 +783,16 @@
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
 
-/obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
+/obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover, PASSTABLE))
 		return TRUE
-	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
-		return TRUE
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return TRUE
-	if(mover.throwing)
-		return TRUE
-	return FALSE
 
 
 /obj/structure/rack/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSTABLE)
+	if(checkpass(caller, PASSTABLE))
+		. = TRUE
 
 
 /obj/structure/rack/MouseDrop_T(obj/item/dropping, mob/user, params)

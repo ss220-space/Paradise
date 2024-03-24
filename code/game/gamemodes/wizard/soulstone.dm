@@ -148,7 +148,7 @@
 		var/old_plane = plane
 		layer = FLOAT_LAYER
 		plane = FLOAT_PLANE
-		A.overlays += src
+		A.add_overlay(src)
 		layer = old_layer
 		plane = old_plane
 
@@ -421,7 +421,7 @@
 	if(shade.mind)
 		shade.mind.transfer_to(src)
 	if(SS.purified)
-		set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
+		set_light_range_power_color(3, 5, LIGHT_COLOR_DARK_BLUE)
 		name = "Holy [name]"
 		real_name = "Holy [real_name]"
 

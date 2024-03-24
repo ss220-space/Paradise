@@ -1,9 +1,8 @@
 /datum/sprite_accessory/hair/ipc
 	icon = 'icons/mob/sprite_accessories/ipc/ipc_face.dmi'
-	species_allowed = list("Machine")
+	species_allowed = list(SPECIES_MACNINEPERSON)
 	glasses_over = TRUE
 	models_allowed = list("Bishop Castle", "Industrial Revolution", "Morpheus Cyberkinetics", "Ward-Takahashi Classic", "Xion Original", "Shellguard Munitions Standard Series")
-
 /datum/sprite_accessory/hair/ipc/ipc_screen_blank
 	name = "Blank IPC Screen"
 	icon_state = "blank"

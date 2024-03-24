@@ -44,7 +44,7 @@
 			ninja.visible_message(span_warning("[ninja.name] looks very unstable and strange!"), span_notice("You now can pass almost through everything.")) //Если мы не в стелсе, пишем текст того, что видят другие
 		else
 			to_chat(ninja, span_notice("You now can pass almost through everything."))	// Если же невидимы - пишем только себе
-		ninja.pass_flags |= PASS_EVERYTHING
+		ninja.pass_flags |= PASSEVERYTHING
 		drop_restraints()
 		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
 			ninja_action.use_action()

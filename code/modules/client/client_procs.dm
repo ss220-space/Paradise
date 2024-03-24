@@ -6,10 +6,10 @@
 
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	514		// Minimum byond major version required to play.
+#define MIN_CLIENT_VERSION	515		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	514		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD	1568		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION	515		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD	1633		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
 #define MINIMUM_FPS_VERSION 511 // used as check, if you can update fps or not
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
@@ -161,21 +161,21 @@
 						return
 					switch(href_list["KarmaBuy2"])
 						if("1")
-							karma_purchase(karma,15,"species","Machine People","Machine")
+							karma_purchase(karma,15,"species","Machine People",SPECIES_MACNINEPERSON)
 						if("2")
-							karma_purchase(karma,30,"species","Kidan")
+							karma_purchase(karma,30,"species",SPECIES_KIDAN)
 						if("3")
-							karma_purchase(karma,30,"species","Grey")
+							karma_purchase(karma,30,"species",SPECIES_GREY)
 						if("4")
-							karma_purchase(karma,45,"species","Vox")
+							karma_purchase(karma,45,"species",SPECIES_VOX)
 						if("5")
-							karma_purchase(karma,45,"species","Slime People")
+							karma_purchase(karma,45,"species",SPECIES_SLIMEPERSON)
 						if("6")
-							karma_purchase(karma,45,"species","Plasmaman")
+							karma_purchase(karma,45,"species",SPECIES_PLASMAMAN)
 						if("7")
-							karma_purchase(karma,30,"species","Drask")
+							karma_purchase(karma,30,"species",SPECIES_DRASK)
 						if("8")
-							karma_purchase(karma,30,"species","Nian")
+							karma_purchase(karma,30,"species",SPECIES_MOTH)
 					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
@@ -315,7 +315,6 @@
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
-
 
 	// Setup widescreen
 	view = prefs.viewrange
@@ -668,7 +667,7 @@
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
-			"ip" = address,
+			"ip" = "[address ? address : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 			"cid" = computer_id,
 			"rank" = admin_rank
 		))

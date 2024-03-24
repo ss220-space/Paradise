@@ -52,7 +52,7 @@
 
 		if(new_light != glowing)
 			var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ_zone))
-			lbody.set_light(new_light,l_color = colour)
+			lbody.set_light_range_power_color(new_light, color = colour)
 			glowing = new_light
 
 	return
@@ -76,13 +76,13 @@
 	if(!glowing)
 		var/light = calculate_glow(KIDAN_LANTERN_LIGHT)
 		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ_zone))
-		lbody.set_light(light,l_color = colour)
+		lbody.set_light_range_power_color(light, color = colour)
 		glowing = light
 		return 1
 
 	else
 		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ_zone))
-		lbody.set_light(0)
+		lbody.set_light_on(FALSE)
 		glowing = 0
 		return 1
 

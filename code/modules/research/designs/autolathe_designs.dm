@@ -837,7 +837,7 @@
 	name = "Ammo Box (9mm TE)"
 	id = "9mmTEbox"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 35000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/c9mmte
 	category = list("hacked", "Security")
 
@@ -1047,6 +1047,7 @@
 	name = "Golem Shell Construction"
 	desc = "Allows for the construction of a Golem Shell."
 	id = "golem"
+	req_tech = null	// Unreachable by tech researching.
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell

@@ -83,6 +83,7 @@
 
 	var/obj/machinery/computer/security/camera_bug/integrated_console //Syndicate's pai camera bug
 	var/obj/machinery/computer/secure_data/integrated_records
+	var/obj/item/gps/internal/pai_gps/pai_internal_gps
 
 	var/translator_on = 0 // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
@@ -151,6 +152,9 @@
 	integrated_records = new(src)
 	integrated_records.parent = src
 	integrated_records.req_access = list()
+
+	pai_internal_gps = new(src)
+	pai_internal_gps.parent = src
 
 	reset_software()
 
@@ -436,7 +440,7 @@
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
+	nightvision = initial(nightvision)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
@@ -454,7 +458,7 @@
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(sight_mode & SILICONNIGHTVISION)
-		see_in_dark = 8
+		nightvision = 8
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
@@ -635,8 +639,8 @@
 
 /mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
-	set_light(0)
-	card.set_light(0)
+	set_light_on(FALSE)
+	card.set_light_on(FALSE)
 
 /datum/action/innate/pai_soft
 	name = "Pai Sowtware"

@@ -10,7 +10,7 @@
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 
 	allow_pai = FALSE
 
@@ -332,10 +332,10 @@
 				light_color = LIGHT_COLOR_PURE_RED
 			else
 				light_color = LIGHT_COLOR_PURE_RED
-		update_light()
+		set_light_color(light_color)
 	else if(prev_flashing_lights)
 		light_color = LIGHT_COLOR_WHITE
-		update_light()
+		set_light_color(light_color)
 
 	prev_flashing_lights = flashing_lights
 
@@ -493,7 +493,7 @@
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
+	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/melee/baton(Tsec)

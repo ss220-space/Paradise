@@ -3,6 +3,7 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	pull_push_speed_modifier = 1.2
+	pass_flags_self = PASSSTRUCTURE
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
@@ -85,25 +86,30 @@
 		do_climb(user)
 		return TRUE
 
-/obj/structure/proc/density_check()
-	for(var/obj/O in orange(0, src))
-		if(O.density && !istype(O, /obj/machinery/door/window)) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
-			return O
-	var/turf/T = get_turf(src)
-	if(T.density)
-		return T
+
+/obj/structure/proc/density_check(mob/living/user)
+	var/turf/source_turf = get_turf(src)
+	if(source_turf.density)
+		return source_turf
+	var/border_dir = get_dir(src, user)
+	for(var/obj/check in (source_turf.contents - src))
+		if(check.density)
+			if((check.flags & ON_BORDER) && user.loc != loc && border_dir != check.dir)
+				continue
+			return check
 	return null
 
-/obj/structure/proc/do_climb(var/mob/living/user)
+/obj/structure/proc/do_climb(mob/living/user)
 	if(!can_touch(user) || !climbable)
 		return FALSE
-	var/blocking_object = density_check()
+	var/blocking_object = density_check(user)
 	if(blocking_object)
 		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
 		return FALSE
 
 	var/turf/T = src.loc
-	if(!T || !istype(T)) return FALSE
+	if(!T || !istype(T))
+		return FALSE
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
@@ -255,9 +261,7 @@
 
 /obj/structure/extinguish_light(force = FALSE)
 	if(light_range)
-		light_power = 0
-		light_range = 0
-		update_light()
+		set_light(0, 0)
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the object. Perhaps shining a light will force it to clear?"
 		extinguish_timer_id = addtimer(CALLBACK(src, PROC_REF(extinguish_light_check)), 2 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_LOOP|TIMER_DELETE_ME|TIMER_STOPPABLE)
@@ -277,9 +281,7 @@
 
 /obj/structure/proc/reset_light()
 	light_process = 0
-	light_power = initial(light_power)
-	light_range = initial(light_range)
-	update_light()
+	set_light(initial(light_range), initial(light_power))
 	name = initial(name)
 	desc = initial(desc)
 	deltimer(extinguish_timer_id)

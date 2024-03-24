@@ -5,8 +5,9 @@
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray"
-	density = 1
+	density = TRUE
 	anchored = TRUE
+	pass_flags_self = PASSMACHINE|PASSTABLE|LETPASSTHROW
 	pixel_y = 8
 	var/waterlevel = 100	//The amount of water in the tray (max 100)
 	var/maxwater = 100		//The maximum amount of water in the tray
@@ -284,13 +285,13 @@
 	if(self_sustaining)
 		if(istype(src, /obj/machinery/hydroponics/soil))
 			color = rgb(255, 175, 0)
-		set_light(3)
+		set_light(3, l_on = TRUE)
 	else
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
 			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
+			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color, l_on = TRUE)
 		else
-			set_light(0)
+			set_light_on(FALSE)
 
 	update_icon()
 
@@ -556,8 +557,17 @@
 	if(S.has_reagent("robustharvestnutriment", 1))
 		yieldmod = 1.3
 		mutmod = 0
-		adjustNutri(round(S.get_reagent_amount("robustharvestnutriment") *1 ))
+		adjustNutri(round(S.get_reagent_amount("robustharvestnutriment") * 1))
 
+	// FEED ME
+	if(S.has_reagent("blood", 1))
+		if(S.has_blood_species("Diona"))
+			yieldmod = 1.5
+			mutmod = 1.5
+			adjustNutri(round(S.get_reagent_amount("blood") * 1.5))
+		else
+			adjustPests(rand(2,4))
+			adjustNutri(round(S.get_reagent_amount("blood") * 1))
 
 	//Fish Water is both an excellent fertilizer and waters
 	if(S.has_reagent("fishwater", 1))
@@ -717,11 +727,6 @@
 	if(S.has_reagent("virusfood", 1))
 		adjustNutri(round(S.get_reagent_amount("virusfood") * 0.5))
 		adjustHealth(-round(S.get_reagent_amount("virusfood") * 0.5))
-
-	// FEED ME
-	if(S.has_reagent("blood", 1))
-		adjustNutri(round(S.get_reagent_amount("blood") * 1))
-		adjustPests(rand(2,4))
 
 	// FEED ME SEYMOUR
 	if(S.has_reagent("strange_reagent", 1))
@@ -1017,14 +1022,6 @@
 	update_state()
 
 ///Diona Nymph Related Procs///
-/obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
-	if(height==0)
-		return 1
-
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return 1
-	else
-		return ..()
 
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
 	if(istype(user, /mob/living/simple_animal/diona))

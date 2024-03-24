@@ -9,6 +9,7 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	N?.forceMove(src)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/structure/blob/captured_nuke/update_overlays()

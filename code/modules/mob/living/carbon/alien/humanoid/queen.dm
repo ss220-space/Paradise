@@ -72,7 +72,7 @@
 
 
 /mob/living/carbon/alien/humanoid/queen/large/update_icons()
-	overlays.Cut()
+	cut_overlays()
 
 	if(stat == DEAD)
 		icon_state = "queen_dead"
@@ -82,4 +82,7 @@
 		icon_state = "queen_s"
 
 	for(var/image/I in overlays_standing)
-		overlays += I
+		add_overlay(I)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())

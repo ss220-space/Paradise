@@ -277,6 +277,25 @@
 	return TRUE
 
 
+/mob/living/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+	if(isprojectile(mover))
+		return !density || lying
+	if(mover.throwing)
+		return !density || lying || (mover.throwing.thrower == src && !ismob(mover))
+	if(buckled == mover)
+		return TRUE
+	if(ismob(mover))
+		var/mob/moving_mob = mover
+		if(currently_grab_pulled && moving_mob.currently_grab_pulled)
+			return FALSE
+		if(mover in buckled_mobs)
+			return TRUE
+	return !mover.density || lying
+
+
 /mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
@@ -651,7 +670,8 @@
 	if(.)
 		step_count++
 		pull_pulled(old_loc, pullee, movetime)
-		pull_grabbed(old_loc, direct, movetime)
+		if(!currently_grab_pulled)
+			pull_grabbed(old_loc, direct, movetime)
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
@@ -664,6 +684,14 @@
 		if(pulling.anchored)
 			stop_pulling()
 			return
+		if(isobj(pulling))
+			var/obj/object = pulling
+			if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+				var/obj/structure/window/window = object
+				var/fulltile = istype(window) ? window.fulltile : FALSE
+				if(!valid_build_direction(dest, object.dir, is_fulltile = fulltile))
+					stop_pulling()
+					return
 
 		var/pull_dir = get_dir(src, pulling)
 		pulling.glide_size = glide_size
@@ -682,7 +710,10 @@
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
 				pulling.pixel_y = initial(pulling.pixel_y)
+			var/old_dir = pulling.dir
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
+			if(pulling.dir != old_dir)
+				SEND_SIGNAL(pulling, COMSIG_ATOM_DIR_CHANGE, old_dir, pulling.dir)
 			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()
 
@@ -1074,38 +1105,31 @@
 
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	var/loc_temp = T0C
+	if(istype(loc, /obj/structure/closet/critter))
+		return environment.temperature
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
-
-	else if(isvampirecoffin(loc))
+		return  M.return_temperature()
+	if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
-		loc_temp = coffin.return_temperature()
-
-	else if(istype(loc, /obj/spacepod))
+		return coffin.return_temperature()
+	if(istype(loc, /obj/spacepod))
 		var/obj/spacepod/S = loc
-		loc_temp = S.return_temperature()
-
-	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
-
-	else if(istype(get_turf(src), /turf/space))
+		return S.return_temperature()
+	if(istype(loc, /obj/structure/transit_tube_pod))
+		return environment.temperature
+	if(istype(get_turf(src), /turf/space))
 		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
-
-	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		return heat_turf.temperature
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-
 		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
+			return environment.temperature
 		else
-			loc_temp = C.air_contents.temperature
-
-	else
-		loc_temp = environment.temperature
-
-	return loc_temp
+			return C.air_contents.temperature
+	if(environment)
+		return environment.temperature
+	return T0C
 
 /mob/living/proc/get_standard_pixel_x_offset(lying = 0)
 	return initial(pixel_x)
@@ -1387,10 +1411,30 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return "Unknown"
 
 
+/**
+ * Can this mob see in the dark
+ *
+ * Cursed version of checking lighting_cutoffs, just making orientation on nightvision see_in_dark analog
+ *
+**/
+/mob/proc/has_nightvision()
+	return nightvision >= 4
+
 /mob/living/run_examinate(atom/target)
 	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
 
 	if(user_staring_effect || hindered_inspection(target))
+		return
+
+	if(isturf(target) && !(sight & SEE_TURFS) && !(target in view(client ? client.view : world.view, src)))
+		// shift-click catcher may issue examinate() calls for out-of-sight turfs
+		return
+
+	var/turf/examine_turf = get_turf(target)
+
+	if(!(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
+		get_dist(src, examine_turf) > 1 && \
+		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
 		return
 
 	var/examine_time = target.get_examine_time()

@@ -428,7 +428,10 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
+
+	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, direction)
 	dir = direction
+
 
 /obj/screen/click_catcher
 	icon = 'icons/mob/screen_gen.dmi'

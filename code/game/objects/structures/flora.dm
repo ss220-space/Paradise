@@ -241,6 +241,8 @@
 	var/l_range_init
 	/// Light power plant will get on init
 	var/l_power_init
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
 
 
 /obj/item/twohanded/required/kirbyplants/New()
@@ -253,11 +255,13 @@
 	if(num == 9)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light(l_range_init, l_power_init, COLOR_LUMINOL)
+		set_light_range_power_color(l_range_init, l_power_init, COLOR_LUMINOL)
+		set_light_on(TRUE)
 	else if(num == 20)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light(l_range_init, l_power_init, COLOR_WHEAT)
+		set_light_range_power_color(l_range_init, l_power_init, COLOR_WHEAT)
+		set_light_on(TRUE)
 
 
 /obj/item/twohanded/required/kirbyplants/Destroy()
@@ -267,10 +271,8 @@
 
 
 /obj/item/twohanded/required/kirbyplants/extinguish_light(force = FALSE)
-	if(light_range)
-		light_power = 0
-		light_range = 0
-		update_light()
+	if(light_on)
+		set_light_on(FALSE)
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the plant. Perhaps shining a light will force it to clear?"
 		START_PROCESSING(SSobj, src)
@@ -288,9 +290,7 @@
 
 /obj/item/twohanded/required/kirbyplants/proc/reset_light()
 	light_process = 0
-	light_power = l_power_init
-	light_range = l_range_init
-	update_light()
+	set_light_on(TRUE)
 	name = initial(name)
 	desc = initial(desc)
 	STOP_PROCESSING(SSobj, src)

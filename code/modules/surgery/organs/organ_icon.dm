@@ -3,11 +3,11 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 /obj/item/organ/external/proc/compile_icon()
 	// I do this so the head's overlays don't get obliterated
 	for(var/child_i in child_icons)
-		overlays -= child_i
+		cut_overlay(child_i)
 	LAZYREINITLIST(child_icons)
 	 // This is a kludge, only one icon has more than one generation of children though.
 	for(var/obj/item/organ/external/childpart as anything in children)
-		overlays += childpart.mob_icon
+		add_overlay(childpart.mob_icon)
 		child_icons += childpart.mob_icon
 
 

@@ -107,7 +107,7 @@ Please contact me on #coderbus IRC. ~Carn x
 	var/list/overlays_standing[TOTAL_LAYERS]
 	var/previous_damage_appearance // store what the body last looked like, so we only have to update it if something changed
 	var/icon/skeleton
-	var/list/cached_standing_overlays = list() // List of everything currently in a human's actual overlays
+
 
 /mob/living/carbon/human/proc/apply_overlay(cache_index)
 	if((. = overlays_standing[cache_index]))
@@ -516,9 +516,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /* --------------------------------------- */
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
-	..()
 	if(notransform)
 		return
+	cut_overlays()
 	update_mutations()
 	update_body(TRUE) //Update the body and force limb icon regeneration.
 	update_hair()
@@ -548,11 +548,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	force_update_limbs()
 	update_tail_layer()
 	update_wing_layer()
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 	update_halo_layer()
-	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
-	update_icons()
-	update_emissive_block()
 	update_hands_HUD()
 
 

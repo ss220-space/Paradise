@@ -1,6 +1,6 @@
 /datum/sprite_accessory/head_accessory/kidan
 	icon = 'icons/mob/sprite_accessories/kidan/kidan_head_accessories.dmi'
-	species_allowed = list("Kidan")
+	species_allowed = list(SPECIES_KIDAN)
 	over_hair = 1
 	do_colouration = 1
 

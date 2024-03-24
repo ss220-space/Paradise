@@ -355,8 +355,6 @@
 
 	if(!icon_beaker)
 		icon_beaker = mutable_appearance(icon, "disp_beaker")
-	else
-		cut_overlay(icon_beaker)	// trash overlays system. will be fixed as soon as TG style overlays are implemented
 
 	icon_beaker.pixel_x = rand(-10, 5)	// randomize beaker overlay position
 	. += icon_beaker
@@ -697,5 +695,15 @@
 		"ash",
 		"diethylamine")
 
+
+/obj/item/handheld_chem_dispenser/cooking
+	name = "handheld cooking chemical dispenser"
+	dispensable_reagents = list(
+		"sodiumchloride",
+		"blackpepper",
+		"ketchup",
+		"herbsmix")
+
 #undef UPDATE_TYPE_HACK
 #undef UPDATE_TYPE_COMPONENTS
+

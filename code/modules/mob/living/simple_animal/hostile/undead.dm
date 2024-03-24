@@ -94,7 +94,7 @@
 	stat_attack = UNCONSCIOUS
 	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("undead")
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	deathmessage = "collapses into a pile of bones!"
 	del_on_death = TRUE
@@ -214,7 +214,7 @@
 		/obj/item/clothing/head/helmet/street_judge,
 		/obj/item/clothing/mask/gas/sechailer,
 		/obj/item/gun/energy/dominator/sibyl,
-		/obj/item/clothing/accessory/lawyers_badge,
+		/obj/item/clothing/accessory/head_strip/lawyers_badge,
 		/obj/effect/decal/cleanable/blood/gibs,
 		/obj/effect/particle_effect/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,

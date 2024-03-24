@@ -69,7 +69,7 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
-	set_light(0)
+	set_light_on(FALSE)
 	if(!silent)
 		visible_message("<span class = 'notice'>The dancing flame on [src] dies out.</span>")
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)

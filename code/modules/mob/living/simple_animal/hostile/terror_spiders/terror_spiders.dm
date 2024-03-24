@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// Vision
 	vision_range = 10
 	aggro_vision_range = 10
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 
@@ -422,10 +422,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(istype(L))
 		reset_perspective(L)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/terrorspider))
+
+/mob/living/simple_animal/hostile/poison/terror_spider/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile/terrorspider))
 		return TRUE
-	return ..()
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
 	return magpulse

@@ -195,7 +195,7 @@
 				location = get_turf(target)
 			else
 				location = get_atom_on_turf(target)
-			target.overlays -= image_overlay
+			target.cut_overlay(image_overlay)
 	else
 		location = get_atom_on_turf(src)
 	if(location)
@@ -229,7 +229,7 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			target.overlays -= image_overlay
+			target.cut_overlay(image_overlay)
 	else
 		location = get_turf(src)
 	if(location)

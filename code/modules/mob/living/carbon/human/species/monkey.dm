@@ -1,5 +1,5 @@
 /datum/species/monkey
-	name = "Monkey"
+	name = SPECIES_MONKEY
 	name_plural = "Monkeys"
 	blurb = "Ook."
 
@@ -86,7 +86,7 @@
 
 
 /datum/species/monkey/tajaran
-	name = "Farwa"
+	name = SPECIES_FARWA
 	name_plural = "Farwa"
 
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
@@ -135,7 +135,7 @@
 
 
 /datum/species/monkey/vulpkanin
-	name = "Wolpin"
+	name = SPECIES_WOLPIN
 	name_plural = "Wolpin"
 
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
@@ -184,7 +184,7 @@
 
 
 /datum/species/monkey/skrell
-	name = "Neara"
+	name = SPECIES_NEARA
 	name_plural = "Neara"
 
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
@@ -239,7 +239,7 @@
 	return
 
 /datum/species/monkey/unathi
-	name = "Stok"
+	name = SPECIES_STOK
 	name_plural = "Stok"
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'

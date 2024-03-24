@@ -25,7 +25,7 @@
 	attacktext = "кусает"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
-	see_in_dark = 9
+	nightvision = 9
 	universal_understand = 1
 	wander = 0
 	var/life_regen_cycles = 0

@@ -10,7 +10,7 @@
 	required_enemies = 1
 	forbidden_antag_jobs = list(ROLE_VAMPIRE = list("Chaplain"))
 	var/list/protected_jobs_AI = list("Civilian","Chief Engineer","Station Engineer","Trainee Engineer","Life Support Specialist","Mechanic","Chief Medical Officer","Medical Doctor","Intern","Coroner","Chemist","Geneticist","Virologist","Psychiatrist","Paramedic","Research Director","Scientist","Student Scientist","Roboticist","Head of Personnel","Chaplain","Bartender","Chef","Botanist","Quartermaster","Cargo Technician","Shaft Miner","Clown","Mime","Janitor","Librarian","Barber","Explorer")	// Basically all jobs, except AI.
-	var/secondary_protected_species = list("Machine")
+	var/secondary_protected_species = list(SPECIES_MACNINEPERSON)
 	var/vampire_restricted_jobs = list("Chaplain")
 	/// Chosen antags if any. Key - mind, value - antag type
 	var/list/datum/mind/pre_antags = list()
@@ -50,7 +50,7 @@
 	antag_possibilities[ROLE_VAMPIRE] = get_alive_players_for_role(ROLE_VAMPIRE)
 	antag_possibilities[ROLE_CHANGELING] = get_alive_players_for_role(ROLE_CHANGELING)
 	antag_possibilities[ROLE_TRAITOR] =	get_alive_players_for_role(ROLE_TRAITOR)
-	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list("Vox" = 4))
+	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
@@ -60,7 +60,6 @@
 	pre_double_antags = list()
 
 	var/players = roundstart ? num_players() : num_station_players()
-	calculate_antags(players)
 	var/scale = CONFIG_GET(number/traitor_scaling) ? CONFIG_GET(number/traitor_scaling) : 10
 	var/antags_amount
 	var/special_antag_amount
@@ -94,7 +93,7 @@
 					special_antag.special_role = SPECIAL_ROLE_THIEF
 					special_antag.restricted_roles = restricted_jobs
 					pre_antags[special_antag] = ROLE_THIEF
-					antags_amount--
+					//antags_amount--
 
 		if(ROLE_MALF_AI)
 			if(special_antag_amount)
@@ -208,11 +207,14 @@
 	antag_possibilities[ROLE_VAMPIRE] = get_players_for_role(ROLE_VAMPIRE)
 	antag_possibilities[ROLE_CHANGELING] = get_players_for_role(ROLE_CHANGELING)
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
-	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
+	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
+
+	calculate_antags()
 
 	return roll_antagonists(antag_possibilities, TRUE)
 
-/datum/game_mode/antag_paradise/proc/calculate_antags(players)
+/datum/game_mode/antag_paradise/proc/calculate_antags()
+	var/players = num_players()
 	var/list/special_antags_list
 	if(GLOB.antag_paradise_special_weights)
 		special_antags_list = GLOB.antag_paradise_special_weights
@@ -231,7 +233,7 @@
 
 	antags_weights = list()
 
-	var/list/antag_weight_config = CONFIG_GET(str_list/antag_paradise_main_antags)
+	var/list/antag_weight_config = CONFIG_GET(keyed_list/antag_paradise_main_antags)
 	antag_weight_config = antag_weight_config.Copy()
 
 	for(var/antag in antag_weight_config)
@@ -248,13 +250,13 @@
 		return
 
 	var/list/subtype_weights = CONFIG_GET(keyed_list/antag_paradise_subtype_weights)
-	antags_weights[pick_n_take(antag_weight_config)] = subtype_weights[ANTAG_SINGLE]
+	antags_weights[pick_weight_n_take(antag_weight_config)] = subtype_weights[ANTAG_SINGLE]
 	if(!length(antag_weight_config) || mode_type == ANTAG_SINGLE)
 		return
-	antags_weights[pick_n_take(antag_weight_config)] = subtype_weights[ANTAG_DOUBLE]
+	antags_weights[pick_weight_n_take(antag_weight_config)] = subtype_weights[ANTAG_DOUBLE]
 	if(!length(antag_weight_config) || mode_type == ANTAG_DOUBLE)
 		return
-	antags_weights[pick_n_take(antag_weight_config)] = subtype_weights[ANTAG_TRIPPLE]
+	antags_weights[pick_weight_n_take(antag_weight_config)] = subtype_weights[ANTAG_TRIPPLE]
 
 
 /datum/game_mode/antag_paradise/post_setup()

@@ -15,12 +15,15 @@
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = NONE //no default canpush
 	can_strip = FALSE
+	pass_flags = PASSFLAPS
 
 	speak_emote = list("states")
 	tts_seed = null
 	friendly = "boops"
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
+
+	light_system = MOVABLE_LIGHT
 
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
@@ -173,7 +176,7 @@
 	if(disabling_timer_id || stat)
 		return FALSE
 	on = TRUE
-	set_light(initial(light_range))
+	set_light_on(TRUE)
 	update_icon()
 	update_controls()
 	diag_hud_set_botstat()
@@ -182,7 +185,7 @@
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
-	set_light(0)
+	set_light_on(FALSE)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 	update_controls()
@@ -291,7 +294,8 @@
 		return
 
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
-		add_attack_logs(user, src, "emagged")
+		if(user)
+			add_attack_logs(user, src, "emagged")
 		emagged = 2
 		remote_disabled = TRUE //Manually emagging the bot locks out the AI built in panel.
 		locked = TRUE //Access denied forever!

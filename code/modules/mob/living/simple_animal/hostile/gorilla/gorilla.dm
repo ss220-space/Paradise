@@ -5,6 +5,7 @@
 	icon_state = "crawling"
 	icon_living = "crawling"
 	icon_dead = "dead"
+	gender = FEMALE
 	speak_chance = 80
 	maxHealth = 220
 	health = 220
@@ -25,6 +26,7 @@
 	robust_searching = TRUE
 	minbodytemp = 270
 	maxbodytemp = 350
+	nightvision = 8
 	can_collar = TRUE
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -53,7 +55,7 @@
 	. = ..()
 	gorilla_toggle = new
 	gorilla_toggle.Grant(src)
-	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate)) // Normal crates only please, no weird sized ones
+	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate))	// Normal crates only please, no weird sized ones
 	carriable_cache = default_cache
 
 
@@ -65,13 +67,21 @@
 
 
 /mob/living/simple_animal/hostile/gorilla/Login()
+	var/need_reset = last_known_ckey != client.ckey
 	. = ..()
-	reset_behavior(play_emote = FALSE)
+	if(need_reset)
+		reset_behavior(play_emote = FALSE)
 
 
 /mob/living/simple_animal/hostile/gorilla/Logout()
 	. = ..()
-	reset_behavior(play_emote = FALSE)
+	// 60 seconds to relogin is a generous number
+	addtimer(CALLBACK(src, PROC_REF(delayed_reset)), 1 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
+
+
+/mob/living/simple_animal/hostile/gorilla/proc/delayed_reset()
+	if(!client)
+		reset_behavior()
 
 
 /datum/action/innate/gorilla/gorilla_toggle
@@ -154,9 +164,11 @@
 		if(manipulate_crate(target))
 			return FALSE
 
-		if(isturf(target) && !is_blocked_turf(target) && LAZYLEN(crates_in_hand))
-			drop_random_crate(target)
-			return FALSE
+		if(isturf(target) && LAZYLEN(crates_in_hand))
+			var/turf/target_turf = target
+			if(!target_turf.is_blocked_turf())
+				drop_random_crate(target)
+				return FALSE
 
 	. = ..()
 	if(!.)
@@ -193,7 +205,9 @@
 	if(!LAZYLEN(crates_in_hand))
 		return
 	var/atom/movable/random_crate = pick(crates_in_hand)
-	. += mutable_appearance(random_crate.icon, random_crate.icon_state, appearance_flags = RESET_COLOR)
+	var/mutable_appearance/crate_olay = mutable_appearance(random_crate.icon, random_crate.icon_state, appearance_flags = RESET_COLOR)
+	crate_olay.copy_overlays(random_crate)
+	. += crate_olay
 	. += mutable_appearance(icon, "standing_overlay")
 
 
@@ -253,11 +267,18 @@
 
 	face_atom(target_object)
 
-	if(istype(target_object, /obj/structure/closet))
+	var/is_correct_delivery = FALSE
+	var/is_big_delivery = istype(target_object, /obj/structure/bigDelivery)
+	if(is_big_delivery)
+		var/obj/structure/bigDelivery/delivery = target_object
+		if(istype(delivery.wrapped, /obj/structure/closet/crate))
+			is_correct_delivery = TRUE
+
+	if(istype(target_object, /obj/structure/closet) || is_big_delivery)
 		var/obj/structure/closet/check_crate = target_object
 
 		if(a_intent == INTENT_HELP)
-			if(check_crate.opened)
+			if(!is_big_delivery && check_crate.opened)
 				to_chat(src, span_notice("You are closing [target_object]."))
 				if(master)
 					oogaooga(100, 100)
@@ -265,14 +286,15 @@
 				check_crate.close()
 				return TRUE
 
-			if(master && !is_type_in_typecache(check_crate, carriable_cache))
+			if(master && !is_type_in_typecache(check_crate, carriable_cache) && !is_correct_delivery)
 				oogaooga(100, 100)
 				custom_emote(EMOTE_VISIBLE, "недовольно смотр%(ит,ят)% на ящик.", intentional = TRUE)
+				return FALSE
 
 		if(a_intent == INTENT_HARM)
 			var/push_dir = get_dir(src, check_crate)
 			var/turf/push_turf = get_step(check_crate, push_dir)
-			if(is_blocked_turf(push_turf))
+			if(push_turf.is_blocked_turf())
 				if(master)
 					oogaooga(100, 100)
 					custom_emote(EMOTE_VISIBLE, "указыва%(ет,ют)% лапой на заполненное пространство за ящиком.", intentional = TRUE)
@@ -284,7 +306,7 @@
 				custom_emote(EMOTE_VISIBLE, "непринуждённо толка%(ет,ют)% ящик.", intentional = TRUE)
 			return TRUE
 
-	if(!is_type_in_typecache(target_object, carriable_cache))
+	if(!is_type_in_typecache(target_object, carriable_cache) && !is_correct_delivery)
 		return FALSE
 
 	var/atom/movable/movable_target = target_object
@@ -365,6 +387,7 @@
 	desc = "Ручной самец гориллы, приписанный к департаменту грузоперевозок. Похоже у него набито тату \"Я люблю Маму\"."
 	faction = list("neutral", "monkey", "jungle")
 	gold_core_spawnable = NO_SPAWN
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	gender = MALE
 	a_intent = INTENT_HELP
 	crate_limit = 2
@@ -405,6 +428,7 @@
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars
 	name = "Марс"
 	real_name = "Марс"
+	gender = MALE
 	unique_pet = TRUE
 	attention_phrases = list("mars", "марс", "goril", "banan", "monkey", "горил", "банан", "обезьян", "карго")
 

@@ -207,16 +207,15 @@
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	if(chassis)
-		chassis.overlays -= droid_overlay
+	chassis?.cut_overlay(droid_overlay)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/M)
 	droid_overlay = new(icon, icon_state = "repair_droid")
-	M.overlays += droid_overlay
+	M.add_overlay(droid_overlay)
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach_act()
-	chassis.overlays -= droid_overlay
+	chassis.cut_overlay(droid_overlay)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
@@ -230,7 +229,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid/toggle_module()
 	if(!action_checks(src))
 		return
-	chassis.overlays -= droid_overlay
+	chassis.cut_overlay(droid_overlay)
 	if(!active_mode)
 		START_PROCESSING(SSobj, src)
 		droid_overlay = new(icon, icon_state = "repair_droid_a")
@@ -240,7 +239,7 @@
 		droid_overlay = new(icon, icon_state = "repair_droid")
 		log_message("Droid deactivated.")
 	active_mode = !active_mode
-	chassis.overlays += droid_overlay
+	chassis.add_overlay(droid_overlay)
 	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	start_cooldown()
 
@@ -271,9 +270,9 @@
 		STOP_PROCESSING(SSobj, src)
 		active_mode = FALSE
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		chassis.overlays -= droid_overlay
+		chassis.cut_overlay(droid_overlay)
 		droid_overlay = new(icon, icon_state = "repair_droid")
-		chassis.overlays += droid_overlay
+		chassis.add_overlay(droid_overlay)
 
 /////////////////////////////////// TESLA ENERGY RELAY ////////////////////////////////////////////////
 

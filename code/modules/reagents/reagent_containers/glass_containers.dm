@@ -370,7 +370,7 @@
 
 
 /obj/item/reagent_containers/glass/bucket/wooden/update_overlays()
-	return
+	. = list()
 
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)

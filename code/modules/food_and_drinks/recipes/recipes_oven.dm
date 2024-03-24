@@ -886,3 +886,11 @@
 /datum/recipe/oven/sugar_coal
 	reagents = list("charcoal" = 5, "sugar" = 5, "egg" = 5)
 	result = /obj/item/reagent_containers/food/snacks/sugar_coal
+
+/datum/recipe/oven/croissant
+	reagents = list("milk" = 5, "sugar" = 5, "sodiumchloride" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/egg
+	)
+	result = /obj/item/reagent_containers/food/snacks/croissant

@@ -682,6 +682,14 @@
 			return FALSE
 	return TRUE
 
+/datum/reagents/proc/has_blood_species(reagent)
+	for(var/datum/reagent/R in reagent_list)
+		if(R.data["blood_species"] == reagent)
+			return R.volume
+		else
+			return FALSE
+	return FALSE
+
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
 	for(var/datum/reagent/R in reagent_list)
 		if(R.id == reagent)

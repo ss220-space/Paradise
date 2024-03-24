@@ -88,6 +88,8 @@
 	var/malf_high_bound = 80
 	var/malf_counter // random number between malf_low_bound and malf_high_bound
 
+	light_on = FALSE
+
 
 /obj/item/gun/Initialize()
 	. = ..()
@@ -197,13 +199,7 @@
 		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
 			return
 
-	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
-		var/mob/living/L = user
-		if(!can_trigger_gun(L))
-			return
-
-	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
-		shoot_with_empty_chamber(user)
+	if(!can_trigger_gun(user))
 		return
 
 	if(flag)
@@ -241,20 +237,28 @@
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
+
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
-	if(!user.can_use_guns(src))
-		return 0
-	if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
-		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
-		return 0
-	return 1
+	if(istype(user))
+		if(!user.can_use_guns(src))
+			return FALSE
+
+		if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
+			to_chat(user, span_danger("[src] is incompatible with your biology!"))
+			return FALSE
+
+	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
+		shoot_with_empty_chamber(user)
+		return FALSE
+	return TRUE
+
 
 /obj/item/gun/proc/newshot()
 	return
 
-/obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	var/is_tk_grab = !isnull(user.tkgrabbed_objects[src])
-	if (is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
+	if(is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
 		add_fingerprint(user)
 
 	if(chambered)
@@ -383,9 +387,7 @@
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
-				if(S.on)
-					set_light(0)
-				gun_light = S
+				set_gun_light(S)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
 				if(loc == user)
 					A.Grant(user)
@@ -423,8 +425,7 @@
 	if(gun_light && can_flashlight)
 		for(var/obj/item/flashlight/seclite/S in src)
 			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-			gun_light = null
-			update_gun_light()
+			set_gun_light(null)
 			S.forceMove_turf()
 			S.update_brightness(user)
 			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
@@ -451,15 +452,31 @@
 	update_gun_light()
 
 
+///Called when gun_light value changes.
+/obj/item/gun/proc/set_gun_light(obj/item/flashlight/seclite/new_light)
+	if(gun_light == new_light)
+		return
+	. = gun_light
+	gun_light = new_light
+	if(gun_light)
+		gun_light.set_light_flags(gun_light.light_flags | LIGHT_ATTACHED)
+		if(gun_light.loc != src)
+			gun_light.forceMove(src)
+	else if(.)
+		var/obj/item/flashlight/seclite/old_gun_light = .
+		old_gun_light.set_light_flags(old_gun_light.light_flags & ~LIGHT_ATTACHED)
+		if(old_gun_light.loc == src)
+			old_gun_light.forceMove(get_turf(src))
+
 /obj/item/gun/proc/update_gun_light()
 	if(gun_light)
 		if(gun_light.on)
-			set_light(gun_light.brightness_on)
+			gun_light.set_light_on(TRUE)
 		else
-			set_light(0)
+			gun_light.set_light_on(FALSE)
 		update_icon()
 	else
-		set_light(0)
+		gun_light.set_light_on(FALSE)
 
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item()

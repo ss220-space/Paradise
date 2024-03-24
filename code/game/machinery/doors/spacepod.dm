@@ -19,10 +19,12 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/spacepoddoor/CanPass(atom/movable/A, turf/T)
-	if(istype(A, /obj/spacepod))
-		return ..()
-	else return 0
+
+/obj/structure/spacepoddoor/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(!isspacepod(mover) && !checkpass(mover))
+		return FALSE
+
 
 /obj/structure/spacepoddoor/invincible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

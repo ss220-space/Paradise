@@ -727,9 +727,7 @@
 	user.stop_pulling()
 	user.unbuckle_all_mobs(TRUE)
 	user.buckled?.unbuckle_mob(user, TRUE)
-	for(var/mob/living/puller in range(user, 1))
-		if(puller.pulling == user)
-			puller.stop_pulling()
+	user.pulledby?.stop_pulling()
 
 	user.visible_message(span_danger("[user] starts moving with unnatural speed!"), \
 						span_notice("You lunge into the air..."))
@@ -755,7 +753,7 @@
 		var/turf/next_step = get_step(user, direction)
 		user.face_atom(target)
 
-		if(!is_path_exist(user, next_step))
+		if(next_step.is_blocked_turf(source_atom = user))
 			break
 
 		user.forceMove(next_step)
@@ -780,7 +778,7 @@
 		animate(user, time = 0.05 SECONDS, pixel_x = from_x, pixel_y = from_y, transform = animation_matrix, easing = CUBIC_EASING)
 		animate(time = 0.05 SECONDS, pixel_x = old_x, pixel_y = old_y, transform = old_transform)
 
-		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
+		playsound(next_step, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 		sleep(0.1 SECONDS)
 
 	if(QDELETED(user))
@@ -1266,7 +1264,7 @@
 		if(!is_vampire_compatible(victim, include_IPC = TRUE))
 			continue
 
-		if(is_path_exist(user, victim))
+		if(is_path_exist(user, victim, PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB))
 			targets += victim
 
 	if(length(targets))
@@ -1420,6 +1418,7 @@
 	name = "Flying vampire..."
 	invisibility = 0
 	layer = LOW_LANDMARK_LAYER
+	light_system = MOVABLE_LIGHT
 
 
 /**
@@ -1904,7 +1903,7 @@
 	universal_understand = TRUE	// yeah, we can understand anything now
 	universal_speak = TRUE	// and speak to anyone too
 	mob_size = MOB_SIZE_LARGE
-	see_in_dark = 8		// full night vision
+	nightvision = 8	// full night vision
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// we need oxygen only
 	minbodytemp = 0
 	maxbodytemp = 600	// better than human vampire but still dangerous
@@ -1982,9 +1981,9 @@
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
+	nightvision = initial(nightvision)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)

@@ -131,7 +131,7 @@
 			rig = null
 			qdel(GetComponent(/datum/component/proximity_monitor))
 			lastrigger = null
-			overlays.Cut()
+			cut_overlays()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
@@ -156,7 +156,7 @@
 				var/icon/test = getFlatIcon(H)
 				test.Shift(NORTH, 1)
 				test.Shift(EAST, 6)
-				overlays += test
+				add_overlay(test)
 	else
 		return ..()
 

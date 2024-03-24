@@ -24,8 +24,9 @@
 	var/charge_time = 15
 	var/detonation_damage = 50
 	var/backstab_bonus = 30
-	var/light_on = FALSE
-	var/brightness_on = 5
+	light_system = MOVABLE_LIGHT
+	light_range = 5
+	light_on = FALSE
 	var/adaptive_damage_bonus = 0
 	var/upgraded = FALSE //whether is our crusher is magmite-upgraded
 	var/obj/item/projectile/destabilizer/destab = /obj/item/projectile/destabilizer
@@ -153,17 +154,14 @@
 		playsound(src.loc, 'sound/weapons/crusher_reload.ogg', 135)
 
 /obj/item/twohanded/kinetic_crusher/ui_action_click(mob/user, actiontype)
-	light_on = !light_on
+	set_light_on(!light_on)
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
-	update_brightness(user)
 	update_icon()
 
-/obj/item/twohanded/kinetic_crusher/proc/update_brightness(mob/user = null)
-	if(light_on)
-		set_light(brightness_on)
-	else
-		set_light(0)
-
+/obj/item/twohanded/kinetic_crusher/update_icon(updates = ALL)
+	. = ..()
+	for(var/datum/action/action as anything in actions)
+		action.UpdateButtonIcon()
 
 /obj/item/twohanded/kinetic_crusher/update_icon_state()
 	if(upgraded)
@@ -178,12 +176,6 @@
 		. += "[icon_state]_uncharged"
 	if(light_on)
 		. += "[icon_state]_lit"
-	addtimer(CALLBACK(src, PROC_REF(buttons_update)), 0.1 SECONDS)
-
-
-/obj/item/twohanded/kinetic_crusher/proc/buttons_update()
-	for(var/datum/action/action as anything in actions)
-		action.UpdateButtonIcon()
 
 
 //destablizing force

@@ -40,7 +40,7 @@
 	/// Overlay used to visualize contents for default smartfringe.
 	var/contents_overlay = "smartfridge"
 	/// Overlay used to visualize broken status.
-	var/broken_overlay = "smartfridge-broken"
+	var/broken_overlay = "smartfridge_broken"
 	/// Additional overlay on top, like hazard symbol for smartfringe in virology.
 	var/icon_addon
 	/// Used to calculate smartfridge fullness while updating overlays.
@@ -108,7 +108,7 @@
 
 
 /obj/machinery/smartfridge/extinguish_light(force = FALSE)
-	set_light(0)
+	set_light_on(FALSE)
 	underlays.Cut()
 
 
@@ -120,9 +120,9 @@
 /obj/machinery/smartfridge/power_change()
 	. = ..()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on)
+		set_light(light_range_on, light_power_on, l_on = TRUE)
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
@@ -160,6 +160,13 @@
 		if(76 to INFINITY)
 			fill_level = 3
 
+//// broken smartfridge for decorations
+/obj/machinery/smartfridge/broken
+
+/obj/machinery/smartfridge/broken/Initialize(mapload)
+	. = ..()
+	stat = BROKEN
+	update_icon(UPDATE_OVERLAYS)
 
 // Interactions
 /obj/machinery/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
@@ -706,8 +713,7 @@
 		/obj/item/reagent_containers/glass/bottle/cough = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
-		/obj/item/reagent_containers/glass/bottle/reagent/synaptizine = 1,
-		/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde = 1
+		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
 	)
 	. = ..()
 

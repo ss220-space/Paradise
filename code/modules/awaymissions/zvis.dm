@@ -72,7 +72,7 @@
 	trigger()
 
 /obj/effect/portal_sensor/process()
-	check_light()
+	// check_light()
 	if(triggered_this_tick >= trigger_limit)
 		call(owner, "trigger")(arglist(params))
 	triggered_this_tick = 0
@@ -82,10 +82,11 @@
 	if(triggered_this_tick < trigger_limit)
 		call(owner, "trigger")(arglist(params))
 
+/* Знаю что это отключено и свет будет ужесан. Таков рефактор.
 /obj/effect/portal_sensor/proc/check_light()
 	var/turf/T = loc
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
-		var/atom/movable/lighting_object/O = T.lighting_object
+		var/datum/lighting_object/O = T.lighting_object
 		var/hash = 0
 
 		for(var/lighting_corner in O)
@@ -99,6 +100,7 @@
 		if(light_hash != -1)
 			light_hash = -1
 			trigger()
+*/
 
 // for second floor showing floor below
 /turf/simulated/floor/indestructible/upperlevel
@@ -327,7 +329,7 @@
 /obj/effect/view_portal/visual/proc/trigger(near, turf/T)
 	var/obj/effect/view_portal_dummy/D = tiles[T]
 	if(D)
-		D.overlays.Cut()
+		D.cut_overlays()
 	else
 		D = new(src, near, T)
 		tiles[T] = D
@@ -342,7 +344,7 @@
 			var/image/I = image(A, layer = D.layer + A.layer * 0.01, dir = A.dir)
 			I.pixel_x = A.pixel_x
 			I.pixel_y = A.pixel_y
-			D.overlays += I
+			D.add_overlay(I)
 
 // tile of rendered other side for narnia portal
 /obj/effect/view_portal_dummy

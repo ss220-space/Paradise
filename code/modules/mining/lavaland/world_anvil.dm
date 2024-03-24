@@ -36,9 +36,9 @@
 /obj/structure/world_anvil/proc/update_state()
 	update_icon(UPDATE_ICON_STATE)
 	if(forge_charges > 0)
-		set_light(4,1,LIGHT_COLOR_ORANGE)
+		set_light(4,1,LIGHT_COLOR_ORANGE, l_on = TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/structure/world_anvil/examine(mob/user)

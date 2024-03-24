@@ -1,5 +1,5 @@
 /datum/species/abductor
-	name = "Abductor"
+	name = SPECIES_ABDUCTOR
 	name_plural = "Abductors"
 	a = "an"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
