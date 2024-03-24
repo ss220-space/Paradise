@@ -97,7 +97,7 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 8 SECONDS, distance = 0, message = 1)
 	if(ismachineperson(src)) //IPCs do not vomit particulates
 		return FALSE
 	if(is_muzzled())
@@ -105,13 +105,13 @@
 			to_chat(src, "<span class='warning'>Намордник препятствует рвоте!</span>")
 		return FALSE
 	if(stun)
-		Stun(8 SECONDS)
+		Stun(stun)
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
 		if(stun)
-			Weaken(20 SECONDS)
+			Weaken(stun * 2.5)
 	else
 		if(message)
 			visible_message("<span class='danger'>[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \

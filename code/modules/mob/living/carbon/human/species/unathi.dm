@@ -143,6 +143,7 @@
 //Ash walker shaman, worse defensive stats, but better at surgery and have a healing touch ability
 /datum/species/unathi/ashwalker/shaman
 	name = SPECIES_ASHWALKER_SHAMAN
+	species_traits = list(NOGUNS, LIPS, PIERCEIMMUNE, VIRUSIMMUNE)
 	brute_mod = 1.15
 	burn_mod = 1.15
 	speed_mod = -0.60 //less fast as ash walkers
