@@ -142,6 +142,38 @@
 	name = "Anchor"
 	icon_state = "anchor"
 
+/datum/sprite_accessory/facial_hair/massive
+	name = "Massive chinstrape"
+	icon_state = "massive_chinstrape_beard"
+
+/datum/sprite_accessory/facial_hair/flowing_fork
+	name = "Flowing fork"
+	icon_state = "fork_beard"
+
+/datum/sprite_accessory/facial_hair/mighty
+	name = "Mighty pelt"
+	icon_state = "mighty_pelt_beard"
+
+/datum/sprite_accessory/facial_hair/mighty_splited
+	name = "Mighty splited"
+	icon_state = "mighty_splited_beard"
+
+/datum/sprite_accessory/facial_hair/tremendous
+	name = "Tremendous wave"
+	icon_state = "tremendous_wave_beard"
+
+/datum/sprite_accessory/facial_hair/triple_trouble
+	name = "Triple Trouble"
+	icon_state = "triple_trouble_beard"
+
+/datum/sprite_accessory/facial_hair/curly_mustache
+	name = "Curly"
+	icon_state = "curly_mustache"
+
+/datum/sprite_accessory/facial_hair/dropy_crest
+	name = "Dropy Crest"
+	icon_state = "dropy_crest_mustache"
+
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////
