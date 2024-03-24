@@ -92,16 +92,17 @@
 	if(power_station?.teleporter_hub)
 		data["teleporterhub"] = power_station.teleporter_hub
 		data["calibrated"] = power_station.teleporter_hub.calibrated
+		data["accuracy"] = power_station.teleporter_hub.accurate
 	else
 		data["teleporterhub"] = null
 		data["calibrated"] = null
+		data["accuracy"] = null
 	data["regime"] = regime
 	var/area/targetarea = get_area(target)
 	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked ? TRUE : FALSE
 	data["targetsTeleport"] = null
-	data["accuracy"] = power_station.teleporter_hub.accurate
 	switch(regime)
 		if(REGIME_TELEPORT)
 			data["targetsTeleport"] = targets_teleport()
