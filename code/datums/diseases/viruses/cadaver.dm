@@ -9,6 +9,7 @@
 	max_stages = 5
 	spread_flags = BLOOD
 	severity = DANGEROUS
+	discovery_threshold = 0.3 // 2 stage is visible
 
 /datum/disease/virus/cadaver/stage_act()
 	if(!..())
