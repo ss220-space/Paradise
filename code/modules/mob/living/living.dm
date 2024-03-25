@@ -712,9 +712,11 @@
 				pulling.pixel_y = initial(pulling.pixel_y)
 			var/old_dir = pulling.dir
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
+			if(!pulling)
+				return
 			if(pulling.dir != old_dir)
 				SEND_SIGNAL(pulling, COMSIG_ATOM_DIR_CHANGE, old_dir, pulling.dir)
-			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
+			if(get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()
 
 /mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
