@@ -210,6 +210,8 @@
 			action.UpdateButtonIcon()
 
 			var/obj/screen/movable/action_button/our_button = action.button
+			if(!our_button)
+				continue
 			if(our_button.ordered)
 				button_number++
 			if(!our_button.moved)
