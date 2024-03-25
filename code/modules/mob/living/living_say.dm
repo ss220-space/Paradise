@@ -215,7 +215,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return emote(copytext(message, 2), intentional = TRUE)
 
 	var/ending = copytext(message, length(message))
-	if(!(ending in list("!", "?", ",", ".", ">")) && length(message) != 0)
+	if(!(ending in list("!", "?", ",", ".")) && length(message) != 0)
 		message += "."
 
 	//parse the language code and consume it
