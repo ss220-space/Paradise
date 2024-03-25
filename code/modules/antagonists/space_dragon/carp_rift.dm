@@ -189,6 +189,8 @@
 /obj/structure/carp_rift/proc/summon_carp(mob/user)
 	if(carp_stored <= 0)//Not enough carp points
 		return FALSE
+	if(jobban_isbanned(user, ROLE_SYNDICATE))
+		return FALSE
 	var/is_listed = FALSE
 	if(user.ckey in ckey_list)
 		if(carp_stored == 2)
