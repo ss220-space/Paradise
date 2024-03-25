@@ -33,7 +33,7 @@
 	mutations.Add(NERVOUS)
 	dna.SetSEState(GLOB.nervousblock, 1, 1)
 	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
-	rename_character(real_name, "cluwne")
+	rename_character(newname = "cluwne")
 
 	drop_item_ground(w_uniform, force = TRUE)
 	drop_item_ground(shoes, force = TRUE)
