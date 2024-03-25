@@ -1434,7 +1434,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	var/turf/examine_turf = get_turf(target)
 
-	if(!(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
+	if(examine_turf && !(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
 		get_dist(src, examine_turf) > 1 && \
 		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
 		return
