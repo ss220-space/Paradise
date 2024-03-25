@@ -42,11 +42,7 @@
 	if(isnucleation(target))
 		return //no need to apply disease to nucleation
 	var/datum/disease/virus/nuclefication/D = new()
-	target.diseases += D
-	var/datum/species/mob = target.dna.species
-	mob.species_traits |= NO_SCAN
-	D.affected_mob = target
-	D.affected_mob.med_hud_set_status()
+	D.Contract(target, need_protection_check = FALSE)
 
 
 
