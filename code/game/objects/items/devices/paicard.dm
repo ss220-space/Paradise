@@ -367,7 +367,7 @@
 /obj/item/paicard/extinguish_light(force = FALSE)
 	if(pai)
 		pai.extinguish_light()
-		set_light(0)
+		set_light_on(FALSE)
 
 /obj/item/paicard/attackby(obj/item/I, mob/user, params)
 	. = ..()

@@ -245,10 +245,10 @@
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	update_icon()
 
 /obj/item/intercom_electronics

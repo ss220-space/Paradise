@@ -17,7 +17,8 @@
 	flags = NOSHARPENING
 	toolspeed = 1
 	light_power = 2
-	var/brightness_on = 2
+	light_range = 2
+	light_system = MOVABLE_LIGHT
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
@@ -42,14 +43,16 @@
 /obj/item/melee/energy/update_icon_state()
 	if(!active)
 		icon_state = initial(icon_state)
-		set_light(0)
+		set_light_on(FALSE)
 		return
 	if(icon_state_on)
 		icon_state = icon_state_on
-		set_light(brightness_on, l_color = item_color ? colormap[item_color] : null)
+		set_light_on(TRUE)
+		set_light_color(light_color == item_color ? colormap[item_color] : null)
 	else
 		icon_state = "sword[item_color]"
-		set_light(brightness_on, l_color = colormap[item_color])
+		set_light_on(TRUE)
+		set_light_color(colormap[item_color])
 	update_equipped_item()
 
 

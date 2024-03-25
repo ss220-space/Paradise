@@ -11,6 +11,10 @@
 	slot_flags = SLOT_BELT
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_range = 2
+	light_on = FALSE
+	light_power = 1
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
@@ -43,7 +47,7 @@
 	attack_verb = list("burnt", "singed")
 
 	attempt_light(user)
-	set_light(2)
+	set_light_on(TRUE)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/lighter/proc/attempt_light(mob/living/user)
@@ -69,7 +73,7 @@
 	attack_verb = null //human_defense.dm takes care of it
 
 	show_off_message(user)
-	set_light(0)
+	set_light_on(FALSE)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/lighter/extinguish_light(force = FALSE)

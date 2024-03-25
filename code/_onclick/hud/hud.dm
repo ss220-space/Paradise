@@ -67,7 +67,6 @@
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
 		plane_master_controllers[controller_instance.name] = controller_instance
 
-
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
 		mymob.hud_used = null

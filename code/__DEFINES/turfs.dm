@@ -4,3 +4,5 @@
 #define TURF_PATHING_PASS_PROC 1
 /// Turf is never passable
 #define TURF_PATHING_PASS_NO 2
+
+#define IS_OPAQUE_TURF(turf) (turf.directional_opacity == ALL_CARDINALS)

@@ -45,6 +45,13 @@
 	var/clawfootstep = null
 	var/heavyfootstep = null
 
+	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
+	var/dynamic_lumcount = 0
+	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
+	var/directional_opacity = NONE
+	///Lazylist of movable atoms providing opacity sources.
+	var/list/atom/movable/opacity_sources
+
 	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
 	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
@@ -244,14 +251,18 @@
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
-	set_light(0)
+	set_light_on(FALSE)
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
-	var/old_affecting_lights = affecting_lights
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
+	var/old_directional_opacity = directional_opacity
+	var/old_dynamic_lumcount = dynamic_lumcount
 	var/old_obscured = obscured
-	var/old_corners = corners
+	var/old_lighting_corner_NE = lighting_corner_NE
+	var/old_lighting_corner_SE = lighting_corner_SE
+	var/old_lighting_corner_SW = lighting_corner_SW
+	var/old_lighting_corner_NW = lighting_corner_NW
 
 	BeforeChange()
 
@@ -268,11 +279,16 @@
 
 	recalc_atom_opacity()
 
+	lighting_corner_NE = old_lighting_corner_NE
+	lighting_corner_SE = old_lighting_corner_SE
+	lighting_corner_SW = old_lighting_corner_SW
+	lighting_corner_NW = old_lighting_corner_NW
+
+	dynamic_lumcount = old_dynamic_lumcount
+
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
 		lighting_object = old_lighting_object
-		affecting_lights = old_affecting_lights
-		corners = old_corners
 		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
 			reconsider_lights()
 
@@ -281,6 +297,12 @@
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
+
+		directional_opacity = old_directional_opacity
+		recalculate_directional_opacity()
+
+		if(lighting_object && !lighting_object.needs_update)
+			lighting_object.update()
 
 		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()

@@ -12,8 +12,8 @@
 	dna = null
 	alien_talk_understand = TRUE
 
-	var/nightvision = FALSE
-	see_in_dark = 4
+	var/nightvision_enabled = FALSE
+	nightvision = 4
 
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
@@ -207,15 +207,14 @@
 /mob/living/carbon/alien/verb/nightvisiontoggle()
 	set name = "Toggle Night Vision"
 
-	if(!nightvision)
-		see_in_dark = 8
+	if(!nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		nightvision = TRUE
+		nightvision = 8
+		nightvision_enabled = TRUE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
-	else if(nightvision)
-		see_in_dark = initial(see_in_dark)
+	else if(nightvision_enabled)
 		lighting_alpha = initial(lighting_alpha)
-		nightvision = FALSE
+		nightvision_enabled = FALSE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
 
 	update_sight()
@@ -345,11 +344,9 @@ Des: Removes all infected images from the alien.
 
 	see_invisible = initial(see_invisible)
 	sight = SEE_MOBS
-	if(nightvision)
-		see_in_dark = 8
+	if(nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
-		see_in_dark = initial(see_in_dark)
 		lighting_alpha = initial(lighting_alpha)
 
 	if(client.eye != src)
@@ -360,7 +357,7 @@ Des: Removes all infected images from the alien.
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
 		sight |= cyber_eyes.vision_flags
 		if(cyber_eyes.see_in_dark)
-			see_in_dark = max(see_in_dark, cyber_eyes.see_in_dark)
+			nightvision = max(nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
 			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
 		if(!isnull(cyber_eyes.lighting_alpha))

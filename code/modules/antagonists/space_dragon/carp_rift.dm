@@ -156,7 +156,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		light_color = LIGHT_COLOR_YELLOW
 		update_light()
-		armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+		armor.setRating(melee_value = 100, bullet_value = 100, laser_value = 100, energy_value = 100, bomb_value = 100, bio_value = 100, rad_value = 100, fire_value = 100, acid_value = 100)
 		resistance_flags = INDESTRUCTIBLE
 		dragon.rifts_charged += 1
 		if(dragon.rifts_charged != 3 && !dragon.objective_complete)

@@ -185,7 +185,7 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	pressure_resistance = 50
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
 	var/magpulse = 1

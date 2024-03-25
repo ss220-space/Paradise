@@ -211,5 +211,5 @@
 		return
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
 		return
-	set_light(0)
+	set_light_on(FALSE)
 

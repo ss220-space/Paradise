@@ -349,7 +349,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		visible_message("<span class='warning'>As [user] drops the core into [src], [src] appears to swell.</span>")
 		icon_state = "advanced_tumor"
 		boosted = TRUE
-		set_light(6)
+		set_light(6, l_on = TRUE)
 		qdel(core)
 		return TRUE
 

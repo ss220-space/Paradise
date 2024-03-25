@@ -35,6 +35,12 @@
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
+
+	///Lazylist to keep track on the sources of illumination.
+	var/list/affected_dynamic_lights
+	///Highest-intensity light affecting us, which determines our visibility.
+	var/affecting_dynamic_lumi = 0
+
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
 
@@ -82,6 +88,12 @@
 					managed_overlays = list(managed_overlays, em_block)
 			else
 				managed_overlays = em_block
+
+	switch(light_system)
+		if(MOVABLE_LIGHT)
+			AddComponent(/datum/component/overlay_lighting)
+		if(MOVABLE_LIGHT_DIRECTIONAL)
+			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 
 
 /atom/movable/Destroy()
@@ -305,11 +317,8 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
-	var/datum/light_source/L
-	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
-		L = thing
-		L.source_atom.update_light()
+	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
+		light.source_atom.update_light()
 	return TRUE
 
 // Change glide size for the duration of one movement
@@ -500,7 +509,7 @@
 			if(speed <= 0)
 				return //no throw speed, the user was moving too fast.
 
-	var/datum/thrownthing/thrown_thing = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, thrower?.zone_selected, dodgeable)
+	var/datum/thrownthing/thrown_thing = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, istype(thrower) ? thrower.zone_selected : FALSE, dodgeable)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)

@@ -25,7 +25,6 @@
 		/obj/singularity,
 		/obj/effect,
 		/mob/living/simple_animal/hostile/megafauna,
-		/atom/movable/lighting_object,
 		/obj/machinery/dna_vault,
 		/obj/machinery/power/bluespace_tap,
 		/obj/structure/sign/barsign,

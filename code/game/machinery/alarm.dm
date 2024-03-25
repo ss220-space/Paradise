@@ -1071,7 +1071,7 @@
 /obj/machinery/alarm/power_change(forced = FALSE)
 	..() //we don't check return here because we also care about the BROKEN flag
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()

@@ -20,7 +20,7 @@
 	melee_damage_lower = 6
 	melee_damage_upper = 10
 	attacktext = "кусает"
-	see_in_dark = 5
+	nightvision = 5
 	speak_chance = 1
 	turns_per_move = 10
 	mob_size = MOB_SIZE_SMALL
@@ -335,7 +335,7 @@
 	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
 	desc = initial(desc)
-	set_light(0)
+	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	mutations.Remove(BREATHLESS)
 	minbodytemp = initial(minbodytemp)

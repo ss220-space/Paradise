@@ -20,7 +20,7 @@
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	universal_understand = 1
 	response_help   = "passes through"

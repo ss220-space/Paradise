@@ -88,6 +88,8 @@
 	var/malf_high_bound = 80
 	var/malf_counter // random number between malf_low_bound and malf_high_bound
 
+	light_on = FALSE
+
 
 /obj/item/gun/Initialize()
 	. = ..()
@@ -385,9 +387,7 @@
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
-				if(S.on)
-					set_light(0)
-				gun_light = S
+				set_gun_light(S)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
 				if(loc == user)
 					A.Grant(user)
@@ -425,8 +425,7 @@
 	if(gun_light && can_flashlight)
 		for(var/obj/item/flashlight/seclite/S in src)
 			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-			gun_light = null
-			update_gun_light()
+			set_gun_light(null)
 			S.forceMove_turf()
 			S.update_brightness(user)
 			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
@@ -453,15 +452,31 @@
 	update_gun_light()
 
 
+///Called when gun_light value changes.
+/obj/item/gun/proc/set_gun_light(obj/item/flashlight/seclite/new_light)
+	if(gun_light == new_light)
+		return
+	. = gun_light
+	gun_light = new_light
+	if(gun_light)
+		gun_light.set_light_flags(gun_light.light_flags | LIGHT_ATTACHED)
+		if(gun_light.loc != src)
+			gun_light.forceMove(src)
+	else if(.)
+		var/obj/item/flashlight/seclite/old_gun_light = .
+		old_gun_light.set_light_flags(old_gun_light.light_flags & ~LIGHT_ATTACHED)
+		if(old_gun_light.loc == src)
+			old_gun_light.forceMove(get_turf(src))
+
 /obj/item/gun/proc/update_gun_light()
 	if(gun_light)
 		if(gun_light.on)
-			set_light(gun_light.brightness_on)
+			gun_light.set_light_on(TRUE)
 		else
-			set_light(0)
+			gun_light.set_light_on(FALSE)
 		update_icon()
 	else
-		set_light(0)
+		gun_light.set_light_on(FALSE)
 
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item()
