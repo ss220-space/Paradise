@@ -48,8 +48,8 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /obj/item/organ/internal/vocal_cords/proc/speak_with(message) //do what the organ does
 	return
 
-/obj/item/organ/internal/vocal_cords/proc/handle_speech(message) //change the message
-	return message
+/obj/item/organ/internal/vocal_cords/proc/handle_speech(list/message_pieces) //change the message
+	return message_pieces
 
 /obj/item/organ/internal/adamantine_resonator
 	name = "adamantine resonator"
@@ -72,8 +72,8 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		return
 	owner.say(".~[message]")
 
-/obj/item/organ/internal/vocal_cords/adamantine/handle_speech(message)
-	var/msg = "<span class='resonate'><span class='name'>[owner.real_name]</span> <span class='message'>resonates, \"[message]\"</span></span>"
+/obj/item/organ/internal/vocal_cords/adamantine/handle_speech(list/message_pieces)
+	var/msg = span_resonate("[span_name(owner.real_name)] <span class='message'>resonates, \"[capitalize(multilingual_to_message(message_pieces))]\"</span>")
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m
@@ -118,7 +118,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	. = ..()
 	if(!IsAvailable())
 		if(world.time < cords.next_command)
-			to_chat(owner, "<span class='notice'>You must wait [(cords.next_command - world.time)/10] seconds before Speaking again.</span>")
+			to_chat(owner, span_notice("You must wait [(cords.next_command - world.time)/10] seconds before Speaking again."))
 		return
 	var/command = input(owner, "Speak with the Voice of God", "Command")
 	if(!command)
@@ -130,22 +130,21 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 /obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
-		to_chat(owner, "<span class='notice'>You must wait [(next_command - world.time)/10] seconds before Speaking again.</span>")
+		to_chat(owner, span_notice("You must wait [(next_command - world.time)/10] seconds before Speaking again."))
 		return FALSE
 	if(!owner)
 		return FALSE
 	if(!owner.can_speak())
-		to_chat(owner, "<span class='warning'>You are unable to speak!</span>")
+		to_chat(owner, span_warning("You are unable to speak!"))
 		return FALSE
 	if(owner.stat)
 		return FALSE
 	return TRUE
 
-/obj/item/organ/internal/vocal_cords/colossus/handle_speech(message)
-	spans = "colossus yell" //reset spans, just in case someone gets deculted or the cords change owner
-	if(iscultist(owner))
-		spans += " narsiesmall"
-	return "<span class=\"[spans]\">[uppertext(message)]</span>"
+
+/obj/item/organ/internal/vocal_cords/colossus/handle_speech(list/message_pieces)
+	return ..(message_to_multilingual(uppertext(multilingual_to_message(message_pieces)), GLOB.all_languages[LANGUAGE_ANGEL]))
+
 
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
 	var/log_message = uppertext(message)
