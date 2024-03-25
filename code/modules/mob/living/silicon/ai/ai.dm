@@ -45,6 +45,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
+	nightvision = 8
 	can_strip = 0
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
