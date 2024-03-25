@@ -245,7 +245,7 @@
 /turf/simulated/wall/burn_down()
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
-	return ChangeTurf(/turf/simulated/floor)
+	return ChangeTurf(/turf/simulated/floor/plating)
 
 
 #define THERMITE_PER_SECOND 2.5
@@ -292,7 +292,7 @@
 			sleep(0.1 SECONDS)
 		if(QDELETED(src))
 			return
-		var/turf/simulated/floor/our_floor = burn_down()
+		var/turf/simulated/floor/plating/our_floor = burn_down()
 		our_floor.burn_tile()
 		our_floor.cut_overlay(melting_olay)
 		if(visuals)
@@ -306,7 +306,7 @@
 			return
 		reagents.remove_reagent("thermite", THERMITE_PER_SECOND)
 		if(damage_cap - damage <= DAMAGE_PER_SECOND)
-			var/turf/simulated/floor/our_floor = burn_down()
+			var/turf/simulated/floor/plating/our_floor = burn_down()
 			our_floor.burn_tile()
 			break
 		take_damage(DAMAGE_PER_SECOND)
