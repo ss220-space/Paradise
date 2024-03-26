@@ -267,7 +267,7 @@
 	var/list/suits = list("black" = /obj/item/clothing/suit/storage/lawyer/blackjacket,
 						  "blue" = /obj/item/clothing/suit/storage/lawyer/bluejacket,
 						  "purple" = /obj/item/clothing/suit/storage/lawyer/purpjacket,)
-	gear_tweaks += new /datum/gear_tweak/path(suits, src, TRUE)
+	gear_tweaks += new /datum/gear_tweak/path(suits, src)
 
 //Robes!
 
