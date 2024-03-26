@@ -54,6 +54,7 @@
 		for(var/mob/living/simple_animal/mouse/mouse in mouse_holder)
 			fry_mouse(mouse)
 		qdel(mouse_holder)
+		return
 	. = ..()
 
 /obj/machinery/cooker/deepfryer/MouseDrop_T(mob/living/dropping, mob/living/user, params)
