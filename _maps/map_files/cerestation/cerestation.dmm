@@ -19847,7 +19847,7 @@
 /area/tcommsat/computer)
 "cBg" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium,
+/obj/item/reagent_containers/food/snacks/grown/geranium,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
