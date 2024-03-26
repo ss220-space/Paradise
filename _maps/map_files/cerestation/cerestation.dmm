@@ -8794,7 +8794,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "boA" = (
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -45917,8 +45917,7 @@
 	dir = 4
 	},
 /obj/item/lighter/zippo/qm{
-	pixel_x = -12;
-	pixel_y = 0
+	pixel_x = -12
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
@@ -49525,7 +49524,7 @@
 	c_tag = "Brig General Population West";
 	dir = 1
 	},
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -82052,10 +82051,10 @@
 	},
 /area/security/hos)
 "tOx" = (
-/obj/machinery/computer/arcade,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
 "tOz" = (
@@ -90276,11 +90275,11 @@
 	dir = 4;
 	pixel_x = 32
 	},
-/obj/machinery/computer/arcade,
 /obj/machinery/camera{
 	c_tag = "Bar East";
 	dir = 8
 	},
+/obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
 "woJ" = (

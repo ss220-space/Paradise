@@ -13667,7 +13667,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "aKh" = (
-/obj/structure/chair/office/dark,
+/obj/machinery/computer/arcade,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aKi" = (
@@ -18539,10 +18539,10 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "aXt" = (
-/obj/machinery/computer/arcade,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "aXu" = (
@@ -25384,6 +25384,7 @@
 "bnv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
+/obj/machinery/computer/arcade,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bnw" = (
@@ -30825,7 +30826,7 @@
 	},
 /area/turret_protected/ai_upload)
 "bBC" = (
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bBD" = (
@@ -39382,7 +39383,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "bWT" = (
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bWV" = (
@@ -74851,6 +74852,12 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"jIs" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "jJj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -74874,8 +74881,8 @@
 	},
 /area/security/main)
 "jMn" = (
-/obj/machinery/computer/arcade,
 /obj/effect/decal/cleanable/dust,
+/obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "jPN" = (
@@ -84441,13 +84448,13 @@
 	},
 /area/maintenance/port)
 "urb" = (
-/obj/machinery/computer/arcade,
 /obj/machinery/camera{
 	c_tag = "Prison Library";
 	dir = 6;
 	network = list("Prison","SS13")
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "utk" = (
@@ -87160,6 +87167,10 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
+"xga" = (
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "xgd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -112108,7 +112119,7 @@ aGp
 aHv
 aGb
 aKi
-aPi
+jIs
 aQg
 aMQ
 aMQ
@@ -128898,7 +128909,7 @@ cyJ
 wUz
 chf
 cIn
-csL
+xga
 cIj
 cKS
 cMb

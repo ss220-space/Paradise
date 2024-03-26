@@ -19163,7 +19163,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -28
 	},
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -20458,7 +20458,7 @@
 /obj/machinery/newscaster{
 	pixel_x = 28
 	},
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "cmo" = (
@@ -84904,13 +84904,13 @@
 	},
 /area/maintenance/electrical)
 "ofo" = (
-/obj/machinery/computer/arcade,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -95797,13 +95797,13 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "qwX" = (
-/obj/machinery/computer/arcade,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -100759,7 +100759,7 @@
 /obj/machinery/newscaster{
 	pixel_x = 28
 	},
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -118616,7 +118616,7 @@
 	},
 /area/atmos/control)
 "vLQ" = (
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "vLR" = (
