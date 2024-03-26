@@ -487,8 +487,8 @@
 			var/iteration = 0
 			var/delta_phi = 2 * PI / fancy_items_count
 			for(var/obj/item/I as anything in fancy_items)
-				I.pixel_x = round(placement_radius * sin(180 * delta_phi * iteration / PI))
-				I.pixel_y = round(placement_radius * cos(180 * delta_phi * iteration / PI))
+				I.pixel_x = placement_radius * sin(180 * delta_phi * iteration / PI)
+				I.pixel_y = placement_radius * cos(180 * delta_phi * iteration / PI)
 				iteration += 1
 
 		if(droppedSomething)
