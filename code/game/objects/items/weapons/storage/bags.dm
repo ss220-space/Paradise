@@ -457,6 +457,16 @@
 
 
 /obj/item/storage/bag/tray/cyborg
+	var/placement_radius = 12
+
+/obj/item/storage/bag/tray/cyborg/verb/select_placement_radius()
+	set name = "Select Placement Radius"
+	set category = "Object"
+	set src in usr
+
+	var/new_radius = input(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12) as num
+	new_radius = clamp(new_radius, 0, 16)
+	placement_radius = new_radius
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity, params)
 	if(!target || !proximity)
@@ -477,8 +487,8 @@
 			var/iteration = 0
 			var/delta_phi = 2 * PI / fancy_items_count
 			for(var/obj/item/I as anything in fancy_items)
-				I.pixel_x = round(12 * sin(180 * delta_phi * iteration))
-				I.pixel_y = round(12 * cos(180 * delta_phi * iteration))
+				I.pixel_x = round(placement_radius * sin(180 * delta_phi * iteration / PI))
+				I.pixel_y = round(placement_radius * cos(180 * delta_phi * iteration / PI))
 				iteration += 1
 
 		if(droppedSomething)
