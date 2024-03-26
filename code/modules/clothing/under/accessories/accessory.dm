@@ -1040,7 +1040,7 @@
 
 /obj/item/clothing/accessory/medal/smile
 	name = "smiling pin"
-	desc = "Позолоченный значек с улыбающейся рожецей. Символ невиданной гордости самим собой."
+	desc = "Позолоченный значок с улыбающейся рожецей. Символ невиданной гордости самим собой."
 	icon_state = "smile"
 	item_color = "smile"
 	materials = list(MAT_METAL = 300, MAT_GOLD = 200)
