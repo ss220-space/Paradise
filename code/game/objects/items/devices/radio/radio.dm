@@ -418,13 +418,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- AI ---
 	else if(isAI(M))
-		jobname = "AI"
-		rank = "AI"
+		jobname = JOB_TITLE_AI
+		rank = JOB_TITLE_AI
 
 	// --- Cyborg ---
 	else if(isrobot(M))
-		jobname = "Cyborg"
-		rank = "Cyborg"
+		jobname = JOB_TITLE_CYBORG
+		rank = JOB_TITLE_CYBORG
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))

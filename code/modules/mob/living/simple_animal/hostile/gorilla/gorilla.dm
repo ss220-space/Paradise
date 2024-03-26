@@ -26,7 +26,7 @@
 	robust_searching = TRUE
 	minbodytemp = 270
 	maxbodytemp = 350
-	see_in_dark = 8
+	nightvision = 8
 	can_collar = TRUE
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	gold_core_spawnable = HOSTILE_SPAWN

@@ -298,12 +298,12 @@
 
 /obj/item/organ/internal/cyberimp/arm/flash/Extend(obj/item/item)
 	. = ..()
-	active_item.set_light(7)
+	active_item.set_light(7, l_on = TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/flash/Retract()
 	if(!active_item || (active_item in src))
 		return FALSE
-	active_item.set_light(0)
+	active_item.set_light_on(FALSE)
 	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/baton

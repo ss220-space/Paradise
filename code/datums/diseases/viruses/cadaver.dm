@@ -4,11 +4,12 @@
 	agent = "Cadaveric microbes"
 	desc = "A terrible disease caused by rotting corpses"
 	cures = list("calomel")
-	cure_prob = 4
-	stage_prob = 1.5
+	cure_prob = 6
+	stage_prob = 0.8
 	max_stages = 5
 	spread_flags = BLOOD
 	severity = DANGEROUS
+	discovery_threshold = 0.3 // 2 stage is visible
 
 /datum/disease/virus/cadaver/stage_act()
 	if(!..())
@@ -21,13 +22,13 @@
 	switch(stage)
 		if(2)
 			if(prob(2))
-				H.vomit()
+				H.vomit(stun = 0.1 SECONDS)
 			if(prob(7))
 				H.bodytemperature = max(H.bodytemperature, H.dna.species.heat_level_1 + 10)
 				to_chat(H, span_warning("You feel hot!"))
 		if(3, 4)
 			if(prob(3))
-				H.vomit()
+				H.vomit(stun = 0.1 SECONDS)
 			if(prob(7))
 				H.bodytemperature = max(H.bodytemperature, H.dna.species.heat_level_1 + 30)
 				to_chat(H, span_warning("You feel very hot!"))

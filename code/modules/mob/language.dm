@@ -127,11 +127,8 @@
 
 	return scrambled_text
 
-/datum/language/proc/format_message(message)
+/datum/language/proc/format_message(message, mob/speaker)
 	return "<span class='message'><span class='[colour]'>[message]</span></span>"
-
-/datum/language/proc/format_message_radio(message)
-	return "<span class='[colour]'>[message]</span>"
 
 /datum/language/proc/get_talkinto_msg_range(message)
 	// if you yell, you'll be heard from two tiles over instead of one
@@ -145,11 +142,11 @@
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
-	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message)]</span></i>"
+	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]</span></i>"
 
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [get_spoken_verb(message)], [format_message(message)]</span></i>"
+			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [get_spoken_verb(message)], [format_message(message, speaker)]</span></i>"
 			to_chat(player, msg_dead)
 			continue
 
@@ -176,11 +173,6 @@
 	desc = "Noises"
 	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER|NOBABEL
 
-/datum/language/noise/format_message(message)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
-
-/datum/language/noise/format_message_radio(message)
-	return "<span class='[colour]'>[message]</span>"
 
 /datum/language/noise/get_talkinto_msg_range(message)
 	// if you make a loud noise (screams etc), you'll be heard from 4 tiles over instead of two
@@ -789,9 +781,25 @@
 	key = "wo"
 
 
+/datum/language/angel
+	name = "Angel Singing"
+	colour = "colossus yell"
+	flags = RESTRICTED|NO_STUTTER|NOBABEL|NONGLOBAL|INNATE
+
+
+/datum/language/angel/proc/get_spans(mob/speaker)
+	. = colour //reset spans, just in case someone gets deculted or the cords change owner
+	if(iscultist(speaker))
+		. += " narsiesmall"
+
+
+/datum/language/angel/format_message(message, mob/speaker)
+	return "<span class='message'><span class='[get_spans(speaker)]'>[message]</span></span>"
+
+
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
-	return universal_speak || (speaking && speaking.flags & INNATE) || (speaking in languages)
+	return universal_speak || (speaking == GLOB.all_languages[LANGUAGE_NOISE]) || (speaking in languages)
 
 
 //TBD

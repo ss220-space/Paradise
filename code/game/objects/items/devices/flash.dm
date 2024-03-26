@@ -23,6 +23,11 @@
 	/// This is the duration of the cooldown
 	var/cooldown_duration = 1 SECONDS
 	COOLDOWN_DECLARE(flash_cooldown)
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_on = FALSE
+	light_range = 2
+	light_power = 1
+	light_color = LIGHT_COLOR_WHITE
 
 
 /obj/item/flash/update_icon_state()
@@ -95,8 +100,8 @@
 
 	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
-	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	set_light_on(TRUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)
 	times_used++
 
 	if(user && !clown_check(user))

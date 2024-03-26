@@ -8,7 +8,7 @@
 	speak = list("Furrr.","Uhh.", "Hurrr.")
 	gender = MALE
 	turns_per_move = 5
-	see_in_dark = 8
+	nightvision = 8
 	health = 100
 	maxHealth = 100
 	blood_volume = BLOOD_VOLUME_NORMAL

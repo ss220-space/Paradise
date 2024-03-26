@@ -126,46 +126,46 @@
 	path = /obj/item/clothing/accessory/head_strip
 	donator_tier = 2
 	cost = 1
-	allowed_roles = list("Captain")
+	allowed_roles = list(JOB_TITLE_CAPTAIN)
 
 /datum/gear/donor/strip/rd
 	display_name = "strip, Research Director"
 	path = /obj/item/clothing/accessory/head_strip/rd
 	donator_tier = 2
 	cost = 1
-	allowed_roles = list("Research Director")
+	allowed_roles = list(JOB_TITLE_RD)
 
 /datum/gear/donor/strip/ce
 	display_name = "strip, Chief Engineer"
 	path = /obj/item/clothing/accessory/head_strip/ce
 	donator_tier = 2
 	cost = 1
-	allowed_roles = list("Chief Engineer")
+	allowed_roles = list(JOB_TITLE_CHIEF)
 
 /datum/gear/donor/strip/cmo
 	display_name = "strip, Chief Medical Officer"
 	path = /obj/item/clothing/accessory/head_strip/cmo
 	donator_tier = 2
 	cost = 1
-	allowed_roles = list("Chief Medical Officer")
+	allowed_roles = list(JOB_TITLE_CMO)
 
 /datum/gear/donor/strip/hop
 	display_name = "strip, Head of Personal"
 	path = /obj/item/clothing/accessory/head_strip/hop
 	donator_tier = 2
 	cost = 1
-	allowed_roles = list("Head of Personnel")
+	allowed_roles = list(JOB_TITLE_HOP)
 
 /datum/gear/donor/strip/hos
 	display_name = "strip, Head of Security"
 	path = /obj/item/clothing/accessory/head_strip/hos
 	donator_tier = 2
 	cost = 1
-	allowed_roles = list("Head of Security")
+	allowed_roles = list(JOB_TITLE_HOS)
 
 /datum/gear/donor/strip/qm
 	display_name = "strip, Quartermaster"
 	path = /obj/item/clothing/accessory/head_strip/qm
 	donator_tier = 2
 	cost = 1
-	allowed_roles = list("Quartermaster")
+	allowed_roles = list(JOB_TITLE_QUARTERMASTER)

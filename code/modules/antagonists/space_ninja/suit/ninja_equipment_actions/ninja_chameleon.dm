@@ -166,6 +166,8 @@
 			ninja_action.action_ready = TRUE
 			ninja_action.use_action()
 		ninja.cut_overlays()
+	else
+		ninja.cut_overlay(disguise.overlays)
 
 	//Disguise
 	ninja.name_override = disguise.name

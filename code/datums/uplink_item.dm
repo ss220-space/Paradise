@@ -259,7 +259,7 @@
 		a pair of throwing croissants, and the recipe to make more on demand. Once the job is done, eat the evidence."
 	item = /obj/item/storage/box/syndie_kit/combat_baking
 	cost = 25
-	job = list("Mime", "Chef")
+	job = list(JOB_TITLE_MIME, JOB_TITLE_CHEF)
 
 //Miner
 /datum/uplink_item/jobspecific/pressure_mod

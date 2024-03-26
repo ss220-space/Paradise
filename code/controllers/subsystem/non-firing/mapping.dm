@@ -16,6 +16,29 @@ SUBSYSTEM_DEF(mapping)
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
 
+	var/list/areas_in_z = list()
+	/// List of z level (as number) -> plane offset of that z level
+	/// Used to maintain the plane cube
+	var/list/z_level_to_plane_offset = list()
+	/// List of z level (as number) -> The lowest plane offset in that z stack
+	var/list/z_level_to_lowest_plane_offset = list()
+	// This pair allows for easy conversion between an offset plane, and its true representation
+	// Both are in the form "input plane" -> output plane(s)
+	/// Assoc list of string plane values to their true, non offset representation
+	var/list/plane_offset_to_true
+	/// Assoc list of true string plane values to a list of all potential offset planess
+	var/list/true_to_offset_planes
+	/// Assoc list of string plane to the plane's offset value
+	var/list/plane_to_offset
+	/// List of planes that do not allow for offsetting
+	var/list/plane_offset_blacklist
+	/// List of render targets that do not allow for offsetting
+	var/list/render_offset_blacklist
+	/// List of plane masters that are of critical priority
+	var/list/critical_planes
+	/// The largest plane offset we've generated so far
+	var/max_plane_offset = 0
+
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()

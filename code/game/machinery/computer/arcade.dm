@@ -14,7 +14,7 @@
 /obj/machinery/computer/arcade/New()
 	..()
 	if(!circuit)
-		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
+		var/choice = pick(/obj/machinery/computer/arcade/battle, /obj/machinery/computer/arcade/orion_trail)
 		new choice(loc)
 		qdel(src)
 		return

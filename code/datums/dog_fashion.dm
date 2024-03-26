@@ -47,7 +47,7 @@
 
 /datum/dog_fashion/head/hardhat/apply(mob/living/simple_animal/pet/dog/D)
 	..()
-	D.set_light(4)
+	D.set_light_range(4)
 
 /datum/dog_fashion/head/helmet
 	name = "Sergeant REAL_NAME"
@@ -155,7 +155,7 @@
 
 /datum/dog_fashion/head/reindeer/apply(mob/living/simple_animal/pet/dog/D)
 	..()
-	D.set_light(2, 2, LIGHT_COLOR_RED)
+	D.set_light_range_power_color(2, 2, LIGHT_COLOR_RED)
 
 /datum/dog_fashion/head/sombrero
 	name = "Segnor REAL_NAME"

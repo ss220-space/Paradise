@@ -92,16 +92,17 @@
 	if(power_station?.teleporter_hub)
 		data["teleporterhub"] = power_station.teleporter_hub
 		data["calibrated"] = power_station.teleporter_hub.calibrated
+		data["accuracy"] = power_station.teleporter_hub.accurate
 	else
 		data["teleporterhub"] = null
 		data["calibrated"] = null
+		data["accuracy"] = null
 	data["regime"] = regime
 	var/area/targetarea = get_area(target)
 	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked ? TRUE : FALSE
 	data["targetsTeleport"] = null
-	data["accuracy"] = power_station.teleporter_hub.accurate
 	switch(regime)
 		if(REGIME_TELEPORT)
 			data["targetsTeleport"] = targets_teleport()
@@ -434,9 +435,9 @@
 
 /obj/machinery/teleport/hub/proc/update_lighting()
 	if(power_station && power_station.engaged && !panel_open)
-		set_light(2, 1, "#f1f1bd")
+		set_light(2, 1, "#f1f1bd", l_on = TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/teleport/perma
@@ -530,9 +531,9 @@
 
 /obj/machinery/teleport/perma/proc/update_lighting()
 	if(target && !recalibrating && !panel_open && !(stat & (BROKEN|NOPOWER)))
-		set_light(2, 1, "#f1f1bd")
+		set_light(2, 1, "#f1f1bd", l_on = TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
@@ -687,9 +688,9 @@
 		return
 
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 
 	update_icon()
 

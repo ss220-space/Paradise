@@ -14,61 +14,61 @@
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built botanical HUD."
 	path = /obj/item/clothing/glasses/hud/hydroponic/tajblind
 	slot = slot_glasses
-	allowed_roles = list("Botanist")
+	allowed_roles = list(JOB_TITLE_BOTANIST)
 
 /datum/gear/racial/taj/sec
 	display_name = "veil, sleek"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built security HUD."
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/tajblind
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Magistrate")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_JUDGE)
 	cost = 2
 
 /datum/gear/racial/taj/iaa
 	display_name = "veil, sleek(read-only)"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built security HUD."
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/tajblind/read_only
-	allowed_roles = list("Internal Affairs Agent")
+	allowed_roles = list(JOB_TITLE_LAWYER)
 	cost = 2
 
 /datum/gear/racial/taj/med
 	display_name = "veil, lightweight"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built medical HUD."
 	path = /obj/item/clothing/glasses/hud/health/tajblind
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Brig Physician" , "Coroner")
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER)
 	cost = 2
 
 /datum/gear/racial/taj/sci
 	display_name = "veil, hi-tech"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built science goggles"
 	path = /obj/item/clothing/glasses/tajblind/sci
-	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Roboticist", "Geneticist", "Chemist")
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST)
 	cost = 2
 
 /datum/gear/racial/taj/eng
 	display_name = "veil, industrial"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built optical meson scanners and welding shields."
 	path = /obj/item/clothing/glasses/tajblind/eng
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
 	cost = 2
 
 /datum/gear/racial/taj/cargo
 	display_name = "veil, khaki"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built optical meson scanners."
 	path = /obj/item/clothing/glasses/tajblind/cargo
-	allowed_roles = list("Quartermaster", "Cargo Technician")
+	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH)
 	cost = 2
 
 /datum/gear/racial/taj/diag
 	display_name = "veil, diagnostic"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built diagnostic HUD."
 	path = /obj/item/clothing/glasses/hud/diagnostic/tajblind
-	allowed_roles = list("Roboticist", "Research Director")
+	allowed_roles = list(JOB_TITLE_ROBOTICIST, JOB_TITLE_RD)
 	cost = 2
 /datum/gear/racial/taj/skills
 	display_name = "veil, skills"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built skills HUD."
 	path = /obj/item/clothing/glasses/hud/skills/tajblind
-	allowed_roles = list("Head of Personnel", "Captain")
+	allowed_roles = list(JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
 	cost = 2
 /datum/gear/racial/footwraps
 	display_name = "cloth footwraps, select"

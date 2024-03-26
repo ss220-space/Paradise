@@ -27,7 +27,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		bold_jobs = list()
 		bold_jobs += GLOB.command_positions
 		bold_jobs += get_all_centcom_jobs()
-		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate")
+		bold_jobs += list(JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_JUDGE)
 
 	// It's needed for correct finding security crew in CrewMonitor.js
 	if(!security_jobs_list)

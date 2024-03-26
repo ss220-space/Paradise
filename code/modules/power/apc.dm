@@ -394,9 +394,9 @@
 
 	if(force_update || (update & 3))
 		if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2|UPSTATE_BROKE))
-			set_light(0)
+			set_light_on(FALSE)
 		else if(update_state & UPSTATE_BLUESCREEN)
-			set_light(2, 1, COLOR_CYAN_BLUE)
+			set_light(2, 1, COLOR_CYAN_BLUE, l_on = TRUE)
 		else if(!(stat & (UPSTATE_MAINT|UPSTATE_BROKE)) && (update_state & UPSTATE_ALLGOOD))
 			var/color
 			switch(charging)
@@ -406,9 +406,9 @@
 					color = COLOR_APC_BLUE
 				if(APC_FULLY_CHARGED)
 					color = COLOR_APC_GREEN
-			set_light(2, 0.5, color)
+			set_light(2, 0.5, color, l_on = TRUE)
 		else
-			set_light(0)
+			set_light_on(FALSE)
 
 	if(force_update || (update & 1)) // Updating the icon state
 		..(UPDATE_ICON_STATE)
@@ -1334,12 +1334,12 @@
 	if(!area.requires_power)
 		return
 
-	last_used_lighting = area.usage(STATIC_LIGHT)
+	last_used_lighting = area.usage(CHANNEL_STATIC_LIGHT)
 	last_used_lighting += area.usage(LIGHT)
 	last_used_equipment = area.usage(EQUIP)
-	last_used_equipment += area.usage(STATIC_EQUIP)
+	last_used_equipment += area.usage(CHANNEL_STATIC_EQUIP)
 	last_used_environment = area.usage(ENVIRON)
-	last_used_environment += area.usage(STATIC_ENVIRON)
+	last_used_environment += area.usage(CHANNEL_STATIC_ENVIRON)
 	area.clear_usage()
 
 	last_used_total = last_used_lighting + last_used_equipment + last_used_environment

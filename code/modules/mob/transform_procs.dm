@@ -47,7 +47,7 @@
 
 	O.add_ai_verbs()
 
-	O.rename_self("AI",1)
+	O.rename_self(JOB_TITLE_AI,1)
 
 	O.tts_seed = tts_seed
 
@@ -93,7 +93,7 @@
 
 	if(mind)		//TODO
 		mind.transfer_to(O)
-		if(O.mind.assigned_role == "Cyborg")
+		if(O.mind.assigned_role == JOB_TITLE_CYBORG)
 			O.mind.set_original_mob(O)
 		else if(mind && mind.special_role)
 			O.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
@@ -101,9 +101,9 @@
 		O.key = key
 
 	O.forceMove(loc)
-	O.job = "Cyborg"
+	O.job = JOB_TITLE_CYBORG
 
-	if(O.mind && O.mind.assigned_role == "Cyborg")
+	if(O.mind && O.mind.assigned_role == JOB_TITLE_CYBORG)
 		if(O.mind.role_alt_title == "Robot")
 			O.mmi = new /obj/item/mmi/robotic_brain(O)
 			if(O.mmi.brainmob)

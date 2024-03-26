@@ -11,16 +11,16 @@
 /obj/item/autoimplanter/old
 	icon_state = "autoimplanter"
 
-/obj/item/autoimplanter/attack_self(mob/user)//when the object it used...
+/obj/item/autoimplanter/attack_self(mob/user)//when the object is used...
 	if(!storedorgan)
-		to_chat(user, "<span class='notice'>[src] currently has no implant stored.</span>")
+		to_chat(user, span_notice("[src] currently has no implant stored."))
 		return FALSE
 	var/mob/living/carbon/human/patient = user
 	if(!patient.bodyparts_by_name[check_zone(storedorgan.parent_organ_zone)])
 		to_chat(user, span_warning("Missing limb!"))
 		return FALSE
 	storedorgan.insert(user)//insert stored organ into the user
-	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
+	user.visible_message(span_notice("[user] presses a button on [src], and you hear a short mechanical noise."), span_notice("You feel a sharp sting as [src] plunges into your body."))
 	playsound(get_turf(user), usesound, 50, 1)
 	storedorgan = null
 	return TRUE
@@ -48,11 +48,11 @@
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. At once."
 
 /obj/item/autoimplanter/oneuse/attack_self(mob/user)
-	. = ..()
-	user.drop_from_active_hand()
-	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
-	new /obj/effect/decal/cleanable/ash(get_turf(src))
-	qdel(src)
+	if(..())
+		user.drop_from_active_hand()
+		visible_message(span_warning("[src] beeps ominously, and a moment later it bursts up in flames."))
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
 
 /obj/item/autoimplanter/oneuse/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)

@@ -113,7 +113,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_quill
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
+	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != JOB_TITLE_CLOWN && H.mind.assigned_role != JOB_TITLE_MIME)
 		H.drop_item_ground(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)

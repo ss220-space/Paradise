@@ -29,7 +29,7 @@
 	healable = 0
 	gender = NEUTER
 
-	see_in_dark = 8
+	nightvision = 8
 
 	// canstun and canknockdown don't affect slimes because they ignore stun and knockdown variables
 	// for the sake of cleanliness, though, here they are.

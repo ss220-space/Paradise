@@ -428,7 +428,7 @@
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
-	if(user.mind && user.mind.assigned_role == "Chef")
+	if(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF)
 		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")
 		var/datum/martial_art/cqc/CQC = new(null)
 		CQC.teach(user)

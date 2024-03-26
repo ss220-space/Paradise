@@ -396,7 +396,7 @@
 
 	for(var/mob/living/carbon/human/player in GLOB.human_list)
 
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -411,7 +411,7 @@
 		if(!player)
 			continue
 
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 

@@ -258,7 +258,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 /obj/machinery/firealarm/proc/update_fire_light(fire)
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 		return
 	else if(GLOB.security_level == SEC_LEVEL_EPSILON)
 		set_light(2, 1, COLOR_WHITE)

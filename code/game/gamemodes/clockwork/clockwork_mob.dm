@@ -21,7 +21,7 @@
 	pressure_resistance = 100
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
-	see_in_dark = 8
+	nightvision = 8
 	flying = TRUE
 	pass_flags = PASSTABLE
 	AIStatus = AI_OFF // Usually someone WILL play for him but i don't know about this on chief.
