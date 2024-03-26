@@ -219,7 +219,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 					var/mob/dead/observer/O = A
 					if(O.orbiting)
 						continue
-					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
+					if(user.mind && !(user.mind.assigned_role == JOB_TITLE_CHAPLAIN))
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), 4, SOUTH))
 					else
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
@@ -336,8 +336,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	on = FALSE
 	update_icon(UPDATE_ICON_STATE)
-	if(istype(src,/obj/item/camera/spooky))
-		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
+	if(istype(src, /obj/item/camera/spooky))
+		if(user.mind && user.mind.assigned_role == JOB_TITLE_CHAPLAIN && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
 	addtimer(CALLBACK(src, PROC_REF(delayed_turn_on)), 6.4 SECONDS)

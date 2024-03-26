@@ -436,7 +436,7 @@
 				H.Jitter(20 SECONDS)
 				H.fakevomit()
 		else
-			if(H.job == "Chef")
+			if(H.job == JOB_TITLE_CHEF)
 				if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
 					update_flags |= H.adjustBruteLoss(-1, FALSE)
 					update_flags |= H.adjustFireLoss(-1, FALSE)
@@ -451,7 +451,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
+	if(ishuman(M) && (M.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags

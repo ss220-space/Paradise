@@ -36,17 +36,17 @@
 /datum/gear/accessory/holobadge
 	display_name = "holobadge, pin"
 	path = /obj/item/clothing/accessory/holobadge
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/accessory/holobadge_n
 	display_name = "holobadge, cord"
 	path = /obj/item/clothing/accessory/holobadge/cord
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/accessory/holobadge/detective
 	display_name = "holobadge, detective"
 	path = /obj/item/clothing/accessory/holobadge/detective
-	allowed_roles = list("Head of Security", "Detective")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_DETECTIVE)
 
 /datum/gear/accessory/tie
 	display_name = "tie, select"
@@ -63,12 +63,12 @@
 /datum/gear/accessory/stethoscope
 	display_name = "stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Paramedic", "Brig Physician")
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/accessory/ntrjacket
 	display_name = "jacket, nt rep"
 	path = /obj/item/clothing/accessory/ntrjacket
-	allowed_roles = list("Nanotrasen Representative")
+	allowed_roles = list(JOB_TITLE_REPRESENTATIVE)
 
 /datum/gear/accessory/cowboyshirt
 	display_name = "cowboy shirt, select"
@@ -123,34 +123,34 @@
 /datum/gear/accessory/armband_job/sec
 	display_name = " armband, security"
 	path = /obj/item/clothing/accessory/armband/sec
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Security Pod Pilot")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT)
 
 /datum/gear/accessory/armband_job/cargo
 	display_name = "cargo armband"
 	path = /obj/item/clothing/accessory/armband/cargo
-	allowed_roles = list("Quartermaster","Cargo Technician", "Shaft Miner")
+	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER)
 
 /datum/gear/accessory/armband_job/medical
 	display_name = "armband, medical"
 	path = /obj/item/clothing/accessory/armband/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Coroner", "Paramedic", "Brig Physician")
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/accessory/armband_job/emt
 	display_name = "armband, EMT"
 	path = /obj/item/clothing/accessory/armband/medgreen
-	allowed_roles = list("Paramedic", "Brig Physician")
+	allowed_roles = list(JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/accessory/armband_job/engineering
 	display_name = "armband, engineering"
 	path = /obj/item/clothing/accessory/armband/engine
-	allowed_roles = list("Chief Engineer","Station Engineer", "Life Support Specialist", "Trainee Engineer")
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEER_TRAINEE)
 
 /datum/gear/accessory/armband_job/hydro
 	display_name = "armband, hydroponics"
 	path = /obj/item/clothing/accessory/armband/hydro
-	allowed_roles = list("Botanist")
+	allowed_roles = list(JOB_TITLE_BOTANIST)
 
 /datum/gear/accessory/armband_job/sci
 	display_name = "armband, science"
 	path = /obj/item/clothing/accessory/armband/science
-	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Student Scientist", "Roboticist")
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)

@@ -185,7 +185,7 @@
 
 /obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
-	if(target.mind.assigned_role != "Civilian")
+	if(target.mind.assigned_role != JOB_TITLE_CIVILIAN)
 		to_chat(user, "<span class='warning'>You can only recruit Civilians.</span>")
 		revert_cast(user)
 		return

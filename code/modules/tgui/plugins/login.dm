@@ -139,7 +139,7 @@ GLOBAL_LIST(ui_logins)
 			return
 	else if(login_type == LOGIN_TYPE_AI && (isAI(usr) || ispAI(usr)))
 		state.name = usr.name
-		state.rank = "AI"
+		state.rank = JOB_TITLE_AI
 	else if(iscogscarab(usr))
 		to_chat(usr, "<span class='warning'>Access Denied</span>")
 		return

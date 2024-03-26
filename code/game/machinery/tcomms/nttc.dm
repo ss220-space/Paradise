@@ -18,81 +18,80 @@
 	/// Associative list of all jobs and their department color classes
 	var/all_jobs = list(
 		// AI
-		"AI" = "airadio",
+		JOB_TITLE_AI = "airadio",
 		"Android" = "airadio",
-		"Cyborg" = "airadio",
+		JOB_TITLE_CYBORG = "airadio",
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
 		// Civilian
-		"Civilian" = "radio",
+		JOB_TITLE_CIVILIAN = "radio",
 		// Command (Solo command, not department heads)
-		"Blueshield" = "comradio",
-		"Captain" = "comradio",
-		"Head of Personnel" = "comradio",
-		"Nanotrasen Representative" = "comradio",
+		JOB_TITLE_BLUESHIELD = "comradio",
+		JOB_TITLE_CAPTAIN = "comradio",
+		JOB_TITLE_HOP = "comradio",
+		JOB_TITLE_REPRESENTATIVE = "comradio",
 		// Engineeering
-		"Chief Engineer" = "engradio",
-		"Life Support Specialist" = "engradio",
-		"Mechanic" = "engradio",
-		"Station Engineer" = "engradio",
-		"Trainee Engineer" = "engradio",
+		JOB_TITLE_CHIEF = "engradio",
+		JOB_TITLE_ATMOSTECH = "engradio",
+		JOB_TITLE_MECHANIC = "engradio",
+		JOB_TITLE_ENGINEER = "engradio",
+		JOB_TITLE_ENGINEER_TRAINEE = "engradio",
 		// Central Command
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Emergency Response Team Leader" = "dsquadradio",
 		"Emergency Response Team Medic" = "dsquadradio",
 		"Emergency Response Team Member" = "dsquadradio",
 		"Emergency Response Team Officer" = "dsquadradio",
-		"Nanotrasen Navy Officer" = "dsquadradio",
-		"Nanotrasen Navy Field Officer" = "dsquadradio",
-		"Special Operations Officer" = "dsquadradio",
-		"Syndicate Officer" = "syndiecom",
-		"Supreme Commander" = "dsquadradio",
+		JOB_TITLE_CCOFFICER = "dsquadradio",
+		JOB_TITLE_CCFIELD = "dsquadradio",
+		JOB_TITLE_CCSPECOPS = "dsquadradio",
+		JOB_TITLE_SYNDICATE = "syndiecom",
+		JOB_TITLE_CCSUPREME = "dsquadradio",
 		// Medical
-		"Chemist" = "medradio",
-		"Chief Medical Officer" = "medradio",
-		"Coroner" = "medradio",
-		"Medical Doctor" = "medradio",
-		"Intern" = "medradio",
-		"Paramedic" = "medradio",
-		"Psychiatrist" = "medradio",
-		"Virologist" = "medradio",
+		JOB_TITLE_CHEMIST = "medradio",
+		JOB_TITLE_CMO = "medradio",
+		JOB_TITLE_CORONER = "medradio",
+		JOB_TITLE_DOCTOR = "medradio",
+		JOB_TITLE_INTERN = "medradio",
+		JOB_TITLE_PARAMEDIC = "medradio",
+		JOB_TITLE_PSYCHIATRIST = "medradio",
+		JOB_TITLE_VIROLOGIST = "medradio",
 		// Science
-		"Geneticist" = "sciradio",
-		"Research Director" = "sciradio",
-		"Roboticist" = "sciradio",
-		"Scientist" = "sciradio",
-		"Student Scientist" = "sciradio",
+		JOB_TITLE_GENETICIST = "sciradio",
+		JOB_TITLE_RD = "sciradio",
+		JOB_TITLE_ROBOTICIST = "sciradio",
+		JOB_TITLE_SCIENTIST = "sciradio",
+		JOB_TITLE_SCIENTIST_STUDENT = "sciradio",
 		// Security
-		"Brig Physician" = "secradio",
-		"Detective" = "secradio",
-		"Head of Security" = "secradio",
-		"Internal Affairs Agent" = "secradio",
-		"Magistrate" = "secradio",
-		"Security Officer" = "secradio",
-		"Security Cadet" = "secradio",
-		"Security Pod Pilot" = "secradio",
-		"Warden" = "secradio",
+		JOB_TITLE_BRIGDOC = "secradio",
+		JOB_TITLE_DETECTIVE = "secradio",
+		JOB_TITLE_HOS = "secradio",
+		JOB_TITLE_LAWYER = "secradio",
+		JOB_TITLE_JUDGE = "secradio",
+		JOB_TITLE_OFFICER = "secradio",
+		JOB_TITLE_PILOT = "secradio",
+		JOB_TITLE_WARDEN = "secradio",
 		// Supply
-		"Quartermaster" = "supradio",
-		"Cargo Technician" = "supradio",
-		"Shaft Miner" = "supradio",
+		JOB_TITLE_QUARTERMASTER = "supradio",
+		JOB_TITLE_CARGOTECH = "supradio",
+		JOB_TITLE_MINER = "supradio",
 		// Service
-		"Barber" = "srvradio",
-		"Bartender" = "srvradio",
-		"Botanist" = "srvradio",
-		"Chaplain" = "srvradio",
-		"Chef" = "srvradio",
-		"Clown" = "srvradio",
-		"Janitor" = "srvradio",
-		"Librarian" = "srvradio",
-		"Mime" = "srvradio",
+		JOB_TITLE_BARBER = "srvradio",
+		JOB_TITLE_BARTENDER = "srvradio",
+		JOB_TITLE_BOTANIST = "srvradio",
+		JOB_TITLE_CHAPLAIN = "srvradio",
+		JOB_TITLE_CHEF = "srvradio",
+		JOB_TITLE_CLOWN = "srvradio",
+		JOB_TITLE_JANITOR = "srvradio",
+		JOB_TITLE_LIBRARIAN = "srvradio",
+		JOB_TITLE_MIME = "srvradio",
 	)
 	/// List of Command jobs
-	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI", "Syndicate Research Director", "Syndicate Comms Officer")
+	var/list/heads = list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_CHIEF, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_AI, "Syndicate Research Director", "Syndicate Comms Officer")
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
-	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Syndicate Officer", "Nanotrasen Navy Captain", "Solar Federation General", "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", "Supreme Commander")
+	var/list/cc_jobs = list(JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_SYNDICATE, "Nanotrasen Navy Captain", JOB_TITLE_CCSOLGOV, "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", JOB_TITLE_CCSUPREME)
 	/// List of SolGov Marine jobs
 	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Marine")
 	//  List of USSP jobs

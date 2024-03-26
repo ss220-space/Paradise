@@ -6,7 +6,7 @@
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the captain"
-	department_head = list("Captain")
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#c25656"
 	req_admin_notify = 1
 	access = list(ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,

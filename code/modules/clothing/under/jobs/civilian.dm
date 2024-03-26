@@ -108,7 +108,7 @@
 /obj/item/clothing/under/rank/clown/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		if(H.mind && H.mind.assigned_role == "Clown")
+		if(H.mind && H.mind.assigned_role == JOB_TITLE_CLOWN)
 			SSticker.score.score_clown_abuse++
 	return ..()
 
