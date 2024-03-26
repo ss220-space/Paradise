@@ -124,19 +124,19 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "cap_laser"
 	name = "the captain's antique laser gun"
 	typepath = /obj/item/gun/energy/laser/captain
-	protected_jobs = list("Captain")
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/highrisk/captains_jetpack
 	id = "cap_jetpack"
 	name = "the captain's deluxe jetpack"
 	typepath = /obj/item/tank/jetpack/oxygen/captain
-	protected_jobs = list("Captain")
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/highrisk/captains_rapier
 	id = "cap_rapier"
 	name = "the captain's rapier"
 	typepath = /obj/item/melee/rapier
-	protected_jobs = list("Captain")
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/highrisk/hoslaser
 	id = "hos_laser"
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "hand_tele"
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
-	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
+	protected_jobs = list(JOB_TITLE_CAPTAIN, JOB_TITLE_RD, JOB_TITLE_CHIEF)
 
 /datum/theft_objective/highrisk/ai
 	id = "func_AI"
@@ -168,25 +168,25 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "chief_defib"
 	name = "an advanced compact defibrillator"
 	typepath = /obj/item/defibrillator/compact/advanced
-	protected_jobs = list("Chief Medical Officer", "Paramedic")
+	protected_jobs = list(JOB_TITLE_CMO, JOB_TITLE_PARAMEDIC)
 
 /datum/theft_objective/highrisk/magboots
 	id = "chief_magboots"
 	name = "the chief engineer's advanced magnetic boots"
 	typepath = /obj/item/clothing/shoes/magboots/advance
-	protected_jobs = list("Chief Engineer")
+	protected_jobs = list(JOB_TITLE_CHIEF)
 
 /datum/theft_objective/highrisk/combatrcd
 	id = "chief_crcd"
 	name = "the chief engineer's combat RCD"
 	typepath = /obj/item/rcd/combat
-	protected_jobs = list("Chief Engineer")
+	protected_jobs = list(JOB_TITLE_CHIEF)
 
 /datum/theft_objective/highrisk/blueprints
 	id = "chief_blueprints"
 	name = "the station blueprints"
 	typepath = /obj/item/areaeditor/blueprints/ce
-	protected_jobs = list("Chief Engineer")
+	protected_jobs = list(JOB_TITLE_CHIEF)
 	altitems = list(/obj/item/photo)
 
 
@@ -203,19 +203,19 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "captain_medal"
 	name = "the medal of captaincy"
 	typepath = /obj/item/clothing/accessory/medal/gold/captain
-	protected_jobs = list("Captain")
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/highrisk/nukedisc
 	id = "nuke_disc"
 	name = "the nuclear authentication disk"
 	typepath = /obj/item/disk/nuclear
-	protected_jobs = list("Captain")
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/highrisk/reactive
 	id = "reactive_armor"
 	name = "the reactive teleport armor"
 	typepath = /obj/item/clothing/suit/armor/reactive/teleport
-	protected_jobs = list("Research Director")
+	protected_jobs = list(JOB_TITLE_RD)
 
 /datum/theft_objective/highrisk/documents
 	id = "secret_documents"
@@ -239,25 +239,25 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "chief_hypospray"
 	name = "the Chief Medical Officer's hypospray"
 	typepath = /obj/item/reagent_containers/hypospray/CMO
-	protected_jobs = list("Chief Medical Officer")
+	protected_jobs = list(JOB_TITLE_CMO)
 
 /datum/theft_objective/highrisk/ablative
 	id = "ablative_armor"
 	name = "an ablative armor vest"
 	typepath = /obj/item/clothing/suit/armor/laserproof
-	protected_jobs = list("Head of Security", "Warden")
+	protected_jobs = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN)
 
 /datum/theft_objective/highrisk/krav
 	id = "krav_maga"
 	name = "the warden's krav maga martial arts gloves"
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
-	protected_jobs = list("Head Of Security", "Warden")
+	protected_jobs = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN)
 
 /datum/theft_objective/highrisk/supermatter_sliver
 	id = "supermatter_sliver"
 	name = "a supermatter sliver"
 	typepath = /obj/item/nuke_core/supermatter_sliver
-	protected_jobs = list("Chief Engineer", "Station Engineer", "Life Support Specialist") //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
+	protected_jobs = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH) //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
 	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver"
 	special_equipment = /obj/item/storage/box/syndie_kit/supermatter
 	job_possession = FALSE //The CE / engineers / atmos techs do not carry around supermater slivers.
@@ -297,13 +297,13 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "cap_duck"
 	typepath = /obj/item/bikehorn/rubberducky/captain
 	name = "любимую уточку капитана"
-	protected_jobs = list("Captain")
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/hard/capspare
 	id = "cap_spare"
 	typepath = /obj/item/card/id/captains_spare
 	name = "запасную карту капитана с каюты"
-	protected_jobs = list("Captain")
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/hard/goldcup
 	id = "goldcup"
@@ -352,73 +352,73 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "sec_aviators"
 	typepath = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	name = "очки-авиаторы службы безопасности"
-	protected_jobs = list("Head of Security", "Detective")
+	protected_jobs = list(JOB_TITLE_HOS, JOB_TITLE_DETECTIVE)
 
 /datum/theft_objective/medium/space_ce
 	id = "space_ce"
 	typepath = /obj/item/clothing/suit/space/hardsuit/engine/elite
 	name = "продвинутый хардсьют Главного Инженера"
-	protected_jobs = list("Chief Engineer")
+	protected_jobs = list(JOB_TITLE_CHIEF)
 
 /datum/theft_objective/medium/space_mime
 	id = "space_mime"
 	typepath = /obj/item/clothing/suit/space/eva/mime
 	name = "космический костюм мима"
-	protected_jobs = list("Mime")
+	protected_jobs = list(JOB_TITLE_MIME)
 
 /datum/theft_objective/medium/space_clown
 	id = "space_clown"
 	typepath = /obj/item/clothing/suit/space/eva/clown
 	name = "космический костюм клоуна"
-	protected_jobs = list("Clown")
+	protected_jobs = list(JOB_TITLE_CLOWN)
 
 /datum/theft_objective/medium/space_rd
 	id = "space_rd"
 	typepath = /obj/item/clothing/suit/space/hardsuit/rd
 	name = "хардсьют директора исследований"
-	protected_jobs = list("Research Director")
+	protected_jobs = list(JOB_TITLE_RD)
 
 /datum/theft_objective/medium/space_bs
 	id = "space_bs"
 	typepath = /obj/item/clothing/suit/space/hardsuit/blueshield
 	name = "хардсьют офицера \"Синего Щита\""
-	protected_jobs = list("Blueshield")
+	protected_jobs = list(JOB_TITLE_BLUESHIELD)
 
 /datum/theft_objective/medium/space_warden
 	id = "space_warden"
 	typepath = /obj/item/clothing/suit/space/hardsuit/security/warden
 	name = "хардсьют смотрителя"
-	protected_jobs = list("Warden")
+	protected_jobs = list(JOB_TITLE_WARDEN)
 
 /datum/theft_objective/medium/space_hos
 	id = "space_hos"
 	typepath = /obj/item/clothing/suit/space/hardsuit/security/hos
 	name = "хардсьют главы службы безопасности"
-	protected_jobs = list("Head of Security")
+	protected_jobs = list(JOB_TITLE_HOS)
 
 /datum/theft_objective/medium/rnd_logs_key
 	id = "rnd_logs_key"
 	typepath = /obj/item/paper/rnd_logs_key
 	name = "подлинную бумагу RnD logs Decryption Key"
-	protected_jobs = list("Research Director", "Captain")
+	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/medium/monitorkey
 	id = "monitorkey"
 	typepath = /obj/item/paper/monitorkey
 	name = "подлинную бумагу Monitor Decryption Key"
-	protected_jobs = list("Research Director", "Captain", "Head of Security", "Chief Engineer", "Head of Personal")
+	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_CHIEF, JOB_TITLE_HOP)
 
 /datum/theft_objective/medium/paper_rnd
 	id = "paper_rnd"
 	typepath = /obj/item/paper/safe_code
 	name = "подлинную бумагу с кодами от сейфа"
-	protected_jobs = list("Captain")
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/medium/tcommskey
 	id = "tcommskey"
 	typepath = /obj/item/paper/tcommskey
 	name = "подлинную бумагу с паролем от телекомов"
-	protected_jobs = list("Chief Engineer")
+	protected_jobs = list(JOB_TITLE_CHIEF)
 
 /datum/theft_objective/medium/yorick
 	id = "yorick"
@@ -449,13 +449,13 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "structure_clown"
 	typepath = /obj/structure/statue/bananium/clown/unique
 	name = "статую клоуна"
-	protected_jobs = list("Clown", "Head of Personnel")
+	protected_jobs = list(JOB_TITLE_CLOWN, JOB_TITLE_HOP)
 
 /datum/theft_objective/structure/mime_statue
 	id = "structure_mime"
 	typepath = /obj/structure/statue/tranquillite/mime/unique
 	name = "статую мима"
-	protected_jobs = list("Mime", "Head of Personnel")
+	protected_jobs = list(JOB_TITLE_MIME, JOB_TITLE_HOP)
 
 /datum/theft_objective/structure/captain_toilet
 	id = "structure_cap_toilet"
@@ -495,19 +495,19 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_ian"
 	typepath = /mob/living/simple_animal/pet/dog/corgi/Ian
 	name = "собаку по кличке Ян"
-	protected_jobs = list("Head of Personnel")
+	protected_jobs = list(JOB_TITLE_HOP)
 
 /datum/theft_objective/animal/borgi
 	id = "animal_borgi"
 	typepath = /mob/living/simple_animal/pet/dog/corgi/borgi
 	name = "собаку по кличке E-N"
-	protected_jobs = list("Research Director", "Scientist", "Student Scientist", "Roboticist")
+	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)
 
 /datum/theft_objective/animal/psycho
 	id = "animal_psycho"
 	typepath = /mob/living/simple_animal/pet/dog/brittany/Psycho
 	name = "собаку по кличке Перрито"
-	protected_jobs = list("Psychiatrist", "Chief Medical Officer")
+	protected_jobs = list(JOB_TITLE_PSYCHIATRIST, JOB_TITLE_CMO)
 
 /datum/theft_objective/animal/security
 	id = "animal_muhtar"
@@ -543,31 +543,31 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_runtime"
 	typepath = /mob/living/simple_animal/pet/cat/Runtime
 	name = "кота по кличке Runtime"
-	protected_jobs = list("Chief Medical Officer")
+	protected_jobs = list(JOB_TITLE_CMO)
 
 /datum/theft_objective/animal/crusher
 	id = "animal_crusher"
 	typepath = /mob/living/simple_animal/pet/cat/birman/Crusher
 	name = "кота по кличке Бедокур"
-	protected_jobs = list("Mechanic", "Chief Engineer")
+	protected_jobs = list(JOB_TITLE_MECHANIC, JOB_TITLE_CHIEF)
 
 /datum/theft_objective/animal/paperwork
 	id = "animal_paperwork"
 	typepath = /mob/living/simple_animal/pet/sloth/paperwork
 	name = "ленивца по кличке Paperwork"
-	protected_jobs = list("Quartermaster", "Head of Personnel", "Cargo Technician")
+	protected_jobs = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CARGOTECH)
 
 /datum/theft_objective/animal/slugcat
 	id = "animal_slugcat"
 	typepath = /mob/living/simple_animal/pet/slugcat/monk
 	name = "слизнекота-монаха"
-	protected_jobs = list("Research Director", "Scientist", "Student Scientist", "Roboticist")
+	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)
 
 /datum/theft_objective/animal/poly
 	id = "animal_poly"
 	typepath = /mob/living/simple_animal/parrot/Poly
 	name = "попугая по кличке Поли"
-	protected_jobs = list("Chief Engineer")
+	protected_jobs = list(JOB_TITLE_CHIEF)
 
 /datum/theft_objective/animal/representative
 	id = "animal_hamster_alex"
@@ -578,20 +578,20 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_brain"
 	typepath = /mob/living/simple_animal/mouse/rat/white/Brain
 	name = "крысу по кличке Брейн"
-	protected_jobs = list("Research Director")
+	protected_jobs = list(JOB_TITLE_RD)
 
 /datum/theft_objective/animal/poppy
 	id = "animal_poppy"
 	typepath = /mob/living/simple_animal/possum/Poppy
 	name = "опоссума по кличке Ключик"
-	protected_jobs = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
+	protected_jobs = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH)
 
 
 /datum/theft_objective/animal/mars
 	id = "animal_mars"
 	typepath = /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars
 	name = "гориллу по кличке Марс"
-	protected_jobs = list("Quartermaster", "Head of Personnel", "Cargo Technician")
+	protected_jobs = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CARGOTECH)
 
 
 //==========================

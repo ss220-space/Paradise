@@ -23,6 +23,8 @@
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
 
+	light_system = MOVABLE_LIGHT
+
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
 	var/list/users = list() //for dialog updates
@@ -174,7 +176,7 @@
 	if(disabling_timer_id || stat)
 		return FALSE
 	on = TRUE
-	set_light(initial(light_range))
+	set_light_on(TRUE)
 	update_icon()
 	update_controls()
 	diag_hud_set_botstat()
@@ -183,7 +185,7 @@
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
-	set_light(0)
+	set_light_on(FALSE)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 	update_controls()

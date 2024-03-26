@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	required_players = 30
 	required_enemies = 1
 	recommended_enemies = 1
-	restricted_jobs = list("Cyborg", "AI")
+	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
 
 	var/declared = 0
 	var/burst = 0

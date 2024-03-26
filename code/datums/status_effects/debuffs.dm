@@ -839,7 +839,7 @@
 		if(prob(pukeprob))
 			carbon.AdjustConfused(9 SECONDS)
 			carbon.AdjustStuttering(3 SECONDS)
-			carbon.vomit(15, FALSE, TRUE, 0, FALSE)
+			carbon.vomit(15, FALSE, 8 SECONDS, 0, FALSE)
 		carbon.Dizzy(15 SECONDS)
 	if(strength >= DISGUST_LEVEL_DISGUSTED)
 		if(prob(25))

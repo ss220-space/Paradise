@@ -710,7 +710,10 @@
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
 				pulling.pixel_y = initial(pulling.pixel_y)
+			var/old_dir = pulling.dir
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
+			if(pulling.dir != old_dir)
+				SEND_SIGNAL(pulling, COMSIG_ATOM_DIR_CHANGE, old_dir, pulling.dir)
 			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()
 
@@ -1408,10 +1411,30 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return "Unknown"
 
 
+/**
+ * Can this mob see in the dark
+ *
+ * Cursed version of checking lighting_cutoffs, just making orientation on nightvision see_in_dark analog
+ *
+**/
+/mob/proc/has_nightvision()
+	return nightvision >= 4
+
 /mob/living/run_examinate(atom/target)
 	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
 
 	if(user_staring_effect || hindered_inspection(target))
+		return
+
+	if(isturf(target) && !(sight & SEE_TURFS) && !(target in view(client ? client.view : world.view, src)))
+		// shift-click catcher may issue examinate() calls for out-of-sight turfs
+		return
+
+	var/turf/examine_turf = get_turf(target)
+
+	if(!(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
+		get_dist(src, examine_turf) > 1 && \
+		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
 		return
 
 	var/examine_time = target.get_examine_time()

@@ -628,8 +628,8 @@
 			)
 
 			var/department = input(registered_user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
-			var/new_job = "Civilian"
-			var/new_rank = "Civilian"
+			var/new_job = JOB_TITLE_CIVILIAN
+			var/new_rank = JOB_TITLE_CIVILIAN
 
 			if(department == "Custom")
 				new_job = sanitize(stripped_input(registered_user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
@@ -826,7 +826,7 @@
 	icon_state = "gold"
 	item_state = "gold_id"
 	registered_name = "Captain"
-	assignment = "Captain"
+	assignment = JOB_TITLE_CAPTAIN
 
 /obj/item/card/id/captains_spare/New()
 	var/datum/job/captain/J = new/datum/job/captain

@@ -428,7 +428,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.mind.special_verbs = list()
 	else
 		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Civilian"//If they somehow got a null assigned role.
+	if(!new_character.mind.assigned_role)
+		new_character.mind.assigned_role = JOB_TITLE_CIVILIAN//If they somehow got a null assigned role.
 
 	//DNA
 	if(record_found)//Pull up their name from database records if they did have a mind.
@@ -475,12 +476,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			new_character.update_action_buttons_icon()
 		else//They may also be a cyborg or AI.
 			switch(new_character.mind.assigned_role)
-				if("Cyborg")//More rigging to make em' work and check if they're traitor.
+				if(JOB_TITLE_CYBORG)//More rigging to make em' work and check if they're traitor.
 					new_character = new_character.Robotize()
 					if(new_character.mind.special_role=="traitor")
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 					SSticker?.score?.save_silicon_laws(new_character, src.mob, additional_info = "admin respawn", log_all_laws = TRUE)
-				if("AI")
+				if(JOB_TITLE_AI)
 					new_character = new_character.AIize()
 					var/mob/living/silicon/ai/ai_character = new_character
 					ai_character.moveToAILandmark()

@@ -33,6 +33,8 @@
 
 	for(var/areapath in typesof(spawn_area_type))
 		var/area/A = locate(areapath) in GLOB.all_areas
+		if(isnull(A))
+			continue
 		for(var/turf/simulated/floor/F in A.contents)
 			if(turf_clear(F))
 				turfs += F

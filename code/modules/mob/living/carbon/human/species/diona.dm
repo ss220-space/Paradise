@@ -99,7 +99,7 @@
 	var/is_vamp = isvampire(H)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(1, T.get_lumcount()) - 0.5
+		light_amount = min(1, T.get_lumcount()) - 0.1
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else

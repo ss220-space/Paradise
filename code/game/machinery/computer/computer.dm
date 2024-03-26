@@ -34,7 +34,7 @@
 
 /obj/machinery/computer/extinguish_light(force = FALSE)
 	if(light_range)
-		set_light(0)
+		set_light_on(FALSE)
 		underlays.Cut()
 		visible_message(span_danger("[src] grows dim, its screen barely readable."))
 
@@ -105,9 +105,9 @@
 /obj/machinery/computer/power_change(forced = FALSE)
 	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
 	if((stat & (BROKEN|NOPOWER)))
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on)
+		set_light(light_range_on, light_power_on, l_on = TRUE)
 	if(.)
 		update_icon()
 
@@ -128,7 +128,7 @@
 			playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 			stat |= BROKEN
 			update_icon()
-			set_light(0)
+			set_light_on(FALSE)
 
 /obj/machinery/computer/emp_act(severity)
 	..()

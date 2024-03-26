@@ -78,19 +78,19 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("Special Reaction Team Member")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Special Operations Officer")
+		if(JOB_TITLE_CCSPECOPS)
 			return get_all_centcom_access() + get_all_accesses()
-		if("Solar Federation General")
+		if(JOB_TITLE_CCSOLGOV)
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Representative")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Nanotrasen Navy Officer")
+		if(JOB_TITLE_CCOFFICER)
 			return get_all_centcom_access() + get_all_accesses()
-		if("Nanotrasen Navy Field Officer")
+		if(JOB_TITLE_CCFIELD)
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Captain")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Supreme Commander")
+		if(JOB_TITLE_CCSUPREME)
 			return get_all_centcom_access() + get_all_accesses()
 
 /proc/get_syndicate_access(job)
@@ -116,7 +116,7 @@
 							ACCESS_SYNDICATE_MEDICAL,
 							ACCESS_SYNDICATE_BOTANY,
 							ACCESS_SYNDICATE_ENGINE)
-		if("Syndicate Officer")
+		if(JOB_TITLE_SYNDICATE)
 			return list(	ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_LEADER,
 							ACCESS_SYNDICATE_COMMAND,
@@ -447,10 +447,10 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer", JOB_TITLE_CCSPECOPS,"Nanotrasen Navy Representative", JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD,"Nanotrasen Diplomat","Nanotrasen Navy Captain", JOB_TITLE_CCSUPREME)
 
 /proc/get_all_solgov_jobs()
-	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
+	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader", JOB_TITLE_CCSOLGOV)
 
 /proc/get_all_soviet_jobs()
 	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral","Soviet General","Soviet Engineer","Soviet Scientist","Soviet Medic")

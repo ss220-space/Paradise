@@ -162,7 +162,7 @@
 // Garbage collect itself by nulling reference to it
 
 /obj/effect/hotspot/Destroy()
-	set_light(0)
+	set_light_on(FALSE)
 	SSair.hotspots -= src
 	if(istype(loc, /turf/simulated))
 		var/turf/simulated/T = loc

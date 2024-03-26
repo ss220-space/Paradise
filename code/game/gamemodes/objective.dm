@@ -1170,7 +1170,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/heist/kidnap/choose_target()
-	var/list/roles = list("Chief Engineer","Research Director","Chief Medical Officer","Head of Personal","Head of Security","Nanotrasen Representative","Magistrate","Roboticist","Chemist")
+	var/list/roles = list(JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_ROBOTICIST, JOB_TITLE_CHEMIST)
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 
@@ -1635,12 +1635,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/list/scanned_occupants = list()
 	var/scans_to_win = 3
 	var/list/available_roles = list(
-		"Clown", "Mime", "Cargo Technician",
-		"Shaft Miner", "Scientist", "Roboticist",
-		"Medical Doctor", "Geneticist", "Security Officer",
-		"Chemist", "Station Engineer", "Civilian",
-		"Botanist", "Chemist", "Virologist",
-		"Life Support Specialist",
+		JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_CARGOTECH,
+		JOB_TITLE_MINER, JOB_TITLE_SCIENTIST, JOB_TITLE_ROBOTICIST,
+		JOB_TITLE_DOCTOR, JOB_TITLE_GENETICIST, JOB_TITLE_OFFICER,
+		JOB_TITLE_CHEMIST, JOB_TITLE_ENGINEER, JOB_TITLE_CIVILIAN,
+		JOB_TITLE_BOTANIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_ATMOSTECH
 	)
 
 

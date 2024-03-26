@@ -33,7 +33,7 @@
 	if(active)
 		set_light(4, ,"#ffb366")
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/structure/firepit/update_icon_state()

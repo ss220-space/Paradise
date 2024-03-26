@@ -315,11 +315,11 @@
 		return 0
 
 	if(CONFIG_GET(flag/assistant_limit))
-		if(job.title == "Civilian")
+		if(job.title == JOB_TITLE_CIVILIAN)
 			var/count = 0
-			var/datum/job/officer = SSjobs.GetJob("Security Officer")
-			var/datum/job/warden = SSjobs.GetJob("Warden")
-			var/datum/job/hos = SSjobs.GetJob("Head of Security")
+			var/datum/job/officer = SSjobs.GetJob(JOB_TITLE_OFFICER)
+			var/datum/job/warden = SSjobs.GetJob(JOB_TITLE_WARDEN)
+			var/datum/job/hos = SSjobs.GetJob(JOB_TITLE_HOS)
 			count += (officer.current_positions + warden.current_positions + hos.current_positions)
 			if(job.current_positions > (CONFIG_GET(number/assistant_ratio) * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
@@ -404,7 +404,7 @@
 	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
-	if(character.mind.assigned_role == "AI")
+	if(character.mind.assigned_role == JOB_TITLE_AI)
 		var/mob/living/silicon/ai/ai_character = character.AIize() // AIize the character, but don't move them yet
 
 		// IsJobAvailable for AI checks that there is an empty core available in this list
@@ -454,7 +454,7 @@
 
 	SSticker.mode.latespawn(character)
 
-	if(character.mind.assigned_role == "Cyborg")
+	if(character.mind.assigned_role == JOB_TITLE_CYBORG)
 		AnnounceCyborg(character, rank, join_message)
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
@@ -482,13 +482,13 @@
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
+				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, announcer.arrivalmsg)
 					announcer.say(";[arrivalmessage]")
 
 		else
 			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
+				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, GLOB.global_announcer_base_text)
 					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer")
 
@@ -580,7 +580,7 @@
 				if(job.title in categorizedJobs[jobcat]["titles"])
 					categorized = 1
 					if(jobcat == "Command") // Put captain at top of command jobs
-						if(job.title == "Captain")
+						if(job.title == JOB_TITLE_CAPTAIN)
 							jobs.Insert(1, job)
 						else
 							jobs += job
@@ -642,12 +642,12 @@
 
 	if(mind)
 		mind.active = 0					//we wish to transfer the key manually
-		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
+		if(mind.assigned_role == JOB_TITLE_CLOWN)				//give them a clownname if they are a clown
 			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
-			new_character.rename_self("clown")
-		else if(mind.assigned_role == "Mime")
+			new_character.rename_self(JOB_TITLE_CLOWN)
+		else if(mind.assigned_role == JOB_TITLE_MIME)
 			new_character.real_name = pick(GLOB.mime_names)
-			new_character.rename_self("mime")
+			new_character.rename_self(JOB_TITLE_MIME)
 		mind.set_original_mob(new_character)
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
 		GLOB.human_names_list += new_character.real_name

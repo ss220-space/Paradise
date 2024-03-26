@@ -237,16 +237,16 @@
 /obj/machinery/vending/power_change(forced = FALSE)
 	. = ..()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on)
+		set_light(light_range_on, light_power_on, l_on = TRUE)
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/vending/extinguish_light(force = FALSE)
 	if(light)
-		set_light(0)
+		set_light_on(FALSE)
 		underlays.Cut()
 
 
@@ -1567,6 +1567,8 @@
 					/obj/item/seeds/peas =3,
 					/obj/item/seeds/pineapple = 3,
 					/obj/item/seeds/poppy = 3,
+					/obj/item/seeds/geranium = 3,
+					/obj/item/seeds/lily = 3,
 					/obj/item/seeds/potato = 3,
 					/obj/item/seeds/pumpkin = 3,
 					/obj/item/seeds/replicapod = 3,

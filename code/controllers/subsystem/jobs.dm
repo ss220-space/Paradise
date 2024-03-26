@@ -170,7 +170,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!job)
 			continue
 
-		if(istype(job, GetJob("Civilian"))) // We don't want to give him assistant, that's boring!
+		if(istype(job, GetJob(JOB_TITLE_CIVILIAN))) // We don't want to give him assistant, that's boring!
 			continue
 
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
@@ -271,11 +271,11 @@ SUBSYSTEM_DEF(jobs)
 	if(!CONFIG_GET(flag/allow_ai))
 		return FALSE
 
-	var/datum/job/job = GetJob("AI")
+	var/datum/job/job = GetJob(JOB_TITLE_AI)
 	if(!job)
 		return FALSE
 
-	if(new_malf && AssignRole(new_malf, "AI"))
+	if(new_malf && AssignRole(new_malf, JOB_TITLE_AI))
 		return TRUE
 
 /** Proc DivideOccupations
@@ -323,7 +323,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("AC1, Candidates: [civilian_candidates.len]")
 	for(var/mob/new_player/player in civilian_candidates)
 		Debug("AC1 pass, Player: [player]")
-		AssignRole(player, "Civilian")
+		AssignRole(player, JOB_TITLE_CIVILIAN)
 		civilian_candidates -= player
 	Debug("DO, AC1 end")
 
@@ -413,15 +413,15 @@ SUBSYSTEM_DEF(jobs)
 			if(player.client.prefs.alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
-					AssignRole(player, "Civilian")
+					AssignRole(player, JOB_TITLE_CIVILIAN)
 			else
-				AssignRole(player, "Civilian")
+				AssignRole(player, JOB_TITLE_CIVILIAN)
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
 		if(player.client.prefs.alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
-			AssignRole(player, "Civilian")
+			AssignRole(player, JOB_TITLE_CIVILIAN)
 		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
 			to_chat(player, "<span class='danger'>Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot.</span>")
 			player.ready = 0
@@ -561,7 +561,7 @@ SUBSYSTEM_DEF(jobs)
 		var/value = copytext(job, pos + 1)
 
 		if(name && value)
-			if(name == "AI")  //AI use diferent config
+			if(name == JOB_TITLE_AI)  //AI use diferent config
 				continue
 			var/datum/job/J = GetJob(name)
 			if(!J)
@@ -670,7 +670,7 @@ SUBSYSTEM_DEF(jobs)
 				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
 			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
-			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
+			else if(job.total_positions && !job.current_positions && job.title != JOB_TITLE_CIVILIAN)
 				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
 				jobs_to_formats[job.title] = "grey" // jobs that are full (no free positions) are discouraged

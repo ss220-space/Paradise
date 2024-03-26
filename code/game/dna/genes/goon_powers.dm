@@ -570,7 +570,7 @@
 
 		if(M.dna?.GetSEState(GLOB.empathblock))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
-		else if(prob(5) || M.mind?.assigned_role=="Chaplain")
+		else if(prob(5) || M.mind?.assigned_role == JOB_TITLE_CHAPLAIN)
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
 
 ////////////////////////////////////////////////////////////////////////

@@ -7,6 +7,12 @@
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	pass_flags_self = PASSMOB
+
+	see_in_dark = DEFAULT_SEE_IN_DARK
+
+	///Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay
+	var/nightvision = 0
+
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 

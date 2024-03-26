@@ -363,7 +363,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Civilian")
+		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), JOB_TITLE_CIVILIAN)
 	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
 
 	var/obj/item/radio/R = H.l_ear
@@ -416,7 +416,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando", "deathsquad")
-		I.photo = get_id_photo(H, custom_job = "Nanotrasen Representative") // They should go die with a good photo instead of assistants grey shorts xD
+		I.photo = get_id_photo(H, custom_job = JOB_TITLE_REPRESENTATIVE) // They should go die with a good photo instead of assistants grey shorts xD
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/death_commando/officer
@@ -578,12 +578,12 @@
 	var/obj/item/pda/PDA = H.wear_pda
 	if(istype(PDA))
 		PDA.owner = H.real_name
-		PDA.ownjob = "Mime"
+		PDA.ownjob = JOB_TITLE_MIME
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Mime")
+		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), JOB_TITLE_MIME)
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/greytide

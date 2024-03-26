@@ -297,7 +297,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate the list of empty playable AI cores in the world
 	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+		if(S.name != JOB_TITLE_AI)
 			continue
 		if(locate(/mob/living) in S.loc)
 			continue
@@ -318,7 +318,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Delete starting landmarks (not AI ones because we need those for AI-ize)
 	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+		if(S.name != JOB_TITLE_AI)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
@@ -425,7 +425,7 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind)
-			if(player.mind.assigned_role == "AI")
+			if(player.mind.assigned_role == JOB_TITLE_AI)
 				player.close_spawn_windows()
 				var/mob/living/character = player.create_character()
 				var/mob/living/silicon/ai/ai_character = character.AIize()
@@ -442,7 +442,7 @@ SUBSYSTEM_DEF(ticker)
 	var/captainless = TRUE
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == "Captain")
+			if(player.mind.assigned_role == JOB_TITLE_CAPTAIN)
 				captainless = FALSE
 			if(player.mind.assigned_role != player.mind.special_role)
 				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
