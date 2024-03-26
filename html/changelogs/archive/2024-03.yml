@@ -218,3 +218,60 @@
   - bugfix: Cafeteria_RnD_Delta scrubber (#4589)
   xTrogwaRx:
   - add: Drum Kit (#4632)
+'2024-03-21':
+  ArtemDerp:
+  - bugfix: missed and incorrect textures on ussp cpmputers and little more (#4648)
+  Daeberdir:
+  - bugfix: language keys usability. (#4633)
+  - refactor: KA modkits compatibility. (#4600)
+  Den109G:
+  - refactor: Species defines used in prefs, GMs and sprite_accessory (#4656)
+  ROdenFL:
+  - unknown: loadout manage (#4624)
+  - add: loadout strips (#4616)
+  - bugfix: exploit records fixes (#4645)
+  - bugfix: stripedred sharf (#4667)
+  Rerik007:
+  - bugfix: fixes xenobio runtime monke null loc (#4669)
+  - bugfix: fixes dec microscope runtime (#4668)
+  - bugfix: Space dragon now also restarts event if there are few people (#4662)
+  - bugfix: fixes surgical trays passing through tables (#4655)
+  Vladisvell:
+  - bugfix: Fixed Cursed Turf Smoothing (#4658)
+  - bugfix: Antag skipping no longer resets after certain circumstances. (#4666)
+  Zwei:
+  - bugfix: Crayfish Fit Inside Fishbag (#4665)
+  - bugfix: Smoothing Skips Overlays Subsystem (#4670)
+  - bugfix: Custom mapped turfs no longer get default overlay placed when there are
+      no appropriate smoothing states (#4671)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4654)
+'2024-03-22':
+  Aziz Chynaliev:
+  - tweak: set 40 client fps by default
+  ROdenFL:
+  - bugfix: slot loadout equip (#4673)
+  - bugfix: loadout day 0 update (#4675)
+  - bugfix: strip update (#4676)
+  Vladisvell:
+  - bugfix: Jumping to alerts for AI now works correctly (#4677)
+'2024-03-23':
+  BeebBeebBoob:
+  - refactor: lighting optimization (#4326)
+  Vladisvell:
+  - add: Overlay and directional lighting (#4685)
+  - bugfix: Nucleation and Floodlight light fixes (#4688)
+  Zwei:
+  - bugfix: Temporary Overlays Limit Increase (#4683)
+'2024-03-24':
+  ArtemDerp:
+  - bugfix: random arcade subtybe and ptech vendor (#4674)
+  Aziz Chynaliev:
+  - bugfix: set disco light as static (#4691)
+  Daeberdir:
+  - bugfix: KA reload time calculation. (#4681)
+  ROdenFL:
+  - bugfix: lawyer badge (#4689)
+  - bugfix: shots subtypes stealed (#4679)
+  Rerik007:
+  - bugfix: fixes few runtimes (#4690)

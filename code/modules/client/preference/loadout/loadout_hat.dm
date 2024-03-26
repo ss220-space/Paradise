@@ -6,7 +6,7 @@
 /datum/gear/hat/hhat
 	display_name = "hardhat, select"
 	path = /obj/item/clothing/head/hardhat
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/hat/hhat/New()
 	..()
@@ -53,12 +53,12 @@
 /datum/gear/hat/capcsec
 	display_name = "security corporate cap"
 	path = /obj/item/clothing/head/soft/sec/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/hat/capsec
 	display_name = "security cap"
 	path = /obj/item/clothing/head/soft/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/hat/capred
 	display_name = "cap, select"
@@ -109,47 +109,47 @@
 /datum/gear/hat/beret_job/sec
 	display_name = "security beret"
 	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/hat/beret_job/sec_black
 	display_name = "black security beret"
 	path = /obj/item/clothing/head/beret/sec/black
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/hat/beret_job/marine
 	display_name = "royal marines commando beret"
 	path = /obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret
-	allowed_roles = list("Head of Security", "Blueshield")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_BLUESHIELD)
 
 /datum/gear/hat/beret_job/marine_old
 	display_name = "marine lieutenant beret"
 	path = /obj/item/clothing/head/beret/centcom/officer/sigholt
-	allowed_roles = list("Head of Security", "Blueshield")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_BLUESHIELD)
 
 /datum/gear/hat/beret_job/sci
 	display_name = "science beret"
 	path = /obj/item/clothing/head/beret/sci
-	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Roboticist", "Geneticist")
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST)
 
 /datum/gear/hat/beret_job/med
 	display_name = "medical beret"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Virologist", "Brig Physician" , "Coroner", "Paramedic", "Chemist", "Geneticist", "Psychiatrist")
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST)
 
 /datum/gear/hat/beret_job/eng
 	display_name = "engineering beret"
 	path = /obj/item/clothing/head/beret/eng
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer")
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
 
 /datum/gear/hat/beret_job/atmos
 	display_name = "atmospherics beret"
 	path = /obj/item/clothing/head/beret/atmos
-	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/hat/surgicalcap
 	display_name = "surgical cap, select"
 	path = /obj/item/clothing/head/surgery/purple
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern")
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN)
 
 /datum/gear/hat/surgicalcap/New()
 	..()
@@ -165,4 +165,4 @@
 /datum/gear/hat/lwhelmet
 	display_name = "security lightweight helmet"
 	path = /obj/item/clothing/head/helmet/lightweighthelmet
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)

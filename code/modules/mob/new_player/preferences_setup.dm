@@ -924,7 +924,7 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-med"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-			if(JOB_FLAG_NANO)
+			if(JOB_FLAG_REPRESENTATIVE)
 				clothes_s = new /icon(uniform_dmi, "officer_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 				switch(backbag)

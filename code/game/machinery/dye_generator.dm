@@ -44,7 +44,7 @@
 /obj/machinery/dye_generator/power_change(forced = FALSE)
 	. = ..()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER, dye_color)
 	if(.)
@@ -53,7 +53,7 @@
 
 /obj/machinery/dye_generator/extinguish_light(force = FALSE)
 	if(light)
-		set_light(0)
+		set_light_on(FALSE)
 		underlays.Cut()
 
 

@@ -230,6 +230,9 @@
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
 
 
 /obj/item/wisp_lantern/update_icon_state()
@@ -252,7 +255,7 @@
 		wisp.forceMove(user)
 		update_icon(UPDATE_ICON_STATE)
 		INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
-		set_light(0)
+		set_light_on(FALSE)
 
 		user.update_sight()
 		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
@@ -264,7 +267,7 @@
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
 		wisp.stop_orbit()
 		wisp.forceMove(src)
-		set_light(initial(light_range))
+		set_light_on(TRUE)
 
 		user.update_sight()
 		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")

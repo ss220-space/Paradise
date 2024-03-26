@@ -12,7 +12,7 @@
 	speed = 0
 	var/phasing = 0
 	flying = TRUE
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	universal_speak = 1

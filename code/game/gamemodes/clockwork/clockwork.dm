@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 /datum/game_mode/clockwork
 	name = "Clockwork Cult"
 	config_tag = "clockwork"
-	restricted_jobs = list("Chaplain", "AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
+	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		obj.owner = clockwork_mind
 		clockwork_mind.objectives += obj
 
-		if(clockwork_mind.assigned_role == "Clown")
+		if(clockwork_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(clockwork_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
 			clockwork_mind.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
@@ -189,7 +189,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clock_mind.current.faction |= "clockwork_cult"
 		clock_mind.special_role = SPECIAL_ROLE_CLOCKER
 
-		if(clock_mind.assigned_role == "Clown")
+		if(clock_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(clock_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
 			clock_mind.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new

@@ -442,7 +442,7 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	var/clown = user.mind && (user.mind.assigned_role == "Clown")
+	var/clown = user.mind && (user.mind.assigned_role == JOB_TITLE_CLOWN)
 
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))

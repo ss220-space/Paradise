@@ -570,7 +570,7 @@
 
 // Readd the normal drill
 /obj/item/robot_module/miner/unemag()
-	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in modules) 
+	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in modules)
 		qdel(drill)
 		modules -= drill
 	modules += new /obj/item/pickaxe/drill/cyborg(src)
@@ -578,11 +578,11 @@
 	return ..()
 
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
-    if(component_id == "KA modkits")
-        for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
-            D.attackby(W, user)
-        return TRUE
-    return ..()
+	if(component_id == "KA modkits")
+		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
+			W.melee_attack_chain(user, D)
+		return TRUE
+	return ..()
 
 /obj/item/robot_module/deathsquad
 	name = "Deathsquad"

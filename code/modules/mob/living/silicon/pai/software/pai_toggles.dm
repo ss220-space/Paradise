@@ -88,11 +88,13 @@
 /datum/pai_software/flashlight/toggle(mob/living/silicon/pai/user)
 	var/atom/movable/actual_location = istype(user.loc, /obj/item/paicard) ? user.loc : user
 	if(!user.flashlight_on)
-		actual_location.set_light(5)
-		user.card.set_light(5)
+		actual_location.set_light_range(5)
+		user.card.set_light_range(5)
+		actual_location.set_light_on(TRUE)
+		user.card.set_light_on(TRUE)
 	else
-		actual_location.set_light(0)
-		user.card.set_light(0)
+		actual_location.set_light_on(FALSE)
+		user.card.set_light_on(FALSE)
 
 	user.flashlight_on = !user.flashlight_on
 

@@ -42,7 +42,7 @@
 	if(!..())
 		return
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
@@ -85,8 +85,8 @@
 
 	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_icon_state]_flash", src)
-	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	set_light(2, 1, COLOR_WHITE, TRUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)
 	last_flash = world.time
 	use_power(1000)
 

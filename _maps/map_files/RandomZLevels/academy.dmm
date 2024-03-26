@@ -6517,7 +6517,7 @@
 /area/awaymission/academy/academyaft)
 "UV" = (
 /obj/structure/table/wood,
-/obj/item/borg/upgrade/modkit/cooldown,
+/obj/item/borg/upgrade/modkit/cooldown/haste,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},

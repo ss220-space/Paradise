@@ -289,23 +289,6 @@
 	to_chat(src, "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity]" : "Headlamp disabled."]")
 	update_headlamp()
 
-/mob/living/silicon/robot/cogscarab/update_headlamp(var/turn_off = 0, var/cooldown = 100)
-	set_light(0)
-
-	if(lamp_intensity && (turn_off || stat || low_power_mode))
-		to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
-		lamp_intensity = 0
-		lamp_recharging = 1
-		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
-			lamp_recharging = 0
-	else
-		set_light(lamp_intensity)
-
-	if(lamp_button)
-		lamp_button.icon_state = "lamp[lamp_intensity*2]"
-
-	update_icons()
-
 /obj/item/clockwork/brassmaker
 	name = "Brassmaking melter"
 	desc = "A machine, spinning and whirring just to create out of thin metal into perfect brass."

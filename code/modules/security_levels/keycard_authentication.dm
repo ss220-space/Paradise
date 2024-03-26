@@ -135,13 +135,13 @@
 	event_triggered_by = null
 	event_confirmed_by = null
 	busy = FALSE
-	set_light(0)
+	set_light_on(FALSE)
 	update_icon()
 
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
-	set_light(1, LIGHTING_MINIMUM_POWER)
+	set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
 		if(KA == src)
 			continue
@@ -163,7 +163,7 @@
 		return
 	reset()
 
-	set_light(1, LIGHTING_MINIMUM_POWER)
+	set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	event_source = source
 	busy = TRUE
 	active = TRUE

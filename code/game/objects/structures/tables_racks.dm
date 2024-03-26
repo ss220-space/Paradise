@@ -153,9 +153,6 @@
 			return TRUE
 	if(flipped)
 		return dir != border_dir
-	var/obj/structure/table/other_table = locate() in get_turf(mover)
-	if(other_table && !other_table.flipped)
-		return TRUE
 
 
 /obj/structure/table/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)

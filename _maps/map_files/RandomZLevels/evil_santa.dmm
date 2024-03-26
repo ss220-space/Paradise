@@ -1273,7 +1273,7 @@
 "jI" = (
 /obj/item/flashlight/lantern{
 	on = 1;
-	brightness_on = 3;
+	light_range = 3;
 	light_color = "#ffb366";
 	name = "Mining lantern"
 	},
@@ -4415,7 +4415,7 @@
 "Lj" = (
 /obj/item/flashlight/lantern{
 	on = 1;
-	brightness_on = 3;
+	light_range = 3;
 	light_color = "#ffb366";
 	name = "Mining lantern"
 	},
@@ -4596,7 +4596,7 @@
 "MP" = (
 /obj/item/flashlight/lantern{
 	on = 1;
-	brightness_on = 3;
+	light_range = 3;
 	light_color = "#ffb366";
 	name = "Mining lantern"
 	},
@@ -5450,7 +5450,7 @@
 "TF" = (
 /obj/item/flashlight/lantern{
 	on = 1;
-	brightness_on = 3;
+	light_range = 3;
 	light_color = "#ffb366";
 	name = "Mining lantern"
 	},

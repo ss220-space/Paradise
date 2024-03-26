@@ -210,8 +210,10 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
+	light_range = 2
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
 	needs_permit = TRUE
-	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 
@@ -247,10 +249,11 @@
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		icon_state = "dualsaber[blade_color]1"
-		set_light(brightness_on, l_color = colormap[blade_color])
+		set_light_on(TRUE)
+		set_light_color(colormap[blade_color])
 	else
 		icon_state = "dualsaber0"
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)

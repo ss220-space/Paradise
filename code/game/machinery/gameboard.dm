@@ -30,9 +30,9 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(3, 3)
+		set_light(3, 3, l_on = TRUE)
 
 
 /obj/machinery/gameboard/update_icon_state()

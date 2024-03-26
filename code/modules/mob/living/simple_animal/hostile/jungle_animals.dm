@@ -21,7 +21,7 @@
 	maxHealth = 50
 	health = 50
 	pixel_x = -16
-	see_in_dark = 8
+	nightvision = 8
 
 	emote_taunt = list("nashes")
 	taunt_chance = 20

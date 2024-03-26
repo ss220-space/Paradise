@@ -1,16 +1,7 @@
-
-/atom
-	var/light_power = 1 // Intensity of the light.
-	var/light_range = 0 // Range in tiles of the light.
-	var/light_color     // Hexadecimal RGB string representing the colour of the light.
-
-	var/tmp/datum/light_source/light // Our light source. Don't fuck with this directly unless you have a good reason!
-	var/tmp/list/light_sources       // Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
-
 // The proc you should always use to set the light of this atom.
 // Nonesensical value for l_color default, so we can detect if it gets set to null.
 #define NONSENSICAL_VALUE -99999
-/atom/proc/set_light(l_range, l_power, l_color = NONSENSICAL_VALUE)
+/atom/proc/set_light(l_range, l_power, l_color = NONSENSICAL_VALUE, l_on)
 	if(l_range > 0 && l_range < MINIMUM_USEFUL_LIGHT_RANGE)
 		l_range = MINIMUM_USEFUL_LIGHT_RANGE	//Brings the range up to 1.4, which is just barely brighter than the soft lighting that surrounds players.
 	if(l_power != null)
@@ -22,7 +13,10 @@
 	if(l_color != NONSENSICAL_VALUE)
 		light_color = l_color
 
-	SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT, l_range, l_power, l_color)
+	if(!isnull(l_on))
+		light_on = l_on
+
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT, l_range, l_power, l_color, l_on)
 
 	update_light()
 
@@ -41,7 +35,10 @@
 	if(QDELETED(src))
 		return
 
-	if(!light_power || !light_range) // We won't emit light anyways, destroy the light source.
+	if(light_system != STATIC_LIGHT)
+		CRASH("update_light() for [src] with following light_system value: [light_system]")
+
+	if (!light_power || !light_range || !light_on) // We won't emit light anyways, destroy the light source.
 		QDEL_NULL(light)
 	else
 		if(!ismovable(loc)) // We choose what atom should be the top atom of the light here.
@@ -88,17 +85,29 @@
 			T.reconsider_lights()
 
 /atom/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("light_range")
-			set_light(l_range=var_value)
+	switch (var_name)
+		if (NAMEOF(src, light_range))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_range = var_value)
+			else
+				set_light_range(var_value)
+			datum_flags |= DF_VAR_EDITED
 			return TRUE
 
-		if("light_power")
-			set_light(l_power=var_value)
+		if (NAMEOF(src, light_power))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_power = var_value)
+			else
+				set_light_power(var_value)
+			datum_flags |= DF_VAR_EDITED
 			return TRUE
 
-		if("light_color")
-			set_light(l_color=var_value)
+		if (NAMEOF(src, light_color))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_color = var_value)
+			else
+				set_light_color(var_value)
+			datum_flags |= DF_VAR_EDITED
 			return TRUE
 
 	return ..()
@@ -110,7 +119,7 @@
 /turf/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
 	if(!_duration)
 		stack_trace("Lighting FX obj created on a turf without a duration")
-	new /obj/effect/dummy/lighting_obj (src, _color, _range, _power, _duration)
+	new /obj/effect/dummy/lighting_obj (src, _range, _power, _color, _duration)
 
 /obj/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
 	var/temp_color
@@ -127,5 +136,55 @@
 	mob_light(_color, _range, _power, _duration)
 
 /mob/living/proc/mob_light(_color, _range, _power, _duration)
-	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = new (src, _color, _range, _power, _duration)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = new (src, _range, _power, _color, _duration)
 	return mob_light_obj
+
+/// Setter for the light power of this atom.
+/atom/proc/set_light_power(new_power)
+	if(new_power == light_power)
+		return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_POWER, new_power) & COMPONENT_BLOCK_LIGHT_UPDATE)
+		return
+	. = light_power
+	light_power = new_power
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_LIGHT_POWER, .)
+
+/// Setter for the light range of this atom.
+/atom/proc/set_light_range(new_range)
+	if(new_range == light_range)
+		return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_RANGE, new_range) & COMPONENT_BLOCK_LIGHT_UPDATE)
+		return
+	. = light_range
+	light_range = new_range
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_LIGHT_RANGE, .)
+
+/// Setter for the light color of this atom.
+/atom/proc/set_light_color(new_color)
+	if(new_color == light_color)
+		return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_COLOR, new_color) & COMPONENT_BLOCK_LIGHT_UPDATE)
+		return
+	. = light_color
+	light_color = new_color
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_LIGHT_COLOR, .)
+
+/// Setter for whether or not this atom's light is on.
+/atom/proc/set_light_on(new_value)
+	if(new_value == light_on)
+		return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_ON, new_value) & COMPONENT_BLOCK_LIGHT_UPDATE)
+		return
+	. = light_on
+	light_on = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_LIGHT_ON, .)
+
+/// Setter for the light flags of this atom.
+/atom/proc/set_light_flags(new_value)
+	if(new_value == light_flags)
+		return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_FLAGS, new_value) & COMPONENT_BLOCK_LIGHT_UPDATE)
+		return
+	. = light_flags
+	light_flags = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_LIGHT_FLAGS, .)

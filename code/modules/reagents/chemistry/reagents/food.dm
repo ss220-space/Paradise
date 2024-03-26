@@ -436,7 +436,7 @@
 				H.Jitter(20 SECONDS)
 				H.fakevomit()
 		else
-			if(H.job == "Chef")
+			if(H.job == JOB_TITLE_CHEF)
 				if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
 					update_flags |= H.adjustBruteLoss(-1, FALSE)
 					update_flags |= H.adjustFireLoss(-1, FALSE)
@@ -451,7 +451,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
+	if(ishuman(M) && (M.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -1049,15 +1049,31 @@
 	color = "#b5a213"
 	var/light_activated = FALSE
 	taste_description = "tingling mushroom"
+	//Lazy list of mobs affected by the luminosity of this reagent.
+	var/list/mobs_affected
 
-/datum/reagent/consumable/tinlux/on_mob_life(mob/living/M)
-	if(!light_activated)
-		M.set_light(2)
-		light_activated = TRUE
-	return ..()
+/datum/reagent/consumable/tinlux/on_mob_add(mob/living/L)
+	. = ..()
+	add_reagent_light(L)
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
-	M.set_light(0)
+	remove_reagent_light(M)
+
+/datum/reagent/consumable/tinlux/proc/on_living_holder_deletion(mob/living/source)
+	SIGNAL_HANDLER
+	remove_reagent_light(source)
+
+/datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
+	LAZYSET(mobs_affected, living_holder, mob_light_obj)
+	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, PROC_REF(on_living_holder_deletion))
+
+/datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
+	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
+	LAZYREMOVE(mobs_affected, living_holder)
+	if(mob_light_obj)
+		qdel(mob_light_obj)
 
 /datum/reagent/consumable/vitfro
 	name = "Vitrium Froth"

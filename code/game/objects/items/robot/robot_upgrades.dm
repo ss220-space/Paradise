@@ -7,7 +7,6 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
-	var/locked = FALSE
 	var/installed = FALSE
 	var/require_module = FALSE
 	var/module_type = null

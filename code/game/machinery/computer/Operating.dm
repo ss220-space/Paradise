@@ -213,3 +213,9 @@
 		if(table.patient.stat != patientStatusHolder)
 			atom_say("Пациент [patientStatus]")
 			patientStatusHolder = table.patient.stat
+
+/obj/machinery/computer/operating/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "med_oldframe"
+	icon_state = "frame-med"
+	icon_keyboard = "kb5"

@@ -67,6 +67,8 @@
 		/obj/item/fish,
 		/obj/item/fish_eggs,
 		/obj/item/reagent_containers/food/snacks/shrimp,
+		/obj/item/reagent_containers/food/snacks/crayfish_raw,
+		/obj/item/reagent_containers/food/snacks/crayfish_raw_small,
 	)
 	resistance_flags = FLAMMABLE
 
@@ -113,10 +115,10 @@
 	name = "glofish"
 	desc = "A small bio-luminescent fish. Not very bright, but at least it's pretty!"
 	icon_state = "glofish"
-
-/obj/item/fish/glofish/New()
-	..()
-	set_light(2,1,"#99FF66")
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 1
+	light_color = "#99FF66"
 
 /obj/item/fish/electric_eel
 	name = "electric eel"

@@ -185,7 +185,7 @@
 
 /// Default fps for clients with "0" in prefs. -1 for synced with server.
 /datum/config_entry/number/clientfps
-	default = 65
+	default = 40
 
 /// use socket_talk to communicate with other processes
 /datum/config_entry/number/socket_talk

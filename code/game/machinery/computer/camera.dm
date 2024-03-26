@@ -302,3 +302,15 @@
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
 	circuit = /obj/item/circuitboard/camera/engineering
+
+/obj/machinery/computer/security/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldframe"
+	icon_state = "frame-sec"
+	icon_keyboard = "kb15"
+
+/obj/machinery/computer/security/old_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldcomp"
+	icon_state = "oldcomp"
+	icon_keyboard = null

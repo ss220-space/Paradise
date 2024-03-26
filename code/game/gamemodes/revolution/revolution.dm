@@ -12,7 +12,7 @@
 /datum/game_mode/revolution
 	name = "revolution"
 	config_tag = "revolution"
-	restricted_jobs = list("Security Officer", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician")
+	restricted_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_LAWYER, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC)
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 3
@@ -159,7 +159,7 @@
 		return
 
 	if(mob.mind)
-		if(mob.mind.assigned_role == "Clown")
+		if(mob.mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
@@ -336,7 +336,7 @@
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
 		if(player.stat == DEAD && player.mind?.assigned_role)
-			if(player.mind.assigned_role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+			if(player.mind.assigned_role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CHIEF, JOB_TITLE_RD))
 				scoreboard.score_dead_command++
 
 
@@ -367,7 +367,7 @@
 		var/mob/living/carbon/human/player = thing
 		if(player.mind)
 			var/role = player.mind.assigned_role
-			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+			if(role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CHIEF, JOB_TITLE_RD))
 				if(player.stat != DEAD)
 					comcount++
 			else

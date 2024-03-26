@@ -128,9 +128,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(!..())
 		return
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
 

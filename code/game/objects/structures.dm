@@ -261,9 +261,7 @@
 
 /obj/structure/extinguish_light(force = FALSE)
 	if(light_range)
-		light_power = 0
-		light_range = 0
-		update_light()
+		set_light(0, 0)
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the object. Perhaps shining a light will force it to clear?"
 		extinguish_timer_id = addtimer(CALLBACK(src, PROC_REF(extinguish_light_check)), 2 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_LOOP|TIMER_DELETE_ME|TIMER_STOPPABLE)
@@ -283,9 +281,7 @@
 
 /obj/structure/proc/reset_light()
 	light_process = 0
-	light_power = initial(light_power)
-	light_range = initial(light_range)
-	update_light()
+	set_light(initial(light_range), initial(light_power))
 	name = initial(name)
 	desc = initial(desc)
 	deltimer(extinguish_timer_id)

@@ -6,7 +6,7 @@
 	spawn_positions = 1
 	is_engineering = 1
 	supervisors = "the captain"
-	department_head = list("Captain")
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#ffba4c"
 	req_admin_notify = 1
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
@@ -56,7 +56,7 @@
 	spawn_positions = 5
 	is_engineering = 1
 	supervisors = "the chief engineer"
-	department_head = list("Chief Engineer")
+	department_head = list(JOB_TITLE_CHIEF)
 	selection_color = "#ffeaca"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
@@ -92,7 +92,7 @@
 	flag = JOB_FLAG_ENGINEER_TRAINEE
 	total_positions = 5
 	spawn_positions = 3
-	department_head = list("Chief Engineer", "Station Engineer")
+	department_head = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
 	selection_color = "#ffeaca"
 	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
 	exp_requirements = 180
@@ -141,7 +141,7 @@
 	spawn_positions = 2
 	is_engineering = 1
 	supervisors = "the chief engineer"
-	department_head = list("Chief Engineer")
+	department_head = list(JOB_TITLE_CHIEF)
 	selection_color = "#ffeaca"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
@@ -177,7 +177,7 @@
 	spawn_positions = 1
 	is_engineering = 1
 	supervisors = "the chief engineer"
-	department_head = list("Chief Engineer")
+	department_head = list(JOB_TITLE_CHIEF)
 	selection_color = "#ffeaca"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)

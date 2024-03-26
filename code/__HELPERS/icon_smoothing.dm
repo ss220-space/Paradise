@@ -256,9 +256,7 @@
 		New += se
 
 	if(New.len)
-		//add_overlay for smoothing is broken as hell
-		//A.add_overlay(New)
-		A.overlays.Add(New)
+		A.add_overlay(New)
 
 
 /proc/find_type_in_direction(atom/source, direction)
@@ -331,9 +329,7 @@
 	bottom_right_corner = se
 	O += se
 
-	overlays.Add(O)
-	//add_overlay is cursed rn for smoothing sadly
-	//add_overlay(O)
+	add_overlay(O)
 
 /proc/reverse_ndir(ndir)
 	switch(ndir)
