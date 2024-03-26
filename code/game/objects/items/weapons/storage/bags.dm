@@ -458,41 +458,36 @@
 
 /obj/item/storage/bag/tray/cyborg
 
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
-	if( isturf(target) || istype(target,/obj/structure/table) )
-		var/foundtable = istype(target,/obj/structure/table/)
-		if( !foundtable ) //it must be a turf!
-			for(var/obj/structure/table/T in target)
-				foundtable = 1
-				break
+/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity, params)
+	if(!target || !proximity)
+		return
 
-		var/turf/dropspot
-		if( !foundtable ) // don't unload things onto walls or other silly places.
-			dropspot = user.loc
-		else if( isturf(target) ) // they clicked on a turf with a table in it
-			dropspot = target
-		else					// they clicked on a table
-			dropspot = target.loc
+	var/obj/structure/table/table = locate() in get_turf(target)
 
-		var/droppedSomething = 0
-
+	if(isturf(target) || table)
+		var/droppedSomething = FALSE
+		var/list/fancy_items
 		for(var/obj/item/I in contents)
-			I.loc = dropspot
-			contents.Remove(I)
-			droppedSomething = 1
-			if(!foundtable && isturf(dropspot))
-				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
-				spawn()
-					for(var/i = 1, i <= rand(1,2), i++)
-						if(I)
-							step(I, pick(NORTH,SOUTH,EAST,WEST))
-							sleep(rand(2,4))
-		if( droppedSomething )
-			if( foundtable )
-				user.visible_message("<span class='notice'>[user] unloads [user.p_their()] service tray.</span>")
+			remove_from_storage(I, get_turf(target))
+			LAZYADD(fancy_items, I)
+			droppedSomething = TRUE
+
+		if(fancy_items)
+			var/fancy_items_count = length(fancy_items)
+			var/iteration = 0
+			var/delta_phi = 2 * PI / fancy_items_count
+			for(var/obj/item/I as anything in fancy_items)
+				I.pixel_x = round(12 * sin(180 * delta_phi * iteration))
+				I.pixel_y = round(12 * cos(180 * delta_phi * iteration))
+				iteration += 1
+
+		if(droppedSomething)
+			if(table)
+				user.visible_message(span_notice("[user] unloads [user.p_their()] service tray."))
 			else
-				user.visible_message("<span class='notice'>[user] drops all the items on [user.p_their()] tray.</span>")
+				user.visible_message(span_notice("[user] drops all the items on [user.p_their()] tray."))
 		update_icon(UPDATE_OVERLAYS)
+
 	return ..()
 
 
