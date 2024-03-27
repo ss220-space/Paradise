@@ -186,6 +186,7 @@
 			to_chat(user, "<span class='notice'>You collect [I].</span>")
 			I.forceMove(src)
 			gripped_item = I
+			update_icon(UPDATE_OVERLAYS)
 			RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(handle_item_moving))
 		else
 			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
@@ -199,6 +200,18 @@
 	SIGNAL_HANDLER
 	gripped_item.UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	gripped_item = null
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/gripper/update_overlays()
+	. = ..()
+	cut_overlays()
+	if(gripped_item)
+		alpha = 128
+		var/mutable_appearance/item_preview = mutable_appearance(gripped_item.icon, gripped_item.icon_state, appearance_flags = RESET_ALPHA)
+		. += item_preview
+	else
+		alpha = initial(alpha)
+
 
 //TODO: Matter decompiler.
 /obj/item/matter_decompiler
