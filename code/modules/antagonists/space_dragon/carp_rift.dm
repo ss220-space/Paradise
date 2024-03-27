@@ -174,7 +174,7 @@
 		charge_state = CHARGE_FINALWARNING
 		var/area/A = get_area(src)
 
-		GLOB.command_announcement.Announce("Разлом создает неествественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!", "Отдел Изучения Дикой Природы", 'sound/AI/spanomalies.ogg')
+		GLOB.command_announcement.Announce("Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!", "Отдел Изучения Дикой Природы", 'sound/AI/spanomalies.ogg')
 
 
 /**
