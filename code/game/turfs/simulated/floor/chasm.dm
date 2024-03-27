@@ -122,8 +122,10 @@
 		if(do_after(user, 6 SECONDS, target = src))
 			if(!rod.wielded)
 				return
-			var/atom/parent = src
-			var/list/fishing_contents = parent.GetAllContents()
+			var/list/fishing_contents = list()
+			for(var/turf/T in range(4, src))
+				if(ischasm(T))
+					fishing_contents += T.GetAllContents()
 			if(!length(fishing_contents))
 				to_chat(user, span_warning("There's nothing here!"))
 				return
@@ -132,6 +134,7 @@
 				M.forceMove(get_turf(user))
 				UnregisterSignal(M, COMSIG_LIVING_REVIVE)
 				found = TRUE
+				break
 			if(found)
 				to_chat(user, span_warning("You reel in something!"))
 				playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
@@ -170,8 +173,7 @@
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		if(istype(H.belt, /obj/item/wormhole_jaunter))
-			var/obj/item/wormhole_jaunter/J = H.belt
+		for(var/obj/item/wormhole_jaunter/J in H.GetAllContents())
 			//To freak out any bystanders
 			visible_message(span_boldwarning("[H] falls into [src]!"))
 			J.chasm_react(H)
