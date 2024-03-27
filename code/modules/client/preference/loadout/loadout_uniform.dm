@@ -358,3 +358,17 @@
 	display_name = "track suit (blue)"
 	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
 	path = /obj/item/clothing/under/ussptracksuit_blue
+
+/datum/gear/uniform/night_dress
+	display_name = "night dress, select"
+	description = "A classic night dress."
+	path = /obj/item/clothing/under/night_dress
+
+/datum/gear/uniform/night_dress/New()
+	..()
+	var/list/skirts = list("black" = /obj/item/clothing/under/night_dress,
+							"darkred" = /obj/item/clothing/under/night_dress/darkred,
+							"red" = /obj/item/clothing/under/night_dress/red,
+							"silver" = /obj/item/clothing/under/night_dress/silver,
+							"white" = /obj/item/clothing/under/night_dress/white,)
+	gear_tweaks += new /datum/gear_tweak/path(skirts, src)

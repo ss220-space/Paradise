@@ -1110,3 +1110,31 @@
 	item_state = "ussptracksuit_white"
 	item_color = "ussptracksuit_white"
 
+/obj/item/clothing/under/night_dress
+	name = "night dress"
+	desc = "A classic night dress."
+	displays_id = FALSE
+	over_shoes = TRUE
+	icon_state = "night_dress"
+	item_state = "night_dress"
+	item_color = "night_dress"
+
+/obj/item/clothing/under/night_dress/darkred
+	icon_state = "night_dress_darkred"
+	item_state = "night_dress_darkred"
+	item_color = "night_dress_darkred"
+
+/obj/item/clothing/under/night_dress/red
+	icon_state = "night_dress_red"
+	item_state = "night_dress_red"
+	item_color = "night_dress_red"
+
+/obj/item/clothing/under/night_dress/silver
+	icon_state = "night_dress_silver"
+	item_state = "night_dress_silver"
+	item_color = "night_dress_silver"
+
+/obj/item/clothing/under/night_dress/white
+	icon_state = "night_dress_white"
+	item_state = "night_dress_white"
+	item_color = "night_dress_white"
