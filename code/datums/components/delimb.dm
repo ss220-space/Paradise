@@ -26,7 +26,7 @@
 	if(zone == BODY_ZONE_CHEST)
 		delimb_chance = 0
 	delimb_zone(target, zone)
-	RemoveComponent()
+	qdel(src)
 
 /datum/component/delimb/proc/on_item_attack(obj/item/item, mob/living/target, mob/living/user)
 	delimb_zone(target, user.zone_selected)
