@@ -102,7 +102,6 @@
 /obj/item/reagent_containers/spray/cleaner/brig
     name = "brig cleaner"
     desc = "Blood spray to remove the blood of a handcuffed clown"
-    icon = 'icons/obj/janitor.dmi'
     icon_state = "cleaner_brig"
     item_state = "cleaner_brig"
 
