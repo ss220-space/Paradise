@@ -134,7 +134,6 @@
 /obj/item/reagent_containers/spray/blue_cleaner
     name = "bluespace cleaner"
     desc = "A spray with an increased storage of reagents, or it's not that simple...."
-    icon = 'icons/obj/janitor.dmi'
     icon_state = "cleaner_bluespace"
     item_state = "cleaner_bs"
     spray_maxrange = 4
