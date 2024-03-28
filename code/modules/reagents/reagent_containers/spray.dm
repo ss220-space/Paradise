@@ -126,7 +126,6 @@
 /obj/item/reagent_containers/spray/cleaner/medical
     name = "medical cleaner"
     desc = "Disinfectant for hands, floor, and sole CMO"
-    icon = 'icons/obj/janitor.dmi'
     icon_state = "cleaner_medical"
     item_state = "cleaner_med"
 
