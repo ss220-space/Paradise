@@ -100,7 +100,7 @@
 
 /mob/living/simple_animal/mouse/proc/is_available_for_anim()
 	. = FALSE
-	if(is_type_in_typecache(src, animated_mouses))
+	if(is_type_in_typecache(src, animated_mouses, FALSE))
 		return TRUE
 
 /mob/living/simple_animal/mouse/New()
