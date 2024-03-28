@@ -586,9 +586,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
 	pixel_y = -28;
-	environ = 0;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	start_charge = 0;
 	req_access = list(111);
 	name = "IPC area power controller"
@@ -988,9 +988,9 @@
 	},
 /obj/structure/spacevine,
 /obj/machinery/power/apc/noalarm{
-	environ = 0;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	start_charge = 0;
 	req_access = list(111);
 	name = "IPC area power controller";
@@ -2376,9 +2376,9 @@
 /obj/item/circuitboard/cyborgrecharger,
 /obj/item/stock_parts/manipulator,
 /obj/machinery/power/apc/noalarm{
-	environ = 0;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	start_charge = 0;
 	req_access = list(111);
 	name = "IPC area power controller";

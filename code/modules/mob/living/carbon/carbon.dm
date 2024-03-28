@@ -97,7 +97,7 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 8 SECONDS, distance = 0, message = 1)
 	if(ismachineperson(src)) //IPCs do not vomit particulates
 		return FALSE
 	if(is_muzzled())
@@ -105,13 +105,13 @@
 			to_chat(src, "<span class='warning'>Намордник препятствует рвоте!</span>")
 		return FALSE
 	if(stun)
-		Stun(8 SECONDS)
+		Stun(stun)
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
 		if(stun)
-			Weaken(20 SECONDS)
+			Weaken(stun * 2.5)
 	else
 		if(message)
 			visible_message("<span class='danger'>[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \
@@ -131,7 +131,7 @@
 				if(stun)
 					adjustToxLoss(-3)
 			T = get_step(T, dir)
-			if(is_blocked_turf(T))
+			if(T.is_blocked_turf())
 				break
 	return TRUE
 
@@ -397,11 +397,6 @@
 			to_chat(src, "<span class='notice'>Что-то яркое вспыхнуло на периферии вашего зрения!</span>")
 			if(mind && has_bane(BANE_LIGHT))
 				mind.disrupt_spells(0)
-
-
-
-/mob/living/carbon/proc/tintcheck()
-	return 0
 
 
 /mob/living/carbon/proc/create_dna()
@@ -688,7 +683,7 @@
 	to_chat(src, "<span class='notice'>Вы [slipVerb] на [description]!</span>")
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
-	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
+	moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
 	Weaken(weaken)
 	return TRUE
 
@@ -807,8 +802,13 @@ so that different stomachs can handle things in different ways VB*/
 		clear_fullscreen("tint", 0)
 
 
-/mob/living/carbon/proc/get_total_tint()
+/// Checks eye covering items for visually impairing tinting, such as welding masks. 0 & 1 = no impairment, 2 = welding mask overlay, 3 = casual blindness.
+/mob/living/proc/get_total_tint()
 	. = 0
+
+
+/mob/living/carbon/get_total_tint()
+	. = ..()
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/HT = head
 		. += HT.tint
@@ -837,14 +837,14 @@ so that different stomachs can handle things in different ways VB*/
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
+	nightvision = initial(nightvision)
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
 		sight |= cyber_eyes.vision_flags
 		if(cyber_eyes.see_in_dark)
-			see_in_dark = max(see_in_dark, cyber_eyes.see_in_dark)
+			nightvision = max(nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
 			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
 		if(!isnull(cyber_eyes.lighting_alpha))
@@ -857,7 +857,6 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(XRAY in mutations)
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)

@@ -10,6 +10,7 @@ on:
     branches:
     - master220
     - whitelist220
+  merge_group:
   workflow_call:
 
 jobs:
@@ -17,9 +18,9 @@ jobs:
     name: Run Linters
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
@@ -34,20 +35,17 @@ jobs:
           tools/ci/check_grep.sh
           python3 tools/ci/check_line_endings.py
           python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
-          ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
-      - name: Annotate Lints
-        uses: yogstation13/DreamAnnotate@v2
-        if: always()
-        with:
-          outputFile: output-annotations.txt
+      - name: Run DreamChecker
+        shell: bash
+        run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
 
   compile_all_maps:
     name: Compile All Maps
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
@@ -65,7 +63,7 @@ jobs:
       fail-fast: false # Let all map tests run to completion
       matrix:
         maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/cerestation']
-        byondtype: ['STABLE'] # 'BETA'
+        byondtype: ['STABLE']
     services:
       mariadb:
         image: mariadb:latest
@@ -75,9 +73,9 @@ jobs:
           - 3306
         options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond

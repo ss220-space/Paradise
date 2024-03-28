@@ -29,13 +29,13 @@
 	return TRUE
 
 
-/obj/item/desk_bell/MouseDrop(atom/over)
+/obj/item/desk_bell/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(over != user || user.incapacitated() || !ishuman(user))
+	if(over_object != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
 	anchored = FALSE

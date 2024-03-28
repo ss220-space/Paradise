@@ -3,7 +3,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
@@ -26,7 +26,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/cell/high(null)
 	RefreshParts()
-	build_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharge_station/ert/New()
 	..()
@@ -86,7 +86,7 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharge_station/narsie_act()
 	go_out()
@@ -124,14 +124,16 @@
 		go_out()
 	..(severity)
 
-/obj/machinery/recharge_station/proc/build_icon()
-	if(NOPOWER|BROKEN)
-		if(src.occupant)
-			icon_state = "borgcharger1"
+
+/obj/machinery/recharge_station/update_icon_state()
+	if(occupant)
+		if(stat & (NOPOWER|BROKEN))
+			icon_state = "borgcharger2"
 		else
-			icon_state = "borgcharger0"
+			icon_state = "borgcharger1"
 	else
 		icon_state = "borgcharger0"
+
 
 /obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -167,88 +169,88 @@
 			if(repairs)
 				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
-/obj/machinery/recharge_station/proc/go_out()
+/obj/machinery/recharge_station/proc/go_out(mob/user = usr)
 	if(!occupant)
+		return
+	if(user?.incapacitated() || user?.restrained())
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	build_icon()
+	update_icon(UPDATE_ICON_STATE)
 	use_power = IDLE_POWER_USE
-	return
+
 
 /obj/machinery/recharge_station/proc/restock_modules()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R = occupant
-			var/coeff = recharge_speed / 200
-			if(R.module && R.module.modules)
-				var/list/um = R.contents|R.module.modules
-				// ^ makes sinle list of active (R.contents) and inactive modules (R.module.modules)
-				for(var/obj/O in um)
-					// Security
-					if(istype(O,/obj/item/flash))
-						var/obj/item/flash/F = O
-						if(F.broken)
-							F.broken = 0
-							F.times_used = 0
-							F.icon_state = "flash"
-					if(istype(O,/obj/item/gun/energy))
-						var/obj/item/gun/energy/D = O
-						if(D.cell.charge < D.cell.maxcharge)
-							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-							D.cell.give(E.e_cost)
-							D.on_recharge()
-							D.update_icon()
-						else
-							D.charge_tick = 0
-					if(istype(O,/obj/item/melee/baton))
-						var/obj/item/melee/baton/B = O
-						if(B.cell)
-							B.cell.charge = B.cell.maxcharge
-					//Service
-					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
-						if(O.reagents.get_reagent_amount("enzyme") < 50)
-							O.reagents.add_reagent("enzyme", 2 * coeff)
-					//Janitor
-					if(istype(O, /obj/item/lightreplacer))
-						var/obj/item/lightreplacer/LR = O
-						var/i = 1
-						for(1, i <= coeff, i++)
-							LR.Charge(occupant)
-					//Fire extinguisher
-					if(istype(O, /obj/item/extinguisher))
-						var/obj/item/extinguisher/ext = O
-						ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
-					//Welding tools
-					if(istype(O, /obj/item/weldingtool))
-						var/obj/item/weldingtool/weld = O
-						weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
-				if(R)
-					if(R.module)
-						R.module.respawn_consumable(R)
+	if(isrobot(occupant))
+		var/mob/living/silicon/robot/R = occupant
+		var/coeff = recharge_speed / 200
+		if(R.module && R.module.modules)
+			var/list/um = R.contents|R.module.modules
+			// ^ makes sinle list of active (R.contents) and inactive modules (R.module.modules)
+			for(var/obj/O in um)
+				// Security
+				if(istype(O,/obj/item/flash))
+					var/obj/item/flash/F = O
+					if(F.broken)
+						F.broken = FALSE
+						F.times_used = 0
+						F.update_icon(UPDATE_ICON_STATE)
+				else if(istype(O,/obj/item/gun/energy))
+					var/obj/item/gun/energy/D = O
+					if(D.cell.charge < D.cell.maxcharge)
+						var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
+						D.cell.give(E.e_cost)
+						D.on_recharge()
+						D.update_icon()
+					else
+						D.charge_tick = 0
+				//Service
+				else if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
+					if(O.reagents.get_reagent_amount("enzyme") < 50)
+						O.reagents.add_reagent("enzyme", 2 * coeff)
+				//Janitor
+				else if(istype(O, /obj/item/lightreplacer))
+					var/obj/item/lightreplacer/LR = O
+					var/i = 1
+					for(1, i <= coeff, i++)
+						LR.Charge(occupant)
+				//Fire extinguisher
+				else if(istype(O, /obj/item/extinguisher))
+					var/obj/item/extinguisher/ext = O
+					ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
+				//Welding tools
+				else if(istype(O, /obj/item/weldingtool))
+					var/obj/item/weldingtool/weld = O
+					weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
 
-				//Emagged items for janitor and medical borg
-				if(R.module.emag)
-					if(istype(R.module.emag, /obj/item/reagent_containers/spray))
-						var/obj/item/reagent_containers/spray/S = R.module.emag
-						if(S.name == "polyacid spray")
-							S.reagents.add_reagent("facid", 2 * coeff)
-						if(S.name == "lube spray")
-							S.reagents.add_reagent("lube", 2 * coeff)
-						else if(S.name == "acid synthesizer")
-							S.reagents.add_reagent("facid", 2 * coeff)
-							S.reagents.add_reagent("sacid", 2 * coeff)
+			R.module.respawn_consumable(R)
+
+			//Emagged items for janitor and medical borg
+			if(R.module.emag)
+				if(istype(R.module.emag, /obj/item/reagent_containers/spray))
+					var/obj/item/reagent_containers/spray/S = R.module.emag
+					if(S.name == "polyacid spray")
+						S.reagents.add_reagent("facid", 2 * coeff)
+					if(S.name == "lube spray")
+						S.reagents.add_reagent("lube", 2 * coeff)
+					else if(S.name == "acid synthesizer")
+						S.reagents.add_reagent("facid", 2 * coeff)
+						S.reagents.add_reagent("sacid", 2 * coeff)
+
 
 /obj/machinery/recharge_station/verb/move_eject()
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0)
-		return
-	src.go_out()
-	add_fingerprint(usr)
-	return
+	go_out(usr)
 
-/obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
+
+/obj/machinery/recharge_station/verb/move_inside_verb()
+	set category = "Object"
+	set src in oview(1)
+	move_inside(usr)
+
+
+/obj/machinery/recharge_station/proc/move_inside(mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
 	if(!user || !usr)
@@ -302,6 +304,6 @@
 	occupant = user
 
 	add_fingerprint(user)
-	build_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_use_power(1)
-	return
+

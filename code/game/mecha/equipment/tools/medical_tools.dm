@@ -283,8 +283,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach_act()
 	STOP_PROCESSING(SSobj, src)
-	if(istype(src.loc, /obj/mecha/medical/odysseus))
-		var/obj/mecha/medical/odysseus/O = src.loc
+	if(istype(loc, /obj/mecha/medical/odysseus))
+		var/obj/mecha/medical/odysseus/O = loc
 		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/S in O.equipment)
 			S.detach()
 
@@ -312,11 +312,11 @@
 	if(istype(target, /obj/item/reagent_containers/syringe) || istype(target, /obj/item/storage))
 		if(get_dist(src, target) < 2)
 			for(var/obj/structure/D in target.loc)//Basic level check for structures in the way (Like grilles and windows)
-				if(!(D.CanPass(target, src.loc)))
+				if(!(D.CanPass(target, get_dir(D, loc))))
 					occupant_message("Unable to load syringe.")
 					return FALSE
 			for(var/obj/machinery/door/D in target.loc)//Checks for doors
-				if(!(D.CanPass(target, src.loc)))
+				if(!(D.CanPass(target, get_dir(D, loc))))
 					occupant_message("Unable to load syringe.")
 					return FALSE
 			return start_syringe_loading(target)
@@ -330,7 +330,7 @@
 	if(reagents.total_volume<=0)
 		occupant_message(span_alert("No available reagents to load syringe with."))
 		return FALSE
-	var/turf/trg = get_turf(target)
+	var/turf/target_turf = get_turf(target)
 	var/obj/item/reagent_containers/syringe/mechsyringe = syringes[1]
 	mechsyringe.forceMove(get_turf(chassis))
 	reagents.trans_to(mechsyringe, min(mechsyringe.volume, reagents.total_volume))
@@ -340,42 +340,49 @@
 	playsound(chassis, 'sound/items/syringeproj.ogg', 50, 1)
 	log_message("Launched [mechsyringe] from [src], targeting [target].")
 	start_cooldown()
+	INVOKE_ASYNC(src, PROC_REF(async_syringe_gun_action), mechsyringe, target_turf)
+
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/async_syringe_gun_action(obj/item/reagent_containers/syringe/mechsyringe, turf/target_turf)
 	var/mob/originaloccupant = chassis.occupant
 	var/original_target_zone = originaloccupant.zone_selected
-	spawn(0)
-		src = null //if src is deleted, still process the syringe
-		var/max_range = 6
-		for(var/i=0, i<max_range, i++)
-			if(!mechsyringe)
-				break
-			if(!step_towards(mechsyringe, trg))
-				break
+	src = null //if src is deleted, still process the syringe
+	var/max_range = 6
+	for(var/i=0, i<max_range, i++)
+		if(!mechsyringe)
+			break
+		if(!step_towards(mechsyringe, target_turf))
+			break
 
-			var/list/mobs = new
-			for(var/mob/living/carbon/M in mechsyringe.loc)
-				mobs += M
-			var/mob/living/carbon/M = safepick(mobs)
-			if(M)
-				var/R
-				mechsyringe.visible_message(span_danger("[M] was hit by the syringe!"))
-				if(M.can_inject(originaloccupant, TRUE, original_target_zone))
-					if(mechsyringe.reagents)
-						for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
-							R += A.id + " ("
-							R += num2text(A.volume) + "),"
-					add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
-					mechsyringe.reagents.reaction(M, REAGENT_INGEST)
-					mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
-					M.take_organ_damage(2)
-				break
-			else if(mechsyringe.loc == trg)
-				break
-			sleep(1)
-		if(mechsyringe)
-			// Revert the syringe icon to normal one once it stops flying.
-			mechsyringe.icon_state = initial(mechsyringe.icon_state)
-			mechsyringe.icon = initial(mechsyringe.icon)
-			mechsyringe.update_icon()
+		var/list/mobs = new
+		for(var/mob/living/carbon/M in mechsyringe.loc)
+			mobs += M
+		var/mob/living/carbon/M = safepick(mobs)
+		if(M)
+			var/R
+			mechsyringe.visible_message(span_danger("[M] was hit by the syringe!"))
+			if(M.can_inject(originaloccupant, TRUE, original_target_zone))
+				if(mechsyringe.reagents)
+					for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
+						R += A.id + " ("
+						R += num2text(A.volume) + "),"
+				add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
+				mechsyringe.reagents.reaction(M, REAGENT_INGEST)
+				mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
+				M.take_organ_damage(2)
+			break
+		else if(mechsyringe.loc == target_turf)
+			break
+		sleep(1)
+
+	if(mechsyringe)
+		// Revert the syringe icon to normal one once it stops flying.
+		mechsyringe.icon_state = initial(mechsyringe.icon_state)
+		mechsyringe.icon = initial(mechsyringe.icon)
+		mechsyringe.update_icon()
+
+
+
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Topic(href,href_list)
 	..()
@@ -419,7 +426,7 @@
 	if(!emagged)
 		emagged = TRUE
 		user.visible_message(span_warning("Sparks fly out of the [src]!</span>"), span_notice("You short out the safeties on[src]."))
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_page()
 	var/output = {"<html>
@@ -561,7 +568,7 @@
 	icon_state = "beaker_upgrade"
 	origin_tech = "materials=5;engineering=5;biotech=6"
 	energy_drain = 10
-	selectable = FALSE
+	selectable = MODULE_SELECTABLE_NONE
 	var/improv_max_volume = 300
 	var/imrov_synth_speed = 20
 

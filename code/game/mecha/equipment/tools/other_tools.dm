@@ -163,7 +163,7 @@
 	range = 0
 	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.8
-	selectable = FALSE
+	selectable = MODULE_SELECTABLE_NONE
 
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react(mob/user)
 	if(action_checks(user))
@@ -181,7 +181,7 @@
 	range = 0
 	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.8
-	selectable = FALSE
+	selectable = MODULE_SELECTABLE_NONE
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/proc/projectile_react()
 	if(action_checks(src))
@@ -192,7 +192,7 @@
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid
-	name = "Repair Droid"
+	name = "repair droid"
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid"
 	origin_tech ="magnets=3;programming=3;engineering=4"
@@ -203,20 +203,19 @@
 	var/health_boost = 1
 	var/icon/droid_overlay
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
-	selectable = FALSE
+	selectable = MODULE_SELECTABLE_TOGGLE
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	if(chassis)
-		chassis.overlays -= droid_overlay
+	chassis?.cut_overlay(droid_overlay)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/M)
 	droid_overlay = new(icon, icon_state = "repair_droid")
-	M.overlays += droid_overlay
+	M.add_overlay(droid_overlay)
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach_act()
-	chassis.overlays -= droid_overlay
+	chassis.cut_overlay(droid_overlay)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
@@ -225,21 +224,24 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
 	if(href_list["toggle_repairs"])
-		if(!action_checks(src))
-			return
-		chassis.overlays -= droid_overlay
-		if(!active_mode)
-			START_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid_a")
-			log_message("Activated.")
-		else
-			STOP_PROCESSING(SSobj, src)
-			droid_overlay = new(icon, icon_state = "repair_droid")
-			log_message("Deactivated.")
-		active_mode = !active_mode
-		chassis.overlays += droid_overlay
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		start_cooldown()
+		toggle_module()
+
+/obj/item/mecha_parts/mecha_equipment/repair_droid/toggle_module()
+	if(!action_checks(src))
+		return
+	chassis.cut_overlay(droid_overlay)
+	if(!active_mode)
+		START_PROCESSING(SSobj, src)
+		droid_overlay = new(icon, icon_state = "repair_droid_a")
+		log_message("Droid activated.")
+	else
+		STOP_PROCESSING(SSobj, src)
+		droid_overlay = new(icon, icon_state = "repair_droid")
+		log_message("Droid deactivated.")
+	active_mode = !active_mode
+	chassis.add_overlay(droid_overlay)
+	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/process()
 	if(!chassis)
@@ -256,7 +258,7 @@
 				chassis.clearInternalDamage(int_dam_flag)
 				repaired = TRUE
 				break
-	if(h_boost<0 || chassis.obj_integrity < chassis.max_integrity)
+	if(h_boost < 0 || chassis.obj_integrity < chassis.max_integrity)
 		chassis.obj_integrity += min(h_boost, chassis.max_integrity-chassis.obj_integrity)
 		repaired = TRUE
 	if(repaired)
@@ -268,9 +270,9 @@
 		STOP_PROCESSING(SSobj, src)
 		active_mode = FALSE
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		chassis.overlays -= droid_overlay
+		chassis.cut_overlay(droid_overlay)
 		droid_overlay = new(icon, icon_state = "repair_droid")
-		chassis.overlays += droid_overlay
+		chassis.add_overlay(droid_overlay)
 
 /////////////////////////////////// TESLA ENERGY RELAY ////////////////////////////////////////////////
 
@@ -282,8 +284,8 @@
 	energy_drain = 0
 	range = 0
 	var/coeff = 100
-	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
-	selectable = FALSE
+	var/list/use_channels = list(EQUIP, ENVIRON, LIGHT)
+	selectable = MODULE_SELECTABLE_TOGGLE
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -313,14 +315,17 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Topic(href, href_list)
 	..()
 	if(href_list["toggle_relay"])
-		if(equip_ready) //inactive
-			START_PROCESSING(SSobj, src)
-			set_ready_state(FALSE)
-			log_message("Activated.")
-		else
-			STOP_PROCESSING(SSobj, src)
-			set_ready_state(TRUE)
-			log_message("Deactivated.")
+		toggle_module()
+
+/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/toggle_module()
+	if(equip_ready) //inactive
+		START_PROCESSING(SSobj, src)
+		set_ready_state(FALSE)
+		log_message("Activated.")
+	else
+		STOP_PROCESSING(SSobj, src)
+		set_ready_state(TRUE)
+		log_message("Deactivated.")
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_module_equip_info()
 	return " <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
@@ -504,7 +509,7 @@
 	desc = "Boosts exosuit servo-motors, allowing it to activate strafe mode. Requires energy to operate."
 	icon_state = "actuator"
 	origin_tech = "powerstorage=5;programming=5;engineering=5;combat=5"
-	selectable = FALSE
+	selectable = MODULE_SELECTABLE_NONE
 	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
@@ -543,7 +548,7 @@
 	icon_state = "move_plating"
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20
-	selectable = FALSE
+	selectable = MODULE_SELECTABLE_NONE
 	var/ripley_step_in = 2.5
 	var/odyss_step_in = 1.8
 	var/clarke_step_in = 1.5
@@ -557,27 +562,27 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/attach_act()
-	if(istype(src.loc, /obj/mecha/working/ripley)) // for ripley/firefighter
-		var/obj/mecha/working/ripley/R = src.loc
+	if(istype(loc, /obj/mecha/working/ripley)) // for ripley/firefighter
+		var/obj/mecha/working/ripley/R = loc
 		R.slow_pressure_step_in = ripley_step_in
-	if(istype(src.loc, /obj/mecha/medical/odysseus)) // odyss
-		var/obj/mecha/medical/odysseus/O = src.loc
+	if(istype(loc, /obj/mecha/medical/odysseus)) // odyss
+		var/obj/mecha/medical/odysseus/O = loc
 		O.step_in = odyss_step_in
-	if(istype(src.loc, /obj/mecha/working/clarke)) // clerke
-		var/obj/mecha/working/clarke/K = src.loc
+	if(istype(loc, /obj/mecha/working/clarke)) // clerke
+		var/obj/mecha/working/clarke/K = loc
 		K.fast_pressure_step_in = clarke_step_in  // that's why
-	if(istype(src.loc, /obj/mecha/combat/durand)) // dura
-		var/obj/mecha/combat/durand/D = src.loc
+	if(istype(loc, /obj/mecha/combat/durand)) // dura
+		var/obj/mecha/combat/durand/D = loc
 		D.step_in = durand_step_in
-	if(istype(src.loc, /obj/mecha/combat/lockersyndie)) // syndilocker
-		var/obj/mecha/combat/lockersyndie/L = src.loc
+	if(istype(loc, /obj/mecha/combat/lockersyndie)) // syndilocker
+		var/obj/mecha/combat/lockersyndie/L = loc
 		L.step_in = locker_step_in
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/detach_act()
-	if(istype(src.loc, /obj/mecha))
-		var/obj/mecha/O = src.loc
+	if(istype(loc, /obj/mecha))
+		var/obj/mecha/O = loc
 		O.step_in = initial(O.step_in)
-	if(istype(src.loc, /obj/mecha/working))
-		var/obj/mecha/working/W = src.loc
+	if(istype(loc, /obj/mecha/working))
+		var/obj/mecha/working/W = loc
 		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
 		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)

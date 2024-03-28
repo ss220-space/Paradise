@@ -32,7 +32,8 @@
 	if(cell && severity)
 		emp_act(severity)
 
-/obj/item/gun/throw/crossbow/update_icon()
+
+/obj/item/gun/throw/crossbow/update_icon_state()
 	if(!tension)
 		if(!to_launch)
 			icon_state = "[initial(icon_state)]"
@@ -40,16 +41,18 @@
 			icon_state = "[initial(icon_state)]-nocked"
 	else
 		icon_state = "[initial(icon_state)]-drawn"
-	overlays.Cut()
-	var/bolt_type = "bolt"
-	if(to_launch)
-		if(tension)
-			bolt_type += "_tighten"
-		else
-			bolt_type += "_untighten"
-		var/obj/item/arrow/bolt = to_launch
-		bolt_type += "_[bolt.overlay_prefix]"
-		overlays += image('icons/obj/weapons/crossbow_rod.dmi', bolt_type)
+
+
+/obj/item/gun/throw/crossbow/update_overlays()
+	. = ..()
+
+	if(!to_launch)
+		return
+
+	var/bolt_type = "bolt[tension ? "_tighten" : "_untighten"]"
+	var/obj/item/arrow/bolt = to_launch
+	bolt_type += "_[bolt.overlay_prefix]"
+	. += image('icons/obj/weapons/crossbow_rod.dmi', bolt_type)
 
 
 /obj/item/gun/throw/crossbow/examine(mob/user)
@@ -251,7 +254,7 @@
 
 /obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/lighter) || istype(I, /obj/item/weldingtool))
+	if(istype(I, /obj/item/lighter) || I.tool_behaviour == TOOL_WELDER)
 		fire_up()
 
 /obj/item/arrow/rod/fire/proc/fire_up(mob/user)

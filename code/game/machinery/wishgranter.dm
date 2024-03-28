@@ -70,7 +70,7 @@
 	if(types.len == 1)
 		wish = pick(types)
 	else
-		wish = input("You want to become...", "Wish") as null|anything in types
+		wish = tgui_input_list(user, "You want to become...", "Wish", types)
 
 	if(!wish || user.stat == DEAD || (get_dist(src, user) > 4)) // Another check after the input to check if someone already used it, closed it, or if they're dead, or if they ran off.
 		return

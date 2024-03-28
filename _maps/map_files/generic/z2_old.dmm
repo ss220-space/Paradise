@@ -3553,7 +3553,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/black,
+/obj/item/deck/cards/black,
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "cXT" = (
@@ -3641,7 +3641,7 @@
 /area/syndicate_mothership)
 "dbc" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -4901,7 +4901,7 @@
 /area/centcom/zone1)
 "dWu" = (
 /obj/structure/table/wood,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/machinery/camera{
 	c_tag = "CentComm Zone 1 Droom";
 	network = list("CentComm")
@@ -6116,7 +6116,6 @@
 	height = 11;
 	id = "specops_away";
 	name = "centcom bay 3";
-	no_spin = 1;
 	top_left_corner = 8;
 	top_right_corner = 1;
 	width = 5
@@ -13202,11 +13201,11 @@
 	desc = "Баксоны максона. Возможно кто-то приобретет пропуск.";
 	name = "100.000 �������� �������"
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	amount = 115;
 	desc = null
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
+/obj/item/stack/telecrystal/twohundred_fifty{
 	amount = 115;
 	desc = null
 	},
@@ -15415,7 +15414,7 @@
 /area/ninja/outside)
 "lrE" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck/syndicate{
+/obj/item/deck/cards/syndicate{
 	pixel_x = -6;
 	pixel_y = 6
 	},
@@ -15791,7 +15790,7 @@
 /obj/item/radio/headset/headset_cargo/mining,
 /obj/item/radio/headset/headset_com,
 /obj/item/radio/headset/headset_eng,
-/obj/item/radio/headset/headset_iaa,
+/obj/item/radio/headset/headset_iaa/alt,
 /obj/item/radio/headset/headset_med,
 /obj/item/radio/headset/headset_medsci,
 /obj/item/radio/headset/headset_rob,
@@ -17445,7 +17444,7 @@
 "mKQ" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/item/toy/cards/deck/syndicate/black,
+/obj/item/deck/cards/syndicate/black,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -17479,9 +17478,9 @@
 /obj/item/stamp/rd,
 /obj/item/stamp/rep,
 /obj/item/stamp/warden,
-/obj/item/radio/headset/headset_iaa,
-/obj/item/radio/headset/headset_iaa,
-/obj/item/radio/headset/headset_iaa,
+/obj/item/radio/headset/headset_iaa/alt,
+/obj/item/radio/headset/headset_iaa/alt,
+/obj/item/radio/headset/headset_iaa/alt,
 /obj/item/radio/headset/heads/magistrate/alt,
 /obj/item/radio/headset/heads/ntrep,
 /turf/simulated/floor/indestructible{
@@ -18253,7 +18252,7 @@
 	},
 /area/ussp_ship)
 "npR" = (
-/obj/structure/crematorium,
+/obj/machinery/crematorium,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -20146,7 +20145,7 @@
 /area/ninja/outpost)
 "oRN" = (
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /turf/simulated/floor/indestructible{
 	icon_state = "woodalt"
 	},
@@ -28610,7 +28609,7 @@
 "uHi" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/toy/cards/deck/syndicate=10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/deck/cards/syndicate=10)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"

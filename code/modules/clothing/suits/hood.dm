@@ -5,89 +5,135 @@
 	var/obj/item/clothing/head/hooded/hood
 	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
 
+
 /obj/item/clothing/suit/hooded/Initialize(mapload)
 	. = ..()
 	MakeHood()
+
 
 /obj/item/clothing/suit/hooded/Destroy()
 	QDEL_NULL(hood)
 	. = ..()
 
-/obj/item/clothing/suit/hooded/proc/MakeHood()
-	if(!hood)
-		var/obj/item/clothing/head/hooded/W = new hoodtype(src)
-		W.suit = src
-		hood = W
 
-/obj/item/clothing/suit/hooded/ui_action_click()
-	ToggleHood()
+/obj/item/clothing/suit/hooded/proc/MakeHood()
+	item_color = initial(icon_state)
+	if(!hood)
+		var/obj/item/clothing/head/hooded/new_hood = new hoodtype(src)
+		new_hood.suit = src
+		hood = new_hood
+
+
+/obj/item/clothing/suit/hooded/attack_self(mob/user)
+	user.changeNext_move(CLICK_CD_MELEE)
+	..()
+
+
+/obj/item/clothing/suit/hooded/update_icon_state()
+	icon_state = "[item_color][suit_adjusted ? "_hood" : ""]"
+
+
+/obj/item/clothing/suit/hooded/ui_action_click(mob/user)
+	ToggleHood(user)
+
 
 /obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
 	if(slot == slot_wear_suit)
-		return 1
+		return TRUE
 
-/obj/item/clothing/suit/hooded/equipped(mob/user, slot, initial)
+
+/obj/item/clothing/suit/hooded/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	RemoveHood(user)
 
-	if(slot != slot_wear_suit)
-		RemoveHood()
-
-/obj/item/clothing/suit/hooded/proc/RemoveHood()
-	if(isnull(hood))
-		return
-	icon_state = "[initial(icon_state)]"
-	suit_adjusted = 0
-	if(ishuman(hood.loc))
-		var/mob/living/carbon/H = hood.loc
-		H.transfer_item_to_loc(hood, src, TRUE)
-		H.update_inv_wear_suit()
-	else
-		hood.forceMove(src)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/hooded/dropped(mob/user, silent = FALSE)
-	..()
-	RemoveHood()
+	. = ..()
+	RemoveHood(user)
 
-/obj/item/clothing/suit/hooded/proc/ToggleHood()
+
+/obj/item/clothing/suit/hooded/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	RemoveHood(usr)
+	. = ..()
+
+
+/obj/item/clothing/suit/hooded/proc/ToggleHood(mob/living/carbon/human/user)
+	if(!ishuman(user) || !hood)
+		return
+	if(suit_adjusted)
+		RemoveHood(user)
+		return
+	if(user.wear_suit != src)
+		to_chat(user, span_warning("You must be wearing [src] to put up the hood!"))
+		return
+	EngageHood(user)
+
+
+/obj/item/clothing/suit/hooded/proc/EngageHood(mob/living/carbon/human/user)
+	if(!hood || suit_adjusted)
+		return FALSE
+	if(user.head)
+		to_chat(user, span_warning("You're already wearing something on your head!"))
+		return
+	if(!user.equip_to_slot(hood, slot_head))
+		return FALSE
+	. = TRUE
+	suit_adjusted = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(user, span_notice("You adjust the hood on [src]."))
+	user.update_head(hood, TRUE)
+	user.update_inv_wear_suit()
+
+
+/obj/item/clothing/suit/hooded/proc/RemoveHood(mob/living/carbon/human/user)
+	if(!hood)
+		return FALSE
 	if(!suit_adjusted)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			if(H.wear_suit != src)
-				to_chat(H,"<span class='warning'>You must be wearing [src] to put up the hood!</span>")
-				return
-			if(H.head)
-				to_chat(H,"<span class='warning'>You're already wearing something on your head!</span>")
-				return
-			else if(H.equip_to_slot_if_possible(hood, slot_head))
-				suit_adjusted = 1
-				icon_state = "[initial(icon_state)]_hood"
-				H.update_inv_wear_suit()
-				for(var/X in actions)
-					var/datum/action/A = X
-					A.UpdateButtonIcon()
-	else
-		RemoveHood()
+		if(hood.loc != src)	// in case hood was dropped on equip and suit is already adjusted
+			hood.forceMove(src)
+		return FALSE
+	. = TRUE
+	suit_adjusted = FALSE
+	update_icon(UPDATE_ICON_STATE)
+	if(ishuman(user))
+		user.temporarily_remove_item_from_inventory(hood, force = TRUE)
+		user.update_inv_wear_suit()
+		to_chat(user, span_notice("The hood fells off from [src]."))
+	hood.forceMove(src)
+	for(var/datum/action/action as anything in actions)
+		action.UpdateButtonIcon()
+
 
 /obj/item/clothing/head/hooded
 	var/obj/item/clothing/suit/hooded/suit
+
 
 /obj/item/clothing/head/hooded/Destroy()
 	suit = null
 	return ..()
 
-/obj/item/clothing/head/hooded/dropped(mob/user, silent = FALSE)
-	..()
-	if(suit)
-		suit.RemoveHood()
 
-/obj/item/clothing/head/hooded/equipped(mob/user, slot, initial)
+/obj/item/clothing/head/hooded/equipped(mob/living/carbon/user, slot, initial = FALSE)
 	. = ..()
+	if(!suit)
+		qdel(src)
+		return FALSE
+	if(slot != slot_head || user.wear_suit != suit)
+		user.drop_item_ground(src, force = TRUE, silent = TRUE)
+		return FALSE
 
-	if(slot != slot_head)
-		if(suit)
-			suit.RemoveHood()
-		else
-			qdel(src)
+
+/obj/item/clothing/head/hooded/dropped(mob/user, silent = FALSE)
+	. = ..()
+	if(suit)
+		suit.RemoveHood(user)
+	else
+		qdel(src)
+
+
+/obj/item/clothing/head/hooded/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+	if(suit)
+		suit.RemoveHood(usr)
+	else
+		qdel(src)
+

@@ -159,7 +159,7 @@
 	name = "terror web"
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
-	anchored = 1 // prevents people dragging it
+	anchored = TRUE // prevents people dragging it
 	density = 0 // prevents it blocking all movement
 	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	creates_cover = TRUE
@@ -171,28 +171,37 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/structure/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
-		return 1
+
+/obj/structure/spider/terrorweb/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+
+	if(checkpass(mover))
+		return TRUE
+
+	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
+		return TRUE
+
 	if(istype(mover, /obj/item/projectile/terrorspider))
-		return 1
+		return TRUE
+
 	if(isliving(mover))
-		var/mob/living/M = mover
-		if(M.lying)
-			return 1
+		var/mob/living/living_mover = mover
+		if(living_mover.lying)
+			return TRUE
+
 		if(prob(80))
-			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			M.Weaken(2 SECONDS) // 2 seconds, wow
-			M.Slowed(10 SECONDS)
+			to_chat(mover, span_danger("You get stuck in [src] for a moment."))
+			living_mover.Weaken(2 SECONDS) // 2 seconds, wow
+			living_mover.Slowed(10 SECONDS)
 			if(iscarbon(mover))
-				var/mob/living/carbon/C = mover
-				web_special_ability(C)
-			return 1
-		else
-			return 0
-	if(istype(mover, /obj/item/projectile))
+				web_special_ability(mover)
+			return TRUE
+
+		return FALSE
+
+	if(isprojectile(mover))
 		return prob(20)
-	return ..()
+
 
 /obj/structure/spider/terrorweb/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)

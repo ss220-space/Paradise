@@ -175,6 +175,15 @@
 	..()
 	AddComponent(/datum/component/wall_regenerate)
 
+/turf/simulated/wall/mineral/gingerbread
+	name = "gingerbread wall"
+	desc = "Don't even try to bite it!"
+	icon = 'icons/turf/walls/gingerbread_wall.dmi'
+	icon_state = "gingerbread"
+	sheet_amount = 5
+	sheet_type = /obj/item/stack/sheet/gingerbread
+	canSmoothWith = list(/turf/simulated/wall/indestructible/gingerbread, /obj/structure/falsewall/gingerbread, /turf/simulated/wall/mineral/gingerbread)
+
 /////////////////////Titanium walls/////////////////////
 
 /turf/simulated/wall/mineral/titanium //has to use this path due to how building walls works
@@ -258,7 +267,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
 	return
 
-/turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
+/turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user, time)
 	return
 
 /turf/simulated/wall/mineral/titanium/nodecon/burn_down()

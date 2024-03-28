@@ -5,7 +5,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
 	flags_2 = CHECK_RICOCHET_2
@@ -123,7 +123,7 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body", "Voice")
+	var/choice = tgui_input_list(user, "Something to change?", "Magical Grooming", list("Name", "Body", "Voice"))
 
 	add_fingerprint(user)
 
@@ -162,7 +162,7 @@
 			AC.ui_interact(user)
 
 		if("Voice")
-			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Староимперский", "Mute")
+			var/voice_choice = tgui_input_list(user, "Perhaps...", "Voice effects", list("Comic Sans", "Wingdings", "Swedish", "Староимперский", "Mute"))
 			var/voice_mutation
 			switch(voice_choice)
 				if("Comic Sans")

@@ -56,15 +56,18 @@
 /obj/structure/necropolis_gate/singularity_pull()
 	return 0
 
-/obj/structure/necropolis_gate/CanPass(atom/movable/mover, turf/target)
-	if(get_dir(loc, target) == dir)
-		return !density
-	return 1
 
-/obj/structure/necropolis_gate/CheckExit(atom/movable/O, target)
-	if(get_dir(O.loc, target) == dir)
-		return !density
-	return 1
+/obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(border_dir != dir)
+		return TRUE
+
+
+/obj/structure/necropolis_gate/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover)
+
 
 /obj/structure/opacity_blocker
 	icon = 'icons/effects/96x96.dmi'
@@ -140,7 +143,7 @@
 
 /obj/structure/necropolis_gate/ashwalker/attack_hand(mob/user)
 	if(locked)
-		if(user.faction == "ashwalker")
+		if("ashwalker" in user.faction)
 			locked = FALSE
 	return ..()
 

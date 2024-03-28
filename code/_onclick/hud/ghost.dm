@@ -1,6 +1,7 @@
 /mob/dead/observer/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/ghost(src)
+		SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
 
 /obj/screen/ghost
 	icon = 'icons/mob/screen_ghost.dmi'
@@ -62,10 +63,10 @@
 	var/matrix/M = matrix(transform)
 	M.Turn(-90)
 
-	overlays.Cut()
+	cut_overlays()
 	var/image/img = image('icons/mob/actions/actions.dmi', src, (hud && hud.inventory_shown) ? "hide" : "show")
 	img.transform = M
-	overlays += img
+	add_overlay(img)
 
 /obj/screen/ghost/respawn_mob
 	name = "Mob spawners"
@@ -74,6 +75,14 @@
 /obj/screen/ghost/respawn_mob/Click()
 	var/mob/dead/observer/G = usr
 	G.open_spawners_menu()
+
+/obj/screen/ghost/mini_games
+	name = "Mini games"
+	icon_state = "minigames"
+
+/obj/screen/ghost/Click()
+	var/mob/dead/observer/G = usr
+	G.open_minigames_menu()
 
 /obj/screen/ghost/respawn_pai
 	name = "Configure pAI"
@@ -116,6 +125,10 @@
 
 	using = new /obj/screen/ghost/respawn_mob()
 	using.screen_loc = ui_ghost_respawn_mob
+	toggleable_inventory += using
+
+	using = new /obj/screen/ghost/mini_games()
+	using.screen_loc = ui_ghost_minigames
 	toggleable_inventory += using
 
 	using = new /obj/screen/ghost/respawn_pai()

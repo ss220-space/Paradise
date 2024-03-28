@@ -57,12 +57,12 @@
 #define INIT_ORDER_SOUNDS 12
 #define INIT_ORDER_INSTRUMENTS 11
 #define INIT_ORDER_EVENTS 10
-#define INIT_ORDER_JOBS 9
-#define INIT_ORDER_TICKER 8
-#define INIT_ORDER_MAPPING 7
-#define INIT_ORDER_ATOMS 6
-#define INIT_ORDER_MACHINES 5
-#define INIT_ORDER_HOLIDAY 4
+#define INIT_ORDER_HOLIDAY 9
+#define INIT_ORDER_JOBS 8
+#define INIT_ORDER_TICKER 7
+#define INIT_ORDER_MAPPING 6
+#define INIT_ORDER_ATOMS 5
+#define INIT_ORDER_MACHINES 4
 #define INIT_ORDER_IDLENPCS 3
 #define INIT_ORDER_MOBS 2
 #define INIT_ORDER_TIMER 1
@@ -74,11 +74,13 @@
 #define INIT_ORDER_ICON_SMOOTHING -5
 #define INIT_ORDER_OVERLAY -6
 #define INIT_ORDER_XKEYSCORE -10
-#define INIT_ORDER_TICKETS -10
-#define INIT_ORDER_LIGHTING -20
-#define INIT_ORDER_SHUTTLE -21
-#define INIT_ORDER_NIGHTSHIFT -22
-#define INIT_ORDER_NANOMOB -23
+#define INIT_ORDER_TICKETS -11
+#define INIT_ORDER_LIGHTING -21
+#define INIT_ORDER_SHUTTLE -22
+#define INIT_ORDER_CARGO_QUESTS -23
+#define INIT_ORDER_NIGHTSHIFT -24
+#define INIT_ORDER_NANOMOB -25
+#define INIT_ORDER_GAME_EVENTS -26
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -95
 
@@ -124,25 +126,6 @@
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
-// This do{} WHILE (FALSE) syntax may look stupid, but it speeds things up because BYOND memes
-#define COMPILE_OVERLAYS(A)\
-	do { \
-		var/list/ad = A.add_overlays;\
-		var/list/rm = A.remove_overlays;\
-		var/list/po = A.priority_overlays;\
-		if(LAZYLEN(rm)){\
-			A.overlays -= rm;\
-			rm.Cut();\
-		}\
-		if(LAZYLEN(ad)){\
-			A.overlays |= ad;\
-			ad.Cut();\
-		}\
-		if(LAZYLEN(po)){\
-			A.overlays |= po;\
-		}\
-		A.flags_2 &= ~OVERLAY_QUEUED_2;\
-} while (FALSE)
 
 // SS CPU display category flags
 #define SS_CPUDISPLAY_LOW 1

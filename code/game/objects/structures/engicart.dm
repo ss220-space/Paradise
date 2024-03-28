@@ -3,7 +3,7 @@
 	desc = "A cart for storing engineering items."
 	icon = 'icons/obj/engicart.dmi'
 	icon_state = "cart"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	pull_push_speed_modifier = 1
 	var/obj/item/stack/sheet/glass/myglass = null
@@ -38,7 +38,7 @@
 				add_fingerprint(user)
 				put_in_cart(I, user)
 				myglass=I
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/stack/sheet/metal))
@@ -46,7 +46,7 @@
 				add_fingerprint(user)
 				put_in_cart(I, user)
 				mymetal=I
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/stack/sheet/plasteel))
@@ -54,7 +54,7 @@
 				add_fingerprint(user)
 				put_in_cart(I, user)
 				myplasteel=I
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/flashlight))
@@ -62,7 +62,7 @@
 				add_fingerprint(user)
 				put_in_cart(I, user)
 				myflashlight=I
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/storage/toolbox/mechanical))
@@ -70,7 +70,7 @@
 				add_fingerprint(user)
 				put_in_cart(I, user)
 				mybluetoolbox=I
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/storage/toolbox/electrical))
@@ -78,7 +78,7 @@
 				add_fingerprint(user)
 				put_in_cart(I, user)
 				myyellowtoolbox=I
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/storage/toolbox))
@@ -86,10 +86,10 @@
 				add_fingerprint(user)
 				put_in_cart(I, user)
 				myredtoolbox=I
-				update_icon()
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/wrench))
+		else if(I.tool_behaviour == TOOL_WRENCH)
 			add_fingerprint(user)
 			if(!anchored && !isinspace())
 				playsound(src.loc, I.usesound, 50, 1)
@@ -97,14 +97,14 @@
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 1
+				anchored = TRUE
 			else if(anchored)
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 0
+				anchored = FALSE
 	else
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
 
@@ -178,22 +178,24 @@
 			to_chat(user, "<span class='notice'>You take [myyellowtoolbox] from [src].</span>")
 			myyellowtoolbox = null
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	updateUsrDialog()
 
-/obj/structure/engineeringcart/update_icon()
-	overlays.Cut()
+
+/obj/structure/engineeringcart/update_overlays()
+	. = ..()
 	if(myglass)
-		overlays += "cart_glass"
+		. += "cart_glass"
 	if(mymetal)
-		overlays += "cart_metal"
+		. += "cart_metal"
 	if(myplasteel)
-		overlays += "cart_plasteel"
+		. += "cart_plasteel"
 	if(myflashlight)
-		overlays += "cart_flashlight"
+		. += "cart_flashlight"
 	if(mybluetoolbox)
-		overlays += "cart_bluetoolbox"
+		. += "cart_bluetoolbox"
 	if(myredtoolbox)
-		overlays += "cart_redtoolbox"
+		. += "cart_redtoolbox"
 	if(myyellowtoolbox)
-		overlays += "cart_yellowtoolbox"
+		. += "cart_yellowtoolbox"
+

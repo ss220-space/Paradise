@@ -156,12 +156,18 @@
 	density = FALSE
 	anchored = TRUE
 	buckle_lying = FALSE
-	var/burning = 0
+	pass_flags_self = PASSTABLE|LETPASSTHROW
+	var/burning = FALSE
 	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5
 
 /obj/structure/bonfire/dense
 	density = TRUE
+
+
+/obj/structure/bonfire/update_icon_state()
+	icon_state = "bonfire[burning ? "_on_fire" : ""]"
+
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
@@ -202,9 +208,9 @@
 
 /obj/structure/bonfire/proc/StartBurning()
 	if(!burning && CheckOxygen())
-		icon_state = "bonfire_on_fire"
-		burning = 1
-		set_light(6, l_color = "#ED9200")
+		burning = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		set_light(6, l_color = "#ED9200", l_on = TRUE)
 		Burn()
 		START_PROCESSING(SSobj, src)
 
@@ -241,9 +247,9 @@
 
 /obj/structure/bonfire/extinguish()
 	if(burning)
-		icon_state = "bonfire"
-		burning = 0
-		set_light(0)
+		burning = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		set_light_on(FALSE)
 		STOP_PROCESSING(SSobj, src)
 
 /obj/structure/bonfire/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)

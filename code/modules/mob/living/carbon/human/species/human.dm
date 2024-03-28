@@ -1,10 +1,10 @@
 /datum/species/human
-	name = "Human"
+	name = SPECIES_HUMAN
 	name_plural = "Humans"
 	icobase = 'icons/mob/human_races/r_human.dmi'
 	deform = 'icons/mob/human_races/r_def_human.dmi'
 	primitive_form = /datum/species/monkey
-	language = "Sol Common"
+	language = LANGUAGE_SOL_COMMON
 	species_traits = list(LIPS)
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -16,6 +16,8 @@
 	While the central Sol government maintains control of its far-flung people, powerful corporate \
 	interests, rampant cyber and bio-augmentation and secretive factions make life on most human \
 	worlds tumultous at best."
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/human
 
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.

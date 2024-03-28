@@ -26,10 +26,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "A window."
 	icon_state = "window"
 	density = TRUE
+	pass_flags_self = PASSGLASS
 	layer = ABOVE_OBJ_LAYER //Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE
 	flags = ON_BORDER
+	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
@@ -44,7 +46,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/glass_type = /obj/item/stack/sheet/glass
 	var/glass_amount = 1
 	var/cancolor = FALSE
-	var/image/crack_overlay
+	var/mutable_appearance/crack_overlay
 	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
@@ -86,6 +88,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 	var/shards = 1
 	if(fulltile)
+		obj_flags &= ~BLOCKS_CONSTRUCTION_DIR
 		shards++
 		setDir()
 
@@ -136,32 +139,29 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		..(FULLTILE_WINDOW_DIR)
 
 
-/obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+/obj/structure/window/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
 		return TRUE
-	if(dir == FULLTILE_WINDOW_DIR)	// full tile window, you can't move into it!
+
+	if(fulltile || border_dir == dir)
 		return FALSE
-	if(dir == get_dir(loc, target))
-		return !density
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
-		return FALSE
+
+	if(isobj(mover))
+		var/obj/object = mover
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
+				return FALSE
+
 	return TRUE
 
 
-/obj/structure/window/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return TRUE
-	if(dir == get_dir(loc, target))
-		return FALSE
-	return TRUE
+/obj/structure/window/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
 
 
 /obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
@@ -325,6 +325,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		obj_integrity = max_integrity
 		WELDER_REPAIR_SUCCESS_MESSAGE
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/window/proc/check_state(checked_state)
 	if(state == checked_state)
@@ -342,13 +343,19 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	..()
 
+
 /obj/structure/window/proc/can_be_reached(mob/user)
-	if(!fulltile)
-		if(get_dir(user, src) & dir)
-			for(var/obj/O in loc)
-				if(!O.CanPass(user, user.loc, 1))
-					return 0
-	return 1
+	if(fulltile || dir == FULLTILE_WINDOW_DIR)
+		return TRUE
+	var/checking_dir = get_dir(user, src)
+	if(!(checking_dir & dir))
+		return TRUE // Only windows on the other side may be blocked by other things.
+	checking_dir = REVERSE_DIR(checking_dir)
+	for(var/obj/blocker in loc)
+		if(!blocker.CanPass(user, checking_dir))
+			return FALSE
+	return TRUE
+
 
 /obj/structure/window/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
@@ -399,7 +406,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return FALSE
 
 	var/target_dir = turn(dir, 90)
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir, is_fulltile = fulltile))
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 
@@ -423,7 +430,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 	var/target_dir = turn(dir, 270)
 
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir, fulltile))
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 
@@ -446,11 +453,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE
 
-	var/target_dir = turn(dir, 270)
+	var/target_dir = turn(dir, 90)
 
-	if(!valid_window_location(loc, target_dir))
-		target_dir = turn(dir, 90)
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir, fulltile))
 		to_chat(user, "<span class='warning'>There is no room to rotate the [src]</span>")
 		return FALSE
 
@@ -478,23 +483,25 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(smooth)
 		queue_smooth_neighbors(src)
 
-/obj/structure/window/update_icon()
-	if(!QDELETED(src))
-		if(!fulltile)
-			return
-		var/ratio = obj_integrity / max_integrity
-		ratio = CEILING(ratio*4, 1) * 25
-		if(smooth)
-			queue_smooth(src)
-		overlays -= crack_overlay
-		if(ratio > 75)
-			return
-		crack_overlay = image('icons/obj/structures.dmi',"damage[ratio]",-(layer+0.1))
-		overlays += crack_overlay
+/obj/structure/window/update_overlays()
+	. = ..()
+	if(QDELETED(src) || !fulltile)
+		return
+
+	var/ratio = obj_integrity / max_integrity
+	ratio = CEILING(ratio * 4, 1) * 25
+	if(smooth)
+		queue_smooth(src)
+	if(ratio > 75)
+		return
+
+	crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer + 0.01), appearance_flags = RESET_COLOR)
+	. += crack_overlay
+
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -525,7 +532,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		self_hurt = TRUE
 	..()
 	if(shattered)
-		C.throw_at(throwingdatum.target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+		C.throw_at(throwingdatum.initial_target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
 
 
 /obj/structure/window/GetExplosionBlock()
@@ -596,35 +603,38 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	use_power(5)
 
 	active = !active
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
-		if(W.id == src.id || !W.id)
-			spawn(0)
-				W.toggle()
-				return
-	for(var/obj/machinery/door/airlock/G in range(src,range))
-		if(G.id == src.id)
-			spawn(0)
-				if(G.glass)
-					G.airlock_material = null
-					G.glass = FALSE
-					G.update_icon()
-					if(G.density)
-						G.opacity = 1
-				else
-					G.airlock_material = "glass"
-					G.glass = TRUE
-					G.update_icon()
-					G.opacity = 0
-				return
+	for(var/obj/structure/window/reinforced/polarized/window in range(src,range))
+		if(window.id == id || !window.id)
+			INVOKE_ASYNC(window, TYPE_PROC_REF(/obj/structure/window/reinforced/polarized, toggle))
 
-/obj/machinery/button/windowtint/power_change()
-	..()
+	for(var/obj/machinery/door/airlock/airlock in range(src,range))
+		if(airlock.id == id)
+			INVOKE_ASYNC(src, PROC_REF(async_update), airlock)
+
+
+/obj/machinery/button/windowtint/proc/async_update(obj/machinery/door/airlock/airlock)
+	if(airlock.glass)
+		airlock.airlock_material = null
+		airlock.glass = FALSE
+		airlock.update_icon()
+		if(airlock.density)
+			airlock.set_opacity(TRUE)
+	else
+		airlock.airlock_material = "glass"
+		airlock.glass = TRUE
+		airlock.update_icon()
+		airlock.set_opacity(FALSE)
+
+
+/obj/machinery/button/windowtint/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(active && !powered(power_channel))
 		toggle_tint()
 
-/obj/machinery/button/windowtint/update_icon()
+/obj/machinery/button/windowtint/update_icon_state()
 	icon_state = "light[active]"
 
 /obj/structure/window/plasmabasic
@@ -900,7 +910,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/reinforced/clockwork/ratvar_act()
 	obj_integrity = max_integrity
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/window/reinforced/clockwork/narsie_act()
 	take_damage(rand(25, 75), BRUTE)

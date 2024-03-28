@@ -4,9 +4,7 @@
 /area/space)
 "ac" = (
 /obj/structure/noticeboard,
-/turf/simulated/wall{
-	simulated = 0
-	},
+/turf/simulated/wall/indestructible/reinforced,
 /area/awaymission/academy/academyaft)
 "ae" = (
 /obj/structure/computerframe{
@@ -148,9 +146,8 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "aI" = (
-/obj/structure/bookcase/random{
-	name = "Forbidden Knowledge"
-	},
+/obj/structure/bookcase,
+/obj/item/book/manual/engineering_construction,
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "aJ" = (
@@ -171,15 +168,24 @@
 /area/awaymission/academy/classrooms)
 "aL" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr29"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/asteroid,
 /area/awaymission/academy/academyaft)
 "aN" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/staff/broom,
 /turf/simulated/floor/carpet/cyan,
 /area/awaymission/academy/headmaster)
+"aO" = (
+/obj/structure/table/wood,
+/obj/item/borg/upgrade/modkit/damage,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/classrooms)
 "aR" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -239,6 +245,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
+/obj/structure/bookcase,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},
@@ -274,6 +281,13 @@
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
+"bp" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr31"
+	},
+/turf/simulated/floor/sepia,
+/area/awaymission/academy/academyaft)
 "bq" = (
 /obj/structure/toilet{
 	dir = 4
@@ -329,7 +343,6 @@
 	},
 /area/awaymission/academy/headmaster)
 "bz" = (
-/mob/living/simple_animal/hostile/mimic/crate,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	tag = "icon-vault"
@@ -447,10 +460,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "white";
-	tag = "icon-white (EAST)"
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "cd" = (
@@ -460,7 +472,7 @@
 /area/awaymission/academy/headmaster)
 "ce" = (
 /obj/structure/mineral_door/gold,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "cg" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
@@ -489,9 +501,6 @@
 /area/awaymission/academy/academyaft)
 "co" = (
 /obj/structure/table/wood,
-/obj/item/paper{
-	info = "Наша межпространственная система телепортации работает очень просто, однако людям без магических способностей она незрима. Поэтому мы сделали обозначение точек телепортации в виде жёлто-чёрной линии с золотом в центре."
-	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "cp" = (
@@ -505,10 +514,15 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "cu" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"cv" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr32"
+	},
+/turf/simulated/floor/sepia,
+/area/awaymission/academy/academyaft)
 "cw" = (
 /obj/item/caution,
 /turf/simulated/floor/plasteel{
@@ -525,11 +539,11 @@
 /area/awaymission/academy/academygate)
 "cy" = (
 /obj/structure/table,
-/obj/item/katana,
 /obj/machinery/door_control{
 	id = "Acad_Door_katana_end";
 	name = "Chelenge end"
 	},
+/obj/item/toy/katana,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -561,13 +575,21 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "cE" = (
-/obj/effect/bump_teleporter{
+/obj/effect/bump_teleporter/academy_no_mesons{
+	dir = 8;
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
 	id = "Acad2";
-	id_target = "Acad22"
+	id_target = "Acad22";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
+/turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
+"cG" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academyaft)
 "cI" = (
 /obj/item/stack/sheet/wood{
 	pixel_x = 11;
@@ -576,13 +598,17 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/wood/fancy/oak,
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
-"cK" = (
-/obj/structure/sign/vacuum,
-/turf/simulated/wall/r_wall{
+"cJ" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone9";
 	simulated = 0
 	},
+/area/awaymission/academy/academyaft)
+"cK" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall/indestructible/reinforced,
 /area/awaymission/academy/classrooms)
 "cL" = (
 /obj/structure/table/wood,
@@ -608,12 +634,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "cM" = (
-/obj/effect/bump_teleporter{
-	id = "sekretka3"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/wall/indestructible/reinforced,
 /area/awaymission/academy/headmaster)
 "cN" = (
 /turf/simulated/wall/indestructible{
@@ -622,12 +643,16 @@
 	},
 /area/awaymission/academy/headmaster)
 "cT" = (
-/obj/effect/bump_teleporter{
+/obj/effect/bump_teleporter/academy_no_mesons{
+	dir = 8;
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
 	id = "Acad1";
-	id_target = "Acad11"
+	id_target = "Acad11";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
+/turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "cU" = (
 /obj/structure/table/wood,
@@ -665,17 +690,11 @@
 /area/awaymission/academy/headmaster)
 "df" = (
 /obj/structure/sign/botany,
-/turf/simulated/wall{
-	simulated = 0
-	},
+/turf/simulated/wall/indestructible/reinforced,
 /area/awaymission/academy/classrooms)
 "dg" = (
 /obj/structure/table,
-/obj/item/paper{
-	info = "Grade: A+ Educator's Notes: Excellent form.";
-	name = "Summoning Midterm Exam"
-	},
-/obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/twohanded/toy/chainsaw,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault";
@@ -810,12 +829,11 @@
 	},
 /area/awaymission/academy/classrooms)
 "dx" = (
+/obj/structure/bookcase,
 /turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "whitered";
-	tag = "icon-whitered (EAST)"
+	icon_state = "floorgrime"
 	},
-/area/awaymission/academy/academyaft)
+/area/awaymission/academy/headmaster)
 "dz" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/wizrobe/marisa,
@@ -829,16 +847,16 @@
 	},
 /area/awaymission/academy/academyaft)
 "dB" = (
-/obj/item/grown/sunflower,
 /obj/effect/decal/straw/light,
+/obj/item/grown/cotton,
 /turf/simulated/floor/grass,
 /area/awaymission/academy/headmaster)
 "dC" = (
-/obj/effect/bump_teleporter{
-	id_target = "AcadLab2"
+/obj/structure/bookcase,
+/obj/item/book/manual/nuclear,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
 	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
 /area/awaymission/academy/headmaster)
 "dE" = (
 /obj/machinery/door/airlock/freezer,
@@ -911,7 +929,7 @@
 "dU" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper{
-	info = "Добро пожаловать в Испытание Разума. Здесь, в этой Магической Академии, вы окажетесь перед серией умственных вызовов и загадок. Это не просто испытание вашего интеллекта, но и возможность погрузиться в увлекательный мир разгадывания головоломок и научиться думать нестандартно. Ваша способность анализа, логического мышления и творческого подхода будут ключевыми инструментами в этом испытании. Помните, что иногда ответ может быть скрыт глубоко в деталях, исследуйте, экспериментируйте и действуйте сообразно. Готовы ли вы к вызову разума? Переступите порог, шагните вперёд и начните свой путь к новым умственным вершинам. Удачи в испытании!"
+	info = "Добро пожаловать в Испытание Разума. Здесь, в этой Магической Академии, вы окажетесь перед серией умственных вызовов и загадок. Это не просто испытание вашего интеллекта, но и возможность погрузиться в увлекательный мир разгадывания головоломок и научиться думать нестандартно. Ваша способность анализа, логического мышления и творческого подхода будут ключевыми инструментами в этом испытании. Помните, что иногда ответ может быть скрыт глубоко в деталях, исследуйте, экспериментируйте и действуйте сообразно. Готовы ли вы к вызову разума? Переступите порог, шагните вперёд и начните свой путь к новым умственным вершинам. Не забывайте оставлять свои чудо очки перед своим походом, иначе мы уничтожим их. Удачи в испытании Разума!"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -939,6 +957,11 @@
 	icon_state = "floorgrime"
 	},
 /area/awaymission/academy/classrooms)
+"dZ" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron4"
+	},
+/area/awaymission/academy/academyaft)
 "ea" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -965,6 +988,19 @@
 	icon_state = "yellow"
 	},
 /area/awaymission/academy/classrooms)
+"ef" = (
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
+"eg" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "eh" = (
 /obj/item/borg/upgrade/modkit/aoe,
 /turf/simulated/floor/wood/fancy/oak,
@@ -1027,9 +1063,7 @@
 	id_tag = "Acad_Door5";
 	opacity = 0
 	},
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "es" = (
 /obj/structure/window/reinforced{
@@ -1200,7 +1234,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/wood/fancy/oak,
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "fa" = (
 /obj/structure/window/reinforced,
@@ -1219,9 +1253,6 @@
 /area/awaymission/academy)
 "fe" = (
 /obj/structure/table/wood,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -30
-	},
 /obj/item/paper{
 	info = "Привтствуем тебя, заблудший путешественник, что захотел испытать себя в нашей Магической Академии. Свет есть жизнь."
 	},
@@ -1358,7 +1389,12 @@
 /area/awaymission/academy/academyaft)
 "fF" = (
 /obj/effect/bump_teleporter{
-	id_target = "sekretka1"
+	dir = 8;
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "sekretka1";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1393,7 +1429,9 @@
 	},
 /area/awaymission/academy/academyaft)
 "fN" = (
-/obj/structure/reagent_dispensers/fueltank,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("faithless")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	tag = "icon-vault"
@@ -1524,11 +1562,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/academy/classrooms)
 "gm" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "sandstone4";
-	simulated = 0
-	},
-/area/awaymission/academy/headmaster)
+/turf/simulated/wall/indestructible/reinforced,
+/area/awaymission/academy/classrooms)
 "gn" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
@@ -1561,12 +1596,6 @@
 /obj/item/book/manual/medical_cloning,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
-"gw" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr34"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
 "gy" = (
 /obj/structure/chair/sofa{
 	dir = 8
@@ -1603,15 +1632,17 @@
 "gD" = (
 /obj/structure/table/reinforced,
 /obj/item/camera_film,
+/obj/machinery/door_control{
+	id = "Acad_Door_start"
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "gE" = (
 /obj/structure/table,
-/obj/item/paper{
-	info = "Grade: B- Educator's Notes: Keep applying yourself, you're showing improvement.";
-	name = "Summoning Midterm Exam"
-	},
 /obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/paper{
+	info = "Наставник, пишу вам обращение и одновременно жалобу. На кой чёрт нам нужен полигон и тренировочное оружие!? МЫ ГРЁБАННЫЕ ВОЛШЕБНИКИ."
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault";
@@ -1628,10 +1659,8 @@
 /area/awaymission/academy/academyaft)
 "gH" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/gold{
-	amount = 5
-	},
 /obj/effect/decal/warning_stripes/east,
+/obj/item/twohanded/dualsaber/toy,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "gJ" = (
@@ -1664,6 +1693,12 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
+"gQ" = (
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi';
+	icon_state = "rrust"
+	},
+/area/awaymission/academy/academyaft)
 "gR" = (
 /obj/structure/window/reinforced,
 /obj/item/ammo_casing,
@@ -1677,10 +1712,6 @@
 "gT" = (
 /obj/structure/table,
 /obj/item/gun/energy/floragun,
-/obj/item/paper{
-	info = "Grade: D- Educator's Notes: SEE ME AFTER CLASS.";
-	name = "Summoning Midterm Exam"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault";
@@ -1707,7 +1738,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "hb" = (
-/obj/structure/mineral_door/wood,
+/obj/structure/mineral_door/iron,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "hc" = (
@@ -1775,13 +1806,11 @@
 /turf/simulated/mineral,
 /area/awaymission/academy)
 "hs" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "whitered";
-	tag = "icon-whitered (EAST)"
+/obj/effect/decal/leaves{
+	dir = 8
 	},
-/area/awaymission/academy/academyaft)
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "hy" = (
 /obj/structure/table,
 /obj/item/trash/cheesie,
@@ -1818,6 +1847,13 @@
 	icon_state = "showroomfloor"
 	},
 /area/awaymission/academy/headmaster)
+"hD" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr 70"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "hE" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal{
@@ -1831,9 +1867,10 @@
 /area/awaymission/academy/headmaster)
 "hF" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr24"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/asteroid,
 /area/awaymission/academy/academyaft)
 "hG" = (
 /turf/simulated/wall/indestructible{
@@ -1842,9 +1879,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "hH" = (
-/turf/simulated/wall{
-	simulated = 0
-	},
+/turf/simulated/wall/indestructible/reinforced,
 /area/awaymission/academy/academyaft)
 "hK" = (
 /obj/machinery/constructable_frame/machine_frame,
@@ -1915,7 +1950,7 @@
 "ic" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper{
-	info = "Добро пожаловать в Испытание Выдержки. Здесь, в этой Магической Академии, вы будете подвергнуты испытанию, которое потребует от вас спокойствия, терпения и выдержки. Это испытание предоставит вам возможность продемонстрировать, насколько вы способны сохранять самообладание и решительность в сложных и стрессовых ситуациях. Выдержка - это ключевой аспект успешного преодоления испытания. Будьте готовы к неожиданностям, сохраняйте ясность ума и действуйте рассудительно. Помните, что иногда самые сложные моменты требуют спокойной реакции. Готовы ли вы к вызову выдержки? Переступите порог,пройдите вперёд и начните свой путь к победе над стрессом и неопределенностью. Удачи в испытании выдержки!"
+	info = "Добро пожаловать в Испытание Выдержки. Здесь, в этой Магической Академии, вы будете подвергнуты испытанию, которое потребует от вас спокойствия, терпения и выдержки. Это испытание предоставит вам возможность продемонстрировать, насколько вы способны сохранять самообладание и решительность в сложных и стрессовых ситуациях. Выдержка - это ключевой аспект успешного преодоления испытания. Будьте готовы к неожиданностям, сохраняйте ясность ума и действуйте рассудительно. Помните, что иногда самые сложные моменты требуют спокойной реакции. Готовы ли вы к вызову выдержки? Переступите порог, пройдите вперёд и начните свой путь к победе над стрессом и неопределенностью. Не забывайте оставлять свои чудо очки перед походом, иначе мы уничтожим их. Удачи в испытании выдержки!"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -1936,12 +1971,6 @@
 /area/awaymission/academy/academyaft)
 "if" = (
 /turf/simulated/floor/grass,
-/area/awaymission/academy/academyaft)
-"ig" = (
-/obj/effect/bump_teleporter{
-	id = "labr15"
-	},
-/turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
 "ih" = (
 /obj/machinery/door_control{
@@ -2013,6 +2042,11 @@
 /area/awaymission/academy/classrooms)
 "ip" = (
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/awaymission/academy/academyaft)
+"iq" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone1"
+	},
 /area/awaymission/academy/academyaft)
 "ir" = (
 /obj/structure/rack,
@@ -2099,6 +2133,13 @@
 	icon_state = "floorgrime"
 	},
 /area/awaymission/academy/classrooms)
+"iB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "iC" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/sign/poster/contraband/random{
@@ -2162,6 +2203,17 @@
 "iJ" = (
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
+"iK" = (
+/obj/machinery/door/poddoor/impassable{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Acad_Door_katana;Acad_Door_katana_end";
+	opacity = 0
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/plasma,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "iM" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/wardrobe/black,
@@ -2189,7 +2241,9 @@
 	},
 /area/awaymission/academy/academyaft)
 "iP" = (
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/obj/structure/bookcase,
+/obj/item/book/manual/robotics_cyborgs,
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "iR" = (
 /obj/structure/table/wood/fancy/black,
@@ -2203,9 +2257,7 @@
 /area/awaymission/academy/headmaster)
 "iT" = (
 /obj/structure/sign/nosmoking_1,
-/turf/simulated/wall{
-	simulated = 0
-	},
+/turf/simulated/wall/indestructible/reinforced,
 /area/awaymission/academy/classrooms)
 "iU" = (
 /obj/structure/window/reinforced{
@@ -2213,10 +2265,9 @@
 	},
 /obj/structure/table,
 /obj/item/soulstone,
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "whitered";
-	tag = "icon-whitered (EAST)"
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "iV" = (
@@ -2270,8 +2321,8 @@
 /area/awaymission/academy/academyaft)
 "jh" = (
 /obj/effect/bump_teleporter{
-	id = "sekretka4";
-	id_target = null
+	density = 0;
+	id = "sekretka4"
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
@@ -2291,11 +2342,7 @@
 "jl" = (
 /obj/structure/table,
 /obj/item/batterer,
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "whitered";
-	tag = "icon-whitered (EAST)"
-	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
 "jn" = (
 /turf/simulated/floor/plasteel{
@@ -2343,10 +2390,9 @@
 /obj/structure/table,
 /obj/structure/window/reinforced,
 /obj/item/reagent_containers/food/drinks/trophy/silver_cup,
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "whitered";
-	tag = "icon-whitered (EAST)"
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "jz" = (
@@ -2360,10 +2406,9 @@
 /area/awaymission/academy/academyaft)
 "jC" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless{
-	dir = 4;
-	icon_state = "white";
-	tag = "icon-white (EAST)"
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
 "jD" = (
@@ -2407,9 +2452,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "jJ" = (
-/turf/simulated/wall/r_wall{
-	simulated = 0
-	},
+/turf/simulated/wall/indestructible/reinforced,
 /area/awaymission/academy/academygate)
 "jL" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -2419,6 +2462,10 @@
 	dir = 5;
 	icon_state = "yellow"
 	},
+/area/awaymission/academy/academyaft)
+"jM" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academyaft)
 "jO" = (
 /obj/structure/mineral_door/wood,
@@ -2488,7 +2535,11 @@
 /area/awaymission/academy/academygate)
 "kh" = (
 /obj/effect/bump_teleporter{
-	id_target = "sekretka2"
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "sekretka2";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2544,10 +2595,13 @@
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "kv" = (
-/mob/living/simple_animal/hostile/mimic/crate,
+/mob/living/simple_animal/hostile/mimic/crate{
+	faction = list("faithless")
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
 "kx" = (
@@ -2568,20 +2622,14 @@
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
-"kC" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr32"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
 "kE" = (
 /turf/simulated/wall/r_wall{
 	simulated = 0
 	},
 /area/awaymission/academy/classrooms)
 "kF" = (
-/obj/structure/table/wood,
-/obj/item/borg/upgrade/modkit/damage,
+/obj/structure/fans/tiny,
+/obj/structure/mineral_door/wood,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/classrooms)
 "kH" = (
@@ -2633,6 +2681,7 @@
 /area/awaymission/academy/headmaster)
 "kQ" = (
 /obj/structure/falsewall/reinforced,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "kR" = (
@@ -2644,6 +2693,12 @@
 /obj/machinery/door_control,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"kS" = (
+/obj/item/paper{
+	info = "Летит ласточка, лёгок полет. Летний ветер ласкает плечи. Цветет зной, цветут и луга. Любовь зацветает под вечер. По цветущему царству лазурному. Правит жизнь цветущего лета. Цепок миг этот легкого ветра. Ценен раз тот, что пустит в полет! Легка и случайность раза сего. Пустившая ласточку в этот полет!"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "kT" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -2670,6 +2725,7 @@
 /area/awaymission/academy/headmaster)
 "kX" = (
 /obj/structure/falsewall/reinforced,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/headmaster)
 "kY" = (
@@ -2694,7 +2750,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "lb" = (
-/obj/structure/falsewall,
+/obj/structure/falsewall/reinforced,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
 "lc" = (
@@ -2722,12 +2778,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
-"lm" = (
-/obj/effect/bump_teleporter{
-	id = "labr21"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
 "lo" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
@@ -2748,6 +2798,9 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/brown/corner{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ls" = (
@@ -2756,15 +2809,8 @@
 /area/awaymission/academy/academyaft)
 "lv" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "sekretka1"
-	},
-/obj/item/paper{
-	anchored = 1;
-	color = "orange";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
@@ -2774,6 +2820,11 @@
 	icon_state = "darkyellow"
 	},
 /area/awaymission/academy/classrooms)
+"lz" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron11"
+	},
+/area/awaymission/academy/academyaft)
 "lB" = (
 /obj/structure/toilet{
 	dir = 8
@@ -2791,11 +2842,18 @@
 	opacity = 0
 	},
 /obj/machinery/door/airlock/plasma,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "lD" = (
-/turf/simulated/wall/indestructible/fakeglass,
-/area/awaymission/academy/classrooms)
+/obj/structure/statue/bone/rib{
+	anchored = 1;
+	dir = 8;
+	pixel_x = 2;
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "lF" = (
 /obj/structure/table/wood,
 /obj/item/paper{
@@ -2804,16 +2862,23 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "lG" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "orange";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "sekretka3"
 	},
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault";
+	tag = "icon-vault (NORTHEAST)"
+	},
 /area/awaymission/academy/headmaster)
+"lM" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr 78"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "lT" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -2825,6 +2890,16 @@
 	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
+"lU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/bananium_wall.dmi';
+	icon_state = "bananium"
+	},
+/area/awaymission/academy/academyaft)
 "lV" = (
 /obj/machinery/biogenerator,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -2842,18 +2917,28 @@
 	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
+"ma" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 73";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "mb" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/pill/patch/nicotine,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
 /area/awaymission/academy/headmaster)
 "mj" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr3"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "mn" = (
 /obj/item/trash/liquidfood,
@@ -2870,6 +2955,12 @@
 /area/awaymission/academy/classrooms)
 "mv" = (
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/awaymission/academy/academyaft)
+"my" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone13";
+	simulated = 0
+	},
 /area/awaymission/academy/academyaft)
 "mz" = (
 /obj/structure/table/reinforced,
@@ -2890,6 +2981,12 @@
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
+"mC" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone7";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
 "mD" = (
 /obj/effect/decal/remains/xeno,
 /turf/simulated/floor/plasteel{
@@ -2897,8 +2994,14 @@
 	tag = "icon-dark"
 	},
 /area/awaymission/academy/classrooms)
-"mI" = (
-/turf/simulated/mineral/random/high_chance,
+"mM" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "mN" = (
 /obj/structure/closet,
@@ -2924,6 +3027,16 @@
 	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
+"mV" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	invisibility = 101
+	},
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/bananium_wall.dmi';
+	icon_state = "bananium"
+	},
+/area/awaymission/academy/academyaft)
 "mY" = (
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/grass,
@@ -2960,6 +3073,15 @@
 	icon_state = "floorgrime"
 	},
 /area/awaymission/academy/academyaft)
+"no" = (
+/obj/structure/lattice,
+/mob/living/simple_animal/hostile/carp{
+	health = 50;
+	maxHealth = 50;
+	name = "Annoyed space carp"
+	},
+/turf/space,
+/area/space)
 "nr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2969,9 +3091,10 @@
 /area/awaymission/academy/classrooms)
 "nD" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr8"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/grass,
 /area/awaymission/academy/academyaft)
 "nG" = (
 /obj/structure/dispenser/oxygen,
@@ -2981,7 +3104,8 @@
 	},
 /area/awaymission/academy/classrooms)
 "nI" = (
-/turf/simulated/mineral,
+/obj/structure/bookcase,
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "nN" = (
 /obj/structure/chair/comfy/brown{
@@ -3008,12 +3132,6 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/academy/academyaft)
-"nW" = (
-/obj/effect/bump_teleporter{
-	id = "labr31"
-	},
-/turf/simulated/floor/sepia,
-/area/awaymission/academy/academyaft)
 "nX" = (
 /obj/structure/table/wood,
 /obj/item/seeds/tomato/blue/bluespace,
@@ -3030,13 +3148,32 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/brown{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"oa" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 77";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
+"oe" = (
+/obj/effect/bump_teleporter{
+	id = "labr 73"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "of" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 4
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -3070,9 +3207,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
+"oP" = (
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/academyaft)
 "pa" = (
 /obj/structure/flora/bush,
 /turf/simulated/floor/grass,
+/area/awaymission/academy/academyaft)
+"pb" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "po" = (
 /obj/structure/sign/poster/contraband/random{
@@ -3099,6 +3249,16 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/academyaft)
+"pG" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone10";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
+"pM" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academygate)
 "pN" = (
 /mob/living/simple_animal/hostile/faithless{
 	health = 150;
@@ -3116,6 +3276,11 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
+"pQ" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/chef_recipes,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "pX" = (
 /obj/machinery/vending/coffee/free,
 /turf/simulated/floor/plasteel{
@@ -3161,20 +3326,31 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "qp" = (
-/obj/effect/bump_teleporter{
-	id = "minihub"
-	},
-/turf/simulated/floor/carpet/black,
+/obj/structure/bookcase,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
-"qw" = (
-/obj/effect/decal/warning_stripes,
-/obj/effect/bump_teleporter{
-	id_target = "Acad_end1"
+"qq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/goonplaque,
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/bananium_wall.dmi';
+	icon_state = "bananium"
+	},
+/area/awaymission/academy/academyaft)
+"qw" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "Acad_end1";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "qz" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "Acad_end2"
 	},
 /turf/simulated/floor/grass,
@@ -3198,12 +3374,6 @@
 	icon_state = "darkyellow"
 	},
 /area/awaymission/academy/classrooms)
-"qO" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr22"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
 "qQ" = (
 /obj/item/reagent_containers/glass/bottle,
 /turf/simulated/floor/plasteel{
@@ -3221,6 +3391,25 @@
 /area/awaymission/academy/classrooms)
 "qV" = (
 /turf/simulated/floor/indestructible/snow,
+/area/awaymission/academy/academyaft)
+"ra" = (
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
+"rc" = (
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
+"rd" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal/deliveryChute,
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "rf" = (
 /obj/structure/stone_tile/block{
@@ -3257,12 +3446,26 @@
 	icon_state = "darkyellow"
 	},
 /area/awaymission/academy/classrooms)
+"rq" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "Acad33"
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "rr" = (
 /obj/structure/chair/comfy/green{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
+"ru" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/bananium_wall.dmi';
+	icon_state = "bananium"
+	},
+/area/awaymission/academy/academyaft)
 "ry" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3280,11 +3483,8 @@
 	},
 /area/awaymission/academy/classrooms)
 "rD" = (
-/obj/effect/bump_teleporter{
-	id_target = "AcadLab1"
-	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "rL" = (
 /obj/structure/sign/poster/contraband/random{
@@ -3307,6 +3507,9 @@
 	icon_state = "hierophant1"
 	},
 /area/awaymission/academy/headmaster)
+"rW" = (
+/turf/simulated/wall/indestructible/wood,
+/area/awaymission/academy/academyaft)
 "sb" = (
 /obj/item/stack/sheet/wood{
 	pixel_y = -15
@@ -3344,6 +3547,9 @@
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/carpet/cyan,
 /area/awaymission/academy/headmaster)
+"sq" = (
+/turf/simulated/floor/indestructible/grass,
+/area/awaymission/academy/academyaft)
 "sx" = (
 /obj/item/paper{
 	anchored = 1;
@@ -3357,11 +3563,18 @@
 	icon_state = "dark"
 	},
 /area/awaymission/academy/headmaster)
-"sA" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr21"
+"sD" = (
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel/stairs/old,
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/simulated/floor/lubed,
 /area/awaymission/academy/academyaft)
 "sF" = (
 /turf/simulated/floor/plasteel{
@@ -3395,6 +3608,10 @@
 	icon_state = "red"
 	},
 /area/awaymission/academy/academyaft)
+"sW" = (
+/obj/structure/flora/ausbushes/genericbush,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academygate)
 "sZ" = (
 /obj/structure/closet/chefcloset,
 /obj/item/storage/fancy/cigarettes/syndicate,
@@ -3410,9 +3627,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "ta" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/academygate)
 "tm" = (
 /obj/structure/stone_tile/block/cracked{
@@ -3456,12 +3671,6 @@
 	icon_state = "chapel"
 	},
 /area/awaymission/academy/classrooms)
-"tG" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr20"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
 "tM" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -3479,6 +3688,11 @@
 /obj/structure/mineral_door/iron,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
+"tZ" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone11"
+	},
+/area/awaymission/academy/headmaster)
 "ub" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "Acad_Door_katana"
@@ -3490,11 +3704,11 @@
 	},
 /area/awaymission/academy/headmaster)
 "ud" = (
-/obj/effect/bump_teleporter{
-	id = "labr30"
+/obj/structure/chair/sofa/corner{
+	dir = 4
 	},
-/turf/simulated/floor/sepia,
-/area/awaymission/academy/academyaft)
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "uh" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -3516,8 +3730,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "ul" = (
-/obj/structure/falsewall,
-/turf/space,
+/turf/simulated/wall/indestructible/reinforced,
 /area/space)
 "um" = (
 /obj/structure/bookcase,
@@ -3528,6 +3741,11 @@
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
+"ut" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron13"
+	},
+/area/awaymission/academy/academyaft)
 "uv" = (
 /obj/item/shard,
 /obj/item/shard{
@@ -3544,10 +3762,9 @@
 	},
 /area/awaymission/academy/classrooms)
 "uy" = (
-/obj/effect/bump_teleporter{
-	id = "labr14"
-	},
-/turf/simulated/floor/plating/ironsand,
+/obj/structure/disposalpipe/segment,
+/obj/item/reagent_containers/food/snacks/cheesewedge,
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "uA" = (
 /obj/machinery/vending/boozeomat/syndicate_access,
@@ -3557,15 +3774,19 @@
 	},
 /area/awaymission/academy/classrooms)
 "uB" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/classrooms)
 "uF" = (
 /obj/effect/bump_teleporter{
 	id_target = "labr27"
 	},
 /turf/simulated/floor/plasteel/stairs/old,
+/area/awaymission/academy/academyaft)
+"uH" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone11";
+	simulated = 0
+	},
 /area/awaymission/academy/academyaft)
 "uI" = (
 /obj/item/stack/sheet/wood{
@@ -3590,11 +3811,20 @@
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/headmaster)
+"uY" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/item/reagent_containers/food/snacks/cheesewedge,
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "uZ" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr27"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/asteroid,
 /area/awaymission/academy/academyaft)
 "va" = (
 /obj/effect/turf_decal/siding/brown{
@@ -3632,6 +3862,12 @@
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
+"vk" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone4";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
 "vq" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -3660,17 +3896,10 @@
 	},
 /area/awaymission/academy/classrooms)
 "vE" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr13"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
-"vF" = (
-/obj/effect/bump_teleporter{
-	id = "labr23"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
+/obj/structure/bookcase,
+/obj/item/book/manual/medical_cloning,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "vG" = (
 /obj/structure/sign/restroom{
 	pixel_y = 32
@@ -3680,25 +3909,13 @@
 	},
 /area/awaymission/academy/academyaft)
 "vN" = (
-/obj/structure/mineral_door/iron,
-/obj/effect/bump_teleporter{
-	id_target = "troll"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/academy/academyaft)
+/obj/structure/chair/sofa/corner,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "vP" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "sekretka2"
-	},
-/obj/item/paper{
-	anchored = 1;
-	color = "orange";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
@@ -3711,12 +3928,6 @@
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
-"vS" = (
-/obj/effect/bump_teleporter{
-	id = "labr22"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
 "vT" = (
 /obj/structure/mopbucket,
 /turf/simulated/floor/plasteel{
@@ -3733,6 +3944,26 @@
 	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
+"wc" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 76";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
+"wg" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/kitchen/utensil/fork{
+	pixel_y = 5
+	},
+/obj/item/kitchen/utensil/spoon{
+	pixel_y = 5
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "wi" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/black,
@@ -3752,12 +3983,6 @@
 /obj/structure/flora/ash/cacti,
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academyaft)
-"wr" = (
-/obj/effect/bump_teleporter{
-	id = "labr16"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
 "ws" = (
 /obj/structure/chair/sofa/corner{
 	dir = 4
@@ -3766,12 +3991,6 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
-"wy" = (
-/obj/effect/bump_teleporter{
-	id = "labr4"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
 "wz" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel,
@@ -3787,12 +4006,6 @@
 /obj/item/gps,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
-"wC" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr31"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
 "wE" = (
 /obj/item/trash/gum{
 	pixel_x = 11
@@ -3803,11 +4016,14 @@
 	},
 /area/awaymission/academy/classrooms)
 "wG" = (
-/obj/structure/chair/comfy/red{
-	dir = 1
-	},
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/firstaid/brute,
 /turf/simulated/floor/carpet,
-/area/awaymission/academy/classrooms)
+/area/awaymission/academy/headmaster)
+"wL" = (
+/obj/structure/chair/comfy/purp,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "wP" = (
 /obj/machinery/vending/cigarette/syndicate/free,
 /turf/simulated/floor/wood/fancy/oak,
@@ -3821,6 +4037,12 @@
 	icon_state = "darkyellow"
 	},
 /area/awaymission/academy/classrooms)
+"wU" = (
+/obj/effect/bump_teleporter{
+	id_target = "labr 69"
+	},
+/turf/simulated/floor/plasteel/stairs/old,
+/area/awaymission/academy/academyaft)
 "wW" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
@@ -3828,9 +4050,10 @@
 /area/awaymission/academy/headmaster)
 "wY" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr7"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/grass,
 /area/awaymission/academy/academyaft)
 "xj" = (
 /obj/structure/stone_tile/cracked{
@@ -3845,6 +4068,22 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
+"xm" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 74";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
+"xs" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron2"
+	},
+/area/awaymission/academy/academyaft)
 "xx" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
@@ -3853,12 +4092,22 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/academyaft)
+"xy" = (
+/obj/machinery/door/airlock/plasma,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "xz" = (
+/obj/structure/chair/sofa/left,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/headmaster)
+"xB" = (
 /obj/effect/bump_teleporter{
-	id = "troll";
-	id_target = null
+	dir = 4;
+	id_target = "troll"
 	},
-/turf/simulated/floor/wood/fancy/oak,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/awaymission/academy/academyaft)
 "xD" = (
 /obj/item/storage/fancy/donut_box,
@@ -3867,12 +4116,6 @@
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
-"xE" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr24"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
 "xF" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22";
@@ -3880,9 +4123,9 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
-"xM" = (
+"xL" = (
 /obj/effect/bump_teleporter{
-	id_target = "labr15"
+	id_target = "labr35"
 	},
 /turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
@@ -3910,12 +4153,26 @@
 /obj/effect/turf_decal/siding/brown,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"xZ" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr34"
+	},
+/turf/simulated/floor/sepia,
+/area/awaymission/academy/academyaft)
 "yb" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
 	},
 /area/awaymission/academy/classrooms)
+"yc" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "ye" = (
 /obj/structure/sink{
 	dir = 8;
@@ -3957,11 +4214,9 @@
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "yx" = (
-/obj/effect/bump_teleporter{
-	id_target = "AcadLab3"
-	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
+/obj/structure/bookcase,
+/obj/item/book/manual/security_space_law,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "yz" = (
 /obj/structure/sign/poster/contraband/random{
@@ -3972,6 +4227,16 @@
 "yA" = (
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/carpet/cyan,
+/area/awaymission/academy/headmaster)
+"yC" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone10"
+	},
+/area/awaymission/academy/academyaft)
+"yD" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/dice/d20,
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "yG" = (
 /obj/structure/chair{
@@ -4030,6 +4295,9 @@
 	icon_state = "green"
 	},
 /area/awaymission/academy/academyaft)
+"zk" = (
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "zl" = (
 /obj/structure/table,
 /obj/machinery/door_control{
@@ -4043,11 +4311,9 @@
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "zm" = (
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/academy/academyaft)
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plating,
+/area/awaymission/academy/classrooms)
 "zo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal{
@@ -4077,19 +4343,39 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/academyaft)
-"zI" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
+"zH" = (
+/obj/effect/bump_teleporter{
+	id_target = "labr32"
 	},
+/turf/simulated/floor/plasteel/stairs/old,
+/area/awaymission/academy/academyaft)
+"zI" = (
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "zJ" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr9"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/grass,
 /area/awaymission/academy/academyaft)
 "zN" = (
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/awaymission/academy/academyaft)
+"zP" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone6";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
+"zQ" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-6";
+	tag = "icon-plant-6"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -4104,12 +4390,6 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
-"Aa" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr18"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
 "Ak" = (
 /obj/effect/bump_teleporter{
 	id_target = "labr8"
@@ -4118,9 +4398,10 @@
 /area/awaymission/academy/academyaft)
 "Al" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr1"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "Am" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -4132,6 +4413,16 @@
 	icon_state = "darkblue"
 	},
 /area/awaymission/academy/classrooms)
+"Ar" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 71";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "At" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -4168,11 +4459,10 @@
 	},
 /turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
-"AX" = (
-/obj/effect/bump_teleporter{
-	id = "labr20"
+"AV" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron14"
 	},
-/turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
 "AZ" = (
 /obj/machinery/door/poddoor/impassable{
@@ -4182,9 +4472,10 @@
 /area/awaymission/academy/headmaster)
 "Ba" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr10"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/grass,
 /area/awaymission/academy/academyaft)
 "Bl" = (
 /obj/structure/holohoop{
@@ -4200,6 +4491,13 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"By" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr 72"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "Bz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4208,7 +4506,7 @@
 /area/awaymission/academy/academyaft)
 "BC" = (
 /obj/item/paper{
-	info = "Это Конец? Нет, для кого - то это только начало. Пред вами два пути. Уйти домой, или пройти на золотую плитку и продолжить путь к главному сокровищу нашей Академии."
+	info = "Это Конец? Нет, для кого - то это только начало. Пред вами два пути. Уйти домой, или в портал и продолжить путь к главному сокровищу нашей Академии."
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
@@ -4228,11 +4526,10 @@
 	},
 /area/awaymission/academy/academyaft)
 "BT" = (
-/obj/structure/chair/comfy/red{
-	dir = 4
-	},
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/firstaid/fire,
 /turf/simulated/floor/carpet,
-/area/awaymission/academy/classrooms)
+/area/awaymission/academy/headmaster)
 "Cb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal{
@@ -4241,11 +4538,33 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
+"Cd" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "troll"
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"Ci" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/food/drinks/mugwort,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "Cn" = (
-/obj/item/grown/cotton,
 /obj/effect/decal/leaves,
+/obj/item/grown/sunflower,
 /turf/simulated/floor/grass,
 /area/awaymission/academy/headmaster)
+"Co" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 72";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "Cq" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -4261,6 +4580,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
+/area/awaymission/academy/academyaft)
+"CA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/item/reagent_containers/food/snacks/cheesewedge,
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "CG" = (
 /obj/structure/chair/sofa{
@@ -4279,12 +4606,6 @@
 	icon_state = "green"
 	},
 /area/awaymission/academy/academyaft)
-"CP" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr33"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
 "CT" = (
 /obj/structure/table,
 /obj/item/storage/ashtray/glass,
@@ -4298,6 +4619,17 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
+"CW" = (
+/obj/structure/sink/puddle,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academygate)
+"CX" = (
+/obj/structure/table/wood/fancy/black,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "CZ" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
@@ -4330,6 +4662,11 @@
 	icon_state = "darkblue"
 	},
 /area/awaymission/academy/classrooms)
+"Dg" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/evaguide,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "Dh" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -4353,27 +4690,49 @@
 	icon_state = "dark"
 	},
 /area/awaymission/academy/headmaster)
-"Do" = (
-/obj/effect/bump_teleporter{
-	id = "Acad3";
-	id_target = "Acad33"
+"Dj" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron5"
 	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
-/area/awaymission/academy/headmaster)
-"Dq" = (
-/obj/effect/bump_teleporter{
-	id = "labr33"
-	},
-/turf/simulated/floor/sepia,
 /area/awaymission/academy/academyaft)
+"Dn" = (
+/obj/effect/turf_decal/siding/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/brown,
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
+"Do" = (
+/obj/effect/bump_teleporter/academy_no_mesons{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id = "Acad3";
+	id_target = "Acad33";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "Dr" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "AcademyEndGate2"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
+"Dv" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 75";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
+"DB" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academyaft)
 "DC" = (
 /obj/item/borg/upgrade/modkit/range,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4388,11 +4747,9 @@
 	},
 /area/awaymission/academy/classrooms)
 "Ea" = (
-/obj/effect/bump_teleporter{
-	id = "labr18"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academygate)
 "Ec" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -4405,6 +4762,13 @@
 /obj/item/pen,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
+"Eg" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr2"
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "Ej" = (
 /obj/effect/bump_teleporter{
 	id_target = "labr30"
@@ -4434,18 +4798,12 @@
 	},
 /area/awaymission/academy/classrooms)
 "EG" = (
-/obj/item/stack/sheet/wood{
-	pixel_x = 11;
-	pixel_y = 5
+/obj/structure/chair/sofa{
+	dir = 8
 	},
-/obj/item/stack/sheet/wood{
-	pixel_x = 12;
-	pixel_y = 6
-	},
-/turf/simulated/floor/wood/fancy/oak,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "EK" = (
-/obj/effect/decal/cleanable/cobweb2,
 /obj/item/stack/sheet/metal,
 /obj/structure/grille{
 	density = 0;
@@ -4463,12 +4821,6 @@
 	icon_state = "yellow"
 	},
 /area/awaymission/academy/classrooms)
-"ER" = (
-/obj/effect/bump_teleporter{
-	id = "labr17"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
 "EW" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -4523,12 +4875,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/academy/classrooms)
-"Fq" = (
-/obj/effect/bump_teleporter{
-	id = "labr19"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
 "Fu" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/academy)
@@ -4554,26 +4900,27 @@
 /area/awaymission/academy/headmaster)
 "FG" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr6"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/grass,
+/area/awaymission/academy/academyaft)
+"FI" = (
+/obj/effect/bump_teleporter{
+	id_target = "labr34"
+	},
+/turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
 "FK" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "red";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "2";
-	name = "Pyromancy 250";
-	simulated = 0
-	},
-/turf/simulated/floor/carpet/black,
-/area/awaymission/academy/headmaster)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "FM" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr25"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/asteroid,
 /area/awaymission/academy/academyaft)
 "FP" = (
 /obj/effect/bump_teleporter{
@@ -4598,12 +4945,20 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/academy/academyaft)
-"Gu" = (
+"Gs" = (
 /obj/effect/bump_teleporter{
-	id = "labr12"
+	id_target = "labr33"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/plasteel/stairs/old,
 /area/awaymission/academy/academyaft)
+"Gu" = (
+/obj/structure/chair/sofa{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/awaymission/academy/headmaster)
 "Gx" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
@@ -4632,21 +4987,6 @@
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
-"GR" = (
-/obj/effect/bump_teleporter{
-	id_target = "Acad_end2"
-	},
-/obj/effect/decal/warning_stripes,
-/obj/item/paper{
-	anchored = 1;
-	color = "green";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "1";
-	name = "Pyromancy 250";
-	simulated = 0
-	},
-/turf/simulated/floor/plasteel/goonplaque,
-/area/awaymission/academy/academyaft)
 "GU" = (
 /obj/structure/janitorialcart,
 /turf/simulated/floor/plasteel{
@@ -4663,24 +5003,21 @@
 /area/awaymission/academy/academyaft)
 "Ha" = (
 /obj/effect/bump_teleporter{
-	id_target = "sekretka3"
+	dir = 4;
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "sekretka3";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
-/obj/effect/decal/warning_stripes,
-/obj/item/paper{
-	anchored = 1;
-	color = "orange";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
-	},
-/turf/simulated/floor/plasteel/goonplaque,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
 "He" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr19"
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel/stairs/old,
+/turf/simulated/floor/lubed,
 /area/awaymission/academy/academyaft)
 "Hh" = (
 /obj/structure/table,
@@ -4692,14 +5029,15 @@
 /area/awaymission/academy/classrooms)
 "Ho" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr28"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/asteroid,
 /area/awaymission/academy/academyaft)
 "Hs" = (
 /obj/effect/bump_teleporter{
-	id = "Acad22";
-	id_target = null
+	density = 0;
+	id = "Acad22"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
@@ -4723,12 +5061,18 @@
 /turf/simulated/floor/engine,
 /area/awaymission/academy/academyaft)
 "HH" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "AcademyEndGate3"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
+"HJ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "HS" = (
 /obj/effect/decal/cleanable/blood/bubblegum,
 /turf/simulated/floor/plasteel,
@@ -4761,6 +5105,11 @@
 "Ih" = (
 /turf/simulated/floor/sepia,
 /area/awaymission/academy/academyaft)
+"Ij" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/barman_recipes,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "Ik" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
@@ -4785,6 +5134,12 @@
 /obj/item/folder/syndicate/red,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
+"IF" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone2";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
 "IJ" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -4794,6 +5149,11 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/classrooms)
+"IS" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/awaymission/academy/academyaft)
 "IU" = (
 /obj/item/paper{
 	anchored = 1;
@@ -4805,23 +5165,29 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
-"Jd" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "orange";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
+"IY" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/bananium_wall.dmi';
+	icon_state = "bananium"
+	},
+/area/awaymission/academy/academyaft)
+"Jd" = (
+/obj/structure/chair/sofa{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
 /area/awaymission/academy/headmaster)
 "Ji" = (
-/obj/effect/bump_teleporter{
-	id_target = "AcadLab4"
+/obj/structure/chair/sofa{
+	dir = 4
 	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "Jn" = (
 /obj/structure/stone_tile/block{
@@ -4851,6 +5217,10 @@
 	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
+"Jv" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academygate)
 "Jw" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper{
@@ -4891,6 +5261,10 @@
 	simulated = 0
 	},
 /area/awaymission/academy/headmaster)
+"JM" = (
+/obj/structure/disposalpipe/junction,
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "JW" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/tea,
@@ -4898,6 +5272,7 @@
 /area/awaymission/academy/classrooms)
 "JY" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "Acad_end1"
 	},
 /turf/simulated/floor/grass,
@@ -4913,6 +5288,13 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"Kc" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr4"
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "Kd" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/enzyme{
@@ -4923,6 +5305,11 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/academy/classrooms)
+"Kk" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron7"
+	},
+/area/awaymission/academy/academyaft)
 "Km" = (
 /obj/effect/decal/cleanable/blood/bubblegum,
 /turf/simulated/floor/plasteel{
@@ -4948,6 +5335,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
+/obj/structure/bookcase,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "Ku" = (
@@ -4964,6 +5352,12 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
+"Kx" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone8";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
 "Kz" = (
 /obj/effect/bump_teleporter{
 	id_target = "labr10"
@@ -4981,6 +5375,20 @@
 	id_target = "labr6"
 	},
 /turf/simulated/floor/plasteel/stairs/old,
+/area/awaymission/academy/academyaft)
+"KC" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-28";
+	tag = "icon-plant-28"
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"KD" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "KI" = (
 /obj/item/stack/sheet/wood{
@@ -5003,12 +5411,6 @@
 /obj/machinery/door_control,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
-"KK" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr17"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
-/area/awaymission/academy/academyaft)
 "KL" = (
 /obj/structure/grille{
 	density = 0;
@@ -5017,8 +5419,8 @@
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "KM" = (
-/obj/item/grown/sunflower,
 /obj/effect/decal/ants,
+/obj/item/grown/cotton,
 /turf/simulated/floor/grass,
 /area/awaymission/academy/headmaster)
 "KS" = (
@@ -5039,6 +5441,24 @@
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
+"KX" = (
+/obj/item/reagent_containers/food/snacks/cheesewedge,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
+"La" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr 76"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
+"Lc" = (
+/obj/effect/bump_teleporter{
+	id_target = "labr31"
+	},
+/turf/simulated/floor/plasteel/stairs/old,
+/area/awaymission/academy/academyaft)
 "Li" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5047,6 +5467,19 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/awaymission/academy/classrooms)
+"Lk" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr33"
+	},
+/turf/simulated/floor/sepia,
+/area/awaymission/academy/academyaft)
+"Lm" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone14";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
 "Lt" = (
 /mob/living/simple_animal/hostile/faithless{
 	health = 150;
@@ -5071,6 +5504,11 @@
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "green"
+	},
+/area/awaymission/academy/academyaft)
+"Ly" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron15"
 	},
 /area/awaymission/academy/academyaft)
 "Lz" = (
@@ -5104,11 +5542,12 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
-"LT" = (
+"LZ" = (
 /obj/effect/bump_teleporter{
-	id_target = "labr14"
+	density = 0;
+	id = "labr 74"
 	},
-/turf/simulated/floor/plasteel/stairs/old,
+/turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
 "Mh" = (
 /obj/structure/table,
@@ -5122,10 +5561,17 @@
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
+"Mk" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow,
+/turf/simulated/floor/lubed,
+/area/awaymission/academy/academyaft)
 "Mp" = (
 /obj/effect/bump_teleporter{
-	id = "Acad11";
-	id_target = null
+	density = 0;
+	id = "Acad11"
 	},
 /obj/item/paper{
 	anchored = 1;
@@ -5145,12 +5591,10 @@
 	},
 /area/awaymission/academy/classrooms)
 "Ms" = (
-/obj/item/grown/sunflower,
-/obj/item/stack/sheet/wood{
-	pixel_x = -15;
-	pixel_y = -15
+/obj/structure/chair/sofa/left{
+	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "Mu" = (
 /turf/simulated/floor/plasteel{
@@ -5168,8 +5612,15 @@
 	icon_state = "green"
 	},
 /area/awaymission/academy/academyaft)
+"MB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/obj/item/reagent_containers/food/snacks/cheesewedge,
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "MH" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5185,9 +5636,10 @@
 /area/awaymission/academy/classrooms)
 "MT" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr26"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/asteroid,
 /area/awaymission/academy/academyaft)
 "Nd" = (
 /obj/item/paper{
@@ -5215,6 +5667,12 @@
 /obj/machinery/door_control,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
+"Nx" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone5";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
 "NI" = (
 /obj/item/lazarus_injector,
 /turf/simulated/floor/plating,
@@ -5248,6 +5706,7 @@
 /area/awaymission/academy/classrooms)
 "Ob" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "Acad_end3"
 	},
 /turf/simulated/floor/grass,
@@ -5302,16 +5761,12 @@
 	},
 /area/awaymission/academy/academyaft)
 "Oy" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "green";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "1";
-	name = "Pyromancy 250";
-	simulated = 0
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi';
+	icon_state = "rrust"
 	},
-/turf/simulated/floor/carpet/black,
-/area/awaymission/academy/headmaster)
+/area/awaymission/academy/academyaft)
 "OD" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/detective,
@@ -5361,6 +5816,7 @@
 /area/awaymission/academy/headmaster)
 "OO" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "Hub"
 	},
 /turf/simulated/floor/carpet/black,
@@ -5369,10 +5825,33 @@
 /obj/item/card/id/prisoner/random,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
+"Pe" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
+"Pg" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone12";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
 "Pm" = (
 /obj/structure/table/wood,
 /obj/random/toolbox,
 /turf/simulated/floor/wood/fancy/oak,
+/area/awaymission/academy/academyaft)
+"Pq" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr24";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
 "Pu" = (
 /obj/machinery/vending/coffee/free,
@@ -5383,12 +5862,23 @@
 /obj/structure/mineral_door/iron,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
+"Py" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr 71"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "Pz" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
 	},
 /area/awaymission/academy/academyaft)
+"PF" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass,
+/area/awaymission/academy/academygate)
 "PI" = (
 /obj/effect/decal/cleanable/blood/bubblegum,
 /turf/simulated/floor/plasteel{
@@ -5400,9 +5890,16 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
+"PP" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "red"
+	},
+/area/awaymission/academy/academyaft)
 "PS" = (
 /obj/item/paper{
-	info = "Вы сделали это! Вам хватило смелости, разума и выдержки , чтобы пройти до конца все испытания и считаться достойным! Впереди вас ждёт ваша награда, которая может поменять вашу судьбу раз и навсегда!"
+	info = "Вы сделали это! Вам хватило смелости, разума и выдержки, чтобы пройти до конца все испытания и считаться достойным! Впереди вас ждёт ваша награда, которая может поменять вашу судьбу раз и навсегда!"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academygate)
@@ -5423,6 +5920,23 @@
 /obj/structure/stone_tile/block/cracked,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
+"Qc" = (
+/obj/effect/turf_decal/siding/brown,
+/obj/effect/turf_decal/siding/brown{
+	dir = 1
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
+"Qd" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 78";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "Qe" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -5442,11 +5956,11 @@
 	},
 /area/awaymission/academy/headmaster)
 "Qq" = (
-/obj/effect/bump_teleporter{
-	id = "labr32"
+/obj/structure/chair/sofa/right{
+	dir = 4
 	},
-/turf/simulated/floor/sepia,
-/area/awaymission/academy/academyaft)
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/headmaster)
 "Qy" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood/fancy/oak,
@@ -5468,10 +5982,14 @@
 	},
 /area/awaymission/academy/classrooms)
 "QF" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr23"
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel/stairs/old,
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/bananium_wall.dmi';
+	icon_state = "bananium"
+	},
 /area/awaymission/academy/academyaft)
 "QG" = (
 /obj/structure/table/wood/fancy/black,
@@ -5480,9 +5998,13 @@
 /area/awaymission/academy/headmaster)
 "QQ" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr11"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/grass,
+/area/awaymission/academy/academyaft)
+"Ra" = (
+/turf/simulated/floor/indestructible/asteroid,
 /area/awaymission/academy/academyaft)
 "Rc" = (
 /obj/structure/stone_tile/cracked{
@@ -5501,6 +6023,18 @@
 	tag = "icon-green"
 	},
 /area/awaymission/academy/classrooms)
+"Ro" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "Rq" = (
 /obj/effect/bump_teleporter{
 	id_target = "labr26"
@@ -5520,11 +6054,12 @@
 	},
 /area/awaymission/academy/classrooms)
 "RB" = (
-/obj/effect/bump_teleporter{
-	id = "labr34"
+/obj/effect/decal/ants,
+/obj/effect/decal/leaves{
+	dir = 8
 	},
-/turf/simulated/floor/sepia,
-/area/awaymission/academy/academyaft)
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 "RD" = (
 /obj/structure/chair/sofa/left{
 	dir = 8
@@ -5610,7 +6145,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
 "Sf" = (
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "Sk" = (
 /obj/effect/decal/cleanable/flour,
@@ -5620,6 +6155,13 @@
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
+"Sl" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr30"
+	},
+/turf/simulated/floor/sepia,
+/area/awaymission/academy/academyaft)
 "Ss" = (
 /obj/item/paper{
 	anchored = 1;
@@ -5642,37 +6184,53 @@
 /area/awaymission/academy/classrooms)
 "SA" = (
 /obj/effect/bump_teleporter{
-	id_target = "Hub"
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "Hub";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
+/turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "SG" = (
 /obj/item/spellbook/oneuse/charge,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
+"SI" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-34";
+	tag = "icon-plant-34"
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
 "SJ" = (
 /obj/effect/bump_teleporter{
-	id_target = "sekretka4"
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "sekretka4";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
-/obj/effect/decal/warning_stripes,
-/obj/item/paper{
-	anchored = 1;
-	color = "orange";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
-	},
-/turf/simulated/floor/plasteel/goonplaque,
+/turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
 "SK" = (
 /obj/item/grown/cotton,
 /obj/effect/decal/leaves{
 	dir = 8
 	},
-/obj/item/stack/sheet/wood,
 /turf/simulated/floor/grass,
+/area/awaymission/academy/headmaster)
+"SS" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron9"
+	},
+/area/awaymission/academy/academyaft)
+"SU" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-32";
+	tag = "icon-plant-32"
+	},
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "SV" = (
 /obj/machinery/hydroponics/constructable,
@@ -5715,6 +6273,27 @@
 	icon_state = "whitehall"
 	},
 /area/awaymission/academy/classrooms)
+"Th" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron1"
+	},
+/area/awaymission/academy/academyaft)
+"Ti" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
+"Tn" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr 77"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "Tu" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
@@ -5723,6 +6302,40 @@
 	icon_state = "plant-22"
 	},
 /turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
+"Ty" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/bananium_wall.dmi';
+	icon_state = "bananium"
+	},
+/area/awaymission/academy/academyaft)
+"TA" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr 69"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
+"TG" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
+"TH" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 69";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
 /area/awaymission/academy/academyaft)
 "TI" = (
 /obj/structure/closet,
@@ -5733,6 +6346,17 @@
 	icon_state = "green"
 	},
 /area/awaymission/academy/academyaft)
+"TM" = (
+/obj/item/paper{
+	anchored = 1;
+	color = "orange";
+	icon = 'icons/goonstation/effects/fire.dmi';
+	icon_state = "3";
+	name = "Pyromancy 250";
+	simulated = 0
+	},
+/turf/space,
+/area/space)
 "TN" = (
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 8
@@ -5740,19 +6364,22 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/brown/corner{
+	dir = 1
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "TR" = (
-/obj/item/paper{
-	anchored = 1;
-	color = "blue";
-	icon = 'icons/goonstation/effects/fire.dmi';
-	icon_state = "3";
-	name = "Pyromancy 250";
-	simulated = 0
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 69";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
 	},
-/turf/simulated/floor/carpet/black,
-/area/awaymission/academy/headmaster)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "TS" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
@@ -5766,6 +6393,39 @@
 	icon_state = "darkyellow"
 	},
 /area/awaymission/academy/classrooms)
+"TY" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr35"
+	},
+/turf/simulated/floor/sepia,
+/area/awaymission/academy/academyaft)
+"Uf" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
+"Ug" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr12"
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/academyaft)
+"Uh" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "Acad_end2";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/sepia,
+/area/awaymission/academy/academyaft)
 "Ui" = (
 /obj/structure/table,
 /obj/item/analyzer,
@@ -5796,6 +6456,17 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
+"Uq" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron10"
+	},
+/area/awaymission/academy/academyaft)
+"Uu" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone3";
+	simulated = 0
+	},
+/area/awaymission/academy/academyaft)
 "Uw" = (
 /obj/structure/noticeboard{
 	pixel_y = 32
@@ -5806,12 +6477,18 @@
 	icon_state = "grimy"
 	},
 /area/awaymission/academy/classrooms)
-"Uy" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr35"
+"UC" = (
+/obj/structure/disposalpipe/junction{
+	dir = 4;
+	tag = "icon-pipe-j1 (EAST)"
 	},
-/turf/simulated/floor/plasteel/stairs/old,
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
+"UE" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/detective,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "UJ" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -5835,14 +6512,12 @@
 	},
 /area/awaymission/academy/academyaft)
 "US" = (
-/obj/effect/bump_teleporter{
-	id_target = "labr16"
-	},
-/turf/simulated/floor/plasteel/stairs/old,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "UV" = (
 /obj/structure/table/wood,
-/obj/item/borg/upgrade/modkit/cooldown,
+/obj/item/borg/upgrade/modkit/cooldown/haste,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
@@ -5855,18 +6530,19 @@
 	icon_state = "fancy-wood-oak-broken7"
 	},
 /area/awaymission/academy/academyaft)
+"Vb" = (
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/item/reagent_containers/food/snacks/cheesewedge,
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "Vc" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
 	},
 /area/awaymission/academy/classrooms)
-"Vg" = (
-/obj/effect/bump_teleporter{
-	id = "labr2"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
 "Vh" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -5893,12 +6569,31 @@
 	},
 /area/awaymission/academy/academyaft)
 "VE" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "AcademyEndGate1"
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
+"VF" = (
+/obj/structure/table/wood/fancy/black,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/obj/structure/sign/nosmoking_2{
+	pixel_y = -32
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
+"VL" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "labr 70";
+	invisibility = 0;
+	name = "Межпространственный Разрыв"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "VO" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
@@ -5908,6 +6603,7 @@
 /area/awaymission/academy/classrooms)
 "VR" = (
 /obj/structure/tribune{
+	anchored = 1;
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -5952,6 +6648,11 @@
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
+"Wk" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/engineering_singularity_safety,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "Wv" = (
 /obj/structure/table/wood,
 /obj/item/paper{
@@ -5984,12 +6685,6 @@
 	icon_state = "vault"
 	},
 /area/awaymission/academy/classrooms)
-"WH" = (
-/obj/effect/bump_teleporter{
-	id = "labr13"
-	},
-/turf/simulated/floor/plating/ironsand,
-/area/awaymission/academy/academyaft)
 "WO" = (
 /obj/machinery/slot_machine,
 /turf/simulated/floor/plasteel{
@@ -6005,6 +6700,12 @@
 	icon_state = "red"
 	},
 /area/awaymission/academy/classrooms)
+"WW" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
 "Xa" = (
 /obj/structure/glowshroom,
 /turf/simulated/floor/plasteel{
@@ -6026,9 +6727,10 @@
 /area/awaymission/academy/classrooms)
 "Xg" = (
 /obj/effect/bump_teleporter{
+	density = 0;
 	id = "labr5"
 	},
-/turf/simulated/floor/plating/ironsand,
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "Xm" = (
 /obj/effect/bump_teleporter{
@@ -6147,6 +6849,11 @@
 	icon_state = "fancy-wood-oak-broken5"
 	},
 /area/awaymission/academy/classrooms)
+"Yy" = (
+/obj/structure/bookcase,
+/obj/item/book/manual/engineering_guide,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/headmaster)
 "Yz" = (
 /obj/structure/table,
 /obj/item/screwdriver{
@@ -6162,22 +6869,41 @@
 /obj/item/flashlight/emp,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/academyaft)
+"YI" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-28";
+	tag = "icon-plant-28"
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "YM" = (
 /obj/effect/bump_teleporter{
-	id_target = "Acad_end3"
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "Acad_end3";
+	invisibility = 0;
+	name = "Межпространственный Разрыв";
+	pixel_x = -1
 	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plasteel/goonplaque,
+/turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "YP" = (
-/obj/effect/bump_teleporter{
-	id = "Acad33";
-	id_target = null
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
 	},
-/turf/simulated/floor/plating/ironsand,
 /area/awaymission/academy/academyaft)
 "YQ" = (
-/turf/simulated/floor/plating/ice,
+/turf/simulated/wall/indestructible/reinforced{
+	icon = 'icons/turf/walls/bananium_wall.dmi';
+	icon_state = "bananium"
+	},
+/area/awaymission/academy/academyaft)
+"YV" = (
+/obj/machinery/disposal/deliveryChute,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "Za" = (
 /obj/item/stack/sheet/wood{
@@ -6186,19 +6912,27 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
+"Zb" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/clothing/mask/cigarette/cigar/havana,
+/obj/item/clothing/mask/cigarette/cigar/havana{
+	pixel_x = 2;
+	pixel_y = 8
+	},
+/obj/structure/sign/poster/official/high_class_martini{
+	pixel_y = 32
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/academy/headmaster)
 "Ze" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/pill/patch/nicotine,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
 /area/awaymission/academy/headmaster)
 "Zf" = (
-/obj/effect/bump_teleporter{
-	id = "labr35"
-	},
-/turf/simulated/floor/sepia,
+/turf/simulated/wall/indestructible/boss,
 /area/awaymission/academy/academyaft)
 "Zi" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -6207,6 +6941,20 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
+"Zo" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/awaymission/academy/academyaft)
+"Zp" = (
+/obj/effect/bump_teleporter{
+	density = 0;
+	id = "labr 75"
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/academy/academyaft)
 "Zr" = (
 /obj/effect/decal/cleanable/blood/bubblegum,
 /turf/simulated/floor/plasteel{
@@ -6233,32 +6981,32 @@
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "Zz" = (
-/obj/item/stack/sheet/wood{
-	pixel_x = -14;
-	pixel_y = -8
+/turf/simulated/wall/indestructible{
+	icon_state = "iron6"
 	},
-/turf/simulated/floor/wood/fancy/oak,
-/area/awaymission/academy/headmaster)
+/area/awaymission/academy/academyaft)
 "ZD" = (
 /obj/item/slimepotion/speed,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/awaymission/academy/academyaft)
-"ZT" = (
-/obj/machinery/camera{
-	c_tag = "Virology Office";
-	dir = 8;
-	network = list("Medical","SS13")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
+"ZG" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron8"
 	},
 /area/awaymission/academy/academyaft)
+"ZT" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/awaymission/academy/classrooms)
 "ZX" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper{
-	info = "Добро пожаловать в Испытание Смелости. Здесь, в этой Магической Академии, вы будете сталкиваться с серией испытаний, требующих смелости и решительности. Это не просто вызов вашей храбрости, но и возможность преодолеть свои страхи и личные ограничения. Ваша способность действовать в сложных ситуациях, принимать решения быстро и верить в себя будут ключевыми качествами в этом испытании. Помните, что часто смелость заключается в том, чтобы шагнуть в неизвестность и доверять своим инстинктам. Готовы ли вы к вызову смелости? Переступите порог,пройдите вперёд и начните свой путь к новым вершинам самоуверенности и отваги. Удачи в испытании смелости!"
+	info = "Добро пожаловать в Испытание Смелости. Здесь, в этой Магической Академии, вы будете сталкиваться с серией испытаний, требующих смелости и решительности. Это не просто вызов вашей храбрости, но и возможность преодолеть свои страхи и личные ограничения. Ваша способность действовать в сложных ситуациях, принимать решения быстро и верить в себя будут ключевыми качествами в этом испытании. Помните, что часто смелость заключается в том, чтобы шагнуть в неизвестность и доверять своим инстинктам. Готовы ли вы к вызову смелости? Переступите порог, пройдите вперёд и начните свой путь к новым вершинам самоуверенности и отваги. Не забывайте оставлять свои чудо очки перед походом, иначе мы уничтожим их. Удачи в испытании смелости!"
 	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
@@ -6830,16 +7578,16 @@ aa
 aa
 aa
 aa
-kE
-kE
-kE
+gm
+gm
+gm
 ez
 cK
 cK
 ez
-kE
-kE
-kE
+gm
+gm
+gm
 aa
 aa
 aa
@@ -6946,47 +7694,47 @@ aa
 aa
 aa
 aa
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
 NL
 KL
+zm
 bB
 bB
+zm
 bB
 bB
-bB
-bB
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -7076,7 +7824,7 @@ aa
 aa
 aa
 aa
-kE
+gm
 kY
 yb
 yb
@@ -7099,7 +7847,7 @@ bB
 bB
 hN
 rL
-kE
+gm
 gX
 gX
 gl
@@ -7108,7 +7856,7 @@ gX
 gX
 NI
 bB
-gZ
+hH
 hc
 hc
 hp
@@ -7116,8 +7864,8 @@ JF
 hc
 hc
 hc
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -7205,7 +7953,7 @@ aa
 aa
 aa
 aa
-aa
+gm
 cK
 lw
 Mu
@@ -7220,16 +7968,16 @@ Ju
 yU
 Mu
 fX
-kE
-kE
-kE
+gm
+gm
+gm
 eA
 hN
 hN
 eA
-kE
-kE
-kE
+gm
+gm
+gm
 SG
 bB
 gX
@@ -7238,7 +7986,7 @@ bB
 Zx
 bB
 gX
-gZ
+hH
 sF
 hc
 hc
@@ -7247,8 +7995,8 @@ hc
 hp
 hc
 hp
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -7335,7 +8083,7 @@ aa
 aa
 aa
 aa
-aa
+gm
 bv
 sf
 Mu
@@ -7350,7 +8098,7 @@ tM
 lg
 Mu
 UK
-cZ
+gm
 ea
 es
 dv
@@ -7359,7 +8107,7 @@ eR
 dv
 fm
 fs
-kE
+gm
 gX
 DC
 gX
@@ -7368,7 +8116,7 @@ gX
 bB
 gX
 gX
-gZ
+hH
 sF
 hp
 hc
@@ -7378,8 +8126,8 @@ hl
 hp
 hl
 hp
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -7465,7 +8213,7 @@ aa
 aa
 aa
 aa
-aa
+gm
 bw
 sf
 Mu
@@ -7480,7 +8228,7 @@ sS
 Yd
 Xu
 TT
-cZ
+gm
 eb
 et
 gk
@@ -7489,7 +8237,7 @@ eR
 fa
 et
 ft
-kE
+gm
 hN
 hN
 hN
@@ -7498,7 +8246,7 @@ hN
 fA
 hN
 hN
-gZ
+hH
 NM
 hp
 hp
@@ -7509,11 +8257,11 @@ hp
 id
 sF
 hp
-gZ
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -7595,7 +8343,7 @@ aa
 aa
 aa
 aa
-aa
+gm
 bw
 sf
 Mu
@@ -7610,7 +8358,7 @@ WG
 tM
 sS
 rp
-cZ
+gm
 ec
 eu
 HS
@@ -7619,7 +8367,7 @@ eR
 dv
 fn
 fu
-cZ
+gm
 an
 Ey
 Ey
@@ -7628,7 +8376,7 @@ Ey
 gf
 gf
 an
-gZ
+hH
 hp
 OE
 hp
@@ -7639,7 +8387,7 @@ sF
 hp
 hl
 sF
-gZ
+hH
 do
 ls
 iN
@@ -7725,7 +8473,7 @@ aa
 aa
 aa
 aa
-aa
+gm
 bw
 sf
 Mu
@@ -7758,7 +8506,7 @@ du
 gX
 gX
 gX
-gZ
+hH
 sF
 hl
 hp
@@ -7769,7 +8517,7 @@ hl
 OE
 hl
 sF
-gZ
+hH
 iJ
 iJ
 iN
@@ -7855,8 +8603,8 @@ aa
 aa
 aa
 aa
-aa
-kE
+gm
+gm
 uw
 Vc
 Vc
@@ -7888,7 +8636,7 @@ gA
 gX
 RO
 gY
-gZ
+hH
 nk
 hp
 hp
@@ -7986,21 +8734,21 @@ aa
 aa
 aa
 aa
-kE
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
 ei
 ei
 Zr
@@ -8009,7 +8757,7 @@ lh
 ei
 ei
 fk
-cZ
+gm
 fI
 dv
 gX
@@ -8018,7 +8766,7 @@ dv
 gX
 gX
 gX
-gZ
+hH
 sF
 hp
 hp
@@ -8029,7 +8777,7 @@ ir
 hp
 iC
 hl
-gZ
+hH
 HE
 iJ
 iN
@@ -8116,7 +8864,7 @@ aa
 aa
 aa
 aa
-kE
+gm
 dc
 dc
 kx
@@ -8130,7 +8878,7 @@ kx
 kx
 og
 og
-cZ
+gm
 vx
 Zr
 lh
@@ -8139,7 +8887,7 @@ lh
 lh
 Zr
 ne
-cZ
+gm
 Ay
 fZ
 dv
@@ -8148,22 +8896,22 @@ jP
 gX
 gn
 gY
-gZ
-gZ
+hH
+hH
 iG
 gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -8246,7 +8994,7 @@ aa
 aa
 aa
 aa
-kE
+gm
 RU
 eT
 kx
@@ -8260,7 +9008,7 @@ og
 kx
 og
 og
-cZ
+gm
 Uw
 Zr
 ek
@@ -8269,7 +9017,7 @@ lh
 ek
 ei
 fh
-cZ
+gm
 gX
 ga
 gX
@@ -8278,11 +9026,11 @@ Tg
 gX
 go
 gX
-gZ
+hH
 Av
 hc
 Av
-gZ
+hH
 aa
 aa
 aa
@@ -8376,7 +9124,7 @@ aa
 aa
 aa
 aa
-kE
+gm
 MJ
 eU
 kx
@@ -8390,7 +9138,7 @@ og
 kx
 kx
 og
-cZ
+gm
 vx
 Zr
 ek
@@ -8399,33 +9147,33 @@ PI
 lh
 ei
 af
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
-gZ
-gZ
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+gm
+hH
+hH
 iG
 cW
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -8506,7 +9254,7 @@ aa
 aa
 aa
 yM
-kE
+gm
 eh
 dc
 kx
@@ -8529,7 +9277,7 @@ eU
 ek
 Zr
 lc
-cZ
+gm
 fK
 Ee
 yt
@@ -8551,10 +9299,10 @@ Oo
 ii
 ye
 Bz
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -8622,7 +9370,7 @@ aa
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -8636,7 +9384,7 @@ aa
 aa
 yM
 yM
-kE
+gm
 dm
 dc
 jO
@@ -8655,11 +9403,11 @@ uB
 ek
 ek
 lh
-BT
+ek
 lh
 Zr
 RH
-lD
+LR
 Uo
 gb
 zu
@@ -8681,13 +9429,13 @@ ii
 ii
 ii
 Bz
-gZ
-gZ
+hH
+hH
 SJ
-gZ
+hH
 Am
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -8753,7 +9501,7 @@ aa
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -8766,7 +9514,7 @@ aa
 yM
 yM
 yM
-kE
+gm
 dc
 dc
 kx
@@ -8780,16 +9528,16 @@ og
 og
 og
 og
-ff
+kF
 uB
 lh
 lh
 tz
 PI
-wG
+ek
 Zr
 Sz
-lD
+LR
 wP
 Lt
 dc
@@ -8817,8 +9565,8 @@ hl
 jf
 hl
 gF
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -8877,6 +9625,7 @@ aa
 aa
 aa
 aa
+gr
 aa
 aa
 aa
@@ -8889,14 +9638,13 @@ aa
 aa
 aa
 aa
-aa
-aa
+gr
 aa
 yM
 yM
 yM
 aa
-kE
+gm
 RU
 eT
 kx
@@ -8910,7 +9658,7 @@ og
 kx
 kx
 og
-cZ
+gm
 ex
 HV
 lh
@@ -8919,7 +9667,7 @@ RW
 lh
 Zr
 RH
-lD
+LR
 mu
 dc
 dc
@@ -8934,7 +9682,7 @@ sF
 hl
 Lw
 hH
-zm
+ii
 hH
 bX
 hH
@@ -8948,8 +9696,8 @@ sU
 ba
 js
 lv
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -9023,10 +9771,10 @@ aa
 aa
 yM
 yM
-JE
-JE
-JE
-kE
+cM
+cM
+cM
+gm
 MJ
 eU
 kx
@@ -9040,7 +9788,7 @@ og
 kx
 og
 og
-cZ
+gm
 ex
 HV
 lh
@@ -9049,7 +9797,7 @@ lh
 lh
 ei
 ji
-lD
+LR
 JW
 dc
 dc
@@ -9079,10 +9827,10 @@ Am
 Am
 Am
 Am
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -9135,7 +9883,7 @@ aa
 aa
 aa
 aa
-JE
+cM
 aV
 aV
 aV
@@ -9145,7 +9893,7 @@ aV
 aV
 aV
 aV
-JE
+cM
 yM
 yM
 yM
@@ -9153,7 +9901,7 @@ yM
 yM
 yM
 aa
-JE
+cM
 fF
 sx
 kQ
@@ -9170,7 +9918,7 @@ kx
 kx
 og
 og
-cZ
+gm
 ex
 HV
 lh
@@ -9179,7 +9927,7 @@ eT
 ek
 ei
 gP
-cZ
+gm
 rS
 dc
 dc
@@ -9212,7 +9960,7 @@ fL
 fL
 pE
 fL
-gZ
+hH
 aa
 aa
 aa
@@ -9264,8 +10012,8 @@ aa
 aa
 aa
 aa
-JE
-JE
+cM
+cM
 gD
 bb
 ae
@@ -9275,32 +10023,32 @@ cB
 ae
 eO
 aH
-JE
-JE
-JE
-JE
+cM
+cM
+cM
+cM
 aV
-JE
-JE
+cM
+cM
 aV
-JE
-JE
-JE
-JE
-eI
-eI
-eI
-eI
-eI
-eI
-eI
-eI
-eI
-eI
-eI
-eI
-eI
-eI
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
 ei
 Zr
 lh
@@ -9309,12 +10057,12 @@ eU
 lh
 ei
 SY
-cZ
-cZ
-lD
-lD
-lD
-lD
+gm
+gm
+LR
+LR
+LR
+LR
 iT
 tV
 iT
@@ -9325,11 +10073,11 @@ Pv
 hH
 hH
 hU
+jM
 if
+cG
 if
-if
-if
-if
+DB
 wB
 hH
 fD
@@ -9342,7 +10090,7 @@ jE
 fD
 fL
 jI
-gZ
+hH
 jJ
 aa
 jz
@@ -9393,8 +10141,8 @@ aa
 aa
 aa
 aa
-JE
-JE
+cM
+cM
 hE
 ah
 ah
@@ -9406,31 +10154,31 @@ ax
 ah
 ah
 Nm
-JE
-eI
+cM
+cM
 aF
 aF
 wA
 aF
 aF
 aF
-JE
+cM
 wW
 wW
 wW
 br
-ah
+iP
 Kq
-ah
-br
-br
-wW
+nI
+qp
+yx
+dx
 be
 aF
+aF
+aF
 FA
-EG
-FA
-eI
+cM
 Bl
 EA
 ek
@@ -9440,16 +10188,16 @@ ro
 Zr
 ei
 hH
+zQ
+fL
+fL
+fL
+fL
 fL
 zI
-fL
-fL
-fL
-fL
-zI
-fL
+zQ
 hH
-fD
+KC
 zI
 zI
 hU
@@ -9458,7 +10206,7 @@ hU
 if
 mY
 if
-if
+jM
 if
 hU
 hH
@@ -9472,7 +10220,7 @@ et
 jH
 fL
 jL
-gZ
+hH
 jJ
 jX
 jX
@@ -9484,7 +10232,7 @@ jT
 jT
 ej
 jS
-jS
+pM
 ej
 jT
 jT
@@ -9492,7 +10240,7 @@ jT
 jJ
 Mh
 JY
-jS
+Ea
 jJ
 aa
 aa
@@ -9536,7 +10284,7 @@ ah
 ah
 ah
 bd
-JE
+cM
 aF
 aF
 ah
@@ -9544,7 +10292,7 @@ ah
 ah
 ah
 aF
-JE
+cM
 wW
 nP
 Ze
@@ -9558,9 +10306,9 @@ ry
 wW
 tv
 dB
-Ms
+GA
 FA
-eI
+cM
 Zr
 Zr
 ek
@@ -9578,7 +10326,7 @@ fD
 fD
 fD
 zI
-hb
+ef
 zI
 fD
 fD
@@ -9586,7 +10334,7 @@ xR
 UW
 hU
 if
-if
+cG
 if
 if
 if
@@ -9602,10 +10350,10 @@ jD
 fD
 fL
 fL
-gZ
-jS
-jS
-jS
+hH
+PF
+Ea
+Ea
 PS
 oz
 ta
@@ -9613,7 +10361,7 @@ jX
 jT
 ej
 kf
-jS
+Ea
 jS
 jS
 ej
@@ -9621,7 +10369,7 @@ jT
 jT
 VE
 jS
-jS
+Ea
 jS
 jJ
 aa
@@ -9666,7 +10414,7 @@ ah
 ah
 ah
 ah
-JE
+cM
 ah
 ah
 ah
@@ -9674,15 +10422,15 @@ ah
 ah
 ah
 ah
-JE
+cM
 po
 vw
 mb
-br
+oL
 ah
-ah
+hs
 qF
-br
+rD
 by
 bK
 br
@@ -9690,7 +10438,7 @@ aF
 GA
 KM
 aF
-eI
+cM
 ei
 Zr
 ek
@@ -9708,7 +10456,7 @@ fD
 fD
 fD
 zI
-hb
+ef
 zI
 yL
 yL
@@ -9721,7 +10469,7 @@ fD
 fD
 Qf
 zI
-hb
+oP
 zI
 fD
 ac
@@ -9732,7 +10480,7 @@ fD
 fD
 fD
 fD
-gZ
+hH
 fJ
 jT
 jT
@@ -9741,11 +10489,11 @@ jX
 jT
 jX
 ej
+PF
+sW
 jS
-jS
-jS
-jS
-jS
+PF
+Jv
 jS
 ej
 ej
@@ -9804,23 +10552,23 @@ az
 ah
 aV
 qm
-JE
+cM
+dx
 wW
 wW
-wW
-br
 ah
 ah
+hs
 ah
-br
-br
-wW
-br
+ud
+EG
+Jd
+Ms
 In
 aF
-XR
+RB
 eY
-eI
+cM
 ei
 ei
 lh
@@ -9850,7 +10598,7 @@ fD
 fD
 fD
 Qf
-fD
+SI
 hH
 fD
 fD
@@ -9861,19 +10609,19 @@ fD
 fD
 fD
 fD
-gZ
-gZ
-jS
-jS
-jS
+fD
+hH
+PF
+Ea
+Ea
 jT
 jX
 ta
 jX
 jT
 ej
-jS
-jS
+pM
+Ea
 bo
 km
 kp
@@ -9926,7 +10674,7 @@ eI
 ah
 ah
 ah
-JE
+cM
 Jx
 ah
 ah
@@ -9934,8 +10682,8 @@ dQ
 ah
 aV
 cu
-JE
-JE
+cM
+cM
 ah
 ah
 ah
@@ -9943,16 +10691,16 @@ hY
 wW
 ry
 ah
+hs
+ah
+hs
 ah
 ah
 ah
 ah
-ah
-ah
-eI
-eI
-lh
-lh
+cM
+Zr
+Zr
 ek
 RU
 eT
@@ -9992,7 +10740,7 @@ Ov
 fD
 Nd
 YM
-gZ
+hH
 fJ
 jT
 jT
@@ -10008,15 +10756,15 @@ cx
 jY
 kq
 BC
-jS
+pM
 Dr
 jS
+Ea
 jS
 jS
-jS
-jS
-jS
-jS
+Ea
+Ea
+Ea
 jJ
 aa
 aa
@@ -10056,7 +10804,7 @@ eI
 ah
 ah
 Ka
-JE
+cM
 ih
 ah
 ah
@@ -10067,10 +10815,10 @@ bR
 lk
 er
 cu
-ah
+hs
 ah
 wW
-cu
+lD
 wW
 ah
 ah
@@ -10080,9 +10828,9 @@ ah
 ah
 IU
 qw
-eI
-lh
-lh
+cM
+Zr
+Zr
 ek
 hZ
 RW
@@ -10110,7 +10858,7 @@ fD
 fD
 fD
 Qf
-fD
+SI
 hH
 fD
 fD
@@ -10121,11 +10869,11 @@ fD
 fD
 fD
 fD
-gZ
-gZ
-jS
-jS
-jS
+fD
+hH
+PF
+Ea
+Ea
 jT
 jX
 ta
@@ -10133,11 +10881,11 @@ jX
 jT
 ej
 jS
-jS
+Jv
 kl
 ko
 kr
-jS
+Jv
 ej
 jJ
 jJ
@@ -10146,7 +10894,7 @@ jJ
 jJ
 Fx
 jS
-jS
+Ea
 jJ
 aa
 aa
@@ -10186,7 +10934,7 @@ eI
 ah
 ah
 ah
-JE
+cM
 hO
 ah
 ah
@@ -10194,8 +10942,8 @@ dQ
 ah
 aV
 cu
-JE
-JE
+cM
+cM
 ah
 ah
 ah
@@ -10203,16 +10951,16 @@ by
 br
 bK
 ah
+hs
 ah
 ah
 ah
 ah
 ah
 ah
-eI
-eI
-lh
-ek
+cM
+Zr
+ei
 lh
 lh
 ek
@@ -10228,7 +10976,7 @@ fD
 fD
 fD
 zI
-hb
+ef
 zI
 tm
 tm
@@ -10241,7 +10989,7 @@ fD
 fD
 Qf
 zI
-hb
+oP
 zI
 fD
 ac
@@ -10252,7 +11000,7 @@ fD
 fD
 fD
 fD
-gZ
+hH
 fJ
 jT
 jT
@@ -10261,18 +11009,18 @@ jX
 jT
 jX
 ej
+sW
 jS
-jS
-jS
-jS
-jS
-jS
+PF
+sW
+pM
+Ea
 ej
 ej
 jJ
 ag
 jS
-jS
+Ea
 jJ
 jJ
 jJ
@@ -10324,27 +11072,27 @@ fx
 ah
 aV
 AZ
-JE
-wW
+cM
+dC
 br
-wW
 wW
 ah
 ah
 ah
-wW
-wW
-br
-br
+ah
+vN
+Gu
+Ji
+Qq
 nd
 aF
-aF
+ah
 cI
-eI
+cM
 Kp
 uQ
 fy
-RU
+ZT
 eT
 lh
 ek
@@ -10358,7 +11106,7 @@ fD
 fD
 fD
 zI
-hb
+ef
 zI
 fD
 fD
@@ -10366,7 +11114,7 @@ hU
 hU
 UW
 if
-if
+jM
 Lu
 pa
 if
@@ -10382,10 +11130,10 @@ jE
 fD
 fL
 fL
-gZ
-jS
-jS
-jS
+hH
+PF
+Ea
+Ea
 jT
 jX
 ta
@@ -10400,8 +11148,8 @@ ej
 jT
 jT
 HH
-jS
-jS
+Ea
+Ea
 jS
 jJ
 aa
@@ -10446,7 +11194,7 @@ ah
 ah
 ah
 ah
-JE
+cM
 ah
 ah
 ah
@@ -10454,15 +11202,15 @@ ah
 ah
 ah
 ah
-JE
+cM
 wW
 nP
 Ze
-br
+oL
 ah
+hs
 ah
-ah
-br
+xz
 hY
 ry
 wW
@@ -10470,26 +11218,26 @@ XR
 uU
 Cn
 Za
-eI
+cM
 wk
 rA
-kF
-MJ
+ek
+aO
 RW
 lh
 Zr
 mS
 hH
-fL
+zQ
 zI
 fL
 zF
 fL
 fL
-zI
 fL
+zQ
 hH
-fD
+KC
 zI
 zI
 hU
@@ -10499,7 +11247,7 @@ if
 mY
 wp
 pa
-if
+cG
 hU
 hH
 fD
@@ -10512,7 +11260,7 @@ et
 jH
 fL
 jI
-gZ
+hH
 jJ
 jX
 jX
@@ -10524,7 +11272,7 @@ jT
 jT
 ej
 jS
-jS
+CW
 ej
 jT
 jT
@@ -10576,7 +11324,7 @@ ah
 ah
 ah
 bF
-JE
+cM
 aF
 aF
 ah
@@ -10584,7 +11332,7 @@ ah
 ah
 ah
 aF
-JE
+cM
 wW
 vw
 mb
@@ -10600,7 +11348,7 @@ aF
 Cn
 SK
 vv
-eI
+cM
 wk
 PW
 gB
@@ -10609,15 +11357,15 @@ ek
 ek
 ei
 vT
-cZ
-cZ
+gm
+gm
 wj
-cZ
-cZ
-cZ
-cZ
-cZ
-cZ
+gm
+gm
+gm
+gm
+gm
+gm
 hH
 hH
 Pv
@@ -10625,11 +11373,11 @@ Ok
 hH
 hH
 hU
+cG
+DB
 if
 if
-if
-if
-if
+jM
 uj
 hH
 fD
@@ -10642,7 +11390,7 @@ jD
 fD
 fL
 jL
-gZ
+hH
 jJ
 aa
 jz
@@ -10693,8 +11441,8 @@ aa
 aa
 aa
 aa
-JE
-JE
+cM
+cM
 aJ
 ah
 ah
@@ -10706,31 +11454,31 @@ ah
 vq
 ah
 iS
-JE
-eI
+cM
+cM
 aF
 aF
 UJ
 aF
 aF
 aF
-JE
 cM
+wW
 wW
 wW
 wW
 cu
 jV
 cu
-br
-wW
-br
-wW
+qp
+dx
+Yy
+dx
 UJ
-Zz
-tv
+aF
+aF
 un
-eI
+cM
 ws
 CG
 gy
@@ -10739,7 +11487,7 @@ uB
 uB
 ED
 GU
-cZ
+gm
 fN
 gg
 gg
@@ -10747,16 +11495,16 @@ gg
 gg
 Ku
 gg
-gg
+MH
 hH
 Vv
 dA
 hV
 BP
 hH
-zI
+Cd
 hU
-xz
+hU
 Ec
 hU
 Se
@@ -10772,7 +11520,7 @@ fL
 fL
 zF
 fL
-gZ
+hH
 aa
 aa
 aa
@@ -10824,8 +11572,8 @@ aa
 aa
 aa
 aa
-JE
-JE
+cM
+cM
 tp
 ak
 ae
@@ -10835,56 +11583,56 @@ ae
 jb
 ae
 kj
-JE
-JE
-JE
-JE
+cM
+cM
+cM
+cM
 aV
-JE
-JE
+cM
+cM
 aV
-JE
-JE
-JE
-JE
-JE
-JE
+cM
+cM
+cM
+cM
+cM
+cM
 lC
-JE
-lC
-JE
-JE
-JE
-eI
-eI
-eI
-eI
-eI
-eI
-cZ
-cZ
-cZ
-cZ
+cM
+iK
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+gm
+gm
+gm
+gm
 fc
 fc
-cZ
-cZ
-cZ
+gm
+gm
+gm
 bQ
 iI
 gg
 gg
+kv
 gg
 gg
-gg
-gg
+kv
 hH
 Pz
 hl
 hl
 Ie
 hH
-vN
+Ge
 hH
 hH
 hH
@@ -10899,10 +11647,10 @@ Am
 Am
 Am
 Am
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -10955,7 +11703,7 @@ aa
 aa
 aa
 aa
-JE
+cM
 aV
 aV
 aV
@@ -10965,7 +11713,7 @@ aV
 aV
 aV
 aV
-JE
+cM
 yM
 yM
 yM
@@ -10973,18 +11721,18 @@ yM
 yM
 yM
 aa
-JE
+cM
 kh
 sx
 kX
 cd
 cl
 cd
-cl
+lG
 cd
 cl
 cd
-JE
+cM
 dh
 dt
 nX
@@ -10992,14 +11740,14 @@ lV
 sM
 Sd
 em
-cZ
+gm
 av
 pX
 eC
 eC
 eC
 eC
-cZ
+gm
 fP
 gi
 gg
@@ -11014,7 +11762,7 @@ hl
 sF
 Fg
 hH
-ii
+xB
 hH
 bq
 hH
@@ -11026,10 +11774,10 @@ ca
 jC
 jC
 jC
-jC
+PP
 vP
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -11098,23 +11846,23 @@ aa
 aa
 aa
 aa
+gr
 aa
 aa
-aa
+no
 yM
-yM
-JE
-JE
-JE
-JE
+cM
+cM
+cM
+cM
 ub
-JE
-JE
+cM
+cM
 aR
-JE
-JE
+cM
+cM
 fV
-JE
+cM
 di
 iw
 dv
@@ -11122,14 +11870,14 @@ dv
 vb
 dv
 en
-cZ
+gm
 hz
 eC
 wE
 eC
 fo
 fo
-cZ
+gm
 bz
 gj
 gg
@@ -11153,12 +11901,12 @@ hH
 Ge
 hH
 iU
-dx
+hl
 jl
-hs
+hS
 jx
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -11217,7 +11965,7 @@ aa
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -11236,15 +11984,15 @@ yM
 yM
 yM
 aa
-JE
+cM
 cd
 cl
+cM
 JE
-JE
-JE
+cM
 cl
 cd
-JE
+cM
 kL
 iE
 PO
@@ -11259,9 +12007,9 @@ eX
 eC
 fp
 RI
-cZ
+gm
 bz
-MH
+Li
 Li
 Li
 LG
@@ -11281,13 +12029,13 @@ ii
 qQ
 ii
 ii
-gZ
-gZ
+hH
+hH
 Ha
-gZ
+hH
 Am
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -11353,7 +12101,7 @@ aa
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -11366,7 +12114,7 @@ aa
 yM
 yM
 yM
-JE
+cM
 kT
 cd
 cl
@@ -11374,7 +12122,7 @@ FE
 cl
 cd
 bZ
-JE
+cM
 dk
 dv
 dL
@@ -11389,8 +12137,8 @@ eX
 eC
 fq
 fq
-cZ
-kv
+gm
+cA
 nr
 nr
 WR
@@ -11408,13 +12156,13 @@ ZD
 jG
 Yh
 jG
-ZT
+ii
 nS
 ii
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -11496,7 +12244,7 @@ aa
 aa
 yM
 yM
-JE
+cM
 EW
 cl
 cd
@@ -11504,7 +12252,7 @@ cl
 cd
 cl
 Dh
-JE
+cM
 di
 du
 dL
@@ -11519,7 +12267,7 @@ eC
 eC
 eC
 eC
-cZ
+gm
 fY
 dv
 fY
@@ -11527,25 +12275,25 @@ dv
 gR
 dv
 gU
-kE
-gZ
-gZ
+gm
+hH
+hH
 iG
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
 aa
 aa
 aa
-aa
+gr
 aa
 aa
 aa
@@ -11626,7 +12374,7 @@ aa
 aa
 aa
 yM
-JE
+cM
 kT
 cL
 kT
@@ -11634,7 +12382,7 @@ cd
 kT
 OI
 kT
-JE
+cM
 ij
 dv
 iA
@@ -11649,20 +12397,20 @@ eD
 hy
 eX
 eC
-cZ
+gm
 gd
 gq
 gH
 gM
 Zs
 gS
-kE
-kE
-gZ
+gm
+gm
+hH
 Av
 hc
 Av
-gZ
+hH
 aa
 aa
 aa
@@ -11756,7 +12504,7 @@ aa
 aa
 aa
 aa
-JE
+cM
 aV
 aV
 aV
@@ -11764,7 +12512,7 @@ aq
 aV
 aV
 aV
-JE
+cM
 ik
 dv
 dL
@@ -11772,38 +12520,38 @@ dL
 dL
 Ep
 LO
-cZ
+gm
 eC
 eC
 eD
 hm
 eX
 eC
-cZ
+gm
 fS
 dv
 dv
 dv
 fU
-kE
-kE
+gm
+gm
 yM
-gZ
-gZ
+hH
+hH
 iG
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -11886,7 +12634,7 @@ aa
 aa
 aa
 aa
-JE
+cM
 dq
 aV
 bT
@@ -11894,7 +12642,7 @@ hA
 bT
 aV
 Kn
-JE
+cM
 io
 iz
 dL
@@ -11902,23 +12650,23 @@ dL
 dL
 dL
 LO
-cZ
+gm
 Hv
 eC
 eC
 QA
 eC
 eC
-cZ
+gm
 dv
 dv
 OQ
 dv
-kE
-kE
+gm
+gm
 yM
 aa
-gZ
+hH
 sF
 sF
 hp
@@ -11929,7 +12677,7 @@ hp
 hp
 qG
 hl
-gZ
+hH
 bt
 iJ
 iN
@@ -12016,7 +12764,7 @@ aa
 aa
 aa
 aa
-JE
+cM
 aV
 aV
 aV
@@ -12024,7 +12772,7 @@ hq
 aV
 aV
 aV
-JE
+cM
 it
 iA
 dv
@@ -12032,23 +12780,23 @@ dv
 dv
 dv
 bs
-cZ
+gm
 Vt
 eC
 eC
 eC
 eC
 mn
-cZ
+gm
 dv
 dv
 fU
-kE
-kE
+gm
+gm
 yM
 aa
 aa
-gZ
+hH
 yz
 hp
 ib
@@ -12146,7 +12894,7 @@ aa
 aa
 aa
 aa
-JE
+cM
 jw
 bT
 bT
@@ -12154,7 +12902,7 @@ bT
 bT
 cg
 bT
-JE
+cM
 dl
 iD
 dw
@@ -12162,23 +12910,23 @@ dw
 dw
 AQ
 ep
-cZ
+gm
 EK
 eF
 mz
 dG
 Gx
 GG
-cZ
+gm
 fU
 dv
-kE
-kE
+gm
+gm
 yM
 aa
 aa
 aa
-gZ
+hH
 hp
 hp
 hp
@@ -12189,7 +12937,7 @@ nb
 zo
 hp
 hp
-gZ
+hH
 iJ
 zb
 iN
@@ -12276,7 +13024,7 @@ aa
 aa
 aa
 aa
-JE
+cM
 bT
 cg
 bT
@@ -12284,31 +13032,31 @@ bT
 bT
 bT
 bT
-JE
-cZ
-cZ
+cM
+gm
+gm
 dE
 Fk
 cZ
-cZ
-cZ
-cZ
+gm
+gm
+gm
 bB
 uv
 xD
 eG
 eG
 Ik
-kE
-kE
-kE
-kE
+gm
+gm
+gm
+gm
 yM
 aa
 aa
 aa
 aa
-gZ
+hH
 hl
 hp
 sF
@@ -12319,7 +13067,7 @@ hp
 nb
 zo
 rk
-gZ
+hH
 iM
 iJ
 iN
@@ -12406,21 +13154,21 @@ aa
 aa
 aa
 aa
-JE
-JE
+cM
+cM
 cp
 cp
 cy
 cp
 cp
-JE
-JE
+cM
+cM
 iu
 sd
 We
 We
 WD
-cZ
+gm
 dX
 Wj
 eG
@@ -12430,15 +13178,15 @@ dH
 qa
 eG
 kJ
-kE
-kE
+gm
+gm
 yM
 aa
 aa
 aa
 aa
 aa
-gZ
+hH
 nk
 Wy
 hc
@@ -12449,11 +13197,11 @@ sF
 hp
 Ig
 iF
-gZ
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -12537,14 +13285,14 @@ aa
 aa
 aa
 aa
-JE
-JE
-JE
-JE
-JE
-JE
-JE
-JE
+cM
+cM
+cM
+cM
+cM
+cM
+cM
+cM
 iv
 Xa
 ky
@@ -12560,7 +13308,7 @@ lp
 eG
 Sk
 Xb
-kE
+gm
 yM
 aa
 aa
@@ -12568,7 +13316,7 @@ aa
 aa
 aa
 aa
-gZ
+hH
 sF
 hp
 hc
@@ -12578,8 +13326,8 @@ hp
 sF
 hl
 hp
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -12674,13 +13422,13 @@ aa
 aa
 aa
 aa
-kE
+gm
 aB
 tr
 mD
 sQ
 De
-cZ
+gm
 eG
 eG
 VO
@@ -12689,8 +13437,8 @@ fl
 fl
 fr
 uA
-kE
-kE
+gm
+gm
 yM
 yM
 yM
@@ -12698,7 +13446,7 @@ yM
 yM
 yM
 yM
-gZ
+hH
 sF
 Wy
 sF
@@ -12707,8 +13455,8 @@ sF
 hK
 hc
 hp
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -12804,22 +13552,22 @@ aa
 aa
 aa
 aa
-kE
-kE
+gm
+gm
 sZ
 dF
 Aq
 dR
-kE
+gm
 eq
 kB
-kE
-kE
-kE
-kE
-kE
-kE
-kE
+gm
+gm
+gm
+gm
+gm
+gm
+gm
 aa
 aa
 aa
@@ -12828,7 +13576,7 @@ aa
 aa
 aa
 aa
-gZ
+hH
 sF
 sF
 hl
@@ -12836,8 +13584,8 @@ Ix
 hc
 hc
 hc
-gZ
-gZ
+hH
+hH
 aa
 aa
 aa
@@ -12935,15 +13683,15 @@ aa
 aa
 aa
 aa
+gm
+gm
+gm
+gm
+gm
+gm
 kE
 kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
+gm
 yM
 yM
 yM
@@ -12958,15 +13706,15 @@ yM
 yM
 yM
 yM
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
+hH
 aa
 aa
 aa
@@ -13991,68 +14739,68 @@ aa
 aa
 aS
 aS
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-aS
+Zz
+IS
+IS
+IS
+IS
+IS
+IS
+IS
+IS
+Dj
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+zP
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Nx
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 aS
 aa
 aa
@@ -14121,68 +14869,68 @@ aa
 aa
 aS
 aS
-gZ
-Sf
-Ih
-Ih
-Sf
-Sf
-Ih
-Ih
-Ih
 YP
-gZ
+Sf
+Sf
+Sf
+Sf
+Sf
+Sf
+Sf
+rq
+YP
+rW
 ip
 ip
 ip
-Sf
-Sf
-Sf
+sq
+sq
+sq
 ip
 ip
 ip
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Gu
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-FV
-Sf
-Sf
-Sf
-gZ
-Sf
+rW
+YQ
+He
+He
+He
+He
+YQ
+He
+YQ
+fD
+Ug
+fD
+YQ
+He
+YQ
+He
+He
+He
+He
+YQ
+Pg
+Ra
 Ih
 Ih
 Ih
-Sf
+Ra
 Ih
 Ih
-Sf
-Sf
-gZ
-Ih
-Ih
-Ih
-Ih
-Ih
+Ra
+Ra
+Pg
+Zf
 Ih
 Ih
 Ih
 Ih
-gZ
-aS
+Ih
+Ih
+Ih
+Ih
+Ih
+Zf
 aS
 aS
 aa
@@ -14251,68 +14999,68 @@ aa
 aa
 aS
 aS
-gZ
-Sf
-Sf
-Ih
-Ih
-Sf
-Sf
-Sf
-Ih
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-Sf
-Sf
-gZ
+YP
 Sf
 Sf
 Sf
 Sf
 Sf
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
 Sf
 Sf
 Sf
+YP
+rW
+sq
+rW
+rW
+rW
+rW
+sq
+rW
+rW
+sq
+rW
+YQ
+YQ
+YQ
+YQ
+He
+YQ
+He
+YQ
+fD
+fD
+fD
+YQ
+He
+YQ
+He
+YQ
+YQ
+YQ
+YQ
+Pg
+Ra
+vk
+Ra
+Ra
+Ra
+Ra
 Ih
 Ih
 hF
-gZ
+Pg
+Zf
 Ih
-gZ
-gZ
-Ih
-Ih
-gZ
+Zf
+Zf
 Ih
 Ih
+Zf
 Ih
-gZ
-aS
+Ih
+Ih
+Zf
 aS
 aS
 aa
@@ -14381,68 +15129,68 @@ aa
 aa
 aS
 aS
-gZ
+YP
 Sf
 Sf
-gZ
+dZ
 Sf
 Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-Sf
+Zz
+IS
+IS
+ut
+rW
+sq
+sq
+sq
 ip
-gZ
-Sf
-gZ
+rW
+sq
+rW
 ip
 ip
-gZ
-Sf
-gZ
-vE
-Sf
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
+rW
+YQ
+He
+He
+YQ
+He
+YQ
+He
+Mk
+He
+He
+He
+Mk
+He
+YQ
+He
+YQ
+He
+He
+YQ
+Pg
 Ih
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+Pg
+Ra
+zP
+Uu
+Uu
+Uu
+Uu
+Uu
+my
+Zf
 Ih
 Ih
-gZ
-gZ
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
+Zf
 mv
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -14511,68 +15259,68 @@ aa
 aa
 aS
 aS
-gZ
+YP
 Sf
-gZ
-gZ
-Ih
-Ih
-gZ
+xs
+ut
+Sf
+Sf
+YP
 jj
 Sf
-Sf
-gZ
-Sf
+YP
+rW
+sq
 ip
-gZ
+rW
 ip
-gZ
-gZ
-gZ
+rW
+rW
+rW
 ip
-gZ
-gZ
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
+rW
+rW
+YQ
+He
+He
+He
+He
+YQ
+He
+He
+He
+He
+He
+He
+He
+YQ
+He
+He
+He
+He
+YQ
+Pg
 Ih
-gZ
+Pg
 FV
-gZ
+Pg
 KS
 Ih
-Sf
-Sf
-gZ
-gZ
+Ra
+Ra
+IF
+my
+Zf
 Ih
 Ih
 Ih
-gZ
-wC
+Zf
+Lc
 Ih
-gZ
-gZ
+Zf
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -14641,68 +15389,68 @@ aa
 aS
 aS
 aS
-gZ
+YP
 Sf
-Ih
-gZ
-Ih
 Sf
-gZ
-gZ
-gZ
+YP
 Sf
-gZ
 Sf
+Uq
+Th
+Sf
+YP
+rW
+sq
 ip
-gZ
+rW
 ip
-gZ
-gZ
-gZ
-Sf
+rW
+rW
+rW
+sq
 ip
-gZ
-gZ
+rW
 YQ
-gZ
-gZ
-YQ
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
 He
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
+He
+He
+He
+He
+He
+Mk
+He
+YQ
+He
+He
+He
+He
+He
+He
+He
+He
+YQ
+Pg
 Ih
-gZ
+Pg
 Ih
-gZ
-gZ
+pG
+Nx
 Ih
-gZ
-Sf
-Sf
-gZ
+vk
+Ra
+Ra
+Pg
+Zf
 Ih
-gZ
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
 Ih
-gZ
+Zf
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -14771,68 +15519,68 @@ aa
 aS
 aS
 aS
-gZ
-gZ
-Ih
-gZ
+AV
+Th
+Sf
+YP
 Sf
 Sf
-Ih
-Ih
-Ih
 Sf
-gZ
+Sf
+Sf
+YP
+rW
 ip
 ip
-gZ
-Sf
-gZ
+rW
+sq
+rW
 qc
-Sf
+sq
 ip
 ip
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-Sf
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
+rW
+YQ
+He
+He
+He
+He
+He
+He
+He
+Mk
+YQ
+He
+He
+He
+He
+He
+He
+He
+He
+YQ
+Pg
 Ih
-gZ
-Ih
-Ih
-gZ
-Sf
-gZ
+Pg
 Ih
 Ih
-gZ
-Ih
-gZ
-Ih
-Ih
-gZ
+Pg
+Ra
+Pg
 Ih
 Ih
+Pg
+Zf
+Ih
+Zf
 Ih
 Ih
-gZ
-aS
+Zf
+Ih
+Ih
+Ih
+Ih
+Zf
 aS
 aS
 aS
@@ -14901,68 +15649,68 @@ aS
 aS
 aS
 aS
-gZ
+YP
 Sf
 Sf
-gZ
+YP
 Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-gZ
-gZ
-gZ
-gZ
+Zz
+IS
+IS
+IS
+ut
+rW
+sq
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+YQ
+YQ
+He
+He
+He
+He
+He
+He
+YQ
+He
+He
+He
+He
+He
+He
+YQ
+YQ
+YQ
+Pg
 Ih
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
+Pg
+Ra
+Ra
+Pg
+Ra
+Lm
+iq
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
+Zf
 Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-aS
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 aS
 aS
 aS
@@ -15031,68 +15779,68 @@ aS
 aS
 aS
 aS
-gZ
+YP
 Sf
-gZ
-gZ
+xs
+ut
 Sf
-gZ
-Sf
-Ih
+ZG
 Sf
 Sf
-gZ
 Sf
-Sf
+YP
+rW
+sq
+sq
 ip
 ip
-gZ
-Sf
+rW
+sq
 ip
 ip
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
+sq
+rW
+YQ
+He
+YQ
+He
+He
+He
+YQ
+YQ
+He
+YQ
+He
+YQ
+YQ
+He
+He
+He
+YQ
+He
+YQ
+Pg
+Ra
+pG
+Uu
+Uu
+uH
+Uu
+cJ
+Ra
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
+Zf
 Ih
-gZ
+Zf
 mv
 Ih
 Ih
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -15161,57 +15909,58 @@ aS
 aS
 aS
 aS
-gZ
-Ih
-Ih
-gZ
+YP
+Sf
+Sf
+YP
 Sf
 Sf
 Sf
-Ih
-Ih
-Sf
-gZ
-gZ
 Sf
 Sf
+YP
+rW
+rW
+sq
+sq
 ip
-Sf
+sq
 ip
 ip
-Sf
+sq
 FG
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
+rW
 YQ
-Sf
-Sf
-gZ
-Sf
-Sf
-FV
-Sf
-Sf
-Sf
-Sf
-Sf
-Ea
-gZ
-Sf
-Sf
-Sf
+He
+YQ
+He
+He
+He
+He
+He
+He
+YQ
+He
+He
+He
+He
+He
+He
+YQ
+He
+YQ
+Pg
+Ra
+Ra
+Ra
 Ih
 Ih
-FV
-Sf
-Sf
-Sf
-gZ
+Ra
+Ra
+Ra
+Ra
+Pg
+Zf
 Ih
 Ih
 Ih
@@ -15220,9 +15969,8 @@ Ih
 Ih
 Ih
 Ih
-ud
-gZ
-aS
+Sl
+Zf
 aS
 aS
 aS
@@ -15291,68 +16039,68 @@ aS
 aS
 aS
 aS
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-aS
+AV
+IS
+IS
+Ly
+IS
+IS
+IS
+IS
+IS
+ut
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+He
+YQ
+He
+He
+He
+Mk
+YQ
+YQ
+YQ
+YQ
+YQ
+Mk
+He
+He
+He
+YQ
+He
+YQ
+Lm
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+my
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 aS
 aS
 aS
@@ -15421,68 +16169,68 @@ aS
 aS
 aS
 aS
-gZ
+YP
 Al
 Sf
-gZ
-Ih
+YP
 Sf
 Sf
-Ih
 Sf
 Sf
-gZ
+Sf
+YP
+rW
 Ak
-Sf
+sq
 ip
-Sf
-Sf
-ip
-ip
+sq
+sq
 ip
 ip
-gZ
-WH
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
+ip
+ip
+rW
+YQ
+He
+YQ
+YQ
+YQ
+YQ
+He
+He
+He
+He
+He
+He
+He
+YQ
+YQ
+YQ
+YQ
+He
+YQ
+Pg
 FM
 Ih
 Ih
 Ih
 Ih
-Sf
-Sf
-Sf
+Ra
+Ra
+Ra
 Ih
-gZ
-gZ
-gZ
-Ih
-Ih
-Ih
+Pg
+Zf
+Zf
+Zf
 Ih
 Ih
 Ih
 Ih
-gZ
-aS
+Ih
+Ih
+Ih
+Zf
 aS
 aS
 aS
@@ -15551,68 +16299,68 @@ aS
 aS
 aS
 aS
-gZ
+YP
 Sf
+Sf
+YP
+Sf
+Zz
+IS
+IS
+IS
+ut
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+sq
+rW
+YQ
+He
+He
+He
+He
+He
+He
+He
+He
+He
+He
+He
+He
+He
+He
+He
+He
+He
+YQ
+Pg
+Ra
 Ih
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-Sf
-Sf
-gZ
-gZ
-gZ
-Sf
-Sf
-Sf
-gZ
-FV
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Ih
-Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-FV
-gZ
+zP
+Uu
+Uu
+mC
+Uu
+iq
+Ra
+Pg
+Zf
 Ih
 Ih
 Ih
-gZ
-gZ
+Zf
+Zf
 Ih
-gZ
-gZ
+Zf
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aa
@@ -15663,86 +16411,86 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-gZ
-Sf
-Ih
-gZ
-Sf
-gZ
-Ih
-Sf
-gZ
-Ih
-gZ
-Sf
-gZ
+YP
 Sf
 Sf
+YP
+Sf
+ZG
+Sf
+Sf
+Sf
+YP
+rW
+sq
+rW
+sq
+sq
 ip
 ip
 ip
 ip
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
+sq
+rW
 YQ
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
+He
+YQ
+He
+He
+He
+He
+He
+He
+YQ
+He
+He
+He
+He
+He
+He
+YQ
+He
+YQ
+Lm
+iq
 Ih
-gZ
+Pg
 Rq
-Sf
-gZ
-Sf
+Ra
+Pg
+Ra
 Ih
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
+Zf
 Ih
 Ih
-gZ
+Zf
 Ih
 mv
-gZ
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aa
@@ -15790,89 +16538,89 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+zk
+FK
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
+FK
+zk
+gQ
 aa
 aa
 aS
 aS
 aS
 aS
-gZ
-Ih
-Ih
-gZ
-Ih
-Ih
-Ih
-Ih
-gZ
-Ih
-gZ
+AV
+Th
+Sf
+YP
+Sf
+Sf
+Sf
+dZ
+Sf
+YP
+rW
 ip
-gZ
-Sf
+rW
+sq
 ip
-gZ
-gZ
-gZ
-gZ
+rW
+rW
+rW
+rW
 ip
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-tG
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
+rW
+YQ
+He
+He
+He
+He
+He
+YQ
+YQ
+He
+YQ
+He
+He
+YQ
+He
+He
+He
+He
+He
+YQ
+Lm
+Uu
+Uu
+uH
+iq
 Ih
-gZ
-Sf
-Sf
-Sf
-gZ
+Pg
+Ra
+Ra
+Ra
+Pg
+Zf
 Ih
-gZ
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
 Ih
-gZ
-gZ
+Zf
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aa
 aa
@@ -15919,90 +16667,90 @@ Fu
 Fu
 aa
 aa
+TM
+gQ
+VL
+FK
+FK
+FK
+zk
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+TH
+FK
+FK
+FK
+FK
+gQ
 aa
 aa
 aa
 aS
 aS
 aS
-gZ
-Ih
-Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Ih
-gZ
+YP
+Sf
+Sf
+AV
+IS
+IS
+IS
+ut
+Sf
+YP
+rW
 ip
-Sf
+sq
 ip
 ip
-Sf
-Sf
+sq
+sq
 ip
-gZ
+rW
 ip
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-Sf
-gZ
-Sf
-Sf
-Sf
+rW
+YQ
+He
+He
+He
+He
+He
+YQ
+YQ
+He
+YQ
+He
+He
+YQ
+He
+He
+He
+He
+He
+YQ
+Pg
+Ra
+Ra
+Ra
 Ih
 Ih
-gZ
-Sf
-gZ
+Pg
+Ra
+Ra
 Ih
-gZ
-Ih
-Ih
-Ih
+Pg
+Zf
 Ih
 Ih
 Ih
-gZ
-gZ
 Ih
-gZ
-aS
+Ih
+Ih
+Zf
+Zf
+Ih
+Zf
 aS
 aS
 aS
@@ -16050,89 +16798,89 @@ Fu
 Fu
 aa
 aa
+gQ
+gQ
+gQ
+FK
+FK
+zk
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+FK
+FK
+zk
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
+YP
 Sf
 Sf
-gZ
-Sf
-Ih
-Ih
-Ih
+YP
 Sf
 Sf
-gZ
 Sf
+ZG
 Sf
+YP
+rW
+sq
+sq
 ip
-gZ
-gZ
-gZ
+rW
+rW
+rW
 ip
-gZ
+rW
 ip
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
+rW
+YQ
+He
+He
+He
+He
+He
+YQ
+YQ
+He
+YQ
+He
+He
+He
+He
+He
+YQ
+He
+He
+YQ
+Pg
+Ra
+Ra
+zP
+Uu
+Uu
+uH
+Uu
+iq
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -16180,89 +16928,89 @@ aS
 Fu
 aa
 aa
+gQ
+TH
+FK
+zk
+kS
+TA
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-gr
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+TH
+zk
+FK
+FK
+LZ
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
+YP
 Sf
-gZ
-gZ
-Ih
-Ih
+Zz
+SS
 Sf
-Sf
-Sf
-Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-LT
+dZ
 Sf
 Sf
+Sf
+YP
+rW
+rW
+rW
+rW
+rW
+sq
+rW
+rW
+rW
+sq
+rW
 YQ
-Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
+He
+YQ
+He
+He
+He
+YQ
+YQ
+sD
+YQ
+YQ
+He
+He
+He
+He
+YQ
+He
+He
+YQ
+Pg
 Ih
 Ih
-gZ
-Sf
+Pg
+Ra
 Ih
-Sf
+Ra
 FV
 Ih
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
-kC
+Zf
+zH
 Ih
 Ih
-gZ
+Zf
 mv
-gZ
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -16310,89 +17058,89 @@ aS
 aa
 aa
 aa
+gQ
+gQ
+gQ
+FK
+FK
+FK
+gQ
+aa
+gQ
+gQ
+gQ
+FK
+zk
+zk
+gQ
 aa
 aa
-aa
-aa
-gr
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-gr
 aa
 aa
 aS
 aS
-gZ
-Ih
+YP
 Sf
-Ih
+ZG
 Sf
-gZ
-gZ
-gZ
-gZ
-Ih
-gZ
+Sf
+AV
+IS
+Th
+Sf
+YP
+rW
 wY
 ip
-gZ
-Sf
-Sf
+rW
+sq
+sq
 ip
 ip
 ip
-Sf
-gZ
+sq
+rW
 YQ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-Sf
-gZ
-gZ
-Sf
-gZ
-gZ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+qq
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+Pg
 Ih
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
 Ih
-gZ
-gZ
+pG
+Uu
+Uu
+Uu
+iq
+Ra
+Ra
+Pg
+Zf
 Ih
-gZ
-gZ
+Zf
+Zf
 Ih
-gZ
+Zf
+Zf
 Ih
-gZ
-aS
+Zf
+Ih
+Zf
 aS
 aS
 aS
@@ -16440,80 +17188,81 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+TH
+zk
+zk
+zk
+FK
+gQ
+TM
+gQ
+Dv
+FK
+zk
+FK
+zk
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
+YP
 Sf
-Ih
-Ih
 Sf
-gZ
+Sf
+Sf
+YP
 AT
 Sf
-Ih
-Ih
-gZ
 Sf
+YP
+rW
+sq
 ip
 ip
 ip
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Fq
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-FV
-Sf
-gZ
-gZ
-gZ
-Sf
-Sf
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+Zo
+ra
+ra
+ra
+ra
+ra
+ra
+KD
+Zo
+US
+US
+US
+US
+US
+US
+US
+TG
+YQ
+Lm
+iq
+Ih
+Ra
+Ra
 Ih
 Ih
 Ih
 Ih
-Sf
-gZ
-nW
-gZ
+Ra
+Pg
+Zf
+bp
+Zf
 mv
 Ih
 Ih
@@ -16521,8 +17270,7 @@ Ih
 Ih
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -16570,89 +17318,89 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+zk
+zk
+gQ
+aa
+gQ
+gQ
+gQ
+gQ
+FK
+zk
+gQ
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-gr
 aa
 aS
 aS
 aS
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-aS
+AV
+IS
+IS
+IS
+IS
+lz
+IS
+IS
+IS
+ut
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+HJ
+US
+US
+US
+US
+uy
+uy
+uy
+CA
+Zo
+US
+US
+US
+US
+US
+US
+KD
+YQ
+Lm
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+my
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 aS
 aS
 aS
@@ -16703,75 +17451,76 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa
 aa
-Fu
-Fu
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aS
 aS
 aS
 aS
-gZ
-Ih
-Ih
-Ih
-Ih
-Ih
-Ih
-Ih
+YP
 Sf
 Sf
-gZ
+Sf
+Sf
+Sf
+Sf
+Sf
+Sf
+YP
+rW
 ip
 ip
 ip
 ip
-Sf
+sq
 ip
 ip
 ip
-Sf
-gZ
-xM
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-FV
-Sf
-Sf
-AX
-gZ
-Sf
-Sf
+sq
+rW
+YQ
+Zo
+US
+US
+US
+uy
+uy
+uy
+uy
+MB
+uY
+ra
+ra
+ra
+ra
+ra
+ra
+TG
+YQ
+Pg
+Ra
+Ra
 Ih
 Ih
 Ih
 Ih
 Ih
 Ih
-Sf
-gZ
+Ra
+Pg
+Zf
 Ih
 Ih
 Ih
@@ -16780,9 +17529,8 @@ Ih
 Ih
 Ih
 Ih
-Qq
-gZ
-aS
+cv
+Zf
 aS
 aS
 aS
@@ -16835,11 +17583,11 @@ aa
 aa
 aa
 aa
-Fu
 aa
-Fu
-Fu
-Fu
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -16851,68 +17599,68 @@ aa
 aS
 aS
 aS
-gZ
+YP
 Sf
+Zz
+Th
 Sf
-Ih
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
+xs
+IS
+IS
+IS
+ut
+rW
+sq
+rW
 ip
-Sf
-Sf
-Sf
-Sf
+sq
+sq
+sq
+sq
 ip
 nD
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
+rW
+YQ
+HJ
+US
+US
+uy
+uy
+uy
+uy
+MB
+uY
+Vb
+Vb
+ra
+ra
+ra
+ra
+ra
+KD
+YQ
+Pg
+Ra
+IF
+Uu
+Uu
+Uu
+Nx
 FV
-gZ
+vk
 Ih
-gZ
-Ih
-Ih
-gZ
-Ih
-gZ
-gZ
-gZ
+Pg
+Zf
 Ih
 Ih
-gZ
-aS
+Zf
+Ih
+Zf
+Zf
+Zf
+Ih
+Ih
+Zf
 aS
 aS
 aS
@@ -16963,86 +17711,86 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
-Fu
-Fu
-Fu
-Fu
-Fu
+aa
+aa
+gQ
+gQ
+gQ
+gQ
+aa
+aa
+aa
+aa
 aS
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aS
-aS
-gZ
+YP
 Sf
-gZ
-Ih
-Ih
+YP
 Sf
 Sf
 Sf
-gZ
-Ih
-gZ
 Sf
-gZ
-gZ
 Sf
+xs
+ut
+rW
+sq
+rW
+rW
+sq
 ip
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
-Sf
-Sf
+rW
+rW
+rW
+rW
+rW
 YQ
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
+Zo
+US
+uy
+uy
+uy
+uy
+MB
+uY
+uy
+uy
+uy
+uy
+US
+US
+US
+US
+TG
+YQ
+Pg
+Ra
 FV
 Ih
-Sf
-Sf
-gZ
-Sf
-gZ
+Ra
+Ra
+Pg
+Ra
+Pg
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
-gZ
+Zf
+Zf
 Ih
-gZ
+Zf
 mv
-gZ
+Zf
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -17090,89 +17838,89 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+zk
+FK
+gQ
+aa
+gQ
+gQ
+gQ
+gQ
+zk
+FK
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-Fu
-Fu
-Fu
-aS
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aS
-aS
-gZ
-Ih
-gZ
+YP
 Sf
-gZ
-Ih
-Ih
+YP
 Sf
-gZ
-Ih
-gZ
+dZ
 Sf
+dZ
+Sf
+Sf
+YP
+rW
+sq
 ip
-gZ
-gZ
+rW
+rW
 ip
-gZ
+rW
 Xm
-Sf
+sq
 ip
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-sA
-Sf
-Sf
-Sf
-Sf
-gZ
+rW
+YQ
+HJ
+US
+uy
+uy
+uy
+MB
+uY
+uy
+uy
+uy
+uy
+uy
+uy
+US
+US
+US
+KD
+YQ
+Pg
 Ih
-gZ
-Sf
-gZ
-gZ
-gZ
-Sf
-gZ
+vk
+Ra
+zP
+Uu
+my
+Ra
+Pg
 Ih
-gZ
-Ih
-Ih
-gZ
-Ih
-gZ
-Ih
-gZ
+Pg
+Zf
 Ih
 Ih
-gZ
-aS
+Zf
+Ih
+Zf
+Ih
+Zf
+Ih
+Ih
+Zf
 aS
 aS
 aS
@@ -17219,90 +17967,90 @@ aa
 aa
 aa
 aa
+TM
+gQ
+Ar
+FK
+FK
+FK
+FK
+gQ
 aa
-aa
-aa
+gQ
+TH
+FK
+FK
+zk
+FK
+gQ
 aa
 aa
 aa
 aS
 aS
-Fu
 aS
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aS
-aS
-aS
-gZ
-Ih
-gZ
+YP
 Sf
-gZ
-Ih
-gZ
-gZ
-gZ
-Ih
-gZ
+YP
 Sf
+ZG
+Sf
+AV
+Th
+Sf
+YP
+rW
+sq
 ip
 ip
-gZ
+rW
 ip
-gZ
-gZ
-gZ
+rW
+rW
+rW
 ip
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
+rW
+YQ
+Zo
+US
+uy
+uy
+MB
+uY
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+US
+US
+TG
+YQ
+Pg
 Ih
-gZ
+Pg
 Ih
-gZ
+Kx
 Ih
-gZ
-gZ
-gZ
+Lm
+Uu
+cJ
 Ih
-gZ
+Pg
+Zf
 Ih
 Ih
-gZ
+Zf
 mv
-gZ
+Zf
 Ih
-gZ
+Zf
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -17329,110 +18077,110 @@ Fu
 hr
 hr
 ui
-TR
+XF
 ui
 hr
 ui
+XF
+ui
+hr
+ui
+XF
+ui
+hr
+Fu
+Fu
+Fu
+Fu
+aa
+aa
+aa
+aa
+aa
+aa
+gQ
+gQ
+gQ
 FK
-ui
-hr
-ui
-Oy
-ui
-hr
-Fu
-Fu
-Fu
-Fu
+FK
+zk
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+FK
+FK
+zk
+gQ
 aa
 aa
 aa
 aS
 aS
 aS
-aS
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aS
-aS
-aS
-gZ
-Ih
-gZ
+YP
+Sf
+YP
 Sf
 Sf
-Ih
-gZ
+Sf
+YP
 Sa
 Sf
-Sf
-gZ
-Sf
-Sf
+YP
+rW
+sq
+sq
 ip
-gZ
-Sf
+rW
+sq
 ip
 ip
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-Sf
-gZ
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-FV
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
+rW
+sq
+rW
+YQ
+HJ
+US
+US
+MB
+uY
+Vb
+Vb
+Vb
+Vb
+Vb
+Vb
+Vb
+Vb
+Vb
+Vb
+ra
+KD
+YQ
+Pg
 Ih
-gZ
+Pg
 Ih
 Ih
 Ih
-gZ
+Pg
 uF
-Sf
-Sf
-gZ
+Ra
+Ra
+Pg
+Zf
 Ih
-gZ
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
 Ih
-gZ
+Zf
 Ih
-gZ
-gZ
-aS
+Zf
+Zf
 aS
 aS
 aS
@@ -17480,89 +18228,89 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
+gQ
+TH
+FK
+zk
+FK
+hD
+gQ
+TM
+gQ
+wc
+FK
+FK
+zk
+Zp
+gQ
 aa
 aa
 aa
 aS
 aS
 aS
-aS
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aS
-aS
-aS
-gZ
+YP
 Sf
-gZ
-gZ
-Ih
-Ih
-gZ
-gZ
-gZ
-gZ
-gZ
+Uq
+Dj
+Sf
+Sf
+AV
+IS
+IS
+ut
+rW
 ip
-gZ
-Sf
-Sf
-Sf
+rW
+sq
+sq
+sq
 ip
-gZ
-gZ
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
+rW
+rW
+sq
+rW
+YQ
+Zo
+US
+TG
+HJ
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+TG
+YQ
+Pg
 Ih
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Ih
-Ih
-Ih
+Pg
+Ra
+Ra
+zP
+uH
+Uu
+Uu
+Uu
+my
+Zf
 Ih
 Ih
 Ih
-gZ
 Ih
 Ih
-gZ
-aS
+Ih
+Zf
+Ih
+Ih
+Zf
 aS
 aS
 aS
@@ -17609,90 +18357,90 @@ aa
 aa
 aa
 aa
-gr
 aa
+gQ
+gQ
+gQ
+zk
+FK
+zk
+gQ
 aa
-aa
-gr
+gQ
+gQ
+gQ
+FK
+FK
+FK
+gQ
 aa
 aa
 aa
 aS
 aS
 aS
-aS
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aS
-aS
-aS
-gZ
-Sf
-Ih
-gZ
-Ih
+YP
 Sf
 Sf
-Ih
-Ih
+YP
 Sf
-gZ
+xs
+SS
+Sf
+Sf
+YP
+rW
 ip
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-Sf
+rW
+rW
+rW
+rW
+sq
+sq
+sq
 ip
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
+rW
+YQ
+UC
+TG
+HJ
+US
+US
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+CA
+YQ
+Pg
+Ra
+pG
+Uu
+Uu
+cJ
 Ih
 Ih
-Sf
-Sf
-gZ
-gZ
+Ra
+Ra
+Pg
+Zf
+Zf
 Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -17721,11 +18469,11 @@ hr
 ui
 XF
 XF
-xF
+YI
 XF
 XF
 XF
-xF
+YI
 XF
 XF
 ui
@@ -17740,89 +18488,89 @@ aa
 aa
 aa
 aa
+gQ
+TH
+zk
+FK
+zk
+zk
+gQ
 aa
-aa
-aa
+gQ
+TH
+zk
+zk
+FK
+FK
+gQ
 aa
 aa
 aa
 aS
 aS
 aS
-aS
-aS
-aS
-aS
-aa
-aa
-aa
-aa
-aa
-aS
-aS
-aS
-gZ
-Ih
-Ih
-gZ
-Ih
-Ih
+YP
 Sf
 Sf
-Ih
-Vg
-gZ
+YP
 Sf
 Sf
 Sf
+Sf
+Eg
+YP
+rW
+sq
+sq
+sq
 ip
 ip
-Sf
+sq
 ip
 ip
 ip
-gZ
-Sf
-Sf
-Sf
-Sf
+rW
 YQ
-Sf
-Sf
-Sf
+HJ
+JM
+US
+US
 uy
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+TG
+YQ
+Pg
 Ih
 Ih
 Ih
 Ih
-Sf
-Sf
+Ra
+Ra
 Ih
-Sf
+Ra
 MT
-gZ
-gZ
-gZ
-gZ
-CP
+Pg
+Zf
+Zf
+Zf
+Zf
+Gs
 Ih
 Ih
 Ih
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -17870,89 +18618,89 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+FK
+FK
+gQ
+aa
+gQ
+gQ
+gQ
+gQ
+zk
+zk
+gQ
 aa
 aa
 aa
-aa
 aS
 aS
 aS
-aS
-aS
-aS
-aS
-aS
-aS
-aS
-aa
-aa
-aa
-aa
-aS
-aS
-aS
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-aS
+AV
+IS
+IS
+lz
+IS
+IS
+IS
+IS
+IS
+ut
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+Zo
+US
+US
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+US
+KD
+YQ
+Lm
+Uu
+Uu
+Uu
+Uu
+mC
+Uu
+Uu
+Uu
+Uu
+my
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 aS
 aS
 aS
@@ -17982,7 +18730,7 @@ ui
 dU
 kd
 XF
-of
+kd
 ZX
 QG
 XF
@@ -18003,86 +18751,86 @@ aa
 aa
 aa
 aa
-aa
-aS
-al
-eE
-eE
-eE
-eE
-eE
-eE
-dO
-aS
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+aa
+aa
+aa
 aS
 aS
 aS
-gZ
-Sf
-Ih
-Ih
+YP
 Sf
 Sf
-Ih
-Ih
 Sf
 Sf
-gZ
+Sf
+Sf
+Sf
+Sf
+YP
+rW
 zJ
 ip
-gZ
+rW
 ip
 ip
 ip
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
+sq
+sq
+sq
+rW
 YQ
-Sf
-Sf
-Sf
-Sf
-gZ
-lm
-Sf
-Sf
-Sf
-Sf
-FV
-Sf
-Sf
-Sf
-gZ
+HJ
+US
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+US
+US
+TG
+YQ
+Pg
 Ih
-Sf
+Ra
 Ih
 Ih
-gZ
+Pg
 cj
-Sf
-Sf
+Ra
+Ra
 Ih
-gZ
-Ih
-Ih
-Ih
+Pg
+Zf
 Ih
 Ih
 Ih
 Ih
-gZ
-Dq
-gZ
-aS
+Ih
+Ih
+Ih
+Zf
+Lk
+Zf
 aS
 aS
 aS
@@ -18132,87 +18880,87 @@ aa
 aa
 aa
 aa
-aS
-aS
-aS
-ui
-XF
-XF
-XF
-XF
-Oy
-rD
-ui
-aS
-aS
 aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aS
 aS
-gZ
+YP
 Sf
-gZ
-gZ
-Ih
-gZ
-gZ
-gZ
-gZ
+xs
+Dj
 Sf
-gZ
-Sf
+Zz
+IS
+IS
+IS
+ut
+rW
+sq
 ip
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
+rW
+sq
+rW
+rW
+rW
+rW
 ip
-gZ
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-Sf
-gZ
+rW
+YQ
+Zo
+US
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+US
+US
+US
+KD
+YQ
+Pg
 Ih
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Ih
-Ih
-gZ
-Ih
-gZ
-gZ
-gZ
-gZ
+Ra
+IF
+Uu
+uH
+Uu
+Nx
 Ih
 Ih
+Pg
+Zf
+Ih
+Zf
+Zf
+Zf
+Zf
 Ih
 Ih
-gZ
-aS
+Ih
+Ih
+Zf
 aS
 aS
 aS
@@ -18230,13 +18978,13 @@ jd
 aa
 aa
 Fu
-al
-eE
-eE
-eE
-eE
-eE
-dO
+Fu
+Fu
+Fu
+hr
+hr
+hr
+hr
 hr
 ui
 XF
@@ -18250,99 +18998,99 @@ XF
 XF
 ui
 hr
-al
-eE
-eE
-eE
-eE
-eE
-dO
+hr
+hr
+hr
+hr
+hr
+Fu
+Fu
 Fu
 aa
 aa
 aa
-aS
-al
-eE
-eE
-Lz
-XF
-XF
-XF
-XF
-kk
-eE
-iH
-aS
-aS
+aa
+aa
+gQ
+gQ
+gQ
+gQ
+aa
+aa
+aa
+aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
-Ih
-Ih
-gZ
-Ih
-Ih
-Ih
-Ih
-gZ
-Ih
-gZ
-Sf
-ip
-gZ
+YP
 Sf
 Sf
+YP
+Sf
+ZG
+Sf
+Sf
+Sf
+YP
+rW
+sq
+ip
+rW
+sq
+sq
 ip
 ip
-gZ
+rW
 ip
-gZ
+rW
 YQ
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-Sf
-gZ
+HJ
+US
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+US
+US
+US
+US
+TG
+YQ
+Pg
 Ih
 Ih
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
+Ra
+Ra
+Ra
+Ra
+Pg
+Ra
+IF
+my
+Zf
 Ih
-gZ
+Zf
 Ih
 mv
-gZ
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -18360,13 +19108,13 @@ jd
 aa
 Fu
 Fu
-ui
-iP
-iP
-iP
-iP
-iP
-ui
+Fu
+hr
+hr
+hr
+hr
+hr
+hr
 hr
 ui
 XF
@@ -18380,99 +19128,99 @@ XF
 XF
 ui
 hr
-ui
-iP
-iP
-iP
-iP
-iP
-ui
+hr
+hr
+hr
+hr
+hr
+hr
 Fu
 Fu
+Fu
+aa
+gQ
+gQ
+gQ
+gQ
+zk
+FK
+gQ
+aa
+gQ
+gQ
+gQ
+gQ
+FK
+FK
+gQ
+aa
+aa
 aa
 aa
 aS
-ui
-XF
-XF
-XF
-XF
-XF
-XF
-XF
-TR
-dC
-ui
 aS
-aS
-aS
-aa
-aa
-aa
-aS
-aS
-gZ
-Ih
-gZ
-gZ
+YP
+Sf
+Zz
+SS
 Sf
 Sf
 Sf
+dZ
 Sf
-gZ
-Ih
-gZ
+YP
+rW
 ip
-Sf
-gZ
-gZ
-gZ
+sq
+rW
+rW
+rW
 ip
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
-qO
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
+rW
+rW
+sq
+rW
+YQ
+Zo
+US
+US
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+US
+US
+US
+US
+US
+KD
+YQ
+Pg
+Ra
 Ih
 Ih
-Sf
-gZ
+Ra
+vk
 Ih
-gZ
+Pg
 Ih
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
+Zf
 Ih
-gZ
-gZ
-gw
+Zf
+Zf
+FI
 Ih
-gZ
+Zf
 mv
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -18490,15 +19238,15 @@ jd
 aa
 Fu
 Fu
+hr
+hr
+hr
+hr
+hr
+hr
+hr
+hr
 ui
-iP
-iP
-iP
-iP
-iP
-am
-eE
-iH
 XF
 kk
 eE
@@ -18508,101 +19256,101 @@ eE
 eE
 bj
 XF
-ao
-eE
-Lz
-iP
-iP
-iP
-iP
-iP
 ui
+hr
+hr
+hr
+hr
+hr
+hr
+hr
+hr
 Fu
 Fu
 aa
+gQ
+TH
+FK
+FK
+FK
+FK
+gQ
 aa
-aS
-ui
-qp
-XF
-XF
-XF
-XF
-XF
-XF
-kk
-eE
-iH
-aS
-aS
-aa
-aa
+gQ
+TH
+FK
+FK
+FK
+FK
+gQ
 aa
 aa
+aa
+aa
 aS
 aS
-gZ
-gZ
-gZ
+AV
+IS
+SS
 Sf
-Ih
-gZ
-gZ
-Ih
-gZ
-Ih
-gZ
+Sf
+Zz
+IS
+ut
+Sf
+YP
+rW
 ip
-Sf
+sq
 ip
 ip
-Sf
-Sf
-gZ
+sq
+sq
+rW
 ip
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-FV
-gZ
-gZ
-gZ
-gZ
-FV
-gZ
-gZ
+sq
+rW
+YQ
+HJ
+US
+US
+US
+uy
+uy
+uy
+uy
+uy
+uy
+US
+US
+US
+US
+US
+US
+TG
+YQ
+Pg
 Ih
-gZ
+zP
+Uu
+Uu
+my
 Ih
-gZ
+Lm
+iq
+Ih
+Pg
+Zf
+Ih
+Zf
 Ih
 Ih
-gZ
-gZ
+Zf
+Zf
 Ih
-gZ
-gZ
-gZ
-aS
+Zf
+Zf
+Zf
 aS
 aS
 aS
@@ -18620,119 +19368,119 @@ jd
 aa
 aa
 Fu
-ui
-iP
-iP
-lG
-iP
-iP
-nI
-nI
-ui
-XF
-XF
-XF
-XF
+Fu
+hr
+hr
+hr
+hr
+hr
+hr
+hr
 ui
 XF
 XF
 XF
 XF
 ui
-nI
-nI
-iP
-iP
-lG
-iP
-iP
+XF
+XF
+XF
+XF
 ui
+hr
+hr
+hr
+hr
+hr
+hr
+hr
+hr
 Fu
 Fu
-Fu
 aa
-aS
-ui
-XF
-XF
-XF
-XF
-XF
-XF
-XF
-Jd
-yx
-ui
-aS
-aS
+gQ
+gQ
+gQ
+zk
+FK
+zk
+gQ
 aa
-aa
+gQ
+gQ
+gQ
+FK
+FK
+zk
+gQ
 aa
 aa
+aa
+aa
 aS
 aS
-gZ
+YP
 FP
 Sf
-Ih
-Ih
-gZ
 Sf
-Ih
-gZ
 Sf
-gZ
+YP
+Sf
+YP
+Sf
+YP
+rW
 ip
-Sf
+sq
 ip
-Sf
-Sf
-gZ
-gZ
+sq
+sq
+rW
+rW
 ip
 ip
-gZ
-Sf
-gZ
+rW
+YQ
+Zo
 US
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-Sf
-gZ
+US
+US
+US
+KX
+KX
+KX
+KX
+US
+US
+US
+US
+US
+US
+US
+KD
+YQ
+Pg
 Ih
-gZ
-Sf
+Pg
+Ra
 Ih
-gZ
-Sf
-gZ
+Pg
+Ra
+Kx
 Ih
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
-gZ
+Zf
+Zf
 Ih
 Ih
 Ih
 Ih
 Ih
 mv
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -18750,15 +19498,15 @@ jd
 aa
 aa
 Fu
-ui
-iP
-iP
-iP
-iP
-iP
-gm
-nI
-am
+Fu
+Fu
+hr
+hr
+hr
+hr
+al
+eE
+tZ
 eE
 eE
 dO
@@ -18768,101 +19516,101 @@ XF
 al
 eE
 eE
-Lz
-nI
-gm
-iP
-iP
-iP
-iP
-iP
-ui
-Fu
-Fu
-Fu
-aa
-aS
-am
-eE
+au
 eE
 dO
-XF
-XF
-XF
-XF
-kk
-eE
-iH
-aS
-aS
+hr
+hr
+hr
+hr
+hr
+Fu
+Fu
+Fu
+TM
+gQ
+Co
+FK
+FK
+zk
+Py
+gQ
+TM
+gQ
+oa
+zk
+FK
+zk
+La
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
-gZ
-gZ
-gZ
+AV
+IS
+IS
+Dj
 Sf
-gZ
-Ih
-Ih
-gZ
+YP
 Sf
-gZ
+ZG
 Sf
-gZ
-gZ
-gZ
-gZ
-gZ
+YP
+rW
+sq
+rW
+rW
+rW
+rW
+rW
 Kz
 ip
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
+sq
+rW
+YQ
+HJ
+US
+US
+US
+US
+US
+US
+US
+TG
 Sf
 Sf
 Sf
-gZ
 Sf
-gZ
-gZ
+Sf
+Sf
+Sf
+Sf
+YQ
+Pg
+Ra
+pG
+Nx
 Ih
-gZ
-Sf
-Sf
-Ih
-Ih
-gZ
-Ih
-gZ
+Pg
+Ra
+Ra
 Ih
 Ih
-gZ
-gZ
-gZ
+Pg
+Zf
+Ih
+Zf
+Ih
+Ih
+Zf
+Zf
+Zf
 Ih
 mv
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -18880,119 +19628,119 @@ jd
 aa
 Fu
 Fu
+Fu
+Fu
+hr
+hr
+hr
+hr
 ui
-iP
-iP
-iP
-iP
-iP
-ui
-nI
-nI
-nI
-nI
+of
+XF
+wL
+wg
 ui
 XF
 ui
 XF
 ui
-nI
-nI
-nI
-nI
+Pe
+XF
+XF
+CX
 ui
-iP
-iP
-iP
-iP
-iP
-ui
+hr
+hr
+hr
+hr
+Fu
+Fu
 Fu
 Fu
 aa
-aa
-aS
-aS
-aS
-aS
-ui
-XF
-XF
-XF
-XF
+gQ
+gQ
+gQ
 FK
-Ji
-ui
-aS
-aS
+zk
+zk
+gQ
+aa
+gQ
+gQ
+gQ
+zk
+FK
+zk
+gQ
 aa
 aa
 aa
 aS
 aS
 aS
-gZ
+YP
 mj
 Sf
-gZ
-gZ
-gZ
-Ih
+Uq
+IS
+SS
 Sf
-gZ
-gZ
-gZ
 Sf
+Sf
+YP
+rW
+sq
 ip
 ip
 ip
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-ig
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
+sq
+rW
+rW
+rW
+rW
+rW
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+qq
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+Pg
+Ra
+Ra
+Pg
+Ra
+pG
+Uu
+Uu
+iq
+Ra
+Pg
+Zf
 Ih
 Ih
 Ih
 Ih
 Ih
 Ih
-gZ
+Zf
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -19010,119 +19758,119 @@ jd
 aa
 Fu
 Fu
-am
-eE
-eE
-eE
-eE
-eE
-iH
-nI
-nI
-nI
-nI
+Fu
+Fu
+Fu
+hr
+hr
+hr
 ui
+Zb
+XF
+XF
+XF
+xy
 XF
 ui
 XF
+xy
+XF
+XF
+XF
+VF
 ui
-nI
-nI
-nI
-nI
-ao
-eE
-eE
-eE
-eE
-eE
-Lz
+hr
+hr
+hr
+hr
+Fu
+Fu
 Fu
 aa
 aa
+gQ
+TH
+FK
+zk
+zk
+FK
+gQ
+aa
+gQ
+TH
+zk
+FK
+FK
+FK
+gQ
 aa
 aa
 aa
 aS
 aS
-am
-eE
-eE
-eE
-eE
-eE
-eE
-Lz
 aS
-aa
-aa
-aa
-aa
-aS
-aS
-aS
-gZ
-Sf
-Ih
-Ih
-Ih
-Ih
-Ih
+YP
 Sf
 Sf
 Sf
-gZ
 Sf
 Sf
+Sf
+Sf
+Sf
+YP
+rW
+sq
+sq
 ip
-Sf
-Sf
+sq
+sq
 ip
 ip
 ip
-Sf
-gZ
-Sf
-Sf
-gZ
+sq
+rW
+YQ
 Sf
 Sf
 Sf
 Sf
+mM
+lU
+YQ
+Sf
+Ti
+Sf
+YQ
+IY
+YV
 Sf
 Sf
-gZ
 Sf
 Sf
-FV
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
+YQ
+Pg
 uZ
-Sf
-gZ
-Sf
-Sf
+Ra
+Pg
+Ra
+Ra
 Ih
 Ih
+FV
 Ih
-Ih
-gZ
-gZ
+Pg
+Zf
+Zf
 Ih
 mv
-gZ
-gZ
+Zf
+Zf
 Ih
 Ih
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -19147,19 +19895,19 @@ hr
 hr
 hr
 ui
-nI
-nI
-nI
-nI
+yc
+XF
+wL
+Ro
 ui
 XF
 ui
 XF
 ui
-nI
-nI
-nI
-nI
+Pe
+XF
+XF
+CX
 ui
 hr
 hr
@@ -19170,89 +19918,89 @@ Fu
 Fu
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+zk
+FK
+gQ
+aa
+gQ
+gQ
+gQ
+gQ
+zk
+zk
+gQ
 aa
 aa
 aa
-aa
 aS
 aS
 aS
-aS
-aS
-aS
-aS
-aS
-aS
-aS
-aa
-aa
-aa
-aa
-aS
-aS
-aS
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-aS
+AV
+IS
+IS
+IS
+IS
+IS
+IS
+IS
+IS
+ut
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+Sf
+YQ
+YQ
+YQ
+YQ
+mV
+YQ
+Sf
+Sf
+Sf
+YQ
+mV
+YQ
+YQ
+YQ
+YQ
+Sf
+YQ
+Lm
+Uu
+Uu
+uH
+Uu
+Uu
+Uu
+mC
+Uu
+Uu
+my
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 aS
 aS
 aS
@@ -19303,86 +20051,86 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+aa
+aa
+aa
+aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa
 aS
 aS
 aS
-aa
-aa
-aS
-aS
-aa
-aa
-gr
-aa
-aa
-aS
-aS
-aS
-gZ
-Ih
-Ih
-Ih
+YP
 Sf
 Sf
 Sf
-Ih
 Sf
-wy
-gZ
 Sf
+Sf
+Sf
+Kc
+YP
+rW
+sq
 ip
 ip
-Sf
-Sf
-Sf
+sq
+sq
+sq
 ip
 ip
 ip
-gZ
+rW
+YQ
+pb
+YQ
+Zo
+ra
+TG
+iB
+YQ
 Sf
 Sf
 Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-wr
-gZ
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-FV
-Sf
-gZ
+YQ
+iB
+Zo
+ra
+TG
+YQ
+pb
+YQ
+Pg
 Ih
 Ih
-Sf
-Sf
-Sf
-Sf
-gZ
+Ra
+Ra
+Ra
+Ra
+Pg
 Ih
 Ho
-gZ
-gZ
-gZ
+Pg
+Zf
+Zf
+Zf
 Ih
 Ih
 Ih
 Ih
 Ih
 Ih
-gZ
-gZ
-aS
+Zf
+Zf
 aS
 aS
 aS
@@ -19451,68 +20199,68 @@ aa
 aS
 aS
 aS
-gZ
+YP
 Sf
-Ih
-gZ
-Ih
-Ih
-gZ
-Ih
-Ih
-Ih
-gZ
+xs
+Dj
 Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+Sf
+dZ
+Sf
+Sf
+YP
+rW
+sq
+rW
+rW
+rW
+rW
+rW
+rW
+rW
 ip
-gZ
+rW
 YQ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
+mV
+YQ
+iB
+Zo
+KD
+iB
+YQ
 Sf
 Sf
-gZ
-gZ
-gZ
-gZ
 Sf
-gZ
-Ih
-gZ
-gZ
-Ih
-gZ
+YQ
+iB
+iB
 Sf
-gZ
+iB
+YQ
+mV
+YQ
+Pg
+Ih
+zP
+iq
+FV
+vk
+Ra
+Pg
 Ih
 Ih
-gZ
+Pg
+Zf
 Ih
 Ih
 Ih
-gZ
+Zf
 mv
 Ih
-gZ
+Zf
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -19563,86 +20311,86 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-gr
-aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aS
 aS
 aS
 aS
-gZ
+YP
 Sf
 Sf
-gZ
-Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+YP
+Sf
+Zz
+lz
+IS
+IS
+ut
+rW
 ip
-gZ
+rW
 ip
 ip
 ip
+sq
+rW
+sq
+sq
+rW
+YQ
+HJ
+US
+KD
+WW
 Sf
-gZ
-Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
-gZ
-Sf
-gZ
+iB
+YQ
 Sf
 Sf
 Sf
+YQ
+iB
+iB
 Sf
-gZ
+HJ
+ra
+KD
+YQ
+Pg
 Ih
-gZ
+Pg
 Ih
 Ih
-gZ
+Pg
 Ih
-gZ
-gZ
+Pg
 Ih
-gZ
 Ih
-gZ
-gZ
-gZ
-gZ
+Pg
+Zf
 Ih
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
 Ih
-gZ
-aS
+Zf
+Zf
+Ih
+Zf
 aS
 aS
 aS
@@ -19690,89 +20438,89 @@ Fu
 aa
 aa
 aa
-gr
+gQ
+gQ
+gQ
+gQ
+zk
+FK
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
+FK
+FK
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-gZ
+YP
 Sf
-gZ
-gZ
-Ih
-gZ
+xs
+ut
+Sf
+YP
 dK
 Sf
-Ih
-Ih
-gZ
-ip
-gZ
 Sf
-gZ
+YP
+rW
+ip
+rW
+sq
+rW
 KA
-Sf
-gZ
+sq
+rW
 ip
 ip
-gZ
+rW
+YQ
+Zo
+US
+US
+KD
 Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
+iB
+YQ
 Sf
 Sf
-gZ
 Sf
-Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
+YQ
+mV
+mV
+YQ
+YQ
+YQ
+YQ
+YQ
+Pg
+Ra
+pG
+Uu
+mC
+cJ
 Ih
-gZ
-gZ
+pG
+Nx
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
+Zf
 mv
 mv
-gZ
+Zf
 mv
-gZ
+Zf
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -19819,90 +20567,90 @@ Fu
 Fu
 Fu
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+TM
+gQ
+ma
+FK
+zk
+FK
+FK
+gQ
+TM
+gQ
+Qd
+zk
+FK
+zk
+FK
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-gZ
-Ih
-Ih
-gZ
+YP
 Sf
-gZ
-gZ
-gZ
-gZ
-Ih
-gZ
+Sf
+YP
+Sf
+AV
+IS
+Th
+Sf
+YP
+rW
 ip
-gZ
-Sf
-gZ
-gZ
-gZ
-Sf
+rW
+sq
+rW
+rW
+rW
+rW
 ip
-gZ
-gZ
+rW
+rW
+YQ
+HJ
+US
+US
+US
+TG
+iB
+YQ
+pb
+pb
+pb
+YQ
+mV
+Ty
+rd
 Sf
-gZ
-Sf
-gZ
-KK
 Sf
 Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
+YQ
+Pg
+Ra
 Ih
 Ih
-gZ
+Pg
 Dc
-Sf
-Sf
-gZ
+Ra
+Ra
+Pg
 Ih
-gZ
+Pg
+Zf
 Ih
 Ih
 Ih
 mv
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
 Ih
-gZ
-gZ
-aS
+Zf
+Zf
 aS
 aS
 aa
@@ -19927,7 +20675,7 @@ Fu
 Fu
 hr
 ui
-aI
+Ij
 XF
 XF
 XF
@@ -19950,89 +20698,89 @@ Fu
 aa
 aa
 aa
+gQ
+gQ
+gQ
+FK
+FK
+zk
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+FK
+FK
+zk
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-gZ
-Sf
-Ih
-gZ
-Sf
-gZ
+YP
 Sf
 Sf
-gZ
-Ih
-gZ
+YP
+Sf
+YP
 Sf
 Sf
+Sf
+YP
+rW
+sq
+sq
 ip
-gZ
+rW
 ip
 ip
+sq
+sq
+rW
+rW
+YQ
 Sf
-gZ
-gZ
-gZ
 Sf
-gZ
 Sf
-gZ
-gZ
-gZ
 Sf
-gZ
-Sf
-gZ
-Sf
-gZ
+WW
+HJ
+ru
 QF
+mV
+Ty
+ru
+QF
+YQ
+YQ
+YQ
+YQ
 Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-gZ
-Sf
+YQ
+Pg
+Ra
 Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
+zP
+uH
+Uu
+Uu
+Uu
+my
+Ra
+Pg
+Zf
 Ih
-gZ
-gZ
-gZ
-gZ
-Uy
+Zf
+Zf
+Zf
+Zf
+xL
 Ih
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aa
 aa
@@ -20080,89 +20828,89 @@ aa
 aa
 aa
 aa
+gQ
+TH
+FK
+zk
+FK
+By
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+TR
+FK
+zk
+FK
+Tn
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-gZ
+YP
 Sf
-gZ
-gZ
-gZ
-gZ
-Ih
-gZ
-gZ
+Zz
+lz
+IS
+ut
 Sf
-gZ
-Sf
+Zz
+IS
+ut
+rW
+sq
 ip
 ip
-gZ
+rW
 ip
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
+rW
+rW
+rW
+rW
+rW
 YQ
 Sf
 Sf
+YQ
+YQ
+qq
+YQ
+YQ
 Sf
-gZ
+HJ
+ra
+ra
+rc
+ra
+TG
+YQ
+YQ
 Sf
-gZ
-FV
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-Sf
+YQ
+Pg
+Ra
+IF
+my
+Ra
 Ih
 Ih
 Ih
-gZ
-Sf
-gZ
+Pg
+Ra
+Pg
+Zf
 Ih
 Ih
-gZ
+Zf
 mv
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-aS
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 aS
 aS
 aa
@@ -20210,89 +20958,89 @@ aa
 aa
 aa
 aa
-gr
+gQ
+gQ
+Oy
+zk
+FK
+zk
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+FK
+FK
+zk
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-aS
-gZ
-Ih
-gZ
+YP
 Sf
-Ih
-Ih
-Ih
+ZG
 Sf
 Sf
-Ih
-gZ
-gZ
-gZ
-gZ
-gZ
+ZG
 Sf
+ZG
 Sf
+YP
+rW
+rW
+rW
+rW
+rW
+sq
+sq
 ip
 ip
-Sf
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
+sq
+rW
+YQ
 Sf
 Sf
+YQ
 Sf
-gZ
+Ti
+Sf
+YQ
 Sf
 Sf
 Sf
 Sf
+HJ
+TG
+HJ
+ru
+YV
 Sf
-gZ
-Sf
+YQ
+Pg
+Ra
 Ih
-gZ
-gZ
-gZ
+pG
+Uu
+iq
 Ih
-gZ
-gZ
-Sf
-gZ
+IF
+cJ
+Ra
+Pg
+Zf
 Ih
 Ih
-gZ
+Zf
 mv
 mv
 Ih
 Ih
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aa
@@ -20317,15 +21065,15 @@ hr
 ui
 bH
 ah
-ah
+SU
 hG
 ah
 XF
 ah
 hG
+SU
 ah
-ah
-aI
+vE
 ui
 XF
 XF
@@ -20340,89 +21088,89 @@ aa
 aa
 aa
 aa
+gQ
+TH
+zk
+FK
+FK
+FK
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+TH
+zk
+zk
+zk
+FK
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-aS
-gZ
-Ih
-Ih
-Ih
+YP
 Sf
 Sf
 Sf
 Sf
-Ih
-Ih
-gZ
 Sf
 Sf
+Sf
+Sf
+YP
+rW
+sq
+sq
 ip
 ip
-Sf
+sq
 ip
 ip
-Sf
+sq
 Ba
-gZ
+rW
+YQ
+Sf
+Sf
+YQ
+Sf
+Sf
+Sf
+YQ
 Sf
 Sf
 Sf
 Sf
 Sf
+WW
 Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-vS
-gZ
-Sf
+YQ
+YQ
+YQ
+YQ
+Pg
+Ra
 Ih
 Ih
 Ih
-Sf
+Ra
 Ih
 Ih
-FV
-Sf
-gZ
-Ih
-Ih
-Ih
-Ih
+Ra
+Ra
+Pg
+Zf
 Ih
 Ih
 Ih
 Ih
-RB
-gZ
-aS
+Ih
+Ih
+Ih
+Ih
+xZ
+Zf
 aS
 aS
 aS
@@ -20448,11 +21196,11 @@ ui
 aI
 ah
 jU
-iR
+wG
 lo
 XF
 xV
-iR
+BT
 bk
 ah
 bH
@@ -20470,89 +21218,89 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+zk
+FK
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
+zk
+FK
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-aS
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-aS
+AV
+IS
+IS
+Kk
+IS
+IS
+IS
+IS
+Kk
+ut
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+Sf
+Sf
+YQ
+Sf
+Sf
+Sf
+YQ
+Sf
+Sf
+YQ
+YQ
+YQ
+Ty
+ru
+ru
+ru
+TG
+YQ
+Lm
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+my
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 aS
 aS
 aS
@@ -20578,11 +21326,11 @@ ui
 bH
 ah
 jU
-iR
+Ci
 lo
 XF
 xV
-iR
+Ci
 bk
 ah
 bH
@@ -20603,76 +21351,77 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-gZ
+YP
 Xg
 Sf
-gZ
-Ih
-Ih
-Sf
-gZ
-gZ
-Sf
-gZ
+YP
 Sf
 Sf
+Sf
+Sf
+ZG
+YP
+rW
+sq
+sq
 ip
-Sf
+sq
 ip
 ip
-Sf
+sq
 ip
-Sf
-gZ
-ER
-gZ
-Aa
+sq
+rW
+YQ
 Sf
 Sf
-Sf
+YQ
 Sf
 Sf
 Sf
-gZ
+YQ
 Sf
 Sf
-Sf
+YQ
 Sf
 Sf
 Sf
 Sf
-Sf
-Sf
-gZ
+Uf
+lU
+WW
+YQ
+Pg
 aL
 Ih
 Ih
 Ih
-Sf
+Ra
 Ih
 Ih
 Ih
-Sf
-gZ
-gZ
+Ra
+Pg
+Zf
+Zf
 mv
 Ih
 Ih
@@ -20681,8 +21430,7 @@ Ih
 Ih
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -20709,13 +21457,13 @@ bH
 ah
 jU
 Mw
-lo
+Dn
 VR
-xV
+Qc
 Mw
 bk
 ah
-aI
+UE
 ui
 bm
 yA
@@ -20751,68 +21499,68 @@ aS
 aS
 aS
 aS
-gZ
-Ih
-Ih
-gZ
-Ih
-gZ
-Ih
+YP
 Sf
 Sf
+YP
+Sf
+dZ
+Sf
+Sf
+Sf
+YP
+rW
+ip
+rW
+rW
+rW
+rW
+rW
+ip
+ip
+ip
+rW
+YQ
+Sf
+Sf
+YQ
+Sf
+Sf
+Sf
+YQ
+Sf
+Sf
+YQ
+pb
+YQ
+YQ
+YQ
+YQ
+qq
+WW
+YQ
+Pg
 Ih
-gZ
-ip
-ip
-ip
-gZ
-gZ
-gZ
-ip
-ip
-ip
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
+Ih
+zP
+Uu
+Uu
+Nx
 FV
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
-Sf
-Sf
-gZ
+vk
+Ra
+Pg
+Zf
+Zf
 Ih
 Ih
-gZ
-gZ
-gZ
-gZ
-FV
-gZ
-Sf
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
+Zf
 Ih
-Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -20835,7 +21583,7 @@ Fu
 hr
 hr
 ui
-aI
+bH
 ah
 ct
 hR
@@ -20863,86 +21611,86 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
 aa
 aS
 aS
 aS
 aS
 aS
-gZ
-Ih
-gZ
-gZ
+YP
 Sf
-gZ
-Ih
-gZ
-gZ
-Ih
-gZ
+Zz
+SS
 Sf
-gZ
-gZ
+YP
 Sf
+dZ
 Sf
-gZ
-gZ
-gZ
+YP
+rW
+sq
+rW
+rW
+sq
+sq
+rW
+rW
+rW
 ip
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
+rW
+YQ
 Sf
 Sf
-gZ
-Sf
-gZ
+YQ
 Sf
 Sf
 Sf
-gZ
-Sf
-gZ
-gZ
+YQ
 Sf
 Sf
-gZ
-gZ
-gZ
-gZ
+YQ
+qq
+YQ
+Sf
+Sf
+Sf
+WW
+WW
+YQ
+Lm
+Uu
+Uu
+my
 Ej
-Sf
-gZ
+Ra
+Pg
 Ih
-gZ
+Pg
 Ih
-gZ
+Pg
+Zf
 Ih
 Ih
 Ih
-gZ
+Zf
 mv
-gZ
+Zf
 Ih
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -20972,7 +21720,7 @@ iR
 vQ
 Jw
 Mw
-iR
+yD
 va
 ah
 kk
@@ -20990,89 +21738,89 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+FK
+zk
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
+zk
+FK
+gQ
 aa
 aa
 aa
 aS
 aS
 aS
-gZ
-Ih
-gZ
+YP
+Sf
+YP
 KB
 Sf
-gZ
-Ih
-gZ
-Ih
-Ih
-gZ
+YP
 Sf
-gZ
+YP
+Sf
+YP
+rW
+sq
+rW
 Jq
-Sf
+sq
 ip
 ip
-Sf
-Sf
+sq
+sq
 ip
-gZ
-Sf
+rW
 YQ
 Sf
 Sf
-gZ
-gZ
+YQ
+pb
 Sf
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-gZ
+pb
+YQ
 Sf
 Sf
 Sf
-gZ
+WW
 Sf
 Sf
-gZ
-gZ
 Sf
-gZ
 Sf
-gZ
+WW
+WW
+YQ
+Pg
+Ra
+Ra
+pG
+iq
+Ra
+Pg
+Ra
+Pg
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
+Zf
 Ih
 Ih
 Ih
-gZ
+Zf
 Ih
-gZ
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -21120,89 +21868,89 @@ aa
 aa
 aa
 aa
+gQ
+TH
+FK
+zk
+zk
+zk
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+TR
+FK
+FK
+FK
+FK
+gQ
 aa
 aa
 aa
 aS
 aS
 aS
-gZ
+YP
 Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+AV
+IS
+IS
+lz
+Kk
+SS
 Sf
-gZ
-gZ
+YP
+rW
 qV
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-Sf
-gZ
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+sq
+rW
+YQ
 Sf
 Sf
-gZ
-Sf
-gZ
-Sf
-gZ
-gZ
-xE
-Sf
-gZ
-gZ
-gZ
-Sf
-gZ
+YQ
+mV
+YQ
+Ty
+ru
+US
+US
+US
+eg
+US
+US
+US
+US
+KD
+WW
+YQ
+Pg
 Ih
 Ih
 Ih
-Sf
+Ra
 Ih
-gZ
-gZ
-gZ
-Sf
-gZ
+pG
+mC
+cJ
+Ra
+Pg
+Zf
 Ih
-gZ
-gZ
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
+Zf
 Ih
-gZ
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -21250,89 +21998,89 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+zk
+FK
+zk
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+FK
+FK
+zk
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
+YP
 Sf
-gZ
-Ih
-Ih
+ZG
 Sf
-gZ
-Ih
 Sf
-gZ
-gZ
+Sf
+YP
+Sf
+Sf
+YP
+rW
 qV
 qV
-Sf
-Sf
-Sf
+sq
+sq
+sq
 ip
 ip
-gZ
-Sf
-gZ
-Sf
-Sf
-gZ
-gZ
-gZ
-Sf
-Sf
+rW
+sq
+rW
 YQ
-Sf
-gZ
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-Sf
-gZ
-Sf
-gZ
+YQ
+YQ
+YQ
+Ty
+ru
+ru
+ru
+US
+US
+US
+eg
+US
+US
+US
+US
+US
+KD
+YQ
+Pg
 Ih
-gZ
-gZ
-gZ
+IF
+Uu
+Nx
 Ih
 Ih
-gZ
+Pg
 Ih
 Ih
-gZ
+Pg
+Zf
 Ih
-gZ
+Zf
 mv
 Ih
-gZ
-GR
+Zf
+Uh
 Ih
-gZ
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -21355,16 +22103,16 @@ Fu
 hr
 hr
 ui
-aI
 bH
 bH
-aI
+Dg
 bH
 bH
-aI
+Wk
+bH
+pQ
 bH
 bH
-aI
 bH
 ui
 hr
@@ -21380,89 +22128,89 @@ aa
 aa
 aa
 aa
+gQ
+TH
+FK
+zk
+FK
+oe
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+TH
+FK
+FK
+FK
+lM
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
-Ih
-Sf
-Ih
-gZ
-Sf
-gZ
-Ih
-Ih
-Sf
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
+YP
 Sf
 Sf
-gZ
+Sf
+dZ
+Sf
+YP
+Sf
+Sf
+YP
+rW
+rW
+rW
+rW
+sq
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+wU
+Sf
+Sf
+Sf
+Sf
+Uf
+ru
+US
+US
+US
+KD
+Sf
+Sf
 Sf
 Sf
 Sf
 Sf
 YQ
-Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
-gZ
-Sf
-gZ
+Pg
 Ih
 Ih
 Ih
-gZ
-gZ
-gZ
-gZ
-Sf
-Sf
-gZ
+Lm
+Uu
+Uu
+my
+Ra
+Ra
+Pg
+Zf
 Ih
-gZ
-gZ
+Zf
+Zf
 Ih
-gZ
-gZ
-gZ
-gZ
+Zf
+Zf
+Zf
+Zf
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -21510,89 +22258,89 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+FK
+zk
+FK
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+FK
+FK
+zk
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
-Ih
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Ih
-gZ
+YP
 Sf
+xs
+IS
+lz
+IS
+lz
+Th
+Sf
+YP
+rW
+sq
 ip
 ip
-Sf
+sq
 ip
+sq
+sq
+rW
+sq
+rW
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
 Sf
 Sf
-gZ
-Sf
-gZ
 Sf
 Sf
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-Sf
-gZ
-vF
 Sf
 Sf
-gZ
-gZ
-gZ
-gZ
 Sf
 Sf
-gZ
-FV
-gZ
-gZ
-gZ
-gZ
+Sf
+Sf
+YQ
+Pg
 Ih
-gZ
-gZ
-Sf
-gZ
+IF
+Uu
+cJ
 Ih
 Ih
-gZ
+pG
+iq
+Ra
+Pg
+Zf
 Ih
 Ih
-gZ
+Zf
+Ih
+Ih
+Zf
 Ih
 Ih
 Ih
-gZ
-aS
+Zf
 aS
 aS
 aS
@@ -21639,90 +22387,90 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+TM
+gQ
+xm
+FK
+zk
+zk
+FK
+gQ
+TM
+gQ
+Pq
+FK
+FK
+zk
+zk
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
+YP
 Sf
 Sf
-Ih
-Ih
 Sf
 Sf
-Ih
-Ih
-Ih
-gZ
+Sf
+Sf
+Sf
+Sf
+YP
+rW
 QQ
 ip
-Sf
+sq
 ip
 ip
-gZ
+rW
 ip
 ip
-Sf
-gZ
-Sf
-Sf
-Sf
+sq
+rW
+YQ
 Sf
 Sf
 Sf
 Sf
 Sf
 Sf
-gZ
 Sf
 Sf
 Sf
 Sf
 Sf
-FV
 Sf
 Sf
 Sf
-gZ
+Sf
+Sf
+Sf
+YQ
+Pg
 Ih
-Sf
-Sf
-Sf
+Ra
+Ra
+Ra
 Ih
 Ih
 Ih
-Sf
-Sf
-gZ
+Ra
+Ra
+Pg
+Zf
+TY
+Ih
 Zf
 Ih
-gZ
 Ih
 Ih
 Ih
-Ih
-gZ
-gZ
-gZ
-aS
+Zf
+Zf
+Zf
 aS
 aS
 aS
@@ -21770,89 +22518,89 @@ aa
 aa
 aa
 aa
+gQ
+gQ
+gQ
+gQ
+zk
+zk
+gQ
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
+FK
+FK
+gQ
 aa
 aa
 aa
 aa
 aS
 aS
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-gZ
-mI
-aS
+Uq
+IS
+IS
+IS
+IS
+IS
+IS
+IS
+IS
+SS
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+rW
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+YQ
+yC
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+Uu
+cJ
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 aS
 aS
 aS
@@ -21903,18 +22651,18 @@ aa
 aa
 aa
 aa
-aa
-gr
-aa
-aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa
 aa
-aa
-aa
+gQ
+gQ
+gQ
+gQ
 aa
 aa
 aa

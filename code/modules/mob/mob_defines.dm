@@ -6,7 +6,15 @@
 	pressure_resistance = 8
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
+	pass_flags_self = PASSMOB
+
+	see_in_dark = DEFAULT_SEE_IN_DARK
+
+	///Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay
+	var/nightvision = 0
+
 	var/datum/mind/mind
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
@@ -53,6 +61,7 @@
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
+	var/exploit_record = ""
 	var/lying = 0
 	var/lying_prev = 0
 	var/lastpuke = 0
@@ -210,7 +219,7 @@
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
-	var/list/permanent_huds = list()
+	var/list/huds_counter = list("huds" = list(), "icons" = list()) // Counters for huds and icon types
 
 	var/list/actions = list()
 	var/list/datum/action/chameleon_item_actions
@@ -227,3 +236,5 @@
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
 	var/last_emote = null
+
+	var/ghost_orbiting = 0

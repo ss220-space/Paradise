@@ -99,9 +99,9 @@
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
 	return cell
 
-/obj/item/clothing/gloves/color/yellow/stun/New()
-	..()
-	update_icon()
+/obj/item/clothing/gloves/color/yellow/stun/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/gloves/color/yellow/stun/Destroy()
 	QDEL_NULL(cell)
@@ -132,12 +132,13 @@
 			return TRUE
 	return FALSE
 
-/obj/item/clothing/gloves/color/yellow/stun/update_icon()
-	..()
-	overlays.Cut()
-	overlays += "gloves_wire"
+
+/obj/item/clothing/gloves/color/yellow/stun/update_overlays()
+	. = ..()
+	. += "gloves_wire"
 	if(cell)
-		overlays += "gloves_cell"
+		. += "gloves_cell"
+
 
 /obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -147,7 +148,7 @@
 				return
 			cell = W
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 	else
@@ -161,7 +162,7 @@
 		to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
 		cell.forceMove(get_turf(loc))
 		cell = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/gloves/color/yellow/stun/emp_act()
 	if(!ishuman(loc))
@@ -231,6 +232,10 @@
 	extra_knock_chance = 5
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
+
+/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(increase)
+	razor_damage_low += increase
+	razor_damage_high += increase
 
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE

@@ -69,7 +69,7 @@
 	if(bounces >= 1)
 		var/list/possible_targets = list()
 		for(var/mob/living/M in view(targeting.range, target))
-			if(user == M || target == M && targeting.obstacle_check(target, M))
+			if(user == M || target == M || !is_path_exist(target, M, PASSTABLE))
 				continue
 			possible_targets += M
 		if(!length(possible_targets))

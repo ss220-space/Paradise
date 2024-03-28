@@ -41,7 +41,7 @@
 /mob/proc/run_quick_equip()
 	var/obj/item/I = get_active_hand()
 	if(!I)
-		to_chat(src, SPAN_WARNING("Вы ничего не держите в руке!"))
+		to_chat(src, span_warning("Вы ничего не держите в руке!"))
 		return
 
 	if(!QDELETED(I))
@@ -63,7 +63,7 @@
 
 	if(I.equip_delay_self)
 		if(!silent)
-			to_chat(src, SPAN_WARNING("Вы должны экипировать [I] вручную!"))
+			to_chat(src, span_warning("Вы должны экипировать [I] вручную!"))
 		return FALSE
 
 	var/priority_list = list( \
@@ -83,7 +83,7 @@
 		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			drop_item_ground(I)
 		else
-			forceMove(drop_location())
+			I.forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
@@ -121,7 +121,7 @@
 		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 			drop_item_ground(I)
 		else
-			forceMove(drop_location())
+			I.forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
@@ -180,7 +180,7 @@
 			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 				drop_item_ground(I)
 			else
-				forceMove(drop_location())
+				I.forceMove(drop_location())
 			return FALSE
 
 		if(qdel_on_fail)
@@ -212,10 +212,14 @@
 
 
 /**
- * Returns `TRUE` if item is in mob's left or right hand
+ * Returns item if its in mob's left or right hand
  */
 /mob/proc/is_in_hands(obj/item/I)
-	return I == l_hand || I == r_hand
+	if(I == l_hand)
+		return l_hand
+	if(I == r_hand)
+		return r_hand
+	return null
 
 
 /**
@@ -288,7 +292,7 @@
  * DO NO USE THIS PROC, there are plenty of helpers below: put_in_l_hand, put_in_active_hand, put_in_hands etc.
  * Puts an item into hand by `hand_id` ("HAND_LEFT" / "HAND_RIGHT") and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
-/mob/proc/put_in_hand(obj/item/I, hand_id, force = FALSE, ignore_anim = TRUE)
+/mob/proc/put_in_hand(obj/item/I, hand_id, force = FALSE, ignore_anim = TRUE, silent = FALSE)
 
 	// Its always 'TRUE' if there is no item, since we are using helpers with this proc in 'if()' statements
 	if(!I)
@@ -306,7 +310,7 @@
 	else if(hand_id == "HAND_RIGHT")
 		hand_item = r_hand
 	if(hand_item)
-		drop_item_ground(hand_item, force = TRUE)
+		drop_item_ground(hand_item, force = TRUE, silent = silent)
 
 	I.forceMove(src)
 	I.pixel_x = initial(I.pixel_x)
@@ -314,11 +318,11 @@
 
 	if(hand_id == "HAND_LEFT")
 		l_hand = I
-		I.equipped(src, slot_l_hand)
+		I.equipped(src, slot_l_hand, silent)
 		update_inv_l_hand()
 	else if(hand_id == "HAND_RIGHT")
 		r_hand = I
-		I.equipped(src, slot_r_hand)
+		I.equipped(src, slot_r_hand, silent)
 		update_inv_r_hand()
 
 	if(pulling == I)
@@ -343,35 +347,35 @@
 /**
  * Puts item into `l_hand` if possible and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
-/mob/proc/put_in_l_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)
-	return put_in_hand(I, "HAND_LEFT", force, ignore_anim)
+/mob/proc/put_in_l_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
+	return put_in_hand(I, "HAND_LEFT", force, ignore_anim, silent)
 
 
 /**
  * Puts item into `r_hand` if possible and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
-/mob/proc/put_in_r_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)
-	return put_in_hand(I, "HAND_RIGHT", force, ignore_anim)
+/mob/proc/put_in_r_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
+	return put_in_hand(I, "HAND_RIGHT", force, ignore_anim, silent)
 
 
 /**
  * Puts item into active hand if possible. Returns `TRUE` on success.
  */
-/mob/proc/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)
+/mob/proc/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
 	if(hand)
-		return put_in_l_hand(I, force, ignore_anim)
+		return put_in_l_hand(I, force, ignore_anim, silent)
 	else
-		return put_in_r_hand(I, force, ignore_anim)
+		return put_in_r_hand(I, force, ignore_anim, silent)
 
 
 /**
  * Puts item into inactive hand if possible. Returns `TRUE` on success.
  */
-/mob/proc/put_in_inactive_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)
+/mob/proc/put_in_inactive_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
 	if(hand)
-		return put_in_r_hand(I, force, ignore_anim)
+		return put_in_r_hand(I, force, ignore_anim, silent)
 	else
-		return put_in_l_hand(I, force, ignore_anim)
+		return put_in_l_hand(I, force, ignore_anim, silent)
 
 
 /**
@@ -384,8 +388,9 @@
  * * 'qdel_on_fail' qdels item if failed to pick in both hands.
  * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
  * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
+ * * 'silent' set to `TRUE` to stop pick up sounds.
  */
-/mob/proc/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
+/mob/proc/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
 	return FALSE
 
 
@@ -581,14 +586,14 @@
 	if((I.flags & NODROP) && !force)
 		if(!(I.flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
 			can_unEquip_message_delay = world.time
-			to_chat(src, SPAN_WARNING("Неведомая сила не позволяет Вам снять [I]."))
+			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I]."))
 		return FALSE
 
 	// Checking clothing obscuration
 	if(I.is_obscured_for_unEquip(src) && !force)
 		if((world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
 			can_unEquip_message_delay = world.time
-			to_chat(src, SPAN_WARNING("Вы не можете снять [I], слот закрыт другой одеждой."))
+			to_chat(src, span_warning("Вы не можете снять [I], слот закрыт другой одеждой."))
 		return FALSE
 
 	//Possible component blocking

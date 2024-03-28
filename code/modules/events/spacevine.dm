@@ -104,12 +104,13 @@
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
-	broken_states = list()
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+/turf/simulated/floor/vines/broken_states()
+	return list()
 
 //All of this shit is useless for vines
 
@@ -701,11 +702,12 @@
 	if(!override)
 		wither()
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target, height=0)
+
+/obj/structure/spacevine/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(isvineimmune(mover))
-		. = TRUE
-	else
-		. = ..()
+		return TRUE
+
 
 /proc/isvineimmune(atom/A)
 	. = FALSE

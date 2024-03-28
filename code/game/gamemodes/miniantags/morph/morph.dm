@@ -30,7 +30,7 @@
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
 	wander = 0
@@ -70,9 +70,7 @@
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
 		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.", "Отдел Центрального Командования по биологическим угрозам.", 'sound/AI/commandreport.ogg')
 		GLOB.morphs_announced = TRUE
-		cancel_call_proc(usr)
-	else
-		return
+		SSshuttle.emergency.cancel()
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
@@ -392,6 +390,19 @@
 		messages.Add(mind.prepare_announce_objectives(FALSE))
 
 	to_chat(src, chat_box_red(messages.Join("<br>")))
+
+
+/mob/living/simple_animal/hostile/morph/get_examine_time()
+	return morphed ? mimic_spell.selected_form.examine_time : ..()
+
+
+/mob/living/simple_animal/hostile/morph/get_visible_gender()
+	return morphed ? mimic_spell.selected_form.examine_gender : ..()
+
+
+/mob/living/simple_animal/hostile/morph/get_visible_species()
+	return morphed ? mimic_spell.selected_form.examine_species : ..()
+
 
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST

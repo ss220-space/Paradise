@@ -12,13 +12,13 @@
 	fire_delay = 40
 	burst_size = 1
 	origin_tech = "combat=7"
-	can_unsuppress = 1
-	can_suppress = 1
+	can_unsuppress = TRUE
+	can_suppress = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	slot_flags = SLOT_BACK
-	actions_types = list()
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
@@ -36,14 +36,10 @@
 	QDEL_NULL(magazine)
 	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator(src)
 
-/obj/item/gun/projectile/automatic/sniper_rifle/update_icon()
-	if(magazine)
-		icon_state = "sniper-mag"
-	else
-		icon_state = "sniper"
-	..()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
-	return
+
+/obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""][suppressed ? "-suppressed" : ""]"
+
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
 	name = "compact sniper rifle"
@@ -57,11 +53,6 @@
 	can_suppress = FALSE
 	zoomable = FALSE
 
-/obj/item/gun/projectile/automatic/sniper_rifle/compact/update_icon()
-	if(magazine)
-		icon_state = "snipercompact-mag"
-	else
-		icon_state = "snipercompact"
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
@@ -72,7 +63,7 @@
 	max_ammo = 5
 	caliber = ".50"
 
-/obj/item/ammo_box/magazine/sniper_rounds/update_icon()
+/obj/item/ammo_box/magazine/sniper_rounds/update_icon_state()
 	if(ammo_count())
 		icon_state = "[initial(icon_state)]-ammo"
 	else
@@ -121,7 +112,7 @@
 
 /obj/item/projectile/bullet/sniper/soporific
 	armour_penetration = 0
-	nodamage = 1
+	nodamage = TRUE
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
@@ -272,13 +263,16 @@
 	max_ammo = 6
 	caliber = "foam_force_sniper"
 
-/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon()
-	overlays.Cut()
 
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_icon_state()
+	return
+
+
+/obj/item/ammo_box/magazine/toy/sniper_rounds/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
-	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
-		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = ".50mag-r")
+	if(ammo && istype(contents[length(contents)], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
+		. += ".50mag-r"
 	else if(ammo)
-		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = ".50mag-f")
-	else
-		icon_state = "[initial(icon_state)]"
+		. += ".50mag-f"
+

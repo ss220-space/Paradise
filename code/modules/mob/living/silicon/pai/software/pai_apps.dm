@@ -395,6 +395,29 @@
 	QDEL_NULL(cable)
 	hacking = FALSE
 
+// pAI GPS module //
+/datum/pai_software/gps
+	name = "GPS"
+	ram_cost = 10
+	id = "pai_gps"
+	template_file = "pai_gps_module"
+	ui_icon = "location-arrow"
+
+/obj/item/gps/internal/pai_gps
+	icon_state = null
+	upgraded = TRUE
+	gpstag = "pAI0"
+	invisibility = INVISIBILITY_ABSTRACT
+	tracking = FALSE
+
+/datum/pai_software/gps/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("ui_interact")
+			pai_holder.pai_internal_gps.ui_interact(pai_holder, state = GLOB.self_state)
+
 // Host Bioscan //
 /datum/pai_software/host_scan
 	name = "Host Bioscan"

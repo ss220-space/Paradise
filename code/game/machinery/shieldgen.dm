@@ -1,13 +1,13 @@
 /obj/machinery/shield
-		name = "Emergency energy shield"
-		desc = "An energy shield used to contain hull breaches."
-		icon = 'icons/effects/effects.dmi'
-		icon_state = "shield-old"
-		density = 1
-		opacity = FALSE
-		anchored = 1
-		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		max_integrity = 200
+	name = "Emergency energy shield"
+	desc = "An energy shield used to contain hull breaches."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "shield-old"
+	density = TRUE
+	opacity = FALSE
+	anchored = TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	max_integrity = 200
 
 /obj/machinery/shield/New()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
@@ -31,10 +31,6 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height)
-	if(!height)
-		return FALSE
-	return ..()
 
 /obj/machinery/shield/CanAtmosPass(turf/T)
 	return !density
@@ -90,7 +86,7 @@
 
 /obj/machinery/shield/cult/barrier/Initialize()
 	. = ..()
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/shield/cult/barrier/Destroy()
 	if(parent_rune && !QDELETED(parent_rune))
@@ -121,7 +117,7 @@
 		visible = TRUE
 	else // Currently visible
 		density = FALSE // Turn invisible
-		invisibility = INVISIBILITY_MAXIMUM
+		invisibility = INVISIBILITY_ABSTRACT
 		visible = FALSE
 
 	air_update_turf(1)
@@ -134,7 +130,7 @@
 	icon_state = "shieldoff"
 	density = 1
 	opacity = FALSE
-	anchored = 0
+	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
 	var/const/max_health = 100
@@ -156,8 +152,8 @@
 		return //If it's already turned on, how did this get called?
 
 	active = 1
-	update_icon()
-	anchored = 1
+	anchored = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
@@ -169,7 +165,7 @@
 		return //If it's already off, how did this get called?
 
 	active = 0
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	for(var/obj/machinery/shield/shield_tile in deployed_shields)
 		qdel(shield_tile)
@@ -186,7 +182,7 @@
 		malfunction = TRUE
 	if(health <= 0)
 		qdel(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return
 
 /obj/machinery/shieldgen/ex_act(severity)
@@ -244,7 +240,7 @@
 	if(istype(I, /obj/item/card/emag))
 		add_fingerprint(user)
 		malfunction = TRUE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
@@ -258,7 +254,7 @@
 			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
 			to_chat(user, span_notice("You repair the [src]!"))
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 	else if(I.GetID())
 		if(allowed(user))
@@ -300,38 +296,40 @@
 		WRENCH_ANCHOR_MESSAGE
 		anchored = TRUE
 
-/obj/machinery/shieldgen/update_icon()
-	if(active)
-		icon_state = malfunction ? "shieldonbr":"shieldon"
-	else
-		icon_state = malfunction ? "shieldoffbr":"shieldoff"
-	return
+
+/obj/machinery/shieldgen/update_icon_state()
+	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
 
 
 ////FIELD GEN START //shameless copypasta from fieldgen, powersink, and grille
 #define maxstoredpower 500
 /obj/machinery/shieldwallgen
-		name = "Shield Generator"
-		desc = "A shield generator."
-		icon = 'icons/obj/stationobjs.dmi'
-		icon_state = "Shield_Gen"
-		anchored = 0
-		density = 1
-		req_access = list(ACCESS_TELEPORTER)
-		var/active = 0
-		var/power = 0
-		var/state = 0
-		var/steps = 0
-		var/last_check = 0
-		var/check_delay = 10
-		var/recalc = 0
-		var/locked = TRUE
-		var/destroyed = 0
-		var/directwired = 1
-		var/obj/structure/cable/attached		// the attached cable
-		var/storedpower = 0
-		flags = CONDUCT
-		use_power = NO_POWER_USE
+	name = "Shield Generator"
+	desc = "A shield generator."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "shieldgen"
+	anchored = FALSE
+	density = TRUE
+	req_access = list(ACCESS_TELEPORTER)
+	var/active = 0
+	var/power = 0
+	var/state = 0
+	var/steps = 0
+	var/last_check = 0
+	var/check_delay = 10
+	var/recalc = 0
+	var/locked = TRUE
+	var/destroyed = 0
+	var/directwired = 1
+	var/obj/structure/cable/attached		// the attached cable
+	var/storedpower = 0
+	flags = CONDUCT
+	use_power = NO_POWER_USE
+
+
+/obj/machinery/shieldwallgen/update_icon_state()
+	icon_state = "shieldgen[active ? "_on" : ""]"
+
 
 /obj/machinery/shieldwallgen/proc/power()
 	if(!anchored)
@@ -374,7 +372,7 @@
 
 	if(active >= 1)
 		active = 0
-		icon_state = "Shield_Gen"
+		update_icon(UPDATE_ICON_STATE)
 
 		user.visible_message("[user] turned the shield generator off.", \
 			"You turn off the shield generator.", \
@@ -383,7 +381,7 @@
 			cleanup(dir)
 	else
 		active = 1
-		icon_state = "Shield_Gen +a"
+		update_icon(UPDATE_ICON_STATE)
 		user.visible_message("[user] turned the shield generator on.", \
 			"You turn on the shield generator.", \
 			"You hear heavy droning.")
@@ -416,8 +414,8 @@
 		if(power == 0)
 			visible_message(span_warning("The [name] shuts down due to lack of power!"), \
 				"You hear heavy droning fade out")
-			icon_state = "Shield_Gen"
 			active = 0
+			update_icon(UPDATE_ICON_STATE)
 			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
 				cleanup(dir)
 
@@ -467,7 +465,7 @@
 
 
 /obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/wrench))
+	if(I.tool_behaviour == TOOL_WRENCH)
 		if(active)
 			to_chat(user, "Turn off the field generator first.")
 			return
@@ -477,7 +475,7 @@
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			anchored = 1
+			anchored = TRUE
 			return
 
 		else if(state == 1)
@@ -485,7 +483,7 @@
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
-			anchored = 0
+			anchored = FALSE
 			return
 
 	if(I.GetID() || ispda(I))
@@ -533,21 +531,21 @@
 
 ////////////// Containment Field START
 /obj/machinery/shieldwall
-		name = "Shield"
-		desc = "An energy shield."
-		icon = 'icons/effects/effects.dmi'
-		icon_state = "shieldwall"
-		anchored = 1
-		density = 1
-		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		light_range = 3
-		var/needs_power = 0
-		var/active = 1
-		var/delay = 5
-		var/last_active
-		var/mob/U
-		var/obj/machinery/shieldwallgen/gen_primary
-		var/obj/machinery/shieldwallgen/gen_secondary
+	name = "Shield"
+	desc = "An energy shield."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "shieldwall"
+	anchored = TRUE
+	density = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	light_range = 3
+	var/needs_power = 0
+	var/active = 1
+	var/delay = 5
+	var/last_active
+	var/mob/U
+	var/obj/machinery/shieldwallgen/gen_primary
+	var/obj/machinery/shieldwallgen/gen_secondary
 
 /obj/machinery/shieldwall/New(obj/machinery/shieldwallgen/A, obj/machinery/shieldwallgen/B)
 	..()
@@ -617,17 +615,14 @@
 	return
 
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
+/obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+	if(checkpass(mover, PASSGLASS))
 		return prob(20)
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(10)
-		else
-			return !density
+	if(isprojectile(mover))
+		return prob(10)
 
 
 /obj/machinery/shieldwall/syndicate
@@ -635,14 +630,17 @@
 	desc = "A strange energy shield."
 	icon_state = "shield-red"
 
-/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target, height=0)
+
+/obj/machinery/shieldwall/syndicate/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(isliving(mover))
-		var/mob/living/M = mover
-		if("syndicate" in M.faction)
-			return 1
-	if(istype(mover, /obj/item/projectile))
-		return 0
-	return ..(mover, target, height)
+		var/mob/living/living_mover = mover
+		if("syndicate" in living_mover.faction)
+			return TRUE
+	else if(isprojectile(mover))
+		return FALSE
 
 
 /obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)

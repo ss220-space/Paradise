@@ -100,6 +100,16 @@
  	tastes = list("cucumber" = 1)
  	foodtype = VEGETABLES
 
+/obj/item/reagent_containers/food/snacks/cucumberslice/attackby(obj/item/thing, mob/user, params)
+	if(istype(thing, src) && thing != src && loc == user)
+		var/obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask/new_thing = new(loc)
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
+		user.temporarily_remove_item_from_inventory(thing, force = TRUE)
+		user.put_in_hands(new_thing)
+		qdel(src)
+		qdel(thing)
+	..()
+
 /obj/item/reagent_containers/food/snacks/watermelonslice
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
@@ -188,13 +198,12 @@
 	tastes = list("dough" = 1, "sugar" = 1)
 	foodtype = GRAIN | SUGAR
 
-/obj/item/reagent_containers/food/snacks/cookiedough/update_icon()
+/obj/item/reagent_containers/food/snacks/cookiedough/update_icon_state()
     if(flat)
         icon_state = "cookiedough_flat"
         name = "flat pastry dough"
     else
         icon_state = "cookiedough"
-
 
 
 // Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies

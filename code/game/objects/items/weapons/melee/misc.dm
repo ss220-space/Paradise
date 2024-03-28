@@ -63,6 +63,7 @@
 	block_chance = 30
 	armour_penetration = 30
 	sharp = TRUE
+	flags = NOSHARPENING
 	origin_tech = "combat=5"
 	attack_verb = list("slashed", "stabbed", "sliced", "caned")
 	hitsound = 'sound/weapons/bladeslice.ogg'

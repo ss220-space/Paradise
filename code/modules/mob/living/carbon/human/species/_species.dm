@@ -27,6 +27,7 @@
 
 	/// Name of tail image in species effects icon file.
 	var/tail
+
 	/// like tail but wings
 	var/wing
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
@@ -132,12 +133,12 @@
 		"задерживает дыхание!")
 
 	// Language/culture vars.
-	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
-	var/language = "Galactic Common"         // Default racial language, if any.
-	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
-	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
-	var/list/speech_chance                   // The likelihood of a speech sound playing.
-	var/scream_verb = "крич%(ит,ат)%"	// Special symbols used to apply correct gender. See [/proc/genderize_decode] for more info.
+	var/default_language = LANGUAGE_GALACTIC_COMMON	// Default language is used when 'say' is used without modifiers.
+	var/language = LANGUAGE_GALACTIC_COMMON			// Default racial language, if any.
+	var/secondary_langs = list()					// The keys of secondary languages that are available to this species.
+	var/list/speech_sounds							// A list of sounds to potentially play when speaking.
+	var/list/speech_chance							// The likelihood of a speech sound playing.
+	var/scream_verb = "крич%(ит,ат)%"				// Special symbols used to apply correct gender. See [/proc/genderize_decode] for more info.
 	var/female_giggle_sound = list('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg')
 	var/male_giggle_sound = list('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg')
 	var/male_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
@@ -190,8 +191,7 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
-	/// If set, this organ is required for vision. Defaults to "eyes" if the species has them.
-	var/vision_organ
+	var/meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid
 
 	var/list/has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
@@ -223,10 +223,6 @@
 	var/list/autohiss_exempt = null
 
 /datum/species/New()
-	//If the species has eyes, they are the default vision organ
-	if(!vision_organ && has_organ[INTERNAL_ORGAN_EYES])
-		vision_organ = /obj/item/organ/internal/eyes
-
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(gender)
@@ -366,8 +362,7 @@
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
-	if(H.butcher_results) //clear it out so we don't butcher a actual human.
-		H.butcher_results = null
+	H.meatleft = initial(H.meatleft)
 	H.ventcrawler = initial(H.ventcrawler)
 
 	if(inherent_factions)
@@ -763,7 +758,7 @@
 
 			if(!wearable)
 				if(!disable_warning)
-					to_chat(user, SPAN_WARNING("Вы [src] и не можете использовать [I]."))
+					to_chat(user, span_warning("Вы [src] и не можете использовать [I]."))
 				return FALSE
 
 	switch(slot)
@@ -1016,13 +1011,13 @@
 /datum/species/proc/equip_delay_self_obscured_check(obj/item/I, slot, mob/living/carbon/human/user, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	if(user.has_obscured_slot(slot) && !bypass_obscured)
 		if(!disable_warning)
-			to_chat(user, SPAN_WARNING("Вы не можете надеть [I], слот закрыт другой одеждой."))
+			to_chat(user, span_warning("Вы не можете надеть [I], слот закрыт другой одеждой."))
 		return FALSE
 
 	if(!I.equip_delay_self || bypass_equip_delay_self)
 		return TRUE
 
-	user.visible_message(SPAN_NOTICE("[user] начинает надевать [I]..."), SPAN_NOTICE("Вы начинаете надевать [I]..."))
+	user.visible_message(span_notice("[user] начинает надевать [I]..."), span_notice("Вы начинаете надевать [I]..."))
 	return do_after(user, I.equip_delay_self, target = user)
 
 
@@ -1045,11 +1040,11 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		H.sight |= eyes.vision_flags
-		H.see_in_dark = eyes.see_in_dark
+		H.nightvision = eyes.see_in_dark
 		H.see_invisible = eyes.see_invisible
 		H.lighting_alpha = eyes.lighting_alpha
 	else
-		H.see_in_dark = initial(H.see_in_dark)
+		H.nightvision = initial(H.nightvision)
 		H.see_invisible = initial(H.see_invisible)
 		H.lighting_alpha = initial(H.lighting_alpha)
 
@@ -1062,22 +1057,22 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(vamp)
 		if(vamp.get_ability(/datum/vampire_passive/xray))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-			H.see_in_dark += 8
+			H.nightvision += 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/full))
 			H.sight |= SEE_MOBS
-			H.see_in_dark += 8
+			H.nightvision += 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/vision))
 			H.sight |= SEE_MOBS
-			H.see_in_dark += 1 // base of 2, 2+1 is 3
+			H.nightvision += 1 // base of 2, 2+1 is 3
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
 	if(g_vamp)
 		if(g_vamp.get_ability(/datum/goon_vampire_passive/full))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-			H.see_in_dark = 8
+			H.nightvision = 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(g_vamp.get_ability(/datum/goon_vampire_passive/vision))
 			H.sight |= SEE_MOBS
@@ -1086,7 +1081,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in H.internal_organs)
 		H.sight |= cyber_eyes.vision_flags
 		if(cyber_eyes.see_in_dark)
-			H.see_in_dark = max(H.see_in_dark, cyber_eyes.see_in_dark)
+			H.nightvision = max(H.nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
 			H.see_invisible = min(H.see_invisible, cyber_eyes.see_invisible)
 		if(cyber_eyes.lighting_alpha)
@@ -1096,7 +1091,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(H.glasses)
 		var/obj/item/clothing/glasses/G = H.glasses
 		H.sight |= G.vision_flags
-		H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
+		H.nightvision = max(G.see_in_dark, H.nightvision)
 
 		if(G.invis_override)
 			H.see_invisible = G.invis_override
@@ -1111,14 +1106,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(istype(H.head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/hat = H.head
 			H.sight |= hat.vision_flags
-			H.see_in_dark = max(hat.see_in_dark, H.see_in_dark)
+			H.nightvision = max(hat.see_in_dark, H.nightvision)
 
 			if(!isnull(hat.lighting_alpha))
 				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
 
 	if(H.vision_type)
 		H.sight |= H.vision_type.sight_flags
-		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark)
+		H.nightvision = max(H.nightvision, H.vision_type.see_in_dark)
 
 		if(!isnull(H.vision_type.lighting_alpha))
 			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)
@@ -1156,11 +1151,24 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/datum/species/selected_species = GLOB.all_species[picked_species]
 	return species_name ? picked_species : selected_species.type
 
-/datum/species/proc/can_hear(mob/living/carbon/human/H)
-	. = FALSE
-	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
-	if(istype(ears) && !HAS_TRAIT(H, TRAIT_DEAF))
-		. = TRUE
+
+/datum/species/proc/can_hear(mob/living/carbon/human/user)
+	var/obj/item/organ/internal/ears/ears = user.get_organ_slot(INTERNAL_ORGAN_EARS)
+	return ears && !HAS_TRAIT(user, TRAIT_DEAF)
+
+
+/datum/species/proc/has_vision(mob/living/carbon/human/user, information_only = FALSE)
+	if(information_only && user.stat == DEAD)
+		return TRUE
+	if(user.AmountBlinded() || (BLINDNESS in user.mutations) || user.stat)
+		return FALSE
+	var/obj/item/organ/vision = get_vision_organ(user)
+	return vision && (vision == NO_VISION_ORGAN || !vision.is_traumatized())
+
+
+/datum/species/proc/get_vision_organ(mob/living/carbon/human/user)
+	return user.get_organ_slot(INTERNAL_ORGAN_EYES)
+
 
 /datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/H)
 	return FALSE

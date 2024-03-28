@@ -31,7 +31,7 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
@@ -170,29 +170,28 @@ GLOBAL_LIST_EMPTY(multiverse)
 			user.faction = list("[user.real_name]")
 			to_chat(user, "You bind the sword to yourself. You can now use it to summon help.")
 			if(!usr.mind.special_role)
+				var/list/messages = list()
 				if(prob(probability_evil))
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
+					messages.Add("<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 					hijack_objective.owner = usr.mind
 					usr.mind.objectives += hijack_objective
-					var/list/messages = list(user.mind.prepare_announce_objectives(FALSE))
-					to_chat(user, chat_box_red(messages.Join("<br>")))
+					messages.Add(user.mind.prepare_announce_objectives(FALSE))
 					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
-					to_chat(user, "<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
+					messages.Add("<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
 					new_objective.owner = usr.mind
 					usr.mind.objectives += new_objective
-					var/list/messages = list(user.mind.prepare_announce_objectives(FALSE))
-					to_chat(user, chat_box_red(messages.Join("<br>")))
-
+					messages.Add(user.mind.prepare_announce_objectives(FALSE))
 					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = FALSE
+				to_chat(user, chat_box_red(messages.Join("<br>")))
 		else
 			cooldown = world.time + cooldown_between_uses
 			for(var/obj/item/multisword/M in GLOB.multiverse)
@@ -709,7 +708,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/voodoo/attack_self(mob/user as mob)
 	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
+		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible)
 		return
 
 	if(user.zone_selected == BODY_ZONE_CHEST)

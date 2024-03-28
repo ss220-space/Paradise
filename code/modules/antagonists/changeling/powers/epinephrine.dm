@@ -26,6 +26,7 @@
 	user.resting = FALSE
 	user.update_canmove()
 	user.reagents.add_reagent("synaptizine", 20)
+	user.reagents.add_reagent("adrenaline", 2)
 	user.adjustStaminaLoss(-95)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

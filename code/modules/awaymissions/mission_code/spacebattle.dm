@@ -231,11 +231,11 @@
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner
 	icon = 'icons/obj/spacebattle.dmi'
 	icon_state = "spawner_mine"
-	canmove = 0
+	canmove = FALSE
 	var/id = null
-	var/triggered = 0
+	var/triggered = FALSE
 	var/faction = null
-	var/safety_z_check = 1
+	var/safety_z_check = TRUE
 
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn
 	name = "spawner"
@@ -260,7 +260,7 @@
 			continue
 		if(S.id == id)
 			new S.syndi_mob(get_turf(S))
-			triggered = 1
+			triggered = TRUE
 	qdel(src)
 
 /mob/living/proc/spawn_alert(atom/A) // Вызывает появление восклицательного знака над головой при наступании на маркер
@@ -318,7 +318,7 @@
 				synmobdrop = /obj/item/tank/internals/emergency_oxygen/engi/syndi)
 		if(15 to 20) // 10%
 			pick(synmobdrop = /obj/item/target/syndicate,
-				synmobdrop = /obj/item/toy/cards/deck/syndicate,
+				synmobdrop = /obj/item/deck/cards/syndicate,
 				synmobdrop = /obj/item/kitchen/knife/combat/survival)
 		if(20 to 24) // 8%
 			pick(synmobdrop = /obj/item/clothing/glasses/night,
@@ -597,6 +597,9 @@
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer
 	name = "Dead Engineer"
 	mob_name = "Engineer"
+	outfit = /datum/outfit/ancient_eng
+
+/datum/outfit/ancient_eng
 	id = /obj/item/card/id/away/old/eng
 	uniform = /obj/item/clothing/under/retro/engineering
 	belt = /obj/item/storage/belt/utility/full
@@ -608,9 +611,9 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
 	back = /obj/item/storage/backpack/duffel/engineering
-	backpack_contents = /obj/item/storage/box/engineer
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/engineer/Initialize()
+/datum/outfit/ancient_eng/pre_equip()
+	. = ..()
 	var/engstaff = rand(1,3)
 	switch(engstaff)
 		if(1)
@@ -634,11 +637,13 @@
 			/obj/item/grenade/gas/oxygen = 1,
 			/obj/item/analyzer = 1
 			)
-	return ..()
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer/space
+	outfit = /datum/outfit/ancient_eng/suit
+
+/datum/outfit/ancient_eng/suit
 	suit = /obj/item/clothing/suit/space/hardsuit/ancient
-	head = /obj/item/clothing/head/helmet/space/hardsuit/ancient
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/medic
@@ -689,27 +694,33 @@
 	shoes = /obj/item/clothing/shoes/black
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 
+
 /obj/item/clothing/suit/space/hardsuit/syndi/damaged
 	name = "damaged blood-red hardsuit"
 	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
 	armor = list("melee" = 30, "bullet" = 40, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
 	w_class = WEIGHT_CLASS_NORMAL
-	on = 1
+	icon_state = "hardsuit1-syndi"
+	on = TRUE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/attack_self(mob/user) //Toggle Helmet
-	if(!on)
-		to_chat(user, "<span class='notice'>You cant switch your hardsuit to combat mode.</span>")
-		playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 1)
-	.=..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
-	actions_types = list()
-	on = 1
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	on = TRUE
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/update_icon()
-	icon_state = "hardsuit1-syndi"
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/update_icon_state()
+	return
+
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/adjust_headgear(mob/living/carbon/human/user, toggle = FALSE)
+	if(user)
+		to_chat(user, span_notice("You cant switch your hardsuit to combat mode."))
+		playsound(user, 'sound/machines/buzz-two.ogg', 50, TRUE)
+		return
+	..()
+

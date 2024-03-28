@@ -1,8 +1,8 @@
-#define WIRE_RECEIVE		(1<<0)	//Allows pulse(0) to call Activate()
-#define WIRE_PULSE			(1<<1)	//Allows pulse(0) to act on the holder
-#define WIRE_PULSE_SPECIAL	(1<<2)	//Allows pulse(0) to act on the holders special assembly
-#define WIRE_RADIO_RECEIVE	(1<<3)	//Allows pulse(1) to call Activate()
-#define WIRE_RADIO_PULSE	(1<<4)	//Allows pulse(1) to send a radio message
+#define WIRE_RECEIVE		(1<<0)	//Allows pulse(FALSE) to call Activate()
+#define WIRE_PULSE			(1<<1)	//Allows pulse(FALSE) to act on the holder
+#define WIRE_PULSE_SPECIAL	(1<<2)	//Allows pulse(FALSE) to act on the holders special assembly
+#define WIRE_RADIO_RECEIVE	(1<<3)	//Allows pulse(TRUE) to call Activate()
+#define WIRE_RADIO_PULSE	(1<<4)	//Allows pulse(TRUE) to send a radio message
 
 /obj/item/assembly
 	name = "assembly"
@@ -30,36 +30,6 @@
 	var/wires = WIRE_RECEIVE | WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
 
-/obj/item/assembly/proc/activate()									//What the device does when turned on
-	return
-
-/obj/item/assembly/proc/pulsed(radio = FALSE)						//Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
-	return
-
-/obj/item/assembly/proc/toggle_secure()								//Code that has to happen when the assembly is un\secured goes here
-	return
-
-/obj/item/assembly/proc/attach_assembly(obj/A, mob/user)	//Called when an assembly is attacked by another
-	return
-
-/obj/item/assembly/proc/process_cooldown()							//Called via spawn(10) to have it count down the cooldown var
-	return
-
-/obj/item/assembly/proc/holder_movement(mob/user)							//Called when the holder is moved
-	return
-
-/obj/item/assembly/proc/describe()                  // Called by grenades to describe the state of the trigger (time left, etc)
-	return "<span class='warning'>The trigger assembly looks broken!</span>"
-
-/obj/item/assembly/interact(mob/user)					//Called when attack_self is called
-	return
-
-/obj/item/assembly/process_cooldown()
-	cooldown--
-	if(cooldown <= 0)
-		return FALSE
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
-	return TRUE
 
 /obj/item/assembly/Destroy()
 	if(istype(loc, /obj/item/assembly_holder) || istype(holder))
@@ -71,12 +41,33 @@
 		holder = null
 	return ..()
 
-/obj/item/assembly/pulsed(radio = FALSE)
+
+/// Called when the holder is moved
+/obj/item/assembly/proc/holder_movement(mob/user)
+	return
+
+
+/// Called when attack_self is called
+/obj/item/assembly/interact(mob/user)
+	return
+
+
+/// Called via 1 SECONDS to have it count down the cooldown var
+/obj/item/assembly/proc/process_cooldown()
+	if(cooldown-- <= 0)
+		return FALSE
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
+	return TRUE
+
+
+/// Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
+/obj/item/assembly/proc/pulsed(radio = FALSE)
 	if(holder && (wires & WIRE_RECEIVE))
 		activate()
 	if(radio && (wires & WIRE_RADIO_RECEIVE))
 		activate()
 	return TRUE
+
 
 /* Called when this device attempts to act on another device,
  * var/radio determines if it was sent via radio or direct
@@ -87,32 +78,40 @@
 		connected.pulse_assembly(src)
 		return TRUE
 	if(holder && (wires & WIRE_PULSE))
-		holder.process_activation(src, 1, 0, user)
+		holder.process_activation(src, TRUE, FALSE, user)
 	if(holder && (wires & WIRE_PULSE_SPECIAL))
-		holder.process_activation(src, 0, 1, user)
+		holder.process_activation(src, FALSE, TRUE, user)
 	if(istype(loc, /obj/item/grenade)) // This is a hack.  Todo: Manage this better -Sayu
 		var/obj/item/grenade/G = loc
 		G.prime(user)                // Adios, muchachos
 	return TRUE
 
-/obj/item/assembly/activate()
+
+/// What the device does when turned on
+/obj/item/assembly/proc/activate()
 	if(!secured || cooldown > 0)
 		return FALSE
 	cooldown = 2
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	return TRUE
 
-/obj/item/assembly/toggle_secure()
+
+/// Code that has to happen when the assembly is un\secured goes here
+/obj/item/assembly/proc/toggle_secure()
 	secured = !secured
 	update_icon()
 	return secured
 
-/obj/item/assembly/attach_assembly(obj/item/assembly/A, mob/user)
-	holder = new /obj/item/assembly_holder(get_turf(src))
-	if(holder.attach(A, src, user))
-		to_chat(user, "<span class='notice'>You attach [A] to [src]!</span>")
+
+/// Called when an assembly is attacked by another
+/obj/item/assembly/proc/attach_assembly(obj/item/assembly/assembly, mob/user)
+	holder = new /obj/item/assembly_holder(drop_location())
+	user?.put_in_hands(holder, ignore_anim = FALSE)
+	if(holder.attach(assembly, src, user))
+		to_chat(user, span_notice("You attach [assembly] to [src]!"))
 		return TRUE
 	return FALSE
+
 
 /obj/item/assembly/attackby(obj/item/W, mob/user, params)
 	if(isassembly(W))
@@ -120,28 +119,31 @@
 		if(!A.secured && !secured)
 			attach_assembly(A, user)
 		return
-
 	return ..()
+
 
 /obj/item/assembly/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(toggle_secure())
-		to_chat(user, "<span class='notice'>[src] is ready!</span>")
+		to_chat(user, span_notice("[src] is ready!"))
 	else
-		to_chat(user, "<span class='notice'>[src] can now be attached!</span>")
+		to_chat(user, span_notice("[src] can now be attached!"))
+
 
 /obj/item/assembly/process()
-	STOP_PROCESSING(SSobj, src)
+	return PROCESS_KILL
+
 
 /obj/item/assembly/examine(mob/user)
 	. = ..()
-	if(in_range(src, user) || loc == user)
+	if(in_range(src, user))
 		if(secured)
-			. += "<span class='notice'>[src] is ready!</span>"
+			. += span_notice("[src] need to be secured!")
 		else
-			. += "<span class='notice'>[src] can be attached!</span>"
+			. += span_notice("[src] can be attached!")
+
 
 /obj/item/assembly/attack_self(mob/user)
 	if(!user)
@@ -150,5 +152,3 @@
 	interact(user)
 	return TRUE
 
-/obj/item/assembly/interact(mob/user)
-	return

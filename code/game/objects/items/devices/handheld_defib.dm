@@ -12,6 +12,15 @@
 	var/cooldown = FALSE
 	var/charge_time = 100
 	var/emagged = FALSE
+	var/shocking = FALSE
+
+
+/obj/item/handheld_defibrillator/update_icon_state()
+	if(shocking)
+		icon_state = "[icon_base]-shock"
+		return
+	icon_state = "[icon_base][cooldown ? "-off" : "-on"]"
+
 
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
@@ -83,19 +92,22 @@
 		else
 			to_chat(user, span_danger("[H] has a hardsuit!"))
 		cooldown = TRUE
-		icon_state = "[icon_base]-shock"
-		addtimer(CALLBACK(src, PROC_REF(short_charge)), 10)
+		shocking = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		addtimer(CALLBACK(src, PROC_REF(short_charge)), 1 SECONDS)
 		addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
 
 	else
 		to_chat(user, span_notice("[src]'s on board medical scanner indicates that no shock is required."))
 
 /obj/item/handheld_defibrillator/proc/short_charge()
-	icon_state = "[icon_base]-off"
+	shocking = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/handheld_defibrillator/proc/recharge()
 	cooldown = FALSE
-	icon_state = "[icon_base]-on"
+	update_icon(UPDATE_ICON_STATE)
 	playsound(loc, "sound/weapons/flash.ogg", 75, 1)
 
 /obj/item/handheld_defibrillator/syndie

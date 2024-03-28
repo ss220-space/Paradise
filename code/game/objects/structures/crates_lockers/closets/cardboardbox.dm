@@ -3,8 +3,6 @@
 	desc = "Just a box..."
 	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "cardboard"
-	icon_opened = "cardboard_open"
-	icon_closed = "cardboard"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
@@ -13,6 +11,7 @@
 	open_sound_volume = 35
 	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
+	no_overlays = TRUE
 	var/decal = ""
 	var/amt = 4
 	var/move_delay = FALSE
@@ -71,7 +70,7 @@
 
 /obj/structure/closet/cardboard/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(src.opened)
-		if(istype(W, /obj/item/wirecutters))
+		if(W.tool_behaviour == TOOL_WIRECUTTER)
 			var/obj/item/wirecutters/WC = W
 			new /obj/item/stack/sheet/cardboard(src.loc, amt)
 			for(var/mob/M in viewers(src))
@@ -83,10 +82,10 @@
 			if(can.capped)
 				to_chat(user, span_warning("You need to toggle cap off before repainting."))
 				return
-			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
+			var/decalselection = tgui_input_list(user, "Please select a decal", "Paint box", list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
 			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
 			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",
-			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
+			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology"))
 			if(!decalselection)
 				return
 			if(user.incapacitated())
@@ -105,7 +104,7 @@
 
 			update_icon()
 
-/obj/structure/closet/cardboard/update_icon() //Not deriving, because of different logic.
+/obj/structure/closet/cardboard/update_icon_state() //Not deriving, because of different logic.
 	if(!opened)
 		if(decal)
 			icon_state = "cardboard_" + decal
@@ -116,3 +115,8 @@
 			icon_state = "cardboard_open_" + decal
 		else
 			icon_state = "cardboard_open"
+
+
+/obj/structure/closet/cardboard/update_overlays()
+	. = list()
+

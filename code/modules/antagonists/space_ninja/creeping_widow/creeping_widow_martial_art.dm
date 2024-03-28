@@ -15,7 +15,12 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "injector"
 	attack_verb = list("poked", "prodded")
-	var/used = 0
+	var/used = FALSE
+
+
+/obj/item/creeping_widow_injector/update_icon_state()
+	icon_state = "injector[used ? "-used" : ""]"
+
 
 /obj/item/creeping_widow_injector/attack_self(mob/living/carbon/human/user as mob)
 	if(!used)
@@ -26,18 +31,19 @@
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
 		N.teach(user)
 
-		used = 1
-		icon_state = "injector-used"
+		used = TRUE
+		update_icon(UPDATE_ICON_STATE)
 		desc = "A strange autoinjector made of a black metal.<br>It appears to be used up and empty."
-		return 0
-	else
-		to_chat(user, "<span class='warning'>The [src] has been used already!</span>")
-		return 1
+		return FALSE
+
+	to_chat(user, "<span class='warning'>The [src] has been used already!</span>")
+	return TRUE
 
 // Ninja martial art datum
 
 /datum/martial_art/ninja_martial_art
 	name = "Creeping Widow"
+	weight = 10
 	combos = list(	/datum/martial_combo/ninja_martial_art/energy_tornado,
 					/datum/martial_combo/ninja_martial_art/palm_strike,
 					/datum/martial_combo/ninja_martial_art/wrench_wrist,

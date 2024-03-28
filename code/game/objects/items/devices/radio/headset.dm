@@ -54,16 +54,17 @@
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) && radio_desc)
-		. += "<span class='notice'>The following channels are available:</span>"
-		. += "<span class='info'>[radio_desc]</span>"
-/obj/item/radio/headset/handle_message_mode(mob/living/M as mob, list/message_pieces, channel)
+		. += span_notice("The following channels are available:")
+		. += span_info("[radio_desc]")
+
+/obj/item/radio/headset/handle_message_mode(mob/living/M, list/message_pieces, channel)
 	if(channel == "special")
 		if(translate_binary)
-			var/datum/language/binary = GLOB.all_languages["Robot Talk"]
+			var/datum/language/binary = GLOB.all_languages[LANGUAGE_BINARY]
 			binary.broadcast(M, strip_prefixes(multilingual_to_message(message_pieces)))
 			return RADIO_CONNECTION_NON_SUBSPACE
 		if(translate_hive)
-			var/datum/language/hivemind = GLOB.all_languages["Hivemind"]
+			var/datum/language/hivemind = GLOB.all_languages[LANGUAGE_HIVE_XENOS]
 			hivemind.broadcast(M, strip_prefixes(multilingual_to_message(message_pieces)))
 			return RADIO_CONNECTION_NON_SUBSPACE
 		return RADIO_CONNECTION_FAIL
@@ -151,7 +152,6 @@
 	instant = TRUE
 	freqlock = TRUE
 
-
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary
@@ -179,12 +179,18 @@
 	ks2type = /obj/item/encryptionkey/headset_medsec
 
 /obj/item/radio/headset/headset_iaa
+	name = "internal affairs radio headset"
+	desc = "This is used by your elite legal team."
+	icon_state = "sec_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/headset_iaa
+
+/obj/item/radio/headset/headset_iaa/alt
 	name = "internal affairs bowman headset"
 	desc = "This is used by your elite legal team. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
-	ks2type = /obj/item/encryptionkey/headset_iaa
 
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
@@ -286,9 +292,9 @@
 
 /obj/item/radio/headset/headset_cargo
 	name = "supply radio headset"
-	desc = "A headset used by the cargo department."
+	desc = "A cheap model of working modular intercom headset for a cargo, that fits over the head. Takes encryption keys. Won't protect ears from flashbangs and loud noises."
 	icon_state = "cargo_headset"
-	item_state = "headset"
+	item_state = "cargo_headset"
 	ks2type = /obj/item/encryptionkey/headset_cargo
 
 /obj/item/radio/headset/headset_cargo/mining
@@ -386,7 +392,7 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ai_integrated
 	var/myAi = null    // Atlantis: Reference back to the AI which has this radio.
-	var/disabledAi = 0 // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
+	var/disabledAi = FALSE // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
 
 /obj/item/radio/headset/heads/ai_integrated/is_listening()
 	if(disabledAi)
@@ -397,7 +403,6 @@
 	ks1type = /obj/item/encryptionkey/admin
 
 /obj/item/radio/headset/event_1
-	name = "Radio headset"
 	desc = "A headset linked to special long range alpha frequency in this sector."
 	icon_state = "headset"
 	item_state = "headset"
@@ -407,7 +412,6 @@
 	freqlock = TRUE
 
 /obj/item/radio/headset/event_2
-	name = "Radio headset"
 	desc = "A headset linked to special long range beta frequency in this sector."
 	icon_state = "headset"
 	item_state = "headset"
@@ -417,7 +421,6 @@
 	freqlock = TRUE
 
 /obj/item/radio/headset/event_3
-	name = "Radio headset"
 	desc = "A headset linked to special long range gamma frequency in this sector."
 	icon_state = "headset"
 	item_state = "headset"
@@ -426,8 +429,8 @@
 	instant = TRUE
 	freqlock = TRUE
 
-/obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/encryptionkey/))
+/obj/item/radio/headset/attackby(obj/item/W, mob/user)
+	if(istype(W, /obj/item/encryptionkey))
 		user.set_machine(src)
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
@@ -540,7 +543,7 @@
 	recalculateChannels()
 
 /obj/item/bowman_conversion_tool
-	name = "Bowman headset conversion tool"
+	name = "bowman headset conversion tool"
 	desc = "Easy-to-apply device which enchances headset with loud noise protection."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "bowman_conversion_tool"

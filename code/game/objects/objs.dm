@@ -1,4 +1,5 @@
 /obj
+	var/obj_flags = NONE
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
@@ -16,6 +17,8 @@
 	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+	/// Update_fire_overlay will check if a different icon state should be used
+	var/custom_fire_overlay
 
 	var/acid_level = 0 //how much acid is on that obj
 
@@ -168,10 +171,6 @@
  */
 /obj/proc/interact(mob/user)
 	return
-
-
-/obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 
 /mob/proc/unset_machine()
 	if(machine)

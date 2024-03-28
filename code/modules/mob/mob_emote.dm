@@ -5,9 +5,9 @@
  * Send an emote.
  *
  * * emote_key - Key of the emote being triggered
- * * m_type - Type of the emote, like EMOTE_AUDIBLE. If this is not null, the default type of the emote will be overridden.
+ * * type_override - Type of the emote, like EMOTE_AUDIBLE. If this is not null, the default type of the emote will be overridden.
  * * message - Custom parameter for the emote. This should be used if you want to pass something like a target programmatically.
- * * intentional - Whether or not the emote was deliberately triggered by the mob. If `TRUE`, it's forced, which skips some checks when calling the emote.
+ * * intentional - Whether or not the emote was deliberately triggered by the mob. If `FALSE`, it's forced, which skips some checks when calling the emote.
  * * force_silence - If `TRUE`, unusable/nonexistent emotes will not notify the user.
  * * ignore_cooldowns - If `TRUE` all cooldowns will be skipped.
  */
@@ -29,15 +29,15 @@
 		return FALSE
 
 	var/silenced = FALSE
-	for(var/datum/emote/P in key_emotes)
+	for(var/datum/emote/emote as anything in key_emotes)
 		// can this mob run the emote at all?
-		if(!P.can_run_emote(src, intentional = intentional))
+		if(!emote.can_run_emote(src, intentional = intentional))
 			continue
-		if(!P.check_cooldown(src, intentional, ignore_cooldowns))
+		if(!emote.check_cooldown(src, intentional, ignore_cooldowns))
 			// if an emote's on cooldown, don't spam them with messages of not being able to use it
 			silenced = TRUE
 			continue
-		if(P.try_run_emote(src, param, type_override, intentional))
+		if(emote.try_run_emote(src, param, type_override, intentional))
 			return TRUE
 	if(intentional && !silenced && !force_silence)
 		to_chat(src, span_notice("Unusable emote '[emote_key]'. Say *help for a list."))
@@ -51,7 +51,7 @@
  * * message: Content of the message. If none is provided, the user will be prompted to choose the input.
  * * intentional: Whether or not the user intendeded to perform the emote.
  */
-/mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = FALSE)
+/mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = FALSE, ignore_cooldowns = FALSE)
 	var/input = ""
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
@@ -60,7 +60,7 @@
 	else
 		input = message
 
-	emote("me", m_type, input, intentional)
+	emote("me", m_type, input, intentional, ignore_cooldowns = ignore_cooldowns)
 
 
 /**
@@ -68,13 +68,13 @@
  *
  * * intentional_use: Whether or not to check based on if the action was intentional.
  */
-/mob/proc/usable_emote_keys(intentional_use = TRUE)
+/mob/proc/usable_emote_keys(intentional_use)
 	var/list/all_keys = list()
 	for(var/key in GLOB.emote_list)
 		for(var/datum/emote/P in GLOB.emote_list[key])
 			if(P.key in all_keys)
 				continue
-			if(P.can_run_emote(src, status_check = FALSE, intentional = null))
+			if(P.can_run_emote(src, status_check = FALSE, intentional = intentional_use))
 				all_keys += P.key
 				if(P.key_third_person)
 					all_keys += P.key_third_person
@@ -124,7 +124,7 @@
 /datum/emote/flip
 	key = "flip"
 	key_third_person = "flips"
-	message = "делает кувырок!"
+	message = "дела%(ет,ют)% кувырок!"
 	hands_use_check = TRUE
 	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT  // don't need an emote to see that
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)  // okay but what if we allowed ghosts to flip as well
@@ -141,14 +141,16 @@
 		return TRUE
 
 	if(isliving(user) && (user.lying || user.resting))
-		message = "круж[pluralize_ru(user.gender,"ит","ат")]ся на полу."
+		message = "круж%(ит,ат)%ся на полу."
 		return ..()
+
 	else if(params)
-		message_param = "дела[pluralize_ru(user.gender,"ет","ют")] кувырок в сторону %t."
+		message_param = "дела%(ет,ют)% кувырок в сторону %t."
 	else if(ishuman(user))
 		var/obj/item/grab/grab = user.get_active_hand()
 		if(istype(grab) && grab.affecting)
 			var/mob/living/target = grab.affecting
+
 			if(user.buckled || target.buckled)
 				to_chat(user, span_warning("[target] is buckled, you can't flip around [target.p_them()]!"))
 				return TRUE
@@ -157,24 +159,18 @@
 			var/turf/newloc = target.loc
 			if(isturf(oldloc) && isturf(newloc))
 				user.SpinAnimation(5, 1)
-				user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
 				var/old_pass = user.pass_flags
-				user.pass_flags |= (PASSMOB|PASSTABLE)
+				user.pass_flags |= (PASSTABLE)
 				step(user, get_dir(oldloc, newloc))
 				user.pass_flags = old_pass
-				target.glide_for(0.6 SECONDS)
-				message = "дела[pluralize_ru(user.gender,"ет","ют")] кувырок через [target.name]!"
+				message = "дела%(ет,ют)% кувырок через [target.name]!"
 				return ..()
 
 	user.SpinAnimation(5, 1)
 
 	if(ishuman(user) && (prob(5) || (iskidan(user) && !user.get_organ(BODY_ZONE_HEAD))))
-		message = "пыта[pluralize_ru(user.gender,"ет","ют")]ся сделать кувырок и с грохотом пада[pluralize_ru(user.gender,"ет","ют")] на пол!"
-		sleep(0.3 SECONDS)
-		if(!QDELETED(user))
-			user.Weaken(4 SECONDS)
-		return ..()
-
+		message = "пыта%(ет,ют)%ся сделать кувырок и с грохотом пада%(ет,ют)% на пол!"
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, Weaken), 4 SECONDS), 0.3 SECONDS, TIMER_UNIQUE)
 	return ..()
 
 
@@ -194,20 +190,15 @@
 	if(!.)
 		return FALSE
 
-	if(isobserver(user))
-		if(user.orbiting)
-			user.stop_orbit()
-		user.spin(20, 1)
-		return TRUE
-
 	if(!ishuman(user) || prob(95))
-		user.spin(20, 1)
-		return TRUE
+		if(isobserver(user) && user.orbiting)
+			user.stop_orbit()
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, spin), 20, 1)
 
-	user.spin(32, 1)
-	to_chat(user, span_warning("You spin too much!"))
-
-	if(isliving(user))
+	else
+		to_chat(user, span_warning("You spin too much!"))
 		user.Dizzy(24 SECONDS)
 		user.Confused(24 SECONDS)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, spin), 32, 1)
+	return TRUE
 

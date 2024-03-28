@@ -65,10 +65,12 @@ module.exports = (env = {}, argv) => {
                   ],
                 ],
                 plugins: [
+                  '@babel/plugin-proposal-class-properties',
                   '@babel/plugin-transform-jscript',
                   'babel-plugin-inferno',
                   'babel-plugin-transform-remove-console',
                   'common/string.babel-plugin.cjs',
+                  ['@babel/plugin-transform-private-methods', { loose: false }],
                 ],
               },
             },

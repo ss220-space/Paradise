@@ -127,6 +127,7 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#ff7b00"
+	light_system = MOVABLE_LIGHT
 	var/hot = TRUE
 
 /obj/item/gem/magma/examine(mob/user)
@@ -145,19 +146,13 @@
 	to_chat(H, span_notice("You are pressing [src] to your breast and a strong heat passes through your body!"))
 	H.custom_emote(1, "прижимает кристалл к груди.") //HRP style
 	H.adjust_bodytemperature(60)
-	light_range = 0
-	light_power = 0
-	light_color = null
-	update_light()
+	set_light_on(FALSE)
 	hot = FALSE
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 15 SECONDS)
 
 /obj/item/gem/magma/proc/reset_cooldown()
 	hot = TRUE
-	light_range = initial(light_range)
-	light_power = initial(light_power)
-	light_color = initial(light_color)
-	update_light()
+	set_light_on(TRUE)
 
 //icewing watcher gem
 /obj/item/gem/fdiamond
@@ -170,6 +165,7 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#62cad5"
+	light_system = MOVABLE_LIGHT
 	var/cold = TRUE
 	sell_multiplier = 2
 
@@ -189,19 +185,13 @@
 	to_chat(H, span_notice("You are pressing [src] to your breast and a strong cold passes through your body!"))
 	H.custom_emote(1, "прижимает алмаз к груди.") //HRP style
 	H.adjust_bodytemperature(-60)
-	light_range = 0
-	light_power = 0
-	light_color = null
-	update_light()
+	set_light_on(FALSE)
 	cold = FALSE
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 15 SECONDS)
 
 /obj/item/gem/fdiamond/proc/reset_cooldown()
 	cold = TRUE
-	light_range = initial(light_range)
-	light_power = initial(light_power)
-	light_color = initial(light_color)
-	update_light()
+	set_light_on(TRUE)
 
 //blood-drunk miner gem
 /obj/item/gem/phoron
@@ -216,6 +206,7 @@
 	light_range = 4
 	light_power = 4
 	light_color = "#62326a"
+	light_system = MOVABLE_LIGHT
 
 //hierophant gem
 /obj/item/gem/purple
@@ -227,6 +218,7 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#cc47a6"
+	light_system = MOVABLE_LIGHT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/obj/item/gps/internal
@@ -257,6 +249,7 @@
 	light_range = 4
 	light_power = 4
 	light_color = "#FFBF00"
+	light_system = MOVABLE_LIGHT
 
 //colossus gem
 /obj/item/gem/void
@@ -268,6 +261,7 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#4785a4"
+	light_system = MOVABLE_LIGHT
 	var/blink_range = 6
 	var/cooldown = FALSE
 	var/cooldown_time = 40 SECONDS
@@ -307,9 +301,10 @@
 	light_range = 4
 	light_power = 6
 	light_color = "#ac0606"
+	light_system = MOVABLE_LIGHT
 	var/used = FALSE
 	var/blood = 50
-	var/charges = 2
+	var/charges = 10
 
 /obj/item/gem/bloodstone/examine(mob/user)
 	. = ..()
@@ -329,10 +324,7 @@
 						span_notice("You absorb the contents of [src]. The energy from the crystal saturates your body."))
 		vampire.bloodusable += blood
 		used = TRUE
-		light_range = 3
-		light_power = 2
-		light_color = "#ac2626"
-		update_light()
+		set_light_range_power_color(3, 2, "#ac2626")
 
 
 /obj/item/gem/bloodstone/afterattack(obj/item/I, mob/user, proximity)
@@ -355,6 +347,7 @@
 	light_range = 4
 	light_power = 6
 	light_color = "#4245f3"
+	light_system = MOVABLE_LIGHT
 	point_value = 2000
 	insertable = FALSE
 	sell_multiplier = 10

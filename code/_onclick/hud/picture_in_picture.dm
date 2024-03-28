@@ -52,7 +52,7 @@
 	var/matrix/M = matrix()
 	M.Translate(0, (height + 0.25) * world.icon_size)
 	move_tab.transform = M
-	overlays += move_tab
+	add_overlay(move_tab)
 
 	if(!button_x)
 		button_x = new /obj/screen/component_button(null, src)
@@ -99,7 +99,8 @@
 		M.Scale(width + 0.5, height + 0.5)
 		M.Translate((width-1)/2 * world.icon_size, (height-1)/2 * world.icon_size)
 		standard_background.transform = M
-		overlays += standard_background
+		add_overlay(standard_background)
+
 
 /obj/screen/movable/pic_in_pic/proc/set_view_size(width, height, do_refresh = TRUE)
 	width = clamp(width, 0, max_dimensions)
@@ -109,7 +110,7 @@
 
 	y_off = -height * world.icon_size - 16
 
-	overlays.Cut()
+	cut_overlays()
 	add_background()
 	add_buttons()
 	if(do_refresh)

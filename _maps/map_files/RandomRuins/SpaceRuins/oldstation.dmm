@@ -137,6 +137,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/ancientstation/hivebot)
+"bp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/arrow,
+/obj/structure/transit_tube/station,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
 "bs" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -537,9 +543,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/rnd)
 "er" = (
-/obj/machinery/conveyor{
-	id = null
-	},
+/obj/machinery/conveyor,
 /obj/item/circuitboard/ore_redemption,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/glass/fifty{
@@ -620,7 +624,7 @@
 "eY" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toy/cards/deck,
+/obj/item/deck/cards,
 /obj/item/folder/blue,
 /obj/item/pen,
 /turf/simulated/floor/plasteel,
@@ -1143,7 +1147,6 @@
 "ix" = (
 /obj/item/wirecutters/brass{
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch. One of the fancy signature instuments of the Chief Engineer tool set. Looks burnt and damaged. Wonder if I could find the rest of them...";
-	description_info = null;
 	toolspeed = 1
 	},
 /turf/template_noop,
@@ -1169,6 +1172,13 @@
 /obj/structure/grille/broken,
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/ancientstation/betanorth)
+"iG" = (
+/obj/structure/transit_tube/cap{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/betanorth)
 "iK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1305,8 +1315,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/remains/robot{
-	icon_state = "gibup"
+/obj/structure/transit_tube/cap{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/thetacorridor)
@@ -1414,7 +1424,6 @@
 "kx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor_switch/oneway{
-	id = null;
 	obj_integrity = 70
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -1570,9 +1579,7 @@
 /area/ruin/space/ancientstation/betanorth)
 "lD" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor{
-	id = null
-	},
+/obj/machinery/conveyor,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betamincorridor)
@@ -1603,9 +1610,7 @@
 	},
 /area/ruin/space/ancientstation/proto)
 "mp" = (
-/obj/machinery/conveyor{
-	id = null
-	},
+/obj/machinery/conveyor,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betamincorridor)
@@ -1754,22 +1759,14 @@
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/space/ancientstation/atmos)
 "nt" = (
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/obj/structure/transit_tube/station/reverse{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/arrow{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/airless,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/betanorth)
 "nu" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
+/obj/structure/transit_tube/crossing/horizontal,
 /turf/template_noop,
 /area/template_noop)
 "nv" = (
@@ -1850,6 +1847,14 @@
 /obj/structure/sign/mining,
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/betamincorridor)
+"ok" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ancientstation/kitchen)
 "ol" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ancient"
@@ -1867,9 +1872,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "oo" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1890,18 +1894,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/sec)
 "or" = (
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/obj/structure/transit_tube/station/reverse{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/betanorth)
 "ot" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2113,11 +2108,11 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/ancientstation/betaengi)
 "qD" = (
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
-/turf/template_noop,
-/area/template_noop)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/arrow,
+/obj/structure/transit_tube/station,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation)
 "qK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/southeast,
@@ -2127,10 +2122,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "qS" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/transit_tube,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/thetacorridor)
+/obj/structure/transit_tube/horizontal,
+/turf/template_noop,
+/area/template_noop)
 "qU" = (
 /obj/machinery/light{
 	dir = 1;
@@ -2338,7 +2332,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/betanorth)
 "sS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2352,9 +2346,10 @@
 /turf/template_noop,
 /area/template_noop)
 "sZ" = (
-/obj/structure/transit_tube/station/reverse,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/decal/remains/robot{
+	icon_state = "gibup"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/thetacorridor)
 "ta" = (
@@ -2562,6 +2557,7 @@
 /area/ruin/space/ancientstation/hydroponics)
 "vf" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
@@ -2689,6 +2685,8 @@
 /area/ruin/space/ancientstation/atmos)
 "wq" = (
 /obj/structure/table,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/mask/breath,
 /obj/item/tank/internals/oxygen,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
@@ -3597,9 +3595,9 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "Dx" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/transit_tube,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/ancientstation/betanorth)
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation)
 "Dy" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8
@@ -3665,9 +3663,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "DY" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/transit_tube,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/transit_tube/cap{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "Ea" = (
 /obj/structure/cable/yellow{
@@ -3691,9 +3691,16 @@
 /turf/template_noop,
 /area/template_noop)
 "Ep" = (
-/obj/structure/transit_tube,
-/turf/template_noop,
-/area/template_noop)
+/obj/structure/transit_tube_pod{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 1
+	},
+/obj/structure/transit_tube/station,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation)
 "Eq" = (
 /obj/structure/transit_tube/station/reverse,
 /obj/effect/decal/cleanable/dirt,
@@ -3725,7 +3732,6 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betacargo)
 "EJ" = (
-/obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -3963,6 +3969,11 @@
 /mob/living/simple_animal/hostile/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/thetacorridor)
+"GK" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ancientstation/betanorth)
 "GO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
@@ -4086,6 +4097,13 @@
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/proto)
+"HY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/kitchen_machine/grill,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/ancientstation/kitchen)
 "HZ" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil{
@@ -4473,6 +4491,10 @@
 	icon_state = "whitepurple"
 	},
 /area/ruin/space/ancientstation/rnd)
+"Ku" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/rust,
+/area/ruin/space/ancientstation/hydroponics)
 "Kv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5340,6 +5362,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/head/helmet/space/nasavoid/old,
+/obj/item/clothing/head/helmet/space/nasavoid/ntblue,
+/obj/item/clothing/shoes/magboots,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -5364,6 +5388,9 @@
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/suit/space/nasavoid/ntblue{
+	slowdown = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -5585,8 +5612,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "TB" = (
-/obj/machinery/processor,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5829,8 +5856,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "Ve" = (
-/obj/structure/table,
+/obj/effect/decal/cleanable/flour,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5963,15 +5991,15 @@
 	},
 /area/ruin/space/ancientstation/kitchen)
 "VH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/item/seeds/grape,
+/obj/item/seeds/potato,
+/obj/item/seeds/poppy,
+/obj/item/seeds/ambrosia,
 /obj/item/seeds/harebell,
 /obj/item/seeds/carrot,
-/obj/item/seeds/potato,
-/obj/item/seeds/ambrosia,
-/obj/item/seeds/poppy,
-/obj/item/seeds/grape,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/hydroponics)
 "VJ" = (
@@ -6145,6 +6173,8 @@
 "WO" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/melee/classic_baton,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -6215,12 +6245,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation)
+"Xk" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/thetacorridor)
 "Xl" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
+/obj/structure/transit_tube/cap{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "Xn" = (
@@ -6589,11 +6627,13 @@
 /turf/template_noop,
 /area/template_noop)
 "ZQ" = (
-/obj/structure/transit_tube/station/reverse,
+/obj/structure/transit_tube_pod{
+	dir = 4
+	},
+/obj/structure/transit_tube/station,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/betanorth)
 "ZR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/cold_sink/freezer{
@@ -8367,8 +8407,8 @@ hY
 hY
 hY
 gP
-Qs
-Qs
+iG
+or
 sQ
 yw
 Rp
@@ -8415,9 +8455,9 @@ Vf
 hY
 tL
 lB
-Qs
+ZQ
 nt
-Qs
+or
 yw
 Rp
 Pp
@@ -8463,8 +8503,8 @@ ZO
 ZO
 ZO
 Ip
+GK
 jR
-Dx
 jR
 yw
 Pp
@@ -8511,8 +8551,8 @@ Vf
 ZO
 ZO
 ZO
+qS
 ZO
-Ep
 sV
 yw
 Eg
@@ -8559,8 +8599,8 @@ ZO
 ZO
 Vf
 ZO
+qS
 ZO
-Ep
 ZO
 ZO
 Vf
@@ -8607,8 +8647,8 @@ ZO
 ZO
 ZO
 ZO
-ZO
 nu
+ZO
 ZO
 ZO
 Vf
@@ -8655,8 +8695,8 @@ Vf
 ZO
 ZO
 ZO
+nu
 ZO
-Ep
 ZO
 ZO
 ZN
@@ -8703,8 +8743,8 @@ ZO
 ZO
 ZO
 ZO
+nu
 ZO
-Ep
 ZO
 Vf
 Wc
@@ -8751,8 +8791,8 @@ ZO
 ZO
 ZO
 ZO
+qS
 ZO
-Ep
 ZO
 ZO
 ZN
@@ -8799,8 +8839,8 @@ ZO
 ZO
 ZO
 ZO
+qS
 ZO
-Ep
 ZO
 Vf
 Wc
@@ -8847,8 +8887,8 @@ ZO
 ZO
 ZO
 ZO
+nu
 ZO
-Ep
 ZO
 ZO
 ZN
@@ -8895,8 +8935,8 @@ ZO
 ZO
 ZO
 ZO
+qS
 ZO
-Ep
 ZO
 Vf
 if
@@ -8943,8 +8983,8 @@ ZO
 ZO
 ZO
 ZO
+qS
 ZO
-Ep
 ZO
 ZO
 qe
@@ -8991,8 +9031,8 @@ ZO
 ZO
 ZO
 ZO
+nu
 ZO
-Ep
 ZO
 ZO
 Vf
@@ -9039,8 +9079,8 @@ ZO
 ZO
 ZO
 ZO
+nu
 ZO
-Ep
 ZO
 ZO
 Vf
@@ -9087,8 +9127,8 @@ ZO
 ZO
 ZO
 ZO
-ZO
 nu
+ZO
 ZO
 ZO
 cp
@@ -9135,8 +9175,8 @@ ZO
 ZO
 ZO
 ZO
+qS
 ZO
-Ep
 ZO
 ZO
 cp
@@ -9183,8 +9223,8 @@ ZO
 ZO
 ZO
 ZO
+qS
 ZO
-Ep
 ZO
 cp
 cp
@@ -9231,8 +9271,8 @@ ZO
 ZO
 ZO
 Zs
+Dx
 Vv
-DY
 Vv
 cp
 wq
@@ -9279,9 +9319,9 @@ ZO
 ZO
 ZO
 Zs
-kS
-ZQ
+qD
 Vh
+kS
 cp
 Rn
 cG
@@ -9327,7 +9367,7 @@ ZO
 ZO
 ZO
 Zs
-Vh
+DY
 Vh
 tg
 cp
@@ -9675,8 +9715,8 @@ WM
 Mr
 Ow
 XV
-VF
-XV
+Ve
+oo
 Xo
 OI
 BJ
@@ -9723,8 +9763,8 @@ WM
 Bc
 Ow
 Tk
-Ve
 XV
+oo
 XV
 zN
 BJ
@@ -9772,7 +9812,7 @@ Nc
 Re
 lk
 EJ
-XV
+oo
 XV
 Ne
 BJ
@@ -9819,7 +9859,7 @@ WM
 PS
 Ow
 vG
-Ve
+XV
 VF
 XV
 OI
@@ -9866,9 +9906,9 @@ KU
 WM
 Ni
 Ow
-XV
-XV
-XV
+ok
+TB
+HY
 XV
 zN
 BJ
@@ -9914,7 +9954,7 @@ KU
 WM
 PS
 Ow
-TB
+XV
 XV
 XV
 XV
@@ -9962,7 +10002,7 @@ He
 WM
 PS
 Ow
-oo
+XV
 XV
 XV
 XV
@@ -10006,7 +10046,7 @@ Ty
 Fe
 zU
 Fe
-WM
+Ku
 WM
 Nk
 Ow
@@ -10255,8 +10295,8 @@ VW
 VW
 IJ
 Uh
+Ep
 Vh
-or
 Vh
 Zs
 ZO
@@ -10288,7 +10328,7 @@ ZO
 ZO
 Zs
 Vv
-DY
+Vv
 Vv
 Uh
 Pz
@@ -10303,8 +10343,8 @@ VW
 Yq
 zZ
 Uh
+Dx
 Vv
-DY
 Vv
 Zs
 ZO
@@ -10336,7 +10376,7 @@ ZO
 ZO
 ZO
 ZO
-Ep
+ZO
 ZO
 Uh
 lh
@@ -10351,8 +10391,8 @@ VW
 QV
 Uh
 Uh
+nu
 ZO
-Ep
 ZO
 ZO
 ZO
@@ -10383,7 +10423,7 @@ ZO
 ZO
 ZO
 ZO
-Ep
+ZO
 ZO
 ZO
 hl
@@ -10399,8 +10439,8 @@ VT
 rb
 Uh
 ZO
+nu
 ZO
-Ep
 ZO
 ZO
 ZO
@@ -10433,7 +10473,7 @@ ZO
 ZO
 lU
 pB
-Ep
+ZO
 ZO
 Uh
 Uh
@@ -10447,8 +10487,8 @@ Uh
 Uh
 Uh
 ZO
+qS
 ZO
-Ep
 ZO
 ZO
 ZO
@@ -10475,7 +10515,7 @@ hY
 Xd
 Xd
 hY
-Ep
+ZO
 ZO
 ZO
 ZO
@@ -10495,8 +10535,8 @@ ZO
 ZO
 ZO
 ZO
-ZO
 nu
+ZO
 ZO
 ZO
 ZO
@@ -10532,7 +10572,7 @@ ZO
 ZO
 ZO
 ZO
-qD
+ZO
 ZO
 ZO
 Vf
@@ -10543,8 +10583,8 @@ ZO
 ZO
 ZO
 ZO
+qS
 ZO
-Ep
 ZO
 ZO
 ZO
@@ -10576,7 +10616,7 @@ ZO
 ZO
 ZO
 ZO
-qD
+ZO
 ZO
 ZO
 hY
@@ -10591,8 +10631,8 @@ ZO
 ZO
 ZO
 ZO
+nu
 ZO
-Ep
 ZO
 ZO
 ZO
@@ -10624,7 +10664,7 @@ ZO
 ZO
 ZO
 ZO
-Ep
+ZO
 ZO
 tL
 hY
@@ -10639,8 +10679,8 @@ ZO
 ZO
 ZO
 ZO
+nu
 ZO
-Ep
 ZO
 ZO
 ZO
@@ -10672,7 +10712,7 @@ ZO
 ZO
 tz
 lY
-qS
+lY
 lY
 Id
 ZO
@@ -10687,8 +10727,8 @@ ZO
 ZO
 ZO
 tz
+Xk
 lY
-qS
 lY
 tz
 ZO
@@ -10735,7 +10775,7 @@ ZO
 ZO
 ZO
 tz
-oK
+bp
 sZ
 xD
 tz

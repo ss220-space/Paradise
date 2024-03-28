@@ -12,7 +12,7 @@
 	icon_state = "spark"
 	color = "#FFFF00"
 	shockbull = TRUE
-	nodamage = 1
+	nodamage = TRUE
 	weaken = 0.2 SECONDS
 	stamina = 15
 	stutter = 8 SECONDS
@@ -40,6 +40,10 @@
 /obj/item/projectile/energy/electrode/dominator
 	color = LIGHT_COLOR_LIGHT_CYAN
 
+/obj/item/projectile/energy/electrode/advanced
+	stun = 10 SECONDS
+	weaken =  10 SECONDS
+
 /obj/item/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"
@@ -66,7 +70,7 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
-	nodamage = 0
+	nodamage = FALSE
 	weaken = 3 SECONDS
 	stutter = 2 SECONDS
 	shockbull = TRUE

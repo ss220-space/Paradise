@@ -17,6 +17,7 @@
 	var/harvest_message_med = "You pick a mushroom, carefully collecting the shavings from its cap."
 	var/harvest_message_high = "You harvest and collect shavings from several mushroom caps."
 	var/harvested = FALSE
+	var/delete_on_harvest = FALSE
 	var/base_icon
 	var/regrowth_time_low = 8 MINUTES
 	var/regrowth_time_high = 16 MINUTES
@@ -46,6 +47,9 @@
 	name = harvested_name
 	desc = harvested_desc
 	harvested = TRUE
+	if(delete_on_harvest)
+		qdel(src)
+		return 1
 	addtimer(CALLBACK(src, PROC_REF(regrow)), rand(regrowth_time_low, regrowth_time_high))
 	return 1
 
@@ -317,3 +321,37 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL
+
+
+/*********
+ * Rocks *
+ *********/
+// (I know these aren't plants)
+
+/obj/structure/flora/ash/rock
+	name = "large rock"
+	desc = "A volcanic rock. Pioneers used to ride these babies for miles."
+	icon_state = "basalt1"
+	density = TRUE
+	resistance_flags = FIRE_PROOF
+	harvest = /obj/item/stack/ore/glass/basalt
+	harvest_time = 6 SECONDS
+	harvest_amount_low = 10
+	harvest_amount_high = 20
+	harvest_message_low = "You finish mining the rock."
+	harvest_message_med = "You finish mining the rock."
+	harvest_message_high = "You finish mining the rock."
+	delete_on_harvest = TRUE
+
+/obj/structure/flora/ash/rock/style_2
+	icon_state = "basalt2"
+
+/obj/structure/flora/ash/rock/style_3
+	icon_state = "basalt3"
+
+/obj/structure/flora/ash/rock/style_4
+	icon_state = "basalt4"
+
+/obj/structure/flora/ash/rock/style_random/Initialize(mapload)
+	. = ..()
+	icon_state = "basalt[rand(1, 4)]"

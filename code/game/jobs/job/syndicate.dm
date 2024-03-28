@@ -1,11 +1,11 @@
 /datum/job/syndicateofficer
-	title = "Syndicate Officer"
-	flag = JOB_SYNDICATE
-	department_flag = JOB_SYNDICATE // This gets its job as its own flag because admin jobs dont have flags
+	title = JOB_TITLE_SYNDICATE
+	flag = JOB_FLAG_SYNDICATE
+	department_flag = JOB_FLAG_SYNDICATE // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the admins"
-	selection_color = "#ff0000"
+	selection_color = "#4c1e1e"
 	access = list()
 	minimal_access = list()
 	admin_only = 1

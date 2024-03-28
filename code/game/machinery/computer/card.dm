@@ -254,7 +254,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(rank in thisjob.department_head)
 			jobs_returned += thisjob.title
 	if(addcivs)
-		jobs_returned += "Civilian"
+		jobs_returned += JOB_TITLE_CIVILIAN
 	return jobs_returned
 
 /obj/machinery/computer/card/proc/get_employees(list/selectedranks)
@@ -333,13 +333,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["canterminate"] = has_idchange_access()
 				else
 					data["account_number"] = modify ? modify.associated_account_number : null
-					data["jobs_top"] = list("Captain", "Custom")
+					data["jobs_top"] = list(JOB_TITLE_CAPTAIN, "Custom")
 					data["jobs_engineering"] = GLOB.engineering_positions
 					data["jobs_medical"] = GLOB.medical_positions
 					data["jobs_science"] = GLOB.science_positions
 					data["jobs_security"] = GLOB.security_positions
 					data["jobs_service"] = GLOB.service_positions
-					data["jobs_supply"] = GLOB.supply_positions - "Head of Personnel"
+					data["jobs_supply"] = GLOB.supply_positions - JOB_TITLE_HOP
 					data["jobs_civilian"] = GLOB.civilian_positions
 					data["jobs_karma"] = GLOB.whitelisted_positions
 					data["jobs_centcom"] = get_all_centcom_jobs()
@@ -490,13 +490,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						assignment = input("Select a title", "Job title selection") as null|anything in AT
 						if(!assignment)
 							assignment = standart_Assignment
+						if(!modify)
+							return
 
 					access = jobdatum.get_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
 				add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", usr)
 				investigate_log("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", INVESTIGATE_ACCESSCHANGES)
-				if(t1 == "Civilian")
+				if(t1 == JOB_TITLE_CIVILIAN)
 					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".")
 
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name, null)
@@ -544,7 +546,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
 			modify.access = access
-			modify.rank = "Civilian"
+			modify.rank = JOB_TITLE_CIVILIAN
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
 			regenerate_id_name()

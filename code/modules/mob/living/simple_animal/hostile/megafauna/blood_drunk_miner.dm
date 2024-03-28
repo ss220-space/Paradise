@@ -57,6 +57,7 @@ Difficulty: Medium
 	death_sound = "bodyfall"
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/blood_drunk_miner
+	enraged_unique_loot = /obj/item/clothing/suit/hooded/explorer/blood
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
 							   /datum/action/innate/megafauna_attack/transform_weapon)
@@ -65,7 +66,87 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "The sweet blood, oh, it sings to me."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
+
+/* New costume */
+
+/obj/item/clothing/suit/hooded/explorer/blood
+	name = "empowered explorer suit"
+	desc = "An armoured hood for exploring harsh environments. The sweet blood, oh, it sings to you."
+	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
+	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
+
+/obj/item/clothing/head/hooded/explorer/blood
+	name = "empowered explorer hood"
+	desc = "An armoured hood for exploring harsh environments. The sweet blood, oh, it sings to you."
+	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
+	.=..()
+	blood_spell = new
+
+/obj/item/clothing/suit/hooded/explorer/blood/Destroy()
+	QDEL_NULL(blood_spell)
+	return ..()
+
+/obj/effect/proc_holder/spell/blood_suit
+	name = "Bloodlust"
+	desc = "The sweet blood. My swetty blood I love you!"
+	base_cooldown = 20 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
+	phase_allowed = TRUE
+	should_recharge_after_cast = TRUE
+	stat_allowed = UNCONSCIOUS
+	sound = 'sound/misc/enter_blood.ogg'
+	action_icon_state = "bloodcrawl"
+	panel = "Blood Drunk"
+
+/obj/effect/proc_holder/spell/blood_suit/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/blood_suit/cast(list/targets, mob/living/user = usr)
+	if(is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))
+		if(user.lying)
+			to_chat(user, span_colossus("Fight right now my bloody warrior!"))
+		else
+			to_chat(user, span_colossus("The blood sings to me. How pretty!"))
+		user.say("Oh sweet blood. I hear you singing!")
+		user.SetWeakened(0)
+		user.SetStunned(0)
+		user.SetParalysis(0)
+		user.SetSleeping(0)
+		user.SetConfused(0)
+		user.SetImmobilized(0)
+		user.adjustStaminaLoss(-100)
+		user.lying = FALSE
+		user.resting = FALSE
+		user.update_canmove()
+	else
+		to_chat(user, span_colossus("COME BACK TO ME, BLOODY WARRIOR."))
+		user.say("I don't hear a blood's sing!")
+		user.Stun(5 SECONDS)
+		user.Confused(20 SECONDS)
+		user.Slowed(20 SECONDS)
+		user.Dizzy(20 SECONDS)
+
+/obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+	if(!ishuman(user))
+		return
+	if(slot == slot_wear_suit)
+		user.mob_spell_list += blood_spell
+		blood_spell.action.Grant(user)
+
+/obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user)
+	. = ..()
+
+	if(!ishuman(user))
+		return
+	if(user.get_item_by_slot(slot_wear_suit) == src)
+		user.mob_spell_list -= blood_spell
+		blood_spell.action.Remove(user)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
@@ -137,7 +218,7 @@ Difficulty: Medium
 			changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death()
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death(gibbed)
 	if(health > 0)
 		return
 	new /obj/effect/temp_visual/dir_setting/miner_death(loc, dir)
@@ -241,8 +322,8 @@ Difficulty: Medium
 			turf_dist_to_target += get_dist(dash_target, O)
 		if(get_dist(src, O) >= MINER_DASH_RANGE && turf_dist_to_target <= self_dist_to_target && !islava(O) && !ischasm(O))
 			var/valid = TRUE
-			for(var/turf/T in getline(own_turf, O))
-				if(is_blocked_turf(T, TRUE))
+			for(var/turf/T as anything in get_line(own_turf, O))
+				if(T.is_blocked_turf(exclude_mobs = TRUE))
 					valid = FALSE
 					continue
 			if(valid)

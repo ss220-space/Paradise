@@ -158,10 +158,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_y = 10
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet12-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered)
 "hb" = (
 /obj/effect/decal/cleanable/blood/writing,
@@ -340,16 +337,16 @@
 "oq" = (
 /obj/effect/decal/cleanable/tomato_smudge,
 /obj/structure/closet/crate,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /turf/simulated/floor/carpet/red,
 /area/ruin/unpowered)
 "pj" = (
@@ -369,10 +366,7 @@
 "qc" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet12-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered)
 "qg" = (
 /obj/structure/table/wood/fancy/red,
@@ -427,7 +421,7 @@
 "sp" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "escape"
@@ -497,10 +491,7 @@
 "vd" = (
 /obj/structure/table/wood,
 /obj/item/trash/snack_bowl,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet12-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered)
 "vM" = (
 /obj/structure/cult/archives,
@@ -549,10 +540,7 @@
 /area/ruin/unpowered)
 "zv" = (
 /obj/item/chair/wood,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet8-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered)
 "zy" = (
 /turf/simulated/floor/wood{
@@ -739,10 +727,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet4-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered)
 "Hb" = (
 /obj/effect/decal/cleanable/confetti,
@@ -939,7 +924,7 @@
 /area/ruin/unpowered)
 "OD" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/item/clothing/glasses/meson/fluff/book_berner_1,
 /turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)
@@ -1145,10 +1130,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet8-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/unpowered)
 "Zi" = (
 /mob/living/simple_animal/hostile/carp/sea{

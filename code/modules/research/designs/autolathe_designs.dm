@@ -532,7 +532,7 @@
 	name = "Speed Loader (.38 Hollow-Point)"
 	id = "c38hp"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 30500)
 	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list("hacked", "Security")
 
@@ -801,6 +801,14 @@
 	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
+/datum/design/cylinder
+	name = "Revolver Cylinder"
+	id = "icylinder"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 6000)
+	build_path = /obj/item/ammo_box/magazine/internal/cylinder/improvised
+	category = list("hacked", "Security")
+
 /datum/design/shotgun_slug
 	name = "Shotgun Slug"
 	id = "shotgun_slug"
@@ -823,6 +831,22 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 13000)
 	build_path = /obj/item/ammo_box/magazine/sp8
+	category = list("hacked", "Security")
+
+/datum/design/sp91rc_box
+	name = "Ammo Box (9mm TE)"
+	id = "9mmTEbox"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30500)
+	build_path = /obj/item/ammo_box/c9mmte
+	category = list("hacked", "Security")
+
+/datum/design/sp91rc_mag
+	name = "handgun magazine (9mm TE)"
+	id = "9mm-te"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 12000)
+	build_path = /obj/item/ammo_box/magazine/sp91rc
 	category = list("hacked", "Security")
 
 /datum/design/buckshot_shell
@@ -885,7 +909,7 @@
 	name = "Ammo Box (.357)"
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 75000)
+	materials = list(MAT_METAL = 75500)
 	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
 
@@ -1023,6 +1047,7 @@
 	name = "Golem Shell Construction"
 	desc = "Allows for the construction of a Golem Shell."
 	id = "golem"
+	req_tech = null	// Unreachable by tech researching.
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell

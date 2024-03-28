@@ -2149,10 +2149,10 @@
 	name = "meat fridge";
 	req_access = list(271)
 	},
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -6650,7 +6650,7 @@
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO71/eng)
 "pv" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "UO71_air_sensor";
 	output = 7
@@ -6854,7 +6854,7 @@
 	internal_pressure_bound = 2000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO71/eng)
@@ -7099,7 +7099,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Server Base";
@@ -8303,7 +8303,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -8690,7 +8690,7 @@
 	},
 /area/awaymission/UO71/eng)
 "ty" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO71_waste_sensor";
 	output = 63
 	},
@@ -9637,7 +9637,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO71/eng)
@@ -9658,7 +9658,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO71/eng)
@@ -9934,7 +9934,7 @@
 	},
 /area/awaymission/UO71/eng)
 "wl" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO71_n2_sensor"
 	},
 /obj/machinery/light/small,
@@ -9945,7 +9945,7 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO71/eng)
 "wn" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO71_o2_sensor"
 	},
 /obj/machinery/light/small,

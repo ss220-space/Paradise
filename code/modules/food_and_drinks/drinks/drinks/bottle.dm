@@ -377,17 +377,37 @@
 	list_reagents = list()
 	var/list/accelerants = list(/datum/reagent/consumable/ethanol,/datum/reagent/fuel,/datum/reagent/clf3,/datum/reagent/phlogiston,
 							/datum/reagent/napalm,/datum/reagent/hellwater,/datum/reagent/plasma,/datum/reagent/plasma_dust)
-	var/active = 0
+	var/active = FALSE
+
+
+/obj/item/reagent_containers/food/drinks/bottle/molotov/update_desc(updates = ALL)
+	. = ..()
+	desc = initial(desc)
+	if(!isGlass)
+		desc += " You're not sure if making this out of a carton was the brightest idea."
+
+
+/obj/item/reagent_containers/food/drinks/bottle/molotov/update_icon_state()
+	var/obj/item/reagent_containers/food/drinks/bottle/bottle = locate() in contents
+	if(bottle)
+		icon_state = bottle.icon_state
+
+
+/obj/item/reagent_containers/food/drinks/bottle/molotov/update_overlays()
+	. = ..()
+	if(active)
+		. += GLOB.fire_overlay
+
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/CheckParts(list/parts_list)
 	..()
-	var/obj/item/reagent_containers/food/drinks/bottle/B = locate() in contents
-	if(B)
-		icon_state = B.icon_state
-		B.reagents.copy_to(src, 100)
-		if(!B.isGlass)
-			desc += " You're not sure if making this out of a carton was the brightest idea."
-			isGlass = 0
+	var/obj/item/reagent_containers/food/drinks/bottle/bottle = locate() in contents
+	if(bottle)
+		bottle.reagents.copy_to(src, 100)
+		if(!bottle.isGlass)
+			isGlass = FALSE
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
+
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	var/firestarter = 0
@@ -402,6 +422,7 @@
 		new /obj/effect/hotspot(get_turf(target))
 	..()
 
+
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	if(is_hot(I) && !active)
 		active = 1
@@ -410,7 +431,7 @@
 		add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)].", user)
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
-		overlays += GLOB.fire_overlay
+		add_overlay(GLOB.fire_overlay)
 		if(!isGlass)
 			spawn(50)
 				if(active)
@@ -426,11 +447,12 @@
 						A.fire_act()
 					qdel(src)
 
+
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attack_self(mob/user)
 	if(active)
 		if(!isGlass)
 			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")
 			return
 		to_chat(user, "<span class='info'>You snuff out the flame on \the [src].</span>")
-		overlays -= GLOB.fire_overlay
-		active = 0
+		active = FALSE
+		update_icon(UPDATE_OVERLAYS)

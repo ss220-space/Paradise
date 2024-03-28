@@ -144,7 +144,7 @@
 							W.take_damage(25)
 							H.Weaken(4 SECONDS)
 			if(i > 20)
-				user.canmove = 0
+				user.canmove = FALSE
 				user.density = 0
 				for(var/mob/living/M in T.contents)
 					if(!M.lying)
@@ -192,7 +192,7 @@
 				step(user, cur_dir)
 			sleep(1)
 		user.density = 1
-		user.canmove = 1
+		user.canmove = TRUE
 		user.layer = prevLayer
 	else
 		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")
@@ -263,7 +263,7 @@
 		var/o=3
 		for(var/i=0, i<14, i++)
 			user.density = 0
-			user.canmove = 0
+			user.canmove = FALSE
 			o++
 			if(o == 4)
 				o = 0
@@ -303,7 +303,7 @@
 							if(i < 3) M.pixel_y += 8
 							else M.pixel_y -= 8
 		user.density = 1
-		user.canmove = 1
+		user.canmove = TRUE
 		user.layer = prevLayer
 	else
 		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")
@@ -485,7 +485,7 @@
 	return ..()
 
 
-/obj/effect/proc_holder/spell/fireball/hulk_spit/update_icon()
+/obj/effect/proc_holder/spell/fireball/hulk_spit/update_icon_state()
 	return
 
 

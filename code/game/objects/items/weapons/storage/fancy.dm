@@ -18,10 +18,10 @@
 	resistance_flags = FLAMMABLE
 	var/icon_type
 
-/obj/item/storage/fancy/update_icon(var/itemremoved = 0)
-	var/total_contents = src.contents.len - itemremoved
-	src.icon_state = "[src.icon_type]box[total_contents]"
-	return
+
+/obj/item/storage/fancy/update_icon_state()
+	icon_state = "[icon_type]box[length(contents)]"
+
 
 /obj/item/storage/fancy/examine(mob/user)
 	. = ..()
@@ -47,25 +47,70 @@
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 
-/obj/item/storage/fancy/donut_box/update_icon()
-	overlays.Cut()
 
-	for(var/i = 1 to length(contents))
-		var/obj/item/reagent_containers/food/snacks/donut/donut = contents[i]
-		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "donut_[donut.donut_sprite_type]")
-		new_donut_icon.Shift(EAST, 3 * (i-1))
-		overlays += new_donut_icon
+/obj/item/storage/fancy/donut_box/update_icon_state()
+	return
 
-	overlays += icon('icons/obj/food/containers.dmi', "donutbox_front")
+
+/obj/item/storage/fancy/donut_box/update_overlays()
+	. = ..()
+	for(var/I = 1 to length(contents))
+		var/obj/item/reagent_containers/food/snacks/donut/donut = contents[I]
+		var/icon/new_donut_icon = icon(icon, "donut_[donut.donut_sprite_type]")
+		new_donut_icon.Shift(EAST, 3 * (I - 1))
+		. += new_donut_icon
+	. += "donutbox_front"
+
 
 /obj/item/storage/fancy/donut_box/populate_contents()
 	for(var/i = 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/donut(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/storage/fancy/donut_box/empty/populate_contents()
+	update_icon(UPDATE_OVERLAYS)
 	return
 
+/*
+ * Glowsticks Box
+ */
+
+/obj/item/storage/fancy/glowsticks_box
+	name = "glowstick box"
+	icon = 'icons/obj/chemglow_box.dmi'
+	icon_type = "glowstick"
+	icon_state = "chemglow_box_opened"
+	item_state = "glowstick_box"
+	storage_slots = 6
+	can_hold = list(/obj/item/flashlight/flare/glowstick)
+	icon_type = "chemglow"
+	foldable = /obj/item/stack/sheet/cardboard
+	foldable_amt = 2
+
+/obj/item/storage/fancy/glowsticks_box/update_icon_state()
+	if(length(contents) == 6)
+		icon_state = "chemglow_box_closed"
+	else
+		icon_state = "chemglow_box_opened"
+
+/obj/item/storage/fancy/glowsticks_box/update_overlays()
+	. = ..()
+	for(var/I = 1 to length(contents))
+		var/obj/item/flashlight/flare/glowstick/chemglow = contents[I]
+		var/icon/new_chemglow_icon = icon(icon, "chemglow_[chemglow.chemglow_sprite_type]")
+		new_chemglow_icon.Shift(EAST, 2 * (I - 1))
+		. += new_chemglow_icon
+
+/obj/item/storage/fancy/glowsticks_box/populate_contents()
+	for(var/i = 1 to storage_slots)
+		new /obj/item/flashlight/flare/glowstick/random(src)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/storage/fancy/glowsticks_box/empty/populate_contents()
+	update_icon(UPDATE_OVERLAYS)
+	return
 /*
  * Egg Box
  */
@@ -135,17 +180,23 @@
 	new /obj/item/toy/crayon/blue(src)
 	new /obj/item/toy/crayon/purple(src)
 	new /obj/item/toy/crayon/black(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/storage/fancy/crayons/update_icon()
-	overlays = list() //resets list
-	overlays += image('icons/obj/crayons.dmi',"crayonbox")
+
+/obj/item/storage/fancy/crayons/update_icon_state()
+	return
+
+
+/obj/item/storage/fancy/crayons/update_overlays()
+	. = ..()
 	for(var/obj/item/toy/crayon/crayon in contents)
-		overlays += image('icons/obj/crayons.dmi',crayon.colourName)
+		. += crayon.colourName
 
-/obj/item/storage/fancy/crayons/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/toy/crayon))
-		switch(W:colourName)
+
+/obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/crayon = I
+		switch(crayon.colourName)
 			if("mime")
 				to_chat(usr, "This crayon is too sad to be contained in this box.")
 				return
@@ -182,58 +233,57 @@
 	for(var/i = 1 to storage_slots)
 		new cigarette_type(src)
 
-/obj/item/storage/fancy/cigarettes/update_icon() //lazy as hell
-	switch(contents.len)
+/obj/item/storage/fancy/cigarettes/update_icon_state()
+	var/init_state = initial(icon_state)
+	switch(length(contents))
 		if(17 to INFINITY)
-			icon_state = "[initial(icon_state)]6"
+			icon_state = "[init_state]6"
 		if(14 to 16)
-			icon_state = "[initial(icon_state)]5"
+			icon_state = "[init_state]5"
 		if(11 to 13)
-			icon_state = "[initial(icon_state)]4"
+			icon_state = "[init_state]4"
 		if(7 to 10)
-			icon_state = "[initial(icon_state)]3"
+			icon_state = "[init_state]3"
 		if(4 to 6)
-			icon_state = "[initial(icon_state)]2"
+			icon_state = "[init_state]2"
 		if(1 to 3)
-			icon_state = "[initial(icon_state)]1"
+			icon_state = "[init_state]1"
 		else
-			icon_state = "[initial(icon_state)]0"
+			icon_state = "[init_state]0"
 
-/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M, /mob))
-		return
 
-	if(istype(M) && M == user && user.zone_selected == "mouth" && contents.len > 0 && !user.wear_mask)
-		var/got_cig = 0
-		for(var/num=1, num <= contents.len, num++)
-			var/obj/item/I = contents[num]
-			if(istype(I, /obj/item/clothing/mask/cigarette))
-				var/obj/item/clothing/mask/cigarette/C = I
-				user.equip_to_slot_if_possible(C, slot_wear_mask)
-				to_chat(user, "<span class='notice'>You take \a [C.name] out of the pack.</span>")
-				update_icon()
-				got_cig = 1
-				break
-		if(!got_cig)
-			to_chat(user, "<span class='warning'>There are no smokables in the pack!</span>")
+/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/human/target, mob/living/carbon/user)
+	if(!ishuman(target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
+		return ..()
+
+	var/obj/item/clothing/mask/cigarette/cigar = locate() in src
+	if(!cigar)
+		to_chat(user, span_warning("There are no smokables in the pack!"))
+		return TRUE
+
+	if(target.equip_to_slot_if_possible(cigar, slot_wear_mask, disable_warning = TRUE))
+		to_chat(user, span_notice("You took \a [cigar.name] out of the pack[target != user ? " and deftly place it in [target] mouth" : ""]."))
 	else
-		..()
+		to_chat(user, span_warning("Something is blocking [target] mouth!"))
 
-/obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+	return TRUE
+
+
+/obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/W , stop_messages = 0)
 	if(istype(W, /obj/item/match))
-		var/obj/item/match/M = W
-		if(M.lit == 1)
+		var/obj/item/match/match = W
+		if(match.lit)
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>Putting a lit [W] in [src] probably isn't a good idea.</span>")
-			return 0
+				to_chat(usr, span_notice("Putting a lit [W] in [src] probably isn't a good idea."))
+			return FALSE
 	if(istype(W, /obj/item/lighter))
-		var/obj/item/lighter/L = W
-		if(L.lit == 1)
+		var/obj/item/lighter/lighter = W
+		if(lighter.lit)
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>")
-			return 0
-	//if we get this far, handle the insertion checks as normal
-	.=..()
+				to_chat(usr, span_notice("Putting [W] in [src] while lit probably isn't a good idea."))
+			return FALSE
+	return ..()
+
 
 /obj/item/storage/fancy/cigarettes/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!length(contents))
@@ -336,10 +386,15 @@
 	for(var/i in 1 to storage_slots)
 		new /obj/item/rollingpaper(src)
 
-/obj/item/storage/fancy/rollingpapers/update_icon()
-	overlays.Cut()
-	if(!contents.len)
-		overlays += "[icon_state]_empty"
+
+/obj/item/storage/fancy/crayons/update_icon_state()
+	return
+
+
+/obj/item/storage/fancy/rollingpapers/update_icon_state()
+	. = ..()
+	if(!length(contents))
+		. += "[icon_state]_empty"
 
 /*
  * cigcase
@@ -353,10 +408,10 @@
 	storage_slots = 7
 	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
 
-/obj/item/storage/fancy/cigcase/update_icon(var/itemremoved = 0)
-	var/total_contents = src.contents.len - itemremoved
-	src.icon_state = "[src.icon_type]case[total_contents]"
-	return
+
+/obj/item/storage/fancy/cigcase/update_icon_state()
+	icon_state = "[icon_type]case[length(contents)]"
+
 
 /obj/item/storage/fancy/cigcase/populate_contents()
 	for(var/I = 1 to storage_slots)
@@ -390,27 +445,25 @@
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
 
+
 /obj/item/storage/lockbox/vials/populate_contents()
 	for(var/I = 1 to storage_slots)
 		new /obj/item/reagent_containers/glass/beaker/vial(src)
 	update_icon()
 
-/obj/item/storage/lockbox/vials/update_icon(var/itemremoved = 0)
-	var/total_contents = src.contents.len - itemremoved
-	src.icon_state = "vialbox[total_contents]"
-	src.overlays.Cut()
+
+/obj/item/storage/lockbox/vials/update_icon_state()
+	icon_state = "vialbox[length(contents)]"
+
+
+/obj/item/storage/lockbox/vials/update_overlays()
+	. = ..()
 	if(!broken)
-		overlays += image(icon, src, "led[locked]")
+		. += "led[locked]"
 		if(locked)
-			overlays += image(icon, src, "cover")
+			. += "cover"
 	else
-		overlays += image(icon, src, "ledb")
-	return
-
-/obj/item/storage/lockbox/vials/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-	update_icon()
-
+		. += "ledb"
 
 
 ///Aquatic Starter Kit

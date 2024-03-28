@@ -21,7 +21,8 @@
 	stat_attack = DEAD // Necessary for them to attack (zombify) dead humans
 	robust_searching = 1
 	var/host_species = ""
-	var/list/human_overlays = list()
+	var/list/human_overlays
+	var/crab_head_overlay = "headcrabpod"
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
 	if(..() && !stat)
@@ -41,7 +42,7 @@
 
 /mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
 	if(check_friendly_fire)
-		for(var/turf/T in getline(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
+		for(var/turf/T as anything in get_line(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
 			for(var/mob/living/L in T)
 				if(L == src || L == A)
 					continue
@@ -84,7 +85,7 @@
 	H.forceMove(src)
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
-/mob/living/simple_animal/hostile/headcrab/death()
+/mob/living/simple_animal/hostile/headcrab/death(gibbed)
 	..()
 	if(is_zombie)
 		qdel(src)
@@ -102,16 +103,19 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/headcrab/update_icons()
-	. = ..()
 	if(is_zombie)
-		overlays.Cut()
-		overlays = human_overlays
-		var/image/I = image('icons/mob/headcrab.dmi', icon_state = "headcrabpod")
-		if(host_species == "Vox")
-			I = image('icons/mob/headcrab.dmi', icon_state = "headcrabpod_vox")
-		else if(host_species == "Gray")
-			I = image('icons/mob/headcrab.dmi', icon_state = "headcrabpod_gray")
-		overlays += I
+		cut_overlays()
+		add_overlay(human_overlays)
+		var/image/I = image('icons/mob/headcrab.dmi', icon_state = "[crab_head_overlay]")
+		if(host_species == SPECIES_VOX)
+			I = image('icons/mob/headcrab.dmi', icon_state = "[crab_head_overlay]_vox")
+		else if(host_species == SPECIES_GREY)
+			I = image('icons/mob/headcrab.dmi', icon_state = "[crab_head_overlay]_gray")
+		add_overlay(I)
+
+		if(blocks_emissive)
+			add_overlay(get_emissive_block())
+
 
 /mob/living/simple_animal/hostile/headcrab/CanAttack(atom/the_target)
 	if(stat_attack == DEAD && isliving(the_target) && !ishuman(the_target))
@@ -134,18 +138,8 @@
 	jumpdistance = 8
 	jumpspeed = 2
 	speak_emote = list("screech")
+	crab_head_overlay = "fast_headcrabpod"
 
-/mob/living/simple_animal/hostile/headcrab/fast/update_icons()
-	. = ..()
-	if(is_zombie)
-		overlays.Cut()
-		overlays = human_overlays
-		var/image/I = image('icons/mob/headcrab.dmi', icon_state = "fast_headcrabpod")
-		if(host_species == "Vox")
-			I = image('icons/mob/headcrab.dmi', icon_state = "fast_headcrabpod_vox")
-		else if(host_species == "Gray")
-			I = image('icons/mob/headcrab.dmi', icon_state = "fast_headcrabpod_gray")
-		overlays += I
 
 /mob/living/simple_animal/hostile/headcrab/fast/Zombify(mob/living/carbon/human/H)
 	. = ..()
@@ -167,18 +161,7 @@
 	melee_damage_upper = 20
 	attack_sound = 'sound/creatures/ph_scream1.ogg'
 	speak_emote = list("screech")
-
-/mob/living/simple_animal/hostile/headcrab/poison/update_icons()
-	. = ..()
-	if(is_zombie)
-		overlays.Cut()
-		overlays = human_overlays
-		var/image/I = image('icons/mob/headcrab.dmi', icon_state = "poison_headcrabpod")
-		if(host_species == "Vox")
-			I = image('icons/mob/headcrab.dmi', icon_state = "poison_headcrabpod_vox")
-		else if(host_species == "Gray")
-			I = image('icons/mob/headcrab.dmi', icon_state = "poison_headcrabpod_gray")
-		overlays += I
+	crab_head_overlay = "poison_headcrabpod"
 
 
 /mob/living/simple_animal/hostile/headcrab/poison/AttackingTarget()

@@ -250,7 +250,7 @@
 /obj/machinery/mecha_part_fabricator/proc/sync_timer_finish()
 	syncing = FALSE
 	var/area/A = get_area(src)
-	for(var/obj/machinery/computer/rdconsole/RDC in A) // These computers should have their own global..
+	for(var/obj/machinery/computer/rdconsole/RDC in A.machinery_cache) // These computers should have their own global..
 		if(!RDC.sync)
 			continue
 		RDC.files.push_data(local_designs)

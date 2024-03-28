@@ -23,57 +23,80 @@
 	close_sound = 'sound/items/zip.ogg'
 	open_sound_volume = 15
 	close_sound_volume = 15
+	density = FALSE
+	integrity_failure = FALSE
 	var/item_path = /obj/item/bodybag
-	density = 0
-	integrity_failure = 0
 
 
-/obj/structure/closet/body_bag/attackby(W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/pen))
-		var/t = rename_interactive(user, W)
+/obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		var/t = rename_interactive(user, I)
 		if(isnull(t))
 			return
-		cut_overlays()
 		if(t)
-			add_fingerprint(user)
-			add_overlay(image(icon, "bodybag_label"))
+			update_icon(UPDATE_OVERLAYS)
 		return
-	if(istype(W, /obj/item/wirecutters))
-		add_fingerprint(user)
-		to_chat(user, "You cut the tag off the bodybag")
-		name = "body bag"
-		cut_overlays()
+	if(I.tool_behaviour == TOOL_WIRECUTTER)
+		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
+		name = initial(name)
+		update_icon(UPDATE_OVERLAYS)
 		return
 	return ..()
 
 
 /obj/structure/closet/body_bag/close()
 	if(..())
-		density = 0
-		return 1
-	return 0
+		density = FALSE
+		return TRUE
+	return FALSE
 
 
-/obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
-		if(!ishuman(usr) || opened || length(contents))
-			return FALSE
-		visible_message("[usr] folds up the [name]")
+/obj/structure/closet/body_bag/update_icon_state()
+	icon_state = opened ? icon_opened : icon_closed
+
+
+/obj/structure/closet/body_bag/update_overlays()
+	. = list()
+	if(name != initial(name))
+		. += "bodybag_label"
+
+
+/obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !opened && !length(contents) && usr.Adjacent(src))
+		usr.visible_message(
+			span_notice("[usr] folds up [src]."),
+			span_notice("You fold up [src]."),
+		)
 		new item_path(get_turf(src))
 		qdel(src)
+		return FALSE
+	return ..()
+
 
 /obj/structure/closet/body_bag/relaymove(mob/user as mob)
 	if(user.stat)
 		return
 
 	// Make it possible to escape from bodybags in morgues and crematoriums
-	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
+	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/machinery/crematorium)))
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
 
-/obj/structure/closet/body_bag/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened
+/obj/item/bodybag/biohazard
+	name = "biohazard bodybag"
+	desc = "A folded bag designed for the storage and transportation of infected cadavers."
+	icon_state = "bodybag_biohazard_folded"
+
+/obj/structure/closet/body_bag/biohazard
+	name = "biohazard body bag"
+	desc = "A plastic bag designed for the storage and transportation of infected cadavers."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "bodybag_biohazard_closed"
+	icon_closed = "bodybag_biohazard_closed"
+	icon_opened = "bodybag_biohazard_open"
+	item_path = /obj/item/bodybag/biohazard
+
+/obj/item/bodybag/biohazard/attack_self(mob/user)
+	var/obj/structure/closet/body_bag/biohazard/R = new /obj/structure/closet/body_bag/biohazard(user.loc)
+	R.add_fingerprint(user)
+	qdel(src)

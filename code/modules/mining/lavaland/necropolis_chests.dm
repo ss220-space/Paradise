@@ -147,7 +147,8 @@
 	modkit_design = /datum/design/unique_modkit/bounty
 
 /datum/design/unique_modkit
-	build_type = PROTOLATHE | MECHFAB
+	build_type = PROTOLATHE
+	req_tech = null	// Unreachable by tech researching.
 
 /datum/design/unique_modkit/offensive_turf_aoe
 	name = "Kinetic Accelerator Offensive Mining Explosion Mod"

@@ -1,20 +1,23 @@
+// Construction | Deconstruction
+#define STATE_EMPTY			1 // Add wires | Wrench to destroy
+#define STATE_WIRED			2 // Add cicuit / Wrench to unchor/unanchor | Remove wires with wirecutters
+#define STATE_COMPONENTS	3 // Add components / Wrench to unchor/unanchor | Remove circuit/components with crowbar
+
 /obj/machinery/constructable_frame //Made into a seperate type to make future revisions easier.
 	name = "machine frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 250
-	var/obj/item/circuitboard/circuit = null
-	var/list/components = null
-	var/list/req_components = null
-	var/list/req_component_names = null // user-friendly names of components
-	var/state = 1
+	var/obj/item/circuitboard/circuit
+	var/list/components
+	var/list/req_components
+	/// User-friendly names of components
+	var/list/req_component_names
+	var/state = STATE_EMPTY
 
-	// For pods
-	var/list/connected_parts = list()
-	var/pattern_idx=0
 
 /obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -26,21 +29,18 @@
 			circuit = null
 	return ..()
 
+
 /obj/machinery/constructable_frame/obj_break(damage_flag)
 	deconstruct()
 
-// unfortunately, we have to instance the objects really quickly to get the names
-// fortunately, this is only called once when the board is added and the items are immediately GC'd
-// and none of the parts do much in their constructors
-/obj/machinery/constructable_frame/proc/update_namelist()
-	if(!req_components)
-		return
 
-	req_component_names = new()
-	for(var/tname in req_components)
-		var/path = tname
-		var/obj/O = new path()
-		req_component_names[tname] = O.name
+/obj/machinery/constructable_frame/proc/update_lists(list/circuit_components)
+	req_components = circuit_components.Copy()
+	components = list()
+	req_component_names = list()
+	for(var/atom/path as anything in req_components)
+		req_component_names[path] = initial(path.name)
+
 
 /obj/machinery/constructable_frame/proc/get_req_components_amt()
 	var/amt = 0
@@ -48,145 +48,212 @@
 		amt += req_components[path]
 	return amt
 
-// update description of required components remaining
-/obj/machinery/constructable_frame/proc/update_req_desc()
+
+/obj/machinery/constructable_frame/proc/get_req_desc()
+	. = ""
+
 	if(!req_components || !req_component_names)
 		return
 
-	var/hasContent = 0
-	desc = "Requires"
-	for(var/i = 1 to req_components.len)
+	var/hasContent = FALSE
+	var/components_len = length(req_components)
+	. = "<span class='notice'>Required components:"
+	for(var/i = 1 to components_len)
 		var/tname = req_components[i]
 		var/amt = req_components[tname]
-		if(amt == 0)
+		if(!amt)
 			continue
-		var/use_and = i == req_components.len
-		desc += "[(hasContent ? (use_and ? ", and" : ",") : "")] [amt] [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]"
-		hasContent = 1
+		var/use_and = (i == components_len)
+		. += "[(hasContent ? (use_and ? ", and" : ",") : "")] <b>[amt]</b> [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]"
+		hasContent = TRUE
 
-	if(!hasContent)
-		desc = "Does not require any more components."
+	if(hasContent)
+		. += ".</span>"
 	else
-		desc += "."
+		. = span_notice("Does not require any more components.")
 
-/obj/machinery/constructable_frame/machine_frame/attackby(obj/item/P, mob/user, params)
+
+/obj/machinery/constructable_frame/machine_frame/examine(mob/user)
+	. = ..()
+	. += span_notice("It is [anchored ? "<b>bolted</b> to the floor" : "<b>unbolted</b>"].")
 	switch(state)
-		if(1)
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
-				if(C.get_amount() >= 5)
-					playsound(src.loc, C.usesound, 50, 1)
-					to_chat(user, span_notice("You start to add cables to the frame."))
-					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
-						if(state == 1 && C.use(5))
-							add_fingerprint(user)
-							to_chat(user, span_notice("You add cables to the frame."))
-							state = 2
-							icon_state = "box_1"
-						else
-							to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
-							return
-				else
-					to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
+		if(STATE_EMPTY)
+			. += span_notice("The frame is constructed, but it is missing a <i>wiring</i>.")
+		if(STATE_WIRED)
+			. += span_notice("The frame is <b>wired</b>, but it is missing a <i>circuit board</i>")
+		if(STATE_COMPONENTS)
+			var/required = get_req_desc()
+			if(required)
+				. += required
+
+
+/obj/machinery/constructable_frame/machine_frame/update_icon_state()
+	switch(state)
+		if(STATE_EMPTY)
+			icon_state = "box_0"
+		if(STATE_WIRED)
+			icon_state = "box_1"
+		if(STATE_COMPONENTS)
+			icon_state = "box_2"
+
+
+/obj/machinery/constructable_frame/machine_frame/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return .
+
+	if(state == STATE_EMPTY)
+		deconstruct(TRUE)
+		to_chat(user, span_notice("You dismantle the frame."))
+		return .
+
+	if(anchored)
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+		return .
+
+	if(isinspace())
+		to_chat(user, span_warning("You cannot tightens the bolts in space!"))
+		return .
+
+	anchored = TRUE
+	WRENCH_ANCHOR_MESSAGE
+
+
+/obj/machinery/constructable_frame/machine_frame/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(state != STATE_WIRED)
+		return .
+
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || state != STATE_WIRED)
+		return .
+
+	state = STATE_EMPTY
+	WIRECUTTER_SNIP_MESSAGE
+	update_icon(UPDATE_ICON_STATE)
+	new /obj/item/stack/cable_coil(loc, 5)
+
+
+/obj/machinery/constructable_frame/machine_frame/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(state != STATE_COMPONENTS)
+		return .
+
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || state != STATE_COMPONENTS)
+		return .
+
+	state = STATE_WIRED
+	circuit.forceMove(loc)
+	circuit = null
+
+	if(length(components))
+		to_chat(user, span_notice("You remove the circuit board and other components."))
+		for(var/obj/item/component in components)
+			component.forceMove(loc)
+	else
+		to_chat(user, span_notice("You remove the circuit board."))
+
+	name = initial(name)
+	desc = initial(desc)
+	req_components = null
+	components = null
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/constructable_frame/machine_frame/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(state != STATE_COMPONENTS)
+		return .
+
+	var/component_check = TRUE
+	for(var/component in req_components)
+		if(req_components[component] > 0)
+			component_check = FALSE
+			break
+
+	if(!component_check)
+		to_chat(user, span_warning("Machine frame requires more components!"))
+		return .
+
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		return .
+
+	to_chat(user, span_notice("You finish the construction."))
+	var/obj/machinery/new_machine = new circuit.build_path(loc)
+	new_machine.on_construction()
+	for(var/obj/component in new_machine.component_parts)
+		qdel(component)
+	new_machine.component_parts = list()
+	for(var/obj/component in src)
+		component.loc = null
+		new_machine.component_parts += component
+	circuit.loc = null
+	new_machine.RefreshParts()
+	transfer_fingerprints_to(new_machine)
+	qdel(src)
+
+
+/obj/machinery/constructable_frame/machine_frame/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	add_fingerprint(user)
+
+	switch(state)
+		if(STATE_EMPTY)
+			if(!iscoil(I))
+				return ..()
+
+			var/obj/item/stack/cable_coil/coil = I
+			if(coil.get_amount() < 5)
+				to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
 				return
 
-			if(istype(P, /obj/item/wrench))
-				playsound(src.loc, P.usesound, 75, 1)
-				to_chat(user, span_notice("You dismantle the frame."))
-				deconstruct(TRUE)
-				return
-		if(2)
-			if(istype(P, /obj/item/circuitboard))
-				var/obj/item/circuitboard/B = P
-				if(B.board_type == "machine")
-					add_fingerprint(user)
-					playsound(src.loc, B.usesound, 50, 1)
-					to_chat(user, span_notice("You add the circuit board to the frame."))
-					circuit = P
-					user.drop_transfer_item_to_loc(P, src)
-					name += " ([B.board_name])"
-					icon_state = "box_2"
-					state = 3
-					components = list()
-					req_components = circuit.req_components.Copy()
-					update_namelist()
-					update_req_desc()
-				else
-					to_chat(user, span_danger("This frame does not accept circuit boards of this type!"))
-				return
-			if(istype(P, /obj/item/wirecutters))
-				add_fingerprint(user)
-				playsound(src.loc, P.usesound, 50, 1)
-				to_chat(user, span_notice("You remove the cables."))
-				state = 1
-				icon_state = "box_0"
-				new /obj/item/stack/cable_coil(src.loc, 5)
-				return
-			if(istype(P, /obj/item/wrench))
-				add_fingerprint(user)
-				playsound(src.loc, P.usesound, 75, 1)
-				if(!anchored && !isinspace())
-					anchored = TRUE
-					WRENCH_ANCHOR_MESSAGE
-				else if(anchored)
-					anchored = FALSE
-					WRENCH_UNANCHOR_MESSAGE
-				return
-		if(3)
-			if(istype(P, /obj/item/crowbar))
-				add_fingerprint(user)
-				playsound(src.loc, P.usesound, 50, 1)
-				state = 2
-				circuit.loc = src.loc
-				circuit = null
-				if(components.len == 0)
-					to_chat(user, span_notice("You remove the circuit board."))
-				else
-					to_chat(user, span_notice("You remove the circuit board and other components."))
-					for(var/obj/item/I in components)
-						I.loc = src.loc
-				name = initial(name)
-				desc = initial(desc)
-				req_components = null
-				components = null
-				icon_state = "box_1"
+			playsound(loc, coil.usesound, 50, TRUE)
+			to_chat(user, span_notice("You start to add cables to the frame."))
+			if(!do_after(user, 2 SECONDS * coil.toolspeed * gettoolspeedmod(user), target = src) || state != STATE_EMPTY)
 				return
 
-			if(istype(P, /obj/item/wrench))
-				add_fingerprint(user)
-				playsound(src.loc, P.usesound, 75, 1)
-				if(!anchored && !isinspace())
-					anchored = TRUE
-					WRENCH_ANCHOR_MESSAGE
-				else if(anchored)
-					anchored = FALSE
-					WRENCH_UNANCHOR_MESSAGE
+			if(!coil.use(5))
+				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
 				return
 
-			if(istype(P, /obj/item/screwdriver))
-				var/component_check = 1
-				for(var/R in req_components)
-					if(req_components[R] > 0)
-						component_check = 0
-						break
-				if(component_check)
-					playsound(src.loc, P.usesound, 50, 1)
-					var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
-					new_machine.on_construction()
-					for(var/obj/O in new_machine.component_parts)
-						qdel(O)
-					new_machine.component_parts = list()
-					for(var/obj/O in src)
-						O.loc = null
-						new_machine.component_parts += O
-					circuit.loc = null
-					new_machine.RefreshParts()
-					transfer_fingerprints_to(new_machine)
-					qdel(src)
+			state = STATE_WIRED
+			update_icon(UPDATE_ICON_STATE)
+			to_chat(user, span_notice("You add cables to the frame."))
+
+		if(STATE_WIRED)
+			if(!istype(I, /obj/item/circuitboard))
+				return ..()
+
+			var/obj/item/circuitboard/new_circuit = I
+			if(new_circuit.board_type != "machine")
+				to_chat(user, span_warning("This frame does not accept circuit boards of this type!"))
 				return
 
-			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
-				var/obj/item/storage/part_replacer/replacer = P
+			if(!user.drop_transfer_item_to_loc(new_circuit, src))
+				to_chat(user, span_warning("[new_circuit] is stuck to you and cannot be placed into [src]!"))
+				return
+
+			state = STATE_COMPONENTS
+			circuit = new_circuit
+			name += " ([new_circuit.board_name])"
+			if(length(circuit.req_components))
+				update_lists(circuit.req_components)
+			else
+				stack_trace("Circuit without req_components list, placed in [src].")
+			playsound(loc, new_circuit.usesound, 50, TRUE)
+			to_chat(user, span_notice("You add the circuit board to the frame."))
+			update_icon(UPDATE_ICON_STATE)
+
+		if(STATE_COMPONENTS)
+
+			if(istype(I, /obj/item/storage/part_replacer) && length(I.contents) && get_req_components_amt())
+				var/obj/item/storage/part_replacer/replacer = I
 				var/list/added_components = list()
 				var/list/part_list = list()
 
@@ -206,42 +273,40 @@
 					components += part
 					to_chat(user, span_notice("[part.name] applied."))
 				replacer.play_rped_sound()
-
-				update_req_desc()
 				return
 
-			if(istype(P, /obj/item))
-				var/success
-				for(var/I in req_components)
-					if(istype(P, I) && (req_components[I] > 0) && (!(P.flags & NODROP) || istype(P, /obj/item/stack)))
-						add_fingerprint(user)
-						success=1
-						playsound(src.loc, P.usesound, 50, 1)
-						if(istype(P, /obj/item/stack))
-							var/obj/item/stack/S = P
-							var/camt = min(S.get_amount(), req_components[I])
-							var/obj/item/stack/NS
-							if (S.is_cyborg && S.cyborg_construction_stack)
-								NS = new S.cyborg_construction_stack(src, camt)
+			if(isitem(I))
+				var/success = FALSE
+				for(var/path in req_components)
+					var/is_stack = isstack(I)
+					if(istype(I, path) && (req_components[path] > 0) && (!(I.flags & NODROP) || is_stack))
+						success = TRUE
+						playsound(loc, I.usesound, 50, TRUE)
+						if(is_stack)
+							var/obj/item/stack/stack = I
+							var/camt = min(stack.get_amount(), req_components[path])
+							var/obj/item/stack/new_stack
+							if(stack.is_cyborg && stack.cyborg_construction_stack)
+								new_stack = new stack.cyborg_construction_stack(src, camt)
 							else
-								NS = new P.type(src, camt)
-							NS.update_icon()
-							S.use(camt)
-							components += NS
-							req_components[I] -= camt
-							update_req_desc()
+								new_stack = new stack.type(src, camt)
+							new_stack.update_icon()
+							stack.use(camt)
+							components += new_stack
+							req_components[path] -= camt
 							break
-						user.drop_transfer_item_to_loc(P, src)
-						components += P
-						req_components[I]--
-						update_req_desc()
-						return 1
+						user.drop_transfer_item_to_loc(I, src)
+						components += I
+						req_components[path]--
+						break
+
 				if(!success)
-					to_chat(user, span_danger("You cannot add that to the machine!"))
-					return 0
-				return
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+					to_chat(user, span_warning("You cannot add that to the machine!"))
+
+
+#undef STATE_EMPTY
+#undef STATE_WIRED
+#undef STATE_COMPONENTS
 
 
 //Machine Frame Circuit Boards
@@ -257,7 +322,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
-	var/static/list/vending_names_paths = list(
+	var/static/list/station_vendors = list(
 		"Booze-O-Mat" =							/obj/machinery/vending/boozeomat,
 		"Solar's Best Hot Drinks" =				/obj/machinery/vending/coffee,
 		"Getmore Chocolate Corp" =				/obj/machinery/vending/snack,
@@ -294,17 +359,24 @@ to destroy them and players will be able to make replacements.
 		"Service Departament ClothesMate Chaplain" 	= /obj/machinery/vending/clothing/departament/service/chaplain,
 		"RoboFriends" =                         /obj/machinery/vending/pai,)
 
+	var/static/list/unique_vendors = list(
+		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
+		"SyndiWallMed" =						/obj/machinery/vending/wallmed/syndicate,
+		"SyndiMed Plus" =						/obj/machinery/vending/medical/syndicate_access,
+	)
+
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Choose a new brand", "Select an Item") as null|anything in vending_names_paths
+	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors)
 	if(!choice)
 		return
 	set_type(choice)
 
 /obj/item/circuitboard/vendor/proc/set_type(type)
-	var/obj/machinery/vending/typepath = vending_names_paths[type]
+	var/static/list/buildable_vendors = station_vendors + unique_vendors
+	var/obj/machinery/vending/typepath = buildable_vendors[type]
 	build_path = typepath
 	board_name = "[type] Vendor"
 	format_board_name()
@@ -369,7 +441,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/thermomachine/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
 			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
 			board_name = "Heater"
@@ -559,7 +631,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1)
 	var/static/list/fridge_names_paths = list(
 							"SmartFridge" = /obj/machinery/smartfridge,
-							"MegaSeed Servitor" = /obj/machinery/smartfridge/seeds,
+							"Seed Storage" = /obj/machinery/smartfridge/seeds,
 							"Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
 							"Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
 							"Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay/organ,
@@ -574,7 +646,7 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in fridge_names_paths
+	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", fridge_names_paths)
 	if(!choice)
 		return
 	set_type(user, choice)

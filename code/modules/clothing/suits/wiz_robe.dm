@@ -78,6 +78,68 @@
 	dog_fashion = null
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
+/obj/item/clothing/head/wizard/magusdefender
+	name = "Magus Helm"
+	desc = "A mysterious helmet that hums with an unearthly power"
+	icon_state = "magusdefender"
+	item_state = "magusdefender"
+	dog_fashion = null
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi'
+	)
+
+/obj/item/clothing/head/wizard/necromage
+	name = "Necronat Mask"
+	desc = "A mysterious mask made from the skull of the previous owner."
+	icon_state = "necromage"
+	item_state = "necromage"
+	dog_fashion = null
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
+	sprite_sheets = list(
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi'
+	)
+
+/obj/item/clothing/head/wizard/artmage
+	name = "Wizard Sculptor's Beret"
+	desc = "The classic beret of the followers of the school of sculpture allows you to look like a real artist."
+	icon_state = "artmage"
+	item_state = "artmage"
+	dog_fashion = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+	)
+
+/obj/item/clothing/head/wizard/visionmage
+	name = "Golden tiara"
+	desc = "Golden tiara with a third eye, don't look directly into it."
+	icon_state = "visionmage"
+	item_state = "visionmage"
+	dog_fashion = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+	)
+
+/obj/item/clothing/head/wizard/healmage
+	name = "Healer's Hat"
+	desc = "The magical hat of a healer's robe that protects against leprosy."
+	icon_state = "healmage"
+	item_state = "healmage"
+	dog_fashion = null
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+	)
+
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"
 	desc = "A crown-of-thorns psychic amplifier. Kind of looks like a tiara having sex with an industrial robot."
@@ -167,6 +229,57 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
+/obj/item/clothing/suit/wizrobe/magusdefender
+	name = "Magus Robe"
+	desc = "A set of armoured robes that seem to radiate a dark power."
+	icon_state = "magusdefender"
+	item_state = "magusdefender"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/wizrobe/necromage
+	name = "Necronat Robe"
+	desc = "Black and toxic green robes that seem to radiate a dark power and scent of death."
+	icon_state = "necromage"
+	item_state = "necromage"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/wizrobe/artmage
+	name = "Wizard Sculptor's Apron"
+	desc = "A classic apron of followers of the school of sculpture, it protects well from flying clay."
+	icon_state = "artmage"
+	item_state = "artmage"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/wizrobe/visionmage
+	name = "Dark robe"
+	desc = "A dark seer's robe woven from otherworldly threads. Emits dark energy."
+	icon_state = "visionmage"
+	item_state = "visionmage"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
+/obj/item/clothing/suit/wizrobe/healmage
+	name = "Healer's Robe"
+	desc = "Magical robe of a healing servant that protects against leprosy."
+	icon_state = "healmage"
+	item_state = "healmage"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
 /obj/item/clothing/suit/wizrobe/psypurple
 	name = "purple robes"
 	desc = "Heavy, royal purple robes threaded with psychic amplifiers and weird, bulbous lenses. Do not machine wash."
@@ -233,7 +346,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	actions_types = list() //No inbuilt light
+	actions_types = null //No inbuilt light
 	magical = TRUE
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)

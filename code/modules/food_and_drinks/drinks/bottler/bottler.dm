@@ -15,12 +15,12 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "bottler_off"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	var/list/slots[3]
 	var/list/datum/bottler_recipe/available_recipes
 	var/list/acceptable_items
 	var/list/containers = list("glass bottle" = 10, "plastic bottle" = 20, "metal can" = 25)
-	var/bottling = 0
+	var/bottling = FALSE
 
 /obj/machinery/bottler/New()
 	. = ..()
@@ -275,7 +275,8 @@
 		containers[con_type]--
 	//select and process a recipe based on inserted ingredients
 	visible_message("<span class='notice'>[src] hums as it processes the ingredients...</span>")
-	bottling = 1
+	bottling = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	var/datum/bottler_recipe/recipe_to_use = select_recipe()
 	if(!recipe_to_use)
 		//bad recipe, ruins the drink
@@ -293,7 +294,8 @@
 	flick("bottler_on", src)
 	spawn(45)
 		resetSlots()
-		bottling = 0
+		bottling = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		drink_container.forceMove(loc)
 		updateUsrDialog()
 
@@ -391,7 +393,7 @@
 
 	if(href_list["process"])
 		var/list/choices = list("Glass Bottle" = 1, "Plastic Bottle" = 2, "Metal Can" = 3)
-		var/selection = input("Select a container for your beverage.", "Container") as null|anything in choices
+		var/selection = tgui_input_list(usr, "Select a container for your beverage", "Container", choices)
 		if(!selection)
 			return
 		else
@@ -409,7 +411,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/bottler/update_icon()
+/obj/machinery/bottler/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "bottler_broken"
 	else if(bottling)

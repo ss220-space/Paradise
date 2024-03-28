@@ -7,6 +7,11 @@
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 3
+	light_color = "#F70027"
 
 /obj/vehicle/ambulance/Initialize(mapload)
 	. = ..()
@@ -38,10 +43,10 @@
 
 	if(A.soundloop.muted)
 		A.soundloop.start()
-		A.set_light(4,3,"#F70027")
+		A.set_light_on(TRUE)
 	else
 		A.soundloop.stop()
-		A.set_light(0)
+		A.set_light_on(FALSE)
 
 
 /datum/looping_sound/ambulance_alarm
@@ -112,13 +117,15 @@
 	. = ..()
 	. += "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>"
 
-/obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
-	..()
-	if(istype(over_object, /obj/vehicle/ambulance))
-		var/obj/vehicle/ambulance/amb = over_object
-		if(amb.bed)
-			amb.bed = null
-			to_chat(usr, "You unhook the bed to the ambulance.")
-		else
-			amb.bed = src
-			to_chat(usr, "You hook the bed to the ambulance.")
+/obj/structure/bed/amb_trolley/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	if(!. || !istype(over_object, /obj/vehicle/ambulance))
+		return FALSE
+
+	var/obj/vehicle/ambulance/amb = over_object
+	if(amb.bed)
+		amb.bed = null
+		to_chat(usr, "You unhook the bed to the ambulance.")
+	else
+		amb.bed = src
+		to_chat(usr, "You hook the bed to the ambulance.")

@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	icon_state = "server"
 	name = "Messaging Server"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
@@ -74,12 +74,12 @@ GLOBAL_LIST_EMPTY(message_servers)
 	//if(decryptkey == "password")
 	//	decryptkey = generateKey()
 	if(active && (stat & (BROKEN|NOPOWER)))
-		active = 0
+		active = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		return
 	if(prob(3))
 		playsound(loc, "computer_ambience", 50, 1)
-	update_icon()
-	return
+
 
 /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
@@ -111,20 +111,19 @@ GLOBAL_LIST_EMPTY(message_servers)
 						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
 						RC.atom_say("Message from [sender]")
 					RC.message_log += "Message [sender]: [authmsg]"
-			RC.set_light(2)
 
-/obj/machinery/message_server/attack_hand(user as mob)
+/obj/machinery/message_server/attack_hand(user)
 //	to_chat(user, "<span class='notice'>There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.</span>")
 	if(..())
 		return TRUE
 	add_fingerprint(user)
 	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
 	active = !active
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-	return
 
-/obj/machinery/message_server/update_icon()
+
+/obj/machinery/message_server/update_icon_state()
 	if((stat & (BROKEN|NOPOWER)))
 		icon_state = "server-nopower"
 	else if(!active)
@@ -132,13 +131,12 @@ GLOBAL_LIST_EMPTY(message_servers)
 	else
 		icon_state = "server-on"
 
-	return
 /obj/machinery/blackbox_recorder
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
 	name = "Blackbox Recorder"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100

@@ -644,7 +644,7 @@
 		to_chat(user, "<span class='shadowling'>You sent the APC's power to the void while overloading all it's lights!</span>")
 		target_apc.cell?.charge = 0	//Sent to the shadow realm
 		target_apc.chargemode = FALSE //Won't recharge either until an someone hits the button
-		target_apc.charging = FALSE
+		target_apc.charging = APC_NOT_CHARGING
 		target_apc.null_charge()
 		target_apc.update_icon()
 
@@ -929,13 +929,13 @@
 
 	var/mob/living/carbon/human/target = targets[1]
 
-	target.vomit(lost_nutrition = 0, blood = TRUE, stun = TRUE, distance = 1, message = FALSE)
+	target.vomit(lost_nutrition = 0, blood = TRUE, stun = 8 SECONDS, distance = 1, message = FALSE)
 	playsound(user.loc, 'sound/hallucinations/veryfar_noise.ogg', 50, TRUE)
 	to_chat(user, "<span class='shadowling'>You instantly rearrange <b>[target]</b>'s memories, hyptonitizing [target.p_them()] into a thrall.</span>")
 	to_chat(target, "<span class='userdanger'><font size=3>An agonizing spike of pain drives into your mind, and--</font></span>")
 	SSticker.mode.add_thrall(target.mind)
 	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
-	target.add_language("Shadowling Hivemind")
+	target.add_language(LANGUAGE_HIVE_SHADOWLING)
 
 
 

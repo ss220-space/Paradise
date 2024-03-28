@@ -187,7 +187,7 @@
 /obj/effect/self_deleting
 	density = 0
 	opacity = 0
-	anchored = 1
+	anchored = TRUE
 	icon = null
 	desc = ""
 	//layer = 15
@@ -570,7 +570,7 @@
 
 		if(M.dna?.GetSEState(GLOB.empathblock))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
-		else if(prob(5) || M.mind?.assigned_role=="Chaplain")
+		else if(prob(5) || M.mind?.assigned_role == JOB_TITLE_CHAPLAIN)
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
 
 ////////////////////////////////////////////////////////////////////////

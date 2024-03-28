@@ -349,7 +349,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		visible_message("<span class='warning'>As [user] drops the core into [src], [src] appears to swell.</span>")
 		icon_state = "advanced_tumor"
 		boosted = TRUE
-		set_light(6)
+		set_light(6, l_on = TRUE)
 		qdel(core)
 		return TRUE
 
@@ -507,10 +507,14 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	queue_smooth_neighbors(src)
 	return ..()
 
-/obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, border_dir)
+
+/obj/effect/temp_visual/elite_tumor_wall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(isliving(mover) || isprojectile(mover))
 		return FALSE
+
 
 /obj/item/gps/internal/tumor
 	icon_state = null

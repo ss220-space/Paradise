@@ -13,6 +13,7 @@
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
+	gamemode_blacklist = list("extended")
 	var/animal_count
 	var/human_count
 	var/plant_count
@@ -134,7 +135,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 /obj/structure/filler
 	name = "big machinery part"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 	var/obj/machinery/parent
 
@@ -151,7 +152,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	idle_power_usage = 5000
 	pixel_x = -32
 	pixel_y = -64
@@ -192,19 +193,16 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 	..()
 
-/obj/machinery/dna_vault/update_icon()
-	..()
+/obj/machinery/dna_vault/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "vaultoff"
 		return
 	icon_state = "vault"
 
-/obj/machinery/dna_vault/power_change()
-	if(powered(power_channel))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-	update_icon()
+/obj/machinery/dna_vault/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/dna_vault/Destroy()

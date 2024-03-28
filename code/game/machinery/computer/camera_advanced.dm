@@ -109,6 +109,7 @@
 	var/eye_initialized = 0
 	var/visible_icon = 0
 	var/image/user_image = null
+	ai_detector_visible = FALSE // Abductors dont trigger the Ai Detector
 
 /mob/camera/aiEye/remote/Destroy()
 	eye_user = null
@@ -118,7 +119,7 @@
 /mob/camera/aiEye/remote/update_remote_sight(mob/living/user)
 	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
 	user.sight = SEE_TURFS | SEE_BLACKNESS
-	user.see_in_dark = 2
+	user.nightvision = 2
 	return 1
 
 /mob/camera/aiEye/remote/RemoveImages()
@@ -208,7 +209,7 @@
 
 
 	playsound(origin, 'sound/machines/terminal_prompt.ogg', 25, 0)
-	var/camera = input("Choose which camera you want to view", "Cameras") as null|anything in T
+	var/camera = tgui_input_list(target, "Choose which camera you want to view", "Cameras", T)
 	var/obj/machinery/camera/final = T[camera]
 	playsound(origin, "terminal_type", 25, 0)
 	if(final)

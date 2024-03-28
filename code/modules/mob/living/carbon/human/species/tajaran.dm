@@ -1,9 +1,9 @@
 /datum/species/tajaran
-	name = "Tajaran"
+	name = SPECIES_TAJARAN
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
-	language = "Siik'tajr"
+	language = LANGUAGE_TAJARAN
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
@@ -45,6 +45,8 @@
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/tajaran,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/tajaran
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),

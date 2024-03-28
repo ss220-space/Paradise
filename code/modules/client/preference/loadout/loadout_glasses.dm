@@ -22,3 +22,8 @@
 /datum/gear/glasses/prescription
 	display_name = "Prescription glasses"
 	path = /obj/item/clothing/glasses/regular
+
+/datum/gear/glasses/sectacticool
+	display_name = "Security tactical glasses"
+	path = /obj/item/clothing/glasses/hud/security/sunglasses/tacticool
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)

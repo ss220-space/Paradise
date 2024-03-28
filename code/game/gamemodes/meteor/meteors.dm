@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	var/hits = 4
 	var/hitpwr = 2 //Level of ex_act to be called on hit.
 	var/dest
@@ -138,8 +138,12 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
 
-/obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0)
-	return istype(mover, /obj/effect/meteor) ? 1 : ..()
+
+/obj/effect/meteor/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/effect/meteor))
+		return TRUE
+
 
 /obj/effect/meteor/proc/ram_turf(var/turf/T)
 	//first bust whatever is in the turf

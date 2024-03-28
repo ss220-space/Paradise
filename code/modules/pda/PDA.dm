@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	return id ? id : ..()
 
 
-/obj/item/pda/MouseDrop(atom/over)
+/obj/item/pda/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 
 	var/mob/user = usr
@@ -159,7 +159,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(can_use(usr))
 		start_program(find_program(/datum/data/pda/app/main_menu))
 		notifying_programs.Cut()
-		overlays -= image('icons/obj/pda.dmi', "pda-r")
+		cut_overlay(image('icons/obj/pda.dmi', "pda-r"))
 		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
 		SStgui.update_uis(src)
 	else
@@ -194,7 +194,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			SStgui.update_uis(src)
 		else
 			id.forceMove(get_turf(src))
-		overlays -= image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
+		cut_overlay(image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state))
 		id = null
 
 /obj/item/pda/verb/verb_remove_id()
@@ -288,7 +288,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				if( can_use(user) )//If they can still act.
 					id_check(user, 2)
 					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
-					overlays += image('icons/goonstation/objects/pda_overlay.dmi', C.icon_state)
+					add_overlay(image('icons/goonstation/objects/pda_overlay.dmi', C.icon_state))
 					SStgui.update_uis(src)
 
 	else if(istype(C, /obj/item/paicard) && !src.pai)

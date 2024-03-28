@@ -4,7 +4,7 @@
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
@@ -306,6 +306,11 @@
 	anchored = TRUE
 	oreAmount = 10
 
+/obj/structure/statue/armor
+	name = "Knight's armor"
+	desc = "Shiny metallic armor."
+	icon_state = "posarmor"
+	anchored = TRUE
 /obj/structure/statue/elwycco
 	name = "Unknown Hero"
 	desc = "Похоже это какой-то очень важный человек, или очень значимый для многих людей. Вы замечаете огроменный топор в его руках, с выгравированным числом 220. Что это число значит? Каждый понимает по своему, однако по слухам оно означает количество его жертв. \n Надпись на табличке - Мы с тобой, Шустрила! Аве, Легион!"
@@ -371,7 +376,7 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "frank"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	layer = EDGED_TURF_LAYER
 
 /obj/structure/statue/dude
@@ -380,7 +385,7 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "dude"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	layer = EDGED_TURF_LAYER
 
 /obj/structure/statue/death
@@ -389,7 +394,7 @@
 	icon = 'icons/obj/statuebig.dmi'
 	icon_state = "death"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	bound_width = 64
 	layer = EDGED_TURF_LAYER
 
@@ -399,20 +404,16 @@
 	icon = 'icons/obj/statuebig.dmi'
 	icon_state = "unknown"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	bound_width = 64
 	var/lit = 0
 	layer = EDGED_TURF_LAYER
 
-/obj/structure/statue/unknown/Destroy()
-	return ..()
 
-/obj/structure/statue/unknown/update_icon()
-	if(lit)
-		lit = 1
-		icon_state = "unknown_lit"
-	else
-		icon_state = "unknown"
+/obj/structure/statue/unknown/update_icon_state()
+	icon_state = "unknown[lit ? "_lit" : ""]"
+
+
 
 /obj/structure/statue/unknown/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W))
@@ -420,30 +421,34 @@
 		return
 	return ..()
 
+
 /obj/structure/statue/unknown/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0))
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
+
 
 /obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
 		light()
 	return ..()
 
+
 /obj/structure/statue/unknown/proc/light(show_message)
 	if(!lit)
-		lit = 1
+		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
-		set_light(CANDLE_LUM)
-		update_icon()
+		set_light(CANDLE_LUM, l_on = TRUE)
+		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/structure/statue/unknown/attack_hand(mob/user)
 	if(lit)
 		user.visible_message(span_notice("[user] snuffs out [src]."))
-		lit = 0
-		update_icon()
-		set_light(0)
+		lit = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		set_light_on(FALSE)
 
 ////////////////////////////////
 
@@ -479,6 +484,16 @@
 /obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	qdel(src)
+
+/obj/structure/snowman/high
+	icon_state = "snowman_high"
+
+/obj/structure/snowman/medium
+	icon_state = "snowman_medium"
+
+/obj/structure/snowman/short
+	name = "snowboy"
+	icon_state = "snowman_short"
 
 ///////// Cheese
 /obj/structure/statue/cheese

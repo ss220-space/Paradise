@@ -10,20 +10,33 @@
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "blue fox plushie" = "bluefox",
 								"orange fox plushie" = "orangefox", "corgi plushie" = "corgi", "black cat plushie" = "blackcat",
 								"deer plushie" = "deer", "octopus plushie" = "loveable", "facehugger plushie" = "huggable")
-	var/plushy = FALSE
+	var/plushy
+
 
 /obj/item/clockwork/clockslab/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.clockslab_spells
 
-/obj/item/clockwork/clockslab/update_icon()
-	update_overlays()
-	..()
 
-/obj/item/clockwork/clockslab/proc/update_overlays()
-	cut_overlays()
+/obj/item/clockwork/clockslab/update_name(updates = ALL)
+	. = ..()
+	name = plushy ? plushy : initial(name)
+
+
+/obj/item/clockwork/clockslab/update_desc(updates = ALL)
+	. = ..()
+	desc = plushy ? "An adorable, soft, and cuddly plushie." : initial(desc)
+
+
+/obj/item/clockwork/clockslab/update_icon_state()
+	icon = plushy ? 'icons/obj/toy.dmi' : 'icons/obj/clockwork.dmi'
+	icon_state = plushy ? plush_colors[plushy] : initial(icon_state)
+
+
+/obj/item/clockwork/clockslab/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "clock_slab_overlay_[enchant_type]"
+		. += "clock_slab_overlay_[enchant_type]"
 
 /obj/item/clockwork/clockslab/attack(mob/M as mob, mob/user as mob)
 	if(plushy)
@@ -40,13 +53,11 @@
 			return
 		if(alert(user, "Do you want to reveal clockwork slab?","Revealing!","Yes","No") != "Yes")
 			return
-		name = "clockwork slab"
-		desc = "A strange metal tablet. A clock in the center turns around and around."
-		icon = 'icons/obj/clockwork.dmi'
-		icon_state = "clock_slab"
 		attack_verb = null
 		deplete_spell()
-		plushy = FALSE
+		plushy = null
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+
 	if(!isclocker(user))
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		if(iscarbon(user))
@@ -54,17 +65,15 @@
 			carbon.Weaken(10 SECONDS)
 			carbon.Stuttering(20 SECONDS)
 		return
+
 	if(enchant_type == HIDE_SPELL)
 		to_chat(user, "<span class='notice'>You disguise your tool as some little toy.</span>")
 		playsound(user, 'sound/magic/cult_spell.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		var/chosen_plush = pick(plush_colors)
-		name = chosen_plush
-		desc = "An adorable, soft, and cuddly plushie."
-		icon = 'icons/obj/toy.dmi'
-		icon_state = plush_colors[chosen_plush]
+		plushy = pick(plush_colors)
 		attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
 		enchant_type = CASTING_SPELL
-		plushy = TRUE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+
 	if(enchant_type == TELEPORT_SPELL)
 		var/list/possible_altars = list()
 		var/list/altars = list()
@@ -91,7 +100,7 @@
 			to_chat(user, "<span class='warning'>You are not in the right dimension!</span>")
 			return
 
-		var/selected_altar = input(user, "Pick a credence teleport to...", "Teleporation") as null|anything in possible_altars
+		var/selected_altar = tgui_input_list(user, "Pick a credence teleport to...", "Teleporation", possible_altars)
 		if(!selected_altar)
 			return
 		var/turf/destination = possible_altars[selected_altar]
@@ -227,15 +236,13 @@
 	. = ..()
 	enchants = GLOB.spear_spells
 
-/obj/item/twohanded/ratvarian_spear/update_icon()
-	icon_state = "ratvarian_spear[wielded]"
-	update_overlays()
-	return ..()
+/obj/item/twohanded/ratvarian_spear/update_icon_state()
+	icon_state = "ratvarian_spear[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/ratvarian_spear/proc/update_overlays()
-	cut_overlays()
+/obj/item/twohanded/ratvarian_spear/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "ratvarian_spear0_overlay_[enchant_type]"
+		. += "ratvarian_spear0_overlay_[enchant_type]"
 
 /obj/item/twohanded/ratvarian_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -317,14 +324,10 @@
 	. = ..()
 	enchants = GLOB.spear_spells
 
-/obj/item/clock_borg_spear/update_icon()
-	update_overlays()
-	return ..()
-
-/obj/item/clock_borg_spear/proc/update_overlays()
-	cut_overlays()
+/obj/item/clock_borg_spear/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "ratvarian_spear0_overlay_[enchant_type]"
+		. += "ratvarian_spear0_overlay_[enchant_type]"
 
 /obj/item/clock_borg_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -376,15 +379,13 @@
 	. = ..()
 	enchants = GLOB.hammer_spells
 
-/obj/item/twohanded/clock_hammer/update_icon()
-	icon_state = "clock_hammer[wielded]"
-	update_overlays()
-	return ..()
+/obj/item/twohanded/clock_hammer/update_icon_state()
+	icon_state = "clock_hammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/clock_hammer/proc/update_overlays()
-	cut_overlays()
+/obj/item/twohanded/clock_hammer/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "clock_hammer0_overlay_[enchant_type]"
+		. += "clock_hammer0_overlay_[enchant_type]"
 
 /obj/item/twohanded/clock_hammer/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -481,14 +482,10 @@
 	. = ..()
 	enchants = GLOB.sword_spells
 
-/obj/item/melee/clock_sword/update_icon()
-	update_overlays()
-	return ..()
-
-/obj/item/melee/clock_sword/proc/update_overlays()
-	cut_overlays()
+/obj/item/melee/clock_sword/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "clock_sword_overlay_[enchant_type]"
+		. += "clock_sword_overlay_[enchant_type]"
 
 /obj/item/melee/clock_sword/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -588,14 +585,10 @@
 	. = ..()
 	enchants = GLOB.shield_spells
 
-/obj/item/shield/clock_buckler/update_icon()
-	update_overlays()
-	return ..()
-
-/obj/item/shield/clock_buckler/proc/update_overlays()
-	cut_overlays()
+/obj/item/shield/clock_buckler/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "brass_buckler_overlay_[enchant_type]"
+		. += "brass_buckler_overlay_[enchant_type]"
 
 /obj/item/shield/clock_buckler/attack_self(mob/user)
 	. = ..()
@@ -604,7 +597,7 @@
 			to_chat(user, "<span class='notice'>You should wear [src]!</span>")
 			return
 		playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
-		set_light(2, 1, COLOR_WHITE)
+		set_light_range_power_color(2, 1, COLOR_WHITE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.2 SECONDS)
 		user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
 		for(var/mob/living/carbon/M in oviewers(3, user))
@@ -693,14 +686,10 @@
 	. = ..()
 	enchants = GLOB.robe_spells
 
-/obj/item/clothing/suit/hooded/clockrobe/update_icon()
-	update_overlays()
-	return ..()
-
-/obj/item/clothing/suit/hooded/clockrobe/proc/update_overlays()
-	cut_overlays()
+/obj/item/clothing/suit/hooded/clockrobe/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "clockwork_robe_overlay_[enchant_type]"
+		. += "clockwork_robe_overlay_[enchant_type]"
 
 /obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/activate/enchant)
@@ -728,7 +717,7 @@
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 	else
-		ToggleHood()
+		ToggleHood(user)
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
 	animate(user, alpha = 255, time = 1 SECONDS)
@@ -881,12 +870,12 @@
 		flags |= NODROP
 		enchant_type = CASTING_SPELL
 		add_attack_logs(carbon, carbon, "Hardened [src]", ATKLOG_ALL)
-		set_light(1.5, 0.8, COLOR_RED)
+		set_light_range_power_color(1.5, 0.8, COLOR_RED)
 		addtimer(CALLBACK(src, PROC_REF(reset_armor), carbon), 12 SECONDS)
 
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor(mob/user)
 	to_chat(user, "<span class='notice'>The [src] stops shifting...</span>")
-	set_light(0)
+	set_light_on(FALSE)
 	armor = normal_armor
 	flags &= ~NODROP
 	deplete_spell()
@@ -909,6 +898,9 @@
 			user.adjust_fire_stacks(2)
 			user.IgniteMob()
 		user.drop_item_ground(src)
+
+/obj/item/clothing/suit/armor/clockwork/update_icon_state()
+	return
 
 // Gloves
 /obj/item/clothing/gloves/clockwork
@@ -983,11 +975,11 @@
 			return
 		if(iscarbon(living))
 			var/mob/living/carbon/carbon = living
-			carbon.Weaken(10 SECONDS)
-			carbon.Stuttering(20 SECONDS)
+			carbon.Weaken(1 SECONDS)
+			carbon.Stuttering(2 SECONDS)
 		if(isrobot(living))
 			var/mob/living/silicon/robot/robot = living
-			robot.Weaken(10 SECONDS)
+			robot.Weaken(1 SECONDS)
 		do_sparks(5, 0, loc)
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
@@ -998,7 +990,7 @@
 		var/mob/living/carbon/C = A
 		if(isclocker(C))
 			return
-		C.adjust_fire_stacks(0.3)
+		C.adjust_fire_stacks(0.5)
 		C.IgniteMob()
 
 /obj/item/clothing/gloves/clockwork/proc/reset()
@@ -1183,7 +1175,7 @@
 	name = "integration cog"
 	desc = "You shouldn't see that! Call dev on that!"
 	icon = null
-	anchored = 1
+	anchored = TRUE
 	active_power_usage = 100 // In summary it costs 500 power. Most areas costs around 800, with top being medbay at around 8000. Fair number.
 	var/obj/machinery/power/apc/apc
 	var/next_whoosh = 120
@@ -1307,14 +1299,10 @@
 	. = ..()
 	enchants = GLOB.shard_spells
 
-/obj/item/clockwork/shard/update_icon()
-	update_overlays()
-	return ..()
-
-/obj/item/clockwork/shard/proc/update_overlays()
-	cut_overlays()
+/obj/item/clockwork/shard/update_overlays()
+	. = ..()
 	if(enchant_type)
-		overlays += "shard_overlay_[enchant_type]"
+		. += "shard_overlay_[enchant_type]"
 
 /obj/item/clockwork/shard/attack_self(mob/user)
 	if(!isclocker(user) && isliving(user))

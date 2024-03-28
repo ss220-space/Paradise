@@ -15,7 +15,7 @@
 	tts_seed = "Sylvanas"
 
 	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
-	no_spin_thrown = 1
+	no_spin_thrown = TRUE
 	del_on_death = TRUE
 
 	/// The probability % of us escaping if stuffed into a bag/toolbox/etc
@@ -152,7 +152,8 @@
 
 	update_icon()
 
-/mob/living/simple_animal/possessed_object/proc/update_icon(update_pixel_xy = 0)
+
+/mob/living/simple_animal/possessed_object/update_icon(update_pixel_xy = 0)
 	name = possessed_item.name // Take on all the attributes of the item we've possessed.
 	real_name = name
 	desc = possessed_item.desc
@@ -166,3 +167,4 @@
 	color = possessed_item.color
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
+	return ..(NONE)

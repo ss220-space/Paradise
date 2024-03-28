@@ -8,7 +8,7 @@
 	if(!istype(I)) //Something went wrong
 		return
 	if(!hide_tape) //if TRUE this hides the tape overlay and added examine text
-		RegisterSignal(parent, COMSIG_OBJ_UPDATE_ICON, PROC_REF(add_tape_overlay))
+		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_tape_overlay))
 		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(add_tape_text))
 	x_offset = x
 	y_offset = y
@@ -19,18 +19,22 @@
 		var/datum/action/item_action/remove_tape/RT = new(I)
 		if(I.loc == user)
 			RT.Grant(user)
+	I.add_tape()
+
 
 /datum/component/proc/add_tape_text(datum/source, mob/user, list/examine_list)
-	examine_list += "<span class='notice'>There's some sticky tape attached to [source].</span>"
+	examine_list += span_notice("There's some sticky tape attached to [source].")
+
 
 /datum/component/ducttape/proc/add_tape_overlay(obj/item/O)
 	tape_overlay = new('icons/obj/bureaucracy.dmi', "tape")
 	tape_overlay.Shift(EAST, x_offset - 2)
 	tape_overlay.Shift(NORTH, y_offset - 2)
-	O.overlays += tape_overlay
+	O.add_overlay(tape_overlay)
+
 
 /datum/component/ducttape/proc/remove_tape(obj/item/I, mob/user)
-	to_chat(user, "<span class='notice'>You tear the tape off [I]!</span>")
+	to_chat(user, span_notice("You tear the tape off [I]!"))
 	playsound(I, 'sound/items/poster_ripped.ogg', 50, 1)
 	new /obj/item/trash/tapetrash(user.loc)
 	I.update_icon()
@@ -38,9 +42,11 @@
 	for(var/datum/action/item_action/remove_tape/RT in I.actions)
 		RT.Remove(user)
 		qdel(RT)
-	I.overlays.Cut(tape_overlay)
+	I.cut_overlay(tape_overlay)
 	user.transfer_fingerprints_to(I)
+	I.remove_tape()
 	qdel(src)
+
 
 /datum/component/ducttape/proc/afterattack(obj/item/I, atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -55,7 +61,7 @@
 		var/target_direction = get_dir(source_turf, target_turf)//The direction we clicked
 		// Snowflake diagonal handling
 		if(target_direction in GLOB.diagonals)
-			to_chat(user, "<span class='warning'>You cant reach [target_turf].</span>")
+			to_chat(user, span_warning("You can't reach [target_turf]."))
 			return
 		if(target_direction & EAST)
 			x_offset = 16
@@ -71,7 +77,7 @@
 			y_offset = -16
 	if(!user.drop_item_ground(I))
 		return
-	to_chat(user, "<span class='notice'>You stick [I] to [target_turf].</span>")
+	to_chat(user, span_notice("You stick [I] to [target_turf]."))
 	I.pixel_x = x_offset
 	I.pixel_y = y_offset
 

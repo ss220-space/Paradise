@@ -399,9 +399,9 @@
 		<br>\nImportant Notes:
 		<br>\n\t[active2.fields["notes"]]<br>\n
 		<br>\n
-		<center></b>Comments/Log</b></center><br>"}
+		<center></b>Comments/Log</b></center>"}
 		for(var/c in active2.fields["comments"])
-			P.info += "[c]<br>"
+			P.info += "<br>[c["header"]]<br>Comment: [c["text"]]<br>"
 	else
 		P.info += "</b>Medical Record Lost!</b><br>"
 	P.info += "</tt>"

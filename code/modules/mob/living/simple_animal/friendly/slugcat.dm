@@ -8,7 +8,7 @@
 	speak = list("Furrr.","Uhh.", "Hurrr.")
 	gender = MALE
 	turns_per_move = 5
-	see_in_dark = 8
+	nightvision = 8
 	health = 100
 	maxHealth = 100
 	blood_volume = BLOOD_VOLUME_NORMAL
@@ -146,9 +146,7 @@
 		return TRUE
 
 /mob/living/simple_animal/pet/slugcat/regenerate_icons()
-	overlays.Cut()
 	..()
-
 	if(inventory_hand)
 		if(istype(inventory_hand, /obj/item/twohanded/spear))
 			speared()
@@ -166,6 +164,9 @@
 		head_icon = get_hat_overlay()
 
 		add_overlay(head_icon)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /mob/living/simple_animal/pet/slugcat/StartResting(updating = 1)
 	if(inventory_head || inventory_hand)

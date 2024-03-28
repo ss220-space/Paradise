@@ -31,22 +31,22 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	else
 		var/A
 
-		A = input("Select a beacon to connect to", "Balloon Extraction Pack", A) as null|anything in possible_beacons
+		A = tgui_input_list(user, "Select a beacon to connect to", "Balloon Extraction Pack", possible_beacons)
 
 		if(!A)
 			return
 		beacon = A
 		to_chat(user, "You link the extraction pack to the beacon system.")
 
-/obj/item/extraction_pack/MouseDrop(atom/over)
+/obj/item/extraction_pack/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!..())
 		return FALSE
-	if(!(loc == usr && loc.Adjacent(over)))
+	if(!(loc == usr && loc.Adjacent(over_object)))
 		return FALSE
-	if(usr.stat || !ishuman(usr) || usr.incapacitated())
+	if(!ishuman(usr) || usr.incapacitated())
 		return FALSE
-	over.add_fingerprint(usr)
-	afterattack(over, usr, TRUE)
+	over_object.add_fingerprint(usr)
+	afterattack(over_object, usr, TRUE, params)
 	return TRUE
 
 /obj/item/extraction_pack/afterattack(atom/movable/A, mob/living/carbon/human/user, flag, params)

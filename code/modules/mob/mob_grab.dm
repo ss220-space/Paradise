@@ -231,11 +231,15 @@
 			adir = assailant.dir
 			affecting.setDir(assailant.dir)
 			affecting.forceMove(assailant.loc)
+			//Assailant hides behind the victim from strikes from the front
+			assailant.bump_priority = BUMP_PRIORITY_LOW
 		if(GRAB_KILL)
 			shift = 0
 			adir = 1
 			affecting.setDir(SOUTH)//face up
 			affecting.forceMove(assailant.loc)
+			//Assailant hides behind the victim from strikes from the front
+			assailant.bump_priority = BUMP_PRIORITY_LOW
 
 	switch(adir)
 		if(NORTH)
@@ -435,11 +439,8 @@
 
 		if(affecting.mind)
 			add_attack_logs(attacker, affecting, "Devoured")
-
-		if(isvampire(user))
-			user.adjust_nutrition(affecting.blood_nutrients)
-		else
-			user.adjust_nutrition(10 * affecting.health)
+		if(!isvampire(user))
+			user.adjust_nutrition(2 * affecting.health)
 
 		for(var/datum/disease/virus/V in affecting.diseases)
 			if(V.spread_flags > NON_CONTAGIOUS)
@@ -460,10 +461,6 @@
 		return 1
 
 	var/mob/living/carbon/human/H = attacker
-	var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
-	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(ishuman(H) && (vamp || g_vamp) && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
-		return 1
 	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1
 
@@ -484,6 +481,7 @@
 			affecting.pixel_x = 0
 			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
 			affecting.layer = initial(affecting.layer)
+			assailant.bump_priority = BUMP_PRIORITY_NORMAL
 		affecting.grabbed_by -= src
 		affecting = null
 	if(assailant)

@@ -13,7 +13,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	notransform = 1
-	canmove = 0
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 

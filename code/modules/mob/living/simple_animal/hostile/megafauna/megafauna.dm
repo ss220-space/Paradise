@@ -44,6 +44,9 @@
 	var/enraged = FALSE
 	/// Path of the hardmode loot disk, if applicable.
 	var/enraged_loot
+	/// Hardmode one loot
+	var/enraged_unique_loot
+	/// Only one loot from hardmode
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -58,6 +61,8 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
+	if(target)
+		DestroySurroundings() //So they can path through chasms.
 	if(nest && nest.parent && get_dist(nest.parent, src) > nest_range)
 		var/turf/closest = get_turf(nest.parent)
 		for(var/i = 1 to nest_range)
@@ -77,6 +82,8 @@
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
 		if(enraged && length(loot) && enraged_loot) //Don't drop a disk if the boss drops no loot. Important for legion.
+			if(enraged_unique_loot)
+				loot += enraged_unique_loot
 			for(var/mob/living/M in urange(20, src)) //Yes big range, but for bubblegum arena
 				if(M.client)
 					loot += enraged_loot //Disk for each miner / borg.
@@ -152,6 +159,7 @@
 		mob_attack_logs += "[time_stamp()] Aggrod on [L][COORD(L)] at [COORD(src)]"
 	..()
 
+
 /mob/living/simple_animal/hostile/megafauna/LoseTarget()
 	var/mob/living/L = target
 	if(istype(L) && L.mind)
@@ -176,6 +184,12 @@
 		SSmedals.SetScore(BOSS_SCORE, C, 1)
 		SSmedals.SetScore(score_type, C, 1)
 	return TRUE
+
+/mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
+	. = ..()
+	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
+		C.density = FALSE //I hate it.
+		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"

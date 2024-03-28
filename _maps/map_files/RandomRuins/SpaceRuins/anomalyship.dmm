@@ -569,9 +569,9 @@
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
-	environ = 0;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = -28;
 	req_access = list(111);
@@ -637,7 +637,7 @@
 	pixel_x = 8;
 	pixel_y = 13
 	},
-/obj/item/borg/upgrade/modkit/cooldown{
+/obj/item/borg/upgrade/modkit/cooldown/haste{
 	pixel_x = -5;
 	pixel_y = 1
 	},
@@ -1055,9 +1055,9 @@
 "wL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
-	environ = 0;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = 32;
 	req_access = list(111);
@@ -1547,9 +1547,9 @@
 "FZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
-	environ = 0;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = -28;
 	req_access = list(111);
@@ -1802,9 +1802,9 @@
 	},
 /obj/item/clothing/shoes/magboots,
 /obj/machinery/power/apc/noalarm{
-	environ = 0;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = 28;
 	req_access = list(111);
@@ -2190,9 +2190,9 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/noalarm{
-	environ = 0;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	name = "IPC area power controller";
 	pixel_y = 28;
 	req_access = list(111);

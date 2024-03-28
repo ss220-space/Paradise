@@ -185,7 +185,7 @@
 
 /// Default fps for clients with "0" in prefs. -1 for synced with server.
 /datum/config_entry/number/clientfps
-	default = 65
+	default = 40
 
 /// use socket_talk to communicate with other processes
 /datum/config_entry/number/socket_talk
@@ -419,13 +419,14 @@
 	min_val = 0
 
 
-/datum/config_entry/str_list/antag_paradise_main_antags
+/datum/config_entry/keyed_list/antag_paradise_main_antags
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
 	default = list(
-		ROLE_TRAITOR,
-		ROLE_VAMPIRE,
-		ROLE_CHANGELING,
+		ROLE_TRAITOR = 60,
+		ROLE_VAMPIRE = 20,
+		ROLE_CHANGELING = 20,
 	)
-	lowercase = TRUE
 
 /datum/config_entry/keyed_list/antag_paradise_special_antags_weights
 	key_mode = KEY_MODE_TEXT

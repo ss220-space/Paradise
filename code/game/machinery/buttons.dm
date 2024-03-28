@@ -9,8 +9,8 @@
 	icon_state = "launcherbtt"
 	desc = "A remote control switch for a mass driver."
 	var/id_tag = "default"
-	var/active = 0
-	anchored = 1.0
+	var/active = FALSE
+	anchored = TRUE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
@@ -57,6 +57,10 @@
 	return ..()
 
 
+/obj/machinery/driver_button/update_icon_state()
+	icon_state = active ? "launcheract" : "launcherbtt"
+
+
 /obj/machinery/driver_button/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
@@ -96,8 +100,8 @@
 	launch_sequence()
 
 /obj/machinery/driver_button/proc/launch_sequence()
-	active = 1
-	icon_state = "launcheract"
+	active = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 	if(logic_connect)
 		if(!radio_connection)		//can't output without this
@@ -145,8 +149,8 @@
 	rearm()
 
 /obj/machinery/driver_button/proc/rearm()
-	icon_state = "launcherbtt"
 	active = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 //////////////////////////////////////
 //			Ignition Switch			//
@@ -158,8 +162,8 @@
 	icon_state = "launcherbtt"
 	desc = "A remote control switch for a mounted igniter."
 	var/id = null
-	var/active = 0
-	anchored = 1.0
+	var/active = FALSE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
@@ -181,8 +185,8 @@
 
 	use_power(5)
 
-	active = 1
-	icon_state = "launcheract"
+	active = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 	for(var/obj/machinery/sparker/M in GLOB.machines)
 		if(M.id == id)
@@ -197,5 +201,10 @@
 
 	sleep(50)
 
-	icon_state = "launcherbtt"
-	active = 0
+	active = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/ignition_switch/update_icon_state()
+	icon_state = active ? "launcheract" : "launcherbtt"
+

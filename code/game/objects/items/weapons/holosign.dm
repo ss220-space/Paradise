@@ -27,7 +27,7 @@
 			to_chat(user, "<span class='notice'>You use [src] to deactivate [H].</span>")
 			qdel(H)
 		else
-			if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+			if(!T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 				if(holocreator_busy)
 					to_chat(user, "<span class='notice'>[src] is busy creating a hologram.</span>")
 					return
@@ -41,7 +41,7 @@
 						holocreator_busy = FALSE
 						if(signs.len >= max_signs)
 							return
-						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
+						if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
 					to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
@@ -63,7 +63,7 @@
 	desc = "A handy-dandy holographic projector that displays a janitorial sign."
 	belt_icon = "sign_projector"
 	holosign_type = /obj/structure/holosign/wetsign
-	var/wet_enabled = FALSE
+	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
@@ -89,6 +89,7 @@
 	holosign_type = /obj/structure/holosign/wetsign/mine
 	creation_time = 5
 	max_signs = 5
+	wet_enabled = FALSE
 
 /obj/item/holosign_creator/security
 	name = "security holobarrier projector"

@@ -2,8 +2,8 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1, on_lattice = 1), \
 	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1), \
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1), \
+	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1, check_direction = TRUE), \
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1, check_direction = TRUE), \
 	null,
 	new /datum/stack_recipe_list("chainlink fence", list( \
 		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1), \
@@ -46,12 +46,10 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	. = ..()
 	recipes = GLOB.rod_recipes
 
-/obj/item/stack/rods/update_icon()
+/obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
-	if((amount <= 5) && (amount > 0))
-		icon_state = "rods-[amount]"
-	else
-		icon_state = "rods"
+	icon_state = "rods-[clamp(amount, 1, 5)]"
+
 
 /obj/item/stack/rods/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 2)
@@ -79,8 +77,8 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/rods
 
-/obj/item/stack/rods/cyborg/update_icon()
-	return
+/obj/item/stack/rods/cyborg/update_icon_state()
+	return // icon_state should always be a full stack of rods.
 
 /obj/item/stack/fireproof_rods
 	name = "fireproof rods"
@@ -103,10 +101,12 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
-/obj/item/stack/fireproof_rods/update_icon()
+
+/obj/item/stack/fireproof_rods/twentyfive
+	amount = 25
+
+
+/obj/item/stack/fireproof_rods/update_icon_state()
 	var/amount = get_amount()
-	if((amount <= 5) && (amount > 0))
-		icon_state = "f_rods-[amount]"
-	else
-		icon_state = "f_rods"
+	icon_state = "f_rods-[clamp(amount, 1, 5)]"
 

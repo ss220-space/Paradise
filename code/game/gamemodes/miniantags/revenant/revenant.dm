@@ -20,7 +20,7 @@
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	universal_understand = 1
 	response_help   = "passes through"
@@ -74,7 +74,7 @@
 		unstun_time = 0
 		notransform = 0
 		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
-	update_spooky_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/revenant/ex_act(severity)
 	return 1 //Immune to the effects of explosions.
@@ -203,7 +203,7 @@
 /mob/living/simple_animal/revenant/gib()
 	. = death()
 
-/mob/living/simple_animal/revenant/death()
+/mob/living/simple_animal/revenant/death(gibbed)
 	if(!revealed)
 		return FALSE
 	// Only execute the below if we successfully died
@@ -217,7 +217,7 @@
 	invisibility = 0
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
 	visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
-	icon_state = "revenant_draining"
+	update_icon(UPDATE_ICON_STATE)
 	for(var/i = alpha, i > 0, i -= 10)
 		sleep(0.1)
 		alpha = i
@@ -285,7 +285,7 @@
 	else
 		to_chat(src, "<span class='revenwarning'>You have been revealed!</span>")
 		unreveal_time = unreveal_time + time
-	update_spooky_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/revenant/proc/stun(time)
 	if(!src)
@@ -299,9 +299,9 @@
 	else
 		to_chat(src, "<span class='revenwarning'>You cannot move!</span>")
 		unstun_time = unstun_time + time
-	update_spooky_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/mob/living/simple_animal/revenant/proc/update_spooky_icon()
+/mob/living/simple_animal/revenant/update_icon_state()
 	if(revealed)
 		if(notransform)
 			if(draining)

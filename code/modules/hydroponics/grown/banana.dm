@@ -26,6 +26,25 @@
 	distill_reagent = "bananahonk"
 	tastes = list("banana" = 1)
 
+
+/obj/item/reagent_containers/food/snacks/grown/banana/throw_impact(mob/living/simple_animal/hostile/gorilla/hit_gorilla, datum/thrownthing/throwingdatum)
+	if(istype(hit_gorilla))
+		if(!hit_gorilla.can_befriend || hit_gorilla.is_on_cooldown())
+			return ..()
+		var/mob/thrower = locateUID(thrownby)
+		hit_gorilla.start_action_cooldown()
+		if(hit_gorilla.master && hit_gorilla.master != thrower)
+			if(hit_gorilla.master in view(hit_gorilla))
+				hit_gorilla.face_atom(hit_gorilla.master)
+				hit_gorilla.custom_emote(EMOTE_VISIBLE, "кос%(ит,ят)%ся на банан, а затем моляще смотр%(ит,ят)% на [hit_gorilla.master].", intentional = TRUE)
+			else
+				hit_gorilla.custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)% беглый взгляд на банан, а затем оглядыва%(ет,ют)%ся в поисках [hit_gorilla.master].", intentional = TRUE)
+			return ..()
+		hit_gorilla.eat_banana(src, thrower, throw_impact = TRUE)
+	else
+		return ..()
+
+
 /obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is aiming the [name] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)

@@ -1,0 +1,209 @@
+'2024-01-10':
+  ArtemDerp:
+  - bugfix: fixed false blastdoor opening (#4166)
+  - bugfix: added parallax for undertaker shuttle (#4157)
+  BeebBeebBoob:
+  - add: Leopard tail for Tajaran (#4151)
+  - tweak: To become AI from the core, now you need min playtime hours. (#4183)
+  Daeberdir:
+  - add: standart HUD and headset for IIAs. (#4133)
+  Dimach:
+  - del: remove N/Y celebration map stuff  (#4196)
+  - bugfix: fix changelog generation crash (#4197)
+  - bugfix: fix changelog generation crash (#4198)
+  LiquidPotroh:
+  - bugfix: Skiping stage_act() in transformation viruses (#4177)
+  - add: New vampire's sucking animation (#4098)
+  Nerrol:
+  - bugfix: Fix comments to the medical record when printing a document (#4193)
+  NightDawnFox:
+  - bugfix: legion blastdoors are now 100% opens after his death, I tested this time
+      (#4159)
+  Pavel Poltaves:
+  - bugfix: Sentient mobs should be able to read (#4141)
+  ROdenFL:
+  - bugfix: modal ui fix (#4173)
+  - tweak: dark theme update (#4124)
+  Rerik007:
+  - bugfix: remove confusing hands overlay again (#4179)
+  - bugfix: you can not save off-autohiss mode (#4199)
+  Roman:
+  - bugfix: IPC can't be repaired. (#4172)
+  Vladisvell:
+  - bugfix: Protolathe now shows correct buildability state (#4185)
+  - bugfix: Camera console no longer lets you see through closed doors (#4194)
+  - qol: Broken bones can now be felt from any body part (#4189)
+  - tweak: setCloneLoss now can unmutate organs (#4186)
+  - bugfix: Fixed Sleeping Carp runtime (#4180)
+  - bugfix: Now robots can toggle closets and crates through context menu (#4174)
+  - bugfix: No more long reasons in supply shuttle console (#4176)
+  - bugfix: made garland layer lower than object layer (#4163)
+  WolfLox:
+  - tweak: frag grenade faster and cheaper (#4155)
+  yosoyrebelde:
+  - bugfix: possibly fix crew monitor row duplicating (#4187)
+'2024-01-13':
+  ArtemDerp:
+  - bugfix: fixed lost objects due to merge conflict (#4171)
+  Daeberdir:
+  - bugfix: superior-welding-glasses wrong tint. (#4201)
+  - bugfix: normal chair smashing logic. (#4202)
+  Nerrol:
+  - bugfix: duplicate coat on throwing to the coat rack (#4200)
+  Vladisvell:
+  - bugfix: PDA Painter no longer crashes map initialization (#4207)
+'2024-01-14':
+  ArtemDerp:
+  - tweak: brig nanomed access changes (#4208)
+  BeebBeebBoob:
+  - tweak: Cogscarab&fabricators with gloves abit (#4192)
+  Hero998:
+  - tweak: Wirecutters Cut Bone (#4209)
+  Ksaikok46:
+  - tweak: vampires can't eat simple mobs; reduced nutrition from mobs (#4104)
+  Mindfri:
+  - add: 4 Pirate Paintkits Mecha (#4195)
+  Nerrol:
+  - bugfix: Incorrect starting loc for weapon's shot by telekinesis (#4204)
+  RuinaRuiner:
+  - bugfix: secoff bandle fix (#4100)
+  SAAD:
+  - unknown: Delta kitchen (#4072)
+  Vladisvell:
+  - bugfix: fixed camera updates for consoles (#4213)
+  - refactor: Optimized BFL (#4190)
+  - add: Thunderdome update, December patch (#4138)
+  Zwei:
+  - refactor: Icon Updates Rework Part1 (#4162)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4210)
+  p4el007:
+  - add: new screens for AI (#4140)
+'2024-01-15':
+  LiquidPotroh:
+  - bugfix: examine catatonics runtime (#4217)
+  NightDawnFox:
+  - add: new lavaland generation types (#4071)
+  Zwei:
+  - bugfix: Few Icons Fixes (#4218)
+'2024-01-20':
+  0x0v3rfl0w:
+  - tweak: Camera alarms for engineering (#3596)
+  ArtemDerp:
+  - bugfix: deleted random sink (#4231)
+  - imageadd: torch sprite update (#4224)
+  - add: SP-91-RC submachine gun (#4175)
+  Baldek0:
+  - bugfix: supermatter sliver throw target proc fix (#4235)
+  Daeberdir:
+  - tweak: no sanitize for area `name` in crew monitor's. (#4229)
+  Den109G:
+  - bugfix: Fish cabinet is now anchored. (#4227)
+  Dimach:
+  - bugfix: fix objective removed proc (#4244)
+  Etrnlmelancholy:
+  - add: colorized suspenders + security belt shoulder system (#4184)
+  LiquidPotroh:
+  - add: More knives for martial art & shields penetration (#4220)
+  Nerrol:
+  - bugfix: Fix medal attach when wearing a webbing (#4238)
+  - bugfix: fixed bug speed potion with click to smartfridge (#4212)
+  NightDawnFox:
+  - refactor: moving lava generation to a datum system (#4234)
+  - imageadd: mining charges and crew monitor inhand sprites (#4223)
+  ROdenFL:
+  - bugfix: mage`s demon start message fix (#4232)
+  - tweak: pain hunter (#3920)
+  Renascitur:
+  - add: Security Webbing for blueshield (#4240)
+  WolfLox:
+  - add: new skirt (#4222)
+  Zwei:
+  - bugfix: Buttons Alpha On Click (#4228)
+  - bugfix: Ninja Bomb Objective Fix (#4203)
+'2024-01-21':
+  0x0v3rfl0w:
+  - tweak: camera alarms (#3593)
+  ArtemDerp:
+  - bugfix: added missed item state for SP91 (#4251)
+  - add: space bar shuttle can dock near the station (#4214)
+  Daeberdir:
+  - bugfix: delta library windowtint button affecting clearly. (#4242)
+  LiquidPotroh:
+  - qol: Examine knife holster on suit (#4247)
+  - bugfix: multiple same viruses in blood data (#4096)
+  Pavel Poltaves:
+  - bugfix: someone forgot to add ability to read newspapers on tables. (#4241)
+  Rerik007:
+  - add: cargo quest system (#4047)
+  Valtor:
+  - bugfix: Returned the "pAI suicide" button (#4236)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4248)
+'2024-01-22':
+  NightDawnFox:
+  - bugfix: chasm lavaland are now shown in space (#4257)
+  Rerik007:
+  - bugfix: some cargo fixes/ part 1 (#4256)
+  Zwei:
+  - tweak: All Species Are Spawnable (#4255)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4254)
+'2024-01-24':
+  Rerik007:
+  - bugfix: some cargo fixes and tweaks/ part 2 (#4261)
+'2024-01-26':
+  ArtemDerp:
+  - bugfix: added missing firelocks at bar (#4281)
+  - bugfix: ussp golem docking port size (#4270)
+  Daeberdir:
+  - bugfix: slimeman and diona initialised with wrong hud. (#4279)
+  - bugfix: infinity wethersound in gate level. (#4272)
+  - bugfix: missed value returning in `user_buckle_mob()`. (#4271)
+  - add: admin button for docking ports refilling. (#4273)
+  LiquidPotroh:
+  - unknown: Loyalty syndrome now use mob's real name (#4264)
+  NightDawnFox:
+  - bugfix: megafauna are no longer afraid of chasms & normal pathing for shitspawn
+      species & plasma golems now have normal explode ability (#4276)
+  - add: megaseed servitor to Thetta. Also bubblegum arena fix (#4266)
+  Rerik007:
+  - bugfix: cargo fixes/ part3 (#4274)
+  - bugfix: old alt titles are available (#4267)
+  Zwei:
+  - bugfix: Temporary Dominator Fix (#4250)
+  xTrogwaRx:
+  - bugfix: Fixed link in books with iframe (#4282)
+'2024-01-29':
+  Daeberdir:
+  - bugfix: initial zone selecting and human icon for "damage zone" HUD. (#4292)
+  Ksaikok46:
+  - bugfix: no more invisible seedstorage with seeds (#4310)
+  LiquidPotroh:
+  - bugfix: bestia can crawl after transform (#4304)
+  - bugfix: Nettle and deathnettle special effects now blocking (#4302)
+  - bugfix: Correct display eyes trophy of bestia (#4297)
+  Nerrol:
+  - bugfix: fix bug with removing one of several HUDs (#4245)
+  ROdenFL:
+  - bugfix: headslug announce (#4296)
+  - bugfix: terror hivemind colourfix (#4289)
+  Renascitur:
+  - add: Reanimation paper deny (#4305)
+  fankroll:
+  - bugfix: Leopard tail for Tajaran  (#4290)
+'2024-01-30':
+  Dimach:
+  - refactor: reduce list count for floor turfs (#4308)
+  - server: update github actions (#4312)
+  Vladisvell:
+  - refactor: Cached areas machinery and lights to improve perfomance (#4306)
+  - refactor: Cut down memory usage by lists of some objects (#4313)
+  Zwei:
+  - add: Station Goals Logging (#4299)
+  - bugfix: Abductor Surgery Fix (#4303)
+'2024-01-31':
+  Aziz Chynaliev:
+  - del: unlock all tts seeds"
+  Vladisvell:
+  - bugfix: Removed machinery caching in late initialize (#4317)

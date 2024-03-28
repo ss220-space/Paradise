@@ -93,7 +93,7 @@
 		return ..()
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)
-	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return TRUE
 	if(!(d_state in list(RWALL_COVER, RWALL_SUPPORT_RODS, RWALL_CUT_COVER)))
@@ -232,9 +232,8 @@
 		if(prob(30))
 			dismantle_wall()
 
-/turf/simulated/wall/r_wall/update_icon()
-	. = ..()
 
+/turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
 		icon_state = "r_wall-[d_state]"
 		smooth = SMOOTH_FALSE
@@ -242,6 +241,7 @@
 	else
 		smooth = SMOOTH_TRUE
 		icon_state = ""
+
 
 /turf/simulated/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)

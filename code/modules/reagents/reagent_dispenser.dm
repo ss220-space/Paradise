@@ -4,7 +4,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
 	max_integrity = 300
@@ -131,7 +131,7 @@
 			rig = null
 			qdel(GetComponent(/datum/component/proximity_monitor))
 			lastrigger = null
-			overlays.Cut()
+			cut_overlays()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
@@ -156,7 +156,7 @@
 				var/icon/test = getFlatIcon(H)
 				test.Shift(NORTH, 1)
 				test.Shift(EAST, 6)
-				overlays += test
+				add_overlay(test)
 	else
 		return ..()
 
@@ -205,7 +205,7 @@
 	name = "pepper spray refiller"
 	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
 	icon_state = "pepper"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	reagent_id = "condensedcapsaicin"
 
@@ -214,7 +214,7 @@
 	desc = "A machine that dispenses liquid to drink."
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "water_cooler"
-	anchored = 1
+	anchored = TRUE
 	tank_volume = 500
 	reagent_id = "water"
 	var/paper_cups = 25 //Paper cups left from the cooler
@@ -281,7 +281,7 @@
 	name = "virus food dispenser"
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	reagent_id = "virusfood"
 
@@ -289,14 +289,14 @@
 	name = "space cleaner refiller"
 	desc = "Refills space cleaner bottles."
 	icon_state = "cleaner"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	tank_volume = 5000
 	reagent_id = "cleaner"
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	accepts_rig = 0
 	tank_volume = 1000

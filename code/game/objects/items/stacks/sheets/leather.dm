@@ -42,6 +42,30 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	singular_name = "monkey hide piece"
 	icon_state = "sheet-monkey"
 
+/obj/item/stack/sheet/animalhide/wolpin
+	name = "wolpin hide"
+	desc = "The by-product of wolpin farming."
+	singular_name = "wolpin hide piece"
+	icon_state = "sheet-wolpin"
+
+/obj/item/stack/sheet/animalhide/stok
+	name = "stok hide"
+	desc = "The by-product of stok farming."
+	singular_name = "stok hide piece"
+	icon_state = "sheet-lizzard"
+
+/obj/item/stack/sheet/animalhide/neara
+	name = "neara hide"
+	desc = "The by-product of neara farming."
+	singular_name = "neara hide piece"
+	icon_state = "sheet-neara"
+
+/obj/item/stack/sheet/animalhide/farwa
+	name = "farwa hide"
+	desc = "The by-product of farwa farming."
+	singular_name = "farwa hide piece"
+	icon_state = "sheet-farwa"
+
 /obj/item/stack/sheet/animalhide/lizard
 	name = "lizard skin"
 	desc = "Sssssss..."
@@ -158,48 +182,54 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
-			/obj/item/clothing/suit/hooded/explorer,
-			/obj/item/clothing/head/hooded/explorer,
 			/obj/item/clothing/suit/hooded/pathfinder,
 			/obj/item/clothing/head/hooded/pathfinder,
-			/obj/item/clothing/head/helmet/space/plasmaman/mining))
+	))
 	var/static/list/goliath_platable_armor_with_icon_typecache = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,
 			/obj/item/clothing/head/helmet/space/hardsuit/mining,
+			/obj/item/clothing/suit/hooded/explorer,
+			/obj/item/clothing/head/hooded/explorer,
+			/obj/item/clothing/head/helmet/space/plasmaman/mining,
 	))
+
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
-	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
+	var/platable_armor_with_icon = is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache)
+	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || platable_armor_with_icon)
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
-		if(current_armor.getRating("melee") < 60)
-			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
-			if(is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache))
-				switch(C.armor.getRating("melee"))
+		if(current_armor.getRating(MELEE) < 60)
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
+			if(platable_armor_with_icon)
+				switch(C.armor.getRating(MELEE))
 					if(40, 50)
 						C.icon_state = "[initial(C.icon_state)]_reinf"
-						C.item_color = "mining_reinf"
+						C.item_color = "[initial(C.item_color)]_reinf"
 					if(60)
 						C.icon_state = "[initial(C.icon_state)]_reinf_full"
-						C.item_color = "mining_reinf_full"
+						C.item_color = "[initial(C.item_color)]_reinf_full"
+
 				if(ishuman(C.loc))
 					var/mob/living/carbon/human/H = C.loc
 					H.update_inv_head()
 					H.update_inv_wear_suit()
+
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
+
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
 		if(D.hides < 3)
 			D.hides++
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
-			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
-			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-			D.update_icon()
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
@@ -225,7 +255,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
 			to_chat(user, "<span class='info'>Вы нашли куда суется [name] и пихнули её на экзокостюм, усиливая защиту против атак.</span>")
-			D.update_icon()
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>Вы больше не можете найти куда [name] пристраивается!</span>")

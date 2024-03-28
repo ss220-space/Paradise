@@ -3,8 +3,9 @@
 	desc = "A PDA painting machine. To use, simply insert your PDA and choose the desired preset paint scheme."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pdapainter"
+	base_icon_state = "pdapainter"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 200
 	var/obj/item/pda/storedpda = null
 	var/list/colorlist = list()
@@ -14,25 +15,9 @@
 	var/allowErasePda = TRUE
 
 
-/obj/machinery/pdapainter/update_icon()
-	cut_overlays()
+/obj/machinery/pdapainter/Initialize(mapload)
+	. = ..()
 
-	if(stat & BROKEN)
-		icon_state = "[initial(icon_state)]-broken"
-		return
-
-	if(storedpda)
-		add_overlay("[initial(icon_state)]-closed")
-
-	if(powered())
-		icon_state = initial(icon_state)
-	else
-		icon_state = "[initial(icon_state)]-off"
-
-	return
-
-/obj/machinery/pdapainter/New()
-	..()
 	var/blocked = list(/obj/item/pda/silicon, /obj/item/pda/silicon/ai, /obj/item/pda/silicon/robot, /obj/item/pda/silicon/pai, /obj/item/pda/heads,
 						/obj/item/pda/clear, /obj/item/pda/syndicate, /obj/item/pda/chameleon, /obj/item/pda/chameleon/broken)
 
@@ -50,6 +35,26 @@
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(storedpda)
 	return ..()
+
+
+/obj/machinery/pdapainter/update_icon_state()
+	if(stat & BROKEN)
+		icon_state = "[base_icon_state]-broken"
+		return
+
+	if(powered())
+		icon_state = base_icon_state
+	else
+		icon_state = "[base_icon_state]-off"
+
+
+/obj/machinery/pdapainter/update_overlays()
+	. = ..()
+	if(stat & BROKEN)
+		return
+	if(storedpda)
+		. += "[base_icon_state]-closed"
+
 
 /obj/machinery/pdapainter/on_deconstruction()
 	if(storedpda)
@@ -109,8 +114,10 @@
 
 	ui_interact(user)
 
-/obj/machinery/pdapainter/power_change()
-	..()
+
+/obj/machinery/pdapainter/power_change(forced = FALSE)
+	if(!..())
+		return
 	update_icon()
 
 
@@ -196,6 +203,7 @@
 				statusLabel = "Уберите карту и картридж"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 			else
+				qdel(storedpda)
 				storedpda = new /obj/item/pda(src)
 				to_chat(usr, span_notice("Данные на PDA полностью стерты."))
 				statusLabel = "PDA очищен"

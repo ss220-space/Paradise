@@ -22,7 +22,8 @@
 
 #define SIMPLE_SIGN(X)	((X) < 0 ? -1 : 1)
 
-#define SIGN(x) ( (x)!=0 ? (x) / abs(x) : 0 )
+/// Gets the sign of x, returns -1 if negative, 0 if 0, 1 if positive
+#define SIGN(x) (((x) > 0) - ((x) < 0))
 
 #define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
 

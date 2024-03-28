@@ -11,14 +11,14 @@
 	name = "engine"
 	icon = 'icons/turf/shuttle/misc.dmi'
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль - бред
 	var/list/obj/structure/fillers = list()		// Для коллизии более больших двигателей
 
 // Это временное решение, дабы движки были освещены. Я хотел сделать анимацию с перекрасом цветов света в синий при полёте, но не сделал. Надеюсь кто-то сделает.
 /obj/structure/shuttle/engine/Initialize(mapload)
 	. = ..()
-	set_light(2)
+	set_light_range_power_color(2)
 
 /obj/structure/shuttle/engine/heater
 	name = "heater"

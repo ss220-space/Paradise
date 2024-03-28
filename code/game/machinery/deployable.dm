@@ -46,12 +46,12 @@
 		update_icon()
 	return TRUE
 
-/obj/structure/barricade/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+
+/obj/structure/barricade/CanAllowThrough(atom/movable/mover, border_dir)//So bullets will fly over and stuff.
+	. = ..()
+	if(locate(/obj/structure/barricade) in get_turf(mover))
 		return TRUE
-	else if(locate(/obj/structure/barricade) in get_turf(mover))
-		return TRUE
-	else if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover) && !checkpass(mover))
 		if(!anchored)
 			return TRUE
 		var/obj/item/projectile/proj = mover
@@ -60,8 +60,7 @@
 		if(prob(proj_pass_rate))
 			return TRUE
 		return FALSE
-	else
-		return !density
+
 
 /obj/structure/barricade/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
@@ -123,7 +122,7 @@
 	icon_state = "sandbags"
 	max_integrity = 280
 	proj_pass_rate = 20
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
 	climbable = TRUE
 	smooth = SMOOTH_TRUE
@@ -189,20 +188,20 @@
 	new /obj/structure/barricade/security(get_turf(loc))
 	switch(mode)
 		if(VERTICAL)
-			var/target_turf = get_step(src, NORTH)
-			if(!(is_blocked_turf(target_turf)))
+			var/turf/target_turf = get_step(src, NORTH)
+			if(!target_turf.is_blocked_turf())
 				new /obj/structure/barricade/security(target_turf)
 
-			var/target_turf2 = get_step(src, SOUTH)
-			if(!(is_blocked_turf(target_turf2)))
+			var/turf/target_turf2 = get_step(src, SOUTH)
+			if(!target_turf2.is_blocked_turf())
 				new /obj/structure/barricade/security(target_turf2)
 		if(HORIZONTAL)
-			var/target_turf = get_step(src, EAST)
-			if(!(is_blocked_turf(target_turf)))
+			var/turf/target_turf = get_step(src, EAST)
+			if(!target_turf.is_blocked_turf())
 				new /obj/structure/barricade/security(target_turf)
 
-			var/target_turf2 = get_step(src, WEST)
-			if(!(is_blocked_turf(target_turf2)))
+			var/turf/target_turf2 = get_step(src, WEST)
+			if(!target_turf2.is_blocked_turf())
 				new /obj/structure/barricade/security(target_turf2)
 	qdel(src)
 

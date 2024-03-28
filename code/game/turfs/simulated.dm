@@ -3,6 +3,7 @@
 	name = "station"
 	var/wet = 0
 	var/image/wet_overlay = null
+	var/mutable_appearance/melting_olay
 
 	var/thermite = 0
 	oxygen = MOLES_O2STANDARD
@@ -41,7 +42,7 @@
 	wet = wet_setting
 	if(wet_setting != TURF_DRY)
 		if(wet_overlay)
-			overlays -= wet_overlay
+			cut_overlay(wet_overlay)
 			wet_overlay = null
 		var/turf/simulated/floor/F = src
 		if(istype(F))
@@ -55,7 +56,7 @@
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
 		wet_overlay.plane = FLOOR_OVERLAY_PLANE
-		overlays += wet_overlay
+		add_overlay(wet_overlay)
 	if(time == INFINITY)
 		return
 	if(!time)
@@ -67,7 +68,7 @@
 		return
 	wet = TURF_DRY
 	if(wet_overlay)
-		overlays -= wet_overlay
+		cut_overlay(wet_overlay)
 
 /turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
 	..()
@@ -83,7 +84,7 @@
 			switch(src.wet)
 				if(TURF_WET_WATER)
 					if(!(M.slip("the wet floor", WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
-						M.inertia_dir = 0
+						M.inertia_dir = NONE
 						return
 
 				if(TURF_WET_LUBE) //lube
@@ -92,7 +93,7 @@
 
 				if(TURF_WET_ICE) // Ice
 					if(M.slip("the icy floor", 4 SECONDS, tilesSlipped = 0, walkSafely = 0))
-						M.inertia_dir = 0
+						M.inertia_dir = NONE
 						if(prob(5))
 							var/obj/item/organ/external/affected = M.get_organ(BODY_ZONE_HEAD)
 							if(affected)

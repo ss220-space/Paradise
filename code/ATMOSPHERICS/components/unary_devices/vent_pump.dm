@@ -13,14 +13,14 @@
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
 
-	can_unwrench = 1
-	var/open = 0
+	can_unwrench = TRUE
+	var/open = FALSE
 
 	var/area/initial_loc
 	var/area_uid
 
-	var/on = 0
-	var/pump_direction = 1 //0 = siphoning, 1 = releasing
+	on = FALSE
+	var/releasing = TRUE // FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND
 	var/internal_pressure_bound = INTERNAL_PRESSURE_BOUND
@@ -35,7 +35,7 @@
 	var/internal_pressure_bound_default = INTERNAL_PRESSURE_BOUND
 	var/pressure_checks_default = PRESSURE_CHECKS
 
-	var/welded = 0 // Added for aliens -- TLE
+	var/welded = FALSE // Added for aliens -- TLE
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
 
 	frequency = ATMOS_VENTSCRUB
@@ -43,17 +43,17 @@
 	var/radio_filter_out
 	var/radio_filter_in
 
-	connect_types = list(1,2) //connects to regular and supply pipes
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY) //connects to regular and supply pipes
 
 /obj/machinery/atmospherics/unary/vent_pump/on
-	on = 1
+	on = TRUE
 	icon_state = "map_vent_out"
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon
-	pump_direction = 0
+	releasing = FALSE
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on
-	on = 1
+	on = TRUE
 	icon_state = "map_vent_in"
 
 /obj/machinery/atmospherics/unary/vent_pump/New()
@@ -77,15 +77,12 @@
 	..()
 	air_contents.volume = 1000
 
-/obj/machinery/atmospherics/unary/vent_pump/update_icon(safety = 0)
-	..()
 
-	plane = GAME_PLANE
-
+/obj/machinery/atmospherics/unary/vent_pump/update_overlays()
+	. = ..()
+	plane = FLOOR_PLANE
 	if(!check_icon_cache())
 		return
-
-	overlays.Cut()
 
 	var/vent_icon = "vent"
 
@@ -101,11 +98,12 @@
 	else if(!powered())
 		vent_icon += "off"
 	else
-		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
+		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
+	. += SSair.icon_manager.get_atmos_icon("device", state = vent_icon)
 
 	update_pipe_image()
+
 
 /obj/machinery/atmospherics/unary/vent_pump/update_underlays()
 	if(..())
@@ -119,7 +117,8 @@
 			if(node)
 				add_underlay(T, node, dir, node.icon_connect_type)
 			else
-				add_underlay(T,, dir)
+				add_underlay(T, direction = dir)
+
 
 /obj/machinery/atmospherics/unary/vent_pump/hide()
 	update_icon()
@@ -149,7 +148,7 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
-	if(pump_direction) //internal -> external
+	if(releasing) //internal -> external
 		var/pressure_delta = 10000
 		if(pressure_checks & 1)
 			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
@@ -215,7 +214,7 @@
 		"tag" = src.id_tag,
 		"device" = "AVP",
 		"power" = on,
-		"direction" = pump_direction?("release"):("siphon"),
+		"direction" = releasing?("release"):("siphon"),
 		"checks" = pressure_checks,
 		"internal" = internal_pressure_bound,
 		"external" = external_pressure_bound,
@@ -249,11 +248,11 @@
 
 	if(signal.data["purge"] != null)
 		pressure_checks &= ~1
-		pump_direction = 0
+		releasing = FALSE
 
 	if(signal.data["stabilize"] != null)
 		pressure_checks |= 1
-		pump_direction = 1
+		releasing = TRUE
 
 	if(signal.data["power"] != null)
 		on = text2num(signal.data["power"])
@@ -271,7 +270,7 @@
 		pressure_checks = (pressure_checks?0:3)
 
 	if(signal.data["direction"] != null)
-		pump_direction = text2num(signal.data["direction"])
+		releasing = text2num(signal.data["direction"])
 
 	if(signal.data["set_internal_pressure"] != null)
 		if(signal.data["set_internal_pressure"] == "default")
@@ -348,7 +347,7 @@
 		else
 			to_chat(user, "The vent is welded.")
 		return 1
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, span_danger("You cannot unwrench this [src], turn it off first."))
 			return 1
@@ -409,11 +408,10 @@
 	if(welded)
 		. += span_notice("It seems welded shut.")
 
-/obj/machinery/atmospherics/unary/vent_pump/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+/obj/machinery/atmospherics/unary/vent_pump/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/unary/vent_pump/proc/set_tag(new_tag)
 	if(frequency == ATMOS_VENTSCRUB)

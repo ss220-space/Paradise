@@ -414,7 +414,7 @@
 	},
 /area/ruin/space/gasthelizards/viewzone)
 "pr" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
 	id_tag = "mix_sensor_gtl"
 	},
@@ -1316,7 +1316,7 @@
 	name = "mix vent";
 	pressure_checks = 2;
 	pressure_checks_default = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/gasthelizards/viewzone)

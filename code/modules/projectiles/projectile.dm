@@ -111,11 +111,6 @@
 	var/dismember_head = FALSE
 
 
-/obj/item/projectile/New()
-	permutated = list()
-	return ..()
-
-
 /obj/item/projectile/proc/Range()
 	range--
 	if(damage && tile_dropoff)
@@ -168,7 +163,7 @@
 	var/mob/living/carbon/human/H
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
-		if(damage && L.blood_volume && damage_type == BRUTE)
+		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
@@ -230,7 +225,7 @@
 /obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca)
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
-	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
+	if(step_over.density && !step_over.CanPass(target, get_dir(step_over, target))) //Preliminary simple check.
 		return TRUE
 	for(var/atom/movable/border_obstacle in step_over) //Check to see if we're blocked by a (non-full) window or some such. Do deeper investigation if we're splattering blood diagonally.
 		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
@@ -286,7 +281,7 @@
 			forcedodge -= 1
 		loc = target_turf
 		if(A)
-			permutated.Add(A)
+			LAZYADD(permutated, A)
 		return FALSE
 	else
 		if(A && A.density && !ismob(A) && !(A.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
@@ -420,8 +415,8 @@
 
 /obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
-	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
-		Bump(AM, 1)
+	if(isliving(AM) && AM.density && !(pass_flags & PASSMOB))
+		Bump(AM, TRUE)
 
 
 /obj/item/projectile/Destroy()

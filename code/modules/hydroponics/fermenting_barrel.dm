@@ -63,7 +63,7 @@
 	else
 		container_type = DRAINABLE | AMOUNT_VISIBLE
 		to_chat(user, "<span class='notice'>You close [src], letting you draw from its tap.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/fermenting_barrel/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -85,11 +85,10 @@
 	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
 	..()
 
-/obj/structure/fermenting_barrel/update_icon()
-	if(open)
-		icon_state = "barrel_open"
-	else
-		icon_state = "barrel"
+
+/obj/structure/fermenting_barrel/update_icon_state()
+	icon_state = "barrel[open ? "_open" : ""]"
+
 
 /datum/crafting_recipe/fermenting_barrel
 	name = "Wooden Barrel"

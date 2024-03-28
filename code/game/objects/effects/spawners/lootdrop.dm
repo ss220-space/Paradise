@@ -125,6 +125,9 @@
 				/obj/item/wirecutters = 10,
 				/obj/item/wrench = 40,
 				/obj/item/relic = 35,
+				/obj/item/weaponcrafting/revolverbarrel = 3,
+				/obj/item/weaponcrafting/revolverbarrel/steel = 2,
+				/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel = 2,
 				/obj/item/weaponcrafting/receiver = 2,
 				/obj/item/clothing/gloves/knuckles = 1,
 				/obj/item/clothing/shoes/brown = 30,
@@ -156,13 +159,13 @@
 				/obj/item/multitool/ai_detect = 2,
 				/obj/item/implanter/storage = 1,
 				/obj/item/storage/box/syndie_kit/dangertray = 2,
-				/obj/item/toy/cards/deck/syndicate = 2,
+				/obj/item/deck/cards/syndicate = 2,
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
 				/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
 				/obj/item/clothing/glasses/chameleon/meson = 7,
-				"" = 68
+				"" = 61
 				)
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins

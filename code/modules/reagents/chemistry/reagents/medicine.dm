@@ -143,6 +143,12 @@
 /datum/reagent/medicine/cryoxadone/on_merge(list/mix_data)
 	merge_diseases_data(mix_data)
 
+/datum/reagent/medicine/cryoxadone/reaction_turf(turf/T, volume, color)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/drask) in T)
+		var/obj/effect/decal/cleanable/blood/drask/new_blood = new(T)
+		new_blood.basecolor = color
+		new_blood.update_icon()
+
 /datum/reagent/medicine/rezadone
 	name = "Rezadone"
 	id = "rezadone"

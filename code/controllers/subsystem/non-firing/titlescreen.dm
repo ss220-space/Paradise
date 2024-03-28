@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(title)
 
 		var/choice
 		if(user)
-			choice = input(user, "Choose new title screen", "Available Screens:") as null|anything in title_screens
+			choice = tgui_input_list(user, "Choose new title screen", "Available Screens:", title_screens)
 			if(!choice)
 				return FALSE
 		else

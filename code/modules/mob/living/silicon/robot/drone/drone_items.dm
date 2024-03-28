@@ -78,7 +78,10 @@
 					/obj/item/camera_film,
 					/obj/item/paper,
 					/obj/item/photo,
-					/obj/item/toy/plushie)
+					/obj/item/toy/plushie,
+					/obj/item/reagent_containers/food,
+					/obj/item/seeds,
+					/obj/item/disk/plantgene)
 
 /obj/item/gripper/service/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!gripped_item && proximity && target && ishuman(target))
@@ -211,7 +214,7 @@
 				A.cell.forceMove(src)
 				A.cell = null
 
-				A.charging = 0
+				A.charging = APC_NOT_CHARGING
 				A.update_icon()
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")

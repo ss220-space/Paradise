@@ -227,7 +227,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death()
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death(gibbed)
 	. = ..()
 	if(!QDELETED(mother))
 		mother.children_list -= src

@@ -1,7 +1,7 @@
 /obj/structure/girder
 	name = "girder"
 	icon_state = "girder"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	layer = BELOW_OBJ_LAYER
 	var/state = GIRDER_NORMAL
@@ -399,25 +399,19 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
-/obj/structure/girder/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+
+/obj/structure/girder/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-	if(height==0)
-		return 1
-	if(istype(mover) && mover.checkpass(PASSGRILLE))
+	if(checkpass(mover, PASSGRILLE) || isprojectile(mover))
 		return prob(girderpasschance)
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(girderpasschance)
-		else
-			return 0
 
 
 /obj/structure/girder/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(checkpass(caller, PASSGRILLE))
+		. = TRUE
 
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
@@ -439,7 +433,7 @@
 /obj/structure/girder/displaced
 	name = "displaced girder"
 	icon_state = "displaced"
-	anchored = 0
+	anchored = FALSE
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
 	max_integrity = 120

@@ -3,88 +3,103 @@
 	desc = "Rack that holds coats."
 	icon = 'icons/obj/coatrack.dmi'
 	icon_state = "coatrack0"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/obj/item/clothing/suit/coat
-	var/list/allowed = list(
+	var/static/list/allowed = list(
 		/obj/item/clothing/suit/storage/labcoat,
 		/obj/item/clothing/suit/storage/det_suit,
 		/obj/item/clothing/suit/storage/blueshield,
 		/obj/item/clothing/suit/leathercoat,
-		/obj/item/clothing/suit/browntrenchcoat
+		/obj/item/clothing/suit/browntrenchcoat,
 	)
+
 
 /obj/structure/coatrack/Initialize(mapload)
 	. = ..()
 	icon_state = "coatrack[rand(0, 1)]"
 
+
 /obj/structure/coatrack/attack_hand(mob/living/user)
 	if(coat)
 		add_fingerprint(user)
-		user.visible_message("[user] takes [coat] off \the [src].", "You take [coat] off the \the [src].")
+		user.visible_message("[user] takes [coat] off [src].", "You take [coat] off [src].")
 		coat.forceMove_turf()
 		user.put_in_active_hand(coat, ignore_anim = FALSE)
 		coat = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
+
 
 /obj/structure/coatrack/attackby(obj/item/W, mob/living/user, params)
-	var/can_hang = FALSE
-	for(var/T in allowed)
-		if(istype(W,T))
-			can_hang = TRUE
-			continue
-
-	if(can_hang && !coat)
-		add_fingerprint(user)
-		user.visible_message("[user] hangs [W] on \the [src].", "You hang [W] on the \the [src].")
-		coat = W
-		user.drop_transfer_item_to_loc(W, src)
-		update_icon()
-	else
+	if(!move_on_rack(W, user))
 		return ..()
 
-/obj/structure/coatrack/CanPass(atom/movable/mover, turf/target, height=0)
+
+/obj/structure/coatrack/MouseDrop_T(obj/item/I, mob/user, params)
+	. = TRUE
+	move_on_rack(I, user)
+
+
+/obj/structure/coatrack/Bumped(atom/movable/moving_atom)
+	. = ..()
+	move_on_rack(moving_atom)
+
+
+/obj/structure/coatrack/proc/move_on_rack(atom/movable/moving_atom, mob/living/user)
+	. = FALSE
+	if(coat)
+		return .
+
 	var/can_hang = FALSE
-	for(var/T in allowed)
-		if(istype(mover,T))
+	for(var/check_type in allowed)
+		if(istype(moving_atom, check_type))
 			can_hang = TRUE
-			continue
+			break
 
-	if(can_hang && !coat)
-		visible_message("[mover] lands on \the [src].")
-		coat = mover
-		coat.loc = src
-		update_icon()
-		return 0
-	else
-		return ..()
+	if(can_hang)
+		if(user && !user.drop_transfer_item_to_loc(moving_atom, src))
+			return .
+		. = TRUE
+		coat = moving_atom
+		if(user)
+			add_fingerprint(user)
+			user.visible_message("[user] hangs [coat] on [src].", "You hang [coat] on [src].")
+		else
+			visible_message("[coat] lands on [src].")
+			coat.forceMove(src)
+		update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/coatrack/update_icon()
-	overlays.Cut()
-	if(istype(coat, /obj/item/clothing/suit/storage/labcoat))
-		overlays += image(icon, icon_state = "coat_lab")
-	if(istype(coat, /obj/item/clothing/suit/storage/labcoat/cmo))
-		overlays += image(icon, icon_state = "coat_cmo")
-	if(istype(coat, /obj/item/clothing/suit/storage/labcoat/mad))
-		overlays += image(icon, icon_state = "coat_mad")
-	if(istype(coat, /obj/item/clothing/suit/storage/labcoat/genetics))
-		overlays += image(icon, icon_state = "coat_gen")
-	if(istype(coat, /obj/item/clothing/suit/storage/labcoat/chemist))
-		overlays += image(icon, icon_state = "coat_chem")
-	if(istype(coat, /obj/item/clothing/suit/storage/labcoat/virologist))
-		overlays += image(icon, icon_state = "coat_vir")
-	if(istype(coat, /obj/item/clothing/suit/storage/labcoat/science))
-		overlays += image(icon, icon_state = "coat_sci")
-	if(istype(coat, /obj/item/clothing/suit/storage/labcoat/mortician))
-		overlays += image(icon, icon_state = "coat_mor")
-	if(istype(coat, /obj/item/clothing/suit/storage/blueshield))
-		overlays += image(icon, icon_state = "coat_blue")
-	if(istype(coat, /obj/item/clothing/suit/storage/det_suit))
-		overlays += image(icon, icon_state = "coat_det")
-	if(istype(coat, /obj/item/clothing/suit/browntrenchcoat))
-		overlays += image(icon, icon_state = "coat_brtrench")
-	if(istype(coat, /obj/item/clothing/suit/leathercoat))
-		overlays += image(icon, icon_state = "coat_leather")
+
+/obj/structure/coatrack/update_overlays()
+	. = ..()
+
+	if(!coat)
+		return
+
+	var/static/list/type2overlay = list(
+		/obj/item/clothing/suit/storage/labcoat/cmo = "coat_cmo",
+		/obj/item/clothing/suit/storage/labcoat/mad = "coat_mad",
+		/obj/item/clothing/suit/storage/labcoat/genetics = "coat_gen",
+		/obj/item/clothing/suit/storage/labcoat/chemist = "coat_chem",
+		/obj/item/clothing/suit/storage/labcoat/virologist = "coat_vir",
+		/obj/item/clothing/suit/storage/labcoat/science = "coat_sci",
+		/obj/item/clothing/suit/storage/labcoat/mortician = "coat_mor",
+		/obj/item/clothing/suit/storage/labcoat = "coat_lab",
+		/obj/item/clothing/suit/storage/blueshield = "coat_det",
+		/obj/item/clothing/suit/browntrenchcoat = "coat_brtrench",
+		/obj/item/clothing/suit/leathercoat = "coat_leather",
+	)
+
+	var/coat_found = FALSE
+	for(var/path in type2overlay)
+		if(coat.type == path)	// we need to check type explicitly
+			. += type2overlay[path]
+			coat_found = TRUE
+			break
+
+	if(!coat_found)
+		. += "coat_lab"
+
 
 /obj/structure/coatrack/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -93,9 +108,11 @@
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct(disassembled = TRUE)
 
+
 /obj/structure/coatrack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 10)
+
 
 /obj/structure/coatrack/deconstruct(disassembled = FALSE)
 	var/mat_drop = 2
@@ -103,6 +120,7 @@
 		mat_drop = 10
 	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
 	if(coat)
-		coat.loc = get_turf(src)
+		coat.forceMove_turf()
 		coat = null
 	..()
+

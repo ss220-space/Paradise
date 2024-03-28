@@ -185,12 +185,12 @@
 			to_chat(user, span_warning("[params]' isn't a valid parameter for [key]."))
 			return TRUE
 
-	msg = genderize_decode(user, msg)
-
 	// Keep em quiet if they can't speak
 	if(!can_vocalize_emotes(user) && ((emote_type & EMOTE_MOUTH) && (emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND))))
 		var/noise_emitted = pick(muzzled_noises)
-		msg = "изда[pluralize_ru(user.gender, "ёт", "ют")] [noise_emitted] звуки."
+		msg = "изда%(ёт,ют)% [noise_emitted] звуки."
+
+	msg = genderize_decode(user, msg)
 
 	var/tmp_sound = get_sound(user)
 	var/sound_volume = get_volume(user)
@@ -220,10 +220,10 @@
 			for(var/mob/dead/observer/ghost in viewers(user))
 				ghost.show_message(span_deadsay("[displayed_msg]"), EMOTE_VISIBLE)
 
-		else if((emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND)) && !user.mind?.miming)
+		else if((emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND)) && user.mind && !user.mind.miming)
 			user.audible_message(displayed_msg, deaf_message = span_italics("You see how <b>[user]</b> [msg]"))
 		else
-			user.visible_message(displayed_msg, blind_message = span_italics("You hear how someone [msg]"))
+			user.visible_message(displayed_msg)
 
 		if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT|EMOTE_SOUND)) && !isobserver(user))
 			runechat_emote(user, msg)
@@ -515,8 +515,7 @@
 			return FALSE
 
 	if(isliving(user))
-		var/mob/living/sender = user
-		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE) && intentional)
+		if(HAS_TRAIT(user, TRAIT_EMOTE_MUTE) && intentional)
 			return FALSE
 	else
 		// deadchat handling

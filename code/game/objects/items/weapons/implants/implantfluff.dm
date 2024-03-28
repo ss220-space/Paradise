@@ -73,6 +73,13 @@
 	function = "Contains a bulky, electrically triggered explosive that detonates upon receiving a specially encoded signal or upon host death."
 
 
+/datum/implant_fluff/second_chance
+	name = "Cybersun Industries RX-87 Employee Management Bio-chip"
+	life = "Destroyed upon activation."
+	notes = "A small chip containing a familiar explosive device, the warhead of which has been partially replaced by a redspace crystal."
+	function = "Contains a compact, electrically triggered explosive that detonates upon receiving a specially encoded signal and teleports the operator to an exact safe location."
+
+
 /datum/implant_fluff/freedom
 	name = "Cybersun Industries RX-92 Quick Escape Bio-chip"
 	life = "Destroyed after 4 uses."
@@ -144,11 +151,11 @@
 	function = "Plays a sad trombone noise upon death of the implantee, allows clowns to entertain the crew even post-mortem."
 
 
-/datum/implant_fluff/pathfinder
-	name = "Paizo Productions 5-E Pathfinder Implant"
-	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radation may be a factor."
-	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
-	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
+/datum/implant_fluff/gorilla_rampage
+	name = "Magillitis Serum Bio-chip"
+	life = "Unknown, no collected sample has been active long enough to determine lifespan."
+	notes = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
+	function = "Allows the user to transform into an angry fast and robust gorilla. Very deadly in close quarters."
 
 
 /datum/implant_fluff/stealth

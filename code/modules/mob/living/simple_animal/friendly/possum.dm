@@ -30,7 +30,7 @@
 	melee_damage_upper = 8
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
-	see_in_dark = 5
+	nightvision = 5
 	speak_chance = 1
 	turns_per_move = 10
 	gold_core_spawnable = FRIENDLY_SPAWN

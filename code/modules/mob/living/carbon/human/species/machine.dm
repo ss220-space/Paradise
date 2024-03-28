@@ -1,5 +1,5 @@
 /datum/species/machine
-	name = "Machine"
+	name = SPECIES_MACNINEPERSON
 	name_plural = "Machines"
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
@@ -10,7 +10,7 @@
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
-	language = "Trinary"
+	language = LANGUAGE_TRINARY
 	remains_type = /obj/effect/decal/remains/robot
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
@@ -54,7 +54,7 @@
 		INTERNAL_ORGAN_R_ARM_DEVICE = /obj/item/organ/internal/cyberimp/arm/power_cord,
 	)
 
-	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/machine
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/ipc),
@@ -152,7 +152,9 @@
 				if(Entry[2] == H.ckey)							// They're in the list? Custom sprite time, var and icon change required
 					hair += Entry[3]							// Adds custom screen to list
 
-		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
+		var/new_style = tgui_input_list(H, "Select a monitor display", "Monitor Display", hair, head_organ.h_style)
+		if(!new_style)
+			return
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(TRUE, TRUE, TRUE))

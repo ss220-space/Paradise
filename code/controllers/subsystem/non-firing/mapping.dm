@@ -9,6 +9,35 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/next_map
 	/// Waht map to fallback
 	var/datum/map/fallback_map = new /datum/map/delta
+	///What do we have as the lavaland theme today?
+	var/datum/lavaland_theme/lavaland_theme
+	///What primary cave theme we have picked for cave generation today.
+	var/cave_theme
+	///List of areas that exist on the station this shift
+	var/list/existing_station_areas
+
+	var/list/areas_in_z = list()
+	/// List of z level (as number) -> plane offset of that z level
+	/// Used to maintain the plane cube
+	var/list/z_level_to_plane_offset = list()
+	/// List of z level (as number) -> The lowest plane offset in that z stack
+	var/list/z_level_to_lowest_plane_offset = list()
+	// This pair allows for easy conversion between an offset plane, and its true representation
+	// Both are in the form "input plane" -> output plane(s)
+	/// Assoc list of string plane values to their true, non offset representation
+	var/list/plane_offset_to_true
+	/// Assoc list of true string plane values to a list of all potential offset planess
+	var/list/true_to_offset_planes
+	/// Assoc list of string plane to the plane's offset value
+	var/list/plane_to_offset
+	/// List of planes that do not allow for offsetting
+	var/list/plane_offset_blacklist
+	/// List of render targets that do not allow for offsetting
+	var/list/render_offset_blacklist
+	/// List of plane masters that are of critical priority
+	var/list/critical_planes
+	/// The largest plane offset we've generated so far
+	var/max_plane_offset = 0
 
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
@@ -34,6 +63,12 @@ SUBSYSTEM_DEF(mapping)
 		F << next_map.type
 
 /datum/controller/subsystem/mapping/Initialize()
+	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
+	ASSERT(lavaland_theme_type)
+	lavaland_theme = new lavaland_theme_type
+	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
+	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates
 	preloadTemplates()
 	// Load the station
@@ -62,32 +97,63 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
 		seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-		spawn_rivers(level_name_to_num(MINING))
-		log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+		if(lavaland_theme)
+			lavaland_theme.setup()
+		var/time_spent = stop_watch(lavaland_setup_timer)
+		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
+		if(time_spent >= 10)
+			log_startup_progress("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!") //In 3 testing cases so far, I have had it take far too long to generate. I am 99% sure I have fixed this issue, but never hurts to be sure
+			WARNING("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!")
+			var/loud_annoying_alarm = sound('sound/machines/engine_alert1.ogg')
+			for(var/get_player_attention in GLOB.player_list)
+				SEND_SOUND(get_player_attention, loud_annoying_alarm)
 	else
 		log_startup_progress("Skipping lavaland ruins...")
 
 	// Now we make a list of areas for teleport locs
 	// TOOD: Make these locs into lists on the SS itself, not globs
-	for(var/area/AR in world)
+
+	var/list/all_areas = list()
+	for(var/area/areas in world)
+		all_areas += areas
+
+	for(var/area/AR as anything in all_areas)
 		if(AR.no_teleportlocs)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue
-		var/turf/picked = safepick(get_area_turfs(AR.type))
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+			break
+		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			GLOB.teleportlocs[AR.name] = AR
 
 	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
 
-	for(var/area/AR in world)
+	for(var/area/AR as anything in all_areas)
 		if(GLOB.ghostteleportlocs[AR.name])
 			continue
-		var/list/turfs = get_area_turfs(AR.type)
-		if(turfs.len)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+			break
+		if(length(pickable_turfs))
 			GLOB.ghostteleportlocs[AR.name] = AR
 
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
+
+	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
+	existing_station_areas = list()
+	for(var/area/AR as anything in all_areas)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+			break
+		var/turf/picked = safepick(pickable_turfs)
+		if(picked && is_station_level(picked.z))
+			existing_station_areas += AR
 
 	// World name
 	if(config && CONFIG_GET(string/servername))

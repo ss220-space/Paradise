@@ -36,26 +36,27 @@
 /**
  * Handle stuff to update when a mob equips/unequips a glasses.
  */
-/mob/living/carbon/human/proc/wear_glasses_update(obj/item/clothing/glasses/glasses)
-	if(istype(glasses))
-		if(glasses.tint || initial(glasses.tint))
+/mob/living/carbon/human/wear_glasses_update(obj/item/clothing/glasses/our_glasses)
+	if(istype(our_glasses))
+		if(our_glasses.tint || initial(our_glasses.tint))
 			update_tint()
-		if(glasses.prescription)
+		if(our_glasses.prescription)
 			update_nearsighted_effects()
-		if(glasses.vision_flags || glasses.see_in_dark || glasses.invis_override || glasses.invis_view || !isnull(glasses.lighting_alpha))
+		if(our_glasses.vision_flags || our_glasses.see_in_dark || our_glasses.invis_override || our_glasses.invis_view || !isnull(our_glasses.lighting_alpha))
 			update_sight()
-		update_client_colour()
+			update_client_colour()
+
 	update_inv_glasses()
 
 
 /**
  * Handle stuff to update when a mob equips/unequips a mask.
  */
-/mob/living/carbon/human/proc/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
+/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
-	if(mask.flags & BLOCKHAIR || mask.flags & BLOCKHEADHAIR)
+	if((mask.flags & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)) || (initial(mask.flags) & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -64,9 +65,9 @@
 		internal = null
 		update_action_buttons_icon()
 
-	if(mask.flags_inv & HIDEGLASSES)
+	if((mask.flags_inv & HIDEGLASSES) || (initial(mask.flags_inv) & HIDEGLASSES))
 		update_inv_glasses()
-	if(mask.flags_inv & HIDEHEADSETS)
+	if((mask.flags_inv & HIDEHEADSETS) || (initial(mask.flags_inv) & HIDEHEADSETS))
 		update_inv_ears()
 
 	sec_hud_set_ID()
@@ -76,26 +77,31 @@
 /**
  * Handles stuff to update when a mob equips/unequips a headgear.
  */
-/mob/living/carbon/human/proc/update_head(obj/item/I, forced)
-	if(I.flags & BLOCKHAIR || I.flags & BLOCKHEADHAIR || forced)
+/mob/living/carbon/human/update_head(obj/item/clothing/head/check_item, forced = FALSE)
+	check_item = check_item || head
+	if(!check_item)
+		return
+
+	if(forced || (check_item.flags & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)) || (initial(check_item.flags) & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
 
 	// Bandanas and paper hats go on the head but are not head clothing
-	if(istype(I, /obj/item/clothing/head))
-		var/obj/item/clothing/head/hat = I
-		if(hat.tint || initial(hat.tint))
+	if(istype(check_item, /obj/item/clothing/head))
+		var/obj/item/clothing/head/hat = check_item
+		if(forced || hat.tint || initial(hat.tint))
 			update_tint()
 
-		if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
+		if(forced || hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 			update_sight()
-		if(hat.flags_inv & HIDEGLASSES || forced)
-			update_inv_glasses()
-		if(hat.flags_inv & HIDEHEADSETS || forced)
-			update_inv_ears()
-		if(hat.flags_inv & HIDEMASK || forced)
-			update_inv_wear_mask()
+
+	if(forced || (check_item.flags_inv & HIDEHEADSETS) || (initial(check_item.flags_inv) & HIDEHEADSETS))
+		update_inv_ears()
+	if(forced || (check_item.flags_inv & HIDEMASK) || (initial(check_item.flags_inv) & HIDEMASK))
+		update_inv_wear_mask()
+	if(forced || (check_item.flags_inv & HIDEGLASSES) || (initial(check_item.flags_inv) & HIDEGLASSES))
+		update_inv_glasses()
 
 	sec_hud_set_ID()
 	update_inv_head()
@@ -104,12 +110,12 @@
 /**
  * Handles stuff to update when a mob equips/unequips a suit.
  */
-/mob/living/carbon/human/proc/wear_suit_update(obj/item/clothing/suit)
-	if(suit.flags_inv & HIDEJUMPSUIT)
+/mob/living/carbon/human/wear_suit_update(obj/item/clothing/suit)
+	if((suit.flags_inv & HIDEJUMPSUIT) || (initial(suit.flags_inv) & HIDEJUMPSUIT))
 		update_inv_w_uniform()
-	if(suit.flags_inv & HIDESHOES)
+	if((suit.flags_inv & HIDESHOES) || (initial(suit.flags_inv) & HIDESHOES))
 		update_inv_shoes()
-	if(suit.flags_inv & HIDEGLOVES)
+	if((suit.flags_inv & HIDEGLOVES) || (initial(suit.flags_inv) & HIDEGLOVES))
 		update_inv_gloves()
 
 	update_inv_wear_suit()
@@ -406,9 +412,9 @@
 		if(slot_wear_mask)
 			return head && (head.flags_inv & HIDEMASK)
 		if(slot_glasses)
-			return head && (head.flags_inv & HIDEGLASSES)
+			return head && (head.flags_inv & HIDEGLASSES) || wear_mask && (wear_mask.flags_inv & HIDEGLASSES)
 		if(slot_l_ear, slot_r_ear)
-			return head && (head.flags_inv & HIDEHEADSETS)
+			return head && (head.flags_inv & HIDEHEADSETS) || wear_mask && (wear_mask.flags_inv & HIDEHEADSETS)
 		else
 			return FALSE
 

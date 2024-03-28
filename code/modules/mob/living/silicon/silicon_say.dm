@@ -59,9 +59,10 @@
 
 /mob/living/silicon/say_understands(mob/other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(!speaking)
+	if(..())
+		return TRUE
+	else
 		return iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other)
-	return ..()
 
 
 //For holopads only. Usable by AI.
@@ -111,7 +112,7 @@
 	return TRUE
 
 
-/mob/living/silicon/ai/emote(emote_key, type_override = null, message = null, intentional = FALSE, force_silence = FALSE)
+/mob/living/silicon/ai/emote(emote_key, type_override = null, message = null, intentional = FALSE, force_silence = FALSE, ignore_cooldowns = FALSE)
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])//Is the AI using a holopad?
 		holopad_emote(message)

@@ -3,8 +3,9 @@
 	desc = "Completely impassable - or are they?"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "plasticflaps"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
+	pass_flags_self = PASSFLAPS
 	layer = 4
 	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100, fire = 50, acid = 50)
 	var/state = PLASTIC_FLAPS_NORMAL
@@ -49,31 +50,36 @@
 		P.add_fingerprint(user)
 		qdel(src)
 
-/obj/structure/plasticflaps/CanPass(atom/A, turf/T)
-	if(istype(A) && A.checkpass(PASSGLASS))
+
+/obj/structure/plasticflaps/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+
+	if(checkpass(mover, PASSFLAPS)) //For anything specifically engineered to cross plastic flaps.
+		return TRUE
+
+	if(checkpass(mover, PASSGLASS))
 		return prob(60)
 
-	var/obj/structure/bed/B = A
-	if(istype(A, /obj/structure/bed) && (B.has_buckled_mobs() || B.density))//if it's a bed/chair and is dense or someone is buckled, it will not pass
-		return FALSE
-
-	if(istype(A, /obj/structure/closet/cardboard))
-		var/obj/structure/closet/cardboard/C = A
-		if(C.move_delay)
+	if(istype(mover, /obj/structure/bed))
+		var/obj/structure/bed/bed_mover = mover
+		if(bed_mover.density || bed_mover.has_buckled_mobs())	//if it's a bed/chair and is dense or someone is buckled, it will not pass
 			return FALSE
 
-	if(ismecha(A))
+	else if(istype(mover, /obj/structure/closet/cardboard))
+		var/obj/structure/closet/cardboard/cardboard_mover = mover
+		if(cardboard_mover.move_delay)
+			return FALSE
+
+	else if(ismecha(mover))
 		return FALSE
 
-	else if(isliving(A)) // You Shall Not Pass!
-		var/mob/living/M = A
-		if(isbot(A)) //Bots understand the secrets
+	else if(isliving(mover)) // You Shall Not Pass!
+		var/mob/living/living_mover = mover
+		if(istype(living_mover.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
 			return TRUE
-		if(M.buckled && istype(M.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
-			return TRUE
-		if(!M.lying && !M.ventcrawler && M.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
+
+		if(!living_mover.lying && !living_mover.ventcrawler && living_mover.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
 			return FALSE
-	return ..()
 
 
 /obj/structure/plasticflaps/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)

@@ -9,7 +9,7 @@
 
 	can_unwrench = 1
 
-	var/on = 0
+	on = FALSE
 	var/target_pressure = ONE_ATMOSPHERE
 
 	var/id = null
@@ -25,7 +25,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/atmospherics/binary/passive_gate/update_icon()
+/obj/machinery/atmospherics/binary/passive_gate/update_icon_state()
 	..()
 	icon_state = "[on ? "on" : "off"]"
 
@@ -173,13 +173,9 @@
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/binary/passive_gate/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
 
 /obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/wrench))
+	if(W.tool_behaviour != TOOL_WRENCH)
 		return ..()
 	if(on)
 		to_chat(user, span_alert("You cannot unwrench this [src], turn it off first."))

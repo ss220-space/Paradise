@@ -15,7 +15,7 @@
 	var/meow_sound = 'sound/creatures/cat_meow.ogg'	//Used in emote.
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	mob_size = MOB_SIZE_SMALL
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
@@ -75,7 +75,7 @@
 		children += baby
 		return baby
 
-/mob/living/simple_animal/pet/cat/Runtime/death()
+/mob/living/simple_animal/pet/cat/Runtime/death(gibbed)
 	if(can_die())
 		write_memory(TRUE)
 		SSpersistent_data.registered_atoms -= src // We just saved. Dont save at round end
@@ -220,7 +220,7 @@
 
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
 	. = ..()
-	add_language("Galactic Common")
+	add_language(LANGUAGE_GALACTIC_COMMON)
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"

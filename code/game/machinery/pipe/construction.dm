@@ -522,7 +522,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(!istype(W, /obj/item/wrench))
+	if(W.tool_behaviour != TOOL_WRENCH)
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
 		to_chat(user, span_warning("You need to fasten it to a pipe"))
@@ -548,9 +548,9 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	if(!istype(W, /obj/item/wrench))
+	if(!W.tool_behaviour == TOOL_WRENCH)
 		return ..()
-	var/obj/machinery/air_sensor/sensor = new(loc)
+	var/obj/machinery/atmospherics/air_sensor/sensor = new(loc)
 	sensor.add_fingerprint(user)
 	playsound(get_turf(src), W.usesound, 50, 1)
 	to_chat(user, span_notice("You have fastened the gas sensor."))

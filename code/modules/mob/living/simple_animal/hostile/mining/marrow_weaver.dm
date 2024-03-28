@@ -20,7 +20,7 @@
 	melee_damage_upper = 16
 	stat_attack = 1
 	robust_searching = 1
-	see_in_dark = 7
+	nightvision = 7
 	ventcrawler = 2
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -107,16 +107,14 @@
 	icon_state = "chitin"
 	singular_name = "chitin chunk"
 
-//better and dangerous subtype for regular lavaland. Has X-ray and slightly faster
+//better and dangerous subtype for regular lavaland. Slightly faster and NO MORE XRAY.
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous
 	health = 320
 	maxHealth = 320
 	vision_range = 8
-	see_in_dark = 8
+	nightvision = 8
 	speed = 5
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	move_to_delay = 14
 	anger_move_to_delay = 6
 	anger_speed = 6

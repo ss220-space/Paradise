@@ -144,8 +144,7 @@
 			return 1
 	return 0
 
-/obj/machinery/door/unpowered/hotel_door/update_icon()
-	overlays.Cut()
+/obj/machinery/door/unpowered/hotel_door/update_icon_state()
 	if(density)
 		icon_state = "door_closed"
 	else
@@ -193,7 +192,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	opacity = 0
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door
@@ -202,18 +201,20 @@
 
 	var/obj/item/radio/radio	// for shouting at deadbeats
 
-/obj/effect/hotel_controller/New()
-	..()
+/obj/effect/hotel_controller/Initialize(mapload)
+	. = ..()
+
 	if(controller)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
+
 	controller = src
 
 	radio = new()
 	radio.broadcasting = 0
 	radio.listening = 0
-
+	var/area/myArea = get_area(src)
 	// get room doors
-	for(var/obj/machinery/door/unpowered/hotel_door/D in get_area(src))
+	for(var/obj/machinery/door/unpowered/hotel_door/D in myArea?.machinery_cache)
 		add_room(D)
 
 /obj/effect/hotel_controller/proc/add_room(obj/machinery/door/unpowered/hotel_door/D)

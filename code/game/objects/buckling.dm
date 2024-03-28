@@ -23,11 +23,11 @@
 				return TRUE
 
 
-/atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
+/atom/movable/MouseDrop_T(mob/living/dropping, mob/living/user, params)
 	. = ..()
-	if(can_buckle && istype(M) && istype(user))
-		if(user_buckle_mob(M, user))
-			return TRUE
+	if(can_buckle && istype(dropping) && istype(user) && user_buckle_mob(dropping, user))
+		return TRUE
+
 
 /atom/movable/proc/has_buckled_mobs()
 	return length(buckled_mobs)
@@ -140,6 +140,7 @@
 				M.visible_message(span_warning("[user] buckles [M] to [src]!"),\
 					span_warning("[user] buckles you to [src]!"),\
 					span_italics("You hear metal clanking."))
+				return TRUE
 		else
 			to_chat(user, span_warning("You fail to buckle [M]."))
 	else
@@ -147,6 +148,7 @@
 			M.visible_message(span_notice("[M] buckles [M.p_them()]self to [src]."),\
 				span_notice("You buckle yourself to [src]."),\
 				span_italics("You hear metal clanking."))
+			return TRUE
 
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	var/mob/living/M = unbuckle_mob(buckled_mob)

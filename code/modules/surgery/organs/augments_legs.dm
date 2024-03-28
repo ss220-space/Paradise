@@ -38,16 +38,12 @@
 		to_chat(owner, span_warning("The EMP causes your [src] to seize up, preventing [E] from moving!"))
 		COOLDOWN_START(src, emp_notice, 30 SECONDS)
 
-/obj/item/organ/internal/cyberimp/leg/update_icon()
-	if(parent_organ_zone == BODY_ZONE_R_LEG)
-		transform = null
-	else // Mirroring the icon
-		transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /obj/item/organ/internal/cyberimp/leg/examine(mob/user)
 	. = ..()
 	. += span_notice("[src] is assembled in the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg configuration. You can use a screwdriver to reassemble it.")
 	. += span_info("You will need two of the same type of implant for them to properly function.")
+
 
 /obj/item/organ/internal/cyberimp/leg/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -55,11 +51,12 @@
 		return
 	if(parent_organ_zone == BODY_ZONE_R_LEG)
 		parent_organ_zone = BODY_ZONE_L_LEG
+		transform = matrix(-1, 0, 0, 0, 1, 0)	// Mirroring the icon
 	else
 		parent_organ_zone = BODY_ZONE_R_LEG
+		transform = null
 	SetSlot()
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg.</span>")
-	update_icon()
 
 
 /obj/item/organ/internal/cyberimp/leg/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
