@@ -13,7 +13,6 @@
 	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
 	var/alert_admins_on_craft = FALSE
 
-
 /datum/crafting_recipe/IED
 	name = "IED"
 	result = /obj/item/grenade/iedcasing
