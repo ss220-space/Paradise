@@ -202,9 +202,13 @@
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
-	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
-	H.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
-	H.dirslash_enabled = initial(H.dirslash_enabled)
+	remove_verbs(H)
+	return TRUE
+
+/datum/martial_art/proc/remove_verbs(mob/living/carbon/human/old_human)
+	old_human.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	old_human.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
+	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
 	return TRUE
 
 ///	Returns the martial art with the highest weight from all the ones someone knows.

@@ -174,6 +174,8 @@
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
 			MA.remove(current)
+			if(old_current)
+				MA.remove_verbs(old_current)
 			if(!MA.temporary)
 				MA.teach(current)
 
