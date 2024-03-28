@@ -47,11 +47,11 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
-	var/static/list/animated_mouses = typecacheof(list(
+	var/static/list/animated_mouses = list(
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
 			/mob/living/simple_animal/mouse/gray,
-			/mob/living/simple_animal/mouse/white))
+			/mob/living/simple_animal/mouse/white)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -100,7 +100,7 @@
 
 /mob/living/simple_animal/mouse/proc/is_available_for_anim()
 	. = FALSE
-	if(is_type_in_typecache(src, animated_mouses, FALSE))
+	if(is_type_in_list(src, animated_mouses, FALSE))
 		return TRUE
 
 /mob/living/simple_animal/mouse/New()
