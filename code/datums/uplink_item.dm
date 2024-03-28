@@ -1942,7 +1942,7 @@
 	item = /obj/item/autoimplanter/oneuse/razorblade
 	cost = 42
 	surplus = 0
-	uplinktypes = list()
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/laserblade
 	name = "Overcharged Tail Laserblade"
@@ -1950,7 +1950,7 @@
 	item = /obj/item/autoimplanter/oneuse/laserblade
 	cost = 38
 	surplus = 0
-	uplinktypes = list()
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // POINTLESS BADASSERY
 
