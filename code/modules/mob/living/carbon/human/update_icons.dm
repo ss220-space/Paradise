@@ -722,6 +722,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			new_glasses = mutable_appearance('icons/mob/clothing/eyes.dmi', "[glasses.icon_state]", layer = -GLASSES_LAYER)
 
+		new_glasses.alpha = glasses.alpha
+		new_glasses.color = glasses.color
+
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		var/obj/item/clothing/glasses/G = glasses
 		if(head && !(head.flags_cover & HEADCOVERSEYES) && G.over_hat && istype(G))

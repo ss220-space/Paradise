@@ -718,3 +718,22 @@
 	icon_state = "cucumbermask"
 	item_state = "cucumbermask"
 
+/obj/item/clothing/glasses/heart
+	name = "heart-shaped glasses"
+	desc = "Cheap plastic glasses with a fancy shape."
+	icon_state = "heart"
+	item_state = "heart"
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		)
+
+/obj/item/clothing/glasses/heart/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
