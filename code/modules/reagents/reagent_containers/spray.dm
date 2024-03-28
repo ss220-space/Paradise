@@ -110,7 +110,6 @@
 /obj/item/reagent_containers/spray/cleaner/chemical
     name = "chemical cleaner"
     desc = "There is nothing safer than cleaning up spilled potassium with water"
-    icon = 'icons/obj/janitor.dmi'
     icon_state = "cleaner_chemical"
     item_state = "cleaner_medchem"
 
