@@ -31122,8 +31122,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	icon_state = "pipe-j2s";
-	name = "Disposal Pipe";
-	sortType = 1
+	name = "Disposal Pipe"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

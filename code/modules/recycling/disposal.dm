@@ -694,7 +694,7 @@
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
 	var/has_fat_guy = FALSE	// true if contains a fat person
 	/// Destination the holder is set to, defaulting to disposals and changes if the contents have a mail/sort tag.
-	var/destinationTag = 1
+	var/destinationTag = 0
 	var/tomail = FALSE //changes if contains wrapped package
 	var/hasmob = FALSE //If it contains a mob
 
