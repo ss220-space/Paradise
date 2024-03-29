@@ -107,6 +107,7 @@
 
 /obj/item/reagent_containers/spray/cleaner/brig/empty
     list_reagents = list()
+
 /obj/item/reagent_containers/spray/cleaner/chemical
     name = "chemical cleaner"
     desc = "There is nothing safer than cleaning up spilled potassium with water"
@@ -115,6 +116,7 @@
 
 /obj/item/reagent_containers/spray/cleaner/chemical/empty
     list_reagents = list()
+
 /obj/item/reagent_containers/spray/cleaner/janitor
     name = "janitoral deluxe cleaner"
     desc = "A stylish spray for the most productive station worker!"
@@ -123,6 +125,7 @@
 
 /obj/item/reagent_containers/spray/cleaner/janitor/empty
     list_reagents = list()
+
 /obj/item/reagent_containers/spray/cleaner/medical
     name = "medical cleaner"
     desc = "Disinfectant for hands, floor, and sole CMO"
@@ -131,6 +134,7 @@
 
 /obj/item/reagent_containers/spray/cleaner/medical/empty
     list_reagents = list()
+
 /obj/item/reagent_containers/spray/blue_cleaner
     name = "bluespace cleaner"
     desc = "A spray with an increased storage of reagents, or it's not that simple...."
@@ -139,6 +143,7 @@
     spray_maxrange = 4
     spray_currentrange = 4
     volume = 450
+
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
 
