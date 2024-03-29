@@ -110,6 +110,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
+	light_system = MOVABLE_LIGHT
 	light_range = 2
 
 /obj/item/flashlight/seclite

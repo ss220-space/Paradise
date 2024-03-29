@@ -109,6 +109,12 @@
 				set_light_color(var_value)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
+		if (NAMEOF(src, light_on))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_on = var_value)
+			else
+				set_light_on(var_value)
+			return TRUE
 
 	return ..()
 

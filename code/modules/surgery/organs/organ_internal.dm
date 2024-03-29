@@ -8,6 +8,8 @@
 	/// Whether it shows up as an option to remove during surgery.
 	var/unremovable = FALSE
 	var/can_see_food = FALSE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
