@@ -111,3 +111,21 @@
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
+
+/obj/item/gun/energy/gun/nuclear/gatling
+	name = "gatling"
+	icon_state = "lasgatling"
+	item_state = "lasgatling"
+	can_flashlight = FALSE
+	throw_range = 0
+	w_class = WEIGHT_CLASS_BULKY
+	spread = 45
+	weapon_weight = WEAPON_HEAVY
+	burst_size = 6
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/gatling)
+	charge_delay = 3
+
+/obj/item/gun/energy/gun/nuclear/gatling/can_be_pulled(atom/movable/user, force, show_message = FALSE)
+	if(show_message)
+		to_chat(user, span_warning("It's too heavy to be pulled!"))
+	return FALSE
