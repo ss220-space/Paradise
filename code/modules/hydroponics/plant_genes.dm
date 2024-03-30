@@ -280,8 +280,8 @@
 
 /datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
-	G.light_system = MOVABLE_LIGHT
-	G.AddComponent(/datum/component/overlay_lighting, glow_range(G.seed), glow_power(G.seed), glow_color)
+	G.set_light_range_power_color(glow_range(G.seed), glow_power(G.seed), glow_color)
+	G.set_light_on(TRUE)
 
 /datum/plant_gene/trait/glow/blue
 	name = "Blue Bioluminescence"
