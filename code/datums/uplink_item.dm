@@ -382,7 +382,7 @@
 
 /datum/uplink_item/jobspecific/dna_upgrader
 	name = "Genetic Superiority Injector"
-	desc = "Experemental DNA injector whick will give you one advanced gene modification and increase your gene stability."
+	desc = "Experimental DNA injector which will give you one advanced gene modification and increase your gene stability."
 	item = /obj/item/dna_upgrader
 	cost = 75
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)

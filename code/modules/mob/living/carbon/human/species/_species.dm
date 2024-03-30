@@ -646,7 +646,7 @@
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_from_active_hand())
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружи[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружива[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
