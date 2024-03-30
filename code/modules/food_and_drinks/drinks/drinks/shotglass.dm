@@ -63,7 +63,8 @@
 	if(!isShotFlammable() || (resistance_flags & ON_FIRE)) //You can't light a shot that's not flammable!
 		return
 	..()
-	set_light(light_intensity, null, light_color)
+	set_light_range_power_color(light_intensity, 1, light_color)
+	set_light_on(TRUE)
 	visible_message("<span class = 'notice'>[src] begins to burn with a blue hue!</span>")
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
