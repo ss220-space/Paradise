@@ -37,8 +37,8 @@
 //update whether handcuffs appears on our hud.
 /mob/living/carbon/proc/update_hud_handcuffed()
 	if(hud_used)
-		var/obj/screen/inventory/R = hud_used.inv_slots[slot_r_hand]
-		var/obj/screen/inventory/L = hud_used.inv_slots[slot_l_hand]
+		var/obj/screen/inventory/R = hud_used.inv_slots[SLOT_HUD_RIGHT_HAND]
+		var/obj/screen/inventory/L = hud_used.inv_slots[SLOT_HUD_LEFT_HAND]
 		if(R && L)
 			R.update_icon()
 			L.update_icon()
@@ -66,8 +66,8 @@
 		update_hud_wear_mask(wear_mask)
 
 /mob/living/carbon/update_inv_back()
-	if(client && hud_used && hud_used.inv_slots[slot_back])
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_back]
+	if(client && hud_used && hud_used.inv_slots[SLOT_HUD_BACK])
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BACK]
 		inv.update_icon()
 
 	if(back)

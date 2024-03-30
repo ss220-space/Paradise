@@ -1047,7 +1047,7 @@
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.drop_item_ground(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_or_del(magichead, slot_wear_mask)
+		user.equip_to_slot_or_del(magichead, SLOT_HUD_WEAR_MASK)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")

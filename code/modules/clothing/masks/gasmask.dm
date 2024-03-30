@@ -220,7 +220,7 @@
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(!user?.mind || slot != slot_wear_mask)
+	if(!user?.mind || slot != SLOT_HUD_WEAR_MASK)
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
@@ -343,7 +343,7 @@
 
 /obj/item/clothing/mask/gas/sechailer/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == slot_wear_mask && !HAS_TRAIT(user, TRAIT_SECDEATH))
+	if(slot == SLOT_HUD_WEAR_MASK && !HAS_TRAIT(user, TRAIT_SECDEATH))
 		ADD_TRAIT(user, TRAIT_SECDEATH, src)
 
 /obj/item/clothing/mask/gas/sechailer/dropped(mob/user, silent = FALSE)

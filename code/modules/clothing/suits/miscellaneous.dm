@@ -276,7 +276,7 @@
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot, initial)
 	. = ..()
 
-	if(slot == slot_wear_suit)
+	if(slot == SLOT_HUD_OUTER_SUIT)
 		disguise(user)
 
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user, silent = FALSE)
@@ -1147,7 +1147,7 @@
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot, initial)
 	. = ..()
 
-	if(!istype(H) || slot != slot_wear_suit)
+	if(!istype(H) || slot != SLOT_HUD_OUTER_SUIT)
 		STOP_PROCESSING(SSobj, src)
 	else
 		START_PROCESSING(SSobj, src)

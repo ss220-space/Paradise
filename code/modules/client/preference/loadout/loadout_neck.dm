@@ -1,6 +1,6 @@
 /datum/gear/neck
 	subtype_path = /datum/gear/neck
-	slot = slot_neck
+	slot = SLOT_HUD_NECK
 	sort_category = "Neck"
 
 //Mantles

@@ -180,7 +180,7 @@
 
 /obj/item/clothing/gloves/fingerless/rapid/equipped(mob/user, slot, initial)
 	owner = user
-	if(istype(owner) && slot == slot_gloves)
+	if(istype(owner) && slot == SLOT_HUD_GLOVES)
 		owner.dirslash_enabled = TRUE
 		owner.verbs += /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
 	. = ..()

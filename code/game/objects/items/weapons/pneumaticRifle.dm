@@ -64,7 +64,7 @@
 				coil.use(beltCost)
 				to_chat(user, span_notice("You strapped [src], so now you can wear it on your back"))
 				isBelted = TRUE
-				slot_flags |= SLOT_BACK
+				slot_flags |= SLOT_FLAG_BACK
 				update_icon(UPDATE_OVERLAYS)
 				return
 		else

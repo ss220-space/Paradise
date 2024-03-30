@@ -1107,7 +1107,7 @@
 					//Выдача бомбы
 					var/obj/item/grenade/plastic/c4/ninja/charge = new
 					var/mob/living/carbon/human/bomber = current
-					bomber.equip_or_collect(charge, slot_l_store)
+					bomber.equip_or_collect(charge, SLOT_HUD_LEFT_STORE)
 					charge.detonation_objective = bomb_objective
 
 			if("set up")

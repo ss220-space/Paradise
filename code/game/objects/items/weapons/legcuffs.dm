@@ -272,7 +272,7 @@
 		return TRUE	//abort
 
 	var/mob/living/carbon/target = hit_atom
-	if(target.legcuffed || !target.has_organ_for_slot(slot_legcuffed))
+	if(target.legcuffed || !target.has_organ_for_slot(SLOT_HUD_LEGCUFFED))
 		return TRUE
 
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)

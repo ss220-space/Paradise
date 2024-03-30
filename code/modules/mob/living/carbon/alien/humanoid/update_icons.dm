@@ -90,7 +90,7 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
 		inv.update_icon()
 
 	if(wear_suit)
@@ -137,11 +137,11 @@
 	if(client && hud_used)
 		var/obj/screen/inventory/inv
 
-		inv = hud_used.inv_slots[slot_l_store]
+		inv = hud_used.inv_slots[SLOT_HUD_LEFT_STORE]
 		if(inv)
 			inv.update_icon()
 
-		inv = hud_used.inv_slots[slot_r_store]
+		inv = hud_used.inv_slots[SLOT_HUD_RIGHT_STORE]
 		if(inv)
 			inv.update_icon()
 

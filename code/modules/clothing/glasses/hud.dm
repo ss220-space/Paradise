@@ -13,10 +13,10 @@
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
-	if(HUDType && slot == slot_glasses)
+	if(HUDType && slot == SLOT_HUD_GLASSES)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
-	if(HUDType && slot == slot_head)
+	if(HUDType && slot == SLOT_HUD_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
 

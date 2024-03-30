@@ -135,7 +135,7 @@ Difficulty: Medium
 	. = ..()
 	if(!ishuman(user))
 		return
-	if(slot == slot_wear_suit)
+	if(slot == SLOT_HUD_OUTER_SUIT)
 		user.mob_spell_list += blood_spell
 		blood_spell.action.Grant(user)
 
@@ -144,7 +144,7 @@ Difficulty: Medium
 
 	if(!ishuman(user))
 		return
-	if(user.get_item_by_slot(slot_wear_suit) == src)
+	if(user.get_item_by_slot(SLOT_HUD_OUTER_SUIT) == src)
 		user.mob_spell_list -= blood_spell
 		blood_spell.action.Remove(user)
 

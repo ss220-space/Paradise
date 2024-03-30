@@ -64,7 +64,7 @@
 	name = "Kentucky Fried Vox"
 	icon_state = "fried_vox_empty"
 	item_state = "fried_vox_empty"
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
 	sprite_sheets = list(
 		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
@@ -155,7 +155,7 @@
 	desc = "A spent bullet casing. Smells like rusty metal."
 
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 100)
