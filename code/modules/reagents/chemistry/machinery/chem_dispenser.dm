@@ -623,13 +623,11 @@
 		. += chamber_contents
 
 
-/obj/item/handheld_chem_dispenser/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
-	if(isrobot(loc) && cell.charge < cell.maxcharge)
+/obj/item/handheld_chem_dispenser/process()
+	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell && R.cell.charge > recharge_rate / efficiency)
-			var/actual = min(recharge_rate / efficiency, cell.maxcharge - cell.charge)
-			R.cell.charge -= actual
-			cell.charge += actual
+		if(R && R.cell && R.cell.charge && (R.cell != cell))
+			cell = R.cell //Use robot's power source.
 
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
