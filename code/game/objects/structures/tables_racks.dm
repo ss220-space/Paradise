@@ -246,10 +246,7 @@
 		tablepush(I, user)
 		return
 
-	if(isrobot(user))
-		return
-
-	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))
+	if(user.a_intent != INTENT_HARM && !(I.flags & (ABSTRACT | NODROP)))
 		if(user.transfer_item_to_loc(I, src.loc))
 			add_fingerprint(user)
 			var/list/click_params = params2list(params)
@@ -261,6 +258,8 @@
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			item_placed(I)
 	else
+		if(isrobot(user))
+			return
 		return ..()
 
 
