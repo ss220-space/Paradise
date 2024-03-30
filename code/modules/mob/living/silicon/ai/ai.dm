@@ -1177,7 +1177,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "Camera lights deactivated.")
 
 		for(var/obj/machinery/camera/C in lit_cameras)
-			C.set_light_on(FALSE)
+			C.set_light(l_on = FALSE)
 			lit_cameras = list()
 
 		return
@@ -1239,9 +1239,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	for(var/obj/machinery/camera/C in remove)
 		lit_cameras -= C //Removed from list before turning off the light so that it doesn't check the AI looking away.
-		C.Togglelight(0)
+		C.Togglelight(FALSE)
 	for(var/obj/machinery/camera/C in add)
-		C.Togglelight(1)
+		C.Togglelight(TRUE)
 		lit_cameras |= C
 
 

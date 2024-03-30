@@ -180,7 +180,7 @@
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)
 			effect.color = chambered.muzzle_flash_color
-			effect.set_light(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
+			effect.set_light_range_power_color(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
 		else
 			effect.color = LIGHT_COLOR_TUNGSTEN
 

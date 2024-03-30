@@ -101,6 +101,9 @@
 	/// Descriptive string used in amputation
 	var/amputation_point
 
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
 
 /obj/item/organ/external/New(mob/living/carbon/holder)
 	..()

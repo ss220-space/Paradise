@@ -77,6 +77,7 @@
 		var/light = calculate_glow(KIDAN_LANTERN_LIGHT)
 		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ_zone))
 		lbody.set_light_range_power_color(light, color = colour)
+		lbody.set_light_on(TRUE)
 		glowing = light
 		return 1
 
