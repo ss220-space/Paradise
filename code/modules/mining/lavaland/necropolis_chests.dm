@@ -350,7 +350,7 @@
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(user_death))
 
-	user.drop_item_ground(src, force = TRUE, silent = TRUE, ignore_pixel_shift = TRUE)
+	user.drop_item_ground(src, force = TRUE, silent = TRUE)
 	insert(user)
 
 /obj/item/organ/internal/cyberimp/arm/katana/emp_act() //Organic, no emp stuff
@@ -363,8 +363,7 @@
 	if(!katana.drew_blood)
 		to_chat(owner, span_userdanger("[katana] lashes out at you in hunger!"))
 		playsound(owner, 'sound/misc/demon_attack1.ogg', 50, TRUE)
-		if(parent_organ_zone)
-			owner.apply_damage(25, BRUTE, parent_organ_zone, TRUE)
+		owner.apply_damage(25, BRUTE, parent_organ_zone, TRUE)
 	katana.drew_blood = FALSE
 	katana.clean_blood()
 	return ..()
