@@ -15,6 +15,12 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/laser/gatling
+	projectile_type = /obj/item/projectile/beam/laser/gatling
+	e_cost = 16 //The amount of energy a cell needs to expend to create this shot.
+	delay = 1
+	fire_sound = 'sound/weapons/gunshots/lasergatling.ogg'
+
 /obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
 	e_cost = 250
 
