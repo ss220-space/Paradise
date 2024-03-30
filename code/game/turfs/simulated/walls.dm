@@ -47,7 +47,9 @@
 	/turf/simulated/wall/r_wall/rust,
 	/turf/simulated/wall/r_wall/coated,
 	/turf/simulated/wall/indestructible/metal,
-	/turf/simulated/wall/indestructible/reinforced)
+	/turf/simulated/wall/indestructible/reinforced,
+	/turf/simulated/wall/indestructible/reinforced/rusted,
+	)
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/BeforeChange()

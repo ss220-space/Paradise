@@ -4,6 +4,8 @@
 	explosion_block = 50
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "riveted"
+	smooth = SMOOTH_FALSE
+
 
 /turf/simulated/wall/indestructible/dismantle_wall(devastated = 0, explode = 0)
 	return
@@ -76,6 +78,7 @@
 	icon_state = "r_wall"
 	canSmoothWith = list(
 	/turf/simulated/wall/indestructible/reinforced,
+	/turf/simulated/wall/indestructible/reinforced/rusted,
 	/turf/simulated/wall,
 	/turf/simulated/wall/r_wall,
 	/obj/structure/falsewall,
@@ -85,6 +88,13 @@
 	/turf/simulated/wall/r_wall/rust,
 	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
+
+
+/turf/simulated/wall/indestructible/reinforced/rusted
+	name = "rusted reinforced wall"
+	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
+	icon_state = "rrust"
+
 
 /turf/simulated/wall/indestructible/wood
 	name = "wooden wall"
@@ -165,3 +175,40 @@
 	icon_state = "gingerbread"
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/simulated/wall/indestructible/gingerbread, /obj/structure/falsewall/gingerbread, /turf/simulated/wall/mineral/gingerbread)
+
+
+/turf/simulated/wall/indestructible/rock
+	name = "rock"
+	icon_state = "rock"
+	smooth = SMOOTH_FALSE
+
+
+/turf/simulated/wall/indestructible/rock/dark
+	color = "#91857C"
+
+
+/turf/simulated/wall/indestructible/sandstone
+	name = "sandstone wall"
+	desc = "A wall with sandstone plating."
+	icon = 'icons/turf/walls/sandstone_wall.dmi'
+	icon_state = "sandstone"
+	canSmoothWith = list(
+		/obj/structure/falsewall/sandstone,
+		/turf/simulated/wall/mineral/sandstone,
+		/turf/simulated/wall/indestructible/sandstone,
+	)
+	smooth = SMOOTH_TRUE
+
+
+/turf/simulated/wall/indestructible/iron
+	name = "rough metal wall"
+	desc = "A wall with rough metal plating."
+	icon = 'icons/turf/walls/iron_wall.dmi'
+	icon_state = "iron"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(
+		/turf/simulated/wall/mineral/iron,
+		/obj/structure/falsewall/iron,
+		/turf/simulated/wall/indestructible/iron,
+	)
+
