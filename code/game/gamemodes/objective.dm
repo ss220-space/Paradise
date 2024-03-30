@@ -1138,11 +1138,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/blood/check_completion()
 	for(var/datum/mind/player in get_owners())
 		var/datum/antagonist/vampire/vampire = player.has_antag_datum(/datum/antagonist/vampire)
-		if(vampire.bloodtotal >= target_amount)
+		if(vampire && (vampire.bloodtotal >= target_amount))
 			return TRUE
 
 		var/datum/antagonist/goon_vampire/g_vampire = player.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vampire.bloodtotal >= target_amount)
+		if(g_vampire && (g_vampire.bloodtotal >= target_amount))
 			return TRUE
 
 		return FALSE

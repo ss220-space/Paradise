@@ -63,7 +63,7 @@
 	. = ..(user, TRUE)
 	if(suit)
 		suit.RemoveHelmet(user)
-	else
+	else if(!QDELETED(src))
 		qdel(src)
 
 

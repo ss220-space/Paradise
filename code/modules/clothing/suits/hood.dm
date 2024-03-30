@@ -127,7 +127,7 @@
 	. = ..()
 	if(suit)
 		suit.RemoveHood(user)
-	else
+	else if(!QDELETED(src))
 		qdel(src)
 
 

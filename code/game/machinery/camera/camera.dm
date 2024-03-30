@@ -432,3 +432,6 @@
 	if(GLOB.cameranet && get_turf(src) != prev_turf)
 		GLOB.cameranet.updatePortableCamera(src)
 		prev_turf = get_turf(src)
+
+/obj/machinery/camera/portable/triggerCameraAlarm() // AI camera doesnt trigger alarm
+	return

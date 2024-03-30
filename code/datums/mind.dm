@@ -85,7 +85,7 @@
 
 	var/ambition_limit = 6 //Лимит амбиций
 
-	var/list/curses = list()
+	var/list/curses
 
 
 /datum/mind/New(new_key)

@@ -848,12 +848,12 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 					pdelay = strenght[1]
 					oxy_dmg = strenght[2]
 				H.curse_high_rp(pdelay*10, oxy_dmg)
-				H.mind.curses += "high_rp"
+				LAZYADD(H.mind.curses, "high_rp")
 				logmsg = "high rp([pdelay] - [oxy_dmg])"
 			else
 				hrp_tumor.remove(H)
 				qdel(hrp_tumor)
-				H.mind.curses -= "high_rp"
+				LAZYREMOVE(H.mind.curses, "high_rp")
 				logmsg = "high rp(cure)"
 
 	if(logmsg)
