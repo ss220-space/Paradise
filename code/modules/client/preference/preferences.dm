@@ -2128,8 +2128,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/limb = null
 					var/second_limb = null // if you try to change the arm, the hand should also change
 					var/third_limb = null  // if you try to unchange the hand, the arm should also change
-					var/valid_limb_states = list("Normal", "Amputated", "Prosthesis")
-					var/no_amputate = 0
+					var/valid_limb_states = list("Normal", "Prosthesis")
+					var/no_amputate = FALSE
 
 					switch(limb_name)
 						if("Torso")
@@ -2171,6 +2171,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_R_ARM
 
+					if(!no_amputate)	// I don't want this in my menu if it's not an option, heck.
+						valid_limb_states += "Amputated"
+
 					var/new_state = tgui_input_list(user, "What state do you wish the limb to be in?", "[limb_name]", valid_limb_states)
 					if(!new_state) return
 
@@ -2186,12 +2189,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								organ_data[third_limb] = null
 								rlimb_data[third_limb] = null
 						if("Amputated")
-							if(!no_amputate)
-								organ_data[limb] = "amputated"
-								rlimb_data[limb] = null
-								if(second_limb)
-									organ_data[second_limb] = "amputated"
-									rlimb_data[second_limb] = null
+							organ_data[limb] = "amputated"
+							rlimb_data[limb] = null
+							if(second_limb)
+								organ_data[second_limb] = "amputated"
+								rlimb_data[second_limb] = null
 						if("Prosthesis")
 							var/choice
 							var/subchoice
@@ -2201,7 +2203,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							for(var/limb_type in typesof(/datum/robolimb)) //This loop populates a list of companies that offer the limb the user selected previously as one of their cybernetic products.
 								R = new limb_type()
 								if(!R.unavailable_at_chargen && (limb in R.parts) && R.has_subtypes) //Ensures users can only choose companies that offer the parts they want, that singular models get added to the list as well companies that offer more than one model, and...
-									robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
+									if(species in R.species_allowed)
+										robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
 							choice = tgui_input_list(user, "Which manufacturer do you wish to use for this limb?", "[limb_name] - Prosthesis", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
