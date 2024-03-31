@@ -440,7 +440,7 @@
 
 /datum/species/golem/alloy/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.languages.Cut()
+	LAZYREINITLIST(H.languages)
 	H.add_language(LANGUAGE_HIVE_GOLEM)
 	H.add_language(LANGUAGE_GREY) // still grey enouhg to speak in psi link
 

@@ -190,7 +190,7 @@
 			I.forceMove(src)
 			gripped_item = I
 			update_icon(UPDATE_OVERLAYS)
-			RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(handle_item_moving))
+			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(handle_item_moving))
 		else
 			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
 			return FALSE
@@ -201,7 +201,7 @@
 
 /obj/item/gripper/proc/handle_item_moving()
 	SIGNAL_HANDLER
-	gripped_item.UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 	gripped_item = null
 	update_icon(UPDATE_OVERLAYS)
 

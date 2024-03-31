@@ -231,3 +231,22 @@
 		var/datum/uplink_item/item = new item_path
 		. += item
 
+
+/proc/update_config_movespeed_type_lookup(update_mobs = TRUE)
+	var/list/mob_types = list()
+	var/list/entry_value = CONFIG_GET(keyed_list/multiplicative_movespeed)
+	for(var/path in entry_value)
+		var/value = entry_value[path]
+		if(!value)
+			continue
+		for(var/subpath in typesof(path))
+			mob_types[subpath] = value
+	GLOB.mob_config_movespeed_type_lookup = mob_types
+	if(update_mobs)
+		update_mob_config_movespeeds()
+
+
+/proc/update_mob_config_movespeeds()
+	for(var/mob/M as anything in GLOB.mob_list)
+		M.update_config_movespeed()
+

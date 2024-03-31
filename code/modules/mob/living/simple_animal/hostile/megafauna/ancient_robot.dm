@@ -599,7 +599,6 @@ Difficulty: Very Hard
 	weather_immunities = list("lava","ash")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	flying = TRUE
 	check_friendly_fire = 1
 	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/1autorifle.ogg'
@@ -632,6 +631,8 @@ Difficulty: Very Hard
 	. = ..()
 	if(!ancient)
 		qdel(src) //no
+		return
+	AddElement(/datum/element/simple_flying)
 	core = ancient
 	who_am_i = who
 	ranged_cooldown_time = rand(30, 60) // keeps them not running on the same time

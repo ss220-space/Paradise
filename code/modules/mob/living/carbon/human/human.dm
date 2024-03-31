@@ -1225,12 +1225,10 @@
 	// Name
 	real_name = dna.species.get_random_name(gender)
 	name = real_name
-	if(mind)
-		mind.name = real_name
+	mind?.name = real_name
 
 	// DNA ready
 	dna.ready_dna(src)
-	dna.species.handle_dna(src)
 	dna.real_name = real_name
 	dna.tts_seed_dna = tts_seed
 	sync_organ_dna()
@@ -1742,7 +1740,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/canBeHandcuffed()
-	return get_num_arms() >= 2
+	return num_hands >= 2
 
 /mob/living/carbon/human/has_mutated_organs()
 	for(var/obj/item/organ/external/E as anything in bodyparts)
@@ -1987,12 +1985,24 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/adjust_nutrition(change)
 	if(NO_HUNGER in dna.species.species_traits)
 		return FALSE
-	return ..()
+	. = ..()
+	update_hunger_slowdown()
+
 
 /mob/living/carbon/human/set_nutrition(change)
 	if(NO_HUNGER in dna.species.species_traits)
 		return FALSE
-	return ..()
+	. = ..()
+	update_hunger_slowdown()
+
+
+/mob/living/carbon/human/proc/update_hunger_slowdown()
+	var/hungry = (500 - nutrition) / 5 //So overeat would be 100 and default level would be 80
+	if(hungry >= 70)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (hungry / 50))
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+
 
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(!mind)

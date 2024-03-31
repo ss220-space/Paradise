@@ -23,12 +23,12 @@
 
 		if(L.pulling && (isliving(L.pulling)))
 			var/mob/living/M =	L.pulling
-			if(M.mob_spell_list.len != 0 || (M.mind && M.mind.spell_list.len != 0))
-				for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)
-					S.cooldown_handler.revert_cast()
+			if(LAZYLEN(M.mob_spell_list) || (M.mind && LAZYLEN(M.mind.spell_list)))
+				for(var/obj/effect/proc_holder/spell/spell as anything in M.mob_spell_list)
+					spell.cooldown_handler.revert_cast()
 				if(M.mind)
-					for(var/obj/effect/proc_holder/spell/S in M.mind.spell_list)
-						S.cooldown_handler.revert_cast()
+					for(var/obj/effect/proc_holder/spell/spell as anything in M.mind.spell_list)
+						spell.cooldown_handler.revert_cast()
 				to_chat(M, "<span class='notice'>You feel raw magical energy flowing through you, it feels good!</span>")
 			else
 				to_chat(M, "<span class='notice'>You feel very strange for a moment, but then it passes.</span>")

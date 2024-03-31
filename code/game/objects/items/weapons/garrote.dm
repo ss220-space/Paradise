@@ -15,7 +15,7 @@
 
 /obj/item/twohanded/garrote/Destroy()
 	if(strangling)
-		strangling.garroted_by.Remove(src)
+		LAZYREMOVE(strangling.garroted_by, src)
 	strangling = null
 	return ..()
 
@@ -42,7 +42,7 @@
 	if(strangling)
 		usr.visible_message("<span class='info'>[usr] removes the [src] from [strangling]'s neck.</span>", \
 				"<span class='warning'>You remove the [src] from [strangling]'s neck.</span>")
-		strangling.garroted_by.Remove(src)
+		LAZYREMOVE(strangling.garroted_by, src)
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
@@ -136,7 +136,7 @@
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
-		strangling.garroted_by.Remove(src)
+		LAZYREMOVE(strangling.garroted_by, src)
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
@@ -147,7 +147,7 @@
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
-		strangling.garroted_by.Remove(src)
+		LAZYREMOVE(strangling.garroted_by, src)
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
@@ -161,8 +161,7 @@
 		return
 
 
-	if(!(src in strangling.garroted_by))
-		strangling.garroted_by+=src
+	LAZYOR(strangling.garroted_by, src)
 	strangling.Silence(6 SECONDS) // Non-improvised effects
 	strangling.apply_damage(20, OXY, BODY_ZONE_HEAD)
 

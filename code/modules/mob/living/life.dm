@@ -4,9 +4,6 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
 
-	if(flying && !floating) //TODO: Better floating
-		float(TRUE)
-
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
 		var/turf/T = get_turf(src)
 		if(client && registered_z != T.z)
@@ -88,6 +85,7 @@
 					var/view = client ? client.maxview() : world.view
 					if(get_dist(src, A) > view || !(src in viewers(view, A)))
 						forced_look = null
+						remove_movespeed_modifier(/datum/movespeed_modifier/forced_look)
 						to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
 						return
 			setDir()

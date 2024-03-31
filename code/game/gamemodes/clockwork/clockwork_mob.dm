@@ -22,7 +22,6 @@
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
 	nightvision = 8
-	flying = TRUE
 	pass_flags = PASSTABLE
 	AIStatus = AI_OFF // Usually someone WILL play for him but i don't know about this on chief.
 	universal_speak = TRUE
@@ -38,6 +37,8 @@
 
 /mob/living/simple_animal/hostile/clockwork/marauder/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	real_name = text("clockwork marauder ([rand(1, 1000)])")
 	name = real_name
 

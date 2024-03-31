@@ -39,11 +39,16 @@
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
 
+
 /mob/living/carbon/alien/handle_status_effects()
 	..()
 	//natural reduction of movement delay due to stun.
 	if(move_delay_add > 0)
 		move_delay_add = max(0, move_delay_add - rand(1, 2))
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
+		return
+	remove_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay)
+
 
 /mob/living/carbon/alien/handle_fire()//Aliens on fire code
 	. = ..()

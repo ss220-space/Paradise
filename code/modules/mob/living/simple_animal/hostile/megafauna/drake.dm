@@ -68,6 +68,12 @@ Difficulty: Medium
 							   /datum/action/innate/megafauna_attack/mass_fire,
 							   /datum/action/innate/megafauna_attack/lava_swoop)
 
+
+/mob/living/simple_animal/hostile/megafauna/dragon/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
+
+
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
 	icon_icon = 'icons/obj/wizard.dmi'

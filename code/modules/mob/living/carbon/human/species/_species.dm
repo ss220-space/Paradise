@@ -80,7 +80,7 @@
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/strength_modifier = 1	 //for now only used in resist/grab chances. Maybe sometime it will become more usefull
 	var/obj_damage = 0
-	var/list/default_genes = list()
+	var/list/default_genes
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
@@ -283,72 +283,13 @@
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		return TRUE
 
-////////////////
-// MOVE SPEED //
-////////////////
-#define ADD_SLOWDOWN(__value) if(!ignoreslow || __value < 0) . += __value
-
-/datum/species/proc/movement_delay(mob/living/carbon/human/H)
-	. = 0	//We start at 0.
-
-	if(has_gravity(H))
-		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
-			. -= 1
-		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
-			. -= 0.5
-
-		var/ignoreslow = FALSE
-		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations) || (H.status_flags & GODMODE))
-			ignoreslow = TRUE
-
-		var/flight = H.flying	//Check for flight and flying items
-
-		ADD_SLOWDOWN(speed_mod)
-
-		if(H.status_flags & IGNORE_SPEED_CHANGES)
-			return .
-
-		if(H.wear_suit && !H.wear_suit.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.wear_suit.slowdown)
-		if(!H.buckled && H.shoes && !H.shoes.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.shoes.slowdown)
-		if(H.back && !H.back.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.back.slowdown)
-		if(H.l_hand && (H.l_hand.flags & HANDSLOW) && !H.l_hand.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.l_hand.slowdown)
-		if(H.r_hand && (H.r_hand.flags & HANDSLOW) && !H.r_hand.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.r_hand.slowdown)
-
-		if(ignoreslow)
-			return . // Only malusses after here
-
-		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
-		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
-		if(H.reagents)
-			for(var/datum/reagent/R in H.reagents.reagent_list)
-				if(R.shock_reduction)
-					health_deficiency -= R.shock_reduction
-		if(health_deficiency >= 40 && !isnucleation(H))
-			if(flight)
-				. += (health_deficiency / 75)
-			else
-				. += (health_deficiency / 25)
-		if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
-			. += 2 * H.stance_damage //damaged/missing feet or legs is slow
-
-		if((hungry >= 70) && !flight)
-			. += hungry/50
-		if(FAT in H.mutations)
-			. += (1.5 - flight)
-		if (coldmod>0)
-			if(H.bodytemperature < cold_level_1)
-				. += (cold_level_1 - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
-
-	return .
-
-#undef ADD_SLOWDOWN
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(speed_mod)
+		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
+
 	for(var/slot_id in no_equip)
 		var/obj/item/thing = H.get_item_by_slot(slot_id)
 		if(thing && (!thing.species_exception || !is_type_in_list(src, thing.species_exception)))
@@ -361,13 +302,21 @@
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
+
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(speed_mod)
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
+
 	H.meatleft = initial(H.meatleft)
+
 	H.ventcrawler = initial(H.ventcrawler)
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			H.faction -= i
+
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
@@ -646,7 +595,7 @@
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_from_active_hand())
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружи[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружива[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
@@ -1131,7 +1080,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
 	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
-		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
+		M.adjust_bodytemperature((temperature + M.bodytemperature) * 0.5)	// Approximation for gradual heating or cooling.
 
 /datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
@@ -1175,9 +1124,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/spec_thunk(mob/living/carbon/human/H)
 	return FALSE
-
-/datum/species/proc/spec_movement_delay()
-	return TRUE
 
 /datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
 	return FALSE

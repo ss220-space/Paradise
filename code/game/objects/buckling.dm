@@ -76,8 +76,7 @@
 			M.pulledby.pulling = src
 			M.pulledby = null
 
-	for(var/obj/item/grab/G in M.grabbed_by)
-		qdel(G)
+	QDEL_LIST(M.grabbed_by)
 
 	M.buckling = null
 	M.buckled = src
@@ -85,6 +84,9 @@
 	buckled_mobs |= M
 	M.update_canmove()
 	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
+	if(anchored)
+		ADD_TRAIT(M, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
+
 	post_buckle_mob(M)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
@@ -105,6 +107,8 @@
 		buckled_mob.update_canmove()
 		buckled_mob.clear_alert("buckled")
 		buckled_mobs -= buckled_mob
+		if(anchored)
+			REMOVE_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
 		SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, buckled_mob, force)
 
 		post_unbuckle_mob(.)

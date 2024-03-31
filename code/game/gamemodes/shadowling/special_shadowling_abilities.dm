@@ -233,7 +233,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 			var/mob/living/simple_animal/ascendant_shadowling/ascendant = new (user.loc)
 			ascendant.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
-			for(var/obj/effect/proc_holder/spell/spell in user.mind.spell_list)
+			for(var/obj/effect/proc_holder/spell/spell as anything in user.mind.spell_list)
 				if(spell == src)
 					continue
 				user.mind.RemoveSpell(spell)

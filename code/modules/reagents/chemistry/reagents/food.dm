@@ -209,25 +209,31 @@
 	taste_mult = 1.5
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/M)
+	var/is_slime = isslime(M)
+	var/adjusted_temp = 0
 	switch(current_cycle)
 		if(1 to 15)
-			M.bodytemperature += 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+			adjusted_temp = 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(5,20)
+			M.adjust_bodytemperature(adjusted_temp)
 			if(holder.has_reagent("frostoil"))
 				holder.remove_reagent("frostoil", 5)
-			if(isslime(M))
-				M.bodytemperature += rand(5,20)
 		if(15 to 25)
-			M.bodytemperature += 10 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(isslime(M))
-				M.bodytemperature += rand(10,20)
+			adjusted_temp = 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(10,20)
+			M.adjust_bodytemperature(adjusted_temp)
 		if(25 to 35)
-			M.bodytemperature += 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(isslime(M))
-				M.bodytemperature += rand(15,20)
+			adjusted_temp = 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(15,20)
+			M.adjust_bodytemperature(adjusted_temp)
 		if(35 to INFINITY)
-			M.bodytemperature += 20 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(isslime(M))
-				M.bodytemperature += rand(20,25)
+			adjusted_temp = 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(20,25)
+			M.adjust_bodytemperature(adjusted_temp)
 	return ..()
 
 /datum/reagent/consumable/condensedcapsaicin
@@ -321,31 +327,52 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<font color='lightblue'>cold</span>"
 
-/datum/reagent/consumable/frostoil/on_mob_life(mob/living/M)
+
+/datum/reagent/consumable/frostoil/on_mob_add(mob/living/user)
+	. = ..()
+	if(isslime(user))
+		user.add_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
+
+
+/datum/reagent/consumable/frostoil/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
+
+
+/datum/reagent/consumable/frostoil/on_mob_life(mob/living/user)
+	var/is_slime = isslime(user)
+	var/adjusted_temp = 0
+	if(!is_slime)
+		user.remove_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
 	switch(current_cycle)
 		if(1 to 15)
-			M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+			adjusted_temp = 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(5,20)
+			user.adjust_bodytemperature(-adjusted_temp)
 			if(holder.has_reagent("capsaicin"))
 				holder.remove_reagent("capsaicin", 5)
-			if(isslime(M))
-				M.bodytemperature -= rand(5,20)
 		if(15 to 25)
-			M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(isslime(M))
-				M.bodytemperature -= rand(10,20)
+			adjusted_temp = 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(10,20)
+			user.adjust_bodytemperature(-adjusted_temp)
 		if(25 to 35)
-			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			adjusted_temp = 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(15,20)
+			user.adjust_bodytemperature(-adjusted_temp)
 			if(prob(1))
-				M.emote("shiver")
-			if(isslime(M))
-				M.bodytemperature -= rand(15,20)
+				user.emote("shiver")
 		if(35 to INFINITY)
-			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			adjusted_temp = 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(20,25)
+			user.adjust_bodytemperature(-adjusted_temp)
 			if(prob(1))
-				M.emote("shiver")
-			if(isslime(M))
-				M.bodytemperature -= rand(20,25)
+				user.emote("shiver")
 	return ..()
+
 
 /datum/reagent/consumable/frostoil/reaction_turf(turf/T, volume)
 	if(volume >= 5)
@@ -413,7 +440,7 @@
 
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
-		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/garlic
@@ -514,7 +541,7 @@
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
-		M.bodytemperature = min(310, M.bodytemperature + (10 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/hell_ramen
@@ -527,7 +554,7 @@
 	taste_description = "SPICY ramen"
 
 /datum/reagent/consumable/hell_ramen/on_mob_life(mob/living/M)
-	M.bodytemperature += 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/flour
@@ -1057,6 +1084,7 @@
 	add_reagent_light(L)
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
+	. = ..()
 	remove_reagent_light(M)
 
 /datum/reagent/consumable/tinlux/proc/on_living_holder_deletion(mob/living/source)

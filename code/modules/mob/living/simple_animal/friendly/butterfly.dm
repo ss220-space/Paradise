@@ -15,7 +15,6 @@
 	harm_intent_damage = 1
 	friendly = "nudges"
 	density = 0
-	flying = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
@@ -23,6 +22,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	tts_seed = "Meepo"
 
-/mob/living/simple_animal/butterfly/New()
-	..()
+/mob/living/simple_animal/butterfly/Initialize(mapload)
+	. = ..()
 	color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
+	AddElement(/datum/element/simple_flying)

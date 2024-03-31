@@ -17,7 +17,6 @@
 	can_change_intents = 0
 	stop_automated_movement = 1
 	universal_speak = TRUE
-	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -49,6 +48,7 @@
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
+	AddElement(/datum/element/simple_flying)
 	if(!host)
 		return
 	summoner = host

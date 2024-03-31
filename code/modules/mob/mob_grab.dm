@@ -48,7 +48,7 @@
 		qdel(src)
 		return
 
-	affecting.grabbed_by += src
+	LAZYADD(affecting.grabbed_by, src)
 
 	hud = new /obj/screen/grab(src)
 	hud.icon_state = "reinforce"
@@ -482,7 +482,7 @@
 			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
 			affecting.layer = initial(affecting.layer)
 			assailant.bump_priority = BUMP_PRIORITY_NORMAL
-		affecting.grabbed_by -= src
+		LAZYREMOVE(affecting.grabbed_by, src)
 		affecting = null
 	if(assailant)
 		if(assailant.client)

@@ -17,10 +17,6 @@
 			mob.control_object.forceMove(get_step(mob.control_object, direct))
 	return
 
-#define CONFUSION_LIGHT_COEFFICIENT		0.15
-#define CONFUSION_HEAVY_COEFFICIENT		0.075
-#define CONFUSION_MAX					80 SECONDS
-
 
 /client/Move(n, direct)
 	if(world.time < move_delay)
@@ -50,16 +46,18 @@
 		mob.ghostize()
 		return 0
 
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, n, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
+		return FALSE
+
 	if(moving)
 		return 0
 
-	if(isliving(mob))
-		var/mob/living/L = mob
-		if(L.incorporeal_move)//Move though walls
-			move_delay = world.time + 0.5 // cap to 20fps
-			L.glide_size = 8
-			Process_Incorpmove(direct)
-			return
+	var/mob/living/L = mob	//Already checked for isliving earlier
+	if(L.incorporeal_move)//Move though walls
+		move_delay = world.time + 0.5 // cap to 20fps
+		L.glide_size = 8
+		Process_Incorpmove(direct)
+		return FALSE
 
 	if(mob.remote_control) //we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
@@ -69,7 +67,6 @@
 			var/obj/O = mob.loc
 			return O.relaymove(mob, direct) // aicards have special relaymove stuff
 		return AIMove(n, direct, mob)
-
 
 	if(Process_Grab())
 		return
@@ -90,18 +87,19 @@
 	if(!mob.Process_Spacemove(direct))
 		return 0
 
-	if(mob.restrained()) // Why being pulled while cuffed prevents you from moving
-		for(var/mob/M in orange(1, mob))
-			if(M.pulling == mob)
-				if(!M.incapacitated() && mob.Adjacent(M))
-					to_chat(src, "<span class='warning'>Вы скованы и не можете пошевелиться!</span>")
-					move_delay = world.time + 10
-					return 0
-				else
-					M.stop_pulling()
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+		return FALSE
 
+	if(mob.restrained() && mob.pulledby) // Why being pulled while cuffed prevents you from moving
+		var/mob/puller = mob.pulledby
+		if(!puller.incapacitated() && mob.Adjacent(puller))
+			to_chat(src, span_warning("Вы скованы и не можете пошевелиться!"))
+			move_delay = world.time + 1 SECONDS
+			return FALSE
+		puller.stop_pulling()
 
-	current_move_delay = mob.movement_delay()
+	//We are now going to move
+	current_move_delay = mob.cached_multiplicative_slowdown
 
 	if(!istype(get_turf(mob), /turf/space) && mob.pulling)
 		var/mob/living/M = mob
@@ -117,20 +115,6 @@
 
 	if(locate(/obj/item/grab, mob))
 		current_move_delay += 7
-	else if(isliving(mob))
-		var/mob/living/L = mob
-		if(L.get_confusion())
-			var/newdir = NONE
-			var/confusion = L.get_confusion()
-			if(confusion > CONFUSION_MAX)
-				newdir = pick(GLOB.alldirs)
-			else if(prob(confusion * CONFUSION_HEAVY_COEFFICIENT))
-				newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-			else if(prob(confusion * CONFUSION_LIGHT_COEFFICIENT))
-				newdir = angle2dir(dir2angle(direct) + pick(45, -45))
-			if(newdir)
-				direct = newdir
-				n = get_step(mob, direct)
 
 	. = mob.SelfMove(n, direct, current_move_delay)
 	mob.setDir(direct)
@@ -147,12 +131,8 @@
 		if(mob.throwing)
 			mob.throwing.finalize()
 
-	for(var/obj/O in mob)
-		O.on_mob_move(direct, mob)
-
-#undef CONFUSION_LIGHT_COEFFICIENT
-#undef CONFUSION_HEAVY_COEFFICIENT
-#undef CONFUSION_MAX
+		for(var/obj/O in mob)
+			O.on_mob_move(direct, mob)
 
 
 /mob/proc/SelfMove(turf/n, direct, movetime)
@@ -162,7 +142,7 @@
 ///Called by client/Move()
 ///Checks to see if you are being grabbed and if so attemps to break it
 /client/proc/Process_Grab()
-	if(mob.grabbed_by.len)
+	if(LAZYLEN(mob.grabbed_by))
 		if(mob.incapacitated(FALSE, TRUE, TRUE)) // Can't break out of grabs if you're incapacitated
 			return TRUE
 		var/list/grabbing = list()
@@ -498,24 +478,7 @@
 	if(mob)
 		mob.toggle_move_intent()
 
+
 /mob/proc/toggle_move_intent()
-	if(iscarbon(src))
-		var/mob/living/carbon/C = src
-		if(C.legcuffed)
-			to_chat(C, span_notice("Ваши ноги скованы! Вы не можете бежать, пока не снимете [C.legcuffed]!"))
-			C.m_intent = MOVE_INTENT_WALK	//Just incase
-			C.hud_used?.move_intent.icon_state = "walking"
-			return
+	return
 
-	var/icon_toggle
-	if(m_intent == MOVE_INTENT_RUN)
-		m_intent = MOVE_INTENT_WALK
-		icon_toggle = "walking"
-	else
-		m_intent = MOVE_INTENT_RUN
-		icon_toggle = "running"
-
-	if(hud_used && hud_used.move_intent && hud_used.static_inventory)
-		hud_used.move_intent.icon_state = icon_toggle
-		for(var/obj/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon()

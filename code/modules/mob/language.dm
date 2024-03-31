@@ -150,7 +150,7 @@
 			to_chat(player, msg_dead)
 			continue
 
-		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
+		else if(istype(player,/mob/dead) || (LAZYIN(player.languages, src) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
 
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
@@ -799,7 +799,7 @@
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
-	return universal_speak || (speaking == GLOB.all_languages[LANGUAGE_NOISE]) || (speaking in languages)
+	return universal_speak || (speaking == GLOB.all_languages[LANGUAGE_NOISE]) || LAZYIN(languages, speaking)
 
 
 //TBD
@@ -860,8 +860,9 @@
 		if(!istype(new_language))
 			return FALSE
 
-	languages |= new_language
-	return TRUE
+	. = !LAZYIN(languages, new_language)
+	if(.)
+		LAZYADD(languages, new_language)
 
 
 /mob/proc/remove_language(language_name)
@@ -871,8 +872,9 @@
 		if(!istype(rem_language))
 			return FALSE
 
-	. = (rem_language in languages)
-	languages.Remove(rem_language)
+	. = LAZYIN(languages, rem_language)
+	if(.)
+		LAZYREMOVE(languages, rem_language)
 
 
 /mob/living/remove_language(language_name)
@@ -892,7 +894,7 @@
 		var/datum/language/new_language = GLOB.all_languages[la]
 		if(new_language.flags & NOBABEL)
 			continue
-		languages |= new_language
+		LAZYOR(languages, new_language)
 
 
 /mob/proc/grant_all_languages()

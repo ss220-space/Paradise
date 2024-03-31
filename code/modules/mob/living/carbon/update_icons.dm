@@ -26,10 +26,14 @@
 		ntransform.Scale(resize)
 		resize = RESIZE_DEFAULT_SIZE
 
-	if(changed)
-		animate(src, transform = ntransform, time = 2, pixel_y = final_pixel_y, dir = final_dir, easing = EASE_IN|EASE_OUT)
-		handle_transform_change()
-		floating = FALSE  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
+	if(!changed)
+		return
+
+	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
+
+	animate(src, transform = ntransform, time = UPDATE_TRANSFORM_ANIMATION_TIME, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
+	handle_transform_change()
+
 
 /mob/living/carbon/proc/handle_transform_change()
 	return
