@@ -19,6 +19,11 @@
 	update_movespeed_damage_modifiers()
 
 
+/mob/living/carbon/human/update_stamina()
+	. = ..()
+	update_movespeed_damage_modifiers()
+
+
 /mob/living/carbon/human/proc/update_movespeed_damage_modifiers()
 	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)

@@ -128,7 +128,7 @@
 /datum/reagent/proc/on_mob_delete(mob/living/carbon/human/user)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(shock_reduction && ishuman(user))
+	if(shock_reduction)
 		user.update_movespeed_damage_modifiers()
 
 

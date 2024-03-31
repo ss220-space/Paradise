@@ -649,9 +649,8 @@
 
 
 /datum/reagent/medicine/morphine/on_mob_delete(mob/living/M)
-	if(isslime(M))
-		M.remove_movespeed_modifier(/datum/movespeed_modifier/slime_morphine_mod)
 	. = ..()
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/slime_morphine_mod)
 
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
