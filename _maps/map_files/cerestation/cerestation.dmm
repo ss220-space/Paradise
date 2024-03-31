@@ -55638,17 +55638,21 @@
 	dir = 4
 	},
 /obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/gloves/color/black/ballistic,
+/obj/item/clothing/gloves/color/black/ballistic,
+/obj/item/clothing/gloves/color/black/ballistic,
+/obj/item/clothing/gloves/color/black/ballistic,
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/shoes/jackboots/armored,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -86760,6 +86764,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
