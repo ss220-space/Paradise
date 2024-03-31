@@ -23,7 +23,7 @@
 				for(var/A in turf.contents)
 					if (A != src && A != controlled_user)
 						qdel(A)
-				new /turf/space(locate(x, y, src.z))
+				turf.ChangeTurf(/turf/space)
 	qdel(src)
 
 /obj/training_master/proc/spawn_room(var/mob/living/carbon/human/human_training/user)
