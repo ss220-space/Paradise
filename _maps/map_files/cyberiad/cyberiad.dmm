@@ -68547,6 +68547,8 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/gloves/color/black/ballistic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83405,6 +83407,8 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/gloves/color/black/ballistic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86603,6 +86607,8 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/gloves/color/black/ballistic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -87147,6 +87153,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/gloves/color/black/ballistic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

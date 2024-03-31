@@ -127,6 +127,23 @@
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 50, "acid" = 50)
 	can_be_cut = FALSE
 
+/obj/item/clothing/gloves/color/black/ballistic
+	name = "armored gloves"
+	desc = "Pair of gloves with some protection"
+	icon_state = "armored_gloves"
+	item_state = "armored_gloves"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	can_be_cut = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/gloves.dmi'
+		)
+
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
 	desc = "A pair of gloves, they don't look special in any way."
