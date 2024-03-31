@@ -648,3 +648,5 @@ DEFAULT_MAP /datum/map/cyberiad
 ## Disable the loading of Lavaland
 # DISABLE_LAVALAND
 
+## If the number of players is more or same than this, then we apply the highpop jobs config.
+JOBS_HIGH_POP_MODE_AMOUNT 80
