@@ -1,3 +1,5 @@
+#define JOBS_HIGHPOP_TRIGGER 80
+
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
 	init_order = INIT_ORDER_TICKER
@@ -260,13 +262,11 @@ SUBSYSTEM_DEF(ticker)
 
 	// Enable highpop slots just before we distribute jobs.
 	var/playercount = length(GLOB.clients)
-	var/highpop_trigger = 1
-
-	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+	if(playercount >= JOBS_HIGHPOP_TRIGGER)
+		log_debug("Playercount: [playercount] versus trigger: [JOBS_HIGHPOP_TRIGGER] - loading highpop job config")
 		SSjobs.ApplyHighpopConfig()
 	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+		log_debug("Playercount: [playercount] versus trigger: [JOBS_HIGHPOP_TRIGGER] - keeping standard job config")
 
 	SSjobs.DivideOccupations() //Distribute jobs
 
@@ -663,3 +663,4 @@ SUBSYSTEM_DEF(ticker)
 
 	flagged_antag_rollers.Cut()
 
+#undef JOBS_HIGHPOP_TRIGGER
