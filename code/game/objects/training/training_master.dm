@@ -144,7 +144,7 @@
 			var/turf/turf = get_turf(locate(x, y, master.z))
 			turf.ChangeTurf(/turf/simulated/floor/indestructible)
 			turf.icon = 'icons/turf/floors.dmi'
-			turf.icon_state = "Floor3"
+			turf.icon_state = "floor"
 			for(var/A in turf.contents)
 				if (A != user)
 					qdel(A)
