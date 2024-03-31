@@ -67,8 +67,7 @@
 		S.sharerRevives(src)
 
 	if(mind)
-		for(var/S in mind.spell_list)
-			var/obj/effect/proc_holder/spell/spell = S
+		for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)
 			spell.updateButtonIcon()
 
 	return TRUE

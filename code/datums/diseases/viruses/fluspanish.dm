@@ -39,7 +39,7 @@
 /datum/disease/virus/fluspanish/has_cure()
 	//if has spaceacillin
 	if(..())
-		if(affected_mob.resistances.Find(/datum/disease/virus/flu))
+		if(LAZYIN(affected_mob.resistances, /datum/disease/virus/flu))
 			return TRUE
 		else
 			return prob(1)

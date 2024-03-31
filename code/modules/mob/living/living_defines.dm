@@ -41,7 +41,7 @@
 	var/holder = null //The holder for blood crawling
 
 	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
-	var/list/icon/pipes_shown = list()
+	var/list/icon/pipes_shown
 	var/last_played_vent
 
 	var/smoke_delay = 0 //used to prevent spam with smoke reagent reaction on mob.
@@ -60,8 +60,9 @@
 
 	var/tesla_ignore = FALSE
 
-	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
-	var/list/emote_log = list() //like say_log but for emotes
+	/// A log of what we've said, plain text, no spans or junk, essentially just each individual "message"
+	var/list/say_log
+
 	var/last_hallucinator_log // Used to log, what was last infliction to hallucination
 
 	var/blood_volume = 0 //how much blood the mob has

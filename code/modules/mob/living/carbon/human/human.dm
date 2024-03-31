@@ -1225,12 +1225,10 @@
 	// Name
 	real_name = dna.species.get_random_name(gender)
 	name = real_name
-	if(mind)
-		mind.name = real_name
+	mind?.name = real_name
 
 	// DNA ready
 	dna.ready_dna(src)
-	dna.species.handle_dna(src)
 	dna.real_name = real_name
 	dna.tts_seed_dna = tts_seed
 	sync_organ_dna()

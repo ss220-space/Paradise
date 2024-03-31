@@ -41,7 +41,7 @@
 /datum/species/abductor/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.gender = NEUTER
-	H.languages.Cut() //Under no condition should you be able to speak any language
+	LAZYREINITLIST(H.languages) //Under no condition should you be able to speak any language
 	H.add_language(LANGUAGE_HIVE_ABDUCTOR) //other than over the abductor's own mindlink
 	H.add_language(LANGUAGE_GREY) // still grey enouhg to speak in psi link
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]

@@ -511,9 +511,9 @@
 	if(!ishuman(user) || !slave)
 		return
 	if(slave.master == user.ckey)
-		slave.mob_spell_list += spell_heal
-		slave.mob_spell_list += spell_teleport
-		slave.mob_spell_list += spell_message
+		LAZYADD(slave.mob_spell_list, spell_heal)
+		LAZYADD(slave.mob_spell_list, spell_teleport)
+		LAZYADD(slave.mob_spell_list, spell_message)
 		spell_heal.action.Grant(slave)
 		spell_teleport.action.Grant(slave)
 		spell_message.action.Grant(slave)
@@ -522,9 +522,9 @@
 	. = ..()
 	if(!ishuman(user) || !slave)
 		return
-	slave.mob_spell_list -= spell_heal
-	slave.mob_spell_list -= spell_teleport
-	slave.mob_spell_list -= spell_message
+	LAZYREMOVE(slave.mob_spell_list, spell_heal)
+	LAZYREMOVE(slave.mob_spell_list, spell_teleport)
+	LAZYREMOVE(slave.mob_spell_list, spell_message)
 	spell_heal.action.Remove(slave)
 	spell_teleport.action.Remove(slave)
 	spell_message.action.Remove(slave)
@@ -534,9 +534,9 @@
 		return
 	if(!slave)
 		return ..()
-	slave.mob_spell_list -= spell_heal
-	slave.mob_spell_list -= spell_teleport
-	slave.mob_spell_list -= spell_message
+	LAZYREMOVE(slave.mob_spell_list, spell_heal)
+	LAZYREMOVE(slave.mob_spell_list, spell_teleport)
+	LAZYREMOVE(slave.mob_spell_list, spell_message)
 	spell_heal.action.Remove(slave)
 	spell_teleport.action.Remove(slave)
 	spell_message.action.Remove(slave)
@@ -548,9 +548,9 @@
 	if(!slave)
 		return ..()
 	if(slave.master == usr.ckey)
-		slave.mob_spell_list += spell_heal
-		slave.mob_spell_list += spell_teleport
-		slave.mob_spell_list += spell_message
+		LAZYADD(slave.mob_spell_list, spell_heal)
+		LAZYADD(slave.mob_spell_list, spell_teleport)
+		LAZYADD(slave.mob_spell_list, spell_message)
 		spell_heal.action.Grant(slave)
 		spell_teleport.action.Grant(slave)
 		spell_message.action.Grant(slave)

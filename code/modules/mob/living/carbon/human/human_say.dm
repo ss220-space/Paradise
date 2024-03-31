@@ -15,7 +15,7 @@
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if(!speaking)
-		if(isnymph(other) && length(other.languages) >= 2)	//They've sucked down some blood and can speak common now.
+		if(isnymph(other) && LAZYLEN(other.languages) >= 2)	//They've sucked down some blood and can speak common now.
 			return TRUE
 		if(issilicon(other) || isbot(other) || isbrain(other) || isslime(other))
 			return TRUE

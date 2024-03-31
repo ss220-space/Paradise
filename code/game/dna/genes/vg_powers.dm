@@ -206,9 +206,8 @@
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/user)
 	..()
 	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
-	for(var/obj/effect/proc_holder/spell/S in user.mob_spell_list)
-		if(istype(S, /obj/effect/proc_holder/spell/mindscan))
-			user.RemoveSpell(S)
+	for(var/obj/effect/proc_holder/spell/mindscan/spell in user.mob_spell_list)
+		user.RemoveSpell(spell)
 	hud.manage_hud(user, THOUGHTS_HUD_DISPERSE)
 
 /obj/effect/proc_holder/spell/remotetalk

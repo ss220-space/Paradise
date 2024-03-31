@@ -338,11 +338,11 @@
 			else
 				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
 				SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
-			if(wizard.spell_list)
+			if(LAZYLEN(wizard.spell_list))
 				text += "<br><B>[wizard.name] used the following spells: </B>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/S in wizard.spell_list)
-					text += "[S.name]"
+				for(var/obj/effect/proc_holder/spell/spell as anything in wizard.spell_list)
+					text += "[spell.name]"
 					if(wizard.spell_list.len > i)
 						text += ", "
 					i++
@@ -392,15 +392,15 @@
 /mob/proc/spellremove(mob/M)
 	if(!mind)
 		return
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mind.spell_list)
-		qdel(spell_to_remove)
-		mind.spell_list -= spell_to_remove
+	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mind.spell_list)
+		mind.RemoveSpell(spell_to_remove)
+
 
 //To batch-remove mob spells.
 /mob/proc/mobspellremove(mob/M)
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mob_spell_list)
-		qdel(spell_to_remove)
-		mob_spell_list -= spell_to_remove
+	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mob_spell_list)
+		RemoveSpell(spell_to_remove)
+
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/

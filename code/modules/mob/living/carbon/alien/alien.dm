@@ -10,7 +10,6 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-	alien_talk_understand = TRUE
 
 	var/nightvision_enabled = FALSE
 	nightvision = 4
