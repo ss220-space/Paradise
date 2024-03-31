@@ -161,7 +161,7 @@
 		return
 
 
-	LAZYADDOR(strangling.garroted_by, src)
+	LAZYOR(strangling.garroted_by, src)
 	strangling.Silence(6 SECONDS) // Non-improvised effects
 	strangling.apply_damage(20, OXY, BODY_ZONE_HEAD)
 
