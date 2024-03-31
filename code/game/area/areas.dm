@@ -79,9 +79,9 @@
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
 	///Used to decide what the minimum time between ambience is
-	var/min_ambience_cooldown = 30 SECONDS
+	var/min_ambience_cooldown = 200 SECONDS
 	///Used to decide what the maximum time between ambience is
-	var/max_ambience_cooldown = 90 SECONDS
+	var/max_ambience_cooldown = 400 SECONDS
 
 
 /area/New(loc, ...)
