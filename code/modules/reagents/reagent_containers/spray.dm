@@ -138,6 +138,12 @@
 	amount_per_transfer_from_this = 5
 	list_reagents = list("condensedcapsaicin" = 40)
 
+/obj/item/reagent_containers/spray/pepper/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(is_hot(I))
+		explosion(get_turf(src), 0, 0, 1, cause = "Hot spicy capsaicin")
+		ex_act()
+
 //water flower
 /obj/item/reagent_containers/spray/waterflower
 	name = "water flower"
