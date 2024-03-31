@@ -10,6 +10,7 @@
 	severity = DANGEROUS
 	stage_prob = 5
 	can_contract_dead = TRUE
+	cure_text = null
 	var/stage_message = 1
 
 /datum/disease/virus/nuclefication/stage_act()
