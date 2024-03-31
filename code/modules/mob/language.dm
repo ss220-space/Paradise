@@ -894,7 +894,7 @@
 		var/datum/language/new_language = GLOB.all_languages[la]
 		if(new_language.flags & NOBABEL)
 			continue
-		LAZYADDOR(languages, new_language)
+		LAZYOR(languages, new_language)
 
 
 /mob/proc/grant_all_languages()
