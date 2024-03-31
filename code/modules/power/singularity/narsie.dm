@@ -2,6 +2,7 @@
 	name = "Nar'sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
+	var/soul_devoured = 0 //How many humans got killed by it. For now used only for /proc/apocalypse and only for Nar'Sie.
 	pixel_x = -89
 	pixel_y = -85
 	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
@@ -48,12 +49,7 @@
 		notify_ghosts("[name] has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 	narsie_spawn_animation()
-
-	addtimer(CALLBACK(src, PROC_REF(call_shuttle)), 7 SECONDS)
-
-/obj/singularity/narsie/large/proc/call_shuttle()
-	SSshuttle.emergency.request(null, 0.3)
-	SSshuttle.emergency.canRecall = FALSE // Cannot recall
+	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse)), 10 SECONDS)
 
 
 /obj/singularity/narsie/large/Destroy()
@@ -107,7 +103,7 @@
 
 
 /obj/singularity/narsie/consume(atom/A)
-	A.narsie_act()
+	A.narsie_act(src)
 
 /obj/singularity/narsie/ex_act() //No throwing bombs at it either. --NEO
 	return
