@@ -231,6 +231,10 @@
 	/// If true, this light cannot ever have an emergency mode
 	var/no_emergency = FALSE
 
+GLOBAL_VAR_INIT(lamp_brightness_color, pick("#a0a080", "#FFD6B5", "#FFA757", "#B5CDFF", "#FFFDF8", "#FF6C00"))
+GLOBAL_VAR_INIT(lamp_range, rand(4, 8))
+GLOBAL_VAR_INIT(nightshift_light_color, pick("#a0a080", "#FFD6B5", "#FFA757", "#B5CDFF", "#FFFDF8", "#FF6C00"))
+GLOBAL_VAR_INIT(nightshift_light_range, rand(4, 7))
 
 /**
   * # Small light fixture
@@ -284,6 +288,10 @@
 			brightness_color = "#a0a080"
 			if(prob(5))
 				break_light_tube(TRUE)
+	brightness_range = GLOB.lamp_range
+	brightness_color = GLOB.lamp_brightness_color
+	nightshift_light_color = GLOB.nightshift_light_color
+	nightshift_light_range = GLOB.nightshift_light_range
 	update(FALSE, mapload ? FALSE : TRUE)
 
 
