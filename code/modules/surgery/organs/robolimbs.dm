@@ -71,7 +71,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/rook/monitor
 	company = "Bishop Castle"
 	icon = 'icons/mob/human_races/cyberlimbs/bishop/bishop_monitor.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD) 
 	has_subtypes = MODEL
 	is_monitor = TRUE
 	selectable = FALSE
@@ -99,12 +99,12 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	desc = "This limb has an olive drab casing, providing a reinforced housing look."
 	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_titan.dmi'
 	has_subtypes = BRAND
-	species_allowed = list("Machine")
+	species_allowed = list(SPECIES_MACNINEPERSON)
 
 /datum/robolimb/titan/monitor
 	company = "Titan Enforcer"
 	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	has_subtypes = MODEL
 	is_monitor = TRUE
 	selectable = FALSE
@@ -138,7 +138,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/mantis/monitor
 	company = "Morpheus Blitz"
 	icon = 'icons/mob/human_races/cyberlimbs/morpheus/morpheus_blitz.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	has_subtypes = MODEL
 	is_monitor = TRUE
 	selectable = FALSE
@@ -160,7 +160,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	has_subtypes = CHILDLESS
 	selectable = FALSE
 	// The only robolimbs for Vox at Chargen
-	species_allowed = list("Vox")
+	species_allowed = list(SPECIES_VOX)
 
 /* Shellguard */
 //Main
@@ -173,7 +173,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/shellguard/monitor
 	company = "Shellguard Munitions Standard Series"
 	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_monitor.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	has_subtypes = MODEL
 	is_monitor = TRUE
 	selectable = FALSE
@@ -182,7 +182,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/shellguard/alt1
 	company = "Shellguard Munitions Elite Series"
 	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	has_subtypes = MODEL
 	is_monitor = TRUE
 	selectable = FALSE
@@ -196,7 +196,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	has_subtypes = CHILDLESS
 	selectable = FALSE
 	// Only available for Humans and at Chargen
-	species_allowed = list("Human")
+	species_allowed = list(SPECIES_HUMAN)
 
 /datum/robolimb/wardtakahashi
 	company = "Ward-Takahashi"
@@ -222,7 +222,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/wardeconomy/monitor
 	company = "Alternative Efficiency"
 	icon = 'icons/mob/human_races/cyberlimbs/wardtakahashi/wardtakahashi_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	has_subtypes = MODEL
 	is_monitor = TRUE
 	selectable = FALSE
@@ -253,7 +253,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/xioneconomy/monitor
 	company = "Economy Standard"
 	icon = 'icons/mob/human_races/cyberlimbs/xion/xion_alt1.dmi'
-	parts = list("head")
+	parts = list(BODY_ZONE_HEAD)
 	has_subtypes = MODEL
 	is_monitor = TRUE
 	selectable = FALSE
@@ -274,7 +274,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	has_subtypes = CHILDLESS
 	selectable = FALSE
 	// Only available for IPCs and at Chargen
-	species_allowed = list("Machine")
+	species_allowed = list(SPECIES_MACNINEPERSON)
 
 #undef MODEL
 #undef BRAND
