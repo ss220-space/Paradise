@@ -174,10 +174,10 @@
 					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
 										"<span class='warning'>[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
 
-					H.bodytemperature = max(0, H.bodytemperature - 100)
+					H.adjust_bodytemperature(-100)
 				add_attack_logs(user, C, "Cryokinesis")
 	if(!handle_suit)
-		C.bodytemperature = max(0, C.bodytemperature - 200)
+		C.adjust_bodytemperature(-200)
 		C.ExtinguishMob()
 
 		C.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [C]!</span>")
@@ -369,16 +369,17 @@
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
 			return FALSE
 		var/prevLayer = user.layer
-		var/prevFlying = user.flying
-		user.layer = 9
+		user.layer = LOW_LANDMARK_LAYER
 
-		user.flying = TRUE
+		ADD_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LEAP_TRAIT)
+
 		for(var/i=0, i<10, i++)
 			step(user, user.dir)
 			if(i < 5) user.pixel_y += 8
 			else user.pixel_y -= 8
 			sleep(1)
-		user.flying = prevFlying
+
+		REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LEAP_TRAIT)
 
 		if((FAT in user.mutations) && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")

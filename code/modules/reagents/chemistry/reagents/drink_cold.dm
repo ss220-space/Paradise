@@ -40,7 +40,7 @@
 	taste_description = "cold"
 
 /datum/reagent/consumable/drink/cold/ice/on_mob_life(mob/living/M)
-	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
+	M.adjust_bodytemperature(-(5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
 
 /datum/reagent/consumable/drink/cold/space_cola
@@ -127,18 +127,28 @@
 	harmless = FALSE
 	taste_description = "radioactive cola"
 
-/datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)
+
+/datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.Jitter(40 SECONDS)
-	M.Druggy(60 SECONDS)
-	M.AdjustDizzy(10 SECONDS)
-	M.SetDrowsy(0)
-	ADD_TRAIT(M, TRAIT_GOTTAGONOTSOFAST, id)
+	user.Jitter(40 SECONDS)
+	user.Druggy(60 SECONDS)
+	user.AdjustDizzy(10 SECONDS)
+	user.SetDrowsy(0)
+	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
+		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
 	return ..() | update_flags
 
-/datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGONOTSOFAST, id)
-	..()
+
+/datum/reagent/consumable/drink/cold/nuka_cola/on_mob_add(mob/living/user)
+	. = ..()
+	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
+		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
+
+
+/datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
+
 
 /datum/reagent/consumable/drink/cold/spacemountainwind
 	name = "Space Mountain Wind"

@@ -679,3 +679,32 @@
 					return SI
 		else if(istype(I, path))
 			return I
+
+
+/mob/proc/update_equipment_speed_mods()
+	var/speedies = equipped_speed_mods()
+	if(speedies)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod, multiplicative_slowdown = speedies)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod)
+
+
+/// Gets the combined speed modification of all worn items
+/// Except base mob type doesnt really wear items
+/mob/proc/equipped_speed_mods()
+	. = 0
+	for(var/obj/item/thing in list(get_active_hand(), get_inactive_hand()))
+		if(thing && (thing.flags & HANDSLOW) && !thing.is_speedslimepotioned)
+			. += thing.slowdown
+
+
+/mob/proc/get_crutches()
+	. = 0
+	// Canes and crutches help you stand (if the latter is ever added)
+	// One cane mitigates a broken leg+foot, or a missing foot.
+	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
+	if(l_hand?.is_crutch())
+		. += 2
+	if(r_hand?.is_crutch())
+		. += 2
+

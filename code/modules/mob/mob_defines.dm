@@ -16,7 +16,7 @@
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
+	var/stat = CONSCIOUS //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
@@ -78,7 +78,6 @@
 	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = 310.055	//98.7 F
-	var/flying = 0
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
@@ -196,7 +195,22 @@
 	var/robot_talk_understand = 0
 	var/alien_talk_understand = 0
 
-	var/has_limbs = 1 //Whether this mob have any limbs he can move with
+	///Whether this mob have any limbs he can move with
+	var/has_limbs = TRUE
+
+	///How many legs does this mob have by default. This shouldn't change at runtime.
+	var/default_num_legs = 2
+	///How many legs does this mob currently have. Should only be changed through set_num_legs()
+	var/num_legs = 2
+	///How many usable legs this mob currently has. Should only be changed through set_usable_legs()
+	var/usable_legs = 2
+
+	///How many hands does this mob have by default. This shouldn't change at runtime.
+	var/default_num_hands = 2
+	///How many hands hands does this mob currently have. Should only be changed through set_num_hands()
+	var/num_hands = 2
+	///How many usable hands does this mob currently have. Should only be changed through set_usable_hands()
+	var/usable_hands = 2
 
 	//SSD var, changed it up some so people can have special things happen for different mobs when SSD.
 	var/player_logged = 0
@@ -238,3 +252,11 @@
 	var/last_emote = null
 
 	var/ghost_orbiting = 0
+
+	/// List of movement speed modifiers applying to this mob
+	var/list/movespeed_modification //Lazy list, see mob_movespeed.dm
+	/// List of movement speed modifiers ignored by this mob. List -> List (id) -> List (sources)
+	var/list/movespeed_mod_immunities //Lazy list, see mob_movespeed.dm
+	/// The calculated mob speed slowdown based on the modifiers list
+	var/cached_multiplicative_slowdown
+

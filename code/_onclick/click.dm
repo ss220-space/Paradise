@@ -275,9 +275,11 @@
 	var/face_dir = get_cardinal_dir(src, A)
 	if(!face_dir || forced_look == face_dir || A == src)
 		forced_look = null
+		remove_movespeed_modifier(/datum/movespeed_modifier/forced_look)
 		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
 		return
 	forced_look = face_dir
+	add_movespeed_modifier(/datum/movespeed_modifier/forced_look)
 	to_chat(src, "<span class='userdanger'>You are now facing [dir2text(forced_look)]. To cancel this, shift-middleclick yourself.</span>")
 
 /*
@@ -291,9 +293,11 @@
 	var/face_uid = A.UID()
 	if(forced_look == face_uid || A == src)
 		forced_look = null
+		remove_movespeed_modifier(/datum/movespeed_modifier/forced_look)
 		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
 		return
 	forced_look = face_uid
+	add_movespeed_modifier(/datum/movespeed_modifier/forced_look)
 	to_chat(src, "<span class='userdanger'>You are now facing [A]. To cancel this, shift-middleclick yourself.</span>")
 
 // In case of use break glass

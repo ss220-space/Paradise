@@ -67,7 +67,7 @@
 
 
 /obj/item/clothing/shoes/magboots/negates_gravity()
-	return flags & NOSLIP
+	return (flags & NOSLIP)
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
@@ -320,14 +320,18 @@
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
-	var/do_callback = FALSE
-	if(!user.flying)
-		user.flying = TRUE
-		do_callback = TRUE
-	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = do_callback ? VARSET_CALLBACK(user, flying, FALSE) : null))
+	ADD_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_GRAV_BOOTS_TRAIT)
+	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user)
+	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
 	else
+		after_jump(user)
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+
+/obj/item/clothing/shoes/magboots/gravity/proc/after_jump(mob/user)
+	REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_GRAV_BOOTS_TRAIT)
+

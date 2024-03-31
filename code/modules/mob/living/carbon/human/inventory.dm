@@ -22,15 +22,13 @@
 		if(SLOT_HUD_HEAD, SLOT_HUD_WEAR_MASK, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES)
 			return get_organ(BODY_ZONE_HEAD)
 		if(SLOT_HUD_HANDCUFFED, SLOT_HUD_GLOVES)
-			return get_organ(BODY_ZONE_PRECISE_L_HAND) && get_organ(BODY_ZONE_PRECISE_R_HAND)
-		if(SLOT_HUD_LEGCUFFED)
-			return get_organ(BODY_ZONE_L_LEG) && get_organ(BODY_ZONE_R_LEG)
+			return num_hands >= 2
+		if(SLOT_HUD_LEGCUFFED, SLOT_HUD_SHOES)
+			return num_legs >= 2
 		if(SLOT_HUD_LEFT_HAND)
 			return get_organ(BODY_ZONE_PRECISE_L_HAND)
 		if(SLOT_HUD_RIGHT_HAND)
 			return get_organ(BODY_ZONE_PRECISE_R_HAND)
-		if(SLOT_HUD_SHOES)
-			return get_organ(BODY_ZONE_PRECISE_L_FOOT) && get_organ(BODY_ZONE_PRECISE_R_FOOT)
 
 
 /**
@@ -248,6 +246,8 @@
 		l_hand = null
 		if(!QDELETED(src))
 			update_inv_l_hand()
+
+	update_equipment_speed_mods()
 
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
@@ -627,3 +627,16 @@
 		if(s_store)
 			items += s_store
 	return items
+
+
+/mob/living/carbon/human/equipped_speed_mods()
+	. = ..()
+	for(var/obj/item/thing as anything in get_equipped_items())
+		if(!thing.is_speedslimepotioned)
+			. += thing.slowdown
+
+
+/mob/living/carbon/human/update_equipment_speed_mods()
+	. = ..()
+	handle_stance(forced = TRUE)	// in case we get crutches
+

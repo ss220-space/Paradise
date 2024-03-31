@@ -34,7 +34,6 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
-	var/floating = FALSE
 	var/mob_size = MOB_SIZE_HUMAN
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
@@ -82,3 +81,7 @@
 	///If mob can attack by choosing direction
 	var/dirslash_enabled = FALSE
 	var/bump_priority = BUMP_PRIORITY_NORMAL
+
+	///what multiplicative slowdown we get from turfs currently.
+	var/current_turf_slowdown = 0
+

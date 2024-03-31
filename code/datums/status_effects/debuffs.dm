@@ -317,15 +317,61 @@
 	id = "confusion"
 	var/image/overlay
 
+
+/// The threshold in which all of our movements are fully randomized, in seconds.
+#define CONFUSION_FULL_THRESHOLD (40 SECONDS)
+/// A multiplier applied on how much time is left that determines the chance of moving sideways randomly
+#define CONFUSION_SIDEWAYS_MOVE_COEFFICIENT 0.15
+/// A multiplier applied on how much time is left that determines the chance of moving diagonally randomly
+#define CONFUSION_DIAGONAL_MOVE_COEFFICIENT 0.075
+
+/// Signal proc for [COMSIG_MOB_CLIENT_PRE_MOVE]. We have a chance to mix up our movement pre-move with confusion.
+/datum/status_effect/transient/confusion/proc/on_move(datum/source, list/move_args)
+	SIGNAL_HANDLER
+
+	var/direction = move_args[MOVE_ARG_DIRECTION]
+	var/new_dir
+
+	if(strength > CONFUSION_FULL_THRESHOLD && !owner.resting)
+		new_dir = pick(GLOB.alldirs)
+
+	else if(prob(strength * CONFUSION_SIDEWAYS_MOVE_COEFFICIENT))
+		new_dir = angle2dir(dir2angle(direction) + pick(90, -90))
+
+	else if(prob(strength * CONFUSION_DIAGONAL_MOVE_COEFFICIENT))
+		new_dir = angle2dir(dir2angle(direction) + pick(45, -45))
+
+	if(!isnull(new_dir))
+		move_args[MOVE_ARG_DIRECTION] = new_dir
+		move_args[MOVE_ARG_NEW_LOC] = get_step(owner, new_dir)
+
+#undef CONFUSION_FULL_THRESHOLD
+#undef CONFUSION_SIDEWAYS_MOVE_COEFFICIENT
+#undef CONFUSION_DIAGONAL_MOVE_COEFFICIENT
+
+
+/datum/status_effect/transient/confusion/on_apply()
+	RegisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(on_move))
+	return TRUE
+
+
+/datum/status_effect/transient/confusion/on_remove()
+	UnregisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE)
+	owner.cut_overlay(overlay)
+	overlay = null
+	return ..()
+
+
 /datum/status_effect/transient/confusion/tick()
 	. = ..()
 	if(!.)
-		return
+		return .
 	if(!owner.stat) //add or remove the overlay if they are alive or unconscious/dead
 		add_overlay()
 	else if(overlay)
 		owner.cut_overlay(overlay)
 		overlay = null
+
 
 /datum/status_effect/transient/confusion/proc/add_overlay()
 	if(overlay)
@@ -336,10 +382,6 @@
 	overlay.transform = M
 	owner.add_overlay(overlay)
 
-/datum/status_effect/transient/confusion/on_remove()
-	owner.cut_overlay(overlay)
-	overlay = null
-	return ..()
 
 /**
  * # Disoriented
@@ -401,18 +443,47 @@
  */
 /datum/status_effect/transient/drowsiness
 	id = "drowsiness"
+	/// Difference between config run and walk delays
+	var/delay_diff
+
+
+/datum/status_effect/transient/drowsiness/on_apply()
+	. = ..()
+	delay_diff = CONFIG_GET(number/movedelay/walk_delay) - CONFIG_GET(number/movedelay/run_delay)
+	RegisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED, PROC_REF(on_move_intent_toggle))
+	on_move_intent_toggle()
+
+
+/datum/status_effect/transient/drowsiness/on_remove()
+	. = ..()
+	UnregisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/drowsiness)
+
+
+#define DROWSY_MULTIPLICATIVE_SLOWDOWN 6
+
+/datum/status_effect/transient/drowsiness/proc/on_move_intent_toggle(datum/source)
+	SIGNAL_HANDLER
+
+	var/drowsy_value = owner.m_intent == MOVE_INTENT_RUN ? DROWSY_MULTIPLICATIVE_SLOWDOWN + delay_diff : DROWSY_MULTIPLICATIVE_SLOWDOWN
+	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/drowsiness, multiplicative_slowdown = drowsy_value)
+
+#undef DROWSY_MULTIPLICATIVE_SLOWDOWN
+
 
 /datum/status_effect/transient/drowsiness/tick()
 	. = ..()
 	if(!.)
-		return
+		return .
 	owner.EyeBlurry(4 SECONDS)
 	if(prob(1))
 		owner.AdjustSleeping(2 SECONDS)
 		owner.Paralyse(10 SECONDS)
 
+
 /datum/status_effect/transient/drowsiness/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+
 
 /**
  * # Drukenness
@@ -626,6 +697,17 @@
 /datum/status_effect/incapacitating/slowed/proc/set_slowdown_value(slowdown_value)
 	if(isnum(slowdown_value))
 		src.slowdown_value = slowdown_value
+
+
+/datum/status_effect/incapacitating/slowed/on_apply()
+	. = ..()
+	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed, multiplicative_slowdown = slowdown_value)
+
+
+/datum/status_effect/incapacitating/slowed/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed)
+
 
 /datum/status_effect/transient/silence
 	id = "silenced"

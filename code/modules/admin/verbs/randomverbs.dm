@@ -1226,10 +1226,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				if(istype(D,key))
 					availible_traits += GLOB.traits_by_type[key]
 		if("Remove")
-			if(!GLOB.trait_name_map)
-				GLOB.trait_name_map = generate_trait_name_map()
-			for(var/trait in D.status_traits)
-				var/name = GLOB.trait_name_map[trait] || trait
+			if(!GLOB.global_trait_name_map)
+				GLOB.global_trait_name_map = generate_global_trait_name_map()
+			for(var/trait in D._status_traits)
+				var/name = GLOB.global_trait_name_map[trait] || trait
 				availible_traits[name] = trait
 
 	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in availible_traits
@@ -1249,7 +1249,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				if("All")
 					source = null
 				if("Specific")
-					source = input("Source to be removed","Trait Remove/Add") as null|anything in D.status_traits[chosen_trait]
+					source = input("Source to be removed","Trait Remove/Add") as null|anything in D._status_traits[chosen_trait]
 					if(!source)
 						return
 			REMOVE_TRAIT(D, chosen_trait, source)

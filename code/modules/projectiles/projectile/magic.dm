@@ -209,7 +209,7 @@
 				else
 					Robot.mmi = new /obj/item/mmi/robotic_brain(new_mob)
 					Robot.mmi.brainmob.timeofhostdeath = M.timeofdeath
-					Robot.mmi.brainmob.stat = CONSCIOUS
+					Robot.mmi.brainmob.set_stat(CONSCIOUS)
 					Robot.mmi.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 				Robot.lawupdate = FALSE
 				Robot.disconnect_from_ai()

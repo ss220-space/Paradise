@@ -41,7 +41,7 @@
 		if(!istype(parent))
 			stack_trace("[src] attempted to insert into a [parent_organ_zone], but [parent_organ_zone] wasn't an organ! [atom_loc_line(h_target)]")
 		else
-			LAZYADDOR(parent.internal_organs, src)
+			LAZYOR(parent.internal_organs, src)
 		h_target.update_int_organs()
 
 	loc = null

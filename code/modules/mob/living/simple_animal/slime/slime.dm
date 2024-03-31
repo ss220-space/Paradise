@@ -153,30 +153,31 @@
 	else
 		icon_state = icon_dead
 
-/mob/living/simple_animal/slime/movement_delay()
-	if(bodytemperature >= 330.23) // 135 F or 57.08 C
-		return -1	// slimes become supercharged at high temperatures
 
+/mob/living/simple_animal/slime/updatehealth(reason = "none given", should_log = FALSE)
 	. = ..()
+	var/mod = 0
+	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
+		var/health_deficiency = (maxHealth - health)
+		if(health_deficiency >= 45)
+			mod += (health_deficiency / 25)
+		if(health <= 0)
+			mod += 2
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_health_mod, multiplicative_slowdown = mod)
 
-	var/health_deficiency = (maxHealth - health)
-	if(health_deficiency >= 45)
-		. += (health_deficiency / 25)
 
-	if(bodytemperature < 183.222)
-		. += (283.222 - bodytemperature) / 10 * 1.75
+/mob/living/simple_animal/slime/adjust_bodytemperature(amount, min_temp = 0, max_temp = INFINITY)
+	. = ..()
+	var/mod = 0
+	if(bodytemperature >= 330.23) // 135 F or 57.08 C
+		mod = -1 // slimes become supercharged at high temperatures
+	else if(bodytemperature < 283.222)
+		mod = ((283.222 - bodytemperature) / 10) * 1.75
+	if(mod)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_temp_mod, multiplicative_slowdown = mod)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/slime_temp_mod)
 
-	if(reagents)
-		if(reagents.has_reagent("morphine")) // morphine slows slimes down
-			. *= 2
-
-		if(reagents.has_reagent("frostoil")) // Frostoil also makes them move VEEERRYYYYY slow
-			. *= 5
-
-	if(health <= 0) // if damaged, the slime moves twice as slow
-		. *= 2
-
-	. += CONFIG_GET(number/slime_delay)
 
 /mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)

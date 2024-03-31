@@ -7,8 +7,8 @@
 
 	invisibility = INVISIBILITY_ABSTRACT
 
-	density = 0
-	stat = 2
+	density = FALSE
+	stat = DEAD
 	canmove = FALSE
 
 /mob/new_player/Initialize(mapload)

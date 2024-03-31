@@ -90,12 +90,13 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
-	flying = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 
-/mob/living/simple_animal/parrot/New()
-	..()
+/mob/living/simple_animal/parrot/Initialize(mapload)
+	. = ..()
+
+	AddElement(/datum/element/simple_flying)
 	speech_buffer = list()
 	available_channels = list()
 	GLOB.hear_radio_list += src
@@ -264,7 +265,7 @@
 	if(client)
 		return
 
-	if(!stat && M.a_intent == "harm")
+	if(!stat && M.a_intent == INTENT_HARM)
 		icon_state = "parrot_fly" //It is going to be flying regardless of whether it flees or attacks
 
 		if(parrot_state == PARROT_PERCH)
@@ -311,6 +312,14 @@
 		drop_held_item(FALSE)
 
 
+/mob/living/simple_animal/parrot/Moved(atom/OldLoc, Dir, Forced)
+	. = ..()
+	if(client && (parrot_state & PARROT_PERCH))
+		parrot_state = PARROT_WANDER
+		if(icon_state == "parrot_sit")
+			icon_state = "parrot_fly"
+
+
 /*
  * AI - Not really intelligent, but I'm calling it AI anyway.
  */
@@ -326,10 +335,10 @@
 	else if(!buckled && !(parrot_state & PARROT_PERCH) && icon_state == "parrot_sit")
 		icon_state = "parrot_fly"
 
-	if(floating && icon_state == "parrot_sit")
-		float(FALSE)
-	else if (!floating && icon_state == "parrot_fly")
-		float(TRUE)
+	if(parrot_state & PARROT_PERCH)
+		REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, UNIQUE_TRAIT_SOURCE(src))
+	else
+		ADD_TRAIT(src, TRAIT_MOVE_FLOATING, UNIQUE_TRAIT_SOURCE(src))
 
 
 /mob/living/simple_animal/parrot/proc/update_speak()
@@ -568,13 +577,6 @@
  * Procs
  */
 
-/mob/living/simple_animal/parrot/movement_delay()
-	if(client && stat == CONSCIOUS && parrot_state != "parrot_fly")
-		icon_state = "parrot_fly"
-		//Because the most appropriate place to set icon_state is movement_delay(), clearly
-	return ..()
-
-
 //This proc was made to save on doing two 'in view' loops seperatly
 /mob/living/simple_animal/parrot/proc/search_for_perch_and_item(list/stuff)
 	var/turf/my_turf = get_turf(src)
@@ -726,6 +728,7 @@
 			if(is_type_in_typecache(AM, desired_perches))
 				forceMove(AM.loc)
 				icon_state = "parrot_sit"
+				parrot_state = PARROT_PERCH
 				return
 
 	to_chat(src, span_warning("There is no perch nearby to sit on."))

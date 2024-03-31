@@ -497,10 +497,11 @@
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return
 		I.is_speedslimepotioned = TRUE
+		I.update_equipped_item()
 
 	if(istype(O, /obj/vehicle))
 		var/obj/vehicle/V = O
-		var/vehicle_speed_mod = CONFIG_GET(number/run_speed)
+		var/vehicle_speed_mod = CONFIG_GET(number/movedelay/run_delay)
 		if(V.vehicle_move_delay <= vehicle_speed_mod)
 			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
 			return ..()

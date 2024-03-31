@@ -47,12 +47,17 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	flying = TRUE
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
+
+
+/mob/living/simple_animal/hostile/ghost/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
+
 
 /mob/living/simple_animal/hostile/ghost/Process_Spacemove(var/check_drift = 0)
 	return 1
