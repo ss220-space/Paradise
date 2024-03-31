@@ -318,6 +318,8 @@
 '2024-03-30':
   Den109G:
   - bugfix: fix Unreachable tail being reachable (#4726)
+  Ksaikok46:
+  - bugfix: few text corrections (#4715)
   Rerik007:
   - bugfix: fixes another few runtimes (#4698)
   - bugfix: correct update_revive in defibrillator (#4727)
@@ -331,6 +333,20 @@
   - bugfix: Fixed several cyborg gripper issues, allowed more interactions (#4682)
   - bugfix: Fixed issues with service cyborg's tray, handheld chem dispenser now draws
       energy from cyborg itself. (#4706)
+  - add: Added mimejutsu to thunderdome melee mode (#4728)
+  - bugfix: Borg Gripper hotfix (#4730)
   Zwei:
   - bugfix: Health Scanner Fix (#4722)
   - bugfix: Central Command Turf Fixes (#4657)
+  - bugfix: All Smooth Turfs Fixed (#4731)
+'2024-03-31':
+  Rerik007:
+  - qol: added connect discord account button to player setup menu (#4729)
+  - bugfix: (i think) fixes highpop slots opening after round has started (#4718)
+  - bugfix: (i think) No more cluwnes in crew manifest (#4702)
+  - bugfix: fix martial dirslash issue (#4716)
+  SergoFangorum:
+  - tweak: Need both hands to shoot AS-12 Minotaur (#4733)
+  Zwei:
+  - refactor: Movement Types Refactor (#4249)
+  - refactor: Variables Cleanup (#4446)
