@@ -46,7 +46,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/Initialize()
 	flags |= SS_NO_FIRE
 	return
-	ordernum = rand(1,9000)
+	/*ordernum = rand(1,9000)
 
 	cargo_money_account = GLOB.department_accounts["Cargo"]
 
@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(shuttle)
 	initial_move()
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
-
+	*/
 
 /datum/controller/subsystem/shuttle/get_stat_details()
 	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"

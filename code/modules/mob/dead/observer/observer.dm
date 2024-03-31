@@ -198,7 +198,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/warningmsg = null
 	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
 	return
-
+	/*
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"
@@ -239,6 +239,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(P.control_computer)
 			P.despawn_occupant()
 	return
+	*/
 
 // Ghosts have no momentum, being massless ectoplasm
 /mob/dead/observer/Process_Spacemove(movement_dir)

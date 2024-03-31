@@ -151,7 +151,7 @@
 	if(href_list["ready"])
 		to_chat(usr, "<span class='warning'>Начинать обучение можно только после его полной инициализации!</span>")
 		return FALSE
-
+	/*
 		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
@@ -179,6 +179,7 @@
 				return FALSE
 		ready = !ready
 		new_player_panel_proc()
+	*/
 
 	if(href_list["skip_antag"])
 		client.prefs?.skip_antag = !client.prefs?.skip_antag
@@ -419,6 +420,7 @@
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
 	qdel(src)
 	return
+	/*
 
 	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 
@@ -490,7 +492,7 @@
 	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
 	qdel(src)
-
+	*/
 
 /mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
