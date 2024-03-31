@@ -205,7 +205,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80) // Мне нужно будет оглядываться...
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
