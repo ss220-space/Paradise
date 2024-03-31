@@ -417,7 +417,7 @@
 
 	// SSjobs.AssignRole(src, rank, 1)
 
-	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
+	//var/mob/living/character = create_character()	//creates the human and transfers vars and mind
 	qdel(src)
 	return
 	/*
