@@ -286,7 +286,7 @@
 		to_chat(user, "<span class='warning'>Can't start the surgery!</span>")
 		return
 
-	if(surgery_needs_exposure(surgery, target))
+	if(surgery_needs_exposure(surgery, target, selected_zone))
 		to_chat(user, "<span class='warning'>You have to expose [target.p_their()] [parse_zone(selected_zone)] first!</span>")
 		return
 
@@ -296,8 +296,8 @@
 
 	log_attack(user, target, "operated on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 
-/datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target)
-	return !surgery.ignore_clothes && !get_location_accessible(target, target.zone_selected)
+/datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target, selected_zone)
+	return !surgery.ignore_clothes && !get_location_accessible(target, selected_zone)
 
 /// Handle to allow for easily overriding the message shown
 /datum/component/surgery_initiator/proc/show_starting_message(mob/user, mob/living/target, datum/surgery/procedure)
