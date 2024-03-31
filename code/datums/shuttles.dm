@@ -108,6 +108,12 @@
 	name = "Retired Station shuttle."
 	description = "an older model of the station shuttle."
 
+/datum/map_template/shuttle/emergency/one_tile
+	suffix = "one_tile"
+	name = "extra compact emergency shuttle"
+	description = "Extra small shuttle, has only 2 chairs and console (one of them is electric)."
+	admin_notes = "April fool special shuttle. Use if you want to punish the crew."
+
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"
 	name = "transport ferry"

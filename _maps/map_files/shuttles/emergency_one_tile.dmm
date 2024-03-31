@@ -1,0 +1,130 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"e" = (
+/obj/structure/shuttle/engine/huge,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"g" = (
+/obj/machinery/door/airlock/shuttle{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch"
+	},
+/obj/docking_port/mobile/emergency{
+	timid = 1;
+	name = "Shorty"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"j" = (
+/obj/item/assembly/signaler{
+	code = 6;
+	frequency = 1445
+	},
+/obj/structure/chair/e_chair{
+	dir = 1
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/escape)
+"q" = (
+/obj/item/grenade/confetti,
+/obj/item/toy/snappop,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/grown/bananapeel/clownfish{
+	layer = 2.7;
+	pixel_y = -10
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/escape)
+"s" = (
+/obj/item/grown/bananapeel/clownfish{
+	layer = 2.7;
+	pixel_y = -10
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	req_access = list(19)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"t" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"u" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/escape)
+"v" = (
+/obj/machinery/computer/emergency_shuttle,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"x" = (
+/obj/machinery/door/airlock/shuttle{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"F" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/shuttle/escape)
+"V" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/escape)
+"W" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Escape Shuttle Cell";
+	req_access = list(2)
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/escape)
+
+(1,1,1) = {"
+V
+t
+V
+g
+V
+u
+F
+a
+a
+a
+"}
+(2,1,1) = {"
+t
+v
+s
+q
+W
+j
+u
+a
+e
+a
+"}
+(3,1,1) = {"
+V
+t
+V
+x
+V
+u
+F
+a
+a
+a
+"}
