@@ -35,7 +35,7 @@
 	var/obj/item/robot_parts/p = tool
 	if(p.part)
 		if(!(target_zone in p.part))
-			to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
+			to_chat(user, span_warning("[tool] cannot be used to augment this limb!"))
 			return SURGERY_BEGINSTEP_ABORT
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -49,8 +49,8 @@
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",
-		"<span class='notice'>You augment [affected] with [tool].</span>"
+		span_notice("[user] has finished augmenting [affected] with [tool]."),
+		span_notice("You augment [affected] with [tool].")
 	)
 
 	if(L.part)

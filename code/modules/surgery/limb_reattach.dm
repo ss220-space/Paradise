@@ -160,22 +160,22 @@
 	var/obj/item/organ/external/E = tool
 	if(target.get_organ(E.limb_zone))
 		// This catches attaching an arm to a missing hand while the arm is still there
-		to_chat(user, "<span class='warning'>[target] already has an [E.name]!</span>")
+		to_chat(user, span_warning("[target] already has an [E.name]!"))
 		return SURGERY_BEGINSTEP_ABORT
 	if(E.limb_zone != target_zone)
 		// This ensures you must be aiming at the appropriate location to attach
 		// this limb. (Can't aim at a missing foot to re-attach a missing arm)
-		to_chat(user, "<span class='warning'>The [E.name] does not go there.</span>")
+		to_chat(user, span_warning("The [E.name] does not go there."))
 		return SURGERY_BEGINSTEP_ABORT
 	if(!target.get_organ(E.parent_organ_zone))
-		to_chat(user, "<span class='warning'>cannot attach a [E.name] because there is no limb to attach to!</span>")
+		to_chat(user, span_warning("cannot attach a [E.name] because there is no limb to attach to!"))
 		return SURGERY_BEGINSTEP_ABORT
 	if(!is_correct_limb(E, target))
-		to_chat(user, "<span class='warning'>This is not the correct limb type for this surgery!</span>")
+		to_chat(user, span_warning("This is not the correct limb type for this surgery!"))
 		return SURGERY_BEGINSTEP_ABORT
 	var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
 	if(isnull(organ_data))
-		to_chat(user, "<span class='warning'>[target.dna.species] don't have the anatomy for [E.name]!")
+		to_chat(user, span_warning("[target.dna.species] don't have the anatomy for [E.name]!"))
 		return SURGERY_BEGINSTEP_ABORT
 
 	user.visible_message(
@@ -187,8 +187,8 @@
 /datum/surgery_step/limb/attach/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = tool
 	user.visible_message(
-		"<span class='notice'>[user] has attached [target]'s [E.name] to the [E.amputation_point].</span>",
-		"<span class='notice'>You have attached [target]'s [E.name] to the [E.amputation_point].</span>"
+		span_notice("[user] has attached [target]'s [E.name] to the [E.amputation_point]."),
+		span_notice("You have attached [target]'s [E.name] to the [E.amputation_point].")
 	)
 	attach_limb(user, target, E)
 	return SURGERY_STEP_CONTINUE
@@ -196,8 +196,8 @@
 /datum/surgery_step/limb/attach/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = tool
 	user.visible_message(
-		"<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>"
+		span_alert("[user]'s hand slips, damaging [target]'s [E.amputation_point]!"),
+		span_alert("Your hand slips, damaging [target]'s [E.amputation_point]!")
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_STEP_RETRY
@@ -264,8 +264,8 @@
 /datum/surgery_step/limb/connect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",
-		"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>"
+		span_notice("[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool]."),
+		span_notice("You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].")
 	)
 	E.properly_attached = TRUE
 	if(E.is_usable())
@@ -282,8 +282,8 @@
 /datum/surgery_step/limb/connect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>"
+		span_alert("[user]'s hand slips, damaging [target]'s [E.amputation_point]!"),
+		span_alert("Your hand slips, damaging [target]'s [E.amputation_point]!")
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_STEP_RETRY
@@ -299,7 +299,7 @@
 	var/obj/item/robot_parts/P = tool
 	if(P.part)
 		if(!(target_zone in P.part))
-			to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
+			to_chat(user, span_warning("\The [tool] does not go there!"))
 			return SURGERY_BEGINSTEP_ABORT
 
 	user.visible_message(
@@ -311,8 +311,8 @@
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/L = tool
 	user.visible_message(
-		"<span class='notice'>[user] has attached \the [tool] to [target].</span>",
-		"<span class='notice'>You have attached \the [tool] to [target].</span>"
+		span_notice("[user] has attached \the [tool] to [target]."),
+		span_notice("You have attached \the [tool] to [target].")
 	)
 
 	if(L.part)
@@ -337,8 +337,8 @@
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message(
-		"<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>"
+		span_alert("[user]'s hand slips, damaging [target]'s flesh!"),
+		span_alert("Your hand slips, damaging [target]'s flesh!")
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_STEP_RETRY

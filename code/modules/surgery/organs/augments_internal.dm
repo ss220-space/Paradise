@@ -32,7 +32,7 @@
 		return
 	var/stun_amount = (5 + (severity-1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
 	owner.Stun(stun_amount)
-	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
+	to_chat(owner, span_warning("Your body seizes up!"))
 	return stun_amount
 
 
@@ -69,7 +69,7 @@
 				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
-			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
+			to_chat(owner, span_notice("You are not holding any items, your hands relax..."))
 			active = 0
 		else
 			var/msg = 0
@@ -77,14 +77,14 @@
 			msg += !r_hand_ignore && r_hand_obj ? 2 : 0
 			switch(msg)
 				if(1)
-					to_chat(owner, "<span class='notice'>Your left hand's grip tightens.</span>")
+					to_chat(owner, span_notice("Your left hand's grip tightens."))
 				if(2)
-					to_chat(owner, "<span class='notice'>Your right hand's grip tightens.</span>")
+					to_chat(owner, span_notice("Your right hand's grip tightens."))
 				if(3)
-					to_chat(owner, "<span class='notice'>Both of your hand's grips tighten.</span>")
+					to_chat(owner, span_notice("Both of your hand's grips tighten."))
 	else
 		release_items()
-		to_chat(owner, "<span class='notice'>Your hands relax...</span>")
+		to_chat(owner, span_notice("Your hands relax..."))
 		l_hand_obj = null
 		r_hand_obj = null
 
@@ -101,12 +101,12 @@
 	if(L_item)
 		A = pick(oview(range))
 		L_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your left arm spasms and throws the [L_item.name]!</span>")
+		to_chat(owner, span_notice("Your left arm spasms and throws the [L_item.name]!"))
 		l_hand_obj = null
 	if(R_item)
 		A = pick(oview(range))
 		R_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>")
+		to_chat(owner, span_notice("Your right arm spasms and throws the [R_item.name]!"))
 		r_hand_obj = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
@@ -174,13 +174,13 @@
 	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
 		owner.AdjustSleeping(-200 SECONDS)
 		owner.AdjustParalysis(-200 SECONDS)
-		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
+		to_chat(owner, span_notice("You feel a rush of energy course through your body!"))
 		cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(sleepy_timer_end)), 50)
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepy_timer_end()
 		cooldown = FALSE
-		to_chat(owner, "<span class='notice'>You hear a small beep in your head as your Neural Jumpstarter finishes recharging.</span>")
+		to_chat(owner, span_notice("You hear a small beep in your head as your Neural Jumpstarter finishes recharging."))
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/emp_act(severity)
 	. = ..()
@@ -235,15 +235,15 @@
 	if(emp_proof)
 		return
 	if(owner && active)
-		to_chat(owner, "<span class='notice'>Your translator's safeties trigger, it is now turned off.</span>")
+		to_chat(owner, span_notice("Your translator's safeties trigger, it is now turned off."))
 		active = FALSE
 
 /obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
 	if(owner && !active)
-		to_chat(owner, "<span class='notice'>You turn on your translator implant.</span>")
+		to_chat(owner, span_notice("You turn on your translator implant."))
 		active = TRUE
 	else if(owner && active)
-		to_chat(owner, "<span class='notice'>You turn off your translator implant.</span>")
+		to_chat(owner, span_notice("You turn off your translator implant."))
 		active = FALSE
 
 //[[[[MOUTH]]]]
@@ -262,7 +262,7 @@
 	if(emp_proof)
 		return
 	if(prob(60/severity) && owner)
-		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
+		to_chat(owner, span_warning("Your breathing tube suddenly closes!"))
 		owner.AdjustLoseBreath(4 SECONDS)
 
 //[[[[CHEST]]]]
@@ -295,7 +295,7 @@
 	if(!owner || emp_proof)
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
-	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
+	to_chat(owner, span_warning("You feel like your insides are burning."))
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
@@ -330,7 +330,7 @@
 		return
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
-		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
+		to_chat(owner, span_notice("You feel less hungry..."))
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
@@ -341,7 +341,7 @@
 	if(!owner || emp_proof)
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
-	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
+	to_chat(owner, span_warning("You feel like your insides are burning."))
 
 /obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	name = "Nutriment pump implant PLUS"
@@ -420,7 +420,7 @@
 		return
 	H.set_heartattack(FALSE)
 	if(H.stat == CONSCIOUS)
-		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
+		to_chat(H, span_notice("You feel your heart beating again!"))
 
 //BOX O' IMPLANTS
 

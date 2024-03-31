@@ -122,7 +122,7 @@
 		if(tool && tool.GetComponent(/datum/component/surgery_initiator))
 			return FALSE
 		if(tool && HAS_TRAIT(tool, TRAIT_SURGICAL))
-			to_chat(user, "<span class='warning'>This step requires a different tool!</span>")
+			to_chat(user, span_warning("This step requires a different tool!"))
 			return TRUE
 	return FALSE
 
@@ -266,7 +266,7 @@
 		if(target_zone == surgery.location)
 			if(get_location_accessible(target, target_zone) || surgery.ignore_clothes)
 				return initiate(user, target, target_zone, tool, surgery)
-			to_chat(user, "<span class='warning'>You need to expose [target]'s [parse_zone(target_zone)] before you can perform surgery on it!")
+			to_chat(user, span_warning("You need to expose [target]'s [parse_zone(target_zone)] before you can perform surgery on it!"))
 			return SURGERY_INITIATE_FAILURE //returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)
@@ -414,10 +414,10 @@
 	if(S)
 		H.SetSleeping(0) // wake up people who are napping through the surgery
 		if(pain_mod < 0.95)
-			to_chat(H, "<span class='danger'>The surgery on your [parse_zone(target_zone)] is agonizingly painful, and rips you out of your shallow slumber!</span>")
+			to_chat(H, span_danger("The surgery on your [parse_zone(target_zone)] is agonizingly painful, and rips you out of your shallow slumber!"))
 		else
 			// Still wake people up, but they shouldn't be as alarmed.
-			to_chat(H, "<span class='warning'>The surgery being performed on your [parse_zone(target_zone)] wakes you up.</span>")
+			to_chat(H, span_warning("The surgery being performed on your [parse_zone(target_zone)] wakes you up."))
 	return pain_mod //operating on conscious people is hard.
 
 /**

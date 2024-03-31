@@ -17,14 +17,17 @@
 	time = 6.4 SECONDS
 
 /datum/surgery_step/reshape_face/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] begins to alter [target]'s appearance.", "<span class='notice'>You begin to alter [target]'s appearance...</span>")
+	user.visible_message("[user] begins to alter [target]'s appearance.", span_notice("You begin to alter [target]'s appearance..."))
 	return ..()
 
 /datum/surgery_step/reshape_face/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	var/species_names = target.dna.species.name
 	if(head.undisfigure())
-		user.visible_message("[user] successfully restores [target]'s appearance!", "<span class='notice'>You successfully restore [target]'s appearance.</span>")
+		user.visible_message(
+			"[user] successfully restores [target]'s appearance!",
+			span_notice("You successfully restore [target]'s appearance.")
+		)
 	else
 		var/list/names = list()
 		var/list_size = 10
@@ -63,7 +66,7 @@
 		var/oldname = target.real_name
 		target.real_name = chosen_name
 		var/newname = target.real_name	//something about how the code handles names required that I use this instead of target.real_name
-		user.visible_message("[user] alters [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname]!", "<span class='notice'>You alter [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname].</span>")
+		user.visible_message("[user] alters [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname]!", span_notice("You alter [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname]."))
 	target.sec_hud_set_ID()
 	return SURGERY_STEP_CONTINUE
 
@@ -71,8 +74,8 @@
 /datum/surgery_step/reshape_face/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, tearing skin on [target]'s face with [tool]!</span>",
-		"<span class='warning'>Your hand slips, tearing skin on [target]'s face with [tool]!</span>"
+		span_warning("[user]'s hand slips, tearing skin on [target]'s face with [tool]!"),
+		span_warning("Your hand slips, tearing skin on [target]'s face with [tool]!")
 	)
 	target.apply_damage(10, BRUTE, head, sharp = TRUE)
 	return SURGERY_STEP_RETRY

@@ -171,16 +171,16 @@
 /datum/surgery_step/glue_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] applies some [tool] to [target]'s bone in [affected.name]</span>",
-		"<span class='notice'>You apply some [tool] to [target]'s bone in [affected.name] with \the [tool].</span>"
+		span_notice("[user] applies some [tool] to [target]'s bone in [affected.name]"),
+		span_notice("You apply some [tool] to [target]'s bone in [affected.name] with \the [tool].")
 	)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/glue_bone/plasma/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] applies some [tool] to [target]'s bone in [affected.name]. You see the plasma flowing through the bones, reattaching them!</span>", \
-		"<span class='notice'>You apply some [tool] to [target]'s bone in [affected.name] with \the [tool]. You see the plasma flowing through the bones, reattaching them!</span>"
+		span_notice("[user] applies some [tool] to [target]'s bone in [affected.name]. You see the plasma flowing through the bones, reattaching them!"), \
+		span_notice("You apply some [tool] to [target]'s bone in [affected.name] with \the [tool]. You see the plasma flowing through the bones, reattaching them!")
 	)
 	affected.mend_fracture()
 	return SURGERY_STEP_CONTINUE
@@ -189,8 +189,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
-		"<span class='warning'>Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>"
+		span_warning("[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
+		span_warning("Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!")
 	)
 	affected.receive_damage(3)
 	return SURGERY_STEP_RETRY
@@ -217,16 +217,16 @@
 /datum/surgery_step/set_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] sets the bone in [target]'s [affected.name] in place with \the [tool].</span>",
-		"<span class='notice'>You set the bone in [target]'s [affected.name] in place with \the [tool].</span>"
+		span_notice("[user] sets the bone in [target]'s [affected.name] in place with \the [tool]."),
+		span_notice("You set the bone in [target]'s [affected.name] in place with \the [tool].")
 	)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/set_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!</span>"
+		span_warning("[user]'s hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!"),
+		span_warning("Your hand slips, damaging the bone in [target]'s [affected.name] with \the [tool]!")
 	)
 	affected.receive_damage(5)
 	return SURGERY_STEP_RETRY
@@ -244,8 +244,8 @@
 /datum/surgery_step/set_bone/mend_skull/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] sets [target]'s [affected.encased] with \the [tool].</span>",
-		"<span class='notice'>You set [target]'s [affected.encased] with \the [tool].</span>"
+		span_notice("[user] sets [target]'s [affected.encased] with \the [tool]."),
+		span_notice("You set [target]'s [affected.encased] with \the [tool].")
 	)
 
 	return SURGERY_STEP_CONTINUE
@@ -253,8 +253,8 @@
 /datum/surgery_step/set_bone/mend_skull/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, damaging [target]'s face with \the [tool]!</span>",
-		"<span class='warning'>Your hand slips, damaging [target]'s face with \the [tool]!</span>"
+		span_warning("[user]'s hand slips, damaging [target]'s face with \the [tool]!"),
+		span_warning(">Your hand slips, damaging [target]'s face with \the [tool]!")
 	)
 	var/obj/item/organ/external/head/H = affected
 	H.receive_damage(10)
@@ -284,8 +284,8 @@
 /datum/surgery_step/finish_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] has mended the damaged bones in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'>You have mended the damaged bones in [target]'s [affected.name] with \the [tool].</span>"
+		span_notice("[user] has mended the damaged bones in [target]'s [affected.name] with \the [tool]."),
+		span_notice("You have mended the damaged bones in [target]'s [affected.name] with \the [tool].")
 	)
 	affected.mend_fracture()
 	return SURGERY_STEP_CONTINUE
@@ -293,8 +293,8 @@
 /datum/surgery_step/finish_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
-		"<span class='warning'>Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>"
+		span_warning("[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
+		span_warning("Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!")
 	)
 	affected.receive_damage(3)
 	return SURGERY_STEP_RETRY

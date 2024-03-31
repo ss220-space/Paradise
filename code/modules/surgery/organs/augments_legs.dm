@@ -56,7 +56,7 @@
 		parent_organ_zone = BODY_ZONE_R_LEG
 		transform = null
 	SetSlot()
-	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg.</span>")
+	to_chat(user, span_notice("You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg."))
 
 
 /obj/item/organ/internal/cyberimp/leg/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -132,7 +132,7 @@
 	if(!IsAvailable())
 		return
 	if(recharging_time > world.time)
-		to_chat(owner, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(owner, span_warning("The boot's internal propulsion needs to recharge still!"))
 		return
 
 	var/atom/target = get_edge_target_turf(owner, owner.dir) //gets the user's direction
@@ -144,10 +144,10 @@
 	if(owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
 		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-		owner.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		owner.visible_message(span_warning("[usr] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
-		to_chat(owner, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(owner, span_warning("Something prevents you from dashing forward!"))
 		after_jump(owner)
 
 
