@@ -36,5 +36,5 @@
 	shoes.block_unequip = TRUE
 	var/obj/item/clothing/under/color/orange/uniform = new()
 	uniform.block_unequip = TRUE
-	equip_to_slot_if_possible(shoes, slot_shoes)
-	equip_to_slot_if_possible(uniform, slot_w_uniform)
+	equip_to_slot_if_possible(shoes, SLOT_HUD_SHOES)
+	equip_to_slot_if_possible(uniform, SLOT_HUD_JUMPSUIT)
