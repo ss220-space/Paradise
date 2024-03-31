@@ -160,17 +160,21 @@
 			icon = 'icons/effects/96x96.dmi'
 			icon_state = "singularity_s3"
 		if(STAGE_THREE)
-			icon = 'icons/effects/160x160.dmi'
-			icon_state = "singularity_s5"
+			icon = 'icons/effects/96x96.dmi'
+			icon_state = "singularity_s3"
+			transform = transform.Scale(3, 3)
 		if(STAGE_FOUR)
-			icon = 'icons/effects/224x224.dmi'
-			icon_state = "singularity_s7"
+			icon = 'icons/effects/96x96.dmi'
+			icon_state = "singularity_s3"
+			transform = transform.Scale(4, 4)
 		if(STAGE_FIVE)
-			icon = 'icons/effects/288x288.dmi'
-			icon_state = "singularity_s9"
+			icon = 'icons/effects/96x96.dmi'
+			icon_state = "singularity_s3"
+			transform = transform.Scale(5, 5)
 		if(STAGE_SIX)
-			icon = 'icons/effects/352x352.dmi'
-			icon_state = "singularity_s11"
+			icon = 'icons/effects/96x96.dmi'
+			icon_state = "singularity_s3"
+			transform = transform.Scale(6, 6)
 
 
 /obj/singularity/proc/expand(force_size = 0)
