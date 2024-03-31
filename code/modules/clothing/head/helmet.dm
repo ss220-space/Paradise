@@ -66,16 +66,31 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
-/obj/item/clothing/head/helmet/alt
+/obj/item/clothing/head/helmet/alt // WIP
 	name = "bulletproof helmet"
 	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
-	icon_state = "swat"
-	item_state = "swat-alt"
+	icon_state = "bulletproof"
+	item_state = "bulletproof"
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = null
+	flags_inv = HIDEHEADSETS | HIDEGLASSES | HIDEMASK
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flash_protect = 1
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot

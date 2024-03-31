@@ -66832,6 +66832,8 @@
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/gloves/color/black/ballistic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93923,6 +93925,8 @@
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/gloves/color/black/ballistic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94884,6 +94888,8 @@
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/shoes/jackboots/armored,
+/obj/item/clothing/gloves/color/black/ballistic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

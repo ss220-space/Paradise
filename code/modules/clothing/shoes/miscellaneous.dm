@@ -143,6 +143,28 @@
 	item_color = "jackboots_cross"
 	can_cut_open = FALSE
 
+/obj/item/clothing/shoes/jackboots/armored
+	name = "armored shoes"
+	desc = "Combat shoed for combat scenarios. When you need some ballistic protection."
+	can_cut_open = FALSE
+	icon_state = "armored_shoes"
+	item_color = "armored_shoes"
+	item_state = "armored_shoes"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi',
+		"Monkey" = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		"Farwa" = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		"Wolpin" = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		"Neara" = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		"Stok" = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		"Ash Walker" = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		"Draconid" = 'icons/mob/clothing/species/unathi/shoes.dmi'
+		)
+
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
 	desc = "Thick-soled boots for industrial work environments."
