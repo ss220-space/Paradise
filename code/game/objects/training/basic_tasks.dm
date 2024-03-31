@@ -20,7 +20,7 @@
 	airlock = spawn_airlock(center.x, master.y + 3)
 	spawn_window(center.x, master.y + 4)
 	spawn_window(center.x, master.y + 5)
-	airlock.lock()
+	airlock.lock(TRUE)
 
 	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
 	final_turf.icon = 'icons/turf/decals.dmi'
@@ -28,7 +28,7 @@
 	..()
 
 /datum/training_task/basic_1_1/instruction_end()
-	airlock.unlock()
+	airlock.unlock(TRUE)
 
 /datum/training_task/basic_1_1/check_func()
 	if (user.x == final_turf.x && user.y == final_turf.y)
@@ -526,7 +526,7 @@
 	airlock = spawn_airlock(master.x + 3, master.y + 3)
 	spawn_window(master.x + 3, master.y + 4)
 	spawn_window(master.x + 3, master.y + 5)
-	airlock.lock()
+	airlock.lock(TRUE)
 
 	spawn_window(max_coordinate.x - 3, master.y + 1)
 	spawn_window(max_coordinate.x - 3, master.y + 2)
@@ -590,7 +590,7 @@
 
 	var/turf/airlock_turf = get_turf(locate(master.x + 3, master.y + 3, master.z))
 	for(var/obj/machinery/door/airlock/glass/airlock in airlock_turf.contents)
-		airlock.unlock()
+		airlock.unlock(TRUE)
 
 	final_turf = get_turf(locate(max_coordinate.x - 1, center.y, master.z))
 	..()
