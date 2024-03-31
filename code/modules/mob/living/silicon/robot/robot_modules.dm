@@ -210,6 +210,7 @@
 	modules += new /obj/item/reagent_containers/borghypo/basic(src)
 	modules += new /obj/item/roller_holder(src) // for taking the injured to medbay without worsening their injuries or leaving a blood trail the whole way
 	modules += new /obj/item/handheld_defibrillator(src) // test if will be in active usage and become op to be cutted out later, instead of salbutomol
+	modules += new /obj/item/gripper(src)
 
 	emag = new /obj/item/melee/energy/sword/cyborg(src)
 
@@ -377,6 +378,7 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/gripper(src)
 	emag = new /obj/item/gun/energy/laser/cyborg(src)
 
 	fix_modules()
@@ -411,6 +413,7 @@
 	modules += new /obj/item/reagent_containers/spray/pestspray(src) //kill all kidans!
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/gripper(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent("lube", 250)
@@ -550,6 +553,7 @@
 	modules += new /obj/item/gun/energy/kinetic_accelerator/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/gripper(src)
 	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
@@ -778,6 +782,7 @@
 	..()
 	modules += new /obj/item/melee/energy/alien/claws(src)
 	modules += new /obj/item/flash/cyborg/alien(src)
+	modules += new /obj/item/gripper(src)
 	var/obj/item/reagent_containers/spray/alien/stun/S = new /obj/item/reagent_containers/spray/alien/stun(src)
 	S.reagents.add_reagent("cryogenic_liquid",250) //nerfed to sleeptoxin to make it less instant drop.
 	modules += S
