@@ -301,6 +301,7 @@
 	icon_state = "seed-fireblossom"
 	species = "fireblossom"
 	plantname = "Fire Blossom"
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
 	genes = list(/datum/plant_gene/trait/fire_resistance, /datum/plant_gene/trait/glow/yellow)
 	reagents_add = list("tinlux" = 0.04, "nutriment" = 0.03, "carbon" = 0.05)
