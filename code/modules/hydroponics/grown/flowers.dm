@@ -51,7 +51,7 @@
 	name = "lily"
 	desc = "A beautiful white flower with rich symbolism. The lily is said to represent love and affection as well as purity and innocence in some cultures."
 	icon_state = "lily"
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	tastes = list("lily" = 1)
 	filling_color = "#FFA500"
 
@@ -80,7 +80,7 @@
 	name = "geranium"
 	desc = "A cluster of small purple geranium flowers. They symbolize happiness, good health, wishes and friendship and are generally associated with positive emotions."
 	icon_state = "geranium"
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	tastes = list("geranium" = 1)
 	filling_color = "#008B8B"
 
