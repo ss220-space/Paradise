@@ -20,7 +20,23 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	///Whether the robolimb is unavailable when setting up a character. Defaults to FALSE.
 	var/unavailable_at_chargen = FALSE
 	///Which Species can choose these Robolimbs at CharGen
-	var/list/species_allowed = list("Machine", "Human", "Skrell", "Unathi", "Drask", "Wryn", "Tajaran", "Vox", "Vulpkanin", "Tajaran", "Nucleation", "Diona", "Slime People", "Plasmamen", "Grey")
+	var/list/species_allowed = list(
+		SPECIES_GREY,
+		SPECIES_HUMAN,
+		SPECIES_KIDAN,
+		SPECIES_MACNINEPERSON,
+		SPECIES_DIONA,
+		SPECIES_DRASK,
+		SPECIES_MOTH,
+		SPECIES_NUCLEATION,
+		SPECIES_PLASMAMAN,
+		SPECIES_SKRELL,
+		SPECIES_SLIMEPERSON,
+		SPECIES_TAJARAN,
+		SPECIES_UNATHI,
+		SPECIES_VOX,
+		SPECIES_VULPKANIN
+		)
 	///Whether the limb type is available for selection via attack_self with a robolimb - see robo_parts Defaults to TRUE.
 	var/selectable = TRUE
 	///Does this iconset contain a head sprite with a screen? If TRUE, head sprite cannot use hair and instead uses ipc_face.
@@ -71,7 +87,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/rook/monitor
 	company = "Bishop Castle"
 	icon = 'icons/mob/human_races/cyberlimbs/bishop/bishop_monitor.dmi'
-	parts = list(BODY_ZONE_HEAD) 
+	parts = list(BODY_ZONE_HEAD)
 	has_subtypes = MODEL
 	is_monitor = TRUE
 	selectable = FALSE
