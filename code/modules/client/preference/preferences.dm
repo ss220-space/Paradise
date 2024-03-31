@@ -2073,7 +2073,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("ipcloadouts")
 					var/choice
 					var/datum/robolimb/R
-					var/robolimb_companies = list()
+					var/static/robolimb_companies = list()
 					var/rparts = list(BODY_ZONE_CHEST,
 						BODY_ZONE_PRECISE_GROIN,
 						BODY_ZONE_HEAD, BODY_ZONE_L_ARM,
@@ -2084,10 +2084,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						BODY_ZONE_PRECISE_R_FOOT,
 						BODY_ZONE_L_LEG,
 						BODY_ZONE_PRECISE_L_FOOT)
-					for(var/comp in typesof(/datum/robolimb))	//This loop populates a list of companies that shells
-						R = new comp()
-						if(!R.unavailable_at_chargen && R.has_subtypes && (species in R.species_allowed))	//Needs to be available at chargen and not a Monitor Model and species in species_allowed
-							robolimb_companies[R.company] = R
+					if(!length(robolimb_companies))
+						for(var/comp in typesof(/datum/robolimb))	//This loop populates a list of companies that shells
+							R = new comp()
+							if(!R.unavailable_at_chargen && R.has_subtypes && (species in R.species_allowed))	//Needs to be available at chargen and not a Monitor Model and species in species_allowed
+								robolimb_companies[R.company] = R
 					R = new() //Re-initialize R.
 					choice = tgui_input_list(user, "Which manufacturer model would you like to use?", "Character Preference",  robolimb_companies)
 					if(!choice)
