@@ -46,6 +46,7 @@
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
+	AddComponent(/datum/component/proximity_monitor/singulo, _radius = 6)
 
 /obj/machinery/computer/security/Destroy()
 	qdel(cam_screen)

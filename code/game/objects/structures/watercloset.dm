@@ -231,6 +231,10 @@
 	. = ..()
 	icon_state = "captain_toilet[open][cistern]"
 
+/obj/structure/toilet/captain_toilet/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor/singulo, _radius = 20)
+
 /obj/structure/urinal
 	name = "urinal"
 	desc = "The HU-452, an experimental urinal."

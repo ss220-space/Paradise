@@ -61,6 +61,8 @@
 	// assign a name
 	name = "Блюспейс разлом [pick(GLOB.greek_letters)] [pick(GLOB.greek_letters)] \Roman[rand(1,10)]"
 
+	AddComponent(/datum/component/proximity_monitor/singulo, _radius = 6)
+
 /obj/effect/abstract/bluespace_rift/Destroy()
 	GLOB.poi_list.Remove(src)
 	return ..()
@@ -88,7 +90,7 @@
 		// The actual step
 		forceMove(get_step_towards(src, target_loc))
 		next_step += time_till_next_step()
-		
+
 		if(is_target_reached())
 			change_direction()
 
@@ -97,7 +99,7 @@
 		scanner_overload_range = rand(min_scanner_overload_range, max_scanner_overload_range)
 		range_update_time = world.time + rand(min_range_update_interval, max_range_update_interval)
 
-/** Returns `TRUE` if the rift is close to a singularity or tesla, `FLASE` otherwise. 
+/** Returns `TRUE` if the rift is close to a singularity or tesla, `FLASE` otherwise.
 	Use this before doing anything destructive.
 */
 /obj/effect/abstract/bluespace_rift/proc/is_close_to_singularity(radius = 15)
@@ -175,7 +177,7 @@
 		if(player == target_loc)
 			continue
 		candidate_players += player
-	
+
 	if(!length(candidate_players))
 		return
 
