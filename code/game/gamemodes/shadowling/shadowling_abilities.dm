@@ -654,7 +654,7 @@
 	selection_activated_message		= "<span class='notice'>You start focusing your powers on mending wounds of allies. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	need_active_overlay = TRUE
-	var/ignore_prer = FALSE
+	var/ignore_prer = FALSE // whether the EMPOWERED_THRALL_LIMIT limit is ignored or not
 
 
 /obj/effect/proc_holder/spell/shadowling_revive_thrall/create_new_targeting()
@@ -891,7 +891,7 @@
 	target.gib()
 
 
-/obj/effect/proc_holder/spell/shadowling_revive_thrall/ascendent
+/obj/effect/proc_holder/spell/shadowling_revive_thrall/ascendant
 	name = "Black will"
 	desc = "Empower your faithful thrall or revives"
 	base_cooldown = 0
