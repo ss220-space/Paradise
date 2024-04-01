@@ -321,16 +321,14 @@
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
 
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return the parent value if processing does not explicitly stop
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
+/**
+ * Do species-specific reagent handling here
+ * Return 1 if it should do normal processing too
+ * Return the parent value if processing does not explicitly stop
+ * Return 0 if it shouldn't deplete and do its normal effect
+ * Other return values will cause weird badness
+ */
 /datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
-		H.reagents.del_reagent(R.id)
-		return FALSE
 	return TRUE
 
 // For special snowflake species effects
