@@ -236,7 +236,7 @@
 		for(var/mob/living/L in T)
 			L.adjust_fire_stacks(3)
 			L.IgniteMob()
-			L.adjust_bodytemperature(temp / 3)
+			L.adjust_bodytemperature((temp - L.bodytemperature) / 3)
 
 
 /proc/fireflash_s(atom/center, radius, temp, falloff)
@@ -300,7 +300,7 @@
 		for(var/mob/living/L in T)
 			L.adjust_fire_stacks(3)
 			L.IgniteMob()
-			L.adjust_bodytemperature((2 * L.bodytemperature + temp) / 3)
+			L.adjust_bodytemperature((2 * (temp - L.bodytemperature)) / 3)
 
 		if(T.density)
 			continue

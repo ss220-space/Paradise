@@ -1632,7 +1632,7 @@
 		fullpower_heal_done = TRUE
 
 		human_vampire.radiation = 0
-		human_vampire.set_bodytemperature(human_vampire.dna.species.body_temperature)
+		human_vampire.set_bodytemperature(human_vampire.dna ? human_vampire.dna.species.body_temperature : BODYTEMP_NORMAL)
 		human_vampire.surgeries.Cut()
 		human_vampire.SetDisgust(0)
 		human_vampire.SetSlowed(0)

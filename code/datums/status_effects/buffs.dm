@@ -288,7 +288,7 @@
 	owner.remove_CC()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.set_bodytemperature(H.dna.species.body_temperature)
+		H.set_bodytemperature(H.dna ? H.dna.species.body_temperature : BODYTEMP_NORMAL)
 		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
 			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 				bodypart.stop_internal_bleeding()
