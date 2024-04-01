@@ -1422,7 +1422,7 @@
 	result = /obj/item/reagent_containers/spray/cleaner/brig/empty
 	reqs = list(/obj/item/reagent_containers/spray = 1)
 	pathtools = list(/obj/item/toy/crayon/red = 1)
-	time = 15
+	time = 1.5 SECONDS
 	category = CAT_MISC
 
 /datum/crafting_recipe/chemical_cleaner
@@ -1430,7 +1430,7 @@
 	result = /obj/item/reagent_containers/spray/cleaner/chemical/empty
 	reqs = list(/obj/item/reagent_containers/spray = 1)
 	pathtools = list(/obj/item/toy/crayon/orange = 1)
-	time = 15
+	time = 1.5 SECONDS
 	category = CAT_MISC
 
 /datum/crafting_recipe/janitor_cleaner
@@ -1438,7 +1438,7 @@
 	result = /obj/item/reagent_containers/spray/cleaner/janitor/empty
 	reqs = list(/obj/item/reagent_containers/spray = 1)
 	pathtools = list(/obj/item/toy/crayon/purple = 1)
-	time = 15
+	time = 1.5 SECONDS
 	category = CAT_MISC
 
 /datum/crafting_recipe/medical_cleaner
@@ -1446,7 +1446,7 @@
 	result = /obj/item/reagent_containers/spray/cleaner/medical/empty
 	reqs = list(/obj/item/reagent_containers/spray = 1)
 	pathtools = list(/obj/item/toy/crayon/white = 1)
-	time = 15
+	time = 1.5 SECONDS
 	category = CAT_MISC
 
 /datum/crafting_recipe/pathcloak
