@@ -88,10 +88,7 @@
 				src = null
 				effect.attach(location)
 				effect.start()
-		if(sound)
-			spawn(-1)
-				src = null
-				playsound(location,sound,60,1)
+		playsound(location,'sound/effects/phasein.ogg',60,1)
 	return
 
 //do the monkey dance

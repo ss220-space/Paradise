@@ -989,7 +989,7 @@
 	strip_bubble_icon = "CMO"
 
 /obj/item/clothing/accessory/head_strip/hop
-	name = "Head of Personal's strip"
+	name = "Head of Personnel's strip"
 	desc = "Плотно сшитая круглая нашивка из синего бархата с красной окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся управление персоналом."
 	icon_state = "hopstrip"
 	item_state = "hopstrip"

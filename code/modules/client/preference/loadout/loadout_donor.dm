@@ -150,7 +150,7 @@
 	allowed_roles = list(JOB_TITLE_CMO)
 
 /datum/gear/donor/strip/hop
-	display_name = "strip, Head of Personal"
+	display_name = "strip, Head of Personnel"
 	path = /obj/item/clothing/accessory/head_strip/hop
 	donator_tier = 2
 	cost = 1

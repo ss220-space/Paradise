@@ -402,6 +402,7 @@
 /obj/item/radio/headset/all_channels // Its only feature is all channels.
 	ks1type = /obj/item/encryptionkey/admin
 
+/* Currently unusable due to language refactoring
 /obj/item/radio/headset/event_1
 	desc = "A headset linked to special long range alpha frequency in this sector."
 	icon_state = "headset"
@@ -428,6 +429,7 @@
 	requires_tcomms = FALSE
 	instant = TRUE
 	freqlock = TRUE
+*/
 
 /obj/item/radio/headset/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/encryptionkey))

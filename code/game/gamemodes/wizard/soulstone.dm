@@ -193,7 +193,7 @@
 									and the memories of your time as their servant with it.</span>")
 						to_chat(M, "<span class='danger'>Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
 					else
-						to_chat(M, "<span class='danger'>Your soulstone has been exorcised, and you are now bound to obey [user]. </span>")
+						to_chat(M, "<span class='danger'>Your soulstone has been exorcised, and you are now bound to obey [user].</span>")
 				if(istype(M, /mob/living/simple_animal/shade))
 					var/mob/living/simple_animal/shade/shade = M
 					shade.holy = TRUE
