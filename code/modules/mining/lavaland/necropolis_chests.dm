@@ -108,6 +108,7 @@
 			new /obj/item/spellbook/oneuse/goliath_dash(src)
 		if(32)
 			new /obj/item/spellbook/oneuse/watchers_look(src)
+
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
 
