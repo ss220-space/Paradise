@@ -154,8 +154,6 @@
 
 	user.clearmap()
 
-	user.mapobjs = list()
-
 
 	for(var/i=0; i<icount;i++)
 		var/obj/screen/H = new /obj/screen()
@@ -179,7 +177,7 @@
 		H.icon = HI
 		H.layer = ABOVE_HUD_LAYER
 		H.plane = ABOVE_HUD_PLANE
-		usr.mapobjs += H
+		LAZYADD(usr.mapobjs, H)
 #else
 
 	for(var/i = 0; i<icount; i++)
@@ -280,8 +278,6 @@
 
 	user.clearmap()
 
-	user.mapobjs = list()
-
 
 	for(var/i=0; i<icount;i++)
 		var/obj/screen/H = new /obj/screen()
@@ -298,11 +294,12 @@
 		qdel(I)
 		H.layer = 25
 		H.plane = HUD_PLANE
-		usr.mapobjs += H
+		LAZYADD(usr.mapobjs, H)
 
 #endif
 
-	user.client.screen += user.mapobjs
+	if(LAZYLEN(user.mapobjs))
+		user.client.screen += user.mapobjs
 
 	src.close(user)
 
@@ -341,10 +338,9 @@
 
 
 /mob/proc/clearmap()
-	src.client.screen -= src.mapobjs
-	for(var/obj/screen/O in mapobjs)
-		qdel(O)
+	if(LAZYLEN(mapobjs))
+		client.screen -= mapobjs
+		QDEL_LIST(mapobjs)
 
-	mapobjs = null
-	src.unset_machine()
+	unset_machine()
 

@@ -50,6 +50,17 @@
 			return FALSE
 	return TRUE
 
+
+/datum/dna/gene/basic/increaserun/activate(mob/living/M, connected, flags)
+	..()
+	M.ignore_slowdown(RUN)
+
+
+/datum/dna/gene/basic/increaserun/deactivate(mob/living/M, connected, flags)
+	..()
+	M.unignore_slowdown(RUN)
+
+
 /datum/dna/gene/basic/heat_resist
 	name = "Heat Resistance"
 	activation_messages = list("Your skin is icy to the touch.")

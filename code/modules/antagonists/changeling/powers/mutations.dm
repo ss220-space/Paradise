@@ -122,8 +122,8 @@
 	user.drop_item_ground(user.head)
 	user.drop_item_ground(user.wear_suit)
 
-	user.equip_to_slot_or_del(new suit_type(user), slot_wear_suit)
-	user.equip_to_slot_or_del(new helmet_type(user), slot_head)
+	user.equip_to_slot_or_del(new suit_type(user), SLOT_HUD_OUTER_SUIT)
+	user.equip_to_slot_or_del(new helmet_type(user), SLOT_HUD_HEAD)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
@@ -135,7 +135,7 @@
 \***************************************/
 /datum/action/changeling/weapon/arm_blade
 	name = "Arm Blade"
-	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
+	desc = "We reform one of our arms into a deadly blade. Costs 10 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
 	power_type = CHANGELING_PURCHASABLE_POWER

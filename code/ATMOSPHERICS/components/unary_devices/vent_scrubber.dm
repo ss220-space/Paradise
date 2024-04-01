@@ -38,6 +38,8 @@
 
 	connect_types = list(1,3) //connects to regular and scrubber pipes
 
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/vent_scrubber
+
 /obj/machinery/atmospherics/unary/vent_scrubber/on
 	on = TRUE
 	scrub_N2O = TRUE
@@ -60,9 +62,6 @@
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
-
-/obj/machinery/atmospherics/unary/vent_scrubber/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/vent_scrubber(src)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
 	. = ..()
@@ -376,7 +375,7 @@
 
 /obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE

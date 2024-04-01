@@ -234,7 +234,7 @@
 
 
 /obj/item/clothing/shoes/magboots/vox/item_action_slot_check(slot)
-	if(slot == slot_shoes)
+	if(slot == SLOT_HUD_SHOES)
 		return TRUE
 
 

@@ -17,7 +17,7 @@
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
 
-	slot_flags = SLOT_EARS
+	slot_flags = SLOT_FLAG_EARS
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/obj/item/encryptionkey/keyslot1 = null
@@ -402,6 +402,7 @@
 /obj/item/radio/headset/all_channels // Its only feature is all channels.
 	ks1type = /obj/item/encryptionkey/admin
 
+/* Currently unusable due to language refactoring
 /obj/item/radio/headset/event_1
 	desc = "A headset linked to special long range alpha frequency in this sector."
 	icon_state = "headset"
@@ -428,6 +429,7 @@
 	requires_tcomms = FALSE
 	instant = TRUE
 	freqlock = TRUE
+*/
 
 /obj/item/radio/headset/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/encryptionkey))

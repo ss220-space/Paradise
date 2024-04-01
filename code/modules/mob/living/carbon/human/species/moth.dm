@@ -81,6 +81,7 @@
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
+	H.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
 	H.verbs |= /mob/living/carbon/human/proc/emote_flap
 	H.verbs |= /mob/living/carbon/human/proc/emote_aflap
 	H.verbs |= /mob/living/carbon/human/proc/emote_flutter
@@ -95,6 +96,7 @@
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
+	H.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
 	H.verbs -= /mob/living/carbon/human/proc/emote_flap
 	H.verbs -= /mob/living/carbon/human/proc/emote_aflap
 	H.verbs -= /mob/living/carbon/human/proc/emote_flutter
@@ -135,9 +137,6 @@
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
 	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return TRUE
-
-/datum/species/moth/spec_movement_delay()
-	return FALSE
 
 /datum/species/moth/spec_WakeUp(mob/living/carbon/human/H)
 	if(H.has_status_effect(STATUS_EFFECT_COCOONED))

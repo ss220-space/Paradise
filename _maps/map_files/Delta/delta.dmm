@@ -23725,9 +23725,7 @@
 	pixel_y = -25;
 	specialfunctions = 4
 	},
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/machinery/anomalous_crystal/honk,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "cBJ" = (
@@ -68881,14 +68879,14 @@
 	},
 /area/maintenance/kitchen)
 "kqK" = (
-/obj/machinery/door/window{
-	req_access = list(63)
-	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/door/window{
+	req_access = list(20)
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
@@ -69665,20 +69663,20 @@
 	c_tag = "HoS Bedroom";
 	network = list("SS13","Security")
 	},
-/obj/item/ammo_box/speedloader/a357{
+/obj/item/ammo_box/magazine/toy/pistol{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/ammo_box/speedloader/a357{
+/obj/item/ammo_box/magazine/toy/pistol{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/ammo_box/speedloader/a357,
+/obj/item/ammo_box/magazine/toy/pistol,
 /obj/item/clothing/accessory/holster,
 /obj/structure/safe{
 	known_by = list("hos")
 	},
-/obj/item/gun/projectile/revolver/mateba,
+/obj/item/gun/projectile/automatic/toy/pistol/revolver,
 /turf/simulated/floor/wood,
 /area/security/hos)
 "kBu" = (
@@ -81115,7 +81113,7 @@
 /obj/item/toy/figure/captain,
 /obj/machinery/door/window{
 	dir = 1;
-	req_access = list(63)
+	req_access = list(20)
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)

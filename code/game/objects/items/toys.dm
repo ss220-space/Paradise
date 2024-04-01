@@ -252,7 +252,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -529,7 +529,7 @@
 	desc = "This baby looks almost real. Wait, did it just burp?"
 	force = 5
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 
 
 //This should really be somewhere else but I don't know where. w/e
@@ -540,7 +540,7 @@
 	icon_state = "inflatable"
 	item_state = "inflatable"
 	icon = 'icons/obj/clothing/belts.dmi'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 /*
  * Fake meteor
@@ -843,7 +843,7 @@
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
 	if(istype(B, /obj/item/reagent_containers/food/snacks/breadslice))
 		new /obj/item/reagent_containers/food/snacks/toast(get_turf(loc))
-		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
+		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
 	else
@@ -1627,7 +1627,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	hitsound = "swing_hit"
 	flags =  CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5

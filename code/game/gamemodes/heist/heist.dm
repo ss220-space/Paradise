@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	vox.age = rand(12,20)
 	vox.set_species(/datum/species/vox)
 	vox.s_tone = rand(1, 6)
-	vox.languages = list() // Removing language from chargen.
+	LAZYREINITLIST(vox.languages)	// Removing language from chargen.
 	vox.flavor_text = ""
 	vox.add_language(LANGUAGE_VOX)
 	vox.add_language(LANGUAGE_GALACTIC_COMMON)

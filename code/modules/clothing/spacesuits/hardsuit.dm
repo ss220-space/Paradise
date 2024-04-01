@@ -54,7 +54,7 @@
 	if(!suit)
 		qdel(src)
 		return FALSE
-	if(slot != slot_head || user.wear_suit != suit)
+	if(slot != SLOT_HUD_HEAD || user.wear_suit != suit)
 		user.drop_item_ground(src, force = TRUE, silent = TRUE)
 		return FALSE
 
@@ -63,7 +63,7 @@
 	. = ..(user, TRUE)
 	if(suit)
 		suit.RemoveHelmet(user)
-	else
+	else if(!QDELETED(src))
 		qdel(src)
 
 
@@ -87,7 +87,7 @@
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
-	if(slot == slot_head)
+	if(slot == SLOT_HUD_HEAD)
 		return TRUE
 
 
@@ -184,7 +184,7 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
-	if(slot == slot_wear_suit) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
+	if(slot == SLOT_HUD_OUTER_SUIT) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return TRUE
 
 
@@ -217,7 +217,7 @@
 	if(user.head)
 		to_chat(user, span_warning("You're already wearing something on your head!"))
 		return FALSE
-	if(!user.equip_to_slot(helmet, slot_head))
+	if(!user.equip_to_slot(helmet, SLOT_HUD_HEAD))
 		return FALSE
 	. = TRUE
 	suit_adjusted = TRUE
@@ -404,10 +404,10 @@
 	user?.update_head(src)
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
-	update_linked_hardsuit(user, toggle)
+	update_linked_hardsuit(toggle)
 
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/update_linked_hardsuit(mob/user, toggle = TRUE)
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/update_linked_hardsuit(toggle = TRUE)
 	if(!linkedsuit)
 		return
 
@@ -426,8 +426,7 @@
 		linkedsuit.armor.rad = combat_rad
 
 	linkedsuit.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
-	user?.update_inv_wear_suit()
-	user?.update_inv_w_uniform()
+	linkedsuit.update_equipped_item()
 
 
 /obj/item/clothing/suit/space/hardsuit/syndi
@@ -714,7 +713,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-	if(slot == slot_head)
+	if(slot == SLOT_HUD_HEAD)
 		GLOB.doppler_arrays += src //Needed to sense the kabooms
 
 

@@ -51,7 +51,7 @@
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
 
-	stat = DEAD
+	set_stat(DEAD)
 	..()
 
 	timeofdeath = world.time

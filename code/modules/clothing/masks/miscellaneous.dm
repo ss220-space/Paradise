@@ -297,7 +297,7 @@
 	pontificate(user)
 
 /obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
-	if(slot == slot_wear_mask)
+	if(slot == SLOT_HUD_WEAR_MASK)
 		return 1
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
@@ -518,8 +518,8 @@
 	desc = "A colorful bandana."
 	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_MASK
-	adjusted_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_MASK
+	adjusted_flags = SLOT_FLAG_HEAD
 	icon_state = "bandbotany"
 	dyeable = TRUE
 	can_toggle = TRUE
@@ -627,7 +627,7 @@
 	. = ..()
 
 	var/mob/living/carbon/human/H = user
-	if(istype(H) && slot == slot_wear_mask)
+	if(istype(H) && slot == SLOT_HUD_WEAR_MASK)
 		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
 		if(H.mind && H.mind.assigned_role != "Cluwne")
 			H.makeCluwne()

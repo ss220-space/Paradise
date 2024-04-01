@@ -538,7 +538,7 @@
 	item_state = "dress_parade"
 
 /obj/item/clothing/under/dress/dress_hop
-	name = "head of personal dress uniform"
+	name = "head of personnel dress uniform"
 	desc = "Feminine fashion for the style concious HoP."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
@@ -864,7 +864,7 @@
 /obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
-	if(slot == slot_w_uniform)
+	if(slot == SLOT_HUD_JUMPSUIT)
 		if(!user.ventcrawler)
 			user.ventcrawler = 1
 
@@ -876,8 +876,8 @@
 
 /obj/item/clothing/under/contortionist/proc/check_clothing(mob/user)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(slot_back, slot_handcuffed, slot_legcuffed, slot_l_hand, \
-										slot_r_hand, slot_belt, slot_head, slot_wear_suit)
+	var/list/slot_must_be_empty = list(SLOT_HUD_BACK, SLOT_HUD_HANDCUFFED, SLOT_HUD_LEGCUFFED, SLOT_HUD_LEFT_HAND, \
+										SLOT_HUD_RIGHT_HAND, SLOT_HUD_BELT, SLOT_HUD_HEAD, SLOT_HUD_OUTER_SUIT)
 
 	var/obj/item/slot_item
 	for(var/slot_id in slot_must_be_empty)

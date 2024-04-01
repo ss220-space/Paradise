@@ -94,6 +94,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("Standard airlock assembly", /obj/structure/door_assembly, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	null,
+	new /datum/stack_recipe("Button frame", /obj/item/mounted/frame/door_control, time = 50),
 	new /datum/stack_recipe("Mass driver button frame", /obj/item/mounted/frame/driver_button, time = 50, on_floor = TRUE),
 	new /datum/stack_recipe("Light switch frame", /obj/item/mounted/frame/light_switch, time = 50, on_floor = TRUE),
 	new /datum/stack_recipe("Light fixture frame", /obj/item/mounted/frame/light_fixture, 2),

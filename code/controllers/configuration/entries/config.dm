@@ -716,3 +716,5 @@
 	if(.)
 		GLOB.abandon_allowed = config_entry_value
 
+/datum/config_entry/number/jobs_high_pop_mode_amount
+	default = 80

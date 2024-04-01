@@ -873,7 +873,7 @@
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
 	else if(istype(O, /obj/item/storage/bag/plants))
-		attack_hand(user)
+		attempt_harvest(user)
 		var/obj/item/storage/bag/plants/S = O
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
@@ -946,9 +946,7 @@
 				user.visible_message("[user] unwrenches [src].", \
 									"<span class='notice'>You unwrench [src].</span>")
 
-/obj/machinery/hydroponics/attack_hand(mob/user)
-	if(issilicon(user)) //How does AI know what plant is?
-		return
+/obj/machinery/hydroponics/proc/attempt_harvest(mob/user)
 	if(lid_closed)
 		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
 		return
@@ -965,6 +963,12 @@
 		plant_hud_set_health()
 	else
 		examine(user)
+
+/obj/machinery/hydroponics/attack_hand(mob/user)
+	if(issilicon(user) && !istype(user.get_active_hand(), /obj/item/gripper))
+		return
+
+	attempt_harvest(user)
 
 /obj/machinery/hydroponics/proc/update_tray(mob/user = usr)
 	harvest = 0

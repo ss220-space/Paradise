@@ -384,7 +384,7 @@
 	if(on)
 		set_light(AI_CAMERA_LUMINOSITY, l_on = TRUE)
 	else
-		set_light_on(FALSE)
+		set_light(0)
 
 /obj/machinery/camera/proc/nano_structure()
 	var/cam[0]
@@ -432,3 +432,6 @@
 	if(GLOB.cameranet && get_turf(src) != prev_turf)
 		GLOB.cameranet.updatePortableCamera(src)
 		prev_turf = get_turf(src)
+
+/obj/machinery/camera/portable/triggerCameraAlarm() // AI camera doesnt trigger alarm
+	return

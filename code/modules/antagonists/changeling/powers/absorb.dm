@@ -66,14 +66,15 @@
 
 		//Some of target's recent speech, so the changeling can attempt to imitate them better.
 		//Recent as opposed to all because rounds tend to have a LOT of text.
-		var/list/recent_speech = list()
+		var/list/recent_speech
 
-		if(target.say_log.len > LING_ABSORB_RECENT_SPEECH)
-			recent_speech = target.say_log.Copy(target.say_log.len - LING_ABSORB_RECENT_SPEECH + 1, 0) //0 so len-LING_ARS+1 to end of list
-		else
+		var/say_log_len = LAZYLEN(target.say_log)
+		if(say_log_len > LING_ABSORB_RECENT_SPEECH)
+			recent_speech = target.say_log.Copy(say_log_len - LING_ABSORB_RECENT_SPEECH + 1, 0) //0 so len-LING_ARS+1 to end of list
+		else if(say_log_len)
 			recent_speech = target.say_log.Copy()
 
-		if(length(recent_speech))
+		if(recent_speech)
 			user.mind.store_memory("<B>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</B>")
 			to_chat(user, span_boldnotice("Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!"))
 			for(var/spoken_memory in recent_speech)

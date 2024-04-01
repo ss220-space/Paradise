@@ -78,7 +78,7 @@
 			if(M.lying)
 				return 1
 
-			if(M.flying)
+			if(M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 				return ..()
 
 			switch(src.wet)

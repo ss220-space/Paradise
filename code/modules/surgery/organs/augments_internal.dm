@@ -1,6 +1,6 @@
 /obj/item/organ/internal/cyberimp
 	name = "cybernetic implant"
-	desc = "a state-of-the-art implant that improves a baseline's functionality"
+	desc = "a state-of-the-art implant that improves a baseline's functionality."
 	status = ORGAN_ROBOT
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
@@ -22,7 +22,7 @@
 
 /obj/item/organ/internal/cyberimp/brain
 	name = "cybernetic brain implant"
-	desc = "injectors of extra sub-routines for the brain"
+	desc = "injectors of extra sub-routines for the brain."
 	icon_state = "brain_implant"
 	implant_overlay = "brain_implant_overlay"
 	parent_organ_zone = BODY_ZONE_HEAD
@@ -203,7 +203,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
 	name = "Hardened Neural Jumpstarter implant"
-	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant."
 	slot = INTERNAL_ORGAN_BRAIN_ANTISLEEP
 	emp_proof = TRUE
 
@@ -268,7 +268,7 @@
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
-	desc = "implants for the organs in your torso"
+	desc = "implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
 	parent_organ_zone = BODY_ZONE_CHEST

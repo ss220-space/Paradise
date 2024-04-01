@@ -11,7 +11,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK	//ERROOOOO
+	slot_flags = SLOT_FLAG_BACK	//ERROOOOO
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
@@ -75,7 +75,7 @@
 			if (user.mind.special_role || livingtime > 9000)
 				if(do_after(user, 30, target=src))
 					investigate_log("has become a singularity. Caused by [key_name_log(user)]", INVESTIGATE_ENGINE)
-					user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
+					user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing!</span>")
 					qdel(W)
 					var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
 					singulo.energy = 300 //To give it a small boost

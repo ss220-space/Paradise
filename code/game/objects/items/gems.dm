@@ -135,7 +135,7 @@
 	if(!hot)
 		. += "<span class='notice'>The diamond feels cold to the touch.</span>"
 	else
-		. += "<span class='notice'>The crystal is very hot to touch! It seems you can warm up you squeeze it</span>"
+		. += "<span class='notice'>The crystal is very hot to touch! It seems you can warm up if you squeeze it.</span>"
 
 /obj/item/gem/magma/attack_self(mob/user)
 	. = ..()

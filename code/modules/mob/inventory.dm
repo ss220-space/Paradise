@@ -67,12 +67,12 @@
 		return FALSE
 
 	var/priority_list = list( \
-		slot_back, slot_wear_pda, slot_wear_id, \
-		slot_w_uniform, slot_wear_suit, slot_wear_mask, \
-		slot_neck, slot_glasses, slot_l_ear, \
-		slot_r_ear, slot_head, slot_belt, \
-		slot_s_store, slot_tie, slot_gloves, \
-		slot_shoes, slot_l_store, slot_r_store \
+		SLOT_HUD_BACK, SLOT_HUD_WEAR_PDA, SLOT_HUD_WEAR_ID, \
+		SLOT_HUD_JUMPSUIT, SLOT_HUD_OUTER_SUIT, SLOT_HUD_WEAR_MASK, \
+		SLOT_HUD_NECK, SLOT_HUD_GLASSES, SLOT_HUD_LEFT_EAR, \
+		SLOT_HUD_RIGHT_EAR, SLOT_HUD_HEAD, SLOT_HUD_BELT, \
+		SLOT_HUD_SUIT_STORE, SLOT_HUD_TIE, SLOT_HUD_GLOVES, \
+		SLOT_HUD_SHOES, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE \
 	)
 
 	for(var/slot in priority_list)
@@ -318,11 +318,11 @@
 
 	if(hand_id == "HAND_LEFT")
 		l_hand = I
-		I.equipped(src, slot_l_hand, silent)
+		I.equipped(src, SLOT_HUD_LEFT_HAND, silent)
 		update_inv_l_hand()
 	else if(hand_id == "HAND_RIGHT")
 		r_hand = I
-		I.equipped(src, slot_r_hand, silent)
+		I.equipped(src, SLOT_HUD_RIGHT_HAND, silent)
 		update_inv_r_hand()
 
 	if(pulling == I)
@@ -608,7 +608,7 @@
  * and not actually wearing it in any REAL equipment slot.
  */
 /mob/proc/is_general_slot(slot)
-	return slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store, slot_handcuffed, slot_legcuffed)
+	return slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE, SLOT_HUD_HANDCUFFED, SLOT_HUD_LEGCUFFED)
 
 
 //Outdated but still in use apparently. This should at least be a human proc.
@@ -647,26 +647,26 @@
 
 /mob/proc/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return wear_mask
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return back
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return l_hand
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			return r_hand
 	return null
 
 
 /mob/proc/get_slot_by_item(item)
 	if(item == back)
-		return slot_back
+		return SLOT_HUD_BACK
 	if(item == wear_mask)
-		return slot_wear_mask
+		return SLOT_HUD_WEAR_MASK
 	if(item == l_hand)
-		return slot_l_hand
+		return SLOT_HUD_LEFT_HAND
 	if(item == r_hand)
-		return slot_r_hand
+		return SLOT_HUD_RIGHT_HAND
 	return null
 
 
@@ -679,3 +679,32 @@
 					return SI
 		else if(istype(I, path))
 			return I
+
+
+/mob/proc/update_equipment_speed_mods()
+	var/speedies = equipped_speed_mods()
+	if(speedies)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod, multiplicative_slowdown = speedies)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod)
+
+
+/// Gets the combined speed modification of all worn items
+/// Except base mob type doesnt really wear items
+/mob/proc/equipped_speed_mods()
+	. = 0
+	for(var/obj/item/thing in list(get_active_hand(), get_inactive_hand()))
+		if(thing && (thing.flags & HANDSLOW) && !thing.is_speedslimepotioned)
+			. += thing.slowdown
+
+
+/mob/proc/get_crutches()
+	. = 0
+	// Canes and crutches help you stand (if the latter is ever added)
+	// One cane mitigates a broken leg+foot, or a missing foot.
+	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
+	if(l_hand?.is_crutch())
+		. += 2
+	if(r_hand?.is_crutch())
+		. += 2
+

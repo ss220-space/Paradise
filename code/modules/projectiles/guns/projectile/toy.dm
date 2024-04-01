@@ -44,6 +44,14 @@
 	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
 	. = ..()
 
+/obj/item/gun/projectile/automatic/toy/pistol/revolver
+	name = "\improper Unica 69 auto-revolver"
+	desc = "A retro high-powered autorevolver typically used by officers of the New Russia clowns. Wait a minute... Is that a magazine in the revolver?!"
+	icon_state = "mateba"
+	icon = 'icons/obj/weapons/projectile.dmi'
+
+/obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
+	return
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
 	name = "foam enforcer"
@@ -83,7 +91,7 @@
 	item_state = "crossbow"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	fire_sound = 'sound/items/syringeproj.ogg'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/gun/projectile/automatic/c20r/toy

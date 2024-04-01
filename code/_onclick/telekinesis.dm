@@ -90,7 +90,7 @@
 //stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot)
 	SHOULD_CALL_PARENT(FALSE)
-	if((slot == slot_l_hand) || (slot== slot_r_hand))
+	if((slot == SLOT_HUD_LEFT_HAND) || (slot== SLOT_HUD_RIGHT_HAND))
 		return
 	qdel(src)
 

@@ -98,7 +98,7 @@
 			to_chat(user, span_warning("You can't trigger [src] with that emote [intentional_cause ? "intentionally" : "unintentionally"]! Try *help to see emotes you can use."))
 		return FALSE
 
-	LAZYADDOR(trigger_emotes, emote_key)
+	LAZYOR(trigger_emotes, emote_key)
 	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), PROC_REF(on_emote))
 
 

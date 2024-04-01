@@ -50,7 +50,7 @@
 
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
-	if(slot == slot_l_ear || slot == slot_r_ear)
+	if(slot == SLOT_HUD_LEFT_EAR || slot == SLOT_HUD_RIGHT_EAR)
 		return TRUE
 
 

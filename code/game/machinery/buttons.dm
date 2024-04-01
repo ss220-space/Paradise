@@ -20,8 +20,7 @@
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to, so you don't have to unlink from doors and stuff
 	var/logic_connect = 0							//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
 
-/obj/machinery/button/indestructible
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	multitool_menu_type = /datum/multitool_menu/idtag/driver_button
 
 /obj/machinery/driver_button/New(turf/loc, var/w_dir=null)
 	..()
@@ -40,9 +39,6 @@
 /obj/machinery/driver_button/Initialize()
 	..()
 	set_frequency(frequency)
-
-/obj/machinery/driver_button/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/driver_button(src)
 
 /obj/machinery/driver_button/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -70,7 +66,7 @@
 
 /obj/machinery/driver_button/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
 	. = TRUE

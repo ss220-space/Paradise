@@ -7,8 +7,8 @@
 
 	invisibility = INVISIBILITY_ABSTRACT
 
-	density = 0
-	stat = 2
+	density = FALSE
+	stat = DEAD
 	canmove = FALSE
 
 /mob/new_player/Initialize(mapload)
@@ -46,19 +46,26 @@
 	var/real_name = client.prefs.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
-	var/output = {"<meta charset="UTF-8"><center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"}
+
+	var/list/output = list({"<meta charset="UTF-8"><center>"})
+
+	if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+		output += "<p><a href='byond://?src=[UID()];connect_discord=1'>Привязка Discord</A></p>"
+
+	output += "<p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+		if(!ready)
+			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+		else
+			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
 
 	var/list/antags = client.prefs.be_special
-	if(antags && antags.len)
-		if(!client.prefs?.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
-		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
+	if(length(antags))
+		output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b><font color=[client.prefs?.skip_antag ? "#dd311b" : "#63eb6a"]>[client.prefs?.skip_antag ? "ineligible" : "eligible"]</font></b> for all antag roles.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
@@ -73,7 +80,7 @@
 
 	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 330)
 	popup.set_window_options("can_close=0")
-	popup.set_content(output)
+	popup.set_content(output.Join(""))
 	popup.open(0)
 	return
 
@@ -265,6 +272,9 @@
 
 	if(href_list["manifest"])
 		ViewManifest()
+
+	if(href_list["connect_discord"])
+		client?.link_discord_account()
 
 	if(href_list["SelectedJob"])
 

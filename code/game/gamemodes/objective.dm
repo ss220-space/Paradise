@@ -891,11 +891,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/proc/give_kit(obj/item/item_path)
 	var/item = new item_path
 	var/list/slots = list(
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
+		"backpack" = SLOT_HUD_IN_BACKPACK,
+		"left pocket" = SLOT_HUD_LEFT_STORE,
+		"right pocket" = SLOT_HUD_RIGHT_STORE,
+		"left hand" = SLOT_HUD_LEFT_HAND,
+		"right hand" = SLOT_HUD_RIGHT_HAND,
 	)
 
 	for(var/datum/mind/player in get_owners())
@@ -1138,11 +1138,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/blood/check_completion()
 	for(var/datum/mind/player in get_owners())
 		var/datum/antagonist/vampire/vampire = player.has_antag_datum(/datum/antagonist/vampire)
-		if(vampire.bloodtotal >= target_amount)
+		if(vampire && (vampire.bloodtotal >= target_amount))
 			return TRUE
 
 		var/datum/antagonist/goon_vampire/g_vampire = player.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vampire.bloodtotal >= target_amount)
+		if(g_vampire && (g_vampire.bloodtotal >= target_amount))
 			return TRUE
 
 		return FALSE
@@ -1449,7 +1449,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/mob/ninja = owner.current
 	var/obj/item/grenade/plastic/c4/ninja/bomb_item = new(ninja)
 	bomb_item.detonation_objective = src
-	ninja.equip_or_collect(bomb_item, slot_l_store)
+	ninja.equip_or_collect(bomb_item, SLOT_HUD_LEFT_STORE)
 
 
 /datum/objective/get_money

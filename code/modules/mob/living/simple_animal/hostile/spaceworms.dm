@@ -51,6 +51,12 @@
 	var/atom/currentlyEating //what the worm is currently eating
 	var/plasmaPoopPotential = 5 //this mainly exists for the name
 
+
+/mob/living/simple_animal/hostile/spaceWorm/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+
+
 /mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(var/check_drift = 0)
 	return 1 //space worms can flyyyyyy
 
@@ -329,11 +335,6 @@
 		for(var/atom/movable/stomachContent in contents)
 			contents -= stomachContent
 			stomachContent.loc = T
-
-
-//Looks weird otherwise.
-/mob/living/simple_animal/hostile/spaceWorm/float(on)
-	return
 
 
 //Jiggle the whole worm forwards towards the next segment

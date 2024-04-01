@@ -243,14 +243,13 @@
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
-	else if(slot == slot_wear_suit)
-		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
+	else if(slot == SLOT_HUD_OUTER_SUIT)
+		user.add_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user, silent = FALSE)
 	. = ..()
-	if(user)
-		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
+	user?.remove_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 
 
 /obj/item/clothing/head/hooded/flagellant_hood
@@ -569,7 +568,7 @@
 		var/mob/living/simple_animal/hostile/illusion/escape/cult/E = new(user.loc)
 		E.Copy_Parent(user, 70, 10)
 		E.GiveTarget(user)
-		E.Goto(user, E.move_to_delay, E.minimum_distance)
+		E.Goto(user, user.cached_multiplicative_slowdown, E.minimum_distance)
 
 /obj/item/shield/mirror/proc/readd()
 	if(illusions < initial(illusions))

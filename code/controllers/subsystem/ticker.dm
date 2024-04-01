@@ -249,7 +249,6 @@ SUBSYSTEM_DEF(ticker)
 
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes
-	SSjobs.DivideOccupations() //Distribute jobs
 	if(!can_continue)
 		QDEL_NULL(mode)
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
@@ -258,6 +257,17 @@ SUBSYSTEM_DEF(ticker)
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return FALSE
+
+	// Enable highpop slots just before we distribute jobs.
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = CONFIG_GET(number/jobs_high_pop_mode_amount)
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+		SSjobs.ApplyHighpopConfig()
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
 		var/list/modes = new
@@ -350,16 +360,6 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
 			N.new_player_panel_proc()
-
-	// Now that every other piece of the round has initialized, lets setup player job scaling
-	var/playercount = length(GLOB.clients)
-	var/highpop_trigger = 80
-
-	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
-		SSjobs.ApplyHighpopConfig()
-	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
 	#ifdef UNIT_TESTS
 	// Run map tests first in case unit tests futz with map state
@@ -661,4 +661,3 @@ SUBSYSTEM_DEF(ticker)
 	message_admins(log_text.Join("<br>"))
 
 	flagged_antag_rollers.Cut()
-

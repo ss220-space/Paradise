@@ -74,11 +74,11 @@
 
 
 /mob/living/carbon/proc/update_hands_HUD()
-	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
+	if(hud_used && hud_used.inv_slots[SLOT_HUD_LEFT_HAND] && hud_used.inv_slots[SLOT_HUD_RIGHT_HAND])
 		var/obj/screen/inventory/hand/hand
-		hand = hud_used.inv_slots[slot_l_hand]
+		hand = hud_used.inv_slots[SLOT_HUD_LEFT_HAND]
 		hand.update_icon(UPDATE_OVERLAYS)
-		hand = hud_used.inv_slots[slot_r_hand]
+		hand = hud_used.inv_slots[SLOT_HUD_RIGHT_HAND]
 		hand.update_icon(UPDATE_OVERLAYS)
 
 
@@ -150,11 +150,11 @@
 		qdel(new_value)
 		return
 
-	if(handcuffed || handcuffed == new_value || !has_organ_for_slot(slot_handcuffed))
+	if(handcuffed || handcuffed == new_value || !has_organ_for_slot(SLOT_HUD_HANDCUFFED))
 		drop_item_ground(new_value)
 		return
 
-	equip_to_slot(new_value, slot_handcuffed)
+	equip_to_slot(new_value, SLOT_HUD_HANDCUFFED)
 	. = TRUE
 
 
@@ -174,14 +174,14 @@
 		qdel(legcuffs)
 		return
 
-	if(legcuffed || legcuffed == legcuffs || !has_organ_for_slot(slot_legcuffed))
+	if(legcuffed || legcuffed == legcuffs || !has_organ_for_slot(SLOT_HUD_LEGCUFFED))
 		if(qdel_if_cuffed)
 			qdel(legcuffs)
 		else
 			drop_item_ground(legcuffs)
 		return
 
-	equip_to_slot(legcuffs, slot_legcuffed)
+	equip_to_slot(legcuffs, SLOT_HUD_LEGCUFFED)
 	. = TRUE
 
 
@@ -223,19 +223,19 @@
 	user.set_machine(src)
 
 	var/dat = {"<meta charset="UTF-8"><table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_BACK]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
 	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/tank))
-		dat += "&nbsp;<A href='?src=[UID()];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+		dat += "&nbsp;<A href='?src=[UID()];internal=[SLOT_HUD_BACK]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_HEAD]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_MASK]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
@@ -245,9 +245,9 @@
 		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
 	if(handcuffed)
-		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
+		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[SLOT_HUD_HANDCUFFED]'>Remove</A></td></tr>"
 	if(legcuffed)
-		dat += "<tr><td><A href='?src=[UID()];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
+		dat += "<tr><td><A href='?src=[UID()];item=[SLOT_HUD_LEGCUFFED]'>Legcuffed</A></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -426,38 +426,38 @@
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return back
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return wear_mask
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			return wear_suit
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return l_hand
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			return r_hand
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return handcuffed
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return legcuffed
 	return null
 
 
 /mob/living/carbon/get_slot_by_item(item)
 	if(item == back)
-		return slot_back
+		return SLOT_HUD_BACK
 	if(item == wear_mask)
-		return slot_wear_mask
+		return SLOT_HUD_WEAR_MASK
 	if(item == wear_suit)
-		return slot_wear_suit
+		return SLOT_HUD_OUTER_SUIT
 	if(item == l_hand)
-		return slot_l_hand
+		return SLOT_HUD_LEFT_HAND
 	if(item == r_hand)
-		return slot_r_hand
+		return SLOT_HUD_RIGHT_HAND
 	if(item == handcuffed)
-		return slot_handcuffed
+		return SLOT_HUD_HANDCUFFED
 	if(item == legcuffed)
-		return slot_legcuffed
+		return SLOT_HUD_LEGCUFFED
 	return null
 
 

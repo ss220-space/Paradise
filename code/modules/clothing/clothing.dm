@@ -133,7 +133,7 @@
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
-	slot_flags = SLOT_EARS
+	slot_flags = SLOT_FLAG_EARS
 	resistance_flags = NONE
 
 	sprite_sheets = list(
@@ -153,7 +153,7 @@
 	icon = 'icons/obj/clothing/glasses.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
-	slot_flags = SLOT_EYES
+	slot_flags = SLOT_FLAG_EYES
 	materials = list(MAT_GLASS = 250)
 	equip_sound = 'sound/items/handling/generic_equip4.ogg'
 	var/vision_flags = 0
@@ -226,7 +226,7 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
-	slot_flags = SLOT_GLOVES
+	slot_flags = SLOT_FLAG_GLOVES
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
@@ -271,11 +271,10 @@ BLIND     // can't see anything
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
 	if(user.stat || user.restrained())
 		return
-	if(length(user.grabbed_by))
-		for(var/obj/item/grab/grabbed in user.grabbed_by)
-			if(grabbed.state >= GRAB_NECK)
-				to_chat(user, "You can't reach the controls.")
-				return
+	for(var/obj/item/grab/grabbed in user.grabbed_by)
+		if(grabbed.state >= GRAB_NECK)
+			to_chat(user, "You can't reach the controls.")
+			return
 	if(has_sensor >= 2)
 		to_chat(user, "The controls are locked.")
 		return
@@ -349,7 +348,7 @@ BLIND     // can't see anything
 	name = "head"
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
 
@@ -416,7 +415,7 @@ BLIND     // can't see anything
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_MASK
+	slot_flags = SLOT_FLAG_MASK
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
@@ -494,7 +493,7 @@ BLIND     // can't see anything
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
 	body_parts_covered = FEET
-	slot_flags = SLOT_FEET
+	slot_flags = SLOT_FLAG_FEET
 	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
 	drop_sound = 'sound/items/handling/shoes_drop.ogg'
 
@@ -578,7 +577,7 @@ BLIND     // can't see anything
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
-	slot_flags = SLOT_OCLOTHING
+	slot_flags = SLOT_FLAG_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/suit_adjusted = FALSE
 	var/ignore_suitadjust = TRUE
@@ -654,7 +653,7 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot, initial) //Handle tail-hiding on a by-species basis.
 	. = ..()
 
-	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
+	if(ishuman(user) && hide_tail_by_species && slot == SLOT_HUD_OUTER_SUIT)
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
@@ -739,7 +738,7 @@ BLIND     // can't see anything
 	if(!jetpack)
 		to_chat(user, span_warning("[src] has no jetpack installed."))
 		return
-	if(src == user.get_item_by_slot(slot_wear_suit))
+	if(src == user.get_item_by_slot(SLOT_HUD_OUTER_SUIT))
 		to_chat(user, span_warning("You cannot remove the jetpack from [src] while wearing it."))
 		return
 	jetpack.turn_off(user)
@@ -750,7 +749,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/suit/space/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(jetpack && slot == slot_wear_suit)
+	if(jetpack && slot == SLOT_HUD_OUTER_SUIT)
 		for(var/datum/action/action as anything in jetpack.actions)
 			action.Grant(user)
 
@@ -767,7 +766,7 @@ BLIND     // can't see anything
 		if(jetpack)
 			to_chat(user, span_warning("[src] already has a jetpack installed."))
 			return
-		if(src == user.get_item_by_slot(slot_wear_suit)) //Make sure the player is not wearing the suit before applying the upgrade.
+		if(src == user.get_item_by_slot(SLOT_HUD_OUTER_SUIT)) //Make sure the player is not wearing the suit before applying the upgrade.
 			to_chat(user, span_warning("You cannot install the upgrade to [src] while wearing it."))
 			return
 
@@ -784,7 +783,7 @@ BLIND     // can't see anything
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
-	slot_flags = SLOT_ICLOTHING
+	slot_flags = SLOT_FLAG_ICLOTHING
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
@@ -837,7 +836,7 @@ BLIND     // can't see anything
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_w_uniform) == src)
+	if(H.get_item_by_slot(SLOT_HUD_JUMPSUIT) == src)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_unequip()
 
@@ -846,7 +845,7 @@ BLIND     // can't see anything
 
 	if(!ishuman(user))
 		return
-	if(slot == slot_w_uniform)
+	if(slot == SLOT_HUD_JUMPSUIT)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_equip()
 
@@ -992,7 +991,7 @@ BLIND     // can't see anything
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
-	slot_flags = SLOT_NECK
+	slot_flags = SLOT_FLAG_NECK
 
 	sprite_sheets = list(
 		"Monkey" = 'icons/mob/clothing/species/monkey/neck.dmi',

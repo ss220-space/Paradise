@@ -526,7 +526,7 @@
 			to_chat(user, span_warning("You have deadchat muted."))
 			return FALSE
 		if(!check_rights(R_ADMIN, FALSE, user) && !CONFIG_GET(flag/dsay_allowed))
-			to_chat(user, span_warning("Deadchat is globally muted"))
+			to_chat(user, span_warning("Deadchat is globally muted."))
 			return FALSE
 
 
