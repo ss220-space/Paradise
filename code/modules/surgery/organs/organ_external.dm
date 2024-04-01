@@ -220,10 +220,12 @@
 	switch(limb_zone)
 		if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			organ_owner.set_num_legs(organ_owner.num_legs - 1)
-			organ_owner.set_usable_legs(organ_owner.usable_legs - 1)
+			if(is_usable())
+				organ_owner.set_usable_legs(organ_owner.usable_legs - 1)
 		if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 			organ_owner.set_num_hands(organ_owner.num_hands - 1)
-			organ_owner.set_usable_hands(organ_owner.usable_hands - 1)
+			if(is_usable())
+				organ_owner.set_usable_hands(organ_owner.usable_hands - 1)
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged && !special)
