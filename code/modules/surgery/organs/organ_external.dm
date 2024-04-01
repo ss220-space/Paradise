@@ -220,10 +220,12 @@
 	switch(limb_zone)
 		if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			organ_owner.set_num_legs(organ_owner.num_legs - 1)
-			organ_owner.set_usable_legs(organ_owner.usable_legs - 1)
+			if(is_usable())
+				organ_owner.set_usable_legs(organ_owner.usable_legs - 1)
 		if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 			organ_owner.set_num_hands(organ_owner.num_hands - 1)
-			organ_owner.set_usable_hands(organ_owner.usable_hands - 1)
+			if(is_usable())
+				organ_owner.set_usable_hands(organ_owner.usable_hands - 1)
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged && !special)
@@ -967,14 +969,16 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/necrotize(silent = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return FALSE
+	var/prev_usable = is_usable()
 	status |= ORGAN_DEAD
 	if(dead_icon)
 		icon_state = dead_icon
 	if(owner)
-		update_usable_status()
+		owner.update_body()
+		if(prev_usable != is_usable())
+			update_usable_status(make_usable = FALSE)
 		if(!silent)
 			to_chat(owner, span_notice("You can't feel your [name] anymore..."))
-		owner.update_body()
 		if(vital)
 			owner.death()
 	return TRUE
@@ -983,40 +987,44 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/unnecrotize()
 	if(!is_dead())
 		return FALSE
+	var/prev_usable = is_usable()
 	status &= ~ORGAN_DEAD
 	if(owner)
-		update_usable_status()
 		owner.update_body()
+		if(prev_usable != is_usable())
+			update_usable_status(make_usable = TRUE)
 	return TRUE
 
 
-/obj/item/organ/external/proc/mutate(silent = FALSE, update_body = TRUE)
+/obj/item/organ/external/proc/mutate(silent = FALSE)
 	if(owner?.status_flags & GODMODE)
 		return FALSE
 	if(is_robotic())
 		return FALSE
 	if(is_mutated())
 		return FALSE
+	var/prev_usable = is_usable()
 	status |= ORGAN_MUTATED
 	if(owner)
-		update_usable_status()
-		if(update_body)
-			owner.update_body(TRUE) //Forces all bodyparts to update in order to correctly render the deformed sprite.
+		owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly render the deformed sprite.
+		if(prev_usable != is_usable())
+			update_usable_status(make_usable = FALSE)
 		if(!silent)
 			to_chat(owner, span_warning("Something is not right with your [name]..."))
 	return TRUE
 
 
-/obj/item/organ/external/proc/unmutate(silent = FALSE, update_body = TRUE)
+/obj/item/organ/external/proc/unmutate(silent = FALSE)
 	if(!is_mutated())
 		return FALSE
 	if(is_robotic())
 		return FALSE
+	var/prev_usable = is_usable()
 	status &= ~ORGAN_MUTATED
 	if(owner)
-		update_usable_status()
-		if(update_body)
-			owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly return them to normal.
+		owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly return them to normal.
+		if(prev_usable != is_usable())
+			update_usable_status(make_usable = TRUE)
 		if(!silent)
 			to_chat(owner, span_warning("Your [name] is shaped normally again."))
 	return TRUE
@@ -1042,11 +1050,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 
-/obj/item/organ/external/proc/update_usable_status()
-	if(!owner)
-		return
-
-	if(is_usable())
+/obj/item/organ/external/proc/update_usable_status(make_usable)
+	if(make_usable)
 		switch(limb_zone)
 			if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 				owner.set_usable_legs(owner.usable_legs + 1)
