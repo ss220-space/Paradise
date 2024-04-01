@@ -306,7 +306,7 @@
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID</span>")
+		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID.</span>")
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()

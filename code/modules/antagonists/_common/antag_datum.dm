@@ -421,13 +421,13 @@ GLOBAL_LIST_EMPTY(antagonists)
 			report  += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 		else
 			objectives_complete = FALSE
-			report  += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			report  += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='green'>Fail.</span>"
 		count++
 
 	if(!length(objectives) || objectives_complete)
 		report += "<span class='greentext big'>The [name] was successful!</span>"
 	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+		report += "<span class='green'>The [name] has failed!</span>"
 
 	return report.Join("<br>")
 

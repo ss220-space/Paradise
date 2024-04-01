@@ -1,0 +1,24 @@
+'2024-04-01':
+  ArtemDerp:
+  - del: old weird language keys are back (#4766)
+  Den109G:
+  - bugfix: a few typos (#4763)
+  Etrnlmelancholy:
+  - bugfix: you CAN wear lily and geranium on your head (#4757)
+  Ksaikok46:
+  - bugfix: armblade description correct cost (#4743)
+  - bugfix: fireblossom growing sprite (#4744)
+  ROdenFL:
+  - add: '[April Fools] clown supremacy (#4759)'
+  Rerik007:
+  - bugfix: now the exotic blood is handled just like the regular one (#4734)
+  SAAD:
+  - bugfix: Delta captain's glass door (#4707)
+  Vladisvell:
+  - add: '[April Fools] Light now randomizes every round (#4749)'
+  - add: '[April Fools] Vodka Absolut, part Ы (#4753)'
+  - bugfix: Allowed robots interactions with chem dispensers. (#4764)
+  aeternaclose:
+  - bugfix: Cere Mass_driver pipe fix (#4765)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4723)

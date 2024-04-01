@@ -300,19 +300,19 @@
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = FALSE				// We'll allow them to respawn
-				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD </span>")
+				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD.</span>")
 
 		CONFIG_SET(flag/allow_antag_hud, FALSE)
-		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled</span>")
+		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled.</span>")
 		action = "disabled"
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
-				to_chat(g, "<span class='boldnotice'>The Administrator has enabled AntagHUD </span>")// Notify all observers they can now use AntagHUD
+				to_chat(g, "<span class='boldnotice'>The Administrator has enabled AntagHUD.</span>")// Notify all observers they can now use AntagHUD
 
 		CONFIG_SET(flag/allow_antag_hud, TRUE)
 		action = "enabled"
-		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled</span>")
+		to_chat(src, "<span class='boldnotice'>AntagHUD usage has been enabled.</span>")
 
 
 	log_and_message_admins("has [action] antagHUD usage for observers")
@@ -328,19 +328,19 @@
 	var/action=""
 	if(CONFIG_GET(flag/antag_hud_restricted))
 		for(var/mob/dead/observer/g in get_ghosts())
-			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD</span>")
+			to_chat(g, "<span class='boldnotice'>The administrator has lifted restrictions on joining the round if you use AntagHUD.</span>")
 		action = "lifted restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, FALSE)
-		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted</span>")
+		to_chat(src, "<span class='boldnotice'>AntagHUD restrictions have been lifted.</span>")
 	else
 		for(var/mob/dead/observer/g in get_ghosts())
-			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD</span>")
-			to_chat(g, "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions </span>")
+			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD.</span>")
+			to_chat(g, "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions.</span>")
 			g.antagHUD = FALSE
 			g.has_enabled_antagHUD = FALSE
 		action = "placed restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, TRUE)
-		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled</span>")
+		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled.</span>")
 
 	log_and_message_admins("has [action] on joining the round if they use AntagHUD")
 

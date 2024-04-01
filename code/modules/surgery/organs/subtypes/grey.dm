@@ -1,7 +1,7 @@
 /obj/item/organ/internal/liver/grey
 	species_type = /datum/species/grey
 	name = "grey liver"
-	desc = "A small, odd looking liver"
+	desc = "A small, odd looking liver."
 	icon = 'icons/obj/species_organs/grey.dmi'
 	alcohol_intensity = 1.6
 
@@ -24,7 +24,7 @@
 /obj/item/organ/internal/eyes/grey
 	species_type = /datum/species/grey
 	name = "grey eyeballs"
-	desc = "They still look creepy and emotionless"
+	desc = "They still look creepy and emotionless."
 	icon = 'icons/obj/species_organs/grey.dmi'
 	see_in_dark = 5
 
