@@ -1,9 +1,9 @@
 /obj/item/clothing/head/helmet
 	name = "helmet"
 	desc = "Standard Security gear. Protects the head from impacts."
-	icon_state = "helmetmaterials"
+	icon_state = "streetjudge_helmet" //icon_state = "helmetmaterials"
 	w_class = WEIGHT_CLASS_NORMAL
-	flags = HEADBANGPROTECT
+	flags = HEADBANGPROTECT|BLOCKHEADHAIR
 	flags_cover = HEADCOVERSEYES
 	item_state = "helmetmaterials"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
@@ -25,7 +25,7 @@
 		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
 		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
 		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		//"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
 
 

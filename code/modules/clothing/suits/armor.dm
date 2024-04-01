@@ -46,7 +46,7 @@
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
-	sprite_sheets = list(
+	/*sprite_sheets = list(
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -55,9 +55,13 @@
 		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
 		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
-	icon_state = "armor"
+	icon_state = "armor"*/
+	icon_state = "streetjudgearmor"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		)
 	item_state = "armor"
-	var/obj/item/clothing/accessory/holobadge/attached_badge
+/*	var/obj/item/clothing/accessory/holobadge/attached_badge
 
 
 /obj/item/clothing/suit/armor/vest/security/update_icon_state()
@@ -98,7 +102,7 @@
 		to_chat(user, span_notice("You remove [attached_badge] from [src]."))
 		return
 	..()
-
+*/
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
