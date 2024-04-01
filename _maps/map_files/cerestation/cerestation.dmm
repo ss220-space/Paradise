@@ -13278,10 +13278,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -38328,7 +38324,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -52081,9 +52076,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -54035,10 +54027,6 @@
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -61788,9 +61776,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -63010,10 +62995,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -64748,9 +64729,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/disposalpipe/junction{
+/obj/structure/disposalpipe/segment{
 	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -73517,9 +73498,6 @@
 	name = "Toxins Launch Room";
 	req_access = list(7)
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -81124,9 +81102,6 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -83230,6 +83205,9 @@
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter";
 	opacity = 0
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/toxins/launch)
@@ -95836,7 +95814,9 @@
 "xTT" = (
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
 "xTW" = (
