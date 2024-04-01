@@ -8,21 +8,21 @@
 	dyeable = TRUE
 	item_color = "classic"
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/neck.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/neck.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/neck.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/neck.dmi',
-		"Draconid" =  'icons/mob/clothing/species/unathi/neck.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
-		"Wryn" = 'icons/mob/clothing/species/wryn/neck.dmi'
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/neck.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/neck.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/neck.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/neck.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/neck.dmi',
+		SPECIES_DRACONOID =  'icons/mob/clothing/species/unathi/neck.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
 	)
 
 /obj/item/clothing/neck/poncho/update_icon_state()
