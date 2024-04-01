@@ -10,6 +10,8 @@
 	0 1 2 3 4 5 6 7 8 9
 	% ? ^
 
+	Also don't forget about code/__DEFINES/language.dm
+
 	CAUTION! The key must not repeat the key of the radio channel
 	and must not contain prohibited characters
 */
