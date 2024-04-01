@@ -1512,3 +1512,44 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
 		return TRUE
 	return FALSE
+
+/**
+  * Sets the mob's direction lock towards a given atom.
+  *
+  * Arguments:
+  * * a - The atom to face towards.
+  * * track - If TRUE, updates our direction relative to the atom when moving.
+  */
+/mob/living/proc/set_forced_look(atom/A, track = FALSE)
+	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
+	add_movespeed_modifier(/datum/movespeed_modifier/forced_look)
+	to_chat(src, span_userdanger("You are now facing [track ? A : dir2text(forced_look)]. To cancel this, shift-middleclick yourself."))
+	throw_alert("direction_lock", /obj/screen/alert/direction_lock)
+
+/**
+  * Clears the mob's direction lock if enabled.
+  *
+  * Arguments:
+  * * quiet - Whether to display a chat message.
+  */
+/mob/living/proc/clear_forced_look(quiet = FALSE)
+	if(!forced_look)
+		return
+	forced_look = null
+	remove_movespeed_modifier(/datum/movespeed_modifier/forced_look)
+	if(!quiet)
+		to_chat(src, span_notice("Cancelled direction lock."))
+	clear_alert("direction_lock")
+
+/mob/living/setDir(new_dir)
+	var/old_dir = dir
+	if(forced_look)
+		if(isnum(forced_look))
+			dir = forced_look
+		else
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				dir = get_cardinal_dir(src, A)
+		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
+		return
+	return ..()

@@ -85,4 +85,6 @@
 
 	///what multiplicative slowdown we get from turfs currently.
 	var/current_turf_slowdown = 0
+	/// This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
+	var/forced_look = null
 
