@@ -1085,6 +1085,18 @@
 	icon_state = "booksacredflame"
 	desc = "Become one with the flames that burn within... and invite others to do so as well."
 
+/obj/item/spellbook/oneuse/goliath_dash
+	spell = /obj/effect/proc_holder/spell/goliath_dash
+	spellname = "goliath dash"
+	icon_state = "bookgoliathdash"
+	desc = "Dash like a goliath!"
+
+/obj/item/spellbook/oneuse/watchers_look
+	spell = /obj/effect/proc_holder/spell/watchers_look
+	spellname = "watcher's look"
+	icon_state = "bookwatcherlook"
+	desc = "Shoot with your eyes like a watcher!"
+
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"
 
