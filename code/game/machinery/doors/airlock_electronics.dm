@@ -19,7 +19,8 @@
 
 /obj/item/airlock_electronics/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/access_control) && !access_electronics)
-		user.drop_transfer_item_to_loc(I, src)
+		if(!user.drop_transfer_item_to_loc(I, src)) 
+			return
 		access_electronics = I
 		update_icon(UPDATE_OVERLAYS)
 		return TRUE
