@@ -66988,16 +66988,16 @@
 /obj/structure/safe{
 	known_by = list("hos")
 	},
-/obj/item/gun/projectile/automatic/toy/pistol/revolver,
-/obj/item/ammo_box/magazine/toy/pistol{
+/obj/item/gun/projectile/revolver/mateba,
+/obj/item/ammo_box/speedloader/a357{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/ammo_box/magazine/toy/pistol{
+/obj/item/ammo_box/speedloader/a357{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/ammo_box/magazine/toy/pistol,
+/obj/item/ammo_box/speedloader/a357,
 /obj/item/clothing/accessory/holster,
 /turf/simulated/floor/wood/fancy/light,
 /area/security/hos)
