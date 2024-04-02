@@ -281,7 +281,7 @@
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
  */
-/datum/game_mode/proc/get_players_for_role(role, list/prefered_species, list/prefered_roles)
+/datum/game_mode/proc/get_players_for_role(role, list/prefered_species)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -311,18 +311,13 @@
 			if(isnum(prefered_species_mod))
 				for (var/i in 1 to prefered_species_mod)	//prefered mod
 					candidates += player.mind
-		if(length(prefered_roles))
-			var/prefered_roles_mod = prefered_roles[player.mind.assigned_role]
-			if(isnum(prefered_roles_mod))
-				for (var/i in 1 to prefered_roles_mod)	//prefered mod
-					candidates += player.mind
 
 	return candidates
 
 /**
  * Works like get_players_for_role, but for alive mobs.
  */
-/datum/game_mode/proc/get_alive_players_for_role(role, list/prefered_species, list/prefered_roles)
+/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -353,15 +348,10 @@
 
 		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
 		candidates += player.mind
-		if(length(prefered_species))
-			var/prefered_species_mod = prefered_species[player.client.prefs.species]
+		if(length(preferred_species))
+			var/prefered_species_mod = preferred_species[player.client.prefs.species]
 			if(isnum(prefered_species_mod))
 				for (var/i in 1 to prefered_species_mod)	//prefered mod
-					candidates += player.mind
-		if(length(prefered_roles))
-			var/prefered_roles_mod = prefered_roles[player.mind.assigned_role]
-			if(isnum(prefered_roles_mod))
-				for (var/i in 1 to prefered_roles_mod)	//prefered mod
 					candidates += player.mind
 
 	return candidates

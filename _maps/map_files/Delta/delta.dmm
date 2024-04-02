@@ -23725,7 +23725,9 @@
 	pixel_y = -25;
 	specialfunctions = 4
 	},
-/obj/machinery/anomalous_crystal/honk,
+/obj/structure/toilet{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "cBJ" = (
@@ -69663,20 +69665,20 @@
 	c_tag = "HoS Bedroom";
 	network = list("SS13","Security")
 	},
-/obj/item/ammo_box/magazine/toy/pistol{
+/obj/item/ammo_box/speedloader/a357{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/ammo_box/magazine/toy/pistol{
+/obj/item/ammo_box/speedloader/a357{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/ammo_box/magazine/toy/pistol,
+/obj/item/ammo_box/speedloader/a357,
 /obj/item/clothing/accessory/holster,
 /obj/structure/safe{
 	known_by = list("hos")
 	},
-/obj/item/gun/projectile/automatic/toy/pistol/revolver,
+/obj/item/gun/projectile/revolver/mateba,
 /turf/simulated/floor/wood,
 /area/security/hos)
 "kBu" = (
