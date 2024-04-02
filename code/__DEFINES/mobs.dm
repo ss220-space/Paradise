@@ -358,3 +358,6 @@
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
 
 #define FIRE_DMI (issmall(src) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
+
+///Define for spawning megafauna instead of a mob for cave gen
+#define SPAWN_MEGAFAUNA "bluh bluh huge boss"

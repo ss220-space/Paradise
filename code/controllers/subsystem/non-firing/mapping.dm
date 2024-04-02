@@ -11,8 +11,6 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/fallback_map = new /datum/map/delta
 	///What do we have as the lavaland theme today?
 	var/datum/lavaland_theme/lavaland_theme
-	///What primary cave theme we have picked for cave generation today.
-	var/cave_theme
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
 
@@ -67,8 +65,6 @@ SUBSYSTEM_DEF(mapping)
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type
 	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
-	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
-	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates
 	preloadTemplates()
 	// Load the station
@@ -223,6 +219,7 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Loading Lavaland...")
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK))
 	GLOB.maploader.load_map(file(map_datum.lavaland_path), z_offset = lavaland_z_level)
+	run_map_generation()
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 
 
@@ -321,6 +318,10 @@ SUBSYSTEM_DEF(mapping)
 			log_world("Failed to place [current_pick.name] ruin.")
 
 	log_world("Ruin loader finished with [budget] left to spend.")
+
+/datum/controller/subsystem/mapping/proc/run_map_generation()
+	for(var/area/A in world)
+		A.RunGeneration()
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT

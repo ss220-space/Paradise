@@ -159,12 +159,18 @@
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"
 	outdoors = TRUE
+	map_generator = /datum/map_generator/cave_generator/lavaland
+	generate_flora = TRUE
 
 /area/lavaland/surface/outdoors/unexplored //monsters and ruins spawn here
 	icon_state = "unexplored"
+	generate_ruins = TRUE
+	generate_fauna = TRUE
 
 /area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
 	icon_state = "cave"
+	generate_caves = TRUE
+	generate_megafauna = TRUE
 
 /area/lavaland/surface/outdoors/explored
 	name = "Lavaland Labor Camp"

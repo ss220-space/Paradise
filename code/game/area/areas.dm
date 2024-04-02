@@ -83,6 +83,19 @@
 	///Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
 
+	///This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
+	var/datum/map_generator/cave_generator/map_generator
+
+	///This var is CAVES_ALLOWED "flag" for mapgen.
+	var/generate_caves = FALSE
+	///This var is RUINS_ALLOWED "flag" for mapgen.
+	var/generate_ruins = FALSE
+	///This var is FLORA_ALLOVED "flag" for mapgen.
+	var/generate_flora = FALSE
+	///This var is FAUNA_ALLOWED "flag" for mapgen.
+	var/generate_fauna = FALSE
+	///This var is MEGAFAUNA_ALLOWED "flag" for mapgen.
+	var/generate_megafauna = FALSE
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
@@ -150,6 +163,20 @@
 		cameras += C
 	return cameras
 
+/area/proc/RunGeneration()
+	if(map_generator)
+		map_generator = new map_generator()
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.generate_terrain(turfs)
+
+/area/proc/test_gen()
+	if(map_generator)
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.generate_terrain(turfs)
 
 /area/proc/air_doors_close()
 	if(air_doors_activated)
