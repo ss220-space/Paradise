@@ -644,10 +644,10 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 	species_restricted = null
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 
@@ -674,10 +674,10 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
 
 
@@ -711,13 +711,13 @@
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
-	hide_tail_by_species = list("Vulpkanin", "Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid",)
+	hide_tail_by_species = list(SPECIES_VULPKANIN, SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 

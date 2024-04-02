@@ -14,22 +14,22 @@
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	resistance_flags = FIRE_PROOF
-	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid", "Tajaran")
+	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 
 /obj/item/clothing/head/hooded/explorer
@@ -46,21 +46,21 @@
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/head.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/head.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/suit/space/hostile_environment
@@ -127,14 +127,14 @@
 	heat_protection = HEAD
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/champion
@@ -148,13 +148,13 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
@@ -169,7 +169,7 @@
 	icon_state = "darktemplar-follower0"
 	item_color = "darktemplar-follower0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
-	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine", "Plasmaman", "Diona", "Kidan", "Shadow") // only humanoids. And we don't have animal sprites.
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, "Shadow") // only humanoids. And we don't have animal sprites.
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 	name = "high dark templar's helmet"
@@ -197,19 +197,19 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid", "Tajaran")
+	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 	hoodtype = /obj/item/clothing/head/hooded/pathfinder
 	species_restricted = list("exclude", "lesser form")
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
 /obj/item/clothing/head/hooded/pathfinder
@@ -225,13 +225,13 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 	)
