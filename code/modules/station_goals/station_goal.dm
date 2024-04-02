@@ -33,7 +33,7 @@
 	if(check_completion())
 		to_chat(world, "<b>Station Goal</b>: [name]:  <span class='greenannounce'>Completed!</span>")
 	else
-		to_chat(world, "<b>Station Goal</b>: [name]: <span class='greenannounce'>Failed!</span>")
+		to_chat(world, "<b>Station Goal</b>: [name]: <span class='boldannounce'>Failed!</span>")
 
 /datum/station_goal/Destroy()
 	SSticker.mode.station_goals -= src
