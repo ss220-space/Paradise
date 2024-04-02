@@ -692,7 +692,7 @@
 			if(isshadowlinglesser(h_mob))
 				empowered_thralls++
 
-		if(empowered_thralls >= EMPOWERED_THRALL_LIMIT || !ignore_prer)
+		if(empowered_thralls >= EMPOWERED_THRALL_LIMIT && !ignore_prer)
 			to_chat(user, "<span class='warning'>You cannot spare this much energy. There are too many empowered thralls.</span>")
 			revert_cast(user)
 			return
