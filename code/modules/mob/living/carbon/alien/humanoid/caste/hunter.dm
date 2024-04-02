@@ -58,7 +58,7 @@
 	if(leaping) //Leap while you leap, so you can leap while you leap
 		return
 
-	if(lying)
+	if(lying_angle)
 		return
 
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...

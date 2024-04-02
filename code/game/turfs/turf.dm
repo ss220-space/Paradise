@@ -490,8 +490,8 @@
 /turf/proc/acid_melt()
 	return
 
-/turf/handle_fall(mob/faller, forced)
-	faller.lying = pick(90, 270)
+/turf/handle_fall(mob/living/faller, forced)
+	faller.lying_angle = pick(90, 270)
 	if(!forced)
 		return
 	if(has_gravity(src))

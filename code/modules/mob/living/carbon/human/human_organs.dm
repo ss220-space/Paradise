@@ -22,7 +22,7 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.process()
 
-		if(!lying && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
+		if(!lying_angle && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
 			if(bodypart.is_traumatized() && prob(15))
 				if(LAZYLEN(bodypart.internal_organs))
 					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
@@ -37,7 +37,7 @@
 /mob/living/carbon/human/proc/handle_stance()
 	set waitfor = FALSE
 
-	if(usable_legs || buckled || !isturf(loc) || lying || resting)
+	if(usable_legs || buckled || !isturf(loc) || lying_angle || resting)
 		return
 
 	if(!(life_tick % (4 + usable_hands)))

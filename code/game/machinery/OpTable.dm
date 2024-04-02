@@ -50,7 +50,7 @@
   */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(M && M.lying)
+	if(M && M.lying_angle)
 		patient = M
 	else
 		patient = null

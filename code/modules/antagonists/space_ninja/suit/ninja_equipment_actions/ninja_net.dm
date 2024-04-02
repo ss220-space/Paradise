@@ -1,7 +1,7 @@
 /datum/action/item_action/advanced/ninja/ninjanet
 	name = "Energy Net"
 	desc = "Captures an opponent in a net of energy. Energy cost: 4000"
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	button_icon_state = "energynet"

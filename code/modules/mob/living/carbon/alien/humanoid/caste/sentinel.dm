@@ -88,7 +88,7 @@
 
 	if(stat == DEAD)
 		icon_state = "prat_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
+	else if(stat == UNCONSCIOUS || lying_angle || resting)
 		icon_state = "prat_sleep"
 	else
 		icon_state = "prat_s"

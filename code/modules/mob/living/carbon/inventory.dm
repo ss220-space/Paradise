@@ -341,7 +341,7 @@
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
 
-	if(lying && !(I.flags & ABSTRACT))
+	if(lying_angle && !(I.flags & ABSTRACT))
 		return FALSE
 
 	if(hand_id == "HAND_LEFT" && !has_left_hand())

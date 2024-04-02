@@ -284,9 +284,9 @@
 	if(.)
 		return TRUE
 	if(isprojectile(mover))
-		return !density || lying
+		return !density || lying_angle
 	if(mover.throwing)
-		return !density || lying || (mover.throwing.thrower == src && !ismob(mover))
+		return !density || lying_angle || (mover.throwing.thrower == src && !ismob(mover))
 	if(buckled == mover)
 		return TRUE
 	if(ismob(mover))
@@ -295,7 +295,7 @@
 			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
-	return !mover.density || lying
+	return !mover.density || lying_angle
 
 
 /mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
@@ -700,11 +700,11 @@
 		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 			if(isliving(pulling))
 				var/mob/living/M = pulling
-				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+				if(M.lying_angle && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
-					if(!H.lying)
+					if(!H.lying_angle)
 						if(H.get_confusion() > 0 && m_intent != MOVE_INTENT_WALK && prob(4))
 							H.Weaken(4 SECONDS)
 							pulling.stop_pulling()
