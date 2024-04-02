@@ -42,6 +42,10 @@ GLOBAL_VAR(bomb_set)
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
 
+	light_system = MOVABLE_LIGHT
+	light_power = LIGHTING_MINIMUM_POWER
+	light_range = 1
+
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
 
@@ -116,10 +120,10 @@ GLOBAL_VAR(bomb_set)
 		. += mutable_appearance(icon, "npanel_open")
 
 	if(!lighthack)
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light_on(TRUE)
 		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
 	else if(light)
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/nuclearbomb/process()
@@ -537,7 +541,7 @@ GLOBAL_VAR(bomb_set)
 			else if(off_station == 2)
 				to_chat(world, "<b>A nuclear device was set off, but the device was not on the station!</b>")
 			else
-				to_chat(world, "<b>The station was destoyed by the nuclear blast!</b>")
+				to_chat(world, "<b>The station was destroyed by the nuclear blast!</b>")
 
 			SSticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.

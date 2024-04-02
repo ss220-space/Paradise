@@ -1,3 +1,8 @@
+///Default see in dark. See in dark sucks.
+#define DEFAULT_SEE_IN_DARK 1e6
+
+#define SEE_IN_DARK_THRESHOLD 4
+
 #define SEE_INVISIBLE_MINIMUM 5
 
 #define SEE_INVISIBLE_OBSERVER_NOLIGHTING 15

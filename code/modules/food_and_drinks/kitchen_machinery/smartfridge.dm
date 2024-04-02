@@ -108,7 +108,7 @@
 
 
 /obj/machinery/smartfridge/extinguish_light(force = FALSE)
-	set_light(0)
+	set_light_on(FALSE)
 	underlays.Cut()
 
 
@@ -120,9 +120,9 @@
 /obj/machinery/smartfridge/power_change()
 	. = ..()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on)
+		set_light(light_range_on, light_power_on, l_on = TRUE)
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
@@ -354,15 +354,7 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return FALSE
 		else
-			if(istype(I, /obj/item/gripper))
-				var/obj/item/gripper/gripper = I
-				var/obj/item/gripped_item = gripper.gripped_item
-				gripper.drop_gripped_item(silent = TRUE)
-				I = gripped_item
-				I.do_pickup_animation(src)
-				I.forceMove(src)
-
-			else if(istype(I.loc, /obj/item/storage))
+			if(istype(I.loc, /obj/item/storage))
 				var/obj/item/storage/S = I.loc
 				if(user)
 					S.remove_from_storage(I, user.drop_location())
@@ -420,9 +412,6 @@
   * * O - The item to check.
   */
 /obj/machinery/smartfridge/proc/accept_check(obj/item/I)
-	if(istype(I, /obj/item/gripper))
-		var/obj/item/gripper/gripper = I
-		I = gripper.gripped_item
 	return is_type_in_typecache(I, accepted_items_typecache)
 
 /**

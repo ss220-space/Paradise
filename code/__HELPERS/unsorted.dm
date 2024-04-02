@@ -1282,7 +1282,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	move_resist = INFINITY
 	simulated = 0
 	canmove = FALSE
-	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 	SHOULD_CALL_PARENT(FALSE)
@@ -2044,3 +2043,29 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		else
 			return NORTH
 
+/proc/slot_bitfield_to_slot(input_slot_flags) //Doesn't work with ears or pockets
+	switch(input_slot_flags)
+		if(SLOT_FLAG_OCLOTHING)
+			return SLOT_HUD_OUTER_SUIT
+		if(SLOT_FLAG_ICLOTHING)
+			return SLOT_HUD_JUMPSUIT
+		if(SLOT_FLAG_GLOVES)
+			return SLOT_HUD_GLOVES
+		if(SLOT_FLAG_EYES)
+			return SLOT_HUD_GLASSES
+		if(SLOT_FLAG_MASK)
+			return SLOT_HUD_WEAR_MASK
+		if(SLOT_FLAG_HEAD)
+			return SLOT_HUD_HEAD
+		if(SLOT_FLAG_FEET)
+			return SLOT_HUD_SHOES
+		if(SLOT_FLAG_ID)
+			return SLOT_HUD_WEAR_ID
+		if(SLOT_FLAG_BELT)
+			return SLOT_HUD_BELT
+		if(SLOT_FLAG_BACK)
+			return SLOT_HUD_BACK
+		if(SLOT_FLAG_PDA)
+			return SLOT_HUD_WEAR_PDA
+		if(SLOT_FLAG_TIE)
+			return SLOT_HUD_TIE

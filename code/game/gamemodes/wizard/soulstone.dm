@@ -8,7 +8,7 @@
 	var/icon_state_full = "soulstone2"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "bluespace=4;materials=5"
 
 	/// Does this soulstone ask the victim whether they want to be turned into a shade
@@ -193,7 +193,7 @@
 									and the memories of your time as their servant with it.</span>")
 						to_chat(M, "<span class='danger'>Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
 					else
-						to_chat(M, "<span class='danger'>Your soulstone has been exorcised, and you are now bound to obey [user]. </span>")
+						to_chat(M, "<span class='danger'>Your soulstone has been exorcised, and you are now bound to obey [user].</span>")
 				if(istype(M, /mob/living/simple_animal/shade))
 					var/mob/living/simple_animal/shade/shade = M
 					shade.holy = TRUE
@@ -421,7 +421,7 @@
 	if(shade.mind)
 		shade.mind.transfer_to(src)
 	if(SS.purified)
-		set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
+		set_light_range_power_color(3, 5, LIGHT_COLOR_DARK_BLUE)
 		name = "Holy [name]"
 		real_name = "Holy [real_name]"
 

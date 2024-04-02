@@ -81,8 +81,8 @@
 	speak_chance = 5
 	speak = list("Шшш", "Тсс!", "Тц тц тц!", "ШШшшШШшшШ!")
 	speak_emote = list("hisses")
-	emote_hear = list("Зевает", "Шипит", "Дурачится", "Толкается")
-	emote_see = list("Высовывает язык", "Кружится", "Трясёт хвостом")
+	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
+	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
 	tts_seed = "Ladyvashj"
 	health = 20
 	maxHealth = 20
@@ -293,12 +293,12 @@
 	// BYOND/DM doesn't support the use of initial on lists.
 	speak = list("Шшш", "Тсс!", "Тц тц тц!", "ШШшшШШшшШ!")
 	speak_emote = list("hisses")
-	emote_hear = list("Зевает", "Шипит", "Дурачится", "Толкается")
-	emote_see = list("Высовывает язык", "Кружится", "Трясёт хвостом")
+	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
+	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
 
 ///Этот код скопирован с кода для корги и обнуляет показатели которые ему даёт риг. Если когда нибудь змейке дадут риг, раскомментируете///
 /*
-	set_light(0)
+	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	mutations.Remove(BREATHLESS)
 	minbodytemp = initial(minbodytemp)

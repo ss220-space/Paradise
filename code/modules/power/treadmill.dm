@@ -67,14 +67,14 @@
 			// if we "stepped" in right direction, add to speed, else throw the person off like a common obj
 			if(last_move != M.last_movement && dir == M.dir)
 				// a reasonable approximation of movement speed
-				var/mob_speed = M.movement_delay()
+				var/mob_speed = M.cached_multiplicative_slowdown
 				switch(M.m_intent)
 					if(MOVE_INTENT_RUN)
 						if(M.get_drowsiness() > 0)
 							mob_speed += 6
-						mob_speed += CONFIG_GET(number/run_speed) - 1
+						mob_speed += CONFIG_GET(number/movedelay/run_delay) - 1
 					if(MOVE_INTENT_WALK)
-						mob_speed += CONFIG_GET(number/walk_speed) - 1
+						mob_speed += CONFIG_GET(number/movedelay/walk_delay) - 1
 				mob_speed = BASE_MOVE_DELAY / max(1, BASE_MOVE_DELAY + mob_speed)
 				speed = min(speed + inertia * mob_speed, mob_speed)
 				continue

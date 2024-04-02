@@ -256,19 +256,19 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 
 /obj/machinery/status_display/proc/update_display_light()
 	if(light)
-		set_light(0)
+		set_light_on(FALSE)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	if(mode == STATUS_DISPLAY_ALERT)
-		set_light(1, 1, GLOB.statdisp_picture_colors[picture_state])
+		set_light(1, 1, GLOB.statdisp_picture_colors[picture_state], l_on = TRUE)
 	else
 		var/lum = 0.4
 		if(index1)
 			lum += 0.4
 		if(index2)
 			lum += 0.4
-		set_light(1, lum, (SSshuttle.emergency && SSshuttle.emergency.timer) ? COLOR_SUN : COLOR_LIGHT_CYAN)
+		set_light(1, lum, (SSshuttle.emergency && SSshuttle.emergency.timer) ? COLOR_SUN : COLOR_LIGHT_CYAN, l_on = TRUE)
 
 
 GLOBAL_LIST_EMPTY(ai_displays)
@@ -314,9 +314,9 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	if(!..())
 		return
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(1, LIGHTING_MINIMUM_POWER, GLOB.statdisp_picture_colors[picture_state])
+		set_light(1, LIGHTING_MINIMUM_POWER, GLOB.statdisp_picture_colors[picture_state], l_on = TRUE)
 
 
 /obj/machinery/ai_status_display/flicker()

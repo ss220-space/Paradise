@@ -4,6 +4,8 @@
 	explosion_block = 50
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "riveted"
+	smooth = SMOOTH_FALSE
+
 
 /turf/simulated/wall/indestructible/dismantle_wall(devastated = 0, explode = 0)
 	return
@@ -72,19 +74,30 @@
 
 /turf/simulated/wall/indestructible/reinforced
 	name = "reinforced wall"
+	desc = "A huge chunk of reinforced metal used to seperate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "r_wall"
-	canSmoothWith = list(
-	/turf/simulated/wall/indestructible/reinforced,
-	/turf/simulated/wall,
-	/turf/simulated/wall/r_wall,
-	/obj/structure/falsewall,
-	/obj/structure/falsewall/reinforced,
-	/obj/structure/falsewall/clockwork,
-	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust,
-	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
+	canSmoothWith = list(
+		/turf/simulated/wall/indestructible/reinforced,
+		/turf/simulated/wall/indestructible/reinforced/rusted,
+		/turf/simulated/wall,
+		/turf/simulated/wall/r_wall,
+		/obj/structure/falsewall,
+		/obj/structure/falsewall/reinforced,
+		/obj/structure/falsewall/clockwork,
+		/turf/simulated/wall/rust,
+		/turf/simulated/wall/r_wall/rust,
+		/turf/simulated/wall/r_wall/coated,
+	)
+
+
+/turf/simulated/wall/indestructible/reinforced/rusted
+	name = "rusted reinforced wall"
+	desc = "A huge chunk of rusted reinforced metal."
+	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
+	icon_state = "rrust"
+
 
 /turf/simulated/wall/indestructible/wood
 	name = "wooden wall"
@@ -127,10 +140,15 @@
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/indestructible/uranium
+	name = "uranium wall"
+	desc = "A wall with uranium plating. This is probably a bad idea."
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
+	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/indestructible/metal
+	name = "wall"
+	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
 	smooth = SMOOTH_TRUE
@@ -164,4 +182,73 @@
 	icon = 'icons/turf/walls/gingerbread_wall.dmi'
 	icon_state = "gingerbread"
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/wall/indestructible/gingerbread, /obj/structure/falsewall/gingerbread, /turf/simulated/wall/mineral/gingerbread)
+	canSmoothWith = list(
+		/turf/simulated/wall/indestructible/gingerbread,
+		/obj/structure/falsewall/gingerbread,
+		/turf/simulated/wall/mineral/gingerbread,
+	)
+
+
+/turf/simulated/wall/indestructible/rock
+	name = "rock"
+	icon_state = "rock"
+	smooth = SMOOTH_FALSE
+
+
+/turf/simulated/wall/indestructible/rock/dark
+	color = "#91857C"
+
+
+/turf/simulated/wall/indestructible/sandstone
+	name = "sandstone wall"
+	desc = "A wall with sandstone plating."
+	icon = 'icons/turf/walls/sandstone_wall.dmi'
+	icon_state = "sandstone"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(
+		/obj/structure/falsewall/sandstone,
+		/turf/simulated/wall/mineral/sandstone,
+		/turf/simulated/wall/indestructible/sandstone,
+	)
+
+
+/turf/simulated/wall/indestructible/iron
+	name = "rough metal wall"
+	desc = "A wall with rough metal plating."
+	icon = 'icons/turf/walls/iron_wall.dmi'
+	icon_state = "iron"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(
+		/turf/simulated/wall/mineral/iron,
+		/obj/structure/falsewall/iron,
+		/turf/simulated/wall/indestructible/iron,
+	)
+
+
+/turf/simulated/wall/indestructible/bananium
+	name = "bananium wall"
+	desc = "A wall with bananium plating. Honk!"
+	icon = 'icons/turf/walls/bananium_wall.dmi'
+	icon_state = "bananium"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(
+		/obj/structure/falsewall/bananium,
+		/turf/simulated/wall/mineral/bananium,
+		/turf/simulated/wall/indestructible/bananium,
+	)
+
+
+/turf/simulated/wall/indestructible/cult
+	name = "runed metal wall"
+	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
+	icon = 'icons/turf/walls/cult_wall.dmi'
+	icon_state = "cult"
+
+
+/turf/simulated/wall/indestructible/mineral_rock
+	name = "rock"
+	icon = 'icons/turf/smoothrocks.dmi'
+	icon_state = "rock"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/wall/indestructible/mineral_rock)
+

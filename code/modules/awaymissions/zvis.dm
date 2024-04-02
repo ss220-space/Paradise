@@ -72,7 +72,7 @@
 	trigger()
 
 /obj/effect/portal_sensor/process()
-	check_light()
+	// check_light()
 	if(triggered_this_tick >= trigger_limit)
 		call(owner, "trigger")(arglist(params))
 	triggered_this_tick = 0
@@ -82,10 +82,11 @@
 	if(triggered_this_tick < trigger_limit)
 		call(owner, "trigger")(arglist(params))
 
+/* Знаю что это отключено и свет будет ужесан. Таков рефактор.
 /obj/effect/portal_sensor/proc/check_light()
 	var/turf/T = loc
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
-		var/atom/movable/lighting_object/O = T.lighting_object
+		var/datum/lighting_object/O = T.lighting_object
 		var/hash = 0
 
 		for(var/lighting_corner in O)
@@ -99,6 +100,7 @@
 		if(light_hash != -1)
 			light_hash = -1
 			trigger()
+*/
 
 // for second floor showing floor below
 /turf/simulated/floor/indestructible/upperlevel

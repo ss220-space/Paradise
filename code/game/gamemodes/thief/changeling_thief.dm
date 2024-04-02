@@ -2,7 +2,7 @@
 	name = "changeling+thief"
 	config_tag = "changelingthief"
 	changeling_amount = 2 //hard limit if scaling is turned off
-	restricted_jobs = list("AI", "Cyborg")
+	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3

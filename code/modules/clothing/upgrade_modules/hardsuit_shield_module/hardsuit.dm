@@ -14,7 +14,7 @@
 		if(shield)
 			to_chat(user, "<span class='warning'>[src] already has a shield installed.</span>")
 			return
-		if(src == user.get_item_by_slot(slot_wear_suit))
+		if(src == user.get_item_by_slot(SLOT_HUD_OUTER_SUIT))
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 		if(user.drop_transfer_item_to_loc(new_shield, src))
@@ -88,7 +88,7 @@
 	if(!W.shield)
 		to_chat(user, "<span class='warning'>No shield detected on this armour!</span>")
 		return
-	if(W == user.get_item_by_slot(slot_wear_suit))
+	if(W == user.get_item_by_slot(SLOT_HUD_OUTER_SUIT))
 		to_chat(user, "<span class='warning'>You cannot replenish charges to [W] while wearing it.</span>")
 		return
 	W.shield.current_charges += 8

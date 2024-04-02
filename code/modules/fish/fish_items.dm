@@ -8,7 +8,7 @@
 	desc = "A small scoop to collect fish eggs with."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "egg_scoop"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -19,7 +19,7 @@
 	desc = "A tiny net to capture fish with. It's a death sentence!"
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "net"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -44,7 +44,7 @@
 	desc = "A brush for cleaning the inside of aquariums. Contains a built-in odor neutralizer."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "brush"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -115,10 +115,10 @@
 	name = "glofish"
 	desc = "A small bio-luminescent fish. Not very bright, but at least it's pretty!"
 	icon_state = "glofish"
-
-/obj/item/fish/glofish/New()
-	..()
-	set_light(2,1,"#99FF66")
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 1
+	light_color = "#99FF66"
 
 /obj/item/fish/electric_eel
 	name = "electric eel"

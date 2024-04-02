@@ -22,7 +22,7 @@
 	return LearnSpell(user, book, S)
 
 /datum/spellbook_entry/proc/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
-	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/aspell as anything in user.mind.spell_list)
 		if(initial(newspell.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
 			if(aspell.spell_level >= aspell.level_max)
 				to_chat(user, "<span class='warning'>This spell cannot be improved further.</span>")
@@ -59,7 +59,7 @@
 		return FALSE
 	if(!S)
 		S = new spell_type()
-	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/aspell as anything in user.mind.spell_list)
 		if(initial(S.name) == initial(aspell.name))
 			return TRUE
 	return FALSE
@@ -72,11 +72,10 @@
 	if(!S) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
 		S = new spell_type()
 	var/spell_levels = 0
-	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/aspell as anything in user.mind.spell_list)
 		if(initial(S.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
-			user.mind.spell_list.Remove(aspell)
-			qdel(aspell)
+			user.mind.RemoveSpell(aspell)
 			if(S) //If we created a temporary spell above, delete it now.
 				QDEL_NULL(S)
 			return cost * (spell_levels + 1)
@@ -915,7 +914,7 @@
 
 /obj/item/spellbook/oneuse/attack_self(mob/user)
 	var/obj/effect/proc_holder/spell/S = new spell
-	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/knownspell as anything in user.mind.spell_list)
 		if(knownspell.type == S.type)
 			if(user.mind)
 				if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE || user.mind.special_role == SPECIAL_ROLE_WIZARD)
@@ -1047,7 +1046,7 @@
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.drop_item_ground(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_or_del(magichead, slot_wear_mask)
+		user.equip_to_slot_or_del(magichead, SLOT_HUD_WEAR_MASK)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")
@@ -1085,6 +1084,18 @@
 	spellname = "sacred flame"
 	icon_state = "booksacredflame"
 	desc = "Become one with the flames that burn within... and invite others to do so as well."
+
+/obj/item/spellbook/oneuse/goliath_dash
+	spell = /obj/effect/proc_holder/spell/goliath_dash
+	spellname = "goliath dash"
+	icon_state = "bookgoliathdash"
+	desc = "Dash like a goliath!"
+
+/obj/item/spellbook/oneuse/watchers_look
+	spell = /obj/effect/proc_holder/spell/watchers_look
+	spellname = "watcher's look"
+	icon_state = "bookwatcherlook"
+	desc = "Shoot with your eyes like a watcher!"
 
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"

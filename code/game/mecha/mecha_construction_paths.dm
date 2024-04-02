@@ -72,6 +72,7 @@
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "ripley0"
 	const_holder.density = 1
+	const_holder.overlays = null
 	qdel(src)
 	return
 

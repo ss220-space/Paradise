@@ -144,7 +144,7 @@
 		n_id_card.assignment = disguise.assignment
 		n_id_card.rank = disguise.rank
 		if(!ninja.wear_id)
-			ninja.equip_to_slot_if_possible(n_id_card, slot_wear_id)
+			ninja.equip_to_slot_if_possible(n_id_card, SLOT_HUD_WEAR_ID)
 		else
 			qdel(n_id_card)
 			n_id_card = null
@@ -166,6 +166,8 @@
 			ninja_action.action_ready = TRUE
 			ninja_action.use_action()
 		ninja.cut_overlays()
+	else
+		ninja.cut_overlay(disguise.overlays)
 
 	//Disguise
 	ninja.name_override = disguise.name

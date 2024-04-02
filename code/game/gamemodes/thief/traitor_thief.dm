@@ -2,7 +2,7 @@
 	name = "traitor+thief"
 	config_tag = "traitorthief"
 	traitors_possible = 2 //hard limit on traitors if scaling is turned off
-	restricted_jobs = list("AI", "Cyborg")
+	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3

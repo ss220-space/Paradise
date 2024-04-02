@@ -347,7 +347,7 @@
 	name = "Tail Laserblade Implant"
 	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
 	id = "ci-laserblade"
-	req_tech = list("powerstorage" = 20) // unreacheable
+	req_tech = null	// Unreachable by tech researching.
 	locked = TRUE
 	access_requirement = list(ACCESS_ARMORY)
 	build_type = PROTOLATHE | MECHFAB

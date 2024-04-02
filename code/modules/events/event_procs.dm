@@ -60,7 +60,6 @@
 	active_with_role["AI"] = 0
 	active_with_role["Cyborg"] = 0
 	active_with_role["Janitor"] = 0
-	active_with_role["Botanist"] = 0
 	active_with_role["Any"] = GLOB.player_list.len
 
 	for(var/mob/M in GLOB.player_list)
@@ -78,29 +77,26 @@
 			if(R.module && (R.module.name == "security robot module"))
 				active_with_role["Security"]++
 
-		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer", "Trainee Engineer"))
+		if(M.mind.assigned_role in list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE))
 			active_with_role["Engineer"]++
 
-		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor", "Intern"))
+		if(M.mind.assigned_role in list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN))
 			active_with_role["Medical"]++
 
 		if(M.mind.assigned_role in GLOB.security_positions)
 			active_with_role["Security"]++
 
-		if(M.mind.assigned_role in list("Research Director", "Scientist", "Student Scientist"))
+		if(M.mind.assigned_role in list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT))
 			active_with_role["Scientist"]++
 
-		if(M.mind.assigned_role == "AI")
+		if(M.mind.assigned_role == JOB_TITLE_AI)
 			active_with_role["AI"]++
 
-		if(M.mind.assigned_role == "Cyborg")
+		if(M.mind.assigned_role == JOB_TITLE_CYBORG)
 			active_with_role["Cyborg"]++
 
-		if(M.mind.assigned_role == "Janitor")
+		if(M.mind.assigned_role == JOB_TITLE_JANITOR)
 			active_with_role["Janitor"]++
-
-		if(M.mind.assigned_role == "Botanist")
-			active_with_role["Botanist"]++
 
 	return active_with_role
 

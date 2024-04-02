@@ -11,20 +11,20 @@
 /datum/gear/implant/meson
 	display_name = "Meson Scanner Implant"
 	path = /obj/item/organ/internal/cyberimp/eyes/meson
-	allowed_roles = list("Chief Engineer","Life Support Specialist", "Station Engineer", "Quartermaster", "Shaft Miner")
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEER, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER)
 
 /datum/gear/implant/security
 	display_name = "Security Hud Implant"
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/security
-	allowed_roles = list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Magistrate")
+	allowed_roles = list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_JUDGE)
 
 /datum/gear/implant/medical
 	display_name = "Medical Hud Implant"
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
-	allowed_roles = list("Chief Medical Officer", "Chemist", "Medical Doctor", "Paramedic", "Brig Physician", "Virologist")
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_CHEMIST, JOB_TITLE_DOCTOR, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC, JOB_TITLE_VIROLOGIST)
 
 /datum/gear/implant/science
 	display_name = "Diagnostical Hud Implant"
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
-	allowed_roles = list("Research Director", "Roboticist")
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_ROBOTICIST)

@@ -27,7 +27,7 @@
 				to_chat(affected_mob, span_danger("Mucous runs down the back of your throat."))
 		if(3)
 			if(prob(1) && prob(50))
-				if(!affected_mob.resistances.Find(/datum/disease/virus/flu))
+				if(!LAZYIN(affected_mob.resistances, /datum/disease/virus/flu))
 					var/datum/disease/virus/flu/Flu = new
 					Flu.Contract(affected_mob)
 					cure()

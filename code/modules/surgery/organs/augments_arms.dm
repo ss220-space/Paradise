@@ -122,7 +122,7 @@
 	active_item.w_class = WEIGHT_CLASS_HUGE
 	active_item.materials = null
 
-	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? slot_r_hand : slot_l_hand)
+	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
@@ -151,7 +151,7 @@
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
-	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? slot_r_hand : slot_l_hand)
+	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
 	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
 		return
 
@@ -298,12 +298,12 @@
 
 /obj/item/organ/internal/cyberimp/arm/flash/Extend(obj/item/item)
 	. = ..()
-	active_item.set_light(7)
+	active_item.set_light(7, l_on = TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/flash/Retract()
 	if(!active_item || (active_item in src))
 		return FALSE
-	active_item.set_light(0)
+	active_item.set_light_on(FALSE)
 	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/baton

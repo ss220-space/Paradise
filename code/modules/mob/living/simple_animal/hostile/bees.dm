@@ -35,7 +35,6 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
-	flying = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = TRUE //have to find those plant trays!
 
@@ -57,10 +56,11 @@
 /mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/bees/New()
-	..()
+/mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
+	. = ..()
 	generate_bee_visuals()
 	AddComponent(/datum/component/swarming)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	beegent = null

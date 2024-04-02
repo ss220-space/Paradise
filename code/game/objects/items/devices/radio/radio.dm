@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/disable_timer = 0
 
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
@@ -418,13 +418,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- AI ---
 	else if(isAI(M))
-		jobname = "AI"
-		rank = "AI"
+		jobname = JOB_TITLE_AI
+		rank = JOB_TITLE_AI
 
 	// --- Cyborg ---
 	else if(isrobot(M))
-		jobname = "Cyborg"
-		rank = "Cyborg"
+		jobname = JOB_TITLE_CYBORG
+		rank = JOB_TITLE_CYBORG
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))

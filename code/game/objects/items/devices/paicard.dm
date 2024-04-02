@@ -4,7 +4,7 @@
 	icon_state = "pai"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "programming=2"
 	var/request_cooldown = 5 // five seconds
 	var/last_request
@@ -367,7 +367,7 @@
 /obj/item/paicard/extinguish_light(force = FALSE)
 	if(pai)
 		pai.extinguish_light()
-		set_light(0)
+		set_light_on(FALSE)
 
 /obj/item/paicard/attackby(obj/item/I, mob/user, params)
 	. = ..()

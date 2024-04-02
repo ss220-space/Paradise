@@ -114,9 +114,6 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/ruin/powered/green_bio)
-"iZ" = (
-/turf/simulated/floor/carpet,
-/area/ruin/powered/green_bio)
 "jG" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -271,9 +268,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
-"tj" = (
-/turf/simulated/floor/carpet,
-/area/ruin/powered/green_bio)
 "tM" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/indestructible/grass,
@@ -357,9 +351,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/ruin/powered/green_bio)
-"Bb" = (
-/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Bn" = (
 /obj/structure/chair/wood{
@@ -587,10 +578,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "MD" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/ruin/powered/green_bio)
 "Ne" = (
 /obj/structure/window/reinforced{
@@ -633,9 +621,6 @@
 	},
 /obj/structure/railing/wooden/cornerr,
 /turf/simulated/floor/wood,
-/area/ruin/powered/green_bio)
-"Qt" = (
-/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "QM" = (
 /obj/machinery/door/airlock/wood/glass,
@@ -1008,8 +993,8 @@ KN
 ol
 Sn
 oX
-iZ
-iZ
+Xs
+Xs
 zU
 gm
 ol
@@ -1373,7 +1358,7 @@ wV
 Xs
 Cl
 QM
-Bb
+Xs
 Cl
 KN
 ol
@@ -1407,7 +1392,7 @@ ol
 lT
 gm
 nK
-Qt
+Xs
 US
 gm
 Oy
@@ -1666,7 +1651,7 @@ ao
 ol
 gm
 BT
-tj
+Xs
 Cl
 iL
 gm
@@ -1815,7 +1800,7 @@ dB
 FN
 tM
 fN
-Bb
+Xs
 bF
 gm
 gm

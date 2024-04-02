@@ -58,7 +58,7 @@
 
 #define JOBCAT_KARMA				(1<<3)
 
-#define JOB_FLAG_NANO				(1<<0)
+#define JOB_FLAG_REPRESENTATIVE				(1<<0)
 #define JOB_FLAG_BLUESHIELD		(1<<1)
 #define JOB_FLAG_BARBER			(1<<3)
 #define JOB_FLAG_MECHANIC			(1<<4)
@@ -102,7 +102,7 @@
 
 #define JOB_TITLE_CAPTAIN "Captain"
 #define JOB_TITLE_HOP "Head of Personnel"
-#define JOB_TITLE_NANO "Nanotrasen Representative"
+#define JOB_TITLE_REPRESENTATIVE "Nanotrasen Representative"
 #define JOB_TITLE_BLUESHIELD "Blueshield"
 #define JOB_TITLE_JUDGE "Magistrate"
 #define JOB_TITLE_LAWYER "Internal Affairs Agent"

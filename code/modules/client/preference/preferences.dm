@@ -271,17 +271,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
 			if(load_character(C))
-				for(var/gear in loadout_gear)
-					var/datum/geartype = GLOB.gear_datums[gear]
-					if(!istype(geartype))
-						loadout_gear -= gear // Delete wrong/outdated data
-						continue
-					var/datum/gear/new_gear = new geartype.type
-					for(var/tweak in loadout_gear[gear])
-						for(var/datum/gear_tweak/gear_tweak in new_gear.gear_tweaks)
-							if(istype(gear_tweak, text2path(tweak)))
-								set_tweak_metadata(new_gear, gear_tweak, loadout_gear[gear][tweak])
-					choosen_gears[gear] = new_gear
 				C.prefs?.init_custom_emotes(C.prefs.custom_emotes)
 				return
 	//we couldn't load character data so just randomize the character appearance + name
@@ -622,7 +611,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<tr><td colspan=4><center><b>"
 
 			var/firstcat = 1
-			for(var/category in GLOB.loadout_categories)
+			var/list/own_categories = GLOB.loadout_categories.Copy()
+			var/datum/loadout_category/choosen = new("Selected")
+			choosen.gear = choosen_gears
+			own_categories[choosen.category] = choosen
+			for(var/category in own_categories)
 				if(firstcat)
 					firstcat = 0
 				else
@@ -630,10 +623,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(category == gear_tab)
 					dat += " <span class='linkOff'>[category]</span> "
 				else
-					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
+					dat += " <a style=[category == choosen.category ? "'background: steelblue'" : "''"] href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
 			dat += "</b></center></td></tr>"
 
-			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
+			var/datum/loadout_category/LC = own_categories[gear_tab]
 			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
@@ -747,7 +740,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	tweak.update_gear_intro(new_metadata)
 
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Research Director", "Magistrate"), widthPerColumn = 400, height = 700)
+/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list(JOB_TITLE_RD, JOB_TITLE_JUDGE), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
@@ -834,7 +827,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(!job.character_old_enough(user.client))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ВОЗРАСТ ОТ [(job.min_age_allowed)]]</b></span></td></tr>"
 				continue
-			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
+			if((job.title in GLOB.command_positions) || (job.title == JOB_TITLE_AI))//Bold head jobs
 				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
 				html += "<span class='[color]'>[rank]</span>"
@@ -2251,7 +2244,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						version_message = "\nYou need to be using byond version [MINIMUM_FPS_VERSION] or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
 					if(world.byond_version < MINIMUM_FPS_VERSION)
 						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
-					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n30 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
+					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
 						if(world.byond_version >= MINIMUM_FPS_VERSION && user.client && user.client.byond_version >= MINIMUM_FPS_VERSION)

@@ -156,7 +156,7 @@
 
 	if(update_spells)
 		check_vampire_upgrade()
-		var/list/all_spells = owner.spell_list | owner.current.mob_spell_list
+		var/list/all_spells = owner.spell_list + owner.current.mob_spell_list
 		for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 			spell.on_trophie_update(src, trophie_type)
 
@@ -740,6 +740,7 @@
 
 	user.layer = LOW_LANDMARK_LAYER
 	user.pass_flags |= (PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
+	ADD_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LUNGE_TRAIT)
 
 	var/dir_switch = FALSE
 	var/matrix/old_transform = user.transform
@@ -748,7 +749,6 @@
 			return
 
 		user.canmove = FALSE
-		user.flying = TRUE
 		var/direction = get_dir(user, target)
 		var/turf/next_step = get_step(user, direction)
 		user.face_atom(target)
@@ -785,12 +785,12 @@
 		return
 
 	user.layer = initial(user.layer)
-	user.flying = initial(user.flying)
 	user.pixel_y = initial(user.pixel_y)
 	user.pixel_y = initial(user.pixel_x)
 	user.transform = initial(user.transform)
 	user.canmove = TRUE
 	user.pass_flags &= ~(PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
+	REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LUNGE_TRAIT)
 
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(!vampire)
@@ -1023,7 +1023,7 @@
 	vampire_animal.status_flags &= ~GODMODE
 	vampire_animal.canmove = TRUE
 	is_transformed = TRUE
-	var/list/all_spells = vampire_animal.mind.spell_list | vampire_animal.mob_spell_list
+	var/list/all_spells = vampire_animal.mind.spell_list + vampire_animal.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 		spell.updateButtonIcon()
 
@@ -1070,7 +1070,7 @@
 	original_body.status_flags &= ~GODMODE
 	original_body.update_canmove()
 	is_transformed = FALSE
-	var/list/all_spells = original_body.mind.spell_list | original_body.mob_spell_list
+	var/list/all_spells = original_body.mind.spell_list + original_body.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 		spell.updateButtonIcon()
 	original_body = null
@@ -1418,6 +1418,7 @@
 	name = "Flying vampire..."
 	invisibility = 0
 	layer = LOW_LANDMARK_LAYER
+	light_system = MOVABLE_LIGHT
 
 
 /**
@@ -1631,7 +1632,7 @@
 		fullpower_heal_done = TRUE
 
 		human_vampire.radiation = 0
-		human_vampire.bodytemperature = human_vampire.dna.species.body_temperature
+		human_vampire.set_bodytemperature(human_vampire.dna.species.body_temperature)
 		human_vampire.surgeries.Cut()
 		human_vampire.SetDisgust(0)
 		human_vampire.SetSlowed(0)
@@ -1902,7 +1903,7 @@
 	universal_understand = TRUE	// yeah, we can understand anything now
 	universal_speak = TRUE	// and speak to anyone too
 	mob_size = MOB_SIZE_LARGE
-	see_in_dark = 8		// full night vision
+	nightvision = 8	// full night vision
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// we need oxygen only
 	minbodytemp = 0
 	maxbodytemp = 600	// better than human vampire but still dangerous
@@ -1980,9 +1981,9 @@
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
+	nightvision = initial(nightvision)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)
@@ -2026,7 +2027,6 @@
 	speak_emote = list("rattles")
 	move_resist = MOVE_FORCE_NORMAL
 	pull_force = MOVE_FORCE_NORMAL
-	flying = TRUE
 	health = 130
 	maxHealth = 130
 	force_threshold = 3	// little protection
@@ -2038,16 +2038,19 @@
 
 /mob/living/simple_animal/hostile/vampire/bats/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()
+
+	AddElement(/datum/element/simple_flying)
+
 	if(!vampire)
 		return
 
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
-	health += t_hearts * 20 									// 250 MAX
+	health += t_hearts * 20 												// 250 MAX
 	maxHealth += t_hearts * 20
-	melee_damage_lower += round(t_hearts / 2) 					// 13 MAX
-	melee_damage_upper += t_hearts								// 21 MAX
-	force_threshold += t_hearts * 2 							// 15 MAX
-	speed -= vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05	// 30% MAX
+	melee_damage_lower += round(t_hearts / 2) 								// 13 MAX
+	melee_damage_upper += t_hearts											// 21 MAX
+	force_threshold += t_hearts * 2 										// 15 MAX
+	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05)	// 30% MAX
 
 
 /mob/living/simple_animal/hostile/vampire/bats/add_spells()
@@ -2123,12 +2126,12 @@
 		return
 
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
-	health += t_hearts * 30										// 380 MAX
+	health += t_hearts * 30													// 380 MAX
 	maxHealth += t_hearts * 30
-	melee_damage_lower += t_hearts								// 25 MAX
-	melee_damage_upper += t_hearts								// 30 MAX
-	force_threshold += t_hearts * 3								// 28 MAX
-	speed -= vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05	// 30% MAX
+	melee_damage_lower += t_hearts											// 25 MAX
+	melee_damage_upper += t_hearts											// 30 MAX
+	force_threshold += t_hearts * 3											// 28 MAX
+	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05)	// 30% MAX
 
 
 /mob/living/simple_animal/hostile/vampire/hound/Life(seconds, times_fired)
@@ -2195,7 +2198,6 @@
 	robust_searching = TRUE
 	move_to_delay = 0.1 SECONDS	// fast and furious
 	stat_attack = UNCONSCIOUS	// YOU ARE DEAD!
-	flying = TRUE
 	speed = 1
 	force_threshold = 3
 	health = 80
@@ -2211,17 +2213,18 @@
 	. = ..()
 
 	faction = list(ROLE_VAMPIRE)
+	AddElement(/datum/element/simple_flying)
 
 	if(!vampire)
 		return
 
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
-	health += t_hearts * 10 									// 140 MAX
+	health += t_hearts * 10 												// 140 MAX
 	maxHealth += t_hearts * 10
-	melee_damage_lower += round(t_hearts / 2)					// 11 MAX
-	melee_damage_upper += t_hearts								// 16 MAX
-	force_threshold += t_hearts									// 9 MAX
-	speed -= vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.1	// 0.4 MAX
+	melee_damage_lower += round(t_hearts / 2)								// 11 MAX
+	melee_damage_upper += t_hearts											// 16 MAX
+	force_threshold += t_hearts												// 9 MAX
+	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.1)	// 0.4 MAX
 
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/AttackingTarget()

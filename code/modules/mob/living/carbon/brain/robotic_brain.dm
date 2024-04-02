@@ -105,7 +105,7 @@
 /obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
 	if(cannotPossess(O))
 		return FALSE
-	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
+	if(jobban_isbanned(O, JOB_TITLE_CYBORG) || jobban_isbanned(O,"nonhumandept"))
 		return FALSE
 	if(!O.can_reenter_corpse)
 		return FALSE
@@ -130,12 +130,14 @@
 	log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain."), src)
 
 /obj/item/mmi/robotic_brain/transfer_identity(mob/living/carbon/H)
-	if(isnull(brainmob.dna))
-		brainmob.dna = H.dna.Clone()
-	brainmob.name = brainmob.dna.real_name
-	brainmob.real_name = brainmob.name
+	brainmob.dna = H.dna.Clone()
+	// I'm not sure we can remove species override. There might be some loophole
+	// that would allow posibrains to be cloned without this.
+	brainmob.dna.species = new /datum/species/machine()
+	brainmob.real_name = brainmob.dna.real_name
+	brainmob.name = brainmob.real_name
 	brainmob.timeofhostdeath = H.timeofdeath
-	brainmob.stat = CONSCIOUS
+	brainmob.set_stat(CONSCIOUS)
 	if(brainmob.mind)
 		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
@@ -198,7 +200,7 @@
 	if(cannotPossess(O))
 		to_chat(O, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
-	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
+	if(jobban_isbanned(O, JOB_TITLE_CYBORG) || jobban_isbanned(O,"nonhumandept"))
 		to_chat(O, "<span class='warning'>You are job banned from this role.</span>")
 		return
 	var/deathtime = world.time - O.timeofdeath

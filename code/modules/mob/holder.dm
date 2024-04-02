@@ -5,7 +5,7 @@
 	icon = 'icons/obj/objects.dmi'
 	lefthand_file = 'icons/mob/inhands/mobs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/mobs_righthand.dmi'
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	origin_tech = "biotech=2"
 
 
@@ -315,7 +315,7 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "snake"
-	slot_flags = SLOT_HEAD | SLOT_NECK
+	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_NECK
 
 /obj/item/holder/parrot
 	name = "pet"

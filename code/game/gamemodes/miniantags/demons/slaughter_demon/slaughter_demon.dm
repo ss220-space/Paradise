@@ -9,7 +9,6 @@
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
 	var/feast_sound = 'sound/misc/demon_consume.ogg'
-	var/boost = 0
 	var/devoured = 0
 
 	var/list/consumed_mobs = list()
@@ -39,14 +38,6 @@
 	for(var/mob/living/M in consumed_mobs)
 		release_consumed(M)
 	. = ..()
-
-
-/mob/living/simple_animal/demon/slaughter/Life(seconds, times_fired)
-	..()
-	if(boost < world.time)
-		speed = 1
-	else
-		speed = 0
 
 
 /mob/living/simple_animal/demon/slaughter/attempt_objectives()
@@ -188,7 +179,7 @@
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		to_chat(user, "You feel differ-[span_warning(" CONSUME THEM! ")]")
+		to_chat(user, "You feel differ-[span_warning(" CONSUME THEM!")]")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE

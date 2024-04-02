@@ -547,7 +547,7 @@
 		if(fart_act)
 			farted_on_something = TRUE
 	if(!farted_on_something)
-		if(user.mind?.assigned_role == "Clown" && prob(30))
+		if(user.mind?.assigned_role == JOB_TITLE_CLOWN && prob(30))
 			confettigibs(user)
 		return ..()
 

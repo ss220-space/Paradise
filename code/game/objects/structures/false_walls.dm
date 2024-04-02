@@ -28,6 +28,7 @@
 	/turf/simulated/wall/r_wall,
 	/turf/simulated/wall/indestructible/metal,
 	/turf/simulated/wall/indestructible/reinforced,
+	/turf/simulated/wall/indestructible/reinforced/rusted,
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/brass,
 	/obj/structure/falsewall/brass/fake,
@@ -318,7 +319,11 @@
 	icon_state = "bananium"
 	mineral = /obj/item/stack/sheet/mineral/bananium
 	walltype = /turf/simulated/wall/mineral/bananium
-	canSmoothWith = list(/obj/structure/falsewall/bananium, /turf/simulated/wall/mineral/bananium)
+	canSmoothWith = list(
+		/obj/structure/falsewall/bananium,
+		/turf/simulated/wall/mineral/bananium,
+		/turf/simulated/wall/indestructible/bananium,
+	)
 
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
@@ -327,7 +332,11 @@
 	icon_state = "sandstone"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone
-	canSmoothWith = list(/obj/structure/falsewall/sandstone, /turf/simulated/wall/mineral/sandstone)
+	canSmoothWith = list(
+		/obj/structure/falsewall/sandstone,
+		/turf/simulated/wall/mineral/sandstone,
+		/turf/simulated/wall/indestructible/sandstone,
+	)
 
 /obj/structure/falsewall/wood
 	name = "wooden wall"
@@ -346,7 +355,11 @@
 	mineral = /obj/item/stack/rods
 	mineral_amount = 5
 	walltype = /turf/simulated/wall/mineral/iron
-	canSmoothWith = list(/obj/structure/falsewall/iron, /turf/simulated/wall/mineral/iron)
+	canSmoothWith = list(
+		/turf/simulated/wall/mineral/iron,
+		/obj/structure/falsewall/iron,
+		/turf/simulated/wall/indestructible/iron,
+	)
 
 /obj/structure/falsewall/abductor
 	name = "alien wall"

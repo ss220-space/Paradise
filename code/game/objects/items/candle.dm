@@ -17,6 +17,9 @@
 	var/start_lit = FALSE
 	var/flickering = FALSE
 	light_color = "#E09D37"
+	light_system = MOVABLE_LIGHT
+	light_range = CANDLE_LUM
+	light_on = FALSE
 
 
 /obj/item/candle/Initialize(mapload)
@@ -69,7 +72,7 @@
 		lit = 1
 		if(show_message)
 			usr.visible_message(show_message)
-		set_light(CANDLE_LUM)
+		set_light_on(TRUE)
 		START_PROCESSING(SSobj, src)
 		update_icon(UPDATE_ICON_STATE)
 
@@ -122,7 +125,7 @@
 	if(lit)
 		lit = FALSE
 		update_icon(UPDATE_ICON_STATE)
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/item/candle/attack_self(mob/user)

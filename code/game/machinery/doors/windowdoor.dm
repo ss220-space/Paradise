@@ -15,7 +15,7 @@
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
 	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/access_control/electronics
 	var/base_state = "left"
 	var/reinf = 0
 	var/cancolor = TRUE
@@ -211,21 +211,22 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && !disassembled)
-		var/obj/item/airlock_electronics/ae
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
 			debris -= fragment
+
 		if(!electronics)
-			ae = new/obj/item/airlock_electronics(loc)
+			electronics = new(loc)
 			if(!req_access)
 				check_access()
-			ae.selected_accesses = req_access
-			ae.one_access = check_one_access
+			electronics.selected_accesses = req_access
+			electronics.one_access = check_one_access
 		else
-			ae = electronics
-			electronics = null
-			ae.forceMove(loc)
+			electronics.forceMove(loc)
+		if(emagged)
+			electronics.emag_act()
+		electronics = null
 
 	qdel(src)
 
@@ -333,24 +334,19 @@
 				WA.update_icon()
 				WA.created_name = name
 
-				if(emagged)
-					to_chat(user, span_warning("You discard the damaged electronics."))
-					qdel(src)
-					return
-
 				to_chat(user, span_notice("You remove the airlock electronics."))
 
-				var/obj/item/airlock_electronics/ae
 				if(!electronics)
-					ae = new/obj/item/airlock_electronics(loc)
+					electronics = new(loc)
 					if(!req_access)
 						check_access()
-					ae.selected_accesses = req_access
-					ae.one_access = check_one_access
+					electronics.selected_accesses = req_access
+					electronics.one_access = check_one_access
 				else
-					ae = electronics
-					electronics = null
-					ae.forceMove(loc)
+					electronics.forceMove(loc)
+				if(emagged)
+					electronics.emag_act()
+				electronics = null
 
 				qdel(src)
 	else

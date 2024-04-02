@@ -30,7 +30,7 @@
 		/obj/item/encryptionkey,
 		/obj/item/clothing/gloves/ring,
 		/obj/item/reagent_containers/food/pill/patch)
-	slot_flags = SLOT_ID
+	slot_flags = SLOT_FLAG_ID
 
 	var/obj/item/card/id/front_id = null
 	var/image/front_id_overlay = null

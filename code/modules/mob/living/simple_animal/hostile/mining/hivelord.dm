@@ -75,7 +75,6 @@
 	speed = 3
 	maxHealth = 1
 	health = 1
-	flying = TRUE
 	harm_intent_damage = 5
 	melee_damage_lower = 2
 	melee_damage_upper = 2
@@ -92,10 +91,12 @@
 	needs_gliding = FALSE
 	var/life_time = 10 SECONDS
 
+
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(death)), life_time)
 	AddComponent(/datum/component/swarming)
+	AddElement(/datum/element/simple_flying)
 
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
@@ -341,7 +342,7 @@
 	weather_immunities = list("lava","ash")
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	tts_seed = "Mannoroth"
 

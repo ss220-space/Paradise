@@ -23,6 +23,11 @@
 	/// This is the duration of the cooldown
 	var/cooldown_duration = 1 SECONDS
 	COOLDOWN_DECLARE(flash_cooldown)
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_on = FALSE
+	light_range = 2
+	light_power = 1
+	light_color = LIGHT_COLOR_WHITE
 
 
 /obj/item/flash/update_icon_state()
@@ -71,7 +76,7 @@
 	visible_message("<span class='notice'>The [src.name] burns out!</span>")
 
 
-/obj/item/flash/proc/flash_recharge(var/mob/user)
+/obj/item/flash/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
 		burn_out()
 		return FALSE
@@ -83,20 +88,21 @@
 	times_used = max(0, times_used) //sanity
 
 
-/obj/item/flash/proc/try_use_flash(mob/user = null)
+/obj/item/flash/proc/try_use_flash(mob/user)
 
 	if(broken)
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, flash_cooldown))
-		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
 		return FALSE
 	COOLDOWN_START(src, flash_cooldown, cooldown_duration)
 	flash_recharge(user)
 
 	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
-	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	set_light_on(TRUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)
 	times_used++
 
 	if(user && !clown_check(user))
@@ -183,7 +189,7 @@
 	item_state = "electropack" //spelling, a coders worst enemy. This part gave me trouble for a while.
 	belt_icon = null
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	can_overcharge = FALSE
 	var/flash_max_charges = 5
 	var/flash_cur_charges = 5
@@ -209,14 +215,16 @@
 	flash_cur_charges = min(flash_cur_charges+1, flash_max_charges)
 	return TRUE
 
-/obj/item/flash/cameraflash/try_use_flash(mob/user = null)
+/obj/item/flash/cameraflash/try_use_flash(mob/user)
 	if(!flash_cur_charges)
-		to_chat(user, "<span class='warning'>[src] needs time to recharge!</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>[src] needs time to recharge!</span>")
 		return FALSE
 	. = ..()
 	if(.)
 		flash_cur_charges--
-		to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
+		if(user)
+			to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
 
 /obj/item/flash/armimplant
 	name = "photon projector"

@@ -159,7 +159,7 @@
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
 
-		last_vehicle_move = CONFIG_GET(number/human_delay) + vehicle_move_delay
+		last_vehicle_move = get_config_multiplicative_speed_by_path(/mob/living/carbon/human) + vehicle_move_delay
 		Move(get_step(src, direction), direction, last_vehicle_move)
 
 		if(direction & (direction - 1))		//moved diagonally

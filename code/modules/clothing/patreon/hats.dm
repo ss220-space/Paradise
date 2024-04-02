@@ -11,12 +11,12 @@
 	flags = BLOCKHAIR
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
 
 //gold top hat and recolours
@@ -27,12 +27,12 @@
 	item_state = "goldtophat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
 
 
@@ -57,12 +57,12 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
 
 //black sombrero
@@ -74,10 +74,10 @@
 	flags = BLOCKHAIR
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
