@@ -169,14 +169,14 @@
 		var/list/turfs = list()
 		for(var/turf/T in contents)
 			turfs += T
-		map_generator.generate_terrain(turfs)
+		map_generator.generate_terrain(turfs, src)
 
 /area/proc/test_gen()
 	if(map_generator)
 		var/list/turfs = list()
 		for(var/turf/T in contents)
 			turfs += T
-		map_generator.generate_terrain(turfs)
+		map_generator.generate_terrain(turfs, src)
 
 /area/proc/air_doors_close()
 	if(air_doors_activated)
