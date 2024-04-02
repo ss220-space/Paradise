@@ -179,6 +179,7 @@
 
 /datum/gear/donor/heartglasses/New()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
 /datum/gear/donor/night_dress
 	display_name = "night dress, select"
 	description = "A classic night dress."
