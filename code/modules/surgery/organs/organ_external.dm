@@ -101,6 +101,9 @@
 	/// Descriptive string used in amputation
 	var/amputation_point
 
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
 
 /obj/item/organ/external/New(mob/living/carbon/holder)
 	..()
@@ -172,7 +175,17 @@
 	if(parent_organ_zone)
 		parent = owner.bodyparts_by_name[parent_organ_zone]
 		if(parent)
-			LAZYADDOR(parent.children, src)
+			LAZYOR(parent.children, src)
+
+	switch(limb_zone)
+		if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+			owner.set_num_legs(owner.num_legs + 1)
+			if(is_usable())
+				owner.set_usable_legs(owner.usable_legs + 1)
+		if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
+			owner.set_num_hands(owner.num_hands + 1)
+			if(is_usable())
+				owner.set_usable_hands(owner.usable_hands + 1)
 
 
 /obj/item/organ/external/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
@@ -203,6 +216,16 @@
 	release_restraints(organ_owner)
 	organ_owner.bodyparts -= src
 	organ_owner.bodyparts_by_name[limb_zone] = null	// Remove from owner's vars.
+
+	switch(limb_zone)
+		if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+			organ_owner.set_num_legs(organ_owner.num_legs - 1)
+			if(is_usable())
+				organ_owner.set_usable_legs(organ_owner.usable_legs - 1)
+		if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
+			organ_owner.set_num_hands(organ_owner.num_hands - 1)
+			if(is_usable())
+				organ_owner.set_usable_hands(organ_owner.usable_hands - 1)
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged && !special)
@@ -876,7 +899,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	status |= ORGAN_SPLINTED
 	if(owner)
-		LAZYADDOR(owner.splinted_limbs, src)
+		LAZYOR(owner.splinted_limbs, src)
 		splinted_count = owner.step_count
 
 	return TRUE
@@ -946,13 +969,16 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/necrotize(silent = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return FALSE
+	var/prev_usable = is_usable()
 	status |= ORGAN_DEAD
 	if(dead_icon)
 		icon_state = dead_icon
 	if(owner)
+		owner.update_body()
+		if(prev_usable != is_usable())
+			update_usable_status(make_usable = FALSE)
 		if(!silent)
 			to_chat(owner, span_notice("You can't feel your [name] anymore..."))
-		owner.update_body()
 		if(vital)
 			owner.death()
 	return TRUE
@@ -961,36 +987,44 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/unnecrotize()
 	if(!is_dead())
 		return FALSE
+	var/prev_usable = is_usable()
 	status &= ~ORGAN_DEAD
-	owner?.update_body()
+	if(owner)
+		owner.update_body()
+		if(prev_usable != is_usable())
+			update_usable_status(make_usable = TRUE)
 	return TRUE
 
 
-/obj/item/organ/external/proc/mutate(silent = FALSE, update_body = TRUE)
+/obj/item/organ/external/proc/mutate(silent = FALSE)
 	if(owner?.status_flags & GODMODE)
 		return FALSE
 	if(is_robotic())
 		return FALSE
 	if(is_mutated())
 		return FALSE
+	var/prev_usable = is_usable()
 	status |= ORGAN_MUTATED
 	if(owner)
-		if(update_body)
-			owner.update_body(TRUE) //Forces all bodyparts to update in order to correctly render the deformed sprite.
+		owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly render the deformed sprite.
+		if(prev_usable != is_usable())
+			update_usable_status(make_usable = FALSE)
 		if(!silent)
 			to_chat(owner, span_warning("Something is not right with your [name]..."))
 	return TRUE
 
 
-/obj/item/organ/external/proc/unmutate(silent = FALSE, update_body = TRUE)
+/obj/item/organ/external/proc/unmutate(silent = FALSE)
 	if(!is_mutated())
 		return FALSE
 	if(is_robotic())
 		return FALSE
+	var/prev_usable = is_usable()
 	status &= ~ORGAN_MUTATED
 	if(owner)
-		if(update_body)
-			owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly return them to normal.
+		owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly return them to normal.
+		if(prev_usable != is_usable())
+			update_usable_status(make_usable = TRUE)
 		if(!silent)
 			to_chat(owner, span_warning("Your [name] is shaped normally again."))
 	return TRUE
@@ -1012,8 +1046,23 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/is_usable()
 	if((is_robotic() && get_damage() >= max_damage) && !tough) //robot limbs just become inoperable at max damage
-		return
+		return FALSE
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
+
+
+/obj/item/organ/external/proc/update_usable_status(make_usable)
+	if(make_usable)
+		switch(limb_zone)
+			if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+				owner.set_usable_legs(owner.usable_legs + 1)
+			if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
+				owner.set_usable_hands(owner.usable_hands + 1)
+	else
+		switch(limb_zone)
+			if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+				owner.set_usable_legs(owner.usable_legs - 1)
+			if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
+				owner.set_usable_hands(owner.usable_hands - 1)
 
 
 /obj/item/organ/external/proc/is_malfunctioning()
@@ -1119,7 +1168,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/add_embedded_object(obj/item/thing, throw_alert = TRUE)
-	LAZYADDOR(embedded_objects, thing)
+	LAZYOR(embedded_objects, thing)
 	thing.forceMove(src)
 	if(throw_alert)
 		owner?.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)

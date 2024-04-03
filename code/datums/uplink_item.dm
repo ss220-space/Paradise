@@ -382,7 +382,7 @@
 
 /datum/uplink_item/jobspecific/dna_upgrader
 	name = "Genetic Superiority Injector"
-	desc = "Experemental DNA injector whick will give you one advanced gene modification and increase your gene stability."
+	desc = "Experimental DNA injector which will give you one advanced gene modification and increase your gene stability."
 	item = /obj/item/dna_upgrader
 	cost = 75
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
@@ -1942,7 +1942,7 @@
 	item = /obj/item/autoimplanter/oneuse/razorblade
 	cost = 42
 	surplus = 0
-	uplinktypes = list()
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/cyber_implants/laserblade
 	name = "Overcharged Tail Laserblade"
@@ -1950,7 +1950,7 @@
 	item = /obj/item/autoimplanter/oneuse/laserblade
 	cost = 38
 	surplus = 0
-	uplinktypes = list()
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // POINTLESS BADASSERY
 

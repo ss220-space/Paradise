@@ -17,7 +17,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("cult")
-	flying = TRUE
 	pressure_resistance = 100
 	universal_speak = TRUE
 	AIStatus = AI_OFF //normal constructs don't have AI
@@ -53,8 +52,8 @@
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_HEALS_FROM_HOLY_PYLONS, INNATE_TRAIT)
+	add_traits(list(TRAIT_HEALS_FROM_CULT_PYLONS, TRAIT_HEALS_FROM_HOLY_PYLONS, TRAIT_NO_FLOATING_ANIM), INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	. = ..()

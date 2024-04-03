@@ -10,7 +10,6 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-	alien_talk_understand = TRUE
 
 	var/nightvision_enabled = FALSE
 	nightvision = 4
@@ -60,6 +59,9 @@
 
 	for(var/organ_path in get_caste_organs())
 		new organ_path(src)
+
+	if(caste_movement_delay)
+		update_alien_speed()
 
 
 /mob/living/carbon/alien/Destroy()
@@ -141,9 +143,9 @@
 			//Place is hotter than we are
 			var/thermal_protection = heat_protection //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
-				bodytemperature += (1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
+				adjust_bodytemperature((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR))
 		else
-			bodytemperature += 1 * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
+			adjust_bodytemperature(1 * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR))
 		//	bodytemperature -= max((loc_temp - bodytemperature / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
@@ -194,9 +196,10 @@
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 5), 10)
 
-/mob/living/carbon/alien/movement_delay()
-	. = ..()
-	. += move_delay_add + caste_movement_delay + CONFIG_GET(number/alien_delay) //move_delay_add is used to slow aliens with stuns
+
+/mob/living/carbon/alien/proc/update_alien_speed()
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_speed, multiplicative_slowdown = caste_movement_delay)
+
 
 /mob/living/carbon/alien/getDNA()
 	return null

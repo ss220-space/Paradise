@@ -73,7 +73,7 @@
 	if	(n==0)
 		playsound(src, 'sound/creatures/terrorspiders/keratosis_out.ogg', 150)
 		to_chat(src, "<span class='notice'>Your body relaxes!</span>")
-		speed = 0.8
+		set_varspeed(0.8)
 		damage_coeff = list(BRUTE = 0.6, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 		melee_damage_lower = 15
 		melee_damage_upper = 15
@@ -87,7 +87,7 @@
 			attack_mode_av = 0
 			playsound(src, 'sound/creatures/terrorspiders/mod_attack.ogg', 120)
 			to_chat(src, "<span class='notice'>You are now in rage</span>")
-			speed = 0
+			set_varspeed(0)
 			damage_coeff = list(BRUTE = 0.8, BURN = 1.2, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 			melee_damage_lower = 30
 			melee_damage_upper = 30
@@ -103,7 +103,7 @@
 			defence_mode_av = 0
 			playsound(src, 'sound/creatures/terrorspiders/keratosis_in.ogg', 150)
 			to_chat(src, "<span class='notice'>You cover yourself with keratosis!</span>")
-			speed = 1.6
+			set_varspeed(1.6)
 			damage_coeff = list(BRUTE = 0.4, BURN = 0.7, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 			melee_damage_lower = 10
 			melee_damage_upper = 10

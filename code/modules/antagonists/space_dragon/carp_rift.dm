@@ -156,7 +156,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		light_color = LIGHT_COLOR_YELLOW
 		update_light()
-		armor.setRating(melee_value = 100, bullet_value = 100, laser_value = 100, energy_value = 100, bomb_value = 100, bio_value = 100, rad_value = 100, fire_value = 100, acid_value = 100)
+		armor = armor.setRating(melee_value = 100, bullet_value = 100, laser_value = 100, energy_value = 100, bomb_value = 100, bio_value = 100, rad_value = 100, fire_value = 100, acid_value = 100)
 		resistance_flags = INDESTRUCTIBLE
 		dragon.rifts_charged += 1
 		if(dragon.rifts_charged != 3 && !dragon.objective_complete)
@@ -174,7 +174,7 @@
 		charge_state = CHARGE_FINALWARNING
 		var/area/A = get_area(src)
 
-		GLOB.command_announcement.Announce("Разлом создает неествественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!", "Отдел Изучения Дикой Природы", 'sound/AI/spanomalies.ogg')
+		GLOB.command_announcement.Announce("Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!", "Отдел Изучения Дикой Природы", 'sound/AI/spanomalies.ogg')
 
 
 /**

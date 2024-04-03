@@ -33,17 +33,18 @@
 	handle_stance()
 
 
-/mob/living/carbon/human/proc/handle_stance()
+/mob/living/carbon/human/proc/handle_stance(forced = FALSE)
 	// Don't need to process any of this if they aren't standing anyways
 	// unless their stance is damaged, and we want to check if they should stay down
-	if(!stance_damage && (lying || resting) && (life_tick % 4) == 0)
+	if(!forced && !stance_damage && (lying || resting) && (life_tick % 4) == 0)
 		return
 
+	var/old_stance_damage = stance_damage
 	stance_damage = 0
 
 	// Buckled to a bed/chair. Stance damage is forced to 0 since they're sitting on something solid
 	// Not standing, so no need to care about stance
-	if(istype(buckled, /obj/structure/chair) || !isturf(loc))
+	if(!forced && (istype(buckled, /obj/structure/chair) || !isturf(loc)))
 		return
 
 	for(var/limb_zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
@@ -53,23 +54,25 @@
 		else if(bodypart.is_traumatized() || !bodypart.is_usable())
 			stance_damage += 1
 
-	// Canes and crutches help you stand (if the latter is ever added)
-	// One cane mitigates a broken leg+foot, or a missing foot.
-	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
-	if(l_hand && l_hand.is_crutch())
-		stance_damage -= 2
-	if(r_hand && r_hand.is_crutch())
-		stance_damage -= 2
+	stance_damage -= get_crutches()
+
+	var/new_stance_damage = stance_damage
 
 	if(stance_damage < 0)
 		stance_damage = 0
 
 	// standing is poor
-	if(stance_damage >= 8)
+	if(!forced && stance_damage >= 8)
 		if(!(lying || resting))
 			if(has_pain())
-				emote("scream")
-			emote("collapses", ignore_cooldowns = TRUE)
+				INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "scream")
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "collapses", null, null, FALSE, FALSE, TRUE)
+
+	if(old_stance_damage != new_stance_damage)
+		if(stance_damage)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = 2 * stance_damage)
+		else
+			remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 
 /mob/living/carbon/human/proc/handle_grasp()
@@ -123,11 +126,22 @@
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] снова чувствуе[pluralize_ru(src.gender,"шь","те")] себя в форме!"))
 	mutations.Remove(FAT)
+	update_obesity_slowdown()
 
 
 /mob/living/carbon/human/proc/becomeFat()
 	to_chat(src, span_alert("[pluralize_ru(src.gender,"Ты","Вы")] вдруг чувствуе[pluralize_ru(src.gender,"шь","те")] себя пухлым!"))
 	mutations.Add(FAT)
+	update_obesity_slowdown()
+
+
+/mob/living/carbon/human/proc/update_obesity_slowdown()
+	if(FAT in mutations)
+		add_movespeed_modifier(/datum/movespeed_modifier/obesity)
+		add_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
+		remove_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
 
 
 /**

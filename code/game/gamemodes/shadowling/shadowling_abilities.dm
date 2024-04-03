@@ -258,8 +258,7 @@
 		to_chat(target, "<span class='userdanger'>A wave of shockingly cold air engulfs you!</span>")
 		target.Stun(2 SECONDS)
 		target.apply_damage(10, BURN)
-		if(target.bodytemperature)
-			target.bodytemperature -= 200 //Extreme amount of initial cold
+		target.adjust_bodytemperature(-200) //Extreme amount of initial cold
 		if(target.reagents)
 			target.reagents.add_reagent("frostoil", 15) //Half of a cryosting
 
@@ -371,13 +370,13 @@
 					 "<span class='shadowling'>You regenerate your protective armor and cleanse your form of defects.</span>")
 	user.set_species(/datum/species/shadow/ling)
 	user.adjustCloneLoss(-(user.getCloneLoss()))
-	user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), slot_w_uniform)
-	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), slot_shoes)
-	user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), slot_wear_suit)
-	user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), slot_head)
-	user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), slot_gloves)
-	user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), slot_wear_mask)
-	user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), slot_glasses)
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), SLOT_HUD_JUMPSUIT)
+	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), SLOT_HUD_SHOES)
+	user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), SLOT_HUD_OUTER_SUIT)
+	user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), SLOT_HUD_HEAD)
+	user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), SLOT_HUD_GLOVES)
+	user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), SLOT_HUD_WEAR_MASK)
+	user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), SLOT_HUD_GLASSES)
 
 
 /**
@@ -461,11 +460,7 @@
 			if(!is_shadow(check))
 				continue
 
-			var/obj/effect/proc_holder/spell/shadowling_collective_mind/cm_spell = locate() in check.mind.spell_list
-			if(cm_spell)
-				check.mind.spell_list -= cm_spell
-				qdel(cm_spell)
-
+			check.mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_collective_mind)
 			check.mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_hatch)
 			check.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_ascend(null))
 
@@ -659,6 +654,8 @@
 	selection_activated_message		= "<span class='notice'>You start focusing your powers on mending wounds of allies. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	need_active_overlay = TRUE
+	/// Whether the EMPOWERED_THRALL_LIMIT limit is ignored or not
+	var/ignore_prer = FALSE
 
 
 /obj/effect/proc_holder/spell/shadowling_revive_thrall/create_new_targeting()
@@ -695,7 +692,7 @@
 			if(isshadowlinglesser(h_mob))
 				empowered_thralls++
 
-		if(empowered_thralls >= EMPOWERED_THRALL_LIMIT)
+		if(empowered_thralls >= EMPOWERED_THRALL_LIMIT && !ignore_prer)
 			to_chat(user, "<span class='warning'>You cannot spare this much energy. There are too many empowered thralls.</span>")
 			revert_cast(user)
 			return
@@ -841,8 +838,7 @@
 		GLOB.event_announcement.Announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.", "Системный сбой.", 'sound/misc/notice1.ogg')
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
-	user.mind.spell_list.Remove(src) //Can only be used once!
-	qdel(src)
+	user.mind.RemoveSpell(src)	//Can only be used once!
 
 
 // ASCENDANT ABILITIES BEYOND THIS POINT //
@@ -896,6 +892,11 @@
 	target.gib()
 
 
+/obj/effect/proc_holder/spell/shadowling_revive_thrall/ascendant
+	name = "Black will"
+	desc = "Empower your faithful thrall or revives"
+	base_cooldown = 0
+	ignore_prer = TRUE
 
 /obj/effect/proc_holder/spell/ascendant_hypnosis
 	name = "Hypnosis"

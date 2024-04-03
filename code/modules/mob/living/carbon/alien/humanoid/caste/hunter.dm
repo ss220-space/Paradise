@@ -106,8 +106,3 @@
 			update_icons()
 			update_canmove()
 
-
-/mob/living/carbon/alien/humanoid/float(on)
-	if(leaping)
-		return
-	..()

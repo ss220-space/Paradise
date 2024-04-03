@@ -167,25 +167,25 @@
 	for(var/obj/item/item in (human_ninja.contents - (human_ninja.bodyparts|human_ninja.internal_organs)))
 		human_ninja.drop_item_ground(item, force = TRUE, silent = TRUE)
 
-	human_ninja.equip_to_slot(new /obj/item/clothing/under/ninja, slot_w_uniform, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/glasses/ninja, slot_glasses, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/mask/gas/space_ninja, slot_wear_mask, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/shoes/space_ninja, slot_shoes, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/gloves/space_ninja, slot_gloves, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/head/helmet/space/space_ninja, slot_head, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/tank/internals/emergency_oxygen/ninja, slot_r_store, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/under/ninja, SLOT_HUD_JUMPSUIT, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/glasses/ninja, SLOT_HUD_GLASSES, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/mask/gas/space_ninja, SLOT_HUD_WEAR_MASK, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/shoes/space_ninja, SLOT_HUD_SHOES, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/gloves/space_ninja, SLOT_HUD_GLOVES, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/head/helmet/space/space_ninja, SLOT_HUD_HEAD, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/tank/internals/emergency_oxygen/ninja, SLOT_HUD_RIGHT_STORE, initial = TRUE)
 
 	var/obj/item/storage/backpack/ninja/my_backpack = new
-	human_ninja.equip_to_slot(my_backpack, slot_back, initial = TRUE)
+	human_ninja.equip_to_slot(my_backpack, SLOT_HUD_BACK, initial = TRUE)
 
 	var/obj/item/radio/headset/ninja/my_headset = new
-	human_ninja.equip_to_slot(my_headset, slot_r_ear, initial = TRUE)
+	human_ninja.equip_to_slot(my_headset, SLOT_HUD_RIGHT_EAR, initial = TRUE)
 
 	my_katana = new
-	human_ninja.equip_to_slot(my_katana, slot_belt, initial = TRUE)
+	human_ninja.equip_to_slot(my_katana, SLOT_HUD_BELT, initial = TRUE)
 
 	my_suit = new
-	human_ninja.equip_to_slot(my_suit, slot_wear_suit, initial = TRUE)
+	human_ninja.equip_to_slot(my_suit, SLOT_HUD_OUTER_SUIT, initial = TRUE)
 	my_suit.preferred_clothes_gender = human_ninja.gender
 	my_suit.n_headset = my_headset
 	my_suit.n_backpack = my_backpack

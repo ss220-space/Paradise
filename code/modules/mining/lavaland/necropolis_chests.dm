@@ -12,7 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 30)
+	var/loot = rand(1, 32)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -104,6 +104,10 @@
 			new /obj/item/clothing/suit/armor/clockwork_fake(src)
 			new /obj/item/clothing/head/helmet/clockwork_fake(src)
 			new /obj/item/stack/sheet/brass_fake/fifty(src)
+		if(31)
+			new /obj/item/spellbook/oneuse/goliath_dash(src)
+		if(32)
+			new /obj/item/spellbook/oneuse/watchers_look(src)
 
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
@@ -325,7 +329,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "rune_scimmy"
 	force = 28
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	damtype = BRUTE
 	sharp = TRUE
 	hitsound = 'sound/weapons/rs_slash.ogg'

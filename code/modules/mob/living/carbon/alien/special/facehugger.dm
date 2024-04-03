@@ -159,7 +159,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, slot_wear_mask, disable_warning = TRUE)
+		target.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK, disable_warning = TRUE)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME SECONDS / 6) //something like 25 ticks = 20 seconds with the default settings
 

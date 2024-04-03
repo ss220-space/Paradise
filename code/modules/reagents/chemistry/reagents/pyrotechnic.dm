@@ -355,7 +355,7 @@
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
-		M.bodytemperature -= 30
+		M.adjust_bodytemperature(-30)
 	return ..()
 
 /datum/reagent/cryostylane/process()
@@ -397,7 +397,7 @@
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
-		M.bodytemperature += 30
+		M.adjust_bodytemperature(30)
 	return ..()
 
 /datum/reagent/pyrosium/process()

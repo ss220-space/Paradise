@@ -113,7 +113,7 @@
 	var/total_mining_points = 0
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
-	slot_flags = SLOT_ID
+	slot_flags = SLOT_FLAG_ID
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
@@ -306,7 +306,7 @@
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID</span>")
+		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID.</span>")
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()

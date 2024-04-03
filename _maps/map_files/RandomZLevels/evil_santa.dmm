@@ -7,8 +7,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "ac" = (
@@ -45,11 +45,11 @@
 "am" = (
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
-	icon_state = "gingerbread";
-	name = "Lift door";
-	icon = 'icons/obj/doors/mineral_doors.dmi';
+	desc = "For authorized personnel only. Looks locked and bolted.";
 	description_info = null;
-	desc = "For authorized personnel only. Looks locked and bolted."
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Lift door"
 	},
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "au" = (
@@ -223,8 +223,8 @@
 "cc" = (
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
-	faction = list("scarybat");
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	faction = list("scarybat")
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -243,8 +243,8 @@
 	dir = 1
 	},
 /obj/item/paper/crumpled{
-	name = "Совет от пряника";
-	info = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях."
+	info = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях.";
+	name = "Совет от пряника"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
@@ -365,8 +365,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "dt" = (
 /obj/structure/snowman/built{
-	name = "Sergant snowman";
-	layer = 3.1
+	layer = 3.1;
+	name = "Sergant snowman"
 	},
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -394,11 +394,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "dz" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/vision_change_area/awaymission/evil_santa/mine/terror_spider)
 "dA" = (
 /obj/machinery/vending/hydronutrients,
@@ -506,8 +502,8 @@
 	dir = 1
 	},
 /obj/item/paper/crumpled{
-	name = "Совет от пряника";
-	info = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях."
+	info = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях.";
+	name = "Совет от пряника"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
@@ -532,10 +528,10 @@
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "eK" = (
 /mob/living/simple_animal/pet/penguin/emperor{
-	faction = list("hostile","syndicate","winter");
-	weather_immunities = list("snow");
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0
+	faction = list("hostile","syndicate","winter");
+	minbodytemp = 0;
+	weather_immunities = list("snow")
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -589,8 +585,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "fc" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id_target = "lab_lounge"
+	id_target = "lab_lounge";
+	name = "bump-teleporter ES"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
@@ -622,8 +618,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "fr" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_color = "#ffb366"
+	light_color = "#ffb366";
+	on = 1
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
@@ -661,8 +657,8 @@
 	},
 /obj/structure/decorative_structures/garland,
 /obj/machinery/door_control{
-	name = "Lounge portal gate";
 	id = "santa_portals";
+	name = "Lounge portal gate";
 	pixel_x = -32
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -724,8 +720,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "ge" = (
@@ -742,11 +738,11 @@
 "gj" = (
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
-	icon_state = "gingerbread";
-	name = "Security room";
-	icon = 'icons/obj/doors/mineral_doors.dmi';
+	desc = "Looks locked and bolted.";
 	description_info = null;
-	desc = "Looks locked and bolted."
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Security room"
 	},
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "gk" = (
@@ -812,10 +808,10 @@
 "gE" = (
 /obj/structure/flora/grass/brown,
 /mob/living/simple_animal/pet/dog/fox/forest{
-	faction = list("hostile","syndicate","winter");
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	weather_immunities = list("snow");
-	minbodytemp = 0
+	faction = list("hostile","syndicate","winter");
+	minbodytemp = 0;
+	weather_immunities = list("snow")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -864,15 +860,15 @@
 	},
 /obj/structure/decorative_structures/garland,
 /obj/item/paper/crumpled{
-	name = "Совет от пряника";
-	info = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях."
+	info = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях.";
+	name = "Совет от пряника"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "hd" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id_target = "right_lab"
+	id_target = "right_lab";
+	name = "bump-teleporter ES"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -905,8 +901,8 @@
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "hr" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_color = "#ffb366"
+	light_color = "#ffb366";
+	on = 1
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -996,11 +992,11 @@
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "hW" = (
 /obj/effect/bump_teleporter{
-	name = "To mines";
-	id_target = "forest_mines";
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "portal";
-	invisibility = 25
+	id_target = "forest_mines";
+	invisibility = 25;
+	name = "To mines"
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -1060,8 +1056,8 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "iE" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id = "right_lab_lounge"
+	id = "right_lab_lounge";
+	name = "bump-teleporter ES"
 	},
 /obj/structure/decorative_structures/garland,
 /obj/structure/decorative_structures/garland{
@@ -1131,8 +1127,8 @@
 	calibrating_on_activating = 1
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "iZ" = (
@@ -1160,8 +1156,8 @@
 	},
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "ji" = (
@@ -1229,13 +1225,6 @@
 /obj/structure/flora/tree/pine/xmas,
 /turf/simulated/floor/plating/asteroid/snow/temperature,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
-"jB" = (
-/turf/simulated/mineral/random/low_chance{
-	baseturf = /turf/simulated/floor/plating/asteroid;
-	turf_type = /turf/simulated/floor/plating/asteroid;
-	hardness = 2
-	},
-/area/vision_change_area/awaymission/evil_santa/mine)
 "jC" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/clothing/mask/cigarette/cigar{
@@ -1272,21 +1261,17 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "jI" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_range = 3;
 	light_color = "#ffb366";
-	name = "Mining lantern"
+	light_range = 3;
+	name = "Mining lantern";
+	on = 1
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "jK" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/space)
 "jN" = (
 /obj/item/storage/backpack/quiver,
@@ -1361,8 +1346,8 @@
 "kD" = (
 /obj/effect/decal/remains/mouse,
 /obj/item/paper/crumpled/bloody{
-	layer = 2.9;
-	desc = "Зря я решил скинуть оружие, в этих пещерах полно всякой живности... И где же я его закопал? Вроде я все время шел по правой стороне..."
+	desc = "Зря я решил скинуть оружие, в этих пещерах полно всякой живности... И где же я его закопал? Вроде я все время шел по правой стороне...";
+	layer = 2.9
 	},
 /obj/structure/decorative_structures/corpse,
 /obj/effect/decal/cleanable/dirt,
@@ -1378,11 +1363,11 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "kH" = (
 /obj/effect/bump_teleporter{
-	name = "To Santa";
-	id_target = "lounge_santa";
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "portal";
-	invisibility = 25
+	id_target = "lounge_santa";
+	invisibility = 25;
+	name = "To Santa"
 	},
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -1420,8 +1405,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "kR" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	color = "black"
+	color = "black";
+	dir = 4
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -1487,8 +1472,8 @@
 /obj/structure/table/wood/fancy/green,
 /obj/item/storage/bag/tray,
 /obj/item/reagent_containers/food/drinks/bottle/milk{
-	pixel_y = 10;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 10
 	},
 /obj/structure/decorative_structures/garland,
 /turf/simulated/floor/wood,
@@ -1523,8 +1508,8 @@
 "me" = (
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider{
-	faction = list("scarybat");
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	faction = list("scarybat")
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -1779,11 +1764,11 @@
 "of" = (
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
-	icon_state = "gingerbread";
-	name = "Lift door";
-	icon = 'icons/obj/doors/mineral_doors.dmi';
+	desc = "For authorized personnel only. Looks locked and bolted.";
 	description_info = null;
-	desc = "For authorized personnel only. Looks locked and bolted."
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Lift door"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "oi" = (
@@ -1829,11 +1814,11 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "on" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
+	faction = list("hostile","syndicate","winter");
 	icon = 'icons/mob/simple_human.dmi';
 	icon_dead = null;
 	icon_living = "gingerknightman";
 	icon_state = "gingerknightman";
-	faction = list("hostile","syndicate","winter");
 	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie)
 	},
 /turf/simulated/floor/wood/oak,
@@ -1893,8 +1878,8 @@
 "oO" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_color = "#ffb366"
+	light_color = "#ffb366";
+	on = 1
 	},
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
@@ -1903,8 +1888,8 @@
 	dir = 1
 	},
 /obj/structure/wooden_sign{
-	name = "Warning sign";
-	desc = "Ответь себе и входи: Вёл ли ты себя хорошо весь этот год? Если нет - уходи, Санта не любит плохишей!"
+	desc = "Ответь себе и входи: Вёл ли ты себя хорошо весь этот год? Если нет - уходи, Санта не любит плохишей!";
+	name = "Warning sign"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -1924,9 +1909,9 @@
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "pa" = (
 /obj/structure/statue/armor{
-	pixel_x = 11;
+	density = 0;
 	dir = 8;
-	density = 0
+	pixel_x = 11
 	},
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
@@ -1982,8 +1967,8 @@
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "pC" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id_target = "lab_lounge2"
+	id_target = "lab_lounge2";
+	name = "bump-teleporter ES"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
@@ -2022,18 +2007,18 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "pP" = (
 /obj/effect/bump_teleporter{
-	name = "From lounge";
-	id = "lounge_gate";
-	icon_state = "portal-syndicate";
 	icon = 'icons/obj/stationobjs.dmi';
-	invisibility = 25
+	icon_state = "portal-syndicate";
+	id = "lounge_gate";
+	invisibility = 25;
+	name = "From lounge"
 	},
 /obj/structure/decorative_structures/garland{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "pT" = (
@@ -2062,15 +2047,15 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "qm" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id_target = "left_lab"
+	id_target = "left_lab";
+	name = "bump-teleporter ES"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "qn" = (
 /obj/effect/decal/rail_way{
-	icon_state = "rail_intersection_NSW";
-	dir = 10
+	dir = 10;
+	icon_state = "rail_intersection_NSW"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -2221,8 +2206,8 @@
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "rC" = (
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "rD" = (
@@ -2338,11 +2323,11 @@
 "sw" = (
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
-	icon_state = "gingerbread";
-	name = "Lift door";
-	icon = 'icons/obj/doors/mineral_doors.dmi';
+	desc = "For authorized personnel only. Looks locked and bolted.";
 	description_info = null;
-	desc = "For authorized personnel only. Looks locked and bolted."
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Lift door"
 	},
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "sy" = (
@@ -2379,11 +2364,11 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "sP" = (
 /obj/effect/bump_teleporter{
-	name = "From gate";
-	id = "gate_lounge";
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "portal-syndicate";
-	invisibility = 25
+	id = "gate_lounge";
+	invisibility = 25;
+	name = "From gate"
 	},
 /obj/structure/decorative_structures/garland{
 	dir = 1
@@ -2462,11 +2447,11 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "tE" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
+	faction = list("hostile","syndicate","winter");
 	icon = 'icons/mob/simple_human.dmi';
 	icon_dead = null;
 	icon_living = "gingerknightman";
 	icon_state = "gingerknightman";
-	faction = list("hostile","syndicate","winter");
 	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie)
 	},
 /turf/simulated/floor/wood/oak,
@@ -2660,11 +2645,7 @@
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
 "vv" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "vw" = (
 /obj/structure/mineral_door/ginger,
@@ -2729,8 +2710,8 @@
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "wc" = (
 /mob/living/simple_animal/hostile/bear/polar{
-	weather_immunities = list("snow");
-	faction = list("hostile","syndicate","winter")
+	faction = list("hostile","syndicate","winter");
+	weather_immunities = list("snow")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -2847,11 +2828,11 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "xi" = (
 /obj/effect/bump_teleporter{
-	name = "From Santa";
-	id = "santa_lounge";
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "portal-syndicate";
-	invisibility = 25
+	id = "santa_lounge";
+	invisibility = 25;
+	name = "From Santa"
 	},
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -2907,11 +2888,11 @@
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "xz" = (
 /obj/effect/bump_teleporter{
-	name = "From lounge";
-	id = "lounge_santa";
-	icon_state = "portal-syndicate";
 	icon = 'icons/obj/stationobjs.dmi';
-	invisibility = 25
+	icon_state = "portal-syndicate";
+	id = "lounge_santa";
+	invisibility = 25;
+	name = "From lounge"
 	},
 /turf/simulated/floor/carpet/orange,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -2939,8 +2920,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "xK" = (
 /obj/structure/largecrate/evil{
-	name = "large crate";
-	desc = "A hefty wooden crate."
+	desc = "A hefty wooden crate.";
+	name = "large crate"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -2969,8 +2950,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "xW" = (
@@ -3004,11 +2985,11 @@
 "yp" = (
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
-	icon_state = "gingerbread";
-	name = "Security room";
-	icon = 'icons/obj/doors/mineral_doors.dmi';
+	desc = "Looks locked and bolted.";
 	description_info = null;
-	desc = "Looks locked and bolted."
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Security room"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "ys" = (
@@ -3153,8 +3134,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "zG" = (
@@ -3254,8 +3235,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "AV" = (
@@ -3282,8 +3263,8 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "Bf" = (
 /obj/structure/snowman/built{
-	name = "Sergant snowman";
-	layer = 3.1
+	layer = 3.1;
+	name = "Sergant snowman"
 	},
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -3335,12 +3316,7 @@
 /turf/simulated/wall/indestructible/snow,
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "Bv" = (
-/turf/simulated/wall/indestructible{
-	color = "#91857C";
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/rock/dark,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Bx" = (
 /obj/effect/decal/snow/clean/edge,
@@ -3460,10 +3436,10 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "CH" = (
 /mob/living/simple_animal/pet/dog/fox/forest{
-	faction = list("hostile","syndicate","winter");
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	weather_immunities = list("snow");
-	minbodytemp = 0
+	faction = list("hostile","syndicate","winter");
+	minbodytemp = 0;
+	weather_immunities = list("snow")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -3474,8 +3450,8 @@
 	density = 0
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "CN" = (
@@ -3547,11 +3523,11 @@
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "DD" = (
 /obj/effect/bump_teleporter{
-	name = "To gate";
-	id_target = "lounge_gate";
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "portal";
-	invisibility = 25
+	id_target = "lounge_gate";
+	invisibility = 25;
+	name = "To gate"
 	},
 /obj/structure/decorative_structures/garland{
 	dir = 1
@@ -3668,8 +3644,8 @@
 "EZ" = (
 /obj/structure/mineral_door/ginger,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Fc" = (
@@ -3785,8 +3761,8 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Ga" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_color = "#ffb366"
+	light_color = "#ffb366";
+	on = 1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
@@ -3819,21 +3795,17 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Gl" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
+	faction = list("hostile","syndicate","winter");
 	icon = 'icons/mob/simple_human.dmi';
 	icon_dead = null;
 	icon_living = "gingerknightman";
 	icon_state = "gingerknightman";
-	faction = list("hostile","syndicate","winter");
 	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie)
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "Gn" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Go" = (
 /obj/structure/decorative_structures/garland{
@@ -3877,8 +3849,8 @@
 /area/vision_change_area/awaymission/evil_santa_storm)
 "GA" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_color = "#ffb366"
+	light_color = "#ffb366";
+	on = 1
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
@@ -4048,18 +4020,18 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "HX" = (
 /obj/effect/bump_teleporter{
-	name = "To lounge";
-	id_target = "gate_lounge";
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "portal";
-	invisibility = 25
+	id_target = "gate_lounge";
+	invisibility = 25;
+	name = "To lounge"
 	},
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "HY" = (
@@ -4144,16 +4116,16 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "IO" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	color = "black"
+	color = "black";
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "IP" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id = "lab_lounge2"
+	id = "lab_lounge2";
+	name = "bump-teleporter ES"
 	},
 /turf/simulated/floor/carpet/green,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -4191,8 +4163,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Jj" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id = "mid_lab"
+	id = "mid_lab";
+	name = "bump-teleporter ES"
 	},
 /obj/structure/decorative_structures/garland{
 	dir = 1
@@ -4304,8 +4276,8 @@
 "Kq" = (
 /mob/living/simple_animal/hostile/bear/brown{
 	faction = list("hostile","syndicate","winter");
-	weather_immunities = list("snow");
-	name = "space daebear"
+	name = "space daebear";
+	weather_immunities = list("snow")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -4385,11 +4357,11 @@
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "KV" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
+	faction = list("hostile","syndicate","winter");
 	icon = 'icons/mob/simple_human.dmi';
 	icon_dead = null;
 	icon_living = "gingerknightman";
 	icon_state = "gingerknightman";
-	faction = list("hostile","syndicate","winter");
 	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie)
 	},
 /turf/simulated/floor/plating/asteroid,
@@ -4414,14 +4386,14 @@
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "Lj" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_range = 3;
 	light_color = "#ffb366";
-	name = "Mining lantern"
+	light_range = 3;
+	name = "Mining lantern";
+	on = 1
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Lm" = (
@@ -4480,8 +4452,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "LR" = (
 /obj/effect/decal/rail_way{
-	icon_state = "rail_intersection_NSE";
-	dir = 9
+	dir = 9;
+	icon_state = "rail_intersection_NSE"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -4568,9 +4540,9 @@
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "MD" = (
 /mob/living/simple_animal/pet/penguin/baby{
-	weather_immunities = list("snow");
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0
+	minbodytemp = 0;
+	weather_immunities = list("snow")
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -4595,10 +4567,10 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "MP" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_range = 3;
 	light_color = "#ffb366";
-	name = "Mining lantern"
+	light_range = 3;
+	name = "Mining lantern";
+	on = 1
 	},
 /obj/item/decorations/sticky_decorations/flammable/tinsel/green{
 	pixel_y = 32
@@ -4715,19 +4687,19 @@
 /area/vision_change_area/awaymission/evil_santa_storm)
 "NO" = (
 /turf/simulated/mineral/random/low_chance{
-	hardness = 2;
 	baseturf = /turf/simulated/floor/plating/asteroid;
+	hardness = 2;
 	turf_type = /turf/simulated/floor/plating/asteroid
 	},
 /area/vision_change_area/awaymission/evil_santa/mine)
 "NR" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id = "lab_lounge3"
+	id = "lab_lounge3";
+	name = "bump-teleporter ES"
 	},
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id = "lab_lounge"
+	id = "lab_lounge";
+	name = "bump-teleporter ES"
 	},
 /turf/simulated/floor/carpet/green,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -4755,8 +4727,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Ob" = (
@@ -4957,8 +4929,8 @@
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "PF" = (
 /mob/living/simple_animal/hostile/monkey_shaftminer{
-	name = "Monkey toymaker";
-	loot = list(/obj/effect/mob_spawn/human/corpse/monkey_shaftminer)
+	loot = list(/obj/effect/mob_spawn/human/corpse/monkey_shaftminer);
+	name = "Monkey toymaker"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -5024,8 +4996,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "Qg" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id = "right_lab"
+	id = "right_lab";
+	name = "bump-teleporter ES"
 	},
 /obj/structure/decorative_structures/garland{
 	dir = 8
@@ -5053,9 +5025,9 @@
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "Qu" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
+	density = 0;
 	id = "forest_mines";
-	density = 0
+	name = "bump-teleporter ES"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -5182,9 +5154,9 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "RB" = (
 /obj/structure/statue/armor{
+	density = 0;
 	dir = 4;
-	pixel_x = -11;
-	density = 0
+	pixel_x = -11
 	},
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
@@ -5297,9 +5269,9 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "Sx" = (
 /mob/living/simple_animal/pet/penguin/eldrich{
-	weather_immunities = list("snow");
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0
+	minbodytemp = 0;
+	weather_immunities = list("snow")
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -5314,11 +5286,11 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "SG" = (
 /obj/effect/bump_teleporter{
-	name = "To lounge";
-	id_target = "santa_lounge";
 	icon = 'icons/obj/stationobjs.dmi';
 	icon_state = "portal";
-	invisibility = 25
+	id_target = "santa_lounge";
+	invisibility = 25;
+	name = "To lounge"
 	},
 /turf/simulated/floor/carpet/orange,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -5345,11 +5317,11 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_nw)
 "ST" = (
 /mob/living/simple_animal/hostile/zombie/whiteship{
+	faction = list("hostile","syndicate","winter");
 	icon = 'icons/mob/simple_human.dmi';
 	icon_dead = null;
 	icon_living = "gingerknightman";
 	icon_state = "gingerknightman";
-	faction = list("hostile","syndicate","winter");
 	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie)
 	},
 /turf/simulated/floor/wood/oak,
@@ -5449,10 +5421,10 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "TF" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_range = 3;
 	light_color = "#ffb366";
-	name = "Mining lantern"
+	light_range = 3;
+	name = "Mining lantern";
+	on = 1
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -5567,9 +5539,9 @@
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	faction = list("hostile","syndicate","winter");
 	icon = 'icons/mob/simple_human.dmi';
+	icon_dead = null;
 	icon_living = "gingerchefman";
 	icon_state = "gingerchefman";
-	icon_dead = null;
 	loot = list(/obj/item/reagent_containers/food/snacks/gingercookie);
 	name = "fast ginger zombie"
 	},
@@ -5626,8 +5598,8 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "UZ" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	color = "black"
+	color = "black";
+	dir = 4
 	},
 /obj/structure/closet/crate/trashcart/gibs,
 /obj/effect/decal/cleanable/blood,
@@ -5701,8 +5673,8 @@
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "VH" = (
 /obj/item/paper{
-	name = "Записка";
-	info = "Кто теперь займет место Санты и раздаст подарки всме достойным? \n И помни главное - открывать подарки раньше времени не стоит!"
+	info = "Кто теперь займет место Санты и раздаст подарки всме достойным? \n И помни главное - открывать подарки раньше времени не стоит!";
+	name = "Записка"
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
@@ -5879,8 +5851,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Xj" = (
@@ -5892,11 +5864,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "Xo" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Xs" = (
 /obj/structure/decorative_structures/garland,
@@ -5920,8 +5888,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "XD" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_color = "#ffb366"
+	light_color = "#ffb366";
+	on = 1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
@@ -5949,8 +5917,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "XP" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id_target = "lab_lounge3"
+	id_target = "lab_lounge3";
+	name = "bump-teleporter ES"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
@@ -6035,8 +6003,8 @@
 	},
 /obj/structure/flora/grass/brown,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
-	temperature = 293.15;
-	slowdown = 0
+	slowdown = 0;
+	temperature = 293.15
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "YP" = (
@@ -6094,8 +6062,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "Zh" = (
 /obj/effect/bump_teleporter{
-	name = "bump-teleporter ES";
-	id_target = "mid_lab"
+	id_target = "mid_lab";
+	name = "bump-teleporter ES"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -6122,11 +6090,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "ZB" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock";
-	description_info = null
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "ZD" = (
 /obj/item/decorations/sticky_decorations/flammable/tinsel/green,
@@ -6149,8 +6113,8 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "ZN" = (
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_color = "#ffb366"
+	light_color = "#ffb366";
+	on = 1
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
@@ -6170,11 +6134,11 @@
 "ZS" = (
 /turf/simulated/wall/indestructible{
 	color = "#91857C";
-	icon_state = "gingerbread";
-	name = "Lift door";
-	icon = 'icons/obj/doors/mineral_doors.dmi';
+	desc = "For authorized personnel only. Looks locked and bolted.";
 	description_info = null;
-	desc = "For authorized personnel only. Looks locked and bolted."
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Lift door"
 	},
 /area/vision_change_area/awaymission/evil_santa/mine)
 "ZV" = (
@@ -54167,7 +54131,7 @@ kJ
 vv
 vv
 kJ
-jB
+NO
 Zx
 Zx
 kJ
@@ -54177,7 +54141,7 @@ kJ
 kJ
 kJ
 kJ
-jB
+NO
 UP
 kJ
 kJ
@@ -54190,7 +54154,7 @@ vv
 vv
 vv
 vv
-kJ
+vv
 wy
 NO
 NO
@@ -54377,7 +54341,7 @@ vv
 Zx
 vI
 vI
-jB
+NO
 kJ
 vv
 vv
@@ -54424,8 +54388,8 @@ UP
 kJ
 kJ
 kJ
-jB
-jB
+NO
+NO
 kJ
 kJ
 kJ
@@ -54682,8 +54646,8 @@ kJ
 kJ
 Zx
 kJ
-jB
-jB
+NO
+NO
 kJ
 kJ
 vv
@@ -54940,7 +54904,7 @@ xE
 Zx
 Zx
 kJ
-jB
+NO
 kJ
 kJ
 kJ
@@ -55927,7 +55891,7 @@ TF
 Zx
 Zx
 Zx
-jB
+NO
 vI
 Zx
 Zx
@@ -56184,7 +56148,7 @@ Zh
 Zx
 Zx
 Zx
-jB
+NO
 vI
 Zx
 Zx
@@ -60583,7 +60547,7 @@ kJ
 kJ
 Zx
 Zx
-jB
+NO
 xE
 me
 xE
@@ -60840,8 +60804,8 @@ kJ
 kJ
 kJ
 kJ
-jB
-jB
+NO
+NO
 xE
 xE
 xE
@@ -65738,7 +65702,7 @@ vv
 yZ
 nW
 yZ
-jB
+NO
 Zx
 kJ
 vv
@@ -65995,7 +65959,7 @@ vv
 vv
 vv
 vv
-jB
+NO
 Zx
 kJ
 vv
@@ -66252,7 +66216,7 @@ vv
 vv
 vv
 vv
-jB
+NO
 gp
 Zx
 vv
@@ -66509,8 +66473,8 @@ kJ
 vv
 vv
 kJ
-jB
-jB
+NO
+NO
 Zx
 vv
 vv
@@ -66762,12 +66726,12 @@ om
 Zx
 Zx
 kJ
-jB
+NO
 kJ
 Zx
 Zx
 kJ
-jB
+NO
 vv
 vv
 vv
@@ -67277,7 +67241,7 @@ Ni
 kJ
 kJ
 Zx
-jB
+NO
 kJ
 vv
 vv

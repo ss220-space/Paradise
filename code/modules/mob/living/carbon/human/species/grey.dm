@@ -26,7 +26,7 @@
 
 	toolspeedmod = 0.8 //25% faster
 
-	default_genes = list(REMOTE_TALK)
+	default_genes = list(/datum/dna/gene/basic/grant_spell/remotetalk)
 
 	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS

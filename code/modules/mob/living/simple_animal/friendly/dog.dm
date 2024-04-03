@@ -788,7 +788,7 @@
 	if(istype(I, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = I
 		N.use(1)
-		if(diseases?.len)
+		if(LAZYLEN(diseases))
 			CureAllDiseases()
 			visible_message("<span class='notice'>[name] looks happy! </span>")
 			chasetail()

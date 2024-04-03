@@ -6,7 +6,7 @@
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	flags = HANDSLOW
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_NONE
 	var/draw_sound = 'sound/weapons/draw_bow.ogg'
@@ -19,9 +19,15 @@
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/ashen //you can't shoot wooden arrows from bone bow!
-	flags = 0
+	flags = NONE
 	force = 10
 	slowdown_when_ready = 1
+
+
+/obj/item/gun/projectile/bow/proc/update_state()
+	update_slowdown()
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item()
 
 
 /obj/item/gun/projectile/bow/update_icon_state()
@@ -41,10 +47,10 @@
 	if(magazine && magazine.ammo_count())
 		magazine.empty_magazine()
 		ready_to_fire = FALSE
-		update_slowdown()
-		update_icon()
+		update_state()
 
 	. = ..()
+
 
 /obj/item/gun/projectile/bow/attack_self(mob/living/user)
 	if(!ready_to_fire && magazine.ammo_count())
@@ -52,29 +58,28 @@
 		playsound(user, draw_sound, 100, 1)
 	else
 		ready_to_fire = FALSE
-	update_slowdown()
-	update_icon()
+	update_state()
+
 
 /obj/item/gun/projectile/bow/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
 		to_chat(user, "<span class='notice'>You ready \the [A] into \the [src].</span>")
-		update_icon()
 		chamber_round()
+		update_state()
 
 /obj/item/gun/projectile/bow/can_shoot()
 	. = ..()
 	if(!ready_to_fire)
 		return FALSE
 
-/obj/item/gun/projectile/bow/shoot_with_empty_chamber(mob/living/user as mob|obj)
+/obj/item/gun/projectile/bow/shoot_with_empty_chamber(mob/living/user)
 	return
 
 /obj/item/gun/projectile/bow/process_chamber(eject_casing = 0, empty_chamber = 1)
 	. = ..()
 	ready_to_fire = FALSE
-	update_slowdown()
-	update_icon()
+	update_state()
 
 // ammo
 /obj/item/ammo_box/magazine/internal/bow

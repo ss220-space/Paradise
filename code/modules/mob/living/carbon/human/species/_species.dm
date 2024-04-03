@@ -80,7 +80,7 @@
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/strength_modifier = 1	 //for now only used in resist/grab chances. Maybe sometime it will become more usefull
 	var/obj_damage = 0
-	var/list/default_genes = list()
+	var/list/default_genes
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
@@ -283,72 +283,13 @@
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		return TRUE
 
-////////////////
-// MOVE SPEED //
-////////////////
-#define ADD_SLOWDOWN(__value) if(!ignoreslow || __value < 0) . += __value
-
-/datum/species/proc/movement_delay(mob/living/carbon/human/H)
-	. = 0	//We start at 0.
-
-	if(has_gravity(H))
-		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
-			. -= 1
-		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
-			. -= 0.5
-
-		var/ignoreslow = FALSE
-		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations) || (H.status_flags & GODMODE))
-			ignoreslow = TRUE
-
-		var/flight = H.flying	//Check for flight and flying items
-
-		ADD_SLOWDOWN(speed_mod)
-
-		if(H.status_flags & IGNORE_SPEED_CHANGES)
-			return .
-
-		if(H.wear_suit && !H.wear_suit.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.wear_suit.slowdown)
-		if(!H.buckled && H.shoes && !H.shoes.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.shoes.slowdown)
-		if(H.back && !H.back.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.back.slowdown)
-		if(H.l_hand && (H.l_hand.flags & HANDSLOW) && !H.l_hand.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.l_hand.slowdown)
-		if(H.r_hand && (H.r_hand.flags & HANDSLOW) && !H.r_hand.is_speedslimepotioned)
-			ADD_SLOWDOWN(H.r_hand.slowdown)
-
-		if(ignoreslow)
-			return . // Only malusses after here
-
-		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
-		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
-		if(H.reagents)
-			for(var/datum/reagent/R in H.reagents.reagent_list)
-				if(R.shock_reduction)
-					health_deficiency -= R.shock_reduction
-		if(health_deficiency >= 40 && !isnucleation(H))
-			if(flight)
-				. += (health_deficiency / 75)
-			else
-				. += (health_deficiency / 25)
-		if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
-			. += 2 * H.stance_damage //damaged/missing feet or legs is slow
-
-		if((hungry >= 70) && !flight)
-			. += hungry/50
-		if(FAT in H.mutations)
-			. += (1.5 - flight)
-		if (coldmod>0)
-			if(H.bodytemperature < cold_level_1)
-				. += (cold_level_1 - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
-
-	return .
-
-#undef ADD_SLOWDOWN
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(speed_mod)
+		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
+
 	for(var/slot_id in no_equip)
 		var/obj/item/thing = H.get_item_by_slot(slot_id)
 		if(thing && (!thing.species_exception || !is_type_in_list(src, thing.species_exception)))
@@ -361,27 +302,33 @@
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
+
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(speed_mod)
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
+
 	H.meatleft = initial(H.meatleft)
+
 	H.ventcrawler = initial(H.ventcrawler)
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			H.faction -= i
 
+
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
 
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return the parent value if processing does not explicitly stop
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
+/**
+ * Do species-specific reagent handling here
+ * Return 1 if it should do normal processing too
+ * Return the parent value if processing does not explicitly stop
+ * Return 0 if it shouldn't deplete and do its normal effect
+ * Other return values will cause weird badness
+ */
 /datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
-		H.reagents.del_reagent(R.id)
-		return FALSE
 	return TRUE
 
 // For special snowflake species effects
@@ -646,7 +593,7 @@
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_from_active_hand())
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружи[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
+					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружива[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
@@ -763,14 +710,14 @@
 
 	switch(slot)
 		// HANDS
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			if(user.l_hand)
 				return FALSE
 			if(user.incapacitated())
 				return FALSE
 			return TRUE
 
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			if(user.r_hand)
 				return FALSE
 			if(user.incapacitated())
@@ -778,58 +725,58 @@
 			return TRUE
 
 		// MASK SLOT
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			if(user.wear_mask)
 				return FALSE
-			if(!(I.slot_flags & SLOT_MASK))
+			if(!(I.slot_flags & SLOT_FLAG_MASK))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// BACK SLOT
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			if(user.back)
 				return FALSE
-			if(!(I.slot_flags & SLOT_BACK))
+			if(!(I.slot_flags & SLOT_FLAG_BACK))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// SUIT SLOT
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			if(user.wear_suit)
 				return FALSE
-			if(!(I.slot_flags & SLOT_OCLOTHING))
+			if(!(I.slot_flags & SLOT_FLAG_OCLOTHING	))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// GLOVES SLOT
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			if(user.gloves)
 				return FALSE
-			if(!(I.slot_flags & SLOT_GLOVES))
+			if(!(I.slot_flags & SLOT_FLAG_GLOVES))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// SHOES SLOT
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			if(user.shoes)
 				return FALSE
-			if(!(I.slot_flags & SLOT_FEET))
+			if(!(I.slot_flags & SLOT_FLAG_FEET))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// NECK SLOT
-		if(slot_neck)
+		if(SLOT_HUD_NECK)
 			if(user.neck)
 				return FALSE
-			if(!(I.slot_flags & SLOT_NECK))
+			if(!(I.slot_flags & SLOT_FLAG_NECK))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// BELT SLOT
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			if(user.belt)
 				return FALSE
-			if(!(I.slot_flags & SLOT_BELT))
+			if(!(I.slot_flags & SLOT_FLAG_BELT))
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
@@ -841,53 +788,53 @@
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// GLASSES SLOT
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			if(user.glasses)
 				return FALSE
-			if(!(I.slot_flags & SLOT_EYES))
+			if(!(I.slot_flags & SLOT_FLAG_EYES))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// HEAD SLOT
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			if(user.head)
 				return FALSE
-			if(!(I.slot_flags & SLOT_HEAD))
+			if(!(I.slot_flags & SLOT_FLAG_HEAD))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// EARS SLOTS
-		if(slot_l_ear)
+		if(SLOT_HUD_LEFT_EAR)
 			if(user.l_ear)
 				return FALSE
-			if(!(I.slot_flags & SLOT_EARS))
+			if(!(I.slot_flags & SLOT_FLAG_EARS))
 				return FALSE
-			if((I.slot_flags & SLOT_TWOEARS) && user.r_ear)
+			if((I.slot_flags & SLOT_FLAG_TWOEARS) && user.r_ear)
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
-		if(slot_r_ear)
+		if(SLOT_HUD_RIGHT_EAR)
 			if(user.r_ear)
 				return FALSE
-			if(!(I.slot_flags & SLOT_EARS))
+			if(!(I.slot_flags & SLOT_FLAG_EARS))
 				return FALSE
-			if((I.slot_flags & SLOT_TWOEARS) && user.l_ear)
+			if((I.slot_flags & SLOT_FLAG_TWOEARS) && user.l_ear)
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// UNIFORM SLOT
-		if(slot_w_uniform)
+		if(SLOT_HUD_JUMPSUIT)
 			if(user.w_uniform)
 				return FALSE
-			if(!(I.slot_flags & SLOT_ICLOTHING))
+			if(!(I.slot_flags & SLOT_FLAG_ICLOTHING	))
 				return FALSE
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// ID CARD SLOT
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			if(user.wear_id)
 				return FALSE
-			if(!(I.slot_flags & SLOT_ID))
+			if(!(I.slot_flags & SLOT_FLAG_ID))
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
@@ -899,10 +846,10 @@
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// PDA SLOT
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			if(user.wear_pda)
 				return FALSE
-			if(!(I.slot_flags & SLOT_PDA))
+			if(!(I.slot_flags & SLOT_FLAG_PDA))
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_CHEST)
@@ -914,12 +861,12 @@
 			return equip_delay_self_obscured_check(I, slot, user, disable_warning, bypass_equip_delay_self, bypass_obscured)
 
 		// POCKETS
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
 				return FALSE
 			if(user.l_store)
 				return FALSE
-			if(I.slot_flags & SLOT_DENYPOCKET)
+			if(I.slot_flags & SLOT_FLAG_DENYPOCKET)
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_L_LEG)
@@ -928,14 +875,14 @@
 					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
-			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET)
+			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET)
 
-		if(slot_r_store)
+		if(SLOT_HUD_RIGHT_STORE)
 			if(I.flags & NODROP)
 				return FALSE
 			if(user.r_store)
 				return FALSE
-			if(I.slot_flags & SLOT_DENYPOCKET)
+			if(I.slot_flags & SLOT_FLAG_DENYPOCKET)
 				return FALSE
 
 			var/obj/item/organ/external/O = user.get_organ(BODY_ZONE_R_LEG)
@@ -944,10 +891,10 @@
 					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I]."))
 				return FALSE
 
-			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET)
+			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET)
 
 		// SUIT STORE SLOT
-		if(slot_s_store)
+		if(SLOT_HUD_SUIT_STORE)
 			if(user.s_store)
 				return FALSE
 			if(!user.wear_suit)
@@ -971,14 +918,14 @@
 			return FALSE
 
 		// HANDCUFFS SLOT
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return !user.handcuffed && istype(I, /obj/item/restraints/handcuffs)
 
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return !user.legcuffed && istype(I, /obj/item/restraints/legcuffs)
 
 		// PLACING ITEM IN BACKPACK
-		if(slot_in_backpack)
+		if(SLOT_HUD_IN_BACKPACK)
 			if(user.back && istype(user.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/backpack = user.back
 				if(backpack.contents.len < backpack.storage_slots && I.w_class <= backpack.max_w_class)
@@ -986,8 +933,8 @@
 			return FALSE
 
 		// UNIFORM ACCESORIES
-		if(slot_tie)
-			if(!(I.slot_flags & SLOT_TIE))
+		if(SLOT_HUD_TIE)
+			if(!(I.slot_flags & SLOT_FLAG_TIE))
 				return FALSE
 			if(!user.w_uniform)
 				if(!disable_warning)
@@ -1131,7 +1078,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
 	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
-		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
+		M.set_bodytemperature((temperature + M.bodytemperature) * 0.5)	// Approximation for gradual heating or cooling.
 
 /datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
@@ -1175,9 +1122,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/spec_thunk(mob/living/carbon/human/H)
 	return FALSE
-
-/datum/species/proc/spec_movement_delay()
-	return TRUE
 
 /datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
 	return FALSE

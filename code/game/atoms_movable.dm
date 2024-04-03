@@ -27,6 +27,14 @@
 	var/inertia_moving = FALSE
 	var/inertia_next_move = 0
 	var/inertia_move_delay = 5
+
+	/**
+	  * In case you have multiple types, you automatically use the most useful one.
+	  * IE: Skating on ice, flippers on water, flying over chasm/space, etc.
+	  * I reccomend you use the movetype_handler system and not modify this directly, especially for living mobs.
+	  */
+	var/movement_type = GROUND
+
 	/// NONE:0 not doing a diagonal move. FIRST_DIAG_STEP:1 and SECOND_DIAG_STEP:2 doing the first/second step of the diagonal move.
 	var/moving_diagonally = NONE
 	var/list/client_mobs_in_contents
@@ -488,7 +496,7 @@
 
 	// They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if(istype(thrower) && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
-		var/user_momentum = thrower.movement_delay()
+		var/user_momentum = thrower.cached_multiplicative_slowdown
 		if(!user_momentum) // no movement_delay, this means they move once per byond tick, let's calculate from that instead
 			user_momentum = world.tick_lag
 
@@ -628,74 +636,88 @@
 		target.fingerprintshidden += fingerprintshidden
 	target.fingerprintslast = fingerprintslast
 
-/atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
-	if(!no_effect && (visual_effect_icon || used_item))
-		do_item_attack_animation(A, visual_effect_icon, used_item)
 
-	if(A == src)
+/atom/movable/proc/do_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item, no_effect)
+	if(!no_effect && (visual_effect_icon || used_item))
+		do_item_attack_animation(attacked_atom, visual_effect_icon, used_item)
+
+	if(attacked_atom == src)
 		return //don't do an animation if attacking self
+
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
+	var/turn_dir = 1
 
-	var/direction = get_dir(src, A)
+	var/direction = get_dir(src, attacked_atom)
 	if(direction & NORTH)
 		pixel_y_diff = 8
+		turn_dir = prob(50) ? -1 : 1
 	else if(direction & SOUTH)
 		pixel_y_diff = -8
+		turn_dir = prob(50) ? -1 : 1
 
 	if(direction & EAST)
 		pixel_x_diff = 8
 	else if(direction & WEST)
 		pixel_x_diff = -8
+		turn_dir = -1
 
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
+	var/matrix/initial_transform = matrix(transform)
+	var/matrix/rotated_transform = transform.Turn(15 * turn_dir)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform = rotated_transform, time = 0.1 SECONDS, easing = (BACK_EASING|EASE_IN), flags = ANIMATION_PARALLEL)
+	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform = initial_transform, time = 0.2 SECONDS, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
 
-/atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
-	var/image/I
+
+/atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
+	var/image/attack_image
 	if(visual_effect_icon)
-		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
+		attack_image = image('icons/effects/effects.dmi', attacked_atom, visual_effect_icon, attacked_atom.layer + 0.1)
 	else if(used_item)
-		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
-		I.plane = GAME_PLANE
+		attack_image = image(icon = used_item, loc = attacked_atom, layer = attacked_atom.layer + 0.1)
+		attack_image.plane = GAME_PLANE
 
 		// Scale the icon.
-		I.transform *= 0.75
+		attack_image.transform *= 0.4
 		// The icon should not rotate.
-		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		attack_image.appearance_flags = APPEARANCE_UI
 
 		// Set the direction of the icon animation.
-		var/direction = get_dir(src, A)
+		var/direction = get_dir(src, attacked_atom)
 		if(direction & NORTH)
-			I.pixel_y = -16
+			attack_image.pixel_y = -16
 		else if(direction & SOUTH)
-			I.pixel_y = 16
+			attack_image.pixel_y = 16
 
 		if(direction & EAST)
-			I.pixel_x = -16
+			attack_image.pixel_x = -16
 		else if(direction & WEST)
-			I.pixel_x = 16
+			attack_image.pixel_x = 16
 
 		if(!direction) // Attacked self?!
-			I.pixel_z = 16
+			attack_image.pixel_y = 12
+			attack_image.pixel_x = 5 * (prob(50) ? 1 : -1)
 
-	if(!I)
+	if(!attack_image)
 		return
 
 	// Who can see the attack?
 	var/list/viewing = list()
-	for(var/mob/M in viewers(A))
-		if(M.client && M.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK)
-			viewing |= M.client
+	for(var/mob/viewer in viewers(attacked_atom))
+		if(viewer.client && (viewer.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK))
+			viewing |= viewer.client
 
-	flick_overlay(I, viewing, 5) // 5 ticks/half a second
+	flick_overlay(attack_image, viewing, 0.7 SECONDS)
+	var/matrix/initial_transform = matrix(transform)
+	var/image_color = "#ffffff"
+	if(ismob(src) && ismob(attacked_atom) && !used_item)
+		var/mob/attacker = src
+		image_color = attacker.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
 
 	// And animate the attack!
-	var/t_color = "#ffffff"
-	if(ismob(src) &&  ismob(A) && (!used_item))
-		var/mob/M = src
-		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
+	animate(attack_image, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, time = 0.3 SECONDS, color = image_color)
+	animate(time = 0.1 SECONDS)
+	animate(alpha = 0, time = 0.3 SECONDS, easing = (CIRCULAR_EASING|EASE_OUT))
+
 
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return

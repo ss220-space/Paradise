@@ -76,7 +76,7 @@
 	to_chat(target, "<font color=#800040>[span_boldannounce("You can now communicate in the changeling hivemind, say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate!")]")
 
 	for(var/mob/ling in GLOB.mob_list)
-		if(GLOB.all_languages[LANGUAGE_HIVE_CHANGELING] in ling.languages)
+		if(LAZYIN(ling.languages, GLOB.all_languages[LANGUAGE_HIVE_CHANGELING]))
 			to_chat(ling, span_changeling("We can sense a foreign presence in the hivemind..."))
 
 	cling?.is_linking = FALSE

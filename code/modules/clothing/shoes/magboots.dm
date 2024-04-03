@@ -67,7 +67,7 @@
 
 
 /obj/item/clothing/shoes/magboots/negates_gravity()
-	return flags & NOSLIP
+	return (flags & NOSLIP)
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
@@ -121,7 +121,7 @@
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == slot_shoes && enabled_waddle)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/dropped(mob/user, silent = FALSE)
@@ -281,7 +281,7 @@
 
 	if(!ishuman(user))
 		return
-	if(slot == slot_shoes && cell && core)
+	if(slot == SLOT_HUD_SHOES && cell && core)
 		style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/user, silent = FALSE)
@@ -289,14 +289,14 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_shoes) == src)
+	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
 			attack_self(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
-	if(slot == slot_shoes)
+	if(slot == SLOT_HUD_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/magboots/gravity/proc/dash(mob/user, action)
@@ -320,14 +320,18 @@
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
-	var/do_callback = FALSE
-	if(!user.flying)
-		user.flying = TRUE
-		do_callback = TRUE
-	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = do_callback ? VARSET_CALLBACK(user, flying, FALSE) : null))
+	ADD_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_GRAV_BOOTS_TRAIT)
+	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user)
+	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
 	else
+		after_jump(user)
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+
+/obj/item/clothing/shoes/magboots/gravity/proc/after_jump(mob/user)
+	REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_GRAV_BOOTS_TRAIT)
+

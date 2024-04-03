@@ -62,7 +62,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
-	if(slot == slot_wear_suit) //we only give the mob the ability to activate the vest if he's actually wearing it.
+	if(slot == SLOT_HUD_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return 1
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
@@ -427,7 +427,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
 	force = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -532,7 +532,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		add_attack_logs(user, L, "Put to sleep with [src]")
 	else
 		L.AdjustDrowsy(2 SECONDS)
-		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens! </span>")
+		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens!</span>")
 		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel drowsy!</span>")
 

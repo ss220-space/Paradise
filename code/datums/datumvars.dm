@@ -1131,7 +1131,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		if(!H.languages.len)
+		if(!LAZYLEN(H.languages))
 			to_chat(usr, "This mob knows no languages.")
 			return
 

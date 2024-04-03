@@ -30,7 +30,7 @@
 * Is the gene active in this mob's DNA?
 */
 /datum/dna/gene/proc/is_active(mob/M)
-	return M.active_genes && (type in M.active_genes)
+	return LAZYIN(M.active_genes, type)
 
 // Return 1 if we can activate.
 // HANDLE MUTCHK_FORCED HERE!

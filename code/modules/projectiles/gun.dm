@@ -6,7 +6,7 @@
 	item_state = "gun"
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER
 	flags =  CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -180,7 +180,7 @@
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)
 			effect.color = chambered.muzzle_flash_color
-			effect.set_light(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
+			effect.set_light_range_power_color(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
 		else
 			effect.color = LIGHT_COLOR_TUNGSTEN
 
@@ -648,7 +648,7 @@
  */
 /obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
 	// Checks if the gun got equipped into either of the user's hands.
-	if(slot != slot_r_hand && slot != slot_l_hand)
+	if(slot != SLOT_HUD_RIGHT_HAND && slot != SLOT_HUD_LEFT_HAND)
 		// If its not in their hands, un-zoom, and remove the zoom action button.
 		zoom(user, FALSE)
 		azoom.Remove(user)

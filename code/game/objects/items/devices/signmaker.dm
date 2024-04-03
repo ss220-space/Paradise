@@ -7,7 +7,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker_clown_off"
 	item_state = "signmaker_clown"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 0
 	throwforce = 0
 	throw_speed = 3

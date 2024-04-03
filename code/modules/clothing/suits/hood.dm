@@ -38,7 +38,7 @@
 
 
 /obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
-	if(slot == slot_wear_suit)
+	if(slot == SLOT_HUD_OUTER_SUIT)
 		return TRUE
 
 
@@ -75,7 +75,7 @@
 	if(user.head)
 		to_chat(user, span_warning("You're already wearing something on your head!"))
 		return
-	if(!user.equip_to_slot(hood, slot_head))
+	if(!user.equip_to_slot(hood, SLOT_HUD_HEAD))
 		return FALSE
 	. = TRUE
 	suit_adjusted = TRUE
@@ -118,7 +118,7 @@
 	if(!suit)
 		qdel(src)
 		return FALSE
-	if(slot != slot_head || user.wear_suit != suit)
+	if(slot != SLOT_HUD_HEAD || user.wear_suit != suit)
 		user.drop_item_ground(src, force = TRUE, silent = TRUE)
 		return FALSE
 
@@ -127,7 +127,7 @@
 	. = ..()
 	if(suit)
 		suit.RemoveHood(user)
-	else
+	else if(!QDELETED(src))
 		qdel(src)
 
 

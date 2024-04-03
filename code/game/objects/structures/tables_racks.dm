@@ -138,7 +138,6 @@
 		clumse_stuff(user)
 
 
-
 /obj/structure/table/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
@@ -146,6 +145,8 @@
 	if(isprojectile(mover))
 		return check_cover(mover)
 	if(mover.throwing)
+		return TRUE
+	if(mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return TRUE
 	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
 		var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
@@ -246,10 +247,7 @@
 		tablepush(I, user)
 		return
 
-	if(isrobot(user))
-		return
-
-	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))
+	if(user.a_intent != INTENT_HARM && !(I.flags & (ABSTRACT | NODROP)))
 		if(user.transfer_item_to_loc(I, src.loc))
 			add_fingerprint(user)
 			var/list/click_params = params2list(params)
@@ -261,6 +259,8 @@
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			item_placed(I)
 	else
+		if(isrobot(user))
+			return
 		return ..()
 
 
@@ -445,10 +445,6 @@
 	if(!isliving(AM))
 		return
 
-	var/mob/living/check = AM
-	if(check.incorporeal_move || check.flying || check.floating)
-		return
-
 	// Don't break if they're just flying past
 	if(AM.throwing)
 		addtimer(CALLBACK(src, PROC_REF(throw_check), AM), 5)
@@ -461,6 +457,8 @@
 		check_break(M)
 
 /obj/structure/table/glass/proc/check_break(mob/living/M)
+	if(M.incorporeal_move || (M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return
 	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL)
 		table_shatter(M)
 

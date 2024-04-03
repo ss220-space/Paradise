@@ -132,7 +132,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
-		"Tajaran" = 'icons/cat/are/bad'
+		SPECIES_TAJARAN = 'icons/cat/are/bad'
 		)
 	If index term exists and icon_override is not set, this sprite sheet will be used.
 	*/
@@ -652,14 +652,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(islist(equip_sound) && length(equip_sound))
 				chosen_sound = pick(equip_sound)
 			playsound(src, chosen_sound, EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
-		else if(slot == slot_l_store || slot == slot_l_store)
+		else if(slot == SLOT_HUD_LEFT_STORE || slot == SLOT_HUD_LEFT_STORE)
 			playsound(src, 'sound/items/handling/generic_equip3.ogg', EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
-		else if(pickup_sound && (slot == slot_l_hand || slot == slot_r_hand))
+		else if(pickup_sound && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND))
 			var/chosen_sound = pickup_sound
 			if(islist(pickup_sound) && length(pickup_sound))
 				chosen_sound = pick(pickup_sound)
 			playsound(src, chosen_sound, PICKUP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 
+	user.update_equipment_speed_mods()
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	return TRUE
 
@@ -724,8 +725,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	//Checking for storage item in offhand, then belt, then backpack
 	var/list/possible = list( \
 		user.get_inactive_hand(), \
-		user.get_item_by_slot(slot_belt), \
-		user.get_item_by_slot(slot_back) \
+		user.get_item_by_slot(SLOT_HUD_BELT), \
+		user.get_item_by_slot(SLOT_HUD_BACK) \
 	)
 
 	for(var/obj/item/storage/container in possible)
@@ -1082,59 +1083,61 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/slot = owner.get_slot_by_item(src)
 
 	switch(slot)
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			owner.wear_suit_update(src)
 
-		if(slot_w_uniform)
+		if(SLOT_HUD_JUMPSUIT)
 			owner.update_inv_w_uniform()
 
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			owner.update_inv_gloves()
 
-		if(slot_neck)
+		if(SLOT_HUD_NECK)
 			owner.update_inv_neck()
 
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			owner.wear_glasses_update(src)
 
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			owner.update_head(src)
 
-		if(slot_l_ear, slot_r_ear)
+		if(SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR)
 			owner.update_inv_ears()
 
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			owner.update_inv_shoes()
 
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			owner.update_inv_belt()
 
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			owner.wear_mask_update(src)
 
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			if(ishuman(owner))
 				var/mob/living/carbon/human/h_owner = owner
 				h_owner.sec_hud_set_ID()
 			owner.update_inv_wear_id()
 
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			owner.update_inv_wear_pda()
 
-		if(slot_l_store, slot_r_store)
+		if(SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE)
 			owner.update_inv_pockets()
 
-		if(slot_s_store)
+		if(SLOT_HUD_SUIT_STORE)
 			owner.update_inv_s_store()
 
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			owner.update_inv_back()
 
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			owner.update_inv_l_hand()
 
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			owner.update_inv_r_hand()
+
+	owner.update_equipment_speed_mods()
 
 	if(update_buttons)
 		for(var/datum/action/action as anything in actions)

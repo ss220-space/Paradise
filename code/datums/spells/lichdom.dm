@@ -148,8 +148,8 @@
 
 
 /obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/user)
-		user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(user), slot_wear_suit)
-		user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(user), slot_head)
-		user.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(user), slot_shoes)
-		user.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), slot_w_uniform)
+		user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(user), SLOT_HUD_OUTER_SUIT)
+		user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(user), SLOT_HUD_HEAD)
+		user.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(user), SLOT_HUD_SHOES)
+		user.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), SLOT_HUD_JUMPSUIT)
 

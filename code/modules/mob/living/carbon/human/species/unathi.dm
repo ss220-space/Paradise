@@ -134,11 +134,16 @@
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
 	speedylegs(H)
 
+
 /datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
+	SIGNAL_HANDLER
+
 	if(is_mining_level(H.z))
 		speed_mod = initial(speed_mod)
 	else
 		speed_mod = 0
+	H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
+
 
 //Ash walker shaman, worse defensive stats, but better at surgery and have a healing touch ability
 /datum/species/unathi/ashwalker/shaman
@@ -247,7 +252,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	punchdamagehigh = 18
 	punchstunthreshold = 18	//+8 claws of powergaming
 	species_traits = list(LIPS, PIERCEIMMUNE, RESISTHOT) //Dragons like fire
-	no_equip = list(slot_shoes) //everyone have to pay for
+	no_equip = list(SLOT_HUD_SHOES) //everyone have to pay for
 	speed_mod = -0.25			//beeing slightly faster
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
@@ -262,7 +267,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 
 /datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	. = ..()
-	var/obj/shoes = C.get_item_by_slot(slot_shoes)
+	var/obj/shoes = C.get_item_by_slot(SLOT_HUD_SHOES)
 	if(shoes && C.can_unEquip(shoes))
 		C.drop_item_ground(shoes)
 	var/obj/item/organ/external/head/head_organ = C.get_organ(BODY_ZONE_HEAD)

@@ -2,7 +2,7 @@
 /obj/item/clothing/head/helmet/space/skrell
 	name = "Skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
-	species_restricted = list("Skrell","Human")
+	species_restricted = list(SPECIES_SKRELL,SPECIES_HUMAN)
 
 /obj/item/clothing/head/helmet/space/skrell/white
 	icon_state = "skrell_helmet_white"
@@ -17,7 +17,7 @@
 /obj/item/clothing/suit/space/skrell
 	name = "Skrellian hardsuit"
 	desc = "Seems like a wetsuit with reinforced plating seamlessly attached to it. Very chic."
-	species_restricted = list("Skrell","Human")
+	species_restricted = list(SPECIES_SKRELL,SPECIES_HUMAN)
 
 /obj/item/clothing/suit/space/skrell/white
 	icon_state = "skrell_suit_white"
@@ -32,12 +32,12 @@
 //Unathi space gear. Huge and restrictive.
 /obj/item/clothing/head/helmet/space/unathi
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
-	species_restricted = list("Unathi")
+	species_restricted = list(SPECIES_UNATHI)
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
@@ -49,12 +49,12 @@
 
 /obj/item/clothing/suit/space/unathi
 	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
-	species_restricted = list("Unathi")
+	species_restricted = list(SPECIES_UNATHI)
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
@@ -86,10 +86,10 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
-	species_restricted = list("Vox", "Vox Armalis")
+	species_restricted = list(SPECIES_VOX, SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi',
 		)
 
 /obj/item/clothing/head/helmet/space/vox
@@ -97,10 +97,10 @@
 	flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
-	species_restricted = list("Vox","Vox Armalis")
+	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/head.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/head.dmi',
 		)
 
 /obj/item/clothing/head/helmet/space/vox/pressure
@@ -155,9 +155,9 @@
 /obj/item/clothing/under/vox
 	has_sensor = 0
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
 
 /obj/item/clothing/under/vox/vox_casual
@@ -174,10 +174,10 @@
 	icon_state = "vox-casual-2"
 	item_color = "vox-casual-2"
 	item_state = "vox-casual-2"
-	species_restricted = list("Vox","Vox Armalis")
+	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/suit.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi'
 		)
 
 /obj/item/clothing/gloves/color/yellow/vox
@@ -189,10 +189,10 @@
 	permeability_coefficient = 0.05
 	item_color = "gloves-vox"
 	icon = 'icons/obj/clothing/species/vox/gloves.dmi'
-	species_restricted = list("Vox","Vox Armalis")
+	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/gloves.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/gloves.dmi',
 		)
 
 /obj/item/clothing/shoes/magboots/vox
@@ -201,10 +201,10 @@
 	item_state = "boots-vox"
 	icon_state = "boots-vox"
 	icon = 'icons/obj/clothing/species/vox/shoes.dmi'
-	species_restricted = list("Vox","Vox Armalis")
+	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/feet.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/feet.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/feet.dmi',
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/feet.dmi'
 		)
 
 
@@ -234,7 +234,7 @@
 
 
 /obj/item/clothing/shoes/magboots/vox/item_action_slot_check(slot)
-	if(slot == slot_shoes)
+	if(slot == SLOT_HUD_SHOES)
 		return TRUE
 
 
@@ -256,7 +256,7 @@
 	desc = "Alien backpack, made from synthetic fiber."
 	icon_state = "backpack_gold_vox"
 	item_state = "backpack_gold_vox"
-	var/list/species_restricted = list("Vox")
+	var/list/species_restricted = list(SPECIES_VOX)
 
 /obj/item/storage/backpack/alien/satchel
 	name = "alien satchel"

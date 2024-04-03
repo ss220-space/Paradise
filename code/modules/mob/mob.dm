@@ -12,9 +12,6 @@
 		clear_alert(alert)
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
-	for(var/I in tkgrabbed_objects)
-		qdel(tkgrabbed_objects[I])
-	tkgrabbed_objects = null
 	if(buckled)
 		buckled.unbuckle_mob(src, force = TRUE)
 	if(viewing_alternate_appearances)
@@ -34,6 +31,9 @@
 	reset_perspective(src)
 	prepare_huds()
 	. = ..()
+	update_config_movespeed()
+	update_movespeed()
+
 
 /atom/proc/prepare_huds()
 	hud_list = list()
@@ -188,9 +188,6 @@
 			return M
 	return 0
 
-/mob/proc/movement_delay()
-	return 0
-
 
 /mob/proc/get_visible_mobs()
 	var/list/seen_mobs = list()
@@ -288,8 +285,8 @@
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -300,7 +297,7 @@
 	popup.open()
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
-/mob/verb/examinate(atom/A as mob|obj|turf in view(client.maxview(), client.eye))
+/mob/verb/examinate(atom/A as mob|obj|turf in view())
 	set name = "Examine"
 	set category = "IC"
 
@@ -691,12 +688,11 @@
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
 	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
 
-	if(mob_spell_list && mob_spell_list.len)
-		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
-			add_spell_to_statpanel(S)
-	if(mind && istype(src, /mob/living) && mind.spell_list && mind.spell_list.len)
-		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
-			add_spell_to_statpanel(S)
+	for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
+		add_spell_to_statpanel(spell)
+	if(mind && isliving(src))
+		for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)
+			add_spell_to_statpanel(spell)
 
 	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
 	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)))
@@ -801,7 +797,7 @@
 				var/atom/A = foo
 				if(A.invisibility > see_invisible)
 					continue
-				if(is_type_in_list(A, shouldnt_see) || !A.simulated)
+				if(!A.simulated)
 					continue
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
@@ -827,7 +823,7 @@
 	if(!canface())
 		return FALSE
 	setDir(ndir)
-	client.move_delay += movement_delay()
+	client.move_delay += cached_multiplicative_slowdown
 	return TRUE
 
 
@@ -960,17 +956,22 @@
 				visible_message("<span class='warning'>[src.name] наблевал[genderize_ru(src.gender,"","а","о","и")] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
 			location.add_vomit_floor(TRUE)
 
-/mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
-	mob_spell_list += S
-	S.action.Grant(src)
 
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
-	if(!spell)
+/mob/proc/AddSpell(obj/effect/proc_holder/spell/spell)
+	if(!istype(spell))
 		return
-	for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
-		if(istype(S, spell))
-			qdel(S)
-			mob_spell_list -= S
+	LAZYADD(mob_spell_list, spell)
+	spell.action.Grant(src)
+
+
+/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path)
+	if(!ispath(instance_or_path))
+		instance_or_path = instance_or_path.type
+	for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
+		if(spell.type == instance_or_path)
+			LAZYREMOVE(mob_spell_list, spell)
+			qdel(spell)
+
 
 //override to avoid rotating pixel_xy on mobs
 /mob/shuttleRotate(rotation)
@@ -1317,4 +1318,12 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128
 	remove_from_all_data_huds()
+
+
+/mob/proc/set_stat(new_stat)
+	if(new_stat == stat)
+		return
+	. = stat
+	stat = new_stat
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
 

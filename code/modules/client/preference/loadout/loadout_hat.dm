@@ -1,6 +1,6 @@
 /datum/gear/hat
 	subtype_path = /datum/gear/hat
-	slot = slot_head
+	slot = SLOT_HUD_HEAD
 	sort_category = "Headwear"
 
 /datum/gear/hat/hhat

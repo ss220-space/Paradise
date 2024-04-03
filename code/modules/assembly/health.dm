@@ -50,22 +50,17 @@
 
 /obj/item/assembly/health/process()
 	if(!scanning || !secured)
-		STOP_PROCESSING(SSobj, src) // It should never reach here, but if it somehow does stop processing
-		return
+		return PROCESS_KILL	// It should never reach here, but if it somehow does stop processing
 
-	var/atom/our_source = src
-	if(connected?.holder)
-		our_source = connected.holder
-
-	if(!get(our_source, /mob/living))
+	var/mob/living/user = get(loc, /mob/living)
+	if(!user)
 		user_health = null // We aint on a living thing, remove the previous data
 		return
 
-	var/mob/living/user = our_source
 	user_health = user.health
 	if(user_health <= alarm_health) // Its a health detector, not a death detector
 		pulse(FALSE, user)
-		audible_message("[bicon(src)] *beep* *beep*")
+		user.audible_message("[bicon(src)] *beep* *beep*")
 		toggle_scan()
 
 
@@ -84,8 +79,8 @@
 	if(!secured)
 		user.show_message(span_warning("The [name] is unsecured!"))
 		return FALSE
-	var/dat = text({"<meta charset="UTF-8"><TT><B>Health Sensor</B> <A href='?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>"})
-	if(scanning && user_health)
+	var/dat = {"<meta charset="UTF-8"><TT><B>Health Sensor</B> <A href='?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>"}
+	if(scanning && !isnull(user_health))
 		dat += "<BR>Health: [user_health]"
 	var/datum/browser/popup = new(user, "hscan", name, 400, 400, src)
 	popup.set_content(dat)
