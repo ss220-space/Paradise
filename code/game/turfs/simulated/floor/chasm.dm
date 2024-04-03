@@ -120,9 +120,8 @@
 			if(!rod.wielded)
 				return
 			var/list/fishing_contents = list()
-			for(var/turf/T in range(4, src))
-				if(ischasm(T))
-					fishing_contents += T.GetAllContents()
+			for(var/turf/simulated/floor/chasm/chasm in range(4, src))
+				fishing_contents += chasm.GetAllContents()
 			if(!length(fishing_contents))
 				to_chat(user, span_warning("There's nothing here!"))
 				return

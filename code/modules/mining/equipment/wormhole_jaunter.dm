@@ -121,7 +121,7 @@
 			destinations += BT
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
-		for(var/turf/chasm_turfs in range(5, T))
+		for(var/turf/simulated/floor/chasm/straight_down/lava_land_surface/chasm_turfs in range(5, T))
 			for(var/obj/effect/abstract/chasm_storage/C in chasm_turfs)
 				var/found_mob = FALSE
 				for(var/mob/M in C)
