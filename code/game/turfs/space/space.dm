@@ -21,6 +21,7 @@
 	barefootstep = null
 	clawfootstep = null
 	heavyfootstep = null
+	force_no_gravity = TRUE
 
 
 /turf/space/Initialize(mapload)

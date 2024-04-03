@@ -801,9 +801,6 @@
 /mob/living/simple_animal/demon/pulse_demon/mob_negates_gravity()
 	return TRUE
 
-/mob/living/simple_animal/demon/pulse_demon/mob_has_gravity()
-	return TRUE
-
 /obj/item/organ/internal/heart/demon/pulse
 	name = "perpetual pacemaker"
 	desc = "It still beats furiously, thousands of bright lights shine within it."

@@ -7,6 +7,7 @@
 	poweralm = FALSE
 	report_alerts = FALSE
 	requires_power = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/USSP_gorky17/solmaintnorth
 	name = "Gorky17 North sol maintenance"

@@ -1,3 +1,9 @@
+/mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	. = ..()
+	if(!OldLoc.has_gravity() && has_gravity())
+		thunk()
+
+
 /mob/living/carbon/human/get_movespeed_modifiers()
 	var/list/considering = ..()
 	if(HAS_TRAIT(src, TRAIT_IGNORESLOWDOWN))
@@ -23,7 +29,7 @@
 	if(istype(space_suit) && space_suit.jetpack)
 		jetpacks += space_suit.jetpack
 
-	for(var/obj/item/tank/jetpack/jetpack in jetpacks)
+	for(var/obj/item/tank/jetpack/jetpack as anything in jetpacks)
 		if((movement_dir || jetpack.stabilizers) && jetpack.allow_thrust(0.01, src, should_leave_trail = movement_dir))
 			return TRUE
 
@@ -32,14 +38,6 @@
 
 	return FALSE
 
-/mob/living/carbon/human/mob_has_gravity()
-	. = ..()
-	if(!.)
-		if(mob_negates_gravity())
-			. = 1
-
-/mob/living/carbon/human/mob_negates_gravity()
-	return shoes && shoes.negates_gravity()
 
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
@@ -156,4 +154,18 @@
 		else
 			remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 		*/
+
+
+/mob/living/carbon/human/proc/thunk()
+	if(buckled || mob_negates_gravity())
+		return
+
+	if(dna?.species.spec_thunk(src)) //Species level thunk overrides
+		return
+
+	if(m_intent != MOVE_INTENT_RUN)
+		return
+
+	Weaken(10 SECONDS)
+	to_chat(src, "Gravity!")
 

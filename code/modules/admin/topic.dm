@@ -3002,7 +3002,7 @@
 					return
 				GLOB.gravity_is_on = !GLOB.gravity_is_on
 				for(var/area/A in world)
-					A.gravitychange(GLOB.gravity_is_on,A)
+					A.gravitychange(GLOB.gravity_is_on)
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 				if(GLOB.gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.")

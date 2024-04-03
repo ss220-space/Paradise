@@ -57,6 +57,9 @@
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
 	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
 
+	///whether or not this turf forces movables on it to have no gravity (unless they themselves have forced gravity)
+	var/force_no_gravity = FALSE
+
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
