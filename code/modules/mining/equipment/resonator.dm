@@ -55,7 +55,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield1"
 	layer = ABOVE_ALL_MOB_LAYER
-	duration = 50 SECONDS
+	duration = 5 SECONDS
 	/// the amount of damage living beings will take whilst inside the field during its burst
 	var/resonance_damage = 20
 	/// the modifier to resonance_damage; affected by the quick_burst_mod from the resonator
