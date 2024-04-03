@@ -13,7 +13,7 @@ REAGENT SCANNER
 	icon_state = "t-ray0"
 	base_icon_state = "t-ray"
 	var/on = FALSE
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
@@ -261,7 +261,7 @@ REAGENT SCANNER
 	belt_icon = "health_analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
 	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -675,7 +675,7 @@ REAGENT SCANNER
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
@@ -812,7 +812,7 @@ REAGENT SCANNER
 	icon_state = "bodyanalyzer_0"
 	item_state = "healthanalyser"
 	desc = "A handheld scanner capable of deep-scanning an entire body."
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 5

@@ -75,15 +75,11 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	req_access = list()
 	id = 1
-	var/cooldown = FALSE
 
-/obj/machinery/door_control/ticket_machine_button/do_main_action(mob/user as mob)
-	for(var/obj/machinery/ticket_machine/M in GLOB.machines)
-		if(!(M.id in id) || cooldown)
-			continue
-		cooldown = TRUE
-		M.increment()
-		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
+/obj/machinery/door_control/ticket_machine_button/build_device()
+	var/obj/item/assembly/control/ticket_machine/ticket_device = new(src)
+	ticket_device.ids = get_ids()
+	device = ticket_device
 
 
 /obj/machinery/ticket_machine/update_icon_state()

@@ -61,11 +61,11 @@
 	var/obj/structure/spider/terrorweb/W = locate() in get_turf(src)
 	if(W)
 		if(speed == 1)
-			speed = -0.4
+			set_varspeed(-0.4)
 			regeneration = 3
 	else if(speed != 1)
 		regeneration = 0
-		speed = 1
+		set_varspeed(1)
 
 /obj/structure/spider/terrorweb/queen/builder
 	max_integrity = 35

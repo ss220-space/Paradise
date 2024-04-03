@@ -218,7 +218,7 @@
 	name = "fire blossom"
 	desc = "A flower from a fire blossom."
 	icon_state = "fireblossom"
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	seed = /obj/item/seeds/lavaland/fireblossom
 	wine_power = 0.4
 
@@ -301,6 +301,7 @@
 	icon_state = "seed-fireblossom"
 	species = "fireblossom"
 	plantname = "Fire Blossom"
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
 	genes = list(/datum/plant_gene/trait/fire_resistance, /datum/plant_gene/trait/glow/yellow)
 	reagents_add = list("tinlux" = 0.04, "nutriment" = 0.03, "carbon" = 0.05)

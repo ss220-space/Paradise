@@ -7,7 +7,7 @@
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/cooldown = 35
 	var/current_cooldown = 0
 	var/speaker = TRUE // Speaker that plays a sound when pulsed.
@@ -47,7 +47,7 @@
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/cooldown = 1 SECONDS
 	var/current_cooldown = 0
 	var/range = 9

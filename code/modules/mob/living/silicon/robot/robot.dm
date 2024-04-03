@@ -90,7 +90,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/weaponlock_time = 120
 	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
 	var/lockcharge //Used when locking down a borg to preserve cell charge
-	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
 	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
 	var/has_camera = TRUE
@@ -559,7 +558,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	camera?.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
 	rename_character(real_name, get_default_name("Default"))
-	languages = list()
+	LAZYREINITLIST(languages)
 	speech_synthesizer_langs = list()
 
 	update_icons()
@@ -1768,7 +1767,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /// Used in `robot.dm` when the user presses "Q" by default.
 /mob/living/silicon/robot/proc/on_drop_hotkey_press()
-	var/obj/item/gripper/G = get_active_hand()
+	var/obj/item/gripper/G = module_active
 	if(istype(G) && G.gripped_item)
 		G.drop_gripped_item() // if the active module is a gripper, try to drop its held item.
 	else

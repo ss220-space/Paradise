@@ -6,7 +6,7 @@
 	name = "banhammer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
@@ -30,7 +30,7 @@
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 2
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -49,7 +49,7 @@
 	item_state = "claymore"
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 40
 	throwforce = 10
 	sharp = 1
@@ -79,7 +79,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
 	force = 40
 	throwforce = 10
 	sharp = 1
@@ -390,7 +390,7 @@
 
 /obj/item/melee/baseball_bat/homerun/central_command/proc/toggle(mob/living/user)
 	on = !on
-	slot_flags = on ? NONE : SLOT_BELT
+	slot_flags = on ? NONE : SLOT_FLAG_BELT
 	force = on ? force_on : initial(force)
 	attack_verb = on ? attack_verb_on : initial(attack_verb)
 	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
@@ -430,7 +430,7 @@
 	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
 	icon_state = "bone_sword"
 	item_state = "bone_sword"
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
 	force = 18
 	throwforce = 10
 	armour_penetration = 15

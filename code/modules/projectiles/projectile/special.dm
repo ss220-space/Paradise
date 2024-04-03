@@ -99,7 +99,7 @@
 
 	if(isliving(target))
 		var/mob/living/M = target
-		M.bodytemperature = temperature
+		M.set_bodytemperature(temperature)	// this is pretty bad design
 		if(temperature > 500)//emagged
 			M.adjust_fire_stacks(0.5)
 			M.IgniteMob()
@@ -326,7 +326,7 @@
 	. = ..()
 	if(istype(target, /mob/living))
 		var/mob/living/M = target
-		M.bodytemperature = max(0, M.bodytemperature - 50)	//each hit will drop your body temp, so don't get surrounded!
+		M.adjust_bodytemperature(-50)	//each hit will drop your body temp, so don't get surrounded!
 		M.ExtinguishMob()	//bright side, they counter being on fire!
 
 /obj/item/projectile/ornament

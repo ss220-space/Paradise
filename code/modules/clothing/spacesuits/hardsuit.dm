@@ -18,25 +18,25 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 	//Species-specific stuff.
-	species_restricted = list("exclude","Wryn", "lesser form")
+	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
-		"Skrell" = 'icons/mob/clothing/species/skrell/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/helmet.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 	sprite_sheets_obj = list(
-		"Unathi" = 'icons/obj/clothing/species/unathi/hats.dmi',
-		"Tajaran" = 'icons/obj/clothing/species/tajaran/hats.dmi',
-		"Skrell" = 'icons/obj/clothing/species/skrell/hats.dmi',
-		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
+		SPECIES_UNATHI = 'icons/obj/clothing/species/unathi/hats.dmi',
+		SPECIES_TAJARAN = 'icons/obj/clothing/species/tajaran/hats.dmi',
+		SPECIES_SKRELL = 'icons/obj/clothing/species/skrell/hats.dmi',
+		SPECIES_VOX = 'icons/obj/clothing/species/vox/hats.dmi',
+		SPECIES_VULPKANIN = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
 
@@ -54,7 +54,7 @@
 	if(!suit)
 		qdel(src)
 		return FALSE
-	if(slot != slot_head || user.wear_suit != suit)
+	if(slot != SLOT_HUD_HEAD || user.wear_suit != suit)
 		user.drop_item_ground(src, force = TRUE, silent = TRUE)
 		return FALSE
 
@@ -63,7 +63,7 @@
 	. = ..(user, TRUE)
 	if(suit)
 		suit.RemoveHelmet(user)
-	else
+	else if(!QDELETED(src))
 		qdel(src)
 
 
@@ -87,7 +87,7 @@
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
-	if(slot == slot_head)
+	if(slot == SLOT_HUD_HEAD)
 		return TRUE
 
 
@@ -121,25 +121,25 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	light_on = FALSE
-	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid", "Tajaran")
-	species_restricted = list("exclude", "Wryn", "lesser form")
+	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
+	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
-		"Skrell" = 'icons/mob/clothing/species/skrell/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
 		)
 	sprite_sheets_obj = list(
-		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
-		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
-		"Skrell" = 'icons/obj/clothing/species/skrell/suits.dmi',
-		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
+		SPECIES_UNATHI = 'icons/obj/clothing/species/unathi/suits.dmi',
+		SPECIES_TAJARAN = 'icons/obj/clothing/species/tajaran/suits.dmi',
+		SPECIES_SKRELL = 'icons/obj/clothing/species/skrell/suits.dmi',
+		SPECIES_VOX = 'icons/obj/clothing/species/vox/suits.dmi',
+		SPECIES_VULPKANIN = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
 
@@ -184,7 +184,7 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
-	if(slot == slot_wear_suit) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
+	if(slot == SLOT_HUD_OUTER_SUIT) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return TRUE
 
 
@@ -217,7 +217,7 @@
 	if(user.head)
 		to_chat(user, span_warning("You're already wearing something on your head!"))
 		return FALSE
-	if(!user.equip_to_slot(helmet, slot_head))
+	if(!user.equip_to_slot(helmet, SLOT_HUD_HEAD))
 		return FALSE
 	. = TRUE
 	suit_adjusted = TRUE
@@ -404,10 +404,10 @@
 	user?.update_head(src)
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
-	update_linked_hardsuit(user, toggle)
+	update_linked_hardsuit(toggle)
 
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/update_linked_hardsuit(mob/user, toggle = TRUE)
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/update_linked_hardsuit(toggle = TRUE)
 	if(!linkedsuit)
 		return
 
@@ -426,8 +426,7 @@
 		linkedsuit.armor.rad = combat_rad
 
 	linkedsuit.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
-	user?.update_inv_wear_suit()
-	user?.update_inv_w_uniform()
+	linkedsuit.update_equipped_item()
 
 
 /obj/item/clothing/suit/space/hardsuit/syndi
@@ -572,7 +571,7 @@
 	desc = "A soviet military hardsuit designed for maximum speed and mobility. Proudly displays the U.S.S.P flag on the chest."
 	icon_state = "hardsuit-soviet"
 	item_state = "hardsuit-soviet"
-	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine", "Kidan", "Plasmaman")  // Until the xenos textures are created
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_KIDAN, SPECIES_PLASMAMAN)  // Until the xenos textures are created
 	slowdown = 0.5
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
@@ -714,7 +713,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-	if(slot == slot_head)
+	if(slot == SLOT_HUD_HEAD)
 		GLOB.doppler_arrays += src //Needed to sense the kabooms
 
 

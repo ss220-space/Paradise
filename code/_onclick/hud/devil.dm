@@ -25,7 +25,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_r"
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = slot_r_hand
+	inv_box.slot_id = SLOT_HUD_RIGHT_HAND
 	static_inventory += inv_box
 
 	inv_box = new /obj/screen/inventory/hand()
@@ -33,7 +33,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_l"
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = slot_l_hand
+	inv_box.slot_id = SLOT_HUD_LEFT_HAND
 	static_inventory += inv_box
 
 	using = new /obj/screen/swap_hand()

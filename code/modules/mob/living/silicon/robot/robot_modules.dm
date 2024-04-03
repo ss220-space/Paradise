@@ -221,11 +221,6 @@
 	C.reagents.add_reagent("cleaner", 3)
 	..()
 
-/obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller/C = locate() in modules
-	C.reagents.add_reagent("pestkiller", 3)
-	..()
-
 /obj/item/robot_module/medical
 	name = "Medical"
 	module_type = "Medical"
@@ -489,6 +484,8 @@
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
 		B.reagents.add_reagent("beer2", 2)
+	var/obj/item/reagent_containers/spray/pestspray/spray = locate() in modules
+	spray?.reagents.add_reagent("pestkiller", 3)
 	..()
 
 /obj/item/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)

@@ -44,7 +44,7 @@
 			melee_damage_lower = melee_damage_lower_angery1
 			melee_damage_upper = melee_damage_upper_angery1
 			move_to_delay = anger_move_to_delay
-			speed = anger_speed
+			set_varspeed(anger_speed)
 			poison_type = "venom"
 			poison_per_bite = 6
 			needs_gliding = TRUE
@@ -55,7 +55,7 @@
 			melee_damage_lower = melee_damage_lower_angery0
 			melee_damage_upper = melee_damage_upper_angery0
 			poison_type = initial(poison_type)
-			speed = initial(speed)
+			set_varspeed(initial(speed))
 			poison_per_bite = initial(poison_per_bite)
 			needs_gliding = FALSE
 	..()

@@ -270,8 +270,88 @@
   - bugfix: set disco light as static (#4691)
   Daeberdir:
   - bugfix: KA reload time calculation. (#4681)
+  LiquidPotroh:
+  - tweak: Cadaveric fever less deadly (#4687)
   ROdenFL:
   - bugfix: lawyer badge (#4689)
   - bugfix: shots subtypes stealed (#4679)
   Rerik007:
   - bugfix: fixes few runtimes (#4690)
+  Zwei:
+  - bugfix: Human Overlays Fix (#4692)
+'2024-03-25':
+  Den109G:
+  - bugfix: You can change AI laws (#4700)
+'2024-03-26':
+  Daeberdir:
+  - bugfix: ultrafast cyborg recharger for secborgs. (#4699)
+  - bugfix: voice cords speaking. (#4697)
+  Den109G:
+  - refactor: Jobs defines in gamemodes, datacore, loadout (#4661)
+  Etrnlmelancholy:
+  - add: new beards for dwarfes oh i mean humans (#4694)
+  - add: flower crowns (#4695)
+  Valtor:
+  - bugfix: oneuse autoimplanter fix (#4696)
+'2024-03-28':
+  ArtemDerp:
+  - bugfix: custom pandemic runtime (#4693)
+  Etrnlmelancholy:
+  - bugfix: no tail implants for nuke (#4717)
+  Ksaikok46:
+  - bugfix: SP8 no longer gives illegal techs (#4714)
+  Mindfri:
+  - bugfix: Спрайты плюшевого СМа в руках перепутаны  (#4719)
+  NightDawnFox:
+  - refactor: (porting) lavaland river spawner (#4711)
+  ROdenFL:
+  - add: heart-shaped glasses (#4684)
+  - add: selected tab for loadout (#4678)
+  Rerik007:
+  - bugfix: fixes suit jacket in loadout (#4705)
+  aeternaclose:
+  - bugfix: BaseturfForPirateship (#4680)
+  - add: Gorillas to Cyberiad & Cerestation (#4664)
+'2024-03-29':
+  Rerik007:
+  - bugfix: fixes floor icon after thermites wall (#4701)
+'2024-03-30':
+  Den109G:
+  - bugfix: fix Unreachable tail being reachable (#4726)
+  Ksaikok46:
+  - bugfix: few text corrections (#4715)
+  Rerik007:
+  - bugfix: fixes another few runtimes (#4698)
+  - bugfix: correct update_revive in defibrillator (#4727)
+  - bugfix: id console fixes and small qols (#4646)
+  - refactor: simple slot related constants renaming slot_l_hand -> SLOT_HUD_LEFT_HAND
+      etc (#4515)
+  - add: door buttons assembling/disassembling (rebased version) (#4603)
+  - bugfix: as an AI you can see whats on tiles where there are no cameras (#4627)
+  Vladisvell:
+  - bugfix: 'Light fixes: Patch 1 (#4725)'
+  - bugfix: Fixed several cyborg gripper issues, allowed more interactions (#4682)
+  - bugfix: Fixed issues with service cyborg's tray, handheld chem dispenser now draws
+      energy from cyborg itself. (#4706)
+  - add: Added mimejutsu to thunderdome melee mode (#4728)
+  - bugfix: Borg Gripper hotfix (#4730)
+  Zwei:
+  - bugfix: Health Scanner Fix (#4722)
+  - bugfix: Central Command Turf Fixes (#4657)
+  - bugfix: All Smooth Turfs Fixed (#4731)
+'2024-03-31':
+  Aziz Chynaliev:
+  - server: add tutorial branch to CI checks
+  Rerik007:
+  - qol: added connect discord account button to player setup menu (#4729)
+  - bugfix: (i think) fixes highpop slots opening after round has started (#4718)
+  - bugfix: (i think) No more cluwnes in crew manifest (#4702)
+  - bugfix: fix martial dirslash issue (#4716)
+  - bugfix: rename lazyaddor -> lazyor (stealth conflict) (#4735)
+  - bugfix: I forgot to change my highpop value (#4738)
+  SergoFangorum:
+  - tweak: Need both hands to shoot AS-12 Minotaur (#4733)
+  Zwei:
+  - refactor: Movement Types Refactor (#4249)
+  - refactor: Variables Cleanup (#4446)
+  - bugfix: Stamina Damage Modifiers Removal Fix (#4739)

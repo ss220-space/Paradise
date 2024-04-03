@@ -1,28 +1,26 @@
 /obj/effect/mob_spawn/human/ussp
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "cryostasis_sleeper"
-
-/obj/effect/mob_spawn/human/ussp/general
-	name = "Генерал СССП"
-	mob_name = "Генерал СССП"
 	roundstart = FALSE
 	death = FALSE
-	id_job = "Soviet General"
-	icon = 'icons/obj/lavaland/spawners.dmi'
-	icon_state = "cryostasis_sleeper"
-	important_info = "Вы - не антагонист! Ваша задача управлять остатками экипажа и не дать станции окончательно развалиться."
-	description = "Вы - командующий станцией СССП! Руководите оставшимся членами экипажа, и по возможности восстановите станцию. Защищайте имущество СССП и научные наработки, возможно ЦК СССП ещё вспомнит про вас. Соблюдайте субординацию."
-	flavour_text = "Вы являетесь единственным выжившим командующим на повреждённой станции СССП. В вашей памяти мелькают спутанные воспоминания того, что случилось до того как Вы уснули... Отдавайте приказы выжившему персоналу и не дайте ему умереть. Вашей первостепенной задачей будет попытка восстановить целостность станции и завершить научные эксперементы, после - можете попытаться связаться с ЦК СССП и доложить о произошедшем."
-	outfit = /datum/outfit/ussp_general
-	faction = list("ussp")
 	allow_prefs_prompt = TRUE
 	allow_species_pick = TRUE
 	allow_gender_pick = TRUE
 	allow_name_pick = TRUE
-	pickable_species = list("Human")
+	faction = list("ussp")
+	pickable_species = list(SPECIES_HUMAN)
 	mob_species = /datum/species/human
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
+
+/obj/effect/mob_spawn/human/ussp/general
+	name = "Генерал СССП"
+	mob_name = "Генерал СССП"
+	id_job = "Soviet General"
+	important_info = "Вы - не антагонист! Ваша задача управлять остатками экипажа и не дать станции окончательно развалиться."
+	description = "Вы - командующий станцией СССП! Руководите оставшимся членами экипажа, и по возможности восстановите станцию. Защищайте имущество СССП и научные наработки, возможно ЦК СССП ещё вспомнит про вас. Соблюдайте субординацию."
+	flavour_text = "Вы являетесь единственным выжившим командующим на повреждённой станции СССП. В вашей памяти мелькают спутанные воспоминания того, что случилось до того как Вы уснули... Отдавайте приказы выжившему персоналу и не дайте ему умереть. Вашей первостепенной задачей будет попытка восстановить целостность станции и завершить научные эксперементы, после - можете попытаться связаться с ЦК СССП и доложить о произошедшем."
+	outfit = /datum/outfit/ussp_general
 
 /obj/item/card/id/ussp_general
 	name = "USSP general ID card"
@@ -38,7 +36,7 @@
 	if(H.dna.species)
 		var/race = H.dna.species.name
 		switch(race)
-			if("Human")
+			if(SPECIES_HUMAN)
 				box = /obj/item/storage/box/soviet
 
 /datum/outfit/ussp_general
@@ -70,24 +68,11 @@
 /obj/effect/mob_spawn/human/ussp/engineer
 	name = "Инженер СССП"
 	mob_name = "Инженер СССП"
-	roundstart = FALSE
-	death = FALSE
 	id_job = "Soviet Engineer"
-	icon = 'icons/obj/lavaland/spawners.dmi'
-	icon_state = "cryostasis_sleeper"
 	important_info = "Вы - не антагонист! Ваша задача восстановить полученные повреждения и нормализовать функционирование станции."
 	description = "Вы - инженер на станции СССП! Постарайтесь удержать станцию на плаву!"
 	flavour_text = "Вы один из немногих выживших на повреждённой станции СССП. Вы лишь отрывками вспоминаете, что пошло не так перед тем как Вы уснули. Вашей задачей будет исполнение приказов командующего и поддержание работоспособности станции. Соблюдайте субординацию."
 	outfit = /datum/outfit/ussp_engineer
-	faction = list("ussp")
-	allow_prefs_prompt = TRUE
-	allow_species_pick = TRUE
-	allow_gender_pick = TRUE
-	allow_name_pick = TRUE
-	pickable_species = list("Human")
-	mob_species = /datum/species/human
-	min_hours = 10
-	exp_type = EXP_TYPE_LIVING
 
 /obj/item/card/id/ussp_engineer
 	name = "USSP engineer ID card"
@@ -103,7 +88,7 @@
 	if(H.dna.species)
 		var/race = H.dna.species.name
 		switch(race)
-			if("Human")
+			if(SPECIES_HUMAN)
 				box = /obj/item/storage/box/soviet
 
 /datum/outfit/ussp_engineer
@@ -134,24 +119,11 @@
 /obj/effect/mob_spawn/human/ussp/security
 	name = "Сотрудник безопасности СССП"
 	mob_name = "Сотрудник безопасности СССП"
-	roundstart = FALSE
-	death = FALSE
 	id_job = "Soviet Soldier"
-	icon = 'icons/obj/lavaland/spawners.dmi'
-	icon_state = "cryostasis_sleeper"
 	important_info = "Вы - не антагонист! Ваша задача защищать территорию СССП от враждебных форм жизни и интервентов."
 	description = "Вы - сотрудник безопасности на станции СССП! Ваша работа, помимо поддержания порядка на станции, выполнение поручений старших по званию. Готовьте пищу, собирайте разбросанные ресурсы, а главное соблюдайте субординацию."
 	flavour_text = "Ранее вы следили за порядком на этой станции... Ранее. Вы смутно припоминаете, как вместе с товарищем напились до отключки и упали в криосон. Выполняйте приказы и не дайте станции окончательно развалиться."
 	outfit = /datum/outfit/ussp_security
-	faction = list("ussp")
-	allow_prefs_prompt = TRUE
-	allow_species_pick = TRUE
-	allow_gender_pick = TRUE
-	allow_name_pick = TRUE
-	pickable_species = list("Human")
-	mob_species = /datum/species/human
-	min_hours = 10
-	exp_type = EXP_TYPE_LIVING
 
 /obj/item/card/id/ussp_security
 	name = "USSP security ID card"
@@ -167,7 +139,7 @@
 	if(H.dna.species)
 		var/race = H.dna.species.name
 		switch(race)
-			if("Human")
+			if(SPECIES_HUMAN)
 				box = /obj/item/storage/box/soviet
 
 /datum/outfit/ussp_security
@@ -199,30 +171,17 @@
 /obj/effect/mob_spawn/human/ussp/scientist
 	name = "Учёный СССП"
 	mob_name = "Учёный СССП"
-	roundstart = FALSE
-	death = FALSE
 	id_job = "Soviet Scientist"
-	icon = 'icons/obj/lavaland/spawners.dmi'
-	icon_state = "cryostasis_sleeper"
 	important_info = "Вы - не антагонист! Ваша задача восстановить потерянные научные данные и следить за здоровьем экипажа."
 	description = "Вы - Учёный на станции СССП! Постарайтесь выжить! А также попытайтесь восстановить потерянные научные данные и проследите, чтобы остатки экипажа не умерли. Соблюдайте субординацию."
 	flavour_text = "Вы смутно что то припоминаете. Ваша задача попытаться выжить и не дать умереть остальным."
 	outfit = /datum/outfit/ussp_scientist
-	faction = list("ussp")
-	allow_prefs_prompt = TRUE
-	allow_species_pick = TRUE
-	allow_gender_pick = TRUE
-	allow_name_pick = TRUE
-	pickable_species = list("Human")
-	mob_species = /datum/species/human
-	min_hours = 10
-	exp_type = EXP_TYPE_LIVING
 
 /datum/outfit/ussp_scientist/pre_equip(mob/living/carbon/human/H)
 	if(H.dna.species)
 		var/race = H.dna.species.name
 		switch(race)
-			if("Human")
+			if(SPECIES_HUMAN)
 				box = /obj/item/storage/box/soviet
 
 /datum/outfit/ussp_scientist

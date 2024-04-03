@@ -109,6 +109,12 @@
 				set_light_color(var_value)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
+		if (NAMEOF(src, light_on))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_on = var_value)
+			else
+				set_light_on(var_value)
+			return TRUE
 
 	return ..()
 
@@ -143,6 +149,9 @@
 /atom/proc/set_light_power(new_power)
 	if(new_power == light_power)
 		return
+	if(light_system == STATIC_LIGHT)
+		set_light(l_power = new_power)
+		return
 	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_POWER, new_power) & COMPONENT_BLOCK_LIGHT_UPDATE)
 		return
 	. = light_power
@@ -152,6 +161,9 @@
 /// Setter for the light range of this atom.
 /atom/proc/set_light_range(new_range)
 	if(new_range == light_range)
+		return
+	if(light_system == STATIC_LIGHT)
+		set_light(l_range = new_range)
 		return
 	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_RANGE, new_range) & COMPONENT_BLOCK_LIGHT_UPDATE)
 		return
@@ -163,6 +175,9 @@
 /atom/proc/set_light_color(new_color)
 	if(new_color == light_color)
 		return
+	if(light_system == STATIC_LIGHT)
+		set_light(l_color = new_color)
+		return
 	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_COLOR, new_color) & COMPONENT_BLOCK_LIGHT_UPDATE)
 		return
 	. = light_color
@@ -172,6 +187,9 @@
 /// Setter for whether or not this atom's light is on.
 /atom/proc/set_light_on(new_value)
 	if(new_value == light_on)
+		return
+	if(light_system == STATIC_LIGHT)
+		set_light(l_on = new_value)
 		return
 	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT_ON, new_value) & COMPONENT_BLOCK_LIGHT_UPDATE)
 		return

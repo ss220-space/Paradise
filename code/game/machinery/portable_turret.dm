@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				var/region = text2num(params["region"])
 				if(isnull(region))
 					return
-				LAZYADDOR(req_access, get_region_accesses(region))
+				LAZYOR(req_access, get_region_accesses(region))
 			if("deny_region")
 				var/region = text2num(params["region"])
 				if(isnull(region))

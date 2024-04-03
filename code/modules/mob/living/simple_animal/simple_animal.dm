@@ -131,6 +131,7 @@
 		real_name = name
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
+	update_simplemob_varspeed()
 	verbs -= /mob/verb/observe
 	if(can_hide)
 		var/datum/action/innate/hide/hide = new()
@@ -234,7 +235,7 @@
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
 					var/anydir = pick(GLOB.cardinal)
 					if(Process_Spacemove(anydir))
-						Move(get_step(src,anydir), anydir, movement_delay())
+						Move(get_step(src,anydir), anydir, cached_multiplicative_slowdown)
 						turns_since_move = 0
 			return 1
 
@@ -282,7 +283,7 @@
 	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
-		bodytemperature += diff
+		adjust_bodytemperature(diff)
 
 	var/tox = environment.toxins
 	var/oxy = environment.oxygen
@@ -354,11 +355,18 @@
 
 	return verb
 
-/mob/living/simple_animal/movement_delay()
-	. = speed
-	if(forced_look)
-		. += 3
-	. += CONFIG_GET(number/animal_delay)
+
+/mob/living/simple_animal/proc/set_varspeed(var_value)
+	speed = var_value
+	update_simplemob_varspeed()
+
+
+/mob/living/simple_animal/proc/update_simplemob_varspeed()
+	if(speed == 0)
+		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
+
+
 
 /mob/living/simple_animal/Stat()
 	..()
@@ -377,7 +385,6 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	flying = FALSE
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null
@@ -405,7 +412,7 @@
 		density = 0
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_dead"
-			regenerate_icons()
+		regenerate_icons()
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -466,7 +473,6 @@
 	icon_state = icon_living
 	density = initial(density)
 	update_canmove()
-	flying = initial(flying)
 	if(collar_type)
 		collar_type = "[initial(collar_type)]"
 		regenerate_icons()
@@ -513,7 +519,7 @@
 		return
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
+	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_COLLAR]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
 	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -522,14 +528,14 @@
 
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_collar)
+		if(SLOT_HUD_COLLAR)
 			return pcollar
 	. = ..()
 
 /mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
-		if(slot_collar)
+		if(SLOT_HUD_COLLAR)
 			if(pcollar)
 				return FALSE
 			if(!can_collar)
@@ -555,7 +561,7 @@
 	I.forceMove(src)
 
 	switch(slot)
-		if(slot_collar)
+		if(SLOT_HUD_COLLAR)
 			add_collar(I)
 
 
@@ -601,8 +607,12 @@
 		ntransform.Scale(resize)
 		resize = RESIZE_DEFAULT_SIZE
 
-	if(changed)
-		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
+	if(!changed)
+		return
+
+	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
+	animate(src, transform = ntransform, time = UPDATE_TRANSFORM_ANIMATION_TIME, easing = EASE_IN|EASE_OUT)
+
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF)

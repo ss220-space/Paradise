@@ -67,7 +67,9 @@
 				door.wires?.pulse_random()
 				continue
 			if(prob(DETONATION_MACHINE_BREAKDOWN_CHANCE))
-				door.electronics = null
+				door.access_electronics = null
+				door.has_access_electronics = FALSE
+				door.req_access = null
 
 //Break air alarms
 /datum/supermatter_explosive_effects/proc/handle_alarm_breakdown()

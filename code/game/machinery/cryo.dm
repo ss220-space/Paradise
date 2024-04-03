@@ -442,7 +442,7 @@
 		return
 	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
 	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
-		occupant.bodytemperature = 261
+		occupant.set_bodytemperature(261)
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
 	// eject trash the occupant dropped

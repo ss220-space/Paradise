@@ -88,25 +88,3 @@
 		return TRUE
 	return FALSE
 
-//Limb numbers
-/mob/proc/get_num_arms()
-	return 2
-
-
-/mob/living/carbon/human/get_num_arms()
-	. = 0
-	for(var/obj/item/organ/external/affecting as anything in bodyparts)
-		if(affecting.limb_zone == BODY_ZONE_L_ARM || affecting.limb_zone == BODY_ZONE_R_ARM)
-			.++
-
-
-/mob/proc/get_num_legs()
-	return 2
-
-
-/mob/living/carbon/human/get_num_legs()
-	. = 0
-	for(var/obj/item/organ/external/affecting as anything in bodyparts)
-		if(affecting.limb_zone == BODY_ZONE_L_LEG || affecting.limb_zone == BODY_ZONE_R_LEG)
-			.++
-

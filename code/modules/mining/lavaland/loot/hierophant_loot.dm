@@ -10,7 +10,7 @@
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 15
 	attack_verb = list("clubbed", "beat", "pummeled")
@@ -308,7 +308,7 @@
 	item_state = "hierophant_talisman_nonactive"
 	item_color = "hierophant_talisman_nonactive"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 100, "acid" = 100)
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	allow_duplicates = FALSE
 	var/possessed = FALSE
 	var/mob/living/simple_animal/shade/talisman/slave // Talisman
@@ -511,9 +511,9 @@
 	if(!ishuman(user) || !slave)
 		return
 	if(slave.master == user.ckey)
-		slave.mob_spell_list += spell_heal
-		slave.mob_spell_list += spell_teleport
-		slave.mob_spell_list += spell_message
+		LAZYADD(slave.mob_spell_list, spell_heal)
+		LAZYADD(slave.mob_spell_list, spell_teleport)
+		LAZYADD(slave.mob_spell_list, spell_message)
 		spell_heal.action.Grant(slave)
 		spell_teleport.action.Grant(slave)
 		spell_message.action.Grant(slave)
@@ -522,9 +522,9 @@
 	. = ..()
 	if(!ishuman(user) || !slave)
 		return
-	slave.mob_spell_list -= spell_heal
-	slave.mob_spell_list -= spell_teleport
-	slave.mob_spell_list -= spell_message
+	LAZYREMOVE(slave.mob_spell_list, spell_heal)
+	LAZYREMOVE(slave.mob_spell_list, spell_teleport)
+	LAZYREMOVE(slave.mob_spell_list, spell_message)
 	spell_heal.action.Remove(slave)
 	spell_teleport.action.Remove(slave)
 	spell_message.action.Remove(slave)
@@ -534,9 +534,9 @@
 		return
 	if(!slave)
 		return ..()
-	slave.mob_spell_list -= spell_heal
-	slave.mob_spell_list -= spell_teleport
-	slave.mob_spell_list -= spell_message
+	LAZYREMOVE(slave.mob_spell_list, spell_heal)
+	LAZYREMOVE(slave.mob_spell_list, spell_teleport)
+	LAZYREMOVE(slave.mob_spell_list, spell_message)
 	spell_heal.action.Remove(slave)
 	spell_teleport.action.Remove(slave)
 	spell_message.action.Remove(slave)
@@ -548,9 +548,9 @@
 	if(!slave)
 		return ..()
 	if(slave.master == usr.ckey)
-		slave.mob_spell_list += spell_heal
-		slave.mob_spell_list += spell_teleport
-		slave.mob_spell_list += spell_message
+		LAZYADD(slave.mob_spell_list, spell_heal)
+		LAZYADD(slave.mob_spell_list, spell_teleport)
+		LAZYADD(slave.mob_spell_list, spell_message)
 		spell_heal.action.Grant(slave)
 		spell_teleport.action.Grant(slave)
 		spell_message.action.Grant(slave)

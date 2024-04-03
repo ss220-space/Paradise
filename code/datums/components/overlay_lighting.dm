@@ -494,6 +494,19 @@
 			translate_x += 32 * final_distance
 		if(WEST)
 			translate_x += -32 * final_distance
+		if(SOUTHEAST)
+			translate_x += 32 * final_distance
+			translate_y += -32 * final_distance
+		if(SOUTHWEST)
+			translate_x += -32 * final_distance
+			translate_y += -32 * final_distance
+		if(NORTHEAST)
+			translate_x += 32 * final_distance
+			translate_y += 32 * final_distance
+		if(NORTHWEST)
+			translate_x += -32 * final_distance
+			translate_y += 32 * final_distance
+
 	if((directional_offset_x != translate_x) || (directional_offset_y != translate_y))
 		directional_offset_x = translate_x
 		directional_offset_y = translate_y

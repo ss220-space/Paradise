@@ -1567,6 +1567,8 @@
 					/obj/item/seeds/peas =3,
 					/obj/item/seeds/pineapple = 3,
 					/obj/item/seeds/poppy = 3,
+					/obj/item/seeds/geranium = 3,
+					/obj/item/seeds/lily = 3,
 					/obj/item/seeds/potato = 3,
 					/obj/item/seeds/pumpkin = 3,
 					/obj/item/seeds/replicapod = 3,
@@ -2115,7 +2117,7 @@
 
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
-	name = "\improper  ClothesMate" //renamed to make the slogan rhyme
+	name = "\improper ClothesMate" //renamed to make the slogan rhyme
 	desc = "A vending machine for clothing."
 
 	icon_state = "clothes_off"

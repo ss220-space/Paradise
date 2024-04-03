@@ -6,13 +6,13 @@ export NODE_VERSION=18
 # Stable Byond Major
 export STABLE_BYOND_MAJOR=515
 # Stable Byond Minor
-export STABLE_BYOND_MINOR=1633
+export STABLE_BYOND_MINOR=1634
 # Beta Byond Major
 export BETA_BYOND_MAJOR=515
 # Beta Byond Minor
-export BETA_BYOND_MINOR=1633
+export BETA_BYOND_MINOR=1634
 # For the RUSTG library. Not actually installed by CI but kept as a reference
-export RUSTG_VERSION=3.0.0-ss220
+export RUSTG_VERSION=3.1.0-ss220
 #For DMJIT librarry
 export DMJIT_VERSION=v0.1.2
 

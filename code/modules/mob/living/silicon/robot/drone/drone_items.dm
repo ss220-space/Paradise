@@ -14,6 +14,7 @@
 		/obj/item/firelock_electronics,
 		/obj/item/intercom_electronics,
 		/obj/item/apc_electronics,
+		/obj/item/access_control,
 		/obj/item/tracker_electronics,
 		/obj/item/stock_parts,
 		/obj/item/vending_refill,
@@ -25,6 +26,8 @@
 		/obj/item/mounted/frame/intercom,
 		/obj/item/mounted/frame/extinguisher,
 		/obj/item/mounted/frame/light_switch,
+		/obj/item/mounted/frame/door_control,
+		/obj/item/assembly/control,
 		/obj/item/rack_parts,
 		/obj/item/camera_assembly,
 		/obj/item/tank,
@@ -52,10 +55,9 @@
 /obj/item/gripper/medical/attack_self(mob/user)
 	return
 
-/obj/item/gripper/medical/afterattack(atom/target, mob/living/user, proximity, params)
-	var/mob/living/carbon/human/H
-	if(!gripped_item && proximity && target && ishuman(target))
-		H = target
+/obj/item/gripper/proc/try_shake_up(mob/living/user, atom/target)
+	if(!gripped_item && Adjacent(user, target) && target && ishuman(target))
+		var/mob/living/carbon/human/H = target
 		if(H.lying)
 			H.AdjustSleeping(-10 SECONDS)
 			if(!H.IsSleeping())
@@ -65,11 +67,15 @@
 			H.AdjustWeakened(-6 SECONDS)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
-				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
-				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
+				span_notice("[user] shakes [H] trying to wake [H.p_them()] up!"),\
+				span_notice("You shake [H] trying to wake [H.p_them()] up!"),\
 				)
+			user.changeNext_move(CLICK_CD_MELEE)
 		return
-	..()
+
+/obj/item/gripper/medical/melee_attack_chain(mob/living/user, atom/target, params)
+	try_shake_up(user, target)
+	. = ..()
 
 /obj/item/gripper/service
 	name = "Card gripper"
@@ -83,22 +89,8 @@
 					/obj/item/seeds,
 					/obj/item/disk/plantgene)
 
-/obj/item/gripper/service/afterattack(atom/target, mob/living/user, proximity, params)
-	if(!gripped_item && proximity && target && ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.lying)
-			H.AdjustSleeping(-10 SECONDS)
-			if(!H.IsSleeping())
-				H.StopResting()
-			H.AdjustParalysis(-6 SECONDS)
-			H.AdjustStunned(-6 SECONDS)
-			H.AdjustWeakened(-6 SECONDS)
-			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			user.visible_message( \
-				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
-				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
-				)
-		return
+/obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, params)
+	try_shake_up(user, target)
 	..()
 
 /obj/item/gripper/cogscarab
@@ -172,9 +164,8 @@
 /obj/item/gripper/proc/isEmpty()
 	return isnull(gripped_item)
 
-/obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
-
-	if(!target || !proximity) //Target is invalid or we are not adjacent.
+/obj/item/gripper/melee_attack_chain(mob/user, atom/target, params)
+	if(!target) //Target is invalid
 		return FALSE
 
 	if(gripped_item) //Already have an item.
@@ -194,31 +185,36 @@
 
 	else if(istype(target, /obj/item)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
-		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
+		if(is_type_in_typecache(I, can_hold) && Adjacent(user, I)) // Make sure the item is something the gripper can hold
 			to_chat(user, "<span class='notice'>You collect [I].</span>")
 			I.forceMove(src)
 			gripped_item = I
+			update_icon(UPDATE_OVERLAYS)
+			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(handle_item_moving))
 		else
 			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
 			return FALSE
+	else //We are empty and trying to attack something else
+		target.attack_hand(user)
 
-	else if(istype(target,/obj/machinery/power/apc))
-		var/obj/machinery/power/apc/A = target
-		if(A.opened)
-			if(A.cell && is_type_in_typecache(A.cell, can_hold))
-
-				gripped_item = A.cell
-
-				A.cell.add_fingerprint(user)
-				A.cell.update_icon()
-				A.cell.forceMove(src)
-				A.cell = null
-
-				A.charging = APC_NOT_CHARGING
-				A.update_icon()
-
-				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
 	return TRUE
+
+/obj/item/gripper/proc/handle_item_moving()
+	SIGNAL_HANDLER
+	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
+	gripped_item = null
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/gripper/update_overlays()
+	. = ..()
+	cut_overlays()
+	if(gripped_item)
+		alpha = 128
+		var/mutable_appearance/item_preview = mutable_appearance(gripped_item.icon, gripped_item.icon_state, appearance_flags = RESET_ALPHA)
+		. += item_preview
+	else
+		alpha = initial(alpha)
+
 
 //TODO: Matter decompiler.
 /obj/item/matter_decompiler
