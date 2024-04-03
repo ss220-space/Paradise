@@ -91,3 +91,35 @@
 		max_w_class = initial(max_w_class)
 	else
 		return ..()
+
+/obj/item/case_with_bipki
+	name = "Кейс с бипками"
+	desc = "Легендарнейший кейс с бипками! Интересно что это такое?"
+	icon = 'icons/obj/beebki.dmi'
+	icon_state = "briefcase_bipki"
+	item_state = "briefcase"
+	force = 8
+	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	can_be_hit = FALSE
+	w_class = WEIGHT_CLASS_BULKY
+	var/opened = FALSE
+
+/obj/item/case_with_bipki/attack_self(mob/user)
+	. = ..()
+	opened = TRUE
+	icon_state = "briefcase_bipki_o"
+	update_icon()
+	to_chat(user, "<span class='warning'>Вы видите бипки.</span>")
+	sleep(30)
+	user.drop_from_hands()
+	user.dust()
+	sleep(40)
+	opened = FALSE
+	icon_state = "briefcase_bipki"
+	update_icon()
+
+/obj/item/case_with_bipki/examine(mob/user)
+	. = ..()
+	if(opened == TRUE)
+		. += "<span class='warning'>Яркий свет не позволяет вам увидеть содержимое кейса.</span>"
