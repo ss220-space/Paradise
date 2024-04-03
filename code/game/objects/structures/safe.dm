@@ -338,7 +338,7 @@ GLOBAL_LIST_EMPTY(safes)
 			security_assualt_in_progress(driller_human)
 			return
 	for(var/mob/living/carbon/human/H in view(9, src))
-		if((H.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Captain", "Clown")) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
+		if((H.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_CLOWN)) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
 			drill.spotted = TRUE
 			security_assualt_in_progress(driller_human)
 			return
